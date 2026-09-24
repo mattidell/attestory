@@ -3,7 +3,7 @@
   "version": 1,
   "phase": "Tax Concept Derivation",
   "topic": "student-loan-circumstance-association",
-  "status": "TRACK 4 COMPLETE; G2 PATH INVESTIGATED, OWNER DECISIONS PENDING. Tracks 1-4 built. Read-only investigation: scheduling needs a declared subject per rule and predecessor-resolution eligibility (recommended rule-artifact.v11 subject pin); the reader carrier is best a presentation-model projection (no record bump) plus citation-walk rendering. ADR 0075 proposed, awaiting acceptance. G2 (producer) not reached.",
+  "status": "G2 DESIGN RETURNED TO THE OWNER. ADR 0075 repaired (subject identity enforced; disconnected check not a binding proof) and recommended for acceptance. Scheduling: adversarial two-statement probe (20 tests) shows cross-joins on tax year, shared statement id, lender+year; recommended ADR 0076 = subject/joined/direction on rule-artifact.v11 with declared-name containment, a runtime presence check, and predecessor-resolution eligibility; the link-to-status edge fits neither direction and needs a declared key-correspondence set join. Reader: bounded contract drafted (presentation projection, page disclosure, condition-wording.v1 declared on the rule, statement-scoped responsibility rules, durable-file-and-page demonstration). Implementation waits on the owner.",
   "scope": [
     "record and recover ordinary schooling circumstances and their explicit connection to identified student-loan interest",
     "preserve document evidence, source-independent subjects, attribution, and relationship lifecycle",
