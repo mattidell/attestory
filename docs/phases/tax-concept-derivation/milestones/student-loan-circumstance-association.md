@@ -3,7 +3,7 @@
   "version": 1,
   "phase": "Tax Concept Derivation",
   "topic": "student-loan-circumstance-association",
-  "status": "A4 PASS 2 AT P3, OWNER DECISION PENDING. Tracks 1 and 2 built. P2 complete in memory within one run. P3: partial reduction runs with no production change using reduction-shaped rules (box 1 minus collected reductions) -- undershoot keeps its remainder, an unknown adverse portion blocks, an unknown unneeded portion publishes. A statement with no joined link -- case 2, the ordinary return -- blocks on an unclosed collection, the same closed-set wall Track 1 met. Owner decision needed before P4. G2 (producer) not reached.",
+  "status": "A4 PASS 2 AT P3, OWNER DECISION PENDING. Tracks 1 and 2 built; P2 complete in memory. P3 reopened: an unresolved link reduction was silently read as no reduction (owner-found; committed tests record it). Distinguishing no link from an unresolved link needs a coverage-checked collection -- a dependency mechanism -- and, to declare it in content, a successor rule schema (rule-artifact.v10). Cost returned to the owner before Track 3. G2 (producer) not reached.",
   "scope": [
     "record and recover ordinary schooling circumstances and their explicit connection to identified student-loan interest",
     "preserve document evidence, source-independent subjects, attribution, and relationship lifecycle",

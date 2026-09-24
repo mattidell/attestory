@@ -268,8 +268,8 @@ reason, and one a no-link default would wrongly turn into a published figure.
 | Route (c), portion unknown, borrowing adverse | `run` — the statement **blocks** `DEPENDENCY_INVALID`; no figure, and distinct from a known portion reduced | `…test_route_c_unknown_portion_adverse` |
 | Route (c), portion unknown, nothing adverse | `run` — **1500** publishes; the unknown portion is never needed | `…test_route_c_unknown_portion_not_adverse` |
 | An unaffected statement | `run` — byte-identical before and after | `CollectedPortionReduction.test_unaffected_statement_is_byte_identical` |
-| **One of two recorded links unresolved** | **defect** — publishes 1500; the blocked reduction is not pinned. Required: the statement blocks, naming the unresolved link | `ObservedUnresolvedLinkDefect` (pending) |
-| **The only recorded link unresolved** | blocks `SOURCE_SET_UNCLOSED` — for the wrong reason. Required: block because a recorded link is unresolved, never a no-link default | `ObservedUnresolvedLinkDefect` (pending) |
+| **One of two recorded links unresolved** | **defect** — publishes 1500; the blocked reduction is not pinned. Required: the statement blocks, naming the unresolved link | `ObservedUnresolvedLinkDefect.test_one_of_two_links_unresolved` |
+| **The only recorded link unresolved** | blocks `SOURCE_SET_UNCLOSED` — for the wrong reason. Required: block because a recorded link is unresolved, never a no-link default | `ObservedUnresolvedLinkDefect.test_only_recorded_link_unresolved` — and a statement with **no** link blocks identically, so the two are indistinguishable today |
 | **A statement with no joined link** — case 2, the ordinary return | **blocks** `SOURCE_SET_UNCLOSED`; no figure | `…test_no_joined_link` |
 
 **The rule's shape decided two of these.** P3's first shape summed the *surviving* portions: it
@@ -300,6 +300,42 @@ on a declared default, a calculation posture and not a completeness claim; every
 resolved → box 1 minus the calculated reductions; any recorded link unresolved → that statement
 blocks, without suppressing unrelated statements. A missing derived reduction is never "no
 reduction", and an undeclared empty collection still blocks.
+
+## P3 repair — what distinguishing "no link" from "unresolved link" costs
+
+Investigated before any Track 3 implementation, as the owner required; observations in
+`ObservedMechanismLimits` in the probe module. **Both a dependency mechanism and a schema decision
+are needed.**
+
+- **A blocked or inapplicable per-subject outcome is invisible to later rules.** It goes to the
+  run's `blocked` and `dispositions` only — not to live sources, symbols or pins
+  (`runner._Run.evaluate_subject_scoped_rule`). What a later statement rule *can* see is the pair
+  that distinguishes the cases: the **raw link findings** joined to it (kernel findings, always
+  present when recorded) and the **published reductions** joined to it, each carrying the link's
+  fact id since Track 2.
+- **No content can compare them today.** `count` needs a **closed** `source_set` even when rows
+  exist (`ObservedMechanismLimits.test_count_blocks_unless_the_source_set_is_closed`), and closing
+  one is the completeness claim the owner ruled out; `collect` returns values with no identities;
+  `block` records `missing == []` and cannot name the link; `requires` binds one source.
+- **A default on the empty reduction collection is the wrong shape.** The one-of-two case is not
+  empty, so the default never runs and North still publishes 1500; the only-unresolved-link case is
+  empty, so the default would publish the no-link figure — the outcome the owner forbade.
+- **The production contract.** `rule-artifact.v9` is the newest rule schema, and `marshal` admits
+  v3–v9. `collect` and `count` there allow `op`, `name` and `source_set` only. A `source_set` names a
+  source family; admitting it is a completeness claim (`closure_claim` plus a literal-true closure
+  finding on the current horizon, `source_authority.resolve_closure_admissions`), and
+  `audit_collect_authority` restricts a collecting rule to the family's authorized symbol. v9's
+  `selection` and `aggregation` fields bind only for two named rules. **There is no content home
+  for this today.**
+
+**Smallest mechanism that gives the owner's three outcomes:** a **coverage-checked collection** —
+for one subject, compare the joined raw links with the joined published reductions by link fact
+id: no raw link → the declared calculation default; every link covered by a numeric reduction →
+box 1 minus their sum; any link uncovered → that statement blocks, `missing` naming the uncovered
+link ids. Other subjects untouched. **To declare it in content** it needs a successor rule schema
+(a `rule-artifact.v10` operation or field, with marshal and runner admission) and a branch in the
+evaluator or per-subject dispatch. Hard-coding the check in the dispatch for one rule would avoid
+the schema but put the policy in calling code, which the owner ruled out.
 
 ## What A5 may not rely on without new execution
 
