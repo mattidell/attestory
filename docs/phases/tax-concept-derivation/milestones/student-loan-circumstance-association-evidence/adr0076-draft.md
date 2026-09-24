@@ -96,7 +96,7 @@ Part 1 does not make a joined list this statement's links. ADR 0075's sentence s
 
 ### What Part 1 requires, and what it leaves open
 
-Schema: `subject` on the first rule successor, published together with Part 2's fields once both parts are accepted (publication plan above); a package successor admits it. a new package schema that admits that rule schema and does not carry a subject map. Checksums appended with `packages.kernel.schema_registry.write_manifest` for the new filenames only. Published v10 and v31 bytes stay put. Every closed schema-name set that lists `rule-artifact.v10` has to admit the successor or a successor rule never runs. The investigation names `live._resolved_run_material`, `package_validation`, `authorization_closure`, the runner's rule-schema tuples, and `marshal._rule_required_symbols`. That list was traced at the investigation's commit. It was not re-derived at this HEAD.
+Schema: `subject` on the first rule successor, published together with Part 2's fields once both parts are accepted (publication plan above). A new package schema admits that rule schema and does not carry a subject map. Checksums appended with `packages.kernel.schema_registry.write_manifest` for the new filenames only. Published v10 and v31 bytes stay put. Every closed schema-name set that lists `rule-artifact.v10` has to admit the successor or a successor rule never runs. The investigation names `live._resolved_run_material`, `package_validation`, `authorization_closure`, the runner's rule-schema tuples, and `marshal._rule_required_symbols`. That list was traced at the investigation's commit. It was not re-derived at this HEAD.
 
 Code: the three functions above. Pairing is unchanged. Ordinary rules keep today's `requires` test against `self.symbols`.
 
