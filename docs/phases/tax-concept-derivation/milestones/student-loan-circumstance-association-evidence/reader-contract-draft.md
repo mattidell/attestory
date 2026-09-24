@@ -1,5 +1,7 @@
 # Bounded reader contract — statement groups on the citation-walk
 
+> **Superseded (2026-09-24)** by [`reader-contract.md`](reader-contract.md), revised on the owner's five repairs. Kept as the record of the first draft.
+
 > **Foreman note (2026-09-24), before owner review.** Section 3's `wording` **pin role** cannot be
 > added without successors of `derived-finding.v2` and `derivation-record.v9`, whose pin-role enums are
 > closed as well as the rule's — contradicting "no record bump for display". Adjusted proposal: the
