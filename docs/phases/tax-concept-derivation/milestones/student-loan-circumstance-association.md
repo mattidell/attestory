@@ -3,7 +3,7 @@
   "version": 1,
   "phase": "Tax Concept Derivation",
   "topic": "student-loan-circumstance-association",
-  "status": "A4 PASS 2 AT P4. Tracks 1-3 built: per-subject dispatch, keyed same-run sources, and the coverage-checked collection (ADR 0075 proposed; rule-artifact.v10, artifact-package.v31). P2 and P3 complete -- a corrected circumstance reaches the right statements, partial reduction runs, no link takes the declared default, and any uncovered link blocks naming it; runs still hand-assembled. Next: P4, the durable reader. G2 (producer) not reached; scheduling of per-subject rules open.",
+  "status": "A4 PASS 2 COMPLETE, WITH TWO REQUIRED REPAIRS AND AN OWNER CHOICE. Tracks 1-3 built. P1-P3 run (hand-assembled). P4: the durable record carries identities joinable across rows and distinguishes the failure shapes without a new code; the presentation reaches only box 1 and an error code -- the reader carrier stays owed (A6). Repairs required: a per-subject declared default pins an unpublished finding (dangling pin); an unjoinable link type takes the default. ADR 0075 repaired and under review; owner chooses name confinement A or B. G2 (producer) not reached.",
   "scope": [
     "record and recover ordinary schooling circumstances and their explicit connection to identified student-loan interest",
     "preserve document evidence, source-independent subjects, attribution, and relationship lifecycle",
@@ -1168,7 +1168,7 @@ earlier.
 | **P1** — *done: untestable without production change; Track 1 builds the mechanism* | Can one categorical conclusion be published **per key of a single subject** — student-and-period, statement — carrying its rule's declared citations, and recorded `inapplicable` for a key where an adverse circumstance is supported? | — |
 | **P2** — *done: `run` at the borrowing and statement grains, in memory within one run (Track 2)* | Does one corrected schooling circumstance reach **every** statement whose result depended on it, on re-derivation? | P1 |
 | **P3** — *done: partial reduction, the no-link default and uncovered-link blocking all run (Track 3); runs still hand-assembled* | Can a statement's figure be **partially reduced** — the adverse portion removed, the remainder publishing on its own basis? | P1 |
-| **P4** | Can a reader **recover**, from durable output, the conclusion's identity and meaning and, for the provisional responsibility candidate, each condition's identity, circumstance and treatment — and where does wording fail to have a home? | P1 |
+| **P4** — *done: the record carries identities, joinable; the presentation reaches almost none of it; a dangling default pin found* | Can a reader **recover**, from durable output, the conclusion's identity and meaning and, for the provisional responsibility candidate, each condition's identity, circumstance and treatment — and where does wording fail to have a home? | P1 |
 
 Results go into [`a4-bounds.md`](student-loan-circumstance-association-evidence/a4-bounds.md),
 each owed row moving to `run`, staying untested with the reason, or becoming

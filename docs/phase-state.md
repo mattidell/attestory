@@ -5,8 +5,8 @@
   "topic": "student-loan-circumstance-association",
   "active_plan": "docs/phases/tax-concept-derivation/milestones/student-loan-circumstance-association.md",
   "milestone_state": "track-3",
-  "status": "A4 PASS 2 AT P4. Tracks 1-3 built: per-subject dispatch, keyed same-run sources, and the coverage-checked collection (ADR 0075 proposed; rule-artifact.v10, artifact-package.v31). P2 and P3 complete -- a corrected circumstance reaches the right statements, partial reduction runs, no link takes the declared default, and any uncovered link blocks naming it; runs still hand-assembled. Next: P4, the durable reader. G2 (producer) not reached; scheduling of per-subject rules open.",
-  "current_role": "Foreman (A4 second pass: charter probe P4, the durable reader)",
+  "status": "A4 PASS 2 COMPLETE, WITH TWO REQUIRED REPAIRS AND AN OWNER CHOICE. Tracks 1-3 built. P1-P3 run (hand-assembled). P4: the durable record carries identities joinable across rows and distinguishes the failure shapes without a new code; the presentation reaches only box 1 and an error code -- the reader carrier stays owed (A6). Repairs required: a per-subject declared default pins an unpublished finding (dangling pin); an unjoinable link type takes the default. ADR 0075 repaired and under review; owner chooses name confinement A or B. G2 (producer) not reached.",
+  "current_role": "Foreman (after A4 pass 2: owner choice on ADR 0075 confinement; repairs to charter)",
   "current_prompt": "docs/phases/tax-concept-derivation/milestones/student-loan-circumstance-association.md#A4's second pass — the probes, in order"
 }
 -->

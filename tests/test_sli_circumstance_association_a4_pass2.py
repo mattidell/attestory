@@ -3476,5 +3476,625 @@ class ObservedMechanismLimits(unittest.TestCase):
         self.assertEqual(caught.exception.missing, [family])
 
 
+# --- P4. What a durable reader can recover. The run stays hand-driven. ---
+
+_P4_RESPONSIBILITY = "demo.tax.responsibility.eligible-institution"
+_P4_RESPONSIBILITY_RULE = "demo.rule.responsibility-eligible-institution"
+_P4_RESPONSIBILITY_CITATION = "demo.citation.responsibility-eligible-institution"
+_P4_DUPLICATE_LINK = "demo.finding.link.p3-inst-duplicate"
+
+
+def _p4_completed_record(run: _Run) -> dict[str, Any]:
+    """The live closing record. v9 omits the v1 published and blocked lists."""
+    from packages.derivation.records import closing_record
+
+    record = closing_record(
+        record_id="record:demo.sli-a4-pass2-p4:completed",
+        run_id=run.ctx.run_id,
+        phase="completed",
+        workspace_revision=0,
+        governance_pins=list(GOVERNANCE_PINS),
+        adoption_pin=dict(ADOPTION_PIN),
+        stop_reason="saturated",
+        published=[],
+        blocked=list(run.blocked),
+        dispositions=run.dispositions,
+        use_v2=True,
+    )
+    SCHEMAS.validate_declared(record)
+    return record
+
+
+def _p4_out_document(run: _Run) -> dict[str, Any]:
+    """The object ``live_coordinate_run`` writes, filled from this run.
+
+    Standing authorization is not folded: there is no act log. The three
+    authorization keys are the writer's, from an absent resolution.
+    ``stop_reason`` is the completed-run value the writer stores; ``_Run``
+    does not compute one. ``workspace_revision`` is not in this object.
+    """
+    from packages.derivation.authorization import STATUS_ABSENT, AuthorizationResolution
+
+    resolution = AuthorizationResolution(STATUS_ABSENT)
+    return {
+        "run_id": run.ctx.run_id,
+        "stop_reason": "saturated",
+        "dispositions": run.dispositions,
+        "current": resolution.admitted,
+        "authorization_status": resolution.status,
+        "authorization_grant_id": resolution.grant_id,
+    }
+
+
+def _p4_out_text(document: dict[str, Any]) -> str:
+    return json.dumps(document, indent=2, sort_keys=True) + "\n"
+
+
+def _p4_amount_field(symbol: str) -> dict[str, Any]:
+    return {
+        "schema": "form-field.v3",
+        "id": "demo.field.statement-amount",
+        "version": "v1",
+        "form": {
+            "authority": "IRS",
+            "form_id": "1040",
+            "tax_year": 2025,
+            "jurisdiction": "US-federal",
+        },
+        "line": "1",
+        "label": "Demo student loan interest",
+        "description": "Synthetic statement amount for the durable-reader probe.",
+        "binds_symbol": symbol,
+        "citation": {"id": "demo.citation.statement-box-minus-reductions", "version": "v1"},
+        "dispositions": {
+            "published_value": {"render": "{value}", "explain": "e"},
+        },
+    }
+
+
+def _p4_amount_members(symbol: str, *, join: bool) -> list[dict[str, Any]]:
+    """Field plus the smallest members the projector asked for.
+
+    ``join`` rewrites ``publishes`` to the keyed disposition symbol. The
+    rule that ran publishes the unsuffixed name, and a published field
+    rejects that pair. A blocked field does not consult it.
+    """
+    rule = next(rule for rule in _coverage_rules() if rule["id"] == P3B_AMOUNT_RULE)
+    if join:
+        rule = dict(rule)
+        rule["publishes"] = symbol
+    members: list[dict[str, Any]] = [_p4_amount_field(symbol), rule]
+    if join:
+        members.append(_citation())
+    return members
+
+
+def _p4_present(
+    run: _Run,
+    state: FindingState,
+    symbol: str,
+    *,
+    join: bool,
+) -> dict[str, Any]:
+    from packages.derivation.presentation_projection import build_presentation_model
+
+    return build_presentation_model(
+        run_id=run.ctx.run_id,
+        resolved_members=_p4_amount_members(symbol, join=join),
+        state=state,
+        publications=run.publications,
+        dispositions=run.dispositions,
+    )
+
+
+def _p4_responsibility_rule() -> dict[str, Any]:
+    """One condition, per the stage-4 candidate. Nothing reads it."""
+    return _t2_rule(
+        rule_id=_P4_RESPONSIBILITY_RULE,
+        citation_id=_P4_RESPONSIBILITY_CITATION,
+        role="applicability",
+        requires=[STATUS],
+        when=_t2_eq(STATUS, STATUS, "not-adverse"),
+        value={
+            "op": "category_literal",
+            "fact_type": {"id": _P4_RESPONSIBILITY, "version": "v1"},
+            "value": "applies",
+        },
+        publishes=_P4_RESPONSIBILITY,
+    )
+
+
+def _p4_row_by_symbol(rows: list[dict[str, Any]], symbol: str) -> dict[str, Any]:
+    matched = [row for row in rows if row.get("symbol") == symbol]
+    if len(matched) != 1:
+        raise AssertionError(f"{symbol}: {[row.get('symbol') for row in rows]!r}")
+    return matched[0]
+
+
+class DurableReaderCoverageBlock(unittest.TestCase):
+    """One uncovered link, then the three other ``DEPENDENCY_INVALID`` shapes.
+
+    The run is ``_coverage_execute``. The readers are ``closing_record``,
+    the ``out.json`` object, and ``build_presentation_model``.
+    """
+
+    def setUp(self) -> None:
+        self.north = _t2_box_fact_id(LENDER, STATEMENT_S1)
+        self.link_inst = _t2_link_fact_id(LENDER, STATEMENT_S1, P2_BORROWING_INST)
+        self.link_priv = _t2_link_fact_id(LENDER, STATEMENT_S1, P2_BORROWING_PRIV)
+        self.keyed = _t2_symbol(STATEMENT_AMOUNT, self.north)
+
+    def _uncovered(self) -> tuple[FindingState, _Run]:
+        findings = _p3_findings(corrected=False)
+        del findings[T2_FIN_INST]
+        state, _currency, _ctx, run = _coverage_execute(findings)
+        return state, run
+
+    def _non_numeric(self) -> tuple[FindingState, _Run]:
+        state, _currency, _ctx, run = _coverage_execute(
+            _p3_findings(corrected=True, inst_portion=P3_MEMBERSHIP)
+        )
+        return state, run
+
+    def _orphan(self) -> tuple[FindingState, _Run]:
+        state, _currency, _ctx, run = _coverage_execute(
+            _p3_findings(corrected=False), statement=False
+        )
+        run.live_sources = [
+            source for source in run.live_sources
+            if not (
+                source.name == STATEMENT_BORROWING
+                and source.fact_id in {self.link_inst, self.link_priv}
+            )
+        ]
+        rule = next(rule for rule in _coverage_rules() if rule["id"] == P3B_AMOUNT_RULE)
+        run.evaluate_subject_scoped_rule(subject_type=BOX1, rule=rule)
+        return state, run
+
+    def _duplicate(self) -> tuple[FindingState, _Run]:
+        """A second live source with the same keys. Not a second current finding.
+
+        Currency keeps one current finding per fact. The duplicate-link
+        shape is two sources, as the orphan test removes sources.
+        """
+        from packages.derivation.runner import SourceFact
+
+        state, _currency, _ctx, run = _coverage_execute(
+            _p3_findings(corrected=False), statement=False
+        )
+        original = next(source for source in run.live_sources if source.finding_id == P3_LINK_INST)
+        run.live_sources.append(SourceFact(
+            name=original.name,
+            value=original.value,
+            finding_id=_P4_DUPLICATE_LINK,
+            fact_id="demo.fact.link.p3-inst-duplicate",
+            keys=original.keys,
+        ))
+        rule = next(rule for rule in _coverage_rules() if rule["id"] == P3B_AMOUNT_RULE)
+        run.evaluate_subject_scoped_rule(subject_type=BOX1, rule=rule)
+        return state, run
+
+    def test_one_code_and_the_link_id_do_not_survive_the_field(self) -> None:
+        """The statement blocked, and which link, at each reader.
+
+        Record and ``out.json``: identity of the uncovered link in
+        ``missing`` and in the row's input pins. The other three shapes
+        use the same code. Presentation keeps the code and drops both.
+        """
+        from packages.derivation.presentation_projection import PresentationModelError
+
+        uncovered_state, uncovered = self._uncovered()
+        nonnum_state, nonnum = self._non_numeric()
+        orphan_state, orphan = self._orphan()
+        duplicate_state, duplicate = self._duplicate()
+
+        uncovered_row = _t2_row(uncovered, self.north, STATEMENT_AMOUNT)
+        nonnum_row = _t2_row(nonnum, self.north, STATEMENT_AMOUNT)
+        orphan_row = _t2_row(orphan, self.north, STATEMENT_AMOUNT)
+        duplicate_row = _t2_row(duplicate, self.north, STATEMENT_AMOUNT)
+        inst_reduction = _t2_finding(nonnum, P3B_LINK_REDUCTION, self.link_inst)
+        orphan_inst = _t2_finding(orphan, P3B_LINK_REDUCTION, self.link_inst)
+        orphan_priv = _t2_finding(orphan, P3B_LINK_REDUCTION, self.link_priv)
+
+        self.assertEqual(uncovered_row["disposition"], "blocked")
+        self.assertEqual(uncovered_row["code"], "DEPENDENCY_INVALID")
+        self.assertEqual(uncovered_row["missing"], [P3_LINK_INST])
+        self.assertNotIn("finding_id", uncovered_row)
+        self.assertNotIn("value", uncovered_row)
+        self.assertEqual(
+            _input_ids(_pins(uncovered_row)),
+            {T2_BOX_NORTH, P3_LINK_INST},
+        )
+        blocked_reduction = _t2_row(uncovered, self.link_inst, P3B_LINK_REDUCTION)
+        self.assertEqual(blocked_reduction["disposition"], "blocked")
+        self.assertEqual(blocked_reduction["code"], "DEPENDENCY_ABSENT")
+        self.assertEqual(blocked_reduction["missing"], [STATUS])
+        self.assertIn(P3_LINK_INST, _input_ids(_pins(blocked_reduction)))
+
+        self.assertEqual(nonnum_row["code"], "DEPENDENCY_INVALID")
+        self.assertEqual(nonnum_row["missing"], [P3_LINK_INST])
+        self.assertEqual(nonnum_row["missing"], uncovered_row["missing"])
+        self.assertEqual(_input_ids(_pins(nonnum_row)), {T2_BOX_NORTH})
+        self.assertNotIn(P3_LINK_INST, _input_ids(_pins(nonnum_row)))
+        published_reduction = _t2_row(nonnum, self.link_inst, P3B_LINK_REDUCTION)
+        self.assertEqual(published_reduction["disposition"], "published")
+        self.assertEqual(published_reduction["finding_id"], inst_reduction["id"])
+        self.assertEqual(inst_reduction["value"], P3_MEMBERSHIP)
+        self.assertNotIn("value", published_reduction)
+        self.assertIn(P3_LINK_INST, _input_ids(_pins(published_reduction)))
+
+        self.assertEqual(orphan_row["code"], "DEPENDENCY_INVALID")
+        self.assertEqual(orphan_row["missing"], sorted([orphan_inst["id"], orphan_priv["id"]]))
+        self.assertNotIn(P3_LINK_INST, orphan_row["missing"])
+        self.assertEqual(_input_ids(_pins(orphan_row)), {T2_BOX_NORTH})
+        self.assertEqual(
+            sorted(orphan_row["missing"]),
+            sorted(
+                row["finding_id"]
+                for row in orphan.dispositions
+                if row.get("finding_id") in set(orphan_row["missing"])
+            ),
+        )
+
+        self.assertEqual(duplicate_row["code"], "DEPENDENCY_INVALID")
+        self.assertEqual(duplicate_row["missing"], [P3_LINK_INST, _P4_DUPLICATE_LINK])
+        self.assertEqual(_input_ids(_pins(duplicate_row)), {T2_BOX_NORTH})
+        self.assertNotIn(_P4_DUPLICATE_LINK, uncovered_state.findings)
+        self.assertNotIn(
+            _P4_DUPLICATE_LINK,
+            {pin["id"] for row in duplicate.dispositions for pin in _pins(row)},
+        )
+
+        for run in (uncovered, nonnum, orphan, duplicate):
+            record = _p4_completed_record(run)
+            document = _p4_out_document(run)
+            self.assertEqual(record["schema"], "derivation-record.v9")
+            self.assertNotIn("published", record)
+            self.assertNotIn("blocked", record)
+            self.assertNotIn("subject_fact_id", json.dumps(record))
+            self.assertEqual(document["dispositions"], record["dispositions"])
+            self.assertEqual(
+                set(document),
+                {
+                    "run_id",
+                    "stop_reason",
+                    "dispositions",
+                    "current",
+                    "authorization_status",
+                    "authorization_grant_id",
+                },
+            )
+            self.assertIs(document["current"], False)
+            self.assertEqual(document["authorization_status"], "AUTHORIZATION_ABSENT")
+            self.assertIsNone(document["authorization_grant_id"])
+            self.assertEqual(document["stop_reason"], "saturated")
+            parsed = json.loads(_p4_out_text(document))
+            self.assertEqual(parsed["dispositions"], record["dispositions"])
+            self.assertNotIn("value", json.dumps(record["dispositions"]))
+
+        self.assertNotIn(P3_MEMBERSHIP, json.dumps(_p4_completed_record(nonnum)))
+
+        with self.assertRaises(PresentationModelError) as unsuffixed:
+            _p4_present(uncovered, uncovered_state, STATEMENT_AMOUNT, join=False)
+        self.assertIn("0 row(s)", str(unsuffixed.exception))
+
+        models = [
+            _p4_present(uncovered, uncovered_state, self.keyed, join=False),
+            _p4_present(nonnum, nonnum_state, self.keyed, join=False),
+            _p4_present(orphan, orphan_state, self.keyed, join=False),
+            _p4_present(duplicate, duplicate_state, self.keyed, join=False),
+        ]
+        resolved = {"disposition": "blocked", "activeCodes": ["DEPENDENCY_INVALID"], "act": None}
+        for model in models:
+            self.assertEqual(model["sections"][0]["resolved"], resolved)
+            self.assertEqual(model["sections"][0]["citationSites"], [])
+            self.assertNotIn("provenanceGroups", model)
+        dumped = [json.dumps(model) for model in models]
+        for blob in dumped:
+            self.assertNotIn(P3_LINK_INST, blob)
+            self.assertNotIn(_P4_DUPLICATE_LINK, blob)
+            self.assertNotIn(P3_MEMBERSHIP, blob)
+            self.assertNotIn("missing", blob)
+        self.assertEqual(dumped[0], dumped[1])
+        self.assertEqual(dumped[0], dumped[2])
+        self.assertEqual(dumped[0], dumped[3])
+
+
+class DurableReaderNoLinkDefault(unittest.TestCase):
+    """West has a box and no link. The amount is the declared parameter."""
+
+    def setUp(self) -> None:
+        self.west = _t2_box_fact_id(T2_LENDER_WEST, STATEMENT_S3)
+        self.keyed = _t2_symbol(STATEMENT_AMOUNT, self.west)
+        self.parameter_id = _parameter()["id"]
+
+    def test_citation_walk_names_the_box_and_not_the_parameter(self) -> None:
+        """The parameter pin is on the row and on the embedded finding.
+
+        ``citationSites`` does not carry it. The unsuffixed amount symbol
+        joins nothing. The rule that ran does not own the keyed symbol.
+        """
+        from packages.derivation.presentation_projection import PresentationModelError
+
+        state, _currency, _ctx, run = _coverage_execute(_p3_findings(corrected=False))
+        row = _t2_row(run, self.west, STATEMENT_AMOUNT)
+        finding = _t2_finding(run, STATEMENT_AMOUNT, self.west)
+        record = _p4_completed_record(run)
+        document = _p4_out_document(run)
+        recorded = _p4_row_by_symbol(record["dispositions"], self.keyed)
+
+        self.assertEqual(row["disposition"], "published")
+        self.assertEqual(finding["value"], "400")
+        self.assertNotIn("value", recorded)
+        self.assertEqual(recorded["finding_id"], finding["id"])
+        self.assertEqual(
+            {pin["id"] for pin in _pins(recorded) if pin["role"] == "parameter"},
+            {self.parameter_id},
+        )
+        self.assertEqual(_input_ids(_pins(recorded)), {T2_BOX_WEST})
+        self.assertNotIn(P3_LINK_INST, _input_ids(_pins(recorded)))
+        self.assertNotIn("resolved_input", finding)
+        self.assertEqual(document["dispositions"], record["dispositions"])
+        self.assertTrue(all("value" not in row for row in record["dispositions"]))
+
+        with self.assertRaises(PresentationModelError) as unsuffixed:
+            _p4_present(run, state, STATEMENT_AMOUNT, join=False)
+        self.assertIn("0 row(s)", str(unsuffixed.exception))
+        with self.assertRaises(PresentationModelError) as unjoined:
+            _p4_present(run, state, self.keyed, join=False)
+        self.assertIn("lacks a joined owning rule", str(unjoined.exception))
+
+        model = _p4_present(run, state, self.keyed, join=True)
+        section = model["sections"][0]
+        self.assertEqual(section["resolved"]["disposition"], "published_value")
+        self.assertEqual(section["resolved"]["value"], 400)
+        self.assertEqual(
+            [site["pinId"] for site in section["citationSites"]],
+            [T2_BOX_WEST],
+        )
+        embedded = section["resolved"]["act"]["finding"]
+        self.assertEqual(
+            {pin["id"] for pin in embedded["pins"] if pin["role"] == "parameter"},
+            {self.parameter_id},
+        )
+        self.assertNotIn(self.parameter_id, {site["pinId"] for site in section["citationSites"]})
+        self.assertNotIn("provenanceGroups", model)
+        self.assertEqual(model["citationGroups"], [])
+
+
+class DurableReaderCoveredReduction(unittest.TestCase):
+    """Box 1 minus both reductions, after the enrolment correction.
+
+    The private status pins a declared-default id that this run never
+    publishes and never stores. The one-link chain below drops that hop
+    so the walk can finish.
+    """
+
+    def setUp(self) -> None:
+        self.north = _t2_box_fact_id(LENDER, STATEMENT_S1)
+        self.keyed = _t2_symbol(STATEMENT_AMOUNT, self.north)
+        self.link_inst = _t2_link_fact_id(LENDER, STATEMENT_S1, P2_BORROWING_INST)
+        self.link_priv = _t2_link_fact_id(LENDER, STATEMENT_S1, P2_BORROWING_PRIV)
+        self.inst = _t2_financing_fact_id(P2_BORROWING_INST, PERIOD_AUTUMN)
+        self.priv = _t2_financing_fact_id(P2_BORROWING_PRIV, PERIOD_SPRING)
+
+    def test_the_chain_is_a_join_and_the_two_link_walk_is_rejected(self) -> None:
+        """Record: amount, reduction, status, corrected enrolment, by pin id.
+
+        No values. Presentation of that same run raises on the unpublished
+        default id. A chain whose leaves are all recorded flattens to those
+        leaves and does not emit the status or the reduction.
+        """
+        from packages.derivation.presentation_projection import PresentationModelError
+
+        state, _currency, _ctx, run = _coverage_execute(_p3_findings(corrected=True))
+        amount = _t2_finding(run, STATEMENT_AMOUNT, self.north)
+        inst_reduction = _t2_finding(run, P3B_LINK_REDUCTION, self.link_inst)
+        priv_reduction = _t2_finding(run, P3B_LINK_REDUCTION, self.link_priv)
+        inst_status = _t2_finding(run, STATUS, self.inst)
+        priv_status = _t2_finding(run, STATUS, self.priv)
+        record = _p4_completed_record(run)
+        document = _p4_out_document(run)
+        self.assertEqual(document["dispositions"], record["dispositions"])
+
+        amount_row = _p4_row_by_symbol(record["dispositions"], self.keyed)
+        inst_reduction_row = _p4_row_by_symbol(
+            record["dispositions"], _t2_symbol(P3B_LINK_REDUCTION, self.link_inst)
+        )
+        priv_reduction_row = _p4_row_by_symbol(
+            record["dispositions"], _t2_symbol(P3B_LINK_REDUCTION, self.link_priv)
+        )
+        inst_status_row = _p4_row_by_symbol(
+            record["dispositions"], _t2_symbol(STATUS, self.inst)
+        )
+        priv_status_row = _p4_row_by_symbol(
+            record["dispositions"], _t2_symbol(STATUS, self.priv)
+        )
+
+        self.assertEqual(amount["value"], "500")
+        self.assertEqual(inst_reduction["value"], "1000")
+        self.assertEqual(priv_reduction["value"], "0")
+        self.assertEqual(inst_status["value"], "adverse")
+        self.assertEqual(priv_status["value"], "not-adverse")
+        self.assertNotIn("value", amount_row)
+        self.assertEqual(
+            _input_ids(_pins(amount_row)),
+            {T2_BOX_NORTH, P3_LINK_INST, P3_LINK_PRIV, inst_reduction["id"], priv_reduction["id"]},
+        )
+        self.assertNotIn(inst_status["id"], _input_ids(_pins(amount_row)))
+        self.assertNotIn(T2_ENROL_LATER, _input_ids(_pins(amount_row)))
+        self.assertEqual(inst_reduction_row["finding_id"], inst_reduction["id"])
+        self.assertEqual(priv_reduction_row["finding_id"], priv_reduction["id"])
+        self.assertEqual(
+            _input_ids(_pins(inst_reduction_row)),
+            {P3_LINK_INST, inst_status["id"]},
+        )
+        self.assertEqual(
+            _input_ids(_pins(priv_reduction_row)),
+            {P3_LINK_PRIV, priv_status["id"]},
+        )
+        self.assertEqual(inst_status_row["artifact_id"], T2_STATUS_RULE)
+        self.assertEqual(inst_status_row["finding_id"], inst_status["id"])
+        self.assertEqual(
+            _input_ids(_pins(inst_status_row)),
+            {T2_FIN_INST, T2_ENROL_LATER},
+        )
+        self.assertNotIn(T2_ENROL_EARLIER, _input_ids(_pins(inst_status_row)))
+        self.assertEqual(
+            next(
+                pin["origin"]
+                for pin in _pins(inst_status_row)
+                if pin["id"] == T2_ENROL_LATER
+            ),
+            "assertion",
+        )
+        default_id = next(
+            pin["id"] for pin in _pins(priv_status_row) if pin.get("origin") == "declared_default"
+        )
+        self.assertNotIn(default_id, state.findings)
+        self.assertNotIn(default_id, {pub.finding["id"] for pub in run.publications})
+        self.assertTrue(all("value" not in row for row in record["dispositions"]))
+
+        for join in (False, True):
+            with self.assertRaises(PresentationModelError) as rejected:
+                _p4_present(run, state, self.keyed, join=join)
+            self.assertIn(default_id, str(rejected.exception))
+            self.assertIn("unrecorded finding", str(rejected.exception))
+
+        one_link = _p3_findings(corrected=True)
+        del one_link[P3_LINK_PRIV]
+        del one_link[P3_LINK_SOUTH]
+        del one_link[T2_FIN_PRIV]
+        one_state, _one_currency, _one_ctx, one_run = _coverage_execute(one_link)
+        one_amount = _t2_finding(one_run, STATEMENT_AMOUNT, self.north)
+        one_reduction = _t2_finding(one_run, P3B_LINK_REDUCTION, self.link_inst)
+        one_status = _t2_finding(one_run, STATUS, self.inst)
+        self.assertEqual(one_amount["value"], "500")
+        self.assertNotIn(
+            default_id,
+            {pin["id"] for pin in one_status["pins"]},
+        )
+        with self.assertRaises(PresentationModelError) as unjoined:
+            _p4_present(one_run, one_state, self.keyed, join=False)
+        self.assertIn("lacks a joined owning rule", str(unjoined.exception))
+
+        model = _p4_present(one_run, one_state, self.keyed, join=True)
+        section = model["sections"][0]
+        self.assertEqual(section["resolved"]["disposition"], "published_value")
+        self.assertEqual(section["resolved"]["value"], 500)
+        self.assertEqual(
+            {site["pinId"] for site in section["citationSites"]},
+            {T2_BOX_NORTH, P3_LINK_INST, T2_FIN_INST, T2_ENROL_LATER},
+        )
+        self.assertNotIn(T2_ENROL_EARLIER, {site["pinId"] for site in section["citationSites"]})
+        top_pins = section["resolved"]["act"]["finding"]["pins"]
+        self.assertIn(one_reduction["id"], {pin["id"] for pin in top_pins})
+        blob = json.dumps(model)
+        self.assertNotIn(one_status["id"], blob)
+        self.assertNotIn(STATUS, blob)
+        self.assertNotIn(P3B_LINK_REDUCTION, blob)
+        self.assertNotIn(one_reduction["value"], blob)
+        self.assertNotIn("provenanceGroups", model)
+
+
+class DurableReaderNamedConclusion(unittest.TestCase):
+    """The status rule is already in the coverage chain.
+
+    One disposable responsibility rule publishes when that status is
+    not-adverse. It is not an input of the amount. No field is bound to it.
+    """
+
+    def setUp(self) -> None:
+        self.north = _t2_box_fact_id(LENDER, STATEMENT_S1)
+        self.west = _t2_box_fact_id(T2_LENDER_WEST, STATEMENT_S3)
+        self.keyed = _t2_symbol(STATEMENT_AMOUNT, self.north)
+        self.west_keyed = _t2_symbol(STATEMENT_AMOUNT, self.west)
+        self.inst = _t2_financing_fact_id(P2_BORROWING_INST, PERIOD_AUTUMN)
+        self.priv = _t2_financing_fact_id(P2_BORROWING_PRIV, PERIOD_SPRING)
+        self.link_inst = _t2_link_fact_id(LENDER, STATEMENT_S1, P2_BORROWING_INST)
+
+    def test_the_conclusion_and_the_responsibility_are_not_on_the_field(self) -> None:
+        """Status: identity on its own row, value nowhere durable.
+
+        The responsibility row is the same shape. The amount's presentation
+        does not contain it. A statement subject does not publish one.
+        """
+        state, _currency, _ctx, run = _coverage_execute(_p3_findings(corrected=True))
+        rule = _p4_responsibility_rule()
+        run.evaluate_subject_scoped_rule(subject_type=FINANCING, rule=rule)
+        run.evaluate_subject_scoped_rule(subject_type=BOX1, rule=rule)
+
+        inst_status = _t2_finding(run, STATUS, self.inst)
+        priv_status = _t2_finding(run, STATUS, self.priv)
+        responsibility = _t2_finding(run, _P4_RESPONSIBILITY, self.priv)
+        record = _p4_completed_record(run)
+        document = _p4_out_document(run)
+        self.assertEqual(document["dispositions"], record["dispositions"])
+
+        status_row = _p4_row_by_symbol(record["dispositions"], _t2_symbol(STATUS, self.inst))
+        self.assertEqual(inst_status["value"], "adverse")
+        self.assertEqual(status_row["artifact_id"], T2_STATUS_RULE)
+        self.assertEqual(status_row["symbol"], _t2_symbol(STATUS, self.inst))
+        self.assertEqual(status_row["finding_id"], inst_status["id"])
+        self.assertNotIn("value", status_row)
+        self.assertTrue(all("value" not in row for row in record["dispositions"]))
+
+        priv_responsibility = _p4_row_by_symbol(
+            record["dispositions"], _t2_symbol(_P4_RESPONSIBILITY, self.priv)
+        )
+        inst_responsibility = _p4_row_by_symbol(
+            record["dispositions"], _t2_symbol(_P4_RESPONSIBILITY, self.inst)
+        )
+        self.assertEqual(responsibility["value"], "applies")
+        self.assertEqual(priv_responsibility["disposition"], "published")
+        self.assertEqual(priv_responsibility["artifact_id"], _P4_RESPONSIBILITY_RULE)
+        self.assertEqual(priv_responsibility["finding_id"], responsibility["id"])
+        self.assertNotIn("value", priv_responsibility)
+        self.assertEqual(
+            _input_ids(_pins(priv_responsibility)),
+            {T2_FIN_PRIV, priv_status["id"]},
+        )
+        self.assertEqual(inst_responsibility["disposition"], "inapplicable")
+        self.assertIs(inst_responsibility["guard_result"], False)
+        self.assertNotIn("finding_id", inst_responsibility)
+        self.assertIn(inst_status["id"], _input_ids(_pins(inst_responsibility)))
+        self.assertNotIn("applies", json.dumps(record))
+        self.assertFalse(any(
+            responsibility["id"] in {pin["id"] for pin in _pins(row)}
+            for row in record["dispositions"]
+            if row.get("symbol") != priv_responsibility["symbol"]
+        ))
+
+        amount_row = _p4_row_by_symbol(record["dispositions"], self.keyed)
+        reduction_row = _p4_row_by_symbol(
+            record["dispositions"], _t2_symbol(P3B_LINK_REDUCTION, self.link_inst)
+        )
+        self.assertIn(reduction_row["finding_id"], _input_ids(_pins(amount_row)))
+        self.assertIn(inst_status["id"], _input_ids(_pins(reduction_row)))
+        self.assertNotIn(responsibility["id"], _input_ids(_pins(amount_row)))
+
+        for fact_id in (self.north, self.west):
+            statement_row = _p4_row_by_symbol(
+                record["dispositions"], _t2_symbol(_P4_RESPONSIBILITY, fact_id)
+            )
+            self.assertEqual(statement_row["disposition"], "blocked")
+            self.assertEqual(statement_row["code"], "DEPENDENCY_ABSENT")
+            self.assertEqual(statement_row["missing"], [STATUS])
+            self.assertNotIn("finding_id", statement_row)
+
+        west_model = _p4_present(run, state, self.west_keyed, join=True)
+        blob = json.dumps(west_model)
+        self.assertNotIn(_P4_RESPONSIBILITY, blob)
+        self.assertNotIn(_P4_RESPONSIBILITY_RULE, blob)
+        self.assertNotIn(responsibility["id"], blob)
+        self.assertNotIn(inst_status["id"], blob)
+        self.assertNotIn("applies", blob)
+        self.assertNotIn("provenanceGroups", west_model)
+        self.assertEqual(
+            [site["pinId"] for site in west_model["sections"][0]["citationSites"]],
+            [T2_BOX_WEST],
+        )
+
+
 if __name__ == "__main__":
     unittest.main()

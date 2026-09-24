@@ -364,6 +364,39 @@ dispatch), and the status rule is the earlier v6 probe outside that package. **O
 uncovered link needs its own record code (P4 decides from the reader), and how a production run
 schedules per-subject rules (G2). Nothing here shows what the durable reader sees.
 
+## Second pass — P4 result: what the durable reader actually sees
+
+Hand-driven runs passed through the **real** durable writers: `closing_record(..., use_v2=True)`
+validated against `derivation-record.v9`, the `out.json` object `live_coordinate_run` builds, and
+`build_presentation_model` with one synthetic `form-field.v3`. Tests: the `DurableReader…` classes in
+the probe module. Production does not schedule these rules; only the writers are real.
+
+| Question | Record and `out.json` | Presentation (what the citation-walk page reads) |
+| --- | --- | --- |
+| A statement blocked by an uncovered link, and which link | **Recoverable by identity:** `DEPENDENCY_INVALID`, `missing` the link's finding id, the link pinned; the reduction row for that link joins to it | **Code only.** `activeCodes: [DEPENDENCY_INVALID]`; the link is **not reached**; `missing` is not carried |
+| Uncovered vs orphan vs duplicate vs non-numeric | **Distinguishable without a new code** — by `missing` and the pins, joined across rows (a non-numeric value itself is not in the record) | **Indistinguishable** — the four render byte-identically. A distinct record code would appear in `activeCodes` and be the only distinction; it would still not name the link |
+| The no-link default | **Identity only** — the parameter pin on the disposition; no value | The citation walk cites **box 1 only**; the parameter appears only as an id inside the embedded act |
+| The chain from amount to each covered link and to the corrected enrolment | **Identity only, as a join across rows**; no values | **Fails on the two-link run** (a defect, below). On a narrower chain it flattens: the corrected enrolment becomes a citation site of the amount; the reductions and the status are not emitted — stage 3's paper prediction, now executed |
+| The named conclusion; one disposable responsibility rule | **Identity only**, each as its own row; values absent | **Not reached** |
+
+**Defect, found by P4 — a pin to a finding that does not exist.** Per-subject dispatch's declared
+default (`subject_dispatch._optional_default`) pins a content-addressed default finding id but never
+publishes that finding. When the run-level default is not published — because the symbol is bound
+elsewhere in the run — the pin dangles, and `build_presentation_model` refuses the run
+(`citation lineage references unrecorded finding`). Provenance integrity requires every pinned
+finding to be recorded. **Required repair**, not yet made.
+
+**Integration gap.** Per-subject publications carry keyed symbols (`publishes|fact_id`); the projector
+joins a form field to its owning rule by the rule's unkeyed `publishes`, so a per-subject result cannot
+be presented without a synthetic member. Part of the reader carrier A6 must design.
+
+**What P4 settles.** The record-code question: the durable record already distinguishes the four
+failure shapes by `missing` and pins, so **no `derivation-record.v10` is warranted on this evidence**;
+the presentation cannot distinguish them, but a code alone would not name the link either — the reader
+needs a carrier, not a code. And the reader question: **nothing the design depends on reaches the
+presentation today** beyond box 1 and an error code. The owed reader behaviour stays owed, and the
+carrier is A6's to design.
+
 ## What A5 may not rely on without new execution
 
 D7, D9, D10, D11, D12, D14 and D16b. In particular, a shape that depends on **an
