@@ -357,6 +357,13 @@ Rejected alternatives: constraining the marker publisher to the literal 1 in val
 successor; a parameter sentinel — any marker can equal it; a flag exposing whether `link_coverage` took the
 parameter path — works, but is a larger change than counting links directly.
 
+**The one executable guard (proposed; `link_count` is not built).** A per-statement **count rule** (subject:
+the statement's box-1 fact) publishes `link_count(links)`. Its pins: the statement's box-1 finding (`input`,
+`origin: assertion`) and every joined link finding (`input`, `assertion`); **no parameter pin** — `link_count`
+has no parameter. At 0 it pins only box 1. Every rule that selects the bare-statement case `requires` the count
+rule's published symbol and guards on `compare eq (ref count) 0`. Nothing reads a pin. A blocked or absent count
+is `DEPENDENCY_ABSENT` of that symbol (no `optional_default` may be declared for it), so the case is not selected.
+
 **The condition this selects is "no link joined to this dispatch subject."** It is not "no schooling
 information in the workspace": an enrolment or financing claim can exist unlinked. A shared key name whose
 values disagree is a join of nothing; zero rows of a type are not observably joinable. The operator does not
@@ -406,9 +413,12 @@ The subject is the statement fact type `tax.us.2025.f1098e.box1-student-loan-int
 
 ### What it reads
 
-- The count finding of section 7, and it publishes only when that finding is the parameter path. That is the guard.
+- The count rule's published value, through `requires` — the guard is `compare eq (ref count) 0` (section 7). It
+  reads the value only; it does not and cannot test the count finding's pins.
 - The current box-1 finding for that statement. That is the asserted input that establishes the subject. Origin `assertion` on that input pin.
-- The published per-statement amount finding for that same statement. That is the treatment. The amount rule does not read the responsibility. The responsibility is not an input of the amount. The worksheet does not read either of them.
+- The published per-statement amount finding for that same statement, through `requires`, so that it is
+  pinned (pins record what an evaluation read; an amount it does not read is not pinned). That is the
+  treatment. The amount rule does not read the responsibility. The responsibility is not an input of the amount. The worksheet does not read either of them.
 - Its own citations, this condition's authorities only.
 
 It does not read enrolment, a financing claim, a school, a programme, a period, or a status finding. It does not read the absence of any of those. It does not read the no-link parameter as an eligibility input.
@@ -422,13 +432,39 @@ Nothing consumes the finding. It lapses when the favourable treatment it rests o
 ### What it pins
 
 - The statement's box-1 finding, role `input`, origin `assertion`.
-- The count finding, role `input`, origin `assertion`.
+- The count finding, role `input`, origin `assertion` — it is the guard's input, not eligibility support.
 - The per-statement amount finding, role `input`, so the reverse walk attaches the responsibility to that statement's group.
 - Citation pins for this condition only.
 
 It does not pin an institution, a programme, a period, a financing claim, or an enrolment. It does not pin a wording citizen. It does not pin the no-link parameter, and it does not put `origin` on a parameter pin. It does not pin a sentinel that means "unknown" by being absent.
 
-The ordinary-line note is not this rule's field. The statement-keyed favourable conclusion declares `lineNote`. The conclusion's input is the statement's box-1 finding, so the conclusion has an asserted input. Its `basisOrigin` is `declared_default` only when one of its input pins has that origin. The no-link parameter never supplies it.
+The ordinary-line note is not this rule's field. It belongs to the **favourable-eligibility conclusion**, traced
+here against per-subject dispatch as it is (`subject_dispatch.evaluate_subject_scoped_rule`, the `requires`
+binding; **production code, hand-dispatched use**):
+
+- **Producer.** A per-statement conclusion rule (subject: the statement's box-1 fact) that `requires` the count
+  symbol (guard `count == 0`, section 7) **and** a statement-keyed **eligibility input** — a fact type keyed on the
+  statement identity whose fact-type declaration carries an `optional_default` parameter, with a matching
+  `optional_default` input binding in the package.
+- **Input that supports it.** For a bare statement no eligibility finding joins, so dispatch takes the declared
+  default: it pins the **default finding** as `input` with `origin: declared_default`, and records that finding
+  (the default-pin repair). If an eligibility finding **does** join this statement, it is pinned `input` /
+  `assertion` instead, and the conclusion is not default-supported. A row belonging to another statement does
+  not join (ADR 0076 Part 2) and does not suppress the default.
+- **`basisOrigin`** names that eligibility input pin. Production computes a finding's provenance as
+  `declared_default` when **any** input pin has that origin (`runner.py`, the two publish paths), so the claim
+  rests on which pins can carry it. In this rule only the eligibility pin can: per-subject dispatch pins the
+  box-1 subject and every joined same-run source as `input` / `assertion` unconditionally
+  (`subject_dispatch.py`, subject pin and the `_one_source` branch), so the count pin is `assertion`; and a
+  parameter pin has no `origin`. The no-link coverage result is a quantity on the amount finding (role
+  `parameter`); it is neither this conclusion's input nor its basis.
+- **Consequence to keep in view.** Because that dispatch branch hard-codes `assertion` (and version `v1`), a
+  joined same-run eligibility finding that was itself default-supported would **lose** its default basis on
+  this pin. The bare-statement case does not hit this — no eligibility source joins, so the declared default is
+  pinned directly — but the eligibility input must be a fact type with its own `optional_default`, not a
+  derived finding carrying a default upstream.
+- **`lineNote`** is shown only when the conclusion published **and** its eligibility input pin is
+  `declared_default`. A zero count alone never produces the note.
 
 ### Which scheduling it needs
 
@@ -441,7 +477,7 @@ What that scheduling has to provide for this rule:
 - Eligibility waits on predecessor **rule resolution**, not on the unsuffixed symbol appearing in `self.symbols`. The predecessor of the responsibility rule is the count rule and the per-statement amount rule. It is not the schooling-status rule, and it is not the worksheet. Keyed publication never inserts the unsuffixed name, so a `requires` entry of that name stays ineligible and `finalize_unreached` would then evaluate the rule once, unsuffixed.
 - The intercept is on `attempt` and on `finalize_unreached`, so `runner._execute` and `reference_runner.run_reference` share it.
 - One dispatch publishes per statement. The rule id resolving once must not collapse the three statements into one unsuffixed finding, and must not block every statement because one amount was blocked. A statement whose amount is blocked, or whose count is blocked, gets no responsibility finding. The other statements still publish.
-- The count rule and the amount rule are `link_coverage` rules. The responsibility rules are not. They do not join links. ADR 0076's link-binding half still gates any sentence that says "this statement": until a joined link is this statement's, a coverage result is not a statement-specific claim. The rule's own grain does not depend on a shared key name with a link type.
+- The count rule is a `link_count` rule and the amount rule a `link_coverage` rule; both join links. The responsibility rules and the favourable-eligibility conclusion do not. ADR 0076's link-binding half still gates any sentence that says "this statement": until a joined link is this statement's, a coverage result is not a statement-specific claim. The rule's own grain does not depend on a shared key name with a link type.
 
 Situation-scoped responsibility rules stay per schooling situation. Their subject is that situation, and their pins name the institution, programme, and period. They are not this bare-statement rule. They carry their own `wording` field, the named-circumstance sentence, and the same reverse walk. They do not publish when section 7's guard holds.
 
