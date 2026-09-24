@@ -77,7 +77,8 @@ Each group:
 | Key | What it is |
 | --- | --- |
 | `symbol` | The keyed symbol, `publishes\|fact_id` |
-| `factId` | The suffix after `\|` |
+| `factId` | The suffix after `\|`. An **identifier** for joining rows, never displayed as the statement's name and never parsed |
+| `statementLabel` | The statement's user-facing name, from **structured recorded information** only — see "The statement label" below. Absent when no label is recorded |
 | `findingId` | The row's finding id. Absent when the row is blocked and published no finding |
 | `ruleId` | `artifact_id` of the rule that published or blocked it |
 | `ruleVersion` | `version` of that rule in the resolved graph |
@@ -201,6 +202,30 @@ An uncovered link, an orphan reduction, a duplicate link map, a link with two re
 
 The rule's own `blocked.missing` array is not this list. **Production.** The runner does not read it. The coverage rule's declared `missing: []` is not what the disposition carries.
 
+### The statement label
+
+The Form 1098-E statement fact is keyed on two **entity** keys and a literal: `lender` (entity kind
+`tax.us.student-loan-lender`), `statement` (entity kind `tax.us.1098e-statement`), and `tax-year`
+(`f1098e.bundle.json`). Entities are recorded with a `label` (`entity.v1`: `id`, `kind`, `label`), introduced
+by an `entity-introduced` act. **Production, kernel.**
+
+The projector builds `statementLabel` from those records:
+
+1. Take the statement subject's box-1 fact from recorded state and read its **structured identity keys**
+   from the kernel lattice — the entity ids for `lender` and `statement`, and the `tax-year` value. Never
+   split, parse or display the rendered fact id or the symbol suffix to get them.
+2. Look up each entity id in recorded entity state and copy its `label`. `statementLabel` is the three
+   structured parts — `{lender: <label>, statement: <label>, taxYear: <value>}` — and the page renders them
+   as fields, not as a sentence the projector composes.
+3. If an entity has no recorded label, or a superseded entity is all that remains, that part is **absent**.
+   The page shows its own chrome ("statement name not recorded") for the missing part. It does not fall back
+   to the fact id, the entity id, or the evidence label's free text.
+4. The box-1 finding's evidence `label` stays a **citation** label, as today. It is not the statement's name.
+
+**Proposed contract.** Whether the lender and statement entities for real 1098-E statements carry labels
+worth showing depends on the entity-introduction path (`report_statement_identity` and the entry loop); this
+contract requires the projector to use them, and records "not recorded" honestly where they are absent.
+
 ## 5. The page
 
 The page is `packages/presentation/pages/citation-walk.v1.html`. The walk change is also applied to `tools/presentation_harness/examples/pages/citation-walk.v1.html`, because the product page says a change to the walk belongs in both. The evaluation copy keeps its synthetic declaration. It is not the page this contract's test loads. `live_session` keeps refusing that copy.
@@ -239,7 +264,7 @@ Nothing joined this subject to a link. Line 21 is unchanged. The calculation vie
 
 > Eligibility for this deduction is taken as met because nothing you've described says otherwise.
 
-That note is the eligibility default. It is not a description of the no-link parameter. The three conditions are not in the view's ordinary text. They are in the disclosure, and only from the bare-statement rules' own fields. The stage-4 sentence that ends "nothing you've described names them" is not the text this guard supports. Section 7 says what the sentence is allowed to claim. The statement is named from the group's `factId`. No institution and no programme are named. "Not known" appears only when the copied rule field says it, and only under that guard.
+That note is the eligibility default. It is not a description of the no-link parameter. The three conditions are not in the view's ordinary text. They are in the disclosure, and only from the bare-statement rules' own fields. The stage-4 sentence that ends "nothing you've described names them" is not the text this guard supports. Section 7 says what the sentence is allowed to claim. The statement is named from the group's `statementLabel` (below), never from `factId`. No institution and no programme are named. "Not known" appears only when the copied rule field says it, and only under that guard.
 
 ### Uncovered link
 
@@ -317,7 +342,7 @@ If the sentence is declared on a rule, this is how it reaches the projector. No 
 - The disposition row's `artifact_id` is the rule id. `build_presentation_model` already indexes the resolved graph by id. The projector reads that rule object, the rule that ran, not a copy with a rewritten `publishes`.
 - The content version is that rule's `version`. The group stores it as `ruleVersion`. A sentence change is a new version of that rule.
 - The field name on the rule successor is `wording` (the condition sentence) or `lineNote` (the ordinary-line note on the favourable-conclusion rule only). Both are strings. `notes` is not read. A rule with neither field contributes identity only: rule id, version, symbol, and no sentence.
-- Slot rule. The projector replaces `{statement}`, `{institution}`, `{programme}`, or `{period}` only with a key on a fact an input pin of that finding names, or, for `{statement}` only, with the keyed symbol's fact-id suffix. A missing key fails the projection. It does not become "unknown", an empty string, or a placeholder. A bare-statement field has no institution, programme, or period slot.
+- Slot rule. The projector replaces `{statement}`, `{institution}`, `{programme}`, or `{period}` only with a key on a fact an input pin of that finding names, or, for `{statement}` only, with the group's `statementLabel`. The fact-id suffix is never a slot value. A missing key fails the projection. It does not become "unknown", an empty string, or a placeholder. A bare-statement field has no institution, programme, or period slot.
 
 ### Compared
 
