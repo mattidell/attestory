@@ -62,14 +62,16 @@ It returns exactly one of three results, and falls through to none of them:
    `DEPENDENCY_INVALID`, each with `missing` the parameter id (contract section 6).
 
 **Joinability.** Link rows that are present but share no key name with the
-subject cannot be joined to it. That is not "no link": it blocks. **This runtime
-check covers only present rows.** With no link row in the run, the dispatch cannot
+subject cannot be joined to it. That is not "no link": it blocks
+`DEPENDENCY_INVALID` with `missing` of `["link-coverage-unjoinable"]`, checked before
+the no-link default. **This runtime check covers only present rows.** With no link row in the run, the dispatch cannot
 tell a joinable type from an unjoinable one: `_scope` returns an empty list before
 reading any key, the subject's keys may be absent, and a bare `fact-type.v2` link
 declaration — the contract's admitted shape — is not on the run context, which
 copies fact types only from bundles. So at zero rows **joinability is a property
 of the binding, which G2 must establish statically**, not something a returned
-parameter can show.
+parameter can show. Zero link rows with the subject's keys absent also takes the
+parameter today, as the contract's section 3 specifies; that case is likewise G2's.
 
 Ordinary `collect` and `count`, source families, and closure admission are
 unchanged. An empty collection that was not declared closed still blocks. No
@@ -126,12 +128,16 @@ The owner chooses between:
   scalar bindings, and confinement is dropped. What that buys, stated exactly:
   another rule may name the link type — in `requires`, a binding, a `ref`, or as
   the subject of its own per-subject dispatch — without the package being
-  rejected, and no **other** symbol's scalar binding changes. What it does **not**
-  buy: a sibling `collect` returns the link values as decimals (or blocks on a
+  rejected, and no **other** symbol's scalar binding changes. That holds only if
+  the coverage emission does **not** mark the emitted finding ids as used:
+  marshal's legacy fallback skips used ids before anything else, so marking them
+  would keep the scalar loss confinement was written to contain. What it does
+  **not** buy: a sibling `collect` returns the link values as decimals (or blocks on a
   non-number), not their key maps, so a consumer that needs the canonical links
   reads them per subject — by per-subject or pairing dispatch — not by `collect`;
-  and because the emitted link findings are consumed by emission, a plain `ref` of
-  the link type outside dispatch still binds no scalar. `count` and
+  and a plain `ref` of the link type outside dispatch binds a run-wide scalar only
+  through the legacy fallback, when the current link values agree — the
+  behaviour before registration, not a per-statement read. `count` and
   `collect_categorical_all_equal` would see the rows too, and a sibling that
   collects the type pins every row it read, across statements — its own read,
   not the operator's.
@@ -155,16 +161,25 @@ The admission change, the contract amendment and the removal of
   1. **Present-but-unjoinable link rows must block.** Today `_scope` returns `[]`
      when link rows share no key name with the subject, and the arm then returns
      the parameter **if the reductions slot is also empty** (a joined reduction is
-     reported as an orphan first). Per-subject dispatch must block instead, for the
-     declared coverage names.
-  2. **Option B.** `marshal.marshal_run_context` gains an emission-only name set
-     (binding and fallback keep today's set; the new emission records its finding
-     ids as used), forwarded through `marshal.marshal_live_run_context` and
-     `live.live_run`; `live._resolved_run_material` returns the link type in that
-     set instead of `collect_names`; `live.live_coordinate_run` passes it; and
-     `package_validation._link_coverage_issues` drops `LINK_COVERAGE_NAME_REUSED`.
-     Contract clauses amended: section 1.1, section 2 (confinement), section 7,
-     section 8 item 17, section 9, and the Gate 1 blast-radius sentence.
+     reported as an orphan first). `subject_dispatch.evaluate_subject_scoped_rule`,
+     where it fills the coverage slot, must block instead with
+     `["link-coverage-unjoinable"]`; `_scope` itself is unchanged, so joins for
+     rules without the operator stay as they are. Contract passages amended: the
+     section 3 table (a new row before the default), section 5 "No current link",
+     and section 8 item 3, plus an obligation for present unjoinable rows.
+  2. **Option B.** `marshal.marshal_run_context` gains an emission-only name set,
+     default empty: emission walks it with the existing set; the input-binding
+     branch and the legacy fallback keep consulting only the existing set; and
+     findings emitted only because of the new set are **not** added to the used
+     ids. Forwarded through `marshal.marshal_live_run_context` and `live.live_run`
+     (optional, default empty); `live._resolved_run_material` returns the link type
+     in that set instead of `collect_names`; `live.live_coordinate_run` passes it;
+     `package_validation._link_coverage_issues` drops the confinement walk and
+     `LINK_COVERAGE_NAME_REUSED`, keeping the shape checks. Contract passages
+     amended: section 1.1 (admission); section 2 (confinement, and its four effect
+     bullets); section 5 "Undeclared empty collection"; section 7's first two
+     bullets; section 8 items 14 and 17; section 9's Gate 1 blast-radius sentence
+     and its prescribed decision paragraph.
   3. **The reduction name is not registered at all.** Reductions are derived and
      never marshalled, and their same-run sources reach `run.sources` regardless of
      that list; nothing depends on the registration. (Dropping registration does not
