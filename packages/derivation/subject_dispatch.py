@@ -458,6 +458,13 @@ def evaluate_subject_scoped_rule(
         # sentinel is not written into the sources map above.
         keyed_sources: dict[str, Any] = {}
         for name in coverage_names:
+            if subject.keys is None:
+                # ADR 0075: the no-link default requires the subject's own
+                # identity. `_scope` returns [] for zero candidates without
+                # reading keys, which would let a subject of unknown identity
+                # take the default. Refuse it here, for coverage names only.
+                keyed_sources[name] = KEYS_UNAVAILABLE
+                continue
             candidates = [source for source in sources if source.name == name]
             matched = _scope(subject, candidates)
             keyed_sources[name] = list(matched) if matched is not None else KEYS_UNAVAILABLE

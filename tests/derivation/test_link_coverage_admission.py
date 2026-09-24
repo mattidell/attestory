@@ -8,6 +8,8 @@ subject block before the no-link default. Zero rows still take it.
 
 from __future__ import annotations
 
+import dataclasses
+
 import unittest
 from decimal import Decimal
 from typing import Any
@@ -231,6 +233,22 @@ class LinkCoverageUnjoinable(unittest.TestCase):
         result = _dispatch([_box()])
         self.assertEqual(result.blocked, ())
         self.assertEqual(result.publications[0]["value"], "1500")
+
+    def test_zero_rows_with_unknown_subject_identity_do_not_take_the_default(self) -> None:
+        """ADR 0075: the no-link default requires the subject's own identity.
+
+        Before this repair `_scope` returned [] for zero candidates without
+        reading keys, so a subject whose keys were absent took the parameter.
+        """
+        result = _dispatch([dataclasses.replace(_box(), keys=None)])
+        self.assertEqual(result.publications, ())
+        self.assertEqual(len(result.blocked), 1)
+        self.assertEqual(result.blocked[0].code, "DEPENDENCY_INVALID")
+        self.assertEqual(result.blocked[0].missing, ("link-coverage-keys-unavailable",))
+        self.assertNotIn(
+            "demo.param.no-link-reduction",
+            {pin["id"] for pin in result.blocked[0].pins},
+        )
 
     def test_present_unjoinable_rows_block_before_the_default(self) -> None:
         link = _row(LINKS, "demo.finding.link.borrow-only", (("borrowing", "demo-b"),), "10")

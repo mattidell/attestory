@@ -42,9 +42,10 @@ ids and symbols are never compared.
 
 It returns exactly one of three results, and falls through to none of them:
 
-1. **The declared parameter** — only when the subject's scope is bound, the
-   identity keys of both lists are available, no present link row is unjoinable
-   to the subject (below), **and both joined lists are empty**. The result pins the
+1. **The declared parameter** — only when the subject's scope is bound, **the
+   subject's own identity keys are present**, the identity keys of both lists are
+   available, no present link row is disconnected from the subject (below), **and
+   both joined lists are empty**. The result pins the
    parameter. It pins no link, no reduction, and no source-family closure, and it
    does not claim that the set of links is complete.
 2. **The sum of the matched reductions** — only when every joined link has
@@ -52,7 +53,8 @@ It returns exactly one of three results, and falls through to none of them:
    every matched value is a number. The result pins every joined link and every
    joined reduction, and not the parameter.
 3. **Block** — in every other case, and **none can fall through to the
-   parameter**. An unbound scope, missing keys, an unjoinable present link type,
+   parameter**. An unbound scope, missing keys (the subject's or any row's), a
+   disconnected present link type,
    an orphan reduction, duplicate link maps, a link with more than one reduction,
    a non-numeric reduction, and a link with no reduction block
    `DEPENDENCY_INVALID`. For an uncovered link, `missing` is exactly the uncovered
@@ -61,17 +63,17 @@ It returns exactly one of three results, and falls through to none of them:
    **absent parameter** blocks `DEPENDENCY_ABSENT` and a **version mismatch** blocks
    `DEPENDENCY_INVALID`, each with `missing` the parameter id (contract section 6).
 
-**Joinability.** Link rows that are present but share no key name with the
-subject cannot be joined to it. That is not "no link": it blocks
-`DEPENDENCY_INVALID` with `missing` of `["link-coverage-unjoinable"]`, checked before
-the no-link default. **This runtime check covers only present rows.** With no link row in the run, the dispatch cannot
-tell a joinable type from an unjoinable one: `_scope` returns an empty list before
-reading any key, the subject's keys may be absent, and a bare `fact-type.v2` link
-declaration — the contract's admitted shape — is not on the run context, which
-copies fact types only from bundles. So at zero rows **joinability is a property
-of the binding, which G2 must establish statically**, not something a returned
-parameter can show. Zero link rows with the subject's keys absent also takes the
-parameter today, as the contract's section 3 specifies; that case is likewise G2's.
+**What the operator guarantees, and what it does not.** v10 operates on the two
+lists per-subject dispatch supplies. It refuses the default when the subject's own
+identity is unknown (`link-coverage-keys-unavailable`), and it refuses present link
+rows that share **no** key name with the subject (`link-coverage-unjoinable`).
+That second check only rules out **wholly disconnected** types. It is **not a
+binding proof**: link rows that share a key name — tax year alone, say — with two
+different statements would join to both. Whether a joined list is **this
+statement's** links is a property of how the rule is scheduled and what the link
+type's identity must contain, which ADR 0076 decides. Until that binding is
+established, a result of this operator — including a returned parameter — does
+**not** support a statement-specific claim.
 
 Ordinary `collect` and `count`, source families, and closure admission are
 unchanged. An empty collection that was not declared closed still blocks. No
@@ -86,22 +88,18 @@ code is needed.
    package validation — the section 2 shape checks; name confinement is dropped
    under the owner's choice of B (below).
 3. **Executable per-subject binding.** The rule is evaluated by per-subject
-   dispatch with the statement as the subject. **Nothing in rule content selects
-   that, and production scheduling is open at G2.** Outside per-subject dispatch
-   the operator blocks `link-coverage-scope-unbound`.
+   dispatch with the statement as the subject, over links bound to that statement.
+   **Nothing in rule content selects that; scheduling and the binding relationship
+   are ADR 0076's.** Outside per-subject dispatch the operator blocks
+   `link-coverage-scope-unbound`.
 
 A package that is schema-valid and accepted has **not** established statement
 coverage. Coverage is established only by a run in which the operator was
-evaluated for the statement with its links joined — and a returned parameter is
-evidence of coverage only where the link type was joinable to that statement.
-G2 must prove or enforce that binding. The runtime check above refuses present
-rows that cannot join, but cannot see an unjoinable type with no rows; so G2 needs
-a static check, once its scheduler names a rule's subject type, that the link fact
-type's identity keys share **at least one key name** with the subject type's — the
-same property the runtime join tests (`subject_dispatch._scope` joins on agreeing
-values over shared key names) — and the run context must carry bare fact-type
-declarations for any runtime use of them. Whether one shared name is a strong
-enough join is a question about Track 1's join contract, not decided here.
+evaluated for the statement with its links **bound to that statement** — and a
+returned parameter is evidence of coverage only where that binding holds.
+ADR 0076 must establish that binding — in package validation and at runtime —
+before any result of this operator supports a statement-specific claim. This ADR
+does not.
 
 ## Name confinement — a cost, and the owner's choice
 
@@ -159,9 +157,9 @@ The admission change, the contract amendment and the removal of
   milestone branch (checksums appended); any change to v10's shape is a new
   version. The joinability check and either confinement choice need no schema
   change.
-- **Changes to the accepted contract and the built code this ADR requires**, none
-  made in this edit:
-  1. **Present-but-unjoinable link rows must block.** Today `_scope` returns `[]`
+- **Changes to the accepted contract and the built code this ADR requires** —
+  items 1–3 made in Track 4 (`666edc94`), item 4 in this repair:
+  1. **Present, wholly disconnected link rows must block.** Today `_scope` returns `[]`
      when link rows share no key name with the subject, and the arm then returns
      the parameter **if the reductions slot is also empty** (a joined reduction is
      reported as an orphan first). `subject_dispatch.evaluate_subject_scoped_rule`,
@@ -188,7 +186,14 @@ The admission change, the contract amendment and the removal of
      that list; nothing depends on the registration. (Dropping registration does not
      by itself drop confinement — the rows are in `run.sources` either way; B drops
      confinement.)
-- Zero-row joinability is **not** closed by any of these; it is G2's.
+  4. **The subject's own identity is required for the default.** `_scope` returns
+     `[]` for zero candidates without reading keys, so a subject with absent keys
+     took the parameter. Per-subject dispatch now installs the keys-unavailable
+     sentinel for the coverage names when the subject's keys are absent
+     (`test_zero_rows_with_unknown_subject_identity_do_not_take_the_default`).
+     Contract section 3 amended.
+- The statement binding — that joined links are this statement's — is **not**
+  established by any of these; it is ADR 0076's.
 - `records.CURRENT_RECORD_SCHEMA` stays `"derivation-record.v9"`.
 
 ## Alternatives considered
@@ -202,9 +207,10 @@ need. The operator is selected.
 
 ## Not decided
 
-- Whether an uncovered link needs its own record code (P4).
-- How a production run schedules rules onto per-subject dispatch, and how G2
-  proves the statement binding (G2).
+- ~~Whether an uncovered link needs its own record code~~ — P4: not on this
+  evidence; the record distinguishes the failure shapes by `missing` and pins.
+- How a production run schedules rules onto per-subject dispatch, and what binds a
+  joined link to its statement — **ADR 0076**.
 - ~~Confinement A or B~~ — decided: **B** (owner, 2026-09-24).
 
 ## Links
