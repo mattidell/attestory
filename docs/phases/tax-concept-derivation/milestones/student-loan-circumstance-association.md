@@ -3,7 +3,7 @@
   "version": 1,
   "phase": "Tax Concept Derivation",
   "topic": "student-loan-circumstance-association",
-  "status": "TRACK 4 COMPLETE. Tracks 1-4 built: per-subject dispatch, keyed same-run sources, the coverage-checked collection, reusable link admission with the unjoinable block. A4 pass 2 (P1-P4) run; the durable record carries identities; the presentation reaches only box 1 and an error code. ADR 0075 reviewed, proposed, awaiting owner acceptance. Next: A6's reader carrier and G2's scheduling and binding. G2 (producer) not reached.",
+  "status": "TRACK 4 COMPLETE; G2 PATH INVESTIGATED, OWNER DECISIONS PENDING. Tracks 1-4 built. Read-only investigation: scheduling needs a declared subject per rule and predecessor-resolution eligibility (recommended rule-artifact.v11 subject pin); the reader carrier is best a presentation-model projection (no record bump) plus citation-walk rendering. ADR 0075 proposed, awaiting acceptance. G2 (producer) not reached.",
   "scope": [
     "record and recover ordinary schooling circumstances and their explicit connection to identified student-loan interest",
     "preserve document evidence, source-independent subjects, attribution, and relationship lifecycle",
@@ -1250,6 +1250,19 @@ ADR's required changes — reusable link admission, the unjoinable block, no red
 **Track 4 is complete** (independent review: no defects). **Next: A6's reader carrier and G2's
 scheduling and binding** — the two things between this milestone and G2. ADR 0075 awaits the owner's
 acceptance.
+
+**What stands before G2, investigated (read-only):**
+[`g2-path-investigation.md`](student-loan-circumstance-association-evidence/g2-path-investigation.md).
+*Scheduling:* the subject type cannot be inferred from a rule's `requires`, and ordinary eligibility
+cannot see keyed publications, so the chain (status → link reduction → statement amount) needs a
+declared subject and eligibility that waits on predecessor **rule resolution**. Recommended: a subject
+pin on the rule (`rule-artifact.v11`, `artifact-package.v32`), intercepted in `attempt` and
+`finalize_unreached`, with the ADR 0075 joinability proof as a static package-validation check (one
+shared key name) rather than a wider run context. *Reader carrier:* recommended projection into the
+presentation model — keyed rows joined to the field as groups, intermediates kept, `missing` copied onto
+a blocked line, responsibility rows found by walking back from the chain — with no new derivation-record
+version; the citation-walk page must render it. Wording and the case-2 statement-scoped responsibility
+rule remain open. Owner decisions pending.
 
 ## A5 in detail — choosing how to represent it
 

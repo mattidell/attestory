@@ -5,8 +5,8 @@
   "topic": "student-loan-circumstance-association",
   "active_plan": "docs/phases/tax-concept-derivation/milestones/student-loan-circumstance-association.md",
   "milestone_state": "track-4",
-  "status": "TRACK 4 COMPLETE. Tracks 1-4 built: per-subject dispatch, keyed same-run sources, the coverage-checked collection, reusable link admission with the unjoinable block. A4 pass 2 (P1-P4) run; the durable record carries identities; the presentation reaches only box 1 and an error code. ADR 0075 reviewed, proposed, awaiting owner acceptance. Next: A6's reader carrier and G2's scheduling and binding. G2 (producer) not reached.",
-  "current_role": "Foreman (after Track 4: refine A6's reader carrier and G2's scheduling/binding)",
+  "status": "TRACK 4 COMPLETE; G2 PATH INVESTIGATED, OWNER DECISIONS PENDING. Tracks 1-4 built. Read-only investigation: scheduling needs a declared subject per rule and predecessor-resolution eligibility (recommended rule-artifact.v11 subject pin); the reader carrier is best a presentation-model projection (no record bump) plus citation-walk rendering. ADR 0075 proposed, awaiting acceptance. G2 (producer) not reached.",
+  "current_role": "Foreman (owner decisions: ADR 0075 acceptance, scheduling approach, reader carrier)",
   "current_prompt": "docs/phases/tax-concept-derivation/milestones/student-loan-circumstance-association.md"
 }
 -->
