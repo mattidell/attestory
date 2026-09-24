@@ -22,7 +22,13 @@ import json
 from dataclasses import dataclass
 from typing import Any, Mapping, Sequence
 
-from packages.derivation.evaluator import AccessLog, Environment, EvalBlocked, evaluate
+from packages.derivation.evaluator import (
+    KEYS_UNAVAILABLE,
+    AccessLog,
+    Environment,
+    EvalBlocked,
+    evaluate,
+)
 from packages.derivation.runner import (
     SourceFact,
     _Run,
@@ -183,6 +189,30 @@ def _optional_default(
     return param_val, (finding_id, "v2", "input", "declared_default")
 
 
+def _declared_link_coverage_names(expr: Any) -> list[str]:
+    """``links`` then ``reductions`` from each ``link_coverage`` node in ``value``.
+
+    The node's own fields are not ``ref`` names. ``when`` is not walked.
+    """
+    names: list[str] = []
+
+    def walk(node: Any) -> None:
+        if isinstance(node, dict):
+            if node.get("op") == "link_coverage":
+                for key in ("links", "reductions"):
+                    name = node.get(key)
+                    if isinstance(name, str) and name and name not in names:
+                        names.append(name)
+            for value in node.values():
+                walk(value)
+        elif isinstance(node, list):
+            for item in node:
+                walk(item)
+
+    walk(expr)
+    return names
+
+
 def _requires(rule: Mapping[str, Any]) -> list[str]:
     raw = rule.get("requires", [])
     if not isinstance(raw, list):
@@ -234,6 +264,11 @@ def _assemble_pins(
         pins = list(run.pins_for(dict(rule), access))
         if subject_type in symbol_pin:
             pins.append(run._symbol_pin_entry(subject_type))
+        for finding_id in access.link_coverage_findings:
+            pin: dict[str, Any] = {"role": "input", "id": finding_id, "version": "v1"}
+            if run.use_v2:
+                pin["origin"] = "assertion"
+            pins.append(pin)
         return _sorted_pins(pins)
     finally:
         run.symbol_pin = saved_pin
@@ -310,6 +345,7 @@ def evaluate_subject_scoped_rule(
     blocked: list[SubjectBlocked] = []
     required = _requires(rule)
     other_names = sorted({source.name for source in sources if source.name != subject_type})
+    coverage_names = _declared_link_coverage_names(rule.get("value"))
 
     for subject in subjects:
         subject_fact_id = _subject_id(subject)
@@ -372,6 +408,14 @@ def evaluate_subject_scoped_rule(
             fact_types[req] = _fact_type_of(run, req)
 
         maps = _local_maps(run, subject_type, subject, scoped)
+        # Both declared names, on every subject. Empty is a join that
+        # found nothing; the sentinel is ``_scope`` returning None. The
+        # sentinel is not written into the sources map above.
+        keyed_sources: dict[str, Any] = {}
+        for name in coverage_names:
+            candidates = [source for source in sources if source.name == name]
+            matched = _scope(subject, candidates)
+            keyed_sources[name] = list(matched) if matched is not None else KEYS_UNAVAILABLE
 
         if invalid:
             blocked.append(SubjectBlocked(
@@ -406,6 +450,7 @@ def evaluate_subject_scoped_rule(
             dict(run.ctx.canon),
             fact_types,
             dict(run.categorical_domains),
+            keyed_sources=keyed_sources if coverage_names else {},
         )
         access = AccessLog()
         try:

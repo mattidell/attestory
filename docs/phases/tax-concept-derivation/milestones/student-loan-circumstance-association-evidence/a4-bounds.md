@@ -337,6 +337,33 @@ link ids. Other subjects untouched. **To declare it in content** it needs a succ
 evaluator or per-subject dispatch. Hard-coding the check in the dispatch for one rule would avoid
 the schema but put the policy in calling code, which the owner ruled out.
 
+## Track 3 — the coverage-checked collection, built: P3's three outcomes now run
+
+ADR 0075 (**proposed**); `rule-artifact.v10` `link_coverage`; `artifact-package.v31`; package
+validation confining the two names; the evaluator arm in a new defaulted slot (no existing arm
+changed); per-subject installation of both names with a keys-unavailable sentinel; the authorization
+closure walking v10. Tests: `tests/derivation/test_link_coverage_contract.py`,
+`tests/derivation/test_link_coverage_runtime.py`, and the flipped and new classes in the probe module.
+
+| Owner's required outcome | Now |
+| --- | --- |
+| No recorded link → the declared calculation default, pinning the parameter and box 1 only | `run` |
+| Every current link covered by its own numeric reduction → box 1 minus the sum, pinning every covered link and reduction, not the parameter | `run` |
+| Any uncovered link — absent, **blocked** or **inapplicable** reduction → the statement blocks `DEPENDENCY_INVALID`, `missing` naming the link's finding id; never 1500, never the default | `run` — `UnresolvedLinkBlocksTheStatement` (the two defect tests, flipped), `…test_inapplicable_reduction_blocks_naming_the_link` |
+| Correction → matched through the successor link | `run` |
+| Withdrawal → the default; a reduction still joined in-run blocks naming it | `run` |
+| Unrelated statements byte-identical; missing keys block, never the default; an undeclared empty collection still blocks; a coverage rule outside per-subject dispatch fails closed | `run` |
+| A v10 package's coverage rule, reduction rule, link type and parameter are inside the authorization closure | `run` |
+
+**So P3 is complete, and the defect the owner found is fixed.** A missing derived reduction is never
+read as no reduction.
+
+**Evidence boundary, unchanged in kind.** The coverage and reduction rules now pass
+`validate_package` in every scenario, but every run is still **hand-assembled** (marshal, then
+dispatch), and the status rule is the earlier v6 probe outside that package. **Open:** whether an
+uncovered link needs its own record code (P4 decides from the reader), and how a production run
+schedules per-subject rules (G2). Nothing here shows what the durable reader sees.
+
 ## What A5 may not rely on without new execution
 
 D7, D9, D10, D11, D12, D14 and D16b. In particular, a shape that depends on **an

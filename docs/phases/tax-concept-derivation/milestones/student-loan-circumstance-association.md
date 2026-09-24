@@ -3,7 +3,7 @@
   "version": 1,
   "phase": "Tax Concept Derivation",
   "topic": "student-loan-circumstance-association",
-  "status": "TRACK 3 STAGE B2 OPEN. Track 3 stage A contract accepted; stage B1 complete (ADR 0075 proposed, rule-artifact.v10, artifact-package.v31, validation, admission). Stage B2 builds the runtime (link_coverage arm, per-subject slot and sentinel, authorization closure) and flips the P3 defect tests. G2 (producer) not reached; P4 still owed.",
+  "status": "A4 PASS 2 AT P4. Tracks 1-3 built: per-subject dispatch, keyed same-run sources, and the coverage-checked collection (ADR 0075 proposed; rule-artifact.v10, artifact-package.v31). P2 and P3 complete -- a corrected circumstance reaches the right statements, partial reduction runs, no link takes the declared default, and any uncovered link blocks naming it; runs still hand-assembled. Next: P4, the durable reader. G2 (producer) not reached; scheduling of per-subject rules open.",
   "scope": [
     "record and recover ordinary schooling circumstances and their explicit connection to identified student-loan interest",
     "preserve document evidence, source-independent subjects, attribution, and relationship lifecycle",
@@ -1167,7 +1167,7 @@ earlier.
 | --- | --- | --- |
 | **P1** — *done: untestable without production change; Track 1 builds the mechanism* | Can one categorical conclusion be published **per key of a single subject** — student-and-period, statement — carrying its rule's declared citations, and recorded `inapplicable` for a key where an adverse circumstance is supported? | — |
 | **P2** — *done: `run` at the borrowing and statement grains, in memory within one run (Track 2)* | Does one corrected schooling circumstance reach **every** statement whose result depended on it, on re-derivation? | P1 |
-| **P3** — *reopened: partial reduction runs only when every recorded link resolves; an unresolved link is silently dropped (owner-found defect); no-link default pending Track 3* | Can a statement's figure be **partially reduced** — the adverse portion removed, the remainder publishing on its own basis? | P1 |
+| **P3** — *done: partial reduction, the no-link default and uncovered-link blocking all run (Track 3); runs still hand-assembled* | Can a statement's figure be **partially reduced** — the adverse portion removed, the remainder publishing on its own basis? | P1 |
 | **P4** | Can a reader **recover**, from durable output, the conclusion's identity and meaning and, for the provisional responsibility candidate, each condition's identity, circumstance and treatment — and where does wording fail to have a home? | P1 |
 
 Results go into [`a4-bounds.md`](student-loan-circumstance-association-evidence/a4-bounds.md),
@@ -1236,6 +1236,11 @@ a regression test shown to fail without the fix. Schema intent is on the local
 `milestone-schema-ledger`. Stage B2 builds the runtime, walks v10 in the authorization closure, and
 flips the defect tests:
 [`charter-track3b2-coverage-runtime.md`](student-loan-circumstance-association-evidence/charter-track3b2-coverage-runtime.md).
+
+**Track 3 is complete.** B2 passed an independent review with no defects. The owner's three outcomes
+run, the two defect tests are flipped, and a missing derived reduction is never read as no reduction.
+Runs remain hand-assembled; ADR 0075 remains **proposed**. **Next: P4**, what the durable reader
+actually sees.
 
 ## A5 in detail — choosing how to represent it
 

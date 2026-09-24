@@ -29,6 +29,12 @@ BLOCK_CLOSURE = "SOURCE_SET_UNCLOSED"
 BLOCK_LOOKUP_MISS = "LOOKUP_MISS"
 BLOCK_CATEGORICAL_DOMAIN_MISMATCH = "CATEGORICAL_DOMAIN_MISMATCH"
 
+# Slot value per-subject dispatch writes when ``_scope`` returns None for
+# a name ``link_coverage`` declares. Not a row, and not an empty join.
+KEYS_UNAVAILABLE = "keys_unavailable"
+LINK_COVERAGE_SCOPE_UNBOUND = "link-coverage-scope-unbound"
+LINK_COVERAGE_KEYS_UNAVAILABLE = "link-coverage-keys-unavailable"
+
 _ROUND_MODES = {
     "half_up": ROUND_HALF_UP,
     "half_even": ROUND_HALF_EVEN,
@@ -63,6 +69,10 @@ class AccessLog:
     # ``collects`` — dependency_pins_for_access pins every source_fids
     # entry for collects, which is the run-wide pin leak.
     bound_source_names: set[str] = field(default_factory=set)
+    # Coverage contract: finding ids this operation matched or left
+    # uncovered. Not merged into ``collects`` — that channel pins every
+    # row of the source name, including other statements.
+    link_coverage_findings: set[str] = field(default_factory=set)
 
 
 @dataclass(frozen=True)
@@ -87,6 +97,12 @@ class Environment:
     # at pairing_consequences.py keeps working. Ordinary _Run.env() leaves
     # this empty; the operator then fail-closes.
     bound_sources: dict[str, list[Any]] = field(default_factory=dict)
+    # Coverage contract. Defaulted like bound_sources so an ordinary
+    # Environment leaves the slot unbound and the operation fail-closes.
+    # Per-subject dispatch installs one entry per declared name: a list
+    # of rows, or the keys_unavailable sentinel. The operation does not
+    # read ``sources``.
+    keyed_sources: dict[str, Any] = field(default_factory=dict)
 
 
 def _as_decimal(value: Any) -> Decimal:
@@ -302,7 +318,138 @@ def evaluate(expr: Any, env: Environment, access: AccessLog) -> Any:
             raise EvalBlocked(BLOCK_ABSENT, absent)
         return True
 
+    if op == "link_coverage":
+        return _link_coverage(expr, env, access)
+
     raise EvalBlocked(BLOCK_INVALID, [f"unknown op survived schema: {op}"])
+
+
+def _coverage_key_map(row: Any) -> dict[str, str] | None:
+    """Name-to-value map of one source's structured keys, or None.
+
+    Tuple order is not the comparison. ``fact_id`` is not read.
+    """
+    keys = getattr(row, "keys", None)
+    if keys is None:
+        return None
+    return {str(name): str(value) for name, value in keys}
+
+
+def _coverage_decimal(value: Any) -> Decimal | None:
+    """A numeric reduction, or None. Booleans are not numbers."""
+    if isinstance(value, bool) or value is None:
+        return None
+    if isinstance(value, Decimal):
+        return value
+    if isinstance(value, int | float):
+        return Decimal(str(value))
+    if isinstance(value, str):
+        try:
+            return Decimal(value)
+        except Exception:
+            return None
+    return None
+
+
+def _coverage_rows(slot: Any) -> list[tuple[Any, dict[str, str]]]:
+    if slot == KEYS_UNAVAILABLE or not isinstance(slot, list):
+        raise EvalBlocked(BLOCK_INVALID, [LINK_COVERAGE_KEYS_UNAVAILABLE])
+    rows: list[tuple[Any, dict[str, str]]] = []
+    for row in slot:
+        key_map = _coverage_key_map(row)
+        if key_map is None:
+            raise EvalBlocked(BLOCK_INVALID, [LINK_COVERAGE_KEYS_UNAVAILABLE])
+        rows.append((row, key_map))
+    return rows
+
+
+def _empty_coverage_parameter(expr: dict[str, Any], env: Environment, access: AccessLog) -> Decimal:
+    parameter = expr["empty"]["parameter"]
+    param_id = str(parameter["id"])
+    param_version = parameter["version"]
+    param = env.parameters.get(param_id)
+    if param is None:
+        raise EvalBlocked(BLOCK_ABSENT, [param_id])
+    if param.get("version") != param_version:
+        raise EvalBlocked(BLOCK_INVALID, [param_id])
+    access.parameters.add(param_id)
+    return _as_decimal(param["values"])
+
+
+def _link_coverage(expr: dict[str, Any], env: Environment, access: AccessLog) -> Decimal:
+    """One statement's reduction total, or a contained block.
+
+    Fail-closed checks run in contract table order, before the three
+    outcomes. The match is key-map equality. Rows are not dropped, not
+    treated as zero, and not paired by ``fact_id``.
+    """
+    links_name = expr["links"]
+    reductions_name = expr["reductions"]
+    keyed = env.keyed_sources
+    if links_name not in keyed or reductions_name not in keyed:
+        raise EvalBlocked(BLOCK_INVALID, [LINK_COVERAGE_SCOPE_UNBOUND])
+    links_slot = keyed[links_name]
+    reductions_slot = keyed[reductions_name]
+    if links_slot == KEYS_UNAVAILABLE or reductions_slot == KEYS_UNAVAILABLE:
+        raise EvalBlocked(BLOCK_INVALID, [LINK_COVERAGE_KEYS_UNAVAILABLE])
+
+    links = _coverage_rows(links_slot)
+    reductions = _coverage_rows(reductions_slot)
+    link_maps = [key_map for _row, key_map in links]
+
+    orphan_ids = [
+        str(row.finding_id)
+        for row, key_map in reductions
+        if key_map not in link_maps
+    ]
+    if orphan_ids:
+        raise EvalBlocked(BLOCK_INVALID, sorted(orphan_ids))
+
+    grouped: dict[frozenset[tuple[str, str]], list[str]] = {}
+    for row, key_map in links:
+        grouped.setdefault(frozenset(key_map.items()), []).append(str(row.finding_id))
+    duplicate_ids = [
+        finding_id
+        for finding_ids in grouped.values()
+        if len(finding_ids) > 1
+        for finding_id in finding_ids
+    ]
+    if duplicate_ids:
+        raise EvalBlocked(BLOCK_INVALID, sorted(duplicate_ids))
+
+    multi_link_ids = [
+        str(row.finding_id)
+        for row, key_map in links
+        if sum(1 for _reduction, reduction_map in reductions if reduction_map == key_map) >= 2
+    ]
+    if multi_link_ids:
+        raise EvalBlocked(BLOCK_INVALID, sorted(multi_link_ids))
+
+    uncovered: list[str] = []
+    non_numeric: list[str] = []
+    total = Decimal(0)
+    covered_ids: list[str] = []
+    for row, key_map in links:
+        matches = [reduction for reduction, reduction_map in reductions if reduction_map == key_map]
+        if not matches:
+            uncovered.append(str(row.finding_id))
+            continue
+        number = _coverage_decimal(matches[0].value)
+        if number is None:
+            non_numeric.append(str(row.finding_id))
+            continue
+        total += number
+        covered_ids.append(str(row.finding_id))
+        covered_ids.append(str(matches[0].finding_id))
+    if non_numeric:
+        raise EvalBlocked(BLOCK_INVALID, sorted(non_numeric))
+    if not links:
+        return _empty_coverage_parameter(expr, env, access)
+    if uncovered:
+        access.link_coverage_findings.update(uncovered)
+        raise EvalBlocked(BLOCK_INVALID, sorted(uncovered))
+    access.link_coverage_findings.update(covered_ids)
+    return total
 
 
 def evaluate_args(args: list[Any], env: Environment, access: AccessLog) -> list[Any]:

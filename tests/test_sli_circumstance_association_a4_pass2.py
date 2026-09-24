@@ -41,6 +41,14 @@ from packages.derivation.runner import (
 from packages.kernel.currency import CurrencyView, compute_currency
 from packages.kernel.facts import KernelState, fact_id_for
 from packages.kernel.findings import FindingState
+from tests.derivation.test_link_coverage_contract import (
+    SCOPE as COVERAGE_SCOPE,
+    _citation,
+    _coverage,
+    _fact_type,
+    _parameter,
+    _validate,
+)
 
 FINANCING = "demo.tax.financing-claim"
 CIRCUMSTANCE = "demo.tax.schooling-circumstance"
@@ -2434,6 +2442,122 @@ def _p3b_execute(
     return state, currency, ctx, run
 
 
+def _scenario_reduction() -> dict[str, Any]:
+    """Validated v10 reduction. Refs the link; does not require it."""
+    return {
+        "schema": "rule-artifact.v10",
+        "id": P3B_LINK_RULE,
+        "version": "v1",
+        "scope": dict(COVERAGE_SCOPE),
+        "role": "computation",
+        "requires": [STATUS],
+        "pins": [],
+        "when": {
+            "op": "any",
+            "args": [
+                _t2_eq(STATUS, STATUS, "adverse"),
+                _t2_eq(STATUS, STATUS, "not-adverse"),
+            ],
+        },
+        "value": {
+            "op": "choose",
+            "when": _t2_eq(STATUS, STATUS, "adverse"),
+            "then": {"op": "ref", "name": STATEMENT_BORROWING},
+            "else": 0,
+        },
+        "publishes": P3B_LINK_REDUCTION,
+        "blocked": {"code": "DEPENDENCY_INVALID", "missing": []},
+    }
+
+
+def _coverage_rules() -> list[dict[str, Any]]:
+    status = next(rule for rule in _p3_rules() if rule["id"] == T2_STATUS_RULE)
+    return [status, _scenario_reduction(), _coverage()]
+
+
+def _status_surface_bundle() -> dict[str, Any]:
+    """Puts schooling status on the fact surface without a second coverage name.
+
+    The bundle also names the link type, so the coverage edge reaches it.
+    """
+    return {
+        "schema": "bundle.v2",
+        "id": "demo.bundle.statement-links",
+        "version": "v1",
+        "label": "Demo statement links",
+        "fact_types": [
+            {"schema": "fact-type.v2", "id": STATEMENT_BORROWING, "version": "v1"},
+            {"schema": "fact-type.v2", "id": STATUS, "version": "v1"},
+        ],
+    }
+
+
+def _assert_validated_coverage(rules: list[dict[str, Any]]) -> None:
+    """The coverage and reduction rules pass validate_package. The status rule does not."""
+    coverage = next(rule for rule in rules if rule["id"] == P3B_AMOUNT_RULE)
+    reduction = next(rule for rule in rules if rule["id"] == P3B_LINK_RULE)
+    result, _package = _validate([
+        (coverage, "computation"),
+        (reduction, "computation"),
+        (_parameter(), "parameter"),
+        (_fact_type(STATEMENT_BORROWING, "Demo statement to borrowing link"), "fact-type"),
+        (_status_surface_bundle(), "fact-type-bundle"),
+        (_citation(), "citation"),
+    ])
+    if not result.ok:
+        raise AssertionError(result.issues)
+
+
+def _coverage_execute(
+    findings: dict[str, dict[str, Any]],
+    *,
+    withdrawn: tuple[str, ...] = (),
+    rules: list[dict[str, Any]] | None = None,
+    statement: bool = True,
+) -> tuple[FindingState, CurrencyView, RunContext, _Run]:
+    """Hand-assembled run of validated coverage rules.
+
+    Calling code selects per-subject dispatch. That scheduling is not settled.
+    """
+    rules = list(rules) if rules is not None else _coverage_rules()
+    _assert_validated_coverage(rules)
+    state = FindingState(
+        findings=dict(findings),
+        fact_state=KernelState(fact_types=_t2_lattice()),
+        withdrawn_fact_ids=frozenset(withdrawn),
+    )
+    currency = compute_currency(state)
+    ctx = marshal_run_context(
+        run_id="demo.sli-a4-pass2-p3b-coverage",
+        state=state,
+        currency=currency,
+        rules=rules,
+        parameters={
+            T2_PARAM: {"id": T2_PARAM, "version": "v1", "values": "not-adverse"},
+            _parameter()["id"]: _parameter(),
+        },
+        canon={},
+        adoption_pin=ADOPTION_PIN,
+        governance_pins=GOVERNANCE_PINS,
+        fact_types=_p3_fact_types(),
+        input_bindings=[{
+            "symbol": ENROLMENT,
+            "fact_type": {"id": ENROLMENT, "version": "v1"},
+            "mode": "optional_default",
+        }],
+        collect_source_names=[FINANCING, ENROLMENT, BOX1, STATEMENT_BORROWING],
+    )
+    run = _Run(ctx, SCHEMAS)
+    by_id = {rule["id"]: rule for rule in rules}
+    run.evaluate_subject_scoped_rule(subject_type=FINANCING, rule=by_id[T2_STATUS_RULE])
+    run.evaluate_subject_scoped_rule(
+        subject_type=STATEMENT_BORROWING, rule=by_id[P3B_LINK_RULE]
+    )
+    if statement:
+        run.evaluate_subject_scoped_rule(subject_type=BOX1, rule=by_id[P3B_AMOUNT_RULE])
+    return state, currency, ctx, run
+
+
 class ReductionShapedRules(unittest.TestCase):
     """The link publishes the reduction. The statement subtracts the sum.
 
@@ -2685,11 +2809,12 @@ class ReductionShapedRules(unittest.TestCase):
         self.assertNotEqual(row["code"], "DEPENDENCY_INVALID")
 
 
-class ObservedUnresolvedLinkDefect(unittest.TestCase):
-    """The reduction-shaped rules, when a recorded link does not resolve.
+class UnresolvedLinkBlocksTheStatement(unittest.TestCase):
+    """A recorded link whose reduction never became a number blocks that statement.
 
-    Same rules as ``ReductionShapedRules``. A blocked reduction is not a
-    source. ``collect`` sums the reductions that published.
+    The coverage and reduction rules are validated v10 citizens. The run is
+    still hand-assembled: the test calls per-subject dispatch itself. The
+    status rule remains the v6 probe and is not in the validated package.
     """
 
     def setUp(self) -> None:
@@ -2703,26 +2828,30 @@ class ObservedUnresolvedLinkDefect(unittest.TestCase):
         )
         self.inst = _t2_financing_fact_id(P2_BORROWING_INST, PERIOD_AUTUMN)
         self.priv = _t2_financing_fact_id(P2_BORROWING_PRIV, PERIOD_SPRING)
-        link = next(rule for rule in _p3b_rules() if rule["id"] == P3B_LINK_RULE)
-        amount = next(rule for rule in _p3b_rules() if rule["id"] == P3B_AMOUNT_RULE)
-        choose = link["value"]
-        self.assertEqual(choose["op"], "choose")
-        self.assertEqual(choose["else"], 0)
+        rules = _coverage_rules()
+        link = next(rule for rule in rules if rule["id"] == P3B_LINK_RULE)
+        amount = next(rule for rule in rules if rule["id"] == P3B_AMOUNT_RULE)
+        self.assertEqual(link["schema"], "rule-artifact.v10")
+        self.assertEqual(link["requires"], [STATUS])
+        self.assertNotIn(STATEMENT_BORROWING, link["requires"])
+        self.assertEqual(link["value"]["else"], 0)
+        self.assertEqual(link["value"]["then"], {"op": "ref", "name": STATEMENT_BORROWING})
         self.assertEqual(amount["requires"], [BOX1])
         self.assertNotIn(P3B_LINK_REDUCTION, amount["requires"])
-        collected = amount["value"]["right"]["args"][0]
-        self.assertEqual(collected, {"op": "collect", "name": P3B_LINK_REDUCTION})
-        self.assertNotIn("source_set", collected)
+        node = amount["value"]["right"]
+        self.assertEqual(node["op"], "link_coverage")
+        self.assertEqual(node["links"], STATEMENT_BORROWING)
+        self.assertEqual(node["reductions"], P3B_LINK_REDUCTION)
+        self.assertNotIn("source_set", node)
+        _assert_validated_coverage(rules)
 
     def test_one_of_two_links_unresolved(self) -> None:
-        """Records a defect. One of North's two links has no financing claim.
+        """One of North's two links has no financing claim.
 
-        The institutional link and the private link both stay. Observed:
-        the institutional reduction blocks ``DEPENDENCY_ABSENT``, the
-        private reduction keeps the collection non-empty, and North
-        publishes 1500. The blocked reduction is not pinned. The
-        unresolved link is not in the statement's pins or pin walk.
-        Required instead: North blocks, naming the unresolved link.
+        Both links stay. The institutional reduction blocks and is not a
+        live source. North blocks ``DEPENDENCY_INVALID`` and ``missing``
+        is exactly that link's finding id. The private reduction is not
+        the whole reduction, and 1500 is not published.
         """
         intact = _p3_findings(corrected=False)
         missing = _p3_findings(corrected=False)
@@ -2731,8 +2860,8 @@ class ObservedUnresolvedLinkDefect(unittest.TestCase):
         self.assertIn(P3_LINK_PRIV, missing)
         self.assertNotIn(T2_FIN_INST, missing)
 
-        _intact_state, intact_currency, _intact_ctx, intact_run = _p3b_execute(intact)
-        state, currency, _ctx, run = _p3b_execute(missing)
+        _intact_state, intact_currency, _intact_ctx, intact_run = _coverage_execute(intact)
+        state, currency, _ctx, run = _coverage_execute(missing)
         self.assertEqual(intact_currency.displaced_finding_ids, frozenset())
         self.assertEqual(currency.displaced_finding_ids, frozenset())
         self.assertNotIn(T2_FIN_INST, state.findings)
@@ -2775,7 +2904,6 @@ class ObservedUnresolvedLinkDefect(unittest.TestCase):
         ))
 
         priv_reduction = _t2_finding(run, P3B_LINK_REDUCTION, self.link_priv)
-        priv_status = _t2_finding(run, STATUS, self.priv)
         self.assertEqual(priv_reduction["value"], "0")
         self.assertEqual(
             _t2_row(run, self.link_priv, P3B_LINK_REDUCTION)["disposition"],
@@ -2787,42 +2915,38 @@ class ObservedUnresolvedLinkDefect(unittest.TestCase):
         )
 
         intact_amount = _t2_finding(intact_run, STATEMENT_AMOUNT, self.north)
-        amount = _t2_finding(run, STATEMENT_AMOUNT, self.north)
         row = _t2_row(run, self.north, STATEMENT_AMOUNT)
         self.assertEqual(intact_amount["value"], "1500")
-        self.assertEqual(amount["value"], "1500")
-        self.assertEqual(amount["value"], intact_amount["value"])
-        self.assertEqual(row["disposition"], "published")
-        self.assertNotEqual(row["disposition"], "blocked")
-        self.assertEqual(
-            _input_ids(_pins(amount)),
-            {T2_BOX_NORTH, priv_reduction["id"]},
+        self.assertEqual(row["disposition"], "blocked")
+        self.assertEqual(row["code"], "DEPENDENCY_INVALID")
+        self.assertEqual(row["missing"], [P3_LINK_INST])
+        self.assertNotEqual(row["code"], "SOURCE_SET_UNCLOSED")
+        self.assertNotIn(P3B_LINK_REDUCTION, row["missing"])
+        self.assertNotIn(STATUS, row["missing"])
+        self.assertNotIn(P3_LINK_PRIV, row["missing"])
+        self.assertNotIn(priv_reduction["id"], row["missing"])
+        self.assertIn(P3_LINK_INST, _input_ids(_pins(row)))
+        self.assertNotIn(P3_LINK_PRIV, _input_ids(_pins(row)))
+        self.assertNotIn(priv_reduction["id"], _input_ids(_pins(row)))
+        self.assertNotIn(_parameter()["id"], {pin["id"] for pin in _pins(row)})
+        self.assertNotIn(
+            _t2_symbol(STATEMENT_AMOUNT, self.north),
+            {pub.finding["symbol"] for pub in run.publications},
         )
-        self.assertNotIn(P3_LINK_INST, _input_ids(_pins(amount)))
-        self.assertNotIn(P3_LINK_INST, _input_ids(_pins(row)))
-        self.assertNotEqual(
-            _input_ids(_pins(amount)),
-            _input_ids(_pins(intact_amount)),
+        self.assertNotEqual(row["disposition"], "published")
+        intact_inputs = _input_ids(_pins(intact_amount))
+        intact_inst = _t2_finding(intact_run, P3B_LINK_REDUCTION, self.link_inst)
+        intact_priv = _t2_finding(intact_run, P3B_LINK_REDUCTION, self.link_priv)
+        self.assertEqual(intact_inst["value"], "0")
+        self.assertEqual(intact_priv["value"], "0")
+        self.assertIn(P3_LINK_INST, intact_inputs)
+        self.assertIn(P3_LINK_PRIV, intact_inputs)
+        self.assertIn(intact_inst["id"], intact_inputs)
+        self.assertIn(intact_priv["id"], intact_inputs)
+        self.assertNotIn(
+            _parameter()["id"],
+            {pin["id"] for pin in _pins(intact_amount) if pin["role"] == "parameter"},
         )
-        self.assertIn(P3_LINK_INST, _input_ids(_pins(
-            _t2_finding(intact_run, P3B_LINK_REDUCTION, self.link_inst)
-        )))
-
-        walk = _t2_walk(run, amount)
-        intact_walk = _t2_walk(intact_run, intact_amount)
-        self.assertIn(T2_BOX_NORTH, walk)
-        self.assertIn(priv_reduction["id"], walk)
-        self.assertIn(P3_LINK_PRIV, walk)
-        self.assertIn(T2_FIN_PRIV, walk)
-        self.assertIn(priv_status["id"], walk)
-        self.assertNotIn(P3_LINK_INST, walk)
-        self.assertNotIn(T2_FIN_INST, walk)
-        self.assertIn(P3_LINK_INST, intact_walk)
-        self.assertIn(T2_FIN_INST, intact_walk)
-        south_reduction = _t2_finding(run, P3B_LINK_REDUCTION, self.link_south)
-        self.assertNotIn(south_reduction["id"], _input_ids(_pins(amount)))
-        self.assertNotIn(south_reduction["id"], walk)
-        self.assertNotIn(P3_LINK_SOUTH, walk)
 
         self.assertEqual(
             _t2_canonical(_t2_finding(intact_run, STATEMENT_AMOUNT, self.south)),
@@ -2837,17 +2961,13 @@ class ObservedUnresolvedLinkDefect(unittest.TestCase):
         )
 
     def test_only_recorded_link_unresolved(self) -> None:
-        """Records a defect. North's only recorded link is unresolved.
+        """North's only recorded link is uncovered.
 
-        The private link is absent in both runs, so North has one link.
-        The defect run also drops the institutional financing claim.
-        Observed: that reduction blocks ``DEPENDENCY_ABSENT``, and the
-        empty collection blocks ``SOURCE_SET_UNCLOSED`` — the same code
-        and missing list as West, which recorded no link. The statement
-        pins the box only. The unresolved link is not in the pins or the
-        pin walk, and no amount is published. Required instead: block
-        because the recorded link is unresolved, naming that link, and
-        never take a no-link default.
+        The private link is absent in both runs. The defect run also drops
+        the institutional financing claim. North blocks ``DEPENDENCY_INVALID``
+        naming that link. It does not block ``SOURCE_SET_UNCLOSED`` and it
+        does not take the no-link default. West, which recorded no link,
+        publishes its own default in the same run.
         """
         resolved_findings = _p3_findings(corrected=False)
         del resolved_findings[P3_LINK_PRIV]
@@ -2858,10 +2978,10 @@ class ObservedUnresolvedLinkDefect(unittest.TestCase):
         self.assertNotIn(P3_LINK_PRIV, unresolved_findings)
         self.assertNotIn(T2_FIN_INST, unresolved_findings)
 
-        _resolved_state, _resolved_currency, _resolved_ctx, resolved = _p3b_execute(
+        _resolved_state, _resolved_currency, _resolved_ctx, resolved = _coverage_execute(
             resolved_findings
         )
-        state, _currency, _ctx, run = _p3b_execute(unresolved_findings)
+        state, _currency, _ctx, run = _coverage_execute(unresolved_findings)
         self.assertEqual(
             _t2_finding(resolved, STATEMENT_AMOUNT, self.north)["value"], "1500"
         )
@@ -2895,27 +3015,33 @@ class ObservedUnresolvedLinkDefect(unittest.TestCase):
 
         row = _t2_row(run, self.north, STATEMENT_AMOUNT)
         self.assertEqual(row["disposition"], "blocked")
-        self.assertEqual(row["code"], "SOURCE_SET_UNCLOSED")
-        self.assertEqual(row["missing"], [P3B_LINK_REDUCTION])
-        self.assertNotIn(P3_LINK_INST, row["missing"])
+        self.assertEqual(row["code"], "DEPENDENCY_INVALID")
+        self.assertEqual(row["missing"], [P3_LINK_INST])
+        self.assertNotEqual(row["code"], "SOURCE_SET_UNCLOSED")
+        self.assertNotEqual(row["missing"], [P3B_LINK_REDUCTION])
         self.assertNotIn(self.link_inst, row["missing"])
-        self.assertNotEqual(row["code"], "DEPENDENCY_ABSENT")
+        self.assertNotIn(STATUS, row["missing"])
         self.assertNotEqual(row["disposition"], "published")
-        self.assertEqual(_input_ids(_pins(row)), {T2_BOX_NORTH})
-        self.assertNotIn(P3_LINK_INST, _input_ids(_pins(row)))
-        self.assertEqual(_t2_walk(run, row), {T2_BOX_NORTH})
-        self.assertNotIn(P3_LINK_INST, _t2_walk(run, row))
+        self.assertIn(P3_LINK_INST, _input_ids(_pins(row)))
+        self.assertIn(T2_BOX_NORTH, _input_ids(_pins(row)))
+        self.assertNotIn(_parameter()["id"], {pin["id"] for pin in _pins(row)})
         self.assertNotIn(
             _t2_symbol(STATEMENT_AMOUNT, self.north),
             {pub.finding["symbol"] for pub in run.publications},
         )
 
+        west_amount = _t2_finding(run, STATEMENT_AMOUNT, self.west)
         west = _t2_row(run, self.west, STATEMENT_AMOUNT)
-        self.assertEqual(west["disposition"], "blocked")
-        self.assertEqual(west["code"], row["code"])
-        self.assertEqual(west["missing"], row["missing"])
-        self.assertEqual(_input_ids(_pins(west)), {T2_BOX_WEST})
-        self.assertNotEqual(_input_ids(_pins(west)), _input_ids(_pins(row)))
+        self.assertEqual(west["disposition"], "published")
+        self.assertEqual(west_amount["value"], "400")
+        self.assertNotEqual(west.get("code"), row["code"])
+        self.assertNotIn("resolved_input", west_amount)
+        self.assertEqual(
+            {pin["id"] for pin in _pins(west_amount) if pin["role"] == "parameter"},
+            {_parameter()["id"]},
+        )
+        self.assertEqual(_input_ids(_pins(west_amount)), {T2_BOX_WEST})
+        self.assertFalse(any(pin["role"] == "package" for pin in _pins(west_amount)))
         self.assertFalse(any(
             source.name == STATEMENT_BORROWING
             and dict(source.keys or ()).get("statement") == STATEMENT_S3
@@ -2933,6 +3059,182 @@ class ObservedUnresolvedLinkDefect(unittest.TestCase):
         self.assertEqual(
             _t2_finding(run, STATEMENT_AMOUNT, self.south)["value"], "800"
         )
+
+
+class LinkCoverageStatementOutcomes(unittest.TestCase):
+    """The three outcomes on the same statements the probes already use.
+
+    Coverage and reduction rules pass ``validate_package``. The run is
+    hand-assembled. Nothing here is the durable reader.
+    """
+
+    def setUp(self) -> None:
+        self.north = _t2_box_fact_id(LENDER, STATEMENT_S1)
+        self.south = _t2_box_fact_id(P2_LENDER_SOUTH, STATEMENT_S2)
+        self.west = _t2_box_fact_id(T2_LENDER_WEST, STATEMENT_S3)
+        self.link_inst = _t2_link_fact_id(LENDER, STATEMENT_S1, P2_BORROWING_INST)
+        self.link_priv = _t2_link_fact_id(LENDER, STATEMENT_S1, P2_BORROWING_PRIV)
+        self.link_south = _t2_link_fact_id(
+            P2_LENDER_SOUTH, STATEMENT_S2, P2_BORROWING_PRIV
+        )
+
+    def test_all_links_resolved_subtracts_the_sum_and_pins_each(self) -> None:
+        _state, _currency, _ctx, run = _coverage_execute(_p3_findings(corrected=True))
+        inst = _t2_finding(run, P3B_LINK_REDUCTION, self.link_inst)
+        priv = _t2_finding(run, P3B_LINK_REDUCTION, self.link_priv)
+        self.assertEqual(inst["value"], "1000")
+        self.assertEqual(priv["value"], "0")
+        amount = _t2_finding(run, STATEMENT_AMOUNT, self.north)
+        self.assertEqual(amount["value"], "500")
+        self.assertEqual(_t2_row(run, self.north, STATEMENT_AMOUNT)["disposition"], "published")
+        inputs = _input_ids(_pins(amount))
+        self.assertIn(P3_LINK_INST, inputs)
+        self.assertIn(P3_LINK_PRIV, inputs)
+        self.assertIn(inst["id"], inputs)
+        self.assertIn(priv["id"], inputs)
+        self.assertIn(T2_BOX_NORTH, inputs)
+        self.assertFalse(any(pin["role"] == "parameter" for pin in _pins(amount)))
+        self.assertFalse(any(pin["role"] == "package" for pin in _pins(amount)))
+        self.assertNotIn("resolved_input", amount)
+
+    def test_inapplicable_reduction_blocks_naming_the_link(self) -> None:
+        rules = _coverage_rules()
+        link = next(rule for rule in rules if rule["id"] == P3B_LINK_RULE)
+        link["when"] = {"op": "compare", "cmp": "gt", "left": 0, "right": 1}
+        _state, _currency, _ctx, run = _coverage_execute(
+            _p3_findings(corrected=False), rules=rules
+        )
+        self.assertFalse(any(source.name == P3B_LINK_REDUCTION for source in run.live_sources))
+        row = _t2_row(run, self.north, STATEMENT_AMOUNT)
+        self.assertEqual(row["disposition"], "blocked")
+        self.assertEqual(row["code"], "DEPENDENCY_INVALID")
+        self.assertEqual(row["missing"], [P3_LINK_INST, P3_LINK_PRIV])
+        self.assertNotIn(STATUS, row["missing"])
+        self.assertNotIn(
+            _t2_symbol(STATEMENT_AMOUNT, self.north),
+            {pub.finding["symbol"] for pub in run.publications},
+        )
+        south = _t2_row(run, self.south, STATEMENT_AMOUNT)
+        self.assertEqual(south["missing"], [P3_LINK_SOUTH])
+        west = _t2_finding(run, STATEMENT_AMOUNT, self.west)
+        self.assertEqual(west["value"], "400")
+
+    def test_false_guard_does_not_publish_the_default_or_block_uncovered(self) -> None:
+        rules = _coverage_rules()
+        amount_rule = next(rule for rule in rules if rule["id"] == P3B_AMOUNT_RULE)
+        amount_rule["when"] = {"op": "compare", "cmp": "gt", "left": 0, "right": 1}
+        _state, _currency, _ctx, run = _coverage_execute(
+            _p3_findings(corrected=False), rules=rules
+        )
+        row = _t2_row(run, self.north, STATEMENT_AMOUNT)
+        self.assertEqual(row["disposition"], "inapplicable")
+        self.assertNotIn("code", row)
+        self.assertNotIn(
+            _t2_symbol(STATEMENT_AMOUNT, self.north),
+            {pub.finding["symbol"] for pub in run.publications},
+        )
+
+    def test_correction_pins_the_successor_link(self) -> None:
+        successor = "demo.finding.link.p3-inst-successor"
+        findings = _p3_findings(corrected=False)
+        findings[successor] = _finding(successor, findings[P3_LINK_INST]["fact_id"], 1000)
+        _base_state, _base_currency, _base_ctx, baseline = _coverage_execute(
+            _p3_findings(corrected=False)
+        )
+        state, currency, _ctx, run = _coverage_execute(findings)
+        self.assertIn(P3_LINK_INST, currency.displaced_finding_ids)
+        self.assertNotIn(successor, currency.displaced_finding_ids)
+        self.assertIn(P3_LINK_INST, state.findings)
+        self.assertFalse(any(source.finding_id == P3_LINK_INST for source in run.live_sources))
+        self.assertTrue(any(
+            source.name == STATEMENT_BORROWING and source.finding_id == successor
+            for source in run.live_sources
+        ))
+        amount = _t2_finding(run, STATEMENT_AMOUNT, self.north)
+        inputs = _input_ids(_pins(amount))
+        walk = _t2_walk(run, amount)
+        self.assertIn(successor, inputs)
+        self.assertIn(successor, walk)
+        self.assertNotIn(P3_LINK_INST, inputs)
+        self.assertNotIn(P3_LINK_INST, walk)
+        self.assertEqual(
+            _t2_canonical(_t2_finding(baseline, STATEMENT_AMOUNT, self.south)),
+            _t2_canonical(_t2_finding(run, STATEMENT_AMOUNT, self.south)),
+        )
+        self.assertEqual(
+            _t2_canonical(_t2_row(baseline, self.south, STATEMENT_AMOUNT)),
+            _t2_canonical(_t2_row(run, self.south, STATEMENT_AMOUNT)),
+        )
+
+    def test_withdrawal_takes_the_default(self) -> None:
+        findings = _p3_findings(corrected=False)
+        _base_state, _base_currency, _base_ctx, baseline = _coverage_execute(findings)
+        north_links = (
+            findings[P3_LINK_INST]["fact_id"],
+            findings[P3_LINK_PRIV]["fact_id"],
+        )
+        state, currency, _ctx, run = _coverage_execute(findings, withdrawn=north_links)
+        self.assertIn(P3_LINK_INST, currency.displaced_finding_ids)
+        self.assertIn(P3_LINK_PRIV, currency.displaced_finding_ids)
+        self.assertFalse(any(
+            source.finding_id in {P3_LINK_INST, P3_LINK_PRIV} for source in run.live_sources
+        ))
+        amount = _t2_finding(run, STATEMENT_AMOUNT, self.north)
+        self.assertEqual(amount["value"], "1500")
+        self.assertEqual(_t2_row(run, self.north, STATEMENT_AMOUNT)["disposition"], "published")
+        self.assertNotIn("resolved_input", amount)
+        self.assertEqual(
+            {pin["id"] for pin in _pins(amount) if pin["role"] == "parameter"},
+            {_parameter()["id"]},
+        )
+        inputs = _input_ids(_pins(amount))
+        self.assertEqual(inputs, {T2_BOX_NORTH})
+        self.assertNotIn(P3_LINK_INST, inputs)
+        self.assertNotIn(P3_LINK_PRIV, inputs)
+        self.assertFalse(any(pin["role"] == "package" for pin in _pins(amount)))
+        self.assertEqual(
+            _t2_canonical(_t2_finding(baseline, STATEMENT_AMOUNT, self.south)),
+            _t2_canonical(_t2_finding(run, STATEMENT_AMOUNT, self.south)),
+        )
+        self.assertEqual(
+            _t2_canonical(_t2_row(baseline, self.south, STATEMENT_AMOUNT)),
+            _t2_canonical(_t2_row(run, self.south, STATEMENT_AMOUNT)),
+        )
+
+    def test_orphan_reduction_still_joined_blocks_naming_the_reduction(self) -> None:
+        """Observed when a reduction survives the link in the same run.
+
+        The statement blocks ``DEPENDENCY_INVALID`` and ``missing`` is the
+        reduction finding ids. The default is not published. The block is
+        not reported as a missing displacement edge.
+        """
+        _state, _currency, _ctx, run = _coverage_execute(
+            _p3_findings(corrected=False), statement=False
+        )
+        inst = _t2_finding(run, P3B_LINK_REDUCTION, self.link_inst)
+        priv = _t2_finding(run, P3B_LINK_REDUCTION, self.link_priv)
+        run.live_sources = [
+            source for source in run.live_sources
+            if not (
+                source.name == STATEMENT_BORROWING
+                and source.fact_id in {self.link_inst, self.link_priv}
+            )
+        ]
+        rule = next(rule for rule in _coverage_rules() if rule["id"] == P3B_AMOUNT_RULE)
+        run.evaluate_subject_scoped_rule(subject_type=BOX1, rule=rule)
+        row = _t2_row(run, self.north, STATEMENT_AMOUNT)
+        self.assertEqual(row["disposition"], "blocked")
+        self.assertEqual(row["code"], "DEPENDENCY_INVALID")
+        self.assertEqual(row["missing"], sorted([inst["id"], priv["id"]]))
+        self.assertNotIn(P3_LINK_INST, row["missing"])
+        self.assertNotIn(
+            _t2_symbol(STATEMENT_AMOUNT, self.north),
+            {pub.finding["symbol"] for pub in run.publications},
+        )
+        south = _t2_finding(run, STATEMENT_AMOUNT, self.south)
+        self.assertEqual(south["value"], "800")
+        west = _t2_finding(run, STATEMENT_AMOUNT, self.west)
+        self.assertEqual(west["value"], "400")
 
 
 class ObservedMechanismLimits(unittest.TestCase):

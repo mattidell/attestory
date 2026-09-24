@@ -5,9 +5,9 @@
   "topic": "student-loan-circumstance-association",
   "active_plan": "docs/phases/tax-concept-derivation/milestones/student-loan-circumstance-association.md",
   "milestone_state": "track-3",
-  "status": "TRACK 3 STAGE B2 OPEN. Track 3 stage A contract accepted; stage B1 complete (ADR 0075 proposed, rule-artifact.v10, artifact-package.v31, validation, admission). Stage B2 builds the runtime (link_coverage arm, per-subject slot and sentinel, authorization closure) and flips the P3 defect tests. G2 (producer) not reached; P4 still owed.",
-  "current_role": "Track 3 stage B2 Builder (coverage runtime)",
-  "current_prompt": "docs/phases/tax-concept-derivation/milestones/student-loan-circumstance-association-evidence/charter-track3b2-coverage-runtime.md"
+  "status": "A4 PASS 2 AT P4. Tracks 1-3 built: per-subject dispatch, keyed same-run sources, and the coverage-checked collection (ADR 0075 proposed; rule-artifact.v10, artifact-package.v31). P2 and P3 complete -- a corrected circumstance reaches the right statements, partial reduction runs, no link takes the declared default, and any uncovered link blocks naming it; runs still hand-assembled. Next: P4, the durable reader. G2 (producer) not reached; scheduling of per-subject rules open.",
+  "current_role": "Foreman (A4 second pass: charter probe P4, the durable reader)",
+  "current_prompt": "docs/phases/tax-concept-derivation/milestones/student-loan-circumstance-association.md#A4's second pass — the probes, in order"
 }
 -->
 
