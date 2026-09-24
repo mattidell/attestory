@@ -5,8 +5,8 @@
   "topic": "student-loan-circumstance-association",
   "active_plan": "docs/phases/tax-concept-derivation/milestones/student-loan-circumstance-association.md",
   "milestone_state": "track-3",
-  "status": "A4 PASS 2 COMPLETE, WITH TWO REQUIRED REPAIRS AND AN OWNER CHOICE. Tracks 1-3 built. P1-P3 run (hand-assembled). P4: the durable record carries identities joinable across rows and distinguishes the failure shapes without a new code; the presentation reaches only box 1 and an error code -- the reader carrier stays owed (A6). Repairs required: a per-subject declared default pins an unpublished finding (dangling pin); an unjoinable link type takes the default. ADR 0075 repaired and under review; owner chooses name confinement A or B. G2 (producer) not reached.",
-  "current_role": "Foreman (after A4 pass 2: owner choice on ADR 0075 confinement; repairs to charter)",
+  "status": "A4 PASS 2 COMPLETE; CONTINUING (owner: no partial milestone). Tracks 1-3 built; P1-P4 run. P4: the record carries identities joinably; the presentation reaches only box 1 and an error code -- reader carrier owed (A6). Dangling default pin repaired. Owner chose option B for ADR 0075 (reusable admission of the link names, confinement dropped); ADR under independent review; the joinability repair and the B admission change follow. Then A6's reader carrier and G2's scheduling/binding. G2 (producer) not reached.",
+  "current_role": "Foreman (ADR 0075 review in flight; charter the option-B admission change and joinability repair)",
   "current_prompt": "docs/phases/tax-concept-derivation/milestones/student-loan-circumstance-association.md#A4's second pass — the probes, in order"
 }
 -->

@@ -119,10 +119,11 @@ The owner chooses between:
   `collect`s the link type would then see its rows, which is what a reader of
   those facts needs.
 
-**Foreman's recommendation: B**, because this ADR is a general grammar contract and
-A ratifies a restriction whose only reason is an implementation shortcut. A is
-acceptable if the owner prefers to defer the admission change until a consumer
-exists.
+**The owner chose B (2026-09-24).** This ADR is a general grammar contract, and A
+would have ratified a restriction whose only reason is an implementation shortcut.
+The admission change, the contract amendment and the removal of
+`LINK_COVERAGE_NAME_REUSED` follow as a bounded track; this record stays
+`proposed` until that change and this wording are independently reviewed.
 
 ## Consequences
 
@@ -156,7 +157,7 @@ need. The operator is selected.
 - Whether an uncovered link needs its own record code (P4).
 - How a production run schedules rules onto per-subject dispatch, and how G2
   proves the statement binding (G2).
-- Confinement A or B (the owner's choice above).
+- ~~Confinement A or B~~ — decided: **B** (owner, 2026-09-24).
 
 ## Links
 

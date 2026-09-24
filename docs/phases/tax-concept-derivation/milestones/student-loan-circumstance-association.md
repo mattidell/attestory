@@ -3,7 +3,7 @@
   "version": 1,
   "phase": "Tax Concept Derivation",
   "topic": "student-loan-circumstance-association",
-  "status": "A4 PASS 2 COMPLETE, WITH TWO REQUIRED REPAIRS AND AN OWNER CHOICE. Tracks 1-3 built. P1-P3 run (hand-assembled). P4: the durable record carries identities joinable across rows and distinguishes the failure shapes without a new code; the presentation reaches only box 1 and an error code -- the reader carrier stays owed (A6). Repairs required: a per-subject declared default pins an unpublished finding (dangling pin); an unjoinable link type takes the default. ADR 0075 repaired and under review; owner chooses name confinement A or B. G2 (producer) not reached.",
+  "status": "A4 PASS 2 COMPLETE; CONTINUING (owner: no partial milestone). Tracks 1-3 built; P1-P4 run. P4: the record carries identities joinably; the presentation reaches only box 1 and an error code -- reader carrier owed (A6). Dangling default pin repaired. Owner chose option B for ADR 0075 (reusable admission of the link names, confinement dropped); ADR under independent review; the joinability repair and the B admission change follow. Then A6's reader carrier and G2's scheduling/binding. G2 (producer) not reached.",
   "scope": [
     "record and recover ordinary schooling circumstances and their explicit connection to identified student-loan interest",
     "preserve document evidence, source-independent subjects, attribution, and relationship lifecycle",
@@ -1450,6 +1450,8 @@ A1–A3 are the work it skipped.
 
 | Decision | Owner | Needed by | Status |
 | --- | --- | --- | --- |
+| ADR 0075 name confinement — A: keep as a bounded v10 limitation; B: admit the operator's names through a channel marshal does not consult for scalar binding, and drop confinement | Owner | Before ratifying ADR 0075 | **Decided 2026-09-24: B** |
+| Whether to close with a partial result after A4's second pass | Owner | After P4 | **Decided 2026-09-24: no** — continue to A6's reader carrier and G2's scheduling and binding |
 | How to distinguish a statement with no link from one with an unresolved link — A: a coverage-checked collection declared in content; B: make blocked outcomes visible to later rules; C: narrow the consumer | Owner | Before Track 3 | **Decided 2026-09-23: A's behaviour**; contract to be specified and reviewed before implementation; inapplicable or blocked reductions are uncovered |
 | How a statement with no recorded borrowing link publishes — A: a declared default (Track 3); B: the existing worksheet path; C: a closed source set per statement | Owner | Before P4 | **Decided 2026-09-23: A**, as a calculation posture, not a claim that the links are complete. Before Track 3: tests for an unresolved link, and the content-declared contract investigated |
 | How to reach a Form 1098-E statement after P2 — A: keyed same-run sources; B: multi-hop joins; C: stop at the borrowing grain | Owner | Before P3 | **Decided 2026-09-23: A, as a bounded test.** Track 2 |
