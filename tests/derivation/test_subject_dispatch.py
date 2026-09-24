@@ -891,5 +891,195 @@ class SameRunSourceKeys(unittest.TestCase):
         self.assertNotIn("keys", paired_finding)
 
 
+def _open_circumstance_run(
+    findings: dict[str, dict[str, Any]],
+    *,
+    periods: tuple[str, ...],
+) -> tuple[RunContext, _Run, dict[str, Any]]:
+    """A financing run with a circumstance default, before dispatch."""
+    lattice = {
+        FINANCING: _literal_type(FINANCING, (
+            ("borrowing", (BORROWING,)),
+            ("period", periods),
+            ("institution", (INSTITUTION,)),
+            ("programme", (PROGRAMME,)),
+        )),
+        CIRCUMSTANCE: _literal_type(CIRCUMSTANCE, (
+            ("student", (STUDENT,)),
+            ("period", periods),
+        )),
+    }
+    rule = _rule(
+        requires=[FINANCING, CIRCUMSTANCE],
+        when=_all(
+            _eq(FINANCING, FINANCING, "tuition"),
+            _eq(CIRCUMSTANCE, CIRCUMSTANCE, "not-adverse"),
+        ),
+    )
+    ctx = marshal_run_context(
+        run_id="demo.subject-dispatch",
+        state=_State(findings, lattice),  # type: ignore[arg-type]
+        currency=_currency(list(findings)),
+        rules=[rule],
+        parameters={PARAM_ID: {"id": PARAM_ID, "version": "v1", "values": "not-adverse"}},
+        canon={},
+        adoption_pin=ADOPTION_PIN,
+        governance_pins=GOVERNANCE_PINS,
+        fact_types=[
+            _run_fact(FINANCING, ["tuition"]),
+            _run_fact(CIRCUMSTANCE, ["adverse", "not-adverse"], default=True),
+        ],
+        input_bindings=[{
+            "symbol": CIRCUMSTANCE,
+            "fact_type": {"id": CIRCUMSTANCE, "version": "v1"},
+            "mode": "optional_default",
+        }],
+        collect_source_names=[FINANCING, CIRCUMSTANCE],
+    )
+    return ctx, _Run(ctx, SCHEMAS), rule
+
+
+def _recorded_defaults(run: _Run, default_id: str) -> list[Any]:
+    return [pub for pub in run.publications if pub.finding["id"] == default_id]
+
+
+class DeclaredDefaultRecording(unittest.TestCase):
+    """A per-subject declared default is recorded once per content id."""
+
+    def _assert_init_shape(self, run: _Run, ctx: RunContext, default_id: str) -> None:
+        recorded = _recorded_defaults(run, default_id)
+        self.assertEqual(len(recorded), 1)
+        publication = recorded[0]
+        finding = publication.finding
+        self.assertIs(publication.act["finding"], finding)
+        self.assertEqual(publication.act["run_id"], ctx.run_id)
+        self.assertEqual(finding["schema"], "derived-finding.v2")
+        self.assertEqual(finding["id"], default_id)
+        self.assertEqual(finding["symbol"], CIRCUMSTANCE)
+        self.assertEqual(finding["version"], "v2")
+        self.assertEqual(finding["value"], "not-adverse")
+        self.assertEqual(
+            finding["resolved_input"],
+            {"fact_id": CIRCUMSTANCE, "origin": "declared_default"},
+        )
+        self.assertEqual(
+            [(pin["role"], pin["id"], pin["version"]) for pin in finding["pins"]],
+            [
+                (ADOPTION_PIN["role"], ADOPTION_PIN["id"], ADOPTION_PIN["version"]),
+                (GOVERNANCE_PINS[0]["role"], GOVERNANCE_PINS[0]["id"], GOVERNANCE_PINS[0]["version"]),
+                ("parameter", PARAM_ID, "v1"),
+            ],
+        )
+        self.assertTrue(all("origin" not in pin for pin in finding["pins"]))
+        self.assertFalse(any(row.get("finding_id") == default_id for row in run.dispositions))
+        self.assertFalse(any(row.get("symbol") == CIRCUMSTANCE for row in run.dispositions))
+        SCHEMAS.validate_declared(finding)
+
+    def test_a_bound_symbol_records_one_default_for_every_subject_that_takes_it(self) -> None:
+        """The circumstance symbol is bound on spring. Autumn takes the default.
+
+        Summer takes that same default. The pinned id is recorded once, and
+        the second subject adds nothing. Init had not published it.
+        """
+        spring_fact = _circumstance_fact_id(PERIOD_SPRING)
+        periods = (PERIOD_AUTUMN, PERIOD_SPRING)
+        both = periods + (PERIOD_SUMMER,)
+        shared = {
+            AUTUMN_FINDING: _finding(
+                AUTUMN_FINDING, _financing_fact_id(PERIOD_AUTUMN), "tuition"
+            ),
+            SPRING_FINDING: _finding(
+                SPRING_FINDING, _financing_fact_id(PERIOD_SPRING), "tuition"
+            ),
+            CIRCUMSTANCE_FINDING: _finding(CIRCUMSTANCE_FINDING, spring_fact, "adverse"),
+        }
+        one_ctx, one_run, one_rule = _open_circumstance_run(dict(shared), periods=periods)
+        two_findings = dict(shared)
+        two_findings[SUMMER_FINDING] = _finding(
+            SUMMER_FINDING, _financing_fact_id(PERIOD_SUMMER), "tuition"
+        )
+        two_ctx, two_run, two_rule = _open_circumstance_run(two_findings, periods=both)
+        one_id = _default_finding_id(one_ctx)
+        two_id = _default_finding_id(two_ctx)
+        self.assertEqual(one_id, two_id)
+        self.assertEqual(
+            [item.finding_id for item in one_ctx.inputs if item.symbol == CIRCUMSTANCE],
+            [CIRCUMSTANCE_FINDING],
+        )
+        self.assertEqual(_recorded_defaults(one_run, one_id), [])
+        self.assertEqual(_recorded_defaults(two_run, two_id), [])
+
+        one_run.evaluate_subject_scoped_rule(subject_type=FINANCING, rule=one_rule)
+        two_run.evaluate_subject_scoped_rule(subject_type=FINANCING, rule=two_rule)
+
+        self._assert_init_shape(one_run, one_ctx, one_id)
+        self._assert_init_shape(two_run, two_ctx, two_id)
+        autumn = _financing_fact_id(PERIOD_AUTUMN)
+        summer = _financing_fact_id(PERIOD_SUMMER)
+        spring = _financing_fact_id(PERIOD_SPRING)
+        for run in (one_run, two_run):
+            published = _publication(run, _symbol(autumn))
+            self.assertEqual(published["value"], FAVOURABLE)
+            self.assertEqual(_origins(published["pins"])[one_id], "declared_default")
+            self.assertNotIn(CIRCUMSTANCE_FINDING, _ids(published["pins"], "input"))
+            withheld = _row(run, "inapplicable", _symbol(spring))
+            self.assertNotIn(one_id, _ids(withheld["pins"], "input"))
+            self.assertEqual(
+                _origins(withheld["pins"])[CIRCUMSTANCE_FINDING], "assertion"
+            )
+        second = _publication(two_run, _symbol(summer))
+        self.assertEqual(second["value"], FAVOURABLE)
+        self.assertEqual(_origins(second["pins"])[two_id], "declared_default")
+        self.assertNotIn(CIRCUMSTANCE_FINDING, _ids(second["pins"], "input"))
+        self.assertEqual(len(_recorded_defaults(one_run, one_id)), 1)
+        self.assertEqual(len(_recorded_defaults(two_run, two_id)), 1)
+
+    def test_an_init_published_default_is_not_recorded_again(self) -> None:
+        """No circumstance input. Init already recorded the default.
+
+        An unjoined circumstance source makes both subjects take that
+        default through dispatch. The second subject adds nothing, and
+        neither replaces the finding init published.
+        """
+        periods = (PERIOD_AUTUMN, PERIOD_SPRING)
+        findings = {
+            AUTUMN_FINDING: _finding(
+                AUTUMN_FINDING, _financing_fact_id(PERIOD_AUTUMN), "tuition"
+            ),
+            SPRING_FINDING: _finding(
+                SPRING_FINDING, _financing_fact_id(PERIOD_SPRING), "tuition"
+            ),
+        }
+        ctx, run, rule = _open_circumstance_run(findings, periods=periods)
+        default_id = _default_finding_id(ctx)
+        self.assertEqual(
+            [item.finding_id for item in ctx.inputs if item.symbol == CIRCUMSTANCE],
+            [],
+        )
+        before = _recorded_defaults(run, default_id)
+        self.assertEqual(len(before), 1)
+        self._assert_init_shape(run, ctx, default_id)
+        run.live_sources.append(SourceFact(
+            name=CIRCUMSTANCE,
+            value="adverse",
+            finding_id="demo.finding.circumstance.unjoined",
+            fact_id="demo.fact.circumstance.unjoined",
+            keys=(("student", STUDENT), ("period", PERIOD_SUMMER)),
+        ))
+        run.evaluate_subject_scoped_rule(subject_type=FINANCING, rule=rule)
+        after = _recorded_defaults(run, default_id)
+        self.assertEqual(after, before)
+        self.assertIs(after[0], before[0])
+        self._assert_init_shape(run, ctx, default_id)
+        for period in periods:
+            published = _publication(run, _symbol(_financing_fact_id(period)))
+            self.assertEqual(published["value"], FAVOURABLE)
+            self.assertEqual(_origins(published["pins"])[default_id], "declared_default")
+            self.assertNotIn(
+                "demo.finding.circumstance.unjoined",
+                _ids(published["pins"], "input"),
+            )
+
+
 if __name__ == "__main__":
     unittest.main()

@@ -384,7 +384,10 @@ default (`subject_dispatch._optional_default`) pins a content-addressed default 
 publishes that finding. When the run-level default is not published — because the symbol is bound
 elsewhere in the run — the pin dangles, and `build_presentation_model` refuses the run
 (`citation lineage references unrecorded finding`). Provenance integrity requires every pinned
-finding to be recorded. **Required repair**, not yet made.
+finding to be recorded. **Repaired (2026-09-24):** per-subject dispatch returns each default finding it
+pins, once per content id, and the runner records it in the same shape the init path uses, with no
+disposition row; the two-link presentation now builds (`test_subject_dispatch.py`, the flipped
+`DurableReaderCoveredReduction` test).
 
 **Integration gap.** Per-subject publications carry keyed symbols (`publishes|fact_id`); the projector
 joins a form field to its owning rule by the rule's unkeyed `publishes`, so a per-subject result cannot

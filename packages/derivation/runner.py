@@ -1908,6 +1908,18 @@ class _Run:
             rule=rule,
             run=self,
         )
+        # Init records this finding only when the symbol is unbound. A
+        # subject can still pin it. One derived-finding.v2 per content id,
+        # validated, and no disposition row — the same shape init uses.
+        recorded = {pub.finding.get("id") for pub in self.publications}
+        for finding in result.declared_defaults:
+            finding_id = finding["id"]
+            if finding_id in recorded:
+                continue
+            self.schemas.validate_declared(finding)
+            act = {"run_id": self.ctx.run_id, "finding": finding}
+            self.publications.append(Publication(act=act, finding=finding))
+            recorded.add(finding_id)
         rule_id = str(rule["id"])
         for finding, subject_keys in zip(
             result.publications, result.publication_subject_keys, strict=True

@@ -3865,9 +3865,9 @@ class DurableReaderNoLinkDefault(unittest.TestCase):
 class DurableReaderCoveredReduction(unittest.TestCase):
     """Box 1 minus both reductions, after the enrolment correction.
 
-    The private status pins a declared-default id that this run never
-    publishes and never stores. The one-link chain below drops that hop
-    so the walk can finish.
+    The private status pins a declared default. That finding is recorded
+    once, so the two-link walk can finish. The one-link chain below has
+    no default hop.
     """
 
     def setUp(self) -> None:
@@ -3881,9 +3881,12 @@ class DurableReaderCoveredReduction(unittest.TestCase):
     def test_the_chain_is_a_join_and_the_two_link_walk_is_rejected(self) -> None:
         """Record: amount, reduction, status, corrected enrolment, by pin id.
 
-        No values. Presentation of that same run raises on the unpublished
-        default id. A chain whose leaves are all recorded flattens to those
-        leaves and does not emit the status or the reduction.
+        No values. Presentation of that same run used to refuse: the private
+        status pinned a declared-default id that was not a recorded finding.
+        That refusal was a defect, now repaired. The field's citation sites
+        are the recorded leaves, and the default id is a recorded finding.
+        A chain whose leaves are all recorded flattens to those leaves and
+        does not emit the status or the reduction.
         """
         from packages.derivation.presentation_projection import PresentationModelError
 
@@ -3952,14 +3955,50 @@ class DurableReaderCoveredReduction(unittest.TestCase):
             pin["id"] for pin in _pins(priv_status_row) if pin.get("origin") == "declared_default"
         )
         self.assertNotIn(default_id, state.findings)
-        self.assertNotIn(default_id, {pub.finding["id"] for pub in run.publications})
+        recorded = [pub.finding for pub in run.publications if pub.finding["id"] == default_id]
+        self.assertEqual(len(recorded), 1)
+        self.assertEqual(recorded[0]["schema"], "derived-finding.v2")
+        self.assertEqual(recorded[0]["symbol"], ENROLMENT)
+        self.assertEqual(recorded[0]["value"], "not-adverse")
+        self.assertEqual(
+            recorded[0]["resolved_input"],
+            {"fact_id": ENROLMENT, "origin": "declared_default"},
+        )
+        self.assertFalse(any(row.get("finding_id") == default_id for row in record["dispositions"]))
         self.assertTrue(all("value" not in row for row in record["dispositions"]))
 
-        for join in (False, True):
-            with self.assertRaises(PresentationModelError) as rejected:
-                _p4_present(run, state, self.keyed, join=join)
-            self.assertIn(default_id, str(rejected.exception))
-            self.assertIn("unrecorded finding", str(rejected.exception))
+        with self.assertRaises(PresentationModelError) as unjoined:
+            _p4_present(run, state, self.keyed, join=False)
+        self.assertIn("lacks a joined owning rule", str(unjoined.exception))
+
+        model = _p4_present(run, state, self.keyed, join=True)
+        section = model["sections"][0]
+        self.assertEqual(section["resolved"]["disposition"], "published_value")
+        self.assertEqual(section["resolved"]["value"], 500)
+        citation_ids = {site["pinId"] for site in section["citationSites"]}
+        self.assertEqual(
+            citation_ids,
+            {
+                T2_BOX_NORTH,
+                P3_LINK_INST,
+                P3_LINK_PRIV,
+                T2_FIN_INST,
+                T2_FIN_PRIV,
+                T2_ENROL_LATER,
+            },
+        )
+        self.assertNotIn(default_id, citation_ids)
+        self.assertNotIn(T2_ENROL_EARLIER, citation_ids)
+        self.assertIn(default_id, {pub.finding["id"] for pub in run.publications})
+        top_pins = section["resolved"]["act"]["finding"]["pins"]
+        self.assertIn(inst_reduction["id"], {pin["id"] for pin in top_pins})
+        self.assertIn(priv_reduction["id"], {pin["id"] for pin in top_pins})
+        blob = json.dumps(model)
+        self.assertNotIn(inst_status["id"], blob)
+        self.assertNotIn(priv_status["id"], blob)
+        self.assertNotIn(default_id, blob)
+        self.assertNotIn(STATUS, blob)
+        self.assertNotIn(P3B_LINK_REDUCTION, blob)
 
         one_link = _p3_findings(corrected=True)
         del one_link[P3_LINK_PRIV]

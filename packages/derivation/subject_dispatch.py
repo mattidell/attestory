@@ -13,7 +13,8 @@ subject is not joined. Missing keys fail closed.
 
 Where a required type has no joined source and the run declares an
 ``optional_default`` for its symbol, that subject alone takes the declared
-default, pinned with ``origin: declared_default``.
+default, pinned with ``origin: declared_default``. The finding that pin
+names is returned once per content id so the runner can record it.
 """
 
 from __future__ import annotations
@@ -70,6 +71,9 @@ class SubjectScopedResult:
     # keys at dispatch time. Not a field of the derived finding, and not
     # recovered from its rendered symbol.
     publication_subject_keys: tuple[tuple[tuple[str, str], ...] | None, ...]
+    # One derived-finding.v2 per content id this dispatch pinned as a
+    # declared default. Not a subject publication and not a disposition.
+    declared_defaults: tuple[dict[str, Any], ...]
 
 
 def _decode(raw: Any) -> Any:
@@ -140,12 +144,13 @@ def _fact_type_of(run: _Run, symbol: str) -> str:
 
 def _optional_default(
     run: _Run, symbol: str
-) -> tuple[Any, tuple[str, str, str, str | None]] | None:
-    """The ordinary manufactured default for one unbound symbol, or None.
+) -> tuple[Any, tuple[str, str, str, str | None], dict[str, Any]] | None:
+    """The manufactured default for one symbol, or None.
 
-    The finding id is the same content id ``_Run`` mints when an
-    ``optional_default`` binding fills a symbol: adoption, governance, and
-    the declared parameter, hashed with ``resolved_input``.
+    The finding id is the content id ``_Run`` mints for an
+    ``optional_default`` binding: adoption, governance, and the declared
+    parameter, hashed with ``resolved_input``. The finding is that same
+    ``derived-finding.v2``. The caller records it.
     """
     binding: Mapping[str, Any] | None = None
     for candidate in run.ctx.input_bindings:
@@ -186,7 +191,16 @@ def _optional_default(
         "resolved_input": {"fact_id": fact_type_id, "origin": "declared_default"},
     }
     finding_id = _content_id("finding:derived:", body)
-    return param_val, (finding_id, "v2", "input", "declared_default")
+    finding = {
+        "schema": "derived-finding.v2",
+        "id": finding_id,
+        "symbol": symbol,
+        "value": body["value"],
+        "version": "v2",
+        "pins": pins,
+        "resolved_input": body["resolved_input"],
+    }
+    return param_val, (finding_id, "v2", "input", "declared_default"), finding
 
 
 def _declared_link_coverage_names(expr: Any) -> list[str]:
@@ -341,6 +355,7 @@ def evaluate_subject_scoped_rule(
     )
     publications: list[dict[str, Any]] = []
     publication_keys: list[tuple[tuple[str, str], ...] | None] = []
+    declared_defaults: dict[str, dict[str, Any]] = {}
     inapplicable: list[SubjectInapplicable] = []
     blocked: list[SubjectBlocked] = []
     required = _requires(rule)
@@ -380,10 +395,11 @@ def evaluate_subject_scoped_rule(
                     if default is None:
                         absent.append(req)
                         continue
-                    value, pin = default
+                    value, pin, finding = default
                     local_symbols[req] = value
                     symbol_pin[req] = pin
                     fact_types[req] = _fact_type_of(run, req)
+                    declared_defaults.setdefault(finding["id"], finding)
                     continue
                 chosen = _one_source(matched)
                 if chosen is None:
@@ -402,10 +418,11 @@ def evaluate_subject_scoped_rule(
             if default is None:
                 absent.append(req)
                 continue
-            value, pin = default
+            value, pin, finding = default
             local_symbols[req] = value
             symbol_pin[req] = pin
             fact_types[req] = _fact_type_of(run, req)
+            declared_defaults.setdefault(finding["id"], finding)
 
         maps = _local_maps(run, subject_type, subject, scoped)
         # Both declared names, on every subject. Empty is a join that
@@ -491,4 +508,5 @@ def evaluate_subject_scoped_rule(
         inapplicable=tuple(inapplicable),
         blocked=tuple(blocked),
         publication_subject_keys=tuple(publication_keys),
+        declared_defaults=tuple(declared_defaults.values()),
     )
