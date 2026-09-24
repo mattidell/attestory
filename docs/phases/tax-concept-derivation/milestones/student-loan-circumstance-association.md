@@ -1261,7 +1261,8 @@ pin on the rule (`rule-artifact.v11`, `artifact-package.v32`), intercepted in `a
 shared key name) rather than a wider run context. *Reader carrier:* recommended projection into the
 presentation model — keyed rows joined to the field as groups, intermediates kept, `missing` copied onto
 a blocked line, responsibility rows found by walking back from the chain — with no new derivation-record
-version; the citation-walk page must render it. Wording and the case-2 statement-scoped responsibility
+version; the citation-walk page must render it *(superseded 2026-09-24 by owner choice B: an experimental
+reader surface renders it; the product page is unchanged until worksheet integration)*. Wording and the case-2 statement-scoped responsibility
 rule remain open. Owner decisions pending.
 
 ## A5 in detail — choosing how to represent it

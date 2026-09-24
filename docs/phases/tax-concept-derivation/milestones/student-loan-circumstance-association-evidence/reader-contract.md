@@ -228,9 +228,19 @@ contract requires the projector to use them, and records "not recorded" honestly
 
 ## 5. The page
 
-The page is `packages/presentation/pages/citation-walk.v1.html`. The walk change is also applied to `tools/presentation_harness/examples/pages/citation-walk.v1.html`, because the product page says a change to the walk belongs in both. The evaluation copy keeps its synthetic declaration. It is not the page this contract's test loads. `live_session` keeps refusing that copy.
+**The product page is unchanged.** `packages/presentation/pages/citation-walk.v1.html` and its evaluation copy
+are not edited by this contract. The product page reads only `MODEL.sections`, `citationGroups`, `pinLabels`,
+`attachments`, and `diagnostics`, so a model that carries `calculationView` renders on it exactly as before,
+with no view. `live_session` serves only that fixed path (`PAGE_RELATIVE_PATH`), so a person on the real
+return never sees the view.
 
-`renderLine` stays the one render path for line 21: the worksheet amount or the block, the field's own `explain`, the leaf citation buttons, the field citation. Line 21 gains no statement rows and no new sentence. Other lines are unchanged. Nothing is added to the page header.
+**The experimental surface** is a new page beside the evaluation copy,
+`tools/presentation_harness/examples/pages/statement-calculation.experimental.v1.html` (name proposed). It
+reads its model from `__FIXTURE_JSON__`, which the harness server already splices, so no server change. It
+declares itself synthetic with the marker `live_session` refuses on (`synthetic demo-*`), so it cannot be
+served live even if the path constant were pointed at it. It shows line 21's section read-only from the same
+model (the worksheet amount or the block, no statement rows, no new sentence) and, separately, the calculation
+view.
 
 **Where the view is shown: the owner chose B (experimental reader surface only)** (see "Owner choice: where
 the unintegrated calculation is shown" below). Whichever surface is chosen: the view is not inside line 21's
@@ -508,8 +518,9 @@ The test does all of the following.
 1. Run the bare-statement case, the nine-credit case, the financing-claim case, an uncovered link, and a no-link parameter through the real writers. The live path already writes `outputs/<stem>.presentation.json` from `build_presentation_model` before it returns. The runs are hand-assembled. They are not a production schedule, and the test says so.
 2. Discard the run result, the publications, the dispositions, and any in-memory model. The rest of the test may hold the path of the presentation file and nothing else from the run.
 3. Read that file back from disk. `validate_presentation_model` on the reloaded JSON is allowed. It is not the page proof.
-4. Load the product page. Read `packages/presentation/pages/citation-walk.v1.html`. Replace `__MODEL_JSON__` with the file bytes, which is the splice `live_session` performs (`const MODEL = Object.freeze(__MODEL_JSON__);`). Serve that one document on the harness loopback and open it in a fresh Chrome target, the way `tools/presentation_harness/lib/executor.mjs` loads a candidate.
-5. The harness server today splices only `__FIXTURE_JSON__`, and only into the evaluation page. The test must splice the product page's token. The fixture bytes are the re-read presentation file, not a hand-written golden and not the evaluation copy.
+4. Load the experimental page (section 5) through the harness as a candidate, the way `tools/presentation_harness/lib/executor.mjs` does, in a fresh Chrome target. The server splices `__FIXTURE_JSON__` with the fixture file's bytes.
+5. The fixture is the re-read presentation file itself, not a hand-written golden. The server serves only manifest-declared, repository-confined paths, so the run must write `presentation.json` under a repository-relative path the manifest names (gitignored `temp/`, for example).
+5a. Assert the product page is byte-identical to the milestone base and contains no `calculationView` reference. Loading the product page is not part of this demonstration.
 6. Assert with the harness check `dom-text-present`. Line 21's value is the worksheet figure when the worksheet ran, and it is never a statement group's value. The calculation view's text includes the sentence the case requires and excludes the sentences this document forbids: "nothing you've described names them", "nothing you've described says otherwise", "you claimed", "filed", "verified", and "confirmed", unless the owner has put that text in a rule field despite sections 5 and 7. Assert the bare-statement link sentence and the eligibility note come from two different rules' fields. Assert the disclosure control is inside the calculation view and that no form line contains the note or the conditions. Assert the conditions have no `role="alert"` and no input control. Assert an uncovered link's text names that link and differs from the other three invalid shapes. Assert a marker, a parameter id, and a symbol name are shown as themselves and are not presented as findings. Assert a model with no `wording` field does not contain the sentence. Assert a model whose finding pinned no school does not contain "not known" or "unknown" unless the bare-statement guard held and the copied field says it. Assert the no-link parameter pin has no `origin` and no `basisOrigin`, and that the eligibility note is absent when the only pin of that kind is the parameter. Assert `integrated` is false and the chrome sentence is present. Assert line 21's section has no statement rows.
 
 A passing structural check on the Python object, or a passing check on the evaluation page, is not this demonstration.
@@ -522,7 +533,7 @@ Out of scope for the demonstration: the full `pytest` suite as a substitute for 
 
 The presentation file is not a reconstruction. If it is deleted, the page is not rebuilt from the record under this contract. Deleting it also loses the copied sentences: they are not on the record.
 
-**Production, restated.** None of the per-subject chain is production-scheduled. A green demonstration is evidence about the writers and the page, not evidence that a production run publishes these rows.
+**Production, restated.** None of the per-subject chain is production-scheduled. A green demonstration is evidence about the writers and the experimental page, not evidence that a production run publishes these rows. The nine-credit and financing-claim cases reach status through the link-to-status edge, which joins on borrowing only; until ADR 0076 Part 3 settles what a set of statuses for one borrowing means, no production per-statement amount is published through that edge, and those two cases are hand-assembled only.
 
 Completion. All of these are required. Any one missing means the reader case is not complete.
 
@@ -531,7 +542,7 @@ Completion. All of these are required. Any one missing means the reader case is 
 3. Blocked `missing` entries are classified as section 4. Only finding ids are resolved. The four invalid link shapes do not render as the same text.
 4. The bare-statement rules have run under section 7's guard, published keyed findings, carried the sentence on the rule rather than on a pin, and not pinned a school. The sentence claims no more than the guard establishes.
 5. The reloaded `presentation.json` contains the calculation view, the kept intermediate nodes, classified `missing`, `basisOrigin` only from input pins, and the responsibility rows from the reverse walk.
-6. The product citation-walk page, loaded from that file after the run object was discarded, shows line 21 as the worksheet and the five cases of section 5 in the calculation view.
+6. The experimental page (section 5), loaded from that file after the run object was discarded, shows line 21 as the worksheet and the five cases of section 5 in the calculation view. The product citation-walk page is unchanged and is not required to show the view.
 7. A projection that sees a missing school pin, a missing link, or a parameter pin, and does not have the bare-statement rule's field under section 7's guard, does not render the school as unknown.
 
-Not this contract: ADR 0076's full link-binding decision, the worksheet successor that would set `integrated` true, the legal-obligation consumer, the partial-reduction remainder, entry-loop questions, a change to the incumbent eligibility witnesses, `condition-wording.v1`, a wording pin role, and any edit to an existing published schema file.
+Not this contract: any product-page change (showing the view there waits for worksheet integration), ADR 0076 Part 3, the worksheet successor that would set `integrated` true, the legal-obligation consumer, the partial-reduction remainder, entry-loop questions, a change to the incumbent eligibility witnesses, `condition-wording.v1`, a wording pin role, and any edit to an existing published schema file.
