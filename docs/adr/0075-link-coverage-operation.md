@@ -43,25 +43,33 @@ ids and symbols are never compared.
 It returns exactly one of three results, and falls through to none of them:
 
 1. **The declared parameter** — only when the subject's scope is bound, the
-   identity keys of both lists are available, the link fact type is joinable to
-   the subject (below), **and both joined lists are empty**. The result pins the
+   identity keys of both lists are available, no present link row is unjoinable
+   to the subject (below), **and both joined lists are empty**. The result pins the
    parameter. It pins no link, no reduction, and no source-family closure, and it
    does not claim that the set of links is complete.
 2. **The sum of the matched reductions** — only when every joined link has
    **exactly one** matching reduction, every reduction matches a joined link, and
    every matched value is a number. The result pins every joined link and every
    joined reduction, and not the parameter.
-3. **Block `DEPENDENCY_INVALID`** — in every other case. An unbound scope, missing
-   keys, an orphan reduction, duplicate link maps, a link with more than one
-   reduction, a non-numeric reduction, and a link with no reduction all block;
-   **none of them can fall through to the parameter**. For an uncovered link,
-   `missing` is exactly the uncovered links' finding ids, sorted, and those links
-   are pinned; the other cases carry the identifiers the contract's section 3
-   table names.
+3. **Block** — in every other case, and **none can fall through to the
+   parameter**. An unbound scope, missing keys, an unjoinable present link type,
+   an orphan reduction, duplicate link maps, a link with more than one reduction,
+   a non-numeric reduction, and a link with no reduction block
+   `DEPENDENCY_INVALID`. For an uncovered link, `missing` is exactly the uncovered
+   links' finding ids, sorted, and those links are pinned; the other cases carry
+   the identifiers the contract's section 3 table names. On the no-link path, an
+   **absent parameter** blocks `DEPENDENCY_ABSENT` and a **version mismatch** blocks
+   `DEPENDENCY_INVALID`, each with `missing` the parameter id (contract section 6).
 
-**Joinability.** A link fact type whose declared identity keys share no key name
-with the subject cannot be joined to it. That is not "no link": it blocks. The
-check reads the declared fact type, so it holds when no link row exists.
+**Joinability.** Link rows that are present but share no key name with the
+subject cannot be joined to it. That is not "no link": it blocks. **This runtime
+check covers only present rows.** With no link row in the run, the dispatch cannot
+tell a joinable type from an unjoinable one: `_scope` returns an empty list before
+reading any key, the subject's keys may be absent, and a bare `fact-type.v2` link
+declaration — the contract's admitted shape — is not on the run context, which
+copies fact types only from bundles. So at zero rows **joinability is a property
+of the binding, which G2 must establish statically**, not something a returned
+parameter can show.
 
 Ordinary `collect` and `count`, source families, and closure admission are
 unchanged. An empty collection that was not declared closed still blocks. No
@@ -73,7 +81,8 @@ code is needed.
 
 1. **Schema validity.** A `rule-artifact.v10` rule containing the node validates.
 2. **Package acceptance.** An `artifact-package.v31` package containing it passes
-   package validation (section "Name confinement" below applies here).
+   package validation — the section 2 shape checks; name confinement is dropped
+   under the owner's choice of B (below).
 3. **Executable per-subject binding.** The rule is evaluated by per-subject
    dispatch with the statement as the subject. **Nothing in rule content selects
    that, and production scheduling is open at G2.** Outside per-subject dispatch
@@ -83,10 +92,11 @@ A package that is schema-valid and accepted has **not** established statement
 coverage. Coverage is established only by a run in which the operator was
 evaluated for the statement with its links joined — and a returned parameter is
 evidence of coverage only where the link type was joinable to that statement.
-G2 must prove or enforce that binding. Two candidate means, neither selected
-here: the runtime joinability check above, which refuses an unjoinable link
-type; and, when G2's scheduler names a rule's subject type, a static check that
-the link fact type's identity keys include the subject type's.
+G2 must prove or enforce that binding. The runtime check above refuses present
+rows that cannot join, but cannot see an unjoinable type with no rows; so G2 needs
+a static check, once its scheduler names a rule's subject type, that the link fact
+type's identity keys include every identity key of the subject type — and the run
+context must carry bare fact-type declarations for any runtime use of them.
 
 ## Name confinement — a cost, and the owner's choice
 
@@ -111,16 +121,25 @@ The owner chooses between:
   in the same package forces a change of admission then, and an amendment to this
   ADR. The restriction lives in validation code, not in the published schema, so
   it can be lifted without a schema version.
-- **B — change source admission so the facts are reusable.** The operator's names
-  are admitted as sources through a channel marshal does **not** consult when
-  deciding scalar bindings, so no other rule's binding changes and confinement is
-  dropped. Consequence: a signature change to `marshal_run_context` and to
-  `live._resolved_run_material`, a contract amendment, and tests re-cut. A rule that
-  `collect`s the link type would then see its rows, which is what a reader of
-  those facts needs.
+- **B — change source admission so the names can be reused.** The link type is
+  emitted as sources through a channel marshal does **not** consult when deciding
+  scalar bindings, and confinement is dropped. What that buys, stated exactly:
+  another rule may name the link type — in `requires`, a binding, a `ref`, or as
+  the subject of its own per-subject dispatch — without the package being
+  rejected, and no **other** symbol's scalar binding changes. What it does **not**
+  buy: a sibling `collect` returns the link values as decimals (or blocks on a
+  non-number), not their key maps, so a consumer that needs the canonical links
+  reads them per subject — by per-subject or pairing dispatch — not by `collect`;
+  and because the emitted link findings are consumed by emission, a plain `ref` of
+  the link type outside dispatch still binds no scalar. `count` and
+  `collect_categorical_all_equal` would see the rows too, and a sibling that
+  collects the type pins every row it read, across statements — its own read,
+  not the operator's.
 
 **The owner chose B (2026-09-24).** This ADR is a general grammar contract, and A
 would have ratified a restriction whose only reason is an implementation shortcut.
+B's benefit is the narrower one stated above — the names become usable, not
+readable by `collect` as canonical links; an earlier draft overstated it.
 The admission change, the contract amendment and the removal of
 `LINK_COVERAGE_NAME_REUSED` follow as a bounded track; this record stays
 `proposed` until that change and this wording are independently reviewed.
@@ -131,16 +150,27 @@ The admission change, the contract amendment and the removal of
   milestone branch (checksums appended); any change to v10's shape is a new
   version. The joinability check and either confinement choice need no schema
   change.
-- The Decision above requires one change to the accepted contract and the built
-  runtime: an **unjoinable** link type currently installs an empty list and takes
-  the parameter, because `subject_dispatch._scope` returns `[]` when no key names
-  are shared. That must block. This is recorded as a required follow-up, not made
-  in this ADR edit.
-- Registering the **reduction** name on the collect list appears unnecessary:
-  reductions are derived, never marshalled, and their same-run sources are
-  appended regardless of that list. If so, its registration — and its
-  confinement — can be dropped under either choice. To be confirmed by test
-  before the contract is amended.
+- **Changes to the accepted contract and the built code this ADR requires**, none
+  made in this edit:
+  1. **Present-but-unjoinable link rows must block.** Today `_scope` returns `[]`
+     when link rows share no key name with the subject, and the arm then returns
+     the parameter **if the reductions slot is also empty** (a joined reduction is
+     reported as an orphan first). Per-subject dispatch must block instead, for the
+     declared coverage names.
+  2. **Option B.** `marshal.marshal_run_context` gains an emission-only name set
+     (binding and fallback keep today's set; the new emission records its finding
+     ids as used), forwarded through `marshal.marshal_live_run_context` and
+     `live.live_run`; `live._resolved_run_material` returns the link type in that
+     set instead of `collect_names`; `live.live_coordinate_run` passes it; and
+     `package_validation._link_coverage_issues` drops `LINK_COVERAGE_NAME_REUSED`.
+     Contract clauses amended: section 1.1, section 2 (confinement), section 7,
+     section 8 item 17, section 9, and the Gate 1 blast-radius sentence.
+  3. **The reduction name is not registered at all.** Reductions are derived and
+     never marshalled, and their same-run sources reach `run.sources` regardless of
+     that list; nothing depends on the registration. (Dropping registration does not
+     by itself drop confinement — the rows are in `run.sources` either way; B drops
+     confinement.)
+- Zero-row joinability is **not** closed by any of these; it is G2's.
 - `records.CURRENT_RECORD_SCHEMA` stays `"derivation-record.v9"`.
 
 ## Alternatives considered
