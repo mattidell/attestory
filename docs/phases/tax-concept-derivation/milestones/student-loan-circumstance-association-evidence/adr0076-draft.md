@@ -146,9 +146,29 @@ The check sees declared names. It does not see values. It does not see a row tha
 
 Inside per-subject dispatch, in addition to the static check. Required names are the subject's identity names under `joined_contains_subject`, and the joined type's declared identity names under `subject_contains_joined`.
 
-- Every present row of the joined type carries every required name. A present row that lacks one is `DEPENDENCY_INVALID` for that evaluation. It is not dropped. It is not the no-link parameter.
-- A complete row joins only when the required values agree. Disagreement is not this subject.
-- The no-link parameter remains only when no row of the joined type is present.
+Each present row of the joined type is classified **for the subject being evaluated**:
+
+- **Malformed** — it lacks a required name. Its owner cannot be determined, so it cannot be excluded from any
+  subject: **every** subject evaluating the rule blocks `DEPENDENCY_INVALID`, with `missing` the malformed
+  rows' finding ids (recorded findings, so a reader can name them). It is not dropped and never the no-link
+  parameter. A row sharing **no** key name with the subject is a special case of this, so the type-level
+  unjoinable check becomes a row-level one: an unjoinable row beside a complete row is no longer hidden.
+- **This subject's** — complete, and every required value agrees. It joins.
+- **Another subject's** — complete, and some required value disagrees. It is ignored **for this subject**. It
+  does not block this subject and does not prevent this subject's no-link result.
+
+**No-link is subject-local.** The no-link parameter is returned for a subject when its own keys are present, no
+present row is malformed, and **no complete row agrees with this subject** — whatever other subjects' complete
+rows exist. Where this runs: the classification is in per-subject dispatch, where the coverage slot is filled
+(`subject_dispatch.evaluate_subject_scoped_rule`); `link_coverage` itself is unchanged — it still receives the
+two joined lists (or the keys-unavailable sentinel) and decides from them.
+
+**Discriminating case (hand-dispatched, today's code, `SubjectLocalNoLink` in
+`tests/test_sli_g2_binding_probe.py`).** S1 has a complete link and reduction; S2 has none. Today S1 publishes
+900 pinning its link and S2 publishes 400 by the no-link parameter, pinning only its own box-1 finding — already
+subject-local for complete rows. Add a link missing `statement`, or a link keyed on `borrowing` only: today each
+is **silently dropped** and S2 still takes the parameter (the type-level unjoinable check is masked by the
+complete row). Under this part both block `DEPENDENCY_INVALID` for every subject, naming the row.
 
 Today's `_scope` does not do this. Shared names are the union, across every candidate row, of the names that row has in common with the subject. A row that lacks a name some other row carried fails the comparison and is dropped. It is not a block. An empty join with an empty reduction slot is the parameter. Executed:
 

@@ -784,3 +784,56 @@ class Schedulers(unittest.TestCase):
         self.assertEqual(row["missing"], [LINK_COVERAGE_SCOPE_UNBOUND])
         self.assertNotIn(f"{AMOUNT}|", " ".join(str(item.get("symbol", "")) for item in prepared.dispositions))
         self.assertIn(rule["id"], prepared.resolved)
+
+
+class SubjectLocalNoLink(unittest.TestCase):
+    """No-link is decided per subject, not per run. HAND-DISPATCHED probe.
+
+    S1 has a complete link of its own; S2 has none. Another statement's
+    complete row must not stop S2's no-link result. Today's dispatch already
+    gets that right. A malformed or unjoinable row beside a complete one is
+    today *dropped* and S2 still takes the parameter -- the defect ADR 0076
+    Part 2's presence check turns into a fail-closed block. These assertions
+    record today's behaviour; they are not Part 2.
+    """
+
+    def _base(self) -> list[SourceFact]:
+        s1 = _box(BOX_S1, BOX_S1_FINDING, LENDER_A, STATEMENT_1, "1000")
+        s2 = _box(BOX_S2, BOX_S2_FINDING, LENDER_B, STATEMENT_2, "400")
+        keys = _statement_keys(LENDER_A, STATEMENT_1) + (("borrowing", BORROW_X),)
+        link_x = _keyed(LINKS, LINK_X_FINDING, keys, "1", fact_id="demo.fact.link.x")
+        red_x = _keyed(REDUCTIONS, RED_X_FINDING, keys, "100", fact_id="demo.fact.reduction.x")
+        return [s1, s2, link_x, red_x]
+
+    def _assert_s2_default_and_s1_own(self, result: SubjectScopedResult, extra: str | None) -> None:
+        published = _published(result)
+        self.assertEqual(result.blocked, ())
+        self.assertEqual(published[BOX_S1]["value"], "900")
+        self.assertIn(LINK_X_FINDING, _input_ids(published[BOX_S1]["pins"]))
+        self.assertEqual(published[BOX_S2]["value"], "400")
+        s2_inputs = _input_ids(published[BOX_S2]["pins"])
+        self.assertEqual(s2_inputs, {BOX_S2_FINDING})
+        self.assertIn("demo.param.no-link-reduction", _parameter_ids(published[BOX_S2]["pins"]))
+        if extra is not None:
+            self.assertNotIn(extra, s2_inputs)
+            self.assertNotIn(extra, _input_ids(published[BOX_S1]["pins"]))
+
+    def test_other_statements_complete_link_does_not_block_this_statements_no_link(self) -> None:
+        _prepared, result = _dispatch(BOX1, _coverage(), self._base())
+        self._assert_s2_default_and_s1_own(result, None)
+
+    def test_malformed_link_beside_a_complete_one_is_dropped_today(self) -> None:
+        malformed_keys = (("lender", LENDER_B), ("tax-year", YEAR), ("borrowing", BORROW_Y))
+        malformed = _keyed(LINKS, LINK_Y_FINDING, malformed_keys, "1", fact_id="demo.fact.link.y")
+        _prepared, result = _dispatch(BOX1, _coverage(), self._base() + [malformed])
+        # Today: the row lacks `statement`, matches nobody, and is dropped.
+        # Part 2: it lacks a required name -> DEPENDENCY_INVALID, not dropped.
+        self._assert_s2_default_and_s1_own(result, LINK_Y_FINDING)
+
+    def test_unjoinable_link_beside_a_complete_one_is_dropped_today(self) -> None:
+        unjoinable = _keyed(LINKS, LINK_Y_FINDING, (("borrowing", BORROW_Y),), "1", fact_id="demo.fact.link.y")
+        _prepared, result = _dispatch(BOX1, _coverage(), self._base() + [unjoinable])
+        # Today: the type-level unjoinable check sees another row that shares
+        # names, so this row is silently dropped. Part 2: it lacks the
+        # statement identity -> DEPENDENCY_INVALID for every subject.
+        self._assert_s2_default_and_s1_own(result, LINK_Y_FINDING)
