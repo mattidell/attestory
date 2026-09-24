@@ -3,7 +3,7 @@
   "version": 1,
   "phase": "Tax Concept Derivation",
   "topic": "student-loan-circumstance-association",
-  "status": "A4 PASS 2 AT P3, OWNER DECISION PENDING. Tracks 1 and 2 built; P2 complete in memory. P3 reopened: an unresolved link reduction was silently read as no reduction (owner-found; committed tests record it). Distinguishing no link from an unresolved link needs a coverage-checked collection -- a dependency mechanism -- and, to declare it in content, a successor rule schema (rule-artifact.v10). Cost returned to the owner before Track 3. G2 (producer) not reached.",
+  "status": "TRACK 3 STAGE A OPEN. Tracks 1 and 2 built; P2 complete in memory. P3 reopened on an owner-found defect (an unresolved link reduction read as no reduction). Owner chose coverage-checked behaviour: no link -> declared default; every current link covered by its own numeric pinned reduction -> publish; any uncovered link -> block naming it. Stage A specifies and reviews the content-declared contract; stage B implements it. G2 (producer) not reached.",
   "scope": [
     "record and recover ordinary schooling circumstances and their explicit connection to identified student-loan interest",
     "preserve document evidence, source-independent subjects, attribution, and relationship lifecycle",
@@ -1203,6 +1203,20 @@ options rather than widening Track 2. Its total cost is not yet known. If it can
 adverse correction honestly, multi-hop joins and stopping at the borrowing grain are reconsidered.
 Charter: [`charter-track2-keyed-same-run-sources.md`](student-loan-circumstance-association-evidence/charter-track2-keyed-same-run-sources.md).
 
+**Track 3 — the coverage-checked collection, in two stages.** P3 found an unresolved link
+reduction silently read as no reduction, and that distinguishing "no link" from "unresolved link"
+needs a coverage check and a content contract. The owner chose coverage-checked behaviour: **no
+recorded link** → the declared calculation default; **every current link with its own numeric,
+pinned reduction** → publish, pinning every covered link; **any uncovered link** (absent, blocked
+or inapplicable reduction) → that statement blocks and names it — never implicitly zero; unrelated
+statements unaffected; the link set is **not** declared complete. **Stage A** specifies and reviews
+the content-declared contract — the candidate homes examined, not assumed; structured identity,
+never rendered ids; ordinary `collect`/`count` and source-family closure unchanged. **Stage B**
+implements it and flips the two committed defect tests. Evidence boundary: the probes use
+hand-assembled runs and synthetic rules not yet validated as published production rules, and
+nothing here shows what a durable reader sees until P4. Charter (stage A):
+[`charter-track3a-coverage-contract.md`](student-loan-circumstance-association-evidence/charter-track3a-coverage-contract.md).
+
 ## A5 in detail — choosing how to represent it
 
 This is A5 refined one step. It selects representations; it does not implement them, and
@@ -1411,6 +1425,7 @@ A1–A3 are the work it skipped.
 
 | Decision | Owner | Needed by | Status |
 | --- | --- | --- | --- |
+| How to distinguish a statement with no link from one with an unresolved link — A: a coverage-checked collection declared in content; B: make blocked outcomes visible to later rules; C: narrow the consumer | Owner | Before Track 3 | **Decided 2026-09-23: A's behaviour**; contract to be specified and reviewed before implementation; inapplicable or blocked reductions are uncovered |
 | How a statement with no recorded borrowing link publishes — A: a declared default (Track 3); B: the existing worksheet path; C: a closed source set per statement | Owner | Before P4 | **Decided 2026-09-23: A**, as a calculation posture, not a claim that the links are complete. Before Track 3: tests for an unresolved link, and the content-declared contract investigated |
 | How to reach a Form 1098-E statement after P2 — A: keyed same-run sources; B: multi-hop joins; C: stop at the borrowing grain | Owner | Before P3 | **Decided 2026-09-23: A, as a bounded test.** Track 2 |
 | How to proceed after P1 found per-key publication untestable without production change — A: charter the mechanism as a bounded track; B: a hand-built loop in the test module; C: stop with a partial result | Owner | Before P2 | **Decided 2026-09-23: A.** Track 1 |

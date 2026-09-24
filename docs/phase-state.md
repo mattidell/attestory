@@ -4,10 +4,10 @@
   "phase": "Tax Concept Derivation",
   "topic": "student-loan-circumstance-association",
   "active_plan": "docs/phases/tax-concept-derivation/milestones/student-loan-circumstance-association.md",
-  "milestone_state": "track-2",
-  "status": "A4 PASS 2 AT P3, OWNER DECISION PENDING. Tracks 1 and 2 built; P2 complete in memory. P3 reopened: an unresolved link reduction was silently read as no reduction (owner-found; committed tests record it). Distinguishing no link from an unresolved link needs a coverage-checked collection -- a dependency mechanism -- and, to declare it in content, a successor rule schema (rule-artifact.v10). Cost returned to the owner before Track 3. G2 (producer) not reached.",
-  "current_role": "Foreman (A4 second pass: owner decision on the coverage-checked collection before Track 3)",
-  "current_prompt": "docs/phases/tax-concept-derivation/milestones/student-loan-circumstance-association.md#A4's second pass — the probes, in order"
+  "milestone_state": "track-3",
+  "status": "TRACK 3 STAGE A OPEN. Tracks 1 and 2 built; P2 complete in memory. P3 reopened on an owner-found defect (an unresolved link reduction read as no reduction). Owner chose coverage-checked behaviour: no link -> declared default; every current link covered by its own numeric pinned reduction -> publish; any uncovered link -> block naming it. Stage A specifies and reviews the content-declared contract; stage B implements it. G2 (producer) not reached.",
+  "current_role": "Track 3 stage A Builder (coverage contract specification)",
+  "current_prompt": "docs/phases/tax-concept-derivation/milestones/student-loan-circumstance-association-evidence/charter-track3a-coverage-contract.md"
 }
 -->
 
