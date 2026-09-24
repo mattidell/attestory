@@ -148,7 +148,7 @@ Those two pins must stay distinct in the model and on the page.
 | Page | The pin is shown as a parameter: id and version, no basis | `basisOrigin: declared_default` on the node that pinned the default finding |
 | Sentence | Does not by itself authorize the ordinary-line note | The note is copied only from the conclusion rule's own field, and only when that rule published |
 
-`basisOrigin` on a node is the `origin` of an input pin on that finding, and nothing else. It is never computed by noticing which pins are missing, and it is never copied off a parameter pin. The sentence "taken as met because nothing you've described says otherwise" is not the no-link parameter and is not derived from `declared_default`. It appears only as `lineNote`, and only when the conclusion rule declares that field.
+`basisOrigin` on a node is the `origin` of an input pin on that finding, and nothing else. It is never computed by noticing which pins are missing, and it is never copied off a parameter pin. The eligibility note ("takes eligibility as met … nothing recorded for this statement says otherwise", section 5) is not the no-link parameter and is not composed from `declared_default`. It appears only as `lineNote`, copied from the conclusion rule, and only when that rule published with a `declared_default` eligibility input pin (section 9).
 
 Citation sites stay leaves of role `input` or `choice`. A parameter is not turned into a citation site. It is visible on the group's `pins`, not only inside an embedded act.
 
@@ -261,7 +261,17 @@ The conditions are not `role="alert"`. They do not use the blocked banner ("No v
 
 Renderer-owned strings (`REASON_TEXT`, the blocked banner, the remedy sentence, `ATTACHMENT_EXPLAIN`) are not a home for the condition sentences. The page renders model text or it renders nothing.
 
-The sentences below are the owner's candidates from stage 4, except where section 7 forbids the bare-statement claim. They are quoted so the page has a target. They are not an approval act. A1's single responsibility paragraph is not the text.
+The sentences below are the owner's candidates from stage 4, revised where they claimed more than the view establishes. They are quoted so the page has a target. They are not an approval act. A1's single responsibility paragraph is not the text.
+
+**What the view establishes, and so what a sentence may say.** It establishes that this calculation computed a
+per-statement amount, and which circumstance or default the amount's findings pinned. It does not establish
+that the person claimed the deduction, that anything was filed, or that a condition was checked: line 21 is
+the worksheet's, the view is read-only and unintegrated, and nothing verifies a condition. So no sentence says
+"you claimed", "you filed", "verified", or "confirmed". The because-clause names the treatment as "this
+calculation treats the interest on [statement] as deductible". Each responsibility message keeps its read-only
+form and ends "This view does not check them." For the two linked cases below, a production per-statement
+amount waits on ADR 0076 Part 3 (section 11); their sentences are targets for the hand-assembled
+demonstration only.
 
 ### Nine-credit
 
@@ -269,7 +279,7 @@ The person enrolled in the BSc and the certificate programme at Riverside in aut
 
 The disclosure shows three conditions, each distinguishable from an ordinary citation button by being a responsibility row (rule id and keyed symbol), not a line-21 `citationSites` entry:
 
-> You are responsible for these conditions: that Riverside College was an eligible institution; that the programme you were pursuing led to a recognised credential; and that your course load met Riverside's half-time standard for that programme. They apply because you claimed the student loan interest deduction for [statement] and described enrolling at Riverside College in autumn 2024.
+> You are responsible for these conditions: that Riverside College was an eligible institution; that the programme you were pursuing led to a recognised credential; and that your course load met Riverside's half-time standard for that programme. They apply because this calculation treats the interest on [statement] as deductible and you described enrolling at Riverside College in autumn 2024. This view does not check them.
 
 The circumstance named is the one the finding pinned (institution, programme, period). The treatment is the statement amount the reverse walk attached, not the worksheet dollar. `basisOrigin` on the status node is shown as the default basis when an input pin has `origin: declared_default`. The case-2 note is not used. Nine credits are not stated as having met the half-time standard. The no-link parameter is not this basis.
 
@@ -277,17 +287,23 @@ The circumstance named is the one the finding pinned (institution, programme, pe
 
 The person said only that this loan paid tuition for the Riverside BSc in autumn 2024. Same split: line 21 is the worksheet; the view is the statement. The disclosure uses the case-1 candidate:
 
-> You are responsible for these conditions: that Riverside College was an eligible institution; that the BSc led to a recognised credential; and that your course load met Riverside's half-time standard. They apply because you claimed the student loan interest deduction for [statement] and said this loan paid for the Riverside BSc in autumn 2024.
+> You are responsible for these conditions: that Riverside College was an eligible institution; that the BSc led to a recognised credential; and that your course load met Riverside's half-time standard. They apply because this calculation treats the interest on [statement] as deductible and you said this loan paid for the Riverside BSc in autumn 2024. This view does not check them.
 
 The because-clause must not say the person described studying or enrolling. The financing claim remains a citation of what was said. It is not labeled as enrolment and not labeled as the ground of eligible-student. The default basis is the status node's `basisOrigin`, not the case-2 note, and not a parameter pin.
 
 ### Bare statement
 
-Nothing joined this subject to a link. Line 21 is unchanged. The calculation view shows the statement amount and this note, and no other new sentence, and only when section 7's guard held and the conclusion rule declared the note:
+No borrowing link joined this statement. Line 21 is unchanged. The calculation view shows the statement amount and two sentences, each from its own rule and each only when that rule published.
 
-> Eligibility for this deduction is taken as met because nothing you've described says otherwise.
+The bare-statement responsibility rules' `wording` (section 7's guard held), leading the disclosure:
 
-That note is the eligibility default. It is not a description of the no-link parameter. The three conditions are not in the view's ordinary text. They are in the disclosure, and only from the bare-statement rules' own fields. The stage-4 sentence that ends "nothing you've described names them" is not the text this guard supports. Section 7 says what the sentence is allowed to claim. The statement is named from the group's `statementLabel` (below), never from `factId`. No institution and no programme are named. "Not known" appears only when the copied rule field says it, and only under that guard.
+> No borrowing is currently linked to [statement]. You are responsible for these conditions: [the conditions]. They apply because this calculation treats the interest on [statement] as deductible. This view does not check them.
+
+The favourable-eligibility conclusion's `lineNote` (section 9: published, and its eligibility input pin is `declared_default`):
+
+> This calculation takes eligibility as met for the interest on [statement] because nothing recorded for this statement says otherwise.
+
+The note is the eligibility default. It does not mention links, and the link sentence does not mention eligibility: a zero count is the guard, not the support. It is not a description of the no-link parameter. The three conditions are not in the view's ordinary text. They are in the disclosure, and only from the bare-statement rules' own fields. The stage-4 sentences that end "nothing you've described names them" and "nothing you've described says otherwise" are not the text: a description can exist without joining this statement. Section 7 says what the sentence is allowed to claim. The statement is named from the group's `statementLabel` (below), never from `factId`. No institution and no programme are named. "Not known" appears only when the copied rule field says it, and only under that guard.
 
 ### Uncovered link
 
@@ -370,9 +386,11 @@ values disagree is a join of nothing; zero rows of a type are not observably joi
 prove the joined list is this statement's — that is ADR 0076 Part 2. Until Part 2 is accepted and implemented, a
 0 is not a statement-specific claim.
 
-**What the wording must claim.** Only that no current link joined to this statement. Not "nothing you've
-described names them" (a description can be present and unlinked). "Nothing connects these loans to a school"
-still overclaims until ADR 0076's binding is in force. The words are the owner's.
+**What the wording must claim.** Only that no current borrowing link joined this statement. Candidate (the
+owner's to approve): "No borrowing is currently linked to [statement]." Not "nothing you've described names
+them" (a description can be present and unlinked), not "nothing connects these loans to a school" (the count
+says nothing about schools), and not anything about eligibility (the count is not eligibility support,
+section 9).
 
 When the count is not 0 or does not publish, the bare-statement rules do not publish, so their text cannot
 appear. Schooling that is present but not linked does not suppress the sentence, and the sentence must not
@@ -492,7 +510,7 @@ The test does all of the following.
 3. Read that file back from disk. `validate_presentation_model` on the reloaded JSON is allowed. It is not the page proof.
 4. Load the product page. Read `packages/presentation/pages/citation-walk.v1.html`. Replace `__MODEL_JSON__` with the file bytes, which is the splice `live_session` performs (`const MODEL = Object.freeze(__MODEL_JSON__);`). Serve that one document on the harness loopback and open it in a fresh Chrome target, the way `tools/presentation_harness/lib/executor.mjs` loads a candidate.
 5. The harness server today splices only `__FIXTURE_JSON__`, and only into the evaluation page. The test must splice the product page's token. The fixture bytes are the re-read presentation file, not a hand-written golden and not the evaluation copy.
-6. Assert with the harness check `dom-text-present`. Line 21's value is the worksheet figure when the worksheet ran, and it is never a statement group's value. The calculation view's text includes the sentence the case requires and excludes the sentences this document forbids, including "nothing you've described names them" unless the owner has put that sentence in the rule field despite section 7. Assert the disclosure control is inside the calculation view and that no form line contains the note or the conditions. Assert the conditions have no `role="alert"` and no input control. Assert an uncovered link's text names that link and differs from the other three invalid shapes. Assert a marker, a parameter id, and a symbol name are shown as themselves and are not presented as findings. Assert a model with no `wording` field does not contain the sentence. Assert a model whose finding pinned no school does not contain "not known" or "unknown" unless the bare-statement guard held and the copied field says it. Assert the no-link parameter pin has no `origin` and no `basisOrigin`, and that the eligibility note is absent when the only pin of that kind is the parameter. Assert `integrated` is false and the chrome sentence is present. Assert line 21's section has no statement rows.
+6. Assert with the harness check `dom-text-present`. Line 21's value is the worksheet figure when the worksheet ran, and it is never a statement group's value. The calculation view's text includes the sentence the case requires and excludes the sentences this document forbids: "nothing you've described names them", "nothing you've described says otherwise", "you claimed", "filed", "verified", and "confirmed", unless the owner has put that text in a rule field despite sections 5 and 7. Assert the bare-statement link sentence and the eligibility note come from two different rules' fields. Assert the disclosure control is inside the calculation view and that no form line contains the note or the conditions. Assert the conditions have no `role="alert"` and no input control. Assert an uncovered link's text names that link and differs from the other three invalid shapes. Assert a marker, a parameter id, and a symbol name are shown as themselves and are not presented as findings. Assert a model with no `wording` field does not contain the sentence. Assert a model whose finding pinned no school does not contain "not known" or "unknown" unless the bare-statement guard held and the copied field says it. Assert the no-link parameter pin has no `origin` and no `basisOrigin`, and that the eligibility note is absent when the only pin of that kind is the parameter. Assert `integrated` is false and the chrome sentence is present. Assert line 21's section has no statement rows.
 
 A passing structural check on the Python object, or a passing check on the evaluation page, is not this demonstration.
 
