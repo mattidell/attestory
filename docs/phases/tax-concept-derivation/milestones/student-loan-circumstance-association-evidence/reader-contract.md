@@ -333,25 +333,42 @@ Page constants are not content. Adding the candidates to `REASON_TEXT` or to a n
 
 ## 7. How the bare-statement case is selected
 
-**Contract.** The bare-statement rules publish only when a count rule published 0 for that subject by the parameter path. Absence of a school pin is not the guard. A blocked count is not the guard.
+**Hand-dispatched probe (`tests/test_sli_bare_statement_selection_probe.py`,
+[`bare-statement-selection-probe.md`](bare-statement-selection-probe.md)).** A guard of "the link count is 0",
+with the count computed by `link_coverage` over per-link presence markers, is **not sound under
+`rule-artifact.v10`**. A rule reads only the count's value; no rule operation can inspect the count finding's
+parameter or input pins. Two packages that pass `validate_package` publish the bare-statement token on a sum of
+zero while a link exists: a marker whose value is 0, and markers of 1 and −1. Six other cases fail safely: no
+link publishes (correct); one counted link, a blocked marker, a missing marker, an unjoinable link, a subject with
+absent keys, and a count that never ran all withhold the token.
 
-The count rule is a per-statement rule. Its value is one `link_coverage` over the link type and a presence-marker symbol, with empty parameter 0. A per-link rule publishes the decimal 1 for every current link, with that link's keys, one publication per link. **Production, operator.** `link_coverage` returns a decimal or blocks. It returns the parameter only when the subject's scope is bound, the subject's own keys are present, both joined lists are empty, and no present link row is unjoinable. It returns the sum only when every joined link has exactly one numeric match and every match has a link. Every other case blocks, and none of them fall through to the parameter.
+**Contract: no bare-statement rule may be selected by `count == 0` under v10.** Pin inspection stays a
+presentation/provenance check, not a guard.
 
-If every marker is the decimal 1, the sum equals the number of joined links. The published value is 0 only on the parameter path. A marker of 0 would make a sum of 0 while a link exists, so the guard is not the value alone. The guard is all three:
+**The mechanism this requires.** A `link_count` expression: over the joined current links for this subject only
+(no markers, no reductions), returning the number of joined links; blocking exactly as `link_coverage` does on an
+unbound scope, absent subject keys, missing row keys, or present unjoinable rows; returning 0 only when no link is
+joined. Zero then means one thing, and no marker content can forge it. It is a new expression alternative, so it
+belongs to the **second rule successor**, authorized by this contract's acceptance (ADR 0076 publication plan).
+Rejected alternatives: constraining the marker publisher to the literal 1 in validation — it would apply to every
+`link_coverage` reductions publisher, including amounts, unless a count mode were declared, which is itself a
+successor; a parameter sentinel — any marker can equal it; a flag exposing whether `link_coverage` took the
+parameter path — works, but is a larger change than counting links directly.
 
-- the count finding is published and its value is 0,
-- that finding has a parameter pin for the empty parameter, and
-- that finding has no input pin of a link or a marker.
+**The condition this selects is "no link joined to this dispatch subject."** It is not "no schooling
+information in the workspace": an enrolment or financing claim can exist unlinked. A shared key name whose
+values disagree is a join of nothing; zero rows of a type are not observably joinable. The operator does not
+prove the joined list is this statement's — that is ADR 0076 Part 2. Until Part 2 is accepted and implemented, a
+0 is not a statement-specific claim.
 
-**Production, and why the blocks are not a bare statement.** Unjoinable (`link-coverage-unjoinable`) is raised by dispatch before `value`, only when present link rows share no key name and every coverage slot is `[]`. Keys unavailable (`link-coverage-keys-unavailable`) is the sentinel, including a subject whose own keys are absent; that subject never takes the parameter. Scope unbound (`link-coverage-scope-unbound`) is ordinary `attempt`, which never installs the slot. An orphan marker, a duplicate link map, two markers for one link, a non-numeric marker, and a link whose marker did not publish all block with finding ids. The count symbol is then not published. The bare-statement rule `requires` the count symbol and compares the published finding as above. A missing count is `DEPENDENCY_ABSENT` of that symbol, not a 0, and the rule must not declare an `optional_default` for it. Those blocks show in the view as section 4. They do not show the bare-statement sentence.
+**What the wording must claim.** Only that no current link joined to this statement. Not "nothing you've
+described names them" (a description can be present and unlinked). "Nothing connects these loans to a school"
+still overclaims until ADR 0076's binding is in force. The words are the owner's.
 
-**The condition this selects is "no link joined to this dispatch subject."** It is not "no schooling information in the workspace." An enrolment or a financing claim can sit in the workspace with no link to this subject; the count rule does not read those fact types, and the parameter path still returns 0. A link that shares a key name but not the value is also this path: **production, ADR 0075,** a shared name whose values disagree is a join of nothing, and the parameter is returned. Zero link rows are this path too, and joinability of a type with no rows is not observable. The operator also does not prove the joined list is this statement's; a shared key name such as tax year can join one link to two statements. That proof is ADR 0076. Until it is accepted, a 0 is not a statement-specific claim, and the page must not present the sentence as one. The view may show the count rule's id, version, value, and pins.
-
-**What the wording must claim.** The sentence may claim that no current link joined to this subject. It must not claim "nothing you've described names them," because a description can be present and unlinked, and because a key-name mismatch is not a description of nothing. "Nothing connects these loans to a school" is still stronger than the operator: "these loans" and "this statement" wait on ADR 0076, and "a school" is not what the count reads. The words are the owner's. The rule field must be written to the claim the guard actually establishes, not to the stage-4 sentence, unless the owner accepts that overclaim in those words.
-
-When the count is not the parameter path, the bare-statement rules do not publish, so their text cannot appear. That is what keeps "school not known" off a statement that has a joined link. Schooling that is present and not linked does not suppress the sentence. The sentence is not allowed to pretend it did.
-
-Situation-scoped rules, for the nine-credit case and the financing-claim case, publish from the circumstance they pin. They do not publish on the parameter path. They are not selected by a missing school pin either.
+When the count is not 0 or does not publish, the bare-statement rules do not publish, so their text cannot
+appear. Schooling that is present but not linked does not suppress the sentence, and the sentence must not
+pretend it did. Situation-scoped rules for the nine-credit and financing-claim cases publish from the
+circumstance they pin, not from a count.
 
 ## 8. The wording home
 

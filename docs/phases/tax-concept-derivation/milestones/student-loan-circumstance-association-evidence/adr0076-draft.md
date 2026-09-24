@@ -30,7 +30,7 @@ below is published by this record.
 | **First rule successor** (currently `rule-artifact.v11`) | `subject` (fact-type pin, required) | ADR 0076 **Part 1** | Only after **both** Part 1 and Part 2 are accepted |
 | same | `joined` (fact-type pin), `direction` (`joined_contains_subject` / `subject_contains_joined`) | ADR 0076 **Part 2** | same |
 | **First package successor** (currently `artifact-package.v32`) | admits the first rule successor | Parts 1 and 2 | with the first rule successor |
-| **Second rule successor** (the version after) | `wording`, `lineNote` (optional strings) | The **reader contract** accepted, and the owner's approval of the sentences | Only after both; never added to the first successor |
+| **Second rule successor** (the version after) | `wording`, `lineNote` (optional strings); a `link_count` expression alternative (reader contract §7) | The **reader contract** accepted, and the owner's approval of the sentences | Only after both; never added to the first successor |
 | **Second package successor** | admits the second rule successor | same | with the second rule successor |
 
 **Why Parts 1 and 2 ship together.** Part 1 alone would let a production run schedule per-subject rules
