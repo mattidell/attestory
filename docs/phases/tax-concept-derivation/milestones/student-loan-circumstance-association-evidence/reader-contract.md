@@ -5,7 +5,8 @@
 > The draft's wording **pin role** stays withdrawn, and so does the draft's further step of a new
 > `condition-wording.v1` pinned by that role. Line 21 is not retargeted. Two recommendations below:
 > per-statement rows are a separate calculation view until a worksheet successor reads them, and
-> the sentence lives as a field on the rule successor the subject declaration already requires.
+> the sentence lives as a field on the **second** rule successor (see ADR 0076's publication plan):
+> the first successor carries `subject`, `joined` and `direction` only.
 > Draft status of this file: not accepted.
 
 Read-only design. Branch `milestone/student-loan-circumstance-association`, HEAD `f0f1dd7630c330f5f1c6c840b8270152641eb8d2` (the draft was written at `b558da4e`; ADR 0075 is accepted at this HEAD). Sources read here: `packages/content/tax/2025/schedule1.line-21.form-field.json`, `rule.sli-worksheet.json`, `rule.sli-worksheet-line1-subtotal.json`, `packages/derivation/presentation_projection.py`, `runner.py` (`pins_for`, `dependency_pins_for_access`, `_record_blocked`), `evaluator.py` (`_link_coverage`, `EvalBlocked`), `subject_dispatch.py`, `packages/schemas/derivation/derived-finding.v2.schema.json`, `parameter-declaration.v1.schema.json`, `rule-artifact.v10.schema.json`, `packages/schemas/tax/form-field.v3.schema.json`, `packages/presentation/pages/citation-walk.v1.html`, ADR 0075, and the coverage contract's identity table. ADR 0076 is not a file at this commit. It is the binding ADR 0075 leaves open.
@@ -328,7 +329,7 @@ If the sentence is declared on a rule, this is how it reaches the projector. No 
 
 **(d) The consumer.** The page or the projector holds the sentences, keyed by rule id. No schema. It fails the projector's copy rule and the page's zero-authority rule. The sentence would live in two HTML copies. A model with no declaration could still show it. Not the home.
 
-**Contract. Recommendation: the rule field in the first half of this section.** The rule successor is the one ADR 0076 already requires for `subject`. Adding `wording` and `lineNote` there does not force a further rule version and does not force a new citizen. `rule-artifact.v10` has `additionalProperties: false` and cannot gain the fields. Until the successor exists, the view carries identity and no sentence. That state is not a completed reader case.
+**Contract. Recommendation: the rule field in the first half of this section, on the second rule successor.** Per ADR 0076's publication plan, the first successor carries `subject`, `joined` and `direction` and is published once ADR 0076 Parts 1 and 2 are accepted; `wording` and `lineNote` are **not** in it. They arrive in the next rule version, authorized by this contract's acceptance and the owner's approval of the sentences, and are never added to the first successor after publication. No new citizen kind. `rule-artifact.v10` has `additionalProperties: false` and cannot gain the fields. Until the successor exists, the view carries identity and no sentence. That state is not a completed reader case.
 
 ## 9. The statement-scoped responsibility rule
 
@@ -366,7 +367,7 @@ The ordinary-line note is not this rule's field. The statement-keyed favourable 
 
 ### Which scheduling it needs
 
-ADR 0076, the subject declaration on the rule successor. Not a package-level map, and not a Python id list. The same successor admits `wording` and `lineNote`. It does not admit a pin role `wording`.
+ADR 0076, the subject declaration on the rule successor. Not a package-level map, and not a Python id list. `wording` and `lineNote` come in the second rule successor, not the first (ADR 0076 publication plan). It does not admit a pin role `wording`.
 
 What that scheduling has to provide for this rule:
 

@@ -19,6 +19,32 @@ The chain the probes assemble by hand is three rules and three grains. Status is
 
 Keyed publication stores `publishes|fact_id` and does not insert the unsuffixed name. A gate written only against `self.symbols` fixes neither scheduler.
 
+## Publication plan (foreman decision, 2026-09-24 — for the owner's review)
+
+**Rule: a published schema version carries only fields whose authorizing decision is accepted before that
+version is published. No field is added to a published version; a later field is a later version.** Nothing
+below is published by this record.
+
+| Version (names are the next unused ones at publication time) | Fields | Authorizing decision | Published when |
+| --- | --- | --- | --- |
+| **First rule successor** (currently `rule-artifact.v11`) | `subject` (fact-type pin, required) | ADR 0076 **Part 1** | Only after **both** Part 1 and Part 2 are accepted |
+| same | `joined` (fact-type pin), `direction` (`joined_contains_subject` / `subject_contains_joined`) | ADR 0076 **Part 2** | same |
+| **First package successor** (currently `artifact-package.v32`) | admits the first rule successor | Parts 1 and 2 | with the first rule successor |
+| **Second rule successor** (the version after) | `wording`, `lineNote` (optional strings) | The **reader contract** accepted, and the owner's approval of the sentences | Only after both; never added to the first successor |
+| **Second package successor** | admits the second rule successor | same | with the second rule successor |
+
+**Why Parts 1 and 2 ship together.** Part 1 alone would let a production run schedule per-subject rules
+over today's `_scope` join, which is the join the hand-dispatched probe showed cross-joining two statements
+on tax year alone. Scheduling without the binding would produce statement-shaped results ADR 0075 says
+cannot be statement-specific. So the first successor is not published until the binding it needs is
+accepted too. The two parts remain separate *decisions*; this is a publication choice.
+
+**Why wording waits for a later version.** The sentences are a separate owner act, and the binding must not
+wait on them. Until the second successor exists, per-subject rules carry no sentence, and the reader case
+is not complete.
+
+**Part 3** adds no field to either successor. A selected set-level rule is its own rule content.
+
 ## Decision — Part 1
 
 **A rule that runs once per subject declares the subject fact type on itself. Both schedulers honour that declaration. They wait until predecessor rules have resolved, not until an unsuffixed symbol appears.**
@@ -70,7 +96,7 @@ Part 1 does not make a joined list this statement's links. ADR 0075's sentence s
 
 ### What Part 1 requires, and what it leaves open
 
-Schema: a new rule schema whose only new required field is `subject`; a new package schema that admits that rule schema and does not carry a subject map. Checksums appended with `packages.kernel.schema_registry.write_manifest` for the new filenames only. Published v10 and v31 bytes stay put. Every closed schema-name set that lists `rule-artifact.v10` has to admit the successor or a successor rule never runs. The investigation names `live._resolved_run_material`, `package_validation`, `authorization_closure`, the runner's rule-schema tuples, and `marshal._rule_required_symbols`. That list was traced at the investigation's commit. It was not re-derived at this HEAD.
+Schema: `subject` on the first rule successor, published together with Part 2's fields once both parts are accepted (publication plan above); a package successor admits it. a new package schema that admits that rule schema and does not carry a subject map. Checksums appended with `packages.kernel.schema_registry.write_manifest` for the new filenames only. Published v10 and v31 bytes stay put. Every closed schema-name set that lists `rule-artifact.v10` has to admit the successor or a successor rule never runs. The investigation names `live._resolved_run_material`, `package_validation`, `authorization_closure`, the runner's rule-schema tuples, and `marshal._rule_required_symbols`. That list was traced at the investigation's commit. It was not re-derived at this HEAD.
 
 Code: the three functions above. Pairing is unchanged. Ordinary rules keep today's `requires` test against `self.symbols`.
 
@@ -143,7 +169,7 @@ The presence check rules out every cross-join this probe executed **if** the dec
 
 ### What Part 2 requires, and what it leaves open
 
-Schema: `subject`, `joined` (a fact-type pin), and `direction` (`joined_contains_subject` or `subject_contains_joined`), on a rule-schema successor that is not Part 1's schema and is not v10. If Part 1 has already published, this is the next version and does not edit Part 1's file. If Part 1 has not published, this version still does not contain the scheduling contract, and Part 1's version still does not contain `joined` or `direction`. A package schema admits whichever rule schema is published. One schema file that carries both parts is a publication choice this record does not make.
+Schema: `subject`, `joined` (a fact-type pin), and `direction` (`joined_contains_subject` or `subject_contains_joined`), on the first rule successor, published with Part 1's `subject` once both parts are accepted — see the publication plan above. Neither part edits a published file.
 
 Code: the validation checks next to the existing `link_coverage` shape checks; the presence check inside per-subject dispatch for a rule that declares a direction. `_scope` for rules without that declaration stays as it is. No new record code: a missing required name is `DEPENDENCY_INVALID`.
 
