@@ -3,7 +3,7 @@
   "version": 1,
   "phase": "Tax Concept Derivation",
   "topic": "student-loan-circumstance-association",
-  "status": "TRACK 3 STAGE A OPEN. Tracks 1 and 2 built; P2 complete in memory. P3 reopened on an owner-found defect (an unresolved link reduction read as no reduction). Owner chose coverage-checked behaviour: no link -> declared default; every current link covered by its own numeric pinned reduction -> publish; any uncovered link -> block naming it. Stage A specifies and reviews the content-declared contract; stage B implements it. G2 (producer) not reached.",
+  "status": "TRACK 3 STAGE B1 OPEN. Tracks 1 and 2 built; P2 complete in memory. Track 3 stage A contract accepted after review: a link_coverage operation in rule-artifact.v10 on structured keys, names confined by package validation, no new record code, scheduling open for G2. Stage B1 builds the declarative artifacts (ADR, schemas v10/v31, validation, admission); B2 the runtime and the flipped defect tests. G2 (producer) not reached.",
   "scope": [
     "record and recover ordinary schooling circumstances and their explicit connection to identified student-loan interest",
     "preserve document evidence, source-independent subjects, attribution, and relationship lifecycle",
@@ -1216,6 +1216,17 @@ implements it and flips the two committed defect tests. Evidence boundary: the p
 hand-assembled runs and synthetic rules not yet validated as published production rules, and
 nothing here shows what a durable reader sees until P4. Charter (stage A):
 [`charter-track3a-coverage-contract.md`](student-loan-circumstance-association-evidence/charter-track3a-coverage-contract.md).
+
+**Stage A is complete.** The contract
+[`track3-coverage-contract.md`](student-loan-circumstance-association-evidence/track3-coverage-contract.md)
+passed an independent review and two confirmations. It selects a `link_coverage` operation in
+`rule-artifact.v10`, matched on structured keys; confines the two names it registers by package
+validation so no other rule's binding changes; uses no new record code (`DEPENDENCY_INVALID` with the
+uncovered link ids; P4 decides whether a distinct code is needed); and leaves open, for G2, how a
+production run schedules per-subject rules. **Stage B is split:** B1 the declarative artifacts (ADR,
+schemas, validation, admission) —
+[`charter-track3b1-coverage-contract-artifacts.md`](student-loan-circumstance-association-evidence/charter-track3b1-coverage-contract-artifacts.md);
+B2 the runtime behaviour and the flipped defect tests.
 
 ## A5 in detail — choosing how to represent it
 

@@ -5,9 +5,9 @@
   "topic": "student-loan-circumstance-association",
   "active_plan": "docs/phases/tax-concept-derivation/milestones/student-loan-circumstance-association.md",
   "milestone_state": "track-3",
-  "status": "TRACK 3 STAGE A OPEN. Tracks 1 and 2 built; P2 complete in memory. P3 reopened on an owner-found defect (an unresolved link reduction read as no reduction). Owner chose coverage-checked behaviour: no link -> declared default; every current link covered by its own numeric pinned reduction -> publish; any uncovered link -> block naming it. Stage A specifies and reviews the content-declared contract; stage B implements it. G2 (producer) not reached.",
-  "current_role": "Track 3 stage A Builder (coverage contract specification)",
-  "current_prompt": "docs/phases/tax-concept-derivation/milestones/student-loan-circumstance-association-evidence/charter-track3a-coverage-contract.md"
+  "status": "TRACK 3 STAGE B1 OPEN. Tracks 1 and 2 built; P2 complete in memory. Track 3 stage A contract accepted after review: a link_coverage operation in rule-artifact.v10 on structured keys, names confined by package validation, no new record code, scheduling open for G2. Stage B1 builds the declarative artifacts (ADR, schemas v10/v31, validation, admission); B2 the runtime and the flipped defect tests. G2 (producer) not reached.",
+  "current_role": "Track 3 stage B1 Builder (coverage contract artifacts)",
+  "current_prompt": "docs/phases/tax-concept-derivation/milestones/student-loan-circumstance-association-evidence/charter-track3b1-coverage-contract-artifacts.md"
 }
 -->
 
