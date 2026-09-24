@@ -1,6 +1,6 @@
 # ADR 0076 notes — authority quotations and case workings
 
-Working evidence for `temp/a4-pass2/adr0076-draft.md`. Not a decision. Not authority over the draft's Parts 1 and 2, and not a selection of Part 3.
+Working evidence for [`adr0076-draft.md`](adr0076-draft.md). Not a decision. Not authority over the draft's Parts 1 and 2, and not a selection of Part 3.
 
 Read at branch `milestone/student-loan-circumstance-association`, HEAD `f0f1dd7630c330f5f1c6c840b8270152641eb8d2`. The probe write-up `g2-binding-and-scheduling.md` records itself at `b558da4e097367319816568f41091d4fbab5d0b5`. This pass did not re-run `tests/test_sli_g2_binding_probe.py`. "Executed" below means that write-up's named test called the existing hand-dispatch or the existing runners. "Traced" means read off source and not run on this chain.
 
