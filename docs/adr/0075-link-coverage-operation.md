@@ -97,8 +97,11 @@ evidence of coverage only where the link type was joinable to that statement.
 G2 must prove or enforce that binding. The runtime check above refuses present
 rows that cannot join, but cannot see an unjoinable type with no rows; so G2 needs
 a static check, once its scheduler names a rule's subject type, that the link fact
-type's identity keys include every identity key of the subject type — and the run
-context must carry bare fact-type declarations for any runtime use of them.
+type's identity keys share **at least one key name** with the subject type's — the
+same property the runtime join tests (`subject_dispatch._scope` joins on agreeing
+values over shared key names) — and the run context must carry bare fact-type
+declarations for any runtime use of them. Whether one shared name is a strong
+enough join is a question about Track 1's join contract, not decided here.
 
 ## Name confinement — a cost, and the owner's choice
 
@@ -134,7 +137,7 @@ The owner chooses between:
   would keep the scalar loss confinement was written to contain. What it does
   **not** buy: a sibling `collect` returns the link values as decimals (or blocks on a
   non-number), not their key maps, so a consumer that needs the canonical links
-  reads them per subject — by per-subject or pairing dispatch — not by `collect`;
+  reads them per subject — by per-subject dispatch, which joins on shared key names — not by `collect`;
   and a plain `ref` of the link type outside dispatch binds a run-wide scalar only
   through the legacy fallback, when the current link values agree — the
   behaviour before registration, not a per-statement read. `count` and
