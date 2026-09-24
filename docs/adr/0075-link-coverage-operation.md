@@ -1,9 +1,9 @@
 # ADR 0075 — Link coverage on the rule artifact
 
-- Status: **proposed**. Written for Track 3 stage B1; repaired 2026-09-23 on
-  the owner's review. `PROJECT_PLANNING.md` "Decision Records" binds only
-  `accepted`, so this record does not bind until the owner accepts it, and
-  the owner's choice below is taken first.
+- Status: **accepted** (owner, 2026-09-24) as the bounded `link_coverage` operator
+  contract. Acceptance does **not** authorize a statement-specific production result:
+  ADR 0076 must establish that joined links are a statement's own before any result
+  of this operator — including the no-link parameter — supports such a claim.
 - Tier: 2 — a rule-language operation and the runner behaviour later rules are
   written against. Not a product-thesis or governance-meaning decision.
 - Date: 2026-09-23

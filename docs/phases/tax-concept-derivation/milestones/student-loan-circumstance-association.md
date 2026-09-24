@@ -3,7 +3,7 @@
   "version": 1,
   "phase": "Tax Concept Derivation",
   "topic": "student-loan-circumstance-association",
-  "status": "G2 DESIGN RETURNED TO THE OWNER. ADR 0075 repaired (subject identity enforced; disconnected check not a binding proof) and recommended for acceptance. Scheduling: adversarial two-statement probe (20 tests) shows cross-joins on tax year, shared statement id, lender+year; recommended ADR 0076 = subject/joined/direction on rule-artifact.v11 with declared-name containment, a runtime presence check, and predecessor-resolution eligibility; the link-to-status edge fits neither direction and needs a declared key-correspondence set join. Reader: bounded contract drafted (presentation projection, page disclosure, condition-wording.v1 declared on the rule, statement-scoped responsibility rules, durable-file-and-page demonstration). Implementation waits on the owner.",
+  "status": "ADR 0075 ACCEPTED (bounded operator contract; not a statement-specific production result). ADR 0076 being split into scheduling, relationship validation, and the set-level tax consequence (to be tested against the applicable rule). Reader contract under repair (line 21 preserved; parameter vs declared_default; missing classified; bare-statement selection; wording home compared). G2 (producer) not reached.",
   "scope": [
     "record and recover ordinary schooling circumstances and their explicit connection to identified student-loan interest",
     "preserve document evidence, source-independent subjects, attribution, and relationship lifecycle",
@@ -1472,6 +1472,8 @@ A1–A3 are the work it skipped.
 
 | Decision | Owner | Needed by | Status |
 | --- | --- | --- | --- |
+| ADR 0075 acceptance | Owner | Before G2 design | **Accepted 2026-09-24** as the bounded operator contract; does not authorize a statement-specific production result — ADR 0076 must establish the binding |
+| ADR 0076 direction | Owner | Before G2 | **2026-09-24:** a subject declaration on each per-subject rule is the preferred scheduling direction; not published as one settled package — scheduling, relationship validation, and the set-level tax consequence of several statuses for one borrowing are separated, the last tested against the applicable rule |
 | ADR 0075 name confinement — A: keep as a bounded v10 limitation; B: admit the operator's names through a channel marshal does not consult for scalar binding, and drop confinement | Owner | Before ratifying ADR 0075 | **Decided 2026-09-24: B** |
 | Whether to close with a partial result after A4's second pass | Owner | After P4 | **Decided 2026-09-24: no** — continue to A6's reader carrier and G2's scheduling and binding |
 | How to distinguish a statement with no link from one with an unresolved link — A: a coverage-checked collection declared in content; B: make blocked outcomes visible to later rules; C: narrow the consumer | Owner | Before Track 3 | **Decided 2026-09-23: A's behaviour**; contract to be specified and reviewed before implementation; inapplicable or blocked reductions are uncovered |

@@ -5,8 +5,8 @@
   "topic": "student-loan-circumstance-association",
   "active_plan": "docs/phases/tax-concept-derivation/milestones/student-loan-circumstance-association.md",
   "milestone_state": "track-4",
-  "status": "G2 DESIGN RETURNED TO THE OWNER. ADR 0075 repaired (subject identity enforced; disconnected check not a binding proof) and recommended for acceptance. Scheduling: adversarial two-statement probe (20 tests) shows cross-joins on tax year, shared statement id, lender+year; recommended ADR 0076 = subject/joined/direction on rule-artifact.v11 with declared-name containment, a runtime presence check, and predecessor-resolution eligibility; the link-to-status edge fits neither direction and needs a declared key-correspondence set join. Reader: bounded contract drafted (presentation projection, page disclosure, condition-wording.v1 declared on the rule, statement-scoped responsibility rules, durable-file-and-page demonstration). Implementation waits on the owner.",
-  "current_role": "Foreman (owner decisions: ADR 0075, ADR 0076 shape, reader contract)",
+  "status": "ADR 0075 ACCEPTED (bounded operator contract; not a statement-specific production result). ADR 0076 being split into scheduling, relationship validation, and the set-level tax consequence (to be tested against the applicable rule). Reader contract under repair (line 21 preserved; parameter vs declared_default; missing classified; bare-statement selection; wording home compared). G2 (producer) not reached.",
+  "current_role": "Foreman (ADR 0076 boundary and reader contract revision)",
   "current_prompt": "docs/phases/tax-concept-derivation/milestones/student-loan-circumstance-association.md"
 }
 -->
