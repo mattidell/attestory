@@ -232,7 +232,28 @@ The page is `packages/presentation/pages/citation-walk.v1.html`. The walk change
 
 `renderLine` stays the one render path for line 21: the worksheet amount or the block, the field's own `explain`, the leaf citation buttons, the field citation. Line 21 gains no statement rows and no new sentence. Other lines are unchanged. Nothing is added to the page header.
 
-When `calculationView` is present, the page renders it once, next to line 21, because that is the deduction the person is examining. The view is not inside the line's value, and it is not rendered on any other line. While `integrated` is `false`, the view shows this chrome and nothing warmer: "Not Schedule 1 line 21. The worksheet does not read these figures." That sentence is page chrome, the same kind as the blocked banner. It is not a condition and not a wording field. Both page copies use that string. The page does not compute a sum of the groups and does not place a group value in line 21's value slot.
+**Where the view is shown is an owner choice, not decided by this contract** (see "Owner choice: where
+the unintegrated calculation is shown" below). Whichever surface is chosen: the view is not inside line 21's
+value, is not rendered on any other line, does not sum the groups, does not put a group value in line 21's
+value slot, and while `integrated` is `false` carries the chrome "Not Schedule 1 line 21. The worksheet does
+not read these figures." — page chrome, not a condition and not a wording field.
+
+### Owner choice: where the unintegrated calculation is shown
+
+- **A — on the product page now, beside the real Schedule 1 line 21, labelled as not used by the worksheet.**
+  The person examining their deduction sees the per-statement explanation in context. Risk: a figure that
+  looks like a deduction sits next to the real one while the worksheet does not use it, the chain is not
+  production-scheduled, and ADR 0076's binding is not accepted — so the figure is not yet a
+  statement-specific claim. The label has to carry all of that.
+- **B — only on an experimental reader surface until worksheet integration.** The product page is unchanged;
+  the view is demonstrated on a separate surface. Nothing a person reads on the real return shows an
+  unintegrated figure. Cost: the owner's demonstration standard ("the actual citation-walk page") is met on
+  the experimental surface for now, and on the product page only after integration.
+
+**Foreman's recommendation: B**, because the figure is not yet something the product stands behind
+(unscheduled, unbound, unintegrated), and a label is a weak guard beside a real tax line. The demonstration
+standard applies unchanged to whichever surface is chosen: reload the durable file after the run is gone,
+splice it into that page, load it through the harness.
 
 The conditions are not `role="alert"`. They do not use the blocked banner ("No value published — cannot compute.") or the remedy box. Those stay on a real blocked disposition of line 21 only. The conditions are not inputs, not checkboxes, and not questions. The explanation is a disclosure inside the calculation view: collapsed in the ordinary view, opened by a control on that view, containing only what the model copied.
 
