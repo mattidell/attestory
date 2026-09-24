@@ -255,7 +255,7 @@ class _Run:
             rule.get("schema") in {
                 "rule-artifact.v2", "rule-artifact.v3", "rule-artifact.v4",
                 "rule-artifact.v5", "rule-artifact.v6", "rule-artifact.v7",
-                "rule-artifact.v8", "rule-artifact.v9",
+                "rule-artifact.v8", "rule-artifact.v9", "rule-artifact.v10",
             }
             for rule in ctx.rules
         ) or _uses_attachment_machinery(ctx.rules)
@@ -2392,7 +2392,7 @@ def run_and_record(
         rule.get("schema") in {
             "rule-artifact.v2", "rule-artifact.v3", "rule-artifact.v4",
             "rule-artifact.v5", "rule-artifact.v6", "rule-artifact.v7",
-            "rule-artifact.v8", "rule-artifact.v9",
+            "rule-artifact.v8", "rule-artifact.v9", "rule-artifact.v10",
         }
         for rule in ctx.rules
     ) or _uses_attachment_machinery(ctx.rules)

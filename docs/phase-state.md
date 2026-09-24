@@ -5,9 +5,9 @@
   "topic": "student-loan-circumstance-association",
   "active_plan": "docs/phases/tax-concept-derivation/milestones/student-loan-circumstance-association.md",
   "milestone_state": "track-3",
-  "status": "TRACK 3 STAGE B1 OPEN. Tracks 1 and 2 built; P2 complete in memory. Track 3 stage A contract accepted after review: a link_coverage operation in rule-artifact.v10 on structured keys, names confined by package validation, no new record code, scheduling open for G2. Stage B1 builds the declarative artifacts (ADR, schemas v10/v31, validation, admission); B2 the runtime and the flipped defect tests. G2 (producer) not reached.",
-  "current_role": "Track 3 stage B1 Builder (coverage contract artifacts)",
-  "current_prompt": "docs/phases/tax-concept-derivation/milestones/student-loan-circumstance-association-evidence/charter-track3b1-coverage-contract-artifacts.md"
+  "status": "TRACK 3 STAGE B2 OPEN. Track 3 stage A contract accepted; stage B1 complete (ADR 0075 proposed, rule-artifact.v10, artifact-package.v31, validation, admission). Stage B2 builds the runtime (link_coverage arm, per-subject slot and sentinel, authorization closure) and flips the P3 defect tests. G2 (producer) not reached; P4 still owed.",
+  "current_role": "Track 3 stage B2 Builder (coverage runtime)",
+  "current_prompt": "docs/phases/tax-concept-derivation/milestones/student-loan-circumstance-association-evidence/charter-track3b2-coverage-runtime.md"
 }
 -->
 

@@ -67,6 +67,27 @@ class LiveCoordinatorOutcome:
     authorization_status: str | None = None
 
 
+def _iter_link_coverage_names(expr: Any) -> Iterable[str]:
+    """Yield ``links`` then ``reductions`` from every ``link_coverage`` node.
+
+    Same recursion as ``_iter_collect_categorical_names``. The strings are
+    collect names only: no source-family member and no closure read.
+    """
+    if isinstance(expr, dict):
+        if expr.get("op") == "link_coverage":
+            links = expr.get("links")
+            reductions = expr.get("reductions")
+            if isinstance(links, str) and links:
+                yield links
+            if isinstance(reductions, str) and reductions:
+                yield reductions
+        for value in expr.values():
+            yield from _iter_link_coverage_names(value)
+    elif isinstance(expr, list):
+        for item in expr:
+            yield from _iter_link_coverage_names(item)
+
+
 def _iter_collect_categorical_names(expr: Any) -> Iterable[str]:
     """Yield ``name`` values from every ``collect_categorical_all_equal`` node.
 
@@ -101,7 +122,7 @@ def _resolved_run_material(graph: Any) -> tuple[
     # belongs in the same `rules` material the runner saturates over.
     rules = [
         member for member in members
-        if member.get("schema") in {"rule-artifact.v1", "rule-artifact.v2", "rule-artifact.v3", "rule-artifact.v4", "rule-artifact.v5", "rule-artifact.v6", "rule-artifact.v7", "rule-artifact.v8", "rule-artifact.v9", "attachment-rule.v1", "attachment-rule.v2", "attachment-rule.v3", "attachment-rule.v4", "attachment-rule.v5", "attachment-rule.v6", "attachment-rule.v8", "attachment-rule.v11"}
+        if member.get("schema") in {"rule-artifact.v1", "rule-artifact.v2", "rule-artifact.v3", "rule-artifact.v4", "rule-artifact.v5", "rule-artifact.v6", "rule-artifact.v7", "rule-artifact.v8", "rule-artifact.v9", "rule-artifact.v10", "attachment-rule.v1", "attachment-rule.v2", "attachment-rule.v3", "attachment-rule.v4", "attachment-rule.v5", "attachment-rule.v6", "attachment-rule.v8", "attachment-rule.v11"}
     ]
     parameters = {member["id"]: member for member in members if member.get("schema") == "parameter-declaration.v1"}
     families = [member for member in members if member.get("schema") in {"source-family.v1", "source-family.v2"}]
@@ -141,6 +162,12 @@ def _resolved_run_material(graph: Any) -> tuple[
             if name not in collect_names:
                 collect_names.append(name)
         for name in _iter_collect_categorical_names(rule.get("value")):
+            if name not in collect_names:
+                collect_names.append(name)
+    # link_coverage registers both declared names. The walk is value only,
+    # and it does not add a source family, a companion, or a closure read.
+    for rule in rules:
+        for name in _iter_link_coverage_names(rule.get("value")):
             if name not in collect_names:
                 collect_names.append(name)
     # ADR-0070: the supportability rule reads pairing / acquisition /

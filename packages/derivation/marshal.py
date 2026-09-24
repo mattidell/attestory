@@ -107,7 +107,9 @@ def _rule_required_symbols(rule: dict[str, Any]) -> list[str]:
     # v7 is v6 plus an optional `field` selector on `ref_expr` (ADR-0067).
     # Both carry the same declared-refs-outside-requires capability as
     # v3/v4/v5.
-    if rule.get("schema") in {"rule-artifact.v3", "rule-artifact.v4", "rule-artifact.v5", "rule-artifact.v6", "rule-artifact.v7", "rule-artifact.v8", "rule-artifact.v9"}:
+    # v10 is the guarded clause plus link_coverage. Its refs are the same
+    # declared-refs-outside-requires walk; the node's own fields are not refs.
+    if rule.get("schema") in {"rule-artifact.v3", "rule-artifact.v4", "rule-artifact.v5", "rule-artifact.v6", "rule-artifact.v7", "rule-artifact.v8", "rule-artifact.v9", "rule-artifact.v10"}:
         symbols.extend(_iter_ref_names(rule.get("when")))
         symbols.extend(_iter_ref_names(rule.get("value")))
         selection = rule.get("selection")

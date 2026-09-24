@@ -3,7 +3,7 @@
   "version": 1,
   "phase": "Tax Concept Derivation",
   "topic": "student-loan-circumstance-association",
-  "status": "TRACK 3 STAGE B1 OPEN. Tracks 1 and 2 built; P2 complete in memory. Track 3 stage A contract accepted after review: a link_coverage operation in rule-artifact.v10 on structured keys, names confined by package validation, no new record code, scheduling open for G2. Stage B1 builds the declarative artifacts (ADR, schemas v10/v31, validation, admission); B2 the runtime and the flipped defect tests. G2 (producer) not reached.",
+  "status": "TRACK 3 STAGE B2 OPEN. Track 3 stage A contract accepted; stage B1 complete (ADR 0075 proposed, rule-artifact.v10, artifact-package.v31, validation, admission). Stage B2 builds the runtime (link_coverage arm, per-subject slot and sentinel, authorization closure) and flips the P3 defect tests. G2 (producer) not reached; P4 still owed.",
   "scope": [
     "record and recover ordinary schooling circumstances and their explicit connection to identified student-loan interest",
     "preserve document evidence, source-independent subjects, attribution, and relationship lifecycle",
@@ -1227,6 +1227,15 @@ production run schedules per-subject rules. **Stage B is split:** B1 the declara
 schemas, validation, admission) —
 [`charter-track3b1-coverage-contract-artifacts.md`](student-loan-circumstance-association-evidence/charter-track3b1-coverage-contract-artifacts.md);
 B2 the runtime behaviour and the flipped defect tests.
+
+**Stage B1 is complete.** ADR 0075 (**proposed**, not yet accepted — only the owner's acceptance binds
+it), `rule-artifact.v10` and `artifact-package.v31` as new schema versions with checksums appended,
+package validation including `LINK_COVERAGE_NAME_REUSED`, and v10 admission. An independent review
+found one defect — a `rule-artifact.v2` sibling could `ref` a confined name — fixed by the foreman with
+a regression test shown to fail without the fix. Schema intent is on the local
+`milestone-schema-ledger`. Stage B2 builds the runtime, walks v10 in the authorization closure, and
+flips the defect tests:
+[`charter-track3b2-coverage-runtime.md`](student-loan-circumstance-association-evidence/charter-track3b2-coverage-runtime.md).
 
 ## A5 in detail — choosing how to represent it
 
