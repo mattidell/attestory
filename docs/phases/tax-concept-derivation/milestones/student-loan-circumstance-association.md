@@ -1167,7 +1167,7 @@ earlier.
 | --- | --- | --- |
 | **P1** — *done: untestable without production change; Track 1 builds the mechanism* | Can one categorical conclusion be published **per key of a single subject** — student-and-period, statement — carrying its rule's declared citations, and recorded `inapplicable` for a key where an adverse circumstance is supported? | — |
 | **P2** — *done: `run` at the borrowing and statement grains, in memory within one run (Track 2)* | Does one corrected schooling circumstance reach **every** statement whose result depended on it, on re-derivation? | P1 |
-| **P3** — *done: `run` for statements with links, with reduction-shaped rules; a statement with no link blocks* | Can a statement's figure be **partially reduced** — the adverse portion removed, the remainder publishing on its own basis? | P1 |
+| **P3** — *reopened: partial reduction runs only when every recorded link resolves; an unresolved link is silently dropped (owner-found defect); no-link default pending Track 3* | Can a statement's figure be **partially reduced** — the adverse portion removed, the remainder publishing on its own basis? | P1 |
 | **P4** | Can a reader **recover**, from durable output, the conclusion's identity and meaning and, for the provisional responsibility candidate, each condition's identity, circumstance and treatment — and where does wording fail to have a home? | P1 |
 
 Results go into [`a4-bounds.md`](student-loan-circumstance-association-evidence/a4-bounds.md),
@@ -1411,6 +1411,7 @@ A1–A3 are the work it skipped.
 
 | Decision | Owner | Needed by | Status |
 | --- | --- | --- | --- |
+| How a statement with no recorded borrowing link publishes — A: a declared default (Track 3); B: the existing worksheet path; C: a closed source set per statement | Owner | Before P4 | **Decided 2026-09-23: A**, as a calculation posture, not a claim that the links are complete. Before Track 3: tests for an unresolved link, and the content-declared contract investigated |
 | How to reach a Form 1098-E statement after P2 — A: keyed same-run sources; B: multi-hop joins; C: stop at the borrowing grain | Owner | Before P3 | **Decided 2026-09-23: A, as a bounded test.** Track 2 |
 | How to proceed after P1 found per-key publication untestable without production change — A: charter the mechanism as a bounded track; B: a hand-built loop in the test module; C: stop with a partial result | Owner | Before P2 | **Decided 2026-09-23: A.** Track 1 |
 | What the reader shows when a condition applies but the application cannot name its school or programme — the ordinary return with nothing described. A: the conditions, bound to the statement, unnamed (recommended). B: only the default basis | Owner | Before A6 | **Decided 2026-09-23: A**, for inspectable content — the three conditions tied to the statement, school and programme explicitly unknown, in a contextual explanation behind a short default-basis note; not questions, confirmations or a screen-wide warning. See [A5 stage 4](student-loan-circumstance-association-evidence/a5-stage4-scope-and-responsibility.md). A0 unchanged |

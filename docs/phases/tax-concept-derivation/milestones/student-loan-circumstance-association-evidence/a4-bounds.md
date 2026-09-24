@@ -242,13 +242,24 @@ Neither is a partial reduction. Carrying keys does not address it.
 Track 2 they do. The test now records what still holds: a statement cannot join a financing
 conclusion directly — their key names are disjoint — and reaches it only through the link.
 
-## Second pass — P3 result: partial reduction runs; a statement with no link does not
+## Second pass — P3 result: partial reduction runs when every link resolves; an unresolved link is silently dropped
 
 No production change. Probe classes in `tests/test_sli_circumstance_association_a4_pass2.py`,
 on Track 1 and Track 2's mechanism, three per-subject rules in one run: status per financing
 claim, **reduction** per statement-to-borrowing link (the portion when the status is adverse,
 0 otherwise), and a statement amount of **box 1 minus the sum of the collected reductions** —
-`collect` in the statement's scope sees exactly its joined links and pins every one.
+`collect` in the statement's scope sees exactly the **published** reductions joined to it and
+pins every one of those.
+
+**Defect, found by the owner and reproduced (2026-09-23).** A recorded link whose reduction
+**blocks** publishes nothing, so the statement's collection does not see it. With the
+institutional financing claim removed and both links kept, the institutional reduction blocks
+`DEPENDENCY_ABSENT`, the private reduction keeps the collection non-empty, and North **publishes
+$1,500** — with the unresolved link absent from the amount's dependency chain. A missing derived
+reduction is being read as "no reduction". The earlier claim that every link is pinned was true
+only when every link resolved, and is withdrawn. A statement whose **only** recorded link is
+unresolved blocks, but on the unclosed empty collection — the right disposition for the wrong
+reason, and one a no-link default would wrongly turn into a published figure.
 
 | Case | Result | Test |
 | --- | --- | --- |
@@ -257,6 +268,8 @@ claim, **reduction** per statement-to-borrowing link (the portion when the statu
 | Route (c), portion unknown, borrowing adverse | `run` — the statement **blocks** `DEPENDENCY_INVALID`; no figure, and distinct from a known portion reduced | `…test_route_c_unknown_portion_adverse` |
 | Route (c), portion unknown, nothing adverse | `run` — **1500** publishes; the unknown portion is never needed | `…test_route_c_unknown_portion_not_adverse` |
 | An unaffected statement | `run` — byte-identical before and after | `CollectedPortionReduction.test_unaffected_statement_is_byte_identical` |
+| **One of two recorded links unresolved** | **defect** — publishes 1500; the blocked reduction is not pinned. Required: the statement blocks, naming the unresolved link | `ObservedUnresolvedLinkDefect` (pending) |
+| **The only recorded link unresolved** | blocks `SOURCE_SET_UNCLOSED` — for the wrong reason. Required: block because a recorded link is unresolved, never a no-link default | `ObservedUnresolvedLinkDefect` (pending) |
 | **A statement with no joined link** — case 2, the ordinary return | **blocks** `SOURCE_SET_UNCLOSED`; no figure | `…test_no_joined_link` |
 
 **The rule's shape decided two of these.** P3's first shape summed the *surviving* portions: it
@@ -276,9 +289,17 @@ collected name.
 **Ceilings.** Currency is `compute_currency` over a `FindingState` in correction order, not an
 act-log fold. The probe rules are **not** validated against `rule-artifact.v6`, which requires a
 `source_set` on every `collect` — a production rule must name one. A non-empty collection does
-not consult closure, so that does not change the non-empty results. The multi-link statement pins
-every link under this shape, which closes the provenance gap Track 2 observed under the scalar
-join.
+not consult closure, so that does not change the non-empty results. **Every result above holds
+only when every recorded link's reduction resolves**: `collect` sees published reductions, not
+recorded links, so it cannot tell a link that resolved to no reduction from one that failed to
+resolve. The multi-link statement pins every *published* reduction under this shape, which closes
+Track 2's provenance gap only in that case.
+
+**The three outcomes the owner requires of a statement:** no link recorded → the reported amount
+on a declared default, a calculation posture and not a completeness claim; every recorded link
+resolved → box 1 minus the calculated reductions; any recorded link unresolved → that statement
+blocks, without suppressing unrelated statements. A missing derived reduction is never "no
+reduction", and an undeclared empty collection still blocks.
 
 ## What A5 may not rely on without new execution
 
