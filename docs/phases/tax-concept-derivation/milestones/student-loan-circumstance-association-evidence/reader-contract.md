@@ -232,7 +232,7 @@ The page is `packages/presentation/pages/citation-walk.v1.html`. The walk change
 
 `renderLine` stays the one render path for line 21: the worksheet amount or the block, the field's own `explain`, the leaf citation buttons, the field citation. Line 21 gains no statement rows and no new sentence. Other lines are unchanged. Nothing is added to the page header.
 
-**Where the view is shown is an owner choice, not decided by this contract** (see "Owner choice: where
+**Where the view is shown: the owner chose B (experimental reader surface only)** (see "Owner choice: where
 the unintegrated calculation is shown" below). Whichever surface is chosen: the view is not inside line 21's
 value, is not rendered on any other line, does not sum the groups, does not put a group value in line 21's
 value slot, and while `integrated` is `false` carries the chrome "Not Schedule 1 line 21. The worksheet does
@@ -250,7 +250,9 @@ not read these figures." — page chrome, not a condition and not a wording fiel
   unintegrated figure. Cost: the owner's demonstration standard ("the actual citation-walk page") is met on
   the experimental surface for now, and on the product page only after integration.
 
-**Foreman's recommendation: B**, because the figure is not yet something the product stands behind
+**Owner's choice: B (2026-09-24).** The per-statement calculation is shown only on an experimental reader
+surface until worksheet integration; the product citation-walk page is unchanged by this contract, and the
+demonstration standard is met on the experimental surface. Reasoning at the time of the choice: the figure is not yet something the product stands behind
 (unscheduled, unbound, unintegrated), and a label is a weak guard beside a real tax line. The demonstration
 standard applies unchanged to whichever surface is chosen: reload the durable file after the run is gone,
 splice it into that page, load it through the harness.

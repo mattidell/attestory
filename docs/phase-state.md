@@ -5,8 +5,8 @@
   "topic": "student-loan-circumstance-association",
   "active_plan": "docs/phases/tax-concept-derivation/milestones/student-loan-circumstance-association.md",
   "milestone_state": "track-4",
-  "status": "ADR 0075 ACCEPTED (bounded operator contract; not a statement-specific production result). ADR 0076 being split into scheduling, relationship validation, and the set-level tax consequence (to be tested against the applicable rule). Reader contract under repair (line 21 preserved; parameter vs declared_default; missing classified; bare-statement selection; wording home compared). G2 (producer) not reached.",
-  "current_role": "Foreman (ADR 0076 boundary and reader contract revision)",
+  "status": "G2 DESIGN REPAIRED, AWAITING OWNER APPROVALS. ADR 0075 accepted. ADR 0076 Parts 1 and 2 drafted as separate contracts with one publication plan (first successor: subject, joined, direction once both accepted; second: wording, lineNote, link_count); Part 3 open. Reader contract repaired: line 21 preserved; view on an experimental surface only (owner: B); parameter vs declared_default distinct; missing classified; statement label from entity labels; bare-statement selection needs link_count (count == 0 unsound under v10, probed). Nothing published. G2 (producer) not reached.",
+  "current_role": "Foreman (awaiting owner: ADR 0076 Parts 1-2, reader contract, wording, Part 3)",
   "current_prompt": "docs/phases/tax-concept-derivation/milestones/student-loan-circumstance-association.md"
 }
 -->

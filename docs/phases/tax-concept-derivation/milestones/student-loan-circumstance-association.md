@@ -3,7 +3,7 @@
   "version": 1,
   "phase": "Tax Concept Derivation",
   "topic": "student-loan-circumstance-association",
-  "status": "ADR 0075 ACCEPTED (bounded operator contract; not a statement-specific production result). ADR 0076 being split into scheduling, relationship validation, and the set-level tax consequence (to be tested against the applicable rule). Reader contract under repair (line 21 preserved; parameter vs declared_default; missing classified; bare-statement selection; wording home compared). G2 (producer) not reached.",
+  "status": "G2 DESIGN REPAIRED, AWAITING OWNER APPROVALS. ADR 0075 accepted. ADR 0076 Parts 1 and 2 drafted as separate contracts with one publication plan (first successor: subject, joined, direction once both accepted; second: wording, lineNote, link_count); Part 3 open. Reader contract repaired: line 21 preserved; view on an experimental surface only (owner: B); parameter vs declared_default distinct; missing classified; statement label from entity labels; bare-statement selection needs link_count (count == 0 unsound under v10, probed). Nothing published. G2 (producer) not reached.",
   "scope": [
     "record and recover ordinary schooling circumstances and their explicit connection to identified student-loan interest",
     "preserve document evidence, source-independent subjects, attribution, and relationship lifecycle",
@@ -1472,6 +1472,7 @@ A1–A3 are the work it skipped.
 
 | Decision | Owner | Needed by | Status |
 | --- | --- | --- | --- |
+| Where the unintegrated per-statement calculation is shown — A: product page beside line 21, labelled; B: an experimental reader surface only | Owner | Before reader implementation | **Decided 2026-09-24: B** — experimental surface until worksheet integration |
 | ADR 0075 acceptance | Owner | Before G2 design | **Accepted 2026-09-24** as the bounded operator contract; does not authorize a statement-specific production result — ADR 0076 must establish the binding |
 | ADR 0076 direction | Owner | Before G2 | **2026-09-24:** a subject declaration on each per-subject rule is the preferred scheduling direction; not published as one settled package — scheduling, relationship validation, and the set-level tax consequence of several statuses for one borrowing are separated, the last tested against the applicable rule |
 | ADR 0075 name confinement — A: keep as a bounded v10 limitation; B: admit the operator's names through a channel marshal does not consult for scalar binding, and drop confinement | Owner | Before ratifying ADR 0075 | **Decided 2026-09-24: B** |
