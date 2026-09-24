@@ -40,6 +40,7 @@ from packages.derivation.runner import (
 
 DEPENDENCY_ABSENT = "DEPENDENCY_ABSENT"
 DEPENDENCY_INVALID = "DEPENDENCY_INVALID"
+LINK_COVERAGE_UNJOINABLE = "link-coverage-unjoinable"
 
 
 @dataclass(frozen=True)
@@ -203,8 +204,10 @@ def _optional_default(
     return param_val, (finding_id, "v2", "input", "declared_default"), finding
 
 
-def _declared_link_coverage_names(expr: Any) -> list[str]:
-    """``links`` then ``reductions`` from each ``link_coverage`` node in ``value``.
+def _declared_link_coverage_names(
+    expr: Any, fields: tuple[str, ...] = ("links", "reductions"),
+) -> list[str]:
+    """Named ``link_coverage`` fields from ``value``, in ``fields`` order.
 
     The node's own fields are not ``ref`` names. ``when`` is not walked.
     """
@@ -213,7 +216,7 @@ def _declared_link_coverage_names(expr: Any) -> list[str]:
     def walk(node: Any) -> None:
         if isinstance(node, dict):
             if node.get("op") == "link_coverage":
-                for key in ("links", "reductions"):
+                for key in fields:
                     name = node.get(key)
                     if isinstance(name, str) and name and name not in names:
                         names.append(name)
@@ -225,6 +228,30 @@ def _declared_link_coverage_names(expr: Any) -> list[str]:
 
     walk(expr)
     return names
+
+
+def _present_rows_share_no_key_name(
+    subject: SourceFact, candidates: Sequence[SourceFact],
+) -> bool:
+    """Present rows whose key names are disjoint from the subject's.
+
+    Zero candidates are not this case. A missing key tuple is not this
+    case: ``_scope`` returns None and the slot is the keys-unavailable
+    sentinel. A shared name whose values disagree is a join of nothing,
+    not this case. ``_scope`` itself is not used and is not changed.
+    """
+    if not candidates:
+        return False
+    subject_keys = _keys(subject)
+    if subject_keys is None:
+        return False
+    shared: set[str] = set()
+    for candidate in candidates:
+        keys = _keys(candidate)
+        if keys is None:
+            return False
+        shared.update(set(subject_keys).intersection(keys))
+    return not shared
 
 
 def _requires(rule: Mapping[str, Any]) -> list[str]:
@@ -361,6 +388,7 @@ def evaluate_subject_scoped_rule(
     required = _requires(rule)
     other_names = sorted({source.name for source in sources if source.name != subject_type})
     coverage_names = _declared_link_coverage_names(rule.get("value"))
+    link_type_names = _declared_link_coverage_names(rule.get("value"), ("links",))
 
     for subject in subjects:
         subject_fact_id = _subject_id(subject)
@@ -486,6 +514,32 @@ def evaluate_subject_scoped_rule(
                 subject_fact_id=subject_fact_id,
                 symbol=symbol,
                 pins=tuple(_assemble_pins(run, rule, access, symbol_pin, *maps, subject_type)),
+            ))
+            continue
+        # Present unjoinable link rows are not the no-link default. The
+        # joined slots are both [] in that case and in a real empty join,
+        # so the operation cannot tell them apart. Orphan and keys-unavailable
+        # slots are not [], and those earlier blocks still run in value.
+        unjoinable = (
+            bool(coverage_names)
+            and all(keyed_sources.get(name) == [] for name in coverage_names)
+            and any(
+                _present_rows_share_no_key_name(
+                    subject,
+                    [source for source in sources if source.name == name],
+                )
+                for name in link_type_names
+            )
+        )
+        if unjoinable:
+            blocked.append(SubjectBlocked(
+                subject_fact_id=subject_fact_id,
+                symbol=symbol,
+                code=DEPENDENCY_INVALID,
+                missing=(LINK_COVERAGE_UNJOINABLE,),
+                pins=tuple(_assemble_pins(
+                    run, rule, access, symbol_pin, *maps, subject_type
+                )),
             ))
             continue
         try:

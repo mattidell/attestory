@@ -400,6 +400,18 @@ needs a carrier, not a code. And the reader question: **nothing the design depen
 presentation today** beyond box 1 and an error code. The owed reader behaviour stays owed, and the
 carrier is A6's to design.
 
+## Track 4 — reusable link admission (ADR 0075, option B) and the unjoinable block
+
+The link type is admitted through an **emission-only** name set in marshal: emitted as sources, never
+consulted by the input-binding branch or the legacy fallback, and its findings never marked used. So no
+other symbol's scalar binding changes, a `ref` of the link type binds a run-wide scalar through the
+fallback when values agree (as before registration), and a sibling may name the link type anywhere —
+`LINK_COVERAGE_NAME_REUSED` and name confinement are gone. A sibling `collect` returns decimals, not key
+maps. The reduction name is registered nowhere. **Present** link rows sharing no key name with the
+subject now block `link-coverage-unjoinable` instead of taking the default; zero-row joinability stays
+G2's. Tests: `tests/derivation/test_link_coverage_admission.py` and the re-cut contract tests.
+Independent review: no defects.
+
 ## What A5 may not rely on without new execution
 
 D7, D9, D10, D11, D12, D14 and D16b. In particular, a shape that depends on **an

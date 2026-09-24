@@ -67,25 +67,63 @@ class LiveCoordinatorOutcome:
     authorization_status: str | None = None
 
 
-def _iter_link_coverage_names(expr: Any) -> Iterable[str]:
-    """Yield ``links`` then ``reductions`` from every ``link_coverage`` node.
+def _iter_link_coverage_link_types(expr: Any) -> Iterable[str]:
+    """Yield ``links`` from every ``link_coverage`` node.
 
-    Same recursion as ``_iter_collect_categorical_names``. The strings are
-    collect names only: no source-family member and no closure read.
+    Same recursion as ``_iter_collect_categorical_names``. ``reductions`` is
+    not yielded: it is not a collect name and not an emission name. The
+    reduction row arrives as a same-run live source. The walk adds no
+    source-family member and no closure read.
     """
     if isinstance(expr, dict):
         if expr.get("op") == "link_coverage":
             links = expr.get("links")
-            reductions = expr.get("reductions")
             if isinstance(links, str) and links:
                 yield links
-            if isinstance(reductions, str) and reductions:
-                yield reductions
         for value in expr.values():
-            yield from _iter_link_coverage_names(value)
+            yield from _iter_link_coverage_link_types(value)
     elif isinstance(expr, list):
         for item in expr:
-            yield from _iter_link_coverage_names(item)
+            yield from _iter_link_coverage_link_types(item)
+
+
+class _ResolvedRunMaterial(tuple[
+    list[dict[str, Any]],
+    dict[str, dict[str, Any]],
+    list[dict[str, Any]],
+    list[dict[str, Any]],
+    list[dict[str, Any]],
+    list[dict[str, Any]],
+    list[str],
+]):
+    """Seven runner fields, plus the emission-only source names.
+
+    Unpacking still yields rules, parameters, families, mappings, fact
+    types, input bindings, and collect names. ``emission_only_names`` is
+    not one of those seven: a caller that only reads collect names is
+    unchanged, and a link type admitted only for coverage is not a collect
+    name.
+    """
+
+    emission_only_names: tuple[str, ...]
+
+    def __new__(
+        cls,
+        rules: list[dict[str, Any]],
+        parameters: dict[str, dict[str, Any]],
+        families: list[dict[str, Any]],
+        mappings: list[dict[str, Any]],
+        fact_types: list[dict[str, Any]],
+        bindings: list[dict[str, Any]],
+        collect_names: list[str],
+        emission_only_names: list[str],
+    ) -> _ResolvedRunMaterial:
+        material = super().__new__(
+            cls,
+            (rules, parameters, families, mappings, fact_types, bindings, collect_names),
+        )
+        material.emission_only_names = tuple(emission_only_names)
+        return material
 
 
 def _iter_collect_categorical_names(expr: Any) -> Iterable[str]:
@@ -109,10 +147,7 @@ def _iter_collect_categorical_names(expr: Any) -> Iterable[str]:
             yield from _iter_collect_categorical_names(item)
 
 
-def _resolved_run_material(graph: Any) -> tuple[
-    list[dict[str, Any]], dict[str, dict[str, Any]], list[dict[str, Any]],
-    list[dict[str, Any]], list[dict[str, Any]], list[dict[str, Any]], list[str],
-]:
+def _resolved_run_material(graph: Any) -> _ResolvedRunMaterial:
     """Derive runner material solely from the resolver's exclusive graph."""
     members = list(graph.resolved_members)
     # ADR-0036: an attachment citizen is interpreted directly from its
@@ -164,12 +199,15 @@ def _resolved_run_material(graph: Any) -> tuple[
         for name in _iter_collect_categorical_names(rule.get("value")):
             if name not in collect_names:
                 collect_names.append(name)
-    # link_coverage registers both declared names. The walk is value only,
-    # and it does not add a source family, a companion, or a closure read.
+    # link_coverage emits ``links`` only, and not as a collect name. The
+    # walk is value only. A name already collected (a family member, for
+    # example) stays on ``collect_names`` and keeps that exclusion.
+    # ``reductions`` is on neither list.
+    emission_only: list[str] = []
     for rule in rules:
-        for name in _iter_link_coverage_names(rule.get("value")):
-            if name not in collect_names:
-                collect_names.append(name)
+        for name in _iter_link_coverage_link_types(rule.get("value")):
+            if name not in collect_names and name not in emission_only:
+                emission_only.append(name)
     # ADR-0070: the supportability rule reads pairing / acquisition /
     # report sources by pinned fact id, not by an ordinary symbol binding.
     from packages.tax.supportability import COLLECT_SOURCE_NAMES, RULE_ID
@@ -208,7 +246,17 @@ def _resolved_run_material(graph: Any) -> tuple[
         for name in association_names():
             if name not in collect_names:
                 collect_names.append(name)
-    return rules, parameters, families, mappings, fact_types, list(graph.package["input_bindings"]), collect_names
+    emission_only = [name for name in emission_only if name not in collect_names]
+    return _ResolvedRunMaterial(
+        rules,
+        parameters,
+        families,
+        mappings,
+        fact_types,
+        list(graph.package["input_bindings"]),
+        collect_names,
+        emission_only,
+    )
 
 
 def live_coordinate_run(
@@ -262,7 +310,8 @@ def live_coordinate_run(
     # fact type. Currency is computed once, here, and reused below.
     currency = compute_currency(state)
     validate_projected_source_boundary(state.findings.values(), currency.current_finding_ids)
-    rules, parameters, families, mappings, fact_types, bindings, collect_names = _resolved_run_material(resolved)
+    material = _resolved_run_material(resolved)
+    rules, parameters, families, mappings, fact_types, bindings, collect_names = material
     retired = state.fact_state.retired_fact_type_ids
     if retired:
         fact_types = [ft for ft in fact_types if ft.get("id") not in retired]
@@ -289,6 +338,7 @@ def live_coordinate_run(
         governance_pins=[dict(pin) for pin in governance_pins],
         family_declarations=families, closure_mappings=mappings, fact_types=fact_types,
         input_bindings=bindings, collect_source_names=collect_names,
+        emission_only_source_names=list(material.emission_only_names),
         companion_presence_pairs=domain_companion_presence_pairs(),
         authorization=authorization,
         reporting_year=reporting_year,
@@ -464,6 +514,7 @@ def live_run(
     fact_types: Sequence[dict[str, Any]] | None = None,
     input_bindings: Sequence[Mapping[str, Any]] | None = None,
     collect_source_names: Sequence[str] | None = None,
+    emission_only_source_names: Sequence[str] | None = None,
     companion_presence_pairs: Mapping[str, str] | None = None,
 ) -> RunResult:
     """Execute one live run from record state only.
@@ -488,6 +539,7 @@ def live_run(
         fact_types=list(fact_types or ()),
         input_bindings=[dict(b) for b in (input_bindings or ())],
         collect_source_names=list(collect_source_names or ()),
+        emission_only_source_names=list(emission_only_source_names or ()),
         companion_presence_pairs=dict(companion_presence_pairs or {}),
     )
     return execute_marshaled(ctx, schemas)

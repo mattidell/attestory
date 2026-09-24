@@ -241,6 +241,7 @@ def marshal_run_context(
     fact_types: list[dict[str, Any]] | None = None,
     input_bindings: list[dict[str, Any]] | None = None,
     collect_source_names: list[str] | None = None,
+    emission_only_source_names: list[str] | None = None,
     companion_presence_pairs: dict[str, str | list[str]] | None = None,
     authorization: Any | None = None,
     reporting_year: int | None = None,
@@ -261,6 +262,15 @@ def marshal_run_context(
     families = list(family_declarations or [])
     ftypes = list(fact_types or [])
     collect_names = set(collect_source_names or [])
+    # Emission-only names are sources. They are not collect names: the
+    # input-binding loop and the legacy fallback below consult
+    # ``collect_names`` only. A finding emitted solely for an emission-only
+    # name is not marked used. The fallback skips a used id before that
+    # collect-name test, so marking it would drop the run-wide scalar the
+    # fallback still binds when current values agree. A name that is also
+    # a collect name keeps today's used-id exclusion.
+    emission_only = set(emission_only_source_names or [])
+    emission_names = collect_names | emission_only
 
     current_findings = [
         state.findings[fid]
@@ -330,7 +340,7 @@ def marshal_run_context(
     _fact_state = getattr(state, "fact_state", None)
     _lattice = kernel_facts.facts_of(_fact_state) if _fact_state is not None else {}
     sources: list[SourceFact] = []
-    for name in sorted(collect_names):
+    for name in sorted(emission_names):
         for finding in current_findings:
             # Collectable sources match by fact type id prefix or exact type.
             fact_id = finding["fact_id"]
@@ -352,7 +362,8 @@ def marshal_run_context(
                         keys=lattice_fact.keys if lattice_fact is not None else None,
                     )
                 )
-                used_finding_ids.add(finding["id"])
+                if name in collect_names:
+                    used_finding_ids.add(finding["id"])
 
     # Also marshal unbound current findings whose fact type equals a rule
     # input symbol (legacy demo path: symbol == fact type id).
@@ -450,6 +461,7 @@ def marshal_live_run_context(
     fact_types: list[dict[str, Any]] | None = None,
     input_bindings: list[dict[str, Any]] | None = None,
     collect_source_names: list[str] | None = None,
+    emission_only_source_names: list[str] | None = None,
     companion_presence_pairs: dict[str, str | list[str]] | None = None,
     authorization: Any | None = None,
     reporting_year: int | None = None,
@@ -470,6 +482,7 @@ def marshal_live_run_context(
             fact_types=fact_types,
             input_bindings=input_bindings,
             collect_source_names=collect_source_names,
+            emission_only_source_names=emission_only_source_names,
             companion_presence_pairs=companion_presence_pairs,
             authorization=authorization,
             reporting_year=reporting_year,

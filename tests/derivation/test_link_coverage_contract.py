@@ -1,8 +1,8 @@
-"""Track 3 stage B1: declarative link_coverage contract.
+"""Track 3 stage B1, amended by ADR 0075: declarative link_coverage contract.
 
-Obligation 14 is schema and package acceptance. Obligation 17 is name
-confinement, including attachment symbols, and the sibling scalar binding
-that must stay on today's marshal branch. No evaluator behaviour.
+Obligation 14 is schema and package acceptance. Obligation 17 is reusable
+admission of the link type, and the sibling scalar binding that must stay
+on today's marshal branch. No evaluator behaviour.
 """
 
 from __future__ import annotations
@@ -221,16 +221,14 @@ class LinkCoverageSchemaAndPackage(unittest.TestCase):
         self.assertNotIn(NAME_REUSED, _codes(result))
         self.assertTrue(any("when" in issue.detail for issue in result.issues))
 
-    def test_names_in_requires_are_name_reuse(self) -> None:
+    def test_names_in_requires_are_accepted(self) -> None:
         for name in (LINKS, REDUCTIONS):
             with self.subTest(name=name):
                 parts = _base_parts()
                 parts[0][0]["requires"] = [BOX1, name]
                 result, _package_body = _validate(parts)
-                self.assertFalse(result.ok)
-                self.assertEqual(_codes(result), [NAME_REUSED])
-                self.assertEqual(result.issues[0].member_id, COVERAGE_ID)
-                self.assertEqual(result.issues[0].version, "v2")
+                self.assertTrue(result.ok, result.issues)
+                self.assertNotIn(NAME_REUSED, _codes(result))
 
     def test_unpublished_reductions_are_rejected(self) -> None:
         parts = _base_parts()
@@ -277,7 +275,7 @@ class LinkCoverageSchemaAndPackage(unittest.TestCase):
         )
         self.assertTrue(result.ok, result.issues)
 
-    def test_second_node_repeating_either_string_is_name_reuse(self) -> None:
+    def test_second_node_repeating_either_string_is_accepted(self) -> None:
         other = _coverage()
         other["id"] = "demo.rule.other-statement-box"
         other["version"] = "v1"
@@ -290,27 +288,25 @@ class LinkCoverageSchemaAndPackage(unittest.TestCase):
                 {"id": other["id"], "version": "v1"},
             ],
         )
-        self.assertFalse(result.ok)
-        reused = [issue for issue in result.issues if issue.code == NAME_REUSED]
-        self.assertTrue(reused, result.issues)
-        self.assertTrue(any(issue.member_id == other["id"] for issue in reused))
+        self.assertTrue(result.ok, result.issues)
+        self.assertNotIn(NAME_REUSED, _codes(result))
 
 
 class LinkCoverageNameConfinement(unittest.TestCase):
-    """Obligation 17: every forbidden use, and the sibling binding witness."""
+    """Obligation 17: the link type may be named again, and the sibling binding holds."""
 
-    def _with_rule(self, rule: dict[str, Any]) -> Any:
-        result, _package_body = _validate(_base_parts() + [(rule, "computation")])
+    def _with_rule(self, rule: dict[str, Any], *, role: str = "computation") -> Any:
+        result, _package_body = _validate(
+            _base_parts() + [(rule, role)],
+            entrypoints=[
+                {"id": COVERAGE_ID, "version": "v2"},
+                {"id": rule["id"], "version": rule["version"]},
+            ],
+        )
         return result
 
-    def test_v2_sibling_ref_of_either_string_is_name_reuse(self) -> None:
-        """A rule-artifact.v2 ref is invisible to _rule_required_symbols.
-
-        Found on review of stage B1: the sibling check asked only that
-        function, which walks expression refs for v3-v10, so a v2 member
-        could ref either confined name and the package was accepted. Each
-        ref -- bare, and nested inside a compare -- is one reuse issue.
-        """
+    def test_v2_sibling_ref_of_either_string_is_accepted(self) -> None:
+        """A rule-artifact.v2 ref of either string is not a name-reuse rejection."""
         for name in (LINKS, REDUCTIONS):
             for value in (
                 {"op": "ref", "name": name},
@@ -320,16 +316,10 @@ class LinkCoverageNameConfinement(unittest.TestCase):
                     rule = _sibling_value(value)
                     rule["schema"] = "rule-artifact.v2"
                     result = self._with_rule(rule)
-                    reuse = [
-                        issue for issue in result.issues
-                        if issue.code == "LINK_COVERAGE_NAME_REUSED"
-                    ]
-                    self.assertFalse(result.ok)
-                    self.assertEqual(len(reuse), 1)
-                    self.assertEqual(reuse[0].member_id, "demo.rule.sibling-use")
-                    self.assertIn(name, reuse[0].detail)
+                    self.assertNotIn(NAME_REUSED, _codes(result))
+                    self.assertTrue(result.ok, result.issues)
 
-    def test_forbidden_rule_uses_of_each_string(self) -> None:
+    def test_former_confined_uses_of_each_string_are_accepted(self) -> None:
         cases: list[tuple[str, str, dict[str, Any]]] = []
         for name in (LINKS, REDUCTIONS):
             cases.append((
@@ -388,50 +378,54 @@ class LinkCoverageNameConfinement(unittest.TestCase):
                     result, _package_body = _validate(parts)
                 else:
                     result = self._with_rule(rule)
-                reused = [issue for issue in result.issues if issue.code == NAME_REUSED]
-                self.assertTrue(reused, result.issues)
-                self.assertTrue(any(name in issue.detail for issue in reused), reused)
+                self.assertNotIn(NAME_REUSED, _codes(result))
+                self.assertTrue(result.ok, result.issues)
 
-    def test_input_binding_symbol_and_fact_type_are_name_reuse(self) -> None:
-        for name in (LINKS, REDUCTIONS):
-            with self.subTest(kind="symbol", name=name):
-                result, _package_body = _validate(
-                    _base_parts(),
-                    bindings=[{
-                        "symbol": name,
-                        "fact_type": {"id": LINKS, "version": "v1"},
-                        "mode": "required",
-                    }],
-                )
-                reused = [issue for issue in result.issues if issue.code == NAME_REUSED]
-                self.assertTrue(any(issue.version == "" and issue.member_id == "demo.package.link-coverage" and "symbol" in issue.detail for issue in reused), reused)
-            with self.subTest(kind="fact_type", name=name):
-                result, _package_body = _validate(
-                    _base_parts(),
-                    bindings=[{
-                        "symbol": "demo.symbol.other",
-                        "fact_type": {"id": name, "version": "v1"},
-                        "mode": "required",
-                    }],
-                )
-                reused = [issue for issue in result.issues if issue.code == NAME_REUSED]
-                self.assertTrue(any("fact_type.id" in issue.detail and issue.version == "" for issue in reused), reused)
+    def test_input_binding_of_the_link_type_is_accepted(self) -> None:
+        for kind, binding in (
+            ("symbol", {
+                "symbol": LINKS,
+                "fact_type": {"id": LINKS, "version": "v1"},
+                "mode": "required",
+            }),
+            ("fact_type", {
+                "symbol": "demo.symbol.other",
+                "fact_type": {"id": LINKS, "version": "v1"},
+                "mode": "required",
+            }),
+        ):
+            with self.subTest(kind=kind):
+                result, _package_body = _validate(_base_parts(), bindings=[binding])
+                self.assertNotIn(NAME_REUSED, _codes(result))
+                self.assertTrue(result.ok, result.issues)
+        result, _package_body = _validate(
+            _base_parts(),
+            bindings=[{
+                "symbol": "demo.symbol.other",
+                "fact_type": {"id": REDUCTIONS, "version": "v1"},
+                "mode": "required",
+            }],
+        )
+        self.assertNotIn(NAME_REUSED, _codes(result))
 
-    def test_attachment_symbols_are_name_reuse(self) -> None:
+    def test_attachment_symbols_are_not_name_reuse(self) -> None:
         for name in (LINKS, REDUCTIONS):
             for kind, attachment in _attachment_cases(name):
                 with self.subTest(kind=kind, name=name):
-                    result, _package_body = _validate(_base_parts() + [(attachment, "attachment-rule")])
-                    self.assertFalse(result.ok)
-                    reused = [issue for issue in result.issues if issue.code == NAME_REUSED]
-                    self.assertTrue(reused, result.issues)
-                    self.assertTrue(any(issue.member_id == attachment["id"] for issue in reused), reused)
+                    result, _package_body = _validate(
+                        _base_parts() + [(attachment, "attachment-rule")],
+                        entrypoints=[
+                            {"id": COVERAGE_ID, "version": "v2"},
+                            {"id": attachment["id"], "version": "v1"},
+                        ],
+                    )
+                    self.assertNotIn(NAME_REUSED, _codes(result))
 
     def test_reduction_rule_ref_of_links_and_publishes_are_accepted(self) -> None:
         result, _package_body = _validate(_base_parts())
         self.assertTrue(result.ok, result.issues)
 
-    def test_resolved_run_material_registers_both_names_and_no_family(self) -> None:
+    def test_resolved_run_material_emits_the_link_type_and_registers_neither_name(self) -> None:
         result, package = _validate(_base_parts())
         self.assertTrue(result.ok, result.issues)
         with_node = _resolved_run_material(_Graph(result.resolved_members, package))
@@ -448,16 +442,15 @@ class LinkCoverageNameConfinement(unittest.TestCase):
         when_only = _resolved_run_material(_Graph([only_when], {"input_bindings": []}))
 
         self.assertEqual(with_node[2], [])
-        self.assertIn(LINKS, with_node[6])
-        self.assertIn(REDUCTIONS, with_node[6])
-        self.assertEqual(
-            [name for name in with_node[6] if name in {LINKS, REDUCTIONS}],
-            [LINKS, REDUCTIONS],
-        )
+        self.assertNotIn(LINKS, with_node[6])
+        self.assertNotIn(REDUCTIONS, with_node[6])
+        self.assertEqual(with_node.emission_only_names, (LINKS,))
         self.assertNotIn(LINKS, without[6])
         self.assertNotIn(REDUCTIONS, without[6])
+        self.assertEqual(without.emission_only_names, ())
         self.assertNotIn(LINKS, when_only[6])
         self.assertNotIn(REDUCTIONS, when_only[6])
+        self.assertEqual(when_only.emission_only_names, ())
 
     def test_sibling_scalar_binding_is_unchanged_and_link_rows_are_sources(self) -> None:
         parts = _base_parts() + [(_fact_type(SIBLING, "Demo sibling scalar"), "fact-type")]
@@ -475,12 +468,12 @@ class LinkCoverageNameConfinement(unittest.TestCase):
             ],
         )
         self.assertTrue(result.ok, result.issues)
-        _rules, _parameters, families, _mappings, _fact_types, material_bindings, collect_names = (
-            _resolved_run_material(_Graph(result.resolved_members, package))
-        )
+        material = _resolved_run_material(_Graph(result.resolved_members, package))
+        _rules, _parameters, families, _mappings, _fact_types, material_bindings, collect_names = material
         self.assertEqual(families, [])
-        self.assertIn(LINKS, collect_names)
-        self.assertIn(REDUCTIONS, collect_names)
+        self.assertNotIn(LINKS, collect_names)
+        self.assertNotIn(REDUCTIONS, collect_names)
+        self.assertEqual(material.emission_only_names, (LINKS,))
 
         one = _marshal(collect_names, material_bindings, {
             "demo.finding.sibling.1": _finding(
@@ -489,7 +482,7 @@ class LinkCoverageNameConfinement(unittest.TestCase):
             "demo.finding.link.1": _finding(
                 "demo.finding.link.1", f"{LINKS}|statement=a", {"linked": "demo"},
             ),
-        })
+        }, emission_only=list(material.emission_only_names))
         sibling_inputs = [item for item in one.inputs if item.symbol == SIBLING]
         self.assertEqual(len(sibling_inputs), 1)
         self.assertEqual(sibling_inputs[0].value, "demo-one")
@@ -656,6 +649,9 @@ def _marshal(
     collect_names: list[str],
     bindings: list[dict[str, Any]],
     findings: dict[str, dict[str, Any]],
+    *,
+    emission_only: list[str] | None = None,
+    rules: list[dict[str, Any]] | None = None,
 ) -> Any:
     return marshal_run_context(
         run_id="demo.run.link-coverage",
@@ -666,11 +662,12 @@ def _marshal(
             current_evidence_ids=frozenset(),
             displaced_evidence_ids=frozenset(),
         ),
-        rules=[],
+        rules=list(rules or []),
         parameters={},
         canon={},
         adoption_pin={"role": "adoption", "id": "demo.package.link-coverage", "version": "v2"},
         governance_pins=[],
         input_bindings=bindings,
         collect_source_names=collect_names,
+        emission_only_source_names=list(emission_only or []),
     )

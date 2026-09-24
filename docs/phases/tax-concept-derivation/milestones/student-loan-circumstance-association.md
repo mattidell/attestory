@@ -3,7 +3,7 @@
   "version": 1,
   "phase": "Tax Concept Derivation",
   "topic": "student-loan-circumstance-association",
-  "status": "TRACK 4 OPEN. Tracks 1-3 built; A4 pass 2 (P1-P4) run; dangling default pin repaired. ADR 0075 repaired through two independent reviews and a confirmation; proposed, awaiting the owner's acceptance. Track 4 implements its required changes: option B (link type admitted through an emission-only channel, confinement dropped), a block for present unjoinable link rows, and no reduction-name registration. Then A6's reader carrier and G2's scheduling/binding. G2 (producer) not reached.",
+  "status": "TRACK 4 COMPLETE. Tracks 1-4 built: per-subject dispatch, keyed same-run sources, the coverage-checked collection, reusable link admission with the unjoinable block. A4 pass 2 (P1-P4) run; the durable record carries identities; the presentation reaches only box 1 and an error code. ADR 0075 reviewed, proposed, awaiting owner acceptance. Next: A6's reader carrier and G2's scheduling and binding. G2 (producer) not reached.",
   "scope": [
     "record and recover ordinary schooling circumstances and their explicit connection to identified student-loan interest",
     "preserve document evidence, source-independent subjects, attribution, and relationship lifecycle",
@@ -1246,6 +1246,10 @@ actually sees.
 through two independent reviews and a confirmation; the owner chose option B. **Track 4** implements the
 ADR's required changes — reusable link admission, the unjoinable block, no reduction registration:
 [`charter-track4-reusable-admission-and-joinability.md`](student-loan-circumstance-association-evidence/charter-track4-reusable-admission-and-joinability.md).
+
+**Track 4 is complete** (independent review: no defects). **Next: A6's reader carrier and G2's
+scheduling and binding** — the two things between this milestone and G2. ADR 0075 awaits the owner's
+acceptance.
 
 ## A5 in detail — choosing how to represent it
 

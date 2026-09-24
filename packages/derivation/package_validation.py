@@ -580,45 +580,22 @@ def _iter_link_coverage_nodes(expr: Any) -> Iterable[dict[str, Any]]:
             yield from _iter_link_coverage_nodes(item)
 
 
-def _iter_named_source_ops(expr: Any) -> Iterable[tuple[str, str]]:
-    """Yield ``(op, name)`` for collect, count, and collect_categorical_all_equal.
-
-    ``link_coverage`` stores its strings on ``links`` and ``reductions``, not
-    ``name``, so this walk does not treat the node's own fields as a hit.
-    """
-    if isinstance(expr, dict):
-        op = expr.get("op")
-        name = expr.get("name")
-        if op in {"collect", "count", "collect_categorical_all_equal"} and isinstance(name, str):
-            yield str(op), name
-        for value in expr.values():
-            yield from _iter_named_source_ops(value)
-    elif isinstance(expr, list):
-        for item in expr:
-            yield from _iter_named_source_ops(item)
-
-
 def _link_coverage_issues(
-    package: Mapping[str, Any],
+    _package: Mapping[str, Any],
     resolved: list[tuple[dict[str, Any], dict[str, Any]]],
     fact_surface: set[tuple[str, str]],
     parameter_keys: set[tuple[str, str]],
-    package_id: str,
+    _package_id: str,
 ) -> list[MemberIssue]:
-    """Shape and name confinement for a ``link_coverage`` node.
+    """Shape checks for a ``link_coverage`` node.
 
     Shape failures the contract requires but does not name use
-    ``LINK_COVERAGE_INVALID``. A node in ``when`` is one of those and is
-    not ``LINK_COVERAGE_NAME_REUSED``. Name confinement runs only for a
-    node whose ``reductions`` is one other rule's ``publishes``: that rule
-    may ``ref`` ``links``, and its ``publishes`` may equal ``reductions``.
+    ``LINK_COVERAGE_INVALID``. A node in ``when`` is one of those.
+    Name confinement is not applied (ADR 0075, option B): another member
+    may name ``links`` or ``reductions``.
     """
-    from packages.derivation.marshal import _rule_required_symbols
-
     issues: list[MemberIssue] = []
     fact_ids = {fact_id for fact_id, _version in fact_surface}
-    # pin, links, reductions, reduction rule id (empty when unpublished)
-    declarations: list[tuple[dict[str, Any], str, str, str]] = []
 
     for pin, citizen in resolved:
         if citizen.get("schema") != "rule-artifact.v10":
@@ -660,9 +637,6 @@ def _link_coverage_issues(
                     pin["id"], pin["version"], "LINK_COVERAGE_INVALID",
                     f"reductions {reductions!r} is not the publishes value of one other rule",
                 ))
-                reduction_id = ""
-            else:
-                reduction_id = str(publishers[0]["id"])
             empty = node.get("empty")
             parameter = empty.get("parameter") if isinstance(empty, dict) else None
             parameter_id = parameter.get("id") if isinstance(parameter, dict) else None
@@ -676,84 +650,6 @@ def _link_coverage_issues(
                     pin["id"], pin["version"], "LINK_COVERAGE_INVALID",
                     f"empty.parameter {parameter!r} is not an exact package parameter member",
                 ))
-            declarations.append((pin, links, reductions, reduction_id))
-
-    claimed: dict[str, str] = {}
-    for pin, links, reductions, _reduction_id in declarations:
-        for label, value in (("links", links), ("reductions", reductions)):
-            prior = claimed.get(value)
-            if prior is not None:
-                issues.append(MemberIssue(
-                    pin["id"], pin["version"], "LINK_COVERAGE_NAME_REUSED",
-                    f"{value} repeats a link_coverage {label} already declared by {prior}",
-                ))
-            else:
-                claimed[value] = str(pin["id"])
-
-    def reuse(member_id: str, version: str, name: str, kind: str) -> None:
-        issues.append(MemberIssue(
-            member_id, version, "LINK_COVERAGE_NAME_REUSED",
-            f"{name} is named by {kind}",
-        ))
-
-    confined: set[str] = set()
-    for _pin, links, reductions, reduction_id in declarations:
-        if not reduction_id:
-            continue
-        names = {links, reductions}
-        confined.update(names)
-        reduction_key: tuple[str, str] | None = None
-        for other_pin, other in resolved:
-            if (
-                other_pin["id"] == reduction_id
-                and other.get("schema") in _RULE_ARTIFACT_SCHEMAS
-                and other.get("publishes") == reductions
-            ):
-                reduction_key = (str(other_pin["id"]), str(other_pin["version"]))
-                break
-        for other_pin, other in resolved:
-            member_id = str(other_pin["id"])
-            version = str(other_pin["version"])
-            is_reduction = reduction_key == (member_id, version)
-            if is_reduction:
-                for required in other.get("requires") or []:
-                    if required in names:
-                        reuse(member_id, version, str(required), "requires")
-                for expression in _rule_expression_nodes(other):
-                    for ref in _iter_ref_names(expression):
-                        if ref == reductions:
-                            reuse(member_id, version, reductions, "ref")
-            else:
-                reported: set[str] = set()
-                for symbol in _rule_required_symbols(other):
-                    if symbol in names:
-                        reuse(member_id, version, symbol, "a required symbol")
-                        reported.add(symbol)
-                # `_rule_required_symbols` walks expression refs only for the
-                # schemas marshal reads refs from (v3-v10); a rule-artifact.v2
-                # `ref` is invisible to it. Walk refs directly so every
-                # admitted rule schema is confined, without reporting a ref
-                # twice.
-                for expression in _rule_expression_nodes(other):
-                    for ref in _iter_ref_names(expression):
-                        if ref in names and ref not in reported:
-                            reuse(member_id, version, ref, "ref")
-                            reported.add(ref)
-            for expression in _rule_expression_nodes(other):
-                for op, found in _iter_named_source_ops(expression):
-                    if found in names:
-                        reuse(member_id, version, found, op)
-
-    for binding in package.get("input_bindings", []):
-        if not isinstance(binding, Mapping):
-            continue
-        bound_symbol = binding.get("symbol")
-        fact_type = binding.get("fact_type")
-        fact_type_id = fact_type.get("id") if isinstance(fact_type, Mapping) else None
-        if isinstance(bound_symbol, str) and bound_symbol in confined:
-            reuse(package_id, "", bound_symbol, "an input binding symbol")
-        if isinstance(fact_type_id, str) and fact_type_id in confined:
-            reuse(package_id, "", fact_type_id, "an input binding fact_type.id")
     return issues
 
 
