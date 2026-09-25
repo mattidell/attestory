@@ -263,7 +263,14 @@ class _Run:
         self.symbol_fact_types: dict[str, str] = {}
         self.categorical_domains: dict[str, list[str]] = {}
 
-        fact_types_by_id = {ft["id"]: ft for ft in ctx.fact_types}
+        # Track 5c Round 2 (Defect 4, same class as Defect 2): keyed by the
+        # exact (id, version) a binding pins, never by id alone. An id-only
+        # map (last declaration wins) let a binding pinning a version with
+        # no `optional_default` declared publish another version's default
+        # anyway, whenever that other version happened to be built last.
+        fact_types_by_key: dict[tuple[str, str], dict[str, Any]] = {
+            (ft["id"], ft.get("version", "v1")): ft for ft in ctx.fact_types
+        }
         for ft in ctx.fact_types:
             val_schema = ft.get("value_schema", {})
             if isinstance(val_schema, dict) and "enum" in val_schema:
@@ -298,8 +305,9 @@ class _Run:
                     continue
                 if binding["mode"] == "optional_default":
                     fact_type_id = binding["fact_type"]["id"]
+                    fact_type_version = binding["fact_type"].get("version", "v1")
                     self.symbol_fact_types[symbol] = fact_type_id
-                    ft_def: dict[str, Any] | None = fact_types_by_id.get(fact_type_id)
+                    ft_def: dict[str, Any] | None = fact_types_by_key.get((fact_type_id, fact_type_version))
                     if ft_def is not None and "optional_default" in ft_def:
                         opt_def = ft_def["optional_default"]
                         param_id = opt_def["parameter"]["id"]

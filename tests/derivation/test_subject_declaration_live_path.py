@@ -839,5 +839,213 @@ class RunWideScalarDoesNotBypassADeclaredRelationship(unittest.TestCase):
             self.assertEqual(default_parameter_ids, {param_id})
 
 
+# ---------------------------------------------------------------------------
+# Round 2 -- Defect 4 (same class as Defect 2): ``optional_default`` resolved
+# by fact-type id alone, in three places -- package_validation.py's binding
+# check, runner.py's ordinary optional_default machinery, and
+# subject_dispatch._optional_default. Each let one version of an id silently
+# answer for another: a binding pinning a version with no default validated
+# anyway (last-declared-wins), and at runtime the wrong version's parameter
+# could be read.
+# ---------------------------------------------------------------------------
+
+
+VALIDATION_FT = "demo.tax.optdefault.validation"
+VALIDATION_PARAM = "demo.parameter.optdefault.v2-only"
+
+
+class ValidationRejectsABindingPinningANoDefaultVersion(unittest.TestCase):
+    """A fact type declared at v1 (no ``optional_default``) and v2 (with
+    one); the binding pins v1. ``validate_package`` must reject this --
+    the pinned version declares no default -- in either declaration order."""
+
+    def _fixture(self, *, v1_first: bool) -> list[tuple[dict[str, Any], str]]:
+        ft_v1 = _package_fact_type(VALIDATION_FT, ["period"], version="v1")
+        ft_v2 = dict(_package_fact_type(VALIDATION_FT, ["period"], version="v2"))
+        ft_v2["optional_default"] = {"parameter": {"id": VALIDATION_PARAM, "version": "v1"}}
+        parameter = {
+            "schema": "parameter-declaration.v1",
+            "id": VALIDATION_PARAM,
+            "version": "v1",
+            "scope": dict(SCOPE),
+            "values": "not-adverse",
+        }
+        rule = _ordinary_rule(
+            rule_id="demo.rule.optdefault.validation-echo",
+            publishes="demo.tax.optdefault.validation-echo",
+            value={"op": "ref", "name": VALIDATION_FT},
+            requires=[VALIDATION_FT],
+        )
+        fact_type_parts = [ft_v1, ft_v2] if v1_first else [ft_v2, ft_v1]
+        return [(rule, "computation")] + [(ft, "fact-type") for ft in fact_type_parts] + [
+            (parameter, "parameter"),
+        ]
+
+    def _validate(self, *, v1_first: bool) -> Any:
+        parts = self._fixture(v1_first=v1_first)
+        binding = {
+            "symbol": VALIDATION_FT,
+            "fact_type": {"id": VALIDATION_FT, "version": "v1"},
+            "mode": "optional_default",
+        }
+        entrypoints = [
+            {"id": parts[0][0]["id"], "version": parts[0][0]["version"]},
+            {"id": VALIDATION_FT, "version": "v1"},
+            {"id": VALIDATION_FT, "version": "v2"},
+            {"id": VALIDATION_PARAM, "version": "v1"},
+        ]
+        validation, _package = _resolve(parts, bindings=[binding], entrypoints=entrypoints)
+        return validation
+
+    def test_v1_declared_first_is_rejected(self) -> None:
+        validation = self._validate(v1_first=True)
+        self.assertFalse(validation.ok, validation.issues)
+        self.assertIn("BINDING_DEFAULT_MISSING", [issue.code for issue in validation.issues])
+
+    def test_v2_declared_first_is_rejected(self) -> None:
+        validation = self._validate(v1_first=False)
+        self.assertFalse(validation.ok, validation.issues)
+        self.assertIn("BINDING_DEFAULT_MISSING", [issue.code for issue in validation.issues])
+
+
+RUNTIME_FT = "demo.tax.optdefault.runtime"
+RUNTIME_PARAM_A = "demo.parameter.optdefault.pinned"
+RUNTIME_PARAM_B = "demo.parameter.optdefault.sibling"
+RUNTIME_ECHO = "demo.tax.optdefault.runtime-echo"
+
+
+class RuntimeResolvesTheExactPinnedDefault(unittest.TestCase):
+    """Both versions of the same id declare a default, with *different*
+    parameters -- this validates under either the old or the new logic (some
+    version has a default), isolating the runtime lookup. The binding pins
+    v1 (parameter A, "not-adverse"); v2's parameter (B, "adverse") must never
+    be read, in either declaration order -- the positive case (the pinned
+    version does declare a default) still works correctly."""
+
+    def _fact_types(self, *, v1_first: bool) -> list[dict[str, Any]]:
+        ft_v1 = dict(_package_fact_type(RUNTIME_FT, ["period"], version="v1"))
+        ft_v1["optional_default"] = {"parameter": {"id": RUNTIME_PARAM_A, "version": "v1"}}
+        ft_v2 = dict(_package_fact_type(RUNTIME_FT, ["period"], version="v2"))
+        ft_v2["optional_default"] = {"parameter": {"id": RUNTIME_PARAM_B, "version": "v1"}}
+        return [ft_v1, ft_v2] if v1_first else [ft_v2, ft_v1]
+
+    def _parameters(self) -> list[dict[str, Any]]:
+        return [
+            {
+                "schema": "parameter-declaration.v1", "id": RUNTIME_PARAM_A, "version": "v1",
+                "scope": dict(SCOPE), "values": "not-adverse",
+            },
+            {
+                "schema": "parameter-declaration.v1", "id": RUNTIME_PARAM_B, "version": "v1",
+                "scope": dict(SCOPE), "values": "adverse",
+            },
+        ]
+
+    def _binding(self) -> dict[str, Any]:
+        return {
+            "symbol": RUNTIME_FT,
+            "fact_type": {"id": RUNTIME_FT, "version": "v1"},
+            "mode": "optional_default",
+        }
+
+    def _assert_default_from_pinned_version(self, symbol: str, result: Any) -> None:
+        published = _publications(result)
+        self.assertIn(symbol, published, result.dispositions)
+        self.assertEqual(published[symbol]["value"], "not-adverse")
+        # The manufactured ``declared_default`` finding is a separate
+        # publication (both the ordinary and the subject-scoped machinery
+        # record it as its own derived-finding.v2); the outer symbol's own
+        # pins reference it as an ordinary input, and that finding's own
+        # pins carry the parameter -- never the sibling version's.
+        input_pins = [pin for pin in published[symbol]["pins"] if pin["role"] == "input"]
+        default_pins = [pin for pin in input_pins if pin.get("origin") == "declared_default"]
+        self.assertEqual(len(default_pins), 1, published[symbol]["pins"])
+        default_finding = next(
+            p.finding for p in result.publications if p.finding["id"] == default_pins[0]["id"]
+        )
+        self.assertEqual(default_finding["value"], "not-adverse")
+        parameter_ids = {pin["id"] for pin in default_finding["pins"] if pin["role"] == "parameter"}
+        self.assertEqual(parameter_ids, {RUNTIME_PARAM_A})
+        self.assertNotIn(RUNTIME_PARAM_B, parameter_ids)
+
+    def _run_ordinary(self, *, v1_first: bool) -> tuple[Any, Any]:
+        rule = _ordinary_rule(
+            rule_id="demo.rule.optdefault.runtime-echo",
+            publishes=RUNTIME_ECHO,
+            value={"op": "ref", "name": RUNTIME_FT},
+            requires=[RUNTIME_FT],
+        )
+        parts = [(rule, "computation")] + [
+            (ft, "fact-type") for ft in self._fact_types(v1_first=v1_first)
+        ] + [(p, "parameter") for p in self._parameters()]
+        entrypoints = [
+            {"id": rule["id"], "version": rule["version"]},
+            {"id": RUNTIME_FT, "version": "v1"},
+            {"id": RUNTIME_FT, "version": "v2"},
+            {"id": RUNTIME_PARAM_A, "version": "v1"},
+            {"id": RUNTIME_PARAM_B, "version": "v1"},
+        ]
+        _material, ctx = _live_context(
+            parts, {}, {}, entrypoints=entrypoints, bindings=[self._binding()]
+        )
+        return _both_runners(ctx)
+
+    def test_ordinary_rule_v1_declared_first(self) -> None:
+        forward, backward = self._run_ordinary(v1_first=True)
+        for result in (forward, backward):
+            self._assert_default_from_pinned_version(RUNTIME_ECHO, result)
+
+    def test_ordinary_rule_v2_declared_first(self) -> None:
+        forward, backward = self._run_ordinary(v1_first=False)
+        for result in (forward, backward):
+            self._assert_default_from_pinned_version(RUNTIME_ECHO, result)
+
+    def _run_subject(self, *, v1_first: bool) -> tuple[Any, Any, str]:
+        subject_type = "demo.tax.optdefault.subject"
+        v11_rule = _v11_rule(
+            rule_id="demo.rule.optdefault.subject-echo",
+            subject={"id": subject_type, "version": "v1"},
+            requires=[RUNTIME_FT],
+            value={"op": "ref", "name": RUNTIME_FT},
+            publishes="demo.tax.optdefault.subject-result",
+        )
+        parts = [
+            (v11_rule, "computation"),
+            (_package_fact_type(subject_type, ["who"]), "fact-type"),
+        ] + [
+            (ft, "fact-type") for ft in self._fact_types(v1_first=v1_first)
+        ] + [(p, "parameter") for p in self._parameters()]
+        entrypoints = [
+            {"id": v11_rule["id"], "version": v11_rule["version"]},
+            {"id": subject_type, "version": "v1"},
+            {"id": RUNTIME_FT, "version": "v1"},
+            {"id": RUNTIME_FT, "version": "v2"},
+            {"id": RUNTIME_PARAM_A, "version": "v1"},
+            {"id": RUNTIME_PARAM_B, "version": "v1"},
+        ]
+        lattice = {
+            subject_type: _lattice_type(subject_type, (("who", ("demo-who",)),)),
+        }
+        subject_fact = f"{subject_type}|who=demo-who"
+        findings = {
+            "demo.finding.subject": _finding("demo.finding.subject", subject_fact, "x"),
+        }
+        _material, ctx = _live_context(
+            parts, findings, lattice, entrypoints=entrypoints, bindings=[self._binding()]
+        )
+        symbol = f"demo.tax.optdefault.subject-result|{subject_fact}"
+        return _both_runners(ctx) + (symbol,)
+
+    def test_declared_subject_rule_v1_declared_first(self) -> None:
+        forward, backward, symbol = self._run_subject(v1_first=True)
+        for result in (forward, backward):
+            self._assert_default_from_pinned_version(symbol, result)
+
+    def test_declared_subject_rule_v2_declared_first(self) -> None:
+        forward, backward, symbol = self._run_subject(v1_first=False)
+        for result in (forward, backward):
+            self._assert_default_from_pinned_version(symbol, result)
+
+
 if __name__ == "__main__":
     unittest.main()

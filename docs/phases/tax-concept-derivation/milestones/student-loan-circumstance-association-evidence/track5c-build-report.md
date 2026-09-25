@@ -309,3 +309,203 @@ no repair changes scalar binding for a rule that does not declare a subject —
 Defects 2/3's fixes are confined to declared-subject dispatch (`_identity_names`,
 `_presence_declaration`, and the `joined_id`-only widening of `other_names`, which is unreachable for
 any rule that does not declare `joined` — `joined_id` stays `None`).
+
+---
+
+# Round 2 — Defect 4 (same class as Defect 2): `optional_default` resolved by fact-type id alone
+
+Base: `61a2987609f403b89a078d14f26cc0999628c8dc` (Round 1, committed; foreman had already updated the
+stale Track 5a assertion to `emission_only_names == (LINKS, BOX1)`; full suite 2275 passed at that
+commit, confirmed by re-running before any Round 2 change). Not committed; left for foreman review.
+
+Independent review found a fourth instance of Defect 2's class: `optional_default` is resolved by
+fact-type id alone in three places, and the three disagree with each other and with static validation
+(last id-declaration wins in two places, first wins in the third). Reproduced first (script at
+a session scratch script (`repro_optional_default.py`, not committed),
+the reviewer's own repro): a fact type declared at v1 (no `optional_default`) and v2 (with one), an
+input binding pinning v1 with `mode: optional_default`, validated and accepted, then at runtime
+published a `declared_default` finding sourced from v2's parameter although v1 (the pinned version)
+declares no default at all.
+
+## Assigned paths this round
+
+Added to the previous set: `packages/derivation/package_validation.py` (the `optional_default` binding
+check only) and `packages/derivation/runner.py` (the fact-type lookup maps only).
+
+## Fix
+
+Three sites, each changed from an id-only map/scan to the exact pinned `(id, version)`:
+
+- `packages/derivation/package_validation.py`, `validate_package`'s fact-surface compilation:
+  `fact_defaults` is now `dict[tuple[str, str], dict[str, Any]]` (both the bundle-contained and
+  standalone `fact-type.v2` branches key it by `(id, version)`, never `id` alone). The input-bindings
+  validation loop (§3) already computes `ft_key = (ft_pin["id"], ft_pin["version"])` for the
+  fact-surface-membership check immediately above; the `optional_default` check now reuses that same
+  key, so a binding whose pinned version declares no default is rejected `BINDING_DEFAULT_MISSING`
+  regardless of what any other version of the same id declares.
+- `packages/derivation/runner.py`, `_Run.__init__`'s ordinary `optional_default` machinery:
+  `fact_types_by_id = {ft["id"]: ft ...}` is now `fact_types_by_key`, keyed by `(ft["id"],
+  ft.get("version", "v1"))`; the lookup site reads `binding["fact_type"].get("version", "v1")` and
+  looks up the pair, never the id alone.
+- `packages/derivation/subject_dispatch.py`, `_optional_default`: the `next(...)` scan over
+  `run.ctx.fact_types` now matches `item.get("id") == fact_type_id and item.get("version") ==
+  fact_type_version` (both read off the binding's own `fact_type` pin), not id alone; a binding whose
+  `fact_type` pin has no readable version returns `None` (the existing "no binding" path) rather than
+  matching the first id it finds.
+
+No evaluator arm, `_scope` body, or record shape changed. Both runners are unaffected structurally —
+`fact_types_by_key`/`_optional_default` are shared, pre-dispatch/per-call lookups, not scheduler code.
+
+## Reproduction (failed first)
+
+Both changed source files were reverted to Round 1's committed bytes (`git show HEAD:<path> >
+<path>`, `HEAD` = `61a29876`) and the new tests run, then the fixed bytes restored — no commit at any
+point.
+
+```
+$ python3 -m pytest tests/derivation/test_subject_declaration_live_path.py::ValidationRejectsABindingPinningANoDefaultVersion tests/derivation/test_subject_declaration_live_path.py::RuntimeResolvesTheExactPinnedDefault -q
+..FFFF
+FAILED tests/derivation/test_subject_declaration_live_path.py::ValidationRejectsABindingPinningANoDefaultVersion::test_v2_declared_first_is_rejected
+FAILED tests/derivation/test_subject_declaration_live_path.py::ValidationRejectsABindingPinningANoDefaultVersion::test_v1_declared_first_is_rejected
+FAILED tests/derivation/test_subject_declaration_live_path.py::RuntimeResolvesTheExactPinnedDefault::test_ordinary_rule_v1_declared_first
+FAILED tests/derivation/test_subject_declaration_live_path.py::RuntimeResolvesTheExactPinnedDefault::test_declared_subject_rule_v1_declared_first
+4 failed, 2 passed in 2.72s
+```
+
+- Both `ValidationRejectsABindingPinningANoDefaultVersion` tests failed regardless of declaration
+  order: `validate_package` returned `ok=True` either way, because only v2 (the version *with* a
+  default) ever contributed an entry to the pre-fix id-keyed `fact_defaults` map at all — the pinned
+  version (v1, with none) was never the question the old check asked.
+- `RuntimeResolvesTheExactPinnedDefault`'s `..._v1_declared_first` variants (both the ordinary-rule and
+  declared-subject-rule cases) failed with the sibling version's value (`'adverse'` instead of
+  `'not-adverse'`) — last-declared-wins picked v2 when v1 was declared first. The `..._v2_declared_first`
+  variants passed by the same accident Defect 2's narrative described (last-declared-wins happened to
+  pick the correctly-pinned v1 when it was declared last).
+
+After restoring the fixed files, all 6 new tests pass (see Verification, below).
+
+## Tests (`tests/derivation/test_subject_declaration_live_path.py`, 6 new, all through the live path)
+
+- `ValidationRejectsABindingPinningANoDefaultVersion` — a binding pins v1 (no default); v2 (with one)
+  is also declared. `test_v1_declared_first_is_rejected` / `test_v2_declared_first_is_rejected`: both
+  declaration orders, `validate_package` must reject with `BINDING_DEFAULT_MISSING`.
+- `RuntimeResolvesTheExactPinnedDefault` — both v1 and v2 declare a default, but to *different*
+  parameters (v1 → "not-adverse", v2 → "adverse"); the binding pins v1. This validates under either the
+  old or new logic (some version has a default either way), isolating the runtime lookup from the
+  validation-level defect above. Zero source rows for the fact type in every case, so the
+  `optional_default` path is the only way the symbol resolves.
+  - `test_ordinary_rule_v1_declared_first` / `test_ordinary_rule_v2_declared_first` — an ordinary
+    (non-subject) rule reading the symbol; both orders must resolve v1's parameter and value.
+  - `test_declared_subject_rule_v1_declared_first` / `test_declared_subject_rule_v2_declared_first` —
+    the same fixture behind a declared-subject (`rule-artifact.v11`) rule instead, exercising
+    `subject_dispatch._optional_default` specifically; same assertion.
+  - Each assertion locates the manufactured `declared_default` finding (a separate publication, per
+    Track 5b's own shape) via the outer symbol's `input`/`declared_default`-origin pin, then checks
+    *that* finding's own value and parameter pin — never the sibling version's parameter id.
+  - This is also the chartered "positive case": pinning the version that does declare a default (v1)
+    still works correctly, in both orders, for both rule shapes.
+
+## `categorical_domains` — examined, not fixed; stop-and-report
+
+`runner.py`'s `self.categorical_domains[ft["id"]] = val_schema["enum"]` (`_Run.__init__`) collapses
+every fact type's declared categorical enum into one `dict[str, list[str]]` by id, the same class of
+collapse as Defect 4. **Confirmed reproducible**: a script
+(a session scratch script (`repro_categorical_domains.py`, not committed))
+declares a fact type at v1 (`enum: ["a","b"]`) and v2 (`enum: ["x","y"]`), with an ordinary rule whose
+guard is `categorical_compare(ref(FT), category_literal(FT pinned v1, "a"), eq)` and a genuine current
+finding of value `"a"` (valid at v1, invalid at v2). Through the full live path:
+
+```
+v1_first=True  (v2 built last):  validation ok: True
+                                  publications: []
+                                  dispositions: [{'code': 'DEPENDENCY_INVALID', 'missing': ['a'], ...}]
+v1_first=False (v1 built last):  validation ok: True
+                                  publications: [('demo.tax.catdomain.echo', 'true')]
+```
+
+With v2 declared last, the rule wrongly blocks `DEPENDENCY_INVALID` on `"a"` — a value v1 explicitly
+declares valid, and the value the rule's own `category_literal` pins v1 to compare against. Reversing
+declaration order makes it publish correctly, by the same accident as every other instance of this
+defect class.
+
+**Not fixed. Stopping on this item, as instructed, because the fix does not fit within
+`runner.py`/`subject_dispatch.py`.** Tracing why: `Environment.categorical_domains` (`evaluator.py`,
+the `Environment` dataclass) is itself typed `dict[str, list[str]]` — id-only by construction, not a
+per-call lookup this unit's assigned files control. The version is lost even earlier than that:
+`_eval_categorical_operand` (`evaluator.py`) extracts only `fact_type_id` from a `category_literal`
+node's `fact_type` pin (`fact_type["id"] if isinstance(fact_type, dict) else fact_type` — the pin's own
+`version` field is read and then discarded), and for a `ref` operand it reads
+`env.symbol_fact_types.get(name, name)` — `symbol_fact_types` is `dict[str, str]` everywhere in both
+`runner.py` and `subject_dispatch.py` (id strings only; there is no per-symbol version companion map
+anywhere in the codebase today). `categorical_compare`'s own domain-mismatch test (`left_domain !=
+right_domain`) compares these same version-less ids. A real fix needs: `Environment.categorical_domains`
+re-typed to carry a version dimension; `_eval_categorical_operand`/`_validate_categorical_value` changed
+to read and check it; and `symbol_fact_types` (populated throughout `runner.py` and `subject_dispatch.py`)
+carrying `(id, version)` instead of a bare id everywhere it is set — which is itself an evaluator-arm
+change to `categorical_compare`'s domain-identity semantics, not a lookup-map change inside this unit's
+assigned files. Per this round's own instruction and the charter's original stop condition ("a repair
+needs... an evaluator arm"), this is reported, not fixed. The reproduction script is not added to the
+tracked test suite (a permanently-failing test would be a landmine for later work); it is preserved at
+the path above for the foreman/owner/next builder.
+
+## Verification (verbatim, Round 2)
+
+```
+$ python3 -m pytest tests/derivation/test_subject_declaration_live_path.py -q
+...............
+15 passed in 3.36s
+```
+
+```
+$ python3 -m pytest tests/derivation/test_subject_declaration_live_path.py tests/derivation/test_relationship_presence.py tests/derivation/test_per_subject_scheduling.py tests/derivation/test_subject_relationship_declarations.py tests/derivation/test_subject_dispatch.py tests/test_sli_g2_binding_probe.py -q
+....................................................uu.uu...............
+......................
+90 passed, 4 subtests passed in 3.38s
+```
+
+```
+$ python3 -m pytest -n auto -q
+2281 passed, 20 skipped, 4422 subtests passed in 138.72s (0:02:18)
+```
+
+```
+$ python3 -m mypy
+Success: no issues found in 281 source files
+```
+
+```
+$ python3 tools/governance_lint.py
+governance lint: conformant
+```
+
+```
+$ git diff --check
+(no output -- clean)
+```
+
+```
+$ git status --short
+ M packages/derivation/package_validation.py
+ M packages/derivation/runner.py
+ M packages/derivation/subject_dispatch.py
+ M tests/derivation/test_subject_declaration_live_path.py
+?? package-lock.json
+```
+
+`package-lock.json` is pre-existing untracked state, not touched by this unit. Not committed; HEAD
+unchanged at `61a29876` throughout.
+
+## Round 2 stop conditions
+
+- **Legacy probes unedited**: `tests/test_sli_g2_binding_probe.py` passes byte-unedited (part of the
+  90-test targeted run and the 2281-test full run above).
+- **No existing test failed**: 2281 = 2275 (Round 1 baseline, re-confirmed before this round's first
+  change) + 6 new tests; no regression.
+- **`categorical_domains`**: examined per instruction; reproduced; stop-and-report per the section
+  above — it needs an evaluator-arm change, not a `runner.py`/`subject_dispatch.py` lookup fix.
+- Nothing else in the charter's original stop-condition list was triggered this round: no published
+  schema, ADR, `_scope` body, pairing, or `derivation-record` change; the two runners needed no
+  different code (every new test asserts `run`/`run_reference` agree); no repair changed scalar binding
+  for a rule that does not declare a subject or an `optional_default` binding (every existing
+  `optional_default` test in the suite — including Track 5b's and Round 1's own — still passes
+  unchanged, confirmed in the 2281-test run).

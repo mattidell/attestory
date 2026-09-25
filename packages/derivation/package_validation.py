@@ -1198,7 +1198,13 @@ def validate_package(
     fact_surface: set[tuple[str, str]] = set()
     fact_types_by_key: dict[tuple[str, str], dict[str, Any]] = {}
     fact_quantities: dict[str, dict[str, Any]] = {}
-    fact_defaults: dict[str, dict[str, Any]] = {}
+    # Track 5c Round 2 (Defect 4, same class as Defect 2): keyed by the exact
+    # ``(id, version)``, never by id alone. An id-only map lets whichever
+    # declaration is processed last (bundle or standalone, in resolved-member
+    # order) silently answer for every version of that id -- a binding that
+    # pins a version with no default declared would validate anyway, because
+    # some other version's default happened to occupy the id-only slot.
+    fact_defaults: dict[tuple[str, str], dict[str, Any]] = {}
 
     for pin, citizen in resolved:
         if citizen["schema"] in {"bundle.v1", "bundle.v2"}:
@@ -1208,14 +1214,14 @@ def validate_package(
                 if "quantity" in ft:
                     fact_quantities[ft["id"]] = ft["quantity"]
                 if "optional_default" in ft:
-                    fact_defaults[ft["id"]] = ft["optional_default"]["parameter"]
+                    fact_defaults[(ft["id"], ft.get("version", "v1"))] = ft["optional_default"]["parameter"]
         elif citizen["schema"] == "fact-type.v2":
             fact_surface.add((citizen["id"], citizen["version"]))
             fact_types_by_key[(citizen["id"], citizen["version"])] = citizen
             if "quantity" in citizen:
                 fact_quantities[citizen["id"]] = citizen["quantity"]
             if "optional_default" in citizen:
-                fact_defaults[citizen["id"]] = citizen["optional_default"]["parameter"]
+                fact_defaults[(citizen["id"], citizen["version"])] = citizen["optional_default"]["parameter"]
 
     # 1b. An adopted migration artifact retires named predecessors from
     # F(P) (admission and binding). This is not a currency root; findings
@@ -1845,12 +1851,17 @@ def validate_package(
             issues.append(MemberIssue(package_id, "", "BINDING_FACT_TYPE_NOT_ADMITTED",
                                       f"bound fact type {ft_key} not in package fact surface"))
         if binding["mode"] == "optional_default":
-            ft_id = ft_pin["id"]
-            if ft_id not in fact_defaults:
+            # Track 5c Round 2 (Defect 4): resolve the exact pinned
+            # (id, version), the same key `ft_key` above already computed --
+            # never the id alone. A fact type declared at one version with
+            # no default, and at another version with one, must not let a
+            # binding pinning the version *without* a default validate just
+            # because some other version of the same id happens to have one.
+            if ft_key not in fact_defaults:
                 issues.append(MemberIssue(package_id, "", "BINDING_DEFAULT_MISSING",
-                                          f"optional_default binding {ft_id} has no default parameter defined on fact type"))
+                                          f"optional_default binding {ft_key} has no default parameter defined on that exact fact-type version"))
             else:
-                param_pin = fact_defaults[ft_id]
+                param_pin = fact_defaults[ft_key]
                 if param_pin["id"] not in member_ids:
                     issues.append(MemberIssue(package_id, "", "BINDING_DEFAULT_ABSENT",
                                               f"optional_default parameter {param_pin['id']} not in package"))

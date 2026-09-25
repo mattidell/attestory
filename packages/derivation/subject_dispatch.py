@@ -161,11 +161,20 @@ def _optional_default(
     if binding is None:
         return None
     fact_type = binding.get("fact_type")
-    if not isinstance(fact_type, dict) or not fact_type.get("id"):
+    if not isinstance(fact_type, dict) or not fact_type.get("id") or not fact_type.get("version"):
         return None
     fact_type_id = str(fact_type["id"])
+    fact_type_version = str(fact_type["version"])
+    # Track 5c Round 2 (Defect 4, same class as Defect 2): the exact pinned
+    # (id, version), never the first id match. A weaker/undeclared version of
+    # the same id declared earlier in `run.ctx.fact_types` must not silently
+    # answer -- or fail to answer -- for the version the binding actually
+    # pins.
     fact_def = next(
-        (item for item in run.ctx.fact_types if item.get("id") == fact_type_id),
+        (
+            item for item in run.ctx.fact_types
+            if item.get("id") == fact_type_id and item.get("version") == fact_type_version
+        ),
         None,
     )
     if fact_def is None or "optional_default" not in fact_def:
