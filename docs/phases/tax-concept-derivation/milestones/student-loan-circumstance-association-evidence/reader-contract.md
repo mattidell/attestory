@@ -736,11 +736,11 @@ For one statement, per case. "Recovers" means from the durable `presentation.jso
 
 | Case | What the person said | What the rules concluded | What changed the amount (today → under A) | What the reader recovers |
 | --- | --- | --- | --- | --- |
-| No link, no claim | Nothing about this statement's schooling | Count 0; disqualifier count 0 by the no-claim parameter; conclusion published; three responsibilities | Nothing → nothing | Amount, the conclusion by `reader_role`, its pins (count, disqualifier count, the parameter behind it), responsibilities, note |
-| No link, "paid for tuition" | The claim, as said | Classified 0 (does not trigger); count 0; conclusion published | Nothing → nothing | As above, plus the claim and its 0 — never shown as general eligibility |
-| No link, "also paid for a vehicle" | The claim, as said | Classified 1; count 1; conclusion inapplicable; responsibilities lapse | Nothing (400) → 0 | The claim, its 1, the count, the inapplicable conclusion; "classifies as disqualifying" while the amount ignores it |
-| No link, untreated value | The claim, as said | Classifier blocked; count blocked; conclusion blocked | Nothing (400) → amount blocked | The claim, the classifier's block, the count's block; "could not resolve" — not a cause it cannot see |
-| Linked | Whatever the linked chain records | Count above 0; bare conclusion inapplicable | Linked reductions → the same | The link path on the amount row; no bare-statement text |
+| No link, no claim | Nothing about this statement's schooling | Link count 0; disqualifier count 0 by the no-claim parameter; conclusion published; three responsibilities | Nothing → nothing | Amount, the conclusion by `reader_role`, its pins (count, disqualifier count, the parameter behind it), responsibilities, note |
+| No link, "paid for tuition" | The claim, as said | Classified 0 (does not trigger); link count 0; disqualifier count 0; conclusion published | Nothing → nothing | As above, plus the claim and its 0 — never shown as general eligibility |
+| No link, "also paid for a vehicle" | The claim, as said | Classified 1; link count 0; disqualifier count 1; conclusion inapplicable; responsibilities lapse | Nothing (400) → 0 | The claim, its 1, the count, the inapplicable conclusion; "classifies as disqualifying" while the amount ignores it |
+| No link, untreated value | The claim, as said | Classifier blocked; link count 0; disqualifier count blocked; conclusion blocked | Nothing (400) → amount blocked | The claim, the classifier's block, the count's block; "could not resolve" — not a cause it cannot see |
+| Linked | Whatever the linked chain records | Link count above 0; bare conclusion inapplicable | Linked reductions → the same | The link path on the amount row; no bare-statement text |
 
 "Today" is the executed probe; "under A" is specified and not built. No row claims the person described
 anything they did not, and no row lets a missing input stand for a described one.
