@@ -5,8 +5,8 @@
   "topic": "student-loan-circumstance-association",
   "active_plan": "docs/phases/tax-concept-derivation/milestones/student-loan-circumstance-association.md",
   "milestone_state": "track-4",
-  "status": "G2 DESIGN PROPOSED, AWAITING OWNER DECISIONS. ADR 0075 accepted. ADR 0076 Parts 1 and 2 proposed; Part 3 open. Reader contract proposed: experimental view only; worksheet unchanged; responsibility producers selected by wording declaration and calculation pins; unresolved outcomes preserve diagnostic limits. Hand-dispatched probes are not dependency discovery, projection or rendering. No scheduling/reader schema successor published. G2 producer not reached.",
-  "current_role": "Foreman (awaiting owner: ADR 0076 Parts 1-2, reader contract, wording, Part 3)",
+  "status": "TRACK 5 (ADR 0076 PARTS 1-2 BUILD) IN PROGRESS; READER CONTRACT UNDER REPAIR FOR ACCEPTANCE. ADR 0075 accepted. ADR 0076 Parts 1 and 2 accepted 2026-09-24; Part 3 open. Owner: no joined statement-wide claim is the default case (calculation posture); amount follows the supported tax consequence (A in principle), with whole-amount disqualification, known-not-to-trigger and unresolved effect kept distinct. Reader contract: experimental view only; worksheet unchanged. G2 producer not reached.",
+  "current_role": "Foreman (Track 5 build and review; reader contract repair for owner acceptance; Part 3 and wording await owner)",
   "current_prompt": "docs/phases/tax-concept-derivation/milestones/student-loan-circumstance-association.md"
 }
 -->
@@ -27,7 +27,7 @@ keeps its subjects distinct, and lets a consumer use recovered current support.
 **The active work is G2's scheduling, binding and reader design after Track 4.**
 The bounded per-subject dispatch, keyed same-run sources and ADR 0075 coverage
 operation exist. They do not yet schedule the student-loan chain on the production
-path. ADR 0076 Parts 1–2 and the reader contract remain proposed; Part 3's treatment
+path. ADR 0076 Parts 1–2 are accepted and being built (Track 5); the reader contract remains proposed; Part 3's treatment
 of several statuses for one borrowing remains open. The reader is an experimental
 view, not a replacement for the worksheet deduction. Its hand-dispatched probes
 exercise calculation evidence, not durable projection or page rendering. The

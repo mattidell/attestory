@@ -3,7 +3,7 @@
   "version": 1,
   "phase": "Tax Concept Derivation",
   "topic": "student-loan-circumstance-association",
-  "status": "G2 DESIGN PROPOSED, AWAITING OWNER DECISIONS. ADR 0075 accepted. ADR 0076 Parts 1 and 2 proposed; Part 3 open. Reader contract proposed: experimental view only; worksheet unchanged; responsibility producers selected by wording declaration and calculation pins; unresolved outcomes preserve diagnostic limits. Hand-dispatched probes are not dependency discovery, projection or rendering. No scheduling/reader schema successor published. G2 producer not reached.",
+  "status": "TRACK 5 (ADR 0076 PARTS 1-2 BUILD) IN PROGRESS; READER CONTRACT UNDER REPAIR FOR ACCEPTANCE. ADR 0075 accepted. ADR 0076 Parts 1 and 2 accepted 2026-09-24; Part 3 open. Owner: no joined statement-wide claim is the default case (calculation posture); amount follows the supported tax consequence (A in principle), with whole-amount disqualification, known-not-to-trigger and unresolved effect kept distinct. Reader contract: experimental view only; worksheet unchanged. G2 producer not reached.",
   "scope": [
     "record and recover ordinary schooling circumstances and their explicit connection to identified student-loan interest",
     "preserve document evidence, source-independent subjects, attribution, and relationship lifecycle",
@@ -1251,6 +1251,8 @@ ADR's required changes — reusable link admission, the unjoinable block, no red
 scheduling and binding** — the two things between this milestone and G2. ADR 0075 awaits the owner's
 acceptance.
 
+**Track 5 — ADR 0076 Parts 1 and 2** (accepted 2026-09-24). Two builder units, each independently reviewed: **5a**, the first rule and package successors (`subject`, `joined`, `direction`), admission, and the static relationship checks; **5b**, per-subject scheduling in both runners and the runtime presence check. Charters: [`charter-track5a-subject-and-relationship-declarations.md`](student-loan-circumstance-association-evidence/charter-track5a-subject-and-relationship-declarations.md), 5b to follow 5a's review.
+
 **What stands before G2, investigated (read-only):**
 [`g2-path-investigation.md`](student-loan-circumstance-association-evidence/g2-path-investigation.md).
 *Scheduling:* the subject type cannot be inferred from a rule's `requires`, and ordinary eligibility
@@ -1483,7 +1485,8 @@ the reader contract. The decisions below remain open; these probe repairs do not
 
 | Decision | Owner | Needed by | Status |
 | --- | --- | --- | --- |
-| What the bare-statement named conclusion reads, and how the statement amount responds to the statement-scope result — (1) read statement-scope claims through `link_coverage`'s empty parameter, the 2026-09-23 no-link posture extended; (2) A: an **established** adverse statement-wide result (a classified claim of a circumstance that disqualifies a loan outright) makes the amount 0 under § 221(d)(1)'s "solely", an **unresolved** one blocks the amount, and a **linked route** stays on the link path; B: the amount stays a coverage quantity and the outcome line says it does not account for the result | Owner | Before reader implementation | Open. Recommended: (1) yes; (2) A. See [reader contract §9](student-loan-circumstance-association-evidence/reader-contract.md) and `tests/test_sli_bare_statement_chain_probe.py` |
+| What the bare-statement named conclusion reads, and how the statement amount responds to the statement-scope result | Owner | Before reader implementation | **Decided 2026-09-24.** (1) No joined statement-wide claim is the default case — a calculation posture, not a finding that no contrary circumstance exists. (2) **A in principle**: the amount follows the supported tax consequence; the whole statement is zeroed only where the selected rule establishes disqualification of that whole amount. Classification keeps three outcomes distinct: a supported whole-amount disqualifier; a circumstance known not to trigger that disqualifier (not proof of general eligibility); an unresolved effect requiring further treatment. Institutional responsibility conditions stay separate and require no new external verification. The amount change is specified in the reader contract and not yet built |
+| ADR 0076 Parts 1 and 2 | Owner | Before Track 5 | **Accepted 2026-09-24** as the bounded scheduling and relationship-validation contracts; Part 3 open. Tests exercise the new declarations; undeclared rules' probe expectations are not flipped. Dispatch authorized |
 | Where the unintegrated per-statement calculation is shown — A: product page beside line 21, labelled; B: an experimental reader surface only | Owner | Before reader implementation | **Decided 2026-09-24: B** — experimental surface until worksheet integration |
 | ADR 0075 acceptance | Owner | Before G2 design | **Accepted 2026-09-24** as the bounded operator contract; does not authorize a statement-specific production result — ADR 0076 must establish the binding |
 | ADR 0076 direction | Owner | Before G2 | **2026-09-24:** a subject declaration on each per-subject rule is the preferred scheduling direction; not published as one settled package — scheduling, relationship validation, and the set-level tax consequence of several statuses for one borrowing are separated, the last tested against the applicable rule |
