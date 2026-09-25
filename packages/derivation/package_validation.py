@@ -821,16 +821,41 @@ FIELD_REF_UNKNOWN_FIELD = "FIELD_REF_UNKNOWN_FIELD"
 FIELD_REF_NOT_OBJECT = "FIELD_REF_NOT_OBJECT"
 
 
+def _fact_type_for_pin(
+    fact_type_id: str,
+    version: str | None,
+    fact_types_by_id: Mapping[str, Mapping[str, Any]],
+    fact_types_by_key: Mapping[tuple[str, str], Mapping[str, Any]] | None,
+) -> Mapping[str, Any] | None:
+    """The fact type a binding names. Several versions and no pin do not collapse."""
+    if fact_types_by_key is not None and version is not None:
+        return fact_types_by_key.get((fact_type_id, version))
+    if fact_types_by_key is not None:
+        matches = [fact for (fact_id, _fact_version), fact in fact_types_by_key.items() if fact_id == fact_type_id]
+        if len(matches) == 1:
+            return matches[0]
+        if len(matches) > 1:
+            return None
+    return fact_types_by_id.get(fact_type_id)
+
+
 def check_field_ref_bindings(
     citizen: Mapping[str, Any],
     fact_types_by_id: Mapping[str, Mapping[str, Any]],
     binding_fact_types: Mapping[str, str],
+    *,
+    fact_types_by_key: Mapping[tuple[str, str], Mapping[str, Any]] | None = None,
+    binding_versions: Mapping[str, str] | None = None,
 ) -> list[MemberIssue]:
     """Reject ``field`` selectors the bound fact type cannot support.
 
     ADR-0067 Decision 4: a misspelled field, a field on a fact type with no
     ``value_schema.properties``, and a field on a scalar fact type all fail
     closed at load time — never a silent None/zero at evaluation.
+
+    When ``binding_versions`` is supplied, the lookup is the binding's exact
+    ``(id, version)``. A sibling version of the same id is not consulted.
+    Callers that only have an id-keyed map keep that map.
     """
     issues: list[MemberIssue] = []
     pin_id = str(citizen.get("id", ""))
@@ -843,7 +868,10 @@ def check_field_ref_bindings(
                 continue
             seen.add(key)
             fact_type_id = binding_fact_types.get(symbol, symbol)
-            fact_type = fact_types_by_id.get(fact_type_id)
+            version = None if binding_versions is None else binding_versions.get(symbol)
+            fact_type = _fact_type_for_pin(
+                fact_type_id, version, fact_types_by_id, fact_types_by_key,
+            )
             if fact_type is None:
                 issues.append(MemberIssue(
                     pin_id, pin_version, FIELD_REF_UNKNOWN_FIELD,
@@ -1861,10 +1889,14 @@ def validate_package(
                 issues.append(MemberIssue(package_id, "", "BINDING_DEFAULT_MISSING",
                                           f"optional_default binding {ft_key} has no default parameter defined on that exact fact-type version"))
             else:
+                # The fact type pins a parameter version. A sibling of the
+                # same id is a different definition; runtime reads this exact
+                # key and blocks when it is absent, so admission must too.
                 param_pin = fact_defaults[ft_key]
-                if param_pin["id"] not in member_ids:
+                param_key = _corpus_key(param_pin["id"], param_pin.get("version", ""))
+                if param_key not in parameter_keys:
                     issues.append(MemberIssue(package_id, "", "BINDING_DEFAULT_ABSENT",
-                                              f"optional_default parameter {param_pin['id']} not in package"))
+                                              f"optional_default parameter {param_key} not in package"))
 
     issues.extend(_link_coverage_issues(
         package, resolved, fact_surface, parameter_keys, package_id,
@@ -2811,6 +2843,29 @@ def validate_package(
                                           f"{answer.get('equals')!r}, not in its own declared domain {domain}"))
 
         requirement = citizen.get("requirement", {})
+        # attachment-rule.v1 (and the same top-level shape on later
+        # versions) names threshold_parameter on the requirement itself.
+        # The any_trigger loop below only sees pins nested under triggers.
+        top_threshold = requirement.get("threshold_parameter")
+        if isinstance(top_threshold, dict) and top_threshold:
+            threshold_key = _corpus_key(
+                top_threshold.get("id", ""),
+                top_threshold.get("version", ""),
+            )
+            # Track 5d is bounded to version authority: reject when another
+            # version of this parameter id is resolved but the pinned one is
+            # not, so no sibling can stand in for it. A top-level threshold
+            # whose parameter is absent altogether was never checked here;
+            # runtime blocks it DEPENDENCY_ABSENT. That wider gap is reported
+            # to the owner, not closed by this track.
+            sibling_resolved = any(
+                key[0] == threshold_key[0] for key in parameter_keys
+            )
+            if threshold_key not in parameter_keys and sibling_resolved:
+                issues.append(MemberIssue(
+                    pin["id"], pin["version"], "ATTACHMENT_TRIGGER_PARAMETER_ABSENT",
+                    f"threshold parameter {threshold_key} is not a package parameter member",
+                ))
         triggers = requirement.get("triggers", []) if requirement.get("kind") == "any_trigger" else []
         for trigger in triggers:
             if not isinstance(trigger, dict):
@@ -3080,9 +3135,12 @@ def validate_package(
         binding["symbol"]: binding["fact_type"]["id"]
         for binding in package.get("input_bindings", [])
     }
-    fact_types_by_id: dict[str, dict[str, Any]] = {}
-    for (ft_id, _ft_version), ft in fact_types_by_key.items():
-        fact_types_by_id.setdefault(ft_id, ft)
+    binding_versions = {
+        binding["symbol"]: binding["fact_type"]["version"]
+        for binding in package.get("input_bindings", [])
+        if isinstance(binding.get("fact_type"), dict)
+        and isinstance(binding["fact_type"].get("version"), str)
+    }
     for pin, citizen in resolved:
         # v6 is v4's grammar plus multiply/divide/collect_categorical_all_equal
         # (Form 1098-E Student Loan Interest Deduction milestone Tracks
@@ -3103,7 +3161,12 @@ def validate_package(
             fact_type_id = binding_fact_types_local.get(name, name)
             if fact_type_id not in categorical_fact_types:
                 continue
-            fact_type = fact_types_by_id.get(fact_type_id)
+            fact_type = _fact_type_for_pin(
+                fact_type_id,
+                binding_versions.get(name),
+                {},
+                fact_types_by_key,
+            )
             if fact_type is None:
                 issues.append(MemberIssue(pin["id"], pin["version"], "CONDITIONAL_DEPENDENCY_MEMBER_FACT_TYPE_ABSENT",
                                           f"conditional_dependency_set member {name!r} names no fact type "
@@ -3147,7 +3210,9 @@ def validate_package(
             continue
         if citizen["schema"] in {"rule-artifact.v7", "rule-artifact.v8"}:
             issues.extend(check_field_ref_bindings(
-                citizen, fact_types_by_id, binding_fact_types_local,
+                citizen, {}, binding_fact_types_local,
+                fact_types_by_key=fact_types_by_key,
+                binding_versions=binding_versions,
             ))
             continue
         for expression in _rule_expression_nodes(citizen):
@@ -3155,7 +3220,9 @@ def validate_package(
             field_rule["when"] = expression
             field_rule["value"] = None
             issues.extend(check_field_ref_bindings(
-                field_rule, fact_types_by_id, binding_fact_types_local,
+                field_rule, {}, binding_fact_types_local,
+                fact_types_by_key=fact_types_by_key,
+                binding_versions=binding_versions,
             ))
 
     # 11. Unique output ownership (decision 7)

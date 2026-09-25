@@ -16,7 +16,7 @@ from __future__ import annotations
 
 from dataclasses import dataclass, field
 from decimal import Decimal, ROUND_DOWN, ROUND_HALF_EVEN, ROUND_HALF_UP, ROUND_UP
-from typing import Any
+from typing import Any, Mapping
 
 from packages.derivation.authorization import AuthorizationResolution
 
@@ -52,6 +52,82 @@ class EvalBlocked(Exception):
         super().__init__(f"{category}: {', '.join(missing)}")
 
 
+_CATEGORICAL_VERSION_SEP = "\x1f"
+
+
+def categorical_domain_key(fact_type_id: str, version: str) -> str:
+    """Domain-map key for one fact-type version. Not an id-only key."""
+    return f"{fact_type_id}{_CATEGORICAL_VERSION_SEP}{version}"
+
+
+def _indexed_versions(
+    index: Mapping[str, Mapping[str, Any]] | None, param_id: str,
+) -> Mapping[str, Any] | None:
+    """Versions of ``param_id`` in the exact index, or None when it does not list that id.
+
+    An empty index lists nothing, so a hand-built context keeps the id-keyed
+    citizen. An id the index does list is never answered by a sibling.
+    """
+    if not index:
+        return None
+    versions = index.get(param_id)
+    return versions if isinstance(versions, dict) else None
+
+
+def parameter_exact(
+    parameters: Mapping[str, Any],
+    param_id: str,
+    version: str,
+    index: Mapping[str, Mapping[str, Any]] | None = None,
+) -> dict[str, Any] | None:
+    """The citizen named by ``(id, version)``, or None. Never a sibling."""
+    versions = _indexed_versions(index, param_id)
+    if versions is not None:
+        found = versions.get(version)
+        return found if isinstance(found, dict) else None
+    citizen = parameters.get(param_id)
+    if not isinstance(citizen, dict) or "values" not in citizen:
+        return None
+    # A hand-built citizen may omit version. A citizen that names one is
+    # that version only, never a stand-in for a different pin.
+    citizen_version = citizen.get("version")
+    if citizen_version is None or citizen_version == version:
+        return citizen
+    return None
+
+
+def parameter_version_count(
+    parameters: Mapping[str, Any],
+    param_id: str,
+    index: Mapping[str, Mapping[str, Any]] | None = None,
+) -> int:
+    versions = _indexed_versions(index, param_id)
+    if versions is not None:
+        return len(versions)
+    citizen = parameters.get(param_id)
+    if isinstance(citizen, dict) and isinstance(citizen.get("version"), str) and "values" in citizen:
+        return 1
+    return 0
+
+
+def parameter_unversioned(
+    parameters: Mapping[str, Any],
+    param_id: str,
+    index: Mapping[str, Mapping[str, Any]] | None = None,
+) -> dict[str, Any] | None:
+    """The only version of ``param_id``, or None when it is missing or ambiguous."""
+    versions = _indexed_versions(index, param_id)
+    if versions is not None:
+        if len(versions) != 1:
+            return None
+        found = next(iter(versions.values()))
+        return found if isinstance(found, dict) else None
+    citizen = parameters.get(param_id)
+    if isinstance(citizen, dict) and isinstance(citizen.get("version"), str) and "values" in citizen:
+        return citizen
+    return None
+
+
 @dataclass
 class AccessLog:
     """What an evaluation actually read, for truthful pinning."""
@@ -60,6 +136,9 @@ class AccessLog:
     collects: set[str] = field(default_factory=set)
     parameters: set[str] = field(default_factory=set)
     tables: set[str] = field(default_factory=set)
+    # ``(id, version)`` actually read. Pinning uses this rather than whichever
+    # citizen an id-keyed map happens to hold.
+    parameter_versions: set[tuple[str, str]] = field(default_factory=set)
     operations: set[str] = field(default_factory=set)
     # Families whose closure authority an empty collect actually stood on;
     # a closure-backed zero pins these, present-source aggregation never
@@ -103,6 +182,13 @@ class Environment:
     # of rows, or the keys_unavailable sentinel. The operation does not
     # read ``sources``.
     keyed_sources: dict[str, Any] = field(default_factory=dict)
+    # Symbol name -> fact-type version the binding or declaration pinned.
+    # Absent means the symbol named no version (a derived symbol's fallback).
+    symbol_fact_versions: dict[str, str] = field(default_factory=dict)
+    # Parameter id -> version -> citizen. Empty for a hand-built environment;
+    # an id listed here is read by exact version and is not borrowed from
+    # ``parameters``.
+    parameter_index: dict[str, dict[str, dict[str, Any]]] = field(default_factory=dict)
 
 
 def _as_decimal(value: Any) -> Decimal:
@@ -155,7 +241,9 @@ def evaluate(expr: Any, env: Environment, access: AccessLog) -> Any:
             return val[field]
         fact_type_id = env.symbol_fact_types.get(expr["name"])
         if fact_type_id is not None:
-            _validate_categorical_value(fact_type_id, str(val), env)
+            _validate_categorical_value(
+                fact_type_id, str(val), env, env.symbol_fact_versions.get(expr["name"]),
+            )
         return val
 
     if op == "collect":
@@ -198,10 +286,14 @@ def evaluate(expr: Any, env: Environment, access: AccessLog) -> Any:
         raise EvalBlocked(expr["code"], [])
 
     if op == "parameter":
-        access.parameters.add(expr["parameter_id"])
-        param = env.parameters.get(expr["parameter_id"])
+        param_id = expr["parameter_id"]
+        access.parameters.add(param_id)
+        param = parameter_unversioned(env.parameters, param_id, env.parameter_index)
         if param is None:
-            raise EvalBlocked(BLOCK_ABSENT, [expr["parameter_id"]])
+            if parameter_version_count(env.parameters, param_id, env.parameter_index) > 1:
+                raise EvalBlocked(BLOCK_INVALID, [param_id])
+            raise EvalBlocked(BLOCK_ABSENT, [param_id])
+        access.parameter_versions.add((param_id, str(param["version"])))
         values = param["values"]
         if "key" in expr:
             key = evaluate(expr["key"], env, access)
@@ -292,9 +384,11 @@ def evaluate(expr: Any, env: Environment, access: AccessLog) -> Any:
         rows = env.sources.get(name, [])
         if not rows:
             raise EvalBlocked(BLOCK_ABSENT, [name])
-        expected_fact_type, expected_val = _eval_categorical_operand(expr["value"], env, access)
+        expected_domain, expected_val = _eval_categorical_operand(expr["value"], env, access)
+        enum = env.categorical_domains.get(expected_domain)
         for row in rows:
-            _validate_categorical_value(expected_fact_type, row, env)
+            if enum is not None and row not in enum:
+                raise EvalBlocked(BLOCK_INVALID, [row])
         return all(row == expected_val for row in rows)
 
     if op == "conditional_dependency_set":
@@ -366,13 +460,14 @@ def _coverage_rows(slot: Any) -> list[tuple[Any, dict[str, str]]]:
 def _empty_coverage_parameter(expr: dict[str, Any], env: Environment, access: AccessLog) -> Decimal:
     parameter = expr["empty"]["parameter"]
     param_id = str(parameter["id"])
-    param_version = parameter["version"]
-    param = env.parameters.get(param_id)
+    param_version = str(parameter["version"])
+    param = parameter_exact(env.parameters, param_id, param_version, env.parameter_index)
     if param is None:
+        if parameter_version_count(env.parameters, param_id, env.parameter_index) > 0:
+            raise EvalBlocked(BLOCK_INVALID, [param_id])
         raise EvalBlocked(BLOCK_ABSENT, [param_id])
-    if param.get("version") != param_version:
-        raise EvalBlocked(BLOCK_INVALID, [param_id])
     access.parameters.add(param_id)
+    access.parameter_versions.add((param_id, str(param["version"])))
     return _as_decimal(param["values"])
 
 
@@ -512,9 +607,12 @@ def _divide(expr: dict[str, Any], env: Environment, access: AccessLog) -> Decima
 
 def _range_lookup(expr: dict[str, Any], env: Environment, access: AccessLog) -> Decimal:
     canon = env.canon["range_lookup"]["spec"]
-    param = env.parameters.get(expr["table_id"])
+    param = parameter_unversioned(env.parameters, expr["table_id"], env.parameter_index)
     if param is None:
+        if parameter_version_count(env.parameters, expr["table_id"], env.parameter_index) > 1:
+            raise EvalBlocked(BLOCK_INVALID, [expr["table_id"]])
         raise EvalBlocked(BLOCK_ABSENT, [expr["table_id"]])
+    access.parameter_versions.add((expr["table_id"], str(param["version"])))
     key = evaluate(expr["key"], env, access)
     value = _as_decimal(evaluate(expr["value"], env, access))
     for row in _lookup_rows(param, str(key)):
@@ -529,9 +627,12 @@ def _range_lookup(expr: dict[str, Any], env: Environment, access: AccessLog) -> 
 
 def _bracket_fold(expr: dict[str, Any], env: Environment, access: AccessLog) -> Decimal:
     canon = env.canon["bracket_fold"]["spec"]
-    param = env.parameters.get(expr["table_id"])
+    param = parameter_unversioned(env.parameters, expr["table_id"], env.parameter_index)
     if param is None:
+        if parameter_version_count(env.parameters, expr["table_id"], env.parameter_index) > 1:
+            raise EvalBlocked(BLOCK_INVALID, [expr["table_id"]])
         raise EvalBlocked(BLOCK_ABSENT, [expr["table_id"]])
+    access.parameter_versions.add((expr["table_id"], str(param["version"])))
     key = evaluate(expr["key"], env, access)
     value = _as_decimal(evaluate(expr["value"], env, access))
     total = Decimal(0)
@@ -545,26 +646,84 @@ def _bracket_fold(expr: dict[str, Any], env: Environment, access: AccessLog) -> 
     return total
 
 
+def _domain_versions(env: Environment, fact_type_id: str) -> list[str]:
+    prefix = fact_type_id + _CATEGORICAL_VERSION_SEP
+    return [key[len(prefix):] for key in env.categorical_domains if key.startswith(prefix)]
+
+
+def _resolve_categorical_domain(
+    env: Environment, fact_type_id: str, version: str | None,
+) -> tuple[str, list[str]] | None:
+    """The exact domain, or None when this id is not categorical.
+
+    A named version that is absent while a sibling version is present blocks.
+    Several versions and no named version block. One version keeps the bare
+    id as its identity so a comparison against today's id-keyed domain still
+    agrees. Two versions are different domains: their identities differ.
+    """
+    present = _domain_versions(env, fact_type_id)
+    if version is not None:
+        exact_key = categorical_domain_key(fact_type_id, version)
+        enum = env.categorical_domains.get(exact_key)
+        if enum is not None:
+            identity = exact_key if len(present) > 1 else fact_type_id
+            return identity, enum
+        if present:
+            raise EvalBlocked(
+                BLOCK_CATEGORICAL_DOMAIN_MISMATCH, [f"{fact_type_id}@{version}"],
+            )
+        legacy = env.categorical_domains.get(fact_type_id)
+        if legacy is not None:
+            return fact_type_id, legacy
+        return None
+    if len(present) > 1:
+        raise EvalBlocked(BLOCK_CATEGORICAL_DOMAIN_MISMATCH, [fact_type_id])
+    if len(present) == 1:
+        only = present[0]
+        return fact_type_id, env.categorical_domains[categorical_domain_key(fact_type_id, only)]
+    legacy = env.categorical_domains.get(fact_type_id)
+    if legacy is not None:
+        return fact_type_id, legacy
+    return None
+
+
 def _eval_categorical_operand(expr: Any, env: Environment, access: AccessLog) -> tuple[str, str]:
     if not isinstance(expr, dict):
         raise EvalBlocked(BLOCK_CATEGORICAL_DOMAIN_MISMATCH, [f"not a categorical expression: {expr}"])
     op = expr.get("op")
     if op == "category_literal":
         fact_type = expr["fact_type"]
-        fact_type_id = fact_type["id"] if isinstance(fact_type, dict) else fact_type
-        val = expr["value"]
-        _validate_categorical_value(fact_type_id, val, env)
-        return fact_type_id, val
+        if isinstance(fact_type, dict):
+            fact_type_id = str(fact_type["id"])
+            raw_version = fact_type.get("version")
+            version = str(raw_version) if isinstance(raw_version, str) else None
+        else:
+            fact_type_id = str(fact_type)
+            version = None
+        val = str(expr["value"])
+        return _validate_categorical_value(fact_type_id, val, env, version), val
     if op == "ref":
         name = expr["name"]
         val = evaluate(expr, env, access)
         fact_type_id = str(env.symbol_fact_types.get(name, name))
-        _validate_categorical_value(fact_type_id, str(val), env)
-        return fact_type_id, str(val)
+        version = env.symbol_fact_versions.get(name)
+        return _validate_categorical_value(fact_type_id, str(val), env, version), str(val)
     raise EvalBlocked(BLOCK_CATEGORICAL_DOMAIN_MISMATCH, [f"not a categorical expression: {expr}"])
 
 
-def _validate_categorical_value(fact_type_id: str, val: str, env: Environment) -> None:
-    valid_values = env.categorical_domains.get(fact_type_id)
-    if valid_values is not None and val not in valid_values:
+def _validate_categorical_value(
+    fact_type_id: str, val: str, env: Environment, version: str | None = None,
+) -> str:
+    """Check ``val`` against the exact domain. Return the domain identity.
+
+    The identity is what ``categorical_compare`` treats as the domain. An
+    unknown non-categorical id returns ``fact_type_id`` and checks nothing,
+    matching a value that was never declared categorical.
+    """
+    resolved = _resolve_categorical_domain(env, fact_type_id, version)
+    if resolved is None:
+        return fact_type_id
+    identity, enum = resolved
+    if val not in enum:
         raise EvalBlocked(BLOCK_INVALID, [val])
+    return identity

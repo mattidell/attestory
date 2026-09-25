@@ -32,7 +32,10 @@ from packages.derivation.evaluator import (
     AccessLog,
     Environment,
     EvalBlocked,
+    categorical_domain_key,
     evaluate,
+    parameter_exact,
+    parameter_unversioned,
 )
 from packages.kernel.act_log import ActLog
 from packages.derivation.derived_enumeration import (
@@ -134,6 +137,10 @@ class RunContext:
     # paths); the association path then treats every candidate as out of
     # scope, the same honest zero-candidate behavior as any other case.
     reporting_year: int | None = None
+    # Parameter id -> version -> citizen. Empty unless marshalling supplied
+    # the exact index. The ``parameters`` dict holds only parameter citizens,
+    # and only for an id that has a single version.
+    parameter_index: dict[str, dict[str, dict[str, Any]]] = field(default_factory=dict)
 
 
 @dataclass(frozen=True)
@@ -261,6 +268,7 @@ class _Run:
             for rule in ctx.rules
         ) or _uses_attachment_machinery(ctx.rules)
         self.symbol_fact_types: dict[str, str] = {}
+        self.symbol_fact_versions: dict[str, str] = {}
         self.categorical_domains: dict[str, list[str]] = {}
 
         # Track 5c Round 2 (Defect 4, same class as Defect 2): keyed by the
@@ -271,10 +279,17 @@ class _Run:
         fact_types_by_key: dict[tuple[str, str], dict[str, Any]] = {
             (ft["id"], ft.get("version", "v1")): ft for ft in ctx.fact_types
         }
+        enums_by_id: dict[str, list[tuple[str, list[str]]]] = {}
         for ft in ctx.fact_types:
             val_schema = ft.get("value_schema", {})
             if isinstance(val_schema, dict) and "enum" in val_schema:
-                self.categorical_domains[ft["id"]] = val_schema["enum"]
+                version = str(ft.get("version", "v1"))
+                enum = val_schema["enum"]
+                self.categorical_domains[categorical_domain_key(ft["id"], version)] = enum
+                enums_by_id.setdefault(ft["id"], []).append((version, enum))
+        for fact_id, entries in enums_by_id.items():
+            if len(entries) == 1:
+                self.categorical_domains[fact_id] = entries[0][1]
 
         self.symbols: dict[str, Any] = {}
         # symbol -> (finding_id, version, pin-role, provenance)
@@ -283,11 +298,17 @@ class _Run:
         for i in ctx.inputs:
             self.symbols[i.symbol] = i.value
             fact_type_id = i.symbol
+            fact_type_version: str | None = None
             for binding in ctx.input_bindings:
                 if binding["symbol"] == i.symbol:
                     fact_type_id = binding["fact_type"]["id"]
+                    raw_version = binding["fact_type"].get("version")
+                    if isinstance(raw_version, str):
+                        fact_type_version = raw_version
                     break
             self.symbol_fact_types[i.symbol] = fact_type_id
+            if fact_type_version is not None:
+                self.symbol_fact_versions[i.symbol] = fact_type_version
             provenance = "assertion" if self.use_v2 else None
             self.symbol_pin[i.symbol] = (i.finding_id, "v1", i.role, provenance)
 
@@ -307,12 +328,16 @@ class _Run:
                     fact_type_id = binding["fact_type"]["id"]
                     fact_type_version = binding["fact_type"].get("version", "v1")
                     self.symbol_fact_types[symbol] = fact_type_id
+                    self.symbol_fact_versions[symbol] = fact_type_version
                     ft_def: dict[str, Any] | None = fact_types_by_key.get((fact_type_id, fact_type_version))
                     if ft_def is not None and "optional_default" in ft_def:
                         opt_def = ft_def["optional_default"]
                         param_id = opt_def["parameter"]["id"]
                         param_version = opt_def["parameter"]["version"]
-                        param_val = ctx.parameters.get(param_id, {}).get("values")
+                        param = parameter_exact(
+                            ctx.parameters, param_id, param_version, ctx.parameter_index,
+                        )
+                        param_val = None if param is None else param.get("values")
                         if param_val is not None:
                             pins = [self.ctx.adoption_pin] + self.ctx.governance_pins
                             pins.append({
@@ -377,6 +402,8 @@ class _Run:
             symbol_fact_types=self.symbol_fact_types,
             categorical_domains=self.categorical_domains,
             authorization=self.ctx.authorization,
+            symbol_fact_versions=self.symbol_fact_versions,
+            parameter_index=self.ctx.parameter_index,
         )
 
     def dependency_pins_for_access(self, access: AccessLog) -> list[dict[str, Any]]:
@@ -464,8 +491,15 @@ class _Run:
                             f"no same-statement {companion_type} source to pin "
                             f"(ADR-0010 displacement edge required)"
                         )
-        for pid in access.parameters | access.tables:
-            pins.append({"role": "parameter", "id": pid, "version": self.ctx.parameters[pid]["version"]})
+        recorded = set(access.parameter_versions)
+        for pid, version in sorted(recorded):
+            pins.append({"role": "parameter", "id": pid, "version": version})
+        named = {pid for pid, _version in recorded}
+        for pid in (access.parameters | access.tables) - named:
+            citizen = parameter_unversioned(self.ctx.parameters, pid, self.ctx.parameter_index)
+            if citizen is None or "version" not in citizen:
+                continue
+            pins.append({"role": "parameter", "id": pid, "version": citizen["version"]})
         # A closure-backed zero pins the exact adopted mapping and
         # declaration versions plus the exact current closure finding it
         # stood on; the horizon identity travels in that finding's fact key
@@ -1427,7 +1461,12 @@ class _Run:
             self._attachment_block(rule_id, BLOCK_ABSENT, missing_subtotals, governance_pins)
             return False, [], [], "blocked"
         threshold_pin = requirement["threshold_parameter"]
-        threshold_param = self.ctx.parameters.get(threshold_pin["id"])
+        threshold_param = parameter_exact(
+            self.ctx.parameters,
+            str(threshold_pin["id"]),
+            str(threshold_pin["version"]),
+            getattr(self.ctx, "parameter_index", None),
+        )
         if threshold_param is None:
             self._attachment_block(rule_id, BLOCK_ABSENT, [threshold_pin["id"]], governance_pins)
             return False, [], [], "blocked"

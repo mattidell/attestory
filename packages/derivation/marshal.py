@@ -13,7 +13,7 @@ from __future__ import annotations
 
 import json
 from dataclasses import dataclass, field
-from typing import TYPE_CHECKING, Any, Iterable
+from typing import TYPE_CHECKING, Any, Iterable, Mapping
 
 from packages.derivation.source_authority import (
     ClosureFindingRecord,
@@ -248,6 +248,7 @@ def marshal_run_context(
     companion_presence_pairs: dict[str, str | list[str]] | None = None,
     authorization: Any | None = None,
     reporting_year: int | None = None,
+    parameter_index: Mapping[str, Mapping[str, Mapping[str, Any]]] | None = None,
 ) -> RunContext:
     """Build a RunContext from current record state only (ADR-0032 MUST).
 
@@ -446,6 +447,15 @@ def marshal_run_context(
         companion_presence_pairs=dict(companion_presence_pairs or {}),
         authorization=authorization,
         reporting_year=reporting_year,
+        parameter_index={
+            str(param_id): {
+                str(version): dict(citizen)
+                for version, citizen in versions.items()
+                if isinstance(citizen, Mapping)
+            }
+            for param_id, versions in (parameter_index or {}).items()
+            if isinstance(versions, Mapping)
+        },
     )
 
 
@@ -468,6 +478,7 @@ def marshal_live_run_context(
     companion_presence_pairs: dict[str, str | list[str]] | None = None,
     authorization: Any | None = None,
     reporting_year: int | None = None,
+    parameter_index: Mapping[str, Mapping[str, Mapping[str, Any]]] | None = None,
 ) -> MarshalledRunContext:
     """Create the opaque marshalling result accepted by the production executor."""
     return MarshalledRunContext(
@@ -489,6 +500,7 @@ def marshal_live_run_context(
             companion_presence_pairs=companion_presence_pairs,
             authorization=authorization,
             reporting_year=reporting_year,
+            parameter_index=parameter_index,
         ),
         _MARSHAL_SEAL,
     )

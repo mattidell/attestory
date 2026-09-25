@@ -29,6 +29,7 @@ from packages.derivation.evaluator import (
     Environment,
     EvalBlocked,
     evaluate,
+    parameter_exact,
 )
 from packages.derivation.runner import (
     SourceFact,
@@ -143,6 +144,18 @@ def _fact_type_of(run: _Run, symbol: str) -> str:
     return symbol
 
 
+def _fact_version_of(run: _Run, symbol: str) -> str | None:
+    """The version a binding pins for ``symbol``, if it pins one."""
+    for binding in run.ctx.input_bindings:
+        if binding.get("symbol") != symbol:
+            continue
+        fact_type = binding.get("fact_type")
+        if isinstance(fact_type, dict) and isinstance(fact_type.get("version"), str):
+            return str(fact_type["version"])
+    existing = run.symbol_fact_versions.get(symbol)
+    return str(existing) if existing else None
+
+
 def _optional_default(
     run: _Run, symbol: str
 ) -> tuple[Any, tuple[str, str, str, str | None], dict[str, Any]] | None:
@@ -186,7 +199,10 @@ def _optional_default(
     param_version = parameter.get("version")
     if not isinstance(param_id, str) or not isinstance(param_version, str):
         return None
-    param_val = run.ctx.parameters.get(param_id, {}).get("values")
+    param = parameter_exact(
+        run.ctx.parameters, param_id, param_version, run.ctx.parameter_index,
+    )
+    param_val = None if param is None else param.get("values")
     if param_val is None:
         return None
     pins = _sorted_pins([
@@ -709,6 +725,22 @@ def evaluate_subject_scoped_rule(
 
         # The third positional slot is the run's resolved admissions.
         # Only the runner and the evaluator may name that field.
+        fact_versions = dict(run.symbol_fact_versions)
+        subject_pin = rule.get("subject")
+        if isinstance(subject_pin, dict) and isinstance(subject_pin.get("version"), str):
+            fact_versions[subject_type] = str(subject_pin["version"])
+        joined_pin = rule.get("joined")
+        if (
+            isinstance(joined_pin, dict)
+            and isinstance(joined_pin.get("id"), str)
+            and isinstance(joined_pin.get("version"), str)
+        ):
+            fact_versions[str(joined_pin["id"])] = str(joined_pin["version"])
+        for fact_symbol in fact_types:
+            if fact_symbol not in fact_versions:
+                version = _fact_version_of(run, fact_symbol)
+                if version is not None:
+                    fact_versions[fact_symbol] = version
         env = Environment(
             local_symbols,
             maps[0],
@@ -718,6 +750,8 @@ def evaluate_subject_scoped_rule(
             fact_types,
             dict(run.categorical_domains),
             keyed_sources=keyed_sources if coverage_names else {},
+            symbol_fact_versions=fact_versions,
+            parameter_index=run.ctx.parameter_index,
         )
         access = AccessLog()
         try:

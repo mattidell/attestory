@@ -106,6 +106,7 @@ class _ResolvedRunMaterial(tuple[
     """
 
     emission_only_names: tuple[str, ...]
+    parameter_index: dict[str, dict[str, dict[str, Any]]]
 
     def __new__(
         cls,
@@ -117,12 +118,20 @@ class _ResolvedRunMaterial(tuple[
         bindings: list[dict[str, Any]],
         collect_names: list[str],
         emission_only_names: list[str],
+        parameter_index: Mapping[str, Mapping[str, Mapping[str, Any]]] | None = None,
     ) -> _ResolvedRunMaterial:
         material = super().__new__(
             cls,
             (rules, parameters, families, mappings, fact_types, bindings, collect_names),
         )
         material.emission_only_names = tuple(emission_only_names)
+        material.parameter_index = {
+            str(param_id): {
+                str(version): dict(citizen)
+                for version, citizen in versions.items()
+            }
+            for param_id, versions in (parameter_index or {}).items()
+        }
         return material
 
 
@@ -147,6 +156,26 @@ def _iter_collect_categorical_names(expr: Any) -> Iterable[str]:
             yield from _iter_collect_categorical_names(item)
 
 
+def _parameters_by_exact_version(
+    members: Sequence[Mapping[str, Any]],
+) -> tuple[dict[str, dict[str, Any]], dict[str, dict[str, dict[str, Any]]]]:
+    """Split parameters into the id-keyed map and the exact ``(id, version)`` index.
+
+    The id-keyed map holds a citizen only when that id has one version, and
+    nothing else. Every version lives in the index.
+    """
+    grouped: dict[str, dict[str, dict[str, Any]]] = {}
+    for member in members:
+        if member.get("schema") != "parameter-declaration.v1":
+            continue
+        grouped.setdefault(str(member["id"]), {})[str(member["version"])] = dict(member)
+    parameters: dict[str, dict[str, Any]] = {}
+    for param_id, versions in grouped.items():
+        if len(versions) == 1:
+            parameters[param_id] = next(iter(versions.values()))
+    return parameters, grouped
+
+
 def _resolved_run_material(graph: Any) -> _ResolvedRunMaterial:
     """Derive runner material solely from the resolver's exclusive graph."""
     members = list(graph.resolved_members)
@@ -159,7 +188,7 @@ def _resolved_run_material(graph: Any) -> _ResolvedRunMaterial:
         member for member in members
         if member.get("schema") in {"rule-artifact.v1", "rule-artifact.v2", "rule-artifact.v3", "rule-artifact.v4", "rule-artifact.v5", "rule-artifact.v6", "rule-artifact.v7", "rule-artifact.v8", "rule-artifact.v9", "rule-artifact.v10", "rule-artifact.v11", "attachment-rule.v1", "attachment-rule.v2", "attachment-rule.v3", "attachment-rule.v4", "attachment-rule.v5", "attachment-rule.v6", "attachment-rule.v8", "attachment-rule.v11"}
     ]
-    parameters = {member["id"]: member for member in members if member.get("schema") == "parameter-declaration.v1"}
+    parameters, parameter_index = _parameters_by_exact_version(members)
     families = [member for member in members if member.get("schema") in {"source-family.v1", "source-family.v2"}]
     mappings = [member for member in members if member.get("schema") == "source-closure-mapping.v2"]
     fact_types = [fact for member in members if member.get("schema") in {"bundle.v1", "bundle.v2"} for fact in member.get("fact_types", [])]
@@ -296,6 +325,7 @@ def _resolved_run_material(graph: Any) -> _ResolvedRunMaterial:
         list(graph.package["input_bindings"]),
         collect_names,
         emission_only,
+        parameter_index,
     )
 
 
@@ -382,6 +412,7 @@ def live_coordinate_run(
         companion_presence_pairs=domain_companion_presence_pairs(),
         authorization=authorization,
         reporting_year=reporting_year,
+        parameter_index=material.parameter_index,
     )
     # The nominee coordinator has a deliberately bounded identity policy.  It
     # consumes only the current report/allocation sources marshalled for the
@@ -556,6 +587,7 @@ def live_run(
     collect_source_names: Sequence[str] | None = None,
     emission_only_source_names: Sequence[str] | None = None,
     companion_presence_pairs: Mapping[str, str] | None = None,
+    parameter_index: Mapping[str, Mapping[str, Mapping[str, Any]]] | None = None,
 ) -> RunResult:
     """Execute one live run from record state only.
 
@@ -581,6 +613,7 @@ def live_run(
         collect_source_names=list(collect_source_names or ()),
         emission_only_source_names=list(emission_only_source_names or ()),
         companion_presence_pairs=dict(companion_presence_pairs or {}),
+        parameter_index=parameter_index,
     )
     return execute_marshaled(ctx, schemas)
 

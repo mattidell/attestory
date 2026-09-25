@@ -5,9 +5,9 @@
   "topic": "student-loan-circumstance-association",
   "active_plan": "docs/phases/tax-concept-derivation/milestones/student-loan-circumstance-association.md",
   "milestone_state": "track-4",
-  "status": "TRACK 5C ROUNDS 1-2 DONE: LIVE DECLARATION-TO-SOURCE PATH REPAIRED FOR SUBJECT, JOINED, PRESENCE AND OPTIONAL_DEFAULT; TRACK 5D IN PROGRESS: EXACT-VERSION AUTHORITY (CATEGORICAL, SYMBOL TYPES, FIELD-REF/YES-NO VALIDATION, DEFAULT PARAMETERS). READER CONTRACT REPAIRED, AWAITING OWNER ACCEPTANCE; READER IMPLEMENTATION WAITS ON 5C. ADR 0075 accepted. ADR 0076 Parts 1 and 2 accepted 2026-09-24; Part 3 open. Owner: no joined statement-wide claim is the default case (calculation posture); amount follows the supported tax consequence (A in principle), with whole-amount disqualification, known-not-to-trigger and unresolved effect kept distinct. Reader contract: experimental view only; worksheet unchanged. G2 producer not reached.",
-  "current_role": "Foreman (Track 5d build and review, grok dispatch; owner later: two 5d contract choices, reader contract acceptance, wording, Part 3)",
-  "current_prompt": "docs/phases/tax-concept-derivation/milestones/student-loan-circumstance-association.md"
+  "status": "TRACK 5C ROUNDS 1-2 DONE: LIVE DECLARATION-TO-SOURCE PATH REPAIRED FOR SUBJECT, JOINED, PRESENCE AND OPTIONAL_DEFAULT; TRACK 5D COMPLETE: EXACT-VERSION AUTHORITY (VALUE USED AND PIN RECORDED MATCH THE NAMED VERSION IN EITHER ORDER). AWAITING OWNER: TWO 5D CONTRACT CHOICES. READER CONTRACT REPAIRED, AWAITING OWNER ACCEPTANCE; READER IMPLEMENTATION WAITS ON 5C. ADR 0075 accepted. ADR 0076 Parts 1 and 2 accepted 2026-09-24; Part 3 open. Owner: no joined statement-wide claim is the default case (calculation posture); amount follows the supported tax consequence (A in principle), with whole-amount disqualification, known-not-to-trigger and unresolved effect kept distinct. Reader contract: experimental view only; worksheet unchanged. G2 producer not reached.",
+  "current_role": "Foreman (awaiting owner: two 5d contract choices, reported notes, zero-subject disposition, reader contract acceptance, wording, Part 3)",
+  "current_prompt": "docs/phases/tax-concept-derivation/milestones/student-loan-circumstance-association-evidence/charter-track5d-exact-version-authority.md"
 }
 -->
 
