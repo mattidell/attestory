@@ -95,27 +95,31 @@ Each group:
 
 ### Reverse walk
 
-After the downward nodes of a group are known, consider only **published findings of rules declaring the
-responsibility `wording` field** (section 8). Attach one when its input pin names the group's amount finding
-or an intermediate derived finding in that amount's dependency chain. Sharing an ordinary source leaf, such
-as box 1, is not sufficient. Do not repeat the walk outward through newly attached responsibilities.
+After the downward nodes of a group are known, consider only **published findings of rules that declare
+`reader_role: responsibility`** (section 8, "Which producers the reader explains"). Attach one when its
+input pin names the group's amount finding or an intermediate derived finding in that amount's dependency
+chain. Sharing an ordinary source leaf, such as box 1, is not sufficient. Do not repeat the walk outward
+through newly attached responsibilities.
 
 Pin reach associates a declared responsibility with the calculation; it does not define which rules are
-responsibility producers. The probe's count and adverse total share box 1 with the amount; its extra-consumer
-test also executes an amount-reading rule without a responsibility declaration. Neither relationship alone
-selects an intended responsibility. The bounded rule
-successor's `wording` declaration supplies that distinction. Without it, a finding can remain an ordinary
-calculation node but supplies no responsibility row. The downward walk alone does not find the responsibility
-findings. **Prior probe.** P4 showed nothing on the amount's pin list is the responsibility.
+responsibility producers. The probe's count and whole-disqualifier count share box 1 with the amount; its
+extra-consumer test also executes an amount-reading rule with no responsibility declaration. Neither
+relationship alone selects an intended responsibility; the declared `reader_role` does. `wording` supplies the
+sentence and is not what identifies the producer: a responsibility rule without `wording` is still a
+responsibility, and shows its identity with no sentence. The downward walk alone does not find the
+responsibility findings. **Prior probe.** P4 showed nothing on the amount's pin list is the responsibility.
 
 A responsibility row carries `ruleId`, `ruleVersion`, keyed `symbol`, `findingId`, categorical `value`, and its pins. It carries `wording` only by the copy in section 8. The row is not a citation site of line 21 and is not fed through the field's citation chain.
 
 Blocked or inapplicable producers supply no responsibility finding, categorical value, or condition sentence.
-Keep a blocked producer's diagnostic separately in `statementOutcome.responsibilityFailures`, joined by its
-declared subject and this statement's dependency chain, with rule id, keyed symbol, code and classified
-`missing`. An expected missing-conclusion block is explained by the upstream outcomes in section 9; another
-failure must not disappear merely because the conclusion published. Do not attach a disposition merely
-because it shares a rule family, a tax year, or an absent pin.
+**Every** blocked responsibility disposition for this statement is kept in
+`statementOutcome.responsibilityFailures` — rule id, keyed symbol, code and classified `missing`, as recorded.
+Each entry also carries `explainedBy`: for each `missing` symbol, the outcome-line entry that displays that
+symbol's own producer outcome **for this statement** (section 9), or nothing. An entry is **displayed** unless
+every one of its `missing` symbols has an `explainedBy` entry that is itself displayed; only then is it
+redundant, and it is still in the model. A code other than `DEPENDENCY_ABSENT`, a `missing` entry that is not a
+symbol, or a symbol whose producer's outcome is not on this statement's line is never suppressed. Do not
+attach a disposition merely because it shares a rule family, a tax year, or an absent pin.
 
 ### Validator
 
@@ -130,13 +134,19 @@ because it shares a rule family, a tax year, or an absent pin.
 - `wording` and `lineNote` must equal the resolved rule's field after the slot rule in section 8. Any other string fails, including a string the projector built from a template it was not given.
 - A group or responsibility whose rendered text says the school or programme is not known fails unless the rule that supplied the text is the bare-statement rule and section 7's guard held for that statement.
 - A slot filled from a key the finding did not pin fails.
-- `statementOutcome` is required on every group. Each axis retains the named rule's original disposition
-  and evidence for this statement's keyed symbol, alongside the interpretation in section 9. `missing`
+- `statementOutcome` is required on every group. Each axis carries its producer's rule id, declared
+  `reader_role`, original disposition and evidence, alongside the interpretation in section 9. `missing`
   belongs only to a blocked row; an inapplicable row retains its pins but has no finding id. `not-computed`
-  means there is no row. `conclusion: published` requires `route: bare` and `statementScope: none-adverse`.
-  Non-empty bare-statement `responsibilities` or a `lineNote` require `conclusion: published` and a published
-  responsibility whose rule declares `wording`. `responsibilityFailures` contains diagnostics, never
-  applicability findings or condition text.
+  means there is no row. `conclusion: published` requires `route: bare` and `statementScope:
+  no-whole-amount-disqualifier`. Non-empty bare-statement `responsibilities` or a `lineNote` require
+  `conclusion: published`. `responsibilityFailures` contains diagnostics, never applicability findings or
+  condition text; an entry marked redundant must name, for every `missing` symbol, a displayed outcome entry.
+
+**What the validator can and cannot establish.** `validate_presentation_model` sees one model and nothing else.
+It checks **shape and internal consistency** — the rules above. It cannot check that an axis equals what the
+run recorded, that a finding id is the run's, that no disposition was left out, or that a value was copied
+rather than computed. Those are **projection-fidelity** obligations, tested separately with the run in hand
+(section 10, "Projection fidelity"). A model that passes the validator is well-formed, not faithful.
 - The unsafe-string check (`</script`, `<!--`) applies to every new string.
 - `provenanceGroups` is unchanged.
 
@@ -319,13 +329,13 @@ demonstration only.
 
 ### Nine-credit
 
-The person enrolled in the BSc and the certificate programme at Riverside in autumn 2024, nine credits, and a financing claim names the period. Line 21 shows the worksheet result only. The calculation view shows the statement amount, its leaf citations, and the status node. The nine-credit telling is an examined input of that status node, not the ground of the amount and not the ground of eligible-student.
+The person enrolled in the BSc and the certificate programme at Riverside in autumn 2024, nine credits, and a financing claim names the period. Line 21 shows the worksheet result only. The calculation view shows the statement amount, its leaf citations, the status node, and the **named period conclusion** the status pins — A5 stage 3's *no enumerated adverse schooling circumstance is supported for the filer, autumn 2024*. The nine-credit telling is an examined input of that conclusion, not the ground of the amount and not the ground of eligible-student.
 
 The disclosure shows three conditions, each distinguishable from an ordinary citation button by being a responsibility row (rule id and keyed symbol), not a line-21 `citationSites` entry:
 
 > You are responsible for these conditions: that Riverside College was an eligible institution; that the programme you were pursuing led to a recognised credential; and that your course load met Riverside's half-time standard for that programme. They apply because this calculation treats the interest on [statement] as deductible and you described enrolling at Riverside College in autumn 2024. This view does not check them.
 
-The circumstance named is the one the finding pinned (institution, programme, period). The treatment is the statement amount the reverse walk attached, not the worksheet dollar. `basisOrigin` on the status node is shown as the default basis when an input pin has `origin: declared_default`. The case-2 note is not used. Nine credits are not stated as having met the half-time standard. The no-link parameter is not this basis.
+The circumstance named is the one the finding pinned (institution, programme, period). The treatment is the statement amount the reverse walk attached, not the worksheet dollar. **The default basis is recovered from the named period conclusion**, identified by its declared `reader_role: period-conclusion` (section 8) and reached through the status node's input pin — not from `basisOrigin`. That conclusion is pinned `origin: assertion` (a same-run source; section 9), which means only "not reached through a declared default"; no `declared_default` pin is expected or read. The view shows the conclusion's rule, symbol and the inputs it examined. The case-2 note is not used. Nine credits are not stated as having met the half-time standard. The no-link parameter is not this basis. *Prerequisite, not built:* the hand-dispatched linked chain's status rule reads the enrolment value directly (`tests/test_sli_g2_binding_probe.py`, `_status_rule`) and publishes no period conclusion; a status rule that pins that conclusion is required for this case, and its production path waits on ADR 0076 Part 3.
 
 ### Financing claim, no schooling circumstance
 
@@ -333,7 +343,7 @@ The person said only that this loan paid tuition for the Riverside BSc in autumn
 
 > You are responsible for these conditions: that Riverside College was an eligible institution; that the BSc led to a recognised credential; and that your course load met Riverside's half-time standard. They apply because this calculation treats the interest on [statement] as deductible and you said this loan paid for the Riverside BSc in autumn 2024. This view does not check them.
 
-The because-clause must not say the person described studying or enrolling. The financing claim remains a citation of what was said. It is not labeled as enrolment and not labeled as the ground of eligible-student. The default basis is the status node's `basisOrigin`, not the case-2 note, and not a parameter pin.
+The because-clause must not say the person described studying or enrolling. The financing claim remains a citation of what was said, and is the examined input of the named period conclusion (A5 stage 3, case 1). It is not labeled as enrolment and not labeled as the ground of eligible-student. The default basis is that conclusion, recovered as in the nine-credit case — not `basisOrigin`, not the case-2 note, and not a parameter pin. Same prerequisite as the nine-credit case.
 
 ### Bare statement
 
@@ -347,7 +357,7 @@ The named conclusion's `lineNote`, displayed through a published responsibility 
 
 > Eligibility is taken as met for the interest on [statement]: nothing said about this statement as a whole matches a disqualifying circumstance this calculation checks.
 
-That is what the executed producer establishes, and no more: every statement-wide claim joined to this statement was classified, and none was an enumerated adverse circumstance (or none joined). It does not say nothing was recorded — a borrowing-level description can exist without a link — and it does not say every disqualifier was checked. The note states the conclusion's default basis. It does not mention links, and the link sentence does not mention eligibility: a zero count is the guard, not the support. It is not a description of the no-link parameter. The three conditions are not in the view's ordinary text. They are in the disclosure, and only from the bare-statement rules' own fields. The stage-4 sentences that end "nothing you've described names them" and "nothing you've described says otherwise" are not the text: a description can exist without joining this statement. Section 7 says what the link sentence is allowed to claim. With an adverse statement-wide claim joined, neither sentence appears (section 9, discriminating case). The statement is named from the group's `statementLabel` (below), never from `factId`. No institution and no programme are named. "Not known" appears only when the copied rule field says it, and only under that guard.
+That is what the executed producer establishes, and no more: no statement-wide claim joined this statement (the owner's default-case posture — a calculation posture, not a finding that no contrary circumstance exists), or every one that joined was classified as known not to trigger the whole-amount disqualifier this classifier checks. "Known not to trigger" is not a finding of general eligibility. It does not say nothing was recorded — a borrowing-level description can exist without a link — and it does not say every disqualifier was checked. The note states the conclusion's default basis. It does not mention links, and the link sentence does not mention eligibility: a zero count is the guard, not the support. It is not a description of the no-link parameter. The three conditions are not in the view's ordinary text. They are in the disclosure, and only from the bare-statement rules' own fields. The stage-4 sentences that end "nothing you've described names them" and "nothing you've described says otherwise" are not the text: a description can exist without joining this statement. Section 7 says what the link sentence is allowed to claim. With a whole-amount-disqualifier claim or an unresolved claim joined, neither sentence appears (section 9). The statement is named from the group's `statementLabel` (below), never from `factId`. No institution and no programme are named. "Not known" appears only when the copied rule field says it, and only under that guard.
 
 ### A statement without the conclusion — the outcome line
 
@@ -358,11 +368,15 @@ are renderer-owned status texts, like the blocked banner — not condition sente
 comes from the model (a claim's or link's recorded label, a rule id), never from a template slot the model did
 not fill:
 
-- `statementScope: adverse-established` — "A claim about this statement as a whole, [claim label], describes a
-  circumstance this calculation treats as disqualifying ([classifier rule id])." One line per claim classified 1.
+- `statementScope: whole-amount-disqualifier` — "A claim about this statement as a whole, [claim label],
+  describes a circumstance this calculation classifies as disqualifying the whole amount ([classifier rule
+  id])." One line per claim classified 1. "Classifies", not "treats": the experimental amount does not yet read
+  the classification (section 9, amount decision).
 - `statementScope: unresolved` — "The calculation could not resolve the statement-wide circumstances."
-  Show the producer's original disposition and the affected entries classified by section 4. A claim id
-  names an affected claim; it does not prove its classification was absent rather than duplicated or invalid.
+  Show the count producer's original disposition and the affected entries classified by section 4, and, for
+  each affected claim, the classifier's own disposition for that claim if it has one (a classifier block is
+  an effect this classifier does not treat). A claim id names an affected claim; it does not prove its
+  classification was absent rather than unhandled, duplicated or invalid.
 - `route: linked` — "This statement's interest follows its linked borrowings." Nothing favourable or
   unfavourable is said; the group's amount row shows the link path, covered or uncovered.
 - `route: unresolved` — "The calculation could not determine this statement's borrowing-link count."
@@ -370,12 +384,12 @@ not fill:
 - `route` or `statementScope: not-computed`, or a conclusion `not-computed` — "Not computed: [rule id] has no
   result for this statement."
 - A blocked conclusion or a residual responsibility failure — show its code and classified `missing`, even
-  beside a linked route. An inapplicable conclusion is explained by the linked/adverse axes when they apply;
+  beside a linked route. An inapplicable conclusion is explained by the linked or disqualifier axes when they apply;
   otherwise show that the conclusion rule did not apply. Do not silently substitute a guessed cause.
 
-None of these says the interest is or is not deductible. Until the owner decides the amount question (section
-9), a line for `adverse-established` or `unresolved` also carries "The statement amount above does not account
-for this."
+None of these says the interest is or is not deductible. Until the amount change the owner chose in principle
+is built (section 9), a line for `whole-amount-disqualifier` or `unresolved` also carries "The statement amount
+above does not account for this."
 
 ### Uncovered link
 
@@ -467,7 +481,7 @@ says nothing about schools), and not anything about eligibility (the count is no
 section 9).
 
 When the count is not 0 or does not publish, the conclusion does not publish, so neither the responsibility
-text nor the note can appear. A count of 0 is necessary, not sufficient: an adverse statement-wide claim also
+text nor the note can appear. A count of 0 is necessary, not sufficient: a whole-amount-disqualifier claim or an unresolved one also
 stops the conclusion (section 9). Schooling that is present but not linked does not suppress the sentence, and the sentence must not
 pretend it did. Situation-scoped rules for the nine-credit and financing-claim cases publish from the
 circumstance they pin, not from a count.
@@ -481,8 +495,31 @@ If the sentence is declared on a rule, this is how it reaches the projector. No 
 - The case is which rule published. The bare-statement rule, the financing-claim rule, and the described-enrolment rule are different rules. Each declares one sentence. The projector does not choose among sentences.
 - The disposition row's `artifact_id` is the rule id. `build_presentation_model` already indexes the resolved graph by id. The projector reads that rule object, the rule that ran, not a copy with a rewritten `publishes`.
 - The content version is that rule's `version`. The group stores it as `ruleVersion`. A sentence change is a new version of that rule.
-- The field name on the rule successor is `wording` (the condition sentence and declaration of a responsibility producer) or `lineNote` (the ordinary-line note on the favourable-conclusion rule only). Both are strings. `notes` is not read. A rule with neither field can contribute ordinary calculation identity and provenance, but is not selected as a responsibility producer merely from its pins.
+- The field name on the rule successor is `wording` (the condition sentence) or `lineNote` (the ordinary-line note on a conclusion rule only). Both are optional strings. `notes` is not read. Neither identifies what a rule is: a rule is a responsibility producer or a conclusion because it declares `reader_role` (below), not because it carries text.
 - Slot rule. The projector replaces `{statement}`, `{institution}`, `{programme}`, or `{period}` only with a key on a fact an input pin of that finding names, or, for `{statement}` only, with the group's `statementLabel`. The fact-id suffix is never a slot value. A missing key fails the projection. It does not become "unknown", an empty string, or a placeholder. A bare-statement field has no institution, programme, or period slot.
+
+### Which producers the reader explains — `reader_role`
+
+The bounded reader explains a fixed set of producers. Each declares what it is, on the second rule successor,
+as `reader_role` — one value from a closed enum. Optional text never identifies a producer, and neither does a
+name convention, a shared pin, or a position in `requires`.
+
+| `reader_role` | What the rule is | Package validation (second package successor) |
+| --- | --- | --- |
+| `statement-amount` | The per-statement amount (subject: box 1) | At most one per subject type in the package |
+| `link-count` | The statement's borrowing-link count (`link_count`) | At most one per subject type; its value is a `link_count` node |
+| `statement-scope-classifier` | Classifies one statement-wide claim (subject: the claim type) | Its value's outcomes are 1, 0, or a block, with no other literal result |
+| `statement-scope-disqualifier-count` | Counts whole-amount disqualifiers among the statement's claims | At most one per subject type; a `link_coverage` whose `reductions` is a `statement-scope-classifier`'s `publishes` |
+| `bare-statement-conclusion` | A5 stage 4's statement conclusion | `requires` contains exactly one `link-count` symbol and exactly one `statement-scope-disqualifier-count` symbol |
+| `period-conclusion` | A5 stage 3's period conclusion (linked cases) | Published by a rule a status rule reads |
+| `responsibility` | A condition left to the filer | `requires` contains exactly one conclusion symbol (`bare-statement-conclusion` or `period-conclusion`) and exactly one `statement-amount` symbol |
+
+The projector finds a group's producers only through these declarations and the declared `requires` between
+them. A package where a role's constraint fails is rejected; there is no fallback to inference. A rule with no
+`reader_role` can still be an ordinary calculation node and provenance, and is never an axis, a conclusion or
+a responsibility. `reader_role` belongs to the second rule successor with `wording`, `lineNote` and
+`link_count` (ADR 0076 publication plan: its authorizing decision is this contract's acceptance), and is
+never added to the first successor.
 
 ### Compared
 
@@ -514,20 +551,37 @@ subject its box-1 fact, in this order:
    `input` / `assertion`. The per-claim classifier and per-link rules instead pin their own subjects.
 2. **Count.** `link_count` (proposed, section 7) over statement-to-borrowing links: 0 when no borrowing link
    joined this statement. The probe stands in `link_coverage` with a presence marker, as the selection probe did.
-3. **Statement-scope claims.** A claim about the statement as a whole ("the loans on this statement paid for
-   …", A5 stage 4 route (a)) is keyed on the statement identity plus the applied circumstance. Each is
-   classified by its own rule (subject: the claim): 1 when it describes an enumerated adverse circumstance,
-   0 otherwise. The claim stays descriptive; the classifier is the rule that decides consequence.
-4. **Adverse total.** `link_coverage(claims, classifications, empty: no-statement-scope-claim parameter = 0)`.
-   A joined claim without exactly one classification blocks `DEPENDENCY_INVALID` — it is not read as "not
-   adverse" (tested). Another statement's claim does not join (tested).
-5. **The named conclusion** — A5 stage 4's *no enumerated adverse circumstance bears on the interest this
-   statement reports*. `requires` count and adverse total; guard `all(count == 0, total == 0)`; publishes the
-   token `no-enumerated-adverse`. Pins: box 1, the count finding, the total finding — each `assertion`. No
-   parameter pin; no `declared_default` (tested). When the total is above 0 it is inapplicable (tested).
-6. **Statement amount.** Unchanged: box 1 minus linked reductions, the no-link parameter when none. It does not
-   read the conclusion, so under an adverse statement-wide claim it still publishes box 1 (probe: 400). That is
-   recorded, not repaired; see "Owner decision" below.
+3. **Statement-scope claims and their classification.** A claim about the statement as a whole ("the loans
+   on this statement paid for …", A5 stage 4 route (a)) is keyed on the statement identity plus the applied
+   circumstance. The claim stays descriptive — what the person said. Its own rule (subject: the claim;
+   `reader_role: statement-scope-classifier`) decides one particular consequence, explicitly, three ways:
+   - **1 — a supported whole-amount disqualifier.** Today only `vehicle`: a use other than qualified higher
+     education expenses. The reading (owner's A in principle, below) is § 221(d)(1)'s "solely" as 26 CFR
+     1.221-1(e)(4) Example 6 applies it to a mixed-use loan, carried to every borrowing the claim reaches.
+   - **0 — known not to trigger that disqualifier.** Today only `tuition`. This is not a finding of general
+     eligibility, and not evidence about any other condition.
+   - **Block, `DEPENDENCY_INVALID` — an effect this classifier does not treat.** Any other value. Partial and
+     period-limited effects belong here until a selected rule treats them; they are never folded into 1 or 0.
+
+   The vocabulary today is exactly `tuition` and `vehicle`, and both are handled. The catch-all is an
+   **extension hazard**, not a demonstrated omission: a value later admitted without a branch would, under a
+   catch-all 0, read as "does not trigger". There is no catch-all; `ClassifierExtensionHazard` widens the
+   vocabulary to show both shapes (tested).
+4. **Whole-disqualifier count** (`reader_role: statement-scope-disqualifier-count`).
+   `link_coverage(claims, classifications, empty: no-statement-scope-claim parameter = 0)`. The empty case is
+   the owner's default-case posture — no joined statement-wide claim — a calculation posture, not a finding
+   that no contrary circumstance exists. A joined claim without exactly one classification, including one
+   whose classifier blocked, blocks `DEPENDENCY_INVALID` (tested). Another statement's claim does not join
+   (tested).
+5. **The named conclusion** (`reader_role: bare-statement-conclusion`) — A5 stage 4's *no enumerated adverse
+   circumstance bears on the interest this statement reports*. `requires` count and whole-disqualifier count;
+   guard `all(count == 0, disqualifiers == 0)`; publishes the token `no-enumerated-adverse`. Pins: box 1, the
+   count finding, the disqualifier-count finding — each `assertion`. No parameter pin; no `declared_default`
+   (tested). Inapplicable when a disqualifier is counted; blocked when the count is unresolved (tested).
+6. **Statement amount** (`reader_role: statement-amount`). Today: box 1 minus linked reductions, the no-link
+   parameter when none. It reads neither the classification nor the conclusion, so with a whole-amount
+   disqualifier it still publishes box 1 (probe: 400). The owner chose A in principle; the change is specified
+   below and not built.
 7. **Three responsibility rules.** Each `requires` the conclusion and the amount **and reads both in its guard**:
    the conclusion is `no-enumerated-adverse` and the amount is above 0. Pins: box 1, the conclusion, the
    amount, its citations (tested). The value is a declared applicability token; the sentence is the rule's
@@ -550,7 +604,7 @@ on keyed publications; this contract does not choose.
 **How the promise "it lapses when the favourable treatment is absent" is kept.** Structurally: a
 responsibility rule requires the conclusion, so where the conclusion did not publish the rule records
 `DEPENDENCY_ABSENT` naming only the conclusion's symbol. The previous shape (requires count and amount, guard
-count == 0) publishes on zero links alone even with an adverse claim; the probe keeps it to show that (tested).
+count == 0) publishes on zero links alone even with a whole-amount-disqualifier claim; the probe keeps it to show that (tested).
 
 ### Why the conclusion is absent — traced upstream, per statement
 
@@ -558,40 +612,47 @@ The downstream result cannot say why. Four different causes give every responsib
 `DEPENDENCY_ABSENT` with `missing` = the conclusion's symbol, and in all four the statement amount is still
 published (tested, `WhyTheConclusionIsAbsent`):
 
-| Cause | Count for this statement | Adverse total for this statement | Conclusion for this statement |
+| Cause | Count for this statement | Whole-disqualifier count for this statement | Conclusion for this statement |
 | --- | --- | --- | --- |
-| Adverse circumstance established | published, 0 | published, above 0; pins the claim, whose classification is 1 | inapplicable |
-| Classification unresolved | published, 0 | blocked `DEPENDENCY_INVALID`, `missing` names the unclassified claim | blocked `DEPENDENCY_ABSENT` [total] |
-| Required producer did not run | no result at all | published, 0 | blocked `DEPENDENCY_ABSENT` [count] |
+| Whole-amount disqualifier established | published, 0 | published, above 0; pins the claim, whose classification is 1 | inapplicable |
+| Classification unresolved (no classification, or the classifier blocked on an untreated value) | published, 0 | blocked `DEPENDENCY_INVALID`, `missing` names the claim | blocked `DEPENDENCY_ABSENT` [whole-disqualifier count symbol] |
+| Required producer did not run | no result at all | published, 0 | blocked `DEPENDENCY_ABSENT` [link-count symbol] |
 | Linked route | published, above 0; the amount pins its links | published, 0 | inapplicable |
 
 So the experimental reader never reads the responsibility block for a cause. It looks up **this statement's
 own** result for three symbols, `<publishes>|<statement fact id>` — the conclusion (found from the
 responsibility rules' `requires`), and the two symbols the conclusion rule `requires`: the one a `link_count`
 rule produces (**route**) and the one the statement-scope `link_coverage` rule produces (**statement scope**).
-It records them as `statementOutcome` (section 2). **Proposed discovery:** find the producers from declared
-dependencies, not a naming convention; another statement's rows are never read. The reference function
+It records them as `statementOutcome` (section 2). **Discovery is by declaration:** the conclusion is the
+responsibility's required symbol whose producer declares a conclusion `reader_role`; route and statement scope
+are the conclusion's required symbols whose producers declare `link-count` and
+`statement-scope-disqualifier-count` (section 8). Never by name, position or optional text; another
+statement's rows are never read. The reference function
 `_statement_outcome` in `tests/test_sli_bare_statement_chain_probe.py` is given the known probe producers and
 classifies their dispatch results. It does not implement dependency discovery, projection, or page rendering.
 
 - `route`: `bare` (count 0), `linked` (count above 0), `unresolved` (count blocked; its `missing` per section
   4), `not-computed` (no result).
-- `statementScope`: `none-adverse` (total 0), `adverse-established` (total above 0), `unresolved` (total
-  blocked), `not-computed` (no result).
+- `statementScope`: `no-whole-amount-disqualifier` (count 0: none joined, or every joined claim known not
+  to trigger it), `whole-amount-disqualifier` (count above 0), `unresolved` (count blocked or inapplicable),
+  `not-computed` (no result). Each claim the count examined is listed with its classifier's own disposition
+  for that claim — 1, 0, or blocked.
 - `conclusion`: its own disposition, or `not-computed`.
 
 An inapplicable count or total is `unresolved`, with the original `inapplicable` disposition retained: that
 producer ran but supplied no numeric answer. Numeric interpretation compares values, not string spellings
 (`0.0` is zero). These two producers promise non-negative integer counts; a published value outside that
-domain is an unresolved producer-contract violation, never evidence of linked borrowings or adversity.
+domain is an unresolved producer-contract violation, never evidence of linked borrowings or disqualification.
 
-**Where the cause is shown.** Bare-statement responsibility rows are suppressed whenever the conclusion is not published —
-they would restate a treatment the calculation did not reach. The cause is shown instead on a **statement
+**Where the cause is shown.** Bare-statement responsibility rows are not rendered when the conclusion is not
+published — they would restate a treatment the calculation did not reach. Their blocked dispositions stay in
+`responsibilityFailures`, and each is displayed unless every `missing` symbol's own outcome for this statement
+is on the line (section 2, reverse walk). The cause is shown instead on a **statement
 outcome line** directly under the statement amount in the calculation view — not inside the collapsed
 disclosure, not a banner, not `role="alert"`. It shows every axis that is not neutral (`route: bare` and
-`statementScope: none-adverse` are neutral). A blocked or not-computed conclusion remains visible even if
-another axis already explains why the bare route was not selected. An inapplicable conclusion needs a
-separate line only when neither linked nor adverse explains it. Residual responsibility failures remain
+`statementScope: no-whole-amount-disqualifier` are neutral). A blocked or not-computed conclusion remains
+visible even if another axis already explains why the bare route was not selected. An inapplicable
+conclusion needs a separate line only when neither the linked route nor a disqualifier explains it. Residual responsibility failures remain
 visible without displaying their condition sentences. Texts are in section 5. A linked route is not an unfavourable result: it says
 the bare-statement conclusion is not this statement's path, and the amount's own link path (covered or
 uncovered) is what the group shows.
@@ -601,7 +662,8 @@ S2 shows the same `not-computed` route. In every other case S2 is unchanged (tes
 
 **Discriminating case (tested).** S1 and S2 have no borrowing link. S1 has a current statement-wide claim that
 its loans paid for a vehicle; S2 has none. S1: count 0, total 1, no conclusion, no responsibility, no note, the
-outcome `statementScope: adverse-established` naming the claim, and — the amount decision below — amount 400. S2: conclusion, three responsibilities, identical to a run with no claim
+outcome `statementScope: whole-amount-disqualifier` naming the claim, and — until the amount change below is
+built — amount 400. S2: conclusion, three responsibilities, identical to a run with no claim
 anywhere. Moving the claim to S2 leaves every S1 finding byte-identical (tested).
 
 ### What each responsibility rule publishes and pins
@@ -629,50 +691,59 @@ and A5 stage 3 rejected disqualifiers-as-defaults. Its only function was the pag
 What stands is A5 stage 4's named conclusion, now with an executable producer (above). Its default basis is
 carried by **being that conclusion** — its rule and symbol — not by `origin`. Its `basisOrigin` is `assertion`,
 which A5 stage 3 fixed as meaning only "not reached through a declared default"; the page must not present it
-as the filer's telling. Adverse statement-scope information prevents the conclusion by the guard: a joined
-adverse claim makes the total above 0.
+as the filer's telling. Statement-scope information prevents the conclusion two ways, kept apart: a supported
+whole-amount disqualifier makes the count above 0 (inapplicable); an effect the classifier does not treat
+blocks the count, and the conclusion (unresolved).
 
-### Owner decision this raises
+### Owner decisions, 2026-09-24, and what they require
 
-The named conclusion was selected with the statement's box-1 finding as its only input. Making it executable
-changes two things, and both are the owner's:
+- **No joined statement-wide claim is the default case** (decided). The engine reads "none" from an empty
+  collection only over a closed source set (`a4-bounds.md`); this producer reads it through `link_coverage`'s
+  empty parameter — the posture the owner accepted for links on 2026-09-23. It is a calculation posture, not a
+  finding that no contrary circumstance exists. The conclusion pins the disqualifier count; that count pins the
+  claims and classifications it examined, which are the conclusion's transitive provenance.
+- **The amount follows the supported tax consequence — A, in principle** (decided; **not built**). It is
+  decided by the statement-scope result, never by whether the favourable conclusion published:
+  - **Changes the amount: `whole-amount-disqualifier`.** A current, classified statement-wide claim joined to
+    this statement is a supported whole-amount disqualifier. *Tax reading:* § 221(d)(1) makes a loan a
+    qualified education loan only if incurred *solely* to pay qualified higher education expenses; Example 6
+    holds a mixed-use loan is not one; a route-(a) claim reaches every borrowing the statement reports. So none
+    of the statement's interest is interest on a qualified education loan. *Arithmetic:* amount = 0 when the
+    whole-disqualifier count is above 0. That applies to linked statements too, because the claim reaches every
+    borrowing on the statement. Only a classification of 1 does this.
+  - **Withholds a result: `unresolved` or `not-computed`.** An effect the classifier does not treat, a missing
+    or duplicated classification, or no count. The amount then requires and reads the count, so it blocks,
+    naming the count's **symbol** at the amount; the count's own result names the claim (section 4), and
+    `statementOutcome` keeps that cause. Not 0, and not box 1. A partial or period-limited effect is here until a
+    selected rule treats it — it is never collapsed into whole-amount disqualification or into "does not
+    trigger".
+  - **Leaves the amount as it is: `no-whole-amount-disqualifier`.** Box 1 minus linked reductions, as today.
+    "Does not trigger" says nothing about any other condition.
+  - **Belongs to another path: `route: linked`.** Borrowing-level circumstances reach a linked statement's
+    amount through link reductions and status, which wait on ADR 0076 Part 3. Apart from the statement-wide
+    disqualifier above, this decision changes nothing there. A route that is `unresolved` or `not-computed`
+    withholds the bare-statement conclusion; it does not change the amount rule, which keeps its own
+    fail-closed link checks.
+  - **Until built,** the experimental amount ignores the classification. The outcome line says "classifies as
+    disqualifying" and "The statement amount above does not account for this."
+- **Institutional responsibility conditions stay separate.** The three conditions are the filer's
+  responsibility whatever the classification says; nothing here adds a question or requires new external
+  verification.
 
-- **"None joined" for statement-scope claims.** The engine reads "none" from an empty collection only over a
-  closed source set (`a4-bounds.md`). The producer above reads it through `link_coverage`'s empty parameter —
-  the same calculation posture the owner accepted for links on 2026-09-23 (A): not a claim that no
-  statement-wide claim exists, only that none joined this statement. The conclusion directly pins the adverse
-  total; that total pins the claims and classifications it examined. The claims are transitive provenance of
-  the conclusion, not extra direct conclusion pins (A5 stage 3's "everything examined is its grounds").
-- **The amount, decided by result — not by whether the favourable conclusion published.** The conclusion's
-  absence is not a result about the amount; the statement outcome above is. Today the amount reads neither
-  axis and publishes box 1 minus linked reductions in all four cases.
-  - **The established result that would change the amount: `statementScope: adverse-established`.** A
-    current, classified, statement-wide claim joined to this statement describes an enumerated circumstance.
-    *Tax interpretation (proposed; the owner's):* for a use-of-proceeds circumstance — the loans paid for
-    something other than qualified higher education expenses — § 221(d)(1) makes a loan a qualified education
-    loan only if it was incurred *solely* to pay those expenses, and a route-(a) claim says the circumstance
-    reaches every borrowing the statement reports. So no borrowing on the statement is a qualified education
-    loan, and none of the statement's interest is qualified interest. *Proposed arithmetic:* amount = 0 when
-    the statement-scope total is above 0; otherwise unchanged. *Limit:* only circumstances that disqualify a
-    loan outright may be classified 1 by this classifier. A circumstance that affects a portion or a period is
-    not in this proposal. Because the claim reaches every borrowing on the statement, this applies to linked
-    statements too.
-  - **The unresolved results that withhold a result: `statementScope: unresolved` or `not-computed`.** A joined
-    claim's classification could not be resolved, or the total was not produced. That withholds the favourable
-    conclusion. Under the proposal the amount requires and reads the total too, so an absent total blocks it,
-    naming the **total symbol**, not the underlying claim: not 0, not box 1. The upstream total's own result
-    names the affected claim or other diagnostic (section 4); `statementOutcome` retains that separate cause.
-    The existing conclusion consumer demonstrates this immediate-versus-upstream distinction in
-    `test_each_cause_names_its_own_evidence`; the proposed amount change is not implemented.
-    `route: unresolved` or `not-computed` also withholds the conclusion, but it does not change the amount rule,
-    which applies its own fail-closed link checks.
-  - **The result that belongs to another path: `route: linked`.** Borrowing-level circumstances reach a linked
-    statement's amount through link reductions and status (production waits on ADR 0076 Part 3). The
-    bare-statement conclusion's absence says nothing about them, and the proposal changes nothing on that path
-    except the statement-wide case above.
-  - **A — adopt the proposal. B — leave the amount a coverage quantity**, with the outcome line's "does not
-    account for this" carrying the difference. **Recommended: A.** Under B the page shows a figure beside an
-    established result the figure ignores.
+### What the person said, what the rule concluded, what changed the amount, what the reader can recover
+
+For one statement, per case. "Recovers" means from the durable `presentation.json` after the run is gone.
+
+| Case | What the person said | What the rules concluded | What changed the amount (today → under A) | What the reader recovers |
+| --- | --- | --- | --- | --- |
+| No link, no claim | Nothing about this statement's schooling | Count 0; disqualifier count 0 by the no-claim parameter; conclusion published; three responsibilities | Nothing → nothing | Amount, the conclusion by `reader_role`, its pins (count, disqualifier count, the parameter behind it), responsibilities, note |
+| No link, "paid for tuition" | The claim, as said | Classified 0 (does not trigger); count 0; conclusion published | Nothing → nothing | As above, plus the claim and its 0 — never shown as general eligibility |
+| No link, "also paid for a vehicle" | The claim, as said | Classified 1; count 1; conclusion inapplicable; responsibilities lapse | Nothing (400) → 0 | The claim, its 1, the count, the inapplicable conclusion; "classifies as disqualifying" while the amount ignores it |
+| No link, untreated value | The claim, as said | Classifier blocked; count blocked; conclusion blocked | Nothing (400) → amount blocked | The claim, the classifier's block, the count's block; "could not resolve" — not a cause it cannot see |
+| Linked | Whatever the linked chain records | Count above 0; bare conclusion inapplicable | Linked reductions → the same | The link path on the amount row; no bare-statement text |
+
+"Today" is the executed probe; "under A" is specified and not built. No row claims the person described
+anything they did not, and no row lets a missing input stand for a described one.
 
 ### Which scheduling it needs
 
@@ -682,16 +753,42 @@ What that scheduling has to provide for this rule:
 
 - A required `subject` on the rule successor, an exact fact-type pin to `tax.us.2025.f1098e.box1-student-loan-interest`.
 - The package successor that admits that rule schema.
-- Eligibility waits on predecessor **rule resolution**, not on the unsuffixed symbol appearing in `self.symbols`. The predecessors of a responsibility rule are the named conclusion and the per-statement amount rule; the conclusion's are the count rule and the adverse-total rule, whose predecessor is the claim classifier. None is the schooling-status rule or the worksheet. Keyed publication never inserts the unsuffixed name, so a `requires` entry of that name stays ineligible and `finalize_unreached` would then evaluate the rule once, unsuffixed.
+- Eligibility waits on predecessor **rule resolution**, not on the unsuffixed symbol appearing in `self.symbols`. The predecessors of a responsibility rule are the named conclusion and the per-statement amount rule; the conclusion's are the count rule and the whole-disqualifier-count rule, whose predecessor is the claim classifier. None is the schooling-status rule or the worksheet. Keyed publication never inserts the unsuffixed name, so a `requires` entry of that name stays ineligible and `finalize_unreached` would then evaluate the rule once, unsuffixed.
 - The intercept is on `attempt` and on `finalize_unreached`, so `runner._execute` and `reference_runner.run_reference` share it.
-- One dispatch publishes per statement. The rule id resolving once must not collapse the three statements into one unsuffixed finding, and must not block every statement because one amount was blocked. A statement whose amount, count, or adverse total is blocked gets no responsibility finding. The other statements still publish.
-- The count rule is a `link_count` rule and the amount rule a `link_coverage` rule; both join links. The adverse-total rule is a `link_coverage` rule over statement-scope claims, and its relation (claim identity contains the statement identity) is ADR 0076 Part 2's `joined_contains_subject`, the same as the link's. The responsibility rules and the named conclusion join nothing. ADR 0076's link-binding half still gates any sentence that says "this statement": until a joined link is this statement's, a coverage result is not a statement-specific claim. The rule's own grain does not depend on a shared key name with a link type.
+- One dispatch publishes per statement. The rule id resolving once must not collapse the three statements into one unsuffixed finding, and must not block every statement because one amount was blocked. A statement whose amount, count, or whole-disqualifier count is blocked gets no responsibility finding. The other statements still publish.
+- The count rule is a `link_count` rule and the amount rule a `link_coverage` rule; both join links. The whole-disqualifier-count rule is a `link_coverage` rule over statement-scope claims, and its relation (claim identity contains the statement identity) is ADR 0076 Part 2's `joined_contains_subject`, the same as the link's. The responsibility rules and the named conclusion join nothing. ADR 0076's link-binding half still gates any sentence that says "this statement": until a joined link is this statement's, a coverage result is not a statement-specific claim. The rule's own grain does not depend on a shared key name with a link type.
 
 Situation-scoped responsibility rules stay per schooling situation. Their subject is that situation, and their pins name the institution, programme, and period. They are not this bare-statement rule. They carry their own `wording` field, the named-circumstance sentence, and the same reverse walk. They do not publish when section 7's guard holds.
 
 ## 10. The demonstration standard
 
 P4 inspected `build_presentation_model`'s return value while the run object was still in hand, and it did not load the page. That does not satisfy this contract. **Prior probe.**
+
+Three separate obligations, none a substitute for another:
+
+- **Model shape** — `validate_presentation_model` (section 2, Validator): well-formed and internally consistent.
+- **Projection fidelity** — below, with the run in hand: the model says what the run recorded.
+- **The durable-file demonstration** — the numbered steps: a reader recovers it from the file after the run is gone.
+
+### Projection fidelity
+
+With the run's publications, dispositions and resolved rules in hand, and for each statement group:
+
+- Each `statementOutcome` axis equals the disposition recorded for `<publishes>|<statement fact id>` of the
+  rule found through `reader_role` (section 8) — kind, code, `missing`, pins and finding id — and each examined
+  claim's classification equals the classifier's disposition for that claim. No row from another statement is
+  used.
+- Every responsibility row is a published finding of a `reader_role: responsibility` rule for this statement;
+  every published one that pins the amount or its chain is present.
+- Every blocked responsibility disposition for this statement is in `responsibilityFailures`, unchanged, and
+  its `explainedBy` entries name the displayed outcome of exactly the producers of its `missing` symbols.
+- Every value in the model equals the value of the finding it names; nothing is recomputed.
+- A package whose `reader_role` constraints fail is not projected.
+
+These run against the hand-assembled chain now and against a production run once the prerequisites in
+section 11 exist.
+
+### The durable-file demonstration
 
 The test does all of the following.
 
@@ -705,10 +802,12 @@ The test does all of the following.
    statement group's value. Check the five cases, the copied wording and note, the disclosure inside the
    calculation view, and the absence of condition inputs or alerts. Reject the unsupported phrases listed
    in section 5. No form line contains the note or conditions.
-7. Run section 9's four causes for S1 beside a bare S2: adverse established, classification unresolved,
+7. Run section 9's four causes for S1 beside a bare S2: whole-amount disqualifier, classification unresolved,
    count producer not run, and linked route. Show no S1 bare-statement responsibility sentence or note, but retain the
    corresponding outcome and evidence. The four outcomes differ; none asserts deductibility. The ordinary
-   linked case is neither adverse nor unresolved. S2 remains unchanged except when a producer was skipped
+   linked case is neither disqualified nor unresolved. Also run a tuition claim (does not trigger; the
+   group never says eligible) and a claim whose value the classifier does not treat (unresolved, with the
+   classifier's own block shown). S2 remains unchanged except when a producer was skipped
    for all subjects. Also test a blocked conclusion beside a linked route, and an unexpected responsibility
    failure after a published conclusion: neither diagnostic may disappear. The linked case in this probe has
    no linked-case responsibility producer; separately check the named-circumstance cases retain their own
@@ -737,6 +836,13 @@ Out of scope for the demonstration: the full `pytest` suite as a substitute for 
 
 The presentation file is not a reconstruction. If it is deleted, the page is not rebuilt from the record under this contract. Deleting it also loses the copied sentences: they are not on the record.
 
+**Production prerequisites, in order.** ADR 0076 Parts 1 and 2 built and reviewed (Track 5); `link_count`
+and `reader_role` on the second rule successor, with `wording` and `lineNote`; reliable categorical type
+information on keyed same-run publications (section 9's second gap — a convention or the type carried, chosen
+then); the amount change the owner chose in principle; and then the durable-file reader demonstration
+(section 10). The linked cases additionally need a status rule that pins the named period conclusion, and
+ADR 0076 Part 3.
+
 **Production, restated.** None of the per-subject chain is production-scheduled. A green demonstration is evidence about the writers and the experimental page, not evidence that a production run publishes these rows. The nine-credit and financing-claim cases reach status through the link-to-status edge, which joins on borrowing only; until ADR 0076 Part 3 settles what a set of statuses for one borrowing means, no production per-statement amount is published through that edge, and those two cases are hand-assembled only.
 
 Completion. All of these are required. Any one missing means the reader case is not complete.
@@ -746,10 +852,12 @@ Completion. All of these are required. Any one missing means the reader case is 
 3. Blocked `missing` entries are classified as section 4. Only finding ids are resolved. Distinct recorded
    subjects and diagnostic classes remain distinguishable; identical recorded failures are not assigned
    invented distinct causes.
-4. The bare-statement responsibility rules require and read the named conclusion and the amount, publish keyed findings, carry the sentence on the rule rather than on a pin, and pin no school. The named conclusion requires and reads the count and the statement-scope adverse total; no `optional_default` is declared on this path. An adverse statement-wide claim on one statement stops that statement's conclusion, responsibilities and note and changes no other statement. The sentences claim no more than those findings establish.
+4. The bare-statement responsibility rules require and read the named conclusion and the amount, publish keyed findings, carry the sentence on the rule rather than on a pin, and pin no school. The named conclusion requires and reads the count and the whole-disqualifier count; no `optional_default` is declared on this path. A whole-amount-disqualifier claim, or an unresolved one, on one statement stops that statement's conclusion, responsibilities and note and changes no other statement. The sentences claim no more than those findings establish.
 5. The reloaded `presentation.json` contains the calculation view, the kept intermediate nodes, classified `missing`, `basisOrigin` only from input pins, and the responsibility rows from the reverse walk.
 6. The experimental page (section 5), loaded from that file after the run object was discarded, shows line 21 as the worksheet and the five cases of section 5 in the calculation view. The product citation-walk page is unchanged and is not required to show the view.
 7. A projection that sees a missing school pin, a missing link, or a parameter pin, and does not have the bare-statement rule's field under section 7's guard, does not render the school as unknown.
-8. Every group carries `statementOutcome` from its own statement's results. Adverse established, classification unresolved, producer not run, and linked route render four different outcome lines; a responsibility block naming only the conclusion is never the displayed cause.
+8. Every group carries `statementOutcome` from its own statement's results, found through declared `reader_role`s. Whole-amount disqualifier, classification unresolved, producer not run, and linked route render four different outcome lines. Every responsibility block is in the model; one is hidden only when each of its `missing` symbols' own outcome for this statement is displayed.
+9. The statement-scope classifier has three explicit outcomes and no catch-all; a partial, period-limited or untreated effect is unresolved. Known-not-to-trigger is never presented as eligibility.
+10. Projection fidelity (section 10) passes with the run in hand, separately from `validate_presentation_model`.
 
 Not this contract: any product-page change (showing the view there waits for worksheet integration), ADR 0076 Part 3, the worksheet successor that would set `integrated` true, the legal-obligation consumer, the partial-reduction remainder, entry-loop questions, a change to the incumbent eligibility witnesses, `condition-wording.v1`, a wording pin role, and any edit to an existing published schema file.
