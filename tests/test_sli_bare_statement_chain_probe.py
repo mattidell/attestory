@@ -30,7 +30,9 @@ declared anywhere.
 from __future__ import annotations
 
 import unittest
+from decimal import Decimal, InvalidOperation
 from typing import Any
+from unittest.mock import patch
 
 from packages.derivation.loader import DerivationSchemas
 from packages.derivation.marshal import marshal_run_context
@@ -396,10 +398,6 @@ class BareStatementChain(unittest.TestCase):
             self.assertNotIn(BOX_S1, _by_fact(results[symbol]))
 
 
-if __name__ == "__main__":
-    unittest.main()
-
-
 # --- Why is the conclusion absent? -----------------------------------------
 #
 # REFERENCE CLASSIFICATION, not the projector (which is not built). It reads
@@ -424,18 +422,29 @@ def _outcome(result: SubjectScopedResult | None, symbol: str) -> tuple[str, Any]
     return ("not-computed", None)
 
 
+def _numeric_axis(kind: str, row: Any, zero: str, positive: str) -> str:
+    """Reference display classification, not a new engine disposition."""
+    if kind == "not-computed":
+        return "not-computed"
+    if kind != "published":
+        # An inapplicable producer ran; it is not a missing producer.
+        return "unresolved"
+    try:
+        value = Decimal(str(row["value"]))
+    except (InvalidOperation, ValueError):
+        return "unresolved"
+    # These two producers promise non-negative counts of rows/classifications.
+    if not value.is_finite() or value < 0 or value != value.to_integral_value():
+        return "unresolved"
+    return zero if value == 0 else positive
+
+
 def _statement_outcome(results: dict[str, SubjectScopedResult], fact_id: str) -> dict[str, str]:
     count_kind, count = _outcome(results.get("count"), f"{COUNT}|{fact_id}")
     total_kind, total = _outcome(results.get("total"), f"{ADVERSE_TOTAL}|{fact_id}")
     conclusion_kind, _row = _outcome(results.get("conclusion"), f"{CONCLUSION}|{fact_id}")
-    if count_kind == "published":
-        route = "bare" if count["value"] == "0" else "linked"
-    else:
-        route = "unresolved" if count_kind == "blocked" else "not-computed"
-    if total_kind == "published":
-        scope = "none-adverse" if total["value"] == "0" else "adverse-established"
-    else:
-        scope = "unresolved" if total_kind == "blocked" else "not-computed"
+    route = _numeric_axis(count_kind, count, "bare", "linked")
+    scope = _numeric_axis(total_kind, total, "none-adverse", "adverse-established")
     return {"route": route, "statement_scope": scope, "conclusion": conclusion_kind}
 
 
@@ -515,3 +524,86 @@ class WhyTheConclusionIsAbsent(unittest.TestCase):
                 continue
             for key in ("count", "total", "conclusion", "amount", *RESPONSIBILITIES):
                 self.assertEqual(_by_fact(results[key])[BOX_S2], _by_fact(baseline[key])[BOX_S2], (name, key))
+
+    def test_duplicate_and_nonnumeric_classifications_have_identical_block_evidence(self) -> None:
+        claim = _claim(S1, "vehicle-purchase", "vehicle")
+        rows = {}
+        for name, values in (("absent", []), ("duplicate", ["1", "1"]), ("nonnumeric", ["not-a-number"])):
+            marks = [
+                SourceFact(
+                    name=ADVERSE_MARK, value=value,
+                    finding_id=f"demo.finding.injected-mark.{index}",
+                    fact_id=f"demo.fact.injected-mark.{index}", keys=claim.keys,
+                )
+                for index, value in enumerate(values)
+            ]
+            # Synthetic malformed sources test the real coverage consumer, not
+            # the valid classifier's ability to emit these malformed values.
+            results = _drive(_base() + [claim] + marks, skip=frozenset({"classify"}))
+            rows[name] = _blocked(results["total"])[BOX_S1]
+            self.assertEqual(rows[name].code, DEPENDENCY_INVALID)
+            self.assertEqual(rows[name].missing, (claim.finding_id,))
+            self.assertEqual(_statement_outcome(results, BOX_S1)["statement_scope"], "unresolved")
+            self.assertEqual(_blocked(results["conclusion"])[BOX_S1].missing, (ADVERSE_TOTAL,))
+        # Even code + missing + pins cannot discriminate these two causes.
+        self.assertEqual(rows["duplicate"], rows["nonnumeric"])
+        self.assertIn(claim.finding_id, {pin["id"] for pin in rows["absent"].pins})
+
+    def test_inapplicable_count_is_not_reported_as_a_producer_that_did_not_run(self) -> None:
+        with patch.dict(RULES, {"count": {**RULES["count"], "when": False}}):
+            results = _drive(_base())
+        kind, _row = _outcome(results["count"], f"{COUNT}|{BOX_S1}")
+        self.assertEqual(kind, "inapplicable")
+        self.assertEqual(_statement_outcome(results, BOX_S1)["route"], "unresolved")
+
+    def test_linked_route_can_coexist_with_an_unresolved_scope_and_blocked_conclusion(self) -> None:
+        claim = _claim(S1, "vehicle-purchase", "vehicle")
+        results = _drive(_base() + self._link_sources() + [claim], skip=frozenset({"classify"}))
+        self.assertEqual(
+            _statement_outcome(results, BOX_S1),
+            {"route": "linked", "statement_scope": "unresolved", "conclusion": "blocked"},
+        )
+        self.assertEqual(_blocked(results["conclusion"])[BOX_S1].missing, (ADVERSE_TOTAL,))
+
+    def test_missing_total_is_distinct_from_a_total_that_blocked(self) -> None:
+        results = _drive(_base(), skip=frozenset({"total"}))
+        self.assertEqual(_statement_outcome(results, BOX_S1)["statement_scope"], "not-computed")
+        self.assertEqual(_blocked(results["conclusion"])[BOX_S1].missing, (ADVERSE_TOTAL,))
+
+    def test_published_conclusion_does_not_prove_a_responsibility_published(self) -> None:
+        symbol = RESPONSIBILITIES[0]
+        missing = "demo.tax.missing-responsibility-input"
+        with patch.dict(RULES, {symbol: {**RULES[symbol], "requires": [CONCLUSION, AMOUNT, missing]}}):
+            results = _drive(_base())
+        self.assertEqual(_statement_outcome(results, BOX_S1)["conclusion"], "published")
+        self.assertEqual(_blocked(results[symbol])[BOX_S1].missing, (missing,))
+        self.assertNotIn(BOX_S1, _by_fact(results[symbol]))
+
+    def test_numeric_axis_uses_numeric_meaning_not_string_format(self) -> None:
+        # Reference-classifier unit test only: no claim of new runtime cases.
+        for value in ("0", "0.0", "0.00"):
+            self.assertEqual(_numeric_axis("published", {"value": value}, "bare", "linked"), "bare")
+        for value in ("-1", "0.5", "NaN", "Infinity", "not-a-number"):
+            self.assertEqual(_numeric_axis("published", {"value": value}, "bare", "linked"), "unresolved")
+
+    def test_sharing_a_source_pin_does_not_make_a_calculation_a_responsibility(self) -> None:
+        results = _drive(_base())
+        amount = _by_fact(results["amount"])[BOX_S1]
+        count = _by_fact(results["count"])[BOX_S1]
+        total = _by_fact(results["total"])[BOX_S1]
+        self.assertIn(BOX_S1_FINDING, _inputs(amount))
+        for calculation in (count, total):
+            self.assertIn(BOX_S1_FINDING, _inputs(calculation))
+            self.assertNotIn(amount["id"], _inputs(calculation))
+        for symbol in RESPONSIBILITIES:
+            self.assertIn(amount["id"], _inputs(_by_fact(results[symbol])[BOX_S1]))
+        # A synthetic extra consumer can read the amount without declaring any
+        # responsibility wording. Pin reach alone would select it too.
+        amount_guard = {"op": "compare", "cmp": "gt", "left": {"op": "ref", "name": AMOUNT}, "right": 0}
+        with patch.dict(RULES, {"old": {**RULES["old"], "when": amount_guard}}):
+            extra = _drive(_base())
+        self.assertIn(amount["id"], _inputs(_by_fact(extra["old"])[BOX_S1]))
+
+
+if __name__ == "__main__":
+    unittest.main()

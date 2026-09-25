@@ -5,7 +5,7 @@
   "topic": "student-loan-circumstance-association",
   "active_plan": "docs/phases/tax-concept-derivation/milestones/student-loan-circumstance-association.md",
   "milestone_state": "track-4",
-  "status": "G2 DESIGN REPAIRED, AWAITING OWNER APPROVALS. ADR 0075 accepted. ADR 0076 Parts 1 and 2 drafted as separate contracts with one publication plan (first successor: subject, joined, direction once both accepted; second: wording, lineNote, link_count); Part 3 open. Reader contract repaired: line 21 preserved; view on an experimental surface only (owner: B); parameter vs declared_default distinct; missing classified; statement label from entity labels; bare-statement selection needs link_count (count == 0 unsound under v10, probed). Nothing published. G2 (producer) not reached.",
+  "status": "G2 DESIGN PROPOSED, AWAITING OWNER DECISIONS. ADR 0075 accepted. ADR 0076 Parts 1 and 2 proposed; Part 3 open. Reader contract proposed: experimental view only; worksheet unchanged; responsibility producers selected by wording declaration and calculation pins; unresolved outcomes preserve diagnostic limits. Hand-dispatched probes are not dependency discovery, projection or rendering. No scheduling/reader schema successor published. G2 producer not reached.",
   "current_role": "Foreman (awaiting owner: ADR 0076 Parts 1-2, reader contract, wording, Part 3)",
   "current_prompt": "docs/phases/tax-concept-derivation/milestones/student-loan-circumstance-association.md"
 }
@@ -24,13 +24,15 @@ schooling circumstance to a tax consequence. It supplied the connection to
 reported interest itself. This milestone obtains and records that connection,
 keeps its subjects distinct, and lets a consumer use recovered current support.
 
-**Track 1 is open.** The plan's eight actions are refined and reviewed one at a
-time; its state table says how far each has got. A4's second pass found that the
-engine cannot publish one conclusion per key of a single subject without a
-production change, and the owner chose to build that mechanism as a bounded
-track. Track 1 has built it; its joins are single-hop. Track 2 tests, as a bounded
-experiment, whether keys carried on same-run sources let a correction reach a
-statement. The remaining probes run before any producer is considered.
+**The active work is G2's scheduling, binding and reader design after Track 4.**
+The bounded per-subject dispatch, keyed same-run sources and ADR 0075 coverage
+operation exist. They do not yet schedule the student-loan chain on the production
+path. ADR 0076 Parts 1–2 and the reader contract remain proposed; Part 3's treatment
+of several statuses for one borrowing remains open. The reader is an experimental
+view, not a replacement for the worksheet deduction. Its hand-dispatched probes
+exercise calculation evidence, not durable projection or page rendering. The
+plan's open-decisions table and reader contract carry the remaining choices and
+demonstration requirements.
 
 ## Begin here
 

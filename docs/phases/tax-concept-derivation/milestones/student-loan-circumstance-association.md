@@ -3,7 +3,7 @@
   "version": 1,
   "phase": "Tax Concept Derivation",
   "topic": "student-loan-circumstance-association",
-  "status": "G2 DESIGN REPAIRED, AWAITING OWNER APPROVALS. ADR 0075 accepted. ADR 0076 Parts 1 and 2 drafted as separate contracts with one publication plan (first successor: subject, joined, direction once both accepted; second: wording, lineNote, link_count); Part 3 open. Reader contract repaired: line 21 preserved; view on an experimental surface only (owner: B); parameter vs declared_default distinct; missing classified; statement label from entity labels; bare-statement selection needs link_count (count == 0 unsound under v10, probed). Nothing published. G2 (producer) not reached.",
+  "status": "G2 DESIGN PROPOSED, AWAITING OWNER DECISIONS. ADR 0075 accepted. ADR 0076 Parts 1 and 2 proposed; Part 3 open. Reader contract proposed: experimental view only; worksheet unchanged; responsibility producers selected by wording declaration and calculation pins; unresolved outcomes preserve diagnostic limits. Hand-dispatched probes are not dependency discovery, projection or rendering. No scheduling/reader schema successor published. G2 producer not reached.",
   "scope": [
     "record and recover ordinary schooling circumstances and their explicit connection to identified student-loan interest",
     "preserve document evidence, source-independent subjects, attribution, and relationship lifecycle",
@@ -1470,6 +1470,16 @@ product questions; it moves too quickly from the problem into machinery, and
 A1–A3 are the work it skipped.
 
 ## Open decisions
+
+The [reader contract](student-loan-circumstance-association-evidence/reader-contract.md) remains a proposed
+design, not a completed page. The hand-dispatched chain now distinguishes an established adverse result,
+an unresolved calculation, a producer that did not run, and the linked route. Its diagnostic evidence cannot
+always distinguish *why* a classification failed: duplicate and nonnumeric classifications can leave exactly
+the same block. Reader implementation must preserve that uncertainty, and select responsibility producers
+from their declared wording rather than treating every dependent calculation as a responsibility.
+`tests/test_sli_bare_statement_chain_probe.py` exercises the calculation evidence and reference outcome
+classification, not dependency discovery, durable projection, or rendering. Those remain acceptance work in
+the reader contract. The decisions below remain open; these probe repairs do not adopt an amount policy.
 
 | Decision | Owner | Needed by | Status |
 | --- | --- | --- | --- |
