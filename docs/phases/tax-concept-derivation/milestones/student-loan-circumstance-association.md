@@ -1473,6 +1473,7 @@ A1–A3 are the work it skipped.
 
 | Decision | Owner | Needed by | Status |
 | --- | --- | --- | --- |
+| What the bare-statement named conclusion reads, and what the statement amount does under an adverse statement-wide claim — (1) read statement-scope claims through `link_coverage`'s empty parameter, the 2026-09-23 no-link posture extended; (2) A: the amount reads the statement-scope total and is 0 when a joined claim is adverse; B: the amount stays a coverage quantity and the view labels it | Owner | Before reader implementation | Open. Recommended: (1) yes; (2) A. See [reader contract §9](student-loan-circumstance-association-evidence/reader-contract.md) and `tests/test_sli_bare_statement_chain_probe.py` |
 | Where the unintegrated per-statement calculation is shown — A: product page beside line 21, labelled; B: an experimental reader surface only | Owner | Before reader implementation | **Decided 2026-09-24: B** — experimental surface until worksheet integration |
 | ADR 0075 acceptance | Owner | Before G2 design | **Accepted 2026-09-24** as the bounded operator contract; does not authorize a statement-specific production result — ADR 0076 must establish the binding |
 | ADR 0076 direction | Owner | Before G2 | **2026-09-24:** a subject declaration on each per-subject rule is the preferred scheduling direction; not published as one settled package — scheduling, relationship validation, and the set-level tax consequence of several statuses for one borrowing are separated, the last tested against the applicable rule |

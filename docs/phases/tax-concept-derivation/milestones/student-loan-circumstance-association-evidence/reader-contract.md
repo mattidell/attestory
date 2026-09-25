@@ -137,7 +137,9 @@ Do not attach a disposition merely because it shares a rule family, a tax year, 
 
 **Operator, committed tests, not a production schedule.** On the no-link path `link_coverage` returns the declared parameter. The amount rule in the coverage tests publishes box 1 minus that parameter. The finding has no `resolved_input`. Its input pin is the box-1 finding, `origin: assertion` when `use_v2`. Its parameter pin is the no-link parameter id and version, role `parameter`, and it has no `origin`. A covered path pins each link and each reduction as `input` / `assertion` and does not pin the parameter. An uncovered path does not pin the parameter either.
 
-Those two pins must stay distinct in the model and on the page.
+Those two pins must stay distinct in the model and on the page. This contract's bare-statement path declares
+no `optional_default` (section 9); the right-hand column describes production behaviour the page must still
+classify correctly wherever such a pin appears, not an input this contract relies on.
 
 | | No-link parameter | Declared-default eligibility |
 | --- | --- | --- |
@@ -148,7 +150,7 @@ Those two pins must stay distinct in the model and on the page.
 | Page | The pin is shown as a parameter: id and version, no basis | `basisOrigin: declared_default` on the node that pinned the default finding |
 | Sentence | Does not by itself authorize the ordinary-line note | The note is copied only from the conclusion rule's own field, and only when that rule published |
 
-`basisOrigin` on a node is the `origin` of an input pin on that finding, and nothing else. It is never computed by noticing which pins are missing, and it is never copied off a parameter pin. The eligibility note ("takes eligibility as met … nothing recorded for this statement says otherwise", section 5) is not the no-link parameter and is not composed from `declared_default`. It appears only as `lineNote`, copied from the conclusion rule, and only when that rule published with a `declared_default` eligibility input pin (section 9).
+`basisOrigin` on a node is the `origin` of an input pin on that finding, and nothing else. It is never computed by noticing which pins are missing, and it is never copied off a parameter pin. The eligibility note (section 5) is not the no-link parameter and is not composed from `declared_default`. It appears only as `lineNote`, copied from the named conclusion's rule, and only when a published responsibility finding for that statement pins that conclusion (section 9). The note's default basis is the conclusion's identity; the conclusion's own `basisOrigin` is `assertion`, meaning only "not reached through a declared default".
 
 Citation sites stay leaves of role `input` or `choice`. A parameter is not turned into a citation site. It is visible on the group's `pins`, not only inside an embedded act.
 
@@ -305,15 +307,15 @@ The because-clause must not say the person described studying or enrolling. The 
 
 No borrowing link joined this statement. Line 21 is unchanged. The calculation view shows the statement amount and two sentences, each from its own rule and each only when that rule published.
 
-The bare-statement responsibility rules' `wording` (section 7's guard held), leading the disclosure:
+The bare-statement responsibility rules' `wording` (the named conclusion published and the amount is above 0, section 9), leading the disclosure:
 
 > No borrowing is currently linked to [statement]. You are responsible for these conditions: [the conditions]. They apply because this calculation treats the interest on [statement] as deductible. This view does not check them.
 
-The favourable-eligibility conclusion's `lineNote` (section 9: published, and its eligibility input pin is `declared_default`):
+The named conclusion's `lineNote`, displayed through a published responsibility finding that pins the conclusion (section 9):
 
-> This calculation takes eligibility as met for the interest on [statement] because nothing recorded for this statement says otherwise.
+> Eligibility is taken as met for the interest on [statement]: nothing said about this statement as a whole matches a disqualifying circumstance this calculation checks.
 
-The note is the eligibility default. It does not mention links, and the link sentence does not mention eligibility: a zero count is the guard, not the support. It is not a description of the no-link parameter. The three conditions are not in the view's ordinary text. They are in the disclosure, and only from the bare-statement rules' own fields. The stage-4 sentences that end "nothing you've described names them" and "nothing you've described says otherwise" are not the text: a description can exist without joining this statement. Section 7 says what the sentence is allowed to claim. The statement is named from the group's `statementLabel` (below), never from `factId`. No institution and no programme are named. "Not known" appears only when the copied rule field says it, and only under that guard.
+That is what the executed producer establishes, and no more: every statement-wide claim joined to this statement was classified, and none was an enumerated adverse circumstance (or none joined). It does not say nothing was recorded — a borrowing-level description can exist without a link — and it does not say every disqualifier was checked. The note states the conclusion's default basis. It does not mention links, and the link sentence does not mention eligibility: a zero count is the guard, not the support. It is not a description of the no-link parameter. The three conditions are not in the view's ordinary text. They are in the disclosure, and only from the bare-statement rules' own fields. The stage-4 sentences that end "nothing you've described names them" and "nothing you've described says otherwise" are not the text: a description can exist without joining this statement. Section 7 says what the link sentence is allowed to claim. With an adverse statement-wide claim joined, neither sentence appears (section 9, discriminating case). The statement is named from the group's `statementLabel` (below), never from `factId`. No institution and no programme are named. "Not known" appears only when the copied rule field says it, and only under that guard.
 
 ### Uncovered link
 
@@ -321,7 +323,7 @@ The statement row in the view is blocked. Line 21 is whatever the worksheet did 
 
 ### No-link parameter
 
-The statement amount is published. Box 1 remains a citation. The parameter pin is visible on the group as role `parameter`, id, and version, with no `origin` and no `basisOrigin`. It is not left only inside an embedded act. This is the coverage quantity (nothing joined to reduce), not the eligibility default and not the bare-statement note. When section 7's guard also holds, the note of that case is shown from the conclusion rule, not from this pin. The page does not treat "no link" as "school unknown".
+The statement amount is published. Box 1 remains a citation. The parameter pin is visible on the group as role `parameter`, id, and version, with no `origin` and no `basisOrigin`. It is not left only inside an embedded act. This is the coverage quantity (nothing joined to reduce), not the eligibility default and not the bare-statement note. When the named conclusion also published for this statement, its note is shown from that rule through a responsibility finding (section 9), not from this pin. The page does not treat "no link" as "school unknown".
 
 ## 6. Where strings come from
 
@@ -386,8 +388,10 @@ parameter path — works, but is a larger change than counting links directly.
 **The one executable guard (proposed; `link_count` is not built).** A per-statement **count rule** (subject:
 the statement's box-1 fact) publishes `link_count(links)`. Its pins: the statement's box-1 finding (`input`,
 `origin: assertion`) and every joined link finding (`input`, `assertion`); **no parameter pin** — `link_count`
-has no parameter. At 0 it pins only box 1. Every rule that selects the bare-statement case `requires` the count
-rule's published symbol and guards on `compare eq (ref count) 0`. Nothing reads a pin. A blocked or absent count
+has no parameter. At 0 it pins only box 1. The named conclusion (section 9) is the one rule that
+reads the count: it `requires` the count rule's published symbol and its guard includes
+`compare eq (ref count) 0`. The responsibility rules reach the bare-statement case only through that
+conclusion. Nothing reads a pin. A blocked or absent count
 is `DEPENDENCY_ABSENT` of that symbol (no `optional_default` may be declared for it), so the case is not selected.
 
 **The condition this selects is "no link joined to this dispatch subject."** It is not "no schooling
@@ -402,8 +406,9 @@ them" (a description can be present and unlinked), not "nothing connects these l
 says nothing about schools), and not anything about eligibility (the count is not eligibility support,
 section 9).
 
-When the count is not 0 or does not publish, the bare-statement rules do not publish, so their text cannot
-appear. Schooling that is present but not linked does not suppress the sentence, and the sentence must not
+When the count is not 0 or does not publish, the conclusion does not publish, so neither the responsibility
+text nor the note can appear. A count of 0 is necessary, not sufficient: an adverse statement-wide claim also
+stops the conclusion (section 9). Schooling that is present but not linked does not suppress the sentence, and the sentence must not
 pretend it did. Situation-scoped rules for the nine-credit and financing-claim cases publish from the
 circumstance they pin, not from a count.
 
@@ -439,60 +444,109 @@ Three rules, one per condition, for the bare-statement case only. The probe rule
 
 The subject is the statement fact type `tax.us.2025.f1098e.box1-student-loan-interest` (identity keys lender, statement, tax-year). Not a financing claim, not an enrolment, not a run-wide box-1 scalar. The subject declaration is ADR 0076. Until that binding is accepted, section 7's sentence is not shown as a claim about this statement.
 
-### What it reads
+### The chain, traced
 
-- The count rule's published value, through `requires` — the guard is `compare eq (ref count) 0` (section 7). It
-  reads the value only; it does not and cannot test the count finding's pins.
-- The current box-1 finding for that statement. That is the asserted input that establishes the subject. Origin `assertion` on that input pin.
-- The published per-statement amount finding for that same statement, through `requires`, so that it is
-  pinned (pins record what an evaluation read; an amount it does not read is not pinned). That is the
-  treatment. The amount rule does not read the responsibility. The responsibility is not an input of the amount. The worksheet does not read either of them.
-- Its own citations, this condition's authorities only.
+Executed by hand in `tests/test_sli_bare_statement_chain_probe.py` (**hand-dispatched, production dispatch
+code, not a production schedule**; synthetic ids; package accepted by `validate_package` first). Per statement,
+subject its box-1 fact, in this order:
 
-It does not read enrolment, a financing claim, a school, a programme, a period, or a status finding. It does not read the absence of any of those. It does not read the no-link parameter as an eligibility input.
+1. **Box 1.** The current box-1 finding is the subject. Every rule below pins it `input` / `assertion`.
+2. **Count.** `link_count` (proposed, section 7) over statement-to-borrowing links: 0 when no borrowing link
+   joined this statement. The probe stands in `link_coverage` with a presence marker, as the selection probe did.
+3. **Statement-scope claims.** A claim about the statement as a whole ("the loans on this statement paid for
+   …", A5 stage 4 route (a)) is keyed on the statement identity plus the applied circumstance. Each is
+   classified by its own rule (subject: the claim): 1 when it describes an enumerated adverse circumstance,
+   0 otherwise. The claim stays descriptive; the classifier is the rule that decides consequence.
+4. **Adverse total.** `link_coverage(claims, classifications, empty: no-statement-scope-claim parameter = 0)`.
+   A joined claim without exactly one classification blocks `DEPENDENCY_INVALID` — it is not read as "not
+   adverse" (tested). Another statement's claim does not join (tested).
+5. **The named conclusion** — A5 stage 4's *no enumerated adverse circumstance bears on the interest this
+   statement reports*. `requires` count and adverse total; guard `all(count == 0, total == 0)`; publishes the
+   token `no-enumerated-adverse`. Pins: box 1, the count finding, the total finding — each `assertion`. No
+   parameter pin; no `declared_default` (tested). When the total is above 0 it is inapplicable (tested).
+6. **Statement amount.** Unchanged: box 1 minus linked reductions, the no-link parameter when none. It does not
+   read the conclusion, so under an adverse statement-wide claim it still publishes box 1 (probe: 400). That is
+   recorded, not repaired; see "Owner decision" below.
+7. **Three responsibility rules.** Each `requires` the conclusion and the amount **and reads both in its guard**:
+   the conclusion is `no-enumerated-adverse` and the amount is above 0. Pins: box 1, the conclusion, the
+   amount, its citations (tested). The value is a declared applicability token; the sentence is the rule's
+   `wording`.
+8. **The displayed note.** `lineNote` is the conclusion rule's field. It is displayed only through a published
+   responsibility finding's input pin to the conclusion — the reverse walk from the amount reaches the
+   responsibility, and the responsibility names the conclusion. No published responsibility, no note.
 
-### What it publishes
+**A correction to the previous text.** It said the amount is read "through `requires`, so that it is pinned".
+That is false. `pins_for` builds input pins from the access log — what the evaluation read — and a rule whose
+guard is `true` and whose value is a literal reads nothing it required. The probe's first build of the
+responsibility rules pinned neither the conclusion nor the amount. The guard above is what makes them pinned.
 
-One categorical finding per statement, and only when the guard holds. Symbol is the unsuffixed condition symbol plus `|` plus the statement fact id. The value is a declared applicability token, not the prose. The rule's `wording` field is the sentence section 7 allows. A value of `applies` with no `wording` field does not say the school is unknown, and the projector must not complete the sentence.
+**A second gap the probe met.** A keyed same-run publication carries no fact type to its consumers:
+`subject_dispatch._fact_type_of` falls back to the symbol name, so `categorical_compare` of the conclusion
+against its token blocks `CATEGORICAL_DOMAIN_MISMATCH` unless the token's fact type has the symbol's own id.
+The probe uses that naming as a workaround. Production needs either that convention or the fact type carried
+on keyed publications; this contract does not choose.
 
-Nothing consumes the finding. It lapses when the favourable treatment it rests on is not published.
+**How the promise "it lapses when the favourable treatment is absent" is now kept.** Structurally: a
+responsibility rule requires the conclusion, so where the conclusion did not publish — an adverse
+statement-scope claim, an unclassified claim, a blocked count, or a statement with a borrowing link — the rule
+records `DEPENDENCY_ABSENT` naming only the conclusion's symbol (tested for the adverse case). The previous
+shape (requires count and amount, guard count == 0) publishes on zero links alone even with an adverse claim;
+the probe keeps it to show that (tested).
 
-### What it pins
+**Display of the lapse.** A responsibility disposition blocked `DEPENDENCY_ABSENT` whose `missing` is exactly
+the conclusion's symbol is the lapse: no row, no banner, no sentence. Any other block of a responsibility rule
+is shown as section 4 classifies it.
 
-- The statement's box-1 finding, role `input`, origin `assertion`.
-- The count finding, role `input`, origin `assertion` — it is the guard's input, not eligibility support.
-- The per-statement amount finding, role `input`, so the reverse walk attaches the responsibility to that statement's group.
-- Citation pins for this condition only.
+**Discriminating case (tested).** S1 and S2 have no borrowing link. S1 has a current statement-wide claim that
+its loans paid for a vehicle; S2 has none. S1: count 0, total 1, no conclusion, no responsibility, no note, and
+— the recorded gap — amount 400. S2: conclusion, three responsibilities, identical to a run with no claim
+anywhere. Moving the claim to S2 leaves every S1 finding byte-identical (tested).
 
-It does not pin an institution, a programme, a period, a financing claim, or an enrolment. It does not pin a wording citizen. It does not pin the no-link parameter, and it does not put `origin` on a parameter pin. It does not pin a sentinel that means "unknown" by being absent.
+### What each responsibility rule publishes and pins
 
-The ordinary-line note is not this rule's field. It belongs to the **favourable-eligibility conclusion**, traced
-here against per-subject dispatch as it is (`subject_dispatch.evaluate_subject_scoped_rule`, the `requires`
-binding; **production code, hand-dispatched use**):
+One categorical finding per statement, and only when its guard holds (section 9, chain step 7). Symbol is the
+unsuffixed condition symbol plus `|` plus the statement fact id. The value is a declared applicability token,
+not the prose. The rule's `wording` field is the sentence of section 5. A value of `applies` with no `wording`
+field does not say the school is unknown, and the projector must not complete the sentence. Nothing consumes
+the finding.
 
-- **Producer.** A per-statement conclusion rule (subject: the statement's box-1 fact) that `requires` the count
-  symbol (guard `count == 0`, section 7) **and** a statement-keyed **eligibility input** — a fact type keyed on the
-  statement identity whose fact-type declaration carries an `optional_default` parameter, with a matching
-  `optional_default` input binding in the package.
-- **Input that supports it.** For a bare statement no eligibility finding joins, so dispatch takes the declared
-  default: it pins the **default finding** as `input` with `origin: declared_default`, and records that finding
-  (the default-pin repair). If an eligibility finding **does** join this statement, it is pinned `input` /
-  `assertion` instead, and the conclusion is not default-supported. A row belonging to another statement does
-  not join (ADR 0076 Part 2) and does not suppress the default.
-- **`basisOrigin`** names that eligibility input pin. Production computes a finding's provenance as
-  `declared_default` when **any** input pin has that origin (`runner.py`, the two publish paths), so the claim
-  rests on which pins can carry it. In this rule only the eligibility pin can: per-subject dispatch pins the
-  box-1 subject and every joined same-run source as `input` / `assertion` unconditionally
-  (`subject_dispatch.py`, subject pin and the `_one_source` branch), so the count pin is `assertion`; and a
-  parameter pin has no `origin`. The no-link coverage result is a quantity on the amount finding (role
-  `parameter`); it is neither this conclusion's input nor its basis.
-- **Consequence to keep in view.** Because that dispatch branch hard-codes `assertion` (and version `v1`), a
-  joined same-run eligibility finding that was itself default-supported would **lose** its default basis on
-  this pin. The bare-statement case does not hit this — no eligibility source joins, so the declared default is
-  pinned directly — but the eligibility input must be a fact type with its own `optional_default`, not a
-  derived finding carrying a default upstream.
-- **`lineNote`** is shown only when the conclusion published **and** its eligibility input pin is
-  `declared_default`. A zero count alone never produces the note.
+Pins: the box-1 finding (`input`, `assertion`); the named conclusion (`input`, `assertion` — the eligibility
+basis, by its identity); the per-statement amount (`input`, so the reverse walk attaches the responsibility to
+that statement's group); citation pins for this condition only. It does not pin the count, an institution, a
+programme, a period, a financing claim, an enrolment, a wording citizen, or the no-link parameter; it puts no
+`origin` on a parameter pin; it pins no sentinel that means "unknown" by being absent.
+
+### Reconciled with the selected model
+
+The previous revision of this section introduced a statement-keyed eligibility fact type with an
+`optional_default`, so that a `declared_default` pin would drive `basisOrigin` and the note. **Withdrawn.** It
+had no tax meaning of its own: it would manufacture a favourable description nobody gave, which the owner's
+2026-09-20 decision names as the wrong layer ("`optional_default` is real, adopted, and the wrong layer here"),
+and A5 stage 3 rejected disqualifiers-as-defaults. Its only function was the page's pin.
+
+What stands is A5 stage 4's named conclusion, now with an executable producer (above). Its default basis is
+carried by **being that conclusion** — its rule and symbol — not by `origin`. Its `basisOrigin` is `assertion`,
+which A5 stage 3 fixed as meaning only "not reached through a declared default"; the page must not present it
+as the filer's telling. Adverse statement-scope information prevents the conclusion by the guard: a joined
+adverse claim makes the total above 0.
+
+### Owner decision this raises
+
+The named conclusion was selected with the statement's box-1 finding as its only input. Making it executable
+changes two things, and both are the owner's:
+
+- **"None joined" for statement-scope claims.** The engine reads "none" from an empty collection only over a
+  closed source set (`a4-bounds.md`). The producer above reads it through `link_coverage`'s empty parameter —
+  the same calculation posture the owner accepted for links on 2026-09-23 (A): not a claim that no
+  statement-wide claim exists, only that none joined this statement. The conclusion then pins the claims it
+  examined (A5 stage 3's "everything examined is its grounds").
+- **The amount under an adverse statement-wide claim.** Today it publishes box 1 regardless. A: it also reads
+  the statement-scope total and publishes 0 when a joined claim is adverse, applying § 221(d)(1)'s "solely"
+  to the whole statement as route (a) says the claim reaches everything on it. This changes the amount rule
+  for linked statements too. B: it stays a coverage quantity, and the view labels a statement without the
+  conclusion as not treated as deductible here. **Recommended: A** — B leaves a figure on the page that the
+  calculation's own conclusion contradicts. Until decided, the view must not show an S1-like amount without
+  that label.
 
 ### Which scheduling it needs
 
@@ -502,10 +556,10 @@ What that scheduling has to provide for this rule:
 
 - A required `subject` on the rule successor, an exact fact-type pin to `tax.us.2025.f1098e.box1-student-loan-interest`.
 - The package successor that admits that rule schema.
-- Eligibility waits on predecessor **rule resolution**, not on the unsuffixed symbol appearing in `self.symbols`. The predecessor of the responsibility rule is the count rule and the per-statement amount rule. It is not the schooling-status rule, and it is not the worksheet. Keyed publication never inserts the unsuffixed name, so a `requires` entry of that name stays ineligible and `finalize_unreached` would then evaluate the rule once, unsuffixed.
+- Eligibility waits on predecessor **rule resolution**, not on the unsuffixed symbol appearing in `self.symbols`. The predecessors of a responsibility rule are the named conclusion and the per-statement amount rule; the conclusion's are the count rule and the adverse-total rule, whose predecessor is the claim classifier. None is the schooling-status rule or the worksheet. Keyed publication never inserts the unsuffixed name, so a `requires` entry of that name stays ineligible and `finalize_unreached` would then evaluate the rule once, unsuffixed.
 - The intercept is on `attempt` and on `finalize_unreached`, so `runner._execute` and `reference_runner.run_reference` share it.
-- One dispatch publishes per statement. The rule id resolving once must not collapse the three statements into one unsuffixed finding, and must not block every statement because one amount was blocked. A statement whose amount is blocked, or whose count is blocked, gets no responsibility finding. The other statements still publish.
-- The count rule is a `link_count` rule and the amount rule a `link_coverage` rule; both join links. The responsibility rules and the favourable-eligibility conclusion do not. ADR 0076's link-binding half still gates any sentence that says "this statement": until a joined link is this statement's, a coverage result is not a statement-specific claim. The rule's own grain does not depend on a shared key name with a link type.
+- One dispatch publishes per statement. The rule id resolving once must not collapse the three statements into one unsuffixed finding, and must not block every statement because one amount was blocked. A statement whose amount, count, or adverse total is blocked gets no responsibility finding. The other statements still publish.
+- The count rule is a `link_count` rule and the amount rule a `link_coverage` rule; both join links. The adverse-total rule is a `link_coverage` rule over statement-scope claims, and its relation (claim identity contains the statement identity) is ADR 0076 Part 2's `joined_contains_subject`, the same as the link's. The responsibility rules and the named conclusion join nothing. ADR 0076's link-binding half still gates any sentence that says "this statement": until a joined link is this statement's, a coverage result is not a statement-specific claim. The rule's own grain does not depend on a shared key name with a link type.
 
 Situation-scoped responsibility rules stay per schooling situation. Their subject is that situation, and their pins name the institution, programme, and period. They are not this bare-statement rule. They carry their own `wording` field, the named-circumstance sentence, and the same reverse walk. They do not publish when section 7's guard holds.
 
@@ -521,7 +575,7 @@ The test does all of the following.
 4. Load the experimental page (section 5) through the harness as a candidate, the way `tools/presentation_harness/lib/executor.mjs` does, in a fresh Chrome target. The server splices `__FIXTURE_JSON__` with the fixture file's bytes.
 5. The fixture is the re-read presentation file itself, not a hand-written golden. The server serves only manifest-declared, repository-confined paths, so the run must write `presentation.json` under a repository-relative path the manifest names (gitignored `temp/`, for example).
 5a. Assert the product page is byte-identical to the milestone base and contains no `calculationView` reference. Loading the product page is not part of this demonstration.
-6. Assert with the harness check `dom-text-present`. Line 21's value is the worksheet figure when the worksheet ran, and it is never a statement group's value. The calculation view's text includes the sentence the case requires and excludes the sentences this document forbids: "nothing you've described names them", "nothing you've described says otherwise", "you claimed", "filed", "verified", and "confirmed", unless the owner has put that text in a rule field despite sections 5 and 7. Assert the bare-statement link sentence and the eligibility note come from two different rules' fields. Assert the disclosure control is inside the calculation view and that no form line contains the note or the conditions. Assert the conditions have no `role="alert"` and no input control. Assert an uncovered link's text names that link and differs from the other three invalid shapes. Assert a marker, a parameter id, and a symbol name are shown as themselves and are not presented as findings. Assert a model with no `wording` field does not contain the sentence. Assert a model whose finding pinned no school does not contain "not known" or "unknown" unless the bare-statement guard held and the copied field says it. Assert the no-link parameter pin has no `origin` and no `basisOrigin`, and that the eligibility note is absent when the only pin of that kind is the parameter. Assert `integrated` is false and the chrome sentence is present. Assert line 21's section has no statement rows.
+6. Assert with the harness check `dom-text-present`. Line 21's value is the worksheet figure when the worksheet ran, and it is never a statement group's value. The calculation view's text includes the sentence the case requires and excludes the sentences this document forbids: "nothing you've described names them", "nothing you've described says otherwise", "you claimed", "filed", "verified", and "confirmed", unless the owner has put that text in a rule field despite sections 5 and 7. Assert the bare-statement link sentence and the eligibility note come from two different rules' fields. Run the discriminating case of section 9 (two statements without links, an adverse statement-wide claim on one): that statement's group shows neither sentence and no responsibility row, and the other statement's group is identical to a run with no claim. Assert the disclosure control is inside the calculation view and that no form line contains the note or the conditions. Assert the conditions have no `role="alert"` and no input control. Assert an uncovered link's text names that link and differs from the other three invalid shapes. Assert a marker, a parameter id, and a symbol name are shown as themselves and are not presented as findings. Assert a model with no `wording` field does not contain the sentence. Assert a model whose finding pinned no school does not contain "not known" or "unknown" unless the bare-statement guard held and the copied field says it. Assert the no-link parameter pin has no `origin` and no `basisOrigin`, and that the eligibility note is absent when the only pin of that kind is the parameter. Assert `integrated` is false and the chrome sentence is present. Assert line 21's section has no statement rows.
 
 A passing structural check on the Python object, or a passing check on the evaluation page, is not this demonstration.
 
@@ -540,7 +594,7 @@ Completion. All of these are required. Any one missing means the reader case is 
 1. Line 21 still binds `tax.us.2025.schedule1.line21-sli-deduction`. The calculation view is present for the per-statement chain, `integrated` is false, and the page does not present the groups as the line.
 2. The no-link parameter is shown as a parameter pin with no `origin`. A declared-default eligibility input is shown only where an input pin has that origin. The page never assigns the parameter that origin.
 3. Blocked `missing` entries are classified as section 4. Only finding ids are resolved. The four invalid link shapes do not render as the same text.
-4. The bare-statement rules have run under section 7's guard, published keyed findings, carried the sentence on the rule rather than on a pin, and not pinned a school. The sentence claims no more than the guard establishes.
+4. The bare-statement responsibility rules require and read the named conclusion and the amount, publish keyed findings, carry the sentence on the rule rather than on a pin, and pin no school. The named conclusion requires and reads the count and the statement-scope adverse total; no `optional_default` is declared on this path. An adverse statement-wide claim on one statement stops that statement's conclusion, responsibilities and note and changes no other statement. The sentences claim no more than those findings establish.
 5. The reloaded `presentation.json` contains the calculation view, the kept intermediate nodes, classified `missing`, `basisOrigin` only from input pins, and the responsibility rows from the reverse walk.
 6. The experimental page (section 5), loaded from that file after the run object was discarded, shows line 21 as the worksheet and the five cases of section 5 in the calculation view. The product citation-walk page is unchanged and is not required to show the view.
 7. A projection that sees a missing school pin, a missing link, or a parameter pin, and does not have the bare-statement rule's field under section 7's guard, does not render the school as unknown.
