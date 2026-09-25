@@ -398,3 +398,120 @@ class BareStatementChain(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+
+
+# --- Why is the conclusion absent? -----------------------------------------
+#
+# REFERENCE CLASSIFICATION, not the projector (which is not built). It reads
+# only this statement's own dispositions, looked up by the keyed symbol
+# ``<publishes>|<statement fact id>``: never a downstream missing list, and
+# never another statement's rows. Two axes, then the conclusion itself.
+
+
+def _outcome(result: SubjectScopedResult | None, symbol: str) -> tuple[str, Any]:
+    """published/inapplicable/blocked/not-computed for one keyed symbol."""
+    if result is None:
+        return ("not-computed", None)
+    for finding in result.publications:
+        if finding["symbol"] == symbol:
+            return ("published", finding)
+    for row in result.inapplicable:
+        if row.symbol == symbol:
+            return ("inapplicable", row)
+    for blocked_row in result.blocked:
+        if blocked_row.symbol == symbol:
+            return ("blocked", blocked_row)
+    return ("not-computed", None)
+
+
+def _statement_outcome(results: dict[str, SubjectScopedResult], fact_id: str) -> dict[str, str]:
+    count_kind, count = _outcome(results.get("count"), f"{COUNT}|{fact_id}")
+    total_kind, total = _outcome(results.get("total"), f"{ADVERSE_TOTAL}|{fact_id}")
+    conclusion_kind, _row = _outcome(results.get("conclusion"), f"{CONCLUSION}|{fact_id}")
+    if count_kind == "published":
+        route = "bare" if count["value"] == "0" else "linked"
+    else:
+        route = "unresolved" if count_kind == "blocked" else "not-computed"
+    if total_kind == "published":
+        scope = "none-adverse" if total["value"] == "0" else "adverse-established"
+    else:
+        scope = "unresolved" if total_kind == "blocked" else "not-computed"
+    return {"route": route, "statement_scope": scope, "conclusion": conclusion_kind}
+
+
+class WhyTheConclusionIsAbsent(unittest.TestCase):
+    """HAND-DISPATCHED. Four causes, one downstream symptom, four distinct outcomes."""
+
+    def _link_sources(self) -> list[SourceFact]:
+        keys = _statement_keys(S1) + (("borrowing", "demo-borrowing-x"),)
+        link = SourceFact(name=LINKS, value="100", finding_id="demo.finding.link.x", fact_id="demo.fact.link.x", keys=keys)
+        return [link]
+
+    def _scenarios(self) -> dict[str, dict[str, SubjectScopedResult]]:
+        car = _claim(S1, "vehicle-purchase", "vehicle")
+        return {
+            "adverse-established": _drive(_base() + [car]),
+            "unresolved-classification": _drive(_base() + [car], skip=frozenset({"classify"})),
+            "missing-producer": _drive(_base(), skip=frozenset({"count"})),
+            "linked-route": _drive(_base() + self._link_sources()),
+        }
+
+    def test_downstream_symptom_is_identical_and_the_amount_still_publishes(self) -> None:
+        symptoms = set()
+        for name, results in self._scenarios().items():
+            for symbol in RESPONSIBILITIES:
+                row = _blocked(results[symbol])[BOX_S1]
+                symptoms.add((row.code, tuple(row.missing)))
+            self.assertIn(BOX_S1, _by_fact(results["amount"]), name)
+        self.assertEqual(symptoms, {(DEPENDENCY_ABSENT, (CONCLUSION,))})
+
+    def test_upstream_outcomes_distinguish_the_four_causes(self) -> None:
+        got = {name: _statement_outcome(results, BOX_S1) for name, results in self._scenarios().items()}
+        self.assertEqual(
+            got,
+            {
+                "adverse-established": {"route": "bare", "statement_scope": "adverse-established", "conclusion": "inapplicable"},
+                "unresolved-classification": {"route": "bare", "statement_scope": "unresolved", "conclusion": "blocked"},
+                "missing-producer": {"route": "not-computed", "statement_scope": "none-adverse", "conclusion": "blocked"},
+                "linked-route": {"route": "linked", "statement_scope": "none-adverse", "conclusion": "inapplicable"},
+            },
+        )
+        baseline = _statement_outcome(_drive(_base()), BOX_S1)
+        self.assertEqual(baseline, {"route": "bare", "statement_scope": "none-adverse", "conclusion": "published"})
+
+    def test_each_cause_names_its_own_evidence(self) -> None:
+        scenarios = self._scenarios()
+        car_id = _claim(S1, "vehicle-purchase", "vehicle").finding_id
+
+        adverse = scenarios["adverse-established"]
+        total = _by_fact(adverse["total"])[BOX_S1]
+        self.assertEqual(total["value"], "1")
+        self.assertIn(car_id, _inputs(total))
+        marks = _by_fact(adverse["classify"])
+        self.assertEqual([f["value"] for f in marks.values()], ["1"])
+
+        unresolved = scenarios["unresolved-classification"]
+        row = _blocked(unresolved["total"])[BOX_S1]
+        self.assertEqual(row.code, DEPENDENCY_INVALID)
+        self.assertIn(car_id, row.missing)
+        self.assertEqual(list(_blocked(unresolved["conclusion"])[BOX_S1].missing), [ADVERSE_TOTAL])
+
+        missing = scenarios["missing-producer"]
+        self.assertNotIn("count", missing)
+        self.assertEqual(list(_blocked(missing["conclusion"])[BOX_S1].missing), [COUNT])
+
+        linked = scenarios["linked-route"]
+        self.assertEqual(_by_fact(linked["count"])[BOX_S1]["value"], "1")
+        amount = _by_fact(linked["amount"])[BOX_S1]
+        self.assertEqual(amount["value"], "300")
+        self.assertIn("demo.finding.link.x", _inputs(amount))
+
+    def test_the_unrelated_statement_is_unchanged_in_every_case(self) -> None:
+        baseline = _drive(_base())
+        for name, results in self._scenarios().items():
+            if name == "missing-producer":
+                # The count rule did not run for anyone; S2 shows the same cause.
+                self.assertEqual(_statement_outcome(results, BOX_S2)["route"], "not-computed")
+                continue
+            for key in ("count", "total", "conclusion", "amount", *RESPONSIBILITIES):
+                self.assertEqual(_by_fact(results[key])[BOX_S2], _by_fact(baseline[key])[BOX_S2], (name, key))
