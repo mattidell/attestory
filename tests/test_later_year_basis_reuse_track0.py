@@ -1864,7 +1864,14 @@ class C8bCandidateAgainstCurrentPackageValidation(unittest.TestCase):
                 admitting.append(path.name)
         self.assertEqual(
             admitting,
-            ["artifact-package.v26.schema.json", "artifact-package.v28.schema.json"],
+            [
+                "artifact-package.v26.schema.json",
+                "artifact-package.v28.schema.json",
+                "artifact-package.v31.schema.json",
+                # v32 (ADR 0076) is v31 plus rule-artifact.v11. It is also
+                # outside the guard's v17 allowlist, so the finding holds.
+                "artifact-package.v32.schema.json",
+            ],
         )
 
     def test_negative_probe_the_guard_does_fire_at_a_guarded_generation(self) -> None:

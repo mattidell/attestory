@@ -1,5 +1,21 @@
 # Tax Concept Derivation Roadmap
 
+## Current direction — 2026-09-18
+
+Tax Concept Derivation continues toward a usable foundation for a second
+contrasting ordinary-fact translation path. The selected next milestone is
+[Student Loan Circumstance Association](milestones/student-loan-circumstance-association.md):
+replace the prior experiment's stipulated relationship with a bounded recording,
+recovery, and consumer path. Its scope is below; the earlier milestone results
+remain evidence, not commitments to adopt every deferred proposal.
+
+The proposed continuation is relationship recording, then bounded deduction
+integration, then a small consumer that checks what the next application layer
+can actually recover and explain. Only the first is selected. A broader guided
+user journey, cross-year tax workspace, and further coverage remain separate
+choices. Do not make a general Evaluation Context or institutional catalog an
+automatic prerequisite.
+
 ## Planned roadmap
 
 ### 1. Reported Interest to Tax Concept Vertical Slice
@@ -452,7 +468,21 @@ in the deferral ledger at
 meets every conjunct of its reopening trigger. Retrospective:
 [`../../milestone-retrospectives/2026-09-15-student-loan-interest-bounded-method-transfer.md`](../../milestone-retrospectives/2026-09-15-student-loan-interest-bounded-method-transfer.md).
 
-### 12. Tax-Concept Question and Explanation Projection
+### 12. Student Loan Circumstance Association — selected 2026-09-18
+
+Record an ordinary schooling circumstance and its supported connection to
+reported student-loan interest. Preserve the distinction among a report, the
+borrowing it concerns, and the education period. Recover the relationship from
+recorded state and exercise it through a bounded consumer of the previous
+adverse-direction experiment. Test correction, retraction, wrong-target and
+multi-record cases rather than assuming a single convenient correspondence.
+
+This milestone targets adopted recording/recovery and an executed consumer
+connection. It does not yet integrate the full deduction worksheet or establish
+favorable eligibility. Plan:
+[Student Loan Circumstance Association](milestones/student-loan-circumstance-association.md).
+
+### 13. Tax-Concept Question and Explanation Projection — unselected
 
 Expose the committed model as user assistance: what the source reported, which
 ordinary fact changed its treatment, which rule performed the classification,
@@ -465,6 +495,10 @@ may produce interface work, but it is not limited to explainability; the same
 model must continue to serve computation and return generation.
 
 ## Status
+
+**Selected work:** Student Loan Circumstance Association is planned, with no
+implementation or new contract yet. The table below preserves completed work
+and earlier candidates; it does not supersede the current selection above.
 
 | Milestone | State | Project impact |
 | --- | --- | --- |

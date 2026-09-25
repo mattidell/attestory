@@ -1,0 +1,430 @@
+# A4 — bounds: what the engine can hold, follow and refuse
+
+Pass 1 of A4, the object [G1](../student-loan-circumstance-association.md#readiness-gates)
+names. It classifies the demands A0, A1, A2 and A3 place on the engine and
+produces the two lists A5 is held to. It chooses no shape.
+
+**Evidence levels.** `run` = executed, naming the test. `read` = inferred from
+committed source, however carefully, including by an independent reader.
+`untested` = neither. G2 forbids chartering implementation on `read` claims about
+mechanism.
+
+**Discipline applied throughout:** before recording a gap, trace whether the
+existing facts, evidence and rules already supply the demand.
+
+It took two passes. The first pass moved three entries out of "missing" and still
+under-claimed four more — D6, D8 and D13a already execute, and a demand this
+document's own working set named (D16) had no row at all. The failure direction
+was consistently the same: reasoning from one consumer's behaviour, or from a
+document's absence of a test reference, to a conclusion about the engine. Every
+`run` row below now names the test that establishes it, and every `read` and
+`untested` row is a claim that no such test was found rather than that none was
+looked for.
+
+## The demands
+
+| # | Demand | From | Level | Established by |
+| --- | --- | --- | --- | --- |
+| D1 | Per-item dispatch follows a recorded connection; the value depends on both sides; pins name the exact findings | A0, A3 | `run` | `tests/test_sli_circumstance_association_readiness.py` checks 1–2 |
+| D2 | Losing the named target refuses **by name** | A2, A3 | `run` | Same module, check 3: `DEPENDENCY_ABSENT` naming the fact id, from the dispatcher's own resolution before the rule runs |
+| D3 | A subject nobody associated produces no row at all | A3 | `run` | Same module, omission check |
+| D4 | A consumer can require a fact **conditionally** — in some cases and not others | A3 | `run` | The production worksheet's own `conditional_dependency_set`, condition `count(box1) > 0`; `tests/test_sli_worksheet_line21_track3.py` drops a member and asserts the block and the name |
+| D5 | A supported negative publishes a value while missing support blocks | A2, A3 | `run` | Prior milestone's disposable candidate: adverse answer publishes `0`, absent premise blocks |
+| D6 | A rule can publish a **categorical conclusion** rather than an amount | A3 | `run` | `tests/test_capital_gain_distributions_line7a_t2_coordinator.py` runs `rule.schedule-d-required.conclusion` through `live_coordinate_run`: `EligibleSinglePayer` exercises the `no` branch, `ComponentNo` the `yes` branch, `ComponentAbsence` the `DEPENDENCY_ABSENT` path. Ceiling: the tests assert dispositions and downstream routing, not the literal string |
+| D7 | A rule expression can obtain a **member value** from `collect_categorical_all_equal` | A0 | `read` — and the answer is no, **for that operator only**. Nothing here bears on per-member branching by other mechanisms; per-item dispatch is D1 and D13a | `collect_categorical_all_equal` returns one Boolean. **This is a limit on what an expression reads, not on what the record keeps**: witness facts are keyed `lender`+`statement`+`tax-year` and the runner pins every collected finding |
+| D8 | The dispatcher follows a **corrected** target rather than a stale one | A2 | `run` | `tests/test_nominee_consequences_live.py::test_c5a_report_correction_yields_corrected_remainder` — a live per-item consumer (nominee reduction, grouping bound sources by report `fact_id`, not `evaluate_pairing_scoped_rule`): both findings in the act log, the current one pinned and the stale one excluded. Ceiling: follows the current finding at the same `fact_id`; settles nothing about D9 |
+| D9 | Tell "still resolvable" from "still supported" — A2's middle leg | A2 | `untested` | Nothing. D2 and D8 are findability; this is the further question and must not be discharged by them |
+| D10 | Hold the unresolved interval as its own state | A2 | `untested` | Nothing |
+| D11 | Hold A3's states as distinct | A3 | `untested` | Nothing |
+| D12 | The second adverse reading — stop treating a statement's box 1 as adequate grounds until the affected scope or amount is determined, by whichever route does it. **Not** "until enumeration": A3 withdrew that requirement and A5 stage 1's route (a) supersedes it | A3 | `untested` | Nothing. The third reading is `run` via D5; the first is partly D6 |
+| D13a | Per-item outcomes are **isolated** under pairing dispatch — one item blocking does not take another down | A3 | `run` | `tests/derivation/test_pairing_dispatch.py::test_evaluate_one_block_is_per_pairing` and `::test_two_pairings_dispatch_independently`; pins do not cross. Ceiling: pairing dispatch, not any other consumer |
+| D13b | The production worksheet's universal fold is **not** isolated — one statement's "no" blocks the whole route | A3 | `run` | `tests/test_f1098e_student_loan_interest_agi_track6.py::TestPathJMultiStatementDisagreement` — two statements disagreeing on one witness, both assertion orders, whole route blocked. Track 3's single-statement case is not multi-statement evidence and is not cited. This is the incumbent behaviour, and it is the opposite of D13a |
+| D16a | A categorical telling can be **published in the same run** as amounts | A3 | `run` | `tests/test_capital_gain_distributions_line7a_t2_coordinator.py::test_line7a_publishes_and_line9_includes_once` — the conclusion publishes alongside line 7a, line 7b and line 9. Ceiling: this consumer **gates** line 7a on the conclusion (`requires` it, and its `when` is a `categorical_compare` against it), and line 7b publishes the literal `"checked"` and is a checkbox rather than an amount. The test never varies a rule that omits the declaration |
+| D16b | A telling can be published **without changing** an amount | A3 | `read` | Nothing executes this. A rule reads what it declares, so a telling changes an amount only where some rule is wired to it — but the wiring can be **transitive**: line 9 does not name the conclusion, yet the conclusion gates line 7a and line 9 requires line 7a's total. So "does the amount rule declare a dependency on the telling" is not the whole coupling question |
+| D14 | Two routes to the interest amount holding at once | A0 | `untested` | The enumeration route does not exist |
+| D15 | A result carries A0's qualities of grounds | A0 | **no consumer named** | `finding.v2` carries a coarse `basis`; provenance already names the findings behind a result. Whether more is needed depends on a consumer nobody has named, so this is not recorded as a gap. **A5 stage 3 names it** — A6's revealing consumer and A0 F6's record requirement — and finds `basis` the wrong place. A favourable value resting on a named conclusion is honest in `RunResult.publications`, and recoverable by identity but not value from the completed record and `out.json`. **It does not reach the reader:** `presentation.json` walks through derived findings to raw leaves, so the conclusion is not emitted and the circumstances it examined become citations of the amount. `origin: "assertion"` means only "not via a declared default" and says nothing about whether the conclusion's subject was described. The carrier to the reader is open and owed to G2 and A6 |
+
+## Ceilings on what has already run
+
+- **The pairing-scope observation bounds one environment.** `require_closed` and
+  `count` blocked `SOURCE_SET_UNCLOSED` in an environment **rebuilt in the test
+  module**, mirroring the shape of an adapter written for nominee interest, whose
+  two bound symbols and empty source set are that adapter's choices. This bounds
+  that environment. It is not a dispatcher limitation, and it mandates no rewrite
+  of the prior calculation.
+- **Parameter reads and dependency pins do execute in pairing scope.**
+  `tests/test_pairing_consequences.py::TestDependencyPinFidelity` publishes and pins
+  a declared `parameter` reference from a pairing-scoped expression. The
+  empty-parameter limitation belongs to **this milestone's own probe**, which passed
+  empty parameters and canon into a rebuilt environment; it is not a property of
+  pairing scope.
+- **D4's ceiling:** the conditional set executed is the production worksheet's own,
+  not one containing a schooling fact.
+- **D5's ceiling:** disposable artifacts, never adopted.
+
+## Only testable by changing production
+
+One entry: whether the **existing worksheet** would require or tolerate a schooling
+fact. Its dependency set is a committed production rule, and the owner's build
+boundary excludes changing the existing worksheet's treatment here. Cost if ever
+taken: an adopted-rule change with its own review, in a later milestone.
+
+**This is not a bar on testing a candidate dependency declaration.** A disposable
+candidate rule may declare a schooling fact in its own dependency set and be run, and
+that needs no production change — the previous milestone did exactly this. What such
+a test establishes is candidate-scoped: that *a* rule can require the fact and block
+by name when it is absent. It says nothing about what the adopted worksheet would
+do, and must not be reported as though it did.
+
+## What A5 may rely on
+
+D1, D2, D3, D4, D5, D6, D8, D13a and D16a — each within its ceiling. In ordinary
+terms: a design may assume the engine can dispatch per identified item, follow a
+recorded connection, follow a corrected target, refuse by name when the thing it
+names is gone, keep one item's outcome from taking another down *under pairing
+dispatch*, be required only in the cases a consumer names, distinguish a supported
+negative from missing support, publish a conclusion rather than an amount, and
+publish that conclusion in the same run as amounts.
+
+**Not** that a telling can be published without changing an amount. That is D16b,
+and it is `read` — the only consumer executed here gates an amount on its telling.
+
+D13b is on this list in the opposite sense: a design may **rely on knowing** that
+the incumbent worksheet fold is not isolated, and must not treat it as though it
+were.
+
+## Owed to A4's second pass, from A5's selections (stages 1 and 3)
+
+Behaviours a selection needs that nothing demonstrates today, though a component or an
+analogue has run. **A component having run is not the behaviour having run**, and these are
+G2's to see rather than A4 pass 1's to have covered:
+
+| Behaviour | Nearest thing that has run | Why that is not it |
+| --- | --- | --- |
+| One corrected circumstance reaching every statement its reference bears on | D8 — a consumer follows the current finding at a `fact_id` after a correction there | D8's test corrects one nominee report and checks the current finding is used. It exercises no shared subject across several statements |
+| A partial reduction of a statement — a reduced figure once a portion is determined | D5 — an adverse answer produces a determined zero on disposable artifacts | A whole-statement zero is not a partial reduction. The arithmetic and the disposition both differ |
+| A revealing consumer recovering an intermediate conclusion's identity **and meaning** at the reader, and stating a default-supported basis (A5 stage 3). Test cases: the nine-credit case; a financing claim identifying the period with no schooling circumstance, where the cited financing claim must not read as grounds for eligible student; and no financing claim at all, where A5 stage 4 attaches the default to the statement and the reader today sees the 1098-E and nothing about eligibility. In all three the conditions left to the filer apply (A0). In the first two the reader must recover, for each of the three conditions separately, its identity, its approved wording, the circumstance it concerns and the treatment it qualifies, distinguishable from ordinary rule citations — which A5 stage 4 found a citation-only representation cannot do on current artifacts. In the third, per the owner's choice (A5 stage 4), the three conditions are shown tied to the statement with school and programme explicitly unknown, in a contextual explanation behind a short default-basis note — never as a question, a required confirmation or a screen-wide warning — with each condition's identity, approved wording and treatment recoverable, and its circumstance shown as unknown rather than recovered | `explain()` over `LiveCoordinatorOutcome.publications` — in memory — returns the intermediate node with symbol, value and rule | Nothing durable holds values; `presentation.json` walks through intermediates and emits raw leaves as citations. An in-memory walk is not a reader, and the carrier is not chosen |
+| One categorical conclusion published **per key of a single subject** — **untestable without production change at P1; built by Track 1 and now `run` for single-hop joins** (see below). — one per student-and-period, one per borrowing (A5 stage 3). The period key is supplied by a financing claim or a statement-grain scope claim; where neither exists, A5 stage 4 keys the conclusion on the **statement**, a third key kind this row now covers. The per-key publication must also **carry the rule's declared citations**, which the existing per-item paths do not do by default — they assemble their own pins without `pins_for`. Under A5 stage 4's provisional responsibility candidate — which this second pass executes and challenges — the same mechanism would also publish one responsibility finding per condition per situation | D6 and D16a — a categorical conclusion published in the same run as amounts; D1 and D13a — per-item publication under pairing dispatch | D6 publishes one conclusion per return. Pairing dispatch publishes one finding per **pairing**, a pair of pinned sides; a conclusion keyed on one subject is not a pairing |
+
+## Second pass — P1 result: per-key publication is untestable without production change
+
+Probe `tests/test_sli_circumstance_association_a4_pass2.py` (10 tests, synthetic `demo.*`
+identities, public entry points only — `marshal_run_context`, `run`,
+`evaluate_pairing_scoped_rule`; no hand-built `Environment`, no production file touched).
+
+| Sub-question | Result | What ran |
+| --- | --- | --- |
+| One conclusion per student-and-period | **untestable-without-production** | Two financing claims, one adverse period: marshal binds one financing input per fact type (the sort-first finding), the rule records **one** `inapplicable` row at rule grain, and the favourable period is withheld with it. With a declared default, one conclusion publishes for both periods together. Pairing dispatch with no pairing finding publishes and blocks nothing |
+| One conclusion per statement | **untestable-without-production** | Two statements: disagreeing amounts leave the symbol unbound and the rule blocks with pins `[]`; agreeing amounts bind only the sort-first statement; collecting both publishes one conclusion pinning both. No per-row publication |
+| Published only when favourable, adverse key recorded | **partial** | `inapplicable` is engine-recorded, but at rule grain; a pairing callback's refusal is recorded as `blocked`, and the pairing result type has no `inapplicable` outcome |
+| Declared citations pinned | **partial** | On the ordinary path, yes (`pins_for`). Pairing dispatch never calls `pins_for` and has no rule argument to read citations from. Ineligible blocks carry pins `[]` |
+| Subject finding pinned | **partial** | A `ref` pins whichever finding marshal kept; a `collect` pins every member; pairing pins both sides and the pairing. None attaches one subject finding to one conclusion per key |
+
+**The missing mechanism, and its cost.** A per-subject dispatch beside
+`evaluate_pairing_scoped_rule`, called from `_Run.attempt`: iterate the collected
+`SourceFact`s of the subject type, evaluate once per subject, publish one finding or record one
+`inapplicable` row per subject, pin `pins_for`'s declared citations and the subject's own
+finding. `derived-finding.v2` already admits the pin roles, so no published-schema change; the
+disposition recording needs a per-subject `inapplicable` row. On the order of the existing
+pairing dispatch.
+
+**Ceilings.** The stub record has no fact lattice (`SourceFact.keys` is `None`); period and
+statement identity live in fact ids only. That is not what decided the result — no published
+symbol carries either. Where the pairing path's symbol names a subject, that is the test's
+callback copying a string, not the engine deriving a key.
+
+**Consequence for the rest of the pass.** P2, P3 and P4 each stand on P1. Against the selected
+shape, none can run until the per-subject dispatch exists. The owed row for per-key publication
+moves from *untested* to **untestable without production change**, with the cost above.
+
+## Track 1 — the per-subject dispatch, built
+
+`packages/derivation/subject_dispatch.py`, invoked through `_Run.evaluate_subject_scoped_rule`;
+tests `tests/derivation/test_subject_dispatch.py` (six). P1's questions now **run** on the
+mechanism itself, with no hand-built environment:
+
+| P1 question | Now |
+| --- | --- |
+| One conclusion per student-and-period, the adverse period `inapplicable`, independent of sort order | `run` — `StudentAndPeriod` (swapping the adverse period swaps the outcomes) |
+| One conclusion per statement, each pinning only its own box-1 finding | `run` — `StatementSubjects` |
+| Declared citations pinned, identical to `pins_for` | `run` — `StatementSubjects` |
+| One subject's block leaves another's publication byte-identical | `run` — `Isolation` |
+| Dispositions validate against `derivation-record.v9` and name their subject | `run` — `DurableRecord`, via the existing `symbol` field; no schema change |
+| A type unrelated to the subject is neither read nor pinned | `run` — `UnrelatedCollectedType`, added on review after a leak was found |
+
+**The join contract, and its limits — bounds on every later probe.**
+
+- Other collected types join to a subject by **agreeing values on shared key names**. That is
+  the whole of the association; there is no declared relation.
+- The join is **single-hop**. A statement reaches a schooling circumstance only through a
+  financing or scope claim, which is two hops — so a statement-level conclusion **cannot** yet
+  read a circumstance connected to it that way. P2 and P3 run into this directly.
+- A type sharing no key names with the subject is **not joined** (repaired on review; the
+  first build made it visible to every subject). Missing keys fail closed.
+
+**Accepted beyond the charter, with the reason recorded.** Where a required type has no joined
+source and the run declares an `optional_default` for it, that subject alone takes the default,
+pinned `origin: declared_default`. The charter did not ask for this, and A5 stage 3 had rejected
+disqualifiers-as-defaults. It is accepted because the evaluator reads "none" from an empty
+collection only over a **closed** source set (`collect` and `count` block with `BLOCK_CLOSURE`
+otherwise), so "no adverse circumstance among the facts present" cannot be computed without a
+completeness claim A3 does not require. A declared default is the engine-consistent form of A0's
+"the favourable value comes from the default" — and it carries the default basis per key, which
+stage 3 concluded could not be marked per key. **Stage 3's selection is to be revisited by A5**
+in light of this once P2–P4 have run; it is not reversed here.
+
+## Second pass — P2 result: correction reaches every borrowing, not yet any statement
+
+Probe classes appended to `tests/test_sli_circumstance_association_a4_pass2.py`, run on Track 1's
+dispatch through real kernel currency (`compute_currency` over a `FindingState` in correction
+order; marshal drops the displaced finding itself).
+
+| Part | Result | What ran |
+| --- | --- | --- |
+| **A** — two borrowings over one schooling situation share one enrolment circumstance; the circumstance is corrected | **`run`** — `CorrectedEnrolmentReachesBothBorrowings` | Run 1: both financing subjects publish, pinning the favourable finding. A later finding for the same fact displaces it (reason `correction`). Run 2: **both** subjects become `inapplicable`, each pinning the corrected finding and neither the displaced one |
+| **B** — the same correction reaching a Form 1098-E statement | **untestable-without-production** — `StatementSubjectDoesNotReachCorrectedEnrolment` | A statement shares no key names with the enrolment or the financing claim; a statement-to-borrowing claim joins it in one hop and still does not carry the enrolment. Both statements block `DEPENDENCY_ABSENT` before and after the correction, pinning neither enrolment finding. A financing conclusion published earlier in the run is appended as a live source with **no keys** (`runner._append_live_source`, deliberately: same-run publications carry no structured identity), so a statement rule requiring it fails closed |
+
+**So `a4-bounds.md`'s first owed row splits.** One corrected circumstance reaching every result
+that depends on it is **`run` at the borrowing grain** and **untestable without production
+change at the statement grain**, which is where the figure is.
+
+**What the statement grain needs.** The path is four records long — statement →
+statement-to-borrowing claim → financing claim → circumstance — and Track 1's joins are single-hop.
+Two ways through, neither built:
+
+- **Keyed publications.** A per-subject publication carries its **subject's** structured keys,
+  taken from the subject `SourceFact` at dispatch time rather than parsed from the symbol — which
+  keeps the runner's refusal to parse rendered ids intact. Chains of single-hop per-subject rules
+  then compose: financing conclusions join a per-link rule on `borrowing`, and link conclusions
+  join a per-statement rule on the statement's keys. Each hop is its own pinned finding. The
+  owner chose this **as a bounded test** (Track 2); its total cost is not yet known. It does not
+  by itself solve one statement covering several borrowings, which the scalar join cannot
+  aggregate — left to P3.
+- **Multi-hop joins.** `_scope` walks a declared path of types in one evaluation. No intermediate
+  findings; a larger change to the join contract.
+
+## Track 2 — keyed same-run sources: statement reach, as a bounded test
+
+A per-subject publication's **temporary same-run source** now carries its subject's structured
+keys, taken from the subject `SourceFact` at dispatch time (`subject_dispatch`,
+`runner._append_live_source`). Nothing is parsed; every other caller still appends with no keys.
+**The derived finding gains no keys, and the durable record gains nothing** — so these are keys on
+a same-run carrier, not keys stored anywhere a later reader could find them. Nothing here
+establishes a durable, reader-visible link; that is P4's to test.
+
+A three-hop chain in one run — status per financing claim, consequence per statement-to-borrowing
+link (joined on `borrowing`), amount per statement (joined on the statement's keys):
+
+| Criterion | Result | Test |
+| --- | --- | --- |
+| Favourable path: each statement publishes its reported amount; its pin walk reaches link, status and the declared default, never an enrolment finding | `run` | `KeyedSameRunStatementChain.test_favourable_path_…` |
+| **Corrected-adverse path:** after a correction through kernel currency, the statement **publishes** a changed amount (1500 → 0), and its pin walk reaches the **corrected** enrolment finding, not the displaced one or the default | `run` | `…test_corrected_adverse_path_publishes_a_changed_amount` |
+| Two statements on one borrowing both follow the correction | `run` | `…test_servicer_transfer_…` |
+| A statement linked to an unaffected borrowing is byte-identical; a link naming a non-existent statement changes no statement | `run` | `…test_statement_linked_to_an_unaffected_borrowing_…`, `…test_link_naming_a_statement_that_does_not_exist_…` |
+| Keys carried on the same-run source, absent from the finding and the record; other callers append none | `run` | `SameRunSourceKeys` in `tests/derivation/test_subject_dispatch.py` |
+
+**So P2 is complete:** a corrected schooling circumstance reaches every borrowing and every
+statement that depends on it, publishes the changed statement-facing amount, and leaves a pin
+chain from the statement to the corrected finding — **in memory, in one run.**
+
+**Observed and left to P3 — one statement covering two borrowings.** The scalar join selects one
+match or blocks:
+
+- When both links agree, the statement publishes but pins **only the link consequence with the
+  lesser finding id** — the other borrowing's contribution is unpinned. A provenance gap, not
+  just an aggregation gap.
+- When they differ (one adverse), the statement blocks `DEPENDENCY_INVALID` naming both links. No
+  amount publishes.
+
+Neither is a partial reduction. Carrying keys does not address it.
+
+**One P2 observation superseded.** P2 recorded that same-run conclusions carried no keys; since
+Track 2 they do. The test now records what still holds: a statement cannot join a financing
+conclusion directly — their key names are disjoint — and reaches it only through the link.
+
+## Second pass — P3 result: partial reduction runs when every link resolves; an unresolved link is silently dropped
+
+No production change. Probe classes in `tests/test_sli_circumstance_association_a4_pass2.py`,
+on Track 1 and Track 2's mechanism, three per-subject rules in one run: status per financing
+claim, **reduction** per statement-to-borrowing link (the portion when the status is adverse,
+0 otherwise), and a statement amount of **box 1 minus the sum of the collected reductions** —
+`collect` in the statement's scope sees exactly the **published** reductions joined to it and
+pins every one of those.
+
+**Defect, found by the owner and reproduced (2026-09-23).** A recorded link whose reduction
+**blocks** publishes nothing, so the statement's collection does not see it. With the
+institutional financing claim removed and both links kept, the institutional reduction blocks
+`DEPENDENCY_ABSENT`, the private reduction keeps the collection non-empty, and North **publishes
+$1,500** — with the unresolved link absent from the amount's dependency chain. A missing derived
+reduction is being read as "no reduction". The earlier claim that every link is pinned was true
+only when every link resolved, and is withdrawn. A statement whose **only** recorded link is
+unresolved blocks, but on the unclosed empty collection — the right disposition for the wrong
+reason, and one a no-link default would wrongly turn into a published figure.
+
+| Case | Result | Test |
+| --- | --- | --- |
+| Portions exhaust box 1 (1000 + 500 on 1500) | `run` — 1500, then **500** after the correction; pin walk reaches both reductions and the corrected enrolment, not the displaced one | `ReductionShapedRules.test_exhausting_portions` |
+| **Undershoot** (1000 + 300 on 1500) | `run` — **500**: the unassigned 200 stays in the figure (A3's remainder) | `…test_undershoot` |
+| Route (c), portion unknown, borrowing adverse | `run` — the statement **blocks** `DEPENDENCY_INVALID`; no figure, and distinct from a known portion reduced | `…test_route_c_unknown_portion_adverse` |
+| Route (c), portion unknown, nothing adverse | `run` — **1500** publishes; the unknown portion is never needed | `…test_route_c_unknown_portion_not_adverse` |
+| An unaffected statement | `run` — byte-identical before and after | `CollectedPortionReduction.test_unaffected_statement_is_byte_identical` |
+| **One of two recorded links unresolved** | **defect** — publishes 1500; the blocked reduction is not pinned. Required: the statement blocks, naming the unresolved link | `ObservedUnresolvedLinkDefect.test_one_of_two_links_unresolved` |
+| **The only recorded link unresolved** | blocks `SOURCE_SET_UNCLOSED` — for the wrong reason. Required: block because a recorded link is unresolved, never a no-link default | `ObservedUnresolvedLinkDefect.test_only_recorded_link_unresolved` — and a statement with **no** link blocks identically, so the two are indistinguishable today |
+| **A statement with no joined link** — case 2, the ordinary return | **blocks** `SOURCE_SET_UNCLOSED`; no figure | `…test_no_joined_link` |
+
+**The rule's shape decided two of these.** P3's first shape summed the *surviving* portions: it
+dropped an unassigned remainder, and an unknown portion on an adverse borrowing published as a
+known zero (`CollectedPortionReduction`, `MembershipWithoutPortion`). Subtracting *reductions*
+fixes both, because a reduction must be computed exactly when it is needed. Recorded so a later
+rule does not reintroduce the first shape.
+
+**What remains, and it is the same wall Track 1 met.** The evaluator reads "none" from an empty
+collection only over a closed source set. A statement nobody connected to any borrowing has no
+link reductions, so its collection is empty and the figure blocks — while stage 4 and A3 say it
+proceeds on the default. No honest closure is available: an absent link does not mean the
+statement covers no borrowing, only that nothing was described. Track 1 met this for required
+inputs and answered it with a per-subject declared default; nothing yet does the same for a
+collected name.
+
+**Ceilings.** Currency is `compute_currency` over a `FindingState` in correction order, not an
+act-log fold. The probe rules are **not** validated against `rule-artifact.v6`, which requires a
+`source_set` on every `collect` — a production rule must name one. A non-empty collection does
+not consult closure, so that does not change the non-empty results. **Every result above holds
+only when every recorded link's reduction resolves**: `collect` sees published reductions, not
+recorded links, so it cannot tell a link that resolved to no reduction from one that failed to
+resolve. The multi-link statement pins every *published* reduction under this shape, which closes
+Track 2's provenance gap only in that case.
+
+**The three outcomes the owner requires of a statement:** no link recorded → the reported amount
+on a declared default, a calculation posture and not a completeness claim; every recorded link
+resolved → box 1 minus the calculated reductions; any recorded link unresolved → that statement
+blocks, without suppressing unrelated statements. A missing derived reduction is never "no
+reduction", and an undeclared empty collection still blocks.
+
+## P3 repair — what distinguishing "no link" from "unresolved link" costs
+
+Investigated before any Track 3 implementation, as the owner required; observations in
+`ObservedMechanismLimits` in the probe module. **Both a dependency mechanism and a schema decision
+are needed.**
+
+- **A blocked or inapplicable per-subject outcome is invisible to later rules.** It goes to the
+  run's `blocked` and `dispositions` only — not to live sources, symbols or pins
+  (`runner._Run.evaluate_subject_scoped_rule`). What a later statement rule *can* see is the pair
+  that distinguishes the cases: the **raw link findings** joined to it (kernel findings, always
+  present when recorded) and the **published reductions** joined to it, each carrying the link's
+  fact id since Track 2.
+- **No content can compare them today.** `count` needs a **closed** `source_set` even when rows
+  exist (`ObservedMechanismLimits.test_count_blocks_unless_the_source_set_is_closed`), and closing
+  one is the completeness claim the owner ruled out; `collect` returns values with no identities;
+  `block` records `missing == []` and cannot name the link; `requires` binds one source.
+- **A default on the empty reduction collection is the wrong shape.** The one-of-two case is not
+  empty, so the default never runs and North still publishes 1500; the only-unresolved-link case is
+  empty, so the default would publish the no-link figure — the outcome the owner forbade.
+- **The production contract.** `rule-artifact.v9` is the newest rule schema, and `marshal` admits
+  v3–v9. `collect` and `count` there allow `op`, `name` and `source_set` only. A `source_set` names a
+  source family; admitting it is a completeness claim (`closure_claim` plus a literal-true closure
+  finding on the current horizon, `source_authority.resolve_closure_admissions`), and
+  `audit_collect_authority` restricts a collecting rule to the family's authorized symbol. v9's
+  `selection` and `aggregation` fields bind only for two named rules. **There is no content home
+  for this today.**
+
+**Smallest mechanism that gives the owner's three outcomes:** a **coverage-checked collection** —
+for one subject, compare the joined raw links with the joined published reductions by link fact
+id: no raw link → the declared calculation default; every link covered by a numeric reduction →
+box 1 minus their sum; any link uncovered → that statement blocks, `missing` naming the uncovered
+link ids. Other subjects untouched. **To declare it in content** it needs a successor rule schema
+(a `rule-artifact.v10` operation or field, with marshal and runner admission) and a branch in the
+evaluator or per-subject dispatch. Hard-coding the check in the dispatch for one rule would avoid
+the schema but put the policy in calling code, which the owner ruled out.
+
+## Track 3 — the coverage-checked collection, built: P3's three outcomes now run
+
+ADR 0075 (**proposed**); `rule-artifact.v10` `link_coverage`; `artifact-package.v31`; package
+validation confining the two names; the evaluator arm in a new defaulted slot (no existing arm
+changed); per-subject installation of both names with a keys-unavailable sentinel; the authorization
+closure walking v10. Tests: `tests/derivation/test_link_coverage_contract.py`,
+`tests/derivation/test_link_coverage_runtime.py`, and the flipped and new classes in the probe module.
+
+| Owner's required outcome | Now |
+| --- | --- |
+| No recorded link → the declared calculation default, pinning the parameter and box 1 only | `run` |
+| Every current link covered by its own numeric reduction → box 1 minus the sum, pinning every covered link and reduction, not the parameter | `run` |
+| Any uncovered link — absent, **blocked** or **inapplicable** reduction → the statement blocks `DEPENDENCY_INVALID`, `missing` naming the link's finding id; never 1500, never the default | `run` — `UnresolvedLinkBlocksTheStatement` (the two defect tests, flipped), `…test_inapplicable_reduction_blocks_naming_the_link` |
+| Correction → matched through the successor link | `run` |
+| Withdrawal → the default; a reduction still joined in-run blocks naming it | `run` |
+| Unrelated statements byte-identical; missing keys block, never the default; an undeclared empty collection still blocks; a coverage rule outside per-subject dispatch fails closed | `run` |
+| A v10 package's coverage rule, reduction rule, link type and parameter are inside the authorization closure | `run` |
+
+**So P3 is complete, and the defect the owner found is fixed.** A missing derived reduction is never
+read as no reduction.
+
+**Evidence boundary, unchanged in kind.** The coverage and reduction rules now pass
+`validate_package` in every scenario, but every run is still **hand-assembled** (marshal, then
+dispatch), and the status rule is the earlier v6 probe outside that package. **Open:** whether an
+uncovered link needs its own record code (P4 decides from the reader), and how a production run
+schedules per-subject rules (G2). Nothing here shows what the durable reader sees.
+
+## Second pass — P4 result: what the durable reader actually sees
+
+Hand-driven runs passed through the **real** durable writers: `closing_record(..., use_v2=True)`
+validated against `derivation-record.v9`, the `out.json` object `live_coordinate_run` builds, and
+`build_presentation_model` with one synthetic `form-field.v3`. Tests: the `DurableReader…` classes in
+the probe module. Production does not schedule these rules; only the writers are real.
+
+| Question | Record and `out.json` | Presentation (what the citation-walk page reads) |
+| --- | --- | --- |
+| A statement blocked by an uncovered link, and which link | **Recoverable by identity:** `DEPENDENCY_INVALID`, `missing` the link's finding id, the link pinned; the reduction row for that link joins to it | **Code only.** `activeCodes: [DEPENDENCY_INVALID]`; the link is **not reached**; `missing` is not carried |
+| Uncovered vs orphan vs duplicate vs non-numeric | **Distinguishable without a new code** — by `missing` and the pins, joined across rows (a non-numeric value itself is not in the record) | **Indistinguishable** — the four render byte-identically. A distinct record code would appear in `activeCodes` and be the only distinction; it would still not name the link |
+| The no-link default | **Identity only** — the parameter pin on the disposition; no value | The citation walk cites **box 1 only**; the parameter appears only as an id inside the embedded act |
+| The chain from amount to each covered link and to the corrected enrolment | **Identity only, as a join across rows**; no values | **Fails on the two-link run** (a defect, below). On a narrower chain it flattens: the corrected enrolment becomes a citation site of the amount; the reductions and the status are not emitted — stage 3's paper prediction, now executed |
+| The named conclusion; one disposable responsibility rule | **Identity only**, each as its own row; values absent | **Not reached** |
+
+**Defect, found by P4 — a pin to a finding that does not exist.** Per-subject dispatch's declared
+default (`subject_dispatch._optional_default`) pins a content-addressed default finding id but never
+publishes that finding. When the run-level default is not published — because the symbol is bound
+elsewhere in the run — the pin dangles, and `build_presentation_model` refuses the run
+(`citation lineage references unrecorded finding`). Provenance integrity requires every pinned
+finding to be recorded. **Repaired (2026-09-24):** per-subject dispatch returns each default finding it
+pins, once per content id, and the runner records it in the same shape the init path uses, with no
+disposition row; the two-link presentation now builds (`test_subject_dispatch.py`, the flipped
+`DurableReaderCoveredReduction` test).
+
+**Integration gap.** Per-subject publications carry keyed symbols (`publishes|fact_id`); the projector
+joins a form field to its owning rule by the rule's unkeyed `publishes`, so a per-subject result cannot
+be presented without a synthetic member. Part of the reader carrier A6 must design.
+
+**What P4 settles.** The record-code question: the durable record already distinguishes the four
+failure shapes by `missing` and pins, so **no `derivation-record.v10` is warranted on this evidence**;
+the presentation cannot distinguish them, but a code alone would not name the link either — the reader
+needs a carrier, not a code. And the reader question: **nothing the design depends on reaches the
+presentation today** beyond box 1 and an error code. The owed reader behaviour stays owed, and the
+carrier is A6's to design.
+
+## Track 4 — reusable link admission (ADR 0075, option B) and the unjoinable block
+
+The link type is admitted through an **emission-only** name set in marshal: emitted as sources, never
+consulted by the input-binding branch or the legacy fallback, and its findings never marked used. So no
+other symbol's scalar binding changes, a `ref` of the link type binds a run-wide scalar through the
+fallback when values agree (as before registration), and a sibling may name the link type anywhere —
+`LINK_COVERAGE_NAME_REUSED` and name confinement are gone. A sibling `collect` returns decimals, not key
+maps. The reduction name is registered nowhere. **Present** link rows sharing no key name with the
+subject now block `link-coverage-unjoinable` instead of taking the default; zero-row joinability stays
+G2's. Tests: `tests/derivation/test_link_coverage_admission.py` and the re-cut contract tests.
+Independent review: no defects.
+
+## What A5 may not rely on without new execution
+
+D7, D9, D10, D11, D12, D14 and D16b. In particular, a shape that depends on **an
+expression branching per member** (D7), on **telling resolvable from supported**
+(D9), on **holding the unresolved interval as a state** (D10), or on **the second
+adverse reading being expressible** (D12) is unbounded today, and G2 will refuse a
+charter that rests on any of them until they run.
+
+Note what is no longer on this list. Three capabilities were on it in the first
+version of this document and are not gaps: publishing a categorical conclusion,
+following a corrected target, and per-item isolation under pairing dispatch. Each
+already executes. Declaring them missing would have forbidden A5 the one isolation
+mechanism the engine actually has.
+
+D15 is not on either list: it has no consumer, so there is nothing yet to rely on
+or to be refused.

@@ -32,7 +32,10 @@ from packages.derivation.evaluator import (
     AccessLog,
     Environment,
     EvalBlocked,
+    categorical_domain_key,
     evaluate,
+    parameter_exact,
+    parameter_unversioned,
 )
 from packages.kernel.act_log import ActLog
 from packages.derivation.derived_enumeration import (
@@ -134,6 +137,10 @@ class RunContext:
     # paths); the association path then treats every candidate as out of
     # scope, the same honest zero-candidate behavior as any other case.
     reporting_year: int | None = None
+    # Parameter id -> version -> citizen. Empty unless marshalling supplied
+    # the exact index. The ``parameters`` dict holds only parameter citizens,
+    # and only for an id that has a single version.
+    parameter_index: dict[str, dict[str, dict[str, Any]]] = field(default_factory=dict)
 
 
 @dataclass(frozen=True)
@@ -255,18 +262,34 @@ class _Run:
             rule.get("schema") in {
                 "rule-artifact.v2", "rule-artifact.v3", "rule-artifact.v4",
                 "rule-artifact.v5", "rule-artifact.v6", "rule-artifact.v7",
-                "rule-artifact.v8", "rule-artifact.v9",
+                "rule-artifact.v8", "rule-artifact.v9", "rule-artifact.v10",
+                "rule-artifact.v11",
             }
             for rule in ctx.rules
         ) or _uses_attachment_machinery(ctx.rules)
         self.symbol_fact_types: dict[str, str] = {}
+        self.symbol_fact_versions: dict[str, str] = {}
         self.categorical_domains: dict[str, list[str]] = {}
 
-        fact_types_by_id = {ft["id"]: ft for ft in ctx.fact_types}
+        # Track 5c Round 2 (Defect 4, same class as Defect 2): keyed by the
+        # exact (id, version) a binding pins, never by id alone. An id-only
+        # map (last declaration wins) let a binding pinning a version with
+        # no `optional_default` declared publish another version's default
+        # anyway, whenever that other version happened to be built last.
+        fact_types_by_key: dict[tuple[str, str], dict[str, Any]] = {
+            (ft["id"], ft.get("version", "v1")): ft for ft in ctx.fact_types
+        }
+        enums_by_id: dict[str, list[tuple[str, list[str]]]] = {}
         for ft in ctx.fact_types:
             val_schema = ft.get("value_schema", {})
             if isinstance(val_schema, dict) and "enum" in val_schema:
-                self.categorical_domains[ft["id"]] = val_schema["enum"]
+                version = str(ft.get("version", "v1"))
+                enum = val_schema["enum"]
+                self.categorical_domains[categorical_domain_key(ft["id"], version)] = enum
+                enums_by_id.setdefault(ft["id"], []).append((version, enum))
+        for fact_id, entries in enums_by_id.items():
+            if len(entries) == 1:
+                self.categorical_domains[fact_id] = entries[0][1]
 
         self.symbols: dict[str, Any] = {}
         # symbol -> (finding_id, version, pin-role, provenance)
@@ -275,11 +298,17 @@ class _Run:
         for i in ctx.inputs:
             self.symbols[i.symbol] = i.value
             fact_type_id = i.symbol
+            fact_type_version: str | None = None
             for binding in ctx.input_bindings:
                 if binding["symbol"] == i.symbol:
                     fact_type_id = binding["fact_type"]["id"]
+                    raw_version = binding["fact_type"].get("version")
+                    if isinstance(raw_version, str):
+                        fact_type_version = raw_version
                     break
             self.symbol_fact_types[i.symbol] = fact_type_id
+            if fact_type_version is not None:
+                self.symbol_fact_versions[i.symbol] = fact_type_version
             provenance = "assertion" if self.use_v2 else None
             self.symbol_pin[i.symbol] = (i.finding_id, "v1", i.role, provenance)
 
@@ -297,13 +326,18 @@ class _Run:
                     continue
                 if binding["mode"] == "optional_default":
                     fact_type_id = binding["fact_type"]["id"]
+                    fact_type_version = binding["fact_type"].get("version", "v1")
                     self.symbol_fact_types[symbol] = fact_type_id
-                    ft_def: dict[str, Any] | None = fact_types_by_id.get(fact_type_id)
+                    self.symbol_fact_versions[symbol] = fact_type_version
+                    ft_def: dict[str, Any] | None = fact_types_by_key.get((fact_type_id, fact_type_version))
                     if ft_def is not None and "optional_default" in ft_def:
                         opt_def = ft_def["optional_default"]
                         param_id = opt_def["parameter"]["id"]
                         param_version = opt_def["parameter"]["version"]
-                        param_val = ctx.parameters.get(param_id, {}).get("values")
+                        param = parameter_exact(
+                            ctx.parameters, param_id, param_version, ctx.parameter_index,
+                        )
+                        param_val = None if param is None else param.get("values")
                         if param_val is not None:
                             pins = [self.ctx.adoption_pin] + self.ctx.governance_pins
                             pins.append({
@@ -368,6 +402,8 @@ class _Run:
             symbol_fact_types=self.symbol_fact_types,
             categorical_domains=self.categorical_domains,
             authorization=self.ctx.authorization,
+            symbol_fact_versions=self.symbol_fact_versions,
+            parameter_index=self.ctx.parameter_index,
         )
 
     def dependency_pins_for_access(self, access: AccessLog) -> list[dict[str, Any]]:
@@ -455,8 +491,15 @@ class _Run:
                             f"no same-statement {companion_type} source to pin "
                             f"(ADR-0010 displacement edge required)"
                         )
-        for pid in access.parameters | access.tables:
-            pins.append({"role": "parameter", "id": pid, "version": self.ctx.parameters[pid]["version"]})
+        recorded = set(access.parameter_versions)
+        for pid, version in sorted(recorded):
+            pins.append({"role": "parameter", "id": pid, "version": version})
+        named = {pid for pid, _version in recorded}
+        for pid in (access.parameters | access.tables) - named:
+            citizen = parameter_unversioned(self.ctx.parameters, pid, self.ctx.parameter_index)
+            if citizen is None or "version" not in citizen:
+                continue
+            pins.append({"role": "parameter", "id": pid, "version": citizen["version"]})
         # A closure-backed zero pins the exact adopted mapping and
         # declaration versions plus the exact current closure finding it
         # stood on; the horizon identity travels in that finding's fact key
@@ -580,7 +623,50 @@ class _Run:
             )
         if is_line2b_nominee_successor(rule):
             return all(req in self.symbols for req in line2b_effective_requires(self, rule))
+        if isinstance(rule.get("subject"), dict):
+            return self._subject_scheduling_eligible(rule)
         return all(req in self.symbols for req in self._requires(rule))
+
+    def _subject_scheduling_predecessor_names(self, rule: dict[str, Any]) -> list[str]:
+        """ADR 0076 Part 1: names a declared-subject rule's eligibility waits on.
+
+        Every ``requires`` entry, plus this rule's own ``link_coverage.
+        reductions`` field when it declares one -- load-bearing for the
+        coverage operator (ADR 0075) but deliberately not a ``requires``
+        entry (ADR 0075's chain: "the reductions edge is load-bearing and is
+        not a `requires` entry").
+        """
+        from packages.derivation.package_validation import _iter_link_coverage_nodes
+
+        names = list(rule.get("requires", []))
+        for node in _iter_link_coverage_nodes(rule.get("value")):
+            reductions_name = node.get("reductions")
+            if (
+                isinstance(reductions_name, str)
+                and reductions_name
+                and reductions_name not in names
+            ):
+                names.append(reductions_name)
+        return names
+
+    def _subject_scheduling_eligible(self, rule: dict[str, Any]) -> bool:
+        """ADR 0076 Part 1: wait until every predecessor rule has resolved,
+        not until an unsuffixed symbol appears in ``self.symbols``.
+
+        A predecessor's keyed publication (``publishes|fact_id``) never
+        populates the unsuffixed name, so the ordinary ``requires``-against-
+        ``self.symbols`` test can never see it. If no rule in this run
+        publishes a given name, do not wait on it (the same posture
+        ``consequence_eligibility`` takes when its named predecessor is
+        absent from the package) -- traced as the don't-wait branch.
+        """
+        for name in self._subject_scheduling_predecessor_names(rule):
+            producer_ids = [r["id"] for r in self.ctx.rules if r.get("publishes") == name]
+            if not producer_ids:
+                continue
+            if not all(pid in self.resolved for pid in producer_ids):
+                return False
+        return True
 
     def _attempt_declared_line2b_selection(self, rule: dict[str, Any]) -> str:
         """Evaluate exactly the selected v9 path expression."""
@@ -755,6 +841,9 @@ class _Run:
         pairing_outcome = self._try_pairing_scoped(rule)
         if pairing_outcome is not None:
             return pairing_outcome
+
+        if isinstance(rule.get("subject"), dict):
+            return self._attempt_subject_scoped(rule)
 
         if rule_id.endswith(".member-validation.synthesized"):
             return self._evaluate_family_validation(rule, access)
@@ -959,6 +1048,24 @@ class _Run:
         self.symbol_pin[symbol] = (finding["id"], schema_ver, "input", provenance if self.use_v2 else None)
         self.resolved.add(rule_id)
         return "published"
+
+    def _attempt_subject_scoped(self, rule: dict[str, Any]) -> str:
+        """ADR 0076 Part 1: dispatch a declared-subject rule once per subject,
+        instead of the single run-wide evaluation ordinary rules take.
+
+        ``evaluate_subject_scoped_rule`` (below) does the recording -- one
+        published finding, one inapplicable row, or one blocked row per
+        subject -- and adds the rule id to ``resolved`` itself. The return
+        value here only reports this attempt's outcome to a caller in the
+        same shape ordinary ``attempt`` uses.
+        """
+        subject_type = rule["subject"]["id"]
+        result = self.evaluate_subject_scoped_rule(subject_type=subject_type, rule=rule)
+        if result.publications:
+            return "published"
+        if result.blocked:
+            return "blocked"
+        return "inapplicable"
 
     def _symbol_pin_entry(self, symbol: str) -> dict[str, Any]:
         fid, ver, role, provenance = self.symbol_pin[symbol]
@@ -1354,7 +1461,12 @@ class _Run:
             self._attachment_block(rule_id, BLOCK_ABSENT, missing_subtotals, governance_pins)
             return False, [], [], "blocked"
         threshold_pin = requirement["threshold_parameter"]
-        threshold_param = self.ctx.parameters.get(threshold_pin["id"])
+        threshold_param = parameter_exact(
+            self.ctx.parameters,
+            str(threshold_pin["id"]),
+            str(threshold_pin["version"]),
+            getattr(self.ctx, "parameter_index", None),
+        )
         if threshold_param is None:
             self._attachment_block(rule_id, BLOCK_ABSENT, [threshold_pin["id"]], governance_pins)
             return False, [], [], "blocked"
@@ -1881,6 +1993,91 @@ class _Run:
         self.resolved.add(rule_id)
         return result
 
+    def evaluate_subject_scoped_rule(
+        self,
+        *,
+        subject_type: str,
+        rule: dict[str, Any],
+    ) -> Any:
+        """Evaluate one declared rule once per collected subject.
+
+        Calling code invokes this. Nothing in the rule content selects it.
+        Each subject records one published finding, one inapplicable row, or
+        one blocked row, and one subject's outcome does not bind another
+        subject's findings.
+
+        A published finding is also appended as a temporary same-run source
+        carrying that subject's structured keys, taken from the subject
+        ``SourceFact`` at dispatch time. The finding itself gains no keys.
+        """
+        from packages.derivation.subject_dispatch import (
+            evaluate_subject_scoped_rule as dispatch,
+        )
+
+        result = dispatch(
+            sources=self.live_sources,
+            subject_type=subject_type,
+            rule=rule,
+            run=self,
+        )
+        # Init records this finding only when the symbol is unbound. A
+        # subject can still pin it. One derived-finding.v2 per content id,
+        # validated, and no disposition row — the same shape init uses.
+        recorded = {pub.finding.get("id") for pub in self.publications}
+        for finding in result.declared_defaults:
+            finding_id = finding["id"]
+            if finding_id in recorded:
+                continue
+            self.schemas.validate_declared(finding)
+            act = {"run_id": self.ctx.run_id, "finding": finding}
+            self.publications.append(Publication(act=act, finding=finding))
+            recorded.add(finding_id)
+        rule_id = str(rule["id"])
+        for finding, subject_keys in zip(
+            result.publications, result.publication_subject_keys, strict=True
+        ):
+            self._record_derived_publication(finding, rule_id=rule_id)
+            self._append_live_source_from_finding(finding, keys=subject_keys)
+        for inapplicable_outcome in result.inapplicable:
+            ledger_pins = [
+                pin for pin in inapplicable_outcome.pins
+                if pin["role"] not in _LEDGER_EXCLUDED_PIN_ROLES
+            ]
+            inapplicable_row: dict[str, Any] = {
+                "artifact_id": rule_id,
+                "disposition": "inapplicable",
+                "guard_result": False,
+                "pins": ledger_pins,
+            }
+            if self.use_v2:
+                inapplicable_row["symbol"] = inapplicable_outcome.symbol
+            self.dispositions.append(inapplicable_row)
+        for blocked_outcome in result.blocked:
+            self.blocked.append({
+                "artifact_id": rule_id,
+                "code": blocked_outcome.code,
+                "missing": list(blocked_outcome.missing),
+                "subject_fact_id": blocked_outcome.subject_fact_id,
+            })
+            ledger_pins = [
+                pin for pin in blocked_outcome.pins
+                if pin["role"] not in _LEDGER_EXCLUDED_PIN_ROLES
+            ]
+            blocked_row: dict[str, Any] = {
+                "artifact_id": rule_id,
+                "disposition": "blocked",
+                "pins": ledger_pins,
+            }
+            if self.use_v2:
+                blocked_row["code"] = (
+                    blocked_outcome.code if blocked_outcome.code in RECORD_CODES else "DEPENDENCY_INVALID"
+                )
+                blocked_row["missing"] = list(blocked_outcome.missing)
+                blocked_row["symbol"] = blocked_outcome.symbol
+            self.dispositions.append(blocked_row)
+        self.resolved.add(rule_id)
+        return result
+
     def _try_pairing_scoped(self, rule: dict[str, Any]) -> str | None:
         """Dispatch a pairing-scoped adopted rule, or ``None`` if not one.
 
@@ -1910,24 +2107,40 @@ class _Run:
         return str(value)
 
     def _append_live_source(
-        self, *, name: str, value: Any, finding_id: str, fact_id: str | None
+        self,
+        *,
+        name: str,
+        value: Any,
+        finding_id: str,
+        fact_id: str | None,
+        keys: tuple[tuple[str, str], ...] | None = None,
     ) -> None:
-        # Same-run publications carry no structured identity: a derived
-        # finding's `symbol` is a rendered prefix|suffix string, not kernel
-        # lattice bindings, so there is nothing lossless to propagate here.
-        # `keys` is therefore left unset, and any consumer that needs identity
-        # components must REFUSE such a source rather than parse the suffix --
-        # see packages/tax/nominee_consequences._validated_keys, which raises
-        # NomineeIdentityError instead of silently dropping it.
+        # Keys are supplied by the caller or omitted. The rendered symbol is
+        # not parsed for them. Per-subject dispatch passes the subject
+        # SourceFact's structured keys onto this temporary source only.
+        # Every other caller leaves them unset, and a consumer that needs
+        # identity from an unkeyed source must refuse it rather than parse
+        # the suffix (packages/tax/nominee_consequences._validated_keys).
         encoded = self._encode_source_value(value)
         self.live_sources.append(
-            SourceFact(name=name, value=encoded, finding_id=finding_id, fact_id=fact_id)
+            SourceFact(
+                name=name,
+                value=encoded,
+                finding_id=finding_id,
+                fact_id=fact_id,
+                keys=keys,
+            )
         )
         self.sources.setdefault(name, []).append(encoded)
         self.source_fids.setdefault(name, []).append(finding_id)
         self.source_fact_ids.setdefault(name, []).append(fact_id or finding_id)
 
-    def _append_live_source_from_finding(self, finding: dict[str, Any]) -> None:
+    def _append_live_source_from_finding(
+        self,
+        finding: dict[str, Any],
+        *,
+        keys: tuple[tuple[str, str], ...] | None = None,
+    ) -> None:
         symbol = finding["symbol"]
         prefix, separator, suffix = symbol.partition("|")
         source_name = prefix
@@ -1937,6 +2150,7 @@ class _Run:
             value=finding["value"],
             finding_id=finding["id"],
             fact_id=source_fact_id or finding["id"],
+            keys=keys,
         )
 
     def _record_derived_publication(
@@ -2045,6 +2259,15 @@ class _Run:
         """Rules that never became eligible saturate blocked on their gap."""
         for rule in self.ctx.rules:
             if rule["id"] in self.resolved:
+                continue
+
+            if isinstance(rule.get("subject"), dict):
+                # A rule the loop never found eligible is otherwise
+                # evaluated once, unsuffixed, below. ADR 0076 Part 1: the
+                # same per-subject call takes this path too.
+                self.evaluate_subject_scoped_rule(
+                    subject_type=rule["subject"]["id"], rule=rule
+                )
                 continue
 
             if rule.get("schema") in ATTACHMENT_SCHEMAS:
@@ -2302,7 +2525,8 @@ def run_and_record(
         rule.get("schema") in {
             "rule-artifact.v2", "rule-artifact.v3", "rule-artifact.v4",
             "rule-artifact.v5", "rule-artifact.v6", "rule-artifact.v7",
-            "rule-artifact.v8", "rule-artifact.v9",
+            "rule-artifact.v8", "rule-artifact.v9", "rule-artifact.v10",
+            "rule-artifact.v11",
         }
         for rule in ctx.rules
     ) or _uses_attachment_machinery(ctx.rules)

@@ -13,7 +13,7 @@ from __future__ import annotations
 
 import json
 from dataclasses import dataclass, field
-from typing import TYPE_CHECKING, Any, Iterable
+from typing import TYPE_CHECKING, Any, Iterable, Mapping
 
 from packages.derivation.source_authority import (
     ClosureFindingRecord,
@@ -107,7 +107,12 @@ def _rule_required_symbols(rule: dict[str, Any]) -> list[str]:
     # v7 is v6 plus an optional `field` selector on `ref_expr` (ADR-0067).
     # Both carry the same declared-refs-outside-requires capability as
     # v3/v4/v5.
-    if rule.get("schema") in {"rule-artifact.v3", "rule-artifact.v4", "rule-artifact.v5", "rule-artifact.v6", "rule-artifact.v7", "rule-artifact.v8", "rule-artifact.v9"}:
+    # v10 is the guarded clause plus link_coverage. Its refs are the same
+    # declared-refs-outside-requires walk; the node's own fields are not refs.
+    # v11 is v10's grammar plus subject/joined/direction (ADR 0076 Parts 1
+    # and 2's admission-only successor); those fields are exact pins and an
+    # enum, not `ref` expressions, so the same walk applies unchanged.
+    if rule.get("schema") in {"rule-artifact.v3", "rule-artifact.v4", "rule-artifact.v5", "rule-artifact.v6", "rule-artifact.v7", "rule-artifact.v8", "rule-artifact.v9", "rule-artifact.v10", "rule-artifact.v11"}:
         symbols.extend(_iter_ref_names(rule.get("when")))
         symbols.extend(_iter_ref_names(rule.get("value")))
         selection = rule.get("selection")
@@ -239,9 +244,11 @@ def marshal_run_context(
     fact_types: list[dict[str, Any]] | None = None,
     input_bindings: list[dict[str, Any]] | None = None,
     collect_source_names: list[str] | None = None,
+    emission_only_source_names: list[str] | None = None,
     companion_presence_pairs: dict[str, str | list[str]] | None = None,
     authorization: Any | None = None,
     reporting_year: int | None = None,
+    parameter_index: Mapping[str, Mapping[str, Mapping[str, Any]]] | None = None,
 ) -> RunContext:
     """Build a RunContext from current record state only (ADR-0032 MUST).
 
@@ -259,6 +266,15 @@ def marshal_run_context(
     families = list(family_declarations or [])
     ftypes = list(fact_types or [])
     collect_names = set(collect_source_names or [])
+    # Emission-only names are sources. They are not collect names: the
+    # input-binding loop and the legacy fallback below consult
+    # ``collect_names`` only. A finding emitted solely for an emission-only
+    # name is not marked used. The fallback skips a used id before that
+    # collect-name test, so marking it would drop the run-wide scalar the
+    # fallback still binds when current values agree. A name that is also
+    # a collect name keeps today's used-id exclusion.
+    emission_only = set(emission_only_source_names or [])
+    emission_names = collect_names | emission_only
 
     current_findings = [
         state.findings[fid]
@@ -328,7 +344,7 @@ def marshal_run_context(
     _fact_state = getattr(state, "fact_state", None)
     _lattice = kernel_facts.facts_of(_fact_state) if _fact_state is not None else {}
     sources: list[SourceFact] = []
-    for name in sorted(collect_names):
+    for name in sorted(emission_names):
         for finding in current_findings:
             # Collectable sources match by fact type id prefix or exact type.
             fact_id = finding["fact_id"]
@@ -350,7 +366,8 @@ def marshal_run_context(
                         keys=lattice_fact.keys if lattice_fact is not None else None,
                     )
                 )
-                used_finding_ids.add(finding["id"])
+                if name in collect_names:
+                    used_finding_ids.add(finding["id"])
 
     # Also marshal unbound current findings whose fact type equals a rule
     # input symbol (legacy demo path: symbol == fact type id).
@@ -430,6 +447,15 @@ def marshal_run_context(
         companion_presence_pairs=dict(companion_presence_pairs or {}),
         authorization=authorization,
         reporting_year=reporting_year,
+        parameter_index={
+            str(param_id): {
+                str(version): dict(citizen)
+                for version, citizen in versions.items()
+                if isinstance(citizen, Mapping)
+            }
+            for param_id, versions in (parameter_index or {}).items()
+            if isinstance(versions, Mapping)
+        },
     )
 
 
@@ -448,9 +474,11 @@ def marshal_live_run_context(
     fact_types: list[dict[str, Any]] | None = None,
     input_bindings: list[dict[str, Any]] | None = None,
     collect_source_names: list[str] | None = None,
+    emission_only_source_names: list[str] | None = None,
     companion_presence_pairs: dict[str, str | list[str]] | None = None,
     authorization: Any | None = None,
     reporting_year: int | None = None,
+    parameter_index: Mapping[str, Mapping[str, Mapping[str, Any]]] | None = None,
 ) -> MarshalledRunContext:
     """Create the opaque marshalling result accepted by the production executor."""
     return MarshalledRunContext(
@@ -468,9 +496,11 @@ def marshal_live_run_context(
             fact_types=fact_types,
             input_bindings=input_bindings,
             collect_source_names=collect_source_names,
+            emission_only_source_names=emission_only_source_names,
             companion_presence_pairs=companion_presence_pairs,
             authorization=authorization,
             reporting_year=reporting_year,
+            parameter_index=parameter_index,
         ),
         _MARSHAL_SEAL,
     )
