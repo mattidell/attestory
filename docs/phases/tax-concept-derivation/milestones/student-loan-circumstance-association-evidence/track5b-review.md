@@ -21,3 +21,9 @@
   is discarded by every caller.
 - **Verification (reviewer's run):** full suite 2263 passed, 20 skipped; mypy clean (280 files); governance
   lint conformant; `git diff --check` clean.
+
+- **Later finding (owner's independent review at `6ca54a8d`):** both reviews above checked the dispatcher with
+  test-supplied sources and fact types. The live path was not exercised, and three defects were reproduced
+  there (declarations not reaching marshalling; runtime ignoring the pinned fact-type version; a run-wide
+  scalar bypassing a declared relationship). "Pass" above means the dispatcher, not the capability. Repaired
+  in Track 5c.

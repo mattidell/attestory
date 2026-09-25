@@ -5,8 +5,8 @@
   "topic": "student-loan-circumstance-association",
   "active_plan": "docs/phases/tax-concept-derivation/milestones/student-loan-circumstance-association.md",
   "milestone_state": "track-4",
-  "status": "TRACK 5 (ADR 0076 PARTS 1-2) COMPLETE; READER CONTRACT REPAIRED, AWAITING OWNER ACCEPTANCE. ADR 0075 accepted. ADR 0076 Parts 1 and 2 accepted 2026-09-24; Part 3 open. Owner: no joined statement-wide claim is the default case (calculation posture); amount follows the supported tax consequence (A in principle), with whole-amount disqualification, known-not-to-trigger and unresolved effect kept distinct. Reader contract: experimental view only; worksheet unchanged. G2 producer not reached.",
-  "current_role": "Foreman (awaiting owner: reader contract acceptance, wording, Part 3; PR split assessment delivered)",
+  "status": "TRACK 5C IN PROGRESS: ADR 0076 PARTS 1-2 DISPATCHER TESTS PASS, LIVE DECLARATION-TO-SOURCE PATH UNDER REPAIR (3 DEFECTS). READER CONTRACT REPAIRED, AWAITING OWNER ACCEPTANCE; READER IMPLEMENTATION WAITS ON 5C. ADR 0075 accepted. ADR 0076 Parts 1 and 2 accepted 2026-09-24; Part 3 open. Owner: no joined statement-wide claim is the default case (calculation posture); amount follows the supported tax consequence (A in principle), with whole-amount disqualification, known-not-to-trigger and unresolved effect kept distinct. Reader contract: experimental view only; worksheet unchanged. G2 producer not reached.",
+  "current_role": "Foreman (Track 5c build and review; then owner: reader contract acceptance, wording, Part 3)",
   "current_prompt": "docs/phases/tax-concept-derivation/milestones/student-loan-circumstance-association.md"
 }
 -->
@@ -27,7 +27,7 @@ keeps its subjects distinct, and lets a consumer use recovered current support.
 **The active work is G2's scheduling, binding and reader design after Track 4.**
 The bounded per-subject dispatch, keyed same-run sources and ADR 0075 coverage
 operation exist. They do not yet schedule the student-loan chain on the production
-path. ADR 0076 Parts 1–2 are accepted and built (Track 5, reviewed); the reader contract is repaired and awaits acceptance; Part 3's treatment
+path. ADR 0076 Parts 1–2 are accepted; their dispatcher is built and tested, but the live declaration-to-source path is under repair (Track 5c); the reader contract is repaired and awaits acceptance; Part 3's treatment
 of several statuses for one borrowing remains open. The reader is an experimental
 view, not a replacement for the worksheet deduction. Its hand-dispatched probes
 exercise calculation evidence, not durable projection or page rendering. The
