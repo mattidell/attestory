@@ -459,5 +459,131 @@ class SubjectMissingOwnRequiredNameFailsClosed(unittest.TestCase):
             self.assertEqual(rows[0]["missing"], [ENROLMENT])
 
 
+def _ordinary_rule_v6(*, rule_id: str, publishes: str, value: Any, requires: list[str] | None = None) -> dict[str, Any]:
+    """An undeclared (v1-v10-shaped) predecessor: no ``subject``, evaluated
+    once by the ordinary scheduler, unsuffixed."""
+    return {
+        "schema": "rule-artifact.v6",
+        "id": rule_id,
+        "version": "v1",
+        "role": "computation",
+        "requires": list(requires or []),
+        "when": True,
+        "value": value,
+        "publishes": publishes,
+        "blocked": {"code": "DEPENDENCY_INVALID", "missing": []},
+    }
+
+
+class RuntimeHonoursThePinnedFactTypeVersionDispatchLevel(unittest.TestCase):
+    """Track 5c Defect 2: ``_identity_names`` must resolve the exact pinned
+    ``(id, version)``, not the first declaration matching the id. A weaker
+    v1 identity declared alongside a stronger, pinned v2 identity of the
+    same id must not silently govern the presence check regardless of
+    which one a caller happened to list first."""
+
+    STATEMENT_ID = "demo.tax.v2case.statement"
+    LINKS_ID = "demo.tax.v2case.links"
+
+    def _weak(self) -> dict[str, Any]:
+        return _fact_type(self.STATEMENT_ID, ["tax-year"])
+
+    def _strong(self) -> dict[str, Any]:
+        # Same id as the weak declaration; only the identity-key set differs.
+        strong = _fact_type(self.STATEMENT_ID, ["lender", "statement", "tax-year"])
+        strong["version"] = "v2"
+        return strong
+
+    def _rule(self) -> dict[str, Any]:
+        return {
+            "schema": "rule-artifact.v11",
+            "id": "demo.rule.v2case",
+            "version": "v1",
+            "subject": {"id": self.STATEMENT_ID, "version": "v2"},
+            "joined": {"id": self.LINKS_ID, "version": "v1"},
+            "direction": "joined_contains_subject",
+            "role": "computation",
+            "requires": [self.LINKS_ID],
+            "when": True,
+            "value": {"op": "ref", "name": self.LINKS_ID},
+            "publishes": "demo.tax.v2case.link-echo",
+        }
+
+    def _run_case(self, *, fact_types: list[dict[str, Any]]) -> tuple[Any, Any]:
+        s1 = _keyed(
+            self.STATEMENT_ID, BOX_S1_FINDING, _statement_keys(LENDER_A, STATEMENT_1),
+            "current", fact_id=BOX_S1,
+        )
+        s2 = _keyed(
+            self.STATEMENT_ID, BOX_S2_FINDING, _statement_keys(LENDER_B, STATEMENT_2),
+            "current", fact_id=BOX_S2,
+        )
+        # Complete under the weak (tax-year-only) identity; missing lender
+        # and statement under the pinned, strong v2 identity. The row's own
+        # keys are independent of either package-declared citizen.
+        malformed_link = _keyed(
+            self.LINKS_ID, "demo.finding.link.malformed", (("tax-year", YEAR),),
+            "42", fact_id="demo.fact.link.malformed",
+        )
+        # Both statements share the same tax-year (see `_box`/`_statement_
+        # keys`), so under the weak identity the malformed link agrees with
+        # both -- the exact cross-join Defect 2 lets through.
+        forward, backward = _both_runners(
+            [self._rule()], [s1, s2, malformed_link], fact_types
+        )
+        return forward, backward
+
+    def _assert_blocks_both(self, forward: Any, backward: Any) -> None:
+        for result in (forward, backward):
+            published = _publications(result)
+            for fact_id in (BOX_S1, BOX_S2):
+                symbol = f"demo.tax.v2case.link-echo|{fact_id}"
+                self.assertNotIn(symbol, published, published)
+                rows = _blocked_rows(result, symbol)
+                self.assertEqual(len(rows), 1, result.dispositions)
+                self.assertEqual(rows[0]["code"], "DEPENDENCY_INVALID")
+                self.assertEqual(rows[0]["missing"], ["demo.finding.link.malformed"])
+
+    def test_weak_declared_first_still_blocks_both(self) -> None:
+        forward, backward = self._run_case(fact_types=[self._weak(), self._strong()])
+        self._assert_blocks_both(forward, backward)
+
+    def test_strong_declared_first_still_blocks_both(self) -> None:
+        forward, backward = self._run_case(fact_types=[self._strong(), self._weak()])
+        self._assert_blocks_both(forward, backward)
+
+
+class RunWideScalarDoesNotBypassTheDeclaredRelationship(unittest.TestCase):
+    """Track 5c Defect 3: with a declared financing-to-enrolment
+    relationship and zero enrolment source rows, an unrelated ordinary rule
+    that happens to publish a run-wide scalar under the same symbol name
+    must not be read as if it were a joined row."""
+
+    def test_no_rows_and_a_run_wide_scalar_blocks_absent(self) -> None:
+        financing = _financing(
+            "demo.fact.financing.solo", "demo.finding.financing.solo",
+            BORROW_X, PERIOD_A, INST_A, PROG_A, "tuition",
+        )
+        ambient = _ordinary_rule_v6(
+            rule_id="demo.rule.ambient-enrolment", publishes=ENROLMENT, value="run-wide-value",
+        )
+        forward, backward = _both_runners(
+            [_status_rule_with_relationship(), ambient],
+            [financing],
+            [_fact_type(ENROLMENT, ["period", "institution", "programme"])],
+        )
+        symbol = f"{STATUS}|demo.fact.financing.solo"
+        for result in (forward, backward):
+            published = _publications(result)
+            self.assertNotIn(symbol, published, published.get(symbol))
+            rows = _blocked_rows(result, symbol)
+            self.assertEqual(len(rows), 1, result.dispositions)
+            self.assertEqual(rows[0]["code"], "DEPENDENCY_ABSENT")
+            self.assertEqual(rows[0]["missing"], [ENROLMENT])
+            # The ambient rule really did publish its own ordinary,
+            # unsuffixed symbol -- this is not a claim that it never ran.
+            self.assertIn(ENROLMENT, {p.finding["symbol"] for p in result.publications})
+
+
 if __name__ == "__main__":
     unittest.main()

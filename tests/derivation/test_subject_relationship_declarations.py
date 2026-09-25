@@ -450,7 +450,10 @@ class AdmissionSetsTreatV11LikeV10(unittest.TestCase):
         ]
         material = _resolved_run_material(_Graph(members, {"input_bindings": []}))
         self.assertIn(rule, material[0])
-        self.assertEqual(material.emission_only_names, (LINKS,))
+        # Track 5c: a v11 rule's own subject type is emitted too (it was not
+        # in 5a, which is why the live path produced no subjects). The joined
+        # type is the links type, already emitted for link_coverage.
+        self.assertEqual(material.emission_only_names, (LINKS, BOX1))
         self.assertNotIn(LINKS, material[6])
         self.assertNotIn(REDUCTIONS, material[6])
 

@@ -261,18 +261,24 @@ def _requires(rule: Mapping[str, Any]) -> list[str]:
     return [str(item) for item in raw]
 
 
-def _identity_names(run: _Run, fact_type_id: str) -> list[str]:
-    """Declared ``identity_keys`` names for one fact-type citizen, by id.
+def _identity_names(run: _Run, fact_type_id: str, fact_type_version: str) -> list[str]:
+    """Declared ``identity_keys`` names for one fact-type citizen, by the
+    exact pinned ``(id, version)``.
 
     Read from the run's fact-type declarations, never from a row -- ADR
-    0076 Part 2. Static package validation already resolved the exact
-    ``(id, version)`` pin (``package_validation._subject_relationship_
-    issues``); dispatch matches by id only, the same identity a subject's
-    own fact type is looked up by elsewhere in this module
-    (``_fact_type_of``).
+    0076 Part 2. Static package validation resolves the same exact pin
+    (``package_validation._subject_relationship_issues`` /
+    ``_exact_pin_key``): a rule can declare a stronger identity at a later
+    version while a weaker declaration of the same id is also present in
+    the package (Track 5c Defect 2) -- matching by id alone would let
+    whichever declaration a caller happened to list first silently govern
+    the presence check regardless of which version the rule actually
+    pinned. An id match at the wrong version is not a resolution; the
+    caller's existing "identity unreadable" fail-closed path (an empty
+    result) applies exactly as it does when the id is absent entirely.
     """
     for fact_type in run.ctx.fact_types:
-        if fact_type.get("id") == fact_type_id:
+        if fact_type.get("id") == fact_type_id and fact_type.get("version") == fact_type_version:
             return [
                 key["name"]
                 for key in fact_type.get("identity_keys", [])
@@ -311,11 +317,21 @@ def _presence_declaration(
     if not isinstance(joined, Mapping) or not isinstance(subject, Mapping):
         return None
     joined_id = joined.get("id")
+    joined_version = joined.get("version")
     subject_id = subject.get("id")
+    subject_version = subject.get("version")
     if not isinstance(joined_id, str) or not isinstance(subject_id, str):
         return None
-    reference_id = subject_id if direction == "joined_contains_subject" else joined_id
-    return joined_id, _identity_names(run, reference_id), reference_id
+    if direction == "joined_contains_subject":
+        reference_id, reference_version = subject_id, subject_version
+    else:
+        reference_id, reference_version = joined_id, joined_version
+    if not isinstance(reference_version, str):
+        # A malformed pin (no version) is the same "cannot be read" case as
+        # an absent fact type: fail closed via the caller's empty-required-
+        # names path rather than matching by id alone.
+        return joined_id, [], reference_id
+    return joined_id, _identity_names(run, reference_id, reference_version), reference_id
 
 
 def _malformed_joined_rows(
@@ -497,7 +513,6 @@ def evaluate_subject_scoped_rule(
     inapplicable: list[SubjectInapplicable] = []
     blocked: list[SubjectBlocked] = []
     required = _requires(rule)
-    other_names = sorted({source.name for source in sources if source.name != subject_type})
     coverage_names = _declared_link_coverage_names(rule.get("value"))
     link_type_names = _declared_link_coverage_names(rule.get("value"), ("links",))
 
@@ -510,6 +525,22 @@ def evaluate_subject_scoped_rule(
     presence = _presence_declaration(run, rule)
     joined_id: str | None = presence[0] if presence is not None else None
     required_names: list[str] = presence[1] if presence is not None else []
+    # Track 5c Defect 3: a declared `joined` type is scoped here even when
+    # zero rows of it exist anywhere in this run. Without this, a name with
+    # no candidate rows never enters `other_names`, `scoped` has no key for
+    # it, and the `required` loop below falls through to `run.symbol_pin`/
+    # `run.symbols` -- a run-wide scalar an unrelated ordinary rule happens
+    # to publish under the same symbol name, read as if it were the joined
+    # row's own value. Scoping it unconditionally makes "zero rows" produce
+    # `scoped[joined_id] == []` (an ordinary empty join, handled by the
+    # existing optional_default/absent branch below) and also overwrites
+    # the local sources map for that name (`_local_maps`), so the joined
+    # type's value is not readable from the run-wide environment during
+    # this subject's evaluation either.
+    other_names = sorted(
+        {source.name for source in sources if source.name != subject_type}
+        | ({joined_id} if joined_id is not None else set())
+    )
     # Defect 1: an unreadable reference type (absent from `run.ctx.
     # fact_types`, or declared with no identity-key names) must not be
     # treated as "nothing is required" -- that would make every row

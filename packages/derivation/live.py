@@ -163,6 +163,24 @@ def _resolved_run_material(graph: Any) -> _ResolvedRunMaterial:
     families = [member for member in members if member.get("schema") in {"source-family.v1", "source-family.v2"}]
     mappings = [member for member in members if member.get("schema") == "source-closure-mapping.v2"]
     fact_types = [fact for member in members if member.get("schema") in {"bundle.v1", "bundle.v2"} for fact in member.get("fact_types", [])]
+    # Track 5c (ADR-0076 Part 1/2 live path): package validation accepts a
+    # standalone ``fact-type.v2`` member (not only a bundle-contained one --
+    # a v11 rule's ``subject``/``joined`` pin resolves against exactly that
+    # surface, per `package_validation`'s own fact-surface compilation).
+    # Every declared version of an id is kept: de-duplicate only identical
+    # (id, version) entries, never collapse to "first by id" -- runtime
+    # identity reads (``subject_dispatch._identity_names``) resolve the
+    # exact pinned version, and collapsing here would silently discard the
+    # very declaration a rule pins.
+    _fact_type_keys = {(ft.get("id"), ft.get("version")) for ft in fact_types}
+    for member in members:
+        if member.get("schema") != "fact-type.v2":
+            continue
+        key = (member.get("id"), member.get("version"))
+        if key in _fact_type_keys:
+            continue
+        _fact_type_keys.add(key)
+        fact_types.append(member)
     collect_names = [family["member_predicate"]["fact_type"] for family in families]
     # Companion authorities for collected members must be marshaled as sources
     # so derivation pins can form ADR-0010 displacement edges (box-13 / box-9).
@@ -208,6 +226,28 @@ def _resolved_run_material(graph: Any) -> _ResolvedRunMaterial:
         for name in _iter_link_coverage_link_types(rule.get("value")):
             if name not in collect_names and name not in emission_only:
                 emission_only.append(name)
+    # ADR-0076 Parts 1/2 (Track 5c): a v11 rule's own ``subject`` and
+    # ``joined`` fact types are keyed sources -- the per-subject dispatcher
+    # (`subject_dispatch.py`) reads every subject row and every joined row
+    # by name from `sources`, never from a collected scalar. Neither is a
+    # collect name: a subject/joined row is never summed, averaged, or read
+    # as an ordinary member of a source family, and marking it a collect
+    # name would additionally mark its finding "used" (Track 4's option B),
+    # changing what the legacy scalar fallback binds for an unrelated rule
+    # that happens to share the same fact-type id. No artificial source
+    # family and no added ``ref`` is needed: the walk is the rule's own
+    # declared pins, structurally, the same way link_coverage's ``links``
+    # is found above.
+    for rule in rules:
+        if rule.get("schema") != "rule-artifact.v11":
+            continue
+        for pin_field in ("subject", "joined"):
+            pin = rule.get(pin_field)
+            if not isinstance(pin, dict):
+                continue
+            pin_id = pin.get("id")
+            if isinstance(pin_id, str) and pin_id and pin_id not in collect_names and pin_id not in emission_only:
+                emission_only.append(pin_id)
     # ADR-0070: the supportability rule reads pairing / acquisition /
     # report sources by pinned fact id, not by an ordinary symbol binding.
     from packages.tax.supportability import COLLECT_SOURCE_NAMES, RULE_ID
