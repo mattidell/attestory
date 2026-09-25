@@ -10,12 +10,21 @@ The chain, per Form 1098-E statement (subject: its box-1 fact):
 - count: ``link_coverage`` over statement-to-borrowing links with a presence
   marker. A stand-in for the proposed ``link_count``, which is not built.
 - a statement-wide scope claim ("the loans on this statement paid for ..."),
-  keyed on the statement plus the applied circumstance, classified by its own
-  rule (subject: the claim) as 1 for an enumerated adverse use and 0 otherwise;
-- adverse total: ``link_coverage`` over those claims and classifications, with
-  a "no statement-scope claim" parameter of 0;
+  keyed on the statement plus the applied circumstance. Its vocabulary today is
+  two values, ``tuition`` and ``vehicle``. Its own rule (subject: the claim)
+  classifies it explicitly, three ways:
+    1  -- a supported whole-amount disqualifier (``vehicle``: a use other than
+          qualified expenses, the mixed-use reading of 26 CFR 1.221-1(e)(4)
+          Example 6 applied to every borrowing the claim reaches);
+    0  -- known not to trigger *that* disqualifier (``tuition``); not a finding of
+          general eligibility;
+    block (DEPENDENCY_INVALID) -- any other value: an effect this classifier does
+          not treat, left unresolved. There is no catch-all 0;
+- whole-disqualifier count: ``link_coverage`` over those claims and
+  classifications, with a "no statement-scope claim" parameter of 0 (the owner's
+  default-case posture, not a finding that no contrary circumstance exists);
 - the named conclusion "no enumerated adverse circumstance bears on the
-  interest this statement reports": requires count and adverse total, and
+  interest this statement reports": requires count and whole-disqualifier count, and
   publishes only when both are 0;
 - the statement amount (box 1 minus linked reductions, unchanged);
 - three responsibility rules: require the conclusion and the amount, and read
@@ -56,8 +65,8 @@ from tests.derivation.test_link_coverage_contract import (
 MARKER = "demo.tax.link-presence-marker"
 COUNT = "demo.tax.link-count"
 CLAIMS = "demo.tax.statement-scope-use-of-proceeds"
-ADVERSE_MARK = "demo.tax.statement-scope-adverse-mark"
-ADVERSE_TOTAL = "demo.tax.statement-scope-adverse-total"
+DISQUALIFIER_MARK = "demo.tax.statement-scope-whole-disqualifier-mark"
+DISQUALIFIER_TOTAL = "demo.tax.statement-scope-whole-disqualifier-count"
 CONCLUSION = "demo.tax.no-enumerated-adverse-for-statement"
 # Workaround, recorded as a gap: a keyed same-run publication carries no fact
 # type downstream (``subject_dispatch._fact_type_of`` falls back to the symbol
@@ -72,6 +81,8 @@ RESPONSIBILITIES = (
 )
 OLD_RESPONSIBILITY = "demo.tax.responsibility.old-shape"
 NO_CLAIM_PARAM = "demo.param.no-statement-scope-claim"
+# The claim vocabulary as it is today. A test widens it to exercise the extension hazard.
+CLAIM_VOCABULARY: tuple[str, ...] = ("tuition", "vehicle")
 ADOPTION = {"role": "adoption", "id": "demo.package.link-coverage", "version": "v2"}
 GOVERNANCE = [{"role": "governance", "id": "demo.governance.probe", "version": "v1"}]
 
@@ -128,8 +139,8 @@ RULES: dict[str, dict[str, Any]] = {
     "marker": _rule("demo.rule.link-presence-marker", MARKER, 1),
     "count": _rule("demo.rule.link-count", COUNT, _coverage_of(LINKS, MARKER, PARAM_ID)),
     "classify": _rule(
-        "demo.rule.statement-scope-adverse-mark",
-        ADVERSE_MARK,
+        "demo.rule.statement-scope-whole-disqualifier-mark",
+        DISQUALIFIER_MARK,
         {
             "op": "choose",
             "when": {
@@ -139,20 +150,30 @@ RULES: dict[str, dict[str, Any]] = {
                 "right": _token(CLAIMS, "vehicle"),
             },
             "then": 1,
-            "else": 0,
+            "else": {
+                "op": "choose",
+                "when": {
+                    "op": "categorical_compare",
+                    "cmp": "eq",
+                    "left": {"op": "ref", "name": CLAIMS},
+                    "right": _token(CLAIMS, "tuition"),
+                },
+                "then": 0,
+                "else": {"op": "block", "code": "DEPENDENCY_INVALID"},
+            },
         },
     ),
     "total": _rule(
-        "demo.rule.statement-scope-adverse-total",
-        ADVERSE_TOTAL,
-        _coverage_of(CLAIMS, ADVERSE_MARK, NO_CLAIM_PARAM),
+        "demo.rule.statement-scope-whole-disqualifier-count",
+        DISQUALIFIER_TOTAL,
+        _coverage_of(CLAIMS, DISQUALIFIER_MARK, NO_CLAIM_PARAM),
     ),
     "conclusion": _rule(
         "demo.rule.no-enumerated-adverse-for-statement",
         CONCLUSION,
         _token(CONCLUSION_TYPE, "no-enumerated-adverse"),
-        requires=[COUNT, ADVERSE_TOTAL],
-        when={"op": "all", "args": [_eq_zero(COUNT), _eq_zero(ADVERSE_TOTAL)]},
+        requires=[COUNT, DISQUALIFIER_TOTAL],
+        when={"op": "all", "args": [_eq_zero(COUNT), _eq_zero(DISQUALIFIER_TOTAL)]},
         role="applicability",
     ),
     "reduction": _reduction(),
@@ -222,7 +243,7 @@ def _parts() -> list[tuple[dict[str, Any], str]]:
         (_parameter(), "parameter"),
         (_no_claim_parameter(), "parameter"),
         (_fact_type(LINKS, "Demo statement to borrowing link"), "fact-type"),
-        (_enum_type(CLAIMS, ["tuition", "vehicle"]), "fact-type"),
+        (_enum_type(CLAIMS, list(CLAIM_VOCABULARY)), "fact-type"),
         (_enum_type(CONCLUSION_TYPE, ["no-enumerated-adverse"]), "fact-type"),
         (_enum_type(RESP_TYPE, ["applies"]), "fact-type"),
         (_citation(), "citation"),
@@ -285,7 +306,7 @@ def _drive(sources: list[SourceFact], *, skip: frozenset[str] = frozenset()) -> 
         adoption_pin=ADOPTION,
         governance_pins=GOVERNANCE,
         fact_types=fact_types,
-        collect_source_names=[BOX1, LINKS, MARKER, REDUCTIONS, CLAIMS, ADVERSE_MARK],
+        collect_source_names=[BOX1, LINKS, MARKER, REDUCTIONS, CLAIMS, DISQUALIFIER_MARK],
     )
     prepared = _Run(ctx, DerivationSchemas())
     prepared.live_sources = list(sources)
@@ -337,8 +358,8 @@ class BareStatementChain(unittest.TestCase):
             self.assertIn(NO_CLAIM_PARAM, {p["id"] for p in total["pins"] if p["role"] == "parameter"})
             self._assert_favourable(results, fact_id, box_finding)
 
-    def test_adverse_statement_scope_claim_stops_conclusion_and_responsibilities(self) -> None:
-        """HAND-DISPATCHED. The discriminating case: zero links, one adverse scope claim on S1."""
+    def test_whole_amount_disqualifier_stops_conclusion_and_responsibilities(self) -> None:
+        """HAND-DISPATCHED. The discriminating case: zero links, one whole-amount disqualifier claim on S1."""
         car = _claim(S1, "vehicle-purchase", "vehicle")
         results = _drive(_base() + [car])
 
@@ -368,7 +389,7 @@ class BareStatementChain(unittest.TestCase):
         self.assertNotIn(car.finding_id, _inputs(_by_fact(results["total"])[BOX_S2]))
         self._assert_favourable(results, BOX_S2, BOX_S2_FINDING)
 
-    def test_other_statements_adverse_claim_does_not_change_this_one(self) -> None:
+    def test_other_statements_disqualifier_claim_does_not_change_this_one(self) -> None:
         """HAND-DISPATCHED. The claim is on S2; S1 publishes exactly as with no claim."""
         car = _claim(S2, "vehicle-purchase", "vehicle")
         with_claim = _drive(_base() + [car])
@@ -377,8 +398,9 @@ class BareStatementChain(unittest.TestCase):
         for key in ("count", "total", "conclusion", "amount", *RESPONSIBILITIES):
             self.assertEqual(_by_fact(with_claim[key])[BOX_S1], _by_fact(without[key])[BOX_S1], key)
 
-    def test_non_adverse_scope_claim_is_examined_and_pinned(self) -> None:
-        """HAND-DISPATCHED. A tuition claim is read, classified 0, and pinned by the total."""
+    def test_known_not_to_trigger_claim_is_examined_and_pinned(self) -> None:
+        """HAND-DISPATCHED. A tuition claim is read, classified 0 -- known not to trigger this
+        disqualifier, not a finding of general eligibility -- and pinned by the count."""
         tuition = _claim(S1, "riverside-bsc", "tuition")
         results = _drive(_base() + [tuition])
         total = _by_fact(results["total"])[BOX_S1]
@@ -388,7 +410,7 @@ class BareStatementChain(unittest.TestCase):
         self._assert_favourable(results, BOX_S1, BOX_S1_FINDING)
 
     def test_unclassified_scope_claim_fails_closed(self) -> None:
-        """HAND-DISPATCHED. A claim with no classification is not read as not adverse."""
+        """HAND-DISPATCHED. A claim with no classification is not read as known not to trigger."""
         car = _claim(S1, "vehicle-purchase", "vehicle")
         results = _drive(_base() + [car], skip=frozenset({"classify"}))
         row = _blocked(results["total"])[BOX_S1]
@@ -441,10 +463,10 @@ def _numeric_axis(kind: str, row: Any, zero: str, positive: str) -> str:
 
 def _statement_outcome(results: dict[str, SubjectScopedResult], fact_id: str) -> dict[str, str]:
     count_kind, count = _outcome(results.get("count"), f"{COUNT}|{fact_id}")
-    total_kind, total = _outcome(results.get("total"), f"{ADVERSE_TOTAL}|{fact_id}")
+    total_kind, total = _outcome(results.get("total"), f"{DISQUALIFIER_TOTAL}|{fact_id}")
     conclusion_kind, _row = _outcome(results.get("conclusion"), f"{CONCLUSION}|{fact_id}")
     route = _numeric_axis(count_kind, count, "bare", "linked")
-    scope = _numeric_axis(total_kind, total, "none-adverse", "adverse-established")
+    scope = _numeric_axis(total_kind, total, "no-whole-amount-disqualifier", "whole-amount-disqualifier")
     return {"route": route, "statement_scope": scope, "conclusion": conclusion_kind}
 
 
@@ -459,7 +481,7 @@ class WhyTheConclusionIsAbsent(unittest.TestCase):
     def _scenarios(self) -> dict[str, dict[str, SubjectScopedResult]]:
         car = _claim(S1, "vehicle-purchase", "vehicle")
         return {
-            "adverse-established": _drive(_base() + [car]),
+            "whole-amount-disqualifier": _drive(_base() + [car]),
             "unresolved-classification": _drive(_base() + [car], skip=frozenset({"classify"})),
             "missing-producer": _drive(_base(), skip=frozenset({"count"})),
             "linked-route": _drive(_base() + self._link_sources()),
@@ -479,31 +501,31 @@ class WhyTheConclusionIsAbsent(unittest.TestCase):
         self.assertEqual(
             got,
             {
-                "adverse-established": {"route": "bare", "statement_scope": "adverse-established", "conclusion": "inapplicable"},
+                "whole-amount-disqualifier": {"route": "bare", "statement_scope": "whole-amount-disqualifier", "conclusion": "inapplicable"},
                 "unresolved-classification": {"route": "bare", "statement_scope": "unresolved", "conclusion": "blocked"},
-                "missing-producer": {"route": "not-computed", "statement_scope": "none-adverse", "conclusion": "blocked"},
-                "linked-route": {"route": "linked", "statement_scope": "none-adverse", "conclusion": "inapplicable"},
+                "missing-producer": {"route": "not-computed", "statement_scope": "no-whole-amount-disqualifier", "conclusion": "blocked"},
+                "linked-route": {"route": "linked", "statement_scope": "no-whole-amount-disqualifier", "conclusion": "inapplicable"},
             },
         )
         baseline = _statement_outcome(_drive(_base()), BOX_S1)
-        self.assertEqual(baseline, {"route": "bare", "statement_scope": "none-adverse", "conclusion": "published"})
+        self.assertEqual(baseline, {"route": "bare", "statement_scope": "no-whole-amount-disqualifier", "conclusion": "published"})
 
     def test_each_cause_names_its_own_evidence(self) -> None:
         scenarios = self._scenarios()
         car_id = _claim(S1, "vehicle-purchase", "vehicle").finding_id
 
-        adverse = scenarios["adverse-established"]
-        total = _by_fact(adverse["total"])[BOX_S1]
+        disqualified = scenarios["whole-amount-disqualifier"]
+        total = _by_fact(disqualified["total"])[BOX_S1]
         self.assertEqual(total["value"], "1")
         self.assertIn(car_id, _inputs(total))
-        marks = _by_fact(adverse["classify"])
+        marks = _by_fact(disqualified["classify"])
         self.assertEqual([f["value"] for f in marks.values()], ["1"])
 
         unresolved = scenarios["unresolved-classification"]
         row = _blocked(unresolved["total"])[BOX_S1]
         self.assertEqual(row.code, DEPENDENCY_INVALID)
         self.assertIn(car_id, row.missing)
-        self.assertEqual(list(_blocked(unresolved["conclusion"])[BOX_S1].missing), [ADVERSE_TOTAL])
+        self.assertEqual(list(_blocked(unresolved["conclusion"])[BOX_S1].missing), [DISQUALIFIER_TOTAL])
 
         missing = scenarios["missing-producer"]
         self.assertNotIn("count", missing)
@@ -531,7 +553,7 @@ class WhyTheConclusionIsAbsent(unittest.TestCase):
         for name, values in (("absent", []), ("duplicate", ["1", "1"]), ("nonnumeric", ["not-a-number"])):
             marks = [
                 SourceFact(
-                    name=ADVERSE_MARK, value=value,
+                    name=DISQUALIFIER_MARK, value=value,
                     finding_id=f"demo.finding.injected-mark.{index}",
                     fact_id=f"demo.fact.injected-mark.{index}", keys=claim.keys,
                 )
@@ -544,7 +566,7 @@ class WhyTheConclusionIsAbsent(unittest.TestCase):
             self.assertEqual(rows[name].code, DEPENDENCY_INVALID)
             self.assertEqual(rows[name].missing, (claim.finding_id,))
             self.assertEqual(_statement_outcome(results, BOX_S1)["statement_scope"], "unresolved")
-            self.assertEqual(_blocked(results["conclusion"])[BOX_S1].missing, (ADVERSE_TOTAL,))
+            self.assertEqual(_blocked(results["conclusion"])[BOX_S1].missing, (DISQUALIFIER_TOTAL,))
         # Even code + missing + pins cannot discriminate these two causes.
         self.assertEqual(rows["duplicate"], rows["nonnumeric"])
         self.assertIn(claim.finding_id, {pin["id"] for pin in rows["absent"].pins})
@@ -563,12 +585,12 @@ class WhyTheConclusionIsAbsent(unittest.TestCase):
             _statement_outcome(results, BOX_S1),
             {"route": "linked", "statement_scope": "unresolved", "conclusion": "blocked"},
         )
-        self.assertEqual(_blocked(results["conclusion"])[BOX_S1].missing, (ADVERSE_TOTAL,))
+        self.assertEqual(_blocked(results["conclusion"])[BOX_S1].missing, (DISQUALIFIER_TOTAL,))
 
     def test_missing_total_is_distinct_from_a_total_that_blocked(self) -> None:
         results = _drive(_base(), skip=frozenset({"total"}))
         self.assertEqual(_statement_outcome(results, BOX_S1)["statement_scope"], "not-computed")
-        self.assertEqual(_blocked(results["conclusion"])[BOX_S1].missing, (ADVERSE_TOTAL,))
+        self.assertEqual(_blocked(results["conclusion"])[BOX_S1].missing, (DISQUALIFIER_TOTAL,))
 
     def test_published_conclusion_does_not_prove_a_responsibility_published(self) -> None:
         symbol = RESPONSIBILITIES[0]
@@ -603,6 +625,50 @@ class WhyTheConclusionIsAbsent(unittest.TestCase):
         with patch.dict(RULES, {"old": {**RULES["old"], "when": amount_guard}}):
             extra = _drive(_base())
         self.assertIn(amount["id"], _inputs(_by_fact(extra["old"])[BOX_S1]))
+
+
+class ClassifierExtensionHazard(unittest.TestCase):
+    """HAND-DISPATCHED. Today's vocabulary is tuition and vehicle, both handled.
+
+    The hazard is an extension: a value later admitted to the vocabulary but not
+    given a branch. These tests widen the vocabulary to show what each classifier
+    shape would do with it. Nothing here claims an omitted category exists today.
+    """
+
+    WIDER = ("tuition", "vehicle", "demo-unhandled-use")
+
+    def test_allowed_but_unhandled_value_is_unresolved_not_zero(self) -> None:
+        claim = _claim(S1, "unhandled", "demo-unhandled-use")
+        with patch(f"{__name__}.CLAIM_VOCABULARY", self.WIDER):
+            results = _drive(_base() + [claim])
+        row = _blocked(results["classify"])[str(claim.fact_id)]
+        self.assertEqual(row.code, DEPENDENCY_INVALID)
+        self.assertEqual(row.missing, ())
+        self.assertNotIn(claim.fact_id, _by_fact(results["classify"]))
+        self.assertEqual(_blocked(results["total"])[BOX_S1].code, DEPENDENCY_INVALID)
+        self.assertEqual(
+            _statement_outcome(results, BOX_S1),
+            {"route": "bare", "statement_scope": "unresolved", "conclusion": "blocked"},
+        )
+        for symbol in RESPONSIBILITIES:
+            self.assertNotIn(BOX_S1, _by_fact(results[symbol]))
+        with patch(f"{__name__}.CLAIM_VOCABULARY", self.WIDER):
+            baseline = _drive(_base())
+        for key in ("count", "total", "conclusion", "amount", *RESPONSIBILITIES):
+            self.assertEqual(_by_fact(results[key])[BOX_S2], _by_fact(baseline[key])[BOX_S2], key)
+
+    def test_a_catch_all_zero_would_read_the_unhandled_value_as_not_triggering(self) -> None:
+        """The shape the repair removed: else 0. Shown so the hazard is executable."""
+        claim = _claim(S1, "unhandled", "demo-unhandled-use")
+        catch_all = {
+            **RULES["classify"],
+            "value": {**RULES["classify"]["value"], "else": 0},
+        }
+        with patch(f"{__name__}.CLAIM_VOCABULARY", self.WIDER), patch.dict(RULES, {"classify": catch_all}):
+            results = _drive(_base() + [claim])
+        self.assertEqual(_by_fact(results["classify"])[str(claim.fact_id)]["value"], "0")
+        self.assertEqual(_statement_outcome(results, BOX_S1)["conclusion"], "published")
+        self.assertIn(BOX_S1, _by_fact(results[RESPONSIBILITIES[0]]))
 
 
 if __name__ == "__main__":
