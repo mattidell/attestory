@@ -3,7 +3,7 @@
   "version": 1,
   "phase": "Tax Concept Derivation",
   "topic": "student-loan-circumstance-association",
-  "status": "TRACK 5 (ADR 0076 PARTS 1-2 BUILD) IN PROGRESS; READER CONTRACT UNDER REPAIR FOR ACCEPTANCE. ADR 0075 accepted. ADR 0076 Parts 1 and 2 accepted 2026-09-24; Part 3 open. Owner: no joined statement-wide claim is the default case (calculation posture); amount follows the supported tax consequence (A in principle), with whole-amount disqualification, known-not-to-trigger and unresolved effect kept distinct. Reader contract: experimental view only; worksheet unchanged. G2 producer not reached.",
+  "status": "TRACK 5 (ADR 0076 PARTS 1-2) COMPLETE; READER CONTRACT REPAIRED, AWAITING OWNER ACCEPTANCE. ADR 0075 accepted. ADR 0076 Parts 1 and 2 accepted 2026-09-24; Part 3 open. Owner: no joined statement-wide claim is the default case (calculation posture); amount follows the supported tax consequence (A in principle), with whole-amount disqualification, known-not-to-trigger and unresolved effect kept distinct. Reader contract: experimental view only; worksheet unchanged. G2 producer not reached.",
   "scope": [
     "record and recover ordinary schooling circumstances and their explicit connection to identified student-loan interest",
     "preserve document evidence, source-independent subjects, attribution, and relationship lifecycle",
@@ -1254,7 +1254,7 @@ acceptance.
 **Track 5 — ADR 0076 Parts 1 and 2** (accepted 2026-09-24). Two builder units, each independently reviewed: **5a**, the first rule and package successors (`subject`, `joined`, `direction`), admission, and the static relationship checks; **5b**, per-subject scheduling in both runners and the runtime presence check. Charters: [`charter-track5a-subject-and-relationship-declarations.md`](student-loan-circumstance-association-evidence/charter-track5a-subject-and-relationship-declarations.md), and [`charter-track5b-per-subject-scheduling-and-presence.md`](student-loan-circumstance-association-evidence/charter-track5b-per-subject-scheduling-and-presence.md).
 **5a is complete** — `rule-artifact.v11` and `artifact-package.v32` published on the branch with their
 checksums; four static issue codes; independent review passed with no defects
-([`track5a-review.md`](student-loan-circumstance-association-evidence/track5a-review.md)). **Next: 5b.**
+([`track5a-review.md`](student-loan-circumstance-association-evidence/track5a-review.md)). **5b is complete** — both schedulers dispatch a declared-subject rule per subject and wait on predecessor resolution; a rule declaring `joined`/`direction` gets the runtime presence check; undeclared rules are unchanged. Two fail-open defects found in foreman review were fixed; independent review passed with no defects ([`track5b-review.md`](student-loan-circumstance-association-evidence/track5b-review.md)). **Track 5 is complete.** No production content declares a subject yet; Part 3 remains open.
 Dispatch uses sonnet sub-agents (grok credit exhausted 2026-09-24).
 
 **What stands before G2, investigated (read-only):**

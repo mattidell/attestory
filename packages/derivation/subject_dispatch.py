@@ -261,6 +261,117 @@ def _requires(rule: Mapping[str, Any]) -> list[str]:
     return [str(item) for item in raw]
 
 
+def _identity_names(run: _Run, fact_type_id: str) -> list[str]:
+    """Declared ``identity_keys`` names for one fact-type citizen, by id.
+
+    Read from the run's fact-type declarations, never from a row -- ADR
+    0076 Part 2. Static package validation already resolved the exact
+    ``(id, version)`` pin (``package_validation._subject_relationship_
+    issues``); dispatch matches by id only, the same identity a subject's
+    own fact type is looked up by elsewhere in this module
+    (``_fact_type_of``).
+    """
+    for fact_type in run.ctx.fact_types:
+        if fact_type.get("id") == fact_type_id:
+            return [
+                key["name"]
+                for key in fact_type.get("identity_keys", [])
+                if isinstance(key, dict) and isinstance(key.get("name"), str)
+            ]
+    return []
+
+
+def _presence_declaration(
+    run: _Run, rule: Mapping[str, Any]
+) -> tuple[str, list[str], str] | None:
+    """ADR 0076 Part 2's runtime presence declaration.
+
+    Returns the declared ``joined`` type's id, the identity-key names every
+    present row of that type must carry to be classified, and the fact-type
+    id those names were read from (the "reference" type: the subject type
+    under ``joined_contains_subject``, the joined type under
+    ``subject_contains_joined``) -- or ``None`` when the rule declares
+    neither ``joined`` nor ``direction``. ``_scope`` then applies to every
+    source type unchanged.
+
+    The returned name list can be empty when the reference type is not in
+    ``run.ctx.fact_types``, or is present but declares no identity-key
+    names. The caller must not treat that as "nothing is required" --
+    ``fact-type.v2`` always requires at least one named identity key, so an
+    empty list here means the declaration could not be read, not that it
+    was read as empty (Defect 1: an empty ``required`` makes every row
+    trivially "complete" and every containment check vacuously true, which
+    would join everything instead of failing closed).
+    """
+    direction = rule.get("direction")
+    if direction not in ("joined_contains_subject", "subject_contains_joined"):
+        return None
+    joined = rule.get("joined")
+    subject = rule.get("subject")
+    if not isinstance(joined, Mapping) or not isinstance(subject, Mapping):
+        return None
+    joined_id = joined.get("id")
+    subject_id = subject.get("id")
+    if not isinstance(joined_id, str) or not isinstance(subject_id, str):
+        return None
+    reference_id = subject_id if direction == "joined_contains_subject" else joined_id
+    return joined_id, _identity_names(run, reference_id), reference_id
+
+
+def _malformed_joined_rows(
+    sources: Sequence[SourceFact], joined_id: str, required: Sequence[str],
+) -> list[str]:
+    """Present rows of ``joined_id`` lacking a required identity name.
+
+    Finding ids, sorted. ADR 0076 Part 2: the row's owner cannot be
+    determined, so every subject evaluating the rule blocks on it, naming
+    the row -- it is not dropped and it is not the no-link parameter. A row
+    sharing no key name at all with any subject is a special case of this:
+    it necessarily lacks every required name too.
+    """
+    malformed: list[str] = []
+    for row in sources:
+        if row.name != joined_id:
+            continue
+        row_keys = _keys(row)
+        if row_keys is None or any(name not in row_keys for name in required):
+            malformed.append(row.finding_id)
+    return sorted(malformed)
+
+
+def _presence_matched(
+    subject: SourceFact, candidates: Sequence[SourceFact], required: Sequence[str],
+) -> list[SourceFact] | None:
+    """This subject's complete, agreeing rows of the declared joined type.
+
+    ``None`` when the subject's own keys are unavailable, or the subject's
+    own keys do not carry every required name -- both fail closed the same
+    way: the caller's existing "subject keys absent" handling applies
+    unchanged (``link-coverage-keys-unavailable`` inside a ``link_coverage``
+    rule; the ordinary required-source ``DEPENDENCY_INVALID``/``DEPENDENCY_
+    ABSENT`` path otherwise). ADR 0076 Part 2: the no-link result is
+    returned for a subject only "when its own keys are present" -- a
+    subject missing one of its own required identity names is not the same
+    as a subject with zero joined rows, and must not silently take the
+    no-link default (Defect 2). A malformed *row* is never returned here:
+    the caller has already blocked every subject on it before this runs
+    (``_malformed_joined_rows`` above). A complete row whose required
+    values disagree is silently excluded here: another subject's, not this
+    one's, and it does not prevent this subject's no-link result.
+    """
+    subject_keys = _keys(subject)
+    if subject_keys is None or any(name not in subject_keys for name in required):
+        return None
+    matched: list[SourceFact] = []
+    for candidate in candidates:
+        row_keys = _keys(candidate) or {}
+        if any(name not in row_keys for name in required):
+            continue
+        if all(row_keys[name] == subject_keys.get(name) for name in required):
+            matched.append(candidate)
+    return matched
+
+
 def _local_maps(
     run: _Run,
     subject_type: str,
@@ -390,6 +501,33 @@ def evaluate_subject_scoped_rule(
     coverage_names = _declared_link_coverage_names(rule.get("value"))
     link_type_names = _declared_link_coverage_names(rule.get("value"), ("links",))
 
+    # ADR 0076 Part 2: a rule that declares `joined`/`direction` replaces
+    # `_scope`'s shared-name union for that one declared type with a
+    # presence check by identity-key names. Every other source type this
+    # rule reads keeps `_scope`; an undeclared rule keeps `_scope` entirely
+    # (`presence` is None, `joined_id` stays None, and every `name ==
+    # joined_id` guard below is unreachable).
+    presence = _presence_declaration(run, rule)
+    joined_id: str | None = presence[0] if presence is not None else None
+    required_names: list[str] = presence[1] if presence is not None else []
+    # Defect 1: an unreadable reference type (absent from `run.ctx.
+    # fact_types`, or declared with no identity-key names) must not be
+    # treated as "nothing is required" -- that would make every row
+    # trivially complete and every subject's containment check vacuously
+    # true, joining everything. Fail closed instead: every subject
+    # evaluating this rule blocks, naming the reference fact-type id (a
+    # symbol/type id, not a finding id -- reader-contract section 4 class 3,
+    # since it is a fact-type id in the resolved graph and not a finding id
+    # in state).
+    identity_unreadable_type: str | None = None
+    if presence is not None and not required_names:
+        identity_unreadable_type = presence[2]
+    malformed_finding_ids = (
+        _malformed_joined_rows(sources, joined_id, required_names)
+        if joined_id is not None and identity_unreadable_type is None
+        else []
+    )
+
     for subject in subjects:
         subject_fact_id = _subject_id(subject)
         symbol = f"{rule['publishes']}|{subject_fact_id}"
@@ -399,13 +537,47 @@ def evaluate_subject_scoped_rule(
         local_symbols: dict[str, Any] = {subject_type: _decode(subject.value)}
         fact_types = dict(run.symbol_fact_types)
         fact_types[subject_type] = _fact_type_of(run, subject_type)
+
+        if identity_unreadable_type is not None:
+            blocked.append(SubjectBlocked(
+                subject_fact_id=subject_fact_id,
+                symbol=symbol,
+                code=DEPENDENCY_INVALID,
+                missing=(identity_unreadable_type,),
+                pins=tuple(_pins_naming(
+                    run, rule, (subject_type,), symbol_pin,
+                    *_local_maps(run, subject_type, subject, {}), subject_type,
+                )),
+            ))
+            continue
+
+        if malformed_finding_ids:
+            # A malformed row's owner cannot be determined, so it cannot be
+            # excluded from any subject: every subject evaluating this rule
+            # blocks on it, naming the row -- not dropped, never the
+            # no-link parameter.
+            blocked.append(SubjectBlocked(
+                subject_fact_id=subject_fact_id,
+                symbol=symbol,
+                code=DEPENDENCY_INVALID,
+                missing=tuple(malformed_finding_ids),
+                pins=tuple(_pins_naming(
+                    run, rule, (subject_type,), symbol_pin,
+                    *_local_maps(run, subject_type, subject, {}), subject_type,
+                )),
+            ))
+            continue
+
         invalid: list[str] = []
         absent: list[str] = []
         scoped: dict[str, list[SourceFact]] = {}
 
         for name in other_names:
             candidates = [source for source in sources if source.name == name]
-            matched = _scope(subject, candidates)
+            if joined_id is not None and name == joined_id:
+                matched = _presence_matched(subject, candidates, required_names)
+            else:
+                matched = _scope(subject, candidates)
             if matched is None:
                 scoped[name] = []
                 if name in required:
@@ -466,7 +638,10 @@ def evaluate_subject_scoped_rule(
                 keyed_sources[name] = KEYS_UNAVAILABLE
                 continue
             candidates = [source for source in sources if source.name == name]
-            matched = _scope(subject, candidates)
+            if joined_id is not None and name == joined_id:
+                matched = _presence_matched(subject, candidates, required_names)
+            else:
+                matched = _scope(subject, candidates)
             keyed_sources[name] = list(matched) if matched is not None else KEYS_UNAVAILABLE
 
         if invalid:

@@ -256,6 +256,7 @@ class _Run:
                 "rule-artifact.v2", "rule-artifact.v3", "rule-artifact.v4",
                 "rule-artifact.v5", "rule-artifact.v6", "rule-artifact.v7",
                 "rule-artifact.v8", "rule-artifact.v9", "rule-artifact.v10",
+                "rule-artifact.v11",
             }
             for rule in ctx.rules
         ) or _uses_attachment_machinery(ctx.rules)
@@ -580,7 +581,50 @@ class _Run:
             )
         if is_line2b_nominee_successor(rule):
             return all(req in self.symbols for req in line2b_effective_requires(self, rule))
+        if isinstance(rule.get("subject"), dict):
+            return self._subject_scheduling_eligible(rule)
         return all(req in self.symbols for req in self._requires(rule))
+
+    def _subject_scheduling_predecessor_names(self, rule: dict[str, Any]) -> list[str]:
+        """ADR 0076 Part 1: names a declared-subject rule's eligibility waits on.
+
+        Every ``requires`` entry, plus this rule's own ``link_coverage.
+        reductions`` field when it declares one -- load-bearing for the
+        coverage operator (ADR 0075) but deliberately not a ``requires``
+        entry (ADR 0075's chain: "the reductions edge is load-bearing and is
+        not a `requires` entry").
+        """
+        from packages.derivation.package_validation import _iter_link_coverage_nodes
+
+        names = list(rule.get("requires", []))
+        for node in _iter_link_coverage_nodes(rule.get("value")):
+            reductions_name = node.get("reductions")
+            if (
+                isinstance(reductions_name, str)
+                and reductions_name
+                and reductions_name not in names
+            ):
+                names.append(reductions_name)
+        return names
+
+    def _subject_scheduling_eligible(self, rule: dict[str, Any]) -> bool:
+        """ADR 0076 Part 1: wait until every predecessor rule has resolved,
+        not until an unsuffixed symbol appears in ``self.symbols``.
+
+        A predecessor's keyed publication (``publishes|fact_id``) never
+        populates the unsuffixed name, so the ordinary ``requires``-against-
+        ``self.symbols`` test can never see it. If no rule in this run
+        publishes a given name, do not wait on it (the same posture
+        ``consequence_eligibility`` takes when its named predecessor is
+        absent from the package) -- traced as the don't-wait branch.
+        """
+        for name in self._subject_scheduling_predecessor_names(rule):
+            producer_ids = [r["id"] for r in self.ctx.rules if r.get("publishes") == name]
+            if not producer_ids:
+                continue
+            if not all(pid in self.resolved for pid in producer_ids):
+                return False
+        return True
 
     def _attempt_declared_line2b_selection(self, rule: dict[str, Any]) -> str:
         """Evaluate exactly the selected v9 path expression."""
@@ -755,6 +799,9 @@ class _Run:
         pairing_outcome = self._try_pairing_scoped(rule)
         if pairing_outcome is not None:
             return pairing_outcome
+
+        if isinstance(rule.get("subject"), dict):
+            return self._attempt_subject_scoped(rule)
 
         if rule_id.endswith(".member-validation.synthesized"):
             return self._evaluate_family_validation(rule, access)
@@ -959,6 +1006,24 @@ class _Run:
         self.symbol_pin[symbol] = (finding["id"], schema_ver, "input", provenance if self.use_v2 else None)
         self.resolved.add(rule_id)
         return "published"
+
+    def _attempt_subject_scoped(self, rule: dict[str, Any]) -> str:
+        """ADR 0076 Part 1: dispatch a declared-subject rule once per subject,
+        instead of the single run-wide evaluation ordinary rules take.
+
+        ``evaluate_subject_scoped_rule`` (below) does the recording -- one
+        published finding, one inapplicable row, or one blocked row per
+        subject -- and adds the rule id to ``resolved`` itself. The return
+        value here only reports this attempt's outcome to a caller in the
+        same shape ordinary ``attempt`` uses.
+        """
+        subject_type = rule["subject"]["id"]
+        result = self.evaluate_subject_scoped_rule(subject_type=subject_type, rule=rule)
+        if result.publications:
+            return "published"
+        if result.blocked:
+            return "blocked"
+        return "inapplicable"
 
     def _symbol_pin_entry(self, symbol: str) -> dict[str, Any]:
         fid, ver, role, provenance = self.symbol_pin[symbol]
@@ -2149,6 +2214,15 @@ class _Run:
             if rule["id"] in self.resolved:
                 continue
 
+            if isinstance(rule.get("subject"), dict):
+                # A rule the loop never found eligible is otherwise
+                # evaluated once, unsuffixed, below. ADR 0076 Part 1: the
+                # same per-subject call takes this path too.
+                self.evaluate_subject_scoped_rule(
+                    subject_type=rule["subject"]["id"], rule=rule
+                )
+                continue
+
             if rule.get("schema") in ATTACHMENT_SCHEMAS:
                 # The compiled `.member-validation` prerequisite must gate
                 # attachment scheduling here too - `attempt_attachment`
@@ -2405,6 +2479,7 @@ def run_and_record(
             "rule-artifact.v2", "rule-artifact.v3", "rule-artifact.v4",
             "rule-artifact.v5", "rule-artifact.v6", "rule-artifact.v7",
             "rule-artifact.v8", "rule-artifact.v9", "rule-artifact.v10",
+            "rule-artifact.v11",
         }
         for rule in ctx.rules
     ) or _uses_attachment_machinery(ctx.rules)
