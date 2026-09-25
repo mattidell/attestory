@@ -7,14 +7,16 @@ walkers ``package_validation.py`` already uses for its entrypoint-rooted
 BFS, and roots that walk at the composed rule(s) instead.
 
 Adjacency covers every schema kind that BFS actually emits edges for
-(rule-artifact.v1–v10, form-field.v1–v3, source-closure-mapping.v2,
+(rule-artifact.v1–v11, form-field.v1–v3, source-closure-mapping.v2,
 taxable-interest-composition.v1, source-family.v1, attachment-rule.v6/v8,
 bundle.v1/v2, and role-canon.v1 as an inbound dependency of every other
 member). ``source-family.v2`` uses the same member-predicate / collect
 edges as v1 so a package that has migrated families still closes.
-A ``rule-artifact.v10`` ``link_coverage`` node adds the same edges
-package validation adds: the reduction publisher, the link fact type,
-bundles that contain that fact type, and ``empty.parameter``.
+A ``rule-artifact.v10`` or ``rule-artifact.v11`` ``link_coverage`` node adds
+the same edges package validation adds: the reduction publisher, the link
+fact type, bundles that contain that fact type, and ``empty.parameter``.
+``rule-artifact.v11``'s own ``subject``/``joined``/``direction`` pins add no
+edge here (ADR 0076 admission-only successor; Track 5a).
 
 This module does not edit ``package_validation.py``.
 """
@@ -49,6 +51,7 @@ _RULE_ARTIFACT_SCHEMAS = frozenset(
         "rule-artifact.v8",
         "rule-artifact.v9",
         "rule-artifact.v10",
+        "rule-artifact.v11",
     }
 )
 _RULE_DECLARED_REFS_OUTSIDE_REQUIRES = frozenset(
@@ -61,6 +64,7 @@ _RULE_DECLARED_REFS_OUTSIDE_REQUIRES = frozenset(
         "rule-artifact.v8",
         "rule-artifact.v9",
         "rule-artifact.v10",
+        "rule-artifact.v11",
     }
 )
 _FORM_FIELD_SCHEMAS = frozenset({"form-field.v1", "form-field.v2", "form-field.v3"})
@@ -188,7 +192,7 @@ def build_dependency_edges(
                     cite_ver = citation.get("version")
                     if cite_ver is None or corpus[cite_id].get("version") == cite_ver:
                         edges[cid].add(cite_id)
-            if schema == "rule-artifact.v10":
+            if schema in ("rule-artifact.v10", "rule-artifact.v11"):
                 for node in _iter_link_coverage_nodes(value):
                     links_name = node.get("links")
                     reductions_name = node.get("reductions")

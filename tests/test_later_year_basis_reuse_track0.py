@@ -1868,6 +1868,9 @@ class C8bCandidateAgainstCurrentPackageValidation(unittest.TestCase):
                 "artifact-package.v26.schema.json",
                 "artifact-package.v28.schema.json",
                 "artifact-package.v31.schema.json",
+                # v32 (ADR 0076) is v31 plus rule-artifact.v11. It is also
+                # outside the guard's v17 allowlist, so the finding holds.
+                "artifact-package.v32.schema.json",
             ],
         )
 

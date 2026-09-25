@@ -1251,7 +1251,11 @@ ADR's required changes — reusable link admission, the unjoinable block, no red
 scheduling and binding** — the two things between this milestone and G2. ADR 0075 awaits the owner's
 acceptance.
 
-**Track 5 — ADR 0076 Parts 1 and 2** (accepted 2026-09-24). Two builder units, each independently reviewed: **5a**, the first rule and package successors (`subject`, `joined`, `direction`), admission, and the static relationship checks; **5b**, per-subject scheduling in both runners and the runtime presence check. Charters: [`charter-track5a-subject-and-relationship-declarations.md`](student-loan-circumstance-association-evidence/charter-track5a-subject-and-relationship-declarations.md), 5b to follow 5a's review.
+**Track 5 — ADR 0076 Parts 1 and 2** (accepted 2026-09-24). Two builder units, each independently reviewed: **5a**, the first rule and package successors (`subject`, `joined`, `direction`), admission, and the static relationship checks; **5b**, per-subject scheduling in both runners and the runtime presence check. Charters: [`charter-track5a-subject-and-relationship-declarations.md`](student-loan-circumstance-association-evidence/charter-track5a-subject-and-relationship-declarations.md), and [`charter-track5b-per-subject-scheduling-and-presence.md`](student-loan-circumstance-association-evidence/charter-track5b-per-subject-scheduling-and-presence.md).
+**5a is complete** — `rule-artifact.v11` and `artifact-package.v32` published on the branch with their
+checksums; four static issue codes; independent review passed with no defects
+([`track5a-review.md`](student-loan-circumstance-association-evidence/track5a-review.md)). **Next: 5b.**
+Dispatch uses sonnet sub-agents (grok credit exhausted 2026-09-24).
 
 **What stands before G2, investigated (read-only):**
 [`g2-path-investigation.md`](student-loan-circumstance-association-evidence/g2-path-investigation.md).

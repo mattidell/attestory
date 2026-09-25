@@ -61,7 +61,7 @@ def _families_reached(
     reached: set[tuple[str, str]] = set()
     schema = citizen.get("schema")
 
-    if schema in {"rule-artifact.v1", "rule-artifact.v2", "rule-artifact.v3", "rule-artifact.v4", "rule-artifact.v5", "rule-artifact.v6", "rule-artifact.v7", "rule-artifact.v8", "rule-artifact.v9", "rule-artifact.v10"}:
+    if schema in {"rule-artifact.v1", "rule-artifact.v2", "rule-artifact.v3", "rule-artifact.v4", "rule-artifact.v5", "rule-artifact.v6", "rule-artifact.v7", "rule-artifact.v8", "rule-artifact.v9", "rule-artifact.v10", "rule-artifact.v11"}:
         for symbol in citizen.get("requires", []):
             if symbol in families_by_subtotal:
                 reached.add((families_by_subtotal[symbol], "reads_subtotal"))
@@ -197,7 +197,7 @@ def _predicate_depth(node: Any) -> int:
 
 _RULE_ROLES = frozenset({"computation", "applicability", "field-mapping", "cross-form-bridge"})
 _RULE_ARTIFACT_SCHEMAS = frozenset(
-    {"rule-artifact.v1", "rule-artifact.v2", "rule-artifact.v3", "rule-artifact.v4", "rule-artifact.v5", "rule-artifact.v6", "rule-artifact.v7", "rule-artifact.v8", "rule-artifact.v9", "rule-artifact.v10"}
+    {"rule-artifact.v1", "rule-artifact.v2", "rule-artifact.v3", "rule-artifact.v4", "rule-artifact.v5", "rule-artifact.v6", "rule-artifact.v7", "rule-artifact.v8", "rule-artifact.v9", "rule-artifact.v10", "rule-artifact.v11"}
 )
 _SCOPE_KEYS = ("tax_year", "jurisdiction", "family")
 
@@ -355,6 +355,7 @@ _SUPPORTED_SEMANTIC_SCHEMAS = frozenset({
     "rule-artifact.v8",
     "rule-artifact.v9",
     "rule-artifact.v10",
+    "rule-artifact.v11",
     "source-closure-mapping.v2",
     "source-family.v1",
     "source-family.v2",
@@ -598,7 +599,7 @@ def _link_coverage_issues(
     fact_ids = {fact_id for fact_id, _version in fact_surface}
 
     for pin, citizen in resolved:
-        if citizen.get("schema") != "rule-artifact.v10":
+        if citizen.get("schema") not in ("rule-artifact.v10", "rule-artifact.v11"):
             continue
         value_nodes = list(_iter_link_coverage_nodes(citizen.get("value")))
         when_nodes = list(_iter_link_coverage_nodes(citizen.get("when")))
@@ -650,6 +651,93 @@ def _link_coverage_issues(
                     pin["id"], pin["version"], "LINK_COVERAGE_INVALID",
                     f"empty.parameter {parameter!r} is not an exact package parameter member",
                 ))
+    return issues
+
+
+def _exact_pin_key(pin: Any) -> tuple[str, str] | None:
+    """``(id, version)`` for a well-formed exact pin, else ``None``."""
+    if (
+        isinstance(pin, dict)
+        and isinstance(pin.get("id"), str)
+        and isinstance(pin.get("version"), str)
+    ):
+        return (pin["id"], pin["version"])
+    return None
+
+
+def _subject_relationship_issues(
+    resolved: list[tuple[dict[str, Any], dict[str, Any]]],
+    fact_types_by_key: Mapping[tuple[str, str], dict[str, Any]],
+) -> list[MemberIssue]:
+    """ADR 0076 Part 2's static relationship checks for a ``rule-artifact.v11``
+    citizen's ``subject``/``joined``/``direction`` declarations.
+
+    The schema-level shape (``subject`` required; ``joined`` and ``direction``
+    present together or absent together; ``direction`` an enum of the two
+    named relationships) is already enforced by ``rule-artifact.v11``'s own
+    grammar and ``dependentRequired``. What is checked here is what the
+    schema cannot see: whether the declared pins resolve to fact-type
+    members of *this* package, and whether the declared identity-key names
+    actually satisfy the declared containment. Values are not read; a row
+    that omits a declared key, or the runtime agreement of present values, is
+    the presence check inside per-subject dispatch (Track 5b), not this one.
+    """
+    issues: list[MemberIssue] = []
+
+    for pin, citizen in resolved:
+        if citizen.get("schema") != "rule-artifact.v11":
+            continue
+
+        subject = citizen.get("subject")
+        subject_key = _exact_pin_key(subject)
+        subject_type = fact_types_by_key.get(subject_key) if subject_key is not None else None
+        if subject_type is None:
+            issues.append(MemberIssue(
+                pin["id"], pin["version"], "RULE_SUBJECT_UNRESOLVED",
+                f"subject {subject!r} does not resolve to a fact-type member of this package",
+            ))
+
+        joined = citizen.get("joined")
+        direction = citizen.get("direction")
+        joined_type = None
+        if joined is not None:
+            joined_key = _exact_pin_key(joined)
+            joined_type = fact_types_by_key.get(joined_key) if joined_key is not None else None
+            if joined_type is None:
+                issues.append(MemberIssue(
+                    pin["id"], pin["version"], "RULE_JOINED_UNRESOLVED",
+                    f"joined {joined!r} does not resolve to a fact-type member of this package",
+                ))
+
+        if (
+            subject_type is not None
+            and joined_type is not None
+            and direction in ("joined_contains_subject", "subject_contains_joined")
+        ):
+            subject_names = {key.get("name") for key in subject_type.get("identity_keys", [])}
+            joined_names = {key.get("name") for key in joined_type.get("identity_keys", [])}
+            if direction == "joined_contains_subject":
+                contained = subject_names <= joined_names
+            else:
+                contained = joined_names <= subject_names
+            if not contained:
+                issues.append(MemberIssue(
+                    pin["id"], pin["version"], "RULE_RELATIONSHIP_NOT_CONTAINED",
+                    f"{direction} does not hold by identity-key name: subject "
+                    f"{sorted(n for n in subject_names if n)!r} joined "
+                    f"{sorted(n for n in joined_names if n)!r}",
+                ))
+
+        for node in _iter_link_coverage_nodes(citizen.get("value")):
+            links = node.get("links")
+            joined_id = joined.get("id") if isinstance(joined, dict) else None
+            if joined is None or direction != "joined_contains_subject" or joined_id != links:
+                issues.append(MemberIssue(
+                    pin["id"], pin["version"], "LINK_COVERAGE_RELATIONSHIP_INVALID",
+                    "a link_coverage rule must declare joined equal to its links "
+                    "fact type and direction joined_contains_subject",
+                ))
+
     return issues
 
 
@@ -893,7 +981,7 @@ def compile_validation_graph(
 
     for member in resolved_members:
         schema_val = member.get("schema")
-        if schema_val not in {"rule-artifact.v1", "rule-artifact.v2", "rule-artifact.v3", "rule-artifact.v4", "rule-artifact.v5", "rule-artifact.v6", "rule-artifact.v7", "rule-artifact.v8", "rule-artifact.v9", "rule-artifact.v10", "attachment-rule.v1", "attachment-rule.v2", "attachment-rule.v3", "attachment-rule.v4", "attachment-rule.v5", "attachment-rule.v6", "attachment-rule.v8", "attachment-rule.v11"}:
+        if schema_val not in {"rule-artifact.v1", "rule-artifact.v2", "rule-artifact.v3", "rule-artifact.v4", "rule-artifact.v5", "rule-artifact.v6", "rule-artifact.v7", "rule-artifact.v8", "rule-artifact.v9", "rule-artifact.v10", "rule-artifact.v11", "attachment-rule.v1", "attachment-rule.v2", "attachment-rule.v3", "attachment-rule.v4", "attachment-rule.v5", "attachment-rule.v6", "attachment-rule.v8", "attachment-rule.v11"}:
             compiled.append(member)
             continue
 
@@ -964,7 +1052,7 @@ def check_validation_graph(
 
     for member in compiled_members:
         schema_val = member.get("schema")
-        if schema_val not in {"rule-artifact.v1", "rule-artifact.v2", "rule-artifact.v3", "rule-artifact.v4", "rule-artifact.v5", "rule-artifact.v6", "rule-artifact.v7", "rule-artifact.v8", "rule-artifact.v9", "rule-artifact.v10", "attachment-rule.v1", "attachment-rule.v2", "attachment-rule.v3", "attachment-rule.v4", "attachment-rule.v5", "attachment-rule.v6", "attachment-rule.v8", "attachment-rule.v11"}:
+        if schema_val not in {"rule-artifact.v1", "rule-artifact.v2", "rule-artifact.v3", "rule-artifact.v4", "rule-artifact.v5", "rule-artifact.v6", "rule-artifact.v7", "rule-artifact.v8", "rule-artifact.v9", "rule-artifact.v10", "rule-artifact.v11", "attachment-rule.v1", "attachment-rule.v2", "attachment-rule.v3", "attachment-rule.v4", "attachment-rule.v5", "attachment-rule.v6", "attachment-rule.v8", "attachment-rule.v11"}:
             continue
 
         artifact_id = member["id"]
@@ -1770,6 +1858,7 @@ def validate_package(
     issues.extend(_link_coverage_issues(
         package, resolved, fact_surface, parameter_keys, package_id,
     ))
+    issues.extend(_subject_relationship_issues(resolved, fact_types_by_key))
 
     # 4. Form-field binds symbol closure
     for pin, citizen in resolved:
@@ -2213,8 +2302,10 @@ def validate_package(
                 # `collect_categorical_all_equal` (Form 1098-E Student Loan
                 # Interest Deduction milestone Tracks 1/6b), an additive
                 # expression-language extension only -- it carries the same
-                # declared-refs-outside-requires capability.
-                if citizen["schema"] in {"rule-artifact.v3", "rule-artifact.v4", "rule-artifact.v5", "rule-artifact.v6", "rule-artifact.v7", "rule-artifact.v8", "rule-artifact.v9", "rule-artifact.v10"}:
+                # declared-refs-outside-requires capability. v11 is v10's
+                # grammar plus subject/joined/direction, none of which are
+                # `ref` expressions; it carries the same capability.
+                if citizen["schema"] in {"rule-artifact.v3", "rule-artifact.v4", "rule-artifact.v5", "rule-artifact.v6", "rule-artifact.v7", "rule-artifact.v8", "rule-artifact.v9", "rule-artifact.v10", "rule-artifact.v11"}:
                     declared_refs.update(
                         ref for expression in _rule_expression_nodes(citizen)
                         for ref in _iter_ref_names(expression)
@@ -2262,7 +2353,8 @@ def validate_package(
                 # link_coverage names a predecessor by publishes, not by ref.
                 # The edge is what makes that rule a predecessor. The link
                 # fact type and the empty parameter are reached the same way.
-                if citizen["schema"] == "rule-artifact.v10":
+                # v11 admits the same link_coverage node; same edges.
+                if citizen["schema"] in ("rule-artifact.v10", "rule-artifact.v11"):
                     for node in _iter_link_coverage_nodes(citizen.get("value")):
                         links_name = node.get("links")
                         reductions_name = node.get("reductions")
@@ -2984,8 +3076,9 @@ def validate_package(
         # v6 is v4's grammar plus multiply/divide/collect_categorical_all_equal
         # (Form 1098-E Student Loan Interest Deduction milestone Tracks
         # 1/6b); the conditional_dependency_set/category_literal domain-match
-        # check applies identically.
-        if citizen["schema"] not in {"rule-artifact.v3", "rule-artifact.v4", "rule-artifact.v5", "rule-artifact.v6", "rule-artifact.v7", "rule-artifact.v8", "rule-artifact.v9", "rule-artifact.v10"}:
+        # check applies identically. v11 is v10's grammar plus
+        # subject/joined/direction; the same when/value shape applies.
+        if citizen["schema"] not in {"rule-artifact.v3", "rule-artifact.v4", "rule-artifact.v5", "rule-artifact.v6", "rule-artifact.v7", "rule-artifact.v8", "rule-artifact.v9", "rule-artifact.v10", "rule-artifact.v11"}:
             continue
         member_names = {
             name for expression in _rule_expression_nodes(citizen)
@@ -3039,7 +3132,7 @@ def validate_package(
     # value_schema.properties. Misspelled fields and field-on-scalar are
     # rejected here, never as a silent None/zero at evaluation.
     for pin, citizen in resolved:
-        if citizen["schema"] not in {"rule-artifact.v7", "rule-artifact.v8", "rule-artifact.v9", "rule-artifact.v10"}:
+        if citizen["schema"] not in {"rule-artifact.v7", "rule-artifact.v8", "rule-artifact.v9", "rule-artifact.v10", "rule-artifact.v11"}:
             continue
         if citizen["schema"] in {"rule-artifact.v7", "rule-artifact.v8"}:
             issues.extend(check_field_ref_bindings(
