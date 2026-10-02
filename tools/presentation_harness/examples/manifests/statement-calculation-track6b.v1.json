@@ -1,0 +1,54 @@
+{
+  "version": "presentation-evaluation-manifest.v1",
+  "id": "statement-calculation-track6b",
+  "timeout_ms": 5000,
+  "candidates": [
+    {
+      "id": "statement-calculation-experimental",
+      "path": "tools/presentation_harness/examples/pages/statement-calculation.experimental.v1.html"
+    }
+  ],
+  "fixtures": [
+    { "id": "ordinary", "path": "temp/track6b/ordinary/presentation.json", "synthetic": true },
+    { "id": "adverse", "path": "temp/track6b/adverse/presentation.json", "synthetic": true },
+    { "id": "unresolved", "path": "temp/track6b/unresolved/presentation.json", "synthetic": true }
+  ],
+  "criteria": [
+    { "id": "heading", "check": "dom-text-present", "params": { "selector": "#page-heading", "expected_text": "Statement calculation — experimental reader" } },
+    { "id": "worksheet-heading", "check": "dom-text-present", "params": { "selector": "#worksheet-heading", "expected_text": "Schedule 1, line 21 — worksheet result" } },
+    { "id": "worksheet-published", "check": "dom-text-present", "params": { "selector": "#worksheet-status", "expected_text": "published_value" } },
+    { "id": "separate-view-label", "check": "dom-text-present", "params": { "selector": "#integration-note", "expected_text": "Not Schedule 1 line 21. The worksheet does not read these figures." } },
+    { "id": "s1-label", "check": "dom-text-present", "params": { "selector": "#statement-S1 h2", "expected_text": "S1" } },
+    { "id": "s2-label", "check": "dom-text-present", "params": { "selector": "#statement-S2 h2", "expected_text": "S2" } },
+    { "id": "s1-supplied", "check": "dom-text-present", "params": { "selector": "#statement-S1 .axis-supplied", "expected_text": "What was supplied" } },
+    { "id": "s1-assumed", "check": "dom-text-present", "params": { "selector": "#statement-S1 .axis-assumed", "expected_text": "What the calculation assumed" } },
+    { "id": "s1-concluded", "check": "dom-text-present", "params": { "selector": "#statement-S1 .axis-concluded", "expected_text": "What the rules concluded" } },
+    { "id": "s1-responsibility", "check": "dom-text-present", "params": { "selector": "#statement-S1 .axis-responsibility", "expected_text": "What remains the filer’s responsibility" } },
+    { "id": "s2-amount", "check": "dom-text-present", "params": { "selector": "#statement-S2 .statement-amount", "expected_text": "Statement calculation amount:" } },
+    { "id": "ordinary-link-wording", "check": "dom-text-present", "params": { "selector": "#statement-S1 .wording", "expected_text": "No borrowing is currently linked to S1." } },
+    { "id": "ordinary-line-note", "check": "dom-text-present", "params": { "selector": "#statement-S1 .rule-basis", "expected_text": "Recorded rule basis: Eligibility is taken as met" } },
+    { "id": "ordinary-answer", "check": "dom-text-present", "params": { "selector": "#statement-S1 .answer", "expected_text": "retains the supplied amount" } },
+    { "id": "ordinary-zero-link-policy", "check": "dom-text-present", "params": { "selector": "#statement-S1 .axis-assumed", "expected_text": "zero link-related reduction" } },
+    { "id": "ordinary-zero-claim-policy", "check": "dom-text-present", "params": { "selector": "#statement-S1 .axis-assumed", "expected_text": "zero disqualifier count" } },
+    { "id": "adverse-answer", "check": "dom-text-present", "params": { "selector": "#statement-S1 .answer", "expected_text": "synthetic whole-amount rule" } },
+    { "id": "adverse-no-responsibility", "check": "dom-text-present", "params": { "selector": "#statement-S1 .axis-responsibility", "expected_text": "No responsibility statement was published" } },
+    { "id": "unresolved-answer", "check": "dom-text-present", "params": { "selector": "#statement-S1 .answer", "expected_text": "claim could not be classified" } },
+    { "id": "unresolved-no-responsibility", "check": "dom-text-present", "params": { "selector": "#statement-S1 .axis-responsibility", "expected_text": "No responsibility statement was published" } },
+    { "id": "unresolved-axis", "check": "dom-text-present", "params": { "selector": "#statement-S1 .answer", "expected_text": "amount is unavailable" } }
+  ],
+  "tamper_cases": [ { "id": "baseline", "injection": null } ],
+  "matrix": [
+    {
+      "candidate_id": "statement-calculation-experimental", "fixture_id": "ordinary", "tamper_case_id": "baseline",
+      "criteria": ["heading", "worksheet-heading", "worksheet-published", "separate-view-label", "s1-label", "s2-label", "s1-supplied", "s1-assumed", "s1-concluded", "s1-responsibility", "s2-amount", "ordinary-link-wording", "ordinary-line-note", "ordinary-answer", "ordinary-zero-link-policy", "ordinary-zero-claim-policy"]
+    },
+    {
+      "candidate_id": "statement-calculation-experimental", "fixture_id": "adverse", "tamper_case_id": "baseline",
+      "criteria": ["heading", "worksheet-heading", "separate-view-label", "s1-label", "s2-label", "s1-supplied", "s1-assumed", "s1-concluded", "s1-responsibility", "s2-amount", "adverse-answer", "adverse-no-responsibility"]
+    },
+    {
+      "candidate_id": "statement-calculation-experimental", "fixture_id": "unresolved", "tamper_case_id": "baseline",
+      "criteria": ["heading", "worksheet-heading", "separate-view-label", "s1-label", "s2-label", "s1-supplied", "s1-assumed", "s1-concluded", "s1-responsibility", "s2-amount", "unresolved-answer", "unresolved-no-responsibility", "unresolved-axis"]
+    }
+  ]
+}

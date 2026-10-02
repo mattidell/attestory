@@ -276,6 +276,500 @@ def _resolve_field_row(
     return {"disposition": kind, "value": value, "act": act}, citation_sites
 
 
+def _calculation_view(
+    *, resolved_members: Sequence[Mapping[str, Any]], state: FindingState,
+    publications: Mapping[str, Mapping[str, Any]], dispositions: Sequence[Mapping[str, Any]],
+) -> dict[str, Any] | None:
+    """Project the bounded v12 statement reader from recorded run material."""
+    from packages.kernel.facts import facts_of
+
+    rules = _rules_by_id(resolved_members)
+    rule_members = [m for m in resolved_members if "publishes" in m]
+    roles: dict[str, list[Mapping[str, Any]]] = {}
+    for rule in rules.values():
+        role = rule.get("reader_role")
+        if isinstance(role, str):
+            roles.setdefault(role, []).append(rule)
+    amount_rules = roles.get("statement-amount", [])
+    if not amount_rules:
+        return None
+    if len(rules) != len(rule_members):
+        raise PresentationModelError("calculation view has duplicate resolved rule ids")
+    if len({str(r.get("publishes")) for r in amount_rules}) != 1:
+        raise PresentationModelError("calculation view requires one shared statement amount symbol")
+    rows_by_rule: dict[str, list[Mapping[str, Any]]] = {}
+    for row in dispositions:
+        artifact_id = row.get("artifact_id")
+        if isinstance(artifact_id, str):
+            rows_by_rule.setdefault(artifact_id, []).append(row)
+    fact_map = facts_of(state.fact_state)
+    from packages.kernel.currency import compute_currency
+    current_finding_ids = compute_currency(state).current_finding_ids
+    diagnostic_markers = {"link-coverage-scope-unbound", "link-coverage-keys-unavailable", "link-coverage-unjoinable"}
+    parameter_ids = {str(m.get("id")) for m in resolved_members if m.get("schema") == "parameter-declaration.v1"}
+    declared_symbols = {str(m.get("publishes")) for m in rule_members}
+    fact_type_ids = {str(m.get("id")) for m in resolved_members if str(m.get("schema", "")).startswith("fact-type.")}
+    source_set_ids = {str(m.get("id")) for m in resolved_members if str(m.get("schema", "")).startswith("source-set.")}
+
+    def named_parameter_version(rule: Mapping[str, Any], parameter_id: str) -> str | None:
+        versions: set[str] = set()
+
+        def visit(node: Any) -> None:
+            if isinstance(node, Mapping):
+                parameter_ref = node.get("parameter")
+                if (isinstance(parameter_ref, Mapping) and parameter_ref.get("id") == parameter_id
+                    and isinstance(parameter_ref.get("version"), str)):
+                    versions.add(parameter_ref["version"])
+                if (node.get("role") == "parameter" and node.get("id") == parameter_id
+                    and isinstance(node.get("version"), str)):
+                    versions.add(node["version"])
+                for child in node.values():
+                    visit(child)
+            elif isinstance(node, (list, tuple)):
+                for child in node:
+                    visit(child)
+
+        for key in ("pins", "when", "value", "blocked"):
+            visit(rule.get(key))
+        if len(versions) > 1:
+            raise PresentationModelError(f"blocking rule {rule.get('id')!r} names ambiguous versions of parameter {parameter_id!r}")
+        return next(iter(versions)) if versions else None
+
+    def named_rule_references(rule: Mapping[str, Any], names: set[str]) -> set[str]:
+        """Collect identifiers only from the contract's declared reference slots."""
+        found: set[str] = set()
+
+        def visit(node: Any) -> None:
+            if isinstance(node, Mapping):
+                op = node.get("op")
+                if op == "ref" and "ref" in names:
+                    value = node.get("name")
+                    if isinstance(value, str) and value:
+                        found.add(value)
+                if op in {"collect", "count"} and op in names:
+                    for key in ("name", "source_set"):
+                        if key == "name" or key in names:
+                            value = node.get(key)
+                            if isinstance(value, str) and value:
+                                found.add(value)
+                for key in ("parameter_id", "table_id"):
+                    value = node.get(key)
+                    if isinstance(value, str) and value:
+                        found.add(value)
+                for child in node.values():
+                    visit(child)
+            elif isinstance(node, (list, tuple)):
+                for child in node:
+                    visit(child)
+
+        for key in ("pins", "requires", "when", "value", "blocked"):
+            visit(rule.get(key))
+        return found
+
+    def classify_missing(value: Any, rule: Mapping[str, Any]) -> dict[str, Any]:
+        if not isinstance(value, str):
+            return {"kind": "text", "value": str(value)}
+        if value in diagnostic_markers:
+            return {"kind": "diagnostic", "value": value}
+        rule_parameter_ids = named_rule_references(rule, {"parameter_id", "table_id"})
+        # `link_coverage.empty.parameter.id` is a typed reference; do not
+        # infer parameter identity from arbitrary prose or expression strings.
+        def has_empty_parameter(node: Any) -> bool:
+            if isinstance(node, Mapping):
+                if node.get("op") == "link_coverage":
+                    empty = node.get("empty")
+                    if isinstance(empty, Mapping):
+                        param = empty.get("parameter")
+                        if isinstance(param, Mapping) and param.get("id") == value:
+                            return True
+                return any(has_empty_parameter(child) for child in node.values())
+            if isinstance(node, (list, tuple)):
+                return any(has_empty_parameter(child) for child in node)
+            return False
+        if value in parameter_ids or value in rule_parameter_ids or any(
+            has_empty_parameter(rule.get(key)) for key in ("pins", "when", "value", "blocked")
+        ):
+            parameter: dict[str, Any] = {"kind": "parameter", "id": value}
+            parameter_version = named_parameter_version(rule, value)
+            if parameter_version is not None:
+                parameter["version"] = parameter_version
+            return parameter
+        named_source_refs = named_rule_references(rule, {"ref", "collect", "count", "source_set"})
+        if (value not in state.findings and value not in publications
+            and (value in rule.get("requires", []) or value in declared_symbols or value in fact_type_ids
+                 or value in source_set_ids or value in named_source_refs)):
+            return {"kind": "symbol", "value": value}
+        if value in state.findings:
+            recorded = state.findings[value]
+            fact_id = recorded.get("fact_id")
+            if not isinstance(fact_id, str) or not fact_id:
+                raise PresentationModelError(f"missing finding {value!r} has no recorded fact identity")
+            return {"kind": "finding", "findingId": value, "factId": fact_id}
+        publication = publications.get(value)
+        if publication is not None:
+            symbol = publication.get("symbol")
+            if not isinstance(symbol, str) or not symbol:
+                raise PresentationModelError(f"missing publication {value!r} has no recorded symbol")
+            return {"kind": "finding", "findingId": value, "symbol": symbol}
+        return {"kind": "text", "value": value}
+
+    def copy_rule_text(template: str, group_label: Mapping[str, Any], finding_ids: Sequence[str]) -> str:
+        def replace_slot(match: re.Match[str]) -> str:
+            slot = match.group(1)
+            if slot == "statement":
+                value = group_label.get("statement")
+                if not isinstance(value, str) or not value:
+                    raise PresentationModelError("wording slot {statement} has no recorded statement label")
+                return value
+            for finding_id in finding_ids:
+                finding = state.findings.get(finding_id)
+                fact_id = finding.get("fact_id") if finding else None
+                fact = fact_map.get(fact_id) if isinstance(fact_id, str) else None
+                if fact is None:
+                    continue
+                key_values = dict(fact.keys)
+                raw = key_values.get(slot)
+                if raw is None:
+                    continue
+                entity = state.fact_state.entities.get(raw)
+                fact_type = state.fact_state.fact_types.get(fact.fact_type_id, {})
+                key_declaration: Mapping[str, Any] = next((k for k in fact_type.get("identity_keys", []) if k.get("name") == slot), {})
+                if key_declaration.get("kind") == "entity":
+                    resolved_label = entity.entity.get("label") if entity and entity.status == "current" else None
+                else:
+                    resolved_label = raw
+                if isinstance(resolved_label, str) and resolved_label:
+                    return resolved_label
+            raise PresentationModelError(f"wording slot {{{slot}}} has no recorded pinned key")
+        rendered = re.sub(r"\{(statement|institution|programme|period)\}", replace_slot, template)
+        if re.search(r"\{[^{}]+\}", rendered):
+            raise PresentationModelError("rule wording contains an unsupported unresolved slot")
+        return rendered
+
+    def result(rule: Mapping[str, Any] | None, fact_id: str) -> Mapping[str, Any] | None:
+        if rule is None:
+            return None
+        keyed = f"{rule['publishes']}|{fact_id}"
+        matches = [r for r in rows_by_rule.get(str(rule["id"]), []) if r.get("symbol") == keyed]
+        if len(matches) > 1:
+            raise PresentationModelError(f"ambiguous keyed disposition {keyed!r}")
+        return matches[0] if matches else None
+
+    def rule_info(row: Mapping[str, Any]) -> dict[str, Any]:
+        rule = rules.get(str(row.get("artifact_id")))
+        if rule is None:
+            raise PresentationModelError(f"unknown calculation-view rule {row.get('artifact_id')!r}")
+        out = {"ruleId": rule["id"], "ruleVersion": rule["version"], "readerRole": rule.get("reader_role"),
+               "symbol": row.get("symbol"), "disposition": row.get("disposition"),
+               "pins": [dict(p) for p in row.get("pins", [])]}
+        if isinstance(row.get("code"), str):
+            out["code"] = row["code"]
+        return out
+
+    def axis(rule: Mapping[str, Any] | None, fact_id: str, interpretation: str) -> dict[str, Any]:
+        row = result(rule, fact_id) if rule is not None else None
+        if row is None:
+            if rule is None:
+                return {"interpretation": "not-computed"}
+            return {"interpretation": "not-computed", "ruleId": rule["id"],
+                    "ruleVersion": rule["version"], "readerRole": rule.get("reader_role")}
+        out = rule_info(row)
+        out["interpretation"] = interpretation
+        if row.get("disposition") == "published":
+            fid = row.get("finding_id")
+            finding = publications.get(str(fid))
+            if finding is None:
+                raise PresentationModelError(f"calculation view references absent publication {fid!r}")
+            out["findingId"] = fid
+            out["value"] = finding.get("value")
+            out["pins"] = [dict(p) for p in finding.get("pins", [])]
+        elif row.get("disposition") == "blocked":
+            producer = rules.get(str(row.get("artifact_id")), {})
+            out["missing"] = [classify_missing(v, producer) for v in row.get("missing", [])]
+        return out
+
+    def count_result(row: Mapping[str, Any], rule: Mapping[str, Any]) -> int:
+        finding_id = row.get("finding_id")
+        finding = publications.get(str(finding_id))
+        if finding is None:
+            raise PresentationModelError(f"count disposition lacks its publication {finding_id!r}")
+        raw = _numeric_value(finding.get("value"), symbol=str(rule.get("publishes")))
+        if raw < 0 or int(raw) != raw:
+            raise PresentationModelError(f"count producer {rule.get('id')!r} published a non-count value")
+        return int(raw)
+
+    groups: list[dict[str, Any]] = []
+
+    def one_role(role: str, subject: Mapping[str, Any], predicate: Any = None) -> Mapping[str, Any] | None:
+        candidates = [r for r in roles.get(role, [])
+                      if r.get("subject") == subject and (predicate is None or predicate(r))]
+        if len(candidates) > 1:
+            raise PresentationModelError(f"ambiguous {role!r} producer for subject {subject!r}")
+        return candidates[0] if candidates else None
+
+    for amount_rule in amount_rules:
+        subject_type = amount_rule.get("subject", {}).get("id")
+        if not isinstance(subject_type, str):
+            raise PresentationModelError("statement-amount rule lacks a declared subject")
+        for fact_id, fact in sorted(fact_map.items()):
+            if fact.fact_type_id != subject_type:
+                continue
+            amount_row = result(amount_rule, fact_id)
+            if amount_row is None or amount_row.get("disposition") not in {"published", "blocked"}:
+                continue
+            group: dict[str, Any] = {"symbol": amount_row.get("symbol"), "factId": fact_id,
+                "ruleId": amount_rule["id"], "ruleVersion": amount_rule["version"],
+                "disposition": amount_row.get("disposition"), "pins": [dict(p) for p in amount_row.get("pins", [])], "nodes": [],
+                "responsibilities": []}
+            key_values = dict(fact.keys)
+            label: dict[str, Any] = {}
+            for key_name, output_name in (("lender", "lender"), ("statement", "statement")):
+                entity_id = key_values.get(key_name)
+                lifecycle = state.fact_state.entities.get(entity_id) if entity_id else None
+                if lifecycle is not None and lifecycle.status == "current":
+                    recorded_label = lifecycle.entity.get("label")
+                    if isinstance(recorded_label, str) and recorded_label:
+                        label[output_name] = recorded_label
+            if "tax-year" in key_values:
+                label["taxYear"] = key_values["tax-year"]
+            if label:
+                group["statementLabel"] = label
+            group["sourceFindings"] = []
+            source_seen: set[str] = set()
+
+            def record_source(finding_id: Any, origin: Any = None) -> None:
+                if not isinstance(finding_id, str) or finding_id not in current_finding_ids or finding_id in source_seen:
+                    return
+                source = state.findings.get(finding_id)
+                if source is None or not isinstance(source.get("fact_id"), str):
+                    return
+                source_fact = fact_map.get(source["fact_id"])
+                fact_type = state.fact_state.fact_types.get(source_fact.fact_type_id) if source_fact is not None else None
+                if source_fact is None or fact_type is None:
+                    return
+                entry: dict[str, Any] = {"findingId": finding_id, "factId": source["fact_id"], "value": source.get("value"),
+                    "factTypeId": source_fact.fact_type_id, "factTypeVersion": fact_type.get("version"),
+                    "factTypeTitle": fact_type.get("title")}
+                evidence_label = _evidence_label(finding_id, state)
+                if isinstance(evidence_label, str) and evidence_label:
+                    entry["label"] = evidence_label
+                if origin in {"assertion", "declared_default"}:
+                    entry["origin"] = origin
+                source_seen.add(finding_id)
+                group["sourceFindings"].append(entry)
+            if amount_row.get("disposition") == "published":
+                fid = amount_row.get("finding_id")
+                finding = publications.get(str(fid))
+                if finding is None:
+                    raise PresentationModelError(f"amount publication {fid!r} is absent")
+                group.update({"findingId": fid, "value": finding.get("value"),
+                              "pins": [dict(p) for p in finding.get("pins", [])]})
+                for pin in group["pins"]:
+                    if pin.get("role") == "input":
+                        record_source(pin.get("id"), pin.get("origin"))
+                chain: set[str] = set()
+                pending = [p.get("id") for p in group["pins"] if p.get("role") in _DEPENDENCY_ROLES]
+                while pending:
+                    node_id = pending.pop()
+                    if not isinstance(node_id, str) or node_id in chain:
+                        continue
+                    node = publications.get(node_id)
+                    if node is None:
+                        continue
+                    chain.add(node_id)
+                    producer_rows = [r for r in dispositions if r.get("finding_id") == node_id and r.get("disposition") == "published"]
+                    if len(producer_rows) != 1:
+                        raise PresentationModelError(f"intermediate finding {node_id!r} lacks one exact producer disposition")
+                    node_rule = rules.get(str(producer_rows[0].get("artifact_id")))
+                    node_symbol = node.get("symbol")
+                    if (node_rule is None or not isinstance(node_symbol, str)
+                        or not (node_symbol == node_rule.get("publishes") or node_symbol.startswith(f"{node_rule.get('publishes')}|"))
+                        or producer_rows[0].get("symbol") != node_symbol):
+                        raise PresentationModelError(f"intermediate finding {node_id!r} producer does not match its recorded symbol")
+                    node_pins = [dict(p) for p in node.get("pins", [])]
+                    projected_node = {"findingId": node_id, "ruleId": node_rule["id"],
+                        "ruleVersion": node_rule["version"], "symbol": node.get("symbol"),
+                        "value": node.get("value"), "pins": node_pins}
+                    origins = {p.get("origin") for p in node_pins
+                               if p.get("role") == "input" and p.get("origin") in {"assertion", "declared_default"}}
+                    if len(origins) == 1:
+                        projected_node["basisOrigin"] = origins.pop()
+                    group["nodes"].append(projected_node)
+                    pending.extend(p.get("id") for p in node_pins if p.get("role") in _DEPENDENCY_ROLES)
+                chain.add(str(fid))
+                group["_chainFindingIds"] = chain
+            elif amount_row.get("disposition") == "blocked":
+                if not isinstance(amount_row.get("code"), str) or not amount_row["code"]:
+                    raise PresentationModelError("blocked amount lacks its recorded disposition code")
+                group["code"] = amount_row["code"]
+                group["missing"] = [classify_missing(value, amount_rule) for value in amount_row.get("missing", [])]
+
+            subject_identity = amount_rule.get("subject", {})
+            link_rule = one_role("link-count", subject_identity)
+            disqualifier_rule = one_role("statement-scope-disqualifier-count", subject_identity)
+            required_symbols = {str(r.get("publishes")) for r in (link_rule, disqualifier_rule) if r is not None}
+            conclusion_rule = one_role("bare-statement-conclusion", subject_identity,
+                                       lambda r: required_symbols.issubset(set(r.get("requires", []))))
+            link_row = result(link_rule, fact_id) if link_rule else None
+            scope_row = result(disqualifier_rule, fact_id) if disqualifier_rule else None
+            conclusion_row = result(conclusion_rule, fact_id) if conclusion_rule else None
+            route = "not-computed"
+            if link_row is not None:
+                if link_rule is None:
+                    raise PresentationModelError("link-count disposition has no declared producer")
+                route = "unresolved" if link_row.get("disposition") == "blocked" else "inapplicable" if link_row.get("disposition") == "inapplicable" else "bare" if count_result(link_row, link_rule) == 0 else "linked"
+            scope = "not-computed"
+            if scope_row is not None:
+                if disqualifier_rule is None:
+                    raise PresentationModelError("scope-count disposition has no declared producer")
+                scope = "unresolved" if scope_row.get("disposition") == "blocked" else "inapplicable" if scope_row.get("disposition") == "inapplicable" else "no-whole-amount-disqualifier" if count_result(scope_row, disqualifier_rule) == 0 else "whole-amount-disqualifier"
+            conclusion = "published" if conclusion_row and conclusion_row.get("disposition") == "published" else ("inapplicable" if conclusion_row and conclusion_row.get("disposition") == "inapplicable" else "unresolved" if conclusion_row and conclusion_row.get("disposition") == "blocked" else "not-computed")
+            outcome: dict[str, Any] = {"route": axis(link_rule, fact_id, route), "statementScope": axis(disqualifier_rule, fact_id, scope),
+                       "conclusion": axis(conclusion_rule, fact_id, conclusion), "responsibilityFailures": []}
+            group["statementOutcome"] = outcome
+            group["statementOutcome"]["route"]["interpretation"] = route
+            group["statementOutcome"]["statementScope"]["interpretation"] = scope
+            group["statementOutcome"]["conclusion"]["interpretation"] = conclusion
+            claim_fact_type = None
+            claim_subject: Mapping[str, Any] | None = None
+            if disqualifier_rule is not None:
+                joined = disqualifier_rule.get("joined")
+                if isinstance(joined, Mapping):
+                    claim_fact_type = joined.get("id")
+                    claim_subject = joined
+            if isinstance(claim_fact_type, str):
+                statement_keys = dict(fact.keys)
+                claim_rules = [r for r in roles.get("statement-scope-classifier", [])
+                               if r.get("subject") == claim_subject]
+                claims: list[dict[str, Any]] = []
+                for claim_fact_id, claim_fact in fact_map.items():
+                    claim_keys = dict(claim_fact.keys)
+                    active_claim_type = state.fact_state.fact_types.get(claim_fact.fact_type_id, {})
+                    if (claim_fact.fact_type_id != claim_fact_type
+                        or active_claim_type.get("version") != (claim_subject or {}).get("version")
+                        or any(claim_keys.get(k) != v for k, v in statement_keys.items())):
+                        continue
+                    if len(claim_rules) > 1:
+                        raise PresentationModelError(f"ambiguous classifier for claim fact {claim_fact_id!r}")
+                    classifier_rule = claim_rules[0] if claim_rules else None
+                    claim_row = result(classifier_rule, claim_fact_id)
+                    if claim_row is None:
+                        continue
+                    claim_outcome = axis(classifier_rule, claim_fact_id, "classified" if claim_row.get("disposition") == "published" else "unresolved")
+                    claim_outcome["factId"] = claim_fact_id
+                    claim_outcome["claimType"] = claim_fact_type
+                    claim_outcome["claimTypeVersion"] = claim_subject.get("version") if claim_subject else None
+                    claim_findings = [fid for fid, recorded in state.findings.items()
+                                      if recorded.get("fact_id") == claim_fact_id and fid in current_finding_ids]
+                    if len(claim_findings) == 1:
+                        claim_outcome["suppliedFindingId"] = claim_findings[0]
+                        claim_outcome["suppliedValue"] = state.findings[claim_findings[0]].get("value")
+                        claim_source = [p for p in claim_outcome.get("pins", []) if p.get("id") == claim_findings[0]]
+                        record_source(claim_findings[0], claim_source[0].get("origin") if claim_source else None)
+                        recorded_label = _evidence_label(claim_findings[0], state)
+                        if not (isinstance(recorded_label, str) and recorded_label):
+                            claim_key_values = dict(claim_fact.keys)
+                            claim_type = state.fact_state.fact_types.get(claim_fact.fact_type_id, {})
+                            statement_key_names = set(statement_keys)
+                            candidate_labels: list[str] = []
+                            for key_declaration in claim_type.get("identity_keys", []):
+                                key_name = key_declaration.get("name")
+                                if key_name in statement_key_names:
+                                    continue
+                                raw_key = claim_key_values.get(key_name)
+                                if key_declaration.get("kind") != "entity" or not isinstance(raw_key, str):
+                                    continue
+                                entity = state.fact_state.entities.get(raw_key)
+                                candidate_label = entity.entity.get("label") if entity and entity.status == "current" else None
+                                if isinstance(candidate_label, str) and candidate_label:
+                                    candidate_labels.append(candidate_label)
+                            if len(candidate_labels) == 1:
+                                recorded_label = candidate_labels[0]
+                        if isinstance(recorded_label, str) and recorded_label:
+                            claim_outcome["label"] = recorded_label
+                    claims.append(claim_outcome)
+                group["statementOutcome"]["statementScope"]["claims"] = claims
+            for pin in group.get("pins", []):
+                if pin.get("role") == "input":
+                    record_source(pin.get("id"), pin.get("origin"))
+            for node in group.get("nodes", []):
+                for pin in node.get("pins", []):
+                    if pin.get("role") == "input":
+                        record_source(pin.get("id"), pin.get("origin"))
+            for axis_name in ("route", "statementScope", "conclusion"):
+                for pin in group["statementOutcome"][axis_name].get("pins", []):
+                    if pin.get("role") == "input":
+                        record_source(pin.get("id"), pin.get("origin"))
+            assumptions: list[dict[str, Any]] = []
+            parameter_consumers: list[tuple[Mapping[str, Any], str | None, str | None]] = []
+            for axis_name in ("route", "statementScope", "conclusion"):
+                axis_row = group["statementOutcome"][axis_name]
+                if isinstance(axis_row.get("pins"), list):
+                    parameter_consumers.append((axis_row, axis_row.get("ruleId"), axis_row.get("findingId")))
+            for node in group["nodes"]:
+                parameter_consumers.append((node, node.get("ruleId"), node.get("findingId")))
+            parameter_consumers.append((group, amount_rule.get("id"), group.get("findingId")))
+            for consumer, consumer_rule_id, consumer_finding_id in parameter_consumers:
+                for pin in consumer.get("pins", []):
+                    if pin.get("role") != "parameter":
+                        continue
+                    parameter = next((m for m in resolved_members if m.get("schema") == "parameter-declaration.v1"
+                                      and m.get("id") == pin.get("id") and m.get("version") == pin.get("version")), None)
+                    if parameter is None:
+                        raise PresentationModelError(f"parameter pin {pin.get('id')!r}@{pin.get('version')!r} has no exact resolved declaration")
+                    assumption = {"id": pin["id"], "version": pin["version"], "value": parameter.get("values"),
+                                  "consumerRuleId": consumer_rule_id, "consumerFindingId": consumer_finding_id}
+                    if assumption not in assumptions:
+                        assumptions.append(assumption)
+            group["assumptions"] = assumptions
+            conclusion_producer = rules.get(str(conclusion_row.get("artifact_id"))) if conclusion_row and conclusion_row.get("disposition") == "published" else None
+            responsibility_candidates = [r for r in roles.get("responsibility", [])
+                if conclusion_rule is not None and r.get("subject") == subject_identity
+                and {str(amount_rule.get("publishes")), str(conclusion_rule.get("publishes"))}.issubset(set(r.get("requires", [])))]
+            for responsibility_rule in responsibility_candidates:
+                responsibility_row = result(responsibility_rule, fact_id)
+                if responsibility_row is not None and responsibility_row.get("disposition") == "blocked":
+                    outcome["responsibilityFailures"].append({
+                        "ruleId": responsibility_rule["id"], "symbol": responsibility_row.get("symbol"),
+                        "code": responsibility_row.get("code"),
+                        "missing": [classify_missing(v, responsibility_rule) for v in responsibility_row.get("missing", [])],
+                        "explainedBy": [
+                            {"symbol": axis_outcome.get("symbol"), "interpretation": axis_outcome.get("interpretation")}
+                            for missing_entry in [classify_missing(v, responsibility_rule) for v in responsibility_row.get("missing", [])]
+                            if missing_entry.get("kind") == "symbol"
+                            for axis_outcome in (outcome["route"], outcome["statementScope"], outcome["conclusion"])
+                            if axis_outcome.get("symbol") == missing_entry.get("value")
+                            or (isinstance(axis_outcome.get("symbol"), str) and axis_outcome["symbol"].startswith(f"{missing_entry.get('value')}|"))
+                        ],
+                    })
+                    continue
+                if not responsibility_row or responsibility_row.get("disposition") != "published":
+                    continue
+                fid = responsibility_row.get("finding_id")
+                finding = publications.get(str(fid))
+                if finding is None:
+                    raise PresentationModelError(f"responsibility publication {fid!r} is absent")
+                pins = [dict(p) for p in finding.get("pins", [])]
+                chain_ids = group.get("_chainFindingIds", set())
+                if not any(p.get("id") in chain_ids for p in pins) or not any(p.get("id") == outcome["conclusion"].get("findingId") for p in pins):
+                    continue
+                responsibility = {"ruleId": responsibility_rule["id"], "ruleVersion": responsibility_rule["version"],
+                                  "symbol": responsibility_row.get("symbol"), "findingId": fid,
+                                  "value": finding.get("value"), "pins": pins}
+                if isinstance(responsibility_rule.get("wording"), str):
+                    responsibility["wording"] = copy_rule_text(responsibility_rule["wording"], label, [str(fid)])
+                group["responsibilities"].append(responsibility)
+            if group["responsibilities"] and conclusion_producer is not None and isinstance(conclusion_producer.get("lineNote"), str):
+                conclusion_fid = str(conclusion_row.get("finding_id")) if conclusion_row else ""
+                if any(any(p.get("id") == conclusion_fid for p in r.get("pins", [])) for r in group["responsibilities"]):
+                    group["lineNote"] = copy_rule_text(conclusion_producer["lineNote"], label, [conclusion_fid])
+            group.pop("_chainFindingIds", None)
+            groups.append(group)
+    if not groups:
+        return None
+    return {"integrated": False, "amountSymbol": amount_rules[0].get("publishes"), "groups": groups}
+
+
 def _section_id(field: Mapping[str, Any]) -> str:
     return f"line-{field['line']}"
 
@@ -1052,6 +1546,12 @@ def build_presentation_model(
         model["provenanceGroups"] = provenance_groups
     if authorization is not None:
         model["authorization"] = dict(authorization)
+    calculation_view = _calculation_view(
+        resolved_members=resolved_members, state=state,
+        publications=publications_by_id, dispositions=dispositions,
+    )
+    if calculation_view is not None:
+        model["calculationView"] = calculation_view
     validate_presentation_model(model)
     return model
 
@@ -1158,6 +1658,200 @@ def _validate_attachment_resolved(resolved: Mapping[str, Any], path: str) -> Non
         raise PresentationModelError(f"{path}.act: must be null for an attachment status entry")
 
 
+def _validate_calculation_view(view: Any) -> None:
+    path = "$.calculationView"
+    _require_keys(view, frozenset({"integrated", "amountSymbol", "groups"}), frozenset(), path)
+    if view["integrated"] is not False:
+        raise PresentationModelError(f"{path}.integrated: must be false")
+    if not isinstance(view["amountSymbol"], str) or not view["amountSymbol"]:
+        raise PresentationModelError(f"{path}.amountSymbol: expected non-empty string")
+    groups = view["groups"]
+    if not isinstance(groups, list) or not groups:
+        raise PresentationModelError(f"{path}.groups: expected a non-empty list")
+    seen: set[str] = set()
+
+    def check_missing(entries: Any, where: str) -> None:
+        if not isinstance(entries, list):
+            raise PresentationModelError(f"{where}: expected a list")
+        shapes = {"diagnostic": {"kind", "value"}, "symbol": {"kind", "value"},
+                  "text": {"kind", "value"}, "parameter": {"kind", "id"},
+                  "finding": {"kind", "findingId"}}
+        for mi, entry in enumerate(entries):
+            mp = f"{where}[{mi}]"
+            if not isinstance(entry, Mapping) or entry.get("kind") not in shapes:
+                raise PresentationModelError(f"{mp}: invalid classified missing entry")
+            kind = entry["kind"]
+            optional = {"factId", "symbol"} if kind == "finding" else {"version"} if kind == "parameter" else set()
+            _require_keys(entry, frozenset(shapes[kind]), frozenset(optional), mp)
+            for key in (shapes[kind] - {"kind"}) | (set(entry) & optional):
+                if not isinstance(entry[key], str):
+                    raise PresentationModelError(f"{mp}.{key}: expected string")
+                if not entry[key]:
+                    raise PresentationModelError(f"{mp}.{key}: expected non-empty string")
+            if kind == "finding" and not any(key in entry for key in ("factId", "symbol")):
+                raise PresentationModelError(f"{mp}: finding missing entry requires recorded factId or symbol")
+
+    def check_pins(pins: Any, where: str) -> None:
+        if not isinstance(pins, list):
+            raise PresentationModelError(f"{where}: expected a list")
+        for pi, pin in enumerate(pins):
+            if not isinstance(pin, Mapping):
+                raise PresentationModelError(f"{where}[{pi}]: expected a pin object")
+            if pin.get("role") == "parameter" and ("origin" in pin or "basisOrigin" in pin):
+                raise PresentationModelError(f"{where}[{pi}]: parameter pin cannot carry origin")
+
+    for index, group in enumerate(groups):
+        p = f"{path}.groups[{index}]"
+        required = {"symbol", "factId", "ruleId", "ruleVersion", "disposition", "pins", "nodes", "responsibilities", "statementOutcome", "sourceFindings", "assumptions"}
+        optional = {"statementLabel", "findingId", "value", "missing", "lineNote", "code"}
+        _require_keys(group, frozenset(required), frozenset(optional), p)
+        for key in ("symbol", "factId", "ruleId", "ruleVersion"):
+            if not isinstance(group[key], str) or not group[key]:
+                raise PresentationModelError(f"{p}.{key}: expected non-empty string")
+        if group["symbol"] != f"{view['amountSymbol']}|{group['factId']}":
+            raise PresentationModelError(f"{p}.symbol: does not match the exact keyed amount symbol")
+        if group["symbol"] in seen:
+            raise PresentationModelError(f"{p}.symbol: duplicate keyed amount")
+        seen.add(group["symbol"])
+        disposition = group["disposition"]
+        if disposition not in {"published", "blocked", "inapplicable"}:
+            raise PresentationModelError(f"{p}.disposition: unknown disposition {disposition!r}")
+        if disposition == "published":
+            if not isinstance(group.get("findingId"), str) or "value" not in group:
+                raise PresentationModelError(f"{p}: published amount requires findingId and value")
+            if "missing" in group or "code" in group:
+                raise PresentationModelError(f"{p}: missing and code are forbidden on a published amount")
+        elif disposition == "blocked":
+            if ("findingId" in group or "value" in group or not isinstance(group.get("missing"), list)
+                or not isinstance(group.get("code"), str) or not group["code"]):
+                raise PresentationModelError(f"{p}: blocked amount requires missing and code, and forbids a value")
+            check_missing(group["missing"], f"{p}.missing")
+        elif "code" in group:
+            raise PresentationModelError(f"{p}.code: forbidden on a non-blocked amount")
+        elif any(key in group for key in ("findingId", "value", "missing")):
+            raise PresentationModelError(f"{p}: inapplicable amount cannot carry a value or missing list")
+        if not isinstance(group["pins"], list) or not isinstance(group["nodes"], list) or not isinstance(group["responsibilities"], list):
+            raise PresentationModelError(f"{p}: pins, nodes and responsibilities must be lists")
+        check_pins(group["pins"], f"{p}.pins")
+        if not isinstance(group["sourceFindings"], list) or not isinstance(group["assumptions"], list):
+            raise PresentationModelError(f"{p}: sourceFindings and assumptions must be lists")
+        source_ids: set[str] = set()
+        for si, source in enumerate(group["sourceFindings"]):
+            sp = f"{p}.sourceFindings[{si}]"
+            _require_keys(source, frozenset({"findingId", "factId", "value", "factTypeId", "factTypeVersion", "factTypeTitle"}), frozenset({"label", "origin"}), sp)
+            if not all(isinstance(source.get(k), str) and source[k] for k in ("findingId", "factId", "factTypeId", "factTypeVersion", "factTypeTitle")):
+                raise PresentationModelError(f"{sp}: finding and fact-type identity fields must be non-empty strings")
+            if source["findingId"] in source_ids:
+                raise PresentationModelError(f"{sp}.findingId: duplicate source finding")
+            source_ids.add(source["findingId"])
+            if "label" in source and (not isinstance(source["label"], str) or not source["label"]):
+                raise PresentationModelError(f"{sp}.label: expected non-empty recorded label")
+            if source.get("origin") not in {None, "assertion", "declared_default"}:
+                raise PresentationModelError(f"{sp}.origin: invalid origin")
+        assumption_ids: set[tuple[str, str, str]] = set()
+        for ai, assumption in enumerate(group["assumptions"]):
+            ap = f"{p}.assumptions[{ai}]"
+            _require_keys(assumption, frozenset({"id", "version", "value", "consumerRuleId", "consumerFindingId"}), frozenset(), ap)
+            if not all(isinstance(assumption.get(k), str) and assumption[k] for k in ("id", "version", "consumerRuleId")):
+                raise PresentationModelError(f"{ap}: malformed parameter assumption")
+            if assumption["consumerFindingId"] is not None and not isinstance(assumption["consumerFindingId"], str):
+                raise PresentationModelError(f"{ap}.consumerFindingId: expected string or null")
+            identity = (assumption["id"], assumption["version"], assumption["consumerRuleId"])
+            if identity in assumption_ids:
+                raise PresentationModelError(f"{ap}: duplicate assumption consumer")
+            assumption_ids.add(identity)
+        for ni, node in enumerate(group["nodes"]):
+            np = f"{p}.nodes[{ni}]"
+            _require_keys(node, frozenset({"findingId", "ruleId", "ruleVersion", "symbol", "value", "pins"}), frozenset({"basisOrigin"}), np)
+            if not isinstance(node["pins"], list) or node.get("basisOrigin") not in {None, "assertion", "declared_default"}:
+                raise PresentationModelError(f"{np}: malformed pins or basisOrigin")
+            check_pins(node["pins"], f"{np}.pins")
+        if "statementLabel" in group:
+            label = group["statementLabel"]
+            _require_keys(label, frozenset(), frozenset({"lender", "statement", "taxYear"}), f"{p}.statementLabel")
+            if not label or any(not isinstance(v, str) or not v for v in label.values()):
+                raise PresentationModelError(f"{p}.statementLabel: expected non-empty recorded labels")
+        if "lineNote" in group and (not isinstance(group["lineNote"], str) or not group["lineNote"]):
+            raise PresentationModelError(f"{p}.lineNote: expected non-empty string")
+        outcome = group["statementOutcome"]
+        _require_keys(outcome, frozenset({"route", "statementScope", "conclusion", "responsibilityFailures"}), frozenset(), f"{p}.statementOutcome")
+        for axis_name in ("route", "statementScope", "conclusion"):
+            axis = outcome[axis_name]
+            _require_keys(axis, frozenset({"interpretation"}), frozenset({"ruleId", "ruleVersion", "readerRole", "symbol", "disposition", "code", "pins", "findingId", "value", "missing", "claims", "factId", "label", "suppliedFindingId", "suppliedValue", "claimType", "claimTypeVersion"}), f"{p}.statementOutcome.{axis_name}")
+            if not isinstance(axis["interpretation"], str) or not axis["interpretation"]:
+                raise PresentationModelError(f"{p}.statementOutcome.{axis_name}.interpretation: expected string")
+            if "ruleId" in axis and (not isinstance(axis.get("readerRole"), str) or not isinstance(axis.get("ruleVersion"), str)):
+                raise PresentationModelError(f"{p}.statementOutcome.{axis_name}: producer identity is incomplete")
+            disposition = axis.get("disposition")
+            if disposition == "blocked":
+                if "findingId" in axis or "value" in axis or "missing" not in axis:
+                    raise PresentationModelError(f"{p}.statementOutcome.{axis_name}: malformed blocked outcome")
+            elif disposition == "published":
+                if not isinstance(axis.get("findingId"), str) or "value" not in axis or "missing" in axis:
+                    raise PresentationModelError(f"{p}.statementOutcome.{axis_name}: malformed published outcome")
+            elif disposition == "inapplicable":
+                if any(k in axis for k in ("findingId", "value", "missing")):
+                    raise PresentationModelError(f"{p}.statementOutcome.{axis_name}: inapplicable outcome carries a result")
+            elif disposition is not None:
+                raise PresentationModelError(f"{p}.statementOutcome.{axis_name}: unknown disposition")
+            if "missing" in axis:
+                if disposition != "blocked":
+                    raise PresentationModelError(f"{p}.statementOutcome.{axis_name}.missing: only allowed for blocked outcomes")
+                check_missing(axis["missing"], f"{p}.statementOutcome.{axis_name}.missing")
+            if "claims" in axis:
+                if not isinstance(axis["claims"], list):
+                    raise PresentationModelError(f"{p}.statementOutcome.{axis_name}.claims: expected a list")
+                for ci, claim in enumerate(axis["claims"]):
+                    cp = f"{p}.statementOutcome.{axis_name}.claims[{ci}]"
+                    claim_optional = {"ruleId", "ruleVersion", "readerRole", "symbol", "disposition", "code", "pins", "findingId", "value", "missing", "label", "claimType", "claimTypeVersion", "suppliedFindingId", "suppliedValue"}
+                    _require_keys(claim, frozenset({"interpretation", "factId"}), frozenset(claim_optional), cp)
+                    if not all(isinstance(claim[k], str) and claim[k] for k in ("interpretation", "factId")):
+                        raise PresentationModelError(f"{cp}: interpretation and factId must be non-empty strings")
+                    if "label" in claim and (not isinstance(claim["label"], str) or not claim["label"]):
+                        raise PresentationModelError(f"{cp}.label: expected a recorded non-empty label")
+                    if "missing" in claim:
+                        check_missing(claim["missing"], f"{cp}.missing")
+                    if "ruleId" in claim and (not isinstance(claim.get("readerRole"), str) or not isinstance(claim.get("ruleVersion"), str)):
+                        raise PresentationModelError(f"{cp}: classifier producer identity is incomplete")
+                    if "claimTypeVersion" in claim and not isinstance(claim["claimTypeVersion"], str):
+                        raise PresentationModelError(f"{cp}.claimTypeVersion: expected string")
+                    if "pins" in claim:
+                        check_pins(claim["pins"], f"{cp}.pins")
+        if not isinstance(outcome["responsibilityFailures"], list):
+            raise PresentationModelError(f"{p}.statementOutcome.responsibilityFailures: expected a list")
+        for fi, failure in enumerate(outcome["responsibilityFailures"]):
+            fp = f"{p}.statementOutcome.responsibilityFailures[{fi}]"
+            _require_keys(failure, frozenset({"ruleId", "symbol", "code", "missing", "explainedBy"}), frozenset(), fp)
+            if not all(isinstance(failure[k], str) for k in ("ruleId", "symbol", "code")) or not isinstance(failure["explainedBy"], list):
+                raise PresentationModelError(f"{fp}: malformed responsibility failure")
+            check_missing(failure["missing"], f"{fp}.missing")
+        for rindex, responsibility in enumerate(group["responsibilities"]):
+            rp = f"{p}.responsibilities[{rindex}]"
+            _require_keys(responsibility, frozenset({"ruleId", "ruleVersion", "symbol", "findingId", "value", "pins"}), frozenset({"wording"}), rp)
+            for key in ("ruleId", "ruleVersion", "symbol", "findingId"):
+                if not isinstance(responsibility[key], str) or not responsibility[key]:
+                    raise PresentationModelError(f"{rp}.{key}: expected non-empty string")
+            if not isinstance(responsibility["pins"], list):
+                raise PresentationModelError(f"{rp}.pins: expected a list")
+            check_pins(responsibility["pins"], f"{rp}.pins")
+            if "wording" in responsibility and (not isinstance(responsibility["wording"], str) or not responsibility["wording"]):
+                raise PresentationModelError(f"{rp}.wording: expected non-empty string")
+        if (outcome["conclusion"].get("interpretation") != "published"
+            and (group["responsibilities"] or "lineNote" in group)):
+            raise PresentationModelError(f"{p}: responsibilities and lineNote require a published conclusion")
+        if outcome["conclusion"].get("interpretation") == "published":
+            if (outcome["route"].get("interpretation") != "bare"
+                or outcome["statementScope"].get("interpretation") != "no-whole-amount-disqualifier"):
+                raise PresentationModelError(f"{p}: published bare conclusion lacks its required outcome axes")
+        if "lineNote" in group:
+            conclusion_fid = outcome["conclusion"].get("findingId")
+            if not isinstance(conclusion_fid, str) or not any(
+                any(pin.get("id") == conclusion_fid for pin in resp.get("pins", []) if isinstance(pin, Mapping))
+                for resp in group["responsibilities"]
+            ):
+                raise PresentationModelError(f"{p}.lineNote: requires a published responsibility pinned to the conclusion")
+
+
 def validate_presentation_model(model: Mapping[str, Any]) -> None:
     """Strict structural validation: unknown keys and invalid combinations reject."""
     _require_keys(
@@ -1166,11 +1860,13 @@ def validate_presentation_model(model: Mapping[str, Any]) -> None:
             "schema", "runId", "pinLabels", "sections", "citationGroups", "attachments",
             "unsupportedSourceFindings",
         }),
-        frozenset({"authorization", "provenanceGroups"}),
+        frozenset({"authorization", "provenanceGroups", "calculationView"}),
         "$",
     )
     if "authorization" in model:
         _validate_authorization_provenance(model["authorization"], "$.authorization")
+    if "calculationView" in model:
+        _validate_calculation_view(model["calculationView"])
     if model["schema"] != PRESENTATION_MODEL_VERSION:
         raise PresentationModelError(f"$.schema: expected {PRESENTATION_MODEL_VERSION!r}")
     if not isinstance(model["runId"], str) or not model["runId"]:

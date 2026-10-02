@@ -1,0 +1,101 @@
+{
+  "schema": "rule-artifact.v12",
+  "id": "demo.rule.tax.2025.sli.statement-inclusion-unresolved-observation",
+  "version": "v1",
+  "scope": {
+    "family": "individual-income-tax",
+    "jurisdiction": "US-federal",
+    "tax_year": 2025
+  },
+  "subject": {
+    "id": "demo.tax.2025.sli.statement-inclusion-unresolved",
+    "version": "v1"
+  },
+  "joined": {
+    "id": "tax.us.2025.f1098e.box1-student-loan-interest",
+    "version": "v1"
+  },
+  "direction": "subject_contains_joined",
+  "role": "computation",
+  "requires": [
+    "demo.tax.2025.sli.statement-inclusion-unresolved",
+    "tax.us.2025.f1098e.box1-student-loan-interest"
+  ],
+  "pins": [
+    {
+      "role": "input",
+      "id": "demo.tax.2025.sli.statement-inclusion-unresolved",
+      "version": "v1",
+      "origin": "assertion"
+    },
+    {
+      "role": "input",
+      "id": "tax.us.2025.f1098e.box1-student-loan-interest",
+      "version": "v1",
+      "origin": "assertion"
+    }
+  ],
+  "when": {
+    "op": "all",
+    "args": [
+      {
+        "op": "categorical_compare",
+        "left": {
+          "op": "ref",
+          "name": "demo.tax.2025.sli.statement-inclusion-unresolved"
+        },
+        "cmp": "eq",
+        "right": {
+          "op": "category_literal",
+          "fact_type": {
+            "id": "demo.tax.2025.sli.statement-inclusion-unresolved",
+            "version": "v1"
+          },
+          "value": "sli.statement-inclusion.unresolved"
+        }
+      },
+      {
+        "op": "compare",
+        "left": {
+          "op": "ref",
+          "name": "tax.us.2025.f1098e.box1-student-loan-interest"
+        },
+        "cmp": "eq",
+        "right": {
+          "op": "ref",
+          "name": "tax.us.2025.f1098e.box1-student-loan-interest"
+        }
+      }
+    ]
+  },
+  "value": {
+    "op": "choose",
+    "when": {
+      "op": "categorical_compare",
+      "left": {
+        "op": "ref",
+        "name": "demo.tax.2025.sli.statement-inclusion-unresolved"
+      },
+      "cmp": "eq",
+      "right": {
+        "op": "category_literal",
+        "fact_type": {
+          "id": "demo.tax.2025.sli.statement-inclusion-unresolved",
+          "version": "v1"
+        },
+        "value": "sli.statement-inclusion.unresolved"
+      }
+    },
+    "then": "sli.statement-inclusion.unresolved-observed",
+    "else": {
+      "op": "block",
+      "code": "DEPENDENCY_INVALID"
+    }
+  },
+  "publishes": "demo.tax.2025.sli.statement-inclusion-unresolved-observation",
+  "blocked": {
+    "code": "DEPENDENCY_INVALID",
+    "missing": []
+  },
+  "notes": "Synthetic neutral unresolved state for one cannot-tell statement-borrowing pair, pinned to its exact saved answer status and current statement source; no inclusion assertion or tax conclusion."
+}

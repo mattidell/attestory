@@ -1,0 +1,124 @@
+{
+  "admitted_schemas": [
+    "bundle.v2",
+    "rule-artifact.v12"
+  ],
+  "composition_obligations": [],
+  "entrypoints": [
+    {
+      "id": "demo.rule.tax.2025.sli.guarded-financing-observation",
+      "version": "v1"
+    },
+    {
+      "id": "demo.rule.tax.2025.sli.guarded-statement-inclusion-observation",
+      "version": "v1"
+    },
+    {
+      "id": "demo.tax.2025.sli-relationship-observation-vocabulary",
+      "version": "v1"
+    },
+    {
+      "id": "demo.rule.tax.2025.sli.statement-inclusion-unresolved-observation",
+      "version": "v1"
+    },
+    {
+      "id": "demo.tax.2025.sli-relationship-unresolved-vocabulary",
+      "version": "v1"
+    }
+  ],
+  "id": "demo.tax.2025.package.sli-relationship-source-diagnostic",
+  "input_bindings": [
+    {
+      "fact_type": {
+        "id": "tax.us.2025.sli.financing-relationship",
+        "version": "v1"
+      },
+      "mode": "required",
+      "symbol": "tax.us.2025.sli.financing-relationship"
+    },
+    {
+      "fact_type": {
+        "id": "tax.us.2025.sli.statement-inclusion-relationship",
+        "version": "v1"
+      },
+      "mode": "required",
+      "symbol": "tax.us.2025.sli.statement-inclusion-relationship"
+    },
+    {
+      "fact_type": {
+        "id": "tax.us.2025.sli.schooling-situation",
+        "version": "v1"
+      },
+      "mode": "required",
+      "symbol": "tax.us.2025.sli.schooling-situation"
+    },
+    {
+      "fact_type": {
+        "id": "tax.us.2025.f1098e.box1-student-loan-interest",
+        "version": "v1"
+      },
+      "mode": "required",
+      "symbol": "tax.us.2025.f1098e.box1-student-loan-interest"
+    },
+    {
+      "fact_type": {
+        "id": "demo.tax.2025.sli.statement-inclusion-unresolved",
+        "version": "v1"
+      },
+      "mode": "required",
+      "symbol": "demo.tax.2025.sli.statement-inclusion-unresolved"
+    }
+  ],
+  "members": [
+    {
+      "id": "demo.rule.tax.2025.sli.guarded-financing-observation",
+      "role": "computation",
+      "schema": "rule-artifact.v12",
+      "version": "v1"
+    },
+    {
+      "id": "demo.rule.tax.2025.sli.guarded-statement-inclusion-observation",
+      "role": "computation",
+      "schema": "rule-artifact.v12",
+      "version": "v1"
+    },
+    {
+      "id": "demo.tax.2025.sli-relationship-observation-vocabulary",
+      "role": "fact-type-bundle",
+      "schema": "bundle.v2",
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.f1098e.vocabulary",
+      "role": "fact-type-bundle",
+      "schema": "bundle.v2",
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.sli-relationship-source",
+      "role": "fact-type-bundle",
+      "schema": "bundle.v2",
+      "version": "v1"
+    },
+    {
+      "id": "demo.rule.tax.2025.sli.statement-inclusion-unresolved-observation",
+      "role": "computation",
+      "schema": "rule-artifact.v12",
+      "version": "v1"
+    },
+    {
+      "id": "demo.tax.2025.sli-relationship-unresolved-vocabulary",
+      "role": "fact-type-bundle",
+      "schema": "bundle.v2",
+      "version": "v1"
+    }
+  ],
+  "package_checksum": "e9fbf054c5b1a4698c2ec9b48b76d20d281c6611db03f9f5dab5c46479bf2739",
+  "schema": "artifact-package.v34",
+  "scope": {
+    "family": "individual-income-tax",
+    "jurisdiction": "US-federal",
+    "tax_year": 2025
+  },
+  "version": "v4"
+}

@@ -18,6 +18,14 @@ Product intent and phase direction are inputs to planning. The agent owns transl
 
 Planning should make the next implementation step obvious before code changes begin. Phase documents describe where the project is going. Roadmaps describe the milestone sequence and status. Milestone plans describe the tracks, contracts, fixtures, and verification needed to implement safely.
 
+## Planning and Development Guidelines
+
+Use [Guidelines for planning and development](docs/process/planning-and-development.md)
+throughout milestone planning, investigation, design, implementation, and review.
+That document is the single home for the owner's guidance on developing an
+understandable plan into evidenced behavior. Use it to guide judgment, not as
+a requirement to create twelve additional documents or approval stages.
+
 ## Development Posture
 
 Audience: Shared
@@ -1064,6 +1072,13 @@ None of the rules in this section is machine-checked; they are caught in
 review.
 
 ## Required Milestone Plan Contents
+
+Develop these contents progressively under the
+[planning and development guidelines](docs/process/planning-and-development.md).
+An initial plan may identify unresolved contracts, mechanisms, and track
+boundaries together with the investigation needed to settle them. Completeness
+of the initial account does not mean that implementation decisions are already
+made; readiness is assessed for the next dependent step.
 
 Before starting a new milestone, create or update a planning document with:
 - Milestone key: the stable lowercase kebab-case identity used by branch and

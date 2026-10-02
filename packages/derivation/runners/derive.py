@@ -143,10 +143,18 @@ def _context(scenario: dict[str, Any]) -> RunContext:
             "mapping and record state in the scenario's closure section"
         )
     closure = scenario.get("closure", {})
+    grouped_parameters: dict[str, dict[str, dict[str, Any]]] = {}
+    for parameter in scenario["parameters"]:
+        grouped_parameters.setdefault(parameter["id"], {})[parameter["version"]] = parameter
+    parameters = {
+        parameter_id: next(iter(versions.values()))
+        for parameter_id, versions in grouped_parameters.items()
+        if len(versions) == 1
+    }
     return RunContext(
         run_id=scenario["run_id"],
         rules=scenario["rules"],
-        parameters={p["id"]: p for p in scenario["parameters"]},
+        parameters=parameters,
         canon=load_canon(DerivationSchemas()),
         inputs=[InputFinding(**i) for i in scenario["inputs"]],
         # Fixture scenarios describe sources positionally and carry no kernel
@@ -166,6 +174,7 @@ def _context(scenario: dict[str, Any]) -> RunContext:
         current_horizons=closure.get("current_horizons", {}),
         fact_types=scenario.get("fact_types", []),
         input_bindings=scenario.get("input_bindings", []),
+        parameter_index=grouped_parameters,
     )
 
 
