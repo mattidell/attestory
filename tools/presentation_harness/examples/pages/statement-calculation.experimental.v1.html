@@ -1,0 +1,269 @@
+<!doctype html>
+<!-- Experimental statement calculation reader. Synthetic saved presentation.json only. -->
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Statement Calculation — Experimental Reader</title>
+<style>
+  :root { color-scheme: light; font-family: -apple-system, "Segoe UI", Arial, sans-serif; color:#18212b; background:#fff; }
+  * { box-sizing:border-box; }
+  body { margin:0; line-height:1.5; }
+  header { padding:1rem 1.5rem; border-bottom:2px solid #526170; }
+  main { max-width:68rem; margin:0 auto; padding:1.25rem; }
+  section { border:1px solid #657382; border-radius:.5rem; margin:0 0 1rem; padding:1rem; }
+  h1 { font-size:1.5rem; margin:0 0 .25rem; }
+  h2 { font-size:1.2rem; margin:.1rem 0 .75rem; }
+  h3 { font-size:1rem; margin:.9rem 0 .3rem; }
+  p { margin:.35rem 0; }
+  .chrome { background:#eef3f7; border-left:5px solid #354f68; padding:.75rem; }
+  .amount { font-size:1.25rem; font-weight:700; }
+  .reader-axis { padding:.55rem .7rem; margin:.5rem 0; background:#f5f7f9; border-left:3px solid #657382; }
+  .record { margin:.25rem 0; }
+  .muted { color:#364553; }
+  details { border:1px solid #657382; border-radius:.35rem; padding:.6rem .75rem; margin-top:.65rem; }
+  summary { cursor:pointer; font-weight:650; }
+  summary:focus-visible { outline:3px solid #174a7e; outline-offset:3px; }
+  .reader-category { padding:.75rem; margin:.65rem 0; border:1px solid #9aa7b3; border-radius:.35rem; }
+  .reader-category h3 { margin:.1rem 0 .4rem; }
+  .source-fact, .assumption, .answer, .responsibility-copy { margin:.45rem 0; }
+  .source-label { font-weight:650; }
+  .evidence-block { border-top:1px solid #b8c2cb; margin:.8rem 0; padding-top:.5rem; }
+  .evidence-block h4 { margin:.2rem 0 .4rem; }
+  .evidence-fields { margin:0; display:grid; grid-template-columns:minmax(9rem, 13rem) 1fr; gap:.25rem .75rem; }
+  .evidence-fields dt { font-weight:650; }
+  .evidence-fields dd { margin:0; overflow-wrap:anywhere; }
+  .technical-source { margin:.55rem 0; }
+  .raw-model-evidence { margin-top:1rem; }
+  pre { white-space:pre-wrap; overflow-wrap:anywhere; font-size:.82rem; }
+  code { overflow-wrap:anywhere; }
+</style>
+</head>
+<body>
+<header>
+  <h1 id="page-heading">Statement calculation — experimental reader</h1>
+  <p>Synthetic <code>demo-*</code> saved-file demonstration</p>
+</header>
+<main id="main">
+  <section id="worksheet-section" aria-labelledby="worksheet-heading">
+    <h2 id="worksheet-heading">Schedule 1, line 21 — worksheet result</h2>
+    <p id="worksheet-result" class="amount"></p>
+    <p id="worksheet-status" class="muted"></p>
+  </section>
+  <section id="calculation-view" aria-labelledby="calculation-heading">
+    <h2 id="calculation-heading">Statement calculation view</h2>
+    <p id="integration-note" class="chrome">Not Schedule 1 line 21. The worksheet does not read these figures.</p>
+    <div id="statements-root"></div>
+  </section>
+</main>
+<script>
+"use strict";
+const MODEL = Object.freeze(__FIXTURE_JSON__);
+
+function element(tag, className, text) {
+  const node = document.createElement(tag);
+  if (className) node.className = className;
+  if (text !== undefined && text !== null) node.appendChild(document.createTextNode(String(text)));
+  return node;
+}
+function add(parent, tag, className, text) {
+  const node = element(tag, className, text);
+  parent.appendChild(node);
+  return node;
+}
+const BOX1_TYPE = "tax.us.2025.f1098e.box1-student-loan-interest";
+const CLAIM_TYPE = "demo.tax.sli-statement-scope-claim";
+function shortSourceLabel(source) {
+  if (source.factTypeId === BOX1_TYPE) return "Student loan interest amount reported";
+  if (source.factTypeId === CLAIM_TYPE) return "Statement-wide use-of-proceeds claim";
+  return "Recorded statement input";
+}
+function formatValue(value) {
+  if (value === undefined || value === null) return "not recorded";
+  return String(value);
+}
+function sameAmountRepresentation(left, right) {
+  const a = Number(left);
+  const b = Number(right);
+  return Number.isFinite(a) && Number.isFinite(b) && a === b;
+}
+function addField(parent, label, value) {
+  const fields = parent.querySelector(".evidence-fields") || add(parent, "dl", "evidence-fields");
+  add(fields, "dt", "", label);
+  add(fields, "dd", "", value);
+}
+function addPins(parent, pins) {
+  addField(parent, "Pins", Array.isArray(pins) ? JSON.stringify(pins) : "not recorded");
+}
+function addMissing(parent, missing) {
+  addField(parent, "Missing entries", Array.isArray(missing) ? JSON.stringify(missing) : "not recorded");
+}
+function evidenceBlock(parent, label, record) {
+  const block = add(parent, "section", "evidence-block");
+  add(block, "h4", "", label);
+  if (!record || typeof record !== "object") {
+    addField(block, "Record", "not recorded");
+    return;
+  }
+  for (const [key, name] of [["ruleId", "Producer"], ["ruleVersion", "Producer version"], ["readerRole", "Reader role"], ["disposition", "Original disposition"], ["interpretation", "Interpretation"], ["findingId", "Finding"], ["factId", "Fact identity"], ["claimType", "Claim fact type"], ["claimTypeVersion", "Claim fact type version"], ["suppliedFindingId", "Supplied finding"], ["suppliedValue", "Supplied value"], ["symbol", "Subject symbol"], ["value", "Recorded value"], ["basisOrigin", "Basis origin"], ["id", "Parameter"], ["version", "Parameter version"], ["consumerRuleId", "Consumer rule"], ["consumerFindingId", "Consumer finding"], ["code", "Code"], ["wording", "Published rule wording"], ["lineNote", "Published rule-stated basis"]]) {
+    if (Object.prototype.hasOwnProperty.call(record, key)) addField(block, name, formatValue(record[key]));
+  }
+  addPins(block, record.pins);
+  addMissing(block, record.missing);
+}
+function renderWorksheet(model) {
+  const section = (model.sections || []).find((item) => item.id === "line-sch1-21");
+  const value = document.getElementById("worksheet-result");
+  const status = document.getElementById("worksheet-status");
+  if (!section) {
+    value.textContent = "No line 21 section was recorded.";
+    return;
+  }
+  const resolved = section.resolved || {};
+  if (["published_value", "computed_zero", "closure_backed_zero"].includes(resolved.disposition)) {
+    value.textContent = resolved.value === 0 ? "0" : String(resolved.value);
+    status.textContent = (section.field.label || "Worksheet line") + " · " + resolved.disposition;
+  } else if (resolved.disposition === "blocked") {
+    value.textContent = "Blocked";
+    status.textContent = "Recorded worksheet codes: " + ((resolved.activeCodes || []).join(", ") || "unspecified");
+  } else {
+    value.textContent = "No numeric worksheet result";
+    status.textContent = "Recorded worksheet disposition: " + String(resolved.disposition || "unavailable");
+  }
+}
+function answerFor(group, outcome) {
+  const scope = outcome.statementScope || {};
+  const route = outcome.route || {};
+  const claims = scope.claims || [];
+  const classifier = claims.find((claim) => claim.interpretation === "classified");
+  const blocked = claims.find((claim) => claim.disposition === "blocked" || claim.interpretation === "unresolved");
+  const suppliedAmount = (group.sourceFindings || []).find((source) => source.factTypeId === BOX1_TYPE && source.factId === group.factId && source.origin !== "declared_default");
+  if (group.disposition === "published" && suppliedAmount && sameAmountRepresentation(suppliedAmount.value, group.value) && route.interpretation === "bare" && scope.interpretation === "no-whole-amount-disqualifier" && claims.length === 0) {
+    return "This saved calculation retains the supplied amount, " + formatValue(suppliedAmount.value) + ". No borrowing link was selected for this statement, and no statement-wide claim was selected in this run. The recorded rules found no whole-amount disqualifier for this result. This does not establish overall eligibility.";
+  }
+  if (group.disposition === "published" && String(group.value) === "0" && classifier && String(classifier.value) === "1" && scope.interpretation === "whole-amount-disqualifier") {
+    return "The saved statement-wide claim, “" + (classifier.label || "recorded claim") + ",” was classified under the synthetic whole-amount rule. That recorded classification selects a whole-amount treatment, so this statement’s calculated amount is 0. The favorable bare conclusion does not apply.";
+  }
+  if (group.disposition === "blocked" && blocked) {
+    const noRecordedMissing = blocked.code === "DEPENDENCY_INVALID" && Array.isArray(blocked.missing) && blocked.missing.length === 0;
+    return "The saved statement-wide claim could not be classified. The scope calculation is unresolved and the amount is unavailable; its dependent conclusion is blocked." + (noRecordedMissing ? " The saved classifier record gives no more specific cause." : " Review the recorded classifier diagnostics for details.");
+  }
+  return group.disposition === "published" ? "The saved rules recorded a statement amount of " + formatValue(group.value) + "." : "The saved rules did not publish a statement amount.";
+}
+function renderEvidence(group, outcome, parent) {
+  const details = document.createElement("details");
+  details.className = "reader-evidence";
+  add(details, "summary", "", "Open the saved calculation evidence");
+  const container = add(details, "div", "evidence-content");
+  evidenceBlock(container, "Statement amount", {
+    ruleId: group.ruleId, ruleVersion: group.ruleVersion, disposition: group.disposition,
+    findingId: group.findingId, symbol: group.symbol, value: group.value,
+    pins: group.pins, code: group.code, missing: group.missing,
+  });
+  evidenceBlock(container, "Borrowing route", outcome.route);
+  evidenceBlock(container, "Statement-wide scope", outcome.statementScope);
+  for (const [index, claim] of (outcome.statementScope?.claims || []).entries()) evidenceBlock(container, "Claim classifier " + (index + 1), claim);
+  for (const [index, node] of (group.nodes || []).entries()) evidenceBlock(container, "Intermediate finding " + (index + 1), node);
+  evidenceBlock(container, "Statement conclusion", outcome.conclusion);
+  if (typeof group.lineNote === "string") evidenceBlock(container, "Published rule-stated basis", {
+    ruleId: outcome.conclusion && outcome.conclusion.ruleId,
+    ruleVersion: outcome.conclusion && outcome.conclusion.ruleVersion,
+    disposition: outcome.conclusion && outcome.conclusion.disposition,
+    lineNote: group.lineNote,
+  });
+  for (const [index, item] of (group.responsibilities || []).entries()) evidenceBlock(container, "Published responsibility " + (index + 1), item);
+  for (const [index, item] of (outcome.responsibilityFailures || []).entries()) evidenceBlock(container, "Responsibility diagnostic " + (index + 1), item);
+  for (const [index, assumption] of (group.assumptions || []).entries()) evidenceBlock(container, "Selected parameter " + (index + 1), assumption);
+  const raw = document.createElement("details");
+  raw.className = "raw-model-evidence";
+  add(raw, "summary", "", "Exact saved group and axes JSON");
+  add(raw, "pre", "evidence-json", JSON.stringify({ amount: group, outcome }));
+  container.appendChild(raw);
+  parent.appendChild(details);
+}
+function renderGroup(group) {
+  const statementName = group.statementLabel && group.statementLabel.statement;
+  const displayName = typeof statementName === "string" && statementName ? statementName : "Statement label not recorded";
+  const card = element("section", "statement-card");
+  // IDs are derived only from a recorded structured display label, never the factId.
+  if (typeof statementName === "string" && statementName) card.id = "statement-" + statementName;
+  add(card, "h2", "", displayName);
+  const amountText = group.disposition === "published" ? String(group.value) :
+    group.disposition === "blocked" ? "Blocked" : "No amount published";
+  add(card, "p", "amount statement-amount", "Statement calculation amount: " + amountText);
+  const outcome = group.statementOutcome || {};
+  const supplied = add(card, "section", "reader-category axis-supplied");
+  add(supplied, "h3", "", "What was supplied");
+  const sources = group.sourceFindings;
+  const suppliedSources = Array.isArray(sources) ? sources.filter((source) => source.origin !== "declared_default") : [];
+  for (const source of suppliedSources) {
+    const row = add(supplied, "p", "source-fact");
+    add(row, "span", "source-label", shortSourceLabel(source) + ": ");
+    add(row, "span", "source-value", formatValue(source.value));
+    const record = document.createElement("details");
+    record.className = "technical-source";
+    add(record, "summary", "", "Technical source record");
+    const data = add(record, "dl", "evidence-fields");
+    for (const [key, label] of [["findingId", "Finding"], ["factId", "Fact identity"], ["factTypeId", "Fact type"], ["factTypeVersion", "Fact type version"], ["factTypeTitle", "Technical description"], ["origin", "Origin"]]) {
+      if (Object.prototype.hasOwnProperty.call(source, key)) { add(data, "dt", "", label); add(data, "dd", "", formatValue(source[key])); }
+    }
+    supplied.appendChild(record);
+  }
+  if (suppliedSources.length === 0) {
+    add(supplied, "p", "muted", "No source inputs were selected for this statement in the saved calculation.");
+  }
+
+  const assumed = add(card, "section", "reader-category axis-assumed");
+  add(assumed, "h3", "", "What the calculation assumed");
+  const defaultSources = (sources || []).filter((item) => item.origin === "declared_default");
+  for (const source of defaultSources) {
+    add(assumed, "p", "assumption", shortSourceLabel(source) + " declared default: " + formatValue(source.value));
+  }
+  const parameterNames = {
+    "demo.parameter.sli-no-link-reduction": "If no borrowing link is selected, the calculation uses a zero link-related reduction.",
+    "demo.parameter.sli-no-statement-scope-claim": "If no statement-wide claim is selected, the calculation uses a zero disqualifier count.",
+  };
+  for (const item of group.assumptions || []) {
+    const isNoLink = item.id === "demo.parameter.sli-no-link-reduction" && item.version === "v1" && String(item.value) === "0";
+    const isNoClaim = item.id === "demo.parameter.sli-no-statement-scope-claim" && item.version === "v1" && String(item.value) === "0";
+    if (isNoLink || isNoClaim) {
+      add(assumed, "p", "assumption", parameterNames[item.id] + " (declared value: zero).");
+    }
+  }
+  if (typeof group.lineNote === "string") {
+    const basis = add(assumed, "p", "rule-basis");
+    add(basis, "span", "source-label", "Recorded rule basis: ");
+    add(basis, "span", "", group.lineNote);
+  }
+  const hasKnownParameter = (group.assumptions || []).some((item) => (item.id === "demo.parameter.sli-no-link-reduction" || item.id === "demo.parameter.sli-no-statement-scope-claim") && item.version === "v1" && String(item.value) === "0");
+  if (hasKnownParameter) add(assumed, "p", "muted", "These quantity defaults do not determine eligibility.");
+  if ((group.assumptions || []).length === 0 && defaultSources.length === 0 && typeof group.lineNote !== "string") add(assumed, "p", "muted", "No declared default, selected empty-set parameter, or published rule-stated basis is recorded for this calculation.");
+
+  const concluded = add(card, "section", "reader-category axis-concluded");
+  add(concluded, "h3", "", "What the rules concluded");
+  add(concluded, "p", "answer", answerFor(group, outcome));
+
+  const responsibility = add(card, "section", "reader-category axis-responsibility");
+  add(responsibility, "h3", "", "What remains the filer’s responsibility");
+  const declared = (group.responsibilities || []).filter((item) => typeof item.wording === "string");
+  if (declared.length) {
+    for (const item of declared) {
+      add(responsibility, "p", "wording responsibility-copy", item.wording);
+    }
+  } else {
+    add(responsibility, "p", "muted", "No responsibility statement was published for this result.");
+  }
+  renderEvidence(group, outcome, card);
+  return card;
+}
+renderWorksheet(MODEL);
+const view = MODEL.calculationView;
+const root = document.getElementById("statements-root");
+if (!view || view.integrated !== false || !Array.isArray(view.groups)) {
+  add(root, "p", "muted", "No separate calculation view was recorded.");
+} else {
+  for (const group of view.groups) root.appendChild(renderGroup(group));
+}
+</script>
+</body>
+</html>
