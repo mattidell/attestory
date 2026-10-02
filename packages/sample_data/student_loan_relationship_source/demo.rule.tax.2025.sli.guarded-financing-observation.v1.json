@@ -1,0 +1,93 @@
+{
+  "blocked": {
+    "code": "DEPENDENCY_INVALID",
+    "missing": []
+  },
+  "direction": "subject_contains_joined",
+  "id": "demo.rule.tax.2025.sli.guarded-financing-observation",
+  "joined": {
+    "id": "tax.us.2025.sli.schooling-situation",
+    "version": "v1"
+  },
+  "notes": "Synthetic neutral financing observation pinned to both the exact relationship and its current schooling source; missing target is blocked. No eligibility or tax treatment.",
+  "pins": [
+    {
+      "id": "tax.us.2025.sli.financing-relationship",
+      "origin": "assertion",
+      "role": "input",
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.sli.schooling-situation",
+      "origin": "assertion",
+      "role": "input",
+      "version": "v1"
+    }
+  ],
+  "publishes": "demo.tax.2025.sli.financing-observation",
+  "requires": [
+    "tax.us.2025.sli.financing-relationship",
+    "tax.us.2025.sli.schooling-situation"
+  ],
+  "role": "computation",
+  "schema": "rule-artifact.v12",
+  "scope": {
+    "family": "individual-income-tax",
+    "jurisdiction": "US-federal",
+    "tax_year": 2025
+  },
+  "subject": {
+    "id": "tax.us.2025.sli.financing-relationship",
+    "version": "v1"
+  },
+  "value": {
+    "else": {
+      "code": "DEPENDENCY_INVALID",
+      "op": "block"
+    },
+    "op": "choose",
+    "then": "sli.financing.observed",
+    "when": {
+      "cmp": "eq",
+      "left": {
+        "name": "tax.us.2025.sli.financing-relationship",
+        "op": "ref"
+      },
+      "op": "categorical_compare",
+      "right": {
+        "fact_type": {
+          "id": "tax.us.2025.sli.financing-relationship",
+          "version": "v1"
+        },
+        "op": "category_literal",
+        "value": "sli.financing.affirmed"
+      }
+    }
+  },
+  "version": "v1",
+  "when": {
+    "args": [
+      {
+        "cmp": "eq",
+        "left": {
+          "name": "tax.us.2025.sli.financing-relationship",
+          "op": "ref"
+        },
+        "op": "categorical_compare",
+        "right": {
+          "fact_type": {
+            "id": "tax.us.2025.sli.financing-relationship",
+            "version": "v1"
+          },
+          "op": "category_literal",
+          "value": "sli.financing.affirmed"
+        }
+      },
+      {
+        "name": "tax.us.2025.sli.schooling-situation",
+        "op": "ref"
+      }
+    ],
+    "op": "all"
+  }
+}

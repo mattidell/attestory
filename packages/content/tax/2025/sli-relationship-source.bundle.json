@@ -1,0 +1,52 @@
+{
+  "schema": "bundle.v2",
+  "id": "tax.us.2025.sli-relationship-source",
+  "version": "v1",
+  "label": "Ordinary student-loan relationship source declarations for 2025",
+  "fact_types": [
+    {
+      "schema": "fact-type.v2",
+      "id": "tax.us.2025.sli.schooling-situation",
+      "version": "v1",
+      "title": "Person-described schooling situation identified by period, institution, and programme; descriptions and source documents aid recognition but do not define identity",
+      "nature": "determinable",
+      "identity_keys": [
+        {"name": "period", "kind": "entity", "entity_kind": "tax.us.educational-period"},
+        {"name": "institution", "kind": "entity", "entity_kind": "tax.us.educational-institution"},
+        {"name": "programme", "kind": "entity", "entity_kind": "tax.us.educational-programme"}
+      ],
+      "value_schema": {"type": "string", "minLength": 1},
+      "supersession": {"policy": "free"}
+    },
+    {
+      "schema": "fact-type.v2",
+      "id": "tax.us.2025.sli.financing-relationship",
+      "version": "v1",
+      "title": "Person's affirmative ordinary-language claim that an identified borrowing financed an identified schooling situation; no sole-use, expense-qualification, or amount assertion",
+      "nature": "determinable",
+      "identity_keys": [
+        {"name": "borrowing", "kind": "entity", "entity_kind": "tax.us.student-loan-borrowing-reference"},
+        {"name": "period", "kind": "entity", "entity_kind": "tax.us.educational-period"},
+        {"name": "institution", "kind": "entity", "entity_kind": "tax.us.educational-institution"},
+        {"name": "programme", "kind": "entity", "entity_kind": "tax.us.educational-programme"}
+      ],
+      "value_schema": {"enum": ["sli.financing.affirmed"]},
+      "supersession": {"policy": "free"}
+    },
+    {
+      "schema": "fact-type.v2",
+      "id": "tax.us.2025.sli.statement-inclusion-relationship",
+      "version": "v1",
+      "title": "Person's affirmative ordinary-language claim that a named Form 1098-E statement includes interest on an identified borrowing; no portion, exclusivity, or whole-statement assertion",
+      "nature": "determinable",
+      "identity_keys": [
+        {"name": "lender", "kind": "entity", "entity_kind": "tax.us.student-loan-lender"},
+        {"name": "statement", "kind": "entity", "entity_kind": "tax.us.1098e-statement"},
+        {"name": "tax-year", "kind": "literal", "values": ["2025"]},
+        {"name": "borrowing", "kind": "entity", "entity_kind": "tax.us.student-loan-borrowing-reference"}
+      ],
+      "value_schema": {"enum": ["sli.statement-inclusion.affirmed"]},
+      "supersession": {"policy": "free"}
+    }
+  ]
+}

@@ -1,0 +1,84 @@
+{
+  "fact_types": [
+    {
+      "id": "demo.tax.2025.sli.financing-observation",
+      "identity_keys": [
+        {
+          "entity_kind": "tax.us.student-loan-borrowing-reference",
+          "kind": "entity",
+          "name": "borrowing"
+        },
+        {
+          "entity_kind": "tax.us.educational-period",
+          "kind": "entity",
+          "name": "period"
+        },
+        {
+          "entity_kind": "tax.us.educational-institution",
+          "kind": "entity",
+          "name": "institution"
+        },
+        {
+          "entity_kind": "tax.us.educational-programme",
+          "kind": "entity",
+          "name": "programme"
+        }
+      ],
+      "nature": "determinable",
+      "schema": "fact-type.v2",
+      "supersession": {
+        "policy": "free"
+      },
+      "title": "Synthetic neutral observation preserving the exact identity of an explicit financing relationship claim",
+      "value_schema": {
+        "enum": [
+          "sli.financing.observed"
+        ]
+      },
+      "version": "v1"
+    },
+    {
+      "id": "demo.tax.2025.sli.statement-inclusion-observation",
+      "identity_keys": [
+        {
+          "entity_kind": "tax.us.student-loan-lender",
+          "kind": "entity",
+          "name": "lender"
+        },
+        {
+          "entity_kind": "tax.us.1098e-statement",
+          "kind": "entity",
+          "name": "statement"
+        },
+        {
+          "kind": "literal",
+          "name": "tax-year",
+          "values": [
+            "2025"
+          ]
+        },
+        {
+          "entity_kind": "tax.us.student-loan-borrowing-reference",
+          "kind": "entity",
+          "name": "borrowing"
+        }
+      ],
+      "nature": "determinable",
+      "schema": "fact-type.v2",
+      "supersession": {
+        "policy": "free"
+      },
+      "title": "Synthetic neutral observation preserving the exact identity of an explicit statement-inclusion relationship claim",
+      "value_schema": {
+        "enum": [
+          "sli.statement-inclusion.observed"
+        ]
+      },
+      "version": "v1"
+    }
+  ],
+  "id": "demo.tax.2025.sli-relationship-observation-vocabulary",
+  "label": "Synthetic neutral student-loan relationship observation fact types",
+  "schema": "bundle.v2",
+  "version": "v1"
+}

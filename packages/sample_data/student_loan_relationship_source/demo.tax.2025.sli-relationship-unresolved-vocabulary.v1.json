@@ -1,0 +1,86 @@
+{
+  "schema": "bundle.v2",
+  "id": "demo.tax.2025.sli-relationship-unresolved-vocabulary",
+  "version": "v1",
+  "label": "Synthetic unresolved statement-inclusion status for the relationship diagnostic",
+  "fact_types": [
+    {
+      "schema": "fact-type.v2",
+      "id": "demo.tax.2025.sli.statement-inclusion-unresolved",
+      "version": "v1",
+      "title": "Saved cannot-tell standing for one identified statement and borrowing pair",
+      "nature": "determinable",
+      "identity_keys": [
+        {
+          "name": "lender",
+          "kind": "entity",
+          "entity_kind": "tax.us.student-loan-lender"
+        },
+        {
+          "name": "statement",
+          "kind": "entity",
+          "entity_kind": "tax.us.1098e-statement"
+        },
+        {
+          "name": "tax-year",
+          "kind": "literal",
+          "values": [
+            "2025"
+          ]
+        },
+        {
+          "name": "borrowing",
+          "kind": "entity",
+          "entity_kind": "tax.us.student-loan-borrowing-reference"
+        }
+      ],
+      "value_schema": {
+        "enum": [
+          "sli.statement-inclusion.unresolved"
+        ]
+      },
+      "supersession": {
+        "policy": "free"
+      }
+    },
+    {
+      "schema": "fact-type.v2",
+      "id": "demo.tax.2025.sli.statement-inclusion-unresolved-observation",
+      "version": "v1",
+      "title": "Neutral diagnostic observation that one identified inclusion remains unresolved",
+      "nature": "determinable",
+      "identity_keys": [
+        {
+          "name": "lender",
+          "kind": "entity",
+          "entity_kind": "tax.us.student-loan-lender"
+        },
+        {
+          "name": "statement",
+          "kind": "entity",
+          "entity_kind": "tax.us.1098e-statement"
+        },
+        {
+          "name": "tax-year",
+          "kind": "literal",
+          "values": [
+            "2025"
+          ]
+        },
+        {
+          "name": "borrowing",
+          "kind": "entity",
+          "entity_kind": "tax.us.student-loan-borrowing-reference"
+        }
+      ],
+      "value_schema": {
+        "enum": [
+          "sli.statement-inclusion.unresolved-observed"
+        ]
+      },
+      "supersession": {
+        "policy": "free"
+      }
+    }
+  ]
+}
