@@ -229,7 +229,11 @@ def _pairing_local_environment(binding: PairingBinding, run: Any | None = None) 
     }
     parameters = dict(run.ctx.parameters) if run is not None else {}
     canon = dict(run.ctx.canon) if run is not None else {}
-    return Environment(symbols, {}, frozenset(), parameters, canon)
+    parameter_index = dict(run.ctx.parameter_index) if run is not None else {}
+    return Environment(
+        symbols, {}, frozenset(), parameters, canon,
+        parameter_index=parameter_index,
+    )
 
 
 def _dependency_pins(run: Any | None, access: AccessLog) -> tuple[dict[str, Any], ...]:
