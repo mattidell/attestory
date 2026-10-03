@@ -1,0 +1,195 @@
+{
+  "schema": "bundle.v2",
+  "id": "tax.us.2025.sli-relationship-source",
+  "version": "v2",
+  "label": "Ordinary student-loan relationship source declarations for 2025, with the two ordinary borrowing answers and the recorded link outcomes",
+  "fact_types": [
+    {
+      "schema": "fact-type.v2",
+      "id": "tax.us.2025.sli.schooling-situation",
+      "version": "v1",
+      "title": "Person-described schooling situation identified by period, institution, and programme; descriptions and source documents aid recognition but do not define identity",
+      "nature": "determinable",
+      "identity_keys": [
+        {"name": "period", "kind": "entity", "entity_kind": "tax.us.educational-period"},
+        {"name": "institution", "kind": "entity", "entity_kind": "tax.us.educational-institution"},
+        {"name": "programme", "kind": "entity", "entity_kind": "tax.us.educational-programme"}
+      ],
+      "value_schema": {"type": "string", "minLength": 1},
+      "supersession": {"policy": "free"}
+    },
+    {
+      "schema": "fact-type.v2",
+      "id": "tax.us.2025.sli.financing-relationship",
+      "version": "v1",
+      "title": "Person's affirmative ordinary-language claim that an identified borrowing financed an identified schooling situation; no sole-use, expense-qualification, or amount assertion",
+      "nature": "determinable",
+      "identity_keys": [
+        {"name": "borrowing", "kind": "entity", "entity_kind": "tax.us.student-loan-borrowing-reference"},
+        {"name": "period", "kind": "entity", "entity_kind": "tax.us.educational-period"},
+        {"name": "institution", "kind": "entity", "entity_kind": "tax.us.educational-institution"},
+        {"name": "programme", "kind": "entity", "entity_kind": "tax.us.educational-programme"}
+      ],
+      "value_schema": {"enum": ["sli.financing.affirmed"]},
+      "supersession": {"policy": "free"}
+    },
+    {
+      "schema": "fact-type.v2",
+      "id": "tax.us.2025.sli.statement-inclusion-relationship",
+      "version": "v1",
+      "title": "Person's affirmative ordinary-language claim that a named Form 1098-E statement includes interest on an identified borrowing; no portion, exclusivity, or whole-statement assertion",
+      "nature": "determinable",
+      "identity_keys": [
+        {"name": "lender", "kind": "entity", "entity_kind": "tax.us.student-loan-lender"},
+        {"name": "statement", "kind": "entity", "entity_kind": "tax.us.1098e-statement"},
+        {"name": "tax-year", "kind": "literal", "values": ["2025"]},
+        {"name": "borrowing", "kind": "entity", "entity_kind": "tax.us.student-loan-borrowing-reference"}
+      ],
+      "value_schema": {"enum": ["sli.statement-inclusion.affirmed"]},
+      "supersession": {"policy": "free"}
+    },
+    {
+      "schema": "fact-type.v2",
+      "id": "tax.us.2025.sli.loan-paid-only-school-costs",
+      "version": "v1",
+      "title": "Person's ordinary answer whether an identified borrowing paid only for school costs: yes, no, or cannot-tell; no qualified-loan, qualified-expense, or amount assertion",
+      "nature": "determinable",
+      "identity_keys": [
+        {"name": "borrowing", "kind": "entity", "entity_kind": "tax.us.student-loan-borrowing-reference"}
+      ],
+      "value_schema": {"type": "string", "enum": ["yes", "no", "cannot-tell"]},
+      "supersession": {"policy": "free"}
+    },
+    {
+      "schema": "fact-type.v2",
+      "id": "tax.us.2025.sli.enrolled-at-least-half-time",
+      "version": "v1",
+      "title": "Person's ordinary answer whether, during the schooling an identified borrowing paid for, the student was enrolled at least half-time in a degree or certificate program: yes, no, or cannot-tell; keyed by the borrowing, so each borrowing needs its own answer; no eligible-student assertion",
+      "nature": "determinable",
+      "identity_keys": [
+        {"name": "borrowing", "kind": "entity", "entity_kind": "tax.us.student-loan-borrowing-reference"}
+      ],
+      "value_schema": {"type": "string", "enum": ["yes", "no", "cannot-tell"]},
+      "supersession": {"policy": "free"}
+    },
+    {
+      "schema": "fact-type.v2",
+      "id": "tax.us.2025.sli.statement-inclusion-unresolved",
+      "version": "v1",
+      "title": "Person's saved cannot-tell answer whether a named Form 1098-E statement includes interest on an identified borrowing; an open pair, not a denial and not silence",
+      "nature": "determinable",
+      "identity_keys": [
+        {"name": "lender", "kind": "entity", "entity_kind": "tax.us.student-loan-lender"},
+        {"name": "statement", "kind": "entity", "entity_kind": "tax.us.1098e-statement"},
+        {"name": "tax-year", "kind": "literal", "values": ["2025"]},
+        {"name": "borrowing", "kind": "entity", "entity_kind": "tax.us.student-loan-borrowing-reference"}
+      ],
+      "value_schema": {"enum": ["sli.statement-inclusion.unresolved"]},
+      "supersession": {"policy": "free"}
+    },
+    {
+      "schema": "fact-type.v2",
+      "id": "tax.us.2025.sli.statement-inclusion-denied",
+      "version": "v1",
+      "title": "Person's explicit no: a named Form 1098-E statement does not include interest on an identified borrowing; closes that pair only and asserts nothing about other borrowings",
+      "nature": "determinable",
+      "identity_keys": [
+        {"name": "lender", "kind": "entity", "entity_kind": "tax.us.student-loan-lender"},
+        {"name": "statement", "kind": "entity", "entity_kind": "tax.us.1098e-statement"},
+        {"name": "tax-year", "kind": "literal", "values": ["2025"]},
+        {"name": "borrowing", "kind": "entity", "entity_kind": "tax.us.student-loan-borrowing-reference"}
+      ],
+      "value_schema": {"enum": ["sli.statement-inclusion.denied"]},
+      "supersession": {"policy": "free"}
+    },
+    {
+      "schema": "fact-type.v2",
+      "id": "tax.us.2025.sli.statement-inclusion-withdrawn",
+      "version": "v1",
+      "title": "Person withdrew an affirmed statement inclusion for an identified borrowing and gave no successor answer; neither a no nor silence",
+      "nature": "determinable",
+      "identity_keys": [
+        {"name": "lender", "kind": "entity", "entity_kind": "tax.us.student-loan-lender"},
+        {"name": "statement", "kind": "entity", "entity_kind": "tax.us.1098e-statement"},
+        {"name": "tax-year", "kind": "literal", "values": ["2025"]},
+        {"name": "borrowing", "kind": "entity", "entity_kind": "tax.us.student-loan-borrowing-reference"}
+      ],
+      "value_schema": {"enum": ["sli.statement-inclusion.withdrawn"]},
+      "supersession": {"policy": "free"}
+    },
+    {
+      "schema": "fact-type.v2",
+      "id": "tax.us.2025.sli.financing-unresolved",
+      "version": "v1",
+      "title": "Person's saved cannot-tell answer whether an identified borrowing financed an identified schooling situation; an open pair, not a denial and not silence",
+      "nature": "determinable",
+      "identity_keys": [
+        {"name": "borrowing", "kind": "entity", "entity_kind": "tax.us.student-loan-borrowing-reference"},
+        {"name": "period", "kind": "entity", "entity_kind": "tax.us.educational-period"},
+        {"name": "institution", "kind": "entity", "entity_kind": "tax.us.educational-institution"},
+        {"name": "programme", "kind": "entity", "entity_kind": "tax.us.educational-programme"}
+      ],
+      "value_schema": {"enum": ["sli.financing.unresolved"]},
+      "supersession": {"policy": "free"}
+    },
+    {
+      "schema": "fact-type.v2",
+      "id": "tax.us.2025.sli.financing-denied",
+      "version": "v1",
+      "title": "Person's explicit no: an identified borrowing did not finance an identified schooling situation; closes that pair only and asserts nothing about other schooling",
+      "nature": "determinable",
+      "identity_keys": [
+        {"name": "borrowing", "kind": "entity", "entity_kind": "tax.us.student-loan-borrowing-reference"},
+        {"name": "period", "kind": "entity", "entity_kind": "tax.us.educational-period"},
+        {"name": "institution", "kind": "entity", "entity_kind": "tax.us.educational-institution"},
+        {"name": "programme", "kind": "entity", "entity_kind": "tax.us.educational-programme"}
+      ],
+      "value_schema": {"enum": ["sli.financing.denied"]},
+      "supersession": {"policy": "free"}
+    },
+    {
+      "schema": "fact-type.v2",
+      "id": "tax.us.2025.sli.financing-withdrawn",
+      "version": "v1",
+      "title": "Person withdrew an affirmed financing link between an identified borrowing and an identified schooling situation and gave no successor answer; neither a no nor silence",
+      "nature": "determinable",
+      "identity_keys": [
+        {"name": "borrowing", "kind": "entity", "entity_kind": "tax.us.student-loan-borrowing-reference"},
+        {"name": "period", "kind": "entity", "entity_kind": "tax.us.educational-period"},
+        {"name": "institution", "kind": "entity", "entity_kind": "tax.us.educational-institution"},
+        {"name": "programme", "kind": "entity", "entity_kind": "tax.us.educational-programme"}
+      ],
+      "value_schema": {"enum": ["sli.financing.withdrawn"]},
+      "supersession": {"policy": "free"}
+    },
+    {
+      "schema": "fact-type.v2",
+      "id": "tax.us.2025.sli.statement-inclusion-applicability-unestablished",
+      "version": "v1",
+      "title": "System marker, never recorded from a person's answer: the application could not establish that an affirmed statement inclusion still applies after an unreviewed same-identity change of its statement; supplied only in a run's sources on replay, distinct from the person's cannot-tell",
+      "nature": "determinable",
+      "identity_keys": [
+        {"name": "lender", "kind": "entity", "entity_kind": "tax.us.student-loan-lender"},
+        {"name": "statement", "kind": "entity", "entity_kind": "tax.us.1098e-statement"},
+        {"name": "tax-year", "kind": "literal", "values": ["2025"]},
+        {"name": "borrowing", "kind": "entity", "entity_kind": "tax.us.student-loan-borrowing-reference"}
+      ],
+      "value_schema": {"enum": ["sli.statement-inclusion.applicability-unestablished"]},
+      "supersession": {"policy": "free"}
+    },
+    {
+      "schema": "fact-type.v2",
+      "id": "tax.us.2025.sli.statement-inclusion-scope-unresolved",
+      "version": "v1",
+      "title": "Person named a Form 1098-E statement but could not tell which borrowing's interest it includes; a doubt about that statement's loans that the application preserves rather than selecting a borrowing; ends when the person identifies a borrowing and answers; distinct from the system applicability marker",
+      "nature": "determinable",
+      "identity_keys": [
+        {"name": "lender", "kind": "entity", "entity_kind": "tax.us.student-loan-lender"},
+        {"name": "statement", "kind": "entity", "entity_kind": "tax.us.1098e-statement"},
+        {"name": "tax-year", "kind": "literal", "values": ["2025"]}
+      ],
+      "value_schema": {"enum": ["sli.statement-inclusion.scope-unresolved"]},
+      "supersession": {"policy": "free"}
+    }
+  ]
+}

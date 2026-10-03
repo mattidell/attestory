@@ -38,6 +38,7 @@ CLOSURE_MAPPING_SCHEMA = "source-closure-mapping.v1"
 W2_BUNDLE_FILE = "w2.bundle.json"
 F1099INT_BUNDLE_FILE = "f1099int.bundle.json"
 NOMINEE_ALLOCATION_BUNDLE_FILE = "nominee-allocation.bundle.json"
+SLI_RELATIONSHIP_SOURCE_BUNDLE_FILE = "sli-relationship-source.bundle.v2.json"
 
 
 def _version_rank(version: str) -> int:
@@ -392,6 +393,18 @@ def load_nominee_allocation_bundle(registry: SchemaRegistry | None = None) -> di
     """
     reg = registry if registry is not None else tax_registry()
     return _load_bundle(NOMINEE_ALLOCATION_BUNDLE_FILE, reg)
+
+
+def load_sli_relationship_source_bundle(registry: SchemaRegistry | None = None) -> dict[str, Any]:
+    """Load and strictly validate the student-loan relationship bundle, v2.
+
+    v2 keeps v1's three relationship types unchanged and adds the two
+    ordinary borrowing answers, the recorded inclusion and financing
+    outcomes (cannot tell, no, withdrawn), and the system applicability
+    marker that no recorder writes. v1 stays beside it, byte for byte.
+    """
+    reg = registry if registry is not None else tax_registry()
+    return _load_bundle(SLI_RELATIONSHIP_SOURCE_BUNDLE_FILE, reg)
 
 
 def load_source_families(
