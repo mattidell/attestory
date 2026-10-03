@@ -112,7 +112,7 @@ def _rule_required_symbols(rule: dict[str, Any]) -> list[str]:
     # v11 is v10's grammar plus subject/joined/direction (ADR 0076 Parts 1
     # and 2's admission-only successor); those fields are exact pins and an
     # enum, not `ref` expressions, so the same walk applies unchanged.
-    if rule.get("schema") in {"rule-artifact.v3", "rule-artifact.v4", "rule-artifact.v5", "rule-artifact.v6", "rule-artifact.v7", "rule-artifact.v8", "rule-artifact.v9", "rule-artifact.v10", "rule-artifact.v11", "rule-artifact.v12"}:
+    if rule.get("schema") in {"rule-artifact.v3", "rule-artifact.v4", "rule-artifact.v5", "rule-artifact.v6", "rule-artifact.v7", "rule-artifact.v8", "rule-artifact.v9", "rule-artifact.v10", "rule-artifact.v11", "rule-artifact.v12", "rule-artifact.v13"}:
         symbols.extend(_iter_ref_names(rule.get("when")))
         symbols.extend(_iter_ref_names(rule.get("value")))
         selection = rule.get("selection")

@@ -1,0 +1,16 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema", "$id": "derivation/derived-finding.v3", "title": "Derived finding with derived-origin entry pins",
+  "description": "Additive successor to derived-finding.v2 (ADR 0077 Part 3). Adds `derived` to the pin origin enum, for a per-subject result read through reads_subject_results. Nothing else changes. A finding uses v3 only when it carries such a derived entry pin. v1-v2 remain immutable history.",
+  "type": "object",
+  "properties": {"schema": {"const": "derived-finding.v3"}, "id": {"type": "string", "minLength": 1}, "symbol": {"type": "string", "minLength": 1}, "value": {}, "version": {"const": "v3"}, "pins": {"type": "array", "minItems": 1, "items": {"$ref": "#/$defs/pin"}}, "resolved_input": {"type": "object", "properties": {"fact_id": {"type": "string", "minLength": 1}, "origin": {"const": "declared_default"}}, "required": ["fact_id", "origin"], "additionalProperties": false}},
+  "required": ["schema", "id", "symbol", "value", "version", "pins"], "additionalProperties": false,
+  "$defs": {
+    "pin": {
+      "type": "object",
+      "properties": {"role": {"enum": ["parameter", "computation", "applicability", "field-mapping", "cross-form-bridge", "input", "choice", "default", "composition", "citation", "adoption", "governance", "engine", "package", "operation-semantics"]}, "id": {"type": "string", "minLength": 1}, "version": {"type": "string", "pattern": "^v[0-9]+$"}, "origin": {"enum": ["assertion", "declared_default", "derived"]}},
+      "required": ["role", "id", "version"],
+      "additionalProperties": false,
+      "allOf": [{"if": {"properties": {"role": {"const": "input"}}, "required": ["role"]}, "then": {"required": ["origin"]}, "else": {"not": {"required": ["origin"]}}}]
+    }
+  }
+}
