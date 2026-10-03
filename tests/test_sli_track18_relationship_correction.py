@@ -20,7 +20,8 @@ from packages.kernel.currency import compute_currency
 from packages.kernel.facts import fact_id_for, facts_of
 from packages.kernel.findings import project
 from packages.tax.sli_relationship_recording import (
-    INCLUSION_UNRESOLVED, RelationshipRecordingRefused, STATEMENT_TYPE, record_submission_durably,
+    INCLUSION_UNRESOLVED, RelationshipRecordingRefused, STATEMENT_TYPE, current_claim_applicability,
+    record_submission_durably,
 )
 from packages.tax.sli_relationship_review import (
     answer_review_claim, apply_statement_correction_review, correct_review_claim, prepare_review,
@@ -64,6 +65,13 @@ def _append_v36_adoption(log: ActLog, registry: Any) -> None:
 
 
 def _run_v36(acts: tuple[dict[str, Any], ...], run_id: str) -> tuple[Any, Any, Any]:
+    resolved, context = _marshal_v36(acts, run_id)
+    schemas = DerivationSchemas()
+    return resolved, run(context, schemas), run_reference(context, schemas)
+
+
+def _marshal_v36(acts: tuple[dict[str, Any], ...], run_id: str) -> tuple[Any, Any]:
+    """Marshal as ``live_coordinate_run`` does, with the ADR 0077 Part 5 replay reading."""
     schemas = DerivationSchemas()
     surface = PublicationSurface(FIXTURE / "publication_surface/releases", V36_REGISTRY, ROOT / "packages")
     resolved = resolve_production_package(
@@ -121,8 +129,9 @@ def _run_v36(acts: tuple[dict[str, Any], ...], run_id: str) -> tuple[Any, Any, A
         fact_types=fact_types, input_bindings=bindings, collect_source_names=collect_names,
         emission_only_source_names=list(material.emission_only_names), authorization=authorization,
         reporting_year=2025, parameter_index=material.parameter_index,
+        claim_applicability=current_claim_applicability(acts, schemas.registry),
     )
-    return resolved, run(context._context, schemas), run_reference(context._context, schemas)
+    return resolved, context._context
 
 
 class Track18RelationshipCorrection(unittest.TestCase):
@@ -184,6 +193,14 @@ class Track18RelationshipCorrection(unittest.TestCase):
             stale_state = project(stale_acts, registry)
             self.assertIn(first["statement-inclusion"]["finding_id"],
                           compute_currency(stale_state).current_finding_ids)
+            # ADR 0077 Part 5 replay: both inclusions on the changed statement
+            # are current but not joined to the unreviewed 1600; each is a
+            # marker. The other statement's inclusion is joined as before.
+            self.assertNotIn(first_symbol, stale_observations)
+            self.assertNotIn(second_symbol, stale_observations)
+            self.assertEqual(stale_observations[unaffected_symbol], before[unaffected_symbol])
+            _stale_resolved, stale_context = _marshal_v36(stale_acts, "demo.track18.source-changed-before-scope")
+            track17._assert_replay_omits(self, stale_context, stale_acts, registry, [first_old, second_old])
             amount_review = prepare_review(
                 log, registry, review_id="demo.track18.review.amount-only",
                 shown_at="2026-09-30T13:00:30Z", borrowing_refs=(first["borrowing"], second["borrowing"]),
@@ -228,6 +245,9 @@ class Track18RelationshipCorrection(unittest.TestCase):
             self.assertEqual(intermediate_evidence["recognition_context"]["statement_correction"]
                              ["included_borrowings_changed"], False)
             amount_acts, amount = recovered("amount-only")
+            # The reviewed correction re-binds both inclusions: no marker remains.
+            _amount_resolved, amount_context = _marshal_v36(amount_acts, "demo.track18.amount-only")
+            track17._assert_replay_omits(self, amount_context, amount_acts, registry, [])
             amount_evidence = project(amount_acts, registry).evidence[amount_answer["evidence_id"]]
             self.assertEqual(amount_evidence.evidence["content"]["recognition_context"]
                              ["statement_correction"]["included_borrowings_changed"], False)
