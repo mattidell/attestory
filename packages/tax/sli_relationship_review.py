@@ -133,6 +133,18 @@ def _prepare_review_from_contents(contents: LogContents, registry: Any, *, revie
     }
 
 
+def _shown_statement_finding_id(review: dict[str, Any], statement_fact_id: str) -> str:
+    """Return the exact box 1 finding the review showed for this statement."""
+    for row in review.get("statement_choices", []):
+        if row.get("choice_ref") != statement_fact_id:
+            continue
+        support = row.get("support")
+        if (isinstance(support, list) and len(support) == 1 and isinstance(support[0], dict)
+                and isinstance(support[0].get("finding_id"), str) and support[0]["finding_id"]):
+            return str(support[0]["finding_id"])
+    raise RelationshipRecordingRefused("review does not name the box 1 finding it showed")
+
+
 def _choice_ref(review: dict[str, Any], collection: str, reference: Any) -> bool:
     return any(row.get("choice_ref") == reference for row in review.get(collection, []))
 
@@ -213,7 +225,11 @@ def _submission(review: dict[str, Any], *, borrowing_ref: str | None,
                "selections": selections, "responses": answer,
                "interest_portion": "not-requested"}
     if statement_correction is not None:
-        context["statement_correction"] = copy.deepcopy(statement_correction)
+        # Citing this evidence from the corrected box-1 finding refreshes
+        # inclusion applicability onto that finding. Ordinary admission does not.
+        correction = copy.deepcopy(statement_correction)
+        correction["refreshes_inclusion_applicability"] = True
+        context["statement_correction"] = correction
     return {
         "submission_id": submission_id, "evidence_id": evidence_id,
         "actor": actor, "at": at,
@@ -302,8 +318,13 @@ def apply_statement_correction_review(log: ActLog, registry: Any, *, review: dic
     """Record the known scope of one statement correction through one review.
 
     This operation records the scope before appending the corrected box-1
-    source. ``scope`` is ``amount-only``, ``inclusion-removed`` or
-    ``inclusion-uncertain``. A pair is named only for the latter two cases.
+    source. ``scope`` is ``amount-only``, ``inclusion-added``,
+    ``inclusion-removed`` or ``inclusion-uncertain``. A pair is named only
+    when the correction changes inclusion. The scope evidence binds the box 1
+    finding the review saw, the corrected amount, and the correction identity.
+    It authorizes one admitted finding: the successor of that finding, at
+    that amount, carrying that correction identity. A later update that cites
+    the same evidence is refused.
     """
     if statement_fact_id not in {row.get("choice_ref") for row in review.get("statement_choices", [])}:
         raise RelationshipRecordingRefused("correction statement was not shown in the review")
@@ -325,7 +346,9 @@ def apply_statement_correction_review(log: ActLog, registry: Any, *, review: dic
             statement_correction={"statement_fact_id": statement_fact_id, "scope": scope,
                                   "included_borrowings_changed": False,
                                   "source_correction_id": source_correction_id,
-                                  "corrected_box1_total": corrected_box1_total},
+                                  "corrected_box1_total": corrected_box1_total,
+                                  "reviewed_statement_finding_id": _shown_statement_finding_id(
+                                      review, statement_fact_id)},
         )
         scope_result = record_submission_durably(log, submission, registry, expected_revision=revision)
         source_result = _append_statement_source_correction_durably(
@@ -350,7 +373,9 @@ def apply_statement_correction_review(log: ActLog, registry: Any, *, review: dic
             statement_correction={"statement_fact_id": statement_fact_id,
                                   "borrowing_ref": borrowing_ref, "scope": scope,
                                   "source_correction_id": source_correction_id,
-                                  "corrected_box1_total": corrected_box1_total},
+                                  "corrected_box1_total": corrected_box1_total,
+                                  "reviewed_statement_finding_id": _shown_statement_finding_id(
+                                      review, statement_fact_id)},
         )
         scope_result = record_submission_durably(log, submission, registry, expected_revision=revision)
         source_result = _append_statement_source_correction_durably(
@@ -381,7 +406,9 @@ def apply_statement_correction_review(log: ActLog, registry: Any, *, review: dic
         statement_correction={"statement_fact_id": statement_fact_id,
                               "borrowing_ref": borrowing_ref, "scope": scope,
                               "source_correction_id": source_correction_id,
-                              "corrected_box1_total": corrected_box1_total},
+                              "corrected_box1_total": corrected_box1_total,
+                              "reviewed_statement_finding_id": _shown_statement_finding_id(
+                                  review, statement_fact_id)},
     )
     source_result = _append_statement_source_correction_durably(
         log, registry, statement_fact_id=statement_fact_id, corrected_total=corrected_box1_total,
@@ -394,22 +421,69 @@ def apply_statement_correction_review(log: ActLog, registry: Any, *, review: dic
     return result
 
 
+def _amounts_equal(left: object, right: object) -> bool:
+    if isinstance(left, bool) or isinstance(right, bool):
+        return False
+    return isinstance(left, (int, float)) and isinstance(right, (int, float)) and left == right
+
+
+def _bound_scope_correction(state: Any, scope_evidence_id: str) -> dict[str, Any]:
+    """Return the statement-correction object one scope evidence recorded."""
+    lifecycle = state.evidence.get(scope_evidence_id)
+    body = lifecycle.evidence if lifecycle is not None and isinstance(
+        getattr(lifecycle, "evidence", None), dict) else None
+    content = body.get("content") if isinstance(body, dict) else None
+    context = content.get("recognition_context") if isinstance(content, dict) else None
+    correction = context.get("statement_correction") if isinstance(context, dict) else None
+    if body is None or body.get("kind") != "tax.student-loan.relationship-answer" or not isinstance(correction, dict):
+        raise RelationshipRecordingRefused("scope evidence is not one reviewed statement correction")
+    return correction
+
+
 def _append_statement_source_correction_durably(log: ActLog, registry: Any, *,
                                                 statement_fact_id: str,
                                                 corrected_total: int | float,
                                                 correction_id: str, scope_evidence_id: str,
                                                 actor: str, at: str) -> dict[str, Any]:
-    """Append a same-identity corrected 1098-E box-1 source by normal admission."""
+    """Append the one box 1 finding a reviewed scope evidence authorizes.
+
+    The evidence names the finding the review saw, the corrected amount, and
+    the correction identity. This write is that successor or it is refused
+    before any act is appended. A second write citing the same evidence is
+    refused, including one that repeats the amount.
+    """
     contents = log.read()
     if contents.incomplete_tail is not None:
         raise RelationshipRecordingRefused("ActLog has an incomplete tail")
     state = project(contents.acts, registry)
     current_ids = compute_currency(state).current_finding_ids
     fact = facts_of(state.fact_state).get(statement_fact_id)
-    current = [finding for finding_id, finding in state.findings.items()
+    current = [(finding_id, finding) for finding_id, finding in state.findings.items()
                if finding_id in current_ids and finding.get("fact_id") == statement_fact_id]
     if fact is None or fact.fact_type_id != STATEMENT_TYPE or len(current) != 1:
         raise RelationshipRecordingRefused("statement correction must target one current 1098-E source")
+    correction = _bound_scope_correction(state, scope_evidence_id)
+    if correction.get("statement_fact_id") != statement_fact_id:
+        raise RelationshipRecordingRefused("scope evidence names a different statement")
+    if correction.get("scope") not in {"amount-only", "inclusion-added", "inclusion-removed", "inclusion-uncertain"}:
+        raise RelationshipRecordingRefused("scope evidence has no reviewed correction scope")
+    if correction.get("refreshes_inclusion_applicability") is not True:
+        raise RelationshipRecordingRefused("scope evidence does not refresh inclusion applicability")
+    if correction.get("source_correction_id") != correction_id:
+        raise RelationshipRecordingRefused("scope evidence is bound to a different correction")
+    if not _amounts_equal(correction.get("corrected_box1_total"), corrected_total):
+        raise RelationshipRecordingRefused("scope evidence is bound to a different corrected amount")
+    reviewed_finding_id = correction.get("reviewed_statement_finding_id")
+    if not isinstance(reviewed_finding_id, str) or not reviewed_finding_id:
+        raise RelationshipRecordingRefused("scope evidence does not name the box 1 finding the review saw")
+    if current[0][0] != reviewed_finding_id:
+        raise RelationshipRecordingRefused("box 1 finding changed since the review")
+    already_authorized = [
+        finding_id for finding_id, finding in state.findings.items()
+        if isinstance(finding, dict) and scope_evidence_id in (finding.get("evidence_ids") or [])
+    ]
+    if already_authorized:
+        raise RelationshipRecordingRefused("scope evidence already authorizes one finding")
     suffix = hashlib.sha256(correction_id.encode("utf-8")).hexdigest()[:20]
     source_evidence_id = f"demo.evidence.sli.statement-correction.{suffix}"
     contribution_id = f"demo.contribution.sli.statement-correction.{suffix}"

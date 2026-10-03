@@ -512,7 +512,10 @@ class OrdinaryRelationshipRecording(unittest.TestCase):
             self.assertIn(initial["claims"]["financing"]["finding_id"], after_amount_correction)
             amount_applicability = {row["finding_id"]: row["applicability"]
                                     for row in current_claim_applicability(log.read().acts, registry)}
-            self.assertEqual(amount_applicability[membership_before_amount_correction], "current")
+            # Track 6 read-side tie (ADR 0077 Part 5): a direct unscoped box 1 append
+            # leaves the old inclusion unresolved, not applicable.
+            self.assertEqual(amount_applicability[membership_before_amount_correction],
+                             "unresolved-applicability")
             before = log.read().revision
             with self.assertRaisesRegex(RelationshipRecordingRefused, "exactly the predecessor"):
                 correct_relationship_claim_durably(

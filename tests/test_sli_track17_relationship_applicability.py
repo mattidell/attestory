@@ -552,7 +552,9 @@ class Track17RelationshipApplicability(unittest.TestCase):
                 {row["applicability"] for row in applicability
                  if row["finding_id"] in {composition_claim["finding_id"],
                                            first["statement-inclusion"]["finding_id"]}},
-                {"current"},
+                # Track 6 read-side tie (ADR 0077 Part 5): a direct unscoped box 1
+                # append leaves the old inclusions unresolved, not applicable.
+                {"unresolved-applicability"},
             )
 
 

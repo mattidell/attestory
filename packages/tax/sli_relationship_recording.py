@@ -43,6 +43,213 @@ def _current(acts: Sequence[dict[str, Any]], registry: Any) -> tuple[Any, Any, d
     return state, currency, findings, lattice
 
 
+_REVIEWED_CORRECTION_SCOPES = frozenset({
+    "amount-only", "inclusion-added", "inclusion-removed", "inclusion-uncertain",
+})
+
+
+def _evidence_content(state: Any, evidence_id: object) -> dict[str, Any] | None:
+    if not isinstance(evidence_id, str):
+        return None
+    lifecycle = state.evidence.get(evidence_id)
+    if lifecycle is None:
+        return None
+    body = lifecycle.evidence if isinstance(getattr(lifecycle, "evidence", None), dict) else None
+    if body is None:
+        return None
+    content = body.get("content")
+    return content if isinstance(content, dict) else None
+
+
+def _confirmed_statement_finding_id(state: Any, finding: dict[str, Any]) -> str | None:
+    """Return the box-1 finding an inclusion was affirmed against, when recorded."""
+    evidence_ids = finding.get("evidence_ids")
+    if not isinstance(evidence_ids, list):
+        return None
+    for evidence_id in evidence_ids:
+        content = _evidence_content(state, evidence_id)
+        if content is None:
+            continue
+        confirmed = content.get("confirmed_statement_finding_id")
+        if isinstance(confirmed, str) and confirmed:
+            return confirmed
+    return None
+
+
+def _confirmed_statement_finding_at_admission(acts: Sequence[dict[str, Any]], registry: Any,
+                                              inclusion_finding_id: str,
+                                              statement_fact_id: str) -> str | None:
+    """Tie an older inclusion to the box-1 finding current when it was admitted.
+
+    Recorded evidence now stores the tie directly. Logs written before that
+    field still resolve the same way: the statement finding that was current
+    at the inclusion assertion. A later same-identity append does not inherit it.
+    """
+    for index, item in enumerate(acts):
+        if item.get("kind") != "assertion":
+            continue
+        payload = item.get("payload")
+        admitted = payload.get("finding") if isinstance(payload, dict) else None
+        if not isinstance(admitted, dict) or admitted.get("id") != inclusion_finding_id:
+            continue
+        admitted_state = project(tuple(acts[:index + 1]), registry)
+        admitted_current = compute_currency(admitted_state).current_finding_ids
+        matches = [fid for fid, row in admitted_state.findings.items()
+                   if isinstance(fid, str) and fid in admitted_current and isinstance(row, dict)
+                   and row.get("fact_id") == statement_fact_id]
+        if len(matches) == 1:
+            return matches[0]
+        return None
+    return None
+
+
+def _amounts_equal(left: object, right: object) -> bool:
+    if isinstance(left, bool) or isinstance(right, bool):
+        return False
+    return isinstance(left, (int, float)) and isinstance(right, (int, float)) and left == right
+
+
+def _predecessor_statement_finding_id(acts: Sequence[dict[str, Any]], registry: Any, finding_id: str,
+                                      statement_fact_id: str) -> str | None:
+    """Return the box 1 finding current just before this finding was asserted."""
+    for index, item in enumerate(acts):
+        if item.get("kind") != "assertion":
+            continue
+        payload = item.get("payload")
+        admitted = payload.get("finding") if isinstance(payload, dict) else None
+        if not isinstance(admitted, dict) or admitted.get("id") != finding_id:
+            continue
+        prior = project(tuple(acts[:index]), registry)
+        prior_current = compute_currency(prior).current_finding_ids
+        matches = [fid for fid, row in prior.findings.items()
+                   if isinstance(fid, str) and fid in prior_current and isinstance(row, dict)
+                   and row.get("fact_id") == statement_fact_id]
+        if len(matches) == 1:
+            return matches[0]
+        return None
+    return None
+
+
+def _cited_source_correction_id(state: Any, finding: dict[str, Any]) -> str | None:
+    """Return the one corrected-statement correction id this finding cites."""
+    evidence_ids = finding.get("evidence_ids")
+    if not isinstance(evidence_ids, list):
+        return None
+    found: str | None = None
+    for evidence_id in evidence_ids:
+        if not isinstance(evidence_id, str):
+            continue
+        lifecycle = state.evidence.get(evidence_id)
+        body = lifecycle.evidence if lifecycle is not None and isinstance(
+            getattr(lifecycle, "evidence", None), dict) else None
+        if not isinstance(body, dict) or body.get("kind") != "tax.form-1098e-corrected-statement-source":
+            continue
+        content = body.get("content")
+        correction_id = content.get("source_correction_id") if isinstance(content, dict) else None
+        if not isinstance(correction_id, str) or not correction_id:
+            return None
+        if found is not None:
+            return None
+        found = correction_id
+    return found
+
+
+def _finding_ids_citing(state: Any, evidence_id: str) -> list[str]:
+    cited: list[str] = []
+    for finding_id, row in state.findings.items():
+        if not isinstance(finding_id, str) or not isinstance(row, dict):
+            continue
+        evidence_ids = row.get("evidence_ids")
+        if isinstance(evidence_ids, list) and evidence_id in evidence_ids:
+            cited.append(finding_id)
+    return cited
+
+
+def _reviewed_correction_refreshes(state: Any, statement_finding: dict[str, Any],
+                                   statement_fact_id: str, *,
+                                   acts: Sequence[dict[str, Any]], registry: Any) -> bool:
+    """Refresh only the one finding a scope evidence binds.
+
+    The evidence kind is ``tax.student-loan.relationship-answer``. It must
+    name the box 1 finding the review saw, the corrected amount, and the
+    correction identity. The current finding must be that amount, cite that
+    correction identity, and be the successor of the finding the review saw.
+    The same evidence authorizes no second finding. Statement identity, an
+    allowed scope, and a refresh flag are not enough.
+    """
+    evidence_ids = statement_finding.get("evidence_ids")
+    finding_id = statement_finding.get("id")
+    if not isinstance(evidence_ids, list) or not isinstance(finding_id, str):
+        return False
+    for evidence_id in evidence_ids:
+        if not isinstance(evidence_id, str):
+            continue
+        lifecycle = state.evidence.get(evidence_id)
+        body = lifecycle.evidence if lifecycle is not None and isinstance(
+            getattr(lifecycle, "evidence", None), dict) else None
+        if not isinstance(body, dict) or body.get("kind") != "tax.student-loan.relationship-answer":
+            continue
+        content = body.get("content")
+        if not isinstance(content, dict):
+            continue
+        context = content.get("recognition_context")
+        if not isinstance(context, dict):
+            continue
+        correction = context.get("statement_correction")
+        if not isinstance(correction, dict):
+            continue
+        if correction.get("statement_fact_id") != statement_fact_id:
+            continue
+        if correction.get("scope") not in _REVIEWED_CORRECTION_SCOPES:
+            continue
+        if correction.get("refreshes_inclusion_applicability") is not True:
+            continue
+        reviewed_id = correction.get("reviewed_statement_finding_id")
+        bound_correction_id = correction.get("source_correction_id")
+        if not isinstance(reviewed_id, str) or not reviewed_id:
+            continue
+        if not isinstance(bound_correction_id, str) or not bound_correction_id:
+            continue
+        if not _amounts_equal(statement_finding.get("value"), correction.get("corrected_box1_total")):
+            continue
+        if _cited_source_correction_id(state, statement_finding) != bound_correction_id:
+            continue
+        if _predecessor_statement_finding_id(acts, registry, finding_id, statement_fact_id) != reviewed_id:
+            continue
+        if _finding_ids_citing(state, evidence_id) != [finding_id]:
+            continue
+        return True
+    return False
+
+
+def _inclusion_applies_to_current_statement(state: Any, current_ids: Any, finding: dict[str, Any],
+                                            statement_fact_id: str, *,
+                                            acts: Sequence[dict[str, Any]], registry: Any,
+                                            inclusion_finding_id: str) -> bool:
+    """An inclusion applies only to the statement finding it was confirmed against.
+
+    The reviewed correction route refreshes that tie only when the current
+    box-1 finding is the one finding bound to the scope evidence: successor
+    of the finding the review saw, at the corrected amount, with that
+    correction identity. Citing the evidence id is not enough. Missing or
+    ambiguous current box-1 support fails closed.
+    """
+    current_sources = [(source_id, source) for source_id, source in state.findings.items()
+                       if source_id in current_ids and isinstance(source, dict)
+                       and source.get("fact_id") == statement_fact_id]
+    if len(current_sources) != 1:
+        return False
+    source_id, source_finding = current_sources[0]
+    confirmed = _confirmed_statement_finding_id(state, finding)
+    if confirmed is None:
+        confirmed = _confirmed_statement_finding_at_admission(
+            acts, registry, inclusion_finding_id, statement_fact_id)
+    if confirmed == source_id:
+        return True
+    return _reviewed_correction_refreshes(
+        state, source_finding, statement_fact_id, acts=acts, registry=registry)
+
+
 def current_claim_applicability(acts: Sequence[dict[str, Any]], registry: Any) -> list[dict[str, str]]:
     """Project current claims against their exact current source subjects.
 
@@ -50,6 +257,12 @@ def current_claim_applicability(acts: Sequence[dict[str, Any]], registry: Any) -
     hold. Consumers must explicitly call it and act on unresolved rows. Missing
     or changed source identity leaves the claim's finding history intact but
     returns ``unresolved-applicability``; it never follows labels or retargets.
+
+    A statement inclusion is tied to the box-1 finding it was affirmed against.
+    It stays applicable when that finding is still current, or when the current
+    box-1 finding is the one successor bound to reviewed scope evidence. It
+    does not follow an ordinary same-identity box-1 append, or a later update
+    that cites evidence bound to a different correction.
     """
     state, currency, _findings, lattice = _current(acts, registry)
     current_ids = currency.current_finding_ids
@@ -59,14 +272,21 @@ def current_claim_applicability(acts: Sequence[dict[str, Any]], registry: Any) -
         fact = lattice.get(finding.get("fact_id")) if finding is not None else None
         if fact is None or fact.fact_type_id not in {FINANCING, STATEMENT_INCLUSION}:
             continue
+        if not isinstance(finding, dict):
+            continue
         keys = tuple((key, value) for key, value in fact.keys if key != "borrowing")
         source_type = SCHOOLING if fact.fact_type_id == FINANCING else STATEMENT_TYPE
         source_fact_id = fact_id_for(source_type, keys)
-        source_current = any(source_id in current_ids and source.get("fact_id") == source_fact_id
+        if fact.fact_type_id == STATEMENT_INCLUSION:
+            applicable = _inclusion_applies_to_current_statement(
+                state, current_ids, finding, source_fact_id, acts=acts, registry=registry,
+                inclusion_finding_id=finding_id)
+        else:
+            applicable = any(source_id in current_ids and source.get("fact_id") == source_fact_id
                              for source_id, source in state.findings.items())
         results.append({"finding_id": finding_id, "relationship_type": fact.fact_type_id,
                         "source_fact_id": source_fact_id,
-                        "applicability": "current" if source_current else "unresolved-applicability"})
+                        "applicability": "current" if applicable else "unresolved-applicability"})
     return results
 
 
@@ -107,15 +327,24 @@ def _record_submission(acts: list[dict[str, Any]], submission: dict[str, Any], r
     # Preserve every response, including unresolved choices, as source evidence.
     reference_names = ("borrowing_ref", "schooling_fact_id", "statement_fact_id")
     references = {key: submission.get(key) for key in reference_names}
-    evidence = {"schema": "evidence.v1", "id": evidence_id, "kind": "tax.student-loan.relationship-answer",
-                "label": "Student loan relationship answers", "content": {
+    confirmed_statement_finding_id: str | None = None
+    if responses["inclusion_response"] == "yes" and isinstance(references["statement_fact_id"], str):
+        statement_matches = [fid for fid, row in findings.items()
+                             if row.get("fact_id") == references["statement_fact_id"]]
+        if len(statement_matches) == 1:
+            confirmed_statement_finding_id = statement_matches[0]
+    evidence_content: dict[str, Any] = {
         "submission_id": submission_id,
         "responses": responses,
         "interest_portion_response": portion_response,
         "references": references,
         "recognition_context": copy.deepcopy(submission.get("recognition_context", {})),
         "correction_of_finding_id": correction_of_finding_id,
-    }}
+    }
+    if confirmed_statement_finding_id is not None:
+        evidence_content["confirmed_statement_finding_id"] = confirmed_statement_finding_id
+    evidence = {"schema": "evidence.v1", "id": evidence_id, "kind": "tax.student-loan.relationship-answer",
+                "label": "Student loan relationship answers", "content": evidence_content}
     staged = list(acts)
     act_suffix = hashlib.sha256(submission_id.encode("utf-8")).hexdigest()[:16]
     staged.append(_act(len(staged), "evidence-submitted", {"evidence": evidence},
