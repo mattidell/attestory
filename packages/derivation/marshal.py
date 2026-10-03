@@ -177,12 +177,6 @@ def _fact_keys(fact_id: str) -> dict[str, str]:
     return keys
 
 
-# ADR 0077 Part 5, replay step 3: the value of the system marker that stands
-# in a run's sources for an omitted statement inclusion. Its fact type is
-# declared in relationship bundle v2; no recorder writes it.
-INCLUSION_APPLICABILITY_UNESTABLISHED_VALUE = "sli.statement-inclusion.applicability-unestablished"
-
-
 def _omit_unestablished_inclusions(
     current_findings: list[dict[str, Any]],
     lattice: Mapping[str, Any],
@@ -443,6 +437,8 @@ def marshal_run_context(
     # ADR 0077 Part 5 replay step 3: one marker per omitted inclusion, in
     # finding-id order. It pins the omitted inclusion's finding. No act is
     # written; the marker exists only in this run's sources.
+    from packages.tax.sli_relationship_recording import INCLUSION_APPLICABILITY_UNESTABLISHED_VALUE
+
     for marker_type, marker_fact_id, omitted_finding_id, marker_keys in replay_markers:
         sources.append(
             SourceFact(
