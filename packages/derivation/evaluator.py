@@ -153,9 +153,30 @@ class AccessLog:
     # row of the source name, including other statements.
     link_coverage_findings: set[str] = field(default_factory=set)
     link_count_findings: set[str] = field(default_factory=set)
+    # ADR 0077 Part 1: counted rows ``shared_key_count`` agreed on, or the
+    # bad counted rows it blocked on. Not merged into ``collects``.
+    shared_key_count_findings: set[str] = field(default_factory=set)
+    # ADR 0077 Part 3: ``(finding id, version)`` of each per-subject
+    # publication read through a selection path's ``reads_subject_results``.
+    # Pinned role input, origin derived. Not merged into ``collects``: that
+    # channel pins live same-run sources as asserted inputs.
+    subject_result_findings: set[tuple[str, str]] = field(default_factory=set)
     # Exact categorical type of the expression's result, when the expression
     # itself produces a category. Runtime-only metadata; never serialized.
     result_fact_type: tuple[str, str] | None = None
+
+
+@dataclass(frozen=True)
+class SharedKeyScope:
+    """What ``shared_key_count`` reads for one subject (ADR 0077 Part 1).
+
+    ``subject_keys`` is the subject's structured identity, or None when it
+    is unavailable. ``rows`` maps each counted fact-type id the rule names
+    to that type's current rows. Values are never read.
+    """
+
+    subject_keys: tuple[tuple[str, str], ...] | None
+    rows: Mapping[str, tuple[Any, ...]]
 
 
 @dataclass(frozen=True)
@@ -198,6 +219,46 @@ class Environment:
     # whether a pinned scalar definition exists beside an enum sibling.
     fact_type_versions: dict[str, frozenset[str]] = field(default_factory=dict)
     symbol_result_fact_types: dict[str, tuple[str, str]] = field(default_factory=dict)
+    # ADR 0077 Part 1. Installed by per-subject dispatch only; an ordinary
+    # Environment leaves it None and ``shared_key_count`` fail-closes.
+    shared_key_scope: SharedKeyScope | None = None
+    # ADR 0077 Part 3. Installed by the runner only while it evaluates the
+    # selected path of a v13 selection, one entry per declared symbol. An
+    # ordinary Environment leaves it empty and every collect is unchanged.
+    subject_results: dict[str, "SubjectResults"] = field(default_factory=dict)
+
+
+@dataclass(frozen=True)
+class SubjectResults:
+    """The entries one declared symbol exposes: one per current subject.
+
+    ``uncovered`` names subjects with no result or with more than one.
+    ``blocked`` names subjects whose result is a block. ``published`` holds
+    ``(finding id, version, value)`` for every other subject. All three are
+    sorted by subject fact id.
+    """
+
+    uncovered: tuple[str, ...]
+    blocked: tuple[str, ...]
+    published: tuple[tuple[str, str, str], ...]
+
+
+def _declared_subject_values(name: str, env: Environment, access: AccessLog) -> list[str] | None:
+    """Read a declared symbol's entries, or None when ``name`` is not declared.
+
+    Refuses ``DEPENDENCY_INVALID``: first on a coverage gap, naming those
+    subjects, then on any block, naming the blocked subjects. A block is
+    never skipped and never read as an empty or favorable value.
+    """
+    entries = env.subject_results.get(name)
+    if entries is None:
+        return None
+    if entries.uncovered:
+        raise EvalBlocked(BLOCK_INVALID, list(entries.uncovered))
+    if entries.blocked:
+        raise EvalBlocked(BLOCK_INVALID, list(entries.blocked))
+    access.subject_result_findings.update((fid, version) for fid, version, _value in entries.published)
+    return [value for _fid, _version, value in entries.published]
 
 
 def _as_decimal(value: Any) -> Decimal:
@@ -299,6 +360,9 @@ def _evaluate(expr: Any, env: Environment, access: AccessLog) -> Any:
 
     if op == "collect":
         name = expr["name"]
+        declared = _declared_subject_values(name, env, access)
+        if declared is not None:
+            return [_as_decimal(value) for value in declared]
         access.collects.add(name)
         rows = env.sources.get(name, [])
         if not rows:
@@ -325,6 +389,9 @@ def _evaluate(expr: Any, env: Environment, access: AccessLog) -> Any:
 
     if op == "count":
         name = expr["name"]
+        declared = _declared_subject_values(name, env, access)
+        if declared is not None:
+            return len(declared)
         access.collects.add(name)
         rows = env.sources.get(name, [])
         source_set = expr["source_set"]
@@ -431,8 +498,12 @@ def _evaluate(expr: Any, env: Environment, access: AccessLog) -> Any:
         # `packages/derivation/marshal.py` would otherwise have to pick a
         # single arbitrary current finding for.
         name = expr["name"]
-        access.collects.add(name)
-        rows = env.sources.get(name, [])
+        declared = _declared_subject_values(name, env, access)
+        if declared is not None:
+            rows = declared
+        else:
+            access.collects.add(name)
+            rows = env.sources.get(name, [])
         if not rows:
             raise EvalBlocked(BLOCK_ABSENT, [name])
         expected_domain, expected_val = _eval_categorical_operand(expr["value"], env, access)
@@ -467,6 +538,8 @@ def _evaluate(expr: Any, env: Environment, access: AccessLog) -> Any:
         return _link_coverage(expr, env, access)
     if op == "link_count":
         return _link_count(expr, env, access)
+    if op == "shared_key_count":
+        return _shared_key_count(expr, env, access)
 
     raise EvalBlocked(BLOCK_INVALID, [f"unknown op survived schema: {op}"])
 
@@ -612,6 +685,43 @@ def _link_count(expr: dict[str, Any], env: Environment, access: AccessLog) -> De
     rows = _coverage_rows(slot)
     access.link_count_findings.update(str(row.finding_id) for row, _keys in rows)
     return Decimal(len(rows))
+
+
+def _shared_key_count(expr: dict[str, Any], env: Environment, access: AccessLog) -> Decimal:
+    """Count current rows of ``fact_type`` that agree with the subject on ``key``.
+
+    ADR 0077 Part 1. Reads no values. The result is a number, a block on a
+    bad counted row (``missing`` names that row's finding id, and the row is
+    pinned), or a block on a bad subject (``link-coverage-keys-unavailable``,
+    no counted row named or pinned). None falls through to another. A bad
+    subject is checked first: without the subject's own key there is
+    nothing to agree with.
+    """
+    fact_type = str(expr["fact_type"])
+    key = str(expr["key"])
+    scope = env.shared_key_scope
+    if scope is None or fact_type not in scope.rows:
+        raise EvalBlocked(BLOCK_INVALID, [LINK_COVERAGE_SCOPE_UNBOUND])
+    if scope.subject_keys is None:
+        raise EvalBlocked(BLOCK_INVALID, [LINK_COVERAGE_KEYS_UNAVAILABLE])
+    subject_map = {str(name): str(value) for name, value in scope.subject_keys}
+    if key not in subject_map:
+        raise EvalBlocked(BLOCK_INVALID, [LINK_COVERAGE_KEYS_UNAVAILABLE])
+    wanted = subject_map[key]
+    bad: list[str] = []
+    agreed: list[str] = []
+    for row in scope.rows[fact_type]:
+        row_map = _coverage_key_map(row)
+        if row_map is None or key not in row_map:
+            bad.append(str(row.finding_id))
+            continue
+        if row_map[key] == wanted:
+            agreed.append(str(row.finding_id))
+    if bad:
+        access.shared_key_count_findings.update(bad)
+        raise EvalBlocked(BLOCK_INVALID, sorted(set(bad)))
+    access.shared_key_count_findings.update(agreed)
+    return Decimal(len(agreed))
 
 
 def evaluate_args(args: list[Any], env: Environment, access: AccessLog) -> list[Any]:

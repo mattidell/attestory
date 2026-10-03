@@ -12,6 +12,7 @@ from typing import Any, cast
 from packages.derivation.live import live_coordinate_run
 from packages.derivation.live_workspace import WorkspaceCapability
 from packages.derivation.loader import DerivationSchemas, workspace_registry
+from packages.tax.loader import install_domain_scoped_supersession
 from packages.kernel.act_log import ActLog
 from packages.kernel.contribution import apply_contribution_batch
 from packages.kernel.currency import compute_currency
@@ -242,10 +243,10 @@ class AccountReferenceBoundary(unittest.TestCase):
         surface, acts = _assemble_reference_only_case(unresolved_account=True)
         with tempfile.TemporaryDirectory(prefix="track12-unresolved-") as raw:
             root = Path(raw)
-            log = ActLog(root / "authoritative", workspace_registry())
+            log = ActLog(root / "authoritative", install_domain_scoped_supersession(workspace_registry()))
             for item in acts:
                 log.append(item, expected_revision=item["committed_against"])
-            recovered = ActLog(root / "authoritative", workspace_registry()).read().acts
+            recovered = ActLog(root / "authoritative", workspace_registry(), read_only=True).read().acts
             state = project(tuple(copy.deepcopy(row) for row in recovered), DerivationSchemas().registry)
             currency = compute_currency(state)
             lattice = facts_of(state.fact_state)
@@ -327,10 +328,10 @@ class AccountReferenceBoundary(unittest.TestCase):
 
         with tempfile.TemporaryDirectory(prefix="track12-reference-only-") as raw:
             root = Path(raw)
-            log = ActLog(root / "authoritative", workspace_registry())
+            log = ActLog(root / "authoritative", install_domain_scoped_supersession(workspace_registry()))
             for item in acts:
                 log.append(item, expected_revision=item["committed_against"])
-            recovered = ActLog(root / "authoritative", workspace_registry()).read().acts
+            recovered = ActLog(root / "authoritative", workspace_registry(), read_only=True).read().acts
             state = project(tuple(copy.deepcopy(row) for row in recovered), DerivationSchemas().registry)
             currency = compute_currency(state)
             lattice = facts_of(state.fact_state)
@@ -461,10 +462,10 @@ class AccountReferenceBoundary(unittest.TestCase):
         def run_fresh(name: str, source_acts: list[dict[str, Any]]) -> tuple[dict[str, Any], dict[str, Any], dict[str, Any]]:
             with tempfile.TemporaryDirectory(prefix=f"track12-{name}-") as raw:
                 root = Path(raw)
-                log = ActLog(root / "authoritative", workspace_registry())
+                log = ActLog(root / "authoritative", install_domain_scoped_supersession(workspace_registry()))
                 for row in source_acts:
                     log.append(row, expected_revision=row["committed_against"])
-                recovered = ActLog(root / "authoritative", workspace_registry()).read().acts
+                recovered = ActLog(root / "authoritative", workspace_registry(), read_only=True).read().acts
                 forward, reference = _runner_parity(list(recovered), surface)
                 self.assertEqual(forward, reference)
                 generator = __import__(

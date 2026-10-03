@@ -13,7 +13,7 @@ from __future__ import annotations
 
 import json
 from dataclasses import dataclass, field
-from typing import TYPE_CHECKING, Any, Iterable, Mapping
+from typing import TYPE_CHECKING, Any, Iterable, Mapping, Sequence
 
 from packages.derivation.source_authority import (
     ClosureFindingRecord,
@@ -112,7 +112,7 @@ def _rule_required_symbols(rule: dict[str, Any]) -> list[str]:
     # v11 is v10's grammar plus subject/joined/direction (ADR 0076 Parts 1
     # and 2's admission-only successor); those fields are exact pins and an
     # enum, not `ref` expressions, so the same walk applies unchanged.
-    if rule.get("schema") in {"rule-artifact.v3", "rule-artifact.v4", "rule-artifact.v5", "rule-artifact.v6", "rule-artifact.v7", "rule-artifact.v8", "rule-artifact.v9", "rule-artifact.v10", "rule-artifact.v11", "rule-artifact.v12"}:
+    if rule.get("schema") in {"rule-artifact.v3", "rule-artifact.v4", "rule-artifact.v5", "rule-artifact.v6", "rule-artifact.v7", "rule-artifact.v8", "rule-artifact.v9", "rule-artifact.v10", "rule-artifact.v11", "rule-artifact.v12", "rule-artifact.v13"}:
         symbols.extend(_iter_ref_names(rule.get("when")))
         symbols.extend(_iter_ref_names(rule.get("value")))
         selection = rule.get("selection")
@@ -175,6 +175,60 @@ def _fact_keys(fact_id: str) -> dict[str, str]:
         name, _, value = pair.partition("=")
         keys[name] = value
     return keys
+
+
+def _omit_unestablished_inclusions(
+    current_findings: list[dict[str, Any]],
+    lattice: Mapping[str, Any],
+    claim_applicability: Sequence[Mapping[str, str]] | None,
+) -> tuple[list[dict[str, Any]], list[tuple[str, str, str, tuple[tuple[str, str], ...] | None]]]:
+    """Split out current statement inclusions whose applicability is not established.
+
+    ADR 0077 Part 5, replay steps 2 and 3. ``claim_applicability`` is the
+    output of ``current_claim_applicability`` over the same acts the state
+    was projected from. A current statement inclusion that it does not
+    report ``current`` -- including one it does not report at all -- is
+    removed from the findings every input and source is built from. In its
+    place the caller supplies one marker source per omitted inclusion:
+    ``(marker fact type, marker fact id, omitted finding id, identity keys)``.
+    Nothing else is removed; the box 1 finding the inclusion names stays.
+
+    ``None`` means the caller supplied no applicability reading, and nothing
+    is omitted. A workspace with no current statement inclusion has nothing
+    to omit either way.
+    """
+    if claim_applicability is None:
+        return current_findings, []
+    from packages.tax.sli_relationship_recording import (
+        INCLUSION_APPLICABILITY_UNESTABLISHED,
+        STATEMENT_INCLUSION,
+    )
+
+    established = {
+        row.get("finding_id")
+        for row in claim_applicability
+        if row.get("relationship_type") == STATEMENT_INCLUSION and row.get("applicability") == "current"
+    }
+    kept: list[dict[str, Any]] = []
+    markers: list[tuple[str, str, str, tuple[tuple[str, str], ...] | None]] = []
+    for finding in current_findings:
+        fact_id = finding["fact_id"]
+        if _fact_type_id(fact_id) != STATEMENT_INCLUSION or finding["id"] in established:
+            kept.append(finding)
+            continue
+        lattice_fact = lattice.get(fact_id)
+        keys = tuple(lattice_fact.keys) if lattice_fact is not None else None
+        # The marker keeps the inclusion's identity keys (its statement's keys
+        # plus ``borrowing``). Without a lattice the keys are unavailable; the
+        # marker then carries ``keys=None`` and the inclusion's own rendered
+        # bindings under the marker type, never a re-parse of them.
+        marker_fact_id = (
+            kernel_facts.fact_id_for(INCLUSION_APPLICABILITY_UNESTABLISHED, keys)
+            if keys is not None
+            else f"{INCLUSION_APPLICABILITY_UNESTABLISHED}|{fact_id.partition('|')[2]}"
+        )
+        markers.append((INCLUSION_APPLICABILITY_UNESTABLISHED, marker_fact_id, finding["id"], keys))
+    return kept, markers
 
 
 def marshal_closure_authority(
@@ -249,6 +303,7 @@ def marshal_run_context(
     authorization: Any | None = None,
     reporting_year: int | None = None,
     parameter_index: Mapping[str, Mapping[str, Mapping[str, Any]]] | None = None,
+    claim_applicability: Sequence[Mapping[str, str]] | None = None,
 ) -> RunContext:
     """Build a RunContext from current record state only (ADR-0032 MUST).
 
@@ -257,6 +312,12 @@ def marshal_run_context(
     input and source is projected from *current* findings. The fixture
     adapter in ``runners/derive.py`` remains a separate, production-fenced
     path and is not used here.
+
+    ``claim_applicability`` is ``current_claim_applicability`` read over the
+    acts ``state`` was projected from (ADR 0077 Part 5 replay rule). When
+    supplied, a current statement inclusion it does not report ``current``
+    is not joined; one applicability-unestablished marker source stands in
+    its place. ``live_coordinate_run`` always supplies it.
     """
     # Local imports keep the kernel↔derivation cycle shallow at module load.
     from packages.derivation.runner import InputFinding, RunContext, SourceFact
@@ -281,6 +342,19 @@ def marshal_run_context(
         for fid in sorted(currency.current_finding_ids)
         if fid in state.findings
     ]
+    # Structured identity bindings for every current fact. ``fact_id`` is a
+    # lossy join (see SourceFact.keys); consumers that need a component read
+    # these instead of re-parsing the string. Fixture/stub states used by
+    # older scenario tests carry no kernel fact lattice; those sources get
+    # ``keys=None``, which every consumer must treat as fail-closed rather
+    # than falling back to parsing the rendered id.
+    _fact_state = getattr(state, "fact_state", None)
+    _lattice = kernel_facts.facts_of(_fact_state) if _fact_state is not None else {}
+    # ADR 0077 Part 5 replay: an inclusion whose applicability is not
+    # established is not joined, by any input or source below.
+    current_findings, replay_markers = _omit_unestablished_inclusions(
+        current_findings, _lattice, claim_applicability
+    )
 
     inputs: list[InputFinding] = []
     used_finding_ids: set[str] = set()
@@ -335,14 +409,6 @@ def marshal_run_context(
             )
             used_finding_ids.add(finding["id"])
 
-    # Structured identity bindings for every current fact. ``fact_id`` is a
-    # lossy join (see SourceFact.keys); consumers that need a component read
-    # these instead of re-parsing the string. Fixture/stub states used by
-    # older scenario tests carry no kernel fact lattice; those sources get
-    # ``keys=None``, which every consumer must treat as fail-closed rather
-    # than falling back to parsing the rendered id.
-    _fact_state = getattr(state, "fact_state", None)
-    _lattice = kernel_facts.facts_of(_fact_state) if _fact_state is not None else {}
     sources: list[SourceFact] = []
     for name in sorted(emission_names):
         for finding in current_findings:
@@ -368,6 +434,21 @@ def marshal_run_context(
                 )
                 if name in collect_names:
                     used_finding_ids.add(finding["id"])
+    # ADR 0077 Part 5 replay step 3: one marker per omitted inclusion, in
+    # finding-id order. It pins the omitted inclusion's finding. No act is
+    # written; the marker exists only in this run's sources.
+    from packages.tax.sli_relationship_recording import INCLUSION_APPLICABILITY_UNESTABLISHED_VALUE
+
+    for marker_type, marker_fact_id, omitted_finding_id, marker_keys in replay_markers:
+        sources.append(
+            SourceFact(
+                name=marker_type,
+                value=INCLUSION_APPLICABILITY_UNESTABLISHED_VALUE,
+                finding_id=omitted_finding_id,
+                fact_id=marker_fact_id,
+                keys=marker_keys,
+            )
+        )
 
     # Also marshal unbound current findings whose fact type equals a rule
     # input symbol (legacy demo path: symbol == fact type id).
@@ -479,6 +560,7 @@ def marshal_live_run_context(
     authorization: Any | None = None,
     reporting_year: int | None = None,
     parameter_index: Mapping[str, Mapping[str, Mapping[str, Any]]] | None = None,
+    claim_applicability: Sequence[Mapping[str, str]] | None = None,
 ) -> MarshalledRunContext:
     """Create the opaque marshalling result accepted by the production executor."""
     return MarshalledRunContext(
@@ -501,6 +583,7 @@ def marshal_live_run_context(
             authorization=authorization,
             reporting_year=reporting_year,
             parameter_index=parameter_index,
+            claim_applicability=claim_applicability,
         ),
         _MARSHAL_SEAL,
     )

@@ -18,6 +18,11 @@ from typing import TYPE_CHECKING, Any, Iterable, Mapping, Sequence
 from packages.derivation.authorization import authorization_provenance
 from packages.derivation.loader import DerivationSchemas, load_canon
 from packages.derivation.marshal import marshal_live_run_context
+from packages.derivation.package_validation import (
+    selection_activity_fact_pins,
+    subject_result_read_symbols,
+    v13_selection_declarations,
+)
 from packages.derivation.presentation_projection import PresentationModelError, build_presentation_model
 from packages.derivation.production_executor import execute_and_record_marshaled, execute_marshaled
 from packages.derivation.production_resolver import PublicationSurface, Refusal, resolve_production_package
@@ -85,6 +90,25 @@ def _iter_link_coverage_link_types(expr: Any) -> Iterable[str]:
     elif isinstance(expr, list):
         for item in expr:
             yield from _iter_link_coverage_link_types(item)
+
+
+def _iter_shared_key_count_fact_types(expr: Any) -> Iterable[str]:
+    """Yield ``fact_type`` from every ``shared_key_count`` node (ADR 0077 Part 1).
+
+    The counted rows are keyed sources the per-subject dispatcher reads by
+    name. Without them in the run's sources every count would silently be
+    zero. Not a collect name: the rows are counted, never summed.
+    """
+    if isinstance(expr, dict):
+        if expr.get("op") == "shared_key_count":
+            fact_type = expr.get("fact_type")
+            if isinstance(fact_type, str) and fact_type:
+                yield fact_type
+        for value in expr.values():
+            yield from _iter_shared_key_count_fact_types(value)
+    elif isinstance(expr, list):
+        for item in expr:
+            yield from _iter_shared_key_count_fact_types(item)
 
 
 class _ResolvedRunMaterial(tuple[
@@ -187,7 +211,7 @@ def _resolved_run_material(graph: Any) -> _ResolvedRunMaterial:
     rules = [
         member for member in members
         if member.get("schema") in {"rule-artifact.v1", "rule-artifact.v2", "rule-artifact.v3", "rule-artifact.v4", "rule-artifact.v5", "rule-artifact.v6", "rule-artifact.v7", "rule-artifact.v8", "rule-artifact.v9", "rule-artifact.v10", "rule-artifact.v11",
-                "rule-artifact.v12", "attachment-rule.v1", "attachment-rule.v2", "attachment-rule.v3", "attachment-rule.v4", "attachment-rule.v5", "attachment-rule.v6", "attachment-rule.v8", "attachment-rule.v11"}
+                "rule-artifact.v12", "rule-artifact.v13", "attachment-rule.v1", "attachment-rule.v2", "attachment-rule.v3", "attachment-rule.v4", "attachment-rule.v5", "attachment-rule.v6", "attachment-rule.v8", "attachment-rule.v11"}
     ]
     parameters, parameter_index = _parameters_by_exact_version(members)
     families = [member for member in members if member.get("schema") in {"source-family.v1", "source-family.v2"}]
@@ -241,12 +265,19 @@ def _resolved_run_material(graph: Any) -> _ResolvedRunMaterial:
     # collect source name too, or marshal.py would never populate
     # env.sources for it (see _iter_collect_categorical_names above).
     for rule in rules:
-        for name in _iter_collect_categorical_names(rule.get("when")):
-            if name not in collect_names:
-                collect_names.append(name)
-        for name in _iter_collect_categorical_names(rule.get("value")):
-            if name not in collect_names:
-                collect_names.append(name)
+        expressions = [rule.get("when"), rule.get("value")]
+        declared_reads: set[str] = set()
+        # ADR 0077 Part 4: a v13 selection's expressions sit under its paths
+        # and default. An undeclared collect there reads sources the same
+        # way; a symbol the declaration reads through
+        # ``reads_subject_results`` is a same-run result, not a source.
+        for declaration in v13_selection_declarations(rule):
+            expressions.extend((declaration.get("when"), declaration.get("value")))
+            declared_reads.update(subject_result_read_symbols(declaration))
+        for expression in expressions:
+            for name in _iter_collect_categorical_names(expression):
+                if name not in collect_names and name not in declared_reads:
+                    collect_names.append(name)
     # link_coverage/link_count emit ``links`` only, and not as a collect name. The
     # walk is value only. A name already collected (a family member, for
     # example) stays on ``collect_names`` and keeps that exclusion.
@@ -254,6 +285,9 @@ def _resolved_run_material(graph: Any) -> _ResolvedRunMaterial:
     emission_only: list[str] = []
     for rule in rules:
         for name in _iter_link_coverage_link_types(rule.get("value")):
+            if name not in collect_names and name not in emission_only:
+                emission_only.append(name)
+        for name in _iter_shared_key_count_fact_types(rule.get("value")):
             if name not in collect_names and name not in emission_only:
                 emission_only.append(name)
     # ADR-0076 Parts 1/2 (Track 5c): a v11 rule's own ``subject`` and
@@ -269,7 +303,7 @@ def _resolved_run_material(graph: Any) -> _ResolvedRunMaterial:
     # declared pins, structurally, the same way link_coverage's ``links``
     # is found above.
     for rule in rules:
-        if rule.get("schema") not in ("rule-artifact.v11", "rule-artifact.v12"):
+        if rule.get("schema") not in ("rule-artifact.v11", "rule-artifact.v12", "rule-artifact.v13"):
             continue
         for pin_field in ("subject", "joined"):
             pin = rule.get(pin_field)
@@ -278,6 +312,19 @@ def _resolved_run_material(graph: Any) -> _ResolvedRunMaterial:
             pin_id = pin.get("id")
             if isinstance(pin_id, str) and pin_id and pin_id not in collect_names and pin_id not in emission_only:
                 emission_only.append(pin_id)
+    # ADR 0077 Part 4: activity is a current-source predicate even when its
+    # fact type appears nowhere in an expression. Emit those rows as sources
+    # so the runner can see them. They are emission-only, never collect
+    # names, so registering them binds no scalar and marks no finding used.
+    for rule in rules:
+        for declaration in v13_selection_declarations(rule):
+            activity = declaration.get("activity")
+            if not isinstance(activity, Mapping) or activity.get("kind") != "source_nonempty":
+                continue
+            for fact_pin in selection_activity_fact_pins(activity):
+                fact_id = fact_pin.get("id")
+                if isinstance(fact_id, str) and fact_id and fact_id not in collect_names and fact_id not in emission_only:
+                    emission_only.append(fact_id)
     # ADR-0070: the supportability rule reads pairing / acquisition /
     # report sources by pinned fact id, not by an ordinary symbol binding.
     from packages.tax.supportability import COLLECT_SOURCE_NAMES, RULE_ID
@@ -328,6 +375,31 @@ def _resolved_run_material(graph: Any) -> _ResolvedRunMaterial:
         emission_only,
         parameter_index,
     )
+
+
+def _statement_inclusion_applicability(
+    acts: Sequence[Mapping[str, Any]],
+    registry: Any,
+    state: FindingState,
+    currency: CurrencyView,
+) -> list[dict[str, str]]:
+    """The applicability reading the ADR 0077 Part 5 replay rule consults.
+
+    ``current_claim_applicability`` over the same acts and registry the run's
+    state was projected from. It re-projects the log, so it runs only when a
+    current statement inclusion exists; otherwise there is nothing to omit
+    and the empty reading marshals the same as today.
+    """
+    from packages.tax.sli_relationship_recording import STATEMENT_INCLUSION, current_claim_applicability
+
+    prefix = f"{STATEMENT_INCLUSION}|"
+    if not any(
+        isinstance(row, dict) and str(row.get("fact_id", "")).startswith(prefix)
+        for finding_id, row in state.findings.items()
+        if finding_id in currency.current_finding_ids
+    ):
+        return []
+    return current_claim_applicability(tuple(dict(act) for act in acts), registry)
 
 
 def live_coordinate_run(
@@ -404,6 +476,8 @@ def live_coordinate_run(
     reporting_year = int(reporting_year_str) if reporting_year_str else None
     context = marshal_live_run_context(
         run_id=run_id, state=state, currency=currency, rules=rules, parameters=parameters,
+        claim_applicability=_statement_inclusion_applicability(
+            authoritative_acts, schemas.registry, state, currency),
         canon=load_canon(schemas),
         adoption_pin={"role": "adoption", "id": resolved.package["id"], "version": resolved.package["version"]},
         governance_pins=[dict(pin) for pin in governance_pins],

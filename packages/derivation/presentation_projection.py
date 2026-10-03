@@ -131,6 +131,209 @@ def _one_row(rows: Sequence[Mapping[str, Any]], *, symbol: str) -> Mapping[str, 
     return rows[0]
 
 
+def _selection_declarations(rule: Mapping[str, Any]) -> list[Mapping[str, Any]]:
+    selection = rule.get("selection")
+    if not isinstance(selection, Mapping):
+        return []
+    paths = [path for path in selection.get("paths") or [] if isinstance(path, Mapping)]
+    default = selection.get("default")
+    return [*paths, default] if isinstance(default, Mapping) else paths
+
+
+def _activity_fact_type_ids(path: Mapping[str, Any]) -> list[str]:
+    activity = path.get("activity")
+    if not isinstance(activity, Mapping) or activity.get("kind") != "source_nonempty":
+        raise PresentationModelError("selection path activity is not a declared source_nonempty activity")
+    listed = activity.get("member_fact_types")
+    pins = listed if isinstance(listed, list) else [activity.get("member_fact_type")]
+    ids = [pin.get("id") for pin in pins if isinstance(pin, Mapping)]
+    if not ids or not all(isinstance(item, str) for item in ids):
+        raise PresentationModelError("selection path activity names no fact type")
+    return [str(item) for item in ids]
+
+
+def _favorable_values(declaration: Mapping[str, Any], symbol: str) -> set[str]:
+    """The literal a declaration's ``collect_categorical_all_equal`` over ``symbol`` expects."""
+    found: set[str] = set()
+
+    def visit(node: Any) -> None:
+        if isinstance(node, Mapping):
+            if node.get("op") == "collect_categorical_all_equal" and node.get("name") == symbol:
+                literal = node.get("value")
+                if isinstance(literal, Mapping) and isinstance(literal.get("value"), str):
+                    found.add(literal["value"])
+            for child in node.values():
+                visit(child)
+        elif isinstance(node, list):
+            for child in node:
+                visit(child)
+
+    visit(declaration.get("when"))
+    visit(declaration.get("value"))
+    return found
+
+
+def _value_descriptions(resolved_members: Sequence[Mapping[str, Any]]) -> dict[str, dict[str, str]]:
+    """Fact type id -> value -> the description its value schema declares for that value."""
+    fact_types: list[Mapping[str, Any]] = []
+    for member in resolved_members:
+        if str(member.get("schema", "")).startswith("fact-type."):
+            fact_types.append(member)
+        elif str(member.get("schema", "")).startswith("bundle."):
+            fact_types.extend(ft for ft in member.get("fact_types") or [] if isinstance(ft, Mapping))
+    out: dict[str, dict[str, str]] = {}
+    for fact_type in fact_types:
+        value_schema = fact_type.get("value_schema")
+        entries = value_schema.get("oneOf") if isinstance(value_schema, Mapping) else None
+        for entry in entries if isinstance(entries, list) else []:
+            if isinstance(entry, Mapping) and isinstance(entry.get("const"), str) and isinstance(entry.get("description"), str):
+                known = out.setdefault(str(fact_type.get("id")), {})
+                if known.get(entry["const"], entry["description"]) != entry["description"]:
+                    raise PresentationModelError(f"conflicting descriptions for {fact_type.get('id')!r} value {entry['const']!r}")
+                known[entry["const"]] = entry["description"]
+    return out
+
+
+def _statement_label(keys: Mapping[str, str], state: FindingState) -> dict[str, str]:
+    label: dict[str, str] = {}
+    for key_name in ("lender", "statement"):
+        entity_id = keys.get(key_name)
+        lifecycle = state.fact_state.entities.get(entity_id) if entity_id else None
+        if lifecycle is not None and lifecycle.status == "current":
+            recorded = lifecycle.entity.get("label")
+            if isinstance(recorded, str) and recorded:
+                label[key_name] = recorded
+    if "tax-year" in keys:
+        label["taxYear"] = str(keys["tax-year"])
+    return label
+
+
+def _selection_blocked_reasons(
+    row: Mapping[str, Any],
+    rule: Mapping[str, Any],
+    *,
+    resolved_members: Sequence[Mapping[str, Any]],
+    rules_by_id: Mapping[str, Mapping[str, Any]],
+    state: FindingState,
+    publications_by_id: Mapping[str, Mapping[str, Any]],
+    dispositions: Sequence[Mapping[str, Any]],
+) -> list[dict[str, Any]]:
+    """Why a blocked ADR 0077 Part 4 selection line is blocked, statement by statement.
+
+    Every sentence is declared content, never composed here: a value's
+    ``description`` in its fact type's value schema (``oneOf``), or a rule's
+    ``wording``. Which declaration applies is decided from the record:
+
+    - Both paths active (the row carries the refusal's ``missing``): each
+      statement holding an activity finding gets the description the read
+      symbols' vocabulary declares for the refusal token.
+    - The selected path, or the default: for each declared read and each
+      current subject, a published value other than the one the declaration
+      expects gives that value's description; a block, or no single result,
+      gives the publishing rule's ``wording``.
+    - When the workspace has not adopted every fact type the selected path's
+      activity names, it cannot record what that path decides on; each
+      statement that has a reason gets the selection rule's ``wording``
+      instead.
+
+    The selected path is recomputed from the projected current findings the
+    same way the runner decides activity; a row that disagrees fails closed.
+    """
+    from packages.kernel.currency import compute_currency
+    from packages.kernel.facts import facts_of
+
+    selection = rule.get("selection")
+    if not isinstance(selection, Mapping):
+        return []
+    fact_map = facts_of(state.fact_state)
+    current = compute_currency(state).current_finding_ids
+    current_by_type: dict[str, list[str]] = {}
+    current_findings_by_type: dict[str, list[str]] = {}
+    for finding_id, finding in state.findings.items():
+        fact = fact_map.get(str(finding.get("fact_id"))) if finding_id in current else None
+        if fact is None:
+            continue
+        current_by_type.setdefault(fact.fact_type_id, []).append(str(finding["fact_id"]))
+        current_findings_by_type.setdefault(fact.fact_type_id, []).append(finding_id)
+    descriptions = _value_descriptions(resolved_members)
+    paths = [path for path in selection.get("paths") or [] if isinstance(path, Mapping)]
+    active = [path for path in paths
+              if any(current_by_type.get(member) for member in _activity_fact_type_ids(path))]
+    declared_refusal = selection.get("refusal")
+    refusal: Mapping[str, Any] = declared_refusal if isinstance(declared_refusal, Mapping) else {}
+    refused = list(row.get("missing") or []) == list(refusal.get("missing") or [None])
+    if refused != (len(active) > 1):
+        raise PresentationModelError(f"blocked {rule.get('id')!r} row disagrees with its recomputed selection")
+
+    reasons: list[dict[str, Any]] = []
+
+    def add(sentence: Any, keys: Mapping[str, str], fact_id: str | None) -> None:
+        if not isinstance(sentence, str) or not sentence:
+            return
+        entry: dict[str, Any] = {"sentence": sentence}
+        if fact_id is not None:
+            entry["factId"] = fact_id
+        label = _statement_label(keys, state)
+        if label:
+            entry["statementLabel"] = label
+        if entry not in reasons:
+            reasons.append(entry)
+
+    if refused:
+        read_symbols = [read.get("symbol") for declaration in _selection_declarations(rule)
+                        for read in declaration.get("reads_subject_results") or [] if isinstance(read, Mapping)]
+        sentences = [descriptions.get(str(symbol), {}).get(str(token))
+                     for token in refusal.get("missing") or [] for symbol in read_symbols]
+        refusal_sentence = next((item for item in sentences if item), None)
+        statements: dict[tuple[str, str], dict[str, str]] = {}
+        for pin in row.get("pins") or []:
+            pinned = state.findings.get(str(pin.get("id"))) if pin.get("role") == "input" else None
+            pinned_fact = fact_map.get(str(pinned.get("fact_id"))) if pinned else None
+            pinned_keys = dict(pinned_fact.keys) if pinned_fact is not None else {}
+            if "statement" in pinned_keys:
+                statements[(pinned_keys.get("lender", ""), pinned_keys["statement"])] = pinned_keys
+        for _identity, statement_keys in sorted(statements.items()):
+            add(refusal_sentence, statement_keys, None)
+        return reasons
+
+    declaration: Mapping[str, Any] = active[0] if active else selection.get("default") or {}
+    cannot_record = bool(active) and any(
+        member not in state.fact_state.fact_types for member in _activity_fact_type_ids(active[0])
+    )
+    rows_by_symbol: dict[tuple[str, str], list[Mapping[str, Any]]] = {}
+    for item in dispositions:
+        if isinstance(item.get("symbol"), str) and isinstance(item.get("artifact_id"), str):
+            rows_by_symbol.setdefault((item["artifact_id"], item["symbol"]), []).append(item)
+    for read in declaration.get("reads_subject_results") or []:
+        symbol = str(read.get("symbol"))
+        subject_type = str((read.get("subject") or {}).get("id"))
+        publishers = [r for r in rules_by_id.values()
+                      if r.get("publishes") == symbol and (r.get("subject") or {}).get("id") == subject_type]
+        if len(publishers) != 1:
+            raise PresentationModelError(f"declared read {symbol!r} has no single publisher")
+        publisher = publishers[0]
+        favorable = _favorable_values(declaration, symbol)
+        if len(favorable) != 1:
+            raise PresentationModelError(f"declared read {symbol!r} has no single expected value")
+        for subject in sorted(set(current_by_type.get(subject_type, []))):
+            fact = fact_map.get(subject)
+            keys = dict(fact.keys) if fact is not None else {}
+            results = rows_by_symbol.get((str(publisher["id"]), f"{symbol}|{subject}"), [])
+            sentence: Any = None
+            if len(results) == 1 and results[0].get("disposition") == "published":
+                published = publications_by_id.get(str(results[0].get("finding_id")))
+                value = published.get("value") if published else None
+                if value in favorable:
+                    continue
+                sentence = descriptions.get(symbol, {}).get(str(value))
+            else:
+                sentence = publisher.get("wording")
+            if sentence and cannot_record:
+                sentence = rule.get("wording")
+            add(sentence, keys, subject)
+    return reasons
+
+
 def _is_closure_finding(finding_id: str, state: FindingState) -> bool:
     finding = state.findings.get(finding_id)
     return finding is not None and _CLOSURE_FACT_MARKER in finding.get("fact_id", "")
@@ -1493,6 +1696,15 @@ def build_presentation_model(
         )
         if resolved["disposition"] in _NUMERIC_DISPOSITIONS | _CATEGORICAL_DISPOSITIONS:
             _require_declared_field_citation_chain(field, row, rules_by_id, citations)
+        producer = rules_by_id.get(str(row.get("artifact_id")))
+        if (resolved["disposition"] == "blocked" and producer is not None
+                and producer.get("schema") == "rule-artifact.v13" and "selection" in producer):
+            reasons = _selection_blocked_reasons(
+                row, producer, resolved_members=resolved_members, rules_by_id=rules_by_id, state=state,
+                publications_by_id=publications_by_id, dispositions=dispositions,
+            )
+            if reasons:
+                resolved["reasons"] = reasons
         sections.append({
             "id": section_id,
             "field": dict(field),
@@ -1630,11 +1842,26 @@ def _validate_resolved(resolved: Mapping[str, Any], path: str) -> None:
         if not isinstance(resolved["act"], dict):
             raise PresentationModelError(f"{path}.act: expected an object")
     elif disposition == "blocked":
-        _require_keys(resolved, frozenset({"disposition", "activeCodes", "act"}), frozenset(), path)
+        _require_keys(resolved, frozenset({"disposition", "activeCodes", "act"}), frozenset({"reasons"}), path)
         if resolved["act"] is not None:
             raise PresentationModelError(f"{path}.act: must be null for a blocked line")
         if not isinstance(resolved["activeCodes"], list) or not all(isinstance(c, str) for c in resolved["activeCodes"]):
             raise PresentationModelError(f"{path}.activeCodes: expected a list of strings")
+        if "reasons" in resolved:
+            reasons = resolved["reasons"]
+            if not isinstance(reasons, list) or not reasons:
+                raise PresentationModelError(f"{path}.reasons: expected a non-empty list")
+            for index, reason in enumerate(reasons):
+                rp = f"{path}.reasons[{index}]"
+                _require_keys(reason, frozenset({"sentence"}), frozenset({"factId", "statementLabel"}), rp)
+                if not isinstance(reason["sentence"], str) or not reason["sentence"]:
+                    raise PresentationModelError(f"{rp}.sentence: expected non-empty string")
+                if "factId" in reason and (not isinstance(reason["factId"], str) or not reason["factId"]):
+                    raise PresentationModelError(f"{rp}.factId: expected non-empty string")
+                label = reason.get("statementLabel", {})
+                if not isinstance(label, dict) or not all(isinstance(v, str) and v for v in label.values()) \
+                        or set(label) - {"lender", "statement", "taxYear"}:
+                    raise PresentationModelError(f"{rp}.statementLabel: expected lender/statement/taxYear strings")
     else:  # guard_inapplicable
         _require_keys(resolved, frozenset({"disposition", "act"}), frozenset(), path)
         if resolved["act"] is not None:

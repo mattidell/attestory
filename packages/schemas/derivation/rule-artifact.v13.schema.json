@@ -1,0 +1,1109 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "derivation/rule-artifact.v13",
+  "title": "Rule artifact with shared-key count, declared basis, and presence selection",
+  "type": "object",
+  "properties": {
+    "schema": {
+      "const": "rule-artifact.v13"
+    },
+    "id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "version": {
+      "type": "string",
+      "pattern": "^v[0-9]+$"
+    },
+    "scope": {
+      "$ref": "#/$defs/scope"
+    },
+    "subject": {
+      "$ref": "#/$defs/exact_pin"
+    },
+    "joined": {
+      "$ref": "#/$defs/exact_pin"
+    },
+    "direction": {
+      "enum": [
+        "joined_contains_subject",
+        "subject_contains_joined"
+      ]
+    },
+    "role": {
+      "enum": [
+        "computation",
+        "applicability",
+        "field-mapping",
+        "cross-form-bridge"
+      ]
+    },
+    "requires": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      },
+      "uniqueItems": true
+    },
+    "pins": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/pin"
+      }
+    },
+    "when": {
+      "$ref": "#/$defs/expr"
+    },
+    "value": {
+      "$ref": "#/$defs/expr"
+    },
+    "selection": {
+      "$ref": "#/$defs/selection"
+    },
+    "publishes": {
+      "type": "string",
+      "minLength": 1
+    },
+    "blocked": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "string",
+          "pattern": "^[A-Z][A-Z0-9_]+$"
+        },
+        "missing": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        }
+      },
+      "required": [
+        "code",
+        "missing"
+      ],
+      "additionalProperties": false
+    },
+    "composition": {
+      "$ref": "#/$defs/exact_pin"
+    },
+    "citations": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {
+        "$ref": "#/$defs/exact_pin"
+      }
+    },
+    "notes": {
+      "type": "string"
+    },
+    "reader_role": {
+      "enum": [
+        "statement-amount",
+        "link-count",
+        "statement-scope-classifier",
+        "statement-scope-disqualifier-count",
+        "bare-statement-conclusion",
+        "responsibility"
+      ]
+    },
+    "wording": {
+      "type": "string"
+    },
+    "lineNote": {
+      "type": "string"
+    },
+    "basis": {
+      "$ref": "#/$defs/basis"
+    }
+  },
+  "required": [
+    "schema",
+    "id",
+    "version",
+    "scope",
+    "role",
+    "requires",
+    "pins",
+    "when",
+    "publishes",
+    "blocked"
+  ],
+  "dependentRequired": {
+    "joined": [
+      "direction",
+      "subject"
+    ],
+    "direction": [
+      "joined"
+    ]
+  },
+  "oneOf": [
+    {
+      "required": [
+        "value"
+      ],
+      "not": {
+        "required": [
+          "selection"
+        ]
+      }
+    },
+    {
+      "required": [
+        "selection"
+      ],
+      "not": {
+        "required": [
+          "value"
+        ]
+      }
+    }
+  ],
+  "additionalProperties": false,
+  "$defs": {
+    "scope": {
+      "type": "object",
+      "properties": {
+        "tax_year": {
+          "type": "integer"
+        },
+        "jurisdiction": {
+          "type": "string",
+          "minLength": 1
+        },
+        "family": {
+          "type": "string",
+          "minLength": 1
+        }
+      },
+      "required": [
+        "tax_year",
+        "jurisdiction",
+        "family"
+      ],
+      "additionalProperties": false
+    },
+    "exact_pin": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "version": {
+          "type": "string",
+          "pattern": "^v[0-9]+$"
+        }
+      },
+      "required": [
+        "id",
+        "version"
+      ],
+      "additionalProperties": false
+    },
+    "pin": {
+      "type": "object",
+      "properties": {
+        "role": {
+          "enum": [
+            "parameter",
+            "input",
+            "choice",
+            "default",
+            "composition",
+            "citation",
+            "operation-semantics"
+          ]
+        },
+        "id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "version": {
+          "type": "string",
+          "pattern": "^v[0-9]+$"
+        },
+        "origin": {
+          "enum": [
+            "assertion",
+            "declared_default"
+          ]
+        }
+      },
+      "required": [
+        "role",
+        "id",
+        "version"
+      ],
+      "additionalProperties": false,
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "role": {
+                "const": "input"
+              }
+            },
+            "required": [
+              "role"
+            ]
+          },
+          "then": {
+            "required": [
+              "origin"
+            ]
+          },
+          "else": {
+            "not": {
+              "required": [
+                "origin"
+              ]
+            }
+          }
+        }
+      ]
+    },
+    "selection_activity": {
+      "oneOf": [
+        {
+          "type": "object",
+          "properties": {
+            "kind": {
+              "const": "source_nonempty"
+            },
+            "source_family": {
+              "$ref": "#/$defs/exact_pin"
+            },
+            "member_fact_type": {
+              "$ref": "#/$defs/exact_pin"
+            },
+            "member_fact_types": {
+              "type": "array",
+              "items": {
+                "$ref": "#/$defs/exact_pin"
+              },
+              "minItems": 1,
+              "uniqueItems": true
+            }
+          },
+          "required": [
+            "kind"
+          ],
+          "oneOf": [
+            {
+              "required": [
+                "member_fact_type"
+              ],
+              "not": {
+                "required": [
+                  "member_fact_types"
+                ]
+              }
+            },
+            {
+              "required": [
+                "member_fact_types"
+              ],
+              "not": {
+                "required": [
+                  "member_fact_type"
+                ]
+              }
+            }
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "kind": {
+              "const": "derived_activity"
+            },
+            "fact_type": {
+              "$ref": "#/$defs/exact_pin"
+            }
+          },
+          "required": [
+            "kind",
+            "fact_type"
+          ],
+          "additionalProperties": false
+        }
+      ]
+    },
+    "subject_result_read": {
+      "type": "object",
+      "properties": {
+        "symbol": {
+          "type": "string",
+          "minLength": 1
+        },
+        "subject": {
+          "$ref": "#/$defs/exact_pin"
+        }
+      },
+      "required": [
+        "symbol",
+        "subject"
+      ],
+      "additionalProperties": false
+    },
+    "subject_result_reads": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/subject_result_read"
+      },
+      "uniqueItems": true
+    },
+    "selection_path": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^[a-z][a-z0-9_-]*$"
+        },
+        "activity": {
+          "$ref": "#/$defs/selection_activity"
+        },
+        "reads_subject_results": {
+          "$ref": "#/$defs/subject_result_reads"
+        },
+        "requires": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "uniqueItems": true
+        },
+        "pins": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/pin"
+          }
+        },
+        "when": {
+          "$ref": "#/$defs/expr"
+        },
+        "value": {
+          "$ref": "#/$defs/expr"
+        }
+      },
+      "required": [
+        "id",
+        "activity",
+        "reads_subject_results",
+        "requires",
+        "pins",
+        "when",
+        "value"
+      ],
+      "additionalProperties": false
+    },
+    "selection_default": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "const": "neither"
+        },
+        "reads_subject_results": {
+          "$ref": "#/$defs/subject_result_reads"
+        },
+        "requires": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "uniqueItems": true
+        },
+        "pins": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/pin"
+          }
+        },
+        "when": {
+          "$ref": "#/$defs/expr"
+        },
+        "value": {
+          "$ref": "#/$defs/expr"
+        }
+      },
+      "required": [
+        "id",
+        "reads_subject_results",
+        "requires",
+        "pins",
+        "when",
+        "value"
+      ],
+      "additionalProperties": false
+    },
+    "selection_refusal": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "const": "DEPENDENCY_INVALID"
+        },
+        "missing": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "minItems": 1,
+          "uniqueItems": true
+        },
+        "pins": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/pin"
+          }
+        }
+      },
+      "required": [
+        "code",
+        "missing",
+        "pins"
+      ],
+      "additionalProperties": false
+    },
+    "selection": {
+      "type": "object",
+      "properties": {
+        "mode": {
+          "const": "exclusive_presence"
+        },
+        "conflict": {
+          "const": "refuse"
+        },
+        "paths": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/selection_path"
+          },
+          "minItems": 2,
+          "uniqueItems": true
+        },
+        "default": {
+          "$ref": "#/$defs/selection_default"
+        },
+        "refusal": {
+          "$ref": "#/$defs/selection_refusal"
+        }
+      },
+      "required": [
+        "mode",
+        "conflict",
+        "paths",
+        "default",
+        "refusal"
+      ],
+      "additionalProperties": false
+    },
+    "basis": {
+      "type": "object",
+      "properties": {
+        "said": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "derived": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "assumed": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "left_with_person": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        }
+      },
+      "required": [
+        "said",
+        "derived",
+        "assumed",
+        "left_with_person"
+      ],
+      "additionalProperties": false
+    },
+    "ref_expr": {
+      "type": "object",
+      "properties": {
+        "op": {
+          "const": "ref"
+        },
+        "name": {
+          "type": "string",
+          "minLength": 1
+        },
+        "field": {
+          "type": "string",
+          "minLength": 1
+        }
+      },
+      "required": [
+        "op",
+        "name"
+      ],
+      "additionalProperties": false
+    },
+    "expr": {
+      "oneOf": [
+        {
+          "type": [
+            "string",
+            "number",
+            "boolean",
+            "null"
+          ]
+        },
+        {
+          "$ref": "#/$defs/ref_expr"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "op": {
+              "const": "collect"
+            },
+            "name": {
+              "type": "string",
+              "minLength": 1
+            },
+            "source_set": {
+              "type": "string",
+              "minLength": 1
+            }
+          },
+          "required": [
+            "op",
+            "name",
+            "source_set"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "op": {
+              "const": "count"
+            },
+            "name": {
+              "type": "string",
+              "minLength": 1
+            },
+            "source_set": {
+              "type": "string",
+              "minLength": 1
+            }
+          },
+          "required": [
+            "op",
+            "name",
+            "source_set"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "op": {
+              "const": "block"
+            },
+            "code": {
+              "type": "string",
+              "pattern": "^[A-Z][A-Z0-9_]+$"
+            }
+          },
+          "required": [
+            "op",
+            "code"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "op": {
+              "const": "parameter"
+            },
+            "parameter_id": {
+              "type": "string",
+              "minLength": 1
+            },
+            "key": {
+              "$ref": "#/$defs/expr"
+            }
+          },
+          "required": [
+            "op",
+            "parameter_id"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "op": {
+              "enum": [
+                "add",
+                "max",
+                "all",
+                "any"
+              ]
+            },
+            "args": {
+              "type": "array",
+              "minItems": 1,
+              "items": {
+                "$ref": "#/$defs/expr"
+              }
+            }
+          },
+          "required": [
+            "op",
+            "args"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "op": {
+              "const": "subtract"
+            },
+            "left": {
+              "$ref": "#/$defs/expr"
+            },
+            "right": {
+              "$ref": "#/$defs/expr"
+            }
+          },
+          "required": [
+            "op",
+            "left",
+            "right"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "op": {
+              "const": "multiply"
+            },
+            "left": {
+              "$ref": "#/$defs/expr"
+            },
+            "right": {
+              "$ref": "#/$defs/expr"
+            }
+          },
+          "required": [
+            "op",
+            "left",
+            "right"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "op": {
+              "const": "divide"
+            },
+            "left": {
+              "$ref": "#/$defs/expr"
+            },
+            "right": {
+              "$ref": "#/$defs/expr"
+            },
+            "min_decimal_places": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "rounding": {
+              "enum": [
+                "half_up",
+                "half_even",
+                "down",
+                "up"
+              ]
+            }
+          },
+          "required": [
+            "op",
+            "left",
+            "right",
+            "min_decimal_places",
+            "rounding"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "op": {
+              "const": "compare"
+            },
+            "left": {
+              "$ref": "#/$defs/expr"
+            },
+            "right": {
+              "$ref": "#/$defs/expr"
+            },
+            "cmp": {
+              "enum": [
+                "eq",
+                "ne",
+                "gt",
+                "gte",
+                "lt",
+                "lte"
+              ]
+            }
+          },
+          "required": [
+            "op",
+            "left",
+            "right",
+            "cmp"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "op": {
+              "const": "categorical_compare"
+            },
+            "left": {
+              "$ref": "#/$defs/expr"
+            },
+            "right": {
+              "$ref": "#/$defs/expr"
+            },
+            "cmp": {
+              "enum": [
+                "eq",
+                "ne"
+              ]
+            }
+          },
+          "required": [
+            "op",
+            "left",
+            "right",
+            "cmp"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "op": {
+              "const": "category_literal"
+            },
+            "fact_type": {
+              "$ref": "#/$defs/exact_pin"
+            },
+            "value": {
+              "type": "string",
+              "minLength": 1
+            }
+          },
+          "required": [
+            "op",
+            "fact_type",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "op": {
+              "const": "not"
+            },
+            "value": {
+              "$ref": "#/$defs/expr"
+            }
+          },
+          "required": [
+            "op",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "op": {
+              "const": "choose"
+            },
+            "when": {
+              "$ref": "#/$defs/expr"
+            },
+            "then": {
+              "$ref": "#/$defs/expr"
+            },
+            "else": {
+              "$ref": "#/$defs/expr"
+            }
+          },
+          "required": [
+            "op",
+            "when",
+            "then",
+            "else"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "op": {
+              "const": "require_closed"
+            },
+            "source_set": {
+              "type": "string",
+              "minLength": 1
+            }
+          },
+          "required": [
+            "op",
+            "source_set"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "op": {
+              "const": "range_lookup"
+            },
+            "table_id": {
+              "type": "string",
+              "minLength": 1
+            },
+            "key": {
+              "$ref": "#/$defs/expr"
+            },
+            "value": {
+              "$ref": "#/$defs/expr"
+            }
+          },
+          "required": [
+            "op",
+            "table_id",
+            "key",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "op": {
+              "const": "bracket_fold"
+            },
+            "table_id": {
+              "type": "string",
+              "minLength": 1
+            },
+            "key": {
+              "$ref": "#/$defs/expr"
+            },
+            "value": {
+              "$ref": "#/$defs/expr"
+            }
+          },
+          "required": [
+            "op",
+            "table_id",
+            "key",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "op": {
+              "const": "round"
+            },
+            "value": {
+              "$ref": "#/$defs/expr"
+            },
+            "mode": {
+              "$ref": "#/$defs/expr"
+            }
+          },
+          "required": [
+            "op",
+            "value",
+            "mode"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "op": {
+              "const": "conditional_dependency_set"
+            },
+            "condition": {
+              "$ref": "#/$defs/expr"
+            },
+            "members": {
+              "type": "array",
+              "minItems": 1,
+              "uniqueItems": true,
+              "items": {
+                "$ref": "#/$defs/ref_expr"
+              }
+            }
+          },
+          "required": [
+            "op",
+            "condition",
+            "members"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "op": {
+              "const": "collect_categorical_all_equal"
+            },
+            "name": {
+              "type": "string",
+              "minLength": 1
+            },
+            "value": {
+              "$ref": "#/$defs/expr"
+            }
+          },
+          "required": [
+            "op",
+            "name",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "op": {
+              "const": "bound_sources"
+            },
+            "name": {
+              "type": "string",
+              "minLength": 1
+            }
+          },
+          "required": [
+            "op",
+            "name"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "op": {
+              "const": "link_coverage"
+            },
+            "links": {
+              "type": "string",
+              "minLength": 1
+            },
+            "reductions": {
+              "type": "string",
+              "minLength": 1
+            },
+            "empty": {
+              "type": "object",
+              "properties": {
+                "parameter": {
+                  "$ref": "#/$defs/exact_pin"
+                }
+              },
+              "required": [
+                "parameter"
+              ],
+              "additionalProperties": false
+            }
+          },
+          "required": [
+            "op",
+            "links",
+            "reductions",
+            "empty"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "op": {
+              "const": "link_count"
+            },
+            "links": {
+              "type": "string",
+              "minLength": 1
+            }
+          },
+          "required": [
+            "op",
+            "links"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "op": {
+              "const": "shared_key_count"
+            },
+            "fact_type": {
+              "type": "string",
+              "minLength": 1
+            },
+            "key": {
+              "type": "string",
+              "minLength": 1
+            }
+          },
+          "required": [
+            "op",
+            "fact_type",
+            "key"
+          ],
+          "additionalProperties": false
+        }
+      ]
+    }
+  },
+  "description": "Successor to rule-artifact.v12 (ADR 0077). Adds the shared_key_count expression (Part 1), an optional four-group basis declaration (Part 2), and an exclusive-presence selection as an alternative to value (Part 4), whose paths and default each carry a reads_subject_results list (Part 3) and whose source_nonempty activity may name member_fact_types. subject is optional so a return-level selection rule can be declared; joined still requires subject. No aggregation. Declared pin origins are unchanged from v12. v1-v12 remain immutable history."
+}

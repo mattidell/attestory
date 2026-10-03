@@ -30,7 +30,7 @@ class TestE51Containment(unittest.TestCase):
         schema_dir = self.root / "schemas"
         schema_dir.mkdir()
         self.registry = registry_with_demo_kinds(schema_dir)
-        self.log = ActLog(self.root / "workspace", self.registry)
+        self.log = ActLog(self.root / "workspace", self.registry, undeclared_test_log=True)
 
     def _append_workspace(self) -> None:
         acts: tuple[dict[str, Any], ...] = (

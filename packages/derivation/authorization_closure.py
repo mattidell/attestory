@@ -34,7 +34,11 @@ from packages.derivation.package_validation import (
     _iter_link_count_nodes,
     _iter_parameter_and_table_refs,
     _iter_ref_names,
+    _iter_shared_key_count_nodes,
     _rule_expression_nodes,
+    selection_activity_fact_pins,
+    subject_result_read_symbols,
+    v13_selection_declarations,
 )
 
 Citizen = dict[str, Any]
@@ -54,6 +58,7 @@ _RULE_ARTIFACT_SCHEMAS = frozenset(
         "rule-artifact.v10",
         "rule-artifact.v11",
         "rule-artifact.v12",
+        "rule-artifact.v13",
     }
 )
 _RULE_DECLARED_REFS_OUTSIDE_REQUIRES = frozenset(
@@ -68,6 +73,7 @@ _RULE_DECLARED_REFS_OUTSIDE_REQUIRES = frozenset(
         "rule-artifact.v10",
         "rule-artifact.v11",
         "rule-artifact.v12",
+        "rule-artifact.v13",
     }
 )
 _FORM_FIELD_SCHEMAS = frozenset({"form-field.v1", "form-field.v2", "form-field.v3"})
@@ -195,7 +201,7 @@ def build_dependency_edges(
                     cite_ver = citation.get("version")
                     if cite_ver is None or corpus[cite_id].get("version") == cite_ver:
                         edges[cid].add(cite_id)
-            if schema in ("rule-artifact.v10", "rule-artifact.v11", "rule-artifact.v12"):
+            if schema in ("rule-artifact.v10", "rule-artifact.v11", "rule-artifact.v12", "rule-artifact.v13"):
                 for node in _iter_link_coverage_nodes(value):
                     links_name = node.get("links")
                     reductions_name = node.get("reductions")
@@ -215,7 +221,7 @@ def build_dependency_edges(
                     parameter = empty.get("parameter") if isinstance(empty, dict) else None
                     if isinstance(parameter, dict) and parameter.get("id") in ids:
                         edges[cid].add(parameter["id"])
-            if schema == "rule-artifact.v12":
+            if schema in ("rule-artifact.v12", "rule-artifact.v13"):
                 for node in _iter_link_count_nodes(value):
                     links_name = node.get("links")
                     if isinstance(links_name, str):
@@ -223,6 +229,32 @@ def build_dependency_edges(
                             if other.get("schema") == "fact-type.v2" and other.get("id") == links_name:
                                 edges[cid].add(other_id)
                         edges[cid].update(bundles_for_fact.get(links_name, set()))
+                for node in _iter_shared_key_count_nodes(value):
+                    counted_name = node.get("fact_type")
+                    if isinstance(counted_name, str):
+                        for other_id, other in corpus.items():
+                            if other.get("schema") == "fact-type.v2" and other.get("id") == counted_name:
+                                edges[cid].add(other_id)
+                        edges[cid].update(bundles_for_fact.get(counted_name, set()))
+            # ADR 0077 Parts 3 and 4: the same edges package validation
+            # adds for a v13 selection.
+            for declaration in v13_selection_declarations(citizen):
+                for read_symbol in subject_result_read_symbols(declaration):
+                    edges[cid].update(produced.get(read_symbol, []))
+                activity = declaration.get("activity")
+                if not isinstance(activity, dict):
+                    continue
+                family_pin = activity.get("source_family")
+                if isinstance(family_pin, dict) and family_pin.get("id") in ids:
+                    edges[cid].add(family_pin["id"])
+                for activity_pin in selection_activity_fact_pins(activity):
+                    activity_fact = activity_pin.get("id")
+                    if not isinstance(activity_fact, str):
+                        continue
+                    for other_id, other in corpus.items():
+                        if other.get("schema") == "fact-type.v2" and other.get("id") == activity_fact:
+                            edges[cid].add(other_id)
+                    edges[cid].update(bundles_for_fact.get(activity_fact, set()))
             if schema == "rule-artifact.v9":
                 selection = citizen.get("selection")
                 if isinstance(selection, dict):

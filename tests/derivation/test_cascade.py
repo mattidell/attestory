@@ -41,7 +41,7 @@ class CorrectionCascade(unittest.TestCase):
         self.registry = workspace_registry()
         self._tmp = tempfile.TemporaryDirectory()
         self.addCleanup(self._tmp.cleanup)
-        self.log = ActLog(Path(self._tmp.name) / "ws", self.registry)
+        self.log = ActLog(Path(self._tmp.name) / "ws", self.registry, undeclared_test_log=True)
 
         # Kernel workspace: adopt the vocabulary, introduce the counterparty,
         # assert the W-2 input finding (value 42000).

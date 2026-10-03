@@ -51,7 +51,7 @@ class ActLogAdmission(unittest.TestCase):
         self.result = run(ctx, self.schemas)
 
     def test_publications_round_trip_through_the_act_log(self) -> None:
-        log = ActLog(self.workspace, self.registry)
+        log = ActLog(self.workspace, self.registry, undeclared_test_log=True)
         revision = append_publications(log, self.result, actor="user", at="2026-01-01T00:00:00Z")
         self.assertEqual(revision, len(self.result.publications))
         contents = log.read()  # re-reads and re-validates every committed act
@@ -60,18 +60,18 @@ class ActLogAdmission(unittest.TestCase):
         self.assertEqual(kinds, {"derived-publication"})
 
     def test_act_ids_are_content_addressed_and_stable(self) -> None:
-        log = ActLog(self.workspace, self.registry)
+        log = ActLog(self.workspace, self.registry, undeclared_test_log=True)
         append_publications(log, self.result, actor="user", at="2026-01-01T00:00:00Z")
         first = [act["act_id"] for act in log.read().acts]
         # A different persistence context (actor/timestamp) yields the same ids.
         other = Path(self._tmp.name) / "ws2"
-        log2 = ActLog(other, self.registry)
+        log2 = ActLog(other, self.registry, undeclared_test_log=True)
         append_publications(log2, self.result, actor="auditor", at="2027-06-06T12:00:00Z")
         second = [act["act_id"] for act in log2.read().acts]
         self.assertEqual(first, second)
 
     def test_kernel_projection_ignores_publication_acts(self) -> None:
-        log = ActLog(self.workspace, self.registry)
+        log = ActLog(self.workspace, self.registry, undeclared_test_log=True)
         append_publications(log, self.result, actor="user", at="2026-01-01T00:00:00Z")
         model = build_read_model(log.read().acts, self.registry)
         # The kernel projects no findings from a log of only publication acts —

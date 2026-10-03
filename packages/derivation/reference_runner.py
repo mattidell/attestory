@@ -42,7 +42,9 @@ def run_reference(ctx: RunContext, schemas: DerivationSchemas) -> RunResult:
         for rule in producers.get(symbol, []):
             if rule["id"] in state.resolved:
                 continue
-            for req in state._requires(rule):
+            # ADR 0077 Part 3: a v13 selection demands only its selected
+            # declaration's requires and declared per-subject symbols.
+            for req in state.demand_names(rule):
                 resolve(req)
             if state.is_eligible(rule):
                 if rule.get("schema") in ATTACHMENT_SCHEMAS:

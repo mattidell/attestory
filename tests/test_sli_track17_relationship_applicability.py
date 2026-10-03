@@ -19,9 +19,9 @@ from packages.derivation.runner import run
 from packages.kernel.act_log import ActLog
 from packages.kernel.currency import compute_currency
 from packages.kernel.facts import fact_id_for, facts_of
-from packages.kernel.findings import project
+from packages.kernel.findings import FindingModelError, project
 from packages.tax.sli_relationship_recording import (
-    FINANCING, SCHOOLING, STATEMENT_INCLUSION, STATEMENT_TYPE,
+    FINANCING, INCLUSION_APPLICABILITY_UNESTABLISHED, SCHOOLING, STATEMENT_INCLUSION, STATEMENT_TYPE,
     correct_relationship_claim_durably, current_claim_applicability,
     record_submission_durably, withdraw_relationship_claim_durably,
 )
@@ -29,6 +29,16 @@ from packages.tax.sli_relationship_review import prepare_review, save_review
 from tests.support import act, demo_entity
 import tests.test_sli_relationship_recording as track14
 import tests.test_sli_track15_versioned_source_consumer as track15
+
+
+def _pre_step_writer(log: ActLog) -> ActLog:
+    """A test-only log without the ADR 0077 Part 5 declaration.
+
+    It writes what ``ActLog.append`` now refuses, to model a history written
+    before the step existed. ``project`` replays it unchanged; marshalling
+    does not join an inclusion whose applicability it no longer establishes.
+    """
+    return ActLog(log.path.parent, DerivationSchemas().registry, undeclared_test_log=True)
 
 ROOT = Path(__file__).resolve().parents[1]
 CONTENT = ROOT / "packages/content/tax/2025"
@@ -61,6 +71,12 @@ def _append_adoption(log: ActLog, registry: Any, package_path: Path, release_pat
 
 
 def _run_v35(acts: tuple[dict[str, Any], ...], run_id: str) -> tuple[Any, Any, Any]:
+    resolved, context = _marshal_v35(acts, run_id)
+    return resolved, run(context, DerivationSchemas()), run_reference(context, DerivationSchemas())
+
+
+def _marshal_v35(acts: tuple[dict[str, Any], ...], run_id: str) -> tuple[Any, Any]:
+    """Marshal as ``live_coordinate_run`` does, with the ADR 0077 Part 5 replay reading."""
     registry = DerivationSchemas().registry
     surface = PublicationSurface(FIXTURE / "publication_surface/releases", V35_REGISTRY, ROOT / "packages")
     resolved = resolve_production_package(
@@ -97,8 +113,25 @@ def _run_v35(acts: tuple[dict[str, Any], ...], run_id: str) -> tuple[Any, Any, A
         emission_only_source_names=list(material.emission_only_names),
         authorization=authorization, reporting_year=2025,
         parameter_index=material.parameter_index,
+        claim_applicability=current_claim_applicability(acts, registry),
     )
-    return resolved, run(context._context, DerivationSchemas()), run_reference(context._context, DerivationSchemas())
+    return resolved, context._context
+
+
+def _assert_replay_omits(case: unittest.TestCase, context: Any, acts: tuple[dict[str, Any], ...],
+                        registry: Any, omitted: list[dict[str, str]]) -> None:
+    """ADR 0077 Part 5 replay: each omitted inclusion is a marker, not a source."""
+    lattice = facts_of(project(acts, registry).fact_state)
+    markers = [source for source in context.sources if source.name == INCLUSION_APPLICABILITY_UNESTABLISHED]
+    case.assertEqual(
+        [(source.finding_id, source.value, source.fact_id, source.keys) for source in markers],
+        [(claim["finding_id"], "sli.statement-inclusion.applicability-unestablished",
+          fact_id_for(INCLUSION_APPLICABILITY_UNESTABLISHED, tuple(lattice[claim["fact_id"]].keys)),
+          tuple(lattice[claim["fact_id"]].keys))
+         for claim in sorted(omitted, key=lambda claim: claim["finding_id"])],
+    )
+    joined = {source.finding_id for source in context.sources if source.name == STATEMENT_INCLUSION}
+    case.assertFalse(joined & {claim["finding_id"] for claim in omitted})
 
 
 def _published(result: Any) -> dict[str, dict[str, Any]]:
@@ -282,20 +315,28 @@ class Track17RelationshipApplicability(unittest.TestCase):
                 self.assertEqual(sorted(finding["pins"], key=lambda row: json.dumps(row, sort_keys=True)), expected)
                 self.assertEqual(finding["value"], f"sli.{kind}.observed")
 
-            # Same statement identity, changed amount: keep inclusion and refresh
-            # the source finding pin. The unaffected second statement is stable.
+            # Same statement identity, changed amount, with no reviewed scope.
+            # ADR 0077 Part 5 refuses this write on the recorder's log; it is
+            # written as pre-step history. Replay keeps the new box 1 but does
+            # not join the inclusion: its applicability is not established, so
+            # a marker stands in its place. The unaffected second statement is
+            # stable.
             first_statement_keys = (("lender", "demo.track14.lender.cedar"),
                                     ("statement", "demo.track14.statement.2025"), ("tax-year", "2025"))
-            track14._append_source(log, registry, STATEMENT_TYPE, first_statement_keys,
+            track14._append_source(_pre_step_writer(log), registry, STATEMENT_TYPE, first_statement_keys,
                                    1775.0, "track17-first-statement-amount-corrected")
             amount_result, _amount_ref, amount, _ = recovered("amount-corrected")
             first_inclusion = f"{INCLUSION_OUTPUT}|{first['statement-inclusion']['fact_id']}"
             second_inclusion = f"{INCLUSION_OUTPUT}|{second['statement-inclusion']['fact_id']}"
-            current_statement = _current_source_finding(log.read().acts, registry, first["statement"])
-            self.assertEqual(amount[first_inclusion]["value"], "sli.statement-inclusion.observed")
-            self.assertEqual(sorted(amount[first_inclusion]["pins"], key=lambda row: json.dumps(row, sort_keys=True)),
-                             _expected_pins("v3", INCLUSION_RULE,
-                                            first["statement-inclusion"]["finding_id"], current_statement["id"]))
+            amount_acts = ActLog(log.path.parent, registry).read().acts
+            current_statement = _current_source_finding(amount_acts, registry, first["statement"])
+            self.assertEqual(current_statement["value"], 1775.0)
+            self.assertNotIn(first_inclusion, amount)
+            _resolved_amount, amount_context = _marshal_v35(amount_acts, "demo.track17.amount-corrected")
+            _assert_replay_omits(self, amount_context, amount_acts, registry, [first["statement-inclusion"]])
+            self.assertIn(current_statement["id"],
+                          {source.finding_id for source in amount_context.sources} |
+                          {item.finding_id for item in amount_context.inputs})
             self.assertEqual((amount[second_inclusion]["id"], amount[second_inclusion]["value"],
                               amount[second_inclusion]["pins"]),
                              (initial[second_inclusion]["id"], initial[second_inclusion]["value"],
@@ -324,8 +365,9 @@ class Track17RelationshipApplicability(unittest.TestCase):
             self.assertNotEqual(school[first_finance]["id"], initial[first_finance]["id"])
 
             # Retract the first relationship's exact current targets. Its old
-            # relationship history remains current, but its per-subject rules
-            # now have blocked dispositions. The second subject stays identical.
+            # relationship history remains current. The financing rule now has
+            # a blocked disposition. The inclusion was already not joined
+            # (above); it stays a marker. The second subject stays identical.
             for source_id in (first["school"], first["statement"]):
                 target = _current_source_finding(log.read().acts, registry, source_id)
                 revision = log.read().revision
@@ -338,10 +380,19 @@ class Track17RelationshipApplicability(unittest.TestCase):
                 self.assertEqual((guarded[symbol]["id"], guarded[symbol]["value"], guarded[symbol]["pins"]),
                                  (school[symbol]["id"], school[symbol]["value"], school[symbol]["pins"]))
 
+            guarded_acts = ActLog(log.path.parent, registry).read().acts
+            _resolved_guarded, guarded_context = _marshal_v35(guarded_acts, "demo.track17.targets-retracted")
+            _assert_replay_omits(self, guarded_context, guarded_acts, registry, [first["statement-inclusion"]])
+            self.assertFalse(any(row.get("symbol") == first_inclusion for row in guarded_result.dispositions))
+            self.assertFalse(any(row.get("subject_fact_id") == first["statement-inclusion"]["fact_id"]
+                                 for row in guarded_result.blocked))
+            inclusion_applicability = {item["finding_id"]: item for item in current_claim_applicability(
+                guarded_acts, registry)}[first["statement-inclusion"]["finding_id"]]
+            self.assertEqual((inclusion_applicability["source_fact_id"], inclusion_applicability["applicability"]),
+                             (first["statement"], "unresolved-applicability"))
+
             for claim, rule_id, source_type, source_id, symbol in (
                 (first["financing"], FINANCE_RULE, SCHOOLING, first["school"], first_finance),
-                (first["statement-inclusion"], INCLUSION_RULE, STATEMENT_TYPE,
-                 first["statement"], first_inclusion),
             ):
                 blocked = [row for row in guarded_result.dispositions
                            if row.get("artifact_id") == rule_id and row.get("symbol") == symbol]
@@ -518,7 +569,14 @@ class Track17RelationshipApplicability(unittest.TestCase):
             # source value. Its statement identity and the answer's inclusion
             # assertion do not tell whether composition stayed the same.
             keys = tuple(fact.keys)
-            track14._append_source(log, registry, STATEMENT_TYPE, keys, 1800.0,
+            # ADR 0077 Part 5: on the recorder's log this unscoped append is refused.
+            with self.assertRaisesRegex(FindingModelError, "scoped supersession violated"):
+                track14._append_source(log, registry, STATEMENT_TYPE, keys, 1800.0,
+                                       "track17-composition-ambiguous-correction-refused")
+            self.assertNotIn("demo.finding.track14.track17-composition-ambiguous-correction-refused",
+                             project(log.read().acts, registry).findings)
+            # A history written before the step can still hold it; project replays it unchanged.
+            track14._append_source(_pre_step_writer(log), registry, STATEMENT_TYPE, keys, 1800.0,
                                    "track17-composition-ambiguous-correction")
             recovered_again = ActLog(log.path.parent, registry)
             state = project(recovered_again.read().acts, registry)
@@ -537,22 +595,26 @@ class Track17RelationshipApplicability(unittest.TestCase):
             after_publications = _published(after_forward)
             corrected_target = statement_findings[0]
             self.assertNotEqual(corrected_target["id"], shared_target["id"])
-            for relation_finding_id, symbol in zip(relation_finding_ids, inclusion_symbols, strict=True):
-                self.assertIn(symbol, after_publications)
-                self.assertEqual(after_publications[symbol]["value"], "sli.statement-inclusion.observed")
-                self.assertIn({"role": "input", "id": relation_finding_id, "version": "v1",
-                               "origin": "assertion"}, after_publications[symbol]["pins"])
-                self.assertIn({"role": "input", "id": corrected_target["id"], "version": "v1",
-                               "origin": "assertion"}, after_publications[symbol]["pins"])
-                self.assertNotIn({"role": "input", "id": shared_target["id"], "version": "v1",
-                                 "origin": "assertion"}, after_publications[symbol]["pins"])
+            # ADR 0077 Part 5 replay: neither inclusion is joined to the
+            # unreviewed 1800. Each is a marker; the 1800 box 1 is still read.
+            for symbol in inclusion_symbols:
+                self.assertNotIn(symbol, after_publications)
             composition_claim = saved["claims"]["statement-inclusion"]
+            after_acts = recovered_again.read().acts
+            _resolved_after, after_context = _marshal_v35(after_acts, "demo.track17.same-statement-after-correction")
+            _assert_replay_omits(self, after_context, after_acts, registry,
+                                 [first["statement-inclusion"], composition_claim])
+            self.assertIn(corrected_target["id"],
+                          {source.finding_id for source in after_context.sources} |
+                          {item.finding_id for item in after_context.inputs})
             applicability = current_claim_applicability(recovered_again.read().acts, registry)
             self.assertEqual(
                 {row["applicability"] for row in applicability
                  if row["finding_id"] in {composition_claim["finding_id"],
                                            first["statement-inclusion"]["finding_id"]}},
-                {"current"},
+                # Track 6 read-side tie (ADR 0077 Part 5): a direct unscoped box 1
+                # append leaves the old inclusions unresolved, not applicable.
+                {"unresolved-applicability"},
             )
 
 

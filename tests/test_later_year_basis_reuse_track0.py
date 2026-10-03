@@ -421,7 +421,7 @@ class Track0PersistedBoundaryExperiment(unittest.TestCase):
         self.registry = workspace_registry()
         self._tmp = tempfile.TemporaryDirectory()
         self.addCleanup(self._tmp.cleanup)
-        self.log = ActLog(Path(self._tmp.name) / "ws", self.registry)
+        self.log = ActLog(Path(self._tmp.name) / "ws", self.registry, undeclared_test_log=True)
         self.seq = _SequentialActLog(self.log)
 
     # -- act-log construction -------------------------------------------------
@@ -1875,6 +1875,7 @@ class C8bCandidateAgainstCurrentPackageValidation(unittest.TestCase):
                 # v12 reader substrate while retaining the prior member set.
                 "artifact-package.v33.schema.json",
                 "artifact-package.v34.schema.json",
+                "artifact-package.v35.schema.json",
             ],
         )
 

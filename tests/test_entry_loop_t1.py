@@ -169,7 +169,7 @@ class PhaseADependencies(RuntimeFixture):
                 with urllib.request.urlopen(request, timeout=10) as response:
                     entered = json.load(response)
         self.assertTrue(entered["complete"])
-        log = ActLog(self.capability.location, DerivationSchemas().registry)
+        log = ActLog(self.capability.location, DerivationSchemas().registry, read_only=True)
         added = list(log.read().acts)[-3:]
         self.assertEqual(
             [act["kind"] for act in added],
@@ -217,7 +217,7 @@ class EntryAndCorrection(RuntimeFixture):
         corrected = self.runtime.contribute(_event(entered, 91000)).payload
         self.assertTrue(corrected["complete"])
         self.assertEqual(corrected["last_action"], "corrected")
-        log = ActLog(self.capability.location, DerivationSchemas().registry)
+        log = ActLog(self.capability.location, DerivationSchemas().registry, read_only=True)
         added = list(log.read().acts)[-2:]
         self.assertEqual([act["kind"] for act in added], ["contribution", "assertion"])
         finding = added[-1]["payload"]["finding"]

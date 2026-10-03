@@ -28,6 +28,7 @@ from packages.derivation.evaluator import (
     AccessLog,
     Environment,
     EvalBlocked,
+    SharedKeyScope,
     evaluate,
     parameter_exact,
 )
@@ -256,6 +257,31 @@ def _declared_link_operator_names(
     return names
 
 
+def _shared_key_count_fact_types(rule: Mapping[str, Any]) -> list[str]:
+    """Counted fact-type ids named by ``shared_key_count`` nodes, in order.
+
+    ADR 0077 Part 1. ``when`` is walked too, so a node package validation
+    would have refused there still reads a bound scope rather than none.
+    """
+    names: list[str] = []
+
+    def walk(node: Any) -> None:
+        if isinstance(node, dict):
+            if node.get("op") == "shared_key_count":
+                name = node.get("fact_type")
+                if isinstance(name, str) and name and name not in names:
+                    names.append(name)
+            for value in node.values():
+                walk(value)
+        elif isinstance(node, list):
+            for item in node:
+                walk(item)
+
+    walk(rule.get("when"))
+    walk(rule.get("value"))
+    return names
+
+
 def _present_rows_share_no_key_name(
     subject: SourceFact, candidates: Sequence[SourceFact],
 ) -> bool:
@@ -468,6 +494,13 @@ def _assemble_pins(
             if run.use_v2:
                 pin["origin"] = "assertion"
             pins.append(pin)
+        # ADR 0077 Part 1: each counted row that agreed on the key, or each
+        # bad counted row the count blocked on. A zero count adds none.
+        for finding_id in access.shared_key_count_findings:
+            pin = {"role": "input", "id": finding_id, "version": "v1"}
+            if run.use_v2:
+                pin["origin"] = "assertion"
+            pins.append(pin)
         return _sorted_pins(pins)
     finally:
         run.symbol_pin = saved_pin
@@ -547,6 +580,13 @@ def evaluate_subject_scoped_rule(
     required = _requires(rule)
     coverage_names = _declared_link_operator_names(rule.get("value"))
     link_type_names = _declared_link_operator_names(rule.get("value"), ("links",))
+    # ADR 0077 Part 1: every current row of each counted type, unscoped.
+    # The count compares one named key itself; ``_scope``'s shared-name
+    # join is not a containment pass and is not used for it.
+    shared_key_rows: dict[str, tuple[SourceFact, ...]] = {
+        name: tuple(source for source in sources if source.name == name)
+        for name in _shared_key_count_fact_types(rule)
+    }
 
     # ADR 0076 Part 2: a rule that declares `joined`/`direction` replaces
     # `_scope`'s shared-name union for that one declared type with a
@@ -760,6 +800,10 @@ def evaluate_subject_scoped_rule(
             symbol_fact_versions=fact_versions,
             parameter_index=run.ctx.parameter_index,
             fact_type_versions=run.fact_type_versions,
+            shared_key_scope=(
+                SharedKeyScope(subject_keys=subject.keys, rows=shared_key_rows)
+                if shared_key_rows else None
+            ),
             symbol_result_fact_types={
                 **run.symbol_result_fact_types,
                 **(
