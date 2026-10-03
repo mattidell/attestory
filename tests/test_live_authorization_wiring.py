@@ -128,7 +128,7 @@ def _append_and_reread(acts: list[dict[str, Any]], workspace_dir: Path) -> tuple
     indices starting at 0 (the shape ``_live_act``/``_grant_act``/
     ``_scope_act`` produce).
     """
-    log = ActLog(workspace_dir, workspace_registry())
+    log = ActLog(workspace_dir, workspace_registry(), undeclared_test_log=True)
     for index, act in enumerate(acts):
         log.append(act, index)
     return log.read().acts
@@ -684,7 +684,7 @@ class ScopeDeclarationProducerFoldAndLiveResolutionAgree(unittest.TestCase):
             # rule_ids omitted: required by the citizen schema.
         }})
         with TemporaryDirectory() as tmp:
-            log = ActLog(Path(tmp) / "ws", workspace_registry())
+            log = ActLog(Path(tmp) / "ws", workspace_registry(), undeclared_test_log=True)
             with self.assertRaises(SchemaValidationError) as ctx:
                 log.append(malformed_act, 0)
             self.assertIn("act-calculation-scope-declaration.v1", str(ctx.exception))

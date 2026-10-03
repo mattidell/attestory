@@ -29,7 +29,7 @@ class TestE52NoStaging(unittest.TestCase):
             registry = registry_with_demo_kinds(schema_dir)
             workspace = root / "workspace"
 
-            session_log = ActLog(workspace, registry)
+            session_log = ActLog(workspace, registry, undeclared_test_log=True)
             session_log.append(act(0, "bundle-adoption", {"bundle": demo_bundle()}), 0)
             session_log.append(
                 act(1, "entity-introduced", {"entity": demo_entity("demo-corp-a", "Corp A")}),
@@ -46,7 +46,7 @@ class TestE52NoStaging(unittest.TestCase):
 
             del session_log
 
-            restarted = ActLog(workspace, registry)
+            restarted = ActLog(workspace, registry, undeclared_test_log=True)
             contents = restarted.read()
             self.assertEqual(contents.revision, 4)
             model = build_read_model(contents.acts, registry)

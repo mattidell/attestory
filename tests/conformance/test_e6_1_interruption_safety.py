@@ -27,7 +27,7 @@ class TestE61InterruptionSafety(unittest.TestCase):
         schema_dir.mkdir()
         self.registry = registry_with_demo_kinds(schema_dir)
         self.workspace = root / "workspace"
-        log = ActLog(self.workspace, self.registry)
+        log = ActLog(self.workspace, self.registry, undeclared_test_log=True)
         for i in range(ACT_COUNT):
             log.append(demo_note_act(i), expected_revision=i)
         self.full_bytes = log.path.read_bytes()
@@ -38,7 +38,7 @@ class TestE61InterruptionSafety(unittest.TestCase):
     def _reload_truncated(self, cut: int) -> ActLog:
         path = self.workspace / "acts.jsonl"
         path.write_bytes(self.full_bytes[:cut])
-        return ActLog(self.workspace, self.registry)
+        return ActLog(self.workspace, self.registry, undeclared_test_log=True)
 
     def test_every_byte_truncation_yields_a_valid_shorter_workspace(self) -> None:
         for cut in range(len(self.full_bytes) + 1):
@@ -69,7 +69,7 @@ class TestE61InterruptionSafety(unittest.TestCase):
         lines[1] = lines[1][: len(lines[1]) // 2]
         (self.workspace / "acts.jsonl").write_bytes(b"\n".join(lines))
         with self.assertRaises(ActLogCorruption):
-            ActLog(self.workspace, self.registry).read()
+            ActLog(self.workspace, self.registry, read_only=True).read()
 
     def test_mutation_resequenced_history_is_an_error(self) -> None:
         # Deleting an interior line re-indexes later acts, so every
@@ -79,7 +79,7 @@ class TestE61InterruptionSafety(unittest.TestCase):
         del lines[1]
         (self.workspace / "acts.jsonl").write_bytes(b"\n".join(lines))
         with self.assertRaises(ActLogCorruption):
-            ActLog(self.workspace, self.registry).read()
+            ActLog(self.workspace, self.registry, read_only=True).read()
 
 
 if __name__ == "__main__":

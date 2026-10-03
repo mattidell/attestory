@@ -18,7 +18,7 @@ class ActLogFixture(unittest.TestCase):
         schema_dir.mkdir()
         self.registry = registry_with_demo_kinds(schema_dir)
         self.workspace = root / "workspace"
-        self.log = ActLog(self.workspace, self.registry)
+        self.log = ActLog(self.workspace, self.registry, undeclared_test_log=True)
 
 
 class TestAppend(ActLogFixture):

@@ -54,7 +54,8 @@ def _human(model: dict[str, Any]) -> str:
 
 def inspect_workspace(workspace: Path, view: str = "all") -> Any:
     registry = SchemaRegistry()
-    contents = ActLog(workspace, registry).read()
+    # Read-only: this runner never appends, so it needs no new-write declaration.
+    contents = ActLog(workspace, registry, read_only=True).read()
     model = build_read_model(contents.acts, registry)
     return _select_view(model, view)
 

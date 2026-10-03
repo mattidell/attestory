@@ -4,22 +4,33 @@ Each case uses the real recorder, a durable append, and a fresh ActLog read.
 Applicability is the opt-in ``current_claim_applicability`` result. Case 6 is
 the existing old-path file ``tests/test_f1098e_student_loan_interest_agi_track6.py``
 and is not reimplemented here.
+
+ADR 0077 Part 5: the recorder's ``ActLog`` carries the scoped-supersession
+declaration, so ``ActLog.append`` refuses a new box 1 finding while a current
+inclusion names that statement, unless it is the one bound successor. A write
+the step would refuse reaches the log here only through ``_bypass``, a
+test-only log over a registry without the declaration, which stands for a log
+written before the step existed.
 """
 from __future__ import annotations
 
+import json
 import tempfile
 import unittest
+from pathlib import Path
 from typing import Any
 
+from packages.derivation.loader import DerivationSchemas
 from packages.kernel.act_log import ActLog
 from packages.kernel.contribution import apply_contribution_batch
 from packages.kernel.currency import compute_currency
 from packages.kernel.facts import facts_of
-from packages.kernel.findings import project
+from packages.kernel.findings import FindingModelError, project
 from packages.tax.sli_relationship_recording import (
     STATEMENT_INCLUSION,
     RelationshipRecordingRefused,
     current_claim_applicability,
+    introduce_borrowing_reference_durably,
     record_submission_durably,
 )
 from packages.tax.sli_relationship_review import (
@@ -58,13 +69,21 @@ def _recovered_acts(log: ActLog, registry: Any) -> tuple[dict[str, Any], ...]:
     return fresh.read().acts
 
 
+def _bypass(log: ActLog) -> ActLog:
+    """A test-only writer that skips the Part 5 step: no declaration on its registry."""
+    return ActLog(log.path.parent, DerivationSchemas().registry, undeclared_test_log=True)
+
+
 def _applicability(acts: tuple[dict[str, Any], ...], registry: Any) -> dict[str, dict[str, str]]:
     return {row["finding_id"]: row for row in current_claim_applicability(acts, registry)}
 
 
 class CorrectionEntryEnforcement(unittest.TestCase):
-    def test_case_3_direct_same_identity_append_does_not_keep_inclusion_applicable(self) -> None:
-        """Ordinary box-1 admission without scope evidence must not leave the old inclusion applicable."""
+    def test_case_3_direct_same_identity_append_is_refused_and_not_recorded(self) -> None:
+        """ADR 0077 Part 5: an unscoped same-identity box-1 append is refused at ``ActLog.append``.
+
+        The original box 1 stays current and the inclusion still applies to it.
+        """
         raw, log, registry, refs = _affirmed_inclusion()
         with raw:
             before = project(log.read().acts, registry)
@@ -80,25 +99,16 @@ class CorrectionEntryEnforcement(unittest.TestCase):
             ]
             self.assertEqual(len(original), 1)
             keys = tuple(facts_of(before.fact_state)[refs["statement"]].keys)
-            track14._append_source(
-                log, registry, track14.STATEMENT_TYPE, keys, 1800.0, "track6-direct-box1",
-            )
+            with self.assertRaisesRegex(FindingModelError, "scoped supersession violated"):
+                track14._append_source(
+                    log, registry, track14.STATEMENT_TYPE, keys, 1800.0, "track6-direct-box1",
+                )
             acts = _recovered_acts(log, registry)
             state = project(acts, registry)
-            current_ids = compute_currency(state).current_finding_ids
-            self.assertIn(refs["inclusion_finding_id"], state.findings)
-            corrected = [
-                finding for finding_id, finding in state.findings.items()
-                if finding_id in current_ids and finding.get("fact_id") == refs["statement"]
-            ]
-            self.assertEqual(len(corrected), 1)
-            self.assertEqual(corrected[0]["value"], 1800.0)
-            self.assertNotEqual(corrected[0]["id"], original[0][0])
+            self.assertNotIn("demo.finding.track14.track6-direct-box1", state.findings)
+            self.assertEqual(_current_box1(state, refs["statement"]), original)
             rows = _applicability(acts, registry)
-            self.assertEqual(
-                rows[refs["inclusion_finding_id"]]["applicability"],
-                "unresolved-applicability",
-            )
+            self.assertEqual(rows[refs["inclusion_finding_id"]]["applicability"], "current")
 
     def test_case_1_reviewed_amount_only_keeps_inclusion_and_both_amounts(self) -> None:
         raw, log, registry, refs = _affirmed_inclusion()
@@ -173,6 +183,7 @@ class CorrectionEntryEnforcement(unittest.TestCase):
             self.assertEqual(_applicability(acts, registry), {})
 
     def test_case_5_unrelated_statement_inclusion_stays_applicable(self) -> None:
+        """The touched append is refused; both inclusions stay current."""
         raw, log, registry, refs = _affirmed_inclusion()
         with raw:
             other_fact = _append_other_statement(log, registry)
@@ -189,28 +200,30 @@ class CorrectionEntryEnforcement(unittest.TestCase):
             }, registry)
             other_id = other["claims"]["statement-inclusion"]["finding_id"]
             keys = tuple(facts_of(project(log.read().acts, registry).fact_state)[refs["statement"]].keys)
-            track14._append_source(
-                log, registry, track14.STATEMENT_TYPE, keys, 1800.0, "track6-direct-box1-beside-other",
-            )
+            other_before = _current_box1(project(log.read().acts, registry), other_fact)
+            with self.assertRaises(FindingModelError):
+                track14._append_source(
+                    log, registry, track14.STATEMENT_TYPE, keys, 1800.0, "track6-direct-box1-beside-other",
+                )
             acts = _recovered_acts(log, registry)
             rows = _applicability(acts, registry)
-            self.assertEqual(rows[refs["inclusion_finding_id"]]["applicability"], "unresolved-applicability")
+            self.assertEqual(rows[refs["inclusion_finding_id"]]["applicability"], "current")
             self.assertEqual(rows[other_id]["applicability"], "current")
             self.assertEqual(rows[other_id]["source_fact_id"], other_fact)
+            self.assertEqual(_current_box1(project(acts, registry), other_fact), other_before)
 
-    def test_case_7_reviewed_correction_restores_applicability_after_direct_append(self) -> None:
+    def test_case_7_reviewed_correction_after_a_refused_direct_append(self) -> None:
+        """The direct append is refused; the reviewed correction admits the new amount."""
         raw, log, registry, refs = _affirmed_inclusion()
         with raw:
             keys = tuple(facts_of(project(log.read().acts, registry).fact_state)[refs["statement"]].keys)
-            track14._append_source(
-                log, registry, track14.STATEMENT_TYPE, keys, 1800.0, "track6-direct-before-review",
-            )
+            with self.assertRaises(FindingModelError):
+                track14._append_source(
+                    log, registry, track14.STATEMENT_TYPE, keys, 1800.0, "track6-direct-before-review",
+                )
             after_direct = _recovered_acts(log, registry)
             direct_rows = _applicability(after_direct, registry)
-            self.assertEqual(
-                direct_rows[refs["inclusion_finding_id"]]["applicability"],
-                "unresolved-applicability",
-            )
+            self.assertEqual(direct_rows[refs["inclusion_finding_id"]]["applicability"], "current")
             _reviewed_correction(
                 log, registry, refs, scope="amount-only", amount=1900.0,
                 correction_id="demo.track6.restore", borrowing_ref=None, finding_id=None,
@@ -220,7 +233,7 @@ class CorrectionEntryEnforcement(unittest.TestCase):
             state = project(acts, registry)
             values = {finding["value"] for finding in state.findings.values()
                       if finding.get("fact_id") == refs["statement"]}
-            self.assertTrue({1250.0, 1800.0, 1900.0}.issubset(values))
+            self.assertEqual(values, {1250.0, 1900.0})
             rows = _applicability(acts, registry)
             self.assertEqual(rows[refs["inclusion_finding_id"]]["applicability"], "current")
             self.assertIn(refs["inclusion_finding_id"], compute_currency(state).current_finding_ids)
@@ -229,8 +242,10 @@ class CorrectionEntryEnforcement(unittest.TestCase):
         """Reviewed $1,775, then an unreviewed $2,900 that cites that same scope evidence.
 
         The recorder refuses the second write, so the log keeps $1,775 and the
-        inclusion stays current against it. A log that already holds the $2,900
-        citation does not report the inclusion current.
+        inclusion stays current against it. A smuggle that skips the recorder is
+        refused at ``ActLog.append`` and leaves no assertion. A log that already
+        holds the $2,900 citation (a bypassing writer) does not report the
+        inclusion current.
         """
         raw, log, registry, refs = _affirmed_inclusion()
         with raw:
@@ -261,9 +276,20 @@ class CorrectionEntryEnforcement(unittest.TestCase):
                 "current",
             )
             self.assertNotIn("demo.finding.track1a3.smuggle-2900", project(refused_acts, registry).findings)
+            with self.assertRaisesRegex(FindingModelError, "scoped supersession violated"):
+                _smuggle_box1_citing_scope(
+                    log, registry, statement_fact_id=refs["statement"], value=2900.0,
+                    label="smuggle-2900", scope_evidence_id=scope_evidence_id,
+                    source_correction_id="demo.track1a3.smuggle-2900",
+                )
+            stepped = _recovered_acts(log, registry)
+            self.assertEqual([item["kind"] for item in stepped[revision:]],
+                             ["evidence-submitted", "contribution"])
+            self.assertNotIn("demo.finding.track1a3.smuggle-2900", project(stepped, registry).findings)
+            self.assertEqual(_current_box1_values(stepped, registry, refs["statement"]), [1775.0])
             _smuggle_box1_citing_scope(
-                log, registry, statement_fact_id=refs["statement"], value=2900.0,
-                label="smuggle-2900", scope_evidence_id=scope_evidence_id,
+                _bypass(log), registry, statement_fact_id=refs["statement"], value=2900.0,
+                label="smuggle-2900-bypass", scope_evidence_id=scope_evidence_id,
                 source_correction_id="demo.track1a3.smuggle-2900",
             )
             smuggled = _recovered_acts(log, registry)
@@ -275,6 +301,71 @@ class CorrectionEntryEnforcement(unittest.TestCase):
                 _applicability(smuggled, registry)[refs["inclusion_finding_id"]]["applicability"],
                 "unresolved-applicability",
             )
+
+    def test_reviewed_inclusion_uncertain_is_admitted_once_and_reuse_is_refused(self) -> None:
+        """The uncertain route's own unresolved status cites the scope evidence.
+
+        That status is not a box 1 finding, so it does not use up the scope
+        evidence: the reviewed box 1 successor is admitted, through the
+        recorder and through the ``ActLog.append`` step (a second inclusion on
+        the statement stays current). A second box 1 finding citing the same
+        evidence is still refused by the recorder and by the step.
+        """
+        raw, log, registry, refs = _affirmed_inclusion()
+        with raw:
+            bundle = json.loads((Path(__file__).resolve().parents[1] / "packages/sample_data"
+                                 "/student_loan_relationship_source"
+                                 "/demo.tax.2025.sli-relationship-unresolved-vocabulary.v1.json")
+                                .read_text("utf-8"))
+            _append_act(log, act(log.read().revision, "bundle-adoption", {"bundle": bundle}))
+            second_borrowing = "demo.track6.borrowing.second"
+            introduce_borrowing_reference_durably(
+                log, registry, reference_id=second_borrowing, description="Second borrowing",
+                actor=USER, at="2026-10-02T12:00:30Z",
+            )
+            second = record_submission_durably(log, {
+                "submission_id": "demo.track6.submission.second-inclusion",
+                "evidence_id": "demo.evidence.track6.second-inclusion",
+                "actor": USER, "at": "2026-10-02T12:00:40Z",
+                "borrowing_ref": second_borrowing, "schooling_fact_id": refs["school"],
+                "statement_fact_id": refs["statement"], "financing_response": "unanswered",
+                "inclusion_response": "yes",
+            }, registry)
+            second_id = second["claims"]["statement-inclusion"]["finding_id"]
+            scope_evidence_id = "demo.evidence.track6.uncertain"
+            result = _reviewed_correction(
+                log, registry, refs, scope="inclusion-uncertain", amount=1720.0,
+                correction_id="demo.track6.uncertain", borrowing_ref=refs["borrowing"],
+                finding_id=refs["inclusion_finding_id"], suffix="uncertain",
+            )
+            acts = _recovered_acts(log, registry)
+            state = project(acts, registry)
+            self.assertEqual(_current_box1_values(acts, registry, refs["statement"]), [1720.0])
+            source_id = result["source_correction"]["source_finding_id"]
+            self.assertIn(scope_evidence_id, state.findings[source_id]["evidence_ids"])
+            unresolved = [finding_id for finding_id, finding in state.findings.items()
+                          if finding_id != source_id
+                          and scope_evidence_id in (finding.get("evidence_ids") or [])]
+            self.assertEqual(len(unresolved), 1)
+            self.assertNotIn(refs["inclusion_finding_id"], compute_currency(state).current_finding_ids)
+            self.assertEqual(_applicability(acts, registry)[second_id]["applicability"], "current")
+            revision = log.read().revision
+            with self.assertRaises(RelationshipRecordingRefused):
+                _append_statement_source_correction_durably(
+                    log, registry, statement_fact_id=refs["statement"], corrected_total=1730.0,
+                    correction_id="demo.track6.uncertain-again",
+                    scope_evidence_id=scope_evidence_id, actor=USER, at="2026-10-02T12:06:00Z",
+                )
+            self.assertEqual(log.read().revision, revision)
+            with self.assertRaisesRegex(FindingModelError, "scoped supersession violated"):
+                _smuggle_box1_citing_scope(
+                    log, registry, statement_fact_id=refs["statement"], value=1720.0,
+                    label="uncertain-reuse", scope_evidence_id=scope_evidence_id,
+                    source_correction_id="demo.track6.uncertain",
+                )
+            after = _recovered_acts(log, registry)
+            self.assertEqual(_current_box1_values(after, registry, refs["statement"]), [1720.0])
+            self.assertEqual(_applicability(after, registry)[second_id]["applicability"], "current")
 
     def test_same_amount_reuse_of_scope_evidence_is_refused(self) -> None:
         """A second update that repeats $1,775 and cites the same evidence is refused."""
@@ -302,7 +393,11 @@ class CorrectionEntryEnforcement(unittest.TestCase):
             )
 
     def test_reviewed_correction_against_a_changed_box1_is_refused(self) -> None:
-        """A review prepared against one box 1 finding is refused after that finding changes."""
+        """A review prepared against one box 1 finding is refused after that finding changes.
+
+        Part 5 refuses the unscoped 1640 at ``ActLog.append``; the change is
+        written through a bypassing writer to reach the recorder's own check.
+        """
         raw, log, registry, refs = _affirmed_inclusion()
         with raw:
             review = prepare_review(
@@ -311,8 +406,13 @@ class CorrectionEntryEnforcement(unittest.TestCase):
                 schooling_fact_ids=(refs["school"],), statement_fact_ids=(refs["statement"],),
             )
             keys = tuple(facts_of(project(log.read().acts, registry).fact_state)[refs["statement"]].keys)
+            with self.assertRaises(FindingModelError):
+                track14._append_source(
+                    log, registry, track14.STATEMENT_TYPE, keys, 1640.0, "track1a3-stale-box1",
+                )
+            # Only a bypassing writer can change box 1 under a current inclusion now.
             track14._append_source(
-                log, registry, track14.STATEMENT_TYPE, keys, 1640.0, "track1a3-stale-box1",
+                _bypass(log), registry, track14.STATEMENT_TYPE, keys, 1640.0, "track1a3-stale-box1-bypass",
             )
             revision = log.read().revision
             with self.assertRaises(RelationshipRecordingRefused):
@@ -336,7 +436,11 @@ class CorrectionEntryEnforcement(unittest.TestCase):
             )
 
     def test_scope_evidence_for_a_different_predecessor_does_not_refresh(self) -> None:
-        """One citation is not enough when the finding is not the reviewed successor."""
+        """One citation is not enough when the finding is not the reviewed successor.
+
+        Part 5 refuses the write at ``ActLog.append``; a bypassing writer's copy
+        stays ``unresolved-applicability`` on the read side.
+        """
         raw, log, registry, refs = _affirmed_inclusion()
         with raw:
             before = project(log.read().acts, registry)
@@ -351,9 +455,15 @@ class CorrectionEntryEnforcement(unittest.TestCase):
                 reviewed_statement_finding_id="demo.finding.not-the-reviewed-box1",
                 corrected_total=1888.0, correction_id="demo.track1a3.wrong-predecessor",
             )
+            with self.assertRaises(FindingModelError):
+                _smuggle_box1_citing_scope(
+                    log, registry, statement_fact_id=refs["statement"], value=1888.0,
+                    label="wrong-predecessor", scope_evidence_id=scope_evidence_id,
+                    source_correction_id="demo.track1a3.wrong-predecessor",
+                )
             _smuggle_box1_citing_scope(
-                log, registry, statement_fact_id=refs["statement"], value=1888.0,
-                label="wrong-predecessor", scope_evidence_id=scope_evidence_id,
+                _bypass(log), registry, statement_fact_id=refs["statement"], value=1888.0,
+                label="wrong-predecessor-bypass", scope_evidence_id=scope_evidence_id,
                 source_correction_id="demo.track1a3.wrong-predecessor",
             )
             acts = _recovered_acts(log, registry)
@@ -393,9 +503,15 @@ class CorrectionEntryEnforcement(unittest.TestCase):
                     scope_evidence_id=scope_evidence_id, actor=USER, at="2026-10-02T12:06:00Z",
                 )
             self.assertEqual(log.read().revision, revision)
+            with self.assertRaises(FindingModelError):
+                _smuggle_box1_citing_scope(
+                    log, registry, statement_fact_id=refs["statement"], value=1888.0,
+                    label="wrong-kind", scope_evidence_id=scope_evidence_id,
+                    source_correction_id="demo.track1a3.wrong-kind",
+                )
             _smuggle_box1_citing_scope(
-                log, registry, statement_fact_id=refs["statement"], value=1888.0,
-                label="wrong-kind", scope_evidence_id=scope_evidence_id,
+                _bypass(log), registry, statement_fact_id=refs["statement"], value=1888.0,
+                label="wrong-kind-bypass", scope_evidence_id=scope_evidence_id,
                 source_correction_id="demo.track1a3.wrong-kind",
             )
             acts = _recovered_acts(log, registry)
@@ -473,9 +589,9 @@ def _smuggle_box1_citing_scope(log: ActLog, registry: Any, *, statement_fact_id:
                                label: str, scope_evidence_id: str, source_correction_id: str) -> None:
     """Admit a box 1 finding through the kernel, then persist it.
 
-    The tax recorder's binding check does not run. ``ActLog.append`` does not
-    run it either. ``project`` on the recovered log does run kernel admission,
-    which has no Part 5 rule yet.
+    The tax recorder's binding check does not run. ``ActLog.append`` runs the
+    ADR 0077 Part 5 step when ``log`` was built over a registry carrying the
+    declaration; pass ``_bypass(log)`` to model a log written before the step.
     """
     contents = log.read()
     source_evidence_id = f"demo.evidence.track1a3.{label}"

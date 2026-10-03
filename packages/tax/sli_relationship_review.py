@@ -478,9 +478,14 @@ def _append_statement_source_correction_durably(log: ActLog, registry: Any, *,
         raise RelationshipRecordingRefused("scope evidence does not name the box 1 finding the review saw")
     if current[0][0] != reviewed_finding_id:
         raise RelationshipRecordingRefused("box 1 finding changed since the review")
+    # Single use counts box 1 findings only. The inclusion-uncertain route's
+    # own unresolved status cites the same answer evidence; it is not a box 1
+    # finding, so it does not use up the authorization.
+    all_facts = facts_of(state.fact_state, include_displaced=True)
     already_authorized = [
         finding_id for finding_id, finding in state.findings.items()
         if isinstance(finding, dict) and scope_evidence_id in (finding.get("evidence_ids") or [])
+        and getattr(all_facts.get(finding.get("fact_id", "")), "fact_type_id", None) == STATEMENT_TYPE
     ]
     if already_authorized:
         raise RelationshipRecordingRefused("scope evidence already authorizes one finding")

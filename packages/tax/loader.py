@@ -200,19 +200,64 @@ def install_domain_migration_resolution_policies(registry: SchemaRegistry) -> Sc
     return registry
 
 
+def domain_scoped_supersession_declarations() -> list[dict[str, Any]]:
+    """ADR 0077 Part 5: the one scoped-supersession declaration.
+
+    A new current Form 1098-E box 1 finding is refused at ``ActLog.append``
+    while a current statement inclusion names that statement, unless it is
+    the one successor its reviewed-scope evidence binds. The kernel reads
+    this map generically (``packages.kernel.findings.enforce_new_write_
+    invariants``) and never names the form, the inclusion, or the evidence
+    kinds; every domain name it needs is declared here.
+
+    ``reviewed_scope.binds`` is in role order: the source finding the review
+    saw, the corrected value, and the correction identity. The successor's
+    corrected-statement evidence carries the correction identity under that
+    same field name. A fresh copy is returned on every call.
+    """
+    return [
+        {
+            "source_fact_type": "tax.us.2025.f1098e.box1-student-loan-interest",
+            "dependent_fact_type": "tax.us.2025.sli.statement-inclusion-relationship",
+            "dependent_keys_not_identifying_source": ["borrowing"],
+            "reviewed_scope": {
+                "evidence_kind": "tax.student-loan.relationship-answer",
+                "correction_path": ["recognition_context", "statement_correction"],
+                "source_field": "statement_fact_id",
+                "scope_field": "scope",
+                "scopes": ["amount-only", "inclusion-added", "inclusion-removed", "inclusion-uncertain"],
+                "refresh_field": "refreshes_inclusion_applicability",
+                "binds": ["reviewed_statement_finding_id", "corrected_box1_total", "source_correction_id"],
+                "successor_evidence_kind": "tax.form-1098e-corrected-statement-source",
+            },
+        }
+    ]
+
+
+def install_domain_scoped_supersession(registry: SchemaRegistry) -> SchemaRegistry:
+    """Install the Part 5 declaration, replacing any earlier copy (idempotent).
+
+    ``packages.kernel.act_log.ActLog`` refuses to be built over a registry
+    that carries no new-write declaration, so every writer runs the step.
+    """
+    setattr(registry, "scoped_supersession_declarations", domain_scoped_supersession_declarations())
+    return registry
+
+
 def install_domain_companion_presence(registry: SchemaRegistry) -> SchemaRegistry:
     """Install domain companion-presence pairs on an existing published registry.
 
     Idempotent: re-applying the same pairs is a no-op for equal keys.
 
     Also installs migration-resolution policies (``install_domain_
-    migration_resolution_policies``): this function's exact call sites
-    (``tax_registry()`` below and ``packages.derivation.live.live_
-    coordinate_run``) are the two places every registry a workspace fold
-    or production run actually uses gets domain maps layered onto it, so
-    folding the migration-resolution install in here -- rather than adding
-    a third call site to each -- reaches the live path without touching
-    ``packages/derivation/live.py``.
+    migration_resolution_policies``) and the ADR 0077 Part 5 scoped-
+    supersession declaration (``install_domain_scoped_supersession``): this
+    function's exact call sites (``tax_registry()`` below and
+    ``packages.derivation.live.live_coordinate_run``) are the two places
+    every registry a workspace fold or production run actually uses gets
+    domain maps layered onto it, so folding those installs in here -- rather
+    than adding a third call site to each -- reaches the live path without
+    touching ``packages/derivation/live.py``.
     """
     registry.companion_presence_pairs.update(domain_companion_presence_pairs())
     domains = getattr(registry, "companion_value_domains", None)
@@ -221,6 +266,7 @@ def install_domain_companion_presence(registry: SchemaRegistry) -> SchemaRegistr
         domains = registry.companion_value_domains
     domains.update(domain_companion_value_domains())
     install_domain_migration_resolution_policies(registry)
+    install_domain_scoped_supersession(registry)
     return registry
 
 

@@ -13,6 +13,7 @@ from typing import Any
 from packages.derivation.live import live_coordinate_run
 from packages.derivation.live_workspace import WorkspaceCapability
 from packages.derivation.loader import DerivationSchemas
+from packages.tax.loader import install_domain_scoped_supersession
 from packages.kernel.currency import compute_currency
 from packages.kernel.facts import facts_of
 from packages.kernel.findings import project
@@ -55,11 +56,11 @@ def _save(name: str, acts: list[dict[str, Any]], surface: Any,
     save_root.mkdir(parents=True, exist_ok=True)
     save_path = save_root / f"{name}.saved-account.json"
     with tempfile.TemporaryDirectory(prefix=f"track10-{name}-") as raw:
-        authoritative = ActLog(Path(raw) / "authoritative", workspace_registry())
+        authoritative = ActLog(Path(raw) / "authoritative", install_domain_scoped_supersession(workspace_registry()))
         for act in acts:
             authoritative.append(act, expected_revision=act["committed_against"])
         del authoritative
-        reopened_log = ActLog(Path(raw) / "authoritative", workspace_registry())
+        reopened_log = ActLog(Path(raw) / "authoritative", workspace_registry(), read_only=True)
         recovered_acts = reopened_log.read().acts
         outcome = live_coordinate_run(
             WorkspaceCapability(Path(raw) / "workspace"), repo_root=ROOT,

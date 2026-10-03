@@ -159,7 +159,7 @@ class SyntheticNomineeShapedLifecycle(unittest.TestCase):
         schema_dir.mkdir()
         self.registry = registry_with_demo_kinds(schema_dir)
         self.workspace = root / "workspace"
-        self.log = ActLog(self.workspace, self.registry)
+        self.log = ActLog(self.workspace, self.registry, undeclared_test_log=True)
         self.fact_a = _integration_fact_id(self.OWNER_A)
         self.fact_b = _integration_fact_id(self.OWNER_B)
 
@@ -359,7 +359,7 @@ class RealF1098Lifecycle(unittest.TestCase):
             (Path(TAX_CONTENT_DIR) / "f1098.bundle.json").read_text("utf-8")
         )
         self.workspace = Path(self._tmp.name) / "workspace"
-        self.log = ActLog(self.workspace, self.registry)
+        self.log = ActLog(self.workspace, self.registry, undeclared_test_log=True)
         self.fact_a = fact_id_for(
             self.FACT_TYPE,
             (("payer", self.LENDER_A), ("statement", self.STATEMENT_A), ("tax-year", "2025")),

@@ -8,6 +8,7 @@ from pathlib import Path
 from typing import Any, cast
 
 from packages.derivation.loader import DerivationSchemas
+from packages.tax.loader import install_domain_scoped_supersession
 from packages.kernel.act_log import ActLog
 from packages.kernel.currency import compute_currency
 from packages.kernel.facts import facts_of
@@ -23,7 +24,7 @@ import tests.test_sli_relationship_recording as track14
 
 ROOT = Path(__file__).resolve().parents[1]
 CONTENT = ROOT / "packages" / "content" / "tax" / "2025"
-REGISTRY = DerivationSchemas().registry
+REGISTRY = install_domain_scoped_supersession(DerivationSchemas().registry)
 USER = "demo.user.filer"
 
 
