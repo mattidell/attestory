@@ -5,7 +5,7 @@ import json
 import tempfile
 import unittest
 from pathlib import Path
-from typing import Any, cast
+from typing import Any, Sequence, cast
 
 from packages.derivation.loader import DerivationSchemas
 from packages.tax.loader import install_domain_scoped_supersession
@@ -419,29 +419,27 @@ class OneReviewInput(unittest.TestCase):
             predecessor = initial["claims"]["financing"]["finding_id"]
             review = self._review(log, refs, "handoff-correction")
             reviewed_revision = log.read().revision
-            original_append = log.append
+            original_batch = log.append_batch
             injected = False
-            source_appending = False
 
-            def interleaved_append(item: dict[str, Any], expected_revision: int) -> int:
-                nonlocal injected, source_appending
-                if not injected and not source_appending and item.get("kind") == "finding-retracted" and \
-                        item.get("payload", {}).get("finding_id") == predecessor:
+            # Track 7: the correction is one batch; the source changes just
+            # before that batch, the save's first write.
+            def interleaved_batch(items: Sequence[dict[str, Any]], expected_revision: int) -> int:
+                nonlocal injected
+                if not injected and any(item.get("kind") == "finding-retracted" and
+                                        item.get("payload", {}).get("finding_id") == predecessor
+                                        for item in items):
                     injected = True
-                    source_appending = True
-                    try:
-                        track14._append_source(
-                            log, REGISTRY, "tax.us.2025.sli.schooling-situation",
-                            (("period", "demo.track16.period.autumn"),
-                             ("institution", "demo.track16.institution.river"),
-                             ("programme", "demo.track16.programme.bsc")),
-                            "Corrected before first append", "handoff-correction-school",
-                        )
-                    finally:
-                        source_appending = False
-                return original_append(item, expected_revision)
+                    track14._append_source(
+                        log, REGISTRY, "tax.us.2025.sli.schooling-situation",
+                        (("period", "demo.track16.period.autumn"),
+                         ("institution", "demo.track16.institution.river"),
+                         ("programme", "demo.track16.programme.bsc")),
+                        "Corrected before first append", "handoff-correction-school",
+                    )
+                return original_batch(items, expected_revision)
 
-            setattr(log, "append", interleaved_append)
+            setattr(log, "append_batch", interleaved_batch)
             try:
                 with self.assertRaisesRegex(RelationshipRecordingRefused, "first append"):
                     correct_review_claim(
@@ -453,7 +451,7 @@ class OneReviewInput(unittest.TestCase):
                         evidence_id="demo.evidence.track16.handoff-correction",
                     )
             finally:
-                setattr(log, "append", original_append)
+                setattr(log, "append_batch", original_batch)
             contents = log.read()
             state = project(contents.acts, REGISTRY)
             current = compute_currency(state).current_finding_ids
