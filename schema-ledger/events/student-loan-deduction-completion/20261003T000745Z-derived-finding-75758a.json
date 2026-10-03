@@ -1,0 +1,15 @@
+{
+  "format": 1,
+  "event_id": "20261003T000745Z-derived-finding-75758a",
+  "recorded_at": "2026-10-03T00:07:45Z",
+  "milestone_key": "student-loan-deduction-completion",
+  "milestone_branch": "milestone/student-loan-deduction-completion-bounded-route",
+  "milestone_commit": "0d4f4356ed3a737e60630dd94be8748279214d58",
+  "schema_family": "derived-finding",
+  "schema_path": "packages/schemas/derivation/derived-finding.v3.schema.json",
+  "schema_version": "v3",
+  "action": "propose",
+  "change_kind": "additive",
+  "replaces_event": null,
+  "summary": "Copy v2 and add origin derived to the pin origin list for entries read through reads_subject_results (ADR 0077 Part 3). v2 bytes untouched."
+}

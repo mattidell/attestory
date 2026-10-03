@@ -1,0 +1,15 @@
+{
+  "format": 1,
+  "event_id": "20261003T000745Z-rule-artifact-3462c3",
+  "recorded_at": "2026-10-03T00:07:45Z",
+  "milestone_key": "student-loan-deduction-completion",
+  "milestone_branch": "milestone/student-loan-deduction-completion-bounded-route",
+  "milestone_commit": "0d4f4356ed3a737e60630dd94be8748279214d58",
+  "schema_family": "rule-artifact",
+  "schema_path": "packages/schemas/derivation/rule-artifact.v13.schema.json",
+  "schema_version": "v13",
+  "action": "propose",
+  "change_kind": "additive",
+  "replaces_event": null,
+  "summary": "Copy v12 and add ADR 0077 shared_key_count, optional basis, reads_subject_results, and selection as an alternative to value. v12 bytes untouched."
+}

@@ -1,0 +1,15 @@
+{
+  "format": 1,
+  "event_id": "20261003T000745Z-artifact-package-3a3c2d",
+  "recorded_at": "2026-10-03T00:07:45Z",
+  "milestone_key": "student-loan-deduction-completion",
+  "milestone_branch": "milestone/student-loan-deduction-completion-bounded-route",
+  "milestone_commit": "0d4f4356ed3a737e60630dd94be8748279214d58",
+  "schema_family": "artifact-package",
+  "schema_path": "packages/schemas/derivation/artifact-package.v35.schema.json",
+  "schema_version": "v35",
+  "action": "propose",
+  "change_kind": "additive",
+  "replaces_event": null,
+  "summary": "Copy v34 admissions and also admit rule-artifact.v13 (ADR 0077). v34 bytes untouched."
+}
