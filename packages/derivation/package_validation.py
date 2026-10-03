@@ -669,6 +669,16 @@ def _link_coverage_issues(
     return issues
 
 
+def _core_calculations_version_number(package: Mapping[str, Any]) -> int | None:
+    """The numeric version of a core-calculations package, else ``None``."""
+    version = package.get("version")
+    if package.get("id") != "tax.us.2025.package.core-calculations" or not isinstance(version, str):
+        return None
+    if not version.startswith("v") or not version[1:].isdigit():
+        return None
+    return int(version[1:])
+
+
 def _exact_pin_key(pin: Any) -> tuple[str, str] | None:
     """``(id, version)`` for a well-formed exact pin, else ``None``."""
     if (
@@ -2722,9 +2732,19 @@ def validate_package(
             "tax.us.2025.rule.attachment.schedule-b": ("attachment-rule.v11", "v7"),
         }),
     }
-    if package.get("id") == "tax.us.2025.package.core-calculations" and package.get("version") in _successor_graphs:
+    # v38's nominee return graph holds for every later core-calculations
+    # version until a later entry in the table replaces it, so a new package
+    # version is checked without another edit here.
+    _core_version = _core_calculations_version_number(package)
+    _graph_key = str(package.get("version"))
+    if _graph_key not in _successor_graphs and _core_version is not None and _core_version > 38:
+        _graph_key = max(
+            (key for key in _successor_graphs if int(key[1:]) <= _core_version),
+            key=lambda key: int(key[1:]),
+        )
+    if package.get("id") == "tax.us.2025.package.core-calculations" and _graph_key in _successor_graphs:
         pkg_version = str(package.get("version"))
-        code, expected_successors = _successor_graphs[pkg_version]
+        code, expected_successors = _successor_graphs[_graph_key]
         members_by_id = {pin["id"]: pin for pin in package["members"]}
         for member_id, (schema, version) in expected_successors.items():
             pin = members_by_id.get(member_id)
@@ -2733,15 +2753,16 @@ def validate_package(
                     member_id, str(pin.get("version", "") if pin else ""), code,
                     f"{pkg_version} requires {member_id}@{version} under {schema}, got {pin!r}",
                 ))
-        if pkg_version in {"v37", "v38"}:
+        if _core_version is not None and _core_version >= 37:
             # The v11 attachment exposes the nominee route as an exclusive
             # selection path, while line 2b exposes the same route as a
             # subtractand.  Keep this cross-citizen join load-bearing: a
             # package mutation that changes both the v11 tie-out declaration
             # and its path must still fail if it no longer names the shared
-            # dispatcher-B subtotal.
-            attachment_version = "v6" if pkg_version == "v37" else "v7"
-            line2b_version = "v7" if pkg_version == "v37" else "v8"
+            # dispatcher-B subtotal.  v37 onward, the versions are the ones
+            # this package's successor graph requires.
+            attachment_version = expected_successors["tax.us.2025.rule.attachment.schedule-b"][1]
+            line2b_version = expected_successors["tax.us.2025.rule.form1040-line2b"][1]
             attachment = next(
                 (
                     citizen for pin, citizen in resolved
@@ -2767,7 +2788,7 @@ def validate_package(
                         for selection_path in selection_paths:
                             if isinstance(selection_path, dict) and isinstance(selection_path.get("subtotal_symbol"), str):
                                 schedule_symbols.add(selection_path["subtotal_symbol"])
-            if pkg_version == "v37":
+            if line2b_version == "v7":
                 line2b_symbols = set(_iter_ref_names(line2b.get("value"))) if isinstance(line2b, dict) else set()
             else:
                 line2b_symbols = {
@@ -2801,7 +2822,7 @@ def validate_package(
             "artifact-package.v20", "artifact-package.v21", "artifact-package.v22",
             "artifact-package.v23", "artifact-package.v24", "artifact-package.v25",
             "artifact-package.v26", "artifact-package.v29", "artifact-package.v30",
-            "artifact-package.v31",
+            "artifact-package.v31", "artifact-package.v35",
         }:
             members_by_key = {
                 (pin["id"], pin["version"]): pin for pin in package["members"]
