@@ -632,7 +632,7 @@ class SharedKeyCountValidation(unittest.TestCase):
         _package, validation = validate(chain_parts(), schema="artifact-package.v34")
         self.assertIn("PACKAGE_SCHEMA_INVALID", codes(validation))
 
-    def test_a_v13_selection_is_refused_until_parts_3_and_4_run(self) -> None:
+    def test_a_v13_selection_validates_now_that_parts_3_and_4_run(self) -> None:
         parts = chain_parts()
         selection_rule = _rule("demo.rule.skc.worksheet", subject=None, publishes="demo.tax.skc.line21", value=0)
         selection_rule.pop("value")
@@ -649,7 +649,8 @@ class SharedKeyCountValidation(unittest.TestCase):
         }
         parts.append((selection_rule, "computation"))
         _package, validation = validate(parts)
-        self.assertIn("RULE_SELECTION_UNAUTHORIZED", codes(validation))
+        self.assertTrue(validation.ok, validation.issues)
+        self.assertNotIn("RULE_SELECTION_UNAUTHORIZED", codes(validation))
 
     def test_a_return_level_v13_value_rule_validates_and_runs(self) -> None:
         parts = chain_parts()

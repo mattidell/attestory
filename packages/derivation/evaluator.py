@@ -156,6 +156,11 @@ class AccessLog:
     # ADR 0077 Part 1: counted rows ``shared_key_count`` agreed on, or the
     # bad counted rows it blocked on. Not merged into ``collects``.
     shared_key_count_findings: set[str] = field(default_factory=set)
+    # ADR 0077 Part 3: ``(finding id, version)`` of each per-subject
+    # publication read through a selection path's ``reads_subject_results``.
+    # Pinned role input, origin derived. Not merged into ``collects``: that
+    # channel pins live same-run sources as asserted inputs.
+    subject_result_findings: set[tuple[str, str]] = field(default_factory=set)
     # Exact categorical type of the expression's result, when the expression
     # itself produces a category. Runtime-only metadata; never serialized.
     result_fact_type: tuple[str, str] | None = None
@@ -217,6 +222,43 @@ class Environment:
     # ADR 0077 Part 1. Installed by per-subject dispatch only; an ordinary
     # Environment leaves it None and ``shared_key_count`` fail-closes.
     shared_key_scope: SharedKeyScope | None = None
+    # ADR 0077 Part 3. Installed by the runner only while it evaluates the
+    # selected path of a v13 selection, one entry per declared symbol. An
+    # ordinary Environment leaves it empty and every collect is unchanged.
+    subject_results: dict[str, "SubjectResults"] = field(default_factory=dict)
+
+
+@dataclass(frozen=True)
+class SubjectResults:
+    """The entries one declared symbol exposes: one per current subject.
+
+    ``uncovered`` names subjects with no result or with more than one.
+    ``blocked`` names subjects whose result is a block. ``published`` holds
+    ``(finding id, version, value)`` for every other subject. All three are
+    sorted by subject fact id.
+    """
+
+    uncovered: tuple[str, ...]
+    blocked: tuple[str, ...]
+    published: tuple[tuple[str, str, str], ...]
+
+
+def _declared_subject_values(name: str, env: Environment, access: AccessLog) -> list[str] | None:
+    """Read a declared symbol's entries, or None when ``name`` is not declared.
+
+    Refuses ``DEPENDENCY_INVALID``: first on a coverage gap, naming those
+    subjects, then on any block, naming the blocked subjects. A block is
+    never skipped and never read as an empty or favorable value.
+    """
+    entries = env.subject_results.get(name)
+    if entries is None:
+        return None
+    if entries.uncovered:
+        raise EvalBlocked(BLOCK_INVALID, list(entries.uncovered))
+    if entries.blocked:
+        raise EvalBlocked(BLOCK_INVALID, list(entries.blocked))
+    access.subject_result_findings.update((fid, version) for fid, version, _value in entries.published)
+    return [value for _fid, _version, value in entries.published]
 
 
 def _as_decimal(value: Any) -> Decimal:
@@ -318,6 +360,9 @@ def _evaluate(expr: Any, env: Environment, access: AccessLog) -> Any:
 
     if op == "collect":
         name = expr["name"]
+        declared = _declared_subject_values(name, env, access)
+        if declared is not None:
+            return [_as_decimal(value) for value in declared]
         access.collects.add(name)
         rows = env.sources.get(name, [])
         if not rows:
@@ -344,6 +389,9 @@ def _evaluate(expr: Any, env: Environment, access: AccessLog) -> Any:
 
     if op == "count":
         name = expr["name"]
+        declared = _declared_subject_values(name, env, access)
+        if declared is not None:
+            return len(declared)
         access.collects.add(name)
         rows = env.sources.get(name, [])
         source_set = expr["source_set"]
@@ -450,8 +498,12 @@ def _evaluate(expr: Any, env: Environment, access: AccessLog) -> Any:
         # `packages/derivation/marshal.py` would otherwise have to pick a
         # single arbitrary current finding for.
         name = expr["name"]
-        access.collects.add(name)
-        rows = env.sources.get(name, [])
+        declared = _declared_subject_values(name, env, access)
+        if declared is not None:
+            rows = declared
+        else:
+            access.collects.add(name)
+            rows = env.sources.get(name, [])
         if not rows:
             raise EvalBlocked(BLOCK_ABSENT, [name])
         expected_domain, expected_val = _eval_categorical_operand(expr["value"], env, access)

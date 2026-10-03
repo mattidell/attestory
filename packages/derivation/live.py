@@ -18,6 +18,11 @@ from typing import TYPE_CHECKING, Any, Iterable, Mapping, Sequence
 from packages.derivation.authorization import authorization_provenance
 from packages.derivation.loader import DerivationSchemas, load_canon
 from packages.derivation.marshal import marshal_live_run_context
+from packages.derivation.package_validation import (
+    selection_activity_fact_pins,
+    subject_result_read_symbols,
+    v13_selection_declarations,
+)
 from packages.derivation.presentation_projection import PresentationModelError, build_presentation_model
 from packages.derivation.production_executor import execute_and_record_marshaled, execute_marshaled
 from packages.derivation.production_resolver import PublicationSurface, Refusal, resolve_production_package
@@ -260,12 +265,19 @@ def _resolved_run_material(graph: Any) -> _ResolvedRunMaterial:
     # collect source name too, or marshal.py would never populate
     # env.sources for it (see _iter_collect_categorical_names above).
     for rule in rules:
-        for name in _iter_collect_categorical_names(rule.get("when")):
-            if name not in collect_names:
-                collect_names.append(name)
-        for name in _iter_collect_categorical_names(rule.get("value")):
-            if name not in collect_names:
-                collect_names.append(name)
+        expressions = [rule.get("when"), rule.get("value")]
+        declared_reads: set[str] = set()
+        # ADR 0077 Part 4: a v13 selection's expressions sit under its paths
+        # and default. An undeclared collect there reads sources the same
+        # way; a symbol the declaration reads through
+        # ``reads_subject_results`` is a same-run result, not a source.
+        for declaration in v13_selection_declarations(rule):
+            expressions.extend((declaration.get("when"), declaration.get("value")))
+            declared_reads.update(subject_result_read_symbols(declaration))
+        for expression in expressions:
+            for name in _iter_collect_categorical_names(expression):
+                if name not in collect_names and name not in declared_reads:
+                    collect_names.append(name)
     # link_coverage/link_count emit ``links`` only, and not as a collect name. The
     # walk is value only. A name already collected (a family member, for
     # example) stays on ``collect_names`` and keeps that exclusion.
@@ -300,6 +312,19 @@ def _resolved_run_material(graph: Any) -> _ResolvedRunMaterial:
             pin_id = pin.get("id")
             if isinstance(pin_id, str) and pin_id and pin_id not in collect_names and pin_id not in emission_only:
                 emission_only.append(pin_id)
+    # ADR 0077 Part 4: activity is a current-source predicate even when its
+    # fact type appears nowhere in an expression. Emit those rows as sources
+    # so the runner can see them. They are emission-only, never collect
+    # names, so registering them binds no scalar and marks no finding used.
+    for rule in rules:
+        for declaration in v13_selection_declarations(rule):
+            activity = declaration.get("activity")
+            if not isinstance(activity, Mapping) or activity.get("kind") != "source_nonempty":
+                continue
+            for fact_pin in selection_activity_fact_pins(activity):
+                fact_id = fact_pin.get("id")
+                if isinstance(fact_id, str) and fact_id and fact_id not in collect_names and fact_id not in emission_only:
+                    emission_only.append(fact_id)
     # ADR-0070: the supportability rule reads pairing / acquisition /
     # report sources by pinned fact id, not by an ordinary symbol binding.
     from packages.tax.supportability import COLLECT_SOURCE_NAMES, RULE_ID

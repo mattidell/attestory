@@ -32,6 +32,7 @@ from packages.derivation.evaluator import (
     AccessLog,
     Environment,
     EvalBlocked,
+    SubjectResults,
     categorical_domain_key,
     evaluate,
     parameter_exact,
@@ -223,6 +224,107 @@ RECORD_CODES = frozenset(
     }
 )
 
+# ADR 0077 Part 4 contract-failure tokens: the existing ones, no new code.
+SELECTION_TOP_LEVEL_INVALID = "declarative-top-level-contract-invalid"
+SELECTION_PATH_ID_DUPLICATE = "selection-path-id-duplicate"
+SELECTION_PATH_PIN_CONTRACT_INVALID = "selection-path-pin-contract-invalid"
+
+
+def is_v13_selection_rule(rule: dict[str, Any]) -> bool:
+    """A ``rule-artifact.v13`` rule that declares ``selection`` (ADR 0077 Part 4)."""
+    return rule.get("schema") == "rule-artifact.v13" and "selection" in rule
+
+
+def _never_ordinary(rule: dict[str, Any]) -> bool:
+    """A rule-artifact shape the ordinary value path must never evaluate.
+
+    The bounded v9 line-2b citizen and a v13 selection have their own
+    dispatch. Anything else carrying ``selection`` or ``aggregation``, or
+    lacking a top-level ``value``, would otherwise fall through to
+    ``rule["value"]``.
+    """
+    if rule.get("schema") in ATTACHMENT_SCHEMAS:
+        return False
+    return "selection" in rule or "aggregation" in rule or "value" not in rule
+
+
+def _selection_contract_failure(rule: dict[str, Any]) -> str | None:
+    """The token for a v13 selection contract failure before the plan runs."""
+    if rule.get("when") is not True or rule.get("requires") != [] or rule.get("pins") != []:
+        return SELECTION_TOP_LEVEL_INVALID
+    if "value" in rule or isinstance(rule.get("subject"), dict):
+        return SELECTION_TOP_LEVEL_INVALID
+    selection = rule.get("selection")
+    if not isinstance(selection, dict):
+        return SELECTION_TOP_LEVEL_INVALID
+    paths = selection.get("paths")
+    default = selection.get("default")
+    if not isinstance(paths, list) or not isinstance(default, dict):
+        return SELECTION_TOP_LEVEL_INVALID
+    ids: list[Any] = []
+    for path in paths:
+        if not isinstance(path, dict) or not isinstance(path.get("id"), str):
+            return SELECTION_PATH_ID_DUPLICATE
+        ids.append(path["id"])
+    if len(ids) != len(set(ids)) or default.get("id") in ids:
+        return SELECTION_PATH_ID_DUPLICATE
+    return None
+
+
+def _selection_pins_truthful(declaration: dict[str, Any]) -> bool:
+    """ADR 0077 Part 4: one pin per ``requires`` entry, same ids, same order.
+
+    Role ``choice`` is version v1 with no origin. Every other declared pin
+    is role ``input``, version v1, origin ``assertion``.
+    """
+    requires = declaration.get("requires")
+    pins = declaration.get("pins")
+    if not isinstance(requires, list) or not isinstance(pins, list) or len(requires) != len(pins):
+        return False
+    for name, pin in zip(requires, pins):
+        if not isinstance(name, str) or not isinstance(pin, dict):
+            return False
+        if pin.get("id") != name or pin.get("version") != "v1":
+            return False
+        if pin.get("role") == "choice":
+            if "origin" in pin:
+                return False
+        elif pin.get("role") != "input" or pin.get("origin") != "assertion":
+            return False
+    return True
+
+
+def _declared_reads(declaration: dict[str, Any]) -> list[dict[str, Any]]:
+    reads = declaration.get("reads_subject_results")
+    if not isinstance(reads, list):
+        return []
+    return [
+        read for read in reads
+        if isinstance(read, dict)
+        and isinstance(read.get("symbol"), str)
+        and isinstance(read.get("subject"), dict)
+        and isinstance(read["subject"].get("id"), str)
+    ]
+
+
+def _activity_members(activity: Any) -> tuple[str | None, list[str]]:
+    """``(kind, fact type ids)`` one activity names."""
+    if not isinstance(activity, dict):
+        return None, []
+    kind = activity.get("kind")
+    pins: list[Any]
+    if kind == "source_nonempty":
+        listed = activity.get("member_fact_types")
+        single = activity.get("member_fact_type")
+        pins = listed if isinstance(listed, list) else ([single] if single is not None else [])
+    elif kind == "derived_activity":
+        pins = [activity.get("fact_type")]
+    else:
+        return None, []
+    ids = [pin["id"] for pin in pins if isinstance(pin, dict) and isinstance(pin.get("id"), str)]
+    return str(kind), ids
+
+
 def _uses_attachment_machinery(rules: list[dict[str, Any]]) -> bool:
     return any(rule.get("schema") in ATTACHMENT_SCHEMAS for rule in rules)
 
@@ -398,6 +500,12 @@ class _Run:
             self.source_fact_ids.setdefault(fact.name, []).append(
                 fact.fact_id if fact.fact_id is not None else fact.finding_id
             )
+        # ADR 0077 Part 4: activity is decided from the marshalled current
+        # sources, not from same-run sources appended during saturation, so
+        # both schedulers reach the same plan whatever their order.
+        self.current_source_fids: dict[str, list[str]] = {}
+        for fact in ctx.sources:
+            self.current_source_fids.setdefault(fact.name, []).append(fact.finding_id)
         self.resolved: set[str] = set()
         self.dispositions: list[dict[str, Any]] = []
         self.blocked: list[dict[str, Any]] = []
@@ -504,6 +612,10 @@ class _Run:
                             f"no same-statement {companion_type} source to pin "
                             f"(ADR-0010 displacement edge required)"
                         )
+        # ADR 0077 Part 3: a per-subject publication read through a declared
+        # selection read. It is a derived result, not an asserted input.
+        for finding_id, version in sorted(access.subject_result_findings):
+            pins.append({"role": "input", "id": finding_id, "version": version, "origin": "derived"})
         recorded = set(access.parameter_versions)
         for pid, version in sorted(recorded):
             pins.append({"role": "parameter", "id": pid, "version": version})
@@ -604,6 +716,8 @@ class _Run:
             subtotal_eligibility,
         )
 
+        if is_v13_selection_rule(rule):
+            return self._selection_eligible(rule)
         if is_current_year_subtotal_rule(rule):
             return subtotal_eligibility(self)
         if is_aggregate_supportability_rule(rule):
@@ -841,6 +955,279 @@ class _Run:
         self.resolved.add(rule["id"])
         return "published"
 
+    # ------------------------------------------------------------------
+    # ADR 0077 Parts 3 and 4: v13 presence selection with same-run reads.
+    # ------------------------------------------------------------------
+
+    def _derived_activity_publishers(self, fact_type_id: str) -> list[str]:
+        return [
+            candidate["id"] for candidate in self.ctx.rules
+            if candidate.get("publishes") == fact_type_id
+        ]
+
+    def _selection_activity_decided(self, rule: dict[str, Any]) -> bool:
+        """A derived activity is decided only once its publishers resolved."""
+        selection = rule.get("selection") or {}
+        for path in selection.get("paths") or []:
+            kind, members = _activity_members(path.get("activity") if isinstance(path, dict) else None)
+            if kind != "derived_activity":
+                continue
+            for member in members:
+                if not all(pid in self.resolved for pid in self._derived_activity_publishers(member)):
+                    return False
+        return True
+
+    def _selection_path_active(self, path: dict[str, Any]) -> bool:
+        kind, members = _activity_members(path.get("activity"))
+        if kind == "source_nonempty":
+            return any(self.current_source_fids.get(member) for member in members)
+        if kind == "derived_activity":
+            return any(
+                derived_activity_present(
+                    publications=self.publications,
+                    dispositions=self.dispositions,
+                    fact_type_id=member,
+                )
+                for member in members
+            )
+        return False
+
+    def _selection_active_paths(self, rule: dict[str, Any]) -> list[dict[str, Any]]:
+        selection = rule.get("selection") or {}
+        return [
+            path for path in selection.get("paths") or []
+            if isinstance(path, dict) and self._selection_path_active(path)
+        ]
+
+    def _selection_plan(self, rule: dict[str, Any]) -> tuple[str, dict[str, Any]]:
+        """``conflict``, ``path`` or ``default``, decided from activity alone."""
+        selection = rule.get("selection") or {}
+        active = self._selection_active_paths(rule)
+        if len(active) > 1:
+            refusal = selection.get("refusal")
+            return "conflict", refusal if isinstance(refusal, dict) else {}
+        if active:
+            return "path", active[0]
+        default = selection.get("default")
+        return "default", default if isinstance(default, dict) else {}
+
+    def _selection_activity_pins(self, rule: dict[str, Any]) -> list[dict[str, Any]]:
+        """The current source findings that made each active path true."""
+        pins: list[dict[str, Any]] = []
+        for path in self._selection_active_paths(rule):
+            kind, members = _activity_members(path.get("activity"))
+            if kind == "source_nonempty":
+                for member in members:
+                    for finding_id in self.current_source_fids.get(member, []):
+                        pins.append({"role": "input", "id": finding_id, "version": "v1", "origin": "assertion"})
+            elif kind == "derived_activity":
+                for member in members:
+                    for finding in enumerate_published_findings(self.publications, member):
+                        if isinstance(finding.get("id"), str):
+                            pins.append({
+                                "role": "input", "id": finding["id"],
+                                "version": str(finding.get("version", "v2")), "origin": "assertion",
+                            })
+        return pins
+
+    def selection_read_publishers(self, declaration: dict[str, Any]) -> list[dict[str, Any]]:
+        """Every rule publishing a symbol the declaration reads."""
+        symbols = {read["symbol"] for read in _declared_reads(declaration)}
+        return [candidate for candidate in self.ctx.rules if candidate.get("publishes") in symbols]
+
+    def _selection_eligible(self, rule: dict[str, Any]) -> bool:
+        """Part 3 "Runtime": wait only for the selected declaration.
+
+        A contract failure or a conflict is eligible at once and waits for
+        nothing. A selected path or the default waits until each ordinary
+        ``requires`` name is a symbol and each publisher of a symbol it
+        declares in ``reads_subject_results`` has resolved. A blocked
+        publisher is resolved. The other path's publishers are not a wait.
+        """
+        if _selection_contract_failure(rule) is not None:
+            return True
+        if not self._selection_activity_decided(rule):
+            return False
+        plan, declaration = self._selection_plan(rule)
+        if plan == "conflict":
+            return True
+        if not all(req in self.symbols for req in declaration.get("requires") or []):
+            return False
+        return all(
+            publisher["id"] in self.resolved
+            for publisher in self.selection_read_publishers(declaration)
+        )
+
+    def demand_names(self, rule: dict[str, Any]) -> list[str]:
+        """Names a demand-driven scheduler resolves before trying ``rule``."""
+        if not is_v13_selection_rule(rule) or _selection_contract_failure(rule) is not None:
+            return self._requires(rule)
+        if not self._selection_activity_decided(rule):
+            names: list[str] = []
+            for path in (rule.get("selection") or {}).get("paths") or []:
+                kind, members = _activity_members(path.get("activity") if isinstance(path, dict) else None)
+                if kind == "derived_activity":
+                    names.extend(members)
+            return names
+        plan, declaration = self._selection_plan(rule)
+        if plan == "conflict":
+            return []
+        return [
+            *list(declaration.get("requires") or []),
+            *(read["symbol"] for read in _declared_reads(declaration)),
+        ]
+
+    def _subject_results(self, read: dict[str, Any]) -> SubjectResults:
+        """The entries one declared symbol exposes, one per current subject.
+
+        An entry is the keyed publication ``symbol|subject fact id`` or the
+        block that per-subject rule recorded for that subject. A block is a
+        result. A subject with neither, or with more than one, is uncovered.
+        """
+        symbol = read["symbol"]
+        subject_type = read["subject"]["id"]
+        publisher_ids = {
+            candidate["id"] for candidate in self.ctx.rules if candidate.get("publishes") == symbol
+        }
+        subjects = sorted({
+            source.fact_id or source.finding_id
+            for source in self.live_sources
+            if source.name == subject_type
+        })
+        published: dict[str, list[tuple[str, str, str]]] = {}
+        for publication in self.publications:
+            keyed = publication.finding.get("symbol")
+            if not isinstance(keyed, str) or not keyed.startswith(symbol + "|"):
+                continue
+            published.setdefault(keyed[len(symbol) + 1:], []).append((
+                str(publication.finding["id"]),
+                str(publication.finding.get("version", "v2")),
+                _value_str(publication.finding.get("value")),
+            ))
+        blocked_count: dict[str, int] = {}
+        for row in self.blocked:
+            subject_fact_id = row.get("subject_fact_id")
+            if row.get("artifact_id") in publisher_ids and isinstance(subject_fact_id, str):
+                blocked_count[subject_fact_id] = blocked_count.get(subject_fact_id, 0) + 1
+        uncovered: list[str] = []
+        blocked: list[str] = []
+        values: list[tuple[str, str, str]] = []
+        for subject in subjects:
+            found = published.get(subject, [])
+            blocks = blocked_count.get(subject, 0)
+            if len(found) + blocks != 1:
+                uncovered.append(subject)
+            elif blocks:
+                blocked.append(subject)
+            else:
+                values.append(found[0])
+        return SubjectResults(uncovered=tuple(uncovered), blocked=tuple(blocked), published=tuple(values))
+
+    def _selection_block(self, rule: dict[str, Any], *, code: str, missing: list[str],
+                         extra_pins: list[dict[str, Any]] | None = None) -> str:
+        self.record_named_block(
+            rule_id=rule["id"],
+            code=code,
+            missing=missing,
+            pins=_sorted_pins([
+                {"role": rule.get("role", "computation"), "id": rule["id"], "version": rule["version"]},
+                self.ctx.adoption_pin,
+                *self.ctx.governance_pins,
+                *(extra_pins or []),
+            ]),
+            symbol=rule.get("publishes"),
+        )
+        self.resolved.add(rule["id"])
+        return "blocked"
+
+    def _attempt_v13_selection(self, rule: dict[str, Any]) -> str:
+        """ADR 0077 Part 4 "Runtime": evaluate exactly the selected declaration."""
+        failure = _selection_contract_failure(rule)
+        if failure is not None:
+            return self._selection_block(rule, code=BLOCK_INVALID, missing=[failure])
+
+        plan, declaration = self._selection_plan(rule)
+        if plan == "conflict":
+            # No path value is evaluated and no path's publishers are read.
+            return self._selection_block(
+                rule,
+                code=str(declaration.get("code") or BLOCK_INVALID),
+                missing=[str(item) for item in declaration.get("missing") or []],
+                extra_pins=self._selection_activity_pins(rule),
+            )
+        if not _selection_pins_truthful(declaration):
+            return self._selection_block(rule, code=BLOCK_INVALID, missing=[SELECTION_PATH_PIN_CONTRACT_INVALID])
+
+        missing = [req for req in declaration.get("requires") or [] if req not in self.symbols]
+        if missing:
+            return self._selection_block(rule, code=BLOCK_ABSENT, missing=missing)
+
+        symbol = rule["publishes"]
+        if symbol in self.symbols:
+            winner = self.symbol_publisher.get(symbol)
+            row: dict[str, Any] = {"artifact_id": rule["id"], "disposition": "inapplicable", "pins": []}
+            if self.use_v2 and winner:
+                row["superseded_by"] = {"role": "package", "id": winner["id"], "version": winner["version"]}
+            self.dispositions.append(row)
+            self.resolved.add(rule["id"])
+            return "inapplicable"
+
+        from dataclasses import replace as _replace
+
+        env = _replace(
+            self.env(),
+            subject_results={read["symbol"]: self._subject_results(read) for read in _declared_reads(declaration)},
+        )
+        access = AccessLog()
+        try:
+            guard = evaluate(declaration.get("when", True), env, access)
+            if not guard:
+                self.dispositions.append({
+                    "artifact_id": rule["id"],
+                    "disposition": "inapplicable",
+                    "guard_result": False,
+                    "pins": self.ledger_pins_for(rule, access),
+                })
+                self.resolved.add(rule["id"])
+                return "inapplicable"
+            value = evaluate(declaration["value"], env, access)
+        except EvalBlocked as exc:
+            self._record_blocked(rule, access, exc.category, [str(item) for item in exc.missing])
+            return "blocked"
+
+        pins = self.pins_for(rule, access)
+        carries_derived = any(pin.get("origin") == "derived" for pin in pins)
+        schema_ver = "v3" if carries_derived else "v2"
+        body = {"symbol": symbol, "value": _value_str(value), "pins": pins}
+        finding = {
+            "schema": f"derived-finding.{schema_ver}",
+            "id": _content_id("finding:derived:", body),
+            "symbol": symbol,
+            "value": body["value"],
+            "version": schema_ver,
+            "pins": pins,
+        }
+        act = {"run_id": self.ctx.run_id, "finding": finding}
+        self.schemas.validate_declared(finding)
+        self.publications.append(Publication(act=act, finding=finding))
+        self.symbol_publisher[symbol] = rule
+        self.dispositions.append({
+            "artifact_id": rule["id"],
+            "disposition": "published",
+            "pins": self.ledger_pins_for(rule, access),
+            "finding_id": finding["id"],
+            "act_id": _content_id("act:publication:", act),
+            "symbol": symbol,
+        })
+        self.symbols[symbol] = value
+        if access.result_fact_type is not None:
+            self.symbol_result_fact_types[symbol] = access.result_fact_type
+        # A downstream ref keeps the pin an ordinary derived symbol has; it
+        # does not itself carry the derived entry pin.
+        self.symbol_pin[symbol] = (finding["id"], schema_ver, "input", "assertion")
+        self.resolved.add(rule["id"])
+        return "published"
+
     def attempt(self, rule: dict[str, Any]) -> str:
         """Fire one eligible rule, recording its outcome. Returns the outcome.
 
@@ -906,6 +1293,12 @@ class _Run:
             )
             self.resolved.add(rule["id"])
             return "blocked"
+
+        if is_v13_selection_rule(rule):
+            return self._attempt_v13_selection(rule)
+        if _never_ordinary(rule):
+            # Guard: no other shape may reach ``rule["value"]`` below.
+            return self._selection_block(rule, code=BLOCK_INVALID, missing=[SELECTION_TOP_LEVEL_INVALID])
 
         from packages.tax.nominee_consequences import (
             BOTH_PRESENT_MISSING,
@@ -2287,6 +2680,13 @@ class _Run:
         self.resolved.add(rule_id)
         return finding
 
+    def _finalize_publisher(self, rule: dict[str, Any]) -> None:
+        """Resolve one unreached publisher of a declared read, as finalize would."""
+        if isinstance(rule.get("subject"), dict):
+            self.evaluate_subject_scoped_rule(subject_type=rule["subject"]["id"], rule=rule)
+        else:
+            self.attempt(rule)
+
     def finalize_unreached(self) -> None:
         """Rules that never became eligible saturate blocked on their gap."""
         for rule in self.ctx.rules:
@@ -2326,6 +2726,30 @@ class _Run:
                 # Selection and aggregation declarations own their fallback
                 # behavior; the ordinary fallback below assumes a top-level
                 # `value`, which v9 deliberately omits for these shapes.
+                self.attempt(rule)
+                continue
+
+            if is_v13_selection_rule(rule):
+                # Part 3: the selected declaration's per-subject publishers
+                # record their results before the read, here as in the loop.
+                if _selection_contract_failure(rule) is None:
+                    for path in (rule.get("selection") or {}).get("paths") or []:
+                        kind, members = _activity_members(path.get("activity") if isinstance(path, dict) else None)
+                        if kind != "derived_activity":
+                            continue
+                        for member in members:
+                            for candidate in self.ctx.rules:
+                                if candidate.get("publishes") == member and candidate["id"] not in self.resolved:
+                                    self._finalize_publisher(candidate)
+                    plan, declaration = self._selection_plan(rule)
+                    if plan != "conflict":
+                        for publisher in self.selection_read_publishers(declaration):
+                            if publisher["id"] not in self.resolved:
+                                self._finalize_publisher(publisher)
+                self.attempt(rule)
+                continue
+
+            if _never_ordinary(rule):
                 self.attempt(rule)
                 continue
 
