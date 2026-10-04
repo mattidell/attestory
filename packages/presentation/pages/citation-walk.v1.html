@@ -309,32 +309,37 @@ function renderLine(container, section) {
     const codes = Array.isArray(resolved.activeCodes) ? resolved.activeCodes : [];
     const knownCodes = new Set(instruction.codes || []);
     const shownCodes = codes.filter((c) => knownCodes.has(c));
+    // Reasons the projector copied from declared content, one per statement
+    // it names. Rendered as text only; a malformed entry is an error.
+    const reasons = Array.isArray(resolved.reasons) ? resolved.reasons : [];
+    const items = reasons.map((reason) => {
+      if (!reason || typeof reason.sentence !== "string" || !reason.sentence) {
+        throw new SectionError("malformed-blocked-reason");
+      }
+      const label = reason.statementLabel || {};
+      const name = [label.statement, label.lender].filter((part) => typeof part === "string" && part).join(", ");
+      return el("li", null, name ? [el("strong", null, [name + ": "]), reason.sentence] : [reason.sentence]);
+    });
+    // When the line says why it is blocked, that is its explanation: the
+    // field's generic blocked sentence and the generic remedy would
+    // contradict it (a person who answered "no" is not missing anything),
+    // so neither is shown on this line. Lines without reasons keep both.
     container.appendChild(el("div", { class: "blocked-banner", role: "alert" }, [
       el("div", null, [
         el("p", { class: "line-value blocked-value" }, ["No value published — cannot compute."]),
-        el("p", null, [instruction.explain]),
+        ...(items.length ? [] : [el("p", null, [instruction.explain])]),
         el("p", null, [
           el("strong", null, ["Missing dependency code(s): "]),
           shownCodes.length ? shownCodes.join(", ") : "(unspecified)",
         ]),
       ]),
     ]));
-    // Reasons the projector copied from declared content, one per statement
-    // it names. Rendered as text only; a malformed entry is an error.
-    const reasons = Array.isArray(resolved.reasons) ? resolved.reasons : [];
-    if (reasons.length) {
-      const items = reasons.map((reason) => {
-        if (!reason || typeof reason.sentence !== "string" || !reason.sentence) {
-          throw new SectionError("malformed-blocked-reason");
-        }
-        const label = reason.statementLabel || {};
-        const name = [label.statement, label.lender].filter((part) => typeof part === "string" && part).join(", ");
-        return el("li", null, name ? [el("strong", null, [name + ": "]), reason.sentence] : [reason.sentence]);
-      });
+    if (items.length) {
       container.appendChild(el("div", { class: "blocked-reasons" }, [
         el("p", null, [el("strong", null, ["Why: "])]),
         el("ul", null, items),
       ]));
+      return;
     }
     container.appendChild(el("div", { class: "remedy-box" }, [
       el("strong", null, ["Remedy: "]),

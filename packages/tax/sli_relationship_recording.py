@@ -44,9 +44,10 @@ STATEMENT_INCLUSION_WITHDRAWN = "tax.us.2025.sli.statement-inclusion-withdrawn"
 FINANCING_UNRESOLVED = "tax.us.2025.sli.financing-unresolved"
 FINANCING_DENIED = "tax.us.2025.sli.financing-denied"
 FINANCING_WITHDRAWN = "tax.us.2025.sli.financing-withdrawn"
-# A system marker that replay supplies in a run's sources (ADR 0077 Part 5).
-# Declared in bundle v2; no recorder writes it.
+# A system marker that replay supplies in a run's sources (ADR 0077 Part 5),
+# with its one value. Declared in bundle v2; no recorder writes it.
 INCLUSION_APPLICABILITY_UNESTABLISHED = "tax.us.2025.sli.statement-inclusion-applicability-unestablished"
+INCLUSION_APPLICABILITY_UNESTABLISHED_VALUE = "sli.statement-inclusion.applicability-unestablished"
 # The person named a statement but could not tell which borrowing it covers.
 # Keyed by the statement alone; ended by a later identified inclusion answer.
 STATEMENT_INCLUSION_SCOPE_UNRESOLVED = "tax.us.2025.sli.statement-inclusion-scope-unresolved"

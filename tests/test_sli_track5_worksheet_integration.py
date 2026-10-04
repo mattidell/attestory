@@ -1,7 +1,7 @@
 """Track 5: Schedule 1 line 21 follows the per-statement support results.
 
 The 2025 Student Loan Interest Deduction Worksheet becomes an ADR 0077 Part 4
-presence selection (``tax.us.2025.rule.sli-worksheet`` v2). The yes/no path
+presence selection (``tax.us.2025.rule.sli-worksheet`` v3). The yes/no path
 keeps v1's arithmetic over the five older answers, now read per statement with
 coverage, so one statement's yes no longer lets another statement with no
 answer through (the Track 0a fail-open fix). The loan-link path is the same
@@ -951,7 +951,7 @@ class Publication(unittest.TestCase):
         added = {(_load(name)["id"], _load(name)["version"]) for name in (*TRACK5_FILES, WORKSHEET_V3)}
         self.assertEqual(after - before, added)
         self.assertEqual(before - after, {(WORKSHEET, "v1")})
-        # The committed v2, which dropped the four retained answers, is never published.
+        # v2, which dropped the four retained answers, was removed unpublished; it stays unpublished.
         self.assertNotIn((WORKSHEET, "v2"), after)
 
     def test_registry_v38_appends_only_and_the_release_pins_it(self) -> None:
