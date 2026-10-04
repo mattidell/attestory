@@ -18,18 +18,32 @@ from packages.kernel.facts import fact_id_for, facts_of
 from packages.kernel.findings import project
 from packages.tax.sli_relationship_recording import (
     BORROWING_KIND,
+    BORROWING_QUESTIONS,
     FINANCING,
     SCHOOLING,
     STATEMENT_TYPE,
     RelationshipRecordingRefused,
     answer_relationship_claim_durably,
+    correct_borrowing_answer_durably,
     correct_relationship_claim_durably,
+    record_borrowing_answer_durably,
     record_submission_durably,
+    withdraw_borrowing_answer_durably,
     withdraw_relationship_claim_durably,
 )
 
 FORMAT = "experimental.sli-relationship-review.v1"
 _ALLOWED = {"yes", "no", "cannot-tell", "unanswered"}
+
+BORROWING_ANSWER_FORMAT = "experimental.sli-borrowing-answer-review.v1"
+# The two owner-approved ordinary questions (plan, owner decision 1). The
+# person is never asked whether the loan is a qualified education loan.
+BORROWING_PROPOSITIONS = {
+    "loan-paid-only-school-costs": "This loan paid only for school costs.",
+    "enrolled-at-least-half-time": (
+        "During the schooling this loan paid for, the student was enrolled at least "
+        "half-time in a degree or certificate program."),
+}
 
 
 def _unique_current_finding(state: Any, current_ids: AbstractSet[str], fact_id: str,
@@ -59,14 +73,8 @@ def prepare_review(log: ActLog, registry: Any, *, review_id: str, shown_at: str,
                                          statement_fact_ids=statement_fact_ids)
 
 
-def _prepare_review_from_contents(contents: LogContents, registry: Any, *, review_id: str, shown_at: str,
-                                  borrowing_refs: Sequence[str], schooling_fact_ids: Sequence[str],
-                                  statement_fact_ids: Sequence[str]) -> dict[str, Any]:
-    """Prepare cards from one immutable ActLog read."""
-    if not review_id or not shown_at:
-        raise RelationshipRecordingRefused("review identity and display time are required")
-    state = project(contents.acts, registry)
-    current_ids = compute_currency(state).current_finding_ids
+def _borrowing_cards(contents: LogContents, state: Any,
+                     borrowing_refs: Sequence[str]) -> list[dict[str, Any]]:
     entities = state.fact_state.entities
     borrowing_cards: list[dict[str, Any]] = []
     for reference in borrowing_refs:
@@ -83,6 +91,19 @@ def _prepare_review_from_contents(contents: LogContents, registry: Any, *, revie
             "recognition_clues": [],
             "support": [{"act_id": origin.get("act_id")}] if origin else [],
         })
+    return borrowing_cards
+
+
+def _prepare_review_from_contents(contents: LogContents, registry: Any, *, review_id: str, shown_at: str,
+                                  borrowing_refs: Sequence[str], schooling_fact_ids: Sequence[str],
+                                  statement_fact_ids: Sequence[str]) -> dict[str, Any]:
+    """Prepare cards from one immutable ActLog read."""
+    if not review_id or not shown_at:
+        raise RelationshipRecordingRefused("review identity and display time are required")
+    state = project(contents.acts, registry)
+    current_ids = compute_currency(state).current_finding_ids
+    entities = state.fact_state.entities
+    borrowing_cards = _borrowing_cards(contents, state, borrowing_refs)
     school_cards: list[dict[str, Any]] = []
     for fact_id in schooling_fact_ids:
         finding_id, finding = _unique_current_finding(state, current_ids, fact_id, SCHOOLING)
@@ -539,3 +560,103 @@ def withdraw_review_claim(log: ActLog, registry: Any, *, finding_id: str,
     return withdraw_relationship_claim_durably(
         log, registry, finding_id=finding_id, actor=actor, at=at,
     )
+
+
+def prepare_borrowing_answer_review(log: ActLog, registry: Any, *, review_id: str, shown_at: str,
+                                    borrowing_refs: Sequence[str]) -> dict[str, Any]:
+    """Snapshot borrowing cards and the two ordinary questions for one review.
+
+    The person answers each question for one identified loan; this never
+    chooses a loan for them. Answers start ``unanswered``.
+    """
+    contents = log.read()
+    return _prepare_borrowing_answer_review_from_contents(
+        contents, registry, review_id=review_id, shown_at=shown_at, borrowing_refs=borrowing_refs)
+
+
+def _prepare_borrowing_answer_review_from_contents(contents: LogContents, registry: Any, *,
+                                                   review_id: str, shown_at: str,
+                                                   borrowing_refs: Sequence[str]) -> dict[str, Any]:
+    if not review_id or not shown_at:
+        raise RelationshipRecordingRefused("review identity and display time are required")
+    state = project(contents.acts, registry)
+    return {
+        "format": BORROWING_ANSWER_FORMAT,
+        "review_id": review_id,
+        "shown_at": shown_at,
+        "propositions": dict(BORROWING_PROPOSITIONS),
+        "borrowing_choices": _borrowing_cards(contents, state, borrowing_refs),
+        "selections": {"borrowing_ref": None},
+        "responses": {question: "unanswered" for question in BORROWING_PROPOSITIONS},
+    }
+
+
+def _revalidate_borrowing_answer_review(log: ActLog, registry: Any, review: dict[str, Any]) -> int:
+    """Refuse a saved borrowing review whose cards or questions are no longer current."""
+    if review.get("format") != BORROWING_ANSWER_FORMAT or not review.get("review_id"):
+        raise RelationshipRecordingRefused("unsupported or incomplete review object")
+    try:
+        contents = log.read()
+        refreshed = _prepare_borrowing_answer_review_from_contents(
+            contents, registry, review_id=review["review_id"], shown_at=review["shown_at"],
+            borrowing_refs=tuple(row["choice_ref"] for row in review["borrowing_choices"]),
+        )
+    except (KeyError, TypeError, RelationshipRecordingRefused) as exc:
+        raise RelationshipRecordingRefused("reviewed choice is no longer current") from exc
+    for name in ("format", "review_id", "shown_at", "propositions", "borrowing_choices",
+                 "selections", "responses"):
+        if refreshed[name] != review.get(name):
+            raise RelationshipRecordingRefused("prepared review changed; prepare a new review")
+    return contents.revision
+
+
+def _borrowing_answer_context(review: dict[str, Any], *, borrowing_ref: str, question: str,
+                              response: str) -> dict[str, Any]:
+    if question not in BORROWING_QUESTIONS:
+        raise RelationshipRecordingRefused("unknown borrowing question")
+    if not _choice_ref(review, "borrowing_choices", borrowing_ref):
+        raise RelationshipRecordingRefused("selected subject was not among the choices shown in this review")
+    _require_distinguishable_selection(review, "borrowing_choices", borrowing_ref)
+    return {"format": BORROWING_ANSWER_FORMAT, "review_id": review["review_id"],
+            "shown_at": review["shown_at"], "question": question,
+            "proposition": review["propositions"][question],
+            "choices_shown": {"borrowing_choices": copy.deepcopy(review["borrowing_choices"])},
+            "selections": {"borrowing_ref": borrowing_ref}, "response": response}
+
+
+def save_borrowing_answer_review(log: ActLog, registry: Any, review: dict[str, Any], *,
+                                 borrowing_ref: str, question: str, response: str,
+                                 actor: str, at: str, submission_id: str,
+                                 evidence_id: str) -> dict[str, Any]:
+    """Save one person's answer to one of the two ordinary questions for one loan."""
+    reviewed_revision = _revalidate_borrowing_answer_review(log, registry, review)
+    context = _borrowing_answer_context(review, borrowing_ref=borrowing_ref, question=question,
+                                        response=response)
+    result = record_borrowing_answer_durably(
+        log, registry, question=question, borrowing_ref=borrowing_ref, response=response,
+        submission_id=submission_id, evidence_id=evidence_id, actor=actor, at=at,
+        recognition_context=context, expected_revision=reviewed_revision)
+    result["review"] = copy.deepcopy(context)
+    return result
+
+
+def correct_borrowing_answer_review(log: ActLog, registry: Any, review: dict[str, Any], *,
+                                    finding_id: str, borrowing_ref: str, question: str,
+                                    response: str, actor: str, at: str, submission_id: str,
+                                    evidence_id: str) -> dict[str, Any]:
+    """Replace one loan's current answer to one question with a newly reviewed answer."""
+    reviewed_revision = _revalidate_borrowing_answer_review(log, registry, review)
+    context = _borrowing_answer_context(review, borrowing_ref=borrowing_ref, question=question,
+                                        response=response)
+    result = correct_borrowing_answer_durably(
+        log, registry, finding_id=finding_id, question=question, borrowing_ref=borrowing_ref,
+        response=response, submission_id=submission_id, evidence_id=evidence_id, actor=actor,
+        at=at, recognition_context=context, expected_revision=reviewed_revision)
+    result["review"] = copy.deepcopy(context)
+    return result
+
+
+def withdraw_borrowing_answer_review(log: ActLog, registry: Any, *, finding_id: str,
+                                     actor: str, at: str) -> dict[str, Any]:
+    """Withdraw one loan's answer; its evidence remains in history."""
+    return withdraw_borrowing_answer_durably(log, registry, finding_id=finding_id, actor=actor, at=at)

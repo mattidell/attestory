@@ -23,6 +23,48 @@ SCHOOLING = "tax.us.2025.sli.schooling-situation"
 BORROWING_KIND = "tax.us.student-loan-borrowing-reference"
 STATEMENT_TYPE = "tax.us.2025.f1098e.box1-student-loan-interest"
 
+# Relationship bundle v2: the two ordinary borrowing answers. Each is keyed by
+# the borrowing alone; a second loan for the same schooling needs its own answer.
+LOAN_COST = "tax.us.2025.sli.loan-paid-only-school-costs"
+ENROLLMENT = "tax.us.2025.sli.enrolled-at-least-half-time"
+BORROWING_QUESTIONS = {
+    "loan-paid-only-school-costs": LOAN_COST,
+    "enrolled-at-least-half-time": ENROLLMENT,
+}
+BORROWING_ANSWER_EVIDENCE_KIND = "tax.student-loan.borrowing-answer"
+_BORROWING_RESPONSES = frozenset({"yes", "no", "cannot-tell"})
+
+# Relationship bundle v2: what a person said about a link, other than yes. Each
+# outcome is a current fact of its own pair so a rule can require it; a missing
+# outcome then means genuine absence only. ``INCLUSION_UNRESOLVED`` above is
+# the sample diagnostic type, still written for workspaces without v2.
+STATEMENT_INCLUSION_UNRESOLVED = "tax.us.2025.sli.statement-inclusion-unresolved"
+STATEMENT_INCLUSION_DENIED = "tax.us.2025.sli.statement-inclusion-denied"
+STATEMENT_INCLUSION_WITHDRAWN = "tax.us.2025.sli.statement-inclusion-withdrawn"
+FINANCING_UNRESOLVED = "tax.us.2025.sli.financing-unresolved"
+FINANCING_DENIED = "tax.us.2025.sli.financing-denied"
+FINANCING_WITHDRAWN = "tax.us.2025.sli.financing-withdrawn"
+# A system marker that replay supplies in a run's sources (ADR 0077 Part 5).
+# Declared in bundle v2; no recorder writes it.
+INCLUSION_APPLICABILITY_UNESTABLISHED = "tax.us.2025.sli.statement-inclusion-applicability-unestablished"
+# The person named a statement but could not tell which borrowing it covers.
+# Keyed by the statement alone; ended by a later identified inclusion answer.
+STATEMENT_INCLUSION_SCOPE_UNRESOLVED = "tax.us.2025.sli.statement-inclusion-scope-unresolved"
+STATEMENT_INCLUSION_SCOPE_UNRESOLVED_VALUE = "sli.statement-inclusion.scope-unresolved"
+LINK_OUTCOMES: dict[str, dict[str, tuple[str, str]]] = {
+    FINANCING: {
+        "cannot-tell": (FINANCING_UNRESOLVED, "sli.financing.unresolved"),
+        "no": (FINANCING_DENIED, "sli.financing.denied"),
+        "withdrawn": (FINANCING_WITHDRAWN, "sli.financing.withdrawn"),
+    },
+    STATEMENT_INCLUSION: {
+        "cannot-tell": (STATEMENT_INCLUSION_UNRESOLVED, "sli.statement-inclusion.unresolved"),
+        "no": (STATEMENT_INCLUSION_DENIED, "sli.statement-inclusion.denied"),
+        "withdrawn": (STATEMENT_INCLUSION_WITHDRAWN, "sli.statement-inclusion.withdrawn"),
+    },
+}
+WITHDRAWAL_EVIDENCE_KIND = "tax.student-loan.relationship-withdrawal"
+
 
 class RelationshipRecordingRefused(ValueError):
     """The response cannot be bound to the exact current subjects supplied."""
@@ -299,8 +341,83 @@ def current_claim_applicability(acts: Sequence[dict[str, Any]], registry: Any) -
     return results
 
 
+def link_outcomes_adopted(state: Any) -> bool:
+    """True when this workspace adopted relationship bundle v2's link outcomes.
+
+    Workspaces that adopted only v1 record as before: no outcome facts.
+    """
+    return STATEMENT_INCLUSION_SCOPE_UNRESOLVED in state.fact_state.fact_types and all(
+        fact_type in state.fact_state.fact_types
+        for outcomes in LINK_OUTCOMES.values() for fact_type, _value in outcomes.values())
+
+
+def _link_pairs(relation_type: str, borrowing: str, source_keys: Sequence[tuple[Any, Any]]) -> tuple[tuple[str, str], ...]:
+    """Identity bindings of one link, in the relationship type's key order."""
+    source = tuple((str(key), str(value)) for key, value in source_keys)
+    if relation_type == FINANCING:
+        return (("borrowing", borrowing),) + source
+    return source + (("borrowing", borrowing),)
+
+
+def _current_link_outcomes(state: Any, current_ids: Any, relation_type: str,
+                           pairs: tuple[tuple[str, str], ...]) -> list[tuple[str, str]]:
+    """Current outcome findings of one link pair, as (finding id, fact id)."""
+    fact_ids = {fact_id_for(fact_type, pairs) for fact_type, _value in LINK_OUTCOMES[relation_type].values()}
+    return sorted((finding_id, row["fact_id"]) for finding_id, row in state.findings.items()
+                  if finding_id in current_ids and isinstance(row, dict) and row.get("fact_id") in fact_ids)
+
+
+def _stage_link_outcome(staged: list[dict[str, Any]], registry: Any, *, relation_type: str, outcome: str,
+                        pairs: tuple[tuple[str, str], ...], evidence_id: str, actor: str, at: str,
+                        claim_id: str, response_field: str, seed: str,
+                        fact_type_value: tuple[str, str] | None = None) -> dict[str, str]:
+    """Stage one outcome assertion citing ``evidence_id``, already staged."""
+    fact_type, value = fact_type_value or LINK_OUTCOMES[relation_type][outcome]
+    fact_id = fact_id_for(fact_type, pairs)
+    suffix = hashlib.sha256(f"{seed}\0{fact_type}".encode("utf-8")).hexdigest()[:24]
+    contribution_id = f"sli.relationship.outcome.contribution.{suffix}"
+    finding_id = f"sli.relationship.outcome.finding.{suffix}"
+    contribution = _act(len(staged), "contribution", {"contribution": {
+        "schema": "contribution.v1", "id": contribution_id, "evidence_id": evidence_id,
+        "content": {"mode": "manual-entry", "source": f"relationship-{outcome}",
+                    "claim_id": claim_id, "response_field": response_field},
+    }}, actor, at, suffix)
+    finding = {"schema": "finding.v2", "id": finding_id, "fact_id": fact_id, "value": value,
+               "basis": "attested", "evidence_ids": [evidence_id], "contribution_id": contribution_id}
+    assertion = _act(len(staged) + 1, "assertion", {"finding": finding}, actor, at, suffix)
+    base = project(tuple(copy.deepcopy(row) for row in staged), registry)
+    if finding_id in base.findings:
+        raise RelationshipRecordingRefused("submission identity has already been used")
+    result = apply_contribution_batch(base, contribution_act=contribution, successor_acts=[assertion],
+                                      registry=registry, record_id=f"sli.relationship.outcome.record.{suffix}")
+    if result.terminal_record["phase"] != "completed":
+        raise RelationshipRecordingRefused(f"link outcome admission refused: {result.terminal_record}")
+    staged.extend((contribution, assertion))
+    return {"fact_type": fact_type, "fact_id": fact_id, "finding_id": finding_id,
+            "value": value, "evidence_id": evidence_id}
+
+
+def _stage_retractions(staged: list[dict[str, Any]], registry: Any, finding_ids: Sequence[str], *,
+                       actor: str, at: str, seed: str) -> list[dict[str, Any]]:
+    """Stage one retraction per finding, after everything already staged."""
+    retractions: list[dict[str, Any]] = []
+    if not finding_ids:
+        return retractions
+    state = project(tuple(copy.deepcopy(row) for row in staged), registry)
+    for finding_id in finding_ids:
+        suffix = hashlib.sha256(f"{seed}\0{finding_id}".encode("utf-8")).hexdigest()[:16]
+        retraction = {"schema": "act.v1", "act_id": f"sli.relationship.end-outcome.{suffix}",
+                      "kind": "finding-retracted", "actor": actor, "at": at,
+                      "committed_against": len(staged), "payload": {"finding_id": finding_id}}
+        apply_act(state, retraction, registry)
+        staged.append(retraction)
+        retractions.append(retraction)
+    return retractions
+
+
 def _record_submission(acts: list[dict[str, Any]], submission: dict[str, Any], registry: Any, *,
-                      correction_of_finding_id: str | None = None) -> dict[str, Any]:
+                      correction_of_finding_id: str | None = None,
+                      answering_finding_id: str | None = None) -> dict[str, Any]:
     """Persist one answer and independently admit affirmative clauses.
 
     Submission fields: ``submission_id``, ``evidence_id``, ``actor``, ``at``,
@@ -360,9 +477,40 @@ def _record_submission(acts: list[dict[str, Any]], submission: dict[str, Any], r
                        submission["actor"], submission["at"], act_suffix))
 
     admitted: dict[str, dict[str, str]] = {}
+    outcomes: dict[str, dict[str, str]] = {}
+    ending: list[str] = []
+    record_outcomes = link_outcomes_adopted(state)
+    current_ids = currency.current_finding_ids
     for clause, kind in (("financing_response", "financing"),
                          ("inclusion_response", "statement-inclusion")):
-        if responses[clause] != "yes":
+        response = responses[clause]
+        relation_type = FINANCING if kind == "financing" else STATEMENT_INCLUSION
+        source_name = "schooling_fact_id" if kind == "financing" else "statement_fact_id"
+        if (record_outcomes and kind == "statement-inclusion" and response == "cannot-tell"
+                and not isinstance(references["borrowing_ref"], str)
+                and isinstance(references["statement_fact_id"], str)):
+            # The person named the statement but cannot tell which loan it
+            # covers: keep that doubt on the statement, never pick a loan.
+            doubted = lattice.get(references["statement_fact_id"])
+            if (doubted is None or doubted.fact_type_id != STATEMENT_TYPE
+                    or references["statement_fact_id"] not in active_facts):
+                raise RelationshipRecordingRefused("current 1098-E box-1 source is missing or ambiguous")
+            outcomes["statement-scope"] = _stage_link_outcome(
+                staged, registry, relation_type=STATEMENT_INCLUSION, outcome="cannot-tell",
+                pairs=tuple((str(k), str(v)) for k, v in doubted.keys), evidence_id=evidence_id,
+                actor=submission["actor"], at=submission["at"],
+                claim_id=f"{submission_id}.statement-inclusion-scope", response_field=clause,
+                seed=f"{submission_id}\0statement-scope",
+                fact_type_value=(STATEMENT_INCLUSION_SCOPE_UNRESOLVED,
+                                 STATEMENT_INCLUSION_SCOPE_UNRESOLVED_VALUE))
+            continue
+        if response in {"no", "cannot-tell"}:
+            # An identified no or cannot-tell is recorded as its own current
+            # outcome; without both references there is no pair to key.
+            if not record_outcomes or not isinstance(references["borrowing_ref"], str) or \
+                    not isinstance(references[source_name], str):
+                continue
+        elif response != "yes":
             continue
         borrowing = references["borrowing_ref"]
         if not isinstance(borrowing, str):
@@ -376,7 +524,7 @@ def _record_submission(acts: list[dict[str, Any]], submission: dict[str, Any], r
             if school is None or school.fact_type_id != SCHOOLING or school_id not in active_facts:
                 raise RelationshipRecordingRefused("schooling situation is missing, stale, or ambiguous")
             fact_type = FINANCING
-            pairs = (("borrowing", borrowing),) + tuple((str(k), str(v)) for k, v in school.keys)
+            pairs = _link_pairs(FINANCING, borrowing, school.keys)
             value = "sli.financing.affirmed"
             claim_id = f"{submission_id}.financing"
         else:
@@ -385,9 +533,31 @@ def _record_submission(acts: list[dict[str, Any]], submission: dict[str, Any], r
             if statement is None or statement.fact_type_id != STATEMENT_TYPE or statement_id not in active_facts:
                 raise RelationshipRecordingRefused("current 1098-E box-1 source is missing or ambiguous")
             fact_type = STATEMENT_INCLUSION
-            pairs = tuple((str(k), str(v)) for k, v in statement.keys) + (("borrowing", borrowing),)
+            pairs = _link_pairs(STATEMENT_INCLUSION, borrowing, statement.keys)
             value = "sli.statement-inclusion.affirmed"
             claim_id = f"{submission_id}.statement-inclusion"
+        prior_outcomes = (_current_link_outcomes(state, current_ids, relation_type, pairs)
+                          if record_outcomes else [])
+        if record_outcomes and kind == "statement-inclusion":
+            # An identified answer on this statement ends its unkeyed doubt.
+            doubt = fact_id_for(STATEMENT_INCLUSION_SCOPE_UNRESOLVED,
+                                tuple(pair for pair in pairs if pair[0] != "borrowing"))
+            ending.extend(fid for fid, row in findings.items() if row.get("fact_id") == doubt)
+        if response != "yes":
+            affirmed = [fid for fid, row in findings.items() if row.get("fact_id") == fact_id_for(fact_type, pairs)]
+            if any(fid != answering_finding_id for fid in affirmed):
+                raise RelationshipRecordingRefused(
+                    f"this {kind} link is currently affirmed; answer that affirmation instead")
+            written = _stage_link_outcome(
+                staged, registry, relation_type=relation_type, outcome=response, pairs=pairs,
+                evidence_id=evidence_id, actor=submission["actor"], at=submission["at"],
+                claim_id=f"{claim_id}-{response}", response_field=clause, seed=f"{submission_id}\0{kind}")
+            outcomes[kind] = written
+            # The same outcome again is an ordinary correction of that fact;
+            # a different earlier outcome on this pair ends after this write.
+            ending.extend(fid for fid, prior_fact in prior_outcomes if prior_fact != written["fact_id"])
+            continue
+        ending.extend(fid for fid, _prior_fact in prior_outcomes)
         fact_id = fact_id_for(fact_type, pairs)
         if fact_id in active_facts:
             raise RelationshipRecordingRefused(f"active {kind} identity already has support")
@@ -413,9 +583,17 @@ def _record_submission(acts: list[dict[str, Any]], submission: dict[str, Any], r
         staged.extend((contribution, assertion))
         admitted[kind] = {"claim_id": claim_id, "fact_id": fact_id,
                           "finding_id": finding_id, "evidence_id": evidence_id}
+    # Earlier outcomes end only after the new standing is staged, so an
+    # interrupted save leaves the pair with both, never with neither.
+    ended = _stage_retractions(staged, registry, sorted(set(ending)), actor=submission["actor"],
+                               at=submission["at"], seed=submission_id)
     acts[:] = staged
-    return {"submission_id": submission_id, "evidence_id": evidence_id,
-            "responses": responses, "claims": admitted}
+    recorded: dict[str, Any] = {"submission_id": submission_id, "evidence_id": evidence_id,
+                                "responses": responses, "claims": admitted}
+    if record_outcomes:
+        recorded["outcomes"] = outcomes
+        recorded["ended_outcome_finding_ids"] = [row["payload"]["finding_id"] for row in ended]
+    return recorded
 
 
 def record_submission(acts: list[dict[str, Any]], submission: dict[str, Any], registry: Any) -> dict[str, Any]:
@@ -499,9 +677,17 @@ def _relationship_retraction(state: Any, finding_id: str, actor: str, at: str,
 
 def withdraw_relationship_claim_durably(log: ActLog, registry: Any, *, finding_id: str,
                                          actor: str, at: str) -> dict[str, Any]:
-    """End support for one identified relationship claim and retain history."""
+    """End support for one identified relationship claim and retain history.
+
+    With relationship bundle v2 adopted, the withdrawal is also recorded as
+    the pair's current withdrawn outcome, written before the affirmation
+    ends, so an interrupted withdrawal never leaves the pair looking absent.
+    """
     before = log.read()
     state = project(before.acts, registry)
+    if link_outcomes_adopted(state):
+        return _withdraw_with_outcome_durably(log, registry, before=before, state=state,
+                                              finding_id=finding_id, actor=actor, at=at)
     suffix = hashlib.sha256(f"{finding_id}\0{at}\0withdraw".encode()).hexdigest()[:16]
     retraction = _relationship_retraction(state, finding_id, actor, at,
                                           f"sli.relationship.retract.{suffix}", before.revision,
@@ -512,14 +698,85 @@ def withdraw_relationship_claim_durably(log: ActLog, registry: Any, *, finding_i
             "state": project(recovered.acts, registry)}
 
 
+def _append_staged(log: ActLog, additions: Sequence[dict[str, Any]], revision: int, *,
+                   saved: str, unended: str) -> int:
+    """Append staged acts in order; name a save whose earlier standing did not end.
+
+    The new standing is staged before the retraction of the one it replaces.
+    If an append fails after the new standing is durable, the pair keeps
+    both: an outcome beside an affirmation, or two outcomes, which a rule
+    reads as not settled. It never keeps neither.
+    """
+    outcome_saved = False
+    for item in additions:
+        try:
+            revision = log.append(item, expected_revision=revision)
+        except ActLogError as exc:
+            if outcome_saved:
+                raise RelationshipRecordingRefused(
+                    f"the {saved} was saved, but the {unended} was not ended; "
+                    "it stays current beside that answer until a fresh review") from exc
+            raise
+        if item.get("kind") == "assertion":
+            outcome_saved = True
+    return revision
+
+
+def _withdraw_with_outcome_durably(log: ActLog, registry: Any, *, before: Any, state: Any,
+                                   finding_id: str, actor: str, at: str) -> dict[str, Any]:
+    if before.incomplete_tail is not None:
+        raise RelationshipRecordingRefused("ActLog has an incomplete tail")
+    finding = state.findings.get(finding_id)
+    if finding is None:
+        raise RelationshipRecordingRefused("relationship claim finding is missing")
+    fact = facts_of(state.fact_state, include_displaced=True).get(finding["fact_id"])
+    if fact is None or fact.fact_type_id not in {FINANCING, STATEMENT_INCLUSION}:
+        raise RelationshipRecordingRefused("named finding is not a relationship claim")
+    current_ids = compute_currency(state).current_finding_ids
+    if finding_id not in current_ids:
+        raise RelationshipRecordingRefused("named relationship claim is not current")
+    pairs = tuple((str(key), str(value)) for key, value in fact.keys)
+    suffix = hashlib.sha256(f"{finding_id}\0{at}\0withdraw".encode()).hexdigest()[:16]
+    evidence_id = f"sli.relationship.withdrawal.evidence.{suffix}"
+    if evidence_id in state.evidence:
+        raise RelationshipRecordingRefused("this withdrawal has already been recorded")
+    evidence = {"schema": "evidence.v1", "id": evidence_id, "kind": WITHDRAWAL_EVIDENCE_KIND,
+                "label": "Student loan relationship withdrawal",
+                "content": {"withdrawn_finding_id": finding_id, "relationship_type": fact.fact_type_id,
+                            "fact_id": finding["fact_id"]}}
+    staged = [copy.deepcopy(row) for row in before.acts]
+    staged.append(_act(len(staged), "evidence-submitted", {"evidence": evidence}, actor, at, suffix))
+    written = _stage_link_outcome(
+        staged, registry, relation_type=fact.fact_type_id, outcome="withdrawn", pairs=pairs,
+        evidence_id=evidence_id, actor=actor, at=at, claim_id=f"{finding_id}.withdrawn",
+        response_field="withdrawal", seed=f"{finding_id}\0{at}\0withdraw")
+    prior = [fid for fid, prior_fact in _current_link_outcomes(state, current_ids, fact.fact_type_id, pairs)
+             if prior_fact != written["fact_id"]]
+    _stage_retractions(staged, registry, prior, actor=actor, at=at, seed=f"{finding_id}\0{at}\0withdraw")
+    working = project(tuple(copy.deepcopy(row) for row in staged), registry)
+    retraction = _relationship_retraction(working, finding_id, actor, at,
+                                          f"sli.relationship.retract.{suffix}", len(staged), registry)
+    staged.append(retraction)
+    revision = _append_staged(log, staged[len(before.acts):], before.revision,
+                              saved="withdrawal", unended="earlier affirmation")
+    recovered = log.read()
+    return {"finding_id": finding_id, "retraction_act": retraction, "revision": revision,
+            "outcome": written, "state": project(recovered.acts, registry)}
+
+
 def answer_relationship_claim_durably(log: ActLog, registry: Any, *, finding_id: str,
                                       submission: dict[str, Any], actor: str, at: str,
                                       expected_revision: int | None = None) -> dict[str, Any]:
     """Apply an identified no/cannot-tell answer to an affirmative claim.
 
-    Retraction is the fail-closed transition: consumers stop seeing support
-    before the answer evidence is appended. If the second append is refused or
-    interrupted, the older affirmation remains historical but unusable.
+    Without relationship bundle v2, retraction is the fail-closed transition:
+    consumers stop seeing support before the answer evidence is appended. If
+    the second append is refused or interrupted, the older affirmation remains
+    historical but unusable.
+
+    With v2 adopted, the answer is recorded as the pair's current outcome
+    (denied or unresolved) before the affirmation ends; see
+    ``_answer_with_outcome_durably``.
     """
     before = log.read()
     if expected_revision is not None and before.revision != expected_revision:
@@ -531,6 +788,11 @@ def answer_relationship_claim_durably(log: ActLog, registry: Any, *, finding_id:
     predecessor = state.findings.get(finding_id)
     predecessor_fact = (facts_of(state.fact_state, include_displaced=True).get(predecessor["fact_id"])
                         if predecessor is not None else None)
+    if (link_outcomes_adopted(state) and predecessor_fact is not None and
+            predecessor_fact.fact_type_id in {FINANCING, STATEMENT_INCLUSION}):
+        return _answer_with_outcome_durably(
+            log, registry, before=before, state=state, current_ids=current_ids, finding_id=finding_id,
+            predecessor_fact=predecessor_fact, submission=submission, actor=actor, at=at)
     if (predecessor is not None and predecessor_fact is not None and
             predecessor_fact.fact_type_id == STATEMENT_INCLUSION and finding_id not in current_ids and
             submission.get("inclusion_response") == "no"):
@@ -598,6 +860,54 @@ def answer_relationship_claim_durably(log: ActLog, registry: Any, *, finding_id:
     recovered = log.read()
     result.update({"predecessor_finding_id": finding_id, "retraction_act": retraction,
                    "revision": recovered.revision, "state": project(recovered.acts, registry)})
+    return result
+
+
+def _answer_with_outcome_durably(log: ActLog, registry: Any, *, before: Any, state: Any,
+                                 current_ids: Any, finding_id: str, predecessor_fact: Any,
+                                 submission: dict[str, Any], actor: str, at: str) -> dict[str, Any]:
+    """Record a no or cannot-tell on one exact pair as its current outcome.
+
+    A current affirmation ends after the outcome is saved, so an interrupted
+    answer leaves both current (a blocked pair), never neither. A pair whose
+    affirmation already ended (an earlier outcome is current) records the new
+    outcome and ends the earlier one in the same ordinary save.
+    """
+    relation_type = predecessor_fact.fact_type_id
+    answer_key = "financing_response" if relation_type == FINANCING else "inclusion_response"
+    response = submission.get(answer_key)
+    if response not in {"no", "cannot-tell"}:
+        raise RelationshipRecordingRefused("answer must be no or cannot-tell for the named relationship")
+    pairs = tuple((str(key), str(value)) for key, value in predecessor_fact.keys)
+    relation_borrowing = dict(pairs).get("borrowing")
+    relation_source = fact_id_for(SCHOOLING if relation_type == FINANCING else STATEMENT_TYPE,
+                                  tuple((key, value) for key, value in pairs if key != "borrowing"))
+    submitted_source = submission.get("schooling_fact_id" if relation_type == FINANCING else "statement_fact_id")
+    if submission.get("borrowing_ref") != relation_borrowing or submitted_source != relation_source:
+        raise RelationshipRecordingRefused("answer does not identify the exact predecessor pair")
+    if not any(fid in current_ids and row.get("fact_id") == relation_source
+               for fid, row in state.findings.items()):
+        raise RelationshipRecordingRefused("answer target source is no longer current")
+    if submission.get("actor") != actor or submission.get("at") != at:
+        raise RelationshipRecordingRefused("answer provenance must match caller-supplied actor and time")
+    staged = [copy.deepcopy(row) for row in before.acts]
+    if finding_id not in current_ids:
+        if not _current_link_outcomes(state, current_ids, relation_type, pairs):
+            raise RelationshipRecordingRefused("named relationship claim is not current")
+        result = _record_submission(staged, submission, registry)
+        retraction = None
+    else:
+        result = _record_submission(staged, submission, registry, answering_finding_id=finding_id)
+        working = project(tuple(copy.deepcopy(row) for row in staged), registry)
+        suffix = hashlib.sha256(f"{finding_id}\0{at}\0answer".encode()).hexdigest()[:16]
+        retraction = _relationship_retraction(working, finding_id, actor, at,
+                                              f"sli.relationship.answer.{suffix}", len(staged), registry)
+        staged.append(retraction)
+    revision = _append_staged(log, staged[len(before.acts):], before.revision, saved="answer",
+                              unended="earlier answer" if retraction is None else "earlier affirmation")
+    recovered = log.read()
+    result.update({"predecessor_finding_id": finding_id, "retraction_act": retraction,
+                   "revision": revision, "state": project(recovered.acts, registry)})
     return result
 
 
@@ -714,6 +1024,19 @@ def correct_relationship_claim_durably(log: ActLog, registry: Any, *, finding_id
     if successor.get("actor") != actor or successor.get("at") != at:
         raise RelationshipRecordingRefused("correction provenance must match caller-supplied actor and time")
     current_ids = compute_currency(state).current_finding_ids
+    if (finding_id not in current_ids and link_outcomes_adopted(state) and _current_link_outcomes(
+            state, current_ids, predecessor_fact.fact_type_id,
+            tuple((str(key), str(value)) for key, value in predecessor_fact.keys))):
+        # The affirmation already ended with a recorded outcome. The successor
+        # yes is admitted first; the outcome it replaces ends after it.
+        staged = [copy.deepcopy(row) for row in before.acts]
+        result = _record_submission(staged, successor, registry, correction_of_finding_id=finding_id)
+        revision = _append_staged(log, staged[len(before.acts):], before.revision,
+                                  saved="corrected answer", unended="earlier answer")
+        recovered = log.read()
+        result.update({"predecessor_finding_id": finding_id, "retraction_act": None,
+                       "revision": revision, "state": project(recovered.acts, registry)})
+        return result
     if finding_id not in current_ids:
         if predecessor_fact.fact_type_id != STATEMENT_INCLUSION:
             raise RelationshipRecordingRefused("named relationship claim is not current")
@@ -758,3 +1081,151 @@ def correct_relationship_claim_durably(log: ActLog, registry: Any, *, finding_id
     result["revision"] = revision
     result["state"] = project(recovered.acts, registry)
     return result
+
+
+def _borrowing_answer_target(state: Any, question: object, borrowing_ref: object,
+                             response: object) -> tuple[str, str]:
+    """Validate one ordinary borrowing answer and return its fact type and id."""
+    fact_type = BORROWING_QUESTIONS.get(question) if isinstance(question, str) else None
+    if fact_type is None:
+        raise RelationshipRecordingRefused("unknown borrowing question")
+    if response not in _BORROWING_RESPONSES:
+        raise RelationshipRecordingRefused("a borrowing answer must be yes, no, or cannot-tell")
+    if fact_type not in state.fact_state.fact_types:
+        raise RelationshipRecordingRefused(
+            "borrowing answer vocabulary (relationship bundle v2) is not adopted in this workspace")
+    entity = state.fact_state.entities.get(borrowing_ref) if isinstance(borrowing_ref, str) else None
+    if entity is None or entity.status != "current" or entity.entity.get("kind") != BORROWING_KIND:
+        raise RelationshipRecordingRefused("borrowing reference is missing, stale, or wrong-kind")
+    return fact_type, fact_id_for(fact_type, (("borrowing", str(borrowing_ref)),))
+
+
+def _record_borrowing_answer_durably(log: ActLog, registry: Any, *, question: str, borrowing_ref: str,
+                                     response: str, submission_id: str, evidence_id: str,
+                                     actor: str, at: str, recognition_context: dict[str, Any] | None,
+                                     expected_revision: int | None,
+                                     correction_of_finding_id: str | None) -> dict[str, Any]:
+    if not all(isinstance(value, str) and value for value in (submission_id, evidence_id, actor, at)):
+        raise RelationshipRecordingRefused("submission identity and caller provenance are required")
+    before = log.read()
+    if expected_revision is not None and before.revision != expected_revision:
+        raise RelationshipRecordingRefused("reviewed ActLog revision changed before recording")
+    if before.incomplete_tail is not None:
+        raise RelationshipRecordingRefused("ActLog has an incomplete tail")
+    state, _currency, findings, _lattice = _current(before.acts, registry)
+    fact_type, fact_id = _borrowing_answer_target(state, question, borrowing_ref, response)
+    current = [finding_id for finding_id, row in findings.items() if row.get("fact_id") == fact_id]
+    if correction_of_finding_id is None and current:
+        raise RelationshipRecordingRefused(
+            "this borrowing already has a current answer to this question; correct or withdraw it")
+    if correction_of_finding_id is not None and current != [correction_of_finding_id]:
+        raise RelationshipRecordingRefused("correction does not name this borrowing's current answer")
+    if evidence_id in state.evidence:
+        raise RelationshipRecordingRefused("evidence identity has already been used")
+    if any(isinstance(lifecycle.evidence.get("content"), dict) and
+           lifecycle.evidence["content"].get("submission_id") == submission_id
+           for lifecycle in state.evidence.values()):
+        raise RelationshipRecordingRefused("submission identity has already been used")
+    evidence = {"schema": "evidence.v1", "id": evidence_id, "kind": BORROWING_ANSWER_EVIDENCE_KIND,
+                "label": "Student loan borrowing answer",
+                "content": {"submission_id": submission_id, "question": question, "response": response,
+                            "borrowing_ref": borrowing_ref,
+                            "recognition_context": copy.deepcopy(recognition_context or {}),
+                            "correction_of_finding_id": correction_of_finding_id}}
+    suffix = hashlib.sha256(f"{submission_id}\0{question}".encode("utf-8")).hexdigest()[:24]
+    contribution_id = f"sli.borrowing-answer.contribution.{suffix}"
+    finding_id = f"sli.borrowing-answer.finding.{suffix}"
+    if finding_id in state.findings:
+        raise RelationshipRecordingRefused("submission identity has already been used")
+    revision = before.revision
+    evidence_act = _act(revision, "evidence-submitted", {"evidence": evidence}, actor, at, suffix)
+    contribution = _act(revision + 1, "contribution", {"contribution": {
+        "schema": "contribution.v1", "id": contribution_id, "evidence_id": evidence_id,
+        "content": {"mode": "manual-entry", "source": "ordinary-borrowing-answer",
+                    "question": question},
+    }}, actor, at, suffix)
+    finding = {"schema": "finding.v2", "id": finding_id, "fact_id": fact_id, "value": response,
+               "basis": "attested", "evidence_ids": [evidence_id], "contribution_id": contribution_id}
+    assertion = _act(revision + 2, "assertion", {"finding": finding}, actor, at, suffix)
+    base = project(tuple(copy.deepcopy(row) for row in (*before.acts, evidence_act)), registry)
+    admission = apply_contribution_batch(base, contribution_act=contribution, successor_acts=[assertion],
+                                         registry=registry,
+                                         record_id=f"sli.borrowing-answer.record.{suffix}")
+    if admission.terminal_record["phase"] != "completed":
+        raise RelationshipRecordingRefused(f"ordinary contribution admission refused: {admission.terminal_record}")
+    committed = revision
+    for index, item in enumerate((evidence_act, contribution, assertion)):
+        try:
+            committed = log.append(item, expected_revision=committed)
+        except ActLogError as exc:
+            if index == 0 and "stale revision" in str(exc):
+                raise RelationshipRecordingRefused("reviewed ActLog revision changed before first append") from exc
+            raise
+    recovered = log.read()
+    return {"submission_id": submission_id, "question": question, "fact_type": fact_type,
+            "fact_id": fact_id, "finding_id": finding_id, "evidence_id": evidence_id,
+            "response": response, "predecessor_finding_id": correction_of_finding_id,
+            "revision": committed, "state": project(recovered.acts, registry)}
+
+
+def record_borrowing_answer_durably(log: ActLog, registry: Any, *, question: str, borrowing_ref: str,
+                                    response: str, submission_id: str, evidence_id: str,
+                                    actor: str, at: str,
+                                    recognition_context: dict[str, Any] | None = None,
+                                    expected_revision: int | None = None) -> dict[str, Any]:
+    """Record one ordinary answer about one identified borrowing.
+
+    ``question`` is ``loan-paid-only-school-costs`` or
+    ``enrolled-at-least-half-time``; ``response`` is yes, no or cannot-tell.
+    The answer is its own fact with its own evidence. A borrowing that
+    already has a current answer to the question is refused: correct or
+    withdraw that answer instead. Nothing here draws a tax conclusion.
+    """
+    return _record_borrowing_answer_durably(
+        log, registry, question=question, borrowing_ref=borrowing_ref, response=response,
+        submission_id=submission_id, evidence_id=evidence_id, actor=actor, at=at,
+        recognition_context=recognition_context, expected_revision=expected_revision,
+        correction_of_finding_id=None)
+
+
+def correct_borrowing_answer_durably(log: ActLog, registry: Any, *, finding_id: str, question: str,
+                                     borrowing_ref: str, response: str, submission_id: str,
+                                     evidence_id: str, actor: str, at: str,
+                                     recognition_context: dict[str, Any] | None = None,
+                                     expected_revision: int | None = None) -> dict[str, Any]:
+    """Replace one borrowing's current answer; the earlier answer stays in history.
+
+    The successor is a new finding of the same fact, so the kernel's ordinary
+    correction displaces the predecessor. ``finding_id`` must be that
+    borrowing's current answer to ``question``.
+    """
+    return _record_borrowing_answer_durably(
+        log, registry, question=question, borrowing_ref=borrowing_ref, response=response,
+        submission_id=submission_id, evidence_id=evidence_id, actor=actor, at=at,
+        recognition_context=recognition_context, expected_revision=expected_revision,
+        correction_of_finding_id=finding_id)
+
+
+def withdraw_borrowing_answer_durably(log: ActLog, registry: Any, *, finding_id: str,
+                                      actor: str, at: str) -> dict[str, Any]:
+    """End one current borrowing answer; it becomes a missing answer, not a no."""
+    before = log.read()
+    if before.incomplete_tail is not None:
+        raise RelationshipRecordingRefused("ActLog has an incomplete tail")
+    state = project(before.acts, registry)
+    finding = state.findings.get(finding_id)
+    fact = (facts_of(state.fact_state, include_displaced=True).get(finding["fact_id"])
+            if finding is not None else None)
+    if fact is None or fact.fact_type_id not in set(BORROWING_QUESTIONS.values()):
+        raise RelationshipRecordingRefused("named finding is not a borrowing answer")
+    if finding_id not in compute_currency(state).current_finding_ids:
+        raise RelationshipRecordingRefused("named borrowing answer is not current")
+    suffix = hashlib.sha256(f"{finding_id}\0{at}\0withdraw-answer".encode()).hexdigest()[:16]
+    retraction = {"schema": "act.v1", "act_id": f"sli.borrowing-answer.retract.{suffix}",
+                  "kind": "finding-retracted", "actor": actor, "at": at,
+                  "committed_against": before.revision, "payload": {"finding_id": finding_id}}
+    apply_act(state, retraction, registry)
+    revision = log.append(retraction, expected_revision=before.revision)
+    recovered = log.read()
+    return {"finding_id": finding_id, "retraction_act": retraction, "revision": revision,
+            "state": project(recovered.acts, registry)}
