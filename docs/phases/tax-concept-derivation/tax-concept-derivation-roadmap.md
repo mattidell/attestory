@@ -7,13 +7,13 @@ become durable, independently changeable information that calculations can
 use and explain. A bounded recording, recovery and neutral-consumer path for
 identified student-loan relationships was demonstrated in
 [Student Loan Circumstance Association](milestones/student-loan-circumstance-association.md).
-It closed as an explicit partial result. The next milestone remains
-unselected; the earlier results are evidence, not commitments to adopt every
-deferred proposal.
+It closed as an explicit partial result. Item 12a, Student Loan Deduction
+Completion, then completed the bounded deduction route (closed 2026-10-03).
+The next milestone remains unselected; the earlier results are evidence, not
+commitments to adopt every deferred proposal.
 
-Remaining work includes a production correction entry path and a bounded tax
-consumer that connects supported relationships to conclusions, amounts and any
-selected worksheet output. Mixed-period treatment and the extent of automated
+Item 12a delivered the production correction entry path and the bounded tax
+consumer for the plain case. Mixed-period treatment and the extent of automated
 specialized adjustments remain product choices. A later design may record a
 person-supplied scoped result where automation ends, preserving its provenance
 and keeping it distinct from an engine-derived determination. No such
@@ -502,6 +502,25 @@ and cannot be presented as an engine-verified conclusion. Worksheet
 integration remains separate. See the
 [capability handoff](milestones/student-loan-circumstance-association-evidence/relationship-capability-handoff.md).
 
+### 12a. Student Loan Deduction Completion — closed 2026-10-03
+
+In one plain, fully supported case, let a person's recorded loan and statement
+relationships, not tax-labelled answers, decide whether reported student-loan
+interest counts. The existing worksheet then carries the result to Schedule 1.
+Refuse partial and unresolved cases by name, and close the statement-correction
+and multi-record save gaps on that path. Mixed-period treatment and
+person-supplied values stay out. Plan:
+[Student Loan Deduction Completion](milestones/student-loan-deduction-completion.md).
+
+**Result.** In the plain, fully supported case, recorded links and two
+ordinary answers decide the deduction through package v41; corrections change
+it and restoring them returns it; blocked line 21 results name the statement
+and an actionable reason. ADR 0077 adds the shared-key count, a declared basis
+for favorable results, same-run reading of per-statement results, presence
+selection beyond line 2b, and scope-checked statement supersession. Carried
+follow-ups are in the
+[retrospective](../../milestone-retrospectives/2026-10-03-student-loan-deduction-completion.md).
+
 ### 13. Tax-Concept Question and Explanation Projection — unselected
 
 Expose the committed model as user assistance: what the source reported, which
@@ -516,8 +535,7 @@ model must continue to serve computation and return generation.
 
 ## Status
 
-**Selected work:** Student Loan Circumstance Association is closed as the
-approved partial result; no next milestone is selected. The table below
+**Selected work:** none; Student Loan Deduction Completion (item 12a) is closed. The table below
 preserves completed work and earlier candidates.
 
 | Milestone | State | Project impact |
@@ -534,6 +552,7 @@ preserves completed work and earlier candidates.
 | Student Loan Interest Deduction Translation | **CLOSED 2026-09-14 — explicit partial result, no production path** | Bounded investigation. Eligible-student status under section 221(d)(1)(C) selected on a narrow promise; product map, ten-constituent tax-boundary record, artifact and consumer map, and a decision-ready partial design delivered. Track 0 and all production tracks not started; coverage frontier unchanged. An executable probe established that no committed path can use every current Form 1098-E box-1 statement as the iteration subject, require exactly one usable association, resolve this case's heterogeneous related facts, fail closed on an unassociated statement, and preserve statement-isolated dependencies. Three named gaps: box-1-driven heterogeneous group-binding (proposed prerequisite milestone, this case as forcing consumer); an authoritative institutional-catalog input contract (separate blocker, sequenced next); an explanation carrier (production condition) |
 | Student Loan Interest Bounded Method Transfer | **CLOSED 2026-09-15 — validated method, production deferred** | The adverse-direction translation method validated in disposable evidence only: through real engine machinery over the production Form 1098-E box-1 source, with disposable candidate artifacts never adopted into the production package, an ordinary statement drives a rule-owned monetary consequence that cites its authority, preserves the document, and is consumed downstream — with the filer never supplying the legal conclusion. No production code, contract, schema or ADR; conditional production tracks never opened; coverage frontier unchanged. The favorable direction is not established as a product route. Production deferred: the statement-to-loan-and-period relationship has no committed production representation and the favorable route's three institution or public-authority determinations have no producer; multi-statement behaviour and real worksheet integration remain unbuilt. Identified Evaluation Context remains unselected — no executed case meets every conjunct of its reopening trigger |
 | Student Loan Circumstance Association | **Closed 2026-10-01 — explicit partial result** | Reviewed recording and correction of identified financing and statement-inclusion relationships; saved neutral consumer with exact support and unresolved status. A production correction entry path remains to be enforced. G2/G3 tax work, mixed-period treatment scope and worksheet integration remain open; no automated allocation or specialized adjustment is promised |
+| Student Loan Deduction Completion | **Closed 2026-10-03** | Relationship-decided deduction for the plain case through package v41, with refusals, person-visible reasons, scope-checked corrections, atomic saves and safe replay; ADR 0077 |
 | Tax-Concept Question and Explanation Projection | Not selected | Presentation, question routing, provenance, user assistance |
 
 The Document and Ordinary-Fact Translation Vertical's plan is
