@@ -266,6 +266,7 @@ class _Run:
                 "rule-artifact.v8", "rule-artifact.v9", "rule-artifact.v10",
                 "rule-artifact.v11",
                 "rule-artifact.v12",
+                "rule-artifact.v13",
             }
             for rule in ctx.rules
         ) or _uses_attachment_machinery(ctx.rules)
@@ -2561,6 +2562,7 @@ def run_and_record(
             "rule-artifact.v8", "rule-artifact.v9", "rule-artifact.v10",
             "rule-artifact.v11",
             "rule-artifact.v12",
+            "rule-artifact.v13",
         }
         for rule in ctx.rules
     ) or _uses_attachment_machinery(ctx.rules)

@@ -87,6 +87,25 @@ def _iter_link_coverage_link_types(expr: Any) -> Iterable[str]:
             yield from _iter_link_coverage_link_types(item)
 
 
+def _iter_shared_key_count_fact_types(expr: Any) -> Iterable[str]:
+    """Yield ``fact_type`` from every ``shared_key_count`` node (ADR 0077 Part 1).
+
+    The counted rows are keyed sources the per-subject dispatcher reads by
+    name. Without them in the run's sources every count would silently be
+    zero. Not a collect name: the rows are counted, never summed.
+    """
+    if isinstance(expr, dict):
+        if expr.get("op") == "shared_key_count":
+            fact_type = expr.get("fact_type")
+            if isinstance(fact_type, str) and fact_type:
+                yield fact_type
+        for value in expr.values():
+            yield from _iter_shared_key_count_fact_types(value)
+    elif isinstance(expr, list):
+        for item in expr:
+            yield from _iter_shared_key_count_fact_types(item)
+
+
 class _ResolvedRunMaterial(tuple[
     list[dict[str, Any]],
     dict[str, dict[str, Any]],
@@ -187,7 +206,7 @@ def _resolved_run_material(graph: Any) -> _ResolvedRunMaterial:
     rules = [
         member for member in members
         if member.get("schema") in {"rule-artifact.v1", "rule-artifact.v2", "rule-artifact.v3", "rule-artifact.v4", "rule-artifact.v5", "rule-artifact.v6", "rule-artifact.v7", "rule-artifact.v8", "rule-artifact.v9", "rule-artifact.v10", "rule-artifact.v11",
-                "rule-artifact.v12", "attachment-rule.v1", "attachment-rule.v2", "attachment-rule.v3", "attachment-rule.v4", "attachment-rule.v5", "attachment-rule.v6", "attachment-rule.v8", "attachment-rule.v11"}
+                "rule-artifact.v12", "rule-artifact.v13", "attachment-rule.v1", "attachment-rule.v2", "attachment-rule.v3", "attachment-rule.v4", "attachment-rule.v5", "attachment-rule.v6", "attachment-rule.v8", "attachment-rule.v11"}
     ]
     parameters, parameter_index = _parameters_by_exact_version(members)
     families = [member for member in members if member.get("schema") in {"source-family.v1", "source-family.v2"}]
@@ -256,6 +275,9 @@ def _resolved_run_material(graph: Any) -> _ResolvedRunMaterial:
         for name in _iter_link_coverage_link_types(rule.get("value")):
             if name not in collect_names and name not in emission_only:
                 emission_only.append(name)
+        for name in _iter_shared_key_count_fact_types(rule.get("value")):
+            if name not in collect_names and name not in emission_only:
+                emission_only.append(name)
     # ADR-0076 Parts 1/2 (Track 5c): a v11 rule's own ``subject`` and
     # ``joined`` fact types are keyed sources -- the per-subject dispatcher
     # (`subject_dispatch.py`) reads every subject row and every joined row
@@ -269,7 +291,7 @@ def _resolved_run_material(graph: Any) -> _ResolvedRunMaterial:
     # declared pins, structurally, the same way link_coverage's ``links``
     # is found above.
     for rule in rules:
-        if rule.get("schema") not in ("rule-artifact.v11", "rule-artifact.v12"):
+        if rule.get("schema") not in ("rule-artifact.v11", "rule-artifact.v12", "rule-artifact.v13"):
             continue
         for pin_field in ("subject", "joined"):
             pin = rule.get(pin_field)
