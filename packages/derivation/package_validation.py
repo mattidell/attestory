@@ -862,11 +862,25 @@ def _shared_key_count_issues(
 _PLAIN_CASE_SUPPORTED = "plain-case-supported"
 
 
+# Operands a comparison only tests. A literal there is compared against,
+# never published: a worksheet that checks each statement's conclusion for
+# ``plain-case-supported`` does not itself publish that result.
+_COMPARED_OPERANDS = {
+    "compare": ("left", "right"),
+    "categorical_compare": ("left", "right"),
+    "collect_categorical_all_equal": ("value",),
+}
+
+
 def _iter_string_literals(expr: Any) -> Iterable[str]:
+    """String literals an expression can yield as its result."""
     if isinstance(expr, str):
         yield expr
     elif isinstance(expr, dict):
-        for value in expr.values():
+        compared = _COMPARED_OPERANDS.get(str(expr.get("op")), ())
+        for key, value in expr.items():
+            if key in compared:
+                continue
             yield from _iter_string_literals(value)
     elif isinstance(expr, list):
         for item in expr:
@@ -905,23 +919,202 @@ def _basis_issues(resolved: list[tuple[dict[str, Any], dict[str, Any]]]) -> list
     return issues
 
 
-def _v13_selection_issues(resolved: list[tuple[dict[str, Any], dict[str, Any]]]) -> list[MemberIssue]:
-    """A v13 ``selection`` has no runtime binding yet.
+def v13_selection_declarations(citizen: Mapping[str, Any]) -> list[Mapping[str, Any]]:
+    """The paths and the default of a v13 ``selection``, in declared order."""
+    if citizen.get("schema") != "rule-artifact.v13":
+        return []
+    selection = citizen.get("selection")
+    if not isinstance(selection, Mapping):
+        return []
+    paths = selection.get("paths")
+    declarations = [path for path in paths if isinstance(path, Mapping)] if isinstance(paths, list) else []
+    default = selection.get("default")
+    if isinstance(default, Mapping):
+        declarations.append(default)
+    return declarations
 
-    ADR 0077 Parts 3 and 4 accept the fields, and v13 carries them, but the
-    same-run read and the presence plan are later tracks. Until they land,
-    a v13 selection is inspectable and inert, the same posture as a copied
-    v9 selection: package validation refuses it.
-    """
+
+def selection_activity_fact_pins(activity: Any) -> list[Mapping[str, Any]]:
+    """Every fact-type pin one activity names (ADR 0077 Part 4, "Shape")."""
+    if not isinstance(activity, Mapping):
+        return []
+    kind = activity.get("kind")
+    if kind == "source_nonempty":
+        listed = activity.get("member_fact_types")
+        if isinstance(listed, list):
+            return [pin for pin in listed if isinstance(pin, Mapping)]
+        single = activity.get("member_fact_type")
+        return [single] if isinstance(single, Mapping) else []
+    if kind == "derived_activity":
+        fact = activity.get("fact_type")
+        return [fact] if isinstance(fact, Mapping) else []
+    return []
+
+
+def subject_result_read_symbols(declaration: Mapping[str, Any]) -> list[str]:
+    """The unsuffixed symbols one path or default reads (ADR 0077 Part 3)."""
+    reads = declaration.get("reads_subject_results")
+    if not isinstance(reads, list):
+        return []
     return [
-        MemberIssue(
-            pin["id"], pin["version"], "RULE_SELECTION_UNAUTHORIZED",
-            "rule-artifact.v13 selection has no runtime binding until ADR 0077 "
-            "Parts 3 and 4 are implemented",
-        )
-        for pin, citizen in resolved
-        if citizen.get("schema") == "rule-artifact.v13" and "selection" in citizen
+        str(read["symbol"]) for read in reads
+        if isinstance(read, Mapping) and isinstance(read.get("symbol"), str)
     ]
+
+
+_COLLECT_FAMILY_OPS = frozenset({"collect", "count", "collect_categorical_all_equal"})
+
+
+def _iter_selection_dependency_names(
+    expr: Any, family_members: Mapping[str, str],
+) -> Iterable[str]:
+    """``ref`` names and collect-family names, as Part 4 counts them.
+
+    A name that is only a ``conditional_dependency_set`` member is not
+    yielded (its condition is). A ``count`` whose ``source_set`` is an
+    adopted family and whose ``name`` is that family's member is a
+    closed-family count, not a dependency.
+    """
+    if isinstance(expr, dict):
+        op = expr.get("op")
+        if op == "ref" and isinstance(expr.get("name"), str):
+            yield expr["name"]
+        if op in _COLLECT_FAMILY_OPS and isinstance(expr.get("name"), str):
+            closed_family_count = (
+                op == "count"
+                and family_members.get(str(expr.get("source_set"))) == expr["name"]
+            )
+            if not closed_family_count:
+                yield expr["name"]
+        for key, value in expr.items():
+            if op == "conditional_dependency_set" and key == "members":
+                continue
+            yield from _iter_selection_dependency_names(value, family_members)
+    elif isinstance(expr, list):
+        for item in expr:
+            yield from _iter_selection_dependency_names(item, family_members)
+
+
+def _v13_selection_issues(resolved: list[tuple[dict[str, Any], dict[str, Any]]]) -> list[MemberIssue]:
+    """ADR 0077 Part 4 "Validation" and Part 3 "Validation" for a v13 selection.
+
+    There is no list of authorized rule ids. The schema already fixes the
+    mode, the conflict, the default id, and the refusal shape; this checks
+    what the schema cannot see.
+    """
+    issues: list[MemberIssue] = []
+    publishers: dict[str, list[Mapping[str, Any]]] = {}
+    for _pin, candidate in resolved:
+        if str(candidate.get("schema", "")).startswith("rule-artifact.") and isinstance(candidate.get("publishes"), str):
+            publishers.setdefault(candidate["publishes"], []).append(candidate)
+    fact_surface = {
+        (str(c.get("id")), str(c.get("version")))
+        for _p, c in resolved if c.get("schema") == "fact-type.v2"
+    }
+    fact_surface.update(
+        (str(f.get("id")), str(f.get("version")))
+        for _p, c in resolved if c.get("schema") in ("bundle.v1", "bundle.v2")
+        for f in c.get("fact_types", []) if isinstance(f, Mapping)
+    )
+    families = {
+        (str(c.get("id")), str(c.get("version"))): c
+        for _p, c in resolved if c.get("schema") in ("source-family.v1", "source-family.v2")
+    }
+    family_members = {
+        family_id: str(family.get("member_predicate", {}).get("fact_type"))
+        for (family_id, _version), family in families.items()
+        if isinstance(family.get("member_predicate"), Mapping)
+    }
+
+    for pin, citizen in resolved:
+        if citizen.get("schema") != "rule-artifact.v13" or "selection" not in citizen:
+            continue
+
+        def issue(code: str, detail: str) -> None:
+            issues.append(MemberIssue(pin["id"], pin["version"], code, detail))
+
+        selection = citizen.get("selection")
+        if not isinstance(selection, Mapping):
+            issue("RULE_SELECTION_SHAPE_INVALID", "selection must be an object")
+            continue
+        if citizen.get("subject") is not None:
+            issue("RULE_SELECTION_SUBJECT_INVALID",
+                  "a selection rule is return-level; it may not declare subject")
+        if citizen.get("when") is not True or citizen.get("requires") != [] or citizen.get("pins") != []:
+            issue("RULE_DECLARATIVE_TOP_LEVEL_INVALID",
+                  "a v13 selection keeps top-level when=true, requires=[] and pins=[]")
+        raw_paths = selection.get("paths")
+        paths = [path for path in raw_paths if isinstance(path, Mapping)] if isinstance(raw_paths, list) else []
+        path_ids = [path.get("id") for path in paths]
+        default = selection.get("default")
+        default_id = default.get("id") if isinstance(default, Mapping) else None
+        if len(path_ids) != len(set(path_ids)) or default_id != "neither" or default_id in path_ids:
+            issue("RULE_SELECTION_PATH_IDS_NOT_UNIQUE",
+                  "path ids must be unique, and the default id neither is not also a path id")
+
+        for declaration in v13_selection_declarations(citizen):
+            label = str(declaration.get("id"))
+            if declaration is not default:
+                activity = declaration.get("activity")
+                fact_pins = selection_activity_fact_pins(activity)
+                if not fact_pins or any(
+                    (fact.get("id"), fact.get("version")) not in fact_surface for fact in fact_pins
+                ):
+                    issue("RULE_SELECTION_ACTIVITY_SURFACE_INVALID",
+                          f"path {label!r} activity fact types must resolve on the package fact surface")
+                family_pin = activity.get("source_family") if isinstance(activity, Mapping) else None
+                if family_pin is not None and (
+                    not isinstance(family_pin, Mapping)
+                    or (family_pin.get("id"), family_pin.get("version")) not in families
+                ):
+                    issue("RULE_SELECTION_ACTIVITY_SURFACE_INVALID",
+                          f"path {label!r} activity source_family must resolve to a package family")
+
+            reads = declaration.get("reads_subject_results")
+            for read in reads if isinstance(reads, list) else []:
+                symbol = read.get("symbol") if isinstance(read, Mapping) else None
+                subject = read.get("subject") if isinstance(read, Mapping) else None
+                subject_key = _exact_pin_key(subject)
+                if subject_key is None or subject_key not in fact_surface:
+                    issue("RULE_SUBJECT_RESULTS_INVALID",
+                          f"{label!r} reads {symbol!r} for a subject that does not resolve on the fact surface")
+                    continue
+                if not any(
+                    _exact_pin_key(candidate.get("subject")) == subject_key
+                    for candidate in publishers.get(str(symbol), [])
+                ):
+                    issue("RULE_SUBJECT_RESULTS_INVALID",
+                          f"{label!r} reads {symbol!r}, which no package rule publishes for subject {subject_key!r}")
+
+            declared = set(subject_result_read_symbols(declaration))
+            expected: list[str] = []
+            for expression in (declaration.get("when"), declaration.get("value")):
+                for name in _iter_selection_dependency_names(expression, family_members):
+                    if name not in declared and name not in expected:
+                        expected.append(name)
+            requires = declaration.get("requires")
+            requires = list(requires) if isinstance(requires, list) else []
+            if set(requires) != set(expected):
+                issue("RULE_SELECTION_DEPENDENCIES_INVALID",
+                      f"{label!r} requires must be its refs and undeclared collect-family names; "
+                      f"expected {sorted(expected)!r}")
+
+            pins = declaration.get("pins")
+            pins_valid = isinstance(pins, list) and len(pins) == len(requires)
+            if pins_valid:
+                assert isinstance(pins, list)
+                for name, path_pin in zip(requires, pins):
+                    if not isinstance(path_pin, Mapping) or path_pin.get("id") != name or path_pin.get("version") != "v1":
+                        pins_valid = False
+                    elif path_pin.get("role") == "choice":
+                        pins_valid = pins_valid and "origin" not in path_pin
+                    elif path_pin.get("role") != "input" or path_pin.get("origin") != "assertion":
+                        pins_valid = False
+            if not pins_valid:
+                issue("RULE_SELECTION_PINS_INVALID",
+                      f"{label!r} pins must be one per requires entry, same ids, same order: "
+                      "choice v1 without origin, otherwise input v1 assertion")
+    return issues
 
 
 def _reader_role_issues(
@@ -2825,6 +3018,28 @@ def validate_package(
                                 and (source_id, source_version) in resolved_by_key
                             ):
                                 adj[m_id].add(source_id)
+                # ADR 0077 Parts 3 and 4: a v13 selection reaches the
+                # publishers of its declared reads and the facts and family
+                # its activity names. authorization_closure adds the same edges.
+                for declaration in v13_selection_declarations(citizen):
+                    for symbol in subject_result_read_symbols(declaration):
+                        adj[m_id].update(produced.get(symbol, []))
+                    activity = declaration.get("activity")
+                    if not isinstance(activity, Mapping):
+                        continue
+                    family_pin = activity.get("source_family")
+                    if isinstance(family_pin, Mapping):
+                        family_key = _corpus_key(str(family_pin.get("id", "")), str(family_pin.get("version", "")))
+                        if family_key in resolved_by_key:
+                            adj[m_id].add(family_key[0])
+                    for fact_pin in selection_activity_fact_pins(activity):
+                        fact_id, fact_version = fact_pin.get("id"), fact_pin.get("version")
+                        if not isinstance(fact_id, str) or not isinstance(fact_version, str):
+                            continue
+                        if (fact_id, fact_version) in resolved_by_key:
+                            adj[m_id].add(fact_id)
+                        else:
+                            adj[m_id].update(bundles_for_fact.get(fact_id, set()))
             elif citizen["schema"] in {"form-field.v1", "form-field.v2", "form-field.v3"}:
                 symbol = citizen["binds_symbol"]
                 for p_id in produced.get(symbol, []):
