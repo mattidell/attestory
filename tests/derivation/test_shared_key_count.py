@@ -32,6 +32,7 @@ from packages.derivation.reference_runner import run_reference
 from packages.derivation.runner import RunContext, run
 from packages.kernel.currency import CurrencyView
 from packages.kernel.facts import KernelState
+from tests.support import applicability_without_history
 
 SCOPE = {"tax_year": 2025, "jurisdiction": "us", "family": "demo-student-loan"}
 ADOPTION_PIN = {"role": "adoption", "id": "demo.package.shared-key-count", "version": "v1"}
@@ -230,10 +231,13 @@ class _HorizonState:
 
 
 class _State:
-    def __init__(self, findings: dict[str, dict[str, Any]], lattice: dict[str, dict[str, Any]]) -> None:
+    def __init__(self, findings: dict[str, dict[str, Any]], lattice: dict[str, dict[str, Any]],
+                 rows: list[dict[str, Any]]) -> None:
         self.findings = findings
         self.horizon_state = _HorizonState()
         self.fact_state = KernelState(fact_types=lattice)
+        # The claim-applicability reading this world gives (it has no acts).
+        self.claim_applicability = applicability_without_history(rows, inclusion_type=INCL, statement_type=BOX1)
 
 
 def row(fid: str, type_id: str, keys: tuple[tuple[str, str], ...], value: str, *,
@@ -272,7 +276,7 @@ def world(rows: list[dict[str, Any]]) -> tuple[_State, list[str]]:
         }
         for type_id, order in names.items()
     }
-    return _State(findings, lattice), [item["id"] for item in rows if item["current"]]
+    return _State(findings, lattice, rows), [item["id"] for item in rows if item["current"]]
 
 
 class _Graph:
@@ -307,6 +311,7 @@ def marshal(parts: list[tuple[dict[str, Any], str]], state: Any, current: list[s
         input_bindings=bindings,
         collect_source_names=collect_names,
         emission_only_source_names=list(material.emission_only_names),
+        claim_applicability=state.claim_applicability,
     )
 
 
@@ -689,6 +694,7 @@ class V12Unchanged(unittest.TestCase):
                 governance_pins=GOVERNANCE_PINS, family_declarations=families, closure_mappings=mappings,
                 fact_types=fact_types, input_bindings=bindings, collect_source_names=collect_names,
                 emission_only_source_names=list(material.emission_only_names),
+                claim_applicability=state.claim_applicability,
             )
             forward, reference = both_runners(ctx)
             for result in (forward, reference):
@@ -705,6 +711,7 @@ class SharedKeyCountFromSavedLog(unittest.TestCase):
         from packages.kernel.findings import project
         from packages.tax.sli_relationship_recording import (
             SCHOOLING,
+            current_claim_applicability,
             record_submission_durably,
             withdraw_relationship_claim_durably,
         )
@@ -744,7 +751,8 @@ class SharedKeyCountFromSavedLog(unittest.TestCase):
 
             def recovered_count() -> tuple[list[Any], list[Any]]:
                 fresh = ActLog(log.path.parent, registry)
-                state = project(fresh.read().acts, registry)
+                acts = fresh.read().acts
+                state = project(acts, registry)
                 currency = compute_currency(state)
                 parts = [p for p in chain_parts() if p[0]["id"] in {
                     BOX1, INCL, FIN, COUNT_RULE}]
@@ -758,6 +766,7 @@ class SharedKeyCountFromSavedLog(unittest.TestCase):
                     family_declarations=families, closure_mappings=mappings, fact_types=fact_types,
                     input_bindings=bindings, collect_source_names=collect_names,
                     emission_only_source_names=list(material.emission_only_names),
+                    claim_applicability=current_claim_applicability(acts, registry),
                 )
                 forward, reference = both_runners(ctx)
                 inclusion_fact = state.findings[inclusion_id]["fact_id"]

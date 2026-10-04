@@ -17,7 +17,7 @@ from typing import TYPE_CHECKING, Any, Iterable, Mapping, Sequence
 
 from packages.derivation.authorization import authorization_provenance
 from packages.derivation.loader import DerivationSchemas, load_canon
-from packages.derivation.marshal import marshal_live_run_context
+from packages.derivation.marshal import ClaimApplicabilityMissing, marshal_live_run_context
 from packages.derivation.package_validation import (
     selection_activity_fact_pins,
     subject_result_read_symbols,
@@ -377,6 +377,31 @@ def _resolved_run_material(graph: Any) -> _ResolvedRunMaterial:
     )
 
 
+def _statement_inclusion_applicability(
+    acts: Sequence[Mapping[str, Any]],
+    registry: Any,
+    state: FindingState,
+    currency: CurrencyView,
+) -> list[dict[str, str]]:
+    """The applicability reading the ADR 0077 Part 5 replay rule consults.
+
+    ``current_claim_applicability`` over the same acts and registry the run's
+    state was projected from. It re-projects the log, so it runs only when a
+    current statement inclusion exists; otherwise there is nothing to omit
+    and the empty reading marshals the same as today.
+    """
+    from packages.tax.sli_relationship_recording import STATEMENT_INCLUSION, current_claim_applicability
+
+    prefix = f"{STATEMENT_INCLUSION}|"
+    if not any(
+        isinstance(row, dict) and str(row.get("fact_id", "")).startswith(prefix)
+        for finding_id, row in state.findings.items()
+        if finding_id in currency.current_finding_ids
+    ):
+        return []
+    return current_claim_applicability(tuple(dict(act) for act in acts), registry)
+
+
 def live_coordinate_run(
     capability: WorkspaceCapability,
     *,
@@ -451,6 +476,8 @@ def live_coordinate_run(
     reporting_year = int(reporting_year_str) if reporting_year_str else None
     context = marshal_live_run_context(
         run_id=run_id, state=state, currency=currency, rules=rules, parameters=parameters,
+        claim_applicability=_statement_inclusion_applicability(
+            authoritative_acts, schemas.registry, state, currency),
         canon=load_canon(schemas),
         adoption_pin={"role": "adoption", "id": resolved.package["id"], "version": resolved.package["version"]},
         governance_pins=[dict(pin) for pin in governance_pins],
@@ -643,26 +670,33 @@ def live_run(
     any raw-value channel. A caller cannot hand-assemble ghost findings into
     this entrypoint — the only path to evaluator input is
     :func:`marshal_run_context`.
+
+    It receives no acts, so it cannot read statement-inclusion applicability
+    (ADR 0077 Part 5). A state holding a current statement inclusion is
+    refused with ``LiveRunError``; ``live_coordinate_run`` is its route.
     """
     validate_run_request(request, schemas)
-    ctx = marshal_live_run_context(
-        run_id=run_id,
-        state=state,
-        currency=currency,
-        rules=list(rules),
-        parameters=dict(parameters),
-        canon=dict(canon),
-        adoption_pin=dict(adoption_pin),
-        governance_pins=[dict(p) for p in governance_pins],
-        family_declarations=list(family_declarations or ()),
-        closure_mappings=list(closure_mappings or ()),
-        fact_types=list(fact_types or ()),
-        input_bindings=[dict(b) for b in (input_bindings or ())],
-        collect_source_names=list(collect_source_names or ()),
-        emission_only_source_names=list(emission_only_source_names or ()),
-        companion_presence_pairs=dict(companion_presence_pairs or {}),
-        parameter_index=parameter_index,
-    )
+    try:
+        ctx = marshal_live_run_context(
+            run_id=run_id,
+            state=state,
+            currency=currency,
+            rules=list(rules),
+            parameters=dict(parameters),
+            canon=dict(canon),
+            adoption_pin=dict(adoption_pin),
+            governance_pins=[dict(p) for p in governance_pins],
+            family_declarations=list(family_declarations or ()),
+            closure_mappings=list(closure_mappings or ()),
+            fact_types=list(fact_types or ()),
+            input_bindings=[dict(b) for b in (input_bindings or ())],
+            collect_source_names=list(collect_source_names or ()),
+            emission_only_source_names=list(emission_only_source_names or ()),
+            companion_presence_pairs=dict(companion_presence_pairs or {}),
+            parameter_index=parameter_index,
+        )
+    except ClaimApplicabilityMissing as exc:
+        raise LiveRunError(f"live_run cannot read statement-inclusion applicability: {exc}") from exc
     return execute_marshaled(ctx, schemas)
 
 

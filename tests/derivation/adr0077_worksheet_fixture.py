@@ -46,6 +46,7 @@ from packages.derivation.reference_runner import run_reference
 from packages.derivation.runner import RunContext, RunResult, run
 from packages.kernel.currency import CurrencyView
 from packages.kernel.facts import KernelState
+from tests.support import applicability_without_history
 
 ROOT = Path(__file__).resolve().parents[2]
 CONTENT = ROOT / "packages" / "content" / "tax" / "2025"
@@ -559,6 +560,7 @@ def marshal(citizens: list[tuple[dict[str, Any], str]], rows: list[dict[str, Any
         collect_source_names=collect_names,
         emission_only_source_names=list(material.emission_only_names),
         parameter_index=material.parameter_index,
+        claim_applicability=applicability_without_history(rows, inclusion_type=INCL, statement_type=BOX1),
     )
 
 

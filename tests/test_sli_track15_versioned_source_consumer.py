@@ -100,6 +100,7 @@ def _run_both(acts: tuple[dict[str, Any], ...], run_id: str) -> tuple[Any, Any, 
         emission_only_source_names=list(material.emission_only_names),
         authorization=authorization, reporting_year=2025,
         parameter_index=material.parameter_index,
+        claim_applicability=current_claim_applicability(acts, schemas.registry),
     )
     return resolved, run(context._context, schemas), run_reference(context._context, schemas)
 
