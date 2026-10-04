@@ -500,6 +500,8 @@ class InclusionSupport(unittest.TestCase):
                     ws.plain()
                     ws.link("financing", "autumn", "spring")
                     ws.outcome("financing", "autumn", "spring", outcome)
+                    # Each schooling change ended the enrollment answer; it is given again.
+                    ws.answer("enroll", "autumn", "yes")
                     self.assertEqual(self._reason(ws, self._run(ws, f"fin-{outcome}")), expected)
 
     def test_the_only_financing_cannot_tell_or_withdrawn_still_publishes_a_reason(self) -> None:
@@ -637,6 +639,8 @@ class StatementSupport(unittest.TestCase):
                             before = self._statement(ws, self._run(ws, f"mixed-{kind}-{outcome}-before"))
                             self.assertEqual(before, ("not-supported", "more-than-one-schooling"))
                             ws.outcome("financing", "autumn", "spring", outcome)
+                            # Each schooling change ended the enrollment answer; it is given again.
+                            ws.answer("enroll", "autumn", "yes")
                         else:
                             ws.link("statement-inclusion", "spring", "cedar")
                             before = self._statement(ws, self._run(ws, f"mixed-{kind}-{outcome}-before"))

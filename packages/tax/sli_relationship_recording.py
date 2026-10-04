@@ -13,7 +13,7 @@ from packages.kernel.contribution import apply_contribution_batch
 from packages.kernel.currency import compute_currency
 from packages.kernel.facts import fact_id_for, facts_of
 from packages.kernel.findings import apply_act, project
-from packages.kernel.act_log import ActLog, ActLogError
+from packages.kernel.act_log import ActLog, ActLogError, LogContents
 
 
 FINANCING = "tax.us.2025.sli.financing-relationship"
@@ -68,6 +68,102 @@ WITHDRAWAL_EVIDENCE_KIND = "tax.student-loan.relationship-withdrawal"
 
 class RelationshipRecordingRefused(ValueError):
     """The response cannot be bound to the exact current subjects supplied."""
+
+
+def _commit_save(log: ActLog, before: LogContents, staged: list[dict[str, Any]], registry: Any, *,
+                 reviewed: bool = False) -> int:
+    """Write one save's staged acts with one ``append_batch``: all, or none.
+
+    Track 7: a save that writes several records leaves either the state
+    before it or the whole save, never a part. ``staged`` is the log as read
+    in ``before`` followed by the save's acts. ``reviewed`` names a save bound
+    to a prepared review, whose log must not have moved since.
+
+    Every save that changes a borrowing's schooling links also ends that
+    borrowing's enrollment answer, in this same batch; see
+    ``_stage_enrollment_follows_schooling``.
+    """
+    if len(staged) == len(before.acts):
+        return before.revision
+    _stage_enrollment_follows_schooling(before.acts, staged, registry)
+    additions = list(staged[len(before.acts):])
+    try:
+        return log.append_batch(additions, expected_revision=before.revision)
+    except ActLogError as exc:
+        if reviewed and "stale revision" in str(exc):
+            raise RelationshipRecordingRefused("reviewed ActLog revision changed before first append") from exc
+        raise
+
+
+def _schooling_links(state: Any, current_ids: Any) -> dict[str, frozenset[str]]:
+    """Each borrowing's current affirmed financing facts in ``state``."""
+    lattice = facts_of(state.fact_state, include_displaced=True)
+    links: dict[str, set[str]] = {}
+    for finding_id, row in state.findings.items():
+        if finding_id not in current_ids or not isinstance(row, dict):
+            continue
+        fact = lattice.get(row.get("fact_id", ""))
+        if fact is None or fact.fact_type_id != FINANCING:
+            continue
+        borrowing = dict(fact.keys).get("borrowing")
+        if isinstance(borrowing, str):
+            links.setdefault(borrowing, set()).add(row["fact_id"])
+    return {borrowing: frozenset(fact_ids) for borrowing, fact_ids in links.items()}
+
+
+def _stage_enrollment_follows_schooling(before: Sequence[dict[str, Any]], staged: list[dict[str, Any]],
+                                        registry: Any) -> list[str]:
+    """End the enrollment answer of each borrowing whose schooling links this save changes.
+
+    The enrollment answer is said "for the named period, institution, and
+    programme" (ADR 0077 Part 2): the schooling this loan paid for. When a save
+    affirms, ends, corrects or withdraws a financing link so that a borrowing's
+    set of current schooling links differs from the set before the save, the
+    old answer no longer names the schooling the loan now pays for. Its
+    retraction is staged after the save's own acts, so it is written in the
+    same batch: an interrupted save leaves neither. The answer then reads as
+    missing, never as no, and the person is asked again. The loan-cost answer
+    is about the loan, not the schooling, and is left as it is. A correction
+    to the same schooling leaves the set unchanged and the answer current.
+    """
+    # One fold: the log before the save, then the save's own acts on top.
+    state = project(tuple(copy.deepcopy(row) for row in before), registry)
+    if ENROLLMENT not in state.fact_state.fact_types:
+        return []
+    current_before = compute_currency(state).current_finding_ids
+    lattice = facts_of(state.fact_state, include_displaced=True)
+    # Only an answer current before this save can name an earlier schooling.
+    answers = {finding_id: row["fact_id"] for finding_id, row in state.findings.items()
+               if finding_id in current_before and isinstance(row, dict)
+               and getattr(lattice.get(row.get("fact_id", "")), "fact_type_id", None) == ENROLLMENT}
+    if not answers:
+        return []
+    links_before = _schooling_links(state, current_before)
+    for row in staged[len(before):]:
+        state = apply_act(state, copy.deepcopy(row), registry)
+    current_after = compute_currency(state).current_finding_ids
+    links_after = _schooling_links(state, current_after)
+    changed = {fact_id_for(ENROLLMENT, (("borrowing", borrowing),))
+               for borrowing in set(links_before) | set(links_after)
+               if links_before.get(borrowing, frozenset()) != links_after.get(borrowing, frozenset())}
+    ending = sorted(finding_id for finding_id, fact_id in answers.items()
+                    if fact_id in changed and finding_id in current_after)
+    if not ending:
+        return []
+    last = staged[-1]
+    _stage_retractions(staged, registry, ending, actor=str(last["actor"]), at=str(last["at"]),
+                       seed=f"{last['act_id']}\0enrollment-follows-schooling", state=state)
+    return ending
+
+
+def _read_for_save(log: ActLog, expected_revision: int | None) -> LogContents:
+    """Read the log a save stages from; refuse a moved review or a torn tail."""
+    before = log.read()
+    if expected_revision is not None and before.revision != expected_revision:
+        raise RelationshipRecordingRefused("reviewed ActLog revision changed before recording")
+    if before.incomplete_tail is not None:
+        raise RelationshipRecordingRefused("ActLog has an incomplete tail")
+    return before
 
 
 def _act(index: int, kind: str, payload: dict[str, Any], actor: str, at: str,
@@ -398,12 +494,16 @@ def _stage_link_outcome(staged: list[dict[str, Any]], registry: Any, *, relation
 
 
 def _stage_retractions(staged: list[dict[str, Any]], registry: Any, finding_ids: Sequence[str], *,
-                       actor: str, at: str, seed: str) -> list[dict[str, Any]]:
-    """Stage one retraction per finding, after everything already staged."""
+                       actor: str, at: str, seed: str, state: Any = None) -> list[dict[str, Any]]:
+    """Stage one retraction per finding, after everything already staged.
+
+    ``state``, when given, is the projection of ``staged``; it is advanced.
+    """
     retractions: list[dict[str, Any]] = []
     if not finding_ids:
         return retractions
-    state = project(tuple(copy.deepcopy(row) for row in staged), registry)
+    if state is None:
+        state = project(tuple(copy.deepcopy(row) for row in staged), registry)
     for finding_id in finding_ids:
         suffix = hashlib.sha256(f"{seed}\0{finding_id}".encode("utf-8")).hexdigest()[:16]
         retraction = {"schema": "act.v1", "act_id": f"sli.relationship.end-outcome.{suffix}",
@@ -632,27 +732,14 @@ def record_submission_durably(log: ActLog, submission: dict[str, Any], registry:
                              expected_revision: int | None = None) -> dict[str, Any]:
     """Admit one submission, append its acts, and return a fresh projection.
 
-    All semantic validation and contribution admission finish before the first
-    append. The log remains the authority; the returned state is reprojected
-    from a fresh read after the append sequence.
+    All semantic validation and contribution admission finish before anything
+    is written, and the save's acts are written as one batch. The log remains
+    the authority; the returned state is reprojected from a fresh read.
     """
-    before = log.read()
-    if expected_revision is not None and before.revision != expected_revision:
-        raise RelationshipRecordingRefused("reviewed ActLog revision changed before recording")
-    if before.incomplete_tail is not None:
-        raise RelationshipRecordingRefused("ActLog has an incomplete tail")
+    before = _read_for_save(log, expected_revision)
     staged = [copy.deepcopy(row) for row in before.acts]
     result = record_submission(staged, submission, registry)
-    additions = staged[len(before.acts):]
-    revision = before.revision
-    for index, item in enumerate(additions):
-        append_revision = expected_revision if index == 0 and expected_revision is not None else revision
-        try:
-            revision = log.append(item, expected_revision=append_revision)
-        except ActLogError as exc:
-            if expected_revision is not None and index == 0 and "stale revision" in str(exc):
-                raise RelationshipRecordingRefused("reviewed ActLog revision changed before first append") from exc
-            raise
+    revision = _commit_save(log, before, staged, registry, reviewed=expected_revision is not None)
     recovered = log.read()
     state = project(recovered.acts, registry)
     result["revision"] = revision
@@ -680,8 +767,9 @@ def withdraw_relationship_claim_durably(log: ActLog, registry: Any, *, finding_i
     """End support for one identified relationship claim and retain history.
 
     With relationship bundle v2 adopted, the withdrawal is also recorded as
-    the pair's current withdrawn outcome, written before the affirmation
-    ends, so an interrupted withdrawal never leaves the pair looking absent.
+    the pair's current withdrawn outcome, in the same save that ends the
+    affirmation. The save is written as one batch, so an interruption leaves
+    either the affirmation or the withdrawal, never part of both.
     """
     before = log.read()
     state = project(before.acts, registry)
@@ -692,34 +780,10 @@ def withdraw_relationship_claim_durably(log: ActLog, registry: Any, *, finding_i
     retraction = _relationship_retraction(state, finding_id, actor, at,
                                           f"sli.relationship.retract.{suffix}", before.revision,
                                           registry)
-    revision = log.append(retraction, expected_revision=before.revision)
+    revision = _commit_save(log, before, [*before.acts, retraction], registry)
     recovered = log.read()
     return {"finding_id": finding_id, "retraction_act": retraction, "revision": revision,
             "state": project(recovered.acts, registry)}
-
-
-def _append_staged(log: ActLog, additions: Sequence[dict[str, Any]], revision: int, *,
-                   saved: str, unended: str) -> int:
-    """Append staged acts in order; name a save whose earlier standing did not end.
-
-    The new standing is staged before the retraction of the one it replaces.
-    If an append fails after the new standing is durable, the pair keeps
-    both: an outcome beside an affirmation, or two outcomes, which a rule
-    reads as not settled. It never keeps neither.
-    """
-    outcome_saved = False
-    for item in additions:
-        try:
-            revision = log.append(item, expected_revision=revision)
-        except ActLogError as exc:
-            if outcome_saved:
-                raise RelationshipRecordingRefused(
-                    f"the {saved} was saved, but the {unended} was not ended; "
-                    "it stays current beside that answer until a fresh review") from exc
-            raise
-        if item.get("kind") == "assertion":
-            outcome_saved = True
-    return revision
 
 
 def _withdraw_with_outcome_durably(log: ActLog, registry: Any, *, before: Any, state: Any,
@@ -757,8 +821,8 @@ def _withdraw_with_outcome_durably(log: ActLog, registry: Any, *, before: Any, s
     retraction = _relationship_retraction(working, finding_id, actor, at,
                                           f"sli.relationship.retract.{suffix}", len(staged), registry)
     staged.append(retraction)
-    revision = _append_staged(log, staged[len(before.acts):], before.revision,
-                              saved="withdrawal", unended="earlier affirmation")
+    # One batch: the withdrawn outcome and the end of the affirmation together.
+    revision = _commit_save(log, before, staged, registry)
     recovered = log.read()
     return {"finding_id": finding_id, "retraction_act": retraction, "revision": revision,
             "outcome": written, "state": project(recovered.acts, registry)}
@@ -769,20 +833,25 @@ def answer_relationship_claim_durably(log: ActLog, registry: Any, *, finding_id:
                                       expected_revision: int | None = None) -> dict[str, Any]:
     """Apply an identified no/cannot-tell answer to an affirmative claim.
 
-    Without relationship bundle v2, retraction is the fail-closed transition:
-    consumers stop seeing support before the answer evidence is appended. If
-    the second append is refused or interrupted, the older affirmation remains
-    historical but unusable.
-
+    Without relationship bundle v2, the affirmation ends and the answer
+    evidence is saved; cannot-tell also admits the sample unresolved status.
     With v2 adopted, the answer is recorded as the pair's current outcome
-    (denied or unresolved) before the affirmation ends; see
-    ``_answer_with_outcome_durably``.
+    (denied or unresolved) and the affirmation ends; see
+    ``_stage_answer_with_outcome``. Either way the save is one batch: an
+    interruption leaves the affirmation as it was, or the whole answer.
     """
-    before = log.read()
-    if expected_revision is not None and before.revision != expected_revision:
-        raise RelationshipRecordingRefused("reviewed ActLog revision changed before recording")
-    if before.incomplete_tail is not None:
-        raise RelationshipRecordingRefused("ActLog has an incomplete tail")
+    before = _read_for_save(log, expected_revision)
+    result, staged = _stage_answer(before, registry, finding_id=finding_id, submission=submission,
+                                   actor=actor, at=at)
+    revision = _commit_save(log, before, staged, registry, reviewed=expected_revision is not None)
+    recovered = log.read()
+    result.update({"revision": revision, "state": project(recovered.acts, registry)})
+    return result
+
+
+def _stage_answer(before: LogContents, registry: Any, *, finding_id: str, submission: dict[str, Any],
+                  actor: str, at: str) -> tuple[dict[str, Any], list[dict[str, Any]]]:
+    """Stage an identified no/cannot-tell answer; return its result and the staged log."""
     state = project(before.acts, registry)
     current_ids = compute_currency(state).current_finding_ids
     predecessor = state.findings.get(finding_id)
@@ -790,8 +859,8 @@ def answer_relationship_claim_durably(log: ActLog, registry: Any, *, finding_id:
                         if predecessor is not None else None)
     if (link_outcomes_adopted(state) and predecessor_fact is not None and
             predecessor_fact.fact_type_id in {FINANCING, STATEMENT_INCLUSION}):
-        return _answer_with_outcome_durably(
-            log, registry, before=before, state=state, current_ids=current_ids, finding_id=finding_id,
+        return _stage_answer_with_outcome(
+            before, registry, state=state, current_ids=current_ids, finding_id=finding_id,
             predecessor_fact=predecessor_fact, submission=submission, actor=actor, at=at)
     if (predecessor is not None and predecessor_fact is not None and
             predecessor_fact.fact_type_id == STATEMENT_INCLUSION and finding_id not in current_ids and
@@ -800,8 +869,8 @@ def answer_relationship_claim_durably(log: ActLog, registry: Any, *, finding_id:
         unresolved = [(fid, row) for fid, row in state.findings.items()
                       if fid in current_ids and row.get("fact_id") == unresolved_fact_id]
         if len(unresolved) == 1:
-            return _answer_unresolved_inclusion_no_durably(
-                log, registry, before=before, state=state, predecessor=finding_id,
+            return _stage_unresolved_inclusion_no(
+                before, registry, state=state, predecessor=finding_id,
                 predecessor_fact=predecessor_fact, unresolved_finding_id=unresolved[0][0],
                 submission=submission, actor=actor, at=at,
             )
@@ -833,45 +902,32 @@ def answer_relationship_claim_durably(log: ActLog, registry: Any, *, finding_id:
         raise RelationshipRecordingRefused(
             "unresolved inclusion diagnostic bundle is not adopted in this workspace"
         )
-    # Validate the complete answer before ending support. No validation failure
-    # may strand the predecessor as retracted without a recordable answer.
-    _record_submission([copy.deepcopy(row) for row in before.acts], submission, registry)
+    # The retraction, the answer and any unresolved status are one save, so
+    # no failure can strand the predecessor as retracted without its answer.
+    staged = [copy.deepcopy(row) for row in before.acts]
     suffix = hashlib.sha256(f"{finding_id}\0{at}\0answer".encode()).hexdigest()[:16]
     retraction = _relationship_retraction(state, finding_id, actor, at,
-                                          f"sli.relationship.answer.{suffix}", before.revision,
+                                          f"sli.relationship.answer.{suffix}", len(staged),
                                           registry)
-    revision = log.append(retraction, expected_revision=before.revision)
-    try:
-        result = record_submission_durably(log, dict(submission), registry, expected_revision=revision)
-    except (ActLogError, RelationshipRecordingRefused) as exc:
-        raise RelationshipRecordingRefused(
-            "prior affirmation support is ended; the new answer was not saved"
-        ) from exc
+    staged.append(retraction)
+    result = _record_submission(staged, dict(submission), registry)
     if predecessor_fact.fact_type_id == STATEMENT_INCLUSION and submission.get("inclusion_response") == "cannot-tell":
-        try:
-            result["unresolved_status"] = _record_unresolved_inclusion_durably(
-                log, registry, predecessor_fact=fact, evidence_id=str(submission["evidence_id"]),
-                actor=actor, at=at, submission_id=str(submission["submission_id"]),
-            )
-        except (ActLogError, RelationshipRecordingRefused) as exc:
-            raise RelationshipRecordingRefused(
-                "cannot-tell answer evidence was saved, but its unresolved consumer status was not admitted"
-            ) from exc
-    recovered = log.read()
-    result.update({"predecessor_finding_id": finding_id, "retraction_act": retraction,
-                   "revision": recovered.revision, "state": project(recovered.acts, registry)})
-    return result
+        result["unresolved_status"] = _stage_unresolved_inclusion(
+            staged, registry, predecessor_fact=fact, evidence_id=str(submission["evidence_id"]),
+            actor=actor, at=at, submission_id=str(submission["submission_id"]),
+        )
+    result.update({"predecessor_finding_id": finding_id, "retraction_act": retraction})
+    return result, staged
 
 
-def _answer_with_outcome_durably(log: ActLog, registry: Any, *, before: Any, state: Any,
-                                 current_ids: Any, finding_id: str, predecessor_fact: Any,
-                                 submission: dict[str, Any], actor: str, at: str) -> dict[str, Any]:
-    """Record a no or cannot-tell on one exact pair as its current outcome.
+def _stage_answer_with_outcome(before: LogContents, registry: Any, *, state: Any, current_ids: Any,
+                               finding_id: str, predecessor_fact: Any, submission: dict[str, Any],
+                               actor: str, at: str) -> tuple[dict[str, Any], list[dict[str, Any]]]:
+    """Stage a no or cannot-tell on one exact pair as its current outcome.
 
-    A current affirmation ends after the outcome is saved, so an interrupted
-    answer leaves both current (a blocked pair), never neither. A pair whose
-    affirmation already ended (an earlier outcome is current) records the new
-    outcome and ends the earlier one in the same ordinary save.
+    A current affirmation ends in the same save that records the outcome.
+    A pair whose affirmation already ended (an earlier outcome is current)
+    records the new outcome and ends the earlier one in the same save.
     """
     relation_type = predecessor_fact.fact_type_id
     answer_key = "financing_response" if relation_type == FINANCING else "inclusion_response"
@@ -903,20 +959,15 @@ def _answer_with_outcome_durably(log: ActLog, registry: Any, *, before: Any, sta
         retraction = _relationship_retraction(working, finding_id, actor, at,
                                               f"sli.relationship.answer.{suffix}", len(staged), registry)
         staged.append(retraction)
-    revision = _append_staged(log, staged[len(before.acts):], before.revision, saved="answer",
-                              unended="earlier answer" if retraction is None else "earlier affirmation")
-    recovered = log.read()
-    result.update({"predecessor_finding_id": finding_id, "retraction_act": retraction,
-                   "revision": revision, "state": project(recovered.acts, registry)})
-    return result
+    result.update({"predecessor_finding_id": finding_id, "retraction_act": retraction})
+    return result, staged
 
 
-def _answer_unresolved_inclusion_no_durably(log: ActLog, registry: Any, *, before: Any,
-                                            state: Any, predecessor: str,
-                                            predecessor_fact: Any, unresolved_finding_id: str,
-                                            submission: dict[str, Any], actor: str,
-                                            at: str) -> dict[str, Any]:
-    """Save an exact-pair no and retire its current unresolved status."""
+def _stage_unresolved_inclusion_no(before: LogContents, registry: Any, *, state: Any, predecessor: str,
+                                   predecessor_fact: Any, unresolved_finding_id: str,
+                                   submission: dict[str, Any], actor: str,
+                                   at: str) -> tuple[dict[str, Any], list[dict[str, Any]]]:
+    """Stage an exact-pair no that retires its current sample unresolved status."""
     inclusion_fact_id = fact_id_for(STATEMENT_INCLUSION, tuple(predecessor_fact.keys))
     fact = facts_of(state.fact_state, include_displaced=True)[inclusion_fact_id]
     refs = {"borrowing_ref": submission.get("borrowing_ref"),
@@ -932,38 +983,25 @@ def _answer_unresolved_inclusion_no_durably(log: ActLog, registry: Any, *, befor
         raise RelationshipRecordingRefused("answer target source is no longer current")
     if submission.get("actor") != actor or submission.get("at") != at:
         raise RelationshipRecordingRefused("answer provenance must match caller-supplied actor and time")
-    # Validate the complete no answer before ending the current unresolved
-    # state. This transition is fail closed if the answer append is interrupted.
-    _record_submission([copy.deepcopy(row) for row in before.acts], submission, registry)
+    staged = [copy.deepcopy(row) for row in before.acts]
     suffix = hashlib.sha256(f"{unresolved_finding_id}\0{at}\0resolve-no".encode()).hexdigest()[:16]
     retraction = {"schema": "act.v1", "act_id": f"sli.relationship.resolve-unresolved-no.{suffix}",
                   "kind": "finding-retracted", "actor": actor, "at": at,
-                  "committed_against": before.revision,
+                  "committed_against": len(staged),
                   "payload": {"finding_id": unresolved_finding_id}}
-    from packages.kernel.findings import apply_act
     apply_act(state, retraction, registry)
-    revision = log.append(retraction, expected_revision=before.revision)
-    try:
-        saved = record_submission_durably(log, dict(submission), registry, expected_revision=revision)
-    except (ActLogError, RelationshipRecordingRefused) as exc:
-        raise RelationshipRecordingRefused(
-            "unresolved status is ended; the new no answer was not saved"
-        ) from exc
-    recovered = log.read()
+    staged.append(retraction)
+    saved = _record_submission(staged, dict(submission), registry)
     saved.update({"predecessor_finding_id": predecessor, "unresolved_finding_id": unresolved_finding_id,
-                  "retraction_act": retraction, "revision": recovered.revision,
-                  "state": project(recovered.acts, registry)})
-    return saved
+                  "retraction_act": retraction})
+    return saved, staged
 
 
-def _record_unresolved_inclusion_durably(log: ActLog, registry: Any, *, predecessor_fact: Any,
-                                         evidence_id: str, actor: str, at: str,
-                                         submission_id: str) -> dict[str, Any]:
-    """Admit an inspectable diagnostic status for one saved cannot-tell pair."""
-    contents = log.read()
-    if contents.incomplete_tail is not None:
-        raise RelationshipRecordingRefused("ActLog has an incomplete tail")
-    state = project(contents.acts, registry)
+def _stage_unresolved_inclusion(staged: list[dict[str, Any]], registry: Any, *, predecessor_fact: Any,
+                                evidence_id: str, actor: str, at: str,
+                                submission_id: str) -> dict[str, Any]:
+    """Stage an inspectable diagnostic status for one cannot-tell pair."""
+    state = project(tuple(copy.deepcopy(row) for row in staged), registry)
     if INCLUSION_UNRESOLVED not in state.fact_state.fact_types:
         raise RelationshipRecordingRefused("unresolved inclusion diagnostic bundle is not adopted")
     fact_id = fact_id_for(INCLUSION_UNRESOLVED, tuple(predecessor_fact.keys))
@@ -975,7 +1013,7 @@ def _record_unresolved_inclusion_durably(log: ActLog, registry: Any, *, predeces
     suffix = hashlib.sha256(f"{submission_id}\0unresolved-inclusion".encode("utf-8")).hexdigest()[:24]
     contribution_id = f"sli.relationship.unresolved.contribution.{suffix}"
     finding_id = f"sli.relationship.unresolved.finding.{suffix}"
-    contribution = _act(contents.revision, "contribution", {"contribution": {
+    contribution = _act(len(staged), "contribution", {"contribution": {
         "schema": "contribution.v1", "id": contribution_id, "evidence_id": evidence_id,
         "content": {"mode": "manual-entry", "source": "relationship-cannot-tell",
                     "claim_id": f"{submission_id}.statement-inclusion-unresolved",
@@ -984,33 +1022,25 @@ def _record_unresolved_inclusion_durably(log: ActLog, registry: Any, *, predeces
     finding = {"schema": "finding.v2", "id": finding_id, "fact_id": fact_id,
                "value": "sli.statement-inclusion.unresolved", "basis": "attested",
                "evidence_ids": [evidence_id], "contribution_id": contribution_id}
-    assertion = _act(contents.revision + 1, "assertion", {"finding": finding}, actor, at, suffix)
+    assertion = _act(len(staged) + 1, "assertion", {"finding": finding}, actor, at, suffix)
     admission = apply_contribution_batch(state, contribution_act=contribution,
                                          successor_acts=[assertion], registry=registry,
                                          record_id=f"sli.relationship.unresolved.record.{suffix}")
     if admission.terminal_record["phase"] != "completed":
         raise RelationshipRecordingRefused("unresolved inclusion status failed contribution admission")
-    revision = contents.revision
-    for item in (contribution, assertion):
-        revision = log.append(item, expected_revision=revision)
-    recovered = log.read()
-    return {"fact_id": fact_id, "finding_id": finding_id, "revision": revision,
-            "state": project(recovered.acts, registry)}
+    staged.extend((contribution, assertion))
+    return {"fact_id": fact_id, "finding_id": finding_id}
 
 
 def correct_relationship_claim_durably(log: ActLog, registry: Any, *, finding_id: str,
                                         successor: dict[str, Any], actor: str, at: str,
                                         expected_revision: int | None = None) -> dict[str, Any]:
-    """Retire one predecessor, then admit its explicitly affirmed successor.
+    """Retire one predecessor and admit its explicitly affirmed successor, in one save.
 
     The successor is a complete ordinary submission. Other clause findings
     and their evidence remain current because the retraction names one finding.
     """
-    before = log.read()
-    if expected_revision is not None and before.revision != expected_revision:
-        raise RelationshipRecordingRefused("reviewed ActLog revision changed before recording")
-    if before.incomplete_tail is not None:
-        raise RelationshipRecordingRefused("ActLog has an incomplete tail")
+    before = _read_for_save(log, expected_revision)
     state = project(before.acts, registry)
     predecessor = state.findings.get(finding_id)
     predecessor_fact = (facts_of(state.fact_state, include_displaced=True).get(predecessor["fact_id"])
@@ -1031,8 +1061,7 @@ def correct_relationship_claim_durably(log: ActLog, registry: Any, *, finding_id
         # yes is admitted first; the outcome it replaces ends after it.
         staged = [copy.deepcopy(row) for row in before.acts]
         result = _record_submission(staged, successor, registry, correction_of_finding_id=finding_id)
-        revision = _append_staged(log, staged[len(before.acts):], before.revision,
-                                  saved="corrected answer", unended="earlier answer")
+        revision = _commit_save(log, before, staged, registry, reviewed=expected_revision is not None)
         recovered = log.read()
         result.update({"predecessor_finding_id": finding_id, "retraction_act": None,
                        "revision": revision, "state": project(recovered.acts, registry)})
@@ -1051,7 +1080,6 @@ def correct_relationship_claim_durably(log: ActLog, registry: Any, *, finding_id
                       "kind": "finding-retracted", "actor": actor, "at": at,
                       "committed_against": before.revision,
                       "payload": {"finding_id": unresolved_finding_id}}
-        from packages.kernel.findings import apply_act
         apply_act(state, retraction, registry)
         predecessor_retraction = None
     else:
@@ -1066,15 +1094,8 @@ def correct_relationship_claim_durably(log: ActLog, registry: Any, *, finding_id
     else:
         staged.append(retraction)
     result = _record_submission(staged, successor, registry, correction_of_finding_id=finding_id)
-    revision = before.revision
-    for index, item in enumerate(staged[len(before.acts):]):
-        append_revision = expected_revision if index == 0 and expected_revision is not None else revision
-        try:
-            revision = log.append(item, expected_revision=append_revision)
-        except ActLogError as exc:
-            if expected_revision is not None and index == 0 and "stale revision" in str(exc):
-                raise RelationshipRecordingRefused("reviewed ActLog revision changed before first append") from exc
-            raise
+    # The predecessor ends and its successor is admitted in one save.
+    revision = _commit_save(log, before, staged, registry, reviewed=expected_revision is not None)
     recovered = log.read()
     result["predecessor_finding_id"] = finding_id
     result["retraction_act"] = retraction
@@ -1107,12 +1128,10 @@ def _record_borrowing_answer_durably(log: ActLog, registry: Any, *, question: st
                                      correction_of_finding_id: str | None) -> dict[str, Any]:
     if not all(isinstance(value, str) and value for value in (submission_id, evidence_id, actor, at)):
         raise RelationshipRecordingRefused("submission identity and caller provenance are required")
-    before = log.read()
-    if expected_revision is not None and before.revision != expected_revision:
-        raise RelationshipRecordingRefused("reviewed ActLog revision changed before recording")
-    if before.incomplete_tail is not None:
-        raise RelationshipRecordingRefused("ActLog has an incomplete tail")
-    state, _currency, findings, _lattice = _current(before.acts, registry)
+    before = _read_for_save(log, expected_revision)
+    staged = [copy.deepcopy(row) for row in before.acts]
+    adoption = _stage_relationship_v2_adoption(staged, registry, question=question, actor=actor, at=at)
+    state, _currency, findings, _lattice = _current(staged, registry)
     fact_type, fact_id = _borrowing_answer_target(state, question, borrowing_ref, response)
     current = [finding_id for finding_id, row in findings.items() if row.get("fact_id") == fact_id]
     if correction_of_finding_id is None and current:
@@ -1137,7 +1156,7 @@ def _record_borrowing_answer_durably(log: ActLog, registry: Any, *, question: st
     finding_id = f"sli.borrowing-answer.finding.{suffix}"
     if finding_id in state.findings:
         raise RelationshipRecordingRefused("submission identity has already been used")
-    revision = before.revision
+    revision = len(staged)
     evidence_act = _act(revision, "evidence-submitted", {"evidence": evidence}, actor, at, suffix)
     contribution = _act(revision + 1, "contribution", {"contribution": {
         "schema": "contribution.v1", "id": contribution_id, "evidence_id": evidence_id,
@@ -1147,25 +1166,95 @@ def _record_borrowing_answer_durably(log: ActLog, registry: Any, *, question: st
     finding = {"schema": "finding.v2", "id": finding_id, "fact_id": fact_id, "value": response,
                "basis": "attested", "evidence_ids": [evidence_id], "contribution_id": contribution_id}
     assertion = _act(revision + 2, "assertion", {"finding": finding}, actor, at, suffix)
-    base = project(tuple(copy.deepcopy(row) for row in (*before.acts, evidence_act)), registry)
+    base = project(tuple(copy.deepcopy(row) for row in (*staged, evidence_act)), registry)
     admission = apply_contribution_batch(base, contribution_act=contribution, successor_acts=[assertion],
                                          registry=registry,
                                          record_id=f"sli.borrowing-answer.record.{suffix}")
     if admission.terminal_record["phase"] != "completed":
         raise RelationshipRecordingRefused(f"ordinary contribution admission refused: {admission.terminal_record}")
-    committed = revision
-    for index, item in enumerate((evidence_act, contribution, assertion)):
-        try:
-            committed = log.append(item, expected_revision=committed)
-        except ActLogError as exc:
-            if index == 0 and "stale revision" in str(exc):
-                raise RelationshipRecordingRefused("reviewed ActLog revision changed before first append") from exc
-            raise
+    staged.extend((evidence_act, contribution, assertion))
+    # One save: the bundle adoption (if any), the evidence and the answer.
+    committed = _commit_save(log, before, staged, registry, reviewed=True)
     recovered = log.read()
     return {"submission_id": submission_id, "question": question, "fact_type": fact_type,
             "fact_id": fact_id, "finding_id": finding_id, "evidence_id": evidence_id,
             "response": response, "predecessor_finding_id": correction_of_finding_id,
+            "adopted_bundle_version": adoption,
             "revision": committed, "state": project(recovered.acts, registry)}
+
+
+RELATIONSHIP_BUNDLE_ID = "tax.us.2025.sli-relationship-source"
+
+
+def _stage_relationship_v2_adoption(staged: list[dict[str, Any]], registry: Any, *, question: str,
+                                    actor: str, at: str) -> str | None:
+    """Stage the adoption of relationship bundle v2 before a first borrowing answer.
+
+    Track 7, carried item 1. A workspace that adopted only relationship bundle
+    v1 cannot hold the two borrowing answers. When the person first answers
+    one, the same save adopts v2 first. Nothing else is staged, and a
+    workspace that never adopted the relationship vocabulary is left alone.
+
+    v1 kept no current fact for a link answered no or cannot tell, or
+    withdrawn. Under v2 such an answer blocks the statement or keeps the
+    loan-link path present; adopted over a v1 history, it would read as never
+    said. That history is refused with a reason instead of adopted.
+    """
+    fact_type = BORROWING_QUESTIONS.get(question)
+    state = project(tuple(copy.deepcopy(row) for row in staged), registry)
+    fact_types = state.fact_state.fact_types
+    if fact_type is None or fact_type in fact_types:
+        return None
+    if FINANCING not in fact_types or STATEMENT_INCLUSION not in fact_types:
+        return None
+    if _v1_link_answers_without_a_current_fact(state):
+        raise RelationshipRecordingRefused(
+            "this workspace recorded a link answer of no, cannot tell or a withdrawal before relationship "
+            "bundle v2; v2 has no record of those answers, so it is not adopted automatically and the "
+            "borrowing questions cannot be saved here yet")
+    from packages.tax.loader import load_sli_relationship_source_bundle
+
+    bundle = load_sli_relationship_source_bundle()
+    suffix = hashlib.sha256(f"{bundle['id']}\0{bundle['version']}\0{len(staged)}".encode("utf-8")).hexdigest()[:16]
+    adoption = {"schema": "act.v1", "act_id": f"sli.relationship.bundle-adoption.{suffix}",
+                "kind": "bundle-adoption", "actor": actor, "at": at, "committed_against": len(staged),
+                "payload": {"bundle": bundle}}
+    apply_act(state, adoption, registry)
+    staged.append(adoption)
+    return str(bundle["version"])
+
+
+def _v1_link_answers_without_a_current_fact(state: Any) -> bool:
+    """True when a v1-era link answer left nothing current that v2 could read.
+
+    That is a recorded no or cannot-tell on either link, or a link claim that
+    ended without a correction naming it (a withdrawal or an answer).
+    """
+    corrected: set[str] = set()
+    for lifecycle in state.evidence.values():
+        body = getattr(lifecycle, "evidence", None)
+        if not isinstance(body, dict) or body.get("kind") != "tax.student-loan.relationship-answer":
+            continue
+        content = body.get("content")
+        if not isinstance(content, dict):
+            continue
+        responses = content.get("responses")
+        if isinstance(responses, dict) and any(
+                responses.get(name) in {"no", "cannot-tell"}
+                for name in ("financing_response", "inclusion_response")):
+            return True
+        predecessor = content.get("correction_of_finding_id")
+        if isinstance(predecessor, str):
+            corrected.add(predecessor)
+    current_ids = compute_currency(state).current_finding_ids
+    all_facts = facts_of(state.fact_state, include_displaced=True)
+    for finding_id, row in state.findings.items():
+        if not isinstance(row, dict) or finding_id in current_ids or finding_id in corrected:
+            continue
+        fact = all_facts.get(row.get("fact_id", ""))
+        if fact is not None and fact.fact_type_id in {FINANCING, STATEMENT_INCLUSION}:
+            return True
+    return False
 
 
 def record_borrowing_answer_durably(log: ActLog, registry: Any, *, question: str, borrowing_ref: str,
@@ -1179,7 +1268,8 @@ def record_borrowing_answer_durably(log: ActLog, registry: Any, *, question: str
     ``enrolled-at-least-half-time``; ``response`` is yes, no or cannot-tell.
     The answer is its own fact with its own evidence. A borrowing that
     already has a current answer to the question is refused: correct or
-    withdraw that answer instead. Nothing here draws a tax conclusion.
+    withdraw that answer instead. Nothing here draws a tax conclusion. In a
+    workspace with only relationship bundle v1, the same save adopts v2 first.
     """
     return _record_borrowing_answer_durably(
         log, registry, question=question, borrowing_ref=borrowing_ref, response=response,

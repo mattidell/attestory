@@ -19,7 +19,7 @@ import json
 import os
 from dataclasses import dataclass
 from pathlib import Path
-from typing import Any
+from typing import IO, Any, Sequence
 
 from packages.kernel.findings import (
     declares_new_write_invariants,
@@ -31,6 +31,8 @@ from packages.kernel.schema_registry import SchemaRegistry
 
 ACT_ENVELOPE_SCHEMA = "act.v1"
 ACT_LOG_FILENAME = "acts.jsonl"
+# ``append_batch`` writes a whole save here, then renames it over the log.
+PENDING_SUFFIX = ".pending"
 
 
 class ActLogError(Exception):
@@ -137,7 +139,9 @@ class ActLog:
         """
         if not self._path.exists():
             return LogContents(acts=(), incomplete_tail=None)
-        raw = self._path.read_bytes()
+        return self._contents_of(self._path.read_bytes())
+
+    def _contents_of(self, raw: bytes) -> LogContents:
         acts: list[dict[str, Any]] = []
         seen_ids: set[str] = set()
         lines = raw.split(b"\n")
@@ -210,3 +214,88 @@ class ActLog:
             handle.flush()
             os.fsync(handle.fileno())
         return current + 1
+
+    def append_batch(self, acts: Sequence[dict[str, Any]], expected_revision: int) -> int:
+        """Commit several acts as one save: all of them, or none.
+
+        Every act is validated, its revision and identity checked, and the
+        ADR 0077 Part 5 new-write step run against the acts staged before it,
+        before anything is written. A refusal of any act writes nothing.
+
+        The write is the committed log plus the new lines in a pending file
+        beside it, fsynced, then renamed over the log. An interruption before
+        the rename leaves the log byte for byte as it was; after it, the whole
+        save is committed. The committed prefix is copied unchanged, so the log
+        only grows. A log with an uncommitted partial tail is refused, never
+        written onto. A log that changed while the save was being written is
+        refused and left as the other writer left it.
+        """
+        if self._read_only:
+            raise ActLogError("read-only act log: append is refused")
+        self._check_declaration()
+        if not acts:
+            raise ActLogError("a batch with no acts is refused")
+        for act in acts:
+            self._registry.validate(ACT_ENVELOPE_SCHEMA, act)
+            self._registry.validate(_payload_schema_id(act["kind"], act["payload"]), act["payload"])
+        raw = self._path.read_bytes() if self._path.exists() else b""
+        contents = self._contents_of(raw)
+        if contents.incomplete_tail is not None:
+            raise ActLogError(
+                "act log has an uncommitted partial tail; a batch is not written onto it"
+            )
+        current = contents.revision
+        if expected_revision != current:
+            raise ActLogError(
+                f"stale revision: expected {expected_revision}, workspace is at {current}"
+            )
+        staged = list(contents.acts)
+        known = {existing["act_id"] for existing in staged}
+        for act in acts:
+            if act["committed_against"] != len(staged):
+                raise ActLogError(
+                    f"act commits against revision {act['committed_against']}, "
+                    f"batch position is revision {len(staged)}"
+                )
+            if act["act_id"] in known:
+                raise ActLogError(f"duplicate act_id: {act['act_id']}")
+            if new_write_invariants_may_apply(act, self._registry):
+                enforce_new_write_invariants(project(tuple(staged), self._registry), act, self._registry)
+            known.add(act["act_id"])
+            staged.append(act)
+        self._path.parent.mkdir(parents=True, exist_ok=True)
+        pending = self._path.with_name(self._path.name + PENDING_SUFFIX)
+        with pending.open("wb") as handle:
+            handle.write(raw)
+            for act in acts:
+                line = json.dumps(act, sort_keys=True, separators=(",", ":")).encode("utf-8")
+                self._write_pending_line(handle, line + b"\n")
+            handle.flush()
+            os.fsync(handle.fileno())
+        # Single writer per workspace (ADR-0002). Another writer that committed
+        # while this save was written is not overwritten.
+        on_disk = self._path.stat().st_size if self._path.exists() else 0
+        if on_disk != len(raw):
+            pending.unlink()
+            raise ActLogError("stale revision: the act log changed during the save; nothing was written")
+        os.replace(pending, self._path)
+        _fsync_directory(self._path.parent)
+        return current + len(acts)
+
+    def _write_pending_line(self, handle: IO[bytes], line: bytes) -> None:
+        """Write one newline-terminated act line of a batch to its pending file."""
+        handle.write(line)
+
+
+def _fsync_directory(directory: Path) -> None:
+    """Make a rename in ``directory`` durable where the platform allows it."""
+    try:
+        descriptor = os.open(directory, os.O_RDONLY)
+    except OSError:
+        return
+    try:
+        os.fsync(descriptor)
+    except OSError:
+        pass
+    finally:
+        os.close(descriptor)

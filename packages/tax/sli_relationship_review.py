@@ -23,10 +23,14 @@ from packages.tax.sli_relationship_recording import (
     SCHOOLING,
     STATEMENT_TYPE,
     RelationshipRecordingRefused,
+    _commit_save,
+    _read_for_save,
+    _stage_answer,
     answer_relationship_claim_durably,
     correct_borrowing_answer_durably,
     correct_relationship_claim_durably,
     record_borrowing_answer_durably,
+    record_submission,
     record_submission_durably,
     withdraw_borrowing_answer_durably,
     withdraw_relationship_claim_durably,
@@ -338,14 +342,19 @@ def apply_statement_correction_review(log: ActLog, registry: Any, *, review: dic
                                       evidence_id: str) -> dict[str, Any]:
     """Record the known scope of one statement correction through one review.
 
-    This operation records the scope before appending the corrected box-1
-    source. ``scope`` is ``amount-only``, ``inclusion-added``,
-    ``inclusion-removed`` or ``inclusion-uncertain``. A pair is named only
-    when the correction changes inclusion. The scope evidence binds the box 1
-    finding the review saw, the corrected amount, and the correction identity.
-    It authorizes one admitted finding: the successor of that finding, at
-    that amount, carrying that correction identity. A later update that cites
-    the same evidence is refused.
+    The scope answer and the corrected box-1 source are one save. ``scope`` is
+    ``amount-only``, ``inclusion-added``, ``inclusion-removed`` or
+    ``inclusion-uncertain``. A pair is named only when the correction changes
+    inclusion. The scope evidence binds the box 1 finding the review saw, the
+    corrected amount, and the correction identity. It authorizes one admitted
+    finding: the successor of that finding, at that amount, carrying that
+    correction identity. A later update that cites the same evidence is
+    refused.
+
+    Track 7: the scope evidence, any inclusion answer and the corrected source
+    are written as one batch. An interruption leaves the statement and its
+    loans as they were, or the whole correction; never a corrected amount with
+    the earlier loans, or an earlier amount with only some of them.
     """
     if statement_fact_id not in {row.get("choice_ref") for row in review.get("statement_choices", [])}:
         raise RelationshipRecordingRefused("correction statement was not shown in the review")
@@ -371,13 +380,16 @@ def apply_statement_correction_review(log: ActLog, registry: Any, *, review: dic
                                   "reviewed_statement_finding_id": _shown_statement_finding_id(
                                       review, statement_fact_id)},
         )
-        scope_result = record_submission_durably(log, submission, registry, expected_revision=revision)
-        source_result = _append_statement_source_correction_durably(
-            log, registry, statement_fact_id=statement_fact_id, corrected_total=corrected_box1_total,
+        before = _read_for_save(log, revision)
+        staged = [copy.deepcopy(row) for row in before.acts]
+        scope_result = record_submission(staged, submission, registry)
+        source = _stage_statement_source_correction(
+            staged, registry, statement_fact_id=statement_fact_id, corrected_total=corrected_box1_total,
             correction_id=source_correction_id, actor=actor, at=at, scope_evidence_id=evidence_id,
         )
-        return {**scope_result, "source_correction": source_result,
-                "revision": source_result["revision"], "state": source_result["state"],
+        committed, state = _commit_correction(log, registry, before, staged)
+        return {**scope_result, "source_correction": {**source, "revision": committed, "state": state},
+                "revision": committed, "state": state,
                 "review": copy.deepcopy(submission["recognition_context"])}
     if borrowing_ref is None or borrowing_ref not in {row.get("choice_ref")
                                                        for row in review.get("borrowing_choices", [])}:
@@ -398,29 +410,33 @@ def apply_statement_correction_review(log: ActLog, registry: Any, *, review: dic
                                   "reviewed_statement_finding_id": _shown_statement_finding_id(
                                       review, statement_fact_id)},
         )
-        scope_result = record_submission_durably(log, submission, registry, expected_revision=revision)
-        source_result = _append_statement_source_correction_durably(
-            log, registry, statement_fact_id=statement_fact_id, corrected_total=corrected_box1_total,
+        before = _read_for_save(log, revision)
+        staged = [copy.deepcopy(row) for row in before.acts]
+        scope_result = record_submission(staged, submission, registry)
+        source = _stage_statement_source_correction(
+            staged, registry, statement_fact_id=statement_fact_id, corrected_total=corrected_box1_total,
             correction_id=source_correction_id, actor=actor, at=at,
             scope_evidence_id=evidence_id,
         )
+        # The added pair is affirmed against the corrected source, in the same save.
         answer_id = f"{evidence_id}.affirmative"
         answer = dict(submission, submission_id=f"{submission_id}.affirmative", evidence_id=answer_id,
                       inclusion_response="yes")
         answer["recognition_context"] = copy.deepcopy(submission["recognition_context"])
-        result = record_submission_durably(log, answer, registry,
-                                           expected_revision=source_result["revision"])
+        result = record_submission(staged, answer, registry)
+        committed, state = _commit_correction(log, registry, before, staged)
         result["scope_evidence_id"] = scope_result["evidence_id"]
-        result["source_correction"] = source_result
-        result["revision"] = result["revision"]
+        result["source_correction"] = {**source, "revision": committed, "state": state}
+        result["revision"] = committed
+        result["state"] = state
         result["review"] = copy.deepcopy(submission["recognition_context"])
         return result
     if finding_id is None:
         raise RelationshipRecordingRefused("removed or uncertain inclusion requires its prior finding")
     response = "no" if scope == "inclusion-removed" else "cannot-tell"
-    result = answer_review_claim(
-        log, registry, finding_id=finding_id, review=review,
-        borrowing_ref=borrowing_ref, schooling_fact_id=None,
+    revision = _revalidate_review(log, registry, review)
+    submission = _submission(
+        review, borrowing_ref=borrowing_ref, schooling_fact_id=None,
         statement_fact_id=statement_fact_id, financing_response="unanswered",
         inclusion_response=response, actor=actor, at=at,
         submission_id=submission_id, evidence_id=evidence_id,
@@ -431,15 +447,28 @@ def apply_statement_correction_review(log: ActLog, registry: Any, *, review: dic
                               "reviewed_statement_finding_id": _shown_statement_finding_id(
                                   review, statement_fact_id)},
     )
-    source_result = _append_statement_source_correction_durably(
-        log, registry, statement_fact_id=statement_fact_id, corrected_total=corrected_box1_total,
+    before = _read_for_save(log, revision)
+    # The answer on the named pair, then the corrected source it scopes.
+    result, staged = _stage_answer(before, registry, finding_id=finding_id, submission=submission,
+                                   actor=actor, at=at)
+    source = _stage_statement_source_correction(
+        staged, registry, statement_fact_id=statement_fact_id, corrected_total=corrected_box1_total,
         correction_id=source_correction_id, actor=actor, at=at,
         scope_evidence_id=evidence_id,
     )
-    result["source_correction"] = source_result
-    result["revision"] = source_result["revision"]
-    result["state"] = source_result["state"]
+    committed, state = _commit_correction(log, registry, before, staged)
+    result["review"] = copy.deepcopy(submission["recognition_context"])
+    result["source_correction"] = {**source, "revision": committed, "state": state}
+    result["revision"] = committed
+    result["state"] = state
     return result
+
+
+def _commit_correction(log: ActLog, registry: Any, before: LogContents,
+                       staged: list[dict[str, Any]]) -> tuple[int, Any]:
+    """Write one staged correction as one batch; return its revision and fresh state."""
+    committed = _commit_save(log, before, staged, registry, reviewed=True)
+    return committed, project(log.read().acts, registry)
 
 
 def _amounts_equal(left: object, right: object) -> bool:
@@ -471,12 +500,26 @@ def _append_statement_source_correction_durably(log: ActLog, registry: Any, *,
     The evidence names the finding the review saw, the corrected amount, and
     the correction identity. This write is that successor or it is refused
     before any act is appended. A second write citing the same evidence is
-    refused, including one that repeats the amount.
+    refused, including one that repeats the amount. The evidence, contribution
+    and finding are one batch, so a refusal by the ADR 0077 Part 5 new-write
+    step at the finding leaves nothing behind (Track 7, carried item 3).
     """
-    contents = log.read()
-    if contents.incomplete_tail is not None:
-        raise RelationshipRecordingRefused("ActLog has an incomplete tail")
-    state = project(contents.acts, registry)
+    before = _read_for_save(log, None)
+    staged = [copy.deepcopy(row) for row in before.acts]
+    source = _stage_statement_source_correction(
+        staged, registry, statement_fact_id=statement_fact_id, corrected_total=corrected_total,
+        correction_id=correction_id, scope_evidence_id=scope_evidence_id, actor=actor, at=at)
+    committed = _commit_save(log, before, staged, registry)
+    recovered = log.read()
+    return {**source, "revision": committed, "state": project(recovered.acts, registry)}
+
+
+def _stage_statement_source_correction(staged: list[dict[str, Any]], registry: Any, *,
+                                       statement_fact_id: str, corrected_total: int | float,
+                                       correction_id: str, scope_evidence_id: str,
+                                       actor: str, at: str) -> dict[str, Any]:
+    """Stage the bound box 1 successor after the acts already in ``staged``."""
+    state = project(tuple(copy.deepcopy(row) for row in staged), registry)
     current_ids = compute_currency(state).current_finding_ids
     fact = facts_of(state.fact_state).get(statement_fact_id)
     current = [(finding_id, finding) for finding_id, finding in state.findings.items()
@@ -516,7 +559,7 @@ def _append_statement_source_correction_durably(log: ActLog, registry: Any, *,
     finding_id = f"demo.finding.sli.statement-correction.{suffix}"
     if source_evidence_id in state.evidence or finding_id in state.findings:
         raise RelationshipRecordingRefused("source correction identity has already been used")
-    revision = contents.revision
+    revision = len(staged)
     evidence = {"schema": "evidence.v1", "id": source_evidence_id,
                 "kind": "tax.form-1098e-corrected-statement-source",
                 "label": "Corrected Form 1098-E box-1 source",
@@ -538,20 +581,15 @@ def _append_statement_source_correction_durably(log: ActLog, registry: Any, *,
     assertion = {"schema": "act.v1", "act_id": f"sli.statement-correction.assertion.{suffix}",
                  "kind": "assertion", "actor": actor, "at": at,
                  "committed_against": revision + 2, "payload": {"finding": finding}}
-    staged = list(contents.acts) + [evidence_act]
-    base = project(tuple(staged), registry)
+    base = project(tuple(copy.deepcopy(row) for row in (*staged, evidence_act)), registry)
     admission = apply_contribution_batch(base, contribution_act=contribution_act,
                                          successor_acts=[assertion], registry=registry,
                                          record_id=f"sli.statement-correction.record.{suffix}")
     if admission.terminal_record["phase"] != "completed":
         raise RelationshipRecordingRefused("corrected statement source failed contribution admission")
-    committed = revision
-    for item in (evidence_act, contribution_act, assertion):
-        committed = log.append(item, expected_revision=committed)
-    recovered = log.read()
+    staged.extend((evidence_act, contribution_act, assertion))
     return {"statement_fact_id": statement_fact_id, "source_finding_id": finding_id,
-            "source_evidence_id": source_evidence_id, "revision": recovered.revision,
-            "state": project(recovered.acts, registry)}
+            "source_evidence_id": source_evidence_id}
 
 
 def withdraw_review_claim(log: ActLog, registry: Any, *, finding_id: str,

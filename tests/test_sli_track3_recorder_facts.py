@@ -412,15 +412,20 @@ class TwoOrdinaryQuestions(unittest.TestCase):
             self.assertEqual(ws.current_values(LOAN_COST),
                              {_answer_fact_id(LOAN_COST, ws.borrowing["autumn"]): "yes"})
 
-    def test_v1_only_workspace_refuses_the_questions(self) -> None:
-        from packages.tax.sli_relationship_recording import RelationshipRecordingRefused
-
+    def test_v1_only_workspace_adopts_bundle_v2_with_the_first_answer(self) -> None:
+        # Track 7, carried item 1: the first answer's save adopts bundle v2
+        # before the answer, so a v1-era workspace is not stuck.
         ws = _Workspace(bundle=json.loads(V1_BUNDLE.read_text("utf-8")))
         with ws.raw:
             revision = ws.log.read().revision
-            with self.assertRaisesRegex(RelationshipRecordingRefused, "not adopted"):
-                self._save(ws, self._review(ws, "v1"), "loan-paid-only-school-costs", "yes", "v1")
-            self.assertEqual(ws.log.read().revision, revision)
+            saved = self._save(ws, self._review(ws, "v1"), "loan-paid-only-school-costs", "yes", "v1")
+            self.assertEqual(saved["adopted_bundle_version"], "v2")
+            added = ws.log.read().acts[revision:]
+            self.assertEqual([row["kind"] for row in added],
+                             ["bundle-adoption", "evidence-submitted", "contribution", "assertion"])
+            self.assertEqual(ws.current_values(LOAN_COST), {_answer_fact_id(LOAN_COST, ws.borrowing["autumn"]): "yes"})
+            again = self._save(ws, self._review(ws, "v1-again"), "enrolled-at-least-half-time", "yes", "v1-again")
+            self.assertIsNone(again["adopted_bundle_version"])
 
 
 OUTCOME_TYPES = {
@@ -778,9 +783,12 @@ class LinkOutcomes(unittest.TestCase):
                     self._assert_pair_state(ws, "statement-inclusion", "autumn", "cedar", fact_type_id)
                     self.assertNotIn(SAMPLE_UNRESOLVED, self._outcomes_in_log(ws))
 
-    def test_an_interrupted_answer_or_withdrawal_leaves_the_pair_blocked(self) -> None:
+    def test_an_interrupted_answer_or_withdrawal_saves_nothing(self) -> None:
+        # Track 7: the outcome and the end of the affirmation are one batch. An
+        # interruption at the retraction leaves neither: the pair is as before.
+        from unittest import mock
+
         from packages.kernel.act_log import ActLogError
-        from packages.tax.sli_relationship_recording import RelationshipRecordingRefused
 
         for outcome in ("cannot-tell", "no", "withdrawn"):
             with self.subTest(outcome=outcome):
@@ -788,27 +796,23 @@ class LinkOutcomes(unittest.TestCase):
                 with ws.raw:
                     affirmed = self._save(ws, "statement-inclusion", "autumn", "cedar", "yes", f"i-{outcome}")
                     predecessor = affirmed["claims"]["statement-inclusion"]["finding_id"]
-                    original_append = ws.log.append
+                    before = ws.log.path.read_bytes()
+                    real_line = ActLog._write_pending_line
 
-                    def fail_retraction(item: dict[str, Any], expected_revision: int) -> int:
-                        if (item.get("kind") == "finding-retracted"
-                                and item["payload"]["finding_id"] == predecessor):
+                    def fail_retraction(log: ActLog, handle: Any, line: bytes) -> None:
+                        row = json.loads(line)
+                        if row.get("kind") == "finding-retracted" and row["payload"]["finding_id"] == predecessor:
                             raise ActLogError("synthetic interruption before the affirmation ends")
-                        return original_append(item, expected_revision)
+                        real_line(log, handle, line)
 
-                    setattr(ws.log, "append", fail_retraction)
-                    with self.assertRaisesRegex(RelationshipRecordingRefused,
-                                                "was saved, but the earlier affirmation was not ended"):
+                    with mock.patch.object(ActLog, "_write_pending_line", fail_retraction), \
+                            self.assertRaisesRegex(ActLogError, "synthetic interruption"):
                         self._apply_outcome(ws, "statement-inclusion", "autumn", "cedar", outcome, predecessor,
-                                      f"i-{outcome}-answer")
-                    setattr(ws.log, "append", original_append)
-                    state, current = ws.recovered()
-                    # Fail closed: the outcome is current beside the affirmation, never absent.
+                                            f"i-{outcome}-answer")
+                    self.assertEqual(ws.log.path.read_bytes(), before)
+                    _state, current = ws.recovered()
                     self.assertIn(predecessor, current)
-                    outcome_type = OUTCOME_TYPES["statement-inclusion"][outcome]
-                    self.assertEqual(ws.current_values(outcome_type),
-                                     {self._pair(ws, "statement-inclusion", "autumn", "cedar", outcome_type):
-                                      OUTCOME_VALUES[outcome_type]})
+                    self.assertEqual(ws.current_values(OUTCOME_TYPES["statement-inclusion"][outcome]), {})
 
 
     def test_a_v1_only_workspace_records_link_outcomes_as_before(self) -> None:
