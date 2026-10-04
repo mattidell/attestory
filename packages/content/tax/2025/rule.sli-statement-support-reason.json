@@ -1,0 +1,412 @@
+{
+  "schema": "rule-artifact.v13",
+  "id": "tax.us.2025.rule.sli-statement-support-reason",
+  "version": "v1",
+  "scope": {
+    "tax_year": 2025,
+    "jurisdiction": "US-federal",
+    "family": "individual-income-tax"
+  },
+  "role": "computation",
+  "subject": {
+    "id": "tax.us.2025.f1098e.box1-student-loan-interest",
+    "version": "v1"
+  },
+  "requires": [
+    "tax.us.2025.sli.statement-loan-support",
+    "tax.us.2025.sli.statement-inclusion-count",
+    "tax.us.2025.sli.statement-applicability-marker-count",
+    "tax.us.2025.sli.statement-scope-unresolved-count",
+    "tax.us.2025.sli.statement-inclusion-unresolved-count",
+    "tax.us.2025.sli.statement-inclusion-withdrawn-count"
+  ],
+  "pins": [],
+  "when": true,
+  "value": {
+    "op": "choose",
+    "when": {
+      "op": "categorical_compare",
+      "cmp": "eq",
+      "left": {
+        "op": "ref",
+        "name": "tax.us.2025.sli.statement-loan-support"
+      },
+      "right": {
+        "op": "category_literal",
+        "fact_type": {
+          "id": "tax.us.2025.sli.statement-loan-support",
+          "version": "v1"
+        },
+        "value": "plain-case-supported"
+      }
+    },
+    "then": {
+      "op": "category_literal",
+      "fact_type": {
+        "id": "tax.us.2025.sli.statement-support-reason",
+        "version": "v1"
+      },
+      "value": "none"
+    },
+    "else": {
+      "op": "choose",
+      "when": {
+        "op": "compare",
+        "cmp": "gt",
+        "left": {
+          "op": "ref",
+          "name": "tax.us.2025.sli.statement-applicability-marker-count"
+        },
+        "right": 0
+      },
+      "then": {
+        "op": "category_literal",
+        "fact_type": {
+          "id": "tax.us.2025.sli.statement-support-reason",
+          "version": "v1"
+        },
+        "value": "applicability-unestablished"
+      },
+      "else": {
+        "op": "choose",
+        "when": {
+          "op": "compare",
+          "cmp": "gt",
+          "left": {
+            "op": "ref",
+            "name": "tax.us.2025.sli.statement-scope-unresolved-count"
+          },
+          "right": 0
+        },
+        "then": {
+          "op": "category_literal",
+          "fact_type": {
+            "id": "tax.us.2025.sli.statement-support-reason",
+            "version": "v1"
+          },
+          "value": "statement-loan-cannot-tell"
+        },
+        "else": {
+          "op": "choose",
+          "when": {
+            "op": "compare",
+            "cmp": "gt",
+            "left": {
+              "op": "ref",
+              "name": "tax.us.2025.sli.statement-inclusion-unresolved-count"
+            },
+            "right": 0
+          },
+          "then": {
+            "op": "category_literal",
+            "fact_type": {
+              "id": "tax.us.2025.sli.statement-support-reason",
+              "version": "v1"
+            },
+            "value": "inclusion-cannot-tell"
+          },
+          "else": {
+            "op": "choose",
+            "when": {
+              "op": "compare",
+              "cmp": "gt",
+              "left": {
+                "op": "ref",
+                "name": "tax.us.2025.sli.statement-inclusion-withdrawn-count"
+              },
+              "right": 0
+            },
+            "then": {
+              "op": "category_literal",
+              "fact_type": {
+                "id": "tax.us.2025.sli.statement-support-reason",
+                "version": "v1"
+              },
+              "value": "inclusion-withdrawn"
+            },
+            "else": {
+              "op": "choose",
+              "when": {
+                "op": "compare",
+                "cmp": "eq",
+                "left": {
+                  "op": "ref",
+                  "name": "tax.us.2025.sli.statement-inclusion-count"
+                },
+                "right": 0
+              },
+              "then": {
+                "op": "category_literal",
+                "fact_type": {
+                  "id": "tax.us.2025.sli.statement-support-reason",
+                  "version": "v1"
+                },
+                "value": "no-loan-link"
+              },
+              "else": {
+                "op": "choose",
+                "when": {
+                  "op": "compare",
+                  "cmp": "gt",
+                  "left": {
+                    "op": "ref",
+                    "name": "tax.us.2025.sli.statement-inclusion-count"
+                  },
+                  "right": 1
+                },
+                "then": {
+                  "op": "category_literal",
+                  "fact_type": {
+                    "id": "tax.us.2025.sli.statement-support-reason",
+                    "version": "v1"
+                  },
+                  "value": "more-than-one-loan"
+                },
+                "else": {
+                  "op": "choose",
+                  "when": {
+                    "op": "collect_categorical_all_equal",
+                    "name": "tax.us.2025.sli.inclusion-support-reason",
+                    "value": {
+                      "op": "category_literal",
+                      "fact_type": {
+                        "id": "tax.us.2025.sli.inclusion-support-reason",
+                        "version": "v1"
+                      },
+                      "value": "financing-cannot-tell"
+                    }
+                  },
+                  "then": {
+                    "op": "category_literal",
+                    "fact_type": {
+                      "id": "tax.us.2025.sli.statement-support-reason",
+                      "version": "v1"
+                    },
+                    "value": "financing-cannot-tell"
+                  },
+                  "else": {
+                    "op": "choose",
+                    "when": {
+                      "op": "collect_categorical_all_equal",
+                      "name": "tax.us.2025.sli.inclusion-support-reason",
+                      "value": {
+                        "op": "category_literal",
+                        "fact_type": {
+                          "id": "tax.us.2025.sli.inclusion-support-reason",
+                          "version": "v1"
+                        },
+                        "value": "financing-withdrawn"
+                      }
+                    },
+                    "then": {
+                      "op": "category_literal",
+                      "fact_type": {
+                        "id": "tax.us.2025.sli.statement-support-reason",
+                        "version": "v1"
+                      },
+                      "value": "financing-withdrawn"
+                    },
+                    "else": {
+                      "op": "choose",
+                      "when": {
+                        "op": "collect_categorical_all_equal",
+                        "name": "tax.us.2025.sli.inclusion-support-reason",
+                        "value": {
+                          "op": "category_literal",
+                          "fact_type": {
+                            "id": "tax.us.2025.sli.inclusion-support-reason",
+                            "version": "v1"
+                          },
+                          "value": "no-schooling-link"
+                        }
+                      },
+                      "then": {
+                        "op": "category_literal",
+                        "fact_type": {
+                          "id": "tax.us.2025.sli.statement-support-reason",
+                          "version": "v1"
+                        },
+                        "value": "no-schooling-link"
+                      },
+                      "else": {
+                        "op": "choose",
+                        "when": {
+                          "op": "collect_categorical_all_equal",
+                          "name": "tax.us.2025.sli.inclusion-support-reason",
+                          "value": {
+                            "op": "category_literal",
+                            "fact_type": {
+                              "id": "tax.us.2025.sli.inclusion-support-reason",
+                              "version": "v1"
+                            },
+                            "value": "more-than-one-schooling"
+                          }
+                        },
+                        "then": {
+                          "op": "category_literal",
+                          "fact_type": {
+                            "id": "tax.us.2025.sli.statement-support-reason",
+                            "version": "v1"
+                          },
+                          "value": "more-than-one-schooling"
+                        },
+                        "else": {
+                          "op": "choose",
+                          "when": {
+                            "op": "collect_categorical_all_equal",
+                            "name": "tax.us.2025.sli.inclusion-support-reason",
+                            "value": {
+                              "op": "category_literal",
+                              "fact_type": {
+                                "id": "tax.us.2025.sli.inclusion-support-reason",
+                                "version": "v1"
+                              },
+                              "value": "loan-cost-answer-missing"
+                            }
+                          },
+                          "then": {
+                            "op": "category_literal",
+                            "fact_type": {
+                              "id": "tax.us.2025.sli.statement-support-reason",
+                              "version": "v1"
+                            },
+                            "value": "loan-cost-answer-missing"
+                          },
+                          "else": {
+                            "op": "choose",
+                            "when": {
+                              "op": "collect_categorical_all_equal",
+                              "name": "tax.us.2025.sli.inclusion-support-reason",
+                              "value": {
+                                "op": "category_literal",
+                                "fact_type": {
+                                  "id": "tax.us.2025.sli.inclusion-support-reason",
+                                  "version": "v1"
+                                },
+                                "value": "loan-cost-no"
+                              }
+                            },
+                            "then": {
+                              "op": "category_literal",
+                              "fact_type": {
+                                "id": "tax.us.2025.sli.statement-support-reason",
+                                "version": "v1"
+                              },
+                              "value": "loan-cost-no"
+                            },
+                            "else": {
+                              "op": "choose",
+                              "when": {
+                                "op": "collect_categorical_all_equal",
+                                "name": "tax.us.2025.sli.inclusion-support-reason",
+                                "value": {
+                                  "op": "category_literal",
+                                  "fact_type": {
+                                    "id": "tax.us.2025.sli.inclusion-support-reason",
+                                    "version": "v1"
+                                  },
+                                  "value": "loan-cost-cannot-tell"
+                                }
+                              },
+                              "then": {
+                                "op": "category_literal",
+                                "fact_type": {
+                                  "id": "tax.us.2025.sli.statement-support-reason",
+                                  "version": "v1"
+                                },
+                                "value": "loan-cost-cannot-tell"
+                              },
+                              "else": {
+                                "op": "choose",
+                                "when": {
+                                  "op": "collect_categorical_all_equal",
+                                  "name": "tax.us.2025.sli.inclusion-support-reason",
+                                  "value": {
+                                    "op": "category_literal",
+                                    "fact_type": {
+                                      "id": "tax.us.2025.sli.inclusion-support-reason",
+                                      "version": "v1"
+                                    },
+                                    "value": "enrollment-answer-missing"
+                                  }
+                                },
+                                "then": {
+                                  "op": "category_literal",
+                                  "fact_type": {
+                                    "id": "tax.us.2025.sli.statement-support-reason",
+                                    "version": "v1"
+                                  },
+                                  "value": "enrollment-answer-missing"
+                                },
+                                "else": {
+                                  "op": "choose",
+                                  "when": {
+                                    "op": "collect_categorical_all_equal",
+                                    "name": "tax.us.2025.sli.inclusion-support-reason",
+                                    "value": {
+                                      "op": "category_literal",
+                                      "fact_type": {
+                                        "id": "tax.us.2025.sli.inclusion-support-reason",
+                                        "version": "v1"
+                                      },
+                                      "value": "enrollment-no"
+                                    }
+                                  },
+                                  "then": {
+                                    "op": "category_literal",
+                                    "fact_type": {
+                                      "id": "tax.us.2025.sli.statement-support-reason",
+                                      "version": "v1"
+                                    },
+                                    "value": "enrollment-no"
+                                  },
+                                  "else": {
+                                    "op": "choose",
+                                    "when": {
+                                      "op": "collect_categorical_all_equal",
+                                      "name": "tax.us.2025.sli.inclusion-support-reason",
+                                      "value": {
+                                        "op": "category_literal",
+                                        "fact_type": {
+                                          "id": "tax.us.2025.sli.inclusion-support-reason",
+                                          "version": "v1"
+                                        },
+                                        "value": "enrollment-cannot-tell"
+                                      }
+                                    },
+                                    "then": {
+                                      "op": "category_literal",
+                                      "fact_type": {
+                                        "id": "tax.us.2025.sli.statement-support-reason",
+                                        "version": "v1"
+                                      },
+                                      "value": "enrollment-cannot-tell"
+                                    },
+                                    "else": {
+                                      "op": "block",
+                                      "code": "DEPENDENCY_INVALID"
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "publishes": "tax.us.2025.sli.statement-support-reason",
+  "blocked": {
+    "code": "DEPENDENCY_INVALID",
+    "missing": []
+  },
+  "notes": "Per Form 1098-E statement: why it is not-supported, by precedence (system applicability marker; the person's statement doubt, inclusion cannot-tell, inclusion withdrawal; no loan; more than one loan; then the one inclusion's reason), or none when plain-case-supported."
+}

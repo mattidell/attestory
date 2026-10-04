@@ -1,0 +1,48 @@
+{
+  "schema": "rule-artifact.v13",
+  "id": "tax.us.2025.rule.sli-financing-schooling-link",
+  "version": "v1",
+  "scope": {
+    "tax_year": 2025,
+    "jurisdiction": "US-federal",
+    "family": "individual-income-tax"
+  },
+  "role": "computation",
+  "subject": {
+    "id": "tax.us.2025.sli.financing-relationship",
+    "version": "v1"
+  },
+  "joined": {
+    "id": "tax.us.2025.sli.schooling-situation",
+    "version": "v1"
+  },
+  "direction": "subject_contains_joined",
+  "requires": [
+    "tax.us.2025.sli.schooling-situation"
+  ],
+  "pins": [],
+  "when": {
+    "op": "any",
+    "args": [
+      {
+        "op": "ref",
+        "name": "tax.us.2025.sli.schooling-situation"
+      },
+      true
+    ]
+  },
+  "value": {
+    "op": "category_literal",
+    "fact_type": {
+      "id": "tax.us.2025.sli.financing-schooling-link",
+      "version": "v1"
+    },
+    "value": "schooling-current"
+  },
+  "publishes": "tax.us.2025.sli.financing-schooling-link",
+  "blocked": {
+    "code": "DEPENDENCY_INVALID",
+    "missing": []
+  },
+  "notes": "Per financing link: requires the schooling it names (stale-target join). A schooling that is not current blocks this financing and publishes nothing for it."
+}

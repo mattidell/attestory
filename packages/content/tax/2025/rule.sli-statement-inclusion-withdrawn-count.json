@@ -1,0 +1,33 @@
+{
+  "schema": "rule-artifact.v13",
+  "id": "tax.us.2025.rule.sli-statement-inclusion-withdrawn-count",
+  "version": "v1",
+  "scope": {
+    "tax_year": 2025,
+    "jurisdiction": "US-federal",
+    "family": "individual-income-tax"
+  },
+  "role": "computation",
+  "subject": {
+    "id": "tax.us.2025.f1098e.box1-student-loan-interest",
+    "version": "v1"
+  },
+  "joined": {
+    "id": "tax.us.2025.sli.statement-inclusion-withdrawn",
+    "version": "v1"
+  },
+  "direction": "joined_contains_subject",
+  "requires": [],
+  "pins": [],
+  "when": true,
+  "value": {
+    "op": "link_count",
+    "links": "tax.us.2025.sli.statement-inclusion-withdrawn"
+  },
+  "publishes": "tax.us.2025.sli.statement-inclusion-withdrawn-count",
+  "blocked": {
+    "code": "DEPENDENCY_INVALID",
+    "missing": []
+  },
+  "notes": "Per statement: current inclusion withdrawn-without-successor rows on the statement."
+}

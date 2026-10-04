@@ -1,0 +1,197 @@
+{
+  "schema": "rule-artifact.v13",
+  "id": "tax.us.2025.rule.sli-statement-loan-support",
+  "version": "v1",
+  "scope": {
+    "tax_year": 2025,
+    "jurisdiction": "US-federal",
+    "family": "individual-income-tax"
+  },
+  "role": "computation",
+  "subject": {
+    "id": "tax.us.2025.f1098e.box1-student-loan-interest",
+    "version": "v1"
+  },
+  "joined": {
+    "id": "tax.us.2025.sli.statement-inclusion-relationship",
+    "version": "v1"
+  },
+  "direction": "joined_contains_subject",
+  "requires": [
+    "tax.us.2025.sli.statement-applicability-marker-count",
+    "tax.us.2025.sli.statement-scope-unresolved-count",
+    "tax.us.2025.sli.statement-inclusion-unresolved-count",
+    "tax.us.2025.sli.statement-inclusion-withdrawn-count"
+  ],
+  "pins": [],
+  "when": true,
+  "value": {
+    "op": "choose",
+    "when": {
+      "op": "compare",
+      "cmp": "gt",
+      "left": {
+        "op": "ref",
+        "name": "tax.us.2025.sli.statement-applicability-marker-count"
+      },
+      "right": 0
+    },
+    "then": {
+      "op": "choose",
+      "when": {
+        "op": "collect_categorical_all_equal",
+        "name": "tax.us.2025.sli.statement-inclusion-applicability-unestablished",
+        "value": {
+          "op": "category_literal",
+          "fact_type": {
+            "id": "tax.us.2025.sli.statement-inclusion-applicability-unestablished",
+            "version": "v1"
+          },
+          "value": "sli.statement-inclusion.applicability-unestablished"
+        }
+      },
+      "then": {
+        "op": "category_literal",
+        "fact_type": {
+          "id": "tax.us.2025.sli.statement-loan-support",
+          "version": "v1"
+        },
+        "value": "not-supported"
+      },
+      "else": {
+        "op": "category_literal",
+        "fact_type": {
+          "id": "tax.us.2025.sli.statement-loan-support",
+          "version": "v1"
+        },
+        "value": "not-supported"
+      }
+    },
+    "else": {
+      "op": "choose",
+      "when": {
+        "op": "all",
+        "args": [
+          {
+            "op": "compare",
+            "cmp": "eq",
+            "left": {
+              "op": "ref",
+              "name": "tax.us.2025.sli.statement-scope-unresolved-count"
+            },
+            "right": 0
+          },
+          {
+            "op": "compare",
+            "cmp": "eq",
+            "left": {
+              "op": "ref",
+              "name": "tax.us.2025.sli.statement-inclusion-unresolved-count"
+            },
+            "right": 0
+          },
+          {
+            "op": "compare",
+            "cmp": "eq",
+            "left": {
+              "op": "ref",
+              "name": "tax.us.2025.sli.statement-inclusion-withdrawn-count"
+            },
+            "right": 0
+          },
+          {
+            "op": "compare",
+            "cmp": "eq",
+            "left": {
+              "op": "link_count",
+              "links": "tax.us.2025.sli.statement-inclusion-relationship"
+            },
+            "right": 1
+          },
+          {
+            "op": "collect_categorical_all_equal",
+            "name": "tax.us.2025.sli.inclusion-support-reason",
+            "value": {
+              "op": "category_literal",
+              "fact_type": {
+                "id": "tax.us.2025.sli.inclusion-support-reason",
+                "version": "v1"
+              },
+              "value": "none"
+            }
+          },
+          {
+            "op": "compare",
+            "cmp": "eq",
+            "left": {
+              "op": "link_coverage",
+              "links": "tax.us.2025.sli.statement-inclusion-relationship",
+              "reductions": "tax.us.2025.sli.inclusion-support",
+              "empty": {
+                "parameter": {
+                  "id": "tax.us.2025.parameter.sli-statement-support-no-inclusion",
+                  "version": "v1"
+                }
+              }
+            },
+            "right": 1
+          }
+        ]
+      },
+      "then": {
+        "op": "category_literal",
+        "fact_type": {
+          "id": "tax.us.2025.sli.statement-loan-support",
+          "version": "v1"
+        },
+        "value": "plain-case-supported"
+      },
+      "else": {
+        "op": "category_literal",
+        "fact_type": {
+          "id": "tax.us.2025.sli.statement-loan-support",
+          "version": "v1"
+        },
+        "value": "not-supported"
+      }
+    }
+  },
+  "publishes": "tax.us.2025.sli.statement-loan-support",
+  "blocked": {
+    "code": "DEPENDENCY_INVALID",
+    "missing": []
+  },
+  "citations": [
+    {
+      "id": "tax.us.2025.citation.form1040.sli-worksheet",
+      "version": "v1"
+    }
+  ],
+  "basis": {
+    "said": [
+      "The loan-cost answer is yes for the named borrowing.",
+      "The enrollment answer is yes for the named borrowing, for the schooling it paid for.",
+      "The person affirmed that the borrowing financed the named schooling.",
+      "The person affirmed that the statement includes interest on the borrowing."
+    ],
+    "derived": [
+      "The statement has exactly one current affirmed inclusion.",
+      "The borrowing on that inclusion has exactly one current affirmed financing.",
+      "Both counts are counts of current rows, not answers the person gave."
+    ],
+    "assumed": [
+      "The expenses fall in a reasonable period before or after the loan.",
+      "The school costs stand in for qualified higher education expenses, and no reduction is applied for scholarships or other tax-free assistance.",
+      "The schooling was for the taxpayer, a spouse, or a dependent when the loan was incurred.",
+      "The named borrowing is indebtedness the taxpayer incurred.",
+      "Box 1 holds no loan the person did not record, so the whole box 1 is this loan's interest."
+    ],
+    "left_with_person": [
+      "The institution is an eligible educational institution.",
+      "The enrollment meets that institution's half-time standard.",
+      "The program leads to a recognized educational credential.",
+      "The cost of attendance is the figure that institution determines."
+    ]
+  },
+  "notes": "Per Form 1098-E statement, published for every current box 1: plain-case-supported only when exactly one current inclusion, its reason is none, its support is 1 (ADR 0075 link_coverage), and no applicability marker, statement doubt, inclusion cannot-tell or inclusion withdrawal is current on the statement. A marker makes the statement not-supported before counts are read, and each marker is read so its omitted inclusion is pinned. A denied inclusion does not block."
+}
