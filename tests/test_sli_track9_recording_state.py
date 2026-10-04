@@ -19,6 +19,7 @@ from typing import Any, cast
 from packages.derivation.live import live_coordinate_run
 from packages.derivation.live_workspace import WorkspaceCapability
 from packages.derivation.loader import DerivationSchemas, workspace_registry
+from packages.tax.loader import install_domain_scoped_supersession
 from packages.derivation.presentation_projection import PresentationModelError
 from packages.derivation.production_resolver import PublicationSurface
 from packages.kernel.act_log import ActLog
@@ -129,7 +130,7 @@ class UnresolvedAccountRecovery(unittest.TestCase):
         with tempfile.TemporaryDirectory(prefix="track9-account-") as directory:
             root = Path(directory)
             schemas = DerivationSchemas()
-            registry = workspace_registry()
+            registry = install_domain_scoped_supersession(workspace_registry())
             acts = [
                 act(0, "bundle-adoption", {"bundle": {
                     "schema": "bundle.v2",
@@ -176,7 +177,7 @@ class UnresolvedAccountRecovery(unittest.TestCase):
             log = ActLog(root / "workspace", registry)
             for item in [*acts, contribution_act, assertion]:
                 log.append(item, expected_revision=item["committed_against"])
-            recovered_acts = ActLog(root / "workspace", workspace_registry()).read().acts
+            recovered_acts = ActLog(root / "workspace", workspace_registry(), read_only=True).read().acts
             self.assertEqual(len(recovered_acts), 5)
             # Recovery uses a fresh registry/projection and only the reopened
             # act log, not the contribution result or original value object.
@@ -256,10 +257,10 @@ class UnresolvedAccountRecovery(unittest.TestCase):
 
         with tempfile.TemporaryDirectory(prefix="track9-saved-workspace-") as raw_workspace:
             workspace = Path(raw_workspace)
-            log = ActLog(workspace / "authoritative", workspace_registry())
+            log = ActLog(workspace / "authoritative", install_domain_scoped_supersession(workspace_registry()))
             for item in acts:
                 log.append(item, expected_revision=item["committed_against"])
-            reopened_log = ActLog(workspace / "authoritative", workspace_registry())
+            reopened_log = ActLog(workspace / "authoritative", workspace_registry(), read_only=True)
             recovered_acts = reopened_log.read().acts
             # The Track 8 helper drives the same byte-verified package
             # resolver, marshaller, and both runners from reopened acts.

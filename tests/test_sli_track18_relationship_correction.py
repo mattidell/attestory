@@ -5,7 +5,7 @@ import unittest
 import hashlib
 import json
 import tempfile
-from typing import Any
+from typing import Any, Sequence
 from pathlib import Path
 
 from packages.derivation.live import _resolve_run_authorization, _resolved_run_material
@@ -20,7 +20,8 @@ from packages.kernel.currency import compute_currency
 from packages.kernel.facts import fact_id_for, facts_of
 from packages.kernel.findings import project
 from packages.tax.sli_relationship_recording import (
-    INCLUSION_UNRESOLVED, RelationshipRecordingRefused, STATEMENT_TYPE, record_submission_durably,
+    INCLUSION_UNRESOLVED, RelationshipRecordingRefused, STATEMENT_TYPE, current_claim_applicability,
+    record_submission_durably,
 )
 from packages.tax.sli_relationship_review import (
     answer_review_claim, apply_statement_correction_review, correct_review_claim, prepare_review,
@@ -64,6 +65,13 @@ def _append_v36_adoption(log: ActLog, registry: Any) -> None:
 
 
 def _run_v36(acts: tuple[dict[str, Any], ...], run_id: str) -> tuple[Any, Any, Any]:
+    resolved, context = _marshal_v36(acts, run_id)
+    schemas = DerivationSchemas()
+    return resolved, run(context, schemas), run_reference(context, schemas)
+
+
+def _marshal_v36(acts: tuple[dict[str, Any], ...], run_id: str) -> tuple[Any, Any]:
+    """Marshal as ``live_coordinate_run`` does, with the ADR 0077 Part 5 replay reading."""
     schemas = DerivationSchemas()
     surface = PublicationSurface(FIXTURE / "publication_surface/releases", V36_REGISTRY, ROOT / "packages")
     resolved = resolve_production_package(
@@ -121,8 +129,9 @@ def _run_v36(acts: tuple[dict[str, Any], ...], run_id: str) -> tuple[Any, Any, A
         fact_types=fact_types, input_bindings=bindings, collect_source_names=collect_names,
         emission_only_source_names=list(material.emission_only_names), authorization=authorization,
         reporting_year=2025, parameter_index=material.parameter_index,
+        claim_applicability=current_claim_applicability(acts, schemas.registry),
     )
-    return resolved, run(context._context, schemas), run_reference(context._context, schemas)
+    return resolved, context._context
 
 
 class Track18RelationshipCorrection(unittest.TestCase):
@@ -166,7 +175,10 @@ class Track18RelationshipCorrection(unittest.TestCase):
                 schooling_fact_ids=(first["school"], second["school"]),
                 statement_fact_ids=(first["statement"], second["statement"]),
             )
-            track14._append_source(log, registry, STATEMENT_TYPE, tuple(statement_fact.keys), 1600.0,
+            # ADR 0077 Part 5 refuses this unscoped write on the recorder's log; it is
+            # written as pre-step history to reach the stale-review refusal.
+            track14._append_source(track17._pre_step_writer(log), registry, STATEMENT_TYPE,
+                                   tuple(statement_fact.keys), 1600.0,
                                    "track18-stale-review-source-change")
             with self.assertRaisesRegex(RelationshipRecordingRefused, "prepared review changed"):
                 apply_statement_correction_review(
@@ -181,24 +193,32 @@ class Track18RelationshipCorrection(unittest.TestCase):
             stale_state = project(stale_acts, registry)
             self.assertIn(first["statement-inclusion"]["finding_id"],
                           compute_currency(stale_state).current_finding_ids)
+            # ADR 0077 Part 5 replay: both inclusions on the changed statement
+            # are current but not joined to the unreviewed 1600; each is a
+            # marker. The other statement's inclusion is joined as before.
+            self.assertNotIn(first_symbol, stale_observations)
+            self.assertNotIn(second_symbol, stale_observations)
+            self.assertEqual(stale_observations[unaffected_symbol], before[unaffected_symbol])
+            _stale_resolved, stale_context = _marshal_v36(stale_acts, "demo.track18.source-changed-before-scope")
+            track17._assert_replay_omits(self, stale_context, stale_acts, registry, [first_old, second_old])
             amount_review = prepare_review(
                 log, registry, review_id="demo.track18.review.amount-only",
                 shown_at="2026-09-30T13:00:30Z", borrowing_refs=(first["borrowing"], second["borrowing"]),
                 schooling_fact_ids=(first["school"], second["school"]),
                 statement_fact_ids=(first["statement"], second["statement"]),
             )
-            original_append = log.append
+            original_batch = log.append_batch
             intermediate: dict[str, Any] = {}
 
-            def inspect_scope_before_source(item: dict[str, Any], expected_revision: int) -> int:
-                appended = original_append(item, expected_revision)
-                content = item.get("payload", {}).get("evidence", {}).get("content", {})
-                if content.get("recognition_context", {}).get("statement_correction", {}).get(
-                        "source_correction_id") == "demo.track18.amount-only-correction":
+            # Track 7: the scope evidence and the corrected source are one
+            # batch. A crash during it leaves the log as it is just before it.
+            def inspect_before_the_save(items: Sequence[dict[str, Any]], expected_revision: int) -> int:
+                if not intermediate:
                     fresh = ActLog(log.path.parent, registry)
                     intermediate["acts"] = fresh.read().acts
+                    intermediate["batch"] = list(items)
                     _resolved, forward, reference = _run_v36(
-                        intermediate["acts"], "demo.track18.amount-only-between-scope-and-source")
+                        intermediate["acts"], "demo.track18.amount-only-before-the-save")
                     self.assertEqual(_surface(forward), _surface(reference))
                     intermediate["observations"] = _published(forward)
                     intermediate["current_value"] = [
@@ -207,9 +227,9 @@ class Track18RelationshipCorrection(unittest.TestCase):
                         if finding_id in compute_currency(project(intermediate["acts"], registry)).current_finding_ids
                         and finding.get("fact_id") == first["statement"]
                     ][0]
-                return appended
+                return original_batch(items, expected_revision)
 
-            setattr(log, "append", inspect_scope_before_source)
+            setattr(log, "append_batch", inspect_before_the_save)
             amount_answer = apply_statement_correction_review(
                 log, registry, review=amount_review, statement_fact_id=first["statement"],
                 scope="amount-only", borrowing_ref=None, finding_id=None, actor=USER,
@@ -217,14 +237,23 @@ class Track18RelationshipCorrection(unittest.TestCase):
                 evidence_id="demo.evidence.track18.amount-only-scope",
                 corrected_box1_total=1775.0, source_correction_id="demo.track18.amount-only-correction",
             )
-            setattr(log, "append", original_append)
+            setattr(log, "append_batch", original_batch)
             self.assertEqual(intermediate["current_value"], 1600.0)
             self.assertEqual(intermediate["observations"], stale_observations)
-            intermediate_evidence = project(intermediate["acts"], registry).evidence[
-                "demo.evidence.track18.amount-only-scope"].evidence["content"]
+            # The scope evidence leads the save, ahead of the corrected source;
+            # the log before the save holds neither.
+            self.assertNotIn("demo.evidence.track18.amount-only-scope",
+                             project(intermediate["acts"], registry).evidence)
+            first_act = intermediate["batch"][0]
+            self.assertEqual(first_act["kind"], "evidence-submitted")
+            intermediate_evidence = first_act["payload"]["evidence"]["content"]
             self.assertEqual(intermediate_evidence["recognition_context"]["statement_correction"]
                              ["included_borrowings_changed"], False)
+            self.assertEqual([row["kind"] for row in intermediate["batch"]][-1], "assertion")
             amount_acts, amount = recovered("amount-only")
+            # The reviewed correction re-binds both inclusions: no marker remains.
+            _amount_resolved, amount_context = _marshal_v36(amount_acts, "demo.track18.amount-only")
+            track17._assert_replay_omits(self, amount_context, amount_acts, registry, [])
             amount_evidence = project(amount_acts, registry).evidence[amount_answer["evidence_id"]]
             self.assertEqual(amount_evidence.evidence["content"]["recognition_context"]
                              ["statement_correction"]["included_borrowings_changed"], False)
@@ -322,19 +351,21 @@ class Track18RelationshipCorrection(unittest.TestCase):
                 statement_fact_ids=(first["statement"], second["statement"]),
             )
             addition_intermediate: dict[str, Any] = {}
-            original_append = log.append
+            original_batch = log.append_batch
 
-            def inspect_addition_between_source_and_yes(item: dict[str, Any], expected_revision: int) -> int:
-                appended = original_append(item, expected_revision)
-                if item.get("kind") == "assertion" and item.get("payload", {}).get("finding", {}).get("fact_id") == first["statement"]:
+            # Track 7: scope, corrected source and the added yes are one batch.
+            # A crash during it leaves the log as it is just before it.
+            def inspect_addition_before_the_save(items: Sequence[dict[str, Any]], expected_revision: int) -> int:
+                if not addition_intermediate:
                     fresh = ActLog(log.path.parent, registry)
                     acts = fresh.read().acts
-                    _resolved, forward, reference = _run_v36(acts, "demo.track18.addition-between-source-and-yes")
+                    _resolved, forward, reference = _run_v36(acts, "demo.track18.addition-before-the-save")
                     self.assertEqual(_surface(forward), _surface(reference))
                     addition_intermediate["published"] = _published(forward)
-                return appended
+                    addition_intermediate["kinds"] = [row["kind"] for row in items]
+                return original_batch(items, expected_revision)
 
-            setattr(log, "append", inspect_addition_between_source_and_yes)
+            setattr(log, "append_batch", inspect_addition_before_the_save)
             added_correction = apply_statement_correction_review(
                 log, registry, review=addition_review, statement_fact_id=first["statement"],
                 scope="inclusion-added", borrowing_ref=first["borrowing"], finding_id=None,
@@ -342,8 +373,13 @@ class Track18RelationshipCorrection(unittest.TestCase):
                 evidence_id="demo.evidence.track18.explicit-addition-scope", corrected_box1_total=1900.0,
                 source_correction_id="demo.track18.explicit-addition-source",
             )
-            setattr(log, "append", original_append)
+            setattr(log, "append_batch", original_batch)
             self.assertNotIn(first_symbol, addition_intermediate["published"])
+            # Scope evidence; corrected-source evidence, contribution, box 1;
+            # the added pair's evidence, contribution and yes.
+            self.assertEqual(addition_intermediate["kinds"], [
+                "evidence-submitted", "evidence-submitted", "contribution", "assertion",
+                "evidence-submitted", "contribution", "assertion"])
             added_acts, after_addition = recovered("explicit-addition")
             added_claim = added_correction["claims"]["statement-inclusion"]
             self.assertIn(first_symbol, after_addition)
@@ -537,7 +573,10 @@ class Track18RelationshipCorrection(unittest.TestCase):
                 self.assertIn(no_unresolved_finding, no_after_state.findings)
                 self.assertNotIn(no_unresolved_finding, compute_currency(no_after_state).current_finding_ids)
 
-    def test_answer_append_failure_reports_retraction_without_saved_answer(self) -> None:
+    def test_answer_write_failure_saves_nothing(self) -> None:
+        # Track 7: the retraction, the cannot-tell answer and its unresolved
+        # status are one batch. A failed write leaves the affirmation current
+        # and nothing of the answer.
         raw, log, registry, subjects = track17.Track17RelationshipApplicability()._scenario()
         with raw:
             first = subjects["first"]
@@ -547,19 +586,15 @@ class Track18RelationshipCorrection(unittest.TestCase):
                 shown_at="2026-09-30T14:00:00Z", borrowing_refs=(first["borrowing"],),
                 schooling_fact_ids=(first["school"],), statement_fact_ids=(first["statement"],),
             )
-            original_append = log.append
-            call_count = 0
+            before_acts = ActLog(log.path.parent, registry).read().acts
+            _resolved, before_forward, _reference = _run_v36(before_acts, "demo.track18.before-failed-answer")
+            original_batch = log.append_batch
 
-            def fail_answer_append(item: dict[str, Any], expected_revision: int) -> int:
-                nonlocal call_count
-                call_count += 1
-                if call_count == 2:
-                    raise ActLogError("synthetic answer append interruption")
-                return original_append(item, expected_revision)
+            def fail_answer_batch(items: Sequence[dict[str, Any]], expected_revision: int) -> int:
+                raise ActLogError("synthetic answer write interruption")
 
-            setattr(log, "append", fail_answer_append)
-            with self.assertRaisesRegex(RelationshipRecordingRefused,
-                                        "prior affirmation support is ended; the new answer was not saved"):
+            setattr(log, "append_batch", fail_answer_batch)
+            with self.assertRaisesRegex(ActLogError, "synthetic answer write interruption"):
                 answer_review_claim(
                     log, registry, finding_id=first["statement-inclusion"]["finding_id"],
                     review=review, borrowing_ref=first["borrowing"],
@@ -569,27 +604,30 @@ class Track18RelationshipCorrection(unittest.TestCase):
                     submission_id="demo.track18.interrupted-cannot-tell",
                     evidence_id="demo.evidence.track18.interrupted-cannot-tell",
                 )
-            setattr(log, "append", original_append)
+            setattr(log, "append_batch", original_batch)
             fresh = ActLog(log.path.parent, registry)
             acts = fresh.read().acts
+            self.assertEqual(acts, before_acts)
             state = project(acts, registry)
             current_ids = compute_currency(state).current_finding_ids
             predecessor = first["statement-inclusion"]["finding_id"]
-            self.assertIn(predecessor, state.findings)
-            self.assertNotIn(predecessor, current_ids)
+            self.assertIn(predecessor, current_ids)
             self.assertNotIn("demo.evidence.track18.interrupted-cannot-tell", state.evidence)
             _resolved, forward, reference = _run_v36(acts, "demo.track18.interrupted-recovery")
             self.assertEqual(_surface(forward), _surface(reference))
+            self.assertEqual(_published(forward), _published(before_forward))
             inclusion_symbol = f"{INCLUSION_OUTPUT}|{first['statement-inclusion']['fact_id']}"
             unresolved_fact = facts_of(state.fact_state, include_displaced=True)[
                 first["statement-inclusion"]["fact_id"]
             ]
             unresolved_symbol = (f"{UNRESOLVED_OUTPUT}|" + fact_id_for(
                 INCLUSION_UNRESOLVED, tuple(unresolved_fact.keys)))
-            self.assertNotIn(inclusion_symbol, _published(forward))
+            self.assertIn(inclusion_symbol, _published(forward))
             self.assertNotIn(unresolved_symbol, _published(forward))
 
-    def test_no_after_unresolved_append_failure_retracts_before_answer(self) -> None:
+    def test_no_after_unresolved_write_failure_saves_nothing(self) -> None:
+        # Track 7: ending the unresolved status and saving the no are one
+        # batch. A failed write leaves the unresolved status current.
         raw, log, registry, subjects = track17.Track17RelationshipApplicability()._scenario()
         with raw:
             first, second = subjects["first"], subjects["second"]
@@ -613,19 +651,14 @@ class Track18RelationshipCorrection(unittest.TestCase):
                 shown_at="2026-09-30T15:00:02Z", borrowing_refs=(first["borrowing"],),
                 schooling_fact_ids=(first["school"],), statement_fact_ids=(first["statement"],),
             )
-            original_append = log.append
-            call_count = 0
+            before_acts = ActLog(log.path.parent, registry).read().acts
+            original_batch = log.append_batch
 
-            def fail_answer_after_retraction(item: dict[str, Any], expected_revision: int) -> int:
-                nonlocal call_count
-                call_count += 1
-                if call_count == 2:
-                    raise ActLogError("synthetic no answer append interruption")
-                return original_append(item, expected_revision)
+            def fail_no_batch(items: Sequence[dict[str, Any]], expected_revision: int) -> int:
+                raise ActLogError("synthetic no answer write interruption")
 
-            setattr(log, "append", fail_answer_after_retraction)
-            with self.assertRaisesRegex(RelationshipRecordingRefused,
-                                        "unresolved status is ended; the new no answer was not saved"):
+            setattr(log, "append_batch", fail_no_batch)
+            with self.assertRaisesRegex(ActLogError, "synthetic no answer write interruption"):
                 answer_review_claim(
                     log, registry, finding_id=first["statement-inclusion"]["finding_id"],
                     review=no_review, borrowing_ref=first["borrowing"],
@@ -635,8 +668,9 @@ class Track18RelationshipCorrection(unittest.TestCase):
                     submission_id="demo.track18.partial-no-answer",
                     evidence_id="demo.evidence.track18.partial-no-answer",
                 )
-            setattr(log, "append", original_append)
+            setattr(log, "append_batch", original_batch)
             recovered_acts = ActLog(log.path.parent, registry).read().acts
+            self.assertEqual(recovered_acts, before_acts)
             state = project(recovered_acts, registry)
             current_ids = compute_currency(state).current_finding_ids
             self.assertIn(first["statement-inclusion"]["finding_id"], state.findings)
@@ -649,12 +683,12 @@ class Track18RelationshipCorrection(unittest.TestCase):
             unresolved_findings = [fid for fid, row in state.findings.items()
                                   if row.get("fact_id") == unresolved_id]
             self.assertEqual(len(unresolved_findings), 1)
-            self.assertNotIn(unresolved_findings[0], current_ids)
+            self.assertIn(unresolved_findings[0], current_ids)
             _resolved, forward, reference = _run_v36(recovered_acts, "demo.track18.partial-no-recovery")
             self.assertEqual(_surface(forward), _surface(reference))
             publications = _published(forward)
             self.assertNotIn(f"{INCLUSION_OUTPUT}|{first['statement-inclusion']['fact_id']}", publications)
-            self.assertNotIn(f"{UNRESOLVED_OUTPUT}|{unresolved_id}", publications)
+            self.assertIn(f"{UNRESOLVED_OUTPUT}|{unresolved_id}", publications)
             self.assertIn(f"{INCLUSION_OUTPUT}|{second['statement-inclusion']['fact_id']}", publications)
 
 

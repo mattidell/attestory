@@ -199,3 +199,32 @@ def demo_closure_authority(*, closed: bool = True) -> dict[str, Any]:
         "closure_findings": findings,
         "current_horizons": {"demo.w2": "demo.h0"},
     }
+
+
+def applicability_without_history(rows: list[dict[str, Any]], *, inclusion_type: str,
+                                  statement_type: str) -> list[dict[str, str]]:
+    """The claim-applicability reading for a synthetic world with no act history.
+
+    Marshalling a current statement inclusion requires this reading (ADR 0077
+    Part 5, replay step 2). ``current_claim_applicability`` reads it from acts;
+    a world built from rows has none. With no history, no box 1 was rewritten
+    after an inclusion was confirmed, so the real rule reduces to this: an
+    inclusion applies when its statement (its keys without ``borrowing``) has
+    exactly one current box 1 row. Rows are ``{"id", "type", "keys", "current"}``.
+    """
+    def fact_id(type_id: str, keys: Any) -> str:
+        return f"{type_id}|" + ",".join(f"{name}={value}" for name, value in keys)
+
+    current_boxes: dict[str, int] = {}
+    for item in rows:
+        if item["current"] and item["type"] == statement_type:
+            box = fact_id(statement_type, item["keys"])
+            current_boxes[box] = current_boxes.get(box, 0) + 1
+    reading: list[dict[str, str]] = []
+    for item in rows:
+        if not item["current"] or item["type"] != inclusion_type:
+            continue
+        box = fact_id(statement_type, tuple((name, value) for name, value in item["keys"] if name != "borrowing"))
+        reading.append({"finding_id": item["id"], "relationship_type": inclusion_type, "source_fact_id": box,
+                        "applicability": "current" if current_boxes.get(box) == 1 else "unresolved-applicability"})
+    return reading

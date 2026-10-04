@@ -1,0 +1,183 @@
+{
+  "schema": "bundle.v2",
+  "id": "tax.us.2025.sli-support-chain",
+  "version": "v1",
+  "label": "Derived results of the 2025 student-loan support chain: per financing, per inclusion and per Form 1098-E statement",
+  "fact_types": [
+    {
+      "schema": "fact-type.v2",
+      "id": "tax.us.2025.sli.financing-schooling-link",
+      "version": "v1",
+      "title": "Derived, per financing link: the schooling the financing names is current. Not published when that schooling is not current, so an inclusion's support blocks rather than reading a stale schooling",
+      "nature": "determinable",
+      "identity_keys": [
+        {
+          "name": "borrowing",
+          "kind": "entity",
+          "entity_kind": "tax.us.student-loan-borrowing-reference"
+        },
+        {
+          "name": "period",
+          "kind": "entity",
+          "entity_kind": "tax.us.educational-period"
+        },
+        {
+          "name": "institution",
+          "kind": "entity",
+          "entity_kind": "tax.us.educational-institution"
+        },
+        {
+          "name": "programme",
+          "kind": "entity",
+          "entity_kind": "tax.us.educational-programme"
+        }
+      ],
+      "value_schema": {
+        "type": "string",
+        "enum": [
+          "schooling-current"
+        ]
+      },
+      "supersession": {
+        "policy": "free"
+      }
+    },
+    {
+      "schema": "fact-type.v2",
+      "id": "tax.us.2025.sli.inclusion-support-reason",
+      "version": "v1",
+      "title": "Derived, per statement inclusion: why that inclusion's borrowing does not support the plain case, or none; a missing answer is named as missing, never as a no",
+      "nature": "determinable",
+      "identity_keys": [
+        {
+          "name": "lender",
+          "kind": "entity",
+          "entity_kind": "tax.us.student-loan-lender"
+        },
+        {
+          "name": "statement",
+          "kind": "entity",
+          "entity_kind": "tax.us.1098e-statement"
+        },
+        {
+          "name": "tax-year",
+          "kind": "literal",
+          "values": [
+            "2025"
+          ]
+        },
+        {
+          "name": "borrowing",
+          "kind": "entity",
+          "entity_kind": "tax.us.student-loan-borrowing-reference"
+        }
+      ],
+      "value_schema": {
+        "type": "string",
+        "enum": [
+          "none",
+          "financing-cannot-tell",
+          "financing-withdrawn",
+          "no-schooling-link",
+          "more-than-one-schooling",
+          "loan-cost-answer-missing",
+          "loan-cost-no",
+          "loan-cost-cannot-tell",
+          "enrollment-answer-missing",
+          "enrollment-no",
+          "enrollment-cannot-tell"
+        ]
+      },
+      "supersession": {
+        "policy": "free"
+      }
+    },
+    {
+      "schema": "fact-type.v2",
+      "id": "tax.us.2025.sli.statement-loan-support",
+      "version": "v1",
+      "title": "Derived, per Form 1098-E statement: plain-case-supported when one recorded loan, one schooling and both ordinary answers yes support this statement on its stated basis; otherwise not-supported. Not a qualified-education-loan determination and not a non-qualified finding",
+      "nature": "determinable",
+      "identity_keys": [
+        {
+          "name": "lender",
+          "kind": "entity",
+          "entity_kind": "tax.us.student-loan-lender"
+        },
+        {
+          "name": "statement",
+          "kind": "entity",
+          "entity_kind": "tax.us.1098e-statement"
+        },
+        {
+          "name": "tax-year",
+          "kind": "literal",
+          "values": [
+            "2025"
+          ]
+        }
+      ],
+      "value_schema": {
+        "type": "string",
+        "enum": [
+          "plain-case-supported",
+          "not-supported"
+        ]
+      },
+      "supersession": {
+        "policy": "free"
+      }
+    },
+    {
+      "schema": "fact-type.v2",
+      "id": "tax.us.2025.sli.statement-support-reason",
+      "version": "v1",
+      "title": "Derived, per Form 1098-E statement: why the statement is not-supported, or none when it is plain-case-supported; one reason by declared precedence, distinguishing the person's doubts and withdrawals, missing answers, a second loan or schooling, and the system's applicability marker",
+      "nature": "determinable",
+      "identity_keys": [
+        {
+          "name": "lender",
+          "kind": "entity",
+          "entity_kind": "tax.us.student-loan-lender"
+        },
+        {
+          "name": "statement",
+          "kind": "entity",
+          "entity_kind": "tax.us.1098e-statement"
+        },
+        {
+          "name": "tax-year",
+          "kind": "literal",
+          "values": [
+            "2025"
+          ]
+        }
+      ],
+      "value_schema": {
+        "type": "string",
+        "enum": [
+          "none",
+          "applicability-unestablished",
+          "statement-loan-cannot-tell",
+          "inclusion-cannot-tell",
+          "inclusion-withdrawn",
+          "no-loan-link",
+          "more-than-one-loan",
+          "financing-cannot-tell",
+          "financing-withdrawn",
+          "no-schooling-link",
+          "more-than-one-schooling",
+          "loan-cost-answer-missing",
+          "loan-cost-no",
+          "loan-cost-cannot-tell",
+          "enrollment-answer-missing",
+          "enrollment-no",
+          "enrollment-cannot-tell"
+        ]
+      },
+      "supersession": {
+        "policy": "free"
+      }
+    }
+  ]
+}

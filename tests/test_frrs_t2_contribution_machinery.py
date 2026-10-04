@@ -245,7 +245,7 @@ class TestContributionApplicator(ContributionMachineryFixture):
         self.assertIn("not a member of evidence_ids", str(ctx.exception))
 
     def test_act_log_admits_v2_assertion_payload(self) -> None:
-        log = ActLog(Path(self._tmp.name) / "ws", self.workspace_registry)
+        log = ActLog(Path(self._tmp.name) / "ws", self.workspace_registry, undeclared_test_log=True)
         # Minimal valid acts through log: only contribution-related payload check.
         opening = self.opening_acts()
         for i, a in enumerate(opening):

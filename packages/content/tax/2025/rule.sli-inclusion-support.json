@@ -1,0 +1,57 @@
+{
+  "schema": "rule-artifact.v13",
+  "id": "tax.us.2025.rule.sli-inclusion-support",
+  "version": "v1",
+  "scope": {
+    "tax_year": 2025,
+    "jurisdiction": "US-federal",
+    "family": "individual-income-tax"
+  },
+  "role": "computation",
+  "subject": {
+    "id": "tax.us.2025.sli.statement-inclusion-relationship",
+    "version": "v1"
+  },
+  "requires": [
+    "tax.us.2025.sli.inclusion-support-reason",
+    "tax.us.2025.sli.financing-schooling-link"
+  ],
+  "pins": [],
+  "when": {
+    "op": "any",
+    "args": [
+      {
+        "op": "ref",
+        "name": "tax.us.2025.sli.financing-schooling-link"
+      },
+      true
+    ]
+  },
+  "value": {
+    "op": "choose",
+    "when": {
+      "op": "categorical_compare",
+      "cmp": "eq",
+      "left": {
+        "op": "ref",
+        "name": "tax.us.2025.sli.inclusion-support-reason"
+      },
+      "right": {
+        "op": "category_literal",
+        "fact_type": {
+          "id": "tax.us.2025.sli.inclusion-support-reason",
+          "version": "v1"
+        },
+        "value": "none"
+      }
+    },
+    "then": 1,
+    "else": 0
+  },
+  "publishes": "tax.us.2025.sli.inclusion-support",
+  "blocked": {
+    "code": "DEPENDENCY_INVALID",
+    "missing": []
+  },
+  "notes": "Per inclusion: support 1 when the inclusion's reason is none, otherwise 0. Requires a financing-schooling link for the borrowing (stale-target join): when the borrowing's only financing names a schooling that is not current, or it has no current financing, support blocks. The statement reads the inclusion's reason before support, so only a stale schooling reaches that block."
+}

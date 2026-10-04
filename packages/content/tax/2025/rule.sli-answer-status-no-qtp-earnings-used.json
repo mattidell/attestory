@@ -1,0 +1,73 @@
+{
+  "schema": "rule-artifact.v13",
+  "id": "tax.us.2025.rule.sli-answer-status-no-qtp-earnings-used",
+  "version": "v1",
+  "scope": {
+    "tax_year": 2025,
+    "jurisdiction": "US-federal",
+    "family": "individual-income-tax"
+  },
+  "role": "computation",
+  "subject": {
+    "id": "tax.us.2025.f1098e.box1-student-loan-interest",
+    "version": "v1"
+  },
+  "joined": {
+    "id": "tax.us.2025.f1098e.no-qtp-earnings-used",
+    "version": "v1"
+  },
+  "direction": "joined_contains_subject",
+  "requires": [
+    "tax.us.2025.f1098e.no-qtp-earnings-used"
+  ],
+  "pins": [],
+  "when": true,
+  "value": {
+    "op": "choose",
+    "when": {
+      "op": "categorical_compare",
+      "cmp": "eq",
+      "left": {
+        "op": "ref",
+        "name": "tax.us.2025.f1098e.no-qtp-earnings-used"
+      },
+      "right": {
+        "op": "category_literal",
+        "fact_type": {
+          "id": "tax.us.2025.f1098e.no-qtp-earnings-used",
+          "version": "v1"
+        },
+        "value": "yes"
+      }
+    },
+    "then": {
+      "op": "category_literal",
+      "fact_type": {
+        "id": "tax.us.2025.sli.answer-status.no-qtp-earnings-used",
+        "version": "v1"
+      },
+      "value": "yes"
+    },
+    "else": {
+      "op": "category_literal",
+      "fact_type": {
+        "id": "tax.us.2025.sli.answer-status.no-qtp-earnings-used",
+        "version": "v1"
+      },
+      "value": "no"
+    }
+  },
+  "publishes": "tax.us.2025.sli.answer-status.no-qtp-earnings-used",
+  "blocked": {
+    "code": "DEPENDENCY_INVALID",
+    "missing": []
+  },
+  "citations": [
+    {
+      "id": "tax.us.2025.citation.form1040.sli-worksheet",
+      "version": "v1"
+    }
+  ],
+  "wording": "This statement has no answer yet to: were earnings from a qualified tuition program (a 529 plan) used to pay any of this interest? Answer it for this statement. A missing answer is not treated as no.",
+  "notes": "Per Form 1098-E statement: the statement's own answer to tax.us.2025.f1098e.no-qtp-earnings-used, for the worksheet's per-statement reads (the yes/no path reads all five; the loan-link path reads the four it keeps). A statement with no current answer blocks (the joined answer is required), so the worksheet's declared read refuses and names that statement rather than reading the missing answer as no (Track 0a fail-open fix). wording is line 21's sentence for a statement whose status has no result."
+}

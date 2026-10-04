@@ -1431,3 +1431,280 @@ def evidentiary_standing(state: FindingState) -> dict[str, FindingStanding]:
             evidence=tuple(refs),
         )
     return standing
+
+
+# ADR 0077 Part 5: scoped supersession on a new write.
+#
+# A registry may carry ``scoped_supersession_declarations``: a list of
+# declarations a domain loader installs. The kernel reads them generically
+# and never names a domain fact type or evidence kind. The check runs only
+# at the new-write boundary (``ActLog.append``); ``project`` and
+# ``apply_act`` never run it, so a log that already holds a refused write
+# stays readable.
+
+_SCOPED_SUPERSESSION_KEYS = (
+    "source_fact_type",
+    "dependent_fact_type",
+    "dependent_keys_not_identifying_source",
+    "reviewed_scope",
+)
+_REVIEWED_SCOPE_KEYS = (
+    "evidence_kind",
+    "correction_path",
+    "source_field",
+    "scope_field",
+    "scopes",
+    "refresh_field",
+    "binds",
+    "successor_evidence_kind",
+)
+
+
+def _scoped_supersession_declarations(registry: Any) -> list[dict[str, Any]]:
+    declared = getattr(registry, "scoped_supersession_declarations", None)
+    return declared if isinstance(declared, list) else []
+
+
+def _well_formed_declaration(entry: Any) -> bool:
+    if not isinstance(entry, dict):
+        return False
+    if any(key not in entry for key in _SCOPED_SUPERSESSION_KEYS):
+        return False
+    if not isinstance(entry["source_fact_type"], str) or not entry["source_fact_type"]:
+        return False
+    if not isinstance(entry["dependent_fact_type"], str) or not entry["dependent_fact_type"]:
+        return False
+    names = entry["dependent_keys_not_identifying_source"]
+    if not isinstance(names, list) or not all(isinstance(name, str) and name for name in names):
+        return False
+    scope = entry["reviewed_scope"]
+    if not isinstance(scope, dict) or any(key not in scope for key in _REVIEWED_SCOPE_KEYS):
+        return False
+    binds = scope["binds"]
+    if not isinstance(binds, list) or len(binds) != 3:
+        return False
+    path = scope["correction_path"]
+    if not isinstance(path, list) or not path:
+        return False
+    strings = [scope[key] for key in ("evidence_kind", "source_field", "scope_field",
+                                      "refresh_field", "successor_evidence_kind")]
+    strings.extend(binds)
+    strings.extend(path)
+    if not all(isinstance(value, str) and value for value in strings):
+        return False
+    scopes = scope["scopes"]
+    return isinstance(scopes, list) and bool(scopes) and all(isinstance(s, str) for s in scopes)
+
+
+def declares_new_write_invariants(registry: Any) -> bool:
+    """True when the registry carries at least one well-formed Part 5 declaration
+    and no malformed one. ``ActLog`` refuses to be built over any other registry
+    unless it is explicitly read-only or test-only."""
+    declared = getattr(registry, "scoped_supersession_declarations", None)
+    if not isinstance(declared, list) or not declared:
+        return False
+    return all(_well_formed_declaration(entry) for entry in declared)
+
+
+def _finding_made_current_by(act: dict[str, Any]) -> dict[str, Any] | None:
+    """The finding an act would make current, or ``None``.
+
+    An ``assertion``, or a ``member-transition`` whose member action is
+    ``assert`` or ``reclassify``. A retraction makes no finding current.
+    """
+    payload = act.get("payload")
+    if not isinstance(payload, dict):
+        return None
+    kind = act.get("kind")
+    finding: Any = None
+    if kind == "assertion":
+        finding = payload.get("finding")
+    elif kind == "member-transition":
+        member = payload.get("member")
+        if isinstance(member, dict) and member.get("action") in ("assert", "reclassify"):
+            finding = member.get("finding")
+    if isinstance(finding, dict) and isinstance(finding.get("fact_id"), str):
+        return finding
+    return None
+
+
+def new_write_invariants_may_apply(act: dict[str, Any], registry: Any) -> bool:
+    """Cheap pre-check, before any projection: could this act be gated?
+
+    False unless the registry declares an entry and the act would make a
+    finding current whose fact id renders under a declared source type.
+    ``enforce_new_write_invariants`` confirms the fact type on the lattice.
+    """
+    declarations = _scoped_supersession_declarations(registry)
+    if not declarations:
+        return False
+    finding = _finding_made_current_by(act)
+    if finding is None:
+        return False
+    fact_id = finding["fact_id"]
+    return any(
+        fact_id.startswith(f"{entry.get('source_fact_type')}|")
+        for entry in declarations
+        if isinstance(entry, dict)
+    )
+
+
+def _current_dependents_naming(
+    state: FindingState, entry: dict[str, Any], source_fact_id: str,
+    current_ids: frozenset[str], lattice: dict[str, facts.Fact],
+) -> list[str]:
+    """Fact ids of current dependent findings that name the source fact id.
+
+    A dependent names the source when ``fact_id_for(source_fact_type,
+    remaining)`` equals the source fact id, where ``remaining`` is the
+    dependent's own key bindings, in order, without the declared names.
+    """
+    dropped = set(entry["dependent_keys_not_identifying_source"])
+    names: set[str] = set()
+    for finding_id, finding in state.findings.items():
+        if finding_id not in current_ids:
+            continue
+        fact = lattice.get(finding.get("fact_id", ""))
+        if fact is None or fact.fact_type_id != entry["dependent_fact_type"]:
+            continue
+        remaining = tuple((key, value) for key, value in fact.keys if key not in dropped)
+        if facts.fact_id_for(entry["source_fact_type"], remaining) == source_fact_id:
+            names.add(fact.fact_id)
+    return sorted(names)
+
+
+def _numbers_equal(left: Any, right: Any) -> bool:
+    if isinstance(left, bool) or isinstance(right, bool):
+        return False
+    return isinstance(left, (int, float)) and isinstance(right, (int, float)) and left == right
+
+
+def _evidence_body(state: FindingState, evidence_id: Any) -> dict[str, Any] | None:
+    if not isinstance(evidence_id, str):
+        return None
+    lifecycle = state.evidence.get(evidence_id)
+    if lifecycle is None or not isinstance(lifecycle.evidence, dict):
+        return None
+    return lifecycle.evidence
+
+
+def _is_bound_successor(
+    state: FindingState, entry: dict[str, Any], finding: dict[str, Any],
+    source_fact_id: str, current_ids: frozenset[str], lattice: dict[str, facts.Fact],
+) -> bool:
+    """Is ``finding`` the one successor some cited reviewed-scope evidence binds?
+
+    The evidence is already in the log, of the declared kind, and holds at
+    the declared path an object that names this source, an allowed scope,
+    the refresh flag ``True``, and the three bound fields. The finding's
+    value equals the bound value as a number (a boolean never matches); it
+    cites exactly one evidence of the successor kind, whose correction
+    identity is the bound one; its predecessor -- the one current finding of
+    the source fact id before this act -- is the bound reviewed finding; and
+    no recorded finding of the source fact type already cites that scope
+    evidence (a finding of another type citing it, such as a diagnostic
+    status recorded from the same answer, does not use it up). Any missing
+    field fails closed.
+    """
+    scope = entry["reviewed_scope"]
+    reviewed_field, value_field, identity_field = scope["binds"]
+    cited = finding.get("evidence_ids")
+    if not isinstance(cited, list):
+        return False
+    successor_evidence = [
+        body for body in (_evidence_body(state, evidence_id) for evidence_id in cited)
+        if body is not None and body.get("kind") == scope["successor_evidence_kind"]
+    ]
+    if len(successor_evidence) != 1:
+        return False
+    successor_content = successor_evidence[0].get("content")
+    cited_identity = (
+        successor_content.get(identity_field) if isinstance(successor_content, dict) else None
+    )
+    predecessors = [
+        finding_id for finding_id, row in state.findings.items()
+        if finding_id in current_ids and row.get("fact_id") == source_fact_id
+    ]
+    predecessor = predecessors[0] if len(predecessors) == 1 else None
+    for evidence_id in cited:
+        body = _evidence_body(state, evidence_id)
+        if body is None or body.get("kind") != scope["evidence_kind"]:
+            continue
+        correction: Any = body.get("content")
+        for step in scope["correction_path"]:
+            correction = correction.get(step) if isinstance(correction, dict) else None
+        if not isinstance(correction, dict):
+            continue
+        if correction.get(scope["source_field"]) != source_fact_id:
+            continue
+        if correction.get(scope["scope_field"]) not in scope["scopes"]:
+            continue
+        if correction.get(scope["refresh_field"]) is not True:
+            continue
+        reviewed = correction.get(reviewed_field)
+        identity = correction.get(identity_field)
+        if not isinstance(reviewed, str) or not reviewed:
+            continue
+        if not isinstance(identity, str) or not identity:
+            continue
+        if not _numbers_equal(correction.get(value_field), finding.get("value")):
+            continue
+        if cited_identity != identity:
+            continue
+        if predecessor is None or predecessor != reviewed:
+            continue
+        if any(
+            evidence_id in (row.get("evidence_ids") or [])
+            and getattr(lattice.get(row.get("fact_id", "")), "fact_type_id", None)
+            == entry["source_fact_type"]
+            for row in state.findings.values()
+        ):
+            continue
+        return True
+    return False
+
+
+def enforce_new_write_invariants(
+    state: FindingState, act: dict[str, Any], registry: Any
+) -> None:
+    """ADR 0077 Part 5: refuse a new write before it reaches the log.
+
+    ``state`` is the projection of the acts already in the log. For each
+    declaration whose source fact type the act's new finding answers: when a
+    current finding of the dependent type names that source, the new finding
+    must be the one successor declared reviewed-scope evidence binds, or
+    this raises ``FindingModelError``. A missing prior finding is not an
+    exemption. Only ``ActLog.append`` calls this; replay never does.
+    """
+    if not new_write_invariants_may_apply(act, registry):
+        return
+    finding = _finding_made_current_by(act)
+    assert finding is not None
+    fact_id = finding["fact_id"]
+    lattice = facts.facts_of(state.fact_state, include_displaced=True)
+    fact = lattice.get(fact_id)
+    if fact is None:
+        return
+    current_ids: frozenset[str] | None = None
+    for entry in _scoped_supersession_declarations(registry):
+        if not _well_formed_declaration(entry):
+            raise FindingModelError(
+                "scoped supersession declaration is malformed; rejected, not recorded"
+            )
+        if fact.fact_type_id != entry["source_fact_type"]:
+            continue
+        if current_ids is None:
+            current_ids = _compute_view(state).current_finding_ids
+        dependents = _current_dependents_naming(state, entry, fact_id, current_ids, lattice)
+        if not dependents:
+            continue
+        if _is_bound_successor(state, entry, finding, fact_id, current_ids, lattice):
+            continue
+        clauses = "; ".join(
+            f"while {dependent} is current and names that source" for dependent in dependents
+        )
+        raise FindingModelError(
+            f"scoped supersession violated: new finding {finding.get('id')} of {fact_id} "
+            f"{clauses}; the new finding is not the one successor bound by reviewed-scope "
+            f"evidence for that source; rejected, not recorded"
+        )

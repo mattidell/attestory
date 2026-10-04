@@ -47,6 +47,10 @@ RECORD_STREAM_FILENAME = "derivation_records.jsonl"
 # finding at the same dollar amount). v9 adds NOMINEE_ALLOCATIONS_EXCEED_REPORT
 # and the no_groups_selected inapplicable form (ADR-0074).
 CURRENT_RECORD_SCHEMA = "derivation-record.v9"
+# ADR 0077 Part 3: v10 adds origin ``derived`` to disposition pins. A closing
+# record uses it only when a disposition carries such a pin; every other
+# record, including every start record, stays on CURRENT_RECORD_SCHEMA.
+DERIVED_PIN_RECORD_SCHEMA = "derivation-record.v10"
 _VERSIONED_RECORD_SCHEMAS = frozenset(
     {
         "derivation-record.v2",
@@ -57,6 +61,7 @@ _VERSIONED_RECORD_SCHEMAS = frozenset(
         "derivation-record.v7",
         "derivation-record.v8",
         "derivation-record.v9",
+        "derivation-record.v10",
     }
 )
 
@@ -196,6 +201,15 @@ def started_record(
     }
 
 
+def _carries_derived_pin(dispositions: list[dict[str, Any]]) -> bool:
+    return any(
+        isinstance(pin, dict) and pin.get("origin") == "derived"
+        for row in dispositions
+        if isinstance(row, dict)
+        for pin in row.get("pins", []) or []
+    )
+
+
 def closing_record(
     *,
     record_id: str,
@@ -212,8 +226,14 @@ def closing_record(
 ) -> dict[str, Any]:
     if phase not in _CLOSING_PHASES:
         raise RecordStreamError(f"not a closing phase: {phase}")
+    if not use_v2:
+        schema = "derivation-record.v1"
+    elif _carries_derived_pin(dispositions):
+        schema = DERIVED_PIN_RECORD_SCHEMA
+    else:
+        schema = CURRENT_RECORD_SCHEMA
     record = {
-        "schema": CURRENT_RECORD_SCHEMA if use_v2 else "derivation-record.v1",
+        "schema": schema,
         "record_id": record_id,
         "run_id": run_id,
         "phase": phase,

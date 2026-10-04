@@ -1,0 +1,358 @@
+{
+  "schema": "bundle.v2",
+  "id": "tax.us.2025.sli-worksheet-inputs",
+  "version": "v1",
+  "label": "Derived per-statement inputs of the 2025 Student Loan Interest Deduction Worksheet: the five yes/no answer statuses and the support-chain standing, with line 21's sentence for each reason",
+  "fact_types": [
+    {
+      "schema": "fact-type.v2",
+      "id": "tax.us.2025.sli.answer-status.no-related-person-interest",
+      "version": "v1",
+      "title": "Derived, per Form 1098-E statement: the statement's current answer to tax.us.2025.f1098e.no-related-person-interest, read by the worksheet with per-statement coverage. Published only when the statement carries that answer; a statement without one has no status, never a no. The no value's description is the sentence Schedule 1 line 21 shows for that statement",
+      "nature": "determinable",
+      "identity_keys": [
+        {
+          "name": "lender",
+          "kind": "entity",
+          "entity_kind": "tax.us.student-loan-lender"
+        },
+        {
+          "name": "statement",
+          "kind": "entity",
+          "entity_kind": "tax.us.1098e-statement"
+        },
+        {
+          "name": "tax-year",
+          "kind": "literal",
+          "values": [
+            "2025"
+          ]
+        }
+      ],
+      "value_schema": {
+        "type": "string",
+        "enum": [
+          "yes",
+          "no"
+        ],
+        "oneOf": [
+          {
+            "const": "yes"
+          },
+          {
+            "const": "no",
+            "description": "You answered that some of this interest is on a loan from a relative or other related person. The deduction is not worked out here when that is so. If that answer is wrong, change it."
+          }
+        ]
+      },
+      "supersession": {
+        "policy": "free"
+      }
+    },
+    {
+      "schema": "fact-type.v2",
+      "id": "tax.us.2025.sli.answer-status.no-qualified-employer-plan-interest",
+      "version": "v1",
+      "title": "Derived, per Form 1098-E statement: the statement's current answer to tax.us.2025.f1098e.no-qualified-employer-plan-interest, read by the worksheet with per-statement coverage. Published only when the statement carries that answer; a statement without one has no status, never a no. The no value's description is the sentence Schedule 1 line 21 shows for that statement",
+      "nature": "determinable",
+      "identity_keys": [
+        {
+          "name": "lender",
+          "kind": "entity",
+          "entity_kind": "tax.us.student-loan-lender"
+        },
+        {
+          "name": "statement",
+          "kind": "entity",
+          "entity_kind": "tax.us.1098e-statement"
+        },
+        {
+          "name": "tax-year",
+          "kind": "literal",
+          "values": [
+            "2025"
+          ]
+        }
+      ],
+      "value_schema": {
+        "type": "string",
+        "enum": [
+          "yes",
+          "no"
+        ],
+        "oneOf": [
+          {
+            "const": "yes"
+          },
+          {
+            "const": "no",
+            "description": "You answered that some of this interest is on a loan from a qualified employer plan. The deduction is not worked out here when that is so. If that answer is wrong, change it."
+          }
+        ]
+      },
+      "supersession": {
+        "policy": "free"
+      }
+    },
+    {
+      "schema": "fact-type.v2",
+      "id": "tax.us.2025.sli.answer-status.no-non-qualified-loan-component",
+      "version": "v1",
+      "title": "Derived, per Form 1098-E statement: the statement's current answer to tax.us.2025.f1098e.no-non-qualified-loan-component, read by the worksheet with per-statement coverage. Published only when the statement carries that answer; a statement without one has no status, never a no. The no value's description is the sentence Schedule 1 line 21 shows for that statement",
+      "nature": "determinable",
+      "identity_keys": [
+        {
+          "name": "lender",
+          "kind": "entity",
+          "entity_kind": "tax.us.student-loan-lender"
+        },
+        {
+          "name": "statement",
+          "kind": "entity",
+          "entity_kind": "tax.us.1098e-statement"
+        },
+        {
+          "name": "tax-year",
+          "kind": "literal",
+          "values": [
+            "2025"
+          ]
+        }
+      ],
+      "value_schema": {
+        "type": "string",
+        "enum": [
+          "yes",
+          "no"
+        ],
+        "oneOf": [
+          {
+            "const": "yes"
+          },
+          {
+            "const": "no",
+            "description": "You answered that some of this interest comes from a loan that is not a qualified student loan. The deduction is not worked out here when that is so. If that answer is wrong, change it."
+          }
+        ]
+      },
+      "supersession": {
+        "policy": "free"
+      }
+    },
+    {
+      "schema": "fact-type.v2",
+      "id": "tax.us.2025.sli.answer-status.no-employer-educational-assistance-interest",
+      "version": "v1",
+      "title": "Derived, per Form 1098-E statement: the statement's current answer to tax.us.2025.f1098e.no-employer-educational-assistance-interest, read by the worksheet with per-statement coverage. Published only when the statement carries that answer; a statement without one has no status, never a no. The no value's description is the sentence Schedule 1 line 21 shows for that statement",
+      "nature": "determinable",
+      "identity_keys": [
+        {
+          "name": "lender",
+          "kind": "entity",
+          "entity_kind": "tax.us.student-loan-lender"
+        },
+        {
+          "name": "statement",
+          "kind": "entity",
+          "entity_kind": "tax.us.1098e-statement"
+        },
+        {
+          "name": "tax-year",
+          "kind": "literal",
+          "values": [
+            "2025"
+          ]
+        }
+      ],
+      "value_schema": {
+        "type": "string",
+        "enum": [
+          "yes",
+          "no"
+        ],
+        "oneOf": [
+          {
+            "const": "yes"
+          },
+          {
+            "const": "no",
+            "description": "You answered that an employer paid some of this interest under an educational assistance program. The deduction is not worked out here when that is so. If that answer is wrong, change it."
+          }
+        ]
+      },
+      "supersession": {
+        "policy": "free"
+      }
+    },
+    {
+      "schema": "fact-type.v2",
+      "id": "tax.us.2025.sli.answer-status.no-qtp-earnings-used",
+      "version": "v1",
+      "title": "Derived, per Form 1098-E statement: the statement's current answer to tax.us.2025.f1098e.no-qtp-earnings-used, read by the worksheet with per-statement coverage. Published only when the statement carries that answer; a statement without one has no status, never a no. The no value's description is the sentence Schedule 1 line 21 shows for that statement",
+      "nature": "determinable",
+      "identity_keys": [
+        {
+          "name": "lender",
+          "kind": "entity",
+          "entity_kind": "tax.us.student-loan-lender"
+        },
+        {
+          "name": "statement",
+          "kind": "entity",
+          "entity_kind": "tax.us.1098e-statement"
+        },
+        {
+          "name": "tax-year",
+          "kind": "literal",
+          "values": [
+            "2025"
+          ]
+        }
+      ],
+      "value_schema": {
+        "type": "string",
+        "enum": [
+          "yes",
+          "no"
+        ],
+        "oneOf": [
+          {
+            "const": "yes"
+          },
+          {
+            "const": "no",
+            "description": "You answered that earnings from a qualified tuition program (a 529 plan) paid some of this interest. The deduction is not worked out here when that is so. If that answer is wrong, change it."
+          }
+        ]
+      },
+      "supersession": {
+        "policy": "free"
+      }
+    },
+    {
+      "schema": "fact-type.v2",
+      "id": "tax.us.2025.sli.statement-line21-standing",
+      "version": "v1",
+      "title": "Derived, per Form 1098-E statement: none when the support chain concludes plain-case-supported for the statement, otherwise the chain's reason. Each reason's description is the sentence Schedule 1 line 21 shows for that statement. The both-present value is never published by a rule; its description is what line 21 shows for a statement named in the worksheet's both-present refusal",
+      "nature": "determinable",
+      "identity_keys": [
+        {
+          "name": "lender",
+          "kind": "entity",
+          "entity_kind": "tax.us.student-loan-lender"
+        },
+        {
+          "name": "statement",
+          "kind": "entity",
+          "entity_kind": "tax.us.1098e-statement"
+        },
+        {
+          "name": "tax-year",
+          "kind": "literal",
+          "values": [
+            "2025"
+          ]
+        }
+      ],
+      "value_schema": {
+        "type": "string",
+        "enum": [
+          "none",
+          "applicability-unestablished",
+          "statement-loan-cannot-tell",
+          "inclusion-cannot-tell",
+          "inclusion-withdrawn",
+          "no-loan-link",
+          "more-than-one-loan",
+          "financing-cannot-tell",
+          "financing-withdrawn",
+          "no-schooling-link",
+          "more-than-one-schooling",
+          "loan-cost-answer-missing",
+          "loan-cost-no",
+          "loan-cost-cannot-tell",
+          "enrollment-answer-missing",
+          "enrollment-no",
+          "enrollment-cannot-tell",
+          "old-and-new-sli-inputs-both-present"
+        ],
+        "oneOf": [
+          {
+            "const": "none"
+          },
+          {
+            "const": "applicability-unestablished",
+            "description": "The statement this link was confirmed against changed or was removed. Confirm the link again."
+          },
+          {
+            "const": "statement-loan-cannot-tell",
+            "description": "You said you cannot tell which student loan this statement covers. Say which loan it covers."
+          },
+          {
+            "const": "inclusion-cannot-tell",
+            "description": "You said you cannot tell whether this statement includes interest on a loan you named. Say whether it does."
+          },
+          {
+            "const": "inclusion-withdrawn",
+            "description": "A link between this statement and a loan was withdrawn and not answered again. Say whether this statement includes interest on that loan."
+          },
+          {
+            "const": "no-loan-link",
+            "description": "No student loan is linked to this statement. Say which student loan this statement covers."
+          },
+          {
+            "const": "more-than-one-loan",
+            "description": "This statement is linked to more than one loan. The deduction is worked out here only when a statement covers one loan. If one of those links is wrong, remove it."
+          },
+          {
+            "const": "financing-cannot-tell",
+            "description": "You said you cannot tell whether the loan on this statement paid for a schooling you named. Say whether it did."
+          },
+          {
+            "const": "financing-withdrawn",
+            "description": "A link between the loan on this statement and a schooling was withdrawn and not answered again. Say which schooling the loan paid for."
+          },
+          {
+            "const": "no-schooling-link",
+            "description": "The loan on this statement is not linked to the schooling it paid for. Say which schooling the loan paid for."
+          },
+          {
+            "const": "more-than-one-schooling",
+            "description": "The loan on this statement is linked to more than one schooling. The deduction is worked out here only when the loan paid for one schooling. If one of those links is wrong, remove it."
+          },
+          {
+            "const": "loan-cost-answer-missing",
+            "description": "The loan on this statement has no answer yet to: did it pay only for school costs? Answer that question. A missing answer is not treated as no."
+          },
+          {
+            "const": "loan-cost-no",
+            "description": "You said the loan on this statement did not pay only for school costs. The deduction is worked out here only for a loan used only for school costs. If that answer is wrong, change it."
+          },
+          {
+            "const": "loan-cost-cannot-tell",
+            "description": "You said you cannot tell whether the loan on this statement paid only for school costs. Answer yes or no when you know."
+          },
+          {
+            "const": "enrollment-answer-missing",
+            "description": "The loan on this statement has no answer yet to: was the student enrolled at least half-time in a degree or certificate program during the schooling it paid for? Answer that question. A missing answer is not treated as no."
+          },
+          {
+            "const": "enrollment-no",
+            "description": "You said the student was not enrolled at least half-time in a degree or certificate program during the schooling this loan paid for. The deduction is worked out here only when they were. If that answer is wrong, change it."
+          },
+          {
+            "const": "enrollment-cannot-tell",
+            "description": "You said you cannot tell whether the student was enrolled at least half-time in a degree or certificate program during the schooling this loan paid for. Answer yes or no when you know."
+          },
+          {
+            "const": "old-and-new-sli-inputs-both-present",
+            "description": "This return records the older answer about a non-qualified loan component together with links between statements and loans, and this statement has one of them. The two cannot be used together, even when they agree. Remove that older answer or remove the loan links; keep the other four yes/no answers."
+          }
+        ]
+      },
+      "supersession": {
+        "policy": "free"
+      }
+    }
+  ]
+}
