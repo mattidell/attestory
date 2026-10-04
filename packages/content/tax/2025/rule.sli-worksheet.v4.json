@@ -1,0 +1,1651 @@
+{
+  "schema": "rule-artifact.v13",
+  "id": "tax.us.2025.rule.sli-worksheet",
+  "version": "v4",
+  "scope": {
+    "tax_year": 2025,
+    "jurisdiction": "US-federal",
+    "family": "individual-income-tax"
+  },
+  "role": "computation",
+  "citations": [
+    {
+      "id": "tax.us.2025.citation.form1040.sli-worksheet",
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.citation.schedule1.line-21",
+      "version": "v1"
+    }
+  ],
+  "publishes": "tax.us.2025.schedule1.line21-sli-deduction",
+  "when": true,
+  "requires": [],
+  "pins": [],
+  "blocked": {
+    "code": "DEPENDENCY_INVALID",
+    "missing": []
+  },
+  "wording": "This workspace was set up before the student loan questions were added, so it cannot record the answers this statement needs yet. The deduction stays blocked until the workspace is updated; nothing is assumed in the meantime.",
+  "notes": "Successor to v3. The loan-links path counts a declared per-marker blocking read before applying the existing worksheet arithmetic, so an unresolved statement inclusion blocks even when that statement has no current box 1 subject. The yes-no path and existing arithmetic are unchanged.",
+  "selection": {
+    "mode": "exclusive_presence",
+    "conflict": "refuse",
+    "paths": [
+      {
+        "id": "yes-no-answers",
+        "activity": {
+          "kind": "source_nonempty",
+          "source_family": {
+            "id": "tax.us.2025.f1098e.1",
+            "version": "v1"
+          },
+          "member_fact_types": [
+            {
+              "id": "tax.us.2025.f1098e.no-non-qualified-loan-component",
+              "version": "v1"
+            }
+          ]
+        },
+        "reads_subject_results": [
+          {
+            "symbol": "tax.us.2025.sli.answer-status.no-related-person-interest",
+            "subject": {
+              "id": "tax.us.2025.f1098e.box1-student-loan-interest",
+              "version": "v1"
+            }
+          },
+          {
+            "symbol": "tax.us.2025.sli.answer-status.no-qualified-employer-plan-interest",
+            "subject": {
+              "id": "tax.us.2025.f1098e.box1-student-loan-interest",
+              "version": "v1"
+            }
+          },
+          {
+            "symbol": "tax.us.2025.sli.answer-status.no-non-qualified-loan-component",
+            "subject": {
+              "id": "tax.us.2025.f1098e.box1-student-loan-interest",
+              "version": "v1"
+            }
+          },
+          {
+            "symbol": "tax.us.2025.sli.answer-status.no-employer-educational-assistance-interest",
+            "subject": {
+              "id": "tax.us.2025.f1098e.box1-student-loan-interest",
+              "version": "v1"
+            }
+          },
+          {
+            "symbol": "tax.us.2025.sli.answer-status.no-qtp-earnings-used",
+            "subject": {
+              "id": "tax.us.2025.f1098e.box1-student-loan-interest",
+              "version": "v1"
+            }
+          }
+        ],
+        "requires": [
+          "filing_status",
+          "rounding.convention",
+          "tax.us.2025.income.total-income",
+          "tax.us.2025.schedule1-adjustments-scope.no-line11-educator",
+          "tax.us.2025.schedule1-adjustments-scope.no-line12-business-expenses",
+          "tax.us.2025.schedule1-adjustments-scope.no-line13-hsa",
+          "tax.us.2025.schedule1-adjustments-scope.no-line14-moving",
+          "tax.us.2025.schedule1-adjustments-scope.no-line15-deductible-se",
+          "tax.us.2025.schedule1-adjustments-scope.no-line16-se-retirement",
+          "tax.us.2025.schedule1-adjustments-scope.no-line17-se-health",
+          "tax.us.2025.schedule1-adjustments-scope.no-line18-penalty",
+          "tax.us.2025.schedule1-adjustments-scope.no-line19-alimony-paid",
+          "tax.us.2025.schedule1-adjustments-scope.no-line20-ira-deduction",
+          "tax.us.2025.schedule1-adjustments-scope.no-line23-archer-msa",
+          "tax.us.2025.schedule1-adjustments-scope.no-line25-other-adjustments",
+          "tax.us.2025.sli-scope.legally-obligated-for-interest",
+          "tax.us.2025.sli-scope.no-form-2555",
+          "tax.us.2025.sli-scope.no-form-4563",
+          "tax.us.2025.sli-scope.no-puerto-rico-or-samoa-income",
+          "tax.us.2025.sli-scope.not-claimed-as-dependent",
+          "tax.us.2025.sli-worksheet.line1-total-interest-paid-subtotal"
+        ],
+        "pins": [
+          {
+            "role": "choice",
+            "id": "filing_status",
+            "version": "v1"
+          },
+          {
+            "role": "input",
+            "id": "rounding.convention",
+            "version": "v1",
+            "origin": "assertion"
+          },
+          {
+            "role": "input",
+            "id": "tax.us.2025.income.total-income",
+            "version": "v1",
+            "origin": "assertion"
+          },
+          {
+            "role": "input",
+            "id": "tax.us.2025.schedule1-adjustments-scope.no-line11-educator",
+            "version": "v1",
+            "origin": "assertion"
+          },
+          {
+            "role": "input",
+            "id": "tax.us.2025.schedule1-adjustments-scope.no-line12-business-expenses",
+            "version": "v1",
+            "origin": "assertion"
+          },
+          {
+            "role": "input",
+            "id": "tax.us.2025.schedule1-adjustments-scope.no-line13-hsa",
+            "version": "v1",
+            "origin": "assertion"
+          },
+          {
+            "role": "input",
+            "id": "tax.us.2025.schedule1-adjustments-scope.no-line14-moving",
+            "version": "v1",
+            "origin": "assertion"
+          },
+          {
+            "role": "input",
+            "id": "tax.us.2025.schedule1-adjustments-scope.no-line15-deductible-se",
+            "version": "v1",
+            "origin": "assertion"
+          },
+          {
+            "role": "input",
+            "id": "tax.us.2025.schedule1-adjustments-scope.no-line16-se-retirement",
+            "version": "v1",
+            "origin": "assertion"
+          },
+          {
+            "role": "input",
+            "id": "tax.us.2025.schedule1-adjustments-scope.no-line17-se-health",
+            "version": "v1",
+            "origin": "assertion"
+          },
+          {
+            "role": "input",
+            "id": "tax.us.2025.schedule1-adjustments-scope.no-line18-penalty",
+            "version": "v1",
+            "origin": "assertion"
+          },
+          {
+            "role": "input",
+            "id": "tax.us.2025.schedule1-adjustments-scope.no-line19-alimony-paid",
+            "version": "v1",
+            "origin": "assertion"
+          },
+          {
+            "role": "input",
+            "id": "tax.us.2025.schedule1-adjustments-scope.no-line20-ira-deduction",
+            "version": "v1",
+            "origin": "assertion"
+          },
+          {
+            "role": "input",
+            "id": "tax.us.2025.schedule1-adjustments-scope.no-line23-archer-msa",
+            "version": "v1",
+            "origin": "assertion"
+          },
+          {
+            "role": "input",
+            "id": "tax.us.2025.schedule1-adjustments-scope.no-line25-other-adjustments",
+            "version": "v1",
+            "origin": "assertion"
+          },
+          {
+            "role": "input",
+            "id": "tax.us.2025.sli-scope.legally-obligated-for-interest",
+            "version": "v1",
+            "origin": "assertion"
+          },
+          {
+            "role": "input",
+            "id": "tax.us.2025.sli-scope.no-form-2555",
+            "version": "v1",
+            "origin": "assertion"
+          },
+          {
+            "role": "input",
+            "id": "tax.us.2025.sli-scope.no-form-4563",
+            "version": "v1",
+            "origin": "assertion"
+          },
+          {
+            "role": "input",
+            "id": "tax.us.2025.sli-scope.no-puerto-rico-or-samoa-income",
+            "version": "v1",
+            "origin": "assertion"
+          },
+          {
+            "role": "input",
+            "id": "tax.us.2025.sli-scope.not-claimed-as-dependent",
+            "version": "v1",
+            "origin": "assertion"
+          },
+          {
+            "role": "input",
+            "id": "tax.us.2025.sli-worksheet.line1-total-interest-paid-subtotal",
+            "version": "v1",
+            "origin": "assertion"
+          }
+        ],
+        "when": {
+          "op": "require_closed",
+          "source_set": "tax.us.2025.f1098e.1"
+        },
+        "value": {
+          "mode": {
+            "name": "rounding.convention",
+            "op": "ref"
+          },
+          "op": "round",
+          "value": {
+            "else": {
+              "else": {
+                "else": {
+                  "else": {
+                    "left": {
+                      "left": {
+                        "name": "tax.us.2025.sli-worksheet.line1-total-interest-paid-subtotal",
+                        "op": "ref"
+                      },
+                      "op": "subtract",
+                      "right": {
+                        "args": [
+                          {
+                            "left": {
+                              "name": "tax.us.2025.sli-worksheet.line1-total-interest-paid-subtotal",
+                              "op": "ref"
+                            },
+                            "op": "subtract",
+                            "right": {
+                              "op": "parameter",
+                              "parameter_id": "tax.us.2025.parameter.sli-interest-cap"
+                            }
+                          },
+                          0
+                        ],
+                        "op": "max"
+                      }
+                    },
+                    "op": "subtract",
+                    "right": {
+                      "left": {
+                        "left": {
+                          "name": "tax.us.2025.sli-worksheet.line1-total-interest-paid-subtotal",
+                          "op": "ref"
+                        },
+                        "op": "subtract",
+                        "right": {
+                          "args": [
+                            {
+                              "left": {
+                                "name": "tax.us.2025.sli-worksheet.line1-total-interest-paid-subtotal",
+                                "op": "ref"
+                              },
+                              "op": "subtract",
+                              "right": {
+                                "op": "parameter",
+                                "parameter_id": "tax.us.2025.parameter.sli-interest-cap"
+                              }
+                            },
+                            0
+                          ],
+                          "op": "max"
+                        }
+                      },
+                      "op": "multiply",
+                      "right": {
+                        "left": {
+                          "left": {
+                            "args": [
+                              {
+                                "left": {
+                                  "left": {
+                                    "name": "tax.us.2025.income.total-income",
+                                    "op": "ref"
+                                  },
+                                  "op": "subtract",
+                                  "right": 0
+                                },
+                                "op": "subtract",
+                                "right": {
+                                  "key": {
+                                    "name": "filing_status",
+                                    "op": "ref"
+                                  },
+                                  "op": "parameter",
+                                  "parameter_id": "tax.us.2025.parameter.sli-magi-threshold"
+                                }
+                              },
+                              0
+                            ],
+                            "op": "max"
+                          },
+                          "min_decimal_places": 3,
+                          "op": "divide",
+                          "right": {
+                            "key": {
+                              "name": "filing_status",
+                              "op": "ref"
+                            },
+                            "op": "parameter",
+                            "parameter_id": "tax.us.2025.parameter.sli-magi-phase-range"
+                          },
+                          "rounding": "half_up"
+                        },
+                        "op": "subtract",
+                        "right": {
+                          "args": [
+                            {
+                              "left": {
+                                "left": {
+                                  "args": [
+                                    {
+                                      "left": {
+                                        "left": {
+                                          "name": "tax.us.2025.income.total-income",
+                                          "op": "ref"
+                                        },
+                                        "op": "subtract",
+                                        "right": 0
+                                      },
+                                      "op": "subtract",
+                                      "right": {
+                                        "key": {
+                                          "name": "filing_status",
+                                          "op": "ref"
+                                        },
+                                        "op": "parameter",
+                                        "parameter_id": "tax.us.2025.parameter.sli-magi-threshold"
+                                      }
+                                    },
+                                    0
+                                  ],
+                                  "op": "max"
+                                },
+                                "min_decimal_places": 3,
+                                "op": "divide",
+                                "right": {
+                                  "key": {
+                                    "name": "filing_status",
+                                    "op": "ref"
+                                  },
+                                  "op": "parameter",
+                                  "parameter_id": "tax.us.2025.parameter.sli-magi-phase-range"
+                                },
+                                "rounding": "half_up"
+                              },
+                              "op": "subtract",
+                              "right": 1
+                            },
+                            0
+                          ],
+                          "op": "max"
+                        }
+                      }
+                    }
+                  },
+                  "op": "choose",
+                  "then": 0,
+                  "when": {
+                    "args": [
+                      {
+                        "cmp": "eq",
+                        "left": {
+                          "name": "tax.us.2025.sli-scope.not-claimed-as-dependent",
+                          "op": "ref"
+                        },
+                        "op": "categorical_compare",
+                        "right": {
+                          "fact_type": {
+                            "id": "tax.us.2025.sli-scope.not-claimed-as-dependent",
+                            "version": "v1"
+                          },
+                          "op": "category_literal",
+                          "value": "no"
+                        }
+                      },
+                      {
+                        "cmp": "eq",
+                        "left": {
+                          "name": "tax.us.2025.sli-scope.legally-obligated-for-interest",
+                          "op": "ref"
+                        },
+                        "op": "categorical_compare",
+                        "right": {
+                          "fact_type": {
+                            "id": "tax.us.2025.sli-scope.legally-obligated-for-interest",
+                            "version": "v1"
+                          },
+                          "op": "category_literal",
+                          "value": "no"
+                        }
+                      }
+                    ],
+                    "op": "any"
+                  }
+                },
+                "op": "choose",
+                "then": {
+                  "code": "SLI_SCHEDULE1_PART_II_OUT_OF_SCOPE",
+                  "op": "block"
+                },
+                "when": {
+                  "op": "not",
+                  "value": {
+                    "args": [
+                      {
+                        "cmp": "eq",
+                        "left": {
+                          "name": "tax.us.2025.schedule1-adjustments-scope.no-line11-educator",
+                          "op": "ref"
+                        },
+                        "op": "categorical_compare",
+                        "right": {
+                          "fact_type": {
+                            "id": "tax.us.2025.schedule1-adjustments-scope.no-line11-educator",
+                            "version": "v1"
+                          },
+                          "op": "category_literal",
+                          "value": "yes"
+                        }
+                      },
+                      {
+                        "cmp": "eq",
+                        "left": {
+                          "name": "tax.us.2025.schedule1-adjustments-scope.no-line12-business-expenses",
+                          "op": "ref"
+                        },
+                        "op": "categorical_compare",
+                        "right": {
+                          "fact_type": {
+                            "id": "tax.us.2025.schedule1-adjustments-scope.no-line12-business-expenses",
+                            "version": "v1"
+                          },
+                          "op": "category_literal",
+                          "value": "yes"
+                        }
+                      },
+                      {
+                        "cmp": "eq",
+                        "left": {
+                          "name": "tax.us.2025.schedule1-adjustments-scope.no-line13-hsa",
+                          "op": "ref"
+                        },
+                        "op": "categorical_compare",
+                        "right": {
+                          "fact_type": {
+                            "id": "tax.us.2025.schedule1-adjustments-scope.no-line13-hsa",
+                            "version": "v1"
+                          },
+                          "op": "category_literal",
+                          "value": "yes"
+                        }
+                      },
+                      {
+                        "cmp": "eq",
+                        "left": {
+                          "name": "tax.us.2025.schedule1-adjustments-scope.no-line14-moving",
+                          "op": "ref"
+                        },
+                        "op": "categorical_compare",
+                        "right": {
+                          "fact_type": {
+                            "id": "tax.us.2025.schedule1-adjustments-scope.no-line14-moving",
+                            "version": "v1"
+                          },
+                          "op": "category_literal",
+                          "value": "yes"
+                        }
+                      },
+                      {
+                        "cmp": "eq",
+                        "left": {
+                          "name": "tax.us.2025.schedule1-adjustments-scope.no-line15-deductible-se",
+                          "op": "ref"
+                        },
+                        "op": "categorical_compare",
+                        "right": {
+                          "fact_type": {
+                            "id": "tax.us.2025.schedule1-adjustments-scope.no-line15-deductible-se",
+                            "version": "v1"
+                          },
+                          "op": "category_literal",
+                          "value": "yes"
+                        }
+                      },
+                      {
+                        "cmp": "eq",
+                        "left": {
+                          "name": "tax.us.2025.schedule1-adjustments-scope.no-line16-se-retirement",
+                          "op": "ref"
+                        },
+                        "op": "categorical_compare",
+                        "right": {
+                          "fact_type": {
+                            "id": "tax.us.2025.schedule1-adjustments-scope.no-line16-se-retirement",
+                            "version": "v1"
+                          },
+                          "op": "category_literal",
+                          "value": "yes"
+                        }
+                      },
+                      {
+                        "cmp": "eq",
+                        "left": {
+                          "name": "tax.us.2025.schedule1-adjustments-scope.no-line17-se-health",
+                          "op": "ref"
+                        },
+                        "op": "categorical_compare",
+                        "right": {
+                          "fact_type": {
+                            "id": "tax.us.2025.schedule1-adjustments-scope.no-line17-se-health",
+                            "version": "v1"
+                          },
+                          "op": "category_literal",
+                          "value": "yes"
+                        }
+                      },
+                      {
+                        "cmp": "eq",
+                        "left": {
+                          "name": "tax.us.2025.schedule1-adjustments-scope.no-line18-penalty",
+                          "op": "ref"
+                        },
+                        "op": "categorical_compare",
+                        "right": {
+                          "fact_type": {
+                            "id": "tax.us.2025.schedule1-adjustments-scope.no-line18-penalty",
+                            "version": "v1"
+                          },
+                          "op": "category_literal",
+                          "value": "yes"
+                        }
+                      },
+                      {
+                        "cmp": "eq",
+                        "left": {
+                          "name": "tax.us.2025.schedule1-adjustments-scope.no-line19-alimony-paid",
+                          "op": "ref"
+                        },
+                        "op": "categorical_compare",
+                        "right": {
+                          "fact_type": {
+                            "id": "tax.us.2025.schedule1-adjustments-scope.no-line19-alimony-paid",
+                            "version": "v1"
+                          },
+                          "op": "category_literal",
+                          "value": "yes"
+                        }
+                      },
+                      {
+                        "cmp": "eq",
+                        "left": {
+                          "name": "tax.us.2025.schedule1-adjustments-scope.no-line20-ira-deduction",
+                          "op": "ref"
+                        },
+                        "op": "categorical_compare",
+                        "right": {
+                          "fact_type": {
+                            "id": "tax.us.2025.schedule1-adjustments-scope.no-line20-ira-deduction",
+                            "version": "v1"
+                          },
+                          "op": "category_literal",
+                          "value": "yes"
+                        }
+                      },
+                      {
+                        "cmp": "eq",
+                        "left": {
+                          "name": "tax.us.2025.schedule1-adjustments-scope.no-line23-archer-msa",
+                          "op": "ref"
+                        },
+                        "op": "categorical_compare",
+                        "right": {
+                          "fact_type": {
+                            "id": "tax.us.2025.schedule1-adjustments-scope.no-line23-archer-msa",
+                            "version": "v1"
+                          },
+                          "op": "category_literal",
+                          "value": "yes"
+                        }
+                      },
+                      {
+                        "cmp": "eq",
+                        "left": {
+                          "name": "tax.us.2025.schedule1-adjustments-scope.no-line25-other-adjustments",
+                          "op": "ref"
+                        },
+                        "op": "categorical_compare",
+                        "right": {
+                          "fact_type": {
+                            "id": "tax.us.2025.schedule1-adjustments-scope.no-line25-other-adjustments",
+                            "version": "v1"
+                          },
+                          "op": "category_literal",
+                          "value": "yes"
+                        }
+                      }
+                    ],
+                    "op": "all"
+                  }
+                }
+              },
+              "op": "choose",
+              "then": {
+                "code": "SLI_UNIVERSAL_COMPONENT_VIOLATION",
+                "op": "block"
+              },
+              "when": {
+                "op": "not",
+                "value": {
+                  "args": [
+                    {
+                      "cmp": "eq",
+                      "left": {
+                        "name": "tax.us.2025.sli-scope.no-form-2555",
+                        "op": "ref"
+                      },
+                      "op": "categorical_compare",
+                      "right": {
+                        "fact_type": {
+                          "id": "tax.us.2025.sli-scope.no-form-2555",
+                          "version": "v1"
+                        },
+                        "op": "category_literal",
+                        "value": "yes"
+                      }
+                    },
+                    {
+                      "cmp": "eq",
+                      "left": {
+                        "name": "tax.us.2025.sli-scope.no-form-4563",
+                        "op": "ref"
+                      },
+                      "op": "categorical_compare",
+                      "right": {
+                        "fact_type": {
+                          "id": "tax.us.2025.sli-scope.no-form-4563",
+                          "version": "v1"
+                        },
+                        "op": "category_literal",
+                        "value": "yes"
+                      }
+                    },
+                    {
+                      "cmp": "eq",
+                      "left": {
+                        "name": "tax.us.2025.sli-scope.no-puerto-rico-or-samoa-income",
+                        "op": "ref"
+                      },
+                      "op": "categorical_compare",
+                      "right": {
+                        "fact_type": {
+                          "id": "tax.us.2025.sli-scope.no-puerto-rico-or-samoa-income",
+                          "version": "v1"
+                        },
+                        "op": "category_literal",
+                        "value": "yes"
+                      }
+                    },
+                    {
+                      "op": "collect_categorical_all_equal",
+                      "name": "tax.us.2025.sli.answer-status.no-related-person-interest",
+                      "value": {
+                        "op": "category_literal",
+                        "fact_type": {
+                          "id": "tax.us.2025.sli.answer-status.no-related-person-interest",
+                          "version": "v1"
+                        },
+                        "value": "yes"
+                      }
+                    },
+                    {
+                      "op": "collect_categorical_all_equal",
+                      "name": "tax.us.2025.sli.answer-status.no-qualified-employer-plan-interest",
+                      "value": {
+                        "op": "category_literal",
+                        "fact_type": {
+                          "id": "tax.us.2025.sli.answer-status.no-qualified-employer-plan-interest",
+                          "version": "v1"
+                        },
+                        "value": "yes"
+                      }
+                    },
+                    {
+                      "op": "collect_categorical_all_equal",
+                      "name": "tax.us.2025.sli.answer-status.no-non-qualified-loan-component",
+                      "value": {
+                        "op": "category_literal",
+                        "fact_type": {
+                          "id": "tax.us.2025.sli.answer-status.no-non-qualified-loan-component",
+                          "version": "v1"
+                        },
+                        "value": "yes"
+                      }
+                    },
+                    {
+                      "op": "collect_categorical_all_equal",
+                      "name": "tax.us.2025.sli.answer-status.no-employer-educational-assistance-interest",
+                      "value": {
+                        "op": "category_literal",
+                        "fact_type": {
+                          "id": "tax.us.2025.sli.answer-status.no-employer-educational-assistance-interest",
+                          "version": "v1"
+                        },
+                        "value": "yes"
+                      }
+                    },
+                    {
+                      "op": "collect_categorical_all_equal",
+                      "name": "tax.us.2025.sli.answer-status.no-qtp-earnings-used",
+                      "value": {
+                        "op": "category_literal",
+                        "fact_type": {
+                          "id": "tax.us.2025.sli.answer-status.no-qtp-earnings-used",
+                          "version": "v1"
+                        },
+                        "value": "yes"
+                      }
+                    }
+                  ],
+                  "op": "all"
+                }
+              }
+            },
+            "op": "choose",
+            "then": {
+              "code": "SLI_MFS_INELIGIBLE",
+              "op": "block"
+            },
+            "when": {
+              "cmp": "eq",
+              "left": {
+                "name": "filing_status",
+                "op": "ref"
+              },
+              "op": "categorical_compare",
+              "right": {
+                "fact_type": {
+                  "id": "tax.us.2025.filing-status",
+                  "version": "v1"
+                },
+                "op": "category_literal",
+                "value": "married_filing_separately"
+              }
+            }
+          }
+        }
+      },
+      {
+        "id": "loan-links",
+        "activity": {
+          "kind": "source_nonempty",
+          "member_fact_types": [
+            {
+              "id": "tax.us.2025.sli.statement-inclusion-relationship",
+              "version": "v1"
+            },
+            {
+              "id": "tax.us.2025.sli.statement-inclusion-unresolved",
+              "version": "v1"
+            },
+            {
+              "id": "tax.us.2025.sli.statement-inclusion-denied",
+              "version": "v1"
+            },
+            {
+              "id": "tax.us.2025.sli.statement-inclusion-withdrawn",
+              "version": "v1"
+            },
+            {
+              "id": "tax.us.2025.sli.statement-inclusion-applicability-unestablished",
+              "version": "v1"
+            },
+            {
+              "id": "tax.us.2025.sli.statement-inclusion-scope-unresolved",
+              "version": "v1"
+            }
+          ]
+        },
+        "reads_subject_results": [
+          {
+            "symbol": "tax.us.2025.sli.statement-line21-standing",
+            "subject": {
+              "id": "tax.us.2025.f1098e.box1-student-loan-interest",
+              "version": "v1"
+            }
+          },
+          {
+            "symbol": "tax.us.2025.sli.answer-status.no-related-person-interest",
+            "subject": {
+              "id": "tax.us.2025.f1098e.box1-student-loan-interest",
+              "version": "v1"
+            }
+          },
+          {
+            "symbol": "tax.us.2025.sli.answer-status.no-qualified-employer-plan-interest",
+            "subject": {
+              "id": "tax.us.2025.f1098e.box1-student-loan-interest",
+              "version": "v1"
+            }
+          },
+          {
+            "symbol": "tax.us.2025.sli.answer-status.no-employer-educational-assistance-interest",
+            "subject": {
+              "id": "tax.us.2025.f1098e.box1-student-loan-interest",
+              "version": "v1"
+            }
+          },
+          {
+            "symbol": "tax.us.2025.sli.answer-status.no-qtp-earnings-used",
+            "subject": {
+              "id": "tax.us.2025.f1098e.box1-student-loan-interest",
+              "version": "v1"
+            }
+          },
+          {
+            "symbol": "tax.us.2025.sli.applicability-marker-refusal",
+            "subject": {
+              "id": "tax.us.2025.sli.statement-inclusion-applicability-unestablished",
+              "version": "v1"
+            }
+          }
+        ],
+        "requires": [
+          "filing_status",
+          "rounding.convention",
+          "tax.us.2025.income.total-income",
+          "tax.us.2025.schedule1-adjustments-scope.no-line11-educator",
+          "tax.us.2025.schedule1-adjustments-scope.no-line12-business-expenses",
+          "tax.us.2025.schedule1-adjustments-scope.no-line13-hsa",
+          "tax.us.2025.schedule1-adjustments-scope.no-line14-moving",
+          "tax.us.2025.schedule1-adjustments-scope.no-line15-deductible-se",
+          "tax.us.2025.schedule1-adjustments-scope.no-line16-se-retirement",
+          "tax.us.2025.schedule1-adjustments-scope.no-line17-se-health",
+          "tax.us.2025.schedule1-adjustments-scope.no-line18-penalty",
+          "tax.us.2025.schedule1-adjustments-scope.no-line19-alimony-paid",
+          "tax.us.2025.schedule1-adjustments-scope.no-line20-ira-deduction",
+          "tax.us.2025.schedule1-adjustments-scope.no-line23-archer-msa",
+          "tax.us.2025.schedule1-adjustments-scope.no-line25-other-adjustments",
+          "tax.us.2025.sli-scope.legally-obligated-for-interest",
+          "tax.us.2025.sli-scope.no-form-2555",
+          "tax.us.2025.sli-scope.no-form-4563",
+          "tax.us.2025.sli-scope.no-puerto-rico-or-samoa-income",
+          "tax.us.2025.sli-scope.not-claimed-as-dependent",
+          "tax.us.2025.sli-worksheet.line1-total-interest-paid-subtotal"
+        ],
+        "pins": [
+          {
+            "role": "choice",
+            "id": "filing_status",
+            "version": "v1"
+          },
+          {
+            "role": "input",
+            "id": "rounding.convention",
+            "version": "v1",
+            "origin": "assertion"
+          },
+          {
+            "role": "input",
+            "id": "tax.us.2025.income.total-income",
+            "version": "v1",
+            "origin": "assertion"
+          },
+          {
+            "role": "input",
+            "id": "tax.us.2025.schedule1-adjustments-scope.no-line11-educator",
+            "version": "v1",
+            "origin": "assertion"
+          },
+          {
+            "role": "input",
+            "id": "tax.us.2025.schedule1-adjustments-scope.no-line12-business-expenses",
+            "version": "v1",
+            "origin": "assertion"
+          },
+          {
+            "role": "input",
+            "id": "tax.us.2025.schedule1-adjustments-scope.no-line13-hsa",
+            "version": "v1",
+            "origin": "assertion"
+          },
+          {
+            "role": "input",
+            "id": "tax.us.2025.schedule1-adjustments-scope.no-line14-moving",
+            "version": "v1",
+            "origin": "assertion"
+          },
+          {
+            "role": "input",
+            "id": "tax.us.2025.schedule1-adjustments-scope.no-line15-deductible-se",
+            "version": "v1",
+            "origin": "assertion"
+          },
+          {
+            "role": "input",
+            "id": "tax.us.2025.schedule1-adjustments-scope.no-line16-se-retirement",
+            "version": "v1",
+            "origin": "assertion"
+          },
+          {
+            "role": "input",
+            "id": "tax.us.2025.schedule1-adjustments-scope.no-line17-se-health",
+            "version": "v1",
+            "origin": "assertion"
+          },
+          {
+            "role": "input",
+            "id": "tax.us.2025.schedule1-adjustments-scope.no-line18-penalty",
+            "version": "v1",
+            "origin": "assertion"
+          },
+          {
+            "role": "input",
+            "id": "tax.us.2025.schedule1-adjustments-scope.no-line19-alimony-paid",
+            "version": "v1",
+            "origin": "assertion"
+          },
+          {
+            "role": "input",
+            "id": "tax.us.2025.schedule1-adjustments-scope.no-line20-ira-deduction",
+            "version": "v1",
+            "origin": "assertion"
+          },
+          {
+            "role": "input",
+            "id": "tax.us.2025.schedule1-adjustments-scope.no-line23-archer-msa",
+            "version": "v1",
+            "origin": "assertion"
+          },
+          {
+            "role": "input",
+            "id": "tax.us.2025.schedule1-adjustments-scope.no-line25-other-adjustments",
+            "version": "v1",
+            "origin": "assertion"
+          },
+          {
+            "role": "input",
+            "id": "tax.us.2025.sli-scope.legally-obligated-for-interest",
+            "version": "v1",
+            "origin": "assertion"
+          },
+          {
+            "role": "input",
+            "id": "tax.us.2025.sli-scope.no-form-2555",
+            "version": "v1",
+            "origin": "assertion"
+          },
+          {
+            "role": "input",
+            "id": "tax.us.2025.sli-scope.no-form-4563",
+            "version": "v1",
+            "origin": "assertion"
+          },
+          {
+            "role": "input",
+            "id": "tax.us.2025.sli-scope.no-puerto-rico-or-samoa-income",
+            "version": "v1",
+            "origin": "assertion"
+          },
+          {
+            "role": "input",
+            "id": "tax.us.2025.sli-scope.not-claimed-as-dependent",
+            "version": "v1",
+            "origin": "assertion"
+          },
+          {
+            "role": "input",
+            "id": "tax.us.2025.sli-worksheet.line1-total-interest-paid-subtotal",
+            "version": "v1",
+            "origin": "assertion"
+          }
+        ],
+        "when": {
+          "op": "require_closed",
+          "source_set": "tax.us.2025.f1098e.1"
+        },
+        "value": {
+          "op": "choose",
+          "when": {
+            "op": "compare",
+            "cmp": "eq",
+            "left": {
+              "op": "count",
+              "name": "tax.us.2025.sli.applicability-marker-refusal",
+              "source_set": "tax.us.2025.f1098e.1"
+            },
+            "right": 0
+          },
+          "then": {
+            "mode": {
+              "name": "rounding.convention",
+              "op": "ref"
+            },
+            "op": "round",
+            "value": {
+              "else": {
+                "else": {
+                  "op": "choose",
+                  "when": {
+                    "op": "not",
+                    "value": {
+                      "op": "collect_categorical_all_equal",
+                      "name": "tax.us.2025.sli.statement-line21-standing",
+                      "value": {
+                        "op": "category_literal",
+                        "fact_type": {
+                          "id": "tax.us.2025.sli.statement-line21-standing",
+                          "version": "v1"
+                        },
+                        "value": "none"
+                      }
+                    }
+                  },
+                  "then": {
+                    "op": "block",
+                    "code": "DEPENDENCY_INVALID"
+                  },
+                  "else": {
+                    "else": {
+                      "else": {
+                        "left": {
+                          "left": {
+                            "name": "tax.us.2025.sli-worksheet.line1-total-interest-paid-subtotal",
+                            "op": "ref"
+                          },
+                          "op": "subtract",
+                          "right": {
+                            "args": [
+                              {
+                                "left": {
+                                  "name": "tax.us.2025.sli-worksheet.line1-total-interest-paid-subtotal",
+                                  "op": "ref"
+                                },
+                                "op": "subtract",
+                                "right": {
+                                  "op": "parameter",
+                                  "parameter_id": "tax.us.2025.parameter.sli-interest-cap"
+                                }
+                              },
+                              0
+                            ],
+                            "op": "max"
+                          }
+                        },
+                        "op": "subtract",
+                        "right": {
+                          "left": {
+                            "left": {
+                              "name": "tax.us.2025.sli-worksheet.line1-total-interest-paid-subtotal",
+                              "op": "ref"
+                            },
+                            "op": "subtract",
+                            "right": {
+                              "args": [
+                                {
+                                  "left": {
+                                    "name": "tax.us.2025.sli-worksheet.line1-total-interest-paid-subtotal",
+                                    "op": "ref"
+                                  },
+                                  "op": "subtract",
+                                  "right": {
+                                    "op": "parameter",
+                                    "parameter_id": "tax.us.2025.parameter.sli-interest-cap"
+                                  }
+                                },
+                                0
+                              ],
+                              "op": "max"
+                            }
+                          },
+                          "op": "multiply",
+                          "right": {
+                            "left": {
+                              "left": {
+                                "args": [
+                                  {
+                                    "left": {
+                                      "left": {
+                                        "name": "tax.us.2025.income.total-income",
+                                        "op": "ref"
+                                      },
+                                      "op": "subtract",
+                                      "right": 0
+                                    },
+                                    "op": "subtract",
+                                    "right": {
+                                      "key": {
+                                        "name": "filing_status",
+                                        "op": "ref"
+                                      },
+                                      "op": "parameter",
+                                      "parameter_id": "tax.us.2025.parameter.sli-magi-threshold"
+                                    }
+                                  },
+                                  0
+                                ],
+                                "op": "max"
+                              },
+                              "min_decimal_places": 3,
+                              "op": "divide",
+                              "right": {
+                                "key": {
+                                  "name": "filing_status",
+                                  "op": "ref"
+                                },
+                                "op": "parameter",
+                                "parameter_id": "tax.us.2025.parameter.sli-magi-phase-range"
+                              },
+                              "rounding": "half_up"
+                            },
+                            "op": "subtract",
+                            "right": {
+                              "args": [
+                                {
+                                  "left": {
+                                    "left": {
+                                      "args": [
+                                        {
+                                          "left": {
+                                            "left": {
+                                              "name": "tax.us.2025.income.total-income",
+                                              "op": "ref"
+                                            },
+                                            "op": "subtract",
+                                            "right": 0
+                                          },
+                                          "op": "subtract",
+                                          "right": {
+                                            "key": {
+                                              "name": "filing_status",
+                                              "op": "ref"
+                                            },
+                                            "op": "parameter",
+                                            "parameter_id": "tax.us.2025.parameter.sli-magi-threshold"
+                                          }
+                                        },
+                                        0
+                                      ],
+                                      "op": "max"
+                                    },
+                                    "min_decimal_places": 3,
+                                    "op": "divide",
+                                    "right": {
+                                      "key": {
+                                        "name": "filing_status",
+                                        "op": "ref"
+                                      },
+                                      "op": "parameter",
+                                      "parameter_id": "tax.us.2025.parameter.sli-magi-phase-range"
+                                    },
+                                    "rounding": "half_up"
+                                  },
+                                  "op": "subtract",
+                                  "right": 1
+                                },
+                                0
+                              ],
+                              "op": "max"
+                            }
+                          }
+                        }
+                      },
+                      "op": "choose",
+                      "then": 0,
+                      "when": {
+                        "args": [
+                          {
+                            "cmp": "eq",
+                            "left": {
+                              "name": "tax.us.2025.sli-scope.not-claimed-as-dependent",
+                              "op": "ref"
+                            },
+                            "op": "categorical_compare",
+                            "right": {
+                              "fact_type": {
+                                "id": "tax.us.2025.sli-scope.not-claimed-as-dependent",
+                                "version": "v1"
+                              },
+                              "op": "category_literal",
+                              "value": "no"
+                            }
+                          },
+                          {
+                            "cmp": "eq",
+                            "left": {
+                              "name": "tax.us.2025.sli-scope.legally-obligated-for-interest",
+                              "op": "ref"
+                            },
+                            "op": "categorical_compare",
+                            "right": {
+                              "fact_type": {
+                                "id": "tax.us.2025.sli-scope.legally-obligated-for-interest",
+                                "version": "v1"
+                              },
+                              "op": "category_literal",
+                              "value": "no"
+                            }
+                          }
+                        ],
+                        "op": "any"
+                      }
+                    },
+                    "op": "choose",
+                    "then": {
+                      "code": "SLI_SCHEDULE1_PART_II_OUT_OF_SCOPE",
+                      "op": "block"
+                    },
+                    "when": {
+                      "op": "not",
+                      "value": {
+                        "args": [
+                          {
+                            "cmp": "eq",
+                            "left": {
+                              "name": "tax.us.2025.schedule1-adjustments-scope.no-line11-educator",
+                              "op": "ref"
+                            },
+                            "op": "categorical_compare",
+                            "right": {
+                              "fact_type": {
+                                "id": "tax.us.2025.schedule1-adjustments-scope.no-line11-educator",
+                                "version": "v1"
+                              },
+                              "op": "category_literal",
+                              "value": "yes"
+                            }
+                          },
+                          {
+                            "cmp": "eq",
+                            "left": {
+                              "name": "tax.us.2025.schedule1-adjustments-scope.no-line12-business-expenses",
+                              "op": "ref"
+                            },
+                            "op": "categorical_compare",
+                            "right": {
+                              "fact_type": {
+                                "id": "tax.us.2025.schedule1-adjustments-scope.no-line12-business-expenses",
+                                "version": "v1"
+                              },
+                              "op": "category_literal",
+                              "value": "yes"
+                            }
+                          },
+                          {
+                            "cmp": "eq",
+                            "left": {
+                              "name": "tax.us.2025.schedule1-adjustments-scope.no-line13-hsa",
+                              "op": "ref"
+                            },
+                            "op": "categorical_compare",
+                            "right": {
+                              "fact_type": {
+                                "id": "tax.us.2025.schedule1-adjustments-scope.no-line13-hsa",
+                                "version": "v1"
+                              },
+                              "op": "category_literal",
+                              "value": "yes"
+                            }
+                          },
+                          {
+                            "cmp": "eq",
+                            "left": {
+                              "name": "tax.us.2025.schedule1-adjustments-scope.no-line14-moving",
+                              "op": "ref"
+                            },
+                            "op": "categorical_compare",
+                            "right": {
+                              "fact_type": {
+                                "id": "tax.us.2025.schedule1-adjustments-scope.no-line14-moving",
+                                "version": "v1"
+                              },
+                              "op": "category_literal",
+                              "value": "yes"
+                            }
+                          },
+                          {
+                            "cmp": "eq",
+                            "left": {
+                              "name": "tax.us.2025.schedule1-adjustments-scope.no-line15-deductible-se",
+                              "op": "ref"
+                            },
+                            "op": "categorical_compare",
+                            "right": {
+                              "fact_type": {
+                                "id": "tax.us.2025.schedule1-adjustments-scope.no-line15-deductible-se",
+                                "version": "v1"
+                              },
+                              "op": "category_literal",
+                              "value": "yes"
+                            }
+                          },
+                          {
+                            "cmp": "eq",
+                            "left": {
+                              "name": "tax.us.2025.schedule1-adjustments-scope.no-line16-se-retirement",
+                              "op": "ref"
+                            },
+                            "op": "categorical_compare",
+                            "right": {
+                              "fact_type": {
+                                "id": "tax.us.2025.schedule1-adjustments-scope.no-line16-se-retirement",
+                                "version": "v1"
+                              },
+                              "op": "category_literal",
+                              "value": "yes"
+                            }
+                          },
+                          {
+                            "cmp": "eq",
+                            "left": {
+                              "name": "tax.us.2025.schedule1-adjustments-scope.no-line17-se-health",
+                              "op": "ref"
+                            },
+                            "op": "categorical_compare",
+                            "right": {
+                              "fact_type": {
+                                "id": "tax.us.2025.schedule1-adjustments-scope.no-line17-se-health",
+                                "version": "v1"
+                              },
+                              "op": "category_literal",
+                              "value": "yes"
+                            }
+                          },
+                          {
+                            "cmp": "eq",
+                            "left": {
+                              "name": "tax.us.2025.schedule1-adjustments-scope.no-line18-penalty",
+                              "op": "ref"
+                            },
+                            "op": "categorical_compare",
+                            "right": {
+                              "fact_type": {
+                                "id": "tax.us.2025.schedule1-adjustments-scope.no-line18-penalty",
+                                "version": "v1"
+                              },
+                              "op": "category_literal",
+                              "value": "yes"
+                            }
+                          },
+                          {
+                            "cmp": "eq",
+                            "left": {
+                              "name": "tax.us.2025.schedule1-adjustments-scope.no-line19-alimony-paid",
+                              "op": "ref"
+                            },
+                            "op": "categorical_compare",
+                            "right": {
+                              "fact_type": {
+                                "id": "tax.us.2025.schedule1-adjustments-scope.no-line19-alimony-paid",
+                                "version": "v1"
+                              },
+                              "op": "category_literal",
+                              "value": "yes"
+                            }
+                          },
+                          {
+                            "cmp": "eq",
+                            "left": {
+                              "name": "tax.us.2025.schedule1-adjustments-scope.no-line20-ira-deduction",
+                              "op": "ref"
+                            },
+                            "op": "categorical_compare",
+                            "right": {
+                              "fact_type": {
+                                "id": "tax.us.2025.schedule1-adjustments-scope.no-line20-ira-deduction",
+                                "version": "v1"
+                              },
+                              "op": "category_literal",
+                              "value": "yes"
+                            }
+                          },
+                          {
+                            "cmp": "eq",
+                            "left": {
+                              "name": "tax.us.2025.schedule1-adjustments-scope.no-line23-archer-msa",
+                              "op": "ref"
+                            },
+                            "op": "categorical_compare",
+                            "right": {
+                              "fact_type": {
+                                "id": "tax.us.2025.schedule1-adjustments-scope.no-line23-archer-msa",
+                                "version": "v1"
+                              },
+                              "op": "category_literal",
+                              "value": "yes"
+                            }
+                          },
+                          {
+                            "cmp": "eq",
+                            "left": {
+                              "name": "tax.us.2025.schedule1-adjustments-scope.no-line25-other-adjustments",
+                              "op": "ref"
+                            },
+                            "op": "categorical_compare",
+                            "right": {
+                              "fact_type": {
+                                "id": "tax.us.2025.schedule1-adjustments-scope.no-line25-other-adjustments",
+                                "version": "v1"
+                              },
+                              "op": "category_literal",
+                              "value": "yes"
+                            }
+                          }
+                        ],
+                        "op": "all"
+                      }
+                    }
+                  }
+                },
+                "op": "choose",
+                "then": {
+                  "code": "SLI_UNIVERSAL_COMPONENT_VIOLATION",
+                  "op": "block"
+                },
+                "when": {
+                  "op": "not",
+                  "value": {
+                    "args": [
+                      {
+                        "cmp": "eq",
+                        "left": {
+                          "name": "tax.us.2025.sli-scope.no-form-2555",
+                          "op": "ref"
+                        },
+                        "op": "categorical_compare",
+                        "right": {
+                          "fact_type": {
+                            "id": "tax.us.2025.sli-scope.no-form-2555",
+                            "version": "v1"
+                          },
+                          "op": "category_literal",
+                          "value": "yes"
+                        }
+                      },
+                      {
+                        "cmp": "eq",
+                        "left": {
+                          "name": "tax.us.2025.sli-scope.no-form-4563",
+                          "op": "ref"
+                        },
+                        "op": "categorical_compare",
+                        "right": {
+                          "fact_type": {
+                            "id": "tax.us.2025.sli-scope.no-form-4563",
+                            "version": "v1"
+                          },
+                          "op": "category_literal",
+                          "value": "yes"
+                        }
+                      },
+                      {
+                        "cmp": "eq",
+                        "left": {
+                          "name": "tax.us.2025.sli-scope.no-puerto-rico-or-samoa-income",
+                          "op": "ref"
+                        },
+                        "op": "categorical_compare",
+                        "right": {
+                          "fact_type": {
+                            "id": "tax.us.2025.sli-scope.no-puerto-rico-or-samoa-income",
+                            "version": "v1"
+                          },
+                          "op": "category_literal",
+                          "value": "yes"
+                        }
+                      },
+                      {
+                        "op": "collect_categorical_all_equal",
+                        "name": "tax.us.2025.sli.answer-status.no-related-person-interest",
+                        "value": {
+                          "op": "category_literal",
+                          "fact_type": {
+                            "id": "tax.us.2025.sli.answer-status.no-related-person-interest",
+                            "version": "v1"
+                          },
+                          "value": "yes"
+                        }
+                      },
+                      {
+                        "op": "collect_categorical_all_equal",
+                        "name": "tax.us.2025.sli.answer-status.no-qualified-employer-plan-interest",
+                        "value": {
+                          "op": "category_literal",
+                          "fact_type": {
+                            "id": "tax.us.2025.sli.answer-status.no-qualified-employer-plan-interest",
+                            "version": "v1"
+                          },
+                          "value": "yes"
+                        }
+                      },
+                      {
+                        "op": "collect_categorical_all_equal",
+                        "name": "tax.us.2025.sli.answer-status.no-employer-educational-assistance-interest",
+                        "value": {
+                          "op": "category_literal",
+                          "fact_type": {
+                            "id": "tax.us.2025.sli.answer-status.no-employer-educational-assistance-interest",
+                            "version": "v1"
+                          },
+                          "value": "yes"
+                        }
+                      },
+                      {
+                        "op": "collect_categorical_all_equal",
+                        "name": "tax.us.2025.sli.answer-status.no-qtp-earnings-used",
+                        "value": {
+                          "op": "category_literal",
+                          "fact_type": {
+                            "id": "tax.us.2025.sli.answer-status.no-qtp-earnings-used",
+                            "version": "v1"
+                          },
+                          "value": "yes"
+                        }
+                      }
+                    ],
+                    "op": "all"
+                  }
+                }
+              },
+              "op": "choose",
+              "then": {
+                "code": "SLI_MFS_INELIGIBLE",
+                "op": "block"
+              },
+              "when": {
+                "cmp": "eq",
+                "left": {
+                  "name": "filing_status",
+                  "op": "ref"
+                },
+                "op": "categorical_compare",
+                "right": {
+                  "fact_type": {
+                    "id": "tax.us.2025.filing-status",
+                    "version": "v1"
+                  },
+                  "op": "category_literal",
+                  "value": "married_filing_separately"
+                }
+              }
+            }
+          },
+          "else": {
+            "op": "block",
+            "code": "DEPENDENCY_INVALID"
+          }
+        }
+      }
+    ],
+    "default": {
+      "id": "neither",
+      "reads_subject_results": [
+        {
+          "symbol": "tax.us.2025.sli.statement-line21-standing",
+          "subject": {
+            "id": "tax.us.2025.f1098e.box1-student-loan-interest",
+            "version": "v1"
+          }
+        }
+      ],
+      "requires": [],
+      "pins": [],
+      "when": {
+        "op": "require_closed",
+        "source_set": "tax.us.2025.f1098e.1"
+      },
+      "value": {
+        "op": "choose",
+        "when": {
+          "op": "compare",
+          "cmp": "eq",
+          "left": {
+            "op": "count",
+            "name": "tax.us.2025.f1098e.box1-student-loan-interest",
+            "source_set": "tax.us.2025.f1098e.1"
+          },
+          "right": 0
+        },
+        "then": 0,
+        "else": {
+          "op": "choose",
+          "when": {
+            "op": "collect_categorical_all_equal",
+            "name": "tax.us.2025.sli.statement-line21-standing",
+            "value": {
+              "op": "category_literal",
+              "fact_type": {
+                "id": "tax.us.2025.sli.statement-line21-standing",
+                "version": "v1"
+              },
+              "value": "none"
+            }
+          },
+          "then": {
+            "op": "block",
+            "code": "DEPENDENCY_INVALID"
+          },
+          "else": {
+            "op": "block",
+            "code": "DEPENDENCY_INVALID"
+          }
+        }
+      }
+    },
+    "refusal": {
+      "code": "DEPENDENCY_INVALID",
+      "missing": [
+        "old-and-new-sli-inputs-both-present"
+      ],
+      "pins": []
+    }
+  }
+}

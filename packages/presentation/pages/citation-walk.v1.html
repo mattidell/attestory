@@ -319,6 +319,23 @@ function renderLine(container, section) {
         ]),
       ]),
     ]));
+    // Reasons the projector copied from declared content, one per statement
+    // it names. Rendered as text only; a malformed entry is an error.
+    const reasons = Array.isArray(resolved.reasons) ? resolved.reasons : [];
+    if (reasons.length) {
+      const items = reasons.map((reason) => {
+        if (!reason || typeof reason.sentence !== "string" || !reason.sentence) {
+          throw new SectionError("malformed-blocked-reason");
+        }
+        const label = reason.statementLabel || {};
+        const name = [label.statement, label.lender].filter((part) => typeof part === "string" && part).join(", ");
+        return el("li", null, name ? [el("strong", null, [name + ": "]), reason.sentence] : [reason.sentence]);
+      });
+      container.appendChild(el("div", { class: "blocked-reasons" }, [
+        el("p", null, [el("strong", null, ["Why: "])]),
+        el("ul", null, items),
+      ]));
+    }
     container.appendChild(el("div", { class: "remedy-box" }, [
       el("strong", null, ["Remedy: "]),
       "contribute the missing dependency to unblock this line.",

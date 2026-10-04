@@ -1,0 +1,29 @@
+{
+  "schema": "rule-artifact.v13",
+  "id": "tax.us.2025.rule.sli-applicability-marker-refusal",
+  "version": "v1",
+  "scope": {
+    "tax_year": 2025,
+    "jurisdiction": "US-federal",
+    "family": "individual-income-tax"
+  },
+  "role": "computation",
+  "subject": {
+    "id": "tax.us.2025.sli.statement-inclusion-applicability-unestablished",
+    "version": "v1"
+  },
+  "requires": [],
+  "pins": [],
+  "when": true,
+  "value": {
+    "op": "block",
+    "code": "DEPENDENCY_INVALID"
+  },
+  "blocked": {
+    "code": "DEPENDENCY_INVALID",
+    "missing": []
+  },
+  "publishes": "tax.us.2025.sli.applicability-marker-refusal",
+  "wording": "The statement this link was confirmed against changed or was removed. Confirm the link again.",
+  "notes": "Each replay-supplied applicability marker represents an inclusion whose current applicability could not be established. This blocked per-marker result lets the worksheet read the unresolved state even when its box 1 subject is no longer current."
+}
