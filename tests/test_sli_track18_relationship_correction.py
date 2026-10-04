@@ -166,7 +166,10 @@ class Track18RelationshipCorrection(unittest.TestCase):
                 schooling_fact_ids=(first["school"], second["school"]),
                 statement_fact_ids=(first["statement"], second["statement"]),
             )
-            track14._append_source(log, registry, STATEMENT_TYPE, tuple(statement_fact.keys), 1600.0,
+            # ADR 0077 Part 5 refuses this unscoped write on the recorder's log; it is
+            # written as pre-step history to reach the stale-review refusal.
+            track14._append_source(track17._pre_step_writer(log), registry, STATEMENT_TYPE,
+                                   tuple(statement_fact.keys), 1600.0,
                                    "track18-stale-review-source-change")
             with self.assertRaisesRegex(RelationshipRecordingRefused, "prepared review changed"):
                 apply_statement_correction_review(

@@ -84,7 +84,7 @@ class AuthorizationSchemas(unittest.TestCase):
     def test_act_log_round_trip_and_kernel_compose_over(self) -> None:
         tmp = tempfile.TemporaryDirectory()
         self.addCleanup(tmp.cleanup)
-        log = ActLog(Path(tmp.name) / "ws", self.registry)
+        log = ActLog(Path(tmp.name) / "ws", self.registry, undeclared_test_log=True)
         grant = _grant_act(0)
         log.append(grant, expected_revision=0)
         end = {

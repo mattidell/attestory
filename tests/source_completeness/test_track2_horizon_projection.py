@@ -384,7 +384,7 @@ class AtomicAdmission(HorizonFixture):
 class InterruptionSafety(HorizonFixture):
     def test_uncommitted_transition_tail_changes_neither_half(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:
-            log = ActLog(Path(tmp), self.registry)
+            log = ActLog(Path(tmp), self.registry, undeclared_test_log=True)
             revision = 0
             for one_act in base_acts():
                 revision = log.append(one_act, revision)

@@ -46,6 +46,7 @@ from packages.kernel.act_log import ActLog
 from packages.kernel.contribution import ContributionError, apply_contribution_batch
 from packages.kernel.currency import compute_currency
 from packages.kernel.findings import project
+from packages.tax.loader import install_domain_scoped_supersession
 
 
 ENTRY_FIXTURE = Path("packages/sample_data/entry_loop_t1")
@@ -521,6 +522,8 @@ class SyntheticW2EntryRuntime:
         self._schemas = DerivationSchemas()
         self._lock = Lock()
         self._workspace = bootstrap_workspace(capability, repo_root=repo_root)
+        # ADR 0077 Part 5: a writable ActLog requires the new-write declaration.
+        install_domain_scoped_supersession(self._schemas.registry)
         self._log = ActLog(self._workspace.location, self._schemas.registry)
         self._surface = PublicationSurface(
             repo_root / "packages" / "sample_data" / "frrs_t3" / "publication_surface" / "releases",

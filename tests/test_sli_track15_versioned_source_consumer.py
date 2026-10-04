@@ -19,7 +19,7 @@ from packages.derivation.runner import run
 from packages.kernel.act_log import ActLog
 from packages.kernel.currency import compute_currency
 from packages.kernel.facts import facts_of
-from packages.kernel.findings import project
+from packages.kernel.findings import FindingModelError, project
 from packages.tax.sli_relationship_recording import (
     FINANCING, SCHOOLING, STATEMENT_INCLUSION, correct_relationship_claim_durably,
     current_claim_applicability, record_submission_durably,
@@ -254,11 +254,13 @@ class VersionedSourceConsumer(unittest.TestCase):
             self.assertNotEqual(dict(finance_facts[0].keys)["borrowing"], dict(finance_facts[1].keys)["borrowing"])
             self.assertNotEqual(dict(finance_facts[0].keys)["period"], dict(finance_facts[1].keys)["period"])
 
-            # A statement amount correction changes its value, not the keyed inclusion observation.
+            # ADR 0077 Part 5: a direct unscoped statement amount correction while an
+            # inclusion names that statement is refused at ActLog.append, not recorded.
             statement_keys = (("lender", "demo.track14.lender.cedar"),
                               ("statement", "demo.track14.statement.2025"), ("tax-year", "2025"))
-            track14._append_source(log, registry, "tax.us.2025.f1098e.box1-student-loan-interest",
-                           statement_keys, 1750.0, "first-statement-corrected-amount")
+            with self.assertRaisesRegex(FindingModelError, "scoped supersession violated"):
+                track14._append_source(log, registry, "tax.us.2025.f1098e.box1-student-loan-interest",
+                               statement_keys, 1750.0, "first-statement-corrected-amount")
             amount_corrected = recovered_run("amount-correction")
             self.assertEqual(amount_corrected[f"{INCLUSION_OUTPUT}|{first['claims']['statement-inclusion']['fact_id']}"]["id"],
                              initial[f"{INCLUSION_OUTPUT}|{first['claims']['statement-inclusion']['fact_id']}"]["id"])
@@ -266,10 +268,8 @@ class VersionedSourceConsumer(unittest.TestCase):
                              initial[f"{INCLUSION_OUTPUT}|{second['claims']['statement-inclusion']['fact_id']}"]["id"])
             amount_applicability = {row["finding_id"]: row["applicability"]
                                     for row in current_claim_applicability(log.read().acts, registry)}
-            # Track 6 read-side tie (ADR 0077 Part 5): a direct unscoped box 1 append
-            # leaves the old inclusion unresolved, not applicable.
             self.assertEqual(amount_applicability[first["claims"]["statement-inclusion"]["finding_id"]],
-                             "unresolved-applicability")
+                             "current")
 
             # Correct and then withdraw the financing assertion for the first borrowing only.
             correction = correct_relationship_claim_durably(

@@ -231,7 +231,7 @@ class TestRevisionLayer(Track0Base):
     """The act log: a real workspace file, real envelope + payload validation."""
 
     def _log_with_base(self) -> tuple[ActLog, int, list[dict[str, Any]]]:
-        log = ActLog(self.tmp_path / "ws", self.registry)
+        log = ActLog(self.tmp_path / "ws", self.registry, undeclared_test_log=True)
         revision = 0
         # bundle.v3 cannot be committed to the log (see BUNDLE_V3's note), so
         # the logged prefix carries the v1 vocabulary only.

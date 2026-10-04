@@ -21,6 +21,12 @@ from dataclasses import dataclass
 from pathlib import Path
 from typing import Any
 
+from packages.kernel.findings import (
+    declares_new_write_invariants,
+    enforce_new_write_invariants,
+    new_write_invariants_may_apply,
+    project,
+)
 from packages.kernel.schema_registry import SchemaRegistry
 
 ACT_ENVELOPE_SCHEMA = "act.v1"
@@ -81,13 +87,46 @@ def _payload_schema_id(kind: str, payload: dict[str, Any] | None = None) -> str:
 class ActLog:
     """Append-only act log for one workspace directory."""
 
-    def __init__(self, workspace_dir: Path, registry: SchemaRegistry) -> None:
+    def __init__(
+        self,
+        workspace_dir: Path,
+        registry: SchemaRegistry,
+        *,
+        read_only: bool = False,
+        undeclared_test_log: bool = False,
+    ) -> None:
+        """Open one workspace's act log.
+
+        ADR 0077 Part 5, acceptance condition: a writable log is built only
+        over a registry that carries a well-formed new-write declaration
+        (``scoped_supersession_declarations``, installed by a domain loader),
+        so the new-write step in ``append`` cannot be skipped by registry
+        choice. Any other registry fails here, loudly. Two explicit
+        exceptions: ``read_only=True`` opens a log that refuses every
+        ``append``; ``undeclared_test_log=True`` is for tests only and is
+        never used under ``packages/``.
+        """
         self._path = workspace_dir / ACT_LOG_FILENAME
         self._registry = registry
+        self._read_only = read_only
+        self._requires_declaration = not (read_only or undeclared_test_log)
+        self._check_declaration()
+
+    def _check_declaration(self) -> None:
+        if self._requires_declaration and not declares_new_write_invariants(self._registry):
+            raise ActLogError(
+                "registry carries no well-formed new-write declaration "
+                "(scoped_supersession_declarations); a writable ActLog requires one "
+                "(ADR 0077 Part 5); open it read_only=True to read"
+            )
 
     @property
     def path(self) -> Path:
         return self._path
+
+    @property
+    def registry(self) -> SchemaRegistry:
+        return self._registry
 
     def read(self) -> LogContents:
         """Read committed acts; quarantine an uncommitted partial tail.
@@ -134,7 +173,17 @@ class ActLog:
         Returns the new revision. Validation precedes the write; the
         write is a single newline-terminated line, flushed and fsynced,
         so interruption can only lose the act, never corrupt history.
+
+        ADR 0077 Part 5: after the envelope, payload and revision checks and
+        before the write, the new-write step runs on the projection of the
+        acts already in the log. A refusal raises ``FindingModelError`` and
+        writes nothing. ``read`` and ``project`` never run the step.
         """
+        if self._read_only:
+            raise ActLogError("read-only act log: append is refused")
+        # The registry is mutable; a declaration removed after construction
+        # must not let a write skip the step.
+        self._check_declaration()
         self._registry.validate(ACT_ENVELOPE_SCHEMA, act)
         self._registry.validate(_payload_schema_id(act["kind"], act["payload"]), act["payload"])
         contents = self.read()
@@ -150,6 +199,10 @@ class ActLog:
             )
         if any(existing["act_id"] == act["act_id"] for existing in contents.acts):
             raise ActLogError(f"duplicate act_id: {act['act_id']}")
+        if new_write_invariants_may_apply(act, self._registry):
+            enforce_new_write_invariants(
+                project(contents.acts, self._registry), act, self._registry
+            )
         line = json.dumps(act, sort_keys=True, separators=(",", ":"))
         self._path.parent.mkdir(parents=True, exist_ok=True)
         with self._path.open("ab") as handle:

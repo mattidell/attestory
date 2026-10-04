@@ -12,7 +12,8 @@ from packages.kernel.act_log import ActLog
 from packages.kernel.contribution import apply_contribution_batch
 from packages.kernel.currency import compute_currency
 from packages.kernel.facts import fact_id_for, facts_of
-from packages.kernel.findings import project
+from packages.kernel.findings import FindingModelError, project
+from packages.tax.loader import install_domain_scoped_supersession
 from packages.tax.sli_relationship_recording import (
     FINANCING, SCHOOLING, STATEMENT_INCLUSION, RelationshipRecordingRefused,
     current_claim_applicability,
@@ -57,6 +58,7 @@ class OrdinaryRelationshipRecording(unittest.TestCase):
     def _workspace(self) -> tuple[tempfile.TemporaryDirectory[str], ActLog, Any, dict[str, str]]:
         raw = tempfile.TemporaryDirectory(prefix="sli-track14-")
         schemas = DerivationSchemas()
+        install_domain_scoped_supersession(schemas.registry)
         log = ActLog(Path(raw.name) / "workspace", schemas.registry)
         fact_bundle = json.loads((CONTENT / "sli-relationship-source.bundle.json").read_text("utf-8"))
         form_bundle = json.loads((CONTENT / "f1098e.bundle.json").read_text("utf-8"))
@@ -504,18 +506,20 @@ class OrdinaryRelationshipRecording(unittest.TestCase):
                                      ("statement", "demo.track14.statement.2025"),
                                      ("tax-year", "2025"))
             membership_before_amount_correction = initial["claims"]["statement-inclusion"]["finding_id"]
-            _append_source(log, registry, STATEMENT_TYPE, source_statement_keys, 1999.0,
-                           "statement-box1-corrected")
+            # ADR 0077 Part 5: a direct unscoped box 1 append while the inclusion is
+            # current is refused at ActLog.append and not recorded.
+            with self.assertRaisesRegex(FindingModelError, "scoped supersession violated"):
+                _append_source(log, registry, STATEMENT_TYPE, source_statement_keys, 1999.0,
+                               "statement-box1-corrected")
             corrected_source_state = project(log.read().acts, registry)
+            self.assertNotIn("demo.finding.track14.statement-box1-corrected",
+                             corrected_source_state.findings)
             after_amount_correction = compute_currency(corrected_source_state).current_finding_ids
             self.assertIn(membership_before_amount_correction, after_amount_correction)
             self.assertIn(initial["claims"]["financing"]["finding_id"], after_amount_correction)
             amount_applicability = {row["finding_id"]: row["applicability"]
                                     for row in current_claim_applicability(log.read().acts, registry)}
-            # Track 6 read-side tie (ADR 0077 Part 5): a direct unscoped box 1 append
-            # leaves the old inclusion unresolved, not applicable.
-            self.assertEqual(amount_applicability[membership_before_amount_correction],
-                             "unresolved-applicability")
+            self.assertEqual(amount_applicability[membership_before_amount_correction], "current")
             before = log.read().revision
             with self.assertRaisesRegex(RelationshipRecordingRefused, "exactly the predecessor"):
                 correct_relationship_claim_durably(

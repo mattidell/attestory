@@ -13,6 +13,7 @@ from packages.derivation.package_validation import package_instance_checksum, va
 from packages.derivation.live import live_coordinate_run
 from packages.derivation.live_workspace import WorkspaceCapability
 from packages.derivation.loader import DerivationSchemas
+from packages.tax.loader import install_domain_scoped_supersession
 from packages.kernel.act_log import ActLog
 from packages.kernel.facts import facts_of
 from packages.kernel.findings import project
@@ -264,10 +265,10 @@ def _execute_track11(name: str, acts: list[dict[str, Any]], surface: Any,
     scratch.mkdir(parents=True, exist_ok=True)
     output: dict[str, Any]
     with tempfile.TemporaryDirectory(prefix=f"track11-{name}-") as raw:
-        authoritative = ActLog(Path(raw) / "authoritative", workspace_registry())
+        authoritative = ActLog(Path(raw) / "authoritative", install_domain_scoped_supersession(workspace_registry()))
         for act_row in acts:
             authoritative.append(act_row, expected_revision=act_row["committed_against"])
-        recovered = ActLog(Path(raw) / "authoritative", workspace_registry()).read().acts
+        recovered = ActLog(Path(raw) / "authoritative", workspace_registry(), read_only=True).read().acts
         outcome = live_coordinate_run(
             WorkspaceCapability(Path(raw) / "workspace"), repo_root=ROOT,
             authoritative_acts=recovered, workspace_revision=len(recovered),

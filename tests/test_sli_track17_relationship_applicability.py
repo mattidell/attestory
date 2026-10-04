@@ -19,7 +19,7 @@ from packages.derivation.runner import run
 from packages.kernel.act_log import ActLog
 from packages.kernel.currency import compute_currency
 from packages.kernel.facts import fact_id_for, facts_of
-from packages.kernel.findings import project
+from packages.kernel.findings import FindingModelError, project
 from packages.tax.sli_relationship_recording import (
     FINANCING, SCHOOLING, STATEMENT_INCLUSION, STATEMENT_TYPE,
     correct_relationship_claim_durably, current_claim_applicability,
@@ -29,6 +29,15 @@ from packages.tax.sli_relationship_review import prepare_review, save_review
 from tests.support import act, demo_entity
 import tests.test_sli_relationship_recording as track14
 import tests.test_sli_track15_versioned_source_consumer as track15
+
+
+def _pre_step_writer(log: ActLog) -> ActLog:
+    """A test-only log without the ADR 0077 Part 5 declaration.
+
+    It writes what ``ActLog.append`` now refuses, to model a history written
+    before the step existed. Replay of such a history is unchanged here.
+    """
+    return ActLog(log.path.parent, DerivationSchemas().registry, undeclared_test_log=True)
 
 ROOT = Path(__file__).resolve().parents[1]
 CONTENT = ROOT / "packages/content/tax/2025"
@@ -284,9 +293,11 @@ class Track17RelationshipApplicability(unittest.TestCase):
 
             # Same statement identity, changed amount: keep inclusion and refresh
             # the source finding pin. The unaffected second statement is stable.
+            # ADR 0077 Part 5 refuses this write on the recorder's log; it is
+            # written as pre-step history to keep the runner observation.
             first_statement_keys = (("lender", "demo.track14.lender.cedar"),
                                     ("statement", "demo.track14.statement.2025"), ("tax-year", "2025"))
-            track14._append_source(log, registry, STATEMENT_TYPE, first_statement_keys,
+            track14._append_source(_pre_step_writer(log), registry, STATEMENT_TYPE, first_statement_keys,
                                    1775.0, "track17-first-statement-amount-corrected")
             amount_result, _amount_ref, amount, _ = recovered("amount-corrected")
             first_inclusion = f"{INCLUSION_OUTPUT}|{first['statement-inclusion']['fact_id']}"
@@ -518,7 +529,14 @@ class Track17RelationshipApplicability(unittest.TestCase):
             # source value. Its statement identity and the answer's inclusion
             # assertion do not tell whether composition stayed the same.
             keys = tuple(fact.keys)
-            track14._append_source(log, registry, STATEMENT_TYPE, keys, 1800.0,
+            # ADR 0077 Part 5: on the recorder's log this unscoped append is refused.
+            with self.assertRaisesRegex(FindingModelError, "scoped supersession violated"):
+                track14._append_source(log, registry, STATEMENT_TYPE, keys, 1800.0,
+                                       "track17-composition-ambiguous-correction-refused")
+            self.assertNotIn("demo.finding.track14.track17-composition-ambiguous-correction-refused",
+                             project(log.read().acts, registry).findings)
+            # A history written before the step can still hold it; replay reads it as before.
+            track14._append_source(_pre_step_writer(log), registry, STATEMENT_TYPE, keys, 1800.0,
                                    "track17-composition-ambiguous-correction")
             recovered_again = ActLog(log.path.parent, registry)
             state = project(recovered_again.read().acts, registry)

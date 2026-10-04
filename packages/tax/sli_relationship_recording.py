@@ -155,9 +155,18 @@ def _cited_source_correction_id(state: Any, finding: dict[str, Any]) -> str | No
 
 
 def _finding_ids_citing(state: Any, evidence_id: str) -> list[str]:
+    """Box 1 findings that cite ``evidence_id``.
+
+    Single use counts box 1 findings only: the inclusion-uncertain route's own
+    unresolved status cites the same answer evidence and does not use it up.
+    """
     cited: list[str] = []
+    all_facts = facts_of(state.fact_state, include_displaced=True)
     for finding_id, row in state.findings.items():
         if not isinstance(finding_id, str) or not isinstance(row, dict):
+            continue
+        fact = all_facts.get(row.get("fact_id", ""))
+        if fact is None or fact.fact_type_id != STATEMENT_TYPE:
             continue
         evidence_ids = row.get("evidence_ids")
         if isinstance(evidence_ids, list) and evidence_id in evidence_ids:
