@@ -36,6 +36,7 @@ from decimal import Decimal, InvalidOperation
 from typing import Any, Mapping, Sequence, cast
 
 from packages.derivation.derived_enumeration import derived_activity_present, fact_type_matches_symbol
+from packages.kernel.facts import fact_id_for
 from packages.kernel.findings import FindingState
 from packages.tax.coverage import untranslated_source_findings
 
@@ -277,6 +278,7 @@ def _selection_blocked_reasons(
         raise PresentationModelError(f"blocked {rule.get('id')!r} row disagrees with its recomputed selection")
 
     reasons: list[dict[str, Any]] = []
+    seen: set[tuple[str, Any]] = set()
 
     def add(sentence: Any, keys: Mapping[str, str], fact_id: str | None) -> None:
         if not isinstance(sentence, str) or not sentence:
@@ -288,15 +290,15 @@ def _selection_blocked_reasons(
         if label:
             entry["statementLabel"] = label
         # One line per statement per sentence: the same declared sentence
-        # reached through two reads (a statement's standing and its replay
-        # marker) says one thing to the person, so the first one stands.
-        # Without a label the fact id is what tells two statements apart.
-        def same(item: Mapping[str, Any]) -> bool:
-            if item["sentence"] != sentence or item.get("statementLabel") != entry.get("statementLabel"):
-                return False
-            return bool(label) or item.get("factId") == entry.get("factId")
-
-        if not any(same(item) for item in reasons):
+        # reached through two reads (a statement's standing, keyed by its
+        # box 1 fact, and its replay marker, keyed by its inclusion fact)
+        # says one thing to the person, so the first one stands. Identity is
+        # the statement's (lender, statement, tax-year) keys, falling back to
+        # the fact id; never its display label, since two distinct statements
+        # may carry the same recorded label.
+        key = (sentence, _sli_statement_identity(keys) or fact_id)
+        if key not in seen:
+            seen.add(key)
             reasons.append(entry)
 
     if refused:
@@ -305,15 +307,25 @@ def _selection_blocked_reasons(
         sentences = [descriptions.get(str(symbol), {}).get(str(token))
                      for token in refusal.get("missing") or [] for symbol in read_symbols]
         refusal_sentence = next((item for item in sentences if item), None)
-        statements: dict[tuple[str, str], dict[str, str]] = {}
+        # Keep the statement's own fact id beside its keys: with both paths
+        # active, the row's pins span every statement that made either path
+        # active, and a reason with no fact id cannot be matched back to its
+        # row. The identity tuple (never the display label) decides which
+        # pins name the same statement; the first pin found for an identity
+        # supplies the fact id, since any fact carrying that identity reads
+        # back to the same statement.
+        statements: dict[tuple[str, str, str], tuple[dict[str, str], str]] = {}
         for pin in row.get("pins") or []:
             pinned = state.findings.get(str(pin.get("id"))) if pin.get("role") == "input" else None
             pinned_fact = fact_map.get(str(pinned.get("fact_id"))) if pinned else None
-            pinned_keys = dict(pinned_fact.keys) if pinned_fact is not None else {}
-            if "statement" in pinned_keys:
-                statements[(pinned_keys.get("lender", ""), pinned_keys["statement"])] = pinned_keys
-        for _identity, statement_keys in sorted(statements.items()):
-            add(refusal_sentence, statement_keys, None)
+            if pinned_fact is None:
+                continue
+            pinned_keys = dict(pinned_fact.keys)
+            identity = _sli_statement_identity(pinned_keys)
+            if identity is not None:
+                statements.setdefault(identity, (pinned_keys, pinned_fact.fact_id))
+        for identity, (statement_keys, fact_id) in sorted(statements.items()):
+            add(refusal_sentence, statement_keys, fact_id)
         return reasons
 
     declaration: Mapping[str, Any] = active[0] if active else selection.get("default") or {}
@@ -1020,6 +1032,441 @@ def _calculation_view(
     return {"integrated": False, "amountSymbol": amount_rules[0].get("publishes"), "groups": groups}
 
 
+# ---------------------------------------------------------------------------
+# Schedule 1 line 21 (student loan interest) explanation data (Track 1a).
+#
+# One optional top-level block, additive to the presentation model, carrying
+# exactly the data named by the milestone plan's provisional design (P1-P4):
+# per-statement rows, the plain-case-supported basis on an unblocked row, and
+# the published/zero line's own worked figures. Emitted only when the
+# adopted package carries the statement-loan-support rule, so every model
+# built from a package without it (including the v33 goldens) is unchanged.
+# Every value here is read from what ``build_presentation_model`` already
+# receives (``resolved_members``, ``state``, ``publications``, the already
+# -built ``sections``) plus ``workspace_revision`` passed in by the caller;
+# nothing is read from the workspace log after the run.
+# ---------------------------------------------------------------------------
+
+_SLI_SUPPORT_RULE_ID = "tax.us.2025.rule.sli-statement-loan-support"
+_SLI_BOX1_FACT_TYPE = "tax.us.2025.f1098e.box1-student-loan-interest"
+_SLI_INCLUSION_FACT_TYPE = "tax.us.2025.sli.statement-inclusion-relationship"
+_SLI_FINANCING_FACT_TYPE = "tax.us.2025.sli.financing-relationship"
+_SLI_LOAN_FACT_TYPE = "tax.us.2025.sli.loan-paid-only-school-costs"
+_SLI_ENROLL_FACT_TYPE = "tax.us.2025.sli.enrolled-at-least-half-time"
+_SLI_ANSWER_FACT_TYPES = frozenset({
+    _SLI_FINANCING_FACT_TYPE, _SLI_INCLUSION_FACT_TYPE, _SLI_LOAN_FACT_TYPE, _SLI_ENROLL_FACT_TYPE,
+})
+_SLI_CONCLUSION_SYMBOL = "tax.us.2025.sli.statement-loan-support"
+_SLI_STANDING_SYMBOL = "tax.us.2025.sli.statement-line21-standing"
+_SLI_LINE21_SYMBOL = "tax.us.2025.schedule1.line21-sli-deduction"
+_SLI_LINE1_SUBTOTAL_SYMBOL = "tax.us.2025.sli-worksheet.line1-total-interest-paid-subtotal"
+_SLI_TOTAL_INCOME_SYMBOL = "tax.us.2025.income.total-income"
+_SLI_FILING_STATUS_FACT_TYPE = "tax.us.2025.filing-status"
+_SLI_SUPPORTED_VALUE = "plain-case-supported"
+LINE21_EXPLANATION_VERSION = "line21-explanation.v1"
+
+
+def _sli_statement_identity(raw_keys: Any) -> tuple[str, str, str] | None:
+    keys = dict(raw_keys)
+    lender, statement, tax_year = keys.get("lender"), keys.get("statement"), keys.get("tax-year")
+    if not isinstance(lender, str) or not isinstance(statement, str) or not isinstance(tax_year, str):
+        return None
+    if not lender or not statement or not tax_year:
+        return None
+    return (lender, statement, tax_year)
+
+
+def _sli_filing_status_value(state: FindingState) -> str:
+    from packages.kernel.currency import compute_currency
+    from packages.kernel.facts import facts_of
+
+    fact_map = facts_of(state.fact_state)
+    current = compute_currency(state).current_finding_ids
+    candidates = []
+    for finding_id in current:
+        finding = state.findings.get(finding_id)
+        if finding is None:
+            continue
+        fact = fact_map.get(str(finding.get("fact_id")))
+        if fact is not None and fact.fact_type_id == _SLI_FILING_STATUS_FACT_TYPE:
+            candidates.append(finding["value"])
+    if len(candidates) != 1:
+        raise PresentationModelError("line 21 explanation requires exactly one current filing status finding")
+    return str(candidates[0])
+
+
+def _sli_answer_proposition(finding: Mapping[str, Any], fact_type_id: str, state: FindingState) -> str | None:
+    for evidence_id in finding.get("evidence_ids") or ():
+        lifecycle = state.evidence.get(evidence_id)
+        if lifecycle is None:
+            continue
+        body = lifecycle.evidence if isinstance(lifecycle.evidence, Mapping) else None
+        content = body.get("content") if body is not None else None
+        context = content.get("recognition_context") if isinstance(content, Mapping) else None
+        if not isinstance(context, Mapping):
+            continue
+        if fact_type_id in (_SLI_FINANCING_FACT_TYPE, _SLI_INCLUSION_FACT_TYPE):
+            propositions = context.get("propositions")
+            key = "financing" if fact_type_id == _SLI_FINANCING_FACT_TYPE else "statement_inclusion"
+            value = propositions.get(key) if isinstance(propositions, Mapping) else None
+        else:
+            value = context.get("proposition")
+        if isinstance(value, str) and value:
+            return value
+    return None
+
+
+def _sli_statement_loans(
+    identity: tuple[str, str, str], *, state: FindingState, fact_map: Mapping[str, Any], current: frozenset[str],
+) -> list[str]:
+    lender, statement, tax_year = identity
+    labels: set[str] = set()
+    for finding_id in current:
+        finding = state.findings.get(finding_id)
+        if finding is None:
+            continue
+        fact = fact_map.get(str(finding.get("fact_id")))
+        if fact is None or fact.fact_type_id != _SLI_INCLUSION_FACT_TYPE:
+            continue
+        keys = dict(fact.keys)
+        if (keys.get("lender"), keys.get("statement"), keys.get("tax-year")) != (lender, statement, tax_year):
+            continue
+        borrowing_id = keys.get("borrowing")
+        entity = state.fact_state.entities.get(borrowing_id) if isinstance(borrowing_id, str) else None
+        if entity is not None and entity.status == "current":
+            label = entity.entity.get("label")
+            if isinstance(label, str) and label:
+                labels.add(label)
+    return sorted(labels)
+
+
+def _sli_line1_amount_for(
+    identity: tuple[str, str, str], *, line1_publication: Mapping[str, Any] | None,
+    state: FindingState, fact_map: Mapping[str, Any],
+) -> Any:
+    if line1_publication is None:
+        return None
+    lender, statement, tax_year = identity
+    for pin in line1_publication.get("pins", []) or []:
+        if not isinstance(pin, Mapping) or pin.get("role") != "input":
+            continue
+        finding = state.findings.get(str(pin.get("id")))
+        if finding is None:
+            continue
+        fact = fact_map.get(str(finding.get("fact_id")))
+        if fact is None or fact.fact_type_id != _SLI_BOX1_FACT_TYPE:
+            continue
+        keys = dict(fact.keys)
+        if (keys.get("lender"), keys.get("statement"), keys.get("tax-year")) == (lender, statement, tax_year):
+            return finding.get("value")
+    return None
+
+
+def _sli_basis_answers(
+    conclusion_finding: Mapping[str, Any], *, publications_by_id: Mapping[str, Mapping[str, Any]],
+    state: FindingState, fact_map: Mapping[str, Any],
+) -> list[dict[str, Any]]:
+    leaves = _leaf_pins(
+        conclusion_finding["pins"], publications_by_id=publications_by_id,
+        seen=frozenset({conclusion_finding["id"]}),
+    )
+    answers: list[dict[str, Any]] = []
+    for finding_id, _version in leaves:
+        finding = state.findings.get(finding_id)
+        if finding is None:
+            raise PresentationModelError(f"basis walk references unrecorded finding {finding_id!r}")
+        fact = fact_map.get(str(finding.get("fact_id")))
+        if fact is None or fact.fact_type_id not in _SLI_ANSWER_FACT_TYPES:
+            continue
+        answer = {
+            "findingId": finding_id,
+            "factType": fact.fact_type_id,
+            "response": str(finding.get("value")),
+        }
+        proposition = _sli_answer_proposition(finding, fact.fact_type_id, state)
+        if proposition is not None:
+            answer["proposition"] = proposition
+        answers.append(answer)
+    answers.sort(key=lambda entry: entry["findingId"])
+    return answers
+
+
+def _sli_line21_explanation(
+    *,
+    run_id: str,
+    workspace_revision: int | None,
+    resolved_members: Sequence[Mapping[str, Any]],
+    state: FindingState,
+    publications: Sequence[Any],
+    publications_by_id: Mapping[str, Mapping[str, Any]],
+    sections: Sequence[Mapping[str, Any]],
+) -> dict[str, Any] | None:
+    if workspace_revision is None:
+        return None
+    if not any(member.get("id") == _SLI_SUPPORT_RULE_ID for member in resolved_members):
+        return None
+
+    from packages.kernel.currency import compute_currency
+    from packages.kernel.facts import facts_of
+
+    line21_section = next(
+        (s for s in sections if s["field"].get("binds_symbol") == _SLI_LINE21_SYMBOL), None,
+    )
+    if line21_section is None:
+        return None
+    resolved = line21_section["resolved"]
+    reasons = resolved.get("reasons") or []
+
+    fact_map = facts_of(state.fact_state)
+    current = compute_currency(state).current_finding_ids
+
+    publications_by_symbol: dict[str, Mapping[str, Any]] = {}
+    for publication in publications:
+        finding = publication.finding
+        symbol = finding.get("symbol") if isinstance(finding, Mapping) else None
+        if isinstance(symbol, str):
+            publications_by_symbol[symbol] = finding
+
+    identities: dict[tuple[str, str, str], dict[str, str]] = {}
+    for finding_id in current:
+        finding = state.findings.get(finding_id)
+        if finding is None:
+            continue
+        fact = fact_map.get(str(finding.get("fact_id")))
+        if fact is None or fact.fact_type_id != _SLI_BOX1_FACT_TYPE:
+            continue
+        identity = _sli_statement_identity(fact.keys)
+        if identity is not None:
+            identities.setdefault(identity, dict(fact.keys))
+
+    reason_identities: dict[int, tuple[str, str, str] | None] = {}
+    for index, reason in enumerate(reasons):
+        fact_id = reason.get("factId") if isinstance(reason, Mapping) else None
+        identity = None
+        if isinstance(fact_id, str):
+            fact = fact_map.get(fact_id)
+            if fact is not None:
+                identity = _sli_statement_identity(fact.keys)
+                if identity is not None:
+                    identities.setdefault(identity, dict(fact.keys))
+        reason_identities[index] = identity
+
+    if not identities:
+        return None
+
+    rows: list[dict[str, Any]] = []
+    for identity in sorted(identities):
+        keys = identities[identity]
+        matching = sorted(index for index, found in reason_identities.items() if found == identity)
+        if not matching and len(identities) == 1:
+            matching = sorted(index for index, found in reason_identities.items() if found is None)
+        status: dict[str, Any] = (
+            {"kind": "named-by-reason", "reasonIndices": matching} if matching else {"kind": "no-reason"}
+        )
+        box1_fact_id = fact_id_for(_SLI_BOX1_FACT_TYPE, (
+            ("lender", identity[0]), ("statement", identity[1]), ("tax-year", identity[2]),
+        ))
+        support_finding = publications_by_symbol.get(f"{_SLI_CONCLUSION_SYMBOL}|{box1_fact_id}")
+        standing_finding = publications_by_symbol.get(f"{_SLI_STANDING_SYMBOL}|{box1_fact_id}")
+        support_value = support_finding.get("value") if support_finding is not None else None
+        standing_value = standing_finding.get("value") if standing_finding is not None else None
+        line1_publication = publications_by_symbol.get(_SLI_LINE1_SUBTOTAL_SYMBOL)
+        amount = _sli_line1_amount_for(
+            identity, line1_publication=line1_publication, state=state, fact_map=fact_map,
+        )
+        row: dict[str, Any] = {
+            "statementLabel": _statement_label(keys, state),
+            "loans": _sli_statement_loans(identity, state=state, fact_map=fact_map, current=current),
+            "status": status,
+        }
+        if amount is not None:
+            row["amount"] = _numeric_value(amount, symbol=f"{_SLI_BOX1_FACT_TYPE}|{box1_fact_id}")
+        if support_value is not None:
+            row["support"] = str(support_value)
+        if standing_value is not None:
+            row["standing"] = str(standing_value)
+        if support_value == _SLI_SUPPORTED_VALUE and status["kind"] == "no-reason":
+            if support_finding is None:
+                raise PresentationModelError("plain-case-supported row has no support publication to walk")
+            rule_pin = next(
+                (p for p in support_finding.get("pins", []) or []
+                 if isinstance(p, Mapping) and p.get("role") == "computation" and p.get("id") == _SLI_SUPPORT_RULE_ID),
+                None,
+            )
+            if rule_pin is None:
+                raise PresentationModelError("support publication does not pin its own producing rule")
+            rule = next(
+                (m for m in resolved_members
+                 if m.get("id") == _SLI_SUPPORT_RULE_ID and m.get("version") == rule_pin.get("version")),
+                None,
+            )
+            basis = rule.get("basis") if rule is not None else None
+            if not isinstance(basis, Mapping) or "assumed" not in basis or "left_with_person" not in basis:
+                raise PresentationModelError(
+                    f"{_SLI_SUPPORT_RULE_ID}@{rule_pin.get('version')} has no declared basis to show",
+                )
+            row["basis"] = {
+                "ruleId": _SLI_SUPPORT_RULE_ID,
+                "ruleVersion": str(rule_pin.get("version")),
+                "assumed": list(basis["assumed"]),
+                "leftWithPerson": list(basis["left_with_person"]),
+                "answers": _sli_basis_answers(
+                    support_finding, publications_by_id=publications_by_id, state=state, fact_map=fact_map,
+                ),
+            }
+        rows.append(row)
+
+    block: dict[str, Any] = {
+        "schema": LINE21_EXPLANATION_VERSION,
+        "runId": run_id,
+        "workspaceRevision": workspace_revision,
+        "rows": rows,
+    }
+
+    if resolved.get("disposition") in ("published_value", "computed_zero"):
+        line1_publication = publications_by_symbol.get(_SLI_LINE1_SUBTOTAL_SYMBOL)
+        if line1_publication is None:
+            raise PresentationModelError("a published or zero line 21 requires the worksheet line 1 publication")
+        line21_finding = (resolved.get("act") or {}).get("finding") or {}
+        parameters: list[dict[str, Any]] = []
+        total_income: Any = None
+        for pin in line21_finding.get("pins", []) or []:
+            if not isinstance(pin, Mapping):
+                continue
+            if pin.get("role") == "parameter":
+                parameter = next(
+                    (m for m in resolved_members if m.get("schema") == "parameter-declaration.v1"
+                     and m.get("id") == pin.get("id") and m.get("version") == pin.get("version")),
+                    None,
+                )
+                if parameter is None:
+                    raise PresentationModelError(
+                        f"parameter pin {pin.get('id')!r}@{pin.get('version')!r} has no exact resolved declaration",
+                    )
+                values = parameter.get("values")
+                if isinstance(values, Mapping):
+                    filing_status = _sli_filing_status_value(state)
+                    if filing_status not in values:
+                        raise PresentationModelError(
+                            f"parameter {pin.get('id')!r} has no entry for filing status {filing_status!r}",
+                        )
+                    value = values[filing_status]
+                else:
+                    value = values
+                parameter_entry: dict[str, Any] = {"id": pin["id"], "version": pin["version"], "value": value}
+                for key in ("label", "title"):
+                    if isinstance(parameter.get(key), str) and parameter[key]:
+                        parameter_entry[key] = parameter[key]
+                        break
+                parameters.append(parameter_entry)
+            elif isinstance(pin.get("id"), str) and pin["id"].startswith("finding:derived:"):
+                publication = publications_by_id.get(pin["id"])
+                if publication is not None and publication.get("symbol") == _SLI_TOTAL_INCOME_SYMBOL:
+                    total_income = publication.get("value")
+        working: dict[str, Any] = {
+            "lineOneSubtotal": _numeric_value(line1_publication["value"], symbol=_SLI_LINE1_SUBTOTAL_SYMBOL),
+            "parameters": parameters,
+            "value": resolved["value"],
+        }
+        if total_income is not None:
+            working["totalIncome"] = _numeric_value(total_income, symbol=_SLI_TOTAL_INCOME_SYMBOL)
+        block["working"] = working
+
+    return block
+
+
+def _validate_line21_explanation(value: Any) -> None:
+    path = "$.line21Explanation"
+    _require_keys(
+        value, frozenset({"schema", "runId", "workspaceRevision", "rows"}), frozenset({"working"}), path,
+    )
+    if value["schema"] != LINE21_EXPLANATION_VERSION:
+        raise PresentationModelError(f"{path}.schema: expected {LINE21_EXPLANATION_VERSION!r}")
+    if not isinstance(value["runId"], str) or not value["runId"]:
+        raise PresentationModelError(f"{path}.runId: expected non-empty string")
+    if isinstance(value["workspaceRevision"], bool) or not isinstance(value["workspaceRevision"], int):
+        raise PresentationModelError(f"{path}.workspaceRevision: expected an integer")
+    rows = value["rows"]
+    if not isinstance(rows, list) or not rows:
+        raise PresentationModelError(f"{path}.rows: expected a non-empty list")
+    for index, row in enumerate(rows):
+        rp = f"{path}.rows[{index}]"
+        _require_keys(
+            row, frozenset({"statementLabel", "loans", "status"}),
+            frozenset({"amount", "support", "standing", "basis"}), rp,
+        )
+        label = row["statementLabel"]
+        if not isinstance(label, dict) or not all(isinstance(v, str) and v for v in label.values()) \
+                or set(label) - {"lender", "statement", "taxYear"}:
+            raise PresentationModelError(f"{rp}.statementLabel: expected lender/statement/taxYear strings")
+        if not isinstance(row["loans"], list) or not all(isinstance(v, str) and v for v in row["loans"]):
+            raise PresentationModelError(f"{rp}.loans: expected a list of non-empty strings")
+        status = row["status"]
+        if not isinstance(status, dict) or status.get("kind") not in ("no-reason", "named-by-reason"):
+            raise PresentationModelError(f"{rp}.status: expected a recognized status")
+        if status["kind"] == "no-reason":
+            _require_keys(status, frozenset({"kind"}), frozenset(), f"{rp}.status")
+        else:
+            _require_keys(status, frozenset({"kind", "reasonIndices"}), frozenset(), f"{rp}.status")
+            indices = status["reasonIndices"]
+            if not isinstance(indices, list) or not indices or not all(
+                isinstance(i, int) and not isinstance(i, bool) and i >= 0 for i in indices
+            ):
+                raise PresentationModelError(f"{rp}.status.reasonIndices: expected a non-empty list of indices")
+        if "amount" in row and (not isinstance(row["amount"], (int, float)) or isinstance(row["amount"], bool)):
+            raise PresentationModelError(f"{rp}.amount: expected a number")
+        for key in ("support", "standing"):
+            if key in row and (not isinstance(row[key], str) or not row[key]):
+                raise PresentationModelError(f"{rp}.{key}: expected non-empty string")
+        if "basis" in row:
+            basis = row["basis"]
+            bp = f"{rp}.basis"
+            _require_keys(basis, frozenset({"ruleId", "ruleVersion", "assumed", "leftWithPerson", "answers"}), frozenset(), bp)
+            for key in ("ruleId", "ruleVersion"):
+                if not isinstance(basis[key], str) or not basis[key]:
+                    raise PresentationModelError(f"{bp}.{key}: expected non-empty string")
+            for key in ("assumed", "leftWithPerson"):
+                if not isinstance(basis[key], list) or not all(isinstance(v, str) and v for v in basis[key]):
+                    raise PresentationModelError(f"{bp}.{key}: expected a list of non-empty strings")
+            answers = basis["answers"]
+            if not isinstance(answers, list):
+                raise PresentationModelError(f"{bp}.answers: expected a list")
+            for ai, answer in enumerate(answers):
+                ap = f"{bp}.answers[{ai}]"
+                _require_keys(answer, frozenset({"findingId", "factType", "response"}), frozenset({"proposition"}), ap)
+                for key in ("findingId", "factType", "response"):
+                    if not isinstance(answer[key], str) or not answer[key]:
+                        raise PresentationModelError(f"{ap}.{key}: expected non-empty string")
+                if "proposition" in answer and (not isinstance(answer["proposition"], str) or not answer["proposition"]):
+                    raise PresentationModelError(f"{ap}.proposition: expected non-empty string")
+    if "working" in value:
+        working = value["working"]
+        wp = f"{path}.working"
+        _require_keys(working, frozenset({"lineOneSubtotal", "parameters", "value"}), frozenset({"totalIncome"}), wp)
+        if not isinstance(working["lineOneSubtotal"], (int, float)) or isinstance(working["lineOneSubtotal"], bool):
+            raise PresentationModelError(f"{wp}.lineOneSubtotal: expected a number")
+        if "totalIncome" in working and (
+            not isinstance(working["totalIncome"], (int, float)) or isinstance(working["totalIncome"], bool)
+        ):
+            raise PresentationModelError(f"{wp}.totalIncome: expected a number")
+        if not isinstance(working["value"], (int, float)) or isinstance(working["value"], bool):
+            raise PresentationModelError(f"{wp}.value: expected a number")
+        parameters = working["parameters"]
+        if not isinstance(parameters, list):
+            raise PresentationModelError(f"{wp}.parameters: expected a list")
+        for pi, parameter in enumerate(parameters):
+            pp = f"{wp}.parameters[{pi}]"
+            _require_keys(parameter, frozenset({"id", "version", "value"}), frozenset({"label", "title"}), pp)
+            for key in ("id", "version"):
+                if not isinstance(parameter[key], str) or not parameter[key]:
+                    raise PresentationModelError(f"{pp}.{key}: expected non-empty string")
+            if not isinstance(parameter["value"], (str, int, float)) or isinstance(parameter["value"], bool):
+                raise PresentationModelError(f"{pp}.value: expected a string or number")
+            for key in ("label", "title"):
+                if key in parameter and (not isinstance(parameter[key], str) or not parameter[key]):
+                    raise PresentationModelError(f"{pp}.{key}: expected non-empty string")
+
+
 def _section_id(field: Mapping[str, Any]) -> str:
     return f"line-{field['line']}"
 
@@ -1692,6 +2139,7 @@ def build_presentation_model(
     publications: Sequence[Any],
     dispositions: Sequence[Mapping[str, Any]],
     authorization: Mapping[str, Any] | None = None,
+    workspace_revision: int | None = None,
 ) -> dict[str, Any]:
     """Build the presentation-model.v1 payload from coordinator-internal state only.
 
@@ -1708,6 +2156,12 @@ def build_presentation_model(
     in-memory ``LiveCoordinatorOutcome``. Optional and omitted entirely from
     the model when ``None``, so existing callers that never resolve an
     authorization are unaffected.
+
+    ``workspace_revision``, when supplied, is the workspace revision
+    ``live_coordinate_run`` read for this run. It is the only addition this
+    function reads from outside its own four coordinator-internal inputs,
+    and only feeds the optional ``line21Explanation`` block (Track 1a); it is
+    never read from the workspace log after the run.
     """
     _reject_unsupported_presentation_schemas(resolved_members)
     fields = [m for m in resolved_members if m.get("schema") in FIELD_SCHEMAS]
@@ -1811,6 +2265,12 @@ def build_presentation_model(
     )
     if calculation_view is not None:
         model["calculationView"] = calculation_view
+    line21_explanation = _sli_line21_explanation(
+        run_id=run_id, workspace_revision=workspace_revision, resolved_members=resolved_members,
+        state=state, publications=publications, publications_by_id=publications_by_id, sections=sections,
+    )
+    if line21_explanation is not None:
+        model["line21Explanation"] = line21_explanation
     validate_presentation_model(model)
     return model
 
@@ -2134,13 +2594,15 @@ def validate_presentation_model(model: Mapping[str, Any]) -> None:
             "schema", "runId", "pinLabels", "sections", "citationGroups", "attachments",
             "unsupportedSourceFindings",
         }),
-        frozenset({"authorization", "provenanceGroups", "calculationView"}),
+        frozenset({"authorization", "provenanceGroups", "calculationView", "line21Explanation"}),
         "$",
     )
     if "authorization" in model:
         _validate_authorization_provenance(model["authorization"], "$.authorization")
     if "calculationView" in model:
         _validate_calculation_view(model["calculationView"])
+    if "line21Explanation" in model:
+        _validate_line21_explanation(model["line21Explanation"])
     if model["schema"] != PRESENTATION_MODEL_VERSION:
         raise PresentationModelError(f"$.schema: expected {PRESENTATION_MODEL_VERSION!r}")
     if not isinstance(model["runId"], str) or not model["runId"]:

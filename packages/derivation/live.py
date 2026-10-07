@@ -542,6 +542,7 @@ def live_coordinate_run(
             publications=result.publications,
             dispositions=result.dispositions,
             authorization=authorization_provenance(authorization),
+            workspace_revision=workspace_revision,
         )
     except PresentationModelError:
         output_path.unlink(missing_ok=True)
