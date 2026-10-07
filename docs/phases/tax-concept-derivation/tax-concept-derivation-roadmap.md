@@ -1,6 +1,6 @@
 # Tax Concept Derivation Roadmap
 
-## Current direction — 2026-10-01
+## Current direction — 2026-10-06
 
 Tax Concept Derivation established how ordinary relationship statements can
 become durable, independently changeable information that calculations can
@@ -9,8 +9,12 @@ identified student-loan relationships was demonstrated in
 [Student Loan Circumstance Association](milestones/student-loan-circumstance-association.md).
 It closed as an explicit partial result. Item 12a, Student Loan Deduction
 Completion, then completed the bounded deduction route (closed 2026-10-03).
-The next milestone remains unselected; the earlier results are evidence, not
-commitments to adopt every deferred proposal.
+Student Loan Result Explanation, a bounded instance of item 13, then made that
+deduction understandable from its saved result on the existing reader (closed
+2026-10-06). Its phase assessment finds the exit criteria met in bounded
+form. The next selection should weigh closing the phase against adding
+another vertical. The next milestone remains unselected; the earlier results
+are evidence, not commitments to adopt every deferred proposal.
 
 Item 12a delivered the production correction entry path and the bounded tax
 consumer for the plain case. Mixed-period treatment and the extent of automated
@@ -521,7 +525,7 @@ selection beyond line 2b, and scope-checked statement supersession. Carried
 follow-ups are in the
 [retrospective](../../milestone-retrospectives/2026-10-03-student-loan-deduction-completion.md).
 
-### 13. Tax-Concept Question and Explanation Projection — unselected
+### 13. Tax-Concept Question and Explanation Projection — bounded instance closed
 
 Expose the committed model as user assistance: what the source reported, which
 ordinary fact changed its treatment, which rule performed the classification,
@@ -533,9 +537,24 @@ from real structure rather than used to compensate for missing structure. It
 may produce interface work, but it is not limited to explainability; the same
 model must continue to serve computation and return generation.
 
+**Closed instance: Student Loan Result Explanation (2026-10-06).** Schedule
+1 line 21 now explains its saved result on the existing reader:
+
+- reported amounts;
+- ordinary answers;
+- declared assumptions and responsibilities;
+- the worksheet's working;
+- statement-specific blocks.
+
+It adds no tax coverage or manual-result route, and is not the general
+question-routing or guided-entry product the broader candidate implies.
+General question routing, mixed-method input and assumption management remain
+deferred. Plan:
+[Student Loan Result Explanation](milestones/student-loan-result-explanation.md).
+
 ## Status
 
-**Selected work:** none; Student Loan Deduction Completion (item 12a) is closed. The table below
+**Selected work:** none; Student Loan Result Explanation (bounded item 13) is closed. The table below
 preserves completed work and earlier candidates.
 
 | Milestone | State | Project impact |
@@ -553,7 +572,7 @@ preserves completed work and earlier candidates.
 | Student Loan Interest Bounded Method Transfer | **CLOSED 2026-09-15 — validated method, production deferred** | The adverse-direction translation method validated in disposable evidence only: through real engine machinery over the production Form 1098-E box-1 source, with disposable candidate artifacts never adopted into the production package, an ordinary statement drives a rule-owned monetary consequence that cites its authority, preserves the document, and is consumed downstream — with the filer never supplying the legal conclusion. No production code, contract, schema or ADR; conditional production tracks never opened; coverage frontier unchanged. The favorable direction is not established as a product route. Production deferred: the statement-to-loan-and-period relationship has no committed production representation and the favorable route's three institution or public-authority determinations have no producer; multi-statement behaviour and real worksheet integration remain unbuilt. Identified Evaluation Context remains unselected — no executed case meets every conjunct of its reopening trigger |
 | Student Loan Circumstance Association | **Closed 2026-10-01 — explicit partial result** | Reviewed recording and correction of identified financing and statement-inclusion relationships; saved neutral consumer with exact support and unresolved status. A production correction entry path remains to be enforced. G2/G3 tax work, mixed-period treatment scope and worksheet integration remain open; no automated allocation or specialized adjustment is promised |
 | Student Loan Deduction Completion | **Closed 2026-10-03** | Relationship-decided deduction for the plain case through package v41, with refusals, person-visible reasons, scope-checked corrections, atomic saves and safe replay; ADR 0077 |
-| Tax-Concept Question and Explanation Projection | Not selected | Presentation, question routing, provenance, user assistance |
+| Student Loan Result Explanation (bounded item 13) | **Closed 2026-10-06** | Line 21 explains its saved result on the existing reader: statements, amounts, answers, assumptions, responsibilities, working and statement-specific blocks; no calculation change. Question routing, mixed-method input and assumption management remain deferred |
 
 The Document and Ordinary-Fact Translation Vertical's plan is
 [`milestones/document-ordinary-fact-translation.md`](milestones/document-ordinary-fact-translation.md);
