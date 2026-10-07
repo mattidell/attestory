@@ -82,6 +82,26 @@
   section.line.blocked-line { border:3px solid var(--blocked-bg); background: var(--error-bg); }
   .blocked-banner { display:flex; align-items:flex-start; gap:.6rem; }
   .remedy-box { margin-top:.6rem; padding:.6rem .75rem; border:1px dashed var(--blocked-bg); border-radius:6px; }
+  .line21-explanation { margin-top:1rem; border-top:1px solid var(--border); padding-top:.75rem; }
+  .line21-explanation h3 { margin:.9rem 0 .35rem; }
+  .line21-rows { display:grid; gap:.7rem; }
+  .line21-row { border:1px solid #777; border-radius:6px; padding:.65rem .75rem; min-width:0; }
+  .line21-row p, .line21-working p { margin:.25rem 0; overflow-wrap:anywhere; }
+  .line21-row details, .line21-working, .line21-citations { margin-top:.55rem; padding:.55rem .7rem; background:var(--detail-bg); border-radius:5px; }
+  .line21-row summary, .line21-working summary, .line21-citations summary { cursor:pointer; font-weight:600; }
+  .line21-groups { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:.6rem; margin-top:.55rem; }
+  .line21-group { min-width:0; padding:.5rem; border:1px solid #777; border-radius:5px; }
+  .line21-group h4 { margin:.1rem 0 .35rem; }
+  .line21-group ul { margin:.2rem 0; padding-left:1.2rem; }
+  .line21-group li { overflow-wrap:anywhere; margin:.2rem 0; }
+  .line21-citations .citation-detail dd { margin-left:0; overflow-wrap:anywhere; }
+  .line21-citations .citation-detail dl { grid-template-columns:1fr; }
+  .line21-missing-wording { font-style:italic; }
+  .line21-run { margin:.75rem 0 .2rem; overflow-wrap:anywhere; }
+  @media (max-width: 600px) {
+    .line21-groups { grid-template-columns:1fr; }
+    .line21-group { padding:.45rem; }
+  }
 
   .section-error { border:2px solid var(--error-border); background:var(--error-bg); padding:.6rem .75rem; border-radius:6px; font-weight:600; }
 </style>
@@ -146,6 +166,7 @@ const REASON_TEXT = Object.freeze({
   "missing-instruction": "This line is missing its rendering instruction for the declared disposition.",
   "missing-field-citation": "This line published a value with no citation attached. No value can be shown safely.",
   "unrecognized-attachment-code": "This attachment named a condition code this renderer does not recognize. No detail can be shown safely.",
+  "malformed-line21-explanation": "This section's saved explanation could not be displayed safely.",
   "unknown-error": "This section failed to render safely.",
 });
 
@@ -243,6 +264,115 @@ function renderFieldCitation(siteId, field) {
   return renderCitation(siteId, citation.id, citation.version);
 }
 
+function validateLine21Explanation(block) {
+  if (!block || block.schema !== "line21-explanation.v1" || typeof block.runId !== "string" ||
+      !Number.isInteger(block.workspaceRevision) || !Array.isArray(block.rows) || block.rows.length === 0) {
+    throw new SectionError("malformed-line21-explanation");
+  }
+  for (const row of block.rows) {
+    if (!row || !row.statementLabel || typeof row.statementLabel !== "object" || !Array.isArray(row.loans) ||
+        !row.loans.every((loan) => typeof loan === "string") || !row.status ||
+        !["no-reason", "named-by-reason"].includes(row.status.kind)) {
+      throw new SectionError("malformed-line21-explanation");
+    }
+    if (row.amount !== undefined && (typeof row.amount !== "number" || !Number.isFinite(row.amount))) {
+      throw new SectionError("malformed-line21-explanation");
+    }
+    if (row.status.kind === "named-by-reason" && (!Array.isArray(row.status.reasonIndices) || !row.status.reasonIndices.length ||
+        !row.status.reasonIndices.every(Number.isInteger))) throw new SectionError("malformed-line21-explanation");
+    if (row.basis !== undefined) {
+      const basis = row.basis;
+      if (!basis || typeof basis.ruleId !== "string" || !Array.isArray(basis.answers) ||
+          !Array.isArray(basis.assumed) || !Array.isArray(basis.leftWithPerson)) throw new SectionError("malformed-line21-explanation");
+      for (const answer of basis.answers) {
+        if (!answer || typeof answer.findingId !== "string" || typeof answer.factType !== "string" ||
+            typeof answer.response !== "string" || (answer.proposition !== undefined &&
+            (typeof answer.proposition !== "string" || !answer.proposition))) throw new SectionError("malformed-line21-explanation");
+      }
+    }
+  }
+  if (block.working !== undefined && (!block.working || typeof block.working.lineOneSubtotal !== "number" ||
+      typeof block.working.value !== "number" || !Array.isArray(block.working.parameters))) {
+    throw new SectionError("malformed-line21-explanation");
+  }
+}
+
+function renderLine21Explanation(container, section, block) {
+  validateLine21Explanation(block);
+  const root = el("div", { class: "line21-explanation", "data-line21-explanation": "true" }, []);
+  root.appendChild(el("h3", null, ["Statements on this line"]));
+  const rows = el("div", { class: "line21-rows" }, []);
+  for (const row of block.rows) {
+    const card = el("article", { class: "line21-row" }, []);
+    const label = [row.statementLabel.statement, row.statementLabel.lender, row.statementLabel.taxYear]
+      .filter((part) => typeof part === "string" && part).join(", ");
+    card.appendChild(el("p", null, [el("strong", null, [label || "Statement"])]));
+    for (const loan of row.loans) card.appendChild(el("p", null, ["loan: " + loan]));
+    if (row.amount !== undefined) card.appendChild(el("p", null, [String(row.amount) + " reported"]));
+    if (row.status.kind === "named-by-reason") {
+      for (const index of row.status.reasonIndices) {
+        const reason = (section.resolved.reasons || [])[index];
+        if (!reason) throw new SectionError("malformed-line21-explanation");
+        card.appendChild(el("p", null, [el("a", { href: "#line21-reason-" + index }, ["See the reason above"])]));
+      }
+    }
+    if (row.basis) {
+      const detail = el("details", { class: "line21-detail" }, [el("summary", null, ["What this statement's loan link rests on"])]);
+      const groups = el("div", { class: "line21-groups" }, []);
+      const answers = row.basis.answers.map((answer) => {
+        const text = answer.proposition
+          ? answer.proposition + " Recorded answer: " + answer.response + "."
+          : "Recorded answer: " + answer.response + ". Question wording was not saved with this answer.";
+        return el("li", null, [text]);
+      });
+      groups.appendChild(line21Group("What you told us", answers));
+      groups.appendChild(line21Group("What the application took as given", row.basis.assumed.map((text) => el("li", null, [text]))));
+      groups.appendChild(line21Group("Conditions left with you", row.basis.leftWithPerson.map((text) => el("li", null, [text]))));
+      detail.appendChild(groups);
+      card.appendChild(detail);
+    }
+    rows.appendChild(card);
+  }
+  root.appendChild(rows);
+  if (block.working) {
+    const working = el("details", { class: "line21-working" }, [el("summary", null, ["How the amount was worked out"])]);
+    working.appendChild(el("p", null, ["Interest reported (worksheet line 1): " + block.working.lineOneSubtotal]));
+    if (block.working.totalIncome !== undefined) working.appendChild(el("p", null, ["Income the worksheet used: " + block.working.totalIncome]));
+    for (const parameter of block.working.parameters) {
+      if (!parameter || typeof parameter.id !== "string" || typeof parameter.version !== "string" ||
+          (typeof parameter.value !== "string" && typeof parameter.value !== "number")) throw new SectionError("malformed-line21-explanation");
+      working.appendChild(el("p", null, ["Limit " + (parameter.label || parameter.title || parameter.id) + ": " + parameter.value]));
+    }
+    working.appendChild(el("p", null, ["Deduction: " + block.working.value]));
+    if (block.working.parameters.length) working.appendChild(el("p", null, ["This page does not say which of these limits changed the amount."]));
+    root.appendChild(working);
+  }
+  root.appendChild(el("p", { class: "line21-run" }, ["This explanation describes run " + block.runId +
+    ", which read workspace revision " + block.workspaceRevision + ". Later changes to the workspace are not reflected here."]));
+  container.appendChild(root);
+}
+
+function line21Group(title, items) {
+  return el("div", { class: "line21-group" }, [el("h4", null, [title]), el("ul", null, items)]);
+}
+
+function renderLine21Citations(container, section, field, hasBlock) {
+  if (!hasBlock) {
+    if (NUMERIC_DISPOSITIONS.has(section.resolved.disposition)) {
+      for (const site of section.citationSites || []) container.appendChild(renderCitation(site.siteId, site.pinId, site.pinVersion));
+      container.appendChild(renderFieldCitation(fieldCitationSiteId(section.id), field));
+    }
+    return;
+  }
+  const sites = section.citationSites || [];
+  const citations = sites.map((site) => renderCitation(site.siteId, site.pinId, site.pinVersion));
+  const disposition = section.resolved.disposition;
+  if (NUMERIC_DISPOSITIONS.has(disposition)) citations.push(renderFieldCitation(fieldCitationSiteId(section.id), field));
+  if (!citations.length) return;
+  const detail = el("details", { class: "line21-citations" }, [el("summary", null, ["All records this line depends on (" + citations.length + ")"]), ...citations]);
+  container.appendChild(detail);
+}
+
 document.addEventListener("click", (evt) => {
   const btn = evt.target.closest("button.citation");
   if (!btn) return;
@@ -261,6 +391,8 @@ function renderLine(container, section) {
   const field = section.field;
   const resolved = section.resolved;
   const disposition = resolved.disposition;
+  const isLine21 = section.id === "line-sch1-21";
+  const hasLine21Block = isLine21 && MODEL.line21Explanation !== undefined;
   const instructionKey = disposition === "published_categorical" ? "published_value" : disposition;
   const instruction = field.dispositions ? field.dispositions[instructionKey] : undefined;
 
@@ -282,10 +414,10 @@ function renderLine(container, section) {
     const text = instruction.render === "{value}" ? String(value) : instruction.render;
     container.appendChild(el("p", { class: "line-value" }, [text]));
     container.appendChild(el("p", { class: "explain" }, [instruction.explain]));
-    for (const site of section.citationSites || []) {
-      container.appendChild(renderCitation(site.siteId, site.pinId, site.pinVersion));
-    }
-    container.appendChild(renderFieldCitation(fieldCitationSiteId(section.id), field));
+    if (hasLine21Block) {
+      renderLine21Explanation(container, section, MODEL.line21Explanation);
+      renderLine21Citations(container, section, field, true);
+    } else renderLine21Citations(container, section, field, false);
     return;
   }
 
@@ -312,13 +444,13 @@ function renderLine(container, section) {
     // Reasons the projector copied from declared content, one per statement
     // it names. Rendered as text only; a malformed entry is an error.
     const reasons = Array.isArray(resolved.reasons) ? resolved.reasons : [];
-    const items = reasons.map((reason) => {
+    const items = reasons.map((reason, index) => {
       if (!reason || typeof reason.sentence !== "string" || !reason.sentence) {
         throw new SectionError("malformed-blocked-reason");
       }
       const label = reason.statementLabel || {};
       const name = [label.statement, label.lender].filter((part) => typeof part === "string" && part).join(", ");
-      return el("li", null, name ? [el("strong", null, [name + ": "]), reason.sentence] : [reason.sentence]);
+      return el("li", { id: isLine21 ? "line21-reason-" + index : undefined }, name ? [el("strong", null, [name + ": "]), reason.sentence] : [reason.sentence]);
     });
     // When the line says why it is blocked, that is its explanation: the
     // field's generic blocked sentence and the generic remedy would
@@ -328,10 +460,10 @@ function renderLine(container, section) {
       el("div", null, [
         el("p", { class: "line-value blocked-value" }, ["No value published — cannot compute."]),
         ...(items.length ? [] : [el("p", null, [instruction.explain])]),
-        el("p", null, [
+        ...(isLine21 && items.length ? [] : [el("p", null, [
           el("strong", null, ["Missing dependency code(s): "]),
           shownCodes.length ? shownCodes.join(", ") : "(unspecified)",
-        ]),
+        ])]),
       ]),
     ]));
     if (items.length) {
@@ -339,12 +471,20 @@ function renderLine(container, section) {
         el("p", null, [el("strong", null, ["Why: "])]),
         el("ul", null, items),
       ]));
+      if (hasLine21Block) {
+        renderLine21Explanation(container, section, MODEL.line21Explanation);
+        renderLine21Citations(container, section, field, true);
+      } else renderLine21Citations(container, section, field, false);
       return;
     }
     container.appendChild(el("div", { class: "remedy-box" }, [
       el("strong", null, ["Remedy: "]),
       "contribute the missing dependency to unblock this line.",
     ]));
+    if (hasLine21Block) {
+      renderLine21Explanation(container, section, MODEL.line21Explanation);
+      renderLine21Citations(container, section, field, true);
+    } else renderLine21Citations(container, section, field, false);
     return;
   }
 
