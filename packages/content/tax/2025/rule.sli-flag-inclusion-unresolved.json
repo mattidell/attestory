@@ -1,0 +1,99 @@
+{
+  "schema": "rule-artifact.v13",
+  "id": "tax.us.2025.rule.sli-flag-inclusion-unresolved",
+  "version": "v1",
+  "scope": {
+    "tax_year": 2025,
+    "jurisdiction": "US-federal",
+    "family": "individual-income-tax"
+  },
+  "role": "computation",
+  "subject": {
+    "id": "tax.us.2025.sli.statement-inclusion-relationship",
+    "version": "v1"
+  },
+  "requires": [
+    "tax.us.2025.sli.inclusion-enrollment-answer-count",
+    "tax.us.2025.sli.inclusion-financing-unresolved-count",
+    "tax.us.2025.sli.inclusion-loan-cost-answer-count"
+  ],
+  "pins": [],
+  "when": true,
+  "value": {
+    "op": "choose",
+    "when": {
+      "op": "any",
+      "args": [
+        {
+          "op": "compare",
+          "cmp": "gt",
+          "left": {
+            "op": "ref",
+            "name": "tax.us.2025.sli.inclusion-financing-unresolved-count"
+          },
+          "right": 0
+        },
+        {
+          "op": "all",
+          "args": [
+            {
+              "op": "compare",
+              "cmp": "gt",
+              "left": {
+                "op": "ref",
+                "name": "tax.us.2025.sli.inclusion-loan-cost-answer-count"
+              },
+              "right": 0
+            },
+            {
+              "op": "collect_categorical_all_equal",
+              "name": "tax.us.2025.sli.loan-paid-only-school-costs",
+              "value": {
+                "op": "category_literal",
+                "fact_type": {
+                  "id": "tax.us.2025.sli.loan-paid-only-school-costs",
+                  "version": "v1"
+                },
+                "value": "cannot-tell"
+              }
+            }
+          ]
+        },
+        {
+          "op": "all",
+          "args": [
+            {
+              "op": "compare",
+              "cmp": "gt",
+              "left": {
+                "op": "ref",
+                "name": "tax.us.2025.sli.inclusion-enrollment-answer-count"
+              },
+              "right": 0
+            },
+            {
+              "op": "collect_categorical_all_equal",
+              "name": "tax.us.2025.sli.enrolled-at-least-half-time",
+              "value": {
+                "op": "category_literal",
+                "fact_type": {
+                  "id": "tax.us.2025.sli.enrolled-at-least-half-time",
+                  "version": "v1"
+                },
+                "value": "cannot-tell"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    "then": 1,
+    "else": 0
+  },
+  "publishes": "tax.us.2025.sli.flag.inclusion-unresolved",
+  "blocked": {
+    "code": "DEPENDENCY_INVALID",
+    "missing": []
+  },
+  "notes": "1 when this affirmed inclusion's borrowing is unresolved: financing cannot be told, or the loan-cost or enrollment answer is cannot-tell. A no is not unresolved."
+}

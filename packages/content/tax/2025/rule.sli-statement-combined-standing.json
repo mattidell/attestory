@@ -1,0 +1,1497 @@
+{
+  "schema": "rule-artifact.v13",
+  "id": "tax.us.2025.rule.sli-statement-combined-standing",
+  "version": "v1",
+  "scope": {
+    "tax_year": 2025,
+    "jurisdiction": "US-federal",
+    "family": "individual-income-tax"
+  },
+  "role": "computation",
+  "subject": {
+    "id": "tax.us.2025.f1098e.box1-student-loan-interest",
+    "version": "v1"
+  },
+  "requires": [
+    "tax.us.2025.sli.count.statement-inclusion-denied",
+    "tax.us.2025.sli.older-answer",
+    "tax.us.2025.sli.statement-applicability-marker-count",
+    "tax.us.2025.sli.statement-inclusion-count",
+    "tax.us.2025.sli.statement-inclusion-unresolved-count",
+    "tax.us.2025.sli.statement-inclusion-withdrawn-count",
+    "tax.us.2025.sli.statement-line21-standing",
+    "tax.us.2025.sli.statement-scope-unresolved-count",
+    "tax.us.2025.sli.sum.inclusion-enrollment-no",
+    "tax.us.2025.sli.sum.inclusion-financing-denied",
+    "tax.us.2025.sli.sum.inclusion-lacks",
+    "tax.us.2025.sli.sum.inclusion-loan-cost-no",
+    "tax.us.2025.sli.sum.inclusion-unresolved",
+    "tax.us.2025.sli.sum.open-inclusion-enrollment-no",
+    "tax.us.2025.sli.sum.open-inclusion-loan-cost-no",
+    "tax.us.2025.sli.sum.withdrawn-inclusion-enrollment-no",
+    "tax.us.2025.sli.sum.withdrawn-inclusion-loan-cost-no"
+  ],
+  "pins": [],
+  "when": true,
+  "value": {
+    "op": "choose",
+    "when": {
+      "op": "categorical_compare",
+      "cmp": "eq",
+      "left": {
+        "op": "ref",
+        "name": "tax.us.2025.sli.older-answer"
+      },
+      "right": {
+        "op": "category_literal",
+        "fact_type": {
+          "id": "tax.us.2025.sli.older-answer",
+          "version": "v1"
+        },
+        "value": "absent"
+      }
+    },
+    "then": {
+      "op": "choose",
+      "when": {
+        "op": "any",
+        "args": [
+          {
+            "op": "compare",
+            "cmp": "gt",
+            "left": {
+              "op": "ref",
+              "name": "tax.us.2025.sli.statement-inclusion-count"
+            },
+            "right": 0
+          },
+          {
+            "op": "compare",
+            "cmp": "gt",
+            "left": {
+              "op": "ref",
+              "name": "tax.us.2025.sli.statement-inclusion-unresolved-count"
+            },
+            "right": 0
+          },
+          {
+            "op": "compare",
+            "cmp": "gt",
+            "left": {
+              "op": "ref",
+              "name": "tax.us.2025.sli.statement-inclusion-withdrawn-count"
+            },
+            "right": 0
+          },
+          {
+            "op": "compare",
+            "cmp": "gt",
+            "left": {
+              "op": "ref",
+              "name": "tax.us.2025.sli.statement-scope-unresolved-count"
+            },
+            "right": 0
+          },
+          {
+            "op": "compare",
+            "cmp": "gt",
+            "left": {
+              "op": "ref",
+              "name": "tax.us.2025.sli.statement-applicability-marker-count"
+            },
+            "right": 0
+          },
+          {
+            "op": "compare",
+            "cmp": "gt",
+            "left": {
+              "op": "ref",
+              "name": "tax.us.2025.sli.count.statement-inclusion-denied"
+            },
+            "right": 0
+          }
+        ]
+      },
+      "then": {
+        "op": "choose",
+        "when": {
+          "op": "categorical_compare",
+          "cmp": "eq",
+          "left": {
+            "op": "ref",
+            "name": "tax.us.2025.sli.statement-line21-standing"
+          },
+          "right": {
+            "op": "category_literal",
+            "fact_type": {
+              "id": "tax.us.2025.sli.statement-line21-standing",
+              "version": "v1"
+            },
+            "value": "none"
+          }
+        },
+        "then": {
+          "op": "category_literal",
+          "fact_type": {
+            "id": "tax.us.2025.sli.statement-combined-standing",
+            "version": "v1"
+          },
+          "value": "none"
+        },
+        "else": {
+          "op": "choose",
+          "when": {
+            "op": "categorical_compare",
+            "cmp": "eq",
+            "left": {
+              "op": "ref",
+              "name": "tax.us.2025.sli.statement-line21-standing"
+            },
+            "right": {
+              "op": "category_literal",
+              "fact_type": {
+                "id": "tax.us.2025.sli.statement-line21-standing",
+                "version": "v1"
+              },
+              "value": "applicability-unestablished"
+            }
+          },
+          "then": {
+            "op": "category_literal",
+            "fact_type": {
+              "id": "tax.us.2025.sli.statement-combined-standing",
+              "version": "v1"
+            },
+            "value": "applicability-unestablished"
+          },
+          "else": {
+            "op": "choose",
+            "when": {
+              "op": "categorical_compare",
+              "cmp": "eq",
+              "left": {
+                "op": "ref",
+                "name": "tax.us.2025.sli.statement-line21-standing"
+              },
+              "right": {
+                "op": "category_literal",
+                "fact_type": {
+                  "id": "tax.us.2025.sli.statement-line21-standing",
+                  "version": "v1"
+                },
+                "value": "statement-loan-cannot-tell"
+              }
+            },
+            "then": {
+              "op": "category_literal",
+              "fact_type": {
+                "id": "tax.us.2025.sli.statement-combined-standing",
+                "version": "v1"
+              },
+              "value": "statement-loan-cannot-tell"
+            },
+            "else": {
+              "op": "choose",
+              "when": {
+                "op": "categorical_compare",
+                "cmp": "eq",
+                "left": {
+                  "op": "ref",
+                  "name": "tax.us.2025.sli.statement-line21-standing"
+                },
+                "right": {
+                  "op": "category_literal",
+                  "fact_type": {
+                    "id": "tax.us.2025.sli.statement-line21-standing",
+                    "version": "v1"
+                  },
+                  "value": "inclusion-cannot-tell"
+                }
+              },
+              "then": {
+                "op": "category_literal",
+                "fact_type": {
+                  "id": "tax.us.2025.sli.statement-combined-standing",
+                  "version": "v1"
+                },
+                "value": "inclusion-cannot-tell"
+              },
+              "else": {
+                "op": "choose",
+                "when": {
+                  "op": "categorical_compare",
+                  "cmp": "eq",
+                  "left": {
+                    "op": "ref",
+                    "name": "tax.us.2025.sli.statement-line21-standing"
+                  },
+                  "right": {
+                    "op": "category_literal",
+                    "fact_type": {
+                      "id": "tax.us.2025.sli.statement-line21-standing",
+                      "version": "v1"
+                    },
+                    "value": "inclusion-withdrawn"
+                  }
+                },
+                "then": {
+                  "op": "category_literal",
+                  "fact_type": {
+                    "id": "tax.us.2025.sli.statement-combined-standing",
+                    "version": "v1"
+                  },
+                  "value": "inclusion-withdrawn"
+                },
+                "else": {
+                  "op": "choose",
+                  "when": {
+                    "op": "categorical_compare",
+                    "cmp": "eq",
+                    "left": {
+                      "op": "ref",
+                      "name": "tax.us.2025.sli.statement-line21-standing"
+                    },
+                    "right": {
+                      "op": "category_literal",
+                      "fact_type": {
+                        "id": "tax.us.2025.sli.statement-line21-standing",
+                        "version": "v1"
+                      },
+                      "value": "no-loan-link"
+                    }
+                  },
+                  "then": {
+                    "op": "category_literal",
+                    "fact_type": {
+                      "id": "tax.us.2025.sli.statement-combined-standing",
+                      "version": "v1"
+                    },
+                    "value": "no-loan-link"
+                  },
+                  "else": {
+                    "op": "choose",
+                    "when": {
+                      "op": "categorical_compare",
+                      "cmp": "eq",
+                      "left": {
+                        "op": "ref",
+                        "name": "tax.us.2025.sli.statement-line21-standing"
+                      },
+                      "right": {
+                        "op": "category_literal",
+                        "fact_type": {
+                          "id": "tax.us.2025.sli.statement-line21-standing",
+                          "version": "v1"
+                        },
+                        "value": "more-than-one-loan"
+                      }
+                    },
+                    "then": {
+                      "op": "category_literal",
+                      "fact_type": {
+                        "id": "tax.us.2025.sli.statement-combined-standing",
+                        "version": "v1"
+                      },
+                      "value": "more-than-one-loan"
+                    },
+                    "else": {
+                      "op": "choose",
+                      "when": {
+                        "op": "categorical_compare",
+                        "cmp": "eq",
+                        "left": {
+                          "op": "ref",
+                          "name": "tax.us.2025.sli.statement-line21-standing"
+                        },
+                        "right": {
+                          "op": "category_literal",
+                          "fact_type": {
+                            "id": "tax.us.2025.sli.statement-line21-standing",
+                            "version": "v1"
+                          },
+                          "value": "financing-cannot-tell"
+                        }
+                      },
+                      "then": {
+                        "op": "category_literal",
+                        "fact_type": {
+                          "id": "tax.us.2025.sli.statement-combined-standing",
+                          "version": "v1"
+                        },
+                        "value": "financing-cannot-tell"
+                      },
+                      "else": {
+                        "op": "choose",
+                        "when": {
+                          "op": "categorical_compare",
+                          "cmp": "eq",
+                          "left": {
+                            "op": "ref",
+                            "name": "tax.us.2025.sli.statement-line21-standing"
+                          },
+                          "right": {
+                            "op": "category_literal",
+                            "fact_type": {
+                              "id": "tax.us.2025.sli.statement-line21-standing",
+                              "version": "v1"
+                            },
+                            "value": "financing-withdrawn"
+                          }
+                        },
+                        "then": {
+                          "op": "category_literal",
+                          "fact_type": {
+                            "id": "tax.us.2025.sli.statement-combined-standing",
+                            "version": "v1"
+                          },
+                          "value": "financing-withdrawn"
+                        },
+                        "else": {
+                          "op": "choose",
+                          "when": {
+                            "op": "categorical_compare",
+                            "cmp": "eq",
+                            "left": {
+                              "op": "ref",
+                              "name": "tax.us.2025.sli.statement-line21-standing"
+                            },
+                            "right": {
+                              "op": "category_literal",
+                              "fact_type": {
+                                "id": "tax.us.2025.sli.statement-line21-standing",
+                                "version": "v1"
+                              },
+                              "value": "no-schooling-link"
+                            }
+                          },
+                          "then": {
+                            "op": "category_literal",
+                            "fact_type": {
+                              "id": "tax.us.2025.sli.statement-combined-standing",
+                              "version": "v1"
+                            },
+                            "value": "no-schooling-link"
+                          },
+                          "else": {
+                            "op": "choose",
+                            "when": {
+                              "op": "categorical_compare",
+                              "cmp": "eq",
+                              "left": {
+                                "op": "ref",
+                                "name": "tax.us.2025.sli.statement-line21-standing"
+                              },
+                              "right": {
+                                "op": "category_literal",
+                                "fact_type": {
+                                  "id": "tax.us.2025.sli.statement-line21-standing",
+                                  "version": "v1"
+                                },
+                                "value": "more-than-one-schooling"
+                              }
+                            },
+                            "then": {
+                              "op": "category_literal",
+                              "fact_type": {
+                                "id": "tax.us.2025.sli.statement-combined-standing",
+                                "version": "v1"
+                              },
+                              "value": "more-than-one-schooling"
+                            },
+                            "else": {
+                              "op": "choose",
+                              "when": {
+                                "op": "categorical_compare",
+                                "cmp": "eq",
+                                "left": {
+                                  "op": "ref",
+                                  "name": "tax.us.2025.sli.statement-line21-standing"
+                                },
+                                "right": {
+                                  "op": "category_literal",
+                                  "fact_type": {
+                                    "id": "tax.us.2025.sli.statement-line21-standing",
+                                    "version": "v1"
+                                  },
+                                  "value": "loan-cost-answer-missing"
+                                }
+                              },
+                              "then": {
+                                "op": "category_literal",
+                                "fact_type": {
+                                  "id": "tax.us.2025.sli.statement-combined-standing",
+                                  "version": "v1"
+                                },
+                                "value": "loan-cost-answer-missing"
+                              },
+                              "else": {
+                                "op": "choose",
+                                "when": {
+                                  "op": "categorical_compare",
+                                  "cmp": "eq",
+                                  "left": {
+                                    "op": "ref",
+                                    "name": "tax.us.2025.sli.statement-line21-standing"
+                                  },
+                                  "right": {
+                                    "op": "category_literal",
+                                    "fact_type": {
+                                      "id": "tax.us.2025.sli.statement-line21-standing",
+                                      "version": "v1"
+                                    },
+                                    "value": "loan-cost-no"
+                                  }
+                                },
+                                "then": {
+                                  "op": "category_literal",
+                                  "fact_type": {
+                                    "id": "tax.us.2025.sli.statement-combined-standing",
+                                    "version": "v1"
+                                  },
+                                  "value": "loan-cost-no"
+                                },
+                                "else": {
+                                  "op": "choose",
+                                  "when": {
+                                    "op": "categorical_compare",
+                                    "cmp": "eq",
+                                    "left": {
+                                      "op": "ref",
+                                      "name": "tax.us.2025.sli.statement-line21-standing"
+                                    },
+                                    "right": {
+                                      "op": "category_literal",
+                                      "fact_type": {
+                                        "id": "tax.us.2025.sli.statement-line21-standing",
+                                        "version": "v1"
+                                      },
+                                      "value": "loan-cost-cannot-tell"
+                                    }
+                                  },
+                                  "then": {
+                                    "op": "category_literal",
+                                    "fact_type": {
+                                      "id": "tax.us.2025.sli.statement-combined-standing",
+                                      "version": "v1"
+                                    },
+                                    "value": "loan-cost-cannot-tell"
+                                  },
+                                  "else": {
+                                    "op": "choose",
+                                    "when": {
+                                      "op": "categorical_compare",
+                                      "cmp": "eq",
+                                      "left": {
+                                        "op": "ref",
+                                        "name": "tax.us.2025.sli.statement-line21-standing"
+                                      },
+                                      "right": {
+                                        "op": "category_literal",
+                                        "fact_type": {
+                                          "id": "tax.us.2025.sli.statement-line21-standing",
+                                          "version": "v1"
+                                        },
+                                        "value": "enrollment-answer-missing"
+                                      }
+                                    },
+                                    "then": {
+                                      "op": "category_literal",
+                                      "fact_type": {
+                                        "id": "tax.us.2025.sli.statement-combined-standing",
+                                        "version": "v1"
+                                      },
+                                      "value": "enrollment-answer-missing"
+                                    },
+                                    "else": {
+                                      "op": "choose",
+                                      "when": {
+                                        "op": "categorical_compare",
+                                        "cmp": "eq",
+                                        "left": {
+                                          "op": "ref",
+                                          "name": "tax.us.2025.sli.statement-line21-standing"
+                                        },
+                                        "right": {
+                                          "op": "category_literal",
+                                          "fact_type": {
+                                            "id": "tax.us.2025.sli.statement-line21-standing",
+                                            "version": "v1"
+                                          },
+                                          "value": "enrollment-no"
+                                        }
+                                      },
+                                      "then": {
+                                        "op": "category_literal",
+                                        "fact_type": {
+                                          "id": "tax.us.2025.sli.statement-combined-standing",
+                                          "version": "v1"
+                                        },
+                                        "value": "enrollment-no"
+                                      },
+                                      "else": {
+                                        "op": "choose",
+                                        "when": {
+                                          "op": "categorical_compare",
+                                          "cmp": "eq",
+                                          "left": {
+                                            "op": "ref",
+                                            "name": "tax.us.2025.sli.statement-line21-standing"
+                                          },
+                                          "right": {
+                                            "op": "category_literal",
+                                            "fact_type": {
+                                              "id": "tax.us.2025.sli.statement-line21-standing",
+                                              "version": "v1"
+                                            },
+                                            "value": "enrollment-cannot-tell"
+                                          }
+                                        },
+                                        "then": {
+                                          "op": "category_literal",
+                                          "fact_type": {
+                                            "id": "tax.us.2025.sli.statement-combined-standing",
+                                            "version": "v1"
+                                          },
+                                          "value": "enrollment-cannot-tell"
+                                        },
+                                        "else": {
+                                          "op": "category_literal",
+                                          "fact_type": {
+                                            "id": "tax.us.2025.sli.statement-combined-standing",
+                                            "version": "v1"
+                                          },
+                                          "value": "unclassified-not-supported"
+                                        }
+                                      }
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "else": {
+        "op": "block",
+        "code": "DEPENDENCY_INVALID"
+      }
+    },
+    "else": {
+      "op": "choose",
+      "when": {
+        "op": "categorical_compare",
+        "cmp": "eq",
+        "left": {
+          "op": "ref",
+          "name": "tax.us.2025.sli.older-answer"
+        },
+        "right": {
+          "op": "category_literal",
+          "fact_type": {
+            "id": "tax.us.2025.sli.older-answer",
+            "version": "v1"
+          },
+          "value": "no"
+        }
+      },
+      "then": {
+        "op": "category_literal",
+        "fact_type": {
+          "id": "tax.us.2025.sli.statement-combined-standing",
+          "version": "v1"
+        },
+        "value": "older-no"
+      },
+      "else": {
+        "op": "choose",
+        "when": {
+          "op": "categorical_compare",
+          "cmp": "eq",
+          "left": {
+            "op": "ref",
+            "name": "tax.us.2025.sli.older-answer"
+          },
+          "right": {
+            "op": "category_literal",
+            "fact_type": {
+              "id": "tax.us.2025.sli.older-answer",
+              "version": "v1"
+            },
+            "value": "yes"
+          }
+        },
+        "then": {
+          "op": "choose",
+          "when": {
+            "op": "any",
+            "args": [
+              {
+                "op": "compare",
+                "cmp": "gt",
+                "left": {
+                  "op": "ref",
+                  "name": "tax.us.2025.sli.statement-inclusion-count"
+                },
+                "right": 0
+              },
+              {
+                "op": "compare",
+                "cmp": "gt",
+                "left": {
+                  "op": "ref",
+                  "name": "tax.us.2025.sli.statement-inclusion-unresolved-count"
+                },
+                "right": 0
+              },
+              {
+                "op": "compare",
+                "cmp": "gt",
+                "left": {
+                  "op": "ref",
+                  "name": "tax.us.2025.sli.statement-inclusion-withdrawn-count"
+                },
+                "right": 0
+              },
+              {
+                "op": "compare",
+                "cmp": "gt",
+                "left": {
+                  "op": "ref",
+                  "name": "tax.us.2025.sli.statement-scope-unresolved-count"
+                },
+                "right": 0
+              },
+              {
+                "op": "compare",
+                "cmp": "gt",
+                "left": {
+                  "op": "ref",
+                  "name": "tax.us.2025.sli.statement-applicability-marker-count"
+                },
+                "right": 0
+              },
+              {
+                "op": "compare",
+                "cmp": "gt",
+                "left": {
+                  "op": "ref",
+                  "name": "tax.us.2025.sli.count.statement-inclusion-denied"
+                },
+                "right": 0
+              }
+            ]
+          },
+          "then": {
+            "op": "choose",
+            "when": {
+              "op": "any",
+              "args": [
+                {
+                  "op": "compare",
+                  "cmp": "gt",
+                  "left": {
+                    "op": "ref",
+                    "name": "tax.us.2025.sli.sum.inclusion-loan-cost-no"
+                  },
+                  "right": 0
+                },
+                {
+                  "op": "compare",
+                  "cmp": "gt",
+                  "left": {
+                    "op": "ref",
+                    "name": "tax.us.2025.sli.sum.inclusion-enrollment-no"
+                  },
+                  "right": 0
+                }
+              ]
+            },
+            "then": {
+              "op": "choose",
+              "when": {
+                "op": "all",
+                "args": [
+                  {
+                    "op": "compare",
+                    "cmp": "gt",
+                    "left": {
+                      "op": "ref",
+                      "name": "tax.us.2025.sli.sum.inclusion-loan-cost-no"
+                    },
+                    "right": 0
+                  },
+                  {
+                    "op": "compare",
+                    "cmp": "gt",
+                    "left": {
+                      "op": "ref",
+                      "name": "tax.us.2025.sli.sum.inclusion-enrollment-no"
+                    },
+                    "right": 0
+                  }
+                ]
+              },
+              "then": {
+                "op": "category_literal",
+                "fact_type": {
+                  "id": "tax.us.2025.sli.statement-combined-standing",
+                  "version": "v1"
+                },
+                "value": "contradicts-loan-and-enrollment"
+              },
+              "else": {
+                "op": "choose",
+                "when": {
+                  "op": "compare",
+                  "cmp": "gt",
+                  "left": {
+                    "op": "ref",
+                    "name": "tax.us.2025.sli.sum.inclusion-loan-cost-no"
+                  },
+                  "right": 0
+                },
+                "then": {
+                  "op": "category_literal",
+                  "fact_type": {
+                    "id": "tax.us.2025.sli.statement-combined-standing",
+                    "version": "v1"
+                  },
+                  "value": "contradicts-loan-cost-no"
+                },
+                "else": {
+                  "op": "category_literal",
+                  "fact_type": {
+                    "id": "tax.us.2025.sli.statement-combined-standing",
+                    "version": "v1"
+                  },
+                  "value": "contradicts-enrollment-no"
+                }
+              }
+            },
+            "else": {
+              "op": "choose",
+              "when": {
+                "op": "any",
+                "args": [
+                  {
+                    "op": "compare",
+                    "cmp": "gt",
+                    "left": {
+                      "op": "ref",
+                      "name": "tax.us.2025.sli.sum.open-inclusion-loan-cost-no"
+                    },
+                    "right": 0
+                  },
+                  {
+                    "op": "compare",
+                    "cmp": "gt",
+                    "left": {
+                      "op": "ref",
+                      "name": "tax.us.2025.sli.sum.open-inclusion-enrollment-no"
+                    },
+                    "right": 0
+                  },
+                  {
+                    "op": "compare",
+                    "cmp": "gt",
+                    "left": {
+                      "op": "ref",
+                      "name": "tax.us.2025.sli.sum.withdrawn-inclusion-loan-cost-no"
+                    },
+                    "right": 0
+                  },
+                  {
+                    "op": "compare",
+                    "cmp": "gt",
+                    "left": {
+                      "op": "ref",
+                      "name": "tax.us.2025.sli.sum.withdrawn-inclusion-enrollment-no"
+                    },
+                    "right": 0
+                  }
+                ]
+              },
+              "then": {
+                "op": "choose",
+                "when": {
+                  "op": "all",
+                  "args": [
+                    {
+                      "op": "any",
+                      "args": [
+                        {
+                          "op": "compare",
+                          "cmp": "gt",
+                          "left": {
+                            "op": "ref",
+                            "name": "tax.us.2025.sli.sum.open-inclusion-loan-cost-no"
+                          },
+                          "right": 0
+                        },
+                        {
+                          "op": "compare",
+                          "cmp": "gt",
+                          "left": {
+                            "op": "ref",
+                            "name": "tax.us.2025.sli.sum.open-inclusion-enrollment-no"
+                          },
+                          "right": 0
+                        }
+                      ]
+                    },
+                    {
+                      "op": "any",
+                      "args": [
+                        {
+                          "op": "compare",
+                          "cmp": "gt",
+                          "left": {
+                            "op": "ref",
+                            "name": "tax.us.2025.sli.sum.withdrawn-inclusion-loan-cost-no"
+                          },
+                          "right": 0
+                        },
+                        {
+                          "op": "compare",
+                          "cmp": "gt",
+                          "left": {
+                            "op": "ref",
+                            "name": "tax.us.2025.sli.sum.withdrawn-inclusion-enrollment-no"
+                          },
+                          "right": 0
+                        }
+                      ]
+                    }
+                  ]
+                },
+                "then": {
+                  "op": "category_literal",
+                  "fact_type": {
+                    "id": "tax.us.2025.sli.statement-combined-standing",
+                    "version": "v1"
+                  },
+                  "value": "contrary-on-unsettled-inclusion"
+                },
+                "else": {
+                  "op": "choose",
+                  "when": {
+                    "op": "any",
+                    "args": [
+                      {
+                        "op": "compare",
+                        "cmp": "gt",
+                        "left": {
+                          "op": "ref",
+                          "name": "tax.us.2025.sli.sum.open-inclusion-loan-cost-no"
+                        },
+                        "right": 0
+                      },
+                      {
+                        "op": "compare",
+                        "cmp": "gt",
+                        "left": {
+                          "op": "ref",
+                          "name": "tax.us.2025.sli.sum.open-inclusion-enrollment-no"
+                        },
+                        "right": 0
+                      }
+                    ]
+                  },
+                  "then": {
+                    "op": "choose",
+                    "when": {
+                      "op": "all",
+                      "args": [
+                        {
+                          "op": "compare",
+                          "cmp": "gt",
+                          "left": {
+                            "op": "ref",
+                            "name": "tax.us.2025.sli.sum.open-inclusion-loan-cost-no"
+                          },
+                          "right": 0
+                        },
+                        {
+                          "op": "compare",
+                          "cmp": "gt",
+                          "left": {
+                            "op": "ref",
+                            "name": "tax.us.2025.sli.sum.open-inclusion-enrollment-no"
+                          },
+                          "right": 0
+                        }
+                      ]
+                    },
+                    "then": {
+                      "op": "category_literal",
+                      "fact_type": {
+                        "id": "tax.us.2025.sli.statement-combined-standing",
+                        "version": "v1"
+                      },
+                      "value": "open-inclusion-loan-and-enrollment-no"
+                    },
+                    "else": {
+                      "op": "choose",
+                      "when": {
+                        "op": "compare",
+                        "cmp": "gt",
+                        "left": {
+                          "op": "ref",
+                          "name": "tax.us.2025.sli.sum.open-inclusion-loan-cost-no"
+                        },
+                        "right": 0
+                      },
+                      "then": {
+                        "op": "category_literal",
+                        "fact_type": {
+                          "id": "tax.us.2025.sli.statement-combined-standing",
+                          "version": "v1"
+                        },
+                        "value": "open-inclusion-loan-cost-no"
+                      },
+                      "else": {
+                        "op": "category_literal",
+                        "fact_type": {
+                          "id": "tax.us.2025.sli.statement-combined-standing",
+                          "version": "v1"
+                        },
+                        "value": "open-inclusion-enrollment-no"
+                      }
+                    }
+                  },
+                  "else": {
+                    "op": "choose",
+                    "when": {
+                      "op": "all",
+                      "args": [
+                        {
+                          "op": "compare",
+                          "cmp": "gt",
+                          "left": {
+                            "op": "ref",
+                            "name": "tax.us.2025.sli.sum.withdrawn-inclusion-loan-cost-no"
+                          },
+                          "right": 0
+                        },
+                        {
+                          "op": "compare",
+                          "cmp": "gt",
+                          "left": {
+                            "op": "ref",
+                            "name": "tax.us.2025.sli.sum.withdrawn-inclusion-enrollment-no"
+                          },
+                          "right": 0
+                        }
+                      ]
+                    },
+                    "then": {
+                      "op": "category_literal",
+                      "fact_type": {
+                        "id": "tax.us.2025.sli.statement-combined-standing",
+                        "version": "v1"
+                      },
+                      "value": "withdrawn-inclusion-loan-and-enrollment-no"
+                    },
+                    "else": {
+                      "op": "choose",
+                      "when": {
+                        "op": "compare",
+                        "cmp": "gt",
+                        "left": {
+                          "op": "ref",
+                          "name": "tax.us.2025.sli.sum.withdrawn-inclusion-loan-cost-no"
+                        },
+                        "right": 0
+                      },
+                      "then": {
+                        "op": "category_literal",
+                        "fact_type": {
+                          "id": "tax.us.2025.sli.statement-combined-standing",
+                          "version": "v1"
+                        },
+                        "value": "withdrawn-inclusion-loan-cost-no"
+                      },
+                      "else": {
+                        "op": "category_literal",
+                        "fact_type": {
+                          "id": "tax.us.2025.sli.statement-combined-standing",
+                          "version": "v1"
+                        },
+                        "value": "withdrawn-inclusion-enrollment-no"
+                      }
+                    }
+                  }
+                }
+              },
+              "else": {
+                "op": "choose",
+                "when": {
+                  "op": "compare",
+                  "cmp": "gt",
+                  "left": {
+                    "op": "ref",
+                    "name": "tax.us.2025.sli.statement-applicability-marker-count"
+                  },
+                  "right": 0
+                },
+                "then": {
+                  "op": "category_literal",
+                  "fact_type": {
+                    "id": "tax.us.2025.sli.statement-combined-standing",
+                    "version": "v1"
+                  },
+                  "value": "applicability-unestablished"
+                },
+                "else": {
+                  "op": "choose",
+                  "when": {
+                    "op": "compare",
+                    "cmp": "gt",
+                    "left": {
+                      "op": "ref",
+                      "name": "tax.us.2025.sli.sum.inclusion-financing-denied"
+                    },
+                    "right": 0
+                  },
+                  "then": {
+                    "op": "category_literal",
+                    "fact_type": {
+                      "id": "tax.us.2025.sli.statement-combined-standing",
+                      "version": "v1"
+                    },
+                    "value": "financing-denied-unsettled"
+                  },
+                  "else": {
+                    "op": "choose",
+                    "when": {
+                      "op": "all",
+                      "args": [
+                        {
+                          "op": "any",
+                          "args": [
+                            {
+                              "op": "compare",
+                              "cmp": "gt",
+                              "left": {
+                                "op": "ref",
+                                "name": "tax.us.2025.sli.statement-scope-unresolved-count"
+                              },
+                              "right": 0
+                            },
+                            {
+                              "op": "compare",
+                              "cmp": "gt",
+                              "left": {
+                                "op": "ref",
+                                "name": "tax.us.2025.sli.statement-inclusion-unresolved-count"
+                              },
+                              "right": 0
+                            },
+                            {
+                              "op": "compare",
+                              "cmp": "gt",
+                              "left": {
+                                "op": "ref",
+                                "name": "tax.us.2025.sli.sum.inclusion-unresolved"
+                              },
+                              "right": 0
+                            }
+                          ]
+                        },
+                        {
+                          "op": "any",
+                          "args": [
+                            {
+                              "op": "compare",
+                              "cmp": "gt",
+                              "left": {
+                                "op": "ref",
+                                "name": "tax.us.2025.sli.statement-inclusion-withdrawn-count"
+                              },
+                              "right": 0
+                            },
+                            {
+                              "op": "compare",
+                              "cmp": "gt",
+                              "left": {
+                                "op": "ref",
+                                "name": "tax.us.2025.sli.statement-inclusion-count"
+                              },
+                              "right": 1
+                            },
+                            {
+                              "op": "all",
+                              "args": [
+                                {
+                                  "op": "compare",
+                                  "cmp": "eq",
+                                  "left": {
+                                    "op": "ref",
+                                    "name": "tax.us.2025.sli.statement-inclusion-count"
+                                  },
+                                  "right": 0
+                                },
+                                {
+                                  "op": "compare",
+                                  "cmp": "gt",
+                                  "left": {
+                                    "op": "ref",
+                                    "name": "tax.us.2025.sli.count.statement-inclusion-denied"
+                                  },
+                                  "right": 0
+                                }
+                              ]
+                            },
+                            {
+                              "op": "compare",
+                              "cmp": "gt",
+                              "left": {
+                                "op": "ref",
+                                "name": "tax.us.2025.sli.sum.inclusion-lacks"
+                              },
+                              "right": 0
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    "then": {
+                      "op": "category_literal",
+                      "fact_type": {
+                        "id": "tax.us.2025.sli.statement-combined-standing",
+                        "version": "v1"
+                      },
+                      "value": "mixed-unresolved-and-lacks"
+                    },
+                    "else": {
+                      "op": "choose",
+                      "when": {
+                        "op": "any",
+                        "args": [
+                          {
+                            "op": "compare",
+                            "cmp": "gt",
+                            "left": {
+                              "op": "ref",
+                              "name": "tax.us.2025.sli.statement-scope-unresolved-count"
+                            },
+                            "right": 0
+                          },
+                          {
+                            "op": "compare",
+                            "cmp": "gt",
+                            "left": {
+                              "op": "ref",
+                              "name": "tax.us.2025.sli.statement-inclusion-unresolved-count"
+                            },
+                            "right": 0
+                          },
+                          {
+                            "op": "compare",
+                            "cmp": "gt",
+                            "left": {
+                              "op": "ref",
+                              "name": "tax.us.2025.sli.sum.inclusion-unresolved"
+                            },
+                            "right": 0
+                          }
+                        ]
+                      },
+                      "then": {
+                        "op": "choose",
+                        "when": {
+                          "op": "categorical_compare",
+                          "cmp": "eq",
+                          "left": {
+                            "op": "ref",
+                            "name": "tax.us.2025.sli.statement-line21-standing"
+                          },
+                          "right": {
+                            "op": "category_literal",
+                            "fact_type": {
+                              "id": "tax.us.2025.sli.statement-line21-standing",
+                              "version": "v1"
+                            },
+                            "value": "statement-loan-cannot-tell"
+                          }
+                        },
+                        "then": {
+                          "op": "category_literal",
+                          "fact_type": {
+                            "id": "tax.us.2025.sli.statement-combined-standing",
+                            "version": "v1"
+                          },
+                          "value": "statement-loan-cannot-tell"
+                        },
+                        "else": {
+                          "op": "choose",
+                          "when": {
+                            "op": "categorical_compare",
+                            "cmp": "eq",
+                            "left": {
+                              "op": "ref",
+                              "name": "tax.us.2025.sli.statement-line21-standing"
+                            },
+                            "right": {
+                              "op": "category_literal",
+                              "fact_type": {
+                                "id": "tax.us.2025.sli.statement-line21-standing",
+                                "version": "v1"
+                              },
+                              "value": "inclusion-cannot-tell"
+                            }
+                          },
+                          "then": {
+                            "op": "category_literal",
+                            "fact_type": {
+                              "id": "tax.us.2025.sli.statement-combined-standing",
+                              "version": "v1"
+                            },
+                            "value": "inclusion-cannot-tell"
+                          },
+                          "else": {
+                            "op": "choose",
+                            "when": {
+                              "op": "categorical_compare",
+                              "cmp": "eq",
+                              "left": {
+                                "op": "ref",
+                                "name": "tax.us.2025.sli.statement-line21-standing"
+                              },
+                              "right": {
+                                "op": "category_literal",
+                                "fact_type": {
+                                  "id": "tax.us.2025.sli.statement-line21-standing",
+                                  "version": "v1"
+                                },
+                                "value": "financing-cannot-tell"
+                              }
+                            },
+                            "then": {
+                              "op": "category_literal",
+                              "fact_type": {
+                                "id": "tax.us.2025.sli.statement-combined-standing",
+                                "version": "v1"
+                              },
+                              "value": "financing-cannot-tell"
+                            },
+                            "else": {
+                              "op": "choose",
+                              "when": {
+                                "op": "categorical_compare",
+                                "cmp": "eq",
+                                "left": {
+                                  "op": "ref",
+                                  "name": "tax.us.2025.sli.statement-line21-standing"
+                                },
+                                "right": {
+                                  "op": "category_literal",
+                                  "fact_type": {
+                                    "id": "tax.us.2025.sli.statement-line21-standing",
+                                    "version": "v1"
+                                  },
+                                  "value": "loan-cost-cannot-tell"
+                                }
+                              },
+                              "then": {
+                                "op": "category_literal",
+                                "fact_type": {
+                                  "id": "tax.us.2025.sli.statement-combined-standing",
+                                  "version": "v1"
+                                },
+                                "value": "loan-cost-cannot-tell"
+                              },
+                              "else": {
+                                "op": "choose",
+                                "when": {
+                                  "op": "categorical_compare",
+                                  "cmp": "eq",
+                                  "left": {
+                                    "op": "ref",
+                                    "name": "tax.us.2025.sli.statement-line21-standing"
+                                  },
+                                  "right": {
+                                    "op": "category_literal",
+                                    "fact_type": {
+                                      "id": "tax.us.2025.sli.statement-line21-standing",
+                                      "version": "v1"
+                                    },
+                                    "value": "enrollment-cannot-tell"
+                                  }
+                                },
+                                "then": {
+                                  "op": "category_literal",
+                                  "fact_type": {
+                                    "id": "tax.us.2025.sli.statement-combined-standing",
+                                    "version": "v1"
+                                  },
+                                  "value": "enrollment-cannot-tell"
+                                },
+                                "else": {
+                                  "op": "category_literal",
+                                  "fact_type": {
+                                    "id": "tax.us.2025.sli.statement-combined-standing",
+                                    "version": "v1"
+                                  },
+                                  "value": "unresolved-reason"
+                                }
+                              }
+                            }
+                          }
+                        }
+                      },
+                      "else": {
+                        "op": "choose",
+                        "when": {
+                          "op": "any",
+                          "args": [
+                            {
+                              "op": "compare",
+                              "cmp": "gt",
+                              "left": {
+                                "op": "ref",
+                                "name": "tax.us.2025.sli.statement-inclusion-withdrawn-count"
+                              },
+                              "right": 0
+                            },
+                            {
+                              "op": "compare",
+                              "cmp": "gt",
+                              "left": {
+                                "op": "ref",
+                                "name": "tax.us.2025.sli.statement-inclusion-count"
+                              },
+                              "right": 1
+                            },
+                            {
+                              "op": "all",
+                              "args": [
+                                {
+                                  "op": "compare",
+                                  "cmp": "eq",
+                                  "left": {
+                                    "op": "ref",
+                                    "name": "tax.us.2025.sli.statement-inclusion-count"
+                                  },
+                                  "right": 0
+                                },
+                                {
+                                  "op": "compare",
+                                  "cmp": "gt",
+                                  "left": {
+                                    "op": "ref",
+                                    "name": "tax.us.2025.sli.count.statement-inclusion-denied"
+                                  },
+                                  "right": 0
+                                }
+                              ]
+                            },
+                            {
+                              "op": "compare",
+                              "cmp": "gt",
+                              "left": {
+                                "op": "ref",
+                                "name": "tax.us.2025.sli.sum.inclusion-lacks"
+                              },
+                              "right": 0
+                            }
+                          ]
+                        },
+                        "then": {
+                          "op": "category_literal",
+                          "fact_type": {
+                            "id": "tax.us.2025.sli.statement-combined-standing",
+                            "version": "v1"
+                          },
+                          "value": "none"
+                        },
+                        "else": {
+                          "op": "choose",
+                          "when": {
+                            "op": "compare",
+                            "cmp": "eq",
+                            "left": {
+                              "op": "ref",
+                              "name": "tax.us.2025.sli.statement-inclusion-count"
+                            },
+                            "right": 1
+                          },
+                          "then": {
+                            "op": "category_literal",
+                            "fact_type": {
+                              "id": "tax.us.2025.sli.statement-combined-standing",
+                              "version": "v1"
+                            },
+                            "value": "none"
+                          },
+                          "else": {
+                            "op": "category_literal",
+                            "fact_type": {
+                              "id": "tax.us.2025.sli.statement-combined-standing",
+                              "version": "v1"
+                            },
+                            "value": "unclassified-not-supported"
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "else": {
+            "op": "category_literal",
+            "fact_type": {
+              "id": "tax.us.2025.sli.statement-combined-standing",
+              "version": "v1"
+            },
+            "value": "none"
+          }
+        },
+        "else": {
+          "op": "category_literal",
+          "fact_type": {
+            "id": "tax.us.2025.sli.statement-combined-standing",
+            "version": "v1"
+          },
+          "value": "unclassified-not-supported"
+        }
+      }
+    }
+  },
+  "publishes": "tax.us.2025.sli.statement-combined-standing",
+  "blocked": {
+    "code": "DEPENDENCY_INVALID",
+    "missing": []
+  },
+  "notes": "Per Form 1098-E, one class from the form's current answers. The class is not taken from statement-line21-standing. none is the only favorable value: an older yes with no loan-link facts, one clean inclusion beside an older yes, an older yes that covers a withdrawal, a denial, or missing detail, and a newer form whose own standing is none. An older no publishes older-no and assumes no cause. A form with neither the older answer nor a loan-link fact blocks. A contradiction, an unresolved answer, a replay marker, a financing denial, a mix of unresolved and lacks, or a contrary answer on an open or withdrawn inclusion is named and is not favorable. The last branch is unclassified-not-supported, never none.",
+  "wording": "This statement is missing an answer or a loan link. Nothing is assumed.",
+  "basis": {
+    "said": [
+      "The person answered yes: this form's box 1 has no non-qualified loan component."
+    ],
+    "derived": [
+      "The combined class is none. It is read from the current answers, not from statement-line21-standing."
+    ],
+    "assumed": [
+      "The older yes stands in for the loan-link matters this form leaves open, withdrew, or denied, or for the older method when no loan link is current.",
+      "The older yes does not stand in for a contradiction or for an unresolved answer."
+    ],
+    "left_with_person": [
+      "The institution is an eligible educational institution.",
+      "The enrollment meets that institution's half-time standard.",
+      "The program leads to a recognized educational credential.",
+      "The cost of attendance is the figure that institution determines.",
+      "Which borrowing is in this form's box 1, when no current loan link names one."
+    ]
+  }
+}

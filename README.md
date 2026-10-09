@@ -24,9 +24,10 @@ This is the project's third iteration. The first proved a working return generat
   and 14, with lines 7/15/16/21 and Form 1040 line 7a/9 recomputed
   accordingly. A covered, basis-reported Form 1099-B transaction routed
   to Form 8949 solely by a broker-reported box-1g wash-sale loss (code W)
-  is also supported, through Schedule D lines 1b/8b. A single 2025 Form
-  1098-E statement's deductible student-loan interest, capped at $2,500
-  and reduced by the MAGI phaseout, is computed on the Student Loan
+  is also supported, through Schedule D lines 1b/8b. One or more 2025 Form
+  1098-E statements' deductible student-loan interest, each form supported
+  by its older eligibility answers, its recorded loan detail, or both,
+  capped at $2,500 and reduced by the MAGI phaseout, is computed on the Student Loan
   Interest Deduction Worksheet and carried through Schedule 1 lines 21/26
   into Form 1040 line 10 and AGI — the first supported route on the
   income-adjustment side of the return. Any amount carried

@@ -1,0 +1,109 @@
+{
+  "schema": "rule-artifact.v13",
+  "id": "tax.us.2025.rule.sli-flag-inclusion-lacks",
+  "version": "v1",
+  "scope": {
+    "tax_year": 2025,
+    "jurisdiction": "US-federal",
+    "family": "individual-income-tax"
+  },
+  "role": "computation",
+  "subject": {
+    "id": "tax.us.2025.sli.statement-inclusion-relationship",
+    "version": "v1"
+  },
+  "requires": [
+    "tax.us.2025.sli.count.inclusion-financing-denied",
+    "tax.us.2025.sli.inclusion-enrollment-answer-count",
+    "tax.us.2025.sli.inclusion-financing-count",
+    "tax.us.2025.sli.inclusion-financing-unresolved-count",
+    "tax.us.2025.sli.inclusion-financing-withdrawn-count",
+    "tax.us.2025.sli.inclusion-loan-cost-answer-count"
+  ],
+  "pins": [],
+  "when": true,
+  "value": {
+    "op": "choose",
+    "when": {
+      "op": "any",
+      "args": [
+        {
+          "op": "compare",
+          "cmp": "gt",
+          "left": {
+            "op": "ref",
+            "name": "tax.us.2025.sli.inclusion-financing-withdrawn-count"
+          },
+          "right": 0
+        },
+        {
+          "op": "compare",
+          "cmp": "gt",
+          "left": {
+            "op": "ref",
+            "name": "tax.us.2025.sli.inclusion-financing-count"
+          },
+          "right": 1
+        },
+        {
+          "op": "all",
+          "args": [
+            {
+              "op": "compare",
+              "cmp": "eq",
+              "left": {
+                "op": "ref",
+                "name": "tax.us.2025.sli.inclusion-financing-count"
+              },
+              "right": 0
+            },
+            {
+              "op": "compare",
+              "cmp": "eq",
+              "left": {
+                "op": "ref",
+                "name": "tax.us.2025.sli.inclusion-financing-unresolved-count"
+              },
+              "right": 0
+            },
+            {
+              "op": "compare",
+              "cmp": "eq",
+              "left": {
+                "op": "ref",
+                "name": "tax.us.2025.sli.count.inclusion-financing-denied"
+              },
+              "right": 0
+            }
+          ]
+        },
+        {
+          "op": "compare",
+          "cmp": "eq",
+          "left": {
+            "op": "ref",
+            "name": "tax.us.2025.sli.inclusion-loan-cost-answer-count"
+          },
+          "right": 0
+        },
+        {
+          "op": "compare",
+          "cmp": "eq",
+          "left": {
+            "op": "ref",
+            "name": "tax.us.2025.sli.inclusion-enrollment-answer-count"
+          },
+          "right": 0
+        }
+      ]
+    },
+    "then": 1,
+    "else": 0
+  },
+  "publishes": "tax.us.2025.sli.flag.inclusion-lacks",
+  "blocked": {
+    "code": "DEPENDENCY_INVALID",
+    "missing": []
+  },
+  "notes": "1 when this affirmed inclusion lacks a single complete financing and both borrowing answers. A withdrawn financing, a second financing, or a missing answer is a lack. A no, and a financing denial, are not."
+}

@@ -1,0 +1,290 @@
+{
+  "schema": "bundle.v2",
+  "id": "tax.us.2025.sli-combined-standing",
+  "version": "v1",
+  "label": "Per Form 1098-E, the older no-non-qualified-loan-component answer and the combined class the line 21 worksheet reads. none is the only favorable combined value. The inert fact type is named by the worksheet's second path and nothing writes it.",
+  "fact_types": [
+    {
+      "schema": "fact-type.v2",
+      "id": "tax.us.2025.sli.older-answer",
+      "version": "v1",
+      "title": "Per Form 1098-E: the current older answer that box 1 has no non-qualified loan component, or absent when that answer was not recorded. This is a derived copy. It is not the person's statement.",
+      "nature": "determinable",
+      "identity_keys": [
+        {
+          "name": "lender",
+          "kind": "entity",
+          "entity_kind": "tax.us.student-loan-lender"
+        },
+        {
+          "name": "statement",
+          "kind": "entity",
+          "entity_kind": "tax.us.1098e-statement"
+        },
+        {
+          "name": "tax-year",
+          "kind": "literal",
+          "values": [
+            "2025"
+          ]
+        }
+      ],
+      "value_schema": {
+        "type": "string",
+        "enum": [
+          "absent",
+          "yes",
+          "no",
+          "unreadable"
+        ],
+        "oneOf": [
+          {
+            "const": "absent",
+            "description": "No older answer is current on this form. Absence is not a yes."
+          },
+          {
+            "const": "yes",
+            "description": "The person answered yes: this form's box 1 has no non-qualified loan component."
+          },
+          {
+            "const": "no",
+            "description": "The person answered no: this form's box 1 includes a non-qualified loan component. The cause is not assumed."
+          },
+          {
+            "const": "unreadable",
+            "description": "The current older answers on this form disagree, so the value is not read as yes or no."
+          }
+        ]
+      },
+      "supersession": {
+        "policy": "free"
+      }
+    },
+    {
+      "schema": "fact-type.v2",
+      "id": "tax.us.2025.sli.statement-combined-standing",
+      "version": "v1",
+      "title": "Per Form 1098-E: the class read from this form's current answers. none is the only favorable value. Every other value names why the form is not supported.",
+      "nature": "determinable",
+      "identity_keys": [
+        {
+          "name": "lender",
+          "kind": "entity",
+          "entity_kind": "tax.us.student-loan-lender"
+        },
+        {
+          "name": "statement",
+          "kind": "entity",
+          "entity_kind": "tax.us.1098e-statement"
+        },
+        {
+          "name": "tax-year",
+          "kind": "literal",
+          "values": [
+            "2025"
+          ]
+        }
+      ],
+      "value_schema": {
+        "type": "string",
+        "enum": [
+          "none",
+          "applicability-unestablished",
+          "statement-loan-cannot-tell",
+          "inclusion-cannot-tell",
+          "inclusion-withdrawn",
+          "no-loan-link",
+          "more-than-one-loan",
+          "financing-cannot-tell",
+          "financing-withdrawn",
+          "no-schooling-link",
+          "more-than-one-schooling",
+          "loan-cost-answer-missing",
+          "loan-cost-no",
+          "loan-cost-cannot-tell",
+          "enrollment-answer-missing",
+          "enrollment-no",
+          "enrollment-cannot-tell",
+          "older-no",
+          "unresolved-reason",
+          "financing-denied-unsettled",
+          "mixed-unresolved-and-lacks",
+          "unclassified-not-supported",
+          "contradicts-loan-cost-no",
+          "contradicts-enrollment-no",
+          "contradicts-loan-and-enrollment",
+          "open-inclusion-loan-cost-no",
+          "open-inclusion-enrollment-no",
+          "open-inclusion-loan-and-enrollment-no",
+          "withdrawn-inclusion-loan-cost-no",
+          "withdrawn-inclusion-enrollment-no",
+          "withdrawn-inclusion-loan-and-enrollment-no",
+          "contrary-on-unsettled-inclusion"
+        ],
+        "oneOf": [
+          {
+            "const": "none"
+          },
+          {
+            "const": "applicability-unestablished",
+            "description": "The statement this link was confirmed against changed or was removed. Confirm the link again."
+          },
+          {
+            "const": "statement-loan-cannot-tell",
+            "description": "You said you cannot tell which student loan this statement covers. Say which loan it covers."
+          },
+          {
+            "const": "inclusion-cannot-tell",
+            "description": "You said you cannot tell whether this statement includes interest on a loan you named. Say whether it does."
+          },
+          {
+            "const": "inclusion-withdrawn",
+            "description": "A link between this statement and a loan was withdrawn and not answered again. Say whether this statement includes interest on that loan."
+          },
+          {
+            "const": "no-loan-link",
+            "description": "No student loan is linked to this statement. Say which student loan this statement covers."
+          },
+          {
+            "const": "more-than-one-loan",
+            "description": "This statement is linked to more than one loan. The deduction is worked out here only when a statement covers one loan. If one of those links is wrong, remove it."
+          },
+          {
+            "const": "financing-cannot-tell",
+            "description": "You said you cannot tell whether the loan on this statement paid for a schooling you named. Say whether it did."
+          },
+          {
+            "const": "financing-withdrawn",
+            "description": "A link between the loan on this statement and a schooling was withdrawn and not answered again. Say which schooling the loan paid for."
+          },
+          {
+            "const": "no-schooling-link",
+            "description": "The loan on this statement is not linked to the schooling it paid for. Say which schooling the loan paid for."
+          },
+          {
+            "const": "more-than-one-schooling",
+            "description": "The loan on this statement is linked to more than one schooling. The deduction is worked out here only when the loan paid for one schooling. If one of those links is wrong, remove it."
+          },
+          {
+            "const": "loan-cost-answer-missing",
+            "description": "The loan on this statement has no answer yet to: did it pay only for school costs? Answer that question. A missing answer is not treated as no."
+          },
+          {
+            "const": "loan-cost-no",
+            "description": "You said the loan on this statement did not pay only for school costs. The deduction is worked out here only for a loan used only for school costs. If that answer is wrong, change it."
+          },
+          {
+            "const": "loan-cost-cannot-tell",
+            "description": "You said you cannot tell whether the loan on this statement paid only for school costs. Answer yes or no when you know."
+          },
+          {
+            "const": "enrollment-answer-missing",
+            "description": "The loan on this statement has no answer yet to: was the student enrolled at least half-time in a degree or certificate program during the schooling it paid for? Answer that question. A missing answer is not treated as no."
+          },
+          {
+            "const": "enrollment-no",
+            "description": "You said the student was not enrolled at least half-time in a degree or certificate program during the schooling this loan paid for. The deduction is worked out here only when they were. If that answer is wrong, change it."
+          },
+          {
+            "const": "enrollment-cannot-tell",
+            "description": "You said you cannot tell whether the student was enrolled at least half-time in a degree or certificate program during the schooling this loan paid for. Answer yes or no when you know."
+          },
+          {
+            "const": "older-no",
+            "description": "You answered no on this statement: the older answer stands. This result does not assume why you answered no. Later detail does not replace that answer."
+          },
+          {
+            "const": "unresolved-reason",
+            "description": "This statement has an unresolved answer, and that answer is not one of the named cannot-tell reasons. The result is not supported, and nothing favorable is assumed."
+          },
+          {
+            "const": "financing-denied-unsettled",
+            "description": "You answered no: the loan on this statement did not finance a schooling you named. That no is not treated as the loan being unlinked, and it is not treated as support. The result is not supported."
+          },
+          {
+            "const": "mixed-unresolved-and-lacks",
+            "description": "This statement has both an unresolved answer and missing detail, and no contradicting no was read through an affirmed, cannot-tell, or withdrawn inclusion. One of those is not picked as the result. The result is not supported."
+          },
+          {
+            "const": "unclassified-not-supported",
+            "description": "This statement's recorded answers do not match a supported class. Nothing favorable is assumed."
+          },
+          {
+            "const": "contradicts-loan-cost-no",
+            "description": "You said the loan on this statement did not pay only for school costs. The deduction is worked out here only for a loan used only for school costs. If that answer is wrong, change it. Your earlier yes on this statement does not replace that answer."
+          },
+          {
+            "const": "contradicts-enrollment-no",
+            "description": "You said the student was not enrolled at least half-time in a degree or certificate program during the schooling this loan paid for. The deduction is worked out here only when they were. If that answer is wrong, change it. Your earlier yes on this statement does not replace that answer."
+          },
+          {
+            "const": "contradicts-loan-and-enrollment",
+            "description": "You said the loan on this statement did not pay only for school costs. The deduction is worked out here only for a loan used only for school costs. If that answer is wrong, change it. You said the student was not enrolled at least half-time in a degree or certificate program during the schooling this loan paid for. The deduction is worked out here only when they were. If that answer is wrong, change it. Your earlier yes on this statement does not replace that answer."
+          },
+          {
+            "const": "open-inclusion-loan-cost-no",
+            "description": "You said the loan on this statement did not pay only for school costs. The deduction is worked out here only for a loan used only for school costs. If that answer is wrong, change it. The inclusion that reaches that answer is cannot-tell, not an affirmed link. This result is not supported."
+          },
+          {
+            "const": "open-inclusion-enrollment-no",
+            "description": "You said the student was not enrolled at least half-time in a degree or certificate program during the schooling this loan paid for. The deduction is worked out here only when they were. If that answer is wrong, change it. The inclusion that reaches that answer is cannot-tell, not an affirmed link. This result is not supported."
+          },
+          {
+            "const": "open-inclusion-loan-and-enrollment-no",
+            "description": "You said the loan on this statement did not pay only for school costs. The deduction is worked out here only for a loan used only for school costs. If that answer is wrong, change it. You said the student was not enrolled at least half-time in a degree or certificate program during the schooling this loan paid for. The deduction is worked out here only when they were. If that answer is wrong, change it. The inclusion that reaches those answers is cannot-tell, not an affirmed link. This result is not supported."
+          },
+          {
+            "const": "withdrawn-inclusion-loan-cost-no",
+            "description": "You said the loan on this statement did not pay only for school costs. The deduction is worked out here only for a loan used only for school costs. If that answer is wrong, change it. The inclusion that reaches that answer was withdrawn, not an affirmed link. This result is not supported."
+          },
+          {
+            "const": "withdrawn-inclusion-enrollment-no",
+            "description": "You said the student was not enrolled at least half-time in a degree or certificate program during the schooling this loan paid for. The deduction is worked out here only when they were. If that answer is wrong, change it. The inclusion that reaches that answer was withdrawn, not an affirmed link. This result is not supported."
+          },
+          {
+            "const": "withdrawn-inclusion-loan-and-enrollment-no",
+            "description": "You said the loan on this statement did not pay only for school costs. The deduction is worked out here only for a loan used only for school costs. If that answer is wrong, change it. You said the student was not enrolled at least half-time in a degree or certificate program during the schooling this loan paid for. The deduction is worked out here only when they were. If that answer is wrong, change it. The inclusion that reaches those answers was withdrawn, not an affirmed link. This result is not supported."
+          },
+          {
+            "const": "contrary-on-unsettled-inclusion",
+            "description": "A cannot-tell inclusion and a withdrawn inclusion each reach a no on the loan-cost answer or the enrollment answer. This result is not supported. Neither no is left silent."
+          }
+        ]
+      },
+      "supersession": {
+        "policy": "free"
+      }
+    },
+    {
+      "schema": "fact-type.v2",
+      "id": "tax.us.2025.sli.inert-path-unwritten",
+      "version": "v1",
+      "title": "Named by the line 21 worksheet's inert path. Nothing writes it. The path exists because the worksheet is a two-path selection, and this fact type is the activity the second path waits on.",
+      "nature": "determinable",
+      "identity_keys": [
+        {
+          "name": "marker",
+          "kind": "literal",
+          "values": [
+            "unused"
+          ]
+        }
+      ],
+      "value_schema": {
+        "type": "string",
+        "enum": [
+          "unused"
+        ],
+        "oneOf": [
+          {
+            "const": "unused",
+            "description": "This value is never written."
+          }
+        ]
+      },
+      "supersession": {
+        "policy": "free"
+      }
+    }
+  ]
+}

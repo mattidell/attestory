@@ -1,13 +1,13 @@
 <!-- foreman-context-v1
 {
   "version": 1,
-  "phase": "Tax Concept Derivation",
-  "topic": "student-loan-result-explanation",
-  "active_plan": "docs/phases/tax-concept-derivation/milestones/student-loan-result-explanation.md",
+  "phase": "Evolving Workspace Accounts",
+  "topic": "account-refinement",
+  "active_plan": "docs/phases/evolving-workspace-accounts/milestones/account-refinement.md",
   "milestone_state": "closed",
-  "status": "Closed. Schedule 1 line 21 explains its saved result on the existing reader: each statement, its amount and loan, what the person said, what the application assumed, what is left with the person, how the amount was worked out, and which statement a blocking reason names. No calculation changed.",
+  "status": "Closed. One Form 1098-E can gain loan detail while another keeps its older answer. Line 21 combines each form's older answer and current detail (core calculations v42, worksheet v5) without retiring any answer, and the saved explanation separates what was said, used, assumed and recorded but not used.",
   "current_role": "Foreman — select next milestone",
-  "current_prompt": "docs/phases/tax-concept-derivation/tax-concept-derivation-roadmap.md"
+  "current_prompt": "docs/phases/evolving-workspace-accounts/evolving-workspace-accounts-roadmap.md"
 }
 -->
 
@@ -15,45 +15,63 @@
 
 ## Current result
 
-**Student Loan Result Explanation is closed.** A person can now understand
-the bounded student-loan deduction from its saved result on the existing
-reader. Starting at Schedule 1 line 21, the page shows:
+**Updating an Account Without Losing Its Meaning is closed.** A person can
+add borrowing and schooling details to one Form 1098-E while another form
+keeps its older eligibility answer. Line 21 no longer refuses the return
+because the two forms use different kinds of input.
 
-- each Form 1098-E statement, its loan and the amount it reported;
-- for a supported statement, three separate groups: what the person said,
-  what the application took as given, and the conditions left with them;
-- how the amount was worked out from the interest reported, the income the
-  worksheet read and the limits it pinned;
-- which run and workspace revision the explanation describes.
+For each form, the application reads the person's current answers:
 
-On a blocked line, each reason names its statement by structured identity.
-A statement a reason names shows no favorable detail. No calculation changed.
+| The form's current answers | Result for that form |
+| --- | --- |
+| The detail agrees with the older answer | Supported |
+| The detail is missing, withdrawn or denied | Supported; the older "yes" covers it |
+| A "cannot tell" answer | Not supported; the answer is named |
+| A contradicting answer, or an older "no" | Not supported; the contrary answer is named |
 
-The milestone rests on Student Loan Deduction Completion (PR #203). In that
-work, recorded loan and statement links and two ordinary answers decide the
-deduction through package `core-calculations` v41, and ADR 0077 records the
-engine contracts.
+No answer is retired to satisfy the engine. Each amount is counted once,
+and the cap, phase-out and scope limits apply to the return's total. The
+saved explanation shows, for each form:
+
+- what the person said;
+- what the calculation used;
+- what it assumed;
+- what was recorded but not used.
+
+Its wording is provisional.
+
+Production is package `core-calculations` v42, with `rule.sli-worksheet` v5.
+By owner decision, the worksheet is `rule-artifact.v13` with an inert second
+path. ADR 0077 records the change in an amendment line.
 
 ## Begin here
 
-- [Milestone plan](phases/tax-concept-derivation/milestones/student-loan-result-explanation.md):
-  the design (P1–P9), the deferred input-transition design, and the phase
-  assessment.
-- [Retrospective](milestone-retrospectives/2026-10-06-student-loan-result-explanation.md):
-  lessons and carried follow-ups.
-- [Tax Concept Derivation roadmap](phases/tax-concept-derivation/tax-concept-derivation-roadmap.md):
+- [Milestone plan](phases/evolving-workspace-accounts/milestones/account-refinement.md):
+  the staged investigation, the Track 0 selection and closure, and the
+  outcome with its limits.
+- [Retrospective](milestone-retrospectives/2026-10-08-account-refinement.md):
+  lessons and follow-ups.
+- [Evolving Workspace Accounts roadmap](phases/evolving-workspace-accounts/evolving-workspace-accounts-roadmap.md):
   next-milestone selection.
 
 ## Immediate next action
 
-Select the next milestone. The plan's phase assessment recommends weighing
-closure of Tax Concept Derivation against adding another vertical: its exit
-criteria are met in bounded form. This milestone's PR is curated, and the
-owner merges after the independent final review and CI bind its final head.
+Select the next milestone, or conclude the phase; that is the owner's
+decision. The plan's phase assessment separates two things:
+
+- the calculation transition, which is firmly demonstrated;
+- the saved explanation, which needed two post-closeout repairs and is
+  still provisional in wording and unassessed by a fresh reader.
+
+The milestone PR is published after curation, final review and CI bind its
+head. The owner merges.
 
 ## Parked
 
-- Mixed-method input and assumption management (the plan's deferred design).
-- Person-supplied scoped values where automation stops.
-- Mixed-period treatment (ADR 0076 Part 3).
+- Five conservatively blocked states, as deferred design (see the
+  retrospective).
+- Whether a shared-answer "no" should reach the whole return (P0 question
+  1).
+- General assumption management, person-supplied scoped values, and
+  mixed-period treatment (ADR 0076 Part 3).
 - Institutional verification, a broad input journey and a general reader.

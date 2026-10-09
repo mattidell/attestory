@@ -1,0 +1,104 @@
+{
+  "schema": "rule-artifact.v13",
+  "id": "tax.us.2025.rule.sli-older-answer",
+  "version": "v1",
+  "scope": {
+    "tax_year": 2025,
+    "jurisdiction": "US-federal",
+    "family": "individual-income-tax"
+  },
+  "role": "computation",
+  "subject": {
+    "id": "tax.us.2025.f1098e.box1-student-loan-interest",
+    "version": "v1"
+  },
+  "requires": [],
+  "pins": [],
+  "when": true,
+  "value": {
+    "op": "choose",
+    "when": {
+      "op": "compare",
+      "cmp": "eq",
+      "left": {
+        "op": "shared_key_count",
+        "fact_type": "tax.us.2025.f1098e.no-non-qualified-loan-component",
+        "key": "statement"
+      },
+      "right": 0
+    },
+    "then": {
+      "op": "category_literal",
+      "fact_type": {
+        "id": "tax.us.2025.sli.older-answer",
+        "version": "v1"
+      },
+      "value": "absent"
+    },
+    "else": {
+      "op": "choose",
+      "when": {
+        "op": "collect_categorical_all_equal",
+        "name": "tax.us.2025.f1098e.no-non-qualified-loan-component",
+        "value": {
+          "op": "category_literal",
+          "fact_type": {
+            "id": "tax.us.2025.f1098e.no-non-qualified-loan-component",
+            "version": "v1"
+          },
+          "value": "yes"
+        }
+      },
+      "then": {
+        "op": "category_literal",
+        "fact_type": {
+          "id": "tax.us.2025.sli.older-answer",
+          "version": "v1"
+        },
+        "value": "yes"
+      },
+      "else": {
+        "op": "choose",
+        "when": {
+          "op": "collect_categorical_all_equal",
+          "name": "tax.us.2025.f1098e.no-non-qualified-loan-component",
+          "value": {
+            "op": "category_literal",
+            "fact_type": {
+              "id": "tax.us.2025.f1098e.no-non-qualified-loan-component",
+              "version": "v1"
+            },
+            "value": "no"
+          }
+        },
+        "then": {
+          "op": "category_literal",
+          "fact_type": {
+            "id": "tax.us.2025.sli.older-answer",
+            "version": "v1"
+          },
+          "value": "no"
+        },
+        "else": {
+          "op": "category_literal",
+          "fact_type": {
+            "id": "tax.us.2025.sli.older-answer",
+            "version": "v1"
+          },
+          "value": "unreadable"
+        }
+      }
+    }
+  },
+  "publishes": "tax.us.2025.sli.older-answer",
+  "blocked": {
+    "code": "DEPENDENCY_INVALID",
+    "missing": []
+  },
+  "notes": "Per Form 1098-E, the current no-non-qualified-loan-component answer. Yes and no keep that answer's meaning. Absent means the person did not record it. Unreadable means the current sources disagree. Absence is not a default of yes, and this publication is not the person's statement.",
+  "joined": {
+    "id": "tax.us.2025.f1098e.no-non-qualified-loan-component",
+    "version": "v1"
+  },
+  "direction": "joined_contains_subject"
+}
