@@ -1191,6 +1191,613 @@ def _sli_basis_answers(
     return answers
 
 
+_SLI_OLDER_SYMBOL = "tax.us.2025.sli.older-answer"
+_SLI_COMBINED_SYMBOL = "tax.us.2025.sli.statement-combined-standing"
+_SLI_COMBINED_RULE_ID = "tax.us.2025.rule.sli-statement-combined-standing"
+_SLI_OLDER_SOURCE = "tax.us.2025.f1098e.no-non-qualified-loan-component"
+_SLI_BOX2_FACT_TYPE = "tax.us.2025.f1098e.box2-checked-authority"
+_SLI_SOURCE_CLOSURE = "tax.us.2025.f1098e.1.source-closure"
+_SLI_DENIED = "tax.us.2025.sli.statement-inclusion-denied"
+_SLI_WITHDRAWN = "tax.us.2025.sli.statement-inclusion-withdrawn"
+_SLI_INCLUSION_UNRESOLVED = "tax.us.2025.sli.statement-inclusion-unresolved"
+_SLI_SCOPE_UNRESOLVED = "tax.us.2025.sli.statement-inclusion-scope-unresolved"
+_SLI_FINANCING_UNRESOLVED = "tax.us.2025.sli.financing-unresolved"
+_SLI_FINANCING_DENIED = "tax.us.2025.sli.financing-denied"
+_SLI_FINANCING_WITHDRAWN = "tax.us.2025.sli.financing-withdrawn"
+_SLI_DENIAL_PROPOSITION = "This form does not include that borrowing."
+_SLI_OLDER_PROPOSITION = "No non-qualified loan component is in this form's box 1."
+_SLI_SUPPORT_BOX_ASSUMPTION = "Box 1 holds no loan the person did not record"
+_SLI_NOT_USED = "Recorded, not used."
+_SLI_METHOD_SENTENCE = (
+    "The older yes is the method for this form. No current loan link was recorded."
+)
+_SLI_OLDER_VALUES = frozenset({"yes", "no", "absent", "unreadable"})
+_SLI_USED_KINDS = frozenset({"plain-case", "older-yes-cover", "older-method", "nothing"})
+_SLI_WITNESS_FACT_TYPES = frozenset({_SLI_BOX1_FACT_TYPE, _SLI_BOX2_FACT_TYPE})
+_SLI_ELIGIBILITY_FACT_TYPES = frozenset({
+    "tax.us.2025.f1098e.no-related-person-interest",
+    "tax.us.2025.f1098e.no-qualified-employer-plan-interest",
+    "tax.us.2025.f1098e.no-employer-educational-assistance-interest",
+    "tax.us.2025.f1098e.no-qtp-earnings-used",
+})
+_SLI_STATEMENT_LINK_TYPES = frozenset({
+    _SLI_INCLUSION_FACT_TYPE,
+    _SLI_INCLUSION_UNRESOLVED,
+    _SLI_DENIED,
+    _SLI_WITHDRAWN,
+    _SLI_SCOPE_UNRESOLVED,
+})
+_SLI_BORROWING_LINK_TYPES = frozenset({
+    _SLI_FINANCING_FACT_TYPE,
+    _SLI_FINANCING_UNRESOLVED,
+    _SLI_FINANCING_DENIED,
+    _SLI_FINANCING_WITHDRAWN,
+    _SLI_LOAN_FACT_TYPE,
+    _SLI_ENROLL_FACT_TYPE,
+})
+_SLI_LINK_TYPES = _SLI_STATEMENT_LINK_TYPES | _SLI_BORROWING_LINK_TYPES
+_SLI_STANDS_IN_FOR = {
+    "loan-cost-answer-missing": "The older yes stands in for the missing loan-cost answer.",
+    "enrollment-answer-missing": "The older yes stands in for the missing enrollment answer.",
+    "inclusion-withdrawn": "The older yes stands in for the withdrawn inclusion.",
+    "financing-withdrawn": "The older yes stands in for the withdrawn financing.",
+    "no-schooling-link": "The older yes stands in for the missing schooling link.",
+    "more-than-one-loan": "The older yes stands in for more than one loan on this form.",
+    "more-than-one-schooling": "The older yes stands in for more than one schooling.",
+}
+_SLI_DENIAL_STANDS = (
+    "The older yes stands in for the denial that this form does not include that borrowing."
+)
+_SLI_DECLARED_PROPOSITION = {
+    _SLI_WITHDRAWN: "The inclusion of that borrowing on this form was withdrawn.",
+    _SLI_INCLUSION_UNRESOLVED: "You cannot tell whether this form includes that borrowing.",
+    _SLI_SCOPE_UNRESOLVED: "You cannot tell which loan this form covers.",
+    _SLI_INCLUSION_FACT_TYPE: "This form includes that borrowing.",
+    _SLI_FINANCING_FACT_TYPE: "The borrowing financed that schooling.",
+    _SLI_FINANCING_WITHDRAWN: "The financing of that schooling was withdrawn.",
+    _SLI_FINANCING_UNRESOLVED: "You cannot tell whether the borrowing financed that schooling.",
+    _SLI_FINANCING_DENIED: "The borrowing did not finance that schooling.",
+    _SLI_LOAN_FACT_TYPE: "The borrowing paid only for school costs.",
+    _SLI_ENROLL_FACT_TYPE: "The student was enrolled at least half-time.",
+    "tax.us.2025.f1098e.no-related-person-interest": "No related-person interest is in this form's box 1.",
+    "tax.us.2025.f1098e.no-qualified-employer-plan-interest": (
+        "No qualified-employer-plan interest is in this form's box 1."
+    ),
+    "tax.us.2025.f1098e.no-employer-educational-assistance-interest": (
+        "No employer educational-assistance interest is in this form's box 1."
+    ),
+    "tax.us.2025.f1098e.no-qtp-earnings-used": "No qualified-tuition-program earnings paid this form's interest.",
+}
+_SLI_RECORDED_NAME = {
+    _SLI_INCLUSION_FACT_TYPE: "The inclusion answer",
+    _SLI_INCLUSION_UNRESOLVED: "The inclusion answer",
+    _SLI_DENIED: "The denial",
+    _SLI_WITHDRAWN: "The withdrawal",
+    _SLI_SCOPE_UNRESOLVED: "The inclusion answer",
+    _SLI_FINANCING_FACT_TYPE: "The financing answer",
+    _SLI_FINANCING_UNRESOLVED: "The financing answer",
+    _SLI_FINANCING_DENIED: "The financing answer",
+    _SLI_FINANCING_WITHDRAWN: "The financing answer",
+    _SLI_LOAN_FACT_TYPE: "The loan-cost answer",
+    _SLI_ENROLL_FACT_TYPE: "The enrollment answer",
+}
+_SLI_PLAIN_RESPONSE = {
+    "yes": "yes",
+    "no": "no",
+    "cannot-tell": "cannot tell",
+    "sli.financing.affirmed": "affirmed",
+    "sli.financing.denied": "denied",
+    "sli.financing.withdrawn": "withdrawn",
+    "sli.financing.unresolved": "unresolved",
+    "sli.statement-inclusion.affirmed": "affirmed",
+    "sli.statement-inclusion.denied": "denied",
+    "sli.statement-inclusion.withdrawn": "withdrawn",
+    "sli.statement-inclusion.unresolved": "unresolved",
+    "sli.statement-inclusion.scope-unresolved": "unresolved about which loan",
+}
+
+
+def _sli_combined_adopted(resolved_members: Sequence[Mapping[str, Any]]) -> bool:
+    return any(member.get("id") == _SLI_COMBINED_RULE_ID for member in resolved_members)
+
+
+def _sli_not_used(finding_id: str, text: str) -> dict[str, str]:
+    if not text.startswith(_SLI_NOT_USED) or "replaced" in text or "tax.us." in text:
+        raise PresentationModelError("recorded-not-used text must be a plain sentence")
+    return {"findingId": finding_id, "text": text}
+
+
+def _sli_plain_response(response: str) -> str:
+    plain = _SLI_PLAIN_RESPONSE.get(response)
+    if plain is None:
+        raise PresentationModelError(f"recorded answer {response!r} has no plain sentence")
+    return plain
+
+
+def _sli_recorded_line(item: Mapping[str, Any], *, denied: bool) -> dict[str, str]:
+    name = _SLI_RECORDED_NAME.get(str(item["factType"]))
+    if name is None:
+        raise PresentationModelError("recorded answer has no plain name")
+    plain = _sli_plain_response(str(item["response"]))
+    if denied:
+        text = f"{_SLI_NOT_USED} {name} is {plain} on a borrowing this form denied."
+    else:
+        text = f"{_SLI_NOT_USED} {name} is {plain}."
+    return _sli_not_used(str(item["findingId"]), text)
+
+
+def _sli_on_statement(keys: Mapping[str, str], identity: tuple[str, str, str]) -> bool:
+    return (keys.get("lender"), keys.get("statement"), keys.get("tax-year")) == identity
+
+
+def _sli_said_item(
+    finding_id: str, finding: Mapping[str, Any], fact: Any, *, state: FindingState,
+) -> dict[str, Any]:
+    fact_type = fact.fact_type_id
+    if fact_type in _SLI_WITNESS_FACT_TYPES or fact_type == _SLI_SOURCE_CLOSURE:
+        raise PresentationModelError("a form witness is not something the person said")
+    item: dict[str, Any] = {
+        "findingId": finding_id,
+        "factType": fact_type,
+        "response": str(finding.get("value")),
+    }
+    if fact_type == _SLI_DENIED:
+        item["proposition"] = _SLI_DENIAL_PROPOSITION
+    else:
+        proposition = _sli_answer_proposition(finding, fact_type, state)
+        if proposition is None:
+            proposition = _SLI_DECLARED_PROPOSITION.get(fact_type)
+        if proposition is not None:
+            item["proposition"] = proposition
+    return item
+
+
+def _sli_statement_linked_borrowings(
+    identity: tuple[str, str, str], *, state: FindingState, fact_map: Mapping[str, Any],
+    finding_ids: frozenset[str] | set[str],
+) -> set[str]:
+    """Borrowings this form's statement-link facts name, current or historical.
+
+    A borrowing's answers belong in ``said.history`` when its link to this
+    form is current or historical -- never only when the *answer itself* is
+    in the same currency slice being collected. The caller unions this over
+    current and displaced finding ids before filtering either slice.
+    """
+    borrowings: set[str] = set()
+    for finding_id in finding_ids:
+        finding = state.findings.get(finding_id)
+        if not isinstance(finding, Mapping):
+            continue
+        fact = fact_map.get(str(finding.get("fact_id")))
+        if fact is None or fact.fact_type_id not in _SLI_STATEMENT_LINK_TYPES:
+            continue
+        keys = {str(name): str(value) for name, value in dict(fact.keys).items()}
+        if not _sli_on_statement(keys, identity):
+            continue
+        borrowing = keys.get("borrowing")
+        if isinstance(borrowing, str) and borrowing:
+            borrowings.add(borrowing)
+    return borrowings
+
+
+def _sli_collect_said(
+    identity: tuple[str, str, str], *, state: FindingState, fact_map: Mapping[str, Any],
+    finding_ids: frozenset[str] | set[str], linked_borrowings: frozenset[str] | set[str],
+) -> tuple[list[dict[str, Any]], list[tuple[str, Mapping[str, Any], Any]], dict[str, str]]:
+    """Person's answers on this form, plus any older-source hits. Box 1 and box 2 stay out.
+
+    ``linked_borrowings`` decides which borrowing-keyed answers belong to this
+    form; it is computed by the caller from current *and* historical
+    statement-link facts, so a displaced answer on a borrowing whose
+    inclusion stays current is not dropped for lack of a historical link row
+    of its own. The returned mapping carries each item's own borrowing key
+    (from its fact's identity keys, never from a label or sentence), for the
+    caller to decide denial-wording association -- it is not part of the
+    serialized said item.
+    """
+    answers: list[dict[str, Any]] = []
+    borrowing_by_finding: dict[str, str] = {}
+    older_hits: list[tuple[str, Mapping[str, Any], Any]] = []
+    statement_rows: list[tuple[str, Mapping[str, Any], Any]] = []
+    for finding_id in finding_ids:
+        finding = state.findings.get(finding_id)
+        if not isinstance(finding, Mapping):
+            continue
+        fact = fact_map.get(str(finding.get("fact_id")))
+        if fact is None:
+            continue
+        keys = {str(name): str(value) for name, value in dict(fact.keys).items()}
+        fact_type = fact.fact_type_id
+        on_statement = _sli_on_statement(keys, identity)
+        if not on_statement and fact_type not in _SLI_BORROWING_LINK_TYPES:
+            continue
+        if fact_type == _SLI_OLDER_SOURCE and on_statement:
+            older_hits.append((finding_id, finding, fact))
+            continue
+        if fact_type in _SLI_WITNESS_FACT_TYPES or fact_type == _SLI_SOURCE_CLOSURE:
+            continue
+        if fact_type.startswith("tax.us.2025.f1098e.") and on_statement:
+            if fact_type not in _SLI_ELIGIBILITY_FACT_TYPES:
+                raise PresentationModelError(f"unclassified form fact {fact_type} on this statement")
+            statement_rows.append((finding_id, finding, fact))
+        elif fact_type in _SLI_STATEMENT_LINK_TYPES and on_statement:
+            statement_rows.append((finding_id, finding, fact))
+            borrowing = keys.get("borrowing")
+            if isinstance(borrowing, str) and borrowing:
+                borrowing_by_finding[finding_id] = borrowing
+    for said_id, said_finding, said_fact in statement_rows:
+        answers.append(_sli_said_item(said_id, said_finding, said_fact, state=state))
+    for finding_id in finding_ids:
+        finding = state.findings.get(finding_id)
+        if not isinstance(finding, Mapping):
+            continue
+        fact = fact_map.get(str(finding.get("fact_id")))
+        if fact is None or fact.fact_type_id not in _SLI_BORROWING_LINK_TYPES:
+            continue
+        borrowing = {str(name): str(value) for name, value in dict(fact.keys).items()}.get("borrowing")
+        if borrowing not in linked_borrowings:
+            continue
+        if isinstance(borrowing, str) and borrowing:
+            borrowing_by_finding[finding_id] = borrowing
+        answers.append(_sli_said_item(finding_id, finding, fact, state=state))
+    answers.sort(key=lambda item: item["findingId"])
+    return answers, older_hits, borrowing_by_finding
+
+
+def _sli_support_basis(
+    support_finding: Mapping[str, Any], *, resolved_members: Sequence[Mapping[str, Any]],
+    publications_by_id: Mapping[str, Mapping[str, Any]], state: FindingState, fact_map: Mapping[str, Any],
+) -> dict[str, Any]:
+    rule_pin = next(
+        (pin for pin in support_finding.get("pins", []) or []
+         if isinstance(pin, Mapping) and pin.get("role") == "computation" and pin.get("id") == _SLI_SUPPORT_RULE_ID),
+        None,
+    )
+    if rule_pin is None:
+        raise PresentationModelError("support publication does not pin its own producing rule")
+    rule = next(
+        (member for member in resolved_members
+         if member.get("id") == _SLI_SUPPORT_RULE_ID and member.get("version") == rule_pin.get("version")),
+        None,
+    )
+    basis = rule.get("basis") if rule is not None else None
+    if not isinstance(basis, Mapping) or "assumed" not in basis or "left_with_person" not in basis:
+        raise PresentationModelError(
+            f"{_SLI_SUPPORT_RULE_ID}@{rule_pin.get('version')} has no declared basis to show",
+        )
+    return {
+        "ruleId": _SLI_SUPPORT_RULE_ID,
+        "ruleVersion": str(rule_pin.get("version")),
+        "assumed": list(basis["assumed"]),
+        "leftWithPerson": list(basis["left_with_person"]),
+        "answers": _sli_basis_answers(
+            support_finding, publications_by_id=publications_by_id, state=state, fact_map=fact_map,
+        ),
+    }
+
+
+def _sli_cover_basis(
+    combined_finding: Mapping[str, Any], *, resolved_members: Sequence[Mapping[str, Any]],
+    stands_in_for: list[str], older_source: tuple[str, Mapping[str, Any], Any],
+) -> dict[str, Any]:
+    rule_pin = next(
+        (pin for pin in combined_finding.get("pins", []) or []
+         if isinstance(pin, Mapping) and pin.get("role") == "computation"
+         and pin.get("id") == _SLI_COMBINED_RULE_ID),
+        None,
+    )
+    if rule_pin is None:
+        raise PresentationModelError("combined publication does not pin the combined-standing rule")
+    matches = [
+        member for member in resolved_members
+        if member.get("id") == _SLI_COMBINED_RULE_ID and member.get("version") == rule_pin.get("version")
+    ]
+    if len(matches) != 1:
+        raise PresentationModelError("combined publication does not pin exactly one resolved rule")
+    basis = matches[0].get("basis")
+    if not isinstance(basis, Mapping) or "assumed" not in basis or "left_with_person" not in basis:
+        raise PresentationModelError(
+            f"{_SLI_COMBINED_RULE_ID}@{rule_pin.get('version')} has no declared basis to show",
+        )
+    if any(_SLI_SUPPORT_BOX_ASSUMPTION in sentence for sentence in basis["assumed"]):
+        raise PresentationModelError("cover basis reuses the support rule's box 1 assumption")
+    source_id, source_finding, _source_fact = older_source
+    if str(source_finding.get("value")) != "yes":
+        raise PresentationModelError("a cover credit has no current older yes")
+    return {
+        "ruleId": _SLI_COMBINED_RULE_ID,
+        "ruleVersion": str(rule_pin.get("version")),
+        "standsInFor": list(stands_in_for),
+        "assumed": list(basis["assumed"]),
+        "leftWithPerson": list(basis["left_with_person"]),
+        "answers": [{
+            "findingId": source_id,
+            "factType": _SLI_OLDER_SOURCE,
+            "response": "yes",
+            "proposition": _SLI_OLDER_PROPOSITION,
+        }],
+    }
+
+
+def _sli_policy_account(
+    *,
+    identity: tuple[str, str, str],
+    support_value: Any,
+    standing_value: Any,
+    support_finding: Mapping[str, Any] | None,
+    status: Mapping[str, Any],
+    state: FindingState,
+    current: frozenset[str],
+    displaced: set[str],
+    publications_by_id: Mapping[str, Mapping[str, Any]],
+    resolved_members: Sequence[Mapping[str, Any]],
+    fact_map: Mapping[str, Any],
+    wide_map: Mapping[str, Any],
+    older_finding: Mapping[str, Any],
+    combined_finding: Mapping[str, Any],
+) -> tuple[dict[str, Any], dict[str, Any] | None]:
+    older_value = str(older_finding.get("value"))
+    combined_value = str(combined_finding.get("value"))
+    if older_value not in _SLI_OLDER_VALUES:
+        raise PresentationModelError(f"older-answer publication value {older_value!r} is not a declared value")
+    linked_borrowings = (
+        _sli_statement_linked_borrowings(identity, state=state, fact_map=wide_map, finding_ids=current)
+        | _sli_statement_linked_borrowings(identity, state=state, fact_map=wide_map, finding_ids=displaced)
+    )
+    current_answers, current_older, current_borrowing_by_finding = _sli_collect_said(
+        identity, state=state, fact_map=wide_map, finding_ids=current, linked_borrowings=linked_borrowings,
+    )
+    history, displaced_older, _history_borrowing_by_finding = _sli_collect_said(
+        identity, state=state, fact_map=wide_map, finding_ids=displaced, linked_borrowings=linked_borrowings,
+    )
+    if len(current_older) > 1:
+        raise PresentationModelError("more than one current older answer on this form")
+    older_answer: dict[str, Any] = {
+        "value": older_value,
+        "findingId": str(older_finding.get("id")),
+    }
+    if current_older:
+        source_id, source_finding, _fact = current_older[0]
+        if older_value != str(source_finding.get("value")):
+            raise PresentationModelError("older-answer publication does not match the current source finding")
+        if source_id == older_answer["findingId"]:
+            raise PresentationModelError("older-answer publication is not distinct from its source finding")
+        older_answer["currency"] = "current"
+        older_answer["sourceFactType"] = _SLI_OLDER_SOURCE
+        older_answer["sourceFindingId"] = source_id
+    elif displaced_older:
+        source_id, _source_finding, _fact = displaced_older[0]
+        older_answer["currency"] = "history"
+        older_answer["sourceFactType"] = _SLI_OLDER_SOURCE
+        older_answer["sourceFindingId"] = source_id
+    elif older_value == "absent":
+        older_answer["currency"] = "absent"
+    else:
+        raise PresentationModelError("older-answer publication has no source finding")
+
+    denial = any(item["factType"] == _SLI_DENIED for item in current_answers)
+    # Which borrowing(s) a current denial names, from the denial fact's own
+    # identity keys -- never from this item's label or sentence text. A
+    # "recorded, not used" entry is worded as denied only for its own
+    # borrowing's answers, so an affirmed borrowing's missing detail is
+    # never hidden behind an unrelated borrowing's denial.
+    denied_borrowings = {
+        current_borrowing_by_finding[item["findingId"]]
+        for item in current_answers
+        if item["factType"] == _SLI_DENIED and item["findingId"] in current_borrowing_by_finding
+    }
+    has_other_link = any(
+        item["factType"] in _SLI_LINK_TYPES and item["factType"] != _SLI_DENIED for item in current_answers
+    )
+    if status["kind"] == "named-by-reason" or combined_value != "none":
+        kind = "nothing"
+    elif support_value == _SLI_SUPPORTED_VALUE:
+        kind = "plain-case"
+    elif older_value != "yes":
+        raise PresentationModelError(
+            f"combined none row is not a plain case and the older answer is {older_value!r}",
+        )
+    elif denial:
+        kind = "older-yes-cover"
+    elif standing_value == "no-loan-link" and not has_other_link:
+        kind = "older-method"
+    elif standing_value in _SLI_STANDS_IN_FOR or has_other_link:
+        kind = "older-yes-cover"
+    else:
+        raise PresentationModelError(
+            f"combined none row has no cover class for standing {standing_value!r}",
+        )
+
+    stands_in_for: list[str] | None = None
+    if kind == "older-method":
+        stands_in_for = [_SLI_METHOD_SENTENCE]
+    elif kind == "older-yes-cover":
+        # The cover names the reason this form's own standing leaves open
+        # (missing detail, a withdrawal, and so on) whenever the standing
+        # itself names one -- a denial elsewhere on the form never displaces
+        # that reason (Track 2 repair, defect 1). The denial sentence is
+        # used only when the standing itself has nothing else to name
+        # (the whole-form "no current affirmed inclusion" case), and only
+        # when a denial is in fact what is current.
+        sentence = _SLI_STANDS_IN_FOR.get(str(standing_value))
+        if sentence is None:
+            if not denied_borrowings:
+                raise PresentationModelError(
+                    f"cover row has no stands-in-for sentence for standing {standing_value!r}",
+                )
+            sentence = _SLI_DENIAL_STANDS
+        stands_in_for = [sentence]
+
+    recorded: list[dict[str, str]] = []
+    if kind in ("plain-case", "nothing") and older_value == "yes":
+        recorded.append(_sli_not_used(
+            str(older_finding.get("id")), f"{_SLI_NOT_USED} Older yes on this form.",
+        ))
+    if kind == "nothing" and support_value == _SLI_SUPPORTED_VALUE:
+        for item in current_answers:
+            if item["factType"] not in _SLI_LINK_TYPES:
+                continue
+            recorded.append(_sli_recorded_line(item, denied=False))
+    if kind == "older-yes-cover" and denied_borrowings:
+        for item in current_answers:
+            if item["factType"] not in (_SLI_LOAN_FACT_TYPE, _SLI_ENROLL_FACT_TYPE):
+                continue
+            # Scoped to the denied borrowing's own answers (Track 2 repair,
+            # defect 1): an affirmed borrowing's answers on the same form
+            # never carry another borrowing's denial wording.
+            item_borrowing = current_borrowing_by_finding.get(item["findingId"])
+            if item_borrowing not in denied_borrowings:
+                continue
+            recorded.append(_sli_recorded_line(item, denied=True))
+    recorded.sort(key=lambda item: item["findingId"])
+
+    basis: dict[str, Any] | None = None
+    if kind == "plain-case":
+        if support_finding is None:
+            raise PresentationModelError("plain-case-supported row has no support publication to walk")
+        basis = _sli_support_basis(
+            support_finding, resolved_members=resolved_members, publications_by_id=publications_by_id,
+            state=state, fact_map=fact_map,
+        )
+    elif kind in ("older-yes-cover", "older-method"):
+        if not current_older or older_value != "yes":
+            raise PresentationModelError("a cover credit has no current older yes")
+        if stands_in_for is None:
+            raise PresentationModelError("a cover credit has nothing it stands in for")
+        basis = _sli_cover_basis(
+            combined_finding, resolved_members=resolved_members, stands_in_for=stands_in_for,
+            older_source=current_older[0],
+        )
+
+    account = {
+        "said": {"olderAnswer": older_answer, "current": current_answers, "history": history},
+        "used": {
+            "kind": kind,
+            "combined": combined_value,
+            "combinedFindingId": str(combined_finding.get("id")),
+        },
+        "recordedNotUsed": recorded,
+    }
+    return account, basis
+
+
+def _validate_said_item(item: Any, path: str) -> None:
+    _require_keys(item, frozenset({"findingId", "factType", "response"}), frozenset({"proposition"}), path)
+    for key in ("findingId", "factType", "response"):
+        if not isinstance(item[key], str) or not item[key]:
+            raise PresentationModelError(f"{path}.{key}: expected non-empty string")
+    if item["factType"] in _SLI_WITNESS_FACT_TYPES:
+        raise PresentationModelError(f"{path}: a form witness is not something the person said")
+    if "proposition" in item and (not isinstance(item["proposition"], str) or not item["proposition"]):
+        raise PresentationModelError(f"{path}.proposition: expected non-empty string")
+    if item["factType"] == _SLI_DENIED and item.get("proposition") != _SLI_DENIAL_PROPOSITION:
+        raise PresentationModelError(f"{path}: a denial must say this form does not include that borrowing")
+
+
+def _validate_line21_account(row: Mapping[str, Any], path: str) -> None:
+    if "account" not in row and "statementKeys" not in row:
+        return
+    keys = row.get("statementKeys")
+    key_path = f"{path}.statementKeys"
+    if not isinstance(keys, Mapping):
+        raise PresentationModelError(f"{key_path}: expected lender, statement, and taxYear")
+    _require_keys(keys, frozenset({"lender", "statement", "taxYear"}), frozenset(), key_path)
+    for key in ("lender", "statement", "taxYear"):
+        if not isinstance(keys[key], str) or not keys[key]:
+            raise PresentationModelError(f"{key_path}.{key}: expected non-empty string")
+    if "account" not in row:
+        raise PresentationModelError(f"{path}: account requires statementKeys")
+    account = row["account"]
+    account_path = f"{path}.account"
+    _require_keys(account, frozenset({"said", "used", "recordedNotUsed"}), frozenset(), account_path)
+    said = account["said"]
+    said_path = f"{account_path}.said"
+    _require_keys(said, frozenset({"olderAnswer", "current", "history"}), frozenset(), said_path)
+    older = said["olderAnswer"]
+    older_path = f"{said_path}.olderAnswer"
+    _require_keys(
+        older, frozenset({"value", "findingId", "currency"}),
+        frozenset({"sourceFactType", "sourceFindingId"}), older_path,
+    )
+    if older["value"] not in _SLI_OLDER_VALUES:
+        raise PresentationModelError(f"{older_path}.value: expected a declared older-answer value")
+    if older["currency"] not in ("current", "history", "absent"):
+        raise PresentationModelError(f"{older_path}.currency: expected current, history, or absent")
+    if not isinstance(older["findingId"], str) or not older["findingId"]:
+        raise PresentationModelError(f"{older_path}.findingId: expected non-empty string")
+    if older["currency"] == "absent":
+        if "sourceFindingId" in older or "sourceFactType" in older:
+            raise PresentationModelError(f"{older_path}: an absent older answer has no source finding")
+    else:
+        if older.get("sourceFactType") != _SLI_OLDER_SOURCE:
+            raise PresentationModelError(f"{older_path}.sourceFactType: expected the older-answer source fact")
+        if not isinstance(older.get("sourceFindingId"), str) or not older["sourceFindingId"]:
+            raise PresentationModelError(f"{older_path}.sourceFindingId: expected non-empty string")
+        if older["sourceFindingId"] == older["findingId"]:
+            raise PresentationModelError(f"{older_path}: the publication is not distinct from its source finding")
+    for key in ("current", "history"):
+        items = said[key]
+        if not isinstance(items, list):
+            raise PresentationModelError(f"{said_path}.{key}: expected a list")
+        for index, item in enumerate(items):
+            _validate_said_item(item, f"{said_path}.{key}[{index}]")
+    used = account["used"]
+    used_path = f"{account_path}.used"
+    _require_keys(used, frozenset({"kind", "combined", "combinedFindingId"}), frozenset(), used_path)
+    if used["kind"] not in _SLI_USED_KINDS:
+        raise PresentationModelError(f"{used_path}.kind: expected a declared kind")
+    if not isinstance(used["combined"], str) or not used["combined"]:
+        raise PresentationModelError(f"{used_path}.combined: expected non-empty string")
+    if not isinstance(used["combinedFindingId"], str) or not used["combinedFindingId"]:
+        raise PresentationModelError(f"{used_path}.combinedFindingId: expected non-empty string")
+    recorded = account["recordedNotUsed"]
+    recorded_path = f"{account_path}.recordedNotUsed"
+    if not isinstance(recorded, list):
+        raise PresentationModelError(f"{recorded_path}: expected a list")
+    for index, item in enumerate(recorded):
+        item_path = f"{recorded_path}[{index}]"
+        _require_keys(item, frozenset({"findingId", "text"}), frozenset(), item_path)
+        if not isinstance(item["findingId"], str) or not item["findingId"]:
+            raise PresentationModelError(f"{item_path}.findingId: expected non-empty string")
+        text = item["text"]
+        if (
+            not isinstance(text, str) or not text.startswith(_SLI_NOT_USED)
+            or "replaced" in text or "tax.us." in text
+        ):
+            raise PresentationModelError(f"{item_path}.text: expected a plain Recorded, not used sentence")
+    kind = used["kind"]
+    basis = row.get("basis")
+    if kind == "nothing":
+        if "basis" in row:
+            raise PresentationModelError(f"{path}: a blocked form shows no favorable basis")
+        if row.get("support") == _SLI_SUPPORTED_VALUE and not recorded:
+            raise PresentationModelError(
+                f"{path}: plain-case detail on a blocked form was not marked recorded, not used",
+            )
+    elif kind == "plain-case":
+        if not isinstance(basis, Mapping) or basis.get("ruleId") != _SLI_SUPPORT_RULE_ID or "standsInFor" in basis:
+            raise PresentationModelError(f"{path}: a plain-case row must show the support rule's basis")
+    elif kind in ("older-yes-cover", "older-method"):
+        if not isinstance(basis, Mapping) or basis.get("ruleId") != _SLI_COMBINED_RULE_ID:
+            raise PresentationModelError(f"{path}: a cover row must show the combined rule's basis")
+        stands = basis.get("standsInFor")
+        if not isinstance(stands, list) or not stands or not all(isinstance(item, str) and item for item in stands):
+            raise PresentationModelError(f"{path}.basis.standsInFor: expected a non-empty list of sentences")
+        assumed = basis.get("assumed") or []
+        if any(isinstance(sentence, str) and _SLI_SUPPORT_BOX_ASSUMPTION in sentence for sentence in assumed):
+            raise PresentationModelError(f"{path}: cover basis reuses the support rule's box 1 assumption")
+        if kind == "older-method":
+            method = any("is the method" in sentence for sentence in stands)
+            stand_in = any("stands in for" in sentence for sentence in stands)
+            if stand_in or not method:
+                raise PresentationModelError(f"{path}: the older yes is the method, not a stand-in")
+        elif not all("stands in for" in sentence for sentence in stands):
+            raise PresentationModelError(f"{path}: a cover must say what the older yes stands in for")
+    if older["value"] == "yes" and kind in ("plain-case", "nothing"):
+        if not any(item["findingId"] == older["findingId"] for item in recorded):
+            raise PresentationModelError(f"{path}: the older yes was not marked recorded, not used")
+
+
 def _sli_line21_explanation(
     *,
     run_id: str,
@@ -1218,7 +1825,11 @@ def _sli_line21_explanation(
     reasons = resolved.get("reasons") or []
 
     fact_map = facts_of(state.fact_state)
-    current = compute_currency(state).current_finding_ids
+    wide_map = facts_of(state.fact_state, include_displaced=True)
+    currency = compute_currency(state)
+    current = currency.current_finding_ids
+    displaced = set(currency.displaced_finding_ids) - set(current)
+    combined_adopted = _sli_combined_adopted(resolved_members)
 
     publications_by_symbol: dict[str, Mapping[str, Any]] = {}
     for publication in publications:
@@ -1285,35 +1896,42 @@ def _sli_line21_explanation(
             row["support"] = str(support_value)
         if standing_value is not None:
             row["standing"] = str(standing_value)
-        if support_value == _SLI_SUPPORTED_VALUE and status["kind"] == "no-reason":
+        older_finding = publications_by_symbol.get(f"{_SLI_OLDER_SYMBOL}|{box1_fact_id}")
+        combined_finding = publications_by_symbol.get(f"{_SLI_COMBINED_SYMBOL}|{box1_fact_id}")
+        # A form the combined rule did not publish keeps today's basis. Refusing
+        # the presentation there would change a line 21 result that is already settled.
+        if combined_adopted and older_finding is not None and combined_finding is not None:
+            row["statementKeys"] = {
+                "lender": identity[0],
+                "statement": identity[1],
+                "taxYear": identity[2],
+            }
+            account, basis = _sli_policy_account(
+                identity=identity,
+                support_value=support_value,
+                standing_value=standing_value,
+                support_finding=support_finding,
+                status=status,
+                state=state,
+                current=current,
+                displaced=displaced,
+                publications_by_id=publications_by_id,
+                resolved_members=resolved_members,
+                fact_map=fact_map,
+                wide_map=wide_map,
+                older_finding=older_finding,
+                combined_finding=combined_finding,
+            )
+            row["account"] = account
+            if basis is not None:
+                row["basis"] = basis
+        elif support_value == _SLI_SUPPORTED_VALUE and status["kind"] == "no-reason":
             if support_finding is None:
                 raise PresentationModelError("plain-case-supported row has no support publication to walk")
-            rule_pin = next(
-                (p for p in support_finding.get("pins", []) or []
-                 if isinstance(p, Mapping) and p.get("role") == "computation" and p.get("id") == _SLI_SUPPORT_RULE_ID),
-                None,
+            row["basis"] = _sli_support_basis(
+                support_finding, resolved_members=resolved_members,
+                publications_by_id=publications_by_id, state=state, fact_map=fact_map,
             )
-            if rule_pin is None:
-                raise PresentationModelError("support publication does not pin its own producing rule")
-            rule = next(
-                (m for m in resolved_members
-                 if m.get("id") == _SLI_SUPPORT_RULE_ID and m.get("version") == rule_pin.get("version")),
-                None,
-            )
-            basis = rule.get("basis") if rule is not None else None
-            if not isinstance(basis, Mapping) or "assumed" not in basis or "left_with_person" not in basis:
-                raise PresentationModelError(
-                    f"{_SLI_SUPPORT_RULE_ID}@{rule_pin.get('version')} has no declared basis to show",
-                )
-            row["basis"] = {
-                "ruleId": _SLI_SUPPORT_RULE_ID,
-                "ruleVersion": str(rule_pin.get("version")),
-                "assumed": list(basis["assumed"]),
-                "leftWithPerson": list(basis["left_with_person"]),
-                "answers": _sli_basis_answers(
-                    support_finding, publications_by_id=publications_by_id, state=state, fact_map=fact_map,
-                ),
-            }
         rows.append(row)
 
     block: dict[str, Any] = {
@@ -1393,7 +2011,7 @@ def _validate_line21_explanation(value: Any) -> None:
         rp = f"{path}.rows[{index}]"
         _require_keys(
             row, frozenset({"statementLabel", "loans", "status"}),
-            frozenset({"amount", "support", "standing", "basis"}), rp,
+            frozenset({"amount", "support", "standing", "basis", "statementKeys", "account"}), rp,
         )
         label = row["statementLabel"]
         if not isinstance(label, dict) or not all(isinstance(v, str) and v for v in label.values()) \
@@ -1421,7 +2039,16 @@ def _validate_line21_explanation(value: Any) -> None:
         if "basis" in row:
             basis = row["basis"]
             bp = f"{rp}.basis"
-            _require_keys(basis, frozenset({"ruleId", "ruleVersion", "assumed", "leftWithPerson", "answers"}), frozenset(), bp)
+            _require_keys(
+                basis, frozenset({"ruleId", "ruleVersion", "assumed", "leftWithPerson", "answers"}),
+                frozenset({"standsInFor"}), bp,
+            )
+            if "standsInFor" in basis:
+                stands = basis["standsInFor"]
+                if not isinstance(stands, list) or not stands or not all(
+                    isinstance(item, str) and item for item in stands
+                ):
+                    raise PresentationModelError(f"{bp}.standsInFor: expected a non-empty list of sentences")
             for key in ("ruleId", "ruleVersion"):
                 if not isinstance(basis[key], str) or not basis[key]:
                     raise PresentationModelError(f"{bp}.{key}: expected non-empty string")
@@ -1439,6 +2066,7 @@ def _validate_line21_explanation(value: Any) -> None:
                         raise PresentationModelError(f"{ap}.{key}: expected non-empty string")
                 if "proposition" in answer and (not isinstance(answer["proposition"], str) or not answer["proposition"]):
                     raise PresentationModelError(f"{ap}.proposition: expected non-empty string")
+        _validate_line21_account(row, rp)
     if "working" in value:
         working = value["working"]
         wp = f"{path}.working"

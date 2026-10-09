@@ -4,9 +4,9 @@
   "phase": "Evolving Workspace Accounts",
   "topic": "account-refinement",
   "active_plan": "docs/phases/evolving-workspace-accounts/milestones/account-refinement.md",
-  "milestone_state": "track-1",
+  "milestone_state": "track-2",
   "status": "Initial plan prepared from merged PR #204. Begin with independent plan review and the meaning of a two-statement information transition. No implementation or automatic supersession policy selected.",
-  "current_role": "Builder — Track 1 production content and evaluation",
+  "current_role": "Builder — Track 2 saved explanation",
   "current_prompt": "docs/phases/evolving-workspace-accounts/milestones/account-refinement.md"
 }
 -->
