@@ -3,6 +3,7 @@
   "version": 1,
   "phase": "Evolving Workspace Accounts",
   "topic": "account-refinement",
+  "retrospective": "docs/milestone-retrospectives/2026-10-08-account-refinement.md",
   "status": "Closed 2026-10-08. One Form 1098-E can gain loan detail while another keeps its older answer; line 21 combines them per form (core calculations v42, worksheet v5) and the saved explanation separates what was said, used, assumed and recorded but not used.",
   "scope": [
     "one student-loan account gains detail while another preserves its older answer",
@@ -16,6 +17,7 @@
   ],
   "deep_reads": {
     "new_milestone": [
+      "docs/milestone-retrospectives/2026-10-08-account-refinement.md",
       "docs/phases/evolving-workspace-accounts/evolving-workspace-accounts-overview.md",
       "docs/phases/evolving-workspace-accounts/evolving-workspace-accounts-roadmap.md",
       "docs/phases/evolving-workspace-accounts/milestones/account-refinement.md",

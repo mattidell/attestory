@@ -2,13 +2,18 @@
 
 ## Current direction
 
-The first milestone is selected; later milestones are not commitments.
+The first milestone is closed (2026-10-08). The next is unselected. Later
+milestones are not commitments.
 Experience and owner and agent feedback should change the sequence when they
 reveal a more useful question.
 
-## 1. Updating an Account Without Losing Its Meaning — planned
+## 1. Updating an Account Without Losing Its Meaning — closed 2026-10-08
 
-[Plan](milestones/account-refinement.md).
+[Plan](milestones/account-refinement.md) ·
+[Retrospective](../../milestone-retrospectives/2026-10-08-account-refinement.md).
+Delivered: line 21 combines each form's older answer and current loan detail
+(core calculations v42), and the saved explanation separates what was said,
+used and assumed.
 
 Use Cedar and Birch student-loan interest statements to establish how adding
 details about one statement should affect its earlier answer, its calculation

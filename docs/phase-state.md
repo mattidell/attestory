@@ -4,54 +4,74 @@
   "phase": "Evolving Workspace Accounts",
   "topic": "account-refinement",
   "active_plan": "docs/phases/evolving-workspace-accounts/milestones/account-refinement.md",
-  "milestone_state": "track-2",
-  "status": "Initial plan prepared from merged PR #204. Begin with independent plan review and the meaning of a two-statement information transition. No implementation or automatic supersession policy selected.",
-  "current_role": "Builder — Track 2 saved explanation",
-  "current_prompt": "docs/phases/evolving-workspace-accounts/milestones/account-refinement.md"
+  "milestone_state": "closed",
+  "status": "Closed. One Form 1098-E can gain loan detail while another keeps its older answer. Line 21 combines each form's older answer and current detail (core calculations v42, worksheet v5) without retiring any answer, and the saved explanation separates what was said, used, assumed and recorded but not used.",
+  "current_role": "Foreman — select next milestone",
+  "current_prompt": "docs/phases/evolving-workspace-accounts/evolving-workspace-accounts-roadmap.md"
 }
 -->
 
 # Phase State
 
-## Where we are
+## Current result
 
-PR #204 merged the bounded student-loan result explanation. Together with the
-prior calculation work it demonstrates the Tax Concept Derivation phase's
-reported-information → ordinary-circumstances → calculation → explanation
-chain. That phase is concluded with its recorded limits, not a claim of complete
-tax coverage or an independently proven lay-reader experience.
+**Updating an Account Without Losing Its Meaning is closed.** A person can
+add borrowing and schooling details to one Form 1098-E while another form
+keeps its older eligibility answer. Line 21 no longer refuses the return
+because the two forms use different kinds of input.
 
-The next question is how that account evolves. Cedar gains borrowing and
-schooling details while Birch keeps its older eligibility answer. The current
-return-wide choice of input methods refuses this combination. That limitation
-does not establish a contradiction in the person's account.
+For each form, the application reads the person's current answers:
+
+| The form's current answers | Result for that form |
+| --- | --- |
+| The detail agrees with the older answer | Supported |
+| The detail is missing, withdrawn or denied | Supported; the older "yes" covers it |
+| A "cannot tell" answer | Not supported; the answer is named |
+| A contradicting answer, or an older "no" | Not supported; the contrary answer is named |
+
+No answer is retired to satisfy the engine. Each amount is counted once,
+and the cap, phase-out and scope limits apply to the return's total. The
+saved explanation shows, for each form:
+
+- what the person said;
+- what the calculation used;
+- what it assumed;
+- what was recorded but not used.
+
+Its wording is provisional.
+
+Production is package `core-calculations` v42, with `rule.sli-worksheet` v5.
+By owner decision, the worksheet is `rule-artifact.v13` with an inert second
+path. ADR 0077 records the change in an amendment line.
 
 ## Begin here
 
 - [Milestone plan](phases/evolving-workspace-accounts/milestones/account-refinement.md):
-  purpose, staged investigation, unresolved decisions and observable cases.
-- [Phase overview](phases/evolving-workspace-accounts/evolving-workspace-accounts-overview.md)
-  and [roadmap](phases/evolving-workspace-accounts/evolving-workspace-accounts-roadmap.md).
-- The plan routes narrowly to the previous milestone's deferred design and
-  relevant retrospective lesson; it does not require replaying every repair.
+  the staged investigation, the Track 0 selection and closure, and the
+  outcome with its limits.
+- [Retrospective](milestone-retrospectives/2026-10-08-account-refinement.md):
+  lessons and follow-ups.
+- [Evolving Workspace Accounts roadmap](phases/evolving-workspace-accounts/evolving-workspace-accounts-roadmap.md):
+  next-milestone selection.
 
 ## Immediate next action
 
-Reconcile Git, review the initial plan independently, and charter P0's small
-before/after account. Explain what the old assertion and new detail each mean
-before prescribing how either is stored or replaced. Trace the real engine
-restriction in P1; test consequential alternatives in P2 before Track 0
-selects an implementation. Review sections early, not only the final design.
+Select the next milestone, or conclude the phase; that is the owner's
+decision. The plan's phase assessment separates two things:
 
-The owner has selected planning and preparation, not a mechanism. Preserve
-answers; do not retire an older "yes" to make exclusive selection pass. An
-older "no" is not automatically evidence of a second borrowing. General
-assumption management is not silently added to this milestone. No push or PR
-creation is included in this handoff. No builder or reviewer is yet chartered.
+- the calculation transition, which is firmly demonstrated;
+- the saved explanation, which needed two post-closeout repairs and is
+  still provisional in wording and unassessed by a fresh reader.
+
+The milestone PR is published after curation, final review and CI bind its
+head. The owner merges.
 
 ## Parked
 
-- General assumption management beyond what this transition needs.
-- Person-supplied scoped values where automation stops.
-- Mixed-period treatment (ADR 0076 Part 3).
+- Five conservatively blocked states, as deferred design (see the
+  retrospective).
+- Whether a shared-answer "no" should reach the whole return (P0 question
+  1).
+- General assumption management, person-supplied scoped values, and
+  mixed-period treatment (ADR 0076 Part 3).
 - Institutional verification, a broad input journey and a general reader.
