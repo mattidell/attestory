@@ -1,5 +1,19 @@
 # Tax Concept Derivation
 
+## Phase boundary — 2026-10-07
+
+Concluded following the merged Student Loan Result Explanation milestone.
+The bounded derivation-to-explanation chain is demonstrated; this is not
+complete tax coverage. The closing milestone's
+[assessment](milestones/student-loan-result-explanation.md#outcome-and-phase-assessment)
+records the evidence and limits, including the unperformed independent
+context-starved reader check. No fresh-reader result is claimed here.
+
+The successor is [Evolving Workspace Accounts](../evolving-workspace-accounts/evolving-workspace-accounts-overview.md):
+how additional information changes an existing account without erasing answers
+or disturbing unrelated subjects. The original purpose and exit criteria below
+remain the account of what this phase set out to establish.
+
 ## Purpose
 
 This phase establishes the missing semantic layer between facts held in a

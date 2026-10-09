@@ -1,6 +1,6 @@
 # Tax Concept Derivation Roadmap
 
-## Current direction — 2026-10-06
+## Current direction — 2026-10-07
 
 Tax Concept Derivation established how ordinary relationship statements can
 become durable, independently changeable information that calculations can
@@ -12,9 +12,11 @@ Completion, then completed the bounded deduction route (closed 2026-10-03).
 Student Loan Result Explanation, a bounded instance of item 13, then made that
 deduction understandable from its saved result on the existing reader (closed
 2026-10-06). Its phase assessment finds the exit criteria met in bounded
-form. The next selection should weigh closing the phase against adding
-another vertical. The next milestone remains unselected; the earlier results
-are evidence, not commitments to adopt every deferred proposal.
+form, with its fresh-reader evidence caveat preserved. The phase is now
+concluded rather than extended with another tax vertical. The successor phase,
+[Evolving Workspace Accounts](../evolving-workspace-accounts/evolving-workspace-accounts-overview.md),
+begins with [Updating an Account Without Losing Its Meaning](../evolving-workspace-accounts/milestones/account-refinement.md).
+Earlier results remain evidence, not commitments to adopt every deferred proposal.
 
 Item 12a delivered the production correction entry path and the bounded tax
 consumer for the plain case. Mixed-period treatment and the extent of automated
