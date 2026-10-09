@@ -1,0 +1,55 @@
+{
+  "schema": "rule-artifact.v13",
+  "id": "tax.us.2025.rule.sli-flag-open-inclusion-loan-cost-no",
+  "version": "v1",
+  "scope": {
+    "tax_year": 2025,
+    "jurisdiction": "US-federal",
+    "family": "individual-income-tax"
+  },
+  "role": "computation",
+  "subject": {
+    "id": "tax.us.2025.sli.statement-inclusion-unresolved",
+    "version": "v1"
+  },
+  "requires": [],
+  "pins": [],
+  "when": true,
+  "value": {
+    "op": "choose",
+    "when": {
+      "op": "compare",
+      "cmp": "eq",
+      "left": {
+        "op": "shared_key_count",
+        "fact_type": "tax.us.2025.sli.loan-paid-only-school-costs",
+        "key": "borrowing"
+      },
+      "right": 0
+    },
+    "then": 0,
+    "else": {
+      "op": "choose",
+      "when": {
+        "op": "collect_categorical_all_equal",
+        "name": "tax.us.2025.sli.loan-paid-only-school-costs",
+        "value": {
+          "op": "category_literal",
+          "fact_type": {
+            "id": "tax.us.2025.sli.loan-paid-only-school-costs",
+            "version": "v1"
+          },
+          "value": "no"
+        }
+      },
+      "then": 1,
+      "else": 0
+    }
+  },
+  "publishes": "tax.us.2025.sli.flag.open-inclusion-loan-cost-no",
+  "blocked": {
+    "code": "DEPENDENCY_INVALID",
+    "missing": []
+  },
+  "notes": "1 when a cannot-tell inclusion's borrowing answered loan-cost no. The inclusion is not affirmed, so the no stays visible and is not this form's affirmed contradiction."
+}
