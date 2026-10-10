@@ -2,12 +2,12 @@
 {
   "version": 1,
   "phase": "Evolving Workspace Accounts",
-  "topic": "account-review-correction",
-  "active_plan": "docs/phases/evolving-workspace-accounts/milestones/account-review-correction.md",
-  "milestone_state": "closed",
-  "status": "Closed. A person can open a saved line 21 result, choose one borrowing's loan-cost answer, confirm a correction, save it through the reviewed recorder, and read the recalculated result beside the unchanged earlier one. The foreman recommends concluding the phase; that is the owner's decision.",
-  "current_role": "Foreman — select next milestone",
-  "current_prompt": "docs/phases/evolving-workspace-accounts/evolving-workspace-accounts-roadmap.md"
+  "topic": "saved-account-resumption",
+  "active_plan": "docs/phases/evolving-workspace-accounts/milestones/saved-account-resumption.md",
+  "milestone_state": "planned",
+  "status": "Initial plan following merged PR #206. Trace reopening the same synthetic workspace after process termination before selecting the recovery implementation.",
+  "current_role": "Foreman — review plan and charter P0 stop-and-return investigation",
+  "current_prompt": "docs/phases/evolving-workspace-accounts/milestones/saved-account-resumption.md"
 }
 -->
 
@@ -43,7 +43,9 @@ only.
 
 ## Begin here
 
-- [Milestone plan](phases/evolving-workspace-accounts/milestones/account-review-correction.md):
+- [Active plan](phases/evolving-workspace-accounts/milestones/saved-account-resumption.md):
+  returning to the same saved account after the process ends.
+- [Previous milestone](phases/evolving-workspace-accounts/milestones/account-review-correction.md):
   the walkthrough, the Track 0 selection, the integrated repairs, the
   outcome, and the phase assessment.
 - [Retrospective](milestone-retrospectives/2026-10-09-account-review-correction.md):
@@ -53,15 +55,20 @@ only.
 
 ## Immediate next action
 
-The owner decides whether to conclude Evolving Workspace Accounts. The
-foreman recommends concluding it at this bounded result. Two items stay
-open, and neither needs a new milestone in this phase:
+PR #206 is merged. The owner requested the next milestone:
+**Returning to a Saved Account**.
+[Active plan](phases/evolving-workspace-accounts/milestones/saved-account-resumption.md).
 
-- the owner's visual check of the interaction, with any wording changes;
-- an independent reader assessment.
+Charter P0 to trace a correction, a complete process stop, and reopening the
+same synthetic workspace from durable records. Establish what already survives,
+how the displayed result relates to current answers, and which connection is
+missing. Independently review the evidence and plan before selecting the build.
+Keep the existing loan-cost question and calculation policy.
 
-No tax vertical is proposed. The milestone PR is published after curation,
-the final review, and CI binding its head. The owner merges.
+The earlier milestones already support the phase's bounded exit. This
+additional milestone pursues one returning-user interaction. At its closeout,
+reassess phase closure. Owner visual review and the independent-reader
+assessment remain open; they are not silently satisfied by this new plan.
 
 ## Parked
 

@@ -2,10 +2,12 @@
 
 ## Current direction
 
-Both milestones are closed. The foreman recommends concluding the phase;
-see the phase assessment in
+The first two milestones are merged. They support the bounded phase exit
+described in
 [Reviewing and Correcting the Account Behind a Result](milestones/account-review-correction.md#outcome).
-That decision is the owner's.
+The owner requested another milestone; **Returning to a Saved Account** is
+planned as one additional interaction across stopping and reopening the
+application. Phase closure will be reassessed at that boundary.
 Later milestones are not commitments.
 Experience and owner and agent feedback should change the sequence when they
 reveal a more useful question.
@@ -42,6 +44,21 @@ before selecting a build; do not develop a general intake system.
 The plan includes early independent review of the concrete walkthrough,
 the implementation boundary, and the integrated interaction. At closeout,
 reassess phase completion rather than automatically choosing another case.
+
+## 3. Returning to a Saved Account — planned
+
+[Plan](milestones/saved-account-resumption.md).
+
+Continue the existing borrowing-answer correction interaction after its process
+has ended. Reopen the same synthetic workspace, recover the saved answer and
+history, distinguish a matching calculation from an older result, and calculate
+or correct again without reseeding the account. Start with an independently
+reviewed trace of the durable records before selecting a recovery mechanism.
+
+Keep this bounded to the existing question and synthetic workspace. Using
+personal workspaces and a general transaction-recovery system remain separate
+decisions. Recommend phase closure after this milestone rather than adding
+another tax case automatically.
 
 ## Remaining phase questions
 
