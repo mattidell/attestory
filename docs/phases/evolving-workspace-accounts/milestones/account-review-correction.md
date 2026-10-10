@@ -3,7 +3,8 @@
   "version": 1,
   "phase": "Evolving Workspace Accounts",
   "topic": "account-review-correction",
-  "status": "One bounded correction interaction from a saved line 21 result: walkthrough, Track 0 selection, the correction session and its bounded cases.",
+  "retrospective": "docs/milestone-retrospectives/2026-10-09-account-review-correction.md",
+  "status": "Closed 2026-10-09. A person can open a saved line 21 result, choose one borrowing's loan-cost answer, confirm a correction, save it through the reviewed recorder, and read the recalculated result beside the unchanged earlier one.",
   "scope": [
     "inspect the account behind line 21 and identify one existing borrowing answer",
     "confirm and persist a correction through the existing recording boundary",
@@ -16,9 +17,10 @@
   ],
   "deep_reads": {
     "new_milestone": [
-      "docs/phases/evolving-workspace-accounts/milestones/account-review-correction.md",
+      "docs/milestone-retrospectives/2026-10-09-account-review-correction.md",
       "docs/phases/evolving-workspace-accounts/evolving-workspace-accounts-overview.md",
-      "docs/milestone-retrospectives/2026-10-08-account-refinement.md#What should change in the next plan"
+      "docs/phases/evolving-workspace-accounts/evolving-workspace-accounts-roadmap.md",
+      "docs/phases/evolving-workspace-accounts/milestones/account-review-correction.md"
     ],
     "implementation": [
       "docs/phases/evolving-workspace-accounts/milestones/account-review-correction.md",

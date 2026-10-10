@@ -2,9 +2,10 @@
 
 ## Current direction
 
-The first milestone merged in PR #205. The next milestone is planned:
-[Reviewing and Correcting the Account Behind a Result](milestones/account-review-correction.md).
-It deliberately takes up one bounded interaction, not another tax vertical.
+Both milestones are closed. The foreman recommends concluding the phase;
+see the phase assessment in
+[Reviewing and Correcting the Account Behind a Result](milestones/account-review-correction.md#outcome).
+That decision is the owner's.
 Later milestones are not commitments.
 Experience and owner and agent feedback should change the sequence when they
 reveal a more useful question.
@@ -24,7 +25,13 @@ methods on different statements without erasing answers to satisfy the engine.
 Investigate coexistence on the same statement before selecting a precedence
 or supersession rule. Build only after that distinction is understood.
 
-## 2. Reviewing and Correcting the Account Behind a Result — planned
+## 2. Reviewing and Correcting the Account Behind a Result — closed 2026-10-09
+
+[Plan](milestones/account-review-correction.md) ·
+[Retrospective](../../milestone-retrospectives/2026-10-09-account-review-correction.md).
+Delivered: a synthetic correction session on a saved line 21 result. It
+corrects one borrowing's loan-cost answer through the reviewed recorder,
+recalculates, and explains the change beside the unchanged earlier result.
 
 Start from a saved student-loan deduction explanation. Let a person identify
 and correct one existing loan-cost answer, save through the established
@@ -38,8 +45,8 @@ reassess phase completion rather than automatically choosing another case.
 
 ## Remaining phase questions
 
-The first milestone supported a bounded phase exit. The owner has requested
-another milestone; the second question below now has the narrow scope above.
+The first milestone supported a bounded phase exit. The second milestone
+answered the second question below for one supported answer.
 
 - How should an assumption stop being relied on when information bears on it,
   and how should the application explain what replaced it?
