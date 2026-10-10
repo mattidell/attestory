@@ -4,9 +4,9 @@
   "phase": "Evolving Workspace Accounts",
   "topic": "account-review-correction",
   "active_plan": "docs/phases/evolving-workspace-accounts/milestones/account-review-correction.md",
-  "milestone_state": "planned",
-  "status": "Planned. The walkthrough, review and Track 0 selection are recorded in the plan: an H4 correction session over the existing reviewed recorder and live run.",
-  "current_role": "Foreman — start Track 1",
+  "milestone_state": "track-1",
+  "status": "Track 1 complete: the correction session corrects one borrowing's loan-cost answer from a saved line 21 result, recalculates and explains the change.",
+  "current_role": "Builder — Track 2 bounded cases",
   "current_prompt": "docs/phases/evolving-workspace-accounts/milestones/account-review-correction.md"
 }
 -->

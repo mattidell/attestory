@@ -1172,7 +1172,12 @@ def _record_borrowing_answer_durably(log: ActLog, registry: Any, *, question: st
                                          registry=registry,
                                          record_id=f"sli.borrowing-answer.record.{suffix}")
     if admission.terminal_record["phase"] != "completed":
-        raise RelationshipRecordingRefused(f"ordinary contribution admission refused: {admission.terminal_record}")
+        # Redacted refusal (plan, Track 1 corrections, correction 1; ADR
+        # 0051 "redacted failure"): the terminal record can carry act,
+        # finding, and contribution identities. Name only the phase, a
+        # declared vocabulary value, never the record itself.
+        raise RelationshipRecordingRefused(
+            f"ordinary contribution admission refused in phase {admission.terminal_record['phase']}")
     staged.extend((evidence_act, contribution, assertion))
     # One save: the bundle adoption (if any), the evidence and the answer.
     committed = _commit_save(log, before, staged, registry, reviewed=True)

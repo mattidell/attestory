@@ -1,0 +1,9 @@
+{
+  "packages": [
+    {
+      "checksum": "7e52f3ec6b8d2200fe838770443324bfd771587e7ca941a1cbf9c161f354c237",
+      "id": "demo.surface.sli-correction",
+      "version": "v1"
+    }
+  ]
+}

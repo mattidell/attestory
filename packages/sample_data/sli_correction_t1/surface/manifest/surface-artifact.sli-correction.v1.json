@@ -1,0 +1,15 @@
+{
+  "build_command": "true",
+  "entries": [
+    {
+      "bytes": 18937,
+      "path": "index.html",
+      "sha256": "544328f3833166808b16c2d9af673757f16ca2693163f93c5bdc25bd967aac84"
+    }
+  ],
+  "entrypoint_html": "index.html",
+  "id": "demo.surface.sli-correction",
+  "package_checksum": "7e52f3ec6b8d2200fe838770443324bfd771587e7ca941a1cbf9c161f354c237",
+  "schema": "surface-artifact.v1",
+  "version": "v1"
+}
