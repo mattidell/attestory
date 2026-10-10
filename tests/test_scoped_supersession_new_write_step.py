@@ -192,6 +192,7 @@ class RegistryCondition(unittest.TestCase):
         self.assertEqual(sorted(sites), [
             "packages/derivation/correction_session.py:write",
             "packages/derivation/entry_loop.py:write",
+            "packages/derivation/runners/sli_correction_evaluation.py:write",
             "packages/kernel/runners/inspect_workspace.py:read-only",
         ])
 

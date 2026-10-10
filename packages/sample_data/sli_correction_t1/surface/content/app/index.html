@@ -15,8 +15,8 @@
   .note { color: #555; font-size: 0.9rem; }
   ul { margin: 0.25rem 0 0.25rem 1.25rem; }
   .outcome.saved-and-calculated { border-color: #2e7d32; }
-  .outcome.not-saved, .outcome.saved-not-calculated { border-color: #8a1f11; }
-  .outcome.unconfirmed { border-color: #8a6d11; }
+  .outcome.not-saved, .outcome.saved-not-calculated, .outcome.refused { border-color: #8a1f11; }
+  .outcome.unknown, .outcome.checking { border-color: #8a6d11; }
   .explanation-row { border: 1px solid #999; border-radius: 0.4rem; padding: 0.6rem 0.75rem; margin-bottom: 0.6rem; }
   .explanation-row h3 { margin: 0 0 0.3rem; font-size: 1rem; }
   .explanation-group { margin-top: 0.4rem; }
@@ -29,8 +29,11 @@
 <p class="note">This reviews one saved result. Canceling changes nothing. Confirming saves the
 correction and recalculates; the earlier saved result is never changed.</p>
 
+<p class="error" id="historical-banner" hidden>This is an earlier result. It is not the current
+one. Reviewing an answer below may show that it has since changed.</p>
+
 <section id="saved">
-  <h2>Earlier result (line 21) &mdash; unchanged</h2>
+  <h2 id="saved-heading">Earlier result (line 21) &mdash; unchanged</h2>
   <div id="saved-rows"></div>
 </section>
 
@@ -41,6 +44,7 @@ correction and recalculates; the earlier saved result is never changed.</p>
 
 <section id="confirmation" hidden>
   <h2>Confirm this correction</h2>
+  <p class="note" id="conf-superseded-note" hidden></p>
   <div class="row"><span class="label">Borrowing:</span> <span id="conf-label"></span></div>
   <div class="row"><span class="label">Recognized by:</span>
     <ul id="conf-clues"></ul>
@@ -68,6 +72,8 @@ correction and recalculates; the earlier saved result is never changed.</p>
   <h2>Result</h2>
   <div class="row label" id="outcome-title"></div>
   <div id="outcome-rows"></div>
+  <button id="retry-btn" type="button" hidden>Calculate again</button>
+  <button id="check-again-btn" type="button" hidden>Check again</button>
 </section>
 
 <p class="error" id="error" hidden></p>
@@ -302,11 +308,12 @@ correction and recalculates; the earlier saved result is never changed.</p>
     container.appendChild(el("div", { className: "row line21-value", textContent: valueText }));
   }
 
-  function renderChoices(choices) {
+  function renderChoices(choices, unavailable) {
     var container = document.getElementById("choice-list");
     container.replaceChildren();
     var ids = Object.keys(choices || {});
-    if (ids.length === 0) {
+    var withheld = unavailable || [];
+    if (ids.length === 0 && withheld.length === 0) {
       var none = document.createElement("div");
       none.textContent = "Nothing here to review.";
       container.appendChild(none);
@@ -317,18 +324,75 @@ correction and recalculates; the earlier saved result is never changed.</p>
       var row = document.createElement("div");
       row.className = "row";
       var forms = (choice.forms || []).map(formLabel).join(", ");
+      // A repeated label shows its own recognition clues on the choice
+      // itself (plan, Track 2 item 5: duplicate labels), so two
+      // identically-labelled choices are told apart before either is
+      // clicked. A superseded displayed answer (plan, Track 2 item 3:
+      // historical result) says so plainly on the same button.
+      var label = choice.borrowing_label ? choice.borrowing_label + " -- " : "";
+      var clueText = (choice.recognition_clues || []).length
+        ? " (" + choice.recognition_clues.join("; ") + ")" : "";
+      var supersededText = choice.status === "superseded"
+        ? " (this answer has since changed)" : "";
       var btn = document.createElement("button");
       btn.type = "button";
-      btn.textContent = "Review this answer (" + forms + ")";
+      btn.textContent = "Review this answer: " + label + forms + clueText + supersededText;
       btn.addEventListener("click", function () { chooseAnswer(findingId); });
       row.appendChild(btn);
       container.appendChild(row);
     });
+    // A withdrawn displayed answer is not a button and cannot be saved.
+    // The sentence is the resolver's own (plan, Track 2 item 3).
+    withheld.forEach(function (item) {
+      var note = document.createElement("p");
+      note.className = "note";
+      var label = item.borrowing_label ? item.borrowing_label + ". " : "";
+      note.textContent = label + "This answer could not be reviewed: " +
+        (item.reason || "there is nothing to correct");
+      container.appendChild(note);
+    });
   }
 
   var currentToken = null;
+  // Opaque session token only. It carries no tax data. Wrapped so a browser
+  // that refuses storage still works for this page load.
+  var TOKEN_KEY = "sli-correction-token";
+
+  function readStoredToken() {
+    try { return sessionStorage.getItem(TOKEN_KEY); } catch (err) { return null; }
+  }
+
+  function writeStoredToken(token) {
+    try {
+      if (token) { sessionStorage.setItem(TOKEN_KEY, token); }
+      else { sessionStorage.removeItem(TOKEN_KEY); }
+    } catch (err) { /* in-memory token still covers this load */ }
+  }
+
+  function activeToken() {
+    if (currentToken) { return currentToken; }
+    var stored = readStoredToken();
+    if (stored) { currentToken = stored; }
+    return currentToken;
+  }
 
   function showConfirmation(confirmation) {
+    // Plan, Track 2 item 3 (historical result): when the displayed answer
+    // has since changed, say so plainly, name both answers, and make clear
+    // the review below is of the current one -- the save below always
+    // targets the current answer, never the one originally displayed.
+    var supersededNote = document.getElementById("conf-superseded-note");
+    if (confirmation.status === "superseded") {
+      supersededNote.textContent =
+        "The answer shown earlier has since changed, from " +
+        (confirmation.displayed_answer || "(unknown)") + " to " +
+        (confirmation.current_answer || "(unknown)") +
+        " (current). This reviews the current answer.";
+      supersededNote.hidden = false;
+    } else {
+      supersededNote.hidden = true;
+      supersededNote.textContent = "";
+    }
     document.getElementById("conf-label").textContent = confirmation.borrowing_label || "";
     var cluesList = document.getElementById("conf-clues");
     cluesList.replaceChildren();
@@ -352,6 +416,9 @@ correction and recalculates; the earlier saved result is never changed.</p>
 
   function chooseAnswer(findingId) {
     clearError();
+    // A new review starts. The previous token no longer names this review.
+    currentToken = null;
+    writeStoredToken(null);
     fetch(apiUrl("choose"), {
       method: "POST",
       headers: { "Content-Type": "application/json", "Accept": "application/json" },
@@ -360,6 +427,7 @@ correction and recalculates; the earlier saved result is never changed.</p>
       .then(function (body) {
         if (body.status === "current" || body.status === "superseded") {
           currentToken = body.token;
+          writeStoredToken(body.token);
           showConfirmation(body.confirmation);
         } else {
           showError("This answer could not be reviewed: " + (body.reason || body.status || "unknown"));
@@ -381,17 +449,14 @@ correction and recalculates; the earlier saved result is never changed.</p>
       if (!res.ok) { throw new Error("http-" + res.status); }
       return res.json();
     }).then(function (body) {
-      currentToken = null;
+      // Keep the token. A refresh in this tab shows this outcome again.
       showOutcome(body);
       loadState();
     }).catch(function () {
-      // Transport or response failure: this page does not know whether the
-      // correction was saved. It never claims nothing changed and never
-      // resubmits; it says so, then reloads the current state so the
-      // person can see whether the answer changed (Track 1 repair, defect 3).
-      currentToken = null;
-      showUnconfirmed();
-      loadState();
+      // The response was lost or unreadable. Ask for this token's outcome.
+      // Never resubmit the confirmation.
+      showChecking();
+      fetchOutcome(token);
     });
   }
 
@@ -400,6 +465,7 @@ correction and recalculates; the earlier saved result is never changed.</p>
     if (!currentToken) { return; }
     var token = currentToken;
     currentToken = null;
+    writeStoredToken(null);
     fetch(apiUrl("cancel"), {
       method: "POST",
       headers: { "Content-Type": "application/json", "Accept": "application/json" },
@@ -412,28 +478,109 @@ correction and recalculates; the earlier saved result is never changed.</p>
     section.hidden = false;
     section.className = "outcome " + (body.outcome || "");
     document.getElementById("confirmation").hidden = true;
+    document.getElementById("check-again-btn").hidden = true;
+    var retryBtn = document.getElementById("retry-btn");
     var title = document.getElementById("outcome-title");
     if (body.outcome === "saved-and-calculated") {
       title.textContent = "Saved and recalculated. The earlier result above is unchanged.";
       renderExplanation("outcome-rows", body.line21_rows || [], body.line21_value);
+      retryBtn.hidden = true;
     } else if (body.outcome === "saved-not-calculated") {
       title.textContent = "Your correction was saved; the result could not be calculated this time.";
       document.getElementById("outcome-rows").replaceChildren();
+      // Plan, Track 2 item 2 (saved but not calculated, and retry): this
+      // never saves a second correction. It only runs the calculation
+      // again for the one correction already saved.
+      retryBtn.hidden = false;
+    } else if (body.outcome === "refused") {
+      title.textContent = body.reason ||
+        "This correction is no longer the current answer. Nothing was recalculated.";
+      document.getElementById("outcome-rows").replaceChildren();
+      retryBtn.hidden = true;
     } else {
       title.textContent = "Not saved" + (body.reason ? ": " + body.reason : ".");
       document.getElementById("outcome-rows").replaceChildren();
+      retryBtn.hidden = true;
     }
   }
 
-  function showUnconfirmed() {
+  function showChecking() {
     var section = document.getElementById("outcome");
     section.hidden = false;
-    section.className = "outcome unconfirmed";
+    section.className = "outcome checking";
     document.getElementById("confirmation").hidden = true;
+    document.getElementById("retry-btn").hidden = true;
+    document.getElementById("check-again-btn").hidden = true;
     document.getElementById("outcome-title").textContent =
-      "This page could not confirm whether the correction was saved. " +
-      "Reloading the current result below.";
+      "Checking the outcome of this correction.";
     document.getElementById("outcome-rows").replaceChildren();
+  }
+
+  function showUndetermined(offerCheckAgain) {
+    var section = document.getElementById("outcome");
+    section.hidden = false;
+    section.className = "outcome unknown";
+    document.getElementById("confirmation").hidden = true;
+    document.getElementById("retry-btn").hidden = true;
+    document.getElementById("check-again-btn").hidden = !offerCheckAgain;
+    document.getElementById("outcome-title").textContent =
+      "This page cannot determine whether the correction was saved.";
+    document.getElementById("outcome-rows").replaceChildren();
+  }
+
+  function renderRecovered(body) {
+    if (!body || body.outcome === "unknown") {
+      showUndetermined(false);
+      return;
+    }
+    showOutcome(body);
+  }
+
+  function fetchOutcome(token) {
+    fetch(apiUrl("outcome"), {
+      method: "POST",
+      headers: { "Content-Type": "application/json", "Accept": "application/json" },
+      body: JSON.stringify({ token: token }),
+    }).then(function (res) {
+      if (!res.ok) { throw new Error("http-" + res.status); }
+      return res.json();
+    }).then(function (body) {
+      renderRecovered(body);
+      loadState();
+    }).catch(function () {
+      // The outcome call itself failed. Say so, and offer another look.
+      // This never calls confirm.
+      showUndetermined(true);
+    });
+  }
+
+  function retryCalculation() {
+    clearError();
+    var token = activeToken();
+    if (!token) {
+      showError("Calculating again did not complete.");
+      return;
+    }
+    fetch(apiUrl("retry"), {
+      method: "POST",
+      headers: { "Content-Type": "application/json", "Accept": "application/json" },
+      body: JSON.stringify({ token: token }),
+    }).then(function (res) {
+      if (!res.ok) { throw new Error("http-" + res.status); }
+      return res.json();
+    }).then(function (body) {
+      showOutcome(body);
+    }).catch(function () { showError("Calculating again did not complete."); });
+  }
+
+  function checkAgain() {
+    var token = activeToken();
+    if (!token) {
+      showUndetermined(false);
+      return;
+    }
+    showChecking();
+    fetchOutcome(token);
   }
 
   function loadState() {
@@ -441,15 +588,30 @@ correction and recalculates; the earlier saved result is never changed.</p>
     fetch(apiUrl("state"), { headers: { "Accept": "application/json" } })
       .then(function (response) { return response.json(); })
       .then(function (body) {
+        // Plan, Track 2 item 3 (historical result): label the result being
+        // reviewed as earlier and not current, whenever this session was
+        // deliberately opened that way.
+        document.getElementById("historical-banner").hidden = !body.historical;
+        document.getElementById("saved-heading").textContent = body.historical
+          ? "Earlier result (line 21) — not current"
+          : "Earlier result (line 21) — unchanged";
         renderExplanation("saved-rows", body.line21_rows || [], body.line21_value);
-        renderChoices(body.choices || {});
+        renderChoices(body.choices || {}, body.unavailable || []);
       })
       .catch(function () { showError("The saved result could not be loaded."); });
   }
 
   document.getElementById("confirm-btn").addEventListener("click", confirmCorrection);
   document.getElementById("cancel-btn").addEventListener("click", cancelCorrection);
+  document.getElementById("retry-btn").addEventListener("click", retryCalculation);
+  document.getElementById("check-again-btn").addEventListener("click", checkAgain);
   loadState();
+  var openingToken = readStoredToken();
+  if (openingToken) {
+    currentToken = openingToken;
+    showChecking();
+    fetchOutcome(openingToken);
+  }
 })();
 </script>
 </body>

@@ -4,9 +4,9 @@
   "phase": "Evolving Workspace Accounts",
   "topic": "account-review-correction",
   "active_plan": "docs/phases/evolving-workspace-accounts/milestones/account-review-correction.md",
-  "milestone_state": "track-1",
-  "status": "Track 1 complete: the correction session corrects one borrowing's loan-cost answer from a saved line 21 result, recalculates and explains the change.",
-  "current_role": "Builder — Track 2 bounded cases",
+  "milestone_state": "track-2",
+  "status": "Track 2 complete: the remaining bounded cases are reachable from the runner's named states, with backend, transport and page evidence.",
+  "current_role": "Foreman — close the milestone",
   "current_prompt": "docs/phases/evolving-workspace-accounts/milestones/account-review-correction.md"
 }
 -->

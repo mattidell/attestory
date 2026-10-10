@@ -23,7 +23,7 @@ import urllib.error
 import urllib.request
 from pathlib import Path
 from tempfile import TemporaryDirectory
-from typing import Any, cast
+from typing import Any, Mapping, Sequence, cast
 from unittest import mock
 
 import tests.test_sli_track1_combined_standing as T1
@@ -31,6 +31,7 @@ import tests.test_sli_track4_support_chain as T4
 import tests.test_sli_track5_worksheet_integration as T5
 import tests.test_sli_track17_relationship_applicability as track17
 import packages.derivation.correction_session as correction_session_mod
+import packages.derivation.live as live_module
 from packages.derivation.correction_session import (
     CorrectionRuntime,
     CorrectionSessionServer,
@@ -38,12 +39,24 @@ from packages.derivation.correction_session import (
     LOAN_COST_FACT_TYPE,
     RUN_SCOPE,
     SCOPE_USER,
+    STATE_BASE,
+    STATE_BLOCKED,
+    STATE_D1,
+    STATE_DESCRIPTIONS,
+    STATE_DUPLICATE_LABELS,
+    STATE_HISTORICAL,
+    STATE_SEED_LOGS,
+    STATE_SHARED,
     build_correction_surface,
     core_calculations_surface,
     enumerate_choices,
     load_seed_acts,
     resolve_correction_surface,
     resolve_displayed_answer_to_target,
+)
+from packages.derivation.runners.sli_correction_evaluation import (
+    _current_loan_cost_target,
+    _historical_seed_acts,
 )
 from packages.derivation.live import LiveCoordinatorOutcome, live_coordinate_run
 from packages.derivation.live_workspace import WorkspaceCapability
@@ -169,6 +182,7 @@ class FirstWorkingExample(unittest.TestCase):
             dist = build_correction_surface(
                 WorkspaceCapability(Path(session_dir) / "L"), repo_root=REPO)
             with CorrectionSessionServer(runtime, dist) as server:
+                # The adopted page is a static file. No session calculation.
                 with urllib.request.urlopen(server.url, timeout=10) as response:
                     self.assertEqual(response.status, 200)
                     served_bytes = response.read()
@@ -397,6 +411,14 @@ class _StubRuntime:
     def cancel(self, token: str) -> dict[str, Any]:
         return {"outcome": "cancelled"}
 
+    def outcome(self, token: str) -> dict[str, Any]:
+        return {"outcome": "unknown",
+                "reason": "The outcome cannot be determined in this session."}
+
+    def retry(self, token: str) -> dict[str, Any]:
+        from packages.derivation.correction_session import CorrectionSessionError
+        raise CorrectionSessionError("correction-retry-no-correction")
+
 
 class Admission(unittest.TestCase):
     def test_malformed_and_unknown_token_refused_without_echo(self) -> None:
@@ -406,6 +428,7 @@ class Admission(unittest.TestCase):
             with CorrectionSessionServer(_StubRuntime(), static_root) as server:
                 root = server.url.rsplit("/", 1)[0]
 
+                # Stub refusals: no projection and no recalculation.
                 # Malformed JSON body.
                 request = urllib.request.Request(
                     f"{root}/api/choose", data=b"not json",
@@ -435,6 +458,22 @@ class Admission(unittest.TestCase):
                 self.assertEqual(caught.exception.code, 422)
                 body = json.loads(caught.exception.read())
                 self.assertNotIn("nope", json.dumps(body))
+
+                # Outcome and retry take exactly {token}. An extra key, and a
+                # retry body with no token, are refused without echoing it.
+                for route, payload, leaked in (
+                    ("outcome", {"token": "kept-secret", "extra": "leaked-extra"}, "leaked-extra"),
+                    ("retry", {}, "retry-without-a-token"),
+                ):
+                    request = urllib.request.Request(
+                        f"{root}/api/{route}", data=json.dumps(payload).encode("utf-8"),
+                        headers={"Content-Type": "application/json"}, method="POST")
+                    with self.assertRaises(urllib.error.HTTPError) as caught:
+                        urllib.request.urlopen(request, timeout=10)
+                    self.assertEqual(caught.exception.code, 422)
+                    refused = json.loads(caught.exception.read())
+                    self.assertNotIn(leaked, json.dumps(refused))
+                    self.assertNotIn("kept-secret", json.dumps(refused))
 
 
 class Neighbor(unittest.TestCase):
@@ -1054,6 +1093,728 @@ def _shared_d1_saved_run() -> tuple[Any, dict[str, Any], Any]:
                 _shared_d1_saved_run_cache["outcome"])
 
 
+# ---------------------------------------------------------------------------
+# Track 2 -- the remaining bounded cases. Each named state (plan, Track 2
+# item 1) gets its own lazily-built, lock-guarded, process-scoped shared
+# run, the same pattern ``_shared_saved_run``/``_shared_d1_saved_run``
+# already establish.
+# ---------------------------------------------------------------------------
+
+_SHARED_NAMED_STATE_LOCK = threading.Lock()
+_shared_named_state_cache: dict[str, dict[str, Any]] = {}
+
+
+def _shared_named_state_run(state: str) -> tuple[Any, Any]:
+    """One named Track 2 state's initial saved run, shared by every test
+    that only reads it."""
+    with _SHARED_NAMED_STATE_LOCK:
+        cache = _shared_named_state_cache.setdefault(state, {})
+        if "outcome" not in cache:
+            work_dir = TemporaryDirectory(prefix=f"sli-correction-shared-{state}-")
+            atexit.register(work_dir.cleanup)
+            acts = load_seed_acts(REPO, state)
+            outcome = _run_saved(Path(work_dir.name), acts, f"demo.correction.test.{state}")
+            cache["acts"] = acts
+            cache["outcome"] = outcome
+        return cache["acts"], cache["outcome"]
+
+
+def _cedar_choice(choices: Mapping[str, dict[str, Any]]) -> dict[str, Any]:
+    [cedar] = [c for c in choices.values()
+              if any(str(f.get("statement", "")).startswith("2025 Form 1098-E from Cedar")
+                     for f in c["forms"])]
+    return cedar
+
+
+def _saved_tree(root: Path) -> dict[str, bytes]:
+    """Every file under one saved run, keyed by path relative to ``root``."""
+    return {
+        path.relative_to(root).as_posix(): path.read_bytes()
+        for path in sorted(root.rglob("*")) if path.is_file()
+    }
+
+
+# Socket deadline for one real session request. state and choose do no live
+# recalculation, but on a loaded CI runner both exceeded 10s. confirm and
+# retry run live_coordinate_run and exceeded 120s. An outcome read after a
+# confirm uses the same ceiling. The deadline is not a retry.
+_SESSION_HTTP_SECONDS = 600
+
+# One browser step, matching WAIT_MS in correction_browser_client.mjs. The
+# counts are that file's sequential Page.loadEventFired and waitUntil calls,
+# including the initial navigation. The subprocess timeout is the sum plus
+# margin, so Python does not kill the client before the client reports its
+# own timeout.
+_STEP_BUDGET_SECONDS = 600
+_BROWSER_MARGIN_SECONDS = 120
+_BROWSER_STEPS = {
+    "confirmed": 5,
+    "indistinguishable": 3,
+    "stale-financing": 4,
+    "unconfirmed": 7,
+    "dropped-not-calculated": 5,
+    "unknown-token": 4,
+    "refresh-calculated": 7,
+    "retry": 5,
+    "historical": 5,
+    "withdrawn": 2,
+    "shared": 5,
+    "duplicate-labels": 2,
+    "unblock": 5,
+    "d1-visible": 2,
+}
+
+
+def _browser_client_timeout(scenario: str) -> int:
+    return _BROWSER_STEPS[scenario] * _STEP_BUDGET_SECONDS + _BROWSER_MARGIN_SECONDS
+
+
+def _api(root: str, route: str, body: Mapping[str, Any] | None = None, *,
+         timeout: int = _SESSION_HTTP_SECONDS) -> Any:
+    url = f"{root}/api/{route}"
+    if body is None:
+        with urllib.request.urlopen(url, timeout=timeout) as response:
+            return json.loads(response.read())
+    request = urllib.request.Request(
+        url, data=json.dumps(body).encode("utf-8"),
+        headers={"Content-Type": "application/json"}, method="POST")
+    with urllib.request.urlopen(request, timeout=timeout) as response:
+        return json.loads(response.read())
+
+
+def _drive_page(url: str, scenario: str) -> dict[str, Any]:
+    assert _NODE is not None
+    result = subprocess.run(
+        [_NODE, str(REPO / "tests" / "helpers" / "correction_browser_client.mjs"), url, scenario],
+        stdin=subprocess.DEVNULL, stdout=subprocess.PIPE, stderr=subprocess.PIPE,
+        text=True, timeout=_browser_client_timeout(scenario), check=False,
+    )
+    if result.returncode != 0:
+        raise AssertionError(result.stderr)
+    observed = json.loads(result.stdout)
+    if not isinstance(observed, dict):
+        raise AssertionError(result.stdout)
+    return observed
+
+
+def _loan_cost_current(row: Mapping[str, Any]) -> Mapping[str, Any]:
+    return next(item for item in row["account"]["said"]["current"]
+                if item["factType"] == LOAN_COST_FACT_TYPE)
+
+
+_HISTORICAL_LOCK = threading.Lock()
+_historical_opening_cache: dict[str, Any] = {}
+
+
+def _shared_historical_opening() -> tuple[list[dict[str, Any]], Any, Path]:
+    """The earlier base presentation, and the act log after one later
+    yes -> no correction. Tests only read the saved directory."""
+    with _HISTORICAL_LOCK:
+        if "later_acts" not in _historical_opening_cache:
+            base_acts = load_seed_acts(REPO, STATE_BASE)
+            work_dir = TemporaryDirectory(prefix="sli-correction-shared-historical-")
+            atexit.register(work_dir.cleanup)
+            outcome = _run_saved(Path(work_dir.name), base_acts, "demo.correction.test.historical")
+            _historical_opening_cache["later_acts"] = _historical_seed_acts(REPO, base_acts)
+            _historical_opening_cache["outcome"] = outcome
+            assert outcome.presentation_path is not None
+            _historical_opening_cache["saved_root"] = outcome.presentation_path.parent
+        return (_historical_opening_cache["later_acts"],
+                _historical_opening_cache["outcome"],
+                _historical_opening_cache["saved_root"])
+
+
+class NamedStates(unittest.TestCase):
+    """Plan, Track 2 item 1: every named state loads, seeds sequentially,
+    and runs through the real production surface without refusal. Item 8
+    (owner walkthrough): every state, including "historical", has its own
+    printed description."""
+
+    def test_every_committed_state_seeds_and_runs(self) -> None:
+        for state in sorted(STATE_SEED_LOGS):
+            with self.subTest(state=state):
+                _acts, outcome = _shared_named_state_run(state)
+                self.assertIsNone(outcome.refusal)
+                self.assertIsNotNone(outcome.presentation_path)
+
+    def test_every_state_including_historical_has_a_description(self) -> None:
+        for state in (*STATE_SEED_LOGS, STATE_HISTORICAL):
+            with self.subTest(state=state):
+                self.assertIn(state, STATE_DESCRIPTIONS)
+                self.assertIsInstance(STATE_DESCRIPTIONS[state], str)
+                self.assertTrue(STATE_DESCRIPTIONS[state])
+
+    def test_readme_names_each_state_command(self) -> None:
+        readme = (REPO / "README.md").read_text(encoding="utf-8")
+        for state in (*STATE_SEED_LOGS, STATE_HISTORICAL):
+            with self.subTest(state=state):
+                self.assertIn(f"--state {state}", readme)
+
+
+class NamedStatesTransport(unittest.TestCase):
+    def test_each_committed_state_serves_its_opening(self) -> None:
+        surface = core_calculations_surface(REPO)
+        for state in sorted(STATE_SEED_LOGS):
+            with self.subTest(state=state):
+                acts, outcome = _shared_named_state_run(state)
+                with TemporaryDirectory(prefix=f"sli-correction-{state}-http-") as session_dir:
+                    runtime = CorrectionRuntime(
+                        WorkspaceCapability(Path(session_dir) / "L"), repo_root=REPO, surface=surface,
+                        run_scope=RUN_SCOPE, scope_user=SCOPE_USER,
+                        saved_presentation_path=outcome.presentation_path,
+                        saved_run_id=f"demo.correction.test.{state}", seed_acts=acts,
+                    )
+                    dist = build_correction_surface(
+                        WorkspaceCapability(Path(session_dir) / "L"), repo_root=REPO)
+                    with CorrectionSessionServer(runtime, dist) as server:
+                        body = _api(server.url.rsplit("/", 1)[0], "state")
+                    self.assertFalse(body["historical"])
+                    labels = {choice["borrowing_label"] for choice in body["choices"].values()}
+                    if state == STATE_BASE:
+                        self.assertEqual(labels, {"Autumn study loan", "Spring study loan"})
+                    elif state == STATE_D1:
+                        texts = [
+                            item.get("text", "")
+                            for row in body["line21_rows"]
+                            for item in (row.get("account") or {}).get("recordedNotUsed") or []
+                        ]
+                        self.assertTrue(any("denied" in text for text in texts))
+                        self.assertIn("Autumn study loan", labels)
+                    elif state == STATE_SHARED:
+                        self.assertEqual(labels, {"Autumn study loan"})
+                        [choice] = list(body["choices"].values())
+                        self.assertEqual(
+                            {form["lender"] for form in choice["forms"]},
+                            {"Cedar Servicing", "Birch Servicing"})
+                    elif state == STATE_DUPLICATE_LABELS:
+                        self.assertEqual(labels, {"Starlight study loan"})
+                        starlight = list(body["choices"].values())
+                        self.assertEqual(len({tuple(choice["recognition_clues"]) for choice in starlight}), 2)
+                    elif state == STATE_BLOCKED:
+                        self.assertIsNone(body["line21_value"])
+                        self.assertIn("Autumn study loan", labels)
+
+
+# ---------------------------------------------------------------------------
+# Track 2 item 2: saved but not calculated, and retry. The failure trigger
+# is T0b claim 5's stale-revision refusal, confined to this test: the first
+# ``live_coordinate_run`` (the save-time one, ``attempt=0``) is the real
+# call with ``workspace_revision`` 0, which the production resolver refuses
+# as ``ADOPTION_NONE_CURRENT``. Every later call -- a retry -- uses the
+# current revision. Nothing else is injected.
+# ---------------------------------------------------------------------------
+
+
+_REFUSAL_TEXT = ("ADOPTION_NONE_CURRENT", "no current user adoption in scope")
+
+
+def _assert_refusal_text_absent(test: unittest.TestCase, response: object) -> None:
+    encoded = json.dumps(response)
+    for text in _REFUSAL_TEXT:
+        test.assertNotIn(text, encoded)
+
+
+class _FailFirstRecalculationRuntime(CorrectionRuntime):
+    """First recalculation really refuses; retries run unchanged."""
+
+    def __init__(self, *args: Any, **kwargs: Any) -> None:
+        super().__init__(*args, **kwargs)
+        self.first_refusal_reason: str | None = None
+
+    def _recalculate(self, predecessor: str | None, successor: str | None, *,
+                     attempt: int = 0) -> dict[str, Any]:
+        if attempt != 0:
+            return super()._recalculate(predecessor, successor, attempt=attempt)
+        real = live_module.live_coordinate_run
+
+        def stale_revision(*args: Any, **kwargs: Any) -> Any:
+            kwargs["workspace_revision"] = 0
+            outcome = real(*args, **kwargs)
+            refusal = outcome.refusal
+            self.first_refusal_reason = None if refusal is None else refusal.reason
+            return outcome
+
+        with mock.patch.object(correction_session_mod, "live_coordinate_run", stale_revision):
+            return super()._recalculate(predecessor, successor, attempt=attempt)
+
+
+class RetryAfterSavedNotCalculated(unittest.TestCase):
+    def test_retry_writes_no_act_and_recovers_the_saved_correction(self) -> None:
+        acts, saved_outcome = _shared_saved_run()
+        surface = core_calculations_surface(REPO)
+        with TemporaryDirectory(prefix="sli-correction-retry-session-") as session_dir:
+            runtime = _FailFirstRecalculationRuntime(
+                WorkspaceCapability(Path(session_dir) / "L"), repo_root=REPO, surface=surface,
+                run_scope=RUN_SCOPE, scope_user=SCOPE_USER,
+                saved_presentation_path=saved_outcome.presentation_path,
+                saved_run_id="demo.correction.test.shared", seed_acts=acts,
+            )
+            cedar = _cedar_choice(runtime.state()["choices"])
+            chosen = runtime.choose(cedar["finding_id"])
+            token = chosen["token"]
+
+            first = runtime.confirm(token, "no")
+            self.assertEqual(first["outcome"], "saved-not-calculated")
+            self.assertEqual(runtime.first_refusal_reason, "ADOPTION_NONE_CURRENT")
+            _assert_refusal_text_absent(self, first)
+            revision_after_save = runtime._log.read().revision
+            acts_after_save = runtime._log.read().acts
+
+            retried = runtime.retry(token)
+            self.assertEqual(retried["outcome"], "saved-and-calculated")
+            self.assertEqual(retried["predecessor_finding_id"], first["predecessor_finding_id"])
+            self.assertEqual(retried["successor_finding_id"], first["successor_finding_id"])
+            # The recovered result is the one saved correction: the new
+            # current answer is that successor, and the saved predecessor
+            # is history.
+            cedar_row = next(row for row in retried["line21_rows"]
+                             if row["statementLabel"]["lender"] == "Cedar Servicing")
+            current = _loan_cost_current(cedar_row)
+            self.assertEqual(current["findingId"], first["successor_finding_id"])
+            self.assertEqual(current["response"], "no")
+            history_ids = {item["findingId"] for item in cedar_row["account"]["said"]["history"]}
+            self.assertIn(first["predecessor_finding_id"], history_ids)
+
+            # A retry writes no correction act: the log is byte-for-byte
+            # the same acts, same revision, as right after the save.
+            self.assertEqual(runtime._log.read().revision, revision_after_save)
+            self.assertEqual(runtime._log.read().acts, acts_after_save)
+
+            # Repeated retries stay idempotent with respect to the log.
+            retried_again = runtime.retry(token)
+            self.assertEqual(retried_again["outcome"], "saved-and-calculated")
+            self.assertEqual(retried_again["predecessor_finding_id"], first["predecessor_finding_id"])
+            self.assertEqual(retried_again["successor_finding_id"], first["successor_finding_id"])
+            self.assertEqual(runtime._log.read().revision, revision_after_save)
+            self.assertEqual(runtime._log.read().acts, acts_after_save)
+
+    def test_retry_before_any_correction_refuses(self) -> None:
+        acts, saved_outcome = _shared_saved_run()
+        surface = core_calculations_surface(REPO)
+        with TemporaryDirectory(prefix="sli-correction-retry-empty-") as session_dir:
+            runtime = CorrectionRuntime(
+                WorkspaceCapability(Path(session_dir) / "L"), repo_root=REPO, surface=surface,
+                run_scope=RUN_SCOPE, scope_user=SCOPE_USER,
+                saved_presentation_path=saved_outcome.presentation_path,
+                saved_run_id="demo.correction.test.shared", seed_acts=acts,
+            )
+            with self.assertRaises(correction_session_mod.CorrectionSessionError):
+                runtime.retry("not-a-token")
+
+
+class RetryTransport(unittest.TestCase):
+    def test_retry_route_recovers_saved_not_calculated(self) -> None:
+        acts, saved_outcome = _shared_saved_run()
+        surface = core_calculations_surface(REPO)
+        with TemporaryDirectory(prefix="sli-correction-retry-http-") as session_dir:
+            runtime = _FailFirstRecalculationRuntime(
+                WorkspaceCapability(Path(session_dir) / "L"), repo_root=REPO, surface=surface,
+                run_scope=RUN_SCOPE, scope_user=SCOPE_USER,
+                saved_presentation_path=saved_outcome.presentation_path,
+                saved_run_id="demo.correction.test.shared", seed_acts=acts,
+            )
+            dist = build_correction_surface(WorkspaceCapability(Path(session_dir) / "L"), repo_root=REPO)
+            with CorrectionSessionServer(runtime, dist) as server:
+                root = server.url.rsplit("/", 1)[0]
+                state = _api(root, "state")
+                cedar = _cedar_choice(state["choices"])
+                chosen = _api(root, "choose", {"finding_id": cedar["finding_id"]})
+                token = chosen["token"]
+                first = _api(root, "confirm", {"token": token, "response": "no"})
+                self.assertEqual(first["outcome"], "saved-not-calculated")
+                self.assertEqual(runtime.first_refusal_reason, "ADOPTION_NONE_CURRENT")
+                _assert_refusal_text_absent(self, first)
+                revision_after_save = runtime._log.read().revision
+                acts_after_save = runtime._log.read().acts
+
+                retried = _api(root, "retry", {"token": token})
+                self.assertEqual(retried["outcome"], "saved-and-calculated")
+                self.assertEqual(retried["predecessor_finding_id"], first["predecessor_finding_id"])
+                self.assertEqual(retried["successor_finding_id"], first["successor_finding_id"])
+                current = _loan_cost_current(next(
+                    row for row in retried["line21_rows"]
+                    if row["statementLabel"]["lender"] == "Cedar Servicing"))
+                self.assertEqual(current["findingId"], first["successor_finding_id"])
+                self.assertEqual(current["response"], "no")
+                self.assertEqual(runtime._log.read().revision, revision_after_save)
+                self.assertEqual(runtime._log.read().acts, acts_after_save)
+                recorded = _api(root, "outcome", {"token": token})
+                self.assertEqual(recorded["outcome"], "saved-and-calculated")
+                self.assertEqual(recorded["successor_finding_id"], first["successor_finding_id"])
+                self.assertTrue(recorded["recovered"])
+
+                retried_again = _api(root, "retry", {"token": token})
+                self.assertEqual(retried_again["successor_finding_id"], first["successor_finding_id"])
+                self.assertEqual(runtime._log.read().revision, revision_after_save)
+                self.assertEqual(runtime._log.read().acts, acts_after_save)
+
+
+# ---------------------------------------------------------------------------
+# Track 2 item 3: historical result. ``_historical_seed_acts`` is the
+# runner's own bounded, one-off helper (``sli_correction_evaluation.py``),
+# reused here rather than duplicated, exactly as the runner itself uses it
+# for the "historical" ``--state``.
+# ---------------------------------------------------------------------------
+
+
+class HistoricalResult(unittest.TestCase):
+    def test_open_on_earlier_result_after_a_later_correction(self) -> None:
+        later_acts, saved_outcome, saved_root = _shared_historical_opening()
+        before = _saved_tree(saved_root)
+        surface = core_calculations_surface(REPO)
+        with TemporaryDirectory(prefix="sli-correction-historical-session-") as session_dir:
+            runtime = CorrectionRuntime(
+                WorkspaceCapability(Path(session_dir) / "L"), repo_root=REPO, surface=surface,
+                run_scope=RUN_SCOPE, scope_user=SCOPE_USER,
+                saved_presentation_path=saved_outcome.presentation_path,
+                saved_run_id="demo.correction.test.historical", seed_acts=later_acts,
+                is_historical=True,
+            )
+            state = runtime.state()
+            self.assertTrue(state["historical"])
+            cedar = _cedar_choice(state["choices"])
+            self.assertEqual(cedar["status"], "superseded")
+
+            chosen = runtime.choose(cedar["finding_id"])
+            self.assertEqual(chosen["status"], "superseded")
+            self.assertEqual(chosen["confirmation"]["displayed_answer"], "yes")
+            self.assertEqual(chosen["confirmation"]["current_answer"], "no")
+            current_finding_id = runtime.resolve(cedar["finding_id"])["current_finding_id"]
+            self.assertNotEqual(current_finding_id, cedar["finding_id"])
+
+            result = runtime.confirm(chosen["token"], "yes")
+            self.assertEqual(result["outcome"], "saved-and-calculated")
+            # The save targets the current answer, never the displayed one.
+            self.assertEqual(result["predecessor_finding_id"], current_finding_id)
+            self.assertNotEqual(result["predecessor_finding_id"], cedar["finding_id"])
+
+        self.assertEqual(_saved_tree(saved_root), before)
+
+    def test_withdrawn_answer_shows_nothing_to_correct_and_writes_nothing(self) -> None:
+        acts, saved_outcome = _shared_saved_run()
+        before = _saved_tree(saved_outcome.presentation_path.parent)
+        surface = core_calculations_surface(REPO)
+        with TemporaryDirectory(prefix="sli-correction-withdrawn-session-") as session_dir:
+            runtime = CorrectionRuntime(
+                WorkspaceCapability(Path(session_dir) / "L"), repo_root=REPO, surface=surface,
+                run_scope=RUN_SCOPE, scope_user=SCOPE_USER,
+                saved_presentation_path=saved_outcome.presentation_path,
+                saved_run_id="demo.correction.test.withdrawn", seed_acts=acts,
+                is_historical=True,
+            )
+            cedar = _cedar_choice(runtime.state()["choices"])
+            review_mod.withdraw_borrowing_answer_review(
+                runtime._log, runtime.registry, finding_id=cedar["finding_id"],
+                actor=SCOPE_USER, at="2026-10-09T00:40:00Z")
+            revision_after_withdrawal = runtime._log.read().revision
+            state = runtime.state()
+            self.assertNotIn(cedar["finding_id"], state["choices"])
+            [withheld] = [item for item in state["unavailable"]
+                          if item["finding_id"] == cedar["finding_id"]]
+            self.assertIn("nothing to correct", withheld["reason"])
+            self.assertEqual(withheld["borrowing_label"], "Autumn study loan")
+
+            chosen = runtime.choose(cedar["finding_id"])
+            self.assertEqual(chosen["status"], "no-target")
+            self.assertIn("nothing to correct", chosen["reason"])
+            self.assertEqual(runtime._log.read().revision, revision_after_withdrawal)
+        self.assertEqual(_saved_tree(saved_outcome.presentation_path.parent), before)
+
+    def test_runtime_not_marked_historical_by_default(self) -> None:
+        acts, saved_outcome = _shared_saved_run()
+        surface = core_calculations_surface(REPO)
+        with TemporaryDirectory(prefix="sli-correction-not-historical-") as session_dir:
+            runtime = CorrectionRuntime(
+                WorkspaceCapability(Path(session_dir) / "L"), repo_root=REPO, surface=surface,
+                run_scope=RUN_SCOPE, scope_user=SCOPE_USER,
+                saved_presentation_path=saved_outcome.presentation_path,
+                saved_run_id="demo.correction.test.shared", seed_acts=acts,
+            )
+            self.assertFalse(runtime.state()["historical"])
+
+
+class HistoricalTransport(unittest.TestCase):
+    def test_choose_and_confirm_target_the_current_answer(self) -> None:
+        later_acts, saved_outcome, saved_root = _shared_historical_opening()
+        before = _saved_tree(saved_root)
+        surface = core_calculations_surface(REPO)
+        with TemporaryDirectory(prefix="sli-correction-historical-http-") as session_dir:
+            runtime = CorrectionRuntime(
+                WorkspaceCapability(Path(session_dir) / "L"), repo_root=REPO, surface=surface,
+                run_scope=RUN_SCOPE, scope_user=SCOPE_USER,
+                saved_presentation_path=saved_outcome.presentation_path,
+                saved_run_id="demo.correction.test.historical", seed_acts=later_acts,
+                is_historical=True,
+            )
+            dist = build_correction_surface(WorkspaceCapability(Path(session_dir) / "L"), repo_root=REPO)
+            with CorrectionSessionServer(runtime, dist) as server:
+                root = server.url.rsplit("/", 1)[0]
+                state = _api(root, "state")
+                self.assertTrue(state["historical"])
+                cedar = _cedar_choice(state["choices"])
+                self.assertEqual(cedar["status"], "superseded")
+                chosen = _api(root, "choose", {"finding_id": cedar["finding_id"]})
+                self.assertEqual(chosen["confirmation"]["displayed_answer"], "yes")
+                self.assertEqual(chosen["confirmation"]["current_answer"], "no")
+                current_finding_id = runtime.resolve(cedar["finding_id"])["current_finding_id"]
+                result = _api(root, "confirm", {"token": chosen["token"], "response": "yes"})
+                self.assertEqual(result["outcome"], "saved-and-calculated")
+                self.assertEqual(result["predecessor_finding_id"], current_finding_id)
+                self.assertNotEqual(result["predecessor_finding_id"], cedar["finding_id"])
+        self.assertEqual(_saved_tree(saved_root), before)
+
+    def test_withdrawn_choose_writes_nothing(self) -> None:
+        acts, saved_outcome = _shared_saved_run()
+        before = _saved_tree(saved_outcome.presentation_path.parent)
+        surface = core_calculations_surface(REPO)
+        with TemporaryDirectory(prefix="sli-correction-withdrawn-http-") as session_dir:
+            runtime = CorrectionRuntime(
+                WorkspaceCapability(Path(session_dir) / "L"), repo_root=REPO, surface=surface,
+                run_scope=RUN_SCOPE, scope_user=SCOPE_USER,
+                saved_presentation_path=saved_outcome.presentation_path,
+                saved_run_id="demo.correction.test.withdrawn", seed_acts=acts,
+                is_historical=True,
+            )
+            cedar = _cedar_choice(runtime.state()["choices"])
+            review_mod.withdraw_borrowing_answer_review(
+                runtime._log, runtime.registry, finding_id=cedar["finding_id"],
+                actor=SCOPE_USER, at="2026-10-09T00:41:00Z")
+            revision_after_withdrawal = runtime._log.read().revision
+            dist = build_correction_surface(WorkspaceCapability(Path(session_dir) / "L"), repo_root=REPO)
+            with CorrectionSessionServer(runtime, dist) as server:
+                root = server.url.rsplit("/", 1)[0]
+                state = _api(root, "state")
+                self.assertTrue(any(item["finding_id"] == cedar["finding_id"]
+                                    and "nothing to correct" in item["reason"]
+                                    for item in state["unavailable"]))
+                chosen = _api(root, "choose", {"finding_id": cedar["finding_id"]})
+                self.assertEqual(chosen["status"], "no-target")
+                self.assertIn("nothing to correct", chosen["reason"])
+            self.assertEqual(runtime._log.read().revision, revision_after_withdrawal)
+        self.assertEqual(_saved_tree(saved_outcome.presentation_path.parent), before)
+
+
+# ---------------------------------------------------------------------------
+# Track 2 item 4: shared borrowing (the committed "shared" state).
+# ---------------------------------------------------------------------------
+
+
+class SharedBorrowingCase(unittest.TestCase):
+    def test_one_correction_reaches_both_forms(self) -> None:
+        acts, outcome = _shared_named_state_run(STATE_SHARED)
+        surface = core_calculations_surface(REPO)
+        with TemporaryDirectory(prefix="sli-correction-shared-state-session-") as session_dir:
+            runtime = CorrectionRuntime(
+                WorkspaceCapability(Path(session_dir) / "L"), repo_root=REPO, surface=surface,
+                run_scope=RUN_SCOPE, scope_user=SCOPE_USER,
+                saved_presentation_path=outcome.presentation_path,
+                saved_run_id="demo.correction.test.shared-state", seed_acts=acts,
+            )
+            state = runtime.state()
+            self.assertEqual(len(state["choices"]), 1)
+            [choice] = list(state["choices"].values())
+            self.assertEqual({f["lender"] for f in choice["forms"]}, {"Cedar Servicing", "Birch Servicing"})
+
+            chosen = runtime.choose(choice["finding_id"])
+            self.assertEqual(
+                set(chosen["confirmation"]["forms_using_this_answer_now"]),
+                {"2025 Form 1098-E from Cedar", "2025 Form 1098-E from Birch"})
+
+            result = runtime.confirm(chosen["token"], "no")
+            self.assertEqual(result["outcome"], "saved-and-calculated")
+            rows_by_lender = {r["statementLabel"]["lender"]: r for r in result["line21_rows"]}
+            self.assertEqual(rows_by_lender["Cedar Servicing"]["standing"], "loan-cost-no")
+            self.assertEqual(rows_by_lender["Birch Servicing"]["standing"], "loan-cost-no")
+
+            # Each row attributes the answer to the same borrowing, by
+            # identity: the same findingId and the same resolved label.
+            cedar_item = next(i for i in rows_by_lender["Cedar Servicing"]["account"]["said"]["current"]
+                              if i["factType"] == LOAN_COST_FACT_TYPE)
+            birch_item = next(i for i in rows_by_lender["Birch Servicing"]["account"]["said"]["current"]
+                              if i["factType"] == LOAN_COST_FACT_TYPE)
+            self.assertEqual(cedar_item["findingId"], birch_item["findingId"])
+            self.assertEqual(cedar_item["borrowingLabel"], birch_item["borrowingLabel"])
+            self.assertEqual(cedar_item["borrowingLabel"], "Autumn study loan")
+
+
+class SharedBorrowingTransport(unittest.TestCase):
+    def test_confirm_route_changes_both_rows(self) -> None:
+        acts, outcome = _shared_named_state_run(STATE_SHARED)
+        surface = core_calculations_surface(REPO)
+        with TemporaryDirectory(prefix="sli-correction-shared-state-http-") as session_dir:
+            runtime = CorrectionRuntime(
+                WorkspaceCapability(Path(session_dir) / "L"), repo_root=REPO, surface=surface,
+                run_scope=RUN_SCOPE, scope_user=SCOPE_USER,
+                saved_presentation_path=outcome.presentation_path,
+                saved_run_id="demo.correction.test.shared-state", seed_acts=acts,
+            )
+            dist = build_correction_surface(WorkspaceCapability(Path(session_dir) / "L"), repo_root=REPO)
+            with CorrectionSessionServer(runtime, dist) as server:
+                root = server.url.rsplit("/", 1)[0]
+                state = _api(root, "state")
+                [choice] = list(state["choices"].values())
+                chosen = _api(root, "choose", {"finding_id": choice["finding_id"]})
+                result = _api(root, "confirm", {"token": chosen["token"], "response": "no"})
+                self.assertEqual(result["outcome"], "saved-and-calculated")
+                rows_by_lender = {row["statementLabel"]["lender"]: row for row in result["line21_rows"]}
+                self.assertEqual(set(rows_by_lender), {"Cedar Servicing", "Birch Servicing"})
+                cedar_item = _loan_cost_current(rows_by_lender["Cedar Servicing"])
+                birch_item = _loan_cost_current(rows_by_lender["Birch Servicing"])
+                self.assertEqual(cedar_item["findingId"], birch_item["findingId"])
+                self.assertEqual(cedar_item["response"], "no")
+                self.assertEqual(cedar_item["borrowingLabel"], birch_item["borrowingLabel"])
+                self.assertEqual(cedar_item["borrowingLabel"], "Autumn study loan")
+
+
+# ---------------------------------------------------------------------------
+# Track 2 item 5: duplicate labels (the committed "duplicate-labels" state).
+# ---------------------------------------------------------------------------
+
+
+class DuplicateLabelsCase(unittest.TestCase):
+    def test_distinguishable_pair_shows_different_clues_per_choice(self) -> None:
+        acts, outcome = _shared_named_state_run(STATE_DUPLICATE_LABELS)
+        surface = core_calculations_surface(REPO)
+        with TemporaryDirectory(prefix="sli-correction-dup-session-") as session_dir:
+            runtime = CorrectionRuntime(
+                WorkspaceCapability(Path(session_dir) / "L"), repo_root=REPO, surface=surface,
+                run_scope=RUN_SCOPE, scope_user=SCOPE_USER,
+                saved_presentation_path=outcome.presentation_path,
+                saved_run_id="demo.correction.test.duplicate-labels", seed_acts=acts,
+            )
+            state = runtime.state()
+            starlight = [c for c in state["choices"].values()
+                        if c["borrowing_label"] == "Starlight study loan"]
+            self.assertEqual(len(starlight), 2)
+            for choice in starlight:
+                self.assertTrue(choice["recognition_clues"])
+            clue_sets = {tuple(c["recognition_clues"]) for c in starlight}
+            self.assertEqual(len(clue_sets), 2)
+
+            # Choosing either one succeeds: each is distinguishable from
+            # the other by its own clues.
+            for choice in starlight:
+                chosen = runtime.choose(choice["finding_id"])
+                self.assertEqual(chosen["status"], "current")
+
+    def test_truly_identical_pair_is_refused_without_writing(self) -> None:
+        acts, outcome = _shared_named_state_run(STATE_DUPLICATE_LABELS)
+        schemas = DerivationSchemas()
+        registry = install_domain_scoped_supersession(schemas.registry)
+        finding_id, _borrowing_ref = _current_loan_cost_target(
+            acts, registry, borrowing_label="Twin study loan")
+        surface = core_calculations_surface(REPO)
+        with TemporaryDirectory(prefix="sli-correction-dup-twin-session-") as session_dir:
+            runtime = CorrectionRuntime(
+                WorkspaceCapability(Path(session_dir) / "L"), repo_root=REPO, surface=surface,
+                run_scope=RUN_SCOPE, scope_user=SCOPE_USER,
+                saved_presentation_path=outcome.presentation_path,
+                saved_run_id="demo.correction.test.duplicate-labels", seed_acts=acts,
+            )
+            before_revision = runtime._log.read().revision
+            self.assertNotIn(finding_id, {choice["finding_id"] for choice in runtime.state()["choices"].values()})
+            chosen = runtime.choose(finding_id)
+            self.assertEqual(chosen["status"], "indistinguishable")
+            self.assertEqual(
+                chosen["reason"],
+                "Two current borrowings would look the same. This choice cannot be reviewed on its own.")
+            _assert_redacted(self, chosen["reason"])
+            after_revision = runtime._log.read().revision
+            self.assertEqual(before_revision, after_revision)
+
+
+class DuplicateLabelsTransport(unittest.TestCase):
+    def test_identical_pair_route_refuses_and_writes_nothing(self) -> None:
+        acts, outcome = _shared_named_state_run(STATE_DUPLICATE_LABELS)
+        schemas = DerivationSchemas()
+        registry = install_domain_scoped_supersession(schemas.registry)
+        finding_id, _borrowing_ref = _current_loan_cost_target(
+            acts, registry, borrowing_label="Twin study loan")
+        surface = core_calculations_surface(REPO)
+        with TemporaryDirectory(prefix="sli-correction-dup-http-") as session_dir:
+            runtime = CorrectionRuntime(
+                WorkspaceCapability(Path(session_dir) / "L"), repo_root=REPO, surface=surface,
+                run_scope=RUN_SCOPE, scope_user=SCOPE_USER,
+                saved_presentation_path=outcome.presentation_path,
+                saved_run_id="demo.correction.test.duplicate-labels", seed_acts=acts,
+            )
+            before_revision = runtime._log.read().revision
+            dist = build_correction_surface(WorkspaceCapability(Path(session_dir) / "L"), repo_root=REPO)
+            with CorrectionSessionServer(runtime, dist) as server:
+                root = server.url.rsplit("/", 1)[0]
+                state = _api(root, "state")
+                starlight = [c for c in state["choices"].values()
+                             if c["borrowing_label"] == "Starlight study loan"]
+                self.assertEqual(len(starlight), 2)
+                self.assertEqual(len({tuple(c["recognition_clues"]) for c in starlight}), 2)
+                self.assertNotIn(finding_id, state["choices"])
+                chosen = _api(root, "choose", {"finding_id": finding_id})
+                self.assertEqual(chosen["status"], "indistinguishable")
+                self.assertEqual(
+                    chosen["reason"],
+                    "Two current borrowings would look the same. This choice cannot be reviewed on its own.")
+                _assert_redacted(self, chosen["reason"])
+            self.assertEqual(runtime._log.read().revision, before_revision)
+
+
+# ---------------------------------------------------------------------------
+# Track 2 item 6: no -> yes (the committed "blocked" state).
+# ---------------------------------------------------------------------------
+
+
+class BlockedNoToYesCase(unittest.TestCase):
+    def test_correcting_no_to_yes_unblocks_the_form(self) -> None:
+        acts, outcome = _shared_named_state_run(STATE_BLOCKED)
+        self.assertIsNone(outcome.refusal)
+        surface = core_calculations_surface(REPO)
+        with TemporaryDirectory(prefix="sli-correction-blocked-session-") as session_dir:
+            runtime = CorrectionRuntime(
+                WorkspaceCapability(Path(session_dir) / "L"), repo_root=REPO, surface=surface,
+                run_scope=RUN_SCOPE, scope_user=SCOPE_USER,
+                saved_presentation_path=outcome.presentation_path,
+                saved_run_id="demo.correction.test.blocked", seed_acts=acts,
+            )
+            state = runtime.state()
+            self.assertIsNone(state["line21_value"])
+            cedar = _cedar_choice(state["choices"])
+            chosen = runtime.choose(cedar["finding_id"])
+            self.assertEqual(chosen["confirmation"]["current_answer"], "no")
+
+            result = runtime.confirm(chosen["token"], "yes")
+            self.assertEqual(result["outcome"], "saved-and-calculated")
+            self.assertIsNotNone(result["line21_value"])
+            rows_by_lender = {r["statementLabel"]["lender"]: r for r in result["line21_rows"]}
+            self.assertEqual(rows_by_lender["Cedar Servicing"]["standing"], "none")
+            self.assertEqual(rows_by_lender["Birch Servicing"]["standing"], "none")
+
+
+class BlockedNoToYesTransport(unittest.TestCase):
+    def test_confirm_route_unblocks(self) -> None:
+        acts, outcome = _shared_named_state_run(STATE_BLOCKED)
+        surface = core_calculations_surface(REPO)
+        with TemporaryDirectory(prefix="sli-correction-blocked-http-") as session_dir:
+            runtime = CorrectionRuntime(
+                WorkspaceCapability(Path(session_dir) / "L"), repo_root=REPO, surface=surface,
+                run_scope=RUN_SCOPE, scope_user=SCOPE_USER,
+                saved_presentation_path=outcome.presentation_path,
+                saved_run_id="demo.correction.test.blocked", seed_acts=acts,
+            )
+            dist = build_correction_surface(WorkspaceCapability(Path(session_dir) / "L"), repo_root=REPO)
+            with CorrectionSessionServer(runtime, dist) as server:
+                root = server.url.rsplit("/", 1)[0]
+                state = _api(root, "state")
+                cedar = _cedar_choice(state["choices"])
+                chosen = _api(root, "choose", {"finding_id": cedar["finding_id"]})
+                result = _api(root, "confirm", {"token": chosen["token"], "response": "yes"})
+                self.assertEqual(result["outcome"], "saved-and-calculated")
+                self.assertIsNotNone(result["line21_value"])
+                rows_by_lender = {row["statementLabel"]["lender"]: row for row in result["line21_rows"]}
+                self.assertEqual(rows_by_lender["Cedar Servicing"]["standing"], "none")
+                current = _loan_cost_current(rows_by_lender["Cedar Servicing"])
+                self.assertEqual(current["response"], "yes")
+                self.assertEqual(current["borrowingLabel"], "Autumn study loan")
+
+
 class Correction4AttributionByIdentity(unittest.TestCase):
     """The saved model's ``said`` items deliberately omit which borrowing
     each answer belongs to (``presentation_projection._sli_collect_said``'s
@@ -1299,13 +2060,7 @@ class BrowserIntegration(unittest.TestCase):
             dist = build_correction_surface(
                 WorkspaceCapability(Path(session_dir) / "L"), repo_root=REPO)
             with CorrectionSessionServer(runtime, dist) as server:
-                result = subprocess.run(
-                    [_NODE, str(REPO / "tests" / "helpers" / "correction_browser_client.mjs"), server.url],
-                    stdin=subprocess.DEVNULL, stdout=subprocess.PIPE, stderr=subprocess.PIPE,
-                    text=True, timeout=90, check=False,
-                )
-            self.assertEqual(result.returncode, 0, result.stderr)
-            observed = json.loads(result.stdout)
+                observed = _drive_page(server.url, "confirmed")
             self.assertEqual(observed, {
                 "complete": True,
                 "beforeShowsRecordedAnswer": True,
@@ -1344,14 +2099,7 @@ class BrowserIntegration(unittest.TestCase):
             before_revision = runtime._log.read().revision
             dist = build_correction_surface(WorkspaceCapability(Path(session_dir) / "L"), repo_root=REPO)
             with CorrectionSessionServer(runtime, dist) as server:
-                result = subprocess.run(
-                    [_NODE, str(REPO / "tests" / "helpers" / "correction_browser_client.mjs"),
-                     server.url, "indistinguishable"],
-                    stdin=subprocess.DEVNULL, stdout=subprocess.PIPE, stderr=subprocess.PIPE,
-                    text=True, timeout=90, check=False,
-                )
-            self.assertEqual(result.returncode, 0, result.stderr)
-            observed = json.loads(result.stdout)
+                observed = _drive_page(server.url, "indistinguishable")
             self.assertEqual(observed, {
                 "complete": True,
                 "errorShown": True,
@@ -1376,23 +2124,21 @@ class BrowserIntegration(unittest.TestCase):
             )
             dist = build_correction_surface(WorkspaceCapability(Path(session_dir) / "L"), repo_root=REPO)
             with CorrectionSessionServer(runtime, dist) as server:
-                result = subprocess.run(
-                    [_NODE, str(REPO / "tests" / "helpers" / "correction_browser_client.mjs"),
-                     server.url, "stale-financing"],
-                    stdin=subprocess.DEVNULL, stdout=subprocess.PIPE, stderr=subprocess.PIPE,
-                    text=True, timeout=90, check=False,
-                )
-            self.assertEqual(result.returncode, 0, result.stderr)
-            observed = json.loads(result.stdout)
+                observed = _drive_page(server.url, "stale-financing")
             self.assertTrue(observed.get("outcomeShowsNotSaved"))
             self.assertIn("Not saved", observed.get("titleText", ""))
             self.assertIsNotNone(runtime.revision_after_mutation)
             self.assertEqual(runtime.revision_after_mutation, runtime._log.read().revision)
 
-    def test_unconfirmed_response_reloads_state_and_never_resubmits(self) -> None:
-        """R3 finding 4, path 4: an unconfirmed response. The server's
-        confirm response fails at the transport level; the page must say it
-        could not confirm, reload the state, and not resubmit."""
+    def test_dropped_confirm_recovers_the_calculated_outcome(self) -> None:
+        """A dropped confirm response still shows the saved correction.
+
+        The server saves and calculates, then drops the response. The page
+        recovers that token's outcome: current answer no, predecessor yes
+        as history, line 21 blocked. The earlier section stays the text it
+        had before confirmation, including 2300. A reload in the same tab
+        shows the same recovery. Exactly one correction act exists.
+        """
         assert _NODE is not None
         acts, saved_outcome = _shared_saved_run()
         surface = core_calculations_surface(REPO)
@@ -1407,31 +2153,638 @@ class BrowserIntegration(unittest.TestCase):
             with mock.patch.object(correction_session_mod._CorrectionRequestHandler, "do_POST",
                                    _do_post_dropping_first_confirm_response):
                 with CorrectionSessionServer(runtime, dist) as server:
-                    result = subprocess.run(
-                        [_NODE, str(REPO / "tests" / "helpers" / "correction_browser_client.mjs"),
-                         server.url, "unconfirmed"],
-                        stdin=subprocess.DEVNULL, stdout=subprocess.PIPE, stderr=subprocess.PIPE,
-                        text=True, timeout=90, check=False,
-                    )
-            self.assertEqual(result.returncode, 0, result.stderr)
-            observed = json.loads(result.stdout)
-            self.assertTrue(observed.get("titleMentionsCouldNotConfirm"))
-            self.assertTrue(observed.get("reloadedStateShown"))
+                    observed = _drive_page(server.url, "unconfirmed")
+            self.assertEqual(observed, {
+                "complete": True,
+                "outcomeShowsCurrentNo": True,
+                "outcomeShowsHistoryYes": True,
+                "outcomeShowsLine21Blocked": True,
+                "earlierUnchanged": True,
+                "reloadedShowsCurrentNo": True,
+                "reloadedShowsHistoryYes": True,
+                "reloadedShowsLine21Blocked": True,
+                "reloadedEarlierUnchanged": True,
+                "retryHidden": True,
+                "noLeakedCodePatterns": True,
+                "leakedCodePatterns": [],
+            })
+            self.assertEqual(len(_correction_evidence(runtime._log.read().acts)), 1)
 
-            # Exactly one correction act exists: the one the dropped
-            # request's server-side confirm() actually saved. The page
-            # never resubmitted, so there is no second one. (The seed
-            # fixture's own original borrowing answers share the same
-            # evidence kind, so a correction is told apart by carrying a
-            # non-null ``correction_of_finding_id``, not by its kind alone.)
-            acts_after = runtime._log.read().acts
-            correction_evidence = [
-                a for a in acts_after if a.get("kind") == "evidence-submitted"
-                and a.get("payload", {}).get("evidence", {}).get("kind") == BORROWING_ANSWER_EVIDENCE_KIND
-                and a.get("payload", {}).get("evidence", {}).get("content", {}).get(
-                    "correction_of_finding_id") is not None
-            ]
-            self.assertEqual(len(correction_evidence), 1)
+
+def _correction_evidence(acts: Sequence[Mapping[str, Any]]) -> list[Mapping[str, Any]]:
+    return [
+        act for act in acts
+        if act.get("kind") == "evidence-submitted"
+        and (act.get("payload") or {}).get("evidence", {}).get("content", {}).get(
+            "correction_of_finding_id") is not None
+    ]
+
+
+@unittest.skipUnless(_NODE and _BROWSER, "needs Node and a local Chrome/Chromium")
+class Track2Browser(unittest.TestCase):
+    """Visible text for the Track 2 cases. Deciding identity and log checks
+    stay in the runtime and transport tests; these check what a person sees
+    and that no internal code is rendered."""
+
+    def _page(self, runtime: CorrectionRuntime, session_dir: str, scenario: str) -> dict[str, Any]:
+        dist = build_correction_surface(WorkspaceCapability(Path(session_dir) / "L"), repo_root=REPO)
+        with CorrectionSessionServer(runtime, dist) as server:
+            return _drive_page(server.url, scenario)
+
+    def test_retry_page_recovers_the_one_saved_correction(self) -> None:
+        acts, saved_outcome = _shared_saved_run()
+        surface = core_calculations_surface(REPO)
+        with TemporaryDirectory(prefix="sli-correction-retry-page-") as session_dir:
+            runtime = _FailFirstRecalculationRuntime(
+                WorkspaceCapability(Path(session_dir) / "L"), repo_root=REPO, surface=surface,
+                run_scope=RUN_SCOPE, scope_user=SCOPE_USER,
+                saved_presentation_path=saved_outcome.presentation_path,
+                saved_run_id="demo.correction.test.shared", seed_acts=acts,
+            )
+            observed = self._page(runtime, session_dir, "retry")
+            revision = runtime._log.read().revision
+            saved_acts = runtime._log.read().acts
+            self.assertEqual(len(_correction_evidence(saved_acts)), 1)
+            self.assertEqual(len(runtime._completed), 1)
+            saved_token = next(iter(runtime._completed))
+            successor = runtime._completed[saved_token]["successor_finding_id"]
+            again = runtime.retry(saved_token)
+            self.assertEqual(again["outcome"], "saved-and-calculated")
+            self.assertEqual(again["successor_finding_id"], successor)
+            self.assertEqual(runtime._log.read().revision, revision)
+            self.assertEqual(runtime._log.read().acts, saved_acts)
+            self.assertEqual(runtime.first_refusal_reason, "ADOPTION_NONE_CURRENT")
+            _assert_refusal_text_absent(self, again)
+        self.assertEqual(observed, {
+            "complete": True,
+            "titleSaysCouldNotCalculate": True,
+            "afterShowsRecordedNo": True,
+            "afterShowsHistory": True,
+            "afterShowsReasonSentence": True,
+            "refusalTextAbsent": True,
+            "noLeakedCodePatterns": True,
+            "leakedCodePatterns": [],
+        })
+
+    def test_historical_page_shows_the_superseded_answer(self) -> None:
+        later_acts, saved_outcome, saved_root = _shared_historical_opening()
+        before = _saved_tree(saved_root)
+        surface = core_calculations_surface(REPO)
+        with TemporaryDirectory(prefix="sli-correction-historical-page-") as session_dir:
+            runtime = CorrectionRuntime(
+                WorkspaceCapability(Path(session_dir) / "L"), repo_root=REPO, surface=surface,
+                run_scope=RUN_SCOPE, scope_user=SCOPE_USER,
+                saved_presentation_path=saved_outcome.presentation_path,
+                saved_run_id="demo.correction.test.historical", seed_acts=later_acts,
+                is_historical=True,
+            )
+            revision = runtime._log.read().revision
+            observed = self._page(runtime, session_dir, "historical")
+            self.assertEqual(runtime._log.read().revision, revision)
+            self.assertEqual(len(_correction_evidence(runtime._log.read().acts)), 1)
+        self.assertEqual(_saved_tree(saved_root), before)
+        self.assertEqual(observed, {
+            "complete": True,
+            "bannerSaysEarlierNotCurrent": True,
+            "headingSaysNotCurrent": True,
+            "choiceSaysChanged": True,
+            "noteSaysChangedFromYesToNo": True,
+            "currentAnswerIsNo": True,
+            "noLeakedCodePatterns": True,
+            "leakedCodePatterns": [],
+        })
+
+    def test_withdrawn_page_shows_nothing_to_correct(self) -> None:
+        acts, saved_outcome = _shared_saved_run()
+        before = _saved_tree(saved_outcome.presentation_path.parent)
+        surface = core_calculations_surface(REPO)
+        with TemporaryDirectory(prefix="sli-correction-withdrawn-page-") as session_dir:
+            runtime = CorrectionRuntime(
+                WorkspaceCapability(Path(session_dir) / "L"), repo_root=REPO, surface=surface,
+                run_scope=RUN_SCOPE, scope_user=SCOPE_USER,
+                saved_presentation_path=saved_outcome.presentation_path,
+                saved_run_id="demo.correction.test.withdrawn", seed_acts=acts,
+                is_historical=True,
+            )
+            cedar = _cedar_choice(runtime.state()["choices"])
+            review_mod.withdraw_borrowing_answer_review(
+                runtime._log, runtime.registry, finding_id=cedar["finding_id"],
+                actor=SCOPE_USER, at="2026-10-09T00:42:00Z")
+            revision = runtime._log.read().revision
+            observed = self._page(runtime, session_dir, "withdrawn")
+            self.assertEqual(runtime._log.read().revision, revision)
+        self.assertEqual(_saved_tree(saved_outcome.presentation_path.parent), before)
+        self.assertEqual(observed, {
+            "complete": True,
+            "showsNothingToCorrect": True,
+            "namesWithdrawnBorrowing": True,
+            "noReviewButtonForWithdrawn": True,
+            "noLeakedCodePatterns": True,
+            "leakedCodePatterns": [],
+        })
+
+    def test_shared_page_lists_both_forms_and_both_rows_change(self) -> None:
+        acts, outcome = _shared_named_state_run(STATE_SHARED)
+        surface = core_calculations_surface(REPO)
+        with TemporaryDirectory(prefix="sli-correction-shared-page-") as session_dir:
+            runtime = CorrectionRuntime(
+                WorkspaceCapability(Path(session_dir) / "L"), repo_root=REPO, surface=surface,
+                run_scope=RUN_SCOPE, scope_user=SCOPE_USER,
+                saved_presentation_path=outcome.presentation_path,
+                saved_run_id="demo.correction.test.shared-state", seed_acts=acts,
+            )
+            observed = self._page(runtime, session_dir, "shared")
+            self.assertEqual(len(_correction_evidence(runtime._log.read().acts)), 1)
+        self.assertEqual(observed, {
+            "complete": True,
+            "oneChoiceListsBothForms": True,
+            "confirmationListsBothForms": True,
+            "bothRowsShowRecordedNo": True,
+            "bothRowsNameTheSameBorrowing": True,
+            "noLeakedCodePatterns": True,
+            "leakedCodePatterns": [],
+        })
+
+    def test_duplicate_label_page_shows_clues_before_choosing(self) -> None:
+        acts, outcome = _shared_named_state_run(STATE_DUPLICATE_LABELS)
+        surface = core_calculations_surface(REPO)
+        with TemporaryDirectory(prefix="sli-correction-dup-page-") as session_dir:
+            runtime = CorrectionRuntime(
+                WorkspaceCapability(Path(session_dir) / "L"), repo_root=REPO, surface=surface,
+                run_scope=RUN_SCOPE, scope_user=SCOPE_USER,
+                saved_presentation_path=outcome.presentation_path,
+                saved_run_id="demo.correction.test.duplicate-labels", seed_acts=acts,
+            )
+            revision = runtime._log.read().revision
+            observed = self._page(runtime, session_dir, "duplicate-labels")
+            self.assertEqual(runtime._log.read().revision, revision)
+        self.assertEqual(observed, {
+            "complete": True,
+            "twoStarlightChoices": True,
+            "cluesDiffer": True,
+            "twinNotOffered": True,
+            "noLeakedCodePatterns": True,
+            "leakedCodePatterns": [],
+        })
+
+    def test_blocked_page_yes_unblocks_and_shows_history(self) -> None:
+        acts, outcome = _shared_named_state_run(STATE_BLOCKED)
+        surface = core_calculations_surface(REPO)
+        with TemporaryDirectory(prefix="sli-correction-blocked-page-") as session_dir:
+            runtime = CorrectionRuntime(
+                WorkspaceCapability(Path(session_dir) / "L"), repo_root=REPO, surface=surface,
+                run_scope=RUN_SCOPE, scope_user=SCOPE_USER,
+                saved_presentation_path=outcome.presentation_path,
+                saved_run_id="demo.correction.test.blocked", seed_acts=acts,
+            )
+            observed = self._page(runtime, session_dir, "unblock")
+            self.assertEqual(len(_correction_evidence(runtime._log.read().acts)), 1)
+        self.assertEqual(observed, {
+            "complete": True,
+            "earlierResultBlocked": True,
+            "currentAnswerIsNo": True,
+            "afterShowsRecordedYes": True,
+            "afterShowsHistory": True,
+            "afterLine21Calculated": True,
+            "noLeakedCodePatterns": True,
+            "leakedCodePatterns": [],
+        })
+
+    def test_d1_page_shows_the_denied_borrowing_without_internal_codes(self) -> None:
+        acts, outcome = _shared_named_state_run(STATE_D1)
+        surface = core_calculations_surface(REPO)
+        with TemporaryDirectory(prefix="sli-correction-d1-page-") as session_dir:
+            runtime = CorrectionRuntime(
+                WorkspaceCapability(Path(session_dir) / "L"), repo_root=REPO, surface=surface,
+                run_scope=RUN_SCOPE, scope_user=SCOPE_USER,
+                saved_presentation_path=outcome.presentation_path,
+                saved_run_id="demo.correction.test.d1", seed_acts=acts,
+            )
+            revision = runtime._log.read().revision
+            observed = self._page(runtime, session_dir, "d1-visible")
+            self.assertEqual(runtime._log.read().revision, revision)
+        self.assertEqual(observed, {
+            "complete": True,
+            "showsAutumn": True,
+            "showsSpringDenied": True,
+            "showsRecordedNotUsed": True,
+            "noLeakedCodePatterns": True,
+            "leakedCodePatterns": [],
+        })
+
+
+# ---------------------------------------------------------------------------
+# Recovery repair: an outcome is recovered only by the token of the
+# correction it belongs to. ``state()`` keeps serving the original saved
+# presentation. These checks name identities, log revisions, and correction
+# acts; the earlier presentation's bytes stay identical throughout.
+# ---------------------------------------------------------------------------
+
+_NO_CONFIRMATION = "no confirmation was received"
+_UNKNOWN_OUTCOME = "The outcome cannot be determined in this session."
+_RETRY_SUPERSEDED = (
+    "This correction is no longer the current answer. Nothing was recalculated."
+)
+
+
+def _withdraw_financing(runtime: CorrectionRuntime, borrowing_ref: str, period: str) -> None:
+    financing_fact_id = fact_id_for(T4.FIN, (
+        ("borrowing", borrowing_ref),
+        ("period", period),
+        ("institution", "demo.track5.institution.river"),
+        ("programme", "demo.track5.programme.bsc"),
+    ))
+    financing_finding_id = str(track17._current_source_finding(
+        runtime._log.read().acts, runtime.registry, financing_fact_id)["id"])
+    review_mod.withdraw_review_claim(
+        runtime._log, runtime.registry, finding_id=financing_finding_id,
+        actor=SCOPE_USER, at="2026-10-09T00:51:00Z")
+
+
+def _choice_by_statement(choices: Mapping[str, dict[str, Any]], prefix: str) -> dict[str, Any]:
+    [choice] = [c for c in choices.values()
+                if any(str(f.get("statement", "")).startswith(prefix) for f in c["forms"])]
+    return choice
+
+
+class RecoveryRuntime(unittest.TestCase):
+    """``CorrectionRuntime.outcome`` and token-bound ``retry``."""
+
+    def _open(self, kind: type[CorrectionRuntime] = CorrectionRuntime,
+              ) -> tuple[CorrectionRuntime, bytes, Path]:
+        acts, saved_outcome = _shared_saved_run()
+        before = saved_outcome.presentation_path.read_bytes()
+        session_dir = TemporaryDirectory(prefix="sli-correction-recovery-")
+        self.addCleanup(session_dir.cleanup)
+        runtime = kind(
+            WorkspaceCapability(Path(session_dir.name) / "L"), repo_root=REPO,
+            surface=core_calculations_surface(REPO), run_scope=RUN_SCOPE, scope_user=SCOPE_USER,
+            saved_presentation_path=saved_outcome.presentation_path,
+            saved_run_id="demo.correction.test.shared", seed_acts=acts,
+        )
+        return runtime, before, saved_outcome.presentation_path
+
+    def _assert_earlier(self, runtime: CorrectionRuntime, before: bytes, path: Path) -> None:
+        self.assertEqual(runtime.state()["line21_value"], 2300)
+        self.assertEqual(path.read_bytes(), before)
+
+    def test_calculated_outcome_is_recovered_by_its_own_token(self) -> None:
+        runtime, before, path = self._open()
+        cedar = _cedar_choice(runtime.state()["choices"])
+        birch = _choice_by_statement(runtime.state()["choices"], "2025 Form 1098-E from Birch")
+        chosen = runtime.choose(cedar["finding_id"])
+        token = chosen["token"]
+        result = runtime.confirm(token, "no")
+        self.assertEqual(result["outcome"], "saved-and-calculated")
+        self.assertIsNone(result["line21_value"])
+        self.assertNotIn("recovered", result)
+        # The defect: state() still serves the original 2300. The completed
+        # outcome has to be recoverable by this token, not from state().
+        self._assert_earlier(runtime, before, path)
+
+        recovered = runtime.outcome(token)
+        self.assertEqual(recovered["outcome"], "saved-and-calculated")
+        self.assertTrue(recovered["recovered"])
+        self.assertEqual(recovered["predecessor_finding_id"], result["predecessor_finding_id"])
+        self.assertEqual(recovered["successor_finding_id"], result["successor_finding_id"])
+        self.assertEqual(recovered["line21_rows"], result["line21_rows"])
+        self.assertIsNone(recovered["line21_value"])
+        self.assertNotIn("already_used", recovered)
+
+        # A second token in the same session -- a pre-save refusal -- must
+        # not come back as the calculated outcome.
+        birch_chosen = runtime.choose(birch["finding_id"])
+        birch_token = birch_chosen["token"]
+        _withdraw_financing(runtime, birch["borrowing_ref"], "demo.track5.period.spring25")
+        refused = runtime.confirm(birch_token, "no")
+        self.assertEqual(refused["outcome"], "not-saved")
+        other = runtime.outcome(birch_token)
+        self.assertEqual(other["outcome"], "not-saved")
+        self.assertEqual(other["reason"], refused["reason"])
+        self.assertTrue(other["recovered"])
+        self.assertNotIn("line21_rows", other)
+        self.assertNotEqual(other.get("successor_finding_id"), result["successor_finding_id"])
+        again = runtime.outcome(token)
+        self.assertEqual(again["successor_finding_id"], result["successor_finding_id"])
+        self.assertEqual(again["outcome"], "saved-and-calculated")
+        self.assertEqual(len(_correction_evidence(runtime._log.read().acts)), 1)
+        self._assert_earlier(runtime, before, path)
+
+    def test_saved_not_calculated_outcome_is_recovered(self) -> None:
+        runtime, before, path = self._open(_FailFirstRecalculationRuntime)
+        cedar = _cedar_choice(runtime.state()["choices"])
+        chosen = runtime.choose(cedar["finding_id"])
+        token = chosen["token"]
+        result = runtime.confirm(token, "no")
+        self.assertEqual(result["outcome"], "saved-not-calculated")
+        self.assertEqual(cast(_FailFirstRecalculationRuntime, runtime).first_refusal_reason,
+                         "ADOPTION_NONE_CURRENT")
+        _assert_refusal_text_absent(self, result)
+        recovered = runtime.outcome(token)
+        self.assertEqual(recovered["outcome"], "saved-not-calculated")
+        self.assertTrue(recovered["recovered"])
+        self.assertEqual(recovered["predecessor_finding_id"], result["predecessor_finding_id"])
+        self.assertEqual(recovered["successor_finding_id"], result["successor_finding_id"])
+        self.assertNotIn("line21_rows", recovered)
+        self.assertNotIn("line21_value", recovered)
+        self.assertEqual(len(_correction_evidence(runtime._log.read().acts)), 1)
+        self._assert_earlier(runtime, before, path)
+
+    def test_pre_save_not_saved_is_recovered(self) -> None:
+        runtime, before, path = self._open()
+        cedar = _cedar_choice(runtime.state()["choices"])
+        chosen = runtime.choose(cedar["finding_id"])
+        token = chosen["token"]
+        _withdraw_financing(runtime, cedar["borrowing_ref"], "demo.track5.period.autumn24")
+        result = runtime.confirm(token, "no")
+        self.assertEqual(result["outcome"], "not-saved")
+        self.assertNotIn("recovered", result)
+        revision = runtime._log.read().revision
+        recovered = runtime.outcome(token)
+        self.assertEqual(recovered["outcome"], "not-saved")
+        self.assertEqual(recovered["reason"], result["reason"])
+        self.assertTrue(recovered["recovered"])
+        _assert_redacted(self, recovered["reason"])
+        again = runtime.confirm(token, "no")
+        self.assertEqual(again["outcome"], "not-saved")
+        self.assertTrue(again.get("already_used"))
+        self.assertEqual(runtime._log.read().revision, revision)
+        self.assertEqual(len(_correction_evidence(runtime._log.read().acts)), 0)
+        self._assert_earlier(runtime, before, path)
+
+    def test_unconfirmed_token_is_not_saved_and_later_confirm_is_refused(self) -> None:
+        runtime, before, path = self._open()
+        cedar = _cedar_choice(runtime.state()["choices"])
+        chosen = runtime.choose(cedar["finding_id"])
+        token = chosen["token"]
+        revision = runtime._log.read().revision
+        recovered = runtime.outcome(token)
+        self.assertEqual(recovered["outcome"], "not-saved")
+        self.assertEqual(recovered["reason"], _NO_CONFIRMATION)
+        self.assertTrue(recovered["recovered"])
+        _assert_redacted(self, recovered["reason"])
+        with self.assertRaises(correction_session_mod.CorrectionSessionError):
+            runtime.confirm(token, "no")
+        self.assertEqual(runtime._log.read().revision, revision)
+        self.assertEqual(len(_correction_evidence(runtime._log.read().acts)), 0)
+        # The determination sticks: a second read is still "not saved",
+        # not "unknown", and it still does not save.
+        again = runtime.outcome(token)
+        self.assertEqual(again["outcome"], "not-saved")
+        self.assertEqual(again["reason"], _NO_CONFIRMATION)
+        self.assertEqual(runtime._log.read().revision, revision)
+        self._assert_earlier(runtime, before, path)
+
+    def test_unknown_cancelled_and_foreign_tokens(self) -> None:
+        runtime, before, path = self._open()
+        cedar = _cedar_choice(runtime.state()["choices"])
+        chosen = runtime.choose(cedar["finding_id"])
+        token = chosen["token"]
+        runtime.cancel(token)
+        revision = runtime._log.read().revision
+        for probed in (token, "foreign-token"):
+            with self.subTest(token=probed):
+                recovered = runtime.outcome(probed)
+                self.assertEqual(recovered, {"outcome": "unknown", "reason": _UNKNOWN_OUTCOME})
+                _assert_redacted(self, recovered["reason"])
+        self.assertEqual(runtime._log.read().revision, revision)
+        self.assertEqual(len(_correction_evidence(runtime._log.read().acts)), 0)
+        self._assert_earlier(runtime, before, path)
+
+    def test_retry_is_token_bound_and_a_superseded_correction_is_refused(self) -> None:
+        runtime, before, path = self._open(_FailFirstRecalculationRuntime)
+        cedar = _cedar_choice(runtime.state()["choices"])
+        first_chosen = runtime.choose(cedar["finding_id"])
+        first_token = first_chosen["token"]
+        first = runtime.confirm(first_token, "no")
+        self.assertEqual(first["outcome"], "saved-not-calculated")
+
+        second_chosen = runtime.choose(cedar["finding_id"])
+        self.assertEqual(second_chosen["status"], "superseded")
+        second_token = second_chosen["token"]
+        second = runtime.confirm(second_token, "yes")
+        self.assertEqual(second["outcome"], "saved-not-calculated")
+        self.assertNotEqual(first["successor_finding_id"], second["successor_finding_id"])
+
+        revision = runtime._log.read().revision
+        acts_after = runtime._log.read().acts
+        with mock.patch.object(correction_session_mod, "live_coordinate_run") as run:
+            refused = runtime.retry(first_token)
+        self.assertFalse(run.called)
+        self.assertEqual(refused["outcome"], "refused")
+        self.assertEqual(refused["reason"], _RETRY_SUPERSEDED)
+        _assert_redacted(self, refused["reason"])
+        self.assertEqual(runtime._log.read().revision, revision)
+        self.assertEqual(runtime._log.read().acts, acts_after)
+        self.assertEqual(len(_correction_evidence(acts_after)), 2)
+
+        # The earlier token's recorded outcome is unchanged by the refusal.
+        still = runtime.outcome(first_token)
+        self.assertEqual(still["outcome"], "saved-not-calculated")
+        self.assertEqual(still["successor_finding_id"], first["successor_finding_id"])
+
+        # Retry of the token that is still current recalculates only that
+        # correction and updates the outcome recorded for it.
+        retried = runtime.retry(second_token)
+        self.assertEqual(retried["outcome"], "saved-and-calculated")
+        self.assertEqual(retried["successor_finding_id"], second["successor_finding_id"])
+        self.assertNotEqual(retried["successor_finding_id"], first["successor_finding_id"])
+        self.assertEqual(runtime._log.read().revision, revision)
+        self.assertEqual(runtime._log.read().acts, acts_after)
+        updated = runtime.outcome(second_token)
+        self.assertEqual(updated["outcome"], "saved-and-calculated")
+        self.assertEqual(updated["successor_finding_id"], second["successor_finding_id"])
+        self.assertEqual(updated["line21_rows"], retried["line21_rows"])
+        self.assertTrue(updated["recovered"])
+        self._assert_earlier(runtime, before, path)
+
+
+class RecoveryTransport(unittest.TestCase):
+    """The same outcomes through HTTP. Refusals stay redacted."""
+
+    def test_outcome_routes(self) -> None:
+        acts, saved_outcome = _shared_saved_run()
+        before = saved_outcome.presentation_path.read_bytes()
+        surface = core_calculations_surface(REPO)
+        with TemporaryDirectory(prefix="sli-correction-recovery-http-") as session_dir:
+            runtime = CorrectionRuntime(
+                WorkspaceCapability(Path(session_dir) / "L"), repo_root=REPO, surface=surface,
+                run_scope=RUN_SCOPE, scope_user=SCOPE_USER,
+                saved_presentation_path=saved_outcome.presentation_path,
+                saved_run_id="demo.correction.test.shared", seed_acts=acts,
+            )
+            dist = build_correction_surface(WorkspaceCapability(Path(session_dir) / "L"), repo_root=REPO)
+            with CorrectionSessionServer(runtime, dist) as server:
+                root = server.url.rsplit("/", 1)[0]
+                state = _api(root, "state")
+                self.assertEqual(state["line21_value"], 2300)
+                cedar = _cedar_choice(state["choices"])
+                birch = _choice_by_statement(state["choices"], "2025 Form 1098-E from Birch")
+
+                chosen = _api(root, "choose", {"finding_id": cedar["finding_id"]})
+                token = chosen["token"]
+                result = _api(root, "confirm", {"token": token, "response": "no"})
+                self.assertEqual(result["outcome"], "saved-and-calculated")
+                self.assertIsNone(result["line21_value"])
+                recovered = _api(root, "outcome", {"token": token})
+                self.assertEqual(recovered["outcome"], "saved-and-calculated")
+                self.assertTrue(recovered["recovered"])
+                self.assertEqual(recovered["predecessor_finding_id"], result["predecessor_finding_id"])
+                self.assertEqual(recovered["successor_finding_id"], result["successor_finding_id"])
+                self.assertEqual(recovered["line21_rows"], result["line21_rows"])
+                self.assertIsNone(recovered["line21_value"])
+                self.assertNotIn(token, json.dumps(recovered))
+
+                birch_chosen = _api(root, "choose", {"finding_id": birch["finding_id"]})
+                birch_token = birch_chosen["token"]
+                _withdraw_financing(runtime, birch["borrowing_ref"], "demo.track5.period.spring25")
+                refused = _api(root, "confirm", {"token": birch_token, "response": "no"})
+                self.assertEqual(refused["outcome"], "not-saved")
+                other = _api(root, "outcome", {"token": birch_token})
+                self.assertEqual(other["outcome"], "not-saved")
+                self.assertEqual(other["reason"], refused["reason"])
+                self.assertTrue(other["recovered"])
+                self.assertNotEqual(other.get("successor_finding_id"), result["successor_finding_id"])
+                still = _api(root, "outcome", {"token": token})
+                self.assertEqual(still["successor_finding_id"], result["successor_finding_id"])
+
+                pending = _api(root, "choose", {"finding_id": cedar["finding_id"]})
+                pending_token = pending["token"]
+                unconfirmed = _api(root, "outcome", {"token": pending_token})
+                self.assertEqual(unconfirmed["outcome"], "not-saved")
+                self.assertEqual(unconfirmed["reason"], _NO_CONFIRMATION)
+                with self.assertRaises(urllib.error.HTTPError) as caught:
+                    _api(root, "confirm", {"token": pending_token, "response": "yes"})
+                self.assertEqual(caught.exception.code, 422)
+                echoed = json.loads(caught.exception.read())
+                self.assertNotIn(pending_token, json.dumps(echoed))
+
+                unknown = _api(root, "outcome", {"token": "foreign-token"})
+                self.assertEqual(unknown, {"outcome": "unknown", "reason": _UNKNOWN_OUTCOME})
+                self.assertNotIn("foreign-token", json.dumps(unknown))
+
+            self.assertEqual(len(_correction_evidence(runtime._log.read().acts)), 1)
+            self.assertEqual(runtime.state()["line21_value"], 2300)
+            self.assertEqual(saved_outcome.presentation_path.read_bytes(), before)
+
+    def test_retry_route_refuses_a_superseded_correction(self) -> None:
+        acts, saved_outcome = _shared_saved_run()
+        before = saved_outcome.presentation_path.read_bytes()
+        surface = core_calculations_surface(REPO)
+        with TemporaryDirectory(prefix="sli-correction-recovery-retry-http-") as session_dir:
+            runtime = _FailFirstRecalculationRuntime(
+                WorkspaceCapability(Path(session_dir) / "L"), repo_root=REPO, surface=surface,
+                run_scope=RUN_SCOPE, scope_user=SCOPE_USER,
+                saved_presentation_path=saved_outcome.presentation_path,
+                saved_run_id="demo.correction.test.shared", seed_acts=acts,
+            )
+            dist = build_correction_surface(WorkspaceCapability(Path(session_dir) / "L"), repo_root=REPO)
+            with CorrectionSessionServer(runtime, dist) as server:
+                root = server.url.rsplit("/", 1)[0]
+                cedar = _cedar_choice(_api(root, "state")["choices"])
+                first_token = _api(root, "choose", {"finding_id": cedar["finding_id"]})["token"]
+                first = _api(root, "confirm", {"token": first_token, "response": "no"})
+                self.assertEqual(first["outcome"], "saved-not-calculated")
+                second_chosen = _api(root, "choose", {"finding_id": cedar["finding_id"]})
+                second_token = second_chosen["token"]
+                second = _api(root, "confirm", {"token": second_token, "response": "yes"})
+                self.assertEqual(second["outcome"], "saved-not-calculated")
+                revision = runtime._log.read().revision
+                acts_after = runtime._log.read().acts
+                refused = _api(root, "retry", {"token": first_token})
+                self.assertEqual(refused["outcome"], "refused")
+                self.assertEqual(refused["reason"], _RETRY_SUPERSEDED)
+                _assert_redacted(self, refused["reason"])
+                self.assertNotIn(first_token, json.dumps(refused))
+                self.assertEqual(runtime._log.read().revision, revision)
+                self.assertEqual(runtime._log.read().acts, acts_after)
+                recorded = _api(root, "outcome", {"token": first_token})
+                self.assertEqual(recorded["successor_finding_id"], first["successor_finding_id"])
+                self.assertEqual(recorded["outcome"], "saved-not-calculated")
+            self.assertEqual(saved_outcome.presentation_path.read_bytes(), before)
+
+
+@unittest.skipUnless(_NODE and _BROWSER, "needs Node and a local Chrome/Chromium")
+class RecoveryPage(unittest.TestCase):
+    """Visible recovery. Identities and act counts stay in the runtime tests."""
+
+    def test_dropped_saved_not_calculated_can_be_calculated_again(self) -> None:
+        assert _NODE is not None
+        acts, saved_outcome = _shared_saved_run()
+        surface = core_calculations_surface(REPO)
+        with TemporaryDirectory(prefix="sli-correction-recovery-page-retry-") as session_dir:
+            runtime = _FailFirstRecalculationRuntime(
+                WorkspaceCapability(Path(session_dir) / "L"), repo_root=REPO, surface=surface,
+                run_scope=RUN_SCOPE, scope_user=SCOPE_USER,
+                saved_presentation_path=saved_outcome.presentation_path,
+                saved_run_id="demo.correction.test.shared", seed_acts=acts,
+            )
+            dist = build_correction_surface(WorkspaceCapability(Path(session_dir) / "L"), repo_root=REPO)
+            with mock.patch.object(correction_session_mod._CorrectionRequestHandler, "do_POST",
+                                   _do_post_dropping_first_confirm_response):
+                with CorrectionSessionServer(runtime, dist) as server:
+                    observed = _drive_page(server.url, "dropped-not-calculated")
+            self.assertEqual(len(_correction_evidence(runtime._log.read().acts)), 1)
+            self.assertEqual(runtime.first_refusal_reason, "ADOPTION_NONE_CURRENT")
+        self.assertEqual(observed, {
+            "complete": True,
+            "calculateAgainVisible": True,
+            "titleSaysCouldNotCalculate": True,
+            "afterShowsCurrentNo": True,
+            "afterShowsHistory": True,
+            "afterShowsLine21": True,
+            "noLeakedCodePatterns": True,
+            "leakedCodePatterns": [],
+        })
+
+    def test_unknown_stored_token_states_the_outcome_is_unknown(self) -> None:
+        acts, saved_outcome = _shared_saved_run()
+        surface = core_calculations_surface(REPO)
+        with TemporaryDirectory(prefix="sli-correction-recovery-page-unknown-") as session_dir:
+            runtime = CorrectionRuntime(
+                WorkspaceCapability(Path(session_dir) / "L"), repo_root=REPO, surface=surface,
+                run_scope=RUN_SCOPE, scope_user=SCOPE_USER,
+                saved_presentation_path=saved_outcome.presentation_path,
+                saved_run_id="demo.correction.test.shared", seed_acts=acts,
+            )
+            revision = runtime._log.read().revision
+            dist = build_correction_surface(WorkspaceCapability(Path(session_dir) / "L"), repo_root=REPO)
+            with CorrectionSessionServer(runtime, dist) as server:
+                observed = _drive_page(server.url, "unknown-token")
+            self.assertEqual(runtime._log.read().revision, revision)
+            self.assertEqual(len(_correction_evidence(runtime._log.read().acts)), 0)
+        self.assertEqual(observed, {
+            "complete": True,
+            "statesUnknown": True,
+            "retryHidden": True,
+            "checkAgainHidden": True,
+        })
+
+    def test_refresh_after_a_calculated_outcome_shows_it_again(self) -> None:
+        acts, saved_outcome = _shared_saved_run()
+        surface = core_calculations_surface(REPO)
+        with TemporaryDirectory(prefix="sli-correction-recovery-page-refresh-") as session_dir:
+            runtime = CorrectionRuntime(
+                WorkspaceCapability(Path(session_dir) / "L"), repo_root=REPO, surface=surface,
+                run_scope=RUN_SCOPE, scope_user=SCOPE_USER,
+                saved_presentation_path=saved_outcome.presentation_path,
+                saved_run_id="demo.correction.test.shared", seed_acts=acts,
+            )
+            dist = build_correction_surface(WorkspaceCapability(Path(session_dir) / "L"), repo_root=REPO)
+            with CorrectionSessionServer(runtime, dist) as server:
+                observed = _drive_page(server.url, "refresh-calculated")
+            self.assertEqual(len(_correction_evidence(runtime._log.read().acts)), 1)
+        self.assertEqual(observed, {
+            "complete": True,
+            "showedCalculatedBeforeReload": True,
+            "showedCalculatedAfterReload": True,
+            "afterShowsCurrentNo": True,
+            "afterShowsHistoryYes": True,
+            "earlierUnchanged": True,
+            "outcomeTextStable": True,
+            "noLeakedCodePatterns": True,
+            "leakedCodePatterns": [],
+        })
 
 
 if __name__ == "__main__":

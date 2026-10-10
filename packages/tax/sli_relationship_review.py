@@ -736,6 +736,15 @@ def _recognition_clue_labels(clues: Mapping[str, Any]) -> list[str]:
     return labels
 
 
+def recognition_clue_labels(contents: LogContents, registry: Any, borrowing_ref: str) -> list[str]:
+    """One borrowing's clue strings, in the same plain words the
+    borrowing-answer confirmation card already shows (plan,
+    "account-review-correction" Track 2, case 5: duplicate labels). Read-only
+    -- safe to call for every current choice before any review is prepared,
+    so a repeated label can show its clues on the choice itself."""
+    return _recognition_clue_labels(borrowing_recognition_clues(contents, registry, borrowing_ref))
+
+
 def _require_card_distinguishable_in_workspace(state: Any, contents: LogContents, registry: Any,
                                                 card: Mapping[str, Any]) -> None:
     """Refuse a borrowing-answer card confusable with any other *current*
