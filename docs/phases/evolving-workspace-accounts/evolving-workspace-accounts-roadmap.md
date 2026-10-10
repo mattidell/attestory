@@ -2,8 +2,10 @@
 
 ## Current direction
 
-The first milestone is closed (2026-10-08). The next is unselected. Later
-milestones are not commitments.
+The first milestone merged in PR #205. The next milestone is planned:
+[Reviewing and Correcting the Account Behind a Result](milestones/account-review-correction.md).
+It deliberately takes up one bounded interaction, not another tax vertical.
+Later milestones are not commitments.
 Experience and owner and agent feedback should change the sequence when they
 reveal a more useful question.
 
@@ -22,14 +24,27 @@ methods on different statements without erasing answers to satisfy the engine.
 Investigate coexistence on the same statement before selecting a precedence
 or supersession rule. Build only after that distinction is understood.
 
-## Reassess after the first milestone
+## 2. Reviewing and Correcting the Account Behind a Result — planned
 
-Two possible next questions, neither selected:
+Start from a saved student-loan deduction explanation. Let a person identify
+and correct one existing loan-cost answer, save through the established
+recording boundary, and inspect the recalculated result. Preserve unrelated
+answers and the prior saved result. Investigate the actual surface connection
+before selecting a build; do not develop a general intake system.
+
+The plan includes early independent review of the concrete walkthrough,
+the implementation boundary, and the integrated interaction. At closeout,
+reassess phase completion rather than automatically choosing another case.
+
+## Remaining phase questions
+
+The first milestone supported a bounded phase exit. The owner has requested
+another milestone; the second question below now has the narrow scope above.
 
 - How should an assumption stop being relied on when information bears on it,
   and how should the application explain what replaced it?
-- How should the person review and correct the application's interpretation
-  without needing to understand competing input methods?
+- How should the person review and correct an existing answer from its
+  result without needing to understand competing input methods?
 
 Do not convert these questions into automatic follow-on tracks. A bounded
 result may justify concluding the phase, pursuing a different capability, or
