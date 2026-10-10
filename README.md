@@ -75,6 +75,34 @@ and a hooked seeded-marker refusal, then honestly reports that a raw
 confinement as `unestablished`; it neither contacts a network remote nor
 inspects credential material.
 
+## Correction session walkthrough
+
+The synthetic student-loan interest correction session opens one saved result and lets you review one borrowing's loan-cost answer. Wording is provisional. Each command seeds one named state, prints what that state is, and serves the page on loopback. Stop with Ctrl-C. Run the same command again for a clean start.
+
+```sh
+python3 -m packages.derivation.runners.sli_correction_evaluation --state STATE
+```
+
+`--help` lists the state names.
+
+- **base** — `python3 -m packages.derivation.runners.sli_correction_evaluation --state base`
+  Two forms, each with its own borrowing, both answered yes: Cedar carries "Autumn study loan" and Birch carries "Spring study loan". Review Autumn on Cedar and change yes to no. Cedar's new result should show that no, with the earlier yes as history, and say why the form is blocked. Birch stays as it was. The earlier result on the page stays unchanged.
+
+- **d1** — `python3 -m packages.derivation.runners.sli_correction_evaluation --state d1`
+  Cedar carries Autumn (affirmed, with financing and a yes loan-cost answer) and Spring, whose inclusion on Cedar is denied. Birch is the older method only, with no borrowing of its own. Under "What the person said", Spring's denial appears attributed to Spring study loan. The "recorded, not used" lines describe the enrollment answer and the loan-cost answer as answers "on a borrowing this form denied". Both Autumn ("included") and Spring ("not included") are offered as loan-cost choices.
+
+- **shared** — `python3 -m packages.derivation.runners.sli_correction_evaluation --state shared`
+  One borrowing, "Autumn study loan", is included on both Cedar and Birch. The single choice should name both forms before you confirm. Change the answer to no. Both forms' rows should change, and each should attribute that answer to the same borrowing.
+
+- **duplicate-labels** — `python3 -m packages.derivation.runners.sli_correction_evaluation --state duplicate-labels`
+  Two borrowings are both labelled "Starlight study loan", one on Cedar and one on Birch. Each choice shows its own clues (which form it is included on) before you click, so you can tell them apart. Pick one and confirm you opened the form you meant. A further pair labelled "Twin study loan" is truly identical and is not offered; choosing it directly is refused, and nothing is written.
+
+- **blocked** — `python3 -m packages.derivation.runners.sli_correction_evaluation --state blocked`
+  Cedar's "Autumn study loan" starts as no, so Cedar starts blocked. Birch's "Spring study loan" stays a plain case. Review Autumn, change no to yes, and confirm. Cedar should unblock, show the new yes, and keep the earlier no as history. Birch stays as it was.
+
+- **historical** — `python3 -m packages.derivation.runners.sli_correction_evaluation --state historical`
+  This builds on base, applies one correction (Cedar's loan-cost answer, yes to no) before the page opens, then opens the earlier result. The page should say that result is earlier and not current. Cedar's choice should say the answer has since changed. The confirmation should name the earlier yes and the current no, and say the review is of the current answer. Confirming changes that current answer; it does not write against the old finding, and the earlier result's files stay as they were. A withdrawn answer is not a runner state; the tests cover it, and there the page says there is nothing to correct and offers no save.
+
 ## Data safety
 
 Nothing personal is committed: no real tax documents, no personal fact instances, no artifacts derived from personal data. Committed fixtures are synthetic and publishable. Personal work stays under ignored paths (`local-data/`, `temp/`, `private-archive/`, `uploads/`, `generated/user/`). See Article 18 (Quarantine) and the data safety rules in `AGENTS.md`.

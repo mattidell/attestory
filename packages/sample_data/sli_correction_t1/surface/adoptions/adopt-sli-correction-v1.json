@@ -1,0 +1,28 @@
+{
+  "act_id": "demo.act.adopt.surface.sli-correction.v1",
+  "actor": "demo.user.filer",
+  "at": "2026-10-08T00:00:00Z",
+  "committed_against": 1,
+  "kind": "surface-adoption",
+  "payload": {
+    "audit": {
+      "note": "synthetic SLI correction-session surface; non-authoritative"
+    },
+    "package": {
+      "checksum": "9aeaaf5cb35c978a61bb681a0ced63410c570089d0c19c348b27cadf668acd55",
+      "id": "demo.surface.sli-correction",
+      "version": "v1"
+    },
+    "release": {
+      "checksum": "97dfcd34281e12cd03a1526c260da8b0fa4cd34af0570be04e366189f76a0c2b",
+      "id": "demo.surface-release.sli-correction.2025",
+      "version": "v1"
+    },
+    "revision": 1,
+    "scope": {
+      "jurisdiction": "us",
+      "year": "2025"
+    }
+  },
+  "schema": "act.v1"
+}

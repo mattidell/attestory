@@ -1,0 +1,618 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Correct a loan-cost answer</title>
+<style>
+  body { font-family: system-ui, sans-serif; max-width: 42rem; margin: 2rem auto; padding: 0 1rem; color: #1a1a1a; }
+  h1 { font-size: 1.3rem; }
+  section { margin-bottom: 1.5rem; padding: 1rem; border: 1px solid #ccc; border-radius: 0.5rem; }
+  .row { margin-bottom: 0.5rem; }
+  .label { font-weight: 600; }
+  button { font-size: 1rem; padding: 0.4rem 0.9rem; margin-right: 0.5rem; cursor: pointer; }
+  .error { color: #8a1f11; }
+  .note { color: #555; font-size: 0.9rem; }
+  ul { margin: 0.25rem 0 0.25rem 1.25rem; }
+  .outcome.saved-and-calculated { border-color: #2e7d32; }
+  .outcome.not-saved, .outcome.saved-not-calculated, .outcome.refused { border-color: #8a1f11; }
+  .outcome.unknown, .outcome.checking { border-color: #8a6d11; }
+  .explanation-row { border: 1px solid #999; border-radius: 0.4rem; padding: 0.6rem 0.75rem; margin-bottom: 0.6rem; }
+  .explanation-row h3 { margin: 0 0 0.3rem; font-size: 1rem; }
+  .explanation-group { margin-top: 0.4rem; }
+  .explanation-group h4 { margin: 0 0 0.15rem; font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.02em; color: #444; }
+  .line21-value { font-weight: 600; }
+</style>
+</head>
+<body>
+<h1>Correct a loan-cost answer</h1>
+<p class="note">This reviews one saved result. Canceling changes nothing. Confirming saves the
+correction and recalculates; the earlier saved result is never changed.</p>
+
+<p class="error" id="historical-banner" hidden>This is an earlier result. It is not the current
+one. Reviewing an answer below may show that it has since changed.</p>
+
+<section id="saved">
+  <h2 id="saved-heading">Earlier result (line 21) &mdash; unchanged</h2>
+  <div id="saved-rows"></div>
+</section>
+
+<section id="choices">
+  <h2>Review this answer</h2>
+  <div id="choice-list"></div>
+</section>
+
+<section id="confirmation" hidden>
+  <h2>Confirm this correction</h2>
+  <p class="note" id="conf-superseded-note" hidden></p>
+  <div class="row"><span class="label">Borrowing:</span> <span id="conf-label"></span></div>
+  <div class="row"><span class="label">Recognized by:</span>
+    <ul id="conf-clues"></ul>
+  </div>
+  <div class="row"><span class="label">Question:</span> <span id="conf-question"></span></div>
+  <div class="row"><span class="label">Current answer:</span> <span id="conf-current"></span></div>
+  <div class="row"><span class="label">Forms this answer currently affects:</span>
+    <ul id="conf-forms"></ul>
+  </div>
+  <p class="note" id="conf-disclaimer"></p>
+  <div class="row">
+    <label>Proposed answer:
+      <select id="conf-response">
+        <option value="no">no</option>
+        <option value="yes">yes</option>
+        <option value="cannot-tell">cannot tell</option>
+      </select>
+    </label>
+  </div>
+  <button id="confirm-btn" type="button">Confirm correction</button>
+  <button id="cancel-btn" type="button">Cancel</button>
+</section>
+
+<section id="outcome" hidden>
+  <h2>Result</h2>
+  <div class="row label" id="outcome-title"></div>
+  <div id="outcome-rows"></div>
+  <button id="retry-btn" type="button" hidden>Calculate again</button>
+  <button id="check-again-btn" type="button" hidden>Check again</button>
+</section>
+
+<p class="error" id="error" hidden></p>
+
+<script>
+(function () {
+  "use strict";
+
+  // Plain-word sentences for the account's "used" kind, and the response
+  // vocabularies the saved model carries. Declared, renderer-owned text
+  // (never a new tax interpretation) -- copied from the read-only
+  // citation-walk page's own ``LINE21_USED_SENTENCE`` / ``LINE21_PLAIN_RESPONSE``
+  // constants (``citation-walk.v1.html``) for this identical row shape.
+  // This page is its own artifact and never imports across surfaces (plan,
+  // "account-review-correction", Track 1 explanation parity).
+  var USED_SENTENCE = {
+    "plain-case": "The calculation used the newer detail on this form.",
+    "older-yes-cover": "The calculation used the older yes to cover a matter the detail left open, withdrew, or denied.",
+    "older-method": "The calculation used the older method alone.",
+    "nothing": "The calculation used nothing for this form. The reason is named above.",
+  };
+  var PLAIN_RESPONSE = {
+    "yes": "yes",
+    "no": "no",
+    "cannot-tell": "cannot tell",
+    "sli.financing.affirmed": "affirmed",
+    "sli.financing.denied": "denied",
+    "sli.financing.withdrawn": "withdrawn",
+    "sli.financing.unresolved": "unresolved",
+    "sli.statement-inclusion.affirmed": "affirmed",
+    "sli.statement-inclusion.denied": "denied",
+    "sli.statement-inclusion.withdrawn": "withdrawn",
+    "sli.statement-inclusion.unresolved": "unresolved",
+    "sli.statement-inclusion.scope-unresolved": "unresolved about which loan",
+  };
+
+  function apiUrl(name) {
+    return new URL("./api/" + name, window.location.href).toString();
+  }
+
+  function showError(message) {
+    var el = document.getElementById("error");
+    el.textContent = message;
+    el.hidden = false;
+  }
+
+  function clearError() {
+    var el = document.getElementById("error");
+    el.hidden = true;
+    el.textContent = "";
+  }
+
+  function formLabel(form) {
+    if (!form) { return ""; }
+    if (typeof form === "string") { return form; }
+    var parts = [form.statement, form.lender].filter(Boolean);
+    return parts.join(" / ");
+  }
+
+  function el(tag, props, children) {
+    var node = document.createElement(tag);
+    if (props) {
+      Object.keys(props).forEach(function (key) { node[key] = props[key]; });
+    }
+    (children || []).forEach(function (child) { node.appendChild(child); });
+    return node;
+  }
+
+  // Never falls back to the raw value: an unmapped response is refused
+  // (fails loud) rather than leaking an internal code onto the page, the
+  // same posture the citation walk's own ``line21PlainResponse`` takes.
+  function plainResponse(value) {
+    var plain = PLAIN_RESPONSE[value];
+    if (!plain) { throw new Error("correction-page-unknown-response: " + String(value)); }
+    return plain;
+  }
+
+  function answerText(item) {
+    var proposition = item.proposition ? item.proposition + " " : "";
+    return proposition + "Recorded answer: " + plainResponse(item.response) + ".";
+  }
+
+  function group(title, items) {
+    var list = el("ul", null, items.map(function (text) { return el("li", { textContent: text }); }));
+    return el("div", { className: "explanation-group" }, [el("h4", { textContent: title }), list]);
+  }
+
+  // The borrowing each displayed answer belongs to, resolved server-side by
+  // identity (findingId -> fact -> keys.borrowing -> current label; plan,
+  // Track 1 corrections, correction 4) and carried on the item itself as
+  // ``borrowingLabel``. Never guessed from a count, a position, or a
+  // sentence -- this replaced the one-loan count rule that used to live
+  // here (Track 1 repair, defect 4 left this open; correction 4 closes it).
+  function itemLabelPrefix(item) {
+    return item && item.borrowingLabel ? item.borrowingLabel + ": " : "";
+  }
+
+  // The heading names only the statement label, the lender and the tax
+  // year -- never a standing or support code (plan, Track 1 explanation
+  // parity; defect 4). Mirrors the citation walk's own label join.
+  function explanationHeading(row) {
+    var label = row.statementLabel || {};
+    var parts = [label.statement, label.lender, label.taxYear].filter(function (part) {
+      return typeof part === "string" && part;
+    });
+    return parts.join(", ") || "Statement";
+  }
+
+  // Where a row is named by a reason, the reason sentences this runtime
+  // already resolved from the saved presentation's own line 21 section
+  // (``resolved.reasons``, by the row's own ``status.reasonIndices``) --
+  // never a link, a code or a finding id (plan, Track 1 explanation
+  // parity; defect 4).
+  function blockReasonGroup(row) {
+    if (!row.status || row.status.kind !== "named-by-reason") { return null; }
+    var sentences = row.reasonSentences || [];
+    if (!sentences.length) { return null; }
+    return group("Why this form is blocked", sentences);
+  }
+
+  // The account branch: mirrors the citation walk's ``renderLine21Account``
+  // exactly, including the older-answer line, the stands-in-for sentences
+  // appearing in both "what the calculation used" and (deduplicated)
+  // "what it assumed", "left with you" lines folded into that same group,
+  // and "recorded, not used" -- but never the "Combined class:" code line
+  // (plan, Track 1 explanation parity).
+  function accountGroups(row) {
+    var said = row.account.said;
+    var older = said.olderAnswer;
+    var saidItems = [];
+    if (older.currency === "absent") {
+      saidItems.push("Older answer about this form's box 1: absent. No older answer was recorded.");
+    } else {
+      saidItems.push("Older answer about this form's box 1: " + older.value + ". Currency: " + older.currency + ".");
+    }
+    (said.current || []).forEach(function (item) {
+      saidItems.push("Current. " + itemLabelPrefix(item) + answerText(item));
+    });
+    (said.history || []).forEach(function (item) {
+      saidItems.push("History, not current. " + itemLabelPrefix(item) + answerText(item));
+    });
+
+    var kind = row.account.used && row.account.used.kind;
+    if (!kind || !USED_SENTENCE[kind]) { throw new Error("correction-page-unknown-used-kind: " + String(kind)); }
+    var usedItems = [USED_SENTENCE[kind]];
+    if (row.basis && Array.isArray(row.basis.standsInFor)) {
+      row.basis.standsInFor.forEach(function (sentence) { usedItems.push(sentence); });
+    }
+
+    var assumedItems = [];
+    if (kind === "nothing") {
+      assumedItems.push("Nothing favorable is assumed. The reason is named above.");
+    } else if (row.basis) {
+      var seen = {};
+      (row.basis.assumed || []).forEach(function (sentence) {
+        if (!seen[sentence]) { seen[sentence] = true; assumedItems.push(sentence); }
+      });
+      (row.basis.standsInFor || []).forEach(function (sentence) {
+        if (!seen[sentence]) { seen[sentence] = true; assumedItems.push(sentence); }
+      });
+      (row.basis.leftWithPerson || []).forEach(function (sentence) {
+        assumedItems.push("Left with you: " + sentence);
+      });
+    }
+
+    var recorded = row.account.recordedNotUsed || [];
+    var recordedItems = recorded.length ? recorded.map(function (item) { return item.text; }) : ["None."];
+
+    return [
+      group("What the person said", saidItems),
+      group("What the calculation used", usedItems),
+      group("What it assumed", assumedItems),
+      group("Recorded, not used", recordedItems),
+    ];
+  }
+
+  // The basis-only branch (a supported row with no ``account``): mirrors
+  // the citation walk's own ``else if (row.basis)`` branch exactly.
+  function basisOnlyGroups(row) {
+    var answers = (row.basis.answers || []).map(function (answer) {
+      var text = answer.proposition
+        ? answer.proposition + " Recorded answer: " + answer.response + "."
+        : "Recorded answer: " + answer.response + ". Question wording was not saved with this answer.";
+      return itemLabelPrefix(answer) + text;
+    });
+    return [
+      group("What you told us", answers),
+      group("What the application took as given", row.basis.assumed || []),
+      group("Conditions left with you", row.basis.leftWithPerson || []),
+    ];
+  }
+
+  // Render one form's explanation the way the citation walk renders the
+  // same row, from fields already in the saved model (``account``,
+  // ``basis``) -- never an internal code or finding id, and never a new
+  // tax interpretation (plan, Track 1 explanation parity; defect 4). One
+  // line per loan and the reported box 1 amount mirror the citation walk's
+  // own ``renderLine21Explanation`` exactly (plan, Track 1 corrections,
+  // correction 3; R4 findings 5 and 6).
+  function renderExplanationRow(row) {
+    var groups = [];
+    var reasonGroup = blockReasonGroup(row);
+    if (reasonGroup) { groups.push(reasonGroup); }
+
+    if (row.account) {
+      groups = groups.concat(accountGroups(row));
+    } else if (row.basis && Array.isArray(row.basis.answers)) {
+      groups = groups.concat(basisOnlyGroups(row));
+    }
+
+    var top = [el("h3", { textContent: explanationHeading(row) })];
+    (row.loans || []).forEach(function (loan) {
+      top.push(el("div", { className: "row", textContent: "loan: " + loan }));
+    });
+    if (row.amount !== undefined) {
+      var amountText = row.account
+        ? "Form 1098-E box 1: " + String(row.amount)
+        : String(row.amount) + " reported";
+      top.push(el("div", { className: "row", textContent: amountText }));
+    }
+
+    return el("div", { className: "explanation-row" }, top.concat(groups));
+  }
+
+  function renderExplanation(containerId, rows, lineValue) {
+    var container = document.getElementById(containerId);
+    container.replaceChildren();
+    rows.forEach(function (row) { container.appendChild(renderExplanationRow(row)); });
+    var valueText = (lineValue === null || lineValue === undefined)
+      ? "Line 21: blocked (not calculated this run)."
+      : "Line 21: " + lineValue + ".";
+    container.appendChild(el("div", { className: "row line21-value", textContent: valueText }));
+  }
+
+  function renderChoices(choices, unavailable) {
+    var container = document.getElementById("choice-list");
+    container.replaceChildren();
+    var ids = Object.keys(choices || {});
+    var withheld = unavailable || [];
+    if (ids.length === 0 && withheld.length === 0) {
+      var none = document.createElement("div");
+      none.textContent = "Nothing here to review.";
+      container.appendChild(none);
+      return;
+    }
+    ids.forEach(function (findingId) {
+      var choice = choices[findingId];
+      var row = document.createElement("div");
+      row.className = "row";
+      var forms = (choice.forms || []).map(formLabel).join(", ");
+      // A repeated label shows its own recognition clues on the choice
+      // itself (plan, Track 2 item 5: duplicate labels), so two
+      // identically-labelled choices are told apart before either is
+      // clicked. A superseded displayed answer (plan, Track 2 item 3:
+      // historical result) says so plainly on the same button.
+      var label = choice.borrowing_label ? choice.borrowing_label + " -- " : "";
+      var clueText = (choice.recognition_clues || []).length
+        ? " (" + choice.recognition_clues.join("; ") + ")" : "";
+      var supersededText = choice.status === "superseded"
+        ? " (this answer has since changed)" : "";
+      var btn = document.createElement("button");
+      btn.type = "button";
+      btn.textContent = "Review this answer: " + label + forms + clueText + supersededText;
+      btn.addEventListener("click", function () { chooseAnswer(findingId); });
+      row.appendChild(btn);
+      container.appendChild(row);
+    });
+    // A withdrawn displayed answer is not a button and cannot be saved.
+    // The sentence is the resolver's own (plan, Track 2 item 3).
+    withheld.forEach(function (item) {
+      var note = document.createElement("p");
+      note.className = "note";
+      var label = item.borrowing_label ? item.borrowing_label + ". " : "";
+      note.textContent = label + "This answer could not be reviewed: " +
+        (item.reason || "there is nothing to correct");
+      container.appendChild(note);
+    });
+  }
+
+  var currentToken = null;
+  // Opaque session token only. It carries no tax data. Wrapped so a browser
+  // that refuses storage still works for this page load.
+  var TOKEN_KEY = "sli-correction-token";
+
+  function readStoredToken() {
+    try { return sessionStorage.getItem(TOKEN_KEY); } catch (err) { return null; }
+  }
+
+  function writeStoredToken(token) {
+    try {
+      if (token) { sessionStorage.setItem(TOKEN_KEY, token); }
+      else { sessionStorage.removeItem(TOKEN_KEY); }
+    } catch (err) { /* in-memory token still covers this load */ }
+  }
+
+  function activeToken() {
+    if (currentToken) { return currentToken; }
+    var stored = readStoredToken();
+    if (stored) { currentToken = stored; }
+    return currentToken;
+  }
+
+  function showConfirmation(confirmation) {
+    // Plan, Track 2 item 3 (historical result): when the displayed answer
+    // has since changed, say so plainly, name both answers, and make clear
+    // the review below is of the current one -- the save below always
+    // targets the current answer, never the one originally displayed.
+    var supersededNote = document.getElementById("conf-superseded-note");
+    if (confirmation.status === "superseded") {
+      supersededNote.textContent =
+        "The answer shown earlier has since changed, from " +
+        (confirmation.displayed_answer || "(unknown)") + " to " +
+        (confirmation.current_answer || "(unknown)") +
+        " (current). This reviews the current answer.";
+      supersededNote.hidden = false;
+    } else {
+      supersededNote.hidden = true;
+      supersededNote.textContent = "";
+    }
+    document.getElementById("conf-label").textContent = confirmation.borrowing_label || "";
+    var cluesList = document.getElementById("conf-clues");
+    cluesList.replaceChildren();
+    (confirmation.recognition_clues || []).forEach(function (clue) {
+      var li = document.createElement("li");
+      li.textContent = clue;
+      cluesList.appendChild(li);
+    });
+    document.getElementById("conf-question").textContent = confirmation.question || "";
+    document.getElementById("conf-current").textContent = confirmation.current_answer || "";
+    var formsList = document.getElementById("conf-forms");
+    formsList.replaceChildren();
+    (confirmation.forms_using_this_answer_now || []).forEach(function (form) {
+      var li = document.createElement("li");
+      li.textContent = formLabel(form);
+      formsList.appendChild(li);
+    });
+    document.getElementById("conf-disclaimer").textContent = confirmation.disclaimer || "";
+    document.getElementById("confirmation").hidden = false;
+  }
+
+  function chooseAnswer(findingId) {
+    clearError();
+    // A new review starts. The previous token no longer names this review.
+    currentToken = null;
+    writeStoredToken(null);
+    fetch(apiUrl("choose"), {
+      method: "POST",
+      headers: { "Content-Type": "application/json", "Accept": "application/json" },
+      body: JSON.stringify({ finding_id: findingId }),
+    }).then(function (response) { return response.json(); })
+      .then(function (body) {
+        if (body.status === "current" || body.status === "superseded") {
+          currentToken = body.token;
+          writeStoredToken(body.token);
+          showConfirmation(body.confirmation);
+        } else {
+          showError("This answer could not be reviewed: " + (body.reason || body.status || "unknown"));
+        }
+      })
+      .catch(function () { showError("The review could not be started."); });
+  }
+
+  function confirmCorrection() {
+    if (!currentToken) { return; }
+    clearError();
+    var response = document.getElementById("conf-response").value;
+    var token = currentToken;
+    fetch(apiUrl("confirm"), {
+      method: "POST",
+      headers: { "Content-Type": "application/json", "Accept": "application/json" },
+      body: JSON.stringify({ token: token, response: response }),
+    }).then(function (res) {
+      if (!res.ok) { throw new Error("http-" + res.status); }
+      return res.json();
+    }).then(function (body) {
+      // Keep the token. A refresh in this tab shows this outcome again.
+      showOutcome(body);
+      loadState();
+    }).catch(function () {
+      // The response was lost or unreadable. Ask for this token's outcome.
+      // Never resubmit the confirmation.
+      showChecking();
+      fetchOutcome(token);
+    });
+  }
+
+  function cancelCorrection() {
+    document.getElementById("confirmation").hidden = true;
+    if (!currentToken) { return; }
+    var token = currentToken;
+    currentToken = null;
+    writeStoredToken(null);
+    fetch(apiUrl("cancel"), {
+      method: "POST",
+      headers: { "Content-Type": "application/json", "Accept": "application/json" },
+      body: JSON.stringify({ token: token }),
+    }).catch(function () {});
+  }
+
+  function showOutcome(body) {
+    var section = document.getElementById("outcome");
+    section.hidden = false;
+    section.className = "outcome " + (body.outcome || "");
+    document.getElementById("confirmation").hidden = true;
+    document.getElementById("check-again-btn").hidden = true;
+    var retryBtn = document.getElementById("retry-btn");
+    var title = document.getElementById("outcome-title");
+    if (body.outcome === "saved-and-calculated") {
+      title.textContent = "Saved and recalculated. The earlier result above is unchanged.";
+      renderExplanation("outcome-rows", body.line21_rows || [], body.line21_value);
+      retryBtn.hidden = true;
+    } else if (body.outcome === "saved-not-calculated") {
+      title.textContent = "Your correction was saved; the result could not be calculated this time.";
+      document.getElementById("outcome-rows").replaceChildren();
+      // Plan, Track 2 item 2 (saved but not calculated, and retry): this
+      // never saves a second correction. It only runs the calculation
+      // again for the one correction already saved.
+      retryBtn.hidden = false;
+    } else if (body.outcome === "refused") {
+      title.textContent = body.reason ||
+        "This correction is no longer the current answer. Nothing was recalculated.";
+      document.getElementById("outcome-rows").replaceChildren();
+      retryBtn.hidden = true;
+    } else {
+      title.textContent = "Not saved" + (body.reason ? ": " + body.reason : ".");
+      document.getElementById("outcome-rows").replaceChildren();
+      retryBtn.hidden = true;
+    }
+  }
+
+  function showChecking() {
+    var section = document.getElementById("outcome");
+    section.hidden = false;
+    section.className = "outcome checking";
+    document.getElementById("confirmation").hidden = true;
+    document.getElementById("retry-btn").hidden = true;
+    document.getElementById("check-again-btn").hidden = true;
+    document.getElementById("outcome-title").textContent =
+      "Checking the outcome of this correction.";
+    document.getElementById("outcome-rows").replaceChildren();
+  }
+
+  function showUndetermined(offerCheckAgain) {
+    var section = document.getElementById("outcome");
+    section.hidden = false;
+    section.className = "outcome unknown";
+    document.getElementById("confirmation").hidden = true;
+    document.getElementById("retry-btn").hidden = true;
+    document.getElementById("check-again-btn").hidden = !offerCheckAgain;
+    document.getElementById("outcome-title").textContent =
+      "This page cannot determine whether the correction was saved.";
+    document.getElementById("outcome-rows").replaceChildren();
+  }
+
+  function renderRecovered(body) {
+    if (!body || body.outcome === "unknown") {
+      showUndetermined(false);
+      return;
+    }
+    showOutcome(body);
+  }
+
+  function fetchOutcome(token) {
+    fetch(apiUrl("outcome"), {
+      method: "POST",
+      headers: { "Content-Type": "application/json", "Accept": "application/json" },
+      body: JSON.stringify({ token: token }),
+    }).then(function (res) {
+      if (!res.ok) { throw new Error("http-" + res.status); }
+      return res.json();
+    }).then(function (body) {
+      renderRecovered(body);
+      loadState();
+    }).catch(function () {
+      // The outcome call itself failed. Say so, and offer another look.
+      // This never calls confirm.
+      showUndetermined(true);
+    });
+  }
+
+  function retryCalculation() {
+    clearError();
+    var token = activeToken();
+    if (!token) {
+      showError("Calculating again did not complete.");
+      return;
+    }
+    fetch(apiUrl("retry"), {
+      method: "POST",
+      headers: { "Content-Type": "application/json", "Accept": "application/json" },
+      body: JSON.stringify({ token: token }),
+    }).then(function (res) {
+      if (!res.ok) { throw new Error("http-" + res.status); }
+      return res.json();
+    }).then(function (body) {
+      showOutcome(body);
+    }).catch(function () { showError("Calculating again did not complete."); });
+  }
+
+  function checkAgain() {
+    var token = activeToken();
+    if (!token) {
+      showUndetermined(false);
+      return;
+    }
+    showChecking();
+    fetchOutcome(token);
+  }
+
+  function loadState() {
+    clearError();
+    fetch(apiUrl("state"), { headers: { "Accept": "application/json" } })
+      .then(function (response) { return response.json(); })
+      .then(function (body) {
+        // Plan, Track 2 item 3 (historical result): label the result being
+        // reviewed as earlier and not current, whenever this session was
+        // deliberately opened that way.
+        document.getElementById("historical-banner").hidden = !body.historical;
+        document.getElementById("saved-heading").textContent = body.historical
+          ? "Earlier result (line 21) — not current"
+          : "Earlier result (line 21) — unchanged";
+        renderExplanation("saved-rows", body.line21_rows || [], body.line21_value);
+        renderChoices(body.choices || {}, body.unavailable || []);
+      })
+      .catch(function () { showError("The saved result could not be loaded."); });
+  }
+
+  document.getElementById("confirm-btn").addEventListener("click", confirmCorrection);
+  document.getElementById("cancel-btn").addEventListener("click", cancelCorrection);
+  document.getElementById("retry-btn").addEventListener("click", retryCalculation);
+  document.getElementById("check-again-btn").addEventListener("click", checkAgain);
+  loadState();
+  var openingToken = readStoredToken();
+  if (openingToken) {
+    currentToken = openingToken;
+    showChecking();
+    fetchOutcome(openingToken);
+  }
+})();
+</script>
+</body>
+</html>

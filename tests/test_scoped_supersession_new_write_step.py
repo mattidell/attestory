@@ -190,7 +190,9 @@ class RegistryCondition(unittest.TestCase):
                     read_only = any(kw.arg == "read_only" for kw in node.keywords)
                     sites.append(f"{path.relative_to(ROOT)}:{'read-only' if read_only else 'write'}")
         self.assertEqual(sorted(sites), [
+            "packages/derivation/correction_session.py:write",
             "packages/derivation/entry_loop.py:write",
+            "packages/derivation/runners/sli_correction_evaluation.py:write",
             "packages/kernel/runners/inspect_workspace.py:read-only",
         ])
 

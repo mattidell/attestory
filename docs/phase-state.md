@@ -2,10 +2,10 @@
 {
   "version": 1,
   "phase": "Evolving Workspace Accounts",
-  "topic": "account-refinement",
-  "active_plan": "docs/phases/evolving-workspace-accounts/milestones/account-refinement.md",
+  "topic": "account-review-correction",
+  "active_plan": "docs/phases/evolving-workspace-accounts/milestones/account-review-correction.md",
   "milestone_state": "closed",
-  "status": "Closed. One Form 1098-E can gain loan detail while another keeps its older answer. Line 21 combines each form's older answer and current detail (core calculations v42, worksheet v5) without retiring any answer, and the saved explanation separates what was said, used, assumed and recorded but not used.",
+  "status": "Closed. A person can open a saved line 21 result, choose one borrowing's loan-cost answer, confirm a correction, save it through the reviewed recorder, and read the recalculated result beside the unchanged earlier one. The foreman recommends concluding the phase; that is the owner's decision.",
   "current_role": "Foreman — select next milestone",
   "current_prompt": "docs/phases/evolving-workspace-accounts/evolving-workspace-accounts-roadmap.md"
 }
@@ -15,63 +15,59 @@
 
 ## Current result
 
-**Updating an Account Without Losing Its Meaning is closed.** A person can
-add borrowing and schooling details to one Form 1098-E while another form
-keeps its older eligibility answer. Line 21 no longer refuses the return
-because the two forms use different kinds of input.
+**Reviewing and Correcting the Account Behind a Result is closed.** A person
+can open a correction session on a saved student-loan result and choose one
+borrowing's answer about whether the loan paid only for school costs. They
+read a confirmation that names:
 
-For each form, the application reads the person's current answers:
+- the borrowing and its recorded relationships;
+- the question;
+- the current answer and the proposed answer;
+- the forms the answer reaches.
 
-| The form's current answers | Result for that form |
-| --- | --- |
-| The detail agrees with the older answer | Supported |
-| The detail is missing, withdrawn or denied | Supported; the older "yes" covers it |
-| A "cannot tell" answer | Not supported; the answer is named |
-| A contradicting answer, or an older "no" | Not supported; the contrary answer is named |
+They confirm. The correction is saved through the existing reviewed recorder
+call, and the return is recalculated under core calculations v42. The new
+explanation sits beside the earlier result, which does not change.
 
-No answer is retired to satisfy the engine. Each amount is counted once,
-and the cap, phase-out and scope limits apply to the return's total. The
-saved explanation shows, for each form:
+The session refuses three things:
 
-- what the person said;
-- what the calculation used;
-- what it assumed;
-- what was recorded but not used.
+- a borrowing it cannot tell apart from another;
+- a confirmation whose displayed relationships changed before the save;
+- any attempt to save against an answer read from an earlier result.
 
-Its wording is provisional.
-
-Production is package `core-calculations` v42, with `rule.sli-worksheet` v5.
-By owner decision, the worksheet is `rule-artifact.v13` with an inert second
-path. ADR 0077 records the change in an amendment line.
+It reports a correction that was saved but not calculated as exactly that,
+and its retry only recalculates. The page is one static file delivered as an
+ADR 0049 surface artifact. There is no new schema, ADR or calculation change.
+The wording is provisional, and the session works on synthetic workspaces
+only.
 
 ## Begin here
 
-- [Milestone plan](phases/evolving-workspace-accounts/milestones/account-refinement.md):
-  the staged investigation, the Track 0 selection and closure, and the
-  outcome with its limits.
-- [Retrospective](milestone-retrospectives/2026-10-08-account-refinement.md):
+- [Milestone plan](phases/evolving-workspace-accounts/milestones/account-review-correction.md):
+  the walkthrough, the Track 0 selection, the integrated repairs, the
+  outcome, and the phase assessment.
+- [Retrospective](milestone-retrospectives/2026-10-09-account-review-correction.md):
   lessons and follow-ups.
-- [Evolving Workspace Accounts roadmap](phases/evolving-workspace-accounts/evolving-workspace-accounts-roadmap.md):
-  next-milestone selection.
+- [Evolving Workspace Accounts roadmap](phases/evolving-workspace-accounts/evolving-workspace-accounts-roadmap.md).
+- README, "Correction session walkthrough": the command for each named state.
 
 ## Immediate next action
 
-Select the next milestone, or conclude the phase; that is the owner's
-decision. The plan's phase assessment separates two things:
+The owner decides whether to conclude Evolving Workspace Accounts. The
+foreman recommends concluding it at this bounded result. Two items stay
+open, and neither needs a new milestone in this phase:
 
-- the calculation transition, which is firmly demonstrated;
-- the saved explanation, which needed two post-closeout repairs and is
-  still provisional in wording and unassessed by a fresh reader.
+- the owner's visual check of the interaction, with any wording changes;
+- an independent reader assessment.
 
-The milestone PR is published after curation, final review and CI bind its
-head. The owner merges.
+No tax vertical is proposed. The milestone PR is published after curation,
+the final review, and CI binding its head. The owner merges.
 
 ## Parked
 
-- Five conservatively blocked states, as deferred design (see the
-  retrospective).
-- Whether a shared-answer "no" should reach the whole return (P0 question
-  1).
-- General assumption management, person-supplied scoped values, and
-  mixed-period treatment (ADR 0076 Part 3).
-- Institutional verification, a broad input journey and a general reader.
+- The predecessor's five conservatively blocked states, and whether a
+  shared-answer "no" should reach the whole return.
+- General assumption management, allocation and mixed-period treatment,
+  institutional verification, free text, and a general correction or intake
+  platform.
+- Use of the correction session on a real workspace (the residency path).

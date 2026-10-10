@@ -8,8 +8,9 @@ from __future__ import annotations
 
 import copy
 import hashlib
+import re
 from collections.abc import Set as AbstractSet
-from typing import Any, Sequence
+from typing import Any, Mapping, Sequence
 
 from packages.kernel.act_log import ActLog, LogContents
 from packages.kernel.contribution import apply_contribution_batch
@@ -20,7 +21,14 @@ from packages.tax.sli_relationship_recording import (
     BORROWING_KIND,
     BORROWING_QUESTIONS,
     FINANCING,
+    FINANCING_DENIED,
+    FINANCING_UNRESOLVED,
+    FINANCING_WITHDRAWN,
     SCHOOLING,
+    STATEMENT_INCLUSION,
+    STATEMENT_INCLUSION_DENIED,
+    STATEMENT_INCLUSION_UNRESOLVED,
+    STATEMENT_INCLUSION_WITHDRAWN,
     STATEMENT_TYPE,
     RelationshipRecordingRefused,
     _commit_save,
@@ -36,8 +44,38 @@ from packages.tax.sli_relationship_recording import (
     withdraw_relationship_claim_durably,
 )
 
+# Recognition-clue outcome labels for the borrowing-answer review only (plan,
+# Track 0 step 3). Never used by ``_borrowing_cards``, which stays shared with
+# ``prepare_review`` and keeps its own hardcoded empty clue list.
+_INCLUSION_OUTCOME_LABELS = {
+    STATEMENT_INCLUSION: "affirmed",
+    STATEMENT_INCLUSION_DENIED: "denied",
+    STATEMENT_INCLUSION_WITHDRAWN: "withdrawn",
+    STATEMENT_INCLUSION_UNRESOLVED: "unresolved",
+}
+_FINANCING_OUTCOME_LABELS = {
+    FINANCING: "affirmed",
+    FINANCING_DENIED: "denied",
+    FINANCING_WITHDRAWN: "withdrawn",
+    FINANCING_UNRESOLVED: "unresolved",
+}
+
 FORMAT = "experimental.sli-relationship-review.v1"
 _ALLOWED = {"yes", "no", "cannot-tell", "unanswered"}
+
+_WHITESPACE_RUN = re.compile(r"\s+")
+
+
+def _display_label(label: Any) -> str:
+    """Normalize a label the way the page renders it as ``textContent``:
+    whitespace runs collapsed, ends trimmed (plan, Track 1 corrections,
+    correction 1). Case stays significant -- two genuinely different labels
+    that happen to share a case-insensitive spelling remain distinguishable.
+    """
+    if not isinstance(label, str):
+        return str(label)
+    return _WHITESPACE_RUN.sub(" ", label).strip()
+
 
 BORROWING_ANSWER_FORMAT = "experimental.sli-borrowing-answer-review.v1"
 # The two owner-approved ordinary questions (plan, owner decision 1). The
@@ -612,18 +650,154 @@ def prepare_borrowing_answer_review(log: ActLog, registry: Any, *, review_id: st
         contents, registry, review_id=review_id, shown_at=shown_at, borrowing_refs=borrowing_refs)
 
 
+def borrowing_recognition_clues(contents: LogContents, registry: Any, borrowing_ref: str) -> dict[str, Any]:
+    """Distinguishing clues already recorded for one borrowing.
+
+    Built only from relationships already recorded -- each form whose
+    inclusion of the borrowing is current, with its outcome, and the
+    schooling the borrowing financed (plan, Track 0 step 3). Never a new
+    statement, and never a read of the target question's own answer, so the
+    borrowing-answer review's clue list never repeats what "current answer"
+    already shows. This never touches ``_borrowing_cards``, which stays
+    shared with ``prepare_review``.
+    """
+    state = project(contents.acts, registry)
+    current_ids = compute_currency(state).current_finding_ids
+    lattice = facts_of(state.fact_state, include_displaced=True)
+    entities = state.fact_state.entities
+
+    def _label(ref: object) -> str | None:
+        if not isinstance(ref, str):
+            return None
+        lifecycle = entities.get(ref)
+        return lifecycle.entity.get("label") if lifecycle is not None else None
+
+    forms: list[dict[str, Any]] = []
+    financing: list[dict[str, Any]] = []
+    for finding_id, row in state.findings.items():
+        if finding_id not in current_ids or not isinstance(row, dict):
+            continue
+        fact = lattice.get(row.get("fact_id", ""))
+        if fact is None:
+            continue
+        keys = dict(fact.keys)
+        if keys.get("borrowing") != borrowing_ref:
+            continue
+        if fact.fact_type_id in _INCLUSION_OUTCOME_LABELS:
+            forms.append({"statement": _label(keys.get("statement")), "lender": _label(keys.get("lender")),
+                         "tax_year": keys.get("tax-year"),
+                         "inclusion": _INCLUSION_OUTCOME_LABELS[fact.fact_type_id]})
+        elif fact.fact_type_id in _FINANCING_OUTCOME_LABELS:
+            financing.append({"institution": _label(keys.get("institution")), "period": _label(keys.get("period")),
+                              "programme": _label(keys.get("programme")),
+                              "financing": _FINANCING_OUTCOME_LABELS[fact.fact_type_id]})
+    return {"borrowing_ref": borrowing_ref,
+            "forms": sorted(forms, key=lambda r: (r["statement"] or "", r["inclusion"])),
+            "financing": sorted(financing, key=lambda r: (r["institution"] or "", r["financing"]))}
+
+
+# Plain-word phrases for each relationship outcome (plan, Track 1 repair,
+# defect 2). The earlier formatter rendered every financing outcome --
+# affirmed, denied, withdrawn, unresolved -- as "financed ...", so a
+# withdrawal after prepare left the clue text, and therefore the as-shown
+# comparison, unchanged. Every outcome now keeps its own plain-word phrase.
+_INCLUSION_CLUE_PHRASES = {
+    "affirmed": "included",
+    "denied": "not included",
+    "withdrawn": "inclusion withdrawn",
+    "unresolved": "inclusion not yet known",
+}
+_FINANCING_CLUE_PHRASES = {
+    "affirmed": "financed",
+    "denied": "did not finance",
+    "withdrawn": "financing withdrawn for",
+    "unresolved": "financing not yet known for",
+}
+
+
+def _recognition_clue_labels(clues: Mapping[str, Any]) -> list[str]:
+    """Human-recognizable clue strings; never an internal id.
+
+    Each clue keeps the relationship's actual outcome in plain words, for
+    both inclusion and financing (plan, Track 1 repair, defect 2), and
+    keeps the programme, lender and tax year that the earlier formatter
+    discarded -- whatever a person needs to tell two borrowings apart.
+    """
+    labels = [
+        f"{f['statement']} from {f['lender']}, tax year {f['tax_year']} "
+        f"({_INCLUSION_CLUE_PHRASES[f['inclusion']]})"
+        for f in clues["forms"]
+    ]
+    labels += [
+        f"{_FINANCING_CLUE_PHRASES[f['financing']]} {f['period']} at {f['institution']} "
+        f"({f['programme']})"
+        for f in clues["financing"]
+    ]
+    return labels
+
+
+def recognition_clue_labels(contents: LogContents, registry: Any, borrowing_ref: str) -> list[str]:
+    """One borrowing's clue strings, in the same plain words the
+    borrowing-answer confirmation card already shows (plan,
+    "account-review-correction" Track 2, case 5: duplicate labels). Read-only
+    -- safe to call for every current choice before any review is prepared,
+    so a repeated label can show its clues on the choice itself."""
+    return _recognition_clue_labels(borrowing_recognition_clues(contents, registry, borrowing_ref))
+
+
+def _require_card_distinguishable_in_workspace(state: Any, contents: LogContents, registry: Any,
+                                                card: Mapping[str, Any]) -> None:
+    """Refuse a borrowing-answer card confusable with any other *current*
+    borrowing in the workspace -- not merely the cards a caller chose to
+    show (plan, Track 1 repair, defect 1). ``CorrectionRuntime.choose``
+    prepares a review of the selected borrowing alone, so a safeguard that
+    only compared a review's own ``borrowing_choices`` to each other had
+    nothing to compare against; the rule instead lives here, where both
+    ``prepare_borrowing_answer_review`` and ``_revalidate_borrowing_answer_review``
+    reach it on every read. Two borrowings are confusable exactly when every
+    visible field -- the label and the recognition clues -- is equal. An
+    opaque id is never a recognition clue, so this never looks at one.
+
+    Labels are compared the way the page displays them, not as stored:
+    whitespace runs collapsed, ends trimmed, case still significant (plan,
+    Track 1 corrections, correction 1). Two labels that would render
+    identically in the confirmation card refuse even if their stored
+    strings differ only in whitespace.
+    """
+    entities = state.fact_state.entities
+    label = _display_label(card["shown_as"])
+    clues = card["recognition_clues"]
+    for reference, lifecycle in entities.items():
+        if reference == card["choice_ref"]:
+            continue
+        if lifecycle.status != "current" or lifecycle.entity.get("kind") != BORROWING_KIND:
+            continue
+        if _display_label(lifecycle.entity.get("label")) != label:
+            continue
+        other_clues = _recognition_clue_labels(
+            borrowing_recognition_clues(contents, registry, reference))
+        if other_clues == clues:
+            raise RelationshipRecordingRefused(
+                "selected subject is indistinguishable from another current borrowing")
+
+
 def _prepare_borrowing_answer_review_from_contents(contents: LogContents, registry: Any, *,
                                                    review_id: str, shown_at: str,
                                                    borrowing_refs: Sequence[str]) -> dict[str, Any]:
     if not review_id or not shown_at:
         raise RelationshipRecordingRefused("review identity and display time are required")
     state = project(contents.acts, registry)
+    borrowing_choices = _borrowing_cards(contents, state, borrowing_refs)
+    for card in borrowing_choices:
+        card["recognition_clues"] = _recognition_clue_labels(
+            borrowing_recognition_clues(contents, registry, card["choice_ref"]))
+        _require_card_distinguishable_in_workspace(state, contents, registry, card)
     return {
         "format": BORROWING_ANSWER_FORMAT,
         "review_id": review_id,
         "shown_at": shown_at,
         "propositions": dict(BORROWING_PROPOSITIONS),
-        "borrowing_choices": _borrowing_cards(contents, state, borrowing_refs),
+        "borrowing_choices": borrowing_choices,
         "selections": {"borrowing_ref": None},
         "responses": {question: "unanswered" for question in BORROWING_PROPOSITIONS},
     }
