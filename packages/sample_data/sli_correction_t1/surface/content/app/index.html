@@ -211,7 +211,7 @@ one. Reviewing an answer below may show that it has since changed.</p>
   // "what it assumed", "left with you" lines folded into that same group,
   // and "recorded, not used" -- but never the "Combined class:" code line
   // (plan, Track 1 explanation parity).
-  function accountGroups(row) {
+  function accountGroups(row, context) {
     var said = row.account.said;
     var older = said.olderAnswer;
     var saidItems = [];
@@ -220,8 +220,14 @@ one. Reviewing an answer below may show that it has since changed.</p>
     } else {
       saidItems.push("Older answer about this form's box 1: " + older.value + ". Currency: " + older.currency + ".");
     }
+    // R3 finding 3: inside an earlier result, ``said.current`` is what
+    // that old calculation used -- not a claim about the account's
+    // current answer now. The account section above (``renderOpened``'s
+    // own answers, from the current log) is the only place that says what
+    // the current answer is.
+    var currentLabel = context === "earlier" ? "Used by this calculation. " : "Current. ";
     (said.current || []).forEach(function (item) {
-      saidItems.push("Current. " + itemLabelPrefix(item) + answerText(item));
+      saidItems.push(currentLabel + itemLabelPrefix(item) + answerText(item));
     });
     (said.history || []).forEach(function (item) {
       saidItems.push("History, not current. " + itemLabelPrefix(item) + answerText(item));
@@ -284,13 +290,13 @@ one. Reviewing an answer below may show that it has since changed.</p>
   // line per loan and the reported box 1 amount mirror the citation walk's
   // own ``renderLine21Explanation`` exactly (plan, Track 1 corrections,
   // correction 3; R4 findings 5 and 6).
-  function renderExplanationRow(row) {
+  function renderExplanationRow(row, context) {
     var groups = [];
     var reasonGroup = blockReasonGroup(row);
     if (reasonGroup) { groups.push(reasonGroup); }
 
     if (row.account) {
-      groups = groups.concat(accountGroups(row));
+      groups = groups.concat(accountGroups(row, context));
     } else if (row.basis && Array.isArray(row.basis.answers)) {
       groups = groups.concat(basisOnlyGroups(row));
     }
@@ -321,10 +327,10 @@ one. Reviewing an answer below may show that it has since changed.</p>
     return "Line 21: " + lineValue + ".";
   }
 
-  function renderExplanation(containerId, rows, lineValue, disposition) {
+  function renderExplanation(containerId, rows, lineValue, disposition, context) {
     var container = document.getElementById(containerId);
     container.replaceChildren();
-    rows.forEach(function (row) { container.appendChild(renderExplanationRow(row)); });
+    rows.forEach(function (row) { container.appendChild(renderExplanationRow(row, context)); });
     container.appendChild(el("div", {
       className: "row line21-value",
       textContent: line21Text(lineValue, disposition),
@@ -336,6 +342,24 @@ one. Reviewing an answer below may show that it has since changed.</p>
       return plainResponse(value);
     }
     return "";
+  }
+
+  // An earlier result's explanation that cannot be interpreted is missing
+  // evidence about that result, not a loss of the account. The page shows
+  // none of it rather than part of it.
+  var EARLIER_UNINTERPRETABLE =
+    "An earlier result was recorded, but its explanation could not be read.";
+
+  function renderEarlier(statement, text, earlier) {
+    try {
+      renderExplanation(
+        "earlier-rows", earlier.line21_rows || [], earlier.line21_value,
+        earlier.line21_disposition, "earlier");
+      statement.textContent = text;
+    } catch (err) {
+      document.getElementById("earlier-rows").replaceChildren();
+      statement.textContent = EARLIER_UNINTERPRETABLE;
+    }
   }
 
   function renderOpened(body) {
@@ -368,9 +392,15 @@ one. Reviewing an answer below may show that it has since changed.</p>
       statement.textContent = "The result records are not established.";
       calculation.textContent = "";
     } else if (earlier.status === "earlier") {
-      statement.textContent = "This is an earlier result.";
-      renderExplanation(
-        "earlier-rows", earlier.line21_rows || [], earlier.line21_value, earlier.line21_disposition);
+      renderEarlier(statement, "This is an earlier result.", earlier);
+      calculation.textContent = body.did_not_finish
+        ? "A calculation was started and did not finish." : "";
+    } else if (earlier.status === "damaged") {
+      // R3 finding 1: a single match beside a file that could not be read
+      // is not the "more than one saved file matches" case. The matched
+      // file's own result is still shown.
+      renderEarlier(
+        statement, "This is an earlier result. A file beside it could not be read.", earlier);
       calculation.textContent = body.did_not_finish
         ? "A calculation was started and did not finish." : "";
     } else if (earlier.status === "unavailable") {
@@ -379,6 +409,10 @@ one. Reviewing an answer below may show that it has since changed.</p>
         ? "A calculation was started and did not finish." : "";
     } else if (earlier.status === "unreadable") {
       statement.textContent = "An earlier result was recorded, but its file could not be read.";
+      calculation.textContent = body.did_not_finish
+        ? "A calculation was started and did not finish." : "";
+    } else if (earlier.status === "uninterpretable") {
+      statement.textContent = EARLIER_UNINTERPRETABLE;
       calculation.textContent = body.did_not_finish
         ? "A calculation was started and did not finish." : "";
     } else if (earlier.status === "not-established") {
@@ -661,7 +695,14 @@ one. Reviewing an answer below may show that it has since changed.</p>
       headers: { "Content-Type": "application/json", "Accept": "application/json" },
       body: JSON.stringify({ token: token }),
     }).then(function (res) {
-      if (!res.ok) { throw new Error("http-" + res.status); }
+      if (!res.ok) {
+        // R3 finding 5: the server read this request and refused the
+        // token outright -- it does not name this session. Drop it now;
+        // a retry can never revive a foreign token. A response lost in
+        // transit never reaches this branch at all.
+        dropStoredToken();
+        throw new Error("http-" + res.status);
+      }
       return res.json();
     }).then(function (body) {
       if (!body || body.outcome === "unknown") {
@@ -671,15 +712,39 @@ one. Reviewing an answer below may show that it has since changed.</p>
       }
       showOutcome(body);
     }).catch(function () {
+      // Either the server refused above (token already dropped), or the
+      // response never arrived at all. A lost-in-transit response keeps
+      // the token, so the person can retry or recover.
       showError("Calculating again did not complete.");
-      dropStoredToken();
     });
+  }
+
+  // A calculate request has three endings. The session answered that it
+  // did not calculate: say so. The session answered that it calculated:
+  // show that result. The answer never arrived or could not be read: the
+  // calculation may still have finished, so read the session's state once
+  // and show what it holds. Never send another calculation on the person's
+  // behalf.
+  var CALCULATION_NOT_DONE = "This session did not calculate.";
+  var CALCULATION_UNCONFIRMED =
+    "This page could not confirm the calculation, and this session holds no " +
+    "calculated result. The saved answers are unchanged.";
+  var CALCULATION_UNREAD =
+    "This page could not confirm whether the calculation finished. The saved " +
+    "answers are unchanged.";
+
+  function showCalculateNote(text) {
+    var note = document.getElementById("calculate-note");
+    note.textContent = text;
+    note.hidden = false;
   }
 
   function calculateFromSaved() {
     clearError();
     var note = document.getElementById("calculate-note");
     note.hidden = true;
+    var button = document.getElementById("calculate-btn");
+    button.disabled = true;
     fetch(apiUrl("calculate"), {
       method: "POST",
       headers: { "Content-Type": "application/json", "Accept": "application/json" },
@@ -688,16 +753,42 @@ one. Reviewing an answer below may show that it has since changed.</p>
       if (!res.ok) { throw new Error("http"); }
       return res.json();
     }).then(function (body) {
-      if (!body || body.calculated !== true) {
-        note.textContent = "This session did not calculate.";
-        note.hidden = false;
+      if (body && body.calculated === false) {
+        button.disabled = false;
+        showCalculateNote(CALCULATION_NOT_DONE);
         return;
       }
+      if (!body || body.calculated !== true) { throw new Error("unrecognized"); }
+      button.disabled = false;
       loadState();
     }).catch(function () {
-      note.textContent = "This session did not calculate.";
-      note.hidden = false;
+      recoverCalculation(button);
     });
+  }
+
+  function recoverCalculation(button) {
+    fetch(apiUrl("state"), { headers: { "Accept": "application/json" } })
+      .then(function (res) {
+        if (!res.ok) { throw new Error("http"); }
+        return res.json();
+      })
+      .then(function (body) {
+        button.disabled = false;
+        if (body && !body.opened && body.calculated_in_session === true) {
+          showWorking(body);
+          return;
+        }
+        if (body && body.opened) {
+          renderOpened(body);
+          showCalculateNote(CALCULATION_UNCONFIRMED);
+          return;
+        }
+        throw new Error("unrecognized");
+      })
+      .catch(function () {
+        button.disabled = false;
+        showCalculateNote(CALCULATION_UNREAD);
+      });
   }
 
   function showWorking(body) {
@@ -705,9 +796,15 @@ one. Reviewing an answer below may show that it has since changed.</p>
     document.getElementById("saved").hidden = false;
     document.getElementById("choices").hidden = false;
     document.getElementById("historical-banner").hidden = !body.historical;
-    document.getElementById("saved-heading").textContent = body.historical
-      ? "Earlier result (line 21) — not current"
-      : "Earlier result (line 21) — unchanged";
+    // R3 finding 2: a result this session just calculated (the
+    // resumption ``calculate`` route) is not the pre-existing "earlier
+    // result, unchanged" baseline -- say plainly that it was calculated
+    // from the saved answers in this session.
+    document.getElementById("saved-heading").textContent = body.calculated_in_session
+      ? "This result was calculated from the saved answers in this session."
+      : body.historical
+        ? "Earlier result (line 21) — not current"
+        : "Earlier result (line 21) — unchanged";
     renderExplanation("saved-rows", body.line21_rows || [], body.line21_value, body.line21_disposition);
     renderChoices(body.choices || {}, body.unavailable || []);
   }

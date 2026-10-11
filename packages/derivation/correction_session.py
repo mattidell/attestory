@@ -31,7 +31,7 @@ from datetime import datetime, timezone
 from hmac import compare_digest
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 from pathlib import Path, PurePosixPath
-from secrets import token_urlsafe
+from secrets import token_hex, token_urlsafe
 from threading import Lock, Thread
 from typing import Any, Mapping, Protocol, Sequence
 from urllib.parse import urlsplit
@@ -538,6 +538,26 @@ def _line21_view(
     }
 
 
+def _require_interpretable_line21(presentation: Mapping[str, Any]) -> None:
+    """Refuse an earlier presentation whose line 21 explanation cannot be
+    read whole. The view helpers skip a row that is not an object; for an
+    earlier result read back from disk, a skipped row would render an
+    incomplete explanation as if it were complete."""
+    line21 = presentation.get("line21Explanation")
+    rows = line21.get("rows") if isinstance(line21, Mapping) else None
+    if not isinstance(rows, list) or not all(isinstance(row, Mapping) for row in rows):
+        raise CorrectionSessionError("correction-line21-explanation-invalid")
+    if _line21_disposition(presentation) is None:
+        raise CorrectionSessionError("correction-line21-explanation-invalid")
+
+
+# An earlier presentation that fails to interpret raises one of these. The
+# opened state contains them: the explanation is unavailable evidence, and the
+# account it sits beside is still shown.
+_INTERPRETATION_FAILURES = (
+    CorrectionSessionError, AttributeError, IndexError, KeyError, TypeError, ValueError)
+
+
 def _evidence_correction_of(state: Any, finding: Mapping[str, Any]) -> str | None:
     """The successor evidence field ``correction_of_finding_id``, or None
     when this finding does not record one. Two disagreeing fields are not
@@ -643,10 +663,13 @@ def _opened_loan_answers(contents: Any, registry: Any) -> list[dict[str, Any]]:
 def _presentation_for_run(output_dir: Path, run_id: str) -> tuple[str, dict[str, Any] | None]:
     """Match ``runId`` inside this workspace's presentation files.
 
-    The filename chooses nothing. Zero matches are unavailable, two matches
-    are not established, and a file that cannot be read is unreadable.
-    An unreadable file next to a match is not established either: it might
-    be a second copy.
+    The filename chooses nothing. Zero matches are unavailable, two files
+    carrying the run id are not established (R3 finding 1: a genuine
+    duplicate), and a file that cannot be read is unreadable. An empty file
+    is an output slot a run reserved and never wrote, and is skipped. A single
+    match beside one unreadable file is its own ``damaged`` status -- a
+    damaged neighbor is not a second match, and is never reported with the
+    "more than one saved file matches" sentence.
     """
     if not output_dir.is_dir():
         return "unavailable", None
@@ -656,8 +679,18 @@ def _presentation_for_run(output_dir: Path, run_id: str) -> tuple[str, dict[str,
         if not path.is_file() or not path.name.endswith(".presentation.json"):
             continue
         try:
-            model = json.loads(path.read_text("utf-8"))
-        except (OSError, UnicodeError, json.JSONDecodeError):
+            raw = path.read_bytes()
+        except OSError:
+            unreadable = True
+            continue
+        if not raw:
+            # R4 finding 2: an empty file is an output slot reserved by a run
+            # that never wrote it (``reserve_live_output_path``). It carries
+            # no ``runId`` and cannot be a damaged copy of any result.
+            continue
+        try:
+            model = json.loads(raw.decode("utf-8"))
+        except (UnicodeError, json.JSONDecodeError):
             unreadable = True
             continue
         if not isinstance(model, dict) or model.get("runId") != run_id:
@@ -665,15 +698,13 @@ def _presentation_for_run(output_dir: Path, run_id: str) -> tuple[str, dict[str,
                 unreadable = True
             continue
         matches.append(model)
-    if unreadable and matches:
-        return "not-established", None
-    if unreadable:
-        return "unreadable", None
-    if not matches:
-        return "unavailable", None
     if len(matches) > 1:
         return "not-established", None
-    return "earlier", matches[0]
+    if matches:
+        return ("damaged", matches[0]) if unreadable else ("earlier", matches[0])
+    if unreadable:
+        return "unreadable", None
+    return "unavailable", None
 
 
 # ---------------------------------------------------------------------------
@@ -746,9 +777,19 @@ class CorrectionRuntime:
         # it. Opening an existing log does not restore it.
         self._session_identity = token_urlsafe(16)
         self._calculate_serial = 0
+        # R4 finding 1: the serial restarts with every runtime, so each
+        # runtime adds its own random nonce. A calculation's run id and output
+        # name never repeat one an earlier process wrote to this workspace.
+        self._run_nonce = token_hex(6)
         # True only for ``open``, until this process calculates. The
         # constructor and ``initialize`` already have a working result.
         self._awaiting_calculation = False
+        # R3 finding 2: true only once this runtime's own ``calculate()``
+        # route has produced the working presentation. The constructor's
+        # and ``initialize``'s own opening calculation is not reopening's
+        # "calculated from the saved answers in this session" result -- it
+        # is the pre-existing single-session baseline, unchanged.
+        self._calculated_in_session = False
 
     @classmethod
     def initialize(
@@ -865,7 +906,12 @@ class CorrectionRuntime:
         self._retry_serial = 0
         self._session_identity = token_urlsafe(16)
         self._calculate_serial = 0
+        # R4 finding 1: the serial restarts with every runtime, so each
+        # runtime adds its own random nonce. A calculation's run id and output
+        # name never repeat one an earlier process wrote to this workspace.
+        self._run_nonce = token_hex(6)
         self._awaiting_calculation = awaiting_calculation
+        self._calculated_in_session = False
         return self
 
     def _seed(self, seed_acts: Sequence[Mapping[str, Any]]) -> None:
@@ -935,7 +981,8 @@ class CorrectionRuntime:
                 "line21_value": viewed["line21_value"],
                 "line21_disposition": viewed["line21_disposition"],
                 "choices": choices, "unavailable": unavailable,
-                "historical": self._is_historical}
+                "historical": self._is_historical,
+                "calculated_in_session": self._calculated_in_session}
 
     def _opened_state(self) -> dict[str, Any]:
         """The account as the files hold it, before this process calculates.
@@ -982,8 +1029,18 @@ class CorrectionRuntime:
         status, model = _presentation_for_run(
             self._workspace.live_output_path(Path("outputs")), run_id)
         earlier: dict[str, Any] = {"status": status, "run_id": run_id}
-        if status == "earlier" and model is not None:
-            earlier.update(_line21_view(model, acts, self.registry))
+        if status in {"earlier", "damaged"} and model is not None:
+            # A presentation that parses but cannot be interpreted -- a
+            # reason index naming no reason, rows that are not objects, no
+            # line 21 disposition -- is unavailable explanation evidence.
+            # It never hides the account, and its explanation is never
+            # shown in part as if it were whole.
+            try:
+                _require_interpretable_line21(model)
+                view = _line21_view(model, acts, self.registry)
+            except _INTERPRETATION_FAILURES:
+                return {"status": "uninterpretable", "run_id": run_id}, did_not_finish, False
+            earlier.update(view)
         return earlier, did_not_finish, False
 
     def resolve(self, finding_id: str) -> dict[str, Any]:
@@ -1193,8 +1250,8 @@ class CorrectionRuntime:
             acts = contents.acts
             self._calculate_serial += 1
             serial = self._calculate_serial
-            output_name = f"demo.correction.run.s{serial}.json"
-            run_id = f"demo.correction.run.s{serial}"
+            run_id = f"demo.correction.run.c{self._run_nonce}.s{serial}"
+            output_name = f"{run_id}.json"
             try:
                 outcome = live_coordinate_run(
                     self._capability, repo_root=self._repo_root, authoritative_acts=acts,
@@ -1218,6 +1275,7 @@ class CorrectionRuntime:
             self._saved_presentation = model
             self._saved_run_id = run_id
             self._awaiting_calculation = False
+            self._calculated_in_session = True
             return {"calculated": True}
 
     def _finding_is_current(self, finding_id: Any) -> bool:

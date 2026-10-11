@@ -614,6 +614,112 @@ async function runD1Visible(sessionId) {
   };
 }
 
+async function waitForOpened(sessionId) {
+  await waitUntil(
+    `document.getElementById("opened").hidden === false &&
+      document.getElementById("opened-answers").innerText.includes("Current answer:")`,
+    sessionId,
+  );
+}
+
+async function calculateNoteView(sessionId) {
+  return evaluate(
+    `(() => {
+      const note = document.getElementById("calculate-note");
+      const error = document.getElementById("error");
+      return {
+        noteShown: note.hidden === false,
+        noteText: note.hidden ? "" : note.textContent,
+        errorShown: error.hidden === false,
+        buttonEnabled: document.getElementById("calculate-btn").disabled === false,
+      };
+    })()`,
+    sessionId,
+  );
+}
+
+async function runCalculateDropped(sessionId) {
+  // The calculate response is dropped after the session calculated and
+  // saved the presentation. The page reads the session's state once and
+  // shows the calculated result it holds. It claims no failure and sends
+  // no second calculation. Waits: navigation, opened, recovered. Three.
+  await waitForOpened(sessionId);
+  await evaluate(`document.getElementById("calculate-btn").click()`, sessionId);
+  await waitUntil(
+    `document.getElementById("opened").hidden === true &&
+      document.getElementById("saved").hidden === false &&
+      document.getElementById("saved-heading").textContent.includes("calculated from the saved answers in this session") &&
+      document.getElementById("saved-rows").textContent.includes("Line 21:") &&
+      document.querySelector("#choice-list button") !== null`,
+    sessionId,
+  );
+  const note = await calculateNoteView(sessionId);
+  const leaks = await leaksOf(sessionId);
+  return {
+    complete: true,
+    recoveredHeading: true,
+    noFailureClaim: !note.noteShown && !note.errorShown,
+    ...leaks,
+  };
+}
+
+async function runCalculateRefused(sessionId) {
+  // The session answers that it did not calculate. That explicit answer is
+  // stated as such, not as an unconfirmed outcome, and the opened account
+  // stays. Waits: navigation, opened, the note. Three.
+  await waitForOpened(sessionId);
+  await evaluate(`document.getElementById("calculate-btn").click()`, sessionId);
+  await waitUntil(
+    `document.getElementById("calculate-note").hidden === false &&
+      document.getElementById("calculate-btn").disabled === false`,
+    sessionId,
+  );
+  const note = await calculateNoteView(sessionId);
+  const openedShown = await evaluate(
+    `document.getElementById("opened").hidden === false &&
+      document.getElementById("saved").hidden === true &&
+      document.getElementById("opened-answers").innerText.includes("Current answer:")`,
+    sessionId,
+  );
+  const leaks = await leaksOf(sessionId);
+  return {
+    complete: true,
+    saysDidNotCalculate: note.noteText === "This session did not calculate.",
+    openedAccountShown: openedShown === true,
+    calculateStillOffered: note.buttonEnabled === true,
+    ...leaks,
+  };
+}
+
+async function runOpenedUninterpretable(sessionId) {
+  // An earlier result's explanation cannot be interpreted. The account is
+  // shown, the explanation is not shown in part, and calculating is still
+  // offered. Waits: navigation, opened. Two.
+  await waitForOpened(sessionId);
+  const view = await evaluate(
+    `(() => ({
+      statement: document.getElementById("earlier-statement").textContent,
+      rows: document.getElementById("earlier-rows").textContent,
+      answers: Array.from(document.querySelectorAll("#opened-answers .explanation-row")).map((node) => node.innerText),
+      calculateShown: document.getElementById("calculate-btn").offsetParent !== null,
+    }))()`,
+    sessionId,
+  );
+  const autumn = view.answers.find((text) => text.includes("Autumn study loan")) || "";
+  const spring = view.answers.find((text) => text.includes("Spring study loan")) || "";
+  const leaks = await leaksOf(sessionId);
+  return {
+    complete: true,
+    explanationUnavailable:
+      view.statement === "An earlier result was recorded, but its explanation could not be read.",
+    noPartialExplanation: view.rows === "",
+    showsCedarCorrected: autumn.includes("Current answer: no") && autumn.includes("Earlier answer: yes"),
+    showsBirchUnchanged: spring.includes("Current answer: yes"),
+    calculateOffered: view.calculateShown === true,
+    ...leaks,
+  };
+}
+
 const SCENARIOS = {
   confirmed: runConfirmed,
   indistinguishable: runIndistinguishable,
@@ -630,6 +736,9 @@ const SCENARIOS = {
   unblock: runUnblock,
   "d1-visible": runD1Visible,
   "resume-completed": runResumeCompleted,
+  "calculate-dropped": runCalculateDropped,
+  "calculate-refused": runCalculateRefused,
+  "opened-uninterpretable": runOpenedUninterpretable,
 };
 
 try {

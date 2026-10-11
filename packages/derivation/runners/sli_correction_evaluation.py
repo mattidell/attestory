@@ -139,7 +139,7 @@ def _historical_seed_acts(repo_root: Path, base_acts: Sequence[Any]) -> list[dic
 
 
 def _serve(runtime: CorrectionRuntime, capability: WorkspaceCapability, state_line: str,
-           description: str) -> int:
+           description: str, restart_line: str) -> int:
     """Build a page target new to this opening and serve it. Does not print a path."""
     dist = build_correction_surface(
         capability, repo_root=REPO, opening_id=token_urlsafe(16))
@@ -149,11 +149,24 @@ def _serve(runtime: CorrectionRuntime, capability: WorkspaceCapability, state_li
         print(description)
         print(f"URL: {server.url}")
         print("Stop: press Ctrl-C in this terminal.")
-        print("Clean restart: stop this command, then run the same command again "
-              "(add --state NAME to pick a different state; --help lists every name).")
+        print(restart_line)
         sys.stdout.flush()
         Event().wait()
     return 0
+
+
+# R3 finding 4: a persistent workspace already holds its log, so running
+# the same command (with --init) again is refused. The restart line for a
+# persistent workspace says to open it again instead -- never printing the
+# directory itself.
+_TEMPORARY_RESTART_LINE = (
+    "Clean restart: stop this command, then run the same command again "
+    "(add --state NAME to pick a different state; --help lists every name)."
+)
+_PERSISTENT_RESTART_LINE = (
+    "Clean restart: stop this command, then open this same workspace again "
+    "with --workspace DIR alone, without --init."
+)
 
 
 def _serve_temporary(state: str) -> int:
@@ -188,7 +201,7 @@ def _serve_temporary(state: str) -> int:
         )
         return _serve(
             runtime, session_capability, state,
-            STATE_DESCRIPTIONS.get(state, "(no description)"))
+            STATE_DESCRIPTIONS.get(state, "(no description)"), _TEMPORARY_RESTART_LINE)
 
 
 def _serve_persistent(workspace: str, *, init: bool, state: str) -> int:
@@ -203,7 +216,7 @@ def _serve_persistent(workspace: str, *, init: bool, state: str) -> int:
         runtime = CorrectionRuntime.open(capability, repo_root=REPO)
         description = "Opened the saved account. Calculate before correcting an answer."
         state_line = "opened"
-    return _serve(runtime, capability, state_line, description)
+    return _serve(runtime, capability, state_line, description, _PERSISTENT_RESTART_LINE)
 
 
 def main(argv: Sequence[str] | None = None) -> int:

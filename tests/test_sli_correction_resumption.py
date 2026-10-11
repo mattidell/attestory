@@ -11,8 +11,10 @@ from __future__ import annotations
 import json
 import os
 import queue
+import re
 import shutil
 import signal
+import socket
 import subprocess
 import sys
 import threading
@@ -23,15 +25,19 @@ import urllib.request
 from pathlib import Path
 from tempfile import TemporaryDirectory
 from typing import Any, Mapping
+from unittest import mock
 
+import packages.derivation.correction_session as correction_session_mod
 from packages.derivation.correction_session import (
     LOAN_COST_FACT_TYPE,
     CorrectionRuntime,
     CorrectionSessionError,
+    CorrectionSessionServer,
+    build_correction_surface,
 )
 from packages.derivation.live_workspace import WorkspaceCapability
 from packages.derivation.loader import DerivationSchemas
-from packages.derivation.records import RecordStream
+from packages.derivation.records import RECORD_STREAM_FILENAME, RecordStream
 from packages.kernel.act_log import ActLog
 from packages.kernel.currency import compute_currency
 from packages.kernel.facts import facts_of
@@ -41,15 +47,27 @@ from packages.tax.loader import install_domain_scoped_supersession
 REPO = Path(__file__).resolve().parent.parent
 _RUNNER = [sys.executable, "-m", "packages.derivation.runners.sli_correction_evaluation"]
 _WORKER = REPO / "tests" / "helpers" / "sli_resumption_unfinished_worker.py"
+_OPEN_RUN_WORKER = REPO / "tests" / "helpers" / "sli_resumption_open_run_worker.py"
+_REFUSED_OPENING_WORKER = REPO / "tests" / "helpers" / "sli_resumption_refused_opening_worker.py"
 _BROWSER_CLIENT = REPO / "tests" / "helpers" / "correction_browser_client.mjs"
 _HTTP_SECONDS = 600
 _READY_SECONDS = 600
-# resume-completed: initial load, opened state, calculate, choice, confirmation,
-# calculated outcome, reload, undetermined sentence.
-_RESUME_STEPS = 8
+# Sequential browser steps per scenario, including the initial load.
+# resume-completed: opened state, calculate, choice, confirmation, calculated
+# outcome, reload, undetermined sentence. The others are counted beside their
+# scenarios in correction_browser_client.mjs.
+_SCENARIO_STEPS = {
+    "resume-completed": 8,
+    "calculate-dropped": 3,
+    "calculate-refused": 3,
+    "opened-uninterpretable": 2,
+}
 _STEP_BUDGET_SECONDS = 600
 _BROWSER_MARGIN_SECONDS = 120
 _OPENING_RUN_ID = "demo.correction.run.initial"
+# A calculation's run id carries its runtime's own nonce (R4 finding 1), so
+# no two processes on one workspace can produce the same run id.
+_SESSION_RUN = re.compile(r"demo\.correction\.run\.c[0-9a-f]{12}\.s1")
 _UNKNOWN = {
     "outcome": "unknown",
     "reason": "The outcome cannot be determined in this session.",
@@ -102,7 +120,11 @@ def _tree(root: Path) -> dict[str, bytes]:
 def _kill_group(pid: int) -> None:
     try:
         os.killpg(pid, signal.SIGKILL)
-    except ProcessLookupError:
+    except (ProcessLookupError, PermissionError):
+        # A self-killing worker races this call: its own SIGKILL to
+        # itself can already have ended the process group leader by the
+        # time this runs, which this platform sometimes reports as EPERM
+        # rather than ESRCH.
         return
 
 
@@ -307,7 +329,10 @@ def _run_ids(workspace: Path) -> dict[str, str]:
     if not outputs.is_dir():
         return found
     for path in sorted(outputs.glob("*.presentation.json")):
-        model = json.loads(path.read_text("utf-8"))
+        raw = path.read_bytes()
+        if not raw:
+            continue
+        model = json.loads(raw)
         if isinstance(model, dict) and isinstance(model.get("runId"), str):
             found[path.name] = model["runId"]
     return found
@@ -372,6 +397,31 @@ def _reject_path(payload: object, workspace: Path) -> None:
         raise AssertionError("a response contained the workspace directory")
 
 
+def _presentation_path(workspace: Path, run_id: str) -> Path:
+    matches = [
+        path for path, found_run_id in _run_ids(workspace).items() if found_run_id == run_id
+    ]
+    if len(matches) != 1:
+        raise AssertionError("expected exactly one presentation file for this run id")
+    return workspace / "outputs" / matches[0]
+
+
+def _records_path(workspace: Path) -> Path:
+    return workspace / "records" / RECORD_STREAM_FILENAME
+
+
+def _corrupt_first_record_line(workspace: Path) -> None:
+    """Replace the record stream's first committed line with malformed JSON,
+    directly on disk -- a file mutation, never a product-code failure
+    switch. ``RecordStream.read()`` raises ``RecordStreamCorruption`` on it."""
+    path = _records_path(workspace)
+    lines = path.read_bytes().split(b"\n")
+    if not lines or not lines[0]:
+        raise AssertionError("expected at least one committed record line")
+    lines[0] = b"{not valid json"
+    path.write_bytes(b"\n".join(lines))
+
+
 class SavedAccountResumption(unittest.TestCase):
     def test_init_on_an_existing_log_and_open_on_a_missing_log_write_nothing(self) -> None:
         held = _outside_repository()
@@ -403,6 +453,36 @@ class SavedAccountResumption(unittest.TestCase):
             self.assertEqual(_tree(workspace), before_blank)
         finally:
             missing.cleanup()
+
+    def test_calculating_in_successive_runtimes_never_reuses_a_run_id(self) -> None:
+        # R4 finding 1: every runtime's serial starts again at 1, so the run
+        # id and output name must also carry the runtime's own nonce. Before
+        # the repair, the second runtime's calculation collided with the
+        # first one's reserved output and was reported as not calculated.
+        held = _outside_repository()
+        workspace = Path(held.name) / "L"
+        try:
+            CorrectionRuntime.initialize(WorkspaceCapability(workspace), repo_root=REPO)
+            acts = _log_bytes(workspace)
+            run_ids = []
+            for _ in range(2):
+                runtime = CorrectionRuntime.open(WorkspaceCapability(workspace), repo_root=REPO)
+                self.assertEqual(runtime.calculate(), {"calculated": True})
+                run_ids.append(runtime.state()["saved_run_id"])
+                self.assertEqual(_log_bytes(workspace), acts)
+            self.assertNotEqual(run_ids[0], run_ids[1])
+            for run_id in run_ids:
+                self.assertRegex(run_id, _SESSION_RUN)
+            completed = [
+                record["run_id"] for record in RecordStream(workspace / "records", _schemas()).read().records
+                if record["phase"] == "completed"
+            ]
+            self.assertEqual(completed[-2:], run_ids)
+            reopened = CorrectionRuntime.open(WorkspaceCapability(workspace), repo_root=REPO).state()
+            self.assertEqual(reopened["earlier_result"]["status"], "earlier")
+            self.assertEqual(reopened["earlier_result"]["run_id"], run_ids[1])
+        finally:
+            held.cleanup()
 
     def test_completed_correction_survives_process_kill(self) -> None:
         held = _outside_repository()
@@ -477,11 +557,11 @@ class SavedAccountResumption(unittest.TestCase):
             _assert_same_files(outputs_after_save, workspace / "outputs")
             working = _api(root, "state")
             self.assertNotIn("opened", working)
-            self.assertEqual(working["saved_run_id"], "demo.correction.run.s1")
+            self.assertRegex(working["saved_run_id"], _SESSION_RUN)
             self.assertEqual(working["line21_disposition"], "blocked")
             self.assertEqual(
-                _run_ids(workspace).get("demo.correction.run.s1.presentation.json"),
-                "demo.correction.run.s1",
+                _run_ids(workspace).get(f"{working['saved_run_id']}.presentation.json"),
+                working["saved_run_id"],
             )
 
             acts_before_next = _log_bytes(workspace)
@@ -564,8 +644,8 @@ class SavedAccountResumption(unittest.TestCase):
             _assert_same_files(opening_output, workspace / "outputs")
             working = _api(root, "state")
             self.assertNotIn("opened", working)
-            self.assertEqual(working["saved_run_id"], "demo.correction.run.s1")
-            self.assertIn("demo.correction.run.s1.presentation.json", _run_ids(workspace))
+            self.assertRegex(working["saved_run_id"], _SESSION_RUN)
+            self.assertIn(f"{working['saved_run_id']}.presentation.json", _run_ids(workspace))
         finally:
             opener.close()
             held.cleanup()
@@ -605,6 +685,496 @@ class SavedAccountResumption(unittest.TestCase):
             self.assertIsNone(_loans(workspace)["Autumn study loan"]["predecessor_id"])
         finally:
             opener.close()
+            held.cleanup()
+
+    def test_missing_result_file_is_unavailable_not_lost(self) -> None:
+        held = _outside_repository()
+        workspace = Path(held.name)
+        starter = _Child([*_RUNNER, "--workspace", str(workspace), "--init"], workspace)
+        try:
+            root = _root(starter.url())
+            state = _api(root, "state")
+            cedar = _choice(state["choices"], "2025 Form 1098-E from Cedar")
+            chosen = _api(root, "choose", {"finding_id": cedar["finding_id"]})
+            saved = _api(root, "confirm", {"token": chosen["token"], "response": "no"})
+            self.assertEqual(saved["outcome"], "saved-and-calculated")
+            successor = saved["successor_finding_id"]
+            predecessor = saved["predecessor_finding_id"]
+            save_run = f"demo.correction.run.{successor}"
+        finally:
+            starter.close()
+
+        # The completed record's own presentation is removed -- a file
+        # mutation, never a product-code failure switch. The completed
+        # record itself stays in the stream.
+        _presentation_path(workspace, save_run).unlink()
+        acts_before_reopen = _log_bytes(workspace)
+
+        opener = _Child([*_RUNNER, "--workspace", str(workspace)], workspace)
+        try:
+            root = _root(opener.url())
+            self.assertEqual(_log_bytes(workspace), acts_before_reopen)
+            opened = _api(root, "state")
+            _reject_path(opened, workspace)
+            cedar_answer = _opened(opened["answers"], "Autumn study loan")
+            self.assertEqual(cedar_answer["response"], "no")
+            self.assertEqual(cedar_answer["finding_id"], successor)
+            self.assertEqual(cedar_answer["predecessor"]["finding_id"], predecessor)
+            earlier = opened["earlier_result"]
+            self.assertEqual(earlier["status"], "unavailable")
+            self.assertEqual(earlier["run_id"], save_run)
+            self.assertFalse(opened["did_not_finish"])
+
+            calculated = _api(root, "calculate", {})
+            self.assertEqual(calculated, {"calculated": True})
+            self.assertEqual(_log_bytes(workspace), acts_before_reopen)
+        finally:
+            opener.close()
+            held.cleanup()
+
+    def test_duplicate_presentation_is_not_established(self) -> None:
+        held = _outside_repository()
+        workspace = Path(held.name)
+        starter = _Child([*_RUNNER, "--workspace", str(workspace), "--init"], workspace)
+        try:
+            root = _root(starter.url())
+            state = _api(root, "state")
+            cedar = _choice(state["choices"], "2025 Form 1098-E from Cedar")
+            chosen = _api(root, "choose", {"finding_id": cedar["finding_id"]})
+            saved = _api(root, "confirm", {"token": chosen["token"], "response": "no"})
+            self.assertEqual(saved["outcome"], "saved-and-calculated")
+            successor = saved["successor_finding_id"]
+            predecessor = saved["predecessor_finding_id"]
+            save_run = f"demo.correction.run.{successor}"
+        finally:
+            starter.close()
+
+        original = _presentation_path(workspace, save_run)
+        duplicate = original.with_name("duplicate." + original.name)
+        duplicate.write_bytes(original.read_bytes())
+        acts_before_reopen = _log_bytes(workspace)
+
+        opener = _Child([*_RUNNER, "--workspace", str(workspace)], workspace)
+        try:
+            root = _root(opener.url())
+            self.assertEqual(_log_bytes(workspace), acts_before_reopen)
+            opened = _api(root, "state")
+            _reject_path(opened, workspace)
+            cedar_answer = _opened(opened["answers"], "Autumn study loan")
+            self.assertEqual(cedar_answer["response"], "no")
+            self.assertEqual(cedar_answer["predecessor"]["finding_id"], predecessor)
+            earlier = opened["earlier_result"]
+            self.assertEqual(earlier["status"], "not-established")
+            self.assertEqual(earlier["run_id"], save_run)
+            self.assertFalse(opened["did_not_finish"])
+        finally:
+            opener.close()
+            held.cleanup()
+
+    def test_damaged_file_beside_a_match_is_its_own_status(self) -> None:
+        held = _outside_repository()
+        workspace = Path(held.name)
+        starter = _Child([*_RUNNER, "--workspace", str(workspace), "--init"], workspace)
+        try:
+            root = _root(starter.url())
+            state = _api(root, "state")
+            cedar = _choice(state["choices"], "2025 Form 1098-E from Cedar")
+            chosen = _api(root, "choose", {"finding_id": cedar["finding_id"]})
+            saved = _api(root, "confirm", {"token": chosen["token"], "response": "no"})
+            self.assertEqual(saved["outcome"], "saved-and-calculated")
+            successor = saved["successor_finding_id"]
+            predecessor = saved["predecessor_finding_id"]
+            save_run = f"demo.correction.run.{successor}"
+            expected_line21 = saved["line21_value"]
+            expected_disposition = saved["line21_disposition"]
+        finally:
+            starter.close()
+
+        original = _presentation_path(workspace, save_run)
+        damaged = original.with_name("damaged." + original.name)
+        damaged.write_bytes(b"{not valid json")
+        acts_before_reopen = _log_bytes(workspace)
+
+        opener = _Child([*_RUNNER, "--workspace", str(workspace)], workspace)
+        try:
+            root = _root(opener.url())
+            self.assertEqual(_log_bytes(workspace), acts_before_reopen)
+            opened = _api(root, "state")
+            _reject_path(opened, workspace)
+            cedar_answer = _opened(opened["answers"], "Autumn study loan")
+            self.assertEqual(cedar_answer["response"], "no")
+            self.assertEqual(cedar_answer["predecessor"]["finding_id"], predecessor)
+            earlier = opened["earlier_result"]
+            # R3 finding 1: a single match beside a damaged neighbor is its
+            # own status, never "not-established" (two real matches).
+            self.assertEqual(earlier["status"], "damaged")
+            self.assertEqual(earlier["run_id"], save_run)
+            self.assertEqual(earlier["line21_value"], expected_line21)
+            self.assertEqual(earlier["line21_disposition"], expected_disposition)
+            self.assertFalse(opened["did_not_finish"])
+        finally:
+            opener.close()
+            held.cleanup()
+
+    def test_unreadable_record_stream_leaves_answers_visible(self) -> None:
+        held = _outside_repository()
+        workspace = Path(held.name)
+        starter = _Child([*_RUNNER, "--workspace", str(workspace), "--init"], workspace)
+        try:
+            root = _root(starter.url())
+            state = _api(root, "state")
+            cedar = _choice(state["choices"], "2025 Form 1098-E from Cedar")
+            chosen = _api(root, "choose", {"finding_id": cedar["finding_id"]})
+            saved = _api(root, "confirm", {"token": chosen["token"], "response": "no"})
+            self.assertEqual(saved["outcome"], "saved-and-calculated")
+            successor = saved["successor_finding_id"]
+            predecessor = saved["predecessor_finding_id"]
+        finally:
+            starter.close()
+
+        _corrupt_first_record_line(workspace)
+        acts_before_reopen = _log_bytes(workspace)
+
+        opener = _Child([*_RUNNER, "--workspace", str(workspace)], workspace)
+        try:
+            root = _root(opener.url())
+            self.assertEqual(_log_bytes(workspace), acts_before_reopen)
+            opened = _api(root, "state")
+            _reject_path(opened, workspace)
+            self.assertTrue(opened["records_not_established"])
+            self.assertEqual(opened["earlier_result"], {"status": "records-not-established"})
+            self.assertFalse(opened["did_not_finish"])
+            cedar_answer = _opened(opened["answers"], "Autumn study loan")
+            self.assertEqual(cedar_answer["response"], "no")
+            self.assertEqual(cedar_answer["finding_id"], successor)
+            self.assertEqual(cedar_answer["predecessor"]["finding_id"], predecessor)
+            self.assertEqual(_log_bytes(workspace), acts_before_reopen)
+        finally:
+            opener.close()
+            held.cleanup()
+
+    def test_open_run_with_no_close_is_did_not_finish(self) -> None:
+        held = _outside_repository()
+        workspace = Path(held.name)
+        worker = _Child(
+            [sys.executable, str(_OPEN_RUN_WORKER), str(workspace)], workspace)
+        try:
+            worker.ready()
+        finally:
+            worker.close()
+
+        completed, still_open = _record_summary(workspace)
+        self.assertEqual(completed, [_OPENING_RUN_ID])
+        self.assertTrue(still_open)
+        acts_before_reopen = _log_bytes(workspace)
+
+        opener = _Child([*_RUNNER, "--workspace", str(workspace)], workspace)
+        try:
+            root = _root(opener.url())
+            self.assertEqual(_log_bytes(workspace), acts_before_reopen)
+            opened = _api(root, "state")
+            _reject_path(opened, workspace)
+            self.assertTrue(opened["did_not_finish"])
+            self.assertFalse(opened["records_not_established"])
+            earlier = opened["earlier_result"]
+            # The kill happens after this run's own output path is reserved
+            # (an empty file) but before anything is written to it. An empty
+            # reservation carries no runId and is not a damaged copy of any
+            # result (R4 finding 2), so the opening result stays "earlier".
+            self.assertEqual(earlier["status"], "earlier")
+            self.assertEqual(earlier["run_id"], _OPENING_RUN_ID)
+            cedar_answer = _opened(opened["answers"], "Autumn study loan")
+            self.assertEqual(cedar_answer["response"], "no")
+            self.assertIsNotNone(cedar_answer["predecessor"])
+            self.assertEqual(cedar_answer["predecessor"]["response"], "yes")
+
+            calculated = _api(root, "calculate", {})
+            self.assertEqual(calculated, {"calculated": True})
+            self.assertEqual(_log_bytes(workspace), acts_before_reopen)
+            working = _api(root, "state")
+            self.assertNotIn("opened", working)
+            self.assertRegex(working["saved_run_id"], _SESSION_RUN)
+        finally:
+            opener.close()
+            held.cleanup()
+
+    def test_later_change_keeps_the_older_result_historical(self) -> None:
+        held = _outside_repository()
+        workspace = Path(held.name)
+        # Both corrections happen in the one process that holds the
+        # opening calculation already (``--init``), so a second session
+        # never needs its own first ``calculate`` call before reopening --
+        # that is exercised by other cases, and reusing this session's
+        # own calculate serial twice would collide with itself.
+        starter = _Child([*_RUNNER, "--workspace", str(workspace), "--init"], workspace)
+        try:
+            root = _root(starter.url())
+            state = _api(root, "state")
+            cedar = _choice(state["choices"], "2025 Form 1098-E from Cedar")
+            chosen = _api(root, "choose", {"finding_id": cedar["finding_id"]})
+            saved1 = _api(root, "confirm", {"token": chosen["token"], "response": "no"})
+            self.assertEqual(saved1["outcome"], "saved-and-calculated")
+            successor1 = saved1["successor_finding_id"]
+            older_run = f"demo.correction.run.{successor1}"
+
+            working = _api(root, "state")
+            cedar_working = _choice(working["choices"], "2025 Form 1098-E from Cedar")
+            # ``choices`` is still keyed from the opening presentation --
+            # this long-lived session never recalculated -- so the
+            # displayed id is stale and is reported "superseded". Choosing
+            # it still resolves against the current log, proven below by
+            # the confirmation naming the just-saved "no" as current.
+            self.assertIn(cedar_working["status"], {"current", "superseded"})
+            review = _api(root, "choose", {"finding_id": cedar_working["finding_id"]})
+            self.assertEqual(review["confirmation"]["current_answer"], "no")
+            saved2 = _api(root, "confirm", {"token": review["token"], "response": "yes"})
+            self.assertEqual(saved2["outcome"], "saved-and-calculated")
+            successor2 = saved2["successor_finding_id"]
+            self.assertEqual(saved2["predecessor_finding_id"], successor1)
+            later_run = f"demo.correction.run.{successor2}"
+        finally:
+            starter.close()
+
+        opener = _Child([*_RUNNER, "--workspace", str(workspace)], workspace)
+        try:
+            root = _root(opener.url())
+            opened = _api(root, "state")
+            _reject_path(opened, workspace)
+            earlier = opened["earlier_result"]
+            # The latest completed run is the later change's own run, never
+            # the result that predates it.
+            self.assertEqual(earlier["status"], "earlier")
+            self.assertEqual(earlier["run_id"], later_run)
+            self.assertNotEqual(earlier["run_id"], older_run)
+            self.assertNotEqual(earlier.get("line21_disposition"), "blocked")
+            cedar_answer = _opened(opened["answers"], "Autumn study loan")
+            self.assertEqual(cedar_answer["response"], "yes")
+            self.assertEqual(cedar_answer["finding_id"], successor2)
+            self.assertEqual(cedar_answer["predecessor"]["finding_id"], successor1)
+
+            calculated = _api(root, "calculate", {})
+            self.assertEqual(calculated, {"calculated": True})
+            working = _api(root, "state")
+            choice_now = _choice(working["choices"], "2025 Form 1098-E from Cedar")
+            self.assertEqual(choice_now["finding_id"], successor2)
+        finally:
+            opener.close()
+            held.cleanup()
+
+    def test_workspace_with_no_completed_calculation_offers_calculate(self) -> None:
+        held = _outside_repository()
+        workspace = Path(held.name)
+        worker = _Child(
+            [sys.executable, str(_REFUSED_OPENING_WORKER), str(workspace)], workspace)
+        try:
+            worker.ready()
+        finally:
+            worker.close()
+
+        completed, still_open = _record_summary(workspace)
+        self.assertEqual(completed, [])
+        self.assertFalse(still_open)
+        acts_before_reopen = _log_bytes(workspace)
+        self.assertNotEqual(acts_before_reopen, b"")
+
+        opener = _Child([*_RUNNER, "--workspace", str(workspace)], workspace)
+        try:
+            root = _root(opener.url())
+            self.assertEqual(_log_bytes(workspace), acts_before_reopen)
+            opened = _api(root, "state")
+            _reject_path(opened, workspace)
+            self.assertFalse(opened["did_not_finish"])
+            self.assertFalse(opened["records_not_established"])
+            self.assertEqual(opened["earlier_result"], {"status": "none"})
+            self.assertTrue(opened["calculate"])
+            cedar_answer = _opened(opened["answers"], "Autumn study loan")
+            self.assertEqual(cedar_answer["response"], "yes")
+            self.assertIsNone(cedar_answer["predecessor"])
+
+            calculated = _api(root, "calculate", {})
+            self.assertEqual(calculated, {"calculated": True})
+            self.assertEqual(_log_bytes(workspace), acts_before_reopen)
+            working = _api(root, "state")
+            self.assertNotIn("opened", working)
+            self.assertRegex(working["saved_run_id"], _SESSION_RUN)
+        finally:
+            opener.close()
+            held.cleanup()
+
+    def test_reopen_twice_without_editing_appends_nothing(self) -> None:
+        held = _outside_repository()
+        workspace = Path(held.name)
+        try:
+            starter = _Child([*_RUNNER, "--workspace", str(workspace), "--init"], workspace)
+            try:
+                starter.url()
+            finally:
+                starter.close()
+            tree_after_init = _tree(workspace)
+            acts_after_init = _log_bytes(workspace)
+
+            first_opener = _Child([*_RUNNER, "--workspace", str(workspace)], workspace)
+            try:
+                first_opener.url()
+                self.assertEqual(_log_bytes(workspace), acts_after_init)
+            finally:
+                first_opener.close()
+            tree_after_first_open = _tree(workspace)
+
+            second_opener = _Child([*_RUNNER, "--workspace", str(workspace)], workspace)
+            try:
+                second_opener.url()
+                self.assertEqual(_log_bytes(workspace), acts_after_init)
+            finally:
+                second_opener.close()
+            tree_after_second_open = _tree(workspace)
+
+            _assert_same_files(tree_after_init, workspace)
+            _assert_same_files(tree_after_first_open, workspace)
+
+            new_after_first = set(tree_after_first_open) - set(tree_after_init)
+            new_after_second = set(tree_after_second_open) - set(tree_after_first_open)
+            self.assertTrue(new_after_first, "expected a new build target on the first reopen")
+            self.assertTrue(new_after_second, "expected a new build target on the second reopen")
+            for name in (*new_after_first, *new_after_second):
+                self.assertTrue(
+                    name.startswith(".correction-surface/"),
+                    f"unexpected new file outside the surface build target: {name}",
+                )
+        finally:
+            held.cleanup()
+
+    def test_uninterpretable_earlier_explanation_keeps_the_account(self) -> None:
+        # The saved presentation parses as JSON but its explanation cannot be
+        # interpreted. The actual reader, in a new process, keeps the account,
+        # its predecessor and the calculate action, and shows no part of the
+        # explanation as if it were whole.
+        held = _outside_repository()
+        workspace = Path(held.name)
+        starter = _Child([*_RUNNER, "--workspace", str(workspace), "--init"], workspace)
+        try:
+            root = _root(starter.url())
+            state = _api(root, "state")
+            cedar = _choice(state["choices"], "2025 Form 1098-E from Cedar")
+            chosen = _api(root, "choose", {"finding_id": cedar["finding_id"]})
+            saved = _api(root, "confirm", {"token": chosen["token"], "response": "no"})
+            self.assertEqual(saved["outcome"], "saved-and-calculated")
+            successor = saved["successor_finding_id"]
+            predecessor = saved["predecessor_finding_id"]
+            save_run = f"demo.correction.run.{successor}"
+        finally:
+            starter.close()
+
+        presentation = _presentation_path(workspace, save_run)
+        intact = json.loads(presentation.read_text("utf-8"))
+        try:
+            for name, damage in (("reason index", _damage_reason_index),
+                                 ("rows", _damage_rows)):
+                with self.subTest(damage=name):
+                    presentation.write_text(json.dumps(damage(intact)), encoding="utf-8")
+                    acts_before = _log_bytes(workspace)
+                    opener = _Child([*_RUNNER, "--workspace", str(workspace)], workspace)
+                    try:
+                        url = opener.url()
+                        root = _root(url)
+                        opened = _api(root, "state")
+                        _reject_path(opened, workspace)
+                        self.assertTrue(opened["opened"])
+                        self.assertTrue(opened["calculate"])
+                        self.assertEqual(
+                            opened["earlier_result"], {"status": "uninterpretable", "run_id": save_run})
+                        cedar_answer = _opened(opened["answers"], "Autumn study loan")
+                        self.assertEqual(cedar_answer["finding_id"], successor)
+                        self.assertEqual(cedar_answer["response"], "no")
+                        self.assertEqual(cedar_answer["predecessor"]["finding_id"], predecessor)
+                        self.assertEqual(cedar_answer["predecessor"]["response"], "yes")
+                        birch_answer = _opened(opened["answers"], "Spring study loan")
+                        self.assertEqual(birch_answer["response"], "yes")
+                        self.assertIsNone(birch_answer["predecessor"])
+                        if _NODE and _BROWSER and name == "reason index":
+                            observed = _drive_scenario(url, "opened-uninterpretable", workspace)
+                            self.assertEqual(observed, {
+                                "complete": True,
+                                "explanationUnavailable": True,
+                                "noPartialExplanation": True,
+                                "showsCedarCorrected": True,
+                                "showsBirchUnchanged": True,
+                                "calculateOffered": True,
+                                "noLeakedCodePatterns": True,
+                                "leakedCodePatterns": [],
+                            })
+                        self.assertEqual(_log_bytes(workspace), acts_before)
+                    finally:
+                        opener.close()
+        finally:
+            held.cleanup()
+
+    @unittest.skipUnless(_NODE and _BROWSER, "needs Node and a local Chrome/Chromium")
+    def test_page_recovers_a_calculation_whose_response_was_lost(self) -> None:
+        # The session calculates and saves its presentation; the response is
+        # then dropped. The page reads the session's state once, shows the
+        # calculated result, claims no failure and sends no second
+        # calculation. No answer act is appended.
+        held = _outside_repository()
+        workspace = Path(held.name) / "L"
+        try:
+            CorrectionRuntime.initialize(WorkspaceCapability(workspace), repo_root=REPO)
+            acts = _log_bytes(workspace)
+            completed_before = _completed_run_ids(workspace)
+            runtime = CorrectionRuntime.open(WorkspaceCapability(workspace), repo_root=REPO)
+            dist = build_correction_surface(
+                WorkspaceCapability(workspace), repo_root=REPO, opening_id="demo-dropped-calculate")
+            with mock.patch.object(correction_session_mod._CorrectionRequestHandler, "do_POST",
+                                   _do_post_dropping_first_calculate_response):
+                with CorrectionSessionServer(runtime, dist) as server:
+                    observed = _drive_scenario(server.url, "calculate-dropped", workspace)
+            self.assertEqual(observed, {
+                "complete": True,
+                "recoveredHeading": True,
+                "noFailureClaim": True,
+                "noLeakedCodePatterns": True,
+                "leakedCodePatterns": [],
+            })
+            self.assertEqual(_log_bytes(workspace), acts)
+            completed_after = _completed_run_ids(workspace)
+            self.assertEqual(completed_after[:len(completed_before)], completed_before)
+            self.assertEqual(len(completed_after), len(completed_before) + 1)
+            self.assertRegex(completed_after[-1], _SESSION_RUN)
+            working = runtime.state()
+            self.assertTrue(working["calculated_in_session"])
+            self.assertEqual(working["saved_run_id"], completed_after[-1])
+        finally:
+            held.cleanup()
+
+    @unittest.skipUnless(_NODE and _BROWSER, "needs Node and a local Chrome/Chromium")
+    def test_page_states_an_explicit_calculation_refusal(self) -> None:
+        # The session answers that it did not calculate. The page says so,
+        # keeps the opened account, and offers calculating again.
+        held = _outside_repository()
+        workspace = Path(held.name) / "L"
+        try:
+            CorrectionRuntime.initialize(WorkspaceCapability(workspace), repo_root=REPO)
+            acts = _log_bytes(workspace)
+            completed_before = _completed_run_ids(workspace)
+            runtime = CorrectionRuntime.open(WorkspaceCapability(workspace), repo_root=REPO)
+            dist = build_correction_surface(
+                WorkspaceCapability(workspace), repo_root=REPO, opening_id="demo-refused-calculate")
+            with mock.patch.object(correction_session_mod, "live_coordinate_run",
+                                   side_effect=RuntimeError("demo refusal")):
+                with CorrectionSessionServer(runtime, dist) as server:
+                    observed = _drive_scenario(server.url, "calculate-refused", workspace)
+            self.assertEqual(observed, {
+                "complete": True,
+                "saysDidNotCalculate": True,
+                "openedAccountShown": True,
+                "calculateStillOffered": True,
+                "noLeakedCodePatterns": True,
+                "leakedCodePatterns": [],
+            })
+            self.assertEqual(_log_bytes(workspace), acts)
+            self.assertEqual(_completed_run_ids(workspace), completed_before)
+            self.assertTrue(runtime.state()["opened"])
+        finally:
             held.cleanup()
 
     @unittest.skipUnless(_NODE and _BROWSER, "needs Node and a local Chrome/Chromium")
@@ -655,10 +1225,10 @@ class SavedAccountResumption(unittest.TestCase):
             held.cleanup()
 
 
-def _drive_resume(url: str, token: str, workspace: Path) -> dict[str, Any]:
+def _drive_scenario(url: str, scenario: str, workspace: Path, token: str = "") -> dict[str, Any]:
     assert _NODE is not None
     proc = subprocess.Popen(
-        [_NODE, str(_BROWSER_CLIENT), url, "resume-completed", token],
+        [_NODE, str(_BROWSER_CLIENT), url, scenario, token],
         cwd=str(REPO),
         stdin=subprocess.DEVNULL,
         stdout=subprocess.PIPE,
@@ -668,7 +1238,7 @@ def _drive_resume(url: str, token: str, workspace: Path) -> dict[str, Any]:
     )
     try:
         stdout, stderr = proc.communicate(
-            timeout=_RESUME_STEPS * _STEP_BUDGET_SECONDS + _BROWSER_MARGIN_SECONDS)
+            timeout=_SCENARIO_STEPS[scenario] * _STEP_BUDGET_SECONDS + _BROWSER_MARGIN_SECONDS)
     except subprocess.TimeoutExpired:
         _kill_group(proc.pid)
         proc.wait(timeout=10)
@@ -684,3 +1254,57 @@ def _drive_resume(url: str, token: str, workspace: Path) -> dict[str, Any]:
     if not isinstance(observed, dict):
         raise AssertionError("browser client returned an unexpected payload")
     return observed
+
+
+def _drive_resume(url: str, token: str, workspace: Path) -> dict[str, Any]:
+    return _drive_scenario(url, "resume-completed", workspace, token)
+
+
+_ORIGINAL_DO_POST = correction_session_mod._CorrectionRequestHandler.do_POST
+
+
+def _do_post_dropping_first_calculate_response(self: Any) -> None:
+    """Test-only: let the real ``calculate()`` run to completion server-side,
+    then drop the TCP connection before any response byte is written. The
+    page's fetch() rejects -- a transport failure, not an HTTP status. Only
+    the first ``/api/calculate`` is dropped; a second one, if the page sent
+    it, would be served and counted."""
+    target = self._target()
+    if (target is not None and target[1] == "api/calculate"
+            and not getattr(self.server, "_calculate_response_dropped", False)):
+        self.server._calculate_response_dropped = True
+        self._read_body()
+        self.server.runtime.calculate()
+        try:
+            self.connection.shutdown(socket.SHUT_RDWR)
+        except OSError:
+            pass
+        self.close_connection = True
+        return
+    _ORIGINAL_DO_POST(self)
+
+
+def _completed_run_ids(workspace: Path) -> list[str]:
+    return [
+        record["run_id"] for record in RecordStream(workspace / "records", _schemas()).read().records
+        if record["phase"] == "completed"
+    ]
+
+
+def _damage_reason_index(model: dict[str, Any]) -> dict[str, Any]:
+    """A valid JSON presentation whose named-by-reason row names a reason
+    index the line 21 section does not have."""
+    damaged: dict[str, Any] = json.loads(json.dumps(model))
+    for row in damaged["line21Explanation"]["rows"]:
+        status = row.get("status")
+        if isinstance(status, dict) and status.get("kind") == "named-by-reason":
+            status["reasonIndices"] = [999]
+            return damaged
+    raise AssertionError("no named-by-reason row to damage")
+
+
+def _damage_rows(model: dict[str, Any]) -> dict[str, Any]:
+    """A valid JSON presentation whose explanation rows are not objects."""
+    damaged: dict[str, Any] = json.loads(json.dumps(model))
+    damaged["line21Explanation"]["rows"] = ["not a row"]
+    return damaged

@@ -103,6 +103,21 @@ python3 -m packages.derivation.runners.sli_correction_evaluation --state STATE
 - **historical** — `python3 -m packages.derivation.runners.sli_correction_evaluation --state historical`
   This builds on base, applies one correction (Cedar's loan-cost answer, yes to no) before the page opens, then opens the earlier result. The page should say that result is earlier and not current. Cedar's choice should say the answer has since changed. The confirmation should name the earlier yes and the current no, and say the review is of the current answer. Confirming changes that current answer; it does not write against the old finding, and the earlier result's files stay as they were. A withdrawn answer is not a runner state; the tests cover it, and there the page says there is nothing to correct and offers no save.
 
+### Returning to a saved account
+
+Stop-and-return works the same way outside the repository, across a real restart of the process. Wording is provisional.
+
+1. Create an empty directory outside this repository to hold one synthetic account — any directory of your own choosing is fine; never a path inside this repository.
+2. `python3 -m packages.derivation.runners.sli_correction_evaluation --workspace DIR --init` (optionally with `--state NAME`) seeds that directory once and serves it, the same as the temporary states above.
+3. Review Autumn on Cedar and correct it, the same as any state above.
+4. Stop the process (Ctrl-C, or any other way it ends). The saved correction and the account's history are now durable in that directory.
+5. `python3 -m packages.derivation.runners.sli_correction_evaluation --workspace DIR` (without `--init`) opens that same directory again and serves it.
+6. The opened page shows each borrowing's current answer and, where one exists, its earlier answer, read fresh from the directory — never reseeded. It also shows the latest earlier result, if one is recorded, and offers one action: calculate from the saved answers.
+7. Calculating runs one fresh calculation from those saved answers and never saves a second time. The result is headed as calculated from the saved answers in this session, not as an earlier result.
+8. From there, a further correction works as before: choose an answer, confirm it, and see the recalculated result.
+
+If a calculation was started and never finished before the process stopped, the opened page still shows the saved answers, says the calculation did not finish, and shows the latest completed result if one exists; nothing is seeded or reset, and calculating is still offered. A review token issued by a stopped process is never honored by a new one: confirming, checking its outcome, or retrying with that token reports that the outcome cannot be determined in this session — never "Not saved" — and the page drops that old token once told so by the server, not merely because a request to it failed to arrive.
+
 ## Data safety
 
 Nothing personal is committed: no real tax documents, no personal fact instances, no artifacts derived from personal data. Committed fixtures are synthetic and publishable. Personal work stays under ignored paths (`local-data/`, `temp/`, `private-archive/`, `uploads/`, `generated/user/`). See Article 18 (Quarantine) and the data safety rules in `AGENTS.md`.

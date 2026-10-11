@@ -1,7 +1,7 @@
 {
   "packages": [
     {
-      "checksum": "cd79723bf8c9c02802083ed719ab91d2f783cc4d96abddf362c7ec7ed9c5cdc2",
+      "checksum": "08e7fe5ec08d11127b19fa3049c8191076b52cbf595e2372cea1efbc32982e8e",
       "id": "demo.surface.sli-correction",
       "version": "v1"
     }

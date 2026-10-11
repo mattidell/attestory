@@ -4,9 +4,9 @@
   "phase": "Evolving Workspace Accounts",
   "topic": "saved-account-resumption",
   "active_plan": "docs/phases/evolving-workspace-accounts/milestones/saved-account-resumption.md",
-  "milestone_state": "track-1",
-  "status": "Track 1 complete: a new process opens a saved synthetic correction account from its files alone, shows each loan-cost answer with its predecessor and the latest earlier result, calculates without saving again, and continues the correction.",
-  "current_role": "Builder — Track 2 remaining cases and walkthrough",
+  "milestone_state": "track-2",
+  "status": "Track 2 complete: each stop-and-return case is decided across real restarts, and the README walkthrough reproduces the interaction.",
+  "current_role": "Foreman — close the milestone",
   "current_prompt": "docs/phases/evolving-workspace-accounts/milestones/saved-account-resumption.md"
 }
 -->
