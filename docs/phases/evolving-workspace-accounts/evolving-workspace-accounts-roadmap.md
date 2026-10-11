@@ -2,12 +2,13 @@
 
 ## Current direction
 
-The first two milestones are merged. They support the bounded phase exit
-described in
+The first two milestones support the bounded phase exit described in
 [Reviewing and Correcting the Account Behind a Result](milestones/account-review-correction.md#outcome).
-The owner requested another milestone; **Returning to a Saved Account** is
-planned as one additional interaction across stopping and reopening the
-application. Phase closure will be reassessed at that boundary.
+The owner-requested third milestone, **Returning to a Saved Account**, closed
+2026-10-11. It added the returning-user path, and the foreman recommends
+concluding the phase
+([assessment](milestones/saved-account-resumption.md#outcome)). That is the
+owner's decision.
 Later milestones are not commitments.
 Experience and owner and agent feedback should change the sequence when they
 reveal a more useful question.
@@ -45,9 +46,14 @@ The plan includes early independent review of the concrete walkthrough,
 the implementation boundary, and the integrated interaction. At closeout,
 reassess phase completion rather than automatically choosing another case.
 
-## 3. Returning to a Saved Account — planned
+## 3. Returning to a Saved Account — closed 2026-10-11
 
-[Plan](milestones/saved-account-resumption.md).
+[Plan](milestones/saved-account-resumption.md) ·
+[Retrospective](../../milestone-retrospectives/2026-10-11-saved-account-resumption.md).
+Delivered: a synthetic correction account that a new process reopens from its
+files alone. The reopened page shows each answer with its predecessor and the
+latest earlier result, calculates without saving again, and continues the
+correction.
 
 Continue the existing borrowing-answer correction interaction after its process
 has ended. Reopen the same synthetic workspace, recover the saved answer and

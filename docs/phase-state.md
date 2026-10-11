@@ -4,10 +4,10 @@
   "phase": "Evolving Workspace Accounts",
   "topic": "saved-account-resumption",
   "active_plan": "docs/phases/evolving-workspace-accounts/milestones/saved-account-resumption.md",
-  "milestone_state": "track-2",
-  "status": "Track 2 complete: each stop-and-return case is decided across real restarts, and the README walkthrough reproduces the interaction.",
-  "current_role": "Foreman — close the milestone",
-  "current_prompt": "docs/phases/evolving-workspace-accounts/milestones/saved-account-resumption.md"
+  "milestone_state": "closed",
+  "status": "Closed. A synthetic correction account can be initialized once, corrected, stopped and reopened by a new process from its files alone; the reopened page shows each loan-cost answer with its predecessor, the latest earlier result and the calculation state, calculates without saving again, and continues the correction. The foreman recommends concluding the phase; that is the owner's decision.",
+  "current_role": "Foreman — select next milestone",
+  "current_prompt": "docs/phases/evolving-workspace-accounts/evolving-workspace-accounts-roadmap.md"
 }
 -->
 
@@ -15,66 +15,59 @@
 
 ## Current result
 
-**Reviewing and Correcting the Account Behind a Result is closed.** A person
-can open a correction session on a saved student-loan result and choose one
-borrowing's answer about whether the loan paid only for school costs. They
-read a confirmation that names:
+**Returning to a Saved Account is closed.** A person can initialize a
+synthetic student-loan account once, in a directory outside the repository,
+and correct a borrowing's loan-cost answer through the correction page. They
+can stop the process. A new process then opens the same directory from its
+files alone, without seeding it. The opened page shows:
 
-- the borrowing and its recorded relationships;
-- the question;
-- the current answer and the proposed answer;
-- the forms the answer reaches.
+- each borrowing's current loan-cost answer and its earlier answer;
+- the latest earlier result, labelled as earlier;
+- whether a calculation started and did not finish.
 
-They confirm. The correction is saved through the existing reviewed recorder
-call, and the return is recalculated under core calculations v42. The new
-explanation sits beside the earlier result, which does not change.
+Calculating saves no answer. The correction interaction then continues, and
+the next correction names the previous one as its predecessor.
 
-The session refuses three things:
+No saved result is presented as describing the current answers, because the
+files do not establish that. A token from a stopped process is refused, and
+the page says it cannot tell what happened rather than "Not saved". Missing,
+duplicate and unreadable result files, and an unreadable record stream, each
+have their own sentence, and the answers stay visible in every case.
 
-- a borrowing it cannot tell apart from another;
-- a confirmation whose displayed relationships changed before the save;
-- any attempt to save against an answer read from an earlier result.
-
-It reports a correction that was saved but not calculated as exactly that,
-and its retry only recalculates. The page is one static file delivered as an
-ADR 0049 surface artifact. There is no new schema, ADR or calculation change.
-The wording is provisional, and the session works on synthetic workspaces
-only.
+There is no new schema, ADR, durable store or calculation change. The wording
+is provisional, and accounts are synthetic only.
 
 ## Begin here
 
-- [Active plan](phases/evolving-workspace-accounts/milestones/saved-account-resumption.md):
-  returning to the same saved account after the process ends.
-- [Previous milestone](phases/evolving-workspace-accounts/milestones/account-review-correction.md):
-  the walkthrough, the Track 0 selection, the integrated repairs, the
+- [Milestone plan](phases/evolving-workspace-accounts/milestones/saved-account-resumption.md):
+  the P0 trace, the Track 0 route, the integrated reviews and repairs, the
   outcome, and the phase assessment.
-- [Retrospective](milestone-retrospectives/2026-10-09-account-review-correction.md):
+- [Retrospective](milestone-retrospectives/2026-10-11-saved-account-resumption.md):
   lessons and follow-ups.
 - [Evolving Workspace Accounts roadmap](phases/evolving-workspace-accounts/evolving-workspace-accounts-roadmap.md).
-- README, "Correction session walkthrough": the command for each named state.
+- README, "Correction session walkthrough" and "Returning to a saved
+  account".
 
 ## Immediate next action
 
-PR #206 is merged. The owner requested the next milestone:
-**Returning to a Saved Account**.
-[Active plan](phases/evolving-workspace-accounts/milestones/saved-account-resumption.md).
+The owner decides whether to conclude Evolving Workspace Accounts. The
+foreman recommends concluding it. The phase's bounded exit was met by the
+first two milestones, and this one adds the returning-user path. Three items
+stay open, and none needs a new milestone in this phase:
 
-Charter P0 to trace a correction, a complete process stop, and reopening the
-same synthetic workspace from durable records. Establish what already survives,
-how the displayed result relates to current answers, and which connection is
-missing. Independently review the evidence and plan before selecting the build.
-Keep the existing loan-cost question and calculation policy.
+- the owner's visual check of the interaction, with any wording changes;
+- an independent reader assessment;
+- the real-workspace residency decision.
 
-The earlier milestones already support the phase's bounded exit. This
-additional milestone pursues one returning-user interaction. At its closeout,
-reassess phase closure. Owner visual review and the independent-reader
-assessment remain open; they are not silently satisfied by this new plan.
+No tax case is proposed. The milestone PR is published after curation, the
+final review and CI binding its head. The owner merges.
 
 ## Parked
 
-- The predecessor's five conservatively blocked states, and whether a
-  shared-answer "no" should reach the whole return.
+- The five conservatively blocked states from the account-refinement
+  milestone, and whether a shared-answer "no" should reach the whole return.
 - General assumption management, allocation and mixed-period treatment,
   institutional verification, free text, and a general correction or intake
   platform.
 - Use of the correction session on a real workspace (the residency path).
+- Recording a calculation that fails before its run starts.
