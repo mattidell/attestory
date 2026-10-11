@@ -40,6 +40,7 @@ from packages.derivation.live import live_coordinate_run
 from packages.derivation.live_workspace import WorkspaceCapability, bootstrap_workspace
 from packages.derivation.loader import DerivationSchemas
 from packages.derivation.production_resolver import PublicationSurface, Refusal
+from packages.derivation.records import RecordStream, RecordStreamCorruption
 from packages.derivation.surface_resolver import ResolvedSurface, resolve_surface_artifact
 from packages.kernel.act_log import ActLog
 from packages.kernel.currency import compute_currency
@@ -504,6 +505,177 @@ def _classify_refusal(exc: RelationshipRecordingRefused) -> str:
     return _REFUSAL_OTHER
 
 
+def _line21_disposition(presentation: Mapping[str, Any]) -> str | None:
+    """The line 21 section's ``resolved.disposition``, or None when the
+    section is absent. This is the model's own disposition, not a guess
+    from a missing number."""
+    sections = presentation.get("sections") if isinstance(presentation, Mapping) else None
+    if not isinstance(sections, list):
+        return None
+    for section in sections:
+        if isinstance(section, Mapping) and section.get("id") == _LINE21_SECTION_ID:
+            resolved = section.get("resolved")
+            disposition = resolved.get("disposition") if isinstance(resolved, Mapping) else None
+            return disposition if isinstance(disposition, str) and disposition else None
+    return None
+
+
+def _line21_view(
+    presentation: Mapping[str, Any], acts: Sequence[Mapping[str, Any]], registry: Any,
+) -> dict[str, Any]:
+    """Line 21 rows, value, and disposition for one presentation. Drops
+    authorization standing; that is not an account-currency claim."""
+    line21 = presentation.get("line21Explanation") or {}
+    rows = _attribute_borrowing_labels(
+        line21.get("rows", []) or [] if isinstance(line21, Mapping) else [], acts, registry)
+    rows = _attach_line21_reason_sentences(rows, _line21_section_reasons(presentation))
+    working = line21.get("working") if isinstance(line21, Mapping) else None
+    line21_value = working.get("value") if isinstance(working, Mapping) else None
+    return {
+        "line21_rows": rows,
+        "line21_value": line21_value,
+        "line21_disposition": _line21_disposition(presentation),
+    }
+
+
+def _evidence_correction_of(state: Any, finding: Mapping[str, Any]) -> str | None:
+    """The successor evidence field ``correction_of_finding_id``, or None
+    when this finding does not record one. Two disagreeing fields are not
+    a predecessor."""
+    evidence_ids = finding.get("evidence_ids")
+    if not isinstance(evidence_ids, list):
+        return None
+    found: str | None = None
+    for evidence_id in evidence_ids:
+        if not isinstance(evidence_id, str):
+            return None
+        lifecycle = state.evidence.get(evidence_id)
+        evidence = getattr(lifecycle, "evidence", None)
+        content = evidence.get("content") if isinstance(evidence, Mapping) else None
+        if not isinstance(content, Mapping) or "correction_of_finding_id" not in content:
+            continue
+        value = content.get("correction_of_finding_id")
+        if value is None:
+            continue
+        if not isinstance(value, str) or not value:
+            return None
+        if found is not None and found != value:
+            return None
+        found = value
+    return found
+
+
+def _currency_correction_predecessor(
+    state: Any, currency: Any, fact_id: str, current_id: str,
+) -> str | None:
+    """The displaced finding on ``fact_id`` whose correction reason names
+    ``current_id``. More than one such finding is not a single edge."""
+    matches: list[str] = []
+    for finding_id, row in state.findings.items():
+        if not isinstance(row, Mapping) or row.get("fact_id") != fact_id:
+            continue
+        if finding_id not in currency.displaced_finding_ids:
+            continue
+        reasons = currency.reasons.get(finding_id, ())
+        if any(reason.kind == "correction" and reason.by == current_id for reason in reasons):
+            matches.append(str(finding_id))
+    if len(matches) != 1:
+        return None
+    return matches[0]
+
+
+def _opened_loan_answers(contents: Any, registry: Any) -> list[dict[str, Any]]:
+    """Each borrowing's current loan-cost answer, and the predecessor named
+    by the recorded correction edge.
+
+    The predecessor is the displaced finding on that fact whose correction
+    reason's ``by`` is the current finding, and it must equal the
+    successor's ``correction_of_finding_id``. A one-sided or disagreeing
+    pair is not established. Ids travel as opaque values; the page shows
+    the label, the recognition clues, and the answers.
+    """
+    state = project(tuple(dict(act) for act in contents.acts), registry)
+    currency = compute_currency(state)
+    lattice = facts_of(state.fact_state, include_displaced=True)
+    answers: list[dict[str, Any]] = []
+    for finding_id in sorted(currency.current_finding_ids):
+        finding = state.findings.get(finding_id)
+        if not isinstance(finding, Mapping):
+            continue
+        fact = lattice.get(str(finding.get("fact_id", "")))
+        if fact is None or fact.fact_type_id != LOAN_COST_FACT_TYPE:
+            continue
+        fact_id = str(finding.get("fact_id", ""))
+        evidence_predecessor = _evidence_correction_of(state, finding)
+        currency_predecessor = _currency_correction_predecessor(
+            state, currency, fact_id, str(finding_id))
+        predecessor: dict[str, Any] | None
+        if (evidence_predecessor is not None and evidence_predecessor == currency_predecessor):
+            earlier = state.findings.get(evidence_predecessor)
+            response = earlier.get("value") if isinstance(earlier, Mapping) else None
+            predecessor = {
+                "finding_id": evidence_predecessor,
+                "response": response if isinstance(response, str) else None,
+            }
+        elif evidence_predecessor is not None or currency_predecessor is not None:
+            predecessor = {"not_established": True}
+        else:
+            predecessor = None
+        borrowing_ref = dict(fact.keys).get("borrowing")
+        label = (
+            _entity_label(contents, registry, borrowing_ref)
+            if isinstance(borrowing_ref, str) else None)
+        clues = (
+            recognition_clue_labels(contents, registry, borrowing_ref)
+            if isinstance(borrowing_ref, str) else [])
+        response = finding.get("value")
+        answers.append({
+            "finding_id": str(finding_id),
+            "borrowing_label": label,
+            "recognition_clues": clues,
+            "response": response if isinstance(response, str) else None,
+            "predecessor": predecessor,
+        })
+    answers.sort(key=lambda row: (row.get("borrowing_label") or "", row["finding_id"]))
+    return answers
+
+
+def _presentation_for_run(output_dir: Path, run_id: str) -> tuple[str, dict[str, Any] | None]:
+    """Match ``runId`` inside this workspace's presentation files.
+
+    The filename chooses nothing. Zero matches are unavailable, two matches
+    are not established, and a file that cannot be read is unreadable.
+    An unreadable file next to a match is not established either: it might
+    be a second copy.
+    """
+    if not output_dir.is_dir():
+        return "unavailable", None
+    matches: list[dict[str, Any]] = []
+    unreadable = False
+    for path in sorted(output_dir.iterdir()):
+        if not path.is_file() or not path.name.endswith(".presentation.json"):
+            continue
+        try:
+            model = json.loads(path.read_text("utf-8"))
+        except (OSError, UnicodeError, json.JSONDecodeError):
+            unreadable = True
+            continue
+        if not isinstance(model, dict) or model.get("runId") != run_id:
+            if not isinstance(model, dict):
+                unreadable = True
+            continue
+        matches.append(model)
+    if unreadable and matches:
+        return "not-established", None
+    if unreadable:
+        return "unreadable", None
+    if not matches:
+        return "unavailable", None
+    if len(matches) > 1:
+        return "not-established", None
+    return "earlier", matches[0]
+
+
 # ---------------------------------------------------------------------------
 # The correction runtime.
 # ---------------------------------------------------------------------------
@@ -545,12 +717,14 @@ class CorrectionRuntime:
         self._lock = Lock()
         self._seed(seed_acts if seed_acts is not None else load_seed_acts(repo_root))
         try:
-            self._saved_presentation: dict[str, Any] = json.loads(
-                saved_presentation_path.read_text("utf-8"))
+            loaded = json.loads(saved_presentation_path.read_text("utf-8"))
         except (OSError, UnicodeError, json.JSONDecodeError) as exc:
             raise CorrectionSessionError("correction-saved-result-unavailable") from exc
-        if not isinstance(self._saved_presentation, dict):
+        if not isinstance(loaded, dict):
             raise CorrectionSessionError("correction-saved-result-invalid")
+        # None only for ``open``, until this process calculates. The
+        # constructor always has a presentation.
+        self._saved_presentation: dict[str, Any] | None = loaded
         self._saved_run_id = saved_run_id
         # Plan, Track 2 item 3 (historical result): true only when the
         # caller is deliberately opening the session on a saved result that
@@ -568,6 +742,131 @@ class CorrectionRuntime:
         # ``_completed`` so confirm cannot replay a save that never happened.
         self._abandoned: set[str] = set()
         self._retry_serial = 0
+        # Held only in this process. Every token this runtime issues names
+        # it. Opening an existing log does not restore it.
+        self._session_identity = token_urlsafe(16)
+        self._calculate_serial = 0
+        # True only for ``open``, until this process calculates. The
+        # constructor and ``initialize`` already have a working result.
+        self._awaiting_calculation = False
+
+    @classmethod
+    def initialize(
+        cls,
+        capability: WorkspaceCapability,
+        *,
+        repo_root: Path,
+        state: str = STATE_BASE,
+        schemas: DerivationSchemas | None = None,
+    ) -> "CorrectionRuntime":
+        """Seed a directory that has no log, then calculate its opening result.
+
+        The opening run uses the log read back after the seed, with this
+        session's fixed scope, scope user, and core-calculations surface.
+        The opening run id and output name stay ``demo.correction.run.initial``
+        and ``initial.json``. A directory whose log already exists is refused
+        and nothing is written.
+        """
+        schemas = schemas or DerivationSchemas()
+        install_domain_scoped_supersession(schemas.registry)
+        workspace = bootstrap_workspace(capability, repo_root=repo_root)
+        log = ActLog(workspace.location, schemas.registry)
+        if log.path.exists():
+            raise CorrectionSessionError("correction-workspace-not-empty")
+        seed_acts = load_seed_acts(repo_root, state)
+        for expected, act in enumerate(seed_acts):
+            body = dict(act)
+            if body.get("committed_against") != expected:
+                raise CorrectionSessionError("correction-fixture-invalid")
+            log.append(body, expected_revision=expected)
+        contents = log.read()
+        surface = core_calculations_surface(repo_root)
+        try:
+            outcome = live_coordinate_run(
+                capability, repo_root=repo_root, authoritative_acts=contents.acts,
+                workspace_revision=contents.revision, run_scope=RUN_SCOPE,
+                scope_user=SCOPE_USER, request={"schema": "run-request.v1"},
+                run_id="demo.correction.run.initial", governance_pins=[],
+                surface=surface, output_name="initial.json", schemas=schemas,
+            )
+        except Exception as exc:
+            raise CorrectionSessionError("correction-opening-calculation-refused") from exc
+        if outcome.refusal is not None or outcome.presentation_path is None:
+            raise CorrectionSessionError("correction-opening-calculation-refused")
+        try:
+            model = json.loads(outcome.presentation_path.read_text("utf-8"))
+        except (OSError, UnicodeError, json.JSONDecodeError) as exc:
+            raise CorrectionSessionError("correction-opening-calculation-refused") from exc
+        if not isinstance(model, dict):
+            raise CorrectionSessionError("correction-opening-calculation-refused")
+        return cls._adopt(
+            capability, repo_root=repo_root, surface=surface, schemas=schemas,
+            saved_presentation=model, saved_run_id="demo.correction.run.initial",
+            awaiting_calculation=False,
+        )
+
+    @classmethod
+    def open(
+        cls,
+        capability: WorkspaceCapability,
+        *,
+        repo_root: Path,
+        schemas: DerivationSchemas | None = None,
+    ) -> "CorrectionRuntime":
+        """Open a directory that already holds a log. Never seeds.
+
+        A missing or empty log is refused and nothing is written. This
+        session has no working result until ``calculate``.
+        """
+        schemas = schemas or DerivationSchemas()
+        install_domain_scoped_supersession(schemas.registry)
+        workspace = bootstrap_workspace(capability, repo_root=repo_root)
+        log = ActLog(workspace.location, schemas.registry)
+        if not log.path.exists():
+            raise CorrectionSessionError("correction-workspace-missing")
+        if log.read().revision == 0:
+            raise CorrectionSessionError("correction-workspace-empty")
+        return cls._adopt(
+            capability, repo_root=repo_root, surface=core_calculations_surface(repo_root),
+            schemas=schemas, saved_presentation=None, saved_run_id="",
+            awaiting_calculation=True,
+        )
+
+    @classmethod
+    def _adopt(
+        cls,
+        capability: WorkspaceCapability,
+        *,
+        repo_root: Path,
+        surface: PublicationSurface,
+        schemas: DerivationSchemas,
+        saved_presentation: dict[str, Any] | None,
+        saved_run_id: str,
+        awaiting_calculation: bool,
+    ) -> "CorrectionRuntime":
+        """Bind a runtime to a log that already has its acts. Does not seed."""
+        self = cls.__new__(cls)
+        self._capability = capability
+        self._repo_root = repo_root
+        self._surface = surface
+        self._run_scope = dict(RUN_SCOPE)
+        self._scope_user = SCOPE_USER
+        self._schemas = schemas
+        install_domain_scoped_supersession(self._schemas.registry)
+        self._workspace = bootstrap_workspace(capability, repo_root=repo_root)
+        self._log = ActLog(self._workspace.location, self._schemas.registry)
+        self._lock = Lock()
+        self._saved_presentation = saved_presentation
+        self._saved_run_id = saved_run_id
+        self._is_historical = False
+        self._tokens = {}
+        self._completed = {}
+        self._abandoned = set()
+        self._retry_serial = 0
+        self._session_identity = token_urlsafe(16)
+        self._calculate_serial = 0
+        self._awaiting_calculation = awaiting_calculation
+        return self
 
     def _seed(self, seed_acts: Sequence[Mapping[str, Any]]) -> None:
         if self._log.read().revision:
@@ -582,37 +881,110 @@ class CorrectionRuntime:
     def registry(self) -> Any:
         return self._schemas.registry
 
+    def _names_session(self, token: object) -> bool:
+        """True when ``token`` was issued by this process.
+
+        An unprefixed token, including today's ``token_urlsafe`` form, names
+        no session. The check does not read the token maps.
+        """
+        if not isinstance(token, str) or "." not in token:
+            return False
+        identity, rest = token.split(".", 1)
+        if not identity or not rest:
+            return False
+        return compare_digest(identity, self._session_identity)
+
     def state(self) -> dict[str, Any]:
-        """The saved result's line 21 rows and the current correction choices."""
+        """The saved result's line 21 rows and the current correction choices.
+
+        Before this process has calculated an opened workspace, returns the
+        account read from the files: current loan-cost answers, predecessors,
+        the latest earlier result, and the calculate action.
+        """
         with self._lock:
-            contents = self._log.read()
-            acts = contents.acts
-            choices, unavailable = _scan_displayed_answers(
-                self._saved_presentation, acts, self.registry)
-            # Plan, Track 2 item 5 (duplicate labels): each choice carries
-            # the same label and recognition clues the confirmation card
-            # would show, so a repeated label is distinguishable before it
-            # is chosen -- read-only, built the same way the card's own
-            # clues are, never a new statement.
-            for entry in choices.values():
-                borrowing_ref = entry["borrowing_ref"]
-                entry["borrowing_label"] = _entity_label(contents, self.registry, borrowing_ref)
-                entry["recognition_clues"] = recognition_clue_labels(
-                    contents, self.registry, borrowing_ref)
-            # Plan, Track 2 item 3: a withdrawn displayed answer is not a
-            # choice. The page shows the resolver's own sentence.
-            for entry in unavailable:
-                ref = entry.get("borrowing_ref")
-                entry["borrowing_label"] = (
-                    _entity_label(contents, self.registry, ref) if isinstance(ref, str) else None)
-            line21 = self._saved_presentation.get("line21Explanation") or {}
-            rows = _attribute_borrowing_labels(line21.get("rows", []) or [], acts, self.registry)
-            rows = _attach_line21_reason_sentences(rows, _line21_section_reasons(self._saved_presentation))
-            working = line21.get("working") if isinstance(line21, dict) else None
-            line21_value = working.get("value") if isinstance(working, dict) else None
-            return {"saved_run_id": self._saved_run_id, "line21_rows": rows,
-                    "line21_value": line21_value, "choices": choices,
-                    "unavailable": unavailable, "historical": self._is_historical}
+            if self._awaiting_calculation:
+                return self._opened_state()
+            return self._working_state()
+
+    def _working_state(self) -> dict[str, Any]:
+        """Caller holds ``_lock``. The presentation is this session's result."""
+        saved = self._saved_presentation
+        if saved is None:
+            raise CorrectionSessionError("correction-not-calculated")
+        contents = self._log.read()
+        acts = contents.acts
+        choices, unavailable = _scan_displayed_answers(saved, acts, self.registry)
+        # Plan, Track 2 item 5 (duplicate labels): each choice carries
+        # the same label and recognition clues the confirmation card
+        # would show, so a repeated label is distinguishable before it
+        # is chosen -- read-only, built the same way the card's own
+        # clues are, never a new statement.
+        for entry in choices.values():
+            borrowing_ref = entry["borrowing_ref"]
+            entry["borrowing_label"] = _entity_label(contents, self.registry, borrowing_ref)
+            entry["recognition_clues"] = recognition_clue_labels(
+                contents, self.registry, borrowing_ref)
+        # Plan, Track 2 item 3: a withdrawn displayed answer is not a
+        # choice. The page shows the resolver's own sentence.
+        for entry in unavailable:
+            ref = entry.get("borrowing_ref")
+            entry["borrowing_label"] = (
+                _entity_label(contents, self.registry, ref) if isinstance(ref, str) else None)
+        viewed = _line21_view(saved, acts, self.registry)
+        return {"saved_run_id": self._saved_run_id, "line21_rows": viewed["line21_rows"],
+                "line21_value": viewed["line21_value"],
+                "line21_disposition": viewed["line21_disposition"],
+                "choices": choices, "unavailable": unavailable,
+                "historical": self._is_historical}
+
+    def _opened_state(self) -> dict[str, Any]:
+        """The account as the files hold it, before this process calculates.
+
+        Caller holds ``_lock``. Reading the log and the record stream writes
+        nothing. A record stream that will not parse, or an incomplete tail,
+        leaves the answers visible and does not invent a result.
+        """
+        contents = self._log.read()
+        answers = _opened_loan_answers(contents, self.registry)
+        earlier, did_not_finish, records_not_established = self._earlier_result(contents.acts)
+        return {
+            "opened": True,
+            "historical": False,
+            "answers": answers,
+            "earlier_result": earlier,
+            "did_not_finish": did_not_finish,
+            "records_not_established": records_not_established,
+            "calculate": True,
+        }
+
+    def _earlier_result(
+        self, acts: Sequence[Mapping[str, Any]],
+    ) -> tuple[dict[str, Any], bool, bool]:
+        """The last completed run's presentation, by record order and ``runId``.
+
+        Caller holds ``_lock``. ``open_runs`` is a started run with no close,
+        stated separately from the earlier result.
+        """
+        stream = RecordStream(self._workspace.live_output_path(Path("records")), self._schemas)
+        try:
+            recorded = stream.read()
+        except RecordStreamCorruption:
+            return {"status": "records-not-established"}, False, True
+        if recorded.incomplete_tail:
+            return {"status": "records-not-established"}, False, True
+        did_not_finish = bool(stream.open_runs())
+        completed = [row for row in recorded.records if row.get("phase") == "completed"]
+        if not completed:
+            return {"status": "none"}, did_not_finish, False
+        run_id = completed[-1].get("run_id")
+        if not isinstance(run_id, str) or not run_id:
+            return {"status": "unavailable"}, did_not_finish, False
+        status, model = _presentation_for_run(
+            self._workspace.live_output_path(Path("outputs")), run_id)
+        earlier: dict[str, Any] = {"status": status, "run_id": run_id}
+        if status == "earlier" and model is not None:
+            earlier.update(_line21_view(model, acts, self.registry))
+        return earlier, did_not_finish, False
 
     def resolve(self, finding_id: str) -> dict[str, Any]:
         """Classify one displayed finding id against the current workspace."""
@@ -626,6 +998,8 @@ class CorrectionRuntime:
         if not isinstance(finding_id, str) or not finding_id:
             raise CorrectionSessionError("correction-finding-id-invalid")
         with self._lock:
+            if self._awaiting_calculation:
+                raise CorrectionSessionError("correction-not-calculated")
             contents = self._log.read()
             target = resolve_displayed_answer_to_target(contents.acts, self.registry, finding_id)
             status = target.get("status")
@@ -686,7 +1060,7 @@ class CorrectionRuntime:
                 "disclaimer": "The effect on your return is known only after this "
                                "correction is recalculated.",
             }
-            token = token_urlsafe(24)
+            token = f"{self._session_identity}.{token_urlsafe(24)}"
             self._tokens[token] = {
                 "review": review, "borrowing_ref": borrowing_ref, "question": LOAN_COST_QUESTION,
                 "finding_id": target_finding_id, "confirmation": confirmation,
@@ -716,6 +1090,8 @@ class CorrectionRuntime:
         if response not in _ALLOWED_RESPONSES:
             raise CorrectionSessionError("correction-response-invalid")
         with self._lock:
+            if not self._names_session(token):
+                raise CorrectionSessionError("correction-unknown-token")
             if isinstance(token, str) and token in self._abandoned:
                 raise CorrectionSessionError("correction-unknown-token")
             if isinstance(token, str) and token in self._completed:
@@ -760,6 +1136,8 @@ class CorrectionRuntime:
         if not isinstance(token, str) or not token:
             raise CorrectionSessionError("correction-request-invalid")
         with self._lock:
+            if not self._names_session(token):
+                return {"outcome": "unknown", "reason": _UNKNOWN_OUTCOME}
             if token in self._completed:
                 return {**self._completed[token], "recovered": True}
             if token in self._abandoned:
@@ -785,6 +1163,8 @@ class CorrectionRuntime:
         if not isinstance(token, str) or not token:
             raise CorrectionSessionError("correction-retry-no-correction")
         with self._lock:
+            if not self._names_session(token):
+                raise CorrectionSessionError("correction-retry-no-correction")
             recorded = self._completed.get(token)
             if recorded is None or recorded.get("outcome") not in {
                 "saved-and-calculated", "saved-not-calculated",
@@ -798,6 +1178,47 @@ class CorrectionRuntime:
                 recorded.get("predecessor_finding_id"), successor, attempt=self._retry_serial)
             self._completed[token] = updated
             return updated
+
+    def calculate(self) -> dict[str, Any]:
+        """Calculate the log this process just read. Appends no act.
+
+        The output name comes from this process's own serial. On success the
+        result becomes the working result. On refusal or exception the
+        account is unchanged and the page says it did not calculate.
+        Calculating again is allowed.
+        """
+        with self._lock:
+            contents = self._log.read()
+            revision = contents.revision
+            acts = contents.acts
+            self._calculate_serial += 1
+            serial = self._calculate_serial
+            output_name = f"demo.correction.run.s{serial}.json"
+            run_id = f"demo.correction.run.s{serial}"
+            try:
+                outcome = live_coordinate_run(
+                    self._capability, repo_root=self._repo_root, authoritative_acts=acts,
+                    workspace_revision=revision, run_scope=self._run_scope,
+                    scope_user=self._scope_user, request={"schema": "run-request.v1"},
+                    run_id=run_id, governance_pins=[], surface=self._surface,
+                    output_name=output_name, schemas=self._schemas)
+            except Exception:
+                return {"calculated": False}
+            if outcome.refusal is not None or outcome.presentation_path is None:
+                return {"calculated": False}
+            after = self._log.read()
+            if after.revision != revision or after.acts != acts:
+                return {"calculated": False}
+            try:
+                model = json.loads(outcome.presentation_path.read_text("utf-8"))
+            except (OSError, UnicodeError, json.JSONDecodeError):
+                return {"calculated": False}
+            if not isinstance(model, dict):
+                return {"calculated": False}
+            self._saved_presentation = model
+            self._saved_run_id = run_id
+            self._awaiting_calculation = False
+            return {"calculated": True}
 
     def _finding_is_current(self, finding_id: Any) -> bool:
         """True when ``finding_id`` is a current finding. Caller holds ``_lock``."""
@@ -844,15 +1265,13 @@ class CorrectionRuntime:
             return saved_not_calculated
         if not isinstance(new_model, dict):
             return saved_not_calculated
-        line21 = new_model.get("line21Explanation") or {}
-        rows = _attribute_borrowing_labels(line21.get("rows", []) or [], contents.acts, self.registry)
-        rows = _attach_line21_reason_sentences(rows, _line21_section_reasons(new_model))
-        working = line21.get("working") if isinstance(line21, dict) else None
-        line21_value = working.get("value") if isinstance(working, dict) else None
+        viewed = _line21_view(new_model, contents.acts, self.registry)
         return {
             "outcome": "saved-and-calculated",
             "predecessor_finding_id": predecessor, "successor_finding_id": successor,
-            "line21_rows": rows, "line21_value": line21_value, "saved_run_id": self._saved_run_id,
+            "line21_rows": viewed["line21_rows"], "line21_value": viewed["line21_value"],
+            "line21_disposition": viewed["line21_disposition"],
+            "saved_run_id": self._saved_run_id,
         }
 
 
@@ -921,13 +1340,30 @@ def resolve_correction_surface(repo_root: Path) -> ResolvedSurface:
     return resolved
 
 
+_OPENING_ID_ALPHABET = frozenset(
+    "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789_-"
+)
+
+
 def build_correction_surface(
     capability: WorkspaceCapability, *, repo_root: Path, timeout_seconds: float = 60.0,
+    opening_id: str | None = None,
 ) -> Path:
-    """Verify, copy, and (no-op) build the adopted surface inside the workspace."""
+    """Verify, copy, and (no-op) build the adopted surface inside the workspace.
+
+    ``opening_id`` selects a target new to that opening. The fixed target,
+    used when it is omitted, still refuses a path that already exists.
+    Earlier openings are left in place; the caller serves only the path
+    this call returns.
+    """
     workspace = bootstrap_workspace(capability, repo_root=repo_root)
     resolved = resolve_correction_surface(repo_root)
-    build_root = workspace.live_output_path(Path(".correction-surface") / resolved.manifest["id"])
+    relative = Path(".correction-surface") / str(resolved.manifest["id"])
+    if opening_id is not None:
+        if not opening_id or any(char not in _OPENING_ID_ALPHABET for char in opening_id):
+            raise CorrectionSessionError("correction-surface-opening-invalid")
+        relative = relative / opening_id
+    build_root = workspace.live_output_path(relative)
     if build_root.exists():
         raise CorrectionSessionError("correction-surface-build-target-exists")
     shutil.copytree(resolved.content_dir, build_root)
@@ -975,6 +1411,8 @@ class CorrectionRuntimeLike(Protocol):
     def outcome(self, token: str) -> dict[str, Any]: ...
 
     def retry(self, token: str) -> dict[str, Any]: ...
+
+    def calculate(self) -> dict[str, Any]: ...
 
 
 class _CorrectionHTTPServer(ThreadingHTTPServer):
@@ -1116,6 +1554,10 @@ class _CorrectionRequestHandler(BaseHTTPRequestHandler):
                 if set(body) != {"token"} or not isinstance(token, str) or not token:
                     raise CorrectionSessionError("correction-request-invalid")
                 result = self.server.runtime.retry(token)
+            elif compare_digest(relative, "api/calculate"):
+                if set(body) != set():
+                    raise CorrectionSessionError("correction-request-invalid")
+                result = self.server.runtime.calculate()
             else:
                 self.send_error(404)
                 return

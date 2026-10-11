@@ -14,6 +14,10 @@ import { launchChrome } from "../../tools/presentation_harness/lib/chrome.mjs";
 
 const pageUrl = process.argv[2];
 const scenario = process.argv[3] || "confirmed";
+// Set only by the resumption test. A new process binds a new origin, so
+// this client places the previous process's token into that origin's
+// storage. The page did not carry it.
+const plantedToken = process.argv[4] || "";
 if (!pageUrl) {
   process.stderr.write("correction-browser-probe-failed\n");
   process.exit(1);
@@ -517,6 +521,83 @@ async function runUnblock(sessionId) {
   };
 }
 
+async function runResumeCompleted(sessionId) {
+  // The reopened account. The previous process's token is planted by this
+  // client after the correction; the page did not carry it across origins.
+  // Sequential waits, including the initial navigation in main: opened,
+  // after calculate, the choice button, the confirmation panel, the
+  // calculated outcome, the reload, and the undetermined sentence. Eight.
+  if (!plantedToken) throw new Error("resume-completed-needs-planted-token");
+  await waitUntil(
+    `document.getElementById("opened").hidden === false &&
+      document.getElementById("opened-answers").innerText.includes("Current answer:") &&
+      document.getElementById("opened-answers").innerText.includes("Earlier answer:") &&
+      document.getElementById("earlier-statement").textContent.includes("This is an earlier result.")`,
+    sessionId,
+  );
+  const blocks = await evaluate(
+    `Array.from(document.querySelectorAll("#opened-answers .explanation-row")).map((node) => node.innerText)`,
+    sessionId,
+  );
+  const earlierStatement = await evaluate(
+    `document.getElementById("earlier-statement").textContent`, sessionId);
+  const earlierRows = await evaluate(
+    `document.getElementById("earlier-rows").innerText`, sessionId);
+  const openedText = await evaluate(`document.getElementById("opened").innerText`, sessionId);
+  const bannerHidden = await evaluate(
+    `document.getElementById("historical-banner").hidden`, sessionId);
+  const leaksBefore = await findLeakedCodePatterns(sessionId);
+  await evaluate(`document.getElementById("calculate-btn").click()`, sessionId);
+  await waitUntil(
+    `document.getElementById("opened").hidden === true &&
+      document.getElementById("saved").hidden === false &&
+      document.getElementById("saved-rows").textContent.includes("Line 21:") &&
+      document.querySelector("#choice-list button") !== null`,
+    sessionId,
+  );
+  const afterCalculate = await evaluate(
+    `document.getElementById("saved-rows").textContent`, sessionId);
+  await clickNamedChoice("Cedar", sessionId);
+  await submitConfirmation(sessionId, "yes");
+  await waitUntil(
+    `document.getElementById("outcome").className.includes("saved-and-calculated")`,
+    sessionId,
+  );
+  const outcomeTitle = await evaluate(
+    `document.getElementById("outcome-title").textContent`, sessionId);
+  await evaluate(
+    `sessionStorage.setItem("sli-correction-token", ${JSON.stringify(plantedToken)})`,
+    sessionId,
+  );
+  await reloadPage(sessionId);
+  await waitUntil(
+    `document.getElementById("outcome-title").textContent.toLowerCase().includes("cannot determine") &&
+      !document.getElementById("outcome-title").textContent.includes("Not saved")`,
+    sessionId,
+  );
+  const title = await evaluate(`document.getElementById("outcome-title").textContent`, sessionId);
+  const stored = await evaluate(`sessionStorage.getItem("sli-correction-token")`, sessionId);
+  const leaksAfter = await findLeakedCodePatterns(sessionId);
+  const autumn = blocks.find((text) => text.includes("Autumn study loan")) || "";
+  const spring = blocks.find((text) => text.includes("Spring study loan")) || "";
+  return {
+    complete: true,
+    showsCedarCorrected: autumn.includes("Current answer: no") && autumn.includes("Earlier answer: yes"),
+    showsBirchUnchanged: spring.includes("Current answer: yes") && !spring.includes("Earlier answer"),
+    earlierResultNamed: earlierStatement.includes("This is an earlier result."),
+    earlierResultBlocked: earlierRows.includes("Line 21: blocked"),
+    noDidNotFinishClaim: !openedText.includes("did not finish"),
+    bannerHidden: bannerHidden === true,
+    calculateShowsLine21: afterCalculate.includes("Line 21:"),
+    correctionConfirmed: outcomeTitle.includes("Saved and recalculated"),
+    undetermined: title.toLowerCase().includes("cannot determine"),
+    notShownAsNotSaved: !title.includes("Not saved"),
+    tokenDropped: stored === null,
+    noLeakedCodePatterns: leaksBefore.length === 0 && leaksAfter.length === 0,
+    leakedCodePatterns: leaksBefore.concat(leaksAfter),
+  };
+}
+
 async function runD1Visible(sessionId) {
   await waitUntil(
     `document.getElementById("saved-rows").textContent.includes("Spring study loan")`,
@@ -548,6 +629,7 @@ const SCENARIOS = {
   "duplicate-labels": runDuplicateLabels,
   unblock: runUnblock,
   "d1-visible": runD1Visible,
+  "resume-completed": runResumeCompleted,
 };
 
 try {

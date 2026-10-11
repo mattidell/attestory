@@ -13,6 +13,11 @@ committed seed, then applies one correction directly through the reviewed
 recorder *before* the session opens, so the session opens on an already-
 superseded saved result. That one-off correction is bounded to this runner
 script; it is not a general mechanism for navigating between arbitrary runs.
+
+``--workspace DIR --init`` initializes that directory once and serves it.
+``--workspace DIR`` alone opens the log already there and serves it. The
+directory is never printed. Without ``--workspace``, the temporary
+demonstration is unchanged. The historical state stays temporary-only.
 """
 
 from __future__ import annotations
@@ -20,6 +25,7 @@ from __future__ import annotations
 import argparse
 import sys
 from pathlib import Path
+from secrets import token_urlsafe
 from tempfile import TemporaryDirectory
 from threading import Event
 from typing import Any, Sequence
@@ -56,14 +62,26 @@ _HISTORICAL_BORROWING_LABEL = "Autumn study loan"
 _HISTORICAL_FACT_TYPE = "tax.us.2025.sli.loan-paid-only-school-costs"
 
 
-def _parse_state(argv: Sequence[str]) -> str:
+def _parse_args(argv: Sequence[str]) -> argparse.Namespace:
     parser = argparse.ArgumentParser(description=__doc__.splitlines()[0])
     parser.add_argument(
         "--state", choices=ALL_STATES, default=STATE_BASE,
         help="Which named synthetic state to seed. Each state's own description is "
              "printed once the session starts; see also the README's walkthrough.")
-    state: str = parser.parse_args(list(argv)).state
-    return state
+    parser.add_argument(
+        "--workspace",
+        help="Directory outside the repository. With --init, seed it once and serve. "
+             "Without --init, open the log already there and serve. Never printed.")
+    parser.add_argument(
+        "--init", action="store_true",
+        help="Initialize --workspace from --state, then serve. Refuses a directory "
+             "that already holds a log.")
+    args = parser.parse_args(list(argv))
+    if args.init and not args.workspace:
+        parser.error("--init requires --workspace")
+    if args.init and args.state == STATE_HISTORICAL:
+        parser.error("the historical state is only the temporary demonstration")
+    return args
 
 
 def _current_loan_cost_target(acts: Sequence[Any], registry: Any, *, borrowing_label: str) -> tuple[str, str]:
@@ -120,49 +138,80 @@ def _historical_seed_acts(repo_root: Path, base_acts: Sequence[Any]) -> list[dic
         return list(log.read().acts)
 
 
+def _serve(runtime: CorrectionRuntime, capability: WorkspaceCapability, state_line: str,
+           description: str) -> int:
+    """Build a page target new to this opening and serve it. Does not print a path."""
+    dist = build_correction_surface(
+        capability, repo_root=REPO, opening_id=token_urlsafe(16))
+    with CorrectionSessionServer(runtime, dist) as server:
+        print("Synthetic SLI correction-session evaluation")
+        print(f"State: {state_line}")
+        print(description)
+        print(f"URL: {server.url}")
+        print("Stop: press Ctrl-C in this terminal.")
+        print("Clean restart: stop this command, then run the same command again "
+              "(add --state NAME to pick a different state; --help lists every name).")
+        sys.stdout.flush()
+        Event().wait()
+    return 0
+
+
+def _serve_temporary(state: str) -> int:
+    """Today's temporary workspaces: one opening result, one seeded session."""
+    with TemporaryDirectory(prefix="demo-correction-saved-") as saved_dir, \
+            TemporaryDirectory(prefix="demo-correction-session-") as session_dir:
+        is_historical = state == STATE_HISTORICAL
+        base_state = STATE_BASE if is_historical else state
+        acts = load_seed_acts(REPO, base_state)
+        surface = core_calculations_surface(REPO)
+
+        saved_capability = WorkspaceCapability(Path(saved_dir) / "L")
+        saved_outcome = live_coordinate_run(
+            saved_capability, repo_root=REPO, authoritative_acts=acts,
+            workspace_revision=len(acts), run_scope=RUN_SCOPE, scope_user=SCOPE_USER,
+            request={"schema": "run-request.v1"}, run_id="demo.correction.run.initial",
+            governance_pins=[], surface=surface, output_name="initial.json",
+        )
+        if saved_outcome.refusal is not None or saved_outcome.presentation_path is None:
+            print("Starting result refused.", file=sys.stderr)
+            return 1
+
+        seed_acts_for_session = (
+            _historical_seed_acts(REPO, acts) if is_historical else acts)
+
+        session_capability = WorkspaceCapability(Path(session_dir) / "L")
+        runtime = CorrectionRuntime(
+            session_capability, repo_root=REPO, surface=surface, run_scope=RUN_SCOPE,
+            scope_user=SCOPE_USER, saved_presentation_path=saved_outcome.presentation_path,
+            saved_run_id="demo.correction.run.initial", seed_acts=seed_acts_for_session,
+            is_historical=is_historical,
+        )
+        return _serve(
+            runtime, session_capability, state,
+            STATE_DESCRIPTIONS.get(state, "(no description)"))
+
+
+def _serve_persistent(workspace: str, *, init: bool, state: str) -> int:
+    """Initialize or open one directory outside the repository, then serve."""
+    capability = WorkspaceCapability(Path(workspace))
+    if init:
+        runtime = CorrectionRuntime.initialize(
+            capability, repo_root=REPO, state=state)
+        description = STATE_DESCRIPTIONS.get(state, "(no description)")
+        state_line = state
+    else:
+        runtime = CorrectionRuntime.open(capability, repo_root=REPO)
+        description = "Opened the saved account. Calculate before correcting an answer."
+        state_line = "opened"
+    return _serve(runtime, capability, state_line, description)
+
+
 def main(argv: Sequence[str] | None = None) -> int:
-    state = _parse_state(argv if argv is not None else sys.argv[1:])
+    args = _parse_args(argv if argv is not None else sys.argv[1:])
     try:
-        with TemporaryDirectory(prefix="demo-correction-saved-") as saved_dir, \
-                TemporaryDirectory(prefix="demo-correction-session-") as session_dir:
-            is_historical = state == STATE_HISTORICAL
-            base_state = STATE_BASE if is_historical else state
-            acts = load_seed_acts(REPO, base_state)
-            surface = core_calculations_surface(REPO)
-
-            saved_capability = WorkspaceCapability(Path(saved_dir) / "L")
-            saved_outcome = live_coordinate_run(
-                saved_capability, repo_root=REPO, authoritative_acts=acts,
-                workspace_revision=len(acts), run_scope=RUN_SCOPE, scope_user=SCOPE_USER,
-                request={"schema": "run-request.v1"}, run_id="demo.correction.run.initial",
-                governance_pins=[], surface=surface, output_name="initial.json",
-            )
-            if saved_outcome.refusal is not None or saved_outcome.presentation_path is None:
-                print(f"Starting result refused: {saved_outcome.refusal!r}", file=sys.stderr)
-                return 1
-
-            seed_acts_for_session = (
-                _historical_seed_acts(REPO, acts) if is_historical else acts)
-
-            session_capability = WorkspaceCapability(Path(session_dir) / "L")
-            runtime = CorrectionRuntime(
-                session_capability, repo_root=REPO, surface=surface, run_scope=RUN_SCOPE,
-                scope_user=SCOPE_USER, saved_presentation_path=saved_outcome.presentation_path,
-                saved_run_id="demo.correction.run.initial", seed_acts=seed_acts_for_session,
-                is_historical=is_historical,
-            )
-            dist = build_correction_surface(session_capability, repo_root=REPO)
-
-            with CorrectionSessionServer(runtime, dist) as server:
-                print("Synthetic SLI correction-session evaluation")
-                print(f"State: {state}")
-                print(STATE_DESCRIPTIONS.get(state, "(no description)"))
-                print(f"URL: {server.url}")
-                print("Stop: press Ctrl-C in this terminal.")
-                print("Clean restart: stop this command, then run the same command again "
-                      "(add --state NAME to pick a different state; --help lists every name).")
-                sys.stdout.flush()
-                Event().wait()
+        if args.workspace is None:
+            return _serve_temporary(args.state)
+        return _serve_persistent(args.workspace, init=args.init, state=args.state)
     except KeyboardInterrupt:
         print("\nStopped. Run the command again for a clean starting state.")
         return 130

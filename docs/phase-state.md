@@ -4,9 +4,9 @@
   "phase": "Evolving Workspace Accounts",
   "topic": "saved-account-resumption",
   "active_plan": "docs/phases/evolving-workspace-accounts/milestones/saved-account-resumption.md",
-  "milestone_state": "planned",
-  "status": "Initial plan following merged PR #206. Trace reopening the same synthetic workspace after process termination before selecting the recovery implementation.",
-  "current_role": "Foreman — review plan and charter P0 stop-and-return investigation",
+  "milestone_state": "track-1",
+  "status": "Track 1 complete: a new process opens a saved synthetic correction account from its files alone, shows each loan-cost answer with its predecessor and the latest earlier result, calculates without saving again, and continues the correction.",
+  "current_role": "Builder — Track 2 remaining cases and walkthrough",
   "current_prompt": "docs/phases/evolving-workspace-accounts/milestones/saved-account-resumption.md"
 }
 -->
