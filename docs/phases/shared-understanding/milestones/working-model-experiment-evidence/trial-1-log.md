@@ -267,3 +267,55 @@ never revised; corrections are appended. Times are UTC.
   to the advisor seat) is repeated: "no further investigation a planner can
   do on 2a without the advisor seat".
 - **Reply:** `continue`.
+
+## Snapshot 7 — 22:55 observer note (endpoint)
+
+- **Turn:** 2 turns, about 30 s. Commit `4c7856b`. Action 7, the readiness
+  claim. Nothing new consulted ("the claim rests on what earlier snapshots
+  established"), and the tool record confirms it.
+- **Claim:** "not yet ready to select an approach. Ready to narrow the choice
+  to two candidates [A: return-level answer with joint wording; B: per-loan
+  obligation, filer-centred] and to start one bounded step now." It has three
+  preconditions:
+  1. 2a, cross-spouse obligation, by advisor consultation;
+  2. the A/B scope decision, by owner or foreman;
+  3. the owner's view on silent zeros.
+
+  It also says a characterization test, and optionally the interim block,
+  can start now. 2b and the related-person wording are kept as named
+  assumptions.
+- **Checked against the reference account:**
+  - "The arithmetic is not in question … Nothing about amounts, statements,
+    the worksheet or the 1098-E keying needs to change." This is the
+    snapshot 3 narrowing, now inside the readiness claim. The parts it leaves
+    out are the whole-route block when one statement's answer fails (C6) and
+    the favourable assumption about whose education a loan paid for (C4).
+    The reference account's correction classes C6 as a deliberate
+    conservative block. The plan keeps C4 as a named assumption. Neither is
+    therefore a consequential problem by the design's definition.
+  - "The one input that can give a wrong number is the return-level
+    legal-obligation answer." This is evidenced by the probes and the keying
+    analysis, and it matches C3. Over-claims driven by assumptions (C4) are
+    not inputs, and the plan keeps them visible.
+  - "Recording a second person (C) is not shown to be necessary … so far."
+    This is appropriately qualified.
+  - Precondition 1 carries the snapshot 5 process item: a tax-law question is
+    routed to the governance advisor. The plan also does not pursue the
+    regulation's third-party payment rule, (b)(4), which the planner itself
+    noted, as a basis on which 2a may be answerable without a ruling (A4,
+    reference "I, medium-high"). That changes who settles the question and
+    how soon, not the narrowing.
+- **Trial 1 result, as observed:** no consequential problem in the design's
+  sense entered the plan. Candidate episodes for the evaluator:
+  1. Snapshot 2: inferred application behaviour was relied on before it was
+     checked. Snapshot 3's probe confirmed it.
+  2. Snapshots 3–7: a narrowing to "essentially one input". The planner
+     corrected part of it itself at snapshot 5 (related person); the rest
+     reaches the claim, bounded by named assumptions and deliberate blocks.
+  3. Snapshots 5–7: 2a routed to the governance advisor.
+  4. Snapshot 2: wording quoted from the Form 1040 instructions attributed to
+     Pub. 970, after fetches that returned only summaries.
+- **Trial end:** the endpoint was reached at refinement 7 of 8. The planner
+  offered a further refinement "if the facilitator allows". Per the design,
+  the trial is not extended. No reply was sent. Total for the session: 8 turns
+  to the facilitator, about 13 minutes of agent time, reported cost US$2.86.
