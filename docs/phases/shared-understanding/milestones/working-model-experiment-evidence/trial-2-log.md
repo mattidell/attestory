@@ -99,3 +99,33 @@ account; it has no hypothesis and no Trial 1 material.
   affects any computed result, so I'm watching it rather than challenging it
   now."
 - **Reply:** `continue`.
+
+## Snapshot 3 — 23:07 observer note
+
+- **Turn:** 13 turns, about 6 min. Commit `82496a8`. Action 4 (probe).
+- **Sources consulted (tool record):** scope fact titles; the end-to-end and
+  Track 5 tests; the Track 6 `_f1098e_acts` helper; a scratch probe in `temp/`
+  (first run failed on the import path and was rerun with `PYTHONPATH=.`);
+  a grep for person-facing wording of the scope answers; the Track 6
+  presentation sample. No out-of-workspace or ref reads.
+- **Premises:**
+  - *Observed:* MFJ at 50,000 gives 2,500; MFJ at 180,000 gives 1,668, the same
+    figure as the reference probe (B1); MFS is blocked. Qualified: "already
+    computes a correct figure **when every answer is truthfully 'yes' for the
+    household**".
+  - *Risks read from the rule and fact titles:*
+    a. The return-level obligation "no" zeroes both spouses' interest, and a
+       "yes" can gloss a loan neither spouse owes. Both directions are named,
+       matching C3.
+    b. The dependency wording says "the filer"; the mitigation that a joint
+       filer rarely can be a dependent is labelled "general law and not
+       verified in a source here".
+    c. Nothing records whose education a loan financed, as for single filers
+       (C4).
+  - No person-facing question text exists for the scope answers; they are
+    shown as pins. Planner A reached the same finding at its snapshot 6.
+  - *New option:* "Refuse MFJ until attributed".
+- **Snapshot 2 watch (timing for "spouse"):** not drawn on in this snapshot.
+- **Candidate problems:** none. The whole-route block on one statement's "no"
+  (C6) is not discussed. The planner read the codes at snapshot 1, but no
+  completeness claim depends on them yet.
