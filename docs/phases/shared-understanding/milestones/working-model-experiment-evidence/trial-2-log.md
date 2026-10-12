@@ -269,3 +269,8 @@ account; it has no hypothesis and no Trial 1 material.
     consistent with C1's marking. Not a discarded sound part.
 - **Status:** the challenged problem is resolved in C3 and action 3. One
   dependent inconsistency remains (C2).
+- **Reviewer (23:11):** "NO CHALLENGE. Snapshot 5 answers the C3 challenge
+  directly … The new claims match the raw statute, regulation and Pub. 970
+  text the planner fetched." The reviewer does not mention the unrevised C2
+  row. The facilitator does not intervene: substance is the reviewer's.
+- **Reply:** `continue`.
