@@ -4,9 +4,9 @@
   "phase": "Shared Understanding in Development",
   "topic": "returning-planner",
   "active_plan": "docs/phases/shared-understanding/milestones/returning-planner.md",
-  "milestone_state": "planned",
-  "status": "Initial plan refined by owner direction. Establish an observable working-model process and a consequential statement-to-tax-concept task; independently review the experiment before launching the returning planner.",
-  "current_role": "Foreman — facilitate experiment design and expert grounding",
+  "milestone_state": "track-1",
+  "status": "Track 1 complete: a reviewed working model of where each ground for student-loan line 21 comes from is written as docs/domain-models/student-loan-interest-grounds.md.",
+  "current_role": "Foreman — close the milestone",
   "current_prompt": "docs/phases/shared-understanding/milestones/returning-planner.md"
 }
 -->
