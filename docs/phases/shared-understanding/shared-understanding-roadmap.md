@@ -11,19 +11,22 @@ what the experiments reveal.
 
 [Plan](milestones/returning-planner.md).
 
-A returning planning agent prepares one improvement to the saved-account
-explanation with access to a case expert who has checked the behavior. Observe
-which inquiries or interventions change a premise, locate decisive evidence,
-or prevent a proposal that the consumer cannot use. Produce a reviewed product
-proposal and, where justified, a bounded page change. Establish the expert's
-competence before relying on the exchange.
+A returning planning agent models how statements and assumptions contribute to
+one student-loan tax conclusion, and how applicable responsibilities remain
+represented without establishing their truth. It
+expresses its current understanding, stakes and intended team actions while
+working with a case expert. Observe whether it recognizes a consequential gap,
+locates a misunderstanding within its own plan, and corrects its course. Produce
+a reviewed working model and a development action plan that future work can
+use. Establish the expert's competence before relying on the exchange.
 
 ## 2. Use correspondence during a technical build — candidate
 
 Try the useful practices from the first milestone while building one small
 product change. Examine whether a builder brings consequential uncertainty to
-the expert before implementing an assumption. Select that change after the
-first experiment, rather than creating another tax vertical to supply a task.
+the expert before implementing an assumption. Test whether the participants
+recognize the stakes and revise their own plans, rather than merely receiving
+a repair prescription. Select the task after the first experiment.
 
 If the first exchange reveals missed messages, unanswered questions or an
 expert unable to notice a changed premise, this milestone may instead prototype

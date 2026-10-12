@@ -21,26 +21,43 @@ supplies the current owner and product models. These phase documents propose
 experiments; they do not impose a new communication contract or change that
 document on the owner's behalf.
 
-The distinction to investigate is concrete. An agent can repeat “the answer is
-saved” while overlooking whether the page shows it. It can call a result current
-because it has a recent filename. It can describe a missing response as a failed
-calculation. What questions and explanations help someone notice these
-substitutions while planning? Does direct correspondence change the work before
-the owner has to relay a repair?
+The central material is the participants' explicitly expressed working model:
+what they think the problem is, how its concepts relate, what they intend to
+do, and what could change that understanding. These accounts let another agent
+or the owner recognize a misunderstanding and help the acting agent locate it
+within its own plan. The acting agent can then revise its model and actions.
+
+“Thinking out loud” means making those accounts available as work develops.
+It does not require narrating every tool call or producing an exhaustive
+reasoning transcript. A short statement can expose a consequential premise;
+the participants can expand it when the premise needs examination.
 
 ## Begin with work that has a consumer
 
-The opening milestone gives a returning planning agent a real task on the
-saved-account page: prepare one improvement that helps a reader distinguish a
-saved answer, an earlier calculation and a calculation after returning. A case
-expert first checks the relevant paths adversarially, then becomes available
-for questions and unsolicited clarification. The actual milestone foreman
-facilitates the experiment; it is not the participant under observation.
+The opening milestone asks a returning planning agent to model how ordinary
+statements and favorable assumptions contribute to one student-loan tax
+conclusion, while other applicable conditions remain represented as read-only
+responsibilities without being established. These distinctions affect what the
+application claims to know and what later development will build upon. The
+Student Loan Circumstance Association milestone supplies concrete material;
+the current implementation supplies evidence about what was subsequently built.
+
+A case expert checks that material adversarially, then becomes available for
+questions and challenges. The actual foreman facilitates the experiment; it is
+not the participant under observation. Plans begin with actions the development
+team will take to answer the question, before selecting application changes.
 
 Agreement, disagreement, message count and documentation volume are not success
-measures. Useful observations are specific: a mistaken premise corrected, a
-source found sooner, an unnecessary design avoided, or a proposal still wrong
-despite access to an expert. A conversation that changes nothing is evidence too.
+measures. Useful observations include recognizing that a decision could redefine
+a tax concept, finding a gap in one's own model before choosing a mechanism,
+revising an investigation after a challenge, or preserving a mistaken premise
+despite expert access. A conversation that changes nothing is evidence too.
+
+Choose tasks for the consequences of misunderstanding them. A minor wording
+change can test delivery, but it is weak evidence about recognizing decisions
+that shape future modeling. Participants should say what depends on a proposed
+choice and why their next investigation is proportionate to those stakes. Do
+not force dialogue when a straightforward action already has adequate grounds.
 
 ## How the phase develops
 

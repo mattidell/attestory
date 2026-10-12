@@ -5,7 +5,7 @@
   "topic": "returning-planner",
   "active_plan": "docs/phases/shared-understanding/milestones/returning-planner.md",
   "milestone_state": "planned",
-  "status": "Initial plan following merged PR #207. Establish a case expert and independently review the direct-correspondence experiment before launching the returning planning participant.",
+  "status": "Initial plan refined by owner direction. Establish an observable working-model process and a consequential statement-to-tax-concept task; independently review the experiment before launching the returning planner.",
   "current_role": "Foreman — facilitate experiment design and expert grounding",
   "current_prompt": "docs/phases/shared-understanding/milestones/returning-planner.md"
 }
@@ -23,10 +23,12 @@ reviewed recovery repairs. Owner visual review, independent reader assessment
 and real-workspace use remain open.
 
 **Shared Understanding in Development** begins with **Planning with a Case
-Expert**. A returning planning participant prepares one concrete improvement
-to the saved-account explanation while able to correspond with a case expert
-who has checked the behavior. The milestone foreman facilitates the experiment
-and is not the participant being studied.
+Expert**. A returning planning participant models how statements and assumptions
+contribute to one student-loan tax conclusion, while applicable responsibilities
+remain represented without being established. It has access to a grounded case
+expert. Its working understanding,
+stakes and intended development actions are expressed as the task proceeds.
+The foreman facilitates the experiment and is not the participant being studied.
 
 ## Begin here
 
@@ -38,13 +40,14 @@ and is not the participant being studied.
 
 ## Immediate next action
 
-Charter the small experiment-design and case-expert grounding unit. Fix the
-concrete product task and participant contexts. Verify that the selected channel
-delivers questions and replies without owner relaying. Ground the expert
-adversarially against the three existing saved-account situations, and obtain
+Charter the small experiment-design and case-expert grounding unit. Bound the
+statement-to-tax-concept task and its consequential decision, using the Student
+Loan Circumstance Association material. Specify the team actions that develop
+and test the model. Verify direct delivery and expert grounding, then obtain
 independent readiness review before launching the returning planner.
 
-Observe specific changes in the proposal and the evidence that prompted them.
+Observe how the planner recognizes the stakes, makes a gap or misunderstanding
+explicit, and revises its own model and actions after evidence or a challenge.
 No message board, automatic trigger, new role system or mandatory communication
 convention is selected. Update the phase direction from participant and owner
 feedback rather than treating the candidate sequence as fixed.
