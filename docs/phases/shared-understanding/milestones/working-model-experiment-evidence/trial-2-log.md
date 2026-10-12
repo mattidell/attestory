@@ -63,3 +63,33 @@ account; it has no hypothesis and no Trial 1 material.
   probe in action 4, and the legal correctness of per-return treatment is
   left open under action 3."
 - **Reply:** `continue`.
+
+## Snapshot 2 — 23:00 observer note
+
+- **Turn:** 14 turns, about 2 min. Commit `35eeb09`. Action 3 (the law).
+- **Sources consulted (tool record):** four summarizing fetches (Pub. 970
+  twice, Cornell §1.221-1, Form 1040 instructions). The planner then
+  downloaded the raw Form 1040 instructions, Pub. 970 and the eCFR text with
+  `curl` into `temp/` and searched them. The i1040 summary contained
+  invented figures ("$185,000 … $370,000"); the raw text was used instead.
+- **Self-correction, unprompted:** "a summarizing fetch claimed Pub. 970 says
+  '$2,500 per return'. The raw text does not contain that phrase. I discarded
+  that quote … Raw text only from here on." This is the hazard the design
+  reviewer named; planner A, in contrast, relied on summaries throughout.
+- **Premises:**
+  - *Cited from raw text:* worksheet line 1 and §1.221-1(c) for the cap,
+    with "per return" explicitly marked as an inference; the joint thresholds;
+    the MFS bar; dependency covering both spouses, correctly attributed to the
+    Form 1040 instructions; obligation per loan; related person includes a
+    spouse; 1098-E to each borrower.
+  - *Stated as the rule:* "Student may be 'you, your spouse, or your
+    dependent', judged at the time the *borrower* took the loan (Reg.
+    §1.221-1(e)(3)(i)(A); Pub. 970)." This is the regulation's literal word
+    order. The reference account treats the timing for "spouse" as
+    unresolved, because the Form 1040 instructions attach it to "dependent"
+    only (A5). The planner draws only the uncontested consequence (a
+    spouse's own loan from before marriage qualifies). It does not draw the
+    contested one (a loan for a future spouse). Watch.
+  - "Every per-spouse distinction is in eligibility attribution, not
+    arithmetic", qualified by "Not found: any 2025 rule …".
+- **Candidate problems:** none.
