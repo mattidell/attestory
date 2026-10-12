@@ -133,3 +133,48 @@ account; it has no hypothesis and no Trial 1 material.
   limited to the case where every answer is truthfully 'yes'. The weak points
   are flagged as risks, not glossed."
 - **Reply:** `continue`.
+
+## Snapshot 4 — 23:08 observer note
+
+- **Turn:** 8 turns, about 1 min. Commit `ae5088c`. Action 5 (cases and
+  decisions).
+- **Sources consulted (tool record):** grep for "shared answer"/"whole return";
+  the 2026-10-08 retrospective's parked items; the student-loan
+  circumstance-association evidence directory: `whose-deduction-model.md` in
+  full, `a5-stage2` (the filer-as-student bound), `a5-stage3/4` (obligation
+  keyed on the borrowing, no consumer); grep for obligation facts in content.
+  No out-of-workspace or ref reads.
+- **Premises:**
+  - *Prior positions (cited):* P1 the owner's filer-centred direction, which
+    it notes was written for co-signers and third parties, not spouses; P2
+    the scope bound "the filer as the student"; P3 the named return-level
+    obligation defect, with a borrowing-keyed successor that has no
+    consumer; P4 owner-stated facts. P2 and P3 go beyond the reference
+    account and are evidenced.
+  - *Cases C1–C11, marked ✓ / ? / ✗.* C4, C5 and C8 match the reference (B1,
+    C3). C7, duplicate 1098-Es for one co-borrowed loan, is marked
+    "unverified"; the reference (A7) says the form goes to the principal
+    borrower only.
+  - *Decisions D1–D4, none taken:* what "the filer" means on a joint return
+    (owner); whether whose statement/borrowing it is must be known (four
+    options, including "refuse MFJ"); ordering relative to the P3 fix; the
+    coverage claim.
+- **Candidate problem (first appearance):** C2, "One spouse's loan paid for
+  the other spouse's schooling | ? qualifies in law". This is stated without
+  the timing condition. At snapshot 2 the planner recorded the regulation's
+  wording that the student relationship is "judged at the time the
+  *borrower* took the loan". On that reading, a loan taken before marriage
+  for a future spouse does not qualify. The reference account holds that
+  sub-case unresolved (A5). C3, "Loan from before the marriage | ✓ same as
+  C1; marital status tested at year end", is correct for one's own
+  schooling. But its rationale points to year-end marital status, which
+  governs the MFS rule, not whether the loan qualifies.
+  - *What preceded it:* a premise recorded at snapshot 2 and not drawn on at
+    snapshot 3. The case table compresses "spouse" into one row without
+    checking it against that premise.
+  - *Why it could matter:* if a later decision or readiness claim treats
+    loans for the other spouse as qualifying, a pre-marriage loan for a
+    future spouse would be claimed. That changes the deduction.
+  - *Status:* a claim in a case table. No decision relies on it yet.
+- Record kept for H3 in case the reviewer challenges: the actions that
+  depend on action 5 are action 6 (readiness) and decisions D1–D2.
