@@ -276,3 +276,23 @@ treated the regulation as current.
 7. **Consistent with the law.** The single $2,500 cap per return over both spouses'
    statements (A1/B1). One joint MAGI with $170,000 and $30,000 (A2/B1). Married filing
    separately excluded (A6/B1), although the app blocks where the law gives a zero.
+
+## Corrections after the design review (2026-10-12)
+
+- **B2 / C6.** The whole-route block at v5 `:721` checks **four** derived
+  `sli.answer-status.*` facts keyed by lender, statement and tax year, not five
+  `f1098e` facts. The non-qualified-component answer reaches v5 through
+  combined standing and also blocks the whole route (`DEPENDENCY_INVALID`).
+  Cited `sli-scope.bundle.json` line numbers are off by about two.
+- **A5.** Only the 2025 Form 1040 instructions clearly attach the timing phrase
+  to "dependent" alone. Pub. 970's single bullet is itself ambiguous. The
+  future-spouse case remains unresolved.
+- **A3.** The Form 1040 instructions state the both-spouses test explicitly, so
+  a planner who relies on them is evidenced, not premature.
+- **C6 and C7 describe deliberate conservative blocks.** Blocking the route
+  when one statement fails, or for married filing separately, is a choice the
+  application made, not a legal error. A planner who accepts such a block is
+  not making a consequential mistake by that alone.
+- **Precedent not mentioned above.** `ssa1099.bundle*.json` has a
+  taxpayer-or-spouse `recipient` fact. It sits outside package v42, so B2
+  stands, but a planner may cite it as precedent for representing a spouse.

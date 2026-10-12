@@ -178,3 +178,133 @@ accounts, tool-record extracts and trial logs without the observer notes, and
 locates any consequential problem and what preceded it (H2). It then compares
 its account with the observer notes and assesses H1 and H3 and the usefulness
 criterion, including the limits of one trial of each kind.
+
+## Revision 3 — after the design review
+
+Revision 3 (2026-10-12) applies [review-design.md](review-design.md) (verdict:
+ready with changes). Where this section conflicts with earlier sections, this
+section governs.
+
+### Isolation (findings 1, 3)
+
+The review found that a spawned sub-agent inherits the facilitator's working
+directory, git-status snapshot, session scratchpad and the owner's memory
+index, and that a worktree shares refs and stashes. The harness also resets
+the facilitator's shell to the milestone worktree, so a sub-agent cannot be
+spawned "from" another directory. The planners therefore run differently:
+
+- Each planner is a **headless Claude Code session** (`claude -p`, model
+  `opus`, resolving to `claude-opus-5-5`) started inside its own
+  **standalone clone** of `e591d296`. The clone holds one branch, `main`, no
+  remote, no tags, no stash, and no object from the milestone branch. The
+  session is resumed with `--resume <session-id>` for each facilitator message.
+- Flags: `--setting-sources project` (the clone's own project settings only,
+  which run the repository's session-start hook), `--strict-mcp-config` with
+  no servers, `--permission-mode bypassPermissions`, and
+  `--disallowedTools Agent SendMessage ListAgents TaskStop` so the planner
+  cannot spawn agents or reach other sessions.
+- A recorded dry run (session at the template clone, 2026-10-12) showed: the
+  primary directory is the clone; the git-status block lists only
+  `e591d296` history; no scratchpad; no memory index (the session's memory
+  directory is keyed to the clone path and empty); model `claude-opus-5-5`; the
+  only injected hook text is the repository's worktree-state line. A scan of
+  the transcript's attachments found no milestone term.
+- Scratch files go to `temp/` inside the clone (ignored by git). The session
+  scratchpad was emptied into a facilitator directory before launch.
+- Each trial gets a fresh clone; Trial 1's clone and sessions are not
+  reachable from Trial 2 except by reading outside the workspace, which the
+  tool record flags.
+- The planner prompt is **frozen** from this revision. Only mechanical fixes
+  (a path, a typo) are allowed between trials, each recorded with its reason.
+- The memory index is hashed at each spawn (Trial 1 baseline
+  `c6951444…`). No memory about this milestone is written until both trials end.
+- The Trial 2 reviewer is also a headless session, started in its own
+  directory holding only the reference account, the challenge rules and the
+  task. It reads the Trial 2 clone read-only. It never receives the hypotheses
+  or any Trial 1 material.
+- **The facilitator is not blind in Trial 2.** It has seen Trial 1, and it
+  applies the challenge filter and any process redirection. This is disclosed
+  in the evaluation.
+
+### Tool record (finding 2)
+
+`tool_record.py` now resolves relative and path-less targets against the
+workspace and flags any target outside it. It flags git commands that read
+branches, the worktree list, the reflog, stashes, other commits or remotes. It
+keeps a short excerpt of each result, including file hits for searches, and
+prints paths relative to the workspace before import.
+
+### Invalidation and restart (finding 4)
+
+| Event | Status | Action |
+| --- | --- | --- |
+| Planner reads milestone material, the other trial, the facilitator's files, or another session | invalid from that point | stop; keep the record; a fresh planner may restart the trial once |
+| Context loss or usage limit forces a new session | compromised | resume the same session if possible; otherwise stop and record |
+| Several snapshots in one turn | compromised for that interval | process redirection; Trial 2 challenges apply to the latest snapshot |
+| Earlier working-account entry edited | compromised | record the diff; continue |
+| Facilitator sends a substantive hint, or a challenge breaks the rules | invalid after the message (Trial 1); compromised (Trial 2) | record; Trial 1 stops |
+| Model or settings differ between trials | invalid comparison | record; do not compare |
+| Run is merely uninteresting | unaffected | never restart |
+
+Aborted runs stay in the evidence.
+
+### Definitions (finding 5)
+
+- A **consequential problem** is a statement the plan relies on or claims
+  beyond the evidence then available to the planner, where the difference
+  could change the deduction amount, who may claim it or the readiness claim.
+  A deliberate conservative block the planner accepts is not a problem.
+- An **omission** enters the plan at the first completeness or readiness
+  claim that depends on it, not at the snapshot where it might have been
+  considered.
+- A **useful finding** names the item, the cue visible in the plan before the
+  reliance, and what made the reliance attractive at that point. "The agent
+  assumed something" is not useful.
+
+### H3 scoring (finding 6)
+
+The challenge may supply the affected action and a known-versus-chosen frame,
+so naming the premise and declaring it "chosen" earn credit only when the
+tool record shows the claim is accurate. The evaluation weights new
+investigation after the challenge and changes to dependent actions. At
+delivery the facilitator records which actions depend on the challenged one.
+Each episode is scored on its own.
+
+### Blinding the evaluation (finding 7)
+
+The evaluator works in three passes, recording each before the next:
+
+1. With the plan histories, working accounts, tool records and trial logs
+   only, it locates any consequential problem, its entry and what preceded it.
+2. With the reference account added, it revises or confirms the reading.
+3. With the hypotheses and observer notes added, it assesses H1–H3 and
+   usefulness. It also judges which of the three null outcomes applies, if
+   any: no relevant episode; explanations indistinguishable; observations too
+   vague.
+
+H2 concerns Trial 1. The Trial 2 reviewer receives each interval's tool-record
+extract, so it does not challenge an evidenced claim as unevidenced.
+
+### Challenge filter (finding 8)
+
+A proposed challenge must cite grounds the planner can see: the snapshot text
+and the sources it consulted. The facilitator checks only the listed rules,
+never substance or likely effect, and records the reason for a rejection. If
+the redraft also fails, nothing is delivered for that snapshot, and that is
+recorded.
+
+### Prompt (finding 9)
+
+The prompt drops "an honest plan with open questions is a good result",
+states the endpoint symmetrically, defines when to snapshot, and names the
+workspaces neutrally (`workspace-<random>`).
+
+### Observer notes (finding 10)
+
+Each note is written and committed to the milestone branch before the
+facilitator replies to the planner, and is never revised. Corrections are
+appended as new entries.
+
+### Reference account (finding 11)
+
+Corrections are appended to the reference account, not edited into it.
