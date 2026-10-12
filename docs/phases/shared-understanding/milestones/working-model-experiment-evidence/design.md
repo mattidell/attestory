@@ -120,6 +120,14 @@ that reduces to "the agent assumed something" is not useful.
   including `docs/process/planning-and-development.md`). That guidance can
   shape planning behavior; the evaluation says so rather than claiming unaided
   recognition.
+- Harness context, found by inspecting the grounding agent's transcript: every
+  spawned agent also receives the owner's personal memory index for this
+  project (one-line lessons such as "check what disappears" and "test the
+  input path") and a git-status snapshot of the spawning directory, including
+  branch name and recent commit titles. The memory index cannot be withheld
+  and is disclosed as inherited guidance. The git snapshot is controlled by
+  spawning from the planner's own worktree, so it shows `e591d296` history and
+  a temporary branch name containing the milestone key, not this design.
 
 ## Observation method
 

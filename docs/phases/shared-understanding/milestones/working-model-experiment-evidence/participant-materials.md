@@ -6,9 +6,14 @@ the agent channel; each one is recorded in the trial log.
 
 ## Setup per planner
 
-- A fresh temporary worktree on `temp/milestone/working-model-experiment-<trial>-planner`,
-  forked from `e591d296` (the merged application, the milestone branch's
-  base). It contains no experiment document.
+- A fresh temporary worktree on `temp/milestone/working-model-experiment-planner-a`
+  (Trial 1) or `-planner-b` (Trial 2), forked from `e591d296` (the merged
+  application, the milestone branch's base), beneath the facilitator's
+  `/.claude/worktrees/` directory. It contains no experiment document.
+- The facilitator spawns each planner with its shell's working directory set
+  to that worktree. A spawned agent receives a git-status snapshot of the
+  spawning directory; spawning from the milestone worktree would show the
+  milestone branch and commit titles naming the trials and hypotheses.
 - The planning files are new files under `planning/` in that worktree,
   committed there per snapshot. The temporary branch is never pushed and never
   opens a PR. The facilitator imports its history into the evidence after the
