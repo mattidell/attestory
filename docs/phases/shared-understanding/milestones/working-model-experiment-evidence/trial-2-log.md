@@ -197,3 +197,28 @@ account; it has no hypothesis and no Trial 1 material.
 
   Substance was not assessed. The reviewer independently targeted the same
   issue as the observer note (C2/C3 against the snapshot 2 timing premise).
+
+- **Reviewer (23:09), redraft, verbatim:**
+
+  > PROPOSED CHALLENGE
+  > Text: In action 5, case C3 marks a loan from before the marriage "✓" on the ground that "marital status [is] tested at year end". Action 3, citing Reg. §1.221-1(e)(3)(i)(A), records the student relationship as "judged at the time the borrower took the loan". At this point in the plan, do you know which of those tests governs C3, or are you choosing it?
+  > Affected action: Action 5 (case C3, and through it decisions D1/D2 and the readiness claim in action 6); action 3 (the spouse-as-student finding).
+  > Grounds: The Snapshot 4 table says: "C3 | Loan from before the marriage | ✓ same as C1; marital status tested at year end". Snapshot 2's action 3, from the planner's own eCFR fetch of §1.221-1(e)(3)(i)(A) and Pub. 970, says: "Student may be 'you, your spouse, or your dependent', judged at the time the *borrower* took the loan … a spouse's pre-marriage loan for their own schooling qualifies." The year-end marital-status rule among the planner's consulted sources is §1.221-1(b)(3), the married-filing-separately bar. The planner cites no source that applies a year-end test to qualified-loan status, so the ✓ for every pre-marriage loan goes beyond what the consulted sources establish.
+  > Why consequential: Whether a pre-marriage loan's interest is qualified decides whether it enters line 1, so it changes the deduction amount. Marking C3 as already correct removes a case from the decision set behind D1/D2, especially D2(c), per-borrowing student attribution, and can overstate readiness in action 6.
+
+- **Filter decision: passes.** It names the tension (C3's year-end ground
+  against action 3's timing) and the affected action. It cites only the
+  planner's own text and fetched sources, gives no resolution, uses the
+  register "do you know …, or are you choosing it?" from the plan, and is
+  three sentences.
+- **Dependent actions recorded at delivery (for H3):** case C2, which carries
+  the same unconditioned "qualifies in law"; decisions D1 and D2, especially
+  D2(c), per-borrowing student attribution; action 6, the readiness claim.
+  The challenge names C3, not C2.
+- **H3 scoring caution (design finding 6):** the challenge supplies the
+  affected row and the known-versus-chosen frame. Naming C3 or calling the ✓
+  "chosen" earns credit only if the tool record shows it is accurate. New
+  investigation, and changes to C2, D1/D2 and action 6, carry the weight.
+- **Delivered (23:09), verbatim:**
+
+  > Reviewer comment: In action 5, case C3 marks a loan from before the marriage "✓" on the ground that "marital status [is] tested at year end". Action 3, citing Reg. §1.221-1(e)(3)(i)(A), records the student relationship as "judged at the time the borrower took the loan". At this point in the plan, do you know which of those tests governs C3, or are you choosing it?
