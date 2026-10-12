@@ -1,0 +1,30 @@
+"""Scratch probe: MFJ, two statements; (a) obligation 'no' on the return; (b) rendered page text."""
+import functools, re, sys, html
+import tests.test_f1098e_student_loan_interest_agi_track6 as t6
+case = sys.argv[1]
+kw = {"filing_status": "married_filing_jointly"}
+if case == "oblig-no":
+    kw["sli_scope_overrides"] = {"legally-obligated-for-interest": "no"}
+t6._f1098e_acts = functools.partial(t6._f1098e_acts, **kw)
+import tests.test_sli_track5_worksheet_integration as t5
+ws = t5.Return(wages=50000, amounts={"cedar": 2000.0, "birch": 1500.0})
+with ws.raw:
+    ws.plain()
+    ws.link("financing", "spring", "spring"); ws.link("statement-inclusion", "spring", "birch")
+    ws.answer("loan", "spring", "yes"); ws.answer("enroll", "spring", "yes")
+    ws.common_answers("birch")
+    out = t5.run_live(ws.acts(), f"demo.run.probe2.{case}", render_page=(case == "page"))
+    print(case, out.line21.get("disposition"), out.value() if out.line21.get("disposition") == "published_value" else out.worksheet_row().get("code"))
+    if out.page_html if hasattr(out, "page_html") else False:
+        pass
+    page = getattr(out, "page", None) or getattr(out, "page_html", None) or ""
+    text = re.sub(r"\s+", " ", html.unescape(re.sub(r"<[^>]+>", " ", page)))
+    for k in ["spouse", "joint", "Married", "married", "filer", "Cedar", "Birch"]:
+        print(k, text.count(k))
+    i = text.find("tudent loan interest"); print(text[i-200:i+1500] if i > 0 else "")
+    vis = re.sub(r"<script.*?</script>", " ", page, flags=re.S)
+    vis = re.sub(r"\s+", " ", html.unescape(re.sub(r"<[^>]+>", " ", vis)))
+    for m in re.finditer(r"spouse|[Mm]arried|filer|Cedar|Birch", vis):
+        print("VIS:", vis[max(0, m.start()-120):m.start()+120])
+    for m in re.finditer(r"spouse|[Mm]arried|filer", page):
+        print("RAW:", page[max(0, m.start()-160):m.start()+100].replace("\n"," "))

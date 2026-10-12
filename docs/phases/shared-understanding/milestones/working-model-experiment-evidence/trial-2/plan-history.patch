@@ -1,0 +1,789 @@
+commit f7dfd92
+Date: 2026-10-12T15:56:35-07:00
+
+    Snapshot 0: initial action list
+
+
+diff --git a/planning/plan.md b/planning/plan.md
+new file mode 100644
+index 0000000..b720b54
+--- /dev/null
++++ b/planning/plan.md
+@@ -0,0 +1,24 @@
++# Plan: joint return where both spouses have Form 1098-E interest (TY2025)
++
++Goal: decide whether the team understands enough to select an approach for
++handling a married-filing-jointly return on which each spouse has student-loan
++interest reported on their own 1098-E — and if not, what must be established first.
++No representation is selected and nothing is implemented here.
++
++## Actions (snapshot 0, plain language)
++
++1. Find out what the application does today with student-loan interest: how a
++   1098-E enters, whose it is, how answers are recorded, and how line 21 is computed.
++2. Find out what the application currently knows or assumes about filing status
++   and spouses (is there a "spouse" at all; is a joint return supported or refused).
++3. Pin down the 2025 tax rules for a joint return: combined $2,500 cap per return,
++   joint MAGI phase-out range, MFS exclusion, "qualified loan" / "legally obligated"
++   tests applied per spouse, dependency-claim bar, loans for a spouse as a student.
++4. Work out the concrete cases a joint return produces (each spouse with one or more
++   1098-Es, one spouse ineligible, combined interest over the cap, loan taken for
++   the other spouse, etc.) and which are new versus already handled.
++5. Identify the decisions the team must make (e.g., per-person vs per-return
++   attribution, how eligibility answers attach to each spouse, how explanation shows
++   both) and what evidence each decision needs — prototypes, tests, owner input.
++6. State readiness: can an approach be selected now, on what support, or what
++   must be established first.
+diff --git a/planning/working-account.md b/planning/working-account.md
+new file mode 100644
+index 0000000..f2bf05a
+--- /dev/null
++++ b/planning/working-account.md
+@@ -0,0 +1,13 @@
++# Working account
++
++## Snapshot 0 — initial action list
++
++- **Refined:** nothing yet; wrote the first plain-language list of actions.
++- **Why now:** the task asks for a starting list before investigation.
++- **Evidence:** only a filename scan — the repo has extensive student-loan-interest
++  (SLI) / 1098-E work (many `tests/test_sli_*` and `test_f1098e_*` modules), so the
++  single-filer path is likely mature.
++- **Open questions:** does the app model a spouse or filing status at all? Is
++  MFJ currently refused?
++- **Next:** develop actions 1–2 together (current state of SLI and of spouse/filing status).
++- **Direction change:** none.
+commit be02325
+Date: 2026-10-12T15:58:05-07:00
+
+    Snapshot 1: current SLI and spouse handling
+
+
+diff --git a/planning/plan.md b/planning/plan.md
+index b720b54..051b2ae 100644
+--- a/planning/plan.md
++++ b/planning/plan.md
+@@ -5,20 +5,39 @@ handling a married-filing-jointly return on which each spouse has student-loan
+ interest reported on their own 1098-E — and if not, what must be established first.
+ No representation is selected and nothing is implemented here.
+ 
+-## Actions (snapshot 0, plain language)
++## Actions
+ 
+-1. Find out what the application does today with student-loan interest: how a
+-   1098-E enters, whose it is, how answers are recorded, and how line 21 is computed.
+-2. Find out what the application currently knows or assumes about filing status
+-   and spouses (is there a "spouse" at all; is a joint return supported or refused).
+-3. Pin down the 2025 tax rules for a joint return: combined $2,500 cap per return,
+-   joint MAGI phase-out range, MFS exclusion, "qualified loan" / "legally obligated"
+-   tests applied per spouse, dependency-claim bar, loans for a spouse as a student.
+-4. Work out the concrete cases a joint return produces (each spouse with one or more
+-   1098-Es, one spouse ineligible, combined interest over the cap, loan taken for
+-   the other spouse, etc.) and which are new versus already handled.
+-5. Identify the decisions the team must make (e.g., per-person vs per-return
+-   attribution, how eligibility answers attach to each spouse, how explanation shows
+-   both) and what evidence each decision needs — prototypes, tests, owner input.
+-6. State readiness: can an approach be selected now, on what support, or what
+-   must be established first.
++1. **Establish current behavior (done, snapshot 1).** What the app does today:
++   - A 1098-E is identified by `lender` + `statement` + `tax-year` only
++     (`f1098e.bundle.json`). There is **no borrower/recipient** key or fact;
++     the statement does not say whose it is.
++   - Line 21 is computed by `rule.sli-worksheet.v5`: line-1 subtotal across all
++     statements → $2,500 cap (per return) → MAGI phase-out keyed on
++     `filing_status` (MFJ: $170k / $30k range, already in parameters) → block on MFS
++     (`SLI_MFS_INELIGIBLE`).
++   - Return-level answers (`sli-scope.*`: legally-obligated-for-interest,
++     not-claimed-as-dependent, no-2555/4563/PR) are keyed by `tax-year` only — one
++     answer per return, not per spouse.
++   - Per-borrowing answers (financing, loan-paid-only-school-costs,
++     enrolled-at-least-half-time, statement-inclusion) are keyed by borrowing /
++     schooling situation; nothing names whose borrowing or which student.
++   - Coverage frontier row (line 50) retires the "single statement, fully
++     eligible" class; MFS excluded. Nothing claims or refuses MFJ-with-two-borrowers.
++2. **Establish current spouse/filing-status handling (done, snapshot 1).**
++   - `filing_status` is a return-level asserted fact, MFJ accepted by the worksheet.
++   - Precedent: SSA-1099 carries a per-statement `tax.us.2025.ssa1099.recipient`
++     fact (`taxpayer|spouse`), guarded so `spouse` is admitted only on MFJ
++     (`packages/tax/ssa_benefits.py`). This is the only spouse-aware pattern found.
++   - Implication: today an MFJ return with two 1098-Es (one per spouse) would
++     probably compute — two statements summed, one cap — with the return-level
++     answers silently standing for both spouses. Whether that is *right* is the
++     question; to be confirmed by running a synthetic case (action 4).
++3. Pin down the 2025 tax rules for a joint return (per-return cap; joint MAGI;
++   who must be "legally obligated"; dependency bar for either spouse; spouse
++   as eligible student; per-spouse vs per-return tests).
++4. Probe the current app with synthetic MFJ two-spouse cases to see what it actually
++   does (computes, blocks, or misattributes) rather than inferring it.
++5. Enumerate the joint-return cases and which questions become per-spouse;
++   identify the decisions (attribution of statements, attribution of answers,
++   explanation wording) and the evidence each needs.
++6. State readiness.
+diff --git a/planning/working-account.md b/planning/working-account.md
+index f2bf05a..2333f50 100644
+--- a/planning/working-account.md
++++ b/planning/working-account.md
+@@ -11,3 +11,25 @@
+   MFJ currently refused?
+ - **Next:** develop actions 1–2 together (current state of SLI and of spouse/filing status).
+ - **Direction change:** none.
++
++## Snapshot 1 — current behavior (actions 1–2)
++
++- **Refined:** what the app does today with 1098-E, scope answers and filing status.
++  Done first because every later question depends on whether MFJ is refused,
++  silently supported, or partially supported.
++- **Evidence:** `packages/content/tax/2025/f1098e.bundle.json`, `sli-scope.bundle.json`,
++  `sli-relationship-source.bundle.v2.json` (identity keys of every fact type);
++  `rule.sli-worksheet.v5.json` (pins, codes, MFS branch); `parameter.sli-*`;
++  `ssa1099.bundle.v2.json` + `packages/tax/ssa_benefits.py` (recipient precedent);
++  `docs/phases/engine-breadth/coverage-frontier.md` row 50; the f1098e milestone
++  plan's filing-status notes (§466, §560, §924). `OWNER_MODEL.md` has no spouse text.
++- **Finding:** MFJ is *not refused*. Nothing in the student-loan path knows a spouse
++  exists. Per-return arithmetic (single $2,500 cap, MFJ thresholds) is already present.
++  The gap is attribution: whose statement, whose obligation, whose dependency status.
++- **Open questions:** is per-return treatment actually correct law for each
++  eligibility test? Does the app compute a two-statement MFJ case today, or block
++  on some multi-statement rule? Is the SSA recipient pattern a fit, or does a
++  1098-E (borrower ≠ student, joint borrowers) need something different?
++- **Next:** action 3 (tax law) and then action 4 (probe).
++- **Direction change:** the framing shifts from "add MFJ support" to "decide whether
++  the existing per-return treatment is correct, and where per-spouse attribution matters".
+commit 35eeb09
+Date: 2026-10-12T16:00:25-07:00
+
+    Snapshot 2: 2025 joint-return rules for line 21
+
+
+diff --git a/planning/plan.md b/planning/plan.md
+index 051b2ae..5442747 100644
+--- a/planning/plan.md
++++ b/planning/plan.md
+@@ -32,9 +32,41 @@ No representation is selected and nothing is implemented here.
+      probably compute — two statements summed, one cap — with the return-level
+      answers silently standing for both spouses. Whether that is *right* is the
+      question; to be confirmed by running a synthetic case (action 4).
+-3. Pin down the 2025 tax rules for a joint return (per-return cap; joint MAGI;
+-   who must be "legally obligated"; dependency bar for either spouse; spouse
+-   as eligible student; per-spouse vs per-return tests).
++3. **Establish the 2025 rules for a joint return (done, snapshot 2).** Findings,
++   each tagged with how it bears on the app:
++   - **One cap, one worksheet per return.** Worksheet line 1 "total interest you
++     paid … Don't enter more than $2,500"; Reg. §1.221-1(c) "may not exceed $2,500"
++     for any taxable year. No source grants $2,500 per spouse. *(Inference: a joint
++     return is one computation; spouses with $2,000 + $2,000 get $2,500. The app's
++     sum-then-cap already does this.)*
++   - **Joint MAGI thresholds** $170,000 / $30,000 (instructions line 5/7; Pub. 970
++     Table 4-2). *Already in parameters.*
++   - **MFS bar**: Reg. §1.221-1(b)(3). *Already blocks.*
++   - **Dependency bar covers both spouses**: 1040 instructions: "You, or your
++     spouse if filing jointly, aren't claimed as a dependent on someone else's …
++     return." *App has one return-level answer; whether its wording asks about
++     both spouses is unverified.*
++   - **Legal obligation is per loan and per obligor**: Reg. §1.221-1(b)(1) "the
++     taxpayer has a legal obligation … under the terms of the qualified education
++     loan"; Pub. 970 "You are legally obligated to pay interest on a qualified
++     student loan". On a joint return either spouse may be the obligor of a given
++     loan. *The app asks one return-level yes/no, which can't say "this loan is my
++     spouse's obligation, that one is mine". It's ambiguous even for a single filer
++     with several loans, and more pressing for MFJ.*
++   - **Student may be "you, your spouse, or your dependent"**, judged at the time
++     the *borrower* took the loan (Reg. §1.221-1(e)(3)(i)(A); Pub. 970). On a joint
++     return the "you" is whichever spouse borrowed, so a spouse's pre-marriage loan
++     for their own schooling qualifies. *The app's enrollment answer says "the
++     student" without naming who. Unknown whether that matters for computation.*
++   - **Related-person loans excluded, and a spouse is a related person** (Pub. 970).
++     *A loan from one spouse to the other is not qualified. Exotic for 1098-E
++     lenders; note only.*
++   - **1098-E goes "to each borrower"** (Pub. 970), so on MFJ each spouse typically
++     receives their own. Joint borrowers (e.g. legacy spousal consolidation loans)
++     may produce one statement covering both. The form names the borrower, which the
++     app does not capture.
++   - Not found: any 2025 rule that makes the computation itself differ per spouse.
++     Every per-spouse distinction is in *eligibility attribution*, not arithmetic.
+ 4. Probe the current app with synthetic MFJ two-spouse cases to see what it actually
+    does (computes, blocks, or misattributes) rather than inferring it.
+ 5. Enumerate the joint-return cases and which questions become per-spouse;
+diff --git a/planning/working-account.md b/planning/working-account.md
+index 2333f50..6c0178b 100644
+--- a/planning/working-account.md
++++ b/planning/working-account.md
+@@ -33,3 +33,26 @@
+ - **Next:** action 3 (tax law) and then action 4 (probe).
+ - **Direction change:** the framing shifts from "add MFJ support" to "decide whether
+   the existing per-return treatment is correct, and where per-spouse attribution matters".
++
++## Snapshot 2 — 2025 rules for a joint return (action 3)
++
++- **Refined:** the tax law, before probing the app, so I know what "correct" means
++  for the probe.
++- **Evidence:** IRS 2025 Instructions for Form 1040, Schedule 1 line 21 and the
++  worksheet (fetched raw, read directly); IRS Pub. 970 (2025) chapter 4 (fetched
++  raw); 26 CFR §1.221-1 via eCFR (b)(1)–(3), (c), (e)(3).
++- **Correction to my own process:** a summarizing fetch claimed Pub. 970 says
++  "$2,500 per return". The raw text does not contain that phrase. I discarded that
++  quote and rest the per-return cap on the worksheet line 1 and §1.221-1(c), and I
++  mark it as an inference about joint-return computation. Raw text only from here on.
++- **Finding:** joint-return arithmetic is the same shape the app already runs.
++  What changes is *who* each eligibility test is about: dependency (either spouse),
++  legal obligation (per loan, either spouse), the student's relationship to the borrower.
++- **Open questions:** does the app's dependency/obligation question text cover a
++  spouse? What does the app actually do with two statements on MFJ today? Is a
++  per-statement "whose" fact needed for any computed result, or only for honest
++  questions and explanation?
++- **Next:** action 4, probing the app with synthetic MFJ cases and reading the
++  question wording.
++- **Direction change:** none. The snapshot-1 reframing (attribution, not
++  arithmetic) is confirmed by the sources.
+commit 82496a8
+Date: 2026-10-12T16:06:46-07:00
+
+    Snapshot 3: probe of MFJ two-statement behavior
+
+
+diff --git a/planning/plan.md b/planning/plan.md
+index 5442747..b4ec2ee 100644
+--- a/planning/plan.md
++++ b/planning/plan.md
+@@ -67,8 +67,40 @@ No representation is selected and nothing is implemented here.
+      app does not capture.
+    - Not found: any 2025 rule that makes the computation itself differ per spouse.
+      Every per-spouse distinction is in *eligibility attribution*, not arithmetic.
+-4. Probe the current app with synthetic MFJ two-spouse cases to see what it actually
+-   does (computes, blocks, or misattributes) rather than inferring it.
++4. **Probe the current app (done, snapshot 3).** Scratch probe `temp/probe_mfj.py`
++   (ignored) reuses Track 5's synthetic return through `run_live`, the production
++   live path, with core v41. Two statements: Cedar $2,000 (autumn borrowing),
++   Birch $1,500 (spring borrowing), standing for "one per spouse". All answers yes.
++   | filing status | total income | line 21 |
++   | --- | --- | --- |
++   | MFJ | 50,000 | **2,500** published (sum 3,500, capped once) |
++   | MFJ | 180,000 | **1,668** published (joint phase-out, same ratio as single at 90,000) |
++   | single | 90,000 | 1,668 published |
++   | MFS | 50,000 | blocked `SLI_MFS_INELIGIBLE` |
++   - **Conclusion:** an MFJ return with both spouses' 1098-Es **already computes
++     a correct figure when every answer is truthfully "yes" for the household**.
++     Nothing refuses it. Nothing in the result says whose statement is whose.
++   - **Where it can go wrong** (rule logic read from `rule.sli-worksheet.v5`, plus
++     fact titles in `sli-scope.bundle.json`):
++     a. `legally-obligated-for-interest` is "the filer … on the loan(s) claimed",
++        one answer per return. A "no" is a *return-level legal zero*: it zeroes
++        both spouses' interest. A person whose spouse is the obligor on one loan
++        has no truthful single answer. Real risk of a wrong $0, or of a "yes"
++        that glosses a loan neither spouse is obligated on.
++     b. `not-claimed-as-dependent` is "the filer". The law says "you, or your spouse
++        if filing jointly". *(Mitigation, from general law and not verified in a
++        source here: a person filing a joint return generally cannot be claimed
++        as a dependent unless the return is only a refund claim, so this mostly
++        matters for wording and explanation, not the amount.)*
++     c. Per-borrowing answers (enrolled half-time, paid only school costs) say "the
++        student" without naming them. Nothing asks whether the student was the
++        borrower, the borrower's spouse, or the borrower's dependent at the time.
++        This is also true for single filers today. MFJ adds a second borrower.
++   - No person-facing question text exists for the scope answers. They are
++     asserted facts shown as pins (`below-floor.presentation-model.v1.json`), so
++     "wording" here means fact-type meaning plus explanation text.
++   - Not probed: explanation/presentation page rendering for MFJ (the projection
++     reads filing status into parameter keys; MFJ keys exist).
+ 5. Enumerate the joint-return cases and which questions become per-spouse;
+    identify the decisions (attribution of statements, attribution of answers,
+    explanation wording) and the evidence each needs.
+diff --git a/planning/working-account.md b/planning/working-account.md
+index 6c0178b..4cdd1e3 100644
+--- a/planning/working-account.md
++++ b/planning/working-account.md
+@@ -56,3 +56,26 @@
+   question wording.
+ - **Direction change:** none. The snapshot-1 reframing (attribution, not
+   arithmetic) is confirmed by the sources.
++
++## Snapshot 3 — probe of current behavior (action 4)
++
++- **Refined:** what the app actually does with an MFJ two-statement return,
++  measured rather than inferred, now that I know what the right answer is (snapshot 2).
++- **Evidence:** ran `temp/probe_mfj.py` (scratch, reuses
++  `tests/test_sli_track5_worksheet_integration.Return` and `run_live`; filing status
++  injected through `_f1098e_acts(filing_status=…)` from the Track 6 test). Results:
++  MFJ 50k → 2,500; MFJ 180k → 1,668; single 90k → 1,668; MFS → `SLI_MFS_INELIGIBLE`.
++  Read the worksheet's legal-zero branch and the scope fact titles. Searched for
++  person-facing question text and found none for scope answers.
++- **Finding:** the "both spouses" case is *silently supported*. The arithmetic is
++  right. The risk is in eligibility answers posed at the "filer" level, chiefly the
++  return-level legal-obligation answer, whose "no" zeroes every statement.
++- **Open questions:** is the per-loan obligation problem MFJ-specific, or a
++  pre-existing single-filer gap that MFJ makes more likely? Does the owner want
++  the return to *know* whose statement is whose (for explanation and trust), even
++  where the figure doesn't depend on it? Joint-borrower statements?
++- **Next:** action 5, laying out the joint-return cases and the decisions each one
++  forces, and what evidence a decision needs.
++- **Direction change:** the question is no longer "how to support MFJ" but
++  "whether to keep, constrain, or make explicit the support that already exists".
++  "Refuse MFJ until attributed" now counts as an option too.
+commit ae5088c
+Date: 2026-10-12T16:08:26-07:00
+
+    Snapshot 4: joint-return cases and decisions against prior positions
+
+
+diff --git a/planning/plan.md b/planning/plan.md
+index b4ec2ee..a44e40b 100644
+--- a/planning/plan.md
++++ b/planning/plan.md
+@@ -101,7 +101,55 @@ No representation is selected and nothing is implemented here.
+      "wording" here means fact-type meaning plus explanation text.
+    - Not probed: explanation/presentation page rendering for MFJ (the projection
+      reads filing status into parameter keys; MFJ keys exist).
+-5. Enumerate the joint-return cases and which questions become per-spouse;
+-   identify the decisions (attribution of statements, attribution of answers,
+-   explanation wording) and the evidence each needs.
++5. **Lay out the joint-return cases and the decisions they force (developed,
++   snapshot 4).**
++
++   *Prior project positions that bind the framing*
++   (`docs/phases/tax-concept-derivation/milestones/student-loan-circumstance-association-evidence/`):
++   - P1. **Owner direction 2026-09-22, "filer-centered"** (`whose-deduction-model.md`):
++     "No other payer's identity is represented unless a concrete supported case
++     demonstrates that identity is necessary." It was written for co-signers and
++     third-party payers, not spouses. Whether a joint-return spouse is an "other"
++     person or part of "the filer" is **not addressed** there.
++   - P2. **Scope bound "the filer as the student"** (`a5-stage2…keying.md`): "a
++     spouse's or a dependent's education … are **not represented here**, which is a
++     scope bound." The MFJ case runs straight into this bound.
++   - P3. **Return-level legal obligation is a named defect** (`whose-deduction-model.md`,
++     "Where the incumbent applies a loan-level condition return-wide"). Stage 3 selected
++     a borrowing key for a *new* consumer (`a5-stage3`, `a5-stage4` "No consumer in this
++     milestone"). The worksheet still reads the tax-year-keyed incumbent (snapshot 3).
++   - P4. **Owner-stated facts** (`owner-stated-facts.md`): the box-1 route is a
++     legitimate route to total interest. The app must not require the person to know
++     tax-domain things such as lender eligibility.
++
++   *Cases* (✓ = current app is right, ? = right only under an unstated reading,
++   ✗ = cannot be represented)
++   | # | Case | Today |
++   | --- | --- | --- |
++   | C1 | Each spouse borrowed for own schooling, own 1098-E, each obligated on own | ? computes right if "filer" read as "either spouse" (P2 bound exceeded) |
++   | C2 | One spouse's loan paid for the other spouse's schooling | ? qualifies in law; enrollment asked of "the student" |
++   | C3 | Loan from before the marriage | ✓ same as C1; marital status tested at year end |
++   | C4 | Combined interest > $2,500 | ✓ capped once (probe) |
++   | C5 | Joint MAGI in phase-out | ✓ (probe) |
++   | C6 | One statement covers both spouses as co-borrowers | ✓ likely: no split needed on one joint return |
++   | C7 | Both spouses receive a 1098-E for the **same** loan's interest (co-borrower/co-signer) | ✗ risk of double count; nothing detects it. *Whether lenders do this is unverified* |
++   | C8 | Spouse A obligated on loan X; a statement for loan Y neither spouse is obligated on | ✗ one return-level answer (P3) |
++   | C9 | Either spouse claimed as someone's dependent | ? answer covers "the filer" only; likely rare on MFJ (unverified) |
++   | C10 | Loan for a child who was one spouse's dependent at origination | ✗ out of scope already for single filers (dependency-at-origination not asked) |
++   | C11 | Explanation of line 21 | ? statements named by lender only; no "yours / your spouse's" |
++
++   *Decisions the team must make* (none taken here)
++   - D1. **What "the filer" means on a joint return** for the existing filer-level
++     answers (dependency, obligation, the student). Is it the couple, the primary
++     taxpayer, or each spouse? This reinterprets P1/P2 and is the **owner's** call.
++   - D2. **Does the return need to know whose each statement/borrowing is?**
++     Options (to compare, not choose): (a) no attribution; reword answers to "you or
++     your spouse"; (b) per-statement taxpayer|spouse fact on the SSA-1099 recipient
++     precedent; (c) per-borrowing obligor/student attribution; (d) refuse MFJ with any
++     1098-E until decided. P1's test is "a concrete supported case demonstrates
++     identity is necessary": is C7 or C8 such a case, or only C11 (explanation)?
++   - D3. **Order relative to P3**: must the per-borrowing obligation fix land
++     before MFJ is claimed, or is MFJ independent of it?
++   - D4. **Coverage claim**: what the frontier/maturity matrix says about MFJ with
++     1098-E. Today it is silent while the app computes.
+ 6. State readiness.
+diff --git a/planning/working-account.md b/planning/working-account.md
+index 4cdd1e3..5e390b6 100644
+--- a/planning/working-account.md
++++ b/planning/working-account.md
+@@ -79,3 +79,29 @@
+ - **Direction change:** the question is no longer "how to support MFJ" but
+   "whether to keep, constrain, or make explicit the support that already exists".
+   "Refuse MFJ until attributed" now counts as an option too.
++
++## Snapshot 4 — cases and decisions (action 5)
++
++- **Refined:** turned "attribution matters" into concrete cases and four decisions.
++  I did this now because the probe showed what works, and searching for prior
++  shared-answer discussion turned up earlier student-loan evidence work that frames
++  every option.
++- **Evidence:** `whose-deduction-model.md` (owner's filer-centered direction of
++  2026-09-22, named defect on return-level obligation), `a5-stage2-circumstances-and-keying.md`
++  (filer-as-student scope bound), `a5-stage3-values-and-basis.md` / `a5-stage4-…`
++  (borrowing-keyed obligation selected, no consumer), `owner-stated-facts.md`;
++  `docs/phase-state.md` "Parked" (shared-answer "no" reaching the whole return);
++  `docs/milestone-retrospectives/2026-10-08-account-refinement.md`.
++- **Finding:** the project already chose *not* to represent second persons and
++  bounded the student to the filer. The MFJ two-spouse case is the first real
++  candidate to test the owner's "unless a concrete supported case demonstrates
++  identity is necessary" condition. The arithmetic works. The open part is meaning
++  and representation.
++- **Open questions:** do lenders issue duplicate 1098-Es to co-borrowers (C7)? Can a
++  spouse on a joint return be claimed as a dependent (C9)? Is P3 actually still
++  unbuilt? (I found no obligation fact in the current SLI bundles.)
++- **Next:** verify C7, C9 and P3 so each decision has its evidence. Then map what
++  each decision needs, and from whom.
++- **Direction change:** the decisions are mostly *owner/meaning* decisions over
++  existing positions (P1, P2), not engineering unknowns. The plan now aims to put an
++  owner question in front of a prototype.
+commit 5467218
+Date: 2026-10-12T16:10:39-07:00
+
+    Snapshot 5: separate year-end marital test from origination-time student test (C3)
+
+
+diff --git a/planning/plan.md b/planning/plan.md
+index a44e40b..2616b83 100644
+--- a/planning/plan.md
++++ b/planning/plan.md
+@@ -53,8 +53,10 @@ No representation is selected and nothing is implemented here.
+      loan. *The app asks one return-level yes/no, which can't say "this loan is my
+      spouse's obligation, that one is mine". It's ambiguous even for a single filer
+      with several loans, and more pressing for MFJ.*
+-   - **Student may be "you, your spouse, or your dependent"**, judged at the time
+-     the *borrower* took the loan (Reg. §1.221-1(e)(3)(i)(A); Pub. 970). On a joint
++   - **Student may be "you, your spouse, or your dependent"**, tested as of the
++     time the *borrower* took the loan for at least the dependent relationship
++     (Reg. §1.221-1(e)(3)(i)(A); Pub. 970). Whether that timing also reaches
++     "spouse" is open (D5). On a joint
+      return the "you" is whichever spouse borrowed, so a spouse's pre-marriage loan
+      for their own schooling qualifies. *The app's enrollment answer says "the
+      student" without naming who. Unknown whether that matters for computation.*
+@@ -128,7 +130,8 @@ No representation is selected and nothing is implemented here.
+    | --- | --- | --- |
+    | C1 | Each spouse borrowed for own schooling, own 1098-E, each obligated on own | ? computes right if "filer" read as "either spouse" (P2 bound exceeded) |
+    | C2 | One spouse's loan paid for the other spouse's schooling | ? qualifies in law; enrollment asked of "the student" |
+-   | C3 | Loan from before the marriage | ✓ same as C1; marital status tested at year end |
++   | C3a | Before marriage, spouse A borrowed for **A's own** schooling | ? student is "the taxpayer" at origination, so the marriage date seems irrelevant. But on a joint return, whether A counts as "the taxpayer" is D1, so this is not ✓ |
++| C3b | Before marriage, A borrowed for **B's** schooling (B later A's spouse, not A's dependent then) | **unresolved — which time test governs is not established** (see D5) |
+    | C4 | Combined interest > $2,500 | ✓ capped once (probe) |
+    | C5 | Joint MAGI in phase-out | ✓ (probe) |
+    | C6 | One statement covers both spouses as co-borrowers | ✓ likely: no split needed on one joint return |
+@@ -150,6 +153,26 @@ No representation is selected and nothing is implemented here.
+      identity is necessary": is C7 or C8 such a case, or only C11 (explanation)?
+    - D3. **Order relative to P3**: must the per-borrowing obligation fix land
+      before MFJ is claimed, or is MFJ independent of it?
++   - D5. **Which time test governs the student relationship (C3b).** Two different
++     tests had been run together in C3 (corrected in snapshot 5):
++     - *Year-end marital status* (§221(e)(2)–(3), §7703; Reg. §1.221-1(b)(3)) governs
++       **only** whether the couple must file jointly to claim. It says nothing about
++       whether a loan qualifies.
++     - *Loan qualification* (§221(d)(1)(A)) asks whether the expenses were "incurred on
++       behalf of the taxpayer, the taxpayer's spouse, or any dependent of the taxpayer
++       as of the time the indebtedness was incurred". The reg (§1.221-1(e)(3)(i)(A)) says "a
++       student who is the taxpayer, the taxpayer's spouse, or a dependent … at the time
++       the taxpayer incurs the indebtedness". Pub. 970 says "For you, your spouse, or a
++       person who was **your dependent … when you took out the loan**".
++     - The open reading: does the origination-time clause reach "spouse", or only
++       "dependent"? The reg's placement reads most naturally as reaching all three. The
++       statute's wording is ambiguous. Pub. 970 attaches the time only to the
++       dependent. If it reaches spouse, C3b is **not** qualified. If not, C3b
++       qualifies on a joint return. I have not found an authority that decides it,
++       and Pub. 970 is explanatory, not controlling (the project's own
++       `whose-deduction-model.md` takes the same stance). **To establish:** look for a
++       preamble to T.D. 9125, a ruling, case law or an IRS FAQ. If none, this is an
++       authority question to escalate, not one for the team to pick.
+    - D4. **Coverage claim**: what the frontier/maturity matrix says about MFJ with
+      1098-E. Today it is silent while the app computes.
+ 6. State readiness.
+diff --git a/planning/working-account.md b/planning/working-account.md
+index 5e390b6..44abcb4 100644
+--- a/planning/working-account.md
++++ b/planning/working-account.md
+@@ -105,3 +105,31 @@
+ - **Direction change:** the decisions are mostly *owner/meaning* decisions over
+   existing positions (P1, P2), not engineering unknowns. The plan now aims to put an
+   owner question in front of a prototype.
++
++## Snapshot 5 — correction: C3 conflated two time tests
++
++- **Refined:** case C3 (loan from before the marriage) and the action-3 note on the
++  student relationship, prompted by a reviewer question.
++- **What was wrong:** C3 was marked ✓ "marital status tested at year end". That is
++  the §221(e)(2)–(3) test, and it governs only the joint-filing requirement. Whether
++  a loan qualifies is §221(d)(1)(A), tested as of origination. I did not *know*
++  which test governed C3. I had *chosen* one without saying so, and it was the
++  wrong one for the question. Action 3 had also overstated the reg as settling the
++  timing for the whole student relationship.
++- **Evidence:** 26 U.S.C. §221(d)(1)(A) and (e)(2)–(3) (Cornell LII, raw text);
++  26 CFR §1.221-1(e)(3)(i)(A) and (b)(3) (eCFR, raw text, already fetched in snapshot 2);
++  Pub. 970 (2025) ch. 4 "Qualified Student Loan" (raw text).
++- **Result:** C3 split. C3a (own schooling, pre-marriage) is "?" because it depends
++  on D1, not because of timing. C3b (a pre-marriage loan for the future spouse) is
++  **unresolved**. New decision D5: whether the origination-time clause reaches
++  "spouse". Statute ambiguous, reg suggests yes, Pub. 970 suggests no; no deciding
++  authority found yet.
++- **Open questions:** D5's authority. Also, did I conflate tests anywhere else? I
++  rechecked the other ✓ rows. C4 and C5 rest on the probe plus worksheet text. C6
++  rests on "one joint return needs no split", which is an inference and not a sourced
++  rule, so I'm downgrading my confidence there to "likely" (already worded so).
++- **Next:** unchanged from snapshot 4 (C7, C9, P3 verification), now with D5 added
++  to the authority searches.
++- **Direction change:** a rule for the rest of the plan: every ✓ cites the provision
++  it rests on. Where two provisions could apply, the row names both and says which
++  governs, or says it is unknown.
+commit 252444f
+Date: 2026-10-12T16:12:45-07:00
+
+    Snapshot 6: verify co-borrower reporting, married-dependent bar, obligation fact, D5 authority
+
+
+diff --git a/planning/plan.md b/planning/plan.md
+index 2616b83..4f84daa 100644
+--- a/planning/plan.md
++++ b/planning/plan.md
+@@ -134,13 +134,24 @@ No representation is selected and nothing is implemented here.
+ | C3b | Before marriage, A borrowed for **B's** schooling (B later A's spouse, not A's dependent then) | **unresolved — which time test governs is not established** (see D5) |
+    | C4 | Combined interest > $2,500 | ✓ capped once (probe) |
+    | C5 | Joint MAGI in phase-out | ✓ (probe) |
+-   | C6 | One statement covers both spouses as co-borrowers | ✓ likely: no split needed on one joint return |
+-   | C7 | Both spouses receive a 1098-E for the **same** loan's interest (co-borrower/co-signer) | ✗ risk of double count; nothing detects it. *Whether lenders do this is unverified* |
++   | C6 | One statement covers a loan both spouses owe | ✓ Reg. §1.6050S-3(b)(2): with multiple borrowers, only the **principal borrower** is the payor, so one 1098-E. Both spouses' interest is on one joint return, so no split arises *(inference; see C7)* |
++   | C7 | Both spouses receive a 1098-E for the **same** loan's interest | ✓ not the required pattern: §1.6050S-3(b)(2) names one payor per loan. Residual risk is a non-conforming lender, or the same statement entered twice (an existing identity question, not MFJ-specific). The inverse matters more: the 1098-E names only the principal borrower, so the **named person need not be the obligor who paid**. That bears on any per-person attribution read off the form (D2) |
+    | C8 | Spouse A obligated on loan X; a statement for loan Y neither spouse is obligated on | ✗ one return-level answer (P3) |
+-   | C9 | Either spouse claimed as someone's dependent | ? answer covers "the filer" only; likely rare on MFJ (unverified) |
++   | C9 | Either spouse claimed as someone's dependent | ? §152(b)(2): an individual who "has made a joint return with the individual's spouse" is not treated as a dependent. On a true MFJ return the bar should not bite for either spouse. The refund-only joint-return exception comes from IRS guidance I did **not** verify here. The amount is very likely right. The answer's meaning ("the filer") is still a wording gap |
+    | C10 | Loan for a child who was one spouse's dependent at origination | ✗ out of scope already for single filers (dependency-at-origination not asked) |
+    | C11 | Explanation of line 21 | ? statements named by lender only; no "yours / your spouse's" |
+ 
++   *Verification results (snapshot 6)*
++   - **P3 confirmed unbuilt**: the only obligation fact in 2025 content is
++     `sli-scope.legally-obligated-for-interest` (tax-year key).
++     `obligation-acquisition.bundle.json` is the unrelated document-translation
++     vocabulary. C8 is a live, pre-existing defect, and MFJ makes it more reachable
++     because there are two obligors.
++   - **D5 not decided by any authority found.** Searched for statute, reg, Pub. 970 and
++     secondary sources (The Tax Adviser, Mar. 2008, which restates the statute only). A
++     search-engine summary *asserted* a reading; I discard it as not authority. Still
++     open; C3b is narrow (a pre-marriage loan for the future spouse's schooling).
++
+    *Decisions the team must make* (none taken here)
+    - D1. **What "the filer" means on a joint return** for the existing filer-level
+      answers (dependency, obligation, the student). Is it the couple, the primary
+diff --git a/planning/working-account.md b/planning/working-account.md
+index 44abcb4..85a6045 100644
+--- a/planning/working-account.md
++++ b/planning/working-account.md
+@@ -133,3 +133,27 @@
+ - **Direction change:** a rule for the rest of the plan: every ✓ cites the provision
+   it rests on. Where two provisions could apply, the row names both and says which
+   governs, or says it is unknown.
++
++## Snapshot 6 — verifying C6, C7, C9, P3, D5
++
++- **Refined:** the cases that rested on unverified premises, so each decision
++  has a sourced or explicitly-open basis (the rule adopted in snapshot 5).
++- **Evidence:** 26 CFR §1.6050S-3(a)–(c) (eCFR raw: one payor = principal borrower);
++  Instructions for Forms 1098-E and 1098-T (IRS, raw: one 1098-E per borrower, may
++  aggregate loans; silent on co-borrowers); 26 U.S.C. §152(b)(2) (LII raw); grep of
++  `packages/content/tax/2025/*bundle*.json` for obligation facts; web search plus
++  The Tax Adviser (Mar. 2008) for D5.
++- **Findings:** C7's double-count fear is not the reporting rule's pattern. The
++  more important finding is the inverse: **the person named on a 1098-E is the
++  principal borrower, not necessarily the obligor or payer**. So any "whose is
++  this statement" fact read off the form (the SSA-recipient analogy in D2b) would
++  record *who the lender lists*, not *who is obligated*. That weakens D2b as a
++  route to fixing C8. C9's dependency bar is very likely moot on a genuine joint
++  return by §152(b)(2). P3 is confirmed unbuilt. D5 is still open.
++- **Open questions:** D5 (authority). Whether the owner regards the spouse as part
++  of "the filer" (D1). Neither can be settled by more engineering investigation.
++- **Next:** map each decision to what would settle it, who settles it, and in what
++  order (action 5 completed into an evidence plan). Then the readiness claim.
++- **Direction change:** the SSA-1099 recipient precedent looked like the obvious
++  template in snapshot 1. It is a poorer fit than it looked, because a 1098-E names
++  a lender-chosen principal borrower, not the person the deduction's tests are about.
+commit 7962900
+Date: 2026-10-12T16:18:55-07:00
+
+    Snapshot 7: evidence map per decision; probes of obligation-no and rendered page on MFJ
+
+
+diff --git a/planning/plan.md b/planning/plan.md
+index 4f84daa..8669655 100644
+--- a/planning/plan.md
++++ b/planning/plan.md
+@@ -186,4 +186,36 @@ No representation is selected and nothing is implemented here.
+        authority question to escalate, not one for the team to pick.
+    - D4. **Coverage claim**: what the frontier/maturity matrix says about MFJ with
+      1098-E. Today it is silent while the app computes.
+-6. State readiness.
++6. **Map each decision to what settles it, who settles it, and in what order
++   (developed, snapshot 7).**
++
++   *New facts from two more probes (`temp/probe_mfj2.py`, MFJ, Cedar $2,000 + Birch
++   $1,500, total income 50,000)*
++   - **C8 demonstrated**: with `legally-obligated-for-interest = no`, line 21 is
++     `computed_zero`, so both spouses' interest is wiped by one return-level answer.
++   - **Rendered line-21 page** publishes 2,500 and names statements by lender. No text
++     distinguishes the spouses. The only spouse wording comes from the **declared
++     basis** of `rule.sli-statement-loan-support` (ADR-0077 groups), which ships these
++     as *assumed*: "The schooling was for the taxpayer, a spouse, or a dependent when
++     the loan was incurred." and "The named borrowing is indebtedness the taxpayer
++     incurred."
++     - So the app **already declares** the student relationship and the borrower as
++       assumptions it does not test. D5 changes the *truth of a stated assumption*,
++       not a computation.
++     - On MFJ, "the taxpayer" in those sentences is exactly D1's ambiguity, now
++       visible to the person.
++     - The assumed-basis mechanism is itself a candidate for D2: state the joint
++       reading as an assumption rather than represent identity. Still not selected.
++
++   | Decision | Kind | What settles it | Who | Depends on |
++   | --- | --- | --- | --- | --- |
++   | D1 "filer" on a joint return | meaning / product | Owner decision on a short brief: cases C1, C2, C8, C11; the two readings (couple vs. taxpayer-only); the current shipped assumption wording; P1/P2 as they stand. If "filer"/"person" is a governance-defined term, the team **stops and escalates** (AGENTS.md); I did not read `docs/governance/` | Owner (advisor if governance) | — |
++   | D5 timing for "spouse" | authority | Read the T.D. 9125 preamble (69 FR 25489, 2004) and the 1999 proposed-rule preamble; check IRS FAQs. If still silent, escalate. Interim: the assumption sentence already carries the reg's reading. The question is whether to keep it, or to bound C3b out | Team searches; owner disposes | — |
++   | D3 order vs. P3 | sequencing | Owner choice between (i) fix obligation per borrowing first (stage-3 design exists, no consumer), (ii) admit MFJ with C8 declared as a known limitation, (iii) hold MFJ. Evidence in hand: the C8 probe | Owner, on foreman recommendation | D1 |
++   | D2 whose each statement/borrowing is | representation | Only if D1 says identity matters: rival prototypes (milestone loop stage 2) comparing assumed-basis wording, per-borrowing "you or your spouse" obligation (no second identity), and per-person attribution. Snapshot 6 shows that form-named attribution (SSA-style) records the principal borrower, not the obligor | Builders (rival), reviewer, owner | D1, D3 |
++   | D4 coverage claim | documentation | Record today's de facto behavior (MFJ computes; limits C8, C10, C3b) in the coverage frontier whatever else is chosen | Foreman | D1–D3 for the final wording |
++
++   Order: D1 and D5 in parallel (neither needs engineering), then D3, then D2 if it
++   is still needed, then D4.
++
++7. State readiness.
+diff --git a/planning/working-account.md b/planning/working-account.md
+index 85a6045..8f0aff0 100644
+--- a/planning/working-account.md
++++ b/planning/working-account.md
+@@ -157,3 +157,26 @@
+ - **Direction change:** the SSA-1099 recipient precedent looked like the obvious
+   template in snapshot 1. It is a poorer fit than it looked, because a 1098-E names
+   a lender-chosen principal borrower, not the person the deduction's tests are about.
++
++## Snapshot 7 — evidence map per decision, and two more probes
++
++- **Refined:** turned D1–D5 into an ordered evidence plan (who settles each, with
++  what). I ran two cheap probes first, because they could change the map.
++- **Evidence:** `temp/probe_mfj2.py` via `run_live` (MFJ): obligation "no" →
++  `computed_zero`; rendered page via `run_live(render_page=True)` and its
++  embedded model. `packages/content/tax/2025/rule.sli-statement-loan-support.json`
++  `basis` (said/derived/assumed/left_with_person). AGENTS.md "Stop when your unit
++  turns on governance text".
++- **Findings:** C8's wrong-zero is now demonstrated, not just read from rule logic.
++  The shipped rule already *assumes* the student relationship (in the reg's reading,
++  which bears on D5) and that "the taxpayer" incurred the borrowing. So for a joint
++  return the open questions are what those assumption sentences mean and whether they
++  are true. The arithmetic is not in question. That moves D5 from "changes a result"
++  to "changes whether a stated assumption is honest". It also adds a low-cost
++  candidate for D2.
++- **Open questions:** whether "filer"/"person" is governance-defined (I may not read
++  governance; flagged as an escalation trigger). What the T.D. 9125 preamble says.
++- **Next:** refinement 8, the readiness claim.
++- **Direction change:** D2 prototypes are now conditional on D1, not a default
++  stage. Two of the five decisions (D1, D5) are owner/authority questions that no
++  prototype can settle.
+commit 7a8b5e4
+Date: 2026-10-12T16:20:36-07:00
+
+    Snapshot 8: D5 is result-bearing; readiness claim
+
+
+diff --git a/planning/plan.md b/planning/plan.md
+index 8669655..e5a7b89 100644
+--- a/planning/plan.md
++++ b/planning/plan.md
+@@ -200,8 +200,14 @@ No representation is selected and nothing is implemented here.
+      the loan was incurred." and "The named borrowing is indebtedness the taxpayer
+      incurred."
+      - So the app **already declares** the student relationship and the borrower as
+-       assumptions it does not test. D5 changes the *truth of a stated assumption*,
+-       not a computation.
++       assumptions it does not test, and counts each statement's box 1 under them.
++       **D5 is result-bearing** (corrected in snapshot 8). If the timing clause reaches
++       "spouse", the assumption is false for C3b, the loan is not qualified, and the
++       app still counts its interest, so line 21 is **overstated**. If it does not,
++       the result is right and only the assumption's wording is too strict. Declaring
++       an assumption makes a possible error visible to the reader. It does not make
++       the result right. Nothing the app asks distinguishes C3b (marriage date vs.
++       origination date is not asked).
+      - On MFJ, "the taxpayer" in those sentences is exactly D1's ambiguity, now
+        visible to the person.
+      - The assumed-basis mechanism is itself a candidate for D2: state the joint
+@@ -210,7 +216,7 @@ No representation is selected and nothing is implemented here.
+    | Decision | Kind | What settles it | Who | Depends on |
+    | --- | --- | --- | --- | --- |
+    | D1 "filer" on a joint return | meaning / product | Owner decision on a short brief: cases C1, C2, C8, C11; the two readings (couple vs. taxpayer-only); the current shipped assumption wording; P1/P2 as they stand. If "filer"/"person" is a governance-defined term, the team **stops and escalates** (AGENTS.md); I did not read `docs/governance/` | Owner (advisor if governance) | — |
+-   | D5 timing for "spouse" | authority | Read the T.D. 9125 preamble (69 FR 25489, 2004) and the 1999 proposed-rule preamble; check IRS FAQs. If still silent, escalate. Interim: the assumption sentence already carries the reg's reading. The question is whether to keep it, or to bound C3b out | Team searches; owner disposes | — |
++   | D5 timing for "spouse" | authority | Read the T.D. 9125 preamble (69 FR 25489, 2004) and the 1999 proposed-rule preamble; check IRS FAQs. If still silent, escalate. Until settled, under the reg's reading the app **overstates C3b and cannot detect it**. Options to put to the owner: bound C3b out (ask, or refuse when it applies), or accept it as a declared limitation | Team searches; owner disposes | — |
+    | D3 order vs. P3 | sequencing | Owner choice between (i) fix obligation per borrowing first (stage-3 design exists, no consumer), (ii) admit MFJ with C8 declared as a known limitation, (iii) hold MFJ. Evidence in hand: the C8 probe | Owner, on foreman recommendation | D1 |
+    | D2 whose each statement/borrowing is | representation | Only if D1 says identity matters: rival prototypes (milestone loop stage 2) comparing assumed-basis wording, per-borrowing "you or your spouse" obligation (no second identity), and per-person attribution. Snapshot 6 shows that form-named attribution (SSA-style) records the principal borrower, not the obligor | Builders (rival), reviewer, owner | D1, D3 |
+    | D4 coverage claim | documentation | Record today's de facto behavior (MFJ computes; limits C8, C10, C3b) in the coverage frontier whatever else is chosen | Foreman | D1–D3 for the final wording |
+@@ -218,4 +224,45 @@ No representation is selected and nothing is implemented here.
+    Order: D1 and D5 in parallel (neither needs engineering), then D3, then D2 if it
+    is still needed, then D4.
+ 
+-7. State readiness.
++7. **Readiness claim (snapshot 8).**
++
++   **Not ready to select an approach.** The team understands the *mechanics* well
++   enough. What it does not yet have is answers to two meaning/authority questions
++   that decide what a correct result *is*, plus a sequencing choice that only the
++   owner can make. Selecting a representation now would be choosing those answers
++   implicitly. That is the error this plan made twice in miniature (C3 in snapshot 5,
++   D5's reclassification in snapshot 8).
++
++   *What supports the parts that are understood*
++   - Current behavior **measured** on the production live path (`run_live`, core v41),
++     not inferred. MFJ with one 1098-E per spouse publishes the right figure when all
++     answers are "yes" (2,500 capped once; 1,668 in the joint phase-out). MFS blocks.
++   - Joint-return arithmetic matches the 2025 sources: worksheet line 1 cap,
++     $170k/$30k joint parameters, §221(e)(2) MFS bar (1040 instructions; Pub. 970 ch. 4;
++     26 CFR §1.221-1(b)(3), (c)).
++   - Reporting: one 1098-E per loan, naming the principal borrower
++     (§1.6050S-3(b)(2)). So a 1098-E does not identify the obligor or payer, and
++     per-person attribution read off the form would record the wrong thing.
++   - Dependency bar is very likely moot on a genuine joint return (§152(b)(2)).
++   - Existing project positions that frame every option: P1 (filer-centered, owner
++     2026-09-22), P2 (filer-as-student bound), P3 (per-borrowing obligation designed,
++     unbuilt), and the shipped assumed-basis sentences.
++
++   *What must be established first, in order*
++   1. **D1, owner:** what "the filer"/"the taxpayer" means on a joint return for the
++      filer-level answers and the shipped assumption sentences. Escalate to an advisor
++      if it turns on governance-defined terms.
++   2. **D5, authority:** whether §221(d)(1)(A)'s origination-time clause reaches
++      "spouse". Result-bearing for C3b (possible overstatement the app cannot detect).
++      Search the T.D. 9125 and proposed-rule preambles and IRS guidance; if still
++      silent, the owner disposes (bound C3b out, or declare it as a limitation).
++   3. **D3, owner, on a foreman recommendation:** fix obligation per borrowing (P3)
++      before claiming MFJ, admit MFJ with C8 declared, or hold MFJ. C8's wrong-zero is
++      demonstrated.
++   4. Only then **D2** (representation), by rival prototypes if D1 says identity
++      matters, and **D4** (coverage wording).
++
++   *Surface now, independent of selection:* the app **already computes** MFJ
++   two-spouse returns silently, with a demonstrated wrong-zero (C8), a possible
++   undetectable overstatement (C3b, pending D5), and C10 out of scope. The coverage
++   frontier says none of this. This is a finding for the owner, not a change made here.
+diff --git a/planning/working-account.md b/planning/working-account.md
+index 8f0aff0..c58cc1c 100644
+--- a/planning/working-account.md
++++ b/planning/working-account.md
+@@ -180,3 +180,32 @@
+ - **Direction change:** D2 prototypes are now conditional on D1, not a default
+   stage. Two of the five decisions (D1, D5) are owner/authority questions that no
+   prototype can settle.
++
++## Snapshot 8 — correction of D5's reclassification; readiness claim
++
++- **Refined:** (1) D5's classification, prompted by a reviewer question; (2) the
++  readiness claim, as this is refinement 8.
++- **What was wrong:** snapshot 7 said D5 "changes whether a stated assumption is
++  honest" rather than a result. That does not follow from actions 4–5. Snapshot 5
++  established that under the reg's reading C3b is not qualified. The probes and the
++  rule show box 1 is counted under the assumption regardless. A false assumption
++  therefore means an overstated line 21, and the app asks nothing that would reveal
++  C3b. I had treated declaring an assumption as if it made the result right. It
++  only makes a possible error visible. D5 is result-bearing (under one reading);
++  under the other, only the wording is off.
++- **Evidence:** no new sources. I re-read snapshot 5's D5 entry, the
++  `rule.sli-statement-loan-support.json` basis, and the snapshot 3/7 probe results.
++- **Readiness claim:** **not ready to select an approach.** The mechanics are
++  understood, measured and sourced (see plan action 7). Correctness itself depends on
++  D1 (owner: meaning of "filer" on a joint return) and D5 (authority: timing for
++  "spouse"), then D3 (owner: order relative to the per-borrowing obligation fix).
++  D2 and D4 follow from those. Separately, the owner should be told now that MFJ
++  two-spouse returns already compute, with a demonstrated wrong-zero (C8) and a
++  possible undetectable overstatement (C3b).
++- **Open questions:** D1, D5, D3 as above. Whether "filer" is governance-defined.
++- **Next (for the team):** write the D1 brief; run the D5 preamble search; record
++  current MFJ behavior in the coverage frontier as an observation.
++- **Direction change:** none in the conclusion's direction. But two of my corrections
++  had the same shape: treating an unstated choice (C3) or a declared assumption (D5)
++  as settled. So the readiness claim rests only on measured behavior and quoted
++  sources, and names everything else as open.

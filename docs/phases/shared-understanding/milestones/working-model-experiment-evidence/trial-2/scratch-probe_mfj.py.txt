@@ -1,0 +1,17 @@
+"""Scratch probe: two 1098-Es (one per spouse) on a synthetic return, by filing status."""
+import functools, sys
+import tests.test_f1098e_student_loan_interest_agi_track6 as t6
+status = sys.argv[1]; wages = float(sys.argv[2])
+t6._f1098e_acts = functools.partial(t6._f1098e_acts, filing_status=status)
+import tests.test_sli_track5_worksheet_integration as t5
+ws = t5.Return(wages=wages, amounts={"cedar": 2000.0, "birch": 1500.0})
+with ws.raw:
+    ws.plain()                                   # cedar <- autumn borrowing
+    ws.link("financing", "spring", "spring")
+    ws.link("statement-inclusion", "spring", "birch")
+    ws.answer("loan", "spring", "yes")
+    ws.answer("enroll", "spring", "yes")
+    ws.common_answers("birch")
+    out = t5.run_live(ws.acts(), f"demo.run.probe.{status}")
+    row = out.worksheet_row()
+    print(status, wages, "->", out.line21.get("disposition"), out.value() if out.line21.get("disposition")=="published_value" else row)

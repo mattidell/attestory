@@ -1,0 +1,18 @@
+turn 0: 3 turns, 16 s, cumulative US$ 0.16
+   Snapshot 0 committed: initial six-action plan, from understanding the current state through to a readiness claim.
+turn 1: 14 turns, 58 s, cumulative US$ 0.55
+   Snapshot 1 committed: MFJ isn't refused today. The worksheet already applies the per-return cap and the MFJ phase-out, but neither the 1098-E nor the eligibility answers record which spouse they belong to.
+turn 2: 14 turns, 108 s, cumulative US$ 1.14
+   Snapshot 2 committed: the 2025 rules don't change the arithmetic for a joint return (one $2,500 cap, the joint phase-out, MFS barred). What changes is which spouse each eligibility test applies to: the dependency bar, the legal obligation on each loan, and who the student was.
+turn 3: 13 turns, 336 s, cumulative US$ 1.59
+   Snapshot 3 committed: a synthetic MFJ return with one 1098-E per spouse already gets the right figure through the live path ($2,500 capped once; joint phase-out applied). The risk is the single return-wide "legally obligated" answer: a "no" zeroes both spouses' interest.
+turn 4: 8 turns, 64 s, cumulative US$ 2.01
+   Snapshot 4 committed: 11 joint-return cases and 4 decisions (D1–D4), set against earlier project positions: the owner's 2026-09-22 rule to represent no second person unless a concrete case shows it is needed, the "filer as the student" scope bound, and the unbuilt per-loan legal-obligation fix.
+turn 5: 3 turns, 46 s, cumulative US$ 2.21
+   Snapshot 5 committed: split C3 and added D5, since year-end marital status doesn't decide whether a loan qualifies and the origination-time test for a spouse is unresolved.
+turn 6: 12 turns, 74 s, cumulative US$ 2.7
+   Snapshot 6 committed: a 1098-E names only the lender's principal borrower, not necessarily the spouse who owes or paid, so copying the SSA-1099 "taxpayer or spouse" field is a weaker fit than it first looked. A spouse on a genuine joint return very likely can't be claimed as a dependent (§152(b)(2)). The per-loan legal-obligation fix is confirmed unbuilt, and D5 is still unsettled.
+turn 7: 8 turns, 333 s, cumulative US$ 3.1
+   Snapshot 7 committed: each decision now has an owner and a settling step. A probe showed that one "not obligated" answer zeroes both spouses' interest. The shipped rule already presents the student relationship and borrower as untested assumptions, so on a joint return the open question is what those assumption sentences mean.
+turn 8: 2 turns, 49 s, cumulative US$ 3.28
+   Snapshot 8 committed: D5 reclassified as affecting the result; the team is not ready to choose an approach until the owner settles D1 and D3 and D5's authority question is resolved.

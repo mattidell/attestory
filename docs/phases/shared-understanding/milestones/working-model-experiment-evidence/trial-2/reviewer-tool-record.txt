@@ -1,0 +1,70 @@
+[toward S0] 22:56:56 Bash: cd <planner-workspace> && git show --stat HEAD && cat planning/plan.md planning/working-account.md; ls <reviewer-dir>
+      | commit f7dfd927cded78e4c3404f88dd7fa42260099d21
+      | Author: Matt Idell <mattidell@gmail.com>
+      | Date:   Mon Oct 12 15:56:35 2026 -0700
+      |     Snapshot 0: initial action list
+      |     Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>
+      |  planning/plan.md            | 24 ++++++++++++++++++++++++
+[toward S0] 22:56:59 Bash: cat <reviewer-dir>/reference-account.md | head -80
+      | # Reference account: joint return, both spouses with Form 1098-E interest
+      | Prepared by the grounding agent for the facilitator. It records what the law requires and
+      | what the application does today, with sources, so a planner's statement can be checked
+      | against the evidence that was available. It is not an answer key and proposes no mechanism.
+      | **Source tags.** [IRC] 26 U.S.C. § 221, Cornell LII text (amendment notes end at Pub. L.
+      | 117-2). [Reg] 26 CFR § 1.221-1, eCFR current. [Pub970] IRS Publication 970 (2025), chapter
+[toward S0] 22:58:27 Bash: cd <planner-workspace> && git show HEAD -- planning/ | head -200
+      | commit be02325ac903cf81a913e6d959f23a4a8486a46e
+      | Author: Matt Idell <mattidell@gmail.com>
+      | Date:   Mon Oct 12 15:58:05 2026 -0700
+      |     Snapshot 1: current SLI and spouse handling
+      |     Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>
+      | diff --git a/planning/plan.md b/planning/plan.md
+[toward S0] 22:58:27 Bash: sed -n 80,400p <reviewer-dir>/reference-account.md
+      |   is obligated on that loan. Interest that spouse A pays on a loan only spouse B owes is
+      |   treated as B's payment under (b)(4), so it is deductible on the joint return (I,
+      |   medium-high). A parent or other third party paying an obligated spouse's loan is treated
+      |   the same way (V, from (b)(4) and Pub970 "Interest paid by others"). A loan neither spouse
+      |   is obligated on, such as a parent's own Parent PLUS loan for a child, gives the couple
+      |   nothing (I).
+[toward S0] 23:00:55 Bash: cd <planner-workspace> && git show HEAD -- planning/
+      | commit 35eeb096fe58ddff34d2ccc31aecc3a1b89ddd49
+      | Author: Matt Idell <mattidell@gmail.com>
+      | Date:   Mon Oct 12 16:00:25 2026 -0700
+      |     Snapshot 2: 2025 joint-return rules for line 21
+      |     Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>
+      | diff --git a/planning/plan.md b/planning/plan.md
+[toward S0] 23:07:10 Bash: cd <planner-workspace> && git show HEAD -- planning/
+      | commit 82496a8467e078ff18b7236c47f6a095e6c70d40
+      | Author: Matt Idell <mattidell@gmail.com>
+      | Date:   Mon Oct 12 16:06:46 2026 -0700
+      |     Snapshot 3: probe of MFJ two-statement behavior
+      |     Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>
+      | diff --git a/planning/plan.md b/planning/plan.md
+[toward S0] 23:09:06 Bash: cd <planner-workspace> && git show HEAD -- planning/
+      | commit ae5088c55264e7397896c9b8367899460e99bd40
+      | Author: Matt Idell <mattidell@gmail.com>
+      | Date:   Mon Oct 12 16:08:26 2026 -0700
+      |     Snapshot 4: joint-return cases and decisions against prior positions
+      |     Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>
+      | diff --git a/planning/plan.md b/planning/plan.md
+[toward S0] 23:11:21 Bash: cd <planner-workspace> && git show HEAD -- planning/
+      | commit 5467218395fe2fe66eed23e6be032a3c1e3b7a01
+      | Author: Matt Idell <mattidell@gmail.com>
+      | Date:   Mon Oct 12 16:10:39 2026 -0700
+      |     Snapshot 5: separate year-end marital test from origination-time student test (C3)
+      |     Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>
+      | diff --git a/planning/plan.md b/planning/plan.md
+[toward S0] 23:13:10 Bash: cd <planner-workspace> && git show HEAD -- planning/
+      | commit 252444faa1284fed1707cf8e362d375070c5667e
+      | Author: Matt Idell <mattidell@gmail.com>
+      | Date:   Mon Oct 12 16:12:45 2026 -0700
+      |     Snapshot 6: verify co-borrower reporting, married-dependent bar, obligation fact, D5 authority
+      |     Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>
+      | diff --git a/planning/plan.md b/planning/plan.md
+[toward S0] 23:19:29 Bash: cd <planner-workspace> && git show HEAD -- planning/
+      | commit 796290031d84d7fe72da31fc6a6d877b583ec638
+      | Author: Matt Idell <mattidell@gmail.com>
+      | Date:   Mon Oct 12 16:18:55 2026 -0700
+      |     Snapshot 7: evidence map per decision; probes of obligation-no and rendered page on MFJ
+      |     Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>
+      | diff --git a/planning/plan.md b/planning/plan.md
