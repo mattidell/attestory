@@ -13,7 +13,8 @@ the agent diagnose it and change its own course.
 ## How we will proceed
 
 - Begin with a brief account of the question and actions the team will take.
-- Refine one bounded experimental task and the observations needed to examine it.
+- Have the foreman construct hypotheses and refine the experiments, tasks and
+  observations needed to examine them during milestone execution.
 - Observe incremental planning, first without substantive intervention and then
   with diagnostic challenges.
 - Evaluate what the observations establish and whether further experimentation

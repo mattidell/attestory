@@ -5,8 +5,8 @@
   "topic": "working-model-experiment",
   "active_plan": "docs/phases/shared-understanding/milestones/working-model-experiment.md",
   "milestone_state": "planned",
-  "status": "Phase purpose, two trial questions and observation method established in successive planning commits. The common case, packet and endpoint remain open for owner/advisor preparation before review and launch.",
-  "current_role": "Foreman — orient to the agreed direction and prepare source material",
+  "status": "General experimental direction established. The foreman plans and performs experiments, including constructing hypotheses, selecting cases and evaluating observations, as milestone execution.",
+  "current_role": "Foreman — plan and perform the experiments",
   "current_prompt": "docs/phases/shared-understanding/milestones/working-model-experiment.md"
 }
 -->
@@ -29,12 +29,13 @@ The roadmap contains no selected later milestone.
 - [Brief roadmap](phases/shared-understanding/shared-understanding-roadmap.md).
 - [Milestone actions and trial method](phases/shared-understanding/milestones/working-model-experiment.md).
 
-## Next planning increment
+## Next action
 
-The owner and advisor select the common task, packet and endpoint. The trial
-questions, observation method and intervention limits are recorded. The foreman
-can prepare relevant sources within that direction; participant launch remains
-unready until the actual packet and protocol receive readiness review.
+The foreman plans and performs the experiments within the milestone's general
+direction. Constructing hypotheses, selecting cases, preparing materials and
+observations, conducting trials and evaluating results are part of execution.
+The milestone plan does not prescribe a hypothesis. Develop and review the
+actual design before participant launch, with owner and advisor input as useful.
 
 After the two trials, evaluate whether the observations are useful enough to
 justify more work. Do not assume another milestone is needed or adopt a

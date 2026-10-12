@@ -9,15 +9,15 @@ yield insight worth using in this application's development?
 
 [Where Incremental Planning Goes Off Course](milestones/working-model-experiment.md).
 
-- Establish one bounded planning task and its evidence.
+- Plan the experiments, including hypotheses, cases and observations.
 - Observe where problems enter a plan as the planner makes it more concrete.
 - Observe a fresh planner on that task with restrained reviewer intervention.
 - Evaluate what the two trials reveal, including their limitations.
 
-The trial questions and observation method are now defined. The owner and
-advisor still need to select the common task, packet and endpoint. Review those
-before launching participants. This roadmap remains an account of present
-understanding, not a schedule of future milestones.
+The general experimental direction is established. The foreman constructs the
+hypotheses, prepares the trials and performs their evaluation as milestone
+execution. This roadmap leaves their specific design and all later milestones
+open.
 
 ## What follows
 

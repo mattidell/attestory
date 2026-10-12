@@ -3,7 +3,7 @@
   "version": 1,
   "phase": "Shared Understanding in Development",
   "topic": "working-model-experiment",
-  "status": "Third planning increment. Trial questions and observation method are defined. The owner/advisor must still select the common case and finalize the packet and stopping point before readiness review and launch.",
+  "status": "General experimental direction established. The foreman plans and performs the experiments, including constructing hypotheses, selecting cases, preparing materials and evaluating observations, as milestone execution.",
   "scope": [
     "observe when a consequential problem enters an incrementally refined plan",
     "observe whether restrained challenges let a planner diagnose and correct its own course",
@@ -45,20 +45,22 @@ plan, adopted domain model or product implementation is not the deliverable.
 
 ## Actions the team will take
 
-1. The owner and advisor select one bounded, consequential tax-translation
-   planning task and prepare the common facts, sources and product purpose.
-2. Establish how each planner will refine an initial action list incrementally,
-   and how the histories and explicit working accounts will be preserved.
-3. Observe a planner carrying out that method without substantive correction.
-4. Observe a fresh planner on the same task with restrained diagnostic challenges.
-5. Examine when problems appeared, how the planners diagnosed them, and what
-   changed in their subsequent actions.
-6. Evaluate whether the observations give useful insight and reassess the phase.
+1. The foreman plans the experiments, constructs their hypotheses, and selects
+   bounded, consequential planning tasks and the evidence available to participants.
+2. Prepare the materials, observation method and stopping points, and review
+   whether the design can obtain evidence bearing on its hypotheses.
+3. Perform experiments observing incremental planning without substantive
+   correction, and with restrained diagnostic challenges.
+4. Gather plan histories, explicit working accounts, challenges and responses.
+5. Evaluate the hypotheses against those observations and their limitations.
+6. Report whether the experiments give useful insight and reassess the phase.
 
-The foreman facilitates this agreed experiment. The owner and advisor retain
-responsibility for choosing the task and constructing or changing its hypotheses.
-The foreman can prepare sources and operational details within that direction;
-it is not asked to invent a different experiment.
+The foreman is responsible for constructing and executing the experiments.
+Hypothesis construction, case selection, preparation, trials and evaluation
+are milestone execution, not decisions this plan settles in advance. The
+owner and advisor can provide input and review as that work develops. The
+foreman facilitates the experiments and is not the planning participant under
+observation.
 
 ## Trial 1 — where a problem enters the plan
 
@@ -69,11 +71,6 @@ hints, corrections or a demand to repair the final plan.
 
 **Question:** At which refinement does a consequential problem first appear,
 and how does it arise from the planner's previous understanding?
-
-**Working hypothesis:** A common transition is an open question or proposed
-choice becoming an asserted requirement without corresponding new grounds.
-Observe the whole history so that problems in the original framing, later
-technical elaboration, or this hypothesis itself can also be found.
 
 An observer records candidate problems without communicating them to the
 planner. Afterward, a fresh review checks those observations against the evidence
@@ -90,28 +87,25 @@ consequential problem appears.
 recognize the grounds and level of specificity involved, and choose an
 appropriate next action with limited direction?
 
-**Working hypothesis:** An explicit, retained planning context can let a planner
-use a challenge to diagnose an unsupported commitment and return to the
-appropriate investigation or decision, rather than merely replace the wording.
-
 The reviewer exposes a tension without prescribing its resolution. For example:
 "The result promised by this action seems stronger than what the preceding
 actions establish. Revisit that dependency." Preserve the challenge, the
 planner's diagnosis and the resulting changes. If no problem appears, do not
 invent one to obtain a correction episode.
 
-## What remains open at this increment
+## Experiment construction during execution
 
-The exact common case and participant packets are not selected. The task must
-involve consequential interpretation of ordinary circumstances and tax meaning,
-not just cosmetic wording. A new context such as personal-property sales
-reported on Form 1099-K is a candidate, not a commitment.
+The foreman constructs the hypotheses and chooses the cases, participant
+materials, observations and endpoints. Select tasks with consequences for
+interpreting ordinary circumstances and tax meaning. Develop the design
+incrementally and make its intended question and evidence explicit before
+conducting the relevant trial.
 
-The owner and advisor must still fix the common case, participant packet and
-planning endpoint. The method below is more concrete, but that remaining
-preparation prevents participant launch. Independently review the actual
-prepared protocol before launch, rather than treating this outline as proof
-of readiness.
+The sections below describe the general nature of the experiments and the
+distinctions their observations should preserve. They are not a completed
+experimental protocol. Independently review the prepared design before launch
+and evaluate its actual hypotheses rather than assuming this plan established
+them. Hypotheses and their revisions belong in the execution evidence.
 
 No trial has run. The phase's usefulness remains unknown. There is no automatic
 follow-on experiment, product implementation or practice adoption.
@@ -189,10 +183,10 @@ episode; it is not permission to manufacture one.
 ## Evaluate the experiments and the phase
 
 A fresh evaluation reviews the histories and observation claims independently.
-For Trial 1, describe where a problem appeared, what preceded it, and whether
-the working hypothesis about commitments outgrowing their grounds fits the
-episode. For Trial 2, describe what the challenge exposed, whether the planner
-diagnosed it, and whether its next action changed for an intelligible reason.
+Evaluate the hypotheses constructed during execution against the evidence
+gathered. Describe where a problem appeared and what preceded it; where a
+challenge was given, describe what it exposed, whether the planner diagnosed
+it, and whether its next action changed for an intelligible reason.
 
 One trial of each kind cannot isolate reviewer effects from variation between
 agents. Chronology does not establish that greater specificity caused the
@@ -213,6 +207,5 @@ result.
 
 Use synthetic material and the repository's existing data boundaries. Review
 the prepared design and final evaluation; run checks appropriate to their
-changes. The foreman facilitates execution after the owner/advisor's design
-work is ready. It does not substitute a different hypothesis or invent the next
-phase milestone.
+changes. The foreman plans and performs the experiments within this general
+direction. Subsequent phase milestones remain undecided.
