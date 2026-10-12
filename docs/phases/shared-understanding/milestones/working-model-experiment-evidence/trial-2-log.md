@@ -305,3 +305,7 @@ account; it has no hypothesis and no Trial 1 material.
   further rows. **C2 is still unrevised** ("? qualifies in law") beside C3b
   "unresolved".
 - **Candidate problems:** none new.
+- **Reviewer (23:13):** "NO CHALLENGE. Snapshot 6's revised rows rest on
+  sources the planner fetched … I found nothing overclaimed that could move
+  the amount or the readiness claim."
+- **Reply:** `continue`.
