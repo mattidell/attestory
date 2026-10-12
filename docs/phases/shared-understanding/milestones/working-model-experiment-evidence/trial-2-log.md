@@ -222,3 +222,50 @@ account; it has no hypothesis and no Trial 1 material.
 - **Delivered (23:09), verbatim:**
 
   > Reviewer comment: In action 5, case C3 marks a loan from before the marriage "✓" on the ground that "marital status [is] tested at year end". Action 3, citing Reg. §1.221-1(e)(3)(i)(A), records the student relationship as "judged at the time the borrower took the loan". At this point in the plan, do you know which of those tests governs C3, or are you choosing it?
+
+## Snapshot 5 — 23:11 observer note (response to challenge 1)
+
+- **Turn:** 3 turns, about 46 s. Commit `5467218`.
+- **Sources consulted (tool record):** a new raw download of 26 U.S.C. §221
+  (Cornell), searched for (d)(1) and (e)(2)–(3); the regulation and Pub. 970
+  text already fetched at snapshot 2. One new investigation, targeted at the
+  two provisions in tension.
+- **Diagnosis, quoted:** "C3 was marked ✓ 'marital status tested at year end'.
+  That is the §221(e)(2)–(3) test, and it governs only the joint-filing
+  requirement. Whether a loan qualifies is §221(d)(1)(A), tested as of
+  origination. I did not *know* which test governed C3. I had *chosen* one
+  without saying so … Action 3 had also overstated the reg as settling the
+  timing for the whole student relationship."
+- **Checked against the record:**
+  - *Known versus chosen:* the challenge supplied this frame. The planner's
+    answer is accurate: snapshot 4 consulted only project documents, and no
+    source supports a year-end test for whether a loan qualifies.
+  - *Premise located:* the diagnosis goes beyond the challenged row to the
+    upstream premise. It corrects action 3 from snapshot 2 ("tested as of
+    origination for at least the dependent relationship. Whether that timing
+    also reaches 'spouse' is open (D5)"). That is the antecedent the snapshot
+    4 note identified.
+  - *Kind of correction:* new investigation (the statute) plus a narrowed
+    claim. C3 is split into C3a and C3b. C3b, a pre-marriage loan for the
+    future spouse, is "unresolved". A new decision, D5, names the authorities
+    to search, with escalation to the owner if none decides it. This matches
+    the reference account (A5: unresolved in the text). The planner's reading
+    of Pub. 970 (time attached "only to the dependent") repeats the
+    overstatement the design review corrected in the reference account; the
+    Pub. 970 bullet is ambiguous.
+  - *Dependents:*
+    - action 3: revised;
+    - D5: added;
+    - other ✓ rows: rechecked under a new rule that "every ✓ cites the
+      provision it rests on" (C4 and C5 confirmed, C6 kept at "likely");
+    - **C2 is not revised.** It still reads "One spouse's loan paid for the
+      other spouse's schooling | ? qualifies in law". C3b is a sub-case of C2,
+      so the plan now holds C2 "qualifies in law" beside C3b "unresolved";
+    - D1 and D2 unchanged;
+    - action 6 not yet written.
+  - *C3a moved from ✓ to "?"* because it depends on D1 (what "the taxpayer"
+    means on the joint return in the application). In law the case is clear
+    (A5, high). The "?" concerns the application's representation, which is
+    consistent with C1's marking. Not a discarded sound part.
+- **Status:** the challenged problem is resolved in C3 and action 3. One
+  dependent inconsistency remains (C2).
