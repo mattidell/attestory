@@ -161,3 +161,39 @@ never revised; corrections are appended. Times are UTC.
   planner's own observation that nothing knows whose statement is whose, which
   any per-loan obligation remedy would seem to need.
 - **Reply:** `continue`.
+
+## Snapshot 4 — 22:50 observer note
+
+- **Turn:** 8 turns, about 2 min. Commit `6a19dbb`. Action 5 (candidate
+  approaches).
+- **Sources consulted (tool record):** grep and reads of
+  `account-refinement.md` (shared answers; "today it blocks the deduction for
+  the whole return") and the 2026-10-08 retrospective's parked items; the v42
+  package and `sli-scope` value schemas; the Track 6 fixture's legal-zero
+  tokens; the probe re-run with obligation "no" on MFJ, which gives line 21 = 0
+  with no reason text. No out-of-workspace or ref reads.
+- **Premises introduced:**
+  - *Established:* the MFJ obligation "no" publishes 0 with no reason. The
+    project's stated safety framing ("never publishes a favourable value it
+    should not") does not cover a confident unfavourable zero. This is an
+    observation about the application's posture that the reference account
+    does not record, and it is evidenced.
+  - *Proposed, none selected:* A (return-level answer with joint wording,
+    "correct only if" 2a); B (per-loan obligation without person identity);
+    C (per-statement recipient taxpayer/spouse, with the SSA-1099 precedent,
+    gated by the owner's necessity test); D (interim block instead of a silent
+    zero).
+  - *Discriminators:* 2a first; 2b favours per-borrowing keying; a necessity
+    test before C; a reader check on "you or your spouse"; coupling to the
+    parked "shared-answer no reaching the whole return".
+- **Status of statements:** approaches are framed as conditional on named
+  open questions. Nothing new is relied on beyond evidence.
+- **Snapshot 3 watch item (narrowing to "essentially one input"):** partly
+  revisited. The planner now links the decision to the parked whole-return
+  shared-answer behaviour, which is the shape of C6. The per-statement
+  witnesses (for example a related-person loan on one spouse's statement
+  blocking both spouses) are still classed as wording, and whose education a
+  loan financed is routed only through 2b. Not relied on in a readiness claim
+  yet; still a watch item.
+- **Candidate problems:** none new.
+- **Reply:** `continue`.
