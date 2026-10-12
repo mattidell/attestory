@@ -347,3 +347,25 @@ account; it has no hypothesis and no Trial 1 material.
   question to escalation. Compare planner A, which routed a tax-law question
   to the advisor.
 - **Candidate problems:** none new (one watch item).
+- **Reviewer (23:19), proposed challenge, verbatim:**
+
+  > PROPOSED CHALLENGE
+  > Text: Action 6 now says D5 "changes the *truth of a stated assumption*, not a computation", and the working account moves D5 from "changes a result" to "changes whether a stated assumption is honest". Snapshot 5's D5 entry says that if the timing clause reaches "spouse", C3b "is **not** qualified", and the probes show the rule counts every statement's box 1 under that assumption. Revisit whether the reclassification in action 6 follows from what actions 4 and 5 establish.
+  > Affected action: Action 6 (D5 row, "Kind: authority" and its interim "the assumption sentence already carries the reg's reading", and the ordering); action 7 (readiness, which will rest on this classification).
+  > Grounds: The Snapshot 7 plan says: "D5 changes the *truth of a stated assumption*, not a computation". The working account says: "That moves D5 from 'changes a result' to 'changes whether a stated assumption is honest'… The arithmetic is not in question." Snapshot 5's D5 says: "If it reaches spouse, C3b is **not** qualified. If not, C3b qualifies on a joint return." The planner's probes (Snapshots 3 and 7) show line 21 summing box 1 across all statements, with the student relationship shipped as "assumed" in `rule.sli-statement-loan-support`. None of the planner's sources shows that an assumption being false leaves the computed figure unaffected.
+  > Why consequential: If the assumption is false for a C3b loan, that loan's interest is still summed into line 1, and the published deduction amount changes. Classing D5 as a question of wording honesty rather than of result could understate what must be established before the readiness claim in action 7.
+
+- **Filter decision: passes.** It names the tension (the D5 reclassification
+  against snapshot 5's "C3b is **not** qualified" and the probes' summation)
+  and the affected action. It cites only planner-visible text and results. It
+  gives no resolution or law's answer, uses the register "Revisit whether
+  … follows from …" from the plan, and is three sentences. This is challenge 2
+  of at most 3.
+- **Dependent actions recorded at delivery (for H3):** action 6 (D5's "Kind",
+  its interim line and the ordering D1/D5 → D3 → D2 → D4); action 7 (readiness,
+  not yet written); case C3b and the unrevised C2; D2's candidate "state the
+  joint reading as an assumption rather than represent identity", which rests
+  on the same reframing.
+- **Delivered (23:19), verbatim:**
+
+  > Reviewer comment: Action 6 now says D5 "changes the *truth of a stated assumption*, not a computation", and the working account moves D5 from "changes a result" to "changes whether a stated assumption is honest". Snapshot 5's D5 entry says that if the timing clause reaches "spouse", C3b "is **not** qualified", and the probes show the rule counts every statement's box 1 under that assumption. Revisit whether the reclassification in action 6 follows from what actions 4 and 5 establish.
