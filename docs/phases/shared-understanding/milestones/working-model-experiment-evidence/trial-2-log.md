@@ -58,3 +58,8 @@ account; it has no hypothesis and no Trial 1 material.
     per-return treatment is correct, and where per-spouse attribution
     matters".
 - **Candidate problems:** none.
+- **Reviewer (22:58):** "NO CHALLENGE. … The one inference that an MFJ
+  two-statement case 'would probably compute' is explicitly deferred to the
+  probe in action 4, and the legal correctness of per-return treatment is
+  left open under action 3."
+- **Reply:** `continue`.
