@@ -1,0 +1,16 @@
+turn 0: 3 turns, 14 s, cumulative US$ 0.21
+   Snapshot 0 committed: initial plain-language action list for the joint-return two-1098-E question.
+turn 1: 15 turns, 70 s, cumulative US$ 0.82
+   Snapshot 1 committed: the app has no notion of whose 1098-E it is, its person-level answers are singular, and earlier work chose a single-filer model. The SSA-1099 taxpayer/spouse field is the one precedent in the repo.
+turn 2: 8 turns, 72 s, cumulative US$ 1.2
+   Snapshot 2 committed: on a joint return the arithmetic is one cap and one phase-out, which the existing worksheet already does. Dependency is tested for each spouse. Two points about obligation and timing across spouses are still not settled by a source.
+turn 3: 15 turns, 366 s, cumulative US$ 1.74
+   Snapshot 3 committed: a live probe shows the joint-return arithmetic is already correct. The real gap is the single "legally obligated" answer. If one spouse answers "no" about their partner's loan, the whole return goes to $0.
+turn 4: 8 turns, 126 s, cumulative US$ 2.05
+   Snapshot 4 committed: four candidate approaches (wording only, ask obligation per loan, record whose statement it is, interim block). Which one is right depends first on the legal point about obligation across spouses. The silent $0 is confirmed.
+turn 5: 7 turns, 92 s, cumulative US$ 2.46
+   Snapshot 5 committed: the cap, dependency and related-person questions are settled or bounded. The deciding question is still open: does one spouse's obligation count for interest on a loan only the other spouse owes? It needs an advisor read.
+turn 6: 8 turns, 42 s, cumulative US$ 2.75
+   Snapshot 6 committed: no page ever asks a person the obligation, dependency or scope questions; they are only seeded in fixtures. So the joint-return wording would be new design, and the cost of the candidates is roughly equal.
+turn 7: 2 turns, 28 s, cumulative US$ 2.86
+   Snapshot 7 committed: not ready to select an approach. The choice is down to rewording the existing yes/no obligation answer or asking it per loan, but picking one still waits on an advisor ruling about obligation across spouses, an owner/foreman scope call, and the owner's view on silent $0 results.

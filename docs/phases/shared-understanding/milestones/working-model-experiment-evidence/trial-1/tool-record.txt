@@ -1,0 +1,338 @@
+[toward S0] 22:37:46 Bash: ls && ls planning 2>/dev/null; grep -ril "1098-E\|student.loan" --include=*.py --include=*.md --include=*.json . | grep -v archive | head -50
+      | AGENTS.md
+      | archive
+      | docs
+      | LICENSE
+      | mypy.ini
+      | OWNER_MODEL.md
+[toward S0] 22:37:56 Bash: mkdir -p planning && cat > planning/plan.md <<'EOF' # Plan: joint return, both spouses with Form 1098-E interest (TY2025) Endpoint: a readiness claim — does the team understand enough to select an approach for handling this case, what suppo
+      | 9b1421c Snapshot 0: initial action list
+[toward S1] 22:38:20 Bash: cat docs/phase-state.md | head -80; ls docs docs/phases docs/adr | head -80
+      | <!-- foreman-context-v1
+      | {
+      |   "version": 1,
+      |   "phase": "Evolving Workspace Accounts",
+      |   "topic": "saved-account-resumption",
+      |   "active_plan": "docs/phases/evolving-workspace-accounts/milestones/saved-account-resumption.md",
+[toward S1] 22:38:21 Bash: grep -rniE "spouse|joint|filing.status|married|MFJ" --include=*.md docs OWNER_MODEL.md README.md | grep -v "docs/governance\|docs/archive" | head -60
+      | docs/adr/0058-schedule-d-signed-downstream-and-line-21-limitation.md:5:  existing expression vocabulary and filing-status parameters.
+      | docs/adr/0058-schedule-d-signed-downstream-and-line-21-limitation.md:32:  `packages/derivation/evaluator.py`). Filing-status-keyed parameters are
+      | docs/adr/0058-schedule-d-signed-downstream-and-line-21-limitation.md:58:   min(−line16, capital_loss_limit(filing_status))
+      | docs/adr/0058-schedule-d-signed-downstream-and-line-21-limitation.md:61:   with `capital_loss_limit` a new filing-status-keyed parameter
+      | docs/adr/0058-schedule-d-signed-downstream-and-line-21-limitation.md:62:   (`demo.parameter.capital-loss-limit.2025`): $3,000 for single, married
+      | docs/adr/0058-schedule-d-signed-downstream-and-line-21-limitation.md:63:   filing jointly, head of household, and qualifying surviving spouse;
+[toward S1] 22:38:24 Bash: sed -n 92,200p docs/adr/INDEX.md | grep -iE "sli|student|1098-E|loan|borrow" | cut -c1-900; ls docs/domain-models; ls packages; grep -rlE "1098-?e|student.loan" packages | head -40
+      | | 0076 | accepted (Parts 1–2); Part 3 open | rules, packages | A per-subject rule declares its `subject` fact type on the rule; both schedulers dispatch it per subject and wait on predecessor rule res
+      | | 0077 | accepted | rules, packages, facts | Shared-key count on `rule-artifact.v13` counts current rows of a named fact type that share one named identity key with the subject, blocks on a null or mi
+      | investment-basis-coverage.md
+      | investment-basis.md
+      | taxable-interest-translation.md
+      | __init__.py
+[toward S1] 22:38:26 Bash: grep -nE "^\| 00(6[0-9]|7[0-9]|8[0-9])" docs/adr/INDEX.md | cut -c1-600; ls docs/phases; ls docs/phases/*/milestones | head -80
+      | 94:| 0060 | accepted | worksheet, attachments | Capital Loss Carryover Worksheet as rule content, running only on Path B; sign into Schedule D lines 6/14; threshold/preferential-base extension for car
+      | 95:| 0061 | accepted; Decision 2 mechanism superseded by 0066 | facts, packages, attachments | Covered wash-sale (code W) authority: a separate wash-sale transaction fact type (`covered-w-st-txn`/`cov
+      | 96:| 0062 | accepted; Decision 2 mechanism superseded by 0066 | worksheet, attachments | Form 8949 as its own attachment citizen reusing existing single-column itemization/`collect_members` (no new sc
+      | 97:| 0063 | accepted | facts, packages | Adopted migration artifact is a direct supersession root — a fourth named root alongside correction findings, `_member_withdrawals`, and superseded-entity ids.
+      | 98:| 0064 | accepted | rules | Expression-language extension: additive `multiply`, `divide`, and `collect_categorical_all_equal` ops to support arithmetic computation and order-independent per-stateme
+      | 99:| 0065 | accepted | closure, composition | Schedule 1 Part II completeness and line-26 composition: first application of ADR-0016 decision 4 to a mixed absent/present/structural-zero total (twelve 
+[toward S1] 22:38:29 Bash: grep -rniE "spouse|joint|MFJ|married|filing.status|both.*(taxpayer|people)" docs/phases/engine-breadth/milestones/f1098e* docs/phases/tax-concept-derivation/milestones/student-loan* docs/phases/evolving-workspace-accounts docs/adr/007[5-9]*
+      | docs/phases/engine-breadth/milestones/f1098e-student-loan-interest-agi-deferral-ledger.md:18:- MFS filing status is honestly ineligible (`SLI_MFS_INELIGIBLE`), matching
+      | docs/phases/engine-breadth/milestones/f1098e-student-loan-interest-agi.md:287:predecessors jointly cover? Settle whether line 22 (reserved) needs any
+      | docs/phases/engine-breadth/milestones/f1098e-student-loan-interest-agi.md:466:1. `filing_status` ≠ married_filing_separately (`categorical_compare`
+      | docs/phases/engine-breadth/milestones/f1098e-student-loan-interest-agi.md:467:   against the existing `tax.us.2025.filing-status` fact type, no new
+      | docs/phases/engine-breadth/milestones/f1098e-student-loan-interest-agi.md:468:   vocabulary — Pub. 970 p.33: "Your filing status is any filing status
+      | docs/phases/engine-breadth/milestones/f1098e-student-loan-interest-agi.md:469:   except married filing separately").
+[toward S1] 22:38:32 Bash: cat docs/phases/tax-concept-derivation/milestones/student-loan-circumstance-association-evidence/whose-deduction-model.md
+      | # Whose student-loan interest deduction is this?
+      | A bounded model. Authority is statute and regulation; IRS publications are explanatory
+      | and never controlling.
+      | ## Three conditions, none of them the whole test
+      | **Who is legally obligated.** 26 CFR § 1.221-1(b)(1): a taxpayer is entitled to the
+      | deduction *only if* the taxpayer has a legal obligation to make interest payments under
+[toward S1] 22:38:38 Bash: ls packages/content/tax/2025 | grep -iE "fact-type.*(1098e|sli|f1098e|student|filing|taxpayer|spouse|person)" | head -60; grep -rlE "spouse" packages/content/tax/2025 | head -20
+      | packages/content/tax/2025/package.core-calculations.v39.json
+      | packages/content/tax/2025/parameter.tax-brackets.v2.json
+      | packages/content/tax/2025/package.core-calculations.v2.json
+      | packages/content/tax/2025/package.core-calculations.v42.json
+      | packages/content/tax/2025/package.core-calculations.v15.json
+      | packages/content/tax/2025/rule.schedule-a-line8a.json
+[toward S1] 22:38:40 Bash: ls packages/content/tax/2025 | grep -iE "bundle|fact" | head -60; grep -o '"tax.us.2025[^"]*\(1098e\|sli\)[^"]*"' packages/content/tax/2025/package.core-calculations.v42.json | sort -u | head -80
+      | core_calculations.bundle.json
+      | core_calculations.bundle.v2.json
+      | direct-ftc-scope.bundle.json
+      | exception1.bundle.json
+      | f1098-scope.bundle.json
+      | f1098.bundle.json
+[toward S1] 22:38:44 Bash: cd packages/content/tax/2025 && python3 - <<'EOF' import json for f in ["f1098e.bundle.json","sli-scope.bundle.json","sli-worksheet-inputs.bundle.json","sli-support-chain.bundle.json"]: b=json.load(open(f)) print("==",f, list(b.keys())) for
+      | == f1098e.bundle.json ['schema', 'id', 'version', 'label', 'fact_types']
+      |   tax.us.2025.f1098e.box1-student-loan-interest | keys: [{'name': 'lender', 'kind': 'entity', 'entity_kind': 'tax.us.student-loan-lender'}, {'name': 'statement', 'kind': 'entity', 'entity_kind': 'tax.
+      |   tax.us.2025.f1098e.box2-checked-authority | keys: [{'name': 'lender', 'kind': 'entity', 'entity_kind': 'tax.us.student-loan-lender'}, {'name': 'statement', 'kind': 'entity', 'entity_kind': 'tax.us.1
+      |   tax.us.2025.f1098e.no-related-person-interest | keys: [{'name': 'lender', 'kind': 'entity', 'entity_kind': 'tax.us.student-loan-lender'}, {'name': 'statement', 'kind': 'entity', 'entity_kind': 'tax.
+      |   tax.us.2025.f1098e.no-qualified-employer-plan-interest | keys: [{'name': 'lender', 'kind': 'entity', 'entity_kind': 'tax.us.student-loan-lender'}, {'name': 'statement', 'kind': 'entity', 'entity_kin
+      |   tax.us.2025.f1098e.no-non-qualified-loan-component | keys: [{'name': 'lender', 'kind': 'entity', 'entity_kind': 'tax.us.student-loan-lender'}, {'name': 'statement', 'kind': 'entity', 'entity_kind': 
+[toward S1] 22:38:56 Bash: cd . && grep -rlnE "married_filing_jointly" tests | xargs grep -lE "1098e|sli" | head; grep -rnE "married_filing_jointly" tests/test_sli_* tests/test_f1098e_* | head -10; grep -rniE "spouse|whose|borrower|recipient" packages/tax/sli_*.py pa
+      | tests/test_assertion_standing_track0.py
+      | tests/test_form1099div_box7_direct_ftc.py
+      | tests/test_ssa1099_benefits_line6_track2.py
+      | tests/test_schedule_d_current_year_losses_t1.py
+      | tests/derivation/adr0077_worksheet_fixture.py
+      | packages/tax/sli_relationship_recording.py:81:    to a prepared review, whose log must not have moved since.
+[toward S1] 22:38:59 Bash: grep -nE "married_filing_jointly" -B3 -A3 tests/derivation/adr0077_worksheet_fixture.py | head -30; grep -rniE "joint|spouse|second (person|filer)|household" docs/phases/tax-concept-derivation/milestones/student-loan-*.md docs/milestone-ret
+      | 116-YEAR_KEYS = ("tax-year",)
+      | 117-
+      | 118-FILING_STATUSES = [
+      | 119:    "single", "married_filing_jointly", "married_filing_separately",
+      | 120-    "head_of_household", "qualifying_surviving_spouse",
+      | 121-]
+[toward S1] 22:39:03 Bash: grep -rhoE '"entity_kind": "[^"]*"' packages/content packages/schemas | sort | uniq -c | sort -rn | head -40; grep -rniE "spouse" packages/kernel packages/derivation packages/tax --include=*.py | head
+      |   45 "entity_kind": "kernel.family-horizon"
+      |   25 "entity_kind": "tax.us.student-loan-lender"
+      |   25 "entity_kind": "tax.us.1098e-statement"
+      |   19 "entity_kind": "tax.us.f1099b-statement"
+      |   19 "entity_kind": "tax.us.f1099b-broker"
+      |   17 "entity_kind": "tax.us.f1099b-transaction"
+[toward S1] 22:39:06 Bash: sed -n 1,30p packages/tax/ssa_benefits.py; sed -n 55,140p packages/tax/ssa_benefits.py; ls docs/phases/engine-breadth/milestones | grep ssa
+      | """Bounded 2025 Form SSA-1099 ordinary Social Security benefits source boundary.
+      | Admits only the ordinary SSA-1099 statement class: box 3/4/5 reconciled;
+      | authoritative taxpayer/spouse beneficiary; ordinary statement-kind witness;
+      | explicit false lump-sum-election witness; box-6 withholding absent or zero.
+      | Box 5 nonnegativity is enforced by the admitted fact type's own value schema
+      | (``tax.us.2025.ssa1099.box5-net-benefits``'s ``"minimum": 0``
+[toward S1] 22:39:25 Bash: python3 - <<'EOF' p="planning/plan.md" s=open(p).read() old_start=s.index("1. Find out what the application does today") old_end=s.index("2. Establish what the tax law says") new1='''1. **What the application does today (developed — snapsho
+      | be40f89 Snapshot 1: current behaviour and prior decisions
+[toward S2] 22:39:50 ToolSearch: select:WebFetch,WebSearch
+[toward S2] 22:39:53 WebFetch: https://www.irs.gov/publications/p970
+      | # Student Loan Interest Deduction - Key Information
+      | ## Tax Year
+      | Publication 970 (2025), covering tax year 2025.
+      | ## Who Can Claim the Deduction
+      | **Dependent Status & Filing Requirements:**
+      | "If you haven't been issued a TIN by the due date of your 2025 return (including extensions), you can't claim" the deduction. Additionally, those "claiming you as a dependent" cannot claim this deduct
+[toward S2] 22:40:02 WebFetch: https://www.irs.gov/publications/p970
+      | # Student Loan Interest Deduction - Chapter 4 Requirements
+      | ## Who Can Claim the Deduction
+      | "You can claim the deduction if all of the following requirements are met" (as stated in the document):
+      | 1. You paid interest on a qualified student loan during 2025
+      | 2. Your filing status is not married filing separately
+      | 3. Your MAGI is less than the applicable limit
+[toward S2] 22:40:09 WebFetch: https://www.law.cornell.edu/cfr/text/26/1.221-1
+      | # Education Loan Interest Deduction: Key Provisions
+      | ## Dollar Limit
+      | Per **§ 1.221-1(c)**: "The amount allowed as a deduction under section 221 for any taxable year may not exceed $2,500."
+      | ## Eligibility Requirements
+      | **Legal Obligation** — **§ 1.221-1(b)(1)** requires that "A taxpayer is entitled to a deduction under section 221 only if the taxpayer has a legal obligation to make interest payments under the terms 
+      | **Dependents Ineligible** — **§ 1.221-1(b)(2)(i)** states: "An individual is not entitled to a deduction under section 221 for a taxable year if the individual is a dependent (as defined in section 15
+[toward S2] 22:40:25 WebFetch: https://www.irs.gov/instructions/i1040gi
+      | # Student Loan Interest Deduction Information
+      | ## Conditions for the Deduction
+      | According to the instructions, you can take this deduction only if all of the following apply:
+      | The document states these eligibility requirements exist but the full condition list is not included in the provided content excerpt.
+      | ## Qualified Student Loan Definition
+      | A "qualified student loan" is referenced in the instructions under the Student Loan Interest Deduction section (Schedule 1, Line 21), but the specific definition text is not fully reproduced in the ac
+[toward S2] 22:40:26 WebFetch: https://www.law.cornell.edu/uscode/text/26/221
+      | # 26 U.S. Code § 221 - Selected Provisions
+      | ## §221(a) - Allowance of Deduction
+      | "In the case of an individual, there shall be allowed as a deduction for the taxable year an amount equal to the interest paid by the taxpayer during the taxable year on any qualified education loan."
+      | ## §221(b)(1) - Maximum Deduction
+      | "Except as provided in paragraph (2), the deduction allowed by subsection (a) for the taxable year shall not exceed $2,500."
+      | ## §221(b)(2)(A)-(C) - Income-Based Limitation
+[toward S2] 22:40:57 Bash: python3 - <<'EOF' p="planning/plan.md" s=open(p).read() i=s.index("2. Establish what the tax law says") j=s.index("3. Work out how the existing") new='''2. **What the law says for MFJ with two 1098-Es (developed — snapshot 2).** Sources: 26
+      | e27a0e4 Snapshot 2: the law for a joint return
+[toward S3] 22:41:38 Bash: wc -l tests/test_sli_deduction_end_to_end.py && sed -n 1,80p tests/test_sli_deduction_end_to_end.py; grep -n "def \|filing" tests/test_sli_deduction_end_to_end.py | head -40
+      |      243 tests/test_sli_deduction_end_to_end.py
+      | """Plan sentence 8, told as one person's story.
+      | A synthetic filer earns 50,000 in wages and paid 3,000 of student loan
+      | interest to Cedar Servicing. Their Schedule 1 line 21 student loan interest
+      | deduction is 2,500 (the worksheet's limit) when what they say supports it.
+      | It blocks, with a sentence they can act on, when they correct or withdraw
+[toward S3] 22:41:41 Bash: grep -n "class Return" -A90 tests/test_sli_track5_worksheet_integration.py | grep -nE "def |filing|FILING|STATEMENT_KEYS|single|amounts|wages" | head -40
+      | 19:205-    STATEMENT_KEYS = {
+      | 24:210-    def __init__(self, *, wages: float = 50000, amounts: dict[str, float] | None = None,
+      | 26:212-        amounts = {"cedar": 3000.0} if amounts is None else amounts
+      | 27:213-        base = _base_log(wages, bundle_version, tuple(sorted(amounts.items())))
+      | 34:220-        self.statement_keys = {name: self.STATEMENT_KEYS[name] for name in amounts}
+      | 40:226-    def plain(self, borrowing: str = "autumn", school: str = "autumn", statement: str = "cedar") -> None:
+[toward S3] 22:41:44 Bash: sed -n 120,260p tests/test_sli_track5_worksheet_integration.py; grep -n "def run_live" -A30 tests/test_sli_track5_worksheet_integration.py | head -40
+      |     return install_domain_scoped_supersession(workspace_registry())
+      | def _base_log(wages: float, bundle_version: str, amounts: tuple[tuple[str, float], ...]) -> Path:
+      |     """Build (once per process) the saved return every case starts from.
+      |     A synthetic return whose total income is the wages; the Form 1098-E
+      |     family closed on its genesis horizon; the relationship bundle; two
+      |     borrowings, two schoolings and the named statements, each box 1 with its
+[toward S3] 22:41:48 Bash: grep -n "def _f1098e_acts" -A40 tests/test_f1098e_student_loan_interest_agi_track6.py | grep -nE "filing|legally|dependent|def " ; grep -n "birch" tests/test_sli_track5_worksheet_integration.py | head; grep -n "def line21\|def value\|class 
+      | 1:126:def _f1098e_acts(
+      | 6:131-    filing_status: str = "single",
+      | 23:148-    acts = _ssa_acts(benefits=[], close=True, wages=wages, filing_status=filing_status)
+      | 26:151-    def add(kind: str, payload: dict[str, object]) -> None:
+      | 197:        ("demo.track5.lender.birch", "Birch Servicing", "tax.us.student-loan-lender"),
+      | 199:        ("demo.track5.statement.birch", "2025 Form 1098-E from Birch", "tax.us.1098e-statement"),
+[toward S3] 22:41:51 Bash: sed -n 555,600p tests/test_sli_track5_worksheet_integration.py; grep -n "class Workspace" -A5 tests/test_sli_track4_support_chain.py; grep -n "def plain\|def link\|def acts\|def run" tests/test_sli_track4_support_chain.py tests/test_sli_tra
+      |                     ws.common_answers("cedar", values={tail: "no"})
+      |                     outcome = self._run(ws, f"new-no-{tail}")
+      |                     self.assertEqual(published(outcome.forward, STANDING), {ws.statement["cedar"]: "none"})
+      |                     self.assertEqual(outcome.worksheet_row()["code"], "SLI_UNIVERSAL_COMPONENT_VIOLATION")
+      |     def test_a_second_statement_beside_a_supported_one_needs_its_own_retained_answers(self) -> None:
+      |         ws = Return(amounts={"cedar": 1500.0, "birch": 800.0})
+[toward S3] 22:41:55 Bash: grep -n " def _run" -A6 tests/test_sli_track5_worksheet_integration.py | head -12
+      | 399:    def _run(self, ws: Return, tag: str) -> Outcome:
+      | 400-        return run_live(ws.acts(), f"demo.run.track5.{tag}")
+      | 401-
+      | 402-    def test_v40_validates_and_the_worksheet_is_a_v13_selection(self) -> None:
+      | 403-        validation = validate_package(json.loads(V40_PACKAGE.read_text("utf-8")), _corpus(), DerivationSchemas())
+      | 404-        self.assertTrue(validation.ok, [issue.detail for issue in validation.issues])
+[toward S3] 22:42:02 Bash: mkdir -p temp && cat > temp/mfj_probe.py <<'EOF' """Scratch probe: MFJ return, two 1098-E statements (one per spouse, by intent only).""" import functools, sys sys.path.insert(0, ".") import tests.test_f1098e_student_loan_interest_agi_track
+      | /bin/bash: line 54: timeout: command not found
+      | /bin/bash: line 54: timeout: command not found
+      | /bin/bash: line 54: timeout: command not found
+      | /bin/bash: line 54: timeout: command not found
+[toward S3] 22:42:05 Bash: for args in "single 50000" "married_filing_jointly 50000" "married_filing_jointly 185000" "married_filing_separately 50000"; do python3 temp/mfj_probe.py $args 2>&1 | tail -4; done
+      | single 50000.0 value= 2500 code= None missing= None
+      | filing-status act present: True
+      | line21 text: []
+      | married_filing_jointly 50000.0 value= 2500 code= None missing= None
+      | filing-status act present: True
+      | line21 text: []
+[toward S3] 22:46:41 Bash: cd packages/content/tax/2025 && python3 - <<'EOF' import json,glob pk=json.load(open("package.core-calculations.v42.json")) mem=[m for m in json.dumps(pk).split('"') if "sli-worksheet" in m or "sli-statement-loan-support" in m] print(sorted
+      | ['tax.us.2025.citation.form1040.sli-worksheet', 'tax.us.2025.rule.sli-statement-loan-support', 'tax.us.2025.rule.sli-worksheet', 'tax.us.2025.rule.sli-worksheet-line1-subtotal', 'tax.us.2025.sli-works
+      | rule.sli-statement-loan-support.json {
+      |  "said": [
+      |   "The loan-cost answer is yes for the named borrowing.",
+      |   "The enrollment answer is yes for the named borrowing, for the schooling it paid for.",
+      |   "The person affirmed that the borrowing financed the named schooling.",
+[toward S3] 22:46:45 Bash: cd . && grep -oE "sli-scope\.[a-z-]+|filing[_-]status|legally[a-z-]*|dependent" packages/content/tax/2025/rule.sli-worksheet.v5.json | sort | uniq -c; grep -c '"version"' packages/content/tax/2025/rule.sli-worksheet.v5.json; grep -o '"tax.u
+      |    7 filing_status
+      |    1 filing-status
+      |    4 sli-scope.legally-obligated-for-interest
+      |    8 sli-scope.no-form-
+      |    4 sli-scope.no-puerto-rico-or-samoa-income
+      |    4 sli-scope.not-claimed-as-dependent
+[toward S3] 22:46:49 Bash: grep -rhoE '"[^"]{0,120}(claimed as a dependent|legally obligated)[^"]{0,160}"' packages --include=*.json --include=*.py | sort -u | head -12
+      | ugrep: error: error at position 664
+      | f4[\x80-\x8f][\x80-\xbf][\x80-\xbf]){0,160}"
+      |                exceeds complexity limits___/
+[toward S3] 22:46:52 Bash: grep -rhoE "[^\"]{0,80}(claimed as a dependent|legally obligated)[^\"]{0,120}" packages --include=*.json --include=*.py | sort -u | head -12
+      | ugrep: error: error at position 661
+      | [\x80-\x8f][\x80-\xbf][\x80-\xbf]){0,120}
+      |             exceeds complexity limits___/
+[toward S3] 22:46:55 Bash: /usr/bin/grep -rhoE ".{0,80}(claimed as a dependent|legally obligated).{0,100}" packages --include=*.json --include=*.py | sort -u | head -12
+      | d categorical assertion, domain {yes, no}, no default. yes asserts the filer is legally obligated and the route proceeds; no asserts the filer is not legally obligated -- a definite $0 for this ret
+      | est Deduction eligibility component (legal zero, not a block): the filer is not claimed as a dependent by another taxpayer (Pub. 970 p.33, Example 2: \"neither you nor your parents may deduct the stud
+      | nterest Deduction eligibility component (legal zero, not a block): the filer is legally obligated to pay interest on the loan(s) claimed (Pub. 970 p.33: only the person legally obligated may deduct
+      | tegorical assertion, domain {yes, no}, no default. yes asserts the filer is not claimed as a dependent and the route proceeds; no asserts the filer IS claimed as a dependent -- the law's own definite 
+[toward S3] 22:47:39 Bash: python3 - <<'EOF' p="planning/plan.md" s=open(p).read() # replace 1b line s=s.replace(''' - 1b. *Still to do:* run a narrow existing test/fixture path with MFJ and two statements to observe the actual behaviour rather than infer it.''',''' 
+      | 0e01444 Snapshot 3: which person each answer is about, and observed MFJ behaviour
+[toward S4] 22:48:28 Bash: /usr/bin/grep -rn -iE "shared-answer|shared answer|whole return|conservatively blocked" docs/phases/evolving-workspace-accounts docs/milestone-retrospectives | cut -c1-400 | head -20
+      | docs/phases/evolving-workspace-accounts/milestones/account-review-correction.md:104:forms include the same borrowing, the shared answer can affect both. Explain
+      | docs/phases/evolving-workspace-accounts/milestones/account-refinement.md:81:statement's box 1, and today it blocks the deduction for the whole return,
+      | docs/phases/evolving-workspace-accounts/milestones/account-refinement.md:109:- **Shared answers** are the four yes/no answers that both input methods read.
+      | docs/phases/evolving-workspace-accounts/milestones/account-refinement.md:128:  selection, per-statement reads, shared answers and aggregate arithmetic.
+      | docs/phases/evolving-workspace-accounts/milestones/account-refinement.md:145:  reads four of them, the shared answers, plus each statement's
+      | docs/phases/evolving-workspace-accounts/milestones/account-refinement.md:241:- one input method for the whole return;
+[toward S4] 22:48:32 Bash: sed -n 70,95p docs/milestone-retrospectives/2026-10-08-account-refinement.md; sed -n 75,90p docs/phases/evolving-workspace-accounts/milestones/account-refinement.md; sed -n 460,480p docs/phases/evolving-workspace-accounts/milestones/account
+      | - **Wording review of the line 21 explanation** (provisional). On old-only
+      |   rows the shared "assumed" sentence says the older "yes" "stands in for"
+      |   link matters. Reactivate with the owner's review or a context-starved
+      |   reader assessment.
+      | - **Five conservatively blocked states**, now deferred design:
+      |   - the replay marker;
+[toward S4] 22:48:48 Bash: /usr/bin/grep -n "sli-scope" packages/content/tax/2025/package.core-calculations.v42.json | head -5; /usr/bin/grep -o '"value_schema"[^}]*}' packages/content/tax/2025/sli-scope.bundle.json | head -2; /usr/bin/grep -o '.\{200\}legal zero, no
+      | 747:      "id": "tax.us.2025.sli-scope.vocabulary",
+      | 3308:      "id": "tax.us.2025.sli-scope.vocabulary",
+      |    7 "code": "DEPENDENCY_INVALID"
+      |    1 "code": "SLI_MFS_INELIGIBLE"
+      |    1 "code": "SLI_SCHEDULE1_PART_II_OUT_OF_SCOPE"
+      |    1 "code": "SLI_UNIVERSAL_COMPONENT_VIOLATION"
+[toward S4] 22:48:51 Bash: sed -n 126,200p tests/test_f1098e_student_loan_interest_agi_track6.py | /usr/bin/grep -nE "legally|dependent|scope|def |yes" | head
+      | 1:def _f1098e_acts(
+      | 7:    sli_scope_overrides: dict[str, str] | None = None,
+      | 9:    assert_sli_scope: bool = True,
+      | 10:    assert_sched1_scope: bool = True,
+      | 26:    def add(kind: str, payload: dict[str, object]) -> None:
+      | 30:    add("bundle-adoption", {"bundle": _load("sli-scope.bundle.json")})
+[toward S4] 22:48:52 Bash: sed -n 200,240p tests/test_f1098e_student_loan_interest_agi_track6.py
+      |                 "assertion",
+      |                 {
+      |                     "finding": _attested(
+      |                         f"demo.f1098e.{token}.{index}",
+      |                         _member_fact_id(f"tax.us.2025.f1098e.{token}", s.lender, s.stmt),
+      |                         value,
+[toward S4] 22:48:56 Bash: /usr/bin/grep -n "SLI_SCOPE_LEGAL_ZERO_TOKENS =" -A3 tests/test_f1098e_student_loan_interest_agi_track6.py; sed -i '' 's/t6._f1098e_acts = functools.partial(orig, filing_status=STATUS)/OVR = dict(a.split("=") for a in sys.argv[3:])\nt6._f10
+      | 66:SLI_SCOPE_LEGAL_ZERO_TOKENS = (
+      | 67-    "not-claimed-as-dependent",
+      | 68-    "legally-obligated-for-interest",
+      | 69-)
+      | married_filing_jointly 50000.0 value= 0 code= None missing= None
+      | filing-status act present: True
+[toward S4] 22:50:28 Bash: python3 - <<'EOF' p="planning/plan.md" s=open(p).read() s=s.replace(''' description calls it "a definite $0 for this return") although the other spouse's loan qualifies.''',''' description calls it "a definite $0 for this return") although 
+      | 6a19dbb Snapshot 4: candidate approaches and their discriminators
+[toward S5] 22:51:02 WebFetch: https://www.law.cornell.edu/cfr/text/26/1.221-1
+      | # Tax Regulation 26 CFR § 1.221-1: Key Provisions
+      | ## (1) Third Party Payments [§1.221-1(b)(4)]
+      | **Full text of paragraph (b)(4):**
+      | "(4) Payments of interest by a third party—(i) In general. If a third party who is not legally obligated to make a payment of interest on a qualified education loan makes a payment of interest on beha
+      | **Examples under (b)(4)(ii):**
+      | *Example 1 (Employer):* "Student D obtains a qualified education loan to attend college. Upon Student D's graduation from college, Student D works as an intern for a non-profit organization during whi
+[toward S5] 22:51:24 WebSearch: joint return student loan interest deduction spouse's loan "legally obligated" either spouse married filing jointly
+      | Web search results for query: "joint return student loan interest deduction spouse's loan "legally obligated" either spouse married filing jointly"
+      | Links: [{"title":"Student loan interest deduction: Can you deduct yours?","url":"https://www.fidelity.com/learning-center/smart-money/student-loan-interest-deduction"},{"title":"How to claim the stude
+      | Based on the search results, here's what I found regarding the student loan interest deduction for joint returns when dealing with a spouse's loan:
+      | ## Key Eligibility Requirements for Married Filing Jointly
+      | When filing a joint return, you must be legally obligated to pay the interest on the student loan to claim the deduction. However, it's important to note that if you and your spouse each paid more tha
+      | ## Spouse's Loan Eligibility
+[toward S5] 22:51:34 WebFetch: https://taxschool.illinois.edu/post/student-loan-interest-and-taxes/
+      | # Student Loan Interest Deduction: Married Couples and Key Limits
+      | **Income Limits for Married Filing Jointly:**
+      | "For married couples, filing jointly, the maximum income limit is $170,000" and "the tax credit phases out between $140,000 and $170,000."
+      | **Filing Status Requirement:**
+      | "Their tax filing status can't be 'married, filing separately' for the student loan interest deduction."
+      | **Dependency and Obligation Rules:**
+[toward S5] 22:51:44 WebSearch: irs.gov student loan interest "you or your spouse" legally obligated joint return Form 1040 instructions line 21 2025
+      | Web search results for query: "irs.gov student loan interest "you or your spouse" legally obligated joint return Form 1040 instructions line 21 2025"
+      | Links: [{"title":"Topic no. 456, Student loan interest deduction","url":"https://www.irs.gov/taxtopics/tc456"},{"title":"b. The person had gross income that was equal to or more than the exemption","u
+      | I've found relevant information about student loan interest deductions on Schedule 1, Line 21 of Form 1040 for 2025. Here are the key findings:
+      | ## Eligibility Requirements for Filing Jointly
+      | To claim the student loan interest deduction, you must be legally obligated to pay interest on a qualified student loan, and neither you nor your spouse, if filing jointly, were claimed as dependents 
+      | ## Line 21 Instructions (2025)
+[toward S5] 22:51:52 WebFetch: https://www.irs.gov/taxtopics/tc456
+      | # Student Loan Interest Deduction - Key Eligibility Requirements
+      | ## Deduction Basics
+      | You may deduct "the lesser of $2,500 or the amount of interest you actually paid during the year" on qualified student loans.
+      | ## Eligibility Conditions
+      | You can claim the deduction if all of these apply:
+      | 1. "You paid interest on a qualified student loan in tax year 2025"
+[toward S5] 22:52:27 Bash: python3 - <<'EOF' p="planning/plan.md" s=open(p).read() i=s.index("6. Identify what is still unknown") j=s.index("7. State the readiness claim") new='''6. **What is still unknown, and how to find it out (developed — snapshot 5).** Status of
+      | 0309061 Snapshot 5: legal unknowns resolved or bounded
+[toward S6] 22:53:05 Bash: ls packages/content/tax/2025 | /usr/bin/grep -iE "published|checksum|manifest" | head; /usr/bin/grep -rn "sli-scope.bundle" packages/content/tax/2025/*.json | /usr/bin/grep -v "^packages/content/tax/2025/package.core" | head -5; /usr/bin/gr
+      | published-packages.json
+      | published-packages.v10.json
+      | published-packages.v11.json
+      | published-packages.v12.json
+      | published-packages.v13.json
+      | published-packages.v14.json
+[toward S6] 22:53:09 Bash: python3 -c " import json;p=json.load(open('packages/content/tax/2025/package.core-calculations.v42.json')) import re;s=json.dumps(p) i=s.find('tax.us.2025.sli-scope.vocabulary');print(s[i-300:i+300]) print(list(p.keys()))"
+      | y", "version": "v1"}, {"id": "tax.us.2025.schedule1-part1-scope.vocabulary", "version": "v1"}, {"id": "tax.us.2025.schedule1.line-21", "version": "v1"}, {"id": "tax.us.2025.scheduleb-accrued-interest.
+      | ['admitted_schemas', 'composition_obligations', 'conflict_semantics', 'entrypoints', 'id', 'input_bindings', 'members', 'schema', 'scope', 'version', 'package_checksum']
+[toward S6] 22:53:14 Bash: /usr/bin/grep -rln "legally-obligated\|not-claimed-as-dependent" packages tools README.md | /usr/bin/grep -v "content/tax/2025/package\|published-packages" | head; /usr/bin/grep -n "legally\|dependent" README.md | head
+      | packages/content/tax/2025/rule.sli-worksheet.v4.json
+      | packages/content/tax/2025/rule.sli-worksheet.v5.json
+      | packages/content/tax/2025/rule.sli-worksheet.v3.json
+      | packages/content/tax/2025/rule.sli-worksheet.json
+      | packages/content/tax/2025/sli-scope.bundle.json
+      | packages/sample_data/sli_correction_t1/workspace/acts.duplicate-labels.jsonl
+[toward S6] 22:53:20 Bash: /usr/bin/grep -rln "sli-scope\|SLI_SCOPE" packages/presentation packages/derivation packages/tax tools | head; /usr/bin/grep -rn "legal zero\|legal_zero\|LEGAL_ZERO" packages/derivation packages/presentation | head -5
+      | packages/derivation/__pycache__/presentation_projection.cpython-314.pyc
+      | packages/derivation/presentation_projection.py
+      | tools/generate_sli_correction_t1_fixtures.py
+      | tools/generate_f1098e_track6_content.py
+[toward S6] 22:53:22 Bash: /usr/bin/grep -n "sli-scope" -B3 -A12 packages/derivation/presentation_projection.py | head -60
+      | (Bash completed with no output)
+[toward S6] 22:53:25 Bash: /usr/bin/grep -n "SLI_SCOPE\|sli_scope\|scope" packages/derivation/presentation_projection.py | /usr/bin/grep -i sli | head
+      | 1203:_SLI_SCOPE_UNRESOLVED = "tax.us.2025.sli.statement-inclusion-scope-unresolved"
+      | 1228:    _SLI_SCOPE_UNRESOLVED,
+      | 1254:    _SLI_SCOPE_UNRESOLVED: "You cannot tell which loan this form covers.",
+      | 1276:    _SLI_SCOPE_UNRESOLVED: "The inclusion answer",
+      | 1296:    "sli.statement-inclusion.scope-unresolved": "unresolved about which loan",
+[toward S6] 22:53:41 Bash: python3 - <<'EOF' p="planning/plan.md" s=open(p).read() old_a=s[s.index(" - 6a. Whether a joint filer"):s.index(" - 6c. Who owns")] new_a=''' - 6a. **Revised (snapshot 6).** No page asks the obligation, dependency or scope questions. They a
+      | f1fe8d1 Snapshot 6: the surface and the cost of change
+[toward S7] 22:54:35 Bash: python3 - <<'EOF' p="planning/plan.md" s=open(p).read() i=s.index("7. State the readiness claim") new='''7. **Readiness claim (developed — snapshot 7).** **Claim: not yet ready to select an approach. Ready to narrow the choice to two candid
+      | 4c7856b Snapshot 7: readiness claim

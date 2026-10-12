@@ -1,0 +1,26 @@
+"""Scratch probe: MFJ return, two 1098-E statements (one per spouse, by intent only)."""
+import functools, sys
+sys.path.insert(0, ".")
+import tests.test_f1098e_student_loan_interest_agi_track6 as t6
+import tests.test_sli_track5_worksheet_integration as t5
+
+STATUS = sys.argv[1] if len(sys.argv) > 1 else "married_filing_jointly"
+WAGES = float(sys.argv[2]) if len(sys.argv) > 2 else 50000
+orig = t6._f1098e_acts
+OVR = dict(a.split("=") for a in sys.argv[3:])
+t6._f1098e_acts = functools.partial(orig, filing_status=STATUS, sli_scope_overrides=OVR or None)
+
+ws = t5.Return(wages=WAGES, amounts={"cedar": 1500.0, "birch": 1800.0})
+with ws.raw:
+    ws.plain()
+    ws.link("financing", "spring", "spring")
+    ws.link("statement-inclusion", "spring", "birch")
+    ws.answer("loan", "spring", "yes")
+    ws.answer("enroll", "spring", "yes")
+    ws.common_answers("birch")
+    out = t5.run_live(ws.acts(), f"demo.run.probe.{STATUS}")
+    row = out.worksheet_row()
+    print(STATUS, WAGES, "value=", out.value(), "code=", row.get("code"), "missing=", row.get("missing"))
+    fs = [a for a in ws.acts() if "filing-status" in str(a.get("payload", {}))][:1]
+    print("filing-status act present:", bool(fs))
+    print("line21 text:", t5.line21_text(out))
