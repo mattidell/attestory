@@ -15,3 +15,16 @@ account; it has no hypothesis and no Trial 1 material.
 - The reviewer is a separate headless session started in its own directory,
   holding only the brief and the reference account. It is launched at
   snapshot 0, with `Edit`, `Write` and `NotebookEdit` disallowed as well.
+
+## Snapshot 0 — 22:56 observer note
+
+- **Turn:** 3 turns, about 16 s. Commit `f7dfd92`. One filename search, then
+  the write and commit.
+- **Refined:** an initial six-action list.
+- **Premises:** action 3 frames the rules to pin down with expected content
+  ("combined $2,500 cap per return, joint MAGI phase-out", "'legally
+  obligated' tests applied per spouse"), as planner A did. Action 4 introduces
+  concrete cases early (one spouse ineligible; a loan taken for the other
+  spouse). The goal line assumes "each spouse has … their own 1098-E".
+- **Status:** all questions or intended investigations.
+- **Candidate problems:** none.
