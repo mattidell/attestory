@@ -120,3 +120,53 @@ that reduces to "the agent assumed something" is not useful.
   including `docs/process/planning-and-development.md`). That guidance can
   shape planning behavior; the evaluation says so rather than claiming unaided
   recognition.
+
+## Observation method
+
+Revision 2 (2026-10-12): adds observation, challenge and evaluation detail
+before the design review.
+
+**Snapshots and pauses.** Each planner commits a snapshot after every
+substantive refinement and waits. The facilitator sends `continue`, a recorded
+process redirection, or in Trial 2 a reviewer challenge. Exact materials are in
+[participant-materials.md](participant-materials.md).
+
+**Observer notes.** At each snapshot, before replying, the facilitator records:
+the action refined; the premise or commitment introduced; whether each new
+statement poses a question, proposes a choice or claims something established;
+the sources the planner actually consulted since the previous snapshot; and
+any candidate problem, its first appearance, later extension into dependent
+actions, and any self-correction. A candidate problem is judged against the
+evidence available at that moment, using the reference account only to know
+what was available. An open question is not a defect for being open.
+
+**Tool record.** Claimed source checks are corroborated from the agent's
+recorded tool calls, extracted per snapshot interval by a script, not from
+its self-description alone. The extraction also checks that the planner stayed
+inside its worktree.
+
+**Trial 2 reviewer.** A fresh Opus agent that holds the task, the participant
+prompt, the reference account and the challenge rules, and reads the Trial 2
+planner's snapshots from git. It never sees Trial 1 material. After each
+snapshot it replies either "No challenge" with a short note, or a proposed
+challenge with the observation grounding it. Challenge rules:
+
+- challenge only something observed in this plan, matched to what was seen;
+- name the tension and the affected action;
+- do not give a replacement plan, the law's answer, or a fact the planner has
+  not encountered;
+- at most one challenge per snapshot and three in the trial.
+
+The facilitator checks each proposed challenge against these rules before
+delivery. A failing challenge goes back to the reviewer once, and both
+versions are recorded. The facilitator delivers the accepted text verbatim.
+The facilitator's filtering is disclosed as part of the intervention.
+
+**Sequence.** Trial 1 runs to its endpoint before Trial 2 starts. Trial 2 uses
+the same prompt; any change after Trial 1 is recorded with its reason.
+
+**Evaluation.** A fresh Opus evaluator first reads the plan histories, working
+accounts, tool-record extracts and trial logs without the observer notes, and
+locates any consequential problem and what preceded it (H2). It then compares
+its account with the observer notes and assesses H1 and H3 and the usefulness
+criterion, including the limits of one trial of each kind.
