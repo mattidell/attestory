@@ -197,3 +197,44 @@ never revised; corrections are appended. Times are UTC.
   yet; still a watch item.
 - **Candidate problems:** none new.
 - **Reply:** `continue`.
+
+## Snapshot 5 — 22:52 observer note
+
+- **Turn:** 7 turns, about 90 s. Commit `0309061`. Action 6 (unknowns).
+- **Sources consulted (tool record):** WebFetch summary of 26 CFR §1.221-1
+  (focused on (b)(4)); two web searches; the Illinois Tax School post; IRS
+  Topic 456. The working account says §267(c)(4) and §152(b)(2) were
+  recalled from memory and flags that as a weaker basis. The record confirms
+  neither was fetched. No repository reads; no out-of-workspace or ref reads.
+- **Premises introduced:**
+  - 2c is resolved: one $2,500 limit (A1).
+  - 2e is resolved: the dependency question covers both spouses, and one
+    return-level fact can carry it (A3, Form 1040 instructions; Topic 456
+    here).
+  - 2a stays open and is called "the deciding question". The planner notes
+    that (b)(4) would cover B's own loan if B is the obligated "taxpayer",
+    which is the reference account's own reasoning (A4, "I, medium-high").
+    It declines to rely on it without a primary source. Cautious, not a
+    problem.
+  - 2b is narrowed and kept visible as a bounded assumption (matches A5).
+  - 2d: relatedness is tested against the obligated spouse, because §267
+    family excludes in-laws. This is from memory, and labelled so.
+  - 6a–6c are unknowns with a means to settle each: a reader assessment,
+    checksum coverage, and ownership of the parked whole-return item.
+- **Self-correction before any challenge:** "I treated the related-person
+  witness as wording. It is actually a second place where 'which spouse owes
+  this loan' matters." This revises the snapshot 3 classification after
+  consulting the regulation (or recalling the statute). It partly resolves
+  the snapshot 3 watch. The whose-education question (2b) is now an explicit
+  bounded assumption. The whole-return block is routed to an ownership
+  question (6c). The narrowing has not reached a readiness claim.
+- **Candidate problem (minor, process):** to settle 2a the plan proposes "an
+  advisor consultation (the project routes doctrine to the advisor seat;
+  builders may not interpret governance)". 2a is a question of tax law. The
+  project's advisor rule concerns governance documents (the Constitution,
+  Ontology and Engineering Constraints), not tax-law interpretation. This
+  may route the deciding question to the wrong resolver. It could shape the
+  readiness claim's "what must be established first", but not the deduction.
+  Not consequential by the design's definition unless the readiness claim
+  depends on it.
+- **Reply:** `continue`.
