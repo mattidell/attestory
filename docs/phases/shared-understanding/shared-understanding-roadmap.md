@@ -14,8 +14,9 @@ yield insight worth using in this application's development?
 - Observe a fresh planner on that task with restrained reviewer intervention.
 - Evaluate what the two trials reveal, including their limitations.
 
-This is the initial direction, not a finished experimental protocol.
-The task and methods will become concrete through owner/advisor planning.
+The milestone now distinguishes the passive observation trial from the
+restrained-challenge trial. The exact task and participant materials remain
+open, and the observation method is the next planning increment.
 
 ## What follows
 

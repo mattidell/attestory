@@ -5,7 +5,7 @@
   "topic": "working-model-experiment",
   "active_plan": "docs/phases/shared-understanding/milestones/working-model-experiment.md",
   "milestone_state": "planned",
-  "status": "Phase purpose and initial action outline established. Two planning trials are agreed in principle; no participant launch or later milestone is ready.",
+  "status": "Phase purpose and two trial questions established. Observation details and the common case are still being refined; participant launch is not ready.",
   "current_role": "Foreman — orient to the agreed direction and prepare source material",
   "current_prompt": "docs/phases/shared-understanding/milestones/working-model-experiment.md"
 }
@@ -31,9 +31,10 @@ The roadmap contains no selected later milestone.
 
 ## Next planning increment
 
-Develop the agreed actions into a trial method with the owner and advisor.
-The common task and participant materials remain unselected. The foreman can
-prepare relevant sources, but participant launch is not ready.
+Specify the observations and the limits on intervention. The two trial
+questions and team actions are recorded; the common task and participant
+materials remain unselected. The foreman can prepare relevant sources, but
+participant launch is not ready.
 
 The prior unmerged branch is reference only. Its domain model and proposed
 working-account practice are not adopted. The merged application remains
