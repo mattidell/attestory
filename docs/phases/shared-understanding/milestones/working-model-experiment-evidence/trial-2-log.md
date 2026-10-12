@@ -129,3 +129,7 @@ account; it has no hypothesis and no Trial 1 material.
 - **Candidate problems:** none. The whole-route block on one statement's "no"
   (C6) is not discussed. The planner read the codes at snapshot 1, but no
   completeness claim depends on them yet.
+- **Reviewer (23:07):** "NO CHALLENGE. … the claim of a correct figure is
+  limited to the case where every answer is truthfully 'yes'. The weak points
+  are flagged as risks, not glossed."
+- **Reply:** `continue`.
