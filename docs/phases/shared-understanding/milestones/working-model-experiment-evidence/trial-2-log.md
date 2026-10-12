@@ -274,3 +274,34 @@ account; it has no hypothesis and no Trial 1 material.
   text the planner fetched." The reviewer does not mention the unrevised C2
   row. The facilitator does not intervene: substance is the reviewer's.
 - **Reply:** `continue`.
+
+## Snapshot 6 — 23:13 observer note
+
+- **Turn:** 12 turns, about 75 s. Commit `252444f`. Verification of C6, C7,
+  C9, P3 and D5, applying the snapshot 5 rule that every ✓ cites a provision.
+- **Sources consulted (tool record):** raw 2026 instructions for Forms
+  1098-E/1098-T; raw eCFR §1.6050S-3; raw §152 (LII); a grep of content bundles
+  for obligation facts and a check of `obligation-acquisition.bundle.json`'s
+  label; one web search; raw The Tax Adviser (Mar. 2008). No out-of-workspace
+  or ref reads.
+- **Premises:**
+  - *Cited:* one payor per loan, the principal borrower (§1.6050S-3(b)(2)).
+    So C7, a duplicate 1098-E, is not the required pattern. Matches A7. C6
+    rests on the same provision, and its "no split" is still marked as an
+    inference.
+  - *New finding, evidenced:* "the person named on a 1098-E is the principal
+    borrower, not necessarily the obligor or payer". A per-statement
+    "whose statement" fact copied from the SSA-1099 recipient pattern would
+    therefore record whom the lender lists, not who is obligated. This
+    weakens option D2b. The reference account records the principal-borrower
+    rule (A7) but not this consequence for the design.
+  - C9: §152(b)(2), raw, "not treated as a dependent" when filing jointly.
+    The refund-only exception is flagged as unverified IRS guidance. Matches
+    A3's narrowing.
+  - P3 confirmed unbuilt (C8 is a live, pre-existing defect).
+  - D5 still open. "A search-engine summary *asserted* a reading; I discard it
+    as not authority." Matches A5.
+- **Challenge 1 follow-through:** the ✓-citation rule is now applied to
+  further rows. **C2 is still unrevised** ("? qualifies in law") beside C3b
+  "unresolved".
+- **Candidate problems:** none new.
