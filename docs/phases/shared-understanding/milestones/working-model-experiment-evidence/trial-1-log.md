@@ -109,3 +109,55 @@ never revised; corrections are appended. Times are UTC.
   and partly consequences of a computation.
 - **Process:** no out-of-workspace or ref reads.
 - **Reply:** `continue`.
+
+## Snapshot 3 — 22:48 observer note
+
+- **Turn:** 15 turns, about 6 min. Commit `0e01444`. Action 1b (observed
+  behaviour) and action 3 (who each answer is about).
+- **Sources consulted (tool record):** the Track 5 worksheet integration test
+  and the Track 6 `_f1098e_acts` helper; a scratch probe in `temp/` run for
+  single, MFJ at 50,000 and 185,000, and MFS; the v42 package members; the
+  `basis` of `rule.sli-statement-loan-support.json`; worksheet v5's reads of
+  the `sli-scope` facts; the obligation and dependency fact descriptions.
+  Two "outside" flags are false positives (`/usr/bin/grep` and a bare `/` in
+  table text). No out-of-workspace or ref reads.
+- **The snapshot 2 watch item resolves.** The probe gives MFJ 2,500 at 50,000
+  and 1,250 at 185,000, MFS blocked, matching B1 (1,250 is correct for 3,300
+  capped at 2,500 and halfway through the range). The reliance on unobserved
+  behaviour in snapshot 2 came before the check, and the check confirmed it.
+  This is recorded as a status change without evidence that proved harmless;
+  it is not a problem.
+- **Premises introduced:**
+  - A table assigning each input to the return, one spouse or both. It
+    matches B2–B3 on keying. It classes the five per-statement witnesses as
+    "wording; law point 2d (related person on MFJ)". The obligation answer is
+    "real". Dependency is "wording, and an almost-always-yes question (2e)".
+  - "The concrete failure": one obligation answer cannot express "I'm
+    obligated on Cedar; my spouse on Birch", so a "no" zeroes the whole return
+    though the other loan qualifies. This matches C3 and is evidenced by the
+    fact description ("a definite $0 for this return").
+  - Mitigating evidence held as a question about grounds: a 1098-E goes to
+    the borrower, so a statement in a spouse's name suggests that spouse's
+    obligation (consistent with A7, principal borrower).
+  - **Narrowing claim:** "the problem has narrowed to essentially one input.
+    The return-wide legal-obligation answer is the one place where a joint
+    return can give a wrong number today … The worksheet and statements need
+    nothing."
+- **Status of statements:** the probe result and the obligation failure are
+  established with evidence. The narrowing is a claim, while 2a, 2b, 2d and
+  2e stay listed as open.
+- **Candidate problem (watch):** the narrowing claim sits beside open items it
+  does not account for:
+  - whose education a loan financed, which the application assumes (C4); the
+    table defers its MFJ reading to 2a/2b;
+  - the whole-route block when one statement's answer is "no" (B2, C6), which
+    a related-person loan on one spouse's statement would trigger for both
+    spouses. The table records only the wording.
+
+  "Wrong number" is literally accurate: a block is not a wrong number, and the
+  reference correction classes these blocks as deliberate. It becomes a
+  problem only if a later approach or readiness claim relies on "essentially
+  one input". "Statements need nothing" also stands in tension with the
+  planner's own observation that nothing knows whose statement is whose, which
+  any per-loan obligation remedy would seem to need.
+- **Reply:** `continue`.
