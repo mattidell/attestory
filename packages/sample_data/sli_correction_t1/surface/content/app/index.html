@@ -32,6 +32,17 @@ correction and recalculates; the earlier saved result is never changed.</p>
 <p class="error" id="historical-banner" hidden>This is an earlier result. It is not the current
 one. Reviewing an answer below may show that it has since changed.</p>
 
+<section id="opened" hidden>
+  <h2>Saved answers</h2>
+  <div id="opened-answers"></div>
+  <h2>Earlier result</h2>
+  <p id="earlier-statement"></p>
+  <div id="earlier-rows"></div>
+  <p id="calculation-statement"></p>
+  <button id="calculate-btn" type="button">Calculate from the saved answers</button>
+  <p class="error" id="calculate-note" hidden></p>
+</section>
+
 <section id="saved">
   <h2 id="saved-heading">Earlier result (line 21) &mdash; unchanged</h2>
   <div id="saved-rows"></div>
@@ -200,7 +211,7 @@ one. Reviewing an answer below may show that it has since changed.</p>
   // "what it assumed", "left with you" lines folded into that same group,
   // and "recorded, not used" -- but never the "Combined class:" code line
   // (plan, Track 1 explanation parity).
-  function accountGroups(row) {
+  function accountGroups(row, context) {
     var said = row.account.said;
     var older = said.olderAnswer;
     var saidItems = [];
@@ -209,8 +220,14 @@ one. Reviewing an answer below may show that it has since changed.</p>
     } else {
       saidItems.push("Older answer about this form's box 1: " + older.value + ". Currency: " + older.currency + ".");
     }
+    // R3 finding 3: inside an earlier result, ``said.current`` is what
+    // that old calculation used -- not a claim about the account's
+    // current answer now. The account section above (``renderOpened``'s
+    // own answers, from the current log) is the only place that says what
+    // the current answer is.
+    var currentLabel = context === "earlier" ? "Used by this calculation. " : "Current. ";
     (said.current || []).forEach(function (item) {
-      saidItems.push("Current. " + itemLabelPrefix(item) + answerText(item));
+      saidItems.push(currentLabel + itemLabelPrefix(item) + answerText(item));
     });
     (said.history || []).forEach(function (item) {
       saidItems.push("History, not current. " + itemLabelPrefix(item) + answerText(item));
@@ -273,13 +290,13 @@ one. Reviewing an answer below may show that it has since changed.</p>
   // line per loan and the reported box 1 amount mirror the citation walk's
   // own ``renderLine21Explanation`` exactly (plan, Track 1 corrections,
   // correction 3; R4 findings 5 and 6).
-  function renderExplanationRow(row) {
+  function renderExplanationRow(row, context) {
     var groups = [];
     var reasonGroup = blockReasonGroup(row);
     if (reasonGroup) { groups.push(reasonGroup); }
 
     if (row.account) {
-      groups = groups.concat(accountGroups(row));
+      groups = groups.concat(accountGroups(row, context));
     } else if (row.basis && Array.isArray(row.basis.answers)) {
       groups = groups.concat(basisOnlyGroups(row));
     }
@@ -298,14 +315,120 @@ one. Reviewing an answer below may show that it has since changed.</p>
     return el("div", { className: "explanation-row" }, top.concat(groups));
   }
 
-  function renderExplanation(containerId, rows, lineValue) {
+  // The line's own disposition, from the model's resolved.disposition.
+  // A blocked line is blocked; it is not described as not calculated.
+  function line21Text(lineValue, disposition) {
+    if (disposition === "blocked") {
+      return "Line 21: blocked.";
+    }
+    if (lineValue === null || lineValue === undefined) {
+      return "Line 21: unavailable.";
+    }
+    return "Line 21: " + lineValue + ".";
+  }
+
+  function renderExplanation(containerId, rows, lineValue, disposition, context) {
     var container = document.getElementById(containerId);
     container.replaceChildren();
-    rows.forEach(function (row) { container.appendChild(renderExplanationRow(row)); });
-    var valueText = (lineValue === null || lineValue === undefined)
-      ? "Line 21: blocked (not calculated this run)."
-      : "Line 21: " + lineValue + ".";
-    container.appendChild(el("div", { className: "row line21-value", textContent: valueText }));
+    rows.forEach(function (row) { container.appendChild(renderExplanationRow(row, context)); });
+    container.appendChild(el("div", {
+      className: "row line21-value",
+      textContent: line21Text(lineValue, disposition),
+    }));
+  }
+
+  function plainAnswer(value) {
+    if (value === "yes" || value === "no" || value === "cannot-tell") {
+      return plainResponse(value);
+    }
+    return "";
+  }
+
+  // An earlier result's explanation that cannot be interpreted is missing
+  // evidence about that result, not a loss of the account. The page shows
+  // none of it rather than part of it.
+  var EARLIER_UNINTERPRETABLE =
+    "An earlier result was recorded, but its explanation could not be read.";
+
+  function renderEarlier(statement, text, earlier) {
+    try {
+      renderExplanation(
+        "earlier-rows", earlier.line21_rows || [], earlier.line21_value,
+        earlier.line21_disposition, "earlier");
+      statement.textContent = text;
+    } catch (err) {
+      document.getElementById("earlier-rows").replaceChildren();
+      statement.textContent = EARLIER_UNINTERPRETABLE;
+    }
+  }
+
+  function renderOpened(body) {
+    var answers = document.getElementById("opened-answers");
+    answers.replaceChildren();
+    (body.answers || []).forEach(function (answer) {
+      var lines = [answer.borrowing_label || "Borrowing"];
+      var clues = answer.recognition_clues || [];
+      if (clues.length) { lines.push("Recognized by: " + clues.join("; ")); }
+      lines.push("Current answer: " + plainAnswer(answer.response) + ".");
+      var predecessor = answer.predecessor;
+      if (predecessor && predecessor.response) {
+        lines.push("Earlier answer: " + plainAnswer(predecessor.response) + ".");
+      } else if (predecessor && predecessor.not_established) {
+        lines.push("The earlier answer is not established.");
+      }
+      var block = document.createElement("div");
+      block.className = "explanation-row";
+      lines.forEach(function (text) {
+        block.appendChild(el("div", { className: "row", textContent: text }));
+      });
+      answers.appendChild(block);
+    });
+
+    var statement = document.getElementById("earlier-statement");
+    var calculation = document.getElementById("calculation-statement");
+    document.getElementById("earlier-rows").replaceChildren();
+    var earlier = body.earlier_result || {};
+    if (body.records_not_established) {
+      statement.textContent = "The result records are not established.";
+      calculation.textContent = "";
+    } else if (earlier.status === "earlier") {
+      renderEarlier(statement, "This is an earlier result.", earlier);
+      calculation.textContent = body.did_not_finish
+        ? "A calculation was started and did not finish." : "";
+    } else if (earlier.status === "damaged") {
+      // R3 finding 1: a single match beside a file that could not be read
+      // is not the "more than one saved file matches" case. The matched
+      // file's own result is still shown.
+      renderEarlier(
+        statement, "This is an earlier result. A file beside it could not be read.", earlier);
+      calculation.textContent = body.did_not_finish
+        ? "A calculation was started and did not finish." : "";
+    } else if (earlier.status === "unavailable") {
+      statement.textContent = "An earlier result was recorded, but its file is unavailable.";
+      calculation.textContent = body.did_not_finish
+        ? "A calculation was started and did not finish." : "";
+    } else if (earlier.status === "unreadable") {
+      statement.textContent = "An earlier result was recorded, but its file could not be read.";
+      calculation.textContent = body.did_not_finish
+        ? "A calculation was started and did not finish." : "";
+    } else if (earlier.status === "uninterpretable") {
+      statement.textContent = EARLIER_UNINTERPRETABLE;
+      calculation.textContent = body.did_not_finish
+        ? "A calculation was started and did not finish." : "";
+    } else if (earlier.status === "not-established") {
+      statement.textContent = "More than one saved file matches this result, so which file applies is not established.";
+      calculation.textContent = body.did_not_finish
+        ? "A calculation was started and did not finish." : "";
+    } else if (body.did_not_finish) {
+      statement.textContent = "A calculation was started and did not finish.";
+      calculation.textContent = "";
+    } else {
+      statement.textContent = "No earlier result is recorded.";
+      calculation.textContent = "";
+    }
+    var note = document.getElementById("calculate-note");
+    note.hidden = true;
+    note.textContent = "";
   }
 
   function renderChoices(choices, unavailable) {
@@ -483,7 +606,7 @@ one. Reviewing an answer below may show that it has since changed.</p>
     var title = document.getElementById("outcome-title");
     if (body.outcome === "saved-and-calculated") {
       title.textContent = "Saved and recalculated. The earlier result above is unchanged.";
-      renderExplanation("outcome-rows", body.line21_rows || [], body.line21_value);
+      renderExplanation("outcome-rows", body.line21_rows || [], body.line21_value, body.line21_disposition);
       retryBtn.hidden = true;
     } else if (body.outcome === "saved-not-calculated") {
       title.textContent = "Your correction was saved; the result could not be calculated this time.";
@@ -528,9 +651,15 @@ one. Reviewing an answer below may show that it has since changed.</p>
     document.getElementById("outcome-rows").replaceChildren();
   }
 
+  function dropStoredToken() {
+    currentToken = null;
+    writeStoredToken(null);
+  }
+
   function renderRecovered(body) {
     if (!body || body.outcome === "unknown") {
       showUndetermined(false);
+      dropStoredToken();
       return;
     }
     showOutcome(body);
@@ -566,11 +695,118 @@ one. Reviewing an answer below may show that it has since changed.</p>
       headers: { "Content-Type": "application/json", "Accept": "application/json" },
       body: JSON.stringify({ token: token }),
     }).then(function (res) {
-      if (!res.ok) { throw new Error("http-" + res.status); }
+      if (!res.ok) {
+        // R3 finding 5: the server read this request and refused the
+        // token outright -- it does not name this session. Drop it now;
+        // a retry can never revive a foreign token. A response lost in
+        // transit never reaches this branch at all.
+        dropStoredToken();
+        throw new Error("http-" + res.status);
+      }
       return res.json();
     }).then(function (body) {
+      if (!body || body.outcome === "unknown") {
+        showUndetermined(false);
+        dropStoredToken();
+        return;
+      }
       showOutcome(body);
-    }).catch(function () { showError("Calculating again did not complete."); });
+    }).catch(function () {
+      // Either the server refused above (token already dropped), or the
+      // response never arrived at all. A lost-in-transit response keeps
+      // the token, so the person can retry or recover.
+      showError("Calculating again did not complete.");
+    });
+  }
+
+  // A calculate request has three endings. The session answered that it
+  // did not calculate: say so. The session answered that it calculated:
+  // show that result. The answer never arrived or could not be read: the
+  // calculation may still have finished, so read the session's state once
+  // and show what it holds. Never send another calculation on the person's
+  // behalf.
+  var CALCULATION_NOT_DONE = "This session did not calculate.";
+  var CALCULATION_UNCONFIRMED =
+    "This page could not confirm the calculation, and this session holds no " +
+    "calculated result. The saved answers are unchanged.";
+  var CALCULATION_UNREAD =
+    "This page could not confirm whether the calculation finished. The saved " +
+    "answers are unchanged.";
+
+  function showCalculateNote(text) {
+    var note = document.getElementById("calculate-note");
+    note.textContent = text;
+    note.hidden = false;
+  }
+
+  function calculateFromSaved() {
+    clearError();
+    var note = document.getElementById("calculate-note");
+    note.hidden = true;
+    var button = document.getElementById("calculate-btn");
+    button.disabled = true;
+    fetch(apiUrl("calculate"), {
+      method: "POST",
+      headers: { "Content-Type": "application/json", "Accept": "application/json" },
+      body: JSON.stringify({}),
+    }).then(function (res) {
+      if (!res.ok) { throw new Error("http"); }
+      return res.json();
+    }).then(function (body) {
+      if (body && body.calculated === false) {
+        button.disabled = false;
+        showCalculateNote(CALCULATION_NOT_DONE);
+        return;
+      }
+      if (!body || body.calculated !== true) { throw new Error("unrecognized"); }
+      button.disabled = false;
+      loadState();
+    }).catch(function () {
+      recoverCalculation(button);
+    });
+  }
+
+  function recoverCalculation(button) {
+    fetch(apiUrl("state"), { headers: { "Accept": "application/json" } })
+      .then(function (res) {
+        if (!res.ok) { throw new Error("http"); }
+        return res.json();
+      })
+      .then(function (body) {
+        button.disabled = false;
+        if (body && !body.opened && body.calculated_in_session === true) {
+          showWorking(body);
+          return;
+        }
+        if (body && body.opened) {
+          renderOpened(body);
+          showCalculateNote(CALCULATION_UNCONFIRMED);
+          return;
+        }
+        throw new Error("unrecognized");
+      })
+      .catch(function () {
+        button.disabled = false;
+        showCalculateNote(CALCULATION_UNREAD);
+      });
+  }
+
+  function showWorking(body) {
+    document.getElementById("opened").hidden = true;
+    document.getElementById("saved").hidden = false;
+    document.getElementById("choices").hidden = false;
+    document.getElementById("historical-banner").hidden = !body.historical;
+    // R3 finding 2: a result this session just calculated (the
+    // resumption ``calculate`` route) is not the pre-existing "earlier
+    // result, unchanged" baseline -- say plainly that it was calculated
+    // from the saved answers in this session.
+    document.getElementById("saved-heading").textContent = body.calculated_in_session
+      ? "This result was calculated from the saved answers in this session."
+      : body.historical
+        ? "Earlier result (line 21) — not current"
+        : "Earlier result (line 21) — unchanged";
+    renderExplanation("saved-rows", body.line21_rows || [], body.line21_value, body.line21_disposition);
+    renderChoices(body.choices || {}, body.unavailable || []);
   }
 
   function checkAgain() {
@@ -588,15 +824,19 @@ one. Reviewing an answer below may show that it has since changed.</p>
     fetch(apiUrl("state"), { headers: { "Accept": "application/json" } })
       .then(function (response) { return response.json(); })
       .then(function (body) {
+        if (body && body.opened) {
+          document.getElementById("opened").hidden = false;
+          document.getElementById("saved").hidden = true;
+          document.getElementById("choices").hidden = true;
+          document.getElementById("historical-banner").hidden = true;
+          renderOpened(body);
+          return;
+        }
         // Plan, Track 2 item 3 (historical result): label the result being
         // reviewed as earlier and not current, whenever this session was
-        // deliberately opened that way.
-        document.getElementById("historical-banner").hidden = !body.historical;
-        document.getElementById("saved-heading").textContent = body.historical
-          ? "Earlier result (line 21) — not current"
-          : "Earlier result (line 21) — unchanged";
-        renderExplanation("saved-rows", body.line21_rows || [], body.line21_value);
-        renderChoices(body.choices || {}, body.unavailable || []);
+        // deliberately opened that way. An opened saved account leaves
+        // this flag false and does not use it.
+        showWorking(body || {});
       })
       .catch(function () { showError("The saved result could not be loaded."); });
   }
@@ -605,6 +845,7 @@ one. Reviewing an answer below may show that it has since changed.</p>
   document.getElementById("cancel-btn").addEventListener("click", cancelCorrection);
   document.getElementById("retry-btn").addEventListener("click", retryCalculation);
   document.getElementById("check-again-btn").addEventListener("click", checkAgain);
+  document.getElementById("calculate-btn").addEventListener("click", calculateFromSaved);
   loadState();
   var openingToken = readStoredToken();
   if (openingToken) {

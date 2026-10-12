@@ -419,6 +419,9 @@ class _StubRuntime:
         from packages.derivation.correction_session import CorrectionSessionError
         raise CorrectionSessionError("correction-retry-no-correction")
 
+    def calculate(self) -> dict[str, Any]:
+        return {"calculated": False}
+
 
 class Admission(unittest.TestCase):
     def test_malformed_and_unknown_token_refused_without_echo(self) -> None:

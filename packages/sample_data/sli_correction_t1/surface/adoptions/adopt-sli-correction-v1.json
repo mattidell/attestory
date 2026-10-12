@@ -9,12 +9,12 @@
       "note": "synthetic SLI correction-session surface; non-authoritative"
     },
     "package": {
-      "checksum": "9aeaaf5cb35c978a61bb681a0ced63410c570089d0c19c348b27cadf668acd55",
+      "checksum": "08e7fe5ec08d11127b19fa3049c8191076b52cbf595e2372cea1efbc32982e8e",
       "id": "demo.surface.sli-correction",
       "version": "v1"
     },
     "release": {
-      "checksum": "97dfcd34281e12cd03a1526c260da8b0fa4cd34af0570be04e366189f76a0c2b",
+      "checksum": "fa1214b4b2587d3917dbf9cf0ee354d3dfe1b7e8517cee750e056e2a145ddb4f",
       "id": "demo.surface-release.sli-correction.2025",
       "version": "v1"
     },

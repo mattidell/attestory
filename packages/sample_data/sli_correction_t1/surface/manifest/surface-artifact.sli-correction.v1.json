@@ -2,14 +2,14 @@
   "build_command": "true",
   "entries": [
     {
-      "bytes": 25817,
+      "bytes": 35789,
       "path": "index.html",
-      "sha256": "6b7a0c88fc3d5d465e9e6906f53595ac9148d16d97be5e9a015d9e868fb0f81a"
+      "sha256": "0718e3a1ab437ea286c2ed9300f71a67650129a1f57c25b3e6bb4fb739efb480"
     }
   ],
   "entrypoint_html": "index.html",
   "id": "demo.surface.sli-correction",
-  "package_checksum": "9aeaaf5cb35c978a61bb681a0ced63410c570089d0c19c348b27cadf668acd55",
+  "package_checksum": "08e7fe5ec08d11127b19fa3049c8191076b52cbf595e2372cea1efbc32982e8e",
   "schema": "surface-artifact.v1",
   "version": "v1"
 }

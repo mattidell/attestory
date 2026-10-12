@@ -2,10 +2,13 @@
 
 ## Current direction
 
-Both milestones are closed. The foreman recommends concluding the phase;
-see the phase assessment in
+The first two milestones support the bounded phase exit described in
 [Reviewing and Correcting the Account Behind a Result](milestones/account-review-correction.md#outcome).
-That decision is the owner's.
+The owner-requested third milestone, **Returning to a Saved Account**, closed
+2026-10-11. It added the returning-user path, and the foreman recommends
+concluding the phase
+([assessment](milestones/saved-account-resumption.md#outcome)). That is the
+owner's decision.
 Later milestones are not commitments.
 Experience and owner and agent feedback should change the sequence when they
 reveal a more useful question.
@@ -42,6 +45,26 @@ before selecting a build; do not develop a general intake system.
 The plan includes early independent review of the concrete walkthrough,
 the implementation boundary, and the integrated interaction. At closeout,
 reassess phase completion rather than automatically choosing another case.
+
+## 3. Returning to a Saved Account — closed 2026-10-11
+
+[Plan](milestones/saved-account-resumption.md) ·
+[Retrospective](../../milestone-retrospectives/2026-10-11-saved-account-resumption.md).
+Delivered: a synthetic correction account that a new process reopens from its
+files alone. The reopened page shows each answer with its predecessor and the
+latest earlier result, calculates without saving again, and continues the
+correction.
+
+Continue the existing borrowing-answer correction interaction after its process
+has ended. Reopen the same synthetic workspace, recover the saved answer and
+history, distinguish a matching calculation from an older result, and calculate
+or correct again without reseeding the account. Start with an independently
+reviewed trace of the durable records before selecting a recovery mechanism.
+
+Keep this bounded to the existing question and synthetic workspace. Using
+personal workspaces and a general transaction-recovery system remain separate
+decisions. Recommend phase closure after this milestone rather than adding
+another tax case automatically.
 
 ## Remaining phase questions
 
