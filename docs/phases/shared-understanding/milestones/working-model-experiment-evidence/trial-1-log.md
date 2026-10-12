@@ -238,3 +238,32 @@ never revised; corrections are appended. Times are UTC.
   Not consequential by the design's definition unless the readiness claim
   depends on it.
 - **Reply:** `continue`.
+
+## Snapshot 6 — 22:54 observer note
+
+- **Turn:** 8 turns, about 40 s. Commit `f1fe8d1`. Unknowns 6a and 6b.
+- **Sources consulted (tool record):** grep for the `sli-scope` fact ids
+  across `packages/`, `tools/` and the README; `presentation_projection.py`'s
+  student-loan sentences; the v42 package's pinning of
+  `sli-scope.vocabulary` and its keys; the published-package list. No
+  out-of-workspace or ref reads.
+- **Premises introduced:**
+  - *Established:* no page asks the obligation, dependency or scope
+    questions; they are seeded in sample data and fixtures, and no sentence
+    explains them, which is why the observed 0 has no reason. The facilitator
+    checked this independently in the milestone tree, and only the fixture
+    generator names them outside rule content. Not in the reference
+    account; evidenced.
+  - *Established:* rewording under approach A still needs a bundle and
+    package successor, so cost does not separate the candidates much.
+  - *Reclassified:* the reader assessment moves after selection, because the
+    questions would be designed for the first time.
+  - *Argument, not established:* this "removes one argument for C ('people
+    will answer for themselves'), which can be handled in the wording of A
+    or B". A reasoned expectation, presented as an argument.
+  - *Proposed constraint for the owner:* a joint-return 0 caused by the
+    obligation answer must be explained, not silent.
+- **Candidate problems:** none new. The snapshot 5 process item (routing 2a
+  to the advisor seat) is repeated: "no further investigation a planner can
+  do on 2a without the advisor seat".
+- **Reply:** `continue`.
