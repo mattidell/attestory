@@ -178,3 +178,22 @@ account; it has no hypothesis and no Trial 1 material.
   - *Status:* a claim in a case table. No decision relies on it yet.
 - Record kept for H3 in case the reviewer challenges: the actions that
   depend on action 5 are action 6 (readiness) and decisions D1–D2.
+
+- **Reviewer (23:09), first draft, verbatim:**
+
+  > PROPOSED CHALLENGE
+  > Text: Action 5's case C3 marks every pre-marriage loan "✓" because "marital status [is] tested at year end". But action 3 records that the student's relationship to the borrower is judged "at the time the borrower took the loan" (Reg. §1.221-1(e)(3)(i)(A)). Does the year-end test you cite govern C3, or does C3 split depending on whose schooling the pre-marriage loan paid for?
+  > Affected action: Action 5 (case C3, and through it the case enumeration behind D1/D2 and the action 6 readiness claim); action 3 (spouse-as-student finding).
+  > Grounds: The Snapshot 4 table says: "C3 | Loan from before the marriage | ✓ same as C1; marital status tested at year end". Snapshot 2's action 3, drawn from the planner's own eCFR fetch of §1.221-1(e)(3)(i)(A) and Pub. 970, says: "Student may be 'you, your spouse, or your dependent', judged at the time the *borrower* took the loan … a spouse's pre-marriage loan for their own schooling qualifies." That source supports ✓ only for a borrower's own schooling. The year-end marital-status rule the planner fetched is §1.221-1(b)(3), the married-filing-separately bar, which is not the qualified-loan test. Combined with C2, the planner's sources leave a pre-marriage loan for the person later married unaddressed, yet C3 classes it as already correct.
+  > Why consequential: Whether that loan's interest is qualified decides whether it enters line 1, so it changes the deduction amount. Marking C3 "✓ same as C1" removes a case from the set that needs a decision. That narrows D1/D2, especially D2(c), per-borrowing student attribution, and can overstate readiness in action 6.
+
+- **Filter decision: returned once.** The rule it fails: "It does not tell the
+  planner what to conclude." The closing question, "or does C3 split
+  depending on whose schooling the pre-marriage loan paid for?", supplies the
+  distinction the planner would need to find. Every other rule passes:
+  - it names the tension and the affected action;
+  - it cites only the planner's own text and sources;
+  - it is no more than three sentences, with one challenge this snapshot.
+
+  Substance was not assessed. The reviewer independently targeted the same
+  issue as the observer note (C2/C3 against the snapshot 2 timing premise).
