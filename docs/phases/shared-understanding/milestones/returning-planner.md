@@ -3,7 +3,8 @@
   "version": 1,
   "phase": "Shared Understanding in Development",
   "topic": "returning-planner",
-  "status": "Initial plan refined by owner direction. Establish explicit working models and stakes recognition around one consequential statement-to-tax-concept task before launching the returning planner.",
+  "retrospective": "docs/milestone-retrospectives/2026-10-12-returning-planner.md",
+  "status": "Closed 2026-10-12. A reviewed working model of where each ground for student-loan line 21 comes from is adopted as docs/domain-models/student-loan-interest-grounds.md, with the remaining development questions; a brief working-account practice is carried into the next necessary development task.",
   "scope": [
     "direct correspondence while modeling one ordinary-statement-to-tax-concept case",
     "adversarial verification of the case expert's understanding",
@@ -17,11 +18,11 @@
   ],
   "deep_reads": {
     "new_milestone": [
-      "docs/phases/shared-understanding/milestones/returning-planner.md",
+      "docs/milestone-retrospectives/2026-10-12-returning-planner.md",
       "docs/phases/shared-understanding/shared-understanding-overview.md",
       "docs/phases/shared-understanding/shared-understanding-roadmap.md",
-      "docs/phases/tax-concept-derivation/milestones/student-loan-circumstance-association.md#Accomplishment and boundary",
-      "docs/milestone-retrospectives/2026-10-01-student-loan-circumstance-association.md#What should change in the next plan"
+      "docs/phases/shared-understanding/milestones/returning-planner.md#Outcome",
+      "docs/domain-models/student-loan-interest-grounds.md"
     ],
     "implementation": [
       "docs/phases/shared-understanding/milestones/returning-planner.md",
@@ -190,6 +191,42 @@ of a tax-design Track 0. Record the concrete task, expert evidence, participant
 contexts, channel behavior, observations and stop boundary in the plan. The
 experimental gate establishes no product contract.
 
+### P0 result
+
+The design, expert grounding, channel probe, working record and readiness
+review named below were working evidence, removed at curation. Their
+conclusions are recorded here.
+
+- **Task.** The bounded question is where each ground for line 21 comes from,
+  and what should change when new information arrives. It covers one filer,
+  one borrowing, one schooling circumstance and one Form 1098-E. The design,
+  `p0-experiment-design.md`, separates the settled owner choices from the
+  connections to check.
+- **Expert.** The case expert traced the case through today's recording,
+  derivation, presentation and correction code, in `expert-grounding.md`. It
+  ran paths where reading the source was not enough, and it listed where its
+  knowledge stops. Its findings are not summarized here, because the planner
+  reads this plan. The expert had recorded the five assumptions that the
+  planner's model later omitted. See "Outcome".
+- **Channel.** Sub-agents message each other directly by agent id. A message
+  resumes an idle agent, and a reply arrived within about 20 seconds without
+  relay. Delivery happens only between tool calls.
+- **Working record.** `working-record.md` is append-only. The facilitator
+  commits and pushes it for the owner.
+- **Readiness review.** `review-readiness.md` was **READY WITH CORRECTIONS**.
+  It re-traced several of the expert's claims and found them sound. The plan
+  the planner reads already states the four kinds of ground and their stakes. The
+  experiment therefore observes application, gap-finding and self-revision
+  in the concrete case, not unaided recognition of the framework. The
+  exchange is now bounded: a planner whose model has not changed materially
+  after about six messages writes its deliverable with what remains
+  unresolved.
+- **Participant contexts.** The planner starts fresh, with the plan, the
+  launch prompt and the expert's address. It is asked not to read the
+  expert's grounding, the reviews, the design or the charters. That request
+  cannot be enforced, so whether it was honored is an observation. The
+  expert continues from its own grounding context.
+
 ## Conduct the task through an explicit working account
 
 Before concrete representation choices, the planner states its present model
@@ -241,6 +278,78 @@ direct exchange, ending with independent review of the model and action plan).
 The implementation stage is skipped explicitly. A proposed product change is
 future work unless the owner subsequently expands this milestone.
 Every final curated candidate receives independent publication review.
+
+## Track 1 first observations
+
+These were recorded for the owner before the experiment was repeated or
+expanded, and they are preserved here as recorded. The working record,
+reviews and charters they cite were working evidence and were removed at
+curation. The reviewed model is now
+`docs/domain-models/student-loan-interest-grounds.md`.
+
+**The task's disposition.** The planner's model identifies three mechanisms:
+- required filer-level assertions;
+- correctable borrowing-level answers and links;
+- conditions left with the person, which nothing consumes.
+
+It describes a favorable result reached only when no disqualifier is current,
+and a disqualifying answer that blocks line 21 rather than reducing it. The
+final review found the model useful with corrections. The planner checked
+each finding itself and revised the model.
+
+**What changed through correspondence:**
+1. *Self-correction from its own evidence.* The initial account expected a
+   "no" loan-cost answer to reduce the deduction. Tracing the rules showed it
+   blocks the whole calculation. The planner recorded the wrong premise and
+   took that question to the expert before settling it.
+2. *A located premise after the expert's intervention.* Answering with test
+   runs, the expert added that a statement's own favorable standing and the
+   return's line 21 result are different signals. They coincide only because
+   the case has one statement. The planner named the collapsed premise in its
+   own model and how it would mislead a later reader. It revised that account
+   and credited the evidence, rather than adopting replacement text.
+3. *A recurring blind spot, named only after the third instance.* Three times
+   the planner listed as unresolved something an existing, passing test
+   already settled. The first was raised by the expert after the
+   deliverable; the other two by the final review. After the third, the
+   planner named the pattern in its own terms: it searched the producer files
+   it had open, not the tests for the consumer it was asking about. The first
+   pointer changed one action, but did not change how the planner searched.
+
+**What remained mistaken or uncertain:**
+- *A default basis that no participant described.* The loan-support rule's
+  explanation lists five explicit assumptions, among them that school costs
+  stand in for qualified expenses with no scholarship reduction, and that
+  all of box 1 is this loan's interest. These are the content of the "default
+  basis" ground. The model describes the default only as "no disqualifier is
+  current". The expert's grounding had seen the assumptions. The planner,
+  the expert and the final reviewer did not raise their absence. The
+  facilitator checked the rule content, and has not put this to the planner.
+- *An unchecked concept premise.* Action 5 treats prorating a disqualified
+  loan as a possible product question. No participant checked that premise
+  against the tax concept.
+
+**The channel.** Direct messages worked in both directions and woke idle
+agents. Completion is not announced, so the expert's closing review needed
+one facilitator message. Withholding the expert's grounding kept the
+planner's first model independent, but delayed a fact the expert already
+held until after the first deliverable.
+
+**Influences on the observation:**
+- The plan supplies the four kinds of ground and their stakes to the planner.
+- The required initial account and notices shaped the exchange.
+- The facilitator relayed the final review's findings, because reviewers
+  cannot message.
+
+This is one episode, and it establishes no general result.
+
+**Participant feedback, briefly.**
+- *The planner.* It could ask what it needed. It did not notice the
+  two-signal distinction or search the tests. Nothing arrived too late to
+  change a representation.
+- *The expert.* Withholding its grounding cost time. It intervened twice,
+  once unprompted with a checked fact. It could not see a rendered page, and
+  it judged its evidence for one open action too partial to raise.
 
 ## Evidence and learning
 
@@ -294,3 +403,152 @@ setting, including a consequential decision the agent genuinely encounters.
 The facilitator updates the phase roadmap from the observations and feedback.
 A message board, automatic triggering, new roles or another task are subsequent
 decisions. No mandatory communication convention is established here.
+
+## Repair round
+
+The owner returned three challenges to the same planner and expert. The
+facilitator then returned one more, after the independent review had not
+caught a misreading. Each one asked the planner to locate the problem in its
+own model, not to accept replacement prose.
+
+- **The assumptions behind the favorable result.** The loan-support rule's
+  explanation lists five things the application takes as given. Two of them:
+  that all of box 1 is this loan's interest, and that school costs stand in
+  for qualified expenses with no scholarship reduction. The expert had
+  recorded them during grounding. Their omission from the model went
+  unchallenged by the expert, the planner and the first final reviewer. The
+  planner located them as a mechanism it had read past, in a file it had
+  quoted three times. It named the failure "drafting toward the model I
+  already had rather than the file in front of me". It then separated the
+  operational gate from the grounds of the treatment: the gate is no
+  current disqualifier, and the grounds are the answers, the assumptions and
+  the conditions left with the person.
+- **Proration.** The planner fetched §221(d)(1) and §1.221-1(e)(3) and
+  (e)(4), Example 6, and checked ADR 0076's quotations against them. It
+  separated four things:
+  - qualification of one borrowing, which is whole-loan, with no fraction;
+  - allocation among borrowings, which tests each loan on its own;
+  - exclusion of nonqualifying interest within one loan, which the text does
+    not support;
+  - today's refusal.
+
+  The proration action was replaced by a narrower decision. Running the
+  working-account trial, the planner found unprompted that the same rule
+  already produces a definite $0, not a block, for two filer-level
+  conditions.
+- **The lifecycle.** The planner had written that a correction "retracts and
+  replaces" the earlier figure. It corrected that: the person's answer is
+  superseded, a new calculation produces a new result, and the earlier saved
+  result stays unchanged and labelled earlier. Nothing is retracted.
+
+  It then read one test comment ("The defect: state() still serves the
+  original 2300") as a current defect in what a person sees, and made it the
+  model's top action. Neither the expert nor the independent review of the
+  repaired model caught this. The facilitator asked it to establish what the
+  comment referred to, naming the artifacts but not the answer. The planner
+  checked the test's docstring and history and the page, and ran the
+  reopening browser test. The comment describes one narrow fixture, so the
+  planner retired the action.
+- **The working-account trial.** Before investigating one remaining
+  question, the planner wrote four things:
+  - what it took as given;
+  - what depended on it;
+  - what observation would change its next action;
+  - whether the open question was a gap in its investigation or in the
+    application.
+
+  Writing them made it look first for consumer evidence, meaning the
+  rendered page and its tests, rather than another rule file. It also made it
+  notice when its stated expectation was wrong.
+
+  The planner also wrote a "what happened" paragraph before running the
+  search. When it ran the search, the result contradicted the paragraph, and
+  it recorded the correction openly. Its own conclusion: the practice helps,
+  but it does not enforce itself.
+
+## Outcome
+
+**The adopted model.** It is at
+`docs/domain-models/student-loan-interest-grounds.md`. Independent review
+found it adoptable with corrections, and they are applied. In plain
+language, four mechanisms reach the Schedule 1 line 21 amount:
+
+1. **Required filer-level assertions.** Examples are filing status, income,
+   no competing adjustments, and not being claimed as a dependent. Each must
+   be answered; none is defaulted.
+2. **The person's answers about the borrowing.** These are the financing and
+   statement-inclusion links, and whether the loan paid only for school costs
+   and enrollment was at least half-time. Each answer is separately
+   correctable.
+3. **Five things the application assumes.** It shows them as "what the
+   application took as given". The person cannot currently answer them, and
+   nothing gates on them.
+4. **Conditions left with the person.** Institutional eligibility, the
+   school's half-time standard, credential recognition and cost of
+   attendance are shown, but never established and never used in the
+   calculation.
+
+The calculation runs only when no disqualifier is current. That is the gate.
+What the result means rests on the answers, the assumptions and the
+conditions left with the person. Those are the grounds.
+
+A known "no" on either borrowing answer blocks line 21 rather than reducing
+it. The law treats a loan used partly for other purposes as not qualified,
+so there is nothing to prorate. A correction supersedes the answer and
+produces a new result, and the earlier saved result is kept and labelled
+earlier.
+
+The model's example is Maya, one Cedar loan with $3,000 of box 1 interest
+and a $2,500 deduction. It uses the numbers the existing C1 tests produce.
+
+**Questions it leaves for development, none selected:**
+- whether a known disqualifying answer should give a definite $0, as the
+  rule already does for two filer-level conditions, or keep blocking (ADR
+  0076 Part 3 is not decided);
+- whether any of the five assumptions should become something the person
+  can answer;
+- whether a filer-level $0 is explained by name on the page;
+- whether the conditions left with the person hold their per-item wording
+  outside the one tested page.
+
+**The practice to carry into the next necessary development task.** At a
+consequential uncertainty, before investigating, write four short lines:
+1. **Given.** What I am taking as given.
+2. **Depends.** What depends on it.
+3. **Would change.** The observation that would change my next action.
+4. **Gap.** Whether the open question is a gap in my investigation or a gap
+   in the application.
+
+Then run the check before writing anything about its result. Three
+companions came out of this episode:
+- Before calling something unresolved, search for the existing tests and
+  pages that consume it, not only the files that produce it.
+- Treat a flattering summary of a file as a reason to reread the file.
+- Tell collaborators when a deliverable is complete.
+
+**What remains untested.**
+- *One episode.* This is one task, one model family and one planner.
+- *Prompting.* The trial ran while the owner's challenges were in view. It
+  has not been tried where no one prompts it, or during a build, where code
+  changes.
+- *Reader understanding.* No owner or independent reader has assessed
+  whether the domain model is understandable without the engine.
+- *Economy.* It is not measured. The planner and expert each used several
+  hundred thousand tokens, and there were four reviews.
+
+**How the next task will show whether the practice helps.** The next
+necessary development task will write the four-line account in its working
+notes at each consequential uncertainty. Four signals:
+1. Is each "would change" observation checked before its result is
+   described?
+2. How many items called open later turn out to be settled by existing tests
+   or pages? This episode had four.
+3. Do the investigation-or-application classifications hold up?
+4. Does a reviewer still find a summary that the cited file contradicts?
+
+If the accounts are written after the fact, or these signals do not improve
+on this episode, the practice is ceremony and should be dropped.
+
+**The phase.** Roadmap item 2 becomes carrying this practice into the next
+necessary development task, not a separate experiment. The direction of the
+phase is the owner's decision.

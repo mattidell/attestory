@@ -4,58 +4,57 @@
   "phase": "Shared Understanding in Development",
   "topic": "returning-planner",
   "active_plan": "docs/phases/shared-understanding/milestones/returning-planner.md",
-  "milestone_state": "track-1",
-  "status": "Track 1 complete: a reviewed working model of where each ground for student-loan line 21 comes from is written as docs/domain-models/student-loan-interest-grounds.md.",
-  "current_role": "Foreman — close the milestone",
-  "current_prompt": "docs/phases/shared-understanding/milestones/returning-planner.md"
+  "milestone_state": "closed",
+  "status": "Closed. A reviewed working model of where each ground for student-loan line 21 comes from is adopted as docs/domain-models/student-loan-interest-grounds.md, with the development questions it leaves. A brief working-account practice is carried into the next necessary development task. Phase direction is the owner's decision.",
+  "current_role": "Foreman — select next milestone",
+  "current_prompt": "docs/phases/shared-understanding/shared-understanding-roadmap.md"
 }
 -->
 
 # Phase State
 
-## Current position
+## Current result
 
-Evolving Workspace Accounts is concluded at its bounded result. The application
-can combine older answers and newer detail, correct one borrowing's loan-cost
-answer, explain the calculation, and reopen that synthetic account after the
-process ends. PR #207 contains the completed returning-user path and its
-reviewed recovery repairs. Owner visual review, independent reader assessment
-and real-workspace use remain open.
+**Planning with a Case Expert is closed.** A returning planner and a grounded
+case expert produced a reviewed working model, now
+`docs/domain-models/student-loan-interest-grounds.md`. It separates four
+things that can produce the same student-loan line 21 amount:
+- the required filer-level assertions;
+- the person's correctable answers about the borrowing;
+- five things the application assumes;
+- the conditions left with the person.
 
-**Shared Understanding in Development** begins with **Planning with a Case
-Expert**. A returning planning participant models how statements and assumptions
-contribute to one student-loan tax conclusion, while applicable responsibilities
-remain represented without being established. It has access to a grounded case
-expert. Its working understanding,
-stakes and intended development actions are expressed as the task proceeds.
-The foreman facilitates the experiment and is not the participant being studied.
+It distinguishes the calculation's gate from the grounds of its result,
+checks the proration question against §221(d)(1) and §1.221-1(e), and
+describes corrections as supersession plus a new result, with nothing
+retracted. It lists four development questions and selects none.
+
+The episode is recorded in the plan. The planner corrected itself from its
+own evidence. It located problems in its own model when a challenge pointed
+at the artifacts to check. It missed things a fluent summary had covered
+over. A brief working-account practice came out of it: given, depends, what
+would change the next action, and investigation gap or application gap.
+That practice is carried into the next necessary development task.
 
 ## Begin here
 
-- [Active plan](phases/shared-understanding/milestones/returning-planner.md).
-- [Phase overview](phases/shared-understanding/shared-understanding-overview.md).
+- [Milestone plan](phases/shared-understanding/milestones/returning-planner.md):
+  the P0 result, the first observations, the repair round and the outcome.
+- [Retrospective](milestone-retrospectives/2026-10-12-returning-planner.md).
+- [Adopted model](domain-models/student-loan-interest-grounds.md).
 - [Flexible roadmap](phases/shared-understanding/shared-understanding-roadmap.md).
-- [Previous capability](phases/evolving-workspace-accounts/milestones/saved-account-resumption.md#outcome).
-- [Relevant lessons](milestone-retrospectives/2026-10-11-saved-account-resumption.md#what-should-change-in-the-next-plan).
 
 ## Immediate next action
 
-Charter the small experiment-design and case-expert grounding unit. Bound the
-statement-to-tax-concept task and its consequential decision, using the Student
-Loan Circumstance Association material. Specify the team actions that develop
-and test the model. Verify direct delivery and expert grounding, then obtain
-independent readiness review before launching the returning planner.
-
-Observe how the planner recognizes the stakes, makes a gap or misunderstanding
-explicit, and revises its own model and actions after evidence or a challenge.
-No message board, automatic trigger, new role system or mandatory communication
-convention is selected. Update the phase direction from participant and owner
-feedback rather than treating the candidate sequence as fixed.
+The owner selects the next necessary development task, and the phase's
+direction. That task carries the working-account practice, with the signals
+named in the plan's Outcome. No message board, automatic trigger, new role or
+mandatory communication convention is selected.
 
 ## Carried boundaries
 
 New tax coverage, general assumption management, allocation, institutional
 verification, personal entry and a broad intake system remain unselected.
-The opening experiment uses synthetic material. Expert dialogue is advisory;
-independent review still checks the product output. Earlier phase documents
-retain their product deferrals.
+The development questions in the adopted model are product decisions for the
+owner. Owner visual review and independent reader assessment of earlier
+pages remain open.
