@@ -32,3 +32,29 @@ account; it has no hypothesis and no Trial 1 material.
   things to 'pin down', not as settled conclusions, and the plan makes no
   readiness or completeness claim yet."
 - **Reply:** `continue`.
+
+## Snapshot 1 — 22:58 observer note
+
+- **Turn:** 14 turns, about 1 min. Commit `be02325`. Actions 1 and 2 (current
+  behaviour; spouse and filing-status handling).
+- **Sources consulted (tool record):** phase state; grep of `packages` for
+  spouse/joint/filing status; worksheet v5, opened directly (pins, codes,
+  the MFS branch), unlike planner A at this stage; identity keys of the
+  `f1098e`, `sli-scope` and relationship bundles; the coverage frontier,
+  row 50; the f1098e plan's filing-status notes; the SSA-1099 recipient fact;
+  an MFJ grep over tests; `OWNER_MODEL.md` (no spouse text). No
+  out-of-workspace or ref reads.
+- **Premises:**
+  - *Established:* no borrower or recipient on a 1098-E; one return-level
+    answer for obligation, dependency and scope; per-borrowing answers carry
+    no person; the worksheet applies one cap and MFJ thresholds and blocks
+    MFS; the SSA-1099 recipient precedent; the coverage frontier admits a
+    single statement only. All match B1–B3, plus the frontier, which the
+    reference account does not mention.
+  - *Inferred and labelled so:* an MFJ return with two statements "would
+    probably compute … to be confirmed by running a synthetic case (action
+    4)".
+  - *Reframing:* from "add MFJ support" to "decide whether the existing
+    per-return treatment is correct, and where per-spouse attribution
+    matters".
+- **Candidate problems:** none.
