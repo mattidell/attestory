@@ -93,3 +93,9 @@ account; it has no hypothesis and no Trial 1 material.
   - "Every per-spouse distinction is in eligibility attribution, not
     arithmetic", qualified by "Not found: any 2025 rule …".
 - **Candidate problems:** none.
+- **Reviewer (23:01):** "NO CHALLENGE. … The claim that per-spouse
+  differences lie in 'attribution, not arithmetic' sits close to its own
+  per-loan obligation finding. But the planner left open whether attribution
+  affects any computed result, so I'm watching it rather than challenging it
+  now."
+- **Reply:** `continue`.
