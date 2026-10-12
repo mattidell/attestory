@@ -28,3 +28,7 @@ account; it has no hypothesis and no Trial 1 material.
   spouse). The goal line assumes "each spouse has … their own 1098-E".
 - **Status:** all questions or intended investigations.
 - **Candidate problems:** none.
+- **Reviewer (22:57):** "NO CHALLENGE. … Action 3 frames the 2025 rules as
+  things to 'pin down', not as settled conclusions, and the plan makes no
+  readiness or completeness claim yet."
+- **Reply:** `continue`.
