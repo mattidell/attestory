@@ -14,9 +14,10 @@ yield insight worth using in this application's development?
 - Observe a fresh planner on that task with restrained reviewer intervention.
 - Evaluate what the two trials reveal, including their limitations.
 
-The milestone now distinguishes the passive observation trial from the
-restrained-challenge trial. The exact task and participant materials remain
-open, and the observation method is the next planning increment.
+The trial questions and observation method are now defined. The owner and
+advisor still need to select the common task, packet and endpoint. Review those
+before launching participants. This roadmap remains an account of present
+understanding, not a schedule of future milestones.
 
 ## What follows
 
