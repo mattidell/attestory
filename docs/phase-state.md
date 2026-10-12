@@ -1,73 +1,58 @@
 <!-- foreman-context-v1
 {
   "version": 1,
-  "phase": "Evolving Workspace Accounts",
-  "topic": "saved-account-resumption",
-  "active_plan": "docs/phases/evolving-workspace-accounts/milestones/saved-account-resumption.md",
-  "milestone_state": "closed",
-  "status": "Closed. A synthetic correction account can be initialized once, corrected, stopped and reopened by a new process from its files alone; the reopened page shows each loan-cost answer with its predecessor, the latest earlier result and the calculation state, calculates without saving again, and continues the correction. The foreman recommends concluding the phase; that is the owner's decision.",
-  "current_role": "Foreman — select next milestone",
-  "current_prompt": "docs/phases/evolving-workspace-accounts/evolving-workspace-accounts-roadmap.md"
+  "phase": "Shared Understanding in Development",
+  "topic": "returning-planner",
+  "active_plan": "docs/phases/shared-understanding/milestones/returning-planner.md",
+  "milestone_state": "planned",
+  "status": "Initial plan following merged PR #207. Establish a case expert and independently review the direct-correspondence experiment before launching the returning planning participant.",
+  "current_role": "Foreman — facilitate experiment design and expert grounding",
+  "current_prompt": "docs/phases/shared-understanding/milestones/returning-planner.md"
 }
 -->
 
 # Phase State
 
-## Current result
+## Current position
 
-**Returning to a Saved Account is closed.** A person can initialize a
-synthetic student-loan account once, in a directory outside the repository,
-and correct a borrowing's loan-cost answer through the correction page. They
-can stop the process. A new process then opens the same directory from its
-files alone, without seeding it. The opened page shows:
+Evolving Workspace Accounts is concluded at its bounded result. The application
+can combine older answers and newer detail, correct one borrowing's loan-cost
+answer, explain the calculation, and reopen that synthetic account after the
+process ends. PR #207 contains the completed returning-user path and its
+reviewed recovery repairs. Owner visual review, independent reader assessment
+and real-workspace use remain open.
 
-- each borrowing's current loan-cost answer and its earlier answer;
-- the latest earlier result, labelled as earlier;
-- whether a calculation started and did not finish.
-
-Calculating saves no answer. The correction interaction then continues, and
-the next correction names the previous one as its predecessor.
-
-No saved result is presented as describing the current answers, because the
-files do not establish that. A token from a stopped process is refused, and
-the page says it cannot tell what happened rather than "Not saved". Missing,
-duplicate and unreadable result files, and an unreadable record stream, each
-have their own sentence, and the answers stay visible in every case.
-
-There is no new schema, ADR, durable store or calculation change. The wording
-is provisional, and accounts are synthetic only.
+**Shared Understanding in Development** begins with **Planning with a Case
+Expert**. A returning planning participant prepares one concrete improvement
+to the saved-account explanation while able to correspond with a case expert
+who has checked the behavior. The milestone foreman facilitates the experiment
+and is not the participant being studied.
 
 ## Begin here
 
-- [Milestone plan](phases/evolving-workspace-accounts/milestones/saved-account-resumption.md):
-  the P0 trace, the Track 0 route, the integrated reviews and repairs, the
-  outcome, and the phase assessment.
-- [Retrospective](milestone-retrospectives/2026-10-11-saved-account-resumption.md):
-  lessons and follow-ups.
-- [Evolving Workspace Accounts roadmap](phases/evolving-workspace-accounts/evolving-workspace-accounts-roadmap.md).
-- README, "Correction session walkthrough" and "Returning to a saved
-  account".
+- [Active plan](phases/shared-understanding/milestones/returning-planner.md).
+- [Phase overview](phases/shared-understanding/shared-understanding-overview.md).
+- [Flexible roadmap](phases/shared-understanding/shared-understanding-roadmap.md).
+- [Previous capability](phases/evolving-workspace-accounts/milestones/saved-account-resumption.md#outcome).
+- [Relevant lessons](milestone-retrospectives/2026-10-11-saved-account-resumption.md#what-should-change-in-the-next-plan).
 
 ## Immediate next action
 
-The owner decides whether to conclude Evolving Workspace Accounts. The
-foreman recommends concluding it. The phase's bounded exit was met by the
-first two milestones, and this one adds the returning-user path. Three items
-stay open, and none needs a new milestone in this phase:
+Charter the small experiment-design and case-expert grounding unit. Fix the
+concrete product task and participant contexts. Verify that the selected channel
+delivers questions and replies without owner relaying. Ground the expert
+adversarially against the three existing saved-account situations, and obtain
+independent readiness review before launching the returning planner.
 
-- the owner's visual check of the interaction, with any wording changes;
-- an independent reader assessment;
-- the real-workspace residency decision.
+Observe specific changes in the proposal and the evidence that prompted them.
+No message board, automatic trigger, new role system or mandatory communication
+convention is selected. Update the phase direction from participant and owner
+feedback rather than treating the candidate sequence as fixed.
 
-No tax case is proposed. The milestone PR is published after curation, the
-final review and CI binding its head. The owner merges.
+## Carried boundaries
 
-## Parked
-
-- The five conservatively blocked states from the account-refinement
-  milestone, and whether a shared-answer "no" should reach the whole return.
-- General assumption management, allocation and mixed-period treatment,
-  institutional verification, free text, and a general correction or intake
-  platform.
-- Use of the correction session on a real workspace (the residency path).
-- Recording a calculation that fails before its run starts.
+New tax coverage, general assumption management, allocation, institutional
+verification, personal entry and a broad intake system remain unselected.
+The opening experiment uses synthetic material. Expert dialogue is advisory;
+independent review still checks the product output. Earlier phase documents
+retain their product deferrals.

@@ -1,5 +1,12 @@
 # Evolving Workspace Accounts
 
+Concluded after the merged Returning to a Saved Account milestone (PR #207).
+The bounded result supports adding detail, correcting one saved borrowing
+answer, explaining the calculation and returning after a process restart.
+Owner visual review, independent reader assessment and real-workspace use
+remain open. The next phase is
+[Shared Understanding in Development](../shared-understanding/shared-understanding-overview.md).
+
 ## Purpose
 
 A person tells the application more over time. They add details, correct an
