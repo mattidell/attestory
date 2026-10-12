@@ -1,5 +1,11 @@
 # Evolving Workspace Accounts
 
+Concluded at the bounded result after merged PR #207. The account can be
+refined, corrected, explained and reopened after a process restart. Owner
+visual review, independent reader assessment and personal-workspace use remain
+open. The next phase investigates communication and working models through
+[explicit experiments](../shared-understanding/shared-understanding-overview.md).
+
 ## Purpose
 
 A person tells the application more over time. They add details, correct an

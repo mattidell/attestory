@@ -2,16 +2,11 @@
 
 ## Current direction
 
-The first two milestones support the bounded phase exit described in
-[Reviewing and Correcting the Account Behind a Result](milestones/account-review-correction.md#outcome).
-The owner-requested third milestone, **Returning to a Saved Account**, closed
-2026-10-11. It added the returning-user path, and the foreman recommends
-concluding the phase
-([assessment](milestones/saved-account-resumption.md#outcome)). That is the
-owner's decision.
-Later milestones are not commitments.
-Experience and owner and agent feedback should change the sequence when they
-reveal a more useful question.
+The phase is concluded at its bounded result after PR #207
+([assessment](milestones/saved-account-resumption.md#outcome)). Its product
+deferrals remain open. The next phase investigates the usefulness of working
+models through
+[explicit experiments](../shared-understanding/shared-understanding-roadmap.md).
 
 ## 1. Updating an Account Without Losing Its Meaning — closed 2026-10-08
 
