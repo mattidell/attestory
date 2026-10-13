@@ -8,6 +8,15 @@ before the next pass's materials were copied into the evaluator's directory.
 - [pass2.md](pass2.md): revisited against the reference account.
 - [pass3.md](pass3.md): hypotheses, usefulness, the facilitator's conduct, and
   limits.
+- [evaluator-tool-record.txt](evaluator-tool-record.txt): every tool call the
+  evaluator made, imported after the results review asked for it. Calls
+  flagged "OUTSIDE" are reads of the clean application copy, which the brief
+  allowed.
+- [pass-times.txt](pass-times.txt): when each pass prompt arrived and each pass
+  file was written, from the evaluator's transcript.
+- [note-timing-check.txt](note-timing-check.txt): the facilitator's
+  comparison of note and delivery commit times with the planners' next
+  messages.
 
 ## Departures and incidents
 
@@ -33,5 +42,6 @@ before the next pass's materials were copied into the evaluator's directory.
 - **Observer-note timing.** The evaluator could not verify that notes preceded
   replies. The facilitator checked afterwards. For all 7 Trial 1 replies and
   all 8 Trial 2 replies, the note or delivery commit on this branch precedes
-  the planner's next recorded message by 2–4 seconds. The comparison used
-  commit times against the planner sessions' message timestamps.
+  the planner's next recorded message by 2–4 seconds
+  ([note-timing-check.txt](note-timing-check.txt)). The results review
+  independently found every such commit before the planner's next tool call.

@@ -1,0 +1,8 @@
+Evaluator session events (UTC), from its transcript
+2026-10-12T23:22:43 message received: You are an independent evaluator of a small planning experiment. Work only in
+2026-10-12T23:27:33 Write pass1.md
+2026-10-12T23:27:58 message received: Pass 2. The facilitator has added pass2/reference-account.md: an account of
+2026-10-13T00:51:49 message received: Your previous turn was interrupted by a usage limit before pass2.md was written. Continue 
+2026-10-13T00:52:45 Write pass2.md
+2026-10-13T00:53:04 message received: Pass 3. The facilitator has added pass3/: the experimental design (design.md,
+2026-10-13T00:55:56 Write pass3.md

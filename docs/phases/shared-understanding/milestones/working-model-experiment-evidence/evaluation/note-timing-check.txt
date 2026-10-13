@@ -1,0 +1,20 @@
+Facilitator check: last note/delivery commit on the milestone branch before each planner message (UTC).
+Commit times from git; message times from the planner sessions' transcripts.
+
+Trial 1
+  message 22:38:18 'continue'  <- commit 22:38:15 Trial 1: observe snapshot 0  (3s)
+  message 22:39:47 'continue'  <- commit 22:39:45 Trial 1: observe snapshot 1  (2s)
+  message 22:41:35 'continue'  <- commit 22:41:32 Trial 1: observe snapshot 2  (3s)
+  message 22:48:25 'continue'  <- commit 22:48:22 Trial 1: observe snapshot 3  (3s)
+  message 22:50:57 'continue'  <- commit 22:50:54 Trial 1: observe snapshot 4  (3s)
+  message 22:53:01 'continue'  <- commit 22:52:58 Trial 1: observe snapshot 5  (3s)
+  message 22:54:11 'continue'  <- commit 22:54:07 Trial 1: observe snapshot 6  (4s)
+Trial 2
+  message 22:57:09 'continue'  <- commit 22:57:06 Trial 2: record the reviewer at snapshot 0  (3s)
+  message 22:58:39 'continue'  <- commit 22:58:36 Trial 2: record the reviewer at snapshot 1  (3s)
+  message 23:01:12 'continue'  <- commit 23:01:09 Trial 2: record the reviewer at snapshot 2  (3s)
+  message 23:07:24 'continue'  <- commit 23:07:21 Trial 2: record the reviewer at snapshot 3  (3s)
+  message 23:10:00 'Reviewer comment: In action 5, case C3 m'  <- commit 23:09:57 Trial 2: deliver the first reviewer challenge  (3s)
+  message 23:11:34 'continue'  <- commit 23:11:31 Trial 2: record the reviewer at snapshot 5  (3s)
+  message 23:13:24 'continue'  <- commit 23:13:21 Trial 2: record the reviewer at snapshot 6  (3s)
+  message 23:19:56 'Reviewer comment: Action 6 now says D5 "'  <- commit 23:19:53 Trial 2: deliver the second reviewer challenge  (3s)
