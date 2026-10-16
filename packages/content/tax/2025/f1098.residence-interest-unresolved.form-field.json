@@ -1,0 +1,41 @@
+{
+  "schema": "form-field.v3",
+  "id": "tax.us.2025.form.f1098.residence-interest-unresolved",
+  "version": "v1",
+  "form": {
+    "authority": "IRS",
+    "form_id": "1040-SCH-A",
+    "jurisdiction": "US-federal",
+    "tax_year": 2025
+  },
+  "line": "f1098-unresolved",
+  "label": "Open condition on the home mortgage interest statement",
+  "description": "When the statement's reason is unresolved, this field names the open condition. It is inactive for a supported result, a determined zero, or no statement. If an answer is missing, withdrawn, or cannot be interpreted, the reason rule gives a general explanation that the available information does not establish the treatment.",
+  "binds_symbol": "tax.us.2025.f1098.residence-interest-unresolved",
+  "dispositions": {
+    "blocked": {
+      "codes": [
+        "DEPENDENCY_ABSENT",
+        "DEPENDENCY_INVALID"
+      ],
+      "explain": "An open condition on the Form 1098 statement is still unresolved.",
+      "render": ""
+    },
+    "guard_inapplicable": {
+      "explain": "No open condition: the statement has a completed result, or no statement is present.",
+      "render": ""
+    },
+    "published_value": {
+      "explain": "This field does not publish a value.",
+      "render": ""
+    },
+    "computed_zero": {
+      "explain": "This field does not publish a value.",
+      "render": ""
+    },
+    "closure_backed_zero": {
+      "explain": "This field does not publish a value.",
+      "render": ""
+    }
+  }
+}

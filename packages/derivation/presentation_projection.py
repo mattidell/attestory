@@ -372,8 +372,8 @@ def _selection_blocked_reasons(
                     wording = rule.get("wording")
                 add(wording, dict(pinned_facts[0].keys), pinned_facts[0].fact_id)
             continue
-        if len(favorable) != 1:
-            raise PresentationModelError(f"declared read {symbol!r} has no single expected value")
+        if not favorable:
+            raise PresentationModelError(f"declared read {symbol!r} has no expected values")
         for subject in sorted(set(current_by_type.get(subject_type, []))):
             fact = fact_map.get(subject)
             keys = dict(fact.keys) if fact is not None else {}

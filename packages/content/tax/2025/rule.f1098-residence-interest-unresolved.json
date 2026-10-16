@@ -1,0 +1,145 @@
+{
+  "schema": "rule-artifact.v13",
+  "id": "tax.us.2025.rule.f1098-residence-interest-unresolved",
+  "version": "v1",
+  "scope": {
+    "tax_year": 2025,
+    "jurisdiction": "US-federal",
+    "family": "individual-income-tax"
+  },
+  "role": "computation",
+  "requires": [],
+  "pins": [],
+  "when": true,
+  "selection": {
+    "mode": "exclusive_presence",
+    "conflict": "refuse",
+    "paths": [
+      {
+        "id": "statement",
+        "activity": {
+          "kind": "source_nonempty",
+          "member_fact_types": [
+            {
+              "id": "tax.us.2025.f1098.box1-mortgage-interest",
+              "version": "v1"
+            }
+          ]
+        },
+        "reads_subject_results": [
+          {
+            "symbol": "tax.us.2025.f1098.residence-interest-reason",
+            "subject": {
+              "id": "tax.us.2025.f1098.box1-mortgage-interest",
+              "version": "v1"
+            }
+          }
+        ],
+        "requires": [],
+        "pins": [],
+        "when": {
+          "op": "not",
+          "value": {
+            "op": "any",
+            "args": [
+              {
+                "op": "collect_categorical_all_equal",
+                "name": "tax.us.2025.f1098.residence-interest-reason",
+                "value": {
+                  "op": "category_literal",
+                  "fact_type": {
+                    "id": "tax.us.2025.f1098.residence-interest-reason",
+                    "version": "v1"
+                  },
+                  "value": "qualified"
+                }
+              },
+              {
+                "op": "collect_categorical_all_equal",
+                "name": "tax.us.2025.f1098.residence-interest-reason",
+                "value": {
+                  "op": "category_literal",
+                  "fact_type": {
+                    "id": "tax.us.2025.f1098.residence-interest-reason",
+                    "version": "v1"
+                  },
+                  "value": "not-collateral"
+                }
+              },
+              {
+                "op": "collect_categorical_all_equal",
+                "name": "tax.us.2025.f1098.residence-interest-reason",
+                "value": {
+                  "op": "category_literal",
+                  "fact_type": {
+                    "id": "tax.us.2025.f1098.residence-interest-reason",
+                    "version": "v1"
+                  },
+                  "value": "not-paid"
+                }
+              },
+              {
+                "op": "collect_categorical_all_equal",
+                "name": "tax.us.2025.f1098.residence-interest-reason",
+                "value": {
+                  "op": "category_literal",
+                  "fact_type": {
+                    "id": "tax.us.2025.f1098.residence-interest-reason",
+                    "version": "v1"
+                  },
+                  "value": "use-unrelated-personal-expense"
+                }
+              }
+            ]
+          }
+        },
+        "value": {
+          "op": "block",
+          "code": "DEPENDENCY_ABSENT"
+        }
+      },
+      {
+        "id": "inert",
+        "activity": {
+          "kind": "source_nonempty",
+          "member_fact_types": [
+            {
+              "id": "tax.us.2025.f1098.inert-path-unwritten",
+              "version": "v1"
+            }
+          ]
+        },
+        "reads_subject_results": [],
+        "requires": [],
+        "pins": [],
+        "when": true,
+        "value": {
+          "op": "block",
+          "code": "DEPENDENCY_ABSENT"
+        }
+      }
+    ],
+    "default": {
+      "id": "neither",
+      "reads_subject_results": [],
+      "requires": [],
+      "pins": [],
+      "when": false,
+      "value": false
+    },
+    "refusal": {
+      "code": "DEPENDENCY_INVALID",
+      "missing": [
+        "f1098-residence-interest-unresolved-inert-path-conflict"
+      ],
+      "pins": []
+    }
+  },
+  "publishes": "tax.us.2025.f1098.residence-interest-unresolved",
+  "blocked": {
+    "code": "DEPENDENCY_ABSENT",
+    "missing": []
+  },
+  "citations": [],
+  "notes": "Marks a statement whose reason remains unresolved; the four completed outcomes are inactive."
+}
