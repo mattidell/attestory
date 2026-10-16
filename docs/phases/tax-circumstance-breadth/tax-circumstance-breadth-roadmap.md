@@ -24,18 +24,20 @@ Investigate the bounded case before selecting the implementation. Systematic
 handling of assumptions belongs in that investigation wherever the case needs
 it; a separate general assumption framework is not a prerequisite by decree.
 
-## Next selection — a contrasting tax area
+## Next milestone — Personal-Item Sales: What Was Sold and What the Payment Means
 
-Choose after the opening result. The leading candidate is personal-property
-sales reported on Form 1099-K: connect reported receipts to what was sold and
-its cost, then determine the supported tax treatment. This would move beyond
-loan eligibility into the character and amount of income. Reporting integration
-and the boundary with business activity need investigation before commitment.
+[Opening plan](milestones/personal-item-sale-circumstances.md). Investigate one
+personally used item, one identifiable sale and one Form 1099-K statement.
+Connect reported receipts to what was sold and its cost, distinguish gain from
+a nondeductible personal loss, and develop the supported reporting and saved
+explanation path. This moves beyond loan eligibility into the character and
+amount of income. Exact 2025 treatment, reporting integration and the boundary
+with business activity remain P0 questions, not settled implementation choices.
 
-A bounded retirement-distribution circumstance is an alternative where the
-existing Form 1099-R path offers a more economical consumer. Compare the
-ordinary information needed, the tax distinctions, and the integration work
-when selecting; do not choose by form count alone.
+A bounded retirement-distribution circumstance remains an alternative if P0
+shows the selected sale route needs disproportionate prerequisite work. Return
+that choice to the owner rather than quietly changing the goal or broadening
+the milestone into a general capital-asset or business system.
 
 ## Consolidation and phase assessment
 
@@ -50,7 +52,8 @@ The opening milestone closed 2026-10-15 at the bounded result above. It does
 not allocate mixed use, cover multiple statements, observe the mortgage page
 in a browser, or verify the configured standard-deduction amount. Those
 exclusions stay in the milestone plan's outcome and in the phase-state
-parked list. The contrasting tax area is unselected. Engine Breadth remains
+parked list. The contrasting sale milestone has an opening plan; investigation
+and implementation remain to be performed. Engine Breadth remains
 the historical form-coverage record; its Form 1098 row is unchanged and does
 not establish ordinary-circumstance support.
 
