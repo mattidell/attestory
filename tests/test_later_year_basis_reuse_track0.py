@@ -1876,6 +1876,10 @@ class C8bCandidateAgainstCurrentPackageValidation(unittest.TestCase):
                 "artifact-package.v33.schema.json",
                 "artifact-package.v34.schema.json",
                 "artifact-package.v35.schema.json",
+                # v36 (ADR 0078) is v35 plus rule-artifact.v14 (a fixed-date
+                # comparison operator, not adopted into any package); it
+                # retains the full prior member set, so the finding holds.
+                "artifact-package.v36.schema.json",
             ],
         )
 

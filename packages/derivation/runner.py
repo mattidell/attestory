@@ -231,8 +231,9 @@ SELECTION_PATH_PIN_CONTRACT_INVALID = "selection-path-pin-contract-invalid"
 
 
 def is_v13_selection_rule(rule: dict[str, Any]) -> bool:
-    """A ``rule-artifact.v13`` rule that declares ``selection`` (ADR 0077 Part 4)."""
-    return rule.get("schema") == "rule-artifact.v13" and "selection" in rule
+    """A ``rule-artifact.v13`` (or ``v14``, ADR 0078) rule declaring ``selection``
+    (ADR 0077 Part 4). v14 carries the same ``selection`` shape unchanged."""
+    return rule.get("schema") in ("rule-artifact.v13", "rule-artifact.v14") and "selection" in rule
 
 
 def _never_ordinary(rule: dict[str, Any]) -> bool:
@@ -369,6 +370,7 @@ class _Run:
                 "rule-artifact.v11",
                 "rule-artifact.v12",
                 "rule-artifact.v13",
+                "rule-artifact.v14",
             }
             for rule in ctx.rules
         ) or _uses_attachment_machinery(ctx.rules)
@@ -2987,6 +2989,7 @@ def run_and_record(
             "rule-artifact.v11",
             "rule-artifact.v12",
             "rule-artifact.v13",
+            "rule-artifact.v14",
         }
         for rule in ctx.rules
     ) or _uses_attachment_machinery(ctx.rules)

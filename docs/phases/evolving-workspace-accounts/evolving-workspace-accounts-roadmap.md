@@ -1,5 +1,13 @@
 # Evolving Workspace Accounts Roadmap
 
+## Phase disposition — 2026-10-12
+
+The phase is concluded at its bounded result through PR #207. Product work
+continues in [Tax Circumstance Breadth](../tax-circumstance-breadth/tax-circumstance-breadth-roadmap.md).
+The intervening Shared Understanding experiments remain on their shelved
+branch. The recorded milestones and product deferrals below remain evidence
+for the new work.
+
 ## Current direction
 
 The first two milestones support the bounded phase exit described in

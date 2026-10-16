@@ -440,6 +440,9 @@ def _evaluate(expr: Any, env: Environment, access: AccessLog) -> Any:
         right = _as_decimal(evaluate(expr["right"], env, access))
         return _compare(left, right, expr["cmp"])
 
+    if op == "date_compare":
+        return _date_compare(expr, env, access)
+
     if op == "all":
         return all(bool(evaluate(a, env, access)) for a in expr["args"])
 
@@ -748,6 +751,80 @@ def _compare(left: Decimal, right: Decimal, cmp: str) -> bool:
         "lt": left < right,
         "lte": left <= right,
     }[cmp]
+
+
+_ISO_DATE_PATTERN_LENGTH = len("YYYY-MM-DD")
+_ASCII_DIGITS = frozenset("0123456789")
+_DAYS_IN_MONTH = (31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31)
+
+
+def _is_ascii_digits(segment: str) -> bool:
+    return len(segment) > 0 and all(char in _ASCII_DIGITS for char in segment)
+
+
+def _is_leap_year(year: int) -> bool:
+    return year % 4 == 0 and (year % 100 != 0 or year % 400 == 0)
+
+
+def _parse_iso_date(value: Any) -> tuple[int, int, int] | None:
+    """A strict ``YYYY-MM-DD`` calendar date as ``(year, month, day)``, or
+    ``None`` if ``value`` is not one.
+
+    Hand-rolled rather than ``datetime.date.fromisoformat``: the evaluator
+    is sealed against ambient-state imports
+    (``tests/derivation/test_portability.py::SealedExecution``), and this
+    comparison needs nothing a plain integer triple does not already give
+    it — the triple orders chronologically the same way a real date object
+    would. This is also narrower than ``fromisoformat``, which in current
+    Python also accepts a bare ``YYYYMMDD`` and other ISO 8601 variants the
+    ``date`` JSON-Schema format this operator's inputs are drawn from never
+    produces; rejecting those keeps "malformed" and "non-date" the same
+    failure as a value this corpus never writes.
+    """
+    if not isinstance(value, str) or len(value) != _ISO_DATE_PATTERN_LENGTH:
+        return None
+    if value[4] != "-" or value[7] != "-":
+        return None
+    year_s, month_s, day_s = value[0:4], value[5:7], value[8:10]
+    if not (_is_ascii_digits(year_s) and _is_ascii_digits(month_s) and _is_ascii_digits(day_s)):
+        return None
+    year, month, day = int(year_s), int(month_s), int(day_s)
+    if year < 1:
+        # RFC 3339 full-date (and Python's own calendar.date, MINYEAR=1)
+        # excludes year 0000; a four-digit zero year is not a calendar date.
+        return None
+    if not (1 <= month <= 12):
+        return None
+    max_day = 29 if month == 2 and _is_leap_year(year) else _DAYS_IN_MONTH[month - 1]
+    if not (1 <= day <= max_day):
+        return None
+    return (year, month, day)
+
+
+def _date_compare(expr: dict[str, Any], env: Environment, access: AccessLog) -> bool:
+    """ADR 0078: compare one date-valued expression with one fixed ISO date.
+
+    A missing ``left`` value blocks through the underlying ``ref``
+    evaluation (``BLOCK_ABSENT``), unchanged. A present ``left`` value that
+    is not a well-formed ISO date, or (defensively) a malformed literal
+    ``date``, blocks ``DEPENDENCY_INVALID`` naming the offending value — the
+    rule language's existing "present but invalid" code (decision 8).
+    """
+    left_raw = evaluate(expr["left"], env, access)
+    left_date = _parse_iso_date(left_raw)
+    if left_date is None:
+        raise EvalBlocked(BLOCK_INVALID, [str(left_raw)])
+    right_date = _parse_iso_date(expr["date"])
+    if right_date is None:
+        raise EvalBlocked(BLOCK_INVALID, [str(expr["date"])])
+    return {
+        "eq": left_date == right_date,
+        "ne": left_date != right_date,
+        "gt": left_date > right_date,
+        "gte": left_date >= right_date,
+        "lt": left_date < right_date,
+        "lte": left_date <= right_date,
+    }[expr["cmp"]]
 
 
 def _round(expr: dict[str, Any], env: Environment, access: AccessLog) -> Decimal:

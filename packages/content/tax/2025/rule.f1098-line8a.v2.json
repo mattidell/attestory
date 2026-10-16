@@ -1,0 +1,678 @@
+{
+  "schema": "rule-artifact.v14",
+  "id": "tax.us.2025.rule.f1098-line8a",
+  "version": "v2",
+  "scope": {
+    "tax_year": 2025,
+    "jurisdiction": "US-federal",
+    "family": "individual-income-tax"
+  },
+  "role": "computation",
+  "requires": [
+    "tax.us.2025.f1098.box9-number-of-properties",
+    "tax.us.2025.f1098.box2-outstanding-principal",
+    "tax.us.2025.f1098.box3-origination-date",
+    "filing_status",
+    "tax.us.2025.f1098.filing-unit-owns-home",
+    "tax.us.2025.f1098.shared-main-home",
+    "tax.us.2025.f1098.home-is-collateral",
+    "tax.us.2025.f1098.owes-the-loan",
+    "tax.us.2025.f1098.paid-the-interest",
+    "tax.us.2025.f1098.no-one-else-owes-it",
+    "tax.us.2025.f1098.this-is-the-original-loan",
+    "tax.us.2025.f1098.what-the-money-paid-for",
+    "tax.us.2025.f1098.mortgage-credit-certificate-received",
+    "tax.us.2025.f1098.loan-timing-relative-to-purchase",
+    "tax.us.2025.f1098.loan-timing-relative-to-building-or-improving"
+  ],
+  "pins": [
+    {
+      "role": "parameter",
+      "id": "tax.us.2025.f1098.mortgage-interest-limit",
+      "version": "v1"
+    }
+  ],
+  "when": {
+    "op": "all",
+    "args": [
+      {
+        "op": "require_closed",
+        "source_set": "tax.us.2025.f1098"
+      },
+      {
+        "op": "choose",
+        "when": {
+          "op": "compare",
+          "cmp": "gt",
+          "left": {
+            "op": "count",
+            "name": "tax.us.2025.f1098.box1-mortgage-interest",
+            "source_set": "tax.us.2025.f1098"
+          },
+          "right": 1
+        },
+        "then": {
+          "op": "block",
+          "code": "MULTIPLE_F1098_OUT_OF_SCOPE"
+        },
+        "else": {
+          "op": "compare",
+          "cmp": "eq",
+          "left": {
+            "op": "count",
+            "name": "tax.us.2025.f1098.box1-mortgage-interest",
+            "source_set": "tax.us.2025.f1098"
+          },
+          "right": 1
+        }
+      }
+    ]
+  },
+  "value": {
+    "op": "choose",
+    "when": {
+      "op": "categorical_compare",
+      "cmp": "eq",
+      "left": {
+        "op": "ref",
+        "name": "tax.us.2025.f1098.home-is-collateral"
+      },
+      "right": {
+        "op": "category_literal",
+        "fact_type": {
+          "id": "tax.us.2025.f1098.home-is-collateral",
+          "version": "v2"
+        },
+        "value": "no"
+      }
+    },
+    "then": 0,
+    "else": {
+      "op": "choose",
+      "when": {
+        "op": "categorical_compare",
+        "cmp": "eq",
+        "left": {
+          "op": "ref",
+          "name": "tax.us.2025.f1098.paid-the-interest"
+        },
+        "right": {
+          "op": "category_literal",
+          "fact_type": {
+            "id": "tax.us.2025.f1098.paid-the-interest",
+            "version": "v2"
+          },
+          "value": "no"
+        }
+      },
+      "then": 0,
+      "else": {
+        "op": "choose",
+        "when": {
+          "op": "categorical_compare",
+          "cmp": "eq",
+          "left": {
+            "op": "ref",
+            "name": "tax.us.2025.f1098.paid-the-interest"
+          },
+          "right": {
+            "op": "category_literal",
+            "fact_type": {
+              "id": "tax.us.2025.f1098.paid-the-interest",
+              "version": "v2"
+            },
+            "value": "paid-by-others-or-partial"
+          }
+        },
+        "then": {
+          "op": "block",
+          "code": "DEPENDENCY_ABSENT"
+        },
+        "else": {
+          "op": "choose",
+          "when": {
+            "op": "categorical_compare",
+            "cmp": "eq",
+            "left": {
+              "op": "ref",
+              "name": "tax.us.2025.f1098.paid-the-interest"
+            },
+            "right": {
+              "op": "category_literal",
+              "fact_type": {
+                "id": "tax.us.2025.f1098.paid-the-interest",
+                "version": "v2"
+              },
+              "value": "cannot-tell"
+            }
+          },
+          "then": {
+            "op": "block",
+            "code": "DEPENDENCY_ABSENT"
+          },
+          "else": {
+            "op": "choose",
+            "when": {
+              "op": "all",
+              "args": [
+                {
+                  "op": "categorical_compare",
+                  "cmp": "eq",
+                  "left": {
+                    "op": "ref",
+                    "name": "tax.us.2025.f1098.owes-the-loan"
+                  },
+                  "right": {
+                    "op": "category_literal",
+                    "fact_type": {
+                      "id": "tax.us.2025.f1098.owes-the-loan",
+                      "version": "v2"
+                    },
+                    "value": "no"
+                  }
+                },
+                {
+                  "op": "categorical_compare",
+                  "cmp": "eq",
+                  "left": {
+                    "op": "ref",
+                    "name": "tax.us.2025.f1098.paid-the-interest"
+                  },
+                  "right": {
+                    "op": "category_literal",
+                    "fact_type": {
+                      "id": "tax.us.2025.f1098.paid-the-interest",
+                      "version": "v2"
+                    },
+                    "value": "yes"
+                  }
+                }
+              ]
+            },
+            "then": {
+              "op": "block",
+              "code": "DEPENDENCY_ABSENT"
+            },
+            "else": {
+              "op": "choose",
+              "when": {
+                "op": "categorical_compare",
+                "cmp": "eq",
+                "left": {
+                  "op": "ref",
+                  "name": "tax.us.2025.f1098.what-the-money-paid-for"
+                },
+                "right": {
+                  "op": "category_literal",
+                  "fact_type": {
+                    "id": "tax.us.2025.f1098.what-the-money-paid-for",
+                    "version": "v2"
+                  },
+                  "value": "unrelated-personal-expense"
+                }
+              },
+              "then": {
+                "op": "choose",
+                "when": {
+                  "op": "any",
+                  "args": [
+                    {
+                      "op": "categorical_compare",
+                      "cmp": "eq",
+                      "left": {
+                        "op": "ref",
+                        "name": "tax.us.2025.f1098.loan-timing-relative-to-purchase"
+                      },
+                      "right": {
+                        "op": "category_literal",
+                        "fact_type": {
+                          "id": "tax.us.2025.f1098.loan-timing-relative-to-purchase",
+                          "version": "v2"
+                        },
+                        "value": "yes"
+                      }
+                    },
+                    {
+                      "op": "categorical_compare",
+                      "cmp": "eq",
+                      "left": {
+                        "op": "ref",
+                        "name": "tax.us.2025.f1098.loan-timing-relative-to-building-or-improving"
+                      },
+                      "right": {
+                        "op": "category_literal",
+                        "fact_type": {
+                          "id": "tax.us.2025.f1098.loan-timing-relative-to-building-or-improving",
+                          "version": "v2"
+                        },
+                        "value": "yes"
+                      }
+                    }
+                  ]
+                },
+                "then": {
+                  "op": "block",
+                  "code": "DEPENDENCY_ABSENT"
+                },
+                "else": {
+                  "op": "choose",
+                  "when": {
+                    "op": "any",
+                    "args": [
+                      {
+                        "op": "categorical_compare",
+                        "cmp": "eq",
+                        "left": {
+                          "op": "ref",
+                          "name": "tax.us.2025.f1098.loan-timing-relative-to-purchase"
+                        },
+                        "right": {
+                          "op": "category_literal",
+                          "fact_type": {
+                            "id": "tax.us.2025.f1098.loan-timing-relative-to-purchase",
+                            "version": "v2"
+                          },
+                          "value": "cannot-tell"
+                        }
+                      },
+                      {
+                        "op": "categorical_compare",
+                        "cmp": "eq",
+                        "left": {
+                          "op": "ref",
+                          "name": "tax.us.2025.f1098.loan-timing-relative-to-building-or-improving"
+                        },
+                        "right": {
+                          "op": "category_literal",
+                          "fact_type": {
+                            "id": "tax.us.2025.f1098.loan-timing-relative-to-building-or-improving",
+                            "version": "v2"
+                          },
+                          "value": "cannot-tell"
+                        }
+                      }
+                    ]
+                  },
+                  "then": {
+                    "op": "block",
+                    "code": "DEPENDENCY_ABSENT"
+                  },
+                  "else": {
+                    "op": "choose",
+                    "when": {
+                      "op": "any",
+                      "args": [
+                        {
+                          "op": "categorical_compare",
+                          "cmp": "eq",
+                          "left": {
+                            "op": "ref",
+                            "name": "tax.us.2025.f1098.loan-timing-relative-to-purchase"
+                          },
+                          "right": {
+                            "op": "category_literal",
+                            "fact_type": {
+                              "id": "tax.us.2025.f1098.loan-timing-relative-to-purchase",
+                              "version": "v2"
+                            },
+                            "value": "not-asked"
+                          }
+                        },
+                        {
+                          "op": "categorical_compare",
+                          "cmp": "eq",
+                          "left": {
+                            "op": "ref",
+                            "name": "tax.us.2025.f1098.loan-timing-relative-to-building-or-improving"
+                          },
+                          "right": {
+                            "op": "category_literal",
+                            "fact_type": {
+                              "id": "tax.us.2025.f1098.loan-timing-relative-to-building-or-improving",
+                              "version": "v2"
+                            },
+                            "value": "not-asked"
+                          }
+                        }
+                      ]
+                    },
+                    "then": {
+                      "op": "block",
+                      "code": "DEPENDENCY_ABSENT"
+                    },
+                    "else": {
+                      "op": "choose",
+                      "when": {
+                        "op": "all",
+                        "args": [
+                          {
+                            "op": "categorical_compare",
+                            "cmp": "eq",
+                            "left": {
+                              "op": "ref",
+                              "name": "tax.us.2025.f1098.this-is-the-original-loan"
+                            },
+                            "right": {
+                              "op": "category_literal",
+                              "fact_type": {
+                                "id": "tax.us.2025.f1098.this-is-the-original-loan",
+                                "version": "v2"
+                              },
+                              "value": "yes"
+                            }
+                          },
+                          {
+                            "op": "compare",
+                            "cmp": "eq",
+                            "left": {
+                              "op": "ref",
+                              "name": "tax.us.2025.f1098.box9-number-of-properties"
+                            },
+                            "right": 1
+                          }
+                        ]
+                      },
+                      "then": {
+                        "op": "choose",
+                        "when": {
+                          "op": "date_compare",
+                          "left": {
+                            "op": "ref",
+                            "name": "tax.us.2025.f1098.box3-origination-date"
+                          },
+                          "date": "1987-10-13",
+                          "cmp": "lte"
+                        },
+                        "then": {
+                          "op": "block",
+                          "code": "DEPENDENCY_ABSENT"
+                        },
+                        "else": 0
+                      },
+                      "else": {
+                        "op": "block",
+                        "code": "DEPENDENCY_ABSENT"
+                      }
+                    }
+                  }
+                }
+              },
+              "else": {
+                "op": "choose",
+                "when": {
+                  "op": "categorical_compare",
+                  "cmp": "eq",
+                  "left": {
+                    "op": "ref",
+                    "name": "tax.us.2025.f1098.what-the-money-paid-for"
+                  },
+                  "right": {
+                    "op": "category_literal",
+                    "fact_type": {
+                      "id": "tax.us.2025.f1098.what-the-money-paid-for",
+                      "version": "v2"
+                    },
+                    "value": "cannot-tell"
+                  }
+                },
+                "then": {
+                  "op": "block",
+                  "code": "DEPENDENCY_ABSENT"
+                },
+                "else": {
+                  "op": "choose",
+                  "when": {
+                    "op": "categorical_compare",
+                    "cmp": "eq",
+                    "left": {
+                      "op": "ref",
+                      "name": "tax.us.2025.f1098.mortgage-credit-certificate-received"
+                    },
+                    "right": {
+                      "op": "category_literal",
+                      "fact_type": {
+                        "id": "tax.us.2025.f1098.mortgage-credit-certificate-received",
+                        "version": "v2"
+                      },
+                      "value": "received"
+                    }
+                  },
+                  "then": {
+                    "op": "block",
+                    "code": "DEPENDENCY_ABSENT"
+                  },
+                  "else": {
+                    "op": "choose",
+                    "when": {
+                      "op": "all",
+                      "args": [
+                        {
+                          "op": "categorical_compare",
+                          "cmp": "eq",
+                          "left": {
+                            "op": "ref",
+                            "name": "tax.us.2025.f1098.filing-unit-owns-home"
+                          },
+                          "right": {
+                            "op": "category_literal",
+                            "fact_type": {
+                              "id": "tax.us.2025.f1098.filing-unit-owns-home",
+                              "version": "v2"
+                            },
+                            "value": "yes"
+                          }
+                        },
+                        {
+                          "op": "categorical_compare",
+                          "cmp": "eq",
+                          "left": {
+                            "op": "ref",
+                            "name": "tax.us.2025.f1098.shared-main-home"
+                          },
+                          "right": {
+                            "op": "category_literal",
+                            "fact_type": {
+                              "id": "tax.us.2025.f1098.shared-main-home",
+                              "version": "v2"
+                            },
+                            "value": "yes"
+                          }
+                        },
+                        {
+                          "op": "categorical_compare",
+                          "cmp": "eq",
+                          "left": {
+                            "op": "ref",
+                            "name": "tax.us.2025.f1098.home-is-collateral"
+                          },
+                          "right": {
+                            "op": "category_literal",
+                            "fact_type": {
+                              "id": "tax.us.2025.f1098.home-is-collateral",
+                              "version": "v2"
+                            },
+                            "value": "yes"
+                          }
+                        },
+                        {
+                          "op": "categorical_compare",
+                          "cmp": "eq",
+                          "left": {
+                            "op": "ref",
+                            "name": "tax.us.2025.f1098.owes-the-loan"
+                          },
+                          "right": {
+                            "op": "category_literal",
+                            "fact_type": {
+                              "id": "tax.us.2025.f1098.owes-the-loan",
+                              "version": "v2"
+                            },
+                            "value": "yes"
+                          }
+                        },
+                        {
+                          "op": "categorical_compare",
+                          "cmp": "eq",
+                          "left": {
+                            "op": "ref",
+                            "name": "tax.us.2025.f1098.paid-the-interest"
+                          },
+                          "right": {
+                            "op": "category_literal",
+                            "fact_type": {
+                              "id": "tax.us.2025.f1098.paid-the-interest",
+                              "version": "v2"
+                            },
+                            "value": "yes"
+                          }
+                        },
+                        {
+                          "op": "categorical_compare",
+                          "cmp": "eq",
+                          "left": {
+                            "op": "ref",
+                            "name": "tax.us.2025.f1098.no-one-else-owes-it"
+                          },
+                          "right": {
+                            "op": "category_literal",
+                            "fact_type": {
+                              "id": "tax.us.2025.f1098.no-one-else-owes-it",
+                              "version": "v2"
+                            },
+                            "value": "yes"
+                          }
+                        },
+                        {
+                          "op": "categorical_compare",
+                          "cmp": "eq",
+                          "left": {
+                            "op": "ref",
+                            "name": "tax.us.2025.f1098.what-the-money-paid-for"
+                          },
+                          "right": {
+                            "op": "category_literal",
+                            "fact_type": {
+                              "id": "tax.us.2025.f1098.what-the-money-paid-for",
+                              "version": "v2"
+                            },
+                            "value": "bought-the-home"
+                          }
+                        },
+                        {
+                          "op": "categorical_compare",
+                          "cmp": "eq",
+                          "left": {
+                            "op": "ref",
+                            "name": "tax.us.2025.f1098.this-is-the-original-loan"
+                          },
+                          "right": {
+                            "op": "category_literal",
+                            "fact_type": {
+                              "id": "tax.us.2025.f1098.this-is-the-original-loan",
+                              "version": "v2"
+                            },
+                            "value": "yes"
+                          }
+                        },
+                        {
+                          "op": "categorical_compare",
+                          "cmp": "eq",
+                          "left": {
+                            "op": "ref",
+                            "name": "tax.us.2025.f1098.mortgage-credit-certificate-received"
+                          },
+                          "right": {
+                            "op": "category_literal",
+                            "fact_type": {
+                              "id": "tax.us.2025.f1098.mortgage-credit-certificate-received",
+                              "version": "v2"
+                            },
+                            "value": "not-received"
+                          }
+                        },
+                        {
+                          "op": "compare",
+                          "cmp": "eq",
+                          "left": {
+                            "op": "ref",
+                            "name": "tax.us.2025.f1098.box9-number-of-properties"
+                          },
+                          "right": 1
+                        }
+                      ]
+                    },
+                    "then": {
+                      "op": "choose",
+                      "when": {
+                        "op": "compare",
+                        "cmp": "gt",
+                        "left": {
+                          "op": "ref",
+                          "name": "tax.us.2025.f1098.box2-outstanding-principal"
+                        },
+                        "right": {
+                          "op": "parameter",
+                          "parameter_id": "tax.us.2025.f1098.mortgage-interest-limit",
+                          "key": {
+                            "op": "ref",
+                            "name": "filing_status"
+                          }
+                        }
+                      },
+                      "then": {
+                        "op": "block",
+                        "code": "VALUE_INVALID"
+                      },
+                      "else": {
+                        "op": "add",
+                        "args": [
+                          {
+                            "op": "collect",
+                            "name": "tax.us.2025.f1098.box1-mortgage-interest",
+                            "source_set": "tax.us.2025.f1098"
+                          }
+                        ]
+                      }
+                    },
+                    "else": {
+                      "op": "block",
+                      "code": "DEPENDENCY_ABSENT"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "publishes": "tax.us.2025.schedule-a.line8a",
+  "blocked": {
+    "code": "DEPENDENCY_ABSENT",
+    "missing": []
+  },
+  "citations": [],
+  "composition": {
+    "id": "tax.us.2025.schedule-a",
+    "version": "v1"
+  },
+  "basis": {
+    "said": [
+      "You own the home, or your spouse does if you file jointly, and it is your filing unit's shared main home. The home secures this original loan, and you or your spouse if filing jointly owes the loan and paid the interest.",
+      "The borrowed money bought the home, no one else besides a joint-filing spouse owes the loan, and no mortgage credit certificate was received."
+    ],
+    "derived": [
+      "The bounded single-statement route found one Form 1098 and uses the reported box 1 amount.",
+      "The reported box 2 principal was compared directly with the filing-status limit; the limit check passed.",
+      "The application concluded that this interest is qualified residence interest for this bounded case."
+    ],
+    "assumed": [
+      "For this one original borrowing, box 2 stands for the acquisition-debt balance throughout the year; this route publishes all of box 1 without prorating."
+    ],
+    "left_with_person": [
+      "A higher balance during the year, another mortgage or home, added draws, interest outside the year, points, mortgage-insurance premiums, and prior-year refunds are not computed here."
+    ]
+  },
+  "notes": "Bounded calculation for a single ordinary Form 1098 mortgage statement; not complete Schedule A or filing support."
+}

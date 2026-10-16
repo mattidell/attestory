@@ -1,0 +1,1326 @@
+{
+  "schema": "rule-artifact.v14",
+  "id": "tax.us.2025.rule.f1098-residence-interest-reason",
+  "version": "v2",
+  "scope": {
+    "tax_year": 2025,
+    "jurisdiction": "US-federal",
+    "family": "individual-income-tax"
+  },
+  "role": "computation",
+  "subject": {
+    "id": "tax.us.2025.f1098.box1-mortgage-interest",
+    "version": "v1"
+  },
+  "requires": [
+    "tax.us.2025.f1098.filing-unit-owns-home",
+    "tax.us.2025.f1098.shared-main-home",
+    "tax.us.2025.f1098.home-is-collateral",
+    "tax.us.2025.f1098.owes-the-loan",
+    "tax.us.2025.f1098.paid-the-interest",
+    "tax.us.2025.f1098.no-one-else-owes-it",
+    "tax.us.2025.f1098.this-is-the-original-loan",
+    "tax.us.2025.f1098.what-the-money-paid-for",
+    "tax.us.2025.f1098.mortgage-credit-certificate-received",
+    "tax.us.2025.f1098.box2-outstanding-principal",
+    "tax.us.2025.f1098.box3-origination-date",
+    "tax.us.2025.f1098.box9-number-of-properties",
+    "tax.us.2025.f1098.loan-timing-relative-to-purchase",
+    "tax.us.2025.f1098.loan-timing-relative-to-building-or-improving",
+    "filing_status"
+  ],
+  "pins": [
+    {
+      "role": "parameter",
+      "id": "tax.us.2025.f1098.mortgage-interest-limit",
+      "version": "v1"
+    }
+  ],
+  "when": true,
+  "value": {
+    "op": "choose",
+    "when": {
+      "op": "categorical_compare",
+      "cmp": "eq",
+      "left": {
+        "op": "ref",
+        "name": "tax.us.2025.f1098.home-is-collateral"
+      },
+      "right": {
+        "op": "category_literal",
+        "fact_type": {
+          "id": "tax.us.2025.f1098.home-is-collateral",
+          "version": "v2"
+        },
+        "value": "no"
+      }
+    },
+    "then": {
+      "op": "category_literal",
+      "fact_type": {
+        "id": "tax.us.2025.f1098.residence-interest-reason",
+        "version": "v2"
+      },
+      "value": "not-collateral"
+    },
+    "else": {
+      "op": "choose",
+      "when": {
+        "op": "categorical_compare",
+        "cmp": "eq",
+        "left": {
+          "op": "ref",
+          "name": "tax.us.2025.f1098.paid-the-interest"
+        },
+        "right": {
+          "op": "category_literal",
+          "fact_type": {
+            "id": "tax.us.2025.f1098.paid-the-interest",
+            "version": "v2"
+          },
+          "value": "paid-by-others-or-partial"
+        }
+      },
+      "then": {
+        "op": "category_literal",
+        "fact_type": {
+          "id": "tax.us.2025.f1098.residence-interest-reason",
+          "version": "v2"
+        },
+        "value": "payment-outside-coverage"
+      },
+      "else": {
+        "op": "choose",
+        "when": {
+          "op": "categorical_compare",
+          "cmp": "eq",
+          "left": {
+            "op": "ref",
+            "name": "tax.us.2025.f1098.paid-the-interest"
+          },
+          "right": {
+            "op": "category_literal",
+            "fact_type": {
+              "id": "tax.us.2025.f1098.paid-the-interest",
+              "version": "v2"
+            },
+            "value": "no"
+          }
+        },
+        "then": {
+          "op": "category_literal",
+          "fact_type": {
+            "id": "tax.us.2025.f1098.residence-interest-reason",
+            "version": "v2"
+          },
+          "value": "not-paid"
+        },
+        "else": {
+          "op": "choose",
+          "when": {
+            "op": "categorical_compare",
+            "cmp": "eq",
+            "left": {
+              "op": "ref",
+              "name": "tax.us.2025.f1098.paid-the-interest"
+            },
+            "right": {
+              "op": "category_literal",
+              "fact_type": {
+                "id": "tax.us.2025.f1098.paid-the-interest",
+                "version": "v2"
+              },
+              "value": "cannot-tell"
+            }
+          },
+          "then": {
+            "op": "category_literal",
+            "fact_type": {
+              "id": "tax.us.2025.f1098.residence-interest-reason",
+              "version": "v2"
+            },
+            "value": "cannot-tell-payment"
+          },
+          "else": {
+            "op": "choose",
+            "when": {
+              "op": "all",
+              "args": [
+                {
+                  "op": "categorical_compare",
+                  "cmp": "eq",
+                  "left": {
+                    "op": "ref",
+                    "name": "tax.us.2025.f1098.owes-the-loan"
+                  },
+                  "right": {
+                    "op": "category_literal",
+                    "fact_type": {
+                      "id": "tax.us.2025.f1098.owes-the-loan",
+                      "version": "v2"
+                    },
+                    "value": "no"
+                  }
+                },
+                {
+                  "op": "categorical_compare",
+                  "cmp": "eq",
+                  "left": {
+                    "op": "ref",
+                    "name": "tax.us.2025.f1098.paid-the-interest"
+                  },
+                  "right": {
+                    "op": "category_literal",
+                    "fact_type": {
+                      "id": "tax.us.2025.f1098.paid-the-interest",
+                      "version": "v2"
+                    },
+                    "value": "yes"
+                  }
+                }
+              ]
+            },
+            "then": {
+              "op": "category_literal",
+              "fact_type": {
+                "id": "tax.us.2025.f1098.residence-interest-reason",
+                "version": "v2"
+              },
+              "value": "owner-not-on-note"
+            },
+            "else": {
+              "op": "choose",
+              "when": {
+                "op": "categorical_compare",
+                "cmp": "eq",
+                "left": {
+                  "op": "ref",
+                  "name": "tax.us.2025.f1098.what-the-money-paid-for"
+                },
+                "right": {
+                  "op": "category_literal",
+                  "fact_type": {
+                    "id": "tax.us.2025.f1098.what-the-money-paid-for",
+                    "version": "v2"
+                  },
+                  "value": "unrelated-personal-expense"
+                }
+              },
+              "then": {
+                "op": "choose",
+                "when": {
+                  "op": "any",
+                  "args": [
+                    {
+                      "op": "categorical_compare",
+                      "cmp": "eq",
+                      "left": {
+                        "op": "ref",
+                        "name": "tax.us.2025.f1098.loan-timing-relative-to-purchase"
+                      },
+                      "right": {
+                        "op": "category_literal",
+                        "fact_type": {
+                          "id": "tax.us.2025.f1098.loan-timing-relative-to-purchase",
+                          "version": "v2"
+                        },
+                        "value": "yes"
+                      }
+                    },
+                    {
+                      "op": "categorical_compare",
+                      "cmp": "eq",
+                      "left": {
+                        "op": "ref",
+                        "name": "tax.us.2025.f1098.loan-timing-relative-to-building-or-improving"
+                      },
+                      "right": {
+                        "op": "category_literal",
+                        "fact_type": {
+                          "id": "tax.us.2025.f1098.loan-timing-relative-to-building-or-improving",
+                          "version": "v2"
+                        },
+                        "value": "yes"
+                      }
+                    }
+                  ]
+                },
+                "then": {
+                  "op": "category_literal",
+                  "fact_type": {
+                    "id": "tax.us.2025.f1098.residence-interest-reason",
+                    "version": "v2"
+                  },
+                  "value": "timing-exception-possible"
+                },
+                "else": {
+                  "op": "choose",
+                  "when": {
+                    "op": "any",
+                    "args": [
+                      {
+                        "op": "categorical_compare",
+                        "cmp": "eq",
+                        "left": {
+                          "op": "ref",
+                          "name": "tax.us.2025.f1098.loan-timing-relative-to-purchase"
+                        },
+                        "right": {
+                          "op": "category_literal",
+                          "fact_type": {
+                            "id": "tax.us.2025.f1098.loan-timing-relative-to-purchase",
+                            "version": "v2"
+                          },
+                          "value": "cannot-tell"
+                        }
+                      },
+                      {
+                        "op": "categorical_compare",
+                        "cmp": "eq",
+                        "left": {
+                          "op": "ref",
+                          "name": "tax.us.2025.f1098.loan-timing-relative-to-building-or-improving"
+                        },
+                        "right": {
+                          "op": "category_literal",
+                          "fact_type": {
+                            "id": "tax.us.2025.f1098.loan-timing-relative-to-building-or-improving",
+                            "version": "v2"
+                          },
+                          "value": "cannot-tell"
+                        }
+                      }
+                    ]
+                  },
+                  "then": {
+                    "op": "category_literal",
+                    "fact_type": {
+                      "id": "tax.us.2025.f1098.residence-interest-reason",
+                      "version": "v2"
+                    },
+                    "value": "cannot-tell-timing"
+                  },
+                  "else": {
+                    "op": "choose",
+                    "when": {
+                      "op": "any",
+                      "args": [
+                        {
+                          "op": "categorical_compare",
+                          "cmp": "eq",
+                          "left": {
+                            "op": "ref",
+                            "name": "tax.us.2025.f1098.loan-timing-relative-to-purchase"
+                          },
+                          "right": {
+                            "op": "category_literal",
+                            "fact_type": {
+                              "id": "tax.us.2025.f1098.loan-timing-relative-to-purchase",
+                              "version": "v2"
+                            },
+                            "value": "not-asked"
+                          }
+                        },
+                        {
+                          "op": "categorical_compare",
+                          "cmp": "eq",
+                          "left": {
+                            "op": "ref",
+                            "name": "tax.us.2025.f1098.loan-timing-relative-to-building-or-improving"
+                          },
+                          "right": {
+                            "op": "category_literal",
+                            "fact_type": {
+                              "id": "tax.us.2025.f1098.loan-timing-relative-to-building-or-improving",
+                              "version": "v2"
+                            },
+                            "value": "not-asked"
+                          }
+                        }
+                      ]
+                    },
+                    "then": {
+                      "op": "category_literal",
+                      "fact_type": {
+                        "id": "tax.us.2025.f1098.residence-interest-reason",
+                        "version": "v2"
+                      },
+                      "value": "timing-not-established"
+                    },
+                    "else": {
+                      "op": "choose",
+                      "when": {
+                        "op": "all",
+                        "args": [
+                          {
+                            "op": "categorical_compare",
+                            "cmp": "eq",
+                            "left": {
+                              "op": "ref",
+                              "name": "tax.us.2025.f1098.this-is-the-original-loan"
+                            },
+                            "right": {
+                              "op": "category_literal",
+                              "fact_type": {
+                                "id": "tax.us.2025.f1098.this-is-the-original-loan",
+                                "version": "v2"
+                              },
+                              "value": "yes"
+                            }
+                          },
+                          {
+                            "op": "compare",
+                            "cmp": "eq",
+                            "left": {
+                              "op": "ref",
+                              "name": "tax.us.2025.f1098.box9-number-of-properties"
+                            },
+                            "right": 1
+                          }
+                        ]
+                      },
+                      "then": {
+                        "op": "choose",
+                        "when": {
+                          "op": "date_compare",
+                          "left": {
+                            "op": "ref",
+                            "name": "tax.us.2025.f1098.box3-origination-date"
+                          },
+                          "date": "1987-10-13",
+                          "cmp": "lte"
+                        },
+                        "then": {
+                          "op": "category_literal",
+                          "fact_type": {
+                            "id": "tax.us.2025.f1098.residence-interest-reason",
+                            "version": "v2"
+                          },
+                          "value": "possible-grandfathered-debt"
+                        },
+                        "else": {
+                          "op": "category_literal",
+                          "fact_type": {
+                            "id": "tax.us.2025.f1098.residence-interest-reason",
+                            "version": "v2"
+                          },
+                          "value": "use-unrelated-personal-expense"
+                        }
+                      },
+                      "else": {
+                        "op": "choose",
+                        "when": {
+                          "op": "categorical_compare",
+                          "cmp": "eq",
+                          "left": {
+                            "op": "ref",
+                            "name": "tax.us.2025.f1098.this-is-the-original-loan"
+                          },
+                          "right": {
+                            "op": "category_literal",
+                            "fact_type": {
+                              "id": "tax.us.2025.f1098.this-is-the-original-loan",
+                              "version": "v2"
+                            },
+                            "value": "no"
+                          }
+                        },
+                        "then": {
+                          "op": "category_literal",
+                          "fact_type": {
+                            "id": "tax.us.2025.f1098.residence-interest-reason",
+                            "version": "v2"
+                          },
+                          "value": "refinance"
+                        },
+                        "else": {
+                          "op": "choose",
+                          "when": {
+                            "op": "not",
+                            "value": {
+                              "op": "compare",
+                              "cmp": "eq",
+                              "left": {
+                                "op": "ref",
+                                "name": "tax.us.2025.f1098.box9-number-of-properties"
+                              },
+                              "right": 1
+                            }
+                          },
+                          "then": {
+                            "op": "category_literal",
+                            "fact_type": {
+                              "id": "tax.us.2025.f1098.residence-interest-reason",
+                              "version": "v2"
+                            },
+                            "value": "property-count-outside-coverage"
+                          },
+                          "else": {
+                            "op": "choose",
+                            "when": {
+                              "op": "categorical_compare",
+                              "cmp": "eq",
+                              "left": {
+                                "op": "ref",
+                                "name": "tax.us.2025.f1098.this-is-the-original-loan"
+                              },
+                              "right": {
+                                "op": "category_literal",
+                                "fact_type": {
+                                  "id": "tax.us.2025.f1098.this-is-the-original-loan",
+                                  "version": "v2"
+                                },
+                                "value": "cannot-tell"
+                              }
+                            },
+                            "then": {
+                              "op": "category_literal",
+                              "fact_type": {
+                                "id": "tax.us.2025.f1098.residence-interest-reason",
+                                "version": "v2"
+                              },
+                              "value": "cannot-tell-original-loan"
+                            },
+                            "else": {
+                              "op": "category_literal",
+                              "fact_type": {
+                                "id": "tax.us.2025.f1098.residence-interest-reason",
+                                "version": "v2"
+                              },
+                              "value": "outside-coverage"
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              },
+              "else": {
+                "op": "choose",
+                "when": {
+                  "op": "categorical_compare",
+                  "cmp": "eq",
+                  "left": {
+                    "op": "ref",
+                    "name": "tax.us.2025.f1098.owes-the-loan"
+                  },
+                  "right": {
+                    "op": "category_literal",
+                    "fact_type": {
+                      "id": "tax.us.2025.f1098.owes-the-loan",
+                      "version": "v2"
+                    },
+                    "value": "cannot-tell"
+                  }
+                },
+                "then": {
+                  "op": "category_literal",
+                  "fact_type": {
+                    "id": "tax.us.2025.f1098.residence-interest-reason",
+                    "version": "v2"
+                  },
+                  "value": "cannot-tell-liability"
+                },
+                "else": {
+                  "op": "choose",
+                  "when": {
+                    "op": "categorical_compare",
+                    "cmp": "eq",
+                    "left": {
+                      "op": "ref",
+                      "name": "tax.us.2025.f1098.what-the-money-paid-for"
+                    },
+                    "right": {
+                      "op": "category_literal",
+                      "fact_type": {
+                        "id": "tax.us.2025.f1098.what-the-money-paid-for",
+                        "version": "v2"
+                      },
+                      "value": "cannot-tell"
+                    }
+                  },
+                  "then": {
+                    "op": "category_literal",
+                    "fact_type": {
+                      "id": "tax.us.2025.f1098.residence-interest-reason",
+                      "version": "v2"
+                    },
+                    "value": "cannot-tell-use"
+                  },
+                  "else": {
+                    "op": "choose",
+                    "when": {
+                      "op": "categorical_compare",
+                      "cmp": "eq",
+                      "left": {
+                        "op": "ref",
+                        "name": "tax.us.2025.f1098.mortgage-credit-certificate-received"
+                      },
+                      "right": {
+                        "op": "category_literal",
+                        "fact_type": {
+                          "id": "tax.us.2025.f1098.mortgage-credit-certificate-received",
+                          "version": "v2"
+                        },
+                        "value": "received"
+                      }
+                    },
+                    "then": {
+                      "op": "category_literal",
+                      "fact_type": {
+                        "id": "tax.us.2025.f1098.residence-interest-reason",
+                        "version": "v2"
+                      },
+                      "value": "certificate-received"
+                    },
+                    "else": {
+                      "op": "choose",
+                      "when": {
+                        "op": "categorical_compare",
+                        "cmp": "eq",
+                        "left": {
+                          "op": "ref",
+                          "name": "tax.us.2025.f1098.mortgage-credit-certificate-received"
+                        },
+                        "right": {
+                          "op": "category_literal",
+                          "fact_type": {
+                            "id": "tax.us.2025.f1098.mortgage-credit-certificate-received",
+                            "version": "v2"
+                          },
+                          "value": "cannot-tell"
+                        }
+                      },
+                      "then": {
+                        "op": "category_literal",
+                        "fact_type": {
+                          "id": "tax.us.2025.f1098.residence-interest-reason",
+                          "version": "v2"
+                        },
+                        "value": "cannot-tell-certificate"
+                      },
+                      "else": {
+                        "op": "choose",
+                        "when": {
+                          "op": "all",
+                          "args": [
+                            {
+                              "op": "categorical_compare",
+                              "cmp": "eq",
+                              "left": {
+                                "op": "ref",
+                                "name": "tax.us.2025.f1098.filing-unit-owns-home"
+                              },
+                              "right": {
+                                "op": "category_literal",
+                                "fact_type": {
+                                  "id": "tax.us.2025.f1098.filing-unit-owns-home",
+                                  "version": "v2"
+                                },
+                                "value": "yes"
+                              }
+                            },
+                            {
+                              "op": "categorical_compare",
+                              "cmp": "eq",
+                              "left": {
+                                "op": "ref",
+                                "name": "tax.us.2025.f1098.shared-main-home"
+                              },
+                              "right": {
+                                "op": "category_literal",
+                                "fact_type": {
+                                  "id": "tax.us.2025.f1098.shared-main-home",
+                                  "version": "v2"
+                                },
+                                "value": "yes"
+                              }
+                            },
+                            {
+                              "op": "categorical_compare",
+                              "cmp": "eq",
+                              "left": {
+                                "op": "ref",
+                                "name": "tax.us.2025.f1098.home-is-collateral"
+                              },
+                              "right": {
+                                "op": "category_literal",
+                                "fact_type": {
+                                  "id": "tax.us.2025.f1098.home-is-collateral",
+                                  "version": "v2"
+                                },
+                                "value": "yes"
+                              }
+                            },
+                            {
+                              "op": "categorical_compare",
+                              "cmp": "eq",
+                              "left": {
+                                "op": "ref",
+                                "name": "tax.us.2025.f1098.owes-the-loan"
+                              },
+                              "right": {
+                                "op": "category_literal",
+                                "fact_type": {
+                                  "id": "tax.us.2025.f1098.owes-the-loan",
+                                  "version": "v2"
+                                },
+                                "value": "yes"
+                              }
+                            },
+                            {
+                              "op": "categorical_compare",
+                              "cmp": "eq",
+                              "left": {
+                                "op": "ref",
+                                "name": "tax.us.2025.f1098.paid-the-interest"
+                              },
+                              "right": {
+                                "op": "category_literal",
+                                "fact_type": {
+                                  "id": "tax.us.2025.f1098.paid-the-interest",
+                                  "version": "v2"
+                                },
+                                "value": "yes"
+                              }
+                            },
+                            {
+                              "op": "categorical_compare",
+                              "cmp": "eq",
+                              "left": {
+                                "op": "ref",
+                                "name": "tax.us.2025.f1098.no-one-else-owes-it"
+                              },
+                              "right": {
+                                "op": "category_literal",
+                                "fact_type": {
+                                  "id": "tax.us.2025.f1098.no-one-else-owes-it",
+                                  "version": "v2"
+                                },
+                                "value": "yes"
+                              }
+                            },
+                            {
+                              "op": "categorical_compare",
+                              "cmp": "eq",
+                              "left": {
+                                "op": "ref",
+                                "name": "tax.us.2025.f1098.what-the-money-paid-for"
+                              },
+                              "right": {
+                                "op": "category_literal",
+                                "fact_type": {
+                                  "id": "tax.us.2025.f1098.what-the-money-paid-for",
+                                  "version": "v2"
+                                },
+                                "value": "bought-the-home"
+                              }
+                            },
+                            {
+                              "op": "categorical_compare",
+                              "cmp": "eq",
+                              "left": {
+                                "op": "ref",
+                                "name": "tax.us.2025.f1098.this-is-the-original-loan"
+                              },
+                              "right": {
+                                "op": "category_literal",
+                                "fact_type": {
+                                  "id": "tax.us.2025.f1098.this-is-the-original-loan",
+                                  "version": "v2"
+                                },
+                                "value": "yes"
+                              }
+                            },
+                            {
+                              "op": "categorical_compare",
+                              "cmp": "eq",
+                              "left": {
+                                "op": "ref",
+                                "name": "tax.us.2025.f1098.mortgage-credit-certificate-received"
+                              },
+                              "right": {
+                                "op": "category_literal",
+                                "fact_type": {
+                                  "id": "tax.us.2025.f1098.mortgage-credit-certificate-received",
+                                  "version": "v2"
+                                },
+                                "value": "not-received"
+                              }
+                            },
+                            {
+                              "op": "compare",
+                              "cmp": "eq",
+                              "left": {
+                                "op": "ref",
+                                "name": "tax.us.2025.f1098.box9-number-of-properties"
+                              },
+                              "right": 1
+                            }
+                          ]
+                        },
+                        "then": {
+                          "op": "choose",
+                          "when": {
+                            "op": "compare",
+                            "cmp": "gt",
+                            "left": {
+                              "op": "ref",
+                              "name": "tax.us.2025.f1098.box2-outstanding-principal"
+                            },
+                            "right": {
+                              "op": "parameter",
+                              "parameter_id": "tax.us.2025.f1098.mortgage-interest-limit",
+                              "key": {
+                                "op": "ref",
+                                "name": "filing_status"
+                              }
+                            }
+                          },
+                          "then": {
+                            "op": "category_literal",
+                            "fact_type": {
+                              "id": "tax.us.2025.f1098.residence-interest-reason",
+                              "version": "v2"
+                            },
+                            "value": "debt-limit-over"
+                          },
+                          "else": {
+                            "op": "category_literal",
+                            "fact_type": {
+                              "id": "tax.us.2025.f1098.residence-interest-reason",
+                              "version": "v2"
+                            },
+                            "value": "qualified"
+                          }
+                        },
+                        "else": {
+                          "op": "choose",
+                          "when": {
+                            "op": "all",
+                            "args": [
+                              {
+                                "op": "categorical_compare",
+                                "cmp": "eq",
+                                "left": {
+                                  "op": "ref",
+                                  "name": "tax.us.2025.f1098.what-the-money-paid-for"
+                                },
+                                "right": {
+                                  "op": "category_literal",
+                                  "fact_type": {
+                                    "id": "tax.us.2025.f1098.what-the-money-paid-for",
+                                    "version": "v2"
+                                  },
+                                  "value": "bought-the-home"
+                                }
+                              },
+                              {
+                                "op": "categorical_compare",
+                                "cmp": "eq",
+                                "left": {
+                                  "op": "ref",
+                                  "name": "tax.us.2025.f1098.this-is-the-original-loan"
+                                },
+                                "right": {
+                                  "op": "category_literal",
+                                  "fact_type": {
+                                    "id": "tax.us.2025.f1098.this-is-the-original-loan",
+                                    "version": "v2"
+                                  },
+                                  "value": "yes"
+                                }
+                              },
+                              {
+                                "op": "categorical_compare",
+                                "cmp": "eq",
+                                "left": {
+                                  "op": "ref",
+                                  "name": "tax.us.2025.f1098.mortgage-credit-certificate-received"
+                                },
+                                "right": {
+                                  "op": "category_literal",
+                                  "fact_type": {
+                                    "id": "tax.us.2025.f1098.mortgage-credit-certificate-received",
+                                    "version": "v2"
+                                  },
+                                  "value": "not-received"
+                                }
+                              },
+                              {
+                                "op": "compare",
+                                "cmp": "eq",
+                                "left": {
+                                  "op": "ref",
+                                  "name": "tax.us.2025.f1098.box9-number-of-properties"
+                                },
+                                "right": 1
+                              }
+                            ]
+                          },
+                          "then": {
+                            "op": "choose",
+                            "when": {
+                              "op": "categorical_compare",
+                              "cmp": "eq",
+                              "left": {
+                                "op": "ref",
+                                "name": "tax.us.2025.f1098.home-is-collateral"
+                              },
+                              "right": {
+                                "op": "category_literal",
+                                "fact_type": {
+                                  "id": "tax.us.2025.f1098.home-is-collateral",
+                                  "version": "v2"
+                                },
+                                "value": "cannot-tell"
+                              }
+                            },
+                            "then": {
+                              "op": "category_literal",
+                              "fact_type": {
+                                "id": "tax.us.2025.f1098.residence-interest-reason",
+                                "version": "v2"
+                              },
+                              "value": "cannot-tell-collateral"
+                            },
+                            "else": {
+                              "op": "choose",
+                              "when": {
+                                "op": "categorical_compare",
+                                "cmp": "eq",
+                                "left": {
+                                  "op": "ref",
+                                  "name": "tax.us.2025.f1098.filing-unit-owns-home"
+                                },
+                                "right": {
+                                  "op": "category_literal",
+                                  "fact_type": {
+                                    "id": "tax.us.2025.f1098.filing-unit-owns-home",
+                                    "version": "v2"
+                                  },
+                                  "value": "cannot-tell"
+                                }
+                              },
+                              "then": {
+                                "op": "category_literal",
+                                "fact_type": {
+                                  "id": "tax.us.2025.f1098.residence-interest-reason",
+                                  "version": "v2"
+                                },
+                                "value": "cannot-tell-ownership"
+                              },
+                              "else": {
+                                "op": "choose",
+                                "when": {
+                                  "op": "categorical_compare",
+                                  "cmp": "eq",
+                                  "left": {
+                                    "op": "ref",
+                                    "name": "tax.us.2025.f1098.shared-main-home"
+                                  },
+                                  "right": {
+                                    "op": "category_literal",
+                                    "fact_type": {
+                                      "id": "tax.us.2025.f1098.shared-main-home",
+                                      "version": "v2"
+                                    },
+                                    "value": "cannot-tell"
+                                  }
+                                },
+                                "then": {
+                                  "op": "category_literal",
+                                  "fact_type": {
+                                    "id": "tax.us.2025.f1098.residence-interest-reason",
+                                    "version": "v2"
+                                  },
+                                  "value": "cannot-tell-residence"
+                                },
+                                "else": {
+                                  "op": "choose",
+                                  "when": {
+                                    "op": "categorical_compare",
+                                    "cmp": "eq",
+                                    "left": {
+                                      "op": "ref",
+                                      "name": "tax.us.2025.f1098.no-one-else-owes-it"
+                                    },
+                                    "right": {
+                                      "op": "category_literal",
+                                      "fact_type": {
+                                        "id": "tax.us.2025.f1098.no-one-else-owes-it",
+                                        "version": "v2"
+                                      },
+                                      "value": "cannot-tell"
+                                    }
+                                  },
+                                  "then": {
+                                    "op": "category_literal",
+                                    "fact_type": {
+                                      "id": "tax.us.2025.f1098.residence-interest-reason",
+                                      "version": "v2"
+                                    },
+                                    "value": "cannot-tell-share"
+                                  },
+                                  "else": {
+                                    "op": "choose",
+                                    "when": {
+                                      "op": "categorical_compare",
+                                      "cmp": "eq",
+                                      "left": {
+                                        "op": "ref",
+                                        "name": "tax.us.2025.f1098.filing-unit-owns-home"
+                                      },
+                                      "right": {
+                                        "op": "category_literal",
+                                        "fact_type": {
+                                          "id": "tax.us.2025.f1098.filing-unit-owns-home",
+                                          "version": "v2"
+                                        },
+                                        "value": "no"
+                                      }
+                                    },
+                                    "then": {
+                                      "op": "category_literal",
+                                      "fact_type": {
+                                        "id": "tax.us.2025.f1098.residence-interest-reason",
+                                        "version": "v2"
+                                      },
+                                      "value": "non-owner-outside-coverage"
+                                    },
+                                    "else": {
+                                      "op": "choose",
+                                      "when": {
+                                        "op": "categorical_compare",
+                                        "cmp": "eq",
+                                        "left": {
+                                          "op": "ref",
+                                          "name": "tax.us.2025.f1098.shared-main-home"
+                                        },
+                                        "right": {
+                                          "op": "category_literal",
+                                          "fact_type": {
+                                            "id": "tax.us.2025.f1098.shared-main-home",
+                                            "version": "v2"
+                                          },
+                                          "value": "no"
+                                        }
+                                      },
+                                      "then": {
+                                        "op": "category_literal",
+                                        "fact_type": {
+                                          "id": "tax.us.2025.f1098.residence-interest-reason",
+                                          "version": "v2"
+                                        },
+                                        "value": "non-main-home-outside-coverage"
+                                      },
+                                      "else": {
+                                        "op": "choose",
+                                        "when": {
+                                          "op": "categorical_compare",
+                                          "cmp": "eq",
+                                          "left": {
+                                            "op": "ref",
+                                            "name": "tax.us.2025.f1098.no-one-else-owes-it"
+                                          },
+                                          "right": {
+                                            "op": "category_literal",
+                                            "fact_type": {
+                                              "id": "tax.us.2025.f1098.no-one-else-owes-it",
+                                              "version": "v2"
+                                            },
+                                            "value": "no"
+                                          }
+                                        },
+                                        "then": {
+                                          "op": "category_literal",
+                                          "fact_type": {
+                                            "id": "tax.us.2025.f1098.residence-interest-reason",
+                                            "version": "v2"
+                                          },
+                                          "value": "outside-co-obligor"
+                                        },
+                                        "else": {
+                                          "op": "choose",
+                                          "when": {
+                                            "op": "categorical_compare",
+                                            "cmp": "eq",
+                                            "left": {
+                                              "op": "ref",
+                                              "name": "tax.us.2025.f1098.what-the-money-paid-for"
+                                            },
+                                            "right": {
+                                              "op": "category_literal",
+                                              "fact_type": {
+                                                "id": "tax.us.2025.f1098.what-the-money-paid-for",
+                                                "version": "v2"
+                                              },
+                                              "value": "other"
+                                            }
+                                          },
+                                          "then": {
+                                            "op": "category_literal",
+                                            "fact_type": {
+                                              "id": "tax.us.2025.f1098.residence-interest-reason",
+                                              "version": "v2"
+                                            },
+                                            "value": "other-use-outside-coverage"
+                                          },
+                                          "else": {
+                                            "op": "category_literal",
+                                            "fact_type": {
+                                              "id": "tax.us.2025.f1098.residence-interest-reason",
+                                              "version": "v2"
+                                            },
+                                            "value": "outside-coverage"
+                                          }
+                                        }
+                                      }
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          },
+                          "else": {
+                            "op": "choose",
+                            "when": {
+                              "op": "categorical_compare",
+                              "cmp": "eq",
+                              "left": {
+                                "op": "ref",
+                                "name": "tax.us.2025.f1098.filing-unit-owns-home"
+                              },
+                              "right": {
+                                "op": "category_literal",
+                                "fact_type": {
+                                  "id": "tax.us.2025.f1098.filing-unit-owns-home",
+                                  "version": "v2"
+                                },
+                                "value": "no"
+                              }
+                            },
+                            "then": {
+                              "op": "category_literal",
+                              "fact_type": {
+                                "id": "tax.us.2025.f1098.residence-interest-reason",
+                                "version": "v2"
+                              },
+                              "value": "non-owner-outside-coverage"
+                            },
+                            "else": {
+                              "op": "choose",
+                              "when": {
+                                "op": "categorical_compare",
+                                "cmp": "eq",
+                                "left": {
+                                  "op": "ref",
+                                  "name": "tax.us.2025.f1098.shared-main-home"
+                                },
+                                "right": {
+                                  "op": "category_literal",
+                                  "fact_type": {
+                                    "id": "tax.us.2025.f1098.shared-main-home",
+                                    "version": "v2"
+                                  },
+                                  "value": "no"
+                                }
+                              },
+                              "then": {
+                                "op": "category_literal",
+                                "fact_type": {
+                                  "id": "tax.us.2025.f1098.residence-interest-reason",
+                                  "version": "v2"
+                                },
+                                "value": "non-main-home-outside-coverage"
+                              },
+                              "else": {
+                                "op": "choose",
+                                "when": {
+                                  "op": "categorical_compare",
+                                  "cmp": "eq",
+                                  "left": {
+                                    "op": "ref",
+                                    "name": "tax.us.2025.f1098.no-one-else-owes-it"
+                                  },
+                                  "right": {
+                                    "op": "category_literal",
+                                    "fact_type": {
+                                      "id": "tax.us.2025.f1098.no-one-else-owes-it",
+                                      "version": "v2"
+                                    },
+                                    "value": "no"
+                                  }
+                                },
+                                "then": {
+                                  "op": "category_literal",
+                                  "fact_type": {
+                                    "id": "tax.us.2025.f1098.residence-interest-reason",
+                                    "version": "v2"
+                                  },
+                                  "value": "outside-co-obligor"
+                                },
+                                "else": {
+                                  "op": "choose",
+                                  "when": {
+                                    "op": "categorical_compare",
+                                    "cmp": "eq",
+                                    "left": {
+                                      "op": "ref",
+                                      "name": "tax.us.2025.f1098.what-the-money-paid-for"
+                                    },
+                                    "right": {
+                                      "op": "category_literal",
+                                      "fact_type": {
+                                        "id": "tax.us.2025.f1098.what-the-money-paid-for",
+                                        "version": "v2"
+                                      },
+                                      "value": "other"
+                                    }
+                                  },
+                                  "then": {
+                                    "op": "category_literal",
+                                    "fact_type": {
+                                      "id": "tax.us.2025.f1098.residence-interest-reason",
+                                      "version": "v2"
+                                    },
+                                    "value": "other-use-outside-coverage"
+                                  },
+                                  "else": {
+                                    "op": "choose",
+                                    "when": {
+                                      "op": "categorical_compare",
+                                      "cmp": "eq",
+                                      "left": {
+                                        "op": "ref",
+                                        "name": "tax.us.2025.f1098.this-is-the-original-loan"
+                                      },
+                                      "right": {
+                                        "op": "category_literal",
+                                        "fact_type": {
+                                          "id": "tax.us.2025.f1098.this-is-the-original-loan",
+                                          "version": "v2"
+                                        },
+                                        "value": "cannot-tell"
+                                      }
+                                    },
+                                    "then": {
+                                      "op": "category_literal",
+                                      "fact_type": {
+                                        "id": "tax.us.2025.f1098.residence-interest-reason",
+                                        "version": "v2"
+                                      },
+                                      "value": "cannot-tell-original-loan"
+                                    },
+                                    "else": {
+                                      "op": "choose",
+                                      "when": {
+                                        "op": "categorical_compare",
+                                        "cmp": "eq",
+                                        "left": {
+                                          "op": "ref",
+                                          "name": "tax.us.2025.f1098.this-is-the-original-loan"
+                                        },
+                                        "right": {
+                                          "op": "category_literal",
+                                          "fact_type": {
+                                            "id": "tax.us.2025.f1098.this-is-the-original-loan",
+                                            "version": "v2"
+                                          },
+                                          "value": "no"
+                                        }
+                                      },
+                                      "then": {
+                                        "op": "category_literal",
+                                        "fact_type": {
+                                          "id": "tax.us.2025.f1098.residence-interest-reason",
+                                          "version": "v2"
+                                        },
+                                        "value": "refinance"
+                                      },
+                                      "else": {
+                                        "op": "choose",
+                                        "when": {
+                                          "op": "not",
+                                          "value": {
+                                            "op": "compare",
+                                            "cmp": "eq",
+                                            "left": {
+                                              "op": "ref",
+                                              "name": "tax.us.2025.f1098.box9-number-of-properties"
+                                            },
+                                            "right": 1
+                                          }
+                                        },
+                                        "then": {
+                                          "op": "category_literal",
+                                          "fact_type": {
+                                            "id": "tax.us.2025.f1098.residence-interest-reason",
+                                            "version": "v2"
+                                          },
+                                          "value": "property-count-outside-coverage"
+                                        },
+                                        "else": {
+                                          "op": "choose",
+                                          "when": {
+                                            "op": "categorical_compare",
+                                            "cmp": "eq",
+                                            "left": {
+                                              "op": "ref",
+                                              "name": "tax.us.2025.f1098.what-the-money-paid-for"
+                                            },
+                                            "right": {
+                                              "op": "category_literal",
+                                              "fact_type": {
+                                                "id": "tax.us.2025.f1098.what-the-money-paid-for",
+                                                "version": "v2"
+                                              },
+                                              "value": "other"
+                                            }
+                                          },
+                                          "then": {
+                                            "op": "category_literal",
+                                            "fact_type": {
+                                              "id": "tax.us.2025.f1098.residence-interest-reason",
+                                              "version": "v2"
+                                            },
+                                            "value": "other-use-outside-coverage"
+                                          },
+                                          "else": {
+                                            "op": "category_literal",
+                                            "fact_type": {
+                                              "id": "tax.us.2025.f1098.residence-interest-reason",
+                                              "version": "v2"
+                                            },
+                                            "value": "outside-coverage"
+                                          }
+                                        }
+                                      }
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "publishes": "tax.us.2025.f1098.residence-interest-reason",
+  "blocked": {
+    "code": "DEPENDENCY_ABSENT",
+    "missing": []
+  },
+  "wording": "The available information does not establish this statement’s mortgage-interest treatment.",
+  "citations": [],
+  "notes": "Classifies the bounded statement using the reviewed ordered condition table. Does not allocate interest or determine the treatment of cases outside the route."
+}

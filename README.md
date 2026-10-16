@@ -75,6 +75,60 @@ and a hooked seeded-marker refusal, then honestly reports that a raw
 confinement as `unestablished`; it neither contacts a network remote nor
 inspects credential material.
 
+## Mortgage statement answers
+
+The bounded mortgage account reviews the current Form 1098 statement and its
+saved ordinary answers. For the v2 filing-unit question set, select v2 when
+preparing the review; the saved answers must match the questions actually
+shown. The package is core-calculations v45 in published registry v43 and the
+student-loan worksheet integration release v43. A synthetic v2 answer set
+looks like this:
+
+```python
+answers = {
+    "filing-unit-owns-home": "yes",
+    "shared-main-home": "yes",
+    "home-is-collateral": "yes",
+    "owes-the-loan": "yes",
+    "paid-the-interest": "yes",
+    "no-one-else-owes-it": "yes",
+    "what-the-money-paid-for": "bought-the-home",
+    "this-is-the-original-loan": "yes",
+    "mortgage-credit-certificate-received": "not-received",
+}
+```
+
+The callable review and save operations live in
+`packages.tax.f1098_statement_review`: `prepare_f1098_statement_review`,
+`save_f1098_statement_review`, `answer_f1098_statement_review_question`,
+`correct_f1098_statement_review_answer`, and
+`withdraw_f1098_statement_review_answers`, plus
+`review_f1098_statement_with_saved_presentation` for a fresh account beside its
+saved explanation. Start the example with
+`prepare_f1098_statement_review(workspace, bundle_version="v2")`; save that
+review with `bundle_version="v2"` (or use its reviewed selection). The first
+incremental answer also adopts the reviewed version. The default remains v1
+for existing callers. Historical v1 answers retain their personal ownership
+and residence meanings; they are not automatically reinterpreted as the v2
+filing-unit propositions, and a v1-only record does not supply v45's new
+inputs. The v44 route remains available for historical v1 records. Each save is tied to the statement
+and answer snapshot it showed. For a personal-expense answer, the two timing
+questions may be answered together, one at a time, or left absent. The review
+shows the bundle's `not-asked` default declaration (with its parameter id and
+version) separately; absence is not an answer offered to the person. A saved
+run's actual default provenance comes from its validated explanation. A current
+unresolved run is shown from its validated unresolved section, never as a
+completed account.
+“No” to who paid means neither spouse on a joint return paid any interest and
+nobody paid any for them. Third-party or partial payment has its own answer.
+
+This route covers one current Form 1098 statement, its reported box 1 interest,
+and the selected ordinary circumstances. It does not allocate mixed use,
+cover multiple mortgages or homes, or compute the mortgage credit. After an
+answer changes, an earlier saved calculation is identified by its recorded
+run and workspace revision; a different revision means recalculation is
+needed.
+
 ## Correction session walkthrough
 
 The synthetic student-loan interest correction session opens one saved result and lets you review one borrowing's loan-cost answer. Wording is provisional. Each command seeds one named state, prints what that state is, and serves the page on loopback. Stop with Ctrl-C. Run the same command again for a clean start.
