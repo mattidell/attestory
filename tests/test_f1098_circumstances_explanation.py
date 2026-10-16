@@ -4,7 +4,7 @@ from __future__ import annotations
 import json
 import unittest
 from unittest.mock import patch
-from typing import Any
+from typing import Any, cast
 
 from packages.derivation.presentation_projection import PresentationModelError, validate_presentation_model
 import packages.derivation.presentation_projection as projection
@@ -14,12 +14,12 @@ from tests.test_f1098_circumstances_calculation import (
 
 
 class TestF1098CircumstancesExplanation(unittest.TestCase):
-    def _saved_model(self, name: str, interest: float, **kwargs: Any) -> dict[str, Any]:
+    def _saved_model(self, name: str, interest: float | None, **kwargs: Any) -> dict[str, Any]:
         # _run executes live_coordinate_run and reads the saved presentation
         # JSON before its temporary workspace is removed; this second JSON
         # round-trip models a fresh page load with no live result object.
         _report, saved_model, _result = _run(name, interest, **kwargs)
-        reloaded = json.loads(json.dumps(saved_model))
+        reloaded = cast(dict[str, Any], json.loads(json.dumps(saved_model)))
         validate_presentation_model(reloaded)
         return reloaded
 
