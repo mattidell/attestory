@@ -1,0 +1,603 @@
+{
+  "schema": "bundle.v2",
+  "id": "tax.us.2025.f1098-successor.vocabulary",
+  "version": "v1",
+  "label": "Mortgage circumstance vocabulary",
+  "fact_types": [
+    {
+      "schema": "fact-type.v2",
+      "id": "tax.us.2025.f1098.owns-the-home",
+      "version": "v1",
+      "title": "Person's ordinary answer: I own this home",
+      "nature": "determinable",
+      "identity_keys": [
+        {
+          "name": "payer",
+          "kind": "entity",
+          "entity_kind": "tax.us.mortgage-lender"
+        },
+        {
+          "name": "statement",
+          "kind": "entity",
+          "entity_kind": "tax.us.1098-statement"
+        },
+        {
+          "name": "tax-year",
+          "kind": "literal",
+          "values": [
+            "2025"
+          ]
+        }
+      ],
+      "value_schema": {
+        "type": "string",
+        "enum": [
+          "yes",
+          "no",
+          "cannot-tell"
+        ]
+      },
+      "supersession": {
+        "policy": "free"
+      }
+    },
+    {
+      "schema": "fact-type.v2",
+      "id": "tax.us.2025.f1098.lives-there-most-of-the-time",
+      "version": "v1",
+      "title": "Person's ordinary answer: this is the home where I live most of the time",
+      "nature": "determinable",
+      "identity_keys": [
+        {
+          "name": "payer",
+          "kind": "entity",
+          "entity_kind": "tax.us.mortgage-lender"
+        },
+        {
+          "name": "statement",
+          "kind": "entity",
+          "entity_kind": "tax.us.1098-statement"
+        },
+        {
+          "name": "tax-year",
+          "kind": "literal",
+          "values": [
+            "2025"
+          ]
+        }
+      ],
+      "value_schema": {
+        "type": "string",
+        "enum": [
+          "yes",
+          "no",
+          "cannot-tell"
+        ]
+      },
+      "supersession": {
+        "policy": "free"
+      }
+    },
+    {
+      "schema": "fact-type.v2",
+      "id": "tax.us.2025.f1098.home-is-collateral",
+      "version": "v1",
+      "title": "Person's ordinary answer: the home is collateral for this loan",
+      "nature": "determinable",
+      "identity_keys": [
+        {
+          "name": "payer",
+          "kind": "entity",
+          "entity_kind": "tax.us.mortgage-lender"
+        },
+        {
+          "name": "statement",
+          "kind": "entity",
+          "entity_kind": "tax.us.1098-statement"
+        },
+        {
+          "name": "tax-year",
+          "kind": "literal",
+          "values": [
+            "2025"
+          ]
+        }
+      ],
+      "value_schema": {
+        "type": "string",
+        "enum": [
+          "yes",
+          "no",
+          "cannot-tell"
+        ]
+      },
+      "supersession": {
+        "policy": "free"
+      }
+    },
+    {
+      "schema": "fact-type.v2",
+      "id": "tax.us.2025.f1098.owes-the-loan",
+      "version": "v1",
+      "title": "Person's ordinary answer: I or my joint-filing spouse owe this loan",
+      "nature": "determinable",
+      "identity_keys": [
+        {
+          "name": "payer",
+          "kind": "entity",
+          "entity_kind": "tax.us.mortgage-lender"
+        },
+        {
+          "name": "statement",
+          "kind": "entity",
+          "entity_kind": "tax.us.1098-statement"
+        },
+        {
+          "name": "tax-year",
+          "kind": "literal",
+          "values": [
+            "2025"
+          ]
+        }
+      ],
+      "value_schema": {
+        "type": "string",
+        "enum": [
+          "yes",
+          "no",
+          "cannot-tell"
+        ]
+      },
+      "supersession": {
+        "policy": "free"
+      }
+    },
+    {
+      "schema": "fact-type.v2",
+      "id": "tax.us.2025.f1098.paid-the-interest",
+      "version": "v1",
+      "title": "Person's ordinary answer about who paid the interest reported on this statement",
+      "nature": "determinable",
+      "identity_keys": [
+        {
+          "name": "payer",
+          "kind": "entity",
+          "entity_kind": "tax.us.mortgage-lender"
+        },
+        {
+          "name": "statement",
+          "kind": "entity",
+          "entity_kind": "tax.us.1098-statement"
+        },
+        {
+          "name": "tax-year",
+          "kind": "literal",
+          "values": [
+            "2025"
+          ]
+        }
+      ],
+      "value_schema": {
+        "type": "string",
+        "enum": [
+          "yes",
+          "paid-by-others-or-partial",
+          "no",
+          "cannot-tell"
+        ]
+      },
+      "supersession": {
+        "policy": "free"
+      }
+    },
+    {
+      "schema": "fact-type.v2",
+      "id": "tax.us.2025.f1098.no-one-else-owes-it",
+      "version": "v1",
+      "title": "Person's ordinary answer: no one besides me or my joint-filing spouse owes this loan with us",
+      "nature": "determinable",
+      "identity_keys": [
+        {
+          "name": "payer",
+          "kind": "entity",
+          "entity_kind": "tax.us.mortgage-lender"
+        },
+        {
+          "name": "statement",
+          "kind": "entity",
+          "entity_kind": "tax.us.1098-statement"
+        },
+        {
+          "name": "tax-year",
+          "kind": "literal",
+          "values": [
+            "2025"
+          ]
+        }
+      ],
+      "value_schema": {
+        "type": "string",
+        "enum": [
+          "yes",
+          "no",
+          "cannot-tell"
+        ]
+      },
+      "supersession": {
+        "policy": "free"
+      }
+    },
+    {
+      "schema": "fact-type.v2",
+      "id": "tax.us.2025.f1098.what-the-money-paid-for",
+      "version": "v1",
+      "title": "Person's ordinary answer about what the borrowed money paid for",
+      "nature": "determinable",
+      "identity_keys": [
+        {
+          "name": "payer",
+          "kind": "entity",
+          "entity_kind": "tax.us.mortgage-lender"
+        },
+        {
+          "name": "statement",
+          "kind": "entity",
+          "entity_kind": "tax.us.1098-statement"
+        },
+        {
+          "name": "tax-year",
+          "kind": "literal",
+          "values": [
+            "2025"
+          ]
+        }
+      ],
+      "value_schema": {
+        "type": "string",
+        "enum": [
+          "bought-the-home",
+          "unrelated-personal-expense",
+          "other",
+          "cannot-tell"
+        ]
+      },
+      "supersession": {
+        "policy": "free"
+      }
+    },
+    {
+      "schema": "fact-type.v2",
+      "id": "tax.us.2025.f1098.this-is-the-original-loan",
+      "version": "v1",
+      "title": "Person's ordinary answer: this is the original loan",
+      "nature": "determinable",
+      "identity_keys": [
+        {
+          "name": "payer",
+          "kind": "entity",
+          "entity_kind": "tax.us.mortgage-lender"
+        },
+        {
+          "name": "statement",
+          "kind": "entity",
+          "entity_kind": "tax.us.1098-statement"
+        },
+        {
+          "name": "tax-year",
+          "kind": "literal",
+          "values": [
+            "2025"
+          ]
+        }
+      ],
+      "value_schema": {
+        "type": "string",
+        "enum": [
+          "yes",
+          "no",
+          "cannot-tell"
+        ]
+      },
+      "supersession": {
+        "policy": "free"
+      }
+    },
+    {
+      "schema": "fact-type.v2",
+      "id": "tax.us.2025.f1098.mortgage-credit-certificate-received",
+      "version": "v1",
+      "title": "Person's ordinary answer: I received a mortgage credit certificate for this loan",
+      "nature": "determinable",
+      "identity_keys": [
+        {
+          "name": "payer",
+          "kind": "entity",
+          "entity_kind": "tax.us.mortgage-lender"
+        },
+        {
+          "name": "statement",
+          "kind": "entity",
+          "entity_kind": "tax.us.1098-statement"
+        },
+        {
+          "name": "tax-year",
+          "kind": "literal",
+          "values": [
+            "2025"
+          ]
+        }
+      ],
+      "value_schema": {
+        "type": "string",
+        "enum": [
+          "received",
+          "not-received",
+          "cannot-tell"
+        ]
+      },
+      "supersession": {
+        "policy": "free"
+      }
+    },
+    {
+      "schema": "fact-type.v2",
+      "id": "tax.us.2025.f1098.loan-timing-relative-to-purchase",
+      "version": "v1",
+      "title": "Person's ordinary answer: was this loan taken out within 90 days before or after buying this home",
+      "nature": "determinable",
+      "identity_keys": [
+        {
+          "name": "payer",
+          "kind": "entity",
+          "entity_kind": "tax.us.mortgage-lender"
+        },
+        {
+          "name": "statement",
+          "kind": "entity",
+          "entity_kind": "tax.us.1098-statement"
+        },
+        {
+          "name": "tax-year",
+          "kind": "literal",
+          "values": [
+            "2025"
+          ]
+        }
+      ],
+      "value_schema": {
+        "type": "string",
+        "enum": [
+          "yes",
+          "no",
+          "cannot-tell",
+          "not-asked"
+        ]
+      },
+      "supersession": {
+        "policy": "free"
+      },
+      "optional_default": {
+        "parameter": {
+          "id": "tax.us.2025.parameter.f1098-timing-purchase-structural-default",
+          "version": "v1"
+        }
+      }
+    },
+    {
+      "schema": "fact-type.v2",
+      "id": "tax.us.2025.f1098.loan-timing-relative-to-building-or-improving",
+      "version": "v1",
+      "title": "Person's ordinary answer: was this loan taken before completion or within 90 days after building or improving this home",
+      "nature": "determinable",
+      "identity_keys": [
+        {
+          "name": "payer",
+          "kind": "entity",
+          "entity_kind": "tax.us.mortgage-lender"
+        },
+        {
+          "name": "statement",
+          "kind": "entity",
+          "entity_kind": "tax.us.1098-statement"
+        },
+        {
+          "name": "tax-year",
+          "kind": "literal",
+          "values": [
+            "2025"
+          ]
+        }
+      ],
+      "value_schema": {
+        "type": "string",
+        "enum": [
+          "yes",
+          "no",
+          "cannot-tell",
+          "not-asked"
+        ]
+      },
+      "supersession": {
+        "policy": "free"
+      },
+      "optional_default": {
+        "parameter": {
+          "id": "tax.us.2025.parameter.f1098-timing-building-structural-default",
+          "version": "v1"
+        }
+      }
+    },
+    {
+      "schema": "fact-type.v2",
+      "id": "tax.us.2025.f1098.box9-number-of-properties",
+      "version": "v2",
+      "title": "Form 1098 box 9 number of properties, successor allowing its declared blank-means-one default",
+      "nature": "determinable",
+      "identity_keys": [
+        {
+          "name": "payer",
+          "kind": "entity",
+          "entity_kind": "tax.us.mortgage-lender"
+        },
+        {
+          "name": "statement",
+          "kind": "entity",
+          "entity_kind": "tax.us.1098-statement"
+        },
+        {
+          "name": "tax-year",
+          "kind": "literal",
+          "values": [
+            "2025"
+          ]
+        }
+      ],
+      "value_schema": {
+        "type": "number"
+      },
+      "supersession": {
+        "policy": "free"
+      },
+      "optional_default": {
+        "parameter": {
+          "id": "tax.us.2025.parameter.f1098-box9-default-single-property",
+          "version": "v1"
+        }
+      }
+    },
+    {
+      "schema": "fact-type.v2",
+      "id": "tax.us.2025.f1098.residence-interest-reason",
+      "version": "v1",
+      "title": "Classification of why this statement's interest is or is not qualified residence interest",
+      "nature": "determinable",
+      "identity_keys": [
+        {
+          "name": "payer",
+          "kind": "entity",
+          "entity_kind": "tax.us.mortgage-lender"
+        },
+        {
+          "name": "statement",
+          "kind": "entity",
+          "entity_kind": "tax.us.1098-statement"
+        },
+        {
+          "name": "tax-year",
+          "kind": "literal",
+          "values": [
+            "2025"
+          ]
+        }
+      ],
+      "value_schema": {
+        "oneOf": [
+          {
+            "const": "qualified",
+            "description": "The recorded answers support treating this statement's interest as qualified residence interest for this bounded case."
+          },
+          {
+            "const": "use-unrelated-personal-expense",
+            "description": "The borrowed money paid for an unrelated personal expense, and neither timing exception applies; this route publishes no home-mortgage deduction."
+          },
+          {
+            "const": "not-collateral",
+            "description": "The home is not collateral for this loan, so this route publishes no home-mortgage deduction."
+          },
+          {
+            "const": "not-paid",
+            "description": "Neither you nor your joint-filing spouse paid any of this interest, and nobody paid any for you; this route publishes no deduction."
+          },
+          {
+            "const": "owner-not-on-note",
+            "description": "You paid the interest but do not owe the loan; this route does not determine whether an equitable owner may deduct it."
+          },
+          {
+            "const": "timing-exception-possible",
+            "description": "The loan may fall within a purchase or building timing exception; Publication 936 may treat it as acquisition debt, but this route does not compute the expense cap or decide substantial improvement."
+          },
+          {
+            "const": "cannot-tell-timing",
+            "description": "The borrowed money paid for a personal expense, but it is not yet known whether a purchase or building timing exception applies."
+          },
+          {
+            "const": "timing-not-established",
+            "description": "One or both timing questions have no current answer; answer them to determine whether an exception applies."
+          },
+          {
+            "const": "possible-grandfathered-debt",
+            "description": "This loan's origination date may qualify it as grandfathered debt; this route does not verify continuous security or refinancing history."
+          },
+          {
+            "const": "cannot-tell-use",
+            "description": "It is not yet known what the borrowed money paid for; the route cannot classify this interest until that answer is clear."
+          },
+          {
+            "const": "cannot-tell-ownership",
+            "description": "It is not yet known whether you own this home; the other recorded answers do not settle that question."
+          },
+          {
+            "const": "cannot-tell-residence",
+            "description": "It is not yet known whether this is the home where you live most of the time."
+          },
+          {
+            "const": "cannot-tell-share",
+            "description": "It is not yet known whether anyone else owes this loan with you; a joint-filing spouse is not treated as someone else."
+          },
+          {
+            "const": "cannot-tell-collateral",
+            "description": "It is not yet known whether the home is collateral for this loan."
+          },
+          {
+            "const": "cannot-tell-payment",
+            "description": "It is not yet known whether you or your joint-filing spouse paid the interest."
+          },
+          {
+            "const": "payment-outside-coverage",
+            "description": "Someone else paid some or all of this interest, or you paid only part; this route does not allocate or determine its treatment."
+          },
+          {
+            "const": "certificate-received",
+            "description": "You received a mortgage credit certificate; this route does not compute the related credit or deduction reduction."
+          },
+          {
+            "const": "debt-limit-over",
+            "description": "The reported principal exceeds this route's applicable debt limit, so it does not compute the deductible amount."
+          },
+          {
+            "const": "outside-coverage",
+            "description": "This account is outside the circumstances this route computes; its tax treatment remains unresolved here."
+          }
+        ]
+      },
+      "supersession": {
+        "policy": "free"
+      }
+    },
+    {
+      "schema": "fact-type.v2",
+      "id": "tax.us.2025.f1098.inert-path-unwritten",
+      "version": "v1",
+      "title": "Internal marker used only to complete an inert rule path",
+      "nature": "determinable",
+      "identity_keys": [
+        {
+          "name": "marker",
+          "kind": "literal",
+          "values": [
+            "unused"
+          ]
+        }
+      ],
+      "value_schema": {
+        "type": "string",
+        "enum": [
+          "unused"
+        ]
+      },
+      "supersession": {
+        "policy": "free"
+      }
+    }
+  ]
+}

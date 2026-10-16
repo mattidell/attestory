@@ -39,6 +39,7 @@ W2_BUNDLE_FILE = "w2.bundle.json"
 F1099INT_BUNDLE_FILE = "f1099int.bundle.json"
 NOMINEE_ALLOCATION_BUNDLE_FILE = "nominee-allocation.bundle.json"
 SLI_RELATIONSHIP_SOURCE_BUNDLE_FILE = "sli-relationship-source.bundle.v2.json"
+F1098_CIRCUMSTANCES_BUNDLE_FILE = "f1098-circumstances.bundle.json"
 
 
 def _version_rank(version: str) -> int:
@@ -405,6 +406,12 @@ def load_sli_relationship_source_bundle(registry: SchemaRegistry | None = None) 
     """
     reg = registry if registry is not None else tax_registry()
     return _load_bundle(SLI_RELATIONSHIP_SOURCE_BUNDLE_FILE, reg)
+
+
+def load_f1098_circumstances_bundle(registry: SchemaRegistry | None = None) -> dict[str, Any]:
+    """Load and strictly validate the mortgage circumstances vocabulary."""
+    reg = registry if registry is not None else tax_registry()
+    return _load_bundle(F1098_CIRCUMSTANCES_BUNDLE_FILE, reg)
 
 
 def load_source_families(
