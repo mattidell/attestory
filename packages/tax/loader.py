@@ -40,6 +40,7 @@ F1099INT_BUNDLE_FILE = "f1099int.bundle.json"
 NOMINEE_ALLOCATION_BUNDLE_FILE = "nominee-allocation.bundle.json"
 SLI_RELATIONSHIP_SOURCE_BUNDLE_FILE = "sli-relationship-source.bundle.v2.json"
 F1098_CIRCUMSTANCES_BUNDLE_FILE = "f1098-circumstances.bundle.json"
+F1098_CIRCUMSTANCES_BUNDLE_V2_FILE = "f1098-circumstances.bundle.v2.json"
 
 
 def _version_rank(version: str) -> int:
@@ -408,10 +409,21 @@ def load_sli_relationship_source_bundle(registry: SchemaRegistry | None = None) 
     return _load_bundle(SLI_RELATIONSHIP_SOURCE_BUNDLE_FILE, reg)
 
 
-def load_f1098_circumstances_bundle(registry: SchemaRegistry | None = None) -> dict[str, Any]:
-    """Load and strictly validate the mortgage circumstances vocabulary."""
+def load_f1098_circumstances_bundle(
+    registry: SchemaRegistry | None = None, *, version: str = "v1",
+) -> dict[str, Any]:
+    """Load one explicitly selected mortgage vocabulary; the legacy default stays v1."""
     reg = registry if registry is not None else tax_registry()
-    return _load_bundle(F1098_CIRCUMSTANCES_BUNDLE_FILE, reg)
+    if version == "v1":
+        filename = F1098_CIRCUMSTANCES_BUNDLE_FILE
+    elif version == "v2":
+        filename = F1098_CIRCUMSTANCES_BUNDLE_V2_FILE
+    else:
+        raise ValueError(f"unsupported mortgage circumstances bundle version {version!r}")
+    bundle = _load_bundle(filename, reg)
+    if bundle.get("version") != version:
+        raise SchemaValidationError("bundle.v2", [f"{filename} is not {version}"])
+    return bundle
 
 
 def load_source_families(

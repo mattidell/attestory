@@ -1345,6 +1345,7 @@ def _exact_rule_basis(
 def _mortgage_basis_answers(
     finding: Mapping[str, Any], *, publications_by_id: Mapping[str, Mapping[str, Any]],
     state: FindingState, fact_map: Mapping[str, Any],
+    resolved_members: Sequence[Mapping[str, Any]], reason_rule: Mapping[str, Any],
 ) -> dict[str, list[dict[str, Any]]]:
     from packages.kernel.currency import compute_currency
 
@@ -1352,6 +1353,73 @@ def _mortgage_basis_answers(
     groups: dict[str, dict[tuple[str, str], dict[str, Any]]] = {
         "sourceDocuments": {}, "personAnswers": {}, "declaredDefaults": {},
     }
+    def mappings(value: Any) -> list[Mapping[str, Any]]:
+        found: list[Mapping[str, Any]] = []
+        if isinstance(value, Mapping):
+            found.append(value)
+            for nested in value.values():
+                found.extend(mappings(nested))
+        elif isinstance(value, list):
+            for nested in value:
+                found.extend(mappings(nested))
+        return found
+
+    selected_versions: dict[str, str] = {}
+    for node in mappings(reason_rule.get("value")):
+        ref = node.get("fact_type")
+        if node.get("op") != "category_literal" or not isinstance(ref, Mapping):
+            continue
+        fact_type_id, version = ref.get("id"), ref.get("version")
+        if (not isinstance(fact_type_id, str) or not fact_type_id.startswith(_MORTGAGE_ANSWER_PREFIX)
+                or fact_type_id == _MORTGAGE_REASON_SYMBOL):
+            continue
+        if not isinstance(version, str) or not version:
+            raise PresentationModelError(f"mortgage answer type {fact_type_id!r} lacks an exact version")
+        prior = selected_versions.get(fact_type_id)
+        if prior is not None and prior != version:
+            raise PresentationModelError(f"mortgage rule selects conflicting versions of {fact_type_id!r}")
+        selected_versions[fact_type_id] = version
+
+    exact_types: dict[str, Mapping[str, Any]] = {}
+
+    def resolved_type_candidates(fact_type_id: str) -> list[Mapping[str, Any]]:
+        candidates: list[Mapping[str, Any]] = []
+        for member in resolved_members:
+            if member.get("id") == fact_type_id and "value_schema" in member:
+                candidates.append(member)
+            if str(member.get("schema", "")).startswith("bundle."):
+                candidates.extend(row for row in member.get("fact_types", [])
+                                  if isinstance(row, Mapping) and row.get("id") == fact_type_id)
+        # Identical repeated declarations are one exact resolved definition.
+        unique: dict[tuple[str, str], Mapping[str, Any]] = {}
+        for candidate in candidates:
+            version = candidate.get("version")
+            if isinstance(version, str):
+                key = (fact_type_id, version)
+                prior = unique.get(key)
+                if prior is not None and prior != candidate:
+                    raise PresentationModelError(
+                        f"mortgage source type {fact_type_id}@{version} has conflicting resolved definitions"
+                    )
+                unique[key] = candidate
+        return list(unique.values())
+
+    for fact_type_id, version in selected_versions.items():
+        candidates = [row for row in resolved_type_candidates(fact_type_id)
+                      if row.get("version") == version]
+        if len(candidates) != 1:
+            raise PresentationModelError(
+                f"mortgage answer type {fact_type_id}@{version} is not uniquely resolved from the selected rule"
+            )
+        exact_types[fact_type_id] = candidates[0]
+
+    def response_label(fact_type_id: str, value: Any) -> str | None:
+        declaration = exact_types.get(fact_type_id)
+        value_schema = declaration.get("value_schema") if isinstance(declaration, Mapping) else None
+        descriptions = value_schema.get("oneOf") if isinstance(value_schema, Mapping) else None
+        return next((row.get("description") for row in descriptions or []
+                     if isinstance(row, Mapping) and row.get("const") == value
+                     and isinstance(row.get("description"), str)), None)
     pending = [str(finding.get("id"))]
     visited: set[str] = set()
     while pending:
@@ -1376,7 +1444,15 @@ def _mortgage_basis_answers(
                     fact_type = fact.fact_type_id if fact is not None else ""
                     if not fact_type.startswith(_MORTGAGE_ANSWER_PREFIX) or fact_type == _MORTGAGE_BOX1_FACT_TYPE:
                         continue
-                    fact_type_definition = state.fact_state.fact_types.get(fact_type)
+                    fact_type_definition = exact_types.get(fact_type)
+                    if fact_type_definition is None:
+                        if ".box" not in fact_type:
+                            raise PresentationModelError(
+                                f"mortgage answer type {fact_type!r} is not pinned by the selected rule"
+                            )
+                        # Numeric/date source-field titles retain their established source-fact title path.
+                        # Reader labels for answer facts above always come from exact selected-rule refs.
+                        fact_type_definition = state.fact_state.fact_types.get(fact_type)
                     title = fact_type_definition.get("title") if isinstance(fact_type_definition, Mapping) else None
                     if not isinstance(title, str) or not title:
                         raise PresentationModelError(f"mortgage support {fact_type!r} has no content title")
@@ -1386,6 +1462,9 @@ def _mortgage_basis_answers(
                         "findingId": child_id, "factType": fact_type, "title": title,
                         "response": value, "origin": {"kind": "recorded", "findingId": child_id},
                     }
+                    label = response_label(fact_type, value) if fact_type in selected_versions else None
+                    if label:
+                        groups[group][(fact_type, child_id)]["responseLabel"] = label
         fact_type = str(publication.get("symbol", "")).split("|", 1)[0]
         if not fact_type.startswith(_MORTGAGE_ANSWER_PREFIX):
             continue
@@ -1417,15 +1496,18 @@ def _mortgage_basis_answers(
             origin = {"kind": "recorded", "findingId": finding_id}
         if fact_type == _MORTGAGE_BOX1_FACT_TYPE:
             continue  # rendered separately as the statement's reported box 1 amount
-        fact_type_definition = state.fact_state.fact_types.get(fact_type)
+        fact_type_definition = exact_types.get(fact_type) or state.fact_state.fact_types.get(fact_type)
         title = fact_type_definition.get("title") if isinstance(fact_type_definition, Mapping) else None
         if not isinstance(title, str) or not title:
             raise PresentationModelError(f"mortgage support {fact_type!r} has no content title")
         value = str(raw_value)
         item: dict[str, Any] = {
             "findingId": finding_id, "factType": fact_type, "title": title,
-            "response": value.replace("-", " "), "origin": origin,
+            "response": value, "origin": origin,
         }
+        label = response_label(fact_type, value)
+        if label:
+            item["responseLabel"] = label
         if group == "sourceDocuments":
             item["response"] = value
         groups[group][(fact_type, finding_id)] = item
@@ -2311,6 +2393,7 @@ def _mortgage_interest_explanation(
         raise PresentationModelError(f"the mortgage reason value {reason!r} has no declared description")
     answers = _mortgage_basis_answers(
         reason_publication, publications_by_id=publications_by_id, state=state, fact_map=fact_map,
+        resolved_members=resolved_members, reason_rule=reason_rule,
     )
     box1_pins = [pin for pin in reason_finding.get("pins", []) or []
                  if isinstance(pin, Mapping) and pin.get("role") == "input"
@@ -2392,9 +2475,11 @@ def _validate_mortgage_interest_explanation(value: Any) -> None:
             raise PresentationModelError(f"{path}.accounts[0].{group_name}: expected list")
         for index, item in enumerate(group):
             ip = f"{path}.accounts[0].{group_name}[{index}]"
-            _require_keys(item, frozenset({"findingId", "factType", "title", "response", "origin"}), frozenset(), ip)
+            _require_keys(item, frozenset({"findingId", "factType", "title", "response", "origin"}), frozenset({"responseLabel"}), ip)
             if not all(isinstance(item[key], str) and item[key] for key in ("findingId", "factType", "title", "response")):
                 raise PresentationModelError(f"{ip}: malformed current support value")
+            if "responseLabel" in item and (not isinstance(item["responseLabel"], str) or not item["responseLabel"]):
+                raise PresentationModelError(f"{ip}.responseLabel: expected a non-empty content description")
             origin = item["origin"]
             if group_name == "declaredDefaults":
                 _require_keys(origin, frozenset({"kind", "parameter"}), frozenset(), f"{ip}.origin")

@@ -13,7 +13,7 @@ from packages.kernel.currency import compute_currency
 from packages.kernel.facts import fact_id_for, facts_of
 from packages.kernel.findings import project
 from packages.tax.f1098_statement_recording import (
-    BUNDLE_ID, BUNDLE_VERSION, F1098RecordingRefused, ORDINARY_QUESTIONS,
+    BUNDLE_ID, F1098RecordingRefused, _questions_for_version,
     STATEMENT_BOX1, TIMING_QUESTIONS, USE_QUESTION, _token,
     answer_f1098_statement_answer_durably, answer_f1098_statement_timing_durably,
     correct_f1098_statement_answer_durably,
@@ -30,6 +30,8 @@ class F1098ReviewRefused(ValueError):
 QUESTIONS: dict[str, dict[str, Any]] = {
     "owns-the-home": {"question": "Do you own this home?", "help": "This asks about an ownership interest in the home described by this statement.", "labels": {"yes": "Yes, I own it", "no": "No", "cannot-tell": "I can't tell"}},
     "lives-there-most-of-the-time": {"question": "Is this the home where you live most of the time?", "help": "This is about where you live most of the time, not a second-home election.", "labels": {"yes": "Yes", "no": "No", "cannot-tell": "I can't tell"}},
+    "filing-unit-owns-home": {"question": "Do you own this home, or does your spouse if you file jointly?", "help": "Either spouse's sole ownership can satisfy the ownership part for a joint return. This question does not decide whether the filing unit uses this as its main home.", "labels": {"yes": "I own this home, or my spouse does if we file jointly", "no": "I do not own this home, and neither does my spouse if we file jointly", "cannot-tell": "I can't tell whether I own this home, or whether my spouse owns it if we file jointly"}},
+    "shared-main-home": {"question": "Is this the main home shared by your filing unit?", "help": "This asks whether this is the filing unit's shared main home. It does not treat either spouse's separate residence as sufficient by itself.", "labels": {"yes": "Yes", "no": "No", "cannot-tell": "I can't tell"}},
     "home-is-collateral": {"question": "Is this home collateral for the loan?", "help": "The lender can take the home if the loan is not paid.", "labels": {"yes": "Yes", "no": "No", "cannot-tell": "I can't tell"}},
     "owes-the-loan": {"question": "Do you or your spouse, if you file jointly, owe this loan?", "help": "Either spouse's obligation counts for a joint return.", "labels": {"yes": "Yes", "no": "No", "cannot-tell": "I can't tell"}},
     "paid-the-interest": {"question": "Who paid the interest reported on this statement?", "help": "For a joint return, include either spouse. “No” means neither spouse paid any and nobody paid any for you. Someone else paying some or all, or your filing unit paying only part, is a separate outside-coverage answer.", "labels": {"yes": "My filing unit paid all of it", "paid-by-others-or-partial": "Someone else paid some or all, or my filing unit paid only part", "no": "Neither spouse paid any, and nobody paid any for us", "cannot-tell": "I can't tell"}},
@@ -42,7 +44,9 @@ QUESTIONS: dict[str, dict[str, Any]] = {
 }
 
 
-def prepare_f1098_statement_review(log: ActLog, registry: Any, *, review_id: str, shown_at: str) -> dict[str, Any]:
+def prepare_f1098_statement_review(
+    log: ActLog, registry: Any, *, review_id: str, shown_at: str, bundle_version: str | None = None,
+) -> dict[str, Any]:
     """Take an immutable, recognizable snapshot of the unique current statement and answers."""
     contents = log.read()
     if contents.incomplete_tail is not None:
@@ -68,32 +72,45 @@ def prepare_f1098_statement_review(log: ActLog, registry: Any, *, review_id: str
     statement = state.fact_state.entities.get(keys["statement"])
     if payer is None or statement is None:
         raise F1098ReviewRefused("current Form 1098 statement entities are unavailable")
+    adoption = _bundle_adoption(contents.acts)
+    version = adoption["version"] if adoption is not None else (bundle_version or "v1")
+    if version not in {"v1", "v2"}:
+        raise F1098ReviewRefused("the current mortgage answer vocabulary adoption is unsupported")
+    if adoption is not None and bundle_version not in (None, version):
+        raise F1098ReviewRefused("the requested review vocabulary conflicts with current adoption")
+    bundle = load_f1098_circumstances_bundle(registry, version=version)
+    definitions = {row["id"]: row for row in bundle["fact_types"]}
     answers: dict[str, dict[str, Any]] = {}
-    for question in sorted(ORDINARY_QUESTIONS | TIMING_QUESTIONS):
+    selected_questions = _questions_for_version(version)
+    for question in sorted(selected_questions | TIMING_QUESTIONS):
         fact_id = fact_id_for(f"tax.us.2025.f1098.{question}", tuple(sorted(keys.items())))
         found = [(fid, row) for fid, row in state.findings.items()
                  if fid in current_ids and row.get("fact_id") == fact_id]
         if len(found) > 1:
             raise F1098ReviewRefused(f"multiple current answers for {question}")
+        definition = definitions[f"tax.us.2025.f1098.{question}"]
+        description_rows = definition.get("value_schema", {}).get("oneOf", [])
+        content_labels = {row.get("const"): row.get("description") for row in description_rows
+                          if isinstance(row, dict) and isinstance(row.get("const"), str)
+                          and isinstance(row.get("description"), str)}
+        labels = content_labels or QUESTIONS[question]["labels"]
         answers[question] = ({"state": "answered", "finding_id": found[0][0], "answer": found[0][1]["value"],
-                              "label": QUESTIONS[question]["labels"].get(found[0][1]["value"], str(found[0][1]["value"]))}
+                              "label": labels.get(found[0][1]["value"], str(found[0][1]["value"]))}
                              if found else {"state": "absent", "finding_id": None, "answer": None, "label": "Not answered"})
     use = answers[USE_QUESTION]["answer"]
     timing_relevant = use == "unrelated-personal-expense"
-    adoption = _bundle_adoption(contents.acts)
-    if adoption is not None and (adoption.get("id") != BUNDLE_ID or adoption.get("version") != BUNDLE_VERSION):
-        raise F1098ReviewRefused("the current mortgage answer vocabulary adoption is unsupported")
-    defaults = _timing_defaults(registry)
+    defaults = _timing_defaults(registry, version)
     for question in TIMING_QUESTIONS:
         answers[question]["relevance"] = "relevant" if timing_relevant else "retained-but-irrelevant"
         if answers[question]["state"] == "absent":
             answers[question]["defaultPolicy"] = {
-                **defaults[question], "status": "declared" if adoption == {"id": BUNDLE_ID, "version": BUNDLE_VERSION}
+                **defaults[question], "status": "declared" if adoption == {"id": BUNDLE_ID, "version": version}
                 else "proposed-until-bundle-adoption",
             }
             answers[question]["label"] = "Not answered" if timing_relevant else "Not asked for this use"
     return {
         "schema": "tax.f1098.statement-review.v1", "reviewId": review_id, "shownAt": shown_at,
+        "bundleVersion": version,
         "revision": contents.revision, "statement": {
             "keys": keys, "payerLabel": payer.entity["label"], "statementLabel": statement.entity["label"],
             "taxYear": keys["tax-year"], "box1": box1_finding["value"], "box1FindingId": box1_finding_id,
@@ -111,8 +128,8 @@ def _bundle_adoption(acts: tuple[dict[str, Any], ...]) -> dict[str, Any] | None:
     return None
 
 
-def _timing_defaults(registry: Any) -> dict[str, dict[str, Any]]:
-    bundle = load_f1098_circumstances_bundle(registry)
+def _timing_defaults(registry: Any, version: str = "v1") -> dict[str, dict[str, Any]]:
+    bundle = load_f1098_circumstances_bundle(registry, version=version)
     declarations = {row["id"]: row for row in bundle["fact_types"]}
     result: dict[str, dict[str, Any]] = {}
     for question in TIMING_QUESTIONS:
@@ -128,9 +145,13 @@ def _timing_defaults(registry: Any) -> dict[str, dict[str, Any]]:
 
 
 def _revalidate(log: ActLog, registry: Any, review: Mapping[str, Any]) -> dict[str, Any]:
+    selected_version = review.get("bundleVersion", "v1")
+    if selected_version not in {"v1", "v2"}:
+        raise F1098ReviewRefused("review has no supported selected vocabulary version")
     current = prepare_f1098_statement_review(log, registry,
                                             review_id=str(review.get("reviewId", "revalidation")),
-                                            shown_at=str(review.get("shownAt", "")))
+                                            shown_at=str(review.get("shownAt", "")),
+                                            bundle_version=str(selected_version))
     if current["revision"] != review.get("revision") or current["statement"] != review.get("statement"):
         raise F1098ReviewRefused("review is stale: statement source or revision changed")
     if current["questions"] != review.get("questions"):
@@ -140,13 +161,17 @@ def _revalidate(log: ActLog, registry: Any, review: Mapping[str, Any]) -> dict[s
 
 def save_f1098_statement_review(log: ActLog, registry: Any, review: Mapping[str, Any], *,
                                 answers: dict[str, str], submission_id: str,
-                                evidence_ids: dict[str, str], actor: str, at: str) -> dict[str, Any]:
+                                evidence_ids: dict[str, str], actor: str, at: str,
+                                bundle_version: str | None = None) -> dict[str, Any]:
     current = _revalidate(log, registry, review)
+    selected_version = str(current["bundleVersion"])
+    if bundle_version not in (None, selected_version):
+        raise F1098ReviewRefused("save-time vocabulary conflicts with the reviewed question set")
     try:
         return record_f1098_statement_answers_durably(
             log, registry, statement_keys=current["statement"]["keys"], answers=answers,
             submission_id=submission_id, evidence_ids=evidence_ids, actor=actor, at=at,
-            expected_revision=current["revision"],
+            expected_revision=current["revision"], bundle_version=selected_version,
         )
     except F1098RecordingRefused as exc:
         raise F1098ReviewRefused(str(exc)) from exc
@@ -205,7 +230,7 @@ def answer_f1098_statement_review_question(log: ActLog, registry: Any, review: M
         return answer_f1098_statement_answer_durably(
             log, registry, statement_keys=current["statement"]["keys"], question=question, answer=answer,
             submission_id=submission_id, evidence_id=evidence_id, actor=actor, at=at,
-            expected_revision=current["revision"],
+            expected_revision=current["revision"], bundle_version=str(current["bundleVersion"]),
         )
     except F1098RecordingRefused as exc:
         raise F1098ReviewRefused(str(exc)) from exc

@@ -20,6 +20,7 @@ from packages.tax.loader import load_f1098_circumstances_bundle
 
 BUNDLE_ID = "tax.us.2025.f1098-successor.vocabulary"
 BUNDLE_VERSION = "v1"
+SUPPORTED_BUNDLE_VERSIONS = frozenset({"v1", "v2"})
 ANSWER_EVIDENCE_KIND = "tax.mortgage.f1098-statement-answer"
 STATEMENT_BOX1 = "tax.us.2025.f1098.box1-mortgage-interest"
 TIMING_QUESTIONS = frozenset({
@@ -33,6 +34,17 @@ ORDINARY_QUESTIONS = frozenset({
     "paid-the-interest", "no-one-else-owes-it", USE_QUESTION, "this-is-the-original-loan",
     "mortgage-credit-certificate-received",
 })
+V2_ORDINARY_QUESTIONS = (ORDINARY_QUESTIONS - {
+    "owns-the-home", "lives-there-most-of-the-time",
+}) | {"filing-unit-owns-home", "shared-main-home"}
+
+
+def _questions_for_version(version: str) -> frozenset[str]:
+    if version == "v1":
+        return ORDINARY_QUESTIONS
+    if version == "v2":
+        return V2_ORDINARY_QUESTIONS
+    raise F1098RecordingRefused("the adopted mortgage answer vocabulary is unsupported")
 
 
 class F1098RecordingRefused(ValueError):
@@ -70,20 +82,32 @@ def _read_for_save(log: ActLog, expected_revision: int) -> LogContents:
     return before
 
 
-def _ensure_bundle(staged: list[dict[str, Any]], registry: Any, actor: str, at: str, suffix: str) -> None:
+def _adopted_bundle_version(staged: list[dict[str, Any]]) -> str | None:
+    for row in reversed(staged):
+        bundle = row.get("payload", {}).get("bundle", {}) if row.get("kind") == "bundle-adoption" else {}
+        if bundle.get("id") == BUNDLE_ID:
+            return bundle.get("version")
+    return None
+
+
+def _ensure_bundle(
+    staged: list[dict[str, Any]], registry: Any, actor: str, at: str, suffix: str,
+    requested_version: str | None = None,
+) -> None:
     state = project(tuple(copy.deepcopy(row) for row in staged), registry)
-    version = next((row.get("payload", {}).get("bundle", {}).get("version") for row in reversed(staged)
-                    if row.get("kind") == "bundle-adoption"
-                    and row.get("payload", {}).get("bundle", {}).get("id") == BUNDLE_ID), None)
-    if version is not None and version != BUNDLE_VERSION:
-        raise F1098RecordingRefused("the adopted mortgage answer vocabulary is not bundle v1")
-    if "tax.us.2025.f1098.owns-the-home" in state.fact_state.fact_types:
-        if version != BUNDLE_VERSION:
-            raise F1098RecordingRefused("the adopted mortgage answer vocabulary is not bundle v1")
+    adopted = _adopted_bundle_version(staged)
+    version = adopted or requested_version or BUNDLE_VERSION
+    if version not in SUPPORTED_BUNDLE_VERSIONS or (adopted is not None and requested_version not in (None, adopted)):
+        raise F1098RecordingRefused("the selected mortgage answer vocabulary is unsupported or would downgrade adoption")
+    selected_ownership = ("tax.us.2025.f1098.filing-unit-owns-home" if version == "v2"
+                          else "tax.us.2025.f1098.owns-the-home")
+    if selected_ownership in state.fact_state.fact_types:
+        if adopted != version:
+            raise F1098RecordingRefused("the selected mortgage answer vocabulary conflicts with current adoption")
         return
-    bundle = load_f1098_circumstances_bundle(registry)
-    if bundle.get("id") != BUNDLE_ID or bundle.get("version") != BUNDLE_VERSION:
-        raise F1098RecordingRefused("the selected circumstance answer bundle v1 is unavailable")
+    bundle = load_f1098_circumstances_bundle(registry, version=version)
+    if bundle.get("id") != BUNDLE_ID or bundle.get("version") != version:
+        raise F1098RecordingRefused(f"the selected circumstance answer bundle {version} is unavailable")
     act = _act(len(staged), "bundle-adoption", {"bundle": bundle}, actor, at, suffix)
     staged.append(act)
 
@@ -92,8 +116,8 @@ def _require_selected_bundle(staged: list[dict[str, Any]]) -> None:
     latest = next((row.get("payload", {}).get("bundle", {}) for row in reversed(staged)
                    if row.get("kind") == "bundle-adoption" and
                    row.get("payload", {}).get("bundle", {}).get("id") == BUNDLE_ID), None)
-    if latest is None or latest.get("version") != BUNDLE_VERSION:
-        raise F1098RecordingRefused("the current mortgage answer vocabulary is not adopted at bundle v1")
+    if latest is None or latest.get("version") not in SUPPORTED_BUNDLE_VERSIONS:
+        raise F1098RecordingRefused("the current mortgage answer vocabulary is not an adopted supported version")
 
 
 def _require_current_statement(state: Any, keys: dict[str, str]) -> None:
@@ -151,14 +175,14 @@ def _stage_answer(
 def record_f1098_statement_answers_durably(
     log: ActLog, registry: Any, *, statement_keys: dict[str, str], answers: dict[str, str],
     submission_id: str, evidence_ids: dict[str, str], actor: str, at: str,
-    expected_revision: int,
+    expected_revision: int, bundle_version: str | None = None,
 ) -> dict[str, Any]:
     """Admit one initial nine-answer account (and optional relevant timing pair) atomically."""
     _require_provenance(submission_id, actor, at)
     before = _read_for_save(log, expected_revision)
     suffix = _token(submission_id)
     staged = list(copy.deepcopy(before.acts))
-    _ensure_bundle(staged, registry, actor, at, suffix)
+    _ensure_bundle(staged, registry, actor, at, suffix, bundle_version)
     _validate_answers(staged, registry, statement_keys, answers, evidence_ids, submission_id=submission_id)
     state = project(tuple(copy.deepcopy(row) for row in staged), registry)
     _require_current_statement(state, statement_keys)
@@ -188,11 +212,14 @@ def _validate_answers(staged: list[dict[str, Any]], registry: Any, keys: dict[st
     required_keys = {"payer", "statement", "tax-year"}
     if set(keys) != required_keys or not all(isinstance(v, str) and v for v in keys.values()):
         raise F1098RecordingRefused("statement identity must be payer, statement and tax-year")
-    bundle = load_f1098_circumstances_bundle(registry)
+    version = _adopted_bundle_version(staged) or BUNDLE_VERSION
+    if version not in SUPPORTED_BUNDLE_VERSIONS:
+        raise F1098RecordingRefused("the adopted mortgage answer vocabulary is unsupported")
+    bundle = load_f1098_circumstances_bundle(registry, version=version)
     declarations = {item["id"]: item for item in bundle["fact_types"]}
     question_by_suffix = {fact_id.rsplit(".", 1)[-1]: fact_id for fact_id in declarations}
-    expected = ORDINARY_QUESTIONS
-    allowed = ORDINARY_QUESTIONS | TIMING_QUESTIONS
+    expected = _questions_for_version(version)
+    allowed = expected | TIMING_QUESTIONS
     if (not allow_partial and not expected.issubset(answers)) or set(answers) - allowed:
         raise F1098RecordingRefused("submission must contain the nine ordinary answers and only known questions")
     use = answers.get(USE_QUESTION)
@@ -216,7 +243,8 @@ def _validate_answers(staged: list[dict[str, Any]], registry: Any, keys: dict[st
     for suffix, answer in answers.items():
         fact_type = declarations[question_by_suffix[suffix]]
         schema = fact_type["value_schema"]
-        if answer == "not-asked" or answer not in schema.get("enum", []):
+        offered = schema.get("enum", [row.get("const") for row in schema.get("oneOf", [])])
+        if answer == "not-asked" or answer not in offered:
             raise F1098RecordingRefused(f"answer is not an offered value for {suffix}")
         fact_id = fact_id_for(question_by_suffix[suffix], tuple(sorted(keys.items())))
         if fact_id not in facts_of(state.fact_state):
@@ -251,7 +279,8 @@ def correct_f1098_statement_answer_durably(
     _require_current_statement(state, statement_keys)
     current_ids = compute_currency(state).current_finding_ids
     question_id = f"tax.us.2025.f1098.{question}"
-    if question not in ORDINARY_QUESTIONS | TIMING_QUESTIONS:
+    version = _adopted_bundle_version(staged) or BUNDLE_VERSION
+    if question not in _questions_for_version(version) | TIMING_QUESTIONS:
         raise F1098RecordingRefused("question is not part of the selected Form 1098 answer set")
     fact_id = fact_id_for(question_id, tuple(sorted(statement_keys.items())))
     current = _current_finding(state, fact_id, current_ids)
@@ -277,15 +306,17 @@ def correct_f1098_statement_answer_durably(
 def answer_f1098_statement_answer_durably(
     log: ActLog, registry: Any, *, statement_keys: dict[str, str], question: str, answer: str,
     submission_id: str, evidence_id: str, actor: str, at: str, expected_revision: int,
+    bundle_version: str | None = None,
 ) -> dict[str, Any]:
     """Record one absent ordinary or timing answer as a new finding."""
-    if question not in ORDINARY_QUESTIONS | TIMING_QUESTIONS:
-        raise F1098RecordingRefused("question is not part of the selected Form 1098 answer set")
     _require_provenance(submission_id, actor, at)
     before = _read_for_save(log, expected_revision)
     suffix = _token(submission_id)
     staged = list(copy.deepcopy(before.acts))
-    _ensure_bundle(staged, registry, actor, at, suffix)
+    _ensure_bundle(staged, registry, actor, at, suffix, bundle_version)
+    version = _adopted_bundle_version(staged) or BUNDLE_VERSION
+    if question not in _questions_for_version(version) | TIMING_QUESTIONS:
+        raise F1098RecordingRefused("question is not part of the selected Form 1098 answer set")
     state = project(tuple(copy.deepcopy(row) for row in staged), registry)
     _require_current_statement(state, statement_keys)
     keys = tuple(sorted(statement_keys.items()))
@@ -341,7 +372,8 @@ def withdraw_f1098_statement_answer_durably(
     if len(exact_sources) != 1:
         raise F1098RecordingRefused("withdrawal requires one exact current Form 1098 box 1 source")
     source_keys = dict(lattice[exact_sources[0][1]["fact_id"]].keys)
-    allowed_fact_types = {f"tax.us.2025.f1098.{q}" for q in ORDINARY_QUESTIONS | TIMING_QUESTIONS}
+    version = _adopted_bundle_version(staged) or BUNDLE_VERSION
+    allowed_fact_types = {f"tax.us.2025.f1098.{q}" for q in _questions_for_version(version) | TIMING_QUESTIONS}
     for finding_id in current_findings:
         if finding_id not in current_ids:
             raise F1098RecordingRefused("withdrawal target is no longer current")

@@ -567,6 +567,7 @@ function validateMortgageExplanation(block) {
   const finiteAmount = (value) => typeof value === "number" && Number.isFinite(value);
   const validItems = (items, defaults) => Array.isArray(items) && items.every((item) => item &&
     ["findingId", "factType", "title", "response"].every((key) => typeof item[key] === "string" && item[key]) &&
+    (item.responseLabel === undefined || (typeof item.responseLabel === "string" && item.responseLabel)) &&
     (defaults ? item.origin && item.origin.kind === "declared-default" && item.origin.parameter &&
       typeof item.origin.parameter.id === "string" && item.origin.parameter.id &&
       typeof item.origin.parameter.version === "string" && item.origin.parameter.version :
@@ -608,7 +609,7 @@ function renderMortgageExplanation(container, block) {
       groups.appendChild(el("section", null, [el("h4", null, [title]), el("ul", null, content)]));
     }
     for (const [key, title] of [["sourceDocuments", "Current source-document values"], ["personAnswers", "Current ordinary answers"], ["declaredDefaults", "Current declared defaults"]]) {
-      const items = row[key].map((item) => el("li", null, [item.title + ": " + item.response + (item.origin.kind === "declared-default" ? " — application default (" + item.origin.parameter.id + "@" + item.origin.parameter.version + ")" : " — recorded value")]));
+      const items = row[key].map((item) => el("li", null, [item.title + ": " + (item.responseLabel || item.response) + (item.origin.kind === "declared-default" ? " — application default (" + item.origin.parameter.id + "@" + item.origin.parameter.version + ")" : " — recorded value")]));
       if (items.length) groups.appendChild(el("section", null, [el("h4", null, [title]), el("ul", null, items)]));
     }
     details.appendChild(groups);
@@ -616,7 +617,7 @@ function renderMortgageExplanation(container, block) {
   } else {
     const details = el("details", null, [el("summary", null, ["Current answers supporting this result"])]);
     for (const [key, title] of [["sourceDocuments", "Current source-document values"], ["personAnswers", "Current ordinary answers"], ["declaredDefaults", "Current declared defaults"]]) {
-      const items = row[key].map((item) => el("li", null, [item.title + ": " + item.response + (item.origin.kind === "declared-default" ? " — application default (" + item.origin.parameter.id + "@" + item.origin.parameter.version + ")" : " — recorded value")]));
+      const items = row[key].map((item) => el("li", null, [item.title + ": " + (item.responseLabel || item.response) + (item.origin.kind === "declared-default" ? " — application default (" + item.origin.parameter.id + "@" + item.origin.parameter.version + ")" : " — recorded value")]));
       if (items.length) details.appendChild(el("section", null, [el("h4", null, [title]), el("ul", null, items)]));
     }
     card.appendChild(details);
