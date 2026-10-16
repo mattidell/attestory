@@ -59,6 +59,7 @@ _RULE_ARTIFACT_SCHEMAS = frozenset(
         "rule-artifact.v11",
         "rule-artifact.v12",
         "rule-artifact.v13",
+        "rule-artifact.v14",
     }
 )
 _RULE_DECLARED_REFS_OUTSIDE_REQUIRES = frozenset(
@@ -74,6 +75,7 @@ _RULE_DECLARED_REFS_OUTSIDE_REQUIRES = frozenset(
         "rule-artifact.v11",
         "rule-artifact.v12",
         "rule-artifact.v13",
+        "rule-artifact.v14",
     }
 )
 _FORM_FIELD_SCHEMAS = frozenset({"form-field.v1", "form-field.v2", "form-field.v3"})
@@ -201,7 +203,7 @@ def build_dependency_edges(
                     cite_ver = citation.get("version")
                     if cite_ver is None or corpus[cite_id].get("version") == cite_ver:
                         edges[cid].add(cite_id)
-            if schema in ("rule-artifact.v10", "rule-artifact.v11", "rule-artifact.v12", "rule-artifact.v13"):
+            if schema in ("rule-artifact.v10", "rule-artifact.v11", "rule-artifact.v12", "rule-artifact.v13", "rule-artifact.v14"):
                 for node in _iter_link_coverage_nodes(value):
                     links_name = node.get("links")
                     reductions_name = node.get("reductions")
@@ -221,7 +223,7 @@ def build_dependency_edges(
                     parameter = empty.get("parameter") if isinstance(empty, dict) else None
                     if isinstance(parameter, dict) and parameter.get("id") in ids:
                         edges[cid].add(parameter["id"])
-            if schema in ("rule-artifact.v12", "rule-artifact.v13"):
+            if schema in ("rule-artifact.v12", "rule-artifact.v13", "rule-artifact.v14"):
                 for node in _iter_link_count_nodes(value):
                     links_name = node.get("links")
                     if isinstance(links_name, str):

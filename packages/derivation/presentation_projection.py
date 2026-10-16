@@ -2827,7 +2827,7 @@ def build_presentation_model(
             _require_declared_field_citation_chain(field, row, rules_by_id, citations)
         producer = rules_by_id.get(str(row.get("artifact_id")))
         if (resolved["disposition"] == "blocked" and producer is not None
-                and producer.get("schema") == "rule-artifact.v13" and "selection" in producer):
+                and producer.get("schema") in ("rule-artifact.v13", "rule-artifact.v14") and "selection" in producer):
             reasons = _selection_blocked_reasons(
                 row, producer, resolved_members=resolved_members, rules_by_id=rules_by_id, state=state,
                 publications_by_id=publications_by_id, dispositions=dispositions,

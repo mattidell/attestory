@@ -211,7 +211,7 @@ def _resolved_run_material(graph: Any) -> _ResolvedRunMaterial:
     rules = [
         member for member in members
         if member.get("schema") in {"rule-artifact.v1", "rule-artifact.v2", "rule-artifact.v3", "rule-artifact.v4", "rule-artifact.v5", "rule-artifact.v6", "rule-artifact.v7", "rule-artifact.v8", "rule-artifact.v9", "rule-artifact.v10", "rule-artifact.v11",
-                "rule-artifact.v12", "rule-artifact.v13", "attachment-rule.v1", "attachment-rule.v2", "attachment-rule.v3", "attachment-rule.v4", "attachment-rule.v5", "attachment-rule.v6", "attachment-rule.v8", "attachment-rule.v11"}
+                "rule-artifact.v12", "rule-artifact.v13", "rule-artifact.v14", "attachment-rule.v1", "attachment-rule.v2", "attachment-rule.v3", "attachment-rule.v4", "attachment-rule.v5", "attachment-rule.v6", "attachment-rule.v8", "attachment-rule.v11"}
     ]
     parameters, parameter_index = _parameters_by_exact_version(members)
     families = [member for member in members if member.get("schema") in {"source-family.v1", "source-family.v2"}]
@@ -303,7 +303,7 @@ def _resolved_run_material(graph: Any) -> _ResolvedRunMaterial:
     # declared pins, structurally, the same way link_coverage's ``links``
     # is found above.
     for rule in rules:
-        if rule.get("schema") not in ("rule-artifact.v11", "rule-artifact.v12", "rule-artifact.v13"):
+        if rule.get("schema") not in ("rule-artifact.v11", "rule-artifact.v12", "rule-artifact.v13", "rule-artifact.v14"):
             continue
         for pin_field in ("subject", "joined"):
             pin = rule.get(pin_field)
