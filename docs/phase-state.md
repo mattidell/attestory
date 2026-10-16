@@ -1,73 +1,51 @@
 <!-- foreman-context-v1
 {
   "version": 1,
-  "phase": "Evolving Workspace Accounts",
-  "topic": "saved-account-resumption",
-  "active_plan": "docs/phases/evolving-workspace-accounts/milestones/saved-account-resumption.md",
-  "milestone_state": "closed",
-  "status": "Closed. A synthetic correction account can be initialized once, corrected, stopped and reopened by a new process from its files alone; the reopened page shows each loan-cost answer with its predecessor, the latest earlier result and the calculation state, calculates without saving again, and continues the correction. The foreman recommends concluding the phase; that is the owner's decision.",
-  "current_role": "Foreman — select next milestone",
-  "current_prompt": "docs/phases/evolving-workspace-accounts/evolving-workspace-accounts-roadmap.md"
+  "phase": "Tax Circumstance Breadth",
+  "topic": "mortgage-interest-circumstances",
+  "active_plan": "docs/phases/tax-circumstance-breadth/milestones/mortgage-interest-circumstances.md",
+  "milestone_state": "planned",
+  "status": "Initial product phase and opening milestone plan. Investigate mortgage-interest circumstances and assumptions before selecting implementation. No build charter or production change yet.",
+  "current_role": "Foreman — refine the mortgage-interest plan from the ordinary case and current behavior",
+  "current_prompt": "docs/phases/tax-circumstance-breadth/milestones/mortgage-interest-circumstances.md"
 }
 -->
 
 # Phase State
 
-## Current result
+## Current direction
 
-**Returning to a Saved Account is closed.** A person can initialize a
-synthetic student-loan account once, in a directory outside the repository,
-and correct a borrowing's loan-cost answer through the correction page. They
-can stop the process. A new process then opens the same directory from its
-files alone, without seeding it. The opened page shows:
+The owner has shelved Shared Understanding in Development and returned to
+product work. Tax Circumstance Breadth extends the student-loan approach to
+additional tax areas: ordinary circumstances are recorded, translated into
+tax concepts, used by calculations and explained in a correctable account.
 
-- each borrowing's current loan-cost answer and its earlier answer;
-- the latest earlier result, labelled as earlier;
-- whether a calculation started and did not finish.
-
-Calculating saves no answer. The correction interaction then continues, and
-the next correction names the previous one as its predecessor.
-
-No saved result is presented as describing the current answers, because the
-files do not establish that. A token from a stopped process is refused, and
-the page says it cannot tell what happened rather than "Not saved". Missing,
-duplicate and unreadable result files, and an unreadable record stream, each
-have their own sentence, and the answers stay visible in every case.
-
-There is no new schema, ADR, durable store or calculation change. The wording
-is provisional, and accounts are synthetic only.
+The proposed first application is mortgage interest: what the loan paid for
+and how that bears on the interest reported on Form 1098. The form calculation
+already has a bounded route; ordinary-circumstance support and its assumption
+policy remain to be designed. The next tax area remains unselected.
 
 ## Begin here
 
-- [Milestone plan](phases/evolving-workspace-accounts/milestones/saved-account-resumption.md):
-  the P0 trace, the Track 0 route, the integrated reviews and repairs, the
-  outcome, and the phase assessment.
-- [Retrospective](milestone-retrospectives/2026-10-11-saved-account-resumption.md):
-  lessons and follow-ups.
-- [Evolving Workspace Accounts roadmap](phases/evolving-workspace-accounts/evolving-workspace-accounts-roadmap.md).
-- README, "Correction session walkthrough" and "Returning to a saved
-  account".
+- [Phase purpose and provisional endpoint](phases/tax-circumstance-breadth/tax-circumstance-breadth-overview.md).
+- [Roadmap](phases/tax-circumstance-breadth/tax-circumstance-breadth-roadmap.md).
+- [Opening milestone actions and decisions](phases/tax-circumstance-breadth/milestones/mortgage-interest-circumstances.md).
 
-## Immediate next action
+Start with the person's situation and the current live calculation. Develop
+the plan incrementally, and review its first concrete account before selecting
+a representation or build. Defaults and assumptions must have deliberate
+behavior for the selected case; no general framework is already selected.
 
-The owner decides whether to conclude Evolving Workspace Accounts. The
-foreman recommends concluding it. The phase's bounded exit was met by the
-first two milestones, and this one adds the returning-user path. Three items
-stay open, and none needs a new milestone in this phase:
+## Inherited position
 
-- the owner's visual check of the interaction, with any wording changes;
-- an independent reader assessment;
-- the real-workspace residency decision.
+Evolving Workspace Accounts is concluded at the bounded result delivered
+through PR #207. Its visual review, independent reader assessment and use on
+personal workspaces remain open. The shelved experiments and their evaluation
+are preserved on `milestone/working-model-experiment-statement-scope`; they are
+not dependencies of this product branch. This branch starts from `origin/main`.
 
-No tax case is proposed. The milestone PR is published after curation, the
-final review and CI binding its head. The owner merges.
-
-## Parked
-
-- The five conservatively blocked states from the account-refinement
-  milestone, and whether a shared-answer "no" should reach the whole return.
-- General assumption management, allocation and mixed-period treatment,
-  institutional verification, free text, and a general correction or intake
-  platform.
-- Use of the correction session on a real workspace (the residency path).
-- Recording a calculation that fails before its run starts.
+Interest allocation, mixed-period treatment, external institutional
+verification, general intake and the student-loan shared-answer restrictions
+remain separate questions. Revisit a deferral when the new case needs it,
+without treating an earlier software limitation as the definition of a tax
+concept or as a permanent product decision.
