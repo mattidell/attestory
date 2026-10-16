@@ -32,6 +32,7 @@ from __future__ import annotations
 
 import re
 import inspect
+import math
 from decimal import Decimal, InvalidOperation
 from typing import Any, Mapping, Sequence, cast
 
@@ -203,8 +204,8 @@ def _value_descriptions(resolved_members: Sequence[Mapping[str, Any]]) -> dict[s
 
 def _statement_label(keys: Mapping[str, str], state: FindingState) -> dict[str, str]:
     label: dict[str, str] = {}
-    for key_name in ("lender", "statement"):
-        entity_id = keys.get(key_name)
+    for key_name, source_key in (("lender", "payer" if "payer" in keys else "lender"), ("statement", "statement")):
+        entity_id = keys.get(source_key)
         lifecycle = state.fact_state.entities.get(entity_id) if entity_id else None
         if lifecycle is not None and lifecycle.status == "current":
             recorded = lifecycle.entity.get("label")
@@ -1065,6 +1066,17 @@ _SLI_FILING_STATUS_FACT_TYPE = "tax.us.2025.filing-status"
 _SLI_SUPPORTED_VALUE = "plain-case-supported"
 LINE21_EXPLANATION_VERSION = "line21-explanation.v1"
 
+_MORTGAGE_BOX1_FACT_TYPE = "tax.us.2025.f1098.box1-mortgage-interest"
+_MORTGAGE_REASON_SYMBOL = "tax.us.2025.f1098.residence-interest-reason"
+_MORTGAGE_REASON_RULE_ID = "tax.us.2025.rule.f1098-residence-interest-reason"
+_MORTGAGE_AMOUNT_SYMBOL = "tax.us.2025.schedule-a.line8a"
+_MORTGAGE_AMOUNT_RULE_ID = "tax.us.2025.rule.f1098-line8a"
+_MORTGAGE_COMPLETED_ZERO_REASONS = frozenset({
+    "not-collateral", "not-paid", "use-unrelated-personal-expense",
+})
+_MORTGAGE_ANSWER_PREFIX = "tax.us.2025.f1098."
+MORTGAGE_EXPLANATION_VERSION = "mortgage-interest-explanation.v1"
+
 
 def _sli_statement_identity(raw_keys: Any) -> tuple[str, str, str] | None:
     keys = dict(raw_keys)
@@ -1297,6 +1309,130 @@ _SLI_PLAIN_RESPONSE = {
 }
 
 
+def _exact_rule_basis(
+    finding: Mapping[str, Any], *, resolved_members: Sequence[Mapping[str, Any]],
+    expected_rule_id: str | None = None,
+) -> tuple[Mapping[str, Any] | None, Mapping[str, Any]]:
+    """Load the declared basis from the exact computation rule pinned by a result."""
+    pins = [
+        pin for pin in finding.get("pins", []) or []
+        if isinstance(pin, Mapping) and pin.get("role") == "computation"
+        and (expected_rule_id is None or pin.get("id") == expected_rule_id)
+    ]
+    if len(pins) != 1:
+        raise PresentationModelError("result does not name exactly one producing computation rule")
+    pin = pins[0]
+    matches = [
+        member for member in resolved_members
+        if member.get("id") == pin.get("id") and member.get("version") == pin.get("version")
+        and "publishes" in member
+    ]
+    if len(matches) != 1:
+        raise PresentationModelError(
+            f"computation pin {pin.get('id')!r}@{pin.get('version')!r} has no unique exact resolved rule",
+        )
+    basis = matches[0].get("basis")
+    if basis is None:
+        return None, pin
+    if not isinstance(basis, Mapping) or set(basis) != {"said", "derived", "assumed", "left_with_person"}:
+        raise PresentationModelError(f"{pin.get('id')}@{pin.get('version')} has a malformed declared basis")
+    if any(not isinstance(basis[key], list) or not all(isinstance(item, str) and item for item in basis[key])
+           for key in ("said", "derived", "assumed", "left_with_person")):
+        raise PresentationModelError(f"{pin.get('id')}@{pin.get('version')} has malformed basis groups")
+    return basis, pin
+
+
+def _mortgage_basis_answers(
+    finding: Mapping[str, Any], *, publications_by_id: Mapping[str, Mapping[str, Any]],
+    state: FindingState, fact_map: Mapping[str, Any],
+) -> dict[str, list[dict[str, Any]]]:
+    from packages.kernel.currency import compute_currency
+
+    current = compute_currency(state).current_finding_ids
+    groups: dict[str, dict[tuple[str, str], dict[str, Any]]] = {
+        "sourceDocuments": {}, "personAnswers": {}, "declaredDefaults": {},
+    }
+    pending = [str(finding.get("id"))]
+    visited: set[str] = set()
+    while pending:
+        pub_id = pending.pop()
+        if pub_id in visited:
+            continue
+        visited.add(pub_id)
+        publication = publications_by_id.get(pub_id)
+        if publication is None:
+            continue
+        pins = publication.get("pins", []) or []
+        default_info = publication.get("resolved_input")
+        is_default = isinstance(default_info, Mapping) and default_info.get("origin") == "declared_default"
+        for pin in pins:
+            if isinstance(pin, Mapping) and pin.get("role") in _DEPENDENCY_ROLES:
+                child_id = pin.get("id")
+                if isinstance(child_id, str) and child_id in publications_by_id:
+                    pending.append(child_id)
+                elif isinstance(child_id, str) and child_id in current:
+                    source = state.findings.get(child_id)
+                    fact = fact_map.get(str(source.get("fact_id"))) if source is not None else None
+                    fact_type = fact.fact_type_id if fact is not None else ""
+                    if not fact_type.startswith(_MORTGAGE_ANSWER_PREFIX) or fact_type == _MORTGAGE_BOX1_FACT_TYPE:
+                        continue
+                    fact_type_definition = state.fact_state.fact_types.get(fact_type)
+                    title = fact_type_definition.get("title") if isinstance(fact_type_definition, Mapping) else None
+                    if not isinstance(title, str) or not title:
+                        raise PresentationModelError(f"mortgage support {fact_type!r} has no content title")
+                    value = str(source.get("value")) if source is not None else ""
+                    group = "sourceDocuments" if ".box" in fact_type else "personAnswers"
+                    groups[group][(fact_type, child_id)] = {
+                        "findingId": child_id, "factType": fact_type, "title": title,
+                        "response": value, "origin": {"kind": "recorded", "findingId": child_id},
+                    }
+        fact_type = str(publication.get("symbol", "")).split("|", 1)[0]
+        if not fact_type.startswith(_MORTGAGE_ANSWER_PREFIX):
+            continue
+        if is_default:
+            assert isinstance(default_info, Mapping)
+            fact_id = default_info.get("fact_id")
+            parameter_pins = [
+                {"id": pin.get("id"), "version": pin.get("version")}
+                for pin in pins if isinstance(pin, Mapping) and pin.get("role") == "parameter"
+            ]
+            if fact_id != fact_type or len(parameter_pins) != 1 or not all(
+                isinstance(value, str) and value for value in parameter_pins[0].values()
+            ):
+                raise PresentationModelError("declared-default mortgage input lacks exact fact and parameter provenance")
+            group = "declaredDefaults"
+            finding_id = str(publication.get("id"))
+            raw_value = publication.get("value")
+            origin: dict[str, Any] = {"kind": "declared-default", "parameter": parameter_pins[0]}
+        else:
+            finding_id = str(publication.get("id"))
+            if finding_id not in current:
+                continue
+            source = state.findings.get(finding_id)
+            fact = fact_map.get(str(source.get("fact_id"))) if source is not None else None
+            raw_value = source.get("value") if source is not None else publication.get("value")
+            if fact is None:
+                continue
+            group = "sourceDocuments" if ".box" in fact_type else "personAnswers"
+            origin = {"kind": "recorded", "findingId": finding_id}
+        if fact_type == _MORTGAGE_BOX1_FACT_TYPE:
+            continue  # rendered separately as the statement's reported box 1 amount
+        fact_type_definition = state.fact_state.fact_types.get(fact_type)
+        title = fact_type_definition.get("title") if isinstance(fact_type_definition, Mapping) else None
+        if not isinstance(title, str) or not title:
+            raise PresentationModelError(f"mortgage support {fact_type!r} has no content title")
+        value = str(raw_value)
+        item: dict[str, Any] = {
+            "findingId": finding_id, "factType": fact_type, "title": title,
+            "response": value.replace("-", " "), "origin": origin,
+        }
+        if group == "sourceDocuments":
+            item["response"] = value
+        groups[group][(fact_type, finding_id)] = item
+    return {key: sorted(items.values(), key=lambda item: (item["factType"], item["findingId"]))
+            for key, items in groups.items()}
+
+
 def _sli_combined_adopted(resolved_members: Sequence[Mapping[str, Any]]) -> bool:
     return any(member.get("id") == _SLI_COMBINED_RULE_ID for member in resolved_members)
 
@@ -1448,23 +1584,11 @@ def _sli_support_basis(
     support_finding: Mapping[str, Any], *, resolved_members: Sequence[Mapping[str, Any]],
     publications_by_id: Mapping[str, Mapping[str, Any]], state: FindingState, fact_map: Mapping[str, Any],
 ) -> dict[str, Any]:
-    rule_pin = next(
-        (pin for pin in support_finding.get("pins", []) or []
-         if isinstance(pin, Mapping) and pin.get("role") == "computation" and pin.get("id") == _SLI_SUPPORT_RULE_ID),
-        None,
+    basis, rule_pin = _exact_rule_basis(
+        support_finding, resolved_members=resolved_members, expected_rule_id=_SLI_SUPPORT_RULE_ID,
     )
-    if rule_pin is None:
-        raise PresentationModelError("support publication does not pin its own producing rule")
-    rule = next(
-        (member for member in resolved_members
-         if member.get("id") == _SLI_SUPPORT_RULE_ID and member.get("version") == rule_pin.get("version")),
-        None,
-    )
-    basis = rule.get("basis") if rule is not None else None
-    if not isinstance(basis, Mapping) or "assumed" not in basis or "left_with_person" not in basis:
-        raise PresentationModelError(
-            f"{_SLI_SUPPORT_RULE_ID}@{rule_pin.get('version')} has no declared basis to show",
-        )
+    if basis is None:
+        raise PresentationModelError(f"{_SLI_SUPPORT_RULE_ID}@{rule_pin['version']} has no declared basis to show")
     return {
         "ruleId": _SLI_SUPPORT_RULE_ID,
         "ruleVersion": str(rule_pin.get("version")),
@@ -1480,22 +1604,10 @@ def _sli_cover_basis(
     combined_finding: Mapping[str, Any], *, resolved_members: Sequence[Mapping[str, Any]],
     stands_in_for: list[str], older_source: tuple[str, Mapping[str, Any], Any],
 ) -> dict[str, Any]:
-    rule_pin = next(
-        (pin for pin in combined_finding.get("pins", []) or []
-         if isinstance(pin, Mapping) and pin.get("role") == "computation"
-         and pin.get("id") == _SLI_COMBINED_RULE_ID),
-        None,
+    basis, rule_pin = _exact_rule_basis(
+        combined_finding, resolved_members=resolved_members, expected_rule_id=_SLI_COMBINED_RULE_ID,
     )
-    if rule_pin is None:
-        raise PresentationModelError("combined publication does not pin the combined-standing rule")
-    matches = [
-        member for member in resolved_members
-        if member.get("id") == _SLI_COMBINED_RULE_ID and member.get("version") == rule_pin.get("version")
-    ]
-    if len(matches) != 1:
-        raise PresentationModelError("combined publication does not pin exactly one resolved rule")
-    basis = matches[0].get("basis")
-    if not isinstance(basis, Mapping) or "assumed" not in basis or "left_with_person" not in basis:
+    if basis is None:
         raise PresentationModelError(
             f"{_SLI_COMBINED_RULE_ID}@{rule_pin.get('version')} has no declared basis to show",
         )
@@ -2092,9 +2204,219 @@ def _validate_line21_explanation(value: Any) -> None:
                 raise PresentationModelError(f"{pp}.value: expected a string or number")
             for key in ("label", "title"):
                 if key in parameter and (not isinstance(parameter[key], str) or not parameter[key]):
-                    raise PresentationModelError(f"{pp}.{key}: expected non-empty string")
+                    raise PresentationModelError(f"{pp}.{key}: expected a non-empty string")
 
 
+def _mortgage_interest_explanation(
+    *, resolved_members: Sequence[Mapping[str, Any]], state: FindingState,
+    publications: Sequence[Any], publications_by_id: Mapping[str, Mapping[str, Any]],
+) -> dict[str, Any] | None:
+    """Project one completed, current mortgage account from the saved run."""
+    from packages.kernel.currency import compute_currency
+    from packages.kernel.facts import facts_of
+
+    fact_map = facts_of(state.fact_state)
+    current = compute_currency(state).current_finding_ids
+    reason_publications = [
+        pub.finding for pub in publications
+        if isinstance(pub.finding, Mapping) and str(pub.finding.get("symbol", "")).startswith(_MORTGAGE_REASON_SYMBOL + "|")
+    ]
+    amount_publications = [
+        pub.finding for pub in publications
+        if isinstance(pub.finding, Mapping) and pub.finding.get("symbol") == _MORTGAGE_AMOUNT_SYMBOL
+    ]
+
+    def identity_from_pins(finding: Mapping[str, Any]) -> tuple[str, str, str] | None:
+        found: set[tuple[str, str, str]] = set()
+        for pin in finding.get("pins", []) or []:
+            if not isinstance(pin, Mapping) or pin.get("role") != "input":
+                continue
+            source = state.findings.get(str(pin.get("id")))
+            fact = fact_map.get(str(source.get("fact_id"))) if source is not None else None
+            if fact is None or fact.fact_type_id != _MORTGAGE_BOX1_FACT_TYPE:
+                continue
+            keys = dict(fact.keys)
+            values = (keys.get("payer"), keys.get("statement"), keys.get("tax-year"))
+            if all(isinstance(value, str) and value for value in values):
+                found.add((str(values[0]), str(values[1]), str(values[2])))
+        if len(found) > 1:
+            raise PresentationModelError("mortgage result pins more than one statement")
+        return next(iter(found)) if found else None
+
+    reason_rows = [(finding, identity_from_pins(finding)) for finding in reason_publications]
+    amount_rows = [(finding, identity_from_pins(finding)) for finding in amount_publications]
+
+    # No completed pair and multiple statements remain outside this singleton
+    # account. Once both completed publications exist, identity must join exactly.
+    if len(reason_rows) > 1 or len(amount_rows) > 1:
+        return None
+    if not reason_rows or not amount_rows:
+        return None
+    reason_publication, reason_identity = reason_rows[0]
+    amount_publication, amount_identity = amount_rows[0]
+    if reason_identity is None or reason_identity != amount_identity:
+        raise PresentationModelError("completed mortgage reason and amount do not share one recorded statement identity")
+    ident = reason_identity
+    reason_finding = reason_publication
+    amount_finding = amount_publication
+    reason = str(reason_finding.get("value"))
+    if reason not in {"qualified", *_MORTGAGE_COMPLETED_ZERO_REASONS}:
+        return None
+
+    reason_basis, reason_pin = _exact_rule_basis(
+        reason_publication, resolved_members=resolved_members, expected_rule_id=_MORTGAGE_REASON_RULE_ID,
+    )
+    amount_basis, amount_pin = _exact_rule_basis(
+        amount_publication, resolved_members=resolved_members, expected_rule_id=_MORTGAGE_AMOUNT_RULE_ID,
+    )
+    reason_rule = next(member for member in resolved_members
+                       if member.get("id") == reason_pin["id"] and member.get("version") == reason_pin["version"])
+    def mappings(value: Any) -> list[Mapping[str, Any]]:
+        found: list[Mapping[str, Any]] = []
+        if isinstance(value, Mapping):
+            found.append(value)
+            for nested in value.values():
+                found.extend(mappings(nested))
+        elif isinstance(value, list):
+            for nested in value:
+                found.extend(mappings(nested))
+        return found
+
+    output_types = {
+        (node["fact_type"].get("id"), node["fact_type"].get("version"))
+        for node in mappings(reason_rule.get("value"))
+        if node.get("op") == "category_literal" and isinstance(node.get("fact_type"), Mapping)
+        and node["fact_type"].get("id") == _MORTGAGE_REASON_SYMBOL
+    }
+    if len(output_types) != 1:
+        raise PresentationModelError("the pinned mortgage reason rule does not establish one exact output category type")
+    reason_type_id, reason_type_version = next(iter(output_types))
+    exact_reason_type = [
+        fact_type for member in resolved_members
+        for fact_type in ([member] if str(member.get("schema", "")).startswith("fact-type.") else
+                          [item for item in member.get("fact_types", []) if isinstance(item, Mapping)]
+                          if str(member.get("schema", "")).startswith("bundle.") else [])
+        if fact_type.get("id") == reason_type_id and fact_type.get("version") == reason_type_version
+    ]
+    if len(exact_reason_type) != 1:
+        raise PresentationModelError("the pinned mortgage reason category type is not uniquely resolved")
+    value_schema = exact_reason_type[0].get("value_schema")
+    entries = value_schema.get("oneOf") if isinstance(value_schema, Mapping) else None
+    descriptions = {
+        item.get("const"): item.get("description") for item in entries if isinstance(item, Mapping)
+        and isinstance(item.get("const"), str) and isinstance(item.get("description"), str)
+    } if isinstance(entries, list) else {}
+    description = descriptions.get(reason)
+    if not description:
+        raise PresentationModelError(f"the mortgage reason value {reason!r} has no declared description")
+    answers = _mortgage_basis_answers(
+        reason_publication, publications_by_id=publications_by_id, state=state, fact_map=fact_map,
+    )
+    box1_pins = [pin for pin in reason_finding.get("pins", []) or []
+                 if isinstance(pin, Mapping) and pin.get("role") == "input"
+                 and pin.get("id") in state.findings
+                 and (fact := fact_map.get(str(state.findings[pin["id"]].get("fact_id")))) is not None
+                 and fact.fact_type_id == _MORTGAGE_BOX1_FACT_TYPE]
+    if len(box1_pins) != 1:
+        raise PresentationModelError("completed mortgage reason must pin exactly one recorded box 1 amount")
+    box1_source = state.findings[box1_pins[0]["id"]]
+    box1_title = state.fact_state.fact_types[_MORTGAGE_BOX1_FACT_TYPE]["title"]
+    account: dict[str, Any] = {
+        "statementKeys": {"payer": ident[0], "statement": ident[1], "taxYear": ident[2]},
+        "statementLabel": _statement_label({"lender": ident[0], "statement": ident[1], "tax-year": ident[2]}, state),
+        "reportedInterest": {
+            "value": _numeric_value(box1_source.get("value"), symbol=_MORTGAGE_BOX1_FACT_TYPE),
+            "sourceFindingId": box1_pins[0]["id"], "sourceFactType": _MORTGAGE_BOX1_FACT_TYPE,
+            "title": box1_title,
+        },
+        "deductibleAmount": _numeric_value(amount_finding.get("value"), symbol=_MORTGAGE_AMOUNT_SYMBOL),
+        "reason": reason,
+        "description": description,
+        **answers,
+        "reasonRule": {"id": reason_pin["id"], "version": reason_pin["version"]},
+        "amountRule": {"id": amount_pin["id"], "version": amount_pin["version"]},
+    }
+    if reason == "qualified":
+        if amount_basis is None:
+            raise PresentationModelError("the pinned mortgage amount rule has no declared basis")
+        account["basis"] = {key: list(amount_basis[key]) for key in ("said", "derived", "assumed", "left_with_person")}
+    return {"schema": MORTGAGE_EXPLANATION_VERSION, "accounts": [account]}
+
+
+def _validate_mortgage_interest_explanation(value: Any) -> None:
+    path = "$.mortgageInterestExplanation"
+    _require_keys(value, frozenset({"schema", "accounts"}), frozenset(), path)
+    if value["schema"] != MORTGAGE_EXPLANATION_VERSION:
+        raise PresentationModelError(f"{path}.schema: unsupported explanation version")
+    accounts = value["accounts"]
+    if not isinstance(accounts, list) or len(accounts) != 1:
+        raise PresentationModelError(f"{path}.accounts: expected one bounded statement account")
+    account = accounts[0]
+    _require_keys(account, frozenset({"statementKeys", "statementLabel", "reportedInterest", "deductibleAmount", "reason", "description", "sourceDocuments", "personAnswers", "declaredDefaults", "reasonRule", "amountRule"}), frozenset({"basis"}), f"{path}.accounts[0]")
+    keys = account["statementKeys"]
+    _require_keys(keys, frozenset({"payer", "statement", "taxYear"}), frozenset(), f"{path}.accounts[0].statementKeys")
+    if not all(isinstance(keys[key], str) and keys[key] for key in keys):
+        raise PresentationModelError(f"{path}.accounts[0].statementKeys: expected non-empty strings")
+    label = account["statementLabel"]
+    if not isinstance(label, dict) or set(label) - {"lender", "statement", "taxYear"} or not all(isinstance(v, str) and v for v in label.values()):
+        raise PresentationModelError(f"{path}.accounts[0].statementLabel: malformed label")
+    reported = account["reportedInterest"]
+    _require_keys(reported, frozenset({"value", "sourceFindingId", "sourceFactType", "title"}), frozenset(), f"{path}.accounts[0].reportedInterest")
+    if not isinstance(reported["value"], (int, float)) or isinstance(reported["value"], bool) or not math.isfinite(reported["value"]) or reported["value"] < 0:
+        raise PresentationModelError(f"{path}.accounts[0].reportedInterest.value: expected non-negative number")
+    if reported["sourceFactType"] != _MORTGAGE_BOX1_FACT_TYPE or not all(
+        isinstance(reported[key], str) and reported[key] for key in ("sourceFindingId", "title")
+    ):
+        raise PresentationModelError(f"{path}.accounts[0].reportedInterest: malformed box 1 source")
+    if not isinstance(account["deductibleAmount"], (int, float)) or isinstance(account["deductibleAmount"], bool) or not math.isfinite(account["deductibleAmount"]):
+        raise PresentationModelError(f"{path}.accounts[0].deductibleAmount: expected published number")
+    reason = account["reason"]
+    if reason not in {"qualified", *_MORTGAGE_COMPLETED_ZERO_REASONS}:
+        raise PresentationModelError(f"{path}.accounts[0].reason: not a completed conclusion")
+    for key in ("description",):
+        if not isinstance(account[key], str) or not account[key]:
+            raise PresentationModelError(f"{path}.accounts[0].{key}: expected non-empty string")
+    for key in ("reasonRule", "amountRule"):
+        _require_keys(account[key], frozenset({"id", "version"}), frozenset(), f"{path}.accounts[0].{key}")
+        if not all(isinstance(account[key][field], str) and account[key][field] for field in ("id", "version")):
+            raise PresentationModelError(f"{path}.accounts[0].{key}: malformed rule pin")
+    if account["reasonRule"]["id"] != _MORTGAGE_REASON_RULE_ID or account["amountRule"]["id"] != _MORTGAGE_AMOUNT_RULE_ID:
+        raise PresentationModelError(f"{path}.accounts[0]: unexpected producing rule")
+    if reason in _MORTGAGE_COMPLETED_ZERO_REASONS and account["deductibleAmount"] != 0:
+        raise PresentationModelError(f"{path}.accounts[0]: a justified-zero reason requires the published zero")
+    if reason == "qualified" and account["deductibleAmount"] < 0:
+        raise PresentationModelError(f"{path}.accounts[0]: a qualified amount cannot be negative")
+    for group_name in ("sourceDocuments", "personAnswers", "declaredDefaults"):
+        group = account[group_name]
+        if not isinstance(group, list):
+            raise PresentationModelError(f"{path}.accounts[0].{group_name}: expected list")
+        for index, item in enumerate(group):
+            ip = f"{path}.accounts[0].{group_name}[{index}]"
+            _require_keys(item, frozenset({"findingId", "factType", "title", "response", "origin"}), frozenset(), ip)
+            if not all(isinstance(item[key], str) and item[key] for key in ("findingId", "factType", "title", "response")):
+                raise PresentationModelError(f"{ip}: malformed current support value")
+            origin = item["origin"]
+            if group_name == "declaredDefaults":
+                _require_keys(origin, frozenset({"kind", "parameter"}), frozenset(), f"{ip}.origin")
+                if origin["kind"] != "declared-default":
+                    raise PresentationModelError(f"{ip}.origin: expected declared default")
+                _require_keys(origin["parameter"], frozenset({"id", "version"}), frozenset(), f"{ip}.origin.parameter")
+                if not all(isinstance(origin["parameter"][key], str) and origin["parameter"][key] for key in ("id", "version")):
+                    raise PresentationModelError(f"{ip}.origin.parameter: malformed exact pin")
+            else:
+                _require_keys(origin, frozenset({"kind", "findingId"}), frozenset(), f"{ip}.origin")
+                if origin["kind"] != "recorded" or origin["findingId"] != item["findingId"]:
+                    raise PresentationModelError(f"{ip}.origin: malformed recorded source")
+                if (group_name == "sourceDocuments") != (".box" in item["factType"]):
+                    raise PresentationModelError(f"{ip}: source-document/person-answer classification mismatch")
+    if reason == "qualified":
+        basis = account.get("basis")
+        if not isinstance(basis, dict) or set(basis) != {"said", "derived", "assumed", "left_with_person"}:
+            raise PresentationModelError(f"{path}.accounts[0].basis: qualified result requires all four groups")
+        if any(not isinstance(basis[key], list) or not all(isinstance(item, str) and item for item in basis[key]) for key in basis):
+            raise PresentationModelError(f"{path}.accounts[0].basis: malformed basis group")
+    elif "basis" in account:
+        raise PresentationModelError(f"{path}.accounts[0]: justified zero cannot reuse qualified basis")
 def _section_id(field: Mapping[str, Any]) -> str:
     return f"line-{field['line']}"
 
@@ -2899,6 +3221,12 @@ def build_presentation_model(
     )
     if line21_explanation is not None:
         model["line21Explanation"] = line21_explanation
+    mortgage_explanation = _mortgage_interest_explanation(
+        resolved_members=resolved_members, state=state, publications=publications,
+        publications_by_id=publications_by_id,
+    )
+    if mortgage_explanation is not None:
+        model["mortgageInterestExplanation"] = mortgage_explanation
     validate_presentation_model(model)
     return model
 
@@ -3222,7 +3550,7 @@ def validate_presentation_model(model: Mapping[str, Any]) -> None:
             "schema", "runId", "pinLabels", "sections", "citationGroups", "attachments",
             "unsupportedSourceFindings",
         }),
-        frozenset({"authorization", "provenanceGroups", "calculationView", "line21Explanation"}),
+        frozenset({"authorization", "provenanceGroups", "calculationView", "line21Explanation", "mortgageInterestExplanation"}),
         "$",
     )
     if "authorization" in model:
@@ -3231,6 +3559,8 @@ def validate_presentation_model(model: Mapping[str, Any]) -> None:
         _validate_calculation_view(model["calculationView"])
     if "line21Explanation" in model:
         _validate_line21_explanation(model["line21Explanation"])
+    if "mortgageInterestExplanation" in model:
+        _validate_mortgage_interest_explanation(model["mortgageInterestExplanation"])
     if model["schema"] != PRESENTATION_MODEL_VERSION:
         raise PresentationModelError(f"$.schema: expected {PRESENTATION_MODEL_VERSION!r}")
     if not isinstance(model["runId"], str) or not model["runId"]:

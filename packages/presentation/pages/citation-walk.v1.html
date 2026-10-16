@@ -99,8 +99,16 @@
   .line21-account-groups { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:.6rem; margin-top:.55rem; }
   .line21-missing-wording { font-style:italic; }
   .line21-run { margin:.75rem 0 .2rem; overflow-wrap:anywhere; }
+  .mortgage-explanation { margin:0 0 1.5rem; border:1px solid var(--border); border-radius:8px; padding:1rem 1.25rem; }
+  .mortgage-account { border:1px solid #777; border-radius:6px; padding:.75rem; }
+  .mortgage-account p, .mortgage-account li { overflow-wrap:anywhere; }
+  .mortgage-account details { margin-top:.6rem; padding:.55rem .7rem; background:var(--detail-bg); border-radius:5px; }
+  .mortgage-basis-groups { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:.6rem; }
+  .mortgage-basis-groups section { border:1px solid #777; border-radius:5px; padding:.5rem; }
+  .mortgage-basis-groups h4 { margin:.1rem 0 .35rem; }
+  .mortgage-basis-groups ul { margin:.2rem 0; padding-left:1.2rem; }
   @media (max-width: 600px) {
-    .line21-groups, .line21-account-groups { grid-template-columns:1fr; }
+    .line21-groups, .line21-account-groups, .mortgage-basis-groups { grid-template-columns:1fr; }
     .line21-group { padding:.45rem; }
   }
 
@@ -119,6 +127,7 @@
 
 <main id="main">
   <div id="sections-root"></div>
+  <div id="mortgage-explanation-root"></div>
   <div id="attachment-status-root"></div>
   <div id="citation-groups-root"></div>
   <div id="diagnostics-root"></div>
@@ -167,6 +176,7 @@ const REASON_TEXT = Object.freeze({
   "missing-instruction": "This line is missing its rendering instruction for the declared disposition.",
   "missing-field-citation": "This line published a value with no citation attached. No value can be shown safely.",
   "unrecognized-attachment-code": "This attachment named a condition code this renderer does not recognize. No detail can be shown safely.",
+  "malformed-mortgage-explanation": "The saved mortgage explanation failed validation. No account detail can be shown safely.",
   "malformed-line21-explanation": "This section's saved explanation could not be displayed safely.",
   "unknown-error": "This section failed to render safely.",
 });
@@ -549,6 +559,72 @@ function renderLine21Citations(container, section, field, hasBlock) {
   container.appendChild(detail);
 }
 
+function validateMortgageExplanation(block) {
+  if (!block || block.schema !== "mortgage-interest-explanation.v1" || !Array.isArray(block.accounts) || block.accounts.length !== 1) {
+    throw new SectionError("malformed-mortgage-explanation");
+  }
+  const row = block.accounts[0];
+  const finiteAmount = (value) => typeof value === "number" && Number.isFinite(value);
+  const validItems = (items, defaults) => Array.isArray(items) && items.every((item) => item &&
+    ["findingId", "factType", "title", "response"].every((key) => typeof item[key] === "string" && item[key]) &&
+    (defaults ? item.origin && item.origin.kind === "declared-default" && item.origin.parameter &&
+      typeof item.origin.parameter.id === "string" && item.origin.parameter.id &&
+      typeof item.origin.parameter.version === "string" && item.origin.parameter.version :
+      item.origin && item.origin.kind === "recorded" && item.origin.findingId === item.findingId));
+  if (!row || !row.statementKeys || !row.statementLabel || !row.reportedInterest || !finiteAmount(row.reportedInterest.value) ||
+      row.reportedInterest.value < 0 || typeof row.reportedInterest.sourceFindingId !== "string" || !row.reportedInterest.sourceFindingId ||
+      row.reportedInterest.sourceFactType !== "tax.us.2025.f1098.box1-mortgage-interest" || !finiteAmount(row.deductibleAmount) ||
+      !["qualified", "not-collateral", "not-paid", "use-unrelated-personal-expense"].includes(row.reason) ||
+      typeof row.description !== "string" || !row.description || !validItems(row.sourceDocuments, false) ||
+      !validItems(row.personAnswers, false) || !validItems(row.declaredDefaults, true)) throw new SectionError("malformed-mortgage-explanation");
+  if (row.reason !== "qualified" && row.deductibleAmount !== 0) throw new SectionError("malformed-mortgage-explanation");
+  if (row.reason === "qualified") {
+    const basis = row.basis;
+    if (!basis || !["said", "derived", "assumed", "left_with_person"].every((key) => Array.isArray(basis[key]))) {
+      throw new SectionError("malformed-mortgage-explanation");
+    }
+  } else if (row.basis !== undefined) throw new SectionError("malformed-mortgage-explanation");
+}
+
+function renderMortgageExplanation(container, block) {
+  validateMortgageExplanation(block);
+  const root = el("section", { class: "mortgage-explanation", "data-mortgage-interest-explanation": "true" }, []);
+  root.appendChild(el("h2", null, ["Form 1098 mortgage interest account"]));
+  const row = block.accounts[0];
+  const label = [row.statementLabel.statement, row.statementLabel.lender, row.statementKeys.taxYear]
+    .filter((part) => typeof part === "string" && part).join(", ");
+  const card = el("article", { class: "mortgage-account" }, []);
+  card.appendChild(el("h3", null, [label || "Mortgage statement"]));
+  card.appendChild(el("p", null, ["Form 1098 box 1 reported interest: " + String(row.reportedInterest.value)]));
+  card.appendChild(el("p", null, ["Schedule A line 8a deductible amount: " + String(row.deductibleAmount)]));
+  card.appendChild(el("p", null, [el("strong", null, ["Conclusion: "]), row.description]));
+  if (row.reason === "qualified") {
+    const basis = row.basis;
+    const details = el("details", null, [el("summary", null, ["What this conclusion rests on"])]);
+    const groups = el("div", { class: "mortgage-basis-groups" }, []);
+    for (const [key, title] of [["said", "What was recorded"], ["derived", "What the application derived"],
+                                ["assumed", "What the rule assumes"], ["left_with_person", "Conditions left with you"]]) {
+      const content = basis[key].map((item) => el("li", null, [item]));
+      groups.appendChild(el("section", null, [el("h4", null, [title]), el("ul", null, content)]));
+    }
+    for (const [key, title] of [["sourceDocuments", "Current source-document values"], ["personAnswers", "Current ordinary answers"], ["declaredDefaults", "Current declared defaults"]]) {
+      const items = row[key].map((item) => el("li", null, [item.title + ": " + item.response + (item.origin.kind === "declared-default" ? " — application default (" + item.origin.parameter.id + "@" + item.origin.parameter.version + ")" : " — recorded value")]));
+      if (items.length) groups.appendChild(el("section", null, [el("h4", null, [title]), el("ul", null, items)]));
+    }
+    details.appendChild(groups);
+    card.appendChild(details);
+  } else {
+    const details = el("details", null, [el("summary", null, ["Current answers supporting this result"])]);
+    for (const [key, title] of [["sourceDocuments", "Current source-document values"], ["personAnswers", "Current ordinary answers"], ["declaredDefaults", "Current declared defaults"]]) {
+      const items = row[key].map((item) => el("li", null, [item.title + ": " + item.response + (item.origin.kind === "declared-default" ? " — application default (" + item.origin.parameter.id + "@" + item.origin.parameter.version + ")" : " — recorded value")]));
+      if (items.length) details.appendChild(el("section", null, [el("h4", null, [title]), el("ul", null, items)]));
+    }
+    card.appendChild(details);
+  }
+  root.appendChild(card);
+  container.appendChild(root);
+}
+
 document.addEventListener("click", (evt) => {
   const btn = evt.target.closest("button.citation");
   if (!btn) return;
@@ -807,6 +883,10 @@ for (const section of MODEL.sections || []) {
 }
 
 const attachmentStatusRoot = document.getElementById("attachment-status-root");
+if (MODEL.mortgageInterestExplanation !== undefined) {
+  renderSafely("mortgage-explanation-root", renderMortgageExplanation,
+    MODEL.mortgageInterestExplanation, "Mortgage interest explanation");
+}
 for (const attachment of MODEL.attachments || []) {
   const statusId = attachment.id + "-status";
   const wrap = el("div", { id: statusId }, []);

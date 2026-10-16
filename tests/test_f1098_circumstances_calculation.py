@@ -128,6 +128,7 @@ def _acts(
     box9: float = 1.0,
     filing_status: str | None = None,
     omit_box2: bool = False,
+    omit_box9: bool = False,
     second_interest: float | None = None,
     student_interest: float | None = None,
     legacy_authority_overrides: dict[str, str] | None = None,
@@ -200,6 +201,18 @@ def _acts(
                 and isinstance(cast(dict[str, Any], row["payload"]).get("finding"), dict)
                 and str(cast(dict[str, Any], cast(dict[str, Any], row["payload"]).get("finding")).get("fact_id", "")).startswith(
                     FACT + "box2-outstanding-principal|"
+                )
+            )
+        ]
+    if omit_box9:
+        acts = [
+            row for row in acts
+            if not (
+                row.get("kind") == "assertion"
+                and isinstance(row.get("payload"), dict)
+                and isinstance(cast(dict[str, Any], row["payload"]).get("finding"), dict)
+                and str(cast(dict[str, Any], cast(dict[str, Any], row["payload"]).get("finding")).get("fact_id", "")).startswith(
+                    FACT + "box9-number-of-properties|"
                 )
             )
         ]

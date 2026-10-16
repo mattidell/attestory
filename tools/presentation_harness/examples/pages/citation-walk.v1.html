@@ -69,6 +69,15 @@
   section.line.blocked-line { border:3px solid var(--blocked-bg); background: var(--error-bg); }
   .blocked-banner { display:flex; align-items:flex-start; gap:.6rem; }
   .remedy-box { margin-top:.6rem; padding:.6rem .75rem; border:1px dashed var(--blocked-bg); border-radius:6px; }
+  .mortgage-explanation { margin:0 0 1.5rem; border:1px solid var(--border); border-radius:8px; padding:1rem 1.25rem; }
+  .mortgage-account { border:1px solid #777; border-radius:6px; padding:.75rem; }
+  .mortgage-account p, .mortgage-account li { overflow-wrap:anywhere; }
+  .mortgage-account details { margin-top:.6rem; padding:.55rem .7rem; background:var(--detail-bg); border-radius:5px; }
+  .mortgage-basis-groups { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:.6rem; }
+  .mortgage-basis-groups section { border:1px solid #777; border-radius:5px; padding:.5rem; }
+  .mortgage-basis-groups h4 { margin:.1rem 0 .35rem; }
+  .mortgage-basis-groups ul { margin:.2rem 0; padding-left:1.2rem; }
+  @media (max-width: 600px) { .mortgage-basis-groups { grid-template-columns:1fr; } }
 
   .section-error { border:2px solid var(--error-border); background:var(--error-bg); padding:.6rem .75rem; border-radius:6px; font-weight:600; }
 </style>
@@ -84,6 +93,7 @@
 
 <main id="main">
   <div id="sections-root"></div>
+  <div id="mortgage-explanation-root"></div>
   <div id="attachment-status-root"></div>
   <div id="citation-groups-root"></div>
   <div id="diagnostics-root"></div>
@@ -132,6 +142,7 @@ const REASON_TEXT = Object.freeze({
   "missing-instruction": "This line is missing its rendering instruction for the declared disposition.",
   "missing-field-citation": "This line published a value with no citation attached. No value can be shown safely.",
   "unrecognized-attachment-code": "This attachment named a condition code this renderer does not recognize. No detail can be shown safely.",
+  "malformed-mortgage-explanation": "The saved mortgage explanation failed validation. No account detail can be shown safely.",
   "unknown-error": "This section failed to render safely.",
 });
 
@@ -447,6 +458,65 @@ function renderSafely(elementId, renderFn, arg, label) {
   container.appendChild(unit);
 }
 
+function renderMortgageExplanation(container, block) {
+  const rows = block && block.accounts;
+  if (!block || block.schema !== "mortgage-interest-explanation.v1" || !Array.isArray(rows) || rows.length !== 1) {
+    throw new SectionError("malformed-mortgage-explanation");
+  }
+  const row = rows[0];
+  const finiteAmount = (value) => typeof value === "number" && Number.isFinite(value);
+  const validItems = (items, defaults) => Array.isArray(items) && items.every((item) => item &&
+    ["findingId", "factType", "title", "response"].every((key) => typeof item[key] === "string" && item[key]) &&
+    (defaults ? item.origin && item.origin.kind === "declared-default" && item.origin.parameter &&
+      typeof item.origin.parameter.id === "string" && item.origin.parameter.id &&
+      typeof item.origin.parameter.version === "string" && item.origin.parameter.version :
+      item.origin && item.origin.kind === "recorded" && item.origin.findingId === item.findingId));
+  if (!row || !row.statementKeys || !row.statementLabel || !row.reportedInterest || !finiteAmount(row.reportedInterest.value) ||
+      row.reportedInterest.value < 0 || typeof row.reportedInterest.sourceFindingId !== "string" || !row.reportedInterest.sourceFindingId ||
+      row.reportedInterest.sourceFactType !== "tax.us.2025.f1098.box1-mortgage-interest" || !finiteAmount(row.deductibleAmount) ||
+      !["qualified", "not-collateral", "not-paid", "use-unrelated-personal-expense"].includes(row.reason) ||
+      typeof row.description !== "string" || !row.description || !validItems(row.sourceDocuments, false) ||
+      !validItems(row.personAnswers, false) || !validItems(row.declaredDefaults, true)) throw new SectionError("malformed-mortgage-explanation");
+  if (row.reason !== "qualified" && row.deductibleAmount !== 0) throw new SectionError("malformed-mortgage-explanation");
+  const root = el("section", { class: "mortgage-explanation", "data-mortgage-interest-explanation": "true" }, []);
+  root.appendChild(el("h2", null, ["Form 1098 mortgage interest account"]));
+  const label = [row.statementLabel.statement, row.statementLabel.lender, row.statementKeys.taxYear]
+    .filter((part) => typeof part === "string" && part).join(", ");
+  const card = el("article", { class: "mortgage-account" }, []);
+  card.appendChild(el("h3", null, [label || "Mortgage statement"]));
+  card.appendChild(el("p", null, ["Form 1098 box 1 reported interest: " + String(row.reportedInterest.value)]));
+  card.appendChild(el("p", null, ["Schedule A line 8a deductible amount: " + String(row.deductibleAmount)]));
+  card.appendChild(el("p", null, [el("strong", null, ["Conclusion: "]), row.description]));
+  const details = el("details", null, [el("summary", null, [row.reason === "qualified" ? "What this conclusion rests on" : "Current answers supporting this result"])]);
+  if (row.reason === "qualified") {
+    const basis = row.basis;
+    if (!basis || !["said", "derived", "assumed", "left_with_person"].every((key) => Array.isArray(basis[key]))) {
+      throw new SectionError("malformed-mortgage-explanation");
+    }
+    const groups = el("div", { class: "mortgage-basis-groups" }, []);
+    for (const [key, title] of [["said", "What was recorded"], ["derived", "What the application derived"],
+                                ["assumed", "What the rule assumes"], ["left_with_person", "Conditions left with you"]]) {
+      groups.appendChild(el("section", null, [el("h4", null, [title]), el("ul", null, basis[key].map((item) => el("li", null, [item])))]));
+    }
+    for (const [key, title] of [["sourceDocuments", "Current source-document values"], ["personAnswers", "Current ordinary answers"], ["declaredDefaults", "Current declared defaults"]]) {
+      const items = row[key].map((item) => el("li", null, [item.title + ": " + item.response + (item.origin.kind === "declared-default" ? " — application default (" + item.origin.parameter.id + "@" + item.origin.parameter.version + ")" : " — recorded value")]));
+      if (items.length) groups.appendChild(el("section", null, [el("h4", null, [title]), el("ul", null, items)]));
+    }
+    details.appendChild(groups);
+  } else {
+    if (row.basis !== undefined) {
+      throw new SectionError("malformed-mortgage-explanation");
+    }
+    for (const [key, title] of [["sourceDocuments", "Current source-document values"], ["personAnswers", "Current ordinary answers"], ["declaredDefaults", "Current declared defaults"]]) {
+      const items = row[key].map((item) => el("li", null, [item.title + ": " + item.response + (item.origin.kind === "declared-default" ? " — application default (" + item.origin.parameter.id + "@" + item.origin.parameter.version + ")" : " — recorded value")]));
+      if (items.length) details.appendChild(el("section", null, [el("h4", null, [title]), el("ul", null, items)]));
+    }
+  }
+  card.appendChild(details);
+  root.appendChild(card);
+  container.appendChild(root);
+}
+
 const sectionsRoot = document.getElementById("sections-root");
 for (const section of FIXTURE.sections || []) {
   const wrap = el("div", { id: section.id }, []);
@@ -455,6 +525,10 @@ for (const section of FIXTURE.sections || []) {
 }
 
 const attachmentStatusRoot = document.getElementById("attachment-status-root");
+if (FIXTURE.mortgageInterestExplanation !== undefined) {
+  renderSafely("mortgage-explanation-root", renderMortgageExplanation,
+    FIXTURE.mortgageInterestExplanation, "Mortgage interest explanation");
+}
 for (const attachment of FIXTURE.attachments || []) {
   const statusId = attachment.id + "-status";
   const wrap = el("div", { id: statusId }, []);
