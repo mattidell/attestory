@@ -4,48 +4,59 @@
   "phase": "Tax Circumstance Breadth",
   "topic": "mortgage-interest-circumstances",
   "active_plan": "docs/phases/tax-circumstance-breadth/milestones/mortgage-interest-circumstances.md",
-  "milestone_state": "planned",
-  "status": "Initial product phase and opening milestone plan. Investigate mortgage-interest circumstances and assumptions before selecting implementation. No build charter or production change yet.",
-  "current_role": "Foreman — refine the mortgage-interest plan from the ordinary case and current behavior",
-  "current_prompt": "docs/phases/tax-circumstance-breadth/milestones/mortgage-interest-circumstances.md"
+  "milestone_state": "closed",
+  "status": "Closed. A bounded synthetic Form 1098 account records ordinary answers about one home borrowing, calculates the supported interest treatment, and saves an explanation that can be corrected. Uncertainty and unsupported conditions are named and do not produce an amount. The next milestone is unselected.",
+  "current_role": "Foreman — select next milestone",
+  "current_prompt": "docs/phases/tax-circumstance-breadth/tax-circumstance-breadth-roadmap.md"
 }
 -->
 
 # Phase State
 
-## Current direction
+## Current result
 
-The owner has shelved Shared Understanding in Development and returned to
-product work. Tax Circumstance Breadth extends the student-loan approach to
-additional tax areas: ordinary circumstances are recorded, translated into
-tax concepts, used by calculations and explained in a correctable account.
+**Mortgage Interest and What the Loan Paid For is closed.** On a synthetic
+account, a person can review one current Form 1098 statement, record
+ordinary answers about that home borrowing, and correct them. The
+application calculates the bounded interest treatment and saves an
+explanation of the answer and the basis it used.
 
-The proposed first application is mortgage interest: what the loan paid for
-and how that bears on the interest reported on Form 1098. The form calculation
-already has a bounded route; ordinary-circumstance support and its assumption
-policy remain to be designed. The next tax area remains unselected.
+Qualified interest can reach Schedule A. A justified zero publishes zero.
+Uncertainty about liability, a mortgage credit certificate, or whether the
+loan is the original loan is named, and the amount stays blocked. Known
+unsupported cases are named the same way. An over-limit principal blocks.
+The explanation says that older debt may have a higher limit.
+
+The adopted line 8a rule that ignored box 2 is repaired on the earlier
+confirmation route. The circumstance route reads box 2 directly. ADR 0078
+supplies the fixed-date comparison the grandfathering check uses.
+
+There is no browser observation of the page. The route is one statement.
+Accounts are synthetic only.
 
 ## Begin here
 
-- [Phase purpose and provisional endpoint](phases/tax-circumstance-breadth/tax-circumstance-breadth-overview.md).
-- [Roadmap](phases/tax-circumstance-breadth/tax-circumstance-breadth-roadmap.md).
-- [Opening milestone actions and decisions](phases/tax-circumstance-breadth/milestones/mortgage-interest-circumstances.md).
+- [Milestone plan](phases/tax-circumstance-breadth/milestones/mortgage-interest-circumstances.md):
+  the investigation, the execution record, and the outcome.
+- [Retrospective](milestone-retrospectives/2026-10-15-mortgage-interest-circumstances.md):
+  lessons and follow-ups.
+- [Tax Circumstance Breadth roadmap](phases/tax-circumstance-breadth/tax-circumstance-breadth-roadmap.md).
+- README, "Mortgage statement answers".
 
-Start with the person's situation and the current live calculation. Develop
-the plan incrementally, and review its first concrete account before selecting
-a representation or build. Defaults and assumptions must have deliberate
-behavior for the selected case; no general framework is already selected.
+## Immediate next action
 
-## Inherited position
+Select the next milestone. The phase stays open: this mortgage path is its
+first additional tax context, and the contrasting tax area is unselected.
+The milestone PR is published after the final review and CI binding its
+head. The owner merges.
 
-Evolving Workspace Accounts is concluded at the bounded result delivered
-through PR #207. Its visual review, independent reader assessment and use on
-personal workspaces remain open. The shelved experiments and their evaluation
-are preserved on `milestone/working-model-experiment-statement-scope`; they are
-not dependencies of this product branch. This branch starts from `origin/main`.
+## Parked
 
-Interest allocation, mixed-period treatment, external institutional
-verification, general intake and the student-loan shared-answer restrictions
-remain separate questions. Revisit a deferral when the new case needs it,
-without treating an earlier software limitation as the definition of a tax
-concept or as a permanent product decision.
+- Browser observation of the mortgage page.
+- Interest allocation, mixed-use amounts, multiple statements, refinancing,
+  and the mortgage credit.
+- The configured standard deduction, which is not the verified 2025 amount.
+- Use of this route on the correction session, which still resolves an
+  older registry.
+- A general assumption framework, free-text intake, and institutional
+  verification.

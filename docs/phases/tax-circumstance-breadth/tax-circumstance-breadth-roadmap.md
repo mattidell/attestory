@@ -1,8 +1,13 @@
 # Tax Circumstance Breadth Roadmap
 
-## Opening milestone — Mortgage Interest and What the Loan Paid For
+## Opening milestone — Mortgage Interest and What the Loan Paid For — closed 2026-10-15
 
-[Initial milestone plan](milestones/mortgage-interest-circumstances.md).
+[Plan](milestones/mortgage-interest-circumstances.md) ·
+[Retrospective](../../milestone-retrospectives/2026-10-15-mortgage-interest-circumstances.md).
+Delivered: one current Form 1098 statement records ordinary answers about the
+home borrowing, calculates the bounded interest treatment, and saves an
+explanation the person can correct. Uncertainty and known unsupported cases
+are named and do not produce an amount.
 
 Plan a bounded extension of the existing Form 1098 route. Let a person identify
 the home and borrowing and describe what the borrowed money paid for. Use those
@@ -41,10 +46,13 @@ third milestone or framework build.
 
 ## Status
 
-Phase planning and the opening mortgage-interest plan are committed separately.
-Detailed design and production scope remain to be investigated.
-Subsequent milestones are unselected. Engine Breadth remains the historical
-form-coverage record; its rows do not establish ordinary-circumstance support.
+The opening milestone closed 2026-10-15 at the bounded result above. It does
+not allocate mixed use, cover multiple statements, observe the mortgage page
+in a browser, or verify the configured standard-deduction amount. Those
+exclusions stay in the milestone plan's outcome and in the phase-state
+parked list. The contrasting tax area is unselected. Engine Breadth remains
+the historical form-coverage record; its Form 1098 row is unchanged and does
+not establish ordinary-circumstance support.
 
 Selection sources: the Form 1098 route and its
 [retrospective](../../milestone-retrospectives/2026-08-09-f1098-mortgage-interest-line12e.md),
