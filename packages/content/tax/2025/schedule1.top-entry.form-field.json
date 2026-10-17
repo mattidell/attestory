@@ -1,0 +1,42 @@
+{
+  "schema": "form-field.v3",
+  "id": "tax.us.2025.schedule1.top-entry.form-field",
+  "version": "v1",
+  "form": {
+    "authority": "IRS",
+    "form_id": "1040-SCH-1",
+    "jurisdiction": "US-federal",
+    "tax_year": 2025
+  },
+  "line": "sch1-top",
+  "label": "Form 1099-K personal item sale loss gross payment amount (Schedule 1 top entry)",
+  "description": "Entered above Part I line 1 when personal items were sold at a loss.",
+  "binds_symbol": "tax.us.2025.schedule1.top-entry",
+  "dispositions": {
+    "published_value": {
+      "explain": "This sale resulted in a nondeductible personal loss whose Box 1a gross amount is entered at the top of Schedule 1.",
+      "render": "{value}"
+    },
+    "computed_zero": {
+      "explain": "No personal item sale loss entry.",
+      "render": "{value}"
+    },
+    "closure_backed_zero": {
+      "explain": "No Form 1099-K statements were received for 2025.",
+      "render": "{value}"
+    },
+    "blocked": {
+      "codes": [
+        "DEPENDENCY_ABSENT",
+        "DEPENDENCY_INVALID",
+        "SOURCE_SET_UNCLOSED"
+      ],
+      "explain": "Form 1099-K loss entry cannot be computed.",
+      "render": ""
+    },
+    "guard_inapplicable": {
+      "explain": "Not evaluated.",
+      "render": ""
+    }
+  }
+}
