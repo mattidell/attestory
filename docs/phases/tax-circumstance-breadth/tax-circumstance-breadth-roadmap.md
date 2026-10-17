@@ -24,18 +24,29 @@ Investigate the bounded case before selecting the implementation. Systematic
 handling of assumptions belongs in that investigation wherever the case needs
 it; a separate general assumption framework is not a prerequisite by decree.
 
-## Next selection — a contrasting tax area
+## Contrasting milestone — Personal-Item Sales: What Was Sold and What the Payment Means — closed 2026-10-17
 
-Choose after the opening result. The leading candidate is personal-property
-sales reported on Form 1099-K: connect reported receipts to what was sold and
-its cost, then determine the supported tax treatment. This would move beyond
-loan eligibility into the character and amount of income. Reporting integration
-and the boundary with business activity need investigation before commitment.
+[Plan](milestones/personal-item-sale-circumstances.md) ·
+[Retrospective](../../milestone-retrospectives/2026-10-17-personal-item-sale-circumstances.md).
+Delivered: one Form 1099-K for one personally used item bought and sold at a
+loss enters its Box 1a amount at the top of 2025 Schedule 1, from an ordinary
+account the person records and corrects, with a saved explanation of the
+computation. Gain, break-even, a second statement and other outcomes are
+named and enter nothing. The owner narrowed the route to the loss after P0
+showed gain reporting needs Form 8949 capability.
 
-A bounded retirement-distribution circumstance is an alternative where the
-existing Form 1099-R path offers a more economical consumer. Compare the
-ordinary information needed, the tax distinctions, and the integration work
-when selecting; do not choose by form count alone.
+Opening intent: investigate one
+personally used item, one identifiable sale and one Form 1099-K statement.
+Connect reported receipts to what was sold and its cost, distinguish gain from
+a nondeductible personal loss, and develop the supported reporting and saved
+explanation path. This moves beyond loan eligibility into the character and
+amount of income. Exact 2025 treatment, reporting integration and the boundary
+with business activity remain P0 questions, not settled implementation choices.
+
+A bounded retirement-distribution circumstance remains an alternative if P0
+shows the selected sale route needs disproportionate prerequisite work. Return
+that choice to the owner rather than quietly changing the goal or broadening
+the milestone into a general capital-asset or business system.
 
 ## Consolidation and phase assessment
 
@@ -46,13 +57,14 @@ third milestone or framework build.
 
 ## Status
 
-The opening milestone closed 2026-10-15 at the bounded result above. It does
-not allocate mixed use, cover multiple statements, observe the mortgage page
-in a browser, or verify the configured standard-deduction amount. Those
-exclusions stay in the milestone plan's outcome and in the phase-state
-parked list. The contrasting tax area is unselected. Engine Breadth remains
-the historical form-coverage record; its Form 1098 row is unchanged and does
-not establish ordinary-circumstance support.
+Both the opening and the contrasting milestones are closed at their bounded
+results. Neither route covers more than one statement, the gain route is
+unbuilt, and neither page has a browser observation; those exclusions stay
+in each plan's outcome and in the phase-state parked list. The contrasting
+plan's phase assessment recommends the consolidation step for multiple
+statements rather than concluding the phase. The next milestone is
+unselected. Engine Breadth remains the historical form-coverage record; its
+rows do not establish ordinary-circumstance support.
 
 Selection sources: the Form 1098 route and its
 [retrospective](../../milestone-retrospectives/2026-08-09-f1098-mortgage-interest-line12e.md),

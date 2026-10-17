@@ -41,6 +41,10 @@ NOMINEE_ALLOCATION_BUNDLE_FILE = "nominee-allocation.bundle.json"
 SLI_RELATIONSHIP_SOURCE_BUNDLE_FILE = "sli-relationship-source.bundle.v2.json"
 F1098_CIRCUMSTANCES_BUNDLE_FILE = "f1098-circumstances.bundle.json"
 F1098_CIRCUMSTANCES_BUNDLE_V2_FILE = "f1098-circumstances.bundle.v2.json"
+F1099K_BUNDLE_FILE = "f1099k.bundle.json"
+F1099K_BUNDLE_V2_FILE = "f1099k.bundle.v2.json"
+F1099K_BUNDLE_V3_FILE = "f1099k.bundle.v3.json"
+F1099K_CIRCUMSTANCES_BUNDLE_FILE = "f1099k-circumstances.bundle.json"
 
 
 def _version_rank(version: str) -> int:
@@ -424,6 +428,33 @@ def load_f1098_circumstances_bundle(
     if bundle.get("version") != version:
         raise SchemaValidationError("bundle.v2", [f"{filename} is not {version}"])
     return bundle
+
+
+def load_f1099k_bundle(
+    registry: SchemaRegistry | None = None, *, version: str = "v1",
+) -> dict[str, Any]:
+    """Load one explicitly selected Form 1099-K vocabulary bundle; the legacy default stays v1."""
+    reg = registry if registry is not None else tax_registry()
+    if version == "v1":
+        filename = F1099K_BUNDLE_FILE
+    elif version == "v2":
+        filename = F1099K_BUNDLE_V2_FILE
+    elif version == "v3":
+        filename = F1099K_BUNDLE_V3_FILE
+    else:
+        raise ValueError(f"unsupported Form 1099-K bundle version {version!r}")
+    bundle = _load_bundle(filename, reg)
+    if bundle.get("version") != version:
+        raise SchemaValidationError("bundle.v2", [f"{filename} is not {version}"])
+    return bundle
+
+
+def load_f1099k_circumstances_bundle(
+    registry: SchemaRegistry | None = None,
+) -> dict[str, Any]:
+    """Load and strictly validate the Form 1099-K circumstances vocabulary bundle."""
+    reg = registry if registry is not None else tax_registry()
+    return _load_bundle(F1099K_CIRCUMSTANCES_BUNDLE_FILE, reg)
 
 
 def load_source_families(

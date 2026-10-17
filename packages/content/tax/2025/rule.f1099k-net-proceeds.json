@@ -1,0 +1,87 @@
+{
+  "schema": "rule-artifact.v14",
+  "id": "tax.us.2025.rule.f1099k-net-proceeds",
+  "version": "v1",
+  "scope": {
+    "tax_year": 2025,
+    "jurisdiction": "US-federal",
+    "family": "individual-income-tax"
+  },
+  "role": "computation",
+  "subject": {
+    "id": "tax.us.2025.f1099k.box1a-gross-amount",
+    "version": "v1"
+  },
+  "requires": [
+    "tax.us.2025.f1099k.amount-realized",
+    "tax.us.2025.f1099k.selling-expenses"
+  ],
+  "pins": [],
+  "when": true,
+  "value": {
+    "op": "choose",
+    "when": {
+      "op": "any",
+      "args": [
+        {
+          "op": "categorical_compare",
+          "cmp": "eq",
+          "left": {
+            "op": "ref",
+            "name": "tax.us.2025.f1099k.amount-realized"
+          },
+          "right": {
+            "op": "category_literal",
+            "fact_type": {
+              "id": "tax.us.2025.f1099k.amount-realized",
+              "version": "v1"
+            },
+            "value": "not-computed"
+          }
+        },
+        {
+          "op": "categorical_compare",
+          "cmp": "eq",
+          "left": {
+            "op": "ref",
+            "name": "tax.us.2025.f1099k.selling-expenses"
+          },
+          "right": {
+            "op": "category_literal",
+            "fact_type": {
+              "id": "tax.us.2025.f1099k.selling-expenses",
+              "version": "v1"
+            },
+            "value": "not-computed"
+          }
+        }
+      ]
+    },
+    "then": {
+      "op": "category_literal",
+      "fact_type": {
+        "id": "tax.us.2025.f1099k.net-proceeds",
+        "version": "v1"
+      },
+      "value": "not-computed"
+    },
+    "else": {
+      "op": "subtract",
+      "left": {
+        "op": "ref",
+        "name": "tax.us.2025.f1099k.amount-realized"
+      },
+      "right": {
+        "op": "ref",
+        "name": "tax.us.2025.f1099k.selling-expenses"
+      }
+    }
+  },
+  "publishes": "tax.us.2025.f1099k.net-proceeds",
+  "blocked": {
+    "code": "DEPENDENCY_ABSENT",
+    "missing": []
+  },
+  "citations": [],
+  "notes": "Always publishes: net proceeds when amount-realized and selling-expenses numeric, else not-computed."
+}

@@ -1,0 +1,703 @@
+{
+  "schema": "bundle.v2",
+  "id": "tax.us.2025.f1099k-circumstances.vocabulary",
+  "version": "v1",
+  "label": "Form 1099-K circumstances vocabulary for personal item sale loss reporting",
+  "fact_types": [
+    {
+      "schema": "fact-type.v2",
+      "id": "tax.us.2025.f1099k.covers-only-single-item",
+      "version": "v1",
+      "title": "Q1: Covers only a single personal item sale",
+      "nature": "determinable",
+      "identity_keys": [
+        {
+          "name": "payer",
+          "kind": "entity",
+          "entity_kind": "tax.us.1099k-platform"
+        },
+        {
+          "name": "statement",
+          "kind": "entity",
+          "entity_kind": "tax.us.1099k-statement"
+        },
+        {
+          "name": "tax-year",
+          "kind": "literal",
+          "values": [
+            "2025"
+          ]
+        }
+      ],
+      "value_schema": {
+        "enum": [
+          "yes",
+          "no",
+          "cannot-tell",
+          "not-asked"
+        ]
+      },
+      "optional_default": {
+        "parameter": {
+          "id": "tax.us.2025.parameter.f1099k-not-asked-default",
+          "version": "v1"
+        }
+      },
+      "supersession": {
+        "policy": "free"
+      }
+    },
+    {
+      "schema": "fact-type.v2",
+      "id": "tax.us.2025.f1099k.acquired-by-purchase",
+      "version": "v1",
+      "title": "Q3: Acquired by purchase",
+      "nature": "determinable",
+      "identity_keys": [
+        {
+          "name": "payer",
+          "kind": "entity",
+          "entity_kind": "tax.us.1099k-platform"
+        },
+        {
+          "name": "statement",
+          "kind": "entity",
+          "entity_kind": "tax.us.1099k-statement"
+        },
+        {
+          "name": "tax-year",
+          "kind": "literal",
+          "values": [
+            "2025"
+          ]
+        }
+      ],
+      "value_schema": {
+        "enum": [
+          "yes",
+          "no",
+          "cannot-tell",
+          "not-asked"
+        ]
+      },
+      "optional_default": {
+        "parameter": {
+          "id": "tax.us.2025.parameter.f1099k-not-asked-default",
+          "version": "v1"
+        }
+      },
+      "supersession": {
+        "policy": "free"
+      }
+    },
+    {
+      "schema": "fact-type.v2",
+      "id": "tax.us.2025.f1099k.primary-purpose-at-acquisition",
+      "version": "v1",
+      "title": "Q4: Primary purpose at acquisition",
+      "nature": "determinable",
+      "identity_keys": [
+        {
+          "name": "payer",
+          "kind": "entity",
+          "entity_kind": "tax.us.1099k-platform"
+        },
+        {
+          "name": "statement",
+          "kind": "entity",
+          "entity_kind": "tax.us.1099k-statement"
+        },
+        {
+          "name": "tax-year",
+          "kind": "literal",
+          "values": [
+            "2025"
+          ]
+        }
+      ],
+      "value_schema": {
+        "enum": [
+          "personal-use",
+          "investment-or-profit",
+          "resale-or-inventory",
+          "cannot-tell",
+          "not-asked"
+        ]
+      },
+      "optional_default": {
+        "parameter": {
+          "id": "tax.us.2025.parameter.f1099k-not-asked-default",
+          "version": "v1"
+        }
+      },
+      "supersession": {
+        "policy": "free"
+      }
+    },
+    {
+      "schema": "fact-type.v2",
+      "id": "tax.us.2025.f1099k.exclusive-personal-use",
+      "version": "v1",
+      "title": "Q5: Used exclusively for personal purposes",
+      "nature": "determinable",
+      "identity_keys": [
+        {
+          "name": "payer",
+          "kind": "entity",
+          "entity_kind": "tax.us.1099k-platform"
+        },
+        {
+          "name": "statement",
+          "kind": "entity",
+          "entity_kind": "tax.us.1099k-statement"
+        },
+        {
+          "name": "tax-year",
+          "kind": "literal",
+          "values": [
+            "2025"
+          ]
+        }
+      ],
+      "value_schema": {
+        "enum": [
+          "yes",
+          "no",
+          "cannot-tell",
+          "not-asked"
+        ]
+      },
+      "optional_default": {
+        "parameter": {
+          "id": "tax.us.2025.parameter.f1099k-not-asked-default",
+          "version": "v1"
+        }
+      },
+      "supersession": {
+        "policy": "free"
+      }
+    },
+    {
+      "schema": "fact-type.v2",
+      "id": "tax.us.2025.f1099k.digital-asset-involvement",
+      "version": "v1",
+      "title": "Q7: Digital asset or virtual currency involvement",
+      "nature": "determinable",
+      "identity_keys": [
+        {
+          "name": "payer",
+          "kind": "entity",
+          "entity_kind": "tax.us.1099k-platform"
+        },
+        {
+          "name": "statement",
+          "kind": "entity",
+          "entity_kind": "tax.us.1099k-statement"
+        },
+        {
+          "name": "tax-year",
+          "kind": "literal",
+          "values": [
+            "2025"
+          ]
+        }
+      ],
+      "value_schema": {
+        "enum": [
+          "no",
+          "yes",
+          "cannot-tell",
+          "not-asked"
+        ]
+      },
+      "optional_default": {
+        "parameter": {
+          "id": "tax.us.2025.parameter.f1099k-not-asked-default",
+          "version": "v1"
+        }
+      },
+      "supersession": {
+        "policy": "free"
+      }
+    },
+    {
+      "schema": "fact-type.v2",
+      "id": "tax.us.2025.f1099k.agreed-item-price",
+      "version": "v1",
+      "title": "Q8: Agreed item price",
+      "nature": "determinable",
+      "identity_keys": [
+        {
+          "name": "payer",
+          "kind": "entity",
+          "entity_kind": "tax.us.1099k-platform"
+        },
+        {
+          "name": "statement",
+          "kind": "entity",
+          "entity_kind": "tax.us.1099k-statement"
+        },
+        {
+          "name": "tax-year",
+          "kind": "literal",
+          "values": [
+            "2025"
+          ]
+        }
+      ],
+      "value_schema": {
+        "oneOf": [
+          {
+            "type": "number",
+            "minimum": 0
+          },
+          {
+            "type": "string",
+            "enum": [
+              "cannot-tell",
+              "not-asked"
+            ]
+          }
+        ]
+      },
+      "optional_default": {
+        "parameter": {
+          "id": "tax.us.2025.parameter.f1099k-not-asked-default",
+          "version": "v1"
+        }
+      },
+      "supersession": {
+        "policy": "free"
+      }
+    },
+    {
+      "schema": "fact-type.v2",
+      "id": "tax.us.2025.f1099k.shipping-arrangement",
+      "version": "v1",
+      "title": "Q8: Shipping arrangement",
+      "nature": "determinable",
+      "identity_keys": [
+        {
+          "name": "payer",
+          "kind": "entity",
+          "entity_kind": "tax.us.1099k-platform"
+        },
+        {
+          "name": "statement",
+          "kind": "entity",
+          "entity_kind": "tax.us.1099k-statement"
+        },
+        {
+          "name": "tax-year",
+          "kind": "literal",
+          "values": [
+            "2025"
+          ]
+        }
+      ],
+      "value_schema": {
+        "enum": [
+          "platform-pass-through",
+          "seller-received-shipping",
+          "none",
+          "cannot-tell",
+          "not-asked"
+        ]
+      },
+      "optional_default": {
+        "parameter": {
+          "id": "tax.us.2025.parameter.f1099k-not-asked-default",
+          "version": "v1"
+        }
+      },
+      "supersession": {
+        "policy": "free"
+      }
+    },
+    {
+      "schema": "fact-type.v2",
+      "id": "tax.us.2025.f1099k.platform-fees",
+      "version": "v1",
+      "title": "Q9: Platform selling fees",
+      "nature": "determinable",
+      "identity_keys": [
+        {
+          "name": "payer",
+          "kind": "entity",
+          "entity_kind": "tax.us.1099k-platform"
+        },
+        {
+          "name": "statement",
+          "kind": "entity",
+          "entity_kind": "tax.us.1099k-statement"
+        },
+        {
+          "name": "tax-year",
+          "kind": "literal",
+          "values": [
+            "2025"
+          ]
+        }
+      ],
+      "value_schema": {
+        "oneOf": [
+          {
+            "type": "number",
+            "minimum": 0
+          },
+          {
+            "type": "string",
+            "enum": [
+              "cannot-tell",
+              "not-asked"
+            ]
+          }
+        ]
+      },
+      "optional_default": {
+        "parameter": {
+          "id": "tax.us.2025.parameter.f1099k-not-asked-default",
+          "version": "v1"
+        }
+      },
+      "supersession": {
+        "policy": "free"
+      }
+    },
+    {
+      "schema": "fact-type.v2",
+      "id": "tax.us.2025.f1099k.seller-paid-shipping",
+      "version": "v1",
+      "title": "Q9: Seller-paid shipping amount",
+      "nature": "determinable",
+      "identity_keys": [
+        {
+          "name": "payer",
+          "kind": "entity",
+          "entity_kind": "tax.us.1099k-platform"
+        },
+        {
+          "name": "statement",
+          "kind": "entity",
+          "entity_kind": "tax.us.1099k-statement"
+        },
+        {
+          "name": "tax-year",
+          "kind": "literal",
+          "values": [
+            "2025"
+          ]
+        }
+      ],
+      "value_schema": {
+        "oneOf": [
+          {
+            "type": "number",
+            "minimum": 0
+          },
+          {
+            "type": "string",
+            "enum": [
+              "cannot-tell",
+              "not-asked"
+            ]
+          }
+        ]
+      },
+      "optional_default": {
+        "parameter": {
+          "id": "tax.us.2025.parameter.f1099k-not-asked-default",
+          "version": "v1"
+        }
+      },
+      "supersession": {
+        "policy": "free"
+      }
+    },
+    {
+      "schema": "fact-type.v2",
+      "id": "tax.us.2025.f1099k.sales-tax-collected-by-platform",
+      "version": "v1",
+      "title": "Q10: Sales tax collected by platform",
+      "nature": "determinable",
+      "identity_keys": [
+        {
+          "name": "payer",
+          "kind": "entity",
+          "entity_kind": "tax.us.1099k-platform"
+        },
+        {
+          "name": "statement",
+          "kind": "entity",
+          "entity_kind": "tax.us.1099k-statement"
+        },
+        {
+          "name": "tax-year",
+          "kind": "literal",
+          "values": [
+            "2025"
+          ]
+        }
+      ],
+      "value_schema": {
+        "oneOf": [
+          {
+            "type": "number",
+            "minimum": 0
+          },
+          {
+            "type": "string",
+            "enum": [
+              "cannot-tell",
+              "not-asked"
+            ]
+          }
+        ]
+      },
+      "optional_default": {
+        "parameter": {
+          "id": "tax.us.2025.parameter.f1099k-not-asked-default",
+          "version": "v1"
+        }
+      },
+      "supersession": {
+        "policy": "free"
+      }
+    },
+    {
+      "schema": "fact-type.v2",
+      "id": "tax.us.2025.f1099k.refund-amount",
+      "version": "v1",
+      "title": "Q10: Refund amount given back by seller",
+      "nature": "determinable",
+      "identity_keys": [
+        {
+          "name": "payer",
+          "kind": "entity",
+          "entity_kind": "tax.us.1099k-platform"
+        },
+        {
+          "name": "statement",
+          "kind": "entity",
+          "entity_kind": "tax.us.1099k-statement"
+        },
+        {
+          "name": "tax-year",
+          "kind": "literal",
+          "values": [
+            "2025"
+          ]
+        }
+      ],
+      "value_schema": {
+        "oneOf": [
+          {
+            "type": "number",
+            "minimum": 0
+          },
+          {
+            "type": "string",
+            "enum": [
+              "cannot-tell",
+              "not-asked"
+            ]
+          }
+        ]
+      },
+      "optional_default": {
+        "parameter": {
+          "id": "tax.us.2025.parameter.f1099k-not-asked-default",
+          "version": "v1"
+        }
+      },
+      "supersession": {
+        "policy": "free"
+      }
+    },
+    {
+      "schema": "fact-type.v2",
+      "id": "tax.us.2025.f1099k.buyer-paid-shipping",
+      "version": "v1",
+      "title": "Q11: Buyer-paid shipping amount",
+      "nature": "determinable",
+      "identity_keys": [
+        {
+          "name": "payer",
+          "kind": "entity",
+          "entity_kind": "tax.us.1099k-platform"
+        },
+        {
+          "name": "statement",
+          "kind": "entity",
+          "entity_kind": "tax.us.1099k-statement"
+        },
+        {
+          "name": "tax-year",
+          "kind": "literal",
+          "values": [
+            "2025"
+          ]
+        }
+      ],
+      "value_schema": {
+        "oneOf": [
+          {
+            "type": "number",
+            "minimum": 0
+          },
+          {
+            "type": "string",
+            "enum": [
+              "cannot-tell",
+              "not-asked"
+            ]
+          }
+        ]
+      },
+      "optional_default": {
+        "parameter": {
+          "id": "tax.us.2025.parameter.f1099k-not-asked-default",
+          "version": "v1"
+        }
+      },
+      "supersession": {
+        "policy": "free"
+      }
+    },
+    {
+      "schema": "fact-type.v2",
+      "id": "tax.us.2025.f1099k.purchase-cost",
+      "version": "v1",
+      "title": "Q12: Original purchase cost",
+      "nature": "determinable",
+      "identity_keys": [
+        {
+          "name": "payer",
+          "kind": "entity",
+          "entity_kind": "tax.us.1099k-platform"
+        },
+        {
+          "name": "statement",
+          "kind": "entity",
+          "entity_kind": "tax.us.1099k-statement"
+        },
+        {
+          "name": "tax-year",
+          "kind": "literal",
+          "values": [
+            "2025"
+          ]
+        }
+      ],
+      "value_schema": {
+        "oneOf": [
+          {
+            "type": "number",
+            "minimum": 0
+          },
+          {
+            "type": "string",
+            "enum": [
+              "cannot-tell",
+              "not-asked"
+            ]
+          }
+        ]
+      },
+      "optional_default": {
+        "parameter": {
+          "id": "tax.us.2025.parameter.f1099k-not-asked-default",
+          "version": "v1"
+        }
+      },
+      "supersession": {
+        "policy": "free"
+      }
+    },
+    {
+      "schema": "fact-type.v2",
+      "id": "tax.us.2025.f1099k.cost-basis-known",
+      "version": "v1",
+      "title": "Q12: Cost basis known gate",
+      "nature": "determinable",
+      "identity_keys": [
+        {
+          "name": "payer",
+          "kind": "entity",
+          "entity_kind": "tax.us.1099k-platform"
+        },
+        {
+          "name": "statement",
+          "kind": "entity",
+          "entity_kind": "tax.us.1099k-statement"
+        },
+        {
+          "name": "tax-year",
+          "kind": "literal",
+          "values": [
+            "2025"
+          ]
+        }
+      ],
+      "value_schema": {
+        "enum": [
+          "yes",
+          "cannot-tell",
+          "not-asked"
+        ]
+      },
+      "optional_default": {
+        "parameter": {
+          "id": "tax.us.2025.parameter.f1099k-not-asked-default",
+          "version": "v1"
+        }
+      },
+      "supersession": {
+        "policy": "free"
+      }
+    },
+    {
+      "schema": "fact-type.v2",
+      "id": "tax.us.2025.f1099k.lasting-improvements-or-adjustments",
+      "version": "v1",
+      "title": "Q13: Lasting improvements or adjustments",
+      "nature": "determinable",
+      "identity_keys": [
+        {
+          "name": "payer",
+          "kind": "entity",
+          "entity_kind": "tax.us.1099k-platform"
+        },
+        {
+          "name": "statement",
+          "kind": "entity",
+          "entity_kind": "tax.us.1099k-statement"
+        },
+        {
+          "name": "tax-year",
+          "kind": "literal",
+          "values": [
+            "2025"
+          ]
+        }
+      ],
+      "value_schema": {
+        "enum": [
+          "no",
+          "yes",
+          "cannot-tell",
+          "not-asked"
+        ]
+      },
+      "optional_default": {
+        "parameter": {
+          "id": "tax.us.2025.parameter.f1099k-not-asked-default",
+          "version": "v1"
+        }
+      },
+      "supersession": {
+        "policy": "free"
+      }
+    }
+  ]
+}

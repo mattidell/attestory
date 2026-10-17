@@ -1,0 +1,1330 @@
+{
+  "schema": "rule-artifact.v14",
+  "id": "tax.us.2025.rule.f1099k-statement-loss-reason",
+  "version": "v3",
+  "scope": {
+    "tax_year": 2025,
+    "jurisdiction": "US-federal",
+    "family": "individual-income-tax"
+  },
+  "role": "computation",
+  "subject": {
+    "id": "tax.us.2025.f1099k.box1a-gross-amount",
+    "version": "v1"
+  },
+  "requires": [
+    "tax.us.2025.f1099k.box1a-gross-amount",
+    "tax.us.2025.f1099k.box4-federal-withholding",
+    "tax.us.2025.f1099k.covers-only-single-item",
+    "tax.us.2025.f1099k.acquired-by-purchase",
+    "tax.us.2025.f1099k.primary-purpose-at-acquisition",
+    "tax.us.2025.f1099k.exclusive-personal-use",
+    "tax.us.2025.f1099k.digital-asset-involvement",
+    "tax.us.2025.f1099k.agreed-item-price",
+    "tax.us.2025.f1099k.shipping-arrangement",
+    "tax.us.2025.f1099k.platform-fees",
+    "tax.us.2025.f1099k.seller-paid-shipping",
+    "tax.us.2025.f1099k.sales-tax-collected-by-platform",
+    "tax.us.2025.f1099k.refund-amount",
+    "tax.us.2025.f1099k.buyer-paid-shipping",
+    "tax.us.2025.f1099k.purchase-cost",
+    "tax.us.2025.f1099k.cost-basis-known",
+    "tax.us.2025.f1099k.lasting-improvements-or-adjustments",
+    "tax.us.2025.f1099k.expected-box1a-gross-amount",
+    "tax.us.2025.f1099k.amount-realized",
+    "tax.us.2025.f1099k.selling-expenses",
+    "tax.us.2025.f1099k.net-proceeds",
+    "tax.us.2025.f1099k.adjusted-basis"
+  ],
+  "pins": [],
+  "when": true,
+  "value": {
+    "op": "choose",
+    "when": {
+      "op": "compare",
+      "cmp": "gt",
+      "left": {
+        "op": "shared_key_count",
+        "fact_type": "tax.us.2025.f1099k.box1a-gross-amount",
+        "key": "tax-year"
+      },
+      "right": 1
+    },
+    "then": {
+      "op": "category_literal",
+      "fact_type": {
+        "id": "tax.us.2025.f1099k.statement-loss-reason",
+        "version": "v2"
+      },
+      "value": "multiple-f1099k-out-of-scope"
+    },
+    "else": {
+      "op": "choose",
+      "when": {
+        "op": "categorical_compare",
+        "cmp": "eq",
+        "left": {
+          "op": "ref",
+          "name": "tax.us.2025.f1099k.covers-only-single-item"
+        },
+        "right": {
+          "op": "category_literal",
+          "fact_type": {
+            "id": "tax.us.2025.f1099k.covers-only-single-item",
+            "version": "v1"
+          },
+          "value": "not-asked"
+        }
+      },
+      "then": {
+        "op": "category_literal",
+        "fact_type": {
+          "id": "tax.us.2025.f1099k.statement-loss-reason",
+          "version": "v2"
+        },
+        "value": "single-sale-unanswered"
+      },
+      "else": {
+        "op": "choose",
+        "when": {
+          "op": "categorical_compare",
+          "cmp": "eq",
+          "left": {
+            "op": "ref",
+            "name": "tax.us.2025.f1099k.acquired-by-purchase"
+          },
+          "right": {
+            "op": "category_literal",
+            "fact_type": {
+              "id": "tax.us.2025.f1099k.acquired-by-purchase",
+              "version": "v1"
+            },
+            "value": "not-asked"
+          }
+        },
+        "then": {
+          "op": "category_literal",
+          "fact_type": {
+            "id": "tax.us.2025.f1099k.statement-loss-reason",
+            "version": "v2"
+          },
+          "value": "acquisition-type-unanswered"
+        },
+        "else": {
+          "op": "choose",
+          "when": {
+            "op": "categorical_compare",
+            "cmp": "eq",
+            "left": {
+              "op": "ref",
+              "name": "tax.us.2025.f1099k.primary-purpose-at-acquisition"
+            },
+            "right": {
+              "op": "category_literal",
+              "fact_type": {
+                "id": "tax.us.2025.f1099k.primary-purpose-at-acquisition",
+                "version": "v1"
+              },
+              "value": "not-asked"
+            }
+          },
+          "then": {
+            "op": "category_literal",
+            "fact_type": {
+              "id": "tax.us.2025.f1099k.statement-loss-reason",
+              "version": "v2"
+            },
+            "value": "purpose-unanswered"
+          },
+          "else": {
+            "op": "choose",
+            "when": {
+              "op": "categorical_compare",
+              "cmp": "eq",
+              "left": {
+                "op": "ref",
+                "name": "tax.us.2025.f1099k.exclusive-personal-use"
+              },
+              "right": {
+                "op": "category_literal",
+                "fact_type": {
+                  "id": "tax.us.2025.f1099k.exclusive-personal-use",
+                  "version": "v1"
+                },
+                "value": "not-asked"
+              }
+            },
+            "then": {
+              "op": "category_literal",
+              "fact_type": {
+                "id": "tax.us.2025.f1099k.statement-loss-reason",
+                "version": "v2"
+              },
+              "value": "personal-use-unconfirmed"
+            },
+            "else": {
+              "op": "choose",
+              "when": {
+                "op": "categorical_compare",
+                "cmp": "eq",
+                "left": {
+                  "op": "ref",
+                  "name": "tax.us.2025.f1099k.digital-asset-involvement"
+                },
+                "right": {
+                  "op": "category_literal",
+                  "fact_type": {
+                    "id": "tax.us.2025.f1099k.digital-asset-involvement",
+                    "version": "v1"
+                  },
+                  "value": "not-asked"
+                }
+              },
+              "then": {
+                "op": "category_literal",
+                "fact_type": {
+                  "id": "tax.us.2025.f1099k.statement-loss-reason",
+                  "version": "v2"
+                },
+                "value": "asset-type-unanswered"
+              },
+              "else": {
+                "op": "choose",
+                "when": {
+                  "op": "categorical_compare",
+                  "cmp": "eq",
+                  "left": {
+                    "op": "ref",
+                    "name": "tax.us.2025.f1099k.agreed-item-price"
+                  },
+                  "right": {
+                    "op": "category_literal",
+                    "fact_type": {
+                      "id": "tax.us.2025.f1099k.agreed-item-price",
+                      "version": "v1"
+                    },
+                    "value": "not-asked"
+                  }
+                },
+                "then": {
+                  "op": "category_literal",
+                  "fact_type": {
+                    "id": "tax.us.2025.f1099k.statement-loss-reason",
+                    "version": "v2"
+                  },
+                  "value": "agreed-price-unanswered"
+                },
+                "else": {
+                  "op": "choose",
+                  "when": {
+                    "op": "categorical_compare",
+                    "cmp": "eq",
+                    "left": {
+                      "op": "ref",
+                      "name": "tax.us.2025.f1099k.sales-tax-collected-by-platform"
+                    },
+                    "right": {
+                      "op": "category_literal",
+                      "fact_type": {
+                        "id": "tax.us.2025.f1099k.sales-tax-collected-by-platform",
+                        "version": "v1"
+                      },
+                      "value": "not-asked"
+                    }
+                  },
+                  "then": {
+                    "op": "category_literal",
+                    "fact_type": {
+                      "id": "tax.us.2025.f1099k.statement-loss-reason",
+                      "version": "v2"
+                    },
+                    "value": "platform-tax-unanswered"
+                  },
+                  "else": {
+                    "op": "choose",
+                    "when": {
+                      "op": "categorical_compare",
+                      "cmp": "eq",
+                      "left": {
+                        "op": "ref",
+                        "name": "tax.us.2025.f1099k.buyer-paid-shipping"
+                      },
+                      "right": {
+                        "op": "category_literal",
+                        "fact_type": {
+                          "id": "tax.us.2025.f1099k.buyer-paid-shipping",
+                          "version": "v1"
+                        },
+                        "value": "not-asked"
+                      }
+                    },
+                    "then": {
+                      "op": "category_literal",
+                      "fact_type": {
+                        "id": "tax.us.2025.f1099k.statement-loss-reason",
+                        "version": "v2"
+                      },
+                      "value": "buyer-shipping-unanswered"
+                    },
+                    "else": {
+                      "op": "choose",
+                      "when": {
+                        "op": "categorical_compare",
+                        "cmp": "eq",
+                        "left": {
+                          "op": "ref",
+                          "name": "tax.us.2025.f1099k.refund-amount"
+                        },
+                        "right": {
+                          "op": "category_literal",
+                          "fact_type": {
+                            "id": "tax.us.2025.f1099k.refund-amount",
+                            "version": "v1"
+                          },
+                          "value": "not-asked"
+                        }
+                      },
+                      "then": {
+                        "op": "category_literal",
+                        "fact_type": {
+                          "id": "tax.us.2025.f1099k.statement-loss-reason",
+                          "version": "v2"
+                        },
+                        "value": "refund-status-unanswered"
+                      },
+                      "else": {
+                        "op": "choose",
+                        "when": {
+                          "op": "categorical_compare",
+                          "cmp": "eq",
+                          "left": {
+                            "op": "ref",
+                            "name": "tax.us.2025.f1099k.shipping-arrangement"
+                          },
+                          "right": {
+                            "op": "category_literal",
+                            "fact_type": {
+                              "id": "tax.us.2025.f1099k.shipping-arrangement",
+                              "version": "v1"
+                            },
+                            "value": "not-asked"
+                          }
+                        },
+                        "then": {
+                          "op": "category_literal",
+                          "fact_type": {
+                            "id": "tax.us.2025.f1099k.statement-loss-reason",
+                            "version": "v2"
+                          },
+                          "value": "shipping-arrangement-unanswered"
+                        },
+                        "else": {
+                          "op": "choose",
+                          "when": {
+                            "op": "categorical_compare",
+                            "cmp": "eq",
+                            "left": {
+                              "op": "ref",
+                              "name": "tax.us.2025.f1099k.platform-fees"
+                            },
+                            "right": {
+                              "op": "category_literal",
+                              "fact_type": {
+                                "id": "tax.us.2025.f1099k.platform-fees",
+                                "version": "v1"
+                              },
+                              "value": "not-asked"
+                            }
+                          },
+                          "then": {
+                            "op": "category_literal",
+                            "fact_type": {
+                              "id": "tax.us.2025.f1099k.statement-loss-reason",
+                              "version": "v2"
+                            },
+                            "value": "platform-fees-unanswered"
+                          },
+                          "else": {
+                            "op": "choose",
+                            "when": {
+                              "op": "categorical_compare",
+                              "cmp": "eq",
+                              "left": {
+                                "op": "ref",
+                                "name": "tax.us.2025.f1099k.seller-paid-shipping"
+                              },
+                              "right": {
+                                "op": "category_literal",
+                                "fact_type": {
+                                  "id": "tax.us.2025.f1099k.seller-paid-shipping",
+                                  "version": "v1"
+                                },
+                                "value": "not-asked"
+                              }
+                            },
+                            "then": {
+                              "op": "category_literal",
+                              "fact_type": {
+                                "id": "tax.us.2025.f1099k.statement-loss-reason",
+                                "version": "v2"
+                              },
+                              "value": "seller-shipping-unanswered"
+                            },
+                            "else": {
+                              "op": "choose",
+                              "when": {
+                                "op": "categorical_compare",
+                                "cmp": "eq",
+                                "left": {
+                                  "op": "ref",
+                                  "name": "tax.us.2025.f1099k.purchase-cost"
+                                },
+                                "right": {
+                                  "op": "category_literal",
+                                  "fact_type": {
+                                    "id": "tax.us.2025.f1099k.purchase-cost",
+                                    "version": "v1"
+                                  },
+                                  "value": "not-asked"
+                                }
+                              },
+                              "then": {
+                                "op": "category_literal",
+                                "fact_type": {
+                                  "id": "tax.us.2025.f1099k.statement-loss-reason",
+                                  "version": "v2"
+                                },
+                                "value": "cost-basis-unanswered"
+                              },
+                              "else": {
+                                "op": "choose",
+                                "when": {
+                                  "op": "categorical_compare",
+                                  "cmp": "eq",
+                                  "left": {
+                                    "op": "ref",
+                                    "name": "tax.us.2025.f1099k.cost-basis-known"
+                                  },
+                                  "right": {
+                                    "op": "category_literal",
+                                    "fact_type": {
+                                      "id": "tax.us.2025.f1099k.cost-basis-known",
+                                      "version": "v1"
+                                    },
+                                    "value": "not-asked"
+                                  }
+                                },
+                                "then": {
+                                  "op": "category_literal",
+                                  "fact_type": {
+                                    "id": "tax.us.2025.f1099k.statement-loss-reason",
+                                    "version": "v2"
+                                  },
+                                  "value": "cost-basis-unanswered"
+                                },
+                                "else": {
+                                  "op": "choose",
+                                  "when": {
+                                    "op": "categorical_compare",
+                                    "cmp": "eq",
+                                    "left": {
+                                      "op": "ref",
+                                      "name": "tax.us.2025.f1099k.lasting-improvements-or-adjustments"
+                                    },
+                                    "right": {
+                                      "op": "category_literal",
+                                      "fact_type": {
+                                        "id": "tax.us.2025.f1099k.lasting-improvements-or-adjustments",
+                                        "version": "v1"
+                                      },
+                                      "value": "not-asked"
+                                    }
+                                  },
+                                  "then": {
+                                    "op": "category_literal",
+                                    "fact_type": {
+                                      "id": "tax.us.2025.f1099k.statement-loss-reason",
+                                      "version": "v2"
+                                    },
+                                    "value": "improvements-unanswered"
+                                  },
+                                  "else": {
+                                    "op": "choose",
+                                    "when": {
+                                      "op": "categorical_compare",
+                                      "cmp": "eq",
+                                      "left": {
+                                        "op": "ref",
+                                        "name": "tax.us.2025.f1099k.covers-only-single-item"
+                                      },
+                                      "right": {
+                                        "op": "category_literal",
+                                        "fact_type": {
+                                          "id": "tax.us.2025.f1099k.covers-only-single-item",
+                                          "version": "v1"
+                                        },
+                                        "value": "cannot-tell"
+                                      }
+                                    },
+                                    "then": {
+                                      "op": "category_literal",
+                                      "fact_type": {
+                                        "id": "tax.us.2025.f1099k.statement-loss-reason",
+                                        "version": "v2"
+                                      },
+                                      "value": "cannot-tell-sale-scope"
+                                    },
+                                    "else": {
+                                      "op": "choose",
+                                      "when": {
+                                        "op": "categorical_compare",
+                                        "cmp": "eq",
+                                        "left": {
+                                          "op": "ref",
+                                          "name": "tax.us.2025.f1099k.acquired-by-purchase"
+                                        },
+                                        "right": {
+                                          "op": "category_literal",
+                                          "fact_type": {
+                                            "id": "tax.us.2025.f1099k.acquired-by-purchase",
+                                            "version": "v1"
+                                          },
+                                          "value": "cannot-tell"
+                                        }
+                                      },
+                                      "then": {
+                                        "op": "category_literal",
+                                        "fact_type": {
+                                          "id": "tax.us.2025.f1099k.statement-loss-reason",
+                                          "version": "v2"
+                                        },
+                                        "value": "cannot-tell-acquisition"
+                                      },
+                                      "else": {
+                                        "op": "choose",
+                                        "when": {
+                                          "op": "categorical_compare",
+                                          "cmp": "eq",
+                                          "left": {
+                                            "op": "ref",
+                                            "name": "tax.us.2025.f1099k.primary-purpose-at-acquisition"
+                                          },
+                                          "right": {
+                                            "op": "category_literal",
+                                            "fact_type": {
+                                              "id": "tax.us.2025.f1099k.primary-purpose-at-acquisition",
+                                              "version": "v1"
+                                            },
+                                            "value": "cannot-tell"
+                                          }
+                                        },
+                                        "then": {
+                                          "op": "category_literal",
+                                          "fact_type": {
+                                            "id": "tax.us.2025.f1099k.statement-loss-reason",
+                                            "version": "v2"
+                                          },
+                                          "value": "cannot-tell-purpose"
+                                        },
+                                        "else": {
+                                          "op": "choose",
+                                          "when": {
+                                            "op": "categorical_compare",
+                                            "cmp": "eq",
+                                            "left": {
+                                              "op": "ref",
+                                              "name": "tax.us.2025.f1099k.exclusive-personal-use"
+                                            },
+                                            "right": {
+                                              "op": "category_literal",
+                                              "fact_type": {
+                                                "id": "tax.us.2025.f1099k.exclusive-personal-use",
+                                                "version": "v1"
+                                              },
+                                              "value": "cannot-tell"
+                                            }
+                                          },
+                                          "then": {
+                                            "op": "category_literal",
+                                            "fact_type": {
+                                              "id": "tax.us.2025.f1099k.statement-loss-reason",
+                                              "version": "v2"
+                                            },
+                                            "value": "cannot-tell-use"
+                                          },
+                                          "else": {
+                                            "op": "choose",
+                                            "when": {
+                                              "op": "categorical_compare",
+                                              "cmp": "eq",
+                                              "left": {
+                                                "op": "ref",
+                                                "name": "tax.us.2025.f1099k.digital-asset-involvement"
+                                              },
+                                              "right": {
+                                                "op": "category_literal",
+                                                "fact_type": {
+                                                  "id": "tax.us.2025.f1099k.digital-asset-involvement",
+                                                  "version": "v1"
+                                                },
+                                                "value": "cannot-tell"
+                                              }
+                                            },
+                                            "then": {
+                                              "op": "category_literal",
+                                              "fact_type": {
+                                                "id": "tax.us.2025.f1099k.statement-loss-reason",
+                                                "version": "v2"
+                                              },
+                                              "value": "cannot-tell-asset-type"
+                                            },
+                                            "else": {
+                                              "op": "choose",
+                                              "when": {
+                                                "op": "categorical_compare",
+                                                "cmp": "eq",
+                                                "left": {
+                                                  "op": "ref",
+                                                  "name": "tax.us.2025.f1099k.agreed-item-price"
+                                                },
+                                                "right": {
+                                                  "op": "category_literal",
+                                                  "fact_type": {
+                                                    "id": "tax.us.2025.f1099k.agreed-item-price",
+                                                    "version": "v1"
+                                                  },
+                                                  "value": "cannot-tell"
+                                                }
+                                              },
+                                              "then": {
+                                                "op": "category_literal",
+                                                "fact_type": {
+                                                  "id": "tax.us.2025.f1099k.statement-loss-reason",
+                                                  "version": "v2"
+                                                },
+                                                "value": "buyer-payment-unknown"
+                                              },
+                                              "else": {
+                                                "op": "choose",
+                                                "when": {
+                                                  "op": "categorical_compare",
+                                                  "cmp": "eq",
+                                                  "left": {
+                                                    "op": "ref",
+                                                    "name": "tax.us.2025.f1099k.sales-tax-collected-by-platform"
+                                                  },
+                                                  "right": {
+                                                    "op": "category_literal",
+                                                    "fact_type": {
+                                                      "id": "tax.us.2025.f1099k.sales-tax-collected-by-platform",
+                                                      "version": "v1"
+                                                    },
+                                                    "value": "cannot-tell"
+                                                  }
+                                                },
+                                                "then": {
+                                                  "op": "category_literal",
+                                                  "fact_type": {
+                                                    "id": "tax.us.2025.f1099k.statement-loss-reason",
+                                                    "version": "v2"
+                                                  },
+                                                  "value": "platform-tax-unknown"
+                                                },
+                                                "else": {
+                                                  "op": "choose",
+                                                  "when": {
+                                                    "op": "categorical_compare",
+                                                    "cmp": "eq",
+                                                    "left": {
+                                                      "op": "ref",
+                                                      "name": "tax.us.2025.f1099k.buyer-paid-shipping"
+                                                    },
+                                                    "right": {
+                                                      "op": "category_literal",
+                                                      "fact_type": {
+                                                        "id": "tax.us.2025.f1099k.buyer-paid-shipping",
+                                                        "version": "v1"
+                                                      },
+                                                      "value": "cannot-tell"
+                                                    }
+                                                  },
+                                                  "then": {
+                                                    "op": "category_literal",
+                                                    "fact_type": {
+                                                      "id": "tax.us.2025.f1099k.statement-loss-reason",
+                                                      "version": "v2"
+                                                    },
+                                                    "value": "buyer-shipping-unknown"
+                                                  },
+                                                  "else": {
+                                                    "op": "choose",
+                                                    "when": {
+                                                      "op": "categorical_compare",
+                                                      "cmp": "eq",
+                                                      "left": {
+                                                        "op": "ref",
+                                                        "name": "tax.us.2025.f1099k.refund-amount"
+                                                      },
+                                                      "right": {
+                                                        "op": "category_literal",
+                                                        "fact_type": {
+                                                          "id": "tax.us.2025.f1099k.refund-amount",
+                                                          "version": "v1"
+                                                        },
+                                                        "value": "cannot-tell"
+                                                      }
+                                                    },
+                                                    "then": {
+                                                      "op": "category_literal",
+                                                      "fact_type": {
+                                                        "id": "tax.us.2025.f1099k.statement-loss-reason",
+                                                        "version": "v2"
+                                                      },
+                                                      "value": "refund-status-unknown"
+                                                    },
+                                                    "else": {
+                                                      "op": "choose",
+                                                      "when": {
+                                                        "op": "categorical_compare",
+                                                        "cmp": "eq",
+                                                        "left": {
+                                                          "op": "ref",
+                                                          "name": "tax.us.2025.f1099k.shipping-arrangement"
+                                                        },
+                                                        "right": {
+                                                          "op": "category_literal",
+                                                          "fact_type": {
+                                                            "id": "tax.us.2025.f1099k.shipping-arrangement",
+                                                            "version": "v1"
+                                                          },
+                                                          "value": "cannot-tell"
+                                                        }
+                                                      },
+                                                      "then": {
+                                                        "op": "category_literal",
+                                                        "fact_type": {
+                                                          "id": "tax.us.2025.f1099k.statement-loss-reason",
+                                                          "version": "v2"
+                                                        },
+                                                        "value": "shipping-arrangement-unknown"
+                                                      },
+                                                      "else": {
+                                                        "op": "choose",
+                                                        "when": {
+                                                          "op": "categorical_compare",
+                                                          "cmp": "eq",
+                                                          "left": {
+                                                            "op": "ref",
+                                                            "name": "tax.us.2025.f1099k.platform-fees"
+                                                          },
+                                                          "right": {
+                                                            "op": "category_literal",
+                                                            "fact_type": {
+                                                              "id": "tax.us.2025.f1099k.platform-fees",
+                                                              "version": "v1"
+                                                            },
+                                                            "value": "cannot-tell"
+                                                          }
+                                                        },
+                                                        "then": {
+                                                          "op": "category_literal",
+                                                          "fact_type": {
+                                                            "id": "tax.us.2025.f1099k.statement-loss-reason",
+                                                            "version": "v2"
+                                                          },
+                                                          "value": "platform-fees-unknown"
+                                                        },
+                                                        "else": {
+                                                          "op": "choose",
+                                                          "when": {
+                                                            "op": "categorical_compare",
+                                                            "cmp": "eq",
+                                                            "left": {
+                                                              "op": "ref",
+                                                              "name": "tax.us.2025.f1099k.seller-paid-shipping"
+                                                            },
+                                                            "right": {
+                                                              "op": "category_literal",
+                                                              "fact_type": {
+                                                                "id": "tax.us.2025.f1099k.seller-paid-shipping",
+                                                                "version": "v1"
+                                                              },
+                                                              "value": "cannot-tell"
+                                                            }
+                                                          },
+                                                          "then": {
+                                                            "op": "category_literal",
+                                                            "fact_type": {
+                                                              "id": "tax.us.2025.f1099k.statement-loss-reason",
+                                                              "version": "v2"
+                                                            },
+                                                            "value": "seller-shipping-unknown"
+                                                          },
+                                                          "else": {
+                                                            "op": "choose",
+                                                            "when": {
+                                                              "op": "categorical_compare",
+                                                              "cmp": "eq",
+                                                              "left": {
+                                                                "op": "ref",
+                                                                "name": "tax.us.2025.f1099k.purchase-cost"
+                                                              },
+                                                              "right": {
+                                                                "op": "category_literal",
+                                                                "fact_type": {
+                                                                  "id": "tax.us.2025.f1099k.purchase-cost",
+                                                                  "version": "v1"
+                                                                },
+                                                                "value": "cannot-tell"
+                                                              }
+                                                            },
+                                                            "then": {
+                                                              "op": "category_literal",
+                                                              "fact_type": {
+                                                                "id": "tax.us.2025.f1099k.statement-loss-reason",
+                                                                "version": "v2"
+                                                              },
+                                                              "value": "cost-basis-unknown"
+                                                            },
+                                                            "else": {
+                                                              "op": "choose",
+                                                              "when": {
+                                                                "op": "categorical_compare",
+                                                                "cmp": "eq",
+                                                                "left": {
+                                                                  "op": "ref",
+                                                                  "name": "tax.us.2025.f1099k.cost-basis-known"
+                                                                },
+                                                                "right": {
+                                                                  "op": "category_literal",
+                                                                  "fact_type": {
+                                                                    "id": "tax.us.2025.f1099k.cost-basis-known",
+                                                                    "version": "v1"
+                                                                  },
+                                                                  "value": "cannot-tell"
+                                                                }
+                                                              },
+                                                              "then": {
+                                                                "op": "category_literal",
+                                                                "fact_type": {
+                                                                  "id": "tax.us.2025.f1099k.statement-loss-reason",
+                                                                  "version": "v2"
+                                                                },
+                                                                "value": "cost-basis-unknown"
+                                                              },
+                                                              "else": {
+                                                                "op": "choose",
+                                                                "when": {
+                                                                  "op": "categorical_compare",
+                                                                  "cmp": "eq",
+                                                                  "left": {
+                                                                    "op": "ref",
+                                                                    "name": "tax.us.2025.f1099k.lasting-improvements-or-adjustments"
+                                                                  },
+                                                                  "right": {
+                                                                    "op": "category_literal",
+                                                                    "fact_type": {
+                                                                      "id": "tax.us.2025.f1099k.lasting-improvements-or-adjustments",
+                                                                      "version": "v1"
+                                                                    },
+                                                                    "value": "cannot-tell"
+                                                                  }
+                                                                },
+                                                                "then": {
+                                                                  "op": "category_literal",
+                                                                  "fact_type": {
+                                                                    "id": "tax.us.2025.f1099k.statement-loss-reason",
+                                                                    "version": "v2"
+                                                                  },
+                                                                  "value": "cannot-tell-improvements"
+                                                                },
+                                                                "else": {
+                                                                  "op": "choose",
+                                                                  "when": {
+                                                                    "op": "categorical_compare",
+                                                                    "cmp": "eq",
+                                                                    "left": {
+                                                                      "op": "ref",
+                                                                      "name": "tax.us.2025.f1099k.covers-only-single-item"
+                                                                    },
+                                                                    "right": {
+                                                                      "op": "category_literal",
+                                                                      "fact_type": {
+                                                                        "id": "tax.us.2025.f1099k.covers-only-single-item",
+                                                                        "version": "v1"
+                                                                      },
+                                                                      "value": "no"
+                                                                    }
+                                                                  },
+                                                                  "then": {
+                                                                    "op": "category_literal",
+                                                                    "fact_type": {
+                                                                      "id": "tax.us.2025.f1099k.statement-loss-reason",
+                                                                      "version": "v2"
+                                                                    },
+                                                                    "value": "multi-sale-statement-unsupported"
+                                                                  },
+                                                                  "else": {
+                                                                    "op": "choose",
+                                                                    "when": {
+                                                                      "op": "categorical_compare",
+                                                                      "cmp": "eq",
+                                                                      "left": {
+                                                                        "op": "ref",
+                                                                        "name": "tax.us.2025.f1099k.acquired-by-purchase"
+                                                                      },
+                                                                      "right": {
+                                                                        "op": "category_literal",
+                                                                        "fact_type": {
+                                                                          "id": "tax.us.2025.f1099k.acquired-by-purchase",
+                                                                          "version": "v1"
+                                                                        },
+                                                                        "value": "no"
+                                                                      }
+                                                                    },
+                                                                    "then": {
+                                                                      "op": "category_literal",
+                                                                      "fact_type": {
+                                                                        "id": "tax.us.2025.f1099k.statement-loss-reason",
+                                                                        "version": "v2"
+                                                                      },
+                                                                      "value": "non-purchase-acquisition-unsupported"
+                                                                    },
+                                                                    "else": {
+                                                                      "op": "choose",
+                                                                      "when": {
+                                                                        "op": "categorical_compare",
+                                                                        "cmp": "eq",
+                                                                        "left": {
+                                                                          "op": "ref",
+                                                                          "name": "tax.us.2025.f1099k.primary-purpose-at-acquisition"
+                                                                        },
+                                                                        "right": {
+                                                                          "op": "category_literal",
+                                                                          "fact_type": {
+                                                                            "id": "tax.us.2025.f1099k.primary-purpose-at-acquisition",
+                                                                            "version": "v1"
+                                                                          },
+                                                                          "value": "investment-or-profit"
+                                                                        }
+                                                                      },
+                                                                      "then": {
+                                                                        "op": "category_literal",
+                                                                        "fact_type": {
+                                                                          "id": "tax.us.2025.f1099k.statement-loss-reason",
+                                                                          "version": "v2"
+                                                                        },
+                                                                        "value": "investment-purpose-excluded"
+                                                                      },
+                                                                      "else": {
+                                                                        "op": "choose",
+                                                                        "when": {
+                                                                          "op": "categorical_compare",
+                                                                          "cmp": "eq",
+                                                                          "left": {
+                                                                            "op": "ref",
+                                                                            "name": "tax.us.2025.f1099k.primary-purpose-at-acquisition"
+                                                                          },
+                                                                          "right": {
+                                                                            "op": "category_literal",
+                                                                            "fact_type": {
+                                                                              "id": "tax.us.2025.f1099k.primary-purpose-at-acquisition",
+                                                                              "version": "v1"
+                                                                            },
+                                                                            "value": "resale-or-inventory"
+                                                                          }
+                                                                        },
+                                                                        "then": {
+                                                                          "op": "category_literal",
+                                                                          "fact_type": {
+                                                                            "id": "tax.us.2025.f1099k.statement-loss-reason",
+                                                                            "version": "v2"
+                                                                          },
+                                                                          "value": "resale-inventory-excluded"
+                                                                        },
+                                                                        "else": {
+                                                                          "op": "choose",
+                                                                          "when": {
+                                                                            "op": "categorical_compare",
+                                                                            "cmp": "eq",
+                                                                            "left": {
+                                                                              "op": "ref",
+                                                                              "name": "tax.us.2025.f1099k.exclusive-personal-use"
+                                                                            },
+                                                                            "right": {
+                                                                              "op": "category_literal",
+                                                                              "fact_type": {
+                                                                                "id": "tax.us.2025.f1099k.exclusive-personal-use",
+                                                                                "version": "v1"
+                                                                              },
+                                                                              "value": "no"
+                                                                            }
+                                                                          },
+                                                                          "then": {
+                                                                            "op": "category_literal",
+                                                                            "fact_type": {
+                                                                              "id": "tax.us.2025.f1099k.statement-loss-reason",
+                                                                              "version": "v2"
+                                                                            },
+                                                                            "value": "prior-depreciable-use-excluded"
+                                                                          },
+                                                                          "else": {
+                                                                            "op": "choose",
+                                                                            "when": {
+                                                                              "op": "categorical_compare",
+                                                                              "cmp": "eq",
+                                                                              "left": {
+                                                                                "op": "ref",
+                                                                                "name": "tax.us.2025.f1099k.digital-asset-involvement"
+                                                                              },
+                                                                              "right": {
+                                                                                "op": "category_literal",
+                                                                                "fact_type": {
+                                                                                  "id": "tax.us.2025.f1099k.digital-asset-involvement",
+                                                                                  "version": "v1"
+                                                                                },
+                                                                                "value": "yes"
+                                                                              }
+                                                                            },
+                                                                            "then": {
+                                                                              "op": "category_literal",
+                                                                              "fact_type": {
+                                                                                "id": "tax.us.2025.f1099k.statement-loss-reason",
+                                                                                "version": "v2"
+                                                                              },
+                                                                              "value": "digital-asset-excluded"
+                                                                            },
+                                                                            "else": {
+                                                                              "op": "choose",
+                                                                              "when": {
+                                                                                "op": "categorical_compare",
+                                                                                "cmp": "eq",
+                                                                                "left": {
+                                                                                  "op": "ref",
+                                                                                  "name": "tax.us.2025.f1099k.lasting-improvements-or-adjustments"
+                                                                                },
+                                                                                "right": {
+                                                                                  "op": "category_literal",
+                                                                                  "fact_type": {
+                                                                                    "id": "tax.us.2025.f1099k.lasting-improvements-or-adjustments",
+                                                                                    "version": "v1"
+                                                                                  },
+                                                                                  "value": "yes"
+                                                                                }
+                                                                              },
+                                                                              "then": {
+                                                                                "op": "category_literal",
+                                                                                "fact_type": {
+                                                                                  "id": "tax.us.2025.f1099k.statement-loss-reason",
+                                                                                  "version": "v2"
+                                                                                },
+                                                                                "value": "basis-adjustment-unsupported"
+                                                                              },
+                                                                              "else": {
+                                                                                "op": "choose",
+                                                                                "when": {
+                                                                                  "op": "compare",
+                                                                                  "cmp": "gt",
+                                                                                  "left": {
+                                                                                    "op": "ref",
+                                                                                    "name": "tax.us.2025.f1099k.box4-federal-withholding"
+                                                                                  },
+                                                                                  "right": 0
+                                                                                },
+                                                                                "then": {
+                                                                                  "op": "category_literal",
+                                                                                  "fact_type": {
+                                                                                    "id": "tax.us.2025.f1099k.statement-loss-reason",
+                                                                                    "version": "v2"
+                                                                                  },
+                                                                                  "value": "backup-withholding-unsupported"
+                                                                                },
+                                                                                "else": {
+                                                                                  "op": "choose",
+                                                                                  "when": {
+                                                                                    "op": "compare",
+                                                                                    "cmp": "ne",
+                                                                                    "left": {
+                                                                                      "op": "ref",
+                                                                                      "name": "tax.us.2025.f1099k.box1a-gross-amount"
+                                                                                    },
+                                                                                    "right": {
+                                                                                      "op": "ref",
+                                                                                      "name": "tax.us.2025.f1099k.expected-box1a-gross-amount"
+                                                                                    }
+                                                                                  },
+                                                                                  "then": {
+                                                                                    "op": "category_literal",
+                                                                                    "fact_type": {
+                                                                                      "id": "tax.us.2025.f1099k.statement-loss-reason",
+                                                                                      "version": "v2"
+                                                                                    },
+                                                                                    "value": "unexplained-reconciliation-discrepancy"
+                                                                                  },
+                                                                                  "else": {
+                                                                                    "op": "choose",
+                                                                                    "when": {
+                                                                                      "op": "all",
+                                                                                      "args": [
+                                                                                        {
+                                                                                          "op": "categorical_compare",
+                                                                                          "cmp": "eq",
+                                                                                          "left": {
+                                                                                            "op": "ref",
+                                                                                            "name": "tax.us.2025.f1099k.shipping-arrangement"
+                                                                                          },
+                                                                                          "right": {
+                                                                                            "op": "category_literal",
+                                                                                            "fact_type": {
+                                                                                              "id": "tax.us.2025.f1099k.shipping-arrangement",
+                                                                                              "version": "v1"
+                                                                                            },
+                                                                                            "value": "platform-pass-through"
+                                                                                          }
+                                                                                        },
+                                                                                        {
+                                                                                          "op": "compare",
+                                                                                          "cmp": "gt",
+                                                                                          "left": {
+                                                                                            "op": "ref",
+                                                                                            "name": "tax.us.2025.f1099k.seller-paid-shipping"
+                                                                                          },
+                                                                                          "right": 0
+                                                                                        },
+                                                                                        {
+                                                                                          "op": "categorical_compare",
+                                                                                          "cmp": "eq",
+                                                                                          "left": {
+                                                                                            "op": "ref",
+                                                                                            "name": "tax.us.2025.f1099k.selling-expenses"
+                                                                                          },
+                                                                                          "right": {
+                                                                                            "op": "category_literal",
+                                                                                            "fact_type": {
+                                                                                              "id": "tax.us.2025.f1099k.selling-expenses",
+                                                                                              "version": "v1"
+                                                                                            },
+                                                                                            "value": "not-computed"
+                                                                                          }
+                                                                                        },
+                                                                                        {
+                                                                                          "op": "categorical_compare",
+                                                                                          "cmp": "eq",
+                                                                                          "left": {
+                                                                                            "op": "ref",
+                                                                                            "name": "tax.us.2025.f1099k.net-proceeds"
+                                                                                          },
+                                                                                          "right": {
+                                                                                            "op": "category_literal",
+                                                                                            "fact_type": {
+                                                                                              "id": "tax.us.2025.f1099k.net-proceeds",
+                                                                                              "version": "v1"
+                                                                                            },
+                                                                                            "value": "not-computed"
+                                                                                          }
+                                                                                        },
+                                                                                        {
+                                                                                          "op": "not",
+                                                                                          "value": {
+                                                                                            "op": "categorical_compare",
+                                                                                            "cmp": "eq",
+                                                                                            "left": {
+                                                                                              "op": "ref",
+                                                                                              "name": "tax.us.2025.f1099k.amount-realized"
+                                                                                            },
+                                                                                            "right": {
+                                                                                              "op": "category_literal",
+                                                                                              "fact_type": {
+                                                                                                "id": "tax.us.2025.f1099k.amount-realized",
+                                                                                                "version": "v1"
+                                                                                              },
+                                                                                              "value": "not-computed"
+                                                                                            }
+                                                                                          }
+                                                                                        },
+                                                                                        {
+                                                                                          "op": "not",
+                                                                                          "value": {
+                                                                                            "op": "categorical_compare",
+                                                                                            "cmp": "eq",
+                                                                                            "left": {
+                                                                                              "op": "ref",
+                                                                                              "name": "tax.us.2025.f1099k.adjusted-basis"
+                                                                                            },
+                                                                                            "right": {
+                                                                                              "op": "category_literal",
+                                                                                              "fact_type": {
+                                                                                                "id": "tax.us.2025.f1099k.adjusted-basis",
+                                                                                                "version": "v1"
+                                                                                              },
+                                                                                              "value": "not-computed"
+                                                                                            }
+                                                                                          }
+                                                                                        }
+                                                                                      ]
+                                                                                    },
+                                                                                    "then": {
+                                                                                      "op": "category_literal",
+                                                                                      "fact_type": {
+                                                                                        "id": "tax.us.2025.f1099k.statement-loss-reason",
+                                                                                        "version": "v2"
+                                                                                      },
+                                                                                      "value": "additional-seller-shipping-unsupported"
+                                                                                    },
+                                                                                    "else": {
+                                                                                      "op": "choose",
+                                                                                      "when": {
+                                                                                        "op": "all",
+                                                                                        "args": [
+                                                                                          {
+                                                                                            "op": "not",
+                                                                                            "value": {
+                                                                                              "op": "categorical_compare",
+                                                                                              "cmp": "eq",
+                                                                                              "left": {
+                                                                                                "op": "ref",
+                                                                                                "name": "tax.us.2025.f1099k.amount-realized"
+                                                                                              },
+                                                                                              "right": {
+                                                                                                "op": "category_literal",
+                                                                                                "fact_type": {
+                                                                                                  "id": "tax.us.2025.f1099k.amount-realized",
+                                                                                                  "version": "v1"
+                                                                                                },
+                                                                                                "value": "not-computed"
+                                                                                              }
+                                                                                            }
+                                                                                          },
+                                                                                          {
+                                                                                            "op": "not",
+                                                                                            "value": {
+                                                                                              "op": "categorical_compare",
+                                                                                              "cmp": "eq",
+                                                                                              "left": {
+                                                                                                "op": "ref",
+                                                                                                "name": "tax.us.2025.f1099k.selling-expenses"
+                                                                                              },
+                                                                                              "right": {
+                                                                                                "op": "category_literal",
+                                                                                                "fact_type": {
+                                                                                                  "id": "tax.us.2025.f1099k.selling-expenses",
+                                                                                                  "version": "v1"
+                                                                                                },
+                                                                                                "value": "not-computed"
+                                                                                              }
+                                                                                            }
+                                                                                          }
+                                                                                        ]
+                                                                                      },
+                                                                                      "then": {
+                                                                                        "op": "choose",
+                                                                                        "when": {
+                                                                                          "op": "compare",
+                                                                                          "cmp": "lt",
+                                                                                          "left": {
+                                                                                            "op": "ref",
+                                                                                            "name": "tax.us.2025.f1099k.net-proceeds"
+                                                                                          },
+                                                                                          "right": {
+                                                                                            "op": "ref",
+                                                                                            "name": "tax.us.2025.f1099k.adjusted-basis"
+                                                                                          }
+                                                                                        },
+                                                                                        "then": {
+                                                                                          "op": "category_literal",
+                                                                                          "fact_type": {
+                                                                                            "id": "tax.us.2025.f1099k.statement-loss-reason",
+                                                                                            "version": "v2"
+                                                                                          },
+                                                                                          "value": "supported-loss"
+                                                                                        },
+                                                                                        "else": {
+                                                                                          "op": "choose",
+                                                                                          "when": {
+                                                                                            "op": "compare",
+                                                                                            "cmp": "gt",
+                                                                                            "left": {
+                                                                                              "op": "ref",
+                                                                                              "name": "tax.us.2025.f1099k.net-proceeds"
+                                                                                            },
+                                                                                            "right": {
+                                                                                              "op": "ref",
+                                                                                              "name": "tax.us.2025.f1099k.adjusted-basis"
+                                                                                            }
+                                                                                          },
+                                                                                          "then": {
+                                                                                            "op": "category_literal",
+                                                                                            "fact_type": {
+                                                                                              "id": "tax.us.2025.f1099k.statement-loss-reason",
+                                                                                              "version": "v2"
+                                                                                            },
+                                                                                            "value": "unsupported-gain"
+                                                                                          },
+                                                                                          "else": {
+                                                                                            "op": "category_literal",
+                                                                                            "fact_type": {
+                                                                                              "id": "tax.us.2025.f1099k.statement-loss-reason",
+                                                                                              "version": "v2"
+                                                                                            },
+                                                                                            "value": "break-even-sale"
+                                                                                          }
+                                                                                        }
+                                                                                      },
+                                                                                      "else": {
+                                                                                        "op": "category_literal",
+                                                                                        "fact_type": {
+                                                                                          "id": "tax.us.2025.f1099k.statement-loss-reason",
+                                                                                          "version": "v2"
+                                                                                        },
+                                                                                        "value": "loss-amount-unanswered"
+                                                                                      }
+                                                                                    }
+                                                                                  }
+                                                                                }
+                                                                              }
+                                                                            }
+                                                                          }
+                                                                        }
+                                                                      }
+                                                                    }
+                                                                  }
+                                                                }
+                                                              }
+                                                            }
+                                                          }
+                                                        }
+                                                      }
+                                                    }
+                                                  }
+                                                }
+                                              }
+                                            }
+                                          }
+                                        }
+                                      }
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "publishes": "tax.us.2025.f1099k.statement-loss-reason",
+  "blocked": {
+    "code": "DEPENDENCY_ABSENT",
+    "missing": []
+  },
+  "citations": [],
+  "notes": "Classifies the categorical eligibility reason for a Form 1099-K statement subject."
+}

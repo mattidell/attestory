@@ -1,0 +1,41 @@
+{
+  "schema": "form-field.v3",
+  "id": "tax.us.2025.form.f1099k.unresolved.form-field",
+  "version": "v1",
+  "form": {
+    "authority": "IRS",
+    "form_id": "1040-SCH-1",
+    "jurisdiction": "US-federal",
+    "tax_year": 2025
+  },
+  "line": "f1099k-unresolved",
+  "label": "Unresolved Form 1099-K condition",
+  "description": "Indicates an open condition or unsupported statement on Form 1099-K.",
+  "binds_symbol": "tax.us.2025.f1099k.unresolved",
+  "dispositions": {
+    "blocked": {
+      "codes": [
+        "DEPENDENCY_ABSENT",
+        "DEPENDENCY_INVALID"
+      ],
+      "explain": "Because this statement is unresolved, the return's income does not yet account for this Form 1099-K statement.",
+      "render": ""
+    },
+    "guard_inapplicable": {
+      "explain": "No open condition: statements resolved or no statement received.",
+      "render": ""
+    },
+    "published_value": {
+      "explain": "Not used.",
+      "render": ""
+    },
+    "computed_zero": {
+      "explain": "Not used.",
+      "render": ""
+    },
+    "closure_backed_zero": {
+      "explain": "Not used.",
+      "render": ""
+    }
+  }
+}

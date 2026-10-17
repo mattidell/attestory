@@ -2502,6 +2502,299 @@ def _validate_mortgage_interest_explanation(value: Any) -> None:
             raise PresentationModelError(f"{path}.accounts[0].basis: malformed basis group")
     elif "basis" in account:
         raise PresentationModelError(f"{path}.accounts[0]: justified zero cannot reuse qualified basis")
+
+
+_F1099K_REASON_SYMBOL = "tax.us.2025.f1099k.statement-loss-reason"
+_F1099K_COMPUTATION_SYMBOLS = {
+    "tax.us.2025.f1099k.amount-realized": "amountRealized",
+    "tax.us.2025.f1099k.selling-expenses": "sellingExpenses",
+    "tax.us.2025.f1099k.net-proceeds": "netProceeds",
+    "tax.us.2025.f1099k.adjusted-basis": "adjustedBasis",
+    "tax.us.2025.f1099k.expected-box1a-gross-amount": "expectedBox1aGrossAmount",
+}
+_F1099K_COMPARISONS = {
+    "supported-loss": "net proceeds < adjusted basis",
+    "unsupported-gain": "net proceeds > adjusted basis",
+    "break-even-sale": "net proceeds == adjusted basis",
+}
+
+
+def _extract_f1099k_statement_keys(symbol: str) -> dict[str, str]:
+    """Parse identity keys from the statement suffix of a Form 1099-K symbol."""
+    suffix = str(symbol).partition("|")[2]
+    last_seg = suffix.split("|")[-1]
+    keys: dict[str, str] = {}
+    for part in last_seg.split(","):
+        if "=" in part:
+            k, _, v = part.partition("=")
+            keys[k.strip()] = v.strip()
+    return keys
+
+
+def _f1099k_statement_assumptions(
+    reason_finding: Mapping[str, Any],
+    publications_by_id: Mapping[str, Mapping[str, Any]],
+    state: FindingState,
+) -> Any:
+    """Collect declared_default input pins on the reason finding, or 'none' if empty."""
+    default_pins = [
+        pin for pin in reason_finding.get("pins", []) or []
+        if isinstance(pin, Mapping)
+        and pin.get("role") == "input"
+        and pin.get("origin") == "declared_default"
+    ]
+    if not default_pins:
+        return "none"
+    assumptions: list[dict[str, Any]] = []
+    for pin in default_pins:
+        pin_id = pin.get("id")
+        if not pin_id:
+            continue
+        pub = publications_by_id.get(str(pin_id))
+        if pub is None and hasattr(state, "findings"):
+            pub = state.findings.get(str(pin_id))
+        if pub is None:
+            continue
+        fact_id = (
+            pub.get("resolved_input", {}).get("fact_id")
+            or pub.get("fact_id")
+            or str(pub.get("symbol", ""))
+        )
+        val = pub.get("value")
+        if val == "not-asked":
+            continue
+        default_val: Any
+        try:
+            default_val = _numeric_value(val, symbol=str(pub.get("symbol", "")))
+        except (PresentationModelError, InvalidOperation, ValueError, TypeError):
+            default_val = val
+        assumptions.append({
+            "factId": fact_id,
+            "declaredDefault": default_val,
+        })
+    return assumptions if assumptions else "none"
+
+
+def _f1099k_statement_computation(
+    reason_finding: Mapping[str, Any],
+    publications_by_id: Mapping[str, Mapping[str, Any]],
+    *,
+    publications: Sequence[Any] = (),
+    statement_keys: Mapping[str, str] | None = None,
+) -> dict[str, Any]:
+    """Extract the 5 recorded Form 1099-K computation figures and comparison from published findings."""
+    result: dict[str, Any] = {
+        "amountRealized": "missing",
+        "sellingExpenses": "missing",
+        "netProceeds": "missing",
+        "adjustedBasis": "missing",
+        "expectedBox1aGrossAmount": "missing",
+        "comparison": "not-computed",
+    }
+    for pin in reason_finding.get("pins", []) or []:
+        if not isinstance(pin, Mapping):
+            continue
+        pin_id = pin.get("id")
+        if not pin_id:
+            continue
+        pub = publications_by_id.get(str(pin_id))
+        if pub is None:
+            continue
+        sym = str(pub.get("symbol", "")).split("|")[0]
+        if sym in _F1099K_COMPUTATION_SYMBOLS:
+            field_name = _F1099K_COMPUTATION_SYMBOLS[sym]
+            val = pub.get("value")
+            if val == "not-computed":
+                result[field_name] = "not-computed"
+            else:
+                result[field_name] = _numeric_value(val, symbol=sym)
+
+    missing_fields = {
+        fact_id: field_name
+        for fact_id, field_name in _F1099K_COMPUTATION_SYMBOLS.items()
+        if result[field_name] == "missing"
+    }
+    if missing_fields and publications:
+        if statement_keys is None:
+            statement_keys = _extract_f1099k_statement_keys(str(reason_finding.get("symbol", "")))
+        reason_payer = statement_keys.get("payer")
+        reason_stmt = statement_keys.get("statement")
+        reason_tax_year = statement_keys.get("tax-year")
+        if (
+            isinstance(reason_payer, str) and reason_payer
+            and isinstance(reason_stmt, str) and reason_stmt
+            and isinstance(reason_tax_year, str) and reason_tax_year
+        ):
+            target_identity = (reason_payer, reason_stmt, reason_tax_year)
+            for pub_item in publications:
+                pub_finding = getattr(pub_item, "finding", pub_item if isinstance(pub_item, Mapping) else None)
+                if not isinstance(pub_finding, Mapping):
+                    continue
+                sym = str(pub_finding.get("symbol", ""))
+                fact_id = pub_finding.get("fact_id") or sym.split("|")[0]
+                if fact_id not in missing_fields:
+                    continue
+                fig_keys = _extract_f1099k_statement_keys(sym)
+                if not fig_keys and pub_finding.get("fact_id"):
+                    fig_keys = _extract_f1099k_statement_keys(str(pub_finding.get("fact_id", "")))
+                fig_identity = (
+                    fig_keys.get("payer"),
+                    fig_keys.get("statement"),
+                    fig_keys.get("tax-year"),
+                )
+                if fig_identity == target_identity:
+                    field_name = missing_fields[fact_id]
+                    val = pub_finding.get("value")
+                    if val == "not-computed":
+                        result[field_name] = "not-computed"
+                    else:
+                        result[field_name] = _numeric_value(val, symbol=sym)
+                    del missing_fields[fact_id]
+                    if not missing_fields:
+                        break
+
+    reason_val = str(reason_finding.get("value", ""))
+    result["comparison"] = _F1099K_COMPARISONS.get(reason_val, "not-computed")
+    return result
+
+
+def _f1099k_statement_explanation(
+    *,
+    resolved_members: Sequence[Mapping[str, Any]],
+    state: FindingState,
+    publications: Sequence[Any],
+    publications_by_id: Mapping[str, Mapping[str, Any]],
+) -> dict[str, Any] | None:
+    """Project Form 1099-K statement computation and explanation per statement from the saved run."""
+    reason_publications = [
+        pub.finding for pub in publications
+        if isinstance(pub.finding, Mapping)
+        and str(pub.finding.get("symbol", "")).startswith(_F1099K_REASON_SYMBOL)
+    ]
+    if not reason_publications:
+        return None
+
+    explanations: dict[str, Any] = {}
+    for reason_finding in reason_publications:
+        stmt_keys = _extract_f1099k_statement_keys(str(reason_finding.get("symbol", "")))
+        stmt_id = stmt_keys.get("statement")
+        if not stmt_id:
+            for pin in reason_finding.get("pins", []) or []:
+                if isinstance(pin, Mapping) and pin.get("role") == "input":
+                    src = publications_by_id.get(str(pin.get("id"))) or (
+                        state.findings.get(str(pin.get("id"))) if hasattr(state, "findings") else None
+                    )
+                    if src is not None:
+                        src_keys = _extract_f1099k_statement_keys(str(src.get("fact_id", "")))
+                        if src_keys.get("statement"):
+                            stmt_keys = src_keys
+                            stmt_id = src_keys["statement"]
+                            break
+        if not stmt_id:
+            stmt_id = str(reason_finding.get("id", "statement"))
+
+        comp = _f1099k_statement_computation(
+            reason_finding,
+            publications_by_id,
+            publications=publications,
+            statement_keys=stmt_keys,
+        )
+        assumptions = _f1099k_statement_assumptions(reason_finding, publications_by_id, state)
+        reason_val = str(reason_finding.get("value", ""))
+
+        explanations[stmt_id] = {
+            "statementKeys": stmt_keys,
+            "reason": reason_val,
+            "computation": comp,
+            "assumptions": assumptions,
+        }
+
+    return explanations if explanations else None
+
+
+def _validate_f1099k_statement_explanation(value: Any) -> None:
+    path = "$.f1099kStatementExplanation"
+    if not isinstance(value, Mapping):
+        raise PresentationModelError(f"{path}: expected an object")
+    if not value:
+        raise PresentationModelError(f"{path}: expected non-empty mapping")
+
+    # If legacy unkeyed dictionary (has 'computation' and 'assumptions' directly):
+    if "computation" in value and "assumptions" in value:
+        items: list[tuple[str, Any]] = [("<legacy>", value)]
+    else:
+        items = list(value.items())
+
+    for stmt_id, stmt_data in items:
+        sp = path if stmt_id == "<legacy>" else f"{path}[{stmt_id!r}]"
+        if not isinstance(stmt_id, str) or not stmt_id:
+            raise PresentationModelError(f"{path}: expected non-empty string statement identity key")
+        if not isinstance(stmt_data, Mapping):
+            raise PresentationModelError(f"{sp}: expected an object")
+        _require_keys(
+            stmt_data,
+            frozenset({"computation", "assumptions"}),
+            frozenset({"statementKeys", "reason"}),
+            sp,
+        )
+        if "reason" in stmt_data:
+            reason = stmt_data["reason"]
+            if not isinstance(reason, str) or not reason:
+                raise PresentationModelError(f"{sp}.reason: expected non-empty string")
+        assumptions = stmt_data["assumptions"]
+        if assumptions != "none":
+            if not isinstance(assumptions, list) or not assumptions:
+                raise PresentationModelError(f"{sp}.assumptions: expected 'none' or a non-empty list")
+            for idx, item in enumerate(assumptions):
+                ipath = f"{sp}.assumptions[{idx}]"
+                if not isinstance(item, Mapping):
+                    raise PresentationModelError(f"{ipath}: expected an object")
+                _require_keys(
+                    item,
+                    frozenset({"factId", "declaredDefault"}),
+                    frozenset(),
+                    ipath,
+                )
+                if not isinstance(item["factId"], str) or not item["factId"]:
+                    raise PresentationModelError(f"{ipath}.factId: expected non-empty string")
+        comp = stmt_data["computation"]
+        if comp is not None:
+            if not isinstance(comp, Mapping):
+                raise PresentationModelError(f"{sp}.computation: expected an object")
+            _require_keys(
+                comp,
+                frozenset({
+                    "amountRealized",
+                    "sellingExpenses",
+                    "netProceeds",
+                    "adjustedBasis",
+                    "expectedBox1aGrossAmount",
+                    "comparison",
+                }),
+                frozenset(),
+                f"{sp}.computation",
+            )
+            for k in (
+                "amountRealized",
+                "sellingExpenses",
+                "netProceeds",
+                "adjustedBasis",
+                "expectedBox1aGrossAmount",
+            ):
+                val = comp[k]
+                if not (isinstance(val, (int, float)) and not isinstance(val, bool)) and val not in ("not-computed", "missing"):
+                    raise PresentationModelError(
+                        f"{sp}.computation.{k}: expected number, 'not-computed', or 'missing'"
+                    )
+            comp_val = comp["comparison"]
+            if not isinstance(comp_val, str) or not comp_val:
+                raise PresentationModelError(f"{sp}.computation.comparison: expected non-empty string")
+        if "statementKeys" in stmt_data:
+            sk = stmt_data["statementKeys"]
+            if not isinstance(sk, Mapping):
+                raise PresentationModelError(f"{sp}.statementKeys: expected a mapping")
+
+
 def _section_id(field: Mapping[str, Any]) -> str:
     return f"line-{field['line']}"
 
@@ -3312,6 +3605,12 @@ def build_presentation_model(
     )
     if mortgage_explanation is not None:
         model["mortgageInterestExplanation"] = mortgage_explanation
+    f1099k_explanation = _f1099k_statement_explanation(
+        resolved_members=resolved_members, state=state, publications=publications,
+        publications_by_id=publications_by_id,
+    )
+    if f1099k_explanation is not None:
+        model["f1099kStatementExplanation"] = f1099k_explanation
     validate_presentation_model(model)
     return model
 
@@ -3635,7 +3934,7 @@ def validate_presentation_model(model: Mapping[str, Any]) -> None:
             "schema", "runId", "pinLabels", "sections", "citationGroups", "attachments",
             "unsupportedSourceFindings",
         }),
-        frozenset({"authorization", "provenanceGroups", "calculationView", "line21Explanation", "mortgageInterestExplanation"}),
+        frozenset({"authorization", "provenanceGroups", "calculationView", "line21Explanation", "mortgageInterestExplanation", "f1099kStatementExplanation"}),
         "$",
     )
     if "authorization" in model:
@@ -3646,6 +3945,8 @@ def validate_presentation_model(model: Mapping[str, Any]) -> None:
         _validate_line21_explanation(model["line21Explanation"])
     if "mortgageInterestExplanation" in model:
         _validate_mortgage_interest_explanation(model["mortgageInterestExplanation"])
+    if "f1099kStatementExplanation" in model:
+        _validate_f1099k_statement_explanation(model["f1099kStatementExplanation"])
     if model["schema"] != PRESENTATION_MODEL_VERSION:
         raise PresentationModelError(f"$.schema: expected {PRESENTATION_MODEL_VERSION!r}")
     if not isinstance(model["runId"], str) or not model["runId"]:

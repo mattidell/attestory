@@ -1,0 +1,214 @@
+{
+  "schema": "rule-artifact.v14",
+  "id": "tax.us.2025.rule.f1099k-amount-realized",
+  "version": "v1",
+  "scope": {
+    "tax_year": 2025,
+    "jurisdiction": "US-federal",
+    "family": "individual-income-tax"
+  },
+  "role": "computation",
+  "subject": {
+    "id": "tax.us.2025.f1099k.box1a-gross-amount",
+    "version": "v1"
+  },
+  "requires": [
+    "tax.us.2025.f1099k.agreed-item-price",
+    "tax.us.2025.f1099k.shipping-arrangement",
+    "tax.us.2025.f1099k.refund-amount",
+    "tax.us.2025.f1099k.buyer-paid-shipping"
+  ],
+  "pins": [],
+  "when": true,
+  "value": {
+    "op": "choose",
+    "when": {
+      "op": "any",
+      "args": [
+        {
+          "op": "categorical_compare",
+          "cmp": "eq",
+          "left": {
+            "op": "ref",
+            "name": "tax.us.2025.f1099k.agreed-item-price"
+          },
+          "right": {
+            "op": "category_literal",
+            "fact_type": {
+              "id": "tax.us.2025.f1099k.agreed-item-price",
+              "version": "v1"
+            },
+            "value": "not-asked"
+          }
+        },
+        {
+          "op": "categorical_compare",
+          "cmp": "eq",
+          "left": {
+            "op": "ref",
+            "name": "tax.us.2025.f1099k.agreed-item-price"
+          },
+          "right": {
+            "op": "category_literal",
+            "fact_type": {
+              "id": "tax.us.2025.f1099k.agreed-item-price",
+              "version": "v1"
+            },
+            "value": "cannot-tell"
+          }
+        },
+        {
+          "op": "categorical_compare",
+          "cmp": "eq",
+          "left": {
+            "op": "ref",
+            "name": "tax.us.2025.f1099k.shipping-arrangement"
+          },
+          "right": {
+            "op": "category_literal",
+            "fact_type": {
+              "id": "tax.us.2025.f1099k.shipping-arrangement",
+              "version": "v1"
+            },
+            "value": "not-asked"
+          }
+        },
+        {
+          "op": "categorical_compare",
+          "cmp": "eq",
+          "left": {
+            "op": "ref",
+            "name": "tax.us.2025.f1099k.shipping-arrangement"
+          },
+          "right": {
+            "op": "category_literal",
+            "fact_type": {
+              "id": "tax.us.2025.f1099k.shipping-arrangement",
+              "version": "v1"
+            },
+            "value": "cannot-tell"
+          }
+        },
+        {
+          "op": "categorical_compare",
+          "cmp": "eq",
+          "left": {
+            "op": "ref",
+            "name": "tax.us.2025.f1099k.refund-amount"
+          },
+          "right": {
+            "op": "category_literal",
+            "fact_type": {
+              "id": "tax.us.2025.f1099k.refund-amount",
+              "version": "v1"
+            },
+            "value": "not-asked"
+          }
+        },
+        {
+          "op": "categorical_compare",
+          "cmp": "eq",
+          "left": {
+            "op": "ref",
+            "name": "tax.us.2025.f1099k.refund-amount"
+          },
+          "right": {
+            "op": "category_literal",
+            "fact_type": {
+              "id": "tax.us.2025.f1099k.refund-amount",
+              "version": "v1"
+            },
+            "value": "cannot-tell"
+          }
+        },
+        {
+          "op": "categorical_compare",
+          "cmp": "eq",
+          "left": {
+            "op": "ref",
+            "name": "tax.us.2025.f1099k.buyer-paid-shipping"
+          },
+          "right": {
+            "op": "category_literal",
+            "fact_type": {
+              "id": "tax.us.2025.f1099k.buyer-paid-shipping",
+              "version": "v1"
+            },
+            "value": "not-asked"
+          }
+        },
+        {
+          "op": "categorical_compare",
+          "cmp": "eq",
+          "left": {
+            "op": "ref",
+            "name": "tax.us.2025.f1099k.buyer-paid-shipping"
+          },
+          "right": {
+            "op": "category_literal",
+            "fact_type": {
+              "id": "tax.us.2025.f1099k.buyer-paid-shipping",
+              "version": "v1"
+            },
+            "value": "cannot-tell"
+          }
+        }
+      ]
+    },
+    "then": {
+      "op": "category_literal",
+      "fact_type": {
+        "id": "tax.us.2025.f1099k.amount-realized",
+        "version": "v1"
+      },
+      "value": "not-computed"
+    },
+    "else": {
+      "op": "subtract",
+      "left": {
+        "op": "add",
+        "args": [
+          {
+            "op": "ref",
+            "name": "tax.us.2025.f1099k.agreed-item-price"
+          },
+          {
+            "op": "choose",
+            "when": {
+              "op": "categorical_compare",
+              "cmp": "eq",
+              "left": {
+                "op": "ref",
+                "name": "tax.us.2025.f1099k.shipping-arrangement"
+              },
+              "right": {
+                "op": "category_literal",
+                "fact_type": {
+                  "id": "tax.us.2025.f1099k.shipping-arrangement",
+                  "version": "v1"
+                },
+                "value": "seller-received-shipping"
+              }
+            },
+            "then": {
+              "op": "ref",
+              "name": "tax.us.2025.f1099k.buyer-paid-shipping"
+            },
+            "else": 0
+          }
+        ]
+      },
+      "right": {
+        "op": "ref",
+        "name": "tax.us.2025.f1099k.refund-amount"
+      }
+    }
+  },
+  "publishes": "tax.us.2025.f1099k.amount-realized",
+  "blocked": {
+    "code": "DEPENDENCY_ABSENT",
+    "missing": []
+  },
+  "citations": [],
+  "notes": "Always publishes: amount realized when numeric inputs present, else not-computed token."
+}
