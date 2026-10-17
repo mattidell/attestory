@@ -48,12 +48,22 @@ shows the selected sale route needs disproportionate prerequisite work. Return
 that choice to the owner rather than quietly changing the goal or broadening
 the milestone into a general capital-asset or business system.
 
-## Consolidation and phase assessment
+## Consolidation — More Than One Statement: Keeping Each Account With Its Form
 
-After the contrasting delivery, compare both with student loans. Repair a
-shared gap if the concrete cases require it, or conclude the phase with the
-bounded capabilities and their limits. This is a checkpoint, not an automatic
-third milestone or framework build.
+[Opening plan](milestones/multiple-statement-circumstances.md). Both delivered
+routes stop at a second statement because answers are not kept with the
+statement they describe. Investigate the cause and the existing keyed-join and
+student-loan relationship mechanisms. Make each statement's answers, result
+and explanation its own, and combine results only where 2025 authority
+combines them. Form 1099-K is the first consumer. A second Form 1098 brings
+the combined debt limit, and its scope is an owner choice after P0.
+
+## Phase assessment
+
+After the consolidation, compare all three routes. Assess whether the
+provisional endpoint is met, and either conclude the phase or name one further
+bounded step. This is a checkpoint, not an automatic further milestone or
+framework build.
 
 ## Status
 
@@ -61,9 +71,8 @@ Both the opening and the contrasting milestones are closed at their bounded
 results. Neither route covers more than one statement, the gain route is
 unbuilt, and neither page has a browser observation; those exclusions stay
 in each plan's outcome and in the phase-state parked list. The contrasting
-plan's phase assessment recommends the consolidation step for multiple
-statements rather than concluding the phase. The next milestone is
-unselected. Engine Breadth remains the historical form-coverage record; its
+plan's phase assessment recommended the consolidation step for multiple
+statements, now planned above. Engine Breadth remains the historical form-coverage record; its
 rows do not establish ordinary-circumstance support.
 
 Selection sources: the Form 1098 route and its
