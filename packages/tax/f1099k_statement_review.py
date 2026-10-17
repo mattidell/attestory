@@ -1,0 +1,695 @@
+"""Finite circumstance question and current-answer review for Form 1099-K personal item sales."""
+from __future__ import annotations
+
+import copy
+import json
+from pathlib import Path
+from typing import Any, Mapping
+
+from packages.derivation.presentation_projection import (
+    PresentationModelError,
+    validate_presentation_model,
+)
+from packages.derivation.records import RecordStream
+from packages.kernel.act_log import ActLog
+from packages.kernel.currency import compute_currency
+from packages.kernel.facts import fact_id_for, facts_of
+from packages.kernel.findings import project
+from packages.tax.f1099k_statement_recording import (
+    ALL_CIRCUMSTANCE_QUESTIONS,
+    AMOUNT_QUESTIONS,
+    CLOSURE_TYPE,
+    F1099KRecordingRefused,
+    STATEMENT_BOX1A,
+    STATEMENT_BOX4,
+    _find_current_statement_findings,
+    _normalize_question,
+    answer_f1099k_statement_answer_durably,
+    correct_f1099k_statement_answer_durably,
+    record_f1099k_statement_answers_durably,
+    withdraw_f1099k_statement_answer_durably,
+)
+
+
+class F1099KReviewRefused(ValueError):
+    """A review operation cannot proceed because the log or snapshot is invalid or stale."""
+
+
+QUESTIONS: dict[str, dict[str, Any]] = {
+    "covers-only-single-item": {
+        "question": "Does this Form 1099-K report payments from only this single item sale?",
+        "help": "This route supports one Form 1099-K statement reporting payments from only a single personal item sale.",
+        "kind": "categorical",
+        "offered": ["yes", "no", "cannot-tell"],
+        "labels": {
+            "yes": "Yes, only this sale",
+            "no": "No, includes other sales/transactions",
+            "cannot-tell": "I can't tell",
+        },
+    },
+    "acquired-by-purchase": {
+        "question": "How did you acquire this item?",
+        "help": "Cost basis rules require knowing how the property was acquired. This route supports purchased items.",
+        "kind": "categorical",
+        "offered": ["yes", "no", "cannot-tell"],
+        "labels": {
+            "yes": "I bought it",
+            "no": "Acquired by gift, inheritance, or other means",
+            "cannot-tell": "I can't tell",
+        },
+    },
+    "primary-purpose-at-acquisition": {
+        "question": "What was your main purpose when you acquired or held this item?",
+        "help": "Losses on property held for investment or resale are governed by capital-loss or business rules.",
+        "kind": "categorical",
+        "offered": ["personal-use", "investment-or-profit", "resale-or-inventory", "cannot-tell"],
+        "labels": {
+            "personal-use": "Used it personally in my everyday life or household",
+            "investment-or-profit": "Bought mainly as an investment or to make money",
+            "resale-or-inventory": "Acquired or held for resale or as inventory",
+            "cannot-tell": "I can't tell",
+        },
+    },
+    "exclusive-personal-use": {
+        "question": "Did you use this item exclusively for personal purposes without business or rental use?",
+        "help": "Business or rental use is subject to depreciation recapture and cannot use this personal loss route.",
+        "kind": "categorical",
+        "offered": ["yes", "no", "cannot-tell"],
+        "labels": {
+            "yes": "Yes, solely personal use",
+            "no": "No, used for business or rental",
+            "cannot-tell": "I can't tell",
+        },
+    },
+    "digital-asset-involvement": {
+        "question": "Was this item a digital asset (such as cryptocurrency or NFT)?",
+        "help": "Digital assets must be reported on Form 8949 and are outside the scope of this route.",
+        "kind": "categorical",
+        "offered": ["no", "yes", "cannot-tell"],
+        "labels": {
+            "no": "No",
+            "yes": "Yes",
+            "cannot-tell": "I can't tell",
+        },
+    },
+    "agreed-item-price": {
+        "question": "What was the agreed sale price paid by the buyer?",
+        "help": "The agreed selling price before platform deductions or additions.",
+        "kind": "amount",
+        "offered": ["cannot-tell"],
+        "labels": {
+            "cannot-tell": "I can't tell",
+        },
+    },
+    "shipping-arrangement": {
+        "question": "How was shipping handled for this sale?",
+        "help": "Identifies whether shipping was handled by the platform or paid directly by the seller.",
+        "kind": "categorical",
+        "offered": ["platform-pass-through", "seller-received-shipping", "none", "cannot-tell"],
+        "labels": {
+            "platform-pass-through": "Platform kept shipping / provided label",
+            "seller-received-shipping": "I received shipping and bought label",
+            "none": "No buyer shipping charged / local pickup",
+            "cannot-tell": "I can't tell",
+        },
+    },
+    "platform-fees": {
+        "question": "What selling fees did the platform deduct?",
+        "help": "Platform commission, payment processing, and transaction fees.",
+        "kind": "amount",
+        "offered": ["cannot-tell"],
+        "labels": {
+            "cannot-tell": "I can't tell",
+        },
+    },
+    "seller-paid-shipping": {
+        "question": "What did you pay to ship the item, including postage and shipping labels?",
+        "help": "Include postage, shipping labels, and shipping costs you paid, including labels bought with shipping money you received from the buyer. Do not include shipping labels provided and kept by the platform.",
+        "kind": "amount",
+        "offered": ["cannot-tell"],
+        "labels": {
+            "cannot-tell": "I can't tell",
+        },
+    },
+    "sales-tax-collected-by-platform": {
+        "question": "What sales tax did the platform collect from the buyer?",
+        "help": "Sales tax included in Box 1a that was collected and remitted by the platform.",
+        "kind": "amount",
+        "offered": ["cannot-tell"],
+        "labels": {
+            "cannot-tell": "I can't tell",
+        },
+    },
+    "refund-amount": {
+        "question": "Did you issue any refund to the buyer?",
+        "help": "Refunds given back to the buyer that reduce the amount realized.",
+        "kind": "amount",
+        "offered": ["cannot-tell"],
+        "labels": {
+            "cannot-tell": "I can't tell",
+        },
+    },
+    "buyer-paid-shipping": {
+        "question": "What shipping did the buyer pay that was included in Box 1a?",
+        "help": "Buyer-paid shipping charges included in the Box 1a gross amount, whether the platform kept the money or sent it to you.",
+        "kind": "amount",
+        "offered": ["cannot-tell"],
+        "labels": {
+            "cannot-tell": "I can't tell",
+        },
+    },
+    "cost-basis-known": {
+        "question": "Do you know what you originally paid to purchase the item?",
+        "help": "You must know your cost basis to establish whether a sale resulted in a gain or loss.",
+        "kind": "categorical",
+        "offered": ["yes", "cannot-tell"],
+        "labels": {
+            "yes": "Yes, I know what I paid",
+            "cannot-tell": "I can't tell",
+        },
+    },
+    "purchase-cost": {
+        "question": "What did you pay to purchase the item, including sales tax and delivery?",
+        "help": "Original purchase price, sales tax, delivery charges, and initial installation.",
+        "kind": "amount",
+        "offered": ["cannot-tell"],
+        "labels": {
+            "cannot-tell": "I can't tell",
+        },
+    },
+    "lasting-improvements-or-adjustments": {
+        "question": "Did you make lasting improvements to the item, receive manufacturer rebates, or receive insurance/casualty payouts?",
+        "help": "Capital improvements or basis adjustments under 26 U.S.C. § 1016.",
+        "kind": "categorical",
+        "offered": ["no", "yes", "cannot-tell"],
+        "labels": {
+            "no": "No",
+            "yes": "Yes",
+            "cannot-tell": "I can't tell",
+        },
+    },
+}
+
+
+def _format_label(question: str, value: Any) -> str:
+    if value is None:
+        return "Not answered"
+    q_meta = QUESTIONS.get(question, {})
+    if q_meta.get("kind") == "amount":
+        if value == "cannot-tell":
+            return "I can't tell"
+        if isinstance(value, (int, float)) and not isinstance(value, bool):
+            return f"${float(value):,.2f}"
+        return str(value)
+    labels = q_meta.get("labels", {})
+    return str(labels.get(str(value), str(value)))
+
+
+def prepare_f1099k_statement_review(
+    log: ActLog,
+    registry: Any,
+    *,
+    review_id: str,
+    shown_at: str,
+    statement_keys: dict[str, str] | None = None,
+) -> dict[str, Any]:
+    """Take an immutable snapshot of one Form 1099-K statement and its circumstance answers."""
+    contents = log.read()
+    if contents.incomplete_tail is not None:
+        raise F1099KReviewRefused("ActLog has an incomplete tail")
+    state = project(tuple(copy.deepcopy(row) for row in contents.acts), registry)
+    current_ids = compute_currency(state).current_finding_ids
+    lattice = facts_of(state.fact_state, include_displaced=True)
+
+    statement_rows = _find_current_statement_findings(state)
+    if not statement_rows:
+        closure_matches = [
+            (fid, f)
+            for fid, f in state.findings.items()
+            if fid in current_ids
+            and f.get("fact_id") in lattice
+            and lattice[f["fact_id"]].fact_type_id == CLOSURE_TYPE
+            and f.get("value") is True
+        ]
+        if closure_matches:
+            return {
+                "schema": "tax.f1099k.statement-review.v1",
+                "reviewId": review_id,
+                "shownAt": shown_at,
+                "revision": contents.revision,
+                "closedEmpty": True,
+                "statement": None,
+                "questions": {},
+            }
+        raise F1099KReviewRefused("no Form 1099-K statement found to review")
+
+    if statement_keys is not None:
+        target = tuple(sorted(statement_keys.items()))
+        matching = [row for row in statement_rows if tuple(sorted(row[2].items())) == target]
+        if len(matching) != 1:
+            raise F1099KReviewRefused(f"statement with keys {statement_keys} is not among current statements")
+        box1a_fid, box1a_finding, keys = matching[0]
+    else:
+        if len(statement_rows) != 1:
+            raise F1099KReviewRefused(
+                "more than one Form 1099-K statement exists; specify statement_keys to select a statement"
+            )
+        box1a_fid, box1a_finding, keys = statement_rows[0]
+
+    payer_entity = state.fact_state.entities.get(keys["payer"])
+    statement_entity = state.fact_state.entities.get(keys["statement"])
+    payer_label = payer_entity.entity["label"] if payer_entity else "Platform"
+    stmt_label = statement_entity.entity["label"] if statement_entity else "Form 1099-K"
+
+    # Box 4 finding
+    box4_fact_id = fact_id_for(STATEMENT_BOX4, tuple(sorted(keys.items())))
+    box4_match = [
+        (fid, row) for fid, row in state.findings.items()
+        if fid in current_ids and row.get("fact_id") == box4_fact_id
+    ]
+    box4_val = box4_match[0][1]["value"] if box4_match else 0.0
+    box4_fid = box4_match[0][0] if box4_match else None
+
+    # Circumstance answers
+    answers: dict[str, dict[str, Any]] = {}
+    for q in sorted(ALL_CIRCUMSTANCE_QUESTIONS):
+        fact_id = fact_id_for(f"tax.us.2025.f1099k.{q}", tuple(sorted(keys.items())))
+        found = [
+            (fid, row) for fid, row in state.findings.items()
+            if fid in current_ids and row.get("fact_id") == fact_id
+        ]
+        if len(found) > 1:
+            raise F1099KReviewRefused(f"multiple current answers found for {q}")
+
+        q_info = copy.deepcopy(QUESTIONS[q])
+        if found:
+            cur_fid, cur_row = found[0]
+            val = cur_row["value"]
+            answers[q] = {
+                **q_info,
+                "state": "answered",
+                "finding_id": cur_fid,
+                "answer": val,
+                "label": _format_label(q, val),
+            }
+        else:
+            answers[q] = {
+                **q_info,
+                "state": "absent",
+                "finding_id": None,
+                "answer": None,
+                "label": "Not answered",
+            }
+
+    return {
+        "schema": "tax.f1099k.statement-review.v1",
+        "reviewId": review_id,
+        "shownAt": shown_at,
+        "revision": contents.revision,
+        "statement": {
+            "keys": keys,
+            "payerLabel": payer_label,
+            "statementLabel": stmt_label,
+            "taxYear": keys["tax-year"],
+            "box1a": box1a_finding["value"],
+            "box1aFindingId": box1a_fid,
+            "box4": box4_val,
+            "box4FindingId": box4_fid,
+        },
+        "questions": answers,
+    }
+
+
+def _revalidate(log: ActLog, registry: Any, review: Mapping[str, Any]) -> dict[str, Any]:
+    if review.get("closedEmpty"):
+        current = prepare_f1099k_statement_review(
+            log,
+            registry,
+            review_id=str(review.get("reviewId", "revalidation")),
+            shown_at=str(review.get("shownAt", "")),
+        )
+        if current["revision"] != review.get("revision") or not current.get("closedEmpty"):
+            raise F1099KReviewRefused("review is stale: closed-empty status or ActLog revision changed")
+        return current
+    statement_info = review.get("statement")
+    if not isinstance(statement_info, dict) or "keys" not in statement_info:
+        raise F1099KReviewRefused("review statement information is missing or malformed")
+    keys = statement_info["keys"]
+    current = prepare_f1099k_statement_review(
+        log,
+        registry,
+        review_id=str(review.get("reviewId", "revalidation")),
+        shown_at=str(review.get("shownAt", "")),
+        statement_keys=keys,
+    )
+    if current["revision"] != review.get("revision") or current["statement"] != review.get("statement"):
+        raise F1099KReviewRefused("review is stale: statement source or ActLog revision changed")
+    if current["questions"] != review.get("questions"):
+        raise F1099KReviewRefused("review is stale: current circumstance answer snapshot changed")
+    return current
+
+
+def save_f1099k_statement_review(
+    log: ActLog,
+    registry: Any,
+    review: Mapping[str, Any],
+    *,
+    answers: dict[str, Any],
+    submission_id: str,
+    evidence_ids: dict[str, str],
+    actor: str,
+    at: str,
+) -> dict[str, Any]:
+    """Save initial circumstance answers after revalidating against the log."""
+    current = _revalidate(log, registry, review)
+    try:
+        return record_f1099k_statement_answers_durably(
+            log,
+            registry,
+            statement_keys=current["statement"]["keys"],
+            answers=answers,
+            submission_id=submission_id,
+            evidence_ids=evidence_ids,
+            actor=actor,
+            at=at,
+            expected_revision=current["revision"],
+        )
+    except F1099KRecordingRefused as exc:
+        raise F1099KReviewRefused(str(exc)) from exc
+
+
+def correct_f1099k_statement_review_answer(
+    log: ActLog,
+    registry: Any,
+    review: Mapping[str, Any],
+    *,
+    question: str,
+    answer: Any,
+    submission_id: str,
+    evidence_id: str,
+    actor: str,
+    at: str,
+) -> dict[str, Any]:
+    """Correct one circumstance answer after revalidating against the log."""
+    current = _revalidate(log, registry, review)
+    norm_q = _normalize_question(question)
+    target = current["questions"].get(norm_q)
+    if not isinstance(target, dict) or target.get("state") != "answered":
+        raise F1099KReviewRefused(f"correction requires an exact current answered question in review: {norm_q}")
+    try:
+        return correct_f1099k_statement_answer_durably(
+            log,
+            registry,
+            statement_keys=current["statement"]["keys"],
+            question=norm_q,
+            answer=answer,
+            predecessor_finding_id=target["finding_id"],
+            submission_id=submission_id,
+            evidence_id=evidence_id,
+            actor=actor,
+            at=at,
+            expected_revision=current["revision"],
+        )
+    except F1099KRecordingRefused as exc:
+        raise F1099KReviewRefused(str(exc)) from exc
+
+
+def answer_f1099k_statement_review_question(
+    log: ActLog,
+    registry: Any,
+    review: Mapping[str, Any],
+    *,
+    question: str,
+    answer: Any,
+    submission_id: str,
+    evidence_id: str,
+    actor: str,
+    at: str,
+) -> dict[str, Any]:
+    """Add one answer to a currently unanswered question after revalidating against the log."""
+    current = _revalidate(log, registry, review)
+    norm_q = _normalize_question(question)
+    target = current["questions"].get(norm_q)
+    if not isinstance(target, dict) or target.get("state") != "absent":
+        raise F1099KReviewRefused(f"question {norm_q!r} is already answered; use correction instead")
+    try:
+        return answer_f1099k_statement_answer_durably(
+            log,
+            registry,
+            statement_keys=current["statement"]["keys"],
+            question=norm_q,
+            answer=answer,
+            submission_id=submission_id,
+            evidence_id=evidence_id,
+            actor=actor,
+            at=at,
+            expected_revision=current["revision"],
+        )
+    except F1099KRecordingRefused as exc:
+        raise F1099KReviewRefused(str(exc)) from exc
+
+
+def withdraw_f1099k_statement_review_answers(
+    log: ActLog,
+    registry: Any,
+    review: Mapping[str, Any],
+    *,
+    questions: list[str],
+    submission_id: str,
+    actor: str,
+    at: str,
+) -> dict[str, Any]:
+    """Withdraw one or more answers after revalidating against the log."""
+    current = _revalidate(log, registry, review)
+    if not questions or len(set(questions)) != len(questions):
+        raise F1099KReviewRefused("withdrawal requires distinct question names")
+    finding_ids: list[str] = []
+    for q in questions:
+        norm_q = _normalize_question(q)
+        target = current["questions"].get(norm_q)
+        if not isinstance(target, dict) or target.get("state") != "answered":
+            raise F1099KReviewRefused(f"no current answer to withdraw for {norm_q}")
+        finding_ids.append(target["finding_id"])
+    try:
+        return withdraw_f1099k_statement_answer_durably(
+            log,
+            registry,
+            current_findings=finding_ids,
+            submission_id=submission_id,
+            actor=actor,
+            at=at,
+            expected_revision=current["revision"],
+        )
+    except F1099KRecordingRefused as exc:
+        raise F1099KReviewRefused(str(exc)) from exc
+
+
+def associate_saved_run(
+    presentation: Mapping[str, Any],
+    records: RecordStream,
+    current_revision: int,
+) -> dict[str, Any]:
+    """Associate a saved presentation with the durable run record and current revision."""
+    run_id = presentation.get("runId")
+    if not isinstance(run_id, str) or not run_id:
+        return {"state": "recalculation-needed", "reason": "saved presentation has no run identity"}
+    contents = records.read()
+    if contents.incomplete_tail is not None:
+        return {"state": "recalculation-needed", "reason": "run record stream has an incomplete tail"}
+    matches = [
+        row for row in contents.records
+        if row.get("run_id") == run_id and row.get("phase") == "completed"
+    ]
+    if len(matches) != 1:
+        return {"state": "recalculation-needed", "reason": "saved presentation has no unique completed run record"}
+    run_revision = matches[0].get("workspace_revision")
+    if not isinstance(run_revision, int) or run_revision != current_revision:
+        return {
+            "state": "recalculation-needed",
+            "reason": "saved run was calculated from a different ActLog revision",
+            "runRevision": run_revision,
+            "currentRevision": current_revision,
+            "runId": run_id,
+        }
+    return {
+        "state": "current",
+        "runRevision": run_revision,
+        "currentRevision": current_revision,
+        "runId": run_id,
+    }
+
+
+def review_f1099k_statement_with_saved_presentation(
+    log: ActLog,
+    registry: Any,
+    presentation_path: Path,
+    records: RecordStream,
+    *,
+    review_id: str,
+    shown_at: str,
+    statement_keys: dict[str, str] | None = None,
+) -> dict[str, Any]:
+    """Reload the saved presentation and show calculation or unresolved explanation beside the review."""
+    review = prepare_f1099k_statement_review(
+        log, registry, review_id=review_id, shown_at=shown_at, statement_keys=statement_keys,
+    )
+    try:
+        presentation = json.loads(presentation_path.read_text("utf-8"))
+        if not isinstance(presentation, dict):
+            raise PresentationModelError("saved presentation root must be an object")
+        validate_presentation_model(presentation)
+    except (OSError, json.JSONDecodeError, PresentationModelError) as exc:
+        return {
+            **review,
+            "savedCalculation": None,
+            "savedUnresolvedExplanation": None,
+            "calculationAssociation": {
+                "state": "recalculation-needed",
+                "reason": f"saved presentation is unavailable or malformed: {exc}",
+            },
+            "savedCalculationState": "recalculation-needed",
+        }
+
+    association = associate_saved_run(presentation, records, review["revision"])
+    is_current = association.get("state") == "current"
+
+    if not is_current:
+        return {
+            **review,
+            "savedCalculation": None,
+            "savedUnresolvedExplanation": None,
+            "calculationAssociation": association,
+            "savedCalculationState": "recalculation-needed",
+        }
+
+    sections = presentation.get("sections", [])
+    top_entry_field = next(
+        (s for s in sections if (s.get("field") or {}).get("id") == "tax.us.2025.schedule1.top-entry.form-field"),
+        None,
+    )
+    unresolved_field = next(
+        (s for s in sections if (s.get("field") or {}).get("id") == "tax.us.2025.form.f1099k.unresolved.form-field"),
+        None,
+    )
+
+    top_disp = ((top_entry_field or {}).get("resolved") or {}).get("disposition") if top_entry_field else None
+    top_val = ((top_entry_field or {}).get("resolved") or {}).get("value") if top_entry_field else None
+
+    unres_resolved = (unresolved_field or {}).get("resolved") or {} if unresolved_field else {}
+    unres_disp = unres_resolved.get("disposition") if unresolved_field else None
+    reasons = unres_resolved.get("reasons", []) if unresolved_field else []
+
+    # 1. Closed-empty zero: the person said no Form 1099-K, so there is no statement and a $0 entry
+    if review.get("closedEmpty") or review.get("statement") is None:
+        if (
+            top_disp in ("published_value", "published", "closure_backed_zero", "computed_zero")
+            and float(top_val or 0) == 0.0
+            and unres_disp != "blocked"
+        ):
+            closure_explain = (
+                ((top_entry_field or {}).get("field") or {}).get("dispositions", {}).get("closure_backed_zero", {}).get("explain")
+                or ((top_entry_field or {}).get("field") or {}).get("dispositions", {}).get(top_disp or "", {}).get("explain")
+                or "No Form 1099-K statements were received for 2025."
+            )
+            saved_calc = {
+                "status": "closed-empty-zero",
+                "box1a": 0.0,
+                "sentence": closure_explain,
+                "fieldId": "tax.us.2025.schedule1.top-entry.form-field",
+            }
+            return {
+                **review,
+                "savedCalculation": saved_calc,
+                "savedUnresolvedExplanation": None,
+                "savedMissingOutput": None,
+                "calculationAssociation": association,
+                "savedCalculationState": "current-closed-empty-zero",
+                "savedState": "closed-empty-zero",
+            }
+
+    # 2. Supported loss or supported zero
+    if (
+        top_disp in ("published_value", "published", "computed_zero")
+        and top_val is not None
+        and unres_disp != "blocked"
+        and not reasons
+    ):
+        top_explain = (
+            ((top_entry_field or {}).get("field") or {}).get("dispositions", {}).get("published_value", {}).get("explain", "")
+            or "This sale resulted in a nondeductible personal loss whose Box 1a gross amount is entered at the top of Schedule 1."
+        )
+        val_f = float(top_val)
+        if val_f > 0:
+            saved_calc = {
+                "status": "supported-loss",
+                "box1a": val_f,
+                "sentence": top_explain,
+                "fieldId": "tax.us.2025.schedule1.top-entry.form-field",
+            }
+            return {
+                **review,
+                "savedCalculation": saved_calc,
+                "savedUnresolvedExplanation": None,
+                "savedMissingOutput": None,
+                "calculationAssociation": association,
+                "savedCalculationState": "current-supported-loss",
+                "savedState": "supported-loss",
+            }
+        else:
+            # Supported zero: a supported loss whose Box 1a is $0, entered as $0, with no income warning
+            saved_calc = {
+                "status": "supported-zero",
+                "box1a": 0.0,
+                "sentence": top_explain,
+                "fieldId": "tax.us.2025.schedule1.top-entry.form-field",
+            }
+            return {
+                **review,
+                "savedCalculation": saved_calc,
+                "savedUnresolvedExplanation": None,
+                "savedMissingOutput": None,
+                "calculationAssociation": association,
+                "savedCalculationState": "current-supported-zero",
+                "savedState": "supported-zero",
+            }
+
+    # 3. Actually unresolved: a named stop with its reason sentence and the income sentence
+    if unres_disp == "blocked" or len(reasons) > 0:
+        reason_sentences = [r["sentence"] for r in reasons if isinstance(r, dict) and "sentence" in r]
+        unres_explain = (
+            ((unresolved_field or {}).get("field") or {}).get("dispositions", {}).get("blocked", {}).get("explain", "")
+        )
+        stmt_info = review.get("statement") or {}
+        stmt_keys = stmt_info.get("keys", {})
+        saved_unres = {
+            "status": "unresolved",
+            "statementKeys": stmt_keys,
+            "incomeSentence": unres_explain,
+            "reasons": copy.deepcopy(reasons),
+            "reasonSentences": reason_sentences,
+            "fieldId": "tax.us.2025.form.f1099k.unresolved.form-field",
+        }
+        return {
+            **review,
+            "savedCalculation": None,
+            "savedUnresolvedExplanation": saved_unres,
+            "savedMissingOutput": None,
+            "calculationAssociation": association,
+            "savedCalculationState": "current-unresolved-explanation",
+            "savedState": "actually-unresolved",
+        }
+
+    # 4. Missing output: no top-entry or reason result in the saved run; this is not reported as either supported or unresolved
+    saved_missing = {
+        "status": "missing-output",
+        "sentence": "No Form 1099-K top-entry or reason result in the saved run.",
+    }
+    return {
+        **review,
+        "savedCalculation": None,
+        "savedUnresolvedExplanation": None,
+        "savedMissingOutput": saved_missing,
+        "calculationAssociation": association,
+        "savedCalculationState": "current-missing-output",
+        "savedState": "missing-output",
+    }
