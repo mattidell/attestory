@@ -32,10 +32,10 @@ from tests.test_ssa1099_benefits_line6_track2 import _ssa_acts
 
 ROOT = Path(__file__).resolve().parent.parent
 CONTENT = ROOT / "packages" / "content" / "tax" / "2025"
-REGISTRY_PATH = CONTENT / "published-packages.v44.json"
+REGISTRY_PATH = CONTENT / "published-packages.v45.json"
 RELEASE_DIR = ROOT / "packages" / "sample_data" / "student_loan_worksheet_integration" / "publication_surface" / "releases"
-RELEASE_PATH = RELEASE_DIR / "demo.release.sli-worksheet-integration.2025.v44.json"
-PACKAGE_PATH = CONTENT / "package.core-calculations.v46.json"
+RELEASE_PATH = RELEASE_DIR / "demo.release.sli-worksheet-integration.2025.v45.json"
+PACKAGE_PATH = CONTENT / "package.core-calculations.v47.json"
 
 SURFACE = PublicationSurface(RELEASE_DIR, REGISTRY_PATH, CONTENT)
 
@@ -101,7 +101,7 @@ def _make_base_acts(wages: float = 90000.0, unemployment: float | None = None) -
     for token in SCHED1_LINE_TOKENS:
         add("assertion", {"finding": _attested(f"demo.sched1-scope.{token}", f"tax.us.2025.schedule1-adjustments-scope.{token}|tax-year=2025", "yes")})
 
-    add("bundle-adoption", {"bundle": load_f1099k_bundle()})
+    add("bundle-adoption", {"bundle": load_f1099k_bundle(version="v2")})
     add("bundle-adoption", {"bundle": load_f1099k_circumstances_bundle()})
 
     return acts
@@ -154,8 +154,8 @@ def _finish_acts(acts: list[dict[str, object]]) -> list[dict[str, object]]:
     adoption["committed_against"] = len(built)
     payload = adoption["payload"]
     assert isinstance(payload, dict)
-    payload["package"] = {"id": "tax.us.2025.package.core-calculations", "version": "v46", "checksum": pkg_csum}
-    payload["release"] = {"id": "demo.release.sli-worksheet-integration.2025", "version": "v44", "checksum": rel_csum}
+    payload["package"] = {"id": "tax.us.2025.package.core-calculations", "version": "v47", "checksum": pkg_csum}
+    payload["release"] = {"id": "demo.release.sli-worksheet-integration.2025", "version": "v45", "checksum": rel_csum}
     payload["audit"] = {"note": "synthetic Form 1099-K personal item sale loss track1 test"}
     built.append(adoption)
     for index, row in enumerate(built):

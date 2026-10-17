@@ -1,0 +1,119 @@
+{
+  "schema": "rule-artifact.v14",
+  "id": "tax.us.2025.rule.f1099k-adjusted-basis",
+  "version": "v1",
+  "scope": {
+    "tax_year": 2025,
+    "jurisdiction": "US-federal",
+    "family": "individual-income-tax"
+  },
+  "role": "computation",
+  "subject": {
+    "id": "tax.us.2025.f1099k.box1a-gross-amount",
+    "version": "v1"
+  },
+  "requires": [
+    "tax.us.2025.f1099k.purchase-cost",
+    "tax.us.2025.f1099k.cost-basis-known",
+    "tax.us.2025.f1099k.lasting-improvements-or-adjustments"
+  ],
+  "pins": [],
+  "when": true,
+  "value": {
+    "op": "choose",
+    "when": {
+      "op": "all",
+      "args": [
+        {
+          "op": "categorical_compare",
+          "cmp": "eq",
+          "left": {
+            "op": "ref",
+            "name": "tax.us.2025.f1099k.cost-basis-known"
+          },
+          "right": {
+            "op": "category_literal",
+            "fact_type": {
+              "id": "tax.us.2025.f1099k.cost-basis-known",
+              "version": "v1"
+            },
+            "value": "yes"
+          }
+        },
+        {
+          "op": "categorical_compare",
+          "cmp": "eq",
+          "left": {
+            "op": "ref",
+            "name": "tax.us.2025.f1099k.lasting-improvements-or-adjustments"
+          },
+          "right": {
+            "op": "category_literal",
+            "fact_type": {
+              "id": "tax.us.2025.f1099k.lasting-improvements-or-adjustments",
+              "version": "v1"
+            },
+            "value": "no"
+          }
+        },
+        {
+          "op": "not",
+          "value": {
+            "op": "categorical_compare",
+            "cmp": "eq",
+            "left": {
+              "op": "ref",
+              "name": "tax.us.2025.f1099k.purchase-cost"
+            },
+            "right": {
+              "op": "category_literal",
+              "fact_type": {
+                "id": "tax.us.2025.f1099k.purchase-cost",
+                "version": "v1"
+              },
+              "value": "not-asked"
+            }
+          }
+        },
+        {
+          "op": "not",
+          "value": {
+            "op": "categorical_compare",
+            "cmp": "eq",
+            "left": {
+              "op": "ref",
+              "name": "tax.us.2025.f1099k.purchase-cost"
+            },
+            "right": {
+              "op": "category_literal",
+              "fact_type": {
+                "id": "tax.us.2025.f1099k.purchase-cost",
+                "version": "v1"
+              },
+              "value": "cannot-tell"
+            }
+          }
+        }
+      ]
+    },
+    "then": {
+      "op": "ref",
+      "name": "tax.us.2025.f1099k.purchase-cost"
+    },
+    "else": {
+      "op": "category_literal",
+      "fact_type": {
+        "id": "tax.us.2025.f1099k.adjusted-basis",
+        "version": "v1"
+      },
+      "value": "not-computed"
+    }
+  },
+  "publishes": "tax.us.2025.f1099k.adjusted-basis",
+  "blocked": {
+    "code": "DEPENDENCY_ABSENT",
+    "missing": []
+  },
+  "citations": [],
+  "notes": "Always publishes: adjusted basis when purchased and no lasting improvements, else not-computed."
+}

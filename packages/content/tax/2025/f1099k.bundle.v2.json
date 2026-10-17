@@ -1,0 +1,568 @@
+{
+  "schema": "bundle.v2",
+  "id": "tax.us.2025.f1099k.vocabulary",
+  "version": "v2",
+  "label": "Form 1099-K vocabulary for personal item sale loss reporting and single-source computation",
+  "fact_types": [
+    {
+      "schema": "fact-type.v2",
+      "id": "tax.us.2025.f1099k.box1a-gross-amount",
+      "version": "v1",
+      "title": "Form 1099-K box 1a gross payment amount",
+      "nature": "determinable",
+      "identity_keys": [
+        {
+          "name": "payer",
+          "kind": "entity",
+          "entity_kind": "tax.us.1099k-platform"
+        },
+        {
+          "name": "statement",
+          "kind": "entity",
+          "entity_kind": "tax.us.1099k-statement"
+        },
+        {
+          "name": "tax-year",
+          "kind": "literal",
+          "values": [
+            "2025"
+          ]
+        }
+      ],
+      "value_schema": {
+        "type": "number",
+        "minimum": 0
+      },
+      "supersession": {
+        "policy": "free"
+      }
+    },
+    {
+      "schema": "fact-type.v2",
+      "id": "tax.us.2025.f1099k.box4-federal-withholding",
+      "version": "v1",
+      "title": "Form 1099-K box 4 federal income tax withheld",
+      "nature": "determinable",
+      "identity_keys": [
+        {
+          "name": "payer",
+          "kind": "entity",
+          "entity_kind": "tax.us.1099k-platform"
+        },
+        {
+          "name": "statement",
+          "kind": "entity",
+          "entity_kind": "tax.us.1099k-statement"
+        },
+        {
+          "name": "tax-year",
+          "kind": "literal",
+          "values": [
+            "2025"
+          ]
+        }
+      ],
+      "value_schema": {
+        "type": "number",
+        "minimum": 0
+      },
+      "optional_default": {
+        "parameter": {
+          "id": "tax.us.2025.parameter.default-zero",
+          "version": "v1"
+        }
+      },
+      "supersession": {
+        "policy": "free"
+      }
+    },
+    {
+      "schema": "fact-type.v2",
+      "id": "tax.us.2025.f1099k.source-closure",
+      "version": "v1",
+      "title": "Closure witness for Form 1099-K source family at a keyed horizon",
+      "nature": "determinable",
+      "identity_keys": [
+        {
+          "name": "family-horizon",
+          "kind": "entity",
+          "entity_kind": "kernel.family-horizon"
+        },
+        {
+          "name": "tax-year",
+          "kind": "literal",
+          "values": [
+            "2025"
+          ]
+        }
+      ],
+      "value_schema": {
+        "type": "boolean"
+      },
+      "supersession": {
+        "policy": "free"
+      }
+    },
+    {
+      "schema": "fact-type.v2",
+      "id": "tax.us.2025.f1099k.statement-loss-reason",
+      "version": "v1",
+      "title": "Categorical reason classification for Form 1099-K statement loss eligibility",
+      "nature": "determinable",
+      "identity_keys": [
+        {
+          "name": "payer",
+          "kind": "entity",
+          "entity_kind": "tax.us.1099k-platform"
+        },
+        {
+          "name": "statement",
+          "kind": "entity",
+          "entity_kind": "tax.us.1099k-statement"
+        },
+        {
+          "name": "tax-year",
+          "kind": "literal",
+          "values": [
+            "2025"
+          ]
+        }
+      ],
+      "value_schema": {
+        "oneOf": [
+          {
+            "const": "supported-loss",
+            "description": "This sale resulted in a nondeductible personal loss whose Box 1a gross amount is entered at the top of Schedule 1."
+          },
+          {
+            "const": "unsupported-gain",
+            "description": "The sale resulted in a gain or profit, which cannot be reported as a personal item loss on Schedule 1."
+          },
+          {
+            "const": "break-even-sale",
+            "description": "The sale broke even with no gain or loss, so no adjustment is reported on Schedule 1."
+          },
+          {
+            "const": "investment-purpose-excluded",
+            "description": "The item was acquired for investment or profit; personal item loss treatment does not apply."
+          },
+          {
+            "const": "resale-inventory-excluded",
+            "description": "The item was acquired for resale or business inventory; personal item loss treatment does not apply."
+          },
+          {
+            "const": "prior-depreciable-use-excluded",
+            "description": "The item was used for business or rental purposes; personal item loss treatment does not apply."
+          },
+          {
+            "const": "digital-asset-excluded",
+            "description": "The transaction involved digital assets or virtual currency, which are outside the scope of this personal item sale route."
+          },
+          {
+            "const": "multi-sale-statement-unsupported",
+            "description": "The Form 1099-K statement covers more than a single personal item sale."
+          },
+          {
+            "const": "non-purchase-acquisition-unsupported",
+            "description": "The item was not acquired by purchase."
+          },
+          {
+            "const": "basis-adjustment-unsupported",
+            "description": "Lasting improvements or other basis adjustments were made to the item."
+          },
+          {
+            "const": "backup-withholding-unsupported",
+            "description": "Federal income tax was withheld (Box 4), which requires separate reporting."
+          },
+          {
+            "const": "cost-basis-unknown",
+            "description": "The original purchase cost of the item is unknown."
+          },
+          {
+            "const": "shipping-arrangement-unknown",
+            "description": "The shipping arrangement is unknown."
+          },
+          {
+            "const": "buyer-payment-unknown",
+            "description": "The agreed item price is unknown."
+          },
+          {
+            "const": "platform-tax-unknown",
+            "description": "The platform sales tax amount is unknown."
+          },
+          {
+            "const": "buyer-shipping-unknown",
+            "description": "The buyer-paid shipping amount is unknown."
+          },
+          {
+            "const": "refund-status-unknown",
+            "description": "The refund amount is unknown."
+          },
+          {
+            "const": "platform-fees-unknown",
+            "description": "The platform selling fees amount is unknown."
+          },
+          {
+            "const": "seller-shipping-unknown",
+            "description": "The seller-paid shipping amount is unknown."
+          },
+          {
+            "const": "cannot-tell-improvements",
+            "description": "It is not known whether lasting improvements or other basis adjustments were made to the item."
+          },
+          {
+            "const": "cannot-tell-asset-type",
+            "description": "It is not known whether the transaction involved digital assets or virtual currency."
+          },
+          {
+            "const": "cannot-tell-use",
+            "description": "It is not known whether the item was used exclusively for personal purposes."
+          },
+          {
+            "const": "cannot-tell-purpose",
+            "description": "It is not known whether the item was acquired for personal use."
+          },
+          {
+            "const": "cannot-tell-acquisition",
+            "description": "It is not known whether the item was acquired by purchase."
+          },
+          {
+            "const": "cannot-tell-sale-scope",
+            "description": "It is not known whether the statement covers only a single personal item sale."
+          },
+          {
+            "const": "improvements-unanswered",
+            "description": "The question regarding lasting improvements has no current answer."
+          },
+          {
+            "const": "cost-basis-unanswered",
+            "description": "The question regarding cost basis has no current answer."
+          },
+          {
+            "const": "shipping-arrangement-unanswered",
+            "description": "The question regarding shipping arrangement has no current answer."
+          },
+          {
+            "const": "agreed-price-unanswered",
+            "description": "The question regarding agreed item price has no current answer."
+          },
+          {
+            "const": "platform-tax-unanswered",
+            "description": "The question regarding platform sales tax has no current answer."
+          },
+          {
+            "const": "buyer-shipping-unanswered",
+            "description": "The question regarding buyer-paid shipping has no current answer."
+          },
+          {
+            "const": "refund-status-unanswered",
+            "description": "The question regarding refunds given back has no current answer."
+          },
+          {
+            "const": "platform-fees-unanswered",
+            "description": "The question regarding platform selling fees has no current answer."
+          },
+          {
+            "const": "seller-shipping-unanswered",
+            "description": "The question regarding seller-paid shipping has no current answer."
+          },
+          {
+            "const": "asset-type-unanswered",
+            "description": "The question regarding digital assets has no current answer."
+          },
+          {
+            "const": "personal-use-unconfirmed",
+            "description": "The question regarding exclusive personal use has no current answer."
+          },
+          {
+            "const": "purpose-unanswered",
+            "description": "The question regarding primary purpose at acquisition has no current answer."
+          },
+          {
+            "const": "acquisition-type-unanswered",
+            "description": "The question regarding acquisition by purchase has no current answer."
+          },
+          {
+            "const": "single-sale-unanswered",
+            "description": "The question regarding single item sale scope has no current answer."
+          },
+          {
+            "const": "unexplained-reconciliation-discrepancy",
+            "description": "The reported Box 1a amount does not reconcile with the item price, sales tax, and shipping amounts."
+          },
+          {
+            "const": "multiple-f1099k-out-of-scope",
+            "description": "More than one Form 1099-K statement was received; reporting personal item sale losses across multiple statements is outside the supported scope of this return."
+          }
+        ]
+      },
+      "supersession": {
+        "policy": "free"
+      }
+    },
+    {
+      "schema": "fact-type.v2",
+      "id": "tax.us.2025.f1099k.unresolved",
+      "version": "v1",
+      "title": "Unresolved condition sentinel for Form 1099-K personal item sale reporting",
+      "nature": "determinable",
+      "identity_keys": [
+        {
+          "name": "tax-year",
+          "kind": "literal",
+          "values": [
+            "2025"
+          ]
+        }
+      ],
+      "value_schema": {
+        "type": "string",
+        "enum": [
+          "unresolved"
+        ]
+      },
+      "supersession": {
+        "policy": "free"
+      }
+    },
+    {
+      "schema": "fact-type.v2",
+      "id": "tax.us.2025.f1099k.inert-path-unwritten",
+      "version": "v1",
+      "title": "Named by the selection rule inert second path. Nothing writes it.",
+      "nature": "determinable",
+      "identity_keys": [
+        {
+          "name": "marker",
+          "kind": "literal",
+          "values": [
+            "unused"
+          ]
+        }
+      ],
+      "value_schema": {
+        "type": "string",
+        "enum": [
+          "unused"
+        ]
+      },
+      "supersession": {
+        "policy": "free"
+      }
+    },
+    {
+      "schema": "fact-type.v2",
+      "id": "tax.us.2025.f1099k.amount-realized",
+      "version": "v1",
+      "title": "Amount realized from single personal item sale",
+      "nature": "determinable",
+      "identity_keys": [
+        {
+          "name": "payer",
+          "kind": "entity",
+          "entity_kind": "tax.us.1099k-platform"
+        },
+        {
+          "name": "statement",
+          "kind": "entity",
+          "entity_kind": "tax.us.1099k-statement"
+        },
+        {
+          "name": "tax-year",
+          "kind": "literal",
+          "values": [
+            "2025"
+          ]
+        }
+      ],
+      "value_schema": {
+        "oneOf": [
+          {
+            "type": "number",
+            "minimum": 0
+          },
+          {
+            "type": "string",
+            "enum": [
+              "not-computed"
+            ]
+          }
+        ]
+      },
+      "supersession": {
+        "policy": "free"
+      }
+    },
+    {
+      "schema": "fact-type.v2",
+      "id": "tax.us.2025.f1099k.selling-expenses",
+      "version": "v1",
+      "title": "Selling expenses for single personal item sale",
+      "nature": "determinable",
+      "identity_keys": [
+        {
+          "name": "payer",
+          "kind": "entity",
+          "entity_kind": "tax.us.1099k-platform"
+        },
+        {
+          "name": "statement",
+          "kind": "entity",
+          "entity_kind": "tax.us.1099k-statement"
+        },
+        {
+          "name": "tax-year",
+          "kind": "literal",
+          "values": [
+            "2025"
+          ]
+        }
+      ],
+      "value_schema": {
+        "oneOf": [
+          {
+            "type": "number",
+            "minimum": 0
+          },
+          {
+            "type": "string",
+            "enum": [
+              "not-computed"
+            ]
+          }
+        ]
+      },
+      "supersession": {
+        "policy": "free"
+      }
+    },
+    {
+      "schema": "fact-type.v2",
+      "id": "tax.us.2025.f1099k.net-proceeds",
+      "version": "v1",
+      "title": "Net proceeds from single personal item sale",
+      "nature": "determinable",
+      "identity_keys": [
+        {
+          "name": "payer",
+          "kind": "entity",
+          "entity_kind": "tax.us.1099k-platform"
+        },
+        {
+          "name": "statement",
+          "kind": "entity",
+          "entity_kind": "tax.us.1099k-statement"
+        },
+        {
+          "name": "tax-year",
+          "kind": "literal",
+          "values": [
+            "2025"
+          ]
+        }
+      ],
+      "value_schema": {
+        "oneOf": [
+          {
+            "type": "number"
+          },
+          {
+            "type": "string",
+            "enum": [
+              "not-computed"
+            ]
+          }
+        ]
+      },
+      "supersession": {
+        "policy": "free"
+      }
+    },
+    {
+      "schema": "fact-type.v2",
+      "id": "tax.us.2025.f1099k.adjusted-basis",
+      "version": "v1",
+      "title": "Adjusted basis of personal item",
+      "nature": "determinable",
+      "identity_keys": [
+        {
+          "name": "payer",
+          "kind": "entity",
+          "entity_kind": "tax.us.1099k-platform"
+        },
+        {
+          "name": "statement",
+          "kind": "entity",
+          "entity_kind": "tax.us.1099k-statement"
+        },
+        {
+          "name": "tax-year",
+          "kind": "literal",
+          "values": [
+            "2025"
+          ]
+        }
+      ],
+      "value_schema": {
+        "oneOf": [
+          {
+            "type": "number",
+            "minimum": 0
+          },
+          {
+            "type": "string",
+            "enum": [
+              "not-computed"
+            ]
+          }
+        ]
+      },
+      "supersession": {
+        "policy": "free"
+      }
+    },
+    {
+      "schema": "fact-type.v2",
+      "id": "tax.us.2025.f1099k.expected-box1a-gross-amount",
+      "version": "v1",
+      "title": "Expected Form 1099-K box 1a gross amount from item transaction breakdown",
+      "nature": "determinable",
+      "identity_keys": [
+        {
+          "name": "payer",
+          "kind": "entity",
+          "entity_kind": "tax.us.1099k-platform"
+        },
+        {
+          "name": "statement",
+          "kind": "entity",
+          "entity_kind": "tax.us.1099k-statement"
+        },
+        {
+          "name": "tax-year",
+          "kind": "literal",
+          "values": [
+            "2025"
+          ]
+        }
+      ],
+      "value_schema": {
+        "oneOf": [
+          {
+            "type": "number",
+            "minimum": 0
+          },
+          {
+            "type": "string",
+            "enum": [
+              "not-computed"
+            ]
+          }
+        ]
+      },
+      "supersession": {
+        "policy": "free"
+      }
+    }
+  ]
+}

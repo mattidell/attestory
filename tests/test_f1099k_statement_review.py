@@ -993,13 +993,15 @@ class F1099KStatementReviewLiveDerivationTests(unittest.TestCase):
             shown_at="2026-10-16T12:03:00Z",
             statement_keys=stmt_keys,
         )
-        # Saved state and wording
-        self.assertEqual(review["savedCalculationState"], "current-supported-zero")
-        self.assertEqual(review["savedState"], "supported-zero")
+        # Saved state and wording - follows recorded outcome supported-loss (not amount > 0 proxy)
+        self.assertEqual(review["savedCalculationState"], "current-supported-loss")
+        self.assertEqual(review["savedState"], "supported-loss")
         self.assertIsNotNone(review["savedCalculation"])
         calc = review["savedCalculation"]
-        self.assertEqual(calc["status"], "supported-zero")
+        self.assertEqual(calc["status"], "supported-loss")
         self.assertEqual(calc["box1a"], 0.0)
+        self.assertEqual(calc["assumptions"], "none")
+        self.assertIsNotNone(calc["computation"])
         self.assertIn("nondeductible personal loss", calc["sentence"])
         # No income warning
         self.assertIsNone(review["savedUnresolvedExplanation"])
@@ -1132,3 +1134,49 @@ class F1099KStatementReviewLiveDerivationTests(unittest.TestCase):
         self.assertTrue(any("gain or profit" in s for s in unres["reasonSentences"]))
         # Income warning appears only for the unresolved one
         self.assertIn("does not yet account for this Form 1099-K", unres["incomeSentence"])
+
+    def test_box4_presented_as_supplied_by_person_or_none(self) -> None:
+        """R4: Review presents Box 4 as what the person supplied, or None if absent."""
+        stmt_res = record_f1099k_statement_durably(
+            self.log,
+            self.registry,
+            payer_id="demo.platform.box4test",
+            statement_ref="stmt-box4",
+            box1a=1000.0,
+            box4=125.50,
+            submission_id="demo.box4test.sub",
+            evidence_id="demo.box4test.ev",
+            actor=USER,
+            at="2026-10-16T12:00:00Z",
+            expected_revision=self.log.read().revision,
+        )
+        stmt_keys = cast(dict[str, str], stmt_res["statement_keys"])
+        rev = prepare_f1099k_statement_review(
+            self.log,
+            self.registry,
+            review_id="demo.box4test.rev",
+            shown_at="2026-10-16T12:01:00Z",
+            statement_keys=stmt_keys,
+        )
+        self.assertEqual(rev["statement"]["box4"], 125.50)
+        self.assertIsNotNone(rev["statement"]["box4FindingId"])
+
+        # Create workspace with Box 4 absent
+        temp_dir = TemporaryDirectory(prefix="f1099k-nobox4-")
+        self.addCleanup(temp_dir.cleanup)
+        nobox4_ws = Path(temp_dir.name)
+        nobox4_log = ActLog(nobox4_ws, self.registry)
+        acts = list(self.log.read().acts)
+        acts_no_box4 = [copy.deepcopy(a) for a in acts if "box4" not in str(a.get("payload", {}).get("finding", {}).get("fact_id", ""))]
+        for idx, act in enumerate(acts_no_box4):
+            act["committed_against"] = idx
+        nobox4_log.append_batch(acts_no_box4, expected_revision=0)
+        rev_nobox4 = prepare_f1099k_statement_review(
+            nobox4_log,
+            self.registry,
+            review_id="demo.nobox4.rev",
+            shown_at="2026-10-16T12:02:00Z",
+            statement_keys=stmt_keys,
+        )
+        self.assertIsNone(rev_nobox4["statement"]["box4"])
+        self.assertIsNone(rev_nobox4["statement"]["box4FindingId"])

@@ -496,6 +496,21 @@ class F1099KStatementRecordingTests(unittest.TestCase):
                 expected_revision=0,
             )
 
+        # Omitted box4 raises TypeError (R4: explicit required argument)
+        with self.assertRaises(TypeError):
+            record_f1099k_statement_durably(  # type: ignore[call-arg]
+                self.log,
+                self.registry,
+                payer_id=PAYER,
+                statement_ref=STMT,
+                box1a=880.0,
+                submission_id="demo.f1099k.omitted-box4",
+                evidence_id="demo.f1099k.omitted-box4.ev",
+                actor=USER,
+                at="2026-10-16T12:00:00Z",
+                expected_revision=0,
+            )
+
     def test_answer_correction_and_history_preservation(self) -> None:
         first = record_f1099k_statement_durably(
             self.log,

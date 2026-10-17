@@ -353,7 +353,7 @@ def record_f1099k_statement_durably(
     payer_id: str,
     statement_ref: str,
     box1a: float,
-    box4: float = 0.0,
+    box4: float,
     submission_id: str,
     evidence_id: str,
     actor: str,

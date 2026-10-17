@@ -267,7 +267,7 @@ def prepare_f1099k_statement_review(
         (fid, row) for fid, row in state.findings.items()
         if fid in current_ids and row.get("fact_id") == box4_fact_id
     ]
-    box4_val = box4_match[0][1]["value"] if box4_match else 0.0
+    box4_val = float(box4_match[0][1]["value"]) if box4_match else None
     box4_fid = box4_match[0][0] if box4_match else None
 
     # Circumstance answers
@@ -578,6 +578,22 @@ def review_f1099k_statement_with_saved_presentation(
     unres_resolved = (unresolved_field or {}).get("resolved") or {} if unresolved_field else {}
     unres_disp = unres_resolved.get("disposition") if unresolved_field else None
     reasons = unres_resolved.get("reasons", []) if unresolved_field else []
+    f1099k_expl = presentation.get("f1099kStatementExplanation")
+    stmt_info = review.get("statement") or {}
+    stmt_keys = stmt_info.get("keys", {})
+    stmt_id = stmt_keys.get("statement")
+
+    target_expl: Mapping[str, Any] | None = None
+    if isinstance(f1099k_expl, Mapping):
+        if stmt_id and stmt_id in f1099k_expl:
+            target_expl = f1099k_expl[stmt_id]
+        elif len(f1099k_expl) == 1:
+            target_expl = next(iter(f1099k_expl.values()))
+        elif "computation" in f1099k_expl:
+            target_expl = f1099k_expl
+
+    comp = target_expl.get("computation") if target_expl is not None else None
+    assumptions = target_expl.get("assumptions", "none") if target_expl is not None else "none"
 
     # 1. Closed-empty zero: the person said no Form 1099-K, so there is no statement and a $0 entry
     if review.get("closedEmpty") or review.get("statement") is None:
@@ -596,6 +612,8 @@ def review_f1099k_statement_with_saved_presentation(
                 "box1a": 0.0,
                 "sentence": closure_explain,
                 "fieldId": "tax.us.2025.schedule1.top-entry.form-field",
+                "assumptions": "none",
+                "computation": None,
             }
             return {
                 **review,
@@ -607,7 +625,7 @@ def review_f1099k_statement_with_saved_presentation(
                 "savedState": "closed-empty-zero",
             }
 
-    # 2. Supported loss or supported zero
+    # 2. Supported loss
     if (
         top_disp in ("published_value", "published", "computed_zero")
         and top_val is not None
@@ -619,39 +637,23 @@ def review_f1099k_statement_with_saved_presentation(
             or "This sale resulted in a nondeductible personal loss whose Box 1a gross amount is entered at the top of Schedule 1."
         )
         val_f = float(top_val)
-        if val_f > 0:
-            saved_calc = {
-                "status": "supported-loss",
-                "box1a": val_f,
-                "sentence": top_explain,
-                "fieldId": "tax.us.2025.schedule1.top-entry.form-field",
-            }
-            return {
-                **review,
-                "savedCalculation": saved_calc,
-                "savedUnresolvedExplanation": None,
-                "savedMissingOutput": None,
-                "calculationAssociation": association,
-                "savedCalculationState": "current-supported-loss",
-                "savedState": "supported-loss",
-            }
-        else:
-            # Supported zero: a supported loss whose Box 1a is $0, entered as $0, with no income warning
-            saved_calc = {
-                "status": "supported-zero",
-                "box1a": 0.0,
-                "sentence": top_explain,
-                "fieldId": "tax.us.2025.schedule1.top-entry.form-field",
-            }
-            return {
-                **review,
-                "savedCalculation": saved_calc,
-                "savedUnresolvedExplanation": None,
-                "savedMissingOutput": None,
-                "calculationAssociation": association,
-                "savedCalculationState": "current-supported-zero",
-                "savedState": "supported-zero",
-            }
+        saved_calc = {
+            "status": "supported-loss",
+            "box1a": val_f,
+            "sentence": top_explain,
+            "fieldId": "tax.us.2025.schedule1.top-entry.form-field",
+            "assumptions": assumptions,
+            "computation": comp,
+        }
+        return {
+            **review,
+            "savedCalculation": saved_calc,
+            "savedUnresolvedExplanation": None,
+            "savedMissingOutput": None,
+            "calculationAssociation": association,
+            "savedCalculationState": "current-supported-loss",
+            "savedState": "supported-loss",
+        }
 
     # 3. Actually unresolved: a named stop with its reason sentence and the income sentence
     if unres_disp == "blocked" or len(reasons) > 0:
@@ -659,8 +661,6 @@ def review_f1099k_statement_with_saved_presentation(
         unres_explain = (
             ((unresolved_field or {}).get("field") or {}).get("dispositions", {}).get("blocked", {}).get("explain", "")
         )
-        stmt_info = review.get("statement") or {}
-        stmt_keys = stmt_info.get("keys", {})
         saved_unres = {
             "status": "unresolved",
             "statementKeys": stmt_keys,
@@ -668,6 +668,8 @@ def review_f1099k_statement_with_saved_presentation(
             "reasons": copy.deepcopy(reasons),
             "reasonSentences": reason_sentences,
             "fieldId": "tax.us.2025.form.f1099k.unresolved.form-field",
+            "assumptions": assumptions,
+            "computation": comp,
         }
         return {
             **review,
@@ -683,6 +685,8 @@ def review_f1099k_statement_with_saved_presentation(
     saved_missing = {
         "status": "missing-output",
         "sentence": "No Form 1099-K top-entry or reason result in the saved run.",
+        "assumptions": assumptions,
+        "computation": comp,
     }
     return {
         **review,

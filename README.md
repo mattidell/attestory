@@ -129,6 +129,73 @@ answer changes, an earlier saved calculation is identified by its recorded
 run and workspace revision; a different revision means recalculation is
 needed.
 
+## Personal-item sale on Form 1099-K
+
+The bounded Form 1099-K route reviews one current Form 1099-K statement and its
+saved circumstance answers for a personal item sold through a payment card or
+third-party settlement organization. When the answers establish that the
+transaction is a nondeductible personal loss, the reported Box 1a gross amount
+is entered at the top of Schedule 1 (Form 1040) exactly once, while the return's
+net income on Form 1040 lines 8 and 9 remains unchanged.
+
+The route names but does not report other outcomes: transactions resulting in a
+gain or profit, transactions that broke even, items not acquired by purchase,
+items with lasting improvements or other basis adjustments, transactions
+involving digital assets, transactions with federal backup withholding (Box 4),
+multiple received statements, or missing/unanswered circumstance questions.
+For any of these, the route publishes an unresolved condition on the statement
+whose explanation states why the loss entry cannot be computed and that the
+return's income does not yet account for the Form 1099-K statement.
+
+The package is `core-calculations.v47` in published package registry `v45` and
+release `demo.release.sli-worksheet-integration.2025.v45.json`. A synthetic
+supported loss answer set looks like this:
+
+```python
+answers = {
+    "covers-only-single-item": "yes",
+    "acquired-by-purchase": "yes",
+    "primary-purpose-at-acquisition": "personal-use",
+    "exclusive-personal-use": "yes",
+    "digital-asset-involvement": "no",
+    "agreed-item-price": 800.0,
+    "shipping-arrangement": "platform-pass-through",
+    "platform-fees": 80.0,
+    "seller-paid-shipping": 0.0,
+    "sales-tax-collected-by-platform": 56.0,
+    "refund-amount": 0.0,
+    "buyer-paid-shipping": 24.0,
+    "purchase-cost": 1000.0,
+    "cost-basis-known": "yes",
+    "lasting-improvements-or-adjustments": "no",
+}
+```
+
+The callable recording, review, and save operations live in
+`packages.tax.f1099k_statement_recording` and
+`packages.tax.f1099k_statement_review`: `record_f1099k_statement_durably`,
+`record_f1099k_no_statements_durably`, `prepare_f1099k_statement_review`,
+`save_f1099k_statement_review`, `answer_f1099k_statement_review_question`,
+`correct_f1099k_statement_review_answer`,
+`withdraw_f1099k_statement_review_answers`, and
+`review_f1099k_statement_with_saved_presentation`. Initial review saves require
+answering all 15 circumstance questions; subsequent corrections and withdrawals
+record against their current finding identities and advance the revision. A
+saved calculation retains the Form 1099-K report (payer and Box 1a), the
+chosen answers, actual assumptions ("none"), and the five computed figures
+(`amount-realized`, `selling-expenses`, `net-proceeds`, `adjusted-basis`,
+`expected-box1a-gross-amount`) plus the categorical comparison
+(`net proceeds < adjusted basis` for a loss, `net proceeds > adjusted basis`
+for a gain). If an answer changes, earlier saved calculations report
+`recalculation-needed`.
+
+Workspaces meet the completeness requirement for the Form 1099-K family only
+when they adopt release `v45` (with vocabulary bundle `v2`). Workspaces on
+earlier releases do not contain the five computation rules or the successor
+reason rule. When no Form 1099-K was received, recording that fact durably
+via `record_f1099k_no_statements_durably` closes the statement family
+closed-empty and enters 0 at the top of Schedule 1.
+
 ## Correction session walkthrough
 
 The synthetic student-loan interest correction session opens one saved result and lets you review one borrowing's loan-cost answer. Wording is provisional. Each command seeds one named state, prints what that state is, and serves the page on loopback. Stop with Ctrl-C. Run the same command again for a clean start.
