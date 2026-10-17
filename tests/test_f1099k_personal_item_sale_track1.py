@@ -3,9 +3,9 @@
 Covers all 33 materially distinct disposition paths settled in D2 and proved in
 d2_probe.py, now running through live_coordinate_run and build_presentation_model
 against adopted production content:
-- Package core-calculations v46
-- Published packages registry v44
-- Release demo.release.sli-worksheet-integration.2025 v44
+- Package core-calculations v48
+- Published packages registry v46
+- Release demo.release.sli-worksheet-integration.2025 v46
 """
 
 from __future__ import annotations
@@ -32,12 +32,17 @@ from tests.test_ssa1099_benefits_line6_track2 import _ssa_acts
 
 ROOT = Path(__file__).resolve().parent.parent
 CONTENT = ROOT / "packages" / "content" / "tax" / "2025"
-REGISTRY_PATH = CONTENT / "published-packages.v45.json"
+REGISTRY_PATH = CONTENT / "published-packages.v46.json"
 RELEASE_DIR = ROOT / "packages" / "sample_data" / "student_loan_worksheet_integration" / "publication_surface" / "releases"
-RELEASE_PATH = RELEASE_DIR / "demo.release.sli-worksheet-integration.2025.v45.json"
-PACKAGE_PATH = CONTENT / "package.core-calculations.v47.json"
+RELEASE_PATH = RELEASE_DIR / "demo.release.sli-worksheet-integration.2025.v46.json"
+PACKAGE_PATH = CONTENT / "package.core-calculations.v48.json"
+
+REGISTRY_V45_PATH = CONTENT / "published-packages.v45.json"
+RELEASE_V45_PATH = RELEASE_DIR / "demo.release.sli-worksheet-integration.2025.v45.json"
+PACKAGE_V47_PATH = CONTENT / "package.core-calculations.v47.json"
 
 SURFACE = PublicationSurface(RELEASE_DIR, REGISTRY_PATH, CONTENT)
+SURFACE_V45 = PublicationSurface(RELEASE_DIR, REGISTRY_V45_PATH, CONTENT)
 
 USER = "demo.user.filer-1"
 SCOPE = {"jurisdiction": "us", "year": "2025"}
@@ -154,9 +159,30 @@ def _finish_acts(acts: list[dict[str, object]]) -> list[dict[str, object]]:
     adoption["committed_against"] = len(built)
     payload = adoption["payload"]
     assert isinstance(payload, dict)
+    payload["package"] = {"id": "tax.us.2025.package.core-calculations", "version": "v48", "checksum": pkg_csum}
+    payload["release"] = {"id": "demo.release.sli-worksheet-integration.2025", "version": "v46", "checksum": rel_csum}
+    payload["audit"] = {"note": "synthetic Form 1099-K personal item sale loss track1 test"}
+    built.append(adoption)
+    for index, row in enumerate(built):
+        row["committed_against"] = index
+        row["actor"] = USER
+    return built
+
+
+def _finish_acts_v45(acts: list[dict[str, object]]) -> list[dict[str, object]]:
+    pkg_data = json.loads(PACKAGE_V47_PATH.read_text("utf-8"))
+    pkg_csum = pkg_data["package_checksum"]
+    rel_csum = hashlib.sha256(RELEASE_V45_PATH.read_bytes()).hexdigest()
+
+    built = copy.deepcopy(acts)
+    adoption = copy.deepcopy(_load_fixture_adoption())
+    adoption["act_id"] = f"demo.f1099k.adopt.{len(built):03d}"
+    adoption["committed_against"] = len(built)
+    payload = adoption["payload"]
+    assert isinstance(payload, dict)
     payload["package"] = {"id": "tax.us.2025.package.core-calculations", "version": "v47", "checksum": pkg_csum}
     payload["release"] = {"id": "demo.release.sli-worksheet-integration.2025", "version": "v45", "checksum": rel_csum}
-    payload["audit"] = {"note": "synthetic Form 1099-K personal item sale loss track1 test"}
+    payload["audit"] = {"note": "synthetic Form 1099-K personal item sale loss track1 test on v45"}
     built.append(adoption)
     for index, row in enumerate(built):
         row["committed_against"] = index
@@ -510,14 +536,14 @@ EXPECTED_OUTCOMES: dict[str, dict[str, Any]] = {
         "expected_unres_sentences": [],
     },
     "33. boundary-case-5-pass-through-seller-paid-gain": {
-        "expected_token": "unsupported-gain",
+        "expected_token": "additional-seller-shipping-unsupported",
         "expected_top_amount": None,
         "is_statement_reason": True,
         "expected_top_disp": "blocked",
         "expected_unres_disp": "blocked",
         "expected_top_sentences": ["Form 1099-K loss entry cannot be computed."],
         "expected_unres_sentences": [
-            "The sale resulted in a gain or profit, which cannot be reported as a personal item loss on Schedule 1."
+            "Shipping the person paid in addition to a platform-supplied label is not yet handled, so the route cannot tell whether the sale was a gain or a loss."
         ],
     },
 }

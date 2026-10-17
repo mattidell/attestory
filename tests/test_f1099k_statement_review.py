@@ -37,10 +37,12 @@ from tests.test_f1099k_personal_item_sale_track1 import (
     ROOT,
     SCOPE,
     SURFACE,
+    SURFACE_V45,
     TOP_ENTRY_SYMBOL,
     UNRESOLVED_SYMBOL,
     USER,
     _finish_acts,
+    _finish_acts_v45,
     _make_base_acts,
 )
 from tests.test_f1099k_statement_recording import BASE_ANSWERS, PAYER, STMT, _evidence_ids
@@ -68,6 +70,32 @@ def _run_workspace(
         run_id=run_id,
         governance_pins=[],
         surface=SURFACE,
+        output_name=f"{run_id}.json",
+    )
+
+
+def _seed_workspace_v45(log: ActLog) -> None:
+    seed_acts = _finish_acts_v45(_make_base_acts())
+    log.append_batch(seed_acts, expected_revision=0)
+
+
+def _run_workspace_v45(
+    capability: WorkspaceCapability,
+    log: ActLog,
+    run_id: str,
+) -> LiveCoordinatorOutcome:
+    contents = log.read()
+    return live_coordinate_run(
+        capability,
+        repo_root=ROOT,
+        authoritative_acts=contents.acts,
+        workspace_revision=contents.revision,
+        run_scope=SCOPE,
+        scope_user=USER,
+        request={"schema": "run-request.v1"},
+        run_id=run_id,
+        governance_pins=[],
+        surface=SURFACE_V45,
         output_name=f"{run_id}.json",
     )
 
@@ -1180,3 +1208,323 @@ class F1099KStatementReviewLiveDerivationTests(unittest.TestCase):
         )
         self.assertIsNone(rev_nobox4["statement"]["box4"])
         self.assertIsNone(rev_nobox4["statement"]["box4FindingId"])
+
+    def test_owner_regression_platform_pass_through_additional_shipping(self) -> None:
+        """Owner regression: platform pass-through with seller-paid shipping > 0.
+
+        Exact figures:
+        - item price: $900
+        - purchase cost: $850
+        - shipping arrangement: platform pass-through
+        - buyer shipping: $100
+        - additional seller-paid shipping: $100
+        - platform fees: $0, platform sales tax: $0, refund: $0
+        - Box 1a: $1,000, Box 4: $0
+        """
+        # 1. Discriminating proof on release v45:
+        # Show that the same figures on release v45 gave the gain sentence.
+        temp_dir_v45 = TemporaryDirectory(prefix="f1099k-v45-")
+        self.addCleanup(temp_dir_v45.cleanup)
+        ws_v45 = Path(temp_dir_v45.name)
+        log_v45 = ActLog(ws_v45, self.registry)
+        _seed_workspace_v45(log_v45)
+
+        stmt_res_v45 = record_f1099k_statement_durably(
+            log_v45,
+            self.registry,
+            payer_id=PAYER,
+            statement_ref=STMT,
+            box1a=1000.0,
+            box4=0.0,
+            submission_id="demo.owner.v45.stmt",
+            evidence_id="demo.owner.v45.stmt.ev",
+            actor=USER,
+            at="2026-10-16T12:00:00Z",
+            expected_revision=log_v45.read().revision,
+        )
+        stmt_keys_v45 = cast(dict[str, str], stmt_res_v45["statement_keys"])
+        rev_v45 = prepare_f1099k_statement_review(
+            log_v45,
+            self.registry,
+            review_id="demo.owner.v45.rev",
+            shown_at="2026-10-16T12:01:00Z",
+            statement_keys=stmt_keys_v45,
+        )
+        owner_answers = {
+            "covers-only-single-item": "yes",
+            "acquired-by-purchase": "yes",
+            "primary-purpose-at-acquisition": "personal-use",
+            "exclusive-personal-use": "yes",
+            "digital-asset-involvement": "no",
+            "agreed-item-price": 900.0,
+            "shipping-arrangement": "platform-pass-through",
+            "platform-fees": 0.0,
+            "seller-paid-shipping": 100.0,
+            "sales-tax-collected-by-platform": 0.0,
+            "refund-amount": 0.0,
+            "buyer-paid-shipping": 100.0,
+            "purchase-cost": 850.0,
+            "cost-basis-known": "yes",
+            "lasting-improvements-or-adjustments": "no",
+        }
+        save_f1099k_statement_review(
+            log_v45,
+            self.registry,
+            rev_v45,
+            answers=owner_answers,
+            submission_id="demo.owner.v45.ans",
+            evidence_ids=_evidence_ids(owner_answers, prefix="demo.owner.v45.ev"),
+            actor=USER,
+            at="2026-10-16T12:02:00Z",
+        )
+        outcome_v45 = _run_workspace_v45(self.capability, log_v45, "owner-v45-run")
+        self.assertIsNone(outcome_v45.refusal)
+        assert outcome_v45.presentation_path is not None
+        review_v45 = review_f1099k_statement_with_saved_presentation(
+            log_v45,
+            self.registry,
+            outcome_v45.presentation_path,
+            self.records,
+            review_id="demo.owner.v45.outcome",
+            shown_at="2026-10-16T12:03:00Z",
+            statement_keys=stmt_keys_v45,
+        )
+        self.assertEqual(review_v45["savedCalculationState"], "current-unresolved-explanation")
+        self.assertIsNotNone(review_v45["savedUnresolvedExplanation"])
+        self.assertTrue(any("gain or profit" in s for s in review_v45["savedUnresolvedExplanation"]["reasonSentences"]))
+
+        # 2. Owner regression on release v46:
+        # Use the actual path: Track 2 recording operations, live_coordinate_run on release v46,
+        # the saved presentation, and review reloaded from disk.
+        stmt_res = record_f1099k_statement_durably(
+            self.log,
+            self.registry,
+            payer_id=PAYER,
+            statement_ref=STMT,
+            box1a=1000.0,
+            box4=0.0,
+            submission_id="demo.owner.v46.stmt",
+            evidence_id="demo.owner.v46.stmt.ev",
+            actor=USER,
+            at="2026-10-16T12:00:00Z",
+            expected_revision=self.log.read().revision,
+        )
+        stmt_keys = cast(dict[str, str], stmt_res["statement_keys"])
+        rev = prepare_f1099k_statement_review(
+            self.log,
+            self.registry,
+            review_id="demo.owner.v46.rev",
+            shown_at="2026-10-16T12:01:00Z",
+            statement_keys=stmt_keys,
+        )
+        save_f1099k_statement_review(
+            self.log,
+            self.registry,
+            rev,
+            answers=owner_answers,
+            submission_id="demo.owner.v46.ans",
+            evidence_ids=_evidence_ids(owner_answers, prefix="demo.owner.v46.ev"),
+            actor=USER,
+            at="2026-10-16T12:02:00Z",
+        )
+        outcome = _run_workspace(self.capability, self.log, "owner-v46-run")
+        self.assertIsNone(outcome.refusal)
+        assert outcome.presentation_path is not None
+
+        review = review_f1099k_statement_with_saved_presentation(
+            self.log,
+            self.registry,
+            outcome.presentation_path,
+            self.records,
+            review_id="demo.owner.v46.outcome",
+            shown_at="2026-10-16T12:03:00Z",
+            statement_keys=stmt_keys,
+        )
+
+        assert outcome.publications is not None
+        reason_pub = next(p for p in outcome.publications if p.finding.get("symbol", "").startswith("tax.us.2025.f1099k.statement-loss-reason"))
+        self.assertEqual(reason_pub.finding.get("value"), "additional-seller-shipping-unsupported")
+
+        # - there is no Schedule 1 top entry
+        self.assertIsNone(review["savedCalculation"])
+        self.assertEqual(review["savedCalculationState"], "current-unresolved-explanation")
+        self.assertEqual(review["savedState"], "actually-unresolved")
+
+        # - the person's $100 answer is retained
+        self.assertEqual(review["questions"]["seller-paid-shipping"]["answer"], 100.0)
+
+        # - selling expenses and net proceeds are not-computed;
+        # - amount realized $900 and adjusted basis $850 are shown
+        unres = review["savedUnresolvedExplanation"]
+        self.assertIsNotNone(unres)
+        comp = unres["computation"]
+        self.assertIsNotNone(comp)
+        self.assertEqual(comp["sellingExpenses"], "not-computed")
+        self.assertEqual(comp["netProceeds"], "not-computed")
+        self.assertEqual(comp["amountRealized"], 900.0)
+        self.assertEqual(comp["adjustedBasis"], 850.0)
+        self.assertEqual(comp["expectedBox1aGrossAmount"], 1000.0)
+        self.assertEqual(comp["comparison"], "not-computed")
+
+        # - there is no gain, break-even or loss sentence
+        self.assertFalse(any("gain or profit" in s for s in unres["reasonSentences"]))
+        self.assertFalse(any("broke even" in s for s in unres["reasonSentences"]))
+        self.assertFalse(any("nondeductible personal loss" in s for s in unres["reasonSentences"]))
+
+        # - the named sentence and the income sentence are present
+        named_sentence = "Shipping the person paid in addition to a platform-supplied label is not yet handled, so the route cannot tell whether the sale was a gain or a loss."
+        self.assertTrue(any(named_sentence in s for s in unres["reasonSentences"]))
+        self.assertIn("does not yet account for this Form 1099-K", unres["incomeSentence"])
+
+    def test_correction_platform_pass_through_additional_shipping(self) -> None:
+        """Correction in the owner regression workspace:
+        - $100 -> $0 shipping: review says recalculation-needed.
+        - Rerun gives genuine gain stop ($900 vs $850) with its figures.
+        - Purchase cost -> $950 with shipping $0 gives supported loss with $1,000 entry.
+        """
+        # Setup owner regression workspace on v46
+        stmt_res = record_f1099k_statement_durably(
+            self.log,
+            self.registry,
+            payer_id=PAYER,
+            statement_ref=STMT,
+            box1a=1000.0,
+            box4=0.0,
+            submission_id="demo.corr.stmt",
+            evidence_id="demo.corr.stmt.ev",
+            actor=USER,
+            at="2026-10-16T12:00:00Z",
+            expected_revision=self.log.read().revision,
+        )
+        stmt_keys = cast(dict[str, str], stmt_res["statement_keys"])
+        rev = prepare_f1099k_statement_review(
+            self.log,
+            self.registry,
+            review_id="demo.corr.rev",
+            shown_at="2026-10-16T12:01:00Z",
+            statement_keys=stmt_keys,
+        )
+        owner_answers = {
+            "covers-only-single-item": "yes",
+            "acquired-by-purchase": "yes",
+            "primary-purpose-at-acquisition": "personal-use",
+            "exclusive-personal-use": "yes",
+            "digital-asset-involvement": "no",
+            "agreed-item-price": 900.0,
+            "shipping-arrangement": "platform-pass-through",
+            "platform-fees": 0.0,
+            "seller-paid-shipping": 100.0,
+            "sales-tax-collected-by-platform": 0.0,
+            "refund-amount": 0.0,
+            "buyer-paid-shipping": 100.0,
+            "purchase-cost": 850.0,
+            "cost-basis-known": "yes",
+            "lasting-improvements-or-adjustments": "no",
+        }
+        save_f1099k_statement_review(
+            self.log,
+            self.registry,
+            rev,
+            answers=owner_answers,
+            submission_id="demo.corr.ans",
+            evidence_ids=_evidence_ids(owner_answers, prefix="demo.corr.ev"),
+            actor=USER,
+            at="2026-10-16T12:02:00Z",
+        )
+        outcome = _run_workspace(self.capability, self.log, "corr-init-run")
+        assert outcome.presentation_path is not None
+        review = review_f1099k_statement_with_saved_presentation(
+            self.log,
+            self.registry,
+            outcome.presentation_path,
+            self.records,
+            review_id="demo.corr.rev.init",
+            shown_at="2026-10-16T12:03:00Z",
+            statement_keys=stmt_keys,
+        )
+        self.assertEqual(review["savedCalculationState"], "current-unresolved-explanation")
+
+        # Step 1: Correct additional shipping from $100 to $0.
+        correct_f1099k_statement_review_answer(
+            self.log,
+            self.registry,
+            review,
+            question="seller-paid-shipping",
+            answer=0.0,
+            submission_id="demo.corr.ship.zero",
+            evidence_id="demo.corr.ship.zero.ev",
+            actor=USER,
+            at="2026-10-16T12:04:00Z",
+        )
+        # The review says recalculation-needed.
+        review_recalc = review_f1099k_statement_with_saved_presentation(
+            self.log,
+            self.registry,
+            outcome.presentation_path,
+            self.records,
+            review_id="demo.corr.rev.recalc",
+            shown_at="2026-10-16T12:05:00Z",
+            statement_keys=stmt_keys,
+        )
+        self.assertEqual(review_recalc["savedCalculationState"], "recalculation-needed")
+
+        # Rerun then gives the genuine gain stop ($900 against $850) with its figures.
+        outcome_gain = _run_workspace(self.capability, self.log, "corr-gain-run")
+        assert outcome_gain.presentation_path is not None
+        review_gain = review_f1099k_statement_with_saved_presentation(
+            self.log,
+            self.registry,
+            outcome_gain.presentation_path,
+            self.records,
+            review_id="demo.corr.rev.gain",
+            shown_at="2026-10-16T12:06:00Z",
+            statement_keys=stmt_keys,
+        )
+        self.assertEqual(review_gain["savedCalculationState"], "current-unresolved-explanation")
+        unres_gain = review_gain["savedUnresolvedExplanation"]
+        self.assertIsNotNone(unres_gain)
+        self.assertTrue(any("gain or profit" in s for s in unres_gain["reasonSentences"]))
+        comp_gain = unres_gain["computation"]
+        self.assertIsNotNone(comp_gain)
+        self.assertEqual(comp_gain["amountRealized"], 900.0)
+        self.assertEqual(comp_gain["sellingExpenses"], 0.0)
+        self.assertEqual(comp_gain["netProceeds"], 900.0)
+        self.assertEqual(comp_gain["adjustedBasis"], 850.0)
+        self.assertEqual(comp_gain["expectedBox1aGrossAmount"], 1000.0)
+        self.assertEqual(comp_gain["comparison"], "net proceeds > adjusted basis")
+
+        # Step 2: Correcting purchase cost to $950 with shipping $0 gives a supported loss with the $1,000 entry.
+        correct_f1099k_statement_review_answer(
+            self.log,
+            self.registry,
+            review_gain,
+            question="purchase-cost",
+            answer=950.0,
+            submission_id="demo.corr.cost.950",
+            evidence_id="demo.corr.cost.950.ev",
+            actor=USER,
+            at="2026-10-16T12:07:00Z",
+        )
+        outcome_loss = _run_workspace(self.capability, self.log, "corr-loss-run")
+        assert outcome_loss.presentation_path is not None
+        review_loss = review_f1099k_statement_with_saved_presentation(
+            self.log,
+            self.registry,
+            outcome_loss.presentation_path,
+            self.records,
+            review_id="demo.corr.rev.loss",
+            shown_at="2026-10-16T12:08:00Z",
+            statement_keys=stmt_keys,
+        )
+        self.assertEqual(review_loss["savedCalculationState"], "current-supported-loss")
+        self.assertIsNotNone(review_loss["savedCalculation"])
+        self.assertEqual(review_loss["savedCalculation"]["box1a"], 1000.0)
+        self.assertIn("nondeductible personal loss", review_loss["savedCalculation"]["sentence"])
+        comp_loss = review_loss["savedCalculation"]["computation"]
+        self.assertIsNotNone(comp_loss)
+        self.assertEqual(comp_loss["amountRealized"], 900.0)
+        self.assertEqual(comp_loss["sellingExpenses"], 0.0)
+        self.assertEqual(comp_loss["netProceeds"], 900.0)
+        self.assertEqual(comp_loss["adjustedBasis"], 950.0)
+        self.assertEqual(comp_loss["expectedBox1aGrossAmount"], 1000.0)
+        self.assertEqual(comp_loss["comparison"], "net proceeds < adjusted basis")

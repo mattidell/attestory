@@ -1,0 +1,236 @@
+{
+  "schema": "rule-artifact.v14",
+  "id": "tax.us.2025.rule.f1099k-selling-expenses",
+  "version": "v2",
+  "scope": {
+    "tax_year": 2025,
+    "jurisdiction": "US-federal",
+    "family": "individual-income-tax"
+  },
+  "role": "computation",
+  "subject": {
+    "id": "tax.us.2025.f1099k.box1a-gross-amount",
+    "version": "v1"
+  },
+  "requires": [
+    "tax.us.2025.f1099k.shipping-arrangement",
+    "tax.us.2025.f1099k.platform-fees",
+    "tax.us.2025.f1099k.seller-paid-shipping"
+  ],
+  "pins": [],
+  "when": true,
+  "value": {
+    "op": "choose",
+    "when": {
+      "op": "any",
+      "args": [
+        {
+          "op": "categorical_compare",
+          "cmp": "eq",
+          "left": {
+            "op": "ref",
+            "name": "tax.us.2025.f1099k.shipping-arrangement"
+          },
+          "right": {
+            "op": "category_literal",
+            "fact_type": {
+              "id": "tax.us.2025.f1099k.shipping-arrangement",
+              "version": "v1"
+            },
+            "value": "not-asked"
+          }
+        },
+        {
+          "op": "categorical_compare",
+          "cmp": "eq",
+          "left": {
+            "op": "ref",
+            "name": "tax.us.2025.f1099k.shipping-arrangement"
+          },
+          "right": {
+            "op": "category_literal",
+            "fact_type": {
+              "id": "tax.us.2025.f1099k.shipping-arrangement",
+              "version": "v1"
+            },
+            "value": "cannot-tell"
+          }
+        },
+        {
+          "op": "categorical_compare",
+          "cmp": "eq",
+          "left": {
+            "op": "ref",
+            "name": "tax.us.2025.f1099k.platform-fees"
+          },
+          "right": {
+            "op": "category_literal",
+            "fact_type": {
+              "id": "tax.us.2025.f1099k.platform-fees",
+              "version": "v1"
+            },
+            "value": "not-asked"
+          }
+        },
+        {
+          "op": "categorical_compare",
+          "cmp": "eq",
+          "left": {
+            "op": "ref",
+            "name": "tax.us.2025.f1099k.platform-fees"
+          },
+          "right": {
+            "op": "category_literal",
+            "fact_type": {
+              "id": "tax.us.2025.f1099k.platform-fees",
+              "version": "v1"
+            },
+            "value": "cannot-tell"
+          }
+        },
+        {
+          "op": "categorical_compare",
+          "cmp": "eq",
+          "left": {
+            "op": "ref",
+            "name": "tax.us.2025.f1099k.seller-paid-shipping"
+          },
+          "right": {
+            "op": "category_literal",
+            "fact_type": {
+              "id": "tax.us.2025.f1099k.seller-paid-shipping",
+              "version": "v1"
+            },
+            "value": "not-asked"
+          }
+        },
+        {
+          "op": "categorical_compare",
+          "cmp": "eq",
+          "left": {
+            "op": "ref",
+            "name": "tax.us.2025.f1099k.seller-paid-shipping"
+          },
+          "right": {
+            "op": "category_literal",
+            "fact_type": {
+              "id": "tax.us.2025.f1099k.seller-paid-shipping",
+              "version": "v1"
+            },
+            "value": "cannot-tell"
+          }
+        }
+      ]
+    },
+    "then": {
+      "op": "category_literal",
+      "fact_type": {
+        "id": "tax.us.2025.f1099k.selling-expenses",
+        "version": "v1"
+      },
+      "value": "not-computed"
+    },
+    "else": {
+      "op": "choose",
+      "when": {
+        "op": "all",
+        "args": [
+          {
+            "op": "categorical_compare",
+            "cmp": "eq",
+            "left": {
+              "op": "ref",
+              "name": "tax.us.2025.f1099k.shipping-arrangement"
+            },
+            "right": {
+              "op": "category_literal",
+              "fact_type": {
+                "id": "tax.us.2025.f1099k.shipping-arrangement",
+                "version": "v1"
+              },
+              "value": "platform-pass-through"
+            }
+          },
+          {
+            "op": "compare",
+            "cmp": "gt",
+            "left": {
+              "op": "ref",
+              "name": "tax.us.2025.f1099k.seller-paid-shipping"
+            },
+            "right": 0
+          }
+        ]
+      },
+      "then": {
+        "op": "category_literal",
+        "fact_type": {
+          "id": "tax.us.2025.f1099k.selling-expenses",
+          "version": "v1"
+        },
+        "value": "not-computed"
+      },
+      "else": {
+        "op": "add",
+        "args": [
+          {
+            "op": "ref",
+            "name": "tax.us.2025.f1099k.platform-fees"
+          },
+          {
+            "op": "choose",
+            "when": {
+              "op": "any",
+              "args": [
+                {
+                  "op": "categorical_compare",
+                  "cmp": "eq",
+                  "left": {
+                    "op": "ref",
+                    "name": "tax.us.2025.f1099k.shipping-arrangement"
+                  },
+                  "right": {
+                    "op": "category_literal",
+                    "fact_type": {
+                      "id": "tax.us.2025.f1099k.shipping-arrangement",
+                      "version": "v1"
+                    },
+                    "value": "seller-received-shipping"
+                  }
+                },
+                {
+                  "op": "categorical_compare",
+                  "cmp": "eq",
+                  "left": {
+                    "op": "ref",
+                    "name": "tax.us.2025.f1099k.shipping-arrangement"
+                  },
+                  "right": {
+                    "op": "category_literal",
+                    "fact_type": {
+                      "id": "tax.us.2025.f1099k.shipping-arrangement",
+                      "version": "v1"
+                    },
+                    "value": "none"
+                  }
+                }
+              ]
+            },
+            "then": {
+              "op": "ref",
+              "name": "tax.us.2025.f1099k.seller-paid-shipping"
+            },
+            "else": 0
+          }
+        ]
+      }
+    }
+  },
+  "publishes": "tax.us.2025.f1099k.selling-expenses",
+  "blocked": {
+    "code": "DEPENDENCY_ABSENT",
+    "missing": []
+  },
+  "citations": [],
+  "notes": "Always publishes: selling expenses when numeric inputs present, else not-computed token."
+}

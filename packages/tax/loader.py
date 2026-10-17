@@ -43,6 +43,7 @@ F1098_CIRCUMSTANCES_BUNDLE_FILE = "f1098-circumstances.bundle.json"
 F1098_CIRCUMSTANCES_BUNDLE_V2_FILE = "f1098-circumstances.bundle.v2.json"
 F1099K_BUNDLE_FILE = "f1099k.bundle.json"
 F1099K_BUNDLE_V2_FILE = "f1099k.bundle.v2.json"
+F1099K_BUNDLE_V3_FILE = "f1099k.bundle.v3.json"
 F1099K_CIRCUMSTANCES_BUNDLE_FILE = "f1099k-circumstances.bundle.json"
 
 
@@ -438,6 +439,8 @@ def load_f1099k_bundle(
         filename = F1099K_BUNDLE_FILE
     elif version == "v2":
         filename = F1099K_BUNDLE_V2_FILE
+    elif version == "v3":
+        filename = F1099K_BUNDLE_V3_FILE
     else:
         raise ValueError(f"unsupported Form 1099-K bundle version {version!r}")
     bundle = _load_bundle(filename, reg)
