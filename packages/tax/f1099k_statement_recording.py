@@ -49,6 +49,14 @@ CIRCUMSTANCES_BUNDLE_VERSION = "v1"
 
 FAMILY_ID = "tax.us.2025.f1099k"
 FAMILY_VERSION = "v1"
+
+
+def _version_number(version: str) -> int:
+    if version.startswith("v") and version[1:].isdigit():
+        return int(version[1:])
+    raise ValueError(f"unrecognized version format: {version!r}")
+
+
 DEFAULT_FAMILY_SCOPE: dict[str, str] = {"tax-year": "2025", "subject": "demo.primary"}
 
 CLOSURE_TYPE = "tax.us.2025.f1099k.source-closure"
@@ -367,6 +375,7 @@ def record_f1099k_statement_durably(
     family_scope: dict[str, str] | None = None,
     answers: dict[str, Any] | None = None,
     answer_evidence_ids: dict[str, str] | None = None,
+    family_version: str = FAMILY_VERSION,
 ) -> dict[str, Any]:
     """Record one Form 1099-K statement as a member of the tax.us.2025.f1099k family."""
     _require_provenance(submission_id, actor, at)
@@ -416,7 +425,7 @@ def record_f1099k_statement_durably(
     _check_evidence_ids(all_evidence, submission_id, staged)
 
     scope = dict(family_scope or DEFAULT_FAMILY_SCOPE)
-    family_ref = {"id": FAMILY_ID, "version": FAMILY_VERSION}
+    family_ref = {"id": FAMILY_ID, "version": family_version}
     finding_ids: list[str] = []
 
     if classification == "new-original":
@@ -440,9 +449,19 @@ def record_f1099k_statement_durably(
             state = apply_act(state, statement_act, registry)
             staged.append(statement_act)
 
-        cur_h = current_horizon_id(state.horizon_state, family=family_ref, scope=scope)
-        if cur_h is None:
-            genesis_h = "demo.f1099k.h0"
+        scope_tuple = tuple(sorted(scope.items()))
+        active_chain: tuple[str, str] | None = None
+        for (c_fid, c_ver, c_scope), h_id in state.horizon_state.current_by_chain.items():
+            if c_fid == FAMILY_ID and c_scope == scope_tuple:
+                active_chain = (c_ver, h_id)
+                break
+
+        if active_chain is None:
+            h_count = 0
+            genesis_h = f"demo.f1099k.h{h_count}"
+            while genesis_h in state.horizon_state.horizons:
+                h_count += 1
+                genesis_h = f"demo.f1099k.h{h_count}"
             genesis_act = _act(
                 len(staged),
                 "horizon-genesis",
@@ -452,14 +471,46 @@ def record_f1099k_statement_durably(
             state = apply_act(state, genesis_act, registry)
             staged.append(genesis_act)
             pred_h = genesis_h
-            succ_h = "demo.f1099k.h1"
         else:
-            pred_h = cur_h
-            h_count = len(state.horizon_state.horizons)
+            cur_ver, cur_h = active_chain
+            if cur_ver != family_version:
+                if _version_number(cur_ver) > _version_number(family_version):
+                    raise F1099KRecordingRefused(
+                        f"cannot handover to older family version: current chain is {cur_ver}, writer requested {family_version}"
+                    )
+                h_count = len(state.horizon_state.horizons)
+                handover_succ_h = f"demo.f1099k.h{h_count}"
+                while handover_succ_h in state.horizon_state.horizons:
+                    h_count += 1
+                    handover_succ_h = f"demo.f1099k.h{h_count}"
+                handover_act = _act(
+                    len(staged),
+                    "family-handover",
+                    {
+                        "predecessor": {
+                            "family": {"id": FAMILY_ID, "version": cur_ver},
+                            "scope": scope,
+                            "horizon_id": cur_h,
+                        },
+                        "successor": {
+                            "family": family_ref,
+                            "scope": scope,
+                            "horizon_id": handover_succ_h,
+                        },
+                    },
+                    actor, at, f"{suffix}.handover",
+                )
+                state = apply_act(state, handover_act, registry)
+                staged.append(handover_act)
+                pred_h = handover_succ_h
+            else:
+                pred_h = cur_h
+
+        h_count = len(state.horizon_state.horizons)
+        succ_h = f"demo.f1099k.h{h_count}"
+        while succ_h in state.horizon_state.horizons:
+            h_count += 1
             succ_h = f"demo.f1099k.h{h_count}"
-            while succ_h in state.horizon_state.horizons:
-                h_count += 1
-                succ_h = f"demo.f1099k.h{h_count}"
 
         stmt_evidence = {
             "schema": "evidence.v1",
@@ -695,6 +746,7 @@ def record_f1099k_no_statements_durably(
     expected_revision: int,
     tax_year: str = "2025",
     family_scope: dict[str, str] | None = None,
+    family_version: str = FAMILY_VERSION,
 ) -> dict[str, Any]:
     """Record 'I received no Form 1099-K for 2025' as family closure at the current horizon."""
     _require_provenance(submission_id, actor, at)
@@ -712,10 +764,20 @@ def record_f1099k_no_statements_durably(
         )
 
     scope = dict(family_scope or DEFAULT_FAMILY_SCOPE)
-    family_ref = {"id": FAMILY_ID, "version": FAMILY_VERSION}
-    cur_h = current_horizon_id(state.horizon_state, family=family_ref, scope=scope)
-    if cur_h is None:
-        genesis_h = "demo.f1099k.h0"
+    family_ref = {"id": FAMILY_ID, "version": family_version}
+    scope_tuple = tuple(sorted(scope.items()))
+    active_chain: tuple[str, str] | None = None
+    for (c_fid, c_ver, c_scope), h_id in state.horizon_state.current_by_chain.items():
+        if c_fid == FAMILY_ID and c_scope == scope_tuple:
+            active_chain = (c_ver, h_id)
+            break
+
+    if active_chain is None:
+        h_count = 0
+        genesis_h = f"demo.f1099k.h{h_count}"
+        while genesis_h in state.horizon_state.horizons:
+            h_count += 1
+            genesis_h = f"demo.f1099k.h{h_count}"
         genesis_act = _act(
             len(staged),
             "horizon-genesis",
@@ -726,7 +788,39 @@ def record_f1099k_no_statements_durably(
         staged.append(genesis_act)
         target_h = genesis_h
     else:
-        target_h = cur_h
+        cur_ver, cur_h = active_chain
+        if cur_ver != family_version:
+            if _version_number(cur_ver) > _version_number(family_version):
+                raise F1099KRecordingRefused(
+                    f"cannot handover to older family version: current chain is {cur_ver}, writer requested {family_version}"
+                )
+            h_count = len(state.horizon_state.horizons)
+            handover_succ_h = f"demo.f1099k.h{h_count}"
+            while handover_succ_h in state.horizon_state.horizons:
+                h_count += 1
+                handover_succ_h = f"demo.f1099k.h{h_count}"
+            handover_act = _act(
+                len(staged),
+                "family-handover",
+                {
+                    "predecessor": {
+                        "family": {"id": FAMILY_ID, "version": cur_ver},
+                        "scope": scope,
+                        "horizon_id": cur_h,
+                    },
+                    "successor": {
+                        "family": family_ref,
+                        "scope": scope,
+                        "horizon_id": handover_succ_h,
+                    },
+                },
+                actor, at, f"{suffix}.handover",
+            )
+            state = apply_act(state, handover_act, registry)
+            staged.append(handover_act)
+            target_h = handover_succ_h
+        else:
+            target_h = cur_h
 
     closure_fact_id = f"{CLOSURE_TYPE}|family-horizon={target_h},tax-year={tax_year}"
     current_fids = compute_currency(state).current_finding_ids

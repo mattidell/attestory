@@ -135,6 +135,7 @@ def _f1098e_acts(
     assert_sched1_scope: bool = True,
     extra: list[dict[str, object]] | None = None,
     horizon_prefix: str = "demo.f1098e.h",
+    wash_sale_version: str = "v2",
 ) -> list[dict[str, object]]:
     """Extend the proven SSA-1099/IRA base return with a Form 1098-E
     statement lifecycle, mirroring ``tests/test_f1098_mortgage_interest_
@@ -145,7 +146,13 @@ def _f1098e_acts(
     members. Every statement gets its own lender/statement entity pair and
     advances the family's own horizon lineage.
     """
-    acts = _ssa_acts(benefits=[], close=True, wages=wages, filing_status=filing_status)
+    acts = _ssa_acts(
+        benefits=[],
+        close=True,
+        wages=wages,
+        filing_status=filing_status,
+        wash_sale_version=wash_sale_version,
+    )
     acts.pop()  # drop the SSA-1099 milestone's own trailing adoption
 
     def add(kind: str, payload: dict[str, object]) -> None:

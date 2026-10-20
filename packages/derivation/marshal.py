@@ -260,9 +260,11 @@ def marshal_closure_authority(
     For each adopted mapping: every *current* finding answering the
     mapped closure fact type becomes a record, with the horizon read
     from the identity key the mapping names. The current horizon per
-    family comes from the projected horizon chains; a family spanning
-    multiple scope chains in one workspace is a marshalling error, not
-    a guess.
+    family comes from projected horizon chains matching the adopted
+    mapping's exact family version. A family spanning multiple scope
+    chains for the selected version in one workspace is a marshalling
+    error, not a guess; unadopted versions neither satisfy nor make
+    ambiguous that selected version.
     """
     records: list[ClosureFindingRecord] = []
     for mapping in mappings:
@@ -289,16 +291,47 @@ def marshal_closure_authority(
                 )
             )
 
+    adopted_family_versions: dict[str, str] = {}
+    for mapping in mappings:
+        fam = mapping.get("family")
+        if isinstance(fam, dict):
+            fid, fver = fam.get("id"), fam.get("version")
+            if fid and fver:
+                if fid in adopted_family_versions and adopted_family_versions[fid] != fver:
+                    raise SourceAuthorityError(
+                        f"ambiguous mapping versions for family {fid}: "
+                        f"{adopted_family_versions[fid]} vs {fver}"
+                    )
+                adopted_family_versions[fid] = fver
+
     current_horizons: dict[str, str] = {}
-    for (family_id, _version, _scope), horizon_id in sorted(
-        state.horizon_state.current_by_chain.items()
-    ):
-        if family_id in current_horizons:
+    for family_id, version in sorted(adopted_family_versions.items()):
+        chains_by_scope: dict[Any, list[str]] = {}
+        for (c_fid, c_ver, c_scope) in state.horizon_state.current_by_chain:
+            if c_fid == family_id:
+                chains_by_scope.setdefault(c_scope, []).append(c_ver)
+
+        for _scope_key, vers in chains_by_scope.items():
+            if len(vers) > 1:
+                raise SourceAuthorityError(
+                    f"family {family_id} has multiple active version chains"
+                )
+
+        matching = [
+            horizon_id
+            for (c_fid, c_ver, _scope), horizon_id in sorted(
+                state.horizon_state.current_by_chain.items()
+            )
+            if c_fid == family_id and c_ver == version
+        ]
+        if len(matching) > 1:
             raise SourceAuthorityError(
                 f"family {family_id} has horizon chains in multiple scopes; "
                 "one run marshals exactly one scope"
             )
-        current_horizons[family_id] = horizon_id
+        if len(matching) == 1:
+            current_horizons[family_id] = matching[0]
+
     return records, current_horizons
 
 

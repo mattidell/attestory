@@ -22,17 +22,30 @@ from pathlib import Path
 from typing import IO, Any, Sequence
 
 from packages.kernel.findings import (
+    apply_act,
     declares_new_write_invariants,
     enforce_new_write_invariants,
     new_write_invariants_may_apply,
     project,
 )
+from packages.kernel.horizons import HorizonModelError
 from packages.kernel.schema_registry import SchemaRegistry
 
 ACT_ENVELOPE_SCHEMA = "act.v1"
 ACT_LOG_FILENAME = "acts.jsonl"
 # ``append_batch`` writes a whole save here, then renames it over the log.
 PENDING_SUFFIX = ".pending"
+
+LIFECYCLE_ACT_KINDS = frozenset({"horizon-genesis", "member-transition", "family-handover"})
+
+
+def _enforce_second_genesis_rule(finding_state: Any, payload: dict[str, Any]) -> None:
+    family_id = payload["family"]["id"]
+    scope_tuple = tuple(sorted(payload["scope"].items()))
+    for key in finding_state.horizon_state.current_by_chain:
+        if key[0] == family_id and key[2] == scope_tuple:
+            raise HorizonModelError("active chain already exists in scope")
+
 
 
 class ActLogError(Exception):
@@ -203,10 +216,16 @@ class ActLog:
             )
         if any(existing["act_id"] == act["act_id"] for existing in contents.acts):
             raise ActLogError(f"duplicate act_id: {act['act_id']}")
+        proj: Any = None
         if new_write_invariants_may_apply(act, self._registry):
-            enforce_new_write_invariants(
-                project(contents.acts, self._registry), act, self._registry
-            )
+            proj = project(contents.acts, self._registry)
+            enforce_new_write_invariants(proj, act, self._registry)
+        if act["kind"] in LIFECYCLE_ACT_KINDS:
+            if proj is None:
+                proj = project(contents.acts, self._registry)
+            if act["kind"] == "horizon-genesis":
+                _enforce_second_genesis_rule(proj, act["payload"])
+            apply_act(proj, act, self._registry)
         line = json.dumps(act, sort_keys=True, separators=(",", ":"))
         self._path.parent.mkdir(parents=True, exist_ok=True)
         with self._path.open("ab") as handle:
@@ -259,8 +278,16 @@ class ActLog:
                 )
             if act["act_id"] in known:
                 raise ActLogError(f"duplicate act_id: {act['act_id']}")
+            proj = None
             if new_write_invariants_may_apply(act, self._registry):
-                enforce_new_write_invariants(project(tuple(staged), self._registry), act, self._registry)
+                proj = project(tuple(staged), self._registry)
+                enforce_new_write_invariants(proj, act, self._registry)
+            if act["kind"] in LIFECYCLE_ACT_KINDS:
+                if proj is None:
+                    proj = project(tuple(staged), self._registry)
+                if act["kind"] == "horizon-genesis":
+                    _enforce_second_genesis_rule(proj, act["payload"])
+                apply_act(proj, act, self._registry)
             known.add(act["act_id"])
             staged.append(act)
         self._path.parent.mkdir(parents=True, exist_ok=True)

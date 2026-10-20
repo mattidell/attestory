@@ -180,9 +180,10 @@ def _case_acts(
     authority_overrides: dict[str, str] | None = None,
     itemized_assertion: float | None = None,
     omit_acquisition_confirmation: bool = False,
+    wash_sale_version: str = "v2",
 ) -> list[dict[str, object]]:
     if interest is None:
-        acts = _path_a_acts(wages=90000)
+        acts = _path_a_acts(wages=90000, wash_sale_version=wash_sale_version)
     else:
         acts = _f1098_acts(
             interest=interest,
@@ -190,6 +191,7 @@ def _case_acts(
             wages=90000,
             authority_overrides=authority_overrides,
             itemized_assertion=itemized_assertion,
+            wash_sale_version=wash_sale_version,
         )
     if omit_acquisition_confirmation:
         acts = _drop_fact(acts, "tax.us.2025.f1098.acquisition-debt-use")

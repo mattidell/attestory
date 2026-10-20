@@ -813,6 +813,37 @@ def apply_horizon_genesis(
     )
 
 
+def apply_family_handover(
+    state: FindingState, payload: dict[str, Any], registry: SchemaRegistry
+) -> FindingState:
+    """Atomic family-version handover: retire predecessor and introduce successor."""
+    horizon_state, pred_id, succ_id = horizons.apply_handover(
+        state.horizon_state, payload, registry
+    )
+
+    pred_entity = state.fact_state.entities.get(pred_id)
+    if pred_entity is None or pred_entity.status != "current":
+        raise horizons.HorizonModelError("predecessor horizon is not current")
+
+    if succ_id in state.fact_state.entities:
+        raise horizons.HorizonModelError("horizon id already recorded")
+
+    entities = dict(state.fact_state.entities)
+    successor_citizen = horizon_state.horizons[succ_id].horizon
+    _introduce_horizon_entity(entities, successor_citizen)
+    entities[pred_id] = facts.EntityLifecycle(
+        entity=pred_entity.entity,
+        status="superseded",
+        successor_id=succ_id,
+    )
+
+    return replace(
+        state,
+        horizon_state=horizon_state,
+        fact_state=replace(state.fact_state, entities=entities),
+    )
+
+
 def _withdraw_member_fact(state: FindingState, fact_id: str) -> frozenset[str]:
     if fact_id in state.withdrawn_fact_ids:
         raise FindingModelError(f"member fact already withdrawn: {fact_id}")
@@ -1362,6 +1393,7 @@ _APPLIERS = {
     "assertion": apply_assertion,
     "horizon-genesis": apply_horizon_genesis,
     "member-transition": apply_member_transition,
+    "family-handover": apply_family_handover,
     "contribution": apply_contribution,
     "migration-adoption": apply_migration_adoption,
 }

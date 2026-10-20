@@ -116,6 +116,7 @@ def _ug_acts(
     box2a: float | None = None,
     include_box4: bool = True,
     same_payer_two_statements: bool = False,
+    wash_sale_version: str = "v1",
 ) -> list[dict[str, object]]:
     """Build a production-shaped act log on the v20 route with box-1 facts."""
     box1_values = [2500.0] if box1_values is None else box1_values
@@ -282,11 +283,16 @@ def _ug_acts(
             "tax.us.2025.f1099b.covered-w-lt-adjustment.source-closure",
         ),
     )
+    wash_sale_prefixes = (
+        "tax.us.2025.f1099b.covered-w-st",
+        "tax.us.2025.f1099b.covered-w-lt",
+    )
     for family_id, horizon_id, closure_type in closed_empty:
+        fver = wash_sale_version if family_id.startswith(wash_sale_prefixes) else "v1"
         add(
             "horizon-genesis",
             {
-                "family": {"id": family_id, "version": "v1"},
+                "family": {"id": family_id, "version": fver},
                 "scope": SCOPE_KEY,
                 "horizon_id": horizon_id,
             },

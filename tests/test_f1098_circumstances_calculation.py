@@ -154,6 +154,7 @@ def _acts(
             second_statement_interest=second_interest,
             authority_overrides=legacy_authority_overrides,
             wages=90000,
+            wash_sale_version="v2",
         )
         acts.pop()  # replace the v29 adoption with the current package adoption
         acts.extend(_selected_dependency_acts(student_interest=student_interest))

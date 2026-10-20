@@ -82,7 +82,12 @@ def _statement_fact_id(fact_type: str, payer: str = "demo.platform.a", stmt: str
     return f"{fact_type}|payer={payer},statement={stmt},tax-year=2025"
 
 
-def _make_base_acts(wages: float = 90000.0, unemployment: float | None = None) -> list[dict[str, object]]:
+def _make_base_acts(
+    wages: float = 90000.0,
+    unemployment: float | None = None,
+    *,
+    include_v2_empty_authority: bool = True,
+) -> list[dict[str, object]]:
     acts = _ssa_acts(wages=wages, benefits=[], unemployment=unemployment)
     acts.pop()  # drop SSA milestone adoption
 
@@ -108,6 +113,11 @@ def _make_base_acts(wages: float = 90000.0, unemployment: float | None = None) -
 
     add("bundle-adoption", {"bundle": load_f1099k_bundle(version="v2")})
     add("bundle-adoption", {"bundle": load_f1099k_circumstances_bundle()})
+
+    if include_v2_empty_authority:
+        from tests.source_completeness.fixture_authority import append_wash_sale_v2_empty_authority
+
+        append_wash_sale_v2_empty_authority(acts)
 
     return acts
 

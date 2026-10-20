@@ -617,10 +617,11 @@ def _ug_acts(
         ),
     )
     for family_id, horizon_id, closure_type in closed_empty:
+        version = "v2" if "covered-w" in family_id else "v1"
         add(
             "horizon-genesis",
             {
-                "family": {"id": family_id, "version": "v1"},
+                "family": {"id": family_id, "version": version},
                 "scope": SCOPE_KEY,
                 "horizon_id": horizon_id,
             },

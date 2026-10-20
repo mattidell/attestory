@@ -57,6 +57,7 @@ def _ira_acts(
     *,
     close: bool = True,
     qualified_dividends: bool = False,
+    wash_sale_version: str = "v1",
 ) -> list[dict[str, object]]:
     """Extend a known production-shaped income corpus with IRA statements."""
     acts = _ug_acts(
@@ -65,6 +66,7 @@ def _ira_acts(
         box1a=600 if qualified_dividends else None,
         box1b=150 if qualified_dividends else 0,
         wages=90000,
+        wash_sale_version=wash_sale_version,
     )
     acts.pop()  # replace the historical v20 adoption with the Track 2 adoption
 
