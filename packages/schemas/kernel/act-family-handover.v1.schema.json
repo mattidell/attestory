@@ -1,0 +1,57 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "kernel/act-family-handover.v1",
+  "title": "Family version handover act payload",
+  "description": "Records the atomic handover of write authority for one family declaration and scope from a predecessor version to a successor version (ADR-0079). Retires the predecessor chain key and establishes the initial successor horizon citizen referencing the predecessor horizon. Displaces closure facts and derived findings keyed on the predecessor horizon without altering retained statement facts.",
+  "type": "object",
+  "properties": {
+    "predecessor": {
+      "type": "object",
+      "properties": {
+        "family": {
+          "type": "object",
+          "properties": {
+            "id": { "type": "string", "pattern": "^[a-z][a-z0-9]*(\\.[a-z0-9-]+)+$" },
+            "version": { "type": "string", "pattern": "^v[0-9]+$" }
+          },
+          "required": ["id", "version"],
+          "additionalProperties": false
+        },
+        "scope": {
+          "type": "object",
+          "minProperties": 1,
+          "additionalProperties": { "type": "string", "minLength": 1 },
+          "propertyNames": { "pattern": "^[a-z][a-z0-9-]*$" }
+        },
+        "horizon_id": { "type": "string", "minLength": 1 }
+      },
+      "required": ["family", "scope", "horizon_id"],
+      "additionalProperties": false
+    },
+    "successor": {
+      "type": "object",
+      "properties": {
+        "family": {
+          "type": "object",
+          "properties": {
+            "id": { "type": "string", "pattern": "^[a-z][a-z0-9]*(\\.[a-z0-9-]+)+$" },
+            "version": { "type": "string", "pattern": "^v[0-9]+$" }
+          },
+          "required": ["id", "version"],
+          "additionalProperties": false
+        },
+        "scope": {
+          "type": "object",
+          "minProperties": 1,
+          "additionalProperties": { "type": "string", "minLength": 1 },
+          "propertyNames": { "pattern": "^[a-z][a-z0-9-]*$" }
+        },
+        "horizon_id": { "type": "string", "minLength": 1 }
+      },
+      "required": ["family", "scope", "horizon_id"],
+      "additionalProperties": false
+    }
+  },
+  "required": ["predecessor", "successor"],
+  "additionalProperties": false
+}

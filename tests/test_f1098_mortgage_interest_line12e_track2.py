@@ -135,6 +135,7 @@ def _f1098_acts(
     qbi_declaration: str = "yes",
     schedule1a_declaration: str = "yes",
     assert_qbi_schedule1a_declarations: bool = True,
+    wash_sale_version: str = "v1",
 ) -> list[dict[str, object]]:
     """Extend the proven SSA-1099/IRA base return with a Form 1098 statement
     lifecycle.
@@ -165,7 +166,7 @@ def _f1098_acts(
     ``qbi_declaration``/``schedule1a_declaration`` similarly default "yes";
     ``assert_qbi_schedule1a_declarations=False`` omits both entirely.
     """
-    acts = _ssa_acts(benefits=[], close=True, wages=wages)
+    acts = _ssa_acts(benefits=[], close=True, wages=wages, wash_sale_version=wash_sale_version)
     acts.pop()  # drop the SSA-1099 milestone's own trailing adoption
 
     def add(kind: str, payload: dict[str, object]) -> None:
@@ -356,7 +357,7 @@ def _no_f1098_acts(*, wages: float = 90000) -> list[dict[str, object]]:
     return acts
 
 
-def _path_a_acts(*, wages: float = 90000) -> list[dict[str, object]]:
+def _path_a_acts(*, wages: float = 90000, wash_sale_version: str = "v1") -> list[dict[str, object]]:
     """A return that explicitly declares Path A - no Form 1098 statement on
     record - by asserting ``tax.us.2025.f1098-scope.no-mortgage-statement =
     true``, without ever touching the tax.us.2025.f1098 bundle, horizon, or
@@ -380,7 +381,13 @@ def _path_a_acts(*, wages: float = 90000) -> list[dict[str, object]]:
     behavior (still just a plain flag + a closed-empty family, still never
     reaches ``tax.us.2025.schedule-a.line8a``) but no longer skips family
     closure outright."""
-    return _f1098_acts(interest=None, wages=wages, assert_scope_flag=True, scope_flag_value=True)
+    return _f1098_acts(
+        interest=None,
+        wages=wages,
+        assert_scope_flag=True,
+        scope_flag_value=True,
+        wash_sale_version=wash_sale_version,
+    )
 
 
 def _run(acts: list[dict[str, object]], run_id: str) -> tuple[dict[str, Any], dict[str, Any]]:

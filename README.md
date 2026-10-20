@@ -131,12 +131,15 @@ needed.
 
 ## Personal-item sale on Form 1099-K
 
-The bounded Form 1099-K route reviews one current Form 1099-K statement and its
+The bounded Form 1099-K route reviews each current Form 1099-K statement and its
 saved circumstance answers for a personal item sold through a payment card or
-third-party settlement organization. When the answers establish that the
-transaction is a nondeductible personal loss, the reported Box 1a gross amount
-is entered at the top of Schedule 1 (Form 1040) exactly once, while the return's
-net income on Form 1040 lines 8 and 9 remains unchanged.
+third-party settlement organization. When the family is closed and every current
+statement's answers establish a nondeductible personal loss, the statements'
+Box 1a gross amounts are added and entered at the top of Schedule 1 (Form 1040)
+exactly once, while the return's net income on Form 1040 lines 8 and 9 remains
+unchanged. Each statement keeps its own reason, figures and saved explanation;
+any other reason on any statement, a blocked statement or an unclosed family
+blocks the combined entry.
 
 The route names but does not report other outcomes: transactions resulting in a
 gain or profit, transactions that broke even, items not acquired by purchase,
@@ -144,13 +147,16 @@ items with lasting improvements or other basis adjustments, transactions
 involving digital assets, transactions with federal backup withholding (Box 4),
 sales where the person paid additional shipping beyond a platform-supplied label
 (`additional-seller-shipping-unsupported`),
-multiple received statements, or missing/unanswered circumstance questions.
+or missing/unanswered circumstance questions.
 For any of these, the route publishes an unresolved condition on the statement
 whose explanation states why the loss entry cannot be computed and that the
 return's income does not yet account for the Form 1099-K statement.
 
-The package is `core-calculations.v48` in published package registry `v46` and
-release `demo.release.sli-worksheet-integration.2025.v46.json`. A synthetic
+The package is `core-calculations.v49` in published package registry `v47` and
+release `demo.release.sli-worksheet-integration.2025.v47.json`. It adopts Form
+1099-K family `v2`, whose closure authorizes the sum of the current statements.
+Workspaces adopting `core-calculations.v48` or earlier keep the one-statement
+`v1` family. A synthetic
 supported loss answer set looks like this:
 
 ```python
@@ -179,8 +185,22 @@ The callable recording, review, and save operations live in
 `record_f1099k_no_statements_durably`, `prepare_f1099k_statement_review`,
 `save_f1099k_statement_review`, `answer_f1099k_statement_review_question`,
 `correct_f1099k_statement_review_answer`,
-`withdraw_f1099k_statement_review_answers`, and
-`review_f1099k_statement_with_saved_presentation`. Initial review saves require
+`withdraw_f1099k_statement_review_answers`,
+`retract_f1099k_statement_durably`, `close_f1099k_family_durably`, and
+`review_f1099k_statement_with_saved_presentation`. The writers take the Form
+1099-K family version from the workspace's adopted package. When a workspace
+recorded on `v1` writes under `v49`, the same save records the family handover
+(ADR 0079); the earlier completeness answer stops counting and must be
+answered again. Removing a statement records its removal and retracts its Box 4
+and answers in one save; the family is then closed again before the entry is
+calculated. A removed statement cannot be recorded again under the same
+payer, year and reference; the writer refuses before saving. A workspace
+recorded on `v1` and adopted onto `v49` can answer the completeness question
+again without adding a statement: `close_f1099k_family_durably` (or a
+correction with `close_family=True`) records the handover and the fresh
+closure in one save. Each saved explanation is matched to its statement by
+the full payer, statement and tax-year keys, and a statement's review says
+its Box 1a was entered on Schedule 1 only when the top entry published. Initial review saves require
 answering all 15 circumstance questions; subsequent corrections and withdrawals
 record against their current finding identities and advance the revision. A
 saved calculation retains the Form 1099-K report (payer and Box 1a), the
@@ -192,8 +212,8 @@ for a gain). If an answer changes, earlier saved calculations report
 `recalculation-needed`.
 
 Workspaces meet the completeness requirement for the Form 1099-K family only
-when they adopt release `v46` (with vocabulary bundle `v3`). Workspaces on
-earlier releases do not contain the five computation rules, the successor
+when they adopt release `v46` or later (with vocabulary bundle `v3`); more than
+one statement requires release `v47`. Workspaces on earlier releases do not contain the five computation rules, the successor
 reason rule, or the pass-through additional-shipping coverage stop. When no Form 1099-K was received, recording that fact durably
 via `record_f1099k_no_statements_durably` closes the statement family
 closed-empty and enters 0 at the top of Schedule 1.

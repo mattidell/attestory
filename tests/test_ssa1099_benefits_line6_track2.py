@@ -114,6 +114,7 @@ def _ssa_acts(
     scope: dict[str, str] | None = None,
     recipient: str = "taxpayer",
     statement_overrides: list[dict[str, object]] | None = None,
+    wash_sale_version: str = "v1",
 ) -> list[dict[str, object]]:
     """Production-shaped acts with controlled ordinary-income components + SSA."""
     from tests import test_form1099r_ira_line4b_track2 as ira_mod
@@ -144,6 +145,7 @@ def _ssa_acts(
             amounts=[] if ira_amounts is None else ira_amounts,
             close=True,
             qualified_dividends=False,
+            wash_sale_version=wash_sale_version,
         )
     finally:
         setattr(ira_mod, "_ug_acts", original_ug)

@@ -22,7 +22,9 @@ from __future__ import annotations
 
 import copy
 import hashlib
-from typing import AbstractSet, Any, Sequence
+import json
+from pathlib import Path
+from typing import AbstractSet, Any, Mapping, Sequence
 
 from packages.kernel.act_log import ActLog, ActLogError, LogContents
 from packages.kernel.contribution import apply_contribution_batch
@@ -36,8 +38,6 @@ from packages.tax.loader import (
 )
 from packages.tax.statements import (
     StatementIdentityError,
-    StatementKey,
-    classify_assertion,
     statement_entity_id,
     statement_key,
 )
@@ -49,6 +49,171 @@ CIRCUMSTANCES_BUNDLE_VERSION = "v1"
 
 FAMILY_ID = "tax.us.2025.f1099k"
 FAMILY_VERSION = "v1"
+
+
+def _version_number(version: str) -> int:
+    if version.startswith("v") and version[1:].isdigit():
+        return int(version[1:])
+    raise ValueError(f"unrecognized version format: {version!r}")
+
+
+def f1099k_family_version_from_package(
+    package_or_path: Mapping[str, Any] | Path | str,
+) -> str:
+    """Extract the Form 1099-K family version declared in an adopted package.
+
+    Inspects package members for `tax.us.2025.f1099k` and returns its declared
+    version (e.g. 'v1' or 'v2'). Falls back to FAMILY_VERSION ('v1') if unlisted.
+    """
+    if isinstance(package_or_path, (str, Path)):
+        import json
+        package_data: Mapping[str, Any] = json.loads(
+            Path(package_or_path).read_text("utf-8")
+        )
+    else:
+        package_data = package_or_path
+    for member in package_data.get("members", []):
+        if (
+            isinstance(member, dict)
+            and member.get("id") == FAMILY_ID
+            and member.get("role") == "source-family"
+        ):
+            ver = member.get("version")
+            if isinstance(ver, str):
+                return ver
+    return FAMILY_VERSION
+
+
+class F1099KRecordingRefused(ValueError):
+    """A Form 1099-K statement or answer operation cannot be admitted to the current log."""
+
+
+class F1099KAdoptionResolutionError(F1099KRecordingRefused):
+    """An adopted package in scope exists in the workspace but cannot be resolved."""
+
+
+def _default_production_surface_for_adoption(
+    adoption_payload: Mapping[str, Any],
+    content_dir: Path | None = None,
+) -> Any:
+    from packages.derivation.correction_session import CORE_RELEASE_DIR
+    from packages.derivation.production_resolver import PublicationSurface
+    from packages.tax.loader import TAX_CONTENT_DIR
+
+    member_dir = content_dir or TAX_CONTENT_DIR
+    release_dir = (
+        CORE_RELEASE_DIR
+        if CORE_RELEASE_DIR.exists()
+        else (member_dir.parents[3] / CORE_RELEASE_DIR)
+    )
+    release_pin = adoption_payload.get("release", {})
+    rel_id = release_pin.get("id")
+    rel_ver = str(release_pin.get("version", ""))
+    rel_checksum = str(release_pin.get("checksum", ""))
+
+    matching_registry: Path | None = None
+    if release_dir.exists():
+        for candidate_path in release_dir.glob("*.json"):
+            try:
+                candidate_bytes = candidate_path.read_bytes()
+                candidate_data = json.loads(candidate_bytes.decode("utf-8"))
+                if (
+                    candidate_data.get("id") == rel_id
+                    and candidate_data.get("version") == rel_ver
+                    and hashlib.sha256(candidate_bytes).hexdigest() == rel_checksum
+                ):
+                    reg_sha = candidate_data.get("package_registry_sha256")
+                    if reg_sha:
+                        for reg_path in member_dir.glob("published-packages*.json"):
+                            try:
+                                if hashlib.sha256(reg_path.read_bytes()).hexdigest() == reg_sha:
+                                    matching_registry = reg_path
+                                    break
+                            except OSError:
+                                continue
+                    break
+            except (OSError, UnicodeDecodeError, json.JSONDecodeError):
+                continue
+
+    if matching_registry is None:
+        matching_registry = member_dir / f"published-packages.{rel_ver}.json"
+
+    return PublicationSurface(
+        release_dir=release_dir,
+        package_registry_path=matching_registry,
+        member_dir=member_dir,
+    )
+
+
+def f1099k_family_version_for_workspace(
+    log: ActLog,
+    *,
+    actor: str,
+    run_scope: Mapping[str, str] | None = None,
+    workspace_revision: int | None = None,
+    surface: Any | None = None,
+    schemas: Any | None = None,
+    content_dir: Path | None = None,
+    tax_year: str = "2025",
+) -> str:
+    """Resolve the Form 1099-K family version for a workspace from its adopted package.
+
+    Resolves authority through select_current_adoption and resolve_production_package
+    from packages.derivation.production_resolver, ensuring the recorder and derivation
+    runs agree on adopted authority.
+
+    Keeps and returns 'v1' ONLY when the workspace has no adoption in scope (e.g.
+    no adoption acts present, or adoption acts belong to another actor or scope).
+    When a current adoption in scope exists but cannot be resolved, raises
+    F1099KAdoptionResolutionError rather than falling back to v1.
+    """
+    from packages.derivation.loader import DerivationSchemas
+    from packages.derivation.production_resolver import (
+        Refusal,
+        resolve_production_package,
+        select_current_adoption,
+    )
+
+    acts = log.read().acts
+    schemas = schemas or DerivationSchemas()
+    if workspace_revision is None:
+        workspace_revision = len(acts)
+    if run_scope is None:
+        run_scope = {"jurisdiction": "us", "year": tax_year}
+
+    selected = select_current_adoption(
+        acts,
+        run_scope=run_scope,
+        scope_user=actor,
+        workspace_revision=workspace_revision,
+        schemas=schemas,
+    )
+    if isinstance(selected, Refusal):
+        if selected.reason == "ADOPTION_NONE_CURRENT":
+            return FAMILY_VERSION
+        raise F1099KAdoptionResolutionError(
+            f"current adoption selection refused: {selected.reason} ({selected.detail})"
+        )
+
+    if surface is None:
+        surface = _default_production_surface_for_adoption(selected["payload"], content_dir)
+
+    resolved = resolve_production_package(
+        acts,
+        run_scope=run_scope,
+        scope_user=actor,
+        workspace_revision=workspace_revision,
+        surface=surface,
+        schemas=schemas,
+    )
+    if isinstance(resolved, Refusal):
+        raise F1099KAdoptionResolutionError(
+            f"adopted package in scope could not be resolved: {resolved.reason} ({resolved.detail})"
+        )
+
+    return f1099k_family_version_from_package(resolved.package)
+
+
 DEFAULT_FAMILY_SCOPE: dict[str, str] = {"tax-year": "2025", "subject": "demo.primary"}
 
 CLOSURE_TYPE = "tax.us.2025.f1099k.source-closure"
@@ -91,10 +256,6 @@ AMOUNT_QUESTIONS: frozenset[str] = frozenset({
 ALL_CIRCUMSTANCE_QUESTIONS: frozenset[str] = (
     frozenset(CATEGORICAL_QUESTIONS.keys()) | AMOUNT_QUESTIONS
 )
-
-
-class F1099KRecordingRefused(ValueError):
-    """A Form 1099-K statement or answer operation cannot be admitted to the current log."""
 
 
 def _require_provenance(submission_id: str, actor: str, at: str) -> None:
@@ -346,6 +507,56 @@ def _stage_answer(
     return fact_id, admission.state
 
 
+def _active_family_chain(state: Any, scope: Mapping[str, str]) -> tuple[str, str] | None:
+    """Return (version, horizon id) of the current Form 1099-K family chain for a scope."""
+    scope_tuple = tuple(sorted(scope.items()))
+    for (c_fid, c_ver, c_scope), h_id in state.horizon_state.current_by_chain.items():
+        if c_fid == FAMILY_ID and c_scope == scope_tuple:
+            return c_ver, h_id
+    return None
+
+
+def _stage_family_handover(
+    staged: list[dict[str, Any]],
+    state: Any,
+    registry: Any,
+    *,
+    predecessor_version: str,
+    predecessor_horizon: str,
+    family_ref: Mapping[str, str],
+    scope: Mapping[str, str],
+    actor: str,
+    at: str,
+    suffix: str,
+) -> tuple[Any, str]:
+    """Stage the ADR 0079 family-handover onto the successor horizon; return (state, successor horizon)."""
+    h_count = len(state.horizon_state.horizons)
+    successor_h = f"demo.f1099k.h{h_count}"
+    while successor_h in state.horizon_state.horizons:
+        h_count += 1
+        successor_h = f"demo.f1099k.h{h_count}"
+    handover_act = _act(
+        len(staged),
+        "family-handover",
+        {
+            "predecessor": {
+                "family": {"id": FAMILY_ID, "version": predecessor_version},
+                "scope": dict(scope),
+                "horizon_id": predecessor_horizon,
+            },
+            "successor": {
+                "family": dict(family_ref),
+                "scope": dict(scope),
+                "horizon_id": successor_h,
+            },
+        },
+        actor, at, f"{suffix}.handover",
+    )
+    state = apply_act(state, handover_act, registry)
+    staged.append(handover_act)
+    return state, successor_h
+
+
 def record_f1099k_statement_durably(
     log: ActLog,
     registry: Any,
@@ -367,8 +578,17 @@ def record_f1099k_statement_durably(
     family_scope: dict[str, str] | None = None,
     answers: dict[str, Any] | None = None,
     answer_evidence_ids: dict[str, str] | None = None,
+    family_version: str | None = None,
 ) -> dict[str, Any]:
     """Record one Form 1099-K statement as a member of the tax.us.2025.f1099k family."""
+    if family_version is None:
+        family_version = f1099k_family_version_for_workspace(
+            log,
+            actor=actor,
+            run_scope={"jurisdiction": "us", "year": tax_year},
+            workspace_revision=expected_revision,
+            tax_year=tax_year,
+        )
     _require_provenance(submission_id, actor, at)
     before = _read_for_save(log, expected_revision)
 
@@ -391,24 +611,27 @@ def record_f1099k_statement_durably(
     _ensure_bundles(staged, registry, actor, at, suffix)
     state = project(tuple(copy.deepcopy(row) for row in staged), registry)
 
-    current_stmts = _find_current_statement_findings(state)
-    recorded_keys = frozenset(
-        StatementKey(
-            keys["payer"],
-            keys["tax-year"],
-            keys["statement"].split(f"stmt.{keys['payer']}.{keys['tax-year']}.")[-1],
-        )
-        for _, _, keys in current_stmts
-    )
-    try:
-        classification = classify_assertion(stmt_sameness_key, recorded_keys, corrected=corrected)
-    except StatementIdentityError as exc:
-        raise F1099KRecordingRefused(str(exc)) from exc
-
-    if classification == "duplicate":
+    fact_b1a_id = fact_id_for(STATEMENT_BOX1A, tuple(sorted(statement_keys.items())))
+    if fact_b1a_id in state.withdrawn_fact_ids:
         raise F1099KRecordingRefused(
-            f"statement {statement_ref!r} from {payer_id!r} has already been recorded; use corrected=True for a correction"
+            f"statement {statement_ref!r} from {payer_id!r} was removed and cannot be recorded again under the same identity"
         )
+
+    current_stmts = _find_current_statement_findings(state)
+    target_tuple = tuple(sorted(statement_keys.items()))
+    recorded_tuples = {tuple(sorted(keys.items())) for _, _, keys in current_stmts}
+    if target_tuple in recorded_tuples:
+        if not corrected:
+            raise F1099KRecordingRefused(
+                f"statement {statement_ref!r} from {payer_id!r} has already been recorded; use corrected=True for a correction"
+            )
+        classification = "correction"
+    else:
+        if corrected:
+            raise F1099KRecordingRefused(
+                f"corrected return {statement_ref!r} matches no recorded statement; a correction must correct something"
+            )
+        classification = "new-original"
 
     all_evidence = [evidence_id]
     if answer_evidence_ids:
@@ -416,7 +639,7 @@ def record_f1099k_statement_durably(
     _check_evidence_ids(all_evidence, submission_id, staged)
 
     scope = dict(family_scope or DEFAULT_FAMILY_SCOPE)
-    family_ref = {"id": FAMILY_ID, "version": FAMILY_VERSION}
+    family_ref = {"id": FAMILY_ID, "version": family_version}
     finding_ids: list[str] = []
 
     if classification == "new-original":
@@ -440,9 +663,19 @@ def record_f1099k_statement_durably(
             state = apply_act(state, statement_act, registry)
             staged.append(statement_act)
 
-        cur_h = current_horizon_id(state.horizon_state, family=family_ref, scope=scope)
-        if cur_h is None:
-            genesis_h = "demo.f1099k.h0"
+        scope_tuple = tuple(sorted(scope.items()))
+        active_chain: tuple[str, str] | None = None
+        for (c_fid, c_ver, c_scope), h_id in state.horizon_state.current_by_chain.items():
+            if c_fid == FAMILY_ID and c_scope == scope_tuple:
+                active_chain = (c_ver, h_id)
+                break
+
+        if active_chain is None:
+            h_count = 0
+            genesis_h = f"demo.f1099k.h{h_count}"
+            while genesis_h in state.horizon_state.horizons:
+                h_count += 1
+                genesis_h = f"demo.f1099k.h{h_count}"
             genesis_act = _act(
                 len(staged),
                 "horizon-genesis",
@@ -452,14 +685,46 @@ def record_f1099k_statement_durably(
             state = apply_act(state, genesis_act, registry)
             staged.append(genesis_act)
             pred_h = genesis_h
-            succ_h = "demo.f1099k.h1"
         else:
-            pred_h = cur_h
-            h_count = len(state.horizon_state.horizons)
+            cur_ver, cur_h = active_chain
+            if cur_ver != family_version:
+                if _version_number(cur_ver) > _version_number(family_version):
+                    raise F1099KRecordingRefused(
+                        f"cannot handover to older family version: current chain is {cur_ver}, writer requested {family_version}"
+                    )
+                h_count = len(state.horizon_state.horizons)
+                handover_succ_h = f"demo.f1099k.h{h_count}"
+                while handover_succ_h in state.horizon_state.horizons:
+                    h_count += 1
+                    handover_succ_h = f"demo.f1099k.h{h_count}"
+                handover_act = _act(
+                    len(staged),
+                    "family-handover",
+                    {
+                        "predecessor": {
+                            "family": {"id": FAMILY_ID, "version": cur_ver},
+                            "scope": scope,
+                            "horizon_id": cur_h,
+                        },
+                        "successor": {
+                            "family": family_ref,
+                            "scope": scope,
+                            "horizon_id": handover_succ_h,
+                        },
+                    },
+                    actor, at, f"{suffix}.handover",
+                )
+                state = apply_act(state, handover_act, registry)
+                staged.append(handover_act)
+                pred_h = handover_succ_h
+            else:
+                pred_h = cur_h
+
+        h_count = len(state.horizon_state.horizons)
+        succ_h = f"demo.f1099k.h{h_count}"
+        while succ_h in state.horizon_state.horizons:
+            h_count += 1
             succ_h = f"demo.f1099k.h{h_count}"
-            while succ_h in state.horizon_state.horizons:
-                h_count += 1
-                succ_h = f"demo.f1099k.h{h_count}"
 
         stmt_evidence = {
             "schema": "evidence.v1",
@@ -561,6 +826,30 @@ def record_f1099k_statement_durably(
         state = admission.state
     else:
         # Correction of existing statement
+        corr_chain = _active_family_chain(state, scope)
+        if (
+            close_family
+            and corr_chain is not None
+            and _version_number(corr_chain[0]) > _version_number(family_version)
+        ):
+            raise F1099KRecordingRefused(
+                f"cannot handover to older family version: current chain is {corr_chain[0]}, writer requested {family_version}"
+            )
+        if (
+            close_family
+            and current_horizon_id(state.horizon_state, family=family_ref, scope=scope) is None
+            and corr_chain is not None
+            and _version_number(corr_chain[0]) < _version_number(family_version)
+        ):
+            # The adopted family version is newer than the chain this statement was
+            # recorded on. Attesting completeness takes the same route as
+            # close_f1099k_family_durably: the handover and the person's fresh closure
+            # are staged in this one save. The old closure is never copied.
+            state, _ = _stage_family_handover(
+                staged, state, registry,
+                predecessor_version=corr_chain[0], predecessor_horizon=corr_chain[1],
+                family_ref=family_ref, scope=scope, actor=actor, at=at, suffix=suffix,
+            )
         stmt_evidence = {
             "schema": "evidence.v1",
             "id": evidence_id,
@@ -621,9 +910,9 @@ def record_f1099k_statement_durably(
 
         corr_successor_acts = [assertion_b1a_act, assertion_b4_act]
 
-        cur_h = current_horizon_id(state.horizon_state, family=family_ref, scope=scope)
-        if close_family and cur_h is not None:
-            closure_fact_id = f"{CLOSURE_TYPE}|family-horizon={cur_h},tax-year={tax_year}"
+        close_h = current_horizon_id(state.horizon_state, family=family_ref, scope=scope)
+        if close_family and close_h is not None:
+            closure_fact_id = f"{CLOSURE_TYPE}|family-horizon={close_h},tax-year={tax_year}"
             current_ids = compute_currency(state).current_finding_ids
             existing_closure = _current_finding(state, closure_fact_id, current_ids)
             if existing_closure is None:
@@ -695,8 +984,17 @@ def record_f1099k_no_statements_durably(
     expected_revision: int,
     tax_year: str = "2025",
     family_scope: dict[str, str] | None = None,
+    family_version: str | None = None,
 ) -> dict[str, Any]:
     """Record 'I received no Form 1099-K for 2025' as family closure at the current horizon."""
+    if family_version is None:
+        family_version = f1099k_family_version_for_workspace(
+            log,
+            actor=actor,
+            run_scope={"jurisdiction": "us", "year": tax_year},
+            workspace_revision=expected_revision,
+            tax_year=tax_year,
+        )
     _require_provenance(submission_id, actor, at)
     before = _read_for_save(log, expected_revision)
     suffix = _token(submission_id)
@@ -712,10 +1010,20 @@ def record_f1099k_no_statements_durably(
         )
 
     scope = dict(family_scope or DEFAULT_FAMILY_SCOPE)
-    family_ref = {"id": FAMILY_ID, "version": FAMILY_VERSION}
-    cur_h = current_horizon_id(state.horizon_state, family=family_ref, scope=scope)
-    if cur_h is None:
-        genesis_h = "demo.f1099k.h0"
+    family_ref = {"id": FAMILY_ID, "version": family_version}
+    scope_tuple = tuple(sorted(scope.items()))
+    active_chain: tuple[str, str] | None = None
+    for (c_fid, c_ver, c_scope), h_id in state.horizon_state.current_by_chain.items():
+        if c_fid == FAMILY_ID and c_scope == scope_tuple:
+            active_chain = (c_ver, h_id)
+            break
+
+    if active_chain is None:
+        h_count = 0
+        genesis_h = f"demo.f1099k.h{h_count}"
+        while genesis_h in state.horizon_state.horizons:
+            h_count += 1
+            genesis_h = f"demo.f1099k.h{h_count}"
         genesis_act = _act(
             len(staged),
             "horizon-genesis",
@@ -726,7 +1034,39 @@ def record_f1099k_no_statements_durably(
         staged.append(genesis_act)
         target_h = genesis_h
     else:
-        target_h = cur_h
+        cur_ver, cur_h = active_chain
+        if cur_ver != family_version:
+            if _version_number(cur_ver) > _version_number(family_version):
+                raise F1099KRecordingRefused(
+                    f"cannot handover to older family version: current chain is {cur_ver}, writer requested {family_version}"
+                )
+            h_count = len(state.horizon_state.horizons)
+            handover_succ_h = f"demo.f1099k.h{h_count}"
+            while handover_succ_h in state.horizon_state.horizons:
+                h_count += 1
+                handover_succ_h = f"demo.f1099k.h{h_count}"
+            handover_act = _act(
+                len(staged),
+                "family-handover",
+                {
+                    "predecessor": {
+                        "family": {"id": FAMILY_ID, "version": cur_ver},
+                        "scope": scope,
+                        "horizon_id": cur_h,
+                    },
+                    "successor": {
+                        "family": family_ref,
+                        "scope": scope,
+                        "horizon_id": handover_succ_h,
+                    },
+                },
+                actor, at, f"{suffix}.handover",
+            )
+            state = apply_act(state, handover_act, registry)
+            staged.append(handover_act)
+            target_h = handover_succ_h
+        else:
+            target_h = cur_h
 
     closure_fact_id = f"{CLOSURE_TYPE}|family-horizon={target_h},tax-year={tax_year}"
     current_fids = compute_currency(state).current_finding_ids
@@ -1001,3 +1341,292 @@ def withdraw_f1099k_statement_answer_durably(
         log, registry, before, staged, actor=actor, at=at,
         suffix=suffix, finding_ids=[], expected_revision=expected_revision,
     )
+
+
+def retract_f1099k_statement_durably(
+    log: ActLog,
+    registry: Any,
+    *,
+    submission_id: str,
+    actor: str,
+    at: str,
+    expected_revision: int,
+    payer_id: str | None = None,
+    statement_ref: str | None = None,
+    statement_keys: dict[str, str] | None = None,
+    evidence_id: str | None = None,
+    tax_year: str = "2025",
+    family_scope: dict[str, str] | None = None,
+) -> dict[str, Any]:
+    """Atomically remove one Form 1099-K statement, retracting its member Box 1a, Box 4, and answers.
+
+    Stages:
+    1. act-member-transition.v3 (action: "remove") on the active family chain, advancing the horizon;
+    2. finding-retracted for the statement's Box 4 finding;
+    3. finding-retracted for all orphan circumstance answers matching the statement's identity keys.
+
+    Committed atomically via ActLog.append_batch in a single _commit call.
+    """
+    _require_provenance(submission_id, actor, at)
+    before = _read_for_save(log, expected_revision)
+
+    if statement_keys is not None:
+        norm_keys = dict(statement_keys)
+        payer_id = norm_keys["payer"]
+        stmt_entity = norm_keys["statement"]
+        tax_year = norm_keys.get("tax-year", tax_year)
+    else:
+        if payer_id is None or statement_ref is None:
+            raise F1099KRecordingRefused("payer_id and statement_ref (or statement_keys) must be provided")
+        try:
+            stmt_sameness_key = statement_key(payer_id=payer_id, tax_year=tax_year, payer_ref=statement_ref)
+        except StatementIdentityError as exc:
+            raise F1099KRecordingRefused(str(exc)) from exc
+        stmt_entity = statement_entity_id(stmt_sameness_key)
+        norm_keys = {"payer": payer_id, "statement": stmt_entity, "tax-year": tax_year}
+
+    _validate_statement_keys(norm_keys)
+
+    suffix = _token(submission_id)
+    staged = list(copy.deepcopy(before.acts))
+    state = project(tuple(copy.deepcopy(row) for row in staged), registry)
+
+    b1a_fid, b1a_finding = _require_statement_exists(state, norm_keys)
+    fact_b1a_id = b1a_finding["fact_id"]
+
+    scope = dict(family_scope or DEFAULT_FAMILY_SCOPE)
+    scope_tuple = tuple(sorted(scope.items()))
+    active_chain: tuple[str, str] | None = None
+    for (c_fid, c_ver, c_scope), h_id in state.horizon_state.current_by_chain.items():
+        if c_fid == FAMILY_ID and c_scope == scope_tuple:
+            active_chain = (c_ver, h_id)
+            break
+
+    if active_chain is None:
+        raise F1099KRecordingRefused("no active Form 1099-K family chain found for scope")
+
+    cur_ver, pred_h = active_chain
+    family_ref = {"id": FAMILY_ID, "version": cur_ver}
+
+    h_count = len(state.horizon_state.horizons)
+    succ_h = f"demo.f1099k.h{h_count}"
+    while succ_h in state.horizon_state.horizons:
+        h_count += 1
+        succ_h = f"demo.f1099k.h{h_count}"
+
+    _check_evidence_ids([evidence_id] if evidence_id else [], submission_id, staged)
+    if evidence_id is not None:
+        ev = {
+            "schema": "evidence.v1",
+            "id": evidence_id,
+            "kind": STATEMENT_EVIDENCE_KIND,
+            "label": f"Removal of Form 1099-K statement from {payer_id}",
+            "content": {
+                "submission_id": submission_id,
+                "statement": norm_keys,
+                "action": "remove",
+            },
+        }
+        ev_act = _act(len(staged), "evidence-submitted", {"evidence": ev}, actor, at, f"{suffix}.rm_ev")
+        state = apply_act(state, ev_act, registry)
+        staged.append(ev_act)
+
+    member_transition_act = _act(
+        len(staged),
+        "member-transition",
+        {
+            "family": family_ref,
+            "scope": scope,
+            "member": {
+                "action": "remove",
+                "fact_id": fact_b1a_id,
+            },
+            "successor": {
+                "id": succ_h,
+                "predecessor": pred_h,
+            },
+        },
+        actor,
+        at,
+        f"{suffix}.rm_mt",
+    )
+    state = apply_act(state, member_transition_act, registry)
+    staged.append(member_transition_act)
+
+    current_ids = compute_currency(state).current_finding_ids
+    fact_b4_id = fact_id_for(STATEMENT_BOX4, tuple(sorted(norm_keys.items())))
+    b4_match = _current_finding(state, fact_b4_id, current_ids)
+    if b4_match is not None:
+        b4_fid, _ = b4_match
+        b4_retract_act = _act(
+            len(staged),
+            "finding-retracted",
+            {"finding_id": b4_fid},
+            actor,
+            at,
+            f"{suffix}.b4_retract",
+        )
+        state = apply_act(state, b4_retract_act, registry)
+        staged.append(b4_retract_act)
+
+    for q in sorted(ALL_CIRCUMSTANCE_QUESTIONS):
+        ans_fact_id = fact_id_for(f"tax.us.2025.f1099k.{q}", tuple(sorted(norm_keys.items())))
+        ans_match = _current_finding(state, ans_fact_id, current_ids)
+        if ans_match is not None:
+            ans_fid, _ = ans_match
+            ans_retract_act = _act(
+                len(staged),
+                "finding-retracted",
+                {"finding_id": ans_fid},
+                actor,
+                at,
+                f"{suffix}.ans_retract.{_token(q)}",
+            )
+            state = apply_act(state, ans_retract_act, registry)
+            staged.append(ans_retract_act)
+
+    committed = _commit(
+        log,
+        registry,
+        before,
+        staged,
+        actor=actor,
+        at=at,
+        suffix=suffix,
+        finding_ids=[],
+        expected_revision=expected_revision,
+    )
+    committed["horizon"] = succ_h
+    committed["removed_statement"] = norm_keys
+    return committed
+
+
+def close_f1099k_family_durably(
+    log: ActLog,
+    registry: Any,
+    *,
+    submission_id: str,
+    actor: str,
+    at: str,
+    expected_revision: int,
+    evidence_id: str = "ev.f1099k.closure",
+    tax_year: str = "2025",
+    family_scope: dict[str, str] | None = None,
+    family_version: str | None = None,
+) -> dict[str, Any]:
+    """Record closure of the Form 1099-K family at the current active horizon when statements stand.
+
+    When the family version resolved from the adopted package is newer than the
+    current chain (a workspace recorded on an older family version and since adopted
+    onto a successor package), the ADR 0079 family-handover and the fresh closure are
+    staged on the successor horizon in one save. Closure is the person's new answer: an
+    earlier closure is never copied and attestation is never derived from adoption alone.
+    """
+    if family_version is None:
+        family_version = f1099k_family_version_for_workspace(
+            log,
+            actor=actor,
+            run_scope={"jurisdiction": "us", "year": tax_year},
+            workspace_revision=expected_revision,
+            tax_year=tax_year,
+        )
+    _require_provenance(submission_id, actor, at)
+    before = _read_for_save(log, expected_revision)
+    suffix = _token(submission_id)
+    staged = list(copy.deepcopy(before.acts))
+    _ensure_bundles(staged, registry, actor, at, suffix)
+    _check_evidence_ids([evidence_id], submission_id, staged)
+    state = project(tuple(copy.deepcopy(row) for row in staged), registry)
+
+    current_stmts = _find_current_statement_findings(state)
+    if not current_stmts:
+        raise F1099KRecordingRefused(
+            "no Form 1099-K statements recorded; use record_f1099k_no_statements_durably instead"
+        )
+
+    scope = dict(family_scope or DEFAULT_FAMILY_SCOPE)
+    active_chain = _active_family_chain(state, scope)
+
+    if active_chain is None:
+        raise F1099KRecordingRefused("no active Form 1099-K family chain found for scope")
+
+    cur_ver, target_h = active_chain
+    if _version_number(cur_ver) > _version_number(family_version):
+        raise F1099KRecordingRefused(
+            f"cannot handover to older family version: current chain is {cur_ver}, writer requested {family_version}"
+        )
+    if _version_number(cur_ver) < _version_number(family_version):
+        state, target_h = _stage_family_handover(
+            staged, state, registry,
+            predecessor_version=cur_ver, predecessor_horizon=target_h,
+            family_ref={"id": FAMILY_ID, "version": family_version}, scope=scope,
+            actor=actor, at=at, suffix=suffix,
+        )
+    closure_fact_id = f"{CLOSURE_TYPE}|family-horizon={target_h},tax-year={tax_year}"
+    current_fids = compute_currency(state).current_finding_ids
+    existing_closure = [
+        fid for fid, f in state.findings.items()
+        if f["fact_id"] == closure_fact_id and fid in current_fids
+    ]
+    if existing_closure:
+        raise F1099KRecordingRefused(
+            f"family closure already recorded for horizon {target_h}"
+        )
+
+    evidence = {
+        "schema": "evidence.v1",
+        "id": evidence_id,
+        "kind": STATEMENT_EVIDENCE_KIND,
+        "label": f"All Form 1099-K statements reported for {tax_year}",
+        "content": {
+            "submission_id": submission_id,
+            "closure_horizon": target_h,
+            "tax_year": tax_year,
+            "statement_count": len(current_stmts),
+        },
+    }
+    evidence_act = _act(len(staged), "evidence-submitted", {"evidence": evidence}, actor, at, f"{suffix}.stmt_cl_ev")
+    state = apply_act(state, evidence_act, registry)
+    staged.append(evidence_act)
+
+    contrib_id = f"f1099k.closure.contrib.{suffix}"
+    contrib = {
+        "schema": "contribution.v1",
+        "id": contrib_id,
+        "evidence_id": evidence_id,
+        "content": {
+            "mode": "manual-entry",
+            "source": "f1099k-statements-closure",
+        },
+    }
+    contrib_act = _act(len(staged), "contribution", {"contribution": contrib}, actor, at, f"{suffix}.stmt_cl_cb")
+
+    closure_finding_id = f"f1099k.closure.finding.{suffix}"
+    finding = {
+        "schema": "finding.v2",
+        "id": closure_finding_id,
+        "fact_id": closure_fact_id,
+        "value": True,
+        "basis": "attested",
+        "evidence_ids": [evidence_id],
+        "contribution_id": contrib_id,
+    }
+    assertion_act = _act(len(staged) + 1, "assertion", {"finding": finding}, actor, at, f"{suffix}.stmt_cl_as")
+    admission = apply_contribution_batch(
+        state,
+        contribution_act=contrib_act,
+        successor_acts=[assertion_act],
+        registry=registry,
+        record_id=f"f1099k.statement_closure.record.{suffix}",
+        workspace_revision=len(staged),
+    )
+    if admission.terminal_record["phase"] != "completed":
+        raise F1099KRecordingRefused(f"closure contribution was not admitted: {admission.terminal_record}")
+    staged.extend((contrib_act, assertion_act))
+
+    committed = _commit(
+        log, registry, before, staged, actor=actor, at=at,
+        suffix=suffix, finding_ids=[closure_finding_id], expected_revision=expected_revision,
+    )
+    committed["horizon"] = target_h
+    return committed

@@ -48,23 +48,30 @@ shows the selected sale route needs disproportionate prerequisite work. Return
 that choice to the owner rather than quietly changing the goal or broadening
 the milestone into a general capital-asset or business system.
 
-## Consolidation and phase assessment
+## Consolidation — More Than One Statement: Keeping Each Account With Its Form — closed 2026-10-19
 
-After the contrasting delivery, compare both with student loans. Repair a
-shared gap if the concrete cases require it, or conclude the phase with the
-bounded capabilities and their limits. This is a checkpoint, not an automatic
-third milestone or framework build.
+[Plan](milestones/multiple-statement-circumstances.md) ·
+[Retrospective](../../milestone-retrospectives/2026-10-19-multiple-statement-circumstances.md).
+Delivered: any number of Forms 1099-K, each with its own recorded, correctable
+and removable sale account, reason and saved explanation. When every current
+statement is a supported personal loss, their Box 1a amounts are combined
+once at the top of 2025 Schedule 1. ADR 0079 adds a recorded family-version
+handover. The owner kept the one-statement Form 1098 limit; mortgage breadth
+needs debt and home identity across loans.
+
+## Phase assessment
+
+Recorded in the consolidation plan, "Phase assessment after delivery": the
+provisional endpoint is met, and the recommendation is to conclude the phase.
 
 ## Status
 
-Both the opening and the contrasting milestones are closed at their bounded
-results. Neither route covers more than one statement, the gain route is
-unbuilt, and neither page has a browser observation; those exclusions stay
-in each plan's outcome and in the phase-state parked list. The contrasting
-plan's phase assessment recommends the consolidation step for multiple
-statements rather than concluding the phase. The next milestone is
-unselected. Engine Breadth remains the historical form-coverage record; its
-rows do not establish ordinary-circumstance support.
+All three milestones are closed at their bounded results. The consolidation's
+phase assessment finds the provisional endpoint met and recommends concluding
+the phase; the owner selects. More than one Form 1098, gain reporting and
+browser observation remain outside the delivered routes and stay in the
+phase-state parked list. Engine Breadth remains the historical form-coverage
+record; its rows do not establish ordinary-circumstance support.
 
 Selection sources: the Form 1098 route and its
 [retrospective](../../milestone-retrospectives/2026-08-09-f1098-mortgage-interest-line12e.md),

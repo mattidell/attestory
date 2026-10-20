@@ -274,14 +274,14 @@ def _build_acts(
         ("tax.us.2025.f1099b.covered-st", "v1", "demo.sdw.t1.st.h0"),
         ("tax.us.2025.f1099b.covered-st-proceeds", "v1", "demo.sdw.t1.st-p.h0"),
         ("tax.us.2025.f1099b.covered-st-basis", "v1", "demo.sdw.t1.st-b.h0"),
-        ("tax.us.2025.f1099b.covered-w-st", "v1", "demo.sdw.t1.wst.h0"),
-        ("tax.us.2025.f1099b.covered-w-st-proceeds", "v1", "demo.sdw.t1.wst-p.h0"),
-        ("tax.us.2025.f1099b.covered-w-st-basis", "v1", "demo.sdw.t1.wst-b.h0"),
-        ("tax.us.2025.f1099b.covered-w-st-adjustment", "v1", "demo.sdw.t1.wst-a.h0"),
-        ("tax.us.2025.f1099b.covered-w-lt", "v1", "demo.sdw.t1.wlt.h0"),
-        ("tax.us.2025.f1099b.covered-w-lt-proceeds", "v1", "demo.sdw.t1.wlt-p.h0"),
-        ("tax.us.2025.f1099b.covered-w-lt-basis", "v1", "demo.sdw.t1.wlt-b.h0"),
-        ("tax.us.2025.f1099b.covered-w-lt-adjustment", "v1", "demo.sdw.t1.wlt-a.h0"),
+        ("tax.us.2025.f1099b.covered-w-st", "v2", "demo.sdw.t1.wst.h0"),
+        ("tax.us.2025.f1099b.covered-w-st-proceeds", "v2", "demo.sdw.t1.wst-p.h0"),
+        ("tax.us.2025.f1099b.covered-w-st-basis", "v2", "demo.sdw.t1.wst-b.h0"),
+        ("tax.us.2025.f1099b.covered-w-st-adjustment", "v2", "demo.sdw.t1.wst-a.h0"),
+        ("tax.us.2025.f1099b.covered-w-lt", "v2", "demo.sdw.t1.wlt.h0"),
+        ("tax.us.2025.f1099b.covered-w-lt-proceeds", "v2", "demo.sdw.t1.wlt-p.h0"),
+        ("tax.us.2025.f1099b.covered-w-lt-basis", "v2", "demo.sdw.t1.wlt-b.h0"),
+        ("tax.us.2025.f1099b.covered-w-lt-adjustment", "v2", "demo.sdw.t1.wlt-a.h0"),
         # schedule B adjustment families required by package
         ("tax.us.2025.scheduleb.adjustment.nominee", "v1", "demo.sdw.t1.nom.h0"),
         ("tax.us.2025.scheduleb.adjustment.accrued-interest", "v1", "demo.sdw.t1.acc.h0"),
@@ -450,7 +450,7 @@ def _build_acts(
             add(
                 "member-transition",
                 {
-                    "family": {"id": fam, "version": "v1"},
+                    "family": {"id": fam, "version": "v2"},
                     "scope": scope,
                     "member": {
                         "action": "assert",
@@ -474,7 +474,7 @@ def _build_acts(
                 add(
                     "member-transition",
                     {
-                        "family": {"id": sfam, "version": "v1"},
+                        "family": {"id": sfam, "version": "v2"},
                         "scope": scope,
                         "member": {
                             "action": "assert",
@@ -1287,7 +1287,7 @@ class LateMemberLifecycle(unittest.TestCase):
             add(
                 "member-transition",
                 {
-                    "family": {"id": "tax.us.2025.f1099b.covered-w-st", "version": "v1"},
+                    "family": {"id": "tax.us.2025.f1099b.covered-w-st", "version": "v2"},
                     "scope": _FACT_SCOPE,
                     "member": {
                         "action": "assert",
@@ -1308,7 +1308,7 @@ class LateMemberLifecycle(unittest.TestCase):
                 add(
                     "member-transition",
                     {
-                        "family": {"id": f"tax.us.2025.f1099b.covered-w-st-{field}", "version": "v1"},
+                        "family": {"id": f"tax.us.2025.f1099b.covered-w-st-{field}", "version": "v2"},
                         "scope": _FACT_SCOPE,
                         "member": {
                             "action": "assert",

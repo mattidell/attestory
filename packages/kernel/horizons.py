@@ -52,6 +52,7 @@ class HorizonState:
 
     horizons: dict[str, HorizonLifecycle] = field(default_factory=dict)
     current_by_chain: dict[ChainKey, str] = field(default_factory=dict)
+    retired_chains: frozenset[ChainKey] = field(default_factory=frozenset)
 
 
 def initial_state() -> HorizonState:
@@ -100,6 +101,8 @@ def apply_genesis(
 ) -> HorizonState:
     """Establish the initial horizon for a family/scope with no chain yet."""
     key = chain_key(payload["family"], payload["scope"])
+    if key in state.retired_chains:
+        raise HorizonModelError("family version is retired")
     if key in state.current_by_chain:
         raise HorizonModelError(
             f"family {payload['family']['id']} {payload['family']['version']} "
@@ -131,6 +134,8 @@ def apply_transition(
     half; a raise here means neither half takes effect.
     """
     key = chain_key(payload["family"], payload["scope"])
+    if key in state.retired_chains:
+        raise HorizonModelError("family version is retired")
     current = state.current_by_chain.get(key)
     if current is None:
         raise HorizonModelError(
@@ -167,3 +172,76 @@ def apply_transition(
     chains = dict(state.current_by_chain)
     chains[key] = successor["id"]
     return replace(state, horizons=horizons, current_by_chain=chains), current
+
+
+def apply_handover(
+    state: HorizonState, payload: dict[str, Any], registry: SchemaRegistry
+) -> tuple[HorizonState, str, str]:
+    """Atomic family-version handover: retire predecessor chain, start successor chain.
+
+    Preconditions (proposal § 2):
+    1. Identity & scope match.
+    2. Version distinction.
+    3. Predecessor currency.
+    4. Single active chain across all versions for that (family.id, scope).
+    5. Target absent and unretired.
+    6. Fresh successor horizon id.
+    """
+    pred = payload["predecessor"]
+    succ = payload["successor"]
+
+    if pred["family"]["id"] != succ["family"]["id"] or pred["scope"] != succ["scope"]:
+        raise HorizonModelError("malformed handover payload")
+
+    if pred["family"]["version"] == succ["family"]["version"]:
+        raise HorizonModelError("malformed handover payload")
+
+    pred_key = chain_key(pred["family"], pred["scope"])
+    succ_key = chain_key(succ["family"], succ["scope"])
+    pred_horizon_id = pred["horizon_id"]
+    succ_horizon_id = succ["horizon_id"]
+
+    current_pred = state.current_by_chain.get(pred_key)
+    if current_pred != pred_horizon_id:
+        raise HorizonModelError("predecessor horizon is not current")
+    pred_lifecycle = state.horizons.get(pred_horizon_id)
+    if pred_lifecycle is None or pred_lifecycle.status != "current":
+        raise HorizonModelError("predecessor horizon is not current")
+
+    family_id = pred["family"]["id"]
+    scope_tuple = tuple(sorted(pred["scope"].items()))
+    active_chains = [
+        k for k in state.current_by_chain
+        if k[0] == family_id and k[2] == scope_tuple
+    ]
+    if len(active_chains) != 1 or succ_key in state.current_by_chain:
+        raise HorizonModelError(
+            "successor chain already exists or ambiguous active authority"
+        )
+
+    if succ_key in state.retired_chains:
+        raise HorizonModelError("successor chain is retired")
+
+    if succ_horizon_id in state.horizons:
+        raise HorizonModelError("horizon id already recorded")
+
+    citizen = _validated_citizen(
+        succ_horizon_id, succ["family"], succ["scope"], pred_horizon_id, registry
+    )
+    horizons = dict(state.horizons)
+    horizons[pred_horizon_id] = HorizonLifecycle(
+        horizon=pred_lifecycle.horizon,
+        status="superseded",
+        successor_id=succ_horizon_id,
+    )
+    horizons[succ_horizon_id] = HorizonLifecycle(horizon=citizen, status="current")
+    chains = dict(state.current_by_chain)
+    del chains[pred_key]
+    chains[succ_key] = succ_horizon_id
+    retired = state.retired_chains | {pred_key}
+
+    return (
+        replace(state, horizons=horizons, current_by_chain=chains, retired_chains=retired),
+        pred_horizon_id,
+        succ_horizon_id,
+    )
