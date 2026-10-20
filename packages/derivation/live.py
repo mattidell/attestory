@@ -49,6 +49,39 @@ class LiveRunError(Exception):
     """A live run request or marshalling step is inadmissible."""
 
 
+class TransportContractError(LiveRunError):
+    """A required input declaration for subject transport violates the transport contract."""
+
+    def __init__(self, detail: str, *, reason: str = "TRANSPORT_CONTRACT_ERROR") -> None:
+        super().__init__(detail)
+        self.reason = reason
+        self.detail = detail
+
+
+F1099K_BOX1A_SUBJECT_ID = "tax.us.2025.f1099k.box1a-gross-amount"
+F1099K_BOX1A_SUBJECT_VERSION = "v1"
+F1099K_STATEMENT_IDENTITY_KEYS: tuple[str, ...] = ("payer", "statement", "tax-year")
+
+F1099K_ALLOWED_PER_STATEMENT_INPUTS: frozenset[str] = frozenset({
+    "tax.us.2025.f1099k.box4-federal-withholding",
+    "tax.us.2025.f1099k.covers-only-single-item",
+    "tax.us.2025.f1099k.acquired-by-purchase",
+    "tax.us.2025.f1099k.primary-purpose-at-acquisition",
+    "tax.us.2025.f1099k.exclusive-personal-use",
+    "tax.us.2025.f1099k.digital-asset-involvement",
+    "tax.us.2025.f1099k.agreed-item-price",
+    "tax.us.2025.f1099k.shipping-arrangement",
+    "tax.us.2025.f1099k.platform-fees",
+    "tax.us.2025.f1099k.seller-paid-shipping",
+    "tax.us.2025.f1099k.sales-tax-collected-by-platform",
+    "tax.us.2025.f1099k.refund-amount",
+    "tax.us.2025.f1099k.buyer-paid-shipping",
+    "tax.us.2025.f1099k.cost-basis-known",
+    "tax.us.2025.f1099k.purchase-cost",
+    "tax.us.2025.f1099k.lasting-improvements-or-adjustments",
+})
+
+
 @dataclass(frozen=True)
 class LiveCoordinatorOutcome:
     """A capability-gated live attempt, with no repository-facing payload."""
@@ -363,6 +396,91 @@ def _resolved_run_material(graph: Any) -> _ResolvedRunMaterial:
         for name in association_names():
             if name not in collect_names:
                 collect_names.append(name)
+
+    # Track 1 Increment B (Option B): bounded emission discovery for Form 1099-K
+    # per-statement inputs. Emits required raw inputs for subject-scoped rules as
+    # SourceFact rows so subject_dispatch can bind them directly by shared keys.
+    # Fail-closed: declaration mismatch raises TransportContractError.
+    binding_by_symbol = {
+        b.get("symbol"): b
+        for b in (graph.package.get("input_bindings") or [])
+        if isinstance(b, Mapping) and isinstance(b.get("symbol"), str)
+    }
+    ft_by_id_version = {
+        (ft.get("id"), ft.get("version")): ft
+        for ft in fact_types
+        if isinstance(ft, Mapping)
+    }
+
+    for rule in rules:
+        subj = rule.get("subject")
+        if not (
+            isinstance(subj, Mapping)
+            and subj.get("id") == F1099K_BOX1A_SUBJECT_ID
+            and subj.get("version") == F1099K_BOX1A_SUBJECT_VERSION
+        ):
+            continue
+
+        for req_sym in rule.get("requires", []):
+            if not isinstance(req_sym, str):
+                continue
+
+            binding = binding_by_symbol.get(req_sym)
+            if binding is None and req_sym not in F1099K_ALLOWED_PER_STATEMENT_INPUTS:
+                continue
+
+            if req_sym not in F1099K_ALLOWED_PER_STATEMENT_INPUTS:
+                raise TransportContractError(
+                    f"subject-scoped rule {rule.get('id')} requires input binding {req_sym!r} "
+                    f"outside allowed per-statement input set"
+                )
+
+            if binding is None:
+                raise TransportContractError(
+                    f"subject-scoped rule {rule.get('id')} requires allowed input {req_sym!r} "
+                    f"with no matching input binding in package"
+                )
+
+            bound_ft = binding.get("fact_type")
+            if not isinstance(bound_ft, Mapping):
+                raise TransportContractError(
+                    f"input binding for {req_sym!r} has malformed fact_type descriptor"
+                )
+            if binding.get("symbol") != bound_ft.get("id"):
+                raise TransportContractError(
+                    f"input binding for {req_sym!r} uses alias: symbol {binding.get('symbol')!r} "
+                    f"!= fact_type.id {bound_ft.get('id')!r}"
+                )
+
+            if binding.get("mode") != "optional_default":
+                raise TransportContractError(
+                    f"input binding for {req_sym!r} mode is {binding.get('mode')!r}, "
+                    f"expected 'optional_default'"
+                )
+            if bound_ft.get("version") != "v1":
+                raise TransportContractError(
+                    f"input binding for {req_sym!r} fact_type version is {bound_ft.get('version')!r}, "
+                    f"expected 'v1'"
+                )
+
+            ft_decl = ft_by_id_version.get((bound_ft.get("id"), bound_ft.get("version")))
+            if ft_decl is None:
+                raise TransportContractError(
+                    f"fact type declaration for {bound_ft.get('id')!r}@{bound_ft.get('version')!r} not found"
+                )
+            decl_keys = tuple(
+                k["name"] if isinstance(k, Mapping) and "name" in k else str(k)
+                for k in (ft_decl.get("identity_keys") or ())
+            )
+            if decl_keys != F1099K_STATEMENT_IDENTITY_KEYS:
+                raise TransportContractError(
+                    f"fact type {bound_ft.get('id')!r} identity keys {decl_keys!r} "
+                    f"do not match expected statement keys {list(F1099K_STATEMENT_IDENTITY_KEYS)!r}"
+                )
+
+            if req_sym not in collect_names and req_sym not in emission_only:
+                emission_only.append(req_sym)
+
     emission_only = [name for name in emission_only if name not in collect_names]
     return _ResolvedRunMaterial(
         rules,
@@ -453,7 +571,15 @@ def live_coordinate_run(
     # fact type. Currency is computed once, here, and reused below.
     currency = compute_currency(state)
     validate_projected_source_boundary(state.findings.values(), currency.current_finding_ids)
-    material = _resolved_run_material(resolved)
+    try:
+        material = _resolved_run_material(resolved)
+    except TransportContractError as exc:
+        return LiveCoordinatorOutcome(
+            refusal=Refusal(reason=exc.reason, detail=exc.detail),
+            output_path=None,
+            run_id=None,
+            presentation_path=None,
+        )
     rules, parameters, families, mappings, fact_types, bindings, collect_names = material
     retired = state.fact_state.retired_fact_type_ids
     if retired:

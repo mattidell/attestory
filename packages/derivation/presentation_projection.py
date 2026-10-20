@@ -2505,6 +2505,7 @@ def _validate_mortgage_interest_explanation(value: Any) -> None:
 
 
 _F1099K_REASON_SYMBOL = "tax.us.2025.f1099k.statement-loss-reason"
+_F1099K_BOX1A_FACT_TYPE = "tax.us.2025.f1099k.box1a-gross-amount"
 _F1099K_COMPUTATION_SYMBOLS = {
     "tax.us.2025.f1099k.amount-realized": "amountRealized",
     "tax.us.2025.f1099k.selling-expenses": "sellingExpenses",
@@ -2664,50 +2665,139 @@ def _f1099k_statement_explanation(
     state: FindingState,
     publications: Sequence[Any],
     publications_by_id: Mapping[str, Mapping[str, Any]],
+    dispositions: Sequence[Mapping[str, Any]] | None = None,
 ) -> dict[str, Any] | None:
     """Project Form 1099-K statement computation and explanation per statement from the saved run."""
+    current_statement_keys: list[dict[str, str]] = []
+    if hasattr(state, "findings") and state.findings and hasattr(state, "fact_state") and state.fact_state is not None:
+        from packages.kernel.currency import compute_currency
+        from packages.kernel.facts import facts_of
+        current = compute_currency(state).current_finding_ids
+        lattice = facts_of(state.fact_state, include_displaced=True)
+        for fid, finding in state.findings.items():
+            if fid in current and finding.get("fact_id") in lattice:
+                fact = lattice[finding["fact_id"]]
+                if fact.fact_type_id == _F1099K_BOX1A_FACT_TYPE:
+                    k_dict = dict(fact.keys)
+                    if k_dict not in current_statement_keys:
+                        current_statement_keys.append(k_dict)
+
     reason_publications = [
-        pub.finding for pub in publications
-        if isinstance(pub.finding, Mapping)
-        and str(pub.finding.get("symbol", "")).startswith(_F1099K_REASON_SYMBOL)
+        getattr(pub, "finding", pub) for pub in publications
+        if isinstance(getattr(pub, "finding", pub), Mapping)
+        and str(getattr(pub, "finding", pub).get("symbol", "")).startswith(_F1099K_REASON_SYMBOL)
     ]
-    if not reason_publications:
+
+    # If no statement keys were discovered from finding state, discover from publications and dispositions as fallback
+    if not current_statement_keys:
+        for rf in reason_publications:
+            keys = _extract_f1099k_statement_keys(str(rf.get("symbol", "")))
+            if keys and keys not in current_statement_keys:
+                current_statement_keys.append(keys)
+        if dispositions:
+            for row in dispositions:
+                if (
+                    isinstance(row, Mapping)
+                    and str(row.get("symbol", "")).startswith(_F1099K_REASON_SYMBOL)
+                ):
+                    keys = _extract_f1099k_statement_keys(str(row["symbol"]))
+                    if keys and keys not in current_statement_keys:
+                        current_statement_keys.append(keys)
+
+    if not current_statement_keys and not reason_publications:
         return None
 
+    # Statement entity ids are composed by joining payer, year and reference, so
+    # two statements with different full identities can share one entity id. A
+    # statement keeps its entity id as its explanation key only while that id
+    # names exactly one current statement; otherwise every statement sharing it
+    # is keyed by its full Box 1a fact identity, which is collision-safe. The
+    # reader never trusts the key: it matches each entry's recorded statementKeys.
+    statement_id_counts: dict[str, int] = {}
+    for sk in current_statement_keys:
+        sid = sk.get("statement")
+        if sid:
+            statement_id_counts[sid] = statement_id_counts.get(sid, 0) + 1
+
     explanations: dict[str, Any] = {}
-    for reason_finding in reason_publications:
-        stmt_keys = _extract_f1099k_statement_keys(str(reason_finding.get("symbol", "")))
-        stmt_id = stmt_keys.get("statement")
-        if not stmt_id:
-            for pin in reason_finding.get("pins", []) or []:
-                if isinstance(pin, Mapping) and pin.get("role") == "input":
-                    src = publications_by_id.get(str(pin.get("id"))) or (
-                        state.findings.get(str(pin.get("id"))) if hasattr(state, "findings") else None
-                    )
-                    if src is not None:
-                        src_keys = _extract_f1099k_statement_keys(str(src.get("fact_id", "")))
-                        if src_keys.get("statement"):
-                            stmt_keys = src_keys
-                            stmt_id = src_keys["statement"]
+    for stmt_keys in sorted(
+        current_statement_keys,
+        key=lambda k: (k.get("tax-year", ""), k.get("payer", ""), k.get("statement", "")),
+    ):
+        stmt_id = stmt_keys.get("statement") or str(stmt_keys)
+        target_tuple = tuple(sorted(stmt_keys.items()))
+
+        # 1. Match published reason finding if one exists
+        matching_rf = None
+        for rf in reason_publications:
+            rf_keys = _extract_f1099k_statement_keys(str(rf.get("symbol", "")))
+            if not rf_keys:
+                for pin in rf.get("pins", []) or []:
+                    if isinstance(pin, Mapping) and pin.get("role") == "input":
+                        src = publications_by_id.get(str(pin.get("id"))) or (
+                            state.findings.get(str(pin.get("id"))) if hasattr(state, "findings") else None
+                        )
+                        if src is not None:
+                            src_keys = _extract_f1099k_statement_keys(str(src.get("fact_id", "")))
+                            if src_keys.get("statement"):
+                                rf_keys = src_keys
+                                break
+            if rf_keys and tuple(sorted(rf_keys.items())) == target_tuple:
+                matching_rf = rf
+                break
+
+        if matching_rf is not None:
+            comp = _f1099k_statement_computation(
+                matching_rf,
+                publications_by_id,
+                publications=publications,
+                statement_keys=stmt_keys,
+            )
+            assumptions = _f1099k_statement_assumptions(matching_rf, publications_by_id, state)
+            reason_val = str(matching_rf.get("value", ""))
+
+            expl_data = {
+                "statementKeys": stmt_keys,
+                "reason": reason_val,
+                "computation": comp,
+                "assumptions": assumptions,
+            }
+        else:
+            # 2. Blocked reason: capture blocked code and missing dependencies from dispositions
+            blocked_row = None
+            if dispositions:
+                for row in dispositions:
+                    if not isinstance(row, Mapping) or row.get("disposition") != "blocked":
+                        continue
+                    sym = str(row.get("symbol", ""))
+                    art_id = str(row.get("artifact_id", ""))
+                    if sym.startswith(_F1099K_REASON_SYMBOL) or art_id == "tax.us.2025.rule.f1099k-statement-loss-reason":
+                        row_keys = _extract_f1099k_statement_keys(sym)
+                        if row_keys and tuple(sorted(row_keys.items())) == target_tuple:
+                            blocked_row = row
                             break
-        if not stmt_id:
-            stmt_id = str(reason_finding.get("id", "statement"))
+            code = str((blocked_row or {}).get("code") or "DEPENDENCY_ABSENT")
+            missing = list((blocked_row or {}).get("missing") or [])
 
-        comp = _f1099k_statement_computation(
-            reason_finding,
-            publications_by_id,
-            publications=publications,
-            statement_keys=stmt_keys,
+            expl_data = {
+                "statementKeys": stmt_keys,
+                "disposition": "blocked",
+                "code": code,
+                "missing": missing,
+                "computation": None,
+                "assumptions": "none",
+            }
+
+        explanation_key = (
+            stmt_id
+            if statement_id_counts.get(stmt_id, 0) == 1
+            else fact_id_for(_F1099K_BOX1A_FACT_TYPE, target_tuple)
         )
-        assumptions = _f1099k_statement_assumptions(reason_finding, publications_by_id, state)
-        reason_val = str(reason_finding.get("value", ""))
-
-        explanations[stmt_id] = {
-            "statementKeys": stmt_keys,
-            "reason": reason_val,
-            "computation": comp,
-            "assumptions": assumptions,
-        }
+        if explanation_key in explanations:
+            raise PresentationModelError(
+                f"duplicate Form 1099-K statement explanation key {explanation_key!r}"
+            )
+        explanations[explanation_key] = expl_data
 
     return explanations if explanations else None
 
@@ -2734,9 +2824,17 @@ def _validate_f1099k_statement_explanation(value: Any) -> None:
         _require_keys(
             stmt_data,
             frozenset({"computation", "assumptions"}),
-            frozenset({"statementKeys", "reason"}),
+            frozenset({"statementKeys", "reason", "disposition", "code", "missing"}),
             sp,
         )
+        if "disposition" in stmt_data:
+            disp = stmt_data["disposition"]
+            if disp != "blocked":
+                raise PresentationModelError(f"{sp}.disposition: expected 'blocked'")
+            if "code" not in stmt_data or not isinstance(stmt_data["code"], str) or not stmt_data["code"]:
+                raise PresentationModelError(f"{sp}.code: expected non-empty string")
+            if "missing" not in stmt_data or not isinstance(stmt_data["missing"], list):
+                raise PresentationModelError(f"{sp}.missing: expected a list")
         if "reason" in stmt_data:
             reason = stmt_data["reason"]
             if not isinstance(reason, str) or not reason:
@@ -3607,7 +3705,7 @@ def build_presentation_model(
         model["mortgageInterestExplanation"] = mortgage_explanation
     f1099k_explanation = _f1099k_statement_explanation(
         resolved_members=resolved_members, state=state, publications=publications,
-        publications_by_id=publications_by_id,
+        publications_by_id=publications_by_id, dispositions=dispositions,
     )
     if f1099k_explanation is not None:
         model["f1099kStatementExplanation"] = f1099k_explanation

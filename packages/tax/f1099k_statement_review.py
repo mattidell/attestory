@@ -19,14 +19,19 @@ from packages.tax.f1099k_statement_recording import (
     ALL_CIRCUMSTANCE_QUESTIONS,
     AMOUNT_QUESTIONS,
     CLOSURE_TYPE,
+    F1099KAdoptionResolutionError,
     F1099KRecordingRefused,
     STATEMENT_BOX1A,
     STATEMENT_BOX4,
     _find_current_statement_findings,
     _normalize_question,
     answer_f1099k_statement_answer_durably,
+    close_f1099k_family_durably,
     correct_f1099k_statement_answer_durably,
+    f1099k_family_version_for_workspace,
+    f1099k_family_version_from_package,
     record_f1099k_statement_answers_durably,
+    retract_f1099k_statement_durably,
     withdraw_f1099k_statement_answer_durably,
 )
 
@@ -484,6 +489,38 @@ def withdraw_f1099k_statement_review_answers(
         raise F1099KReviewRefused(str(exc)) from exc
 
 
+def retract_f1099k_statement_review(
+    log: ActLog,
+    registry: Any,
+    review: Mapping[str, Any],
+    *,
+    submission_id: str,
+    actor: str,
+    at: str,
+    evidence_id: str | None = None,
+) -> dict[str, Any]:
+    """Retract (remove) the statement reviewed in the snapshot after revalidating against the log."""
+    current = _revalidate(log, registry, review)
+    stmt = current.get("statement")
+    if not stmt or not isinstance(stmt, Mapping):
+        raise F1099KReviewRefused("review does not have an active statement to remove")
+    keys = stmt["keys"]
+    try:
+        return retract_f1099k_statement_durably(
+            log,
+            registry,
+            submission_id=submission_id,
+            statement_keys=keys,
+            actor=actor,
+            at=at,
+            expected_revision=current["revision"],
+            tax_year=keys.get("tax-year", "2025"),
+            evidence_id=evidence_id,
+        )
+    except F1099KRecordingRefused as exc:
+        raise F1099KReviewRefused(str(exc)) from exc
+
+
 def associate_saved_run(
     presentation: Mapping[str, Any],
     records: RecordStream,
@@ -579,21 +616,66 @@ def review_f1099k_statement_with_saved_presentation(
     unres_disp = unres_resolved.get("disposition") if unresolved_field else None
     reasons = unres_resolved.get("reasons", []) if unresolved_field else []
     f1099k_expl = presentation.get("f1099kStatementExplanation")
+    is_legacy_unkeyed = (
+        isinstance(f1099k_expl, Mapping)
+        and "computation" in f1099k_expl
+        and "assumptions" in f1099k_expl
+    )
+    if is_legacy_unkeyed:
+        contents = log.read()
+        cur_state = project(tuple(copy.deepcopy(row) for row in contents.acts), registry)
+        current_stmts = _find_current_statement_findings(cur_state)
+        if len(current_stmts) > 1:
+            return {
+                **review,
+                "savedCalculation": None,
+                "savedUnresolvedExplanation": None,
+                "calculationAssociation": {
+                    "state": "recalculation-needed",
+                    "reason": "legacy unkeyed presentation incompatible with multiple statements",
+                },
+                "savedCalculationState": "recalculation-needed",
+            }
+
     stmt_info = review.get("statement") or {}
     stmt_keys = stmt_info.get("keys", {})
-    stmt_id = stmt_keys.get("statement")
-
+    # An explanation belongs to this statement only when its recorded statementKeys
+    # equal the statement's full keys exactly. Entry keys and entity ids are never
+    # used to pick an explanation, since distinct statements can share an entity id.
+    # The one remaining read is the legacy unkeyed single-statement shape.
     target_expl: Mapping[str, Any] | None = None
     if isinstance(f1099k_expl, Mapping):
-        if stmt_id and stmt_id in f1099k_expl:
-            target_expl = f1099k_expl[stmt_id]
-        elif len(f1099k_expl) == 1:
-            target_expl = next(iter(f1099k_expl.values()))
-        elif "computation" in f1099k_expl:
+        if is_legacy_unkeyed:
             target_expl = f1099k_expl
+        else:
+            exact = [
+                v for v in f1099k_expl.values()
+                if isinstance(v, Mapping) and v.get("statementKeys") == stmt_keys
+            ]
+            if len(exact) == 1:
+                target_expl = exact[0]
 
     comp = target_expl.get("computation") if target_expl is not None else None
     assumptions = target_expl.get("assumptions", "none") if target_expl is not None else "none"
+
+    # Missing output: no top-entry or reason result in the saved run; this is not reported as either supported or unresolved
+    if top_entry_field is None and unresolved_field is None:
+        saved_missing = {
+            "status": "missing-output",
+            "sentence": "No Form 1099-K top-entry or reason result was produced by the saved run.",
+            "statementKeys": stmt_keys,
+            "assumptions": assumptions,
+            "computation": comp,
+        }
+        return {
+            **review,
+            "savedCalculation": None,
+            "savedUnresolvedExplanation": None,
+            "savedMissingOutput": saved_missing,
+            "calculationAssociation": association,
+            "savedCalculationState": "current-missing-output",
+            "savedState": "missing-output",
+        }
 
     # 1. Closed-empty zero: the person said no Form 1099-K, so there is no statement and a $0 entry
     if review.get("closedEmpty") or review.get("statement") is None:
@@ -625,23 +707,41 @@ def review_f1099k_statement_with_saved_presentation(
                 "savedState": "closed-empty-zero",
             }
 
-    # 2. Supported loss
-    if (
-        top_disp in ("published_value", "published", "computed_zero")
-        and top_val is not None
-        and unres_disp != "blocked"
-        and not reasons
-    ):
-        top_explain = (
-            ((top_entry_field or {}).get("field") or {}).get("dispositions", {}).get("published_value", {}).get("explain", "")
-            or "This sale resulted in a nondeductible personal loss whose Box 1a gross amount is entered at the top of Schedule 1."
+    # 2. Supported loss (Route 2 snapshot: statement's own box1a from review snapshot)
+    local_reason = target_expl.get("reason") if target_expl is not None else None
+    is_supported_loss = (
+        local_reason == "supported-loss"
+        or (
+            local_reason is None
+            and top_disp in ("published_value", "published", "computed_zero")
+            and top_val is not None
+            and unres_disp != "blocked"
+            and not reasons
         )
-        val_f = float(top_val)
+    )
+    if is_supported_loss:
+        # The statement's own result is local. Whether its Box 1a was entered on
+        # Schedule 1 is the published top-entry disposition's answer, not the local
+        # reason's: a blocked or missing top entry means nothing was entered.
+        top_entered = top_disp in ("published_value", "published", "computed_zero") and top_val is not None
+        if top_entered:
+            top_explain = (
+                ((top_entry_field or {}).get("field") or {}).get("dispositions", {}).get("published_value", {}).get("explain", "")
+                or "This sale resulted in a nondeductible personal loss whose Box 1a gross amount is entered at the top of Schedule 1."
+            )
+        else:
+            top_explain = (
+                "This sale resulted in a nondeductible personal loss. The Schedule 1 top entry for Form 1099-K "
+                "is not resolved, so this statement's Box 1a gross amount has not been added to it."
+            )
+        own_box1a = float(stmt_info.get("box1a", top_val or 0.0))
         saved_calc = {
             "status": "supported-loss",
-            "box1a": val_f,
+            "reason": "supported-loss",
+            "box1a": own_box1a,
             "sentence": top_explain,
             "fieldId": "tax.us.2025.schedule1.top-entry.form-field",
+            "topEntryDisposition": top_disp,
             "assumptions": assumptions,
             "computation": comp,
         }
@@ -656,21 +756,52 @@ def review_f1099k_statement_with_saved_presentation(
         }
 
     # 3. Actually unresolved: a named stop with its reason sentence and the income sentence
-    if unres_disp == "blocked" or len(reasons) > 0:
-        reason_sentences = [r["sentence"] for r in reasons if isinstance(r, dict) and "sentence" in r]
+    is_unresolved = (
+        (target_expl is not None and (target_expl.get("reason") != "supported-loss" or target_expl.get("disposition") == "blocked"))
+        or unres_disp == "blocked"
+        or len(reasons) > 0
+    )
+    if is_unresolved:
+        # A reason names a statement by the full identity keys carried in its fact
+        # id. Match those keys exactly; never by entity id or display label, and
+        # never fall back to another statement's reasons. A reason whose fact id
+        # names no statement is return-level and applies to every statement.
+        own_key_segment = fact_id_for(STATEMENT_BOX1A, tuple(sorted(stmt_keys.items()))).partition("|")[2]
+
+        def _reason_applies(reason: Any) -> bool:
+            if not isinstance(reason, dict):
+                return False
+            reason_fact_id = reason.get("factId")
+            if not reason_fact_id:
+                return True
+            segment = str(reason_fact_id).partition("|")[2]
+            if not any(token.startswith("statement=") for token in segment.split(",")):
+                return True
+            return segment == own_key_segment
+
+        matching_reasons = [r for r in reasons if _reason_applies(r)]
+
+        reason_sentences = [r["sentence"] for r in matching_reasons if isinstance(r, dict) and "sentence" in r]
         unres_explain = (
             ((unresolved_field or {}).get("field") or {}).get("dispositions", {}).get("blocked", {}).get("explain", "")
+            or "This Form 1099-K statement requires further review."
         )
-        saved_unres = {
+        saved_unres: dict[str, Any] = {
             "status": "unresolved",
             "statementKeys": stmt_keys,
             "incomeSentence": unres_explain,
-            "reasons": copy.deepcopy(reasons),
+            "reasons": copy.deepcopy(matching_reasons),
             "reasonSentences": reason_sentences,
             "fieldId": "tax.us.2025.form.f1099k.unresolved.form-field",
             "assumptions": assumptions,
             "computation": comp,
         }
+        if target_expl is not None:
+            if "reason" in target_expl:
+                saved_unres["reason"] = target_expl["reason"]
+            if target_expl.get("disposition") == "blocked":
+                saved_unres["code"] = target_expl.get("code")
+                saved_unres["missing"] = target_expl.get("missing")
         return {
             **review,
             "savedCalculation": None,
