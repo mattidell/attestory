@@ -12,6 +12,7 @@ from __future__ import annotations
 import copy
 import tempfile
 import unittest
+import pytest
 from pathlib import Path
 from typing import Any
 
@@ -23,6 +24,7 @@ from tests.derivation import adr0077_worksheet_fixture as fx
 from tests.derivation.test_presence_selection_subject_reads import derived_pins, run_case
 
 
+@pytest.mark.live  # Each case records a derivation through run_and_record; 4.3s on the CI runner.
 class DerivedPinRecords(unittest.TestCase):
     """Part 3 "Pins": derived-finding.v3 and derivation-record.v10 only when carried."""
 

@@ -8,6 +8,8 @@ from pathlib import Path
 from tempfile import TemporaryDirectory
 from typing import Any
 
+import pytest
+
 from packages.derivation.loader import DERIVATION_SCHEMA_DIR, DerivationSchemas, TAX_SCHEMA_DIR
 from packages.derivation.package_validation import validate_package
 from packages.derivation.presentation_projection import (
@@ -345,6 +347,7 @@ class RegistryKnownUnhandledVersions(unittest.TestCase):
 
 
 class CorePackageSupportedSchemas(unittest.TestCase):
+    @pytest.mark.live  # Validates the selected core package against the full content corpus.
     def test_selected_core_package_has_no_unsupported_members(self) -> None:
         package = _load(CORE_PACKAGE)
         corpus: dict[tuple[str, str], dict[str, Any]] = {}

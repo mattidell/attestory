@@ -7,6 +7,8 @@ import unittest
 from pathlib import Path
 from typing import Any
 
+import pytest
+
 from packages.derivation.live import _resolve_run_authorization, _resolved_run_material
 from packages.derivation.loader import DerivationSchemas, load_canon
 from packages.derivation.marshal import marshal_live_run_context
@@ -159,6 +161,7 @@ class VersionedSourceConsumer(unittest.TestCase):
         self.assertEqual(package_pins[(package["id"], package["version"])],
                          package_instance_checksum(package))
 
+    @pytest.mark.live  # Records two claim lifecycles, recovers the act log, and runs both derivation runners.
     def test_actlog_recovery_both_runners_and_independent_claim_lifecycles(self) -> None:
         helper = track14.OrdinaryRelationshipRecording()
         raw, log, registry, refs = helper._workspace()

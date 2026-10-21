@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import json
 import unittest
+import pytest
 from pathlib import Path
 from typing import Any, cast
 
@@ -91,6 +92,7 @@ class CategoricalProjection(unittest.TestCase):
 
 
 class ProductionShapedGoldens(unittest.TestCase):
+    @pytest.mark.live  # Regenerates the capital-gain presentation goldens and compares them to the committed files.
     def test_regeneration_is_deterministic_and_matches_committed_goldens(self) -> None:
         first = goldens.regenerate()
         second = goldens.regenerate()
