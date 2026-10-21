@@ -153,10 +153,13 @@ measured rather than guessed.
 
 These bind every seat. Each is normed here and nowhere else.
 
-**CI is the gate of record.** The `verify` workflow (`pytest -n auto` +
-`-m mypy` + `governance_lint` + `envelope_scan`) runs on every PR and blocks
-merge on red. A green `verify` check on a commit is the tamper-proof record —
-reference it.
+**CI is the gate of record.** The required `verify` check (`pytest` +
+`-m mypy` + `governance_lint` + `envelope_scan`) runs on every ready PR and on
+pushes to the gated lines, and blocks merge on red. On a draft PR, `verify`
+fails at its first step without running the suite, and the separate `quick` job
+runs the cheap checks and the fast lane in about a minute. Marking the PR ready
+runs `verify` in full. A green `verify` check on a commit is the tamper-proof
+record — reference it.
 
 - **Never re-run the suite to "confirm" a deterministic result**, and never
   substitute a self-reported `pytest: N passed` line for the check.
@@ -172,8 +175,8 @@ satisfies; the full suite is always the gate of record.
 | Lane | Command | Cost | What it is for |
 | --- | --- | --- | --- |
 | Inner loop | `pytest tests/test_<module>.py` | ~2s | while iterating on one module |
-| Fast lane | `pytest -m "not live"` | ~4s | before handing a unit off; catches unit regressions |
-| Full | `pytest` | ~61s | before opening or updating a PR; the merge gate |
+| Fast lane | `pytest -m "not live"` | ~15s | before handing a unit off; catches unit regressions |
+| Full | `pytest` | ~7 min locally | before marking a PR ready; the merge gate |
 
 **The full suite is not optional for substrate work.** Any change under
 `packages/kernel/` or `packages/derivation/` runs the **full** suite, not the
@@ -190,8 +193,9 @@ is the only thing that keeps the fast lane fast, and its absence is how the full
 suite drifted from 26s to over five minutes without anyone noticing. If a test
 trips it, either make the test fast or make it an honest integration test.
 
-`-n auto` is in `addopts`, so every lane above is already parallel — do not
-strip it to "save startup" on a single module; measured, that is 6x slower.
+`-n auto --dist worksteal` is in `addopts`, so every lane above is already
+parallel — do not strip it to "save startup" on a single module; measured, that
+is 6x slower.
 
 **What reaches `main` is normed in `PROJECT_PLANNING.md`.** Follow "Branch, PR,
 and Merge Protocol" and "Milestone Closeout" for the milestone PR; do not
