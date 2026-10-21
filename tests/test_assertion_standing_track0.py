@@ -29,6 +29,7 @@ from packages.kernel.findings import (
     _current_value_for_fact,
     _current_values_for_fact_type,
     _NO_CURRENT_VALUE,
+    apply_assertion,
     project,
 )
 from tests.support import (
@@ -1468,35 +1469,109 @@ class TestRetractionRespectsAdmissionInvariants(Track0Base):
         )
 
     def test_both_appliers_run_the_same_four_enforcers(self) -> None:
-        """The contrast that makes the repair precise, inverted from its
-        T0-B form: the four enforcers are now required in *both* appliers.
-        Retraction reuses them; it does not restate their predicates."""
-        import inspect
+        """Trace the same real enforcers through assertion, project, and retraction."""
+        from contextlib import ExitStack
+        from unittest.mock import patch
 
         from packages.kernel import findings as findings_module
 
-        assertion_source = inspect.getsource(findings_module.apply_assertion)
-        retraction_source = inspect.getsource(
-            findings_module._refuse_retraction_violating_admission_invariants
-        )
-        enforcers = (
+        enforcer_names = (
             "_enforce_subset_invariants",
             "_enforce_declaration_signal_contradictions",
             "_enforce_companion_presence",
             "_enforce_companion_equalities",
         )
-        for enforcer in enforcers:
-            self.assertIn(enforcer, assertion_source)
-        # The retraction path names the enforcers through one shared tuple
-        # rather than four inline calls, so the tuple is what must contain
-        # them - a reimplemented predicate would show up as a body of its
-        # own here instead.
-        self.assertEqual(
-            tuple(f.__name__ for f in findings_module._ADMISSION_ENFORCERS), enforcers
-        )
-        self.assertIn("_ADMISSION_ENFORCERS", retraction_source)
-        self.assertNotIn("companion presence violated", retraction_source)
-        self.assertNotIn("subset invariant violated", retraction_source)
+        originals = tuple(getattr(findings_module, name) for name in enforcer_names)
+        # The retraction tuple must hold the exact public assertion enforcer
+        # function objects; no second implementation may stand in for them.
+        self.assertEqual(len(originals), len(findings_module._ADMISSION_ENFORCERS))
+        for actual, expected in zip(findings_module._ADMISSION_ENFORCERS, originals):
+            self.assertIs(actual, expected)
+
+        dominant = "demo.track0.dominant"
+        companion = "demo.track0.companion"
+        equal = "demo.track0.equal"
+        declaration = "demo.track0.declaration"
+        bundle = {
+            **BUNDLE_V1,
+            "fact_types": [
+                *BUNDLE_V1["fact_types"],
+                ft(dominant, ENTITY_KEYS, {"type": "number"}),
+                ft(companion, ENTITY_KEYS, {"type": "number"}),
+                ft(equal, ENTITY_KEYS, {"type": "number"}),
+                ft(declaration, ENTITY_KEYS, {"enum": ["yes", "no"]}),
+            ],
+        }
+        self.registry.subset_invariant_pairs = {ATTR: dominant}
+        self.registry.companion_presence_pairs = {ATTR: companion}
+        self.registry.companion_equality_pairs = {ATTR: equal}
+        self.registry.declaration_signal_contradictions = [{
+            "declaration_fact_type": declaration,
+            "declaration_value": "yes",
+            "signal_fact_type": ATTR,
+        }]
+        prefix = ATTR_PAT.split("|", 1)[1]
+        acts = base_acts()
+        acts[0] = act(0, "bundle-adoption", {"bundle": bundle})
+        acts.extend([
+            act(7, "assertion", {"finding": fnd("demo-dominant", f"{dominant}|{prefix}", 200)}),
+            act(8, "assertion", {"finding": fnd("demo-companion", f"{companion}|{prefix}", 100)}),
+            act(9, "assertion", {"finding": fnd("demo-equal", f"{equal}|{prefix}", 100)}),
+            act(10, "assertion", {"finding": fnd("demo-declaration", f"{declaration}|{prefix}", "no")}),
+        ])
+        base = project(tuple(acts), self.registry)
+        target = fnd("demo-four-enforcers", ATTR_PAT, 100)
+        payload = {"finding": target}
+        events: list[tuple[str, str, Any, tuple[str, ...]]] = []
+        active_route = ""
+
+        wrappers = []
+        for name, original in zip(enforcer_names, originals):
+            def recording_wrapper(
+                state: Any,
+                registry: Any,
+                touched_fact_ids: tuple[str, ...],
+                view: Any = None,
+                *,
+                _name: str = name,
+                _original: Any = original,
+            ) -> None:
+                events.append((active_route, _name, state, touched_fact_ids))
+                _original(state, registry, touched_fact_ids, view)
+
+            wrappers.append(recording_wrapper)
+
+        with ExitStack() as stack:
+            for name, wrapper in zip(enforcer_names, wrappers):
+                stack.enter_context(patch.object(findings_module, name, wrapper))
+            stack.enter_context(
+                patch.object(findings_module, "_ADMISSION_ENFORCERS", tuple(wrappers))
+            )
+
+            active_route = "public-assertion"
+            asserted = apply_assertion(base, payload, self.registry)
+            active_route = "optimized-project"
+            projected = project(tuple(acts + [act(11, "assertion", payload)]), self.registry)
+            self.assertEqual(asserted, projected)
+            active_route = "retraction"
+            retracted = findings_module.apply_act(
+                asserted, retraction(12, target["id"]), self.registry
+            )
+
+        for route in ("public-assertion", "optimized-project", "retraction"):
+            route_events = [
+                event for event in events
+                if event[0] == route and event[3] == (ATTR_PAT,)
+            ]
+            self.assertEqual([event[1] for event in route_events], list(enforcer_names))
+            self.assertTrue(all(event[3] == (ATTR_PAT,) for event in route_events))
+            observed_state = route_events[0][2]
+            self.assertTrue(all(event[2] is observed_state for event in route_events))
+            if route == "retraction":
+                self.assertIs(observed_state, retracted)
+                self.assertIn(target["id"], observed_state.retracted_finding_ids)
+            else:
+                self.assertIn(target["id"], observed_state.findings)
 
     def test_an_admitted_retraction_always_lands_in_the_admissible_set(self) -> None:
         """Deliverable 4, stated as the property rather than a case list:

@@ -607,8 +607,26 @@ def _enforce_declaration_signal_contradictions(
             )
 
 
+class _CurrentLatticeHolder:
+    """One projection's current lattice, anchored to its exact fact state."""
+
+    def __init__(self) -> None:
+        self._fact_state: facts.KernelState | None = None
+        self._lattice: dict[str, facts.Fact] | None = None
+
+    def for_state(self, fact_state: facts.KernelState) -> dict[str, facts.Fact]:
+        if self._fact_state is not fact_state:
+            self._fact_state = fact_state
+            self._lattice = facts.facts_of(fact_state)
+        assert self._lattice is not None
+        return self._lattice
+
+
 def _validate_finding(
-    state: FindingState, finding: dict[str, Any], registry: SchemaRegistry
+    state: FindingState,
+    finding: dict[str, Any],
+    registry: SchemaRegistry,
+    lattice_holder: _CurrentLatticeHolder | None = None,
 ) -> None:
     declared = finding.get("schema")
     if declared not in ADMITTED_FINDING_SCHEMAS:
@@ -641,7 +659,11 @@ def _validate_finding(
                 f"evidence_ids {list(finding['evidence_ids'])}"
             )
 
-    lattice = facts.facts_of(state.fact_state)
+    lattice = (
+        facts.facts_of(state.fact_state)
+        if lattice_holder is None
+        else lattice_holder.for_state(state.fact_state)
+    )
     fact = lattice.get(finding["fact_id"])
     if fact is None:
         raise FindingModelError(f"finding references unknown fact: {finding['fact_id']}")
@@ -715,13 +737,26 @@ def _validate_finding(
 def apply_assertion(
     state: FindingState, payload: dict[str, Any], registry: SchemaRegistry
 ) -> FindingState:
+    return _apply_assertion(state, payload, registry, None)
+
+
+def _apply_assertion(
+    state: FindingState,
+    payload: dict[str, Any],
+    registry: SchemaRegistry,
+    lattice_holder: _CurrentLatticeHolder | None,
+) -> FindingState:
     finding = payload["finding"]
-    _validate_finding(state, finding, registry)
+    _validate_finding(state, finding, registry, lattice_holder)
 
     # SC-R1: A predicate-matching member fact for an adopted family must not be admittable
     # through a plain assertion unless the fact is already currently a member of the family
     # (which represents a same-member correction, not a new membership transition).
-    lattice = facts.facts_of(state.fact_state)
+    lattice = (
+        facts.facts_of(state.fact_state)
+        if lattice_holder is None
+        else lattice_holder.for_state(state.fact_state)
+    )
     fact = lattice.get(finding["fact_id"])
     if fact and hasattr(registry, "family_member_predicates") and fact.fact_type_id in registry.family_member_predicates:
         fact_is_member = (
@@ -859,6 +894,15 @@ def _withdraw_member_fact(state: FindingState, fact_id: str) -> frozenset[str]:
 def apply_member_transition(
     state: FindingState, payload: dict[str, Any], registry: SchemaRegistry
 ) -> FindingState:
+    return _apply_member_transition(state, payload, registry, None)
+
+
+def _apply_member_transition(
+    state: FindingState,
+    payload: dict[str, Any],
+    registry: SchemaRegistry,
+    lattice_holder: _CurrentLatticeHolder | None,
+) -> FindingState:
     """One atomic membership transition: member half plus horizon successor.
 
     The horizon half is validated first, so every admission negative in
@@ -878,7 +922,7 @@ def apply_member_transition(
     touched_fact_ids: list[str] = []
     if member["action"] in ("assert", "reclassify"):
         finding = member["finding"]
-        _validate_finding(state, finding, registry)
+        _validate_finding(state, finding, registry, lattice_holder)
 
         # SC-R2: A member-transition asserting a fact already in the family must be rejected.
         # Same-member value corrections belong on the ordinary assertion path instead.
@@ -934,7 +978,10 @@ def apply_member_transition(
 
 
 def _present_successor_claims(
-    state: FindingState, migration: dict[str, Any], view: Any = None
+    state: FindingState,
+    migration: dict[str, Any],
+    view: Any = None,
+    lattice_holder: _CurrentLatticeHolder | None = None,
 ) -> tuple[dict[str, Any], ...]:
     """Build presented successor claims from then-current predecessor findings.
 
@@ -979,7 +1026,11 @@ def _present_successor_claims(
     """
     if view is None:
         view = _compute_view(state)
-    lattice = facts.facts_of(state.fact_state)
+    lattice = (
+        facts.facts_of(state.fact_state)
+        if lattice_holder is None
+        else lattice_holder.for_state(state.fact_state)
+    )
     claims: list[dict[str, Any]] = []
     last_by_fact: dict[str, dict[str, Any]] = {}
     for finding in state.findings.values():
@@ -1099,6 +1150,7 @@ def _refuse_unresolved_nonzero_noncurrent_predecessors(
     migration: dict[str, Any],
     registry: SchemaRegistry,
     view: Any = None,
+    lattice_holder: _CurrentLatticeHolder | None = None,
 ) -> None:
     """One coherent rule for a predecessor fact, still present in the
     current lattice, whose last-recorded finding has stopped being
@@ -1165,7 +1217,11 @@ def _refuse_unresolved_nonzero_noncurrent_predecessors(
     if view is None:
         view = _compute_view(state)
     predecessor_types = {pair["predecessor"] for pair in migration["pairs"]}
-    lattice = facts.facts_of(state.fact_state)
+    lattice = (
+        facts.facts_of(state.fact_state)
+        if lattice_holder is None
+        else lattice_holder.for_state(state.fact_state)
+    )
     last_by_fact: dict[str, dict[str, Any]] = {}
     for finding in state.findings.values():
         last_by_fact[finding["fact_id"]] = finding
@@ -1197,13 +1253,24 @@ def _refuse_unresolved_nonzero_noncurrent_predecessors(
 def apply_migration_adoption(
     state: FindingState, payload: dict[str, Any], registry: SchemaRegistry
 ) -> FindingState:
+    return _apply_migration_adoption(state, payload, registry, None)
+
+
+def _apply_migration_adoption(
+    state: FindingState,
+    payload: dict[str, Any],
+    registry: SchemaRegistry,
+    lattice_holder: _CurrentLatticeHolder | None,
+) -> FindingState:
     """Adopt a migration artifact: retire named types, present claims."""
     migration = payload["migration"]
     registry.validate_declared(migration)
     view = _compute_view(state)
-    claims = _present_successor_claims(state, migration, view)
+    claims = _present_successor_claims(state, migration, view, lattice_holder)
     _refuse_unresolved_nonzero_claims(migration, claims, registry)
-    _refuse_unresolved_nonzero_noncurrent_predecessors(state, migration, registry, view)
+    _refuse_unresolved_nonzero_noncurrent_predecessors(
+        state, migration, registry, view, lattice_holder
+    )
     new_fact_state = facts.apply_migration_adoption(
         state.fact_state, payload, registry
     )
@@ -1437,10 +1504,28 @@ def apply_act(
     return _APPLIERS[kind](state, act["payload"], registry)
 
 
+def _apply_project_act(
+    state: FindingState,
+    act: dict[str, Any],
+    registry: SchemaRegistry,
+    lattice_holder: _CurrentLatticeHolder,
+) -> FindingState:
+    """Shared applier implementations with a projection-local view holder."""
+    kind = act["kind"]
+    if kind == "assertion":
+        return _apply_assertion(state, act["payload"], registry, lattice_holder)
+    if kind == "member-transition":
+        return _apply_member_transition(state, act["payload"], registry, lattice_holder)
+    if kind == "migration-adoption":
+        return _apply_migration_adoption(state, act["payload"], registry, lattice_holder)
+    return apply_act(state, act, registry)
+
+
 def project(acts: tuple[dict[str, Any], ...], registry: SchemaRegistry) -> FindingState:
     state = initial_state()
+    lattice_holder = _CurrentLatticeHolder()
     for act in acts:
-        state = apply_act(state, act, registry)
+        state = _apply_project_act(state, act, registry, lattice_holder)
     return state
 
 
