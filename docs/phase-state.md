@@ -1,19 +1,42 @@
 <!-- foreman-context-v1
 {
   "version": 1,
-  "phase": "Tax Circumstance Breadth",
-  "topic": "multiple-statement-circumstances",
-  "active_plan": "docs/phases/tax-circumstance-breadth/milestones/multiple-statement-circumstances.md",
+  "phase": "Engineering Health",
+  "topic": "test-replay-performance",
+  "active_plan": "docs/phases/engineering-health/milestones/test-replay-performance.md",
   "milestone_state": "closed",
-  "status": "Closed. A person with more than one Form 1099-K records, corrects, withdraws and removes each statement's own sale account; when every current statement is a supported personal loss, the Box 1a amounts are combined once at the top of 2025 Schedule 1, and each statement keeps its own reason, figures and saved explanation. ADR 0079 adds a recorded family-version handover. One Form 1098 remains the mortgage limit. The next milestone is unselected.",
-  "current_role": "Foreman — select next milestone",
-  "current_prompt": "docs/phases/tax-circumstance-breadth/tax-circumstance-breadth-roadmap.md"
+  "status": "Closed on this branch: fold-local lattice reuse passed the story CPU and control targets; the construction target missed by 22. Full verify succeeded; publication checks apply to the curated PR candidate.",
+  "current_role": "Foreman (present next-milestone candidates; selection is owner-held)",
+  "current_prompt": "docs/phases/engineering-health/engineering-health-roadmap.md"
 }
 -->
 
 # Phase State
 
-## Current result
+## Current direction
+
+The Engineering Health opening milestone, **Faster Feedback, Cheaper
+Workspace Replay**, is closed on this branch. The selected fold-local reuse
+reduced CPU on the unchanged synthetic correction story by 62.3%; the fixed
+80% full-construction target missed by 22 builds. The neighboring control
+improved. The result and its limits are in the
+[milestone plan](phases/engineering-health/milestones/test-replay-performance.md)
+and [measurement note](phases/engineering-health/milestones/test-replay-performance-evidence/measured-performance.md).
+
+Full `verify` succeeded in run
+[39551011772](https://github.com/mattidell/attestory/actions/runs/39551011772)
+on the repaired implementation: 3,150 passed and 20 skipped; the test step took 2,814.97s
+(46m54s). The job ran 05:41:52–06:29:08 UTC; the test step itself ran
+05:42:10–06:29:06 UTC (46m56s). These are whole-suite observations, not a
+controlled speed comparison. The milestone PR carries the curated candidate's
+publication review and CI posture separately from this implementation run.
+
+The Foreman is between milestones. The engineering-health roadmap is the
+selection instrument; the owner holds next-milestone selection. No next
+implementation is chosen. Further investigation may examine remaining engine
+cost, redundant tests, and component-suite boundaries.
+
+## Inherited product result
 
 **More Than One Statement: Keeping Each Account With Its Form is closed.**
 On a synthetic account, a person can record any number of Forms 1099-K, or
@@ -30,7 +53,7 @@ earlier Form 1099-K family hands over to the successor in the same save as its
 next write, and completeness is asked again. One Form 1098 remains the
 mortgage limit. Accounts are synthetic only.
 
-## Inherited result
+## Earlier product results
 
 **Personal-Item Sales** closed 2026-10-17 (one Form 1099-K, one sale at a
 loss). **Mortgage Interest and What the Loan Paid For** closed 2026-10-15
@@ -38,21 +61,13 @@ loss). **Mortgage Interest and What the Loan Paid For** closed 2026-10-15
 
 ## Begin here
 
-- [Milestone plan](phases/tax-circumstance-breadth/milestones/multiple-statement-circumstances.md):
-  the Track 0 closure, execution record, outcome and phase assessment.
-- [Retrospective](milestone-retrospectives/2026-10-19-multiple-statement-circumstances.md):
-  lessons and follow-ups.
+- [Milestone plan](phases/engineering-health/milestones/test-replay-performance.md):
+  result, preservation boundary, and completion status.
+- [Retrospective](milestone-retrospectives/2026-10-21-test-replay-performance.md):
+  reusable lessons and open questions.
 - [ADR 0079](adr/0079-family-version-handover-and-containment.md).
-- [Tax Circumstance Breadth roadmap](phases/tax-circumstance-breadth/tax-circumstance-breadth-roadmap.md).
-- README, "Personal-item sale on Form 1099-K".
-
-## Immediate next action
-
-Select the next milestone. The phase assessment finds the provisional endpoint
-met and recommends concluding the phase. Its strongest next candidate is a
-bounded engineering-health milestone: CI `verify` takes about 2.5 hours and
-the full suite about 29 minutes. Gain reporting, more than one Form 1098 and
-the inherited preferential-rate defect are the product candidates.
+- [Engineering Health roadmap](phases/engineering-health/engineering-health-roadmap.md).
+- README, “Personal-item sale on Form 1099-K”.
 
 ## Parked
 
@@ -60,8 +75,9 @@ the inherited preferential-rate defect are the product candidates.
 - Additional seller-paid shipping under platform pass-through.
 - The adopted preferential-rate base taxes short-term covered gains at
   preferential rates. It is recorded and awaits owner disposition.
-- Suite and CI duration, the 22 fast-lane budget failures, and phase-state
-  validation in `governance_lint`: engineering-health candidates.
+- The 22 fast-lane budget failures and phase-state validation in
+  `governance_lint`: separate engineering-health candidates. Broad test
+  redesign remains a later scope choice.
 - A v1 Form 1099-K workspace re-answers its completeness question under the
   successor package; recovery for a log with two current family versions; a
   full pre-save fold for every act kind.
