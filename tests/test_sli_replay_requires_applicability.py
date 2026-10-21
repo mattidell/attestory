@@ -14,11 +14,14 @@ reading was supplied. A state with no current inclusion marshals as before.
 from __future__ import annotations
 
 import json
+import copy
 import unittest
 from typing import Any
+from unittest import mock
 
 import pytest
 
+import packages.derivation.live as live_module
 from packages.derivation.live import (
     LiveRunError,
     _resolve_run_authorization,
@@ -31,7 +34,9 @@ from packages.derivation.marshal import ClaimApplicabilityMissing, marshal_run_c
 from packages.derivation.package_validation import validate_package
 from packages.derivation.runner import run
 from packages.kernel.currency import compute_currency
+import packages.kernel.facts as kernel_facts
 from packages.kernel.findings import project
+import packages.tax.sli_relationship_recording as sli_recording
 import tests.test_sli_track4_support_chain as T4
 import tests.test_sli_track5_worksheet_integration as t5
 
@@ -150,6 +155,122 @@ class ReplayRequiresApplicability(unittest.TestCase):
                 self.assertEqual(T4.surface(unread), T4.surface(read))
                 live = call_live_run(acts, f"demo.run.replay-requires.{case}")
                 self.assertTrue(live.publications)
+
+
+class LiveCoordinateApplicabilityReuse(unittest.TestCase):
+    def test_real_coordinator_reuses_exact_projection_and_blocks_unscoped_rewrite(self) -> None:
+        ws = t5.Return(amounts={"cedar": 1500.0})
+        self.addCleanup(ws.raw.cleanup)
+        with ws.raw:
+            ws.plain()
+            ws.unscoped_rewrite("cedar", 1900.0)
+            acts = ws.acts()
+            original_acts = copy.deepcopy(acts)
+
+            real_coordinator = getattr(t5, "live_coordinate_run")
+            real_live_project = getattr(live_module, "project")
+            real_recording_project = getattr(sli_recording, "project")
+            real_live_currency = getattr(live_module, "compute_currency")
+            real_facts_of = kernel_facts.facts_of
+            real_current = sli_recording._current
+            real_shared = sli_recording._claim_applicability_from_current
+            project_calls: list[tuple[Any, Any, Any]] = []
+            currency_calls: list[tuple[Any, Any]] = []
+            lattice_calls: list[tuple[Any, Any, dict[str, Any]]] = []
+            shared_calls: list[tuple[Any, Any, Any, Any, Any, Any]] = []
+            coordinator_results: list[Any] = []
+
+            def live_project_spy(projected_acts: Any, registry: Any) -> Any:
+                state = real_live_project(projected_acts, registry)
+                project_calls.append((projected_acts, registry, state))
+                return state
+
+            def recording_project_spy(projected_acts: Any, registry: Any) -> Any:
+                state = real_recording_project(projected_acts, registry)
+                project_calls.append((projected_acts, registry, state))
+                return state
+
+            def currency_spy(state: Any) -> Any:
+                currency = real_live_currency(state)
+                currency_calls.append((state, currency))
+                return currency
+
+            def facts_spy(fact_state: Any, **kwargs: Any) -> Any:
+                lattice = real_facts_of(fact_state, **kwargs)
+                lattice_calls.append((fact_state, lattice, kwargs))
+                return lattice
+
+            def shared_spy(
+                row_acts: Any, registry: Any, state: Any, currency: Any, lattice: Any,
+            ) -> Any:
+                rows = real_shared(row_acts, registry, state, currency, lattice)
+                shared_calls.append((row_acts, registry, state, currency, lattice, rows))
+                return rows
+
+            def coordinator_spy(*args: Any, **kwargs: Any) -> Any:
+                with (
+                    mock.patch.object(live_module, "project", side_effect=live_project_spy),
+                    mock.patch.object(sli_recording, "project", side_effect=recording_project_spy),
+                    mock.patch.object(live_module, "compute_currency", side_effect=currency_spy),
+                    mock.patch.object(kernel_facts, "facts_of", side_effect=facts_spy),
+                    mock.patch.object(sli_recording, "_current", wraps=real_current) as current_read,
+                    mock.patch.object(
+                        sli_recording, "_claim_applicability_from_current", side_effect=shared_spy,
+                    ),
+                ):
+                    result = real_coordinator(*args, **kwargs)
+                self.assertEqual(current_read.call_count, 0)
+                coordinator_results.append(result)
+                return result
+
+            with mock.patch.object(t5, "live_coordinate_run", side_effect=coordinator_spy):
+                outcome = t5.run_live(acts, "demo.run.replay-requires.live-reuse")
+
+            self.assertEqual(acts, original_acts)
+            self.assertEqual(len(shared_calls), 1)
+            self.assertEqual(len(coordinator_results), 1)
+            row_acts, registry, state, currency, lattice, rows = shared_calls[0]
+            matching_full_projects = [
+                (projected_acts, projected_registry, projected_state)
+                for projected_acts, projected_registry, projected_state in project_calls
+                if len(projected_acts) == len(acts) and list(projected_acts) == list(acts)
+            ]
+            self.assertEqual(len(matching_full_projects), 1)
+            projected_acts, projected_registry, projected_state = matching_full_projects[0]
+            self.assertIs(row_acts, projected_acts)
+            self.assertIs(registry, projected_registry)
+            self.assertIs(state, projected_state)
+            self.assertTrue(any(currency_state is state and run_currency is currency
+                                for currency_state, run_currency in currency_calls))
+            state_lattices = [call for call in lattice_calls
+                              if call[0] is state.fact_state and not call[2] and call[1] is lattice]
+            self.assertEqual(len(state_lattices), 1)
+            self.assertEqual(sum(1 for call in project_calls
+                                 if len(call[0]) == len(acts) and list(call[0]) == list(acts)), 1)
+            inclusion_rows = [row for row in rows if row["relationship_type"] == T4.INCL]
+            self.assertEqual(len(inclusion_rows), 1)
+            current_inclusion_ids = [
+                finding_id for finding_id, finding in state.findings.items()
+                if finding_id in currency.current_finding_ids
+                and lattice.get(finding.get("fact_id")) is not None
+                and lattice[finding["fact_id"]].fact_type_id == T4.INCL
+            ]
+            self.assertEqual(len(current_inclusion_ids), 1)
+            self.assertEqual(inclusion_rows[0], {
+                "finding_id": current_inclusion_ids[0],
+                "relationship_type": T4.INCL,
+                "source_fact_id": ws.statement["cedar"],
+                "applicability": "unresolved-applicability",
+            })
+            coordinator_standing = {
+                str(publication.finding["symbol"]).partition("|")[2]:
+                    str(publication.finding["value"])
+                for publication in coordinator_results[0].publications
+                if str(publication.finding["symbol"]).partition("|")[0] == t5.STANDING
+            }
+            self.assertEqual(coordinator_standing,
+                             {ws.statement["cedar"]: "applicability-unestablished"})
+            self.assertEqual(outcome.line21["disposition"], "blocked")
 
 
 if __name__ == "__main__":

@@ -7,9 +7,10 @@ This is the project's third iteration. The first proved a working return generat
 ## Where things stand
 
 - **Governance** (`docs/governance/`): the ratified v0.1 set — Constitution, Ontology, Engineering Constraints, Principles, Commentary. The sole contract authority for this repository.
-- **Phase state** (`docs/phase-state.md`): the Engineering Health opening
-  milestone delivered bounded fold-local lattice reuse and earlier CI
-  feedback. See the [measured replay result](docs/phases/engineering-health/milestones/test-replay-performance-evidence/measured-performance.md)
+- **Phase state** (`docs/phase-state.md`): Engineering Health delivered
+  fold-local lattice reuse, earlier CI feedback, and reuse of the live
+  return's current projection for claim applicability. Cold and historical
+  reads remain fresh; no tests were removed. See the [current-read measurements](docs/phases/engineering-health/milestones/test-cost-and-coverage-evidence/measured-applicability-reuse.md)
   and `python3 tools/foreman_context.py --ref HEAD` for current routing;
   publication status is tracked by the pull request's checks.
 - **Current bounded capability:** production-shaped synthetic returns cover

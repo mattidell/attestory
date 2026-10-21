@@ -1,49 +1,60 @@
 # Engineering Health Roadmap
 
-## Opening milestone — Faster Feedback, Cheaper Workspace Replay
+## Completed milestones
+
+### Faster Feedback, Cheaper Workspace Replay
 
 [Plan](milestones/test-replay-performance.md).
 
-Improve CI feedback first. Establish a reproducible account of repeated fact
-lattice construction and history replay. Reduce that work without changing
-accepted records, refusals, current findings or saved results. Keep the full
-regression gate and the existing behavioral tests.
+The CI workflow runs cheap checks before the full suite and cancels only
+superseded runs of the same PR. Fold-local current-lattice reuse made the
+unchanged correction story cheaper without skipping admission or historical
+checks. Story CPU fell 62.3%; the fixed lattice-construction target missed by
+22 builds. The [measurement note](milestones/test-replay-performance-evidence/measured-performance.md)
+keeps those outcomes and limits separate from CI acceptance. Published through
+PR #212.
 
-## After the opening milestone
+### Less Repeated Work, the Same Defects Caught
 
-The opening milestone delivered bounded fold-local lattice reuse. It reduced
-CPU on the measured correction story while missing the fixed construction-count
-target by 22. The [measurement note](milestones/test-replay-performance-evidence/measured-performance.md)
-records both results and their limits; current publication status belongs to
-the pull request and its checks. The owner wants further investigation after
-landing; the next milestone and implementation remain unselected.
+[Plan](milestones/test-cost-and-coverage.md). Closed on this branch; PR #213
+holds publication review and exact-head CI.
 
-1. **Locate the remaining cost.** Use completed CI evidence and retained
-   profiles first. Where those cannot identify the next bottleneck, measure a
-   bounded representative case. Distinguish repeated engine work, repeated
-   setup or catalog construction, and genuinely different behavior exercised
-   by long tests. Do not rerun the whole suite just to reproduce a passing run.
-2. **Ask what each expensive test protects.** Compare actual assertions and
-   entrypaths, not test names. Identify whether another retained test catches
-   the same defect, or whether a shorter focused test can do so. A shared final
-   amount does not make two correction or recovery stories redundant. Retain
-   real recording, replay, saved-output and cross-component witnesses where
-   they provide distinct assurance.
-3. **Examine useful suite boundaries.** Map dependencies between the kernel,
-   derivation, content and application code. Consider focused component
-   suites alongside integration tests. Test grouping may need no production
-   restructuring; separate deployable modules are a larger choice to justify,
-   not a prerequisite for quicker feedback. Any selective suite must account
-   for changes that affect its neighbors and preserve an authoritative full
-   integration gate.
-4. **Choose the next bounded change.** Compare expected CPU savings, feedback
-   time, implementation cost and assurance lost or retained. Bring back
-   specific candidates for further engine work, demonstrably redundant tests,
-   or component suites. Finding that a costly test is worth keeping is a
-   legitimate result. Review proposed removals and boundary changes before
-   implementing them.
+The live return now reuses its already-projected current state to read claim
+applicability, rather than replaying the full history again for that purpose.
+Public cold reads remain fresh and historical correction checks still read
+their actual earlier states. No test, parity check or saved-output assertion
+was removed. The [measurement note](milestones/test-cost-and-coverage-evidence/measured-applicability-reuse.md)
+records the unchanged story/control observations and diagnostic counts; these
+are not whole-suite speedup claims.
 
-CI sharding, broader indexing and partial catalog construction remain options,
-not selected mechanisms. Parallel jobs can shorten waiting without reducing
-total CPU; report those benefits separately. The investigation should produce
-a justified next step, not a mandatory application reorganization.
+The source investigation separated costly product reads from cheap test-side
+derivations. Its sampled tests protected distinct defects, so it justified no
+test cull or application split. The completed boundary is one invocation,
+not a persistent cache or a new source-use contract. No tax coverage changes.
+
+## Current boundary and remaining work
+
+The next milestone is unselected. Further work should compare these candidates
+before selecting another mechanism:
+
+1. **Package-validation cost.** The retained story profile attributes about
+   22.7s cumulative to validation across 11 returns. Schema checks already
+   have content-addressed memoization. Identify the remaining expensive
+   substeps, actual misses and authority-preserving boundary before proposing
+   another cache, partial catalog or skipped work.
+2. **Current and historical lattice reads.** Establish whether repeated
+   construction uses the same exact state and which lifecycle changes require
+   rebuilding. A current view cannot substitute for historical authority.
+3. **Test design.** Remove or shorten a story only after retained witnesses
+   demonstrably catch its distinct correction, recovery, refusal and saved
+   result defects. The bounded sample did not establish redundancy or a
+   current slow-module ranking.
+4. **Useful component commands.** Focused suites can shorten local feedback
+   without separately deployable applications. Shared kernel/derivation and
+   dynamic package changes still need integration coverage and full CI.
+
+Broader replay caches, partial catalogs, CI sharding, test culling and
+application-module separation remain unselected. Parallel jobs can reduce
+waiting without reducing total CPU; label those benefits separately. Existing
+tax-product limitations remain with their product phases, not silently solved
+by engineering-health work.

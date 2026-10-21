@@ -2,10 +2,10 @@
 {
   "version": 1,
   "phase": "Engineering Health",
-  "topic": "test-replay-performance",
-  "active_plan": "docs/phases/engineering-health/milestones/test-replay-performance.md",
+  "topic": "test-cost-and-coverage",
+  "active_plan": "docs/phases/engineering-health/milestones/test-cost-and-coverage.md",
   "milestone_state": "closed",
-  "status": "Closed on this branch: fold-local lattice reuse passed the story CPU and control targets; the construction target missed by 22. Full verify succeeded; publication checks apply to the curated PR candidate.",
+  "status": "Closed on this branch. Live applicability reuses the return's current projection; cold and historical reads stay fresh. Eight fewer full-history folds in the fixed story; single-case CPU observation 7.2% lower. No test removal or broader cache. PR #213 carries publication review and exact-head CI; next milestone unselected.",
   "current_role": "Foreman (present next-milestone candidates; selection is owner-held)",
   "current_prompt": "docs/phases/engineering-health/engineering-health-roadmap.md"
 }
@@ -14,6 +14,29 @@
 # Phase State
 
 ## Current direction
+
+**Less Repeated Work, the Same Defects Caught is closed on this branch.**
+A live return uses its own current projection for claim applicability instead
+of replaying the full history again. Cold callers still read freshly and
+historical correction checks still read their actual earlier states. No tests,
+parity checks or saved-output assertions were removed. See the
+[closed plan](phases/engineering-health/milestones/test-cost-and-coverage.md).
+
+The unchanged story profile contains 191 rather than 199 full-history folds,
+with all 11 coordinator, forward and reference runs retained. Its ordinary
+CPU observation was 49.08s versus the earlier 52.87s (7.2% lower); the control
+was 27.12s versus 27.50s. These are bounded single-run historical comparisons,
+not a whole-suite speedup. The [measurement note](phases/engineering-health/milestones/test-cost-and-coverage-evidence/measured-applicability-reuse.md)
+records raw-output retention and limits. Independent implementation review was
+READY with no material findings. PR #213 records the curated candidate's
+publication review and exact-head CI separately.
+
+The next milestone remains unselected. Package-validation cost, historical
+lattice construction, defensible test replacements and useful local component
+commands remain candidates. No broader cache, partial catalog, test cull or
+application split is selected.
+
+## Completed performance improvement
 
 The Engineering Health opening milestone, **Faster Feedback, Cheaper
 Workspace Replay**, is closed on this branch. The selected fold-local reuse
@@ -31,10 +54,9 @@ on the repaired implementation: 3,150 passed and 20 skipped; the test step took 
 controlled speed comparison. The milestone PR carries the curated candidate's
 publication review and CI posture separately from this implementation run.
 
-The Foreman is between milestones. The engineering-health roadmap is the
-selection instrument; the owner holds next-milestone selection. No next
-implementation is chosen. Further investigation may examine remaining engine
-cost, redundant tests, and component-suite boundaries.
+PR #212 merged after exact-head CI and independent final review. Its branch
+is spent; the current milestone starts from the merge. Further implementation
+will be selected from the investigation, not inferred from the earlier speedup.
 
 ## Inherited product result
 
@@ -61,9 +83,9 @@ loss). **Mortgage Interest and What the Loan Paid For** closed 2026-10-15
 
 ## Begin here
 
-- [Milestone plan](phases/engineering-health/milestones/test-replay-performance.md):
-  result, preservation boundary, and completion status.
-- [Retrospective](milestone-retrospectives/2026-10-21-test-replay-performance.md):
+- [Closed milestone plan](phases/engineering-health/milestones/test-cost-and-coverage.md):
+  result, preservation evidence and remaining choices.
+- [Retrospective](milestone-retrospectives/2026-10-21-test-cost-and-coverage.md):
   reusable lessons and open questions.
 - [ADR 0079](adr/0079-family-version-handover-and-containment.md).
 - [Engineering Health roadmap](phases/engineering-health/engineering-health-roadmap.md).
