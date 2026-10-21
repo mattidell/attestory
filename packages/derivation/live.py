@@ -496,19 +496,24 @@ def _resolved_run_material(graph: Any) -> _ResolvedRunMaterial:
 
 
 def _statement_inclusion_applicability(
-    acts: Sequence[Mapping[str, Any]],
+    acts: Sequence[dict[str, Any]],
     registry: Any,
     state: FindingState,
     currency: CurrencyView,
 ) -> list[dict[str, str]]:
     """The applicability reading the ADR 0077 Part 5 replay rule consults.
 
-    ``current_claim_applicability`` over the same acts and registry the run's
-    state was projected from. It re-projects the log, so it runs only when a
-    current statement inclusion exists; otherwise there is nothing to omit
-    and the empty reading marshals the same as today.
+    The private shared row computation consumes the exact live projection,
+    currency and its state-derived lattice. The public cold API remains for
+    readers without this invocation-local observation. This runs only when a
+    current statement inclusion exists; otherwise the empty reading marshals
+    the same as today.
     """
-    from packages.tax.sli_relationship_recording import STATEMENT_INCLUSION, current_claim_applicability
+    from packages.kernel.facts import facts_of
+    from packages.tax.sli_relationship_recording import (
+        STATEMENT_INCLUSION,
+        _claim_applicability_from_current,
+    )
 
     prefix = f"{STATEMENT_INCLUSION}|"
     if not any(
@@ -517,7 +522,8 @@ def _statement_inclusion_applicability(
         if finding_id in currency.current_finding_ids
     ):
         return []
-    return current_claim_applicability(tuple(dict(act) for act in acts), registry)
+    lattice = facts_of(state.fact_state)
+    return _claim_applicability_from_current(acts, registry, state, currency, lattice)
 
 
 def live_coordinate_run(
@@ -563,7 +569,8 @@ def live_coordinate_run(
     install_domain_companion_presence(schemas.registry)
     install_domain_companion_equalities(schemas.registry)
     install_domain_declaration_signal_contradictions(schemas.registry)
-    state = project(tuple(dict(act) for act in authoritative_acts), schemas.registry)
+    run_acts = tuple(dict(act) for act in authoritative_acts)
+    state = project(run_acts, schemas.registry)
     # ADR-0073 Decision 5 / substrate unit: the SSA source boundary reads
     # the same full projection every other kernel reader uses, not a
     # withdrawn-fact-id-only channel that could not see a retracted
@@ -603,7 +610,7 @@ def live_coordinate_run(
     context = marshal_live_run_context(
         run_id=run_id, state=state, currency=currency, rules=rules, parameters=parameters,
         claim_applicability=_statement_inclusion_applicability(
-            authoritative_acts, schemas.registry, state, currency),
+            run_acts, schemas.registry, state, currency),
         canon=load_canon(schemas),
         adoption_pin={"role": "adoption", "id": resolved.package["id"], "version": resolved.package["version"]},
         governance_pins=[dict(pin) for pin in governance_pins],

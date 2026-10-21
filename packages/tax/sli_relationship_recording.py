@@ -398,21 +398,15 @@ def _inclusion_applies_to_current_statement(state: Any, current_ids: Any, findin
         state, source_finding, statement_fact_id, acts=acts, registry=registry)
 
 
-def current_claim_applicability(acts: Sequence[dict[str, Any]], registry: Any) -> list[dict[str, str]]:
-    """Project current claims against their exact current source subjects.
+def _claim_applicability_from_current(
+    acts: Sequence[dict[str, Any]], registry: Any, state: Any, currency: Any, lattice: Any,
+) -> list[dict[str, str]]:
+    """Read claim applicability from one caller-owned current observation.
 
-    This is an opt-in source-use guard, not a tax result or automatic engine
-    hold. Consumers must explicitly call it and act on unresolved rows. Missing
-    or changed source identity leaves the claim's finding history intact but
-    returns ``unresolved-applicability``; it never follows labels or retargets.
-
-    A statement inclusion is tied to the box-1 finding it was affirmed against.
-    It stays applicable when that finding is still current, or when the current
-    box-1 finding is the one successor bound to reviewed scope evidence. It
-    does not follow an ordinary same-identity box-1 append, or a later update
-    that cites evidence bound to a different correction.
+    Private callers must keep ``state``, ``currency`` and ``lattice`` tied to
+    the exact act sequence and registry used for this invocation. Historical
+    admission and predecessor checks still project their own prefixes below.
     """
-    state, currency, _findings, lattice = _current(acts, registry)
     current_ids = currency.current_finding_ids
     results: list[dict[str, str]] = []
     for finding_id in sorted(current_ids):
@@ -436,6 +430,24 @@ def current_claim_applicability(acts: Sequence[dict[str, Any]], registry: Any) -
                         "source_fact_id": source_fact_id,
                         "applicability": "current" if applicable else "unresolved-applicability"})
     return results
+
+
+def current_claim_applicability(acts: Sequence[dict[str, Any]], registry: Any) -> list[dict[str, str]]:
+    """Project current claims against their exact current source subjects.
+
+    This is an opt-in source-use guard, not a tax result or automatic engine
+    hold. Consumers must explicitly call it and act on unresolved rows. Missing
+    or changed source identity leaves the claim's finding history intact but
+    returns ``unresolved-applicability``; it never follows labels or retargets.
+
+    A statement inclusion is tied to the box-1 finding it was affirmed against.
+    It stays applicable when that finding is still current, or when the current
+    box-1 finding is the one successor bound to reviewed scope evidence. It
+    does not follow an ordinary same-identity box-1 append, or a later update
+    that cites evidence bound to a different correction.
+    """
+    state, currency, _findings, lattice = _current(acts, registry)
+    return _claim_applicability_from_current(acts, registry, state, currency, lattice)
 
 
 def link_outcomes_adopted(state: Any) -> bool:

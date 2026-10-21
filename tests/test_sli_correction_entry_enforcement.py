@@ -14,11 +14,13 @@ written before the step existed.
 """
 from __future__ import annotations
 
+import copy
 import json
 import tempfile
 import unittest
 from pathlib import Path
 from typing import Any
+from unittest import mock
 
 from packages.derivation.loader import DerivationSchemas
 from packages.kernel.act_log import ActLog
@@ -33,6 +35,7 @@ from packages.tax.sli_relationship_recording import (
     introduce_borrowing_reference_durably,
     record_submission_durably,
 )
+import packages.tax.sli_relationship_recording as sli_recording
 from packages.tax.sli_relationship_review import (
     _append_statement_source_correction_durably,
     apply_statement_correction_review,
@@ -138,7 +141,12 @@ class CorrectionEntryEnforcement(unittest.TestCase):
             self.assertIn(original_value, values)
             self.assertIn(1775.0, values)
             self.assertIn(refs["inclusion_finding_id"], state.findings)
-            rows = _applicability(acts, registry)
+            real_predecessor = sli_recording._predecessor_statement_finding_id
+            with mock.patch.object(
+                sli_recording, "_predecessor_statement_finding_id", wraps=real_predecessor,
+            ) as predecessor_read:
+                rows = _applicability(acts, registry)
+            self.assertGreaterEqual(predecessor_read.call_count, 1)
             self.assertEqual(rows[refs["inclusion_finding_id"]]["applicability"], "current")
             self.assertEqual(rows[refs["inclusion_finding_id"]]["source_fact_id"], refs["statement"])
 
@@ -301,6 +309,10 @@ class CorrectionEntryEnforcement(unittest.TestCase):
                 _applicability(smuggled, registry)[refs["inclusion_finding_id"]]["applicability"],
                 "unresolved-applicability",
             )
+            state = project(smuggled, registry)
+            manual_rows = sli_recording._claim_applicability_from_current(
+                smuggled, registry, state, compute_currency(state), facts_of(state.fact_state))
+            self.assertEqual(manual_rows, current_claim_applicability(smuggled, registry))
 
     def test_reviewed_inclusion_uncertain_is_admitted_once_and_reuse_is_refused(self) -> None:
         """The uncertain route's own unresolved status cites the scope evidence.
@@ -656,6 +668,79 @@ def _append_other_statement(log: ActLog, registry: Any) -> str:
         (("lender", lender), ("statement", statement), ("tax-year", "2025")),
         900.0, "track6-other-statement",
     )
+
+
+class ApplicabilityProjectionReuse(unittest.TestCase):
+    def _legacy_acts(self, acts: tuple[dict[str, Any], ...]) -> tuple[dict[str, Any], ...]:
+        legacy = copy.deepcopy(acts)
+        for item in legacy:
+            payload = item.get("payload")
+            evidence = payload.get("evidence") if isinstance(payload, dict) else None
+            if not isinstance(evidence, dict) or evidence.get("id") != "demo.evidence.track6.inclusion":
+                continue
+            content = evidence.get("content")
+            if isinstance(content, dict):
+                content.pop("confirmed_statement_finding_id", None)
+        return tuple(legacy)
+
+    def test_manual_current_inputs_match_public_cold_rows_and_cold_projects_freshly(self) -> None:
+        raw, log, registry, refs = _affirmed_inclusion()
+        with raw:
+            acts = _recovered_acts(log, registry)
+            state = project(acts, registry)
+            currency = compute_currency(state)
+            lattice = facts_of(state.fact_state)
+            supplied_rows = sli_recording._claim_applicability_from_current(
+                acts, registry, state, currency, lattice)
+            real_current = sli_recording._current
+            real_facts = facts_of
+            with mock.patch.object(sli_recording, "_current", wraps=real_current) as current_read, \
+                    mock.patch.object(sli_recording, "facts_of", wraps=real_facts) as cold_lattice:
+                cold_rows = current_claim_applicability(acts, registry)
+            self.assertEqual(current_read.call_count, 1)
+            self.assertEqual(cold_lattice.call_count, 1)
+            self.assertEqual(supplied_rows, cold_rows)
+            self.assertEqual(supplied_rows, [{
+                "finding_id": refs["inclusion_finding_id"],
+                "relationship_type": STATEMENT_INCLUSION,
+                "source_fact_id": refs["statement"],
+                "applicability": "current",
+            }])
+
+    def test_legacy_missing_confirmation_uses_admission_prefix_without_retargeting(self) -> None:
+        raw, log, registry, refs = _affirmed_inclusion()
+        with raw:
+            legacy_before = self._legacy_acts(_recovered_acts(log, registry))
+            state_before = project(legacy_before, registry)
+            currency_before = compute_currency(state_before)
+            real_admission = sli_recording._confirmed_statement_finding_at_admission
+            with mock.patch.object(
+                sli_recording, "_confirmed_statement_finding_at_admission", wraps=real_admission,
+            ) as admission_read:
+                before_rows = sli_recording._claim_applicability_from_current(
+                    legacy_before, registry, state_before, currency_before,
+                    facts_of(state_before.fact_state))
+            self.assertEqual(admission_read.call_count, 1)
+            before_row = next(row for row in before_rows if row["finding_id"] == refs["inclusion_finding_id"])
+            self.assertEqual(before_row["applicability"], "current")
+            keys = tuple(facts_of(state_before.fact_state)[refs["statement"]].keys)
+            track14._append_source(
+                _bypass(log), registry, track14.STATEMENT_TYPE, keys, 1800.0,
+                "track6-legacy-unscoped-box1",
+            )
+            legacy_after = self._legacy_acts(_recovered_acts(log, registry))
+            state_after = project(legacy_after, registry)
+            currency_after = compute_currency(state_after)
+            with mock.patch.object(
+                sli_recording, "_confirmed_statement_finding_at_admission", wraps=real_admission,
+            ) as admission_read:
+                after_rows = sli_recording._claim_applicability_from_current(
+                    legacy_after, registry, state_after, currency_after,
+                    facts_of(state_after.fact_state))
+            self.assertEqual(admission_read.call_count, 1)
+            after_row = next(row for row in after_rows if row["finding_id"] == refs["inclusion_finding_id"])
+            self.assertEqual(after_row["source_fact_id"], refs["statement"])
+            self.assertEqual(after_row["applicability"], "unresolved-applicability")
 
 
 if __name__ == "__main__":
