@@ -17,6 +17,10 @@ on:
   push:
     branches: [main, main-ui]
 
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event_name }}-${{ github.event.pull_request.number || github.run_id }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
+
 jobs:
   verify:
     runs-on: ubuntu-latest
@@ -36,9 +40,6 @@ jobs:
       - name: Install ADR-0031 envelope git hooks (a proper clone has these)
         run: python3 tools/install_envelope_hooks.py
 
-      - name: Tests (pytest -n auto)
-        run: pytest
-
       - name: Types (mypy)
         run: python -m mypy
 
@@ -55,3 +56,6 @@ jobs:
             BASE="$(git rev-parse HEAD~1)"
           fi
           python tools/envelope_scan.py --range "$BASE..HEAD"
+
+      - name: Tests (pytest -n auto)
+        run: pytest
