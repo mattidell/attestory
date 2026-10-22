@@ -1,0 +1,87 @@
+{
+  "schema": "rule-artifact.v3",
+  "id": "tax.us.2025.rule.form1040-line34",
+  "version": "v1",
+  "scope": {
+    "tax_year": 2025,
+    "jurisdiction": "US-federal",
+    "family": "individual-income-tax"
+  },
+  "role": "computation",
+  "requires": [
+    "tax.us.2025.payments.line33",
+    "tax.us.2025.tax.line24-total-tax",
+    "rounding.convention"
+  ],
+  "pins": [
+    {
+      "role": "input",
+      "id": "tax.us.2025.payments.line33",
+      "version": "v1",
+      "origin": "assertion"
+    },
+    {
+      "role": "input",
+      "id": "tax.us.2025.tax.line24-total-tax",
+      "version": "v1",
+      "origin": "assertion"
+    },
+    {
+      "id": "rounding.convention",
+      "origin": "assertion",
+      "role": "input",
+      "version": "v1"
+    }
+  ],
+  "when": true,
+  "value": {
+    "op": "round",
+    "mode": {
+      "op": "ref",
+      "name": "rounding.convention"
+    },
+    "value": {
+      "op": "choose",
+      "when": {
+        "op": "compare",
+        "cmp": "gt",
+        "left": {
+          "op": "ref",
+          "name": "tax.us.2025.payments.line33"
+        },
+        "right": {
+          "op": "ref",
+          "name": "tax.us.2025.tax.line24-total-tax"
+        }
+      },
+      "then": {
+        "op": "subtract",
+        "left": {
+          "op": "ref",
+          "name": "tax.us.2025.payments.line33"
+        },
+        "right": {
+          "op": "ref",
+          "name": "tax.us.2025.tax.line24-total-tax"
+        }
+      },
+      "else": 0
+    }
+  },
+  "publishes": "tax.us.2025.payments.line34-overpaid",
+  "citations": [
+    {
+      "id": "tax.us.2025.citation.form1040.line-34",
+      "version": "v1"
+    }
+  ],
+  "blocked": {
+    "code": "DEPENDENCY_ABSENT",
+    "missing": [
+      "tax.us.2025.payments.line33",
+      "tax.us.2025.tax.line24-total-tax",
+      "rounding.convention"
+    ]
+  },
+  "notes": "Form 1040 line 34: 'If line 33 is more than line 24, subtract line 24 from line 33. This is the amount you overpaid' (f1040-2025 l.133). Always published: line 33 minus line 24 when larger, else $0 -- the equal-payments case (neither a refund nor an amount owed) is a genuine zero here, not an absence (P0 Sec. 1)."
+}

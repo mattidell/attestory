@@ -241,6 +241,16 @@
       "version": "v1"
     },
     {
+      "checksum": "ab9c34864275240b8ec09a0f752978d434f62ead50a55118e5e713a87d38dd52",
+      "id": "tax.us.2025.citation.form1040.line-23",
+      "version": "v1"
+    },
+    {
+      "checksum": "830a1d22891803caa24536604827d1ad252172b765f62d2dbfb50146b646c124",
+      "id": "tax.us.2025.citation.form1040.line-24",
+      "version": "v1"
+    },
+    {
       "checksum": "6e1ef1707b1ab728d02a67d16a096d232cdf6ff08cc3570ad27fa6cfa2dd5f3a",
       "id": "tax.us.2025.citation.form1040.line-25a",
       "version": "v1"
@@ -261,6 +271,16 @@
       "version": "v1"
     },
     {
+      "checksum": "66046063b26553d18d9d66c84ec19658f72f502ff0b441b45ce40aad0302a294",
+      "id": "tax.us.2025.citation.form1040.line-26",
+      "version": "v1"
+    },
+    {
+      "checksum": "043df208cb1286335bbe5daea1edd3f0a700e0fb66fd58d870effb102fd4676e",
+      "id": "tax.us.2025.citation.form1040.line-27-31",
+      "version": "v1"
+    },
+    {
       "checksum": "a7557ac0ed1915ffbc4ff747d7e97fa0f549970dad3f9cff16bdcdf9eceaabaf",
       "id": "tax.us.2025.citation.form1040.line-2a",
       "version": "v1"
@@ -268,6 +288,41 @@
     {
       "checksum": "88c18b41e0b9c874b11b7feba040a1b5eff465d4435038ceac7de00d41f3c33d",
       "id": "tax.us.2025.citation.form1040.line-2b",
+      "version": "v1"
+    },
+    {
+      "checksum": "2072b98c554d7da27e8d63fa8932309f791c63e4022dd7387663b9f91582ed7a",
+      "id": "tax.us.2025.citation.form1040.line-32",
+      "version": "v1"
+    },
+    {
+      "checksum": "c62599c0fb86696ae7da6acfd44cadc37166605a579dae32a51640ae9e4ef34e",
+      "id": "tax.us.2025.citation.form1040.line-33",
+      "version": "v1"
+    },
+    {
+      "checksum": "85c455846cfd3cf0370d663592a040a09d28263b4f1d9d6d7b0eac26ce264b92",
+      "id": "tax.us.2025.citation.form1040.line-34",
+      "version": "v1"
+    },
+    {
+      "checksum": "95dc2f723059b8e0698c43efb4c2ca1262b2da29917e008ee189012545fd0acc",
+      "id": "tax.us.2025.citation.form1040.line-35a",
+      "version": "v1"
+    },
+    {
+      "checksum": "2b5b7b7c03737cccd02a341d5053a038afa1db642ee39f25858cbf0323b5df6a",
+      "id": "tax.us.2025.citation.form1040.line-36",
+      "version": "v1"
+    },
+    {
+      "checksum": "3fa823fcf6888e73efaea5c10f148a4e45e10d4be7d516bc8992c6de8ca749f7",
+      "id": "tax.us.2025.citation.form1040.line-37",
+      "version": "v1"
+    },
+    {
+      "checksum": "4d5a2f15a82893b3f25e8f53de74752715d65fe0f13f06887d1499a37abd5ccb",
+      "id": "tax.us.2025.citation.form1040.line-38",
       "version": "v1"
     },
     {
@@ -1301,6 +1356,11 @@
       "version": "v1"
     },
     {
+      "checksum": "13933fe3dde6792bd9f1d5695250d12b2a745ac93b13e6101b444653b75536aa",
+      "id": "tax.us.2025.form1040.line-24",
+      "version": "v1"
+    },
+    {
       "checksum": "bb387618533360443b6d50e488cd94e3908e45bb03e86604dbc12d0b81a302d5",
       "id": "tax.us.2025.form1040.line-25a",
       "version": "v1"
@@ -1318,6 +1378,11 @@
     {
       "checksum": "fb77281699257decac85cdec1d986e0615ad586c216a74a0daecbb95a8455f19",
       "id": "tax.us.2025.form1040.line-25d",
+      "version": "v1"
+    },
+    {
+      "checksum": "fb853f3c6b0fcdfe561b01db9132fc98199cf764979598a8bd4c5a0d1b39ead4",
+      "id": "tax.us.2025.form1040.line-26",
       "version": "v1"
     },
     {
@@ -1354,6 +1419,31 @@
       "checksum": "ec1ecb667e188772c555e8f0b7ebfb78f15ae8e61ccb83530dc2b17dc77f9ad6",
       "id": "tax.us.2025.form1040.line-2b",
       "version": "v5"
+    },
+    {
+      "checksum": "37fe6d265fd7a4dd4aa61d7d497a2d4d65b26e6a29d4d72fc1924f107411d466",
+      "id": "tax.us.2025.form1040.line-33",
+      "version": "v1"
+    },
+    {
+      "checksum": "33d26fc69772654fb4b8d5508063ab636d1a7e391e1cee825000ef6add298565",
+      "id": "tax.us.2025.form1040.line-34",
+      "version": "v1"
+    },
+    {
+      "checksum": "eab00475f8513afe6b9aee6f8dc1121d5b4386a38c97ee62ce46ad5f6e197c50",
+      "id": "tax.us.2025.form1040.line-35a",
+      "version": "v1"
+    },
+    {
+      "checksum": "1db2917261c9d083c37ddb0636d0c2d1439bb5a7ac2e0efa80c2b22686aa66e0",
+      "id": "tax.us.2025.form1040.line-37",
+      "version": "v1"
+    },
+    {
+      "checksum": "4d827bd41b317a0b3900589d4853b5f7376e3a22a8b67610f9ef7531cfc5c2b3",
+      "id": "tax.us.2025.form1040.line-38",
+      "version": "v1"
     },
     {
       "checksum": "290edb10cdfbcea75c2a62166168434369f7859576a9bbb89531ba94ba007607",
@@ -1733,6 +1823,11 @@
     {
       "checksum": "794e0ef1feeb6997bec636397d2f3659104a398a17cad89d7caa991faed3bf59",
       "id": "tax.us.2025.quantity.wages",
+      "version": "v1"
+    },
+    {
+      "checksum": "bc8a5793e1f6356e2626d994248e6a008b727d3a9000a2a4d1c514650ca41903",
+      "id": "tax.us.2025.refund-or-amount-owed-questions.vocabulary",
       "version": "v1"
     },
     {
@@ -2256,9 +2351,19 @@
       "version": "v1"
     },
     {
-      "checksum": "4d2ee05124c0a35125619ebae7208c2f88beb4fbb73f15a23e3bf6bad4cc4d40",
+      "checksum": "1690de4915a9e0137e73a8a5f27035dd8e2cfae4eded491424c3ede238015060",
+      "id": "tax.us.2025.rule.form1040-line23",
+      "version": "v1"
+    },
+    {
+      "checksum": "387dc1ad904dc1f14e04caad304f9bdf9e043684a247a3fa9deef619822af90a",
+      "id": "tax.us.2025.rule.form1040-line24",
+      "version": "v1"
+    },
+    {
+      "checksum": "56e680f00265832da5bb630151fdd185ade0c274b15436eb675da5b73971dca1",
       "id": "tax.us.2025.rule.form1040-line25a",
-      "version": "v2"
+      "version": "v1"
     },
     {
       "checksum": "8428f66f223ae0c0e4dd5c1b95a87bd80f297de616820a35e9671068f1ce8ff2",
@@ -2273,6 +2378,11 @@
     {
       "checksum": "249ccc60c20de7801a3d6ca19878fb041c3fb6cd9269d9a19399f1afa820d4aa",
       "id": "tax.us.2025.rule.form1040-line25d",
+      "version": "v1"
+    },
+    {
+      "checksum": "ba0a2a5e19a1bf2df64746f1dff742435d8974220528c53593c92f6667d3b4bc",
+      "id": "tax.us.2025.rule.form1040-line26",
       "version": "v1"
     },
     {
@@ -2329,6 +2439,41 @@
       "checksum": "fb08e83cdb73f19d99c81f561184f81561778b26657bdf11aff9f125b335ae35",
       "id": "tax.us.2025.rule.form1040-line2b",
       "version": "v8"
+    },
+    {
+      "checksum": "81bd5aaf89461902ad44f688cde931ba13506cae093473d58e86d7bb69578b28",
+      "id": "tax.us.2025.rule.form1040-line32",
+      "version": "v1"
+    },
+    {
+      "checksum": "b24f1f218cf0a5626c9106d1b29c9db24e94de861e63a10bc6769ab9f7ecda1d",
+      "id": "tax.us.2025.rule.form1040-line33",
+      "version": "v1"
+    },
+    {
+      "checksum": "3d62f0ff4fdd020c598472f75a02726b1af15b2bafd30ff4880b56e5d9ff3a65",
+      "id": "tax.us.2025.rule.form1040-line34",
+      "version": "v1"
+    },
+    {
+      "checksum": "dee801f7b5acbfcfbb94dbd07bf5c46b06f73d98a4573b543a6152f587710b3e",
+      "id": "tax.us.2025.rule.form1040-line35a",
+      "version": "v1"
+    },
+    {
+      "checksum": "7497fb014f52bb97174a615d844b90c4cea0ad55cd4fe8b4b8c8f28bbbfc9cb8",
+      "id": "tax.us.2025.rule.form1040-line36",
+      "version": "v1"
+    },
+    {
+      "checksum": "9f4ad249c7e97ddfa372201e9efdf3ef876ed439f6bb8b9e58557f33bb96cdda",
+      "id": "tax.us.2025.rule.form1040-line37",
+      "version": "v1"
+    },
+    {
+      "checksum": "6db2c74a8b994b08fc8b9ed7ca327af8e9812a54e5d9ef606feca86202a9e24b",
+      "id": "tax.us.2025.rule.form1040-line38",
+      "version": "v1"
     },
     {
       "checksum": "76d4768cb56cd380fade0d69ef0813e97a99bbd3d155fba39e1ab5d38878abd2",
@@ -2404,6 +2549,11 @@
       "checksum": "10ce6ab099aae13f3f7e4ef23bce3b4a3b8774b4d8d87c0dffa6f6a5c0c349f8",
       "id": "tax.us.2025.rule.form1040-line9",
       "version": "v7"
+    },
+    {
+      "checksum": "cbceaf253fb621134a4623f95ed980b01456b6924676e796c8fcf86dae137ebe",
+      "id": "tax.us.2025.rule.form1040-lines27-31-total",
+      "version": "v1"
     },
     {
       "checksum": "3c320eeaab5eab8410c13cd93b2f0c22fb6b524d5be17b210f324b580bc7bac4",
@@ -3643,7 +3793,7 @@
       "version": "v51"
     },
     {
-      "checksum": "845e99d646776b39616f281f67802218c4e9ce502f9381d126afe7be068d2b12",
+      "checksum": "f1ab428e8bdb94c792628c761a8bd572d85447e1fe769382838be79a98a01c6c",
       "id": "tax.us.2025.package.core-calculations",
       "version": "v52"
     },

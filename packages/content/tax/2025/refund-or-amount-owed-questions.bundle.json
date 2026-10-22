@@ -1,0 +1,129 @@
+{
+  "fact_types": [
+    {
+      "id": "tax.us.2025.schedule2-partii-scope.no-line21-additional-taxes",
+      "identity_keys": [
+        {
+          "kind": "literal",
+          "name": "tax-year",
+          "values": [
+            "2025"
+          ]
+        }
+      ],
+      "nature": "determinable",
+      "schema": "fact-type.v2",
+      "supersession": {
+        "policy": "free"
+      },
+      "title": "The return has none of the other taxes on Schedule 2 Part II (self-employment tax, additional Medicare tax, net investment income tax, and the other items feeding Schedule 2 line 21, Form 1040 line 23). Contributed categorical assertion, domain {yes, no}, no default, presence-before-value, free supersession.",
+      "value_schema": {
+        "enum": [
+          "yes",
+          "no"
+        ]
+      },
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.lines27-31-scope.no-refundable-credits-or-other-payments",
+      "identity_keys": [
+        {
+          "kind": "literal",
+          "name": "tax-year",
+          "values": [
+            "2025"
+          ]
+        }
+      ],
+      "nature": "determinable",
+      "schema": "fact-type.v2",
+      "supersession": {
+        "policy": "free"
+      },
+      "title": "The return claims none of the refundable credits and other payments on Form 1040 lines 27a-31 (earned income credit, additional child tax credit, American opportunity credit, refundable adoption credit, Schedule 3 Part II total). Contributed categorical assertion, domain {yes, no}, no default, presence-before-value, free supersession.",
+      "value_schema": {
+        "enum": [
+          "yes",
+          "no"
+        ]
+      },
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.line38-scope.no-estimated-tax-penalty",
+      "identity_keys": [
+        {
+          "kind": "literal",
+          "name": "tax-year",
+          "values": [
+            "2025"
+          ]
+        }
+      ],
+      "nature": "determinable",
+      "schema": "fact-type.v2",
+      "supersession": {
+        "policy": "free"
+      },
+      "title": "The return reports no estimated tax penalty on Form 1040 line 38 (Form 2210 is not computed). Contributed categorical assertion, domain {yes, no}, no default, presence-before-value, free supersession.",
+      "value_schema": {
+        "enum": [
+          "yes",
+          "no"
+        ]
+      },
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.payments.estimated-and-prior-year-applied",
+      "identity_keys": [
+        {
+          "kind": "literal",
+          "name": "tax-year",
+          "values": [
+            "2025"
+          ]
+        }
+      ],
+      "nature": "determinable",
+      "schema": "fact-type.v2",
+      "supersession": {
+        "policy": "free"
+      },
+      "title": "2025 estimated tax payments and any 2024 overpayment applied to 2025 (Form 1040 line 26), an amount entered by the taxpayer, not derived from a statement. $0 is a valid answer; no default.",
+      "value_schema": {
+        "minimum": 0,
+        "type": "number"
+      },
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.payments.overpayment-applied-to-2026",
+      "identity_keys": [
+        {
+          "kind": "literal",
+          "name": "tax-year",
+          "values": [
+            "2025"
+          ]
+        }
+      ],
+      "nature": "determinable",
+      "schema": "fact-type.v2",
+      "supersession": {
+        "policy": "free"
+      },
+      "title": "The amount of the Form 1040 line 34 overpayment the taxpayer elects to apply to 2026 estimated tax (Form 1040 line 36), an amount entered by the taxpayer. Required only when line 34 is more than $0; an amount above line 34 blocks rather than being reduced. No default.",
+      "value_schema": {
+        "minimum": 0,
+        "type": "number"
+      },
+      "version": "v1"
+    }
+  ],
+  "id": "tax.us.2025.refund-or-amount-owed-questions.vocabulary",
+  "label": "Refund or amount owed: new questions for Form 1040 lines 23, 26, 27-31, 36, and 38, tax year 2025",
+  "schema": "bundle.v2",
+  "version": "v1"
+}

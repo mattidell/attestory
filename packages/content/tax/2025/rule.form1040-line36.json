@@ -1,0 +1,103 @@
+{
+  "schema": "rule-artifact.v14",
+  "id": "tax.us.2025.rule.form1040-line36",
+  "version": "v1",
+  "scope": {
+    "tax_year": 2025,
+    "jurisdiction": "US-federal",
+    "family": "individual-income-tax"
+  },
+  "role": "computation",
+  "requires": [
+    "tax.us.2025.payments.line34-overpaid"
+  ],
+  "pins": [
+    {
+      "role": "input",
+      "id": "tax.us.2025.payments.line34-overpaid",
+      "version": "v1",
+      "origin": "assertion"
+    },
+    {
+      "role": "input",
+      "id": "tax.us.2025.payments.overpayment-applied-to-2026",
+      "version": "v1",
+      "origin": "assertion"
+    }
+  ],
+  "when": true,
+  "value": {
+    "op": "choose",
+    "when": {
+      "op": "all",
+      "args": [
+        {
+          "op": "conditional_dependency_set",
+          "condition": {
+            "op": "compare",
+            "cmp": "gt",
+            "left": {
+              "op": "ref",
+              "name": "tax.us.2025.payments.line34-overpaid"
+            },
+            "right": 0
+          },
+          "members": [
+            {
+              "op": "ref",
+              "name": "tax.us.2025.payments.overpayment-applied-to-2026"
+            }
+          ]
+        },
+        {
+          "op": "compare",
+          "cmp": "gt",
+          "left": {
+            "op": "ref",
+            "name": "tax.us.2025.payments.line34-overpaid"
+          },
+          "right": 0
+        }
+      ]
+    },
+    "then": {
+      "op": "choose",
+      "when": {
+        "op": "compare",
+        "cmp": "lte",
+        "left": {
+          "op": "ref",
+          "name": "tax.us.2025.payments.overpayment-applied-to-2026"
+        },
+        "right": {
+          "op": "ref",
+          "name": "tax.us.2025.payments.line34-overpaid"
+        }
+      },
+      "then": {
+        "op": "ref",
+        "name": "tax.us.2025.payments.overpayment-applied-to-2026"
+      },
+      "else": {
+        "op": "block",
+        "code": "DEPENDENCY_INVALID"
+      }
+    },
+    "else": 0
+  },
+  "publishes": "tax.us.2025.payments.line36-applied-to-2026",
+  "citations": [
+    {
+      "id": "tax.us.2025.citation.form1040.line-36",
+      "version": "v1"
+    }
+  ],
+  "blocked": {
+    "code": "DEPENDENCY_ABSENT",
+    "missing": [
+      "tax.us.2025.payments.line34-overpaid",
+      "tax.us.2025.payments.overpayment-applied-to-2026"
+    ]
+  },
+  "notes": "Form 1040 line 36: 'Amount of line 34 you want applied to your 2026 estimated tax' (f1040-2025 l.138; i1040gi-2025 l.4401: this election can't be changed later). Required only when line 34 is more than $0 (conditional_dependency_set, ADR-0037), matching rule.schedule1a-part-v-line-36a's own pattern -- a return with no overpayment is never asked and publishes $0. An answer above line 34 blocks DEPENDENCY_INVALID (the only block code the record schema keeps for an unlisted custom code -- see RECORD_CODES in packages/derivation/runner.py; not an engine change) rather than being silently reduced."
+}

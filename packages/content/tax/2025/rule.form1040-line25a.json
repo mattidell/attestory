@@ -12,7 +12,7 @@
     }
   ],
   "id": "tax.us.2025.rule.form1040-line25a",
-  "notes": "Form 1040 line 25a: 'Add the amounts shown as federal income tax withheld on your Form(s) W-2. The amount withheld should be shown in box 2 of Form W-2' (i1040gi-2025 l.2551-2556). Aggregates the adopted W-2 box-2 family through its own closure, same collect+add+round shape as rule.wages-line1a (box 1). Closed-empty publishes zero only on a current literal-true closure; nonempty present-source paths aggregate without requiring closure, same as box 1 -- a box-1 W-2 recorded without a matching box-2 answer is not separately detected (P0 Sec. 3; Track 1 contract item 2).",
+  "notes": "Form 1040 line 25a: 'Add the amounts shown as federal income tax withheld on your Form(s) W-2. The amount withheld should be shown in box 2 of Form W-2' (i1040gi-2025 l.2551-2556). Publishes only when the number of current W-2 box-2 statements equals the number of W-2 box-1 statements -- $0 is a valid answer, but a box-1 W-2 with no matching box-2 answer at all is not silently excluded. Both counts require their own family's closure (the `count` op's own closure gate, same as rule.form1040-line12e's Form 1098 count); a mismatch falls through to a `ref` on tax.us.2025.w2.box2-withholding, which is never a bound scalar symbol, so it raises DEPENDENCY_ABSENT naming that exact fact -- existing vocabulary only (`any`/`compare`/`count`/`ref`), no new op. The aggregation itself (value) is collect+add+round over the box-2 family, same shape as box 1's own rule.wages-line1a.",
   "pins": [
     {
       "id": "rounding.convention",
@@ -26,7 +26,7 @@
     "rounding.convention"
   ],
   "role": "computation",
-  "schema": "rule-artifact.v3",
+  "schema": "rule-artifact.v4",
   "scope": {
     "family": "individual-income-tax",
     "jurisdiction": "US-federal",
@@ -50,5 +50,27 @@
     }
   },
   "version": "v1",
-  "when": true
+  "when": {
+    "op": "any",
+    "args": [
+      {
+        "op": "compare",
+        "cmp": "eq",
+        "left": {
+          "op": "count",
+          "name": "tax.us.2025.w2.box2-withholding",
+          "source_set": "tax.us.2025.w2-box2"
+        },
+        "right": {
+          "op": "count",
+          "name": "tax.us.2025.w2.box1-wages",
+          "source_set": "tax.us.2025.w2"
+        }
+      },
+      {
+        "op": "ref",
+        "name": "tax.us.2025.w2.box2-withholding"
+      }
+    ]
+  }
 }

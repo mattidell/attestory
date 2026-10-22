@@ -9,12 +9,12 @@
       "note": "synthetic successor adoption of core calculations v52 (Refund or Amount Owed Track 1: line 20 without foreign tax, lines 25a-25d withholding); non-authoritative"
     },
     "package": {
-      "checksum": "845e99d646776b39616f281f67802218c4e9ce502f9381d126afe7be068d2b12",
+      "checksum": "f1ab428e8bdb94c792628c761a8bd572d85447e1fe769382838be79a98a01c6c",
       "id": "tax.us.2025.package.core-calculations",
       "version": "v52"
     },
     "release": {
-      "checksum": "afaac880150926a3fb9273dd554188fb67a48d2665610f4ee2b7d56b6492a229",
+      "checksum": "e1f12790c0032e9b7f13fcb53f6ebae389ea154e98a0511d8911a5604b653990",
       "id": "demo.release.sli-worksheet-integration.2025",
       "version": "v50"
     },

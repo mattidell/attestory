@@ -1,0 +1,53 @@
+{
+  "schema": "rule-artifact.v4",
+  "id": "tax.us.2025.rule.form1040-line23",
+  "version": "v1",
+  "scope": {
+    "tax_year": 2025,
+    "jurisdiction": "US-federal",
+    "family": "individual-income-tax"
+  },
+  "role": "computation",
+  "requires": [
+    "tax.us.2025.schedule2-partii-scope.no-line21-additional-taxes"
+  ],
+  "pins": [
+    {
+      "role": "input",
+      "id": "tax.us.2025.schedule2-partii-scope.no-line21-additional-taxes",
+      "version": "v1",
+      "origin": "assertion"
+    }
+  ],
+  "when": {
+    "op": "categorical_compare",
+    "cmp": "eq",
+    "left": {
+      "op": "ref",
+      "name": "tax.us.2025.schedule2-partii-scope.no-line21-additional-taxes"
+    },
+    "right": {
+      "op": "category_literal",
+      "fact_type": {
+        "id": "tax.us.2025.schedule2-partii-scope.no-line21-additional-taxes",
+        "version": "v1"
+      },
+      "value": "yes"
+    }
+  },
+  "value": 0,
+  "publishes": "tax.us.2025.tax.line23-other-taxes",
+  "citations": [
+    {
+      "id": "tax.us.2025.citation.form1040.line-23",
+      "version": "v1"
+    }
+  ],
+  "blocked": {
+    "code": "DEPENDENCY_ABSENT",
+    "missing": [
+      "tax.us.2025.schedule2-partii-scope.no-line21-additional-taxes"
+    ]
+  },
+  "notes": "Form 1040 line 23: 'Other taxes, including self-employment tax, from Schedule 2, line 21' (f1040-2025 l.112). Schedule 2 Part II (self-employment tax, additional Medicare tax, net investment income tax, and the other items feeding line 21) is a non-goal of this milestone, declared absent, never assumed zero. Published zero only when the taxpayer asserts no such tax; its absence blocks DEPENDENCY_ABSENT naming the fact, same shape as rule.form1040-line13b."
+}

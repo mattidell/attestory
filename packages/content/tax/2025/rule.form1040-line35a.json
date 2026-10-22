@@ -1,0 +1,71 @@
+{
+  "schema": "rule-artifact.v3",
+  "id": "tax.us.2025.rule.form1040-line35a",
+  "version": "v1",
+  "scope": {
+    "tax_year": 2025,
+    "jurisdiction": "US-federal",
+    "family": "individual-income-tax"
+  },
+  "role": "computation",
+  "requires": [
+    "tax.us.2025.payments.line34-overpaid",
+    "tax.us.2025.payments.line36-applied-to-2026",
+    "rounding.convention"
+  ],
+  "pins": [
+    {
+      "role": "input",
+      "id": "tax.us.2025.payments.line34-overpaid",
+      "version": "v1",
+      "origin": "assertion"
+    },
+    {
+      "role": "input",
+      "id": "tax.us.2025.payments.line36-applied-to-2026",
+      "version": "v1",
+      "origin": "assertion"
+    },
+    {
+      "id": "rounding.convention",
+      "origin": "assertion",
+      "role": "input",
+      "version": "v1"
+    }
+  ],
+  "when": true,
+  "value": {
+    "op": "round",
+    "mode": {
+      "op": "ref",
+      "name": "rounding.convention"
+    },
+    "value": {
+      "op": "subtract",
+      "left": {
+        "op": "ref",
+        "name": "tax.us.2025.payments.line34-overpaid"
+      },
+      "right": {
+        "op": "ref",
+        "name": "tax.us.2025.payments.line36-applied-to-2026"
+      }
+    }
+  },
+  "publishes": "tax.us.2025.payments.line35a-refunded",
+  "citations": [
+    {
+      "id": "tax.us.2025.citation.form1040.line-35a",
+      "version": "v1"
+    }
+  ],
+  "blocked": {
+    "code": "DEPENDENCY_ABSENT",
+    "missing": [
+      "tax.us.2025.payments.line34-overpaid",
+      "tax.us.2025.payments.line36-applied-to-2026",
+      "rounding.convention"
+    ]
+  },
+  "notes": "Form 1040 line 35a: 'Amount of line 34 you want refunded to you' (f1040-2025 l.134). Line 34 minus line 36 -- the part of the overpayment not applied to 2026."
+}

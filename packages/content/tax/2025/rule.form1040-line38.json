@@ -1,0 +1,53 @@
+{
+  "schema": "rule-artifact.v4",
+  "id": "tax.us.2025.rule.form1040-line38",
+  "version": "v1",
+  "scope": {
+    "tax_year": 2025,
+    "jurisdiction": "US-federal",
+    "family": "individual-income-tax"
+  },
+  "role": "computation",
+  "requires": [
+    "tax.us.2025.line38-scope.no-estimated-tax-penalty"
+  ],
+  "pins": [
+    {
+      "role": "input",
+      "id": "tax.us.2025.line38-scope.no-estimated-tax-penalty",
+      "version": "v1",
+      "origin": "assertion"
+    }
+  ],
+  "when": {
+    "op": "categorical_compare",
+    "cmp": "eq",
+    "left": {
+      "op": "ref",
+      "name": "tax.us.2025.line38-scope.no-estimated-tax-penalty"
+    },
+    "right": {
+      "op": "category_literal",
+      "fact_type": {
+        "id": "tax.us.2025.line38-scope.no-estimated-tax-penalty",
+        "version": "v1"
+      },
+      "value": "yes"
+    }
+  },
+  "value": 0,
+  "publishes": "tax.us.2025.tax.line38-penalty",
+  "citations": [
+    {
+      "id": "tax.us.2025.citation.form1040.line-38",
+      "version": "v1"
+    }
+  ],
+  "blocked": {
+    "code": "DEPENDENCY_ABSENT",
+    "missing": [
+      "tax.us.2025.line38-scope.no-estimated-tax-penalty"
+    ]
+  },
+  "notes": "Form 1040 line 38: 'Estimated tax penalty' (f1040-2025 l.141; i1040gi-2025 l.4510 ff., Form 2210). A non-goal of this milestone, declared absent, never assumed zero; published zero only when the taxpayer asserts no estimated tax penalty applies. Its absence blocks DEPENDENCY_ABSENT naming the fact."
+}
