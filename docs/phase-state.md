@@ -5,9 +5,9 @@
   "topic": "mortgage-statement-borrowing",
   "active_plan": "docs/phases/tax-circumstance-breadth/milestones/mortgage-statement-borrowing.md",
   "milestone_state": "planned",
-  "status": "Opening mortgage plan after merged PR #215. Review the same-borrowing scope before P0 authority/path investigation. No production mechanism selected.",
-  "current_role": "Foreman — prepare independent opening-plan review",
-  "current_prompt": "docs/phases/tax-circumstance-breadth/milestones/mortgage-statement-borrowing.md"
+  "status": "Opening plan: One Home Loan, More Than One Interest Statement. Review the same-borrowing scope before P0 authority/path investigation. No production mechanism selected. Separate projection-reuse work remains in its own branch/worktree.",
+  "current_role": "Reviewer — independent opening-plan review",
+  "current_prompt": "docs/reviews/mortgage-statement-borrowing/charter-opening-plan-review.md"
 }
 -->
 
