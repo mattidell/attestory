@@ -280,3 +280,50 @@ unreachable intermediate rules, invalid selection dependencies, and an
 unupdated package-adoption release binding. These were repaired in the
 candidate; none demonstrates an engine limitation. The successful current
 run is the first complete dynamic-account supported-pair result.
+
+## Core v51 four-outcome lifecycle attempt (not a passing closure)
+
+The disposable v58 candidate was package-resolved at 518 rules and executed
+once for each of the four supplied lifecycle after-states in
+`temp/mortgage-statement-borrowing/t0-dynamic-binding-20261022T185614Z`.
+The candidate's four numeric, per-Box1 outcome-count rules published with
+their exact Box1 keys; the fifth per-Box1 status rule published with pins to
+all four count findings. The corrected input preserves both original report
+links under the common opaque borrowing A: report A and report B have separate
+carrier keys, but neither is recast as borrowing B. All four input states are
+synthetic supplied assertions/transitions, not recorder lifecycle evidence.
+
+This run did **not** close the four cases:
+
+1. **A remains after B ends:** package resolution succeeded and the current
+   count/status machinery ran, but model creation stopped at the inherited P3
+   answer-display validation error `mortgage answer type
+   'tax.us.2025.f1098.home-is-collateral' is not pinned by the selected rule`.
+   There is no saved presentation model, so no supported-A conclusion is
+   claimed.
+2. **A's final affirmation is withdrawn:** the exact report status published
+   from all four counts and line8a was blocked (no amount publication), so no
+   legacy positive fallback occurred. Line12e also blocked, with missing
+   Schedule A total and line8a; presentation completed but is not a successful
+   connected-consumer result.
+3. **Closed-empty with only withdrawn outcomes:** the closed-empty Schedule A
+   total published as zero and the ordinary Schedule A total was inapplicable.
+   Line12e nevertheless blocked on missing line8a instead of taking its
+   no-statement result. This is a candidate selection/dependency defect, not a
+   successful empty route.
+4. **Closed-empty with an affirmed orphan:** the exact affirmed-source-match
+   result blocked on the absent Box1 source, but line12e blocked on missing
+   line8a rather than on that match result. Thus the run does not establish
+   the required orphan-specific dependent-amount gate.
+
+The run makes one candidate-only repair concrete: line12e's
+`exclusive_presence` path currently declares line8a as a prerequisite even
+for its affirmative-orphan path and no-statement default. That preempts the
+intended status/match selection and prevents the true-empty line12e output.
+The next candidate must route the orphan through the blocked match result and
+route closed-empty/no-affirmation through the existing no-statement
+dependencies without adding mortgage support prerequisites. Separately, the
+one-report connected presentation path needs a T0-local adapter that preserves
+the unconsumed answer as such rather than requiring it to be pinned. These are
+observed candidate/adapter defects; this run does not demonstrate an engine
+capability gap.

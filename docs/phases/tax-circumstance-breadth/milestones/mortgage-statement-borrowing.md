@@ -3,7 +3,7 @@
   "version": 1,
   "phase": "Tax Circumstance Breadth",
   "topic": "mortgage-statement-borrowing",
-  "status": "Supported pair verified on core v51. Finish four lifecycle cases, then design the owner-restored clear-account and borrowing-wide-answer work before connected independent review. No production built.",
+  "status": "Core-v51 four-outcome candidate executes. Remaining A derives, but singleton model and empty/orphan consumer routing need repair. Owner-restored account exit and shared-answer design follow. No production built.",
   "scope": [
     "extend the existing ordinary mortgage account to a bounded same-borrowing multiple-report case",
     "preserve report amounts, loan-level circumstances and their separate correction lifecycles",
@@ -231,6 +231,17 @@ as A support. Applicable raw claims are not automatically consumed inputs;
 actual derivation pins establish consumption. These are experimental saved
 models, not production projection or visible reader delivery. Four lifecycle/
 empty/orphan cases and four-outcome status integration remain unproved.
+
+The subsequent v58 lifecycle attempt executed the four counts and their
+per-report status fan-in. Remaining A derives line8a and line12e, but the old
+singleton presentation validator rejects its intermediate answer lineage.
+Withdrawal withholds the amount. True-empty incorrectly blocks because the
+candidate line12e default requires line8a; the orphan case also stops on that
+prerequisite before its exact-source-match gate. These are measured candidate
+and adapter defects, not closure passes or a demonstrated engine gap. The
+[T0 results](mortgage-statement-borrowing-evidence/t0-dynamic-binding-results.md)
+retain the corrected same-borrowing inputs and actual records. Repair those
+consumers before treating the foundation as established.
 
 P2/P3 and the first T0 runtime result remain historical evidence at their
 recorded package hashes. Their synthetic v50–v55 package numbers describe

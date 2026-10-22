@@ -5,7 +5,7 @@
   "topic": "mortgage-statement-borrowing",
   "active_plan": "docs/phases/tax-circumstance-breadth/milestones/mortgage-statement-borrowing.md",
   "milestone_state": "track-0",
-  "status": "Supported pair verified on core v51. Finish four lifecycle cases, then design the owner-restored clear-account and borrowing-wide-answer work before connected independent review. No production built.",
+  "status": "Core-v51 four-outcome candidate executes. Remaining A derives, but singleton model and empty/orphan consumer routing need repair. Owner-restored account exit and shared-answer design follow. No production built.",
   "current_role": "Builder — Luna Track 0 connected contract consolidation",
   "current_prompt": "docs/reviews/mortgage-statement-borrowing/charter-t0-connected-closure.md"
 }

@@ -39,9 +39,11 @@ BASE_REGISTRY_FILENAME = "published-packages.v49.json"
 BASE_RELEASE_VERSION = "v49"
 INTERMEDIATE_PACKAGE_VERSION = "v52"
 P2_CANDIDATE_REGISTRY_FILENAME = "published-packages.t0-intermediate-v52.json"
-T0_PACKAGE_VERSION = "v57"
-T0_REGISTRY_FILENAME = "published-packages.t0-p57.json"
-T0_RELEASE_VERSION = "v7"
+T0_PACKAGE_VERSION = "v58"
+T0_REGISTRY_FILENAME = "published-packages.t0-p58.json"
+T0_RELEASE_VERSION = "v8"
+STATUS_FACT_TYPE = "demo.tax.2025.f1098.borrowing-current-link-status"
+ORPHAN_MATCH_FACT_TYPE = "demo.tax.2025.f1098.affirmed-link-source-match"
 
 
 def read(path: Path) -> dict[str, Any]:
@@ -133,11 +135,114 @@ def ceiling_collision_acts(seed: list[dict[str, Any]], case_id: str) -> tuple[li
         "unrecognizedBorrowing": borrowing_b}
 
 
+def lifecycle_case_acts(seed: list[dict[str, Any]], case_id: str) -> tuple[list[dict[str, Any]], dict[str, Any]]:
+    """Supply one declared current after-state; this does not simulate recorder transitions."""
+    acts = copy.deepcopy(seed)
+    a, b = "demo.f1098.borrowing.A", "demo.f1098.borrowing.B"
+    # Both original reports belong to borrowing A. The report tag is kept
+    # separate from the borrowing identity so ending B's link cannot silently
+    # manufacture a different borrowing-B proposition.
+    reports = (("demo.f1098.lender.a", "demo.f1098.stmt.a", "A"),
+               ("demo.f1098.lender.b", "demo.f1098.stmt.b", "B"))
+    if case_id == "connected-a-after-b-ended":
+        source_reports, outcomes = {"A"}, {"A": "affirmed", "B": "withdrawn"}
+        expected = "A line8a remains supported after B source/link removal; B withdrawal is not A coverage."
+    elif case_id == "current-a-final-link-withdrawn":
+        source_reports, outcomes = {"A"}, {"A": "withdrawn", "B": "withdrawn"}
+        expected = "Current A does not fall back after its final affirmation is withdrawn."
+    elif case_id == "closed-empty-with-withdrawn-history":
+        source_reports, outcomes = set(), {"A": "withdrawn", "B": "withdrawn"}
+        expected = "Closed-empty remains the empty Schedule A / no-statement line12e route."
+    elif case_id == "closed-empty-with-affirmed-orphan":
+        source_reports, outcomes = set(), {"A": "affirmed", "B": "withdrawn"}
+        expected = "The affirmed A orphan blocks dependent line12e; withdrawn B does not create an orphan."
+    else:
+        raise ValueError(f"unknown lifecycle case: {case_id}")
+    excluded = set()
+    for payer, statement, report_tag in reports:
+        if report_tag in source_reports:
+            continue
+        keys = (("payer", payer), ("statement", statement), ("tax-year", "2025"))
+        excluded.update(fact_id_for(ft, keys) for ft in P2.SOURCE_TYPES.values())
+    acts = [act for act in acts if _act_finding(act).get("fact_id") not in excluded]
+    # The old toy affirmative claims are replaced by exactly one supplied
+    # current outcome per report key. No paired affirmative and withdrawal can
+    # mask the intended state.
+    outcome_ids = {fact_id_for(carrier, (("payer", payer), ("statement", statement),
+                    ("tax-year", "2025"), ("borrowing", a)))
+                   for payer, statement, _report_tag in reports for carrier in CARRIERS.values()}
+    acts = [act for act in acts if not (
+        act.get("kind") == "assertion" and _act_finding(act).get("fact_id") in outcome_ids)]
+    # Preserve the supplied family history's horizon chain. Apply source ends
+    # as explicit member removals on new successors, then move the closure to
+    # the resulting current horizon. This is an assembled supplied after-state,
+    # not a claim that the product recorder performed these transitions.
+    transitions = [act for act in acts if act.get("kind") == "member-transition"
+                   and act.get("payload", {}).get("family", {}).get("id") == "tax.us.2025.f1098"]
+    if len(transitions) < 2:
+        raise AssertionError("fixture lacks the two report-member transitions needed for a coherent after-state")
+    predecessor = transitions[-1]["payload"]["successor"]["id"]
+    removed_reports = [row for row in reports if row[2] not in source_reports]
+    for index, (payer, statement, report_tag) in enumerate(removed_reports):
+        fact_id = fact_id_for(BOX1, (("payer", payer), ("statement", statement), ("tax-year", "2025")))
+        old = next((act for act in transitions if _act_finding(act).get("fact_id") == fact_id), None)
+        if old is None:
+            raise AssertionError(f"missing source member to end for {fact_id}")
+        horizon_id = f"demo.f1098.t0.{case_id}.h{index + 3}"
+        acts.append({"schema": "act.v1", "act_id": f"demo.t0.{case_id}.{report_tag}-source-end",
+            "kind": "member-transition", "actor": "demo.taxpayer", "at": "2026-10-22T14:00:01Z",
+            "committed_against": 0, "payload": {"family": copy.deepcopy(old["payload"]["family"]),
+                "scope": copy.deepcopy(old["payload"]["scope"]),
+                "member": {"action": "remove", "fact_id": fact_id},
+                "successor": {"id": horizon_id, "predecessor": predecessor}}})
+        predecessor = horizon_id
+    closure_type = "tax.us.2025.f1098.source-closure"
+    closure_act = next((act for act in acts if _act_finding(act).get("fact_id", "").startswith(closure_type + "|")), None)
+    if closure_act is None:
+        raise AssertionError("fixture lacks a current F1098 closure claim")
+    _act_finding(closure_act)["fact_id"] = fact_id_for(closure_type,
+        (("family-horizon", predecessor), ("tax-year", "2025")))
+    acts.remove(closure_act)
+    acts.append(closure_act)
+    for payer, statement, report_tag in reports:
+        carrier = CARRIERS[outcomes[report_tag]]
+        fact_id = fact_id_for(carrier, (("payer", payer), ("statement", statement),
+                                        ("tax-year", "2025"), ("borrowing", a)))
+        acts.append({"schema": "act.v1", "act_id": f"demo.t0.{case_id}.{report_tag}-outcome",
+            "kind": "assertion", "actor": "demo.taxpayer", "at": "2026-10-22T14:00:00Z",
+            "committed_against": 0, "payload": {"finding": {"schema": "finding.v2",
+                "id": f"demo.t0.{case_id}.{report_tag}-finding", "fact_id": fact_id,
+                "value": outcomes[report_tag], "basis": "attested", "evidence_ids": []}}})
+    if not source_reports:
+        no_statement = fact_id_for("tax.us.2025.f1098-scope.no-mortgage-statement", (("tax-year", "2025"),))
+        found = [act for act in acts if act.get("kind") == "assertion"
+                 and _act_finding(act).get("fact_id") == no_statement]
+        if len(found) != 1:
+            raise AssertionError(f"expected one no-statement declaration, found {len(found)}")
+        _act_finding(found[0])["value"] = True
+    for index, act in enumerate(acts):
+        act["committed_against"] = index
+        if act.get("kind") == "package-adoption":
+            act.setdefault("payload", {})["revision"] = index
+    # Positive fixture claims about each intended source state are checked
+    # using the explicit fact-id set built above, not parsed identity suffixes.
+    current_sources = sorted(fid for fid in excluded if any(
+        _act_finding(act).get("fact_id") == fid for act in acts))
+    if current_sources:
+        raise AssertionError(f"removed report facts remain current: {current_sources}")
+    return acts, {"caseId": case_id, "suppliedAfterState": True,
+        "sourceReportsRetained": sorted(source_reports),
+        "currentOutcomeByReport": outcomes, "commonBorrowing": a, "expected": expected,
+        "notes": "Synthetic supplied assertions only; not recorder lifecycle evidence."}
+
+
 def add_status_composition(members: Path) -> dict[str, Any]:
     """Add four per-report numeric link counts and one per-report status rule."""
     package_path = members / f"package.core-calculations.{INTERMEDIATE_PACKAGE_VERSION}.json"
     bundle_path = members / f"{P2.BRIDGE_BUNDLE_ID}.v1.json"
     package, bundle = read(package_path), read(bundle_path)
+    package["members"] = [row for row in package["members"] if not (
+        row.get("id") == f"{P2.BRIDGE_RULE_PREFIX}.report-link-status")]
     box = next(ft for ft in read(members / "f1098.bundle.json")["fact_types"] if ft["id"] == BOX1)
     membership = next(ft for ft in bundle["fact_types"] if ft["id"] == P2.ACCOUNT_FACTS["membership"])
     # Keep the outcome carriers distinct, so link_count sees one current outcome
@@ -164,7 +269,7 @@ def add_status_composition(members: Path) -> dict[str, Any]:
             "version": "v1", "scope": SCOPE, "role": "computation",
             "subject": {"id": BOX1, "version": "v1"},
             "joined": {"id": carrier, "version": "v1"}, "direction": "joined_contains_subject",
-            "requires": [carrier], "pins": [], "when": True,
+            "requires": [], "pins": [], "when": True,
             "value": {"op": "link_count", "links": carrier}, "publishes": count_id,
             "blocked": {"code": "DEPENDENCY_INVALID", "missing": []}, "citations": citations,
             "notes": "Synthetic exact report/year count; the joined carrier adds borrowing identity."}
@@ -195,8 +300,7 @@ def add_status_composition(members: Path) -> dict[str, Any]:
     status = {"schema": "rule-artifact.v13", "id": "demo.tax.2025.rule.borrowing-current-link-status",
         "version": "v1", "scope": SCOPE, "role": "computation",
         "subject": {"id": BOX1, "version": "v1"},
-        "joined": {"id": next(iter(CARRIERS.values())), "version": "v1"},
-        "direction": "joined_contains_subject", "requires": list(outputs.values()), "pins": [],
+        "requires": list(outputs.values()), "pins": [],
         "when": True, "value": value, "publishes": status_id,
         "blocked": {"code": "DEPENDENCY_INVALID", "missing": []}, "citations": citations,
         "notes": "Synthetic per-Box1 fan-in; count results inherit all report keys."}
@@ -208,7 +312,8 @@ def add_status_composition(members: Path) -> dict[str, Any]:
     readiness = read(readiness_path)
     for path in readiness["selection"]["paths"]:
         if path["id"] == "same-borrowing":
-            path["reads_subject_results"].append({"symbol": status_id, "subject": {"id": BOX1, "version": "v1"}})
+            if not any(item.get("symbol") == status_id for item in path["reads_subject_results"]):
+                path["reads_subject_results"].append({"symbol": status_id, "subject": {"id": BOX1, "version": "v1"}})
     write(readiness_path, readiness)
     new_rules.append(readiness)
     for rule in new_rules:
@@ -308,16 +413,24 @@ def add_dynamic_account_candidate(surface: Any, acts: list[dict[str, Any]]) -> d
     affirmed = CARRIERS["affirmed"]
     support_id = "demo.tax.2025.mortgage.f1098-link-support"
     membership_type = next(ft for ft in bundle["fact_types"] if ft["id"] == P2.ACCOUNT_FACTS["membership"])
-    affirmed_type = copy.deepcopy(membership_type)
-    affirmed_type.update({"id": CARRIERS["affirmed"], "version": "v1", "title": "Synthetic affirmed report link",
-                          "value_schema": {"type": "string", "enum": ["affirmed"]}})
-    bundle["fact_types"].append(affirmed_type)
-    package["input_bindings"].append({"fact_type": {"id": CARRIERS["affirmed"], "version": "v1"},
-                                      "mode": "required", "symbol": CARRIERS["affirmed"]})
+    affirmed_type = next(ft for ft in bundle["fact_types"] if ft["id"] == CARRIERS["affirmed"])
     support_type = copy.deepcopy(next(ft for ft in bundle["fact_types"] if ft["id"] == affirmed))
     support_type.update({"id": support_id, "title": "Synthetic numeric support per exact linked report",
                          "value_schema": {"type": "number"}})
     bundle["fact_types"].append(support_type)
+    match_type = copy.deepcopy(affirmed_type)
+    match_type.update({"id": ORPHAN_MATCH_FACT_TYPE, "title": "Synthetic current affirmation source match",
+                       "value_schema": {"type": "string", "enum": ["matched"]}})
+    bundle["fact_types"].append(match_type)
+    match_rule = {"schema": "rule-artifact.v13", "id": "demo.tax.2025.rule.f1098-affirmed-source-match",
+        "version": "v1", "scope": SCOPE, "role": "computation",
+        "subject": {"id": affirmed, "version": "v1"},
+        "joined": {"id": BOX1, "version": "v1"}, "direction": "subject_contains_joined",
+        "requires": [BOX1], "pins": [], "when": True,
+        "value": {"op": "category_literal", "fact_type": {"id": ORPHAN_MATCH_FACT_TYPE, "version": "v1"},
+                  "value": "matched"}, "publishes": ORPHAN_MATCH_FACT_TYPE,
+        "blocked": {"code": "DEPENDENCY_INVALID", "missing": [BOX1]}, "citations": [],
+        "notes": "Synthetic declaration that each current affirmation has its exact report source."}
     ceiling_selected_id = "demo.tax.2025.mortgage.account-ceiling-selected"
     ceiling_selected_type = copy.deepcopy(next(ft for ft in bundle["fact_types"]
                                                if ft["id"] == P2.ACCOUNT_FACTS["recognition"]))
@@ -355,14 +468,11 @@ def add_dynamic_account_candidate(surface: Any, acts: list[dict[str, Any]]) -> d
         "version": "v1", "scope": SCOPE, "role": "computation",
         "subject": {"id": affirmed, "version": "v1"},
         "joined": {"id": BOX1, "version": "v1"}, "direction": "subject_contains_joined",
-        "requires": ["tax.us.2025.f1098.residence-interest-reason", P2.PRINCIPAL_STATUS,
-                      P2.ACCOUNT_FACTS["report-link-status"]],
+        "requires": ["tax.us.2025.f1098.residence-interest-reason", P2.PRINCIPAL_STATUS],
         "pins": [], "when": True,
         "value": {"op": "choose", "when": {"op": "all", "args": [
             {"op": "collect_categorical_all_equal", "name": "tax.us.2025.f1098.residence-interest-reason",
              "value": {"op": "category_literal", "fact_type": {"id": "tax.us.2025.f1098.residence-interest-reason", "version": "v2"}, "value": "qualified"}},
-            {"op": "collect_categorical_all_equal", "name": P2.ACCOUNT_FACTS["report-link-status"],
-             "value": {"op": "category_literal", "fact_type": {"id": P2.ACCOUNT_FACTS["report-link-status"], "version": "v1"}, "value": "yes"}},
             {"op": "collect_categorical_all_equal", "name": P2.PRINCIPAL_STATUS,
              "value": {"op": "category_literal", "fact_type": {"id": P2.PRINCIPAL_STATUS, "version": "v1"}, "value": "within-ceiling"}}]},
             "then": 1, "else": 0}, "publishes": support_id,
@@ -429,7 +539,7 @@ def add_dynamic_account_candidate(surface: Any, acts: list[dict[str, Any]]) -> d
         read for read in path.get("reads_subject_results", [])
         if read.get("symbol") in {"tax.us.2025.f1098.residence-interest-reason",
                                   "demo.tax.2025.f1098.reported-box3-origination-date",
-                                  P2.ACCOUNT_FACTS["report-link-status"]}
+                                  STATUS_FACT_TYPE}
     ] + [
         {"symbol": account_ready_id, "subject": {"id": P2.ACCOUNT_FACTS["recognition"], "version": "v1"}},
         {"symbol": ceiling_selected_id, "subject": {"id": P2.ACCOUNT_FACTS["recognition"], "version": "v1"}}]
@@ -438,8 +548,8 @@ def add_dynamic_account_candidate(surface: Any, acts: list[dict[str, Any]]) -> d
                      for name in path["requires"]]
     path["value"] = {"op": "all", "args": [
         {"op": "require_closed", "source_set": "tax.us.2025.f1098"},
-        {"op": "collect_categorical_all_equal", "name": P2.ACCOUNT_FACTS["report-link-status"],
-         "value": {"op": "category_literal", "fact_type": {"id": P2.ACCOUNT_FACTS["report-link-status"], "version": "v1"}, "value": "yes"}},
+        {"op": "collect_categorical_all_equal", "name": STATUS_FACT_TYPE,
+         "value": {"op": "category_literal", "fact_type": {"id": STATUS_FACT_TYPE, "version": "v1"}, "value": "affirmed"}},
         {"op": "collect_categorical_all_equal", "name": account_ready_id,
          "value": {"op": "category_literal", "fact_type": {"id": account_ready_id, "version": "v1"}, "value": "ready"}},
         {"op": "collect_categorical_all_equal", "name": "demo.tax.2025.f1098.reported-box3-origination-date",
@@ -457,7 +567,17 @@ def add_dynamic_account_candidate(surface: Any, acts: list[dict[str, Any]]) -> d
     for act in acts:
         if act.get("kind") == "bundle-adoption" and act.get("payload", {}).get("bundle", {}).get("id") == P2.BRIDGE_BUNDLE_ID:
             act["payload"]["bundle"] = copy.deepcopy(bundle)
-    new_rules = [ceiling_bridge, support_rule, count_rule, coverage_rule, ready_rule, selector]
+    # The old report-membership authority is not consumed by this candidate.
+    # Remove its two supplied claims so only current four-outcome carriers can
+    # select connected routing.
+    old_membership_ids = {
+        fact_id_for(P2.ACCOUNT_FACTS["membership"], (('payer', payer), ('statement', statement),
+            ('tax-year', '2025'), ('borrowing', A)))
+        for payer, statement in (('demo.f1098.lender.a', 'demo.f1098.stmt.a'),
+                                 ('demo.f1098.lender.b', 'demo.f1098.stmt.b'))}
+    acts[:] = [act for act in acts if not (
+        act.get("kind") == "assertion" and _act_finding(act).get("fact_id") in old_membership_ids)]
+    new_rules = [ceiling_bridge, support_rule, count_rule, coverage_rule, ready_rule, selector, match_rule]
     for rule in new_rules:
         write(members / f"{rule['id']}.json", rule)
         if not any(m.get("id") == rule["id"] and m.get("version") == rule["version"] for m in package["members"]):
@@ -493,7 +613,42 @@ def add_p3_consumers(surface: Any, acts: list[dict[str, Any]], p3: Any) -> tuple
     package_path = members / f"package.core-calculations.{INTERMEDIATE_PACKAGE_VERSION}.json"
     package = read(package_path)
     line12e = p3._line12e_successor()
-    line12e_path = members / "rule.form1040-line12e.v2.json"
+    base_value = line12e.pop("value")
+    line12e["version"] = "v3"
+    line12e["schema"] = "rule-artifact.v14"
+    # Keep P3's Schedule-A-total ordering edge visible to selection validation
+    # as an ordinary self-equality read with no tax effect.
+    ordered_base = {"op": "choose", "when": {"op": "compare", "cmp": "eq",
+        "left": {"op": "ref", "name": "tax.us.2025.schedule-a.total"},
+        "right": {"op": "ref", "name": "tax.us.2025.schedule-a.total"}},
+        "then": base_value, "else": base_value}
+    required = ["demo.form1040.standard_deduction", "tax.us.2025.f1098-scope.no-mortgage-statement",
+                "tax.us.2025.schedule-a.total", "tax.us.2025.deductions.itemized",
+                "tax.us.2025.schedule-a.line8a"]
+    pins = [{"role": "input", "id": name, "version": "v1", "origin": "assertion"}
+            for name in required]
+    line12e["requires"] = []
+    line12e["pins"] = []
+    line12e["selection"] = {"mode": "exclusive_presence", "conflict": "refuse",
+        "paths": [{"id": "affirmed-source-present",
+            "activity": {"kind": "source_nonempty",
+                "member_fact_type": {"id": CARRIERS["affirmed"], "version": "v1"}},
+            "reads_subject_results": [{"symbol": ORPHAN_MATCH_FACT_TYPE,
+                "subject": {"id": CARRIERS["affirmed"], "version": "v1"}}],
+            "requires": required, "pins": pins, "when": True,
+            "value": {"op": "choose",
+                "when": {"op": "collect_categorical_all_equal", "name": ORPHAN_MATCH_FACT_TYPE,
+                    "value": {"op": "category_literal", "fact_type": {"id": ORPHAN_MATCH_FACT_TYPE, "version": "v1"},
+                              "value": "matched"}},
+                "then": ordered_base, "else": {"op": "block", "code": "DEPENDENCY_INVALID"}}},
+            {"id": "inert", "activity": {"kind": "source_nonempty",
+                "member_fact_type": {"id": "demo.tax.2025.mortgage.inert-path-unwritten", "version": "v1"}},
+             "reads_subject_results": [], "requires": [], "pins": [], "when": True,
+             "value": {"op": "block", "code": "DEPENDENCY_ABSENT"}}],
+        "default": {"id": "neither", "reads_subject_results": [], "requires": required,
+            "pins": pins, "when": True, "value": ordered_base},
+        "refusal": {"code": "DEPENDENCY_INVALID", "missing": [ORPHAN_MATCH_FACT_TYPE], "pins": []}}
+    line12e_path = members / "rule.form1040-line12e.v3.json"
     write(line12e_path, line12e)
     attachment_path = members / "attachment.schedule-a.json"
     attachment = read(attachment_path)
@@ -513,7 +668,7 @@ def add_p3_consumers(surface: Any, acts: list[dict[str, Any]], p3: Any) -> tuple
     for collection in (package["members"], package["entrypoints"]):
         for row in collection:
             if row.get("id") == "tax.us.2025.rule.form1040-line12e" and row.get("version") == "v1":
-                row["version"] = "v2"
+                row["version"] = "v3"
                 if collection is package["members"]:
                     row["schema"] = line12e["schema"]
             elif row.get("id") == "tax.us.2025.rule.attachment.schedule-a" and row.get("version") == "v1":
@@ -522,11 +677,11 @@ def add_p3_consumers(surface: Any, acts: list[dict[str, Any]], p3: Any) -> tuple
                     row["schema"] = attachment["schema"]
     for row in package["entrypoints"]:
         if row.get("id") == "tax.us.2025.rule.form1040-line12e":
-            row["version"] = "v2"
+            row["version"] = "v3"
         if row.get("id") == "tax.us.2025.rule.attachment.schedule-a":
             row["version"] = "v2"
     registry = read(members / P2_CANDIDATE_REGISTRY_FILENAME)
-    registry["citizens"].append({"id": line12e["id"], "version": "v2", "checksum": citizen_checksum(line12e)})
+    registry["citizens"].append({"id": line12e["id"], "version": "v3", "checksum": citizen_checksum(line12e)})
     registry["citizens"].append({"id": attachment["id"], "version": "v2", "checksum": citizen_checksum(attachment)})
     package["package_checksum"] = package_instance_checksum(package)
     registry["packages"].append({"id": package["id"], "version": package["version"], "checksum": package["package_checksum"]})
@@ -550,9 +705,59 @@ def add_p3_consumers(surface: Any, acts: list[dict[str, Any]], p3: Any) -> tuple
         if act.get("kind") == "package-adoption":
             act.setdefault("payload", {})["revision"] = index
     return PublicationSurface(releases, registry_path, members), acts, {
-        "packageVersion": T0_PACKAGE_VERSION, "line12eVersion": "v2", "attachmentVersion": "v2",
+        "packageVersion": T0_PACKAGE_VERSION, "line12eVersion": "v3", "attachmentVersion": "v2",
         "releaseVersion": T0_RELEASE_VERSION, "removedAttachmentPresenceCheck": removed[0],
         "retainedAttachmentBoundaryAnswers": sorted(expected)}
+
+
+def coordinate_lifecycle_case(case_id: str, acts: list[dict[str, Any]], surface: Any,
+                              case_dir: Path) -> dict[str, Any]:
+    """Run supplied after-state acts through P2's normal coordinator, without its two-report fixture guard."""
+    (case_dir / "synthetic-seed-acts.json").write_text(
+        json.dumps(acts, indent=2, sort_keys=True) + "\n", encoding="utf-8")
+    workspace_tmp = TemporaryDirectory(prefix=f"demo-mortgage-t0-{case_id}-")
+    capability = P2.WorkspaceCapability(Path(workspace_tmp.name) / "workspace")
+    log = P2.ActLog(capability.location, P2.TAX_REGISTRY())
+    log.append_batch(acts, expected_revision=0)
+    current = log.read()
+    try:
+        outcome = P2.live_coordinate_run(capability, repo_root=ROOT, authoritative_acts=current.acts,
+            workspace_revision=current.revision, run_scope=P2.RUN_SCOPE, scope_user=P2.SCOPE_USER,
+            request={"schema": "run-request.v1"}, run_id=f"demo.mortgage.t0.{case_id}.core-v51-v58",
+            governance_pins=[], surface=surface, output_name=f"{case_id}.json", schemas=DerivationSchemas())
+    except P2.PresentationModelError as exc:
+        records = P2.RecordStream(capability.location / "records", DerivationSchemas()).read()
+        write(case_dir / "synthetic-records.json", {"records": records.records})
+        live_result = None
+        tb = exc.__traceback__
+        while tb is not None:
+            maybe_result = tb.tb_frame.f_locals.get("result")
+            if maybe_result is not None and hasattr(maybe_result, "dispositions"):
+                live_result = maybe_result
+            tb = tb.tb_next
+        if live_result is None:
+            workspace_tmp.cleanup()
+            raise RuntimeError("presentation rejection did not expose the coordinator RunResult") from exc
+        write(case_dir / "live-run-in-memory.json", {"presentationError": str(exc),
+            "dispositions": live_result.dispositions, "publications": [p.finding for p in live_result.publications]})
+        workspace_tmp.cleanup()
+        return {"case": case_id, "outcome": "presentation-error-after-recorded-run",
+                "presentationError": str(exc), "durableReport": None}
+    summary: dict[str, Any] = {"case": case_id, "outcome": "refused" if outcome.refusal else "completed",
+        "refusal": ({"reason": outcome.refusal.reason, "detail": outcome.refusal.detail,
+                     "issues": outcome.refusal.issues} if outcome.refusal else None),
+        "durableReport": None, "durablePresentation": None}
+    if outcome.output_path:
+        shutil.copy2(outcome.output_path, case_dir / "coordinator-report.json")
+        summary["durableReport"] = "coordinator-report.json"
+    if outcome.presentation_path:
+        shutil.copy2(outcome.presentation_path, case_dir / "presentation-model.json")
+        records = P2.RecordStream(capability.location / "records", DerivationSchemas()).read()
+        write(case_dir / "synthetic-records.json", {"records": records.records})
+        summary["durablePresentation"] = "presentation-model.json"
+        summary["recordCount"] = len(records.records)
+    workspace_tmp.cleanup()
+    return summary
 
 
 def keyed_presentation_overlay(source: str) -> str:
@@ -622,12 +827,12 @@ def keyed_presentation_overlay(source: str) -> str:
 def main() -> None:
     parser = argparse.ArgumentParser(description="Run selected synthetic T0 mortgage cases.")
     parser.add_argument("--case", action="append", required=True, choices=(
-        "supported-pair-core-v51",
-        "a-ceiling-missing-b-ceiling-300k", "a-valid-dormant-b-ceiling-900k"),
-        help="T0 case to execute; may be repeated. The prior supported-pair case is not run here.")
+        "connected-a-after-b-ended", "current-a-final-link-withdrawn",
+        "closed-empty-with-withdrawn-history", "closed-empty-with-affirmed-orphan"),
+        help="One chartered supplied lifecycle after-state; may be repeated.")
     args = parser.parse_args()
     if len(set(args.case)) != len(args.case):
-        parser.error("each ceiling-collision case may be selected only once")
+        parser.error("each lifecycle case may be selected only once")
     stamp = datetime.now(timezone.utc).strftime("%Y%m%dT%H%M%SZ")
     out = ROOT / "temp/mortgage-statement-borrowing" / f"t0-dynamic-binding-{stamp}"
     out.mkdir(parents=True, exist_ok=False)
@@ -638,8 +843,9 @@ def main() -> None:
             candidate_registry_filename=P2_CANDIDATE_REGISTRY_FILENAME,
             base_release_version=BASE_RELEASE_VERSION,
             candidate_package_version=INTERMEDIATE_PACKAGE_VERSION)
-        declaration = {"statusSource": P2.ACCOUNT_FACTS["report-link-status"],
-                       "fourOutcomeCountExperiment": "not part of this supported-pair increment",
+        status_composition = add_status_composition(surface.member_dir)
+        declaration = {"statusSource": STATUS_FACT_TYPE,
+                       "fourOutcomeCountExperiment": "integrated into selected account and line12e paths",
                        "currentBase": {"corePackage": BASE_PACKAGE_VERSION,
                            "packageRegistry": BASE_REGISTRY_FILENAME,
                            "sourceRelease": BASE_RELEASE_VERSION},
@@ -670,7 +876,7 @@ def main() -> None:
             surface.member_dir / f"package.core-calculations.{T0_PACKAGE_VERSION}.json",
             surface.member_dir / T0_REGISTRY_FILENAME,
             surface.release_dir / f"{P2.BRIDGE_RELEASE_ID}.{T0_RELEASE_VERSION}.json",
-            surface.member_dir / "rule.form1040-line12e.v2.json",
+            surface.member_dir / "rule.form1040-line12e.v3.json",
             surface.member_dir / "attachment.schedule-a.v2.json",
             surface.member_dir / "rule.form1040-standard-deduction.v3.json",
             surface.member_dir / "rule.form1040-line16.v6.json",
@@ -690,7 +896,8 @@ def main() -> None:
         (out / "synthetic-seed-acts.json").write_text(json.dumps(acts, indent=2, sort_keys=True) + "\n", encoding="utf-8")
         summary_hashes = {path.name: hashlib.sha256(path.read_bytes()).hexdigest() for path in retain_paths}
         summary: dict[str, Any] = {"stage": "bounded-declaration-check", "outputDirectory": str(out.relative_to(ROOT)),
-                                   "declaration": declaration, "dynamicAccount": dynamic,
+                                   "declaration": declaration, "statusComposition": status_composition,
+                                   "dynamicAccount": dynamic,
                                    "P3Consumers": consumers, "retainedCandidateHashes": summary_hashes,
                                    "syntheticSuppliedActs": "synthetic-seed-acts.json",
                                    "selectedCases": list(args.case)}
@@ -720,7 +927,7 @@ def main() -> None:
         overlay.install(projection, live, live_session)
         case_summaries = []
         for case_id in args.case:
-            case_acts, mutation = ceiling_collision_acts(acts, case_id)
+            case_acts, mutation = lifecycle_case_acts(acts, case_id)
             case_resolution = resolve_production_package(case_acts,
                 run_scope=P2.RUN_SCOPE, scope_user=P2.SCOPE_USER,
                 workspace_revision=len(case_acts), surface=surface, schemas=DerivationSchemas())
@@ -736,12 +943,10 @@ def main() -> None:
                 continue
             case_summary["packageValidation"] = "resolved"
             case_summary["resolvedRuleCount"] = len(case_resolution.resolved_members)
-            # _live_case's positive-baseline branch is a no-op apart from the
-            # established fixture invariants/revision checks. The supplied acts
-            # above are changed before it enters the real coordinator.
-            live_case = P2._live_case("positive-baseline", case_acts, surface, case_dir)
-            live_case["harnessBranch"] = live_case.get("case")
-            live_case["case"] = case_id
+            # Call the same real coordinator directly: P2._live_case's helper
+            # hard-asserts the original two-report fixture and cannot represent
+            # these intentionally changed current states.
+            live_case = coordinate_lifecycle_case(case_id, case_acts, surface, case_dir)
             report_path = case_dir / "coordinator-report.json"
             model_path = case_dir / "presentation-model.json"
             records_path = case_dir / "synthetic-records.json"
@@ -749,7 +954,15 @@ def main() -> None:
                 report = read(report_path)
                 live_case["runId"] = report.get("run_id")
                 target_ids = {P2.LINE8A_RULE_ID, "tax.us.2025.rule.schedule-a-total",
-                              "tax.us.2025.rule.form1040-line12e"}
+                              "tax.us.2025.rule.schedule-a-total-closed-empty",
+                              "tax.us.2025.rule.form1040-line12e",
+                              "demo.tax.2025.rule.borrowing-affirmed-count",
+                              "demo.tax.2025.rule.borrowing-denied-count",
+                              "demo.tax.2025.rule.borrowing-unknown-count",
+                              "demo.tax.2025.rule.borrowing-withdrawn-count",
+                              "demo.tax.2025.rule.borrowing-current-link-status",
+                              "demo.tax.2025.rule.f1098-affirmed-source-match",
+                              "demo.tax.2025.rule.mortgage-borrowing-readiness"}
                 live_case["consumerOutcomes"] = [{"artifact": item.get("artifact_id"),
                     "symbol": item.get("symbol"), "disposition": item.get("disposition"),
                     "blocked": item.get("blocked"), "missing": item.get("missing"),
@@ -773,7 +986,7 @@ def main() -> None:
             case_summaries.append(case_summary)
         summary.update({"outcome": "resolved", "candidatePackage": T0_PACKAGE_VERSION,
             "presentationAdapter": {"path": str(adapter_path.relative_to(ROOT)), "sha256": overlay_sha256},
-            "cases": case_summaries, "stage": "bounded-ceiling-collision-coordinator-cases"})
+            "cases": case_summaries, "stage": "four-outcome-lifecycle-coordinator-cases"})
         write(out / "declaration-check.json", summary)
         print(json.dumps(summary, indent=2, sort_keys=True))
 
