@@ -98,6 +98,24 @@ cases. The original positive model remains evidence only for its reached
 layers. Return a concrete obstacle if existing content cannot express the
 required ordering; no new engine or schema authority is granted.
 
+The required-attachment case reached a second content boundary: the adopted
+attachment still asks for the legacy presence-only `f1098.liable-and-paid`
+source, while the selected ordinary-answer line8a chain derives its support
+from each report's own obligation/payment answers. Do not invent that legacy
+source as a supplied favorable assertion. The continuation may instantiate
+an ephemeral attachment successor removing only that obsolete presence
+requirement, retaining all seven boundary `value == yes` checks and unchanged
+requirement, family authority, row set and tie-out. Record that deliberate
+content delta and why the selected line8a producer supplies the relevant
+support; it is not a generic relaxation for older packages.
+
+Run one distinct candidate with this attachment successor on the $21,000
+connected case, plus a missing-boundary-answer control to show the retained
+completeness requirement still blocks. Do not repeat the completed ordering
+controls. Stop after these observations or a concrete unresolved obstacle;
+no further scenario expansion. Independent review dispositions the combined
+contract and all actual consumer evidence before production selection.
+
 ## Ownership, handoff and stops
 
 Only the three p3 documents/instrument above and ignored synthetic scratch
