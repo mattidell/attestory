@@ -115,6 +115,54 @@ separate explicit gates.
 
 ## Context Capsule
 
+### P3 continuation object and bounded review
+
+On Foreman continuation, review the committed P3 connected contract,
+saved-model probe/results and active plan Design state. This is the next
+delta in the same independent connected-design unit, not a fresh full P0/P1
+or tax review. Inspect retained actual content, raw inputs, records and
+models through their evidence locators; do not rerun passing cases.
+
+Check especially:
+
+- The saved group preserves both exact report/answer chains, exact producer
+  and type versions and actual shared support. Prototype lineage helpers do
+  not invent findings, infer identity from suffixes or compute tax in Python.
+- Initial HTML serialization is not visual group delivery. Distinguish the
+  initial $11,000 model/blocked line12e from subsequent consumer success.
+- The line12e successor declares the existing Schedule A total as an ordering
+  input, leaves its value/guard unchanged, and preserves the measured
+  closed-empty legacy-itemized and singleton controls. Trace actual scheduling
+  and dependency authority rather than treating a package resolve as proof.
+- The attachment successor removes only the old liability/payment presence
+  check; the selected line8a chain actually carries each report's obligation
+  and payment support. Seven boundary value checks and requirement, family
+  authority, row-set/tie-out are unchanged. Verify positive attachment
+  publication, saved subtotal/pins and the missing-boundary refusal. Do not
+  claim a durable attachment body when only record/model observations exist.
+- Actual empty behavior is line8a inapplicable, separate Schedule A total
+  zero and the no-statement line12e path, not a published line8a zero.
+- The production proposal preserves independent raw claims versus dependent
+  derivations. A new report does not automatically invalidate an unchanged
+  borrowing/year ceiling. Borrowing-reference admission and common-account
+  identity selection are not proved by the prototype's fixture literal.
+  Identify any missing concrete contract for a connected one-report transition
+  or withdrawal/exit that would force later builders to invent policy.
+
+Append a P3 disposition to your report: whether the evidence and provisional
+contract are coherent enough to complete Track 0 consolidation, and exactly
+what remains to settle before the first production unit. Do not demand all
+future production regression tests now or equate a preserved open obligation
+with a failed experiment. Equally, do not mark Track 0 or production ready
+without its six artifacts and required owner dispositions. If a consequential
+contract choice is still missing, name its concrete effect and smallest repair.
+
+Only the existing review report is assigned. No production/code edits,
+schema allocation, experiment expansion, broad suite or browser requirement.
+Re-execute only a specific disputed observation if necessary. The launch
+commit includes the P3 object and this routing update; the charter itself is
+not extra product evidence. Return inspected claims and measurement limits.
+
 - Resolve `HEAD` and reconcile Git at launch. Milestone
   `mortgage-statement-borrowing`; branch
   `milestone/mortgage-statement-borrowing-same-loan`; ratified `origin/main`.

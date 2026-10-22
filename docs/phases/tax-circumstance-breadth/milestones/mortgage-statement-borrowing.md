@@ -3,7 +3,7 @@
   "version": 1,
   "phase": "Tax Circumstance Breadth",
   "topic": "mortgage-statement-borrowing",
-  "status": "A is selected and P2 independently accepted. P3 saved group models execute; visible reader remains unbuilt. Test the traced line12e ordering repair and required Schedule A path in disposable content before independent consolidation review. No production or schema successor selected.",
+  "status": "A is selected and P2 independently accepted. P3 saves group models and its disposable content reaches line12e and required Schedule A; missing boundary support still blocks the attachment. Independent Sol review of the connected contract/evidence is next. Production recording, routing/lifecycle and visible group reader remain unbuilt.",
   "scope": [
     "extend the existing ordinary mortgage account to a bounded same-borrowing multiple-report case",
     "preserve report amounts, loan-level circumstances and their separate correction lifecycles",
@@ -239,23 +239,28 @@ retains the cost and provenance distinction.
   recorder, lifecycle and group-reader delivery remain unproved. Box 3
   disagreement currently blocks on an absent common scalar, not a saved
   conflict-specific explanation.
-- Next consolidate the production obligations and test the missing group
-  presentation through a bounded prototype. A valid form-facing model is
-  required before Track 0 can close; the recorded calculation alone is not
-  enough. Settle integration cost and lifecycle/compatibility cases before
-  any production charter. Do not commission further rounds merely to
+- Independently review the [P3 contract](mortgage-statement-borrowing-evidence/p3-connected-contract.md)
+  and [saved-model/consumer evidence](mortgage-statement-borrowing-evidence/p3-saved-model-results.md)
+  as one connected delta. Settle the remaining recording, route/lifecycle
+  and exit obligations, then complete Track 0 before any production charter.
+  Do not commission further rounds merely to
   refine paper. A demonstrated need for allocation, refinancing, general
   identity or broader engine work returns as an owner scope choice.
 
-The P3 saved-model prototype has now produced a durable two-report model,
-but its original positive case leaves the actual line12e field blocked:
-that incumbent consumer attempts before the longer connected chain publishes
-line8a. Schedule A is not required for that $11,000 case against the configured
-$15,000 standard deduction, so it also does not prove the required attachment
-tie-out. Resolve the ordering through existing declared content if possible
-and exercise a distinct required-Schedule-A case before closing integration.
-HTML serialization is not visible group-reader delivery. These findings refine
-the same calculation-and-explanation goal; they do not change its scope.
+P3 saves and reloads a two-report model. Its initial $11,000 case exposed an
+early line12e attempt and did not require Schedule A. Two explicit disposable
+content successors address those consumer boundaries: line12e waits for the
+existing Schedule A total, and the attachment removes only an obsolete
+legacy liability/payment presence check while retaining its seven boundary
+value checks. The later $21,000 case publishes line12e and required Schedule A
+with saved tie-out text and both source pins; removing one boundary answer
+still blocks the attachment. Changed-content empty/singleton controls preserve
+their actual calculation paths. These are prototype findings, not adopted
+production changes. HTML serialization is not visible group-reader delivery.
+Borrowing-reference admission, exact common-account selection, connected
+one-report transitions, correction/withdrawal and the clear-account exit remain
+production-design obligations. The new evidence refines the same goal rather
+than changing its scope.
 
 ### Completion boundary
 

@@ -5,9 +5,9 @@
   "topic": "mortgage-statement-borrowing",
   "active_plan": "docs/phases/tax-circumstance-breadth/milestones/mortgage-statement-borrowing.md",
   "milestone_state": "track-0",
-  "status": "A is selected and P2 independently accepted. P3 saved group models execute; visible reader remains unbuilt. Test the traced line12e ordering repair and required Schedule A path in disposable content before independent consolidation review. No production or schema successor selected.",
-  "current_role": "Builder — Luna connected contract and saved-model feasibility",
-  "current_prompt": "docs/reviews/mortgage-statement-borrowing/charter-p3-contract-and-saved-model.md"
+  "status": "A is selected and P2 independently accepted. P3 saves group models and its disposable content reaches line12e and required Schedule A; missing boundary support still blocks the attachment. Independent Sol review of the connected contract/evidence is next. Production recording, routing/lifecycle and visible group reader remain unbuilt.",
+  "current_role": "Reviewer — Sol connected P3 contract and consumer evidence",
+  "current_prompt": "docs/reviews/mortgage-statement-borrowing/charter-p1-independent-review.md"
 }
 -->
 
@@ -45,11 +45,15 @@ reports/models. Independent Sol review accepted those findings for connected
 design consolidation, not production readiness. Next, settle the recording,
 lifecycle and route contract and test the missing saved group explanation.
 The externally bound line8a result needs a valid model through its actual
-consumer before Track 0 can close. P3 now saves and reloads its group models,
-but the original supported case leaves line12e blocked by an early attempt
-and never requires Schedule A. The next bounded check adds a declared
-ordering dependency in disposable content and reaches the required attachment
-with a larger two-report amount. Visible group rendering is still unbuilt.
+consumer before Track 0 can close. P3 saves and reloads group models; its
+disposable content successors make line12e wait for the existing Schedule A
+total and remove the attachment's obsolete legacy liability/payment presence
+check, keeping all seven boundary value checks. The $21,000 connected case
+publishes line12e and required Schedule A with saved tie-out text; missing one
+boundary answer still blocks attachment publication. Changed-content empty
+and singleton controls preserve their calculation paths. Sol independently
+reviews that connected contract and evidence next. Visible group rendering,
+production recording/routing and connected correction/withdrawal are unbuilt.
 The actual no-report compatibility path is line8a inapplicable, separate
 Schedule A total zero and the existing no-statement line12e route.
 The numeric annual ceiling
