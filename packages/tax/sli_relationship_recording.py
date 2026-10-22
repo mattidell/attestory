@@ -175,6 +175,18 @@ def _act(index: int, kind: str, payload: dict[str, Any], actor: str, at: str,
 
 def _current(acts: Sequence[dict[str, Any]], registry: Any) -> tuple[Any, Any, dict[str, dict[str, Any]], Any]:
     state = project(tuple(copy.deepcopy(row) for row in acts), registry)
+    return _current_from_state(state)
+
+
+def _current_from_state(state: Any) -> tuple[Any, Any, dict[str, dict[str, Any]], Any]:
+    """``_current``'s own reading of an already-folded ``state``, without folding again.
+
+    A caller that has already projected the exact acts and registry ``state``
+    reflects calls this directly instead of ``_current`` (which always folds
+    fresh). ``_current`` itself is unchanged, so its other callers
+    (``current_claim_applicability``, ``_record_submission``, ``_stage_answer``)
+    stay correct and fresh when called on their own.
+    """
     currency = compute_currency(state)
     current_ids = currency.current_finding_ids
     lattice = facts_of(state.fact_state)
@@ -1143,8 +1155,8 @@ def _record_borrowing_answer_durably(log: ActLog, registry: Any, *, question: st
         raise RelationshipRecordingRefused("submission identity and caller provenance are required")
     before = _read_for_save(log, expected_revision)
     staged = [copy.deepcopy(row) for row in before.acts]
-    adoption = _stage_relationship_v2_adoption(staged, registry, question=question, actor=actor, at=at)
-    state, _currency, findings, _lattice = _current(staged, registry)
+    adoption, state = _stage_relationship_v2_adoption(staged, registry, question=question, actor=actor, at=at)
+    state, _currency, findings, _lattice = _current_from_state(state)
     fact_type, fact_id = _borrowing_answer_target(state, question, borrowing_ref, response)
     current = [finding_id for finding_id, row in findings.items() if row.get("fact_id") == fact_id]
     if correction_of_finding_id is None and current:
@@ -1179,7 +1191,10 @@ def _record_borrowing_answer_durably(log: ActLog, registry: Any, *, question: st
     finding = {"schema": "finding.v2", "id": finding_id, "fact_id": fact_id, "value": response,
                "basis": "attested", "evidence_ids": [evidence_id], "contribution_id": contribution_id}
     assertion = _act(revision + 2, "assertion", {"finding": finding}, actor, at, suffix)
-    base = project(tuple(copy.deepcopy(row) for row in (*staged, evidence_act)), registry)
+    # ``state`` already folds exactly ``staged``; ``evidence_act`` is the
+    # next act in sequence, so this advances the pure fold one step instead
+    # of re-projecting ``staged`` plus ``evidence_act`` from scratch.
+    base = apply_act(state, evidence_act, registry)
     admission = apply_contribution_batch(base, contribution_act=contribution, successor_acts=[assertion],
                                          registry=registry,
                                          record_id=f"sli.borrowing-answer.record.{suffix}")
@@ -1191,21 +1206,33 @@ def _record_borrowing_answer_durably(log: ActLog, registry: Any, *, question: st
         raise RelationshipRecordingRefused(
             f"ordinary contribution admission refused in phase {admission.terminal_record['phase']}")
     staged.extend((evidence_act, contribution, assertion))
+    pre_commit_len = len(staged)
     # One save: the bundle adoption (if any), the evidence and the answer.
     committed = _commit_save(log, before, staged, registry, reviewed=True)
-    recovered = log.read()
+    # ``_commit_save`` calls ``_stage_enrollment_follows_schooling``, which
+    # only stages more acts when a save changes a borrowing's financing
+    # links; a borrowing-answer save never asserts or retracts one, so this
+    # is provably a no-op here. The length check is a live guard, not a
+    # one-time proof: if ``staged`` grew, ``admission.state`` no longer
+    # covers what was actually committed, and this falls back to its
+    # original fresh read and fold.
+    if len(staged) == pre_commit_len:
+        final_state = admission.state
+    else:
+        recovered = log.read()
+        final_state = project(recovered.acts, registry)
     return {"submission_id": submission_id, "question": question, "fact_type": fact_type,
             "fact_id": fact_id, "finding_id": finding_id, "evidence_id": evidence_id,
             "response": response, "predecessor_finding_id": correction_of_finding_id,
             "adopted_bundle_version": adoption,
-            "revision": committed, "state": project(recovered.acts, registry)}
+            "revision": committed, "state": final_state}
 
 
 RELATIONSHIP_BUNDLE_ID = "tax.us.2025.sli-relationship-source"
 
 
 def _stage_relationship_v2_adoption(staged: list[dict[str, Any]], registry: Any, *, question: str,
-                                    actor: str, at: str) -> str | None:
+                                    actor: str, at: str) -> tuple[str | None, Any]:
     """Stage the adoption of relationship bundle v2 before a first borrowing answer.
 
     Track 7, carried item 1. A workspace that adopted only relationship bundle
@@ -1217,14 +1244,19 @@ def _stage_relationship_v2_adoption(staged: list[dict[str, Any]], registry: Any,
     withdrawn. Under v2 such an answer blocks the statement or keeps the
     loan-link path present; adopted over a v1 history, it would read as never
     said. That history is refused with a reason instead of adopted.
+
+    Returns the adopted bundle version (or ``None``) and the state folded
+    through ``staged``, including the adoption act when one is appended, for
+    the one caller (``_record_borrowing_answer_durably``) to reuse instead of
+    folding ``staged`` again.
     """
     fact_type = BORROWING_QUESTIONS.get(question)
     state = project(tuple(copy.deepcopy(row) for row in staged), registry)
     fact_types = state.fact_state.fact_types
     if fact_type is None or fact_type in fact_types:
-        return None
+        return None, state
     if FINANCING not in fact_types or STATEMENT_INCLUSION not in fact_types:
-        return None
+        return None, state
     if _v1_link_answers_without_a_current_fact(state):
         raise RelationshipRecordingRefused(
             "this workspace recorded a link answer of no, cannot tell or a withdrawal before relationship "
@@ -1237,9 +1269,9 @@ def _stage_relationship_v2_adoption(staged: list[dict[str, Any]], registry: Any,
     adoption = {"schema": "act.v1", "act_id": f"sli.relationship.bundle-adoption.{suffix}",
                 "kind": "bundle-adoption", "actor": actor, "at": at, "committed_against": len(staged),
                 "payload": {"bundle": bundle}}
-    apply_act(state, adoption, registry)
+    state = apply_act(state, adoption, registry)
     staged.append(adoption)
-    return str(bundle["version"])
+    return str(bundle["version"]), state
 
 
 def _v1_link_answers_without_a_current_fact(state: Any) -> bool:

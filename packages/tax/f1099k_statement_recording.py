@@ -308,17 +308,31 @@ def _commit(
     suffix: str,
     finding_ids: Sequence[str],
     expected_revision: int,
+    _state: Any = None,
 ) -> dict[str, Any]:
+    """Commit ``staged``'s new acts; reuse the caller's own fold when given.
+
+    ``additions`` is exactly what gets written. When ``_state`` is given, it
+    is the caller's own projection of ``staged`` (every act already folded
+    act-by-act), and ``revision == len(staged)`` confirms the append wrote
+    exactly those acts at the expected length, so the committed log's acts
+    equal ``staged``'s and ``_state`` already is their fold. Otherwise this
+    falls back to its original fresh read and fold.
+    """
     additions = staged[len(before.acts):]
     try:
         revision = log.append_batch(additions, expected_revision=expected_revision)
     except ActLogError as exc:
         raise F1099KRecordingRefused(f"atomic answer save refused: {exc}") from exc
-    fresh = log.read()
+    if _state is not None and revision == len(staged):
+        state = _state
+    else:
+        fresh = log.read()
+        state = project(fresh.acts, registry)
     return {
         "revision": revision,
         "finding_ids": list(finding_ids),
-        "state": project(fresh.acts, registry),
+        "state": state,
         "actor": actor,
         "at": at,
     }
@@ -330,8 +344,18 @@ def _ensure_bundles(
     actor: str,
     at: str,
     suffix: str,
-) -> None:
-    state = project(tuple(copy.deepcopy(row) for row in staged), registry)
+    *,
+    _state: Any = None,
+) -> Any:
+    """Adopt the two bundles if missing; return the state folded through ``staged``.
+
+    ``_state``, when given, is the caller's own projection of ``staged`` at
+    this exact point (before any bundle-adoption act here); it is reused
+    instead of folding ``staged`` again. The returned state always reflects
+    every act now in ``staged``, including any bundle-adoption this call
+    appended, so the caller never needs to re-project.
+    """
+    state = _state if _state is not None else project(tuple(copy.deepcopy(row) for row in staged), registry)
     if STATEMENT_BOX1A not in state.fact_state.fact_types:
         bundle = load_f1099k_bundle(registry)
         act = _act(len(staged), "bundle-adoption", {"bundle": bundle}, actor, at, f"{suffix}.b1")
@@ -341,6 +365,8 @@ def _ensure_bundles(
         circ_bundle = load_f1099k_circumstances_bundle(registry)
         act = _act(len(staged), "bundle-adoption", {"bundle": circ_bundle}, actor, at, f"{suffix}.b2")
         staged.append(act)
+        state = apply_act(state, act, registry)
+    return state
 
 
 def _normalize_question(name: str) -> str:
@@ -608,8 +634,7 @@ def record_f1099k_statement_durably(
 
     suffix = _token(submission_id)
     staged = list(copy.deepcopy(before.acts))
-    _ensure_bundles(staged, registry, actor, at, suffix)
-    state = project(tuple(copy.deepcopy(row) for row in staged), registry)
+    state = _ensure_bundles(staged, registry, actor, at, suffix)
 
     fact_b1a_id = fact_id_for(STATEMENT_BOX1A, tuple(sorted(statement_keys.items())))
     if fact_b1a_id in state.withdrawn_fact_ids:
@@ -968,6 +993,7 @@ def record_f1099k_statement_durably(
     committed = _commit(
         log, registry, before, staged, actor=actor, at=at,
         suffix=suffix, finding_ids=finding_ids, expected_revision=expected_revision,
+        _state=state,
     )
     committed["statement_keys"] = statement_keys
     return committed
@@ -999,9 +1025,8 @@ def record_f1099k_no_statements_durably(
     before = _read_for_save(log, expected_revision)
     suffix = _token(submission_id)
     staged = list(copy.deepcopy(before.acts))
-    _ensure_bundles(staged, registry, actor, at, suffix)
+    state = _ensure_bundles(staged, registry, actor, at, suffix)
     _check_evidence_ids([evidence_id], submission_id, staged)
-    state = project(tuple(copy.deepcopy(row) for row in staged), registry)
 
     current_stmts = _find_current_statement_findings(state)
     if current_stmts:
@@ -1130,10 +1155,12 @@ def record_f1099k_no_statements_durably(
     if admission.terminal_record["phase"] != "completed":
         raise F1099KRecordingRefused(f"closure contribution was not admitted: {admission.terminal_record}")
     staged.extend((contrib_act, assertion_act))
+    state = admission.state
 
     committed = _commit(
         log, registry, before, staged, actor=actor, at=at,
         suffix=suffix, finding_ids=[closure_finding_id], expected_revision=expected_revision,
+        _state=state,
     )
     committed["horizon"] = target_h
     return committed
@@ -1151,14 +1178,21 @@ def record_f1099k_statement_answers_durably(
     at: str,
     expected_revision: int,
     allow_partial: bool = False,
+    _state: Any = None,
 ) -> dict[str, Any]:
-    """Record initial circumstance answers for one Form 1099-K statement atomically."""
+    """Record initial circumstance answers for one Form 1099-K statement atomically.
+
+    ``_state``, when given, is the caller's own fold of this exact log
+    revision (for example, a review's own ``prepare_f1099k_statement_review``
+    projection in the same save operation); it is reused instead of a fresh
+    fold here. Calling this directly, without ``_state``, is unaffected.
+    """
     _require_provenance(submission_id, actor, at)
     _validate_statement_keys(statement_keys)
     before = _read_for_save(log, expected_revision)
     suffix = _token(submission_id)
     staged = list(copy.deepcopy(before.acts))
-    _ensure_bundles(staged, registry, actor, at, suffix)
+    state = _ensure_bundles(staged, registry, actor, at, suffix, _state=_state)
 
     norm_answers = {_normalize_question(k): v for k, v in answers.items()}
     norm_evidence = {_normalize_question(k): v for k, v in evidence_ids.items()}
@@ -1181,7 +1215,6 @@ def record_f1099k_statement_answers_durably(
     for q, a in norm_answers.items():
         _validate_answer_value(q, a)
 
-    state = project(tuple(copy.deepcopy(row) for row in staged), registry)
     _require_statement_exists(state, statement_keys)
     current_ids = compute_currency(state).current_finding_ids
 
@@ -1207,6 +1240,7 @@ def record_f1099k_statement_answers_durably(
     return _commit(
         log, registry, before, staged, actor=actor, at=at,
         suffix=suffix, finding_ids=finding_ids, expected_revision=expected_revision,
+        _state=state,
     )
 
 
@@ -1222,6 +1256,7 @@ def answer_f1099k_statement_answer_durably(
     actor: str,
     at: str,
     expected_revision: int,
+    _state: Any = None,
 ) -> dict[str, Any]:
     """Record one absent circumstance answer for a statement."""
     norm_q = _normalize_question(question)
@@ -1236,6 +1271,7 @@ def answer_f1099k_statement_answer_durably(
         at=at,
         expected_revision=expected_revision,
         allow_partial=True,
+        _state=_state,
     )
 
 
@@ -1252,8 +1288,15 @@ def correct_f1099k_statement_answer_durably(
     actor: str,
     at: str,
     expected_revision: int,
+    _state: Any = None,
 ) -> dict[str, Any]:
-    """Replace one current answer with new evidence on the same fact identity."""
+    """Replace one current answer with new evidence on the same fact identity.
+
+    ``_state``, when given, is the caller's own fold of this exact log
+    revision (for example, a review's own fold in the same correction
+    operation); reused instead of a fresh fold. Unaffected when called
+    directly, without ``_state``.
+    """
     _require_provenance(submission_id, actor, at)
     _validate_statement_keys(statement_keys)
     norm_q = _normalize_question(question)
@@ -1261,10 +1304,9 @@ def correct_f1099k_statement_answer_durably(
     before = _read_for_save(log, expected_revision)
     suffix = _token(submission_id)
     staged = list(copy.deepcopy(before.acts))
-    _ensure_bundles(staged, registry, actor, at, suffix)
+    state = _ensure_bundles(staged, registry, actor, at, suffix, _state=_state)
     _check_evidence_ids([evidence_id], submission_id, staged)
 
-    state = project(tuple(copy.deepcopy(row) for row in staged), registry)
     _require_statement_exists(state, statement_keys)
     current_ids = compute_currency(state).current_finding_ids
     fact_id = fact_id_for(f"tax.us.2025.f1099k.{norm_q}", tuple(sorted(statement_keys.items())))
@@ -1283,6 +1325,7 @@ def correct_f1099k_statement_answer_durably(
     return _commit(
         log, registry, before, staged, actor=actor, at=at,
         suffix=suffix, finding_ids=[finding_id], expected_revision=expected_revision,
+        _state=state,
     )
 
 
@@ -1295,15 +1338,21 @@ def withdraw_f1099k_statement_answer_durably(
     actor: str,
     at: str,
     expected_revision: int,
+    _state: Any = None,
 ) -> dict[str, Any]:
-    """End current answer support without a replacement or an opposite answer."""
+    """End current answer support without a replacement or an opposite answer.
+
+    ``_state``, when given, is the caller's own fold of this exact log
+    revision; reused instead of a fresh fold. Unaffected when called
+    directly, without ``_state``.
+    """
     _require_provenance(submission_id, actor, at)
     before = _read_for_save(log, expected_revision)
     if not current_findings or len(set(current_findings)) != len(current_findings):
         raise F1099KRecordingRefused("withdrawal must name distinct non-empty current findings")
 
     staged = list(copy.deepcopy(before.acts))
-    state = project(tuple(copy.deepcopy(row) for row in staged), registry)
+    state = _state if _state is not None else project(tuple(copy.deepcopy(row) for row in staged), registry)
     current_ids = compute_currency(state).current_finding_ids
     lattice = facts_of(state.fact_state, include_displaced=True)
 
@@ -1340,6 +1389,7 @@ def withdraw_f1099k_statement_answer_durably(
     return _commit(
         log, registry, before, staged, actor=actor, at=at,
         suffix=suffix, finding_ids=[], expected_revision=expected_revision,
+        _state=state,
     )
 
 
@@ -1357,6 +1407,7 @@ def retract_f1099k_statement_durably(
     evidence_id: str | None = None,
     tax_year: str = "2025",
     family_scope: dict[str, str] | None = None,
+    _state: Any = None,
 ) -> dict[str, Any]:
     """Atomically remove one Form 1099-K statement, retracting its member Box 1a, Box 4, and answers.
 
@@ -1366,6 +1417,10 @@ def retract_f1099k_statement_durably(
     3. finding-retracted for all orphan circumstance answers matching the statement's identity keys.
 
     Committed atomically via ActLog.append_batch in a single _commit call.
+    ``_state``, when given, is the caller's own fold of this exact log
+    revision (for example, a review's own fold in the same remove
+    operation); reused instead of a fresh fold. Unaffected when called
+    directly, without ``_state``.
     """
     _require_provenance(submission_id, actor, at)
     before = _read_for_save(log, expected_revision)
@@ -1389,7 +1444,7 @@ def retract_f1099k_statement_durably(
 
     suffix = _token(submission_id)
     staged = list(copy.deepcopy(before.acts))
-    state = project(tuple(copy.deepcopy(row) for row in staged), registry)
+    state = _state if _state is not None else project(tuple(copy.deepcopy(row) for row in staged), registry)
 
     b1a_fid, b1a_finding = _require_statement_exists(state, norm_keys)
     fact_b1a_id = b1a_finding["fact_id"]
@@ -1495,6 +1550,7 @@ def retract_f1099k_statement_durably(
         suffix=suffix,
         finding_ids=[],
         expected_revision=expected_revision,
+        _state=state,
     )
     committed["horizon"] = succ_h
     committed["removed_statement"] = norm_keys
@@ -1534,9 +1590,8 @@ def close_f1099k_family_durably(
     before = _read_for_save(log, expected_revision)
     suffix = _token(submission_id)
     staged = list(copy.deepcopy(before.acts))
-    _ensure_bundles(staged, registry, actor, at, suffix)
+    state = _ensure_bundles(staged, registry, actor, at, suffix)
     _check_evidence_ids([evidence_id], submission_id, staged)
-    state = project(tuple(copy.deepcopy(row) for row in staged), registry)
 
     current_stmts = _find_current_statement_findings(state)
     if not current_stmts:
@@ -1623,10 +1678,12 @@ def close_f1099k_family_durably(
     if admission.terminal_record["phase"] != "completed":
         raise F1099KRecordingRefused(f"closure contribution was not admitted: {admission.terminal_record}")
     staged.extend((contrib_act, assertion_act))
+    state = admission.state
 
     committed = _commit(
         log, registry, before, staged, actor=actor, at=at,
         suffix=suffix, finding_ids=[closure_finding_id], expected_revision=expected_revision,
+        _state=state,
     )
     committed["horizon"] = target_h
     return committed

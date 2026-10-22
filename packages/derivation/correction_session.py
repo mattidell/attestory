@@ -334,11 +334,17 @@ def enumerate_choices(
     return choices
 
 
-def _entity_label(contents: Any, registry: Any, ref: str) -> str | None:
+def _entity_label(contents: Any, registry: Any, ref: str, *, _state: Any = None) -> str | None:
     """One entity's current label, looked up directly by its own reference
     -- the same identity basis ``_attribute_borrowing_labels`` already uses,
-    never a position or a count (plan, Track 2 item 5)."""
-    state = project(tuple(dict(act) for act in contents.acts), registry)
+    never a position or a count (plan, Track 2 item 5).
+
+    ``_state``, when given, is the caller's own fold of ``contents.acts``
+    with ``registry`` (the same call looking up more than one entity's
+    label); reused instead of folding again. Called on its own, without
+    ``_state``, this is unaffected.
+    """
+    state = _state if _state is not None else project(tuple(dict(act) for act in contents.acts), registry)
     lifecycle = state.fact_state.entities.get(ref)
     return lifecycle.entity.get("label") if lifecycle is not None else None
 
@@ -643,10 +649,10 @@ def _opened_loan_answers(contents: Any, registry: Any) -> list[dict[str, Any]]:
             predecessor = None
         borrowing_ref = dict(fact.keys).get("borrowing")
         label = (
-            _entity_label(contents, registry, borrowing_ref)
+            _entity_label(contents, registry, borrowing_ref, _state=state)
             if isinstance(borrowing_ref, str) else None)
         clues = (
-            recognition_clue_labels(contents, registry, borrowing_ref)
+            recognition_clue_labels(contents, registry, borrowing_ref, _state=state)
             if isinstance(borrowing_ref, str) else [])
         response = finding.get("value")
         answers.append({
@@ -960,6 +966,13 @@ class CorrectionRuntime:
         contents = self._log.read()
         acts = contents.acts
         choices, unavailable = _scan_displayed_answers(saved, acts, self.registry)
+        # One fold, shared by every label and clue lookup below (plan,
+        # projection-reuse Track 2): ``_scan_displayed_answers`` and
+        # ``_line21_view`` are left folding fresh -- they are not named
+        # reuse sites for this track -- but the choices/unavailable loops
+        # here called ``_entity_label`` and ``recognition_clue_labels`` once
+        # per borrowing, each re-projecting the same ``acts``.
+        state = project(tuple(dict(act) for act in acts), self.registry)
         # Plan, Track 2 item 5 (duplicate labels): each choice carries
         # the same label and recognition clues the confirmation card
         # would show, so a repeated label is distinguishable before it
@@ -967,15 +980,15 @@ class CorrectionRuntime:
         # clues are, never a new statement.
         for entry in choices.values():
             borrowing_ref = entry["borrowing_ref"]
-            entry["borrowing_label"] = _entity_label(contents, self.registry, borrowing_ref)
+            entry["borrowing_label"] = _entity_label(contents, self.registry, borrowing_ref, _state=state)
             entry["recognition_clues"] = recognition_clue_labels(
-                contents, self.registry, borrowing_ref)
+                contents, self.registry, borrowing_ref, _state=state)
         # Plan, Track 2 item 3: a withdrawn displayed answer is not a
         # choice. The page shows the resolver's own sentence.
         for entry in unavailable:
             ref = entry.get("borrowing_ref")
             entry["borrowing_label"] = (
-                _entity_label(contents, self.registry, ref) if isinstance(ref, str) else None)
+                _entity_label(contents, self.registry, ref, _state=state) if isinstance(ref, str) else None)
         viewed = _line21_view(saved, acts, self.registry)
         return {"saved_run_id": self._saved_run_id, "line21_rows": viewed["line21_rows"],
                 "line21_value": viewed["line21_value"],

@@ -650,7 +650,8 @@ def prepare_borrowing_answer_review(log: ActLog, registry: Any, *, review_id: st
         contents, registry, review_id=review_id, shown_at=shown_at, borrowing_refs=borrowing_refs)
 
 
-def borrowing_recognition_clues(contents: LogContents, registry: Any, borrowing_ref: str) -> dict[str, Any]:
+def borrowing_recognition_clues(contents: LogContents, registry: Any, borrowing_ref: str, *,
+                                _state: Any = None) -> dict[str, Any]:
     """Distinguishing clues already recorded for one borrowing.
 
     Built only from relationships already recorded -- each form whose
@@ -660,8 +661,13 @@ def borrowing_recognition_clues(contents: LogContents, registry: Any, borrowing_
     borrowing-answer review's clue list never repeats what "current answer"
     already shows. This never touches ``_borrowing_cards``, which stays
     shared with ``prepare_review``.
+
+    ``_state``, when given, is the caller's own fold of ``contents.acts``
+    with ``registry`` (the same one call already projected once, for a
+    different borrowing or for the card's own clues); reused instead of
+    folding again. Called on its own, without ``_state``, this is unaffected.
     """
-    state = project(contents.acts, registry)
+    state = _state if _state is not None else project(contents.acts, registry)
     current_ids = compute_currency(state).current_finding_ids
     lattice = facts_of(state.fact_state, include_displaced=True)
     entities = state.fact_state.entities
@@ -736,13 +742,19 @@ def _recognition_clue_labels(clues: Mapping[str, Any]) -> list[str]:
     return labels
 
 
-def recognition_clue_labels(contents: LogContents, registry: Any, borrowing_ref: str) -> list[str]:
+def recognition_clue_labels(contents: LogContents, registry: Any, borrowing_ref: str, *,
+                            _state: Any = None) -> list[str]:
     """One borrowing's clue strings, in the same plain words the
     borrowing-answer confirmation card already shows (plan,
     "account-review-correction" Track 2, case 5: duplicate labels). Read-only
     -- safe to call for every current choice before any review is prepared,
-    so a repeated label can show its clues on the choice itself."""
-    return _recognition_clue_labels(borrowing_recognition_clues(contents, registry, borrowing_ref))
+    so a repeated label can show its clues on the choice itself.
+
+    ``_state``, when given, is passed through to ``borrowing_recognition_clues``
+    unchanged; this function's own signature and cold behavior are otherwise
+    unaffected."""
+    return _recognition_clue_labels(
+        borrowing_recognition_clues(contents, registry, borrowing_ref, _state=_state))
 
 
 def _require_card_distinguishable_in_workspace(state: Any, contents: LogContents, registry: Any,
@@ -775,7 +787,7 @@ def _require_card_distinguishable_in_workspace(state: Any, contents: LogContents
         if _display_label(lifecycle.entity.get("label")) != label:
             continue
         other_clues = _recognition_clue_labels(
-            borrowing_recognition_clues(contents, registry, reference))
+            borrowing_recognition_clues(contents, registry, reference, _state=state))
         if other_clues == clues:
             raise RelationshipRecordingRefused(
                 "selected subject is indistinguishable from another current borrowing")
@@ -790,7 +802,7 @@ def _prepare_borrowing_answer_review_from_contents(contents: LogContents, regist
     borrowing_choices = _borrowing_cards(contents, state, borrowing_refs)
     for card in borrowing_choices:
         card["recognition_clues"] = _recognition_clue_labels(
-            borrowing_recognition_clues(contents, registry, card["choice_ref"]))
+            borrowing_recognition_clues(contents, registry, card["choice_ref"], _state=state))
         _require_card_distinguishable_in_workspace(state, contents, registry, card)
     return {
         "format": BORROWING_ANSWER_FORMAT,
