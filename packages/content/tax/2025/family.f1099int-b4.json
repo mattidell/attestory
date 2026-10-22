@@ -1,0 +1,16 @@
+{
+  "schema": "source-family.v1",
+  "id": "tax.us.2025.f1099int.b4",
+  "version": "v1",
+  "title": "Form 1099-INT box 4 statement items, tax year 2025",
+  "scope": {
+    "family": "individual-income-tax",
+    "jurisdiction": "US-federal",
+    "tax_year": 2025
+  },
+  "member_predicate": {
+    "fact_type": "tax.us.2025.f1099int.box4-withholding"
+  },
+  "authorizes_subtotal": "tax.us.2025.interest.b4-withholding-subtotal",
+  "closure_claim": "Every federal income tax withheld amount reported in box 4 of a Form 1099-INT furnished to the taxpayer for tax year 2025 is recorded as a statement item as of the keyed horizon. This claim covers Form 1099-INT box 4 only: it says nothing about boxes 1, 3, 8, or 10. Closed with members authorizes the sum of current members; closed-empty authorizes subtotal 0."
+}

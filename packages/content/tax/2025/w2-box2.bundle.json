@@ -1,0 +1,68 @@
+{
+  "fact_types": [
+    {
+      "id": "tax.us.2025.w2.box2-withholding",
+      "identity_keys": [
+        {
+          "entity_kind": "tax.us.employer",
+          "kind": "entity",
+          "name": "employer"
+        },
+        {
+          "entity_kind": "tax.us.w2-slip",
+          "kind": "entity",
+          "name": "w2-slip"
+        },
+        {
+          "kind": "literal",
+          "name": "tax-year",
+          "values": [
+            "2025"
+          ]
+        }
+      ],
+      "nature": "determinable",
+      "schema": "fact-type.v2",
+      "supersession": {
+        "policy": "free"
+      },
+      "title": "Federal income tax withheld in box 2 of one W-2 slip: keyed by employer, tax year, and the W-2-slip thing, same identity as box 1 (tax.us.2025.w2.box1-wages) but a separate fact and a separate family -- a slip's box 1 and box 2 are each recorded, closed, and aggregated independently (P0 Sec. 3; Track 1 Sec. 2 of the contract). Two same-employer slips are two facts, and a corrected value for the same slip supersedes under this policy (ADR-0011).",
+      "value_schema": {
+        "minimum": 0,
+        "type": "number"
+      },
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.w2-box2.source-closure",
+      "identity_keys": [
+        {
+          "entity_kind": "kernel.family-horizon",
+          "kind": "entity",
+          "name": "family-horizon"
+        },
+        {
+          "kind": "literal",
+          "name": "tax-year",
+          "values": [
+            "2025"
+          ]
+        }
+      ],
+      "nature": "determinable",
+      "schema": "fact-type.v2",
+      "supersession": {
+        "policy": "free"
+      },
+      "title": "Affirmative closure of the W-2 box-2 withholding family at the current membership horizon; independent of the box-1 wages family's own closure.",
+      "value_schema": {
+        "type": "boolean"
+      },
+      "version": "v1"
+    }
+  ],
+  "id": "tax.us.2025.w2-box2.vocabulary",
+  "label": "Form W-2 box 2 federal income tax withheld source vocabulary for tax year 2025",
+  "schema": "bundle.v2",
+  "version": "v1"
+}

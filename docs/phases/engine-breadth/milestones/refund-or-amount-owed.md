@@ -3,7 +3,7 @@
   "version": 1,
   "phase": "Engine Breadth",
   "topic": "refund-or-amount-owed",
-  "status": "P0 complete; contract settled. Track 1 makes line 20 free of foreign-tax questions when there is no foreign tax and records withholding on lines 25a-25d.",
+  "status": "Track 1 complete: line 20 without foreign-tax questions and withholding on lines 25a-25d, on core v52. Track 2 carries total tax to the refund or amount owed.",
   "scope": [
     "carry every return the engine computes from tax after credits to total tax, payments, and the refund or amount owed (Form 1040 lines 22-37)",
     "record federal income tax withheld from the source documents the engine already reads, starting with Form W-2 box 2",
@@ -170,10 +170,12 @@ schema successor, expression operation or engine change is needed.
    shows foreign tax (`conditional_dependency_set`). Every other result of
    the v1 rule is unchanged.
 2. **Withholding in scope:** W-2 box 2 (line 25a); Forms 1099-INT, 1099-DIV
-   and 1099-R box 4, and the already-recorded Form 1099-K box 4 (line 25b).
-   Line 25c is $0 because no W-2G route exists. Forms 1099-G and SSA-1099
-   withholding stay zero-only and are parked. Each withholding amount is
-   per statement, summed across statements, and rounded once, like box 1.
+   and 1099-R box 4 (line 25b). Line 25c is $0 because no W-2G route exists.
+   Each withholding amount is per statement, summed across statements, and
+   rounded once, like box 1. Line 25a blocks unless every W-2 recorded for
+   box 1 has a box 2 answer ($0 allowed). Form 1099-K box 4 was in scope;
+   Track 1 stopped on it (see "Parked"). Forms 1099-G and SSA-1099
+   withholding stay zero-only.
 3. **New questions** (`yes`/`no` unless stated, no default):
    - the return has none of the other taxes on Schedule 2 Part II
      (line 23);
@@ -205,6 +207,11 @@ schema successor, expression operation or engine change is needed.
 
 - Forms 1099-G box 4 and SSA-1099 box 6 withholding: both admit only zero
   today; recording a real amount changes a shipped admission rule.
+- Form 1099-K box 4 on line 25b. The fact is recorded, but declaring a
+  source family for it changes membership rules for every existing use on
+  `main`, and its existing family already authorizes one subtotal.
+- Forms 1099-INT, 1099-DIV and 1099-R: a statement recorded without its
+  box 4 answer is not detected, unlike W-2 box 2.
 - Form W-2G and line 25c.
 - Refundable credits (lines 27-31), Schedule 2 Part II taxes and the
   estimated tax penalty, each declared absent.

@@ -1,0 +1,54 @@
+{
+  "blocked": {
+    "code": "OPEN_DEPENDENCY",
+    "missing": [
+      "rounding.convention"
+    ]
+  },
+  "citations": [
+    {
+      "id": "tax.us.2025.citation.form1040.line-25a",
+      "version": "v1"
+    }
+  ],
+  "id": "tax.us.2025.rule.form1040-line25a",
+  "notes": "Form 1040 line 25a: 'Add the amounts shown as federal income tax withheld on your Form(s) W-2. The amount withheld should be shown in box 2 of Form W-2' (i1040gi-2025 l.2551-2556). Aggregates the adopted W-2 box-2 family through its own closure, same collect+add+round shape as rule.wages-line1a (box 1). Closed-empty publishes zero only on a current literal-true closure; nonempty present-source paths aggregate without requiring closure, same as box 1 -- a box-1 W-2 recorded without a matching box-2 answer is not separately detected (P0 Sec. 3; Track 1 contract item 2).",
+  "pins": [
+    {
+      "id": "rounding.convention",
+      "origin": "assertion",
+      "role": "input",
+      "version": "v1"
+    }
+  ],
+  "publishes": "tax.us.2025.payments.line25a",
+  "requires": [
+    "rounding.convention"
+  ],
+  "role": "computation",
+  "schema": "rule-artifact.v3",
+  "scope": {
+    "family": "individual-income-tax",
+    "jurisdiction": "US-federal",
+    "tax_year": 2025
+  },
+  "value": {
+    "mode": {
+      "name": "rounding.convention",
+      "op": "ref"
+    },
+    "op": "round",
+    "value": {
+      "args": [
+        {
+          "name": "tax.us.2025.w2.box2-withholding",
+          "op": "collect",
+          "source_set": "tax.us.2025.w2-box2"
+        }
+      ],
+      "op": "add"
+    }
+  },
+  "version": "v1",
+  "when": true
+}
