@@ -5,9 +5,9 @@
   "topic": "mortgage-statement-borrowing",
   "active_plan": "docs/phases/tax-circumstance-breadth/milestones/mortgage-statement-borrowing.md",
   "milestone_state": "track-0",
-  "status": "Sol P0 review requires one account/cost repair: the agreeing-value second-report reason borrows first-report ordinary-answer and document pins. Luna will correct the recorded evidence ceiling before connected design; no production repair or repeat run is requested.",
-  "current_role": "Builder — Luna P0 source and path repair",
-  "current_prompt": "docs/reviews/mortgage-statement-borrowing/charter-p0-current-account.md"
+  "status": "Luna corrected P0's cross-report-support account; same independent Sol reviewer rechecks the bounded delta. No repeat diagnostic or production repair. Connected design remains next after P0 disposition.",
+  "current_role": "Reviewer — Sol P0 bounded recheck",
+  "current_prompt": "docs/reviews/mortgage-statement-borrowing/charter-p0-independent-review.md"
 }
 -->
 
@@ -31,9 +31,9 @@ review/save, unkeyed-principal and cardinality restrictions. The over-limit
 principal reaches the comparison and saves an unresolved explanation, not a
 prorated amount. Independent Sol review found an additional transport limit:
 the second report's reason borrows the first report's ordinary-answer and
-document pins when scalar values agree. Luna will correct the evidence and
-integration-cost account before design selection; another diagnostic run is
-not needed to establish this finding.
+document pins when scalar values agree. Luna corrected the evidence and
+integration-cost account; Sol's bounded recheck precedes design selection.
+Another diagnostic run is not needed to establish this finding.
 The existing full-deduction premise remains distinct from a general limited-debt
 calculation. No new balance treatment is selected. Refinancing, multiple independent borrowings,
 second homes and allocation remain contrast cases or excluded work, not hidden

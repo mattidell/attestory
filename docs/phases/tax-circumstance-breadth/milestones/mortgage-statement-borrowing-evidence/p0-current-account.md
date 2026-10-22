@@ -155,7 +155,7 @@ The source-to-consumer map is:
 | Support/closure | `packages/content/tax/2025/family.f1098.json` says closure means every furnished 2025 Form 1098 Box 1 amount is recorded. It is report completeness, not proof that all home debt is represented or that reports share a loan. `closure-mapping.f1098.json` maps that exact family/version to closure. |
 | Principal and origination facts | `packages/content/tax/2025/f1098.bundle.json` gives Box 1, Box 2 and Box 3 the same report keys (payer, statement, year). They remain report-local; no borrower/loan link joins two reports. Current entity key/label is not evidence of legal holder versus collector role. |
 | Marshalling | `packages/derivation/live.py` gathers declared family and rule source types; `packages/derivation/marshal.py:marshal_run_context` binds one unkeyed input per symbol (leaving unequal multi-matches unbound) while family members feed declared collections. Numerically agreeing Box 2 values do not prove common loan identity. |
-| Rule and limit | `rule.f1098-line8a.v2.json` requires a closed family, explicitly blocks count >1 as `MULTIPLE_F1098_OUT_OF_SCOPE`, and admits count ==1. Its Box 2 ref is compared directly with the v1 filing-status parameter (`parameter.mortgage-interest-debt-limit.json`: $750,000 except $375,000 MFS); qualifying outcome collects Box 1. The rule basis expressly assumes Box 2 stands for acquisition-debt balance throughout the year. That is a disclosed premise of this bounded one-report branch; the fact it does not implement Part II's average-balance method is not by itself a defect. Whether two reports for one borrowing can support that premise or a different tax branch is open. `rule.f1098-residence-interest-reason.v2.json` is a per-Box-1 subject rule with its own Box 2, Box 3, status and ordinary-answer inputs. |
+| Rule and limit | `rule.f1098-line8a.v2.json` requires a closed family, explicitly blocks count >1 as `MULTIPLE_F1098_OUT_OF_SCOPE`, and admits count ==1. Its Box 2 ref is compared directly with the v1 filing-status parameter (`parameter.mortgage-interest-debt-limit.json`: $750,000 except $375,000 MFS); qualifying outcome collects Box 1. The rule basis expressly assumes Box 2 stands for acquisition-debt balance throughout the year. That is a disclosed premise of this bounded one-report branch; the fact it does not implement Part II's average-balance method is not by itself a defect. Whether two reports for one borrowing can support that premise or a different tax branch is open. `rule.f1098-residence-interest-reason.v2.json` declares a Box 1 subject and requires Box 2, Box 3, Box 9, circumstance answers, timing answers and filing status. The subject declaration does not establish that every requirement is bound to that subject's exact report facts: in the agreeing-Box-2 control, the B-labelled reason pins B Box 1, but pins A Box 2, A Box 9 and A's nine ordinary answers. Filing status is legitimately return-wide. |
 | Consumer and saved explanation | `rule.schedule-a-total.json`, the Schedule A attachment, `form.f1098.residence-interest-unresolved.form-field.json`, and `packages/derivation/presentation_projection.py` produce the line and statement-level saved model. It retains statement keys, reported interest source, answer/default basis and rule references. `review_f1098_statement_with_saved_presentation` reloads and checks revision plus exact statement provenance; the model account is currently singular. |
 | Existing correction paths | `f1098_statement_recording.py` has exact-answer correction and withdrawal operations; `tests/test_f1098_statement_review.py` covers correcting/withdrawing an ordinary answer. `tests/test_f1098_mortgage_interest_lifecycle.py` covers correction of Box 1 at the same statement identity and distinct-statement cardinality blocking. Form 1098 instructions direct corrected information returns to the general information-return instructions; those distinguish a correction to a previously furnished report from a new original report. This increment did not execute lifecycle behavior or establish a two-report same-loan correction contract. |
 
@@ -208,7 +208,7 @@ sale-specific, so this is diagnostic composition, not a reusable general seed.
 | --- | --- | --- |
 | One report, Box 1 $20,000 / Box 2 $200,000 | Before save, all nine ordinary v2 questions were absent; two timing questions were absent with separately declared `not-asked` defaults. The real recorder saved nine answers, advancing revision 202→229. A fresh read-only ActLog and the durable record stream reloaded the calculation at matching revision 229. Coordinator published line8a $20,000, the per-statement reason `qualified`, and Schedule A total; unresolved was inapplicable. Saved explanation associated the exact statement keys and stated the Box 2 whole-year acquisition-debt premise. No answer asked whether another report was for this same borrowing. | Synthetic normalized report/evidence IDs and synthetic answers are not source documents, a human affirmation, or independent institutional verification. The fixture has no recorded loan relationship. |
 | Two reports: A Box 1 $20,000 / Box 2 $200,000; B Box 1 $5,000 / Box 2 $180,000 | Real review refused: “the bounded review requires exactly one current Form 1098 box 1 statement.” Two separate exact-key real recorder saves (one for each statement) each refused “answer requires one exact current Form 1098 box 1 source”; revision stayed 230→230. Coordinator was run separately with normalized synthetic v2 answer facts for both reports (clearly fixture-supplied, not recorder answers, not a same-loan affirmation). Both per-report reason derivations blocked with `DEPENDENCY_ABSENT` on the unkeyed Box 2 symbol because the two report-local observations had different values and the scalar input had no single bindable value; line8a also blocked `DEPENDENCY_ABSENT` on Box 2, unresolved had `DEPENDENCY_INVALID`, and Schedule A total lacked line8a. The report did not reach the line8a rule's explicit multiple-Form-1098 stop. Reopening the saved presentation through the singleton review helper separately refused with the same exactly-one-source restriction; raw presentation and records remain retained for inspection. | The two report identities deliberately differ and their Box 2 observations have different values at their respective reporting dates. This does not imply two debts, establish that they share one loan, or select whether either balance is right. The actual earliest blocker is unkeyed scalar ambiguity, not proof that the explicit cardinality branch is defective. |
-| Two reports, same Box 2 control: A Box 1 $20,000 / Box 2 $200,000; B Box 1 $5,000 / Box 2 $200,000 | Under the same synthetic answer and latest-route setup, per-report reasons published, unresolved was inapplicable, and line8a reached `MULTIPLE_F1098_OUT_OF_SCOPE`; Schedule A total lacked line8a. Review and saved-presentation reader still refused at their one-report boundary. This separates the cardinality stop from the differing-value marshalling blocker. | Agreement between two report-local principal observations does not establish one continuing loan or which debt/balance proposition the law requires. |
+| Two reports, same Box 2 control: A Box 1 $20,000 / Box 2 $200,000; B Box 1 $5,000 / Box 2 $200,000 | Under the same synthetic answer and latest-route setup, two subject-labelled reason findings published, unresolved was inapplicable, and line8a reached `MULTIPLE_F1098_OUT_OF_SCOPE`; Schedule A total lacked line8a. Review and saved-presentation reader still refused at their one-report boundary. Retained B reason pins show B Box 1 but A Box 2, Box 9 and nine ordinary-answer findings—even though the seed contains distinct B-keyed answer assertions with matching values. Filing status is the return-wide input. Thus this control establishes the count guard is reachable when the unkeyed scalar values agree; it does not establish independent B input transport or a B-supported reason. | Agreement between two report-local observations does not establish one continuing loan, make their evidence interchangeable, or establish which balance/debt proposition the law requires. The output's B subject label alone does not prove the B report's circumstances were consumed. |
 | One report, Box 1 $20,000 / Box 2 $800,000 | Real recorder again saved nine ordinary answers, revision 202→229. The coordinator's actual v49 line8a disposition was `blocked / VALUE_INVALID`; its pins include the supplied Box 2 $800,000 finding, so the current comparison was reached. The per-statement reason published. Schedule A total was blocked by absent line8a. Fresh saved-presentation recovery matched run revision 229 to ActLog revision 229 and returned the unresolved reason that the bounded route's principal exceeded its limit; it did not invent a prorated amount. | This does not implement Publication 936 Part II's average-balance, eligible-debt, or proration calculations, and says nothing about multi-report balances. |
 
 Case reports, question snapshots, exact disposition pins, actual acts and paired
@@ -230,12 +230,17 @@ PYTHONPATH=. "$MORTGAGE_PYTHON" -c 'import subprocess,sys; sys.exit(subprocess.r
 Here v49 adoption was at index 229 because the two synthetic fixture-answer
 sets were appended before package adoption; seed revision was 230. The line8a
 rule then reached its actual `MULTIPLE_F1098_OUT_OF_SCOPE` disposition. Both
-per-report residence-interest reasons published; unresolved was inapplicable;
-Schedule A total blocked because line8a was absent. This confirms the earlier
-differing-Box-2 run's `DEPENDENCY_ABSENT` was a marshalling blocker before the
-explicit count guard. Equal Box 2 values still do not mean one loan, identify
-the right balance, or establish any person affirmation. The review and saved
-presentation still refused under the same one-report review limit.
+subject-labelled residence-interest reason findings published; unresolved
+was inapplicable; Schedule A total blocked because line8a was absent. This
+confirms the earlier differing-Box-2 run's `DEPENDENCY_ABSENT` was a
+marshalling blocker before the explicit count guard. However, the retained B
+reason pins identify B Box 1 but A's Box 2, Box 9 and all nine ordinary
+answers. The seed contains separate B-keyed synthetic answer findings, but
+their equal values do not establish their authority as inputs to B's result.
+Filing status is legitimately return-wide. Equal Box 2 values still do not
+mean one loan, identify the right balance, or establish any person affirmation.
+The review and saved presentation still refused under the same one-report
+review limit.
 
 ## Existing-first comparison and integration cost
 
@@ -277,33 +282,44 @@ per-statement inputs, package input bindings and exact
 `SourceFact`s. That is separate from generic dispatch. Thus sale support does
 not show mortgage Box 2 is already transported as a keyed subject input; this
 probe exposed Box 1 as the family member, while different Box 2 report-local
-values left the legacy scalar unbound. The v49 setup also needs unrelated
-closed-empty latest family/closure/vocabulary versions. Neither sale transport
-nor mortgage family v1's Box 1 sum authorizes combining mortgages or making a
-loan-level claim.
+values left the legacy scalar unbound. Nor does that isolate the only missing
+transport: in the equal-value control, the B subject-labelled reason used A's
+Box 2, Box 9 and nine ordinary-answer findings. A keyed Box 2 path alone would
+not establish the provenance of those other inputs. The v49 setup also needs
+unrelated closed-empty latest family/closure/vocabulary versions. Neither sale
+transport nor mortgage family v1's Box 1 sum authorizes combining mortgages or
+making a loan-level claim.
 
 For mortgage, report keys localize Box 1/Box 2/Box 3 and ordinary answers in
-source facts, but current v49 consumers still use Box 2 as an unkeyed symbol.
-A real multi-report case with different Box 2 values therefore loses that
-scalar at marshalling before the explicit line8a count>1 stop; the control with
-numerically equal Box 2 observations reaches that stop. Further integration
-must decide, in product language, what the person can affirm about a continuing
-obligation, what stays report-local versus becomes loan-wide, and what
-balance/debt proposition the selected tax branch needs. “Support” must
-distinguish ordinary person affirmation from an intentional application
-assumption; neither should be described as independent institutional
-verification. Do not select a loan id, relationship shape, default policy, tax
-calculation, or new schema in P0.
+source facts, but current consumers do not necessarily consume each fact by
+the matching report key. Unequal Box 2 values left its run-wide scalar
+unbound; with equal Box 2 values, the B-labelled reason used A's Box 2, Box 9
+and ordinary-answer facts despite B-keyed findings being present. The labels
+and values therefore do not show exact source authority. Filing status is a
+legitimate return-wide input and should remain distinguished from report-local
+or loan-wide facts.
+
+Further integration must decide, in product language, what the person can
+affirm about a continuing obligation, what stays report-local versus becomes
+loan-wide, and what balance/debt proposition the selected tax branch needs.
+For every input the selected rule needs, the design must establish whether it
+is report-local, loan-wide or return-wide; source authority and correction
+dependency must match that scope. Matching values or repairing Box 2 alone
+would not satisfy that obligation for other inputs. “Support” must distinguish
+ordinary person affirmation from an intentional application assumption;
+neither should be described as independent institutional verification. Do not
+select a loan id, relationship shape, default policy, tax calculation, or new
+schema in P0.
 
 ### Short integration-cost map
 
 | Area | Current evidence | Cost if product scope expands | Proven vs open |
 | --- | --- | --- | --- |
-| Content/rule | F1098 v1 family already sums Box 1; line8a stops at count > 1 and reads Box 2 as a scalar. | Specify which reports contribute and which loan-wide debt/balance branch applies; possibly separate subject results from the family total. | Current route behavior is proven; new content shape is open. |
-| Ordinary recording | Real review and durable answer save each require exactly one current report overall. | Keep answers attached to their exact report and decide whether/how to affirm a continuing obligation. | Singleton boundary is proven; question and claim binding are open. |
-| Source transport/marshalling | Report facts carry keys; the current Box 2 rule input is unkeyed. Unequal observations remain unbound. | Choose the needed report-local or loan-wide principal proposition and transport it without order-based scalar selection. | Safe refusal to select one scalar is proven. Exact source-binding path depends on tax/product contract. |
+| Content/rule | F1098 v1 family already sums Box 1; line8a stops at count > 1 and reads Box 2 as a scalar. Subject-labelled reason rules require report-keyed facts but their outputs need not consume values from the matching report. | Specify which reports contribute and which debt/balance proposition applies; for every used input, bind it to report, loan or return scope and preserve that authority through the result. | Current route behavior and the control's cross-report pins are proven; new content shape is open. |
+| Ordinary recording | Real review and durable answer save each require exactly one current report overall; their fact keys are exact per statement. But matching synthetic answers did not make B's rule result use B's answers. | Keep answer authority and correction dependency exact for each report-local input, or deliberately record a loan-wide affirmation if product/tax meaning calls for it. | Singleton boundary and current A-to-B pin reuse are proven; question and claim binding are open. |
+| Source transport/marshalling | Report facts carry keys; the current Box 2 and Box 9 symbols and nine ordinary-answer inputs can be taken run-wide. Unequal scalar observations remain unbound; equal values can bind one report's finding for multiple subject results. | Choose report-local, loan-wide and return-wide inputs; ensure each needed local value is transported with its exact source authority and correction dependency, without treating equality as identity. | Safe scalar refusal and agreeing-value cross-report pinning are proven. Exact source-binding path depends on tax/product contract. |
 | Saved reader | Reader calls singleton review and carries one statement explanation. | If multi-report support is chosen, present per-report basis and any cross-report result while retaining exact revision association. | Current reader ceiling is proven; saved-model contract is open. |
-| Engine | Generic subject dispatch exists; Form 1099-K source discovery is a bounded domain-specific addition in `live.py`. | A keyed mortgage subject rule might reuse generic dispatch but still needs matching admitted sources/bindings. | No general/core engine rewrite is proven necessary. Whether a targeted emitter/discovery extension is needed depends on selected content shape. |
+| Engine | Generic subject dispatch scopes emitted `SourceFact`s by shared keys, but requirements without matching scoped source rows can fall back to run-wide symbols. Form 1099-K source discovery is a bounded domain-specific addition in `live.py`. | If the selected rule needs report-local values, supply exact keyed sources (and maintain the correction dependency) or another explicitly justified mechanism. | This is an evidenced source-transport design obligation, not proof that a general/core engine rewrite is inevitable. Whether existing dispatch plus targeted source admission suffices remains open. |
 
 ### Lifecycle sources and bounded limits
 
@@ -325,9 +341,15 @@ report membership is a source-family fact, not a cross-report loan relation.
 For student debt, `sli_relationship_recording.py` instead keeps both link
 affirmations and their end/denial/correction history, with outcomes admitted
 atomically; those lifecycle costs cannot be assumed free in any mortgage
-design. `marshal.py`'s unkeyed fallback deliberately leaves unequal multi-match
-values unbound instead of silently choosing last-in-order, which is the
-observed blocker here.
+design. The mortgage answer correction and withdrawal APIs preserve a
+statement-keyed assertion, but the agreeing control proves the current reason
+consumer can pin another statement's matching assertion. Any expanded path
+must define which exact source or loan-level claim an output depends on and
+how correction, withdrawal, or a replacement report invalidates or retains
+that result. Existing same-report correction tests do not prove cross-report
+dependency safety. `marshal.py`'s unkeyed fallback deliberately leaves unequal
+multi-match values unbound instead of silently choosing last-in-order; when
+values agree, however, its scalar binding can still pick A for a B subject.
 
 ## Current stop and next gate
 

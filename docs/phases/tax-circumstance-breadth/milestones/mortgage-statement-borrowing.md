@@ -184,9 +184,17 @@ agreeing-principal control then reaches the explicit multiple-report stop;
 numerical agreement still establishes no common loan identity. This is
 not evidence that different observations contradict each other. The over-limit
 single report reaches the comparison and saves an unresolved explanation,
-not a prorated deduction. These observations await independent P0 review;
-synthetic setup and selected answers do not establish an obtained same-loan
-account. No product goal or production mechanism has changed.
+not a prorated deduction.
+
+Independent P0 review required a material account correction: the agreeing-value
+second-report reason used first-report ordinary-answer, Box 2 and Box 9 pins.
+Its subject label did not establish its own input authority. The repaired
+account therefore carries exact source and correction dependency for every
+needed report-local input into connected design, while filing status remains
+return-wide. The review's other P0 conclusions hold; a bounded delta recheck
+is pending, not another diagnostic. Synthetic setup and selected answers do
+not establish an obtained same-loan account. No product goal or production
+mechanism has changed.
 
 Before design selection, P0 must identify which balance/debt proposition is
 needed, how it can be supported, what the user can reasonably affirm, and where
