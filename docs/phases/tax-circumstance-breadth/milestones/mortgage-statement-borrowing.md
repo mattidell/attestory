@@ -3,7 +3,7 @@
   "version": 1,
   "phase": "Tax Circumstance Breadth",
   "topic": "mortgage-statement-borrowing",
-  "status": "A is selected and P2 independently accepted. P3 saves group models and its disposable content reaches line12e and required Schedule A; missing boundary support still blocks the attachment. Independent Sol review of the connected contract/evidence is next. Production recording, routing/lifecycle and visible group reader remain unbuilt.",
+  "status": "P3 independently accepted for Track 0 consolidation; bounded contract/locator repairs landed. Finish dynamic borrowing admission, current routing and lifecycle contract plus six closure artifacts. Clear-account scope is awaiting owner disposition. Production and visible group reader remain unbuilt.",
   "scope": [
     "extend the existing ordinary mortgage account to a bounded same-borrowing multiple-report case",
     "preserve report amounts, loan-level circumstances and their separate correction lifecycles",
@@ -239,10 +239,15 @@ retains the cost and provenance distinction.
   recorder, lifecycle and group-reader delivery remain unproved. Box 3
   disagreement currently blocks on an absent common scalar, not a saved
   conflict-specific explanation.
-- Independently review the [P3 contract](mortgage-statement-borrowing-evidence/p3-connected-contract.md)
-  and [saved-model/consumer evidence](mortgage-statement-borrowing-evidence/p3-saved-model-results.md)
-  as one connected delta. Settle the remaining recording, route/lifecycle
-  and exit obligations, then complete Track 0 before any production charter.
+- Sol accepted the [P3 contract/evidence](mortgage-statement-borrowing-evidence/p3-saved-model-results.md)
+  for Track 0 consolidation, not production readiness. Its bounded repairs
+  clarify connected-singleton support, the current integration artifact and
+  successful evidence locators. Finish the exact dynamic borrowing admission,
+  current route/lifecycle and six closure artifacts under the
+  [consolidation charter](../../../reviews/mortgage-statement-borrowing/charter-t0-connected-closure.md).
+  The owner has been asked whether to defer a clear-account action; keep that
+  disposition open without stopping the other contract work. Complete Track 0
+  before any production charter.
   Do not commission further rounds merely to
   refine paper. A demonstrated need for allocation, refinancing, general
   identity or broader engine work returns as an owner scope choice.

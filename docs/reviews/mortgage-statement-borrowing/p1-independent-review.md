@@ -248,3 +248,133 @@ cost: nine inspection/check calls plus this append and final diff check;
 roughly eleven tool calls and twelve reasoning turns. No new owner choice is
 required to accept the experiment at this ceiling; production scope/contract
 disposition remains the next explicit gate.
+
+## P3 connected-contract and consumer disposition — 2026-10-22
+
+**READY to finish Track 0 consolidation, with the concrete contract repairs
+below before the first production charter.** The saved-model and consumer
+experiments are credible at their stated prototype ceiling. Track 0 is not
+closed and the provisional contract is not yet complete enough for builders
+to implement without deciding a remaining transition policy.
+
+Reviewed source ref `HEAD`
+`a774fb18eca9649d514e054cc21c22205310f46b`, verified against Git and reviewer
+orientation. After fetching, the assigned milestone branch is 0 behind / 25
+ahead of `origin/main`. Entry tree was clean. This delta review reuses the P2
+acceptance above; it does not repeat P0 or tax-source research.
+
+### Concrete repairs and dispositions before production
+
+1. **Specify connected one-report behavior.** The contract promises one-report
+compatibility transitions but its route table defines only a singleton with
+no membership activity and an affirmative two-report account. After removing
+report B and ending B's link, A may still have an affirmative current link,
+unchanged borrowing recognition and a valid annual ceiling. Neither table
+row defines that state. The generic withdrawal language prevents unsafe
+legacy fallback but does not decide whether this valid remaining member can
+calculate under connected support or is deliberately unsupported. Add that
+row, its result/explanation, and the corresponding denied/unknown/withdrawn
+single-member cases. Decide which current carriers keep connected routing
+selected when the final affirmative link ends. This is a missing product
+contract, not a request to run every production transition now.
+
+The smallest repair is an explicit connected-singleton rule or an explicit
+bounded refusal for that transition, with no silent legacy fallback. The
+owner-held clear-account exit is already identified honestly; disposition
+must select a concrete exit policy or accept its absence as a delivery limit
+before the first production charter. Introducing an entity or retaining an
+unchanged ceiling alone must not become permanent route activity by accident.
+
+2. **Bring the integration artifact and locators forward to the final evidence.**
+Track 0 artifact 6 in `p3-connected-contract.md` still ends at the earlier
+missing-`liable-and-paid` attachment block and says no tie-out publication was
+established. Its final Evidence ceiling correctly records the later v53
+publication and saved tie-out. Update artifact 6 to distinguish the earlier
+v52 stop from the verified v53 disposition/model evidence; do not promote it
+to a durable attachment body or row-list claim.
+
+The results' locator table also points the connected ordering positive at
+`p3-connected-consumers-20261022T131525Z`, a setup refusal with no coordinator
+report. The successful evidence is `p3-connected-consumers-20261022T131649Z`.
+Its initial closed-empty control under `p3-saved-model-20261022T125942Z` was
+not closed and does not support the reported zero path; the corrected control
+is `p3-saved-model-20261022T130217Z`. Name those successful locators explicitly
+while retaining setup attempts as failures. These are bounded evidence-account
+repairs; the actual successful evidence exists and needs no rerun.
+
+### Independently verified scope
+
+The saved v2 group contains two exact report identities, their distinct raw
+Box 1 findings, actual reason findings and rule v3 pins, and nine own-report
+answer leaves on the supported cases. The contrary-payment case appropriately
+contains only the two answer leaves actually consumed before its reason
+short-circuit. The model retains actual blocked membership and differing
+Box 3 results rather than inventing favorable statuses or a conflict finding.
+
+The overlay finds report identity through the pinned Box 1 fact's structured
+keys, and finds producers through exact computation pins. Its metadata-only
+copy of the reason expression adds each bridge's exact `joined` type/version
+for the existing answer-label lineage walker; it does not execute that copy,
+invent source findings or calculate a tax result in Python. Reason descriptions
+come from the version selected by the actual reason rule. Shared support is
+read from actual current source findings. Its unique-fixture-source lookup
+remains a prototype limitation, not proof of dynamic common-account selection
+or the proposed return-wide other-debt identity. The group run ID/revision
+matches the completed record on the later successful v52/v53 cases.
+
+The consumer-ordering diagnosis is supported by both code and actual order.
+Ordinary scheduling waits for declared requirements (`runner.py:757`), and
+value evaluation can terminally record a missing branch input. The initial
+$11,000 run records line12e's block before line8a and Schedule A total publish.
+The successor adds the existing Schedule A total to requirements, declared
+pins and blocked metadata; its guard and value expression are unchanged.
+The successful v52/v53 records then show line8a, nonempty Schedule A total,
+and line12e publishing in that order. This is a content dependency repair;
+package resolution alone would not have established it.
+
+The changed-content controls preserve measured empty and singleton behavior:
+closed-empty line8a is **inapplicable**, a separate Schedule A total publishes
+zero, and line12e retains the raw legacy itemized $18,000 route. The singleton
+control publishes $20,000. These are ordering controls, not proof of the
+unbuilt connected/no-activity production selector or full compatibility.
+
+The attachment successor changes only version and completeness: it removes
+the one presence-only legacy answer and retains all seven exact boundary
+`check: value, equals: yes` entries. Requirement, threshold, single-family
+authority, collector, subtotal and tie-out are byte-equivalent as parsed
+content. The selected connected amount's transitive reason chains retain
+both reports' own obligation and payment answers, so the prototype does not
+replace the removed presence check with an unsubstantiated favorable default.
+Production adoption must preserve that support for every selected route,
+including its legacy singleton route.
+
+In the v53 positive, the completed attachment disposition publishes finding
+`finding:derived:e04b89f56303f5257208b3ae`, with both Box 1 sources, seven
+boundary findings and line8a among its input pins. The saved citation group
+contains `Reported subtotal: 21000` and both source pins; saved line12e is
+$21,000. The no-medical control retains line8a/line12e but blocks the
+attachment for exactly that missing boundary and saves no attachment citation
+group. Both saved associations are current at their respective revisions,
+244 and 243. The retained overlay, attachment, registry and release SHA-256
+values match the results. This is genuine saved-model/disposition evidence,
+not a retained attachment finding body or inspectable row-list artifact.
+
+### Remaining closure boundary
+
+Finish the six Track 0 artifacts around the repaired transition contract and
+required owner dispositions. Keep independent raw claims separate from their
+dependent derivations: adding a report does not invalidate an unchanged
+borrowing/year ceiling; withdrawing recognition does not rewrite independent
+raw membership assertions. Specify dynamic mortgage reference admission,
+same-account selection, source/link correction and withdrawal carriers,
+late-member reclosure and the production route/exit boundary concretely.
+The visible saved group reader, strict production projection/validation,
+actionable unresolved/conflict categories, production adoption and integration
+evidence remain chartered implementation work after closure. None is claimed
+proved by HTML serialization, fixture literals or a passing package resolve.
+
+No additional broad experiment is indicated by this review. Only this report
+was changed; no production edits, schema allocation, passing-case reruns,
+suite, browser, staging, commit or spawn occurred. Envelope scan exited 0.
+Approximate delta cost: ten inspection/check calls, this append and final
+diff check, roughly twelve tool calls and thirteen reasoning turns.

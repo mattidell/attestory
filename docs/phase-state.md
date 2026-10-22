@@ -5,9 +5,9 @@
   "topic": "mortgage-statement-borrowing",
   "active_plan": "docs/phases/tax-circumstance-breadth/milestones/mortgage-statement-borrowing.md",
   "milestone_state": "track-0",
-  "status": "A is selected and P2 independently accepted. P3 saves group models and its disposable content reaches line12e and required Schedule A; missing boundary support still blocks the attachment. Independent Sol review of the connected contract/evidence is next. Production recording, routing/lifecycle and visible group reader remain unbuilt.",
-  "current_role": "Reviewer — Sol connected P3 contract and consumer evidence",
-  "current_prompt": "docs/reviews/mortgage-statement-borrowing/charter-p1-independent-review.md"
+  "status": "P3 independently accepted for Track 0 consolidation; bounded contract/locator repairs landed. Finish dynamic borrowing admission, current routing and lifecycle contract plus six closure artifacts. Clear-account scope is awaiting owner disposition. Production and visible group reader remain unbuilt.",
+  "current_role": "Builder — Luna Track 0 connected contract consolidation",
+  "current_prompt": "docs/reviews/mortgage-statement-borrowing/charter-t0-connected-closure.md"
 }
 -->
 
@@ -51,9 +51,13 @@ total and remove the attachment's obsolete legacy liability/payment presence
 check, keeping all seven boundary value checks. The $21,000 connected case
 publishes line12e and required Schedule A with saved tie-out text; missing one
 boundary answer still blocks attachment publication. Changed-content empty
-and singleton controls preserve their calculation paths. Sol independently
-reviews that connected contract and evidence next. Visible group rendering,
-production recording/routing and connected correction/withdrawal are unbuilt.
+and singleton controls preserve their calculation paths. Sol accepted the
+connected evidence for Track 0 consolidation, and its bounded contract/locator
+repairs are incorporated. Next finish exact common-borrowing admission,
+current routing, lifecycle and the six closure artifacts. The owner has been
+asked about deferring a clear-account action; that remains open before
+production. Visible group rendering, production recording/routing and
+connected correction/withdrawal are unbuilt.
 The actual no-report compatibility path is line8a inapplicable, separate
 Schedule A total zero and the existing no-statement line12e route.
 The numeric annual ceiling

@@ -62,11 +62,13 @@ No published schema successor, engine change, production content edit, package/t
 | Evidence | Ignored output directory |
 | --- | --- |
 | Initial presentation-overlay positive | `temp/mortgage-statement-borrowing/p3-saved-model-20261022T125748Z/cases/positive-baseline/` |
-| Remaining presentation-overlay cases and empty/singleton controls | `temp/mortgage-statement-borrowing/p3-saved-model-20261022T125942Z/cases/` |
-| Connected-consumer ordering positive | `temp/mortgage-statement-borrowing/p3-connected-consumers-20261022T131525Z/cases/two-report-required-schedule-a-18000-plus-3000/` |
+| Remaining presentation-overlay cases and singleton control | `temp/mortgage-statement-borrowing/p3-saved-model-20261022T125942Z/cases/` |
+| Corrected closed-empty control | `temp/mortgage-statement-borrowing/p3-saved-model-20261022T130217Z/cases/v49-closed-empty-control/` |
+| Connected-consumer ordering positive | `temp/mortgage-statement-borrowing/p3-connected-consumers-20261022T131649Z/cases/two-report-required-schedule-a-18000-plus-3000/` |
 | Changed-content closed-empty and singleton controls | `temp/mortgage-statement-borrowing/p3-line12e-order-controls-20261022T131807Z/cases/` |
 | Attachment successor positive and missing-boundary control | `temp/mortgage-statement-borrowing/p3-attachment-completeness-20261022T132323Z/` |
+| Setup refusal only; no coordinator report/case evidence | `temp/mortgage-statement-borrowing/p3-connected-consumers-20261022T131525Z/` |
 
-Each case directory retains `coordinator-report.json`, `presentation-model.json`, `synthetic-records.json`, `act-log.json`, `rendered.html` and `summary.json` where produced; the enclosing directory retains overlay/package artifacts and `probe-summary.json`.
+Each case directory retains `coordinator-report.json`, `presentation-model.json`, `synthetic-records.json`, `act-log.json`, `rendered.html` and `summary.json` where produced; the enclosing directory retains overlay/package artifacts and `probe-summary.json`. The initial incorrect empty fixture and malformed harness attempts are setup failures, not executed tax cases.
 
 Production identity establishment and recorder behavior, correction/withdrawal/re-recording, late-report reclosure, clear-account lifecycle, and connected/no-activity route selection remain unbuilt. Visible multi-report rendering also remains unbuilt: HTML serialization is not evidence that the current singleton page reader displays the group. Approximate total tool/turn cost is unavailable.
