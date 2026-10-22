@@ -175,10 +175,18 @@ from Part II's limited-debt calculation. The current single-report route
 explicitly assumes Box 2 represents acquisition debt throughout the year;
 not implementing an average-balance calculator is not by itself a defect in
 that bounded route. How two reports support a loan-wide premise remains open.
-The investigation will now exercise one report, two reports and an over-limit
-principal through the real recorder/coordinator. Synthetic setup and selected
-answers are not evidence that the application obtained a same-loan account.
-No product goal or production mechanism has changed.
+The real v49/v47 recorder/coordinator diagnostic has now exercised one report,
+two reports and an over-limit principal. One report reaches a saved bounded
+result; two reports are refused by both review and exact-key answer saves.
+Separately supplied two-report answers expose a transport restriction: different
+principal observations cannot bind the one run-wide principal input. An
+agreeing-principal control then reaches the explicit multiple-report stop;
+numerical agreement still establishes no common loan identity. This is
+not evidence that different observations contradict each other. The over-limit
+single report reaches the comparison and saves an unresolved explanation,
+not a prorated deduction. These observations await independent P0 review;
+synthetic setup and selected answers do not establish an obtained same-loan
+account. No product goal or production mechanism has changed.
 
 Before design selection, P0 must identify which balance/debt proposition is
 needed, how it can be supported, what the user can reasonably affirm, and where

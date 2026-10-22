@@ -5,9 +5,9 @@
   "topic": "mortgage-statement-borrowing",
   "active_plan": "docs/phases/tax-circumstance-breadth/milestones/mortgage-statement-borrowing.md",
   "milestone_state": "track-0",
-  "status": "P0 source/path account refined after Foreman feedback. Luna continues with the bounded real recorder/coordinator check; full-deduction and limited-debt branches remain distinct. No production mechanism selected; completed P0 receives independent Sol review.",
-  "current_role": "Builder — Luna P0 source and path account",
-  "current_prompt": "docs/reviews/mortgage-statement-borrowing/charter-p0-current-account.md"
+  "status": "Luna P0 diagnostic complete, awaiting independent Sol review. Latest-package evidence separates review/save singleton limits, unequal-principal transport, explicit cardinality and the over-limit stop. No same-loan production design selected.",
+  "current_role": "Reviewer — Sol independent P0 source and path review",
+  "current_prompt": "docs/reviews/mortgage-statement-borrowing/charter-p0-independent-review.md"
 }
 -->
 
@@ -25,10 +25,13 @@ counting the reports as separate debts or selecting a principal formula now.
 
 The opening plan received independent Sol review, READY for P0 without material
 repairs. P0's primary-source/path account and proposed bounded check have been
-refined after Foreman feedback; the next increment executes that check. The
-existing full-deduction premise is distinct from a general limited-debt
-calculation. No new balance treatment is selected. Completed P0 is independently
-reviewed before design selection. Refinancing, multiple independent borrowings,
+refined after Foreman feedback, and the bounded real-path check is complete.
+The single-report result saves and reloads; two reports expose separate
+review/save, unkeyed-principal and cardinality restrictions. The over-limit
+principal reaches the comparison and saves an unresolved explanation, not a
+prorated amount. Independent Sol review is next, before design selection.
+The existing full-deduction premise remains distinct from a general limited-debt
+calculation. No new balance treatment is selected. Refinancing, multiple independent borrowings,
 second homes and allocation remain contrast cases or excluded work, not hidden
 implementation promises. Tax Circumstance Breadth's earlier endpoint remains
 met; this is a bounded extension.
