@@ -5,7 +5,7 @@
   "topic": "mortgage-statement-borrowing",
   "active_plan": "docs/phases/tax-circumstance-breadth/milestones/mortgage-statement-borrowing.md",
   "milestone_state": "track-0",
-  "status": "Track 0 contract repair now includes one bounded disposable declaration check: validate actual counts and keyed fan-in, then test dynamic loan support and empty/withdrawal transitions. Owner deferred clear-account. No production or visible group reader built.",
+  "status": "Track 0 disposable dynamic-account candidate validates and its supported pair publishes through line12e. Six negative/transition cases and integration of the separately validated four-outcome status remain open. Owner deferred clear-account; production is not begun.",
   "current_role": "Builder — Luna Track 0 connected contract consolidation",
   "current_prompt": "docs/reviews/mortgage-statement-borrowing/charter-t0-connected-closure.md"
 }
@@ -58,6 +58,10 @@ current routing, lifecycle and the six closure artifacts. That contract draft
 is in bounded repair after Foreman review: numeric coverage and a concrete
 fan-in to the ordinary amount gate must preserve dynamic borrowing identity
 and the correct empty/withdrawal transitions. This is not production acceptance.
+The first disposable dynamic-account candidate now validates and publishes
+the supported pair through line8a, Schedule A total and line12e. Its four-
+outcome report-status composition was validated separately and is not yet
+combined with this runtime candidate. Six negative/transition cases remain.
 The owner deferred
 the clear-account action for this milestone: corrections and withdrawals stay
 in scope, without implicit legacy resumption. Visible group rendering,

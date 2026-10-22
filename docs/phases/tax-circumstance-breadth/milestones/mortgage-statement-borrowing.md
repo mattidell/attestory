@@ -3,7 +3,7 @@
   "version": 1,
   "phase": "Tax Circumstance Breadth",
   "topic": "mortgage-statement-borrowing",
-  "status": "Track 0 contract draft is under bounded repair: make numeric coverage and the global amount gate concrete, preserve intended borrowing identity and correct empty/withdrawal transitions. Owner deferred clear-account. No production or visible group reader built.",
+  "status": "Track 0 disposable dynamic-account candidate validates and its supported pair publishes through line12e. Six negative/transition cases and integration of the separately validated four-outcome status remain open. Owner deferred clear-account; production is not begun.",
   "scope": [
     "extend the existing ordinary mortgage account to a bounded same-borrowing multiple-report case",
     "preserve report amounts, loan-level circumstances and their separate correction lifecycles",
@@ -262,6 +262,11 @@ retains the cost and provenance distinction.
   Test dynamic borrowing collisions and the connected-singleton, withdrawn,
   true-empty and affirmative-orphan boundaries. Reuse reviewed P2/P3 evidence;
   supplied relationship claims are still not production recorder proof.
+  The first dynamic-account candidate now resolves and publishes the supported
+  pair through line8a, Schedule A total and line12e. Its final candidate and
+  saved model are retained in [T0 results](mortgage-statement-borrowing-evidence/t0-dynamic-binding-results.md).
+  This does not yet combine the separately validated four-outcome report
+  status, nor establish the remaining six missing-support/transition cases.
   Do not commission further rounds merely to
   refine paper. A demonstrated need for allocation, refinancing, general
   identity or broader engine work returns as an owner scope choice.
