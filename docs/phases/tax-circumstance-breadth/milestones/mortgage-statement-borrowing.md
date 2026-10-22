@@ -3,7 +3,7 @@
   "version": 1,
   "phase": "Tax Circumstance Breadth",
   "topic": "mortgage-statement-borrowing",
-  "status": "Owner selected A. Sol accepted the P2 content experiment at its bounded evidence ceiling. Consolidate the production design and test the missing saved group explanation before Track 0 closure. No production or schema successor selected.",
+  "status": "A is selected and P2 independently accepted. P3 saved group models execute; visible reader remains unbuilt. Test the traced line12e ordering repair and required Schedule A path in disposable content before independent consolidation review. No production or schema successor selected.",
   "scope": [
     "extend the existing ordinary mortgage account to a bounded same-borrowing multiple-report case",
     "preserve report amounts, loan-level circumstances and their separate correction lifecycles",
@@ -182,7 +182,11 @@ treatment. No production path or schema successor has been selected.
 - The existing F1098 family authorizes exactly Schedule A line8a. A successor
   must retain that symbol and the actual closure scope, not publish an
   unauthorized generic subtotal. Genuine closed-empty authority remains
-  distinct from a nonempty account whose support is unresolved.
+  distinct from a nonempty account whose support is unresolved. P3's actual
+  v49 control clarifies the incumbent implementation: line8a is inapplicable,
+  the separate closed-empty Schedule A total publishes zero, and line12e
+  follows its existing no-statement path. Family authorization of a zero must
+  not be mistaken for an existing numeric line8a publication.
 - Raw Box 3 dates stay report-local, but their agreed origination date supplies
   the borrowing-wide debt category. Disagreement is a conflict, never a date
   selection. Retain the incumbent conservative $750,000/$375,000 limit and
@@ -242,6 +246,16 @@ retains the cost and provenance distinction.
   any production charter. Do not commission further rounds merely to
   refine paper. A demonstrated need for allocation, refinancing, general
   identity or broader engine work returns as an owner scope choice.
+
+The P3 saved-model prototype has now produced a durable two-report model,
+but its original positive case leaves the actual line12e field blocked:
+that incumbent consumer attempts before the longer connected chain publishes
+line8a. Schedule A is not required for that $11,000 case against the configured
+$15,000 standard deduction, so it also does not prove the required attachment
+tie-out. Resolve the ordering through existing declared content if possible
+and exercise a distinct required-Schedule-A case before closing integration.
+HTML serialization is not visible group-reader delivery. These findings refine
+the same calculation-and-explanation goal; they do not change its scope.
 
 ### Completion boundary
 

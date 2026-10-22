@@ -78,6 +78,26 @@ State what each case demonstrates and any distinct result path still missing.
 Do not rerun passing cases for confirmation. Browser inspection is optional;
 do not stall on browser tools. No full suite for this evidence-only unit.
 
+### Connected consumer continuation
+
+Inspection of the first saved positive model found line12e blocked because
+it attempted before the longer readiness/line8a chain; Schedule A was
+not required, so its required row-set/tie-out path was untested. After a
+source trace and Foreman feedback, the same unit may test the smallest
+content-only ordering repair in the disposable publication surface. Use
+normal versioned rule/package/registry/release resolution and record the
+changed bytes. Do not edit production content or patch a scheduler.
+
+Exercise one new two-report case above the configured standard deduction
+(for example $18,000 and $3,000) through actual Schedule A requirement,
+attachment rows/tie-out, line12e and saved model. Test the no-report and
+singleton compatibility consequences only where changed scheduling content
+requires them; distinguish these from the already measured adapter controls.
+This is new integration evidence, not confirmation reruns of the six P2
+cases. The original positive model remains evidence only for its reached
+layers. Return a concrete obstacle if existing content cannot express the
+required ordering; no new engine or schema authority is granted.
+
 ## Ownership, handoff and stops
 
 Only the three p3 documents/instrument above and ignored synthetic scratch

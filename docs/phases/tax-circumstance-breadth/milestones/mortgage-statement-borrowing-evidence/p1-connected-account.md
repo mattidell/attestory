@@ -1,5 +1,19 @@
 # P1 — connected account for one continuing borrowing
 
+## Current clarification from P3 execution
+
+The later [P3 contract](p3-connected-contract.md) and
+[saved-model observations](p3-saved-model-results.md) supersede this paper's
+references to an **existing** closed-empty line8a zero. Actual adopted v49
+marks line8a inapplicable, publishes zero through
+`rule.schedule-a-total-closed-empty.json`, and takes the existing no-statement
+line12e route. The family permits a zero subtotal, but that permission is not
+evidence that the incumbent line8a producer publishes one. Preserve those
+actual no-report dispositions. Retained borrowing facts alone do not change
+family emptiness; an affirmative link to a missing source is still a separate
+conflict. The paper discussion below is not authority to change that
+compatibility boundary.
+
 ## Actions I will take
 
 1. Describe the reports and borrowing in terms a person can recognize,

@@ -5,7 +5,7 @@
   "topic": "mortgage-statement-borrowing",
   "active_plan": "docs/phases/tax-circumstance-breadth/milestones/mortgage-statement-borrowing.md",
   "milestone_state": "track-0",
-  "status": "Owner selected A. Sol accepted the P2 content experiment at its bounded evidence ceiling. Consolidate the production design and test the missing saved group explanation before Track 0 closure. No production or schema successor selected.",
+  "status": "A is selected and P2 independently accepted. P3 saved group models execute; visible reader remains unbuilt. Test the traced line12e ordering repair and required Schedule A path in disposable content before independent consolidation review. No production or schema successor selected.",
   "current_role": "Builder — Luna connected contract and saved-model feasibility",
   "current_prompt": "docs/reviews/mortgage-statement-borrowing/charter-p3-contract-and-saved-model.md"
 }
@@ -45,7 +45,14 @@ reports/models. Independent Sol review accepted those findings for connected
 design consolidation, not production readiness. Next, settle the recording,
 lifecycle and route contract and test the missing saved group explanation.
 The externally bound line8a result needs a valid model through its actual
-consumer before Track 0 can close. The numeric annual ceiling
+consumer before Track 0 can close. P3 now saves and reloads its group models,
+but the original supported case leaves line12e blocked by an early attempt
+and never requires Schedule A. The next bounded check adds a declared
+ordering dependency in disposable content and reaches the required attachment
+with a larger two-report amount. Visible group rendering is still unbuilt.
+The actual no-report compatibility path is line8a inapplicable, separate
+Schedule A total zero and the existing no-statement line12e route.
+The numeric annual ceiling
 and separate other-debt account remain provisional, not observed user inputs.
 No production path or schema successor is selected.
 
