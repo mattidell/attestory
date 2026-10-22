@@ -11,8 +11,9 @@ how their accounts and balance observations support the existing tax route.
 
 This reopens a bounded product question; it does not invalidate the earlier
 phase result or commit to complete mortgage coverage. Assess this extension
-at its close. Further milestones remain unselected. The separate projection-
-reuse work may proceed concurrently and is not a prerequisite by assumption.
+at its close. Further milestones remain unselected. PR #215's fold-once
+projection reuse has since merged and is included by rebase; see its
+[closed result](../../milestone-retrospectives/2026-10-22-projection-reuse.md).
 
 ## Purpose
 

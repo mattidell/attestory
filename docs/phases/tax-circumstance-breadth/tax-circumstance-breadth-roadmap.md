@@ -77,7 +77,8 @@ itself establish the debt-limit or deduction result.
 Review the opening account, verify the actual rule/recording path and primary
 authority, then select the smallest supported representation and implementation.
 No refinancing, second-home, mixed-use or general allocation calculator is
-selected. Engineering Health's projection-reuse milestone remains independent.
+selected. Engineering Health's projection-reuse milestone closed through
+PR #215; its ratified result is included by rebase, not treated as milestone WIP.
 
 ## Status
 

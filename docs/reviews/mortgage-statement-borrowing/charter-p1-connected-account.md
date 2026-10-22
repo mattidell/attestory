@@ -109,6 +109,47 @@ application assumes, what defeats it, and what a correction changes. Mark
 proposals versus owner dispositions. Do not make a ledger of every code
 observation, review turn or housekeeping change.
 
+## Connected repair after outside and independent review
+
+Repair the account once against the owner's outside findings and
+`p1-independent-review.md`; do not execute the probe or select the pending
+owner choice. The Foreman owns plan, phase-state, Git and review records.
+
+- Present two real alternatives before the experiment: all nine incumbent
+  ordinary answers stay report-local, with only the new borrowing account
+  facts shared; or genuinely loan-wide ordinary assertions use per-report
+  intermediate joins. Compare person effort, content/recording/lifecycle
+  costs and provenance risk. Neither is selected. Repetition in the local
+  option is a product trade-off, not an invalid model or storage mistake.
+- For either option, inspect the real student-loan answer-status rules using
+  `joined_contains_subject`. Compare meaningful scoped rules that actually
+  read their answer or observation against new mortgage admission code.
+  Existing `subject`/`joined` discovery is the first candidate; an inert dummy
+  declaration is not evidence. Do not claim it works before the experiment.
+- Keep raw Box 3 observations report-local and derive one borrowing-wide
+  category from their agreement. Disagreement is a named unresolved conflict.
+  Preserve the incumbent pre-1987 exclusion and conservative $750k/$375k
+  parameter; explain the unmodeled higher pre-2017 acquisition-debt limit.
+  Include one isolated conflicting-Box-3 mutation in either experiment option.
+- Repair every contradictory closed-empty instruction, especially the
+  integration recommendation. Keep the current affirmative-orphan-link case
+  distinct from retained borrowing facts and withdrawn links.
+- State the absence of a supported connected-account exit as a deliberate
+  proposed limit for owner disposition, not a silent permanent-routing rule.
+  A future explicit clear-account operation would have to end the current
+  connected scope without deleting history or report-local answers. This
+  experiment does not implement or establish that operation.
+- Make the experiment conditional on the owner choice: the report-local
+  option has no shared-answer intermediate or producer-removal control;
+  the shared option includes both. Both test real report-local transport,
+  tax-category reconciliation and one authorized line8a result. No further
+  paper refinements are required once this connected repair and owner choice
+  are settled; actual experiment evidence still receives its planned review.
+
+Read the P1 review and this section together. Return the repaired account and
+a brief owner-choice comparison. No production, schema allocation, test run,
+package edit or experiment execution in this unit.
+
 ## Context Capsule
 
 - Resolve `HEAD` at launch and reconcile with Git. Milestone

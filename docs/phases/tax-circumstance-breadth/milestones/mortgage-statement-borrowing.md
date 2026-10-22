@@ -41,7 +41,8 @@
 Milestone key: mortgage-statement-borrowing.
 Branch: milestone/mortgage-statement-borrowing-same-loan.
 Opening base: origin/main after merged PR #214. New primary managed worktree;
-the separate projection-reuse milestone continues in its own worktree.
+rebased onto PR #215's merged fold-once projection-reuse result. See its
+[retrospective](../../../milestone-retrospectives/2026-10-22-projection-reuse.md).
 
 ## What we are trying to accomplish
 
@@ -212,7 +213,7 @@ must carry both options and the resulting disposition.
 
 - Combine the outside review with the
   [independent Sol P1 review](../../../reviews/mortgage-statement-borrowing/p1-independent-review.md)
-  as one repair. Its verdict is REPAIR REQUIRED for the empty-family
+  as one Luna repair. Its verdict is REPAIR REQUIRED for the empty-family
   contradiction, omitted report-local rival and unspecified Box 3/limit source.
 - Test the existing student-loan `rule.sli-answer-status-*.json` pattern:
   declared `joined` and `direction: joined_contains_subject` already cause

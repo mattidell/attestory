@@ -5,9 +5,9 @@
   "topic": "mortgage-statement-borrowing",
   "active_plan": "docs/phases/tax-circumstance-breadth/milestones/mortgage-statement-borrowing.md",
   "milestone_state": "track-0",
-  "status": "P0 READY. P1 paper design refined after Foreman feedback; independent Sol now reviews connected design and the proposed six-case live-path experiment before execution. No production or new schema selected.",
-  "current_role": "Reviewer — Sol P1 connected design and experiment readiness",
-  "current_prompt": "docs/reviews/mortgage-statement-borrowing/charter-p1-independent-review.md"
+  "status": "P0 READY. Sol P1 review returned REPAIR REQUIRED; Luna combines it with the outside review. Owner choice between report-local ordinary answers and shared-answer intermediates is pending. No experiment, production or schema successor started.",
+  "current_role": "Builder — Luna P1 connected repair",
+  "current_prompt": "docs/reviews/mortgage-statement-borrowing/charter-p1-connected-account.md"
 }
 -->
 
@@ -23,21 +23,21 @@ such as a change in who collects payments. Preserve the two reports and
 establish what the person can affirm about their shared borrowing, without
 counting the reports as separate debts or selecting a principal formula now.
 
-The opening plan received independent Sol review, READY for P0 without material
-repairs. P0's primary-source/path account and proposed bounded check have been
-refined after Foreman feedback, and the bounded real-path check is complete.
-The single-report result saves and reloads; two reports expose separate
-review/save, unkeyed-principal and cardinality restrictions. The over-limit
-principal reaches the comparison and saves an unresolved explanation, not a
-prorated amount. Independent Sol review found an additional transport limit:
-the second report's reason borrows the first report's ordinary-answer and
-document pins when scalar values agree. Luna corrected the evidence and
-integration-cost account; Sol's bounded recheck is READY for connected design.
-P1's first account and Foreman feedback are recorded. Next develop the connected
-paper design, provisionally using a person-confirmed yearly balance ceiling
-for the identified borrowing. Loan-wide answers may cover linked reports when
-their meaning does; raw report amounts and dated observations remain local.
-No new production path or broad assumption policy is authorized.
+P0's real-path investigation is independently reviewed READY after the
+source-authority correction. The current two-report calculation can attach
+the first report's evidence to the second report's result; matching values
+do not repair that provenance problem.
+
+P1's connected design now has outside and independent Sol findings. Luna
+repairs them together: compare all nine report-local ordinary answers against
+loan-wide assertions with per-report intermediates; use the existing
+student-loan scoped-answer pattern before considering an admission allowlist;
+reconcile linked Box 3 dates; remove the contradictory empty-family instruction;
+and make the connected-route exit limit visible. The owner must select answer
+scope before the intermediate-specific experiment. The numeric annual ceiling
+and separate other-debt account remain provisional, not observed user inputs.
+No production path or schema successor is selected.
+
 The existing full-deduction premise remains distinct from a general limited-debt
 calculation. No new balance treatment is selected. Refinancing, multiple independent borrowings,
 second homes and allocation remain contrast cases or excluded work, not hidden
