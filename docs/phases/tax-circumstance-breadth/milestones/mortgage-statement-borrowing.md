@@ -3,7 +3,7 @@
   "version": 1,
   "phase": "Tax Circumstance Breadth",
   "topic": "mortgage-statement-borrowing",
-  "status": "P3 independently accepted for Track 0 consolidation; bounded contract/locator repairs landed. Finish dynamic borrowing admission, current routing and lifecycle contract plus six closure artifacts. Clear-account scope is awaiting owner disposition. Production and visible group reader remain unbuilt.",
+  "status": "Track 0 contract draft returned for Foreman review; its dynamic admission/routing design is not yet accepted or executed. Owner deferred the clear-account action for this milestone. Production and visible group reader remain unbuilt.",
   "scope": [
     "extend the existing ordinary mortgage account to a bounded same-borrowing multiple-report case",
     "preserve report amounts, loan-level circumstances and their separate correction lifecycles",
@@ -225,10 +225,10 @@ retains the cost and provenance distinction.
   keyed source admission. Its own-report dependency chains are independently
   verified; a new Form-1099-K-style admission allowlist is not needed for
   the tested inputs.
-- The proposed path has no supported clear-account exit yet. This is a
-  deliberate limit for owner disposition before production, not permanent
-  routing by implication. The experiment does not build an exit, and
-  withdrawal must not silently resume a favorable legacy route.
+- The owner deferred the clear-account action for this milestone. This is an
+  accepted delivery limit, not a permanent product policy. Corrections and
+  withdrawals remain supported; they must not silently resume a favorable
+  legacy route. An explicit exit can be designed in later work.
 - Sol accepted the [executed P2 experiment](mortgage-statement-borrowing-evidence/p2-option-a-results.md)
   under the existing P1 review unit, for production-design consolidation only.
   Its baseline derived $11,000 through a
@@ -245,9 +245,9 @@ retains the cost and provenance distinction.
   successful evidence locators. Finish the exact dynamic borrowing admission,
   current route/lifecycle and six closure artifacts under the
   [consolidation charter](../../../reviews/mortgage-statement-borrowing/charter-t0-connected-closure.md).
-  The owner has been asked whether to defer a clear-account action; keep that
-  disposition open without stopping the other contract work. Complete Track 0
-  before any production charter.
+  The owner accepted deferral of a clear-account action; that scope choice
+  no longer blocks consolidation. The returned contract draft still requires
+  Foreman review. Complete Track 0 before any production charter.
   Do not commission further rounds merely to
   refine paper. A demonstrated need for allocation, refinancing, general
   identity or broader engine work returns as an owner scope choice.
@@ -263,9 +263,9 @@ still blocks the attachment. Changed-content empty/singleton controls preserve
 their actual calculation paths. These are prototype findings, not adopted
 production changes. HTML serialization is not visible group-reader delivery.
 Borrowing-reference admission, exact common-account selection, connected
-one-report transitions, correction/withdrawal and the clear-account exit remain
-production-design obligations. The new evidence refines the same goal rather
-than changing its scope.
+one-report transitions and correction/withdrawal remain production-design
+obligations. The clear-account exit is deferred by owner decision. The new
+evidence refines the same goal rather than changing its scope.
 
 ### Completion boundary
 

@@ -51,11 +51,11 @@ Return an implementable draft for Foreman feedback before any execution.
    successors; preserve the nine report-local meanings and seven attachment
    boundary checks. Visible group display remains a build obligation.
 
-The Foreman has asked the owner whether to defer a clear-account action.
-Keep that choice pending until the answer arrives. Do not invent an exit,
-assume permission to restore legacy calculation, or let that open choice
-prevent the other contract work. The Foreman owns its disposition, the plan's
-closure declaration, charters, phase-state pointers and commits.
+The owner deferred a clear-account action for this milestone. Keep corrections
+and withdrawals in scope; neither silently restores legacy calculation.
+Record the missing explicit exit as an accepted delivery limit, not a permanent
+policy or an open approval gate. The Foreman owns the plan's closure
+declaration, charters, phase-state pointers and commits.
 
 ## Boundary and handoff
 

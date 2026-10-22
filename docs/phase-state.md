@@ -5,7 +5,7 @@
   "topic": "mortgage-statement-borrowing",
   "active_plan": "docs/phases/tax-circumstance-breadth/milestones/mortgage-statement-borrowing.md",
   "milestone_state": "track-0",
-  "status": "P3 independently accepted for Track 0 consolidation; bounded contract/locator repairs landed. Finish dynamic borrowing admission, current routing and lifecycle contract plus six closure artifacts. Clear-account scope is awaiting owner disposition. Production and visible group reader remain unbuilt.",
+  "status": "Track 0 contract draft returned for Foreman review; its dynamic admission/routing design is not yet accepted or executed. Owner deferred the clear-account action for this milestone. Production and visible group reader remain unbuilt.",
   "current_role": "Builder — Luna Track 0 connected contract consolidation",
   "current_prompt": "docs/reviews/mortgage-statement-borrowing/charter-t0-connected-closure.md"
 }
@@ -54,10 +54,11 @@ boundary answer still blocks attachment publication. Changed-content empty
 and singleton controls preserve their calculation paths. Sol accepted the
 connected evidence for Track 0 consolidation, and its bounded contract/locator
 repairs are incorporated. Next finish exact common-borrowing admission,
-current routing, lifecycle and the six closure artifacts. The owner has been
-asked about deferring a clear-account action; that remains open before
-production. Visible group rendering, production recording/routing and
-connected correction/withdrawal are unbuilt.
+current routing, lifecycle and the six closure artifacts. That contract draft
+has returned for Foreman review, not production acceptance. The owner deferred
+the clear-account action for this milestone: corrections and withdrawals stay
+in scope, without implicit legacy resumption. Visible group rendering,
+production recording/routing and connected correction/withdrawal are unbuilt.
 The actual no-report compatibility path is line8a inapplicable, separate
 Schedule A total zero and the existing no-statement line12e route.
 The numeric annual ceiling
