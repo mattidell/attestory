@@ -1,0 +1,40 @@
+{
+  "schema": "rule-artifact.v14",
+  "id": "tax.us.2025.rule.dependents-worksheet-line-4a",
+  "version": "v1",
+  "scope": {
+    "tax_year": 2025,
+    "jurisdiction": "US-federal",
+    "family": "individual-income-tax"
+  },
+  "role": "computation",
+  "requires": [
+    "tax.us.2025.dependents-worksheet.line2",
+    "tax.us.2025.dependents-worksheet.line3"
+  ],
+  "pins": [
+    { "role": "input", "id": "tax.us.2025.dependents-worksheet.line2", "version": "v1", "origin": "assertion" },
+    { "role": "input", "id": "tax.us.2025.dependents-worksheet.line3", "version": "v1", "origin": "assertion" }
+  ],
+  "when": true,
+  "value": {
+    "op": "choose",
+    "when": {
+      "op": "compare",
+      "cmp": "lt",
+      "left": { "op": "ref", "name": "tax.us.2025.dependents-worksheet.line2" },
+      "right": { "op": "ref", "name": "tax.us.2025.dependents-worksheet.line3" }
+    },
+    "then": { "op": "ref", "name": "tax.us.2025.dependents-worksheet.line2" },
+    "else": { "op": "ref", "name": "tax.us.2025.dependents-worksheet.line3" }
+  },
+  "publishes": "tax.us.2025.dependents-worksheet.line4a",
+  "blocked": {
+    "code": "DEPENDENCY_ABSENT",
+    "missing": ["tax.us.2025.dependents-worksheet.line2", "tax.us.2025.dependents-worksheet.line3"]
+  },
+  "citations": [
+    { "id": "tax.us.2025.citation.form1040.line-12e", "version": "v1" }
+  ],
+  "notes": "Standard Deduction Worksheet for Dependents, line 4a: the smaller of line 2 or line 3. The grammar has no 'min' op, so this is expressed as a strict-less-than choose over the two refs (ties resolve to line 3, which equals line 2 when they tie, so the choice is immaterial)."
+}

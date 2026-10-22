@@ -1,0 +1,42 @@
+{
+  "schema": "rule-artifact.v4",
+  "id": "tax.us.2025.rule.form1040-line13b",
+  "version": "v2",
+  "scope": {
+    "tax_year": 2025,
+    "jurisdiction": "US-federal",
+    "family": "individual-income-tax"
+  },
+  "role": "computation",
+  "requires": [
+    "tax.us.2025.schedule1a.no-parts-ii-iv-deductions-declared",
+    "tax.us.2025.schedule1a.line37-enhanced-deduction-total"
+  ],
+  "pins": [
+    { "role": "input", "id": "tax.us.2025.schedule1a.no-parts-ii-iv-deductions-declared", "version": "v1", "origin": "assertion" },
+    { "role": "input", "id": "tax.us.2025.schedule1a.line37-enhanced-deduction-total", "version": "v1", "origin": "assertion" }
+  ],
+  "when": {
+    "op": "categorical_compare",
+    "cmp": "eq",
+    "left": { "op": "ref", "name": "tax.us.2025.schedule1a.no-parts-ii-iv-deductions-declared" },
+    "right": {
+      "op": "category_literal",
+      "fact_type": { "id": "tax.us.2025.schedule1a.no-parts-ii-iv-deductions-declared", "version": "v1" },
+      "value": "yes"
+    }
+  },
+  "value": { "op": "ref", "name": "tax.us.2025.schedule1a.line37-enhanced-deduction-total" },
+  "publishes": "tax.us.2025.deductions.schedule-1a",
+  "citations": [
+    { "id": "tax.us.2025.citation.form1040.line-13b", "version": "v1" }
+  ],
+  "blocked": {
+    "code": "DEPENDENCY_ABSENT",
+    "missing": [
+      "tax.us.2025.schedule1a.no-parts-ii-iv-deductions-declared",
+      "tax.us.2025.schedule1a.line37-enhanced-deduction-total"
+    ]
+  },
+  "notes": "Form 1040 Line 13b: Schedule 1-A deductions, v2 successor to v1 (P0 Sec. 4: the all-of-Schedule-1-A absence assertion cannot stay once Part V is computed -- a taxpayer with a real, nonzero senior deduction could never truthfully answer the old fact 'yes'). The gate narrows to tax.us.2025.schedule1a.no-parts-ii-iv-deductions-declared (Parts II-IV only: tips, overtime, car loan interest), and the published value becomes the real computed Part V total (tax.us.2025.schedule1a.line37-enhanced-deduction-total) instead of the literal 0 -- v37 is itself a genuine, always-computable amount (0 for a return with no one 65 or older, up to $12,000 for a qualifying joint return), so this rule's own disposition is a real published value whenever it applies, never a stand-in zero. The 'when' guard and its true/false shape are otherwise unchanged from v1: a 'no' answer (the return does have a Parts II-IV deduction, which this milestone still does not compute) leaves the rule inapplicable (guard_inapplicable), exactly as v1's single 'no additional deductions' answer did -- that posture is inherited, not newly decided here, since no case in the contract or plan exercises it differently. An absent answer for either required symbol blocks DEPENDENCY_ABSENT, naming the missing fact, never a silent zero."
+}

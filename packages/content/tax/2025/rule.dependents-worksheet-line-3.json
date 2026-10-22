@@ -1,0 +1,32 @@
+{
+  "schema": "rule-artifact.v14",
+  "id": "tax.us.2025.rule.dependents-worksheet-line-3",
+  "version": "v1",
+  "scope": {
+    "tax_year": 2025,
+    "jurisdiction": "US-federal",
+    "family": "individual-income-tax"
+  },
+  "role": "computation",
+  "requires": [
+    "filing_status"
+  ],
+  "pins": [
+    { "role": "input", "id": "tax.us.2025.filing-status", "version": "v1", "origin": "assertion" }
+  ],
+  "when": true,
+  "value": {
+    "op": "parameter",
+    "parameter_id": "tax.us.2025.parameter.standard-deduction-base",
+    "key": { "op": "ref", "name": "filing_status" }
+  },
+  "publishes": "tax.us.2025.dependents-worksheet.line3",
+  "blocked": {
+    "code": "DEPENDENCY_ABSENT",
+    "missing": ["filing_status"]
+  },
+  "citations": [
+    { "id": "tax.us.2025.citation.form1040.line-12e", "version": "v1" }
+  ],
+  "notes": "Standard Deduction Worksheet for Dependents, line 3: the basic 2025 standard deduction for the filing status ($15,750 single/MFS, $31,500 MFJ/QSS, $23,625 HoH), reusing tax.us.2025.parameter.standard-deduction-base v1 -- confirmed byte-identical to the worksheet's own line 3 amounts (P0 Sec. 7; Contract item 4), not a new parameter."
+}

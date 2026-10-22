@@ -1,0 +1,28 @@
+{
+  "act_id": "demo.act.adopt.core.v51",
+  "actor": "demo.user.filer-1",
+  "at": "2026-10-22T12:00:00Z",
+  "committed_against": 0,
+  "kind": "package-adoption",
+  "payload": {
+    "audit": {
+      "note": "synthetic successor adoption of core calculations v51 (Track 1 + Track 2); non-authoritative"
+    },
+    "package": {
+      "checksum": "6bd0f495931a8f89fca360249ccde43bc777f66918bc9c6872d36746019dad30",
+      "id": "tax.us.2025.package.core-calculations",
+      "version": "v51"
+    },
+    "release": {
+      "checksum": "f1a2604a60052fbfd1f8079e940d75c0afa859bc14d334e1ce9cf874bebd6819",
+      "id": "demo.release.sli-worksheet-integration.2025",
+      "version": "v49"
+    },
+    "revision": 51,
+    "scope": {
+      "jurisdiction": "us",
+      "year": "2025"
+    }
+  },
+  "schema": "act.v1"
+}

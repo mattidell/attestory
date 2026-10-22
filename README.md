@@ -7,9 +7,9 @@ This is the project's third iteration. The first proved a working return generat
 ## Where things stand
 
 - **Governance** (`docs/governance/`): the ratified v0.1 set — Constitution, Ontology, Engineering Constraints, Principles, Commentary. The sole contract authority for this repository.
-- **Phase state** (`docs/phase-state.md`): the 2025 tax on taxable income
-  now follows the 2025 law on core calculations v50 (see "2025 tax on taxable
-  income" below). Use `python3 tools/foreman_context.py --ref HEAD` for
+- **Phase state** (`docs/phase-state.md`): the 2025 senior deduction and a
+  dependent's standard deduction compute on core calculations v51 (see
+  "2025 senior deduction and a dependent's standard deduction" below). Use `python3 tools/foreman_context.py --ref HEAD` for
   current routing; publication status is tracked by the pull request's checks.
 - **Current bounded capability:** production-shaped synthetic returns cover
   the Form 1099-DIV box-2a direct-reporting route, Schedule K-1 (Form 1065)
@@ -240,10 +240,29 @@ placeholder parameters:
   with the $1,600 married and $2,000 unmarried additional amounts for age 65
   or blindness.
 
-The deduction for a taxpayer or spouse aged 65 or older (Schedule 1-A) and a
-dependent's limited standard deduction are not computed; the standard
-deduction's basis names both. Workspaces adopting `core-calculations.v49` or
-earlier keep their earlier results; adopting v50 recomputes.
+Workspaces adopting `core-calculations.v49` or earlier keep their earlier
+results; adopting v50 recomputes.
+
+## 2025 senior deduction and a dependent's standard deduction
+
+On `core-calculations.v51` (registry `v49`, release
+`demo.release.sli-worksheet-integration.2025.v49.json`):
+
+- **Enhanced deduction for seniors** (Schedule 1-A Part V, lines 33–37, to
+  Form 1040 line 13b): $6,000 for each taxpayer or spouse aged 65 or older
+  with a valid SSN, reduced by 6 percent of AGI above $75,000 ($150,000
+  joint); $0 when married filing separately. It applies whether the return
+  itemizes or not.
+- **A dependent's standard deduction** (the Standard Deduction Worksheet for
+  Dependents, lines 1–4c, to line 12e): the larger of $1,350 or line 1z plus
+  $450, capped at the basic amount, plus the age and blindness additions.
+
+v51 asks four new yes/no questions: whether someone can claim the taxpayer or
+spouse as a dependent, whether the return claims none of the tips, overtime
+or car loan interest deductions (Schedule 1-A Parts II–IV, which stay
+uncomputed), and a valid SSN for each person aged 65 or older. The dependent
+and Parts II–IV answers are required; a missing answer blocks with the fact
+named. The Parts II–IV answer replaces v50's single Schedule 1-A answer.
 
 ## Correction session walkthrough
 

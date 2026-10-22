@@ -1,0 +1,36 @@
+{
+  "schema": "rule-artifact.v14",
+  "id": "tax.us.2025.rule.dependents-worksheet-line-4c",
+  "version": "v1",
+  "scope": {
+    "tax_year": 2025,
+    "jurisdiction": "US-federal",
+    "family": "individual-income-tax"
+  },
+  "role": "computation",
+  "requires": [
+    "tax.us.2025.dependents-worksheet.line4a",
+    "tax.us.2025.dependents-worksheet.line4b"
+  ],
+  "pins": [
+    { "role": "input", "id": "tax.us.2025.dependents-worksheet.line4a", "version": "v1", "origin": "assertion" },
+    { "role": "input", "id": "tax.us.2025.dependents-worksheet.line4b", "version": "v1", "origin": "assertion" }
+  ],
+  "when": true,
+  "value": {
+    "op": "add",
+    "args": [
+      { "op": "ref", "name": "tax.us.2025.dependents-worksheet.line4a" },
+      { "op": "ref", "name": "tax.us.2025.dependents-worksheet.line4b" }
+    ]
+  },
+  "publishes": "tax.us.2025.dependents-worksheet.line4c",
+  "blocked": {
+    "code": "DEPENDENCY_ABSENT",
+    "missing": ["tax.us.2025.dependents-worksheet.line4a", "tax.us.2025.dependents-worksheet.line4b"]
+  },
+  "citations": [
+    { "id": "tax.us.2025.citation.form1040.line-12e", "version": "v1" }
+  ],
+  "notes": "Standard Deduction Worksheet for Dependents, line 4c: add lines 4a and 4b. This is the worksheet's own standard deduction for the dependent, read by rule.form1040-standard-deduction v3 when the taxpayer or spouse can be claimed as a dependent."
+}

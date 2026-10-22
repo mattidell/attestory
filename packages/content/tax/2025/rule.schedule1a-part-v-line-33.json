@@ -1,0 +1,38 @@
+{
+  "schema": "rule-artifact.v14",
+  "id": "tax.us.2025.rule.schedule1a-part-v-line-33",
+  "version": "v1",
+  "scope": {
+    "tax_year": 2025,
+    "jurisdiction": "US-federal",
+    "family": "individual-income-tax"
+  },
+  "role": "computation",
+  "requires": [
+    "tax.us.2025.income.agi",
+    "filing_status"
+  ],
+  "pins": [
+    { "role": "input", "id": "tax.us.2025.income.agi", "version": "v1", "origin": "assertion" },
+    { "role": "input", "id": "tax.us.2025.filing-status", "version": "v1", "origin": "assertion" }
+  ],
+  "when": true,
+  "value": {
+    "op": "subtract",
+    "left": { "op": "ref", "name": "tax.us.2025.income.agi" },
+    "right": {
+      "op": "parameter",
+      "parameter_id": "tax.us.2025.parameter.senior-deduction-magi-threshold",
+      "key": { "op": "ref", "name": "filing_status" }
+    }
+  },
+  "publishes": "tax.us.2025.schedule1a.line33-magi-excess",
+  "blocked": {
+    "code": "DEPENDENCY_ABSENT",
+    "missing": ["tax.us.2025.income.agi", "filing_status"]
+  },
+  "citations": [
+    { "id": "tax.us.2025.citation.schedule1a.part-v", "version": "v1" }
+  ],
+  "notes": "Schedule 1-A Part V line 33: line 31 (MAGI, which is AGI itself for the bounded supported class with no Puerto Rico/2555/4563 amounts -- line 31 reads AGI directly, no separate rule) minus line 32's threshold (tax.us.2025.parameter.senior-deduction-magi-threshold: $75,000, $150,000 if married filing jointly -- f1040s1a-2025 line 32; i1040gi-2025 p.109). Not floored at zero here -- the form's own line 33 can be negative or zero; line 34 is the one that floors at zero before multiplying by the rate, so '$6,000 on line 35' when line 33 is zero or less falls out of line 34 publishing 0, not out of this rule."
+}

@@ -2,10 +2,10 @@
 {
   "version": 1,
   "phase": "Engine Breadth",
-  "topic": "tax-on-taxable-income",
-  "active_plan": "docs/phases/engine-breadth/milestones/tax-on-taxable-income.md",
+  "topic": "senior-and-dependent-deductions",
+  "active_plan": "docs/phases/engine-breadth/milestones/senior-and-dependent-deductions.md",
   "milestone_state": "closed",
-  "status": "Closed. On core v50, Form 1040 line 16 and the standard deduction follow 2025 law: seven brackets through the Tax Table or Tax Computation Worksheet, the capital gains worksheet published line by line, only long-term gain preferential, and the 2025 standard deduction. Earlier packages keep their results.",
+  "status": "Closed. On core v51 the enhanced deduction for seniors (Schedule 1-A Part V) reaches line 13b and a dependent's standard deduction is computed on line 12e, from four new questions. Earlier packages keep their results.",
   "current_role": "Foreman — select next milestone",
   "current_prompt": "docs/phases/engine-breadth/coverage-frontier.md"
 }
@@ -14,6 +14,16 @@
 # Phase State
 
 ## Latest milestone
+
+**The 2025 Senior Deduction and a Dependent's Standard Deduction is closed**
+([plan](phases/engine-breadth/milestones/senior-and-dependent-deductions.md),
+[retrospective](milestone-retrospectives/2026-10-22-senior-and-dependent-deductions.md)).
+On core calculations v51 the enhanced deduction for seniors (Schedule 1-A
+Part V) reaches line 13b and the dependents' worksheet computes line 12e, from
+four new questions asked only where they change the result. Earlier packages
+keep their results. The next milestone is unselected.
+
+## Previous return-calculation milestone
 
 **The 2025 Tax on Taxable Income is closed** ([plan](phases/engine-breadth/milestones/tax-on-taxable-income.md),
 [retrospective](milestone-retrospectives/2026-10-22-tax-on-taxable-income.md)).
@@ -25,8 +35,7 @@ Core calculations v50 replaces them with verified 2025 law, the Tax Table and
 Tax Computation Worksheet, the capital gains worksheet published line by line
 and the preferential-base repair; earlier packages keep their results. The
 mortgage same-borrowing milestone (PR #216) continues in parallel and takes
-the next free package versions when it needs them. The next milestone here is
-unselected.
+the next free package versions when it needs them.
 
 ## Earlier engineering-health result
 
@@ -106,10 +115,12 @@ loss). **Mortgage Interest and What the Loan Paid For** closed 2026-10-15
 
 ## Begin here
 
-- [Closed milestone plan](phases/engine-breadth/milestones/tax-on-taxable-income.md):
-  P0, contract, tracks and outcome.
-- [Coverage frontier](phases/engine-breadth/coverage-frontier.md): the
-  routes whose line 16 this milestone corrects.
+- [Latest milestone plan](phases/engine-breadth/milestones/senior-and-dependent-deductions.md):
+  P0, contract, tracks and outcome; and its
+  [retrospective](milestone-retrospectives/2026-10-22-senior-and-dependent-deductions.md).
+- [Coverage frontier](phases/engine-breadth/coverage-frontier.md): routes,
+  their status and the candidates for the next milestone.
+- [Previous return-calculation plan](phases/engine-breadth/milestones/tax-on-taxable-income.md).
 - [Previous milestone plan](phases/engineering-health/milestones/projection-reuse.md):
   fold attribution, tracks, outcome and remaining work.
 - [Retrospective](milestone-retrospectives/2026-10-22-projection-reuse.md):
@@ -130,9 +141,11 @@ loss). **Mortgage Interest and What the Loan Paid For** closed 2026-10-15
 - Browser observation of the mortgage and sale pages.
 - Multiple Form 1098 support, interest allocation above the debt limit,
   second-home extension, mixed-use amounts, refinancing and the mortgage credit.
-- The 2025 senior deduction (Schedule 1-A) and a dependent's limited standard
-  deduction; worksheet lines as presentation rows; `demo.*` ids on the
-  correct capital-loss and Social Security amounts.
+- Worksheet lines as presentation rows; `demo.*` ids on the correct
+  capital-loss and Social Security amounts.
+- The age questions' wording (born before January 2, 1961; a death in 2025
+  before age 65), and the SLI dependent answer ("is claimed", filer only)
+  beside the new "can be claimed" answer.
 - Use of the circumstance routes on the correction session, which still
   resolves an older registry.
 - A general assumption framework, free-text intake and institutional

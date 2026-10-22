@@ -1,0 +1,38 @@
+{
+  "schema": "rule-artifact.v14",
+  "id": "tax.us.2025.rule.schedule1a-part-v-line-35",
+  "version": "v1",
+  "scope": {
+    "tax_year": 2025,
+    "jurisdiction": "US-federal",
+    "family": "individual-income-tax"
+  },
+  "role": "computation",
+  "requires": [
+    "tax.us.2025.schedule1a.line34-reduction"
+  ],
+  "pins": [
+    { "role": "input", "id": "tax.us.2025.schedule1a.line34-reduction", "version": "v1", "origin": "assertion" }
+  ],
+  "when": true,
+  "value": {
+    "op": "max",
+    "args": [
+      {
+        "op": "subtract",
+        "left": { "op": "parameter", "parameter_id": "tax.us.2025.parameter.senior-deduction-max" },
+        "right": { "op": "ref", "name": "tax.us.2025.schedule1a.line34-reduction" }
+      },
+      0
+    ]
+  },
+  "publishes": "tax.us.2025.schedule1a.line35-per-person-amount",
+  "blocked": {
+    "code": "DEPENDENCY_ABSENT",
+    "missing": ["tax.us.2025.schedule1a.line34-reduction"]
+  },
+  "citations": [
+    { "id": "tax.us.2025.citation.schedule1a.part-v", "version": "v1" }
+  ],
+  "notes": "Schedule 1-A Part V line 35: $6,000 (tax.us.2025.parameter.senior-deduction-max) minus line 34, floored at zero (f1040s1a-2025 line 35). Computed once per return -- lines 36a/36b each copy this same per-person amount rather than recomputing a separately thresholded $6,000 (P0 Sec. 1, 'line 35 is computed once, not per person')."
+}

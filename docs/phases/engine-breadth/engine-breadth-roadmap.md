@@ -328,6 +328,17 @@ preferential base repaired, and the 2025 standard deduction. Earlier packages
 keep their results. See the plan's outcome and the
 [retrospective](../../milestone-retrospectives/2026-10-22-tax-on-taxable-income.md).
 
+## Bounded return — The 2025 Senior Deduction and a Dependent's Standard Deduction
+
+[Plan](milestones/senior-and-dependent-deductions.md).
+
+The tax milestone named two deductions it did not compute: the enhanced
+deduction for seniors (Schedule 1-A Part V) and a dependent's limited
+standard deduction. Both change real returns: a senior lost up to $6,000 per
+person on line 13b, and a dependent received the full standard deduction.
+Compute both as successor content on core v51, each from a question whose
+meaning matches the rule that reads it.
+
 ## Why line 7a comes before Schedule D
 
 The 2025 Form 1040 instructions permit eligible capital-gain distributions to
