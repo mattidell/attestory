@@ -5,9 +5,9 @@
   "topic": "mortgage-statement-borrowing",
   "active_plan": "docs/phases/tax-circumstance-breadth/milestones/mortgage-statement-borrowing.md",
   "milestone_state": "track-0",
-  "status": "Luna corrected P0's cross-report-support account; same independent Sol reviewer rechecks the bounded delta. No repeat diagnostic or production repair. Connected design remains next after P0 disposition.",
-  "current_role": "Reviewer — Sol P0 bounded recheck",
-  "current_prompt": "docs/reviews/mortgage-statement-borrowing/charter-p0-independent-review.md"
+  "status": "P0 Sol recheck READY. P1 starts with the person's shared-borrowing account, report-local versus loan-wide circumstances and support for the whole-year balance premise; Foreman feedback precedes detailed mechanisms. No production selected.",
+  "current_role": "Builder — Luna P1 connected account",
+  "current_prompt": "docs/reviews/mortgage-statement-borrowing/charter-p1-connected-account.md"
 }
 -->
 
@@ -32,8 +32,10 @@ principal reaches the comparison and saves an unresolved explanation, not a
 prorated amount. Independent Sol review found an additional transport limit:
 the second report's reason borrows the first report's ordinary-answer and
 document pins when scalar values agree. Luna corrected the evidence and
-integration-cost account; Sol's bounded recheck precedes design selection.
-Another diagnostic run is not needed to establish this finding.
+integration-cost account; Sol's bounded recheck is READY for connected design.
+P1 first describes the person's account, which circumstances are shared or
+report-local, and what supports the whole-year debt treatment. Foreman feedback
+precedes detailed mechanism selection; no new production path is authorized.
 The existing full-deduction premise remains distinct from a general limited-debt
 calculation. No new balance treatment is selected. Refinancing, multiple independent borrowings,
 second homes and allocation remain contrast cases or excluded work, not hidden

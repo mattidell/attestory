@@ -3,7 +3,7 @@
   "version": 1,
   "phase": "Tax Circumstance Breadth",
   "topic": "mortgage-statement-borrowing",
-  "status": "Opening plan. Investigate two Form 1098 reports concerning one continuing home borrowing; distinguish the borrowing from its reports before selecting recording, principal or calculation mechanisms. No production design selected.",
+  "status": "P0 independently reviewed READY after its source-authority correction. P1 begins the ordinary shared-borrowing account and balance-treatment choices before mechanism selection. No production design selected.",
   "scope": [
     "extend the existing ordinary mortgage account to a bounded same-borrowing multiple-report case",
     "preserve report amounts, loan-level circumstances and their separate correction lifecycles",
@@ -158,48 +158,42 @@ coverage limit belong in the supported interaction.
 
 ## Decisions and readiness
 
-Opening independent Sol review: READY for P0, no material repairs. The goal
-is unchanged. P0 starts with a source/path account and proposed check, returns
-for Foreman feedback, then performs the bounded check. Completed P0 receives
-independent review before design selection. These increments refine the work
-sequence, not its product boundary.
+The goal is unchanged. P0 is independently reviewed READY for connected design
+after one source-authority account correction; see the
+[working account](mortgage-statement-borrowing-evidence/p0-current-account.md)
+and [Sol review and recheck](../../../reviews/mortgage-statement-borrowing/p0-independent-review.md).
+This is investigation readiness, not a production design or delivered feature.
 
-P0 must identify exact tested package/release versions: the README mortgage
-example and the later consolidated package are distinct baselines. A working
-historical fixture is not proof of latest-package integration.
+The real v49/v47 diagnostic establishes:
 
-P0's first source/path account is reviewed for continuation to the bounded
-check ([working account](mortgage-statement-borrowing-evidence/p0-current-account.md)).
-It distinguishes Publication 936's throughout-the-year full-deduction branch
-from Part II's limited-debt calculation. The current single-report route
-explicitly assumes Box 2 represents acquisition debt throughout the year;
-not implementing an average-balance calculator is not by itself a defect in
-that bounded route. How two reports support a loan-wide premise remains open.
-The real v49/v47 recorder/coordinator diagnostic has now exercised one report,
-two reports and an over-limit principal. One report reaches a saved bounded
-result; two reports are refused by both review and exact-key answer saves.
-Separately supplied two-report answers expose a transport restriction: different
-principal observations cannot bind the one run-wide principal input. An
-agreeing-principal control then reaches the explicit multiple-report stop;
-numerical agreement still establishes no common loan identity. This is
-not evidence that different observations contradict each other. The over-limit
-single report reaches the comparison and saves an unresolved explanation,
-not a prorated deduction.
+- One report reaches the real recorder, calculation and reloaded saved result;
+  an over-limit principal reaches the comparison and saves an unresolved
+  explanation, not a prorated deduction.
+- Two reports meet independent review/save and calculation restrictions.
+  Different principal observations cannot bind the run-wide principal input;
+  agreeing values reach the explicit multiple-report stop.
+- Agreeing values also expose wrong support: the second report's reason uses
+  first-report ordinary-answer and document pins. Every needed report-local
+  input needs the correct authority and correction dependency, not merely a
+  subject label or matching value. Filing status remains return-wide.
+- Publication 936 distinguishes a throughout-the-year full-deduction branch
+  from Part II's limited-debt calculation. The incumbent one-report Box 2
+  premise does not automatically extend to two reports. The current family
+  already authorizes a Box 1 sum; no general engine rewrite or new public
+  schema has been proved necessary.
 
-Independent P0 review required a material account correction: the agreeing-value
-second-report reason used first-report ordinary-answer, Box 2 and Box 9 pins.
-Its subject label did not establish its own input authority. The repaired
-account therefore carries exact source and correction dependency for every
-needed report-local input into connected design, while filing status remains
-return-wide. The review's other P0 conclusions hold; a bounded delta recheck
-is pending, not another diagnostic. Synthetic setup and selected answers do
-not establish an obtained same-loan account. No product goal or production
-mechanism has changed.
+P1 now develops the ordinary account and its consequential choices: what
+establishes a continuing borrowing, which circumstances are report-local or
+shared, and how the whole-year debt premise is supported. First return a
+plain-language account and paper cases for Foreman feedback; only then refine
+the connected recording, transport, calculation, lifecycle and explanation
+design. Independently review that connected design and any necessary
+discriminating evidence as a whole before production. Do not commission
+separate full reviews for each paper refinement.
 
-Before design selection, P0 must identify which balance/debt proposition is
-needed, how it can be supported, what the user can reasonably affirm, and where
-the adopted path stops. Before production, settle the representation, authority,
-defaults, change handling, integration/cardinality and supported tax boundary.
+Synthetic facts and selected answers remain diagnostic inputs, not proof of
+an obtained same-loan relationship. Before production, settle the representation,
+authority, assumptions, change handling and supported tax boundary.
 If the case needs a general debt-allocation calculator, a new identity system,
 refinancing treatment or a broader engine contract, stop and bring back a
 plain-language scope/cost choice rather than absorb it.

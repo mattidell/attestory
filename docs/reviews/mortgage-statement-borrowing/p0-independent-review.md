@@ -101,3 +101,32 @@ home debt; which circumstances stay report-local or become loan-wide; and how
 correction, link withdrawal, late membership and saved provenance respond.
 Then select the recording, transport, aggregation and explanation mechanisms.
 P0 selects none of them.
+
+## Delta disposition — 2026-10-22
+
+**READY for connected design. Finding 1 is closed.** Reviewed the bounded
+repair at `HEAD` `ced5a9ab54af69232cde5709d5e2f0f6e6f739ec`, verified
+against Git, against the original finding and retained agreeing-principal
+control. The original verdict above records the earlier candidate and remains
+unchanged as history.
+
+The account now distinguishes the B subject label from the actual A Box 2,
+Box 9 and nine ordinary-answer pins in its source map, control case and
+control interpretation. Its existing-first discussion and cost map require
+exact authority and correction dependencies for every needed input, separate
+report, loan and return scopes, and preserve filing status as legitimately
+return-wide. The lifecycle account explicitly withholds cross-report
+dependency-safety claims from same-report correction evidence. The plan and
+phase-status delta carry the same corrected ceiling forward. These changes
+match the retained B reason disposition's actual pins.
+
+No remaining material defect in this delta. The transport limitation remains
+future design work; this closes its inaccurate evidence/cost account, not the
+software limitation. All original open product decisions and the evidence
+ceiling remain. No production mechanism, same-loan affirmation or tax treatment
+has been selected or accepted.
+
+This recheck inspected only the repair delta and retained pin evidence; it
+did not repeat legal research, diagnostics or tests. Only this report was
+edited. The Foreman's untracked P1 charter was outside the review and untouched.
+Approximate recheck cost: four tool calls, five nested operations; no new run.
