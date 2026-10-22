@@ -3,7 +3,7 @@
   "version": 1,
   "phase": "Engine Breadth",
   "topic": "refund-or-amount-owed",
-  "status": "Planned. P0 verifies the 2025 law for Form 1040 lines 22-38 and traces how withholding on the documents the engine already reads would reach the return.",
+  "status": "P0 complete; contract settled. Track 1 makes line 20 free of foreign-tax questions when there is no foreign tax and records withholding on lines 25a-25d.",
   "scope": [
     "carry every return the engine computes from tax after credits to total tax, payments, and the refund or amount owed (Form 1040 lines 22-37)",
     "record federal income tax withheld from the source documents the engine already reads, starting with Form W-2 box 2",
@@ -129,3 +129,82 @@ needs them is outside the supported class instead of silently low.
 - Every existing golden keeps its package and its result.
 
 P0 computes the figures for these cases from the sources.
+
+## P0 result
+
+P0 is complete ([law and path](refund-or-amount-owed-evidence/p0-law-and-path.md)).
+Lines 22-38 are verified against the 2025 Form 1040 and instructions. No
+schema successor, expression operation or engine change is needed.
+
+- **Withholding is new content.** W-2 box 2 and Forms 1099-INT, 1099-DIV and
+  1099-R box 4 have no fact type. Each follows the W-2 box 1 shape: a fact
+  type, a source family and closure scoped to it, and a `collect`-and-add
+  rule. Form 1099-R's is a companion on the existing IRA statement.
+- **Form 1099-K box 4 is recorded and summed nowhere.** It only names a block
+  reason. The Foreman corrected P0 here: the line 25b instructions cover any
+  Form 1099 showing tax withheld on "other income you received" in box 4, so
+  it belongs on line 25b.
+- **Forms 1099-G box 4 and SSA-1099 box 6 admit only zero.** Recording a real
+  amount would change an admission rule those routes ship today.
+- **Line 22 is reachable only through the direct foreign tax credit.** The
+  Foreman found this in P0's probe: line 20 comes from
+  `rule.schedule3-line1-direct-ftc`, which requires the direct-credit
+  election ("no" blocks) and about twenty foreign-tax eligibility answers,
+  even when no Form 1099-DIV box 7 shows foreign tax. A W-2-only return must
+  answer all of them to reach line 22. P0's probe supplied them.
+- **Lines 23 and 27-31 need their own absence answers.** The existing
+  Schedule 2 and Schedule 3 answers cover Schedule 2 Part I and Schedule 3
+  Part I, not Schedule 2 Part II (line 23) or Schedule 3 Part II (line 31).
+- **Lines 34 and 37 are each conditional on "more than".** Equal payments and
+  tax give neither a refund nor an amount owed. Line 36's election to apply an
+  overpayment to 2026 cannot be changed later.
+- P0's W-2-plus-1099-INT case held tax constant despite the interest income.
+  The tracks recompute it with the interest taxed.
+
+## Contract
+
+1. **No foreign tax, no foreign-tax questions.** A successor to
+   `rule.schedule3-line1-direct-ftc` publishes $0 when the Form 1099-DIV
+   box 7 source set is closed with no foreign tax, requiring only that
+   closure. The election and eligibility answers are required only when box 7
+   shows foreign tax (`conditional_dependency_set`). Every other result of
+   the v1 rule is unchanged.
+2. **Withholding in scope:** W-2 box 2 (line 25a); Forms 1099-INT, 1099-DIV
+   and 1099-R box 4, and the already-recorded Form 1099-K box 4 (line 25b).
+   Line 25c is $0 because no W-2G route exists. Forms 1099-G and SSA-1099
+   withholding stay zero-only and are parked. Each withholding amount is
+   per statement, summed across statements, and rounded once, like box 1.
+3. **New questions** (`yes`/`no` unless stated, no default):
+   - the return has none of the other taxes on Schedule 2 Part II
+     (line 23);
+   - the return claims none of the refundable credits and other payments on
+     lines 27-31 (earned income credit, additional child tax credit, American
+     opportunity credit, refundable adoption credit, Schedule 3 Part II);
+   - the return reports no estimated tax penalty (line 38);
+   - 2025 estimated tax payments and any 2024 overpayment applied (line 26),
+     an amount, $0 allowed;
+   - the amount of an overpayment applied to 2026 estimated tax (line 36), an
+     amount, required only when line 34 is more than $0. An amount above
+     line 34 blocks rather than being reduced.
+
+   All but line 36's are required on every return that adopts the successor
+   package. A missing answer blocks with the fact named.
+4. **One rule per line:** 23, 24, 25a, 25b, 25c, 25d, 26, 32, 33, 34, 35a,
+   36, 37 and 38, with lines 27-31 as one absence-gated $0 that line 32
+   reads. Line 34 is line 33 minus line 24 when larger, else $0; line 37 is
+   line 24 minus line 33 when larger, else $0; line 35a is line 34 minus
+   line 36. Line 38 is $0 by its answer, and line 37's rule follows the
+   instructions for it.
+5. **Successor content only:** core v52, registry v50 and release v50 (unless
+   PR #216 merges first), an adoption fixture and new goldens. Earlier
+   packages, saved presentations and goldens stay byte-identical.
+6. **Data safety and lanes:** synthetic amounts only; the full lane runs
+   before the PR is marked ready.
+
+## Parked by this milestone
+
+- Forms 1099-G box 4 and SSA-1099 box 6 withholding: both admit only zero
+  today; recording a real amount changes a shipped admission rule.
+- Form W-2G and line 25c.
+- Refundable credits (lines 27-31), Schedule 2 Part II taxes and the
+  estimated tax penalty, each declared absent.
