@@ -3,7 +3,7 @@
   "version": 1,
   "phase": "Engine Breadth",
   "topic": "senior-and-dependent-deductions",
-  "status": "Planned. P0 verifies the 2025 law for the enhanced deduction for seniors and a dependent's standard deduction, and traces how the facts they read would reach the rules.",
+  "status": "P0 complete; contract settled. Track 1 builds the senior deduction on core v51.",
   "scope": [
     "compute the 2025 enhanced deduction for seniors (Schedule 1-A Part V) and carry it to Form 1040 line 13b, as successor content",
     "compute a dependent's limited standard deduction on line 12e when someone can claim the taxpayer or spouse as a dependent",
@@ -145,3 +145,82 @@ earlier result changes.
 
 These figures are the Foreman's reading of the forms. P0 recomputes them from
 the sources and corrects any that are wrong.
+
+## P0 result
+
+P0 is complete ([law and path](senior-and-dependent-deductions-evidence/p0-law-and-path.md)).
+Every case figure above is confirmed; the dependent aged 66 and blind with
+$3,000 of wages is $7,450 ($3,450 plus two $2,000 single additional amounts).
+
+- **No schema successor, expression operation or engine change is needed.**
+  An assertion reaches a rule through a fact type, a recorded act, the
+  package's `input_bindings` and the rule's `ref`; all of it is generic. New
+  questions are content.
+- **The Schedule 1-A absence answer cannot stay.** It covers Parts II-V in one
+  yes/no, and a senior must answer "no", which blocks. A narrower answer for
+  Parts II-IV is needed.
+- **The 2025 standard deduction parameters already hold the worksheet's line 3
+  and line 4b amounts.** They are reused.
+- **Earned income is line 1z on every route the engine computes.** Every other
+  component in the worksheet footnote is declared absent before line 10 or 26
+  can compute.
+- **The probe shows the gap.** A single filer aged 65 or older with $50,000 of
+  wages gets $17,750 on line 12e and $0 on line 13b; the law gives $6,000 on
+  line 13b.
+- **The age question's wording is loose.** `tax.us.2025.taxpayer-over-65` is
+  titled "over 65 years of age"; both the standard deduction and Part V mean
+  born before January 2, 1961, which includes everyone who turned 65 during
+  2025. The meaning both rules read is the same, so this milestone keeps the
+  fact and parks the wording with the question surface.
+- **The law is silent on a dependent claiming the senior deduction.** Nothing
+  bars it; the engine allows it.
+- **Line 34 has no rounding step of its own.**
+
+## Contract
+
+1. **New questions** (one `fact-type.v2` bundle, `yes`/`no`, no default):
+   - `tax.us.2025.senior-deduction.taxpayer-valid-ssn` and
+     `tax.us.2025.senior-deduction.spouse-valid-ssn`: the person has a social
+     security number valid for employment, issued before the due date of the
+     2025 return including extensions.
+   - `tax.us.2025.standard-deduction.can-be-claimed-as-dependent`: someone
+     else can claim the taxpayer, or the spouse on a joint return, as a
+     dependent for 2025. One answer for the return, because the worksheet
+     governs the whole joint return if either spouse can be claimed.
+   - `tax.us.2025.schedule1a.no-parts-ii-iv-deductions-declared`: the return
+     claims no deduction for qualified tips, qualified overtime compensation
+     or qualified passenger vehicle loan interest.
+2. **A question is required only where its answer can change the result.**
+   The dependent and Parts II-IV answers are required on every return that
+   adopts the successor package. A valid-SSN answer is required only for a
+   person recorded as 65 or older, and the spouse's only on a joint return; a
+   return with no such person computes without it. A missing required answer
+   blocks with the fact named, never a silent zero.
+3. **Senior deduction, one rule per Schedule 1-A line.** Line 31 is AGI.
+   Lines 32-37 are rules with three cited parameters: the $6,000 amount, the
+   $75,000 / $150,000 threshold by filing status, and the 6 percent rate.
+   Line 34 is the exact product; nothing rounds that the form does not round.
+   Married filing separately is $0 at lines 36a and 36b. Line 13b's successor
+   is line 37 when the Parts II-IV answer is `yes`.
+4. **Dependents' worksheet, one rule per line.** Line 1 counts the four age
+   and blindness boxes. Line 2 is the larger of $1,350 or line 1z plus $450,
+   which is the worksheet's $900 test exactly. Line 3 reuses
+   `standard-deduction-base`, line 4b reuses `additional-standard-deduction`,
+   and 4a and 4c follow the form. Two cited parameters hold $1,350 and $450.
+   The standard deduction's successor is line 4c when the dependent answer is
+   `yes`, and today's computation otherwise.
+5. **Successor content only.** One core-calculations package, registry and
+   release (v51, v49 and v49 unless PR #216 merges first), an adoption fixture
+   and new goldens. Earlier packages, saved presentations and goldens stay
+   byte-identical.
+6. **Data safety.** Any statutory parameter with a six-digit amount gets a
+   cited per-id exemption in the data-safety gate. The full lane runs before
+   the PR is marked ready.
+
+## Parked by this milestone
+
+- The age questions' wording (born before January 2, 1961, and a death in
+  2025 before age 65) on the question surface.
+- `tax.us.2025.sli-scope.not-claimed-as-dependent` asks whether the filer "is
+  claimed", where the law and the new dependent answer say "can be claimed",
+  including the spouse on a joint return. Two answers now carry one concept.
