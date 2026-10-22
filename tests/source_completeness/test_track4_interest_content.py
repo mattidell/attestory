@@ -300,6 +300,11 @@ class DataSafety(unittest.TestCase):
         "tax.us.2025.parameter.ordinary-rate-schedule",
         "tax.us.2025.parameter.preferential-fifteen-ceiling",
         "tax.us.2025.parameter.tax-table-ceiling",
+        # Enhanced deduction for seniors MAGI threshold (f1040s1a-2025 line 32;
+        # i1040gi-2025 p.109; Pub. L. 119-21 Sec. 70103, 26 USC
+        # 151(d)(5)(C)(iii)): a statutory constant ($150,000 MFJ, $75,000
+        # otherwise), never taxpayer/account data.
+        "tax.us.2025.parameter.senior-deduction-magi-threshold",
     })
 
     def test_no_private_markers_or_account_identifiers(self) -> None:

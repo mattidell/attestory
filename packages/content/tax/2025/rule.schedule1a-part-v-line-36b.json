@@ -1,0 +1,89 @@
+{
+  "schema": "rule-artifact.v14",
+  "id": "tax.us.2025.rule.schedule1a-part-v-line-36b",
+  "version": "v1",
+  "scope": {
+    "tax_year": 2025,
+    "jurisdiction": "US-federal",
+    "family": "individual-income-tax"
+  },
+  "role": "computation",
+  "requires": [
+    "filing_status",
+    "spouse_over_65",
+    "tax.us.2025.schedule1a.line35-per-person-amount"
+  ],
+  "pins": [
+    { "role": "input", "id": "tax.us.2025.filing-status", "version": "v1", "origin": "assertion" },
+    { "role": "input", "id": "tax.us.2025.spouse-over-65", "version": "v1", "origin": "assertion" },
+    { "role": "input", "id": "tax.us.2025.schedule1a.line35-per-person-amount", "version": "v1", "origin": "assertion" }
+  ],
+  "when": true,
+  "value": {
+    "op": "choose",
+    "when": {
+      "op": "all",
+      "args": [
+        {
+          "op": "conditional_dependency_set",
+          "condition": {
+            "op": "all",
+            "args": [
+              { "op": "ref", "name": "spouse_over_65" },
+              {
+                "op": "categorical_compare",
+                "cmp": "eq",
+                "left": { "op": "ref", "name": "filing_status" },
+                "right": {
+                  "op": "category_literal",
+                  "fact_type": { "id": "tax.us.2025.filing-status", "version": "v1" },
+                  "value": "married_filing_jointly"
+                }
+              }
+            ]
+          },
+          "members": [
+            { "op": "ref", "name": "tax.us.2025.senior-deduction.spouse-valid-ssn" }
+          ]
+        },
+        { "op": "ref", "name": "spouse_over_65" },
+        {
+          "op": "categorical_compare",
+          "cmp": "eq",
+          "left": { "op": "ref", "name": "filing_status" },
+          "right": {
+            "op": "category_literal",
+            "fact_type": { "id": "tax.us.2025.filing-status", "version": "v1" },
+            "value": "married_filing_jointly"
+          }
+        },
+        {
+          "op": "categorical_compare",
+          "cmp": "eq",
+          "left": { "op": "ref", "name": "tax.us.2025.senior-deduction.spouse-valid-ssn" },
+          "right": {
+            "op": "category_literal",
+            "fact_type": { "id": "tax.us.2025.senior-deduction.spouse-valid-ssn", "version": "v1" },
+            "value": "yes"
+          }
+        }
+      ]
+    },
+    "then": { "op": "ref", "name": "tax.us.2025.schedule1a.line35-per-person-amount" },
+    "else": 0
+  },
+  "publishes": "tax.us.2025.schedule1a.line36b-spouse",
+  "blocked": {
+    "code": "DEPENDENCY_ABSENT",
+    "missing": [
+      "filing_status",
+      "spouse_over_65",
+      "tax.us.2025.schedule1a.line35-per-person-amount",
+      "tax.us.2025.senior-deduction.spouse-valid-ssn"
+    ]
+  },
+  "citations": [
+    { "id": "tax.us.2025.citation.schedule1a.part-v", "version": "v1" }
+  ],
+  "notes": "Schedule 1-A Part V line 36b: line 35 when the spouse was born before January 2, 1961, has a valid SSN, and the return is married filing jointly (f1040s1a-2025 line 36b caption; line 36b exists only 'if you are married filing jointly'); otherwise 0, never blocked -- mirrors line 36a exactly, with the spouse's conditional_dependency_set additionally gated on filing jointly, per the contract ('the spouse's only on a joint return'). A married-filing-separately or unmarried return never asks for the spouse's SSN, because spouse_over_65 defaults false for an unmarried return and the joint-return conjunct is false otherwise."
+}

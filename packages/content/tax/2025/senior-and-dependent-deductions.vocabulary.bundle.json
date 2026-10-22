@@ -1,0 +1,108 @@
+{
+  "schema": "bundle.v2",
+  "id": "tax.us.2025.senior-and-dependent-deductions.vocabulary",
+  "version": "v1",
+  "label": "Senior deduction (Schedule 1-A Part V), dependent standard deduction, and Schedule 1-A Parts II-IV absence-declaration vocabulary",
+  "fact_types": [
+    {
+      "schema": "fact-type.v2",
+      "id": "tax.us.2025.senior-deduction.taxpayer-valid-ssn",
+      "version": "v1",
+      "title": "Taxpayer assertion: the taxpayer has a social security number valid for employment, issued by the SSA before the due date of the 2025 return (including extensions) -- Schedule 1-A Part V, lines 36a/37 (Pub. L. 119-21 Sec. 70103, 26 USC 151(d)(5)(C)(iv)).",
+      "nature": "determinable",
+      "identity_keys": [
+        {
+          "name": "tax-year",
+          "kind": "literal",
+          "values": [
+            "2025"
+          ]
+        }
+      ],
+      "value_schema": {
+        "enum": [
+          "yes",
+          "no"
+        ]
+      },
+      "supersession": {
+        "policy": "free"
+      }
+    },
+    {
+      "schema": "fact-type.v2",
+      "id": "tax.us.2025.senior-deduction.spouse-valid-ssn",
+      "version": "v1",
+      "title": "Taxpayer assertion: the spouse has a social security number valid for employment, issued by the SSA before the due date of the 2025 return (including extensions) -- Schedule 1-A Part V, lines 36b/37 (Pub. L. 119-21 Sec. 70103, 26 USC 151(d)(5)(C)(iv)).",
+      "nature": "determinable",
+      "identity_keys": [
+        {
+          "name": "tax-year",
+          "kind": "literal",
+          "values": [
+            "2025"
+          ]
+        }
+      ],
+      "value_schema": {
+        "enum": [
+          "yes",
+          "no"
+        ]
+      },
+      "supersession": {
+        "policy": "free"
+      }
+    },
+    {
+      "schema": "fact-type.v2",
+      "id": "tax.us.2025.standard-deduction.can-be-claimed-as-dependent",
+      "version": "v1",
+      "title": "Taxpayer assertion: someone else can claim the taxpayer, or the spouse on a joint return, as a dependent for 2025 -- governs the whole return's Form 1040 line 12e under the Standard Deduction Worksheet for Dependents. Defined for Track 2 of this milestone; not yet bound or required by any rule in this track.",
+      "nature": "determinable",
+      "identity_keys": [
+        {
+          "name": "tax-year",
+          "kind": "literal",
+          "values": [
+            "2025"
+          ]
+        }
+      ],
+      "value_schema": {
+        "enum": [
+          "yes",
+          "no"
+        ]
+      },
+      "supersession": {
+        "policy": "free"
+      }
+    },
+    {
+      "schema": "fact-type.v2",
+      "id": "tax.us.2025.schedule1a.no-parts-ii-iv-deductions-declared",
+      "version": "v1",
+      "title": "Taxpayer assertion: the return claims no deduction for qualified tips, qualified overtime compensation or qualified passenger vehicle loan interest (Schedule 1-A Parts II-IV). Successor to tax.us.2025.schedule1a.no-additional-deductions-declared, narrowed to Parts II-IV now that Part V (the enhanced deduction for seniors) is computed separately.",
+      "nature": "determinable",
+      "identity_keys": [
+        {
+          "name": "tax-year",
+          "kind": "literal",
+          "values": [
+            "2025"
+          ]
+        }
+      ],
+      "value_schema": {
+        "enum": [
+          "yes",
+          "no"
+        ]
+      },
+      "supersession": {
+        "policy": "free"
+      }
+    }
+  ]
+}

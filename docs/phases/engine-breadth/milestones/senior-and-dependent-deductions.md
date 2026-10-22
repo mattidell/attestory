@@ -3,7 +3,7 @@
   "version": 1,
   "phase": "Engine Breadth",
   "topic": "senior-and-dependent-deductions",
-  "status": "P0 complete; contract settled. Track 1 builds the senior deduction on core v51.",
+  "status": "Track 1 complete: the senior deduction on core v51. Track 2 adds the dependents' worksheet to the same package.",
   "scope": [
     "compute the 2025 enhanced deduction for seniors (Schedule 1-A Part V) and carry it to Form 1040 line 13b, as successor content",
     "compute a dependent's limited standard deduction on line 12e when someone can claim the taxpayer or spouse as a dependent",
@@ -197,8 +197,9 @@ $3,000 of wages is $7,450 ($3,450 plus two $2,000 single additional amounts).
    return with no such person computes without it. A missing required answer
    blocks with the fact named, never a silent zero.
 3. **Senior deduction, one rule per Schedule 1-A line.** Line 31 is AGI.
-   Lines 32-37 are rules with three cited parameters: the $6,000 amount, the
-   $75,000 / $150,000 threshold by filing status, and the 6 percent rate.
+   Lines 33-37 are rules with three cited parameters: the $6,000 amount, the
+   $75,000 / $150,000 threshold by filing status (line 32, read by line 33),
+   and the 6 percent rate.
    Line 34 is the exact product; nothing rounds that the form does not round.
    Married filing separately is $0 at lines 36a and 36b. Line 13b's successor
    is line 37 when the Parts II-IV answer is `yes`.

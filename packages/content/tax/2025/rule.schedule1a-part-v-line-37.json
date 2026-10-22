@@ -1,0 +1,39 @@
+{
+  "schema": "rule-artifact.v14",
+  "id": "tax.us.2025.rule.schedule1a-part-v-line-37",
+  "version": "v1",
+  "scope": {
+    "tax_year": 2025,
+    "jurisdiction": "US-federal",
+    "family": "individual-income-tax"
+  },
+  "role": "computation",
+  "requires": [
+    "tax.us.2025.schedule1a.line36a-taxpayer",
+    "tax.us.2025.schedule1a.line36b-spouse"
+  ],
+  "pins": [
+    { "role": "input", "id": "tax.us.2025.schedule1a.line36a-taxpayer", "version": "v1", "origin": "assertion" },
+    { "role": "input", "id": "tax.us.2025.schedule1a.line36b-spouse", "version": "v1", "origin": "assertion" }
+  ],
+  "when": true,
+  "value": {
+    "op": "add",
+    "args": [
+      { "op": "ref", "name": "tax.us.2025.schedule1a.line36a-taxpayer" },
+      { "op": "ref", "name": "tax.us.2025.schedule1a.line36b-spouse" }
+    ]
+  },
+  "publishes": "tax.us.2025.schedule1a.line37-enhanced-deduction-total",
+  "blocked": {
+    "code": "DEPENDENCY_ABSENT",
+    "missing": [
+      "tax.us.2025.schedule1a.line36a-taxpayer",
+      "tax.us.2025.schedule1a.line36b-spouse"
+    ]
+  },
+  "citations": [
+    { "id": "tax.us.2025.citation.schedule1a.part-v", "version": "v1" }
+  ],
+  "notes": "Schedule 1-A Part V line 37: enhanced deduction for seniors, add lines 36a and 36b (f1040s1a-2025 line 37). Up to $12,000 on a joint return where both spouses qualify (two independent $5,400-$6,000 copies of line 35); $0 for a married-filing-separately return (both addends 0)."
+}
