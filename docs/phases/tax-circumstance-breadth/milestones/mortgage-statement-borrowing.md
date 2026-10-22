@@ -3,7 +3,7 @@
   "version": 1,
   "phase": "Tax Circumstance Breadth",
   "topic": "mortgage-statement-borrowing",
-  "status": "Core-v50 candidate passes both A/B ceiling derivation checks; experimental shared-support display needs a keyed repair and saved models. Four lifecycle/empty/orphan cases and four-outcome integration remain open. Clear-account deferred; no production.",
+  "status": "Core-v50 candidate passes A/B ceiling derivation checks and saves both repaired, keyed-support models. Four lifecycle/empty/orphan cases and four-outcome integration remain open. Clear-account deferred; no production built.",
   "scope": [
     "extend the existing ordinary mortgage account to a bounded same-borrowing multiple-report case",
     "preserve report amounts, loan-level circumstances and their separate correction lifecycles",
@@ -194,10 +194,13 @@ computation. Remaining display/lifecycle proof is listed below.
 The two A/B ceiling calculations have since executed: absent A cannot borrow
 B's otherwise-favorable ceiling, and valid A still publishes with dormant B's
 unfavorable ceiling present. The retained derivation lineage identifies A.
-Their shared-support display is not correct: the P3 adapter scans current
-claims without borrowing scope, displaying B as A's support or rejecting two
-ceilings. Repair that disposable adapter and save both current-base consumer
-models before treating these paths as integrated evidence. Four lifecycle/
+The original P3 adapter scanned current claims without borrowing scope,
+displaying B as A's support or rejecting two ceilings. A T0-only adapter
+repair now saves both models using the current root's structured account
+keys: absent A's ceiling is omitted, and dormant B's ceiling is never shown
+as A support. Applicable raw claims are not automatically consumed inputs;
+actual derivation pins establish consumption. These are experimental saved
+models, not production projection or visible reader delivery. Four lifecycle/
 empty/orphan cases and four-outcome status integration remain unproved.
 
 P2/P3 and the first T0 runtime result remain historical evidence at their

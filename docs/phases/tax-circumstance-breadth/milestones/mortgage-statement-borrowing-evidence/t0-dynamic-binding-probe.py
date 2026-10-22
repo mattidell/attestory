@@ -519,6 +519,70 @@ def add_p3_consumers(surface: Any, acts: list[dict[str, Any]], p3: Any) -> tuple
         "retainedAttachmentBoundaryAnswers": sorted(expected)}
 
 
+def keyed_presentation_overlay(source: str) -> str:
+    """T0-local repair: display only support keyed to the actual current root."""
+    old = '''        # Actual shared account findings are raw current assertions, not display-derived conclusions.
+        support_types = ["demo.tax.2025.mortgage.continuing-borrowing",
+                         "demo.tax.2025.mortgage.annual-ceiling",
+                         "demo.tax.2025.mortgage.other-home-secured-debt"]
+        shared_support = []
+        for fact_type in support_types:
+            candidates = []
+            from packages.kernel.currency import compute_currency
+            current = compute_currency(state).current_finding_ids
+            for finding_id in current:
+                f = state.findings.get(finding_id)
+                ft = fact_map.get(str(f.get("fact_id"))) if f else None
+                if ft is not None and ft.fact_type_id == fact_type:
+                    candidates.append((f, ft))
+            if len(candidates) != 1:
+                raise projection.PresentationModelError(f"P3 expected one current shared support finding for {fact_type}")
+            finding, fact = candidates[0]
+            shared_support.append({"findingId": finding["id"], "factType": fact_type,
+                "value": str(finding.get("value")), "keys": dict(fact.keys),
+                "evidenceIds": list(finding.get("evidence_ids", []) or [])})
+'''
+    new = '''        # T0-only display association: the actual current continuing-borrowing
+        # finding supplies structured keys; current claims for another key are
+        # not presented as this account's support. Displayed raw claims are not
+        # asserted to be consumed inputs; the run's recorded pins remain proof.
+        support_types = ["demo.tax.2025.mortgage.continuing-borrowing",
+                         "demo.tax.2025.mortgage.annual-ceiling",
+                         "demo.tax.2025.mortgage.other-home-secured-debt"]
+        from packages.kernel.currency import compute_currency
+        current = compute_currency(state).current_finding_ids
+        current_rows = []
+        for finding_id in current:
+            f = state.findings.get(finding_id)
+            ft = fact_map.get(str(f.get("fact_id"))) if f else None
+            if ft is not None:
+                current_rows.append((f, ft))
+        roots = [(f, ft) for f, ft in current_rows
+                 if ft.fact_type_id == support_types[0]]
+        if len(roots) != 1:
+            raise projection.PresentationModelError("T0 expected one current continuing-borrowing root")
+        active_keys = dict(roots[0][1].keys)
+        shared_support = []
+        for fact_type in support_types:
+            candidates = [(f, ft) for f, ft in current_rows
+                          if ft.fact_type_id == fact_type and dict(ft.keys) == active_keys]
+            if fact_type == support_types[1] and not candidates:
+                # Missing keyed ceiling is represented by the real readiness /
+                # consumer disposition below, never by another account's value.
+                continue
+            if len(candidates) != 1:
+                raise projection.PresentationModelError(
+                    f"T0 expected one current shared support finding for {fact_type} and root keys")
+            finding, fact = candidates[0]
+            shared_support.append({"findingId": finding["id"], "factType": fact_type,
+                "value": str(finding.get("value")), "keys": dict(fact.keys),
+                "evidenceIds": list(finding.get("evidence_ids", []) or [])})
+'''
+    if source.count(old) != 1:
+        raise AssertionError("P3 shared-support source block changed; refusing a fuzzy adapter rewrite")
+    return source.replace(old, new, 1)
+
+
 def main() -> None:
     parser = argparse.ArgumentParser(description="Run selected synthetic T0 mortgage cases.")
     parser.add_argument("--case", action="append", required=True, choices=(
@@ -602,7 +666,11 @@ def main() -> None:
         # Use the same declared P3 presentation-only overlay as the accepted
         # positive, but never replay that unchanged case on this current base.
         overlay = type("Overlay", (), {})()
-        exec(compile(P3.OVERLAY_SOURCE, "<p3-presentation-overlay>", "exec"), overlay.__dict__)
+        overlay_source = keyed_presentation_overlay(P3.OVERLAY_SOURCE)
+        adapter_path = out / "t0-keyed-presentation-overlay.py"
+        adapter_path.write_text(overlay_source, encoding="utf-8")
+        overlay_sha256 = hashlib.sha256(overlay_source.encode("utf-8")).hexdigest()
+        exec(compile(overlay_source, str(adapter_path), "exec"), overlay.__dict__)
         import packages.derivation.presentation_projection as projection
         import packages.derivation.live as live
         import packages.derivation.live_session as live_session
@@ -661,6 +729,7 @@ def main() -> None:
             case_summary["coordinatorCase"] = live_case
             case_summaries.append(case_summary)
         summary.update({"outcome": "resolved", "candidatePackage": T0_PACKAGE_VERSION,
+            "presentationAdapter": {"path": str(adapter_path.relative_to(ROOT)), "sha256": overlay_sha256},
             "cases": case_summaries, "stage": "bounded-ceiling-collision-coordinator-cases"})
         write(out / "declaration-check.json", summary)
         print(json.dumps(summary, indent=2, sort_keys=True))

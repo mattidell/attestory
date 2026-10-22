@@ -5,7 +5,7 @@
   "topic": "mortgage-statement-borrowing",
   "active_plan": "docs/phases/tax-circumstance-breadth/milestones/mortgage-statement-borrowing.md",
   "milestone_state": "track-0",
-  "status": "Core-v50 candidate passes both A/B ceiling derivation checks; experimental shared-support display needs a keyed repair and saved models. Four lifecycle/empty/orphan cases and four-outcome integration remain open. Clear-account deferred; no production.",
+  "status": "Core-v50 candidate passes A/B ceiling derivation checks and saves both repaired, keyed-support models. Four lifecycle/empty/orphan cases and four-outcome integration remain open. Clear-account deferred; no production built.",
   "current_role": "Builder — Luna Track 0 connected contract consolidation",
   "current_prompt": "docs/reviews/mortgage-statement-borrowing/charter-t0-connected-closure.md"
 }
@@ -73,12 +73,12 @@ line12e is $15,750 with the standard-deduction v2/verified parameter pins.
 All non-mortgage member pins from core v50 are retained. Line16 remains
 blocked by unrelated missing fixture inputs; this is not tax-computation
 proof. Remaining display/lifecycle evidence is described below.
-The two A/B ceiling derivation checks have since succeeded, but exposed a
-shared-support display defect in the experimental P3 adapter. It selects raw
-claims without borrowing scope, so it can show B as A's support or reject two
-ceilings. Repair that adapter and save both models before calling these paths
-integrated. Four lifecycle/empty/orphan cases and four-outcome integration
-remain unproved; production is still not begun.
+The two A/B ceiling derivation checks exposed a shared-support display defect
+in the old P3 adapter. A T0-only keyed repair now saves both models without
+substituting B's ceiling or rejecting its harmless presence. Raw applicable
+claims remain distinct from inputs actually consumed. Four lifecycle/empty/
+orphan cases and four-outcome integration remain unproved; production
+projection, the visible reader and recording are still not begun.
 The owner deferred
 the clear-account action for this milestone: corrections and withdrawals stay
 in scope, without implicit legacy resumption. Visible group rendering,

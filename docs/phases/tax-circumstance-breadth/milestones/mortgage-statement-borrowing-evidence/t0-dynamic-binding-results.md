@@ -141,14 +141,75 @@ are `f3cd9f76251a6ad1949fb2c4eafe64d9886aa82285b3b638c28ee10a9b5684d6`,
 `31ed9d4f5b02293be1d2c548019f69dbf257d25239dd94cf1418207a83665ee8`, and
 `8582fe1979f001f5f4d184970613fba258e79440c83af3b5d34fe22b33a38770`.
 
+### Repaired T0-only shared-support display
+
+The preceding collision observations remain as the measured behavior of the
+unmodified P3 adapter. The T0 probe now retains a separate adapter source at
+`temp/mortgage-statement-borrowing/t0-dynamic-binding-20261022T173553Z/t0-keyed-presentation-overlay.py`
+(SHA-256 `2fccf00629c69ed3a20e9ae5791e9a389646fbb7d29ea8526b97e871a9e57de7`).
+It obtains the one current `continuing-borrowing` root from the run's fact
+state and filters current raw support by exact structured borrowing/year key
+equality. It omits an absent keyed ceiling rather than displaying B. This is
+presentation-only; it does not compute tax or claim that displayed raw support
+was consumed. Derivation pins below remain the consumption evidence. The
+candidate is still derived from adopted core v50, registry v48 and release
+v48, and resolves as v56 / registry `published-packages.t0-p56.json` / release
+v6 with 494 resolved members. No old P3 source or production projection was
+changed. The exact v56 candidate members and both synthetic cases are retained
+in the same output directory; the original raw supplied acts are retained
+under each case's `synthetic-seed-acts.json`.
+
+The two authorized collision cases were each rerun once against that changed
+adapter (one coordinator run per case; each run has two ledger rows for
+started/completed). The unchanged supported-pair case was not replayed.
+
+1. **A ceiling absent; B ceiling $300,000.** The saved model now completes.
+   `sharedSupport` contains A's current continuing-borrowing root and A's
+   other-debt answer, and contains no ceiling claim—specifically not B's
+   $300,000. The actual account-ceiling-selection disposition is blocked with
+   `DEPENDENCY_ABSENT`, missing `demo.tax.2025.mortgage.annual-ceiling`, and
+   pins A's recognition finding. Account readiness and both Box 2 bridge
+   results remain blocked; line8a is blocked on missing
+   `demo.tax.2025.mortgage.same-borrowing-ready`, then Schedule A total and
+   line12e are blocked in turn. The aggregate borrowing-readiness row names
+   A's continuing-borrowing subject fact in `missing`. Under ADR 0077 Part 3,
+   this identifies the subject whose declared result is blocked; it does not
+   assert that the raw root is absent. `_declared_subject_values` emits those
+   blocked subject IDs with `DEPENDENCY_INVALID`. The precise
+   missing-ceiling cause is established by the keyed account-ceiling-selection
+   row and its A recognition pin. No favorable amount was emitted.
+   Durable report/model/records SHA-256 values are
+   `beff0018a1860233776df2fddd837722f40c90aa1e4806d4bc9ddfb26ea9c83d`,
+   `93380f91a89d0f5d7701aa9b6630a49d3d73a5d6b05ded7af44f3c8df73d32fd`, and
+   `f5e3287094610f956eca61e9fceeb7e0a1aee19300434d6e6a745312b1088f3f`.
+
+2. **A ceiling $250,000; dormant B ceiling $900,000.** The saved model
+   displays only A's root, A's $250,000 ceiling, and A's other-debt answer.
+   B has no recognition or report link and is not shown as A support. The
+   coordinator published line8a at **$11,000**, Schedule A total, and line12e
+   at **$15,750**. The line12e saved finding pins rule v2 and package v56; the
+   line8a row pins both report Box 1 findings and current readiness. The
+   exact selected A ceiling remains visible in the model; the derivation's
+   account-ceiling-selection pins A's ceiling and recognition. Durable
+   report/model/records SHA-256 values are
+   `d7cad665eed52457cc9575c16a4917e114cbf653a329927721457c87e7131709`,
+   `ecc787b5af110e3e09030286930949f4f5499a75d25f4c47284bc9ddde610c73`, and
+   `31ed9d4f5b02293be1d2c548019f69dbf257d25239dd94cf1418207a83665ee8`.
+
+These are durable synthetic coordinator/model observations for the changed
+presentation adapter, not production projection acceptance or evidence for
+the four remaining lifecycle/empty/orphan cases. The candidate package-chain
+hashes are retained in that run's `declaration-check.json`; the adapter's
+exact source is retained separately above.
+
 ## What remains unproved
 
 The next authorized work remains the four lifecycle/empty/orphan cases and
-four-outcome status integration. Although the two A/B derivation boundaries
-are now observed, the P3 shared-support overlay visibly misassociates B's
-ceiling when A's is absent and rejects two current ceilings instead of
-selecting A. This presentation-path limitation is separate from the successful
-keyed derivation lineage. The remaining runtime evidence does not yet establish
+four-outcome status integration. The original P3 adapter's key-blind display
+is not reused for these collision claims: the T0-only repair now saves both
+models with exact account-scoped support, as measured above. This remains
+prototype evidence, not production projection or reader acceptance. The
+remaining runtime evidence does not yet establish
 withdrawn-current status being load-bearing, affirmed orphan handling,
 closed-empty behavior with only retired outcomes, or the other connected
 singleton and correction transitions.
