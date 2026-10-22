@@ -92,7 +92,11 @@ from successfully creating a synthetic log.
   specific P0 blocker; mark unexecuted behavior honestly.
 - Commit no source fixtures, goldens or regression tests in this unit. If a
   small reproducible probe is useful, keep it beside its evidence, clearly
-  labeled diagnostic rather than production/test coverage. No full suite.
+  labeled diagnostic rather than production/test coverage. The real coordinator
+  requires its live workspace outside the repository: use a newly allocated
+  OS-temporary synthetic workspace, then retain diagnostic summaries and copies
+  of the synthetic outputs under the ignored milestone directory. Do not weaken
+  that boundary or commit an absolute temporary locator. No full suite.
 - A's proposed probe gets an elapsed cap of 300 seconds per command, configured
   parallelism for any proposed pytest, and no repeated pass-only confirmation.
   Use the configured dependency runtime; no dependency or project-config edit.
@@ -109,8 +113,9 @@ from successfully creating a synthetic log.
 - Assigned writes only:
   `docs/phases/tax-circumstance-breadth/milestones/mortgage-statement-borrowing-evidence/p0-current-account.md`,
   optional `p0-current-path-probe.py` in that same evidence directory after
-  continuation, and ignored generated output under
-  `temp/mortgage-statement-borrowing/`.
+  continuation, ignored generated output under
+  `temp/mortgage-statement-borrowing/`, and a newly allocated OS-temporary
+  synthetic live workspace as described above.
 - Read Builder boot, planning guidelines, active plan and opening review;
   prior mortgage and consolidation retrospectives; README's Mortgage statement
   answers; `f1098_statement_review.py`, `f1098_statement_recording.py`, actual
