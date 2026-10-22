@@ -5,7 +5,7 @@
   "topic": "mortgage-statement-borrowing",
   "active_plan": "docs/phases/tax-circumstance-breadth/milestones/mortgage-statement-borrowing.md",
   "milestone_state": "track-0",
-  "status": "Core-v51 four-outcome candidate executes. Remaining A derives, but singleton model and empty/orphan consumer routing need repair. Owner-restored account exit and shared-answer design follow. No production built.",
+  "status": "Core-v51 foundation lifecycle cases now have saved experimental results. Designing the owner-restored explicit account exit and suitable borrowing-wide answers before connected review. No production built.",
   "current_role": "Builder — Luna Track 0 connected contract consolidation",
   "current_prompt": "docs/reviews/mortgage-statement-borrowing/charter-t0-connected-closure.md"
 }
@@ -79,16 +79,19 @@ proof. Remaining display/lifecycle evidence is described below.
 The two A/B ceiling derivation checks exposed a shared-support display defect
 in the old P3 adapter. A T0-only keyed repair now saves both models without
 substituting B's ceiling or rejecting its harmless presence. Raw applicable
-claims remain distinct from inputs actually consumed. Four lifecycle/empty/
-orphan cases and four-outcome integration remain unproved; production
+claims remain distinct from inputs actually consumed. The four core-v51
+lifecycle/empty/orphan cases and actual four-outcome fan-in now have saved
+experimental results: connected A calculates, withdrawal withholds, true-empty
+proceeds, and an affirmed orphan blocks line12e through link integrity. These
+are supplied after-states, not recorder transitions; production
 projection, the visible reader and recording are still not begun.
 The owner has now restored the previously deferred clear-account action and
 borrowing-wide ordinary answers, ordered after the report-local foundation.
 Design their scope and current-state effects before implementation; do not
 reinterpret old answers or equate withdrawal with clear-account. The current
 core-v51 supported pair publishes line8a $11,000 and line12e $15,750, with
-explicit new dependent/Schedule 1-A fixture answers. Four foundation lifecycle
-cases remain before that restored design increment. Visible group rendering,
+explicit new dependent/Schedule 1-A fixture answers. The restored design
+increment is next. Visible group rendering,
 production recording/routing and connected correction/withdrawal are unbuilt.
 The actual no-report compatibility path is line8a inapplicable, separate
 Schedule A total zero and the existing no-statement line12e route.

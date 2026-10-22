@@ -613,41 +613,54 @@ def add_p3_consumers(surface: Any, acts: list[dict[str, Any]], p3: Any) -> tuple
     package_path = members / f"package.core-calculations.{INTERMEDIATE_PACKAGE_VERSION}.json"
     package = read(package_path)
     line12e = p3._line12e_successor()
-    base_value = line12e.pop("value")
+    # Keep P3's established lazy no-statement/nonempty arithmetic intact. A
+    # separate integrity prerequisite lets the exact affirmed-source match
+    # block an orphan without forcing line8a onto the genuine empty route.
     line12e["version"] = "v3"
-    line12e["schema"] = "rule-artifact.v14"
-    # Keep P3's Schedule-A-total ordering edge visible to selection validation
-    # as an ordinary self-equality read with no tax effect.
-    ordered_base = {"op": "choose", "when": {"op": "compare", "cmp": "eq",
-        "left": {"op": "ref", "name": "tax.us.2025.schedule-a.total"},
-        "right": {"op": "ref", "name": "tax.us.2025.schedule-a.total"}},
-        "then": base_value, "else": base_value}
-    required = ["demo.form1040.standard_deduction", "tax.us.2025.f1098-scope.no-mortgage-statement",
-                "tax.us.2025.schedule-a.total", "tax.us.2025.deductions.itemized",
-                "tax.us.2025.schedule-a.line8a"]
-    pins = [{"role": "input", "id": name, "version": "v1", "origin": "assertion"}
-            for name in required]
-    line12e["requires"] = []
-    line12e["pins"] = []
-    line12e["selection"] = {"mode": "exclusive_presence", "conflict": "refuse",
-        "paths": [{"id": "affirmed-source-present",
-            "activity": {"kind": "source_nonempty",
-                "member_fact_type": {"id": CARRIERS["affirmed"], "version": "v1"}},
-            "reads_subject_results": [{"symbol": ORPHAN_MATCH_FACT_TYPE,
-                "subject": {"id": CARRIERS["affirmed"], "version": "v1"}}],
-            "requires": required, "pins": pins, "when": True,
-            "value": {"op": "choose",
-                "when": {"op": "collect_categorical_all_equal", "name": ORPHAN_MATCH_FACT_TYPE,
+    gate_id = "demo.tax.2025.f1098-inclusion-integrity"
+    gate_rule_id = "demo.tax.2025.rule.f1098-inclusion-integrity"
+    gate_rule = {"schema": "rule-artifact.v14", "id": gate_rule_id, "version": "v1",
+        "scope": SCOPE, "role": "computation", "requires": [], "pins": [], "when": True,
+        "publishes": gate_id,
+        "blocked": {"code": "DEPENDENCY_INVALID", "missing": [ORPHAN_MATCH_FACT_TYPE]},
+        "citations": [], "notes": "Synthetic integrity edge: a current affirmative F1098 inclusion is usable only when its exact report source resolves.",
+        "selection": {"mode": "exclusive_presence", "conflict": "refuse",
+            "paths": [{"id": "affirmed-inclusion",
+                "activity": {"kind": "source_nonempty",
+                    "member_fact_type": {"id": CARRIERS["affirmed"], "version": "v1"}},
+                "reads_subject_results": [{"symbol": ORPHAN_MATCH_FACT_TYPE,
+                    "subject": {"id": CARRIERS["affirmed"], "version": "v1"}}],
+                "requires": [], "pins": [], "when": True,
+                "value": {"op": "collect_categorical_all_equal", "name": ORPHAN_MATCH_FACT_TYPE,
                     "value": {"op": "category_literal", "fact_type": {"id": ORPHAN_MATCH_FACT_TYPE, "version": "v1"},
-                              "value": "matched"}},
-                "then": ordered_base, "else": {"op": "block", "code": "DEPENDENCY_INVALID"}}},
-            {"id": "inert", "activity": {"kind": "source_nonempty",
-                "member_fact_type": {"id": "demo.tax.2025.mortgage.inert-path-unwritten", "version": "v1"}},
-             "reads_subject_results": [], "requires": [], "pins": [], "when": True,
-             "value": {"op": "block", "code": "DEPENDENCY_ABSENT"}}],
-        "default": {"id": "neither", "reads_subject_results": [], "requires": required,
-            "pins": pins, "when": True, "value": ordered_base},
-        "refusal": {"code": "DEPENDENCY_INVALID", "missing": [ORPHAN_MATCH_FACT_TYPE], "pins": []}}
+                              "value": "matched"}}},
+                {"id": "inert", "activity": {"kind": "source_nonempty",
+                    "member_fact_type": {"id": "demo.tax.2025.mortgage.inert-path-unwritten", "version": "v1"}},
+                 "reads_subject_results": [], "requires": [], "pins": [], "when": True,
+                 "value": {"op": "block", "code": "DEPENDENCY_ABSENT"}}],
+            "default": {"id": "neither", "reads_subject_results": [],
+                "requires": [], "pins": [], "when": True, "value": True},
+            "refusal": {"code": "DEPENDENCY_INVALID", "missing": [ORPHAN_MATCH_FACT_TYPE], "pins": []}}}
+    line12e["requires"] = list(dict.fromkeys([*line12e.get("requires", []), gate_id]))
+    line12e["pins"] = [*line12e.get("pins", []),
+        {"role": "input", "id": gate_id, "version": "v1", "origin": "assertion"}]
+    line12e["blocked"]["missing"] = list(dict.fromkeys([*line12e["blocked"].get("missing", []), gate_id]))
+    gate_path = members / f"{gate_rule_id}.json"
+    write(gate_path, gate_rule)
+    package["members"].append({"id": gate_rule_id, "version": "v1",
+        "schema": gate_rule["schema"], "role": gate_rule["role"]})
+    # The sole line8a producer is applicable only for a closed, nonempty
+    # family. The separate closed-empty Schedule A total remains its own
+    # publisher; readiness is not consulted on the empty path.
+    line8a_id = "tax.us.2025.rule.f1098-line8a"
+    line8a_path = members / "tax.us.2025.rule.f1098-line8a.v3.json"
+    line8a = read(line8a_path)
+    line8a["when"] = {"op": "all", "args": [
+        {"op": "require_closed", "source_set": "tax.us.2025.f1098"},
+        {"op": "compare", "cmp": "gt",
+         "left": {"op": "count", "name": BOX1, "source_set": "tax.us.2025.f1098"},
+         "right": 0}]}
+    write(line8a_path, line8a)
     line12e_path = members / "rule.form1040-line12e.v3.json"
     write(line12e_path, line12e)
     attachment_path = members / "attachment.schedule-a.json"
@@ -681,6 +694,11 @@ def add_p3_consumers(surface: Any, acts: list[dict[str, Any]], p3: Any) -> tuple
         if row.get("id") == "tax.us.2025.rule.attachment.schedule-a":
             row["version"] = "v2"
     registry = read(members / P2_CANDIDATE_REGISTRY_FILENAME)
+    registry["citizens"] = [row for row in registry["citizens"] if not (
+        row.get("id") == line8a_id and row.get("version") == line8a["version"])]
+    registry["citizens"].append({"id": line8a_id, "version": line8a["version"],
+        "checksum": citizen_checksum(line8a)})
+    registry["citizens"].append({"id": gate_rule_id, "version": "v1", "checksum": citizen_checksum(gate_rule)})
     registry["citizens"].append({"id": line12e["id"], "version": "v3", "checksum": citizen_checksum(line12e)})
     registry["citizens"].append({"id": attachment["id"], "version": "v2", "checksum": citizen_checksum(attachment)})
     package["package_checksum"] = package_instance_checksum(package)
@@ -706,6 +724,10 @@ def add_p3_consumers(surface: Any, acts: list[dict[str, Any]], p3: Any) -> tuple
             act.setdefault("payload", {})["revision"] = index
     return PublicationSurface(releases, registry_path, members), acts, {
         "packageVersion": T0_PACKAGE_VERSION, "line12eVersion": "v3", "attachmentVersion": "v2",
+        "inclusionIntegrity": {"factType": gate_id, "rule": gate_rule_id,
+            "activatedBy": CARRIERS["affirmed"], "reads": ORPHAN_MATCH_FACT_TYPE},
+        "line8aApplicability": {"rule": line8a_id, "guard": line8a["when"],
+            "meaning": "closed F1098 family and Box1 count greater than zero"},
         "releaseVersion": T0_RELEASE_VERSION, "removedAttachmentPresenceCheck": removed[0],
         "retainedAttachmentBoundaryAnswers": sorted(expected)}
 
@@ -821,7 +843,54 @@ def keyed_presentation_overlay(source: str) -> str:
 '''
     if source.count(old) != 1:
         raise AssertionError("P3 shared-support source block changed; refusing a fuzzy adapter rewrite")
-    return source.replace(old, new, 1)
+    updated = source.replace(old, new, 1)
+    substitutions = [
+        ('''        if not isinstance(accounts, list) or len(accounts) != 2:
+            raise projection.PresentationModelError(f"{p}.accounts: expected exactly two reports")''',
+         '''        if not isinstance(accounts, list) or len(accounts) not in {1, 2}:
+            raise projection.PresentationModelError(f"{p}.accounts: expected one or two connected reports")'''),
+        ('''        if len(identities) != 2:
+            raise projection.PresentationModelError(f"{p}.accounts: expected two unique reports")''',
+         '''        if len(identities) not in {1, 2}:
+            raise projection.PresentationModelError(f"{p}.accounts: expected one or two unique reports")'''),
+        ('''                if not isinstance(item, Mapping) or not isinstance(item.get("rule"), Mapping):
+                    raise projection.PresentationModelError(f"{path}.{field}: missing actual producer metadata")''',
+         '''                if field == "box2Status" and item is None:
+                    if (not isinstance(row.get("membershipStatus"), Mapping)
+                            or row["membershipStatus"].get("value") != "withdrawn"):
+                        raise projection.PresentationModelError(
+                            f"{path}.box2Status: absent only when current link is withdrawn")
+                    continue  # no affirmed subject means no principal-ceiling result was evaluated
+                if not isinstance(item, Mapping) or not isinstance(item.get("rule"), Mapping):
+                    raise projection.PresentationModelError(f"{path}.{field}: missing actual producer metadata")'''),
+        ('''        if len(reason_pubs) < 2:
+            return base_mortgage(resolved_members=resolved_members, state=state,
+                                 publications=publications, publications_by_id=publications_by_id)
+        if len(reason_pubs) != 2:
+            raise projection.PresentationModelError("P3 overlay is bounded to exactly two statement reasons")''',
+         '''        connected_readiness = [f for f in pub_rows(publications)
+            if str(f.get("symbol", "")).startswith("demo.tax.2025.mortgage.same-borrowing-ready")]
+        if len(reason_pubs) < 2 and not (len(reason_pubs) == 1 and connected_readiness):
+            return base_mortgage(resolved_members=resolved_members, state=state,
+                                 publications=publications, publications_by_id=publications_by_id)
+        if len(reason_pubs) not in {1, 2}:
+            raise projection.PresentationModelError("T0 connected overlay is bounded to one or two statement reasons")'''),
+        ('''            link = outcome_row(publications, "demo.tax.2025.mortgage.report-link-status",
+                "demo.rule.tax.2025.f1098-report-local-bridge.report-link-status", identity, resolved_members)
+            principal = outcome_row(publications, "demo.tax.2025.f1098.principal-within-ceiling",
+                "demo.rule.tax.2025.f1098-report-local-bridge.principal-ceiling-status", identity, resolved_members)''',
+         '''            link = outcome_row(publications, "demo.tax.2025.f1098.borrowing-current-link-status",
+                "demo.tax.2025.rule.borrowing-current-link-status", identity, resolved_members)
+            principal = (None if link.get("value") == "withdrawn" else
+                outcome_row(publications, "demo.tax.2025.f1098.principal-within-ceiling",
+                    "demo.rule.tax.2025.f1098-report-local-bridge.principal-ceiling-status",
+                    identity, resolved_members))'''),
+    ]
+    for old_fragment, new_fragment in substitutions:
+        if updated.count(old_fragment) != 1:
+            raise AssertionError("P3 connected singleton adapter anchor changed; refusing a fuzzy rewrite")
+        updated = updated.replace(old_fragment, new_fragment, 1)
+    return updated
 
 
 def main() -> None:
@@ -890,6 +959,8 @@ def main() -> None:
             surface.member_dir / "demo.tax.2025.rule.mortgage-affirmed-link-coverage.json",
             surface.member_dir / "demo.tax.2025.rule.mortgage-account-readiness.json",
             surface.member_dir / "demo.tax.2025.rule.mortgage-borrowing-readiness.json",
+            surface.member_dir / "demo.tax.2025.rule.f1098-inclusion-integrity.json",
+            surface.member_dir / "tax.us.2025.rule.f1098-line8a.v3.json",
             surface.member_dir / f"{P2.BRIDGE_RULE_PREFIX}.principal-ceiling-status.json"]
         for path in retain_paths:
             shutil.copy2(path, retained / path.name)
@@ -962,6 +1033,7 @@ def main() -> None:
                               "demo.tax.2025.rule.borrowing-withdrawn-count",
                               "demo.tax.2025.rule.borrowing-current-link-status",
                               "demo.tax.2025.rule.f1098-affirmed-source-match",
+                              "demo.tax.2025.rule.f1098-inclusion-integrity",
                               "demo.tax.2025.rule.mortgage-borrowing-readiness"}
                 live_case["consumerOutcomes"] = [{"artifact": item.get("artifact_id"),
                     "symbol": item.get("symbol"), "disposition": item.get("disposition"),

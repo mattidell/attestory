@@ -327,3 +327,80 @@ one-report connected presentation path needs a T0-local adapter that preserves
 the unconsumed answer as such rather than requiring it to be pinned. These are
 observed candidate/adapter defects; this run does not demonstrate an engine
 capability gap.
+
+## Core v51 inclusion-integrity and lifecycle repair
+
+The candidate-only repair at `temp/mortgage-statement-borrowing/t0-dynamic-binding-20261022T190904Z`
+passed package resolution (v58 derived from adopted core v51, registry v49,
+release v49). It introduced a separate declared inclusion-integrity result:
+the affirmed-source-match selection reads the exact result for each affirmed
+carrier; line12e requires this result while retaining the ordinary P3 v2
+arithmetic/guard successor shape. The sole line8a producer now requires a
+closed F1098 family and Box1 count greater than zero, leaving closed-empty
+line8a inapplicable and the existing closed-empty Schedule A zero route
+separate. The first attempt with the gate was rejected because its selection
+artifact incorrectly carried a top-level `value` and the path incorrectly
+repeated `reads_subject_results` as `requires`; after those declaration-only
+repairs the package resolved. No engine or schema changes were made.
+
+The coordinator saved these two outputs (all inputs are synthetic supplied
+after-states, not recorder transition proof):
+
+1. `closed-empty-with-withdrawn-history`: line8a was `inapplicable` under the
+   nonempty-family guard; the closed-empty Schedule A total published zero;
+   line12e published $15,750 on its existing no-statement route. The integrity
+   result published its neutral default, and no loan/ceiling prerequisite was
+   added to this empty route.
+2. `closed-empty-with-affirmed-orphan`: line8a remained `inapplicable`; the
+   exact affirmed-source-match result blocked because its exact Box1 source was
+   absent; inclusion-integrity then blocked on that affirmed subject result;
+   line12e blocked with missing inclusion-integrity. Thus the line12e gate—not
+   the inapplicable line8a—distinguished an affirmed orphan from true empty.
+
+Both durable models/report/record files are under the run's `cases/` folders.
+For empty-with-withdrawn-history their SHA-256 values are
+`dd9f5bc11ad23bb364e7ab9f542ddae77ea3f99e9d8e59714e5b9864bb3c48a5`,
+`eb80867d1f5f19156b1f0b5a102e67606693eb7e0fbf33b831ccfc8a4a88d66e`, and
+`3d3b9c301a7fba0e60c503099f5f69d22b90a246d49b46690857a77d239723de`.
+For the orphan they are
+`69ccd4bdbcd02d336ceb3169901aaf38736e59f8e65b3a25811058d0b356b5bd`,
+`26c24d7e02eed03039ef7b4d0e3703f093e73a3be7db39cc97b421030dd3ddc3`, and
+`a0c6bddd1e59440bf9b35bd2db4e3af9ceedeea62634b9918b7731006a674848`.
+
+The T0-only display adapter then received a bounded follow-up at
+`temp/mortgage-statement-borrowing/t0-dynamic-binding-20261022T191107Z`.
+It permits a one-report connected group (without routing a legacy singleton
+through that path) and leaves Box 2 status absent only when the actual current
+link status is `withdrawn`, because the affirmed-subject principal rule has no
+evaluated subject in that state. It does not synthesize an answer finding or
+pin. Only the two presentation cases affected by this adapter changed and ran:
+
+1. `connected-a-after-b-ended` saved one report A, current status `affirmed`,
+   readiness `true`, line8a $8,000 and line12e $15,750. The model's Box 2
+   status is the actual principal-ceiling rule result `within-ceiling`; the
+   connected root and per-report lineage are retained in pins.
+2. `current-a-final-link-withdrawn` saved report A's actual current status
+   `withdrawn`, readiness `false`, line8a blocked, and line12e blocked on the
+   Schedule A total. No affirmative principal result was evaluated, so the
+   model leaves Box 2 status null rather than inventing a pin or favorable
+   status; the line12e block confirms no legacy fallback.
+
+The saved report/model/record SHA-256 values for the singleton are
+`9ba1b6c39968c965cfeb2ea492f810d5e920fdaf61773bfa22347dd59d61728a`,
+`eea155a39ee7b4efd32c2f9030592088a64b90c5f781859a540f9a96ab634811`, and
+`0ad2b2ffb440af0fb1a19b13d8b9bf7e827dae9088d3fa620e49f683a006b35c`.
+For withdrawn-current they are
+`5821489b49deb50052b36f94a49d96b7264c051733aecb362e19f5d6cfb0cbea`,
+`9c0a160a21fb9ce732a1a3174fe2793895eab5a40180ccefa430fc287f4ba680`, and
+`ef86a0d7ee04cda071dda989d31e507c4121bf47c5c99ed00dff92f887d23c80`.
+The exact adapter source hashes are `3a8e84b8046de36fb3b75f78cc75a536e42e6aad1049a4dfc02829acc92db121`
+for the first run and `01a481ef1af98f0a2e435ad7a787db25a7e9129e4b51e696483ba9695dff95af`
+for the final run. Candidate package v58 SHA-256 is
+`906b32e7c39ca31ae1b2ec3225562ae8da9858bb3ee2dfbad5dba7dfecc1d37a`; the
+integrity rule is `74a6d53e7640122429ed046ddaf224bbd15b2b36211a9494a723f44df93877ba`,
+line8a v3 is `ee25ae55e5ca604265e38928f946f2ca57ab11f75d48ecb738ebbe84de21cbee`,
+and ordinary line12e v3 is
+`2aba01cdc3c6b3f074169f4d7c7a957d3ecfe021a4ce7d7e1d9443795d01dd0e`.
+Raw supplied acts and the complete disposable package are retained with each
+run. These are candidate content/coordinator/presentation observations only;
+they do not establish recorder lifecycle behavior or production adoption.

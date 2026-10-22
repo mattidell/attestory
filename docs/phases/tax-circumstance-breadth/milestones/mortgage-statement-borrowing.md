@@ -3,7 +3,7 @@
   "version": 1,
   "phase": "Tax Circumstance Breadth",
   "topic": "mortgage-statement-borrowing",
-  "status": "Core-v51 four-outcome candidate executes. Remaining A derives, but singleton model and empty/orphan consumer routing need repair. Owner-restored account exit and shared-answer design follow. No production built.",
+  "status": "Core-v51 foundation lifecycle cases now have saved experimental results. Designing the owner-restored explicit account exit and suitable borrowing-wide answers before connected review. No production built.",
   "scope": [
     "extend the existing ordinary mortgage account to a bounded same-borrowing multiple-report case",
     "preserve report amounts, loan-level circumstances and their separate correction lifecycles",
@@ -229,19 +229,20 @@ repair now saves both models using the current root's structured account
 keys: absent A's ceiling is omitted, and dormant B's ceiling is never shown
 as A support. Applicable raw claims are not automatically consumed inputs;
 actual derivation pins establish consumption. These are experimental saved
-models, not production projection or visible reader delivery. Four lifecycle/
-empty/orphan cases and four-outcome status integration remain unproved.
+models, not production projection or visible reader delivery.
 
-The subsequent v58 lifecycle attempt executed the four counts and their
-per-report status fan-in. Remaining A derives line8a and line12e, but the old
-singleton presentation validator rejects its intermediate answer lineage.
-Withdrawal withholds the amount. True-empty incorrectly blocks because the
-candidate line12e default requires line8a; the orphan case also stops on that
-prerequisite before its exact-source-match gate. These are measured candidate
-and adapter defects, not closure passes or a demonstrated engine gap. The
+The core-v51-derived v58 candidate now executes the four outcome counts and
+their per-report status fan-in. Its corrected saved cases show remaining A
+at $8,000 line8a and $15,750 line12e; withdrawal withholds both amounts;
+true-empty preserves inapplicable line8a, Schedule A total zero and published
+line12e; an affirmed orphan blocks line12e through a separate exact-link
+integrity result. The ordinary line12e keeps its lazy arithmetic and ordering
+dependency rather than requiring line8a on empty. The T0-only adapter handles
+connected singleton and withdrawn states without invented answer pins. The
 [T0 results](mortgage-statement-borrowing-evidence/t0-dynamic-binding-results.md)
-retain the corrected same-borrowing inputs and actual records. Repair those
-consumers before treating the foundation as established.
+retain the earlier failures, corrected same-borrowing inputs and actual saved
+records. These are supplied after-states, not recorder lifecycle or production
+acceptance. The restored scope below and connected independent review remain.
 
 P2/P3 and the first T0 runtime result remain historical evidence at their
 recorded package hashes. Their synthetic v50–v55 package numbers describe
@@ -360,30 +361,15 @@ silently restored as "deferred work".
   successful evidence locators. Finish the exact dynamic borrowing admission,
   current route/lifecycle and six closure artifacts under the
   [consolidation charter](../../../reviews/mortgage-statement-borrowing/charter-t0-connected-closure.md).
-  The restored work above must join that contract before closure. The returned contract draft still requires
-  Foreman review and bounded repair: numeric link coverage cannot consume a
-  category result, and per-borrowing publications need an explicit fan-in
-  before the sole ordinary line8a collector can use them. The corrected
-  design must preserve a subject when its ceiling is missing, ignore a
-  dormant unrelated ceiling, and gate the actual empty-family consumers on
-  an affirmative orphan without making a withdrawn old link an orphan.
-  These are unexecuted declaration obligations, not a demonstrated engine
-  gap or a change to the product goal. Complete Track 0 before production.
-  The paper return repeated a `link_count` node that package validation
-  permits only once, and left the multi-outcome report status unvalidated.
-  Settle that composition in one bounded disposable package/coordinator
-  check under the same charter, using existing intermediate rules if needed.
-  Test dynamic borrowing collisions and the connected-singleton, withdrawn,
-  true-empty and affirmative-orphan boundaries. Reuse reviewed P2/P3 evidence;
-  supplied relationship claims are still not production recorder proof.
-  The first dynamic-account candidate now resolves and publishes the supported
-  pair through line8a, Schedule A total and line12e. Its final candidate and
-  saved model are retained in [T0 results](mortgage-statement-borrowing-evidence/t0-dynamic-binding-results.md).
-  This does not yet combine the separately validated four-outcome report
-  status, nor establish the remaining six missing-support/transition cases.
-  Do not commission further rounds merely to
-  refine paper. A demonstrated need for allocation, refinancing, general
-  identity or broader engine work returns as an owner scope choice.
+  The restored work above must join that contract before closure. The dynamic
+  account collisions and four foundation lifecycle cases are now measured at
+  their stated prototype ceiling; numeric coverage and per-report status use
+  actual declared intermediates. Next refine the explicit exit/shared-answer
+  contract, test its genuinely new mechanism questions, and obtain the planned
+  connected independent review. Reuse prior evidence; supplied relationship
+  claims are still not production recorder proof. Complete Track 0 before
+  production. Allocation, refinancing, general identity and broader engine work
+  remain outside this scope.
 
 P3 saves and reloads a two-report model. Its initial $11,000 case exposed an
 early line12e attempt and did not require Schedule A. Two explicit disposable
