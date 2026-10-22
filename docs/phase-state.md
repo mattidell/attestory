@@ -5,7 +5,7 @@
   "topic": "mortgage-statement-borrowing",
   "active_plan": "docs/phases/tax-circumstance-breadth/milestones/mortgage-statement-borrowing.md",
   "milestone_state": "track-0",
-  "status": "P0 Sol recheck READY. P1 starts with the person's shared-borrowing account, report-local versus loan-wide circumstances and support for the whole-year balance premise; Foreman feedback precedes detailed mechanisms. No production selected.",
+  "status": "P0 READY. P1 first account reviewed; continue the connected paper design with explicit report links, proposition-scoped shared answers and a provisional person-confirmed yearly balance ceiling. No production, new schema or assumption policy selected.",
   "current_role": "Builder — Luna P1 connected account",
   "current_prompt": "docs/reviews/mortgage-statement-borrowing/charter-p1-connected-account.md"
 }
@@ -33,9 +33,11 @@ prorated amount. Independent Sol review found an additional transport limit:
 the second report's reason borrows the first report's ordinary-answer and
 document pins when scalar values agree. Luna corrected the evidence and
 integration-cost account; Sol's bounded recheck is READY for connected design.
-P1 first describes the person's account, which circumstances are shared or
-report-local, and what supports the whole-year debt treatment. Foreman feedback
-precedes detailed mechanism selection; no new production path is authorized.
+P1's first account and Foreman feedback are recorded. Next develop the connected
+paper design, provisionally using a person-confirmed yearly balance ceiling
+for the identified borrowing. Loan-wide answers may cover linked reports when
+their meaning does; raw report amounts and dated observations remain local.
+No new production path or broad assumption policy is authorized.
 The existing full-deduction premise remains distinct from a general limited-debt
 calculation. No new balance treatment is selected. Refinancing, multiple independent borrowings,
 second homes and allocation remain contrast cases or excluded work, not hidden

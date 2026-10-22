@@ -194,6 +194,42 @@ separate full reviews for each paper refinement.
 Synthetic facts and selected answers remain diagnostic inputs, not proof of
 an obtained same-loan relationship. Before production, settle the representation,
 authority, assumptions, change handling and supported tax boundary.
+
+### P1 working direction — provisional, not an accepted contract
+
+P1's first plain-language account has received Foreman feedback. Continue with
+explicit report links and assertions whose scope follows what the person
+affirms. A genuinely loan-wide answer can cover both linked reports; report
+amounts and dated observations remain separate. Distinct meanings need not
+require separate screens or duplicate answers.
+
+For the connected paper design, prefer a person-confirmed numerical ceiling
+on what was owed on the identified borrowing during 2025. This is an upper
+bound, not necessarily the exact highest balance. The application determines
+the relevant tax category and compares the confirmed bound with its limit.
+Ask separately about other borrowing secured by the main or second home;
+known additional debt reaches this milestone's coverage boundary, while an
+unknown answer leaves that circumstance unresolved. Do not ask the person
+to classify a combined set of "qualifying acquisition debt."
+
+This is a candidate ordinary factual source, not a claim that people were
+observed answering it or that two Forms 1098 establish it. It avoids selecting
+a favorable snapshot or silently treating the largest observation as an annual
+ceiling. Its cost is an additional factual confirmation; some people may not
+know a usable bound. Its risk is an inaccurate or contradicted answer, which
+the design must make inspectable rather than describe as independently verified.
+It displaces an automated balance-history/proration calculator, not the need
+to represent the debt conditions accurately. A broader assumption policy is
+not selected.
+
+Develop this candidate's relationship, correction, source and consumer behavior
+in P1 B, including a changed filing status and contrary principal evidence.
+If a threshold-specific yes/no is considered instead, preserve the actual
+number affirmed; an answer about one threshold cannot silently become an
+answer about another. The existing single-report route and saved history
+remain compatibility requirements. Return material costs or a demonstrated
+inadequacy before selecting production. This develops the original goal;
+it neither changes that goal nor authorizes implementation.
 If the case needs a general debt-allocation calculator, a new identity system,
 refinancing treatment or a broader engine contract, stop and bring back a
 plain-language scope/cost choice rather than absorb it.
