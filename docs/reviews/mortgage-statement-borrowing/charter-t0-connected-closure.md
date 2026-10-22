@@ -51,10 +51,10 @@ Return an implementable draft for Foreman feedback before any execution.
    successors; preserve the nine report-local meanings and seven attachment
    boundary checks. Visible group display remains a build obligation.
 
-The owner deferred a clear-account action for this milestone. Keep corrections
-and withdrawals in scope; neither silently restores legacy calculation.
-Record the missing explicit exit as an accepted delivery limit, not a permanent
-policy or an open approval gate. The Foreman owns the plan's closure
+The owner has restored a clear-account action and borrowing-wide answers,
+after the report-local foundation. Keep corrections and withdrawals distinct
+from explicit exit; neither silently restores legacy calculation. Follow the
+restored-work increment below before closing this contract. The Foreman owns the plan's closure
 declaration, charters, phase-state pointers and commits.
 
 ## Boundary and handoff
@@ -166,6 +166,40 @@ Independent Sol delta review follows consolidation, not each paragraph.
 Stop for a necessary new engine/schema capability, allocation/refinance,
 broader identity or loan coverage, private data, or governance interpretation.
 Do not solve those by a stand-in or silently enlarge the milestone.
+
+## Restored deferred work — after the four foundation cases
+
+Owner direction brings the explicit connected-account exit and B's suitable
+borrowing-wide answers into this milestone. It does not authorize changing
+published schemas or starting production before the connected design settles.
+Return a small paper increment in the existing contract first:
+
+- Define an explicit exit in ordinary terms, then trace its atomic current
+  state: retained source reports and independent answers, affected exact links
+  and shared support, closure, route selection, saved history and revision
+  checks. One remaining report may resume its independently supported legacy
+  route only after the explicit action; two reports must not gain unsupported
+  combined treatment. No debt-absence claim or deletion of historical evidence.
+- Examine all nine propositions. Identify which can truthfully be affirmed
+  for this borrowing and period, versus which must remain report-specific.
+  Show the proposed shared affirmation and scope. Do not turn a report-period
+  payment statement into a borrowing-wide answer by renaming it. Preserve
+  current report-local meanings and compatibility.
+- Trace shared support to each report through actual existing join/intermediate
+  mechanisms, including link changes, local/shared disagreement, withdrawal,
+  and a later report. Never infer sharing from equal answers or copy a person's
+  assertion under a different subject. Name the precedence/clarification rule
+  before code; do not let sort order decide.
+- Propose the cheapest cases that distinguish correct identity, scope and
+  lifecycle behavior, and identify code/content/reader cost. Mark what earlier
+  evidence does and does not cover. Return for Foreman review before executing
+  a new shared-answer/exit experiment. Same assigned contract and T0 probe/
+  results paths; no new production edits, full suite or browser work.
+
+This is ordered A then B, not abandonment of A. Avoid rerunning unchanged
+successful cases. The independent Sol connected-design unit reviews the
+complete foundation plus restored work after this return and its approved
+bounded check, not every paper refinement.
 
 ## Context Capsule
 

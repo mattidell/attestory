@@ -3,7 +3,7 @@
   "version": 1,
   "phase": "Tax Circumstance Breadth",
   "topic": "mortgage-statement-borrowing",
-  "status": "Rebased onto PR #218/core v51. Prior core-v50 evidence retained; current-base candidate update, four lifecycle/empty/orphan cases and four-outcome integration remain open. Clear-account deferred; no production built.",
+  "status": "Supported pair verified on core v51. Finish four lifecycle cases, then design the owner-restored clear-account and borrowing-wide-answer work before connected independent review. No production built.",
   "scope": [
     "extend the existing ordinary mortgage account to a bounded same-borrowing multiple-report case",
     "preserve report amounts, loan-level circumstances and their separate correction lifecycles",
@@ -64,6 +64,13 @@ This extends the earlier phase's completed breadth result; it does not retract
 that result or imply that its original endpoint required more work. The useful
 new distinction is a continuing borrowing versus the documents describing it.
 Additional independent loans remain a contrast case, not promised coverage.
+
+The owner has now brought two previously deferred capabilities into this
+milestone: explicitly leaving a connected account, and giving suitable
+ordinary answers about the borrowing once rather than separately for each
+report. This is a deliberate scope expansion, not new evidence that the
+report-local design failed. Establish the report-local foundation first,
+then add shared answers without changing the meaning of existing history.
 
 ## What makes this uncertain
 
@@ -280,13 +287,41 @@ A grouped interaction may gather each report's confirmations together; equal
 answers remain separate assertions with their own evidence and history.
 
 This reuses established meanings and scopes rather than introducing shared
-ordinary assertions now. Its person cost is confirmation for each report.
-B remains a possible later extension: genuinely borrowing-wide ordinary
-assertions propagated through link-dependent derived findings. It is not
-promised work in this milestone, and existing report-local history must never
-be reinterpreted as such a shared assertion. The
+ordinary assertions in the foundation. Its person cost is confirmation for
+each report. The owner's latest direction brings **B after A** into scope:
+explicit borrowing-wide ordinary assertions, connected to reports through
+derived support. First identify which propositions genuinely have that scope;
+do not widen a payment-period answer merely to avoid asking it twice.
+Existing report-local history must never be reinterpreted as a shared assertion. The
 [P1 comparison](mortgage-statement-borrowing-evidence/p1-connected-account.md)
 retains the cost and provenance distinction.
+
+### Restored work and its next decisions
+
+After the four remaining foundation cases, refine the connected contract in
+one small design increment before another experiment or production charter:
+
+1. Describe the explicit action that ends use of a connected account. Say
+   what it ends, which independent answers survive, and how a remaining
+   report can use the incumbent route. Clearing an account is not deleting
+   source reports, erasing history, declaring all debt absent or silently
+   turning a withdrawal into a favorable answer. Two independent reports do
+   not become a supported singleton when the account is cleared.
+2. Compare each of the nine existing propositions with an explicitly shared
+   version. Specify its subject and period, how it reaches each linked
+   report, and what happens when a report-local answer differs or a link or
+   shared answer changes. Prefer actual existing declared joins and pinned
+   intermediates to copied assertions or a domain-specific admission list.
+3. State the smallest discriminating cases and implementation cost, then
+   execute only the new mechanism questions. Keep supplied relationships
+   separate from demonstrated recording, calculation and saved display.
+   Review this together with the foundation as one connected design.
+
+The intended outcome includes both capabilities. The representation and exact
+coexistence rules are not selected by this scope change; derive them from
+the propositions and evidence. Refinancing, independent-loan aggregation,
+allocation and the higher grandfathered debt limit remain excluded, not
+silently restored as "deferred work".
 
 ### Open evidence and next action
 
@@ -295,10 +330,9 @@ retains the cost and provenance distinction.
   keyed source admission. Its own-report dependency chains are independently
   verified; a new Form-1099-K-style admission allowlist is not needed for
   the tested inputs.
-- The owner deferred the clear-account action for this milestone. This is an
-  accepted delivery limit, not a permanent product policy. Corrections and
-  withdrawals remain supported; they must not silently resume a favorable
-  legacy route. An explicit exit can be designed in later work.
+- The owner restored the clear-account action and borrowing-wide answers.
+  Design them as set out above; correction or withdrawal alone must still
+  not silently resume a favorable legacy route.
 - Sol accepted the [executed P2 experiment](mortgage-statement-borrowing-evidence/p2-option-a-results.md)
   under the existing P1 review unit, for production-design consolidation only.
   Its baseline derived $11,000 through a
@@ -315,8 +349,7 @@ retains the cost and provenance distinction.
   successful evidence locators. Finish the exact dynamic borrowing admission,
   current route/lifecycle and six closure artifacts under the
   [consolidation charter](../../../reviews/mortgage-statement-borrowing/charter-t0-connected-closure.md).
-  The owner accepted deferral of a clear-account action; that scope choice
-  no longer blocks consolidation. The returned contract draft still requires
+  The restored work above must join that contract before closure. The returned contract draft still requires
   Foreman review and bounded repair: numeric link coverage cannot consume a
   category result, and per-borrowing publications need an explicit fan-in
   before the sole ordinary line8a collector can use them. The corrected
@@ -353,8 +386,8 @@ their actual calculation paths. These are prototype findings, not adopted
 production changes. HTML serialization is not visible group-reader delivery.
 Borrowing-reference admission, exact common-account selection, connected
 one-report transitions and correction/withdrawal remain production-design
-obligations. The clear-account exit is deferred by owner decision. The new
-evidence refines the same goal rather than changing its scope.
+obligations. The owner-restored exit and shared-answer work expands the
+delivery boundary; earlier experiments establish only the foundation.
 
 ### Completion boundary
 
@@ -363,6 +396,10 @@ calculable and saved-explainable bounded same-borrowing case with exact report
 provenance and demonstrated correction/withdrawal behavior. Existing
 single-report behavior and saved history stay compatible. If the evidence
 defeats that boundary, return a specific partial result and owner choice.
+The restored scope also requires an explicit connected-account exit and
+truthfully scoped borrowing-wide answers with inspectable per-report support.
+Their contracts and new mechanism evidence must settle before dependent
+production tracks; the foundation's earlier evidence alone does not close them.
 
 Only synthetic demo accounts enter committed evidence. No schema version is
 allocated; existing published schemas and contracts remain in force. Broad

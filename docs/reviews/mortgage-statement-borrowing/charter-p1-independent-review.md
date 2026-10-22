@@ -136,8 +136,12 @@ consumer evidence. No suffix parsing, manual post-start source insertion,
 unreported evaluator/runner patches or substituted run context can establish
 declarative feasibility. Supplied raw claims are not recorder execution.
 
-The owner chose report-local ordinary answers and deferred clear-account.
-Do not reopen either. Upper-bound meaning, conservative modeled limit and
+The owner chose report-local ordinary answers as the foundation, and has now
+restored explicit clear-account and suitable borrowing-wide answers after it.
+Review that added scope against the current plan, not the earlier deferral.
+Require truthful scope, explicit sharing, local/shared disagreement handling,
+and exit without source/history deletion or implicit favorable fallback.
+Upper-bound meaning, conservative modeled limit and
 unmodeled higher grandfathered limit remain unchanged. Current and saved
 historical support must be distinct. Review proposed correction/withdrawal
 and late-member behavior as a concrete contract; production tests remain a
@@ -148,10 +152,10 @@ IMPLEMENTATION or REPAIR REQUIRED, naming any exact missing decision or
 evidence. A valid saved experimental model is not visible production UI.
 No production edits or full suite; re-execute only a disputed specific claim.
 
-The branch now includes PR #217: verify remaining candidate work is based on
-core v50 / registry v48 / release v48 and preserves the newer standard-
-deduction, line16 and preferential-base pins. Earlier disposable versions
-v50–v55 are not the published core v50. Check the current-base saved result
+The branch now includes PR #218: verify remaining candidate work is based on
+core v51 / registry v49 / release v49 and preserves the newer standard-
+deduction v3, line13b v2, line16 and preferential-base pins. Earlier disposable
+versions are not adopted packages. Check the current-base saved result
 rather than treating an older $15,000 standard-deduction observation as
 current behavior. Historical helper defaults and observations stay intact.
 

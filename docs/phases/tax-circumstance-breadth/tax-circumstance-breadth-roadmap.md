@@ -79,6 +79,10 @@ authority, then select the smallest supported representation and implementation.
 No refinancing, second-home, mixed-use or general allocation calculator is
 selected. Engineering Health's projection-reuse milestone closed through
 PR #215; its ratified result is included by rebase, not treated as milestone WIP.
+The owner has restored two deferred parts of this milestone: an explicit
+connected-account exit and suitable borrowing-wide ordinary answers, after
+the report-local foundation. Their design is still being established; this
+does not broaden the tax scenarios or reinterpret recorded report answers.
 
 ## Status
 

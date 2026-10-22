@@ -5,7 +5,7 @@
   "topic": "mortgage-statement-borrowing",
   "active_plan": "docs/phases/tax-circumstance-breadth/milestones/mortgage-statement-borrowing.md",
   "milestone_state": "track-0",
-  "status": "Rebased onto PR #218/core v51. Prior core-v50 evidence retained; current-base candidate update, four lifecycle/empty/orphan cases and four-outcome integration remain open. Clear-account deferred; no production built.",
+  "status": "Supported pair verified on core v51. Finish four lifecycle cases, then design the owner-restored clear-account and borrowing-wide-answer work before connected independent review. No production built.",
   "current_role": "Builder — Luna Track 0 connected contract consolidation",
   "current_prompt": "docs/reviews/mortgage-statement-borrowing/charter-t0-connected-closure.md"
 }
@@ -82,9 +82,13 @@ substituting B's ceiling or rejecting its harmless presence. Raw applicable
 claims remain distinct from inputs actually consumed. Four lifecycle/empty/
 orphan cases and four-outcome integration remain unproved; production
 projection, the visible reader and recording are still not begun.
-The owner deferred
-the clear-account action for this milestone: corrections and withdrawals stay
-in scope, without implicit legacy resumption. Visible group rendering,
+The owner has now restored the previously deferred clear-account action and
+borrowing-wide ordinary answers, ordered after the report-local foundation.
+Design their scope and current-state effects before implementation; do not
+reinterpret old answers or equate withdrawal with clear-account. The current
+core-v51 supported pair publishes line8a $11,000 and line12e $15,750, with
+explicit new dependent/Schedule 1-A fixture answers. Four foundation lifecycle
+cases remain before that restored design increment. Visible group rendering,
 production recording/routing and connected correction/withdrawal are unbuilt.
 The actual no-report compatibility path is line8a inapplicable, separate
 Schedule A total zero and the existing no-statement line12e route.
