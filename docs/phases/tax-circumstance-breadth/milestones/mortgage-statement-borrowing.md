@@ -3,7 +3,7 @@
   "version": 1,
   "phase": "Tax Circumstance Breadth",
   "topic": "mortgage-statement-borrowing",
-  "status": "Track 0 contract draft returned for Foreman review; its dynamic admission/routing design is not yet accepted or executed. Owner deferred the clear-account action for this milestone. Production and visible group reader remain unbuilt.",
+  "status": "Track 0 contract draft is under bounded repair: make numeric coverage and the global amount gate concrete, preserve intended borrowing identity and correct empty/withdrawal transitions. Owner deferred clear-account. No production or visible group reader built.",
   "scope": [
     "extend the existing ordinary mortgage account to a bounded same-borrowing multiple-report case",
     "preserve report amounts, loan-level circumstances and their separate correction lifecycles",
@@ -247,7 +247,14 @@ retains the cost and provenance distinction.
   [consolidation charter](../../../reviews/mortgage-statement-borrowing/charter-t0-connected-closure.md).
   The owner accepted deferral of a clear-account action; that scope choice
   no longer blocks consolidation. The returned contract draft still requires
-  Foreman review. Complete Track 0 before any production charter.
+  Foreman review and bounded repair: numeric link coverage cannot consume a
+  category result, and per-borrowing publications need an explicit fan-in
+  before the sole ordinary line8a collector can use them. The corrected
+  design must preserve a subject when its ceiling is missing, ignore a
+  dormant unrelated ceiling, and gate the actual empty-family consumers on
+  an affirmative orphan without making a withdrawn old link an orphan.
+  These are unexecuted declaration obligations, not a demonstrated engine
+  gap or a change to the product goal. Complete Track 0 before production.
   Do not commission further rounds merely to
   refine paper. A demonstrated need for allocation, refinancing, general
   identity or broader engine work returns as an owner scope choice.

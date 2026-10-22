@@ -5,7 +5,7 @@
   "topic": "mortgage-statement-borrowing",
   "active_plan": "docs/phases/tax-circumstance-breadth/milestones/mortgage-statement-borrowing.md",
   "milestone_state": "track-0",
-  "status": "Track 0 contract draft returned for Foreman review; its dynamic admission/routing design is not yet accepted or executed. Owner deferred the clear-account action for this milestone. Production and visible group reader remain unbuilt.",
+  "status": "Track 0 contract draft is under bounded repair: make numeric coverage and the global amount gate concrete, preserve intended borrowing identity and correct empty/withdrawal transitions. Owner deferred clear-account. No production or visible group reader built.",
   "current_role": "Builder — Luna Track 0 connected contract consolidation",
   "current_prompt": "docs/reviews/mortgage-statement-borrowing/charter-t0-connected-closure.md"
 }
@@ -55,7 +55,10 @@ and singleton controls preserve their calculation paths. Sol accepted the
 connected evidence for Track 0 consolidation, and its bounded contract/locator
 repairs are incorporated. Next finish exact common-borrowing admission,
 current routing, lifecycle and the six closure artifacts. That contract draft
-has returned for Foreman review, not production acceptance. The owner deferred
+is in bounded repair after Foreman review: numeric coverage and a concrete
+fan-in to the ordinary amount gate must preserve dynamic borrowing identity
+and the correct empty/withdrawal transitions. This is not production acceptance.
+The owner deferred
 the clear-account action for this milestone: corrections and withdrawals stay
 in scope, without implicit legacy resumption. Visible group rendering,
 production recording/routing and connected correction/withdrawal are unbuilt.
