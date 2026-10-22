@@ -3,7 +3,7 @@
   "version": 1,
   "phase": "Engine Breadth",
   "topic": "tax-on-taxable-income",
-  "status": "Opening plan. P0 verifies the 2025 rate schedule, Tax Table rule, preferential-rate bands and standard deduction from primary sources, inventories every demo parameter, traces line 16, and measures golden impact. No content change is chosen before P0.",
+  "status": "Closed. On core v50, Form 1040 line 16 and the standard deduction follow 2025 law: seven brackets through the Tax Table or Tax Computation Worksheet, the capital gains worksheet published line by line, only long-term gain preferential, and the 2025 standard deduction. Earlier packages keep their results.",
   "scope": [
     "replace the demo parameters behind Form 1040 line 16 and the standard deduction with primary-source 2025 values, as successor content",
     "compute tax as the 2025 instructions prescribe, including the Tax Table below $100,000 and the 0/15/20 percent preferential bands",
@@ -32,8 +32,14 @@
     "review": [
       "docs/process/planning-and-development.md",
       "docs/phases/engine-breadth/milestones/tax-on-taxable-income.md"
+    ],
+    "new_milestone": [
+      "docs/milestone-retrospectives/2026-10-22-tax-on-taxable-income.md",
+      "docs/phases/engine-breadth/milestones/tax-on-taxable-income.md",
+      "docs/phases/engine-breadth/coverage-frontier.md"
     ]
-  }
+  },
+  "retrospective": "docs/milestone-retrospectives/2026-10-22-tax-on-taxable-income.md"
 }
 -->
 
@@ -134,6 +140,163 @@ synthetic-complete claims, which were about routing, closure and explanation.
   additions for taxpayer and spouse.
 - Every existing route's golden: W-2 only, interest and dividends, Schedule D,
   Social Security, IRA, unemployment, student loan, mortgage, personal sale.
+
+## P0 result
+
+P0 is complete ([2025 law and inventory](tax-on-taxable-income-evidence/p0-law-and-inventory.md),
+[path and cost](tax-on-taxable-income-evidence/p0-path-and-cost.md)). Four of
+the nine `demo.*` parameters are wrong for 2025:
+
+- **Rate schedule:** three brackets at 2024 thresholds, against seven (Rev. Proc. 2024-40 §2.01).
+- **Preferential rates:** a flat 15%, against the 0/15/20 bands (Rev. Proc. 2024-40 §3.03).
+- **Standard deduction:** $15,000 / $30,000 / $22,500, against $15,750 / $31,500 / $23,625 (Pub. L. 119-21 §70102; 2025 Form 1040 instructions).
+- **Married additional amount:** $1,550, against $1,600 (Rev. Proc. 2024-40).
+
+The capital-loss limit and the four Social Security worksheet amounts are
+statutory and match. The Foreman checked the non-`demo` numeric parameters
+P0 did not inventory. The Schedule B $1,500 threshold, the student-loan $2,500
+cap with its $85,000 / $170,000 threshold and $15,000 / $30,000 range, and the
+$750,000 / $375,000 mortgage limit all match 2025 law.
+
+The line 16 mechanism (preferential split, take the smaller) is sound. Its
+parameters are wrong, it never uses the Tax Table, and
+`rule.selected-preferential-base` v4 publishes `max(Schedule D line 16, 0)`
+where the 2025 Qualified Dividends and Capital Gain Tax Worksheet line 3 takes
+the smaller of Schedule D lines 15 and 16, or zero if either is a loss. On a
+synthetic $5,000 short-term / $1,000 long-term case that alone understates tax
+by $350 at today's rates. On the real path, a $596,850 single return computes
+$126,360 against $178,445 under 2025 law.
+
+Two P0 statements were corrected by the Foreman against the downloaded
+instructions:
+
+- The Tax Table's first rows are not uniform $25 bands. $0–5 is $0, $5–15
+  is $1 and $15–25 is $2, after which the table runs in $25 bands to $3,000 and
+  $50 bands to $100,000. The midpoint method needs these three rows stated
+  explicitly.
+- The Tax Table also governs the worksheet's own lines 22 and 24 ("If the
+  amount ... is less than $100,000, use the Tax Table"), not only returns
+  without preferential income.
+
+P0's change count was also too high. Tests and goldens pin the package
+version they run (for example core v20), so existing goldens remain the
+record of what their packages computed and do not change. The cost is one
+successor package and new cases on it.
+
+## Contract
+
+1. **Successor parameters with verified ids.** These carry citations and keep
+   the `demo.*` files untouched:
+   - `tax.us.2025.parameter.ordinary-rate-schedule` v1;
+   - `tax.us.2025.parameter.preferential-rate-bands` v1;
+   - `tax.us.2025.parameter.standard-deduction-base` v1;
+   - `tax.us.2025.parameter.additional-standard-deduction` v1.
+   - `tax.us.2025.parameter.tax-table-ceiling` v1 (the $100,000 Tax Table limit).
+
+   The matching `demo.*` parameters stay adopted only by earlier packages.
+   Statutory amounts that already match (the capital-loss limit and the Social
+   Security worksheet) stay as they are in this milestone; their ids are
+   named as a follow-up rather than churned.
+2. **Tax on an amount.** Below $100,000 it is the Tax Table: the tax on the
+   band midpoint at the 2025 rates, rounded to the nearest dollar. Bands are
+   $25 up to $3,000 and $50 up to $100,000, with the three rows below $25
+   stated explicitly. At $100,000 or more it is the Tax Computation Worksheet.
+   This uses the existing operations (`divide` rounding down, `multiply`,
+   `add`, `bracket_fold`, `round`, `choose`). No new expression operation and
+   no literal table are needed: the formula is the smaller auditable artifact,
+   and the explanation names the band.
+3. **The capital gains worksheet as auditable steps.** The successor line 16
+   publishes the worksheet's material lines as findings, following the
+   Capital Loss Carryover Worksheet precedent (ADR-0060):
+   - the ordinary amount (line 5);
+   - the tax on it (line 22, by the Tax Table or the worksheet);
+   - the 0, 15 and 20 percent amounts and their tax (line 23);
+   - the tax on all taxable income (line 24);
+   - the smaller of the two (line 25).
+
+   Returns with no qualified dividends and no preferential gain take the tax
+   on taxable income directly.
+4. **Preferential base repair.** The successor `selected-preferential-base`
+   uses the smaller of Schedule D lines 15 and 16, or zero if either is blank
+   or a loss. Its no-Schedule-D branch (Form 1040 line 7a) is unchanged.
+5. **Standard deduction.** The successor rule uses the verified base and
+   additional amounts with today's age-65 and blindness facts. Two 2025 rules
+   are not computed, and the rule's `left_with_person` says so whenever they
+   could apply:
+   - the dependent's limited standard deduction;
+   - the deduction for a taxpayer or spouse aged 65 or older (Schedule 1-A).
+6. **One successor package, registry and release** (next free versions at
+   merge). They are additive over core v49 except for the replaced members.
+   Earlier packages, their goldens and saved results are unchanged; a
+   workspace gets the corrected tax by adopting the new package.
+
+## Tracks
+
+- **Track 1 — content and live cases.** Items 1–6 above, with tests through
+  `live_coordinate_run` on the successor package, against the cases below.
+- **Track 2 — presentation and record.** One or two saved presentation
+  goldens on the new package that show the worksheet steps and the Tax Table
+  band; README and coverage-frontier updates; parked-list changes.
+- **Close.** Independent review of the curated candidate, then exact-head CI.
+
+### Cases
+
+Single filers on the successor package unless stated otherwise. Expectations
+were hand-computed from the verified figures, and each Tax Table value was
+checked against the published 2025 table.
+
+| # | Case | Expected |
+| --- | --- | --- |
+| 1 | Tax on taxable income $46,850 (Tax Table band 46,850–46,900) | 5,387 |
+| 2 | $99,999 (last Tax Table band) | 16,909 |
+| 3 | $100,000 (Tax Computation Worksheet) | 16,914 |
+| 4 | $596,850 (35% bracket) | 178,444.75 before the existing rounding convention (178,445) |
+| 5 | Married filing jointly, $150,000 | 22,828 |
+| 6 | Bottom rows: $3, $10, $20, $1,000, $2,990, $3,000 | 0, 1, 2, 101, 299, 303 |
+| 7 | Qualified dividends $5,000, taxable income $25,000, all in the 0% band | line 5 20,000; line 22 2,165; line 24 2,765; line 16 2,165 |
+| 8 | Straddling 0/15: qualified dividends $20,000, taxable income $54,250 | 0% amount 14,100; 15% amount 5,900; line 22 3,875; line 23 4,760; line 24 6,855; line 16 4,760 |
+| 9 | Straddling 15/20: qualified dividends $100,000, taxable income $600,000 | 15% amount 33,400; 20% amount 66,600; line 22 144,547.25; line 16 162,877.25 before rounding |
+| 10 | Short-term defect: short-term gain $5,000, long-term gain $1,000, taxable income $80,250 | preferential base 1,000 (not 6,000); line 22 12,355; line 23 12,505; line 16 12,505 |
+| 11 | Short-term gain $5,000, long-term loss $2,000 | preferential base 0 |
+| 12 | Long-term gain $4,000, short-term loss $1,000 | preferential base 3,000 |
+| 13 | Standard deduction: single 15,750; married filing jointly with both spouses 65+ 34,700; single, blind and 65+ 19,750; head of household 65+ 25,625; married filing separately 15,750 | as stated |
+| 14 | A return with an age-65 fact | the standard-deduction finding's basis names the uncomputed senior deduction; the dependent's limited deduction is named in the same basis |
+| 15 | No-Schedule-D route (Form 1040 line 7a capital-gain distributions) on the successor package | preferential base still equals line 7a |
+| 16 | Compatibility: a W-2 return on core v49 | unchanged result (line 16 5,390); no existing test or golden edited |
+
+## Execution record
+
+| Unit | Result |
+| --- | --- |
+| P0 | Four `demo.*` parameters wrong for 2025, no Tax Table, short-term gains in the preferential base; Tax Table expressible with existing operations. Foreman corrected the Tax Table's bottom rows, its use inside the worksheet, and the change count. |
+| Track 1 | Core v50, registry v48 and release v48. Verified parameters; the Tax Table and Tax Computation Worksheet; the capital gains worksheet published line by line (lines 4–25); the preferential base as the smaller of Schedule D lines 15 and 16; standard deduction v2 with the line 12 citation and the uncomputed senior and dependent deductions named. All 16 cases pass through the coordinator; core v49 still computes its old result. One repair: the first worksheet rules expanded filing-status choices into 68–83KB expressions, so they were split into one rule per line, each under 5KB, with ceilings looked up by filing status. The first ready-PR `verify` then failed a full-lane data-safety gate that flags six-digit amounts in content: the $100,000 limit became the cited `tax-table-ceiling` parameter, and the three statutory parameters joined the gate's per-id exemptions. |
+| Track 2 | Two saved presentation goldens on core v50 (line 16 of 5,387 on a W-2 return and 4,760 on a qualified-dividend straddle); the explanation walk from line 16 reaches worksheet lines 22–25, 9 and 17 and the verified parameters, and from the standard deduction the verified base and line 12 citation; no `demo.*` parameter appears. No projection or explanation change. |
+
+
+## Outcome
+
+**Work.** Core calculations v50 (registry v48, release v48) computes the 2025
+tax for every return class the engine already supports. A single return with
+$596,850 of taxable income now computes $178,445 against $126,360 before; one
+with $46,850 computes the published Tax Table's $5,387 against $5,390. A
+$5,000 short-term gain is no longer taxed at preferential rates. Earlier
+packages and their goldens are unchanged; a workspace gets the corrected tax by
+adopting v50.
+
+**Assurance.** Sixteen coordinator cases with hand-computed expectations, each
+Tax Table anchor checked against the published 2025 table; two v50
+presentation goldens; explanation walks that reach each worksheet step and the
+verified parameters. No engine, kernel, schema or existing content change.
+
+**Remaining.**
+- The deduction for a taxpayer or spouse aged 65 or older (Schedule 1-A) and
+  a dependent's limited standard deduction are named, not computed.
+- The worksheet lines are reachable through the explanation, but the saved
+  presentation does not show them as rows.
+- The capital-loss limit and Social Security worksheet amounts are correct but
+  keep `demo.*` ids.
+- Citation artifacts can name only an instruction family and form, not a
+  revenue procedure or statute.
 
 ## Readiness, evidence and contracts
 

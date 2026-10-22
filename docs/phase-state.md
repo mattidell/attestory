@@ -1,21 +1,36 @@
 <!-- foreman-context-v1
 {
   "version": 1,
-  "phase": "Engineering Health",
-  "topic": "projection-reuse",
-  "active_plan": "docs/phases/engineering-health/milestones/projection-reuse.md",
+  "phase": "Engine Breadth",
+  "topic": "tax-on-taxable-income",
+  "active_plan": "docs/phases/engine-breadth/milestones/tax-on-taxable-income.md",
   "milestone_state": "closed",
-  "status": "Closed. Recording, review and correction reuse one projection per call (save, correct and withdraw 60-72% less CPU on a long history); a per-worker warm-up returned 19 tests to the fast lane. The next milestone is unselected.",
+  "status": "Closed. On core v50, Form 1040 line 16 and the standard deduction follow 2025 law: seven brackets through the Tax Table or Tax Computation Worksheet, the capital gains worksheet published line by line, only long-term gain preferential, and the 2025 standard deduction. Earlier packages keep their results.",
   "current_role": "Foreman — select next milestone",
-  "current_prompt": "docs/phases/engineering-health/engineering-health-roadmap.md"
+  "current_prompt": "docs/phases/engine-breadth/coverage-frontier.md"
 }
 -->
 
 # Phase State
 
-## Current direction
+## Latest milestone
 
-**Fold Once: Less Replaying of the Same History is closed**
+**The 2025 Tax on Taxable Income is closed** ([plan](phases/engine-breadth/milestones/tax-on-taxable-income.md),
+[retrospective](milestone-retrospectives/2026-10-22-tax-on-taxable-income.md)).
+It returned to the return calculation itself. Before it, Form 1040 line 16 and
+the standard deduction ran on `demo.*` parameters: three brackets at 2024 thresholds,
+a flat 15 percent preferential rate, a pre-legislation standard deduction and
+no Tax Table, plus a recorded short-term-gain defect in the preferential base.
+Core calculations v50 replaces them with verified 2025 law, the Tax Table and
+Tax Computation Worksheet, the capital gains worksheet published line by line
+and the preferential-base repair; earlier packages keep their results. The
+mortgage same-borrowing milestone (PR #216) continues in parallel and takes
+the next free package versions when it needs them. The next milestone here is
+unselected.
+
+## Earlier engineering-health result
+
+**Fold Once: Less Replaying of the Same History closed** through PR #215
 ([plan](phases/engineering-health/milestones/projection-reuse.md),
 [retrospective](milestone-retrospectives/2026-10-22-projection-reuse.md)).
 Recording, review and correction reuse one projection per call instead of
@@ -25,8 +40,8 @@ synthetic history. A per-worker warm-up in test setup returned 19 tests to the
 fast lane, which runs about 1,528 tests in 23s on the CI runner. The save-path
 incremental fold was skipped as the smallest share.
 
-The next milestone is unselected. The retrospective lists the remaining
-re-projection sites, the save-path fold and current-lattice rebuilds.
+That retrospective lists the remaining re-projection sites, the save-path
+fold and current-lattice rebuilds; none is selected.
 
 ## Previous milestone
 
@@ -91,7 +106,11 @@ loss). **Mortgage Interest and What the Loan Paid For** closed 2026-10-15
 
 ## Begin here
 
-- [Closed milestone plan](phases/engineering-health/milestones/projection-reuse.md):
+- [Closed milestone plan](phases/engine-breadth/milestones/tax-on-taxable-income.md):
+  P0, contract, tracks and outcome.
+- [Coverage frontier](phases/engine-breadth/coverage-frontier.md): the
+  routes whose line 16 this milestone corrects.
+- [Previous milestone plan](phases/engineering-health/milestones/projection-reuse.md):
   fold attribution, tracks, outcome and remaining work.
 - [Retrospective](milestone-retrospectives/2026-10-22-projection-reuse.md):
   lessons and follow-ups.
@@ -103,8 +122,6 @@ loss). **Mortgage Interest and What the Loan Paid For** closed 2026-10-15
 
 - Gain and break-even reporting on Form 8949 and Schedule D.
 - Additional seller-paid shipping under platform pass-through.
-- The adopted preferential-rate base taxes short-term covered gains at
-  preferential rates. It is recorded and awaits owner disposition.
 - Phase-state validation in `governance_lint`: an engineering-health
   candidate. Broad test redesign remains a later scope choice.
 - A v1 Form 1099-K workspace re-answers its completeness question under the
@@ -113,7 +130,9 @@ loss). **Mortgage Interest and What the Loan Paid For** closed 2026-10-15
 - Browser observation of the mortgage and sale pages.
 - Multiple Form 1098 support, interest allocation above the debt limit,
   second-home extension, mixed-use amounts, refinancing and the mortgage credit.
-- The configured standard deduction, which is not the verified 2025 amount.
+- The 2025 senior deduction (Schedule 1-A) and a dependent's limited standard
+  deduction; worksheet lines as presentation rows; `demo.*` ids on the
+  correct capital-loss and Social Security amounts.
 - Use of the circumstance routes on the correction session, which still
   resolves an older registry.
 - A general assumption framework, free-text intake and institutional

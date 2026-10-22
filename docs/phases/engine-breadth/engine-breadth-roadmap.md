@@ -310,7 +310,7 @@ and other Schedule D sources remain distinct candidates; other Form 1099-R
 distribution treatments and unrelated income domains remain outside the
 selected class.
 
-## Bounded return — The 2025 Tax on Taxable Income — opening plan
+## Bounded return — The 2025 Tax on Taxable Income — closed 2026-10-22
 
 [Plan](milestones/tax-on-taxable-income.md).
 
@@ -321,6 +321,12 @@ Table. A short-term-gain defect in the preferential base is also recorded.
 Verify the 2025 law from primary sources, then replace these with successor
 content so every route the phase made computable also computes correctly. No
 new return class is added.
+
+Closed on core calculations v50: verified parameters, the Tax Table and Tax
+Computation Worksheet, the capital gains worksheet published line by line, the
+preferential base repaired, and the 2025 standard deduction. Earlier packages
+keep their results. See the plan's outcome and the
+[retrospective](../../milestone-retrospectives/2026-10-22-tax-on-taxable-income.md).
 
 ## Why line 7a comes before Schedule D
 

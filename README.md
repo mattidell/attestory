@@ -7,12 +7,10 @@ This is the project's third iteration. The first proved a working return generat
 ## Where things stand
 
 - **Governance** (`docs/governance/`): the ratified v0.1 set — Constitution, Ontology, Engineering Constraints, Principles, Commentary. The sole contract authority for this repository.
-- **Phase state** (`docs/phase-state.md`): Engineering Health delivered
-  fold-local lattice reuse, earlier CI feedback, and reuse of the live
-  return's current projection for claim applicability. Cold and historical
-  reads remain fresh; no tests were removed. See the [current-read measurements](docs/phases/engineering-health/milestones/test-cost-and-coverage-evidence/measured-applicability-reuse.md)
-  and `python3 tools/foreman_context.py --ref HEAD` for current routing;
-  publication status is tracked by the pull request's checks.
+- **Phase state** (`docs/phase-state.md`): the 2025 tax on taxable income
+  now follows the 2025 law on core calculations v50 (see "2025 tax on taxable
+  income" below). Use `python3 tools/foreman_context.py --ref HEAD` for
+  current routing; publication status is tracked by the pull request's checks.
 - **Current bounded capability:** production-shaped synthetic returns cover
   the Form 1099-DIV box-2a direct-reporting route, Schedule K-1 (Form 1065)
   box-5 taxable interest, payer-reported current-inclusion market discount
@@ -20,8 +18,9 @@ This is the project's third iteration. The first proved a working return generat
   reported Form 1099-B transactions — short-term or long-term, gain or
   loss — reported directly on Schedule D line 1a/8a without Form 8949,
   including the signed Schedule D line 16, the current-year $3,000/$1,500
-  capital-loss limitation (line 21), the correct Schedule D-bound QDCG
-  line-16 path at any sign of Schedule D's result, and an honest attachment
+  capital-loss limitation (line 21), the Schedule D-bound QDCG line-16 path
+  at any sign of Schedule D's result (on core v50 and later, with only
+  long-term gain preferential), and an honest attachment
   disposition/explanation walk. A short-term or long-term capital-loss
   carryover derived from a bounded 2024 prior-return authority via the
   IRS Capital Loss Carryover Worksheet is included on Schedule D lines 6
@@ -221,6 +220,30 @@ one statement requires release `v47`. Workspaces on earlier releases do not cont
 reason rule, or the pass-through additional-shipping coverage stop. When no Form 1099-K was received, recording that fact durably
 via `record_f1099k_no_statements_durably` closes the statement family
 closed-empty and enters 0 at the top of Schedule 1.
+
+## 2025 tax on taxable income
+
+On `core-calculations.v50` (published registry `v48`, release
+`demo.release.sli-worksheet-integration.2025.v48.json`), Form 1040 line 16 and
+the standard deduction use verified 2025 law instead of the earlier
+placeholder parameters:
+
+- the seven-bracket rate schedule (Rev. Proc. 2024-40), through the Tax Table
+  below $100,000 (tax on the band midpoint, rounded) and the Tax Computation
+  Worksheet at $100,000 or more;
+- the Qualified Dividends and Capital Gain Tax Worksheet, published line by
+  line (lines 4–25) so the explanation walk reaches each step, with the 0,
+  15 and 20 percent bands;
+- only the smaller of Schedule D lines 15 and 16 taxed at preferential rates,
+  so short-term gain is taxed at ordinary rates;
+- the 2025 standard deduction of $15,750 / $31,500 / $23,625 (Pub. L. 119-21)
+  with the $1,600 married and $2,000 unmarried additional amounts for age 65
+  or blindness.
+
+The deduction for a taxpayer or spouse aged 65 or older (Schedule 1-A) and a
+dependent's limited standard deduction are not computed; the standard
+deduction's basis names both. Workspaces adopting `core-calculations.v49` or
+earlier keep their earlier results; adopting v50 recomputes.
 
 ## Correction session walkthrough
 
