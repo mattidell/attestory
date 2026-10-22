@@ -72,6 +72,13 @@ in the account from an existing limitation the proposed experiment tests.
 
 ## Following the experiment
 
+The owner's outside review adds an answer-scope choice before execution.
+Use the selected option in the repaired P1 account: report-local ordinary
+answers omit the shared-answer bridge/control; genuinely shared assertions
+include them. Both retain real scoped-answer execution and the isolated
+conflicting-Box-3 case. Reuse the returned paper review and combined repair;
+do not require another full paper review before the selected experiment.
+
 On explicit Foreman continuation under this same review unit, inspect its
 actual implementation and output against the above claims, including provenance
 and integration limitations. Recheck the experiment and changed conclusions,

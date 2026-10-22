@@ -3,7 +3,7 @@
   "version": 1,
   "phase": "Tax Circumstance Breadth",
   "topic": "mortgage-statement-borrowing",
-  "status": "P0 independently reviewed READY. P1 connected design awaits combined outside/Sol review repair and the owner's report-local versus shared-answer choice before the experiment. No production or schema successor selected.",
+  "status": "P0 independently reviewed READY. P1 outside/Sol findings repaired together. Owner choice between report-local ordinary answers and shared-answer intermediates is pending before the selected experiment. No production or schema successor selected.",
   "scope": [
     "extend the existing ordinary mortgage account to a bounded same-borrowing multiple-report case",
     "preserve report amounts, loan-level circumstances and their separate correction lifecycles",
@@ -186,8 +186,15 @@ treatment. No production path or schema successor has been selected.
 - Raw Box 3 dates stay report-local, but their agreed origination date supplies
   the borrowing-wide debt category. Disagreement is a conflict, never a date
   selection. Retain the incumbent conservative $750,000/$375,000 limit and
-  pre-1987 exclusion; the higher pre-2017 acquisition-debt limit is not modeled.
+  exclusion for origination on or before 1987-10-13; the higher pre-2017
+  acquisition-debt limit is not modeled.
   The saved explanation must disclose that coverage limit.
+- P1 incorporates the outside findings and the
+  [independent Sol review](../../../reviews/mortgage-statement-borrowing/p1-independent-review.md)
+  in one connected repair: correct empty-family handling, a real report-local
+  rival, Box 3/category reconciliation, and explicit exit limitations. The
+  independent paper verdict was REPAIR REQUIRED; the combined repair is not
+  experiment evidence or a new production verdict.
 
 ### Owner decision before the intermediate-join experiment
 
@@ -201,7 +208,11 @@ Choose the ordinary-answer scope for this bounded delivery:
   assertions to cover both linked reports through actual derived per-report
   intermediates that pin the assertion and each report's link.
 
-The shared candidate was a Foreman preference, not an owner selection. Compare
+The shared candidate was a Foreman preference, not an owner selection.
+The Foreman now recommends report-local answers for this bounded delivery:
+reuse established meanings and scoped transport before adding a second
+ordinary-assertion model. A grouped interaction can reduce repeated prompts
+while still asking the person to confirm each report's own account. Compare
 the additional person effort against recording/content/lifecycle and provenance
 cost before choosing it. Do not run its intermediate-join experiment before
 the owner answers. Neither option permits A's report-local evidence to stand
@@ -211,17 +222,14 @@ must carry both options and the resulting disposition.
 
 ### Open evidence and next action
 
-- Combine the outside review with the
-  [independent Sol P1 review](../../../reviews/mortgage-statement-borrowing/p1-independent-review.md)
-  as one Luna repair. Its verdict is REPAIR REQUIRED for the empty-family
-  contradiction, omitted report-local rival and unspecified Box 3/limit source.
 - Test the existing student-loan `rule.sli-answer-status-*.json` pattern:
   declared `joined` and `direction: joined_contains_subject` already cause
   keyed source admission. Prefer that real content path to a new
   Form-1099-K-style allowlist unless it demonstrably fails for these inputs.
-- Make connected-route exit explicit, or identify the lack of exit as a
-  deliberate product limit. Withdrawal must not silently resume a favorable
-  legacy route.
+- The proposed path has no supported clear-account exit yet. This is a
+  deliberate limit for owner disposition before production, not permanent
+  routing by implication. The experiment does not build an exit, and
+  withdrawal must not silently resume a favorable legacy route.
 - Once the owner chooses and the connected repair is ready, run the bounded
   real-coordinator experiment, including unequal report answers, missing
   membership, principal/ceiling conflict, loose ceiling and conflicting Box 3
