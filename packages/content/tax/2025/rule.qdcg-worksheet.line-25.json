@@ -1,0 +1,55 @@
+{
+  "schema": "rule-artifact.v14",
+  "id": "tax.us.2025.rule.qdcg-worksheet.line-25",
+  "version": "v1",
+  "scope": {
+    "tax_year": 2025,
+    "jurisdiction": "US-federal",
+    "family": "individual-income-tax"
+  },
+  "role": "computation",
+  "requires": [
+    "tax.us.2025.qdcg-worksheet.line-23",
+    "tax.us.2025.qdcg-worksheet.line-24"
+  ],
+  "pins": [],
+  "when": true,
+  "value": {
+    "op": "choose",
+    "when": {
+      "op": "compare",
+      "cmp": "lte",
+      "left": {
+        "op": "ref",
+        "name": "tax.us.2025.qdcg-worksheet.line-23"
+      },
+      "right": {
+        "op": "ref",
+        "name": "tax.us.2025.qdcg-worksheet.line-24"
+      }
+    },
+    "then": {
+      "op": "ref",
+      "name": "tax.us.2025.qdcg-worksheet.line-23"
+    },
+    "else": {
+      "op": "ref",
+      "name": "tax.us.2025.qdcg-worksheet.line-24"
+    }
+  },
+  "publishes": "tax.us.2025.qdcg-worksheet.line-25",
+  "blocked": {
+    "code": "DEPENDENCY_ABSENT",
+    "missing": [
+      "tax.us.2025.qdcg-worksheet.line-23",
+      "tax.us.2025.qdcg-worksheet.line-24"
+    ]
+  },
+  "citations": [
+    {
+      "id": "tax.us.2025.citation.form1040.line-16",
+      "version": "v1"
+    }
+  ],
+  "notes": "Worksheet line 25, the smaller of line 23 and line 24. Qualified Dividends and Capital Gain Tax Worksheet (2025 Form 1040 instructions). A figure-the-tax step below $100,000 uses the Tax Table on the band midpoint; at $100,000 or more it uses the Tax Computation Worksheet and stays unrounded."
+}

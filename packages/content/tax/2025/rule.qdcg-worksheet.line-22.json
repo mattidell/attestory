@@ -1,0 +1,182 @@
+{
+  "schema": "rule-artifact.v14",
+  "id": "tax.us.2025.rule.qdcg-worksheet.line-22",
+  "version": "v1",
+  "scope": {
+    "tax_year": 2025,
+    "jurisdiction": "US-federal",
+    "family": "individual-income-tax"
+  },
+  "role": "computation",
+  "requires": [
+    "tax.us.2025.qdcg-worksheet.line-5",
+    "filing_status",
+    "rounding.convention"
+  ],
+  "pins": [],
+  "when": true,
+  "value": {
+    "op": "choose",
+    "when": {
+      "op": "compare",
+      "cmp": "lt",
+      "left": {
+        "op": "ref",
+        "name": "tax.us.2025.qdcg-worksheet.line-5"
+      },
+      "right": {
+        "op": "parameter",
+        "parameter_id": "tax.us.2025.parameter.tax-table-ceiling"
+      }
+    },
+    "then": {
+      "op": "choose",
+      "when": {
+        "op": "compare",
+        "cmp": "lt",
+        "left": {
+          "op": "ref",
+          "name": "tax.us.2025.qdcg-worksheet.line-5"
+        },
+        "right": 5
+      },
+      "then": 0,
+      "else": {
+        "op": "choose",
+        "when": {
+          "op": "compare",
+          "cmp": "lt",
+          "left": {
+            "op": "ref",
+            "name": "tax.us.2025.qdcg-worksheet.line-5"
+          },
+          "right": 15
+        },
+        "then": 1,
+        "else": {
+          "op": "choose",
+          "when": {
+            "op": "compare",
+            "cmp": "lt",
+            "left": {
+              "op": "ref",
+              "name": "tax.us.2025.qdcg-worksheet.line-5"
+            },
+            "right": 25
+          },
+          "then": 2,
+          "else": {
+            "op": "choose",
+            "when": {
+              "op": "compare",
+              "cmp": "lt",
+              "left": {
+                "op": "ref",
+                "name": "tax.us.2025.qdcg-worksheet.line-5"
+              },
+              "right": 3000
+            },
+            "then": {
+              "op": "round",
+              "value": {
+                "op": "bracket_fold",
+                "table_id": "tax.us.2025.parameter.ordinary-rate-schedule",
+                "key": {
+                  "op": "ref",
+                  "name": "filing_status"
+                },
+                "value": {
+                  "op": "add",
+                  "args": [
+                    {
+                      "op": "multiply",
+                      "left": {
+                        "op": "divide",
+                        "left": {
+                          "op": "ref",
+                          "name": "tax.us.2025.qdcg-worksheet.line-5"
+                        },
+                        "right": 25,
+                        "min_decimal_places": 0,
+                        "rounding": "down"
+                      },
+                      "right": 25
+                    },
+                    "12.5"
+                  ]
+                }
+              },
+              "mode": {
+                "op": "ref",
+                "name": "rounding.convention"
+              }
+            },
+            "else": {
+              "op": "round",
+              "value": {
+                "op": "bracket_fold",
+                "table_id": "tax.us.2025.parameter.ordinary-rate-schedule",
+                "key": {
+                  "op": "ref",
+                  "name": "filing_status"
+                },
+                "value": {
+                  "op": "add",
+                  "args": [
+                    {
+                      "op": "multiply",
+                      "left": {
+                        "op": "divide",
+                        "left": {
+                          "op": "ref",
+                          "name": "tax.us.2025.qdcg-worksheet.line-5"
+                        },
+                        "right": 50,
+                        "min_decimal_places": 0,
+                        "rounding": "down"
+                      },
+                      "right": 50
+                    },
+                    25
+                  ]
+                }
+              },
+              "mode": {
+                "op": "ref",
+                "name": "rounding.convention"
+              }
+            }
+          }
+        }
+      }
+    },
+    "else": {
+      "op": "bracket_fold",
+      "table_id": "tax.us.2025.parameter.ordinary-rate-schedule",
+      "key": {
+        "op": "ref",
+        "name": "filing_status"
+      },
+      "value": {
+        "op": "ref",
+        "name": "tax.us.2025.qdcg-worksheet.line-5"
+      }
+    }
+  },
+  "publishes": "tax.us.2025.qdcg-worksheet.line-22",
+  "blocked": {
+    "code": "DEPENDENCY_ABSENT",
+    "missing": [
+      "tax.us.2025.qdcg-worksheet.line-5",
+      "filing_status",
+      "rounding.convention"
+    ]
+  },
+  "citations": [
+    {
+      "id": "tax.us.2025.citation.form1040.line-16",
+      "version": "v1"
+    }
+  ],
+  "notes": "Worksheet line 22, tax on line 5. A figure-the-tax step below $100,000 uses the Tax Table on the band midpoint; at $100,000 or more it uses the Tax Computation Worksheet and stays unrounded. Qualified Dividends and Capital Gain Tax Worksheet (2025 Form 1040 instructions). The $100,000 Tax Table ceiling is the cited parameter tax.us.2025.parameter.tax-table-ceiling."
+}

@@ -1,0 +1,43 @@
+{
+  "schema": "rule-artifact.v14",
+  "id": "tax.us.2025.rule.qdcg-worksheet.line-20",
+  "version": "v1",
+  "scope": {
+    "tax_year": 2025,
+    "jurisdiction": "US-federal",
+    "family": "individual-income-tax"
+  },
+  "role": "computation",
+  "requires": [
+    "tax.us.2025.qdcg-worksheet.line-10",
+    "tax.us.2025.qdcg-worksheet.line-19"
+  ],
+  "pins": [],
+  "when": true,
+  "value": {
+    "op": "subtract",
+    "left": {
+      "op": "ref",
+      "name": "tax.us.2025.qdcg-worksheet.line-10"
+    },
+    "right": {
+      "op": "ref",
+      "name": "tax.us.2025.qdcg-worksheet.line-19"
+    }
+  },
+  "publishes": "tax.us.2025.qdcg-worksheet.line-20",
+  "blocked": {
+    "code": "DEPENDENCY_ABSENT",
+    "missing": [
+      "tax.us.2025.qdcg-worksheet.line-10",
+      "tax.us.2025.qdcg-worksheet.line-19"
+    ]
+  },
+  "citations": [
+    {
+      "id": "tax.us.2025.citation.form1040.line-16",
+      "version": "v1"
+    }
+  ],
+  "notes": "Worksheet line 20. The amount taxed at 20%. Qualified Dividends and Capital Gain Tax Worksheet (2025 Form 1040 instructions)."
+}

@@ -1,0 +1,55 @@
+{
+  "schema": "rule-artifact.v14",
+  "id": "tax.us.2025.rule.qdcg-worksheet.line-17",
+  "version": "v1",
+  "scope": {
+    "tax_year": 2025,
+    "jurisdiction": "US-federal",
+    "family": "individual-income-tax"
+  },
+  "role": "computation",
+  "requires": [
+    "tax.us.2025.qdcg-worksheet.line-12",
+    "tax.us.2025.qdcg-worksheet.line-16"
+  ],
+  "pins": [],
+  "when": true,
+  "value": {
+    "op": "choose",
+    "when": {
+      "op": "compare",
+      "cmp": "lte",
+      "left": {
+        "op": "ref",
+        "name": "tax.us.2025.qdcg-worksheet.line-12"
+      },
+      "right": {
+        "op": "ref",
+        "name": "tax.us.2025.qdcg-worksheet.line-16"
+      }
+    },
+    "then": {
+      "op": "ref",
+      "name": "tax.us.2025.qdcg-worksheet.line-12"
+    },
+    "else": {
+      "op": "ref",
+      "name": "tax.us.2025.qdcg-worksheet.line-16"
+    }
+  },
+  "publishes": "tax.us.2025.qdcg-worksheet.line-17",
+  "blocked": {
+    "code": "DEPENDENCY_ABSENT",
+    "missing": [
+      "tax.us.2025.qdcg-worksheet.line-12",
+      "tax.us.2025.qdcg-worksheet.line-16"
+    ]
+  },
+  "citations": [
+    {
+      "id": "tax.us.2025.citation.form1040.line-16",
+      "version": "v1"
+    }
+  ],
+  "notes": "Worksheet line 17. The amount taxed at 15%. Qualified Dividends and Capital Gain Tax Worksheet (2025 Form 1040 instructions)."
+}
