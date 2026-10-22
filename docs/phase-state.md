@@ -5,7 +5,7 @@
   "topic": "mortgage-statement-borrowing",
   "active_plan": "docs/phases/tax-circumstance-breadth/milestones/mortgage-statement-borrowing.md",
   "milestone_state": "track-0",
-  "status": "Track 0 disposable dynamic-account candidate validates and its supported pair publishes through line12e. Six negative/transition cases and integration of the separately validated four-outcome status remain open. Owner deferred clear-account; production is not begun.",
+  "status": "Rebased onto core v50 / registry v48 / release v48 after PR #217. Earlier dynamic positive is historical; verify the candidate on the new base, then finish six boundary cases and four-outcome integration. Owner deferred clear-account; production not begun.",
   "current_role": "Builder — Luna Track 0 connected contract consolidation",
   "current_prompt": "docs/reviews/mortgage-statement-borrowing/charter-t0-connected-closure.md"
 }
@@ -62,6 +62,12 @@ The first disposable dynamic-account candidate now validates and publishes
 the supported pair through line8a, Schedule A total and line12e. Its four-
 outcome report-status composition was validated separately and is not yet
 combined with this runtime candidate. Six negative/transition cases remain.
+The owner approved rebasing onto PR #217. The ratified package base is now
+core v50 / registry v48 / release v48. Continue the bounded candidate on that
+base and verify its saved result with the updated standard deduction before
+the remaining cases; do not downgrade the newer tax content by cloning v49.
+Earlier disposable package numbers are historical checksummed prototypes,
+not the published core v50 or future-version reservations.
 The owner deferred
 the clear-account action for this milestone: corrections and withdrawals stay
 in scope, without implicit legacy resumption. Visible group rendering,

@@ -3,7 +3,7 @@
   "version": 1,
   "phase": "Tax Circumstance Breadth",
   "topic": "mortgage-statement-borrowing",
-  "status": "Track 0 disposable dynamic-account candidate validates and its supported pair publishes through line12e. Six negative/transition cases and integration of the separately validated four-outcome status remain open. Owner deferred clear-account; production is not begun.",
+  "status": "Rebased onto core v50 / registry v48 / release v48 after PR #217. Earlier dynamic positive is historical; verify the candidate on the new base, then finish six boundary cases and four-outcome integration. Owner deferred clear-account; production not begun.",
   "scope": [
     "extend the existing ordinary mortgage account to a bounded same-borrowing multiple-report case",
     "preserve report amounts, loan-level circumstances and their separate correction lifecycles",
@@ -162,6 +162,32 @@ coverage limit belong in the supported interaction.
 The high-level goal is unchanged: keep two reports about one continuing home
 borrowing separate while calculating and explaining their supported interest
 treatment. No production path or schema successor has been selected.
+
+### Current base after PR #217
+
+This branch is rebased onto the merged 2025 tax-calculation milestone. The
+adopted base is now core calculations **v50**, package registry **v48** and
+release **v48**, not core v49 / registry v47 / release v47. Its 26 input
+bindings are unchanged. The mortgage rules, family and ordinary-answer
+contracts are unchanged; three other rule pins advance: standard deduction
+v2, line16 v6 and selected preferential base v5. Verified tax parameters and
+the capital-gains worksheet replace the older demo tax content.
+
+The remaining disposable checks and eventual production successor must
+extend that v50 package, preserving its newer pins, rather than clone v49
+and silently revert the tax repair. In particular, a single-filer control
+whose standard deduction wins now shows $15,750, not the earlier $15,000.
+Schedule A requirement checks must use the adopted standard deduction too.
+Validate the new package/release/checksum chain and inspect the actual saved
+return result on the changed base before reusing the earlier consumer claim.
+
+P2/P3 and the first T0 runtime result remain historical evidence at their
+recorded package hashes. Their synthetic v50–v55 package numbers describe
+disposable content, **not** the now-published core v50 or reservations of
+future production versions. Do not rewrite those observations or overwrite
+published content. Preserve historical helper defaults; make the current T0
+candidate explicitly choose its v50 base. Production takes the next unused
+package and registry versions when its unit is actually chartered.
 
 ### Settled understanding and its grounds
 

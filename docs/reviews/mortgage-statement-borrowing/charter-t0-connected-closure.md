@@ -101,6 +101,26 @@ expand the engine or invent a stand-in. Return before further scope decisions.
 Repair the contract against what actually validated/executed. Independent Sol
 review follows this connected return, not every attempted expression.
 
+### Rebased package continuation
+
+PR #217 is now the ratified base: core v50, registry v48, release v48.
+Remaining T0 checks must preserve those adopted members and new parameter
+pins. The prior v49-derived candidate remains historical evidence, not a
+current-base result. Keep its recorded observations and historical helper
+defaults. This continuation additionally permits a backward-compatible base
+selection argument on `p2-option-a-probe.py`'s disposable materialization
+helper, if needed by the T0 driver; do not change that helper's v49 default
+or rerun its old cases. No production package or published schema edits.
+
+First build and validate the v50-derived candidate, then run its supported
+pair once because the consumer base changed. Inspect actual line8a, line12e
+and attachment dispositions, the new standard-deduction value and the exact
+package/rule/parameter pins. Continue with the two A/B ceiling cases, then the
+four connected-singleton/withdrawn/empty/orphan cases already chartered. The
+four-outcome status must actually be consumed before claiming its runtime
+semantics. Record each candidate's base and final checksums explicitly; do
+not identify the old synthetic v50 package with ratified core v50.
+
 No production code/content, package/test/configuration edits, public schemas,
 suite or browser work. The first paper return prohibited execution; only the
 bounded continuation above now permits a disposable package/coordinator check.

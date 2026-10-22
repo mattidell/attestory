@@ -113,6 +113,48 @@ the report; do not silently turn readiness to experiment into production
 readiness. Track 0 and any required contract/implementation readiness remain
 separate explicit gates.
 
+## Track 0 consolidation continuation
+
+On explicit Foreman continuation, review the current connected contract and
+bounded `t0-dynamic-binding-probe.py` / results beside it, plus the plan's
+six closure artifacts. This is the same independent connected-design unit.
+Keep the accepted P2/P3 evidence at its original ceiling; do not rerun it.
+
+Check the complete declared candidate, not expression fragments: normal
+schema/package validation, actual source admission, per-report outcome
+counts, numeric full-key coverage, account identity, publisher eligibility,
+ordinary result fan-in, the single family-authorized collector and the
+actual line12e empty path. Required support must not disappear with its
+subject, arrive from another borrowing or silently fall back to a legacy
+answer. A dormant ceiling without a current account is not a second account.
+Only a current affirmative link to a missing source is an orphan; a removed
+report's withdrawn/denied/unknown outcome does not defeat genuine empty.
+
+Inspect actual retained records/models for the seven chartered cases. Identify
+any materially different route not represented by the retained P2/P3/T0
+consumer evidence. No suffix parsing, manual post-start source insertion,
+unreported evaluator/runner patches or substituted run context can establish
+declarative feasibility. Supplied raw claims are not recorder execution.
+
+The owner chose report-local ordinary answers and deferred clear-account.
+Do not reopen either. Upper-bound meaning, conservative modeled limit and
+unmodeled higher grandfathered limit remain unchanged. Current and saved
+historical support must be distinct. Review proposed correction/withdrawal
+and late-member behavior as a concrete contract; production tests remain a
+subsequent build obligation, not proof already obtained.
+
+Append one Track 0 verdict to the existing report: READY FOR BOUNDED
+IMPLEMENTATION or REPAIR REQUIRED, naming any exact missing decision or
+evidence. A valid saved experimental model is not visible production UI.
+No production edits or full suite; re-execute only a disputed specific claim.
+
+The branch now includes PR #217: verify remaining candidate work is based on
+core v50 / registry v48 / release v48 and preserves the newer standard-
+deduction, line16 and preferential-base pins. Earlier disposable versions
+v50–v55 are not the published core v50. Check the current-base saved result
+rather than treating an older $15,000 standard-deduction observation as
+current behavior. Historical helper defaults and observations stay intact.
+
 ## Context Capsule
 
 ### P3 continuation object and bounded review
