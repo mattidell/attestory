@@ -1,0 +1,74 @@
+{
+  "schema": "rule-artifact.v14",
+  "id": "tax.us.2025.rule.form1040-standard-deduction",
+  "version": "v3",
+  "scope": {
+    "tax_year": 2025,
+    "jurisdiction": "US-federal",
+    "family": "individual-income-tax"
+  },
+  "role": "computation",
+  "requires": [
+    "tax.us.2025.standard-deduction.can-be-claimed-as-dependent",
+    "tax.us.2025.dependents-worksheet.line4c",
+    "tax.us.2025.dependents-worksheet.line3",
+    "tax.us.2025.dependents-worksheet.line4b"
+  ],
+  "pins": [
+    { "role": "input", "id": "tax.us.2025.standard-deduction.can-be-claimed-as-dependent", "version": "v1", "origin": "assertion" },
+    { "role": "input", "id": "tax.us.2025.dependents-worksheet.line4c", "version": "v1", "origin": "assertion" },
+    { "role": "input", "id": "tax.us.2025.dependents-worksheet.line3", "version": "v1", "origin": "assertion" },
+    { "role": "input", "id": "tax.us.2025.dependents-worksheet.line4b", "version": "v1", "origin": "assertion" }
+  ],
+  "when": true,
+  "value": {
+    "op": "choose",
+    "when": {
+      "op": "categorical_compare",
+      "cmp": "eq",
+      "left": { "op": "ref", "name": "tax.us.2025.standard-deduction.can-be-claimed-as-dependent" },
+      "right": {
+        "op": "category_literal",
+        "fact_type": { "id": "tax.us.2025.standard-deduction.can-be-claimed-as-dependent", "version": "v1" },
+        "value": "yes"
+      }
+    },
+    "then": { "op": "ref", "name": "tax.us.2025.dependents-worksheet.line4c" },
+    "else": {
+      "op": "add",
+      "args": [
+        { "op": "ref", "name": "tax.us.2025.dependents-worksheet.line3" },
+        { "op": "ref", "name": "tax.us.2025.dependents-worksheet.line4b" }
+      ]
+    }
+  },
+  "publishes": "demo.form1040.standard_deduction",
+  "blocked": {
+    "code": "DEPENDENCY_ABSENT",
+    "missing": [
+      "tax.us.2025.standard-deduction.can-be-claimed-as-dependent",
+      "tax.us.2025.dependents-worksheet.line4c",
+      "tax.us.2025.dependents-worksheet.line3",
+      "tax.us.2025.dependents-worksheet.line4b"
+    ]
+  },
+  "citations": [
+    { "id": "tax.us.2025.citation.form1040.line-12", "version": "v1" }
+  ],
+  "notes": "2025 standard deduction, v3 successor to v2 (Track 2, Contract item 3; repair round 1). When someone can claim the taxpayer, or the spouse on a joint return, as a dependent, publishes the Standard Deduction Worksheet for Dependents' line 4c. Otherwise publishes worksheet line 3 + line 4b -- not a copy of v2's own expression tree. This equals v2's computation exactly, for every filing status, because line 3 reuses the same tax.us.2025.parameter.standard-deduction-base lookup v2 used for its base amount, and line 4b is line 1's box count (now gated on filing_status exactly as v2 gates its own spouse_over_65/spouse_blind additions, repair round 1) times the same tax.us.2025.parameter.additional-standard-deduction lookup v2 used for each of its four conditional additions -- summing one indicator per box and multiplying once by the shared per-box rate is the same total as adding that rate once per true box, for every filing status, with no case-by-case difference to reconcile. v2 is retired from package membership (replaced, not edited; presentation_projection's one-row-per-symbol join forbids two producers of demo.form1040.standard_deduction at once, per rule.form1040-line12e's own notes on tax.us.2025.deductions.line-12e). The dependent answer is a mandatory pin (requires/pins, no optional_default): a return that adopts this package without answering it blocks DEPENDENCY_ABSENT naming the fact, never silently taking the non-dependent branch.",
+  "basis": {
+    "said": [
+      "Filing status, whether the taxpayer or spouse is 65 or older or blind, and whether someone can claim the taxpayer or spouse as a dependent, are the return's own facts."
+    ],
+    "derived": [
+      "When someone can claim the taxpayer or spouse as a dependent, the standard deduction is the Standard Deduction Worksheet for Dependents' line 4c.",
+      "Otherwise, the standard deduction is the worksheet's own line 3 (the 2025 base amount for the filing status) plus line 4b (the age/blindness addition), which equals the base amount plus each applicable age-65 or blindness box's 2025 additional amount for that filing status."
+    ],
+    "assumed": [
+      "This line does not compute the senior deduction."
+    ],
+    "left_with_person": [
+      "The senior deduction on Schedule 1-A, for a person aged 65 or older, is not computed here."
+    ]
+  }
+}

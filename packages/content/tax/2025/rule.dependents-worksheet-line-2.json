@@ -1,0 +1,40 @@
+{
+  "schema": "rule-artifact.v14",
+  "id": "tax.us.2025.rule.dependents-worksheet-line-2",
+  "version": "v1",
+  "scope": {
+    "tax_year": 2025,
+    "jurisdiction": "US-federal",
+    "family": "individual-income-tax"
+  },
+  "role": "computation",
+  "requires": [
+    "tax.us.2025.wages.total-w2-box1"
+  ],
+  "pins": [
+    { "role": "input", "id": "tax.us.2025.wages.total-w2-box1", "version": "v1", "origin": "assertion" }
+  ],
+  "when": true,
+  "value": {
+    "op": "max",
+    "args": [
+      { "op": "parameter", "parameter_id": "tax.us.2025.parameter.dependent-standard-deduction-floor" },
+      {
+        "op": "add",
+        "args": [
+          { "op": "ref", "name": "tax.us.2025.wages.total-w2-box1" },
+          { "op": "parameter", "parameter_id": "tax.us.2025.parameter.dependent-earned-income-addon" }
+        ]
+      }
+    ]
+  },
+  "publishes": "tax.us.2025.dependents-worksheet.line2",
+  "blocked": {
+    "code": "DEPENDENCY_ABSENT",
+    "missing": ["tax.us.2025.wages.total-w2-box1"]
+  },
+  "citations": [
+    { "id": "tax.us.2025.citation.form1040.line-12e", "version": "v1" }
+  ],
+  "notes": "Standard Deduction Worksheet for Dependents, line 2: the larger of $1,350 (tax.us.2025.parameter.dependent-standard-deduction-floor, Rev. Proc. 2024-40 Sec. 3.15(2), unchanged by Pub. L. 119-21) or earned income plus $450 (tax.us.2025.parameter.dependent-earned-income-addon, same citation). max(floor, income+450) is the worksheet's own 'is earned income more than $900' test exactly (P0 Sec. 2/Contract item 4): at or below $900, income+450 <= 1350 so the floor wins; above $900, income+450 > 1350 so the addition wins -- no separate $900 parameter is needed or declared. Earned income on the bounded supported class is Form 1040 line 1z, published as tax.us.2025.wages.total-w2-box1 (P0 Sec. 5; same symbol rule.ss-benefits-worksheet already names as 'line 1z (bounded wages)')."
+}

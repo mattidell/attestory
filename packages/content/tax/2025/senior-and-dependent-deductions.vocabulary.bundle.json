@@ -58,7 +58,7 @@
       "schema": "fact-type.v2",
       "id": "tax.us.2025.standard-deduction.can-be-claimed-as-dependent",
       "version": "v1",
-      "title": "Taxpayer assertion: someone else can claim the taxpayer, or the spouse on a joint return, as a dependent for 2025 -- governs the whole return's Form 1040 line 12e under the Standard Deduction Worksheet for Dependents. Defined for Track 2 of this milestone; not yet bound or required by any rule in this track.",
+      "title": "Taxpayer assertion: someone else can claim the taxpayer, or the spouse on a joint return, as a dependent for 2025 -- governs the whole return's Form 1040 line 12e under the Standard Deduction Worksheet for Dependents.",
       "nature": "determinable",
       "identity_keys": [
         {

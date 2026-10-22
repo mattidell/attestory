@@ -51,6 +51,7 @@ PARTS_II_IV = "tax.us.2025.schedule1a.no-parts-ii-iv-deductions-declared"
 TAXPAYER_SSN = "tax.us.2025.senior-deduction.taxpayer-valid-ssn"
 SPOUSE_SSN = "tax.us.2025.senior-deduction.spouse-valid-ssn"
 ITEMIZED = "tax.us.2025.deductions.itemized"
+CAN_BE_CLAIMED = "tax.us.2025.standard-deduction.can-be-claimed-as-dependent"
 
 
 def _finish_v51(acts: list[dict[str, object]], note: str) -> list[dict[str, object]]:
@@ -92,6 +93,7 @@ def _senior_acts(
     spouse_ssn: str | None = None,
     parts_ii_iv: str | None = "yes",
     itemized: float | None = None,
+    can_be_claimed: str | None = "no",
 ) -> list[dict[str, object]]:
     probe = toti._probe()
     acts = probe._base_acts(wages=wages, filing_status=filing_status)
@@ -136,6 +138,11 @@ def _senior_acts(
         add(
             "assertion",
             {"finding": probe._attested("demo.sdd.itemized", f"{ITEMIZED}|tax-year=2025", itemized)},
+        )
+    if can_be_claimed is not None:
+        add(
+            "assertion",
+            {"finding": probe._attested("demo.sdd.can-be-claimed", f"{CAN_BE_CLAIMED}|tax-year=2025", can_be_claimed)},
         )
 
     return cast(list[dict[str, object]], acts)
@@ -329,6 +336,18 @@ class SeniorDeductionTrack1Tests(unittest.TestCase):
         self.assertNotIn(LINE_13B, pubs)
         found = any(PARTS_II_IV in str(row.get("missing", [])) for row in blocked)
         self.assertTrue(found, f"expected {PARTS_II_IV} named in a blocked disposition; blocked={blocked}")
+
+    def test_case_parts_ii_iv_no_does_not_publish_zero(self) -> None:
+        """A 'no' answer (a real, uncomputed Parts II-IV deduction) leaves
+        line 13b inapplicable rather than publishing a stand-in zero, and
+        line 14 (which adds 12e + 13a + 13b) cannot compute without it."""
+        acts = _finish_v51(
+            _senior_acts(wages=60000, taxpayer_over_65=True, taxpayer_ssn="yes", parts_ii_iv="no"),
+            "synthetic case: Parts II-IV answer is 'no'",
+        )
+        pubs, blocked = _run(acts, "demo.sdd.case.partsii-iv-no")
+        self.assertNotIn(LINE_13B, pubs)
+        self.assertNotIn(LINE_14, pubs)
 
     def test_case_v50_run_unchanged(self) -> None:
         probe = toti._probe()

@@ -6,15 +6,15 @@
   "kind": "package-adoption",
   "payload": {
     "audit": {
-      "note": "synthetic successor adoption of core calculations v51; non-authoritative"
+      "note": "synthetic successor adoption of core calculations v51 (Track 1 + Track 2); non-authoritative"
     },
     "package": {
-      "checksum": "11dae815feab669d55f323921698140a064f29542f60609ac586da7eaabf38e8",
+      "checksum": "6bd0f495931a8f89fca360249ccde43bc777f66918bc9c6872d36746019dad30",
       "id": "tax.us.2025.package.core-calculations",
       "version": "v51"
     },
     "release": {
-      "checksum": "e6e5922269f0952e6c24b929bae8fa4b4b2cf46c31adc0d3c7214ddc1dfcad7e",
+      "checksum": "f1a2604a60052fbfd1f8079e940d75c0afa859bc14d334e1ce9cf874bebd6819",
       "id": "demo.release.sli-worksheet-integration.2025",
       "version": "v49"
     },

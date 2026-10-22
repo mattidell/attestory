@@ -2786,12 +2786,6 @@
       "version": "v7"
     },
     {
-      "id": "tax.us.2025.rule.form1040-standard-deduction",
-      "role": "computation",
-      "schema": "rule-artifact.v14",
-      "version": "v2"
-    },
-    {
       "id": "tax.us.2025.rule.form1040-tax-after-credits",
       "role": "computation",
       "schema": "rule-artifact.v3",
@@ -3930,9 +3924,63 @@
       "role": "computation",
       "schema": "rule-artifact.v4",
       "version": "v2"
+    },
+    {
+      "id": "tax.us.2025.parameter.dependent-standard-deduction-floor",
+      "role": "parameter",
+      "schema": "parameter-declaration.v1",
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.parameter.dependent-earned-income-addon",
+      "role": "parameter",
+      "schema": "parameter-declaration.v1",
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.rule.dependents-worksheet-line-1",
+      "role": "computation",
+      "schema": "rule-artifact.v14",
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.rule.dependents-worksheet-line-2",
+      "role": "computation",
+      "schema": "rule-artifact.v14",
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.rule.dependents-worksheet-line-3",
+      "role": "computation",
+      "schema": "rule-artifact.v14",
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.rule.dependents-worksheet-line-4a",
+      "role": "computation",
+      "schema": "rule-artifact.v14",
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.rule.dependents-worksheet-line-4b",
+      "role": "computation",
+      "schema": "rule-artifact.v14",
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.rule.dependents-worksheet-line-4c",
+      "role": "computation",
+      "schema": "rule-artifact.v14",
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.rule.form1040-standard-deduction",
+      "role": "computation",
+      "schema": "rule-artifact.v14",
+      "version": "v3"
     }
   ],
-  "package_checksum": "11dae815feab669d55f323921698140a064f29542f60609ac586da7eaabf38e8",
+  "package_checksum": "6bd0f495931a8f89fca360249ccde43bc777f66918bc9c6872d36746019dad30",
   "schema": "artifact-package.v36",
   "scope": {
     "family": "individual-income-tax",

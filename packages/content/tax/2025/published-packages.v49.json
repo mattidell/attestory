@@ -3146,7 +3146,7 @@
       "version": "v1"
     },
     {
-      "checksum": "08be38a8975b444c8dea603b94016b69431f51fcae308ba042146e9ba2a60800",
+      "checksum": "63366ca4155f9b5c32ffe994c12cc40a80eb6574ddb11bba0431ab8794181d02",
       "id": "tax.us.2025.senior-and-dependent-deductions.vocabulary",
       "version": "v1"
     },
@@ -3204,6 +3204,51 @@
       "checksum": "a43d0accc6fb454bfae7cb57533b527cc15476d3325a3177756e21df6c22f778",
       "id": "tax.us.2025.rule.form1040-line13b",
       "version": "v2"
+    },
+    {
+      "checksum": "aca5e9be0d1d10f534de437432c78706e65a99bc80365d6deb4d5f98da3f8eed",
+      "id": "tax.us.2025.parameter.dependent-standard-deduction-floor",
+      "version": "v1"
+    },
+    {
+      "checksum": "1ca6ab6a102f4c78fae3036fadedfbb2aeed301dab14f47e736b999590f8d683",
+      "id": "tax.us.2025.parameter.dependent-earned-income-addon",
+      "version": "v1"
+    },
+    {
+      "checksum": "3500dd60c8a903fb7e1ba7e6c6a6d37b92251709a7240802ad8aa329b92485a0",
+      "id": "tax.us.2025.rule.dependents-worksheet-line-1",
+      "version": "v1"
+    },
+    {
+      "checksum": "c9b261ed9d9d3ddbb1bd3acfb9ad189338cc3975c4d9e71b2fd2383ae61f6f96",
+      "id": "tax.us.2025.rule.dependents-worksheet-line-2",
+      "version": "v1"
+    },
+    {
+      "checksum": "eea8cb3caccf8e7e83616cfd7ef73b11c0287363ebdbdced0356b35c3509bdcc",
+      "id": "tax.us.2025.rule.dependents-worksheet-line-3",
+      "version": "v1"
+    },
+    {
+      "checksum": "3858b83d7b1aec0f62ccad88affcf831a9e2059fe1d3250edf042396b61e1558",
+      "id": "tax.us.2025.rule.dependents-worksheet-line-4a",
+      "version": "v1"
+    },
+    {
+      "checksum": "9ab4a242a4bbfe9cd1d5da3399450e11e8eaa83290a2ef83d047af140c7a964f",
+      "id": "tax.us.2025.rule.dependents-worksheet-line-4b",
+      "version": "v1"
+    },
+    {
+      "checksum": "2ca4c2f12da30f46379f26fec305ad40bb53c5e8a3a6ac511f033f7cafc5e5a3",
+      "id": "tax.us.2025.rule.dependents-worksheet-line-4c",
+      "version": "v1"
+    },
+    {
+      "checksum": "855619aebb492544b30ca55c0bca7916d7ba493ca1f3a0af7b374644e1b766c3",
+      "id": "tax.us.2025.rule.form1040-standard-deduction",
+      "version": "v3"
     }
   ],
   "packages": [
@@ -3478,7 +3523,7 @@
       "version": "v50"
     },
     {
-      "checksum": "11dae815feab669d55f323921698140a064f29542f60609ac586da7eaabf38e8",
+      "checksum": "6bd0f495931a8f89fca360249ccde43bc777f66918bc9c6872d36746019dad30",
       "id": "tax.us.2025.package.core-calculations",
       "version": "v51"
     }
