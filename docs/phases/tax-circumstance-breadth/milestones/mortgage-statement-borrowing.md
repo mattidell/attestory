@@ -3,7 +3,7 @@
   "version": 1,
   "phase": "Tax Circumstance Breadth",
   "topic": "mortgage-statement-borrowing",
-  "status": "P0 independently reviewed READY after its source-authority correction. P1 begins the ordinary shared-borrowing account and balance-treatment choices before mechanism selection. No production design selected.",
+  "status": "P0 independently reviewed READY. P1 connected design awaits combined outside/Sol review repair and the owner's report-local versus shared-answer choice before the experiment. No production or schema successor selected.",
   "scope": [
     "extend the existing ordinary mortgage account to a bounded same-borrowing multiple-report case",
     "preserve report amounts, loan-level circumstances and their separate correction lifecycles",
@@ -156,118 +156,94 @@ These are investigation classes, not an exhaustive list of human statements.
 Only questions material to the relationship, tax treatment or actionable
 coverage limit belong in the supported interaction.
 
-## Decisions and readiness
+## Design state
 
-The goal is unchanged. P0 is independently reviewed READY for connected design
-after one source-authority account correction; see the
-[working account](mortgage-statement-borrowing-evidence/p0-current-account.md)
-and [Sol review and recheck](../../../reviews/mortgage-statement-borrowing/p0-independent-review.md).
-This is investigation readiness, not a production design or delivered feature.
+The high-level goal is unchanged: keep two reports about one continuing home
+borrowing separate while calculating and explaining their supported interest
+treatment. No production path or schema successor has been selected.
 
-The real v49/v47 diagnostic establishes:
+### Settled understanding and its grounds
 
-- One report reaches the real recorder, calculation and reloaded saved result;
-  an over-limit principal reaches the comparison and saves an unresolved
-  explanation, not a prorated deduction.
-- Two reports meet independent review/save and calculation restrictions.
-  Different principal observations cannot bind the run-wide principal input;
-  agreeing values reach the explicit multiple-report stop.
-- Agreeing values also expose wrong support: the second report's reason uses
-  first-report ordinary-answer and document pins. Every needed report-local
-  input needs the correct authority and correction dependency, not merely a
-  subject label or matching value. Filing status remains return-wide.
-- Publication 936 distinguishes a throughout-the-year full-deduction branch
-  from Part II's limited-debt calculation. The incumbent one-report Box 2
-  premise does not automatically extend to two reports. The current family
-  already authorizes a Box 1 sum; no general engine rewrite or new public
-  schema has been proved necessary.
+- P0 is independently reviewed READY for connected design. The
+  [current-path account](mortgage-statement-borrowing-evidence/p0-current-account.md)
+  and [review/recheck](../../../reviews/mortgage-statement-borrowing/p0-independent-review.md)
+  distinguish the actual v49/v47 route from manually supplied diagnostic
+  answers. Two-report review/save remains unsupported; the calculation loses
+  report-local authority even when equal values permit publication.
+- Each report's amounts, dates and ordinary-answer history remain separate.
+  Filing status remains return-wide. A continuing-borrowing claim and exact
+  report links do not by themselves establish deductibility or debt coverage.
+- The provisional balance source is a person-confirmed numeric annual ceiling,
+  not a selected Box 2 snapshot. A bound within the applicable limit can
+  support that condition; a loose bound above it does not prove actual excess.
+  The separate other-debt answer covers secured borrowing on either home;
+  known additional debt is unsupported here and unknown coverage is unresolved.
+- The existing F1098 family authorizes exactly Schedule A line8a. A successor
+  must retain that symbol and the actual closure scope, not publish an
+  unauthorized generic subtotal. Genuine closed-empty authority remains
+  distinct from a nonempty account whose support is unresolved.
+- Raw Box 3 dates stay report-local, but their agreed origination date supplies
+  the borrowing-wide debt category. Disagreement is a conflict, never a date
+  selection. Retain the incumbent conservative $750,000/$375,000 limit and
+  pre-1987 exclusion; the higher pre-2017 acquisition-debt limit is not modeled.
+  The saved explanation must disclose that coverage limit.
 
-P1 now develops the ordinary account and its consequential choices: what
-establishes a continuing borrowing, which circumstances are report-local or
-shared, and how the whole-year debt premise is supported. First return a
-plain-language account and paper cases for Foreman feedback; only then refine
-the connected recording, transport, calculation, lifecycle and explanation
-design. Independently review that connected design and any necessary
-discriminating evidence as a whole before production. Do not commission
-separate full reviews for each paper refinement.
+### Owner decision before the intermediate-join experiment
 
-Synthetic facts and selected answers remain diagnostic inputs, not proof of
-an obtained same-loan relationship. Before production, settle the representation,
-authority, assumptions, change handling and supported tax boundary.
+Choose the ordinary-answer scope for this bounded delivery:
 
-### P1 working direction — provisional, not an accepted contract
+- **Report-local rival:** keep all nine existing ordinary answers keyed to
+  each report; add only the continuing-borrowing claim, exact report links,
+  annual ceiling and other-debt answer at their stated scopes. The successor
+  line8a rule reads the common account once.
+- **Shared-answer candidate:** allow genuinely borrowing-wide ordinary
+  assertions to cover both linked reports through actual derived per-report
+  intermediates that pin the assertion and each report's link.
 
-P1's first plain-language account has received Foreman feedback. Continue with
-explicit report links and assertions whose scope follows what the person
-affirms. A genuinely loan-wide answer can cover both linked reports; report
-amounts and dated observations remain separate. Distinct meanings need not
-require separate screens or duplicate answers.
+The shared candidate was a Foreman preference, not an owner selection. Compare
+the additional person effort against recording/content/lifecycle and provenance
+cost before choosing it. Do not run its intermediate-join experiment before
+the owner answers. Neither option permits A's report-local evidence to stand
+in for B's. The
+[P1 connected account](mortgage-statement-borrowing-evidence/p1-connected-account.md)
+must carry both options and the resulting disposition.
 
-For the connected paper design, prefer a person-confirmed numerical ceiling
-on what was owed on the identified borrowing during 2025. This is an upper
-bound, not necessarily the exact highest balance. The application determines
-the relevant tax category and compares the confirmed bound with its limit.
-A bound within the limit can establish the balance condition. A bound above
-it does not establish that the actual debt exceeded it: the bound may simply
-be too loose. Preserve that distinction after a filing-status change too.
-Ask separately about other borrowing secured by the main or second home;
-known additional debt reaches this milestone's coverage boundary, while an
-unknown answer leaves that circumstance unresolved. Do not ask the person
-to classify a combined set of "qualifying acquisition debt."
+### Open evidence and next action
 
-This is a candidate ordinary factual source, not a claim that people were
-observed answering it or that two Forms 1098 establish it. It avoids selecting
-a favorable snapshot or silently treating the largest observation as an annual
-ceiling. Its cost is an additional factual confirmation; some people may not
-know a usable bound. Its risk is an inaccurate or contradicted answer, which
-the design must make inspectable rather than describe as independently verified.
-It displaces an automated balance-history/proration calculator, not the need
-to represent the debt conditions accurately. A broader assumption policy is
-not selected.
+- Combine the outside review with the
+  [independent Sol P1 review](../../../reviews/mortgage-statement-borrowing/p1-independent-review.md)
+  as one repair. Its verdict is REPAIR REQUIRED for the empty-family
+  contradiction, omitted report-local rival and unspecified Box 3/limit source.
+- Test the existing student-loan `rule.sli-answer-status-*.json` pattern:
+  declared `joined` and `direction: joined_contains_subject` already cause
+  keyed source admission. Prefer that real content path to a new
+  Form-1099-K-style allowlist unless it demonstrably fails for these inputs.
+- Make connected-route exit explicit, or identify the lack of exit as a
+  deliberate product limit. Withdrawal must not silently resume a favorable
+  legacy route.
+- Once the owner chooses and the connected repair is ready, run the bounded
+  real-coordinator experiment, including unequal report answers, missing
+  membership, principal/ceiling conflict, loose ceiling and conflicting Box 3
+  dates. Include the intermediate-producer removal only if the shared route
+  is selected. Raw synthetic inputs are supplied; derived results must
+  actually execute. No ordinary-recorder or saved-reader delivery is proved
+  by this feasibility check.
+- Then settle the integration cost and complete Track 0 adversarial closure
+  before any production charter. Do not commission further rounds merely to
+  refine paper. A demonstrated need for allocation, refinancing, general
+  identity or broader engine work returns as an owner scope choice.
 
-Develop this candidate's relationship, correction, source and consumer behavior
-in P1 B, including a changed filing status and contrary principal evidence.
-If a threshold-specific yes/no is considered instead, preserve the actual
-number affirmed; an answer about one threshold cannot silently become an
-answer about another. The existing single-report route and saved history
-remain compatibility requirements. Return material costs or a demonstrated
-inadequacy before selecting production. This develops the original goal;
-it neither changes that goal nor authorizes implementation.
+### Completion boundary
 
-P1 B's connected paper account is refined after Foreman review and now receives
-independent Sol design/experiment-readiness review. Route selection must not
-ignore current connected information after a report is removed; genuine
-closed-empty authority still supports zero without requiring irrelevant loan
-answers. One successor line8a producer retains the exact family-authorized
-symbol. Declared intermediate findings, not fabricated source keys, must
-preserve shared-answer and report-link support.
+Track 0 adversarial closure is PENDING. Completion remains a recordable,
+calculable and saved-explainable bounded same-borrowing case with exact report
+provenance and demonstrated correction/withdrawal behavior. Existing
+single-report behavior and saved history stay compatible. If the evidence
+defeats that boundary, return a specific partial result and owner choice.
 
-The proposed bounded experiment has one positive case, four isolated mutations
-and a producer-removal control. It uses raw synthetic account assertions but
-must actually derive the intermediate through resolver, marshalling, dispatch
-and evaluation. No new schema or production change is selected. Review the
-connected design as a whole; execute the bounded experiment only after its
-question and instrument are ready. This refines the original goal rather than
-changing it.
-If the case needs a general debt-allocation calculator, a new identity system,
-refinancing treatment or a broader engine contract, stop and bring back a
-plain-language scope/cost choice rather than absorb it.
-
-Track 0 adversarial closure: PENDING. No production charter is authorized yet.
-Existing published schemas, ADRs and source-use contracts remain in force.
-The cross-milestone schema-intent ledger applies if a successor is later chosen;
-the parallel engineering work is not an assumed dependency.
-
-Completion means the selected bounded same-borrowing case is recordable,
-calculable and explainable from saved results, with exact report provenance
-and demonstrated correction/withdrawal behavior. If evidence defeats this
-boundary, return a specific partial result and owner decision instead of
-claiming the feature is delivered. Visual observation is claimed only if
-actually obtained; automated saved-model evidence is a separate observation.
-
-Only synthetic demo accounts enter committed evidence. No personal forms,
-workspaces or private outputs are used. Early plan review needs source checks,
-not a fresh full suite; later shared-engine changes retain the complete gate.
+Only synthetic demo accounts enter committed evidence. No schema version is
+allocated; existing published schemas and contracts remain in force. Broad
+verification remains CI's gate, not a repeated full suite for paper changes.
 
 ## Planning sources
 

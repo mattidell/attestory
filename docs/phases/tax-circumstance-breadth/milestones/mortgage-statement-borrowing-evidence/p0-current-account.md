@@ -1,7 +1,8 @@
 # P0 increment A — one loan, two reports
 
-Status: **P0 investigation complete; pending independent review and Foreman
-disposition.** Increments A and B are source research and bounded synthetic
+Status: **P0 independently reviewed READY for connected design after the
+source-authority correction.** See the [review and recheck](../../../../reviews/mortgage-statement-borrowing/p0-independent-review.md).
+Increments A and B are source research and bounded synthetic
 diagnostic evidence, not a product design or tax verdict. Initial source ref was `HEAD` at
 `6332119a30f3420698bde5dcbce1fc81e93190ac`, on
 `milestone/mortgage-statement-borrowing-same-loan`; at that ref the branch was
