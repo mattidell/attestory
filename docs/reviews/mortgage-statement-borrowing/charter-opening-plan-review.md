@@ -45,7 +45,7 @@ plain language. No compulsory disagreements and no complete mortgage design.
   phase pointers introduced at `24730b1b`, not this review charter.
 - Milestone mortgage-statement-borrowing; primary branch
   milestone/mortgage-statement-borrowing-same-loan; ratified origin/main.
-- Role: fresh independent Grok 4.7 Reviewer. No subagents, product edits,
+- Role: fresh independent Sol Reviewer. No subagents, product edits,
   staging, commit or push. No imposed turn cap.
 - Read Reviewer/qualitative boot sources, planning guidelines, active plan and
   phase overview/roadmap, mortgage and multiple-statement retrospectives. Read
