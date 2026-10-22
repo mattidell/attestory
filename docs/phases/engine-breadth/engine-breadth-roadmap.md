@@ -339,6 +339,15 @@ person on line 13b, and a dependent received the full standard deduction.
 Compute both as successor content on core v51, each from a question whose
 meaning matches the rule that reads it.
 
+## Bounded return — Refund or Amount Owed: Finishing the 2025 Return
+
+[Plan](milestones/refund-or-amount-owed.md).
+
+Every computed return stopped at tax after credits. Carry it to total tax,
+withholding, payments and the refund or amount owed, recording withholding on
+the documents the engine already reads, and declare absent the taxes and
+credits it does not compute.
+
 ## Why line 7a comes before Schedule D
 
 The 2025 Form 1040 instructions permit eligible capital-gain distributions to

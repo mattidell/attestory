@@ -3,7 +3,7 @@
   "version": 1,
   "phase": "Engine Breadth",
   "topic": "refund-or-amount-owed",
-  "status": "Track 1 complete: line 20 without foreign-tax questions and withholding on lines 25a-25d, on core v52. Track 2 carries total tax to the refund or amount owed.",
+  "status": "Closed. On core v52 every computed return continues from tax after credits to total tax, withholding, payments and the refund or amount owed, and a return without foreign tax no longer answers foreign-tax questions. Earlier packages keep their results.",
   "scope": [
     "carry every return the engine computes from tax after credits to total tax, payments, and the refund or amount owed (Form 1040 lines 22-37)",
     "record federal income tax withheld from the source documents the engine already reads, starting with Form W-2 box 2",
@@ -39,7 +39,8 @@
       "docs/phases/engine-breadth/milestones/refund-or-amount-owed.md",
       "docs/phases/engine-breadth/coverage-frontier.md"
     ]
-  }
+  },
+  "retrospective": "docs/milestone-retrospectives/2026-10-22-refund-or-amount-owed.md"
 }
 -->
 
@@ -215,3 +216,19 @@ schema successor, expression operation or engine change is needed.
 - Form W-2G and line 25c.
 - Refundable credits (lines 27-31), Schedule 2 Part II taxes and the
   estimated tax penalty, each declared absent.
+
+## Execution record
+
+- P0: lines 22-38 verified; withholding inventory; the foreign-tax block on
+  line 22 found in the probe.
+- Track 1: line 20 v2 without foreign-tax questions; withholding fact types,
+  families and lines 25a-25d; core v52. Form 1099-K stopped and parked. A
+  repair added the W-2 box 2 count check.
+- Track 2: lines 23-38 and five questions; line 25a folded back to v1; two
+  v52 saved presentations with explanation walks.
+
+## Outcome
+
+Closed 2026-10-22. On core v52 every computed return ends in a refund or an
+amount owed. See the
+[retrospective](../../milestone-retrospectives/2026-10-22-refund-or-amount-owed.md).

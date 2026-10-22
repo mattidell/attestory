@@ -2,10 +2,10 @@
 {
   "version": 1,
   "phase": "Engine Breadth",
-  "topic": "senior-and-dependent-deductions",
-  "active_plan": "docs/phases/engine-breadth/milestones/senior-and-dependent-deductions.md",
+  "topic": "refund-or-amount-owed",
+  "active_plan": "docs/phases/engine-breadth/milestones/refund-or-amount-owed.md",
   "milestone_state": "closed",
-  "status": "Closed. On core v51 the enhanced deduction for seniors (Schedule 1-A Part V) reaches line 13b and a dependent's standard deduction is computed on line 12e, from four new questions. Earlier packages keep their results.",
+  "status": "Closed. On core v52 every computed return continues from tax after credits to total tax, withholding, payments and the refund or amount owed, and a return without foreign tax no longer answers foreign-tax questions. Earlier packages keep their results.",
   "current_role": "Foreman — select next milestone",
   "current_prompt": "docs/phases/engine-breadth/coverage-frontier.md"
 }
@@ -15,15 +15,26 @@
 
 ## Latest milestone
 
+**Refund or Amount Owed: Finishing the 2025 Return is closed**
+([plan](phases/engine-breadth/milestones/refund-or-amount-owed.md),
+[retrospective](milestone-retrospectives/2026-10-22-refund-or-amount-owed.md)).
+On core calculations v52 every computed return continues from tax after
+credits to total tax, withholding (W-2 box 2; Forms 1099-INT, 1099-DIV and
+1099-R box 4), estimated payments and the refund or amount owed. A return
+without foreign tax no longer answers the direct foreign tax credit's
+questions. The next milestone is unselected.
+
+## Previous return-calculation milestone
+
 **The 2025 Senior Deduction and a Dependent's Standard Deduction is closed**
 ([plan](phases/engine-breadth/milestones/senior-and-dependent-deductions.md),
 [retrospective](milestone-retrospectives/2026-10-22-senior-and-dependent-deductions.md)).
 On core calculations v51 the enhanced deduction for seniors (Schedule 1-A
 Part V) reaches line 13b and the dependents' worksheet computes line 12e, from
 four new questions asked only where they change the result. Earlier packages
-keep their results. The next milestone is unselected.
+keep their results.
 
-## Previous return-calculation milestone
+## Earlier return-calculation milestone
 
 **The 2025 Tax on Taxable Income is closed** ([plan](phases/engine-breadth/milestones/tax-on-taxable-income.md),
 [retrospective](milestone-retrospectives/2026-10-22-tax-on-taxable-income.md)).
@@ -115,12 +126,13 @@ loss). **Mortgage Interest and What the Loan Paid For** closed 2026-10-15
 
 ## Begin here
 
-- [Latest milestone plan](phases/engine-breadth/milestones/senior-and-dependent-deductions.md):
+- [Latest milestone plan](phases/engine-breadth/milestones/refund-or-amount-owed.md):
   P0, contract, tracks and outcome; and its
-  [retrospective](milestone-retrospectives/2026-10-22-senior-and-dependent-deductions.md).
+  [retrospective](milestone-retrospectives/2026-10-22-refund-or-amount-owed.md).
+- [Previous return-calculation plan](phases/engine-breadth/milestones/senior-and-dependent-deductions.md).
 - [Coverage frontier](phases/engine-breadth/coverage-frontier.md): routes,
   their status and the candidates for the next milestone.
-- [Previous return-calculation plan](phases/engine-breadth/milestones/tax-on-taxable-income.md).
+- [Earlier return-calculation plan](phases/engine-breadth/milestones/tax-on-taxable-income.md).
 - [Previous milestone plan](phases/engineering-health/milestones/projection-reuse.md):
   fold attribution, tracks, outcome and remaining work.
 - [Retrospective](milestone-retrospectives/2026-10-22-projection-reuse.md):
@@ -141,6 +153,10 @@ loss). **Mortgage Interest and What the Loan Paid For** closed 2026-10-15
 - Browser observation of the mortgage and sale pages.
 - Multiple Form 1098 support, interest allocation above the debt limit,
   second-home extension, mixed-use amounts, refinancing and the mortgage credit.
+- Form 1099-K, 1099-G and SSA-1099 withholding on line 25b; a 1099-INT,
+  1099-DIV or 1099-R statement recorded without its box 4 answer; Form W-2G.
+- Refundable credits (lines 27-31), Schedule 2 Part II taxes and the
+  estimated tax penalty, each declared absent.
 - Worksheet lines as presentation rows; `demo.*` ids on the correct
   capital-loss and Social Security amounts.
 - The age questions' wording (born before January 2, 1961; a death in 2025
