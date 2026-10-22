@@ -44,7 +44,7 @@ The missing production proof in P2 is dynamic admission. The following identity 
 | Proposed `tax.us.2025.f1098.borrowing-member-support@v1` | Same four keys as inclusion | Numeric `1` iff that link's report is qualified and its Box 2/3 and shared support checks pass; numeric `0` only for a resolved nonqualifying result | Separate numeric reduction for `link_coverage`; missing/unknown/blocked member result emits no reduction and blocks. Never encode a category here. |
 | Proposed `tax.us.2025.f1098.borrowing-member-link-count@v1` | `borrowing + tax-year` | Numeric number of exact affirmed inclusion rows joined to one active borrowing claim | Dedicated v13 `link_count` intermediate. It is the sole `link_count` occurrence in that rule; account readiness consumes this published number and does not repeat the operator. |
 
-For a per-member rule, declare `subject` as the affirmed inclusion fact type. The subject row carries all four keys. The dispatcher's existing shared-key source scoping then admits report-local answers and Box 1/2/3 by `payer + statement + tax-year`, and the ceiling by `borrowing + tax-year`. A second opaque borrowing or another statement cannot supply that support because its shared key values differ. Do not read a global scalar account ID. The evaluator sends a scalar result to `run.symbols` under `publishes|subject_fact_id`; this is the declared `reads_subject_results` bridge, not an additional bare global publication.
+For a per-member rule, declare `subject` as the affirmed inclusion fact type. The subject row carries all four keys. The dispatcher's existing shared-key source scoping then admits report-local answers and Box 1/2/3 by `payer + statement + tax-year`, and the ceiling by `borrowing + tax-year`. A second opaque borrowing or another statement cannot supply that support because its shared key values differ. Do not read a global scalar account ID. Per-subject consumers read matched current source/derived rows through their own shared-key scope and `ref`; `reads_subject_results` is reserved for a return-level v14 selection that explicitly enumerates subject outputs.
 
 The recognized active account root is the current affirmative `continuing-borrowing` claim, not its ceiling. This is deliberate: an intended A claim remains a subject when A's ceiling is missing, and blocks on its exact required A ceiling; a dormant unrelated B ceiling alone is not a subject and cannot create a second active account. A no-link active claim publishes a non-ready account result rather than disappearing. A v14 consumer path declares `reads_subject_results: [{"symbol":"...borrowing-account-readiness","subject":{"id":"...continuing-borrowing","version":"v1"}}]`; the runner enumerates those exact root subjects and refuses an uncovered or blocked result. In an ordinary expression, `count(name:"...borrowing-account-readiness", source_set:"tax.us.2025.f1098")` then counts the declared list (not source rows), and `compare(..., 1, cmp:"eq")` enforces the one-account bound. The selected path must also require current affirmative inclusion activity and the account result's ready category; a dormant ceiling does not enter this read. This is a concrete evaluator/schema pattern, but exact package admission/runtime remains subject to the bounded check.
 
@@ -170,66 +170,103 @@ rewrite them:
 | `filing-unit-owns-home` | Filing unit + home + tax year | Keep report-specific for now. No exact home/property key joins two reports; same borrowing alone does not prove one collateral home. |
 | `shared-main-home` | Filing unit + home + tax year | Keep report-specific for the same missing property identity; do not infer same home from a shared loan. |
 | `home-is-collateral` | This home–this loan relationship | Keep report-specific until the home side has an exact shared identity; the F1098 can describe more than one property. |
-| `owes-the-loan` | Filing unit + borrowing + tax year | Suitable for a new explicit borrowing-wide answer. |
-| `paid-the-interest` | Who paid the interest reported on this statement | Must remain report-local: amount and payment period differ by statement. |
-| `no-one-else-owes-it` | Other co-obligors on this borrowing for the filing unit/year | Suitable for a new explicit borrowing-wide answer. |
-| `what-the-money-paid-for` | The identified borrowing's proceeds/use | Suitable as a borrowing-level answer for the original borrowing. Preserve the existing categories; `other` does not authorize mixed-use allocation. |
-| `this-is-the-original-loan` | Borrowing lineage | Suitable as a borrowing-level answer, not a statement answer. Refinance treatment remains excluded. |
-| `mortgage-credit-certificate-received` | Filing unit + borrowing + tax year | Suitable as a new borrowing/year answer; do not generalize it to another loan. |
+| `owes-the-loan` | Filing unit + borrowing + tax year | Suitable for a new explicit borrowing-wide answer, scoped here to borrowing + tax year 2025. |
+| `paid-the-interest` | Who paid the interest reported on this statement | Retain report-local scope for this delivery: each statement's amount/payment evidence is separate. This does not rule out a future, separately asked annual-payment proposition. |
+| `no-one-else-owes-it` | Other co-obligors on this borrowing for the filing unit/year | Suitable as a new explicit borrowing-wide answer, scoped here to borrowing + tax year 2025. |
+| `what-the-money-paid-for` | The identified borrowing's proceeds/use | Suitable as a new borrowing + tax-year-2025 assertion for this route. Preserve categories; `other` does not authorize mixed-use allocation. Proceeds do not become different in another year. |
+| `this-is-the-original-loan` | Borrowing lineage | Suitable as a new borrowing + tax-year-2025 assertion for this route, not a statement answer. Lineage does not change merely because the route period changes; refinance treatment remains excluded. |
+| `mortgage-credit-certificate-received` | Filing unit + borrowing + tax year | Suitable as a new borrowing + tax-year-2025 answer; do not generalize it to another loan or year. |
 
-For these five suitable propositions, add separate ordinary facts with their
-actual borrowing (and where noted tax-year) identity and the existing answer
-value domains. Record them through ordinary evidence/contribution, correction
-and retraction; they are new explicit assertions, not promoted local findings.
-Keep the v1/v2 bundle meanings and report-local recorder unchanged. No property
-identity or new schema is proposed in this increment. The three property-scoped
-questions can be reconsidered only if a bounded, exact property subject is
-established; this design does not invent one.
+For one consistent exit boundary, give all five new assertions the exact
+`borrowing + tax-year=2025` identity in this bounded delivery. The annual key
+scopes their use in this return route; it does not assert that proceeds or
+lineage change each year. Clear-account therefore ends only this year's
+borrowing claim, links, ceiling and shared-answer assertions, never other-year
+claims. Record them through ordinary evidence/contribution, correction and
+retraction; do not promote local findings. Keep v1/v2 meanings and the
+report-local recorder unchanged. No property identity or schema is proposed.
+The new facts keep each adopted v2 answer vocabulary but remain distinct fact
+types: e.g. `owes-the-loan` and `no-one-else-owes-it` map `yes`/`no`/
+`cannot-tell`; use-of-proceeds keeps `bought-the-home`,
+`unrelated-personal-expense`, `other`, `cannot-tell`; the original-loan answer
+keeps `yes`/`no`/`cannot-tell`; and the certificate answer keeps
+`received`/`not-received`/`cannot-tell`. The linked-answer rule names the new
+fact type in each category literal. A successor reason rule explicitly maps
+that result to the existing reason branch; matching value spelling alone does
+not make fact types interchangeable.
 
-For a connected calculation, use the existing declared join rather than copy
-the shared assertion onto reports: the exact affirmative four-key report link
-is the rule `subject`; the shared answer (`borrowing + tax-year`, or
-`borrowing` for the two enduring loan propositions) is `joined`, with
-`direction: subject_contains_joined`. The link's extra report keys constrain
-which report can receive that shared support. Publish a derived per-link result
-under the link's keys, pinned to both the exact current link and shared-answer
-finding. The report member/result stage consumes that keyed intermediate with
-existing `reads_subject_results`; the existing numeric support/coverage and
-one line8a family collector remain the only amount path. A new report obtains
-no shared support until it has its own current exact link and the source family
-is reclosed. This is a concrete use of existing `subject`/`joined`,
-`subject_contains_joined`, and subject-result intermediates, not a claim that
-the proposed combined answer rule has been executed.
+The proposed transport has four keyed hops; only the return-level v14
+selection uses `reads_subject_results`:
 
-For the same suitable proposition, an explicit shared answer may satisfy the
-connected path when a report-local answer is absent. If a local answer exists
-and agrees, retain both independent findings and evidence; the connected path
-consumes the shared fact through the derived link result, not a copied local
-assertion. If they differ, do not choose “latest,” local, or shared by sort
-order: mark the linked member unresolved and ask the person to clarify/correct
-the scoped claim. Until resolved, no favorable connected subtotal. A correction
-to the shared fact displaces all derived link results that pinned its earlier
-finding and requires recomputation. Withdrawing it leaves connected support
-missing; local answers do not become an automatic substitute. Withdrawing one
-report link removes only that report's bridge; other links may remain current,
-but every current family member still has to satisfy the collector's exact
-coverage rule. A later linked report derives a fresh bridge from the still-
-current shared answer after closure/reclose. The material alternative—making
-shared always override local (or local always override shared)—would hide a
-genuine conflicting assertion or make the new shared answer ineffective; the
-clarification rule preserves both meanings.
+1. A shared-answer bridge has `subject: borrowing-inclusion@v1` (all four
+   report + borrowing keys), `joined: shared-answer-<p>@v1` (borrowing +
+   tax-year 2025), and `direction: subject_contains_joined`. It publishes a
+   new `linked-shared-answer-<p>@v1` under the four link keys, pinned to both
+   findings. Its type is distinct; its value must be explicitly translated
+   into the proposition's existing answer domain, not treated as the local
+   fact type.
+2. A per-link effective-answer rule uses the affirmative four-key link as
+   `subject` and joins the exact three-key Box1 report using
+   `subject_contains_joined`. The dispatcher scopes local answers to that
+   report. In subject dispatch, `_scope` installs identity-matched source rows
+   in that subject's local environment; its closed-family `count` can therefore
+   test whether each exact report answer exists. Existing
+   `conditional_dependency_set` can conditionally read local and linked-shared
+   refs. The value handles local-only, shared-only, agreeing-both,
+   conflicting-both, and neither; neither blocks. It publishes an
+   `effective-answer-<p>@v1` derived fact at the four link keys. Its value is
+   translated to the exact adopted answer domain (for example `bought-the-home`
+   remains that answer value but is named as a category of the new effective
+   fact type).
+3. The connected successor reason rule keeps `subject: Box1@v1` (three report
+   keys), joins the exact inclusion@v1 (four keys) with
+   `joined_contains_subject`, and requires the keyed effective-answer facts
+   plus the four existing local facts for property ownership, shared main
+   home, collateral, and paid interest. It outputs
+   `residence-interest-reason@v2` at the three report keys, mapping
+   each new fact type/value explicitly into the existing reason branches and
+   output categories. A separate per-link numeric support rule has the
+   inclusion's four-key subject, joins that same Box1 report with
+   `subject_contains_joined`, and reduces its exact report reason plus shared
+   checks to numeric support at the link keys.
+4. Account readiness has the two-key `continuing-borrowing@v1` subject, joins
+   four-key inclusions with `joined_contains_subject`, and requires that
+   account/year's ceiling. It uses `link_coverage` with numeric support
+   reductions keyed by all four link keys and the separately counted exact
+   links. It publishes readiness under borrowing + tax year.
+5. Per-Box1 outcome-count rules and a per-Box1 status rule publish status under
+   the three report keys. The return-level line8a selection declares
+   `reads_subject_results` for those Box1 statuses and the two-key account
+   readiness; it checks every family member and the one/two bound before the
+   sole collector sums Box1 once. A late report needs its own exact link and
+   family reclose before deriving support.
+
+When local and shared values are both current, compare them in the same
+proposition domain. Conflicting affirmations require clarification; a
+`cannot-tell` value is unresolved, not contrary. Do not choose by save order.
+If a shared claim is corrected or withdrawn, its linked bridge ceases to be
+current. Independently recorded, still-current local answers remain eligible
+if they alone provide sufficient support and no current contradiction or
+uncertainty is hidden. The discriminating case is A/B with independently valid,
+agreeing local answers followed by shared-answer withdrawal: the locals remain
+available. If their local values conflict, or either is uncertain, do not
+produce favorable support. Property-scoped and paid-interest answers are not
+compared to borrowing-wide answers because their scopes differ. Withdrawing
+one report link removes only that link's bridge; all current family members
+still need exact coverage.
 
 **Explicit clear-account action.** “Stop connecting these reports through this
 borrowing” names the current borrowing and previews the exact current links and
 shared claims to be ended. It is not a negative answer, link withdrawal, debt-
 absence answer, report deletion, or history erasure. In one revision-checked
-batch, the proposed recorder retracts the current continuing-borrowing claim,
-all current relationship-outcome findings for that account/year's report
-pairs, its borrowing-wide answer findings and its annual ceiling. It retains
+batch, the proposed recorder retracts the current 2025 continuing-borrowing
+claim, all current relationship-outcome findings for that account/year's
+report pairs, its 2025 borrowing-wide answer findings and annual ceiling. It retains
 the opaque entity introduction and all past findings/evidence/retractions;
 retains Form 1098 source findings, Box 1/2/3, all nine local answers and their
 evidence; and retains the return-wide other-debt answer as an independent
-claim—not as “no debt.” This uses the existing `finding-retracted` and
+claim—not as “no debt.” It does not touch this borrowing's claims for another
+year. This uses the existing `finding-retracted` and
 `append_batch(expected_revision=...)`/`_stage_retractions` pattern: read the
 current log, reject incomplete tails or stale revisions, select only findings
 whose structured keys exactly match the confirmed account/year, then commit
@@ -247,15 +284,14 @@ remain current, neither the singleton route nor a connected group route may
 sum them: with no active account links, the sole line8a producer blocks and
 line12e has no favorable subtotal. No report answers are copied or erased.
 
-The cheapest distinguishing payloads are: (1) two linked reports with matching
-local answers but no shared claim (no inferred shared authority); (2) one
-explicit shared answer through exact A links while B has the same values but a
-different borrowing (B cannot inherit A's support); (3) local/shared
-disagreement in both save orders (same clarification block); (4) correction or
-withdrawal of shared support, then a late exact link and reclose (all prior
-bridges stale, only current links rederive); and (5) clear-account with one
-versus two current reports (legacy singleton only in the first). These cases
-separate existing prototype evidence from new propositions. Content work adds
+The cheapest distinguishing payloads are: (1) local answers only, with no
+inferred shared authority; (2) shared answer present where one suitable local
+answer is missing; (3) one shared A answer while B has matching values but a
+different borrowing; (4) disagreement in both save orders plus
+cannot-tell-versus-affirmation; (5) shared-answer withdrawal followed by valid
+local A/B answers, and a later exact link/reclose; and (6) clear-account with
+one versus two current reports (legacy singleton only in the first). These
+cases separate existing prototype evidence from new propositions. Content work adds
 the five scope-correct facts, per-link bridge/conflict and route dependencies;
 recorder work adds explicit shared-answer operations and one atomic clear
 batch; reader work adds a shared-answer panel with period, exact linked reports,

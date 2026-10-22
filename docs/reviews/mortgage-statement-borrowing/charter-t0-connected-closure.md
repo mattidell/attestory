@@ -201,6 +201,40 @@ successful cases. The independent Sol connected-design unit reviews the
 complete foundation plus restored work after this return and its approved
 bounded check, not every paper refinement.
 
+### First restored-work discriminator
+
+The refined paper return is sufficient to test, not to call the mechanism
+settled. Use the existing T0 disposable surface and assigned probe/results to
+validate the complete candidate and execute these first distinct cases:
+
+| Case | Expected observation |
+| --- | --- |
+| One connected report, one suitable local answer absent, shared answer present | The actual reason and amount use the shared claim through that exact link; no supplied local stand-in. |
+| Both independent answers present and agreeing | The amount remains supported, with actual selected support visible. |
+| Both present and contrary, in both assertion orders | Same unresolved/blocked member, never order-based selection. |
+| Shared answer ended, independent sufficient local answer still current | Local support remains usable without recreating the shared assertion. |
+| A non-yes/no shared answer, such as proceeds use | Exact categorical typing/mapping works; no assumption of category equivalence. |
+
+Validate declarations for all five proposed shared answer types. Start with
+the smallest executable optional-input composition before expanding to the
+full set. A Form 1098 closure authorizes its member Box1 count; it does not
+automatically authorize counting any ordinary-answer fact. The paper's
+local-source-presence count is still unproved: inspect declared joined
+`link_count` or another existing admissible presence mechanism, not a false
+family-completeness claim. Likewise `conditional_dependency_set` only controls
+dependency access; it is not itself a test of the truth of its members. Do not
+put both optional inputs in unconditional `requires` or allow a missing shared
+bridge to preempt a valid local branch. Trace actual scheduling and pins.
+
+Keep a single report reason/line8a producer, no duplicate competing outputs,
+and preserve the measured integrity gate and true-empty route. Supplied
+assertions/end states stay labelled supplied. If the first composition does
+not pass normal schema/package admission, retain its rejection and smallest
+concrete constraint; no engine/schema expansion or manually supplied derived
+result. Return this increment before A/B cross-account, late-link/correction,
+and explicit exit experiments. Those remain required subsequent cases, not
+deferred out of scope or silently claimed by this first discriminator.
+
 ## Context Capsule
 
 - Source ref HEAD, resolved and checked at launch; branch
