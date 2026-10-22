@@ -3,7 +3,7 @@
   "version": 1,
   "phase": "Tax Circumstance Breadth",
   "topic": "mortgage-statement-borrowing",
-  "status": "Owner selected A: nine report-local ordinary answers plus the common borrowing account. P2 now tests the six-case content-only real-path candidate; B deferred. No production or schema successor selected.",
+  "status": "Owner selected A. P2 six-case content experiment executed: baseline derives 11000 with two-report pins but singleton presentation rejects it; five negatives block. Sol independently reviews the evidence next. No production or schema successor selected.",
   "scope": [
     "extend the existing ordinary mortgage account to a bounded same-borrowing multiple-report case",
     "preserve report amounts, loan-level circumstances and their separate correction lifecycles",
@@ -224,13 +224,15 @@ retains the cost and provenance distinction.
   deliberate limit for owner disposition before production, not permanent
   routing by implication. The experiment does not build an exit, and
   withdrawal must not silently resume a favorable legacy route.
-- Run the selected six-case option-A experiment under
-  [the P2 charter](../../../reviews/mortgage-statement-borrowing/charter-p2-option-a-experiment.md):
-  positive baseline, contrary B answer, missing B membership, principal/ceiling
-  conflict, loose ceiling and conflicting Box 3 dates. Omit the shared-answer
-  intermediate and its producer-removal control. Raw synthetic inputs are
-  supplied; derived results must actually execute. This is not an ordinary-
-  recorder or saved-reader delivery.
+- Independently review the [executed P2 experiment](mortgage-statement-borrowing-evidence/p2-option-a-results.md)
+  under the existing P1 review unit. Its baseline derived $11,000 through a
+  readiness selection plus one ordinary family-authorized collector, but the
+  singleton mortgage projector rejected the multi-report result; no durable
+  baseline report/model exists. All five isolated mutations withheld the
+  amount and completed durable output. The source assertions were supplied;
+  recorder, lifecycle and group-reader delivery remain unproved. Box 3
+  disagreement currently blocks on an absent common scalar, not a saved
+  conflict-specific explanation.
 - Then settle the integration cost and complete Track 0 adversarial closure
   before any production charter. Do not commission further rounds merely to
   refine paper. A demonstrated need for allocation, refinancing, general

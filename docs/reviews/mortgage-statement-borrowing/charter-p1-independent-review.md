@@ -72,6 +72,32 @@ in the account from an existing limitation the proposed experiment tests.
 
 ## Following the experiment
 
+Current continuation object: P2's `p2-option-a-probe.py` and
+`p2-option-a-results.md` in the milestone evidence directory, their retained
+synthetic content/inputs/outputs, and the plan's current Design state. The
+owner selected A. Review the actual evidence, not a repeat of the P1 paper
+review or P0. The launch ref resolves the committed experiment and this note.
+
+Specifically check all nine report-local input chains, not only the final
+$11,000. The candidate now uses a selection rule for readiness plus one
+ordinary, family-authorized line8a collector. Verify the actual package-
+validation dependency requirement behind that split; a readiness rule must
+not collect a family amount under a new symbol. Baseline derivation completed
+but the singleton mortgage projector rejected its multi-report pins. Its
+observed finding is extracted from the actual exception-frame RunResult and
+correlated with the durable completed record; this is not a durable baseline
+report or reader. The five negatives have ordinary durable output. Verify
+that all mutations reached their intended condition rather than being masked
+by another failure. Box 3 disagreement blocks on the unbound common scalar;
+do not equate that with a recorded, conflict-specific explanation.
+
+Judge readiness to consolidate the production design and Track 0 obligations,
+not production acceptance. Identify material missing evidence versus clearly
+retained recording, lifecycle, reader or compatibility work. Inspect existing
+evidence first. Re-execute only a specific disputed claim if needed, never
+the entire six-case set just to confirm it. No production edit, new prototype,
+schema allocation or suite. Append the P2 disposition to your existing report.
+
 The owner's outside review adds an answer-scope choice before execution.
 Use the selected option in the repaired P1 account: report-local ordinary
 answers omit the shared-answer bridge/control; genuinely shared assertions

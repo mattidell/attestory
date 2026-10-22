@@ -5,9 +5,9 @@
   "topic": "mortgage-statement-borrowing",
   "active_plan": "docs/phases/tax-circumstance-breadth/milestones/mortgage-statement-borrowing.md",
   "milestone_state": "track-0",
-  "status": "Owner selected A: nine report-local ordinary answers plus the common borrowing account. P2 now tests the six-case content-only real-path candidate; B deferred. No production or schema successor selected.",
-  "current_role": "Builder — Luna P2 option-A real-path experiment",
-  "current_prompt": "docs/reviews/mortgage-statement-borrowing/charter-p2-option-a-experiment.md"
+  "status": "Owner selected A. P2 six-case content experiment executed: baseline derives 11000 with two-report pins but singleton presentation rejects it; five negatives block. Sol independently reviews the evidence next. No production or schema successor selected.",
+  "current_role": "Reviewer — Sol P2 option-A experiment evidence",
+  "current_prompt": "docs/reviews/mortgage-statement-borrowing/charter-p1-independent-review.md"
 }
 -->
 
@@ -35,8 +35,13 @@ scoped-answer pattern before an admission allowlist, requires linked Box 3
 dates to agree, preserves genuine closed-empty behavior, and names the
 unsupported connected-route exit as a deliberate proposed limit. The owner
 selected A: keep the nine ordinary answers report-local, retaining B as a
-possible later extension. P2 now runs the six-case existing-content-path
-experiment; it omits the shared-answer bridge and producer-removal control. The numeric annual ceiling
+possible later extension. P2 executed the six-case content-path experiment;
+it omits the shared-answer bridge and producer-removal control. The baseline
+derived $11,000 with both reports in its pins, then the current singleton
+mortgage projector rejected that lineage. The completed record and a
+forensically captured in-memory finding are retained, but no durable baseline
+report/model exists. Five negatives withheld the amount and saved their
+reports/models. Independent Sol review of that evidence is next. The numeric annual ceiling
 and separate other-debt account remain provisional, not observed user inputs.
 No production path or schema successor is selected.
 
