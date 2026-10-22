@@ -59,8 +59,51 @@ declaration, charters, phase-state pointers and commits.
 
 ## Boundary and handoff
 
+## Bounded declaration check after the paper return
+
+Foreman review found that the returned account expression repeats `link_count`,
+which package validation explicitly forbids. The report-status composition
+also remains unvalidated. Settle those two compositions by using existing
+declared intermediate rules where needed, then validate a disposable complete
+package. Do not infer a new grammar requirement from the number of occurrences
+in one proposed rule. One count per dedicated rule can be investigated; four
+outcome carriers must still remain exact-report scoped, not matched on an
+ambiguous statement label or tax year alone.
+
+This continuation authorizes one bounded synthetic declaration experiment,
+not production. Write its brief actions into the assigned contract first.
+Reuse P2/P3 harness and successful consumer overlay without rerunning their
+unchanged cases. Assigned additional files, if needed:
+`mortgage-statement-borrowing-evidence/t0-dynamic-binding-probe.py` and
+`t0-dynamic-binding-results.md` beside the contract. Generated candidate
+content, workspaces and output stay under ignored `temp/`.
+
+First obtain normal schema and package validation of the complete candidate.
+Then use the actual coordinator and supplied demo claims with structured keys
+to distinguish: supported connected pair; intended A ceiling missing beside
+unrelated B ceiling; valid A beside dormant B ceiling; remaining supported A
+after B source/link end; current A with a withdrawn link; genuine closed-empty
+with withdrawn old links; and closed-empty with a still-affirmed orphan.
+Check the actual line8a, Schedule A total and line12e outcomes, not just a
+helper result. If a materially distinct candidate path needs an additional
+small discriminator, explain it before running it. Do not rerun a passing
+case to confirm it. Record supplied assertions separately from derived values;
+this does not demonstrate the future mortgage recorder.
+
+No evaluator, runner, validator, marshal, published schema or production
+content edits, runtime patches to those components, or hand-built run context.
+The existing presentation-only overlay remains an explicit experimental
+boundary. Missing raw inputs may not be filled manually after a run starts.
+If exact existing declarations cannot pass admission or preserve the required
+meaning, return the rejection and smallest demonstrated constraint. Do not
+expand the engine or invent a stand-in. Return before further scope decisions.
+
+Repair the contract against what actually validated/executed. Independent Sol
+review follows this connected return, not every attempted expression.
+
 No production code/content, package/test/configuration edits, public schemas,
-new prototypes, coordinator runs, suite or browser work in this first return.
+suite or browser work. The first paper return prohibited execution; only the
+bounded continuation above now permits a disposable package/coordinator check.
 Do not spawn, stage or commit. Return the changed path, exact remaining
 decisions, any demonstrated mechanism limit and approximate tool/turn count.
 Independent Sol delta review follows consolidation, not each paragraph.

@@ -5,7 +5,7 @@
   "topic": "mortgage-statement-borrowing",
   "active_plan": "docs/phases/tax-circumstance-breadth/milestones/mortgage-statement-borrowing.md",
   "milestone_state": "track-0",
-  "status": "Track 0 contract draft is under bounded repair: make numeric coverage and the global amount gate concrete, preserve intended borrowing identity and correct empty/withdrawal transitions. Owner deferred clear-account. No production or visible group reader built.",
+  "status": "Track 0 contract repair now includes one bounded disposable declaration check: validate actual counts and keyed fan-in, then test dynamic loan support and empty/withdrawal transitions. Owner deferred clear-account. No production or visible group reader built.",
   "current_role": "Builder — Luna Track 0 connected contract consolidation",
   "current_prompt": "docs/reviews/mortgage-statement-borrowing/charter-t0-connected-closure.md"
 }

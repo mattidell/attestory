@@ -255,6 +255,13 @@ retains the cost and provenance distinction.
   an affirmative orphan without making a withdrawn old link an orphan.
   These are unexecuted declaration obligations, not a demonstrated engine
   gap or a change to the product goal. Complete Track 0 before production.
+  The paper return repeated a `link_count` node that package validation
+  permits only once, and left the multi-outcome report status unvalidated.
+  Settle that composition in one bounded disposable package/coordinator
+  check under the same charter, using existing intermediate rules if needed.
+  Test dynamic borrowing collisions and the connected-singleton, withdrawn,
+  true-empty and affirmative-orphan boundaries. Reuse reviewed P2/P3 evidence;
+  supplied relationship claims are still not production recorder proof.
   Do not commission further rounds merely to
   refine paper. A demonstrated need for allocation, refinancing, general
   identity or broader engine work returns as an owner scope choice.
