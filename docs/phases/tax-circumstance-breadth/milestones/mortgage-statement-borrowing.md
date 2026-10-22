@@ -168,6 +168,18 @@ P0 must identify exact tested package/release versions: the README mortgage
 example and the later consolidated package are distinct baselines. A working
 historical fixture is not proof of latest-package integration.
 
+P0's first source/path account is reviewed for continuation to the bounded
+check ([working account](mortgage-statement-borrowing-evidence/p0-current-account.md)).
+It distinguishes Publication 936's throughout-the-year full-deduction branch
+from Part II's limited-debt calculation. The current single-report route
+explicitly assumes Box 2 represents acquisition debt throughout the year;
+not implementing an average-balance calculator is not by itself a defect in
+that bounded route. How two reports support a loan-wide premise remains open.
+The investigation will now exercise one report, two reports and an over-limit
+principal through the real recorder/coordinator. Synthetic setup and selected
+answers are not evidence that the application obtained a same-loan account.
+No product goal or production mechanism has changed.
+
 Before design selection, P0 must identify which balance/debt proposition is
 needed, how it can be supported, what the user can reasonably affirm, and where
 the adopted path stops. Before production, settle the representation, authority,
