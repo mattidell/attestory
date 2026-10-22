@@ -3,7 +3,7 @@
   "version": 1,
   "phase": "Tax Circumstance Breadth",
   "topic": "mortgage-statement-borrowing",
-  "status": "Core-v50 candidate passes A/B ceiling derivation checks and saves both repaired, keyed-support models. Four lifecycle/empty/orphan cases and four-outcome integration remain open. Clear-account deferred; no production built.",
+  "status": "Rebased onto PR #218/core v51. Prior core-v50 evidence retained; current-base candidate update, four lifecycle/empty/orphan cases and four-outcome integration remain open. Clear-account deferred; no production built.",
   "scope": [
     "extend the existing ordinary mortgage account to a bounded same-borrowing multiple-report case",
     "preserve report amounts, loan-level circumstances and their separate correction lifecycles",
@@ -163,7 +163,29 @@ The high-level goal is unchanged: keep two reports about one continuing home
 borrowing separate while calculating and explaining their supported interest
 treatment. No production path or schema successor has been selected.
 
-### Current base after PR #217
+### Current base after PR #218
+
+The branch now includes the merged senior/dependent-deduction milestone:
+core calculations **v51**, registry **v49**, release **v49**. Mortgage
+contracts and the 26 input bindings are unchanged. Preserve every adopted
+member, including standard deduction v3 and line13b v2, when extending this
+base. The newer dependent worksheet needs an explicit synthetic answer to
+`standard-deduction.can-be-claimed-as-dependent`; the older student-loan
+"is claimed" answer is not interchangeable. Supply the separate
+`schedule1a.no-parts-ii-iv-deductions-declared` answer where needed. These are
+labelled fixture assertions, not new defaults or a selected intake policy.
+Inspect conditional SSN dependencies if reached; do not change the case to
+evade a missing dependency.
+
+Before continuing the remaining cases, validate one supported pair on this
+changed consumer base and inspect its saved outcomes and exact pins. Keep
+the previous observations below as historical evidence, not current-base
+proof. The old P2 helper's temporary v51 now collides with an adopted package:
+the T0 caller must explicitly select unused intermediate and final temporary
+versions, without replacing published bytes or reserving production versions.
+Historical helper defaults and results stay intact.
+
+### Retained evidence on the preceding base
 
 This branch is rebased onto the merged 2025 tax-calculation milestone. The
 adopted base is now core calculations **v50**, package registry **v48** and
@@ -208,7 +230,7 @@ recorded package hashes. Their synthetic v50–v55 package numbers describe
 disposable content, **not** the now-published core v50 or reservations of
 future production versions. Do not rewrite those observations or overwrite
 published content. Preserve historical helper defaults; make the current T0
-candidate explicitly choose its v50 base. Production takes the next unused
+candidate explicitly choose the current adopted base. Production takes the next unused
 package and registry versions when its unit is actually chartered.
 
 ### Settled understanding and its grounds

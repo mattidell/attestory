@@ -103,23 +103,34 @@ review follows this connected return, not every attempted expression.
 
 ### Rebased package continuation
 
-PR #217 is now the ratified base: core v50, registry v48, release v48.
+PR #218 is now the ratified base: core v51, registry v49, release v49.
 Remaining T0 checks must preserve those adopted members and new parameter
-pins. The prior v49-derived candidate remains historical evidence, not a
+pins, including standard-deduction v3 and line13b v2. Prior v49/v50-derived
+candidates remain historical evidence, not a
 current-base result. Keep its recorded observations and historical helper
 defaults. This continuation additionally permits a backward-compatible base
-selection argument on `p2-option-a-probe.py`'s disposable materialization
+and candidate-version selection argument on `p2-option-a-probe.py`'s disposable materialization
 helper, if needed by the T0 driver; do not change that helper's v49 default
-or rerun its old cases. No production package or published schema edits.
+or rerun its old cases. Its default temporary v51 is now adopted: explicitly
+choose unused intermediate and final temporary versions at the T0 caller,
+and carry them consistently through files, registry, release and checksums.
+Do not overwrite adopted v51, mutate a global to hide the collision, or reserve
+a production version. No production package or published schema edits.
 
-First build and validate the v50-derived candidate, then run its supported
+Supply explicit synthetic `standard-deduction.can-be-claimed-as-dependent`
+and, where consumed, `schedule1a.no-parts-ii-iv-deductions-declared` answers.
+The older SLI "is claimed" answer does not establish "can be claimed".
+Label these supplied, not defaulted or derived. Inspect conditional SSN
+dependencies rather than fabricating a favorable default.
+
+First build and validate the v51-derived candidate, then run its supported
 pair once because the consumer base changed. Inspect actual line8a, line12e
 and attachment dispositions, the new standard-deduction value and the exact
 package/rule/parameter pins. Continue with the two A/B ceiling cases, then the
 four connected-singleton/withdrawn/empty/orphan cases already chartered. The
 four-outcome status must actually be consumed before claiming its runtime
 semantics. Record each candidate's base and final checksums explicitly; do
-not identify the old synthetic v50 package with ratified core v50.
+not identify historical synthetic package numbers with adopted versions.
 
 ### Repair the observed shared-support display
 

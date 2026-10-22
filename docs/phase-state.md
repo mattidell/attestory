@@ -5,7 +5,7 @@
   "topic": "mortgage-statement-borrowing",
   "active_plan": "docs/phases/tax-circumstance-breadth/milestones/mortgage-statement-borrowing.md",
   "milestone_state": "track-0",
-  "status": "Core-v50 candidate passes A/B ceiling derivation checks and saves both repaired, keyed-support models. Four lifecycle/empty/orphan cases and four-outcome integration remain open. Clear-account deferred; no production built.",
+  "status": "Rebased onto PR #218/core v51. Prior core-v50 evidence retained; current-base candidate update, four lifecycle/empty/orphan cases and four-outcome integration remain open. Clear-account deferred; no production built.",
   "current_role": "Builder — Luna Track 0 connected contract consolidation",
   "current_prompt": "docs/reviews/mortgage-statement-borrowing/charter-t0-connected-closure.md"
 }
@@ -62,13 +62,16 @@ The first disposable dynamic-account candidate now validates and publishes
 the supported pair through line8a, Schedule A total and line12e. Its four-
 outcome report-status composition was validated separately and is not yet
 combined with this runtime candidate; remaining evidence is described below.
-The owner approved rebasing onto PR #217. The ratified package base is now
-core v50 / registry v48 / release v48. Continue the bounded candidate on that
-base and verify its saved result with the updated standard deduction before
-the remaining cases; do not downgrade the newer tax content by cloning v49.
-Earlier disposable package numbers are historical checksummed prototypes,
-not the published core v50 or future-version reservations.
-The new-base positive now validates as disposable v56: line8a is $11,000 and
+The branch now includes PR #218: core v51 / registry v49 / release v49.
+Update the bounded candidate without reverting adopted member pins. The new
+dependent worksheet requires its own explicit synthetic answer, distinct from
+the older SLI "is claimed" answer; the narrowed Schedule 1-A declaration is
+separate too. These are fixture inputs, not new default policy. Validate one
+supported pair on this changed base before the remaining cases. Avoid the
+old temporary v51 collision by selecting unused disposable versions explicitly.
+Earlier package numbers remain historical checksummed prototypes, not adopted
+versions or future-version reservations.
+The preceding core-v50 positive validates as disposable v56: line8a is $11,000 and
 line12e is $15,750 with the standard-deduction v2/verified parameter pins.
 All non-mortgage member pins from core v50 are retained. Line16 remains
 blocked by unrelated missing fixture inputs; this is not tax-computation
