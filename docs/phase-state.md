@@ -5,9 +5,9 @@
   "topic": "mortgage-statement-borrowing",
   "active_plan": "docs/phases/tax-circumstance-breadth/milestones/mortgage-statement-borrowing.md",
   "milestone_state": "track-0",
-  "status": "Owner selected A. P2 six-case content experiment executed: baseline derives 11000 with two-report pins but singleton presentation rejects it; five negatives block. Sol independently reviews the evidence next. No production or schema successor selected.",
-  "current_role": "Reviewer — Sol P2 option-A experiment evidence",
-  "current_prompt": "docs/reviews/mortgage-statement-borrowing/charter-p1-independent-review.md"
+  "status": "Owner selected A. Sol accepted the P2 content experiment at its bounded evidence ceiling. Consolidate the production design and test the missing saved group explanation before Track 0 closure. No production or schema successor selected.",
+  "current_role": "Builder — Luna connected contract and saved-model feasibility",
+  "current_prompt": "docs/reviews/mortgage-statement-borrowing/charter-p3-contract-and-saved-model.md"
 }
 -->
 
@@ -41,7 +41,11 @@ derived $11,000 with both reports in its pins, then the current singleton
 mortgage projector rejected that lineage. The completed record and a
 forensically captured in-memory finding are retained, but no durable baseline
 report/model exists. Five negatives withheld the amount and saved their
-reports/models. Independent Sol review of that evidence is next. The numeric annual ceiling
+reports/models. Independent Sol review accepted those findings for connected
+design consolidation, not production readiness. Next, settle the recording,
+lifecycle and route contract and test the missing saved group explanation.
+The externally bound line8a result needs a valid model through its actual
+consumer before Track 0 can close. The numeric annual ceiling
 and separate other-debt account remain provisional, not observed user inputs.
 No production path or schema successor is selected.
 

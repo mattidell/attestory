@@ -3,7 +3,7 @@
   "version": 1,
   "phase": "Tax Circumstance Breadth",
   "topic": "mortgage-statement-borrowing",
-  "status": "Owner selected A. P2 six-case content experiment executed: baseline derives 11000 with two-report pins but singleton presentation rejects it; five negatives block. Sol independently reviews the evidence next. No production or schema successor selected.",
+  "status": "Owner selected A. Sol accepted the P2 content experiment at its bounded evidence ceiling. Consolidate the production design and test the missing saved group explanation before Track 0 closure. No production or schema successor selected.",
   "scope": [
     "extend the existing ordinary mortgage account to a bounded same-borrowing multiple-report case",
     "preserve report amounts, loan-level circumstances and their separate correction lifecycles",
@@ -216,16 +216,18 @@ retains the cost and provenance distinction.
 
 ### Open evidence and next action
 
-- Test the existing student-loan `rule.sli-answer-status-*.json` pattern:
+- P2 tested the existing student-loan `rule.sli-answer-status-*.json` pattern:
   declared `joined` and `direction: joined_contains_subject` already cause
-  keyed source admission. Prefer that real content path to a new
-  Form-1099-K-style allowlist unless it demonstrably fails for these inputs.
+  keyed source admission. Its own-report dependency chains are independently
+  verified; a new Form-1099-K-style admission allowlist is not needed for
+  the tested inputs.
 - The proposed path has no supported clear-account exit yet. This is a
   deliberate limit for owner disposition before production, not permanent
   routing by implication. The experiment does not build an exit, and
   withdrawal must not silently resume a favorable legacy route.
-- Independently review the [executed P2 experiment](mortgage-statement-borrowing-evidence/p2-option-a-results.md)
-  under the existing P1 review unit. Its baseline derived $11,000 through a
+- Sol accepted the [executed P2 experiment](mortgage-statement-borrowing-evidence/p2-option-a-results.md)
+  under the existing P1 review unit, for production-design consolidation only.
+  Its baseline derived $11,000 through a
   readiness selection plus one ordinary family-authorized collector, but the
   singleton mortgage projector rejected the multi-report result; no durable
   baseline report/model exists. All five isolated mutations withheld the
@@ -233,8 +235,11 @@ retains the cost and provenance distinction.
   recorder, lifecycle and group-reader delivery remain unproved. Box 3
   disagreement currently blocks on an absent common scalar, not a saved
   conflict-specific explanation.
-- Then settle the integration cost and complete Track 0 adversarial closure
-  before any production charter. Do not commission further rounds merely to
+- Next consolidate the production obligations and test the missing group
+  presentation through a bounded prototype. A valid form-facing model is
+  required before Track 0 can close; the recorded calculation alone is not
+  enough. Settle integration cost and lifecycle/compatibility cases before
+  any production charter. Do not commission further rounds merely to
   refine paper. A demonstrated need for allocation, refinancing, general
   identity or broader engine work returns as an owner scope choice.
 
