@@ -3,7 +3,7 @@
   "version": 1,
   "phase": "Engine Breadth",
   "topic": "senior-and-dependent-deductions",
-  "status": "Track 1 complete: the senior deduction on core v51. Track 2 adds the dependents' worksheet to the same package.",
+  "status": "Closed. On core v51 the enhanced deduction for seniors (Schedule 1-A Part V) reaches line 13b and a dependent's standard deduction is computed on line 12e, from four new questions. Earlier packages keep their results.",
   "scope": [
     "compute the 2025 enhanced deduction for seniors (Schedule 1-A Part V) and carry it to Form 1040 line 13b, as successor content",
     "compute a dependent's limited standard deduction on line 12e when someone can claim the taxpayer or spouse as a dependent",
@@ -37,7 +37,8 @@
       "docs/phases/engine-breadth/milestones/senior-and-dependent-deductions.md",
       "docs/phases/engine-breadth/coverage-frontier.md"
     ]
-  }
+  },
+  "retrospective": "docs/milestone-retrospectives/2026-10-22-senior-and-dependent-deductions.md"
 }
 -->
 
@@ -225,3 +226,21 @@ $3,000 of wages is $7,450 ($3,450 plus two $2,000 single additional amounts).
 - `tax.us.2025.sli-scope.not-claimed-as-dependent` asks whether the filer "is
   claimed", where the law and the new dependent answer say "can be claimed",
   including the spouse on a joint return. Two answers now carry one concept.
+
+## Execution record
+
+- P0: law and input path verified; no engine change needed.
+- Track 1: Schedule 1-A Part V lines 33-37, line 13b v2, the four questions
+  and the v51 package chain; 14 real-path cases.
+- Track 2: the dependents' worksheet lines 1-4c and standard deduction v3,
+  built from worksheet lines 3, 4b and 4c; 11 real-path cases including the
+  identity with v50 for every filing status. A repair gated line 1's spouse
+  boxes like v2 and shrank v3 from 8.8KB to 4.5KB.
+- Goldens: two v51 saved presentations (joint, both 65 or older; a dependent
+  aged 66 and blind) with explanation walks.
+
+## Outcome
+
+Closed 2026-10-22. On core v51 a senior's line 13b and a dependent's line 12e
+follow 2025 law. See the
+[retrospective](../../milestone-retrospectives/2026-10-22-senior-and-dependent-deductions.md).
