@@ -32,6 +32,13 @@ CARRIERS = {
     "unknown": "demo.tax.2025.f1098.borrowing-unresolved",
     "withdrawn": "demo.tax.2025.f1098.borrowing-withdrawn",
 }
+BASE_PACKAGE_VERSION = "v50"
+BASE_REGISTRY_FILENAME = "published-packages.v48.json"
+BASE_RELEASE_VERSION = "v48"
+P2_CANDIDATE_REGISTRY_FILENAME = "published-packages.p49-p2.json"
+T0_PACKAGE_VERSION = "v56"
+T0_REGISTRY_FILENAME = "published-packages.t0-p56.json"
+T0_RELEASE_VERSION = "v6"
 
 
 def read(path: Path) -> dict[str, Any]:
@@ -129,7 +136,7 @@ def add_status_composition(members: Path) -> dict[str, Any]:
     package["package_checksum"] = package_instance_checksum(package)
     write(package_path, package)
 
-    registry_path = members / "published-packages.p48-p2.json"
+    registry_path = members / P2_CANDIDATE_REGISTRY_FILENAME
     registry = read(registry_path)
     changed = [bundle, *new_rules]
     changed_keys = {(citizen["id"], citizen["version"]) for citizen in changed}
@@ -376,7 +383,7 @@ def add_dynamic_account_candidate(surface: Any, acts: list[dict[str, Any]]) -> d
     write(bundle_path, bundle)
     package["package_checksum"] = package_instance_checksum(package)
     write(package_path, package)
-    registry_path = members / "published-packages.p48-p2.json"
+    registry_path = members / P2_CANDIDATE_REGISTRY_FILENAME
     registry = read(registry_path)
     changed = [bundle, *new_rules, empty_parameter, principal]
     changed_keys = {(citizen["id"], citizen["version"]) for citizen in changed}
@@ -418,7 +425,7 @@ def add_p3_consumers(surface: Any, acts: list[dict[str, Any]], p3: Any) -> tuple
     attachment["completeness"]["required_answers"] = kept
     attachment_v2_path = members / "attachment.schedule-a.v2.json"
     write(attachment_v2_path, attachment)
-    package["version"] = "v55"
+    package["version"] = T0_PACKAGE_VERSION
     for collection in (package["members"], package["entrypoints"]):
         for row in collection:
             if row.get("id") == "tax.us.2025.rule.form1040-line12e" and row.get("version") == "v1":
@@ -434,33 +441,33 @@ def add_p3_consumers(surface: Any, acts: list[dict[str, Any]], p3: Any) -> tuple
             row["version"] = "v2"
         if row.get("id") == "tax.us.2025.rule.attachment.schedule-a":
             row["version"] = "v2"
-    registry = read(members / "published-packages.p48-p2.json")
+    registry = read(members / P2_CANDIDATE_REGISTRY_FILENAME)
     registry["citizens"].append({"id": line12e["id"], "version": "v2", "checksum": citizen_checksum(line12e)})
     registry["citizens"].append({"id": attachment["id"], "version": "v2", "checksum": citizen_checksum(attachment)})
     package["package_checksum"] = package_instance_checksum(package)
     registry["packages"].append({"id": package["id"], "version": package["version"], "checksum": package["package_checksum"]})
-    registry_path = members / "published-packages.t0-p55.json"
+    registry_path = members / T0_REGISTRY_FILENAME
     write(registry_path, registry)
-    package_path = members / "package.core-calculations.v55.json"
+    package_path = members / f"package.core-calculations.{T0_PACKAGE_VERSION}.json"
     write(package_path, package)
-    release = {"schema": "release-registry.v1", "id": P2.BRIDGE_RELEASE_ID, "version": "v5",
+    release = {"schema": "release-registry.v1", "id": P2.BRIDGE_RELEASE_ID, "version": T0_RELEASE_VERSION,
         "package_registry_sha256": hashlib.sha256(registry_path.read_bytes()).hexdigest()}
-    release_path = releases / f"{P2.BRIDGE_RELEASE_ID}.v5.json"
+    release_path = releases / f"{P2.BRIDGE_RELEASE_ID}.{T0_RELEASE_VERSION}.json"
     write(release_path, release)
     # Rebind the supplied package adoption; no user data is added after the run begins.
     acts = p3._add_schedule_a_boundary_declarations(acts)
     adoption = next(act for act in acts if act.get("kind") == "package-adoption"
                     and act.get("payload", {}).get("package", {}).get("id") == package["id"])
-    adoption["payload"]["package"] = {"id": package["id"], "version": "v55", "checksum": package["package_checksum"]}
-    adoption["payload"]["release"] = {"id": release["id"], "version": "v5",
+    adoption["payload"]["package"] = {"id": package["id"], "version": T0_PACKAGE_VERSION, "checksum": package["package_checksum"]}
+    adoption["payload"]["release"] = {"id": release["id"], "version": T0_RELEASE_VERSION,
         "checksum": hashlib.sha256(release_path.read_bytes()).hexdigest()}
     for index, act in enumerate(acts):
         act["committed_against"] = index
         if act.get("kind") == "package-adoption":
             act.setdefault("payload", {})["revision"] = index
     return PublicationSurface(releases, registry_path, members), acts, {
-        "packageVersion": "v55", "line12eVersion": "v2", "attachmentVersion": "v2",
-        "releaseVersion": "v5", "removedAttachmentPresenceCheck": removed[0],
+        "packageVersion": T0_PACKAGE_VERSION, "line12eVersion": "v2", "attachmentVersion": "v2",
+        "releaseVersion": T0_RELEASE_VERSION, "removedAttachmentPresenceCheck": removed[0],
         "retainedAttachmentBoundaryAnswers": sorted(expected)}
 
 
@@ -469,9 +476,19 @@ def main() -> None:
     out = ROOT / "temp/mortgage-statement-borrowing" / f"t0-dynamic-binding-{stamp}"
     out.mkdir(parents=True, exist_ok=False)
     with TemporaryDirectory(prefix="demo-mortgage-t0-content-") as tmp:
-        surface, _pins, acts = P2._materialize_candidate_surface(Path(tmp), out)
+        surface, _pins, acts = P2._materialize_candidate_surface(
+            Path(tmp), out, base_package_version=BASE_PACKAGE_VERSION,
+            base_registry_filename=BASE_REGISTRY_FILENAME,
+            candidate_registry_filename=P2_CANDIDATE_REGISTRY_FILENAME,
+            base_release_version=BASE_RELEASE_VERSION)
         declaration = {"statusSource": P2.ACCOUNT_FACTS["report-link-status"],
-                       "fourOutcomeCountExperiment": "not part of this supported-pair increment"}
+                       "fourOutcomeCountExperiment": "not part of this supported-pair increment",
+                       "currentBase": {"corePackage": BASE_PACKAGE_VERSION,
+                           "packageRegistry": BASE_REGISTRY_FILENAME,
+                           "sourceRelease": BASE_RELEASE_VERSION},
+                       "candidate": {"package": T0_PACKAGE_VERSION,
+                           "packageRegistry": T0_REGISTRY_FILENAME,
+                           "release": T0_RELEASE_VERSION}}
         dynamic = add_dynamic_account_candidate(surface, acts)
         p3spec = importlib.util.spec_from_file_location("t0_p3", Path(__file__).with_name("p3-saved-model-probe.py"))
         assert p3spec and p3spec.loader
@@ -482,12 +499,23 @@ def main() -> None:
         # before the ephemeral publication directory is removed.
         retained = out / "candidate-content"
         retained.mkdir(parents=True, exist_ok=True)
-        retain_paths = [surface.member_dir / f"{P2.BRIDGE_BUNDLE_ID}.v1.json",
-            surface.member_dir / "package.core-calculations.v55.json",
-            surface.member_dir / "published-packages.t0-p55.json",
-            surface.release_dir / f"{P2.BRIDGE_RELEASE_ID}.v5.json",
+        # Preserve the complete disposable surface, including every adopted
+        # non-mortgage v50 member and its current parameter content.
+        shutil.copytree(surface.member_dir, retained / "members", dirs_exist_ok=True)
+        shutil.copytree(surface.release_dir, retained / "releases", dirs_exist_ok=True)
+        retain_paths = [surface.member_dir / f"package.core-calculations.{BASE_PACKAGE_VERSION}.json",
+            surface.member_dir / BASE_REGISTRY_FILENAME,
+            surface.release_dir / f"{P2.RELEASE_ID}.{BASE_RELEASE_VERSION}.json",
+            surface.member_dir / f"{P2.BRIDGE_BUNDLE_ID}.v1.json",
+            surface.member_dir / f"package.core-calculations.{T0_PACKAGE_VERSION}.json",
+            surface.member_dir / T0_REGISTRY_FILENAME,
+            surface.release_dir / f"{P2.BRIDGE_RELEASE_ID}.{T0_RELEASE_VERSION}.json",
             surface.member_dir / "rule.form1040-line12e.v2.json",
             surface.member_dir / "attachment.schedule-a.v2.json",
+            surface.member_dir / "rule.form1040-standard-deduction.v2.json",
+            surface.member_dir / "rule.form1040-line16.v6.json",
+            surface.member_dir / "rule.selected-preferential-base.v5.json",
+            surface.member_dir / "parameter.standard-deduction-base.json",
             surface.member_dir / "demo.tax.2025.parameter.mortgage-empty-link-support.json",
             surface.member_dir / "demo.tax.2025.rule.mortgage-account-ceiling-selection.json",
             surface.member_dir / "demo.tax.2025.rule.mortgage-link-support.json",
@@ -506,6 +534,17 @@ def main() -> None:
                                    "declaration": declaration, "dynamicAccount": dynamic,
                                    "P3Consumers": consumers, "retainedCandidateHashes": summary_hashes,
                                    "syntheticSuppliedActs": "synthetic-seed-acts.json"}
+        candidate_package = read(surface.member_dir / f"package.core-calculations.{T0_PACKAGE_VERSION}.json")
+        preserved_member_ids = {"tax.us.2025.rule.form1040-standard-deduction",
+                                "tax.us.2025.rule.form1040-line16",
+                                "tax.us.2025.rule.selected-preferential-base",
+                                "tax.us.2025.parameter.standard-deduction-base",
+                                "tax.us.2025.parameter.additional-standard-deduction",
+                                "tax.us.2025.parameter.preferential-zero-ceiling",
+                                "tax.us.2025.parameter.preferential-fifteen-ceiling"}
+        summary["preservedCurrentBaseMembers"] = sorted(
+            [row for row in candidate_package["members"] if row["id"] in preserved_member_ids],
+            key=lambda row: row["id"])
         if isinstance(result, Refusal):
             summary.update({"outcome": "refused", "reason": result.reason, "detail": result.detail,
                             "issues": list(result.issues)})
@@ -522,7 +561,15 @@ def main() -> None:
             overlay.install(projection, live, live_session)
             case_dir = out / "cases" / "supported-connected-pair"
             case_dir.mkdir(parents=True, exist_ok=False)
-            summary["coordinatorCase"] = P2._live_case("positive-baseline", acts, surface, case_dir)
+            case = P2._live_case("positive-baseline", acts, surface, case_dir)
+            summary["coordinatorCase"] = case
+            consumer_paths = [case_dir / case[key] for key in
+                ("durable_report", "durable_presentation") if case.get(key)]
+            consumer_paths.extend(path for path in (case_dir / "synthetic-records.json",
+                case_dir / "run-output.json") if path.exists())
+            summary["durableConsumerHashes"] = {
+                str(path.relative_to(out)): hashlib.sha256(path.read_bytes()).hexdigest()
+                for path in consumer_paths if path.exists()}
             summary["stage"] = "bounded-dynamic-account-coordinator-case"
         write(out / "declaration-check.json", summary)
         print(json.dumps(summary, indent=2, sort_keys=True))

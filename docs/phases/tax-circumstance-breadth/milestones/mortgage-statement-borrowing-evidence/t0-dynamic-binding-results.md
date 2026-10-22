@@ -1,21 +1,63 @@
 # Bounded Track 0 dynamic-account candidate
 
-Status: the disposable candidate package validates and the first authorized
-supported-connected-pair coordinator case completes. This is bounded
-synthetic evidence, not a Track 0 closure finding, production recorder proof,
-or evidence for the remaining six chartered coordinator cases.
+Status: the v50-derived disposable candidate package validates and its one
+supported-connected-pair coordinator run completes. This is bounded synthetic
+evidence, not a Track 0 closure finding, production recorder proof, or evidence
+for the remaining six chartered coordinator cases.
 
 ## What was validated
 
-The candidate was built on the existing P2 surface, with the retained P3
-line12e v2 and Schedule A attachment v2 successors, and resolved by the
-normal production package resolver at
+### Historical v49-base structural and runtime observations
+
+The earlier structural four-count candidate resolved at
+`temp/mortgage-statement-borrowing/t0-dynamic-binding-20261022T145900Z`.
+It was not combined with the later dynamic-account runtime candidate; its
+four-count/status composition therefore remains unproved in the runtime.
+
+The first dynamic supported-pair coordinator case ran on the now-historical
+v49-derived candidate at
 `temp/mortgage-statement-borrowing/t0-dynamic-binding-20261022T151819Z`.
-Resolution succeeded for disposable package v55 with 469 resolved members.
-The exact candidate bundle, package, registry, release, changed rules,
-supplied synthetic acts, and SHA-256 hashes are retained in that ignored
-output directory (`candidate-content/`, `synthetic-seed-acts.json`, and
-`declaration-check.json`).
+That disposable package was v55 with 469 resolved members. It must not be
+treated as current-base proof. Its one run produced two ledger records
+(started and completed), not two runs.
+
+### Current-base v50 result
+
+The current candidate explicitly started from adopted core package v50,
+registry `published-packages.v48.json`, and source release v48, preserving the
+current tax-rule and parameter members. The T0 disposable successor uses core
+package v56, candidate registry `published-packages.t0-p56.json`, and bridge
+release v6. The normal production resolver succeeded with 494 resolved
+members at
+`temp/mortgage-statement-borrowing/t0-dynamic-binding-20261022T172122Z`.
+The full disposable members/releases surface, source package/registry/release,
+final package/registry/release, synthetic supplied acts, and durable consumer
+artifacts are retained there. `declaration-check.json` contains hashes for
+the core v50 source package/registry/release and the v56 candidate chain.
+The saved `coordinator-report.json`, `presentation-model.json`, and
+`synthetic-records.json` SHA-256 values are respectively
+`d7cad665eed52457cc9575c16a4917e114cbf653a329927721457c87e7131709`,
+`fa006278d3de4e612a872c82faee3225d0f705d6a96f338e3029807e650039b9`, and
+`36546064a3e7a6bf8886c658a339ce2ba2409a07cc032b7f6e6ac89929fb01ac`.
+
+The supported-pair case ran once (two ledger rows: started and completed) and
+completed without refusal. It published mortgage line8a at **$11,000** and
+Schedule A total; line12e published **$15,750**, matching the standard
+deduction and exceeding the $11,000 itemized total. The saved model and record
+show the v56 adoption, line12e rule v2, standard-deduction rule v2, and
+`tax.us.2025.parameter.standard-deduction-base` v1. In the run output, the
+standard-deduction disposition pins that parameter; the selected line12e
+finding pins line12e v2 and the v56 package. The v56 package retains the
+rebased line16 rule v6 and selected preferential-base rule v5. The line16
+consumer was blocked by unrelated missing inputs in this fixture, so no line16
+execution is claimed. The saved mortgage explanation retains the incumbent
+$750,000 conservative limit pin and exact report provenance. The inherited
+P2 fixture run identifier includes its old `v51` label, but the current saved
+finding and publications pin the v56 package adoption.
+
+The P2 materializer now accepts explicit base package, registry, candidate
+registry, and source-release selectors while preserving its old v49/v47/v47
+defaults for historical P2 runs. This current T0 invocation selected v50/v48/v48.
 
 An earlier structural-only candidate added four distinct exact-outcome facts: affirmed, denied,
 unresolved, and withdrawn. For each, a v13 rule declares Box1 as subject,
@@ -31,11 +73,6 @@ The later v55 supported-pair increment does not yet include or consume that
 four-count/status composition; it still reads P2's affirmative membership
 status. Combining these two increments remains unproved.
 
-For the changed dynamic account candidate, the coordinator case
-`supported-connected-pair` completed one run with two ledger records
-(started and completed), and no refusal.
-The report contains published dispositions for mortgage line8a,
-Schedule A total, and Form 1040 line12e using the disposable v55 adoption.
 The supplied synthetic acts include two Box1 reports with full payer,
 statement, and year keys; both affirmatively link to opaque borrowing A, and
 only A has the continuing-borrowing root, annual-ceiling fact, and other-home
@@ -46,11 +83,11 @@ for empty support. This is the supported pair only; it does not prove all
 seven transitions, unprovided source facts, authorized final-recording behavior,
 or broad consumer compatibility.
 
-The run also establishes that the candidate's current rule declarations and
-P3 consumer successors are structurally admitted together by the existing
-resolver. The current line8a and line12e dispositions cite package v55; this
-synthetic package/release numbering is disposable candidate lineage, not a
-published version claim.
+The v56 run establishes that the current-base candidate rule declarations,
+rebased non-mortgage content, and retained P3 consumer successors are
+structurally admitted together by the existing resolver. Package/release
+version numbers here are disposable candidate lineage, not reservations or
+published-content claims.
 
 ## What remains unproved
 

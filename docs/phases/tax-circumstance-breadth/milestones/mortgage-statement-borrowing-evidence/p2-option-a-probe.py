@@ -301,15 +301,24 @@ def _successor_report_reason(members_dir: Path) -> dict[str, Any]:
     return reason
 
 
-def _materialize_candidate_surface(destination: Path, out_dir: Path) -> tuple[PublicationSurface, dict[str, Any], list[dict[str, Any]]]:
+def _materialize_candidate_surface(
+    destination: Path,
+    out_dir: Path,
+    *,
+    base_package_version: str = PACKAGE_VERSION,
+    base_registry_filename: str = "published-packages.v47.json",
+    candidate_registry_filename: str = "published-packages.p48-p2.json",
+    base_release_version: str = RELEASE_VERSION,
+) -> tuple[PublicationSurface, dict[str, Any], list[dict[str, Any]]]:
     members = destination / "members"
     releases = destination / "releases"
     members.mkdir(parents=True)
     releases.mkdir(parents=True)
     shutil.copytree(CONTENT, members, dirs_exist_ok=True)
-    shutil.copy2(RELEASE_DIR / f"{RELEASE_ID}.{RELEASE_VERSION}.json", releases / f"{RELEASE_ID}.{RELEASE_VERSION}.json")
+    shutil.copy2(RELEASE_DIR / f"{RELEASE_ID}.{base_release_version}.json",
+                 releases / f"{RELEASE_ID}.{base_release_version}.json")
 
-    package = _read_json(members / f"package.core-calculations.{PACKAGE_VERSION}.json")
+    package = _read_json(members / f"package.core-calculations.{base_package_version}.json")
     bundle, rules = _bridge_content(members)
     successor_reason = _successor_report_reason(members)
     bridge_bundle_path = members / f"{BRIDGE_BUNDLE_ID}.{BRIDGE_BUNDLE_VERSION}.json"
@@ -344,8 +353,8 @@ def _materialize_candidate_surface(destination: Path, out_dir: Path) -> tuple[Pu
     line8a = next(rule for rule in rules if rule["id"] == LINE8A_RULE_ID)
     _write_json(members / f"{LINE8A_RULE_ID}.v3.json", line8a)
 
-    registry_path = members / "published-packages.p48-p2.json"
-    registry = _read_json(members / "published-packages.v47.json")
+    registry_path = members / candidate_registry_filename
+    registry = _read_json(members / base_registry_filename)
     for citizen in [bundle, *rules, successor_reason]:
         registry["citizens"].append({"id": citizen["id"], "version": citizen["version"],
                                      "checksum": citizen_checksum(citizen)})

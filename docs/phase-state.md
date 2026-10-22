@@ -5,7 +5,7 @@
   "topic": "mortgage-statement-borrowing",
   "active_plan": "docs/phases/tax-circumstance-breadth/milestones/mortgage-statement-borrowing.md",
   "milestone_state": "track-0",
-  "status": "Rebased onto core v50 / registry v48 / release v48 after PR #217. Earlier dynamic positive is historical; verify the candidate on the new base, then finish six boundary cases and four-outcome integration. Owner deferred clear-account; production not begun.",
+  "status": "Current-base core-v50-derived candidate validates and publishes line8a $11,000 / line12e $15,750 with newer tax content retained. Six boundary cases and four-outcome integration remain open. Owner deferred clear-account; no production built.",
   "current_role": "Builder — Luna Track 0 connected contract consolidation",
   "current_prompt": "docs/reviews/mortgage-statement-borrowing/charter-t0-connected-closure.md"
 }
@@ -68,6 +68,11 @@ base and verify its saved result with the updated standard deduction before
 the remaining cases; do not downgrade the newer tax content by cloning v49.
 Earlier disposable package numbers are historical checksummed prototypes,
 not the published core v50 or future-version reservations.
+The new-base positive now validates as disposable v56: line8a is $11,000 and
+line12e is $15,750 with the standard-deduction v2/verified parameter pins.
+All non-mortgage member pins from core v50 are retained. Line16 remains
+blocked by unrelated missing fixture inputs; this is not tax-computation
+proof. The six boundary cases and four-outcome integration are still open.
 The owner deferred
 the clear-account action for this milestone: corrections and withdrawals stay
 in scope, without implicit legacy resumption. Visible group rendering,

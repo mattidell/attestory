@@ -3,7 +3,7 @@
   "version": 1,
   "phase": "Tax Circumstance Breadth",
   "topic": "mortgage-statement-borrowing",
-  "status": "Rebased onto core v50 / registry v48 / release v48 after PR #217. Earlier dynamic positive is historical; verify the candidate on the new base, then finish six boundary cases and four-outcome integration. Owner deferred clear-account; production not begun.",
+  "status": "Current-base core-v50-derived candidate validates and publishes line8a $11,000 / line12e $15,750 with newer tax content retained. Six boundary cases and four-outcome integration remain open. Owner deferred clear-account; no production built.",
   "scope": [
     "extend the existing ordinary mortgage account to a bounded same-borrowing multiple-report case",
     "preserve report amounts, loan-level circumstances and their separate correction lifecycles",
@@ -180,6 +180,16 @@ whose standard deduction wins now shows $15,750, not the earlier $15,000.
 Schedule A requirement checks must use the adopted standard deduction too.
 Validate the new package/release/checksum chain and inspect the actual saved
 return result on the changed base before reusing the earlier consumer claim.
+
+That current-base positive is now recorded in the T0 results: a disposable
+v56 successor resolves with 494 members and its one run publishes line8a
+$11,000, Schedule A total and line12e $15,750. The standard-deduction rule
+v2 and verified base parameter are pinned. Foreman inspection of the retained
+candidate confirms that only the four intended mortgage/consumer member pins
+change from core v50; its other member pins and retained source package and
+registry are unchanged. Line16 v6 and preferential-base v5 are retained, but
+this fixture lacks unrelated line16 inputs and does not demonstrate tax
+computation. The six boundary cases and four-outcome integration remain open.
 
 P2/P3 and the first T0 runtime result remain historical evidence at their
 recorded package hashes. Their synthetic v50–v55 package numbers describe
