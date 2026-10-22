@@ -2,16 +2,16 @@
 
 ## Actions I will take
 
-1. Keep the owner's nine ordinary Form 1098 answers keyed to each exact report; add only the continuing-borrowing claim, explicit report membership, annual numeric ceiling, and other-home-debt answer at their own scopes.
-2. Reuse the student-loan opaque entity and relationship-recorder pattern as a mechanism precedent, while specifying a mortgage-specific identity and exact report membership rather than accepting P2's fixture literal as admission.
-3. Define current-state route selection, report-local support status, one borrowing-level readiness result, and the existing F1098-family line8a collector, including closed-empty and no-activity singleton behavior.
-4. Trace source amount edits, common-account edits, membership changes, late reports, withdrawals, removals and re-recording through current findings, derived results, family closure and saved output.
-5. Inventory the external line8a consumers and saved explanation joins; map the six Track 0 closure artifacts on paper and mark all unbuilt evidence.
-6. Under the charter's bounded continuation, settle repeated-count and report-status composition using existing intermediate rules, validate a disposable complete package, then run exactly the seven named synthetic coordinator cases. Reuse accepted P2/P3 evidence and consumer overlay; record supplied claims separately from derived values in the assigned probe/results artifacts. Do not treat this as production recorder proof, a saved reader, or a Track 0 closure decision. Stop if the candidate requires new engine/schema behavior.
+1. Keep each report's nine existing answers and source evidence report-local. Ask new, explicit borrowing-scoped questions only for propositions whose meaning actually applies across that borrowing.
+2. Reuse the student-loan opaque entity and relationship-recorder patterns, while requiring a mortgage-specific reference and exact report link; never infer identity from labels, values or matching local answers.
+3. Offer a clear-account action distinct from correction/withdrawal; preserve report sources, local answers and history, and permit legacy singleton routing only after explicit exit and only for one current report.
+4. Trace shared answers only through exact current affirmed report links and declared subject/join intermediates; specify conflict, correction, withdrawal and late-report behavior before any experiment.
+5. Keep one F1098-family-authorized line8a collector, true-empty dispositions, the separate line12e integrity prerequisite, and the saved group explanation tied to actual consumed findings.
+6. This increment is paper-only for Foreman feedback. Reuse accepted P2/P3 and current T0 observations; do not rerun them or execute a new shared-answer/exit experiment before review. Stop for a demonstrated need for new engine/schema behavior or scope beyond the charter.
 
 ## Current contract (provisional)
 
-This is a production-design proposal, not an accepted contract or implementation. Delivery is bounded to the selected two-report same-borrowing case, with one-report and closed-empty compatibility transitions. It does not generalize to three or more reports or borrowing groups. A report remains its own source and keeps all nine ordinary answers on its current `payer + statement + tax-year` identity. The connected account is an additional, explicit ordinary claim that the two exact reports concern one continuing borrowing. It does not merge reports, copy answers between them, establish deductibility, or infer identity from lender, account string, property, amount, date, or matching answers.
+This is a production-design proposal, not an accepted contract or implementation. Delivery remains bounded to one or two reports for one borrowing and closed-empty compatibility; it does not generalize to three or more reports or borrowing groups. Each report remains its own source with nine report-keyed ordinary answers. The owner restored a second, additive kind of claim: a person may explicitly answer certain suitable propositions once for a borrowing/period, which is distinct from and never inferred from existing local answers. Connected derivations may use that broader answer only through the exact current report link. Neither kind of answer merges sources, establishes deductibility, or infers identity from lender, account string, property, amount, date, or equal answer values.
 
 ### Recorded claims and scope
 
@@ -113,7 +113,7 @@ The intended line8a successor is one v14 `exclusive_presence` selection with a B
 
 The ordinary line8a collector is one v14 `exclusive_presence` selection with one nonempty-family path. Its `source_nonempty` activity names both Box1 and affirmed-inclusion fact types; a current report activates the path without a link, and an affirmed orphan activates it even when the family is empty. This avoids two mutually active paths for a connected singleton. The path declares `reads_subject_results` for (a) `borrowing-link-status@v1` with subject Box1@v1 (one result per current family member) and (b) `borrowing-account-readiness@v1` with subject `continuing-borrowing@v1` (one result per active account). The value branches on collected report status: all `no-current-outcome` uses the incumbent singleton qualified/zero/unresolved expression only when Box1 count is one; all `single-affirmative` requires account readiness `ready`, exactly one account subject, matched inclusion count equal to Box1 count, and numeric support coverage equal to link count; any explicit denied/cannot-tell/withdrawn/mixed status or unmatched extra report blocks. The expressions are in lazy `value` `choose` branches, not `selection.when`, so an empty account-results list is not evaluated on the legacy singleton branch. On the connected branch, categorical collection rejects an empty list and count requires exactly one active account. Each v14 path read is the ordinary `{symbol, subject:{id,version}}` declaration; runner `_subject_results` enumerates exact current subject IDs and uncovered/blocked publications invalidate selection. This does not parse `symbol|subject_fact_id`, hardcode an ID, or compare a global scalar that can agree accidentally. It composes current v14 reads and v13 expressions, but exact proposed content still needs validator/coordinator acceptance; no prototype result is claimed.
 
-Report status is rooted at Box1, not inclusion, so every current family member receives `none`, one exact outcome category or `conflict`; an affirmed orphan is separately rooted at its affirmative carrier and requires its exact current Box1 source. The line12e successor is a single-producer v14 `exclusive_presence` selection whose amount path is active on Box1 OR affirmed-inclusion source activity. It reads report status on each Box1 subject and exact source-match status on each affirmed-inclusion subject. When family count is zero but an affirmed inclusion activates the amount path, the match subject is present but its required exact Box1 source is missing, so that subject result is blocked and line12e withholds the amount. With no Box1 and no affirmed inclusion, the selection default preserves closed-empty even if withdrawn/denied/cannot-tell facts remain for removed reports. This is the precise amount consumer that must withhold in the orphan contradiction; line8a's false guard and empty Schedule A total alone cannot. No connected prerequisite is added to the no-report/no-affirmation default. The four count rules and per-Box1 status rule use existing v13 operators and package validation now accepts this keyed shape; the full route remains an execution obligation.
+Report status is rooted at Box1, not inclusion, so each current family member receives `none`, one exact outcome category or `conflict`; an affirmed orphan is separately rooted at its affirmative carrier and requires its exact current Box1 source. The measured consumer keeps line12e as the ordinary P3 rule shape: its successor declares both Schedule A total and a separate inclusion-integrity result as prerequisites, while preserving the existing guard and lazy value expression. The v14 integrity selection is a separate amount-integrity gate: current affirmed-inclusion activity reads the exact source-match result for each affirmation and publishes `true` only when those matches resolve; its no-affirmation default is `true`. Thus a closed-empty family keeps line8a `inapplicable`, the separate closed-empty Schedule A total can publish zero, and line12e can take its existing no-statement path without any loan prerequisite. If an affirmed orphan exists, the exact source-match subject blocks; integrity blocks on that subject; line12e blocks on missing integrity even though line8a is inapplicable and Schedule A total may be zero. Denied/cannot-tell/withdrawn outcomes for removed reports do not activate the gate. This is the measured candidate composition, not adopted production content; the four outcome-count rules and per-Box1 status intermediates remain separate prototype evidence.
 
 For non-connected one-report legacy behavior, the single source-active path uses the `no-current-outcome` report status to retain incumbent reason branches. More than one Box 1 source with no complete affirmed connected group blocks; no current membership activity is inferred from matching values. Missing required per-report results cannot remove a Box 1 root: `reads_subject_results` enumerates Box 1 subjects and refuses uncovered ones. If A is current and B's ceiling is the only ceiling, A remains an active account root and blocks at its missing A ceiling; a B ceiling without a B continuing-borrowing affirmative claim remains dormant.
 
@@ -141,32 +141,144 @@ The production candidate is one successor mortgage line8a producer, not two prod
 | Connected route selected; current family now has one report A after report B's source and link ended | A may compute under unchanged borrowing/year support if closure holds and A has a current affirmative link, own report result and shared support. This is connected-singleton, not legacy fallback. Missing, denied, cannot-tell or withdrawn outcome for A withholds. An affirmed link to a missing/non-current source is an orphan and blocks, not closed-empty. A's current affirmed link is the route carrier; B's withdrawn link is history, not coverage for A. |
 | Connected route: one or two current report reasons qualified and shared support passes | Publish one readiness result; the single line8a producer collects each authorized current Box 1 member exactly once. |
 | Connected route: any member's reason is determined zero, unresolved, unsupported, or contradictory | Do not sum a favorable subset. Withhold the connected sum and report the actual disposition category. Broader mixed-result treatment is outside this delivery. |
-| Current affirmed relationship points to a missing/non-current source | This is the only relationship orphan: it must be an active conflict. Line8a's closed-family guard cannot protect the consumer because it is inapplicable; closed-empty Schedule A total publishes zero and line12e may bypass line8a. Therefore the current line12e no-statement/closed-empty selection's one amount path includes affirmed-inclusion in its `source_nonempty` activity types and `reads_subject_results` for the per-affirmation source-match status; when affirmation exists but no exact Box 1 source matches, the dependent line12e amount blocks. This dependency is conditional on current affirmative activity, not a new loan/ceiling prerequisite on every no-report return. With no affirmative link, retired denied/cannot-tell/withdrawn outcomes remain true empty. |
+| Current affirmed relationship points to a missing/non-current source | This is the only relationship orphan: it must be an active conflict. Line8a's closed-family guard cannot protect the consumer because it is inapplicable; closed-empty Schedule A total publishes zero and line12e may bypass line8a. The separate inclusion-integrity prerequisite reads each affirmed carrier's exact source-match result and blocks when a current affirmation has no matching Box 1 source. This dependency is conditional on current affirmative activity, not a new loan/ceiling prerequisite on every no-report return. With no affirmative link, retired denied/cannot-tell/withdrawn outcomes remain true empty. |
 | No current affirmative link, no current report, and only denied/cannot-tell/withdrawn history for removed reports | These nonaffirmative end outcomes do not assert a current missing source; they are not affirmative orphan activity | Preserve actual closed-empty Schedule A total zero / attachment inapplicable / no-statement line12e. A retained entity, ceiling or other-debt answer alone also does not change this route. |
 | One current report with no current report/account outcome | This is the incumbent legacy singleton route. A retained opaque entity, ceiling, other-debt answer or displaced relationship history does not count as current route activity. |
-| Affirmed relationship corrected to denied, unresolved or withdrawn; including the final affirmative link | Atomically end the affirmed outcome and record its successor outcome for the same exact pair. If the source report remains current, the nonaffirmative result prevents legacy fallback and dependent amounts are withheld. If the report was also removed, the end outcome is not an affirmative orphan and cannot defeat true closed-empty. An explicit clear-account action is deferred. |
+| Affirmed relationship corrected to denied, unresolved or withdrawn; including the final affirmative link | Atomically end the affirmed outcome and record its successor outcome for the same exact pair. If the source report remains current, the nonaffirmative result prevents legacy fallback and dependent amounts are withheld. If the report was also removed, the end outcome is not an affirmative orphan and cannot defeat true closed-empty. The separate clear-account action ends the whole borrowing connection, not just this pair. |
 
 P2 found a workable prototype shape, but its account key was manually supplied. The declared subject/join plus exact-key numeric support coverage above is the production candidate; the experiment did not exercise dynamic selection. Current relationship carriers are affirmed, denied, cannot-tell/unresolved, or withdrawn. Affirmed selects connected handling; other current outcomes are read as those outcomes, never as missing-as-no. Retained borrowing identity or ceiling alone does not select the route. Closed F1098 family membership plus exact per-report outcomes and a nonempty one-or-two-member count establish coverage for this bounded case; no separate report-set assertion is proposed.
 
 For the supported candidate boundary, each report keeps its own Box 1 and nine answers; each report's Box 2 is checked against the common numeric ceiling; raw Box 3 dates remain report-local and must agree before one borrowing-wide debt category is used. The conservative existing $750,000 / $375,000 MFS limit and exclusion for origination on or before 1987-10-13 remain; no higher pre-2017 limit or refinance treatment is introduced. The actual line8a amount is the sum of authorized current family Box 1 members once readiness succeeds. No allocation or interest-apportionment formula is proposed.
 
-**Clear-account action is deferred by owner decision.** This milestone does not provide an action to clear a connected account and resume legacy singleton treatment. Corrections and withdrawals remain supported; unresolved connected support must not silently return to a favorable singleton. This is an accepted delivery limit, not a permanent product policy or an outstanding approval gate. A later explicit exit needs its own treatment of remaining report membership and completeness.
+### Restored design: explicit exit and suitable shared answers
+
+The user-facing choice is either “keep these reports connected to this
+borrowing,” “answer this suitable question once for this borrowing,” or the
+separate action “stop connecting these reports through this borrowing.” Existing
+statement questions stay attached to their exact reports. The shared prompt is
+asked as a new ordinary claim about a named opaque borrowing and its stated
+period; matching old answers never auto-create it.
+
+The nine v2 questions are those admitted by
+`f1098_statement_recording._questions_for_version("v2")` and consumed by
+`rule.f1098-residence-interest-reason.v2`. The currently recorded facts remain
+keyed to `payer + statement + tax-year`; these scope recommendations do not
+rewrite them:
+
+| Adopted v2 proposition | Natural scope | Provisional connected treatment |
+| --- | --- | --- |
+| `filing-unit-owns-home` | Filing unit + home + tax year | Keep report-specific for now. No exact home/property key joins two reports; same borrowing alone does not prove one collateral home. |
+| `shared-main-home` | Filing unit + home + tax year | Keep report-specific for the same missing property identity; do not infer same home from a shared loan. |
+| `home-is-collateral` | This home–this loan relationship | Keep report-specific until the home side has an exact shared identity; the F1098 can describe more than one property. |
+| `owes-the-loan` | Filing unit + borrowing + tax year | Suitable for a new explicit borrowing-wide answer. |
+| `paid-the-interest` | Who paid the interest reported on this statement | Must remain report-local: amount and payment period differ by statement. |
+| `no-one-else-owes-it` | Other co-obligors on this borrowing for the filing unit/year | Suitable for a new explicit borrowing-wide answer. |
+| `what-the-money-paid-for` | The identified borrowing's proceeds/use | Suitable as a borrowing-level answer for the original borrowing. Preserve the existing categories; `other` does not authorize mixed-use allocation. |
+| `this-is-the-original-loan` | Borrowing lineage | Suitable as a borrowing-level answer, not a statement answer. Refinance treatment remains excluded. |
+| `mortgage-credit-certificate-received` | Filing unit + borrowing + tax year | Suitable as a new borrowing/year answer; do not generalize it to another loan. |
+
+For these five suitable propositions, add separate ordinary facts with their
+actual borrowing (and where noted tax-year) identity and the existing answer
+value domains. Record them through ordinary evidence/contribution, correction
+and retraction; they are new explicit assertions, not promoted local findings.
+Keep the v1/v2 bundle meanings and report-local recorder unchanged. No property
+identity or new schema is proposed in this increment. The three property-scoped
+questions can be reconsidered only if a bounded, exact property subject is
+established; this design does not invent one.
+
+For a connected calculation, use the existing declared join rather than copy
+the shared assertion onto reports: the exact affirmative four-key report link
+is the rule `subject`; the shared answer (`borrowing + tax-year`, or
+`borrowing` for the two enduring loan propositions) is `joined`, with
+`direction: subject_contains_joined`. The link's extra report keys constrain
+which report can receive that shared support. Publish a derived per-link result
+under the link's keys, pinned to both the exact current link and shared-answer
+finding. The report member/result stage consumes that keyed intermediate with
+existing `reads_subject_results`; the existing numeric support/coverage and
+one line8a family collector remain the only amount path. A new report obtains
+no shared support until it has its own current exact link and the source family
+is reclosed. This is a concrete use of existing `subject`/`joined`,
+`subject_contains_joined`, and subject-result intermediates, not a claim that
+the proposed combined answer rule has been executed.
+
+For the same suitable proposition, an explicit shared answer may satisfy the
+connected path when a report-local answer is absent. If a local answer exists
+and agrees, retain both independent findings and evidence; the connected path
+consumes the shared fact through the derived link result, not a copied local
+assertion. If they differ, do not choose “latest,” local, or shared by sort
+order: mark the linked member unresolved and ask the person to clarify/correct
+the scoped claim. Until resolved, no favorable connected subtotal. A correction
+to the shared fact displaces all derived link results that pinned its earlier
+finding and requires recomputation. Withdrawing it leaves connected support
+missing; local answers do not become an automatic substitute. Withdrawing one
+report link removes only that report's bridge; other links may remain current,
+but every current family member still has to satisfy the collector's exact
+coverage rule. A later linked report derives a fresh bridge from the still-
+current shared answer after closure/reclose. The material alternative—making
+shared always override local (or local always override shared)—would hide a
+genuine conflicting assertion or make the new shared answer ineffective; the
+clarification rule preserves both meanings.
+
+**Explicit clear-account action.** “Stop connecting these reports through this
+borrowing” names the current borrowing and previews the exact current links and
+shared claims to be ended. It is not a negative answer, link withdrawal, debt-
+absence answer, report deletion, or history erasure. In one revision-checked
+batch, the proposed recorder retracts the current continuing-borrowing claim,
+all current relationship-outcome findings for that account/year's report
+pairs, its borrowing-wide answer findings and its annual ceiling. It retains
+the opaque entity introduction and all past findings/evidence/retractions;
+retains Form 1098 source findings, Box 1/2/3, all nine local answers and their
+evidence; and retains the return-wide other-debt answer as an independent
+claim—not as “no debt.” This uses the existing `finding-retracted` and
+`append_batch(expected_revision=...)`/`_stage_retractions` pattern: read the
+current log, reject incomplete tails or stale revisions, select only findings
+whose structured keys exactly match the confirmed account/year, then commit
+all retractions or none. Ordinary relationship withdrawal instead leaves a
+current `withdrawn` outcome; it does not perform this group exit or authorize a
+legacy route.
+
+Because exit does not change report membership, a still-current F1098 closure
+is retained; if a source changed independently, its normal closure/reclose
+obligation still applies. Retraction displaces connected derived support under
+the ordinary currency rules; earlier saved models remain historical and tied
+to their consumed findings. After the explicit exit, exactly one current
+report may use the existing report-local singleton route. If two reports
+remain current, neither the singleton route nor a connected group route may
+sum them: with no active account links, the sole line8a producer blocks and
+line12e has no favorable subtotal. No report answers are copied or erased.
+
+The cheapest distinguishing payloads are: (1) two linked reports with matching
+local answers but no shared claim (no inferred shared authority); (2) one
+explicit shared answer through exact A links while B has the same values but a
+different borrowing (B cannot inherit A's support); (3) local/shared
+disagreement in both save orders (same clarification block); (4) correction or
+withdrawal of shared support, then a late exact link and reclose (all prior
+bridges stale, only current links rederive); and (5) clear-account with one
+versus two current reports (legacy singleton only in the first). These cases
+separate existing prototype evidence from new propositions. Content work adds
+the five scope-correct facts, per-link bridge/conflict and route dependencies;
+recorder work adds explicit shared-answer operations and one atomic clear
+batch; reader work adds a shared-answer panel with period, exact linked reports,
+conflict/withdrawal disposition and source pins, while preserving each report
+row. None is production-built or executed yet. The six closure artifacts
+remain provisional pending this design, its bounded review, and independent
+connected review.
 
 ### Lifecycle and correction consequences
 
-Raw assertions and derived support have separate lifecycles. Box amounts/dates, all nine report answers, continuing-borrowing claim, exact pair outcome, numeric ceiling, and other-debt answer are raw current claims with independent evidence and finding history. Per-report reason, membership/status bridge, borrowing readiness, line8a, Schedule A total, line12e, and explanation are derived; recompute them from the current raw claims. A prior saved result remains a record of the inputs it consumed.
+Raw assertions and derived support have separate lifecycles. Box amounts/dates and the nine local answers remain report-keyed; the five newly explicit suitable shared answers, continuing-borrowing claim, exact pair outcome, numeric ceiling, and other-debt answer are separately scoped raw claims with independent evidence/history. Per-report reason, shared-to-link bridge, membership/status, borrowing readiness, line8a, Schedule A total, line12e, and explanation are derived; recompute them from current raw claims. A prior saved result remains a record of the inputs it consumed.
 
 | Event | Required current-state effect |
 | --- | --- |
 | Correct Box 1 amount only; report identity and membership unchanged | Use the source recorder's same-report correction lineage. Recompute that report's reason, borrowing readiness, line8a, totals, line12e and current explanation. Keep same-borrowing claim, pair links and borrowing/year ceiling current because their subject and period did not change and no evidence contradicts them. Keep other report claims current. |
 | Correct a report-local ordinary answer only | Replace only that answer on that exact report; recompute that report's result and downstream readiness. Equal answers on peers do not change. |
 | Correct/withdraw continuing-borrowing claim | End or replace borrowing-year support and dependent derived readiness/amount results. Preserve independent raw membership claims as recorded; without current borrowing recognition they cannot support calculation. A withdrawal is neither a contrary answer nor permission to restore singleton. |
-| Correct/withdraw one report membership | Change only that pair's current outcome and dependent connected results. If connected evidence still selects the route, recompute or block it; do not treat the changed link as a clear-account decision. The explicit exit is deferred. |
+| Correct/withdraw one report membership | Change only that pair's current outcome and dependent connected results. A current withdrawn/denied/unknown outcome remains a route carrier and does not restore legacy behavior; only the separate clear-account batch ends the whole connection. |
 | Correct annual ceiling amount, without changing account scope | Replace that borrowing/year amount; re-evaluate all report Box 2 comparisons and limit readiness. The reported Box 2 observations stay untouched. |
 | Change or withdraw the borrowing identity assertion | End dependent derived membership/readiness/amount results. Preserve independent raw membership findings as recorded; they remain unusable without a current recognized borrowing. An explicit relationship correction/withdrawal changes only the named pair's current outcome. |
 | A family member is added after closure (including a late report) | Trace: `close(A,B) → derive(A,B) → add(C) → prior closure-dependent findings/publications cease to be current → record C source + nine answers + exact pair outcome → reclose(A,B,C) → recompute all per-report results and readiness`. The same borrowing/year ceiling remains current absent subject/period change or contrary evidence. A new report alone does not invalidate it. |
 | Remove/re-record a report | End only that report's source and dependent current derived outputs; preserve independent account/ceiling claims and other report claims. Re-recording needs a current source and its own nine answers; old membership does not attach by similar labels or values. Re-record the exact link. If the affirmative link remains while source is removed, it is an affirmed orphan and blocks. |
-| Withdraw or correct the final affirmative link | In one save, retract the affirmation and record its current withdrawn/denied/unresolved successor for the same four-key pair. If the source report remains current, the nonaffirmative result prevents legacy fallback and dependent amounts are withheld. If the report was also removed, that end outcome is not an affirmative orphan and cannot defeat true closed-empty. The owner deferred an explicit clear-account action. |
+| Withdraw or correct the final affirmative link | In one save, retract the affirmation and record its current withdrawn/denied/unresolved successor for the same four-key pair. If the source report remains current, the nonaffirmative result prevents legacy fallback and dependent amounts are withheld. If the report was also removed, that end outcome is not an affirmative orphan and cannot defeat true closed-empty. Only the separate explicit clear-account batch removes the account's current route claims; it does not say debt is absent. |
 | Any account save races with another workspace save | Read and validate current log/revision, stage entity/fact/evidence/contribution/retraction acts, then append in one `append_batch(expected_revision=...)`. A stale revision or incomplete tail refuses the save; no partial transition is visible. This mirrors the SLI recorder transaction pattern, not existing mortgage behavior. |
 
 These are required effects, not demonstrated mortgage-recorder behavior. The current mortgage answer recorder handles exact-report answer correction and withdrawal only; it does not record opaque mortgage borrowing identities, report membership, numeric ceilings, account-level lifecycle or route choice.
@@ -196,7 +308,8 @@ Keep result categories distinct in saved output: (1) unsupported coverage, such 
    | --- | --- | --- | --- |
    | Box 1 amount | Reported interest, `payer + statement + tax-year` | Current exact source finding; F1098 family membership | Same-report correction/removal; a new family closure displaces old aggregate outputs. |
    | Box 2 / Box 3 | Report-local balance/date, same three report keys | Current exact source finding | Same-report correction/removal; disagreement among current linked Box 3 dates is a conflict, not date selection. |
-   | Adopted v2's nine existing answers: filing unit owns home; shared main home; home is collateral; owes loan; paid interest; no one else owes it; use of money; original loan; mortgage credit certificate received | Each existing ordinary proposition, independently report-keyed | Current v2 answer finding and that report's evidence/source | Correction/withdrawal or report identity change; no propagation to another report. |
+   | Adopted v2's nine existing answers | Continue recording each against its exact report; see the scope table above for which connected calculations need an additional explicit claim rather than reinterpretation | Current v2 finding and that report's evidence/source | Correction/withdrawal or report identity change; never propagate the local finding. |
+   | Five suitable borrowing-wide answers | New explicit claims for the propositions classified above; never inferred or copied from local answers | Current scoped shared finding, exact affirmed report links, and derived per-link support | Correction/withdrawal or changed borrowing/year; recompute every bridge that consumed the changed finding. |
    | Continuing-borrowing claim | One continuing obligation, `borrowing + tax-year` | Current person claim plus current opaque mortgage-borrowing entity | Correction/withdrawal, entity ending, year/subject change, or contrary evidence. |
    | Pair outcome | This exact report concerns / does not concern / is unresolved / was withdrawn for that borrowing; four report keys plus borrowing | Current outcome fact and exact source for affirmation | Pair correction/replacement/withdrawal; removed source with current affirmation is an orphan. |
    | Annual ceiling | Upper bound on the borrowing's highest balance in one tax year | Current numeric claim; each report's Box 2 checked independently | Subject/year change, correction/withdrawal, contrary evidence. New report or Box 1 amount-only correction alone does not invalidate it. |
@@ -217,7 +330,7 @@ Keep result categories distinct in saved output: (1) unsupported coverage, such 
    | One or two current reports; every report affirmed to exactly the same current borrowing; all report results qualified and shared support current | Family closure enumerates reports; borrowing/year joined subject selects exact links; numeric keyed coverage equals link_count and link_count equals Box 1 count | One authorized line8a sum | Existing Schedule A total/excess/line12e and attachment paths |
    | Two reports have different current borrowing keys, or current links span multiple borrowings | Opaque keys differ; no match by lender, amount, label, address or answer | This milestone does not combine accounts; block connected calculation and retain each raw relationship assertion | No cross-borrowing subtotal and no other borrowing's ceiling/link can fill a missing intended key |
    | Missing/denied/unknown/withdrawn link; unresolved/zero/conflicting member; missing/loose ceiling; or current member count outside one or two | Read the specific carrier and source pins; distinguish absence, negative, unknown, withdrawal, contradiction and unsupported | Withhold connected sum; never sum a favorable subset | Downstream stays blocked/inapplicable, no fallback amount |
-   | Current affirmed pair but exact source absent/non-current | Affirmation cannot match current exact family member | Orphan conflict; line12e's single amount path includes affirmed-inclusion in `source_nonempty` activity and uses `reads_subject_results` for the per-affirmation exact-source-match result; missing/blocked match blocks dependent line12e. Schedule A zero alone does not resolve the orphan. | No subset or empty-family publication; no connected requirement is added when there is no current affirmed inclusion |
+| Current affirmed pair but exact source absent/non-current | Affirmation cannot match current exact family member | Exact-source-match result blocks; the separate inclusion-integrity prerequisite blocks line12e. Schedule A zero alone does not resolve the orphan. | No subset; line8a may remain inapplicable, and no loan prerequisite is added to true empty |
 
 3. **Late-authority counterexample — specified, not executed.**
 
@@ -252,7 +365,7 @@ Keep result categories distinct in saved output: (1) unsupported coverage, such 
    | Consumer | Binding | Cardinality | Prototype evidence and limit | Production acceptance |
    | --- | --- | --- | --- | --- |
    | Schedule A total | `rule.schedule-a-total.json` and closed-empty sibling | One current total producer across disjoint paths | P3 empty/singleton controls under temporary content | Saved closed-empty, singleton qualified/zero/unresolved and connected one/two-member models. |
-   | Form 1040 line12e | `form1040.line-12e.form-field.json` binds line12e; current v1 rule attempts line8a before its producer | One disposition per field symbol | Initial v51 `$11,000` control was blocked at line12e; v52 `$21,000` line12e published after consumer-ordering correction, while v52's attachment check remained blocked on liable-and-paid; v53 attachment successor published. v50 empty `$18,000` and singleton `$20,000` controls published. | Adopt reviewed successor content; save/reload positive, blocked, empty and singleton form-field models. |
+| Form 1040 line12e | `form1040.line-12e.form-field.json` binds line12e; the measured ordinary successor requires Schedule A total and the separate inclusion-integrity result | One disposition per field symbol; the integrity rule is a separate publisher | Historical P3 v52/v53 observations remain as recorded. Core-v51-derived v58 candidate saved true-empty line12e `$15,750`, blocked affirmed orphan, connected singleton `$15,750`, and withdrawn-current block; see `t0-dynamic-binding-results.md`. | Production successor must retain the Schedule A ordering edge and integrity prerequisite; save/reload positive, blocked, empty and singleton models. |
    | Schedule A attachment | `attachment.schedule-a.json`, `single_family`, one row-set collector, line8a subtotal/tie-out | One row set, subtotal, tie-out | v53 ephemeral successor published `$21,000`, retained both Box 1 pins/tie-out; missing-no-medical blocked; no durable row-list/body | Adopt removal of only presence-only `liable-and-paid`, retain all seven value checks, inspect actual durable attachment result and negative control. |
    | Saved mortgage explanation | `presentation_projection.py::_mortgage_interest_explanation`, strict validator, reload/page reader | Existing reader one account; proposed one group with each report once and one shared account section | Disposable adapter reloaded/associated group; HTML serialization is not visible group delivery | Production projection/validation and visible reader; retain run/revision, source pins, nine separate answers and shared support. |
    | Family admission/coordinator | `family.f1098.json`, closure mapping, package entrypoints, `live_coordinate_run` | One authorized line8a disposition/result on every path, including false guard/blocked/never eligible | Coordinator exercised content/save path with supplied relationship assertions | Mortgage recorder plus dynamic cases: intended ceiling vs another borrowing's ceiling; intended link missing vs other link present; deny/unknown/withdraw/orphan; no cross-account selection. |
@@ -268,11 +381,11 @@ Small production units, with exact surfaces and evidence cases:
 | Unit | Content / recording / presentation surface | Positive and negative acceptance cases |
 | --- | --- | --- |
 | Account facts and recorder | Add a mortgage borrowing source bundle beside `packages/content/tax/2025/f1098.bundle.json` and `f1098-circumstances.bundle.v2.json`; load/adopt through `packages/tax/loader.py`. Add focused durable operations under `packages/tax/` for opaque entity introduction, continuing-borrowing claim, exact report outcome, ceiling, and other-debt answer. Mirror SLI's evidence/contribution/retraction/batch revision-check pattern; leave `packages/tax/f1098_statement_recording.py`'s report-local history intact. | Record two exact reports to one opaque borrowing; correct amount without ending link/ceiling; correct or withdraw one link atomically; stale revision/incomplete tail refuses; labels or equal amounts never merge IDs. |
-| Connected status and one line8a producer | Successor citizens in `packages/content/tax/2025/` and successor to the currently adopted `package.core-calculations.v51.json` (package registry v49; SLI release v49): report-member status/result, borrowing-year readiness, route outcome and one family-authorized line8a collector. Preserve `family.f1098.json` and its closure mapping, and all adopted non-mortgage members including standard-deduction v3 and line13b v2. Consumer deltas under review: line12e successor v2 adds Schedule A total to `requires`/`blocked.missing`; attachment successor v2 removes only presence-only `liable-and-paid`, retaining seven value checks. | Positive two reports/one borrowing; connected singleton; other-borrowing ceiling only; other-borrowing link only; two accounts; unlinked third family member; missing/denied/unknown/withdrawn/orphan; loose or contradictory ceiling; changed Box 3. Empty and incumbent singleton controls stay on their real paths. |
+| Connected status and one line8a producer | Successor citizens in `packages/content/tax/2025/` and successor to adopted `package.core-calculations.v51.json` (registry v49; SLI release v49): report-member status/result, borrowing-year readiness, route outcome and one family-authorized line8a collector. Preserve `family.f1098.json` and its closure mapping, and adopted non-mortgage members including standard-deduction v3 and line13b v2. Consumer successors retain the measured line12e Schedule A-total and separate integrity prerequisites, plus the attachment's seven value checks. | Positive two reports/one borrowing; connected singleton; other-borrowing ceiling only; other-borrowing link only; two accounts; unlinked third family member; missing/denied/unknown/withdrawn/orphan; loose or contradictory ceiling; changed Box 3. Empty and incumbent singleton controls stay on their real paths. |
 | Saved group explanation | Add group projection and strict validation in `packages/derivation/presentation_projection.py`, then update the saved mortgage reader/page to render it after the existing validate/reload path. Keep one report row per current family source and one shared account-support section. | Save/reload and visibly render two report amounts, separate answers/reasons/source pins and shared borrowing/ceiling; correction changes current model only; old saved run remains tied to consumed findings. Include missing support, unsupported debt and contradictory support states. |
 | Integrated lifecycle and neighbors | Use the real coordinator/save/reload surfaces and focused regressions for changed code; do not alter unrelated loan/sale contracts. | Late report and reclose; report removal/re-record; final affirmative link ending with no legacy fallback; F1098 closed-empty, singleton qualified/zero/unresolved, and Schedule A missing-boundary control. Run only the gates appropriate to the eventual code assignment. |
 
-These are proposed implementation units, not charters or a Track 0 PASS. Do not start them until the Foreman reviews this draft and Track 0 is closed. The owner has accepted deferral of the clear-account action; that decision is no longer an open gate.
+These are proposed implementation units, not charters or a Track 0 PASS. Do not start them until the Foreman reviews this draft and Track 0 is closed. Clear-account exit and suitable borrowing-wide answers are in scope; their recording, reader behavior and independent review remain open.
 
 Required focused evidence still ahead: actual durable introduction/re-use of an opaque mortgage reference; current affirmative, denied, cannot-tell, missing and withdrawn membership carriers; independent source-amount and pair-link corrections; adding one late report and reclose; connected withdrawal without singleton fallback; incumbent one-report qualified, determined-zero and unresolved behavior with no connected activity under production route selection; production saved reader/render of the group and missing, contrary, unsupported-coverage and conflicting-support dispositions; complete required Schedule A attachment evidence. The temporary adapter has serialized/reloaded a supported group; the coordinator's saved models have also covered closed-empty, singleton, missing and contrary cases. The charter's retained cases additionally exercise Box 2/ceiling conflict, loose ceiling and differing Box 3. Production evidence remains open.
 
