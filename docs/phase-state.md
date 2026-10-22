@@ -5,9 +5,9 @@
   "topic": "mortgage-statement-borrowing",
   "active_plan": "docs/phases/tax-circumstance-breadth/milestones/mortgage-statement-borrowing.md",
   "milestone_state": "track-0",
-  "status": "Luna P0 diagnostic complete, awaiting independent Sol review. Latest-package evidence separates review/save singleton limits, unequal-principal transport, explicit cardinality and the over-limit stop. No same-loan production design selected.",
-  "current_role": "Reviewer — Sol independent P0 source and path review",
-  "current_prompt": "docs/reviews/mortgage-statement-borrowing/charter-p0-independent-review.md"
+  "status": "Sol P0 review requires one account/cost repair: the agreeing-value second-report reason borrows first-report ordinary-answer and document pins. Luna will correct the recorded evidence ceiling before connected design; no production repair or repeat run is requested.",
+  "current_role": "Builder — Luna P0 source and path repair",
+  "current_prompt": "docs/reviews/mortgage-statement-borrowing/charter-p0-current-account.md"
 }
 -->
 
@@ -29,7 +29,11 @@ refined after Foreman feedback, and the bounded real-path check is complete.
 The single-report result saves and reloads; two reports expose separate
 review/save, unkeyed-principal and cardinality restrictions. The over-limit
 principal reaches the comparison and saves an unresolved explanation, not a
-prorated amount. Independent Sol review is next, before design selection.
+prorated amount. Independent Sol review found an additional transport limit:
+the second report's reason borrows the first report's ordinary-answer and
+document pins when scalar values agree. Luna will correct the evidence and
+integration-cost account before design selection; another diagnostic run is
+not needed to establish this finding.
 The existing full-deduction premise remains distinct from a general limited-debt
 calculation. No new balance treatment is selected. Refinancing, multiple independent borrowings,
 second homes and allocation remain contrast cases or excluded work, not hidden
