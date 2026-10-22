@@ -1,19 +1,39 @@
 <!-- foreman-context-v1
 {
   "version": 1,
-  "phase": "Engine Breadth",
-  "topic": "earned-income-credit",
-  "active_plan": "docs/phases/engine-breadth/milestones/earned-income-credit.md",
-  "milestone_state": "closed",
-  "status": "Closed. On core v53 a filer with no qualifying child gets the 2025 earned income credit on line 27a from EIC Worksheet A and the printed EIC Table. Investment income over $11,950 asks only the unsupported-situations answer. AGI at or above $68,675 asks no EIC question. W-2 box 1 at or above $68,675 while AGI is below it asks that answer. Otherwise the qualifying-child answer is asked; married filing separately and head of household with no qualifying child are $0. AGI at or above the 0-child completed amount then asks no further EIC question. Box 1 at or above that amount while AGI is below it asks the unsupported-situations answer. The remaining questions are asked only for single, married filing jointly, or qualifying surviving spouse when both box 1 and AGI are below that amount. Earlier packages keep their results.",
-  "current_role": "Foreman — select next milestone",
-  "current_prompt": "docs/phases/engine-breadth/coverage-frontier.md"
+  "phase": "Tax Circumstance Breadth",
+  "topic": "mortgage-statement-borrowing",
+  "active_plan": "docs/phases/tax-circumstance-breadth/milestones/mortgage-statement-borrowing.md",
+  "milestone_state": "planned",
+  "status": "Opening mortgage plan after merged PR #215. Review the same-borrowing scope before P0 authority/path investigation. No production mechanism selected.",
+  "current_role": "Foreman — prepare independent opening-plan review",
+  "current_prompt": "docs/phases/tax-circumstance-breadth/milestones/mortgage-statement-borrowing.md"
 }
 -->
 
 # Phase State
 
-## Latest milestone
+## Current direction
+
+**One Home Loan, More Than One Interest Statement** is the new opening
+milestone ([plan](phases/tax-circumstance-breadth/milestones/mortgage-statement-borrowing.md)).
+The owner directed a return to tax concepts and ordinary-circumstance recording.
+Start with two reports concerning one continuing borrowing and one main home,
+such as a change in who collects payments. Preserve the two reports and
+establish what the person can affirm about their shared borrowing, without
+counting the reports as separate debts or selecting a principal formula now.
+
+The plan first receives independent review, then P0 checks primary authority
+and the actual current path. Refinancing, multiple independent borrowings,
+second homes and allocation remain contrast cases or excluded work, not hidden
+implementation promises. Tax Circumstance Breadth's earlier endpoint remains
+met; this is a bounded extension.
+
+This branch opened after merged PR #214 in a new managed primary worktree
+and is now rebased onto merged PR #215. Its fold-once projection reuse is
+included as ratified code, not concurrent milestone WIP.
+
+## Latest completed return-calculation milestone
 
 **The 2025 Earned Income Credit is closed**
 ([plan](phases/engine-breadth/milestones/earned-income-credit.md),
@@ -139,6 +159,9 @@ loss). **Mortgage Interest and What the Loan Paid For** closed 2026-10-15
 
 ## Begin here
 
+- [Active mortgage plan](phases/tax-circumstance-breadth/milestones/mortgage-statement-borrowing.md).
+- [Tax Circumstance Breadth roadmap](phases/tax-circumstance-breadth/tax-circumstance-breadth-roadmap.md).
+
 - [Latest milestone plan](phases/engine-breadth/milestones/earned-income-credit.md):
   P0, contract, tracks and outcome; and its
   [retrospective](milestone-retrospectives/2026-10-23-earned-income-credit.md).
@@ -164,7 +187,8 @@ loss). **Mortgage Interest and What the Loan Paid For** closed 2026-10-15
   successor package; recovery for a log with two current family versions; a
   full pre-save fold for every act kind.
 - Browser observation of the mortgage and sale pages.
-- Multiple Form 1098 support, interest allocation above the debt limit,
+- General multiple-Form-1098 support beyond this same-borrowing milestone,
+  interest allocation above the debt limit,
   second-home extension, mixed-use amounts, refinancing and the mortgage credit.
 - Form 1099-K, 1099-G and SSA-1099 withholding on line 25b; a 1099-INT,
   1099-DIV or 1099-R statement recorded without its box 4 answer; Form W-2G.

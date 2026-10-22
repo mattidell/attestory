@@ -1,5 +1,19 @@
 # Tax Circumstance Breadth
 
+## Current extension
+
+The original provisional endpoint was met by the mortgage and personal-sale
+routes and their sale consolidation. On returning from engineering-health
+work, the owner directed a new tax-concept/circumstance milestone. The opening
+extension is [One Home Loan, More Than One Interest Statement](milestones/mortgage-statement-borrowing.md):
+investigate a continuing borrowing described by two reports, before selecting
+how their accounts and balance observations support the existing tax route.
+
+This reopens a bounded product question; it does not invalidate the earlier
+phase result or commit to complete mortgage coverage. Assess this extension
+at its close. Further milestones remain unselected. The separate projection-
+reuse work may proceed concurrently and is not a prerequisite by assumption.
+
 ## Purpose
 
 Help a person describe circumstances that change the tax meaning of a document,

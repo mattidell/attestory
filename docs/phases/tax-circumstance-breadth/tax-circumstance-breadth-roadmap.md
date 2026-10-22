@@ -64,14 +64,31 @@ needs debt and home identity across loans.
 Recorded in the consolidation plan, "Phase assessment after delivery": the
 provisional endpoint is met, and the recommendation is to conclude the phase.
 
+## Bounded return — One Home Loan, More Than One Interest Statement — opening plan
+
+[Plan](milestones/mortgage-statement-borrowing.md).
+
+Investigate two reports concerning one continuing home borrowing. Help the
+person identify that relationship, preserve each report, and establish how the
+borrowing's circumstances and dated balances support the calculation. The
+current one-Form-1098 route is the starting point; same borrowing does not by
+itself establish the debt-limit or deduction result.
+
+Review the opening account, verify the actual rule/recording path and primary
+authority, then select the smallest supported representation and implementation.
+No refinancing, second-home, mixed-use or general allocation calculator is
+selected. Engineering Health's projection-reuse milestone remains independent.
+
 ## Status
 
-All three milestones are closed at their bounded results. The consolidation's
-phase assessment finds the provisional endpoint met and recommends concluding
-the phase; the owner selects. More than one Form 1098, gain reporting and
-browser observation remain outside the delivered routes and stay in the
-phase-state parked list. Engine Breadth remains the historical form-coverage
-record; its rows do not establish ordinary-circumstance support.
+The first three milestones remain closed at their bounded results; their
+original endpoint is met. The owner directed a return to tax concepts and
+circumstance recording after the engineering-health improvements. The new
+same-borrowing mortgage milestone is an opening extension under review, not
+delivered multiple-Form-1098 support. Gain reporting and browser observation
+remain outside the delivered routes. Further phase expansion is unselected.
+Engine Breadth remains the historical form-coverage record; its rows do not
+establish ordinary-circumstance support.
 
 Selection sources: the Form 1098 route and its
 [retrospective](../../milestone-retrospectives/2026-08-09-f1098-mortgage-interest-line12e.md),
