@@ -158,6 +158,16 @@ coverage limit belong in the supported interaction.
 
 ## Decisions and readiness
 
+Opening independent Sol review: READY for P0, no material repairs. The goal
+is unchanged. P0 starts with a source/path account and proposed check, returns
+for Foreman feedback, then performs the bounded check. Completed P0 receives
+independent review before design selection. These increments refine the work
+sequence, not its product boundary.
+
+P0 must identify exact tested package/release versions: the README mortgage
+example and the later consolidated package are distinct baselines. A working
+historical fixture is not proof of latest-package integration.
+
 Before design selection, P0 must identify which balance/debt proposition is
 needed, how it can be supported, what the user can reasonably affirm, and where
 the adopted path stops. Before production, settle the representation, authority,

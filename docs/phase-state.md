@@ -4,10 +4,10 @@
   "phase": "Tax Circumstance Breadth",
   "topic": "mortgage-statement-borrowing",
   "active_plan": "docs/phases/tax-circumstance-breadth/milestones/mortgage-statement-borrowing.md",
-  "milestone_state": "planned",
-  "status": "Opening plan: One Home Loan, More Than One Interest Statement. Review the same-borrowing scope before P0 authority/path investigation. No production mechanism selected. Separate projection-reuse work remains in its own branch/worktree.",
-  "current_role": "Reviewer — Sol opening-plan review",
-  "current_prompt": "docs/reviews/mortgage-statement-borrowing/charter-opening-plan-review.md"
+  "milestone_state": "track-0",
+  "status": "Sol opening review READY with no material repairs. P0 begins with Luna's source/path account and proposed check, Foreman feedback before execution. No production mechanism selected; completed P0 receives independent Sol review.",
+  "current_role": "Builder — Luna P0 source and path account",
+  "current_prompt": "docs/reviews/mortgage-statement-borrowing/charter-p0-current-account.md"
 }
 -->
 
@@ -23,8 +23,10 @@ such as a change in who collects payments. Preserve the two reports and
 establish what the person can affirm about their shared borrowing, without
 counting the reports as separate debts or selecting a principal formula now.
 
-The plan first receives independent review, then P0 checks primary authority
-and the actual current path. Refinancing, multiple independent borrowings,
+The opening plan received independent Sol review, READY for P0 without material
+repairs. P0 first prepares a primary-source/path account and proposed bounded
+check; Foreman feedback precedes execution. Completed P0 is independently
+reviewed before design selection. Refinancing, multiple independent borrowings,
 second homes and allocation remain contrast cases or excluded work, not hidden
 implementation promises. Tax Circumstance Breadth's earlier endpoint remains
 met; this is a bounded extension.
