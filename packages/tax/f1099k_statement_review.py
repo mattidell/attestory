@@ -219,6 +219,27 @@ def prepare_f1099k_statement_review(
     statement_keys: dict[str, str] | None = None,
 ) -> dict[str, Any]:
     """Take an immutable snapshot of one Form 1099-K statement and its circumstance answers."""
+    review, _state = _prepare_f1099k_statement_review_impl(
+        log, registry, review_id=review_id, shown_at=shown_at, statement_keys=statement_keys,
+    )
+    return review
+
+
+def _prepare_f1099k_statement_review_impl(
+    log: ActLog,
+    registry: Any,
+    *,
+    review_id: str,
+    shown_at: str,
+    statement_keys: dict[str, str] | None = None,
+) -> tuple[dict[str, Any], Any]:
+    """Build the review snapshot; also return the state folded for it.
+
+    ``prepare_f1099k_statement_review`` discards the state and keeps its own
+    one-return signature. ``_revalidate`` uses this directly so the matching
+    ``*_durably`` write in the same review-save operation can reuse the fold
+    instead of re-projecting the same revision.
+    """
     contents = log.read()
     if contents.incomplete_tail is not None:
         raise F1099KReviewRefused("ActLog has an incomplete tail")
@@ -245,7 +266,7 @@ def prepare_f1099k_statement_review(
                 "closedEmpty": True,
                 "statement": None,
                 "questions": {},
-            }
+            }, state
         raise F1099KReviewRefused("no Form 1099-K statement found to review")
 
     if statement_keys is not None:
@@ -322,12 +343,17 @@ def prepare_f1099k_statement_review(
             "box4FindingId": box4_fid,
         },
         "questions": answers,
-    }
+    }, state
 
 
-def _revalidate(log: ActLog, registry: Any, review: Mapping[str, Any]) -> dict[str, Any]:
+def _revalidate(log: ActLog, registry: Any, review: Mapping[str, Any]) -> tuple[dict[str, Any], Any]:
+    """Refuse a stale review; return the refreshed review and its folded state.
+
+    The state is the exact fold of the log revision just confirmed current,
+    for the caller to pass into the matching ``*_durably`` write.
+    """
     if review.get("closedEmpty"):
-        current = prepare_f1099k_statement_review(
+        current, state = _prepare_f1099k_statement_review_impl(
             log,
             registry,
             review_id=str(review.get("reviewId", "revalidation")),
@@ -335,12 +361,12 @@ def _revalidate(log: ActLog, registry: Any, review: Mapping[str, Any]) -> dict[s
         )
         if current["revision"] != review.get("revision") or not current.get("closedEmpty"):
             raise F1099KReviewRefused("review is stale: closed-empty status or ActLog revision changed")
-        return current
+        return current, state
     statement_info = review.get("statement")
     if not isinstance(statement_info, dict) or "keys" not in statement_info:
         raise F1099KReviewRefused("review statement information is missing or malformed")
     keys = statement_info["keys"]
-    current = prepare_f1099k_statement_review(
+    current, state = _prepare_f1099k_statement_review_impl(
         log,
         registry,
         review_id=str(review.get("reviewId", "revalidation")),
@@ -351,7 +377,7 @@ def _revalidate(log: ActLog, registry: Any, review: Mapping[str, Any]) -> dict[s
         raise F1099KReviewRefused("review is stale: statement source or ActLog revision changed")
     if current["questions"] != review.get("questions"):
         raise F1099KReviewRefused("review is stale: current circumstance answer snapshot changed")
-    return current
+    return current, state
 
 
 def save_f1099k_statement_review(
@@ -366,7 +392,7 @@ def save_f1099k_statement_review(
     at: str,
 ) -> dict[str, Any]:
     """Save initial circumstance answers after revalidating against the log."""
-    current = _revalidate(log, registry, review)
+    current, state = _revalidate(log, registry, review)
     try:
         return record_f1099k_statement_answers_durably(
             log,
@@ -378,6 +404,7 @@ def save_f1099k_statement_review(
             actor=actor,
             at=at,
             expected_revision=current["revision"],
+            _state=state,
         )
     except F1099KRecordingRefused as exc:
         raise F1099KReviewRefused(str(exc)) from exc
@@ -396,7 +423,7 @@ def correct_f1099k_statement_review_answer(
     at: str,
 ) -> dict[str, Any]:
     """Correct one circumstance answer after revalidating against the log."""
-    current = _revalidate(log, registry, review)
+    current, state = _revalidate(log, registry, review)
     norm_q = _normalize_question(question)
     target = current["questions"].get(norm_q)
     if not isinstance(target, dict) or target.get("state") != "answered":
@@ -414,6 +441,7 @@ def correct_f1099k_statement_review_answer(
             actor=actor,
             at=at,
             expected_revision=current["revision"],
+            _state=state,
         )
     except F1099KRecordingRefused as exc:
         raise F1099KReviewRefused(str(exc)) from exc
@@ -432,7 +460,7 @@ def answer_f1099k_statement_review_question(
     at: str,
 ) -> dict[str, Any]:
     """Add one answer to a currently unanswered question after revalidating against the log."""
-    current = _revalidate(log, registry, review)
+    current, state = _revalidate(log, registry, review)
     norm_q = _normalize_question(question)
     target = current["questions"].get(norm_q)
     if not isinstance(target, dict) or target.get("state") != "absent":
@@ -449,6 +477,7 @@ def answer_f1099k_statement_review_question(
             actor=actor,
             at=at,
             expected_revision=current["revision"],
+            _state=state,
         )
     except F1099KRecordingRefused as exc:
         raise F1099KReviewRefused(str(exc)) from exc
@@ -465,7 +494,7 @@ def withdraw_f1099k_statement_review_answers(
     at: str,
 ) -> dict[str, Any]:
     """Withdraw one or more answers after revalidating against the log."""
-    current = _revalidate(log, registry, review)
+    current, state = _revalidate(log, registry, review)
     if not questions or len(set(questions)) != len(questions):
         raise F1099KReviewRefused("withdrawal requires distinct question names")
     finding_ids: list[str] = []
@@ -484,6 +513,7 @@ def withdraw_f1099k_statement_review_answers(
             actor=actor,
             at=at,
             expected_revision=current["revision"],
+            _state=state,
         )
     except F1099KRecordingRefused as exc:
         raise F1099KReviewRefused(str(exc)) from exc
@@ -500,7 +530,7 @@ def retract_f1099k_statement_review(
     evidence_id: str | None = None,
 ) -> dict[str, Any]:
     """Retract (remove) the statement reviewed in the snapshot after revalidating against the log."""
-    current = _revalidate(log, registry, review)
+    current, state = _revalidate(log, registry, review)
     stmt = current.get("statement")
     if not stmt or not isinstance(stmt, Mapping):
         raise F1099KReviewRefused("review does not have an active statement to remove")
@@ -516,6 +546,7 @@ def retract_f1099k_statement_review(
             expected_revision=current["revision"],
             tax_year=keys.get("tax-year", "2025"),
             evidence_id=evidence_id,
+            _state=state,
         )
     except F1099KRecordingRefused as exc:
         raise F1099KReviewRefused(str(exc)) from exc

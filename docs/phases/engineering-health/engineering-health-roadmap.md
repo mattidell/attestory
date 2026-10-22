@@ -39,24 +39,28 @@ pushes get the cheap checks and the fast lane in about a minute; the required
 historical-lattice reuse lowered suite CPU (3,601s against 5,329s at P0, single
 runs). Track 3 found no worthwhile test moves.
 
+### Fold Once: Less Replaying of the Same History
+
+[Plan](milestones/projection-reuse.md). Recording, review and correction reuse
+one projection per call (save, correct and withdraw 60–72% less CPU on a long
+synthetic history); a per-worker warm-up returned 19 tests to the fast lane.
+The save-path incremental fold was skipped as the smallest share.
+
 ## Current boundary and remaining work
 
-The next milestone is unselected. The measured candidates, from the most recent
-suite ranking and its follow-up classification:
+The next milestone is unselected. Measured candidates:
 
-1. **Re-projection.** `findings.project` folds the whole log from the start,
-   hundreds of times per test, mostly from product recording, review and the
-   save path. In order: fold incrementally within one `ActLog.append_batch`
-   save; share one projection through each recording or review operation; only
-   then consider an in-process prefix memo keyed by exact act content and
-   registry state. Start from a P0 of the recorder and save paths.
-2. **Current-lattice rebuilds** after the fact state changes (11–20% of worker
-   time at the last ranking) need an incremental-lattice design.
-3. **Test moves** were measured and are not worthwhile while the recorder holds
-   the cost: moving every safe candidate below the coordinator would recover
-   under 1% of suite time. Revisit only after recording is cheaper.
+1. **Remaining re-projection.** Helper sites outside the last milestone's
+   named set (`_stage_enrollment_follows_schooling` inside `_commit_save`,
+   `_scan_displayed_answers`, `_attribute_borrowing_labels`), and the
+   save-path incremental fold, which preserves today's exact refusal timing.
+   Re-rank first; the save path was under 5% of folded acts.
+2. **Current-lattice rebuilds** after the fact state changes need an
+   incremental-lattice design.
+3. **Cross-call prefix memo**, only if projection still dominates a new
+   ranking, keyed by exact act content and registry state.
 
-Package validation proved cheap after the first call in a process. Persistent
-caches, partial catalogs, CI sharding, test culling and application-module
-separation remain unselected. Parallel jobs reduce waiting, not CPU; label
-those benefits separately.
+Test moves below the coordinator were measured and are not worthwhile while
+the recorder holds the cost. Persistent caches, partial catalogs, CI sharding,
+test culling and application-module separation remain unselected. Parallel jobs
+reduce waiting, not CPU; label those benefits separately.

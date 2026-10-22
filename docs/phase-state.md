@@ -2,10 +2,10 @@
 {
   "version": 1,
   "phase": "Engineering Health",
-  "topic": "test-and-ci-efficiency",
-  "active_plan": "docs/phases/engineering-health/milestones/test-and-ci-efficiency.md",
+  "topic": "projection-reuse",
+  "active_plan": "docs/phases/engineering-health/milestones/projection-reuse.md",
   "milestone_state": "closed",
-  "status": "Closed. Draft pushes get the cheap checks and the fast lane in about a minute; verify fails on drafts and runs in full on ready PRs. Schema-check and historical-lattice reuse cut suite CPU (3,601s against 5,329s at P0, single runs). No test was moved. The next milestone is unselected.",
+  "status": "Closed. Recording, review and correction reuse one projection per call (save, correct and withdraw 60-72% less CPU on a long history); a per-worker warm-up returned 19 tests to the fast lane. The next milestone is unselected.",
   "current_role": "Foreman — select next milestone",
   "current_prompt": "docs/phases/engineering-health/engineering-health-roadmap.md"
 }
@@ -15,22 +15,28 @@
 
 ## Current direction
 
-**Faster CI, Cheaper Suites, the Same Defects Caught is closed**
-([plan](phases/engineering-health/milestones/test-and-ci-efficiency.md),
-[retrospective](milestone-retrospectives/2026-10-21-test-and-ci-efficiency.md)).
-A draft push gets the cheap checks and the fast lane in about a minute; the
-required `verify` fails on a draft and runs in full when the PR is marked ready.
-Reusing successful fact-type schema checks and the historical lattice for an
-exact fact state cut the sampled Form 1098 test's CPU by 48%; the local suite
-used 3,601s of CPU against 5,329s at P0. No test was moved: moving cases below
-the coordinator would recover under 1% of suite time.
+**Fold Once: Less Replaying of the Same History is closed**
+([plan](phases/engineering-health/milestones/projection-reuse.md),
+[retrospective](milestone-retrospectives/2026-10-22-projection-reuse.md)).
+Recording, review and correction reuse one projection per call instead of
+re-projecting the same history in their helpers: save, correct and withdraw
+fold the log once instead of three or four times, with 60–72% less CPU on a long
+synthetic history. A per-worker warm-up in test setup returned 19 tests to the
+fast lane, which runs about 1,528 tests in 23s on the CI runner. The save-path
+incremental fold was skipped as the smallest share.
 
-The next milestone is unselected. The retrospective's leading follow-up is
-re-projection: fold incrementally within one save, share one projection per
-recording or review operation, and only then consider a prefix memo, chosen
-from a P0 of the recorder and save paths.
+The next milestone is unselected. The retrospective lists the remaining
+re-projection sites, the save-path fold and current-lattice rebuilds.
 
 ## Previous milestone
+
+**Faster CI, Cheaper Suites, the Same Defects Caught** closed through PR #214
+([retrospective](milestone-retrospectives/2026-10-21-test-and-ci-efficiency.md)).
+Draft pushes get the cheap checks and the fast lane in about a minute; `verify`
+fails on drafts and runs in full on ready PRs. Schema-check and
+historical-lattice reuse lowered suite CPU; no test was moved.
+
+## Earlier engineering-health milestone
 
 **Less Repeated Work, the Same Defects Caught** closed through PR #213. A live
 return reuses its own current projection for claim applicability; cold and
@@ -85,10 +91,10 @@ loss). **Mortgage Interest and What the Loan Paid For** closed 2026-10-15
 
 ## Begin here
 
-- [Closed milestone plan](phases/engineering-health/milestones/test-and-ci-efficiency.md):
-  ranking, tracks, outcome and remaining cost.
-- [Retrospective](milestone-retrospectives/2026-10-21-test-and-ci-efficiency.md):
-  lessons and the re-projection follow-up order.
+- [Closed milestone plan](phases/engineering-health/milestones/projection-reuse.md):
+  fold attribution, tracks, outcome and remaining work.
+- [Retrospective](milestone-retrospectives/2026-10-22-projection-reuse.md):
+  lessons and follow-ups.
 - [ADR 0079](adr/0079-family-version-handover-and-containment.md).
 - [Engineering Health roadmap](phases/engineering-health/engineering-health-roadmap.md).
 - README, “Personal-item sale on Form 1099-K”.

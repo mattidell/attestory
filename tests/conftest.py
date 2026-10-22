@@ -78,6 +78,37 @@ def _fast_lane_selected(config: pytest.Config) -> bool:
     return "not live" in markexpr.replace("  ", " ")
 
 
+@pytest.fixture(scope="session", autouse=True)
+def _warm_derivation_cold_start(request: pytest.FixtureRequest) -> None:
+    """Pay each worker's derivation cold first-use cost once, before any
+    test's call phase is timed.
+
+    The first derivation-running test on a worker builds the schema
+    registry from scratch: `packages/kernel/schema_registry.py` compiles
+    every published validator into its process-global `_COMPILED_SCHEMAS`
+    memo, and `SchemaRegistry.validate` records fresh verdicts in
+    `_VALIDATION_VERDICTS` for whatever content the call validates. A later
+    call in the same process hits both memos (Track 3 cold-start finding:
+    2.41s CPU on the first call of this exact case, 0.02-0.03s on the
+    second and third).
+
+    Fixture setup runs before any test's call phase, so paying this cost
+    here never counts against `FAST_LANE_BUDGET_SECONDS`. This shares
+    nothing new into tests beyond those two memos, which the product
+    already keeps for the life of the process; there is no teardown
+    because nothing is retained that the product does not retain anyway.
+
+    Gated on the same `-m "not live"` selection the budget hook already
+    checks, so a full or live-only run is unaffected and still constructs
+    its own registry on first use as before.
+    """
+    if not _fast_lane_selected(request.config):
+        return
+    from tests.derivation import adr0077_worksheet_fixture as fx
+
+    fx.marshal(fx.parts(), fx.case_rows("old-only"))
+
+
 @pytest.hookimpl(hookwrapper=True)
 def pytest_runtest_makereport(item: pytest.Item, call: Any) -> Any:
     outcome = yield

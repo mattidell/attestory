@@ -146,7 +146,6 @@ class WorksheetValidates(unittest.TestCase):
         self.assertIn("RULE_SUBJECT_RESULTS_INVALID", self._worksheet_issue(wrong_subject))
 
 
-@pytest.mark.live  # Each case marshals the worksheet and runs both derivation runners; 4.2s on the CI runner.
 class TrackOneA4Cases(Agreeing):
     """The five Track 1a-4 cases under one declaration (ADR 0077 Part 4)."""
 
@@ -228,7 +227,6 @@ class TrackOneA4Cases(Agreeing):
             self.assertEqual(outcome["missing"], sorted([fx.box_fact_id("demo-stmt"), fx.box_fact_id("demo-stmt-b")]))
 
 
-@pytest.mark.live  # Each case marshals the worksheet and runs both derivation runners.
 class SelectedPathEntries(Agreeing):
     """Part 3 "Runtime" and "Coverage" on the selected path."""
 
@@ -309,7 +307,6 @@ class SelectedPathEntries(Agreeing):
             self.assertEqual(outcome["disposition"], "blocked")
 
 
-@pytest.mark.live  # Each case marshals the worksheet and runs both derivation runners.
 class LazyRead(Agreeing):
     """The declared read refuses only when the selected expression reaches it."""
 
@@ -326,7 +323,6 @@ class LazyRead(Agreeing):
             self.assertEqual(derived_pins(outcome["pins"]), [])
 
 
-@pytest.mark.live  # Each case marshals the worksheet and runs both derivation runners.
 class ActivityOnlySource(Agreeing):
     """A selection whose activity fact type appears nowhere else in any rule.
 
@@ -406,7 +402,6 @@ def _with_worksheet(ctx: RunContext, edit: Any) -> RunContext:
     return RunContext(**{**ctx.__dict__, "rules": rules})
 
 
-@pytest.mark.live  # Each case runs the edited worksheet through both derivation runners.
 class SelectionNeverFallsThrough(Agreeing):
     """A contract failure blocks with the existing token; ``rule["value"]`` is never read."""
 
