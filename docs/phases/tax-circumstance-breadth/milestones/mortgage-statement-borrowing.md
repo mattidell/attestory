@@ -207,6 +207,9 @@ For the connected paper design, prefer a person-confirmed numerical ceiling
 on what was owed on the identified borrowing during 2025. This is an upper
 bound, not necessarily the exact highest balance. The application determines
 the relevant tax category and compares the confirmed bound with its limit.
+A bound within the limit can establish the balance condition. A bound above
+it does not establish that the actual debt exceeded it: the bound may simply
+be too loose. Preserve that distinction after a filing-status change too.
 Ask separately about other borrowing secured by the main or second home;
 known additional debt reaches this milestone's coverage boundary, while an
 unknown answer leaves that circumstance unresolved. Do not ask the person
@@ -230,6 +233,14 @@ answer about another. The existing single-report route and saved history
 remain compatibility requirements. Return material costs or a demonstrated
 inadequacy before selecting production. This develops the original goal;
 it neither changes that goal nor authorizes implementation.
+
+P1 B's connected paper account is drafted and under Foreman review. Before
+its proposed experiment, make route selection safe when a connected account
+loses a report or an assertion: a count of one must not ignore still-current
+contrary or unresolved information. Identify the exact family-authorized
+symbol and actual provenance carrier, and isolate positive and negative probe
+cases so one failure cannot hide another. These are design-readiness repairs,
+not a new product goal or authorization for production.
 If the case needs a general debt-allocation calculator, a new identity system,
 refinancing treatment or a broader engine contract, stop and bring back a
 plain-language scope/cost choice rather than absorb it.

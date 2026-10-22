@@ -5,7 +5,7 @@
   "topic": "mortgage-statement-borrowing",
   "active_plan": "docs/phases/tax-circumstance-breadth/milestones/mortgage-statement-borrowing.md",
   "milestone_state": "track-0",
-  "status": "P0 READY. P1 first account reviewed; continue the connected paper design with explicit report links, proposition-scoped shared answers and a provisional person-confirmed yearly balance ceiling. No production, new schema or assumption policy selected.",
+  "status": "P0 READY. P1 connected paper design drafted; Foreman repairs upper-bound semantics, safe connected-to-single-report transitions and the concrete provenance/probe boundary before experiment dispatch. No production or new schema selected.",
   "current_role": "Builder — Luna P1 connected account",
   "current_prompt": "docs/reviews/mortgage-statement-borrowing/charter-p1-connected-account.md"
 }
