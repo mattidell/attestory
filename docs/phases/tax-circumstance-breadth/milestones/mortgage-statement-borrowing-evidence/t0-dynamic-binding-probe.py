@@ -2,6 +2,7 @@
 from __future__ import annotations
 
 import copy
+import argparse
 import hashlib
 import importlib.util
 import json
@@ -19,6 +20,7 @@ SPEC = importlib.util.spec_from_file_location("t0_p2", Path(__file__).with_name(
 assert SPEC and SPEC.loader
 P2 = importlib.util.module_from_spec(SPEC)
 SPEC.loader.exec_module(P2)
+_act_finding = P2._act_finding
 from packages.derivation.package_validation import citizen_checksum, package_instance_checksum
 from packages.derivation.production_resolver import PublicationSurface, Refusal, resolve_production_package
 from packages.derivation.loader import DerivationSchemas
@@ -47,6 +49,52 @@ def read(path: Path) -> dict[str, Any]:
 
 def write(path: Path, value: dict[str, Any]) -> None:
     path.write_text(json.dumps(value, indent=2, sort_keys=True) + "\n", encoding="utf-8")
+
+
+def ceiling_collision_acts(seed: list[dict[str, Any]], case_id: str) -> tuple[list[dict[str, Any]], dict[str, Any]]:
+    """Apply one exact, synthetic borrowing-key ceiling collision to supplied acts."""
+    acts = copy.deepcopy(seed)
+    borrowing_a, borrowing_b = "demo.f1098.borrowing.A", "demo.f1098.borrowing.B"
+    keys_a = (("borrowing", borrowing_a), ("tax-year", "2025"))
+    keys_b = (("borrowing", borrowing_b), ("tax-year", "2025"))
+    fact_a = fact_id_for(P2.ACCOUNT_FACTS["ceiling"], keys_a)
+    fact_b = fact_id_for(P2.ACCOUNT_FACTS["ceiling"], keys_b)
+    a_claims = [act for act in acts if act.get("kind") == "assertion"
+                and _act_finding(act).get("fact_id") == fact_a]
+    if len(a_claims) != 1:
+        raise AssertionError(f"expected exactly one supplied A ceiling act, found {len(a_claims)}")
+    if case_id == "a-ceiling-missing-b-ceiling-300k":
+        acts.remove(a_claims[0])
+        b_value = 300000.0
+        expected = "no favorable mortgage line8a from B's ceiling; A has no selected ceiling"
+    elif case_id == "a-valid-dormant-b-ceiling-900k":
+        b_value = 900000.0
+        expected = "same supported $11,000 line8a; only A's $250,000 ceiling is selected"
+    else:
+        raise ValueError(f"unknown ceiling collision case: {case_id}")
+    if any(act.get("kind") == "assertion" and _act_finding(act).get("fact_id") == fact_b for act in acts):
+        raise AssertionError("B ceiling unexpectedly exists in the base fixture")
+    b_finding = {"schema": "finding.v2", "id": f"demo.t0.{case_id}.borrowing-b-ceiling",
+        "fact_id": fact_b, "value": b_value, "basis": "attested", "evidence_ids": []}
+    acts.append({"schema": "act.v1", "act_id": f"demo.t0.{case_id}.borrowing-b-ceiling",
+        "kind": "assertion", "actor": "demo.taxpayer", "at": "2026-10-22T13:05:00Z",
+        "committed_against": len(acts), "payload": {"finding": b_finding}})
+    for index, act in enumerate(acts):
+        act["committed_against"] = index
+        if act.get("kind") == "package-adoption":
+            act.setdefault("payload", {})["revision"] = index
+    claims = []
+    for act in acts:
+        finding = _act_finding(act)
+        if finding.get("fact_id") in {fact_a, fact_b}:
+            claims.append({"act_id": act.get("act_id"), "fact_id": finding["fact_id"],
+                           "value": finding.get("value")})
+    expected_claims = 1 if case_id.startswith("a-ceiling-missing") else 2
+    if len(claims) != expected_claims:
+        raise AssertionError(f"unexpected A/B ceiling claims: {claims}")
+    return acts, {"caseId": case_id, "ceilingClaims": claims,
+        "expected": expected, "recognizedBorrowing": borrowing_a,
+        "unrecognizedBorrowing": borrowing_b}
 
 
 def add_status_composition(members: Path) -> dict[str, Any]:
@@ -472,6 +520,13 @@ def add_p3_consumers(surface: Any, acts: list[dict[str, Any]], p3: Any) -> tuple
 
 
 def main() -> None:
+    parser = argparse.ArgumentParser(description="Run selected synthetic T0 mortgage cases.")
+    parser.add_argument("--case", action="append", required=True, choices=(
+        "a-ceiling-missing-b-ceiling-300k", "a-valid-dormant-b-ceiling-900k"),
+        help="T0 case to execute; may be repeated. The prior supported-pair case is not run here.")
+    args = parser.parse_args()
+    if len(set(args.case)) != len(args.case):
+        parser.error("each ceiling-collision case may be selected only once")
     stamp = datetime.now(timezone.utc).strftime("%Y%m%dT%H%M%SZ")
     out = ROOT / "temp/mortgage-statement-borrowing" / f"t0-dynamic-binding-{stamp}"
     out.mkdir(parents=True, exist_ok=False)
@@ -528,12 +583,11 @@ def main() -> None:
             shutil.copy2(path, retained / path.name)
         (out / "synthetic-seed-acts.json").write_text(json.dumps(acts, indent=2, sort_keys=True) + "\n", encoding="utf-8")
         summary_hashes = {path.name: hashlib.sha256(path.read_bytes()).hexdigest() for path in retain_paths}
-        result = resolve_production_package(acts, run_scope=P2.RUN_SCOPE, scope_user=P2.SCOPE_USER,
-            workspace_revision=len(acts), surface=surface, schemas=DerivationSchemas())
         summary: dict[str, Any] = {"stage": "bounded-declaration-check", "outputDirectory": str(out.relative_to(ROOT)),
                                    "declaration": declaration, "dynamicAccount": dynamic,
                                    "P3Consumers": consumers, "retainedCandidateHashes": summary_hashes,
-                                   "syntheticSuppliedActs": "synthetic-seed-acts.json"}
+                                   "syntheticSuppliedActs": "synthetic-seed-acts.json",
+                                   "selectedCases": list(args.case)}
         candidate_package = read(surface.member_dir / f"package.core-calculations.{T0_PACKAGE_VERSION}.json")
         preserved_member_ids = {"tax.us.2025.rule.form1040-standard-deduction",
                                 "tax.us.2025.rule.form1040-line16",
@@ -545,32 +599,69 @@ def main() -> None:
         summary["preservedCurrentBaseMembers"] = sorted(
             [row for row in candidate_package["members"] if row["id"] in preserved_member_ids],
             key=lambda row: row["id"])
-        if isinstance(result, Refusal):
-            summary.update({"outcome": "refused", "reason": result.reason, "detail": result.detail,
-                            "issues": list(result.issues)})
-        else:
-            summary.update({"outcome": "resolved", "candidatePackage": result.package.get("version"),
-                            "resolvedRuleCount": len(result.resolved_members)})
-            # One authorized ordinary line8a collector case, with the P3-only
-            # presentation overlay preserving the measured consumer boundary.
-            overlay = type("Overlay", (), {})()
-            exec(compile(P3.OVERLAY_SOURCE, "<p3-presentation-overlay>", "exec"), overlay.__dict__)
-            import packages.derivation.presentation_projection as projection
-            import packages.derivation.live as live
-            import packages.derivation.live_session as live_session
-            overlay.install(projection, live, live_session)
-            case_dir = out / "cases" / "supported-connected-pair"
+        # Use the same declared P3 presentation-only overlay as the accepted
+        # positive, but never replay that unchanged case on this current base.
+        overlay = type("Overlay", (), {})()
+        exec(compile(P3.OVERLAY_SOURCE, "<p3-presentation-overlay>", "exec"), overlay.__dict__)
+        import packages.derivation.presentation_projection as projection
+        import packages.derivation.live as live
+        import packages.derivation.live_session as live_session
+        overlay.install(projection, live, live_session)
+        case_summaries = []
+        for case_id in args.case:
+            case_acts, mutation = ceiling_collision_acts(acts, case_id)
+            case_resolution = resolve_production_package(case_acts,
+                run_scope=P2.RUN_SCOPE, scope_user=P2.SCOPE_USER,
+                workspace_revision=len(case_acts), surface=surface, schemas=DerivationSchemas())
+            case_dir = out / "cases" / case_id
             case_dir.mkdir(parents=True, exist_ok=False)
-            case = P2._live_case("positive-baseline", acts, surface, case_dir)
-            summary["coordinatorCase"] = case
-            consumer_paths = [case_dir / case[key] for key in
-                ("durable_report", "durable_presentation") if case.get(key)]
-            consumer_paths.extend(path for path in (case_dir / "synthetic-records.json",
-                case_dir / "run-output.json") if path.exists())
-            summary["durableConsumerHashes"] = {
-                str(path.relative_to(out)): hashlib.sha256(path.read_bytes()).hexdigest()
-                for path in consumer_paths if path.exists()}
-            summary["stage"] = "bounded-dynamic-account-coordinator-case"
+            case_summary: dict[str, Any] = {"caseId": case_id, "suppliedMutation": mutation,
+                "suppliedActs": str((case_dir / "synthetic-seed-acts.json").relative_to(ROOT))}
+            if isinstance(case_resolution, Refusal):
+                case_summary.update({"packageValidation": "refused", "reason": case_resolution.reason,
+                    "detail": case_resolution.detail, "issues": list(case_resolution.issues)})
+                write(case_dir / "package-validation.json", case_summary)
+                case_summaries.append(case_summary)
+                continue
+            case_summary["packageValidation"] = "resolved"
+            case_summary["resolvedRuleCount"] = len(case_resolution.resolved_members)
+            # _live_case's positive-baseline branch is a no-op apart from the
+            # established fixture invariants/revision checks. The supplied acts
+            # above are changed before it enters the real coordinator.
+            live_case = P2._live_case("positive-baseline", case_acts, surface, case_dir)
+            live_case["harnessBranch"] = live_case.get("case")
+            live_case["case"] = case_id
+            report_path = case_dir / "coordinator-report.json"
+            model_path = case_dir / "presentation-model.json"
+            records_path = case_dir / "synthetic-records.json"
+            if report_path.exists():
+                report = read(report_path)
+                live_case["runId"] = report.get("run_id")
+                target_ids = {P2.LINE8A_RULE_ID, "tax.us.2025.rule.schedule-a-total",
+                              "tax.us.2025.rule.form1040-line12e"}
+                live_case["consumerOutcomes"] = [{"artifact": item.get("artifact_id"),
+                    "symbol": item.get("symbol"), "disposition": item.get("disposition"),
+                    "blocked": item.get("blocked"), "missing": item.get("missing"),
+                    "finding_id": item.get("finding_id"), "pins": item.get("pins", [])}
+                    for item in report.get("dispositions", []) if item.get("artifact_id") in target_ids]
+            if model_path.exists():
+                model = read(model_path)
+                explanation = model.get("mortgageInterestExplanation", {})
+                live_case["selectedAccountSupport"] = explanation.get("sharedSupport", [])
+                live_case["line12eProjection"] = [{"disposition": section.get("resolved", {}).get("disposition"),
+                    "value": section.get("resolved", {}).get("value"),
+                    "pins": (section.get("resolved", {}).get("act", {}).get("finding", {}).get("pins", []))}
+                    for section in model.get("sections", [])
+                    if "line-12e-src-0" in str(section.get("citationSites", []))]
+            live_case["durableConsumerHashes"] = {
+                name: hashlib.sha256(path.read_bytes()).hexdigest()
+                for name, path in (("coordinator-report.json", report_path),
+                    ("presentation-model.json", model_path), ("synthetic-records.json", records_path))
+                if path.exists()}
+            case_summary["coordinatorCase"] = live_case
+            case_summaries.append(case_summary)
+        summary.update({"outcome": "resolved", "candidatePackage": T0_PACKAGE_VERSION,
+            "cases": case_summaries, "stage": "bounded-ceiling-collision-coordinator-cases"})
         write(out / "declaration-check.json", summary)
         print(json.dumps(summary, indent=2, sort_keys=True))
 

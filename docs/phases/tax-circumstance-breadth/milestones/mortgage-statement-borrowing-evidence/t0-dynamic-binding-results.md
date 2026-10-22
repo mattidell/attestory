@@ -1,9 +1,9 @@
 # Bounded Track 0 dynamic-account candidate
 
-Status: the v50-derived disposable candidate package validates and its one
-supported-connected-pair coordinator run completes. This is bounded synthetic
-evidence, not a Track 0 closure finding, production recorder proof, or evidence
-for the remaining six chartered coordinator cases.
+Status: the v50-derived disposable candidate package validates; the supported
+pair and both A/B ceiling-collision inputs reached the actual coordinator.
+This is bounded synthetic evidence, not a Track 0 closure finding, production
+recorder proof, or proof for the four remaining lifecycle cases.
 
 ## What was validated
 
@@ -89,16 +89,69 @@ structurally admitted together by the existing resolver. Package/release
 version numbers here are disposable candidate lineage, not reservations or
 published-content claims.
 
+### Ceiling-collision cases on the current v56 candidate
+
+Both cases used the same validated v56 candidate and supplied explicit
+structured borrowing/year keys. Each case had one coordinator run (two record
+rows: started and completed); the positive case above was not replayed. Raw
+acts, candidate content/hashes, and case artifacts are retained at
+`temp/mortgage-statement-borrowing/t0-dynamic-binding-20261022T172816Z/`.
+
+1. **A ceiling absent; B ceiling $300,000.** The input retained A's
+   continuing-borrowing affirmation, both current report-to-A links, A's
+   other-debt answer, and all report-local facts; it removed only A's annual
+   ceiling and supplied B's ceiling under the explicit key
+   `borrowing=demo.f1098.borrowing.B, tax-year=2025`. B's $300,000 ceiling is
+   within the $750,000 limit and above both Box 2 observations ($240,000 and
+   $220,000), so the blocker is not that B's value is unsuitable. Package
+   validation resolved. The coordinator completed with line8a blocked on the
+   missing `demo.tax.2025.mortgage.same-borrowing-ready`; Schedule A total was
+   blocked on line8a and line12e on Schedule A total. The account-ceiling
+   selection for A was blocked on its missing A-keyed ceiling, while B did not
+   supply that join. This confirms no favorable dependent mortgage amount is
+   selected from B. However, the saved P3 temporary model's `sharedSupport`
+   incorrectly displays B's $300,000 ceiling alongside A's recognition and
+   other-debt facts. Thus the derivation gate is keyed correctly, but this
+   overlay is not safe evidence of shared-support display in a collision.
+
+2. **A ceiling $250,000; dormant B ceiling $900,000.** B has no recognition
+   claim or report link. Package validation resolved, and the coordinator
+   published line8a at $11,000, Schedule A total, and line12e. The exact
+   account-ceiling-selected result is keyed to continuing-borrowing A and pins
+   A's raw ceiling act (`demo.mortgage.p2.annual-ceiling`) plus A's recognition;
+   no B ceiling appears in that derivation lineage. The line8a publication is
+   $11,000 and pins both report Box 1 inputs plus the current readiness
+   finding. The completion record also says line12e was published under v56
+   and line12e rule v2; its finding ID matches the saved positive result, whose
+   value was $15,750. The current collision run's numeric line12e value is not
+   directly retained: P3's overlay failed before saving its report/model,
+   raising `P3 expected one current shared support finding for
+   demo.tax.2025.mortgage.annual-ceiling` because two raw annual-ceiling claims
+   were current. The durable completion records and in-memory line8a
+   publication are retained, but this case has no durable coordinator report
+   or presentation model.
+
+For audit, case 1's raw-acts, report, model, and records hashes are
+`8e99b6e7be1308a4454d05fd549db38737f4bfbf1978bf70f329e4160fb12730`,
+`beff0018a1860233776df2fddd837722f40c90aa1e4806d4bc9ddfb26ea9c83d`,
+`4500eb5989a30a49f95f17da308b367df9e157bab21c534a55e51bcdf9586dcb`, and
+`f5e3287094610f956eca61e9fceeb7e0a1aee19300434d6e6a745312b1088f3f`.
+Case 2's raw-acts, completion-records, and in-memory line8a publication hashes
+are `f3cd9f76251a6ad1949fb2c4eafe64d9886aa82285b3b638c28ee10a9b5684d6`,
+`31ed9d4f5b02293be1d2c548019f69dbf257d25239dd94cf1418207a83665ee8`, and
+`8582fe1979f001f5f4d184970613fba258e79440c83af3b5d34fe22b33a38770`.
+
 ## What remains unproved
 
-The next authorized work remains the other six bounded coordinator cases.
-In particular, the runtime evidence does not yet establish the missing A
-ceiling/unrelated B ceiling blocker, valid A beside dormant B ceiling,
+The next authorized work remains the four lifecycle/empty/orphan cases and
+four-outcome status integration. Although the two A/B derivation boundaries
+are now observed, the P3 shared-support overlay visibly misassociates B's
+ceiling when A's is absent and rejects two current ceilings instead of
+selecting A. This presentation-path limitation is separate from the successful
+keyed derivation lineage. The remaining runtime evidence does not yet establish
 withdrawn-current status being load-bearing, affirmed orphan handling,
-closed-empty behavior with only retired outcomes, or the remaining negative
-and correction transitions. The one passing pair does not establish the
-behavioral boundary of the P3 line12e affirmed-orphan dependency across those
-states.
+closed-empty behavior with only retired outcomes, or the other connected
+singleton and correction transitions.
 
 ## Validation attempts
 

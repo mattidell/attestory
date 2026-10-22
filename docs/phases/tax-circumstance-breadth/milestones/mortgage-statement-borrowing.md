@@ -3,7 +3,7 @@
   "version": 1,
   "phase": "Tax Circumstance Breadth",
   "topic": "mortgage-statement-borrowing",
-  "status": "Current-base core-v50-derived candidate validates and publishes line8a $11,000 / line12e $15,750 with newer tax content retained. Six boundary cases and four-outcome integration remain open. Owner deferred clear-account; no production built.",
+  "status": "Core-v50 candidate passes both A/B ceiling derivation checks; experimental shared-support display needs a keyed repair and saved models. Four lifecycle/empty/orphan cases and four-outcome integration remain open. Clear-account deferred; no production.",
   "scope": [
     "extend the existing ordinary mortgage account to a bounded same-borrowing multiple-report case",
     "preserve report amounts, loan-level circumstances and their separate correction lifecycles",
@@ -189,7 +189,16 @@ candidate confirms that only the four intended mortgage/consumer member pins
 change from core v50; its other member pins and retained source package and
 registry are unchanged. Line16 v6 and preferential-base v5 are retained, but
 this fixture lacks unrelated line16 inputs and does not demonstrate tax
-computation. The six boundary cases and four-outcome integration remain open.
+computation. Remaining display/lifecycle proof is listed below.
+
+The two A/B ceiling calculations have since executed: absent A cannot borrow
+B's otherwise-favorable ceiling, and valid A still publishes with dormant B's
+unfavorable ceiling present. The retained derivation lineage identifies A.
+Their shared-support display is not correct: the P3 adapter scans current
+claims without borrowing scope, displaying B as A's support or rejecting two
+ceilings. Repair that disposable adapter and save both current-base consumer
+models before treating these paths as integrated evidence. Four lifecycle/
+empty/orphan cases and four-outcome status integration remain unproved.
 
 P2/P3 and the first T0 runtime result remain historical evidence at their
 recorded package hashes. Their synthetic v50–v55 package numbers describe

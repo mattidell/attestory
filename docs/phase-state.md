@@ -5,7 +5,7 @@
   "topic": "mortgage-statement-borrowing",
   "active_plan": "docs/phases/tax-circumstance-breadth/milestones/mortgage-statement-borrowing.md",
   "milestone_state": "track-0",
-  "status": "Current-base core-v50-derived candidate validates and publishes line8a $11,000 / line12e $15,750 with newer tax content retained. Six boundary cases and four-outcome integration remain open. Owner deferred clear-account; no production built.",
+  "status": "Core-v50 candidate passes both A/B ceiling derivation checks; experimental shared-support display needs a keyed repair and saved models. Four lifecycle/empty/orphan cases and four-outcome integration remain open. Clear-account deferred; no production.",
   "current_role": "Builder — Luna Track 0 connected contract consolidation",
   "current_prompt": "docs/reviews/mortgage-statement-borrowing/charter-t0-connected-closure.md"
 }
@@ -61,7 +61,7 @@ and the correct empty/withdrawal transitions. This is not production acceptance.
 The first disposable dynamic-account candidate now validates and publishes
 the supported pair through line8a, Schedule A total and line12e. Its four-
 outcome report-status composition was validated separately and is not yet
-combined with this runtime candidate. Six negative/transition cases remain.
+combined with this runtime candidate; remaining evidence is described below.
 The owner approved rebasing onto PR #217. The ratified package base is now
 core v50 / registry v48 / release v48. Continue the bounded candidate on that
 base and verify its saved result with the updated standard deduction before
@@ -72,7 +72,13 @@ The new-base positive now validates as disposable v56: line8a is $11,000 and
 line12e is $15,750 with the standard-deduction v2/verified parameter pins.
 All non-mortgage member pins from core v50 are retained. Line16 remains
 blocked by unrelated missing fixture inputs; this is not tax-computation
-proof. The six boundary cases and four-outcome integration are still open.
+proof. Remaining display/lifecycle evidence is described below.
+The two A/B ceiling derivation checks have since succeeded, but exposed a
+shared-support display defect in the experimental P3 adapter. It selects raw
+claims without borrowing scope, so it can show B as A's support or reject two
+ceilings. Repair that adapter and save both models before calling these paths
+integrated. Four lifecycle/empty/orphan cases and four-outcome integration
+remain unproved; production is still not begun.
 The owner deferred
 the clear-account action for this milestone: corrections and withdrawals stay
 in scope, without implicit legacy resumption. Visible group rendering,

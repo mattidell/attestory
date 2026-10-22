@@ -121,6 +121,30 @@ four-outcome status must actually be consumed before claiming its runtime
 semantics. Record each candidate's base and final checksums explicitly; do
 not identify the old synthetic v50 package with ratified core v50.
 
+### Repair the observed shared-support display
+
+The two current-base A/B calculations select support correctly, but the
+reused P3 overlay does not. With A's ceiling missing it displays B's ceiling
+as shared support; with both ceilings it raises before saving the model.
+Preserve those measured failures. Repair only the disposable presentation
+adapter in the T0 probe, and correct the provisional contract's evidence
+ceiling. Do not change the earlier P3 observations or production projection.
+
+Use structured borrowing/year identity and the actual run's root/lineage to
+associate shared support. A raw claim shown as applicable is not automatically
+a claim the rule consumed; only actual recorded pins establish the latter.
+Never select another borrowing merely because one value remains current.
+When A's support is absent, save the actual blocked result without inventing
+the support or substituting B. With A and dormant B present, save A's result
+and support without rejecting B's harmless presence. Keep actual report
+identities and the newer v50 tax pins. No tax computation in the adapter.
+
+Retain the exact changed adapter source/hash and both repaired saved models.
+These two cases may run once again to test the changed presentation boundary,
+not to reconfirm unchanged arithmetic. No evaluator/runner/marshal patches,
+new grammar/schema or production files. Return this small repair before the
+four remaining lifecycle/empty/orphan cases or independent review.
+
 No production code/content, package/test/configuration edits, public schemas,
 suite or browser work. The first paper return prohibited execution; only the
 bounded continuation above now permits a disposable package/coordinator check.
