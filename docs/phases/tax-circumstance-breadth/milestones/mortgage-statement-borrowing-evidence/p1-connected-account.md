@@ -16,10 +16,11 @@
    late-report, no-report, and single-report cases; compare existing patterns,
    name the integration cost, and propose one discriminating probe if needed.
 
-This connected paper design follows the Foreman's provisional P1 direction
-for the borrowing account and amount ceiling. Ordinary-answer scope remains
-an owner choice between the two alternatives below. Nothing here is an
-accepted contract or production specification.
+The owner selected A: all nine incumbent ordinary answers remain report-local.
+The borrowing account and numeric ceiling retain the provisional P1 meaning.
+B is retained below only as a possible later extension and cost comparison;
+it is not part of this milestone's selected experiment. This is a selected
+design direction, not a completed production path or accepted schema contract.
 
 ## The person-facing account
 
@@ -103,9 +104,9 @@ The paper account distinguishes:
 | **Borrowing/home-wide or otherwise explicitly shared** | Whether named reports concern one continuing obligation; use of that borrowing; an assertion that the filing unit paid all interest on the borrowing in the year; whether the borrowing is secured by the identified main home. | A claim explicitly about the named borrowing or group of linked reports, with that scope made clear. It may cover both reports without duplicate answers. It cannot supply report-specific values or an answer whose meaning differs by report. |
 | **Return-wide** | Filing status and other facts whose meaning applies to the return as a whole. | The current return's support, not either report's answer. Filing status was correctly return-wide in P0; it must not be misread as report-local merely because a report result consumes it. |
 
-The same-loan link does not decide the scope of the nine existing ordinary
-answers. That is the pending owner choice; neither option makes a copied
-answer or accidental value match authoritative.
+The same-loan link does not broaden the nine existing ordinary answers.
+The owner selected report-local option A; option B remains deferred. Neither
+option makes a copied answer or accidental value match authoritative.
 
 | Option | What the person asserts | Person effort | Content, recording and provenance cost |
 | --- | --- | --- | --- |
@@ -298,9 +299,9 @@ relabel A's answer as B evidence.
    provides a numeric ceiling for 2025, answers the separate other-debt
    question, and explicitly links report A and report B. Reports retain their
    existing `(payer, statement, tax-year)` identities. The borrowing reference
-   is opaque and never inferred from report contents. Ordinary answers then
-   follow the pending option: A records each of the nine per report; B records
-   genuinely whole-loan assertions once and leaves report-specific claims local.
+   is opaque and never inferred from report contents. Selected option A
+   records each of the nine ordinary answers per report. B's genuinely
+   whole-loan ordinary assertions are a possible later extension only.
 2. **Establish current support.** The current account contains a continuing-
    borrowing claim, two current membership links, the ceiling assertion and
    the other-debt answer. Under A it also contains nine current ordinary
@@ -675,8 +676,9 @@ a Form-1099-K allowlist is not presumed necessary.
 | Content and aggregate | One successor producer of Schedule A line8a retains legacy nonempty singleton behavior only when no connected account state is current; connected nonempty branch uses agreed Box 3 category, supported $750k/$375k limit, ceiling, explicit links and complete coverage. A genuinely closed-empty family remains authorized zero independent of account facts. | F1098 v1 authorizes exactly `tax.us.2025.schedule-a.line8a`; audit rejects another publication symbol. Closure separately distinguishes closed-empty from unresolved. | No connected line8a rule exists. It must preserve the cutoff on or before 1987-10-13, disclose that the higher pre-2017 $1m limit is unmodeled, and block a Box 3 disagreement. |
 | Saved explanation and reader | Add a group account containing both report explanations, one borrowing summary and exact shared/report pins, tied to the saved revision. Keep the old singular reader for one report. | Current projection validates a singular mortgage account with exact `statementKeys`; current review reloads and checks the one statement and revision. | No group-shaped mortgage model or reader exists. The connected design needs behavior that identifies all contributing reports and the exact source of the ceiling and each answer. |
 
-The experiment is conditional on the pending owner choice; do not execute it
-until that choice is made. Both options use one raw synthetic two-report
+The owner selected option A's six-run experiment below. Option B's shared-
+answer bridge and producer-removal control are not included. The comparison
+uses one raw synthetic two-report
 baseline plus five isolated mutations: contrary B report-local payment
 answer, missing B membership link, linked B Box 2 above the person's ceiling,
 a loose $900,000 ceiling while both Box 2 observations remain below the
@@ -726,9 +728,9 @@ subject/joined discovery fails, record the exact missing operation rather
 than assuming a Form-1099-K allowlist or supplying fabricated intermediates.
 
 The connected account shape below is a paper candidate, not an accepted
-contract or production authorization. The ordinary-answer scope remains an
-owner choice; the two alternatives and their different experiment costs are
-set out above and below. Neither alternative changes the provisional source
+contract or production authorization. Ordinary-answer scope is selected A;
+the deferred B alternative and its different experiment cost remain visible
+for possible later work. Neither alternative changes the provisional source
 choice for the numeric ceiling or expands the supported debt coverage.
 
 | Product meaning | Proposed direction | Value | Cost or risk |
@@ -736,7 +738,7 @@ choice for the numeric ceiling or expands the supported debt coverage.
 | Same borrowing and report membership | One explicit continuing-borrowing claim plus a link for each exact report. Opaque identity is created in the person's workspace, never inferred from report details. | Makes the relationship visible without institutional verification or automatic matching. | Requires a small account and link lifecycle; the current statement recorder is singleton. |
 | Annual balance support | Ask for a numerical ceiling the person is confident was not exceeded during the year; keep it separate from dated Box 2 facts. | Gives the application a number it can compare after it determines the tax category and limit; remains usable if filing status changes. | An additional user assertion may be unavailable or contradicted; it is not independently verified and is not proven by the reports. |
 | Other borrowing | Ask separately whether other mortgage or home-equity borrowing was secured by either home. Yes is unsupported here; unknown is unresolved; no is an ordinary assertion, not an objective completeness proof. | Avoids silently assuming second-home debt is absent while keeping the interaction bounded. | Excludes a real case when other debt exists; calculating combined debt would be broader work. |
-| Ordinary-answer scope (owner choice) | Option A keeps all nine existing answers report-local; option B uses shared assertions only when the proposition is genuinely borrowing-wide, retaining report-local answers where the proposition names a report. | A preserves existing statement semantics and permits grouped confirmation; B can reduce repetition for truly common circumstances. | A retains per-report confirmation burden. B adds wording and cross-scope correction/provenance dependencies. The selected experiment differs accordingly. |
+| Ordinary-answer scope (owner selected A) | Keep all nine existing answers report-local. B's genuinely shared assertions are deferred, not an implicit interpretation of matching answers. | Preserves existing statement semantics and permits grouped confirmation. | Retains per-report confirmation burden; defers B's wording and cross-scope correction/provenance dependencies. |
 | Aggregation and compatibility | One Schedule A line8a producer retains legacy nonempty singleton behavior only when no connected account state is current; current connected-account assertions/outcomes prevent favorable fallback after removal or withdrawal. A genuinely closed-empty family remains zero even if borrowing/account facts remain, unless closure is unresolved or a current affirmative link names a missing report. | Reuses established family authority without conflating closure with loan identity or treating a closed-empty family as proof that no real-world borrowing exists. | New subject calculation, connected recorder/admission, and group saved-reader behavior remain unproven; no clear-account exit is currently supported. |
 
 The numeric ceiling remains a provisional, visible product-source choice:
@@ -763,7 +765,7 @@ person; no production feasibility, group reader, or new path has been proven.
 The proposed single discriminating probe is described above and was not run.
 No public schema version or production change is selected. Sol's review
 returned REPAIR REQUIRED; this combined repair records the requested
-corrections without starting another full paper-review round. Next, the owner
-chooses the ordinary-answer scope, followed by the selected bounded
-experiment and review of its evidence. Track 0 and any production charter
+corrections without starting another full paper-review round. The owner chose
+A. Next is the selected bounded experiment and review of its evidence under
+the P1 independent-review unit. Track 0 and any production charter
 remain downstream of that evidence and the owner's disposition.

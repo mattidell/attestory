@@ -5,9 +5,9 @@
   "topic": "mortgage-statement-borrowing",
   "active_plan": "docs/phases/tax-circumstance-breadth/milestones/mortgage-statement-borrowing.md",
   "milestone_state": "track-0",
-  "status": "P0 READY. P1 connected repair combines outside/Sol findings. Await owner choice between report-local ordinary answers and shared-answer intermediates, then run the selected bounded experiment and review its evidence. No experiment, production or schema successor started.",
-  "current_role": "Foreman — obtain answer-scope choice, then charter bounded experiment",
-  "current_prompt": "docs/phases/tax-circumstance-breadth/milestones/mortgage-statement-borrowing.md"
+  "status": "Owner selected A: nine report-local ordinary answers plus the common borrowing account. P2 now tests the six-case content-only real-path candidate; B deferred. No production or schema successor selected.",
+  "current_role": "Builder — Luna P2 option-A real-path experiment",
+  "current_prompt": "docs/reviews/mortgage-statement-borrowing/charter-p2-option-a-experiment.md"
 }
 -->
 
@@ -34,7 +34,9 @@ assertions with per-report intermediates, prefers the existing student-loan
 scoped-answer pattern before an admission allowlist, requires linked Box 3
 dates to agree, preserves genuine closed-empty behavior, and names the
 unsupported connected-route exit as a deliberate proposed limit. The owner
-must select answer scope before the experiment. The numeric annual ceiling
+selected A: keep the nine ordinary answers report-local, retaining B as a
+possible later extension. P2 now runs the six-case existing-content-path
+experiment; it omits the shared-answer bridge and producer-removal control. The numeric annual ceiling
 and separate other-debt account remain provisional, not observed user inputs.
 No production path or schema successor is selected.
 

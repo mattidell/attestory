@@ -3,7 +3,7 @@
   "version": 1,
   "phase": "Tax Circumstance Breadth",
   "topic": "mortgage-statement-borrowing",
-  "status": "P0 independently reviewed READY. P1 outside/Sol findings repaired together. Owner choice between report-local ordinary answers and shared-answer intermediates is pending before the selected experiment. No production or schema successor selected.",
+  "status": "Owner selected A: nine report-local ordinary answers plus the common borrowing account. P2 now tests the six-case content-only real-path candidate; B deferred. No production or schema successor selected.",
   "scope": [
     "extend the existing ordinary mortgage account to a bounded same-borrowing multiple-report case",
     "preserve report amounts, loan-level circumstances and their separate correction lifecycles",
@@ -196,29 +196,23 @@ treatment. No production path or schema successor has been selected.
   independent paper verdict was REPAIR REQUIRED; the combined repair is not
   experiment evidence or a new production verdict.
 
-### Owner decision before the intermediate-join experiment
+### Selected ordinary-answer scope
 
-Choose the ordinary-answer scope for this bounded delivery:
+The owner selected **A: report-local ordinary answers**. Retain all nine
+existing ordinary answers on each report; add only the continuing-borrowing
+claim, exact report links, annual ceiling and other-debt answer at their stated
+scopes. The candidate successor line8a rule reads the common account once.
+A grouped interaction may gather each report's confirmations together; equal
+answers remain separate assertions with their own evidence and history.
 
-- **Report-local rival:** keep all nine existing ordinary answers keyed to
-  each report; add only the continuing-borrowing claim, exact report links,
-  annual ceiling and other-debt answer at their stated scopes. The successor
-  line8a rule reads the common account once.
-- **Shared-answer candidate:** allow genuinely borrowing-wide ordinary
-  assertions to cover both linked reports through actual derived per-report
-  intermediates that pin the assertion and each report's link.
-
-The shared candidate was a Foreman preference, not an owner selection.
-The Foreman now recommends report-local answers for this bounded delivery:
-reuse established meanings and scoped transport before adding a second
-ordinary-assertion model. A grouped interaction can reduce repeated prompts
-while still asking the person to confirm each report's own account. Compare
-the additional person effort against recording/content/lifecycle and provenance
-cost before choosing it. Do not run its intermediate-join experiment before
-the owner answers. Neither option permits A's report-local evidence to stand
-in for B's. The
-[P1 connected account](mortgage-statement-borrowing-evidence/p1-connected-account.md)
-must carry both options and the resulting disposition.
+This reuses established meanings and scopes rather than introducing shared
+ordinary assertions now. Its person cost is confirmation for each report.
+B remains a possible later extension: genuinely borrowing-wide ordinary
+assertions propagated through link-dependent derived findings. It is not
+promised work in this milestone, and existing report-local history must never
+be reinterpreted as such a shared assertion. The
+[P1 comparison](mortgage-statement-borrowing-evidence/p1-connected-account.md)
+retains the cost and provenance distinction.
 
 ### Open evidence and next action
 
@@ -230,13 +224,13 @@ must carry both options and the resulting disposition.
   deliberate limit for owner disposition before production, not permanent
   routing by implication. The experiment does not build an exit, and
   withdrawal must not silently resume a favorable legacy route.
-- Once the owner chooses and the connected repair is ready, run the bounded
-  real-coordinator experiment, including unequal report answers, missing
-  membership, principal/ceiling conflict, loose ceiling and conflicting Box 3
-  dates. Include the intermediate-producer removal only if the shared route
-  is selected. Raw synthetic inputs are supplied; derived results must
-  actually execute. No ordinary-recorder or saved-reader delivery is proved
-  by this feasibility check.
+- Run the selected six-case option-A experiment under
+  [the P2 charter](../../../reviews/mortgage-statement-borrowing/charter-p2-option-a-experiment.md):
+  positive baseline, contrary B answer, missing B membership, principal/ceiling
+  conflict, loose ceiling and conflicting Box 3 dates. Omit the shared-answer
+  intermediate and its producer-removal control. Raw synthetic inputs are
+  supplied; derived results must actually execute. This is not an ordinary-
+  recorder or saved-reader delivery.
 - Then settle the integration cost and complete Track 0 adversarial closure
   before any production charter. Do not commission further rounds merely to
   refine paper. A demonstrated need for allocation, refinancing, general
