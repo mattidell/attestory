@@ -11,6 +11,7 @@ import hashlib
 import json
 import tempfile
 import unittest
+import pytest
 from pathlib import Path
 from typing import Any
 
@@ -445,6 +446,7 @@ ALL_OUTCOME_TYPES = tuple(OUTCOME_VALUES)
 SAMPLE_UNRESOLVED = "demo.tax.2025.sli.statement-inclusion-unresolved"
 
 
+@pytest.mark.live  # Each case records answers through the real recorder and save.
 class LinkOutcomes(unittest.TestCase):
     """Cannot tell, no and withdrawal each leave a current fact a rule can require."""
 

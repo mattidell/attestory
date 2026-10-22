@@ -7,6 +7,8 @@ import unittest
 from pathlib import Path
 from typing import Any
 
+import pytest
+
 from packages.derivation.loader import DerivationSchemas
 from packages.kernel.act_log import ActLog
 from packages.kernel.contribution import ContributionError, apply_contribution_batch
@@ -167,6 +169,7 @@ class CircumstanceVocabulary(unittest.TestCase):
             with self.assertRaises(ContributionError):
                 _record_answer(log, registry, FACT, invalid_statement, "partly-paid", "payment.invalid")
 
+    @pytest.mark.live  # Durably admits every Form 1098 circumstance type and value, then projects the log.
     def test_every_bundle_type_and_selected_value_is_durably_admitted(self) -> None:
         raw, log, registry = _workspace()
         with raw:

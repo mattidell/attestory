@@ -14,8 +14,13 @@ import unittest
 from pathlib import Path
 from typing import Any
 
+import pytest
+
 from packages.derivation.loader import DerivationSchemas
 from packages.derivation.package_validation import package_instance_checksum, validate_package
+
+# Each case validates the published core-calculations package, or that package with one mutant.
+pytestmark = pytest.mark.live
 
 ROOT = Path(__file__).resolve().parents[1]
 CONTENT = ROOT / "packages" / "content" / "tax" / "2025"

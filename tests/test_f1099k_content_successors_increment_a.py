@@ -20,6 +20,8 @@ from tempfile import TemporaryDirectory
 import unittest
 from typing import Any
 
+import pytest
+
 from packages.derivation.loader import DerivationSchemas
 from packages.derivation.package_validation import (
     load_published_citizen_checksums,
@@ -102,6 +104,7 @@ class F1099KContentSuccessorsIncrementATests(unittest.TestCase):
         self.assertEqual(item.get("tie_out", {}).get("line_symbol"), "tax.us.2025.f1099k.box1a-subtotal")
         self.assertIn("tax.us.2025.schedule1.top-entry", attachment_v4.get("requirement", {}).get("subtotals", []))
 
+    @pytest.mark.live  # Validates the whole v49 package against the content corpus.
     def test_package_v49_validation_and_release(self) -> None:
         """package.core-calculations.v49 validates against all members with 0 issues."""
         corpus: dict[tuple[str, str], dict[str, Any]] = {}
@@ -207,6 +210,7 @@ class F1099KContentSuccessorsIncrementATests(unittest.TestCase):
         log.append(item, expected_revision=current_rev)
         return item
 
+    @pytest.mark.live  # Adopts a published package and records a durable Form 1099-K statement.
     def test_f1099k_family_version_for_workspace_and_recording(self) -> None:
         """Writers automatically resolve family_version from adopted package without hard-coding."""
         log_path = Path(self.temp.name) / "workspace_v49"
@@ -249,6 +253,7 @@ class F1099KContentSuccessorsIncrementATests(unittest.TestCase):
         self.assertEqual(transition_acts[0]["payload"]["family"]["id"], FAMILY_ID)
         self.assertEqual(transition_acts[0]["payload"]["family"]["version"], "v2")
 
+    @pytest.mark.live  # Adopts a published package and records a durable Form 1099-K statement.
     def test_f1099k_v48_workspace_preserves_v1(self) -> None:
         """A workspace adopting v48 preserves family version v1 automatically."""
         log_path = Path(self.temp.name) / "workspace_v48"
@@ -283,6 +288,7 @@ class F1099KContentSuccessorsIncrementATests(unittest.TestCase):
         self.assertEqual(len(transition_acts), 1)
         self.assertEqual(transition_acts[0]["payload"]["family"]["version"], "v1")
 
+    @pytest.mark.live  # Adopts a published package and records a durable Form 1099-K statement.
     def test_record_no_statements_family_version_threading(self) -> None:
         """record_f1099k_no_statements_durably resolves family version from workspace."""
         log_path = Path(self.temp.name) / "workspace_no_stmt"
@@ -305,6 +311,7 @@ class F1099KContentSuccessorsIncrementATests(unittest.TestCase):
         self.assertEqual(len(genesis_acts), 1)
         self.assertEqual(genesis_acts[0]["payload"]["family"]["version"], "v2")
 
+    @pytest.mark.live  # Adopts a published package and records a durable Form 1099-K statement.
     def test_adoption_by_other_actor_preserves_v1(self) -> None:
         """Adoption by another actor does not select for current actor, keeping v1."""
         log_path = Path(self.temp.name) / "workspace_other_actor"
@@ -335,6 +342,7 @@ class F1099KContentSuccessorsIncrementATests(unittest.TestCase):
         genesis_acts = [a for a in acts if a.get("kind") == "horizon-genesis"]
         self.assertEqual(genesis_acts[0]["payload"]["family"]["version"], "v1")
 
+    @pytest.mark.live  # Adopts a published package and resolves the family version from that adoption.
     def test_adoption_by_other_scope_preserves_v1(self) -> None:
         """Adoption for another scope (e.g. tax year 2024) preserves v1 for 2025."""
         log_path = Path(self.temp.name) / "workspace_other_scope"
@@ -343,6 +351,7 @@ class F1099KContentSuccessorsIncrementATests(unittest.TestCase):
         self._adopt_package(log, "v49", scope={"jurisdiction": "us", "year": "2024"})
         self.assertEqual(f1099k_family_version_for_workspace(log, actor="demo.taxpayer", tax_year="2025"), "v1")
 
+    @pytest.mark.live  # Adopts successive published packages and resolves the active family version.
     def test_superseded_adoption_selects_active(self) -> None:
         """A superseded adoption yields to the superseding act."""
         log_path = Path(self.temp.name) / "workspace_superseded"
@@ -360,6 +369,7 @@ class F1099KContentSuccessorsIncrementATests(unittest.TestCase):
         self._adopt_package(log, "v49", revision=3, supersedes=act2["act_id"])
         self.assertEqual(f1099k_family_version_for_workspace(log, actor="demo.taxpayer"), "v2")
 
+    @pytest.mark.live  # Adopts a published package and refuses an unresolvable release.
     def test_unresolvable_adoption_raises_error(self) -> None:
         """When an adoption exists in scope but cannot be resolved, refuse with named error."""
         log_path = Path(self.temp.name) / "workspace_unresolvable"

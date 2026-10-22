@@ -23,6 +23,8 @@ import unittest
 from pathlib import Path
 from typing import Any
 
+import pytest
+
 from packages.derivation.presentation_projection import validate_presentation_model
 from tools import generate_f1098e_track8_presentation_goldens as goldens
 
@@ -34,6 +36,7 @@ def _sections_by_id(model: dict[str, Any]) -> dict[str, dict[str, Any]]:
 
 
 class ProductionShapedGoldens(unittest.TestCase):
+    @pytest.mark.live  # Regenerates the Form 1098-E presentation goldens and compares them to the committed files.
     def test_regeneration_is_deterministic_and_matches_committed_goldens(self) -> None:
         first = goldens.regenerate()
         second = goldens.regenerate()
@@ -43,6 +46,7 @@ class ProductionShapedGoldens(unittest.TestCase):
             self.assertEqual(committed, model)
             validate_presentation_model(committed)
 
+    @pytest.mark.live  # Regenerates the Form 1098-E presentation goldens.
     def test_every_model_binds_all_four_form_field_symbols_exactly_once(self) -> None:
         models = goldens.regenerate()
         for name, model in models.items():
@@ -55,6 +59,7 @@ class BelowFloorFullDeduction(unittest.TestCase):
     """Path (b): single statement, full eligibility, MAGI below the phaseout
     floor. Full $2,500-capped deduction publishes; AGI reflects it."""
 
+    @pytest.mark.live  # Regenerates the Form 1098-E presentation goldens and checks the below-floor path.
     def test_full_capped_deduction_flows_through_to_agi(self) -> None:
         models = goldens.regenerate()
         sections = _sections_by_id(models["below-floor"])
@@ -73,6 +78,7 @@ class ClosedEmptyComputedZero(unittest.TestCase):
     """Path (a): closed family, zero current members. Line 21 is a
     closure-backed computed zero, never a fabricated positive value."""
 
+    @pytest.mark.live  # Regenerates the Form 1098-E presentation goldens and checks the closed-empty path.
     def test_closed_empty_family_is_closure_backed_zero(self) -> None:
         models = goldens.regenerate()
         sections = _sections_by_id(models["closed-empty"])
@@ -87,6 +93,7 @@ class UniversalComponentViolationBlocks(unittest.TestCase):
     route blocks with SLI_UNIVERSAL_COMPONENT_VIOLATION, never a silent
     zero and never a silent full-box-1 pass-through."""
 
+    @pytest.mark.live  # Regenerates the Form 1098-E presentation goldens and checks the blocked path.
     def test_related_person_interest_blocks_line21_and_downstream(self) -> None:
         models = goldens.regenerate()
         sections = _sections_by_id(models["universal-violation"])

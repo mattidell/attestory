@@ -33,6 +33,8 @@ from decimal import Decimal
 from pathlib import Path
 from typing import Any
 
+import pytest
+
 from packages.derivation.loader import DerivationSchemas, load_canon, workspace_registry
 from packages.derivation.marshal import marshal_run_context
 from packages.derivation.package_validation import package_instance_checksum, validate_package
@@ -1781,6 +1783,7 @@ class C8bCandidateAgainstCurrentPackageValidation(unittest.TestCase):
         ]
         self.assertEqual(hits, [])
 
+    @pytest.mark.live  # Validates the current production package, then the same package with a candidate member.
     def test_current_production_package_validation_accepts_the_invented_source_set(
         self,
     ) -> None:

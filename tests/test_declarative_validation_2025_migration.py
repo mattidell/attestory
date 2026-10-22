@@ -17,6 +17,8 @@ import unittest
 from pathlib import Path
 from typing import Any
 
+import pytest
+
 from packages.derivation.loader import DerivationSchemas
 from packages.derivation.package_validation import (
     check_validation_graph,
@@ -194,6 +196,7 @@ class MigrationDeclarations(unittest.TestCase):
 
 
 class PackagePublication(unittest.TestCase):
+    @pytest.mark.live  # Validates the whole v32 package and checks its compiled member-validation graph.
     def test_v32_validates_and_compiled_graph(self) -> None:
         pkg = _load("package.core-calculations.v32.json")
         self.assertEqual(pkg["schema"], "artifact-package.v24")
@@ -271,6 +274,7 @@ class PackagePublication(unittest.TestCase):
         )
         self.assertEqual(adoption["payload"]["release"]["version"], "v25")
 
+    @pytest.mark.live  # Validates the whole historical v31 package against the content corpus.
     def test_historical_v31_and_v26_byte_identity(self) -> None:
         v31 = _load("package.core-calculations.v31.json")
         self.assertEqual(v31["version"], "v31")
@@ -288,6 +292,7 @@ class PackagePublication(unittest.TestCase):
         )
         self.assertTrue(v31_result.ok, v31_result.issues)
 
+    @pytest.mark.live  # Compiles the whole v32 package validation graph and checks its mutants.
     def test_consumer_class_accounting_and_compiled_edge_mutants(self) -> None:
         pkg = _load("package.core-calculations.v32.json")
         corpus = _content_corpus()

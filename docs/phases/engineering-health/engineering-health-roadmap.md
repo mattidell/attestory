@@ -16,8 +16,7 @@ PR #212.
 
 ### Less Repeated Work, the Same Defects Caught
 
-[Plan](milestones/test-cost-and-coverage.md). Closed on this branch; PR #213
-holds publication review and exact-head CI.
+[Plan](milestones/test-cost-and-coverage.md). Published through PR #213.
 
 The live return now reuses its already-projected current state to read claim
 applicability, rather than replaying the full history again for that purpose.
@@ -32,29 +31,32 @@ derivations. Its sampled tests protected distinct defects, so it justified no
 test cull or application split. The completed boundary is one invocation,
 not a persistent cache or a new source-use contract. No tax coverage changes.
 
+### Faster CI, Cheaper Suites, the Same Defects Caught
+
+[Plan](milestones/test-and-ci-efficiency.md). Ranked suite CPU first. Draft
+pushes get the cheap checks and the fast lane in about a minute; the required
+`verify` fails on drafts and runs in full when a PR is ready. Schema-check and
+historical-lattice reuse lowered suite CPU (3,601s against 5,329s at P0, single
+runs). Track 3 found no worthwhile test moves.
+
 ## Current boundary and remaining work
 
-The next milestone is unselected. Further work should compare these candidates
-before selecting another mechanism:
+The next milestone is unselected. The measured candidates, from the most recent
+suite ranking and its follow-up classification:
 
-1. **Package-validation cost.** The retained story profile attributes about
-   22.7s cumulative to validation across 11 returns. Schema checks already
-   have content-addressed memoization. Identify the remaining expensive
-   substeps, actual misses and authority-preserving boundary before proposing
-   another cache, partial catalog or skipped work.
-2. **Current and historical lattice reads.** Establish whether repeated
-   construction uses the same exact state and which lifecycle changes require
-   rebuilding. A current view cannot substitute for historical authority.
-3. **Test design.** Remove or shorten a story only after retained witnesses
-   demonstrably catch its distinct correction, recovery, refusal and saved
-   result defects. The bounded sample did not establish redundancy or a
-   current slow-module ranking.
-4. **Useful component commands.** Focused suites can shorten local feedback
-   without separately deployable applications. Shared kernel/derivation and
-   dynamic package changes still need integration coverage and full CI.
+1. **Re-projection.** `findings.project` folds the whole log from the start,
+   hundreds of times per test, mostly from product recording, review and the
+   save path. In order: fold incrementally within one `ActLog.append_batch`
+   save; share one projection through each recording or review operation; only
+   then consider an in-process prefix memo keyed by exact act content and
+   registry state. Start from a P0 of the recorder and save paths.
+2. **Current-lattice rebuilds** after the fact state changes (11–20% of worker
+   time at the last ranking) need an incremental-lattice design.
+3. **Test moves** were measured and are not worthwhile while the recorder holds
+   the cost: moving every safe candidate below the coordinator would recover
+   under 1% of suite time. Revisit only after recording is cheaper.
 
-Broader replay caches, partial catalogs, CI sharding, test culling and
-application-module separation remain unselected. Parallel jobs can reduce
-waiting without reducing total CPU; label those benefits separately. Existing
-tax-product limitations remain with their product phases, not silently solved
-by engineering-health work.
+Package validation proved cheap after the first call in a process. Persistent
+caches, partial catalogs, CI sharding, test culling and application-module
+separation remain unselected. Parallel jobs reduce waiting, not CPU; label
+those benefits separately.

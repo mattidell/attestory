@@ -17,6 +17,8 @@ import unittest
 from pathlib import Path
 from typing import Any
 
+import pytest
+
 from packages.derivation.live import _resolve_run_authorization, _resolved_run_material
 from packages.derivation.loader import DerivationSchemas, load_canon
 from packages.derivation.marshal import marshal_live_run_context, marshal_run_context
@@ -413,6 +415,7 @@ def pin_ids(finding: dict[str, Any]) -> set[str]:
 # ---------------------------------------------------------------------------
 
 
+@pytest.mark.live  # Every case recovers a saved workspace and runs both derivation runners through _run.
 class InclusionSupport(unittest.TestCase):
     def _run(self, ws: Workspace, tag: str) -> RunResult:
         forward, reference = run_inclusion_chain(ws.acts(), f"demo.run.track4.{tag}")
@@ -570,6 +573,7 @@ class InclusionSupport(unittest.TestCase):
 # ---------------------------------------------------------------------------
 
 
+@pytest.mark.live  # Every case recovers a saved workspace and runs both derivation runners through _run.
 class StatementSupport(unittest.TestCase):
     def _run(self, ws: Workspace, tag: str) -> RunResult:
         forward, reference = run_v39(ws.acts(), f"demo.run.track4.{tag}")
@@ -585,6 +589,7 @@ class StatementSupport(unittest.TestCase):
         ws.adopt_v39()
         return ws
 
+    @pytest.mark.live  # Recovers a recorded workspace and runs both derivation runners.
     def test_plain_case_is_supported_with_its_basis_and_pins(self) -> None:
         ws = self._workspace()
         with ws.raw:
@@ -605,6 +610,7 @@ class StatementSupport(unittest.TestCase):
             # A statement with no relationship claims is outside the case.
             self.assertEqual(self._statement(ws, result, "birch"), ("not-supported", "no-loan-link"))
 
+    @pytest.mark.live  # Recovers a recorded workspace and runs both derivation runners.
     def test_every_current_statement_gets_a_result(self) -> None:
         ws = self._workspace()
         with ws.raw:
@@ -614,6 +620,7 @@ class StatementSupport(unittest.TestCase):
             self.assertEqual({value for value, _ in (self._statement(ws, result, name) for name in ws.statement)},
                              {"not-supported"})
 
+    @pytest.mark.live  # Eight recorded cases, each recovered and run through both derivation runners.
     def test_mixed_scope_beside_an_unrelated_statement(self) -> None:
         # Track 0d evidence 8, after fresh recovery: the primary (Cedar) once
         # had a second link; the sibling (Birch) is plain throughout.
@@ -650,6 +657,7 @@ class StatementSupport(unittest.TestCase):
                     self.assertEqual(self._statement(ws, result), expected)
                     self.assertEqual(self._statement(ws, result, "birch"), ("plain-case-supported", "none"))
 
+    @pytest.mark.live  # Recovers a recorded workspace and runs both derivation runners.
     def test_two_loans_and_two_schoolings(self) -> None:
         ws = self._workspace()
         with ws.raw:
@@ -663,6 +671,7 @@ class StatementSupport(unittest.TestCase):
             self.assertEqual(self._statement(ws, self._run(ws, "two-schoolings-statement")),
                              ("not-supported", "more-than-one-schooling"))
 
+    @pytest.mark.live  # Recovers a recorded workspace and runs both derivation runners.
     def test_missing_answers_reach_the_statement_as_missing(self) -> None:
         ws = self._workspace()
         with ws.raw:
@@ -675,6 +684,7 @@ class StatementSupport(unittest.TestCase):
             self.assertEqual(self._statement(ws, self._run(ws, "statement-enroll-no")),
                              ("not-supported", "enrollment-no"))
 
+    @pytest.mark.live  # Recovers a recorded workspace and runs both derivation runners.
     def test_the_person_cannot_tell_which_loan_the_statement_covers(self) -> None:
         ws = self._workspace()
         with ws.raw:
@@ -690,6 +700,7 @@ class StatementSupport(unittest.TestCase):
             self.assertEqual(self._statement(ws, self._run(ws, "statement-doubt-answered")),
                              ("plain-case-supported", "none"))
 
+    @pytest.mark.live  # Recovers a recorded workspace and runs both derivation runners.
     def test_a_stale_schooling_blocks_the_statement_and_leaves_the_sibling(self) -> None:
         ws = self._workspace()
         with ws.raw:
@@ -706,6 +717,7 @@ class StatementSupport(unittest.TestCase):
                              {ws.statement["cedar"]: ("DEPENDENCY_ABSENT", [CONCLUSION])})
             self.assertEqual(self._statement(ws, result, "birch"), ("plain-case-supported", "none"))
 
+    @pytest.mark.live  # Recovers a recorded workspace and runs both derivation runners.
     def test_a_stale_statement_publishes_nothing_for_it_and_leaves_the_sibling(self) -> None:
         ws = self._workspace()
         with ws.raw:
@@ -731,6 +743,7 @@ class StatementSupport(unittest.TestCase):
             self.assertEqual(self._statement(ws, result), ("not-supported", "loan-cost-answer-missing"))
 
 
+@pytest.mark.live  # Every case recovers a saved workspace and runs both derivation runners through _run.
 class ApplicabilityMarker(unittest.TestCase):
     """ADR 0077 Part 5 replay: an omitted inclusion refuses its own statement."""
 
@@ -810,6 +823,7 @@ class Publication(unittest.TestCase):
         release = json.loads(V37_RELEASE.read_text("utf-8"))
         self.assertEqual(release["package_registry_sha256"], hashlib.sha256(V37_REGISTRY.read_bytes()).hexdigest())
 
+    @pytest.mark.live  # Validates v38 and v39 and runs both packages over one saved workspace.
     def test_existing_package_results_are_unchanged(self) -> None:
         """v38's every result is in v39 unchanged, run over the same saved workspace."""
         ws = Workspace()

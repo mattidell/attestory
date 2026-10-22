@@ -13,7 +13,11 @@ by recomputation, not by write fan-out (Article 7).
 from __future__ import annotations
 
 import itertools
+import json
+import weakref
+from collections import OrderedDict
 from dataclasses import dataclass, field, replace
+from importlib.metadata import version
 from typing import Any
 
 import jsonschema
@@ -71,6 +75,67 @@ def initial_state() -> KernelState:
     return KernelState()
 
 
+# Successful value_schema checks only. The key is the canonical document, the
+# jsonschema version, and the draft this function actually calls. An invalid
+# schema is never stored, so the next fold checks it again and raises.
+_VALUE_SCHEMA_DRAFT = "Draft202012"
+_JSONSCHEMA_VERSION = version("jsonschema")
+_VALUE_SCHEMA_CHECKS: OrderedDict[tuple[str, str, str], None] = OrderedDict()
+_VALUE_SCHEMA_CHECKS_MAX = 4096
+
+
+def _is_strict_json(value: object) -> bool:
+    """True when ``value`` is exactly a JSON tree: dicts with string keys,
+    lists, and JSON scalars. ``json.dumps`` writes a tuple like a list, but
+    ``check_schema`` can accept one and reject the other, so a tree that is
+    not strict JSON has no faithful text key."""
+    if value is None or isinstance(value, (bool, str)):
+        return True
+    if isinstance(value, (int, float)):
+        return type(value) in (int, float)
+    if type(value) is list:
+        return all(_is_strict_json(item) for item in value)
+    if type(value) is dict:
+        return all(
+            type(key) is str and _is_strict_json(item) for key, item in value.items()
+        )
+    return False
+
+
+def _value_schema_key(value_schema: object) -> tuple[str, str, str] | None:
+    if not _is_strict_json(value_schema):
+        return None
+    try:
+        canonical = json.dumps(
+            value_schema,
+            sort_keys=True,
+            separators=(",", ":"),
+            allow_nan=False,
+        )
+    except (TypeError, ValueError):
+        return None
+    return (canonical, _JSONSCHEMA_VERSION, _VALUE_SCHEMA_DRAFT)
+
+
+def _check_value_schema(fact_type: dict[str, Any]) -> None:
+    value_schema = fact_type["value_schema"]
+    key = _value_schema_key(value_schema)
+    if key is not None and key in _VALUE_SCHEMA_CHECKS:
+        _VALUE_SCHEMA_CHECKS.move_to_end(key)
+        return
+    try:
+        jsonschema.Draft202012Validator.check_schema(value_schema)
+    except jsonschema.SchemaError as exc:
+        raise FactModelError(
+            f"fact type {fact_type['id']}: value_schema is not valid JSON Schema: "
+            f"{exc.message}"
+        ) from exc
+    if key is not None:
+        _VALUE_SCHEMA_CHECKS[key] = None
+        if len(_VALUE_SCHEMA_CHECKS) > _VALUE_SCHEMA_CHECKS_MAX:
+            _VALUE_SCHEMA_CHECKS.popitem(last=False)
+
+
 def _validate_fact_type(fact_type: dict[str, Any], registry: SchemaRegistry) -> None:
     registry.validate_declared(fact_type)
     names = [key["name"] for key in fact_type["identity_keys"]]
@@ -78,13 +143,7 @@ def _validate_fact_type(fact_type: dict[str, Any], registry: SchemaRegistry) -> 
         raise FactModelError(
             f"fact type {fact_type['id']}: duplicate identity key names"
         )
-    try:
-        jsonschema.Draft202012Validator.check_schema(fact_type["value_schema"])
-    except jsonschema.SchemaError as exc:
-        raise FactModelError(
-            f"fact type {fact_type['id']}: value_schema is not valid JSON Schema: "
-            f"{exc.message}"
-        ) from exc
+    _check_value_schema(fact_type)
 
 
 def apply_bundle_adoption(
@@ -248,18 +307,10 @@ def fact_id_for(fact_type_id: str, keys: tuple[tuple[str, str], ...]) -> str:
     return _fact_id(fact_type_id, keys)
 
 
-def facts_of(state: KernelState, *, include_displaced: bool = False) -> dict[str, Fact]:
-    """The derived fact lattice: every question the workspace holds.
-
-    For each fact type, one fact exists per combination of key bindings:
-    entity keys bind to each current entity of the declared kind,
-    literal keys to each declared value. A fact type keyed on an entity
-    kind with no current entities yields no facts yet — the questions
-    arrive with the citizens they are about, and leave current state
-    when those citizens are superseded (``include_displaced=True``
-    projects the full historical lattice, which currency uses to walk
-    individuation edges).
-    """
+def _project_fact_lattice(
+    state: KernelState, *, include_displaced: bool = False
+) -> dict[str, Fact]:
+    """Build one fact lattice from ``state``. No reuse."""
     lattice: dict[str, Fact] = {}
     for fact_type in state.fact_types.values():
         per_key_bindings: list[list[tuple[str, str, str | None]]] = []
@@ -290,6 +341,76 @@ def facts_of(state: KernelState, *, include_displaced: bool = False) -> dict[str
                 individuated_by=individuated_by,
             )
     return lattice
+
+
+class _HistoricalLatticeMemo:
+    """Historical lattices for live fact states, keyed by object identity.
+
+    Same boundary as ``_CurrentLatticeHolder``: a lattice is reused only
+    when the ``KernelState`` is that object. ``KernelState`` is not
+    hashable, so this is an id plus a weak reference rather than a
+    ``WeakKeyDictionary``. The callback drops the entry when the state
+    is collected, and lookup rejects a recycled id.
+    """
+
+    def __init__(self) -> None:
+        self._entries: dict[
+            int, tuple[weakref.ref[KernelState], dict[str, Fact]]
+        ] = {}
+
+    def for_state(self, fact_state: KernelState) -> dict[str, Fact]:
+        found = self._get(fact_state)
+        if found is not None:
+            return found
+        lattice = _project_fact_lattice(fact_state, include_displaced=True)
+        self._store(fact_state, lattice)
+        return lattice
+
+    def _get(self, fact_state: KernelState) -> dict[str, Fact] | None:
+        entry = self._entries.get(id(fact_state))
+        if entry is None:
+            return None
+        ref, lattice = entry
+        if ref() is not fact_state:
+            self._entries.pop(id(fact_state), None)
+            return None
+        return lattice
+
+    def _store(self, fact_state: KernelState, lattice: dict[str, Fact]) -> None:
+        ident = id(fact_state)
+
+        def _drop(
+            ref: weakref.ref[KernelState], ident: int = ident
+        ) -> None:
+            current = self._entries.get(ident)
+            if current is not None and current[0] is ref:
+                self._entries.pop(ident, None)
+
+        self._entries[ident] = (weakref.ref(fact_state, _drop), lattice)
+
+
+_HISTORICAL_LATTICES = _HistoricalLatticeMemo()
+
+
+def facts_of(state: KernelState, *, include_displaced: bool = False) -> dict[str, Fact]:
+    """The derived fact lattice: every question the workspace holds.
+
+    For each fact type, one fact exists per combination of key bindings:
+    entity keys bind to each current entity of the declared kind,
+    literal keys to each declared value. A fact type keyed on an entity
+    kind with no current entities yields no facts yet — the questions
+    arrive with the citizens they are about, and leave current state
+    when those citizens are superseded (``include_displaced=True``
+    projects the full historical lattice, which currency uses to walk
+    individuation edges).
+
+    The historical projection is reused for the lifetime of that exact
+    ``KernelState`` object. The current projection is not: callers that
+    need it across finding acts keep their own holder.
+    """
+    if include_displaced:
+        return _HISTORICAL_LATTICES.for_state(state)
+    return _project_fact_lattice(state, include_displaced=False)
 
 
 _APPLIERS = {

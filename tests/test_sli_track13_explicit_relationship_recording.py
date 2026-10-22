@@ -5,6 +5,8 @@ import copy
 import unittest
 from typing import Any
 
+import pytest
+
 from packages.derivation.loader import DerivationSchemas
 from packages.kernel.currency import compute_currency
 from packages.kernel.facts import facts_of
@@ -41,6 +43,7 @@ class ExplicitRelationshipRecording(unittest.TestCase):
                                "statement": statement_id, "borrowing": account["borrowing_reference"],
                                "adoption": adoption}
 
+    @pytest.mark.live  # Admits claims and checks them through real consumers and both runners.
     def test_explicit_claims_are_admitted_and_reopened_through_real_consumers(self) -> None:
         surface, acts, refs = self._unclaimed()
         registry = refs["registry"]
@@ -104,6 +107,7 @@ class ExplicitRelationshipRecording(unittest.TestCase):
         self.assertFalse(any(row["finding"]["id"] == ACCOUNT_FINDING
                              for row in saved["publications"]))
 
+    @pytest.mark.live  # Projects a full reference case and refuses recording without a source assertion.
     def test_nonaffirmative_and_wrong_scope_refuse_without_source_assertion(self) -> None:
         _surface, acts, refs = self._unclaimed()
         registry = refs["registry"]
@@ -126,6 +130,7 @@ class ExplicitRelationshipRecording(unittest.TestCase):
         with self.assertRaisesRegex(RecordingRefused, "schooling referent"):
             record_explicit_claim(acts, stale, registry)
 
+    @pytest.mark.live  # Projects a full reference case and refuses an atomic recording.
     def test_membership_needs_no_schooling_and_wrong_kind_borrowing_is_atomic_refusal(self) -> None:
         _surface, acts, refs = self._unclaimed()
         registry = refs["registry"]
@@ -152,6 +157,7 @@ class ExplicitRelationshipRecording(unittest.TestCase):
             record_explicit_claim(acts, duplicate, registry)
         self.assertEqual(acts, before)
 
+    @pytest.mark.live  # Projects a full equal-pair case and refuses reused claim and evidence addresses.
     def test_active_claim_and_evidence_addresses_cannot_be_reused(self) -> None:
         _surface, acts, refs = self._unclaimed(equal_pair=True)
         registry = refs["registry"]
@@ -181,6 +187,7 @@ class ExplicitRelationshipRecording(unittest.TestCase):
             record_explicit_claim(acts, same_evidence_new_claim, registry)
         self.assertEqual(acts, before)
 
+    @pytest.mark.live  # Two-statement claim lifecycle through real consumers and both derivation runners.
     def test_two_statement_claim_lifecycles_keep_exact_consumer_support(self) -> None:
         from tests.test_sli_track10_saved_account_evidence import _append_contributed_claim
 
