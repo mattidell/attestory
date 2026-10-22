@@ -1,7 +1,7 @@
 # Bounded Track 0 dynamic-account candidate
 
-Status: the v50-derived disposable candidate package validates; the supported
-pair and both A/B ceiling-collision inputs reached the actual coordinator.
+Status: the current v51-derived disposable candidate package validates; the
+supported pair and both prior A/B ceiling-collision inputs reached the actual coordinator.
 This is bounded synthetic evidence, not a Track 0 closure finding, production
 recorder proof, or proof for the four remaining lifecycle cases.
 
@@ -21,9 +21,9 @@ That disposable package was v55 with 469 resolved members. It must not be
 treated as current-base proof. Its one run produced two ledger records
 (started and completed), not two runs.
 
-### Current-base v50 result
+### Historical current-base v50 result
 
-The current candidate explicitly started from adopted core package v50,
+That candidate explicitly started from adopted core package v50,
 registry `published-packages.v48.json`, and source release v48, preserving the
 current tax-rule and parameter members. The T0 disposable successor uses core
 package v56, candidate registry `published-packages.t0-p56.json`, and bridge
@@ -89,7 +89,66 @@ structurally admitted together by the existing resolver. Package/release
 version numbers here are disposable candidate lineage, not reservations or
 published-content claims.
 
-### Ceiling-collision cases on the current v56 candidate
+### Current-base v51 supported-pair result
+
+After PR #218, the supported-pair candidate was rebuilt from adopted core
+package v51, `published-packages.v49.json`, and SLI source release v49. The
+T0 caller selected intermediate package v52 (avoiding the historical P2
+helper default v51) and final disposable package v57, registry
+`published-packages.t0-p57.json`, mortgage release v7. The helper's default
+v51 is unchanged for historical P2 use. Normal production resolution
+succeeded with 513 resolved members at
+`temp/mortgage-statement-borrowing/t0-dynamic-binding-20261022T175453Z`.
+The source and final packages, registries, releases, generated member files,
+synthetic supplied acts, report, saved model, and records are retained there.
+
+The final chain hashes are: base package v51
+`28d38a5505120006dab17d6f5a5c88bbd923d82050d3e857a27feb741b6283ca`, base
+registry v49 `cdd8e373be6ee3f5cb91d2f36ae1f15e5e0f8ef5aabd3629c0486245fb279757`,
+source release v49 `f1a2604a60052fbfd1f8079e940d75c0afa859bc14d334e1ce9cf874bebd6819`,
+candidate package v57
+`6293b92d72f57acaea2f4e5dac0f644a2aa83e1035127e61977bfd891d215ea9`, candidate
+registry `a01143974370acbf59508756e4b43d0faa5df5b13a1c884ebfd49afa3837c8`, and mortgage release v7
+`5d6403250023f77f1cd9c7833e70629f5cb6fecd0c3a6c0b5b8fbbc3db969459`.
+The package preserves checked non-mortgage current members, including
+standard-deduction rule v3, line13b v2, line16 v6, selected-preferential-base
+v5, and adopted standard-deduction parameters. The keyed T0 presentation
+adapter is retained with SHA-256
+`2fccf00629c69ed3a20e9ae5791e9a389646fbb7d29ea8526b97e871a9e57de7`.
+
+The v51 supported pair ran once (one coordinator run; two started/completed
+ledger rows). It published line8a at **$11,000**, Schedule A total, and line12e
+at **$15,750**. The v3 standard-deduction rule published and its derived
+finding is pinned by line12e. The retained line12e v2 expression chooses the
+greater of that standard-deduction result and the Schedule A total; with
+line12e at $15,750 and Schedule A at $11,000, the standard-deduction result
+is $15,750 (an inference from the expression and observed outputs; its numeric
+finding body is not separately serialized in the model/report). Line12e v2
+pins package v57, both Box 1 sources, closure, the selected standard-deduction
+result, and line8a. The attachment v2 disposition is **inapplicable** (not
+blocked): Schedule A does not exceed the standard deduction, so the attachment
+is not required. Its candidate retains all seven boundary-value checks.
+Line13b v2 published computed zero and pins the explicit supplied
+`schedule1a.no-parts-ii-iv-deductions-declared=yes` answer.
+
+Two new base inputs were explicitly supplied in `synthetic-seed-acts.json`:
+`standard-deduction.can-be-claimed-as-dependent=no` and
+`schedule1a.no-parts-ii-iv-deductions-declared=yes`. The standard-deduction
+disposition pins the first; line13b pins the second. Neither was inferred from
+the older SLI "is claimed" answer or defaulted. The v3 standard deduction's
+other worksheet inputs resolved through candidate declarations/defaults; no
+favorable SSN claim or manual post-run input was added. This bounded case does
+not assert the line16 path.
+
+Saved coordinator report, presentation model, and record hashes are
+`c51db620402fae71c51e475d4ca3f841c1006ea16fa8a471a5a038ba5296d243`,
+`45e506afcd7f09da89e3bc2ab8239146cff26c7dfdb158876d614d0b1c4df230`, and
+`33a8e8c65db0b7aa0a8d79d0caeaa8c3c3593c50899dee0a3eace0ffd3c533c2`.
+This is current-base synthetic package/coordinator and saved-model evidence,
+not production adoption or recorder proof. It precedes the four remaining
+connected-singleton/withdrawn/empty/orphan cases and four-outcome integration.
+
+### Historical ceiling-collision cases on the v56 candidate
 
 Both cases used the same validated v56 candidate and supplied explicit
 structured borrowing/year keys. Each case had one coordinator run (two record

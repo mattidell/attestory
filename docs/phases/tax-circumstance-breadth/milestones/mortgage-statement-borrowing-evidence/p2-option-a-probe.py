@@ -309,6 +309,7 @@ def _materialize_candidate_surface(
     base_registry_filename: str = "published-packages.v47.json",
     candidate_registry_filename: str = "published-packages.p48-p2.json",
     base_release_version: str = RELEASE_VERSION,
+    candidate_package_version: str = BRIDGE_PACKAGE_VERSION,
 ) -> tuple[PublicationSurface, dict[str, Any], list[dict[str, Any]]]:
     members = destination / "members"
     releases = destination / "releases"
@@ -323,7 +324,7 @@ def _materialize_candidate_surface(
     successor_reason = _successor_report_reason(members)
     bridge_bundle_path = members / f"{BRIDGE_BUNDLE_ID}.{BRIDGE_BUNDLE_VERSION}.json"
     _write_json(bridge_bundle_path, bundle)
-    package["version"] = BRIDGE_PACKAGE_VERSION
+    package["version"] = candidate_package_version
     for fact_type in [ACCOUNT_FACTS["recognition"], ACCOUNT_FACTS["membership"],
                       ACCOUNT_FACTS["ceiling"], ACCOUNT_FACTS["other-debt"]]:
         package["input_bindings"].append({"fact_type": {"id": fact_type, "version": "v1"},
@@ -359,10 +360,10 @@ def _materialize_candidate_surface(
         registry["citizens"].append({"id": citizen["id"], "version": citizen["version"],
                                      "checksum": citizen_checksum(citizen)})
     package["package_checksum"] = package_instance_checksum(package)
-    registry["packages"].append({"id": package["id"], "version": BRIDGE_PACKAGE_VERSION,
+    registry["packages"].append({"id": package["id"], "version": candidate_package_version,
                                  "checksum": package["package_checksum"]})
     _write_json(registry_path, registry)
-    _write_json(members / f"package.core-calculations.{BRIDGE_PACKAGE_VERSION}.json", package)
+    _write_json(members / f"package.core-calculations.{candidate_package_version}.json", package)
 
     release = {"schema": "release-registry.v1", "id": BRIDGE_RELEASE_ID,
                "version": BRIDGE_RELEASE_VERSION,
@@ -381,12 +382,12 @@ def _materialize_candidate_surface(
             finding["value"] = "2019-03-04"
     acts = _add_account_assertions(acts, bundle)
     adoption = next(act for act in acts if act.get("kind") == "package-adoption")
-    adoption["payload"]["package"] = {"id": package["id"], "version": BRIDGE_PACKAGE_VERSION,
+    adoption["payload"]["package"] = {"id": package["id"], "version": candidate_package_version,
                                        "checksum": package["package_checksum"]}
     adoption["payload"]["release"] = {"id": BRIDGE_RELEASE_ID, "version": BRIDGE_RELEASE_VERSION,
                                       "checksum": hashlib.sha256(release_path.read_bytes()).hexdigest()}
     adoption["payload"]["audit"] = {"note": "synthetic P2 report-local bridge candidate"}
-    pins = {"package": {"id": package["id"], "version": BRIDGE_PACKAGE_VERSION,
+    pins = {"package": {"id": package["id"], "version": candidate_package_version,
                          "checksum": package["package_checksum"]},
             "registry_sha256": hashlib.sha256(registry_path.read_bytes()).hexdigest(),
             "release": {"id": BRIDGE_RELEASE_ID, "version": BRIDGE_RELEASE_VERSION,
@@ -402,8 +403,8 @@ def _materialize_candidate_surface(
     shutil.copy2(members / "rule.f1098-residence-interest-reason.v3.json",
                  retained / "rule.f1098-residence-interest-reason.v3.json")
     shutil.copy2(members / f"{LINE8A_RULE_ID}.v3.json", retained / f"{LINE8A_RULE_ID}.v3.json")
-    shutil.copy2(members / f"package.core-calculations.{BRIDGE_PACKAGE_VERSION}.json",
-                 retained / f"package.core-calculations.{BRIDGE_PACKAGE_VERSION}.json")
+    shutil.copy2(members / f"package.core-calculations.{candidate_package_version}.json",
+                 retained / f"package.core-calculations.{candidate_package_version}.json")
     shutil.copy2(registry_path, retained / registry_path.name)
     shutil.copy2(release_path, retained / release_path.name)
     return surface, pins, acts

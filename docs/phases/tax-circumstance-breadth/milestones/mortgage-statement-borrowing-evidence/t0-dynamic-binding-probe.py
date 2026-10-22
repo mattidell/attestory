@@ -34,13 +34,14 @@ CARRIERS = {
     "unknown": "demo.tax.2025.f1098.borrowing-unresolved",
     "withdrawn": "demo.tax.2025.f1098.borrowing-withdrawn",
 }
-BASE_PACKAGE_VERSION = "v50"
-BASE_REGISTRY_FILENAME = "published-packages.v48.json"
-BASE_RELEASE_VERSION = "v48"
-P2_CANDIDATE_REGISTRY_FILENAME = "published-packages.p49-p2.json"
-T0_PACKAGE_VERSION = "v56"
-T0_REGISTRY_FILENAME = "published-packages.t0-p56.json"
-T0_RELEASE_VERSION = "v6"
+BASE_PACKAGE_VERSION = "v51"
+BASE_REGISTRY_FILENAME = "published-packages.v49.json"
+BASE_RELEASE_VERSION = "v49"
+INTERMEDIATE_PACKAGE_VERSION = "v52"
+P2_CANDIDATE_REGISTRY_FILENAME = "published-packages.t0-intermediate-v52.json"
+T0_PACKAGE_VERSION = "v57"
+T0_REGISTRY_FILENAME = "published-packages.t0-p57.json"
+T0_RELEASE_VERSION = "v7"
 
 
 def read(path: Path) -> dict[str, Any]:
@@ -51,9 +52,44 @@ def write(path: Path, value: dict[str, Any]) -> None:
     path.write_text(json.dumps(value, indent=2, sort_keys=True) + "\n", encoding="utf-8")
 
 
+def add_v51_explicit_answers(acts: list[dict[str, Any]]) -> list[dict[str, Any]]:
+    """Supply the new adopted-surface inputs explicitly; do not infer/default them."""
+    result = copy.deepcopy(acts)
+    bundle = read(P2.CONTENT / "senior-and-dependent-deductions.vocabulary.bundle.json")
+    if not any(row.get("kind") == "bundle-adoption" and
+               row.get("payload", {}).get("bundle", {}).get("id") == bundle["id"] for row in result):
+        result.append({"schema": "act.v1", "act_id": "demo.t0.v51.senior-dependent-bundle",
+            "kind": "bundle-adoption", "actor": "demo.taxpayer", "at": "2026-10-22T13:10:00Z",
+            "committed_against": len(result), "payload": {"bundle": bundle}})
+    for fact_type, value, tag in (
+        ("tax.us.2025.standard-deduction.can-be-claimed-as-dependent", "no", "can-be-claimed-no"),
+        ("tax.us.2025.schedule1a.no-parts-ii-iv-deductions-declared", "yes", "no-parts-ii-iv"),
+    ):
+        fact_id = fact_id_for(fact_type, (("tax-year", "2025"),))
+        if any(act.get("kind") == "assertion" and _act_finding(act).get("fact_id") == fact_id for act in result):
+            continue
+        result.append({"schema": "act.v1", "act_id": f"demo.t0.v51.{tag}",
+            "kind": "assertion", "actor": "demo.taxpayer", "at": "2026-10-22T13:10:01Z",
+            "committed_against": len(result), "payload": {"finding": {
+                "schema": "finding.v2", "id": f"demo.t0.v51.finding.{tag}", "fact_id": fact_id,
+                "value": value, "basis": "attested", "evidence_ids": []}}})
+    for index, act in enumerate(result):
+        act["committed_against"] = index
+        if act.get("kind") == "package-adoption":
+            act.setdefault("payload", {})["revision"] = index
+    return result
+
+
 def ceiling_collision_acts(seed: list[dict[str, Any]], case_id: str) -> tuple[list[dict[str, Any]], dict[str, Any]]:
     """Apply one exact, synthetic borrowing-key ceiling collision to supplied acts."""
     acts = copy.deepcopy(seed)
+    if case_id == "supported-pair-core-v51":
+        return acts, {"caseId": case_id, "mutation": "none",
+            "suppliedAnswers": {
+                "canBeClaimedAsDependent": "no",
+                "schedule1aNoPartsIItoIV": "yes",
+                "source": "explicit synthetic assertions in synthetic-seed-acts.json"},
+            "expected": "supported pair on core v51; line8a $11,000"}
     borrowing_a, borrowing_b = "demo.f1098.borrowing.A", "demo.f1098.borrowing.B"
     keys_a = (("borrowing", borrowing_a), ("tax-year", "2025"))
     keys_b = (("borrowing", borrowing_b), ("tax-year", "2025"))
@@ -99,7 +135,7 @@ def ceiling_collision_acts(seed: list[dict[str, Any]], case_id: str) -> tuple[li
 
 def add_status_composition(members: Path) -> dict[str, Any]:
     """Add four per-report numeric link counts and one per-report status rule."""
-    package_path = members / f"package.core-calculations.{P2.BRIDGE_PACKAGE_VERSION}.json"
+    package_path = members / f"package.core-calculations.{INTERMEDIATE_PACKAGE_VERSION}.json"
     bundle_path = members / f"{P2.BRIDGE_BUNDLE_ID}.v1.json"
     package, bundle = read(package_path), read(bundle_path)
     box = next(ft for ft in read(members / "f1098.bundle.json")["fact_types"] if ft["id"] == BOX1)
@@ -193,7 +229,7 @@ def add_status_composition(members: Path) -> dict[str, Any]:
     for citizen in changed:
         registry["citizens"].append({"id": citizen["id"], "version": citizen["version"],
                                     "checksum": citizen_checksum(citizen)})
-    registry["packages"] = [row for row in registry["packages"] if row["version"] != P2.BRIDGE_PACKAGE_VERSION]
+    registry["packages"] = [row for row in registry["packages"] if row["version"] != INTERMEDIATE_PACKAGE_VERSION]
     registry["packages"].append({"id": package["id"], "version": package["version"],
                                 "checksum": package["package_checksum"]})
     write(registry_path, registry)
@@ -211,7 +247,7 @@ def add_status_composition(members: Path) -> dict[str, Any]:
 def add_dynamic_account_candidate(surface: Any, acts: list[dict[str, Any]]) -> dict[str, Any]:
     """Replace P2's literal account with opaque entity keys and a keyed account gate."""
     members = surface.member_dir
-    package_path = members / f"package.core-calculations.{P2.BRIDGE_PACKAGE_VERSION}.json"
+    package_path = members / f"package.core-calculations.{INTERMEDIATE_PACKAGE_VERSION}.json"
     bundle_path = members / f"{P2.BRIDGE_BUNDLE_ID}.v1.json"
     package, bundle = read(package_path), read(bundle_path)
     A, B = "demo.f1098.borrowing.A", "demo.f1098.borrowing.B"
@@ -438,7 +474,7 @@ def add_dynamic_account_candidate(surface: Any, acts: list[dict[str, Any]]) -> d
     registry["citizens"] = [row for row in registry["citizens"] if (row["id"], row["version"]) not in changed_keys]
     for citizen in changed:
         registry["citizens"].append({"id": citizen["id"], "version": citizen["version"], "checksum": citizen_checksum(citizen)})
-    registry["packages"] = [row for row in registry["packages"] if row["version"] != P2.BRIDGE_PACKAGE_VERSION]
+    registry["packages"] = [row for row in registry["packages"] if row["version"] != INTERMEDIATE_PACKAGE_VERSION]
     registry["packages"].append({"id": package["id"], "version": package["version"], "checksum": package["package_checksum"]})
     write(registry_path, registry)
     release_path = surface.release_dir / f"{P2.BRIDGE_RELEASE_ID}.v1.json"
@@ -454,7 +490,7 @@ def add_dynamic_account_candidate(surface: Any, acts: list[dict[str, Any]]) -> d
 def add_p3_consumers(surface: Any, acts: list[dict[str, Any]], p3: Any) -> tuple[Any, list[dict[str, Any]], dict[str, Any]]:
     """Apply the retained P3 line12e and attachment-completeness successors."""
     members, releases = surface.member_dir, surface.release_dir
-    package_path = members / f"package.core-calculations.{P2.BRIDGE_PACKAGE_VERSION}.json"
+    package_path = members / f"package.core-calculations.{INTERMEDIATE_PACKAGE_VERSION}.json"
     package = read(package_path)
     line12e = p3._line12e_successor()
     line12e_path = members / "rule.form1040-line12e.v2.json"
@@ -586,6 +622,7 @@ def keyed_presentation_overlay(source: str) -> str:
 def main() -> None:
     parser = argparse.ArgumentParser(description="Run selected synthetic T0 mortgage cases.")
     parser.add_argument("--case", action="append", required=True, choices=(
+        "supported-pair-core-v51",
         "a-ceiling-missing-b-ceiling-300k", "a-valid-dormant-b-ceiling-900k"),
         help="T0 case to execute; may be repeated. The prior supported-pair case is not run here.")
     args = parser.parse_args()
@@ -599,7 +636,8 @@ def main() -> None:
             Path(tmp), out, base_package_version=BASE_PACKAGE_VERSION,
             base_registry_filename=BASE_REGISTRY_FILENAME,
             candidate_registry_filename=P2_CANDIDATE_REGISTRY_FILENAME,
-            base_release_version=BASE_RELEASE_VERSION)
+            base_release_version=BASE_RELEASE_VERSION,
+            candidate_package_version=INTERMEDIATE_PACKAGE_VERSION)
         declaration = {"statusSource": P2.ACCOUNT_FACTS["report-link-status"],
                        "fourOutcomeCountExperiment": "not part of this supported-pair increment",
                        "currentBase": {"corePackage": BASE_PACKAGE_VERSION,
@@ -614,12 +652,15 @@ def main() -> None:
         P3 = importlib.util.module_from_spec(p3spec)
         p3spec.loader.exec_module(P3)
         surface, acts, consumers = add_p3_consumers(surface, acts, P3)
+        # Supply the two new v51 inputs as explicit synthetic claims; neither
+        # the SLI "is claimed" answer nor a default is used to infer them.
+        acts = add_v51_explicit_answers(acts)
         # Retain the exact final disposable package artifacts and supplied acts
         # before the ephemeral publication directory is removed.
         retained = out / "candidate-content"
         retained.mkdir(parents=True, exist_ok=True)
         # Preserve the complete disposable surface, including every adopted
-        # non-mortgage v50 member and its current parameter content.
+        # non-mortgage v51 member and its current parameter content.
         shutil.copytree(surface.member_dir, retained / "members", dirs_exist_ok=True)
         shutil.copytree(surface.release_dir, retained / "releases", dirs_exist_ok=True)
         retain_paths = [surface.member_dir / f"package.core-calculations.{BASE_PACKAGE_VERSION}.json",
@@ -631,9 +672,10 @@ def main() -> None:
             surface.release_dir / f"{P2.BRIDGE_RELEASE_ID}.{T0_RELEASE_VERSION}.json",
             surface.member_dir / "rule.form1040-line12e.v2.json",
             surface.member_dir / "attachment.schedule-a.v2.json",
-            surface.member_dir / "rule.form1040-standard-deduction.v2.json",
+            surface.member_dir / "rule.form1040-standard-deduction.v3.json",
             surface.member_dir / "rule.form1040-line16.v6.json",
             surface.member_dir / "rule.selected-preferential-base.v5.json",
+            surface.member_dir / "rule.form1040-line13b.v2.json",
             surface.member_dir / "parameter.standard-deduction-base.json",
             surface.member_dir / "demo.tax.2025.parameter.mortgage-empty-link-support.json",
             surface.member_dir / "demo.tax.2025.rule.mortgage-account-ceiling-selection.json",
@@ -655,6 +697,7 @@ def main() -> None:
         candidate_package = read(surface.member_dir / f"package.core-calculations.{T0_PACKAGE_VERSION}.json")
         preserved_member_ids = {"tax.us.2025.rule.form1040-standard-deduction",
                                 "tax.us.2025.rule.form1040-line16",
+                                "tax.us.2025.rule.form1040-line13b",
                                 "tax.us.2025.rule.selected-preferential-base",
                                 "tax.us.2025.parameter.standard-deduction-base",
                                 "tax.us.2025.parameter.additional-standard-deduction",
