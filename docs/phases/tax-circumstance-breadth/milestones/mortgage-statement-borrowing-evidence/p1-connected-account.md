@@ -167,6 +167,21 @@ ceiling, the full-deduction branch stays unresolved. The numeric assertion is
 an ordinary source accepted by this proposed account; P0 did not observe a
 person answer it, and the fact asserted is not independently verified.
 
+The comparison is asymmetric. A ceiling at or below the applicable limit
+supports the bounded full-interest branch: if the actual balance never
+exceeded that ceiling, it also never exceeded the limit. A ceiling above the
+limit proves no excess; it may simply be loose. In that case ask for a tighter
+ceiling if the person can give one, otherwise leave this support unresolved.
+Do not call it over-limit debt. A dated report principal observation above
+the applicable limit is different evidence of an actual balance at that date;
+when the report is explicitly linked to this borrowing, it contradicts a
+below-limit ceiling and needs reconciliation. Neither a loose ceiling nor an
+observation can be converted into an annual maximum by choosing a report date.
+After filing status changes, retain the same numeric assertion and compare it
+with the new limit: a ceiling now above that limit becomes unresolved unless
+tightened; it does not become proof of actual excess. Any threshold-specific
+yes/no would have to retain the exact threshold affirmed and cannot transfer.
+
 The separate other-debt answer has its own consequence. “Yes” means the case
 has known other main- or second-home debt, which this bounded calculation
 does not cover; do not publish a favorable partial deduction or a determined
@@ -174,6 +189,18 @@ zero. “Cannot tell,” unanswered, or withdrawn leaves that debt set unknown
 and likewise prevents the full-deduction result. Only “no” supplies the
 person's ordinary assertion that no other such debt needs consideration. This
 is not a general debt-allocation or proration calculator.
+
+This bounded account supports the whole-loan ordinary outcome that the
+filing unit paid all reported interest for the identified borrowing, or an
+unresolved/unsupported contrary outcome. A known mixed or partial-payment
+case is outside scope: do not sum only reports answered “yes,” allocate a
+fraction, or treat uncovered interest as zero. Family closure has a separate
+scope: a genuinely closed-empty F1098 family means there are no current
+furnished Form 1098 Box 1 members and authorizes line8a = 0 even if the person
+still has borrowing-account facts. Incomplete or unresolved closure blocks.
+An affirmed current membership link to an exact report for which no current
+F1098 source is present is a concrete conflict with that empty closure; a
+ceiling, other-debt answer, or merely retained borrowing identity is not.
 
 If a threshold-specific yes/no were used instead, the number and context
 actually affirmed must be retained. A response to a threshold selected under
@@ -198,13 +225,23 @@ creating a general mortgage identity system.
 | Annual balance ceiling | `borrowing reference + tax year`, numeric amount, response evidence, actor/time, and correction/withdrawal lineage. | The person confirms this number was not exceeded by the balance on this borrowing during the year. The value is not treated as an exact maximum, a report balance, or a legal classification. |
 | Other secured borrowing answer | `return + tax year`, with yes/no/cannot-tell/unanswered/withdrawn and provenance. | Answers whether other mortgage or home-equity borrowing was secured by the main or second home. Yes is known debt outside this calculation; unknown is unresolved. Neither is treated as zero. |
 
-The linked source evidence for an answer preserves the wording presented, the
-answer, the exact borrowing and report identities named, the year, and the
-answer's evidence identity. The durable assertion is current only while its
-source remains current and its required links remain current. This design
-does not require an outside institution to verify that the account is true.
-It does require the product to be honest that this is the person's
-affirmation.
+The proposed input shapes are concrete: `continuing-borrowing` is a
+borrowing/year answer; `report-membership` is a borrowing/exact-report answer;
+`annual-balance-ceiling` is a borrowing/year numeric answer; and
+`other-home-debt` is a return/year yes/no/cannot-tell answer. Each answer
+finding carries its wording/version, value, identity keys, and correction or
+withdrawal lineage. `SourceFact` currently has only one `finding_id`; it
+cannot itself pin both a shared answer and a membership link. The proposed
+transport therefore needs a declared per-report intermediate finding: its
+inputs are the original whole-loan answer finding and that report's current
+membership-link finding, and it publishes the answer for that exact report
+subject. The report result pins that intermediate finding, whose declared
+inputs retain both originals. This is a proposed content path, not a claim
+that today's mortgage path already does it. A separate report-local answer
+continues to pin its own answer finding directly. No copied value or
+equal-valued report answer stands in for either relationship. No external
+institutional verification is required; the product must state this is the
+person's affirmation.
 
 One submission can collect these related claims together. Conceptual scope
 does not require a separate screen or duplicate answer. The person confirms
@@ -257,13 +294,16 @@ chain; no A assertion is relabeled as B evidence.
    cannot-tell, no answer, withdrawal, or stale report source remains distinct
    and blocks only the affected path. The link does not convert any other
    answer to shared scope by itself.
-3. **Admit facts to the run.** The source admission step exposes report-local
-   Box 2, Box 3, Box 9 and report-local answers as keyed `SourceFact` rows on
-   the exact report identity. It exposes the explicit report-to-borrowing
-   links and loan-wide assertions with their borrowing identity and original
-   evidence IDs. A shared assertion is available to a report subject only
-   through a current explicit membership link. Filing status remains a
-   separate return-wide symbol. The numerical ceiling is not emitted under
+3. **Admit facts to the run.** A proposed targeted admission exposes
+   report-local Box 2, Box 3, Box 9 and report-local answers as keyed
+   `SourceFact` rows on the exact report identity. It separately exposes
+   current report-to-borrowing link findings and loan-wide assertion
+   findings. Since a `SourceFact` has only one `finding_id`, transport must
+   use a declared per-report intermediate finding whose input pins are the
+   original shared answer and the current link; the resulting report-scoped
+   row then has one actual finding to pin downstream. This join/transport is
+   proposed, not demonstrated by the existing sale admission. Filing status
+   remains a separate return-wide symbol. The ceiling is never emitted under
    the Box 2 symbol.
 4. **Evaluate each report's standing and reason.** A subject result remains
    attached to each Box 1 report. Its report-local requirements bind to that
@@ -274,13 +314,21 @@ chain; no A assertion is relabeled as B evidence.
    support the account-level treatment, not a separate debt per report.
 5. **Aggregate once.** The existing `family.f1098` v1 closure still means all
    furnished 2025 Box 1 reports were recorded; its already-authorized raw
-   subtotal sums current Box 1 members once. Closure does not establish that
-   every member belongs to this one borrowing. The bounded two-report path is
-   active only when the current closed report set is exactly covered by the
-   explicit links to this one borrowing and the other-debt answer is “no.”
-   The application compares the one borrowing's numeric ceiling once against
-   its determined limit; it does not add Box 2 observations. It gates the
-   family subtotal as the line 8a amount. If another report is unlinked, a
+   authorized multi-member sum includes current Box 1 members once. Closure does not establish that
+   every member belongs to this one borrowing. The bounded connected path is
+   selected by current connected-account evidence, not report count alone.
+   For an active account with one current linked report, it may evaluate that
+   one member under the same borrowing-level support; it does not silently
+   route to the legacy single-report rule. The bounded aggregate is favorable
+   only when the closed report set is exactly covered by explicit links to
+   this one borrowing and the other-debt answer is “no.”
+   The single successor Schedule A line8a producer must preserve the legacy
+   one-report behavior when no connected account exists, and admit the F1098
+   collect only in the selected calculation branch. It publishes the family-
+   authorized line8a symbol directly; there is no second generic subtotal
+   publication. The application compares the one borrowing's numeric ceiling
+   once against its determined limit; it does not add Box 2 observations. It
+   gates that family sum as the line 8a amount. If another report is unlinked, a
    second borrowing is present, other home debt is known, or coverage is
    unknown, it does not publish a favorable partial sum or a determined zero.
 6. **Present and reload.** The saved explanation identifies each report and
@@ -313,8 +361,11 @@ chain; no A assertion is relabeled as B evidence.
   current predecessor and replaces that current claim. Withdrawal ends the
   affirmed loan claim, ceiling, or membership link it targets in the same
   logical save; it does not assert the opposite. Results depending on that
-  support become unresolved. Do not reactivate a previous favorable finding
-  or default. Unrelated report-local answers remain current when their source
+  support become unresolved. Keep a current explicit withdrawn/cannot-tell/
+  denied outcome in the account rather than erasing the evidence of this
+  path; otherwise a single surviving report could accidentally re-enter the
+  legacy favorable route. Do not reactivate a previous favorable finding or
+  default. Unrelated report-local answers remain current when their source
   report is unchanged.
 - **Remove and re-record a report.** Removing a report from the active family
   ends its current membership link, but does not deny that it once belonged
@@ -329,15 +380,40 @@ chain; no A assertion is relabeled as B evidence.
   the new report to its support set; the link is explicit. If the new report
   concerns another borrowing or cannot be identified, this one-borrowing
   aggregate is unsupported/unresolved, not a favorable partial sum.
-- **No reports, one report, excluded debt.** With no current Form 1098 reports,
-  keep the incumbent closed-empty behavior: the family authorizes subtotal
-  zero, distinct from unresolved missing information. One report stays on
-  the incumbent single-report path with its current question, calculation and
-  saved explanation; no loan link is required just to preserve that behavior.
-  Two linked reports use the candidate connected path. A known second loan,
-  refinance, other secured debt, over-limit ceiling, contradictory Box 2
-  observation, or unresolved report membership is outside or unresolved in
-  this narrow account; it is not silently treated as zero.
+- **No reports, one report, excluded debt.** Route selection first checks
+  current recorded account assertions and outcomes, not just family member
+  count. If no connected-account assertion/outcome has been recorded for this
+  current scope, preserve legacy behavior: closed-empty authorizes the
+  existing zero, and one report keeps the incumbent single-report path. If
+  the person has entered this account, any current affirmative, denied,
+  cannot-tell, unanswered, or withdrawn outcome keeps the connected path
+  selected for nonempty reports, so a removed/withdrawn member cannot cause
+  unsafe singleton fallback. Closed-empty still authorizes line8a = 0 when
+  there are genuinely no current furnished Form 1098 Box 1 members; account
+  answers alone do not negate family closure. If a current affirmative
+  membership link names a report but that report has no current F1098 source,
+  treat the closure as contradicted/incomplete and block rather than call it
+  empty. With one current linked report, evaluate it under that account's
+  support; with one report but a denied, withdrawn, or unresolved link, do not
+  fall back to legacy. More
+  than the bounded report set, an unlinked member, another borrowing, known
+  other secured debt, or unknown coverage is unsupported/unresolved.
+  Returning to legacy after starting the connected path requires an explicit
+  product operation that clears the current account scope; silently deleting
+  its last finding is not such an operation and is not specified here.
+- **Current recorded state versus old runs.** Account answers, links, report
+  corrections and withdrawals are current recorded assertions at a workspace
+  revision. Derived subject results and scoped intermediate findings are
+  run-local publications, not new authoritative account assertions. A change
+  makes a presentation from the prior revision stale; current review
+  association already returns `recalculation-needed` on revision mismatch. A
+  new live run recomputes from then-current recorded findings and emits a new
+  presentation; it does not rewrite an older saved output. The observed live
+  coordinator records the run to its record stream, persists output and
+  presentation files, and returns the full publications in-memory. Those are
+  run-scoped derived records, not account assertions; this design does not
+  assume a later run admits them as current source state or that they survive
+  as reusable account state across runs.
 - **Filing status changes.** The numeric ceiling remains the same ordinary
   fact. The application recomputes the limit from the current return-wide
   filing status and tax category. If instead a future interaction records a
@@ -355,10 +431,11 @@ chain; no A assertion is relabeled as B evidence.
 
 The single-report path and saved history remain compatible by preserving
 their existing meanings. No old one-report finding is silently reinterpreted
-as a borrowing-scoped assertion. A single-report workspace retains its current
-reader and output; the connected result needs an additional group-shaped
-saved explanation and reader behavior. The published mortgage family v1
-already authorizes the raw Box 1 subtotal. A singleton review, current line 8a
+as a borrowing-scoped assertion. A legacy single-report workspace retains its
+current reader and output; the connected result needs a group-shaped saved
+explanation and reader behavior. The published mortgage family v1 authorizes
+only `tax.us.2025.schedule-a.line8a`, not a generic raw Box 1 subtotal. A
+singleton review, current line 8a
 rule, or singular saved reader does not alone require a family successor or
 public schema version. Whether existing content can declare the bounded group
 path, or a new unpublished/adopted content shape is needed, remains an
@@ -426,24 +503,31 @@ implementation decision after this meaning is reviewed.
    double counting. The loan-wide ceiling can remain current for its
    whole-year subject, but the new report is not a member until linked.
 10. **Reported principal contradicts the ceiling.** The person gives a
-    $250,000 annual ceiling, but report B states $270,000 on its date. Preserve
-    both values and identify the conflict. Do not raise the ceiling from the
-    form or dismiss the form based on the person's answer. The person must
-    reconcile the report or correct the ceiling; until then the branch is
-    unresolved. If both dated observations are below the ceiling, that still
-    does not verify the unseen days.
+    $250,000 annual ceiling, but linked report B states $270,000 on its date.
+    Preserve both values and identify the conflict. Do not raise the ceiling
+    from the form or dismiss the form based on the person's answer. The person
+    must reconcile the report or correct the ceiling; until then the branch
+    is unresolved. If both dated observations are below the ceiling, that
+    still does not verify the unseen days. A separate case is a $900,000
+    ceiling when the applicable limit is $750,000 but both source observations
+    are below $750,000: the loose bound does not establish excess; ask for a
+    tighter bound if available or leave the support unresolved.
 11. **Other debt or unknown coverage.** A “yes” to other borrowing secured by
     either home is known debt outside this one-borrowing calculation; the app
     does not calculate a partial result or call it zero. “Cannot tell,” no
     answer, or withdrawal is unresolved coverage, also not zero. A “no” is
     the person's affirmative ordinary account and permits this bounded
     calculation to continue.
-12. **No reports, one report, and changed filing status.** Closed-empty keeps
-    the existing determined zero; a single report keeps the incumbent
-    single-report behavior. For the connected case, changing filing status
-    leaves the numeric $250,000 ceiling unchanged and changes only the limit
-    the application compares it against. A previous threshold-specific yes/no
-    could not be reused unless it retained the exact threshold asked.
+12. **No reports, one report, and changed filing status.** A genuinely
+    closed-empty family keeps the existing determined zero even if a borrowing
+    account and ceiling remain recorded; if that account still has a current
+    affirmative link to a missing report, closure is instead incomplete. A
+    legacy-only single report keeps incumbent behavior; one linked report
+    stays on the connected path. If filing status changes, the numeric
+    $250,000 ceiling stays unchanged;
+    only the limit the application compares it against changes. A previous
+    threshold-specific yes/no could not be reused unless it retained the
+    exact threshold asked.
 
 ## Integration choices and cost
 
@@ -459,9 +543,8 @@ predecessor. That explicit identity and lifecycle pattern transfers. Its
 student-loan qualifying rules, school relationships, worksheet, and allocation
 logic do not.
 
-The adopted student-loan content also separates a family-authorized raw
-statement subtotal (`rule.sli-worksheet-line1-subtotal.json`) from the
-downstream cap and reads subject results in the combined worksheet
+The adopted student-loan content separates a family-authorized subtotal
+(`rule.sli-worksheet-line1-subtotal.json`) from a downstream cap and reads subject results in the combined worksheet
 (`rule.sli-worksheet.v5.json`). Its closed-empty default is distinct from a
 nonempty source set with a blocked result. Those are useful composition
 patterns: preserve each statement's result, aggregate only the family's
@@ -491,19 +574,23 @@ For this account, the smallest content/transport candidate is therefore:
    rows must remain absent/blocked; they must never fall back to a matching
    run-wide symbol.
 3. Preserve borrowing-wide answers as their own person assertions keyed to
-   the opaque borrowing reference and year. A targeted admission step may
-   expose them to a report result only by following that report's current
-   explicit membership link. That derived scoped view retains both the
-   original answer finding and the link finding as provenance. It is not a
-   copy or relabeling of report A's answer as report B's answer.
+   the opaque borrowing reference and year. A proposed declared per-report
+   intermediate finding must consume the original answer finding and that
+   report's current membership-link finding, so its own pins—not a fabricated
+   `SourceFact` carrying two IDs—retain both supports. It is not a copy or
+   relabeling of report A's answer as report B's answer.
 4. Keep filing status as a return-wide input. Keep the numeric ceiling as a
    separate borrowing/year input, not under the Box 2 symbol. The combined
    debt-limit calculation consumes that one ceiling once; per-report subject
    results keep their own interest source and explanatory support.
-5. Add a connected mortgage path only for exactly two current reports
-   explicitly linked to one borrowing, with a closed family and supported
-   no-other-debt answer. A closed-empty family still takes the existing zero
-   default; exactly one report keeps the incumbent route; more reports,
+5. Select the connected mortgage path when current account assertions or
+   explicit account outcomes exist, regardless of current report count. A
+   closed family with one currently linked report can use that account's
+   support; a legacy-only single report keeps the incumbent route. A
+   closed-empty family gets the existing zero only when no connected account
+   is current; an entered account with no reports is unresolved. The favorable
+   aggregate requires every current report explicitly linked to this one
+   borrowing, a closed family, and supported no-other-debt answer. More reports,
    unlinked members, another loan, or unknown coverage block the connected
    favorable route. No selection rule may fall through from an unresolved
    two-report case to the singleton path or a partial sum.
@@ -524,41 +611,67 @@ than broadening the engine by default.
 | --- | --- | --- | --- |
 | Ordinary account | Explicit opaque borrowing reference, two exact statement links, numeric annual ceiling, and separate other-home debt answer. Reuse answer evidence and correction patterns; no automatic matching. | Student-loan recorder demonstrates explicit opaque borrowing links and correction/withdrawal lineage. Mortgage recorder has exact statement answer keys and correction operations. | Mortgage has no borrowing entity/link, no numeric ceiling question, no multi-report review/save path, and no account-level lifecycle. |
 | Report-local answer support | Keep all source facts and questions whose meaning names a report keyed to `(payer, statement, tax-year)`. Let the assertion's actual scope decide whether an answer is shared. | P0 agreeing-value pins prove today's subject label can consume A's answers and Box 2/Box 9 for B. | No mortgage transport currently guarantees each report-specific answer and correction predecessor reaches its own result. |
-| Source admission/dispatch | Add a bounded mortgage source-emission declaration for all needed report-local inputs; explicitly expose loan assertions only through current report links and retain both pins. | Sale route demonstrates targeted keyed source emission; generic subject dispatch scopes matching rows. | No live mortgage link-join/emission path exists; exact handling of loan-scoped source plus report-local sources needs a discriminating check. |
-| Content and aggregate | Keep raw family subtotal authorization; add a two-report/one-loan gate and compare one ceiling once to the limit chosen by the application. | F1098 family v1 already authorizes the multi-member Box 1 subtotal; current line8a guard explicitly stops at >1. Student-loan rules separate subtotal from downstream calculation and preserve closed-empty default. | No mortgage group rule or candidate content shape is selected; the current singleton rule consumes Box 2 and per-statement ordinary inputs and cannot implement this design unchanged. |
+| Source admission/dispatch | Add bounded mortgage report-local emission and a declared per-report intermediate result whose actual input pins are the whole-loan answer and current report link. | Sale route demonstrates targeted keyed source emission; generic subject dispatch scopes matching rows. `SourceFact` has a single `finding_id`. | No live mortgage link-join/emission path exists; exact handling of the declared intermediate and report-local sources needs the discriminating check. |
+| Content and aggregate | Make one successor producer of Schedule A line8a, with F1098 family collect inside the selected path; no separate raw-subtotal producer. Gate it on current account/link/coverage and compare one ceiling once. | F1098 v1 authorizes exactly `tax.us.2025.schedule-a.line8a`; `audit_collect_authority()` rejects a collecting rule that publishes another symbol. There is no separate incumbent raw-subtotal rule. | No connected line8a rule exists. The proposed successor must preserve the authorized symbol while guarding which family collection/result is admitted; current singleton rule consumes Box 2 and statement-local inputs and cannot implement it unchanged. |
 | Saved explanation and reader | Add a group account containing both report explanations, one borrowing summary and exact shared/report pins, tied to the saved revision. Keep the old singular reader for one report. | Current projection validates a singular mortgage account with exact `statementKeys`; current review reloads and checks the one statement and revision. | No group-shaped mortgage model or reader exists. The connected design needs behavior that identifies all contributing reports and the exact source of the ceiling and each answer. |
 
-The cheapest useful discriminating probe, if the Foreman wants mechanism
-evidence before a production charter, is one synthetic two-report run through
-the actual `live_coordinate_run` and source admission/subject-dispatch path.
-The supplied fixture would have A and B with different Box 1, Box 2, Box 3,
-Box 9 and report-local answers; one explicit borrowing reference; two explicit
-membership links; one borrowing-wide answer; a numeric ceiling; a no-other-
-debt answer; and return-wide filing status. The deliberately adversarial
-observation is B's conflicting local answer plus a Box 2 value above the
-ceiling, while A's values point the other way. It should prove whether B's
-result pins only B's local sources, whether a genuinely shared answer carries
-its own finding plus link provenance, whether the two Box 1 values aggregate
-once, and whether the conflict blocks the line 8a result. The observable
-failure is any B pin to A's report-local finding, any unlinked shared answer,
-any Box 2 substitution for the ceiling, or a published partial/determined
-zero.
+The cheapest discriminating mechanism probe is one synthetic positive
+two-report baseline plus four isolated mutations and one producer-removal
+kill control (six coordinator runs total) through the actual
+`live_coordinate_run` and targeted-admission/dispatch path.
+The baseline uses different Box 1 values, but the same Box 3 and Box 9 values
+on A and B, linked explicitly to one borrowing, a $250,000 ceiling, a “no”
+other-debt answer, and uncontroversial report-local answers. This avoids
+unrelated scope failures: Box 9 is 1 on both, and dates do not imply a
+refinance. It must produce the authorized Schedule A line8a once and show
+report-local versus shared support accurately.
 
-This probe would have to supply the synthetic relationship/ceiling assertions
-and their links manually, and it would need only a minimal proposed mortgage
-admission/content branch to exercise the actual coordinator. Those supplied
-claims would not prove an actual ordinary recorder, human affirmation, saved
-group reader, or production feasibility. The latter would still need a later
-real-path demonstration. The source-admission join is consequential and not
-established by the sale route, so one focused probe appears warranted; it is
-proposed only and was not executed here.
+Then change exactly one thing per run: (1) make B's report-local answer
+contrary while A remains favorable, expecting B to use B's own answer and not
+A's pin; (2) omit B's membership link, expecting the line8a branch to block,
+not include B or silently drop to legacy; (3) set linked B's dated Box 2
+observation above the ceiling, expecting conflict/unresolved; (4) set the
+ceiling above the applicable limit while both observed Box 2 values remain
+below the limit, expecting unresolved need for a tighter bound, not a finding
+of actual excess. Each mutation leaves all other facts exactly at baseline.
+The observable failures are wrong-source pins, missing answer/link pins,
+unauthorized/generic subtotal publication, Box 2 substituted for ceiling, or
+any partial/favorable/zero result on a blocked case.
 
-The principal remaining implementation choice is whether that focused
-probe shows the targeted admission plus generic dispatch is enough or exposes
-a narrow engine join requirement. Product meaning is provisionally clear:
-numeric user-confirmed ceiling, separate other-debt coverage, explicit links,
-and fail-closed conflicts. No broader debt allocation, refinancing, or
-institutional verification is part of this candidate.
+The fixture supplies only raw loan-scoped answers, raw exact-report
+membership-link findings, and the Box 1/other report sources. The intermediate
+must be calculated by an actual package rule in the run, with the real
+resolver, marshal, subject dispatch and evaluator; inspect its derived
+finding's ledger disposition and input pins. A concrete paper candidate uses
+an ordinary `rule-artifact.v13` computation with `subject` set to
+`tax.us.2025.mortgage.report-membership`, `joined` set to
+`tax.us.2025.mortgage.borrowing-paid-all-interest`, and `direction` set to
+`subject_contains_joined`. For example, the subject's exact identity keys are
+`borrowing=demo.loan-1,payer=demo.servicer-b,statement=demo.1098-b,tax-year=2025`,
+while the joined answer is keyed by `borrowing=demo.loan-1,tax-year=2025`.
+The proposed rule requires the shared answer and publishes a declared
+report-scoped finding (for example,
+`tax.us.2025.mortgage.report-paid-all-interest`) keyed to the report subject.
+Its derived-finding disposition must actually pin both the membership finding
+and shared-answer finding. The downstream report result consumes that
+intermediate; it must not be manually fabricated in the fixture. These are
+candidate fact/rule identifiers and an instance, not an allocated content
+version. Existing `subject`/`joined`/`direction` fields support analogous
+stale-target and relationship joins; the probe is specifically to verify
+they can express this cross-identity loan-to-report propagation with actual
+pins. If package/schema validation refuses these two different identity key
+sets, or dispatch cannot emit a report-scoped derived finding with both
+inputs, record that exact missing identity-join or derived-source operation
+instead of supplying a hand-built intermediate.
+
+The kill control removes only this intermediate producer from the proposed
+package while retaining the raw membership and answer findings. Under the
+actual contract, package validation may reject the dangling declared
+consumer, or runtime dependency resolution must block it; in either case
+line8a must not publish favorably. The six-run set is one tiny synthetic
+fixture, no suite run and no new framework; proposed, not executed. It tests
+transport, pinning, routing and line8a gating, not the ordinary recorder, a
+person's actual affirmation, saved group reader, or cross-run persistence.
 
 The Foreman's provisional direction selects the meaning below for this paper
 design. It is not an accepted contract or production authorization.
@@ -569,15 +682,15 @@ design. It is not an accepted contract or production authorization.
 | Annual balance support | Ask for a numerical ceiling the person is confident was not exceeded during the year; keep it separate from dated Box 2 facts. | Gives the application a number it can compare after it determines the tax category and limit; remains usable if filing status changes. | An additional user assertion may be unavailable or contradicted; it is not independently verified and is not proven by the reports. |
 | Other borrowing | Ask separately whether other mortgage or home-equity borrowing was secured by either home. Yes is unsupported here; unknown is unresolved; no is an ordinary assertion, not an objective completeness proof. | Avoids silently assuming second-home debt is absent while keeping the interaction bounded. | Excludes a real case when other debt exists; calculating combined debt would be broader work. |
 | Input scope | Make scope follow the exact proposition. Keep raw report facts local; allow a genuinely whole-loan answer to cover linked reports only through explicit links and retained evidence. | Supports shared circumstances without accidental pin reuse or duplicate answers caused by storage keys. | Requires explicit source admission and correction dependencies for each scope. |
-| Aggregation and compatibility | Keep family v1's Box 1 subtotal and closure. Preserve current no-report and one-report behavior; add a connected path only for the fully linked bounded case. | Reuses established family authority without conflating closure with loan identity. | New subject calculation, connected recorder/admission, and group saved-reader behavior remain unproven. |
+| Aggregation and compatibility | One Schedule A line8a producer retains the legacy route only when no connected account is current, and selects connected handling from current account state; use F1098 family v1's authorized collect only within that selected branch. | Reuses established family authority without conflating closure with loan identity. | New subject calculation, connected recorder/admission, and group saved-reader behavior remain unproven. |
 
-The remaining product decisions are whether to accept a person's numeric
-ceiling as a factual source without independent verification, and whether to
-keep known other-home debt outside this supported calculation. This design
-recommends yes to both: show the source and any contradiction plainly, and
-leave the result unresolved when the report disagrees; keep the other-debt
-boundary because the charter excludes the combined-home calculation. Expanding
-to compute other-home debt would change the chartered scope.
+The numeric ceiling is a provisional product-source choice, visible for
+independent review: it is a person-confirmed ordinary fact, not an external
+verification claim or a new trust domain. It remains an advisory choice for
+owner disposition after review, not permission required to investigate its
+transport or meaning. The explicit boundary for known other main-/second-home
+debt follows this charter's excluded combined-debt scope; the product must
+not silently assume zero or compute an unchartered allocation.
 
 ## Evidence ceiling and handoff
 

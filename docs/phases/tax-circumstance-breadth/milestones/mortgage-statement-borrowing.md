@@ -234,13 +234,21 @@ remain compatibility requirements. Return material costs or a demonstrated
 inadequacy before selecting production. This develops the original goal;
 it neither changes that goal nor authorizes implementation.
 
-P1 B's connected paper account is drafted and under Foreman review. Before
-its proposed experiment, make route selection safe when a connected account
-loses a report or an assertion: a count of one must not ignore still-current
-contrary or unresolved information. Identify the exact family-authorized
-symbol and actual provenance carrier, and isolate positive and negative probe
-cases so one failure cannot hide another. These are design-readiness repairs,
-not a new product goal or authorization for production.
+P1 B's connected paper account is refined after Foreman review and now receives
+independent Sol design/experiment-readiness review. Route selection must not
+ignore current connected information after a report is removed; genuine
+closed-empty authority still supports zero without requiring irrelevant loan
+answers. One successor line8a producer retains the exact family-authorized
+symbol. Declared intermediate findings, not fabricated source keys, must
+preserve shared-answer and report-link support.
+
+The proposed bounded experiment has one positive case, four isolated mutations
+and a producer-removal control. It uses raw synthetic account assertions but
+must actually derive the intermediate through resolver, marshalling, dispatch
+and evaluation. No new schema or production change is selected. Review the
+connected design as a whole; execute the bounded experiment only after its
+question and instrument are ready. This refines the original goal rather than
+changing it.
 If the case needs a general debt-allocation calculator, a new identity system,
 refinancing treatment or a broader engine contract, stop and bring back a
 plain-language scope/cost choice rather than absorb it.
