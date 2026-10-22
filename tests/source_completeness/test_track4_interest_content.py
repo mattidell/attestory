@@ -294,6 +294,12 @@ class DataSafety(unittest.TestCase):
         # (i1040gi.pdf p.99, T0-4): a statutory constant ($170,000 MFJ),
         # never taxpayer/account data.
         "tax.us.2025.parameter.sli-magi-threshold",
+        # 2025 rate schedule, 15% preferential ceiling and Tax Table ceiling
+        # (Rev. Proc. 2024-40 sections 2.01 and 3.03; i1040gi.pdf Tax Table):
+        # statutory constants, never taxpayer/account data.
+        "tax.us.2025.parameter.ordinary-rate-schedule",
+        "tax.us.2025.parameter.preferential-fifteen-ceiling",
+        "tax.us.2025.parameter.tax-table-ceiling",
     })
 
     def test_no_private_markers_or_account_identifiers(self) -> None:

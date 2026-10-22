@@ -1,0 +1,198 @@
+{
+  "schema": "parameter-declaration.v1",
+  "id": "tax.us.2025.parameter.ordinary-rate-schedule",
+  "version": "v1",
+  "scope": {
+    "tax_year": 2025,
+    "jurisdiction": "US-federal",
+    "family": "individual-income-tax",
+    "effective_from": "2025-01-01"
+  },
+  "values": {
+    "single": [
+      {
+        "lower": "0",
+        "rate": "0.10",
+        "upper": "11925"
+      },
+      {
+        "lower": "11925",
+        "rate": "0.12",
+        "upper": "48475"
+      },
+      {
+        "lower": "48475",
+        "rate": "0.22",
+        "upper": "103350"
+      },
+      {
+        "lower": "103350",
+        "rate": "0.24",
+        "upper": "197300"
+      },
+      {
+        "lower": "197300",
+        "rate": "0.32",
+        "upper": "250525"
+      },
+      {
+        "lower": "250525",
+        "rate": "0.35",
+        "upper": "626350"
+      },
+      {
+        "lower": "626350",
+        "rate": "0.37",
+        "upper": null
+      }
+    ],
+    "married_filing_jointly": [
+      {
+        "lower": "0",
+        "rate": "0.10",
+        "upper": "23850"
+      },
+      {
+        "lower": "23850",
+        "rate": "0.12",
+        "upper": "96950"
+      },
+      {
+        "lower": "96950",
+        "rate": "0.22",
+        "upper": "206700"
+      },
+      {
+        "lower": "206700",
+        "rate": "0.24",
+        "upper": "394600"
+      },
+      {
+        "lower": "394600",
+        "rate": "0.32",
+        "upper": "501050"
+      },
+      {
+        "lower": "501050",
+        "rate": "0.35",
+        "upper": "751600"
+      },
+      {
+        "lower": "751600",
+        "rate": "0.37",
+        "upper": null
+      }
+    ],
+    "married_filing_separately": [
+      {
+        "lower": "0",
+        "rate": "0.10",
+        "upper": "11925"
+      },
+      {
+        "lower": "11925",
+        "rate": "0.12",
+        "upper": "48475"
+      },
+      {
+        "lower": "48475",
+        "rate": "0.22",
+        "upper": "103350"
+      },
+      {
+        "lower": "103350",
+        "rate": "0.24",
+        "upper": "197300"
+      },
+      {
+        "lower": "197300",
+        "rate": "0.32",
+        "upper": "250525"
+      },
+      {
+        "lower": "250525",
+        "rate": "0.35",
+        "upper": "375800"
+      },
+      {
+        "lower": "375800",
+        "rate": "0.37",
+        "upper": null
+      }
+    ],
+    "head_of_household": [
+      {
+        "lower": "0",
+        "rate": "0.10",
+        "upper": "17000"
+      },
+      {
+        "lower": "17000",
+        "rate": "0.12",
+        "upper": "64850"
+      },
+      {
+        "lower": "64850",
+        "rate": "0.22",
+        "upper": "103350"
+      },
+      {
+        "lower": "103350",
+        "rate": "0.24",
+        "upper": "197300"
+      },
+      {
+        "lower": "197300",
+        "rate": "0.32",
+        "upper": "250500"
+      },
+      {
+        "lower": "250500",
+        "rate": "0.35",
+        "upper": "626350"
+      },
+      {
+        "lower": "626350",
+        "rate": "0.37",
+        "upper": null
+      }
+    ],
+    "qualifying_surviving_spouse": [
+      {
+        "lower": "0",
+        "rate": "0.10",
+        "upper": "23850"
+      },
+      {
+        "lower": "23850",
+        "rate": "0.12",
+        "upper": "96950"
+      },
+      {
+        "lower": "96950",
+        "rate": "0.22",
+        "upper": "206700"
+      },
+      {
+        "lower": "206700",
+        "rate": "0.24",
+        "upper": "394600"
+      },
+      {
+        "lower": "394600",
+        "rate": "0.32",
+        "upper": "501050"
+      },
+      {
+        "lower": "501050",
+        "rate": "0.35",
+        "upper": "751600"
+      },
+      {
+        "lower": "751600",
+        "rate": "0.37",
+        "upper": null
+      }
+    ]
+  }
+}
