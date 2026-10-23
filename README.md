@@ -7,9 +7,9 @@ This is the project's third iteration. The first proved a working return generat
 ## Where things stand
 
 - **Governance** (`docs/governance/`): the ratified v0.1 set — Constitution, Ontology, Engineering Constraints, Principles, Commentary. The sole contract authority for this repository.
-- **Phase state** (`docs/phase-state.md`): the 2025 senior deduction and a
-  dependent's standard deduction compute on core calculations v51 (see
-  "2025 senior deduction and a dependent's standard deduction" below). Use `python3 tools/foreman_context.py --ref HEAD` for
+- **Phase state** (`docs/phase-state.md`): on core calculations v52 every
+  computed return ends in a refund or an amount owed (see "2025 refund or
+  amount owed" below). Use `python3 tools/foreman_context.py --ref HEAD` for
   current routing; publication status is tracked by the pull request's checks.
 - **Current bounded capability:** production-shaped synthetic returns cover
   the Form 1099-DIV box-2a direct-reporting route, Schedule K-1 (Form 1065)
@@ -263,6 +263,28 @@ or car loan interest deductions (Schedule 1-A Parts II–IV, which stay
 uncomputed), and a valid SSN for each person aged 65 or older. The dependent
 and Parts II–IV answers are required; a missing answer blocks with the fact
 named. The Parts II–IV answer replaces v50's single Schedule 1-A answer.
+
+## 2025 refund or amount owed
+
+On `core-calculations.v52` (registry `v50`, release
+`demo.release.sli-worksheet-integration.2025.v50.json`), every computed return
+continues past tax after credits (line 22) to the line a person acts on:
+
+- total tax (line 24), with Schedule 2 Part II taxes (line 23) declared
+  absent by a question;
+- federal income tax withheld from W-2 box 2 (line 25a) and Forms 1099-INT,
+  1099-DIV and 1099-R box 4 (line 25b), summed across statements; line 25a
+  blocks unless every W-2 has a box 2 answer ($0 allowed);
+- estimated tax payments (line 26), refundable credits declared absent
+  (lines 27-32), and total payments (line 33);
+- the overpayment (line 34), split between a refund (line 35a) and an amount
+  applied to 2026 estimated tax (line 36, asked only when there is an
+  overpayment), or the amount owed (line 37), with no estimated tax penalty
+  (line 38) declared by a question.
+
+A return without foreign tax now reaches line 22 without the direct foreign
+tax credit's election and eligibility questions. Form 1099-K, 1099-G and
+SSA-1099 withholding are not yet summed.
 
 ## Correction session walkthrough
 

@@ -1,0 +1,54 @@
+{
+  "blocked": {
+    "code": "OPEN_DEPENDENCY",
+    "missing": [
+      "rounding.convention"
+    ]
+  },
+  "citations": [
+    {
+      "id": "tax.us.2025.citation.form1040.line-25b",
+      "version": "v1"
+    }
+  ],
+  "id": "tax.us.2025.rule.f1099int-b4-subtotal",
+  "notes": "Aggregates current Form 1099-INT box-4 federal-withholding findings into the family subtotal, one of the four document subtotals Form 1040 line 25b adds (i1040gi-2025 l.2559-2576: 'Include on line 25b any federal income tax withheld on your Form(s) 1099-R ... include the amount withheld in the total on line 25b. This should be shown in box 4 of Form 1099'). Closed-empty publishes zero only through current literal-true closure. Published as its own rule so the explanation walk reaches this document (Track 1 contract item 2).",
+  "pins": [
+    {
+      "id": "rounding.convention",
+      "origin": "assertion",
+      "role": "input",
+      "version": "v1"
+    }
+  ],
+  "publishes": "tax.us.2025.interest.b4-withholding-subtotal",
+  "requires": [
+    "rounding.convention"
+  ],
+  "role": "computation",
+  "schema": "rule-artifact.v3",
+  "scope": {
+    "family": "individual-income-tax",
+    "jurisdiction": "US-federal",
+    "tax_year": 2025
+  },
+  "value": {
+    "mode": {
+      "name": "rounding.convention",
+      "op": "ref"
+    },
+    "op": "round",
+    "value": {
+      "args": [
+        {
+          "name": "tax.us.2025.f1099int.box4-withholding",
+          "op": "collect",
+          "source_set": "tax.us.2025.f1099int.b4"
+        }
+      ],
+      "op": "add"
+    }
+  },
+  "version": "v1",
+  "when": true
+}

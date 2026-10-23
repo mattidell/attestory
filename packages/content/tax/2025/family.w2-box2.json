@@ -1,0 +1,16 @@
+{
+  "schema": "source-family.v1",
+  "id": "tax.us.2025.w2-box2",
+  "version": "v1",
+  "title": "Form W-2 box 2 federal income tax withheld statement items, tax year 2025",
+  "scope": {
+    "tax_year": 2025,
+    "jurisdiction": "US-federal",
+    "family": "individual-income-tax"
+  },
+  "member_predicate": {
+    "fact_type": "tax.us.2025.w2.box2-withholding"
+  },
+  "authorizes_subtotal": "tax.us.2025.payments.line25a",
+  "closure_claim": "Every federal income tax withheld amount reported in box 2 of a Form W-2 furnished to the taxpayer for tax year 2025 is recorded as a statement item as of the keyed horizon. This claim covers Form W-2 box 2 only; it says nothing about box 1 wages (a separate family, separately closed) or any other box. Closed with members authorizes the sum of current members; closed-empty authorizes subtotal 0. A box-1 W-2 statement recorded without a matching box-2 finding is not cross-checked against this family -- the same present-source-skips-closure behavior box 1's own family already has (P0 Sec. 3; Track 1 contract item 2)."
+}

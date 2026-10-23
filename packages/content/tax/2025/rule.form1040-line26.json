@@ -1,0 +1,56 @@
+{
+  "schema": "rule-artifact.v3",
+  "id": "tax.us.2025.rule.form1040-line26",
+  "version": "v1",
+  "scope": {
+    "tax_year": 2025,
+    "jurisdiction": "US-federal",
+    "family": "individual-income-tax"
+  },
+  "role": "computation",
+  "requires": [
+    "tax.us.2025.payments.estimated-and-prior-year-applied",
+    "rounding.convention"
+  ],
+  "pins": [
+    {
+      "role": "input",
+      "id": "tax.us.2025.payments.estimated-and-prior-year-applied",
+      "version": "v1",
+      "origin": "assertion"
+    },
+    {
+      "id": "rounding.convention",
+      "origin": "assertion",
+      "role": "input",
+      "version": "v1"
+    }
+  ],
+  "when": true,
+  "value": {
+    "op": "round",
+    "mode": {
+      "op": "ref",
+      "name": "rounding.convention"
+    },
+    "value": {
+      "op": "ref",
+      "name": "tax.us.2025.payments.estimated-and-prior-year-applied"
+    }
+  },
+  "publishes": "tax.us.2025.payments.line26",
+  "citations": [
+    {
+      "id": "tax.us.2025.citation.form1040.line-26",
+      "version": "v1"
+    }
+  ],
+  "blocked": {
+    "code": "DEPENDENCY_ABSENT",
+    "missing": [
+      "tax.us.2025.payments.estimated-and-prior-year-applied",
+      "rounding.convention"
+    ]
+  },
+  "notes": "Form 1040 line 26: 'Estimated tax payments and amount applied from 2024 return' (f1040-2025 l.119; i1040gi-2025 l.2536-2545). Taxpayer-entered, not derived from any statement; $0 is a valid, required answer. Its absence blocks DEPENDENCY_ABSENT naming the fact."
+}

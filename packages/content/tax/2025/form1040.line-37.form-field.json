@@ -1,0 +1,45 @@
+{
+  "binds_symbol": "tax.us.2025.payments.line37-amount-owed",
+  "citation": {
+    "id": "tax.us.2025.citation.form1040.line-37",
+    "version": "v1"
+  },
+  "description": "Form 1040 line 37: the amount the taxpayer owes.",
+  "dispositions": {
+    "published_value": {
+      "explain": "Form 1040 line 37 equals line 24 minus line 33 when larger, else zero.",
+      "render": "{value}"
+    },
+    "computed_zero": {
+      "explain": "Form 1040 line 37 publishes a computed zero.",
+      "render": "0"
+    },
+    "closure_backed_zero": {
+      "explain": "Form 1040 line 37 publishes zero through an honest closed-empty source family.",
+      "render": "0"
+    },
+    "blocked": {
+      "codes": [
+        "DEPENDENCY_ABSENT",
+        "DEPENDENCY_INVALID"
+      ],
+      "explain": "Form 1040 line 37 is blocked because an input it needs is missing, invalid, or (line 36) exceeds line 34.",
+      "render": ""
+    },
+    "guard_inapplicable": {
+      "explain": "No value is published for line 37 because a scope or eligibility component is not satisfied.",
+      "render": ""
+    }
+  },
+  "form": {
+    "authority": "IRS",
+    "form_id": "1040",
+    "jurisdiction": "US-federal",
+    "tax_year": 2025
+  },
+  "id": "tax.us.2025.form1040.line-37",
+  "label": "Amount you owe",
+  "line": "37",
+  "schema": "form-field.v3",
+  "version": "v1"
+}

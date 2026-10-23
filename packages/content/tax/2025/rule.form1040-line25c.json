@@ -1,0 +1,45 @@
+{
+  "blocked": {
+    "code": "OPEN_DEPENDENCY",
+    "missing": [
+      "rounding.convention"
+    ]
+  },
+  "citations": [
+    {
+      "id": "tax.us.2025.citation.form1040.line-25c",
+      "version": "v1"
+    }
+  ],
+  "id": "tax.us.2025.rule.form1040-line25c",
+  "notes": "Form 1040 line 25c: 'Other forms.' The 2025 instructions name only Form(s) W-2G box 4 here (i1040gi-2025 l.2587-2592); the engine reads no W-2G, so this is a genuine, published zero, not an absence block -- there is no route for line 25c to be nonzero in the supported class (parked by the milestone contract, item 2: 'Line 25c is $0 because no W-2G route exists').",
+  "pins": [
+    {
+      "id": "rounding.convention",
+      "origin": "assertion",
+      "role": "input",
+      "version": "v1"
+    }
+  ],
+  "publishes": "tax.us.2025.payments.line25c",
+  "requires": [
+    "rounding.convention"
+  ],
+  "role": "computation",
+  "schema": "rule-artifact.v3",
+  "scope": {
+    "family": "individual-income-tax",
+    "jurisdiction": "US-federal",
+    "tax_year": 2025
+  },
+  "value": {
+    "mode": {
+      "name": "rounding.convention",
+      "op": "ref"
+    },
+    "op": "round",
+    "value": 0
+  },
+  "version": "v1",
+  "when": true
+}

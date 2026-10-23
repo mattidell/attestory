@@ -1,0 +1,87 @@
+{
+  "schema": "rule-artifact.v3",
+  "id": "tax.us.2025.rule.form1040-line37",
+  "version": "v1",
+  "scope": {
+    "tax_year": 2025,
+    "jurisdiction": "US-federal",
+    "family": "individual-income-tax"
+  },
+  "role": "computation",
+  "requires": [
+    "tax.us.2025.tax.line24-total-tax",
+    "tax.us.2025.payments.line33",
+    "rounding.convention"
+  ],
+  "pins": [
+    {
+      "role": "input",
+      "id": "tax.us.2025.tax.line24-total-tax",
+      "version": "v1",
+      "origin": "assertion"
+    },
+    {
+      "role": "input",
+      "id": "tax.us.2025.payments.line33",
+      "version": "v1",
+      "origin": "assertion"
+    },
+    {
+      "id": "rounding.convention",
+      "origin": "assertion",
+      "role": "input",
+      "version": "v1"
+    }
+  ],
+  "when": true,
+  "value": {
+    "op": "round",
+    "mode": {
+      "op": "ref",
+      "name": "rounding.convention"
+    },
+    "value": {
+      "op": "choose",
+      "when": {
+        "op": "compare",
+        "cmp": "gt",
+        "left": {
+          "op": "ref",
+          "name": "tax.us.2025.tax.line24-total-tax"
+        },
+        "right": {
+          "op": "ref",
+          "name": "tax.us.2025.payments.line33"
+        }
+      },
+      "then": {
+        "op": "subtract",
+        "left": {
+          "op": "ref",
+          "name": "tax.us.2025.tax.line24-total-tax"
+        },
+        "right": {
+          "op": "ref",
+          "name": "tax.us.2025.payments.line33"
+        }
+      },
+      "else": 0
+    }
+  },
+  "publishes": "tax.us.2025.payments.line37-amount-owed",
+  "citations": [
+    {
+      "id": "tax.us.2025.citation.form1040.line-37",
+      "version": "v1"
+    }
+  ],
+  "blocked": {
+    "code": "DEPENDENCY_ABSENT",
+    "missing": [
+      "tax.us.2025.tax.line24-total-tax",
+      "tax.us.2025.payments.line33",
+      "rounding.convention"
+    ]
+  },
+  "notes": "Form 1040 line 37: 'Subtract line 33 from line 24. This is the amount you owe' (f1040-2025 l.139-140). Always published: line 24 minus line 33 when larger, else $0, same equal-payments posture as line 34. The instructions direct the filer to 'Include any estimated tax penalty from line 38 in the amount you enter on line 37' (i1040gi-2025, 'Line 37'/'Amount You Owe'); this milestone declares line 38 absent (Form 2210 not computed) and line 38 always publishes $0 by its own answer, so no penalty is ever added here -- line 37 equals line 24 minus line 33 exactly, never line 24 minus line 33 plus a nonzero line 38."
+}

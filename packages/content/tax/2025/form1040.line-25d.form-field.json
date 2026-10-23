@@ -1,0 +1,46 @@
+{
+  "binds_symbol": "tax.us.2025.payments.line25d",
+  "citation": {
+    "id": "tax.us.2025.citation.form1040.line-25d",
+    "version": "v1"
+  },
+  "description": "Form 1040 line 25d: add lines 25a through 25c. Total federal income tax withheld.",
+  "dispositions": {
+    "published_value": {
+      "explain": "Form 1040 line 25d equals lines 25a, 25b, and 25c added together.",
+      "render": "{value}"
+    },
+    "computed_zero": {
+      "explain": "Form 1040 line 25d publishes a computed zero.",
+      "render": "0"
+    },
+    "closure_backed_zero": {
+      "explain": "Form 1040 line 25d publishes zero through an honest closed-empty source family.",
+      "render": "0"
+    },
+    "blocked": {
+      "codes": [
+        "DEPENDENCY_ABSENT",
+        "DEPENDENCY_INVALID",
+        "SOURCE_SET_UNCLOSED"
+      ],
+      "explain": "Form 1040 line 25d is blocked because an input it needs is missing or not yet closed.",
+      "render": ""
+    },
+    "guard_inapplicable": {
+      "explain": "No value is published for line 25d because a scope or eligibility component is not satisfied.",
+      "render": ""
+    }
+  },
+  "form": {
+    "authority": "IRS",
+    "form_id": "1040",
+    "jurisdiction": "US-federal",
+    "tax_year": 2025
+  },
+  "id": "tax.us.2025.form1040.line-25d",
+  "label": "Total federal income tax withheld",
+  "line": "25d",
+  "schema": "form-field.v3",
+  "version": "v1"
+}

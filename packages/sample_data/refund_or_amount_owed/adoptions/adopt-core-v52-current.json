@@ -1,0 +1,28 @@
+{
+  "act_id": "demo.act.adopt.core.v52",
+  "actor": "demo.user.filer-1",
+  "at": "2026-10-22T12:00:00Z",
+  "committed_against": 0,
+  "kind": "package-adoption",
+  "payload": {
+    "audit": {
+      "note": "synthetic successor adoption of core calculations v52 (Refund or Amount Owed Track 1: line 20 without foreign tax, lines 25a-25d withholding); non-authoritative"
+    },
+    "package": {
+      "checksum": "f1ab428e8bdb94c792628c761a8bd572d85447e1fe769382838be79a98a01c6c",
+      "id": "tax.us.2025.package.core-calculations",
+      "version": "v52"
+    },
+    "release": {
+      "checksum": "e1f12790c0032e9b7f13fcb53f6ebae389ea154e98a0511d8911a5604b653990",
+      "id": "demo.release.sli-worksheet-integration.2025",
+      "version": "v50"
+    },
+    "revision": 52,
+    "scope": {
+      "jurisdiction": "us",
+      "year": "2025"
+    }
+  },
+  "schema": "act.v1"
+}

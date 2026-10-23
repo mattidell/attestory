@@ -1,0 +1,45 @@
+{
+  "binds_symbol": "tax.us.2025.payments.line34-overpaid",
+  "citation": {
+    "id": "tax.us.2025.citation.form1040.line-34",
+    "version": "v1"
+  },
+  "description": "Form 1040 line 34: amount overpaid (line 33 minus line 24 when larger, else zero).",
+  "dispositions": {
+    "published_value": {
+      "explain": "Form 1040 line 34 equals line 33 minus line 24 when larger, else zero.",
+      "render": "{value}"
+    },
+    "computed_zero": {
+      "explain": "Form 1040 line 34 publishes a computed zero.",
+      "render": "0"
+    },
+    "closure_backed_zero": {
+      "explain": "Form 1040 line 34 publishes zero through an honest closed-empty source family.",
+      "render": "0"
+    },
+    "blocked": {
+      "codes": [
+        "DEPENDENCY_ABSENT",
+        "DEPENDENCY_INVALID"
+      ],
+      "explain": "Form 1040 line 34 is blocked because an input it needs is missing or invalid.",
+      "render": ""
+    },
+    "guard_inapplicable": {
+      "explain": "No value is published for line 34 because a scope or eligibility component is not satisfied.",
+      "render": ""
+    }
+  },
+  "form": {
+    "authority": "IRS",
+    "form_id": "1040",
+    "jurisdiction": "US-federal",
+    "tax_year": 2025
+  },
+  "id": "tax.us.2025.form1040.line-34",
+  "label": "Overpayment",
+  "line": "34",
+  "schema": "form-field.v3",
+  "version": "v1"
+}

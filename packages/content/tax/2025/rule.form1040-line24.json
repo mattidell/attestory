@@ -1,0 +1,73 @@
+{
+  "schema": "rule-artifact.v3",
+  "id": "tax.us.2025.rule.form1040-line24",
+  "version": "v1",
+  "scope": {
+    "tax_year": 2025,
+    "jurisdiction": "US-federal",
+    "family": "individual-income-tax"
+  },
+  "role": "computation",
+  "requires": [
+    "tax.us.2025.tax.after-nonrefundable-credits",
+    "tax.us.2025.tax.line23-other-taxes",
+    "rounding.convention"
+  ],
+  "pins": [
+    {
+      "role": "input",
+      "id": "tax.us.2025.tax.after-nonrefundable-credits",
+      "version": "v1",
+      "origin": "assertion"
+    },
+    {
+      "role": "input",
+      "id": "tax.us.2025.tax.line23-other-taxes",
+      "version": "v1",
+      "origin": "assertion"
+    },
+    {
+      "id": "rounding.convention",
+      "origin": "assertion",
+      "role": "input",
+      "version": "v1"
+    }
+  ],
+  "when": true,
+  "value": {
+    "op": "round",
+    "mode": {
+      "op": "ref",
+      "name": "rounding.convention"
+    },
+    "value": {
+      "op": "add",
+      "args": [
+        {
+          "op": "ref",
+          "name": "tax.us.2025.tax.after-nonrefundable-credits"
+        },
+        {
+          "op": "ref",
+          "name": "tax.us.2025.tax.line23-other-taxes"
+        }
+      ]
+    }
+  },
+  "publishes": "tax.us.2025.tax.line24-total-tax",
+  "citations": [
+    {
+      "id": "tax.us.2025.citation.form1040.line-24",
+      "version": "v1"
+    }
+  ],
+  "blocked": {
+    "code": "DEPENDENCY_ABSENT",
+    "missing": [
+      "tax.us.2025.tax.after-nonrefundable-credits",
+      "tax.us.2025.tax.line23-other-taxes",
+      "rounding.convention"
+    ]
+  },
+  "notes": "Form 1040 line 24: 'Add lines 22 and 23. This is your total tax' (f1040-2025 l.113). Distinct symbol from tax.us.2025.tax.total-tax, which is line 16's regular tax and is never overwritten (P0 Sec. 1/3)."
+}
