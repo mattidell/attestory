@@ -67,6 +67,7 @@ saved model.
 ## Focused commands
 
 - `pytest tests/test_mortgage_borrowing_calculation.py tests/test_f1098_mortgage_interest_line12e_track2.py tests/derivation/test_package_validation.py` — 44 passed.
+- `pytest tests/test_envelope_hooks.py tests/test_kernel_fixtures.py` — 14 passed; `python3 tools/envelope_scan.py --range 52b688d5698ea6262008d0d4c212d49479d9e87b..HEAD` — clean.
 - `python3 -m mypy --cache-dir=<temporary-cache-dir>` — no issues in 385 source files.
 
 The test run emitted a sandbox pytest-cache permission warning; it did not
