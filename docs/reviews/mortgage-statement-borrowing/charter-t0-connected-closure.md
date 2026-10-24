@@ -309,6 +309,14 @@ subject environment. Trace normal binding and scheduling; use an existing
 completion-bearing declaration, or return the exact admission/execution gap.
 Do not make exit appear successful by breaking the linked route.
 
+The legacy singleton branch must preserve the adopted treatment, not merely
+test that one report remains and then sum Box1. Its actual supported reason
+must reach and order the consumer: qualified yields the amount, an incumbent
+determined-zero case yields zero, and missing/uncertain/unsupported support
+withholds. Add one changed negative singleton case (for example, the retained
+`paid-the-interest: no` answer) to expose a route that bypasses its reason.
+This narrowly tests the changed exit fallback; it is not a broad legacy rerun.
+
 ## Context Capsule
 
 - Source ref HEAD, resolved and checked at launch; branch
