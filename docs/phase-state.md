@@ -5,9 +5,9 @@
   "topic": "mortgage-statement-borrowing",
   "active_plan": "docs/phases/tax-circumstance-breadth/milestones/mortgage-statement-borrowing.md",
   "milestone_state": "track-0",
-  "status": "The restored shared-answer/exit contract and six artifacts are consolidated on core v52. Sol reviews the connected design before production. Track 0 remains open.",
-  "current_role": "Reviewer — Sol final connected-design disposition",
-  "current_prompt": "docs/reviews/mortgage-statement-borrowing/charter-p1-independent-review.md"
+  "status": "Sol accepts measured exit/completion evidence. Repair the other-debt referent and one historical-evidence attribution before the final recheck. Track 0 remains open.",
+  "current_role": "Builder — Luna other-debt referent repair",
+  "current_prompt": "docs/reviews/mortgage-statement-borrowing/charter-t0-connected-closure.md"
 }
 -->
 

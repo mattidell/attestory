@@ -3,7 +3,7 @@
   "version": 1,
   "phase": "Tax Circumstance Breadth",
   "topic": "mortgage-statement-borrowing",
-  "status": "The restored shared-answer/exit contract and six artifacts are consolidated on core v52. Sol reviews the connected design before production. Track 0 remains open.",
+  "status": "Sol accepts measured exit/completion evidence. Repair the other-debt referent and one historical-evidence attribution before the final recheck. Track 0 remains open.",
   "scope": [
     "extend the existing ordinary mortgage account to a bounded same-borrowing multiple-report case",
     "preserve report amounts, loan-level circumstances and their separate correction lifecycles",
@@ -299,6 +299,15 @@ package and registry versions when its unit is actually chartered.
   exclusion for origination on or before 1987-10-13; the higher pre-2017
   acquisition-debt limit is not modeled.
   The saved explanation must disclose that coverage limit.
+- The other-debt question surveys the return's secured home debt **besides
+  the named borrowing**. Keep its excluded opaque borrowing/year in identity,
+  as the candidate already does. Clearing A retains A's answer/history, not a
+  generic no-debt flag. A replacement B needs its own confirmation; do not
+  copy or retarget A's `no`. This keeps the answer meaningful at small person
+  cost, without a debt-inventory system or new engine capability. Add that
+  replacement case to production acceptance; ordinary singleton/empty remain
+  free of this connected-only prerequisite. This is the provisional repair
+  to Sol's final scope finding, not a new tax-coverage expansion.
 - P1 incorporates the outside findings and the
   [independent Sol review](../../../reviews/mortgage-statement-borrowing/p1-independent-review.md)
   in one connected repair: correct empty-family handling, a real report-local

@@ -355,6 +355,37 @@ suite, browser, staging, commit or spawn. Retain all older observations at
 their recorded bases. Return one finite consolidated increment with exact
 remaining decisions and evidence limits.
 
+## Other-debt referent repair after final Sol review
+
+The final connected review accepts the measured exit/completion evidence but
+requires the excluded borrowing in “other debt” to be explicit. Foreman selects
+the smallest existing shape: keep the candidate's borrowing/year identity for
+this answer. The ordinary question is: “Besides this borrowing, did you have
+any other mortgage or home-equity debt secured by either home in 2025?” The
+answer concerns the return's debt coverage, excluding the named opaque
+borrowing; a borrowing key does not narrow that real-world coverage claim.
+
+Revise the contract's recording table, exact fact declaration, lifecycle and
+reuse tables, exit description and production-unit proposal consistently:
+
+- Preserve the current answer/history when clearing A; it remains about A,
+  never “no debt.” Renaming A's label does not change its opaque referent.
+- A still-current A/2025 answer can support the same A/2025 account again;
+  it cannot authorize B or another year. A replacement B needs its own scoped
+  confirmation; do not retarget, copy or infer it from A's value.
+- Add the acceptance case: clear A with A's `no` retained, select B, and
+  withhold B's connected result until B's own confirmation exists. Legacy
+  singleton and true empty keep no new debt-answer prerequisite.
+- Fix the final Evidence ceiling's remaining attribution of empty/orphan
+  integrity to core v52: those retained runs were v58 on core v51. No rerun
+  is needed; preserve historical observations and exact bases.
+
+This changes the provisional contract to match the already borrowing-keyed
+candidate, not an accepted contract or production schema. No new experiment,
+code, test, schema, suite or recorder. Assigned contract/results documents
+only, and only if needed for these findings. Return a finite draft for the
+same Sol unit's recheck. The Foreman owns plan/pointer updates and commits.
+
 ## Context Capsule
 
 - Source ref HEAD, resolved and checked at launch; branch
