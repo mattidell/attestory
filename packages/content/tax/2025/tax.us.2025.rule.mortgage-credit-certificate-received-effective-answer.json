@@ -1,0 +1,324 @@
+{
+  "blocked": {
+    "code": "DEPENDENCY_INVALID",
+    "missing": []
+  },
+  "citations": [],
+  "direction": "joined_contains_subject",
+  "id": "tax.us.2025.rule.mortgage-credit-certificate-received-effective-answer",
+  "joined": {
+    "id": "tax.us.2025.f1098.borrowing-inclusion",
+    "version": "v1"
+  },
+  "notes": "Effective mortgage-credit-certificate-received value is selected only on the exact affirmed report link; local/shared disagreement blocks.",
+  "pins": [],
+  "publishes": "tax.us.2025.f1098.effective-credit-certificate",
+  "requires": [
+    "tax.us.2025.f1098.local-mortgage-credit-certificate-received-count",
+    "tax.us.2025.mortgage.shared-mortgage-credit-certificate-received-count"
+  ],
+  "role": "computation",
+  "schema": "rule-artifact.v13",
+  "scope": {
+    "family": "individual-income-tax",
+    "jurisdiction": "US-federal",
+    "tax_year": 2025
+  },
+  "subject": {
+    "id": "tax.us.2025.f1098.borrowing-inclusion",
+    "version": "v1"
+  },
+  "value": {
+    "else": {
+      "else": {
+        "code": "DEPENDENCY_ABSENT",
+        "op": "block"
+      },
+      "op": "choose",
+      "then": {
+        "else": {
+          "else": {
+            "else": {
+              "code": "DEPENDENCY_ABSENT",
+              "op": "block"
+            },
+            "op": "choose",
+            "then": {
+              "fact_type": {
+                "id": "tax.us.2025.f1098.effective-credit-certificate",
+                "version": "v1"
+              },
+              "op": "category_literal",
+              "value": "cannot-tell"
+            },
+            "when": {
+              "name": "tax.us.2025.mortgage.shared-credit-certificate",
+              "op": "collect_categorical_all_equal",
+              "value": {
+                "fact_type": {
+                  "id": "tax.us.2025.mortgage.shared-credit-certificate",
+                  "version": "v1"
+                },
+                "op": "category_literal",
+                "value": "cannot-tell"
+              }
+            }
+          },
+          "op": "choose",
+          "then": {
+            "fact_type": {
+              "id": "tax.us.2025.f1098.effective-credit-certificate",
+              "version": "v1"
+            },
+            "op": "category_literal",
+            "value": "not-received"
+          },
+          "when": {
+            "name": "tax.us.2025.mortgage.shared-credit-certificate",
+            "op": "collect_categorical_all_equal",
+            "value": {
+              "fact_type": {
+                "id": "tax.us.2025.mortgage.shared-credit-certificate",
+                "version": "v1"
+              },
+              "op": "category_literal",
+              "value": "not-received"
+            }
+          }
+        },
+        "op": "choose",
+        "then": {
+          "fact_type": {
+            "id": "tax.us.2025.f1098.effective-credit-certificate",
+            "version": "v1"
+          },
+          "op": "category_literal",
+          "value": "received"
+        },
+        "when": {
+          "name": "tax.us.2025.mortgage.shared-credit-certificate",
+          "op": "collect_categorical_all_equal",
+          "value": {
+            "fact_type": {
+              "id": "tax.us.2025.mortgage.shared-credit-certificate",
+              "version": "v1"
+            },
+            "op": "category_literal",
+            "value": "received"
+          }
+        }
+      },
+      "when": {
+        "cmp": "gt",
+        "left": {
+          "name": "tax.us.2025.mortgage.shared-mortgage-credit-certificate-received-count",
+          "op": "ref"
+        },
+        "op": "compare",
+        "right": 0
+      }
+    },
+    "op": "choose",
+    "then": {
+      "else": {
+        "else": {
+          "else": {
+            "code": "DEPENDENCY_INVALID",
+            "op": "block"
+          },
+          "op": "choose",
+          "then": {
+            "else": {
+              "fact_type": {
+                "id": "tax.us.2025.f1098.effective-credit-certificate",
+                "version": "v1"
+              },
+              "op": "category_literal",
+              "value": "cannot-tell"
+            },
+            "op": "choose",
+            "then": {
+              "else": {
+                "code": "DEPENDENCY_INVALID",
+                "op": "block"
+              },
+              "op": "choose",
+              "then": {
+                "fact_type": {
+                  "id": "tax.us.2025.f1098.effective-credit-certificate",
+                  "version": "v1"
+                },
+                "op": "category_literal",
+                "value": "cannot-tell"
+              },
+              "when": {
+                "name": "tax.us.2025.mortgage.shared-credit-certificate",
+                "op": "collect_categorical_all_equal",
+                "value": {
+                  "fact_type": {
+                    "id": "tax.us.2025.mortgage.shared-credit-certificate",
+                    "version": "v1"
+                  },
+                  "op": "category_literal",
+                  "value": "cannot-tell"
+                }
+              }
+            },
+            "when": {
+              "cmp": "gt",
+              "left": {
+                "name": "tax.us.2025.mortgage.shared-mortgage-credit-certificate-received-count",
+                "op": "ref"
+              },
+              "op": "compare",
+              "right": 0
+            }
+          },
+          "when": {
+            "name": "tax.us.2025.f1098.mortgage-credit-certificate-received",
+            "op": "collect_categorical_all_equal",
+            "value": {
+              "fact_type": {
+                "id": "tax.us.2025.f1098.mortgage-credit-certificate-received",
+                "version": "v2"
+              },
+              "op": "category_literal",
+              "value": "cannot-tell"
+            }
+          }
+        },
+        "op": "choose",
+        "then": {
+          "else": {
+            "fact_type": {
+              "id": "tax.us.2025.f1098.effective-credit-certificate",
+              "version": "v1"
+            },
+            "op": "category_literal",
+            "value": "not-received"
+          },
+          "op": "choose",
+          "then": {
+            "else": {
+              "code": "DEPENDENCY_INVALID",
+              "op": "block"
+            },
+            "op": "choose",
+            "then": {
+              "fact_type": {
+                "id": "tax.us.2025.f1098.effective-credit-certificate",
+                "version": "v1"
+              },
+              "op": "category_literal",
+              "value": "not-received"
+            },
+            "when": {
+              "name": "tax.us.2025.mortgage.shared-credit-certificate",
+              "op": "collect_categorical_all_equal",
+              "value": {
+                "fact_type": {
+                  "id": "tax.us.2025.mortgage.shared-credit-certificate",
+                  "version": "v1"
+                },
+                "op": "category_literal",
+                "value": "not-received"
+              }
+            }
+          },
+          "when": {
+            "cmp": "gt",
+            "left": {
+              "name": "tax.us.2025.mortgage.shared-mortgage-credit-certificate-received-count",
+              "op": "ref"
+            },
+            "op": "compare",
+            "right": 0
+          }
+        },
+        "when": {
+          "name": "tax.us.2025.f1098.mortgage-credit-certificate-received",
+          "op": "collect_categorical_all_equal",
+          "value": {
+            "fact_type": {
+              "id": "tax.us.2025.f1098.mortgage-credit-certificate-received",
+              "version": "v2"
+            },
+            "op": "category_literal",
+            "value": "not-received"
+          }
+        }
+      },
+      "op": "choose",
+      "then": {
+        "else": {
+          "fact_type": {
+            "id": "tax.us.2025.f1098.effective-credit-certificate",
+            "version": "v1"
+          },
+          "op": "category_literal",
+          "value": "received"
+        },
+        "op": "choose",
+        "then": {
+          "else": {
+            "code": "DEPENDENCY_INVALID",
+            "op": "block"
+          },
+          "op": "choose",
+          "then": {
+            "fact_type": {
+              "id": "tax.us.2025.f1098.effective-credit-certificate",
+              "version": "v1"
+            },
+            "op": "category_literal",
+            "value": "received"
+          },
+          "when": {
+            "name": "tax.us.2025.mortgage.shared-credit-certificate",
+            "op": "collect_categorical_all_equal",
+            "value": {
+              "fact_type": {
+                "id": "tax.us.2025.mortgage.shared-credit-certificate",
+                "version": "v1"
+              },
+              "op": "category_literal",
+              "value": "received"
+            }
+          }
+        },
+        "when": {
+          "cmp": "gt",
+          "left": {
+            "name": "tax.us.2025.mortgage.shared-mortgage-credit-certificate-received-count",
+            "op": "ref"
+          },
+          "op": "compare",
+          "right": 0
+        }
+      },
+      "when": {
+        "name": "tax.us.2025.f1098.mortgage-credit-certificate-received",
+        "op": "collect_categorical_all_equal",
+        "value": {
+          "fact_type": {
+            "id": "tax.us.2025.f1098.mortgage-credit-certificate-received",
+            "version": "v2"
+          },
+          "op": "category_literal",
+          "value": "received"
+        }
+      }
+    },
+    "when": {
+      "cmp": "gt",
+      "left": {
+        "name": "tax.us.2025.f1098.local-mortgage-credit-certificate-received-count",
+        "op": "ref"
+      },
+      "op": "compare",
+      "right": 0
+    }
+  },
+  "version": "v1",
+  "when": true
+}
