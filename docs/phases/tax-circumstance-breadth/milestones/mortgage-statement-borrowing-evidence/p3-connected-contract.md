@@ -7,7 +7,56 @@
 3. Offer a clear-account action distinct from correction/withdrawal; preserve report sources, local answers and history, and permit legacy singleton routing only after explicit exit and only for one current report.
 4. Trace shared answers only through exact current affirmed report links and declared subject/join intermediates; specify conflict, correction, withdrawal and late-report behavior before any experiment.
 5. Keep one F1098-family-authorized line8a collector, true-empty dispositions, the separate line12e integrity prerequisite, and the saved group explanation tied to actual consumed findings.
-6. The paper-only proposal has now had the chartered three-case disposable content discriminator on adopted core v52. Treat its result as a bounded declaration/coordinator observation, not as production or recorder acceptance. The shared-answer/exit product design remains provisional and needs independent review before implementation.
+6. The paper-only proposal has now had the chartered raw-count, shared-answer and explicit-exit disposable coordinator discriminators on adopted core v52. Treat the saved models as bounded declaration/coordinator observations, not production or recorder acceptance. The shared-answer/exit product design remains provisional and needs independent review before implementation.
+
+### Explicit-exit discriminator actions and candidate route
+
+For this bounded experiment, assemble two supplied after-states by one
+revision-checked ActLog batch each. Retract the exact current 2025 A borrowing
+root and annual ceiling (`borrowing + tax-year`), all five A shared-answer
+findings with those same keys, and every current A-pair relationship outcome
+(`payer + statement + tax-year + borrowing`). Preserve opaque entity
+introduction/history, Box 1/2/3 source findings and F1098 family closure,
+report-local ordinary answers and evidence, and the independent return-wide
+other-debt answer. One case keeps only report A current; the other keeps both
+A and B current. This models an explicit clear operation, not ordinary
+withdrawal, source deletion, “no debt,” or production recorder behavior.
+
+The candidate keeps one reason publisher and one line8a publisher. The reason
+is Box 1-subject, requires the exact current link-status result, the local
+answer count, and a separate report-effective-support-coverage result; it has
+no `joined` or `direction` declaration. The effective-answer rule is subject
+to the exact affirmative link and joins that same link; it requires the
+report-local and borrowing/year shared raw-answer counts, then reads only the
+optional categories matched in that link's key scope. A numeric witness rule
+on that same link requires the effective category and publishes one support
+count. A Box 1-subject coverage rule joins the exact affirmation carrier and
+places `link_coverage(affirmed, effective-count, empty=0)` in its `value`;
+this creates the completion edge and reduces only numeric witnesses with
+exact full-key matches. No link is the true empty reduction, while an
+affirmation without its effective result blocks as uncovered. The reason's
+`requires` names the local count and coverage publication, so it cannot rely
+on declaration order or pass a category to the numeric reduction. Its value
+selects the effective category for `affirmed`, the original local category
+only for `none`, and blocks `withdrawn`, `denied`, `cannot-tell`, or conflict.
+This uses numeric `link_coverage`, not `conditional_dependency_set` on
+multi-category answers.
+
+The single readiness selector is active on a current recognized borrowing
+root or any current relationship outcome. Only when both are absent does its
+default wait for the current Box 1-subject reason results and then return
+false; the explicit reads provide the completion edge rather than relying on
+declaration order. A selected root/outcome path cannot use that no-account
+default if its readiness is missing or blocked. The sole line8a value may use
+the incumbent local path only when the no-account route has exactly one
+current Box 1 report, its exact status is `none`, and its actual reason result
+is consumed: `qualified` yields that report amount; the adopted determined-zero
+reasons (`not-paid`, `not-collateral`, or `use-unrelated-personal-expense`)
+yield zero; unresolved, unsupported, contradictory or absent reasons block.
+Two remaining reports block rather than sum. Current end outcomes keep the
+selector active and cannot masquerade as clear. These are candidate
+declarations validated and measured in the bounded coordinator cases below,
+not production behavior.
 
 ## Current contract (provisional)
 

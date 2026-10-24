@@ -538,3 +538,121 @@ The v59 evidence remains historical. This v61 experiment closes only the
 measured raw-count/consumer-first gap for the proceeds category and these three
 states. The remaining four propositions, lifecycle transitions, shared
 answer UI/recorder and explicit exit remain outside this observation.
+
+## Core v52 explicit-exit and legacy-compatibility discriminator
+
+The final disposable candidate starts from adopted core v52, registry
+`published-packages.v50.json`, and SLI source release v50. It uses candidate
+package v70, registry `published-packages.t0-p70.json`, and mortgage source
+release v19. Candidate outputs and exact supplied after-states are retained in
+`temp/mortgage-statement-borrowing/t0-dynamic-binding-20261024T004110Z/`.
+The complete package declaration validated before coordinator execution. It
+preserved all 545 adopted member IDs (541 unchanged pins and four intended
+successors), added 32 IDs and removed none; IRA vocabulary v3 and FTC v2 remain
+present. The standard deduction v3 and line13b v2 members are retained. This
+is content-only synthetic evidence; no production recorder, adopted package,
+or interactive authorization behavior is established. The coordinator run
+reports `AUTHORIZATION_ABSENT` and `saturated`, so the evidence is limited to
+its resulting calculation dispositions and saved model.
+
+This candidate repairs the T0-only presentation adapter to allow an explicit
+post-clear model with no current borrowing root: `sharedSupport` is empty, and
+no ceiling, debt answer, or connected principal result is fabricated. It also
+repairs the line8a false-readiness path. The no-account readiness default now
+waits on each current Box 1-subject reason result before returning false; the
+sole line8a collector then allows exactly one report with reason `qualified`
+to publish its Box 1 amount, publishes zero for the adopted determined-zero
+reasons, and blocks unresolved/unsupported reasons. A current borrowing root
+or any current relationship outcome selects the connected path instead; a
+missing or blocked connected readiness cannot use the no-account default.
+The selector's `reads_subject_results` declaration provides the reason
+completion dependency; the actual line8a finding also pins its reason result.
+The two-report post-clear path blocks rather than producing a local subtotal.
+
+| Supplied after-state | Actual saved coordinator/model outcome |
+| --- | --- |
+| Connected A remains after B's source/link ends | A reason `qualified`, current link `affirmed`, principal `within-ceiling`; shared support has the current keyed root, ceiling and other-debt claim. Line8a publishes `$8,000`; line12e publishes `$15,750`. This is the changed linked-path compatibility run. |
+| Explicitly clear the account; retain only A and its local answers | Readiness is false after its reason read; A reason `qualified`, link status `none`, no connected principal result, and `sharedSupport=[]`. Line8a publishes `$8,000`; line12e publishes `$15,750`. The line8a pins include the actual A reason finding. |
+| Explicit clear; A's retained local paid-interest answer is `no` | Readiness is false after its reason read; A reason is `not-paid`, link status `none`, no connected principal result, and `sharedSupport=[]`. Line8a publishes `$0` (not `$8,000`); line12e publishes `$15,750`. |
+| Explicit clear; both A and B remain current | Both actual report reasons are `qualified`, both link statuses are `none`, and `sharedSupport=[]`. Line8a blocks `DEPENDENCY_INVALID`; line12e blocks `DEPENDENCY_ABSENT`. No two-report subtotal publishes. |
+
+The two singleton observations demonstrate the incumbent qualified and
+determined-zero branches through this supplied content state; they do not
+exhaustively re-prove all unresolved/unsupported legacy categories. All
+clear-account operations are supplied exact-key assertions followed by
+retractions in the candidate acts. They do not demonstrate a mortgage
+recorder's atomic batch behavior or user interaction. The v68 attempt is
+retained as a failed candidate after the boolean readiness comparison raised
+`expected number, got boolean True`; v69's first attempt failed while building
+the saved model on an adapter `NameError`, and its later saved outputs used a
+blind-sum legacy branch. Neither is treated as exit evidence; v70 is the
+corrected, measured candidate.
+
+Current base and candidate hashes:
+
+| Artifact | SHA-256 |
+| --- | --- |
+| Adopted core v52 | `cc2bc3906887dd1b59b4e18331b4b1ad3555dde97c0a2319bcfcb913b6b1ba5d` |
+| Adopted package registry v50 | `30ef930532a6f3e759dc0f1fd9e073180288d15b31957858aea413edc1708126` |
+| Adopted SLI source release v50 | `e1f12790c0032e9b7f13fcb53f6ebae389ea154e98a0511d8911a5604b653990` |
+| Candidate package v70 | `ac60ac02dd3b6bd25a2c07b3d3287f5268fcf1e223f6edc6133806bea4a6c72e` |
+| Candidate registry t0-p70 | `b7c9f875f455222a84ca0235f775a19a4dac1dc04f55245e0226100adabed288` |
+| Candidate source release v19 | `902d0e722329c3e862531c330ae99d42ed02e3b0826fc0391c3467319209573c` |
+| Candidate line8a v5 | `b3839e0572d58d5654815cd7c7229e58e9eeb9da25bac05d7b0b04f7ba791e1e` |
+| Candidate borrowing-readiness selector v2 | `2adb30a971a9d6175a7932c16a7f72e08f58653fb9fdfbd0a2f27af95504d6f2` |
+| Candidate report-local reason v5 | `bab78fdc5d3b6f7dc96e838cc3705bf14db47b1e3e78cb16e779de06a087e962` |
+| T0-only keyed presentation adapter | `d38504f15cbbc8b2fc40173e4ef86c5d55f59f0075c31670f7c52a8eb1d2a6d5` |
+
+Per-case durable coordinator report / saved model / record stream / raw
+synthetic-act hashes:
+
+| Case | Report | Model | Records | Supplied acts |
+| --- | --- | --- | --- | --- |
+| Connected A after B ended | `329d0e6f1b75fbb34bf2cd5184cb4012d90986ed0c95c24496f1544bf5851cbb` | `6bd8392f9b237525ebfabe1f67d87b6e1e828bdad7ed7b411d809d08924962d8` | `9eb861ffde58d06ca0e49f991b064b66b0e7309ed083662414fe7d5bf6f03eb4` | `14348c2126fc2c9629b0065d75dbb1aff87dddb60429ff3da983e04b9a02789f` |
+| Explicit clear, singleton A | `5a4cfd4785040f91db41f9aab57302443f17f4d1b47475d1297234c896754062` | `6860c58c734bfa109cbe62fe476c88ca645e34020ffe1441a986b27e2c08fa20` | `974582f535ed6e4599df0ac8ffabd037e4ad0a9ef2129d5f3cc5102adefca5cc` | `02bca9c7955a362a81b5feda787dbcc71bc85fe1a60f322741237b7fe39238b1` |
+| Explicit clear, singleton A/no payment | `c34885c6b9033ee83ef118ffe95031447d527179223ee857e5474e0070274fa2` | `2bd170f7418f37af9cabebd7fc59e4b4858aa1c263a958119511ecad6ee6632a` | `5627e02c77c8bd96649bf1da8f760dcdf97927e77521f1cb6dd3253cb1236046` | `1be6a3799b20c83dfed33f49e963923e7c6959c77da6c4058fbc7fed9a8cec1c` |
+| Explicit clear, two reports | `2168cf71b2b3c65b5e7e4f488ed953228699219079b442b7f1bbd9fafa01f2d1` | `6829c2b9e8c95bbbb5ade2df548368cf78c0e78cbd8c1e8e77576a6b5af4e13e` | `edf8a53ca5485688c6c565956ebdffd744f4da06871bdb94afb8abcb014a92bc` | `c5af8ce6f7a71a0a1833616401a34524b3bfc02af9706f3063b5be7f9faa9b8d` |
+
+This bounded increment settles only the declared candidate routes and their
+T0-local saved-model association. The clear interaction, production recorder,
+cross-account and late-report lifecycle cases, remaining shared propositions,
+production saved reader, and independent review remain open; the six Track 0
+closure artifacts are still provisional.
+
+### v71 declaration-order compatibility discriminator
+
+The package candidate was rebuilt on the adopted core v52 / registry v50 / SLI
+release v50 base. It changes only the disposable package composition order for
+this check: the Box1-subject residence reason is declared before the exact-link
+effective-proceeds consumer, followed by the local/shared numeric counts, the
+exact-link numeric support witness, and Box1 coverage. The saved declaration
+check resolved. At runtime, explicit dependency order still controlled
+evaluation: the exact-link effective consumer published at disposition 103,
+its numeric witness at 104, the reason at 113, readiness at 121, line8a at
+126, and line12e at 132. Thus the consumer-first package order did not alter
+the connected path in this one compatibility case.
+
+The saved model showed A's connected principal status as `within-ceiling`,
+the report-local reason as `qualified`, line8a `$8,000`, and
+line12e `$15,750`. The effective result, numeric witness, reason, readiness,
+line8a and line12e have these actual derived finding IDs respectively:
+`finding:derived:e3e11dc2695a99e5cbc78ea4`,
+`finding:derived:988674bfb89da0a3b135ceaa`,
+`finding:derived:22635c6fb8f0dbd35d24e119`,
+`finding:derived:c06696812390faddaceb5461`,
+`finding:derived:e6d153c3391c733efaee5b49`, and
+`finding:derived:a913d07dcaceeb0a4cba94bd`. Inputs and after-state remain
+supplied synthetic assertions; this is not recorder lifecycle evidence or
+production acceptance.
+
+| Artifact | SHA-256 |
+| --- | --- |
+| Candidate package v71 | `3db7d7998809f1b62852e0d95205dbb26190180317d2c8c2361a709ce0d71144` |
+| Candidate registry t0-p71 | `fcec713319f1b9d82e45fb59a4a385c57ab13c45cb0272d081a5218fece93ea3` |
+| Candidate release v20 | `a3a99e5e97ea3479627006b84229b5426f332087c8cd9c4a47c26e675b0cff8a` |
+| T0 keyed presentation adapter | `d38504f15cbbc8b2fc40173e4ef86c5d55f59f0075c31670f7c52a8eb1d2a6d5` |
+| Declaration check | `b27194c1e8e558cf10fe0ec21b678005284c52debbf58af7f1a563200344139a` |
+| Coordinator report | `e123c3c0e00a76a523fa5fe4f7ff1c513c6de7c547371407edf017070d1882b5` |
+| Saved presentation model | `a0bdae644335610b8c739b921f83bf7fcc1bb7c1387de0454cded8eac4ce17f8` |
+| Synthetic records | `a01684dd4be9e3b94f1ba347cd3b860d05ff37e2f502c8dd31066deab3ec6a60` |
+| Supplied synthetic acts | `e8ecbe4b3b9c5806d1cfb8550339c813666a547013c0df1e4d008e0e4a6012e8` |

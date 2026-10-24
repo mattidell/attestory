@@ -39,9 +39,9 @@ BASE_REGISTRY_FILENAME = "published-packages.v50.json"
 BASE_RELEASE_VERSION = "v50"
 INTERMEDIATE_PACKAGE_VERSION = "v60"
 P2_CANDIDATE_REGISTRY_FILENAME = "published-packages.t0-intermediate-v60.json"
-T0_PACKAGE_VERSION = "v61"
-T0_REGISTRY_FILENAME = "published-packages.t0-p61.json"
-T0_RELEASE_VERSION = "v10"
+T0_PACKAGE_VERSION = "v71"
+T0_REGISTRY_FILENAME = "published-packages.t0-p71.json"
+T0_RELEASE_VERSION = "v20"
 STATUS_FACT_TYPE = "demo.tax.2025.f1098.borrowing-current-link-status"
 ORPHAN_MATCH_FACT_TYPE = "demo.tax.2025.f1098.affirmed-link-source-match"
 SHARED_ANSWER_TYPES = {
@@ -241,6 +241,120 @@ def lifecycle_case_acts(seed: list[dict[str, Any]], case_id: str) -> tuple[list[
         "sourceReportsRetained": sorted(source_reports),
         "currentOutcomeByReport": outcomes, "commonBorrowing": a, "expected": expected,
         "notes": "Synthetic supplied assertions only; not recorder lifecycle evidence."}
+
+
+def explicit_exit_case_acts(seed: list[dict[str, Any]], case_id: str) -> tuple[list[dict[str, Any]], dict[str, Any]]:
+    """Supply an exact-key clear batch while preserving sources and local answers."""
+    allowed = {"explicit-clear-singleton-a", "explicit-clear-singleton-no-payment", "explicit-clear-two-reports"}
+    if case_id not in allowed:
+        raise ValueError(f"unknown explicit-exit case: {case_id}")
+    if case_id in {"explicit-clear-singleton-a", "explicit-clear-singleton-no-payment"}:
+        acts, setup = lifecycle_case_acts(seed, "connected-a-after-b-ended")
+        source_tags = {"A"}
+        before_outcomes = {"A": "affirmed", "B": "withdrawn"}
+        if case_id == "explicit-clear-singleton-no-payment":
+            paid_fact = fact_id_for(P2.SOURCE_TYPES["paid-the-interest"],
+                (("payer", "demo.f1098.lender.a"), ("statement", "demo.f1098.stmt.a"), ("tax-year", "2025")))
+            paid_rows = [act for act in acts if act.get("kind") == "assertion"
+                         and _act_finding(act).get("fact_id") == paid_fact]
+            if len(paid_rows) != 1:
+                raise AssertionError(f"expected one retained A paid-interest answer, found {len(paid_rows)}")
+            _act_finding(paid_rows[0])["value"] = "no"
+            expected = "after clear, retained A remains a singleton but the adopted no-payment result is zero; no account/ceiling support is fabricated"
+        else:
+            expected = "after clear, retained A is a true local singleton and uses its local answer; no account/ceiling support is fabricated"
+    else:
+        acts, setup = copy.deepcopy(seed), None
+        source_tags = {"A", "B"}
+        before_outcomes = {"A": "affirmed", "B": "affirmed"}
+        expected = "after clear, two retained reports do not gain an unsupported local subtotal"
+    borrowing = "demo.f1098.borrowing.A"
+    reports = (("demo.f1098.lender.a", "demo.f1098.stmt.a", "A"),
+               ("demo.f1098.lender.b", "demo.f1098.stmt.b", "B"))
+
+    def append_assertion(fact_type: str, keys: tuple[tuple[str, str], ...], value: Any, tag: str) -> str:
+        fact_id = fact_id_for(fact_type, keys)
+        finding_id = f"demo.t0.{case_id}.clear-target.{tag}"
+        acts.append({"schema": "act.v1", "act_id": f"demo.t0.{case_id}.assert-{tag}",
+            "kind": "assertion", "actor": "demo.taxpayer", "at": "2026-10-23T12:00:00Z",
+            "committed_against": len(acts), "payload": {"finding": {"schema": "finding.v2",
+                "id": finding_id, "fact_id": fact_id, "value": value,
+                "basis": "attested", "evidence_ids": []}}})
+        return finding_id
+
+    # Normalize the current pre-clear relationship state to the precise
+    # report/borrowing identities, then end those current claims atomically.
+    outcome_fact_ids = {fact_id_for(carrier, (('payer', payer), ('statement', statement),
+        ('tax-year', '2025'), ('borrowing', borrowing)))
+        for payer, statement, _tag in reports for carrier in CARRIERS.values()}
+    acts[:] = [act for act in acts if not (act.get("kind") == "assertion"
+        and _act_finding(act).get("fact_id") in outcome_fact_ids)]
+    for payer, statement, tag in reports:
+        carrier = CARRIERS[before_outcomes[tag]]
+        append_assertion(carrier, (('payer', payer), ('statement', statement),
+            ('tax-year', '2025'), ('borrowing', borrowing)), before_outcomes[tag], f"outcome-{tag}")
+
+    # Include all five shared propositions in the before-state; their values
+    # are ordinary categories copied from the corresponding local declaration,
+    # and are retracted in this same supplied batch. No answer is inferred.
+    source_bundle = read(P2.CONTENT / "f1098-circumstances.bundle.v2.json")
+    local_by_id = {row["id"]: row for row in source_bundle["fact_types"]}
+    shared_values: dict[str, Any] = {}
+    shared_target_ids: list[tuple[str, str]] = []
+    for question, shared_type in SHARED_ANSWER_TYPES.items():
+        local_type = P2.SOURCE_TYPES[question]
+        enum = local_by_id[local_type]["value_schema"].get("enum", [])
+        if not enum:
+            raise AssertionError(f"shared clear fixture lacks declared categories for {question}")
+        value = enum[0]
+        shared_values[question] = value
+        finding_id = append_assertion(shared_type, (('borrowing', borrowing), ('tax-year', '2025')),
+                                      value, f"shared-{question}")
+        shared_target_ids.append((fact_id_for(shared_type,
+            (('borrowing', borrowing), ('tax-year', '2025'))), finding_id))
+
+    root_fact_id = fact_id_for(P2.ACCOUNT_FACTS["recognition"],
+        (('borrowing', borrowing), ('tax-year', '2025')))
+    ceiling_fact_id = fact_id_for(P2.ACCOUNT_FACTS["ceiling"],
+        (('borrowing', borrowing), ('tax-year', '2025')))
+    targets: list[tuple[str, str, str]] = []
+    for label, fact_id in (("borrowing-root", root_fact_id), ("annual-ceiling", ceiling_fact_id)):
+        claims = [act for act in acts if act.get("kind") == "assertion"
+                  and _act_finding(act).get("fact_id") == fact_id]
+        if len(claims) != 1:
+            raise AssertionError(f"clear requires exactly one current {label} claim, found {len(claims)}")
+        targets.append((label, fact_id, _act_finding(claims[0])["id"]))
+    for fact_id, finding_id in shared_target_ids:
+        targets.append(("shared-answer", fact_id, finding_id))
+    for payer, statement, tag in reports:
+        fact_id = fact_id_for(CARRIERS[before_outcomes[tag]], (('payer', payer),
+            ('statement', statement), ('tax-year', '2025'), ('borrowing', borrowing)))
+        claim = next(act for act in acts if act.get("kind") == "assertion"
+                     and _act_finding(act).get("fact_id") == fact_id)
+        targets.append(("relationship-outcome", fact_id, _act_finding(claim)["id"]))
+
+    clear_revision = len(acts)
+    for index, (label, fact_id, finding_id) in enumerate(targets):
+        acts.append({"schema": "act.v1", "act_id": f"demo.t0.{case_id}.clear-{index}",
+            "kind": "finding-retracted", "actor": "demo.taxpayer", "at": "2026-10-23T12:01:00Z",
+            "committed_against": len(acts), "payload": {"finding_id": finding_id}})
+    for index, act in enumerate(acts):
+        act["committed_against"] = index
+        if act.get("kind") == "package-adoption":
+            act.setdefault("payload", {})["revision"] = index
+    return acts, {"caseId": case_id, "suppliedAfterState": True,
+        "clearAction": {"kind": "one revision-checked assertion/retraction batch",
+            "batchStartRevision": clear_revision, "targetCount": len(targets),
+            "targets": [{"kind": kind, "factId": fact_id, "findingId": finding_id}
+                        for kind, fact_id, finding_id in targets],
+            "preserved": ["opaque borrowing entity/history", "F1098 sources and family closure",
+                "report-local answers/evidence", "other-home-secured-debt return answer"]},
+        "beforeClearSharedCategories": shared_values,
+        "sourceReportsRetained": sorted(source_tags),
+        "beforeClearOutcomeByReport": before_outcomes,
+        "expected": expected,
+        "setup": setup,
+        "notes": "Supplied synthetic current claims and exact retractions; no production recorder/lifecycle claim."}
 
 
 def add_status_composition(members: Path) -> dict[str, Any]:
@@ -541,7 +655,17 @@ def add_dynamic_account_candidate(surface: Any, acts: list[dict[str, Any]]) -> d
     # selector that consumes every Box1 status and every current borrowing root.
     selector_path = members / "demo.tax.2025.rule.mortgage-borrowing-readiness.json"
     selector = read(selector_path)
+    selector["version"] = "v2"
     path = selector["selection"]["paths"][0]
+    # Connection activity is current account identity or any current pair
+    # outcome, not merely a nonempty F1098 family. With no account/outcomes,
+    # the selector's existing default false leaves the singleton route open;
+    # an explicit withdrawn/denied/unknown carrier still activates the
+    # connected path and cannot be mistaken for clear-account exit.
+    path["activity"] = {"kind": "source_nonempty", "member_fact_types": [
+        {"id": P2.ACCOUNT_FACTS["recognition"], "version": "v1"},
+        *[{"id": carrier, "version": "v1"} for carrier in CARRIERS.values()],
+    ]}
     path["reads_subject_results"] = [
         read for read in path.get("reads_subject_results", [])
         if read.get("symbol") in {"tax.us.2025.f1098.residence-interest-reason",
@@ -568,6 +692,9 @@ def add_dynamic_account_candidate(surface: Any, acts: list[dict[str, Any]]) -> d
                    "key": {"op": "ref", "name": "filing_status"}}}]}
     selector["selection"]["default"]["value"] = False
     selector["selection"]["default"]["when"] = True
+    selector["selection"]["default"]["reads_subject_results"] = [
+        {"symbol": "tax.us.2025.f1098.residence-interest-reason",
+         "subject": {"id": BOX1, "version": "v1"}}]
     write(selector_path, selector)
     # P2's synthetic act embeds the old bundle snapshot; make its current
     # adoption match the disposable candidate's exact declared surface.
@@ -585,6 +712,11 @@ def add_dynamic_account_candidate(surface: Any, acts: list[dict[str, Any]]) -> d
     acts[:] = [act for act in acts if not (
         act.get("kind") == "assertion" and _act_finding(act).get("fact_id") in old_membership_ids)]
     new_rules = [ceiling_bridge, support_rule, count_rule, coverage_rule, ready_rule, selector, match_rule]
+    package["members"] = [row for row in package["members"] if not (
+        row.get("id") == selector["id"] and row.get("version") == "v1")]
+    for row in package.get("entrypoints", []):
+        if row.get("id") == selector["id"]:
+            row["version"] = "v2"
     for rule in new_rules:
         write(members / f"{rule['id']}.json", rule)
         if not any(m.get("id") == rule["id"] and m.get("version") == rule["version"] for m in package["members"]):
@@ -598,7 +730,9 @@ def add_dynamic_account_candidate(surface: Any, acts: list[dict[str, Any]]) -> d
     registry = read(registry_path)
     changed = [bundle, *new_rules, empty_parameter, principal]
     changed_keys = {(citizen["id"], citizen["version"]) for citizen in changed}
-    registry["citizens"] = [row for row in registry["citizens"] if (row["id"], row["version"]) not in changed_keys]
+    registry["citizens"] = [row for row in registry["citizens"] if
+        (row["id"], row["version"]) not in changed_keys and
+        not (row["id"] == selector["id"] and row["version"] == "v1")]
     for citizen in changed:
         registry["citizens"].append({"id": citizen["id"], "version": citizen["version"], "checksum": citizen_checksum(citizen)})
     registry["packages"] = [row for row in registry["packages"] if row["version"] != INTERMEDIATE_PACKAGE_VERSION]
@@ -660,13 +794,43 @@ def add_p3_consumers(surface: Any, acts: list[dict[str, Any]], p3: Any) -> tuple
     # family. The separate closed-empty Schedule A total remains its own
     # publisher; readiness is not consulted on the empty path.
     line8a_id = "tax.us.2025.rule.f1098-line8a"
-    line8a_path = members / "tax.us.2025.rule.f1098-line8a.v3.json"
-    line8a = read(line8a_path)
+    line8a_source_path = members / "tax.us.2025.rule.f1098-line8a.v3.json"
+    line8a = read(line8a_source_path)
+    line8a["version"] = "v5"
     line8a["when"] = {"op": "all", "args": [
         {"op": "require_closed", "source_set": "tax.us.2025.f1098"},
         {"op": "compare", "cmp": "gt",
          "left": {"op": "count", "name": BOX1, "source_set": "tax.us.2025.f1098"},
          "right": 0}]}
+    # Keep one authorized producer: current connected readiness uses the
+    # original group sum; default false is a legacy route only for exactly one
+    # current report with no current relationship outcome. Two disconnected
+    # reports cannot become a local-answer subtotal after account exit.
+    report_count = {"op": "count", "name": BOX1, "source_set": "tax.us.2025.f1098"}
+    all_no_link = {"op": "collect_categorical_all_equal", "name": STATUS_FACT_TYPE,
+        "value": {"op": "category_literal", "fact_type": {"id": STATUS_FACT_TYPE, "version": "v1"},
+                  "value": "none"}}
+    legacy_singleton = {"op": "all", "args": [
+        {"op": "not", "value": {"op": "ref", "name": "demo.tax.2025.mortgage.same-borrowing-ready"}},
+        {"op": "compare", "cmp": "eq", "left": report_count, "right": 1}, all_no_link]}
+    connected_ready = {"op": "ref", "name": "demo.tax.2025.mortgage.same-borrowing-ready"}
+    collect_box1 = {"op": "collect", "name": BOX1, "source_set": "tax.us.2025.f1098"}
+    total = {"op": "add", "args": [collect_box1]}
+    reason_type = "tax.us.2025.f1098.residence-interest-reason"
+    qualified = {"op": "collect_categorical_all_equal", "name": reason_type,
+        "value": {"op": "category_literal", "fact_type": {"id": reason_type, "version": "v2"},
+                  "value": "qualified"}}
+    determined_zero = {"op": "any", "args": [
+        {"op": "collect_categorical_all_equal", "name": reason_type,
+         "value": {"op": "category_literal", "fact_type": {"id": reason_type, "version": "v2"}, "value": category}}
+        for category in ("not-paid", "not-collateral", "use-unrelated-personal-expense")]}
+    line8a["value"] = {"op": "choose", "when": connected_ready, "then": total,
+        "else": {"op": "choose", "when": legacy_singleton,
+            "then": {"op": "choose", "when": qualified, "then": total,
+                     "else": {"op": "choose", "when": determined_zero, "then": 0,
+                              "else": {"op": "block", "code": "DEPENDENCY_ABSENT"}}},
+                 "else": {"op": "block", "code": "DEPENDENCY_INVALID"}}}
+    line8a_path = members / "tax.us.2025.rule.f1098-line8a.v5.json"
     write(line8a_path, line8a)
     line12e_path = members / "rule.form1040-line12e.v3.json"
     write(line12e_path, line12e)
@@ -687,7 +851,11 @@ def add_p3_consumers(surface: Any, acts: list[dict[str, Any]], p3: Any) -> tuple
     package["version"] = T0_PACKAGE_VERSION
     for collection in (package["members"], package["entrypoints"]):
         for row in collection:
-            if row.get("id") == "tax.us.2025.rule.form1040-line12e" and row.get("version") == "v1":
+            if row.get("id") == line8a_id and row.get("version") == "v3":
+                row["version"] = "v5"
+                if collection is package["members"]:
+                    row["schema"] = line8a["schema"]
+            elif row.get("id") == "tax.us.2025.rule.form1040-line12e" and row.get("version") == "v1":
                 row["version"] = "v3"
                 if collection is package["members"]:
                     row["schema"] = line12e["schema"]
@@ -696,6 +864,8 @@ def add_p3_consumers(surface: Any, acts: list[dict[str, Any]], p3: Any) -> tuple
                 if collection is package["members"]:
                     row["schema"] = attachment["schema"]
     for row in package["entrypoints"]:
+        if row.get("id") == line8a_id:
+            row["version"] = "v5"
         if row.get("id") == "tax.us.2025.rule.form1040-line12e":
             row["version"] = "v3"
         if row.get("id") == "tax.us.2025.rule.attachment.schedule-a":
@@ -775,6 +945,7 @@ def add_shared_answer_candidate(surface: Any, acts: list[dict[str, Any]]) -> dic
     local_use = P2.SOURCE_TYPES["what-the-money-paid-for"]
     effective = "demo.tax.2025.mortgage.effective-proceeds-use"
     citations = read(members / "rule.f1098-line8a.v2.json").get("citations", [])
+    box1 = next(ft for ft in read(members / "f1098.bundle.json")["fact_types"] if ft["id"] == BOX1)
 
     def ft_from(base: dict[str, Any], type_id: str, title: str,
                 value_schema: dict[str, Any] | None = None) -> dict[str, Any]:
@@ -788,6 +959,18 @@ def add_shared_answer_candidate(surface: Any, acts: list[dict[str, Any]]) -> dic
     effective_ft = ft_from(source_use, effective, "Effective proceeds-use category per exact link")
     # Effective answers belong to the exact link, not either source's narrower keys.
     effective_ft["identity_keys"] = copy.deepcopy(link_ft["identity_keys"])
+    effective_count = "demo.tax.2025.mortgage.effective-proceeds-support-count"
+    effective_count_ft = copy.deepcopy(link_ft)
+    effective_count_ft.update({"id": effective_count, "version": "v1",
+        "title": "Numeric completion marker for one exact linked effective-proceeds answer",
+        "value_schema": {"type": "number"}})
+    bundle["fact_types"].append(effective_count_ft)
+    coverage_id = "demo.tax.2025.mortgage.report-effective-support-coverage"
+    coverage_ft = copy.deepcopy(box1)
+    coverage_ft.update({"id": coverage_id, "version": "v1",
+        "title": "Per-report numeric completion for optional exact linked effective support",
+        "value_schema": {"type": "number"}})
+    bundle["fact_types"].append(coverage_ft)
     def literal(type_id: str, value: str, version: str = "v1") -> dict[str, Any]:
         return {"op": "category_literal", "fact_type": {"id": type_id, "version": version}, "value": value}
 
@@ -810,7 +993,6 @@ def add_shared_answer_candidate(surface: Any, acts: list[dict[str, Any]]) -> dic
             "citations": citations, "notes": note}
 
     # Both count facts inherit exactly the key set of their natural subject.
-    box1 = next(ft for ft in read(members / "f1098.bundle.json")["fact_types"] if ft["id"] == BOX1)
     root_id = P2.ACCOUNT_FACTS["recognition"]
     root_type = next(ft for ft in bundle["fact_types"] if ft["id"] == root_id)
     local_count = "demo.tax.2025.mortgage.local-proceeds-answer-count"
@@ -857,48 +1039,89 @@ def add_shared_answer_candidate(surface: Any, acts: list[dict[str, Any]]) -> dic
         "citations": citations,
         "notes": "Per exact affirmed link, explicitly require both raw-source count results; scoped category collection reads only matching optional answers."}
 
+    effective_count_rule = {"schema": "rule-artifact.v13", "id": "demo.tax.2025.rule.effective-proceeds-support-count",
+        "version": "v1", "scope": SCOPE, "role": "computation",
+        "subject": {"id": affirmed, "version": "v1"},
+        "joined": {"id": affirmed, "version": "v1"}, "direction": "joined_contains_subject",
+        "requires": [effective], "pins": [], "when": True, "value": 1,
+        "publishes": effective_count, "blocked": {"code": "DEPENDENCY_INVALID", "missing": [effective]},
+        "citations": citations,
+        "notes": "Numeric completion witness only: one exact affirmed link has one effective category."}
+    coverage_rule = {"schema": "rule-artifact.v13", "id": "demo.tax.2025.rule.report-effective-support-coverage",
+        "version": "v1", "scope": SCOPE, "role": "computation",
+        "subject": {"id": BOX1, "version": "v1"},
+        "joined": {"id": affirmed, "version": "v1"}, "direction": "joined_contains_subject",
+        "requires": [], "pins": [], "when": True,
+        "value": {"op": "link_coverage", "links": affirmed, "reductions": effective_count,
+            "empty": {"parameter": {"id": "demo.tax.2025.parameter.mortgage-empty-link-support", "version": "v1"}}},
+        "publishes": coverage_id, "blocked": {"code": "DEPENDENCY_INVALID", "missing": [effective_count]},
+        "citations": citations,
+        "notes": "The link_coverage reductions edge makes connected effective production a real wait; empty exact-link sets yield zero."}
+
     reason_path = members / f"{P2.BRIDGE_RULE_PREFIX}.residence-interest-reason.json"
     # Actual candidate filenames use the P2 rule ID, not the descriptive prefix.
     reason_path = members / "rule.f1098-residence-interest-reason.v3.json"
     reason = read(reason_path)
-    reason["version"] = "v4"
-    reason["joined"] = {"id": affirmed, "version": "v1"}
-    reason["direction"] = "joined_contains_subject"
+    reason["version"] = "v5"
+    # The separate per-Box1 coverage result is the numeric completion edge
+    # for optional connected support; the local numeric count is the
+    # corresponding completion edge for optional local support.
+    reason.pop("joined", None)
+    reason.pop("direction", None)
     old_status = "demo.tax.2025.f1098.answer-status.what-the-money-paid-for"
-    reason["requires"] = [effective if name == old_status else name for name in reason["requires"]]
-    def rewrite_reason(node: Any) -> Any:
+    local_value = copy.deepcopy(reason["value"])
+    original_requires = list(reason["requires"])
+    reason["requires"] = [STATUS_FACT_TYPE if name == old_status else name
+        for name in original_requires]
+    reason["requires"] = list(dict.fromkeys([*reason["requires"], local_count, coverage_id]))
+    def rewrite_proceeds(node: Any, source_type: str, source_version: str) -> Any:
         if isinstance(node, dict):
-            result = {key: rewrite_reason(value) for key, value in node.items()}
-            if result.get("op") == "ref" and result.get("name") == old_status:
-                result["name"] = effective
-            if result.get("op") == "category_literal":
-                ft = result.get("fact_type")
-                if isinstance(ft, dict) and ft.get("id") == old_status:
-                    result["fact_type"] = {"id": effective, "version": "v1"}
+            if (node.get("op") == "categorical_compare" and isinstance(node.get("left"), dict)
+                    and node["left"].get("op") == "ref" and node["left"].get("name") == old_status):
+                right = node.get("right", {})
+                return {"op": "collect_categorical_all_equal", "name": source_type,
+                    "value": {"op": "category_literal",
+                        "fact_type": {"id": source_type, "version": source_version},
+                        "value": right.get("value")}}
+            result = {key: rewrite_proceeds(value, source_type, source_version)
+                      for key, value in node.items()}
             return result
         if isinstance(node, list):
-            return [rewrite_reason(value) for value in node]
+            return [rewrite_proceeds(value, source_type, source_version) for value in node]
         return node
-    reason["value"] = rewrite_reason(reason["value"])
-    reason["notes"] = "P2 reason successor; proceeds category is selected from exact local/shared keyed intermediates."
+    local_value = rewrite_proceeds(local_value, local_use, "v2")
+    connected_value = rewrite_proceeds(copy.deepcopy(reason["value"]), effective, "v1")
+    status_ref = {"op": "ref", "name": STATUS_FACT_TYPE}
+    def status_is(value: str) -> dict[str, Any]:
+        return {"op": "categorical_compare", "cmp": "eq", "left": copy.deepcopy(status_ref),
+            "right": {"op": "category_literal", "fact_type": {"id": STATUS_FACT_TYPE, "version": "v1"},
+                      "value": value}}
+    reason["when"] = True
+    reason["value"] = {"op": "choose", "when": status_is("affirmed"), "then": connected_value,
+        "else": {"op": "choose", "when": status_is("none"), "then": local_value,
+                 "else": {"op": "block", "code": "DEPENDENCY_INVALID"}}}
+    reason["notes"] = "One report-local reason producer: status selects exact connected proceeds support or retained independent local answer; end outcomes never fall back."
 
     # The package member order intentionally puts the consumer before its
     # count producers. Its explicit requires establish the dependency edge.
-    new_rules = [effective_rule, local_counter, shared_counter, reason]
+    # Keep the consumer ahead of its producers in declaration order; explicit
+    # requires/link_coverage edges, not this order, provide runtime scheduling.
+    new_rules = [reason, effective_rule, local_counter, shared_counter, effective_count_rule, coverage_rule]
     for row in new_rules:
-        filename = ("rule.f1098-residence-interest-reason.v4.json" if row is reason
+        filename = ("rule.f1098-residence-interest-reason.v5.json" if row is reason
                     else f"{row['id']}.json")
         write(members / filename, row)
         if not any(m.get("id") == row["id"] and m.get("version") == row["version"] for m in package["members"]):
             package["members"].append({"id": row["id"], "version": row["version"],
                 "schema": row["schema"], "role": row.get("role", "computation")})
     package["members"] = [row for row in package["members"] if not (
-        (row.get("id") == reason["id"] and row.get("version") == "v3") or
-        row.get("id") == f"{P2.BRIDGE_RULE_PREFIX}.what-the-money-paid-for")]
+        row.get("id") == reason["id"] and row.get("version") in {"v3", "v4"})]
+    package["members"] = [row for row in package["members"] if row.get("id") !=
+        f"{P2.BRIDGE_RULE_PREFIX}.what-the-money-paid-for"]
     for collection in (package.get("entrypoints", []),):
         for row in collection:
             if row.get("id") == reason["id"]:
-                row["version"] = "v4"
+                row["version"] = "v5"
     package["version"] = T0_PACKAGE_VERSION
     write(bundle_path, bundle)
     package["package_checksum"] = package_instance_checksum(package)
@@ -1077,7 +1300,7 @@ def coordinate_lifecycle_case(case_id: str, acts: list[dict[str, Any]], surface:
     try:
             outcome = P2.live_coordinate_run(capability, repo_root=ROOT, authoritative_acts=current.acts,
             workspace_revision=current.revision, run_scope=P2.RUN_SCOPE, scope_user=P2.SCOPE_USER,
-            request={"schema": "run-request.v1"}, run_id=f"demo.mortgage.t0.{case_id}.core-v52-v61",
+            request={"schema": "run-request.v1"}, run_id=f"demo.mortgage.t0.{case_id}.core-v52-{T0_PACKAGE_VERSION}",
             governance_pins=[], surface=surface, output_name=f"{case_id}.json", schemas=DerivationSchemas())
     except P2.PresentationModelError as exc:
         records = P2.RecordStream(capability.location / "records", DerivationSchemas()).read()
@@ -1152,26 +1375,27 @@ def keyed_presentation_overlay(source: str) -> str:
             ft = fact_map.get(str(f.get("fact_id"))) if f else None
             if ft is not None:
                 current_rows.append((f, ft))
+        shared_support = []
         roots = [(f, ft) for f, ft in current_rows
                  if ft.fact_type_id == support_types[0]]
-        if len(roots) != 1:
-            raise projection.PresentationModelError("T0 expected one current continuing-borrowing root")
-        active_keys = dict(roots[0][1].keys)
-        shared_support = []
-        for fact_type in support_types:
-            candidates = [(f, ft) for f, ft in current_rows
-                          if ft.fact_type_id == fact_type and dict(ft.keys) == active_keys]
-            if fact_type == support_types[1] and not candidates:
-                # Missing keyed ceiling is represented by the real readiness /
-                # consumer disposition below, never by another account's value.
-                continue
-            if len(candidates) != 1:
-                raise projection.PresentationModelError(
-                    f"T0 expected one current shared support finding for {fact_type} and root keys")
-            finding, fact = candidates[0]
-            shared_support.append({"findingId": finding["id"], "factType": fact_type,
-                "value": str(finding.get("value")), "keys": dict(fact.keys),
-                "evidenceIds": list(finding.get("evidence_ids", []) or [])})
+        if len(roots) > 1:
+            raise projection.PresentationModelError("T0 found multiple current continuing-borrowing roots")
+        if roots:
+            active_keys = dict(roots[0][1].keys)
+            for fact_type in support_types:
+                candidates = [(f, ft) for f, ft in current_rows
+                              if ft.fact_type_id == fact_type and dict(ft.keys) == active_keys]
+                if fact_type == support_types[1] and not candidates:
+                    # Missing keyed ceiling is represented by the real readiness /
+                    # consumer disposition below, never by another account's value.
+                    continue
+                if len(candidates) != 1:
+                    raise projection.PresentationModelError(
+                        f"T0 expected one current shared support finding for {fact_type} and root keys")
+                finding, fact = candidates[0]
+                shared_support.append({"findingId": finding["id"], "factType": fact_type,
+                    "value": str(finding.get("value")), "keys": dict(fact.keys),
+                    "evidenceIds": list(finding.get("evidence_ids", []) or [])})
 '''
     if source.count(old) != 1:
         raise AssertionError("P3 shared-support source block changed; refusing a fuzzy adapter rewrite")
@@ -1213,13 +1437,19 @@ def keyed_presentation_overlay(source: str) -> str:
             raise projection.PresentationModelError(f"{p}.accounts: expected two unique reports")''',
          '''        if len(identities) not in {1, 2}:
             raise projection.PresentationModelError(f"{p}.accounts: expected one or two unique reports")'''),
+        ('''        if not isinstance(value["sharedSupport"], list) or not value["sharedSupport"]:
+            raise projection.PresentationModelError(f"{p}.sharedSupport: no actual shared findings")''',
+         '''        if not isinstance(value["sharedSupport"], list):
+            raise projection.PresentationModelError(f"{p}.sharedSupport: expected actual current findings")'''),
         ('''                if not isinstance(item, Mapping) or not isinstance(item.get("rule"), Mapping):
                     raise projection.PresentationModelError(f"{path}.{field}: missing actual producer metadata")''',
          '''                if field == "box2Status" and item is None:
-                    if (not isinstance(row.get("membershipStatus"), Mapping)
-                            or row["membershipStatus"].get("value") != "withdrawn"):
+                    status = (row.get("membershipStatus", {}).get("value")
+                              if isinstance(row.get("membershipStatus"), Mapping) else None)
+                    empty_after_clear = status == "none" and value.get("sharedSupport") == []
+                    if status != "withdrawn" and not empty_after_clear:
                         raise projection.PresentationModelError(
-                            f"{path}.box2Status: absent only when current link is withdrawn")
+                            f"{path}.box2Status: absent only with withdrawn link or cleared no-link route")
                     continue  # no affirmed subject means no principal-ceiling result was evaluated
                 if not isinstance(item, Mapping) or not isinstance(item.get("rule"), Mapping):
                     raise projection.PresentationModelError(f"{path}.{field}: missing actual producer metadata")'''),
@@ -1230,7 +1460,9 @@ def keyed_presentation_overlay(source: str) -> str:
             raise projection.PresentationModelError("P3 overlay is bounded to exactly two statement reasons")''',
          '''        connected_readiness = [f for f in pub_rows(publications)
             if str(f.get("symbol", "")).startswith("demo.tax.2025.mortgage.same-borrowing-ready")]
-        if len(reason_pubs) < 2 and not (len(reason_pubs) == 1 and connected_readiness):
+        current_status = [f for f in pub_rows(publications)
+            if str(f.get("symbol", "")).startswith("demo.tax.2025.f1098.borrowing-current-link-status")]
+        if len(reason_pubs) < 2 and not (len(reason_pubs) == 1 and (connected_readiness or current_status)):
             return base_mortgage(resolved_members=resolved_members, state=state,
                                  publications=publications, publications_by_id=publications_by_id)
         if len(reason_pubs) not in {1, 2}:
@@ -1241,7 +1473,7 @@ def keyed_presentation_overlay(source: str) -> str:
                 "demo.rule.tax.2025.f1098-report-local-bridge.principal-ceiling-status", identity, resolved_members)''',
          '''            link = outcome_row(publications, "demo.tax.2025.f1098.borrowing-current-link-status",
                 "demo.tax.2025.rule.borrowing-current-link-status", identity, resolved_members)
-            principal = (None if link.get("value") == "withdrawn" else
+            principal = (None if link.get("value") in {"withdrawn", "none"} else
                 outcome_row(publications, "demo.tax.2025.f1098.principal-within-ceiling",
                     "demo.rule.tax.2025.f1098-report-local-bridge.principal-ceiling-status",
                     identity, resolved_members))'''),
@@ -1267,12 +1499,19 @@ def main() -> None:
         "consumer-first-shared-only-a", "consumer-first-conflict-a",
         "consumer-first-unrelated-shared-b"),
         help="One supplied shared-count completion discriminator; may be repeated.")
+    parser.add_argument("--exit-case", action="append", choices=(
+        "explicit-clear-singleton-a", "explicit-clear-singleton-no-payment", "explicit-clear-two-reports"),
+        help="One exact-key explicit-clear supplied after-state; may be repeated.")
     args = parser.parse_args()
-    if not args.case and not args.answer_case and not args.completion_case:
-        parser.error("select at least one --case, --answer-case, or --completion-case")
-    if sum(bool(value) for value in (args.case, args.answer_case, args.completion_case)) > 1:
-        parser.error("lifecycle, historical shared-answer, and completion cases are separate increments")
-    selected = args.case or args.answer_case or args.completion_case
+    if not args.case and not args.answer_case and not args.completion_case and not args.exit_case:
+        parser.error("select at least one --case, --answer-case, --completion-case, or --exit-case")
+    exit_with_linked_compat = (bool(args.exit_case) and args.case == ["connected-a-after-b-ended"]
+        and not args.answer_case and not args.completion_case)
+    if sum(bool(value) for value in (args.case, args.answer_case, args.completion_case, args.exit_case)) > 1 \
+            and not exit_with_linked_compat:
+        parser.error("only the chartered linked-path compatibility case may accompany explicit-exit cases")
+    selected = ((args.case or []) + (args.exit_case or []) if exit_with_linked_compat
+                else args.case or args.answer_case or args.completion_case or args.exit_case)
     if len(set(selected)) != len(selected):
         parser.error("each lifecycle case may be selected only once")
     stamp = datetime.now(timezone.utc).strftime("%Y%m%dT%H%M%SZ")
@@ -1334,13 +1573,13 @@ def main() -> None:
             surface.member_dir / "demo.tax.2025.rule.mortgage-account-readiness.json",
             surface.member_dir / "demo.tax.2025.rule.mortgage-borrowing-readiness.json",
             surface.member_dir / "demo.tax.2025.rule.f1098-inclusion-integrity.json",
-            surface.member_dir / "tax.us.2025.rule.f1098-line8a.v3.json",
+            surface.member_dir / "tax.us.2025.rule.f1098-line8a.v5.json",
             surface.member_dir / f"{P2.BRIDGE_RULE_PREFIX}.principal-ceiling-status.json",
-            surface.member_dir / "rule.f1098-residence-interest-reason.v4.json",
+            surface.member_dir / "rule.f1098-residence-interest-reason.v5.json",
             surface.member_dir / "demo.tax.2025.rule.effective-proceeds-use.json",
             surface.member_dir / f"{P2.BRIDGE_BUNDLE_ID}.v1.json"]
         for rule_id in shared_composition["testedComposition"]["rules"]:
-            retain_paths.append(surface.member_dir / ("rule.f1098-residence-interest-reason.v4.json"
+            retain_paths.append(surface.member_dir / ("rule.f1098-residence-interest-reason.v5.json"
                 if rule_id == "tax.us.2025.rule.f1098-residence-interest-reason"
                 else f"{rule_id}.json"))
         for path in retain_paths:
@@ -1400,6 +1639,7 @@ def main() -> None:
         for case_id in selected:
             case_acts, mutation = (shared_count_case_acts(acts, case_id) if args.completion_case
                 else shared_answer_case_acts(acts, case_id) if args.answer_case
+                else explicit_exit_case_acts(acts, case_id) if case_id in (args.exit_case or [])
                 else lifecycle_case_acts(acts, case_id))
             case_resolution = resolve_production_package(case_acts,
                 run_scope=P2.RUN_SCOPE, scope_user=P2.SCOPE_USER,
@@ -1463,7 +1703,9 @@ def main() -> None:
             case_summaries.append(case_summary)
         summary.update({"outcome": "resolved", "candidatePackage": T0_PACKAGE_VERSION,
             "presentationAdapter": {"path": str(adapter_path.relative_to(ROOT)), "sha256": overlay_sha256},
-            "cases": case_summaries, "stage": ("shared-count-completion-coordinator-cases" if args.completion_case
+            "cases": case_summaries, "stage": ("explicit-exit-and-linked-compat-coordinator-cases"
+                if exit_with_linked_compat else "explicit-exit-coordinator-cases" if args.exit_case
+                else "shared-count-completion-coordinator-cases" if args.completion_case
                 else "shared-answer-discriminator-coordinator-cases" if args.answer_case
                 else "four-outcome-lifecycle-coordinator-cases")})
         write(out / "declaration-check.json", summary)
