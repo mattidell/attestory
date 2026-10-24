@@ -95,6 +95,20 @@ change the calculated result, but Track 3's reader should associate exact
 published symbols from declared rule outputs and structured subject keys rather
 than relying only on inclusion-pin joins.
 
+The lifecycle edge is also executed: correcting the recognized borrowing to
+withdrawn while its sole report link remains affirmed blocks line8a rather
+than restoring the singleton path. Explicit clear is distinct: one remaining
+locally qualified report saves $22,000, while two remaining current reports
+block rather than publishing a partial amount.
+
+For limits, an exact B Box 2 value of $250,001 produces a published
+principal-within-ceiling finding pinned to B's Box 2 and the selected
+$250,000 ceiling, while the connected line8a amount remains blocked. The
+report-local residence reason can still be qualified; the account link-support
+barrier withholds the group. A shared $800,000 ceiling also withholds the group
+without describing the $200,000 Box 2 observation as over-ceiling. A differing
+B Box 3 date blocks the connected sum.
+
 Verified so far:
 
 - v54 validates against the current content corpus and retains the v53 input
@@ -132,10 +146,12 @@ Verified so far:
 Track 2 remains open. The shared-only amount, all five `cannot-tell` refusals,
 singleton compatibility, bounded contrary/disagreement cases, the supported
 Schedule A/line12e consumer, one missing-boundary attachment refusal, and
-unlinked-report/cross-fill boundaries, one current shared correction, and one
-shared-answer withdrawal with independently supported local fallback above
-are demonstrated. Link withdrawal and clear behavior, unrelated-borrowing cross-fill refusal, the
-remaining independent refusal cases, and lifecycle cases remain unverified.
+unlinked-report/cross-fill boundaries, one current shared correction, one
+shared-answer withdrawal with independently supported local fallback, root
+withdrawal, and explicit clear with one versus two reports above are
+demonstrated. Report-link withdrawal, unrelated-borrowing cross-fill refusal,
+the remaining independent refusal cases, and other lifecycle cases remain
+unverified.
 This checkpoint does not claim complete Track 2 acceptance, return
 authorization, or a complete return.
 
@@ -144,6 +160,8 @@ authorization, or a complete return.
 - `python3 -m pytest -q -o cache_dir=<temporary-cache-dir> tests/test_mortgage_borrowing_calculation.py` — 19 passed before the added correction/withdrawal cases.
 - The saved Schedule A citation lineage case passed after asserting both Form 1098 Box 1 finding IDs in attachment citation sites.
 - The shared correction and withdrawal-with-local-fallback cases passed through the real recorder and coordinator.
+- The root-withdrawal and explicit-clear one/two-report cases passed through the real recorder and coordinator.
+- The Box 2-over-ceiling, loose-ceiling-over-cap, and disagreeing Box 3 date cases passed through the real coordinator.
 - `python3 -m mypy --cache-dir=<temporary-cache-dir> packages tests` — no issues in 332 source files.
 - `python3 tools/envelope_scan.py --verify` and `git diff --check` — passed.
 

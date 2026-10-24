@@ -21,6 +21,7 @@ from packages.kernel.act_log import ActLog
 from packages.kernel.facts import fact_id_for
 from packages.tax.loader import tax_registry
 from packages.tax.mortgage_borrowing_recording import (
+    clear_mortgage_borrowing_year_durably,
     correct_mortgage_borrowing_claim_durably,
     introduce_mortgage_borrowing_reference_durably,
     record_mortgage_borrowing_claim_durably,
@@ -37,7 +38,6 @@ PACKAGE = CONTENT / "package.core-calculations.v55.json"
 REGISTRY = CONTENT / "published-packages.v53.json"
 BORROWING_REF = "demo.mortgage.borrowing.shared"
 LINK_TYPE = "tax.us.2025.f1098.borrowing-inclusion"
-ROOT_TYPE = "tax.us.2025.mortgage.continuing-borrowing"
 LOCAL_FACTS = {
     "owes-the-loan": "tax.us.2025.f1098.owes-the-loan",
     "no-one-else-owes-it": "tax.us.2025.f1098.no-one-else-owes-it",
@@ -114,6 +114,14 @@ def _has_transitive_pin(report: dict[str, Any], source_id: str, target_pins: set
     return bool(reachable & target_pins)
 
 
+def _replace_recorded_source_value(acts: list[dict[str, Any]], fact_id: str, value: Any) -> None:
+    matches = [row for row in acts if row.get("kind") == "assertion"
+               and row.get("payload", {}).get("finding", {}).get("fact_id") == fact_id]
+    if len(matches) != 1:
+        raise AssertionError(f"expected one exact synthetic source assertion for {fact_id}")
+    matches[0]["payload"]["finding"]["value"] = value
+
+
 def _run_connected_case(*, uncertain_shared: str | None = None, unlinked_third_report: bool = False,
                        unconnected_singleton: bool = False, fully_supported_local: bool = False,
                        shared_only: bool = False,
@@ -122,12 +130,31 @@ def _run_connected_case(*, uncertain_shared: str | None = None, unlinked_third_r
                        missing_shared: str | None = None,
                        correct_shared: str | None = None,
                        withdraw_shared: str | None = None,
+                       root_outcome: str | None = None,
+                       clear_account: bool = False,
+                       single_current_report: bool = False,
+                       annual_ceiling: float = 250000,
+                       second_box2: float | None = None,
+                       second_box3: str | None = None,
                        include_line12e_base_answers: bool = False,
                        missing_schedule_a_boundary: str | None = None,
                        shared_overrides: dict[str, str] | None = None) -> tuple[dict[str, Any], dict[str, Any], dict[str, str], dict[str, str]]:
     """Run the real recorder and coordinator against the successor package."""
     acts = cast(list[dict[str, Any]], _f1098_acts(
-        interest=22000.0, second_statement_interest=None if unconnected_singleton else 3500.0))
+        interest=22000.0,
+        second_statement_interest=None if unconnected_singleton or single_current_report else 3500.0))
+    if second_box2 is not None:
+        _replace_recorded_source_value(
+            acts, fact_id_for("tax.us.2025.f1098.box2-outstanding-principal", (
+                ("payer", "demo.f1098.lender.b"), ("statement", "demo.f1098.stmt.b"), ("tax-year", "2025"))),
+            second_box2,
+        )
+    if second_box3 is not None:
+        _replace_recorded_source_value(
+            acts, fact_id_for("tax.us.2025.f1098.box3-origination-date", (
+                ("payer", "demo.f1098.lender.b"), ("statement", "demo.f1098.stmt.b"), ("tax-year", "2025"))),
+            second_box3,
+        )
     if include_line12e_base_answers:
         _add_line12e_base_answers(acts, missing_boundary=missing_schedule_a_boundary)
     if unlinked_third_report:
@@ -171,11 +198,13 @@ def _run_connected_case(*, uncertain_shared: str | None = None, unlinked_third_r
         "version": "v53", "checksum": hashlib.sha256(release_bytes).hexdigest(),
     }
     adoption["payload"]["revision"] = len(acts) - 1
-    report_keys = (
+    report_keys_all = (
         {"payer": "demo.f1098.lender.a", "statement": "demo.f1098.stmt.a", "tax-year": "2025"},
         {"payer": "demo.f1098.lender.b", "statement": "demo.f1098.stmt.b", "tax-year": "2025"},
     )
+    report_keys = report_keys_all[:1] if single_current_report else report_keys_all
     local_ids: dict[str, str] = {}
+    root_ids: dict[str, str] = {}
     values = {key: value for key, (_, value) in SHARED_CLAIMS.items()}
     if shared_only:
         values["no-one-else-owes-it"] = "yes"
@@ -203,8 +232,8 @@ def _run_connected_case(*, uncertain_shared: str | None = None, unlinked_third_r
         shared_ids: dict[str, str] = {}
 
         def record_shared_claims() -> None:
-            record("continuing-borrowing", "yes")
-            record("annual-ceiling", 250000)
+            root_ids["recognition"] = record("continuing-borrowing", "yes")
+            record("annual-ceiling", annual_ceiling)
             record("other-secured-home-debt", "no")
             shared_values = dict(values)
             if shared_overrides:
@@ -305,6 +334,19 @@ def _run_connected_case(*, uncertain_shared: str | None = None, unlinked_third_r
                 log, registry, finding_id=shared_ids[withdraw_shared], claim=claim,
                 borrowing_ref=BORROWING_REF, actor="demo.user.filer-1",
                 at="2026-10-23T16:03:30Z", expected_revision=log.read().revision,
+            )
+        if root_outcome is not None:
+            correct_mortgage_borrowing_claim_durably(
+                log, registry, finding_id=root_ids["recognition"], claim="continuing-borrowing",
+                borrowing_ref=BORROWING_REF, value=root_outcome,
+                submission_id="demo.mortgage.correct-root-outcome",
+                evidence_id="demo.mortgage.correct-root-evidence", actor="demo.user.filer-1",
+                at="2026-10-23T16:04:00Z", expected_revision=log.read().revision,
+            )
+        if clear_account:
+            clear_mortgage_borrowing_year_durably(
+                log, registry, borrowing_ref=BORROWING_REF, actor="demo.user.filer-1",
+                at="2026-10-23T16:04:30Z", expected_revision=log.read().revision,
             )
 
         outcome = live_coordinate_run(
@@ -790,6 +832,82 @@ class MortgageBorrowingPackageTests(unittest.TestCase):
             ))
         shared_proceeds = "tax.us.2025.mortgage.shared-proceeds-use"
         self.assertNotIn(shared_proceeds, explanation["groups"][0]["recordedApplicableClaims"])
+
+    def test_root_withdrawal_with_affirmed_link_does_not_restore_singleton(self) -> None:
+        _report, model, _local_ids, _shared_ids = _run_connected_case(
+            single_current_report=True, fully_supported_local=True, root_outcome="withdrawn",
+        )
+        explanation = model["mortgageBorrowingExplanation"]
+        self.assertEqual(len(explanation["reports"]), 1)
+        self.assertEqual(explanation["line8aFindings"], [])
+        self.assertEqual(len(explanation["line8aDispositions"]), 1)
+        self.assertEqual(explanation["line8aDispositions"][0]["disposition"], "blocked")
+        self.assertEqual(len(explanation["groups"]), 1)
+        claims = explanation["groups"][0]["recordedApplicableClaims"]
+        self.assertEqual(claims["tax.us.2025.mortgage.continuing-borrowing-withdrawn"]["value"], "withdrawn")
+        self.assertEqual(explanation["reports"][0]["relationships"][0]["disposition"], "affirmed")
+
+    def test_explicit_clear_single_report_allows_only_local_legacy_amount(self) -> None:
+        _report, model, _local_ids, _shared_ids = _run_connected_case(
+            single_current_report=True, fully_supported_local=True, clear_account=True,
+        )
+        explanation = model["mortgageBorrowingExplanation"]
+        self.assertEqual(len(explanation["reports"]), 1)
+        self.assertEqual(len(explanation["line8aFindings"]), 1)
+        self.assertEqual(explanation["line8aFindings"][0]["value"], 22000.0)
+        self.assertEqual(explanation["reports"][0]["reasonChain"]["value"], "qualified")
+
+    def test_explicit_clear_two_reports_blocks_subset_amount(self) -> None:
+        _report, model, _local_ids, _shared_ids = _run_connected_case(
+            fully_supported_local=True, clear_account=True,
+        )
+        explanation = model["mortgageBorrowingExplanation"]
+        self.assertEqual(len(explanation["reports"]), 2)
+        self.assertEqual(explanation["line8aFindings"], [])
+        self.assertEqual(explanation["line8aDispositions"][0]["disposition"], "blocked")
+
+    def test_second_report_principal_above_ceiling_blocks_group_amount(self) -> None:
+        _report, model, _local_ids, _shared_ids = _run_connected_case(
+            fully_supported_local=True, second_box2=250001.0,
+        )
+        explanation = model["mortgageBorrowingExplanation"]
+        self.assertEqual(explanation["line8aFindings"], [])
+        self.assertEqual(explanation["line8aDispositions"][0]["disposition"], "blocked")
+        report_b = next(row for row in explanation["reports"] if row["statement"] == "demo.f1098.stmt.b")
+        self.assertEqual(report_b["reasonChain"]["value"], "qualified")
+        principal_row = next(
+            row for row in _report["dispositions"]
+            if str(row.get("symbol", "")).startswith("tax.us.2025.f1098.principal-within-ceiling|")
+            and "statement=demo.f1098.stmt.b" in str(row.get("symbol"))
+        )
+        self.assertEqual(principal_row["disposition"], "published")
+        self.assertIn("demo.f1098.box2-outstanding-principal.1",
+                      {pin.get("id") for pin in principal_row["pins"]})
+        ceiling_row = next(
+            row for row in _report["dispositions"]
+            if str(row.get("symbol", "")).startswith("tax.us.2025.mortgage.account-ceiling-selected|")
+        )
+        self.assertIn(ceiling_row["finding_id"], {pin.get("id") for pin in principal_row["pins"]})
+
+    def test_disagreeing_box3_dates_block_group_amount(self) -> None:
+        _report, model, _local_ids, _shared_ids = _run_connected_case(
+            fully_supported_local=True, second_box3="2020-06-02",
+        )
+        explanation = model["mortgageBorrowingExplanation"]
+        self.assertEqual(explanation["line8aFindings"], [])
+        self.assertEqual(explanation["line8aDispositions"][0]["disposition"], "blocked")
+        self.assertEqual(len(explanation["reports"]), 2)
+
+    def test_ceiling_above_supported_cap_withholds_without_claiming_box2_excess(self) -> None:
+        _report, model, _local_ids, _shared_ids = _run_connected_case(
+            fully_supported_local=True, annual_ceiling=800000.0,
+        )
+        explanation = model["mortgageBorrowingExplanation"]
+        self.assertEqual(explanation["line8aFindings"], [])
+        self.assertEqual(explanation["line8aDispositions"][0]["disposition"], "blocked")
+        self.assertEqual(explanation["groups"][0]["recordedApplicableClaims"]
+                         ["tax.us.2025.f1098.borrowing-year-ceiling"]["value"], 800000.0)
+        self.assertTrue(all(row["reasonChain"]["value"] == "qualified" for row in explanation["reports"]))
 
     def test_new_package_without_borrowing_activity_does_not_fabricate_completed_legacy_result(self) -> None:
         report, model, _local_ids, _shared_ids = _run_connected_case(unconnected_singleton=True)
