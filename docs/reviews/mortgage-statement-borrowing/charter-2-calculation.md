@@ -63,6 +63,12 @@ and complete lifecycle demonstration. Preserve old v1 saved-model validation.
   `packages/content/tax/2025/`. Leave prior citizens/registries/releases
   unchanged. Append new members and advance only intended mortgage/consumer
   pins; preserve all other base IDs and pins.
+  The existing release directory is
+  `packages/sample_data/student_loan_worksheet_integration/publication_surface/releases/`;
+  add its next release there. `PublicationSurface` selects the exact successor
+  registry, and the release pins its bytes. Preserve every v51 registry entry
+  in the successor; generator defaults targeting historical v23 are not the
+  selected publication surface. Verify historical registry bytes unchanged.
 - Add the five scope-correct local/shared effective mappings, exact root/
   outcome selection, raw-source counters with explicit completion references,
   coverage/readiness and **one** family-authorized line8a producer.
