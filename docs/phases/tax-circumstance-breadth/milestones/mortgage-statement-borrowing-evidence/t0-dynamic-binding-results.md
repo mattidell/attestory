@@ -536,8 +536,7 @@ Per-case report / model / records SHA-256 values:
 
 The v59 evidence remains historical. This v61 experiment closes only the
 measured raw-count/consumer-first gap for the proceeds category and these three
-states. The remaining four propositions, lifecycle transitions, shared
-answer UI/recorder and explicit exit remain outside this observation.
+states. The other four propositions remain declaration-only.
 
 ## Core v52 explicit-exit and legacy-compatibility discriminator
 
@@ -656,3 +655,49 @@ production acceptance.
 | Saved presentation model | `a0bdae644335610b8c739b921f83bf7fcc1bb7c1387de0454cded8eac4ce17f8` |
 | Synthetic records | `a01684dd4be9e3b94f1ba347cd3b860d05ff37e2f502c8dd31066deab3ec6a60` |
 | Supplied synthetic acts | `e8ecbe4b3b9c5806d1cfb8550339c813666a547013c0df1e4d008e0e4a6012e8` |
+
+### v71 shared-proceeds uncertainty discriminator
+
+One additional after-state ran against the unchanged v71 disposable candidate
+on adopted core v52 / registry v50 / SLI source release v50. The package
+contains 577 members, preserves all 545 adopted IDs (541 unchanged, four
+successors, no removed IDs), and retains the IRA-v3 and FTC-v2 pins. The
+resolver returned `resolved`; the coordinator saved the ordinary run. No other
+case was rerun.
+
+The supplied assertions retain report A's favorable local
+`bought-the-home` answer and report B's independent local answer, and add one
+current A borrowing/year shared `cannot-tell` answer. Both exact affirmed-link
+effective-use outputs (dispositions 122 and 123) blocked with
+`DEPENDENCY_INVALID`; their pins include the A shared assertion
+`demo.t0.consumer-first-uncertainty-a.finding-borrowing-a` and each report's
+own local answer. Local source counts published for A and B; the shared source
+count published for the A borrowing/year answer. Both per-report reason
+outputs blocked on missing `report-effective-support-coverage`, account
+readiness did not publish, line8a blocked on missing readiness, and line12e
+blocked because Schedule A total was absent. No favorable amount or tax zero
+was produced. The raw uncertain source remained present and load-bearing in
+the coordinator pins, but the saved model has no shared-support presentation
+for this blocked route. The candidate's user-facing block is generic, not an
+uncertainty-specific production explanation. Authorization was
+`AUTHORIZATION_ABSENT` and the run stop reason was `saturated`; this is bounded
+calculation/pin evidence, not an authorized return or production reader
+acceptance.
+
+One retained summary field is inaccurate: its convenience flag says
+`retractedLocalA: true`. The raw supplied-act stream actually contains A's
+current local `bought-the-home` finding and no retraction of it, and the
+coordinator pins that finding. The probe source has been corrected so a future
+case summary will not repeat the flag error; this saved run was not rewritten
+or rerun.
+
+| Artifact | SHA-256 |
+| --- | --- |
+| Candidate package v71 | `3db7d7998809f1b62852e0d95205dbb26190180317d2c8c2361a709ce0d71144` |
+| Candidate registry t0-p71 | `fcec713319f1b9d82e45fb59a4a385c57ab13c45cb0272d081a5218fece93ea3` |
+| Candidate release v20 | `a3a99e5e97ea3479627006b84229b5426f332087c8cd9c4a47c26e675b0cff8a` |
+| Declaration check | `384fcd53152a09f0286ed6eea986d7181e81edb00f97598d009ce8f7d0b6ce87` |
+| Coordinator report | `258845b214c4d558c462e7b32997193ef3db1dd934140f9dad7be1e746a90086` |
+| Saved presentation model | `9f81051bddf7301f7b787717f0d91463c93e27d541daedae8f6e328010ec0412` |
+| Synthetic records | `e683bf86e1c62e6347fd09185b073856e96d1607cc22084d5b7f6f06d87fd38e` |
+| Supplied synthetic acts | `5d5d985f9c4bcdfc341f0994666c746a3ee3da177e54429f03835175c4af135f` |

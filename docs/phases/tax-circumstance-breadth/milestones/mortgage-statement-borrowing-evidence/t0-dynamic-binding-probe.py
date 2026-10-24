@@ -1228,9 +1228,9 @@ def shared_answer_case_acts(seed: list[dict[str, Any]], case_id: str) -> tuple[l
 
 
 def shared_count_case_acts(seed: list[dict[str, Any]], case_id: str) -> tuple[list[dict[str, Any]], dict[str, Any]]:
-    """Supply the three consumer-first discriminator states with exact keys."""
+    """Supply consumer-first shared-answer discriminator states with exact keys."""
     allowed = {"consumer-first-shared-only-a", "consumer-first-conflict-a",
-               "consumer-first-unrelated-shared-b"}
+               "consumer-first-unrelated-shared-b", "consumer-first-uncertainty-a"}
     if case_id not in allowed:
         raise ValueError(f"unknown shared-count case: {case_id}")
     acts = copy.deepcopy(seed)
@@ -1268,6 +1268,12 @@ def shared_count_case_acts(seed: list[dict[str, Any]], case_id: str) -> tuple[li
         acts.append(shared_assertion(borrowing_a, "unrelated-personal-expense", "borrowing-a"))
         expected = "both effective per-link results block on contradictory local/shared categories"
         shared_b = None
+    elif case_id == "consumer-first-uncertainty-a":
+        # Keep A's favorable local assertion current. Uncertainty is not a
+        # contrary claim, but it still cannot establish favorable support.
+        acts.append(shared_assertion(borrowing_a, "cannot-tell", "borrowing-a"))
+        expected = "A's current shared uncertainty blocks favorable effective support while its raw assertion remains current"
+        shared_b = None
     else:
         # No current A shared fact. The only shared answer has opaque B identity;
         # the account A reports remain linked to A and cannot consume it.
@@ -1279,10 +1285,11 @@ def shared_count_case_acts(seed: list[dict[str, Any]], case_id: str) -> tuple[li
         if act.get("kind") == "package-adoption":
             act.setdefault("payload", {})["revision"] = index
     return acts, {"caseId": case_id, "suppliedAfterState": True,
-        "retractedLocalA": case_id != "consumer-first-conflict-a",
+        "retractedLocalA": case_id in {"consumer-first-shared-only-a", "consumer-first-unrelated-shared-b"},
         "localBRemainsCurrent": True,
         "suppliedSharedA": ("bought-the-home" if case_id == "consumer-first-shared-only-a" else
-                            "unrelated-personal-expense" if case_id == "consumer-first-conflict-a" else None),
+                            "unrelated-personal-expense" if case_id == "consumer-first-conflict-a" else
+                            "cannot-tell" if case_id == "consumer-first-uncertainty-a" else None),
         "suppliedSharedB": shared_b, "expected": expected,
         "declarationOrder": ["effective consumer", "local raw-answer counter", "shared raw-answer counter"]}
 
@@ -1497,7 +1504,7 @@ def main() -> None:
         help="One chartered supplied shared-answer after-state; may be repeated.")
     parser.add_argument("--completion-case", action="append", choices=(
         "consumer-first-shared-only-a", "consumer-first-conflict-a",
-        "consumer-first-unrelated-shared-b"),
+        "consumer-first-unrelated-shared-b", "consumer-first-uncertainty-a"),
         help="One supplied shared-count completion discriminator; may be repeated.")
     parser.add_argument("--exit-case", action="append", choices=(
         "explicit-clear-singleton-a", "explicit-clear-singleton-no-payment", "explicit-clear-two-reports"),
