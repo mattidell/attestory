@@ -287,6 +287,20 @@ class MortgageBorrowingPackageTests(unittest.TestCase):
             "tax.us.2025.rule.mortgage-credit-certificate-received-effective-answer",
         ):
             self.assertLess(reason_position, member_order.index(mapping))
+        resolved_order = [row["id"] for row in result.resolved_members]
+        resolved_reason = resolved_order.index(reason["id"])
+        resolved_coverage = resolved_order.index("tax.us.2025.rule.report-effective-support-coverage")
+        resolved_witness = resolved_order.index(witness["id"])
+        self.assertLess(resolved_reason, resolved_coverage)
+        self.assertLess(resolved_witness, resolved_coverage)
+        for mapping in (
+            "tax.us.2025.rule.owes-the-loan-effective-answer",
+            "tax.us.2025.rule.no-one-else-owes-it-effective-answer",
+            "tax.us.2025.rule.what-the-money-paid-for-effective-answer",
+            "tax.us.2025.rule.this-is-the-original-loan-effective-answer",
+            "tax.us.2025.rule.mortgage-credit-certificate-received-effective-answer",
+        ):
+            self.assertLess(resolved_reason, resolved_order.index(mapping))
         line12e = corpus[("tax.us.2025.rule.form1040-line12e", "v2")]
         self.assertIn("tax.us.2025.schedule-a.total", line12e["requires"])
         self.assertIn("tax.us.2025.schedule-a.total", {pin["id"] for pin in line12e["pins"]})

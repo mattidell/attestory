@@ -58,9 +58,10 @@ withhold line8a despite favorable local answers; disagreeing local/shared
 `owes-the-loan` answers withhold line8a in both save orders; and shared
 `no-one-else-owes-it=no` or certificate `received` are not favorable. The
 unconnected singleton remains $22,000 with its legacy explanation and basis.
-The package-order assertion places the reason before its effective producers;
-the coordinator positive run demonstrates they are resolved through the
-declared dependency chain.
+The package-order assertions place the reason before its effective producers
+in both authored members and `PackageValidation.resolved_members`, with the
+witness before coverage. The coordinator positive run demonstrates dependency
+resolution despite that consumer-first order.
 
 ## Evidence and limits
 
