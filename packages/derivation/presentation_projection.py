@@ -2504,6 +2504,298 @@ def _validate_mortgage_interest_explanation(value: Any) -> None:
         raise PresentationModelError(f"{path}.accounts[0]: justified zero cannot reuse qualified basis")
 
 
+_MORTGAGE_BORROWING_EXPLANATION_VERSION = "mortgage-borrowing-explanation.v1"
+_MORTGAGE_REPORT_LINK_TYPES = {
+    "tax.us.2025.f1098.borrowing-inclusion": "affirmed",
+    "tax.us.2025.f1098.borrowing-denied": "denied",
+    "tax.us.2025.f1098.borrowing-unresolved": "cannot-tell",
+    "tax.us.2025.f1098.borrowing-withdrawn": "withdrawn",
+}
+_MORTGAGE_LOCAL_FACT_TYPES = frozenset({
+    "tax.us.2025.f1098.owes-the-loan",
+    "tax.us.2025.f1098.no-one-else-owes-it",
+    "tax.us.2025.f1098.what-the-money-paid-for",
+    "tax.us.2025.f1098.this-is-the-original-loan",
+    "tax.us.2025.f1098.mortgage-credit-certificate-received",
+})
+
+
+def _mortgage_borrowing_explanation(
+    *, run_id: str, workspace_revision: int | None, resolved_members: Sequence[Mapping[str, Any]], state: FindingState,
+    publications: Sequence[Any], dispositions: Sequence[Mapping[str, Any]],
+) -> dict[str, Any] | None:
+    """Project current borrowing/report support from this run's recorded state.
+
+    This block is intentionally a bounded evidence ledger, not an eligibility
+    calculation. Every row is keyed from a current recorded fact identity; no
+    report identity is parsed from a display suffix and no workspace is read.
+    """
+    from packages.kernel.currency import compute_currency
+    from packages.kernel.facts import facts_of
+
+    if not any(member.get("id") == "tax.us.2025.mortgage-borrowing" and member.get("version") == "v1"
+               and member.get("schema") == "bundle.v2" for member in resolved_members):
+        return None
+
+    fact_map = facts_of(state.fact_state)
+    current = compute_currency(state).current_finding_ids
+    current_findings = [
+        (finding_id, state.findings[finding_id], fact_map.get(str(state.findings[finding_id].get("fact_id"))))
+        for finding_id in current if finding_id in state.findings
+    ]
+    source_reports: dict[tuple[str, str, str], dict[str, Any]] = {}
+    for source_id, source, source_fact in current_findings:
+        if source_fact is None or source_fact.fact_type_id != _MORTGAGE_BOX1_FACT_TYPE:
+            continue
+        keys = dict(source_fact.keys)
+        payer, statement, tax_year = (keys.get(key) for key in ("payer", "statement", "tax-year"))
+        if not all(isinstance(item, str) and item for item in (payer, statement, tax_year)):
+            raise PresentationModelError("current Form 1098 box 1 source has incomplete identity")
+        source_ident = (str(payer), str(statement), str(tax_year))
+        if source_ident in source_reports:
+            raise PresentationModelError("multiple current Form 1098 box 1 findings share one exact report identity")
+        source_reports[source_ident] = {
+            "payer": source_ident[0], "statement": source_ident[1], "taxYear": source_ident[2],
+            "reportedInterest": {"findingId": source_id, "value": source.get("value")},
+            "localAnswers": [], "relationships": [], "effectiveAnswers": [],
+        }
+    reports: dict[tuple[str, str, str, str], dict[str, Any]] = {}
+    orphan_relationships: list[dict[str, Any]] = []
+    for finding_id, finding, fact in current_findings:
+        if fact is None or fact.fact_type_id not in _MORTGAGE_REPORT_LINK_TYPES:
+            continue
+        keys = dict(fact.keys)
+        if not all(isinstance(keys.get(key), str) and keys[key] for key in ("payer", "statement", "tax-year", "borrowing")):
+            raise PresentationModelError("current mortgage report relationship has incomplete identity")
+        relationship_ident = (keys["borrowing"], keys["payer"], keys["statement"], keys["tax-year"])
+        report_ident = (relationship_ident[1], relationship_ident[2], relationship_ident[3])
+        relationship = {"borrowing": relationship_ident[0], "findingId": finding_id, "factType": fact.fact_type_id,
+                        "response": str(finding.get("value")),
+                        "disposition": _MORTGAGE_REPORT_LINK_TYPES[fact.fact_type_id]}
+        if report_ident in source_reports:
+            source_reports[report_ident]["relationships"].append(relationship)
+        else:
+            orphan_relationships.append({**relationship, "payer": relationship_ident[1], "statement": relationship_ident[2], "taxYear": relationship_ident[3]})
+        row = reports.setdefault(relationship_ident, {"borrowing": relationship_ident[0], "report": {
+            "payer": relationship_ident[1], "statement": relationship_ident[2], "taxYear": relationship_ident[3],
+            "relationship": relationship,
+            "reportedInterest": None, "localAnswers": [], "effectiveAnswers": [],
+        }})
+        existing = row["report"]["relationship"]
+        if existing["factType"] != fact.fact_type_id:
+            raise PresentationModelError("multiple current mortgage relationship outcomes for one report and borrowing")
+        box1 = [
+            (source_id, source, source_fact) for source_id, source, source_fact in current_findings
+            if source_fact is not None and source_fact.fact_type_id == _MORTGAGE_BOX1_FACT_TYPE
+            and dict(source_fact.keys) == {"payer": relationship_ident[1], "statement": relationship_ident[2], "tax-year": relationship_ident[3]}
+        ]
+        if len(box1) > 1:
+            raise PresentationModelError("multiple current box 1 sources for one exact report")
+        if box1:
+            source_id, source, _ = box1[0]
+            row["report"]["reportedInterest"] = {"findingId": source_id, "value": source.get("value")}
+        local = [
+            (source_id, source, source_fact) for source_id, source, source_fact in current_findings
+            if source_fact is not None and source_fact.fact_type_id in _MORTGAGE_LOCAL_FACT_TYPES
+            and dict(source_fact.keys) == {"payer": relationship_ident[1], "statement": relationship_ident[2], "tax-year": relationship_ident[3]}
+        ]
+        row["report"]["localAnswers"] = [
+            {"findingId": source_id, "factType": source_fact.fact_type_id, "value": source.get("value")}
+            for source_id, source, source_fact in sorted(local, key=lambda item: item[2].fact_type_id)
+        ]
+        if report_ident in source_reports:
+            source_reports[report_ident]["localAnswers"] = list(row["report"]["localAnswers"])
+
+    for report_ident, report in source_reports.items():
+        if report["localAnswers"]:
+            continue
+        exact_keys = {"payer": report_ident[0], "statement": report_ident[1], "tax-year": report_ident[2]}
+        report["localAnswers"] = [
+            {"findingId": source_id, "factType": source_fact.fact_type_id, "value": source.get("value")}
+            for source_id, source, source_fact in sorted(
+                [(source_id, source, source_fact) for source_id, source, source_fact in current_findings
+                 if source_fact is not None and source_fact.fact_type_id in _MORTGAGE_LOCAL_FACT_TYPES
+                 and dict(source_fact.keys) == exact_keys],
+                key=lambda item: item[2].fact_type_id,
+            )
+        ]
+
+    if not reports and not source_reports and not orphan_relationships:
+        return None
+    derived: list[Mapping[str, Any]] = []
+    for publication in publications:
+        finding = publication.finding
+        if not isinstance(finding, Mapping) or not isinstance(finding.get("symbol"), str):
+            continue
+        symbol = finding["symbol"]
+        if symbol.startswith("tax.us.2025.f1098.effective-"):
+            derived.append(finding)
+    for relationship_ident, row in reports.items():
+        report_ident = (relationship_ident[1], relationship_ident[2], relationship_ident[3])
+        report_keys = {"payer": relationship_ident[1], "statement": relationship_ident[2], "tax-year": relationship_ident[3], "borrowing": relationship_ident[0]}
+        for derived_finding in derived:
+            # The derived output has no fact_id field. Join its exact identity
+            # through the pinned, current inclusion fact, never by parsing a
+            # symbol suffix or guessing from a report ordering.
+            matching_link = False
+            for pin in cast(Sequence[Any], derived_finding.get("pins", []) or []):
+                pin_source_id = pin.get("id") if isinstance(pin, Mapping) else None
+                pin_source = state.findings.get(pin_source_id) if isinstance(pin_source_id, str) else None
+                source_fact = fact_map.get(str(pin_source["fact_id"])) if isinstance(pin_source, Mapping) else None
+                if source_fact is not None and source_fact.fact_type_id == "tax.us.2025.f1098.borrowing-inclusion" and dict(source_fact.keys) == report_keys:
+                    matching_link = True
+                    break
+            if not matching_link:
+                continue
+            finding_id = cast(str, derived_finding.get("id"))
+            row["report"]["effectiveAnswers"].append({
+                "findingId": finding_id, "factType": str(derived_finding["symbol"]).partition("|")[0],
+                "value": derived_finding.get("value"), "pins": list(derived_finding.get("pins", [])),
+            })
+            if report_ident in source_reports:
+                source_reports[report_ident]["effectiveAnswers"].append({
+                    "borrowing": relationship_ident[0], "findingId": finding_id,
+                    "factType": str(derived_finding["symbol"]).partition("|")[0],
+                    "value": derived_finding.get("value"), "pins": list(derived_finding.get("pins", [])),
+                })
+        row["report"]["effectiveAnswers"].sort(key=lambda item: item["factType"])
+
+    support: dict[str, dict[str, Any]] = {}
+    for finding_id, finding, fact in current_findings:
+        if fact is None:
+            continue
+        keys = dict(fact.keys)
+        borrowing = keys.get("borrowing")
+        if not isinstance(borrowing, str):
+            continue
+        if (fact.fact_type_id.startswith("tax.us.2025.mortgage.")
+                or fact.fact_type_id in {
+                    "tax.us.2025.f1098.borrowing-year-ceiling",
+                    "tax.us.2025.mortgage.continuing-borrowing",
+                    "tax.us.2025.mortgage.continuing-borrowing-denied",
+                    "tax.us.2025.mortgage.continuing-borrowing-unresolved",
+                    "tax.us.2025.mortgage.continuing-borrowing-withdrawn",
+                }):
+            support.setdefault(borrowing, {})[fact.fact_type_id] = {
+                "findingId": finding_id, "value": finding.get("value"), "keys": keys,
+            }
+    amounts = [dict(row) for row in dispositions if row.get("artifact_id") == "tax.us.2025.rule.f1098-line8a"]
+    if (source_reports or orphan_relationships) and len(amounts) != 1:
+        raise PresentationModelError(f"mortgage report projection requires one exact line-8a disposition, found {len(amounts)}")
+    consumed_by_borrowing: dict[str, set[str]] = {}
+    for relationship_ident, row in reports.items():
+        consumed_by_borrowing.setdefault(relationship_ident[0], set()).update(
+            str(pin["id"]) for answer in row["report"]["effectiveAnswers"]
+            for pin in answer.get("pins", []) if isinstance(pin, Mapping) and pin.get("role") in {"input", "choice"} and isinstance(pin.get("id"), str)
+        )
+    return {
+        "schema": _MORTGAGE_BORROWING_EXPLANATION_VERSION,
+        "runId": run_id,
+        "workspaceRevision": workspace_revision,
+        "reports": [row for _, row in sorted(source_reports.items())],
+        "orphanRelationships": orphan_relationships,
+        "line8aDispositions": amounts,
+        "groups": [{"borrowing": borrowing, "recordedApplicableClaims": support.get(borrowing, {}),
+                    "consumedFindingIds": sorted(consumed_by_borrowing.get(borrowing, set())),
+                    "reportKeys": [{"payer": relationship_ident[1], "statement": relationship_ident[2], "taxYear": relationship_ident[3]}
+                                   for relationship_ident in sorted(reports) if relationship_ident[0] == borrowing and (relationship_ident[1], relationship_ident[2], relationship_ident[3]) in source_reports]}
+                   for borrowing in sorted({relationship_ident[0] for relationship_ident in reports} | set(support))],
+    }
+
+
+def _validate_mortgage_borrowing_explanation(value: Any) -> None:
+    path = "$.mortgageBorrowingExplanation"
+    _require_keys(value, frozenset({"schema", "runId", "workspaceRevision", "reports", "orphanRelationships", "line8aDispositions", "groups"}), frozenset(), path)
+    if value["schema"] != _MORTGAGE_BORROWING_EXPLANATION_VERSION or not isinstance(value["runId"], str) or not value["runId"]:
+        raise PresentationModelError(f"{path}: unsupported schema or missing run id")
+    if value["workspaceRevision"] is not None and (not isinstance(value["workspaceRevision"], int) or value["workspaceRevision"] < 0):
+        raise PresentationModelError(f"{path}.workspaceRevision: expected non-negative integer or null")
+    groups = value["groups"]
+    if not isinstance(groups, list):
+        raise PresentationModelError(f"{path}.groups: expected list")
+    reports = value["reports"]
+    if not isinstance(reports, list):
+        raise PresentationModelError(f"{path}.reports: expected list")
+    report_keys: set[tuple[str, str, str]] = set()
+    for index, report in enumerate(reports):
+        rp = f"{path}.reports[{index}]"
+        _require_keys(report, frozenset({"payer", "statement", "taxYear", "reportedInterest", "localAnswers", "relationships", "effectiveAnswers"}), frozenset(), rp)
+        key = tuple(report.get(field) for field in ("payer", "statement", "taxYear"))
+        if not all(isinstance(item, str) and item for item in key) or key in report_keys:
+            raise PresentationModelError(f"{rp}: malformed or duplicate current report identity")
+        report_keys.add(key)
+        source = report["reportedInterest"]
+        _require_keys(source, frozenset({"findingId", "value"}), frozenset(), f"{rp}.reportedInterest")
+        if not isinstance(source["findingId"], str) or not source["findingId"] or not isinstance(source["value"], (int, float)) or isinstance(source["value"], bool):
+            raise PresentationModelError(f"{rp}.reportedInterest: malformed Box 1 source")
+        for list_key in ("localAnswers", "relationships", "effectiveAnswers"):
+            if not isinstance(report[list_key], list):
+                raise PresentationModelError(f"{rp}.{list_key}: expected list")
+        for aindex, answer in enumerate(report["localAnswers"]):
+            ap = f"{rp}.localAnswers[{aindex}]"
+            _require_keys(answer, frozenset({"findingId", "factType", "value"}), frozenset(), ap)
+            if answer["factType"] not in _MORTGAGE_LOCAL_FACT_TYPES or not isinstance(answer["findingId"], str):
+                raise PresentationModelError(f"{ap}: malformed statement-local answer")
+        for aindex, answer in enumerate(report["effectiveAnswers"]):
+            ap = f"{rp}.effectiveAnswers[{aindex}]"
+            _require_keys(answer, frozenset({"borrowing", "findingId", "factType", "value", "pins"}), frozenset(), ap)
+            if not isinstance(answer["borrowing"], str) or not answer["borrowing"] or not isinstance(answer["pins"], list):
+                raise PresentationModelError(f"{ap}: malformed effective answer provenance")
+        for lindex, relationship in enumerate(report["relationships"]):
+            lp = f"{rp}.relationships[{lindex}]"
+            _require_keys(relationship, frozenset({"borrowing", "findingId", "factType", "response", "disposition"}), frozenset(), lp)
+            if relationship["factType"] not in _MORTGAGE_REPORT_LINK_TYPES or relationship["disposition"] != _MORTGAGE_REPORT_LINK_TYPES[relationship["factType"]]:
+                raise PresentationModelError(f"{lp}: unknown current relationship outcome")
+    orphans = value["orphanRelationships"]
+    if not isinstance(orphans, list):
+        raise PresentationModelError(f"{path}.orphanRelationships: expected list")
+    orphan_identities: set[tuple[str, str, str, str, str]] = set()
+    for index, orphan in enumerate(orphans):
+        op = f"{path}.orphanRelationships[{index}]"
+        _require_keys(orphan, frozenset({"borrowing", "findingId", "factType", "response", "disposition", "payer", "statement", "taxYear"}), frozenset(), op)
+        if tuple(orphan[key] for key in ("payer", "statement", "taxYear")) in report_keys:
+            raise PresentationModelError(f"{op}: orphan relationship has a current exact report")
+        orphan_key = tuple(orphan[key] for key in ("borrowing", "payer", "statement", "taxYear", "findingId"))
+        if orphan_key in orphan_identities:
+            raise PresentationModelError(f"{op}: duplicate orphan relationship")
+        orphan_identities.add(orphan_key)
+    amounts = value["line8aDispositions"]
+    if not isinstance(amounts, list) or ((reports or orphans) and len(amounts) != 1):
+        raise PresentationModelError(f"{path}.line8aDispositions: expected exactly one adopted line-8a disposition")
+    for index, amount in enumerate(amounts):
+        ap = f"{path}.line8aDispositions[{index}]"
+        if not isinstance(amount, Mapping) or amount.get("artifact_id") != "tax.us.2025.rule.f1098-line8a":
+            raise PresentationModelError(f"{ap}: not the exact adopted line-8a publisher")
+    seen_borrowings: set[str] = set()
+    for index, group in enumerate(groups):
+        gp = f"{path}.groups[{index}]"
+        _require_keys(group, frozenset({"borrowing", "recordedApplicableClaims", "consumedFindingIds", "reportKeys"}), frozenset(), gp)
+        if not isinstance(group["borrowing"], str) or not group["borrowing"] or group["borrowing"] in seen_borrowings:
+            raise PresentationModelError(f"{gp}.borrowing: missing or duplicate borrowing")
+        seen_borrowings.add(group["borrowing"])
+        if not isinstance(group["recordedApplicableClaims"], dict):
+            raise PresentationModelError(f"{gp}: malformed recorded support")
+        if not isinstance(group["consumedFindingIds"], list) or not all(isinstance(item, str) and item for item in group["consumedFindingIds"]):
+            raise PresentationModelError(f"{gp}.consumedFindingIds: expected finding ids")
+        if not isinstance(group["reportKeys"], list):
+            raise PresentationModelError(f"{gp}.reportKeys: expected list")
+        for rindex, key in enumerate(group["reportKeys"]):
+            rp = f"{gp}.reportKeys[{rindex}]"
+            _require_keys(key, frozenset({"payer", "statement", "taxYear"}), frozenset(), rp)
+            ident = tuple(key[field] for field in ("payer", "statement", "taxYear"))
+            if ident not in report_keys:
+                raise PresentationModelError(f"{rp}: account reference does not resolve to a current report")
+        for claim_id, claim in group["recordedApplicableClaims"].items():
+            cp = f"{gp}.recordedApplicableClaims[{claim_id!r}]"
+            _require_keys(claim, frozenset({"findingId", "value", "keys"}), frozenset(), cp)
+            if not isinstance(claim["findingId"], str) or not claim["findingId"] or not isinstance(claim["keys"], dict):
+                raise PresentationModelError(f"{cp}: malformed recorded claim")
+            if claim["keys"].get("borrowing") != group["borrowing"]:
+                raise PresentationModelError(f"{cp}: claim belongs to a different borrowing")
+            if claim["keys"].get("tax-year") != "2025":
+                raise PresentationModelError(f"{cp}: claim belongs to an unsupported tax year")
+
+
 _F1099K_REASON_SYMBOL = "tax.us.2025.f1099k.statement-loss-reason"
 _F1099K_BOX1A_FACT_TYPE = "tax.us.2025.f1099k.box1a-gross-amount"
 _F1099K_COMPUTATION_SYMBOLS = {
@@ -3697,12 +3989,35 @@ def build_presentation_model(
     )
     if line21_explanation is not None:
         model["line21Explanation"] = line21_explanation
-    mortgage_explanation = _mortgage_interest_explanation(
+    mortgage_borrowing_adopted = any(
+        member.get("id") == "tax.us.2025.mortgage-borrowing" and member.get("version") == "v1"
+        and member.get("schema") == "bundle.v2" for member in resolved_members
+    )
+    mortgage_borrowing_activity = False
+    if mortgage_borrowing_adopted:
+        from packages.kernel.currency import compute_currency
+        from packages.kernel.facts import facts_of
+        current_ids = compute_currency(state).current_finding_ids
+        current_facts = facts_of(state.fact_state)
+        mortgage_borrowing_activity = any(
+            finding_id in current_ids
+            and (fact := current_facts.get(str(finding.get("fact_id")))) is not None
+            and (fact.fact_type_id.startswith("tax.us.2025.mortgage.")
+                 or fact.fact_type_id.startswith("tax.us.2025.f1098.borrowing-"))
+            for finding_id, finding in state.findings.items()
+        )
+    mortgage_explanation = None if mortgage_borrowing_activity else _mortgage_interest_explanation(
         resolved_members=resolved_members, state=state, publications=publications,
         publications_by_id=publications_by_id,
     )
     if mortgage_explanation is not None:
         model["mortgageInterestExplanation"] = mortgage_explanation
+    mortgage_borrowing_explanation = _mortgage_borrowing_explanation(
+        run_id=run_id, workspace_revision=workspace_revision, resolved_members=resolved_members, state=state,
+        publications=publications, dispositions=dispositions,
+    )
+    if mortgage_borrowing_explanation is not None:
+        model["mortgageBorrowingExplanation"] = mortgage_borrowing_explanation
     f1099k_explanation = _f1099k_statement_explanation(
         resolved_members=resolved_members, state=state, publications=publications,
         publications_by_id=publications_by_id, dispositions=dispositions,
@@ -4032,7 +4347,7 @@ def validate_presentation_model(model: Mapping[str, Any]) -> None:
             "schema", "runId", "pinLabels", "sections", "citationGroups", "attachments",
             "unsupportedSourceFindings",
         }),
-        frozenset({"authorization", "provenanceGroups", "calculationView", "line21Explanation", "mortgageInterestExplanation", "f1099kStatementExplanation"}),
+        frozenset({"authorization", "provenanceGroups", "calculationView", "line21Explanation", "mortgageInterestExplanation", "mortgageBorrowingExplanation", "f1099kStatementExplanation"}),
         "$",
     )
     if "authorization" in model:
@@ -4043,6 +4358,8 @@ def validate_presentation_model(model: Mapping[str, Any]) -> None:
         _validate_line21_explanation(model["line21Explanation"])
     if "mortgageInterestExplanation" in model:
         _validate_mortgage_interest_explanation(model["mortgageInterestExplanation"])
+    if "mortgageBorrowingExplanation" in model:
+        _validate_mortgage_borrowing_explanation(model["mortgageBorrowingExplanation"])
     if "f1099kStatementExplanation" in model:
         _validate_f1099k_statement_explanation(model["f1099kStatementExplanation"])
     if model["schema"] != PRESENTATION_MODEL_VERSION:

@@ -7,7 +7,7 @@ import copy
 import tempfile
 import unittest
 from pathlib import Path
-from typing import Any
+from typing import Any, cast
 
 from packages.derivation.loader import DerivationSchemas
 from packages.derivation.live import live_coordinate_run
@@ -21,7 +21,8 @@ from packages.tax.mortgage_borrowing_recording import (
     introduce_mortgage_borrowing_reference_durably,
     record_mortgage_borrowing_claim_durably,
 )
-from tests.test_f1098_mortgage_interest_line12e_track2 import _attested, _f1098_acts
+from packages.tax.f1098_statement_recording import answer_f1098_statement_answer_durably
+from tests.test_f1098_mortgage_interest_line12e_track2 import _f1098_acts
 
 ROOT = Path(__file__).resolve().parents[1]
 CONTENT = ROOT / "packages/content/tax/2025"
@@ -32,7 +33,6 @@ REGISTRY = CONTENT / "published-packages.v52.json"
 BORROWING_REF = "demo.mortgage.borrowing.shared"
 LINK_TYPE = "tax.us.2025.f1098.borrowing-inclusion"
 ROOT_TYPE = "tax.us.2025.mortgage.continuing-borrowing"
-LOCAL_BUNDLE = "f1098-circumstances.bundle.v2.json"
 LOCAL_FACTS = {
     "owes-the-loan": "tax.us.2025.f1098.owes-the-loan",
     "no-one-else-owes-it": "tax.us.2025.f1098.no-one-else-owes-it",
@@ -49,13 +49,45 @@ SHARED_CLAIMS = {
 }
 
 
-def _load(path: Path):
+def _load(path: Path) -> Any:
     return json.loads(path.read_text(encoding="utf-8"))
 
 
-def _run_connected_case(*, uncertain_shared: str | None = None) -> tuple[dict[str, Any], dict[str, Any], dict[str, str], dict[str, str]]:
+def _attested(finding_id: str, fact_id: str, value: object) -> dict[str, Any]:
+    return {"schema": "finding.v2", "id": finding_id, "fact_id": fact_id, "value": value,
+            "basis": "attested", "evidence_ids": []}
+
+
+def _run_connected_case(*, uncertain_shared: str | None = None, unlinked_third_report: bool = False,
+                       unconnected_singleton: bool = False) -> tuple[dict[str, Any], dict[str, Any], dict[str, str], dict[str, str]]:
     """Run the real recorder and coordinator against the successor package."""
-    acts = _f1098_acts(interest=22000.0, second_statement_interest=3500.0)
+    acts = cast(list[dict[str, Any]], _f1098_acts(
+        interest=22000.0, second_statement_interest=None if unconnected_singleton else 3500.0))
+    if unlinked_third_report:
+        previous = next(row for row in acts if row.get("kind") == "member-transition"
+                        and row["payload"]["successor"]["id"] == "demo.f1098.h2")
+        transition = copy.deepcopy(previous)
+        transition["act_id"] = "demo.f1098.third-report-transition"
+        transition["payload"]["member"]["finding"] = _attested(
+            "demo.f1098.box1.2", fact_id_for("tax.us.2025.f1098.box1-mortgage-interest", (
+                ("payer", "demo.f1098.lender.c"), ("statement", "demo.f1098.stmt.c"), ("tax-year", "2025"))), 1900.0)
+        transition["payload"]["successor"] = {"id": "demo.f1098.h3", "predecessor": "demo.f1098.h2"}
+        closure = next(row for row in acts if row.get("kind") == "assertion"
+                       and str(row.get("payload", {}).get("finding", {}).get("fact_id", "")).startswith("tax.us.2025.f1098.source-closure|"))
+        closure["payload"]["finding"] = _attested(
+            "demo.f1098.closure", "tax.us.2025.f1098.source-closure|family-horizon=demo.f1098.h3,tax-year=2025", True)
+        close_index = acts.index(closure)
+        acts[close_index:close_index] = [
+            {"schema": "act.v1", "act_id": "demo.f1098.third-payer", "kind": "entity-introduced",
+             "actor": "demo.user.filer-1", "at": "2026-10-23T16:00:00Z", "committed_against": 0,
+             "payload": {"entity": {"schema": "entity.v1", "id": "demo.f1098.lender.c", "kind": "tax.us.mortgage-lender", "label": "Synthetic lender"}}},
+            {"schema": "act.v1", "act_id": "demo.f1098.third-statement", "kind": "entity-introduced",
+             "actor": "demo.user.filer-1", "at": "2026-10-23T16:00:00Z", "committed_against": 0,
+             "payload": {"entity": {"schema": "entity.v1", "id": "demo.f1098.stmt.c", "kind": "tax.us.1098-statement", "label": "Synthetic Form 1098"}}},
+            transition,
+        ]
+        for index, row in enumerate(acts):
+            row["committed_against"] = index
     old_adoption = acts.pop()
     acts.append({"schema": "act.v1", "act_id": old_adoption["act_id"],
                  "kind": old_adoption["kind"], "actor": old_adoption["actor"],
@@ -72,64 +104,72 @@ def _run_connected_case(*, uncertain_shared: str | None = None) -> tuple[dict[st
         "version": "v52", "checksum": hashlib.sha256(release_bytes).hexdigest(),
     }
     adoption["payload"]["revision"] = len(acts) - 1
-    acts.insert(len(acts) - 1, {"schema": "act.v1", "act_id": "demo.mortgage.local-bundle",
-        "kind": "bundle-adoption", "actor": "demo.user.filer-1", "at": "2026-10-23T16:00:00Z",
-        "committed_against": len(acts) - 1, "payload": {"bundle": _load(CONTENT / LOCAL_BUNDLE)}})
-    for index, row in enumerate(acts):
-        row["committed_against"] = index
-    adoption["payload"]["revision"] = len(acts) - 1
-
     report_keys = (
         {"payer": "demo.f1098.lender.a", "statement": "demo.f1098.stmt.a", "tax-year": "2025"},
         {"payer": "demo.f1098.lender.b", "statement": "demo.f1098.stmt.b", "tax-year": "2025"},
     )
     local_ids: dict[str, str] = {}
     values = {key: value for key, (_, value) in SHARED_CLAIMS.items()}
-    for report_index, keys in enumerate(report_keys):
-        for question, fact_type in LOCAL_FACTS.items():
-            if report_index == 0 and uncertain_shared == question:
-                local_value = "yes"
-            elif report_index == 0:
-                continue  # A demonstrates shared-only support.
-            else:
-                local_value = values[question]
-            finding_id = f"demo.mortgage.local.{report_index}.{question}"
-            fact_id = fact_id_for(fact_type, tuple((key, keys[key]) for key in ("payer", "statement", "tax-year")))
-            local_ids[f"{report_index}:{question}"] = finding_id
-            acts.insert(len(acts) - 1, {"schema": "act.v1", "act_id": f"demo.mortgage.local-act.{report_index}.{question}",
-                "kind": "assertion", "actor": "demo.user.filer-1", "at": "2026-10-23T16:00:01Z",
-                "committed_against": 0, "payload": {"finding": _attested(finding_id, fact_id, local_value)}})
-    for index, row in enumerate(acts):
-        row["committed_against"] = index
-    adoption["payload"]["revision"] = len(acts) - 1
-
+    legacy_local_values = {**values, "no-one-else-owes-it": "yes"}
     with tempfile.TemporaryDirectory(prefix="mortgage-calculation-") as tmp:
         registry = tax_registry()
         log = ActLog(Path(tmp) / "workspace", registry)
         log.append_batch(acts, expected_revision=0)
-        introduce_mortgage_borrowing_reference_durably(
-            log, registry, reference_id=BORROWING_REF, description="Synthetic mortgage borrowing",
-            actor="demo.user.filer-1", at="2026-10-23T16:01:00Z")
+        if not unconnected_singleton:
+            introduce_mortgage_borrowing_reference_durably(
+                log, registry, reference_id=BORROWING_REF, description="Synthetic mortgage borrowing",
+                actor="demo.user.filer-1", at="2026-10-23T16:01:00Z")
 
-        def record(claim: str, value: str, statement: dict[str, str] | None = None) -> str:
+        for report_index, keys in enumerate(report_keys[:1] if unconnected_singleton else report_keys):
+            for question in LOCAL_FACTS:
+                if report_index == 0 and uncertain_shared != question and not unconnected_singleton:
+                    continue  # A demonstrates shared-only support except in the uncertainty mutation.
+                local_value = (legacy_local_values[question] if unconnected_singleton
+                               else "yes" if report_index == 0 else values[question])
+                result = answer_f1098_statement_answer_durably(
+                    log, registry, statement_keys=keys, question=question, answer=local_value,
+                    submission_id=f"demo.mortgage.local.{report_index}.{question}",
+                    evidence_id=f"demo.mortgage.local-evidence.{report_index}.{question}",
+                    actor="demo.user.filer-1", at="2026-10-23T16:01:30Z",
+                    expected_revision=log.read().revision, bundle_version="v2",
+                )
+                local_ids[f"{report_index}:{question}"] = result["finding_ids"][0]
+
+        if unconnected_singleton:
+            additional_answers = {
+                "filing-unit-owns-home": "yes", "shared-main-home": "yes",
+                "home-is-collateral": "yes", "paid-the-interest": "yes",
+            }
+            for question, value in additional_answers.items():
+                result = answer_f1098_statement_answer_durably(
+                    log, registry, statement_keys=report_keys[0], question=question, answer=value,
+                    submission_id=f"demo.mortgage.singleton.{question}",
+                    evidence_id=f"demo.mortgage.singleton.evidence.{question}",
+                    actor="demo.user.filer-1", at="2026-10-23T16:01:40Z",
+                    expected_revision=log.read().revision, bundle_version="v2",
+                )
+                local_ids[f"0:{question}"] = result["finding_ids"][0]
+
+        def record(claim: str, value: Any, statement: dict[str, str] | None = None) -> str:
             result = record_mortgage_borrowing_claim_durably(
                 log, registry, claim=claim, borrowing_ref=BORROWING_REF, value=value,
                 submission_id=f"demo.mortgage.submission.{log.read().revision}",
                 evidence_id=f"demo.mortgage.evidence.{log.read().revision}", actor="demo.user.filer-1",
                 at="2026-10-23T16:02:00Z", statement_keys=statement,
                 expected_revision=log.read().revision)
-            return result["finding_id"]
+            return cast(str, result["finding_id"])
 
-        record("continuing-borrowing", "yes")
-        record("annual-ceiling", 250000)
-        record("other-secured-home-debt", "no")
         shared_ids: dict[str, str] = {}
-        for question, (claim, value) in SHARED_CLAIMS.items():
-            if uncertain_shared == question:
-                value = "cannot-tell"
-            shared_ids[question] = record(claim, value)
-        for report in report_keys:
-            record("report-inclusion", "affirmed", report)
+        if not unconnected_singleton:
+            record("continuing-borrowing", "yes")
+            record("annual-ceiling", 250000)
+            record("other-secured-home-debt", "no")
+            for question, (claim, value) in SHARED_CLAIMS.items():
+                if uncertain_shared == question:
+                    value = "cannot-tell"
+                shared_ids[question] = record(claim, value)
+            for report in report_keys:
+                record("report-inclusion", "affirmed", report)
 
         outcome = live_coordinate_run(
             WorkspaceCapability(Path(tmp) / "run"), repo_root=ROOT,
@@ -183,6 +223,17 @@ class MortgageBorrowingPackageTests(unittest.TestCase):
     def test_five_effective_mappings_use_exact_real_recorded_links(self) -> None:
         report, model, local_ids, shared_ids = _run_connected_case()
         self.assertEqual(report["authorization_status"], "AUTHORIZATION_ABSENT")
+        explanation = model["mortgageBorrowingExplanation"]
+        group = explanation["groups"][0]
+        report_rows = explanation["reports"]
+        self.assertEqual(explanation["runId"], report["run_id"])
+        self.assertGreater(explanation["workspaceRevision"], 0)
+        self.assertEqual(len(report_rows), 2)
+        self.assertEqual([item["reportedInterest"]["value"] for item in report_rows], [22000.0, 3500.0])
+        self.assertEqual(group["recordedApplicableClaims"]["tax.us.2025.mortgage.shared-no-one-else-owes-it"]["value"], "no")
+        self.assertEqual(group["recordedApplicableClaims"]["tax.us.2025.mortgage.shared-credit-certificate"]["value"], "not-received")
+        self.assertEqual(group["recordedApplicableClaims"]["tax.us.2025.f1098.borrowing-year-ceiling"]["value"], 250000)
+        self.assertEqual(explanation["line8aDispositions"][0]["artifact_id"], "tax.us.2025.rule.f1098-line8a")
         rows = {row["symbol"]: row for row in report["dispositions"]
                 if row.get("symbol", "").startswith("tax.us.2025.f1098.effective-")}
         expected_keys = (
@@ -205,21 +256,55 @@ class MortgageBorrowingPackageTests(unittest.TestCase):
                 self.assertEqual(rows[symbol]["disposition"], "published")
                 pins = {pin.get("id") for pin in rows[symbol].get("pins", []) if isinstance(pin, dict)}
                 self.assertIn(shared_ids[question], pins)
+                answer = next(item for item in report_rows[report_index]["effectiveAnswers"]
+                              if item["factType"] == effective_type)
+                self.assertEqual(answer["value"], shared_values[question])
+                self.assertIn(shared_ids[question], {pin.get("id") for pin in answer["pins"]})
                 if report_index == 1:
                     self.assertIn(local_ids[f"1:{question}"], pins)
+                    self.assertIn(local_ids[f"1:{question}"], {pin.get("id") for pin in answer["pins"]})
                 else:
                     self.assertNotIn(local_ids.get(f"0:{question}"), pins)
 
     def test_cannot_tell_shared_claim_withholds_favorable_local_value(self) -> None:
-        report, _model, local_ids, shared_ids = _run_connected_case(uncertain_shared="no-one-else-owes-it")
+        report, model, local_ids, shared_ids = _run_connected_case(uncertain_shared="no-one-else-owes-it")
         target_type = "tax.us.2025.f1098.effective-no-one-else-owes-it"
         target_id = fact_id_for(target_type, (("payer", "demo.f1098.lender.a"),
             ("statement", "demo.f1098.stmt.a"), ("tax-year", "2025"), ("borrowing", BORROWING_REF)))
         symbol = f"{target_type}|tax.us.2025.f1098.borrowing-inclusion|payer=demo.f1098.lender.a,statement=demo.f1098.stmt.a,tax-year=2025,borrowing={BORROWING_REF}"
         rows = {row["symbol"]: row for row in report["dispositions"] if row.get("symbol")}
         self.assertEqual(rows[symbol]["disposition"], "blocked")
+        explanation = model["mortgageBorrowingExplanation"]
+        group = explanation["groups"][0]
+        self.assertEqual(group["recordedApplicableClaims"]["tax.us.2025.mortgage.shared-no-one-else-owes-it"]["value"], "cannot-tell")
+        local = next(answer for answer in explanation["reports"][0]["localAnswers"]
+                     if answer["factType"] == LOCAL_FACTS["no-one-else-owes-it"])
+        self.assertEqual(local["value"], "yes")
+        self.assertFalse(any(answer["factType"] == target_type for answer in explanation["reports"][0]["effectiveAnswers"]))
         self.assertTrue(local_ids["0:no-one-else-owes-it"])
         self.assertTrue(shared_ids["no-one-else-owes-it"])
+
+    def test_projection_keeps_unlinked_current_report_once(self) -> None:
+        report, model, _local_ids, _shared_ids = _run_connected_case(unlinked_third_report=True)
+        self.assertEqual(report["authorization_status"], "AUTHORIZATION_ABSENT")
+        explanation = model["mortgageBorrowingExplanation"]
+        self.assertEqual(len(explanation["reports"]), 3)
+        third = next(row for row in explanation["reports"] if row["statement"] == "demo.f1098.stmt.c")
+        self.assertEqual(third["reportedInterest"]["value"], 1900.0)
+        self.assertEqual(third["relationships"], [])
+        self.assertEqual(len(explanation["groups"][0]["reportKeys"]), 2)
+
+    def test_new_package_without_borrowing_activity_does_not_fabricate_completed_legacy_result(self) -> None:
+        report, model, _local_ids, _shared_ids = _run_connected_case(unconnected_singleton=True)
+        self.assertEqual(report["authorization_status"], "AUTHORIZATION_ABSENT")
+        self.assertNotIn("mortgageInterestExplanation", model)
+        projection = model["mortgageBorrowingExplanation"]
+        self.assertEqual(len(projection["reports"]), 1)
+        self.assertEqual(len(projection["groups"]), 0)
+        row = next(item for item in report["dispositions"] if item.get("artifact_id") == "tax.us.2025.rule.f1098-residence-interest-reason")
+        self.assertEqual(row["disposition"], "published")
+        # This is a blocked v54 candidate observation only; it is not compared
+        # with or represented as proof of the v53 incumbent behavior.
 
 
 if __name__ == "__main__":
