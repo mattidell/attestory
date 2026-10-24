@@ -40,6 +40,26 @@ checkpoint bytes, any published schema, or an accepted ADR. Curation will
 publish the reproducible completed result, not advertise incomplete
 intermediate packages as usable routes.
 
+### Connected-only dependencies and legacy compatibility
+
+The five effective answers have an affirmed report link as their subject.
+They cannot be unconditional prerequisites of an unconnected singleton's
+reason: that subject does not exist there. Preserve the completion guarantee
+by putting all five dependencies on the exact-link completeness witness.
+The report reason continues to require the report-scoped `link_coverage`
+result, whose reduction is that witness. Thus a connected reason waits for
+coverage, coverage waits for the witness, and the witness waits for all five
+effective producers. An unresolved mapping cannot be omitted or replaced by
+zero. With no affirmed link, coverage takes only its existing declared empty
+parameter, and the reason's local branch reads its own local answers.
+
+This is a relocation of connected-only prerequisites to their correct subject,
+not permission to discard the scheduling barrier or relax a tax check. Keep
+the connected references in the selected expression. Demonstrate a qualified
+unconnected singleton, shared-only success, unresolved connected support, and
+consumer-before-producer order through the real coordinator before accepting
+the change. A conditional-access declaration alone is not completion evidence.
+
 ## Context Capsule
 
 - Source ref: `HEAD`; resolve its launch SHA and verify against Git.
