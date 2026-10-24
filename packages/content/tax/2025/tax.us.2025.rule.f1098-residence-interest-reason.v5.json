@@ -18,12 +18,8 @@
     "tax.us.2025.f1098.answer-status.filing-unit-owns-home",
     "tax.us.2025.f1098.answer-status.shared-main-home",
     "tax.us.2025.f1098.answer-status.home-is-collateral",
-    "tax.us.2025.f1098.answer-status.owes-the-loan",
     "tax.us.2025.f1098.answer-status.paid-the-interest",
-    "tax.us.2025.f1098.answer-status.no-one-else-owes-it",
-    "tax.us.2025.f1098.answer-status.this-is-the-original-loan",
     "tax.us.2025.f1098.borrowing-current-link-status",
-    "tax.us.2025.f1098.answer-status.mortgage-credit-certificate-received",
     "tax.us.2025.f1098.reported-box2-principal",
     "tax.us.2025.f1098.reported-box3-origination-date",
     "tax.us.2025.f1098.reported-box9-property-count",
@@ -133,19 +129,46 @@
                                             "value": "refinance"
                                           },
                                           "when": {
-                                            "cmp": "eq",
-                                            "left": {
-                                              "name": "tax.us.2025.f1098.answer-status.this-is-the-original-loan",
-                                              "op": "ref"
+                                            "else": {
+                                              "name": "tax.us.2025.f1098.effective-original-loan",
+                                              "op": "collect_categorical_all_equal",
+                                              "value": {
+                                                "fact_type": {
+                                                  "id": "tax.us.2025.f1098.effective-original-loan",
+                                                  "version": "v1"
+                                                },
+                                                "op": "category_literal",
+                                                "value": "no"
+                                              }
                                             },
-                                            "op": "categorical_compare",
-                                            "right": {
-                                              "fact_type": {
-                                                "id": "tax.us.2025.f1098.answer-status.this-is-the-original-loan",
-                                                "version": "v1"
+                                            "op": "choose",
+                                            "then": {
+                                              "name": "tax.us.2025.f1098.this-is-the-original-loan",
+                                              "op": "collect_categorical_all_equal",
+                                              "value": {
+                                                "fact_type": {
+                                                  "id": "tax.us.2025.f1098.this-is-the-original-loan",
+                                                  "version": "v2"
+                                                },
+                                                "op": "category_literal",
+                                                "value": "no"
+                                              }
+                                            },
+                                            "when": {
+                                              "cmp": "eq",
+                                              "left": {
+                                                "name": "tax.us.2025.f1098.borrowing-current-link-status",
+                                                "op": "ref"
                                               },
-                                              "op": "category_literal",
-                                              "value": "no"
+                                              "op": "categorical_compare",
+                                              "right": {
+                                                "fact_type": {
+                                                  "id": "tax.us.2025.f1098.borrowing-current-link-status",
+                                                  "version": "v1"
+                                                },
+                                                "op": "category_literal",
+                                                "value": "none"
+                                              }
                                             }
                                           }
                                         },
@@ -159,19 +182,46 @@
                                           "value": "cannot-tell-original-loan"
                                         },
                                         "when": {
-                                          "cmp": "eq",
-                                          "left": {
-                                            "name": "tax.us.2025.f1098.answer-status.this-is-the-original-loan",
-                                            "op": "ref"
+                                          "else": {
+                                            "name": "tax.us.2025.f1098.effective-original-loan",
+                                            "op": "collect_categorical_all_equal",
+                                            "value": {
+                                              "fact_type": {
+                                                "id": "tax.us.2025.f1098.effective-original-loan",
+                                                "version": "v1"
+                                              },
+                                              "op": "category_literal",
+                                              "value": "cannot-tell"
+                                            }
                                           },
-                                          "op": "categorical_compare",
-                                          "right": {
-                                            "fact_type": {
-                                              "id": "tax.us.2025.f1098.answer-status.this-is-the-original-loan",
-                                              "version": "v1"
+                                          "op": "choose",
+                                          "then": {
+                                            "name": "tax.us.2025.f1098.this-is-the-original-loan",
+                                            "op": "collect_categorical_all_equal",
+                                            "value": {
+                                              "fact_type": {
+                                                "id": "tax.us.2025.f1098.this-is-the-original-loan",
+                                                "version": "v2"
+                                              },
+                                              "op": "category_literal",
+                                              "value": "cannot-tell"
+                                            }
+                                          },
+                                          "when": {
+                                            "cmp": "eq",
+                                            "left": {
+                                              "name": "tax.us.2025.f1098.borrowing-current-link-status",
+                                              "op": "ref"
                                             },
-                                            "op": "category_literal",
-                                            "value": "cannot-tell"
+                                            "op": "categorical_compare",
+                                            "right": {
+                                              "fact_type": {
+                                                "id": "tax.us.2025.f1098.borrowing-current-link-status",
+                                                "version": "v1"
+                                              },
+                                              "op": "category_literal",
+                                              "value": "none"
+                                            }
                                           }
                                         }
                                       },
@@ -207,19 +257,46 @@
                                       "value": "outside-co-obligor"
                                     },
                                     "when": {
-                                      "cmp": "eq",
-                                      "left": {
-                                        "name": "tax.us.2025.f1098.answer-status.no-one-else-owes-it",
-                                        "op": "ref"
+                                      "else": {
+                                        "name": "tax.us.2025.f1098.effective-no-one-else-owes-it",
+                                        "op": "collect_categorical_all_equal",
+                                        "value": {
+                                          "fact_type": {
+                                            "id": "tax.us.2025.f1098.effective-no-one-else-owes-it",
+                                            "version": "v1"
+                                          },
+                                          "op": "category_literal",
+                                          "value": "no"
+                                        }
                                       },
-                                      "op": "categorical_compare",
-                                      "right": {
-                                        "fact_type": {
-                                          "id": "tax.us.2025.f1098.answer-status.no-one-else-owes-it",
-                                          "version": "v1"
+                                      "op": "choose",
+                                      "then": {
+                                        "name": "tax.us.2025.f1098.no-one-else-owes-it",
+                                        "op": "collect_categorical_all_equal",
+                                        "value": {
+                                          "fact_type": {
+                                            "id": "tax.us.2025.f1098.no-one-else-owes-it",
+                                            "version": "v2"
+                                          },
+                                          "op": "category_literal",
+                                          "value": "no"
+                                        }
+                                      },
+                                      "when": {
+                                        "cmp": "eq",
+                                        "left": {
+                                          "name": "tax.us.2025.f1098.borrowing-current-link-status",
+                                          "op": "ref"
                                         },
-                                        "op": "category_literal",
-                                        "value": "no"
+                                        "op": "categorical_compare",
+                                        "right": {
+                                          "fact_type": {
+                                            "id": "tax.us.2025.f1098.borrowing-current-link-status",
+                                            "version": "v1"
+                                          },
+                                          "op": "category_literal",
+                                          "value": "none"
+                                        }
                                       }
                                     }
                                   },
@@ -324,19 +401,46 @@
                                               "value": "outside-co-obligor"
                                             },
                                             "when": {
-                                              "cmp": "eq",
-                                              "left": {
-                                                "name": "tax.us.2025.f1098.answer-status.no-one-else-owes-it",
-                                                "op": "ref"
+                                              "else": {
+                                                "name": "tax.us.2025.f1098.effective-no-one-else-owes-it",
+                                                "op": "collect_categorical_all_equal",
+                                                "value": {
+                                                  "fact_type": {
+                                                    "id": "tax.us.2025.f1098.effective-no-one-else-owes-it",
+                                                    "version": "v1"
+                                                  },
+                                                  "op": "category_literal",
+                                                  "value": "no"
+                                                }
                                               },
-                                              "op": "categorical_compare",
-                                              "right": {
-                                                "fact_type": {
-                                                  "id": "tax.us.2025.f1098.answer-status.no-one-else-owes-it",
-                                                  "version": "v1"
+                                              "op": "choose",
+                                              "then": {
+                                                "name": "tax.us.2025.f1098.no-one-else-owes-it",
+                                                "op": "collect_categorical_all_equal",
+                                                "value": {
+                                                  "fact_type": {
+                                                    "id": "tax.us.2025.f1098.no-one-else-owes-it",
+                                                    "version": "v2"
+                                                  },
+                                                  "op": "category_literal",
+                                                  "value": "no"
+                                                }
+                                              },
+                                              "when": {
+                                                "cmp": "eq",
+                                                "left": {
+                                                  "name": "tax.us.2025.f1098.borrowing-current-link-status",
+                                                  "op": "ref"
                                                 },
-                                                "op": "category_literal",
-                                                "value": "no"
+                                                "op": "categorical_compare",
+                                                "right": {
+                                                  "fact_type": {
+                                                    "id": "tax.us.2025.f1098.borrowing-current-link-status",
+                                                    "version": "v1"
+                                                  },
+                                                  "op": "category_literal",
+                                                  "value": "none"
+                                                }
                                               }
                                             }
                                           },
@@ -402,19 +506,46 @@
                                         "value": "cannot-tell-share"
                                       },
                                       "when": {
-                                        "cmp": "eq",
-                                        "left": {
-                                          "name": "tax.us.2025.f1098.answer-status.no-one-else-owes-it",
-                                          "op": "ref"
+                                        "else": {
+                                          "name": "tax.us.2025.f1098.effective-no-one-else-owes-it",
+                                          "op": "collect_categorical_all_equal",
+                                          "value": {
+                                            "fact_type": {
+                                              "id": "tax.us.2025.f1098.effective-no-one-else-owes-it",
+                                              "version": "v1"
+                                            },
+                                            "op": "category_literal",
+                                            "value": "cannot-tell"
+                                          }
                                         },
-                                        "op": "categorical_compare",
-                                        "right": {
-                                          "fact_type": {
-                                            "id": "tax.us.2025.f1098.answer-status.no-one-else-owes-it",
-                                            "version": "v1"
+                                        "op": "choose",
+                                        "then": {
+                                          "name": "tax.us.2025.f1098.no-one-else-owes-it",
+                                          "op": "collect_categorical_all_equal",
+                                          "value": {
+                                            "fact_type": {
+                                              "id": "tax.us.2025.f1098.no-one-else-owes-it",
+                                              "version": "v2"
+                                            },
+                                            "op": "category_literal",
+                                            "value": "cannot-tell"
+                                          }
+                                        },
+                                        "when": {
+                                          "cmp": "eq",
+                                          "left": {
+                                            "name": "tax.us.2025.f1098.borrowing-current-link-status",
+                                            "op": "ref"
                                           },
-                                          "op": "category_literal",
-                                          "value": "cannot-tell"
+                                          "op": "categorical_compare",
+                                          "right": {
+                                            "fact_type": {
+                                              "id": "tax.us.2025.f1098.borrowing-current-link-status",
+                                              "version": "v1"
+                                            },
+                                            "op": "category_literal",
+                                            "value": "none"
+                                          }
                                         }
                                       }
                                     },
@@ -511,35 +642,89 @@
                                     }
                                   },
                                   {
-                                    "cmp": "eq",
-                                    "left": {
-                                      "name": "tax.us.2025.f1098.answer-status.this-is-the-original-loan",
-                                      "op": "ref"
+                                    "else": {
+                                      "name": "tax.us.2025.f1098.effective-original-loan",
+                                      "op": "collect_categorical_all_equal",
+                                      "value": {
+                                        "fact_type": {
+                                          "id": "tax.us.2025.f1098.effective-original-loan",
+                                          "version": "v1"
+                                        },
+                                        "op": "category_literal",
+                                        "value": "yes"
+                                      }
                                     },
-                                    "op": "categorical_compare",
-                                    "right": {
-                                      "fact_type": {
-                                        "id": "tax.us.2025.f1098.answer-status.this-is-the-original-loan",
-                                        "version": "v1"
+                                    "op": "choose",
+                                    "then": {
+                                      "name": "tax.us.2025.f1098.this-is-the-original-loan",
+                                      "op": "collect_categorical_all_equal",
+                                      "value": {
+                                        "fact_type": {
+                                          "id": "tax.us.2025.f1098.this-is-the-original-loan",
+                                          "version": "v2"
+                                        },
+                                        "op": "category_literal",
+                                        "value": "yes"
+                                      }
+                                    },
+                                    "when": {
+                                      "cmp": "eq",
+                                      "left": {
+                                        "name": "tax.us.2025.f1098.borrowing-current-link-status",
+                                        "op": "ref"
                                       },
-                                      "op": "category_literal",
-                                      "value": "yes"
+                                      "op": "categorical_compare",
+                                      "right": {
+                                        "fact_type": {
+                                          "id": "tax.us.2025.f1098.borrowing-current-link-status",
+                                          "version": "v1"
+                                        },
+                                        "op": "category_literal",
+                                        "value": "none"
+                                      }
                                     }
                                   },
                                   {
-                                    "cmp": "eq",
-                                    "left": {
-                                      "name": "tax.us.2025.f1098.answer-status.mortgage-credit-certificate-received",
-                                      "op": "ref"
+                                    "else": {
+                                      "name": "tax.us.2025.f1098.effective-credit-certificate",
+                                      "op": "collect_categorical_all_equal",
+                                      "value": {
+                                        "fact_type": {
+                                          "id": "tax.us.2025.f1098.effective-credit-certificate",
+                                          "version": "v1"
+                                        },
+                                        "op": "category_literal",
+                                        "value": "not-received"
+                                      }
                                     },
-                                    "op": "categorical_compare",
-                                    "right": {
-                                      "fact_type": {
-                                        "id": "tax.us.2025.f1098.answer-status.mortgage-credit-certificate-received",
-                                        "version": "v1"
+                                    "op": "choose",
+                                    "then": {
+                                      "name": "tax.us.2025.f1098.mortgage-credit-certificate-received",
+                                      "op": "collect_categorical_all_equal",
+                                      "value": {
+                                        "fact_type": {
+                                          "id": "tax.us.2025.f1098.mortgage-credit-certificate-received",
+                                          "version": "v2"
+                                        },
+                                        "op": "category_literal",
+                                        "value": "not-received"
+                                      }
+                                    },
+                                    "when": {
+                                      "cmp": "eq",
+                                      "left": {
+                                        "name": "tax.us.2025.f1098.borrowing-current-link-status",
+                                        "op": "ref"
                                       },
-                                      "op": "category_literal",
-                                      "value": "not-received"
+                                      "op": "categorical_compare",
+                                      "right": {
+                                        "fact_type": {
+                                          "id": "tax.us.2025.f1098.borrowing-current-link-status",
+                                          "version": "v1"
+                                        },
+                                        "op": "category_literal",
+                                        "value": "none"
+                                      }
                                     }
                                   },
                                   {
@@ -642,19 +827,46 @@
                                   }
                                 },
                                 {
-                                  "cmp": "eq",
-                                  "left": {
-                                    "name": "tax.us.2025.f1098.answer-status.owes-the-loan",
-                                    "op": "ref"
+                                  "else": {
+                                    "name": "tax.us.2025.f1098.effective-owes-the-loan",
+                                    "op": "collect_categorical_all_equal",
+                                    "value": {
+                                      "fact_type": {
+                                        "id": "tax.us.2025.f1098.effective-owes-the-loan",
+                                        "version": "v1"
+                                      },
+                                      "op": "category_literal",
+                                      "value": "yes"
+                                    }
                                   },
-                                  "op": "categorical_compare",
-                                  "right": {
-                                    "fact_type": {
-                                      "id": "tax.us.2025.f1098.answer-status.owes-the-loan",
-                                      "version": "v1"
+                                  "op": "choose",
+                                  "then": {
+                                    "name": "tax.us.2025.f1098.owes-the-loan",
+                                    "op": "collect_categorical_all_equal",
+                                    "value": {
+                                      "fact_type": {
+                                        "id": "tax.us.2025.f1098.owes-the-loan",
+                                        "version": "v2"
+                                      },
+                                      "op": "category_literal",
+                                      "value": "yes"
+                                    }
+                                  },
+                                  "when": {
+                                    "cmp": "eq",
+                                    "left": {
+                                      "name": "tax.us.2025.f1098.borrowing-current-link-status",
+                                      "op": "ref"
                                     },
-                                    "op": "category_literal",
-                                    "value": "yes"
+                                    "op": "categorical_compare",
+                                    "right": {
+                                      "fact_type": {
+                                        "id": "tax.us.2025.f1098.borrowing-current-link-status",
+                                        "version": "v1"
+                                      },
+                                      "op": "category_literal",
+                                      "value": "none"
+                                    }
                                   }
                                 },
                                 {
@@ -674,19 +886,46 @@
                                   }
                                 },
                                 {
-                                  "cmp": "eq",
-                                  "left": {
-                                    "name": "tax.us.2025.f1098.answer-status.no-one-else-owes-it",
-                                    "op": "ref"
+                                  "else": {
+                                    "name": "tax.us.2025.f1098.effective-no-one-else-owes-it",
+                                    "op": "collect_categorical_all_equal",
+                                    "value": {
+                                      "fact_type": {
+                                        "id": "tax.us.2025.f1098.effective-no-one-else-owes-it",
+                                        "version": "v1"
+                                      },
+                                      "op": "category_literal",
+                                      "value": "yes"
+                                    }
                                   },
-                                  "op": "categorical_compare",
-                                  "right": {
-                                    "fact_type": {
-                                      "id": "tax.us.2025.f1098.answer-status.no-one-else-owes-it",
-                                      "version": "v1"
+                                  "op": "choose",
+                                  "then": {
+                                    "name": "tax.us.2025.f1098.no-one-else-owes-it",
+                                    "op": "collect_categorical_all_equal",
+                                    "value": {
+                                      "fact_type": {
+                                        "id": "tax.us.2025.f1098.no-one-else-owes-it",
+                                        "version": "v2"
+                                      },
+                                      "op": "category_literal",
+                                      "value": "yes"
+                                    }
+                                  },
+                                  "when": {
+                                    "cmp": "eq",
+                                    "left": {
+                                      "name": "tax.us.2025.f1098.borrowing-current-link-status",
+                                      "op": "ref"
                                     },
-                                    "op": "category_literal",
-                                    "value": "yes"
+                                    "op": "categorical_compare",
+                                    "right": {
+                                      "fact_type": {
+                                        "id": "tax.us.2025.f1098.borrowing-current-link-status",
+                                        "version": "v1"
+                                      },
+                                      "op": "category_literal",
+                                      "value": "none"
+                                    }
                                   }
                                 },
                                 {
@@ -702,35 +941,89 @@
                                   }
                                 },
                                 {
-                                  "cmp": "eq",
-                                  "left": {
-                                    "name": "tax.us.2025.f1098.answer-status.this-is-the-original-loan",
-                                    "op": "ref"
+                                  "else": {
+                                    "name": "tax.us.2025.f1098.effective-original-loan",
+                                    "op": "collect_categorical_all_equal",
+                                    "value": {
+                                      "fact_type": {
+                                        "id": "tax.us.2025.f1098.effective-original-loan",
+                                        "version": "v1"
+                                      },
+                                      "op": "category_literal",
+                                      "value": "yes"
+                                    }
                                   },
-                                  "op": "categorical_compare",
-                                  "right": {
-                                    "fact_type": {
-                                      "id": "tax.us.2025.f1098.answer-status.this-is-the-original-loan",
-                                      "version": "v1"
+                                  "op": "choose",
+                                  "then": {
+                                    "name": "tax.us.2025.f1098.this-is-the-original-loan",
+                                    "op": "collect_categorical_all_equal",
+                                    "value": {
+                                      "fact_type": {
+                                        "id": "tax.us.2025.f1098.this-is-the-original-loan",
+                                        "version": "v2"
+                                      },
+                                      "op": "category_literal",
+                                      "value": "yes"
+                                    }
+                                  },
+                                  "when": {
+                                    "cmp": "eq",
+                                    "left": {
+                                      "name": "tax.us.2025.f1098.borrowing-current-link-status",
+                                      "op": "ref"
                                     },
-                                    "op": "category_literal",
-                                    "value": "yes"
+                                    "op": "categorical_compare",
+                                    "right": {
+                                      "fact_type": {
+                                        "id": "tax.us.2025.f1098.borrowing-current-link-status",
+                                        "version": "v1"
+                                      },
+                                      "op": "category_literal",
+                                      "value": "none"
+                                    }
                                   }
                                 },
                                 {
-                                  "cmp": "eq",
-                                  "left": {
-                                    "name": "tax.us.2025.f1098.answer-status.mortgage-credit-certificate-received",
-                                    "op": "ref"
+                                  "else": {
+                                    "name": "tax.us.2025.f1098.effective-credit-certificate",
+                                    "op": "collect_categorical_all_equal",
+                                    "value": {
+                                      "fact_type": {
+                                        "id": "tax.us.2025.f1098.effective-credit-certificate",
+                                        "version": "v1"
+                                      },
+                                      "op": "category_literal",
+                                      "value": "not-received"
+                                    }
                                   },
-                                  "op": "categorical_compare",
-                                  "right": {
-                                    "fact_type": {
-                                      "id": "tax.us.2025.f1098.answer-status.mortgage-credit-certificate-received",
-                                      "version": "v1"
+                                  "op": "choose",
+                                  "then": {
+                                    "name": "tax.us.2025.f1098.mortgage-credit-certificate-received",
+                                    "op": "collect_categorical_all_equal",
+                                    "value": {
+                                      "fact_type": {
+                                        "id": "tax.us.2025.f1098.mortgage-credit-certificate-received",
+                                        "version": "v2"
+                                      },
+                                      "op": "category_literal",
+                                      "value": "not-received"
+                                    }
+                                  },
+                                  "when": {
+                                    "cmp": "eq",
+                                    "left": {
+                                      "name": "tax.us.2025.f1098.borrowing-current-link-status",
+                                      "op": "ref"
                                     },
-                                    "op": "category_literal",
-                                    "value": "not-received"
+                                    "op": "categorical_compare",
+                                    "right": {
+                                      "fact_type": {
+                                        "id": "tax.us.2025.f1098.borrowing-current-link-status",
+                                        "version": "v1"
+                                      },
+                                      "op": "category_literal",
+                                      "value": "none"
+                                    }
                                   }
                                 },
                                 {
@@ -756,19 +1049,46 @@
                             "value": "cannot-tell-certificate"
                           },
                           "when": {
-                            "cmp": "eq",
-                            "left": {
-                              "name": "tax.us.2025.f1098.answer-status.mortgage-credit-certificate-received",
-                              "op": "ref"
+                            "else": {
+                              "name": "tax.us.2025.f1098.effective-credit-certificate",
+                              "op": "collect_categorical_all_equal",
+                              "value": {
+                                "fact_type": {
+                                  "id": "tax.us.2025.f1098.effective-credit-certificate",
+                                  "version": "v1"
+                                },
+                                "op": "category_literal",
+                                "value": "cannot-tell"
+                              }
                             },
-                            "op": "categorical_compare",
-                            "right": {
-                              "fact_type": {
-                                "id": "tax.us.2025.f1098.answer-status.mortgage-credit-certificate-received",
-                                "version": "v1"
+                            "op": "choose",
+                            "then": {
+                              "name": "tax.us.2025.f1098.mortgage-credit-certificate-received",
+                              "op": "collect_categorical_all_equal",
+                              "value": {
+                                "fact_type": {
+                                  "id": "tax.us.2025.f1098.mortgage-credit-certificate-received",
+                                  "version": "v2"
+                                },
+                                "op": "category_literal",
+                                "value": "cannot-tell"
+                              }
+                            },
+                            "when": {
+                              "cmp": "eq",
+                              "left": {
+                                "name": "tax.us.2025.f1098.borrowing-current-link-status",
+                                "op": "ref"
                               },
-                              "op": "category_literal",
-                              "value": "cannot-tell"
+                              "op": "categorical_compare",
+                              "right": {
+                                "fact_type": {
+                                  "id": "tax.us.2025.f1098.borrowing-current-link-status",
+                                  "version": "v1"
+                                },
+                                "op": "category_literal",
+                                "value": "none"
+                              }
                             }
                           }
                         },
@@ -782,19 +1102,46 @@
                           "value": "certificate-received"
                         },
                         "when": {
-                          "cmp": "eq",
-                          "left": {
-                            "name": "tax.us.2025.f1098.answer-status.mortgage-credit-certificate-received",
-                            "op": "ref"
+                          "else": {
+                            "name": "tax.us.2025.f1098.effective-credit-certificate",
+                            "op": "collect_categorical_all_equal",
+                            "value": {
+                              "fact_type": {
+                                "id": "tax.us.2025.f1098.effective-credit-certificate",
+                                "version": "v1"
+                              },
+                              "op": "category_literal",
+                              "value": "received"
+                            }
                           },
-                          "op": "categorical_compare",
-                          "right": {
-                            "fact_type": {
-                              "id": "tax.us.2025.f1098.answer-status.mortgage-credit-certificate-received",
-                              "version": "v1"
+                          "op": "choose",
+                          "then": {
+                            "name": "tax.us.2025.f1098.mortgage-credit-certificate-received",
+                            "op": "collect_categorical_all_equal",
+                            "value": {
+                              "fact_type": {
+                                "id": "tax.us.2025.f1098.mortgage-credit-certificate-received",
+                                "version": "v2"
+                              },
+                              "op": "category_literal",
+                              "value": "received"
+                            }
+                          },
+                          "when": {
+                            "cmp": "eq",
+                            "left": {
+                              "name": "tax.us.2025.f1098.borrowing-current-link-status",
+                              "op": "ref"
                             },
-                            "op": "category_literal",
-                            "value": "received"
+                            "op": "categorical_compare",
+                            "right": {
+                              "fact_type": {
+                                "id": "tax.us.2025.f1098.borrowing-current-link-status",
+                                "version": "v1"
+                              },
+                              "op": "category_literal",
+                              "value": "none"
+                            }
                           }
                         }
                       },
@@ -830,19 +1177,46 @@
                       "value": "cannot-tell-liability"
                     },
                     "when": {
-                      "cmp": "eq",
-                      "left": {
-                        "name": "tax.us.2025.f1098.answer-status.owes-the-loan",
-                        "op": "ref"
+                      "else": {
+                        "name": "tax.us.2025.f1098.effective-owes-the-loan",
+                        "op": "collect_categorical_all_equal",
+                        "value": {
+                          "fact_type": {
+                            "id": "tax.us.2025.f1098.effective-owes-the-loan",
+                            "version": "v1"
+                          },
+                          "op": "category_literal",
+                          "value": "cannot-tell"
+                        }
                       },
-                      "op": "categorical_compare",
-                      "right": {
-                        "fact_type": {
-                          "id": "tax.us.2025.f1098.answer-status.owes-the-loan",
-                          "version": "v1"
+                      "op": "choose",
+                      "then": {
+                        "name": "tax.us.2025.f1098.owes-the-loan",
+                        "op": "collect_categorical_all_equal",
+                        "value": {
+                          "fact_type": {
+                            "id": "tax.us.2025.f1098.owes-the-loan",
+                            "version": "v2"
+                          },
+                          "op": "category_literal",
+                          "value": "cannot-tell"
+                        }
+                      },
+                      "when": {
+                        "cmp": "eq",
+                        "left": {
+                          "name": "tax.us.2025.f1098.borrowing-current-link-status",
+                          "op": "ref"
                         },
-                        "op": "category_literal",
-                        "value": "cannot-tell"
+                        "op": "categorical_compare",
+                        "right": {
+                          "fact_type": {
+                            "id": "tax.us.2025.f1098.borrowing-current-link-status",
+                            "version": "v1"
+                          },
+                          "op": "category_literal",
+                          "value": "none"
+                        }
                       }
                     }
                   },
@@ -872,19 +1246,46 @@
                                   "value": "cannot-tell-original-loan"
                                 },
                                 "when": {
-                                  "cmp": "eq",
-                                  "left": {
-                                    "name": "tax.us.2025.f1098.answer-status.this-is-the-original-loan",
-                                    "op": "ref"
+                                  "else": {
+                                    "name": "tax.us.2025.f1098.effective-original-loan",
+                                    "op": "collect_categorical_all_equal",
+                                    "value": {
+                                      "fact_type": {
+                                        "id": "tax.us.2025.f1098.effective-original-loan",
+                                        "version": "v1"
+                                      },
+                                      "op": "category_literal",
+                                      "value": "cannot-tell"
+                                    }
                                   },
-                                  "op": "categorical_compare",
-                                  "right": {
-                                    "fact_type": {
-                                      "id": "tax.us.2025.f1098.answer-status.this-is-the-original-loan",
-                                      "version": "v1"
+                                  "op": "choose",
+                                  "then": {
+                                    "name": "tax.us.2025.f1098.this-is-the-original-loan",
+                                    "op": "collect_categorical_all_equal",
+                                    "value": {
+                                      "fact_type": {
+                                        "id": "tax.us.2025.f1098.this-is-the-original-loan",
+                                        "version": "v2"
+                                      },
+                                      "op": "category_literal",
+                                      "value": "cannot-tell"
+                                    }
+                                  },
+                                  "when": {
+                                    "cmp": "eq",
+                                    "left": {
+                                      "name": "tax.us.2025.f1098.borrowing-current-link-status",
+                                      "op": "ref"
                                     },
-                                    "op": "category_literal",
-                                    "value": "cannot-tell"
+                                    "op": "categorical_compare",
+                                    "right": {
+                                      "fact_type": {
+                                        "id": "tax.us.2025.f1098.borrowing-current-link-status",
+                                        "version": "v1"
+                                      },
+                                      "op": "category_literal",
+                                      "value": "none"
+                                    }
                                   }
                                 }
                               },
@@ -920,19 +1321,46 @@
                               "value": "refinance"
                             },
                             "when": {
-                              "cmp": "eq",
-                              "left": {
-                                "name": "tax.us.2025.f1098.answer-status.this-is-the-original-loan",
-                                "op": "ref"
+                              "else": {
+                                "name": "tax.us.2025.f1098.effective-original-loan",
+                                "op": "collect_categorical_all_equal",
+                                "value": {
+                                  "fact_type": {
+                                    "id": "tax.us.2025.f1098.effective-original-loan",
+                                    "version": "v1"
+                                  },
+                                  "op": "category_literal",
+                                  "value": "no"
+                                }
                               },
-                              "op": "categorical_compare",
-                              "right": {
-                                "fact_type": {
-                                  "id": "tax.us.2025.f1098.answer-status.this-is-the-original-loan",
-                                  "version": "v1"
+                              "op": "choose",
+                              "then": {
+                                "name": "tax.us.2025.f1098.this-is-the-original-loan",
+                                "op": "collect_categorical_all_equal",
+                                "value": {
+                                  "fact_type": {
+                                    "id": "tax.us.2025.f1098.this-is-the-original-loan",
+                                    "version": "v2"
+                                  },
+                                  "op": "category_literal",
+                                  "value": "no"
+                                }
+                              },
+                              "when": {
+                                "cmp": "eq",
+                                "left": {
+                                  "name": "tax.us.2025.f1098.borrowing-current-link-status",
+                                  "op": "ref"
                                 },
-                                "op": "category_literal",
-                                "value": "no"
+                                "op": "categorical_compare",
+                                "right": {
+                                  "fact_type": {
+                                    "id": "tax.us.2025.f1098.borrowing-current-link-status",
+                                    "version": "v1"
+                                  },
+                                  "op": "category_literal",
+                                  "value": "none"
+                                }
                               }
                             }
                           },
@@ -968,19 +1396,46 @@
                           "when": {
                             "args": [
                               {
-                                "cmp": "eq",
-                                "left": {
-                                  "name": "tax.us.2025.f1098.answer-status.this-is-the-original-loan",
-                                  "op": "ref"
+                                "else": {
+                                  "name": "tax.us.2025.f1098.effective-original-loan",
+                                  "op": "collect_categorical_all_equal",
+                                  "value": {
+                                    "fact_type": {
+                                      "id": "tax.us.2025.f1098.effective-original-loan",
+                                      "version": "v1"
+                                    },
+                                    "op": "category_literal",
+                                    "value": "yes"
+                                  }
                                 },
-                                "op": "categorical_compare",
-                                "right": {
-                                  "fact_type": {
-                                    "id": "tax.us.2025.f1098.answer-status.this-is-the-original-loan",
-                                    "version": "v1"
+                                "op": "choose",
+                                "then": {
+                                  "name": "tax.us.2025.f1098.this-is-the-original-loan",
+                                  "op": "collect_categorical_all_equal",
+                                  "value": {
+                                    "fact_type": {
+                                      "id": "tax.us.2025.f1098.this-is-the-original-loan",
+                                      "version": "v2"
+                                    },
+                                    "op": "category_literal",
+                                    "value": "yes"
+                                  }
+                                },
+                                "when": {
+                                  "cmp": "eq",
+                                  "left": {
+                                    "name": "tax.us.2025.f1098.borrowing-current-link-status",
+                                    "op": "ref"
                                   },
-                                  "op": "category_literal",
-                                  "value": "yes"
+                                  "op": "categorical_compare",
+                                  "right": {
+                                    "fact_type": {
+                                      "id": "tax.us.2025.f1098.borrowing-current-link-status",
+                                      "version": "v1"
+                                    },
+                                    "op": "category_literal",
+                                    "value": "none"
+                                  }
                                 }
                               },
                               {
@@ -1162,19 +1617,46 @@
                 "when": {
                   "args": [
                     {
-                      "cmp": "eq",
-                      "left": {
-                        "name": "tax.us.2025.f1098.answer-status.owes-the-loan",
-                        "op": "ref"
+                      "else": {
+                        "name": "tax.us.2025.f1098.effective-owes-the-loan",
+                        "op": "collect_categorical_all_equal",
+                        "value": {
+                          "fact_type": {
+                            "id": "tax.us.2025.f1098.effective-owes-the-loan",
+                            "version": "v1"
+                          },
+                          "op": "category_literal",
+                          "value": "no"
+                        }
                       },
-                      "op": "categorical_compare",
-                      "right": {
-                        "fact_type": {
-                          "id": "tax.us.2025.f1098.answer-status.owes-the-loan",
-                          "version": "v1"
+                      "op": "choose",
+                      "then": {
+                        "name": "tax.us.2025.f1098.owes-the-loan",
+                        "op": "collect_categorical_all_equal",
+                        "value": {
+                          "fact_type": {
+                            "id": "tax.us.2025.f1098.owes-the-loan",
+                            "version": "v2"
+                          },
+                          "op": "category_literal",
+                          "value": "no"
+                        }
+                      },
+                      "when": {
+                        "cmp": "eq",
+                        "left": {
+                          "name": "tax.us.2025.f1098.borrowing-current-link-status",
+                          "op": "ref"
                         },
-                        "op": "category_literal",
-                        "value": "no"
+                        "op": "categorical_compare",
+                        "right": {
+                          "fact_type": {
+                            "id": "tax.us.2025.f1098.borrowing-current-link-status",
+                            "version": "v1"
+                          },
+                          "op": "category_literal",
+                          "value": "none"
+                        }
                       }
                     },
                     {
@@ -1357,11 +1839,11 @@
                                               "value": "other-use-outside-coverage"
                                             },
                                             "when": {
-                                              "name": "tax.us.2025.mortgage.effective-proceeds-use",
+                                              "name": "tax.us.2025.f1098.effective-proceeds-use",
                                               "op": "collect_categorical_all_equal",
                                               "value": {
                                                 "fact_type": {
-                                                  "id": "tax.us.2025.mortgage.effective-proceeds-use",
+                                                  "id": "tax.us.2025.f1098.effective-proceeds-use",
                                                   "version": "v1"
                                                 },
                                                 "op": "category_literal",
@@ -1401,19 +1883,46 @@
                                           "value": "refinance"
                                         },
                                         "when": {
-                                          "cmp": "eq",
-                                          "left": {
-                                            "name": "tax.us.2025.f1098.answer-status.this-is-the-original-loan",
-                                            "op": "ref"
+                                          "else": {
+                                            "name": "tax.us.2025.f1098.effective-original-loan",
+                                            "op": "collect_categorical_all_equal",
+                                            "value": {
+                                              "fact_type": {
+                                                "id": "tax.us.2025.f1098.effective-original-loan",
+                                                "version": "v1"
+                                              },
+                                              "op": "category_literal",
+                                              "value": "no"
+                                            }
                                           },
-                                          "op": "categorical_compare",
-                                          "right": {
-                                            "fact_type": {
-                                              "id": "tax.us.2025.f1098.answer-status.this-is-the-original-loan",
-                                              "version": "v1"
+                                          "op": "choose",
+                                          "then": {
+                                            "name": "tax.us.2025.f1098.this-is-the-original-loan",
+                                            "op": "collect_categorical_all_equal",
+                                            "value": {
+                                              "fact_type": {
+                                                "id": "tax.us.2025.f1098.this-is-the-original-loan",
+                                                "version": "v2"
+                                              },
+                                              "op": "category_literal",
+                                              "value": "no"
+                                            }
+                                          },
+                                          "when": {
+                                            "cmp": "eq",
+                                            "left": {
+                                              "name": "tax.us.2025.f1098.borrowing-current-link-status",
+                                              "op": "ref"
                                             },
-                                            "op": "category_literal",
-                                            "value": "no"
+                                            "op": "categorical_compare",
+                                            "right": {
+                                              "fact_type": {
+                                                "id": "tax.us.2025.f1098.borrowing-current-link-status",
+                                                "version": "v1"
+                                              },
+                                              "op": "category_literal",
+                                              "value": "none"
+                                            }
                                           }
                                         }
                                       },
@@ -1427,19 +1936,46 @@
                                         "value": "cannot-tell-original-loan"
                                       },
                                       "when": {
-                                        "cmp": "eq",
-                                        "left": {
-                                          "name": "tax.us.2025.f1098.answer-status.this-is-the-original-loan",
-                                          "op": "ref"
+                                        "else": {
+                                          "name": "tax.us.2025.f1098.effective-original-loan",
+                                          "op": "collect_categorical_all_equal",
+                                          "value": {
+                                            "fact_type": {
+                                              "id": "tax.us.2025.f1098.effective-original-loan",
+                                              "version": "v1"
+                                            },
+                                            "op": "category_literal",
+                                            "value": "cannot-tell"
+                                          }
                                         },
-                                        "op": "categorical_compare",
-                                        "right": {
-                                          "fact_type": {
-                                            "id": "tax.us.2025.f1098.answer-status.this-is-the-original-loan",
-                                            "version": "v1"
+                                        "op": "choose",
+                                        "then": {
+                                          "name": "tax.us.2025.f1098.this-is-the-original-loan",
+                                          "op": "collect_categorical_all_equal",
+                                          "value": {
+                                            "fact_type": {
+                                              "id": "tax.us.2025.f1098.this-is-the-original-loan",
+                                              "version": "v2"
+                                            },
+                                            "op": "category_literal",
+                                            "value": "cannot-tell"
+                                          }
+                                        },
+                                        "when": {
+                                          "cmp": "eq",
+                                          "left": {
+                                            "name": "tax.us.2025.f1098.borrowing-current-link-status",
+                                            "op": "ref"
                                           },
-                                          "op": "category_literal",
-                                          "value": "cannot-tell"
+                                          "op": "categorical_compare",
+                                          "right": {
+                                            "fact_type": {
+                                              "id": "tax.us.2025.f1098.borrowing-current-link-status",
+                                              "version": "v1"
+                                            },
+                                            "op": "category_literal",
+                                            "value": "none"
+                                          }
                                         }
                                       }
                                     },
@@ -1453,11 +1989,11 @@
                                       "value": "other-use-outside-coverage"
                                     },
                                     "when": {
-                                      "name": "tax.us.2025.mortgage.effective-proceeds-use",
+                                      "name": "tax.us.2025.f1098.effective-proceeds-use",
                                       "op": "collect_categorical_all_equal",
                                       "value": {
                                         "fact_type": {
-                                          "id": "tax.us.2025.mortgage.effective-proceeds-use",
+                                          "id": "tax.us.2025.f1098.effective-proceeds-use",
                                           "version": "v1"
                                         },
                                         "op": "category_literal",
@@ -1475,19 +2011,46 @@
                                     "value": "outside-co-obligor"
                                   },
                                   "when": {
-                                    "cmp": "eq",
-                                    "left": {
-                                      "name": "tax.us.2025.f1098.answer-status.no-one-else-owes-it",
-                                      "op": "ref"
+                                    "else": {
+                                      "name": "tax.us.2025.f1098.effective-no-one-else-owes-it",
+                                      "op": "collect_categorical_all_equal",
+                                      "value": {
+                                        "fact_type": {
+                                          "id": "tax.us.2025.f1098.effective-no-one-else-owes-it",
+                                          "version": "v1"
+                                        },
+                                        "op": "category_literal",
+                                        "value": "no"
+                                      }
                                     },
-                                    "op": "categorical_compare",
-                                    "right": {
-                                      "fact_type": {
-                                        "id": "tax.us.2025.f1098.answer-status.no-one-else-owes-it",
-                                        "version": "v1"
+                                    "op": "choose",
+                                    "then": {
+                                      "name": "tax.us.2025.f1098.no-one-else-owes-it",
+                                      "op": "collect_categorical_all_equal",
+                                      "value": {
+                                        "fact_type": {
+                                          "id": "tax.us.2025.f1098.no-one-else-owes-it",
+                                          "version": "v2"
+                                        },
+                                        "op": "category_literal",
+                                        "value": "no"
+                                      }
+                                    },
+                                    "when": {
+                                      "cmp": "eq",
+                                      "left": {
+                                        "name": "tax.us.2025.f1098.borrowing-current-link-status",
+                                        "op": "ref"
                                       },
-                                      "op": "category_literal",
-                                      "value": "no"
+                                      "op": "categorical_compare",
+                                      "right": {
+                                        "fact_type": {
+                                          "id": "tax.us.2025.f1098.borrowing-current-link-status",
+                                          "version": "v1"
+                                        },
+                                        "op": "category_literal",
+                                        "value": "none"
+                                      }
                                     }
                                   }
                                 },
@@ -1570,11 +2133,11 @@
                                               "value": "other-use-outside-coverage"
                                             },
                                             "when": {
-                                              "name": "tax.us.2025.mortgage.effective-proceeds-use",
+                                              "name": "tax.us.2025.f1098.effective-proceeds-use",
                                               "op": "collect_categorical_all_equal",
                                               "value": {
                                                 "fact_type": {
-                                                  "id": "tax.us.2025.mortgage.effective-proceeds-use",
+                                                  "id": "tax.us.2025.f1098.effective-proceeds-use",
                                                   "version": "v1"
                                                 },
                                                 "op": "category_literal",
@@ -1592,19 +2155,46 @@
                                             "value": "outside-co-obligor"
                                           },
                                           "when": {
-                                            "cmp": "eq",
-                                            "left": {
-                                              "name": "tax.us.2025.f1098.answer-status.no-one-else-owes-it",
-                                              "op": "ref"
+                                            "else": {
+                                              "name": "tax.us.2025.f1098.effective-no-one-else-owes-it",
+                                              "op": "collect_categorical_all_equal",
+                                              "value": {
+                                                "fact_type": {
+                                                  "id": "tax.us.2025.f1098.effective-no-one-else-owes-it",
+                                                  "version": "v1"
+                                                },
+                                                "op": "category_literal",
+                                                "value": "no"
+                                              }
                                             },
-                                            "op": "categorical_compare",
-                                            "right": {
-                                              "fact_type": {
-                                                "id": "tax.us.2025.f1098.answer-status.no-one-else-owes-it",
-                                                "version": "v1"
+                                            "op": "choose",
+                                            "then": {
+                                              "name": "tax.us.2025.f1098.no-one-else-owes-it",
+                                              "op": "collect_categorical_all_equal",
+                                              "value": {
+                                                "fact_type": {
+                                                  "id": "tax.us.2025.f1098.no-one-else-owes-it",
+                                                  "version": "v2"
+                                                },
+                                                "op": "category_literal",
+                                                "value": "no"
+                                              }
+                                            },
+                                            "when": {
+                                              "cmp": "eq",
+                                              "left": {
+                                                "name": "tax.us.2025.f1098.borrowing-current-link-status",
+                                                "op": "ref"
                                               },
-                                              "op": "category_literal",
-                                              "value": "no"
+                                              "op": "categorical_compare",
+                                              "right": {
+                                                "fact_type": {
+                                                  "id": "tax.us.2025.f1098.borrowing-current-link-status",
+                                                  "version": "v1"
+                                                },
+                                                "op": "category_literal",
+                                                "value": "none"
+                                              }
                                             }
                                           }
                                         },
@@ -1670,19 +2260,46 @@
                                       "value": "cannot-tell-share"
                                     },
                                     "when": {
-                                      "cmp": "eq",
-                                      "left": {
-                                        "name": "tax.us.2025.f1098.answer-status.no-one-else-owes-it",
-                                        "op": "ref"
+                                      "else": {
+                                        "name": "tax.us.2025.f1098.effective-no-one-else-owes-it",
+                                        "op": "collect_categorical_all_equal",
+                                        "value": {
+                                          "fact_type": {
+                                            "id": "tax.us.2025.f1098.effective-no-one-else-owes-it",
+                                            "version": "v1"
+                                          },
+                                          "op": "category_literal",
+                                          "value": "cannot-tell"
+                                        }
                                       },
-                                      "op": "categorical_compare",
-                                      "right": {
-                                        "fact_type": {
-                                          "id": "tax.us.2025.f1098.answer-status.no-one-else-owes-it",
-                                          "version": "v1"
+                                      "op": "choose",
+                                      "then": {
+                                        "name": "tax.us.2025.f1098.no-one-else-owes-it",
+                                        "op": "collect_categorical_all_equal",
+                                        "value": {
+                                          "fact_type": {
+                                            "id": "tax.us.2025.f1098.no-one-else-owes-it",
+                                            "version": "v2"
+                                          },
+                                          "op": "category_literal",
+                                          "value": "cannot-tell"
+                                        }
+                                      },
+                                      "when": {
+                                        "cmp": "eq",
+                                        "left": {
+                                          "name": "tax.us.2025.f1098.borrowing-current-link-status",
+                                          "op": "ref"
                                         },
-                                        "op": "category_literal",
-                                        "value": "cannot-tell"
+                                        "op": "categorical_compare",
+                                        "right": {
+                                          "fact_type": {
+                                            "id": "tax.us.2025.f1098.borrowing-current-link-status",
+                                            "version": "v1"
+                                          },
+                                          "op": "category_literal",
+                                          "value": "none"
+                                        }
                                       }
                                     }
                                   },
@@ -1767,11 +2384,11 @@
                             "when": {
                               "args": [
                                 {
-                                  "name": "tax.us.2025.mortgage.effective-proceeds-use",
+                                  "name": "tax.us.2025.f1098.effective-proceeds-use",
                                   "op": "collect_categorical_all_equal",
                                   "value": {
                                     "fact_type": {
-                                      "id": "tax.us.2025.mortgage.effective-proceeds-use",
+                                      "id": "tax.us.2025.f1098.effective-proceeds-use",
                                       "version": "v1"
                                     },
                                     "op": "category_literal",
@@ -1779,35 +2396,89 @@
                                   }
                                 },
                                 {
-                                  "cmp": "eq",
-                                  "left": {
-                                    "name": "tax.us.2025.f1098.answer-status.this-is-the-original-loan",
-                                    "op": "ref"
+                                  "else": {
+                                    "name": "tax.us.2025.f1098.effective-original-loan",
+                                    "op": "collect_categorical_all_equal",
+                                    "value": {
+                                      "fact_type": {
+                                        "id": "tax.us.2025.f1098.effective-original-loan",
+                                        "version": "v1"
+                                      },
+                                      "op": "category_literal",
+                                      "value": "yes"
+                                    }
                                   },
-                                  "op": "categorical_compare",
-                                  "right": {
-                                    "fact_type": {
-                                      "id": "tax.us.2025.f1098.answer-status.this-is-the-original-loan",
-                                      "version": "v1"
+                                  "op": "choose",
+                                  "then": {
+                                    "name": "tax.us.2025.f1098.this-is-the-original-loan",
+                                    "op": "collect_categorical_all_equal",
+                                    "value": {
+                                      "fact_type": {
+                                        "id": "tax.us.2025.f1098.this-is-the-original-loan",
+                                        "version": "v2"
+                                      },
+                                      "op": "category_literal",
+                                      "value": "yes"
+                                    }
+                                  },
+                                  "when": {
+                                    "cmp": "eq",
+                                    "left": {
+                                      "name": "tax.us.2025.f1098.borrowing-current-link-status",
+                                      "op": "ref"
                                     },
-                                    "op": "category_literal",
-                                    "value": "yes"
+                                    "op": "categorical_compare",
+                                    "right": {
+                                      "fact_type": {
+                                        "id": "tax.us.2025.f1098.borrowing-current-link-status",
+                                        "version": "v1"
+                                      },
+                                      "op": "category_literal",
+                                      "value": "none"
+                                    }
                                   }
                                 },
                                 {
-                                  "cmp": "eq",
-                                  "left": {
-                                    "name": "tax.us.2025.f1098.answer-status.mortgage-credit-certificate-received",
-                                    "op": "ref"
+                                  "else": {
+                                    "name": "tax.us.2025.f1098.effective-credit-certificate",
+                                    "op": "collect_categorical_all_equal",
+                                    "value": {
+                                      "fact_type": {
+                                        "id": "tax.us.2025.f1098.effective-credit-certificate",
+                                        "version": "v1"
+                                      },
+                                      "op": "category_literal",
+                                      "value": "not-received"
+                                    }
                                   },
-                                  "op": "categorical_compare",
-                                  "right": {
-                                    "fact_type": {
-                                      "id": "tax.us.2025.f1098.answer-status.mortgage-credit-certificate-received",
-                                      "version": "v1"
+                                  "op": "choose",
+                                  "then": {
+                                    "name": "tax.us.2025.f1098.mortgage-credit-certificate-received",
+                                    "op": "collect_categorical_all_equal",
+                                    "value": {
+                                      "fact_type": {
+                                        "id": "tax.us.2025.f1098.mortgage-credit-certificate-received",
+                                        "version": "v2"
+                                      },
+                                      "op": "category_literal",
+                                      "value": "not-received"
+                                    }
+                                  },
+                                  "when": {
+                                    "cmp": "eq",
+                                    "left": {
+                                      "name": "tax.us.2025.f1098.borrowing-current-link-status",
+                                      "op": "ref"
                                     },
-                                    "op": "category_literal",
-                                    "value": "not-received"
+                                    "op": "categorical_compare",
+                                    "right": {
+                                      "fact_type": {
+                                        "id": "tax.us.2025.f1098.borrowing-current-link-status",
+                                        "version": "v1"
+                                      },
+                                      "op": "category_literal",
+                                      "value": "none"
+                                    }
                                   }
                                 },
                                 {
@@ -1910,19 +2581,46 @@
                                 }
                               },
                               {
-                                "cmp": "eq",
-                                "left": {
-                                  "name": "tax.us.2025.f1098.answer-status.owes-the-loan",
-                                  "op": "ref"
+                                "else": {
+                                  "name": "tax.us.2025.f1098.effective-owes-the-loan",
+                                  "op": "collect_categorical_all_equal",
+                                  "value": {
+                                    "fact_type": {
+                                      "id": "tax.us.2025.f1098.effective-owes-the-loan",
+                                      "version": "v1"
+                                    },
+                                    "op": "category_literal",
+                                    "value": "yes"
+                                  }
                                 },
-                                "op": "categorical_compare",
-                                "right": {
-                                  "fact_type": {
-                                    "id": "tax.us.2025.f1098.answer-status.owes-the-loan",
-                                    "version": "v1"
+                                "op": "choose",
+                                "then": {
+                                  "name": "tax.us.2025.f1098.owes-the-loan",
+                                  "op": "collect_categorical_all_equal",
+                                  "value": {
+                                    "fact_type": {
+                                      "id": "tax.us.2025.f1098.owes-the-loan",
+                                      "version": "v2"
+                                    },
+                                    "op": "category_literal",
+                                    "value": "yes"
+                                  }
+                                },
+                                "when": {
+                                  "cmp": "eq",
+                                  "left": {
+                                    "name": "tax.us.2025.f1098.borrowing-current-link-status",
+                                    "op": "ref"
                                   },
-                                  "op": "category_literal",
-                                  "value": "yes"
+                                  "op": "categorical_compare",
+                                  "right": {
+                                    "fact_type": {
+                                      "id": "tax.us.2025.f1098.borrowing-current-link-status",
+                                      "version": "v1"
+                                    },
+                                    "op": "category_literal",
+                                    "value": "none"
+                                  }
                                 }
                               },
                               {
@@ -1942,27 +2640,54 @@
                                 }
                               },
                               {
-                                "cmp": "eq",
-                                "left": {
-                                  "name": "tax.us.2025.f1098.answer-status.no-one-else-owes-it",
-                                  "op": "ref"
+                                "else": {
+                                  "name": "tax.us.2025.f1098.effective-no-one-else-owes-it",
+                                  "op": "collect_categorical_all_equal",
+                                  "value": {
+                                    "fact_type": {
+                                      "id": "tax.us.2025.f1098.effective-no-one-else-owes-it",
+                                      "version": "v1"
+                                    },
+                                    "op": "category_literal",
+                                    "value": "yes"
+                                  }
                                 },
-                                "op": "categorical_compare",
-                                "right": {
-                                  "fact_type": {
-                                    "id": "tax.us.2025.f1098.answer-status.no-one-else-owes-it",
-                                    "version": "v1"
+                                "op": "choose",
+                                "then": {
+                                  "name": "tax.us.2025.f1098.no-one-else-owes-it",
+                                  "op": "collect_categorical_all_equal",
+                                  "value": {
+                                    "fact_type": {
+                                      "id": "tax.us.2025.f1098.no-one-else-owes-it",
+                                      "version": "v2"
+                                    },
+                                    "op": "category_literal",
+                                    "value": "yes"
+                                  }
+                                },
+                                "when": {
+                                  "cmp": "eq",
+                                  "left": {
+                                    "name": "tax.us.2025.f1098.borrowing-current-link-status",
+                                    "op": "ref"
                                   },
-                                  "op": "category_literal",
-                                  "value": "yes"
+                                  "op": "categorical_compare",
+                                  "right": {
+                                    "fact_type": {
+                                      "id": "tax.us.2025.f1098.borrowing-current-link-status",
+                                      "version": "v1"
+                                    },
+                                    "op": "category_literal",
+                                    "value": "none"
+                                  }
                                 }
                               },
                               {
-                                "name": "tax.us.2025.mortgage.effective-proceeds-use",
+                                "name": "tax.us.2025.f1098.effective-proceeds-use",
                                 "op": "collect_categorical_all_equal",
                                 "value": {
                                   "fact_type": {
-                                    "id": "tax.us.2025.mortgage.effective-proceeds-use",
+                                    "id": "tax.us.2025.f1098.effective-proceeds-use",
                                     "version": "v1"
                                   },
                                   "op": "category_literal",
@@ -1970,35 +2695,89 @@
                                 }
                               },
                               {
-                                "cmp": "eq",
-                                "left": {
-                                  "name": "tax.us.2025.f1098.answer-status.this-is-the-original-loan",
-                                  "op": "ref"
+                                "else": {
+                                  "name": "tax.us.2025.f1098.effective-original-loan",
+                                  "op": "collect_categorical_all_equal",
+                                  "value": {
+                                    "fact_type": {
+                                      "id": "tax.us.2025.f1098.effective-original-loan",
+                                      "version": "v1"
+                                    },
+                                    "op": "category_literal",
+                                    "value": "yes"
+                                  }
                                 },
-                                "op": "categorical_compare",
-                                "right": {
-                                  "fact_type": {
-                                    "id": "tax.us.2025.f1098.answer-status.this-is-the-original-loan",
-                                    "version": "v1"
+                                "op": "choose",
+                                "then": {
+                                  "name": "tax.us.2025.f1098.this-is-the-original-loan",
+                                  "op": "collect_categorical_all_equal",
+                                  "value": {
+                                    "fact_type": {
+                                      "id": "tax.us.2025.f1098.this-is-the-original-loan",
+                                      "version": "v2"
+                                    },
+                                    "op": "category_literal",
+                                    "value": "yes"
+                                  }
+                                },
+                                "when": {
+                                  "cmp": "eq",
+                                  "left": {
+                                    "name": "tax.us.2025.f1098.borrowing-current-link-status",
+                                    "op": "ref"
                                   },
-                                  "op": "category_literal",
-                                  "value": "yes"
+                                  "op": "categorical_compare",
+                                  "right": {
+                                    "fact_type": {
+                                      "id": "tax.us.2025.f1098.borrowing-current-link-status",
+                                      "version": "v1"
+                                    },
+                                    "op": "category_literal",
+                                    "value": "none"
+                                  }
                                 }
                               },
                               {
-                                "cmp": "eq",
-                                "left": {
-                                  "name": "tax.us.2025.f1098.answer-status.mortgage-credit-certificate-received",
-                                  "op": "ref"
+                                "else": {
+                                  "name": "tax.us.2025.f1098.effective-credit-certificate",
+                                  "op": "collect_categorical_all_equal",
+                                  "value": {
+                                    "fact_type": {
+                                      "id": "tax.us.2025.f1098.effective-credit-certificate",
+                                      "version": "v1"
+                                    },
+                                    "op": "category_literal",
+                                    "value": "not-received"
+                                  }
                                 },
-                                "op": "categorical_compare",
-                                "right": {
-                                  "fact_type": {
-                                    "id": "tax.us.2025.f1098.answer-status.mortgage-credit-certificate-received",
-                                    "version": "v1"
+                                "op": "choose",
+                                "then": {
+                                  "name": "tax.us.2025.f1098.mortgage-credit-certificate-received",
+                                  "op": "collect_categorical_all_equal",
+                                  "value": {
+                                    "fact_type": {
+                                      "id": "tax.us.2025.f1098.mortgage-credit-certificate-received",
+                                      "version": "v2"
+                                    },
+                                    "op": "category_literal",
+                                    "value": "not-received"
+                                  }
+                                },
+                                "when": {
+                                  "cmp": "eq",
+                                  "left": {
+                                    "name": "tax.us.2025.f1098.borrowing-current-link-status",
+                                    "op": "ref"
                                   },
-                                  "op": "category_literal",
-                                  "value": "not-received"
+                                  "op": "categorical_compare",
+                                  "right": {
+                                    "fact_type": {
+                                      "id": "tax.us.2025.f1098.borrowing-current-link-status",
+                                      "version": "v1"
+                                    },
+                                    "op": "category_literal",
+                                    "value": "none"
+                                  }
                                 }
                               },
                               {
@@ -2024,19 +2803,46 @@
                           "value": "cannot-tell-certificate"
                         },
                         "when": {
-                          "cmp": "eq",
-                          "left": {
-                            "name": "tax.us.2025.f1098.answer-status.mortgage-credit-certificate-received",
-                            "op": "ref"
+                          "else": {
+                            "name": "tax.us.2025.f1098.effective-credit-certificate",
+                            "op": "collect_categorical_all_equal",
+                            "value": {
+                              "fact_type": {
+                                "id": "tax.us.2025.f1098.effective-credit-certificate",
+                                "version": "v1"
+                              },
+                              "op": "category_literal",
+                              "value": "cannot-tell"
+                            }
                           },
-                          "op": "categorical_compare",
-                          "right": {
-                            "fact_type": {
-                              "id": "tax.us.2025.f1098.answer-status.mortgage-credit-certificate-received",
-                              "version": "v1"
+                          "op": "choose",
+                          "then": {
+                            "name": "tax.us.2025.f1098.mortgage-credit-certificate-received",
+                            "op": "collect_categorical_all_equal",
+                            "value": {
+                              "fact_type": {
+                                "id": "tax.us.2025.f1098.mortgage-credit-certificate-received",
+                                "version": "v2"
+                              },
+                              "op": "category_literal",
+                              "value": "cannot-tell"
+                            }
+                          },
+                          "when": {
+                            "cmp": "eq",
+                            "left": {
+                              "name": "tax.us.2025.f1098.borrowing-current-link-status",
+                              "op": "ref"
                             },
-                            "op": "category_literal",
-                            "value": "cannot-tell"
+                            "op": "categorical_compare",
+                            "right": {
+                              "fact_type": {
+                                "id": "tax.us.2025.f1098.borrowing-current-link-status",
+                                "version": "v1"
+                              },
+                              "op": "category_literal",
+                              "value": "none"
+                            }
                           }
                         }
                       },
@@ -2050,19 +2856,46 @@
                         "value": "certificate-received"
                       },
                       "when": {
-                        "cmp": "eq",
-                        "left": {
-                          "name": "tax.us.2025.f1098.answer-status.mortgage-credit-certificate-received",
-                          "op": "ref"
+                        "else": {
+                          "name": "tax.us.2025.f1098.effective-credit-certificate",
+                          "op": "collect_categorical_all_equal",
+                          "value": {
+                            "fact_type": {
+                              "id": "tax.us.2025.f1098.effective-credit-certificate",
+                              "version": "v1"
+                            },
+                            "op": "category_literal",
+                            "value": "received"
+                          }
                         },
-                        "op": "categorical_compare",
-                        "right": {
-                          "fact_type": {
-                            "id": "tax.us.2025.f1098.answer-status.mortgage-credit-certificate-received",
-                            "version": "v1"
+                        "op": "choose",
+                        "then": {
+                          "name": "tax.us.2025.f1098.mortgage-credit-certificate-received",
+                          "op": "collect_categorical_all_equal",
+                          "value": {
+                            "fact_type": {
+                              "id": "tax.us.2025.f1098.mortgage-credit-certificate-received",
+                              "version": "v2"
+                            },
+                            "op": "category_literal",
+                            "value": "received"
+                          }
+                        },
+                        "when": {
+                          "cmp": "eq",
+                          "left": {
+                            "name": "tax.us.2025.f1098.borrowing-current-link-status",
+                            "op": "ref"
                           },
-                          "op": "category_literal",
-                          "value": "received"
+                          "op": "categorical_compare",
+                          "right": {
+                            "fact_type": {
+                              "id": "tax.us.2025.f1098.borrowing-current-link-status",
+                              "version": "v1"
+                            },
+                            "op": "category_literal",
+                            "value": "none"
+                          }
                         }
                       }
                     },
@@ -2076,11 +2909,11 @@
                       "value": "cannot-tell-use"
                     },
                     "when": {
-                      "name": "tax.us.2025.mortgage.effective-proceeds-use",
+                      "name": "tax.us.2025.f1098.effective-proceeds-use",
                       "op": "collect_categorical_all_equal",
                       "value": {
                         "fact_type": {
-                          "id": "tax.us.2025.mortgage.effective-proceeds-use",
+                          "id": "tax.us.2025.f1098.effective-proceeds-use",
                           "version": "v1"
                         },
                         "op": "category_literal",
@@ -2098,19 +2931,46 @@
                     "value": "cannot-tell-liability"
                   },
                   "when": {
-                    "cmp": "eq",
-                    "left": {
-                      "name": "tax.us.2025.f1098.answer-status.owes-the-loan",
-                      "op": "ref"
+                    "else": {
+                      "name": "tax.us.2025.f1098.effective-owes-the-loan",
+                      "op": "collect_categorical_all_equal",
+                      "value": {
+                        "fact_type": {
+                          "id": "tax.us.2025.f1098.effective-owes-the-loan",
+                          "version": "v1"
+                        },
+                        "op": "category_literal",
+                        "value": "cannot-tell"
+                      }
                     },
-                    "op": "categorical_compare",
-                    "right": {
-                      "fact_type": {
-                        "id": "tax.us.2025.f1098.answer-status.owes-the-loan",
-                        "version": "v1"
+                    "op": "choose",
+                    "then": {
+                      "name": "tax.us.2025.f1098.owes-the-loan",
+                      "op": "collect_categorical_all_equal",
+                      "value": {
+                        "fact_type": {
+                          "id": "tax.us.2025.f1098.owes-the-loan",
+                          "version": "v2"
+                        },
+                        "op": "category_literal",
+                        "value": "cannot-tell"
+                      }
+                    },
+                    "when": {
+                      "cmp": "eq",
+                      "left": {
+                        "name": "tax.us.2025.f1098.borrowing-current-link-status",
+                        "op": "ref"
                       },
-                      "op": "category_literal",
-                      "value": "cannot-tell"
+                      "op": "categorical_compare",
+                      "right": {
+                        "fact_type": {
+                          "id": "tax.us.2025.f1098.borrowing-current-link-status",
+                          "version": "v1"
+                        },
+                        "op": "category_literal",
+                        "value": "none"
+                      }
                     }
                   }
                 },
@@ -2140,19 +3000,46 @@
                                 "value": "cannot-tell-original-loan"
                               },
                               "when": {
-                                "cmp": "eq",
-                                "left": {
-                                  "name": "tax.us.2025.f1098.answer-status.this-is-the-original-loan",
-                                  "op": "ref"
+                                "else": {
+                                  "name": "tax.us.2025.f1098.effective-original-loan",
+                                  "op": "collect_categorical_all_equal",
+                                  "value": {
+                                    "fact_type": {
+                                      "id": "tax.us.2025.f1098.effective-original-loan",
+                                      "version": "v1"
+                                    },
+                                    "op": "category_literal",
+                                    "value": "cannot-tell"
+                                  }
                                 },
-                                "op": "categorical_compare",
-                                "right": {
-                                  "fact_type": {
-                                    "id": "tax.us.2025.f1098.answer-status.this-is-the-original-loan",
-                                    "version": "v1"
+                                "op": "choose",
+                                "then": {
+                                  "name": "tax.us.2025.f1098.this-is-the-original-loan",
+                                  "op": "collect_categorical_all_equal",
+                                  "value": {
+                                    "fact_type": {
+                                      "id": "tax.us.2025.f1098.this-is-the-original-loan",
+                                      "version": "v2"
+                                    },
+                                    "op": "category_literal",
+                                    "value": "cannot-tell"
+                                  }
+                                },
+                                "when": {
+                                  "cmp": "eq",
+                                  "left": {
+                                    "name": "tax.us.2025.f1098.borrowing-current-link-status",
+                                    "op": "ref"
                                   },
-                                  "op": "category_literal",
-                                  "value": "cannot-tell"
+                                  "op": "categorical_compare",
+                                  "right": {
+                                    "fact_type": {
+                                      "id": "tax.us.2025.f1098.borrowing-current-link-status",
+                                      "version": "v1"
+                                    },
+                                    "op": "category_literal",
+                                    "value": "none"
+                                  }
                                 }
                               }
                             },
@@ -2188,19 +3075,46 @@
                             "value": "refinance"
                           },
                           "when": {
-                            "cmp": "eq",
-                            "left": {
-                              "name": "tax.us.2025.f1098.answer-status.this-is-the-original-loan",
-                              "op": "ref"
+                            "else": {
+                              "name": "tax.us.2025.f1098.effective-original-loan",
+                              "op": "collect_categorical_all_equal",
+                              "value": {
+                                "fact_type": {
+                                  "id": "tax.us.2025.f1098.effective-original-loan",
+                                  "version": "v1"
+                                },
+                                "op": "category_literal",
+                                "value": "no"
+                              }
                             },
-                            "op": "categorical_compare",
-                            "right": {
-                              "fact_type": {
-                                "id": "tax.us.2025.f1098.answer-status.this-is-the-original-loan",
-                                "version": "v1"
+                            "op": "choose",
+                            "then": {
+                              "name": "tax.us.2025.f1098.this-is-the-original-loan",
+                              "op": "collect_categorical_all_equal",
+                              "value": {
+                                "fact_type": {
+                                  "id": "tax.us.2025.f1098.this-is-the-original-loan",
+                                  "version": "v2"
+                                },
+                                "op": "category_literal",
+                                "value": "no"
+                              }
+                            },
+                            "when": {
+                              "cmp": "eq",
+                              "left": {
+                                "name": "tax.us.2025.f1098.borrowing-current-link-status",
+                                "op": "ref"
                               },
-                              "op": "category_literal",
-                              "value": "no"
+                              "op": "categorical_compare",
+                              "right": {
+                                "fact_type": {
+                                  "id": "tax.us.2025.f1098.borrowing-current-link-status",
+                                  "version": "v1"
+                                },
+                                "op": "category_literal",
+                                "value": "none"
+                              }
                             }
                           }
                         },
@@ -2236,19 +3150,46 @@
                         "when": {
                           "args": [
                             {
-                              "cmp": "eq",
-                              "left": {
-                                "name": "tax.us.2025.f1098.answer-status.this-is-the-original-loan",
-                                "op": "ref"
+                              "else": {
+                                "name": "tax.us.2025.f1098.effective-original-loan",
+                                "op": "collect_categorical_all_equal",
+                                "value": {
+                                  "fact_type": {
+                                    "id": "tax.us.2025.f1098.effective-original-loan",
+                                    "version": "v1"
+                                  },
+                                  "op": "category_literal",
+                                  "value": "yes"
+                                }
                               },
-                              "op": "categorical_compare",
-                              "right": {
-                                "fact_type": {
-                                  "id": "tax.us.2025.f1098.answer-status.this-is-the-original-loan",
-                                  "version": "v1"
+                              "op": "choose",
+                              "then": {
+                                "name": "tax.us.2025.f1098.this-is-the-original-loan",
+                                "op": "collect_categorical_all_equal",
+                                "value": {
+                                  "fact_type": {
+                                    "id": "tax.us.2025.f1098.this-is-the-original-loan",
+                                    "version": "v2"
+                                  },
+                                  "op": "category_literal",
+                                  "value": "yes"
+                                }
+                              },
+                              "when": {
+                                "cmp": "eq",
+                                "left": {
+                                  "name": "tax.us.2025.f1098.borrowing-current-link-status",
+                                  "op": "ref"
                                 },
-                                "op": "category_literal",
-                                "value": "yes"
+                                "op": "categorical_compare",
+                                "right": {
+                                  "fact_type": {
+                                    "id": "tax.us.2025.f1098.borrowing-current-link-status",
+                                    "version": "v1"
+                                  },
+                                  "op": "category_literal",
+                                  "value": "none"
+                                }
                               }
                             },
                             {
@@ -2406,11 +3347,11 @@
                   }
                 },
                 "when": {
-                  "name": "tax.us.2025.mortgage.effective-proceeds-use",
+                  "name": "tax.us.2025.f1098.effective-proceeds-use",
                   "op": "collect_categorical_all_equal",
                   "value": {
                     "fact_type": {
-                      "id": "tax.us.2025.mortgage.effective-proceeds-use",
+                      "id": "tax.us.2025.f1098.effective-proceeds-use",
                       "version": "v1"
                     },
                     "op": "category_literal",
@@ -2430,19 +3371,46 @@
               "when": {
                 "args": [
                   {
-                    "cmp": "eq",
-                    "left": {
-                      "name": "tax.us.2025.f1098.answer-status.owes-the-loan",
-                      "op": "ref"
+                    "else": {
+                      "name": "tax.us.2025.f1098.effective-owes-the-loan",
+                      "op": "collect_categorical_all_equal",
+                      "value": {
+                        "fact_type": {
+                          "id": "tax.us.2025.f1098.effective-owes-the-loan",
+                          "version": "v1"
+                        },
+                        "op": "category_literal",
+                        "value": "no"
+                      }
                     },
-                    "op": "categorical_compare",
-                    "right": {
-                      "fact_type": {
-                        "id": "tax.us.2025.f1098.answer-status.owes-the-loan",
-                        "version": "v1"
+                    "op": "choose",
+                    "then": {
+                      "name": "tax.us.2025.f1098.owes-the-loan",
+                      "op": "collect_categorical_all_equal",
+                      "value": {
+                        "fact_type": {
+                          "id": "tax.us.2025.f1098.owes-the-loan",
+                          "version": "v2"
+                        },
+                        "op": "category_literal",
+                        "value": "no"
+                      }
+                    },
+                    "when": {
+                      "cmp": "eq",
+                      "left": {
+                        "name": "tax.us.2025.f1098.borrowing-current-link-status",
+                        "op": "ref"
                       },
-                      "op": "category_literal",
-                      "value": "no"
+                      "op": "categorical_compare",
+                      "right": {
+                        "fact_type": {
+                          "id": "tax.us.2025.f1098.borrowing-current-link-status",
+                          "version": "v1"
+                        },
+                        "op": "category_literal",
+                        "value": "none"
+                      }
                     }
                   },
                   {

@@ -3112,12 +3112,6 @@
       "version": "v1"
     },
     {
-      "id": "tax.us.2025.rule.effective-proceeds-use",
-      "role": "computation",
-      "schema": "rule-artifact.v13",
-      "version": "v1"
-    },
-    {
       "id": "tax.us.2025.rule.eic-answer.age-25-under-65",
       "role": "computation",
       "schema": "rule-artifact.v14",
@@ -3328,24 +3322,6 @@
       "version": "v1"
     },
     {
-      "id": "tax.us.2025.rule.f1098-report-local-bridge.mortgage-credit-certificate-received",
-      "role": "computation",
-      "schema": "rule-artifact.v13",
-      "version": "v1"
-    },
-    {
-      "id": "tax.us.2025.rule.f1098-report-local-bridge.no-one-else-owes-it",
-      "role": "computation",
-      "schema": "rule-artifact.v13",
-      "version": "v1"
-    },
-    {
-      "id": "tax.us.2025.rule.f1098-report-local-bridge.owes-the-loan",
-      "role": "computation",
-      "schema": "rule-artifact.v13",
-      "version": "v1"
-    },
-    {
       "id": "tax.us.2025.rule.f1098-report-local-bridge.paid-the-interest",
       "role": "computation",
       "schema": "rule-artifact.v13",
@@ -3359,12 +3335,6 @@
     },
     {
       "id": "tax.us.2025.rule.f1098-report-local-bridge.shared-main-home",
-      "role": "computation",
-      "schema": "rule-artifact.v13",
-      "version": "v1"
-    },
-    {
-      "id": "tax.us.2025.rule.f1098-report-local-bridge.this-is-the-original-loan",
       "role": "computation",
       "schema": "rule-artifact.v13",
       "version": "v1"
@@ -4324,12 +4294,6 @@
       "version": "v5"
     },
     {
-      "id": "tax.us.2025.rule.shared-proceeds-answer-count",
-      "role": "computation",
-      "schema": "rule-artifact.v13",
-      "version": "v1"
-    },
-    {
       "id": "tax.us.2025.rule.sli-answer-status-no-employer-educational-assistance-interest",
       "role": "computation",
       "schema": "rule-artifact.v13",
@@ -4900,7 +4864,7 @@
       "version": "v1"
     }
   ],
-  "package_checksum": "d600ee70e2fcea0b4b9a69051fdbb246ddf2f4f316dfb35162675c2bf3998d1c",
+  "package_checksum": "eee22d8fe04b0be84579a961838a97b1595a2d4eade079c3fcd479c5e3ef00bd",
   "schema": "artifact-package.v36",
   "scope": {
     "family": "individual-income-tax",

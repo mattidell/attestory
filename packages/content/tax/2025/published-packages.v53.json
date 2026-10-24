@@ -881,7 +881,7 @@
       "version": "v1"
     },
     {
-      "checksum": "a8ab9c9ceaa476f9884301df450488e57677e975f7843ebdf558ecb3900505fa",
+      "checksum": "da8e023ae7af364345a34c33bad59b6b4a19076a785d41905729dbc33daf520f",
       "id": "tax.us.2025.f1098-report-local-bridge",
       "version": "v1"
     },
@@ -2086,13 +2086,8 @@
       "version": "v1"
     },
     {
-      "checksum": "6f94fe97b09ddf8c8eccff4d6f9c5b16d987f3c3077f38ca2253fa5a145e6ace",
+      "checksum": "9f8a79e51a22bcfce52e0e9e46d1cfbf7860df0be29ad4d3548c1f5d4f4d9b80",
       "id": "tax.us.2025.rule.effective-proceeds-support-count",
-      "version": "v1"
-    },
-    {
-      "checksum": "fec003f963963245530ee2254210527bf99dc426e51656fc20c7bd59c6133329",
-      "id": "tax.us.2025.rule.effective-proceeds-use",
       "version": "v1"
     },
     {
@@ -2326,7 +2321,7 @@
       "version": "v2"
     },
     {
-      "checksum": "4c279016cbb081cad7e7357a801aae02af8b8f4800f04afbbf766ec4d6f77678",
+      "checksum": "3324264fd7fd0db5fbb90ee1f214097cdc383e3bd6b9a1fd05506c75173e5c56",
       "id": "tax.us.2025.rule.f1098-residence-interest-reason",
       "version": "v5"
     },
@@ -3431,11 +3426,6 @@
       "version": "v5"
     },
     {
-      "checksum": "0fcd553f7799a83f0a7bf73a35e5fa11cdf59181c7a0389fb70effa09fda2cc2",
-      "id": "tax.us.2025.rule.shared-proceeds-answer-count",
-      "version": "v1"
-    },
-    {
       "checksum": "1e6ef1d4e60c159ebea09c07ef7f2d7768074cf1fa00230e74cad0f424f6ecf6",
       "id": "tax.us.2025.rule.sli-answer-status-no-employer-educational-assistance-interest",
       "version": "v1"
@@ -4258,7 +4248,7 @@
       "version": "v54"
     },
     {
-      "checksum": "d600ee70e2fcea0b4b9a69051fdbb246ddf2f4f316dfb35162675c2bf3998d1c",
+      "checksum": "eee22d8fe04b0be84579a961838a97b1595a2d4eade079c3fcd479c5e3ef00bd",
       "id": "tax.us.2025.package.core-calculations",
       "version": "v55"
     },

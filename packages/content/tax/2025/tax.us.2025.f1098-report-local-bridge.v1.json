@@ -1154,66 +1154,6 @@
       "version": "v1"
     },
     {
-      "id": "tax.us.2025.mortgage.effective-proceeds-use",
-      "identity_keys": [
-        {
-          "entity_kind": "tax.us.mortgage-lender",
-          "kind": "entity",
-          "name": "payer"
-        },
-        {
-          "entity_kind": "tax.us.1098-statement",
-          "kind": "entity",
-          "name": "statement"
-        },
-        {
-          "kind": "literal",
-          "name": "tax-year",
-          "values": [
-            "2025"
-          ]
-        },
-        {
-          "entity_kind": "tax.us.mortgage-borrowing-reference",
-          "kind": "entity",
-          "name": "borrowing"
-        }
-      ],
-      "nature": "determinable",
-      "schema": "fact-type.v2",
-      "supersession": {
-        "policy": "free"
-      },
-      "title": "Effective proceeds-use category per exact link",
-      "value_schema": {
-        "enum": [
-          "bought-the-home",
-          "unrelated-personal-expense",
-          "other",
-          "cannot-tell"
-        ],
-        "oneOf": [
-          {
-            "const": "bought-the-home",
-            "description": "The borrowed money bought this home."
-          },
-          {
-            "const": "unrelated-personal-expense",
-            "description": "The borrowed money paid an unrelated personal expense."
-          },
-          {
-            "const": "other",
-            "description": "The borrowed money paid for something else."
-          },
-          {
-            "const": "cannot-tell",
-            "description": "I cannot tell what the borrowed money paid for."
-          }
-        ]
-      },
-      "version": "v1"
-    },
-    {
       "id": "tax.us.2025.mortgage.effective-proceeds-support-count",
       "identity_keys": [
         {
@@ -1309,33 +1249,6 @@
         "policy": "free"
       },
       "title": "Current report-local proceeds-answer count per exact Box 1 identity",
-      "value_schema": {
-        "type": "number"
-      },
-      "version": "v1"
-    },
-    {
-      "id": "tax.us.2025.mortgage.shared-proceeds-answer-count",
-      "identity_keys": [
-        {
-          "entity_kind": "tax.us.mortgage-borrowing-reference",
-          "kind": "entity",
-          "name": "borrowing"
-        },
-        {
-          "kind": "literal",
-          "name": "tax-year",
-          "values": [
-            "2025"
-          ]
-        }
-      ],
-      "nature": "determinable",
-      "schema": "fact-type.v2",
-      "supersession": {
-        "policy": "free"
-      },
-      "title": "Current shared proceeds-answer count per borrowing and tax year",
       "value_schema": {
         "type": "number"
       },

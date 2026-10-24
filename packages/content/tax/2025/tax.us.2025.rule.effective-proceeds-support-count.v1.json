@@ -2,7 +2,11 @@
   "blocked": {
     "code": "DEPENDENCY_INVALID",
     "missing": [
-      "tax.us.2025.mortgage.effective-proceeds-use"
+      "tax.us.2025.f1098.effective-owes-the-loan",
+      "tax.us.2025.f1098.effective-no-one-else-owes-it",
+      "tax.us.2025.f1098.effective-original-loan",
+      "tax.us.2025.f1098.effective-credit-certificate",
+      "tax.us.2025.f1098.effective-proceeds-use"
     ]
   },
   "citations": [],
@@ -16,7 +20,11 @@
   "pins": [],
   "publishes": "tax.us.2025.mortgage.effective-proceeds-support-count",
   "requires": [
-    "tax.us.2025.mortgage.effective-proceeds-use"
+    "tax.us.2025.f1098.effective-owes-the-loan",
+    "tax.us.2025.f1098.effective-no-one-else-owes-it",
+    "tax.us.2025.f1098.effective-original-loan",
+    "tax.us.2025.f1098.effective-credit-certificate",
+    "tax.us.2025.f1098.effective-proceeds-use"
   ],
   "role": "computation",
   "schema": "rule-artifact.v13",

@@ -1,6 +1,6 @@
 # Track 2 build report
 
-## Current checkpoint
+## Historical implementation checkpoints
 
 The first checkpoint, `c31fb9ce`, adds the canonical mortgage-borrowing
 calculation vocabulary, five local/shared effective-answer mappings, the v54
@@ -39,6 +39,29 @@ grandfathered limit. Categorical reader labels are resolved from exact
 producing-rule joined/category references; the old missing-basis error remains
 fail-loud, while numeric/date Box titles keep their established source path.
 
+## Current connected shared-mapping increment
+
+The current unmerged v55 candidate now uses the five canonical effective
+answer mappings as the connected route. Each reason retains its existing
+report-local answer path when no current borrowing link exists; those branches
+read exact report-local v2 answers. For an affirmed link, the reason consumes
+the canonical effective v1 findings. The five producer dependencies sit on the
+exact-link completeness witness, reached through report-effective-support
+coverage, so an unresolved producer cannot disappear while an unconnected
+singleton remains eligible.
+
+Real recorder/coordinator runs now demonstrate: shared-only local facts on
+both reports plus the five agreeing shared claims publish and save one $25,500
+line8a finding, with both report reasons qualified and pinning all five of
+their effective findings; all five one-at-a-time shared `cannot-tell` cases
+withhold line8a despite favorable local answers; disagreeing local/shared
+`owes-the-loan` answers withhold line8a in both save orders; and shared
+`no-one-else-owes-it=no` or certificate `received` are not favorable. The
+unconnected singleton remains $22,000 with its legacy explanation and basis.
+The package-order assertion places the reason before its effective producers;
+the coordinator positive run demonstrates they are resolved through the
+declared dependency chain.
+
 ## Evidence and limits
 
 Verified so far:
@@ -53,9 +76,16 @@ Verified so far:
   and removes only the obsolete liability/payment presence check. Registry v53
   retains all v52 entries, which in turn retains v51, and the release pins the
   exact v53 registry bytes.
-- The real coordinator publishes the five mapping dispositions with exact
-  report/borrowing keys and expected local/shared input pins. A current shared
-  `cannot-tell` beside a favorable local answer blocks that effective answer.
+- The real coordinator's shared-only positive consumes all five effective
+  findings transitively in both reasons and saves the $25,500 amount. Five
+  separate uncertainty cases show each shared `cannot-tell` blocks its exact
+  per-report effective output and the line8a amount; the saved model retains
+  the exact uncertain source finding.
+- Contradictory local/shared `owes-the-loan` answers block in both save orders.
+  The explicit negative “another obligor” and “certificate received” shared
+  values also withhold the amount. These checks establish no save-order choice
+  for the tested proposition; the remaining disagreement/negative matrix is
+  still open.
 - The durable projection records actual Box 1 values, current relationship
   claims, effective values/pins, annual ceiling (separate from Box 2), and an
   exact line8a producer disposition. The fixture has
@@ -68,18 +98,19 @@ Verified so far:
   candidate-path evidence, not a claim that v55 is ratified or a substitute for
   the full compatibility/refusal matrix.
 
-Track 2 remains open. The first foundation amount is verified, but all five
-shared-answer-to-reason paths, the chartered independent refusal cases,
-Schedule A/line12e attachment behavior, and broader correction/lifecycle cases
-remain unverified. This checkpoint does not claim complete Track 2 acceptance,
-return authorization, or a complete return.
+Track 2 remains open. The shared-only amount, all five `cannot-tell` refusals,
+singleton compatibility, and the bounded contrary/disagreement cases above
+are demonstrated. Correction/withdrawal/clear behavior, unrelated-borrowing
+cross-fill refusal, the remaining independent refusal cases, broader
+Schedule A/line12e attachment behavior, and lifecycle cases remain unverified.
+This checkpoint does not claim complete Track 2 acceptance, return
+authorization, or a complete return.
 
 ## Focused commands
 
-- `pytest tests/test_mortgage_borrowing_calculation.py tests/test_f1098_circumstances_explanation.py tests/test_f1098_production_review_repair.py` — 24 passed, 25 subtests passed.
-- `pytest tests/test_envelope_hooks.py` — 12 passed; the staged envelope scan and `git diff --check` were clean for the repair.
+- `python3 -m pytest -q tests/test_mortgage_borrowing_calculation.py` — 16 passed (cache directed outside the worktree).
 - `python3 -m mypy --cache-dir=<temporary-cache-dir> packages tests` — no issues in 332 source files.
+- `python3 tools/envelope_scan.py --verify` and `git diff --check` — passed.
 
-The test run emitted a sandbox pytest-cache permission warning; it did not
-affect the test result. Full CI remains the gate of record, particularly
-because the projector is under `packages/derivation/`.
+Full CI remains the gate of record, particularly because the projector is
+under `packages/derivation/`.
