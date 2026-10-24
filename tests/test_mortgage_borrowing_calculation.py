@@ -553,14 +553,22 @@ class MortgageBorrowingPackageTests(unittest.TestCase):
         line12e = next(row for row in model["sections"] if row["id"] == "line-12e")
         self.assertEqual(line12e["resolved"]["disposition"], "published_value")
         self.assertEqual(line12e["resolved"]["value"], 25500.0)
-        self.assertEqual(next(row for row in report["dispositions"]
-                              if row.get("artifact_id") == "tax.us.2025.rule.form1040-line12e")["disposition"],
-                         "published")
+        line12e_row = next(row for row in report["dispositions"]
+                           if row.get("artifact_id") == "tax.us.2025.rule.form1040-line12e")
+        self.assertEqual(line12e_row["disposition"], "published")
+        schedule_total_row = next(row for row in report["dispositions"]
+                                  if row.get("symbol") == "tax.us.2025.schedule-a.total")
+        self.assertEqual(schedule_total_row["disposition"], "published")
+        line12e_rule = _load(CONTENT / "rule.form1040-line12e.v2.json")
+        self.assertIn("tax.us.2025.schedule-a.total", line12e_rule["requires"])
+        self.assertIn("tax.us.2025.schedule-a.total", {pin["id"] for pin in line12e_rule["pins"]})
         attachment = next(row for row in model["attachments"]
                           if row["id"] == "tax.us.2025.rule.attachment.schedule-a")
         self.assertEqual(attachment["resolved"]["disposition"], "published")
         group = next(row for row in model["citationGroups"]
                      if row["id"] == "tax.us.2025.rule.attachment.schedule-a")
+        attachment_source_ids = {site["pinId"] for site in group["parts"][0]["citationSites"]}
+        self.assertTrue(report_box1_ids <= attachment_source_ids)
         tie_out = group["parts"][0]["tieOutText"]
         subtotal = re.search(r"Reported subtotal: ([0-9.]+)", tie_out)
         assert subtotal is not None, tie_out
