@@ -244,6 +244,8 @@ class MortgageBorrowingPackageTests(unittest.TestCase):
         self.assertGreater(explanation["workspaceRevision"], 0)
         self.assertEqual(len(report_rows), 2)
         self.assertEqual([item["reportedInterest"]["value"] for item in report_rows], [22000.0, 3500.0])
+        self.assertEqual(len(explanation["line8aDispositions"]), 1)
+        self.assertEqual(explanation["line8aDispositions"][0]["artifact_id"], "tax.us.2025.rule.f1098-line8a")
         self.assertIsNone(report_rows[0]["reasonChain"])
         self.assertIsNotNone(report_rows[1]["reasonChain"])
         self.assertTrue({local_ids[f"1:{question}"] for question in LOCAL_FACTS} <=
@@ -293,6 +295,7 @@ class MortgageBorrowingPackageTests(unittest.TestCase):
         rows = {row["symbol"]: row for row in report["dispositions"] if row.get("symbol")}
         self.assertEqual(rows[symbol]["disposition"], "blocked")
         explanation = model["mortgageBorrowingExplanation"]
+        self.assertEqual(len(explanation["line8aDispositions"]), 1)
         group = explanation["groups"][0]
         self.assertEqual(group["recordedApplicableClaims"]["tax.us.2025.mortgage.shared-no-one-else-owes-it"]["value"], "cannot-tell")
         local = next(answer for answer in explanation["reports"][0]["localAnswers"]
@@ -306,6 +309,7 @@ class MortgageBorrowingPackageTests(unittest.TestCase):
         report, model, _local_ids, _shared_ids = _run_connected_case(unlinked_third_report=True)
         self.assertEqual(report["authorization_status"], "AUTHORIZATION_ABSENT")
         explanation = model["mortgageBorrowingExplanation"]
+        self.assertEqual(len(explanation["line8aDispositions"]), 1)
         self.assertEqual(len(explanation["reports"]), 3)
         third = next(row for row in explanation["reports"] if row["statement"] == "demo.f1098.stmt.c")
         self.assertEqual(third["reportedInterest"]["value"], 1900.0)
@@ -317,6 +321,7 @@ class MortgageBorrowingPackageTests(unittest.TestCase):
         self.assertEqual(report["authorization_status"], "AUTHORIZATION_ABSENT")
         self.assertNotIn("mortgageInterestExplanation", model)
         projection = model["mortgageBorrowingExplanation"]
+        self.assertEqual(len(projection["line8aDispositions"]), 1)
         self.assertEqual(len(projection["reports"]), 1)
         self.assertEqual(len(projection["groups"]), 0)
         row = next(item for item in report["dispositions"] if item.get("artifact_id") == "tax.us.2025.rule.f1098-residence-interest-reason")
