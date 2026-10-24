@@ -4,16 +4,24 @@
   "phase": "Tax Circumstance Breadth",
   "topic": "mortgage-statement-borrowing",
   "active_plan": "docs/phases/tax-circumstance-breadth/milestones/mortgage-statement-borrowing.md",
-  "milestone_state": "track-0",
-  "status": "Other-debt excluded-borrowing scope and historical-evidence attribution are repaired. Sol rechecks those final findings before production. Track 0 remains open.",
-  "current_role": "Reviewer — Sol other-debt contract recheck",
-  "current_prompt": "docs/reviews/mortgage-statement-borrowing/charter-p1-independent-review.md"
+  "milestone_state": "track-1",
+  "status": "Track 0 closed after independent Sol review. Track 1 builds the bounded mortgage recording contract on core v53; calculation and saved-reader adoption follow.",
+  "current_role": "Builder — mortgage recording",
+  "current_prompt": "docs/reviews/mortgage-statement-borrowing/charter-1-recording.md"
 }
 -->
 
 # Phase State
 
 ## Current direction
+
+**Immediate next action:** execute the committed Track 1 recording charter.
+Sol accepted the final connected design; the Foreman closed all six Track 0
+artifacts. The branch now includes core v53's EIC result after a safety-backed
+rebase. Historical prototype evidence remains attributed to its actual bases.
+No production calculation or multi-report reader has been adopted yet.
+The following investigation account is retained history, not further work
+that must precede this charter.
 
 **One Home Loan, More Than One Interest Statement** is the new opening
 milestone ([plan](phases/tax-circumstance-breadth/milestones/mortgage-statement-borrowing.md)).

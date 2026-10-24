@@ -3,7 +3,7 @@
   "version": 1,
   "phase": "Tax Circumstance Breadth",
   "topic": "mortgage-statement-borrowing",
-  "status": "Other-debt excluded-borrowing scope and historical-evidence attribution are repaired. Sol rechecks those final findings before production. Track 0 remains open.",
+  "status": "Track 0 closed after independent Sol review. Track 1 builds the bounded mortgage recording contract on core v53; calculation and reader adoption follow.",
   "scope": [
     "extend the existing ordinary mortgage account to a bounded same-borrowing multiple-report case",
     "preserve report amounts, loan-level circumstances and their separate correction lifecycles",
@@ -30,7 +30,12 @@
     ],
     "implementation": [
       "docs/process/planning-and-development.md",
-      "docs/phases/tax-circumstance-breadth/milestones/mortgage-statement-borrowing.md"
+      "docs/phases/tax-circumstance-breadth/milestones/mortgage-statement-borrowing.md#What we are trying to accomplish",
+      "docs/phases/tax-circumstance-breadth/milestones/mortgage-statement-borrowing.md#Track 0 adversarial closure",
+      "docs/phases/tax-circumstance-breadth/milestones/mortgage-statement-borrowing.md#Production sequence",
+      "docs/phases/tax-circumstance-breadth/milestones/mortgage-statement-borrowing-evidence/p3-connected-contract.md#Recorded claims and scope",
+      "docs/phases/tax-circumstance-breadth/milestones/mortgage-statement-borrowing-evidence/p3-connected-contract.md#Restored design: explicit exit and suitable shared answers",
+      "docs/phases/tax-circumstance-breadth/milestones/mortgage-statement-borrowing-evidence/p3-connected-contract.md#Lifecycle and correction consequences"
     ]
   }
 }
@@ -168,9 +173,26 @@ coverage limit belong in the supported interaction.
 
 The high-level goal is unchanged: keep two reports about one continuing home
 borrowing separate while calculating and explaining their supported interest
-treatment. No production path or schema successor has been selected.
+treatment. The connected contract is selected after independent Sol review;
+production recording begins before calculation and reader adoption. No new
+published schema is needed by the selected design.
 
-### Current base after PR #219
+### Current base after PR #220
+
+The branch is rebased onto merged earned-income-credit work: core **v53**,
+registry **v51**, release **v51**. Preserve its complete member set and the
+new EIC/lines 28–31 meaning; the mortgage member pins and shared runtime
+mechanisms are unchanged by that merge. The original design/evidence files
+are byte-identical to the reviewed pre-rebase tree. Their measured runs remain
+on their recorded bases, not recast as v53 experiments. Production acceptance
+will exercise the adopted successor on this base. Do not allocate package or
+registry versions until the content unit checks the current ratified line.
+
+The older base sections below describe retained evidence and earlier work
+instructions, not the current next action. The next action is the committed
+[Track 1 recording charter](../../../reviews/mortgage-statement-borrowing/charter-1-recording.md).
+
+### Historical base after PR #219
 
 The branch now includes core calculations **v52**, registry **v50**, release
 **v50** (refund or amount owed). It retains the 26 input bindings. Mortgage,
@@ -463,19 +485,83 @@ delivery boundary; earlier experiments establish only the foundation.
 
 ### Completion boundary
 
-Track 0 adversarial closure is PENDING. Completion remains a recordable,
+Track 0 adversarial closure is recorded below. Milestone completion remains a recordable,
 calculable and saved-explainable bounded same-borrowing case with exact report
 provenance and demonstrated correction/withdrawal behavior. Existing
 single-report behavior and saved history stay compatible. If the evidence
 defeats that boundary, return a specific partial result and owner choice.
 The restored scope also requires an explicit connected-account exit and
 truthfully scoped borrowing-wide answers with inspectable per-report support.
-Their contracts and new mechanism evidence must settle before dependent
-production tracks; the foundation's earlier evidence alone does not close them.
+Their selected contracts now permit bounded production; the earlier
+experiments are not claims that production recording or display is complete.
 
 Only synthetic demo accounts enter committed evidence. No schema version is
 allocated; existing published schemas and contracts remain in force. Broad
 verification remains CI's gate, not a repeated full suite for paper changes.
+
+## Track 0 adversarial closure
+
+Sol's final connected review is **READY FOR BOUNDED IMPLEMENTATION** in
+[the independent review](../../../reviews/mortgage-statement-borrowing/p1-independent-review.md).
+The following dispositions adopt the current
+[connected contract](mortgage-statement-borrowing-evidence/p3-connected-contract.md)
+for this milestone. Its historical “provisional/not closed” language describes
+the builder's proposal/evidence ceiling; this declaration is the Foreman's
+selection. It does not promote prototype observations to production proof.
+
+- Authority-lifecycle table: **PASS** — contract artifact 1 distinguishes
+  report support, five new shared claims, exact pair outcomes, annual ceiling,
+  borrowing-keyed other-debt answer, closure and boundary declarations.
+  Clearing A retains A's debt answer but cannot authorize replacement B.
+- Empty/nonempty authority matrix: **PASS** — artifact 2 specifies actual
+  inapplicable line8a/zero total on true empty, incumbent singleton branches,
+  connected coverage, end outcomes and affirmed-orphan refusal. Historical
+  v58 and v70 supplied-state models exercise distinct empty, orphan,
+  withdrawal, connected and explicit-clear paths; v71 adds uncertainty.
+- Late-member lifecycle: **PASS** — artifact 3's required paper trace names
+  member-transition H-A→H-AB, obsolete closure and reclose. Stable borrowing
+  claims remain current; the aggregate does not retain authority from H-A.
+  Actual durable late-member/reclose execution is production acceptance.
+- Neighboring capability dependency diff: **PASS** — artifact 5 preserves
+  singleton/empty prerequisites; the separate affirmed-link integrity check
+  does not impose loan facts on genuine empty. Saved models exercise those
+  routes; core v53's unrelated EIC members will remain intact.
+- Reused-claim semantic/lifecycle equivalence: **PASS** — artifact 4 preserves
+  existing nine local meanings, F1098 family/closure and seven attachment
+  boundaries. SLI is a mechanism precedent only; mortgage/shared claims are
+  new, not relabeled SLI/local assertions.
+- Integration surface: **PASS** — artifact 6 enumerates the single line8a
+  producer, total, line12e, attachment and saved-model bindings. P3 and T0
+  built consumer models for positive, blocked, empty, singleton, exit and
+  uncertain dispositions at their documented bases. The attachment row body,
+  actionable uncertainty display, all five shared mappings and real recorder
+  lifecycle remain explicit production acceptance, not prototype claims.
+- Known limitations affecting correctness: no unresolved design choice bars
+  the bounded build. No allocation, refinancing, higher grandfathered limit,
+  extra borrowing or third-report support is selected. A loose ceiling or
+  uncertain applicable claim withholds the connected amount. Production
+  may not ship a favorable fallback around these limits.
+
+## Production sequence
+
+1. **Track 1 — record the account.** New mortgage vocabulary and durable
+   opaque-reference, answer, exact-link and explicit-clear operations; allow
+   each of two current reports to receive its own existing local answers.
+   Preserve source/history and revision checks. No calculation adoption yet.
+2. **Track 2 — calculate through declared content.** Adopt a successor of the
+   then-current complete core package, exact keyed joins/completion barriers,
+   five explicit shared mappings, one authorized line8a, integrity, ordering
+   and attachment successors. Test through the real recorders/coordinator.
+3. **Track 3 — saved explanation and offered interaction.** Group exact
+   reports with shared support, retain uncertainty/contrary/unsupported
+   distinctions, inspect attachment rows and save/reload/render. Integrate
+   real late-member/closure, correction, withdrawal and explicit-exit cases.
+4. **Closeout.** Independent curated-candidate review and CI; assess this
+   bounded extension without automatically adding another mortgage scenario.
+
+The Foreman may split a unit for safe handoff without changing these goals.
+Builder output and Foreman semantic review govern each production increment;
+the final publication review remains explicitly independent.
 
 ## Planning sources
 
