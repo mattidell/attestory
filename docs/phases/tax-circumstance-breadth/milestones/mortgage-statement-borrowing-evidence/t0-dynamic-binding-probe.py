@@ -34,14 +34,14 @@ CARRIERS = {
     "unknown": "demo.tax.2025.f1098.borrowing-unresolved",
     "withdrawn": "demo.tax.2025.f1098.borrowing-withdrawn",
 }
-BASE_PACKAGE_VERSION = "v51"
-BASE_REGISTRY_FILENAME = "published-packages.v49.json"
-BASE_RELEASE_VERSION = "v49"
-INTERMEDIATE_PACKAGE_VERSION = "v52"
-P2_CANDIDATE_REGISTRY_FILENAME = "published-packages.t0-intermediate-v52.json"
-T0_PACKAGE_VERSION = "v59"
-T0_REGISTRY_FILENAME = "published-packages.t0-p59.json"
-T0_RELEASE_VERSION = "v9"
+BASE_PACKAGE_VERSION = "v52"
+BASE_REGISTRY_FILENAME = "published-packages.v50.json"
+BASE_RELEASE_VERSION = "v50"
+INTERMEDIATE_PACKAGE_VERSION = "v60"
+P2_CANDIDATE_REGISTRY_FILENAME = "published-packages.t0-intermediate-v60.json"
+T0_PACKAGE_VERSION = "v61"
+T0_REGISTRY_FILENAME = "published-packages.t0-p61.json"
+T0_RELEASE_VERSION = "v10"
 STATUS_FACT_TYPE = "demo.tax.2025.f1098.borrowing-current-link-status"
 ORPHAN_MATCH_FACT_TYPE = "demo.tax.2025.f1098.affirmed-link-source-match"
 SHARED_ANSWER_TYPES = {
@@ -61,14 +61,14 @@ def write(path: Path, value: dict[str, Any]) -> None:
     path.write_text(json.dumps(value, indent=2, sort_keys=True) + "\n", encoding="utf-8")
 
 
-def add_v51_explicit_answers(acts: list[dict[str, Any]]) -> list[dict[str, Any]]:
-    """Supply the new adopted-surface inputs explicitly; do not infer/default them."""
+def add_current_base_explicit_answers(acts: list[dict[str, Any]]) -> list[dict[str, Any]]:
+    """Supply the adopted-surface inputs explicitly; do not infer/default them."""
     result = copy.deepcopy(acts)
     bundle = read(P2.CONTENT / "senior-and-dependent-deductions.vocabulary.bundle.json")
     if not any(row.get("kind") == "bundle-adoption" and
                row.get("payload", {}).get("bundle", {}).get("id") == bundle["id"] for row in result):
-        result.append({"schema": "act.v1", "act_id": "demo.t0.v51.senior-dependent-bundle",
-            "kind": "bundle-adoption", "actor": "demo.taxpayer", "at": "2026-10-22T13:10:00Z",
+        result.append({"schema": "act.v1", "act_id": "demo.t0.senior-dependent-bundle",
+            "kind": "bundle-adoption", "actor": "demo.taxpayer", "at": "2026-10-23T10:10:00Z",
             "committed_against": len(result), "payload": {"bundle": bundle}})
     for fact_type, value, tag in (
         ("tax.us.2025.standard-deduction.can-be-claimed-as-dependent", "no", "can-be-claimed-no"),
@@ -77,10 +77,10 @@ def add_v51_explicit_answers(acts: list[dict[str, Any]]) -> list[dict[str, Any]]
         fact_id = fact_id_for(fact_type, (("tax-year", "2025"),))
         if any(act.get("kind") == "assertion" and _act_finding(act).get("fact_id") == fact_id for act in result):
             continue
-        result.append({"schema": "act.v1", "act_id": f"demo.t0.v51.{tag}",
-            "kind": "assertion", "actor": "demo.taxpayer", "at": "2026-10-22T13:10:01Z",
+        result.append({"schema": "act.v1", "act_id": f"demo.t0.{tag}",
+            "kind": "assertion", "actor": "demo.taxpayer", "at": "2026-10-23T10:10:01Z",
             "committed_against": len(result), "payload": {"finding": {
-                "schema": "finding.v2", "id": f"demo.t0.v51.finding.{tag}", "fact_id": fact_id,
+                "schema": "finding.v2", "id": f"demo.t0.finding.{tag}", "fact_id": fact_id,
                 "value": value, "basis": "attested", "evidence_ids": []}}})
     for index, act in enumerate(result):
         act["committed_against"] = index
@@ -740,10 +740,11 @@ def add_p3_consumers(surface: Any, acts: list[dict[str, Any]], p3: Any) -> tuple
 
 
 def add_shared_answer_candidate(surface: Any, acts: list[dict[str, Any]]) -> dict[str, Any]:
-    """Add five scoped raw declarations and one optional proceeds composition.
+    """Add five scoped raw declarations and source-counted optional proceeds.
 
-    The experiment deliberately tests one proposition first. Presence is
-    counted from exact keyed derived rows, never inferred from F1098 closure.
+    Local and shared counts are direct link_count reads of the recorded raw
+    answer types. The per-link consumer is deliberately declared before both
+    counters and requires their numeric publications explicitly.
     """
     members = surface.member_dir
     package_path = members / f"package.core-calculations.{T0_PACKAGE_VERSION}.json"
@@ -784,77 +785,77 @@ def add_shared_answer_candidate(surface: Any, acts: list[dict[str, Any]]) -> dic
         bundle["fact_types"].append(row)
         return row
 
-    number_schema = {"type": "number"}
     effective_ft = ft_from(source_use, effective, "Effective proceeds-use category per exact link")
-    # Effective facts belong to the exact link, not the three-key local source.
+    # Effective answers belong to the exact link, not either source's narrower keys.
     effective_ft["identity_keys"] = copy.deepcopy(link_ft["identity_keys"])
-
     def literal(type_id: str, value: str, version: str = "v1") -> dict[str, Any]:
         return {"op": "category_literal", "fact_type": {"id": type_id, "version": version}, "value": value}
 
-    def rule(rule_id: str, subject: str, joined: str, direction: str,
-             requires: list[str], value: Any, publishes: str, notes: str,
-             joined_version: str = "v1") -> dict[str, Any]:
-        return {"schema": "rule-artifact.v13", "id": rule_id, "version": "v1", "scope": SCOPE,
-            "role": "computation", "subject": {"id": subject, "version": "v1"},
-            "joined": {"id": joined, "version": joined_version}, "direction": direction,
-            "requires": requires, "pins": [], "when": True, "value": value,
-            "publishes": publishes, "blocked": {"code": "DEPENDENCY_INVALID", "missing": []},
-            "citations": citations, "notes": notes}
+    def count_type(base: dict[str, Any], type_id: str, title: str) -> dict[str, Any]:
+        result = copy.deepcopy(base)
+        result.update({"id": type_id, "version": "v1", "title": title,
+                       "value_schema": {"type": "number"}})
+        bundle["fact_types"].append(result)
+        return result
 
-    def link_counter(rule_id: str, links: str, output: str) -> dict[str, Any]:
-        return {"schema": "rule-artifact.v13", "id": rule_id, "version": "v1", "scope": SCOPE,
-            "role": "computation", "subject": {"id": affirmed, "version": "v1"},
-            "joined": {"id": links, "version": "v1"}, "direction": "joined_contains_subject",
-            "requires": [], "pins": [], "when": True,
-            "value": {"op": "link_count", "links": links}, "publishes": output,
-            "blocked": {"code": "DEPENDENCY_INVALID", "missing": []}, "citations": citations,
-            "notes": "One exact-link numeric presence result; no family closure count or category reduction."}
+    def source_counter(rule_id: str, subject_type: str, source_type: str,
+                       source_version: str, count_id: str, note: str) -> dict[str, Any]:
+        return {"schema": "rule-artifact.v13", "id": rule_id, "version": "v1",
+            "scope": SCOPE, "role": "computation",
+            "subject": {"id": subject_type, "version": "v1"},
+            "joined": {"id": source_type, "version": source_version},
+            "direction": "joined_contains_subject", "requires": [], "pins": [],
+            "when": True, "value": {"op": "link_count", "links": source_type},
+            "publishes": count_id, "blocked": {"code": "DEPENDENCY_INVALID", "missing": []},
+            "citations": citations, "notes": note}
+
+    # Both count facts inherit exactly the key set of their natural subject.
+    box1 = next(ft for ft in read(members / "f1098.bundle.json")["fact_types"] if ft["id"] == BOX1)
+    root_id = P2.ACCOUNT_FACTS["recognition"]
+    root_type = next(ft for ft in bundle["fact_types"] if ft["id"] == root_id)
+    local_count = "demo.tax.2025.mortgage.local-proceeds-answer-count"
+    shared_count = "demo.tax.2025.mortgage.shared-proceeds-answer-count"
+    count_type(box1, local_count, "Current report-local proceeds-answer count per exact Box 1 identity")
+    count_type(root_type, shared_count, "Current shared proceeds-answer count per borrowing and tax year")
+    local_counter = source_counter("demo.tax.2025.rule.local-proceeds-answer-count", BOX1,
+        local_use, "v2", local_count,
+        "Count the recorded local answer rows whose payer, statement and tax-year keys equal this Box 1 subject.")
+    shared_counter = source_counter("demo.tax.2025.rule.shared-proceeds-answer-count", root_id,
+        shared_use, "v1", shared_count,
+        "Count the recorded shared answer rows whose borrowing and tax-year keys equal this recognized root.")
 
     values = list(source_use["value_schema"]["enum"])
-    local_counts: dict[str, str] = {}
-    shared_counts: dict[str, str] = {}
-    indicator_rules: list[dict[str, Any]] = []
-    count_rules: list[dict[str, Any]] = []
-    for mode, source_type, source_version, count_map in (
-        ("local", local_use, "v2", local_counts), ("shared", shared_use, "v1", shared_counts)):
-        for index, answer in enumerate(values):
-            slug = ["bought", "unrelated", "other", "unknown"][index]
-            marker = f"demo.tax.2025.mortgage.{mode}-proceeds-{slug}-marker"
-            count_id = f"demo.tax.2025.mortgage.{mode}-proceeds-{slug}-count"
-            ft_from(link_ft, marker, f"{mode.title()} {answer} marker on exact report link", number_schema)
-            ft_from(link_ft, count_id, f"Numeric {mode} {answer} presence count on exact report link", number_schema)
-            marker_rule = rule(f"demo.tax.2025.rule.{mode}-proceeds-{slug}-marker", affirmed,
-                source_type, "subject_contains_joined", [source_type], 1, marker,
-                f"Publish a numeric marker only when this exact {mode} answer equals {answer}.",
-                joined_version=source_version)
-            marker_rule["when"] = {"op": "categorical_compare", "cmp": "eq",
-                "left": {"op": "ref", "name": source_type}, "right": literal(source_type, answer, source_version)}
-            counter = link_counter(f"demo.tax.2025.rule.{mode}-proceeds-{slug}-count", marker, count_id)
-            indicator_rules.append(marker_rule)
-            count_rules.append(counter)
-            count_map[answer] = count_id
+    def matches(source_type: str, source_version: str, value: str) -> dict[str, Any]:
+        return {"op": "collect_categorical_all_equal", "name": source_type,
+                "value": literal(source_type, value, source_version)}
 
-    local_total = {"op": "add", "args": [{"op": "ref", "name": local_counts[value]} for value in values]}
-    shared_total = {"op": "add", "args": [{"op": "ref", "name": shared_counts[value]} for value in values]}
     local_branch: Any = {"op": "block", "code": "DEPENDENCY_INVALID"}
+    for value in reversed(values):
+        chosen: Any = literal(effective, value)
+        shared_agrees = {"op": "choose", "when": matches(shared_use, "v1", value),
+                         "then": chosen, "else": {"op": "block", "code": "DEPENDENCY_INVALID"}}
+        local_branch = {"op": "choose", "when": matches(local_use, "v2", value),
+            "then": {"op": "choose", "when": {"op": "compare", "cmp": "eq",
+                "left": {"op": "ref", "name": shared_count}, "right": 0},
+                "then": chosen, "else": shared_agrees}, "else": local_branch}
     shared_branch: Any = {"op": "block", "code": "DEPENDENCY_ABSENT"}
-    for answer in reversed(values):
-        same_shared_or_absent = {"op": "any", "args": [
-            {"op": "compare", "cmp": "eq", "left": shared_total, "right": 0},
-            {"op": "compare", "cmp": "eq", "left": {"op": "ref", "name": shared_counts[answer]}, "right": 1}]}
-        local_branch = {"op": "choose", "when": {"op": "all", "args": [
-            {"op": "compare", "cmp": "eq", "left": {"op": "ref", "name": local_counts[answer]}, "right": 1},
-            same_shared_or_absent]}, "then": literal(effective, answer), "else": local_branch}
-        shared_branch = {"op": "choose", "when": {"op": "compare", "cmp": "eq",
-            "left": {"op": "ref", "name": shared_counts[answer]}, "right": 1},
-            "then": literal(effective, answer), "else": shared_branch}
-    count_requires = [local_counts[value] for value in values] + [shared_counts[value] for value in values]
-    effective_rule = rule("demo.tax.2025.rule.effective-proceeds-use", affirmed, BOX1,
-        "subject_contains_joined", count_requires,
-        {"op": "choose", "when": {"op": "compare", "cmp": "gt", "left": local_total, "right": 0},
-         "then": local_branch, "else": shared_branch},
-        effective, "Exact-link category selection from eight numeric presence counts; conflicting categories block.")
+    for value in reversed(values):
+        shared_branch = {"op": "choose", "when": matches(shared_use, "v1", value),
+                         "then": literal(effective, value), "else": shared_branch}
+    effective_rule = {"schema": "rule-artifact.v13", "id": "demo.tax.2025.rule.effective-proceeds-use",
+        "version": "v1", "scope": SCOPE, "role": "computation",
+        "subject": {"id": affirmed, "version": "v1"},
+        "joined": {"id": affirmed, "version": "v1"}, "direction": "joined_contains_subject",
+        "requires": [local_count, shared_count], "pins": [], "when": True,
+        "value": {"op": "choose", "when": {"op": "compare", "cmp": "gt",
+            "left": {"op": "ref", "name": local_count}, "right": 0},
+            "then": local_branch,
+            "else": {"op": "choose", "when": {"op": "compare", "cmp": "gt",
+                "left": {"op": "ref", "name": shared_count}, "right": 0},
+                "then": shared_branch, "else": {"op": "block", "code": "DEPENDENCY_ABSENT"}}},
+        "publishes": effective, "blocked": {"code": "DEPENDENCY_INVALID", "missing": []},
+        "citations": citations,
+        "notes": "Per exact affirmed link, explicitly require both raw-source count results; scoped category collection reads only matching optional answers."}
 
     reason_path = members / f"{P2.BRIDGE_RULE_PREFIX}.residence-interest-reason.json"
     # Actual candidate filenames use the P2 rule ID, not the descriptive prefix.
@@ -881,7 +882,9 @@ def add_shared_answer_candidate(surface: Any, acts: list[dict[str, Any]]) -> dic
     reason["value"] = rewrite_reason(reason["value"])
     reason["notes"] = "P2 reason successor; proceeds category is selected from exact local/shared keyed intermediates."
 
-    new_rules = [*indicator_rules, *count_rules, effective_rule, reason]
+    # The package member order intentionally puts the consumer before its
+    # count producers. Its explicit requires establish the dependency edge.
+    new_rules = [effective_rule, local_counter, shared_counter, reason]
     for row in new_rules:
         filename = ("rule.f1098-residence-interest-reason.v4.json" if row is reason
                     else f"{row['id']}.json")
@@ -892,10 +895,6 @@ def add_shared_answer_candidate(surface: Any, acts: list[dict[str, Any]]) -> dic
     package["members"] = [row for row in package["members"] if not (
         (row.get("id") == reason["id"] and row.get("version") == "v3") or
         row.get("id") == f"{P2.BRIDGE_RULE_PREFIX}.what-the-money-paid-for")]
-    # The package reachability validator does not infer a producer edge from
-    # link_count's `links` field. These internal marker computations are
-    # explicit package roots so their declared zero/one counts can be consumed.
-    package["entrypoints"].extend({"id": row["id"], "version": row["version"]} for row in indicator_rules)
     for collection in (package.get("entrypoints", []),):
         for row in collection:
             if row.get("id") == reason["id"]:
@@ -934,10 +933,17 @@ def add_shared_answer_candidate(surface: Any, acts: list[dict[str, Any]]) -> dic
     return {"sharedAnswerTypes": {question: {"id": row["id"], "keys": row["identity_keys"],
                 "values": row["value_schema"].get("enum")} for question, row in raw_shared.items()},
         "testedComposition": {"question": "what-the-money-paid-for", "rules": [row["id"] for row in new_rules],
-            "localPresence": "four exact-key link_count results over category-specific local markers",
-            "sharedPresence": "four exact-key link_count results over category-specific shared markers",
-            "optionalRead": "only numeric marker counts are required; absent options publish zero counts",
-            "conflict": "different numeric codes block; assertion order is not used"},
+            "declarationOrder": [row["id"] for row in new_rules],
+            "localCount": {"rule": local_counter["id"], "subject": BOX1,
+                "joined": local_use, "joinKeys": ["payer", "statement", "tax-year"],
+                "value": "link_count over current recorded local answer"},
+            "sharedCount": {"rule": shared_counter["id"], "subject": root_id,
+                "joined": shared_use, "joinKeys": ["borrowing", "tax-year"],
+                "value": "link_count over current recorded shared answer"},
+            "effectiveConsumer": {"rule": effective_rule["id"], "subject": affirmed,
+                "requires": [local_count, shared_count], "scopedReads": [local_use, shared_use],
+                "optionalRead": "lazy categorical collection within exact report/borrowing key scope; no raw answer is unconditionally required"},
+            "conflict": "when both count results are positive, the shared category must equal the local category or the effective answer blocks"},
         "packageVersion": T0_PACKAGE_VERSION, "registryVersion": T0_REGISTRY_FILENAME,
         "releaseVersion": T0_RELEASE_VERSION, "packageChecksum": package["package_checksum"]}
 
@@ -998,6 +1004,66 @@ def shared_answer_case_acts(seed: list[dict[str, Any]], case_id: str) -> tuple[l
         "suppliedAfterState": True, "expected": "blocked on conflict; otherwise supported when one current suitable answer exists"}
 
 
+def shared_count_case_acts(seed: list[dict[str, Any]], case_id: str) -> tuple[list[dict[str, Any]], dict[str, Any]]:
+    """Supply the three consumer-first discriminator states with exact keys."""
+    allowed = {"consumer-first-shared-only-a", "consumer-first-conflict-a",
+               "consumer-first-unrelated-shared-b"}
+    if case_id not in allowed:
+        raise ValueError(f"unknown shared-count case: {case_id}")
+    acts = copy.deepcopy(seed)
+    borrowing_a, borrowing_b = "demo.f1098.borrowing.A", "demo.f1098.borrowing.B"
+    local_type = P2.SOURCE_TYPES["what-the-money-paid-for"]
+    shared_type = SHARED_ANSWER_TYPES["what-the-money-paid-for"]
+    local_a_id = fact_id_for(local_type, (("payer", "demo.f1098.lender.a"),
+        ("statement", "demo.f1098.stmt.a"), ("tax-year", "2025")))
+
+    def retract_current(fact_id: str, tag: str) -> None:
+        current = [act for act in acts if act.get("kind") == "assertion"
+                   and _act_finding(act).get("fact_id") == fact_id]
+        if len(current) != 1:
+            raise AssertionError(f"expected one supplied current assertion for {fact_id}, found {len(current)}")
+        finding_id = _act_finding(current[0])["id"]
+        acts.append({"schema": "act.v1", "act_id": f"demo.t0.{case_id}.retract-{tag}",
+            "kind": "finding-retracted", "actor": "demo.taxpayer", "at": "2026-10-23T11:00:00Z",
+            "committed_against": len(acts), "payload": {"finding_id": finding_id}})
+
+    def shared_assertion(borrowing: str, value: str, suffix: str) -> dict[str, Any]:
+        fact_id = fact_id_for(shared_type, (("borrowing", borrowing), ("tax-year", "2025")))
+        return {"schema": "act.v1", "act_id": f"demo.t0.{case_id}.shared-{suffix}",
+            "kind": "assertion", "actor": "demo.taxpayer", "at": "2026-10-23T11:00:01Z",
+            "committed_against": len(acts), "payload": {"finding": {"schema": "finding.v2",
+                "id": f"demo.t0.{case_id}.finding-{suffix}", "fact_id": fact_id,
+                "value": value, "basis": "attested", "evidence_ids": []}}}
+
+    if case_id in {"consumer-first-shared-only-a", "consumer-first-unrelated-shared-b"}:
+        retract_current(local_a_id, "local-a")
+    if case_id == "consumer-first-shared-only-a":
+        acts.append(shared_assertion(borrowing_a, "bought-the-home", "borrowing-a"))
+        expected = "A's shared value supports A; B's independent local answer stays scoped to report B"
+        shared_b = None
+    elif case_id == "consumer-first-conflict-a":
+        acts.append(shared_assertion(borrowing_a, "unrelated-personal-expense", "borrowing-a"))
+        expected = "both effective per-link results block on contradictory local/shared categories"
+        shared_b = None
+    else:
+        # No current A shared fact. The only shared answer has opaque B identity;
+        # the account A reports remain linked to A and cannot consume it.
+        acts.append(shared_assertion(borrowing_b, "bought-the-home", "borrowing-b"))
+        expected = "A's missing local/shared support blocks its link and combined amount; B's shared value is not A support"
+        shared_b = "bought-the-home"
+    for index, act in enumerate(acts):
+        act["committed_against"] = index
+        if act.get("kind") == "package-adoption":
+            act.setdefault("payload", {})["revision"] = index
+    return acts, {"caseId": case_id, "suppliedAfterState": True,
+        "retractedLocalA": case_id != "consumer-first-conflict-a",
+        "localBRemainsCurrent": True,
+        "suppliedSharedA": ("bought-the-home" if case_id == "consumer-first-shared-only-a" else
+                            "unrelated-personal-expense" if case_id == "consumer-first-conflict-a" else None),
+        "suppliedSharedB": shared_b, "expected": expected,
+        "declarationOrder": ["effective consumer", "local raw-answer counter", "shared raw-answer counter"]}
+
+
 def coordinate_lifecycle_case(case_id: str, acts: list[dict[str, Any]], surface: Any,
                               case_dir: Path) -> dict[str, Any]:
     """Run supplied after-state acts through P2's normal coordinator, without its two-report fixture guard."""
@@ -1009,9 +1075,9 @@ def coordinate_lifecycle_case(case_id: str, acts: list[dict[str, Any]], surface:
     log.append_batch(acts, expected_revision=0)
     current = log.read()
     try:
-        outcome = P2.live_coordinate_run(capability, repo_root=ROOT, authoritative_acts=current.acts,
+            outcome = P2.live_coordinate_run(capability, repo_root=ROOT, authoritative_acts=current.acts,
             workspace_revision=current.revision, run_scope=P2.RUN_SCOPE, scope_user=P2.SCOPE_USER,
-            request={"schema": "run-request.v1"}, run_id=f"demo.mortgage.t0.{case_id}.core-v51-v59",
+            request={"schema": "run-request.v1"}, run_id=f"demo.mortgage.t0.{case_id}.core-v52-v61",
             governance_pins=[], surface=surface, output_name=f"{case_id}.json", schemas=DerivationSchemas())
     except P2.PresentationModelError as exc:
         records = P2.RecordStream(capability.location / "records", DerivationSchemas()).read()
@@ -1197,12 +1263,16 @@ def main() -> None:
         "shared-use-local-missing", "shared-use-agree", "shared-use-conflict-local-first",
         "shared-use-conflict-shared-first", "shared-use-ended-local-valid"),
         help="One chartered supplied shared-answer after-state; may be repeated.")
+    parser.add_argument("--completion-case", action="append", choices=(
+        "consumer-first-shared-only-a", "consumer-first-conflict-a",
+        "consumer-first-unrelated-shared-b"),
+        help="One supplied shared-count completion discriminator; may be repeated.")
     args = parser.parse_args()
-    if not args.case and not args.answer_case:
-        parser.error("select at least one --case or --answer-case")
-    if args.case and args.answer_case:
-        parser.error("lifecycle and shared-answer cases are separate bounded increments")
-    selected = args.case or args.answer_case
+    if not args.case and not args.answer_case and not args.completion_case:
+        parser.error("select at least one --case, --answer-case, or --completion-case")
+    if sum(bool(value) for value in (args.case, args.answer_case, args.completion_case)) > 1:
+        parser.error("lifecycle, historical shared-answer, and completion cases are separate increments")
+    selected = args.case or args.answer_case or args.completion_case
     if len(set(selected)) != len(selected):
         parser.error("each lifecycle case may be selected only once")
     stamp = datetime.now(timezone.utc).strftime("%Y%m%dT%H%M%SZ")
@@ -1231,15 +1301,15 @@ def main() -> None:
         p3spec.loader.exec_module(P3)
         surface, acts, consumers = add_p3_consumers(surface, acts, P3)
         shared_composition = add_shared_answer_candidate(surface, acts)
-        # Supply the two new v51 inputs as explicit synthetic claims; neither
+        # Supply the adopted dependent-deduction inputs as explicit claims; neither
         # the SLI "is claimed" answer nor a default is used to infer them.
-        acts = add_v51_explicit_answers(acts)
+        acts = add_current_base_explicit_answers(acts)
         # Retain the exact final disposable package artifacts and supplied acts
         # before the ephemeral publication directory is removed.
         retained = out / "candidate-content"
         retained.mkdir(parents=True, exist_ok=True)
         # Preserve the complete disposable surface, including every adopted
-        # non-mortgage v51 member and its current parameter content.
+        # non-mortgage v52 member and its current parameter content.
         shutil.copytree(surface.member_dir, retained / "members", dirs_exist_ok=True)
         shutil.copytree(surface.release_dir, retained / "releases", dirs_exist_ok=True)
         retain_paths = [surface.member_dir / f"package.core-calculations.{BASE_PACKAGE_VERSION}.json",
@@ -1289,6 +1359,8 @@ def main() -> None:
                                 "tax.us.2025.rule.form1040-line16",
                                 "tax.us.2025.rule.form1040-line13b",
                                 "tax.us.2025.rule.selected-preferential-base",
+                                "tax.us.2025.f1099r.ira.vocabulary",
+                                "tax.us.2025.rule.schedule3-line1-direct-ftc",
                                 "tax.us.2025.parameter.standard-deduction-base",
                                 "tax.us.2025.parameter.additional-standard-deduction",
                                 "tax.us.2025.parameter.preferential-zero-ceiling",
@@ -1296,6 +1368,22 @@ def main() -> None:
         summary["preservedCurrentBaseMembers"] = sorted(
             [row for row in candidate_package["members"] if row["id"] in preserved_member_ids],
             key=lambda row: row["id"])
+        base_package = read(surface.member_dir / f"package.core-calculations.{BASE_PACKAGE_VERSION}.json")
+        base_by_id = {row["id"]: row for row in base_package["members"]}
+        candidate_by_id = {row["id"]: row for row in candidate_package["members"]}
+        summary["baseMemberPreservation"] = {
+            "baseCount": len(base_package["members"]),
+            "candidateCount": len(candidate_package["members"]),
+            "unchangedPins": sum(candidate_by_id.get(key) == value for key, value in base_by_id.items()),
+            "removedIds": sorted(set(base_by_id) - set(candidate_by_id)),
+            "changedRows": [{"id": key, "base": base_by_id[key], "candidate": candidate_by_id[key]}
+                for key in sorted(set(base_by_id) & set(candidate_by_id))
+                if base_by_id[key] != candidate_by_id[key]],
+            "addedIds": sorted(set(candidate_by_id) - set(base_by_id)),
+            "requiredPins": {"ira-vocabulary-v3": any(row.get("id") == "tax.us.2025.f1099r.ira.vocabulary"
+                and row.get("version") == "v3" for row in candidate_package["members"]),
+                "foreign-tax-credit-v2": any(row.get("id") == "tax.us.2025.rule.schedule3-line1-direct-ftc"
+                and row.get("version") == "v2" for row in candidate_package["members"])}}
         # Use the same declared P3 presentation-only overlay as the accepted
         # positive, but never replay that unchanged case on this current base.
         overlay = type("Overlay", (), {})()
@@ -1310,8 +1398,9 @@ def main() -> None:
         overlay.install(projection, live, live_session)
         case_summaries = []
         for case_id in selected:
-            case_acts, mutation = (shared_answer_case_acts(acts, case_id) if args.answer_case
-                                   else lifecycle_case_acts(acts, case_id))
+            case_acts, mutation = (shared_count_case_acts(acts, case_id) if args.completion_case
+                else shared_answer_case_acts(acts, case_id) if args.answer_case
+                else lifecycle_case_acts(acts, case_id))
             case_resolution = resolve_production_package(case_acts,
                 run_scope=P2.RUN_SCOPE, scope_user=P2.SCOPE_USER,
                 workspace_revision=len(case_acts), surface=surface, schemas=DerivationSchemas())
@@ -1340,6 +1429,9 @@ def main() -> None:
                 target_ids = {P2.LINE8A_RULE_ID, "tax.us.2025.rule.schedule-a-total",
                               "tax.us.2025.rule.schedule-a-total-closed-empty",
                               "tax.us.2025.rule.form1040-line12e",
+                              "demo.tax.2025.rule.effective-proceeds-use",
+                              "demo.tax.2025.rule.local-proceeds-answer-count",
+                              "demo.tax.2025.rule.shared-proceeds-answer-count",
                               "demo.tax.2025.rule.borrowing-affirmed-count",
                               "demo.tax.2025.rule.borrowing-denied-count",
                               "demo.tax.2025.rule.borrowing-unknown-count",
@@ -1371,7 +1463,8 @@ def main() -> None:
             case_summaries.append(case_summary)
         summary.update({"outcome": "resolved", "candidatePackage": T0_PACKAGE_VERSION,
             "presentationAdapter": {"path": str(adapter_path.relative_to(ROOT)), "sha256": overlay_sha256},
-            "cases": case_summaries, "stage": ("shared-answer-discriminator-coordinator-cases" if args.answer_case
+            "cases": case_summaries, "stage": ("shared-count-completion-coordinator-cases" if args.completion_case
+                else "shared-answer-discriminator-coordinator-cases" if args.answer_case
                 else "four-outcome-lifecycle-coordinator-cases")})
         write(out / "declaration-check.json", summary)
         print(json.dumps(summary, indent=2, sort_keys=True))

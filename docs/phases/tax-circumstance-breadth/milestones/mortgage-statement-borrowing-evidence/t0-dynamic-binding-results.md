@@ -1,9 +1,10 @@
 # Bounded Track 0 dynamic-account candidate
 
-Status: the current v51-derived disposable candidate package validates; the
-supported pair and both prior A/B ceiling-collision inputs reached the actual coordinator.
-This is bounded synthetic evidence, not a Track 0 closure finding, production
-recorder proof, or proof for the four remaining lifecycle cases.
+Status: the current v52-derived disposable candidate package validates; the
+supported pair, both prior A/B ceiling-collision inputs, and three shared-count
+discriminators reached the actual coordinator. This is bounded synthetic
+evidence, not a Track 0 closure finding, production recorder proof, or proof
+for the remaining lifecycle cases.
 
 ## What was validated
 
@@ -21,7 +22,7 @@ That disposable package was v55 with 469 resolved members. It must not be
 treated as current-base proof. Its one run produced two ledger records
 (started and completed), not two runs.
 
-### Historical current-base v50 result
+### Historical core-v50-base result
 
 That candidate explicitly started from adopted core package v50,
 registry `published-packages.v48.json`, and source release v48, preserving the
@@ -462,3 +463,78 @@ retained in the ignored run directory above. This is a disposable composition
 and presentation experiment only; it does not establish production recorder,
 reader, or tax-model acceptance. Cross-account disagreement, late-link and
 explicit clear-account cases remain untested.
+
+## Core v52 raw-count completion discriminator
+
+The next candidate explicitly starts from adopted core v52, registry
+`published-packages.v50.json`, and SLI source release v50. Its disposable
+successor is core v61, candidate registry `published-packages.t0-p61.json`,
+and mortgage source release v10, under
+`temp/mortgage-statement-borrowing/t0-dynamic-binding-20261024T001616Z`.
+Core v52 SHA-256 is
+`cc2bc3906887dd1b59b4e18331b4b1ad3555dde97c0a2319bcfcb913b6b1ba5d`; core v61
+is `87e6adbf209afdbba5466537cc10c16f56bcd2c54b2a4d683823e80213a215b6`, the
+candidate registry is
+`546b93216e0e85593911b876fab202825e66cdc6cfbd36e6c234489ede365bf9`, and
+release v10 is
+`390407a44204daaec110e6a157c2fa16bd4b8fd04b89dea9864e363aff567948`.
+The adopted registry v50 hash is
+`30ef930532a6f3e759dc0f1fd9e073180288d15b31957858aea413edc1708126`; the
+retained SLI release v50 content hash is
+`e1f12790c0032e9b7f13fcb53f6ebae389ea154e98a0511d8911a5604b653990`.
+Package resolution and coordinator execution completed. The content audit
+preserved all 545 adopted member IDs (541 unchanged pins and four intended
+successors), added 30 IDs, removed none, and retained IRA vocabulary v3 and
+direct FTC v2. The adopted default answers were retained; mortgage answers and
+claims below are explicitly supplied synthetic acts, not inferred defaults.
+The complete declaration audit hash is
+`ad7af00def6098fc3215a3ed99874871ce970f60d79ee748d512dca9e5b80b6e`; the
+global supplied seed-acts hash is
+`de5bffb031707ca527d96a5223078a52302ee66f9ac4486cc685c1b3c9d6f422`.
+Candidate rule hashes are local count
+`55f4bafe8159acd5d614f79766ed9109942670bf9b1d4b007185d8ac6301a1b6`, shared
+count `83c88c983123116328a065a6d6699f7899ce26e4b1b44a41c2d190736600e41c`,
+and effective consumer
+`3114a311991f3459917b168c928a7372e3642a6d68055e33d933409fb7c30ac2`. The
+T0-only presentation adapter hash is
+`b03c4a891f9e5bedb2a33fc34ea6881c284236480343ba736cca4756a9b77aab`.
+
+The candidate replaces the failed derived-marker count idea with two source
+counters and an explicit dependency edge. The effective proceeds consumer is
+declared before both counters, uses the affirmative report link as the exact
+four-key subject, and requires their numeric results. The local counter
+(`demo.tax.2025.rule.local-proceeds-answer-count`) is per Box1 and uses
+`link_count` on the existing exact report-local proceeds fact. The shared
+counter (`demo.tax.2025.rule.shared-proceeds-answer-count`) is per recognized
+borrowing/year root and counts only that exact borrowing/year shared proceeds
+fact. Both count actual recorded source types, not generated markers. In the
+runtime traces, the numeric outputs are load-bearing prerequisites of the
+effective per-link result; optional raw categories are not made unconditional
+requirements.
+
+| Supplied after-state | Observed coordinator and saved-model result |
+| --- | --- |
+| A local proceeds answer retracted; shared A says `bought-the-home`; B local answer remains | A and B effective-use facts publish. A pins the A shared assertion and its numeric counts, with no A local-answer pin; B independently pins B's local answer. The report A reason chain uses the shared answer. Line8a publishes $11,000; line12e publishes $15,750. |
+| A local says `bought-the-home`; shared A says `unrelated-personal-expense` | Both exact per-link effective-use results fail closed with `DEPENDENCY_INVALID`; account readiness lacks affirmed-link coverage, line8a is blocked on same-borrowing readiness, and line12e is blocked downstream. No favorable amount publishes. |
+| A local is retracted; no A shared answer; unrelated B has favorable shared answer; B local remains | A's effective-use result is blocked with no selected local/shared value; it does not pin B's shared finding. B's result publishes from its own local answer. A readiness/line8a and dependent line12e do not publish; no combined favorable amount is produced. |
+
+The shared-only A observation is retained from the first execution of this
+same v61 composition at
+`temp/mortgage-statement-borrowing/t0-dynamic-binding-20261024T001519Z`; the
+two other cases ran once at the v61 candidate directory above. These are
+supplied after-states through the current coordinator, not recorder
+transitions, reference-runner tests, or production acceptance. The blocked
+conflict remains generic `DEPENDENCY_INVALID`, not a user-facing explanation.
+
+Per-case report / model / records SHA-256 values:
+
+| Case | Report | Model | Records |
+| --- | --- | --- | --- |
+| Consumer-first shared-only A | `95fc91dd9d09f7a71b493ea5796f1754526acd255387a5c435a210c511eb3192` | `0da4c5f15233901902dbc54dd6eaa7a1201552a2339270340b3d651e8afc2fd4` | `47d82d3e302eb858dea6286bc20b2812f3519fd7f1bd8ce8b5350c216b5fe24a` |
+| Consumer-first conflict A | `69c6200c690a865270fe141ea013d9c1f270ac4bd82fdc3736d44309d813ccbf` | `e6c575357c977f368d3ff0cf8f5a36ba1965a04f434715dd35625dd711aa3eb7` | `0f26b475b0d39aac5b3591b3146fe073a06d013913dd9c3bbc1559d12960f74a` |
+| Consumer-first unrelated shared B | `240cac94cd182afe4d2ade4a2b0b5b874f3b8ee6e177f18503386db7d4e3a98d` | `a803d5a9cf75483e4f3078c1b508e6fb2d4239e489a75360281682f0a8b72fa4` | `b11f9a9d5bc4ecab625b5033a9a73452e3edb543e3163ec7d84705027b8887c4` |
+
+The v59 evidence remains historical. This v61 experiment closes only the
+measured raw-count/consumer-first gap for the proceeds category and these three
+states. The remaining four propositions, lifecycle transitions, shared
+answer UI/recorder and explicit exit remain outside this observation.

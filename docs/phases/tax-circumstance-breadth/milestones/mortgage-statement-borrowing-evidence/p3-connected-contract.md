@@ -7,7 +7,7 @@
 3. Offer a clear-account action distinct from correction/withdrawal; preserve report sources, local answers and history, and permit legacy singleton routing only after explicit exit and only for one current report.
 4. Trace shared answers only through exact current affirmed report links and declared subject/join intermediates; specify conflict, correction, withdrawal and late-report behavior before any experiment.
 5. Keep one F1098-family-authorized line8a collector, true-empty dispositions, the separate line12e integrity prerequisite, and the saved group explanation tied to actual consumed findings.
-6. This increment is paper-only for Foreman feedback. Reuse accepted P2/P3 and current T0 observations; do not rerun them or execute a new shared-answer/exit experiment before review. Stop for a demonstrated need for new engine/schema behavior or scope beyond the charter.
+6. The paper-only proposal has now had the chartered three-case disposable content discriminator on adopted core v52. Treat its result as a bounded declaration/coordinator observation, not as production or recorder acceptance. The shared-answer/exit product design remains provisional and needs independent review before implementation.
 
 ## Current contract (provisional)
 
@@ -195,51 +195,45 @@ fact type in each category literal. A successor reason rule explicitly maps
 that result to the existing reason branch; matching value spelling alone does
 not make fact types interchangeable.
 
-The proposed transport has four keyed hops; only the return-level v14
-selection uses `reads_subject_results`:
+The following is the measured proceeds-category composition in the disposable
+core-v52-derived candidate (not a generic claim that any optional-input design
+is executable):
 
-1. A shared-answer bridge has `subject: borrowing-inclusion@v1` (all four
-   report + borrowing keys), `joined: shared-answer-<p>@v1` (borrowing +
-   tax-year 2025), and `direction: subject_contains_joined`. It publishes a
-   new `linked-shared-answer-<p>@v1` under the four link keys, pinned to both
-   findings. Its type is distinct; its value must be explicitly translated
-   into the proposition's existing answer domain, not treated as the local
-   fact type.
-2. A per-link effective-answer rule uses the affirmative four-key link as
-   `subject` and joins the exact three-key Box1 report using
-   `subject_contains_joined`. The dispatcher scopes local answers to that
-   report. In subject dispatch, `_scope` installs identity-matched source rows
-   in that subject's local environment; its closed-family `count` can therefore
-   test whether each exact report answer exists. Existing
-   `conditional_dependency_set` can conditionally read local and linked-shared
-   refs. The value handles local-only, shared-only, agreeing-both,
-   conflicting-both, and neither; neither blocks. It publishes an
-   `effective-answer-<p>@v1` derived fact at the four link keys. Its value is
-   translated to the exact adopted answer domain (for example `bought-the-home`
-   remains that answer value but is named as a category of the new effective
-   fact type).
-3. The connected successor reason rule keeps `subject: Box1@v1` (three report
-   keys), joins the exact inclusion@v1 (four keys) with
-   `joined_contains_subject`, and requires the keyed effective-answer facts
-   plus the four existing local facts for property ownership, shared main
-   home, collateral, and paid interest. It outputs
-   `residence-interest-reason@v2` at the three report keys, mapping
-   each new fact type/value explicitly into the existing reason branches and
-   output categories. A separate per-link numeric support rule has the
-   inclusion's four-key subject, joins that same Box1 report with
-   `subject_contains_joined`, and reduces its exact report reason plus shared
-   checks to numeric support at the link keys.
-4. Account readiness has the two-key `continuing-borrowing@v1` subject, joins
-   four-key inclusions with `joined_contains_subject`, and requires that
-   account/year's ceiling. It uses `link_coverage` with numeric support
-   reductions keyed by all four link keys and the separately counted exact
-   links. It publishes readiness under borrowing + tax year.
-5. Per-Box1 outcome-count rules and a per-Box1 status rule publish status under
-   the three report keys. The return-level line8a selection declares
-   `reads_subject_results` for those Box1 statuses and the two-key account
-   readiness; it checks every family member and the one/two bound before the
-   sole collector sums Box1 once. A late report needs its own exact link and
-   family reclose before deriving support.
+1. The effective consumer `demo.tax.2025.rule.effective-proceeds-use` is
+   declared before its two raw-source counters. Its subject is the exact
+   four-key affirmed report link; the derived `effective-proceeds-use` has
+   those same report-plus-borrowing keys and uses the existing proceeds
+   category values. It requires the numeric local-count and shared-count
+   outputs, then evaluates matched optional categories under this link's
+   identity. Local raw answer remains `tax.us.2025.f1098.what-the-money-paid-for@v2`
+   keyed by payer/statement/year; shared raw answer is
+   `demo.tax.2025.mortgage.shared-proceeds-use@v1` keyed by borrowing/year.
+   They are separate types, and only the explicit category mapping makes
+   their values comparable. Absence of either raw answer is not itself an
+   unconditional dependency failure.
+2. `demo.tax.2025.rule.local-proceeds-answer-count` has Box1@v1 as subject,
+   joins the exact local v2 answer, and publishes numeric `link_count` at the
+   three report keys. `demo.tax.2025.rule.shared-proceeds-answer-count` has
+   the recognized continuing-borrowing@v1 root as subject, joins the shared
+   proceeds fact, and publishes numeric `link_count` at borrowing/year keys.
+   Both count only recorded source fact types, not derived answer markers.
+   Their published outputs are explicit prerequisites of the effective
+   per-link rule; this removes the earlier unsupported assumption that
+   counting a derived marker also establishes its producer dependency.
+3. The current coordinator observation demonstrates exact scope: with A local
+   retracted, A's local count published without an A local-answer input pin;
+   A's shared-only effective result pinned the A shared finding and numeric
+   counts, while B's local answer remained independently pinned to B. In the
+   unrelated-B case, A's exact four-key link did not select B's borrowing/year
+   answer. In the disagreement case, the effective result failed closed. These
+   observations validate only proceeds-use's existing category vocabulary,
+   not the other four shared propositions.
+4. This experiment did not rerun a reference runner. Preserve any prior
+   reference-runner agreement only as the exact earlier trace and base it on
+   that trace's actual control flow; the three new coordinator cases are not
+   additional reference-runner evidence. Likewise, the existing connected
+   reason/support and account-readiness chain is inherited from earlier
+   bounded observations, not newly proven across all propositions here.
 
 When local and shared values are both current, compare them in the same
 proposition domain. Conflicting affirmations require clarification; a
@@ -417,7 +411,7 @@ Small production units, with exact surfaces and evidence cases:
 | Unit | Content / recording / presentation surface | Positive and negative acceptance cases |
 | --- | --- | --- |
 | Account facts and recorder | Add a mortgage borrowing source bundle beside `packages/content/tax/2025/f1098.bundle.json` and `f1098-circumstances.bundle.v2.json`; load/adopt through `packages/tax/loader.py`. Add focused durable operations under `packages/tax/` for opaque entity introduction, continuing-borrowing claim, exact report outcome, ceiling, and other-debt answer. Mirror SLI's evidence/contribution/retraction/batch revision-check pattern; leave `packages/tax/f1098_statement_recording.py`'s report-local history intact. | Record two exact reports to one opaque borrowing; correct amount without ending link/ceiling; correct or withdraw one link atomically; stale revision/incomplete tail refuses; labels or equal amounts never merge IDs. |
-| Connected status and one line8a producer | Successor citizens in `packages/content/tax/2025/` and successor to adopted `package.core-calculations.v51.json` (registry v49; SLI release v49): report-member status/result, borrowing-year readiness, route outcome and one family-authorized line8a collector. Preserve `family.f1098.json` and its closure mapping, and adopted non-mortgage members including standard-deduction v3 and line13b v2. Consumer successors retain the measured line12e Schedule A-total and separate integrity prerequisites, plus the attachment's seven value checks. | Positive two reports/one borrowing; connected singleton; other-borrowing ceiling only; other-borrowing link only; two accounts; unlinked third family member; missing/denied/unknown/withdrawn/orphan; loose or contradictory ceiling; changed Box 3. Empty and incumbent singleton controls stay on their real paths. |
+| Connected status and one line8a producer | Successor citizens in `packages/content/tax/2025/` and successor to adopted `package.core-calculations.v52.json` (registry v50; SLI release v50): report-member status/result, borrowing-year readiness, route outcome and one family-authorized line8a collector. Preserve `family.f1098.json` and its closure mapping, and all adopted non-mortgage members including IRA vocabulary v3, direct FTC v2, and current withholding/refund members. Consumer successors retain the measured line12e Schedule A-total and separate integrity prerequisites, plus the attachment's seven value checks. | Positive two reports/one borrowing; connected singleton; other-borrowing ceiling only; other-borrowing link only; two accounts; unlinked third family member; missing/denied/unknown/withdrawn/orphan; loose or contradictory ceiling; changed Box 3. Empty and incumbent singleton controls stay on their real paths. |
 | Saved group explanation | Add group projection and strict validation in `packages/derivation/presentation_projection.py`, then update the saved mortgage reader/page to render it after the existing validate/reload path. Keep one report row per current family source and one shared account-support section. | Save/reload and visibly render two report amounts, separate answers/reasons/source pins and shared borrowing/ceiling; correction changes current model only; old saved run remains tied to consumed findings. Include missing support, unsupported debt and contradictory support states. |
 | Integrated lifecycle and neighbors | Use the real coordinator/save/reload surfaces and focused regressions for changed code; do not alter unrelated loan/sale contracts. | Late report and reclose; report removal/re-record; final affirmative link ending with no legacy fallback; F1098 closed-empty, singleton qualified/zero/unresolved, and Schedule A missing-boundary control. Run only the gates appropriate to the eventual code assignment. |
 
