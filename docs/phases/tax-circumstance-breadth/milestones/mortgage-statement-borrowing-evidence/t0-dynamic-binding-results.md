@@ -77,9 +77,13 @@ status. Combining these two increments remains unproved.
 The supplied synthetic acts include two Box1 reports with full payer,
 statement, and year keys; both affirmatively link to opaque borrowing A, and
 only A has the continuing-borrowing root, annual-ceiling fact, and other-home
-secured-debt fact. That prototype other-debt fact is still borrowing-keyed;
-the production contract requires return/year scope, which this run does not
-demonstrate. The fixture also includes the mortgage-specific zero pin
+secured-debt fact. The prototype and the selected contract both key that fact
+by borrowing/year. Its intended question is “Besides this borrowing, did you
+have any other mortgage or home-equity debt secured by either home in 2025?”:
+the coverage proposition ranges over either home, but the excluded referent is
+this exact borrowing. The observed candidate demonstrates same-key selection,
+not a global debt inventory or semantic reuse for a different borrowing/year;
+an A answer is not authority for B. The fixture also includes the mortgage-specific zero pin
 for empty support. This is the supported pair only; it does not prove all
 seven transitions, unprovided source facts, authorized final-recording behavior,
 or broad consumer compatibility.
