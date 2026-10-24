@@ -3,6 +3,23 @@
     "code": "DEPENDENCY_INVALID",
     "missing": []
   },
+  "basis": {
+    "said": [
+      "The filer recorded the report-local answers and any connected borrowing-year claims required by the selected readiness route."
+    ],
+    "derived": [
+      "The selected route established a qualified residence-interest reason for each included report before publishing the sum of their reported box 1 amounts.",
+      "For a connected borrowing, each report's box 2 observation was tested against the separately recorded borrowing-year ceiling, and that ceiling was tested against the conservative filing-status limit. The annual ceiling was not substituted for any report's box 2 amount."
+    ],
+    "assumed": [
+      "For the unconnected single-statement route only, box 2 stands for acquisition debt throughout the year; this legacy shortcut is not applied to a connected borrowing, whose annual ceiling is separately recorded. Box 2 is not treated as an annual average on the connected route.",
+      "The bounded connected route retains conservative $750,000/$375,000 filing-status limits; a higher grandfathered debt limit is not modeled.",
+      "Each included report's box 1 amount is treated as the report's interest amount for this bounded calculation; no allocation or proration is performed across reports."
+    ],
+    "left_with_person": [
+      "This does not compute interest outside the reporting period, points, mortgage-insurance premiums, prior-year refunds, refinancing, mixed use, or above-limit allocation."
+    ]
+  },
   "citations": [],
   "composition": {
     "id": "tax.us.2025.schedule-a",
@@ -16,7 +33,7 @@
     "tax.us.2025.mortgage.same-borrowing-ready"
   ],
   "role": "computation",
-  "schema": "rule-artifact.v6",
+  "schema": "rule-artifact.v14",
   "scope": {
     "family": "individual-income-tax",
     "jurisdiction": "US-federal",

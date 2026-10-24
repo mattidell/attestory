@@ -3264,7 +3264,7 @@
     {
       "id": "tax.us.2025.rule.f1098-line8a",
       "role": "computation",
-      "schema": "rule-artifact.v6",
+      "schema": "rule-artifact.v14",
       "version": "v5"
     },
     {
@@ -4900,7 +4900,7 @@
       "version": "v1"
     }
   ],
-  "package_checksum": "ef03ffde53838dd2b89ac3ed643b3c0e276c95c1cbc273b9d676fdf709ad64e9",
+  "package_checksum": "d600ee70e2fcea0b4b9a69051fdbb246ddf2f4f316dfb35162675c2bf3998d1c",
   "schema": "artifact-package.v36",
   "scope": {
     "family": "individual-income-tax",

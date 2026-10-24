@@ -1370,6 +1370,7 @@ def _mortgage_basis_answers(
     # otherwise an unrelated dormant branch would make a legacy singleton
     # projection fail despite the published conclusion having no such input.
     reached_answer_types: set[str] = set()
+    support_rule_members: dict[tuple[str, str], Mapping[str, Any]] = {}
     pending_support = [str(finding.get("id"))]
     visited_support: set[str] = set()
     while pending_support:
@@ -1381,7 +1382,22 @@ def _mortgage_basis_answers(
         if publication is None:
             continue
         for pin in publication.get("pins", []) or []:
-            if not isinstance(pin, Mapping) or pin.get("role") not in _DEPENDENCY_ROLES:
+            if not isinstance(pin, Mapping):
+                continue
+            if pin.get("role") == "computation":
+                rule_id, rule_version = pin.get("id"), pin.get("version")
+                matches = [member for member in resolved_members
+                           if member.get("id") == rule_id and member.get("version") == rule_version
+                           and "publishes" in member]
+                if (not matches and rule_id == reason_rule.get("id")
+                        and rule_version == reason_rule.get("version")):
+                    matches = [reason_rule]
+                if len(matches) != 1:
+                    raise PresentationModelError("mortgage support chain lacks one exact producing rule")
+                assert isinstance(rule_id, str) and isinstance(rule_version, str)
+                support_rule_members[(rule_id, rule_version)] = matches[0]
+                continue
+            if pin.get("role") not in _DEPENDENCY_ROLES:
                 continue
             child_id = pin.get("id")
             if not isinstance(child_id, str):
@@ -1395,21 +1411,26 @@ def _mortgage_basis_answers(
                     reached_answer_types.add(fact.fact_type_id)
 
     selected_versions: dict[str, str] = {}
-    for node in mappings(reason_rule.get("value")):
-        ref = node.get("fact_type")
-        if node.get("op") != "category_literal" or not isinstance(ref, Mapping):
-            continue
-        fact_type_id, version = ref.get("id"), ref.get("version")
-        if (not isinstance(fact_type_id, str) or fact_type_id not in reached_answer_types
-                or not fact_type_id.startswith(_MORTGAGE_ANSWER_PREFIX)
-                or fact_type_id == _MORTGAGE_REASON_SYMBOL):
-            continue
-        if not isinstance(version, str) or not version:
-            raise PresentationModelError(f"mortgage answer type {fact_type_id!r} lacks an exact version")
-        prior = selected_versions.get(fact_type_id)
-        if prior is not None and prior != version:
-            raise PresentationModelError(f"mortgage rule selects conflicting versions of {fact_type_id!r}")
-        selected_versions[fact_type_id] = version
+    for support_rule in support_rule_members.values():
+        refs = [node.get("fact_type") for node in mappings(support_rule.get("value"))
+                if node.get("op") == "category_literal"]
+        joined = support_rule.get("joined")
+        if isinstance(joined, Mapping):
+            refs.append(joined)
+        for ref in refs:
+            if not isinstance(ref, Mapping):
+                continue
+            fact_type_id, version = ref.get("id"), ref.get("version")
+            if (not isinstance(fact_type_id, str) or fact_type_id not in reached_answer_types
+                    or not fact_type_id.startswith(_MORTGAGE_ANSWER_PREFIX)
+                    or fact_type_id == _MORTGAGE_REASON_SYMBOL):
+                continue
+            if not isinstance(version, str) or not version:
+                raise PresentationModelError(f"mortgage answer type {fact_type_id!r} lacks an exact version")
+            prior = selected_versions.get(fact_type_id)
+            if prior is not None and prior != version:
+                raise PresentationModelError(f"mortgage rule selects conflicting versions of {fact_type_id!r}")
+            selected_versions[fact_type_id] = version
 
     exact_types: dict[str, Mapping[str, Any]] = {}
 
@@ -1477,11 +1498,13 @@ def _mortgage_basis_answers(
                         continue
                     fact_type_definition = exact_types.get(fact_type)
                     if fact_type_definition is None:
-                        # The rule may publish a branch whose selected support
-                        # traverses an answer type outside its category literals
-                        # (for example a retained local bridge). The saved
-                        # current fact-type declaration still supplies its
-                        # title; only response labels require an exact rule ref.
+                        if ".box" not in fact_type:
+                            raise PresentationModelError(
+                                f"mortgage answer type {fact_type!r} is not pinned by a selected producing rule"
+                            )
+                        # Numeric/date source-field titles retain their
+                        # established source-fact title path. Categorical
+                        # answer titles and labels require exact adopted refs.
                         fact_type_definition = state.fact_state.fact_types.get(fact_type)
                     title = fact_type_definition.get("title") if isinstance(fact_type_definition, Mapping) else None
                     if not isinstance(title, str) or not title:
@@ -2451,10 +2474,7 @@ def _mortgage_interest_explanation(
     }
     if reason == "qualified":
         if amount_basis is None:
-            # A successor amount rule without a declared basis is not enough to
-            # recreate the legacy single-account explanation. The current
-            # calculation remains available in the mortgage borrowing model.
-            return None
+            raise PresentationModelError("the pinned mortgage amount rule has no declared basis")
         account["basis"] = {key: list(amount_basis[key]) for key in ("said", "derived", "assumed", "left_with_person")}
     return {"schema": MORTGAGE_EXPLANATION_VERSION, "accounts": [account]}
 

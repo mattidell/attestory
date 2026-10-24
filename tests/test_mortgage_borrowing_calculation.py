@@ -239,7 +239,7 @@ class MortgageBorrowingPackageTests(unittest.TestCase):
         self.assertTrue((base_members - expected_retired) <= members)
         self.assertEqual(len(package["members"]), 629)
         self.assertEqual(len(members - (base_members - expected_retired)), 36)
-        self.assertIn(("tax.us.2025.rule.f1098-line8a", "v5", "rule-artifact.v6", "computation"), members)
+        self.assertIn(("tax.us.2025.rule.f1098-line8a", "v5", "rule-artifact.v14", "computation"), members)
         self.assertIn(("tax.us.2025.rule.f1098-residence-interest-reason", "v5", "rule-artifact.v14", "computation"), members)
         self.assertIn(("tax.us.2025.rule.form1040-line12e", "v2", "rule-artifact.v4", "computation"), members)
         self.assertIn(("tax.us.2025.rule.attachment.schedule-a", "v2", "attachment-rule.v4", "attachment-rule"), members)
@@ -395,15 +395,20 @@ class MortgageBorrowingPackageTests(unittest.TestCase):
     def test_new_package_without_borrowing_activity_does_not_fabricate_completed_legacy_result(self) -> None:
         report, model, _local_ids, _shared_ids = _run_connected_case(unconnected_singleton=True)
         self.assertEqual(report["authorization_status"], "AUTHORIZATION_ABSENT")
-        self.assertNotIn("mortgageInterestExplanation", model)
+        self.assertIn("mortgageInterestExplanation", model)
         projection = model["mortgageBorrowingExplanation"]
         self.assertEqual(len(projection["line8aDispositions"]), 1)
+        self.assertEqual(len(projection["line8aFindings"]), 1)
+        self.assertEqual(projection["line8aFindings"][0]["value"], 22000.0)
         self.assertEqual(len(projection["reports"]), 1)
         self.assertEqual(len(projection["groups"]), 0)
+        legacy = model["mortgageInterestExplanation"]["accounts"][0]
+        self.assertEqual(legacy["deductibleAmount"], 22000.0)
+        self.assertEqual(legacy["reason"], "qualified")
+        self.assertTrue(legacy["basis"]["derived"])
+        self.assertTrue(legacy["personAnswers"])
         row = next(item for item in report["dispositions"] if item.get("artifact_id") == "tax.us.2025.rule.f1098-residence-interest-reason")
         self.assertEqual(row["disposition"], "published")
-        # This is a blocked v54 candidate observation only; it is not compared
-        # with or represented as proof of the v53 incumbent behavior.
 
 
 if __name__ == "__main__":

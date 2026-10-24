@@ -2226,7 +2226,7 @@
       "version": "v2"
     },
     {
-      "checksum": "4b66fecb3db7a7f7342ea163ca983ccd0bc312d28a1c9d4e35534f43c14ae56a",
+      "checksum": "9f5e01e548f82ee98dc0c47970b41aba29003d91c70ceaf3783c21690ef1df94",
       "id": "tax.us.2025.rule.f1098-line8a",
       "version": "v5"
     },
@@ -4258,7 +4258,7 @@
       "version": "v54"
     },
     {
-      "checksum": "ef03ffde53838dd2b89ac3ed643b3c0e276c95c1cbc273b9d676fdf709ad64e9",
+      "checksum": "d600ee70e2fcea0b4b9a69051fdbb246ddf2f4f316dfb35162675c2bf3998d1c",
       "id": "tax.us.2025.package.core-calculations",
       "version": "v55"
     },
