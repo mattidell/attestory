@@ -5,9 +5,9 @@
   "topic": "mortgage-statement-borrowing",
   "active_plan": "docs/phases/tax-circumstance-breadth/milestones/mortgage-statement-borrowing.md",
   "milestone_state": "track-0",
-  "status": "Rebased onto PR #219/core v52. Repair the shared-answer completion gap using existing content before explicit exit; prior measured evidence remains historical. No production built.",
-  "current_role": "Builder — Luna shared-answer completion repair",
-  "current_prompt": "docs/reviews/mortgage-statement-borrowing/charter-t0-connected-closure.md"
+  "status": "Core-v52 shared-answer repair has three saved coordinator results. Sol rechecks the changed completion and identity property before explicit exit. No production built.",
+  "current_role": "Reviewer — Sol shared-answer completion recheck",
+  "current_prompt": "docs/reviews/mortgage-statement-borrowing/charter-p1-independent-review.md"
 }
 -->
 
@@ -105,6 +105,12 @@ onto PR #219/core v52, registry/release v50. Preserve all its adopted members
 and choose unused disposable versions rather than overwrite intermediate v52.
 Use the repaired shared-answer experiment for the changed-base check; older
 observations retain their original hashes and meaning.
+That repair now has three saved core-v52-derived coordinator cases: shared-only
+A succeeds, contrary local/shared answers block, and unrelated borrowing B's
+answer cannot fill A's missing support. Counts read recorded sources; the
+effective consumer explicitly requires their results and is declared first.
+All adopted member IDs are preserved. Sol rechecks this changed property before
+the explicit-exit cases; this is not production or recorder acceptance.
 Visible group rendering,
 production recording/routing and connected correction/withdrawal are unbuilt.
 The actual no-report compatibility path is line8a inapplicable, separate

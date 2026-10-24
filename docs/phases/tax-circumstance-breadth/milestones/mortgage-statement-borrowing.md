@@ -3,7 +3,7 @@
   "version": 1,
   "phase": "Tax Circumstance Breadth",
   "topic": "mortgage-statement-borrowing",
-  "status": "Rebased onto PR #219/core v52. Repair the shared-answer completion gap using existing content before explicit exit; prior measured evidence remains historical. No production built.",
+  "status": "Core-v52 shared-answer repair has three saved coordinator results. Sol rechecks the changed completion and identity property before explicit exit. No production built.",
   "scope": [
     "extend the existing ordinary mortgage account to a bounded same-borrowing multiple-report case",
     "preserve report amounts, loan-level circumstances and their separate correction lifecycles",
@@ -378,6 +378,18 @@ their results; this may remove the unguaranteed derived-row count. Do not
 replace unresolved production with zero, or require publication of a marker
 whose correct outcome is absence. Preserve the accepted historical evidence
 ceiling and return any necessary contract change explicitly.
+
+The repaired core-v52-derived candidate now counts recorded local answers per
+report and recorded shared answers per borrowing/year. Its effective-answer
+consumer explicitly requires those two numeric results. With that consumer
+declared first, three saved coordinator cases support shared-only A, block
+contradictory local/shared answers, and refuse to use unrelated B support for
+A. The candidate preserves all 545 adopted member IDs, with four intended
+successors and no removed IDs. The results and exact pins are retained in the
+T0 account. This is a measured proceeds-use repair, not runtime proof for the
+other four shared propositions, a reference-runner execution, or production
+recording. Sol now rechecks this changed completion property; explicit exit
+follows if it holds.
 
 ### Open evidence and next action
 

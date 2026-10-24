@@ -183,7 +183,31 @@ contract claim, and the smallest correction. Append a concise checkpoint to
 the existing review record. Final connected-design disposition follows the
 remaining cases, not this interim checkpoint.
 
-### P3 continuation object and bounded review
+### Shared-answer completion repair recheck
+
+On the next Foreman continuation, inspect only the changed completion and
+identity property in the core-v52-derived v61 candidate and its three saved
+coordinator cases. This is the recheck of your interim finding in the same
+connected unit, not a new whole-design verdict. Read the updated T0 probe,
+results and provisional contract. Historical v59 evidence stays historical.
+
+Check that both counters read recorded raw answer types at their natural
+report or borrowing/year subject, rather than unresolved derived markers;
+that the effective consumer's explicit `requires` establishes predecessor
+resolution under both schedulers; and that optional raw categorical reads are
+actually scoped to its exact link. Inspect the consumer-first declaration
+and retained dispositions/pins. Verify shared-only A, contrary A answers and
+missing A beside unrelated favorable B. Distinguish the executed coordinator
+from a code-traced reference-runner property. Do not rerun passing cases or
+require new production tests to accept this bounded repair.
+
+Append the recheck and say whether the explicit-exit experiment can safely
+build on this repaired composition. Only the existing review report is a
+write target. No suite, production edit, new experiment, staging or commit.
+Explicit exit, remaining shared propositions and lifecycle cases are still
+open by design; do not promote this checkpoint to Track 0 readiness.
+
+### P3 continuation object and bounded review (historical routing)
 
 On Foreman continuation, review the committed P3 connected contract,
 saved-model probe/results and active plan Design state. This is the next
