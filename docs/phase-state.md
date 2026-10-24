@@ -2,10 +2,10 @@
 {
   "version": 1,
   "phase": "Engine Breadth",
-  "topic": "refund-or-amount-owed",
-  "active_plan": "docs/phases/engine-breadth/milestones/refund-or-amount-owed.md",
+  "topic": "earned-income-credit",
+  "active_plan": "docs/phases/engine-breadth/milestones/earned-income-credit.md",
   "milestone_state": "closed",
-  "status": "Closed. On core v52 every computed return continues from tax after credits to total tax, withholding, payments and the refund or amount owed, and a return without foreign tax no longer answers foreign-tax questions. Earlier packages keep their results.",
+  "status": "Closed. On core v53 a filer with no qualifying child gets the 2025 earned income credit on line 27a from EIC Worksheet A and the printed EIC Table. Investment income over $11,950 asks only the unsupported-situations answer. AGI at or above $68,675 asks no EIC question. W-2 box 1 at or above $68,675 while AGI is below it asks that answer. Otherwise the qualifying-child answer is asked; married filing separately and head of household with no qualifying child are $0. AGI at or above the 0-child completed amount then asks no further EIC question. Box 1 at or above that amount while AGI is below it asks the unsupported-situations answer. The remaining questions are asked only for single, married filing jointly, or qualifying surviving spouse when both box 1 and AGI are below that amount. Earlier packages keep their results.",
   "current_role": "Foreman — select next milestone",
   "current_prompt": "docs/phases/engine-breadth/coverage-frontier.md"
 }
@@ -15,6 +15,26 @@
 
 ## Latest milestone
 
+**The 2025 Earned Income Credit is closed**
+([plan](phases/engine-breadth/milestones/earned-income-credit.md),
+[retrospective](milestone-retrospectives/2026-10-23-earned-income-credit.md)).
+On core v53 a filer with no qualifying child gets the credit on line 27a,
+from EIC Worksheet A and the printed EIC Table. Investment income over
+$11,950 asks only the unsupported-situations answer. AGI at or above $68,675
+asks no EIC question. W-2 box 1 at or above $68,675 while AGI is below it
+asks that answer. Otherwise the qualifying-child answer is asked; married
+filing separately and head of household with no qualifying child are $0.
+AGI at or above the 0-child completed amount ($19,104 other, including
+qualifying surviving spouse; $26,214 joint) then asks no further EIC
+question, because Step 1 tests line 11b. Box 1 at or above that amount while
+AGI is below it asks the unsupported-situations answer, except where filing
+status alone stops the credit. The remaining
+questions are asked only for single, married filing jointly, or qualifying
+surviving spouse when both box 1 and AGI are below that amount. Qualifying
+children are the next slice. The next milestone is unselected.
+
+## Previous return-calculation milestone
+
 **Refund or Amount Owed: Finishing the 2025 Return is closed**
 ([plan](phases/engine-breadth/milestones/refund-or-amount-owed.md),
 [retrospective](milestone-retrospectives/2026-10-22-refund-or-amount-owed.md)).
@@ -22,31 +42,24 @@ On core calculations v52 every computed return continues from tax after
 credits to total tax, withholding (W-2 box 2; Forms 1099-INT, 1099-DIV and
 1099-R box 4), estimated payments and the refund or amount owed. A return
 without foreign tax no longer answers the direct foreign tax credit's
-questions. The next milestone is unselected.
+questions.
 
-## Previous return-calculation milestone
+## Earlier return-calculation milestones
 
-**The 2025 Senior Deduction and a Dependent's Standard Deduction is closed**
-([plan](phases/engine-breadth/milestones/senior-and-dependent-deductions.md),
-[retrospective](milestone-retrospectives/2026-10-22-senior-and-dependent-deductions.md)).
-On core calculations v51 the enhanced deduction for seniors (Schedule 1-A
-Part V) reaches line 13b and the dependents' worksheet computes line 12e, from
-four new questions asked only where they change the result. Earlier packages
-keep their results.
+- **The 2025 Senior Deduction and a Dependent's Standard Deduction**
+  ([plan](phases/engine-breadth/milestones/senior-and-dependent-deductions.md),
+  [retrospective](milestone-retrospectives/2026-10-22-senior-and-dependent-deductions.md)):
+  on core v51, Schedule 1-A Part V reaches line 13b and the dependents'
+  worksheet computes line 12e.
+- **The 2025 Tax on Taxable Income**
+  ([plan](phases/engine-breadth/milestones/tax-on-taxable-income.md),
+  [retrospective](milestone-retrospectives/2026-10-22-tax-on-taxable-income.md)):
+  on core v50, line 16 and the standard deduction follow verified 2025 law,
+  with the Tax Table, the Tax Computation Worksheet and the capital gains
+  worksheet published line by line.
 
-## Earlier return-calculation milestone
-
-**The 2025 Tax on Taxable Income is closed** ([plan](phases/engine-breadth/milestones/tax-on-taxable-income.md),
-[retrospective](milestone-retrospectives/2026-10-22-tax-on-taxable-income.md)).
-It returned to the return calculation itself. Before it, Form 1040 line 16 and
-the standard deduction ran on `demo.*` parameters: three brackets at 2024 thresholds,
-a flat 15 percent preferential rate, a pre-legislation standard deduction and
-no Tax Table, plus a recorded short-term-gain defect in the preferential base.
-Core calculations v50 replaces them with verified 2025 law, the Tax Table and
-Tax Computation Worksheet, the capital gains worksheet published line by line
-and the preferential-base repair; earlier packages keep their results. The
-mortgage same-borrowing milestone (PR #216) continues in parallel and takes
-the next free package versions when it needs them.
+The mortgage same-borrowing milestone (PR #216) continues in parallel and
+takes the next free package versions when it needs them.
 
 ## Earlier engineering-health result
 
@@ -126,10 +139,10 @@ loss). **Mortgage Interest and What the Loan Paid For** closed 2026-10-15
 
 ## Begin here
 
-- [Latest milestone plan](phases/engine-breadth/milestones/refund-or-amount-owed.md):
+- [Latest milestone plan](phases/engine-breadth/milestones/earned-income-credit.md):
   P0, contract, tracks and outcome; and its
-  [retrospective](milestone-retrospectives/2026-10-22-refund-or-amount-owed.md).
-- [Previous return-calculation plan](phases/engine-breadth/milestones/senior-and-dependent-deductions.md).
+  [retrospective](milestone-retrospectives/2026-10-23-earned-income-credit.md).
+- [Previous return-calculation plan](phases/engine-breadth/milestones/refund-or-amount-owed.md).
 - [Coverage frontier](phases/engine-breadth/coverage-frontier.md): routes,
   their status and the candidates for the next milestone.
 - [Earlier return-calculation plan](phases/engine-breadth/milestones/tax-on-taxable-income.md).
@@ -155,8 +168,14 @@ loss). **Mortgage Interest and What the Loan Paid For** closed 2026-10-15
   second-home extension, mixed-use amounts, refinancing and the mortgage credit.
 - Form 1099-K, 1099-G and SSA-1099 withholding on line 25b; a 1099-INT,
   1099-DIV or 1099-R statement recorded without its box 4 answer; Form W-2G.
-- Refundable credits (lines 27-31), Schedule 2 Part II taxes and the
-  estimated tax penalty, each declared absent.
+- The earned income credit with qualifying children (per-child facts, the
+  separated-spouse rule, a refusal when another person can claim the same
+  child); Worksheet B, Form 8862, combat pay, the Medicaid waiver exclusion
+  and Worksheet 1.
+- `explain()` re-expands shared inputs at each use: the line 27a walk is
+  9,885 tree nodes over 218 findings.
+- Lines 28-31 refundable credits, Schedule 2 Part II taxes and the estimated
+  tax penalty, each declared absent.
 - Worksheet lines as presentation rows; `demo.*` ids on the correct
   capital-loss and Social Security amounts.
 - The age questions' wording (born before January 2, 1961; a death in 2025

@@ -3,7 +3,7 @@
   "version": 1,
   "phase": "Engine Breadth",
   "topic": "earned-income-credit",
-  "status": "Track 1 complete: the earned income credit for filers with no qualifying child on core v53. Track 2 adds saved presentations.",
+  "status": "Closed. On core v53 a filer with no qualifying child gets the 2025 earned income credit on line 27a from EIC Worksheet A and the printed EIC Table, with eligibility questions asked only where income allows the credit. Earlier packages keep their results.",
   "scope": [
     "compute the 2025 earned income credit on Form 1040 line 27a for a bounded class of filers the engine can identify, as successor content",
     "ask only the eligibility questions the credit's rules read, each with a meaning that matches its consuming rule",
@@ -37,7 +37,8 @@
       "docs/phases/engine-breadth/milestones/earned-income-credit.md",
       "docs/phases/engine-breadth/coverage-frontier.md"
     ]
-  }
+  },
+  "retrospective": "docs/milestone-retrospectives/2026-10-23-earned-income-credit.md"
 }
 -->
 
@@ -180,14 +181,32 @@ No schema successor, expression operation or engine change is needed.
    The draft wording in the P0 evidence is the starting point; each title says
    exactly what its rule reads.
 3. **Asked only where the answer can change the result.**
-   - No EIC question is required when investment income is over $11,950, or
-     when earned income or AGI is at or above $68,675 (the largest completed
-     phase-out amount); line 27a is $0 with the reason named.
-   - Otherwise the qualifying-child answer is required. With no qualifying
-     child, the remaining EIC questions are required only when earned income
-     and AGI are below the 0-child completed amount for the column ($19,104
-     other, $26,214 joint) and the filing status is single, married filing
-     jointly or qualifying surviving spouse.
+   - When investment income is over $11,950, the unsupported-situations
+     answer is required. Yes publishes line 27a as $0 with the
+     investment-income reason. No blocks as outside the class. The other
+     EIC questions stay unasked.
+   - AGI at or above $68,675 publishes line 27a as $0 with no EIC question.
+     Step 1 tests Form 1040 line 11b, and $68,675 is the largest completed
+     amount.
+   - Worksheet line 1 (W-2 box 1) at or above $68,675, when AGI is below
+     that amount, requires the unsupported-situations answer. Yes publishes
+     line 27a as $0. No blocks. The other EIC questions stay unasked.
+     Worksheet earned income can be below box 1 when a clergy or
+     church-employee Schedule SE amount is subtracted before line 1, and
+     that situation is inside the unsupported-situations answer.
+   - Otherwise the qualifying-child answer is required. Married filing
+     separately and head of household with no qualifying child are $0.
+   - After that answer, AGI at or above the 0-child completed amount
+     ($19,104 other, including qualifying surviving spouse; $26,214 joint)
+     publishes line 27a as $0 with no further EIC question. Step 1 tests
+     line 11b against that amount.
+   - Worksheet line 1 at or above that completed amount, when AGI is below
+     it, requires the unsupported-situations answer. Yes publishes line 27a
+     as $0. No blocks. The other EIC questions stay unasked.
+   - With no qualifying child, the remaining EIC questions are required only
+     when both box 1 and AGI are below that completed amount and the filing
+     status is single, married filing jointly, or qualifying surviving
+     spouse.
    - A failing eligibility answer gives $0 with that test named. A missing
      required answer blocks with the fact named.
    - The lines 28-31 answer is required on every return that adopts the
@@ -212,3 +231,20 @@ No schema successor, expression operation or engine change is needed.
   Worksheet 1, each outside the class by one answer.
 - A spouse who died in 2025 for the age test; the line 27c election not to
   claim the credit.
+
+## Execution record
+
+- P0: the law with citations, each test classified, the table formula matched
+  against all 1,374 printed bands, slice (a) recommended.
+- Track 1: questions, the 2025 parameter, Worksheet A, line 27a, lines 28-31,
+  the lines 27a-31 total and line 32 successors, and core v53.
+- Track 2: two v53 saved presentations and the explanation walk; the walk
+  was 13,227 tree nodes and did not read as Worksheet A.
+- Repair: the printed 0-child columns as a `range_lookup` parameter; 47 rules
+  became 22, with every golden amount identical.
+
+## Outcome
+
+Closed 2026-10-23. On core v53 a filer with no qualifying child gets the
+2025 earned income credit. See the
+[retrospective](../../milestone-retrospectives/2026-10-23-earned-income-credit.md).
