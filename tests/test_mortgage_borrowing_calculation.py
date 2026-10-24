@@ -26,10 +26,10 @@ from tests.test_f1098_mortgage_interest_line12e_track2 import _f1098_acts
 
 ROOT = Path(__file__).resolve().parents[1]
 CONTENT = ROOT / "packages/content/tax/2025"
-RELEASE = ROOT / "packages/sample_data/student_loan_worksheet_integration/publication_surface/releases/demo.release.sli-worksheet-integration.2025.v52.json"
+RELEASE = ROOT / "packages/sample_data/student_loan_worksheet_integration/publication_surface/releases/demo.release.sli-worksheet-integration.2025.v53.json"
 RELEASE_DIR = RELEASE.parent
-PACKAGE = CONTENT / "package.core-calculations.v54.json"
-REGISTRY = CONTENT / "published-packages.v52.json"
+PACKAGE = CONTENT / "package.core-calculations.v55.json"
+REGISTRY = CONTENT / "published-packages.v53.json"
 BORROWING_REF = "demo.mortgage.borrowing.shared"
 LINK_TYPE = "tax.us.2025.f1098.borrowing-inclusion"
 ROOT_TYPE = "tax.us.2025.mortgage.continuing-borrowing"
@@ -101,7 +101,7 @@ def _run_connected_case(*, uncertain_shared: str | None = None, unlinked_third_r
     }
     adoption["payload"]["release"] = {
         "id": "demo.release.sli-worksheet-integration.2025",
-        "version": "v52", "checksum": hashlib.sha256(release_bytes).hexdigest(),
+        "version": "v53", "checksum": hashlib.sha256(release_bytes).hexdigest(),
     }
     adoption["payload"]["revision"] = len(acts) - 1
     report_keys = (
@@ -199,23 +199,38 @@ def _run_connected_case(*, uncertain_shared: str | None = None, unlinked_third_r
 
 
 class MortgageBorrowingPackageTests(unittest.TestCase):
-    def test_v54_admits_recording_and_calculation_vocab_without_losing_core_members(self) -> None:
+    def test_v55_admits_consumer_successors_without_losing_v54_members(self) -> None:
         corpus = {}
         for path in CONTENT.glob("*.json"):
             citizen = _load(path)
             if isinstance(citizen, dict) and isinstance(citizen.get("id"), str) and isinstance(citizen.get("version"), str):
                 corpus[(citizen["id"], citizen["version"])] = citizen
 
-        base = _load(CONTENT / "package.core-calculations.v53.json")
-        package = _load(CONTENT / "package.core-calculations.v54.json")
+        base = _load(CONTENT / "package.core-calculations.v54.json")
+        package = _load(CONTENT / "package.core-calculations.v55.json")
         result = validate_package(package, corpus, DerivationSchemas())
         self.assertTrue(result.ok, [issue.code for issue in result.issues])
         self.assertEqual(package["input_bindings"], base["input_bindings"])
         members = {(row["id"], row["version"], row["schema"], row["role"]) for row in package["members"]}
         base_members = {(row["id"], row["version"], row["schema"], row["role"]) for row in base["members"]}
-        self.assertTrue(base_members <= members)
+        expected_retired = {
+            ("tax.us.2025.rule.form1040-line12e", "v1", "rule-artifact.v4", "computation"),
+            ("tax.us.2025.rule.attachment.schedule-a", "v1", "attachment-rule.v4", "attachment-rule"),
+        }
+        self.assertTrue(expected_retired <= base_members)
+        self.assertTrue((base_members - expected_retired) <= members)
         self.assertEqual(len(package["members"]), 597)
-        self.assertEqual(len(members - base_members), 17)
+        self.assertEqual(len(members - (base_members - expected_retired)), 2)
+        self.assertIn(("tax.us.2025.rule.form1040-line12e", "v2", "rule-artifact.v4", "computation"), members)
+        self.assertIn(("tax.us.2025.rule.attachment.schedule-a", "v2", "attachment-rule.v4", "attachment-rule"), members)
+        line12e = corpus[("tax.us.2025.rule.form1040-line12e", "v2")]
+        self.assertIn("tax.us.2025.schedule-a.total", line12e["requires"])
+        self.assertIn("tax.us.2025.schedule-a.total", {pin["id"] for pin in line12e["pins"]})
+        attachment = corpus[("tax.us.2025.rule.attachment.schedule-a", "v2")]
+        required = attachment["completeness"]["required_answers"]
+        self.assertEqual(len(required), 7)
+        self.assertTrue(all(row["check"] == "value" and row["equals"] == "yes" for row in required))
+        self.assertNotIn("tax.us.2025.f1098.liable-and-paid", {row["symbol"] for row in required})
 
         calculation = corpus[("tax.us.2025.mortgage-borrowing-calculation", "v1")]
         linked = [fact for fact in calculation["fact_types"] if fact["id"].startswith("tax.us.2025.f1098.effective-")]
@@ -223,15 +238,18 @@ class MortgageBorrowingPackageTests(unittest.TestCase):
         expected_keys = ["payer", "statement", "tax-year", "borrowing"]
         self.assertTrue(all([key["name"] for key in fact["identity_keys"]] == expected_keys for fact in linked))
 
-        base_registry = _load(CONTENT / "published-packages.v51.json")
-        registry = _load(CONTENT / "published-packages.v52.json")
-        self.assertTrue(set(map(json.dumps, base_registry["packages"])) <= set(map(json.dumps, registry["packages"])))
-        self.assertTrue(set(map(json.dumps, base_registry["citizens"])) <= set(map(json.dumps, registry["citizens"])))
-        entry = next(row for row in registry["packages"] if row["version"] == "v54")
+        initial_registry = _load(CONTENT / "published-packages.v51.json")
+        previous_registry = _load(CONTENT / "published-packages.v52.json")
+        registry = _load(CONTENT / "published-packages.v53.json")
+        self.assertTrue(set(map(json.dumps, initial_registry["packages"])) <= set(map(json.dumps, previous_registry["packages"])))
+        self.assertTrue(set(map(json.dumps, initial_registry["citizens"])) <= set(map(json.dumps, previous_registry["citizens"])))
+        self.assertTrue(set(map(json.dumps, previous_registry["packages"])) <= set(map(json.dumps, registry["packages"])))
+        self.assertTrue(set(map(json.dumps, previous_registry["citizens"])) <= set(map(json.dumps, registry["citizens"])))
+        entry = next(row for row in registry["packages"] if row["version"] == "v55")
         self.assertEqual(entry["checksum"], package["package_checksum"])
         self.assertEqual(
             _load(RELEASE)["package_registry_sha256"],
-            hashlib.sha256((CONTENT / "published-packages.v52.json").read_bytes()).hexdigest(),
+            hashlib.sha256((CONTENT / "published-packages.v53.json").read_bytes()).hexdigest(),
         )
 
     def test_five_effective_mappings_use_exact_real_recorded_links(self) -> None:

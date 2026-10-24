@@ -1,0 +1,63 @@
+{
+  "schema": "rule-artifact.v4",
+  "id": "tax.us.2025.rule.form1040-line12e",
+  "version": "v2",
+  "scope": {
+    "tax_year": 2025,
+    "jurisdiction": "US-federal",
+    "family": "individual-income-tax"
+  },
+  "role": "computation",
+  "requires": [
+    "demo.form1040.standard_deduction",
+    "tax.us.2025.f1098-scope.no-mortgage-statement",
+    "tax.us.2025.schedule-a.total"
+  ],
+  "pins": [
+    { "role": "input", "id": "demo.form1040.standard_deduction", "version": "v1", "origin": "assertion" },
+    { "role": "input", "id": "tax.us.2025.f1098-scope.no-mortgage-statement", "version": "v1", "origin": "assertion" },
+    { "role": "input", "id": "tax.us.2025.schedule-a.total", "version": "v1", "origin": "assertion" }
+  ],
+  "when": true,
+  "value": {
+    "op": "max",
+    "args": [
+      { "op": "ref", "name": "demo.form1040.standard_deduction" },
+      {
+        "op": "choose",
+        "when": {
+          "op": "all",
+          "args": [
+            { "op": "ref", "name": "tax.us.2025.f1098-scope.no-mortgage-statement" },
+            { "op": "compare", "cmp": "eq", "left": { "op": "count", "name": "tax.us.2025.f1098.box1-mortgage-interest", "source_set": "tax.us.2025.f1098" }, "right": 0 }
+          ]
+        },
+        "then": { "op": "ref", "name": "tax.us.2025.deductions.itemized" },
+        "else": {
+          "op": "choose",
+          "when": {
+            "op": "all",
+            "args": [
+              { "op": "ref", "name": "tax.us.2025.f1098-scope.no-mortgage-statement" },
+              { "op": "compare", "cmp": "ne", "left": { "op": "count", "name": "tax.us.2025.f1098.box1-mortgage-interest", "source_set": "tax.us.2025.f1098" }, "right": 0 }
+            ]
+          },
+          "then": { "op": "block", "code": "F1098_SCOPE_CONTRADICTION" },
+          "else": {
+            "op": "choose",
+            "when": { "op": "compare", "cmp": "eq", "left": { "op": "count", "name": "tax.us.2025.f1098.box1-mortgage-interest", "source_set": "tax.us.2025.f1098" }, "right": 0 },
+            "then": { "op": "ref", "name": "tax.us.2025.deductions.itemized" },
+            "else": { "op": "ref", "name": "tax.us.2025.schedule-a.line8a" }
+          }
+        }
+      }
+    ]
+  },
+  "publishes": "tax.us.2025.deductions.line-12e",
+  "citations": [{ "id": "tax.us.2025.citation.form1040.line-12e", "version": "v1" }],
+  "blocked": {
+    "code": "DEPENDENCY_ABSENT",
+    "missing": ["demo.form1040.standard_deduction", "tax.us.2025.f1098-scope.no-mortgage-statement", "tax.us.2025.schedule-a.total"]
+  },
+  "notes": "Successor adds the derived Schedule A total as an explicit completion dependency. Existing empty, no-statement, and line8a selection behavior is otherwise unchanged; a blocked connected line8a cannot be bypassed through raw itemized deductions."
+}

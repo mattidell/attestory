@@ -29,6 +29,12 @@ Verified so far:
   bindings and member set as a subset.
 - v52 retains all v51 package and citizen entries and the release pins the exact
   v52 registry bytes.
+- v55 is additive over v54 except for intended line12e and attachment
+  successor pins. Line12e v2 explicitly requires/pins Schedule A total;
+  attachment v2 retains exactly the seven value-checked boundary declarations
+  and removes only the obsolete liability/payment presence check. Registry v53
+  retains all v52 entries, which in turn retains v51, and the release pins the
+  exact v53 registry bytes.
 - The real coordinator publishes the five mapping dispositions with exact
   report/borrowing keys and expected local/shared input pins. A current shared
   `cannot-tell` beside a favorable local answer blocks that effective answer.
@@ -43,15 +49,16 @@ Verified so far:
   candidate observation. It has not been compared with v53 and does not prove
   incumbent singleton behavior.
 
-This is not a completed production calculation. The current v54 candidate still
-uses the line8a v2 rule and has no executable successor chain for connected
-reason/readiness, the single supported full-interest collector, or the required
-line12e/attachment successors. Accordingly the tested amount is only the
-existing producer's blocked disposition; no connected deductible amount,
-Schedule A total, or attachment result is claimed. Outstanding Track 2 work is
-to add and validate that successor chain, preserve true-empty and legacy
-singleton routing, and run the chartered positive and independent refusal
-cases through the coordinator and reloaded saved model.
+This is not a completed production calculation. Package v55 advances the
+line12e and Schedule A attachment consumers additively while preserving v54's
+line8a v2 producer. There is still no executable successor chain for connected
+reason/readiness or the single supported full-interest collector. Accordingly
+the tested amount is only the existing producer's blocked disposition; no
+connected deductible amount, Schedule A total, or attachment result is
+claimed. Outstanding Track 2 work is to add and validate that successor chain,
+preserve true-empty and legacy singleton routing, and run the chartered
+positive and independent refusal cases through the coordinator and reloaded
+saved model.
 
 ## Focused commands
 
