@@ -152,8 +152,13 @@ withdrawal, and explicit clear with one versus two reports above are
 demonstrated. The withdrawn final report-link case remains blocked without
 singleton fallback. After clear, one report with `paid-the-interest=no`
 publishes a known numeric zero with a `not-paid` reason; omitting that required
-answer leaves the amount blocked. Unrelated-borrowing cross-fill refusal, true
-closed-empty versus missing closure, affirmative orphan, and remaining
+answer leaves the amount blocked. Two fully supported current reports linked
+to separately recorded active borrowing references produce no line8a and one
+blocked disposition. A true closed-empty F1098 family under the candidate
+emits no mortgage explanation or line8a disposition; omitting closure produces
+a blocked return disposition, but the generic blocker is not attributed to an
+exact closure mapping, so this is not accepted as the inapplicable-line8a
+contract. Unrelated dormant-B cross-fill, affirmative orphan, and remaining
 independent refusal cases remain unverified.
 This checkpoint does not claim complete Track 2 acceptance, return
 authorization, or a complete return.
@@ -167,6 +172,9 @@ authorization, or a complete return.
 - The Box 2-over-ceiling, loose-ceiling-over-cap, and disagreeing Box 3 date cases passed through the real coordinator.
 - The explicit-clear known-zero/unresolved cases and withdrawn-final-link case
   passed through the real coordinator.
+- The two-active-borrowing-root case passed through the real coordinator.
+- Closed-empty/missing-closure probes passed with candidate adoption, with the
+  bounded limitation noted above.
 - `python3 -m mypy --cache-dir=<temporary-cache-dir> packages tests` — no issues in 332 source files.
 - `python3 tools/envelope_scan.py --verify` and `git diff --check` — passed.
 

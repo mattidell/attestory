@@ -140,7 +140,8 @@ def _run_connected_case(*, uncertain_shared: str | None = None, unlinked_third_r
                        missing_schedule_a_boundary: str | None = None,
                        shared_overrides: dict[str, str] | None = None,
                        local_overrides: dict[str, str] | None = None,
-                       withdraw_link: int | None = None) -> tuple[dict[str, Any], dict[str, Any], dict[str, str], dict[str, str]]:
+                       withdraw_link: int | None = None,
+                       second_active_borrowing: bool = False) -> tuple[dict[str, Any], dict[str, Any], dict[str, str], dict[str, str]]:
     """Run the real recorder and coordinator against the successor package."""
     acts = cast(list[dict[str, Any]], _f1098_acts(
         interest=22000.0,
@@ -221,10 +222,15 @@ def _run_connected_case(*, uncertain_shared: str | None = None, unlinked_third_r
             introduce_mortgage_borrowing_reference_durably(
                 log, registry, reference_id=BORROWING_REF, description="Synthetic mortgage borrowing",
                 actor="demo.user.filer-1", at="2026-10-23T16:01:00Z")
+        if second_active_borrowing:
+            introduce_mortgage_borrowing_reference_durably(
+                log, registry, reference_id="demo.mortgage.borrowing.other", description="Other synthetic mortgage borrowing",
+                actor="demo.user.filer-1", at="2026-10-23T16:01:05Z")
 
-        def record(claim: str, value: Any, statement: dict[str, str] | None = None) -> str:
+        def record(claim: str, value: Any, statement: dict[str, str] | None = None,
+                   borrowing_ref: str = BORROWING_REF) -> str:
             result = record_mortgage_borrowing_claim_durably(
-                log, registry, claim=claim, borrowing_ref=BORROWING_REF, value=value,
+                log, registry, claim=claim, borrowing_ref=borrowing_ref, value=value,
                 submission_id=f"demo.mortgage.submission.{log.read().revision}",
                 evidence_id=f"demo.mortgage.evidence.{log.read().revision}", actor="demo.user.filer-1",
                 at="2026-10-23T16:02:00Z", statement_keys=statement,
@@ -246,8 +252,21 @@ def _run_connected_case(*, uncertain_shared: str | None = None, unlinked_third_r
                     continue
                 value = "cannot-tell" if uncertain_shared == question else shared_values[question]
                 shared_ids[question] = record(claim, value)
-            for report in report_keys:
-                link_ids[len(link_ids)] = record("report-inclusion", "affirmed", report)
+            if second_active_borrowing:
+                if len(report_keys) != 2:
+                    raise AssertionError("two active borrowing roots require two current reports")
+                first_report, second_report = report_keys
+                link_ids[0] = record("report-inclusion", "affirmed", first_report)
+                other_ref = "demo.mortgage.borrowing.other"
+                record("continuing-borrowing", "yes", borrowing_ref=other_ref)
+                record("annual-ceiling", annual_ceiling, borrowing_ref=other_ref)
+                record("other-secured-home-debt", "no", borrowing_ref=other_ref)
+                for claim, value in values.items():
+                    record(claim, value, borrowing_ref=other_ref)
+                link_ids[1] = record("report-inclusion", "affirmed", second_report, borrowing_ref=other_ref)
+            else:
+                for report in report_keys:
+                    link_ids[len(link_ids)] = record("report-inclusion", "affirmed", report)
 
         if shared_before_local and not unconnected_singleton:
             record_shared_claims()
@@ -378,6 +397,41 @@ def _run_connected_case(*, uncertain_shared: str | None = None, unlinked_third_r
             raise AssertionError(outcome.refusal)
         assert outcome.output_path is not None and outcome.presentation_path is not None
         return _load(outcome.output_path), _load(outcome.presentation_path), local_ids, shared_ids
+
+
+def _run_empty_f1098_family(*, omit_closure: bool = False) -> tuple[dict[str, Any], dict[str, Any]]:
+    """Run the mortgage successor over a genuinely empty or unclosed source family."""
+    acts = cast(list[dict[str, Any]], _f1098_acts(interest=None))
+    if omit_closure:
+        acts = [row for row in acts if not (
+            row.get("kind") == "assertion"
+            and "source-closure|" in str(row.get("payload", {}).get("finding", {}).get("fact_id", ""))
+        )]
+    adoption = acts[-1]
+    package = _load(PACKAGE)
+    adoption["payload"]["package"] = {
+        "id": package["id"], "version": package["version"], "checksum": package["package_checksum"]
+    }
+    adoption["payload"]["release"] = {
+        "id": "demo.release.sli-worksheet-integration.2025", "version": "v53",
+        "checksum": hashlib.sha256(RELEASE.read_bytes()).hexdigest(),
+    }
+    adoption["payload"]["revision"] = len(acts) - 1
+    for index, row in enumerate(acts):
+        row["committed_against"] = index
+    with tempfile.TemporaryDirectory(prefix="mortgage-empty-family-") as tmp:
+        outcome = live_coordinate_run(
+            WorkspaceCapability(Path(tmp) / "run"), repo_root=ROOT,
+            authoritative_acts=acts, workspace_revision=len(acts),
+            run_scope={"jurisdiction": "us", "year": "2025"}, scope_user="demo.user.filer-1",
+            request={"schema": "run-request.v1"}, run_id=f"demo.mortgage.empty.{omit_closure}",
+            governance_pins=[], surface=PublicationSurface(RELEASE_DIR, REGISTRY, CONTENT),
+            output_name="report.json",
+        )
+        if outcome.refusal is not None:
+            raise AssertionError(outcome.refusal)
+        assert outcome.output_path is not None and outcome.presentation_path is not None
+        return _load(outcome.output_path), _load(outcome.presentation_path)
 
 
 class MortgageBorrowingPackageTests(unittest.TestCase):
@@ -913,6 +967,25 @@ class MortgageBorrowingPackageTests(unittest.TestCase):
         self.assertEqual(explanation["line8aFindings"], [])
         self.assertEqual(explanation["line8aDispositions"][0]["disposition"], "blocked")
         self.assertEqual(explanation["reports"][0]["relationships"][0]["disposition"], "withdrawn")
+
+    def test_closed_empty_f1098_family_is_not_a_mortgage_subject(self) -> None:
+        _report, model = _run_empty_f1098_family()
+        self.assertNotIn("mortgageBorrowingExplanation", model)
+        self.assertFalse([row for row in _report["dispositions"] if row.get("symbol") == "tax.us.2025.schedule-a.line8a"])
+
+    def test_missing_f1098_closure_does_not_become_closed_empty(self) -> None:
+        _report, model = _run_empty_f1098_family(omit_closure=True)
+        self.assertNotIn("mortgageBorrowingExplanation", model)
+        self.assertTrue([row for row in _report["dispositions"] if row.get("disposition") == "blocked"])
+
+    def test_two_active_borrowing_roots_do_not_merge_report_amounts(self) -> None:
+        _report, model, _local_ids, _shared_ids = _run_connected_case(
+            fully_supported_local=True, second_active_borrowing=True,
+        )
+        explanation = model["mortgageBorrowingExplanation"]
+        self.assertEqual(explanation["line8aFindings"], [])
+        self.assertEqual(len(explanation["line8aDispositions"]), 1)
+        self.assertEqual(explanation["line8aDispositions"][0]["disposition"], "blocked")
 
     def test_second_report_principal_above_ceiling_blocks_group_amount(self) -> None:
         _report, model, _local_ids, _shared_ids = _run_connected_case(
