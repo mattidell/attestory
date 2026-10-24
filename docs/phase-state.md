@@ -6,8 +6,8 @@
   "active_plan": "docs/phases/tax-circumstance-breadth/milestones/mortgage-statement-borrowing.md",
   "milestone_state": "track-0",
   "status": "Proceeds-use shared/local composition has saved experimental results; other four shared propositions are declaration-only. Explicit exit and remaining identity/lifecycle checks follow. No production built.",
-  "current_role": "Builder — Luna Track 0 connected contract consolidation",
-  "current_prompt": "docs/reviews/mortgage-statement-borrowing/charter-t0-connected-closure.md"
+  "current_role": "Reviewer — Sol connected measured-evidence checkpoint",
+  "current_prompt": "docs/reviews/mortgage-statement-borrowing/charter-p1-independent-review.md"
 }
 -->
 
