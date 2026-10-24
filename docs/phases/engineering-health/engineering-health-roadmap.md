@@ -46,6 +46,16 @@ one projection per call (save, correct and withdraw 60–72% less CPU on a long
 synthetic history); a per-worker warm-up returned 19 tests to the fast lane.
 The save-path incremental fold was skipped as the smallest share.
 
+### A Per-Subject Rule Reads Only Its Own Subject
+
+[Plan](milestones/per-subject-binding.md). A per-subject rule (per statement
+or per child) could be evaluated with another subject's answer when that
+answer reached it as a run-wide input. Per-subject inputs are now recognised
+by the subject's distinguishing identity keys and bind only from the
+subject's own scope, or block; return-level inputs are unchanged. The shipped
+Form 1098 residence-interest reason rule was exposed, contained by the
+one-statement limit on line 8a; no content or golden changed.
+
 ## Current boundary and remaining work
 
 The next milestone is unselected. Measured candidates:

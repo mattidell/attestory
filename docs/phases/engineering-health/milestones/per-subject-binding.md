@@ -3,7 +3,7 @@
   "version": 1,
   "phase": "Engineering Health",
   "topic": "per-subject-binding",
-  "status": "P0 complete; contract settled. Track 1 makes per-subject inputs bind only from their own subject in live.py and subject_dispatch.py.",
+  "status": "Closed. A per-subject rule binds only its own subject's answers or a return-level value; the shipped Form 1098 reason rule no longer reads another statement's answers. No content or golden changed.",
   "scope": [
     "make a per-subject rule read only its own subject's answers, or an explicitly return-level value, never another subject's",
     "find every shipped per-subject rule the defect can reach and show, with a synthetic case on its adopted package, whether it changes a result",
@@ -35,7 +35,8 @@
       "docs/phases/engineering-health/milestones/per-subject-binding.md",
       "docs/phases/engineering-health/engineering-health-roadmap.md"
     ]
-  }
+  },
+  "retrospective": "docs/milestone-retrospectives/2026-10-24-per-subject-binding.md"
 }
 -->
 
@@ -165,3 +166,17 @@ probes beside it).
    and `mypy` run before ready, as substrate changes require.
 5. **PR #216 is told** that per-statement Form 1098 rules now bind per
    statement, which its multiple-statement work depends on.
+
+## Execution record
+
+- P0: the path traced through `live.py`, `marshal.py` and
+  `subject_dispatch.py`; the exposed Form 1098 rule reproduced; the Foreman
+  confirmed it is contained at line 8a.
+- Track 1: failing regression tests, then the fix in `live.py` and
+  `subject_dispatch.py`; both probes now block the subject without its own
+  answer; full suite and mypy clean. Track 2 was not needed.
+
+## Outcome
+
+Closed 2026-10-24. See the
+[retrospective](../../../milestone-retrospectives/2026-10-24-per-subject-binding.md).
