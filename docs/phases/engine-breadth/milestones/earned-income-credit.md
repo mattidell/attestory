@@ -3,7 +3,7 @@
   "version": 1,
   "phase": "Engine Breadth",
   "topic": "earned-income-credit",
-  "status": "Planned. P0 verifies the 2025 earned income credit law and recommends a bounded first slice from what the engine already knows about the filer and their income.",
+  "status": "P0 complete; contract settled. Track 1 builds the earned income credit for filers with no qualifying child on core v53.",
   "scope": [
     "compute the 2025 earned income credit on Form 1040 line 27a for a bounded class of filers the engine can identify, as successor content",
     "ask only the eligibility questions the credit's rules read, each with a meaning that matches its consuming rule",
@@ -127,3 +127,88 @@ question is asked only where its answer can change the result.
 - Every existing golden keeps its package and its result.
 
 P0 computes the figures for these cases from the sources.
+
+## P0 result
+
+P0 is complete ([law and scope](earned-income-credit-evidence/p0-law-and-scope.md)).
+No schema successor, expression operation or engine change is needed.
+
+- **The 2025 EIC Table is a formula with existing operations.** $50 bands,
+  the credit at the band midpoint rounded half up, with three corners: the
+  earned income amount, the phase-out threshold, and the starred band that
+  holds the completed phase-out amount. `probe.py` matched all 1,374 bands,
+  10,984 cells and 8 footnote bands. The rates (7.65, 34, 40 and 45 percent;
+  phase-out 7.65, 15.98 and 21.06 percent) are not printed; they reproduce
+  every maximum and cell.
+- **Slice (a), filers with no qualifying child, is recommended first.**
+  Earned income is W-2 box 1, AGI and investment income (taxable and
+  tax-exempt interest, ordinary dividends, the positive part of line 7a) are
+  already computed. Married filing separately and head of household without a
+  qualifying child are $0 from filing status. Qualifying children (slice b)
+  need a per-child model and a tie-breaker refusal; they follow.
+- **The senior deduction's SSN and age answers are not the EIC's.** The EIC
+  SSN test adds two card conditions, applies to every filer, and the EIC age
+  test includes someone born January 1, 1961. The EIC gets its own answers.
+- **The lines 27a-31 answer needs a successor for lines 28-31 only.** A v52
+  workspace that answered it is blocked on the successor package until the
+  new answers are given; it does not keep a silent $0.
+
+## Contract
+
+1. **Slice (a).** The credit for filers with no qualifying child, Worksheet A
+   on W-2 box 1, the 0-child column (joint for married filing jointly, other
+   for single and qualifying surviving spouse). Married filing separately
+   and head of household without a qualifying child are $0.
+2. **Questions, each `yes`/`no`, no default:**
+   - no qualifying child for the EIC (`no` is outside the slice and blocks);
+   - the filer's SSN is valid for the EIC, and the spouse's on a joint return;
+   - not a nonresident alien for any part of 2025 (filer and spouse);
+   - age: the filer, or the spouse on a joint return, was born after
+     December 31, 1960 and before January 2, 2001;
+   - main home in the United States for more than half of 2025;
+   - not a qualifying child of another person, and not claimable as a
+     dependent (each asked only when the return is not joint);
+   - **one answer for the unsupported situations:** none of Form 2555, Form
+     8862 or a disallowance bar, Worksheet B (self-employment, clergy, church
+     employee, statutory employee), the combat pay election, a Medicaid
+     waiver exclusion, or the Worksheet 1 items (Schedule E, Form 4797, Form
+     8814, personal-property rental, passive activity). `no` blocks;
+   - lines 28-31: the return claims none of the additional child tax credit,
+     American opportunity credit, refundable adoption credit or Schedule 3
+     Part II.
+
+   The draft wording in the P0 evidence is the starting point; each title says
+   exactly what its rule reads.
+3. **Asked only where the answer can change the result.**
+   - No EIC question is required when investment income is over $11,950, or
+     when earned income or AGI is at or above $68,675 (the largest completed
+     phase-out amount); line 27a is $0 with the reason named.
+   - Otherwise the qualifying-child answer is required. With no qualifying
+     child, the remaining EIC questions are required only when earned income
+     and AGI are below the 0-child completed amount for the column ($19,104
+     other, $26,214 joint) and the filing status is single, married filing
+     jointly or qualifying surviving spouse.
+   - A failing eligibility answer gives $0 with that test named. A missing
+     required answer blocks with the fact named.
+   - The lines 28-31 answer is required on every return that adopts the
+     successor package.
+4. **Rules, one per worksheet line:** investment income, eligibility, Worksheet
+   A lines 1, 2, 3, 5 and 6 (line 4 is the branch inside line 6), line 27a,
+   lines 28-31, the lines 27a-31 total v2 and line 32 v2. One cited parameter
+   `tax.us.2025.parameter.eic-2025` holds the $11,950 limit and every child
+   count's amounts and rates, so a later child slice reuses it. Each rule
+   under 5KB, or the size reported with the reason.
+5. **Successor content only:** core v53, registry v51, release v51 (unless PR
+   #216 merges first), an adoption fixture and new goldens. Earlier packages,
+   saved presentations and goldens stay byte-identical.
+6. **Data safety and lanes:** synthetic amounts only; the full lane runs
+   before the PR is marked ready.
+
+## Parked by this milestone
+
+- Qualifying children (slice b): per-child facts, the separated-spouse rule,
+  and a refusal when another person can claim the same child.
+- Worksheet B, Form 8862, combat pay, the Medicaid waiver exclusion and
+  Worksheet 1, each outside the class by one answer.
+- A spouse who died in 2025 for the age test; the line 27c election not to
+  claim the credit.
