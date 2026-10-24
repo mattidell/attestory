@@ -6,23 +6,21 @@ Resume from the latest committed Track 2 checkpoint on this branch, preserving
 newer legitimate work. The report-local foundation now has a supported
 two-report real-recorder/coordinator case: $22,000 plus $3,500 produces one
 saved line8a finding of $25,500. Core v55 / registry v53 / release v53 remains
-an unfinished candidate, not an accepted complete route. Effective mappings
-alone do not prove that every consuming reason uses them.
+an unfinished candidate, not an accepted complete route. The shared-only
+case also saves $25,500 with all five effective findings pinned by the report
+reasons; each current shared uncertainty withholds the amount. The ordinary
+unconnected singleton still saves $22,000 with its explanation and basis.
 
 The next builder's first actions are:
 
-1. Review and preserve the first connected calculation. Repair its explanation
-   compatibility without relaxing old packages' missing-basis/type checks:
-   obtain exact answer meanings from actual pinned producing rules and adopted
-   declarations, and give the successor an honest basis rather than suppress
-   the existing singleton account. A single-statement Box2-as-annual assumption
-   must not be copied unchanged onto a connected-ceiling result. Complete all five
-   shared-answer paths into the reason, not just their independent mapping
-   publications. Favorable report-local answers must not hide an applicable
-   contrary or uncertain shared claim. Preserve the exact raw-versus-derived
-   category types and the no-connected-activity legacy branch.
-2. Execute the shared-only, agreement, disagreement, uncertainty, correction
-   and withdrawal obligations below. Follow the actual source-to-intermediate-
+1. Close the remaining shared-integration review points. Test adverse
+   co-obligor/certificate categories with no conflicting local answer, so the
+   tests exercise their meaning, not just disagreement. Put the reason,
+   coverage and witness before their producers in the actual resolved rule
+   order; preserve the explicit completion chain below. Keep exact type/basis
+   resolution and the working unconnected singleton explanation unchanged.
+2. Execute the remaining disagreement, correction, withdrawal and cross-account
+   obligations below. Follow the actual source-to-intermediate-
    to-reason-to-amount pins; do not manufacture direct pins or treat a list of
    recorded answers as evidence that the amount consumed them. Commit coherent
    increments and state their demonstrated limits. No engine redesign or

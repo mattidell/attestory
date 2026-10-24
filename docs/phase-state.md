@@ -5,7 +5,7 @@
   "topic": "mortgage-statement-borrowing",
   "active_plan": "docs/phases/tax-circumstance-breadth/milestones/mortgage-statement-borrowing.md",
   "milestone_state": "track-2",
-  "status": "Track 1 is complete. Track 2's report-local foundation calculates and saves a supported two-report line8a amount. Finish all five shared-answer paths and the chartered refusal, compatibility and lifecycle cases; Track 2 is not complete.",
+  "status": "Track 1 is complete. Track 2 calculates and saves the report-local and all-five-shared two-report cases; each shared uncertainty withholds the amount. Finish the remaining polarity/order checks, independent refusals, downstream consumers and lifecycle cases; Track 2 is not complete.",
   "current_role": "Builder — connected mortgage calculation",
   "current_prompt": "docs/reviews/mortgage-statement-borrowing/charter-2-calculation.md"
 }
@@ -18,9 +18,11 @@
 **Immediate next action:** execute the committed Track 2 calculation charter.
 Its first connected implementation case now records two supported reports
 of $22,000 and $3,500 and saves one actual line8a finding of $25,500 through
-the real coordinator. Next connect all five shared-answer mappings to their
-consuming reasons, including uncertainty beside favorable local support,
-then complete the charter's refusal, legacy/empty and lifecycle cases.
+the real coordinator. The all-five-shared positive now also saves $25,500,
+and each of five current
+uncertain shared answers withholds the amount despite favorable local answers.
+Next finish adverse-category and hostile-order checks, then the charter's
+independent refusal, downstream consumer, legacy/empty and lifecycle cases.
 This positive case does not establish those remaining paths, the attachment
 or a visible reader. Track 2 remains unfinished planned work, not a new
 product decision or an accepted complete calculation route.
