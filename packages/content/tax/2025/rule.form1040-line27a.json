@@ -1,0 +1,41 @@
+{
+  "schema": "rule-artifact.v14",
+  "id": "tax.us.2025.rule.form1040-line27a",
+  "version": "v1",
+  "scope": {
+    "tax_year": 2025,
+    "jurisdiction": "US-federal",
+    "family": "individual-income-tax"
+  },
+  "role": "computation",
+  "requires": [
+    "tax.us.2025.eic.eligibility-result"
+  ],
+  "pins": [
+    {
+      "role": "input",
+      "id": "tax.us.2025.eic.eligibility-result",
+      "version": "v1",
+      "origin": "assertion"
+    }
+  ],
+  "when": true,
+  "value": {
+    "op": "ref",
+    "name": "tax.us.2025.eic.eligibility-result"
+  },
+  "publishes": "tax.us.2025.payments.line27a",
+  "blocked": {
+    "code": "DEPENDENCY_ABSENT",
+    "missing": [
+      "tax.us.2025.eic.eligibility-result"
+    ]
+  },
+  "citations": [
+    {
+      "id": "tax.us.2025.citation.form1040.line-27-31",
+      "version": "v1"
+    }
+  ],
+  "notes": "Form 1040 line 27a: the earned income credit."
+}

@@ -3,7 +3,7 @@
   "version": 1,
   "phase": "Engine Breadth",
   "topic": "earned-income-credit",
-  "status": "P0 complete; contract settled. Track 1 builds the earned income credit for filers with no qualifying child on core v53.",
+  "status": "Track 1 complete: the earned income credit for filers with no qualifying child on core v53. Track 2 adds saved presentations.",
   "scope": [
     "compute the 2025 earned income credit on Form 1040 line 27a for a bounded class of filers the engine can identify, as successor content",
     "ask only the eligibility questions the credit's rules read, each with a meaning that matches its consuming rule",

@@ -1,0 +1,140 @@
+{
+  "schema": "rule-artifact.v14",
+  "id": "tax.us.2025.rule.eic-early-stop",
+  "version": "v1",
+  "scope": {
+    "tax_year": 2025,
+    "jurisdiction": "US-federal",
+    "family": "individual-income-tax"
+  },
+  "role": "computation",
+  "requires": [
+    "tax.us.2025.eic.investment-income",
+    "tax.us.2025.eic.worksheet-a.line-1",
+    "tax.us.2025.eic.worksheet-a.line-3",
+    "tax.us.2025.eic.status-class",
+    "tax.us.2025.eic.column.completed",
+    "tax.us.2025.eic.answer.no-unsupported-situations"
+  ],
+  "pins": [
+    {
+      "role": "input",
+      "id": "tax.us.2025.eic.investment-income",
+      "version": "v1",
+      "origin": "assertion"
+    },
+    {
+      "role": "input",
+      "id": "tax.us.2025.eic.worksheet-a.line-1",
+      "version": "v1",
+      "origin": "assertion"
+    },
+    {
+      "role": "input",
+      "id": "tax.us.2025.eic.worksheet-a.line-3",
+      "version": "v1",
+      "origin": "assertion"
+    },
+    {
+      "role": "input",
+      "id": "tax.us.2025.eic.status-class",
+      "version": "v1",
+      "origin": "assertion"
+    },
+    {
+      "role": "input",
+      "id": "tax.us.2025.eic.column.completed",
+      "version": "v1",
+      "origin": "assertion"
+    },
+    {
+      "role": "input",
+      "id": "tax.us.2025.eic.answer.no-unsupported-situations",
+      "version": "v1",
+      "origin": "assertion"
+    },
+    {
+      "role": "parameter",
+      "id": "tax.us.2025.parameter.eic-2025",
+      "version": "v1"
+    }
+  ],
+  "when": true,
+  "value": {
+    "op": "choose",
+    "when": {
+      "op": "compare",
+      "left": {"op": "ref", "name": "tax.us.2025.eic.investment-income"},
+      "right": {"op": "parameter", "parameter_id": "tax.us.2025.parameter.eic-2025", "key": "investment_income_limit"},
+      "cmp": "gt"
+    },
+    "then": {
+      "op": "choose",
+      "when": {"op": "compare", "left": {"op": "ref", "name": "tax.us.2025.eic.answer.no-unsupported-situations"}, "right": 1, "cmp": "eq"},
+      "then": 1,
+      "else": {"op": "block", "code": "DEPENDENCY_INVALID"}
+    },
+    "else": {
+      "op": "choose",
+      "when": {
+        "op": "compare",
+        "left": {"op": "ref", "name": "tax.us.2025.eic.worksheet-a.line-3"},
+        "right": {"op": "parameter", "parameter_id": "tax.us.2025.parameter.eic-2025", "key": "largest_completed"},
+        "cmp": "gte"
+      },
+      "then": 1,
+      "else": {
+        "op": "choose",
+        "when": {
+          "op": "compare",
+          "left": {"op": "ref", "name": "tax.us.2025.eic.worksheet-a.line-1"},
+          "right": {"op": "parameter", "parameter_id": "tax.us.2025.parameter.eic-2025", "key": "largest_completed"},
+          "cmp": "gte"
+        },
+        "then": {
+          "op": "choose",
+          "when": {"op": "compare", "left": {"op": "ref", "name": "tax.us.2025.eic.answer.no-unsupported-situations"}, "right": 1, "cmp": "eq"},
+          "then": 1,
+          "else": {"op": "block", "code": "DEPENDENCY_INVALID"}
+        },
+        "else": {
+          "op": "choose",
+          "when": {"op": "compare", "left": {"op": "ref", "name": "tax.us.2025.eic.status-class"}, "right": 0, "cmp": "eq"},
+          "then": 1,
+          "else": {
+            "op": "choose",
+            "when": {
+              "op": "compare",
+              "left": {"op": "ref", "name": "tax.us.2025.eic.worksheet-a.line-3"},
+              "right": {"op": "ref", "name": "tax.us.2025.eic.column.completed"},
+              "cmp": "gte"
+            },
+            "then": 1,
+            "else": {
+              "op": "choose",
+              "when": {
+                "op": "compare",
+                "left": {"op": "ref", "name": "tax.us.2025.eic.worksheet-a.line-1"},
+                "right": {"op": "ref", "name": "tax.us.2025.eic.column.completed"},
+                "cmp": "gte"
+              },
+              "then": {
+                "op": "choose",
+                "when": {"op": "compare", "left": {"op": "ref", "name": "tax.us.2025.eic.answer.no-unsupported-situations"}, "right": 1, "cmp": "eq"},
+                "then": 1,
+                "else": {"op": "block", "code": "DEPENDENCY_INVALID"}
+              },
+              "else": 0
+            }
+          }
+        }
+      }
+    }
+  },
+  "publishes": "tax.us.2025.eic.early-stop",
+  "blocked": {"code": "DEPENDENCY_ABSENT", "missing": []},
+  "citations": [
+    {"id": "tax.us.2025.citation.form1040.line-27-31", "version": "v1"}
+  ],
+  "notes": "Investment income over the limit publishes 1 only when the unsupported-situations answer is yes; no blocks. AGI at or above $68,675, and AGI at or above the 0-child completed amount, publish 1 with no EIC answer: Step 1 tests line 11b. A W-2 box 1 ceiling (worksheet line 1 at or above $68,675, or at or above the 0-child completed amount, while AGI is below that ceiling) publishes 1 only when that answer is yes, because a clergy or church-employee Schedule SE amount can put worksheet earned income below box 1; no blocks."
+}

@@ -1,0 +1,45 @@
+{
+  "binds_symbol": "tax.us.2025.eic.worksheet-a.line-2",
+  "citation": {
+    "id": "tax.us.2025.citation.form1040.line-27-31",
+    "version": "v1"
+  },
+  "description": "EIC Worksheet A line 2: the EIC Table credit at the line 1 amount.",
+  "dispositions": {
+    "blocked": {
+      "codes": [
+        "DEPENDENCY_ABSENT",
+        "DEPENDENCY_INVALID"
+      ],
+      "explain": "Worksheet A line 2 is blocked because an input it needs is missing or invalid.",
+      "render": ""
+    },
+    "closure_backed_zero": {
+      "explain": "Worksheet A line 2 publishes zero through an honest closed-empty source family.",
+      "render": "0"
+    },
+    "computed_zero": {
+      "explain": "Worksheet A line 2 publishes a computed zero.",
+      "render": "0"
+    },
+    "guard_inapplicable": {
+      "explain": "No value is published for Worksheet A line 2 because its worksheet guard is not satisfied.",
+      "render": ""
+    },
+    "published_value": {
+      "explain": "EIC Worksheet A line 2: the EIC Table credit at the line 1 amount.",
+      "render": "{value}"
+    }
+  },
+  "form": {
+    "authority": "IRS",
+    "form_id": "1040-EIC-WS-A",
+    "jurisdiction": "US-federal",
+    "tax_year": 2025
+  },
+  "id": "tax.us.2025.form.eic-worksheet-a.line-2",
+  "label": "Worksheet A line 2",
+  "line": "eic-a-2",
+  "schema": "form-field.v3",
+  "version": "v1"
+}

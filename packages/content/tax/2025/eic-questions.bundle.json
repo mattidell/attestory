@@ -1,0 +1,258 @@
+{
+  "fact_types": [
+    {
+      "id": "tax.us.2025.eic.age-25-under-65",
+      "identity_keys": [
+        {
+          "kind": "literal",
+          "name": "tax-year",
+          "values": [
+            "2025"
+          ]
+        }
+      ],
+      "nature": "determinable",
+      "schema": "fact-type.v2",
+      "supersession": {
+        "policy": "free"
+      },
+      "title": "You, or your spouse if you are filing a joint return, were born after December 31, 1960, and before January 2, 2001. No means the credit is $0. Contributed categorical assertion, domain {yes, no}, no default, presence-before-value, free supersession.",
+      "value_schema": {
+        "enum": [
+          "yes",
+          "no"
+        ]
+      },
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.eic.main-home-in-us",
+      "identity_keys": [
+        {
+          "kind": "literal",
+          "name": "tax-year",
+          "values": [
+            "2025"
+          ]
+        }
+      ],
+      "nature": "determinable",
+      "schema": "fact-type.v2",
+      "supersession": {
+        "policy": "free"
+      },
+      "title": "Your main home, and your spouse's if you are filing a joint return, was in the United States for more than half of 2025. If you were on extended active duty outside the United States, treat that duty as time your main home was in the United States. No means the credit is $0. Contributed categorical assertion, domain {yes, no}, no default, presence-before-value, free supersession.",
+      "value_schema": {
+        "enum": [
+          "yes",
+          "no"
+        ]
+      },
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.eic.no-qualifying-child",
+      "identity_keys": [
+        {
+          "kind": "literal",
+          "name": "tax-year",
+          "values": [
+            "2025"
+          ]
+        }
+      ],
+      "nature": "determinable",
+      "schema": "fact-type.v2",
+      "supersession": {
+        "policy": "free"
+      },
+      "title": "You have no child who meets the relationship, age, residency, and joint-return conditions to be your qualifying child for the earned income credit, whether or not that child has a valid social security number. Yes means this return has no qualifying child. No is outside this computation and blocks. Contributed categorical assertion, domain {yes, no}, no default, presence-before-value, free supersession.",
+      "value_schema": {
+        "enum": [
+          "yes",
+          "no"
+        ]
+      },
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.eic.no-unsupported-situations",
+      "identity_keys": [
+        {
+          "kind": "literal",
+          "name": "tax-year",
+          "values": [
+            "2025"
+          ]
+        }
+      ],
+      "nature": "determinable",
+      "schema": "fact-type.v2",
+      "supersession": {
+        "policy": "free"
+      },
+      "title": "None of these apply for 2025: Form 2555; a reduction or disallowance of the earned income credit for a year after 1996 for a reason other than a math or clerical error, so that you must file Form 8862 or are in a 2-year or 10-year period in which you cannot take the credit; Worksheet B (you were self-employed, you are filing Schedule SE because you were a member of the clergy or had church employee income of $108.28 or more, or you are filing Schedule C as a statutory employee); an election to include nontaxable combat pay in earned income; a Medicaid waiver payment excluded on Schedule 1, line 8s, that Worksheet A would subtract; or a Worksheet 1 item (Schedule E, Form 4797, Form 8814, income from renting out personal property that is not used in a business, or income or loss from a passive activity). Yes means none of these apply. No is outside this computation and blocks. Contributed categorical assertion, domain {yes, no}, no default, presence-before-value, free supersession.",
+      "value_schema": {
+        "enum": [
+          "yes",
+          "no"
+        ]
+      },
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.eic.not-claimable-as-dependent",
+      "identity_keys": [
+        {
+          "kind": "literal",
+          "name": "tax-year",
+          "values": [
+            "2025"
+          ]
+        }
+      ],
+      "nature": "determinable",
+      "schema": "fact-type.v2",
+      "supersession": {
+        "policy": "free"
+      },
+      "title": "You cannot be claimed as a dependent on someone else's 2025 return. Answer yes if the person who could claim you is not required to file and is not filing, or is filing only to claim a refund of withheld income tax or estimated tax. No means the credit is $0. Asked only when the return is not joint. Contributed categorical assertion, domain {yes, no}, no default, presence-before-value, free supersession.",
+      "value_schema": {
+        "enum": [
+          "yes",
+          "no"
+        ]
+      },
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.eic.not-nonresident-alien",
+      "identity_keys": [
+        {
+          "kind": "literal",
+          "name": "tax-year",
+          "values": [
+            "2025"
+          ]
+        }
+      ],
+      "nature": "determinable",
+      "schema": "fact-type.v2",
+      "supersession": {
+        "policy": "free"
+      },
+      "title": "You were not a nonresident alien for any part of 2025, and neither was your spouse. Answer yes if you checked the box to treat a nonresident or dual-status alien spouse as a U.S. resident for the entire year. No means the credit is $0. Contributed categorical assertion, domain {yes, no}, no default, presence-before-value, free supersession.",
+      "value_schema": {
+        "enum": [
+          "yes",
+          "no"
+        ]
+      },
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.eic.not-qualifying-child-of-another",
+      "identity_keys": [
+        {
+          "kind": "literal",
+          "name": "tax-year",
+          "values": [
+            "2025"
+          ]
+        }
+      ],
+      "nature": "determinable",
+      "schema": "fact-type.v2",
+      "supersession": {
+        "policy": "free"
+      },
+      "title": "You could not be a qualifying child of another person for 2025. Answer yes if that person is not required to file a 2025 return and is not filing one, or is filing only to claim a refund of withheld income tax or estimated tax. No means the credit is $0. Asked only when the return is not joint. Contributed categorical assertion, domain {yes, no}, no default, presence-before-value, free supersession.",
+      "value_schema": {
+        "enum": [
+          "yes",
+          "no"
+        ]
+      },
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.eic.spouse-valid-ssn",
+      "identity_keys": [
+        {
+          "kind": "literal",
+          "name": "tax-year",
+          "values": [
+            "2025"
+          ]
+        }
+      ],
+      "nature": "determinable",
+      "schema": "fact-type.v2",
+      "supersession": {
+        "policy": "free"
+      },
+      "title": "Your spouse's social security number was issued by the Social Security Administration on or before the due date of your 2025 return, including extensions, and it is valid for the earned income credit. Answer no if the card says 'Not Valid for Employment' and the number was issued only so your spouse could apply for or receive a federally funded benefit. If the card says 'Valid for Work Only With DHS Authorization,' answer yes only while that authorization is still valid. Asked only on a joint return. No means the credit is $0. Contributed categorical assertion, domain {yes, no}, no default, presence-before-value, free supersession.",
+      "value_schema": {
+        "enum": [
+          "yes",
+          "no"
+        ]
+      },
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.eic.taxpayer-valid-ssn",
+      "identity_keys": [
+        {
+          "kind": "literal",
+          "name": "tax-year",
+          "values": [
+            "2025"
+          ]
+        }
+      ],
+      "nature": "determinable",
+      "schema": "fact-type.v2",
+      "supersession": {
+        "policy": "free"
+      },
+      "title": "Your social security number was issued by the Social Security Administration on or before the due date of your 2025 return, including extensions, and it is valid for the earned income credit. Answer no if the card says 'Not Valid for Employment' and the number was issued only so you could apply for or receive a federally funded benefit. If the card says 'Valid for Work Only With DHS Authorization,' answer yes only while that authorization is still valid. No means the credit is $0. Contributed categorical assertion, domain {yes, no}, no default, presence-before-value, free supersession.",
+      "value_schema": {
+        "enum": [
+          "yes",
+          "no"
+        ]
+      },
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.lines28-31-scope.no-other-refundable-credits",
+      "identity_keys": [
+        {
+          "kind": "literal",
+          "name": "tax-year",
+          "values": [
+            "2025"
+          ]
+        }
+      ],
+      "nature": "determinable",
+      "schema": "fact-type.v2",
+      "supersession": {
+        "policy": "free"
+      },
+      "title": "The return claims none of the additional child tax credit, the American opportunity credit, the refundable adoption credit, or Schedule 3 Part II (Form 1040 lines 28 through 31). Yes publishes those lines as $0. No blocks. Contributed categorical assertion, domain {yes, no}, no default, presence-before-value, free supersession.",
+      "value_schema": {
+        "enum": [
+          "yes",
+          "no"
+        ]
+      },
+      "version": "v1"
+    }
+  ],
+  "id": "tax.us.2025.eic-questions.vocabulary",
+  "label": "Earned income credit questions and the lines 28-31 absence, tax year 2025",
+  "schema": "bundle.v2",
+  "version": "v1"
+}
