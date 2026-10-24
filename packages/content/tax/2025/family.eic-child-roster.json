@@ -1,0 +1,16 @@
+{
+  "authorizes_subtotal": "tax.us.2025.eic.qualifying-child-count",
+  "closure_claim": "Every qualifying-child candidate is recorded as a roster item.",
+  "id": "tax.us.2025.eic.child-roster",
+  "member_predicate": {
+    "fact_type": "tax.us.2025.eic.child.relationship"
+  },
+  "schema": "source-family.v1",
+  "scope": {
+    "family": "individual-income-tax",
+    "jurisdiction": "US-federal",
+    "tax_year": 2025
+  },
+  "title": "2025 EIC qualifying-child roster",
+  "version": "v1"
+}

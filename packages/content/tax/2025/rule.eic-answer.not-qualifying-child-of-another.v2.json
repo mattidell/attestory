@@ -1,0 +1,109 @@
+{
+  "blocked": {
+    "code": "DEPENDENCY_ABSENT",
+    "missing": [
+      "tax.us.2025.eic.questions-required",
+      "tax.us.2025.eic.status-class",
+      "tax.us.2025.eic.not-qualifying-child-of-another"
+    ]
+  },
+  "citations": [
+    {
+      "id": "tax.us.2025.citation.form1040.line-27-31",
+      "version": "v1"
+    }
+  ],
+  "id": "tax.us.2025.rule.eic-answer.not-qualifying-child-of-another",
+  "notes": "Not qualifying child of another for all non-joint filers (single, QSS, MFS, HOH).",
+  "pins": [
+    {
+      "id": "tax.us.2025.eic.questions-required",
+      "origin": "assertion",
+      "role": "input",
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.eic.status-class",
+      "origin": "assertion",
+      "role": "input",
+      "version": "v1"
+    }
+  ],
+  "publishes": "tax.us.2025.eic.answer.not-qualifying-child-of-another",
+  "requires": [
+    "tax.us.2025.eic.questions-required",
+    "tax.us.2025.eic.status-class"
+  ],
+  "role": "computation",
+  "schema": "rule-artifact.v14",
+  "scope": {
+    "family": "individual-income-tax",
+    "jurisdiction": "US-federal",
+    "tax_year": 2025
+  },
+  "value": {
+    "else": {
+      "else": 1,
+      "op": "choose",
+      "then": 0,
+      "when": {
+        "args": [
+          {
+            "condition": true,
+            "members": [
+              {
+                "name": "tax.us.2025.eic.not-qualifying-child-of-another",
+                "op": "ref"
+              }
+            ],
+            "op": "conditional_dependency_set"
+          },
+          {
+            "cmp": "eq",
+            "left": {
+              "name": "tax.us.2025.eic.not-qualifying-child-of-another",
+              "op": "ref"
+            },
+            "op": "categorical_compare",
+            "right": {
+              "fact_type": {
+                "id": "tax.us.2025.eic.not-qualifying-child-of-another",
+                "version": "v1"
+              },
+              "op": "category_literal",
+              "value": "no"
+            }
+          }
+        ],
+        "op": "all"
+      }
+    },
+    "op": "choose",
+    "then": 1,
+    "when": {
+      "args": [
+        {
+          "cmp": "ne",
+          "left": {
+            "name": "tax.us.2025.eic.questions-required",
+            "op": "ref"
+          },
+          "op": "compare",
+          "right": 1
+        },
+        {
+          "cmp": "eq",
+          "left": {
+            "name": "tax.us.2025.eic.status-class",
+            "op": "ref"
+          },
+          "op": "compare",
+          "right": 2
+        }
+      ],
+      "op": "any"
+    }
+  },
+  "version": "v2",
+  "when": true
+}

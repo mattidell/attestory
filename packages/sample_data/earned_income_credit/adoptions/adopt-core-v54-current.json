@@ -1,0 +1,28 @@
+{
+  "act_id": "demo.act.adopt.core.v54",
+  "actor": "demo.user.filer-1",
+  "at": "2026-10-24T12:00:00Z",
+  "committed_against": 0,
+  "kind": "package-adoption",
+  "payload": {
+    "audit": {
+      "note": "synthetic successor adoption of core calculations v54 (earned income credit with qualifying children); non-authoritative"
+    },
+    "package": {
+      "checksum": "3dbeb782e44a5838448cb9f690db91dc4cf0bf4e956ba85d483ee8bb51629c63",
+      "id": "tax.us.2025.package.core-calculations",
+      "version": "v54"
+    },
+    "release": {
+      "checksum": "209d8d3cce6b5b8cbc158abd55a4ac6093ecd13f593d19dddb9531babe517e55",
+      "id": "demo.release.sli-worksheet-integration.2025",
+      "version": "v52"
+    },
+    "revision": 54,
+    "scope": {
+      "jurisdiction": "us",
+      "year": "2025"
+    }
+  },
+  "schema": "act.v1"
+}

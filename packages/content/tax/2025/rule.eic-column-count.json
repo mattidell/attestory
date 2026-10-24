@@ -1,0 +1,54 @@
+{
+  "blocked": {
+    "code": "DEPENDENCY_ABSENT",
+    "missing": [
+      "tax.us.2025.eic.qualifying-child-count"
+    ]
+  },
+  "citations": [
+    {
+      "id": "tax.us.2025.citation.form1040.line-27-31",
+      "version": "v1"
+    }
+  ],
+  "id": "tax.us.2025.rule.eic-column-count",
+  "notes": "EIC table column count: qualifying children count capped at 3 (0, 1, 2, or 3).",
+  "pins": [
+    {
+      "id": "tax.us.2025.eic.qualifying-child-count",
+      "origin": "assertion",
+      "role": "input",
+      "version": "v1"
+    }
+  ],
+  "publishes": "tax.us.2025.eic.column-count",
+  "requires": [
+    "tax.us.2025.eic.qualifying-child-count"
+  ],
+  "role": "computation",
+  "schema": "rule-artifact.v14",
+  "scope": {
+    "family": "individual-income-tax",
+    "jurisdiction": "US-federal",
+    "tax_year": 2025
+  },
+  "value": {
+    "else": {
+      "name": "tax.us.2025.eic.qualifying-child-count",
+      "op": "ref"
+    },
+    "op": "choose",
+    "then": 3,
+    "when": {
+      "cmp": "gte",
+      "left": {
+        "name": "tax.us.2025.eic.qualifying-child-count",
+        "op": "ref"
+      },
+      "op": "compare",
+      "right": 3
+    }
+  },
+  "version": "v1",
+  "when": true
+}

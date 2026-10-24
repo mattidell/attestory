@@ -7,9 +7,9 @@ This is the project's third iteration. The first proved a working return generat
 ## Where things stand
 
 - **Governance** (`docs/governance/`): the ratified v0.1 set — Constitution, Ontology, Engineering Constraints, Principles, Commentary. The sole contract authority for this repository.
-- **Phase state** (`docs/phase-state.md`): on core calculations v53 a filer
-  with no qualifying child gets the 2025 earned income credit (see "2025
-  earned income credit" below). Use `python3 tools/foreman_context.py --ref HEAD` for
+- **Phase state** (`docs/phase-state.md`): on core calculations v54 the 2025
+  earned income credit is computed with or without qualifying children (see
+  "2025 earned income credit" below). Use `python3 tools/foreman_context.py --ref HEAD` for
   current routing; publication status is tracked by the pull request's checks.
 - **Current bounded capability:** production-shaped synthetic returns cover
   the Form 1099-DIV box-2a direct-reporting route, Schedule K-1 (Form 1065)
@@ -321,6 +321,21 @@ on W-2 box 1 and AGI, read from the printed 2025 EIC Table
   is outside the class.
 - Lines 28-31 have their own absence answer, required on every
   successor-package return, replacing v52's lines 27a-31 answer.
+
+### With qualifying children (core v54)
+
+On `core-calculations.v54` (registry `v52`, release
+`demo.release.sli-worksheet-integration.2025.v52.json`), the filer lists each
+child who may be their EIC qualifying child on a closed child roster, with
+six answers per child: relationship, age, residency, marriage and joint
+return, a valid SSN, and whether another person may also claim the child.
+The credit uses the column for the number of children who meet every test
+and have a valid SSN (3 or more is one column), from the printed table
+(`tax.us.2025.parameter.eic-table-2025` v2). A child another person may also
+claim, an unanswered child question or an unclosed roster blocks. A filer
+whose only qualifying children lack a valid SSN takes the self-only credit
+when otherwise eligible. A married filer on a married filing separately or
+head of household return with a child answers the separated-spouse question.
 
 ## Correction session walkthrough
 

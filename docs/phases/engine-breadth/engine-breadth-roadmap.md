@@ -357,6 +357,14 @@ lost the credit or was outside the supported class. Compute the credit for
 filers with no qualifying child first, from the printed EIC Table, asking the
 eligibility questions only where income allows the credit.
 
+## Bounded return — The 2025 Earned Income Credit with Qualifying Children
+
+[Plan](milestones/eic-qualifying-children.md).
+
+A filer with a qualifying child was outside the class on core v53. Count
+each child from per-child answers, take the table column for that count, and
+refuse when another person may also claim a child.
+
 ## Why line 7a comes before Schedule D
 
 The 2025 Form 1040 instructions permit eligible capital-gain distributions to

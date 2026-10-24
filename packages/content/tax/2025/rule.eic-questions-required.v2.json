@@ -1,0 +1,178 @@
+{
+  "blocked": {
+    "code": "DEPENDENCY_ABSENT",
+    "missing": [
+      "tax.us.2025.eic.investment-income",
+      "tax.us.2025.eic.worksheet-a.line-1",
+      "tax.us.2025.eic.worksheet-a.line-3",
+      "tax.us.2025.eic.status-class",
+      "tax.us.2025.eic.column.completed",
+      "tax.us.2025.eic.column-count"
+    ]
+  },
+  "citations": [
+    {
+      "id": "tax.us.2025.citation.form1040.line-27-31",
+      "version": "v1"
+    }
+  ],
+  "id": "tax.us.2025.rule.eic-questions-required",
+  "notes": "1 when the remaining EIC answers can affect the credit.",
+  "pins": [
+    {
+      "id": "tax.us.2025.eic.investment-income",
+      "origin": "assertion",
+      "role": "input",
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.eic.worksheet-a.line-1",
+      "origin": "assertion",
+      "role": "input",
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.eic.worksheet-a.line-3",
+      "origin": "assertion",
+      "role": "input",
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.eic.status-class",
+      "origin": "assertion",
+      "role": "input",
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.eic.column.completed",
+      "origin": "assertion",
+      "role": "input",
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.eic.column-count",
+      "origin": "assertion",
+      "role": "input",
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.parameter.eic-2025",
+      "role": "parameter",
+      "version": "v1"
+    }
+  ],
+  "publishes": "tax.us.2025.eic.questions-required",
+  "requires": [
+    "tax.us.2025.eic.investment-income",
+    "tax.us.2025.eic.worksheet-a.line-1",
+    "tax.us.2025.eic.worksheet-a.line-3",
+    "tax.us.2025.eic.status-class",
+    "tax.us.2025.eic.column.completed",
+    "tax.us.2025.eic.column-count"
+  ],
+  "role": "computation",
+  "schema": "rule-artifact.v14",
+  "scope": {
+    "family": "individual-income-tax",
+    "jurisdiction": "US-federal",
+    "tax_year": 2025
+  },
+  "value": {
+    "else": 0,
+    "op": "choose",
+    "then": 1,
+    "when": {
+      "args": [
+        {
+          "cmp": "lte",
+          "left": {
+            "name": "tax.us.2025.eic.investment-income",
+            "op": "ref"
+          },
+          "op": "compare",
+          "right": {
+            "key": "investment_income_limit",
+            "op": "parameter",
+            "parameter_id": "tax.us.2025.parameter.eic-2025"
+          }
+        },
+        {
+          "cmp": "lt",
+          "left": {
+            "name": "tax.us.2025.eic.worksheet-a.line-1",
+            "op": "ref"
+          },
+          "op": "compare",
+          "right": {
+            "key": "largest_completed",
+            "op": "parameter",
+            "parameter_id": "tax.us.2025.parameter.eic-2025"
+          }
+        },
+        {
+          "cmp": "lt",
+          "left": {
+            "name": "tax.us.2025.eic.worksheet-a.line-3",
+            "op": "ref"
+          },
+          "op": "compare",
+          "right": {
+            "key": "largest_completed",
+            "op": "parameter",
+            "parameter_id": "tax.us.2025.parameter.eic-2025"
+          }
+        },
+        {
+          "args": [
+            {
+              "cmp": "gt",
+              "left": {
+                "name": "tax.us.2025.eic.column-count",
+                "op": "ref"
+              },
+              "op": "compare",
+              "right": 0
+            },
+            {
+              "cmp": "ne",
+              "left": {
+                "name": "tax.us.2025.eic.status-class",
+                "op": "ref"
+              },
+              "op": "compare",
+              "right": 0
+            }
+          ],
+          "op": "any"
+        },
+        {
+          "cmp": "lt",
+          "left": {
+            "name": "tax.us.2025.eic.worksheet-a.line-1",
+            "op": "ref"
+          },
+          "op": "compare",
+          "right": {
+            "name": "tax.us.2025.eic.column.completed",
+            "op": "ref"
+          }
+        },
+        {
+          "cmp": "lt",
+          "left": {
+            "name": "tax.us.2025.eic.worksheet-a.line-3",
+            "op": "ref"
+          },
+          "op": "compare",
+          "right": {
+            "name": "tax.us.2025.eic.column.completed",
+            "op": "ref"
+          }
+        }
+      ],
+      "op": "all"
+    }
+  },
+  "version": "v2",
+  "when": true
+}
