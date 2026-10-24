@@ -4,10 +4,10 @@
   "phase": "Tax Circumstance Breadth",
   "topic": "mortgage-statement-borrowing",
   "active_plan": "docs/phases/tax-circumstance-breadth/milestones/mortgage-statement-borrowing.md",
-  "milestone_state": "track-1",
-  "status": "Track 0 closed after independent Sol review. Track 1 builds the bounded mortgage recording contract on core v53; calculation and saved-reader adoption follow.",
-  "current_role": "Builder — mortgage recording",
-  "current_prompt": "docs/reviews/mortgage-statement-borrowing/charter-1-recording.md"
+  "milestone_state": "track-2",
+  "status": "Track 1 recording is built and Foreman-reviewed. Track 2 adopts the connected calculation and minimum saved group projection; visible interaction and final lifecycle demonstration follow.",
+  "current_role": "Builder — connected mortgage calculation",
+  "current_prompt": "docs/reviews/mortgage-statement-borrowing/charter-2-calculation.md"
 }
 -->
 
@@ -15,7 +15,13 @@
 
 ## Current direction
 
-**Immediate next action:** execute the committed Track 1 recording charter.
+**Immediate next action:** execute the committed Track 2 calculation charter.
+Track 1 is committed (`99d79d6f`, verification `1d791102`) and Foreman-reviewed:
+opaque mortgage references, distinct scoped claims, exact report answers and
+atomic clear are recordable. Focused recorder cases and repository mypy pass;
+no calculation/reader adoption was claimed by those tests. Track 2 includes
+the minimum real group projector because the old singleton projector rejects
+a two-report amount; visible interaction remains Track 3.
 Sol accepted the final connected design; the Foreman closed all six Track 0
 artifacts. The branch now includes core v53's EIC result after a safety-backed
 rebase. Historical prototype evidence remains attributed to its actual bases.

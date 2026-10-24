@@ -3,7 +3,7 @@
   "version": 1,
   "phase": "Tax Circumstance Breadth",
   "topic": "mortgage-statement-borrowing",
-  "status": "Track 0 closed after independent Sol review. Track 1 builds the bounded mortgage recording contract on core v53; calculation and reader adoption follow.",
+  "status": "Track 1 durable recording is built and Foreman-reviewed. Track 2 builds the connected calculation and minimum saved group projector; visible interaction and full lifecycle integration follow.",
   "scope": [
     "extend the existing ordinary mortgage account to a bounded same-borrowing multiple-report case",
     "preserve report amounts, loan-level circumstances and their separate correction lifecycles",
@@ -190,7 +190,7 @@ registry versions until the content unit checks the current ratified line.
 
 The older base sections below describe retained evidence and earlier work
 instructions, not the current next action. The next action is the committed
-[Track 1 recording charter](../../../reviews/mortgage-statement-borrowing/charter-1-recording.md).
+[Track 2 calculation charter](../../../reviews/mortgage-statement-borrowing/charter-2-calculation.md).
 
 ### Historical base after PR #219
 
@@ -551,13 +551,25 @@ selection. It does not promote prototype observations to production proof.
 2. **Track 2 — calculate through declared content.** Adopt a successor of the
    then-current complete core package, exact keyed joins/completion barriers,
    five explicit shared mappings, one authorized line8a, integrity, ordering
-   and attachment successors. Test through the real recorders/coordinator.
-3. **Track 3 — saved explanation and offered interaction.** Group exact
+   and attachment successors. Include the minimum saved group projector and
+   validator so the actual coordinator can save the multi-report result;
+   the existing singleton projector otherwise rejects its legitimate pins.
+   Test through the real recorders/coordinator and reload durable output.
+3. **Track 3 — visible explanation and offered interaction.** Group exact
    reports with shared support, retain uncertainty/contrary/unsupported
    distinctions, inspect attachment rows and save/reload/render. Integrate
    real late-member/closure, correction, withdrawal and explicit-exit cases.
 4. **Closeout.** Independent curated-candidate review and CI; assess this
    bounded extension without automatically adding another mortgage scenario.
+
+Track 1 is built at `99d79d6f` with verification at `1d791102`. Foreman review
+accepted exact scope and current-state recording, with in-flight repairs for
+source-removed link withdrawal and explicit two-report/full-clear isolation.
+The actual orphan recovery uses a member transition while report entities
+remain current; that does not claim all report-removal/re-recording behavior.
+Focused tests and repository mypy are recorded in the build report; no tax
+calculation or group reader is established yet. Five shared production types
+use canonical `tax.us.2025.mortgage.*` IDs; historical demo IDs remain evidence.
 
 The Foreman may split a unit for safe handoff without changing these goals.
 Builder output and Foreman semantic review govern each production increment;
