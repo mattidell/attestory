@@ -3106,7 +3106,49 @@
       "version": "v1"
     },
     {
+      "id": "tax.us.2025.rule.f1098-residence-interest-reason",
+      "role": "computation",
+      "schema": "rule-artifact.v14",
+      "version": "v5"
+    },
+    {
+      "id": "tax.us.2025.rule.report-effective-support-coverage",
+      "role": "computation",
+      "schema": "rule-artifact.v13",
+      "version": "v1"
+    },
+    {
       "id": "tax.us.2025.rule.effective-proceeds-support-count",
+      "role": "computation",
+      "schema": "rule-artifact.v13",
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.rule.owes-the-loan-effective-answer",
+      "role": "computation",
+      "schema": "rule-artifact.v13",
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.rule.no-one-else-owes-it-effective-answer",
+      "role": "computation",
+      "schema": "rule-artifact.v13",
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.rule.what-the-money-paid-for-effective-answer",
+      "role": "computation",
+      "schema": "rule-artifact.v13",
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.rule.this-is-the-original-loan-effective-answer",
+      "role": "computation",
+      "schema": "rule-artifact.v13",
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.rule.mortgage-credit-certificate-received-effective-answer",
       "role": "computation",
       "schema": "rule-artifact.v13",
       "version": "v1"
@@ -3338,12 +3380,6 @@
       "role": "computation",
       "schema": "rule-artifact.v13",
       "version": "v1"
-    },
-    {
-      "id": "tax.us.2025.rule.f1098-residence-interest-reason",
-      "role": "computation",
-      "schema": "rule-artifact.v14",
-      "version": "v5"
     },
     {
       "id": "tax.us.2025.rule.f1098-residence-interest-unresolved",
@@ -3874,12 +3910,6 @@
       "version": "v2"
     },
     {
-      "id": "tax.us.2025.rule.mortgage-credit-certificate-received-effective-answer",
-      "role": "computation",
-      "schema": "rule-artifact.v13",
-      "version": "v1"
-    },
-    {
       "id": "tax.us.2025.rule.mortgage-link-support",
       "role": "computation",
       "schema": "rule-artifact.v13",
@@ -3916,21 +3946,9 @@
       "version": "v1"
     },
     {
-      "id": "tax.us.2025.rule.no-one-else-owes-it-effective-answer",
-      "role": "computation",
-      "schema": "rule-artifact.v13",
-      "version": "v1"
-    },
-    {
       "id": "tax.us.2025.rule.non-form-interest-subtotal",
       "role": "computation",
       "schema": "rule-artifact.v2",
-      "version": "v1"
-    },
-    {
-      "id": "tax.us.2025.rule.owes-the-loan-effective-answer",
-      "role": "computation",
-      "schema": "rule-artifact.v13",
       "version": "v1"
     },
     {
@@ -4069,12 +4087,6 @@
       "id": "tax.us.2025.rule.relationship.accrued-supported",
       "role": "computation",
       "schema": "rule-artifact.v7",
-      "version": "v1"
-    },
-    {
-      "id": "tax.us.2025.rule.report-effective-support-coverage",
-      "role": "computation",
-      "schema": "rule-artifact.v13",
       "version": "v1"
     },
     {
@@ -4576,22 +4588,10 @@
       "version": "v1"
     },
     {
-      "id": "tax.us.2025.rule.this-is-the-original-loan-effective-answer",
-      "role": "computation",
-      "schema": "rule-artifact.v13",
-      "version": "v1"
-    },
-    {
       "id": "tax.us.2025.rule.w2-box1-to-line1a",
       "role": "field-mapping",
       "schema": "rule-artifact.v2",
       "version": "v2"
-    },
-    {
-      "id": "tax.us.2025.rule.what-the-money-paid-for-effective-answer",
-      "role": "computation",
-      "schema": "rule-artifact.v13",
-      "version": "v1"
     },
     {
       "id": "tax.us.2025.schedule-a-boundary.vocabulary",
@@ -4864,7 +4864,7 @@
       "version": "v1"
     }
   ],
-  "package_checksum": "eee22d8fe04b0be84579a961838a97b1595a2d4eade079c3fcd479c5e3ef00bd",
+  "package_checksum": "967c7157793725ca1075596c535f131090c17f8bf54b959295ef5bce1d023db7",
   "schema": "artifact-package.v36",
   "scope": {
     "family": "individual-income-tax",

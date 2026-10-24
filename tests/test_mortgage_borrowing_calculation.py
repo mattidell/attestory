@@ -279,6 +279,10 @@ class MortgageBorrowingPackageTests(unittest.TestCase):
         self.assertTrue(connected_outputs <= set(witness["requires"]))
         member_order = [row["id"] for row in package["members"]]
         reason_position = member_order.index(reason["id"])
+        coverage_position = member_order.index("tax.us.2025.rule.report-effective-support-coverage")
+        witness_position = member_order.index(witness["id"])
+        self.assertLess(reason_position, coverage_position)
+        self.assertLess(coverage_position, witness_position)
         for mapping in (
             "tax.us.2025.rule.owes-the-loan-effective-answer",
             "tax.us.2025.rule.no-one-else-owes-it-effective-answer",
@@ -292,7 +296,7 @@ class MortgageBorrowingPackageTests(unittest.TestCase):
         resolved_coverage = resolved_order.index("tax.us.2025.rule.report-effective-support-coverage")
         resolved_witness = resolved_order.index(witness["id"])
         self.assertLess(resolved_reason, resolved_coverage)
-        self.assertLess(resolved_witness, resolved_coverage)
+        self.assertLess(resolved_coverage, resolved_witness)
         for mapping in (
             "tax.us.2025.rule.owes-the-loan-effective-answer",
             "tax.us.2025.rule.no-one-else-owes-it-effective-answer",
@@ -531,19 +535,28 @@ class MortgageBorrowingPackageTests(unittest.TestCase):
 
     def _assert_contrary_shared_claim_withholds_line8a(self, question: str, value: str) -> None:
         report, model, _local_ids, _shared_ids = _run_connected_case(
-            fully_supported_local=True, shared_overrides={question: value},
+            shared_only=True, shared_overrides={question: value},
         )
         explanation = model["mortgageBorrowingExplanation"]
         self.assertEqual(explanation["line8aFindings"], [])
         self.assertEqual(explanation["line8aDispositions"][0]["disposition"], "blocked")
-        effective_type = {
-            "no-one-else-owes-it": "tax.us.2025.f1098.effective-no-one-else-owes-it",
-            "mortgage-credit-certificate-received": "tax.us.2025.f1098.effective-credit-certificate",
+        effective_type, reason_value = {
+            "no-one-else-owes-it": (
+                "tax.us.2025.f1098.effective-no-one-else-owes-it", "outside-co-obligor",
+            ),
+            "mortgage-credit-certificate-received": (
+                "tax.us.2025.f1098.effective-credit-certificate", "certificate-received",
+            ),
         }[question]
         rows = [row for row in report["dispositions"]
                 if str(row.get("symbol", "")).startswith(f"{effective_type}|")]
         self.assertEqual(len(rows), 2)
-        self.assertTrue(all(row["disposition"] == "blocked" for row in rows))
+        self.assertTrue(all(row["disposition"] == "published" for row in rows))
+        for report_row in explanation["reports"]:
+            effective = next(answer for answer in report_row["effectiveAnswers"]
+                             if answer["factType"] == effective_type)
+            self.assertEqual(effective["value"], value)
+            self.assertEqual(report_row["reasonChain"]["value"], reason_value)
 
     def test_shared_no_other_obligor_answer_is_not_favorable(self) -> None:
         self._assert_contrary_shared_claim_withholds_line8a("no-one-else-owes-it", "no")

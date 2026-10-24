@@ -16,7 +16,7 @@
     "id": "tax.us.2025.f1098.borrowing-inclusion",
     "version": "v1"
   },
-  "notes": "Numeric completion witness only: one exact affirmed link has one effective category.",
+  "notes": "This retained candidate rule id publishes numeric 1 only when one exact affirmed link has all five current effective-answer categories; it is a completion witness, not a proceeds count.",
   "pins": [],
   "publishes": "tax.us.2025.mortgage.effective-proceeds-support-count",
   "requires": [

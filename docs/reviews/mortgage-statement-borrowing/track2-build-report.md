@@ -56,12 +56,16 @@ line8a finding, with both report reasons qualified and pinning all five of
 their effective findings; all five one-at-a-time shared `cannot-tell` cases
 withhold line8a despite favorable local answers; disagreeing local/shared
 `owes-the-loan` answers withhold line8a in both save orders; and shared
-`no-one-else-owes-it=no` or certificate `received` are not favorable. The
-unconnected singleton remains $22,000 with its legacy explanation and basis.
-The package-order assertions place the reason before its effective producers
-in both authored members and `PackageValidation.resolved_members`, with the
-witness before coverage. The coordinator positive run demonstrates dependency
-resolution despite that consumer-first order.
+`no-one-else-owes-it=no` maps to an actual `no` finding and
+`outside-co-obligor` reason; certificate `received` maps to an actual
+`received` finding and `certificate-received` reason. Both shared-only cases
+withhold line8a. The unconnected singleton remains $22,000 with its legacy
+explanation and basis.
+The package-order assertions place the reason, coverage consumer, all-five
+completion witness and effective producers in that sequence in both authored
+members and `PackageValidation.resolved_members`. Shared-only positive and
+uncertainty coordinator runs demonstrate dependency resolution despite this
+consumer-first order.
 
 ## Evidence and limits
 

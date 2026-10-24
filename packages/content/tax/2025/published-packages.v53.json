@@ -2086,7 +2086,7 @@
       "version": "v1"
     },
     {
-      "checksum": "9f8a79e51a22bcfce52e0e9e46d1cfbf7860df0be29ad4d3548c1f5d4f4d9b80",
+      "checksum": "9f8d5c14c17563ead9359aa66db7214b885b854efcf241fc3f780fa9c722e643",
       "id": "tax.us.2025.rule.effective-proceeds-support-count",
       "version": "v1"
     },
@@ -4248,7 +4248,7 @@
       "version": "v54"
     },
     {
-      "checksum": "eee22d8fe04b0be84579a961838a97b1595a2d4eade079c3fcd479c5e3ef00bd",
+      "checksum": "967c7157793725ca1075596c535f131090c17f8bf54b959295ef5bce1d023db7",
       "id": "tax.us.2025.package.core-calculations",
       "version": "v55"
     },
