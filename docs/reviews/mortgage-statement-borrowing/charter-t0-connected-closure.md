@@ -300,6 +300,15 @@ empty/orphan integrity distinction intact. No engine/schema or production
 edits; same assigned probe/results/contract. Return these two cases before
 the later cross-account, uncertainty and late-link/correction increment.
 
+If preserving no-link behavior changes how the connected reason obtains its
+effective answer, also test that changed connected path once, with its consumer
+declared before the effective producer. This is a new dependency/compatibility
+discriminator, not a rerun of unchanged arithmetic. A conditional read alone
+does not establish producer completion or place an optional scalar in the
+subject environment. Trace normal binding and scheduling; use an existing
+completion-bearing declaration, or return the exact admission/execution gap.
+Do not make exit appear successful by breaking the linked route.
+
 ## Context Capsule
 
 - Source ref HEAD, resolved and checked at launch; branch
