@@ -5,7 +5,7 @@
   "topic": "mortgage-statement-borrowing",
   "active_plan": "docs/phases/tax-circumstance-breadth/milestones/mortgage-statement-borrowing.md",
   "milestone_state": "track-0",
-  "status": "Proceeds-use shared/local composition has saved experimental results; other four shared propositions are declaration-only. Explicit exit and remaining identity/lifecycle checks follow. No production built.",
+  "status": "Sol verified the saved proceeds observations but found an undeclared marker/count completion dependency. Repair that composition before explicit exit; synchronize newly advanced main first. No production built.",
   "current_role": "Reviewer — Sol connected measured-evidence checkpoint",
   "current_prompt": "docs/reviews/mortgage-statement-borrowing/charter-p1-independent-review.md"
 }
@@ -96,6 +96,13 @@ shared-only, agreeing and shared-ended/local-current results, and blocks
 disagreement in both assertion orders. Its conflict explanation remains
 generic; only proceeds-use has runtime evidence. Explicit exit and the
 remaining identity/lifecycle checks are next. Visible group rendering,
+The independent Sol checkpoint accepts the five saved observations at their
+stated ceiling but finds no declared completion barrier for derived-marker
+counts. Repair that composition before using it for exit. The accepted
+scheduling contract does not grant an implicit `link_count.links` producer
+edge; do not silently change the engine contract. Main has advanced through
+PR #219/core v52 and must be synchronized before the next builder increment.
+Visible group rendering,
 production recording/routing and connected correction/withdrawal are unbuilt.
 The actual no-report compatibility path is line8a inapplicable, separate
 Schedule A total zero and the existing no-statement line12e route.

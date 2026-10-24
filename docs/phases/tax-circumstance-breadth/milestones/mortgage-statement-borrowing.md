@@ -3,7 +3,7 @@
   "version": 1,
   "phase": "Tax Circumstance Breadth",
   "topic": "mortgage-statement-borrowing",
-  "status": "Proceeds-use shared/local composition has saved experimental results; other four shared propositions are declaration-only. Explicit exit and remaining identity/lifecycle checks follow. No production built.",
+  "status": "Sol verified the saved proceeds observations but found an undeclared marker/count completion dependency. Repair that composition before explicit exit; synchronize newly advanced main first. No production built.",
   "scope": [
     "extend the existing ordinary mortgage account to a bounded same-borrowing multiple-report case",
     "preserve report amounts, loan-level circumstances and their separate correction lifecycles",
@@ -348,6 +348,19 @@ is claimed. Next test explicit exit with one and two remaining reports, plus
 cross-account isolation, uncertainty and changed shared support. A linked-only
 effective-answer producer cannot silently become a prerequisite of the old
 unlinked singleton's reason calculation.
+
+The independent checkpoint verified those saved observations and actual pins,
+but found that the derived-marker counts do not declare a completion barrier
+before counting marker publications. The observed run order is not a general
+guarantee. ADR 0076 does not promise an implicit producer edge for
+`link_count.links`; this is a candidate composition gap, not an established
+engine-contract violation. Close that property before the exit experiment.
+First investigate counts of the actual recorded answers at their natural
+report/borrowing subjects, with explicit predecessor references for consuming
+their results; this may remove the unguaranteed derived-row count. Do not
+replace unresolved production with zero, or require publication of a marker
+whose correct outcome is absence. Preserve the accepted historical evidence
+ceiling and return any necessary contract change explicitly.
 
 ### Open evidence and next action
 

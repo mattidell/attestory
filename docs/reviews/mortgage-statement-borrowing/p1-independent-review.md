@@ -378,3 +378,123 @@ was changed; no production edits, schema allocation, passing-case reruns,
 suite, browser, staging, commit or spawn occurred. Envelope scan exited 0.
 Approximate delta cost: ten inspection/check calls, this append and final
 diff check, roughly twelve tool calls and thirteen reasoning turns.
+
+## Interim foundation/proceeds checkpoint — 2026-10-23
+
+**One bounded mechanism repair before reusing the derived-marker counting
+pattern; the five retained case observations stand.** This is not a final
+Track 0 or production disposition. Explicit exit and the other restored-work
+checks remain pending as declared, not newly discovered defects.
+
+Reviewed pinned `HEAD` `05a8344221c7598c7dbad8ed7e700d5d78f204b1` and its
+product-evidence change `806b751d`. Orientation matched Git and the entry
+tree was clean. Fetch advanced `origin/main`; this branch is 6 behind / 43
+ahead. Foreman explicitly directed continuing this historical-evidence review
+at the pinned ref, with synchronization before the next builder. No claim
+here validates an implementation against the newer ratified base.
+
+### Material mechanism finding
+
+All eight proceeds count rules, including
+`demo.tax.2025.rule.local-proceeds-bought-count`, have `requires: []` and
+`value: link_count` over a **derived** marker. Their `joined` declaration
+supplies identity containment but does not wait for its producer.
+`runner.py::_subject_scheduling_predecessor_names` waits on `requires` and
+coverage reductions; it does not include `link_count.links` or `joined`.
+Package reachability likewise reaches the marker's fact declaration, not its
+producer through this operation. Making marker computations entrypoints
+ensures inclusion, not runtime completion before counting.
+
+In every retained proceeds case, all marker dispositions actually occur
+before the first count (last marker index 112, first count index 113 in the
+coordinator ledger). Thus no wrong zero is observed in these five runs.
+However, an eligible count before an unresolved marker sees no published row
+and can resolve zero; a later marker does not retry that resolved count.
+The complete candidate currently relies on its rule enumeration order for
+this distinction. Assertion-order invariance does not establish producer-order
+invariance. This is an unsupported general mechanism guarantee, not a claim
+that the retained successful numbers are false.
+
+Smallest property-level repair: give the declared composition a real
+completion/dependency barrier so counts run only after marker producers have
+resolved, while preserving legitimate zero for resolved absent/inapplicable
+markers. Simply requiring a possibly absent marker without preserving that
+zero behavior would not suffice. Use existing content machinery if possible;
+no new engine or global record code is demanded by this finding. Verify one
+discriminating producer-order/delayed-marker case after repair, rather than
+rerunning all passing cases. Do not base the next exit check on an assumption
+that these counts already distinguish unresolved production from absence.
+
+### Verified observations and ceiling
+
+I inspected the retained v59 declarations, complete package surface, raw
+case acts, dispositions, saved models and hashes at
+`temp/mortgage-statement-borrowing/t0-dynamic-binding-20261022T194245Z/`,
+plus the foundation's declared count/status and inclusion-integrity shape.
+The current candidate starts from core v51 / registry v49 / release v49;
+the package comparison preserves existing members except the four intended
+mortgage/consumer successors. Standard deduction v3, line13b v2, line16 v6
+and selected preferential base v5 remain pinned. Retained package/registry
+hashes and all five report/model/record hashes match the results account.
+
+The local proceeds marker explicitly joins the existing local type at v2
+with `subject_contains_joined`; the shared source is a separate v1 type on
+borrowing/year keys. The effective result is keyed to the affirmed report
+link and uses eight real numeric count results with a distinct effective
+category type. A's missing-local fixture leaves B's local answer present:
+A's markers block on its absent local source, its local counts have no marker
+rows, and its saved consumed proceeds leaf is the shared assertion only.
+B's leaf set retains its own local assertion and the shared assertion.
+No B-local answer is presented as A's support. This closes the observed
+peer-value fallback defect for this specific candidate and case.
+
+Agreeing answers preserve both consumed sources. Both conflicting assertion
+orders block the effective result and dependent amounts. The shared-ended
+case supplies an actual retraction act, retains the independent local answer,
+and saves only that local proceeds leaf in each reason chain; its amounts
+publish. Those are supplied-state coordinator observations, not demonstrated
+ordinary-recorder lifecycle or a guarantee for uncertain/contrary fallback.
+Only proceeds-use is exercised at runtime; admission of five shared types
+does not establish the other four computations.
+
+Generic `DEPENDENCY_INVALID` is adequate evidence of fail-closed disagreement
+at this rung. Before production, the saved explanation must still identify
+the conflicting applicable propositions and their actual sources so the
+person can reconcile them; this property does not require a new global code.
+Applicable displayed raw claims and actual consumed pins remain distinct.
+
+Safe next step: close the marker/count scheduling property, then continue
+the planned explicit-exit and remaining scoped-support checks against the
+synchronized base. Reuse the measured foundation and five proceeds outputs
+at their recorded ceiling. No full Track 0 verdict is warranted yet.
+
+Only this review record was edited. No passing-case execution, suite,
+production/schema/engine/test edit, staging, commit or spawn occurred.
+Envelope scan exited 0. Approximate checkpoint cost: ten inspection/check
+calls plus append/final diff check, with brief Foreman coordination; roughly
+twelve tool calls and thirteen reasoning turns, excluding wait/coordination.
+
+Scheduling basis checked on follow-up: accepted ADR-0076 Part 1 defines a
+predecessor exactly as a producer named by `requires` or
+`link_coverage.reductions`, and waits for its **resolution**, not publication.
+It does not grant an implicit producer edge to `link_count.links`. The same
+omission reaches the reference runner: `reference_runner.run_reference`
+demands `_Run.demand_names`, whose non-selection branch returns `_requires`,
+and shares `is_eligible`/`attempt` with the forward runner. In package
+validation, the `link_count` adjacency at `package_validation.py:2971–2979`
+reaches fact declarations/bundles only, whereas ordinary required symbols
+reach their publishers. The candidate's explicit marker entrypoints repair
+reachability by inclusion, but do not create a completion edge in either
+scheduler. This is a candidate dependency-design gap under the existing
+contract, not evidence that the engine violated an accepted implicit edge.
+
+No declaration-order permutation was executed: doing it through normal live
+resolution requires a newly checksum-published disposable surface plus the
+matching presentation process. The exact code/declaration trace establishes
+the missing guarantee without calling a hand-built context production
+evidence. Whether a permuted validated live candidate actually publishes a
+wrong zero or favorable amount is **not measured** by this checkpoint; the
+five retained runs themselves do not exhibit that defect. The proposed
+targeted follow-up should discriminate it and the repaired completion/zero
+contract without replaying the full passing set. Three additional read-only
+calls established this accepted-contract/reference-runner basis.
