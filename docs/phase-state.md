@@ -5,7 +5,7 @@
   "topic": "mortgage-statement-borrowing",
   "active_plan": "docs/phases/tax-circumstance-breadth/milestones/mortgage-statement-borrowing.md",
   "milestone_state": "track-2",
-  "status": "Track 1 is complete. Track 2 saves the connected amount through line12e and Schedule A, and exercises shared uncertainty, adverse categories and consumer-first ordering. Complete the remaining independent refusals, cross-borrowing and correction/withdrawal/clear cases before accepting Track 2; visible interaction remains Track 3.",
+  "status": "Track 2 has further committed correction, withdrawal, clear, ceiling/date and two-root evidence, but is not complete. Main advanced through PR #221 and collides with the earlier mortgage v54/v52 checkpoint. The attempted rebase was safely aborted after permission refusal; resolve the published-version collision with owner approval before continuing production.",
   "current_role": "Builder — connected mortgage calculation",
   "current_prompt": "docs/reviews/mortgage-statement-borrowing/charter-2-calculation.md"
 }
@@ -15,7 +15,20 @@
 
 ## Current direction
 
-**Immediate next action:** execute the committed Track 2 calculation charter.
+**Immediate next action:** resolve the new base-version collision before
+resuming the Track 2 calculation charter. Main advanced through PR #221
+(EIC with qualifying children), adopting core v54 / registry v52 / release
+v52. These collide with the earlier unmerged mortgage checkpoint. A verified
+safety ref preserves the mortgage tree; the attempted rebase was aborted
+after the permission guard rejected restoring the ratified registry bytes.
+The branch is clean, six commits behind main, with all tested work retained.
+The intended resolution preserves main's three published files unchanged and
+rebuilds only the unpublished mortgage v55 / registry v53 / release v53 from
+that complete base, retaining mortgage citizens there. Owner approval for that
+specific collision resolution is needed. Do not resume production or present
+the current candidate as synchronized.
+
+**Calculation progress on the retained base:**
 Its first connected implementation case now records two supported reports
 of $22,000 and $3,500 and saves one actual line8a finding of $25,500 through
 the real coordinator. The all-five-shared positive now also saves $25,500,
@@ -32,6 +45,13 @@ remaining independent refusal, separate-borrowing and correction/withdrawal/
 clear cases. These checks do not establish the visible reader or complete
 lifecycle. Track 2 remains unfinished planned work, not a new
 product decision or an accepted complete calculation route.
+Further committed checks establish shared correction and withdrawal with
+independent local fallback, root/final-link withdrawal without singleton
+fallback, explicit clear with one versus two reports, clear-singleton zero
+versus unresolved, differing Box3 and Box2/ceiling refusals, and two active
+roots refusing a subtotal. The empty-family probe does not yet establish the
+charter's exact inapplicable-line8a/closure behavior. Separate-borrowing
+cross-fill, orphan and remaining refusal checks are still open.
 Track 1 is committed (`99d79d6f`, verification `1d791102`) and Foreman-reviewed:
 opaque mortgage references, distinct scoped claims, exact report answers and
 atomic clear are recordable. Focused recorder cases and repository mypy pass;

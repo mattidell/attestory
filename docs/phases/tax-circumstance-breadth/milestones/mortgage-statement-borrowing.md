@@ -3,7 +3,7 @@
   "version": 1,
   "phase": "Tax Circumstance Breadth",
   "topic": "mortgage-statement-borrowing",
-  "status": "Track 1 is complete. Track 2 saves the connected amount through line12e and Schedule A and exercises shared uncertainty, adverse categories and consumer-first ordering. Remaining independent refusals, separate-borrowing and correction/withdrawal/clear cases precede acceptance; visible interaction remains Track 3.",
+  "status": "Track 2 has committed calculation, consumer, correction/withdrawal/clear and bounded limit/refusal evidence, but is not complete. PR #221 now collides with the earlier unmerged v54/v52 checkpoint; the attempted rebase was safely aborted after permission refusal. Resolve the published-version collision with owner approval before further production.",
   "scope": [
     "extend the existing ordinary mortgage account to a bounded same-borrowing multiple-report case",
     "preserve report amounts, loan-level circumstances and their separate correction lifecycles",
@@ -177,7 +177,24 @@ treatment. The connected contract is selected after independent Sol review;
 production recording begins before calculation and reader adoption. No new
 published schema is needed by the selected design.
 
-### Current base after PR #220
+### Latest main synchronization required
+
+PR #221 now adopts core v54 / registry v52 / release v52 for EIC with
+qualifying children. The current mortgage branch remains on its retained
+PR #220 base: a safety-backed rebase was attempted, then aborted after the
+permission guard rejected replacing the conflicted registry with its ratified
+bytes. The worktree is clean and all tested mortgage increments are retained.
+The collision is with the earlier unmerged mortgage checkpoint, not permission
+to rewrite the newly ratified files. Resolve it by preserving main's v54/v52
+package, registry and release byte-for-byte, then reconcile the unpublished
+mortgage v55/v53 successor with the complete new base. All old mortgage v52
+registry entries remain recoverable in its v53 candidate and the safety ref;
+the colliding old core-v54 entry must not replace the ratified EIC core-v54.
+This specific conflict resolution needs owner approval after the permission
+refusal. Resume the existing charter only after synchronization and the
+changed-base package/consumer check; no new mortgage scope is selected.
+
+### Retained implementation base after PR #220
 
 The branch is rebased onto merged earned-income-credit work: core **v53**,
 registry **v51**, release **v51**. Preserve its complete member set and the
