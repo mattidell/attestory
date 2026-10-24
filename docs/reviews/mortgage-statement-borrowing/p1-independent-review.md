@@ -556,3 +556,114 @@ explanation limit remains at its declared ceiling. No passing case, reference
 run or suite was rerun, and no production files were edited. Only this report
 was changed; envelope scan exited 0. Approximate recheck cost: four inspection
 calls, append and final diff check (six calls), roughly seven reasoning turns.
+
+## Final connected-design disposition — 2026-10-24
+
+**REPAIR REQUIRED — settle the other-debt referent/reuse contract and correct
+one remaining evidence upgrade.** The measured exit/completion results hold;
+these repairs do not require replaying their passing cases. No production
+charter or Track 0 closure is recommended until the bounded repairs are
+dispositioned and reflected in the connected contract.
+
+Reviewed oriented `HEAD`
+`288563ff636b2189ff54aec6246e6f04fff6cdac`, including the consolidated contract,
+six artifacts and new v70/v71 evidence. Git matched orientation and was clean;
+after fetch the branch is 0 behind / 55 ahead of `origin/main`. Core v52 is
+the adopted base for this review. Earlier findings remain historical at their
+recorded versions; previous measured reviews above are reused.
+
+### Material remaining repairs
+
+1. **“Other” debt needs a stable excluded-borrowing referent and a reuse rule.**
+The recording table and admission declaration make this a return/year fact
+about “other mortgage or home-equity debt,” while the clear operation retains
+it as independent authority. None names the borrowing excluded from “other”
+or states what authorizes reusing the retained answer with a replacement
+borrowing. The same omission is carried into the authority/lifecycle table
+and proposed recorder unit. This is consequential because connected readiness
+consumes `no` as coverage support.
+
+For example, “no other debt” when discussing A means no relevant debt besides
+A; preserving that answer on clear does not make it “no debt” or automatically
+mean no relevant debt besides a newly selected B. Return-wide storage alone
+cannot establish that substitution. The prototype still uses a borrowing-keyed
+other-debt assertion and does not settle the proposed return/year semantics.
+The saved empty `sharedSupport` after clear is likewise not proof of safe
+reuse when a different borrowing later becomes current.
+
+Smallest repair: state the exact ordinary proposition and how its excluded
+borrowing/account context is retained and checked. Preserve its original
+answer/history on exit, but require a matching referent or explicit renewed
+support before it can authorize a different connected borrowing. Alternatively
+choose a stable, unambiguous return-wide proposition and explain how it
+establishes this bounded coverage. No debt inventory system is required by
+this finding. Add one replacement-borrowing acceptance case; genuine
+closed-empty and legacy singleton must not gain an irrelevant debt-answer
+prerequisite. This is a missing design decision, not an unperformed production
+test being treated as a design failure.
+
+2. **The contract's final Evidence ceiling still upgrades historical integrity
+observations.** It says core-v52 T0 content additionally measured
+“empty/orphan integrity.” The six-artifact integration rows correctly locate
+the retained true-empty/orphan/withdrawn integrity cases on core-v51-derived
+v58; the new core-v52 v70/v71 cases are explicit exit, changed connected
+compatibility, declaration order and proceeds uncertainty. Correct that final
+summary to preserve the exact bases. No new empty/orphan run is demanded to
+repair this account; future current-base production acceptance remains open.
+
+### Findings closed and evidence that holds
+
+The new declarations address the reason completion edge concretely: the
+effective category requires both natural raw-source counters; a separate
+exact-link numeric witness requires that effective result and publishes 1;
+Box1 coverage uses `link_coverage` with that witness as `reductions`, hence
+the existing predecessor-resolution edge. The reason requires coverage and
+the local counter. This avoids requiring publication of an absent optional
+raw answer and avoids feeding a category into numeric coverage. The retained
+v71 consumer-first case records effective result → witness → coverage/reason
+→ readiness → line8a → line12e, despite the reason's earlier declaration.
+The amount producer is an ordinary `rule-artifact.v6` collector, separate
+from the v14 readiness selection. Only that collector publishes the exact
+family-authorized line8a symbol.
+
+The v70 exit cases consume actual current reason results: qualified cleared
+singleton publishes $8,000; the same route with `not-paid` publishes zero;
+two cleared reports block instead of summing. The no-account readiness
+default explicitly reads current Box1 reasons; current root/outcome activity
+cannot use that default merely because connected readiness is absent. The
+changed connected-singleton compatibility case retains its link, actual
+principal result and $8,000 amount. These are supplied retraction/after-state
+coordinator observations, not the proposed recorder's atomic interaction.
+
+The v71 uncertain shared source remains current beside favorable local
+support and is pinned by both blocked effective results. Missing numeric
+witnesses then block coverage, reason, readiness and dependent amounts. It
+does not publish favorable support or tax zero. The generic block and absent
+shared-support display are honestly identified as prototype limits; production
+acceptance requires an actionable uncertainty explanation, not a new global
+record code. `AUTHORIZATION_ABSENT` limits these runs to calculation/pin/model
+evidence. The inaccurate retained convenience flag is explicitly corrected
+by the raw-source/pin account without rewriting the historical run.
+
+The other four shared propositions are declaration/acceptance requirements,
+not falsely claimed runtime evidence. Their stated mappings match the adopted
+v2 vocabulary: particularly `no-one-else-owes-it=yes` supports no additional
+obligor, `no` identifies another obligor; original-loan `no` is refinance;
+certificate `received` reaches the unmodeled-certificate branch rather than
+qualifying interest. Existing local meanings are not rewritten as shared
+assertions. Production must implement/test each explicit mapping and preserve
+unknown versus contrary versus determined-zero distinctions.
+
+The late-member artifact names real `append_batch` / member-transition /
+`horizons.apply_transition` / currency/closure boundaries and distinguishes
+one-to-two from an excluded third report. Its fresh-horizon requirement and
+unchanged borrowing/year raw claims are coherent paper obligations, accurately
+separated from future recorder/lifecycle acceptance. Visible group rendering,
+durable recorder operations and inspectable attachment rows remain production
+deliverables after the selected design is closed; they do not invalidate the
+bounded declaration experiments already reviewed.
+
+Only this review record was changed. No production/code/schema edits, Git
+mutation, suite, browser, new experiment or subagent was used. Envelope scan
+exited 0. Approximate final-delta cost: six inspection/check calls plus append
+and final diff check, roughly eight calls and nine reasoning turns.
