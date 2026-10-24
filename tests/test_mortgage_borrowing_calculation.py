@@ -4,6 +4,7 @@ from __future__ import annotations
 import hashlib
 import json
 import copy
+import re
 import tempfile
 import unittest
 from pathlib import Path
@@ -62,14 +63,52 @@ def _attested(finding_id: str, fact_id: str, value: object) -> dict[str, Any]:
             "basis": "attested", "evidence_ids": []}
 
 
+def _add_line12e_base_answers(acts: list[dict[str, Any]], *, missing_boundary: str | None = None) -> None:
+    """Add explicit synthetic unrelated current-return declarations; infer no defaults."""
+    adoption = acts.pop()
+    acts.append({
+        "schema": "act.v1", "act_id": "demo.mortgage.base-vocabulary", "kind": "bundle-adoption",
+        "actor": "demo.user.filer-1", "at": "2026-10-23T16:00:29Z",
+        "committed_against": len(acts),
+        "payload": {"bundle": _load(CONTENT / "senior-and-dependent-deductions.vocabulary.bundle.json")},
+    })
+    base_answers = (
+        ("standard-deduction.can-be-claimed-as-dependent", "no"),
+        ("schedule1a.no-parts-ii-iv-deductions-declared", "yes"),
+    )
+    for name, value in base_answers:
+        acts.append({
+            "schema": "act.v1", "act_id": f"demo.mortgage.base.{name}", "kind": "assertion",
+            "actor": "demo.user.filer-1", "at": "2026-10-23T16:00:30Z",
+            "committed_against": len(acts),
+            "payload": {"finding": _attested(f"demo.mortgage.base.{name}", f"tax.us.2025.{name}|tax-year=2025", value)},
+        })
+    if missing_boundary is not None:
+        target = f"tax.us.2025.schedule-a-boundary.{missing_boundary}|tax-year=2025"
+        acts[:] = [row for row in acts if not (
+            row.get("kind") == "assertion"
+            and row.get("payload", {}).get("finding", {}).get("fact_id") == target
+        )]
+    for index, row in enumerate(acts):
+        row["committed_against"] = index
+    adoption["committed_against"] = len(acts)
+    acts.append(adoption)
+
+
 def _run_connected_case(*, uncertain_shared: str | None = None, unlinked_third_report: bool = False,
                        unconnected_singleton: bool = False, fully_supported_local: bool = False,
                        shared_only: bool = False,
                        shared_before_local: bool = False,
+                       missing_local: str | None = None,
+                       missing_shared: str | None = None,
+                       include_line12e_base_answers: bool = False,
+                       missing_schedule_a_boundary: str | None = None,
                        shared_overrides: dict[str, str] | None = None) -> tuple[dict[str, Any], dict[str, Any], dict[str, str], dict[str, str]]:
     """Run the real recorder and coordinator against the successor package."""
     acts = cast(list[dict[str, Any]], _f1098_acts(
         interest=22000.0, second_statement_interest=None if unconnected_singleton else 3500.0))
+    if include_line12e_base_answers:
+        _add_line12e_base_answers(acts, missing_boundary=missing_schedule_a_boundary)
     if unlinked_third_report:
         previous = next(row for row in acts if row.get("kind") == "member-transition"
                         and row["payload"]["successor"]["id"] == "demo.f1098.h2")
@@ -150,6 +189,8 @@ def _run_connected_case(*, uncertain_shared: str | None = None, unlinked_third_r
             if shared_overrides:
                 shared_values.update(shared_overrides)
             for question, (claim, _default_value) in SHARED_CLAIMS.items():
+                if missing_shared == question:
+                    continue
                 value = "cannot-tell" if uncertain_shared == question else shared_values[question]
                 shared_ids[question] = record(claim, value)
             for report in report_keys:
@@ -162,8 +203,10 @@ def _run_connected_case(*, uncertain_shared: str | None = None, unlinked_third_r
             for question in LOCAL_FACTS:
                 if shared_only:
                     continue
-                if (report_index == 0 and uncertain_shared != question and not fully_supported_local
-                        and not unconnected_singleton):
+                if missing_local == question and report_index == 0:
+                    continue
+                if (missing_local is None and report_index == 0 and uncertain_shared != question
+                        and not fully_supported_local and not unconnected_singleton):
                     continue  # A demonstrates shared-only support except in the uncertainty mutation.
                 local_value = (legacy_local_values[question] if unconnected_singleton
                                else values[question] if fully_supported_local
@@ -178,7 +221,7 @@ def _run_connected_case(*, uncertain_shared: str | None = None, unlinked_third_r
                 local_ids[f"{report_index}:{question}"] = result["finding_ids"][0]
 
         if not unconnected_singleton and not fully_supported_local:
-            report_indices = (0, 1) if shared_only else (1,)
+            report_indices = (0, 1) if shared_only or missing_local is not None else (1,)
             for report_index in report_indices:
                 for question, value in {
                     "filing-unit-owns-home": "yes", "shared-main-home": "yes",
@@ -444,10 +487,16 @@ class MortgageBorrowingPackageTests(unittest.TestCase):
                               ("filing-unit-owns-home", "shared-main-home", "home-is-collateral", "paid-the-interest")})
 
     def test_projection_keeps_unlinked_current_report_once(self) -> None:
-        report, model, _local_ids, _shared_ids = _run_connected_case(unlinked_third_report=True)
+        report, model, _local_ids, _shared_ids = _run_connected_case(
+            unlinked_third_report=True, fully_supported_local=True, include_line12e_base_answers=True,
+        )
         self.assertEqual(report["authorization_status"], "AUTHORIZATION_ABSENT")
         explanation = model["mortgageBorrowingExplanation"]
         self.assertEqual(len(explanation["line8aDispositions"]), 1)
+        self.assertEqual(explanation["line8aDispositions"][0]["disposition"], "blocked")
+        self.assertEqual(explanation["line8aFindings"], [])
+        line12e = next(row for row in model["sections"] if row["id"] == "line-12e")
+        self.assertEqual(line12e["resolved"]["disposition"], "blocked")
         self.assertEqual(len(explanation["reports"]), 3)
         third = next(row for row in explanation["reports"] if row["statement"] == "demo.f1098.stmt.c")
         self.assertEqual(third["reportedInterest"]["value"], 1900.0)
@@ -491,6 +540,47 @@ class MortgageBorrowingPackageTests(unittest.TestCase):
                               if isinstance(pin, dict)}
             self.assertIn(report_row["reportedInterest"]["findingId"], reason_pin_ids)
             self.assertTrue({answer["findingId"] for answer in effective} <= reason_pin_ids)
+
+    def test_connected_line12e_uses_schedule_a_and_saves_both_report_rows(self) -> None:
+        report, model, _local_ids, _shared_ids = _run_connected_case(
+            fully_supported_local=True, include_line12e_base_answers=True,
+        )
+        explanation = model["mortgageBorrowingExplanation"]
+        line8a = explanation["line8aFindings"][0]
+        report_box1_ids = {row["reportedInterest"]["findingId"] for row in explanation["reports"]}
+        self.assertEqual(line8a["value"], 25500.0)
+        self.assertTrue(report_box1_ids <= {pin.get("id") for pin in line8a["pins"]})
+        line12e = next(row for row in model["sections"] if row["id"] == "line-12e")
+        self.assertEqual(line12e["resolved"]["disposition"], "published_value")
+        self.assertEqual(line12e["resolved"]["value"], 25500.0)
+        self.assertEqual(next(row for row in report["dispositions"]
+                              if row.get("artifact_id") == "tax.us.2025.rule.form1040-line12e")["disposition"],
+                         "published")
+        attachment = next(row for row in model["attachments"]
+                          if row["id"] == "tax.us.2025.rule.attachment.schedule-a")
+        self.assertEqual(attachment["resolved"]["disposition"], "published")
+        group = next(row for row in model["citationGroups"]
+                     if row["id"] == "tax.us.2025.rule.attachment.schedule-a")
+        tie_out = group["parts"][0]["tieOutText"]
+        subtotal = re.search(r"Reported subtotal: ([0-9.]+)", tie_out)
+        assert subtotal is not None, tie_out
+        self.assertEqual(float(subtotal.group(1)), 25500.0)
+
+    def test_connected_schedule_a_missing_one_boundary_blocks_attachment(self) -> None:
+        report, model, _local_ids, _shared_ids = _run_connected_case(
+            fully_supported_local=True, include_line12e_base_answers=True,
+            missing_schedule_a_boundary="no-charitable-declared",
+        )
+        explanation = model["mortgageBorrowingExplanation"]
+        self.assertEqual(explanation["line8aFindings"][0]["value"], 25500.0)
+        attachment = next(row for row in model["attachments"]
+                          if row["id"] == "tax.us.2025.rule.attachment.schedule-a")
+        self.assertEqual(attachment["resolved"]["disposition"], "blocked")
+        attachment_row = next(row for row in report["dispositions"]
+                              if row.get("artifact_id") == "tax.us.2025.rule.attachment.schedule-a")
+        self.assertEqual(attachment_row["disposition"], "blocked")
+        self.assertIn("tax.us.2025.schedule-a-boundary.no-charitable-declared",
+                      attachment_row.get("missing", []))
 
     def _assert_uncertain_shared_claim_withholds_line8a(self, question: str) -> None:
         report, model, _local_ids, shared_ids = _run_connected_case(
@@ -582,6 +672,32 @@ class MortgageBorrowingPackageTests(unittest.TestCase):
 
     def test_disagreeing_local_and_shared_answers_block_shared_first(self) -> None:
         self._assert_disagreement_withholds_line8a(shared_before_local=True)
+
+    def test_report_b_local_answer_cannot_fill_missing_a(self) -> None:
+        report, model, _local_ids, _shared_ids = _run_connected_case(
+            missing_shared="owes-the-loan", missing_local="owes-the-loan", fully_supported_local=True,
+        )
+        explanation = model["mortgageBorrowingExplanation"]
+        self.assertEqual(explanation["line8aFindings"], [])
+        self.assertEqual(explanation["line8aDispositions"][0]["disposition"], "blocked")
+        effective_type = "tax.us.2025.f1098.effective-owes-the-loan"
+        rows = [row for row in report["dispositions"]
+                if str(row.get("symbol", "")).startswith(f"{effective_type}|")]
+        self.assertEqual(len(rows), 2)
+        by_report = {"demo.f1098.stmt.a": None, "demo.f1098.stmt.b": None}
+        for row in rows:
+            symbol = str(row["symbol"])
+            statement = next(name for name in by_report if f"statement={name}" in symbol)
+            by_report[statement] = row["disposition"]
+        self.assertEqual(by_report, {"demo.f1098.stmt.a": "blocked", "demo.f1098.stmt.b": "published"})
+        saved_a, saved_b = explanation["reports"]
+        self.assertFalse(any(answer["factType"] == LOCAL_FACTS["owes-the-loan"]
+                             for answer in saved_a["localAnswers"]))
+        saved_b_effective = next(answer for answer in saved_b["effectiveAnswers"]
+                                 if answer["factType"] == effective_type)
+        self.assertEqual(saved_b_effective["value"], "yes")
+        self.assertIsNone(saved_a["reasonChain"])
+        self.assertEqual(saved_b["reasonChain"]["value"], "qualified")
 
     def test_new_package_without_borrowing_activity_does_not_fabricate_completed_legacy_result(self) -> None:
         report, model, _local_ids, _shared_ids = _run_connected_case(unconnected_singleton=True)

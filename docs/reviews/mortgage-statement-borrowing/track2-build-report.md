@@ -69,6 +69,20 @@ consumer-first order.
 
 ## Evidence and limits
 
+The next consumer increment is now exercised through the same real recorder
+and coordinator path. With explicit synthetic current-return answers for the
+unrelated line12e prerequisites, the connected $25,500 line8a finding feeds a
+published Schedule A attachment and line12e result of $25,500; the saved
+attachment citation tie-out reports the same subtotal and retains both
+report-specific rows. Removing one Schedule A boundary answer keeps line8a
+published but blocks the attachment. A fully supported A/B pair plus an
+unlinked current C report blocks both the line8a group amount and line12e.
+When A's `owes-the-loan` local answer and the corresponding shared claim are
+missing, B's separately recorded local answer publishes only B's effective
+finding; A's finding and reason remain absent and no group amount is saved.
+These cases show tested consumer and report-key boundaries, not correction or
+withdrawal behavior.
+
 Verified so far:
 
 - v54 validates against the current content corpus and retains the v53 input
@@ -104,16 +118,17 @@ Verified so far:
   the full compatibility/refusal matrix.
 
 Track 2 remains open. The shared-only amount, all five `cannot-tell` refusals,
-singleton compatibility, and the bounded contrary/disagreement cases above
-are demonstrated. Correction/withdrawal/clear behavior, unrelated-borrowing
-cross-fill refusal, the remaining independent refusal cases, broader
-Schedule A/line12e attachment behavior, and lifecycle cases remain unverified.
+singleton compatibility, bounded contrary/disagreement cases, the supported
+Schedule A/line12e consumer, one missing-boundary attachment refusal, and
+unlinked-report/cross-fill boundaries above are demonstrated. Correction,
+withdrawal and clear behavior, unrelated-borrowing cross-fill refusal, the
+remaining independent refusal cases, and lifecycle cases remain unverified.
 This checkpoint does not claim complete Track 2 acceptance, return
 authorization, or a complete return.
 
 ## Focused commands
 
-- `python3 -m pytest -q tests/test_mortgage_borrowing_calculation.py` — 16 passed (cache directed outside the worktree).
+- `python3 -m pytest -q -o cache_dir=<temporary-cache-dir> tests/test_mortgage_borrowing_calculation.py` — 19 passed (2026-10-24).
 - `python3 -m mypy --cache-dir=<temporary-cache-dir> packages tests` — no issues in 332 source files.
 - `python3 tools/envelope_scan.py --verify` and `git diff --check` — passed.
 
