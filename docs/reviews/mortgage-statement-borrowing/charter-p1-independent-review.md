@@ -207,7 +207,48 @@ write target. No suite, production edit, new experiment, staging or commit.
 Explicit exit, remaining shared propositions and lifecycle cases are still
 open by design; do not promote this checkpoint to Track 0 readiness.
 
-### P3 continuation object and bounded review (historical routing)
+### Final connected-design disposition
+
+On Foreman continuation after final consolidation is committed, review the
+whole connected contract, the six closure artifacts and the remaining design
+delta in this same independent unit. Reuse your completed P1/P2/P3 and
+completion reviews; do not restart tax research or rerun passing cases.
+
+The new surfaces are explicit account exit, restored legacy treatment, the
+reason's effective-result/witness/coverage completion path, and the uncertainty
+case. Inspect the retained actual declarations, reports/models/records and
+exact pins, including the consumer-before-producer v71 check. Confirm that a
+cleared singleton consumes its own actual qualified/zero reason, two cleared
+reports cannot be summed, and ordinary end outcomes cannot take the explicit-
+clear fallback. Missing and uncertain support must not become a favorable
+amount or a factual disagreement. Current generic blocks and absent run
+authorization are stated measurement limits, not production acceptance.
+
+Check the late-member contract against exact source/family/currency APIs:
+one-to-two is supported after renewed authority; a third report is separately
+out of scope; adding a report cannot falsely change an unchanged borrowing/year
+answer, while old closure-dependent totals cannot be reused. A supplied state
+does not prove a recorder. Check the other four shared propositions' explicit
+mappings and production acceptance cases without demanding invented runtime
+evidence for unbuilt consumers.
+
+Also examine the retained return-wide other-debt answer's actual proposition
+and lifecycle. “Other” must have a clear referent: retaining the answer on
+explicit exit must not silently make it a no-debt claim or authorize it for
+an unrelated replacement borrowing. Determine whether the present scope and
+recording contract are sufficient; report a concrete gap if not, rather than
+presuming either a defect or a new inventory system is necessary. Check
+negated question polarity against the adopted content, not the field name.
+
+Give the final Track 0 verdict already requested above: READY FOR BOUNDED
+IMPLEMENTATION or REPAIR REQUIRED. Identify only material missing decisions,
+unsupported contract claims, compatibility failures or evidence needed to
+select an implementation. Distinguish future production acceptance from a
+design prerequisite, but do not excuse a missing consumer path as prose.
+Only append to the existing independent report. No product/code edits, broad
+suite, browser, new scenario expansion, staging, commit or spawn.
+
+### P3 historical review object
 
 On Foreman continuation, review the committed P3 connected contract,
 saved-model probe/results and active plan Design state. This is the next

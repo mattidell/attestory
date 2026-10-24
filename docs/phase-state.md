@@ -5,9 +5,9 @@
   "topic": "mortgage-statement-borrowing",
   "active_plan": "docs/phases/tax-circumstance-breadth/milestones/mortgage-statement-borrowing.md",
   "milestone_state": "track-0",
-  "status": "Shared-answer scheduling and explicit-exit prototypes are measured. Finish uncertainty and the six connected-design artifacts for Sol review. No production built.",
-  "current_role": "Builder — Luna final restored-work consolidation",
-  "current_prompt": "docs/reviews/mortgage-statement-borrowing/charter-t0-connected-closure.md"
+  "status": "The restored shared-answer/exit contract and six artifacts are consolidated on core v52. Sol reviews the connected design before production. Track 0 remains open.",
+  "current_role": "Reviewer — Sol final connected-design disposition",
+  "current_prompt": "docs/reviews/mortgage-statement-borrowing/charter-p1-independent-review.md"
 }
 -->
 
@@ -113,8 +113,10 @@ All adopted member IDs are preserved. Sol's focused recheck closed the finding.
 The explicit-exit increment now saves the qualified singleton, no-payment
 zero and unsupported two-report outcomes. Its changed connected case retains
 the actual dependency order even with the reason declared before its producer.
-Next finish one uncertainty discriminator and the connected contract/closure
-artifacts, then obtain Sol's independent verdict before production.
+The uncertainty case withholds favorable support and keeps its actual source
+in the coordinator pins; its generic prototype display remains a production
+explanation requirement. The late-member and six-artifact contract is
+consolidated for Sol's final connected-design disposition before production.
 These are supplied-state observations, not production or recorder acceptance.
 Visible group rendering,
 production recording/routing and connected correction/withdrawal are unbuilt.

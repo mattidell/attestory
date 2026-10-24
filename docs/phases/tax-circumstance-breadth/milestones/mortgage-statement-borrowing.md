@@ -3,7 +3,7 @@
   "version": 1,
   "phase": "Tax Circumstance Breadth",
   "topic": "mortgage-statement-borrowing",
-  "status": "Shared-answer scheduling and explicit-exit prototypes are measured. Finish uncertainty and the six connected-design artifacts for Sol review. No production built.",
+  "status": "The restored shared-answer/exit contract and six artifacts are consolidated on core v52. Sol reviews the connected design before production. Track 0 remains open.",
   "scope": [
     "extend the existing ordinary mortgage account to a bounded same-borrowing multiple-report case",
     "preserve report amounts, loan-level circumstances and their separate correction lifecycles",
@@ -394,8 +394,12 @@ singleton's $8,000, yields zero for a no-payment singleton, and blocks two
 unconnected reports. A changed connected case also works when its reason is
 declared before the effective producer. These are supplied-state coordinator
 and saved-model observations, not production recording. The latest T0 account
-retains the rejected shortcuts as failures. Finish the uncertainty case and
-late-member contract/acceptance trace, then obtain the connected Sol verdict.
+retains the rejected shortcuts as failures. The uncertainty case also
+withholds favorable support and retains the actual uncertain source, but its
+prototype model has only a generic block, not the required production
+explanation. The late-member contract identifies the actual transition,
+currency and closure path; recorded lifecycle remains production acceptance.
+Sol now reviews the consolidated design and six artifacts before production.
 
 ### Open evidence and next action
 
