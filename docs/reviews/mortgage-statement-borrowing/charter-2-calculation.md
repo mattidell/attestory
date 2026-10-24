@@ -2,23 +2,31 @@
 
 ## Current implementation increment
 
-Resume from `e1e46a10` or a legitimate descendant. Admission/mapping and
-saved-projection work is committed, but the connected reason/readiness chain
-and sole line8a collector are **not built**. The successor consumers in
-core v55 / registry v53 / release v53 are preparation, not a completed amount.
+Resume from the latest committed Track 2 checkpoint on this branch, preserving
+newer legitimate work. The report-local foundation now has a supported
+two-report real-recorder/coordinator case: $22,000 plus $3,500 produces one
+saved line8a finding of $25,500. Core v55 / registry v53 / release v53 remains
+an unfinished candidate, not an accepted complete route. Effective mappings
+alone do not prove that every consuming reason uses them.
 
 The next builder's first actions are:
 
-1. Read the current citizens and the reviewed T0 declarations. Write the
-   minimum connected chain: exact account ceiling, per-report outcome and
-   five effective answers into the reason, per-link numeric support, account
-   coverage/readiness, current route selection, and the sole authorized
-   line8a collector. Use the demonstrated content operators; do not redesign
-   the engine or spend this increment on presentation wording.
-2. Execute one supported two-report case through actual recording and the
-   coordinator; obtain the full amount and its saved actual support. Close
-   its ordering/key-scope failures before enlarging the case set. Commit the
-   coherent calculation increment and report what it actually demonstrates.
+1. Review and preserve the first connected calculation. Repair its explanation
+   compatibility without relaxing old packages' missing-basis/type checks:
+   obtain exact answer meanings from actual pinned producing rules and adopted
+   declarations, and give the successor an honest basis rather than suppress
+   the existing singleton account. A single-statement Box2-as-annual assumption
+   must not be copied unchanged onto a connected-ceiling result. Complete all five
+   shared-answer paths into the reason, not just their independent mapping
+   publications. Favorable report-local answers must not hide an applicable
+   contrary or uncertain shared claim. Preserve the exact raw-versus-derived
+   category types and the no-connected-activity legacy branch.
+2. Execute the shared-only, agreement, disagreement, uncertainty, correction
+   and withdrawal obligations below. Follow the actual source-to-intermediate-
+   to-reason-to-amount pins; do not manufacture direct pins or treat a list of
+   recorded answers as evidence that the amount consumed them. Commit coherent
+   increments and state their demonstrated limits. No engine redesign or
+   presentation-wording detour is selected.
 3. Continue with the acceptance table below: independent refusal, legacy/
    empty, correction/withdrawal/clear and downstream attachment cases. The
    unit is complete only when those obligations hold, not when a partial

@@ -5,7 +5,7 @@
   "topic": "mortgage-statement-borrowing",
   "active_plan": "docs/phases/tax-circumstance-breadth/milestones/mortgage-statement-borrowing.md",
   "milestone_state": "track-2",
-  "status": "Track 1 is complete. Track 2 admission, mappings, saved projection and consumer preparation are committed, but the connected reason/readiness/line8a chain remains unbuilt. A fresh Luna increment now builds and executes that chain before more display refinement.",
+  "status": "Track 1 is complete. Track 2's report-local foundation calculates and saves a supported two-report line8a amount. Finish all five shared-answer paths and the chartered refusal, compatibility and lifecycle cases; Track 2 is not complete.",
   "current_role": "Builder — connected mortgage calculation",
   "current_prompt": "docs/reviews/mortgage-statement-borrowing/charter-2-calculation.md"
 }
@@ -16,11 +16,14 @@
 ## Current direction
 
 **Immediate next action:** execute the committed Track 2 calculation charter.
-Its current implementation increment starts from the partial work at
-`e1e46a10`: build the missing connected reason/readiness/collector and obtain
-a real supported amount, then complete the charter's refusal and compatibility
-cases. Mapping, projection and consumer-preparation tests are not evidence
-of that amount. This is unfinished planned work, not a new product decision.
+Its first connected implementation case now records two supported reports
+of $22,000 and $3,500 and saves one actual line8a finding of $25,500 through
+the real coordinator. Next connect all five shared-answer mappings to their
+consuming reasons, including uncertainty beside favorable local support,
+then complete the charter's refusal, legacy/empty and lifecycle cases.
+This positive case does not establish those remaining paths, the attachment
+or a visible reader. Track 2 remains unfinished planned work, not a new
+product decision or an accepted complete calculation route.
 Track 1 is committed (`99d79d6f`, verification `1d791102`) and Foreman-reviewed:
 opaque mortgage references, distinct scoped claims, exact report answers and
 atomic clear are recordable. Focused recorder cases and repository mypy pass;

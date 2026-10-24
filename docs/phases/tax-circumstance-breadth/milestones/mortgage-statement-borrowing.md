@@ -3,7 +3,7 @@
   "version": 1,
   "phase": "Tax Circumstance Breadth",
   "topic": "mortgage-statement-borrowing",
-  "status": "Track 1 is complete. Track 2 mappings, saved projection and consumer preparation are committed; the connected reason/readiness/sole line8a chain is still unbuilt and is the next implementation increment.",
+  "status": "Track 1 is complete. Track 2's report-local foundation now calculates and saves one supported two-report line8a amount. Complete all five shared-answer paths and the refusal, compatibility and lifecycle cases before accepting Track 2.",
   "scope": [
     "extend the existing ordinary mortgage account to a bounded same-borrowing multiple-report case",
     "preserve report amounts, loan-level circumstances and their separate correction lifecycles",
@@ -187,6 +187,16 @@ are byte-identical to the reviewed pre-rebase tree. Their measured runs remain
 on their recorded bases, not recast as v53 experiments. Production acceptance
 will exercise the adopted successor on this base. Do not allocate package or
 registry versions until the content unit checks the current ratified line.
+
+The report-local production foundation now has a real recorder/coordinator
+case: two supported reports of $22,000 and $3,500 produce one saved line8a
+finding of $25,500. This establishes the first connected amount, not the
+whole Track 2 contract. The five effective mappings exist, but every shared
+proposition must still reach its consuming reason and withhold favorable
+support when applicable claims disagree or remain uncertain. The remaining
+refusal, legacy/empty and lifecycle cases, downstream attachment and visible
+reader are not established by this positive case. The goal and selected
+scope are unchanged; implementation is being completed in smaller increments.
 
 The older base sections below describe retained evidence and earlier work
 instructions, not the current next action. The next action is the committed
