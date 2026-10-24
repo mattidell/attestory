@@ -667,3 +667,46 @@ Only this review record was changed. No production/code/schema edits, Git
 mutation, suite, browser, new experiment or subagent was used. Envelope scan
 exited 0. Approximate final-delta cost: six inspection/check calls plus append
 and final diff check, roughly eight calls and nine reasoning turns.
+
+## Final findings recheck — 2026-10-24
+
+**READY FOR BOUNDED IMPLEMENTATION at the reviewed design/evidence ceiling.
+Both final findings are closed.** This is an independent design recommendation,
+not production acceptance or a substitute for Foreman Track 0 disposition.
+
+Reviewed repair `e8fa49ac` at oriented `HEAD`
+`d535da3901d708d040dd05d7ed0421dc4ade1da6`; Git matched orientation and entry
+tree was clean. Fetch now reports 6 behind / 59 ahead of `origin/main`.
+Foreman explicitly directed this pinned-object recheck and will synchronize
+the branch before production. This verdict makes no implementation claim
+against the unreviewed newer base.
+
+The question now explicitly excludes the named borrowing: “Besides this
+borrowing, did you have any other mortgage or home-equity debt secured by
+either home in 2025?” Its authority covers either home, while its stable
+excluded referent is stored as borrowing/year. Recording, admission, lifecycle,
+clear-account and implementation acceptance all retain that distinction.
+Clear preserves A's claim/history without asserting debt absence; a still-
+current same-A/year answer may support that same referent again. B or a new
+year requires its own confirmation and cannot inherit A's answer. The added
+replacement-borrowing acceptance case requires unresolved coverage without
+B's own answer. Empty and incumbent singleton gain no debt-answer prerequisite.
+This closes the semantic reuse gap without requiring a debt inventory.
+
+The final Evidence ceiling now attributes true-empty/orphan/withdrawn
+integrity to core-v51-derived v58, explicit-clear/connected compatibility to
+core-v52-derived v70, and ordering/uncertainty to v71. It preserves their
+separate runs and stated limitations. The late-member paper also distinguishes
+report B about the same borrowing from a different borrowing B: adding the
+second report does not change the unchanged borrowing/year claims.
+
+No remaining material repair in these two findings. All accepted exit,
+completion and uncertainty evidence above retains its original scope.
+Production recorder/lifecycle, remaining shared-field implementations,
+visible saved explanations and current-base acceptance remain the explicit
+build obligations already recorded, not completed observations.
+
+Only this report was edited. No rerun, suite, production edit, staging,
+commit or spawn occurred. Envelope scan exited 0. Approximate recheck cost:
+two inspection calls plus append/final diff check, four tool calls excluding
+brief Foreman coordination.
