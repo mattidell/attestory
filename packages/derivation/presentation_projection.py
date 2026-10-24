@@ -2811,6 +2811,13 @@ def _validate_mortgage_borrowing_explanation(value: Any) -> None:
                 or not isinstance(finding.get("pins"), list)
                 or not isinstance(finding.get("value"), (int, float)) or isinstance(finding.get("value"), bool)):
             raise PresentationModelError(f"{fp}: malformed actual numeric line-8a publication")
+    published_dispositions = [
+        row for row in amounts if row.get("disposition") == "published"
+    ]
+    if bool(published_dispositions) != bool(line_findings):
+        raise PresentationModelError(
+            f"{path}.line8aFindings: published disposition and actual finding must agree"
+        )
     seen_borrowings: set[str] = set()
     for index, group in enumerate(groups):
         gp = f"{path}.groups[{index}]"
