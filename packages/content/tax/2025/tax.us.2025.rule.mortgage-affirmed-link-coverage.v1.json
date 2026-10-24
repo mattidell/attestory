@@ -1,0 +1,41 @@
+{
+  "blocked": {
+    "code": "DEPENDENCY_INVALID",
+    "missing": []
+  },
+  "citations": [],
+  "direction": "joined_contains_subject",
+  "id": "tax.us.2025.rule.mortgage-affirmed-link-coverage",
+  "joined": {
+    "id": "tax.us.2025.f1098.borrowing-inclusion",
+    "version": "v1"
+  },
+  "notes": "Exact full-link-key numerical coverage; no scalar or label joins.",
+  "pins": [],
+  "publishes": "tax.us.2025.mortgage.affirmed-link-coverage",
+  "requires": [],
+  "role": "computation",
+  "schema": "rule-artifact.v13",
+  "scope": {
+    "family": "individual-income-tax",
+    "jurisdiction": "US-federal",
+    "tax_year": 2025
+  },
+  "subject": {
+    "id": "tax.us.2025.mortgage.continuing-borrowing",
+    "version": "v1"
+  },
+  "value": {
+    "empty": {
+      "parameter": {
+        "id": "tax.us.2025.parameter.mortgage-empty-link-support",
+        "version": "v1"
+      }
+    },
+    "links": "tax.us.2025.f1098.borrowing-inclusion",
+    "op": "link_coverage",
+    "reductions": "tax.us.2025.mortgage.f1098-link-support"
+  },
+  "version": "v1",
+  "when": true
+}

@@ -1,0 +1,34 @@
+{
+  "blocked": {
+    "code": "DEPENDENCY_INVALID",
+    "missing": []
+  },
+  "citations": [],
+  "direction": "joined_contains_subject",
+  "id": "tax.us.2025.rule.local-proceeds-answer-count",
+  "joined": {
+    "id": "tax.us.2025.f1098.what-the-money-paid-for",
+    "version": "v2"
+  },
+  "notes": "Count the recorded local answer rows whose payer, statement and tax-year keys equal this Box 1 subject.",
+  "pins": [],
+  "publishes": "tax.us.2025.mortgage.local-proceeds-answer-count",
+  "requires": [],
+  "role": "computation",
+  "schema": "rule-artifact.v13",
+  "scope": {
+    "family": "individual-income-tax",
+    "jurisdiction": "US-federal",
+    "tax_year": 2025
+  },
+  "subject": {
+    "id": "tax.us.2025.f1098.box1-mortgage-interest",
+    "version": "v1"
+  },
+  "value": {
+    "links": "tax.us.2025.f1098.what-the-money-paid-for",
+    "op": "link_count"
+  },
+  "version": "v1",
+  "when": true
+}

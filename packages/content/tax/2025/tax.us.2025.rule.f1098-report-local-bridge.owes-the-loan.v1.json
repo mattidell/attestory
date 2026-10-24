@@ -1,0 +1,95 @@
+{
+  "blocked": {
+    "code": "DEPENDENCY_INVALID",
+    "missing": []
+  },
+  "citations": [],
+  "direction": "joined_contains_subject",
+  "id": "tax.us.2025.rule.f1098-report-local-bridge.owes-the-loan",
+  "joined": {
+    "id": "tax.us.2025.f1098.owes-the-loan",
+    "version": "v2"
+  },
+  "notes": "Synthetic feasibility content. The subject is this report's Box 1; joined input keys are exact-report keys.",
+  "pins": [],
+  "publishes": "tax.us.2025.f1098.answer-status.owes-the-loan",
+  "requires": [
+    "tax.us.2025.f1098.owes-the-loan"
+  ],
+  "role": "computation",
+  "schema": "rule-artifact.v13",
+  "scope": {
+    "family": "individual-income-tax",
+    "jurisdiction": "US-federal",
+    "tax_year": 2025
+  },
+  "subject": {
+    "id": "tax.us.2025.f1098.box1-mortgage-interest",
+    "version": "v1"
+  },
+  "value": {
+    "else": {
+      "else": {
+        "fact_type": {
+          "id": "tax.us.2025.f1098.answer-status.owes-the-loan",
+          "version": "v1"
+        },
+        "op": "category_literal",
+        "value": "cannot-tell"
+      },
+      "op": "choose",
+      "then": {
+        "fact_type": {
+          "id": "tax.us.2025.f1098.answer-status.owes-the-loan",
+          "version": "v1"
+        },
+        "op": "category_literal",
+        "value": "no"
+      },
+      "when": {
+        "cmp": "eq",
+        "left": {
+          "name": "tax.us.2025.f1098.owes-the-loan",
+          "op": "ref"
+        },
+        "op": "categorical_compare",
+        "right": {
+          "fact_type": {
+            "id": "tax.us.2025.f1098.owes-the-loan",
+            "version": "v2"
+          },
+          "op": "category_literal",
+          "value": "no"
+        }
+      }
+    },
+    "op": "choose",
+    "then": {
+      "fact_type": {
+        "id": "tax.us.2025.f1098.answer-status.owes-the-loan",
+        "version": "v1"
+      },
+      "op": "category_literal",
+      "value": "yes"
+    },
+    "when": {
+      "cmp": "eq",
+      "left": {
+        "name": "tax.us.2025.f1098.owes-the-loan",
+        "op": "ref"
+      },
+      "op": "categorical_compare",
+      "right": {
+        "fact_type": {
+          "id": "tax.us.2025.f1098.owes-the-loan",
+          "version": "v2"
+        },
+        "op": "category_literal",
+        "value": "yes"
+      }
+    }
+  },
+  "version": "v1",
+  "when": true,
+  "wording": "Report-local bridge reads this report's owes-the-loan observation or answer."
+}

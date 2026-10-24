@@ -1,19 +1,166 @@
 <!-- foreman-context-v1
 {
   "version": 1,
-  "phase": "Engine Breadth",
-  "topic": "earned-income-credit",
-  "active_plan": "docs/phases/engine-breadth/milestones/earned-income-credit.md",
-  "milestone_state": "closed",
-  "status": "Closed. On core v53 a filer with no qualifying child gets the 2025 earned income credit on line 27a from EIC Worksheet A and the printed EIC Table. Investment income over $11,950 asks only the unsupported-situations answer. AGI at or above $68,675 asks no EIC question. W-2 box 1 at or above $68,675 while AGI is below it asks that answer. Otherwise the qualifying-child answer is asked; married filing separately and head of household with no qualifying child are $0. AGI at or above the 0-child completed amount then asks no further EIC question. Box 1 at or above that amount while AGI is below it asks the unsupported-situations answer. The remaining questions are asked only for single, married filing jointly, or qualifying surviving spouse when both box 1 and AGI are below that amount. Earlier packages keep their results.",
-  "current_role": "Foreman — select next milestone",
-  "current_prompt": "docs/phases/engine-breadth/coverage-frontier.md"
+  "phase": "Tax Circumstance Breadth",
+  "topic": "mortgage-statement-borrowing",
+  "active_plan": "docs/phases/tax-circumstance-breadth/milestones/mortgage-statement-borrowing.md",
+  "milestone_state": "track-2",
+  "status": "Track 1 is complete. Track 2 calculates and saves the report-local and all-five-shared two-report cases; each shared uncertainty withholds the amount. Finish the remaining polarity/order checks, independent refusals, downstream consumers and lifecycle cases; Track 2 is not complete.",
+  "current_role": "Builder — connected mortgage calculation",
+  "current_prompt": "docs/reviews/mortgage-statement-borrowing/charter-2-calculation.md"
 }
 -->
 
 # Phase State
 
-## Latest milestone
+## Current direction
+
+**Immediate next action:** execute the committed Track 2 calculation charter.
+Its first connected implementation case now records two supported reports
+of $22,000 and $3,500 and saves one actual line8a finding of $25,500 through
+the real coordinator. The all-five-shared positive now also saves $25,500,
+and each of five current
+uncertain shared answers withholds the amount despite favorable local answers.
+Next finish adverse-category and hostile-order checks, then the charter's
+independent refusal, downstream consumer, legacy/empty and lifecycle cases.
+This positive case does not establish those remaining paths, the attachment
+or a visible reader. Track 2 remains unfinished planned work, not a new
+product decision or an accepted complete calculation route.
+Track 1 is committed (`99d79d6f`, verification `1d791102`) and Foreman-reviewed:
+opaque mortgage references, distinct scoped claims, exact report answers and
+atomic clear are recordable. Focused recorder cases and repository mypy pass;
+no calculation/reader adoption was claimed by those tests. Track 2 includes
+the minimum real group projector because the old singleton projector rejects
+a two-report amount; visible interaction remains Track 3.
+Sol accepted the final connected design; the Foreman closed all six Track 0
+artifacts. The branch now includes core v53's EIC result after a safety-backed
+rebase. Historical prototype evidence remains attributed to its actual bases.
+No production calculation or multi-report reader has been adopted yet.
+The following investigation account is retained history, not further work
+that must precede this charter.
+
+**One Home Loan, More Than One Interest Statement** is the new opening
+milestone ([plan](phases/tax-circumstance-breadth/milestones/mortgage-statement-borrowing.md)).
+The owner directed a return to tax concepts and ordinary-circumstance recording.
+Start with two reports concerning one continuing borrowing and one main home,
+such as a change in who collects payments. Preserve the two reports and
+establish what the person can affirm about their shared borrowing, without
+counting the reports as separate debts or selecting a principal formula now.
+
+P0's real-path investigation is independently reviewed READY after the
+source-authority correction. The current two-report calculation can attach
+the first report's evidence to the second report's result; matching values
+do not repair that provenance problem.
+
+P1's outside and independent Sol findings have been repaired together. The
+account compares all nine report-local ordinary answers against loan-wide
+assertions with per-report intermediates, prefers the existing student-loan
+scoped-answer pattern before an admission allowlist, requires linked Box 3
+dates to agree, preserves genuine closed-empty behavior, and names the
+unsupported connected-route exit as a deliberate proposed limit. The owner
+selected A: keep the nine ordinary answers report-local, retaining B as a
+possible later extension. P2 executed the six-case content-path experiment;
+it omits the shared-answer bridge and producer-removal control. The baseline
+derived $11,000 with both reports in its pins, then the current singleton
+mortgage projector rejected that lineage. The completed record and a
+forensically captured in-memory finding are retained, but no durable baseline
+report/model exists. Five negatives withheld the amount and saved their
+reports/models. Independent Sol review accepted those findings for connected
+design consolidation, not production readiness. Next, settle the recording,
+lifecycle and route contract and test the missing saved group explanation.
+The externally bound line8a result needs a valid model through its actual
+consumer before Track 0 can close. P3 saves and reloads group models; its
+disposable content successors make line12e wait for the existing Schedule A
+total and remove the attachment's obsolete legacy liability/payment presence
+check, keeping all seven boundary value checks. The $21,000 connected case
+publishes line12e and required Schedule A with saved tie-out text; missing one
+boundary answer still blocks attachment publication. Changed-content empty
+and singleton controls preserve their calculation paths. Sol accepted the
+connected evidence for Track 0 consolidation, and its bounded contract/locator
+repairs are incorporated. Next finish exact common-borrowing admission,
+current routing, lifecycle and the six closure artifacts. That contract draft
+is in bounded repair after Foreman review: numeric coverage and a concrete
+fan-in to the ordinary amount gate must preserve dynamic borrowing identity
+and the correct empty/withdrawal transitions. This is not production acceptance.
+The first disposable dynamic-account candidate now validates and publishes
+the supported pair through line8a, Schedule A total and line12e. Its four-
+outcome report-status composition was validated separately and is not yet
+combined with this runtime candidate; remaining evidence is described below.
+The branch now includes PR #218: core v51 / registry v49 / release v49.
+Update the bounded candidate without reverting adopted member pins. The new
+dependent worksheet requires its own explicit synthetic answer, distinct from
+the older SLI "is claimed" answer; the narrowed Schedule 1-A declaration is
+separate too. These are fixture inputs, not new default policy. Validate one
+supported pair on this changed base before the remaining cases. Avoid the
+old temporary v51 collision by selecting unused disposable versions explicitly.
+Earlier package numbers remain historical checksummed prototypes, not adopted
+versions or future-version reservations.
+The preceding core-v50 positive validates as disposable v56: line8a is $11,000 and
+line12e is $15,750 with the standard-deduction v2/verified parameter pins.
+All non-mortgage member pins from core v50 are retained. Line16 remains
+blocked by unrelated missing fixture inputs; this is not tax-computation
+proof. Remaining display/lifecycle evidence is described below.
+The two A/B ceiling derivation checks exposed a shared-support display defect
+in the old P3 adapter. A T0-only keyed repair now saves both models without
+substituting B's ceiling or rejecting its harmless presence. Raw applicable
+claims remain distinct from inputs actually consumed. The four core-v51
+lifecycle/empty/orphan cases and actual four-outcome fan-in now have saved
+experimental results: connected A calculates, withdrawal withholds, true-empty
+proceeds, and an affirmed orphan blocks line12e through link integrity. These
+are supplied after-states, not recorder transitions; production
+projection, the visible reader and recording are still not begun.
+The owner has now restored the previously deferred clear-account action and
+borrowing-wide ordinary answers, ordered after the report-local foundation.
+Design their scope and current-state effects before implementation; do not
+reinterpret old answers or equate withdrawal with clear-account. The current
+core-v51 supported pair publishes line8a $11,000 and line12e $15,750, with
+explicit new dependent/Schedule 1-A fixture answers.
+The first proceeds-use shared/local experiment now saves the supported
+shared-only, agreeing and shared-ended/local-current results, and blocks
+disagreement in both assertion orders. Its conflict explanation remains
+generic; only proceeds-use has runtime evidence. Explicit exit and the
+remaining identity/lifecycle checks follow its completion repair.
+The independent Sol checkpoint accepts the five saved observations at their
+stated ceiling but finds no declared completion barrier for derived-marker
+counts. Repair that composition before using it for exit. The accepted
+scheduling contract does not grant an implicit `link_count.links` producer
+edge; do not silently change the engine contract. The branch is now rebased
+onto PR #219/core v52, registry/release v50. Preserve all its adopted members
+and choose unused disposable versions rather than overwrite intermediate v52.
+Use the repaired shared-answer experiment for the changed-base check; older
+observations retain their original hashes and meaning.
+That repair now has three saved core-v52-derived coordinator cases: shared-only
+A succeeds, contrary local/shared answers block, and unrelated borrowing B's
+answer cannot fill A's missing support. Counts read recorded sources; the
+effective consumer explicitly requires their results and is declared first.
+All adopted member IDs are preserved. Sol's focused recheck closed the finding.
+The explicit-exit increment now saves the qualified singleton, no-payment
+zero and unsupported two-report outcomes. Its changed connected case retains
+the actual dependency order even with the reason declared before its producer.
+The uncertainty case withholds favorable support and keeps its actual source
+in the coordinator pins; its generic prototype display remains a production
+explanation requirement. The late-member and six-artifact contract is
+consolidated for Sol's final connected-design disposition before production.
+These are supplied-state observations, not production or recorder acceptance.
+Visible group rendering,
+production recording/routing and connected correction/withdrawal are unbuilt.
+The actual no-report compatibility path is line8a inapplicable, separate
+Schedule A total zero and the existing no-statement line12e route.
+The numeric annual ceiling
+and separate other-debt account remain provisional, not observed user inputs.
+No production path or schema successor is selected.
+
+The existing full-deduction premise remains distinct from a general limited-debt
+calculation. No new balance treatment is selected. Refinancing, multiple independent borrowings,
+second homes and allocation remain contrast cases or excluded work, not hidden
+implementation promises. Tax Circumstance Breadth's earlier endpoint remains
+met; this is a bounded extension.
+
+This branch opened after merged PR #214 in a new managed primary worktree
+and is now rebased onto merged PR #215. Its fold-once projection reuse is
+included as ratified code, not concurrent milestone WIP.
+
+## Latest completed return-calculation milestone
 
 **The 2025 Earned Income Credit is closed**
 ([plan](phases/engine-breadth/milestones/earned-income-credit.md),
@@ -139,6 +286,9 @@ loss). **Mortgage Interest and What the Loan Paid For** closed 2026-10-15
 
 ## Begin here
 
+- [Active mortgage plan](phases/tax-circumstance-breadth/milestones/mortgage-statement-borrowing.md).
+- [Tax Circumstance Breadth roadmap](phases/tax-circumstance-breadth/tax-circumstance-breadth-roadmap.md).
+
 - [Latest milestone plan](phases/engine-breadth/milestones/earned-income-credit.md):
   P0, contract, tracks and outcome; and its
   [retrospective](milestone-retrospectives/2026-10-23-earned-income-credit.md).
@@ -164,7 +314,8 @@ loss). **Mortgage Interest and What the Loan Paid For** closed 2026-10-15
   successor package; recovery for a log with two current family versions; a
   full pre-save fold for every act kind.
 - Browser observation of the mortgage and sale pages.
-- Multiple Form 1098 support, interest allocation above the debt limit,
+- General multiple-Form-1098 support beyond this same-borrowing milestone,
+  interest allocation above the debt limit,
   second-home extension, mixed-use amounts, refinancing and the mortgage credit.
 - Form 1099-K, 1099-G and SSA-1099 withholding on line 25b; a 1099-INT,
   1099-DIV or 1099-R statement recorded without its box 4 answer; Form W-2G.

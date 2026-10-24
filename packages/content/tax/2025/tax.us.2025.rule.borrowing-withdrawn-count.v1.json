@@ -1,0 +1,34 @@
+{
+  "blocked": {
+    "code": "DEPENDENCY_INVALID",
+    "missing": []
+  },
+  "citations": [],
+  "direction": "joined_contains_subject",
+  "id": "tax.us.2025.rule.borrowing-withdrawn-count",
+  "joined": {
+    "id": "tax.us.2025.f1098.borrowing-withdrawn",
+    "version": "v1"
+  },
+  "notes": "Synthetic exact report/year count; the joined carrier adds borrowing identity.",
+  "pins": [],
+  "publishes": "tax.us.2025.f1098.borrowing-withdrawn-count",
+  "requires": [],
+  "role": "computation",
+  "schema": "rule-artifact.v13",
+  "scope": {
+    "family": "individual-income-tax",
+    "jurisdiction": "US-federal",
+    "tax_year": 2025
+  },
+  "subject": {
+    "id": "tax.us.2025.f1098.box1-mortgage-interest",
+    "version": "v1"
+  },
+  "value": {
+    "links": "tax.us.2025.f1098.borrowing-withdrawn",
+    "op": "link_count"
+  },
+  "version": "v1",
+  "when": true
+}

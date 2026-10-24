@@ -1,0 +1,37 @@
+{
+  "blocked": {
+    "code": "DEPENDENCY_INVALID",
+    "missing": []
+  },
+  "citations": [],
+  "direction": "joined_contains_subject",
+  "id": "tax.us.2025.rule.f1098-report-local-bridge.box3-origination-date",
+  "joined": {
+    "id": "tax.us.2025.f1098.box3-origination-date",
+    "version": "v1"
+  },
+  "notes": "Synthetic feasibility content. The subject is this report's Box 1; joined input keys are exact-report keys.",
+  "pins": [],
+  "publishes": "tax.us.2025.f1098.reported-box3-origination-date",
+  "requires": [
+    "tax.us.2025.f1098.box3-origination-date"
+  ],
+  "role": "computation",
+  "schema": "rule-artifact.v13",
+  "scope": {
+    "family": "individual-income-tax",
+    "jurisdiction": "US-federal",
+    "tax_year": 2025
+  },
+  "subject": {
+    "id": "tax.us.2025.f1098.box1-mortgage-interest",
+    "version": "v1"
+  },
+  "value": {
+    "name": "tax.us.2025.f1098.box3-origination-date",
+    "op": "ref"
+  },
+  "version": "v1",
+  "when": true,
+  "wording": "Report-local bridge reads this report's box3-origination-date observation or answer."
+}

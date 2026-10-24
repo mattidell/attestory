@@ -1,0 +1,96 @@
+{
+  "blocked": {
+    "code": "DEPENDENCY_INVALID",
+    "missing": [
+      "tax.us.2025.f1098.affirmed-link-source-match"
+    ]
+  },
+  "citations": [],
+  "id": "tax.us.2025.rule.f1098-inclusion-integrity",
+  "notes": "Synthetic integrity edge: a current affirmative F1098 inclusion is usable only when its exact report source resolves.",
+  "pins": [],
+  "publishes": "tax.us.2025.f1098-inclusion-integrity",
+  "requires": [],
+  "role": "computation",
+  "schema": "rule-artifact.v14",
+  "scope": {
+    "family": "individual-income-tax",
+    "jurisdiction": "US-federal",
+    "tax_year": 2025
+  },
+  "selection": {
+    "conflict": "refuse",
+    "default": {
+      "id": "neither",
+      "pins": [],
+      "reads_subject_results": [],
+      "requires": [],
+      "value": true,
+      "when": true
+    },
+    "mode": "exclusive_presence",
+    "paths": [
+      {
+        "activity": {
+          "kind": "source_nonempty",
+          "member_fact_type": {
+            "id": "tax.us.2025.f1098.borrowing-inclusion",
+            "version": "v1"
+          }
+        },
+        "id": "affirmed-inclusion",
+        "pins": [],
+        "reads_subject_results": [
+          {
+            "subject": {
+              "id": "tax.us.2025.f1098.borrowing-inclusion",
+              "version": "v1"
+            },
+            "symbol": "tax.us.2025.f1098.affirmed-link-source-match"
+          }
+        ],
+        "requires": [],
+        "value": {
+          "name": "tax.us.2025.f1098.affirmed-link-source-match",
+          "op": "collect_categorical_all_equal",
+          "value": {
+            "fact_type": {
+              "id": "tax.us.2025.f1098.affirmed-link-source-match",
+              "version": "v1"
+            },
+            "op": "category_literal",
+            "value": "matched"
+          }
+        },
+        "when": true
+      },
+      {
+        "activity": {
+          "kind": "source_nonempty",
+          "member_fact_type": {
+            "id": "tax.us.2025.mortgage.inert-path-unwritten",
+            "version": "v1"
+          }
+        },
+        "id": "inert",
+        "pins": [],
+        "reads_subject_results": [],
+        "requires": [],
+        "value": {
+          "code": "DEPENDENCY_ABSENT",
+          "op": "block"
+        },
+        "when": true
+      }
+    ],
+    "refusal": {
+      "code": "DEPENDENCY_INVALID",
+      "missing": [
+        "tax.us.2025.f1098.affirmed-link-source-match"
+      ],
+      "pins": []
+    }
+  },
+  "version": "v1",
+  "when": true
+}

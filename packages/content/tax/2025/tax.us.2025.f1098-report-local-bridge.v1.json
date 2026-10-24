@@ -1,0 +1,1262 @@
+{
+  "fact_types": [
+    {
+      "id": "tax.us.2025.f1098.answer-status.filing-unit-owns-home",
+      "identity_keys": [
+        {
+          "entity_kind": "tax.us.mortgage-lender",
+          "kind": "entity",
+          "name": "payer"
+        },
+        {
+          "entity_kind": "tax.us.1098-statement",
+          "kind": "entity",
+          "name": "statement"
+        },
+        {
+          "kind": "literal",
+          "name": "tax-year",
+          "values": [
+            "2025"
+          ]
+        }
+      ],
+      "nature": "determinable",
+      "schema": "fact-type.v2",
+      "supersession": {
+        "policy": "free"
+      },
+      "title": "P2 report-local derived read: filing-unit-owns-home",
+      "value_schema": {
+        "enum": [
+          "yes",
+          "no",
+          "cannot-tell"
+        ],
+        "oneOf": [
+          {
+            "const": "yes",
+            "description": "I own this home, or my spouse does if we file jointly."
+          },
+          {
+            "const": "no",
+            "description": "I do not own this home, and neither does my spouse if we file jointly."
+          },
+          {
+            "const": "cannot-tell",
+            "description": "I cannot tell whether I own this home, or whether my spouse owns it if we file jointly."
+          }
+        ],
+        "type": "string"
+      },
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.f1098.answer-status.shared-main-home",
+      "identity_keys": [
+        {
+          "entity_kind": "tax.us.mortgage-lender",
+          "kind": "entity",
+          "name": "payer"
+        },
+        {
+          "entity_kind": "tax.us.1098-statement",
+          "kind": "entity",
+          "name": "statement"
+        },
+        {
+          "kind": "literal",
+          "name": "tax-year",
+          "values": [
+            "2025"
+          ]
+        }
+      ],
+      "nature": "determinable",
+      "schema": "fact-type.v2",
+      "supersession": {
+        "policy": "free"
+      },
+      "title": "P2 report-local derived read: shared-main-home",
+      "value_schema": {
+        "enum": [
+          "yes",
+          "no",
+          "cannot-tell"
+        ],
+        "oneOf": [
+          {
+            "const": "yes",
+            "description": "This is the shared main home for my filing unit."
+          },
+          {
+            "const": "no",
+            "description": "This is not the shared main home for my filing unit."
+          },
+          {
+            "const": "cannot-tell",
+            "description": "I cannot tell whether this is the shared main home for my filing unit."
+          }
+        ],
+        "type": "string"
+      },
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.f1098.answer-status.home-is-collateral",
+      "identity_keys": [
+        {
+          "entity_kind": "tax.us.mortgage-lender",
+          "kind": "entity",
+          "name": "payer"
+        },
+        {
+          "entity_kind": "tax.us.1098-statement",
+          "kind": "entity",
+          "name": "statement"
+        },
+        {
+          "kind": "literal",
+          "name": "tax-year",
+          "values": [
+            "2025"
+          ]
+        }
+      ],
+      "nature": "determinable",
+      "schema": "fact-type.v2",
+      "supersession": {
+        "policy": "free"
+      },
+      "title": "P2 report-local derived read: home-is-collateral",
+      "value_schema": {
+        "enum": [
+          "yes",
+          "no",
+          "cannot-tell"
+        ],
+        "oneOf": [
+          {
+            "const": "yes",
+            "description": "This home is collateral for this loan."
+          },
+          {
+            "const": "no",
+            "description": "This home is not collateral for this loan."
+          },
+          {
+            "const": "cannot-tell",
+            "description": "I cannot tell whether this home is collateral for this loan."
+          }
+        ]
+      },
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.f1098.answer-status.owes-the-loan",
+      "identity_keys": [
+        {
+          "entity_kind": "tax.us.mortgage-lender",
+          "kind": "entity",
+          "name": "payer"
+        },
+        {
+          "entity_kind": "tax.us.1098-statement",
+          "kind": "entity",
+          "name": "statement"
+        },
+        {
+          "kind": "literal",
+          "name": "tax-year",
+          "values": [
+            "2025"
+          ]
+        }
+      ],
+      "nature": "determinable",
+      "schema": "fact-type.v2",
+      "supersession": {
+        "policy": "free"
+      },
+      "title": "P2 report-local derived read: owes-the-loan",
+      "value_schema": {
+        "enum": [
+          "yes",
+          "no",
+          "cannot-tell"
+        ],
+        "oneOf": [
+          {
+            "const": "yes",
+            "description": "I or my joint-filing spouse owe this loan."
+          },
+          {
+            "const": "no",
+            "description": "Neither I nor my joint-filing spouse owe this loan."
+          },
+          {
+            "const": "cannot-tell",
+            "description": "I cannot tell whether I or my joint-filing spouse owe this loan."
+          }
+        ]
+      },
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.f1098.answer-status.paid-the-interest",
+      "identity_keys": [
+        {
+          "entity_kind": "tax.us.mortgage-lender",
+          "kind": "entity",
+          "name": "payer"
+        },
+        {
+          "entity_kind": "tax.us.1098-statement",
+          "kind": "entity",
+          "name": "statement"
+        },
+        {
+          "kind": "literal",
+          "name": "tax-year",
+          "values": [
+            "2025"
+          ]
+        }
+      ],
+      "nature": "determinable",
+      "schema": "fact-type.v2",
+      "supersession": {
+        "policy": "free"
+      },
+      "title": "P2 report-local derived read: paid-the-interest",
+      "value_schema": {
+        "enum": [
+          "yes",
+          "paid-by-others-or-partial",
+          "no",
+          "cannot-tell"
+        ],
+        "oneOf": [
+          {
+            "const": "yes",
+            "description": "My filing unit paid all of it."
+          },
+          {
+            "const": "paid-by-others-or-partial",
+            "description": "Someone else paid some or all, or my filing unit paid only part."
+          },
+          {
+            "const": "no",
+            "description": "Neither spouse paid any, and nobody paid any for us."
+          },
+          {
+            "const": "cannot-tell",
+            "description": "I cannot tell who paid the interest."
+          }
+        ]
+      },
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.f1098.answer-status.no-one-else-owes-it",
+      "identity_keys": [
+        {
+          "entity_kind": "tax.us.mortgage-lender",
+          "kind": "entity",
+          "name": "payer"
+        },
+        {
+          "entity_kind": "tax.us.1098-statement",
+          "kind": "entity",
+          "name": "statement"
+        },
+        {
+          "kind": "literal",
+          "name": "tax-year",
+          "values": [
+            "2025"
+          ]
+        }
+      ],
+      "nature": "determinable",
+      "schema": "fact-type.v2",
+      "supersession": {
+        "policy": "free"
+      },
+      "title": "P2 report-local derived read: no-one-else-owes-it",
+      "value_schema": {
+        "enum": [
+          "yes",
+          "no",
+          "cannot-tell"
+        ],
+        "oneOf": [
+          {
+            "const": "yes",
+            "description": "No one besides me or my joint-filing spouse owes this loan with us."
+          },
+          {
+            "const": "no",
+            "description": "Someone besides me or my joint-filing spouse owes this loan with us."
+          },
+          {
+            "const": "cannot-tell",
+            "description": "I cannot tell whether someone else owes this loan with us."
+          }
+        ]
+      },
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.f1098.answer-status.what-the-money-paid-for",
+      "identity_keys": [
+        {
+          "entity_kind": "tax.us.mortgage-lender",
+          "kind": "entity",
+          "name": "payer"
+        },
+        {
+          "entity_kind": "tax.us.1098-statement",
+          "kind": "entity",
+          "name": "statement"
+        },
+        {
+          "kind": "literal",
+          "name": "tax-year",
+          "values": [
+            "2025"
+          ]
+        }
+      ],
+      "nature": "determinable",
+      "schema": "fact-type.v2",
+      "supersession": {
+        "policy": "free"
+      },
+      "title": "P2 report-local derived read: what-the-money-paid-for",
+      "value_schema": {
+        "enum": [
+          "bought-the-home",
+          "unrelated-personal-expense",
+          "other",
+          "cannot-tell"
+        ],
+        "oneOf": [
+          {
+            "const": "bought-the-home",
+            "description": "The borrowed money bought this home."
+          },
+          {
+            "const": "unrelated-personal-expense",
+            "description": "The borrowed money paid an unrelated personal expense."
+          },
+          {
+            "const": "other",
+            "description": "The borrowed money paid for something else."
+          },
+          {
+            "const": "cannot-tell",
+            "description": "I cannot tell what the borrowed money paid for."
+          }
+        ]
+      },
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.f1098.answer-status.this-is-the-original-loan",
+      "identity_keys": [
+        {
+          "entity_kind": "tax.us.mortgage-lender",
+          "kind": "entity",
+          "name": "payer"
+        },
+        {
+          "entity_kind": "tax.us.1098-statement",
+          "kind": "entity",
+          "name": "statement"
+        },
+        {
+          "kind": "literal",
+          "name": "tax-year",
+          "values": [
+            "2025"
+          ]
+        }
+      ],
+      "nature": "determinable",
+      "schema": "fact-type.v2",
+      "supersession": {
+        "policy": "free"
+      },
+      "title": "P2 report-local derived read: this-is-the-original-loan",
+      "value_schema": {
+        "enum": [
+          "yes",
+          "no",
+          "cannot-tell"
+        ],
+        "oneOf": [
+          {
+            "const": "yes",
+            "description": "This is the original loan, not a refinance."
+          },
+          {
+            "const": "no",
+            "description": "This loan is a refinance."
+          },
+          {
+            "const": "cannot-tell",
+            "description": "I cannot tell whether this is the original loan or a refinance."
+          }
+        ]
+      },
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.f1098.answer-status.mortgage-credit-certificate-received",
+      "identity_keys": [
+        {
+          "entity_kind": "tax.us.mortgage-lender",
+          "kind": "entity",
+          "name": "payer"
+        },
+        {
+          "entity_kind": "tax.us.1098-statement",
+          "kind": "entity",
+          "name": "statement"
+        },
+        {
+          "kind": "literal",
+          "name": "tax-year",
+          "values": [
+            "2025"
+          ]
+        }
+      ],
+      "nature": "determinable",
+      "schema": "fact-type.v2",
+      "supersession": {
+        "policy": "free"
+      },
+      "title": "P2 report-local derived read: mortgage-credit-certificate-received",
+      "value_schema": {
+        "enum": [
+          "received",
+          "not-received",
+          "cannot-tell"
+        ],
+        "oneOf": [
+          {
+            "const": "received",
+            "description": "I received a mortgage credit certificate for this loan."
+          },
+          {
+            "const": "not-received",
+            "description": "I did not receive a mortgage credit certificate for this loan."
+          },
+          {
+            "const": "cannot-tell",
+            "description": "I cannot tell whether I received a mortgage credit certificate for this loan."
+          }
+        ]
+      },
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.f1098.reported-box2-principal",
+      "identity_keys": [
+        {
+          "entity_kind": "tax.us.mortgage-lender",
+          "kind": "entity",
+          "name": "payer"
+        },
+        {
+          "entity_kind": "tax.us.1098-statement",
+          "kind": "entity",
+          "name": "statement"
+        },
+        {
+          "kind": "literal",
+          "name": "tax-year",
+          "values": [
+            "2025"
+          ]
+        }
+      ],
+      "nature": "determinable",
+      "schema": "fact-type.v2",
+      "supersession": {
+        "policy": "free"
+      },
+      "title": "P2 report-local derived read: box2-outstanding-principal",
+      "value_schema": {
+        "type": "number"
+      },
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.f1098.reported-box3-origination-date",
+      "identity_keys": [
+        {
+          "entity_kind": "tax.us.mortgage-lender",
+          "kind": "entity",
+          "name": "payer"
+        },
+        {
+          "entity_kind": "tax.us.1098-statement",
+          "kind": "entity",
+          "name": "statement"
+        },
+        {
+          "kind": "literal",
+          "name": "tax-year",
+          "values": [
+            "2025"
+          ]
+        }
+      ],
+      "nature": "determinable",
+      "schema": "fact-type.v2",
+      "supersession": {
+        "policy": "free"
+      },
+      "title": "P2 report-local derived read: box3-origination-date",
+      "value_schema": {
+        "format": "date",
+        "type": "string"
+      },
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.f1098.reported-box9-property-count",
+      "identity_keys": [
+        {
+          "entity_kind": "tax.us.mortgage-lender",
+          "kind": "entity",
+          "name": "payer"
+        },
+        {
+          "entity_kind": "tax.us.1098-statement",
+          "kind": "entity",
+          "name": "statement"
+        },
+        {
+          "kind": "literal",
+          "name": "tax-year",
+          "values": [
+            "2025"
+          ]
+        }
+      ],
+      "nature": "determinable",
+      "schema": "fact-type.v2",
+      "supersession": {
+        "policy": "free"
+      },
+      "title": "P2 report-local derived read: box9-number-of-properties",
+      "value_schema": {
+        "type": "number"
+      },
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.mortgage.report-membership",
+      "identity_keys": [
+        {
+          "entity_kind": "tax.us.mortgage-lender",
+          "kind": "entity",
+          "name": "payer"
+        },
+        {
+          "entity_kind": "tax.us.1098-statement",
+          "kind": "entity",
+          "name": "statement"
+        },
+        {
+          "kind": "literal",
+          "name": "tax-year",
+          "values": [
+            "2025"
+          ]
+        },
+        {
+          "entity_kind": "tax.us.mortgage-borrowing-reference",
+          "kind": "entity",
+          "name": "borrowing"
+        }
+      ],
+      "nature": "determinable",
+      "schema": "fact-type.v2",
+      "supersession": {
+        "policy": "free"
+      },
+      "title": "Report membership assertion",
+      "value_schema": {
+        "enum": [
+          "yes",
+          "no",
+          "cannot-tell"
+        ],
+        "type": "string"
+      },
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.mortgage.report-link-status",
+      "identity_keys": [
+        {
+          "entity_kind": "tax.us.mortgage-lender",
+          "kind": "entity",
+          "name": "payer"
+        },
+        {
+          "entity_kind": "tax.us.1098-statement",
+          "kind": "entity",
+          "name": "statement"
+        },
+        {
+          "kind": "literal",
+          "name": "tax-year",
+          "values": [
+            "2025"
+          ]
+        },
+        {
+          "entity_kind": "tax.us.mortgage-borrowing-reference",
+          "kind": "entity",
+          "name": "borrowing"
+        }
+      ],
+      "nature": "determinable",
+      "schema": "fact-type.v2",
+      "supersession": {
+        "policy": "free"
+      },
+      "title": "Derived report-link status",
+      "value_schema": {
+        "enum": [
+          "yes",
+          "no",
+          "cannot-tell"
+        ],
+        "type": "string"
+      },
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.f1098.principal-within-ceiling",
+      "identity_keys": [
+        {
+          "entity_kind": "tax.us.mortgage-lender",
+          "kind": "entity",
+          "name": "payer"
+        },
+        {
+          "entity_kind": "tax.us.1098-statement",
+          "kind": "entity",
+          "name": "statement"
+        },
+        {
+          "kind": "literal",
+          "name": "tax-year",
+          "values": [
+            "2025"
+          ]
+        },
+        {
+          "entity_kind": "tax.us.mortgage-borrowing-reference",
+          "kind": "entity",
+          "name": "borrowing"
+        }
+      ],
+      "nature": "determinable",
+      "schema": "fact-type.v2",
+      "supersession": {
+        "policy": "free"
+      },
+      "title": "Derived per-report principal ceiling check",
+      "value_schema": {
+        "enum": [
+          "within-ceiling",
+          "over-ceiling",
+          "cannot-tell"
+        ],
+        "type": "string"
+      },
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.mortgage.inert-path-unwritten",
+      "identity_keys": [
+        {
+          "kind": "literal",
+          "name": "case",
+          "values": [
+            "inert"
+          ]
+        }
+      ],
+      "nature": "determinable",
+      "schema": "fact-type.v2",
+      "supersession": {
+        "policy": "free"
+      },
+      "title": "Synthetic inert-path discriminator",
+      "value_schema": {
+        "type": "string"
+      },
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.f1098.borrowing-inclusion-count",
+      "identity_keys": [
+        {
+          "entity_kind": "tax.us.mortgage-lender",
+          "kind": "entity",
+          "name": "payer"
+        },
+        {
+          "entity_kind": "tax.us.1098-statement",
+          "kind": "entity",
+          "name": "statement"
+        },
+        {
+          "kind": "literal",
+          "name": "tax-year",
+          "values": [
+            "2025"
+          ]
+        }
+      ],
+      "nature": "determinable",
+      "schema": "fact-type.v2",
+      "supersession": {
+        "policy": "free"
+      },
+      "title": "Synthetic affirmed outcome count per report",
+      "value_schema": {
+        "type": "number"
+      },
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.f1098.borrowing-denied-count",
+      "identity_keys": [
+        {
+          "entity_kind": "tax.us.mortgage-lender",
+          "kind": "entity",
+          "name": "payer"
+        },
+        {
+          "entity_kind": "tax.us.1098-statement",
+          "kind": "entity",
+          "name": "statement"
+        },
+        {
+          "kind": "literal",
+          "name": "tax-year",
+          "values": [
+            "2025"
+          ]
+        }
+      ],
+      "nature": "determinable",
+      "schema": "fact-type.v2",
+      "supersession": {
+        "policy": "free"
+      },
+      "title": "Synthetic denied outcome count per report",
+      "value_schema": {
+        "type": "number"
+      },
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.f1098.borrowing-unresolved-count",
+      "identity_keys": [
+        {
+          "entity_kind": "tax.us.mortgage-lender",
+          "kind": "entity",
+          "name": "payer"
+        },
+        {
+          "entity_kind": "tax.us.1098-statement",
+          "kind": "entity",
+          "name": "statement"
+        },
+        {
+          "kind": "literal",
+          "name": "tax-year",
+          "values": [
+            "2025"
+          ]
+        }
+      ],
+      "nature": "determinable",
+      "schema": "fact-type.v2",
+      "supersession": {
+        "policy": "free"
+      },
+      "title": "Synthetic unknown outcome count per report",
+      "value_schema": {
+        "type": "number"
+      },
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.f1098.borrowing-withdrawn-count",
+      "identity_keys": [
+        {
+          "entity_kind": "tax.us.mortgage-lender",
+          "kind": "entity",
+          "name": "payer"
+        },
+        {
+          "entity_kind": "tax.us.1098-statement",
+          "kind": "entity",
+          "name": "statement"
+        },
+        {
+          "kind": "literal",
+          "name": "tax-year",
+          "values": [
+            "2025"
+          ]
+        }
+      ],
+      "nature": "determinable",
+      "schema": "fact-type.v2",
+      "supersession": {
+        "policy": "free"
+      },
+      "title": "Synthetic withdrawn outcome count per report",
+      "value_schema": {
+        "type": "number"
+      },
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.f1098.borrowing-current-link-status",
+      "identity_keys": [
+        {
+          "entity_kind": "tax.us.mortgage-lender",
+          "kind": "entity",
+          "name": "payer"
+        },
+        {
+          "entity_kind": "tax.us.1098-statement",
+          "kind": "entity",
+          "name": "statement"
+        },
+        {
+          "kind": "literal",
+          "name": "tax-year",
+          "values": [
+            "2025"
+          ]
+        }
+      ],
+      "nature": "determinable",
+      "schema": "fact-type.v2",
+      "supersession": {
+        "policy": "free"
+      },
+      "title": "Synthetic report-local relationship status",
+      "value_schema": {
+        "enum": [
+          "none",
+          "affirmed",
+          "denied",
+          "unknown",
+          "withdrawn",
+          "conflict"
+        ],
+        "type": "string"
+      },
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.mortgage.f1098-link-support",
+      "identity_keys": [
+        {
+          "entity_kind": "tax.us.mortgage-lender",
+          "kind": "entity",
+          "name": "payer"
+        },
+        {
+          "entity_kind": "tax.us.1098-statement",
+          "kind": "entity",
+          "name": "statement"
+        },
+        {
+          "kind": "literal",
+          "name": "tax-year",
+          "values": [
+            "2025"
+          ]
+        },
+        {
+          "entity_kind": "tax.us.mortgage-borrowing-reference",
+          "kind": "entity",
+          "name": "borrowing"
+        }
+      ],
+      "nature": "determinable",
+      "schema": "fact-type.v2",
+      "supersession": {
+        "policy": "free"
+      },
+      "title": "Synthetic numeric support per exact linked report",
+      "value_schema": {
+        "type": "number"
+      },
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.f1098.affirmed-link-source-match",
+      "identity_keys": [
+        {
+          "entity_kind": "tax.us.mortgage-lender",
+          "kind": "entity",
+          "name": "payer"
+        },
+        {
+          "entity_kind": "tax.us.1098-statement",
+          "kind": "entity",
+          "name": "statement"
+        },
+        {
+          "kind": "literal",
+          "name": "tax-year",
+          "values": [
+            "2025"
+          ]
+        },
+        {
+          "entity_kind": "tax.us.mortgage-borrowing-reference",
+          "kind": "entity",
+          "name": "borrowing"
+        }
+      ],
+      "nature": "determinable",
+      "schema": "fact-type.v2",
+      "supersession": {
+        "policy": "free"
+      },
+      "title": "Synthetic current affirmation source match",
+      "value_schema": {
+        "enum": [
+          "matched"
+        ],
+        "type": "string"
+      },
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.mortgage.account-ceiling-selected",
+      "identity_keys": [
+        {
+          "entity_kind": "tax.us.mortgage-borrowing-reference",
+          "kind": "entity",
+          "name": "borrowing"
+        },
+        {
+          "kind": "literal",
+          "name": "tax-year",
+          "values": [
+            "2025"
+          ]
+        }
+      ],
+      "nature": "determinable",
+      "schema": "fact-type.v2",
+      "supersession": {
+        "policy": "free"
+      },
+      "title": "Borrowing-keyed selected annual principal ceiling",
+      "value_schema": {
+        "type": "number"
+      },
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.mortgage.affirmed-link-count",
+      "identity_keys": [
+        {
+          "entity_kind": "tax.us.mortgage-borrowing-reference",
+          "kind": "entity",
+          "name": "borrowing"
+        },
+        {
+          "kind": "literal",
+          "name": "tax-year",
+          "values": [
+            "2025"
+          ]
+        }
+      ],
+      "nature": "determinable",
+      "schema": "fact-type.v2",
+      "supersession": {
+        "policy": "free"
+      },
+      "title": "Affirmed report count per recognized borrowing",
+      "value_schema": {
+        "type": "number"
+      },
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.mortgage.affirmed-link-coverage",
+      "identity_keys": [
+        {
+          "entity_kind": "tax.us.mortgage-borrowing-reference",
+          "kind": "entity",
+          "name": "borrowing"
+        },
+        {
+          "kind": "literal",
+          "name": "tax-year",
+          "values": [
+            "2025"
+          ]
+        }
+      ],
+      "nature": "determinable",
+      "schema": "fact-type.v2",
+      "supersession": {
+        "policy": "free"
+      },
+      "title": "Numeric support coverage per borrowing",
+      "value_schema": {
+        "type": "number"
+      },
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.mortgage.account-readiness",
+      "identity_keys": [
+        {
+          "entity_kind": "tax.us.mortgage-borrowing-reference",
+          "kind": "entity",
+          "name": "borrowing"
+        },
+        {
+          "kind": "literal",
+          "name": "tax-year",
+          "values": [
+            "2025"
+          ]
+        }
+      ],
+      "nature": "determinable",
+      "schema": "fact-type.v2",
+      "supersession": {
+        "policy": "free"
+      },
+      "title": "Borrowing-keyed readiness",
+      "value_schema": {
+        "enum": [
+          "ready"
+        ],
+        "type": "string"
+      },
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.mortgage.shared-this-is-the-original-loan",
+      "identity_keys": [
+        {
+          "entity_kind": "tax.us.mortgage-borrowing-reference",
+          "kind": "entity",
+          "name": "borrowing"
+        },
+        {
+          "kind": "literal",
+          "name": "tax-year",
+          "values": [
+            "2025"
+          ]
+        }
+      ],
+      "nature": "determinable",
+      "schema": "fact-type.v2",
+      "supersession": {
+        "policy": "free"
+      },
+      "title": "Explicit borrowing-year answer: this-is-the-original-loan",
+      "value_schema": {
+        "enum": [
+          "yes",
+          "no",
+          "cannot-tell"
+        ],
+        "oneOf": [
+          {
+            "const": "yes",
+            "description": "This is the original loan, not a refinance."
+          },
+          {
+            "const": "no",
+            "description": "This loan is a refinance."
+          },
+          {
+            "const": "cannot-tell",
+            "description": "I cannot tell whether this is the original loan or a refinance."
+          }
+        ]
+      },
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.mortgage.shared-mortgage-credit-certificate-received",
+      "identity_keys": [
+        {
+          "entity_kind": "tax.us.mortgage-borrowing-reference",
+          "kind": "entity",
+          "name": "borrowing"
+        },
+        {
+          "kind": "literal",
+          "name": "tax-year",
+          "values": [
+            "2025"
+          ]
+        }
+      ],
+      "nature": "determinable",
+      "schema": "fact-type.v2",
+      "supersession": {
+        "policy": "free"
+      },
+      "title": "Explicit borrowing-year answer: mortgage-credit-certificate-received",
+      "value_schema": {
+        "enum": [
+          "received",
+          "not-received",
+          "cannot-tell"
+        ],
+        "oneOf": [
+          {
+            "const": "received",
+            "description": "I received a mortgage credit certificate for this loan."
+          },
+          {
+            "const": "not-received",
+            "description": "I did not receive a mortgage credit certificate for this loan."
+          },
+          {
+            "const": "cannot-tell",
+            "description": "I cannot tell whether I received a mortgage credit certificate for this loan."
+          }
+        ]
+      },
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.mortgage.effective-proceeds-support-count",
+      "identity_keys": [
+        {
+          "entity_kind": "tax.us.mortgage-lender",
+          "kind": "entity",
+          "name": "payer"
+        },
+        {
+          "entity_kind": "tax.us.1098-statement",
+          "kind": "entity",
+          "name": "statement"
+        },
+        {
+          "kind": "literal",
+          "name": "tax-year",
+          "values": [
+            "2025"
+          ]
+        },
+        {
+          "entity_kind": "tax.us.mortgage-borrowing-reference",
+          "kind": "entity",
+          "name": "borrowing"
+        }
+      ],
+      "nature": "determinable",
+      "schema": "fact-type.v2",
+      "supersession": {
+        "policy": "free"
+      },
+      "title": "Numeric completion marker for one exact linked effective-proceeds answer",
+      "value_schema": {
+        "type": "number"
+      },
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.mortgage.report-effective-support-coverage",
+      "identity_keys": [
+        {
+          "entity_kind": "tax.us.mortgage-lender",
+          "kind": "entity",
+          "name": "payer"
+        },
+        {
+          "entity_kind": "tax.us.1098-statement",
+          "kind": "entity",
+          "name": "statement"
+        },
+        {
+          "kind": "literal",
+          "name": "tax-year",
+          "values": [
+            "2025"
+          ]
+        }
+      ],
+      "nature": "determinable",
+      "schema": "fact-type.v2",
+      "supersession": {
+        "policy": "free"
+      },
+      "title": "Per-report numeric completion for optional exact linked effective support",
+      "value_schema": {
+        "type": "number"
+      },
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.mortgage.local-proceeds-answer-count",
+      "identity_keys": [
+        {
+          "entity_kind": "tax.us.mortgage-lender",
+          "kind": "entity",
+          "name": "payer"
+        },
+        {
+          "entity_kind": "tax.us.1098-statement",
+          "kind": "entity",
+          "name": "statement"
+        },
+        {
+          "kind": "literal",
+          "name": "tax-year",
+          "values": [
+            "2025"
+          ]
+        }
+      ],
+      "nature": "determinable",
+      "schema": "fact-type.v2",
+      "supersession": {
+        "policy": "free"
+      },
+      "title": "Current report-local proceeds-answer count per exact Box 1 identity",
+      "value_schema": {
+        "type": "number"
+      },
+      "version": "v1"
+    }
+  ],
+  "id": "tax.us.2025.f1098-report-local-bridge",
+  "label": "Synthetic P2 report-local and borrowing facts",
+  "schema": "bundle.v2",
+  "version": "v1"
+}
