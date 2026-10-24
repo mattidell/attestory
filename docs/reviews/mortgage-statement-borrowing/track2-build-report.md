@@ -9,7 +9,7 @@ the complete v51 registry entries and the v53 core's 580 members and 26 input
 bindings. The new mortgage-borrowing bundle was absent from v53; the existing
 F1098 vocabulary v1 and successor vocabulary v2 were already present.
 
-The current uncommitted increment adds a narrowly gated saved projection for
+The projection increment adds a narrowly gated saved projection for
 current Box 1 reports, current relationship outcomes (including separate
 orphans), recorded account claims, actual effective-answer values and pins,
 consumed input/choice finding IDs, and the exact line8a disposition. It does not
@@ -20,6 +20,10 @@ does not crash projection. A report's actual reason-chain finding is included
 when a current reason publication pins that exact Box 1 finding; in the
 two-report probe, this is present only for B, whose report-local answers are
 complete, while A's missing local answers remain visibly absent.
+
+The saved-model implementation and recorder-backed integration tests are in
+`a82eec30` and `f27e82f8`. Consumer successors and the exact v55/v53 release
+chain are in `20c9e9b4`.
 
 ## Evidence and limits
 
@@ -62,8 +66,8 @@ saved model.
 
 ## Focused commands
 
-- `pytest tests/test_mortgage_borrowing_calculation.py` — 5 passed.
-- `python3 -m mypy --cache-dir=<temporary-cache-dir> packages/derivation/presentation_projection.py tests/test_mortgage_borrowing_calculation.py` — no issues.
+- `pytest tests/test_mortgage_borrowing_calculation.py tests/test_f1098_mortgage_interest_line12e_track2.py tests/derivation/test_package_validation.py` — 44 passed.
+- `python3 -m mypy --cache-dir=<temporary-cache-dir>` — no issues in 385 source files.
 
 The test run emitted a sandbox pytest-cache permission warning; it did not
 affect the test result. Full CI remains the gate of record, particularly
