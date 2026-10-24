@@ -115,8 +115,8 @@ Verified so far:
   bindings and member set as a subset.
 - v52 retains all v51 package and citizen entries and the release pins the exact
   v52 registry bytes.
-- v55 is additive over v54 except for intended line12e and attachment
-  successor pins. Line12e v2 explicitly requires/pins Schedule A total;
+- v55 preserves the v54 base except for the intended mortgage reason/amount,
+  line12e, and attachment successors. Line12e v2 explicitly requires/pins Schedule A total;
   attachment v2 retains exactly the seven value-checked boundary declarations
   and removes only the obsolete liability/payment presence check. Registry v53
   retains all v52 entries, which in turn retains v51, and the release pins the
@@ -149,9 +149,12 @@ Schedule A/line12e consumer, one missing-boundary attachment refusal, and
 unlinked-report/cross-fill boundaries, one current shared correction, one
 shared-answer withdrawal with independently supported local fallback, root
 withdrawal, and explicit clear with one versus two reports above are
-demonstrated. Report-link withdrawal, unrelated-borrowing cross-fill refusal,
-the remaining independent refusal cases, and other lifecycle cases remain
-unverified.
+demonstrated. The withdrawn final report-link case remains blocked without
+singleton fallback. After clear, one report with `paid-the-interest=no`
+publishes a known numeric zero with a `not-paid` reason; omitting that required
+answer leaves the amount blocked. Unrelated-borrowing cross-fill refusal, true
+closed-empty versus missing closure, affirmative orphan, and remaining
+independent refusal cases remain unverified.
 This checkpoint does not claim complete Track 2 acceptance, return
 authorization, or a complete return.
 
@@ -162,6 +165,8 @@ authorization, or a complete return.
 - The shared correction and withdrawal-with-local-fallback cases passed through the real recorder and coordinator.
 - The root-withdrawal and explicit-clear one/two-report cases passed through the real recorder and coordinator.
 - The Box 2-over-ceiling, loose-ceiling-over-cap, and disagreeing Box 3 date cases passed through the real coordinator.
+- The explicit-clear known-zero/unresolved cases and withdrawn-final-link case
+  passed through the real coordinator.
 - `python3 -m mypy --cache-dir=<temporary-cache-dir> packages tests` — no issues in 332 source files.
 - `python3 tools/envelope_scan.py --verify` and `git diff --check` — passed.
 

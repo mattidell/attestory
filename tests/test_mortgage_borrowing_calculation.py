@@ -138,7 +138,9 @@ def _run_connected_case(*, uncertain_shared: str | None = None, unlinked_third_r
                        second_box3: str | None = None,
                        include_line12e_base_answers: bool = False,
                        missing_schedule_a_boundary: str | None = None,
-                       shared_overrides: dict[str, str] | None = None) -> tuple[dict[str, Any], dict[str, Any], dict[str, str], dict[str, str]]:
+                       shared_overrides: dict[str, str] | None = None,
+                       local_overrides: dict[str, str] | None = None,
+                       withdraw_link: int | None = None) -> tuple[dict[str, Any], dict[str, Any], dict[str, str], dict[str, str]]:
     """Run the real recorder and coordinator against the successor package."""
     acts = cast(list[dict[str, Any]], _f1098_acts(
         interest=22000.0,
@@ -230,6 +232,7 @@ def _run_connected_case(*, uncertain_shared: str | None = None, unlinked_third_r
             return cast(str, result["finding_id"])
 
         shared_ids: dict[str, str] = {}
+        link_ids: dict[int, str] = {}
 
         def record_shared_claims() -> None:
             root_ids["recognition"] = record("continuing-borrowing", "yes")
@@ -244,7 +247,7 @@ def _run_connected_case(*, uncertain_shared: str | None = None, unlinked_third_r
                 value = "cannot-tell" if uncertain_shared == question else shared_values[question]
                 shared_ids[question] = record(claim, value)
             for report in report_keys:
-                record("report-inclusion", "affirmed", report)
+                link_ids[len(link_ids)] = record("report-inclusion", "affirmed", report)
 
         if shared_before_local and not unconnected_singleton:
             record_shared_claims()
@@ -271,12 +274,15 @@ def _run_connected_case(*, uncertain_shared: str | None = None, unlinked_third_r
                 local_ids[f"{report_index}:{question}"] = result["finding_ids"][0]
 
         if not unconnected_singleton and not fully_supported_local:
-            report_indices = (0, 1) if shared_only or missing_local is not None else (1,)
+            report_indices = (0,) if single_current_report else ((0, 1) if shared_only or missing_local is not None else (1,))
             for report_index in report_indices:
                 for question, value in {
                     "filing-unit-owns-home": "yes", "shared-main-home": "yes",
                     "home-is-collateral": "yes", "paid-the-interest": "yes",
                 }.items():
+                    if missing_local == question and report_index == 0:
+                        continue
+                    value = (local_overrides or {}).get(question, value)
                     result = answer_f1098_statement_answer_durably(
                         log, registry, statement_keys=report_keys[report_index], question=question, answer=value,
                         submission_id=f"demo.mortgage.local.{report_index}.{question}",
@@ -289,8 +295,11 @@ def _run_connected_case(*, uncertain_shared: str | None = None, unlinked_third_r
         if fully_supported_local and not unconnected_singleton:
             for report_index, keys in enumerate(report_keys):
                 for question in ("filing-unit-owns-home", "shared-main-home", "home-is-collateral", "paid-the-interest"):
+                    if missing_local == question and report_index == 0:
+                        continue
                     result = answer_f1098_statement_answer_durably(
-                        log, registry, statement_keys=keys, question=question, answer="yes",
+                        log, registry, statement_keys=keys, question=question,
+                        answer=(local_overrides or {}).get(question, "yes"),
                         submission_id=f"demo.mortgage.local.{report_index}.{question}",
                         evidence_id=f"demo.mortgage.local-evidence.{report_index}.{question}",
                         actor="demo.user.filer-1", at="2026-10-23T16:01:35Z",
@@ -334,6 +343,15 @@ def _run_connected_case(*, uncertain_shared: str | None = None, unlinked_third_r
                 log, registry, finding_id=shared_ids[withdraw_shared], claim=claim,
                 borrowing_ref=BORROWING_REF, actor="demo.user.filer-1",
                 at="2026-10-23T16:03:30Z", expected_revision=log.read().revision,
+            )
+        if withdraw_link is not None:
+            withdraw_mortgage_borrowing_claim_durably(
+                log, registry, finding_id=link_ids[withdraw_link], claim="report-inclusion",
+                borrowing_ref=BORROWING_REF, actor="demo.user.filer-1",
+                at="2026-10-23T16:03:45Z", expected_revision=log.read().revision,
+                submission_id=f"demo.mortgage.withdraw-link.{withdraw_link}",
+                evidence_id=f"demo.mortgage.withdraw-link-evidence.{withdraw_link}",
+                statement_keys=report_keys[withdraw_link],
             )
         if root_outcome is not None:
             correct_mortgage_borrowing_claim_durably(
@@ -865,6 +883,36 @@ class MortgageBorrowingPackageTests(unittest.TestCase):
         self.assertEqual(len(explanation["reports"]), 2)
         self.assertEqual(explanation["line8aFindings"], [])
         self.assertEqual(explanation["line8aDispositions"][0]["disposition"], "blocked")
+
+    def test_explicit_clear_single_report_unpaid_interest_is_known_zero(self) -> None:
+        _report, model, _local_ids, _shared_ids = _run_connected_case(
+            single_current_report=True, fully_supported_local=True, clear_account=True,
+            local_overrides={"paid-the-interest": "no"},
+        )
+        explanation = model["mortgageBorrowingExplanation"]
+        self.assertEqual(len(explanation["line8aFindings"]), 1)
+        self.assertEqual(explanation["line8aFindings"][0]["value"], 0)
+        self.assertEqual(explanation["reports"][0]["reasonChain"]["value"], "not-paid")
+
+    def test_explicit_clear_single_report_missing_local_answer_is_unresolved(self) -> None:
+        _report, model, _local_ids, _shared_ids = _run_connected_case(
+            single_current_report=True, fully_supported_local=True, clear_account=True,
+            missing_local="paid-the-interest",
+        )
+        explanation = model["mortgageBorrowingExplanation"]
+        self.assertEqual(explanation["line8aFindings"], [])
+        self.assertEqual(len(explanation["line8aDispositions"]), 1)
+        self.assertEqual(explanation["line8aDispositions"][0]["disposition"], "blocked")
+        self.assertIsNone(explanation["reports"][0]["reasonChain"])
+
+    def test_withdrawn_final_report_link_does_not_restore_singleton(self) -> None:
+        _report, model, _local_ids, _shared_ids = _run_connected_case(
+            single_current_report=True, fully_supported_local=True, withdraw_link=0,
+        )
+        explanation = model["mortgageBorrowingExplanation"]
+        self.assertEqual(explanation["line8aFindings"], [])
+        self.assertEqual(explanation["line8aDispositions"][0]["disposition"], "blocked")
+        self.assertEqual(explanation["reports"][0]["relationships"][0]["disposition"], "withdrawn")
 
     def test_second_report_principal_above_ceiling_blocks_group_amount(self) -> None:
         _report, model, _local_ids, _shared_ids = _run_connected_case(
