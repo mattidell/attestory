@@ -498,3 +498,61 @@ five retained runs themselves do not exhibit that defect. The proposed
 targeted follow-up should discriminate it and the repaired completion/zero
 contract without replaying the full passing set. Three additional read-only
 calls established this accepted-contract/reference-runner basis.
+
+## Shared-answer completion repair recheck — 2026-10-24
+
+**Prior completion finding closed for the repaired proceeds composition.
+The explicit-exit experiment can build on it.** This is a bounded recheck,
+not Track 0 or production readiness. Exit, the other four shared propositions
+and remaining lifecycle cases are still open.
+
+Reviewed repair `bdce4731` at oriented `HEAD`
+`2391c43af03ffb883f59eb7f9297d3a1956a12fb`. Git matched orientation; entry tree
+was clean. After fetch the mortgage branch is 0 behind / 47 ahead of
+`origin/main`. Current evidence is core-v52-derived disposable v61, not the
+historical v59 composition.
+
+The retained local counter counts recorded `what-the-money-paid-for@v2`
+rows per exact Box 1 report; the shared counter counts recorded
+`shared-proceeds-use@v1` rows per borrowing/year recognition root. Their
+count-result types inherit those natural subject keys. No derived marker is
+counted, so a zero now concerns the already-marshalled current raw sources,
+not a producer that has not run. Optional categories remain optional: the
+effective link consumer requires the two numeric count symbols rather than
+unconditionally requiring either raw answer.
+
+That explicit dependency is honored by both scheduler paths. Forward subject
+eligibility waits until the counter producers resolve; reference demand
+traverses these required symbols and uses the same eligibility/attempt code.
+Package required-symbol adjacency also reaches the producers. Unlike the
+old marker scheme, this supplies a real completion edge while permitting a
+published count of zero. Reference behavior is code-traced here; no reference
+execution is claimed.
+
+The consumer is deliberately declared first (member index 571, counters 572
+and 573) in both retained surfaces. Actual coordinator dispositions record
+the counters at 98–100 before effective results at 122–123. The effective
+consumer's optional `collect_categorical_all_equal` reads use scoped source
+maps: local rows have exact payer/statement/year keys, shared rows have exact
+borrowing/year keys, and the affirmed-link subject carries all four. Exact
+local v2/shared v1 category literals map into the distinct effective v1 type;
+no run-wide scalar or report-label substitution establishes the value.
+
+I inspected the three actual reports/models/records at
+`t0-dynamic-binding-20261024T001519Z` and `...001616Z` under the milestone's
+ignored evidence directory. All nine file hashes match the results account.
+The shared-only A result pins its own link, numeric prerequisites and shared A
+answer, with no A-local or B-local answer pin; its saved reason leaf is that
+shared answer. B independently retains B's local source. The contrary case
+pins the applicable local/shared disagreement and blocks both effective
+results and dependent amounts. With A-local retracted and only unrelated B
+shared support present, A blocks `DEPENDENCY_ABSENT` without pinning B's
+shared answer; report B publishes from its own local answer, but no favorable
+combined amount follows. These are retained supplied-state coordinator
+observations, not recorder transitions or a general sharing/exit acceptance.
+
+No new material defect in the completion repair. The prior generic-conflict
+explanation limit remains at its declared ceiling. No passing case, reference
+run or suite was rerun, and no production files were edited. Only this report
+was changed; envelope scan exited 0. Approximate recheck cost: four inspection
+calls, append and final diff check (six calls), roughly seven reasoning turns.
