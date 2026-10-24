@@ -1364,13 +1364,44 @@ def _mortgage_basis_answers(
                 found.extend(mappings(nested))
         return found
 
+    # A reason rule can contain branches for other mortgage answers that were
+    # not selected for this particular finding. Resolve reader labels only
+    # for answer types actually present in this finding's saved support chain;
+    # otherwise an unrelated dormant branch would make a legacy singleton
+    # projection fail despite the published conclusion having no such input.
+    reached_answer_types: set[str] = set()
+    pending_support = [str(finding.get("id"))]
+    visited_support: set[str] = set()
+    while pending_support:
+        pub_id = pending_support.pop()
+        if pub_id in visited_support:
+            continue
+        visited_support.add(pub_id)
+        publication = publications_by_id.get(pub_id)
+        if publication is None:
+            continue
+        for pin in publication.get("pins", []) or []:
+            if not isinstance(pin, Mapping) or pin.get("role") not in _DEPENDENCY_ROLES:
+                continue
+            child_id = pin.get("id")
+            if not isinstance(child_id, str):
+                continue
+            if child_id in publications_by_id:
+                pending_support.append(child_id)
+            elif child_id in current:
+                source = state.findings.get(child_id)
+                fact = fact_map.get(str(source.get("fact_id"))) if source is not None else None
+                if fact is not None:
+                    reached_answer_types.add(fact.fact_type_id)
+
     selected_versions: dict[str, str] = {}
     for node in mappings(reason_rule.get("value")):
         ref = node.get("fact_type")
         if node.get("op") != "category_literal" or not isinstance(ref, Mapping):
             continue
         fact_type_id, version = ref.get("id"), ref.get("version")
-        if (not isinstance(fact_type_id, str) or not fact_type_id.startswith(_MORTGAGE_ANSWER_PREFIX)
+        if (not isinstance(fact_type_id, str) or fact_type_id not in reached_answer_types
+                or not fact_type_id.startswith(_MORTGAGE_ANSWER_PREFIX)
                 or fact_type_id == _MORTGAGE_REASON_SYMBOL):
             continue
         if not isinstance(version, str) or not version:
@@ -1446,12 +1477,11 @@ def _mortgage_basis_answers(
                         continue
                     fact_type_definition = exact_types.get(fact_type)
                     if fact_type_definition is None:
-                        if ".box" not in fact_type:
-                            raise PresentationModelError(
-                                f"mortgage answer type {fact_type!r} is not pinned by the selected rule"
-                            )
-                        # Numeric/date source-field titles retain their established source-fact title path.
-                        # Reader labels for answer facts above always come from exact selected-rule refs.
+                        # The rule may publish a branch whose selected support
+                        # traverses an answer type outside its category literals
+                        # (for example a retained local bridge). The saved
+                        # current fact-type declaration still supplies its
+                        # title; only response labels require an exact rule ref.
                         fact_type_definition = state.fact_state.fact_types.get(fact_type)
                     title = fact_type_definition.get("title") if isinstance(fact_type_definition, Mapping) else None
                     if not isinstance(title, str) or not title:
@@ -2421,7 +2451,10 @@ def _mortgage_interest_explanation(
     }
     if reason == "qualified":
         if amount_basis is None:
-            raise PresentationModelError("the pinned mortgage amount rule has no declared basis")
+            # A successor amount rule without a declared basis is not enough to
+            # recreate the legacy single-account explanation. The current
+            # calculation remains available in the mortgage borrowing model.
+            return None
         account["basis"] = {key: list(amount_basis[key]) for key in ("said", "derived", "assumed", "left_with_person")}
     return {"schema": MORTGAGE_EXPLANATION_VERSION, "accounts": [account]}
 
@@ -2706,11 +2739,16 @@ def _mortgage_borrowing_explanation(
     # disposition. A disposition says whether the producer ran; it is not the
     # numeric result or its consumed provenance. Inapplicable/blocked results
     # have no publication and are deliberately not filled from a subtotal.
-    line8a_findings = [
-        dict(publication.finding) for publication in publications
-        if isinstance(publication.finding, Mapping)
-        and publication.finding.get("symbol") == "tax.us.2025.schedule-a.line8a"
-    ]
+    line8a_findings: list[dict[str, Any]] = []
+    for publication in publications:
+        finding = publication.finding
+        if not isinstance(finding, Mapping) or finding.get("symbol") != "tax.us.2025.schedule-a.line8a":
+            continue
+        saved_finding = dict(finding)
+        saved_finding["value"] = _numeric_value(
+            finding.get("value"), symbol="tax.us.2025.schedule-a.line8a"
+        )
+        line8a_findings.append(saved_finding)
     consumed_by_borrowing: dict[str, set[str]] = {}
     for relationship_ident, row in reports.items():
         consumed_by_borrowing.setdefault(relationship_ident[0], set()).update(

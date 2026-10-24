@@ -881,6 +881,11 @@
       "version": "v1"
     },
     {
+      "checksum": "a8ab9c9ceaa476f9884301df450488e57677e975f7843ebdf558ecb3900505fa",
+      "id": "tax.us.2025.f1098-report-local-bridge",
+      "version": "v1"
+    },
+    {
       "checksum": "a4560ec3130abe7de2fe4450da07e56ba105b90c13113dfc3691c03ddb97adcc",
       "id": "tax.us.2025.f1098-scope.vocabulary",
       "version": "v1"
@@ -1696,6 +1701,11 @@
       "version": "v1"
     },
     {
+      "checksum": "958b93e56fabf46307b534c086b14125ad02774810eae26160b7a235cb662cee",
+      "id": "tax.us.2025.parameter.mortgage-empty-link-support",
+      "version": "v1"
+    },
+    {
       "checksum": "5d5f36d501ecafe2d49a5a87262a8fe4374399badaba0dad66221dea3fd989bc",
       "id": "tax.us.2025.parameter.ordinary-rate-schedule",
       "version": "v1"
@@ -2011,6 +2021,31 @@
       "version": "v1"
     },
     {
+      "checksum": "024aaeff208fd3e386de3236fc78c3bf6eea5f1efda26582883391f72992aa88",
+      "id": "tax.us.2025.rule.borrowing-affirmed-count",
+      "version": "v1"
+    },
+    {
+      "checksum": "6ae56e87ee7665bd6e87cd3ead5ac59bf93177cf854e22c75d57dd6977dc9492",
+      "id": "tax.us.2025.rule.borrowing-current-link-status",
+      "version": "v1"
+    },
+    {
+      "checksum": "b3f1146319f6f9f4f2f6d092de604bcf52fdb3dddb98b1caec9cff06e3576711",
+      "id": "tax.us.2025.rule.borrowing-denied-count",
+      "version": "v1"
+    },
+    {
+      "checksum": "2c7a1c20ec12fba2e65c2a3475248c6e5f2cfd8cc277dcc2f1ecd79d764c0739",
+      "id": "tax.us.2025.rule.borrowing-unknown-count",
+      "version": "v1"
+    },
+    {
+      "checksum": "2957fa6bd5ddc9bbbed1e6966e2ee1f91d574f7e108198db83281a71ba2a302a",
+      "id": "tax.us.2025.rule.borrowing-withdrawn-count",
+      "version": "v1"
+    },
+    {
       "checksum": "2987e909aef30b2f0d0e51c2854372a1a04932b7a28fda8e58372d9059324e67",
       "id": "tax.us.2025.rule.capital-loss-carryover.long-term",
       "version": "v1"
@@ -2048,6 +2083,16 @@
     {
       "checksum": "2ca4c2f12da30f46379f26fec305ad40bb53c5e8a3a6ac511f033f7cafc5e5a3",
       "id": "tax.us.2025.rule.dependents-worksheet-line-4c",
+      "version": "v1"
+    },
+    {
+      "checksum": "6f94fe97b09ddf8c8eccff4d6f9c5b16d987f3c3077f38ca2253fa5a145e6ace",
+      "id": "tax.us.2025.rule.effective-proceeds-support-count",
+      "version": "v1"
+    },
+    {
+      "checksum": "fec003f963963245530ee2254210527bf99dc426e51656fc20c7bd59c6133329",
+      "id": "tax.us.2025.rule.effective-proceeds-use",
       "version": "v1"
     },
     {
@@ -2161,6 +2206,16 @@
       "version": "v1"
     },
     {
+      "checksum": "9008c2abed4fc93c9b86289d1b91fbbaf67c0193ce1cf549f99799f57e5ff324",
+      "id": "tax.us.2025.rule.f1098-affirmed-source-match",
+      "version": "v1"
+    },
+    {
+      "checksum": "557632df031a6922729cc498ea82e83a9e0652e0891a5298cfc66e61035ad3f5",
+      "id": "tax.us.2025.rule.f1098-inclusion-integrity",
+      "version": "v1"
+    },
+    {
       "checksum": "28a3532c885bfb6098b3e256d807c6d655fd00c52096802aca48f1c000cca602",
       "id": "tax.us.2025.rule.f1098-line8a",
       "version": "v1"
@@ -2169,6 +2224,11 @@
       "checksum": "d410f28f3f2cd82618ef10b5909bff91ea8be77255ff5ada66c02d59b07fae86",
       "id": "tax.us.2025.rule.f1098-line8a",
       "version": "v2"
+    },
+    {
+      "checksum": "4b66fecb3db7a7f7342ea163ca983ccd0bc312d28a1c9d4e35534f43c14ae56a",
+      "id": "tax.us.2025.rule.f1098-line8a",
+      "version": "v5"
     },
     {
       "checksum": "c8aa848015bbf84b97458cdfa9abea5b2d6e021a0d4418c247453e1b182efbf9",
@@ -2196,6 +2256,66 @@
       "version": "v1"
     },
     {
+      "checksum": "24a2b2656a3d763694b3f633c33652dba6768da373db2ce71e4a7ac5e4a9c0db",
+      "id": "tax.us.2025.rule.f1098-report-local-bridge.box2-outstanding-principal",
+      "version": "v1"
+    },
+    {
+      "checksum": "fdcad9e0dbf2ef39933464c9d5d7a5f2bf7076debd84cb11fa994a20bf2ba07c",
+      "id": "tax.us.2025.rule.f1098-report-local-bridge.box3-origination-date",
+      "version": "v1"
+    },
+    {
+      "checksum": "4e79bfdda7f6616e4a7db16fa3c783ce78e183c628282a9ea2adce01c4106c39",
+      "id": "tax.us.2025.rule.f1098-report-local-bridge.box9-number-of-properties",
+      "version": "v1"
+    },
+    {
+      "checksum": "f3b0672ec2a46882de3c5fdfadd03224ccee9ac2cb16f08296497877115cd7ca",
+      "id": "tax.us.2025.rule.f1098-report-local-bridge.filing-unit-owns-home",
+      "version": "v1"
+    },
+    {
+      "checksum": "8df8cd6013f7513b76f100e81f473a7837857613a9de804490f03c748daea045",
+      "id": "tax.us.2025.rule.f1098-report-local-bridge.home-is-collateral",
+      "version": "v1"
+    },
+    {
+      "checksum": "eee27a31c7271c567481a80348810f37ede6652201b6b4273cc247cd1354e508",
+      "id": "tax.us.2025.rule.f1098-report-local-bridge.mortgage-credit-certificate-received",
+      "version": "v1"
+    },
+    {
+      "checksum": "abce8513c540315215f0f0b99740d5b152e66aca78b6908e68b251e4e5cbb4f2",
+      "id": "tax.us.2025.rule.f1098-report-local-bridge.no-one-else-owes-it",
+      "version": "v1"
+    },
+    {
+      "checksum": "a65c4e5ad2e15713ca6a070b2d87a316776a819d195511cfb63bfddf4a72111b",
+      "id": "tax.us.2025.rule.f1098-report-local-bridge.owes-the-loan",
+      "version": "v1"
+    },
+    {
+      "checksum": "57e6550d0a537bafa0f49c6d20f5cea8f9a710cd16cedb39b1e7c286358a770a",
+      "id": "tax.us.2025.rule.f1098-report-local-bridge.paid-the-interest",
+      "version": "v1"
+    },
+    {
+      "checksum": "4e2a5e10b2e2dbf3beff8462202f617b67d852b3fd10416b515ae2424d018b1e",
+      "id": "tax.us.2025.rule.f1098-report-local-bridge.principal-ceiling-status",
+      "version": "v1"
+    },
+    {
+      "checksum": "15818984f8a4339ec38e86c75b6943d1a101d99e19a7aa74156da653852ba4a1",
+      "id": "tax.us.2025.rule.f1098-report-local-bridge.shared-main-home",
+      "version": "v1"
+    },
+    {
+      "checksum": "d61ee962e092bb9ef9ef9d6950d62e37461b03eb473198782c7e5507775c319a",
+      "id": "tax.us.2025.rule.f1098-report-local-bridge.this-is-the-original-loan",
+      "version": "v1"
+    },
+    {
       "checksum": "89f5c35d359301a3f57522f72d737f1d80767e0b7afcfd377dbb7a6c9ff216a4",
       "id": "tax.us.2025.rule.f1098-residence-interest-reason",
       "version": "v1"
@@ -2204,6 +2324,11 @@
       "checksum": "387a4808e37f12a7549f48e371840b819017c36109284a0f6a7dd65e348d7091",
       "id": "tax.us.2025.rule.f1098-residence-interest-reason",
       "version": "v2"
+    },
+    {
+      "checksum": "4c279016cbb081cad7e7357a801aae02af8b8f4800f04afbbf766ec4d6f77678",
+      "id": "tax.us.2025.rule.f1098-residence-interest-reason",
+      "version": "v5"
     },
     {
       "checksum": "9e0da3151c1a265999243aeb83712a76bb06a08c295a8deb335eb577382b4854",
@@ -2491,7 +2616,7 @@
       "version": "v1"
     },
     {
-      "checksum": "bdcc4926c10d4ebf26b53a0ed5a63cd78515eab0291f4239e0ee2254d3f9c0f1",
+      "checksum": "120561756ba583427224f3bc0c6ea8891b3467b2c4d3ff5633afe6d3f877f6b6",
       "id": "tax.us.2025.rule.form1040-line12e",
       "version": "v2"
     },
@@ -2841,8 +2966,43 @@
       "version": "v1"
     },
     {
+      "checksum": "1fe70304681143f220ac11c4e76b60395a670b057f135ee0b8bb80ae8ea9b005",
+      "id": "tax.us.2025.rule.local-proceeds-answer-count",
+      "version": "v1"
+    },
+    {
+      "checksum": "286409ae8e4a41dd0dc2cb5ea0ce6785db960d29dc0b009cf506c14c6783167f",
+      "id": "tax.us.2025.rule.mortgage-account-ceiling-selection",
+      "version": "v1"
+    },
+    {
+      "checksum": "8b79dbe623d24b3f0408b07d1e3ffa726cc1a3243b81d7e508cb92d602a6c282",
+      "id": "tax.us.2025.rule.mortgage-account-readiness",
+      "version": "v1"
+    },
+    {
+      "checksum": "d2cbd4f1971a2263a60b44fbe6fd94b409e96dd216eaf09b91531cde68d44fec",
+      "id": "tax.us.2025.rule.mortgage-affirmed-link-count",
+      "version": "v1"
+    },
+    {
+      "checksum": "7ec985574c26a930dd42f3140f0dcfb61045bbeec9d3c6bc0f011916f34a06ec",
+      "id": "tax.us.2025.rule.mortgage-affirmed-link-coverage",
+      "version": "v1"
+    },
+    {
+      "checksum": "697a80e593c7298b6d44a82ca3d3c7af4f192590c7c434a613e07bcb5b8b6ee4",
+      "id": "tax.us.2025.rule.mortgage-borrowing-readiness",
+      "version": "v2"
+    },
+    {
       "checksum": "d3c69db18cacdfa0f4feceaab12eddbef15db05b44f83d8ea8ba8158ff87e7ae",
       "id": "tax.us.2025.rule.mortgage-credit-certificate-received-effective-answer",
+      "version": "v1"
+    },
+    {
+      "checksum": "d1532a9d993582676e902f82c0ecf6d5d23b3d7cb5bfb327cc4c3f98b4fd503a",
+      "id": "tax.us.2025.rule.mortgage-link-support",
       "version": "v1"
     },
     {
@@ -2998,6 +3158,11 @@
     {
       "checksum": "5456dff9483b32a51e130ce926827ff0f67e45fd1f9ea20080f2cbe1b4865365",
       "id": "tax.us.2025.rule.relationship.accrued-supported",
+      "version": "v1"
+    },
+    {
+      "checksum": "29bf4a132fe7980564d33a371d36ea8a04585879f5ddcb16e7fb6c6e9f5b62f5",
+      "id": "tax.us.2025.rule.report-effective-support-coverage",
       "version": "v1"
     },
     {
@@ -3264,6 +3429,11 @@
       "checksum": "108fedd8221d0ada09383ffc7886c2dd97c2feb349527ce5acb5eb9b1cbca74a",
       "id": "tax.us.2025.rule.selected-preferential-base",
       "version": "v5"
+    },
+    {
+      "checksum": "0fcd553f7799a83f0a7bf73a35e5fa11cdf59181c7a0389fb70effa09fda2cc2",
+      "id": "tax.us.2025.rule.shared-proceeds-answer-count",
+      "version": "v1"
     },
     {
       "checksum": "1e6ef1d4e60c159ebea09c07ef7f2d7768074cf1fa00230e74cad0f424f6ecf6",
@@ -4088,7 +4258,7 @@
       "version": "v54"
     },
     {
-      "checksum": "48e74750376759801548db15c9a8323e93d2185ae6bdaf540256a0fa39b392d7",
+      "checksum": "ef03ffde53838dd2b89ac3ed643b3c0e276c95c1cbc273b9d676fdf709ad64e9",
       "id": "tax.us.2025.package.core-calculations",
       "version": "v55"
     },

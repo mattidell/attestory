@@ -1,0 +1,67 @@
+{
+  "blocked": {
+    "code": "DEPENDENCY_INVALID",
+    "missing": []
+  },
+  "citations": [],
+  "direction": "subject_contains_joined",
+  "id": "tax.us.2025.rule.mortgage-link-support",
+  "joined": {
+    "id": "tax.us.2025.f1098.box1-mortgage-interest",
+    "version": "v1"
+  },
+  "notes": "Synthetic numeric success marker; one means this exact linked report's derived support is qualified.",
+  "pins": [],
+  "publishes": "tax.us.2025.mortgage.f1098-link-support",
+  "requires": [
+    "tax.us.2025.f1098.residence-interest-reason",
+    "tax.us.2025.f1098.principal-within-ceiling"
+  ],
+  "role": "computation",
+  "schema": "rule-artifact.v13",
+  "scope": {
+    "family": "individual-income-tax",
+    "jurisdiction": "US-federal",
+    "tax_year": 2025
+  },
+  "subject": {
+    "id": "tax.us.2025.f1098.borrowing-inclusion",
+    "version": "v1"
+  },
+  "value": {
+    "else": 0,
+    "op": "choose",
+    "then": 1,
+    "when": {
+      "args": [
+        {
+          "name": "tax.us.2025.f1098.residence-interest-reason",
+          "op": "collect_categorical_all_equal",
+          "value": {
+            "fact_type": {
+              "id": "tax.us.2025.f1098.residence-interest-reason",
+              "version": "v2"
+            },
+            "op": "category_literal",
+            "value": "qualified"
+          }
+        },
+        {
+          "name": "tax.us.2025.f1098.principal-within-ceiling",
+          "op": "collect_categorical_all_equal",
+          "value": {
+            "fact_type": {
+              "id": "tax.us.2025.f1098.principal-within-ceiling",
+              "version": "v1"
+            },
+            "op": "category_literal",
+            "value": "within-ceiling"
+          }
+        }
+      ],
+      "op": "all"
+    }
+  },
+  "version": "v1",
+  "when": true
+}

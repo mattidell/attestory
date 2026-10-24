@@ -153,6 +153,10 @@
       "version": "v1"
     },
     {
+      "id": "tax.us.2025.f1098-report-local-bridge",
+      "version": "v1"
+    },
+    {
       "id": "tax.us.2025.f1098-scope.vocabulary",
       "version": "v1"
     },
@@ -378,7 +382,7 @@
     },
     {
       "id": "tax.us.2025.rule.f1098-line8a",
-      "version": "v2"
+      "version": "v5"
     },
     {
       "id": "tax.us.2025.rule.f1098-local-mortgage-credit-certificate-received-count",
@@ -402,7 +406,7 @@
     },
     {
       "id": "tax.us.2025.rule.f1098-residence-interest-reason",
-      "version": "v2"
+      "version": "v5"
     },
     {
       "id": "tax.us.2025.rule.f1098-residence-interest-unresolved",
@@ -1980,6 +1984,12 @@
       "version": "v1"
     },
     {
+      "id": "tax.us.2025.f1098-report-local-bridge",
+      "role": "fact-type-bundle",
+      "schema": "bundle.v2",
+      "version": "v1"
+    },
+    {
       "id": "tax.us.2025.f1098-scope.vocabulary",
       "role": "fact-type-bundle",
       "schema": "bundle.v2",
@@ -2742,6 +2752,12 @@
       "version": "v1"
     },
     {
+      "id": "tax.us.2025.parameter.mortgage-empty-link-support",
+      "role": "parameter",
+      "schema": "parameter-declaration.v1",
+      "version": "v1"
+    },
+    {
       "id": "tax.us.2025.parameter.ordinary-rate-schedule",
       "role": "parameter",
       "schema": "parameter-declaration.v1",
@@ -3012,6 +3028,36 @@
       "version": "v1"
     },
     {
+      "id": "tax.us.2025.rule.borrowing-affirmed-count",
+      "role": "computation",
+      "schema": "rule-artifact.v13",
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.rule.borrowing-current-link-status",
+      "role": "computation",
+      "schema": "rule-artifact.v13",
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.rule.borrowing-denied-count",
+      "role": "computation",
+      "schema": "rule-artifact.v13",
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.rule.borrowing-unknown-count",
+      "role": "computation",
+      "schema": "rule-artifact.v13",
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.rule.borrowing-withdrawn-count",
+      "role": "computation",
+      "schema": "rule-artifact.v13",
+      "version": "v1"
+    },
+    {
       "id": "tax.us.2025.rule.capital-loss-carryover.long-term",
       "role": "computation",
       "schema": "rule-artifact.v3",
@@ -3057,6 +3103,18 @@
       "id": "tax.us.2025.rule.dependents-worksheet-line-4c",
       "role": "computation",
       "schema": "rule-artifact.v14",
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.rule.effective-proceeds-support-count",
+      "role": "computation",
+      "schema": "rule-artifact.v13",
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.rule.effective-proceeds-use",
+      "role": "computation",
+      "schema": "rule-artifact.v13",
       "version": "v1"
     },
     {
@@ -3192,10 +3250,22 @@
       "version": "v1"
     },
     {
-      "id": "tax.us.2025.rule.f1098-line8a",
+      "id": "tax.us.2025.rule.f1098-affirmed-source-match",
+      "role": "computation",
+      "schema": "rule-artifact.v13",
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.rule.f1098-inclusion-integrity",
       "role": "computation",
       "schema": "rule-artifact.v14",
-      "version": "v2"
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.rule.f1098-line8a",
+      "role": "computation",
+      "schema": "rule-artifact.v6",
+      "version": "v5"
     },
     {
       "id": "tax.us.2025.rule.f1098-local-mortgage-credit-certificate-received-count",
@@ -3228,10 +3298,82 @@
       "version": "v1"
     },
     {
+      "id": "tax.us.2025.rule.f1098-report-local-bridge.box2-outstanding-principal",
+      "role": "computation",
+      "schema": "rule-artifact.v13",
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.rule.f1098-report-local-bridge.box3-origination-date",
+      "role": "computation",
+      "schema": "rule-artifact.v13",
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.rule.f1098-report-local-bridge.box9-number-of-properties",
+      "role": "computation",
+      "schema": "rule-artifact.v13",
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.rule.f1098-report-local-bridge.filing-unit-owns-home",
+      "role": "computation",
+      "schema": "rule-artifact.v13",
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.rule.f1098-report-local-bridge.home-is-collateral",
+      "role": "computation",
+      "schema": "rule-artifact.v13",
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.rule.f1098-report-local-bridge.mortgage-credit-certificate-received",
+      "role": "computation",
+      "schema": "rule-artifact.v13",
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.rule.f1098-report-local-bridge.no-one-else-owes-it",
+      "role": "computation",
+      "schema": "rule-artifact.v13",
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.rule.f1098-report-local-bridge.owes-the-loan",
+      "role": "computation",
+      "schema": "rule-artifact.v13",
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.rule.f1098-report-local-bridge.paid-the-interest",
+      "role": "computation",
+      "schema": "rule-artifact.v13",
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.rule.f1098-report-local-bridge.principal-ceiling-status",
+      "role": "computation",
+      "schema": "rule-artifact.v13",
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.rule.f1098-report-local-bridge.shared-main-home",
+      "role": "computation",
+      "schema": "rule-artifact.v13",
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.rule.f1098-report-local-bridge.this-is-the-original-loan",
+      "role": "computation",
+      "schema": "rule-artifact.v13",
+      "version": "v1"
+    },
+    {
       "id": "tax.us.2025.rule.f1098-residence-interest-reason",
       "role": "computation",
       "schema": "rule-artifact.v14",
-      "version": "v2"
+      "version": "v5"
     },
     {
       "id": "tax.us.2025.rule.f1098-residence-interest-unresolved",
@@ -3726,7 +3868,49 @@
       "version": "v1"
     },
     {
+      "id": "tax.us.2025.rule.local-proceeds-answer-count",
+      "role": "computation",
+      "schema": "rule-artifact.v13",
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.rule.mortgage-account-ceiling-selection",
+      "role": "computation",
+      "schema": "rule-artifact.v13",
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.rule.mortgage-account-readiness",
+      "role": "computation",
+      "schema": "rule-artifact.v13",
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.rule.mortgage-affirmed-link-count",
+      "role": "computation",
+      "schema": "rule-artifact.v13",
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.rule.mortgage-affirmed-link-coverage",
+      "role": "computation",
+      "schema": "rule-artifact.v13",
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.rule.mortgage-borrowing-readiness",
+      "role": "computation",
+      "schema": "rule-artifact.v14",
+      "version": "v2"
+    },
+    {
       "id": "tax.us.2025.rule.mortgage-credit-certificate-received-effective-answer",
+      "role": "computation",
+      "schema": "rule-artifact.v13",
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.rule.mortgage-link-support",
       "role": "computation",
       "schema": "rule-artifact.v13",
       "version": "v1"
@@ -3915,6 +4099,12 @@
       "id": "tax.us.2025.rule.relationship.accrued-supported",
       "role": "computation",
       "schema": "rule-artifact.v7",
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.rule.report-effective-support-coverage",
+      "role": "computation",
+      "schema": "rule-artifact.v13",
       "version": "v1"
     },
     {
@@ -4132,6 +4322,12 @@
       "role": "computation",
       "schema": "rule-artifact.v3",
       "version": "v5"
+    },
+    {
+      "id": "tax.us.2025.rule.shared-proceeds-answer-count",
+      "role": "computation",
+      "schema": "rule-artifact.v13",
+      "version": "v1"
     },
     {
       "id": "tax.us.2025.rule.sli-answer-status-no-employer-educational-assistance-interest",
@@ -4704,7 +4900,7 @@
       "version": "v1"
     }
   ],
-  "package_checksum": "48e74750376759801548db15c9a8323e93d2185ae6bdaf540256a0fa39b392d7",
+  "package_checksum": "ef03ffde53838dd2b89ac3ed643b3c0e276c95c1cbc273b9d676fdf709ad64e9",
   "schema": "artifact-package.v36",
   "scope": {
     "family": "individual-income-tax",

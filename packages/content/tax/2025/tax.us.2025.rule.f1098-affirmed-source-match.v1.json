@@ -1,0 +1,42 @@
+{
+  "blocked": {
+    "code": "DEPENDENCY_INVALID",
+    "missing": [
+      "tax.us.2025.f1098.box1-mortgage-interest"
+    ]
+  },
+  "citations": [],
+  "direction": "subject_contains_joined",
+  "id": "tax.us.2025.rule.f1098-affirmed-source-match",
+  "joined": {
+    "id": "tax.us.2025.f1098.box1-mortgage-interest",
+    "version": "v1"
+  },
+  "notes": "Synthetic declaration that each current affirmation has its exact report source.",
+  "pins": [],
+  "publishes": "tax.us.2025.f1098.affirmed-link-source-match",
+  "requires": [
+    "tax.us.2025.f1098.box1-mortgage-interest"
+  ],
+  "role": "computation",
+  "schema": "rule-artifact.v13",
+  "scope": {
+    "family": "individual-income-tax",
+    "jurisdiction": "US-federal",
+    "tax_year": 2025
+  },
+  "subject": {
+    "id": "tax.us.2025.f1098.borrowing-inclusion",
+    "version": "v1"
+  },
+  "value": {
+    "fact_type": {
+      "id": "tax.us.2025.f1098.affirmed-link-source-match",
+      "version": "v1"
+    },
+    "op": "category_literal",
+    "value": "matched"
+  },
+  "version": "v1",
+  "when": true
+}

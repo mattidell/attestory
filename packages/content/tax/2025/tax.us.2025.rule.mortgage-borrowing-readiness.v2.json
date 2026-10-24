@@ -1,0 +1,215 @@
+{
+  "blocked": {
+    "code": "DEPENDENCY_INVALID",
+    "missing": []
+  },
+  "citations": [],
+  "id": "tax.us.2025.rule.mortgage-borrowing-readiness",
+  "notes": "Synthetic report-local readiness gate; ordinary answers are not loan-wide.",
+  "pins": [],
+  "publishes": "tax.us.2025.mortgage.same-borrowing-ready",
+  "requires": [],
+  "role": "computation",
+  "schema": "rule-artifact.v14",
+  "scope": {
+    "family": "individual-income-tax",
+    "jurisdiction": "US-federal",
+    "tax_year": 2025
+  },
+  "selection": {
+    "conflict": "refuse",
+    "default": {
+      "id": "neither",
+      "pins": [],
+      "reads_subject_results": [
+        {
+          "subject": {
+            "id": "tax.us.2025.f1098.box1-mortgage-interest",
+            "version": "v1"
+          },
+          "symbol": "tax.us.2025.f1098.residence-interest-reason"
+        }
+      ],
+      "requires": [],
+      "value": false,
+      "when": true
+    },
+    "mode": "exclusive_presence",
+    "paths": [
+      {
+        "activity": {
+          "kind": "source_nonempty",
+          "member_fact_types": [
+            {
+              "id": "tax.us.2025.mortgage.continuing-borrowing",
+              "version": "v1"
+            },
+            {
+              "id": "tax.us.2025.f1098.borrowing-inclusion",
+              "version": "v1"
+            },
+            {
+              "id": "tax.us.2025.f1098.borrowing-denied",
+              "version": "v1"
+            },
+            {
+              "id": "tax.us.2025.f1098.borrowing-unresolved",
+              "version": "v1"
+            },
+            {
+              "id": "tax.us.2025.f1098.borrowing-withdrawn",
+              "version": "v1"
+            }
+          ]
+        },
+        "id": "same-borrowing",
+        "pins": [
+          {
+            "id": "filing_status",
+            "origin": "assertion",
+            "role": "input",
+            "version": "v1"
+          },
+          {
+            "id": "tax.us.2025.f1098.box3-origination-date",
+            "origin": "assertion",
+            "role": "input",
+            "version": "v1"
+          }
+        ],
+        "reads_subject_results": [
+          {
+            "subject": {
+              "id": "tax.us.2025.f1098.box1-mortgage-interest",
+              "version": "v1"
+            },
+            "symbol": "tax.us.2025.f1098.residence-interest-reason"
+          },
+          {
+            "subject": {
+              "id": "tax.us.2025.f1098.box1-mortgage-interest",
+              "version": "v1"
+            },
+            "symbol": "tax.us.2025.f1098.reported-box3-origination-date"
+          },
+          {
+            "subject": {
+              "id": "tax.us.2025.f1098.box1-mortgage-interest",
+              "version": "v1"
+            },
+            "symbol": "tax.us.2025.f1098.borrowing-current-link-status"
+          },
+          {
+            "subject": {
+              "id": "tax.us.2025.mortgage.continuing-borrowing",
+              "version": "v1"
+            },
+            "symbol": "tax.us.2025.mortgage.account-readiness"
+          },
+          {
+            "subject": {
+              "id": "tax.us.2025.mortgage.continuing-borrowing",
+              "version": "v1"
+            },
+            "symbol": "tax.us.2025.mortgage.account-ceiling-selected"
+          }
+        ],
+        "requires": [
+          "filing_status",
+          "tax.us.2025.f1098.box3-origination-date"
+        ],
+        "value": {
+          "args": [
+            {
+              "op": "require_closed",
+              "source_set": "tax.us.2025.f1098"
+            },
+            {
+              "name": "tax.us.2025.f1098.borrowing-current-link-status",
+              "op": "collect_categorical_all_equal",
+              "value": {
+                "fact_type": {
+                  "id": "tax.us.2025.f1098.borrowing-current-link-status",
+                  "version": "v1"
+                },
+                "op": "category_literal",
+                "value": "affirmed"
+              }
+            },
+            {
+              "name": "tax.us.2025.mortgage.account-readiness",
+              "op": "collect_categorical_all_equal",
+              "value": {
+                "fact_type": {
+                  "id": "tax.us.2025.mortgage.account-readiness",
+                  "version": "v1"
+                },
+                "op": "category_literal",
+                "value": "ready"
+              }
+            },
+            {
+              "name": "tax.us.2025.f1098.reported-box3-origination-date",
+              "op": "collect_categorical_all_equal",
+              "value": {
+                "name": "tax.us.2025.f1098.box3-origination-date",
+                "op": "ref"
+              }
+            },
+            {
+              "cmp": "lte",
+              "left": {
+                "args": [
+                  {
+                    "name": "tax.us.2025.mortgage.account-ceiling-selected",
+                    "op": "collect",
+                    "source_set": "tax.us.2025.f1098"
+                  }
+                ],
+                "op": "add"
+              },
+              "op": "compare",
+              "right": {
+                "key": {
+                  "name": "filing_status",
+                  "op": "ref"
+                },
+                "op": "parameter",
+                "parameter_id": "tax.us.2025.f1098.mortgage-interest-limit"
+              }
+            }
+          ],
+          "op": "all"
+        },
+        "when": true
+      },
+      {
+        "activity": {
+          "kind": "source_nonempty",
+          "member_fact_type": {
+            "id": "tax.us.2025.mortgage.inert-path-unwritten",
+            "version": "v1"
+          }
+        },
+        "id": "inert",
+        "pins": [],
+        "reads_subject_results": [],
+        "requires": [],
+        "value": {
+          "code": "DEPENDENCY_ABSENT",
+          "op": "block"
+        },
+        "when": true
+      }
+    ],
+    "refusal": {
+      "code": "DEPENDENCY_INVALID",
+      "missing": [
+        "f1098-same-borrowing-conflict"
+      ],
+      "pins": []
+    }
+  },
+  "version": "v2",
+  "when": true
+}

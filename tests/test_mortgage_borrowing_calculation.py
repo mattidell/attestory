@@ -59,7 +59,7 @@ def _attested(finding_id: str, fact_id: str, value: object) -> dict[str, Any]:
 
 
 def _run_connected_case(*, uncertain_shared: str | None = None, unlinked_third_report: bool = False,
-                       unconnected_singleton: bool = False) -> tuple[dict[str, Any], dict[str, Any], dict[str, str], dict[str, str]]:
+                       unconnected_singleton: bool = False, fully_supported_local: bool = False) -> tuple[dict[str, Any], dict[str, Any], dict[str, str], dict[str, str]]:
     """Run the real recorder and coordinator against the successor package."""
     acts = cast(list[dict[str, Any]], _f1098_acts(
         interest=22000.0, second_statement_interest=None if unconnected_singleton else 3500.0))
@@ -110,6 +110,8 @@ def _run_connected_case(*, uncertain_shared: str | None = None, unlinked_third_r
     )
     local_ids: dict[str, str] = {}
     values = {key: value for key, (_, value) in SHARED_CLAIMS.items()}
+    if fully_supported_local:
+        values["no-one-else-owes-it"] = "yes"
     legacy_local_values = {**values, "no-one-else-owes-it": "yes"}
     with tempfile.TemporaryDirectory(prefix="mortgage-calculation-") as tmp:
         registry = tax_registry()
@@ -122,9 +124,11 @@ def _run_connected_case(*, uncertain_shared: str | None = None, unlinked_third_r
 
         for report_index, keys in enumerate(report_keys[:1] if unconnected_singleton else report_keys):
             for question in LOCAL_FACTS:
-                if report_index == 0 and uncertain_shared != question and not unconnected_singleton:
+                if (report_index == 0 and uncertain_shared != question and not fully_supported_local
+                        and not unconnected_singleton):
                     continue  # A demonstrates shared-only support except in the uncertainty mutation.
                 local_value = (legacy_local_values[question] if unconnected_singleton
+                               else values[question] if fully_supported_local
                                else "yes" if report_index == 0 else values[question])
                 result = answer_f1098_statement_answer_durably(
                     log, registry, statement_keys=keys, question=question, answer=local_value,
@@ -135,7 +139,7 @@ def _run_connected_case(*, uncertain_shared: str | None = None, unlinked_third_r
                 )
                 local_ids[f"{report_index}:{question}"] = result["finding_ids"][0]
 
-        if not unconnected_singleton:
+        if not unconnected_singleton and not fully_supported_local:
             for question, value in {
                 "filing-unit-owns-home": "yes", "shared-main-home": "yes",
                 "home-is-collateral": "yes", "paid-the-interest": "yes",
@@ -148,6 +152,18 @@ def _run_connected_case(*, uncertain_shared: str | None = None, unlinked_third_r
                     expected_revision=log.read().revision, bundle_version="v2",
                 )
                 local_ids[f"1:{question}"] = result["finding_ids"][0]
+
+        if fully_supported_local and not unconnected_singleton:
+            for report_index, keys in enumerate(report_keys):
+                for question in ("filing-unit-owns-home", "shared-main-home", "home-is-collateral", "paid-the-interest"):
+                    result = answer_f1098_statement_answer_durably(
+                        log, registry, statement_keys=keys, question=question, answer="yes",
+                        submission_id=f"demo.mortgage.local.{report_index}.{question}",
+                        evidence_id=f"demo.mortgage.local-evidence.{report_index}.{question}",
+                        actor="demo.user.filer-1", at="2026-10-23T16:01:35Z",
+                        expected_revision=log.read().revision, bundle_version="v2",
+                    )
+                    local_ids[f"{report_index}:{question}"] = result["finding_ids"][0]
 
         if unconnected_singleton:
             additional_answers = {
@@ -216,11 +232,15 @@ class MortgageBorrowingPackageTests(unittest.TestCase):
         expected_retired = {
             ("tax.us.2025.rule.form1040-line12e", "v1", "rule-artifact.v4", "computation"),
             ("tax.us.2025.rule.attachment.schedule-a", "v1", "attachment-rule.v4", "attachment-rule"),
+            ("tax.us.2025.rule.f1098-line8a", "v2", "rule-artifact.v14", "computation"),
+            ("tax.us.2025.rule.f1098-residence-interest-reason", "v2", "rule-artifact.v14", "computation"),
         }
         self.assertTrue(expected_retired <= base_members)
         self.assertTrue((base_members - expected_retired) <= members)
-        self.assertEqual(len(package["members"]), 597)
-        self.assertEqual(len(members - (base_members - expected_retired)), 2)
+        self.assertEqual(len(package["members"]), 629)
+        self.assertEqual(len(members - (base_members - expected_retired)), 36)
+        self.assertIn(("tax.us.2025.rule.f1098-line8a", "v5", "rule-artifact.v6", "computation"), members)
+        self.assertIn(("tax.us.2025.rule.f1098-residence-interest-reason", "v5", "rule-artifact.v14", "computation"), members)
         self.assertIn(("tax.us.2025.rule.form1040-line12e", "v2", "rule-artifact.v4", "computation"), members)
         self.assertIn(("tax.us.2025.rule.attachment.schedule-a", "v2", "attachment-rule.v4", "attachment-rule"), members)
         line12e = corpus[("tax.us.2025.rule.form1040-line12e", "v2")]
@@ -272,8 +292,10 @@ class MortgageBorrowingPackageTests(unittest.TestCase):
         self.assertTrue(local_types <= {answer["factType"] for answer in report_rows[1]["localAnswers"]})
         self.assertIsNone(report_rows[0]["reasonChain"])
         self.assertIsNotNone(report_rows[1]["reasonChain"])
-        self.assertTrue({local_ids[f"1:{question}"] for question in LOCAL_FACTS} <=
-                        {pin.get("id") for pin in report_rows[1]["reasonChain"]["pins"]})
+        self.assertTrue(
+            {local_ids[f"1:{question}"] for question in LOCAL_FACTS}
+            <= {answer["findingId"] for answer in report_rows[1]["localAnswers"]}
+        )
         self.assertEqual(group["recordedApplicableClaims"]["tax.us.2025.mortgage.shared-no-one-else-owes-it"]["value"], "no")
         self.assertEqual(group["recordedApplicableClaims"]["tax.us.2025.mortgage.shared-credit-certificate"]["value"], "not-received")
         self.assertEqual(group["recordedApplicableClaims"]["tax.us.2025.f1098.borrowing-year-ceiling"]["value"], 250000)
@@ -328,6 +350,36 @@ class MortgageBorrowingPackageTests(unittest.TestCase):
         self.assertFalse(any(answer["factType"] == target_type for answer in explanation["reports"][0]["effectiveAnswers"]))
         self.assertTrue(local_ids["0:no-one-else-owes-it"])
         self.assertTrue(shared_ids["no-one-else-owes-it"])
+
+    def test_two_supported_reports_publish_and_save_the_full_line8a_sum(self) -> None:
+        report, model, local_ids, _shared_ids = _run_connected_case(fully_supported_local=True)
+        explanation = model["mortgageBorrowingExplanation"]
+        rows = [row for row in report["dispositions"]
+                if row.get("symbol") == "tax.us.2025.schedule-a.line8a"]
+        self.assertEqual(len(rows), 1)
+        self.assertEqual(rows[0]["disposition"], "published")
+        self.assertEqual(len(explanation["line8aFindings"]), 1)
+        line8a = explanation["line8aFindings"][0]
+        self.assertEqual(line8a["symbol"], "tax.us.2025.schedule-a.line8a")
+        self.assertEqual(line8a["value"], 25500.0)
+        self.assertTrue(line8a["id"])
+        self.assertTrue(line8a["pins"])
+        self.assertEqual(len(explanation["line8aDispositions"]), 1)
+        self.assertEqual(explanation["line8aDispositions"][0]["disposition"], "published")
+        self.assertEqual(len(explanation["reports"]), 2)
+        box1_finding_ids = {report_row["reportedInterest"]["findingId"] for report_row in explanation["reports"]}
+        line8a_pin_ids = {pin.get("id") for pin in line8a["pins"] if isinstance(pin, dict)}
+        self.assertTrue(box1_finding_ids <= line8a_pin_ids)
+        for index, report_row in enumerate(explanation["reports"]):
+            self.assertIsNotNone(report_row["reasonChain"])
+            self.assertEqual(report_row["reasonChain"]["value"], "qualified")
+            reason_pin_ids = {pin.get("id") for pin in report_row["reasonChain"]["pins"]
+                              if isinstance(pin, dict)}
+            self.assertIn(report_row["reportedInterest"]["findingId"], reason_pin_ids)
+            recorded = {answer["findingId"] for answer in report_row["localAnswers"]}
+            self.assertEqual(recorded, {local_ids[f"{index}:{question}"] for question in LOCAL_FACTS} |
+                             {local_ids[f"{index}:{question}"] for question in
+                              ("filing-unit-owns-home", "shared-main-home", "home-is-collateral", "paid-the-interest")})
 
     def test_projection_keeps_unlinked_current_report_once(self) -> None:
         report, model, _local_ids, _shared_ids = _run_connected_case(unlinked_third_report=True)
