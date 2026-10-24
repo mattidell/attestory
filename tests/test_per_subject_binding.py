@@ -35,8 +35,12 @@ from packages.kernel.facts import fact_id_for
 from packages.tax.loader import TAX_CONTENT_DIR
 from tests.test_f1098_v43_debt_limit_fix import RELEASE_DIR, _read_json
 from tests.test_f1098_statement_review import _base_acts
-from tests.test_f1098_circumstances_calculation import SCOPE as F1098_SCOPE, USER as F1098_USER
-from tests.test_f1098_mortgage_interest_line12e_track2 import _attested, _member_fact_id
+from tests.test_f1098_mortgage_interest_line12e_track2 import (  # type: ignore[attr-defined]
+    SCOPE as F1098_SCOPE,
+    USER as F1098_USER,
+    _attested,
+    _member_fact_id,
+)
 
 ROOT = Path(__file__).resolve().parent.parent
 CONTENT = TAX_CONTENT_DIR
@@ -125,7 +129,8 @@ SYNTH_USER = "demo.user.filer-1"
 SYNTH_YEAR = "2025"
 CHILD_KIND = "probe.child"
 P = "probe.eic."
-SYNTH_SCOPE = {"tax_year": 2025, "jurisdiction": "US-federal", "family": "individual-income-tax"}
+SYNTH_ADOPTION_SCOPE = {"jurisdiction": "us", "year": "2025"}
+SYNTH_RULE_SCOPE = {"family": "individual-income-tax", "jurisdiction": "US-federal", "tax_year": 2025}
 REL = P + "child.relationship"
 RES = P + "child.residency"
 CLOSURE = P + "child-roster.source-closure"
@@ -194,7 +199,7 @@ def _synth_family() -> dict[str, Any]:
         "schema": "source-family.v1",
         "id": FAMILY,
         "version": "v1",
-        "scope": dict(SYNTH_SCOPE),
+        "scope": dict(SYNTH_RULE_SCOPE),
         "title": "Synthetic child roster",
         "member_predicate": {"fact_type": REL},
         "authorizes_subtotal": P + "child-count",
@@ -221,7 +226,7 @@ def _synth_rule(rule_id: str, **fields: Any) -> dict[str, Any]:
         "schema": "rule-artifact.v14",
         "id": rule_id,
         "version": "v1",
-        "scope": dict(SYNTH_SCOPE),
+        "scope": dict(SYNTH_RULE_SCOPE),
         "role": "computation",
         "requires": [],
         "pins": [],
@@ -242,12 +247,22 @@ def _synth_rules() -> list[dict[str, Any]]:
             "when": {
                 "op": "all",
                 "args": [
-                    {"op": "equal", "args": [{"op": "ref", "name": REL}, "yes"]},
-                    {"op": "equal", "args": [{"op": "ref", "name": RES}, "yes"]},
+                    {
+                        "op": "categorical_compare",
+                        "cmp": "eq",
+                        "left": {"op": "ref", "name": REL},
+                        "right": {"op": "category_literal", "fact_type": _pin(REL), "value": "yes"},
+                    },
+                    {
+                        "op": "categorical_compare",
+                        "cmp": "eq",
+                        "left": {"op": "ref", "name": RES},
+                        "right": {"op": "category_literal", "fact_type": _pin(RES), "value": "yes"},
+                    },
                 ],
             },
             "then": 1,
-            "otherwise": 0,
+            "else": 0,
         },
         publishes=P + "child.counts-flat",
     )
@@ -288,7 +303,7 @@ def _synth_rules() -> list[dict[str, Any]]:
             },
             "refusal": {
                 "code": "DEPENDENCY_INVALID",
-                "missing": ["probe-inert-path-conflict"],
+                "missing": ["probe-eic-child-roster-inert-path-conflict"],
                 "pins": [],
             },
         },
@@ -297,171 +312,143 @@ def _synth_rules() -> list[dict[str, Any]]:
     return [flat_rule, count_rule]
 
 
-def _build_synth_package(rules: list[dict[str, Any]]) -> dict[str, Any]:
-    members: list[dict[str, Any]] = [
-        _synth_bundle(),
-        _synth_family(),
-        _synth_closure_mapping(),
-        *rules,
+def _build_synth_surface(root: Path) -> tuple[PublicationSurface, dict[str, Any], dict[str, Any]]:
+    base = json.loads((ROOT / "packages/content/tax/2025/package.core-calculations.v53.json").read_text("utf-8"))
+    member_dir = root / "members"
+    member_dir.mkdir()
+    citizens = [
+        (_synth_bundle(), "fact-type-bundle"),
+        (_synth_family(), "source-family"),
+        (_synth_closure_mapping(), "source-closure-mapping"),
     ]
-    pkg: dict[str, Any] = {
-        "schema": "package.v1",
+    citizens.extend((r, "computation") for r in _synth_rules())
+    registry_citizens = []
+    members = []
+    for body, role in citizens:
+        (member_dir / f"{body['id']}.{body['version']}.json").write_text(
+            json.dumps(body, sort_keys=True), encoding="utf-8"
+        )
+        registry_citizens.append({
+            "id": body["id"], "version": body["version"], "checksum": citizen_checksum(body)
+        })
+        members.append({
+            "id": body["id"], "version": body["version"], "schema": body["schema"], "role": role
+        })
+
+    package = {
+        "schema": base["schema"],
         "id": "probe.package.eic-children",
         "version": "v1",
-        "scope": dict(SYNTH_SCOPE),
-        "admitted_schemas": [
-            "bundle.v2", "source-family.v1", "source-closure-mapping.v2",
-            "rule-artifact.v14", "fact-type.v2",
-        ],
-        "conflict_semantics": "refusal",
+        "scope": dict(base["scope"]),
+        "admitted_schemas": list(base["admitted_schemas"]),
         "composition_obligations": [],
+        "conflict_semantics": [],
+        "entrypoints": [
+            {"id": m["id"], "version": m["version"]}
+            for m in members
+        ],
         "input_bindings": [],
-        "entrypoints": [P + "child.count-flat"],
         "members": members,
     }
-    for m in pkg["members"]:
-        m["citizen_checksum"] = citizen_checksum(m)
-    pkg["package_checksum"] = package_instance_checksum(pkg)
-    return pkg
+    package["package_checksum"] = package_instance_checksum(package)
+    (member_dir / "package.json").write_text(json.dumps(package, sort_keys=True), encoding="utf-8")
+    registry = {
+        "citizens": registry_citizens,
+        "packages": [{"id": package["id"], "version": package["version"], "checksum": package["package_checksum"]}],
+    }
+    registry_path = root / "registry.json"
+    registry_path.write_text(json.dumps(registry, sort_keys=True), encoding="utf-8")
+    release = {
+        "id": "probe.release.eic-children",
+        "version": "v1",
+        "schema": "release-registry.v1",
+        "package_registry_sha256": hashlib.sha256(registry_path.read_bytes()).hexdigest(),
+    }
+    release_dir = root / "releases"
+    release_dir.mkdir()
+    release_path = release_dir / "probe.release.eic-children.v1.json"
+    release_path.write_text(json.dumps(release, sort_keys=True), encoding="utf-8")
+    release["checksum"] = hashlib.sha256(release_path.read_bytes()).hexdigest()
+    return PublicationSurface(release_dir, registry_path, member_dir), package, release
 
 
-def _build_synth_eic_acts(pkg: dict[str, Any], release_sha: str) -> list[dict[str, Any]]:
-    acts: list[dict[str, Any]] = [
-        {
+def _build_synth_eic_acts(pkg: dict[str, Any], release: dict[str, Any]) -> list[dict[str, Any]]:
+    acts: list[dict[str, Any]] = []
+
+    def add(kind: str, payload: dict[str, Any]) -> None:
+        acts.append({
             "schema": "act.v1",
-            "act_id": "demo.act.entity.child1",
-            "kind": "entity-introduced",
+            "act_id": f"demo.act.{len(acts):03d}",
+            "kind": kind,
             "actor": SYNTH_USER,
             "at": "2026-10-24T00:00:00Z",
-            "committed_against": 0,
-            "payload": {"entity": {"schema": "entity.v1", "id": "demo-child-1", "kind": CHILD_KIND, "label": "Child 1"}},
-        },
-        {
-            "schema": "act.v1",
-            "act_id": "demo.act.entity.child2",
-            "kind": "entity-introduced",
-            "actor": SYNTH_USER,
-            "at": "2026-10-24T00:00:01Z",
-            "committed_against": 1,
-            "payload": {"entity": {"schema": "entity.v1", "id": "demo-child-2", "kind": CHILD_KIND, "label": "Child 2"}},
-        },
-        {
-            "schema": "act.v1",
-            "act_id": "demo.act.bundle.adopt",
-            "kind": "bundle-adoption",
-            "actor": SYNTH_USER,
-            "at": "2026-10-24T00:00:02Z",
-            "committed_against": 2,
-            "payload": {"bundle": _synth_bundle()},
-        },
-        {
-            "schema": "act.v1",
-            "act_id": "demo.act.horizon.genesis",
-            "kind": "horizon-genesis",
-            "actor": SYNTH_USER,
-            "at": "2026-10-24T00:00:03Z",
-            "committed_against": 3,
-            "payload": {"family": _pin(FAMILY), "horizon_id": "demo.probe.eic.horizon.0", "scope": dict(SYNTH_SCOPE)},
-        },
-        {
-            "schema": "act.v1",
-            "act_id": "demo.act.rel.child1",
-            "kind": "assertion",
-            "actor": SYNTH_USER,
-            "at": "2026-10-24T00:00:04Z",
-            "committed_against": 4,
-            "payload": {
+            "committed_against": len(acts),
+            "payload": payload,
+        })
+
+    add("bundle-adoption", {"bundle": _synth_bundle()})
+    for child in ("demo-child-1", "demo-child-2"):
+        add("entity-introduced", {
+            "entity": {"schema": "entity.v1", "id": child, "kind": CHILD_KIND, "label": "Synthetic child"}
+        })
+
+    scope_key = {"tax-year": SYNTH_YEAR, "subject": "demo.primary"}
+    add("horizon-genesis", {"family": _pin(FAMILY), "scope": scope_key, "horizon_id": "demo.probe.h0"})
+    horizon = "demo.probe.h0"
+    for index, child in enumerate(("demo-child-1", "demo-child-2")):
+        successor = f"demo.probe.h{index + 1}"
+        add("member-transition", {
+            "family": _pin(FAMILY),
+            "scope": scope_key,
+            "member": {
+                "action": "assert",
                 "finding": {
                     "schema": "finding.v2",
-                    "id": "demo.probe.rel.demo-child-1",
-                    "fact_id": fact_id_for(REL, {"child": "demo-child-1", "tax-year": SYNTH_YEAR}),
+                    "id": f"demo.probe.rel.{child}",
+                    "fact_id": fact_id_for(REL, (("child", child), ("tax-year", SYNTH_YEAR))),
                     "value": "yes",
                     "basis": "attested",
                     "evidence_ids": [],
-                }
+                },
             },
-        },
-        {
-            "schema": "act.v1",
-            "act_id": "demo.act.residency.child1",
-            "kind": "assertion",
-            "actor": SYNTH_USER,
-            "at": "2026-10-24T00:00:05Z",
-            "committed_against": 5,
-            "payload": {
-                "finding": {
-                    "schema": "finding.v2",
-                    "id": "demo.probe.residency.demo-child-1",
-                    "fact_id": fact_id_for(RES, {"child": "demo-child-1", "tax-year": SYNTH_YEAR}),
-                    "value": "yes",
-                    "basis": "attested",
-                    "evidence_ids": [],
-                }
-            },
-        },
-        {
-            "schema": "act.v1",
-            "act_id": "demo.act.rel.child2",
-            "kind": "assertion",
-            "actor": SYNTH_USER,
-            "at": "2026-10-24T00:00:06Z",
-            "committed_against": 6,
-            "payload": {
-                "finding": {
-                    "schema": "finding.v2",
-                    "id": "demo.probe.rel.demo-child-2",
-                    "fact_id": fact_id_for(REL, {"child": "demo-child-2", "tax-year": SYNTH_YEAR}),
-                    "value": "yes",
-                    "basis": "attested",
-                    "evidence_ids": [],
-                }
-            },
-        },
-        # NOTE: demo-child-2 residency is UNANSWERED.
-        {
-            "schema": "act.v1",
-            "act_id": "demo.act.closure",
-            "kind": "assertion",
-            "actor": SYNTH_USER,
-            "at": "2026-10-24T00:00:07Z",
-            "committed_against": 7,
-            "payload": {
-                "finding": {
-                    "schema": "finding.v2",
-                    "id": "demo.probe.eic.closure",
-                    "fact_id": fact_id_for(CLOSURE, {"family-horizon": "demo.probe.eic.horizon.0", "tax-year": SYNTH_YEAR}),
-                    "value": True,
-                    "basis": "attested",
-                    "evidence_ids": [],
-                }
-            },
-        },
-        {
-            "schema": "act.v1",
-            "act_id": "demo.act.pkg.adopt",
-            "kind": "package-adoption",
-            "actor": SYNTH_USER,
-            "at": "2026-10-24T00:00:08Z",
-            "committed_against": 8,
-            "payload": {
-                "package": {"id": pkg["id"], "version": pkg["version"], "checksum": pkg["package_checksum"]},
-                "release": {"id": "demo.probe.release", "version": "v1", "checksum": release_sha},
-                "revision": 8,
-                "scope": dict(SYNTH_SCOPE),
-                "audit": {"note": "synthetic child probe"},
-            },
-        },
-    ]
+            "successor": {"id": successor, "predecessor": horizon},
+        })
+        horizon = successor
+
+    # ONLY demo-child-1 asserts residency!
+    add("assertion", {
+        "finding": {
+            "schema": "finding.v2",
+            "id": "demo.probe.residency.demo-child-1",
+            "fact_id": fact_id_for(RES, (("child", "demo-child-1"), ("tax-year", SYNTH_YEAR))),
+            "value": "yes",
+            "basis": "attested",
+            "evidence_ids": [],
+        }
+    })
+    add("assertion", {
+        "finding": {
+            "schema": "finding.v2",
+            "id": "demo.probe.closure",
+            "fact_id": f"{CLOSURE}|family-horizon={horizon},tax-year={SYNTH_YEAR}",
+            "value": True,
+            "basis": "attested",
+            "evidence_ids": [],
+        }
+    })
+    add("package-adoption", {
+        "package": {"id": pkg["id"], "version": pkg["version"], "checksum": pkg["package_checksum"]},
+        "release": {"id": release["id"], "version": release["version"], "checksum": release["checksum"]},
+        "revision": len(acts) + 1,
+        "scope": dict(SYNTH_ADOPTION_SCOPE),
+        "audit": {"note": "synthetic probe adoption; non-authoritative"},
+    })
     return acts
 
 
 class TestPerSubjectBinding(unittest.TestCase):
     """Contract tests for per-subject rule input binding."""
 
-    @pytest.mark.xfail(
-        strict=True,
-        reason="Before Track 1 fix, Statement B adopts Statement A's circumstance answers and publishes.",
-    )
     def test_f1098_two_statement_second_statement_blocks(self) -> None:
         """With two Form 1098 statements where only Statement A has answers, Statement B blocks."""
         acts = _build_two_statement_f1098_acts()
@@ -523,49 +510,11 @@ class TestPerSubjectBinding(unittest.TestCase):
             f"Statement B pinned Statement A's circumstance findings: {stmt_a_leaked}",
         )
 
-    @pytest.mark.xfail(
-        strict=True,
-        reason="Before Track 1 fix, Child 2 adopts Child 1's residency answer and publishes 1.",
-    )
     def test_eic_flat_shape_missing_child_answer_blocks(self) -> None:
         """In flat per-child rule shape, a child lacking residency answer blocks."""
-        pkg = _build_synth_package(_synth_rules())
         with TemporaryDirectory() as surface_dir:
-            surface_path = Path(surface_dir)
-            content_dir = surface_path / "content"
-            releases_dir = surface_path / "releases"
-            content_dir.mkdir(parents=True)
-            releases_dir.mkdir(parents=True)
-
-            (content_dir / "package.probe.v1.json").write_text(json.dumps(pkg, indent=2), "utf-8")
-            registry = {
-                "schema": "package-registry.v1",
-                "packages": [
-                    {
-                        "id": pkg["id"],
-                        "version": pkg["version"],
-                        "checksum": pkg["package_checksum"],
-                        "relative_path": "package.probe.v1.json",
-                    }
-                ],
-            }
-            reg_bytes = json.dumps(registry, indent=2).encode("utf-8")
-            reg_sha = hashlib.sha256(reg_bytes).hexdigest()
-            (content_dir / "published-packages.probe.json").write_bytes(reg_bytes)
-
-            release = {
-                "schema": "release-registry.v1",
-                "id": "demo.probe.release",
-                "version": "v1",
-                "package_registry_sha256": reg_sha,
-            }
-            rel_bytes = json.dumps(release, indent=2).encode("utf-8")
-            rel_sha = hashlib.sha256(rel_bytes).hexdigest()
-            rel_path = releases_dir / "demo.release.probe.v1.json"
-            rel_path.write_bytes(rel_bytes)
-
-            acts = _build_synth_eic_acts(pkg, rel_sha)
-
+            surface, package, release = _build_synth_surface(Path(surface_dir))
+            acts = _build_synth_eic_acts(package, release)
             with TemporaryDirectory() as workspace_dir:
                 cap = WorkspaceCapability(Path(workspace_dir))
                 outcome = live_coordinate_run(
@@ -573,16 +522,12 @@ class TestPerSubjectBinding(unittest.TestCase):
                     repo_root=ROOT,
                     authoritative_acts=acts,
                     workspace_revision=len(acts),
-                    run_scope=SYNTH_SCOPE,
+                    run_scope=dict(SYNTH_ADOPTION_SCOPE),
                     scope_user=SYNTH_USER,
                     request={"schema": "run-request.v1"},
                     run_id="demo.eic.isolation.test",
                     governance_pins=[],
-                    surface=PublicationSurface(
-                        releases_dir,
-                        content_dir / "published-packages.probe.json",
-                        content_dir,
-                    ),
+                    surface=surface,
                     output_name="probe.json",
                 )
                 self.assertIsNone(outcome.refusal)
@@ -666,3 +611,28 @@ class TestPerSubjectBinding(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+
+
+def test_distinguishing_identity_keys_exclude_return_level_keys() -> None:
+    """Tax year, jurisdiction, family and a source family's horizon key never
+    make an input per-subject; statement, payer and child keys do."""
+    from packages.derivation.subject_dispatch import distinguishing_identity_keys
+
+    def fact_type(*keys: dict[str, str]) -> dict[str, object]:
+        return {"identity_keys": list(keys)}
+
+    assert distinguishing_identity_keys(fact_type(
+        {"name": "tax-year", "kind": "literal"},
+    )) == set()
+    assert distinguishing_identity_keys(fact_type(
+        {"name": "tax-year", "kind": "literal"},
+        {"name": "family-horizon", "kind": "entity", "entity_kind": "kernel.family-horizon"},
+    )) == set()
+    assert distinguishing_identity_keys(fact_type(
+        {"name": "jurisdiction", "kind": "entity"},
+        {"name": "payer", "kind": "entity", "entity_kind": "tax.payer"},
+        {"name": "statement", "kind": "entity", "entity_kind": "tax.statement"},
+    )) == {"payer", "statement"}
+    assert distinguishing_identity_keys(fact_type(
+        {"name": "child", "kind": "entity", "entity_kind": "tax.eic-child"},
+    )) == {"child"}

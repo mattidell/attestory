@@ -313,6 +313,61 @@ def _requires(rule: Mapping[str, Any]) -> list[str]:
     return [str(item) for item in raw]
 
 
+_RETURN_LEVEL_KEY_NAMES = frozenset({"tax-year", "tax_year", "jurisdiction", "family"})
+_RETURN_LEVEL_ENTITY_KINDS = frozenset({"kernel.family-horizon"})
+
+
+def distinguishing_identity_keys(ft: Mapping[str, Any]) -> set[str]:
+    """Identity keys that tell one subject from another (statement, payer, child).
+
+    Return-level keys (tax year, jurisdiction, family) and a source family's
+    horizon key are excluded, so a return-level fact that shares only those
+    keys with a subject keeps binding run-wide. Literal keys are excluded too.
+    """
+    keys: set[str] = set()
+    for k in (ft.get("identity_keys") or ()):
+        if isinstance(k, Mapping):
+            name = k.get("name")
+            if not name or name in _RETURN_LEVEL_KEY_NAMES:
+                continue
+            if k.get("entity_kind") in _RETURN_LEVEL_ENTITY_KINDS:
+                continue
+            if k.get("kind") != "literal":
+                keys.add(name)
+        elif isinstance(k, str) and k not in _RETURN_LEVEL_KEY_NAMES:
+            keys.add(k)
+    return keys
+
+
+def _is_per_subject_type(run: _Run, subject_type: str, symbol: str) -> bool:
+    """True if symbol resolves to a fact type sharing distinguishing identity keys with subject_type.
+
+    Per-subject inputs must bind exclusively from the subject's own scope; they
+    must never fall through to run-wide symbols (contract item 1).
+    """
+    if symbol == subject_type:
+        return False
+    subj_ft = next(
+        (item for item in run.ctx.fact_types if item.get("id") == subject_type),
+        None,
+    )
+    if subj_ft is None:
+        return False
+    subj_keys = distinguishing_identity_keys(subj_ft)
+    if not subj_keys:
+        return False
+
+    req_ft_id = _fact_type_of(run, symbol)
+    req_ft = next(
+        (item for item in run.ctx.fact_types if item.get("id") == req_ft_id),
+        None,
+    )
+    if req_ft is None:
+        return False
+    req_keys = distinguishing_identity_keys(req_ft)
+    return bool(subj_keys & req_keys)
+
+
 def _identity_names(run: _Run, fact_type_id: str, fact_type_version: str) -> list[str]:
     """Declared ``identity_keys`` names for one fact-type citizen, by the
     exact pinned ``(id, version)``.
@@ -612,6 +667,7 @@ def evaluate_subject_scoped_rule(
     other_names = sorted(
         {source.name for source in sources if source.name != subject_type}
         | ({joined_id} if joined_id is not None else set())
+        | {req for req in required if req != subject_type and _is_per_subject_type(run, subject_type, req)}
     )
     # Defect 1: an unreadable reference type (absent from `run.ctx.
     # fact_types`, or declared with no identity-key names) must not be
