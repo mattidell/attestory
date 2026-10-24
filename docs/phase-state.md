@@ -5,8 +5,8 @@
   "topic": "mortgage-statement-borrowing",
   "active_plan": "docs/phases/tax-circumstance-breadth/milestones/mortgage-statement-borrowing.md",
   "milestone_state": "track-0",
-  "status": "Sol closed the shared-answer completion finding. Luna now tests explicit account exit with one and two remaining reports. No production built.",
-  "current_role": "Builder — Luna explicit account-exit discriminator",
+  "status": "Shared-answer scheduling and explicit-exit prototypes are measured. Finish uncertainty and the six connected-design artifacts for Sol review. No production built.",
+  "current_role": "Builder — Luna final restored-work consolidation",
   "current_prompt": "docs/reviews/mortgage-statement-borrowing/charter-t0-connected-closure.md"
 }
 -->
@@ -110,9 +110,12 @@ A succeeds, contrary local/shared answers block, and unrelated borrowing B's
 answer cannot fill A's missing support. Counts read recorded sources; the
 effective consumer explicitly requires their results and is declared first.
 All adopted member IDs are preserved. Sol's focused recheck closed the finding.
-Next test explicit exit with one and two remaining reports, preserving local
-answers and history without an unsupported combined amount. This is not
-production or recorder acceptance.
+The explicit-exit increment now saves the qualified singleton, no-payment
+zero and unsupported two-report outcomes. Its changed connected case retains
+the actual dependency order even with the reason declared before its producer.
+Next finish one uncertainty discriminator and the connected contract/closure
+artifacts, then obtain Sol's independent verdict before production.
+These are supplied-state observations, not production or recorder acceptance.
 Visible group rendering,
 production recording/routing and connected correction/withdrawal are unbuilt.
 The actual no-report compatibility path is line8a inapplicable, separate

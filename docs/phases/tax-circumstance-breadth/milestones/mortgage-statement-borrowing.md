@@ -3,7 +3,7 @@
   "version": 1,
   "phase": "Tax Circumstance Breadth",
   "topic": "mortgage-statement-borrowing",
-  "status": "Sol closed the shared-answer completion finding. Luna now tests explicit account exit with one and two remaining reports. No production built.",
+  "status": "Shared-answer scheduling and explicit-exit prototypes are measured. Finish uncertainty and the six connected-design artifacts for Sol review. No production built.",
   "scope": [
     "extend the existing ordinary mortgage account to a bounded same-borrowing multiple-report case",
     "preserve report amounts, loan-level circumstances and their separate correction lifecycles",
@@ -361,10 +361,10 @@ not a specific disagreement account. All five shared types are admitted, but
 only proceeds-use is consumed in this experiment. See the current
 [T0 results](mortgage-statement-borrowing-evidence/t0-dynamic-binding-results.md).
 The raw states are supplied; no production recorder or shared-answer lifecycle
-is claimed. Next test explicit exit with one and two remaining reports, plus
-cross-account isolation, uncertainty and changed shared support. A linked-only
-effective-answer producer cannot silently become a prerequisite of the old
-unlinked singleton's reason calculation.
+is claimed. Later evidence below addresses completion, cross-account isolation
+and explicit exit. Uncertainty and the late-member/changed-support contract
+remain in the final consolidation. A linked-only effective-answer producer
+cannot silently become a prerequisite of the old unlinked singleton's reason.
 
 The independent checkpoint verified those saved observations and actual pins,
 but found that the derived-marker counts do not declare a completion barrier
@@ -389,9 +389,13 @@ successors and no removed IDs. The results and exact pins are retained in the
 T0 account. This is a measured proceeds-use repair, not runtime proof for the
 other four shared propositions, a reference-runner execution, or production
 recording. Sol's focused recheck closed the completion finding and accepted
-the exact consumed lineage. Next test explicit exit with one and two remaining
-reports; the unlinked singleton must not depend on a linked-only effective
-answer, and two unconnected reports must not acquire a combined amount.
+the exact consumed lineage. The exit increment now preserves a qualified
+singleton's $8,000, yields zero for a no-payment singleton, and blocks two
+unconnected reports. A changed connected case also works when its reason is
+declared before the effective producer. These are supplied-state coordinator
+and saved-model observations, not production recording. The latest T0 account
+retains the rejected shortcuts as failures. Finish the uncertainty case and
+late-member contract/acceptance trace, then obtain the connected Sol verdict.
 
 ### Open evidence and next action
 

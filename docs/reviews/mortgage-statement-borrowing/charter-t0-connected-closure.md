@@ -317,6 +317,44 @@ withholds. Add one changed negative singleton case (for example, the retained
 `paid-the-interest: no` answer) to expose a route that bypasses its reason.
 This narrowly tests the changed exit fallback; it is not a broad legacy rerun.
 
+## Final restored-work consolidation
+
+The shared-answer completion repair and explicit-exit discriminators are now
+saved. Do not rerun their passing cases. Finish this design unit, rather than
+expand the catalog of mortgage scenarios:
+
+1. Execute one remaining uncertainty discriminator on the current candidate:
+   a current borrowing-wide proceeds answer is `cannot-tell` beside a favorable
+   report-local answer. Withhold favorable connected support and preserve the
+   actual uncertain source. Do not describe uncertainty as a contrary factual
+   claim or a determined tax zero. If the prototype uses a generic block,
+   distinguish that measured limitation from the required production
+   explanation. No new engine or record code is authorized.
+2. Finish the late-member paper trace using exact existing recording,
+   family-transition/closure and current-support functions. Show one connected
+   report becoming two, including the period before renewed closure; unchanged
+   borrowing/year answers and ceiling stay raw support, while new report/link
+   support and closure-dependent totals must be recomputed. Keep the third-
+   report refusal as the separate bound. Identify future recorder acceptance
+   tests honestly. An assembled two-report after-state is not evidence of a
+   recorded lifecycle, and rerunning the already-tested after-state would add
+   no lifecycle proof. Return any genuinely missing contract explicitly.
+3. Reconcile all six closure artifacts with the exact observed routes and
+   current proposed declarations. Separate paper contract, measured prototype
+   and production acceptance. All five shared raw types are admitted; only
+   proceeds has runtime evidence. Give the other four explicit value mappings
+   and implementation acceptance cases, without claiming they executed.
+4. Bring the small connected production-unit proposal up to date, including
+   actual source admission, record/correct/withdraw/clear, content, saved
+   explanation and existing single-report/empty compatibility. The independent
+   Sol unit will review this consolidated contract before any production
+   charter. The Foreman, not this Builder, dispositions Track 0 closure.
+
+Same three assigned files; no new schema allocation, product/test edits,
+suite, browser, staging, commit or spawn. Retain all older observations at
+their recorded bases. Return one finite consolidated increment with exact
+remaining decisions and evidence limits.
+
 ## Context Capsule
 
 - Source ref HEAD, resolved and checked at launch; branch
