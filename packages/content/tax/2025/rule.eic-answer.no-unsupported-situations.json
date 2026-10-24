@@ -1,0 +1,122 @@
+{
+  "schema": "rule-artifact.v14",
+  "id": "tax.us.2025.rule.eic-answer.no-unsupported-situations",
+  "version": "v1",
+  "scope": {
+    "tax_year": 2025,
+    "jurisdiction": "US-federal",
+    "family": "individual-income-tax"
+  },
+  "role": "computation",
+  "requires": [
+    "tax.us.2025.eic.questions-required",
+    "tax.us.2025.eic.investment-income",
+    "tax.us.2025.eic.worksheet-a.line-1",
+    "tax.us.2025.eic.worksheet-a.line-3",
+    "tax.us.2025.eic.column.completed",
+    "tax.us.2025.eic.status-class"
+  ],
+  "pins": [
+    {"role": "input", "id": "tax.us.2025.eic.questions-required", "version": "v1", "origin": "assertion"},
+    {"role": "input", "id": "tax.us.2025.eic.investment-income", "version": "v1", "origin": "assertion"},
+    {"role": "input", "id": "tax.us.2025.eic.worksheet-a.line-1", "version": "v1", "origin": "assertion"},
+    {"role": "input", "id": "tax.us.2025.eic.worksheet-a.line-3", "version": "v1", "origin": "assertion"},
+    {"role": "input", "id": "tax.us.2025.eic.column.completed", "version": "v1", "origin": "assertion"},
+    {"role": "input", "id": "tax.us.2025.eic.status-class", "version": "v1", "origin": "assertion"},
+    {"role": "parameter", "id": "tax.us.2025.parameter.eic-2025", "version": "v1"}
+  ],
+  "when": true,
+  "value": {
+    "op": "choose",
+    "when": {
+      "op": "any",
+      "args": [
+        {"op": "compare", "left": {"op": "ref", "name": "tax.us.2025.eic.questions-required"}, "right": 1, "cmp": "eq"},
+        {
+          "op": "compare",
+          "left": {"op": "ref", "name": "tax.us.2025.eic.investment-income"},
+          "right": {"op": "parameter", "parameter_id": "tax.us.2025.parameter.eic-2025", "key": "investment_income_limit"},
+          "cmp": "gt"
+        },
+        {
+          "op": "all",
+          "args": [
+            {
+              "op": "compare",
+              "left": {"op": "ref", "name": "tax.us.2025.eic.worksheet-a.line-1"},
+              "right": {"op": "parameter", "parameter_id": "tax.us.2025.parameter.eic-2025", "key": "largest_completed"},
+              "cmp": "gte"
+            },
+            {
+              "op": "compare",
+              "left": {"op": "ref", "name": "tax.us.2025.eic.worksheet-a.line-3"},
+              "right": {"op": "parameter", "parameter_id": "tax.us.2025.parameter.eic-2025", "key": "largest_completed"},
+              "cmp": "lt"
+            }
+          ]
+        },
+        {
+          "op": "all",
+          "args": [
+            {"op": "compare", "left": {"op": "ref", "name": "tax.us.2025.eic.status-class"}, "right": 0, "cmp": "ne"},
+            {
+              "op": "compare",
+              "left": {"op": "ref", "name": "tax.us.2025.eic.worksheet-a.line-1"},
+              "right": {"op": "ref", "name": "tax.us.2025.eic.column.completed"},
+              "cmp": "gte"
+            },
+            {
+              "op": "compare",
+              "left": {"op": "ref", "name": "tax.us.2025.eic.worksheet-a.line-3"},
+              "right": {"op": "ref", "name": "tax.us.2025.eic.column.completed"},
+              "cmp": "lt"
+            }
+          ]
+        }
+      ]
+    },
+    "then": {
+      "op": "choose",
+      "when": {
+        "op": "all",
+        "args": [
+          {
+            "op": "conditional_dependency_set",
+            "condition": true,
+            "members": [{"op": "ref", "name": "tax.us.2025.eic.no-unsupported-situations"}]
+          },
+          {
+            "op": "categorical_compare",
+            "cmp": "eq",
+            "left": {"op": "ref", "name": "tax.us.2025.eic.no-unsupported-situations"},
+            "right": {
+              "op": "category_literal",
+              "fact_type": {"id": "tax.us.2025.eic.no-unsupported-situations", "version": "v1"},
+              "value": "no"
+            }
+          }
+        ]
+      },
+      "then": {"op": "block", "code": "DEPENDENCY_INVALID"},
+      "else": 1
+    },
+    "else": 1
+  },
+  "publishes": "tax.us.2025.eic.answer.no-unsupported-situations",
+  "blocked": {
+    "code": "DEPENDENCY_ABSENT",
+    "missing": [
+      "tax.us.2025.eic.questions-required",
+      "tax.us.2025.eic.investment-income",
+      "tax.us.2025.eic.worksheet-a.line-1",
+      "tax.us.2025.eic.worksheet-a.line-3",
+      "tax.us.2025.eic.column.completed",
+      "tax.us.2025.eic.status-class",
+      "tax.us.2025.eic.no-unsupported-situations"
+    ]
+  },
+  "citations": [
+    {"id": "tax.us.2025.citation.form1040.line-27-31", "version": "v1"}
+  ],
+  "notes": "One earned-income-credit answer. The fact is required when the remaining questions are required, when investment income is over the limit, when line 1 is at or above $68,675 while line 3 is below it, and when line 1 is at or above the 0-child completed amount while line 3 is below it and status-class is not 0. Married filing separately and head of household do not require it on that column ceiling. Yes publishes 1. No blocks. Otherwise publishes 1 without the fact."
+}

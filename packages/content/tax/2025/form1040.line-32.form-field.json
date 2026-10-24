@@ -1,0 +1,45 @@
+{
+  "binds_symbol": "tax.us.2025.payments.line32",
+  "citation": {
+    "id": "tax.us.2025.citation.form1040.line-32",
+    "version": "v1"
+  },
+  "description": "Form 1040 line 32: lines 27a through 31 added.",
+  "dispositions": {
+    "blocked": {
+      "codes": [
+        "DEPENDENCY_ABSENT",
+        "DEPENDENCY_INVALID"
+      ],
+      "explain": "Total other payments and refundable credits is blocked because an input it needs is missing or invalid.",
+      "render": ""
+    },
+    "closure_backed_zero": {
+      "explain": "Total other payments and refundable credits publishes zero through an honest closed-empty source family.",
+      "render": "0"
+    },
+    "computed_zero": {
+      "explain": "Total other payments and refundable credits publishes a computed zero.",
+      "render": "0"
+    },
+    "guard_inapplicable": {
+      "explain": "No value is published for Total other payments and refundable credits because its worksheet guard is not satisfied.",
+      "render": ""
+    },
+    "published_value": {
+      "explain": "Form 1040 line 32: lines 27a through 31 added.",
+      "render": "{value}"
+    }
+  },
+  "form": {
+    "authority": "IRS",
+    "form_id": "1040",
+    "jurisdiction": "US-federal",
+    "tax_year": 2025
+  },
+  "id": "tax.us.2025.form1040.line-32",
+  "label": "Total other payments and refundable credits",
+  "line": "32",
+  "schema": "form-field.v3",
+  "version": "v1"
+}

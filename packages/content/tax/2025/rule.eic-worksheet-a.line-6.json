@@ -1,0 +1,162 @@
+{
+  "schema": "rule-artifact.v14",
+  "id": "tax.us.2025.rule.eic-worksheet-a.line-6",
+  "version": "v1",
+  "scope": {
+    "tax_year": 2025,
+    "jurisdiction": "US-federal",
+    "family": "individual-income-tax"
+  },
+  "role": "computation",
+  "requires": [
+    "tax.us.2025.eic.worksheet-a.line-2",
+    "tax.us.2025.eic.worksheet-a.line-3",
+    "tax.us.2025.eic.column.phaseout-threshold",
+    "filing_status"
+  ],
+  "pins": [
+    {
+      "role": "input",
+      "id": "tax.us.2025.eic.worksheet-a.line-2",
+      "version": "v1",
+      "origin": "assertion"
+    },
+    {
+      "role": "input",
+      "id": "tax.us.2025.eic.worksheet-a.line-3",
+      "version": "v1",
+      "origin": "assertion"
+    },
+    {
+      "role": "input",
+      "id": "tax.us.2025.eic.column.phaseout-threshold",
+      "version": "v1",
+      "origin": "assertion"
+    },
+    {
+      "role": "input",
+      "id": "tax.us.2025.filing-status",
+      "version": "v1",
+      "origin": "assertion"
+    },
+    {
+      "role": "parameter",
+      "id": "tax.us.2025.parameter.eic-table-2025",
+      "version": "v1"
+    }
+  ],
+  "when": true,
+  "value": {
+    "op": "choose",
+    "when": {
+      "op": "compare",
+      "left": {
+        "op": "ref",
+        "name": "tax.us.2025.eic.worksheet-a.line-3"
+      },
+      "right": {
+        "op": "ref",
+        "name": "tax.us.2025.eic.column.phaseout-threshold"
+      },
+      "cmp": "lt"
+    },
+    "then": {
+      "op": "ref",
+      "name": "tax.us.2025.eic.worksheet-a.line-2"
+    },
+    "else": {
+      "op": "choose",
+      "when": {
+        "op": "compare",
+        "left": {
+          "op": "ref",
+          "name": "tax.us.2025.eic.worksheet-a.line-2"
+        },
+        "right": {
+          "op": "range_lookup",
+          "table_id": "tax.us.2025.parameter.eic-table-2025",
+          "key": {
+            "op": "choose",
+            "when": {
+              "op": "categorical_compare",
+              "cmp": "eq",
+              "left": {
+                "op": "ref",
+                "name": "filing_status"
+              },
+              "right": {
+                "op": "category_literal",
+                "fact_type": {
+                  "id": "tax.us.2025.filing-status",
+                  "version": "v1"
+                },
+                "value": "married_filing_jointly"
+              }
+            },
+            "then": "joint",
+            "else": "other"
+          },
+          "value": {
+            "op": "ref",
+            "name": "tax.us.2025.eic.worksheet-a.line-3"
+          }
+        },
+        "cmp": "lte"
+      },
+      "then": {
+        "op": "ref",
+        "name": "tax.us.2025.eic.worksheet-a.line-2"
+      },
+      "else": {
+        "op": "range_lookup",
+        "table_id": "tax.us.2025.parameter.eic-table-2025",
+        "key": {
+          "op": "choose",
+          "when": {
+            "op": "categorical_compare",
+            "cmp": "eq",
+            "left": {
+              "op": "ref",
+              "name": "filing_status"
+            },
+            "right": {
+              "op": "category_literal",
+              "fact_type": {
+                "id": "tax.us.2025.filing-status",
+                "version": "v1"
+              },
+              "value": "married_filing_jointly"
+            }
+          },
+          "then": "joint",
+          "else": "other"
+        },
+        "value": {
+          "op": "ref",
+          "name": "tax.us.2025.eic.worksheet-a.line-3"
+        }
+      }
+    }
+  },
+  "publishes": "tax.us.2025.eic.worksheet-a.line-6",
+  "blocked": {
+    "code": "DEPENDENCY_ABSENT",
+    "missing": [
+      "tax.us.2025.eic.worksheet-a.line-2",
+      "tax.us.2025.eic.worksheet-a.line-3",
+      "tax.us.2025.eic.column.phaseout-threshold",
+      "filing_status"
+    ]
+  },
+  "citations": [
+    {
+      "id": "tax.us.2025.citation.form1040.eic-table",
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.citation.form1040.line-27-31",
+      "version": "v1"
+    }
+  ],
+  "notes": "Worksheet A line 6. Below the phase-out threshold this is line 2. Otherwise it is the smaller of line 2 and the printed table row at line 3. Line 5 is not required, so a blank line 5 does not block the plateau."
+}

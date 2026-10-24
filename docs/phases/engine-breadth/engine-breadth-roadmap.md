@@ -348,6 +348,15 @@ withholding, payments and the refund or amount owed, recording withholding on
 the documents the engine already reads, and declare absent the taxes and
 credits it does not compute.
 
+## Bounded return — The 2025 Earned Income Credit
+
+[Plan](milestones/earned-income-credit.md).
+
+Lines 27a-31 were $0 by one absence answer, so an eligible low-income worker
+lost the credit or was outside the supported class. Compute the credit for
+filers with no qualifying child first, from the printed EIC Table, asking the
+eligibility questions only where income allows the credit.
+
 ## Why line 7a comes before Schedule D
 
 The 2025 Form 1040 instructions permit eligible capital-gain distributions to

@@ -1,0 +1,56 @@
+{
+  "schema": "rule-artifact.v14",
+  "id": "tax.us.2025.rule.form1040-line32",
+  "version": "v2",
+  "scope": {
+    "tax_year": 2025,
+    "jurisdiction": "US-federal",
+    "family": "individual-income-tax"
+  },
+  "role": "computation",
+  "requires": [
+    "tax.us.2025.payments.lines27-31-total",
+    "rounding.convention"
+  ],
+  "pins": [
+    {
+      "role": "input",
+      "id": "tax.us.2025.payments.lines27-31-total",
+      "version": "v1",
+      "origin": "assertion"
+    },
+    {
+      "role": "input",
+      "id": "rounding.convention",
+      "version": "v1",
+      "origin": "assertion"
+    }
+  ],
+  "when": true,
+  "value": {
+    "op": "round",
+    "mode": {
+      "op": "ref",
+      "name": "rounding.convention"
+    },
+    "value": {
+      "op": "ref",
+      "name": "tax.us.2025.payments.lines27-31-total"
+    }
+  },
+  "publishes": "tax.us.2025.payments.line32",
+  "blocked": {
+    "code": "DEPENDENCY_ABSENT",
+    "missing": [
+      "tax.us.2025.payments.lines27-31-total",
+      "rounding.convention"
+    ]
+  },
+  "citations": [
+    {
+      "id": "tax.us.2025.citation.form1040.line-32",
+      "version": "v1"
+    }
+  ],
+  "notes": "Form 1040 line 32 reads the v2 total. v1 stays."
+}

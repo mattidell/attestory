@@ -1,0 +1,173 @@
+{
+  "schema": "rule-artifact.v14",
+  "id": "tax.us.2025.rule.eic-questions-required",
+  "version": "v1",
+  "scope": {
+    "tax_year": 2025,
+    "jurisdiction": "US-federal",
+    "family": "individual-income-tax"
+  },
+  "role": "computation",
+  "requires": [
+    "tax.us.2025.eic.investment-income",
+    "tax.us.2025.eic.worksheet-a.line-1",
+    "tax.us.2025.eic.worksheet-a.line-3",
+    "tax.us.2025.eic.answer.no-qualifying-child",
+    "tax.us.2025.eic.status-class",
+    "tax.us.2025.eic.column.completed"
+  ],
+  "pins": [
+    {
+      "role": "input",
+      "id": "tax.us.2025.eic.investment-income",
+      "version": "v1",
+      "origin": "assertion"
+    },
+    {
+      "role": "input",
+      "id": "tax.us.2025.eic.worksheet-a.line-1",
+      "version": "v1",
+      "origin": "assertion"
+    },
+    {
+      "role": "input",
+      "id": "tax.us.2025.eic.worksheet-a.line-3",
+      "version": "v1",
+      "origin": "assertion"
+    },
+    {
+      "role": "input",
+      "id": "tax.us.2025.eic.answer.no-qualifying-child",
+      "version": "v1",
+      "origin": "assertion"
+    },
+    {
+      "role": "input",
+      "id": "tax.us.2025.eic.status-class",
+      "version": "v1",
+      "origin": "assertion"
+    },
+    {
+      "role": "input",
+      "id": "tax.us.2025.eic.column.completed",
+      "version": "v1",
+      "origin": "assertion"
+    },
+    {
+      "role": "parameter",
+      "id": "tax.us.2025.parameter.eic-2025",
+      "version": "v1"
+    }
+  ],
+  "when": true,
+  "value": {
+    "op": "choose",
+    "when": {
+      "op": "all",
+      "args": [
+        {
+          "op": "compare",
+          "left": {
+            "op": "ref",
+            "name": "tax.us.2025.eic.investment-income"
+          },
+          "right": {
+            "op": "parameter",
+            "parameter_id": "tax.us.2025.parameter.eic-2025",
+            "key": "investment_income_limit"
+          },
+          "cmp": "lte"
+        },
+        {
+          "op": "compare",
+          "left": {
+            "op": "ref",
+            "name": "tax.us.2025.eic.worksheet-a.line-1"
+          },
+          "right": {
+            "op": "parameter",
+            "parameter_id": "tax.us.2025.parameter.eic-2025",
+            "key": "largest_completed"
+          },
+          "cmp": "lt"
+        },
+        {
+          "op": "compare",
+          "left": {
+            "op": "ref",
+            "name": "tax.us.2025.eic.worksheet-a.line-3"
+          },
+          "right": {
+            "op": "parameter",
+            "parameter_id": "tax.us.2025.parameter.eic-2025",
+            "key": "largest_completed"
+          },
+          "cmp": "lt"
+        },
+        {
+          "op": "compare",
+          "left": {
+            "op": "ref",
+            "name": "tax.us.2025.eic.answer.no-qualifying-child"
+          },
+          "right": 1,
+          "cmp": "eq"
+        },
+        {
+          "op": "compare",
+          "left": {
+            "op": "ref",
+            "name": "tax.us.2025.eic.status-class"
+          },
+          "right": 0,
+          "cmp": "ne"
+        },
+        {
+          "op": "compare",
+          "left": {
+            "op": "ref",
+            "name": "tax.us.2025.eic.worksheet-a.line-1"
+          },
+          "right": {
+            "op": "ref",
+            "name": "tax.us.2025.eic.column.completed"
+          },
+          "cmp": "lt"
+        },
+        {
+          "op": "compare",
+          "left": {
+            "op": "ref",
+            "name": "tax.us.2025.eic.worksheet-a.line-3"
+          },
+          "right": {
+            "op": "ref",
+            "name": "tax.us.2025.eic.column.completed"
+          },
+          "cmp": "lt"
+        }
+      ]
+    },
+    "then": 1,
+    "else": 0
+  },
+  "publishes": "tax.us.2025.eic.questions-required",
+  "blocked": {
+    "code": "DEPENDENCY_ABSENT",
+    "missing": [
+      "tax.us.2025.eic.investment-income",
+      "tax.us.2025.eic.worksheet-a.line-1",
+      "tax.us.2025.eic.worksheet-a.line-3",
+      "tax.us.2025.eic.answer.no-qualifying-child",
+      "tax.us.2025.eic.status-class",
+      "tax.us.2025.eic.column.completed"
+    ]
+  },
+  "citations": [
+    {
+      "id": "tax.us.2025.citation.form1040.line-27-31",
+      "version": "v1"
+    }
+  ],
+  "notes": "1 when the remaining EIC answers can change the credit: no qualifying child, status single or joint or qualifying surviving spouse, and both line 1 and line 3 below the column completed amount, and not already stopped by the limit or the largest completed amount."
+}

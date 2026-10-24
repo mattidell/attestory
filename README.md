@@ -7,9 +7,9 @@ This is the project's third iteration. The first proved a working return generat
 ## Where things stand
 
 - **Governance** (`docs/governance/`): the ratified v0.1 set — Constitution, Ontology, Engineering Constraints, Principles, Commentary. The sole contract authority for this repository.
-- **Phase state** (`docs/phase-state.md`): on core calculations v52 every
-  computed return ends in a refund or an amount owed (see "2025 refund or
-  amount owed" below). Use `python3 tools/foreman_context.py --ref HEAD` for
+- **Phase state** (`docs/phase-state.md`): on core calculations v53 a filer
+  with no qualifying child gets the 2025 earned income credit (see "2025
+  earned income credit" below). Use `python3 tools/foreman_context.py --ref HEAD` for
   current routing; publication status is tracked by the pull request's checks.
 - **Current bounded capability:** production-shaped synthetic returns cover
   the Form 1099-DIV box-2a direct-reporting route, Schedule K-1 (Form 1065)
@@ -285,6 +285,42 @@ continues past tax after credits (line 22) to the line a person acts on:
 A return without foreign tax now reaches line 22 without the direct foreign
 tax credit's election and eligibility questions. Form 1099-K, 1099-G and
 SSA-1099 withholding are not yet summed.
+
+## 2025 earned income credit
+
+On `core-calculations.v53` (registry `v51`, release
+`demo.release.sli-worksheet-integration.2025.v51.json`), Form 1040 line 27a is
+the earned income credit for a filer with no qualifying child: EIC Worksheet A
+on W-2 box 1 and AGI, read from the printed 2025 EIC Table
+(`tax.us.2025.parameter.eic-table-2025`, the 0-child columns).
+
+- Investment income over $11,950 asks only the unsupported-situations answer.
+  Yes publishes line 27a as $0. No blocks. The other EIC questions stay unasked.
+- AGI at or above $68,675 asks no EIC question and publishes line 27a as $0.
+  Step 1 tests Form 1040 line 11b, and $68,675 is the largest completed amount.
+- W-2 box 1 at or above $68,675 while AGI is below it asks the
+  unsupported-situations answer. Yes publishes $0. No blocks. The other
+  questions stay unasked. A clergy or church-employee Schedule SE amount can
+  put worksheet earned income below box 1, and that situation is inside this
+  answer.
+- Otherwise the return answers whether it has a qualifying child. Married
+  filing separately and head of household with no qualifying child are $0.
+- After that answer, AGI at or above the 0-child completed amount ($19,104
+  other, including qualifying surviving spouse; $26,214 joint) publishes $0
+  with no further EIC question. Step 1 tests line 11b against that amount.
+- Box 1 at or above that amount while AGI is below it asks the
+  unsupported-situations answer for single, married filing jointly and
+  qualifying surviving spouse returns. Yes publishes $0. No blocks.
+- The remaining questions (SSN, residency, age, main home, dependency, and
+  the same unsupported-situations answer for Form 2555, Form 8862, Worksheet
+  B, combat pay, a Medicaid waiver exclusion, and Worksheet 1 items) are
+  asked only when the status is single, married filing jointly, or
+  qualifying surviving spouse and both box 1 and AGI are below that amount.
+- A failing answer gives $0 with the test named. A missing required answer
+  blocks with the fact named. A qualifying child or an unsupported situation
+  is outside the class.
+- Lines 28-31 have their own absence answer, required on every
+  successor-package return, replacing v52's lines 27a-31 answer.
 
 ## Correction session walkthrough
 

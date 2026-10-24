@@ -1,0 +1,58 @@
+{
+  "schema": "rule-artifact.v14",
+  "id": "tax.us.2025.rule.form1040-lines27-31-total",
+  "version": "v2",
+  "scope": {
+    "tax_year": 2025,
+    "jurisdiction": "US-federal",
+    "family": "individual-income-tax"
+  },
+  "role": "computation",
+  "requires": [
+    "tax.us.2025.payments.line27a",
+    "tax.us.2025.payments.lines28-31"
+  ],
+  "pins": [
+    {
+      "role": "input",
+      "id": "tax.us.2025.payments.line27a",
+      "version": "v1",
+      "origin": "assertion"
+    },
+    {
+      "role": "input",
+      "id": "tax.us.2025.payments.lines28-31",
+      "version": "v1",
+      "origin": "assertion"
+    }
+  ],
+  "when": true,
+  "value": {
+    "op": "add",
+    "args": [
+      {
+        "op": "ref",
+        "name": "tax.us.2025.payments.line27a"
+      },
+      {
+        "op": "ref",
+        "name": "tax.us.2025.payments.lines28-31"
+      }
+    ]
+  },
+  "publishes": "tax.us.2025.payments.lines27-31-total",
+  "blocked": {
+    "code": "DEPENDENCY_ABSENT",
+    "missing": [
+      "tax.us.2025.payments.line27a",
+      "tax.us.2025.payments.lines28-31"
+    ]
+  },
+  "citations": [
+    {
+      "id": "tax.us.2025.citation.form1040.line-27-31",
+      "version": "v1"
+    }
+  ],
+  "notes": "Form 1040 lines 27a through 31: line 27a plus the lines 28-31 zero. v1 stays the combined absence."
+}
