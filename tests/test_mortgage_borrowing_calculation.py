@@ -135,6 +135,20 @@ def _run_connected_case(*, uncertain_shared: str | None = None, unlinked_third_r
                 )
                 local_ids[f"{report_index}:{question}"] = result["finding_ids"][0]
 
+        if not unconnected_singleton:
+            for question, value in {
+                "filing-unit-owns-home": "yes", "shared-main-home": "yes",
+                "home-is-collateral": "yes", "paid-the-interest": "yes",
+            }.items():
+                result = answer_f1098_statement_answer_durably(
+                    log, registry, statement_keys=report_keys[1], question=question, answer=value,
+                    submission_id=f"demo.mortgage.local.1.{question}",
+                    evidence_id=f"demo.mortgage.local-evidence.1.{question}",
+                    actor="demo.user.filer-1", at="2026-10-23T16:01:35Z",
+                    expected_revision=log.read().revision, bundle_version="v2",
+                )
+                local_ids[f"1:{question}"] = result["finding_ids"][0]
+
         if unconnected_singleton:
             additional_answers = {
                 "filing-unit-owns-home": "yes", "shared-main-home": "yes",
@@ -230,6 +244,10 @@ class MortgageBorrowingPackageTests(unittest.TestCase):
         self.assertGreater(explanation["workspaceRevision"], 0)
         self.assertEqual(len(report_rows), 2)
         self.assertEqual([item["reportedInterest"]["value"] for item in report_rows], [22000.0, 3500.0])
+        self.assertIsNone(report_rows[0]["reasonChain"])
+        self.assertIsNotNone(report_rows[1]["reasonChain"])
+        self.assertTrue({local_ids[f"1:{question}"] for question in LOCAL_FACTS} <=
+                        {pin.get("id") for pin in report_rows[1]["reasonChain"]["pins"]})
         self.assertEqual(group["recordedApplicableClaims"]["tax.us.2025.mortgage.shared-no-one-else-owes-it"]["value"], "no")
         self.assertEqual(group["recordedApplicableClaims"]["tax.us.2025.mortgage.shared-credit-certificate"]["value"], "not-received")
         self.assertEqual(group["recordedApplicableClaims"]["tax.us.2025.f1098.borrowing-year-ceiling"]["value"], 250000)

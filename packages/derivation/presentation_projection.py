@@ -2557,7 +2557,7 @@ def _mortgage_borrowing_explanation(
         source_reports[source_ident] = {
             "payer": source_ident[0], "statement": source_ident[1], "taxYear": source_ident[2],
             "reportedInterest": {"findingId": source_id, "value": source.get("value")},
-            "localAnswers": [], "relationships": [], "effectiveAnswers": [],
+            "reasonChain": None, "localAnswers": [], "relationships": [], "effectiveAnswers": [],
         }
     reports: dict[tuple[str, str, str, str], dict[str, Any]] = {}
     orphan_relationships: list[dict[str, Any]] = []
@@ -2579,7 +2579,7 @@ def _mortgage_borrowing_explanation(
         row = reports.setdefault(relationship_ident, {"borrowing": relationship_ident[0], "report": {
             "payer": relationship_ident[1], "statement": relationship_ident[2], "taxYear": relationship_ident[3],
             "relationship": relationship,
-            "reportedInterest": None, "localAnswers": [], "effectiveAnswers": [],
+            "reportedInterest": None, "reasonChain": None, "localAnswers": [], "effectiveAnswers": [],
         }})
         existing = row["report"]["relationship"]
         if existing["factType"] != fact.fact_type_id:
@@ -2623,6 +2623,7 @@ def _mortgage_borrowing_explanation(
     if not reports and not source_reports and not orphan_relationships:
         return None
     derived: list[Mapping[str, Any]] = []
+    reason_findings: list[Mapping[str, Any]] = []
     for publication in publications:
         finding = publication.finding
         if not isinstance(finding, Mapping) or not isinstance(finding.get("symbol"), str):
@@ -2630,6 +2631,21 @@ def _mortgage_borrowing_explanation(
         symbol = finding["symbol"]
         if symbol.startswith("tax.us.2025.f1098.effective-"):
             derived.append(finding)
+        elif symbol.startswith("tax.us.2025.f1098.residence-interest-reason|"):
+            reason_findings.append(finding)
+    for report_ident, report in source_reports.items():
+        report_source_id = report["reportedInterest"]["findingId"]
+        matching_reasons = [
+            finding for finding in reason_findings
+            if any(isinstance(pin, Mapping) and pin.get("role") == "input" and pin.get("id") == report_source_id
+                   for pin in cast(Sequence[Any], finding.get("pins", []) or []))
+        ]
+        if len(matching_reasons) > 1:
+            raise PresentationModelError("multiple current mortgage reason results pin one exact report source")
+        if matching_reasons:
+            reason = matching_reasons[0]
+            report["reasonChain"] = {"findingId": reason.get("id"), "value": reason.get("value"),
+                                      "pins": list(reason.get("pins", []))}
     for relationship_ident, row in reports.items():
         report_ident = (relationship_ident[1], relationship_ident[2], relationship_ident[3])
         report_keys = {"payer": relationship_ident[1], "statement": relationship_ident[2], "tax-year": relationship_ident[3], "borrowing": relationship_ident[0]}
@@ -2719,7 +2735,7 @@ def _validate_mortgage_borrowing_explanation(value: Any) -> None:
     report_keys: set[tuple[str, str, str]] = set()
     for index, report in enumerate(reports):
         rp = f"{path}.reports[{index}]"
-        _require_keys(report, frozenset({"payer", "statement", "taxYear", "reportedInterest", "localAnswers", "relationships", "effectiveAnswers"}), frozenset(), rp)
+        _require_keys(report, frozenset({"payer", "statement", "taxYear", "reportedInterest", "reasonChain", "localAnswers", "relationships", "effectiveAnswers"}), frozenset(), rp)
         key = tuple(report.get(field) for field in ("payer", "statement", "taxYear"))
         if not all(isinstance(item, str) and item for item in key) or key in report_keys:
             raise PresentationModelError(f"{rp}: malformed or duplicate current report identity")
@@ -2728,6 +2744,11 @@ def _validate_mortgage_borrowing_explanation(value: Any) -> None:
         _require_keys(source, frozenset({"findingId", "value"}), frozenset(), f"{rp}.reportedInterest")
         if not isinstance(source["findingId"], str) or not source["findingId"] or not isinstance(source["value"], (int, float)) or isinstance(source["value"], bool):
             raise PresentationModelError(f"{rp}.reportedInterest: malformed Box 1 source")
+        reason = report["reasonChain"]
+        if reason is not None:
+            _require_keys(reason, frozenset({"findingId", "value", "pins"}), frozenset(), f"{rp}.reasonChain")
+            if not isinstance(reason["findingId"], str) or not reason["findingId"] or not isinstance(reason["value"], str) or not isinstance(reason["pins"], list):
+                raise PresentationModelError(f"{rp}.reasonChain: malformed actual reason finding")
         for list_key in ("localAnswers", "relationships", "effectiveAnswers"):
             if not isinstance(report[list_key], list):
                 raise PresentationModelError(f"{rp}.{list_key}: expected list")

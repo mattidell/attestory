@@ -16,7 +16,10 @@ consumed input/choice finding IDs, and the exact line8a disposition. It does not
 calculate tax or reread the workspace. Tests use the real Track 1 borrowing
 and F1098 answer recorders and the normal coordinator, then inspect the saved
 report/model. The third unlinked current-report case is represented once and
-does not crash projection.
+does not crash projection. A report's actual reason-chain finding is included
+when a current reason publication pins that exact Box 1 finding; in the
+two-report probe, this is present only for B, whose report-local answers are
+complete, while A's missing local answers remain visibly absent.
 
 ## Evidence and limits
 
