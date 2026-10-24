@@ -39,11 +39,18 @@ BASE_REGISTRY_FILENAME = "published-packages.v49.json"
 BASE_RELEASE_VERSION = "v49"
 INTERMEDIATE_PACKAGE_VERSION = "v52"
 P2_CANDIDATE_REGISTRY_FILENAME = "published-packages.t0-intermediate-v52.json"
-T0_PACKAGE_VERSION = "v58"
-T0_REGISTRY_FILENAME = "published-packages.t0-p58.json"
-T0_RELEASE_VERSION = "v8"
+T0_PACKAGE_VERSION = "v59"
+T0_REGISTRY_FILENAME = "published-packages.t0-p59.json"
+T0_RELEASE_VERSION = "v9"
 STATUS_FACT_TYPE = "demo.tax.2025.f1098.borrowing-current-link-status"
 ORPHAN_MATCH_FACT_TYPE = "demo.tax.2025.f1098.affirmed-link-source-match"
+SHARED_ANSWER_TYPES = {
+    "owes-the-loan": "demo.tax.2025.mortgage.shared-owes-the-loan",
+    "no-one-else-owes-it": "demo.tax.2025.mortgage.shared-no-one-else-owes-it",
+    "what-the-money-paid-for": "demo.tax.2025.mortgage.shared-proceeds-use",
+    "this-is-the-original-loan": "demo.tax.2025.mortgage.shared-original-loan",
+    "mortgage-credit-certificate-received": "demo.tax.2025.mortgage.shared-credit-certificate",
+}
 
 
 def read(path: Path) -> dict[str, Any]:
@@ -732,6 +739,265 @@ def add_p3_consumers(surface: Any, acts: list[dict[str, Any]], p3: Any) -> tuple
         "retainedAttachmentBoundaryAnswers": sorted(expected)}
 
 
+def add_shared_answer_candidate(surface: Any, acts: list[dict[str, Any]]) -> dict[str, Any]:
+    """Add five scoped raw declarations and one optional proceeds composition.
+
+    The experiment deliberately tests one proposition first. Presence is
+    counted from exact keyed derived rows, never inferred from F1098 closure.
+    """
+    members = surface.member_dir
+    package_path = members / f"package.core-calculations.{T0_PACKAGE_VERSION}.json"
+    registry_path = members / T0_REGISTRY_FILENAME
+    bundle_path = members / f"{P2.BRIDGE_BUNDLE_ID}.v1.json"
+    package, bundle, registry = read(package_path), read(bundle_path), read(registry_path)
+    affirmed = CARRIERS["affirmed"]
+    link_ft = next(ft for ft in bundle["fact_types"] if ft["id"] == affirmed)
+    source_bundle = read(members / "f1098-circumstances.bundle.v2.json")
+    source_use = next(ft for ft in source_bundle["fact_types"]
+                      if ft["id"] == P2.SOURCE_TYPES["what-the-money-paid-for"])
+    shared_keys = [
+        {"name": "borrowing", "kind": "entity", "entity_kind": "tax.us.mortgage-borrowing-reference"},
+        {"name": "tax-year", "kind": "literal", "values": ["2025"]},
+    ]
+    raw_shared: dict[str, dict[str, Any]] = {}
+    for question, type_id in SHARED_ANSWER_TYPES.items():
+        local = next(ft for ft in source_bundle["fact_types"]
+                     if ft["id"] == P2.SOURCE_TYPES[question])
+        declared = copy.deepcopy(local)
+        declared.update({"id": type_id, "version": "v1",
+                         "title": f"Explicit borrowing-year answer: {question}",
+                         "identity_keys": copy.deepcopy(shared_keys)})
+        raw_shared[question] = declared
+    bundle["fact_types"].extend(raw_shared.values())
+
+    shared_use = SHARED_ANSWER_TYPES["what-the-money-paid-for"]
+    local_use = P2.SOURCE_TYPES["what-the-money-paid-for"]
+    effective = "demo.tax.2025.mortgage.effective-proceeds-use"
+    citations = read(members / "rule.f1098-line8a.v2.json").get("citations", [])
+
+    def ft_from(base: dict[str, Any], type_id: str, title: str,
+                value_schema: dict[str, Any] | None = None) -> dict[str, Any]:
+        row = copy.deepcopy(base)
+        row.update({"id": type_id, "version": "v1", "title": title})
+        if value_schema is not None:
+            row["value_schema"] = value_schema
+        bundle["fact_types"].append(row)
+        return row
+
+    number_schema = {"type": "number"}
+    effective_ft = ft_from(source_use, effective, "Effective proceeds-use category per exact link")
+    # Effective facts belong to the exact link, not the three-key local source.
+    effective_ft["identity_keys"] = copy.deepcopy(link_ft["identity_keys"])
+
+    def literal(type_id: str, value: str, version: str = "v1") -> dict[str, Any]:
+        return {"op": "category_literal", "fact_type": {"id": type_id, "version": version}, "value": value}
+
+    def rule(rule_id: str, subject: str, joined: str, direction: str,
+             requires: list[str], value: Any, publishes: str, notes: str,
+             joined_version: str = "v1") -> dict[str, Any]:
+        return {"schema": "rule-artifact.v13", "id": rule_id, "version": "v1", "scope": SCOPE,
+            "role": "computation", "subject": {"id": subject, "version": "v1"},
+            "joined": {"id": joined, "version": joined_version}, "direction": direction,
+            "requires": requires, "pins": [], "when": True, "value": value,
+            "publishes": publishes, "blocked": {"code": "DEPENDENCY_INVALID", "missing": []},
+            "citations": citations, "notes": notes}
+
+    def link_counter(rule_id: str, links: str, output: str) -> dict[str, Any]:
+        return {"schema": "rule-artifact.v13", "id": rule_id, "version": "v1", "scope": SCOPE,
+            "role": "computation", "subject": {"id": affirmed, "version": "v1"},
+            "joined": {"id": links, "version": "v1"}, "direction": "joined_contains_subject",
+            "requires": [], "pins": [], "when": True,
+            "value": {"op": "link_count", "links": links}, "publishes": output,
+            "blocked": {"code": "DEPENDENCY_INVALID", "missing": []}, "citations": citations,
+            "notes": "One exact-link numeric presence result; no family closure count or category reduction."}
+
+    values = list(source_use["value_schema"]["enum"])
+    local_counts: dict[str, str] = {}
+    shared_counts: dict[str, str] = {}
+    indicator_rules: list[dict[str, Any]] = []
+    count_rules: list[dict[str, Any]] = []
+    for mode, source_type, source_version, count_map in (
+        ("local", local_use, "v2", local_counts), ("shared", shared_use, "v1", shared_counts)):
+        for index, answer in enumerate(values):
+            slug = ["bought", "unrelated", "other", "unknown"][index]
+            marker = f"demo.tax.2025.mortgage.{mode}-proceeds-{slug}-marker"
+            count_id = f"demo.tax.2025.mortgage.{mode}-proceeds-{slug}-count"
+            ft_from(link_ft, marker, f"{mode.title()} {answer} marker on exact report link", number_schema)
+            ft_from(link_ft, count_id, f"Numeric {mode} {answer} presence count on exact report link", number_schema)
+            marker_rule = rule(f"demo.tax.2025.rule.{mode}-proceeds-{slug}-marker", affirmed,
+                source_type, "subject_contains_joined", [source_type], 1, marker,
+                f"Publish a numeric marker only when this exact {mode} answer equals {answer}.",
+                joined_version=source_version)
+            marker_rule["when"] = {"op": "categorical_compare", "cmp": "eq",
+                "left": {"op": "ref", "name": source_type}, "right": literal(source_type, answer, source_version)}
+            counter = link_counter(f"demo.tax.2025.rule.{mode}-proceeds-{slug}-count", marker, count_id)
+            indicator_rules.append(marker_rule)
+            count_rules.append(counter)
+            count_map[answer] = count_id
+
+    local_total = {"op": "add", "args": [{"op": "ref", "name": local_counts[value]} for value in values]}
+    shared_total = {"op": "add", "args": [{"op": "ref", "name": shared_counts[value]} for value in values]}
+    local_branch: Any = {"op": "block", "code": "DEPENDENCY_INVALID"}
+    shared_branch: Any = {"op": "block", "code": "DEPENDENCY_ABSENT"}
+    for answer in reversed(values):
+        same_shared_or_absent = {"op": "any", "args": [
+            {"op": "compare", "cmp": "eq", "left": shared_total, "right": 0},
+            {"op": "compare", "cmp": "eq", "left": {"op": "ref", "name": shared_counts[answer]}, "right": 1}]}
+        local_branch = {"op": "choose", "when": {"op": "all", "args": [
+            {"op": "compare", "cmp": "eq", "left": {"op": "ref", "name": local_counts[answer]}, "right": 1},
+            same_shared_or_absent]}, "then": literal(effective, answer), "else": local_branch}
+        shared_branch = {"op": "choose", "when": {"op": "compare", "cmp": "eq",
+            "left": {"op": "ref", "name": shared_counts[answer]}, "right": 1},
+            "then": literal(effective, answer), "else": shared_branch}
+    count_requires = [local_counts[value] for value in values] + [shared_counts[value] for value in values]
+    effective_rule = rule("demo.tax.2025.rule.effective-proceeds-use", affirmed, BOX1,
+        "subject_contains_joined", count_requires,
+        {"op": "choose", "when": {"op": "compare", "cmp": "gt", "left": local_total, "right": 0},
+         "then": local_branch, "else": shared_branch},
+        effective, "Exact-link category selection from eight numeric presence counts; conflicting categories block.")
+
+    reason_path = members / f"{P2.BRIDGE_RULE_PREFIX}.residence-interest-reason.json"
+    # Actual candidate filenames use the P2 rule ID, not the descriptive prefix.
+    reason_path = members / "rule.f1098-residence-interest-reason.v3.json"
+    reason = read(reason_path)
+    reason["version"] = "v4"
+    reason["joined"] = {"id": affirmed, "version": "v1"}
+    reason["direction"] = "joined_contains_subject"
+    old_status = "demo.tax.2025.f1098.answer-status.what-the-money-paid-for"
+    reason["requires"] = [effective if name == old_status else name for name in reason["requires"]]
+    def rewrite_reason(node: Any) -> Any:
+        if isinstance(node, dict):
+            result = {key: rewrite_reason(value) for key, value in node.items()}
+            if result.get("op") == "ref" and result.get("name") == old_status:
+                result["name"] = effective
+            if result.get("op") == "category_literal":
+                ft = result.get("fact_type")
+                if isinstance(ft, dict) and ft.get("id") == old_status:
+                    result["fact_type"] = {"id": effective, "version": "v1"}
+            return result
+        if isinstance(node, list):
+            return [rewrite_reason(value) for value in node]
+        return node
+    reason["value"] = rewrite_reason(reason["value"])
+    reason["notes"] = "P2 reason successor; proceeds category is selected from exact local/shared keyed intermediates."
+
+    new_rules = [*indicator_rules, *count_rules, effective_rule, reason]
+    for row in new_rules:
+        filename = ("rule.f1098-residence-interest-reason.v4.json" if row is reason
+                    else f"{row['id']}.json")
+        write(members / filename, row)
+        if not any(m.get("id") == row["id"] and m.get("version") == row["version"] for m in package["members"]):
+            package["members"].append({"id": row["id"], "version": row["version"],
+                "schema": row["schema"], "role": row.get("role", "computation")})
+    package["members"] = [row for row in package["members"] if not (
+        (row.get("id") == reason["id"] and row.get("version") == "v3") or
+        row.get("id") == f"{P2.BRIDGE_RULE_PREFIX}.what-the-money-paid-for")]
+    # The package reachability validator does not infer a producer edge from
+    # link_count's `links` field. These internal marker computations are
+    # explicit package roots so their declared zero/one counts can be consumed.
+    package["entrypoints"].extend({"id": row["id"], "version": row["version"]} for row in indicator_rules)
+    for collection in (package.get("entrypoints", []),):
+        for row in collection:
+            if row.get("id") == reason["id"]:
+                row["version"] = "v4"
+    package["version"] = T0_PACKAGE_VERSION
+    write(bundle_path, bundle)
+    package["package_checksum"] = package_instance_checksum(package)
+    write(package_path, package)
+    changed = [bundle, *new_rules]
+    changed_keys = {(row["id"], row["version"]) for row in changed}
+    registry["citizens"] = [row for row in registry["citizens"]
+        if (row.get("id"), row.get("version")) not in changed_keys]
+    registry["citizens"].extend({"id": row["id"], "version": row["version"],
+        "checksum": citizen_checksum(row)} for row in changed)
+    registry["packages"] = [row for row in registry["packages"] if row.get("version") != T0_PACKAGE_VERSION]
+    registry["packages"].append({"id": package["id"], "version": package["version"],
+        "checksum": package["package_checksum"]})
+    write(registry_path, registry)
+    release_path = surface.release_dir / f"{P2.BRIDGE_RELEASE_ID}.{T0_RELEASE_VERSION}.json"
+    release = read(release_path)
+    release["package_registry_sha256"] = hashlib.sha256(registry_path.read_bytes()).hexdigest()
+    write(release_path, release)
+    adoption = next(act for act in acts if act.get("kind") == "package-adoption"
+        and act.get("payload", {}).get("package", {}).get("id") == package["id"])
+    adoption["payload"]["package"] = {"id": package["id"], "version": T0_PACKAGE_VERSION,
+        "checksum": package["package_checksum"]}
+    adoption["payload"]["release"] = {"id": release["id"], "version": T0_RELEASE_VERSION,
+        "checksum": hashlib.sha256(release_path.read_bytes()).hexdigest()}
+    bundle_act = next(act for act in acts if act.get("kind") == "bundle-adoption"
+        and act.get("payload", {}).get("bundle", {}).get("id") == P2.BRIDGE_BUNDLE_ID)
+    bundle_act["payload"]["bundle"] = copy.deepcopy(bundle)
+    for index, act in enumerate(acts):
+        act["committed_against"] = index
+        if act.get("kind") == "package-adoption":
+            act.setdefault("payload", {})["revision"] = index
+    return {"sharedAnswerTypes": {question: {"id": row["id"], "keys": row["identity_keys"],
+                "values": row["value_schema"].get("enum")} for question, row in raw_shared.items()},
+        "testedComposition": {"question": "what-the-money-paid-for", "rules": [row["id"] for row in new_rules],
+            "localPresence": "four exact-key link_count results over category-specific local markers",
+            "sharedPresence": "four exact-key link_count results over category-specific shared markers",
+            "optionalRead": "only numeric marker counts are required; absent options publish zero counts",
+            "conflict": "different numeric codes block; assertion order is not used"},
+        "packageVersion": T0_PACKAGE_VERSION, "registryVersion": T0_REGISTRY_FILENAME,
+        "releaseVersion": T0_RELEASE_VERSION, "packageChecksum": package["package_checksum"]}
+
+
+def shared_answer_case_acts(seed: list[dict[str, Any]], case_id: str) -> tuple[list[dict[str, Any]], dict[str, Any]]:
+    """Create one synthetic answer-mode after-state using structured IDs."""
+    allowed = {"shared-use-local-missing", "shared-use-agree", "shared-use-conflict-local-first",
+               "shared-use-conflict-shared-first", "shared-use-ended-local-valid"}
+    if case_id not in allowed:
+        raise ValueError(f"unknown shared-answer case: {case_id}")
+    acts = copy.deepcopy(seed)
+    borrowing = "demo.f1098.borrowing.A"
+    shared_type = SHARED_ANSWER_TYPES["what-the-money-paid-for"]
+    shared_id = fact_id_for(shared_type, (("borrowing", borrowing), ("tax-year", "2025")))
+    a_local = fact_id_for(P2.SOURCE_TYPES["what-the-money-paid-for"],
+        (("payer", "demo.f1098.lender.a"), ("statement", "demo.f1098.stmt.a"), ("tax-year", "2025")))
+    if case_id == "shared-use-local-missing":
+        acts = [act for act in acts if not (act.get("kind") == "assertion" and _act_finding(act).get("fact_id") == a_local)]
+        local_a, shared_value = None, "bought-the-home"
+    elif case_id == "shared-use-agree":
+        local_a, shared_value = "bought-the-home", "bought-the-home"
+    elif case_id.startswith("shared-use-conflict"):
+        local_a, shared_value = "bought-the-home", "unrelated-personal-expense"
+    else:
+        local_a, shared_value = "bought-the-home", "bought-the-home"
+    finding_id = f"demo.t0.{case_id}.shared-proceeds"
+    shared_act = {"schema": "act.v1", "act_id": f"demo.t0.{case_id}.shared-proceeds",
+        "kind": "assertion", "actor": "demo.taxpayer", "at": "2026-10-23T12:00:00Z",
+        "committed_against": len(acts), "payload": {"finding": {"schema": "finding.v2",
+            "id": finding_id, "fact_id": shared_id, "value": shared_value,
+            "basis": "attested", "evidence_ids": []}}}
+    if case_id == "shared-use-conflict-shared-first":
+        local_act = next(act for act in acts if act.get("kind") == "assertion"
+            and _act_finding(act).get("fact_id") == a_local)
+        acts.remove(local_act)
+        bundle_index = next(i for i, act in enumerate(acts) if act.get("kind") == "bundle-adoption"
+            and act.get("payload", {}).get("bundle", {}).get("id") == P2.BRIDGE_BUNDLE_ID)
+        entity_indexes = [i for i, act in enumerate(acts) if act.get("kind") == "entity-introduced"
+            and act.get("payload", {}).get("entity", {}).get("kind") == "tax.us.mortgage-borrowing-reference"]
+        insertion = max([bundle_index, *entity_indexes]) + 1
+        # Keep both the shared type adoption and opaque entity introduction
+        # before asserting the shared key, then reverse only the two answers.
+        acts[insertion:insertion] = [shared_act, local_act]
+    else:
+        acts.append(shared_act)
+    if case_id == "shared-use-ended-local-valid":
+        acts.append({"schema": "act.v1", "act_id": f"demo.t0.{case_id}.shared-proceeds-end",
+            "kind": "finding-retracted", "actor": "demo.taxpayer", "at": "2026-10-23T12:01:00Z",
+            "committed_against": len(acts), "payload": {"finding_id": finding_id}})
+    for index, act in enumerate(acts):
+        act["committed_against"] = index
+        if act.get("kind") == "package-adoption":
+            act.setdefault("payload", {})["revision"] = index
+    return acts, {"caseId": case_id, "suppliedSharedAssertion": {"factId": shared_id,
+            "value": shared_value, "ended": case_id == "shared-use-ended-local-valid"},
+        "localA": local_a, "localB": "bought-the-home",
+        "assertionOrder": "shared-before-local" if case_id == "shared-use-conflict-shared-first" else "local-before-shared",
+        "suppliedAfterState": True, "expected": "blocked on conflict; otherwise supported when one current suitable answer exists"}
+
+
 def coordinate_lifecycle_case(case_id: str, acts: list[dict[str, Any]], surface: Any,
                               case_dir: Path) -> dict[str, Any]:
     """Run supplied after-state acts through P2's normal coordinator, without its two-report fixture guard."""
@@ -745,7 +1011,7 @@ def coordinate_lifecycle_case(case_id: str, acts: list[dict[str, Any]], surface:
     try:
         outcome = P2.live_coordinate_run(capability, repo_root=ROOT, authoritative_acts=current.acts,
             workspace_revision=current.revision, run_scope=P2.RUN_SCOPE, scope_user=P2.SCOPE_USER,
-            request={"schema": "run-request.v1"}, run_id=f"demo.mortgage.t0.{case_id}.core-v51-v58",
+            request={"schema": "run-request.v1"}, run_id=f"demo.mortgage.t0.{case_id}.core-v51-v59",
             governance_pins=[], surface=surface, output_name=f"{case_id}.json", schemas=DerivationSchemas())
     except P2.PresentationModelError as exc:
         records = P2.RecordStream(capability.location / "records", DerivationSchemas()).read()
@@ -844,7 +1110,35 @@ def keyed_presentation_overlay(source: str) -> str:
     if source.count(old) != 1:
         raise AssertionError("P3 shared-support source block changed; refusing a fuzzy adapter rewrite")
     updated = source.replace(old, new, 1)
+    # The disposable group presenter labels the new explicit shared-answer
+    # namespace, but the lineage walker below still includes only findings
+    # reached through actual recorded pins.
+    prefix_anchor = "    base_build = live.build_presentation_model\n"
+    prefix_patch = ("    projection._MORTGAGE_ANSWER_PREFIX = (projection._MORTGAGE_ANSWER_PREFIX, "
+                    "'demo.tax.2025.mortgage.shared-')\n" + prefix_anchor)
+    if updated.count(prefix_anchor) != 1:
+        raise AssertionError("P3 overlay installation anchor changed; refusing an unscoped display patch")
+    updated = updated.replace(prefix_anchor, prefix_patch, 1)
     substitutions = [
+        ('''                pending_ids.extend(str(p.get("id")) for p in publication.get("pins", []) or []
+                                   if isinstance(p, Mapping) and p.get("role") in {"input", "dependency"}
+                                   and isinstance(p.get("id"), str))
+                symbol = str(publication.get("symbol", ""))''',
+         '''                pending_ids.extend(str(p.get("id")) for p in publication.get("pins", []) or []
+                                   if isinstance(p, Mapping) and p.get("role") in {"input", "dependency"}
+                                   and isinstance(p.get("id"), str))
+                for pin in publication.get("pins", []) or []:
+                    if not isinstance(pin, Mapping) or pin.get("role") not in {"input", "dependency"}:
+                        continue
+                    child = str(pin.get("id", ""))
+                    finding = state.findings.get(child)
+                    fact = fact_map.get(str(finding.get("fact_id"))) if finding is not None else None
+                    if fact is not None and fact.fact_type_id in {
+                            "tax.us.2025.f1098.what-the-money-paid-for",
+                            "demo.tax.2025.mortgage.shared-proceeds-use"}:
+                        raw_refs.add((fact.fact_type_id,
+                            "v2" if fact.fact_type_id == "tax.us.2025.f1098.what-the-money-paid-for" else "v1"))
+                symbol = str(publication.get("symbol", ""))'''),
         ('''        if not isinstance(accounts, list) or len(accounts) != 2:
             raise projection.PresentationModelError(f"{p}.accounts: expected exactly two reports")''',
          '''        if not isinstance(accounts, list) or len(accounts) not in {1, 2}:
@@ -895,12 +1189,21 @@ def keyed_presentation_overlay(source: str) -> str:
 
 def main() -> None:
     parser = argparse.ArgumentParser(description="Run selected synthetic T0 mortgage cases.")
-    parser.add_argument("--case", action="append", required=True, choices=(
+    parser.add_argument("--case", action="append", choices=(
         "connected-a-after-b-ended", "current-a-final-link-withdrawn",
         "closed-empty-with-withdrawn-history", "closed-empty-with-affirmed-orphan"),
         help="One chartered supplied lifecycle after-state; may be repeated.")
+    parser.add_argument("--answer-case", action="append", choices=(
+        "shared-use-local-missing", "shared-use-agree", "shared-use-conflict-local-first",
+        "shared-use-conflict-shared-first", "shared-use-ended-local-valid"),
+        help="One chartered supplied shared-answer after-state; may be repeated.")
     args = parser.parse_args()
-    if len(set(args.case)) != len(args.case):
+    if not args.case and not args.answer_case:
+        parser.error("select at least one --case or --answer-case")
+    if args.case and args.answer_case:
+        parser.error("lifecycle and shared-answer cases are separate bounded increments")
+    selected = args.case or args.answer_case
+    if len(set(selected)) != len(selected):
         parser.error("each lifecycle case may be selected only once")
     stamp = datetime.now(timezone.utc).strftime("%Y%m%dT%H%M%SZ")
     out = ROOT / "temp/mortgage-statement-borrowing" / f"t0-dynamic-binding-{stamp}"
@@ -927,6 +1230,7 @@ def main() -> None:
         P3 = importlib.util.module_from_spec(p3spec)
         p3spec.loader.exec_module(P3)
         surface, acts, consumers = add_p3_consumers(surface, acts, P3)
+        shared_composition = add_shared_answer_candidate(surface, acts)
         # Supply the two new v51 inputs as explicit synthetic claims; neither
         # the SLI "is claimed" answer nor a default is used to infer them.
         acts = add_v51_explicit_answers(acts)
@@ -961,7 +1265,14 @@ def main() -> None:
             surface.member_dir / "demo.tax.2025.rule.mortgage-borrowing-readiness.json",
             surface.member_dir / "demo.tax.2025.rule.f1098-inclusion-integrity.json",
             surface.member_dir / "tax.us.2025.rule.f1098-line8a.v3.json",
-            surface.member_dir / f"{P2.BRIDGE_RULE_PREFIX}.principal-ceiling-status.json"]
+            surface.member_dir / f"{P2.BRIDGE_RULE_PREFIX}.principal-ceiling-status.json",
+            surface.member_dir / "rule.f1098-residence-interest-reason.v4.json",
+            surface.member_dir / "demo.tax.2025.rule.effective-proceeds-use.json",
+            surface.member_dir / f"{P2.BRIDGE_BUNDLE_ID}.v1.json"]
+        for rule_id in shared_composition["testedComposition"]["rules"]:
+            retain_paths.append(surface.member_dir / ("rule.f1098-residence-interest-reason.v4.json"
+                if rule_id == "tax.us.2025.rule.f1098-residence-interest-reason"
+                else f"{rule_id}.json"))
         for path in retain_paths:
             shutil.copy2(path, retained / path.name)
         (out / "synthetic-seed-acts.json").write_text(json.dumps(acts, indent=2, sort_keys=True) + "\n", encoding="utf-8")
@@ -971,7 +1282,8 @@ def main() -> None:
                                    "dynamicAccount": dynamic,
                                    "P3Consumers": consumers, "retainedCandidateHashes": summary_hashes,
                                    "syntheticSuppliedActs": "synthetic-seed-acts.json",
-                                   "selectedCases": list(args.case)}
+                                   "sharedAnswerComposition": shared_composition,
+                                   "selectedCases": list(selected)}
         candidate_package = read(surface.member_dir / f"package.core-calculations.{T0_PACKAGE_VERSION}.json")
         preserved_member_ids = {"tax.us.2025.rule.form1040-standard-deduction",
                                 "tax.us.2025.rule.form1040-line16",
@@ -997,8 +1309,9 @@ def main() -> None:
         import packages.derivation.live_session as live_session
         overlay.install(projection, live, live_session)
         case_summaries = []
-        for case_id in args.case:
-            case_acts, mutation = lifecycle_case_acts(acts, case_id)
+        for case_id in selected:
+            case_acts, mutation = (shared_answer_case_acts(acts, case_id) if args.answer_case
+                                   else lifecycle_case_acts(acts, case_id))
             case_resolution = resolve_production_package(case_acts,
                 run_scope=P2.RUN_SCOPE, scope_user=P2.SCOPE_USER,
                 workspace_revision=len(case_acts), surface=surface, schemas=DerivationSchemas())
@@ -1058,7 +1371,8 @@ def main() -> None:
             case_summaries.append(case_summary)
         summary.update({"outcome": "resolved", "candidatePackage": T0_PACKAGE_VERSION,
             "presentationAdapter": {"path": str(adapter_path.relative_to(ROOT)), "sha256": overlay_sha256},
-            "cases": case_summaries, "stage": "four-outcome-lifecycle-coordinator-cases"})
+            "cases": case_summaries, "stage": ("shared-answer-discriminator-coordinator-cases" if args.answer_case
+                else "four-outcome-lifecycle-coordinator-cases")})
         write(out / "declaration-check.json", summary)
         print(json.dumps(summary, indent=2, sort_keys=True))
 

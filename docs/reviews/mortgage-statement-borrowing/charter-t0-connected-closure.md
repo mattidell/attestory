@@ -235,6 +235,36 @@ result. Return this increment before A/B cross-account, late-link/correction,
 and explicit exit experiments. Those remain required subsequent cases, not
 deferred out of scope or silently claimed by this first discriminator.
 
+### Explicit-exit discriminator
+
+The proceeds-use composition has five saved coordinator observations, with
+generic disagreement blocking and no runtime claim for the other four shared
+propositions. Preserve those results. Next test explicit account exit:
+
+| State after the explicit action | Expected observation |
+| --- | --- |
+| One current report A, independently sufficient local answers retained | Current connected root, links/end-outcomes, shared answers and ceiling for the confirmed account/year have ended; A's original local reason and amount can run without recreating a link or shared claim. |
+| Two current reports A/B, local answers retained | No connected sum and no singleton shortcut; save the actual unsupported/unresolved result and preserve both sources. |
+
+First stage the specified retractions by exact current fact types/keys. Keep
+source reports, their local answers/evidence, the existing family closure,
+opaque identity and independent return-wide other-debt answer. Generic
+ActLog/batch/currency mechanics may be exercised in the disposable harness,
+but do not call this a production mortgage exit recorder. Label any assembled
+before/after state honestly. Show actual remaining current claims and saved
+consumer output; old output must remain unchanged.
+
+The experimental v59 report-reason successor now requires linked effective
+proceeds. That is not evidence that the unlinked incumbent singleton still
+works: trace this prerequisite before execution. Use the existing declared
+normalization/route mechanisms to preserve a single reason/amount producer,
+not an unconditional connected prerequisite, a second overlapping publisher,
+or a hand-supplied reason. A no-account saved model must not fabricate shared
+support or infer a property/borrowing identity from names. Keep the measured
+empty/orphan integrity distinction intact. No engine/schema or production
+edits; same assigned probe/results/contract. Return these two cases before
+the later cross-account, uncertainty and late-link/correction increment.
+
 ## Context Capsule
 
 - Source ref HEAD, resolved and checked at launch; branch

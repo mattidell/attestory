@@ -161,6 +161,27 @@ current behavior. Historical helper defaults and observations stay intact.
 
 ## Context Capsule
 
+### Interim measured-evidence checkpoint
+
+On explicit Foreman continuation, inspect the committed foundation and first
+shared/local proceeds experiment before the remaining restored-work tests.
+This is a delta in the same connected independent review, not production
+acceptance. Explicit exit, other four runtime propositions, cross-account and
+late-link/correction evidence remain open; do not report those acknowledged
+limits as newly discovered defects or grant full Track 0 readiness.
+
+Check whether the claimed observations actually hold: exact local/shared
+identity and category mapping, producer scheduling before derived marker
+counts, no count-of-unresolved-as-favorable, actual consumed lineage in the
+saved model, order-independent disagreement, and local support after shared
+retraction. Inspect the declaration graph and admission rather than infer
+these from a result number. Test only a specific disputed claim, no suite or
+reruns of passing cases for reassurance. Identify any defect that would make
+the next exit/remaining checks build on false evidence, or any unsupported
+contract claim, and the smallest correction. Append a concise checkpoint to
+the existing review record. Final connected-design disposition follows the
+remaining cases, not this interim checkpoint.
+
 ### P3 continuation object and bounded review
 
 On Foreman continuation, review the committed P3 connected contract,

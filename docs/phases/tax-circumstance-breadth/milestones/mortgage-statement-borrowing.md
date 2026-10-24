@@ -3,7 +3,7 @@
   "version": 1,
   "phase": "Tax Circumstance Breadth",
   "topic": "mortgage-statement-borrowing",
-  "status": "Core-v51 foundation lifecycle cases now have saved experimental results. Designing the owner-restored explicit account exit and suitable borrowing-wide answers before connected review. No production built.",
+  "status": "Proceeds-use shared/local composition has saved experimental results; other four shared propositions are declaration-only. Explicit exit and remaining identity/lifecycle checks follow. No production built.",
   "scope": [
     "extend the existing ordinary mortgage account to a bounded same-borrowing multiple-report case",
     "preserve report amounts, loan-level circumstances and their separate correction lifecycles",
@@ -334,6 +334,20 @@ coexistence rules are not selected by this scope change; derive them from
 the propositions and evidence. Refinancing, independent-loan aggregation,
 allocation and the higher grandfathered debt limit remain excluded, not
 silently restored as "deferred work".
+
+The first proceeds-use composition now has five saved coordinator cases:
+shared-only with local absent, agreeing answers, disagreement in both assertion
+orders, and shared retraction with independent local support retained. The
+three supported cases publish line8a $11,000 and line12e $15,750; both
+disagreements block. Their current explanation is generic `DEPENDENCY_INVALID`,
+not a specific disagreement account. All five shared types are admitted, but
+only proceeds-use is consumed in this experiment. See the current
+[T0 results](mortgage-statement-borrowing-evidence/t0-dynamic-binding-results.md).
+The raw states are supplied; no production recorder or shared-answer lifecycle
+is claimed. Next test explicit exit with one and two remaining reports, plus
+cross-account isolation, uncertainty and changed shared support. A linked-only
+effective-answer producer cannot silently become a prerequisite of the old
+unlinked singleton's reason calculation.
 
 ### Open evidence and next action
 

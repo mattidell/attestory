@@ -404,3 +404,61 @@ and ordinary line12e v3 is
 Raw supplied acts and the complete disposable package are retained with each
 run. These are candidate content/coordinator/presentation observations only;
 they do not establish recorder lifecycle behavior or production adoption.
+
+## Core v51 shared-versus-local proceeds discriminator (provisional)
+
+The candidate package at
+`temp/mortgage-statement-borrowing/t0-dynamic-binding-20261022T194245Z`
+resolved from the adopted core v51 / published-packages v49 / source release
+v49, preserving the adopted standard-deduction v3 and line13b v2 members. The
+disposable package is core v59, registry p59, release v9. Its package hash is
+`d2ccbde75f0f7e311519e91af81b75a281a739f6055f1fdae52ea8195759ba3a`; registry
+hash is `8f35723d54e531bb79ba908453f1652e299f6fa5d98904e13db93cadfa64afd2`;
+release hash is `6a88edd3fc5b7ae858068f6c120f0fa77cbdb1ff5c0f4f2b8501ae8e91fddd3b`.
+The shared proceeds declaration is
+`demo.tax.2025.mortgage.shared-proceeds-use`; the local source is the existing
+v2 `tax.us.2025.f1098.what-the-money-paid-for`. Both retain distinct fact
+categories and borrowing/year versus payer/statement/year identity. The
+effective-use consumer joins their exact keyed numeric presence/count
+intermediates and then the v4 residence-interest reason rule consumes that
+effective category. The T0-only display adapter source hash is
+`b03c4a891f9e5bedb2a33fc34ea6881c284236480343ba736cca4756a9b77aab`.
+
+The coordinator ran five supplied synthetic after-states (not recorder
+lifecycle observations):
+
+| Case | Observed result |
+| --- | --- |
+| Shared answer, local answer absent | Effective-use and both report-local reason/link-support results published. The saved report A reason chain names the shared fact as its proceeds answer. Line8a published $11,000; line12e published $15,750. |
+| Local and shared answers agree | Effective-use, report-local reason/link-support results published; line8a $11,000 and line12e $15,750. |
+| Conflicting answers, local assertion first | Effective-use blocked with `DEPENDENCY_INVALID` for both report links; line8a then blocked on missing `same-borrowing-ready`, and line12e blocked downstream. No amount was published. |
+| Conflicting answers, shared assertion first | Same observed `DEPENDENCY_INVALID` blocks and no favorable amount, despite reversed assertion order. |
+| Shared assertion ended, local answer remains current | Effective-use and both report-local reason/link-support results published; the surviving local assertion supplied the answer, and line8a $11,000 / line12e $15,750 published. |
+
+These are preliminary observations, not acceptance of the disagreement
+contract: the conflicting pair fails closed, but the current evidence records
+generic `DEPENDENCY_INVALID`, not a user-facing disagreement disposition or
+reason. The next review must decide whether this existing blocked result is
+adequate or whether a more explicit declared result is needed. The shared-ended
+case supports local fallback only for this supplied state; no contrary or
+uncertain applicable assertion was present. The suite of five shared fact
+declarations passed package resolution, but runtime consumption was exercised
+only for proceeds-use, not the other four propositions.
+
+Per-case durable coordinator-report / model / record SHA-256 values:
+
+| Case | Report | Model | Records |
+| --- | --- | --- | --- |
+| shared answer, local absent | `ceea4fe2992caf37de384c985a50725b397d1ce28fd152de167fbb29f0adc01c` | `f2ec2153435645188640558007c666f6685ade003fec3212a0ba51a5d5c2380f` | `f63db2d6b1eda43e44d9be661368b7d52c746ebdd8b2b46374866a66903a71a1` |
+| answers agree | `ddc481935efbf5d900edc7bef543c91290d380ea8ca424e3a7b4ebd1f32ea8c4` | `6ff171e43a6855d0427373908b0b38eb292868b55dbc507464cafa534d7139df` | `f778fb41f89a5479a7978062530f333fab36ec30ef4e11a4c4ae6556551e4bea` |
+| conflict, local first | `2eb7b946068e010e26b1766c7d4d7d1b1f24a4ccab8cc796e7d510130e868f6f` | `5a53bad698f1c589cb84751e133bd5f787a6e1ab436a8e01f546c89cb4fde9ac` | `b3407e5e3adedfc7d2bd657deaaad41d5aff142580a0e46dd235dce5a5cb068b` |
+| conflict, shared first | `625f19f385dad16e01ec126c163f83e2919238405e26618df07a17fb694b605f` | `1f6bb03778789e0fb325902c477cd769c635caac7630311d35f301a10bb88015` | `4f3ee0952e819e6bb4ee87d8b08c1732314087b586772ec71e25b64cfe3de98d` |
+| shared ended, local remains | `42a78c5bcf948ef6c50b0b1a44993a4b182c7675754a6acb085b613f5dc3719a` | `624fa7cffa7fc46c8bb3acce02b629e106f9994674cca4b5d88c6e5dcf6eb55a` | `94bcdb8f6cb31894c9b6c6b33d4edfd77ccafb966aea5ed965b1248c65e2507d` |
+
+The candidate's five raw shared answer types were admitted, but no execution is
+claimed for them beyond the proceeds-use type. The generated declarations,
+rule bundle, supplied acts, saved coordinator reports/models and adapter are
+retained in the ignored run directory above. This is a disposable composition
+and presentation experiment only; it does not establish production recorder,
+reader, or tax-model acceptance. Cross-account disagreement, late-link and
+explicit clear-account cases remain untested.

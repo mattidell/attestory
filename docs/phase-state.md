@@ -5,7 +5,7 @@
   "topic": "mortgage-statement-borrowing",
   "active_plan": "docs/phases/tax-circumstance-breadth/milestones/mortgage-statement-borrowing.md",
   "milestone_state": "track-0",
-  "status": "Core-v51 foundation lifecycle cases now have saved experimental results. Designing the owner-restored explicit account exit and suitable borrowing-wide answers before connected review. No production built.",
+  "status": "Proceeds-use shared/local composition has saved experimental results; other four shared propositions are declaration-only. Explicit exit and remaining identity/lifecycle checks follow. No production built.",
   "current_role": "Builder — Luna Track 0 connected contract consolidation",
   "current_prompt": "docs/reviews/mortgage-statement-borrowing/charter-t0-connected-closure.md"
 }
@@ -90,8 +90,12 @@ borrowing-wide ordinary answers, ordered after the report-local foundation.
 Design their scope and current-state effects before implementation; do not
 reinterpret old answers or equate withdrawal with clear-account. The current
 core-v51 supported pair publishes line8a $11,000 and line12e $15,750, with
-explicit new dependent/Schedule 1-A fixture answers. The restored design
-increment is next. Visible group rendering,
+explicit new dependent/Schedule 1-A fixture answers.
+The first proceeds-use shared/local experiment now saves the supported
+shared-only, agreeing and shared-ended/local-current results, and blocks
+disagreement in both assertion orders. Its conflict explanation remains
+generic; only proceeds-use has runtime evidence. Explicit exit and the
+remaining identity/lifecycle checks are next. Visible group rendering,
 production recording/routing and connected correction/withdrawal are unbuilt.
 The actual no-report compatibility path is line8a inapplicable, separate
 Schedule A total zero and the existing no-statement line12e route.
