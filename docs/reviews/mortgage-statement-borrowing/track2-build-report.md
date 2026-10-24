@@ -83,6 +83,18 @@ finding; A's finding and reason remain absent and no group amount is saved.
 These cases show tested consumer and report-key boundaries, not correction or
 withdrawal behavior.
 
+One corrected shared cannot-tell proceeds claim is now replaced through the
+durable recorder by bought-the-home; both effective findings pin the new
+current shared finding, exclude its predecessor, and are pinned by their
+qualified report reasons. Withdrawing that shared proceeds answer leaves the
+two independently recorded local proceeds answers eligible: the amount remains
+$25,500, and a transitive walk through actual published disposition pins
+connects each local finding to its report reason. The saved projection currently
+omits local-only fallback publications from effectiveAnswers; this does not
+change the calculated result, but Track 3's reader should associate exact
+published symbols from declared rule outputs and structured subject keys rather
+than relying only on inclusion-pin joins.
+
 Verified so far:
 
 - v54 validates against the current content corpus and retains the v53 input
@@ -120,15 +132,18 @@ Verified so far:
 Track 2 remains open. The shared-only amount, all five `cannot-tell` refusals,
 singleton compatibility, bounded contrary/disagreement cases, the supported
 Schedule A/line12e consumer, one missing-boundary attachment refusal, and
-unlinked-report/cross-fill boundaries above are demonstrated. Correction,
-withdrawal and clear behavior, unrelated-borrowing cross-fill refusal, the
+unlinked-report/cross-fill boundaries, one current shared correction, and one
+shared-answer withdrawal with independently supported local fallback above
+are demonstrated. Link withdrawal and clear behavior, unrelated-borrowing cross-fill refusal, the
 remaining independent refusal cases, and lifecycle cases remain unverified.
 This checkpoint does not claim complete Track 2 acceptance, return
 authorization, or a complete return.
 
 ## Focused commands
 
-- `python3 -m pytest -q -o cache_dir=<temporary-cache-dir> tests/test_mortgage_borrowing_calculation.py` — 19 passed (2026-10-24).
+- `python3 -m pytest -q -o cache_dir=<temporary-cache-dir> tests/test_mortgage_borrowing_calculation.py` — 19 passed before the added correction/withdrawal cases.
+- The saved Schedule A citation lineage case passed after asserting both Form 1098 Box 1 finding IDs in attachment citation sites.
+- The shared correction and withdrawal-with-local-fallback cases passed through the real recorder and coordinator.
 - `python3 -m mypy --cache-dir=<temporary-cache-dir> packages tests` — no issues in 332 source files.
 - `python3 tools/envelope_scan.py --verify` and `git diff --check` — passed.
 
