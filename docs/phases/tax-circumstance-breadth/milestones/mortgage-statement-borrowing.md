@@ -3,7 +3,7 @@
   "version": 1,
   "phase": "Tax Circumstance Breadth",
   "topic": "mortgage-statement-borrowing",
-  "status": "Track 1 durable recording is built and Foreman-reviewed. Track 2 builds the connected calculation and minimum saved group projector; visible interaction and full lifecycle integration follow.",
+  "status": "Track 1 is complete. Track 2 mappings, saved projection and consumer preparation are committed; the connected reason/readiness/sole line8a chain is still unbuilt and is the next implementation increment.",
   "scope": [
     "extend the existing ordinary mortgage account to a bounded same-borrowing multiple-report case",
     "preserve report amounts, loan-level circumstances and their separate correction lifecycles",

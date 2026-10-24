@@ -1,5 +1,37 @@
 # Track 2 — Calculate the connected reports and save their support
 
+## Current implementation increment
+
+Resume from `e1e46a10` or a legitimate descendant. Admission/mapping and
+saved-projection work is committed, but the connected reason/readiness chain
+and sole line8a collector are **not built**. The successor consumers in
+core v55 / registry v53 / release v53 are preparation, not a completed amount.
+
+The next builder's first actions are:
+
+1. Read the current citizens and the reviewed T0 declarations. Write the
+   minimum connected chain: exact account ceiling, per-report outcome and
+   five effective answers into the reason, per-link numeric support, account
+   coverage/readiness, current route selection, and the sole authorized
+   line8a collector. Use the demonstrated content operators; do not redesign
+   the engine or spend this increment on presentation wording.
+2. Execute one supported two-report case through actual recording and the
+   coordinator; obtain the full amount and its saved actual support. Close
+   its ordering/key-scope failures before enlarging the case set. Commit the
+   coherent calculation increment and report what it actually demonstrates.
+3. Continue with the acceptance table below: independent refusal, legacy/
+   empty, correction/withdrawal/clear and downstream attachment cases. The
+   unit is complete only when those obligations hold, not when a partial
+   checkpoint is documented. A real charter-stop finding still returns.
+
+Core v55 and its registry/release are **this milestone's unmerged work in
+progress**. Complete that candidate and update its new checksum chain rather
+than allocate another package version for each implementation increment.
+Do not change the ratified v53 core/v51 registry/release, prior v54/v52
+checkpoint bytes, any published schema, or an accepted ADR. Curation will
+publish the reproducible completed result, not advertise incomplete
+intermediate packages as usable routes.
+
 ## Context Capsule
 
 - Source ref: `HEAD`; resolve its launch SHA and verify against Git.

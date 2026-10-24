@@ -5,7 +5,7 @@
   "topic": "mortgage-statement-borrowing",
   "active_plan": "docs/phases/tax-circumstance-breadth/milestones/mortgage-statement-borrowing.md",
   "milestone_state": "track-2",
-  "status": "Track 1 recording is built and Foreman-reviewed. Track 2 adopts the connected calculation and minimum saved group projection; visible interaction and final lifecycle demonstration follow.",
+  "status": "Track 1 is complete. Track 2 admission, mappings, saved projection and consumer preparation are committed, but the connected reason/readiness/line8a chain remains unbuilt. A fresh Luna increment now builds and executes that chain before more display refinement.",
   "current_role": "Builder — connected mortgage calculation",
   "current_prompt": "docs/reviews/mortgage-statement-borrowing/charter-2-calculation.md"
 }
@@ -16,6 +16,11 @@
 ## Current direction
 
 **Immediate next action:** execute the committed Track 2 calculation charter.
+Its current implementation increment starts from the partial work at
+`e1e46a10`: build the missing connected reason/readiness/collector and obtain
+a real supported amount, then complete the charter's refusal and compatibility
+cases. Mapping, projection and consumer-preparation tests are not evidence
+of that amount. This is unfinished planned work, not a new product decision.
 Track 1 is committed (`99d79d6f`, verification `1d791102`) and Foreman-reviewed:
 opaque mortgage references, distinct scoped claims, exact report answers and
 atomic clear are recordable. Focused recorder cases and repository mypy pass;
