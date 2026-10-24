@@ -4,6 +4,22 @@ Role: Builder. Action: implementation. Milestone: mortgage-statement-borrowing.
 Branch: milestone/mortgage-statement-borrowing-same-loan.
 Base: the committed charter on top of core v53 / registry v51 / release v51.
 
+## Context Capsule
+
+- Source ref: `HEAD`; initial launch commit `39e1b750`. Resolve and verify the
+  selected ref at entry; later charter-only descendants do not replace scope.
+- Exact object: the Track 1 recording changes after that launch commit.
+- Milestone key / primary branch: `mortgage-statement-borrowing` /
+  `milestone/mortgage-statement-borrowing-same-loan`.
+- Assigned paths: the implementation-boundary list below, exclusively.
+- Role: Builder; action: implementation.
+- Scope / evidence ceiling: durable recording, current support and atomic
+  recovery; no calculated deduction, package adoption or reader claim.
+- Stop conditions: the verification/stop section below.
+- Complete deep reads: the orientation block's implementation sources,
+  Builder seat, OWNER_MODEL, concurrent-work protocol, ADR index, exact
+  ADR-0073 for retraction, and the recorder/schema entry chain below.
+
 ## Purpose and actions
 
 Let a person identify one continuing mortgage borrowing, connect exact Forms
