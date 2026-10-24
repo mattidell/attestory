@@ -1,0 +1,128 @@
+{
+  "blocked": {
+    "code": "DEPENDENCY_ABSENT",
+    "missing": [
+      "tax.us.2025.eic.worksheet-a.line-2",
+      "tax.us.2025.eic.worksheet-a.line-3",
+      "tax.us.2025.eic.column.phaseout-threshold",
+      "tax.us.2025.eic.table-key"
+    ]
+  },
+  "citations": [
+    {
+      "id": "tax.us.2025.citation.form1040.eic-table",
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.citation.form1040.line-27-31",
+      "version": "v1"
+    }
+  ],
+  "id": "tax.us.2025.rule.eic-worksheet-a.line-6",
+  "notes": "Worksheet A line 6: smaller of line 2 and table lookup at line 3 when above phaseout threshold.",
+  "pins": [
+    {
+      "id": "tax.us.2025.eic.worksheet-a.line-2",
+      "origin": "assertion",
+      "role": "input",
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.eic.worksheet-a.line-3",
+      "origin": "assertion",
+      "role": "input",
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.eic.column.phaseout-threshold",
+      "origin": "assertion",
+      "role": "input",
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.eic.table-key",
+      "origin": "assertion",
+      "role": "input",
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.parameter.eic-table-2025",
+      "role": "parameter",
+      "version": "v2"
+    }
+  ],
+  "publishes": "tax.us.2025.eic.worksheet-a.line-6",
+  "requires": [
+    "tax.us.2025.eic.worksheet-a.line-2",
+    "tax.us.2025.eic.worksheet-a.line-3",
+    "tax.us.2025.eic.column.phaseout-threshold",
+    "tax.us.2025.eic.table-key"
+  ],
+  "role": "computation",
+  "schema": "rule-artifact.v14",
+  "scope": {
+    "family": "individual-income-tax",
+    "jurisdiction": "US-federal",
+    "tax_year": 2025
+  },
+  "value": {
+    "else": {
+      "else": {
+        "key": {
+          "name": "tax.us.2025.eic.table-key",
+          "op": "ref"
+        },
+        "op": "range_lookup",
+        "table_id": "tax.us.2025.parameter.eic-table-2025",
+        "value": {
+          "name": "tax.us.2025.eic.worksheet-a.line-3",
+          "op": "ref"
+        }
+      },
+      "op": "choose",
+      "then": {
+        "name": "tax.us.2025.eic.worksheet-a.line-2",
+        "op": "ref"
+      },
+      "when": {
+        "cmp": "lte",
+        "left": {
+          "name": "tax.us.2025.eic.worksheet-a.line-2",
+          "op": "ref"
+        },
+        "op": "compare",
+        "right": {
+          "key": {
+            "name": "tax.us.2025.eic.table-key",
+            "op": "ref"
+          },
+          "op": "range_lookup",
+          "table_id": "tax.us.2025.parameter.eic-table-2025",
+          "value": {
+            "name": "tax.us.2025.eic.worksheet-a.line-3",
+            "op": "ref"
+          }
+        }
+      }
+    },
+    "op": "choose",
+    "then": {
+      "name": "tax.us.2025.eic.worksheet-a.line-2",
+      "op": "ref"
+    },
+    "when": {
+      "cmp": "lt",
+      "left": {
+        "name": "tax.us.2025.eic.worksheet-a.line-3",
+        "op": "ref"
+      },
+      "op": "compare",
+      "right": {
+        "name": "tax.us.2025.eic.column.phaseout-threshold",
+        "op": "ref"
+      }
+    }
+  },
+  "version": "v2",
+  "when": true
+}

@@ -1,0 +1,79 @@
+{
+  "blocked": {
+    "code": "DEPENDENCY_ABSENT",
+    "missing": [
+      "tax.us.2025.eic.worksheet-a.line-1",
+      "tax.us.2025.eic.table-key"
+    ]
+  },
+  "citations": [
+    {
+      "id": "tax.us.2025.citation.form1040.eic-table",
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.citation.form1040.line-27-31",
+      "version": "v1"
+    }
+  ],
+  "id": "tax.us.2025.rule.eic-worksheet-a.line-2",
+  "notes": "Worksheet A line 2: the printed 2025 EIC Table row at line 1, keyed by table-key.",
+  "pins": [
+    {
+      "id": "tax.us.2025.eic.worksheet-a.line-1",
+      "origin": "assertion",
+      "role": "input",
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.eic.table-key",
+      "origin": "assertion",
+      "role": "input",
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.parameter.eic-table-2025",
+      "role": "parameter",
+      "version": "v2"
+    }
+  ],
+  "publishes": "tax.us.2025.eic.worksheet-a.line-2",
+  "requires": [
+    "tax.us.2025.eic.worksheet-a.line-1",
+    "tax.us.2025.eic.table-key"
+  ],
+  "role": "computation",
+  "schema": "rule-artifact.v14",
+  "scope": {
+    "family": "individual-income-tax",
+    "jurisdiction": "US-federal",
+    "tax_year": 2025
+  },
+  "value": {
+    "else": {
+      "key": {
+        "name": "tax.us.2025.eic.table-key",
+        "op": "ref"
+      },
+      "op": "range_lookup",
+      "table_id": "tax.us.2025.parameter.eic-table-2025",
+      "value": {
+        "name": "tax.us.2025.eic.worksheet-a.line-1",
+        "op": "ref"
+      }
+    },
+    "op": "choose",
+    "then": 0,
+    "when": {
+      "cmp": "lt",
+      "left": {
+        "name": "tax.us.2025.eic.worksheet-a.line-1",
+        "op": "ref"
+      },
+      "op": "compare",
+      "right": 1
+    }
+  },
+  "version": "v2",
+  "when": true
+}

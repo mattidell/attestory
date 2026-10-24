@@ -1,0 +1,125 @@
+{
+  "blocked": {
+    "code": "DEPENDENCY_ABSENT",
+    "missing": [
+      "tax.us.2025.eic.questions-required",
+      "tax.us.2025.eic.investment-income",
+      "tax.us.2025.eic.worksheet-a.line-1",
+      "tax.us.2025.eic.worksheet-a.line-3",
+      "tax.us.2025.eic.column.completed",
+      "tax.us.2025.eic.status-class",
+      "tax.us.2025.eic.column-count",
+      "tax.us.2025.eic.no-unsupported-situations"
+    ]
+  },
+  "citations": [{"id": "tax.us.2025.citation.form1040.line-27-31", "version": "v1"}],
+  "id": "tax.us.2025.rule.eic-answer.no-unsupported-situations",
+  "notes": "Unsupported situations answer check.",
+  "pins": [
+    {"id": "tax.us.2025.eic.questions-required", "origin": "assertion", "role": "input", "version": "v1"},
+    {"id": "tax.us.2025.eic.investment-income", "origin": "assertion", "role": "input", "version": "v1"},
+    {"id": "tax.us.2025.eic.worksheet-a.line-1", "origin": "assertion", "role": "input", "version": "v1"},
+    {"id": "tax.us.2025.eic.worksheet-a.line-3", "origin": "assertion", "role": "input", "version": "v1"},
+    {"id": "tax.us.2025.eic.column.completed", "origin": "assertion", "role": "input", "version": "v1"},
+    {"id": "tax.us.2025.eic.status-class", "origin": "assertion", "role": "input", "version": "v1"},
+    {"id": "tax.us.2025.eic.column-count", "origin": "assertion", "role": "input", "version": "v1"},
+    {"id": "tax.us.2025.parameter.eic-2025", "role": "parameter", "version": "v1"}
+  ],
+  "publishes": "tax.us.2025.eic.answer.no-unsupported-situations",
+  "requires": [
+    "tax.us.2025.eic.questions-required",
+    "tax.us.2025.eic.investment-income",
+    "tax.us.2025.eic.worksheet-a.line-1",
+    "tax.us.2025.eic.worksheet-a.line-3",
+    "tax.us.2025.eic.column.completed",
+    "tax.us.2025.eic.status-class",
+    "tax.us.2025.eic.column-count"
+  ],
+  "role": "computation",
+  "schema": "rule-artifact.v14",
+  "scope": {"family": "individual-income-tax", "jurisdiction": "US-federal", "tax_year": 2025},
+  "value": {
+    "else": 1,
+    "op": "choose",
+    "then": {
+      "else": 1,
+      "op": "choose",
+      "then": {"code": "DEPENDENCY_INVALID", "op": "block"},
+      "when": {
+        "args": [
+          {
+            "condition": true,
+            "members": [{"name": "tax.us.2025.eic.no-unsupported-situations", "op": "ref"}],
+            "op": "conditional_dependency_set"
+          },
+          {
+            "cmp": "eq",
+            "left": {"name": "tax.us.2025.eic.no-unsupported-situations", "op": "ref"},
+            "op": "categorical_compare",
+            "right": {
+              "fact_type": {"id": "tax.us.2025.eic.no-unsupported-situations", "version": "v1"},
+              "op": "category_literal",
+              "value": "no"
+            }
+          }
+        ],
+        "op": "all"
+      }
+    },
+    "when": {
+      "args": [
+        {"cmp": "eq", "left": {"name": "tax.us.2025.eic.questions-required", "op": "ref"}, "op": "compare", "right": 1},
+        {
+          "cmp": "gt",
+          "left": {"name": "tax.us.2025.eic.investment-income", "op": "ref"},
+          "op": "compare",
+          "right": {"key": "investment_income_limit", "op": "parameter", "parameter_id": "tax.us.2025.parameter.eic-2025"}
+        },
+        {
+          "args": [
+            {
+              "cmp": "gte",
+              "left": {"name": "tax.us.2025.eic.worksheet-a.line-1", "op": "ref"},
+              "op": "compare",
+              "right": {"key": "largest_completed", "op": "parameter", "parameter_id": "tax.us.2025.parameter.eic-2025"}
+            },
+            {
+              "cmp": "lt",
+              "left": {"name": "tax.us.2025.eic.worksheet-a.line-3", "op": "ref"},
+              "op": "compare",
+              "right": {"key": "largest_completed", "op": "parameter", "parameter_id": "tax.us.2025.parameter.eic-2025"}
+            }
+          ],
+          "op": "all"
+        },
+        {
+          "args": [
+            {
+              "args": [
+                {"cmp": "gt", "left": {"name": "tax.us.2025.eic.column-count", "op": "ref"}, "op": "compare", "right": 0},
+                {"cmp": "ne", "left": {"name": "tax.us.2025.eic.status-class", "op": "ref"}, "op": "compare", "right": 0}
+              ],
+              "op": "any"
+            },
+            {
+              "cmp": "gte",
+              "left": {"name": "tax.us.2025.eic.worksheet-a.line-1", "op": "ref"},
+              "op": "compare",
+              "right": {"name": "tax.us.2025.eic.column.completed", "op": "ref"}
+            },
+            {
+              "cmp": "lt",
+              "left": {"name": "tax.us.2025.eic.worksheet-a.line-3", "op": "ref"},
+              "op": "compare",
+              "right": {"name": "tax.us.2025.eic.column.completed", "op": "ref"}
+            }
+          ],
+          "op": "all"
+        }
+      ],
+      "op": "any"
+    }
+  },
+  "version": "v2",
+  "when": true
+}

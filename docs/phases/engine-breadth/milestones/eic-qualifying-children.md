@@ -3,7 +3,7 @@
   "version": 1,
   "phase": "Engine Breadth",
   "topic": "eic-qualifying-children",
-  "status": "P0 complete; contract settled. Track 1 builds the qualifying-child roster, the per-child chain and the child columns on core v54.",
+  "status": "Track 1b complete: the credit with one, two, or three or more qualifying children on core v54. Track 2 adds saved presentations.",
   "scope": [
     "compute the 2025 earned income credit with one, two, or three or more qualifying children, as successor content",
     "record each qualifying child as a small set of per-child answers whose meaning matches the rules that read them",

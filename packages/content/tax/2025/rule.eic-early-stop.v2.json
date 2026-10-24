@@ -1,0 +1,123 @@
+{
+  "blocked": {"code": "DEPENDENCY_ABSENT", "missing": []},
+  "citations": [{"id": "tax.us.2025.citation.form1040.line-27-31", "version": "v1"}],
+  "id": "tax.us.2025.rule.eic-early-stop",
+  "notes": "Early stop check: investment income, largest completed, 0-child status 0, or column completed ceiling.",
+  "pins": [
+    {"id": "tax.us.2025.eic.investment-income", "origin": "assertion", "role": "input", "version": "v1"},
+    {"id": "tax.us.2025.eic.worksheet-a.line-1", "origin": "assertion", "role": "input", "version": "v1"},
+    {"id": "tax.us.2025.eic.worksheet-a.line-3", "origin": "assertion", "role": "input", "version": "v1"},
+    {"id": "tax.us.2025.eic.status-class", "origin": "assertion", "role": "input", "version": "v1"},
+    {"id": "tax.us.2025.eic.column.completed", "origin": "assertion", "role": "input", "version": "v1"},
+    {"id": "tax.us.2025.eic.column-count", "origin": "assertion", "role": "input", "version": "v1"},
+    {"id": "tax.us.2025.eic.answer.no-unsupported-situations", "origin": "assertion", "role": "input", "version": "v1"},
+    {"id": "tax.us.2025.parameter.eic-2025", "role": "parameter", "version": "v1"}
+  ],
+  "publishes": "tax.us.2025.eic.early-stop",
+  "requires": [
+    "tax.us.2025.eic.investment-income",
+    "tax.us.2025.eic.worksheet-a.line-1",
+    "tax.us.2025.eic.worksheet-a.line-3",
+    "tax.us.2025.eic.status-class",
+    "tax.us.2025.eic.column.completed",
+    "tax.us.2025.eic.column-count",
+    "tax.us.2025.eic.answer.no-unsupported-situations"
+  ],
+  "role": "computation",
+  "schema": "rule-artifact.v14",
+  "scope": {"family": "individual-income-tax", "jurisdiction": "US-federal", "tax_year": 2025},
+  "value": {
+    "else": {
+      "else": {
+        "else": {
+          "else": {
+            "else": {
+              "else": 0,
+              "op": "choose",
+              "then": {
+                "else": {"code": "DEPENDENCY_INVALID", "op": "block"},
+                "op": "choose",
+                "then": 1,
+                "when": {
+                  "cmp": "eq",
+                  "left": {"name": "tax.us.2025.eic.answer.no-unsupported-situations", "op": "ref"},
+                  "op": "compare",
+                  "right": 1
+                }
+              },
+              "when": {
+                "cmp": "gte",
+                "left": {"name": "tax.us.2025.eic.worksheet-a.line-1", "op": "ref"},
+                "op": "compare",
+                "right": {"name": "tax.us.2025.eic.column.completed", "op": "ref"}
+              }
+            },
+            "op": "choose",
+            "then": 1,
+            "when": {
+              "cmp": "gte",
+              "left": {"name": "tax.us.2025.eic.worksheet-a.line-3", "op": "ref"},
+              "op": "compare",
+              "right": {"name": "tax.us.2025.eic.column.completed", "op": "ref"}
+            }
+          },
+          "op": "choose",
+          "then": 1,
+          "when": {
+            "args": [
+              {"cmp": "eq", "left": {"name": "tax.us.2025.eic.column-count", "op": "ref"}, "op": "compare", "right": 0},
+              {"cmp": "eq", "left": {"name": "tax.us.2025.eic.status-class", "op": "ref"}, "op": "compare", "right": 0}
+            ],
+            "op": "all"
+          }
+        },
+        "op": "choose",
+        "then": {
+          "else": {"code": "DEPENDENCY_INVALID", "op": "block"},
+          "op": "choose",
+          "then": 1,
+          "when": {
+            "cmp": "eq",
+            "left": {"name": "tax.us.2025.eic.answer.no-unsupported-situations", "op": "ref"},
+            "op": "compare",
+            "right": 1
+          }
+        },
+        "when": {
+          "cmp": "gte",
+          "left": {"name": "tax.us.2025.eic.worksheet-a.line-1", "op": "ref"},
+          "op": "compare",
+          "right": {"key": "largest_completed", "op": "parameter", "parameter_id": "tax.us.2025.parameter.eic-2025"}
+        }
+      },
+      "op": "choose",
+      "then": 1,
+      "when": {
+        "cmp": "gte",
+        "left": {"name": "tax.us.2025.eic.worksheet-a.line-3", "op": "ref"},
+        "op": "compare",
+        "right": {"key": "largest_completed", "op": "parameter", "parameter_id": "tax.us.2025.parameter.eic-2025"}
+      }
+    },
+    "op": "choose",
+    "then": {
+      "else": {"code": "DEPENDENCY_INVALID", "op": "block"},
+      "op": "choose",
+      "then": 1,
+      "when": {
+        "cmp": "eq",
+        "left": {"name": "tax.us.2025.eic.answer.no-unsupported-situations", "op": "ref"},
+        "op": "compare",
+        "right": 1
+      }
+    },
+    "when": {
+      "cmp": "gt",
+      "left": {"name": "tax.us.2025.eic.investment-income", "op": "ref"},
+      "op": "compare",
+      "right": {"key": "investment_income_limit", "op": "parameter", "parameter_id": "tax.us.2025.parameter.eic-2025"}
+    }
+  },
+  "version": "v2",
+  "when": true
+}

@@ -1,0 +1,86 @@
+{
+  "blocked": {
+    "code": "DEPENDENCY_ABSENT",
+    "missing": [
+      "tax.us.2025.eic.early-stop",
+      "tax.us.2025.eic.gate-result",
+      "tax.us.2025.eic.answer.no-unsupported-situations"
+    ]
+  },
+  "citations": [
+    {
+      "id": "tax.us.2025.citation.form1040.line-27-31",
+      "version": "v1"
+    }
+  ],
+  "id": "tax.us.2025.rule.eic-eligibility",
+  "notes": "EIC eligibility result: $0 if early stop, else gate-result.",
+  "pins": [
+    {
+      "id": "tax.us.2025.eic.early-stop",
+      "origin": "assertion",
+      "role": "input",
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.eic.gate-result",
+      "origin": "assertion",
+      "role": "input",
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.eic.answer.no-unsupported-situations",
+      "origin": "assertion",
+      "role": "input",
+      "version": "v1"
+    }
+  ],
+  "publishes": "tax.us.2025.eic.eligibility-result",
+  "requires": [
+    "tax.us.2025.eic.early-stop",
+    "tax.us.2025.eic.gate-result",
+    "tax.us.2025.eic.answer.no-unsupported-situations"
+  ],
+  "role": "computation",
+  "schema": "rule-artifact.v14",
+  "scope": {
+    "family": "individual-income-tax",
+    "jurisdiction": "US-federal",
+    "tax_year": 2025
+  },
+  "value": {
+    "else": {
+      "else": {
+        "code": "DEPENDENCY_INVALID",
+        "op": "block"
+      },
+      "op": "choose",
+      "then": {
+        "name": "tax.us.2025.eic.gate-result",
+        "op": "ref"
+      },
+      "when": {
+        "cmp": "eq",
+        "left": {
+          "name": "tax.us.2025.eic.answer.no-unsupported-situations",
+          "op": "ref"
+        },
+        "op": "compare",
+        "right": 1
+      }
+    },
+    "op": "choose",
+    "then": 0,
+    "when": {
+      "cmp": "eq",
+      "left": {
+        "name": "tax.us.2025.eic.early-stop",
+        "op": "ref"
+      },
+      "op": "compare",
+      "right": 1
+    }
+  },
+  "version": "v2",
+  "when": true
+}
