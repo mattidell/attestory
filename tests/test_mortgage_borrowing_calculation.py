@@ -264,6 +264,12 @@ class MortgageBorrowingPackageTests(unittest.TestCase):
         self.assertEqual([item["reportedInterest"]["value"] for item in report_rows], [22000.0, 3500.0])
         self.assertEqual(len(explanation["line8aDispositions"]), 1)
         self.assertEqual(explanation["line8aDispositions"][0]["artifact_id"], "tax.us.2025.rule.f1098-line8a")
+        self.assertEqual(explanation["line8aFindings"], [])
+        local_types = {
+            "tax.us.2025.f1098.filing-unit-owns-home", "tax.us.2025.f1098.shared-main-home",
+            "tax.us.2025.f1098.home-is-collateral", "tax.us.2025.f1098.paid-the-interest",
+        }
+        self.assertTrue(local_types <= {answer["factType"] for answer in report_rows[1]["localAnswers"]})
         self.assertIsNone(report_rows[0]["reasonChain"])
         self.assertIsNotNone(report_rows[1]["reasonChain"])
         self.assertTrue({local_ids[f"1:{question}"] for question in LOCAL_FACTS} <=

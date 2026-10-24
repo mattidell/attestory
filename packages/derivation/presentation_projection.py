@@ -2512,6 +2512,10 @@ _MORTGAGE_REPORT_LINK_TYPES = {
     "tax.us.2025.f1098.borrowing-withdrawn": "withdrawn",
 }
 _MORTGAGE_LOCAL_FACT_TYPES = frozenset({
+    "tax.us.2025.f1098.filing-unit-owns-home",
+    "tax.us.2025.f1098.shared-main-home",
+    "tax.us.2025.f1098.home-is-collateral",
+    "tax.us.2025.f1098.paid-the-interest",
     "tax.us.2025.f1098.owes-the-loan",
     "tax.us.2025.f1098.no-one-else-owes-it",
     "tax.us.2025.f1098.what-the-money-paid-for",
@@ -2698,6 +2702,15 @@ def _mortgage_borrowing_explanation(
     amounts = [dict(row) for row in dispositions if row.get("artifact_id") == "tax.us.2025.rule.f1098-line8a"]
     if (source_reports or orphan_relationships) and len(amounts) != 1:
         raise PresentationModelError(f"mortgage report projection requires one exact line-8a disposition, found {len(amounts)}")
+    # Preserve the actual published line-8a finding separately from the run
+    # disposition. A disposition says whether the producer ran; it is not the
+    # numeric result or its consumed provenance. Inapplicable/blocked results
+    # have no publication and are deliberately not filled from a subtotal.
+    line8a_findings = [
+        dict(publication.finding) for publication in publications
+        if isinstance(publication.finding, Mapping)
+        and publication.finding.get("symbol") == "tax.us.2025.schedule-a.line8a"
+    ]
     consumed_by_borrowing: dict[str, set[str]] = {}
     for relationship_ident, row in reports.items():
         consumed_by_borrowing.setdefault(relationship_ident[0], set()).update(
@@ -2711,6 +2724,7 @@ def _mortgage_borrowing_explanation(
         "reports": [row for _, row in sorted(source_reports.items())],
         "orphanRelationships": orphan_relationships,
         "line8aDispositions": amounts,
+        "line8aFindings": line8a_findings,
         "groups": [{"borrowing": borrowing, "recordedApplicableClaims": support.get(borrowing, {}),
                     "consumedFindingIds": sorted(consumed_by_borrowing.get(borrowing, set())),
                     "reportKeys": [{"payer": relationship_ident[1], "statement": relationship_ident[2], "taxYear": relationship_ident[3]}
@@ -2721,7 +2735,7 @@ def _mortgage_borrowing_explanation(
 
 def _validate_mortgage_borrowing_explanation(value: Any) -> None:
     path = "$.mortgageBorrowingExplanation"
-    _require_keys(value, frozenset({"schema", "runId", "workspaceRevision", "reports", "orphanRelationships", "line8aDispositions", "groups"}), frozenset(), path)
+    _require_keys(value, frozenset({"schema", "runId", "workspaceRevision", "reports", "orphanRelationships", "line8aDispositions", "line8aFindings", "groups"}), frozenset(), path)
     if value["schema"] != _MORTGAGE_BORROWING_EXPLANATION_VERSION or not isinstance(value["runId"], str) or not value["runId"]:
         raise PresentationModelError(f"{path}: unsupported schema or missing run id")
     if value["workspaceRevision"] is not None and (not isinstance(value["workspaceRevision"], int) or value["workspaceRevision"] < 0):
@@ -2787,6 +2801,16 @@ def _validate_mortgage_borrowing_explanation(value: Any) -> None:
         ap = f"{path}.line8aDispositions[{index}]"
         if not isinstance(amount, Mapping) or amount.get("artifact_id") != "tax.us.2025.rule.f1098-line8a":
             raise PresentationModelError(f"{ap}: not the exact adopted line-8a publisher")
+    line_findings = value["line8aFindings"]
+    if not isinstance(line_findings, list) or len(line_findings) > 1:
+        raise PresentationModelError(f"{path}.line8aFindings: expected at most one actual published line-8a finding")
+    for index, finding in enumerate(line_findings):
+        fp = f"{path}.line8aFindings[{index}]"
+        if (not isinstance(finding, Mapping) or finding.get("symbol") != "tax.us.2025.schedule-a.line8a"
+                or not isinstance(finding.get("id"), str) or not finding.get("id")
+                or not isinstance(finding.get("pins"), list)
+                or not isinstance(finding.get("value"), (int, float)) or isinstance(finding.get("value"), bool)):
+            raise PresentationModelError(f"{fp}: malformed actual numeric line-8a publication")
     seen_borrowings: set[str] = set()
     for index, group in enumerate(groups):
         gp = f"{path}.groups[{index}]"
@@ -4020,11 +4044,23 @@ def build_presentation_model(
         from packages.kernel.facts import facts_of
         current_ids = compute_currency(state).current_finding_ids
         current_facts = facts_of(state.fact_state)
+        # Only current route carriers mean the connected-account path is
+        # selected. Retained ceiling, shared answer, or other-debt findings
+        # are not route activity (notably after an explicit account clear).
+        mortgage_route_fact_types = {
+            "tax.us.2025.mortgage.continuing-borrowing",
+            "tax.us.2025.mortgage.continuing-borrowing-denied",
+            "tax.us.2025.mortgage.continuing-borrowing-unresolved",
+            "tax.us.2025.mortgage.continuing-borrowing-withdrawn",
+            "tax.us.2025.f1098.borrowing-inclusion",
+            "tax.us.2025.f1098.borrowing-denied",
+            "tax.us.2025.f1098.borrowing-unresolved",
+            "tax.us.2025.f1098.borrowing-withdrawn",
+        }
         mortgage_borrowing_activity = any(
             finding_id in current_ids
             and (fact := current_facts.get(str(finding.get("fact_id")))) is not None
-            and (fact.fact_type_id.startswith("tax.us.2025.mortgage.")
-                 or fact.fact_type_id.startswith("tax.us.2025.f1098.borrowing-"))
+            and fact.fact_type_id in mortgage_route_fact_types
             for finding_id, finding in state.findings.items()
         )
     mortgage_explanation = None if mortgage_borrowing_activity else _mortgage_interest_explanation(
