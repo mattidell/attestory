@@ -3,7 +3,7 @@
   "version": 1,
   "phase": "Tax Circumstance Breadth",
   "topic": "mortgage-statement-borrowing",
-  "status": "Sol accepts measured exit/completion evidence. Repair the other-debt referent and one historical-evidence attribution before the final recheck. Track 0 remains open.",
+  "status": "Other-debt excluded-borrowing scope and historical-evidence attribution are repaired. Sol rechecks those final findings before production. Track 0 remains open.",
   "scope": [
     "extend the existing ordinary mortgage account to a bounded same-borrowing multiple-report case",
     "preserve report amounts, loan-level circumstances and their separate correction lifecycles",

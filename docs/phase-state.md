@@ -5,9 +5,9 @@
   "topic": "mortgage-statement-borrowing",
   "active_plan": "docs/phases/tax-circumstance-breadth/milestones/mortgage-statement-borrowing.md",
   "milestone_state": "track-0",
-  "status": "Sol accepts measured exit/completion evidence. Repair the other-debt referent and one historical-evidence attribution before the final recheck. Track 0 remains open.",
-  "current_role": "Builder — Luna other-debt referent repair",
-  "current_prompt": "docs/reviews/mortgage-statement-borrowing/charter-t0-connected-closure.md"
+  "status": "Other-debt excluded-borrowing scope and historical-evidence attribution are repaired. Sol rechecks those final findings before production. Track 0 remains open.",
+  "current_role": "Reviewer — Sol other-debt contract recheck",
+  "current_prompt": "docs/reviews/mortgage-statement-borrowing/charter-p1-independent-review.md"
 }
 -->
 
