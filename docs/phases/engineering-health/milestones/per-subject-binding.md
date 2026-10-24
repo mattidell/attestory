@@ -3,7 +3,7 @@
   "version": 1,
   "phase": "Engineering Health",
   "topic": "per-subject-binding",
-  "status": "Planned. P0 reproduces how a per-subject rule can read another subject's answer, and finds which shipped rules are exposed.",
+  "status": "P0 complete; contract settled. Track 1 makes per-subject inputs bind only from their own subject in live.py and subject_dispatch.py.",
   "scope": [
     "make a per-subject rule read only its own subject's answers, or an explicitly return-level value, never another subject's",
     "find every shipped per-subject rule the defect can reach and show, with a synthetic case on its adopted package, whether it changes a result",
@@ -114,3 +114,54 @@ and named.
 - A required per-subject type with no rows in the run at all.
 - Each shipped family: two Form 1098 statements, two Form 1099-K statements,
   two student-loan statements, two EIC children.
+
+## P0 result
+
+P0 is complete ([evidence](per-subject-binding-evidence/p0-reproduce-and-inventory.md),
+probes beside it).
+
+- **The path.** The live coordinator marshals a per-subject answer as a
+  `SourceFact` only when its type is in the emission set
+  (`packages/derivation/live.py`, which discovers per-statement inputs only for
+  Form 1099-K). Any other per-subject answer becomes a run-wide input
+  (`packages/derivation/marshal.py` fallback), and
+  `packages/derivation/subject_dispatch.py` then binds it through
+  `run.symbols` / `run.symbol_pin` for every subject. So subject B is
+  evaluated with subject A's answer, and its finding pins A's.
+- **Exposed shipped rule:** `tax.us.2025.rule.f1098-residence-interest-reason`
+  v1 (core v44) and v2 (core v45 through v54), whose 11 per-statement
+  circumstance answers take that path.
+- **Effect today: a wrong finding, contained.** With two Form 1098
+  statements on core v54, where only the first has circumstance answers, the
+  second statement's reason publishes as qualified and pins the first
+  statement's nine answers. The Foreman checked the return level: Form 1098
+  line 8a blocks with `MULTIPLE_F1098_OUT_OF_SCOPE`, so no Schedule A or
+  Form 1040 amount is wrong. Lifting the one-statement limit (PR #216's
+  purpose) would turn this into a wrong deduction.
+- **The EIC child chain, the student-loan rules and the Form 1099-K rules are
+  not exposed:** each binds per-subject answers as a subject, a declared
+  join or an emitted per-statement input.
+- **Recommended fix (option A, no content change):** discover per-subject
+  inputs generally, not only for Form 1099-K, so a required answer whose fact
+  type shares the subject's identity keys is emitted per subject; and in
+  subject dispatch, bind such an answer only from the subject's own scope or
+  block `DEPENDENCY_ABSENT`, never from the run-wide environment. Return-level
+  inputs (no shared identity keys: filing status, parameters, return-level
+  answers) keep their run-wide binding. P0's uncommitted patch kept the fast
+  lane and the Form 1098 suite green and made both probes block correctly.
+
+## Contract
+
+1. **Option A in `live.py` and `subject_dispatch.py`.** A required input whose
+   fact type shares identity keys with the subject binds from the subject's
+   own scope or blocks; nothing that names a per-subject fact type is read
+   from the run-wide environment. Return-level inputs are unchanged.
+2. **No content, schema or rule-language change.** No package version moves.
+3. **Every golden on `main` stays byte-identical.** Any test that changes is
+   named in the PR with why its old expectation depended on the defect.
+4. **Regression tests that fail before the fix:** two Form 1098 statements
+   (the second's reason blocks), two EIC children in the flat shape, and a
+   per-subject rule reading a return-level input (still read). The full lane
+   and `mypy` run before ready, as substrate changes require.
+5. **PR #216 is told** that per-statement Form 1098 rules now bind per
+   statement, which its multiple-statement work depends on.

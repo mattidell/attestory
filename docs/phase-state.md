@@ -5,9 +5,9 @@
   "topic": "per-subject-binding",
   "active_plan": "docs/phases/engineering-health/milestones/per-subject-binding.md",
   "milestone_state": "planned",
-  "status": "Planned. P0 reproduces how a per-subject rule can read another subject's answer, and finds which shipped rules are exposed.",
-  "current_role": "Builder — P0 reproduce and inventory",
-  "current_prompt": "docs/reviews/per-subject-binding/charter-p0-reproduce-and-inventory.md"
+  "status": "P0 complete; contract settled. Track 1 makes per-subject inputs bind only from their own subject in live.py and subject_dispatch.py.",
+  "current_role": "Builder — Track 1 the fix",
+  "current_prompt": "docs/reviews/per-subject-binding/charter-t1-fix.md"
 }
 -->
 
