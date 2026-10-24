@@ -3,7 +3,7 @@
   "version": 1,
   "phase": "Engine Breadth",
   "topic": "eic-qualifying-children",
-  "status": "Track 1b complete: the credit with one, two, or three or more qualifying children on core v54. Track 2 adds saved presentations.",
+  "status": "Closed. On core v54 the 2025 earned income credit is computed with one, two, or three or more qualifying children, each counted from six per-child answers on a closed roster; a child another person may also claim blocks. Earlier packages keep their results.",
   "scope": [
     "compute the 2025 earned income credit with one, two, or three or more qualifying children, as successor content",
     "record each qualifying child as a small set of per-child answers whose meaning matches the rules that read them",
@@ -38,7 +38,8 @@
       "docs/phases/engine-breadth/milestones/eic-qualifying-children.md",
       "docs/phases/engine-breadth/coverage-frontier.md"
     ]
-  }
+  },
+  "retrospective": "docs/milestone-retrospectives/2026-10-24-eic-qualifying-children.md"
 }
 -->
 
@@ -203,3 +204,20 @@ children through the real coordinator and settles the model.
 - The flat per-subject shape's cross-subject binding, seen in the probe, is
   an engine finding for per-statement rules generally (the mortgage
   milestone uses them); it is not fixed here.
+
+## Execution record
+
+- P0: the probe on the real coordinator settled the per-child chain; the
+  Foreman wrote the model record after a rejected first attempt.
+- Track 1a: the 1, 2 and 3-or-more table columns, each matched band by band
+  and covered to its own completed amount.
+- Track 1b: the child roster, per-child chain, count, successor rules and
+  core v54. The Foreman reworded the separated-spouse question so an
+  unmarried head of household can answer it.
+- Track 2: two v54 saved presentations whose walk names each child's tests.
+
+## Outcome
+
+Closed 2026-10-24. On core v54 the 2025 earned income credit is computed
+with qualifying children. See the
+[retrospective](../../milestone-retrospectives/2026-10-24-eic-qualifying-children.md).

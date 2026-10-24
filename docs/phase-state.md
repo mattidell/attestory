@@ -2,10 +2,10 @@
 {
   "version": 1,
   "phase": "Engine Breadth",
-  "topic": "earned-income-credit",
-  "active_plan": "docs/phases/engine-breadth/milestones/earned-income-credit.md",
+  "topic": "eic-qualifying-children",
+  "active_plan": "docs/phases/engine-breadth/milestones/eic-qualifying-children.md",
   "milestone_state": "closed",
-  "status": "Closed. On core v53 a filer with no qualifying child gets the 2025 earned income credit on line 27a from EIC Worksheet A and the printed EIC Table. Investment income over $11,950 asks only the unsupported-situations answer. AGI at or above $68,675 asks no EIC question. W-2 box 1 at or above $68,675 while AGI is below it asks that answer. Otherwise the qualifying-child answer is asked; married filing separately and head of household with no qualifying child are $0. AGI at or above the 0-child completed amount then asks no further EIC question. Box 1 at or above that amount while AGI is below it asks the unsupported-situations answer. The remaining questions are asked only for single, married filing jointly, or qualifying surviving spouse when both box 1 and AGI are below that amount. Earlier packages keep their results.",
+  "status": "Closed. On core v54 the 2025 earned income credit is computed with one, two, or three or more qualifying children, each counted from six per-child answers on a closed roster; a child another person may also claim blocks. Earlier packages keep their results.",
   "current_role": "Foreman — select next milestone",
   "current_prompt": "docs/phases/engine-breadth/coverage-frontier.md"
 }
@@ -15,37 +15,29 @@
 
 ## Latest milestone
 
+**The 2025 Earned Income Credit with Qualifying Children is closed**
+([plan](phases/engine-breadth/milestones/eic-qualifying-children.md),
+[retrospective](milestone-retrospectives/2026-10-24-eic-qualifying-children.md)).
+On core v54 the credit uses the column for the number of children who meet
+every test and have a valid SSN, each counted from six answers on a closed
+child roster. A child another person may also claim blocks. The next
+milestone is unselected.
+
+## Previous return-calculation milestone
+
 **The 2025 Earned Income Credit is closed**
 ([plan](phases/engine-breadth/milestones/earned-income-credit.md),
 [retrospective](milestone-retrospectives/2026-10-23-earned-income-credit.md)).
 On core v53 a filer with no qualifying child gets the credit on line 27a,
-from EIC Worksheet A and the printed EIC Table. Investment income over
-$11,950 asks only the unsupported-situations answer. AGI at or above $68,675
-asks no EIC question. W-2 box 1 at or above $68,675 while AGI is below it
-asks that answer. Otherwise the qualifying-child answer is asked; married
-filing separately and head of household with no qualifying child are $0.
-AGI at or above the 0-child completed amount ($19,104 other, including
-qualifying surviving spouse; $26,214 joint) then asks no further EIC
-question, because Step 1 tests line 11b. Box 1 at or above that amount while
-AGI is below it asks the unsupported-situations answer, except where filing
-status alone stops the credit. The remaining
-questions are asked only for single, married filing jointly, or qualifying
-surviving spouse when both box 1 and AGI are below that amount. Qualifying
-children are the next slice. The next milestone is unselected.
-
-## Previous return-calculation milestone
-
-**Refund or Amount Owed: Finishing the 2025 Return is closed**
-([plan](phases/engine-breadth/milestones/refund-or-amount-owed.md),
-[retrospective](milestone-retrospectives/2026-10-22-refund-or-amount-owed.md)).
-On core calculations v52 every computed return continues from tax after
-credits to total tax, withholding (W-2 box 2; Forms 1099-INT, 1099-DIV and
-1099-R box 4), estimated payments and the refund or amount owed. A return
-without foreign tax no longer answers the direct foreign tax credit's
-questions.
+from EIC Worksheet A and the printed EIC Table. Each EIC question is asked
+only where it can change line 27a; the plan and README give each stop.
 
 ## Earlier return-calculation milestones
 
+- **Refund or Amount Owed: Finishing the 2025 Return**
+  ([plan](phases/engine-breadth/milestones/refund-or-amount-owed.md),
+  [retrospective](milestone-retrospectives/2026-10-22-refund-or-amount-owed.md)):
+  on core v52 every computed return ends in a refund or an amount owed.
 - **The 2025 Senior Deduction and a Dependent's Standard Deduction**
   ([plan](phases/engine-breadth/milestones/senior-and-dependent-deductions.md),
   [retrospective](milestone-retrospectives/2026-10-22-senior-and-dependent-deductions.md)):
@@ -139,10 +131,10 @@ loss). **Mortgage Interest and What the Loan Paid For** closed 2026-10-15
 
 ## Begin here
 
-- [Latest milestone plan](phases/engine-breadth/milestones/earned-income-credit.md):
+- [Latest milestone plan](phases/engine-breadth/milestones/eic-qualifying-children.md):
   P0, contract, tracks and outcome; and its
-  [retrospective](milestone-retrospectives/2026-10-23-earned-income-credit.md).
-- [Previous return-calculation plan](phases/engine-breadth/milestones/refund-or-amount-owed.md).
+  [retrospective](milestone-retrospectives/2026-10-24-eic-qualifying-children.md).
+- [Previous return-calculation plan](phases/engine-breadth/milestones/earned-income-credit.md).
 - [Coverage frontier](phases/engine-breadth/coverage-frontier.md): routes,
   their status and the candidates for the next milestone.
 - [Earlier return-calculation plan](phases/engine-breadth/milestones/tax-on-taxable-income.md).
@@ -168,10 +160,11 @@ loss). **Mortgage Interest and What the Loan Paid For** closed 2026-10-15
   second-home extension, mixed-use amounts, refinancing and the mortgage credit.
 - Form 1099-K, 1099-G and SSA-1099 withholding on line 25b; a 1099-INT,
   1099-DIV or 1099-R statement recorded without its box 4 answer; Form W-2G.
-- The earned income credit with qualifying children (per-child facts, the
-  separated-spouse rule, a refusal when another person can claim the same
-  child); Worksheet B, Form 8862, combat pay, the Medicaid waiver exclusion
+- The EIC tie-breaker rules (a child another person may also claim is
+  outside the class); Worksheet B, Form 8862, combat pay, the Medicaid waiver exclusion
   and Worksheet 1.
+- The Form 1098 flat per-subject rule shape can bind another subject's
+  answer (seen in the EIC child probe); the mortgage rules use it.
 - `explain()` re-expands shared inputs at each use: the line 27a walk is
   9,885 tree nodes over 218 findings.
 - Lines 28-31 refundable credits, Schedule 2 Part II taxes and the estimated
