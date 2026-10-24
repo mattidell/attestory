@@ -4,6 +4,7 @@ from __future__ import annotations
 import json
 import tempfile
 import unittest
+import pytest
 from pathlib import Path
 from typing import Any
 
@@ -23,6 +24,7 @@ from packages.tax.mortgage_borrowing_recording import (
 from tests.test_f1098_statement_review import _append_seed
 
 
+@pytest.mark.live(reason="Durable recorder stories exercise ActLog admission and recovery beyond the fast-lane budget")
 class MortgageBorrowingRecordingTests(unittest.TestCase):
     def setUp(self) -> None:
         self.temp = tempfile.TemporaryDirectory(prefix="mortgage-borrowing-recording-")
