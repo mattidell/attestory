@@ -1,13 +1,13 @@
 <!-- foreman-context-v1
 {
   "version": 1,
-  "phase": "Engine Breadth",
-  "topic": "eic-qualifying-children",
-  "active_plan": "docs/phases/engine-breadth/milestones/eic-qualifying-children.md",
-  "milestone_state": "closed",
-  "status": "Closed. On core v54 the 2025 earned income credit is computed with one, two, or three or more qualifying children, each counted from six per-child answers on a closed roster; a child another person may also claim blocks. Earlier packages keep their results.",
-  "current_role": "Foreman — select next milestone",
-  "current_prompt": "docs/phases/engine-breadth/coverage-frontier.md"
+  "phase": "Engineering Health",
+  "topic": "per-subject-binding",
+  "active_plan": "docs/phases/engineering-health/milestones/per-subject-binding.md",
+  "milestone_state": "planned",
+  "status": "Planned. P0 reproduces how a per-subject rule can read another subject's answer, and finds which shipped rules are exposed.",
+  "current_role": "Builder — P0 reproduce and inventory",
+  "current_prompt": "docs/reviews/per-subject-binding/charter-p0-reproduce-and-inventory.md"
 }
 -->
 
@@ -15,15 +15,22 @@
 
 ## Latest milestone
 
+**A Per-Subject Rule Reads Only Its Own Subject is planned**
+([plan](phases/engineering-health/milestones/per-subject-binding.md)). The EIC
+child probe showed a per-subject rule in the Form 1098 shape can be evaluated
+with another subject's answer. P0 reproduces the smallest failing case, names
+the code path, and checks every shipped per-subject rule for a wrong result.
+
+## Previous milestone
+
 **The 2025 Earned Income Credit with Qualifying Children is closed**
 ([plan](phases/engine-breadth/milestones/eic-qualifying-children.md),
 [retrospective](milestone-retrospectives/2026-10-24-eic-qualifying-children.md)).
 On core v54 the credit uses the column for the number of children who meet
 every test and have a valid SSN, each counted from six answers on a closed
-child roster. A child another person may also claim blocks. The next
-milestone is unselected.
+child roster. A child another person may also claim blocks.
 
-## Previous return-calculation milestone
+## Earlier return-calculation milestone
 
 **The 2025 Earned Income Credit is closed**
 ([plan](phases/engine-breadth/milestones/earned-income-credit.md),
