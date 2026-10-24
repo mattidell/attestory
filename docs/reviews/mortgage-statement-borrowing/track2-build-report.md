@@ -25,6 +25,20 @@ The saved-model implementation and recorder-backed integration tests are in
 `a82eec30` and `f27e82f8`. Consumer successors and the exact v55/v53 release
 chain are in `20c9e9b4`.
 
+The connected calculation increment is committed in `59c557ee`; its projector
+compatibility/basis repair is `11d012a6`. The real recorder and coordinator
+publish and save a supported two-report line8a finding of $25,500 (22,000 +
+3,500), with both Box 1 findings pinned and qualified report-local reason
+findings. A separate no-current-borrowing singleton publishes $22,000 and keeps
+the legacy mortgage explanation, including its actual basis and answer record.
+The v55 amount rule uses an exact v14 citizen with a route-aware declared basis:
+the Box 2-as-annual-balance shortcut is explicitly singleton-only; the
+connected route uses a separately recorded annual ceiling and retains the
+conservative $750,000/$375,000 cap while disclosing the unmodeled higher
+grandfathered limit. Categorical reader labels are resolved from exact
+producing-rule joined/category references; the old missing-basis error remains
+fail-loud, while numeric/date Box titles keep their established source path.
+
 ## Evidence and limits
 
 Verified so far:
@@ -49,26 +63,22 @@ Verified so far:
   complete return.
 - The extra unlinked third current report appears once and has no relationship;
   only the two explicitly linked reports are in the borrowing's report keys.
-- The new-package/no-borrowing-activity observation is only a blocked v54
-  candidate observation. It has not been compared with v53 and does not prove
-  incumbent singleton behavior.
+- The no-borrowing-activity singleton path in the v55 candidate publishes its
+  actual $22,000 amount and legacy explanation with basis/answers. This is
+  candidate-path evidence, not a claim that v55 is ratified or a substitute for
+  the full compatibility/refusal matrix.
 
-This is not a completed production calculation. Package v55 advances the
-line12e and Schedule A attachment consumers additively while preserving v54's
-line8a v2 producer. There is still no executable successor chain for connected
-reason/readiness or the single supported full-interest collector. Accordingly
-the tested amount is only the existing producer's blocked disposition; no
-connected deductible amount, Schedule A total, or attachment result is
-claimed. Outstanding Track 2 work is to add and validate that successor chain,
-preserve true-empty and legacy singleton routing, and run the chartered
-positive and independent refusal cases through the coordinator and reloaded
-saved model.
+Track 2 remains open. The first foundation amount is verified, but all five
+shared-answer-to-reason paths, the chartered independent refusal cases,
+Schedule A/line12e attachment behavior, and broader correction/lifecycle cases
+remain unverified. This checkpoint does not claim complete Track 2 acceptance,
+return authorization, or a complete return.
 
 ## Focused commands
 
-- `pytest tests/test_mortgage_borrowing_calculation.py tests/test_f1098_mortgage_interest_line12e_track2.py tests/derivation/test_package_validation.py` — 44 passed.
-- `pytest tests/test_envelope_hooks.py tests/test_kernel_fixtures.py` — 14 passed; `python3 tools/envelope_scan.py --range 52b688d5698ea6262008d0d4c212d49479d9e87b..HEAD` — clean.
-- `python3 -m mypy --cache-dir=<temporary-cache-dir>` — no issues in 385 source files.
+- `pytest tests/test_mortgage_borrowing_calculation.py tests/test_f1098_circumstances_explanation.py tests/test_f1098_production_review_repair.py` — 24 passed, 25 subtests passed.
+- `pytest tests/test_envelope_hooks.py` — 12 passed; the staged envelope scan and `git diff --check` were clean for the repair.
+- `python3 -m mypy --cache-dir=<temporary-cache-dir> packages tests` — no issues in 332 source files.
 
 The test run emitted a sandbox pytest-cache permission warning; it did not
 affect the test result. Full CI remains the gate of record, particularly
