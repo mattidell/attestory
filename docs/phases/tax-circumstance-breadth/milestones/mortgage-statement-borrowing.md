@@ -3,7 +3,7 @@
   "version": 1,
   "phase": "Tax Circumstance Breadth",
   "topic": "mortgage-statement-borrowing",
-  "status": "Core-v52 shared-answer repair has three saved coordinator results. Sol rechecks the changed completion and identity property before explicit exit. No production built.",
+  "status": "Sol closed the shared-answer completion finding. Luna now tests explicit account exit with one and two remaining reports. No production built.",
   "scope": [
     "extend the existing ordinary mortgage account to a bounded same-borrowing multiple-report case",
     "preserve report amounts, loan-level circumstances and their separate correction lifecycles",
@@ -388,8 +388,10 @@ A. The candidate preserves all 545 adopted member IDs, with four intended
 successors and no removed IDs. The results and exact pins are retained in the
 T0 account. This is a measured proceeds-use repair, not runtime proof for the
 other four shared propositions, a reference-runner execution, or production
-recording. Sol now rechecks this changed completion property; explicit exit
-follows if it holds.
+recording. Sol's focused recheck closed the completion finding and accepted
+the exact consumed lineage. Next test explicit exit with one and two remaining
+reports; the unlinked singleton must not depend on a linked-only effective
+answer, and two unconnected reports must not acquire a combined amount.
 
 ### Open evidence and next action
 
