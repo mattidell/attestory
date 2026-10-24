@@ -3,7 +3,7 @@
   "version": 1,
   "phase": "Tax Circumstance Breadth",
   "topic": "mortgage-statement-borrowing",
-  "status": "Track 1 is complete. Track 2 saves both report-local and all-five-shared two-report amounts and withholds each shared uncertainty. Complete the remaining polarity/order checks, independent refusals, downstream consumer and lifecycle cases before acceptance.",
+  "status": "Track 1 is complete. Track 2 saves the connected amount through line12e and Schedule A and exercises shared uncertainty, adverse categories and consumer-first ordering. Remaining independent refusals, separate-borrowing and correction/withdrawal/clear cases precede acceptance; visible interaction remains Track 3.",
   "scope": [
     "extend the existing ordinary mortgage account to a bounded same-borrowing multiple-report case",
     "preserve report amounts, loan-level circumstances and their separate correction lifecycles",
@@ -195,10 +195,15 @@ whole Track 2 contract. All five shared answers now reach each report's reason
 through their actual canonical effective findings, and the shared-only case
 also saves $25,500. Each shared `cannot-tell` withholds the amount despite
 favorable local answers. Disagreement is tested in both save orders for the
-obligation answer; the remaining adverse-category and hostile-order checks
-must not be inferred from that evidence. The remaining independent
-refusal, legacy/empty and lifecycle cases, downstream attachment and visible
-reader are not established by this positive case. The goal and selected
+obligation answer. Separate adverse co-obligor and credit-certificate cases
+now reach their actual reasons and withhold the amount; shared positive and
+uncertainty cases execute with consumers before producers. With explicit
+unrelated return answers, the connected amount reaches line12e and a
+published Schedule A attachment with matching tie-out; removing a required
+boundary answer blocks the attachment. A fully supported pair beside an
+extra unlinked report blocks both the amount and line12e. The remaining
+independent refusal, separate-borrowing, legacy/empty and lifecycle cases,
+and the visible reader are not established by these checks. The goal and selected
 scope are unchanged; implementation is being completed in smaller increments.
 
 The older base sections below describe retained evidence and earlier work

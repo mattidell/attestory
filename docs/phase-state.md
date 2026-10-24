@@ -5,7 +5,7 @@
   "topic": "mortgage-statement-borrowing",
   "active_plan": "docs/phases/tax-circumstance-breadth/milestones/mortgage-statement-borrowing.md",
   "milestone_state": "track-2",
-  "status": "Track 1 is complete. Track 2 calculates and saves the report-local and all-five-shared two-report cases; each shared uncertainty withholds the amount. Finish the remaining polarity/order checks, independent refusals, downstream consumers and lifecycle cases; Track 2 is not complete.",
+  "status": "Track 1 is complete. Track 2 saves the connected amount through line12e and Schedule A, and exercises shared uncertainty, adverse categories and consumer-first ordering. Complete the remaining independent refusals, cross-borrowing and correction/withdrawal/clear cases before accepting Track 2; visible interaction remains Track 3.",
   "current_role": "Builder — connected mortgage calculation",
   "current_prompt": "docs/reviews/mortgage-statement-borrowing/charter-2-calculation.md"
 }
@@ -21,10 +21,16 @@ of $22,000 and $3,500 and saves one actual line8a finding of $25,500 through
 the real coordinator. The all-five-shared positive now also saves $25,500,
 and each of five current
 uncertain shared answers withholds the amount despite favorable local answers.
-Next finish adverse-category and hostile-order checks, then the charter's
-independent refusal, downstream consumer, legacy/empty and lifecycle cases.
-This positive case does not establish those remaining paths, the attachment
-or a visible reader. Track 2 remains unfinished planned work, not a new
+Adverse co-obligor and credit-certificate answers reach their actual reasons
+and withhold the amount. The shared positive and uncertainty cases execute
+with consumers declared before their producers. With separately supplied
+current-return answers, the connected amount now reaches line12e and a
+published Schedule A attachment with matching tie-out; omitting a required
+boundary answer blocks the attachment. A fully supported pair plus an extra
+unlinked report blocks the amount and line12e. Continue the charter's
+remaining independent refusal, separate-borrowing and correction/withdrawal/
+clear cases. These checks do not establish the visible reader or complete
+lifecycle. Track 2 remains unfinished planned work, not a new
 product decision or an accepted complete calculation route.
 Track 1 is committed (`99d79d6f`, verification `1d791102`) and Foreman-reviewed:
 opaque mortgage references, distinct scoped claims, exact report answers and
