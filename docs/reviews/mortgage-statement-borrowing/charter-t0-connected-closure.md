@@ -103,18 +103,22 @@ review follows this connected return, not every attempted expression.
 
 ### Rebased package continuation
 
-PR #218 is now the ratified base: core v51, registry v49, release v49.
+PR #219 is now the ratified base: core v52, registry v50, release v50.
 Remaining T0 checks must preserve those adopted members and new parameter
-pins, including standard-deduction v3 and line13b v2. Prior v49/v50-derived
+pins, including standard-deduction v3, line13b v2, IRA vocabulary v3 and the
+direct foreign-tax-credit rule v2, plus the new withholding/refund members.
+The mortgage consumer pins and 26 input bindings are unchanged from v51.
+Prior v49/v50/v51-derived
 candidates remain historical evidence, not a
 current-base result. Keep its recorded observations and historical helper
 defaults. This continuation additionally permits a backward-compatible base
 and candidate-version selection argument on `p2-option-a-probe.py`'s disposable materialization
 helper, if needed by the T0 driver; do not change that helper's v49 default
-or rerun its old cases. Its default temporary v51 is now adopted: explicitly
+or rerun its old cases. Its default temporary v51 and T0's intermediate v52
+are now adopted: explicitly
 choose unused intermediate and final temporary versions at the T0 caller,
 and carry them consistently through files, registry, release and checksums.
-Do not overwrite adopted v51, mutate a global to hide the collision, or reserve
+Do not overwrite adopted versions, mutate a global to hide the collision, or reserve
 a production version. No production package or published schema edits.
 
 Supply explicit synthetic `standard-deduction.can-be-claimed-as-dependent`
@@ -123,14 +127,13 @@ The older SLI "is claimed" answer does not establish "can be claimed".
 Label these supplied, not defaulted or derived. Inspect conditional SSN
 dependencies rather than fabricating a favorable default.
 
-First build and validate the v51-derived candidate, then run its supported
-pair once because the consumer base changed. Inspect actual line8a, line12e
-and attachment dispositions, the new standard-deduction value and the exact
-package/rule/parameter pins. Continue with the two A/B ceiling cases, then the
-four connected-singleton/withdrawn/empty/orphan cases already chartered. The
-four-outcome status must actually be consumed before claiming its runtime
-semantics. Record each candidate's base and final checksums explicitly; do
-not identify historical synthetic package numbers with adopted versions.
+The v51 pair, A/B ceiling and four-outcome lifecycle observations are already
+recorded at their stated ceiling. Do not rerun them for reassurance. Build and
+validate the v52-derived composition repair below; its first successful case
+also checks the changed package base. Inspect actual mortgage/line12e/saved
+outcomes and retained adopted pins. Do not invent unrelated refund answers to
+claim a complete return. Record each base/final checksum explicitly; historical
+synthetic package numbers are not adopted versions.
 
 ### Repair the observed shared-support display
 
@@ -234,6 +237,38 @@ concrete constraint; no engine/schema expansion or manually supplied derived
 result. Return this increment before A/B cross-account, late-link/correction,
 and explicit exit experiments. Those remain required subsequent cases, not
 deferred out of scope or silently claimed by this first discriminator.
+
+### Repair the measured marker/count completion gap first
+
+Sol verified the retained v59 arithmetic and consumed lineage, but found that
+marker entrypoints do not make `link_count` wait for their producers. ADR 0076
+does not grant that implicit edge. Do not patch the engine or amend an accepted
+contract within this prototype assignment.
+
+Investigate the existing-first alternative: count the actual recorded local
+answer under its exact Box1 subject (three matching report keys), and the
+actual recorded shared answer under its continuing-borrowing subject (two
+matching borrowing/year keys). Equal-key joins can satisfy
+`joined_contains_subject`. A per-link effective-answer rule may then consume
+those numeric count publications through explicit `requires`, using its full
+four keys to select each side. Investigate identity-scoped categorical
+collection to select values without unconditionally requiring both optional
+raw inputs. This is a proposed repair to test, not a proved recipe. Never use
+a closed Box1 family as completeness authority for ordinary answers, or infer
+scope from identical values. Avoid counters over unresolved derived markers.
+
+Validate the complete candidate against core v52, with unused intermediate
+and final temporary versions. Test a consumer-before-counter declaration order:
+shared-only for A with B's local answer still present must remain supported;
+contrary local/shared answers must remain blocked. Add the isolation case where
+A lacks both its local and shared answer but unrelated borrowing B has a
+matching favorable shared value: A must remain unresolved and withhold the
+combined amount. Inspect exact consumed leaves and causes in saved outputs.
+Show that counters now count recorded sources, and that explicit predecessor
+resolution governs their consumer in both schedulers. No full suite or generic
+engine change. Return a small measured increment before the exit experiment;
+if existing content cannot express it, return the precise failed contract
+boundary rather than invent an execution guarantee.
 
 ### Explicit-exit discriminator
 

@@ -5,9 +5,9 @@
   "topic": "mortgage-statement-borrowing",
   "active_plan": "docs/phases/tax-circumstance-breadth/milestones/mortgage-statement-borrowing.md",
   "milestone_state": "track-0",
-  "status": "Sol verified the saved proceeds observations but found an undeclared marker/count completion dependency. Repair that composition before explicit exit; synchronize newly advanced main first. No production built.",
-  "current_role": "Reviewer — Sol connected measured-evidence checkpoint",
-  "current_prompt": "docs/reviews/mortgage-statement-borrowing/charter-p1-independent-review.md"
+  "status": "Rebased onto PR #219/core v52. Repair the shared-answer completion gap using existing content before explicit exit; prior measured evidence remains historical. No production built.",
+  "current_role": "Builder — Luna shared-answer completion repair",
+  "current_prompt": "docs/reviews/mortgage-statement-borrowing/charter-t0-connected-closure.md"
 }
 -->
 
@@ -95,13 +95,16 @@ The first proceeds-use shared/local experiment now saves the supported
 shared-only, agreeing and shared-ended/local-current results, and blocks
 disagreement in both assertion orders. Its conflict explanation remains
 generic; only proceeds-use has runtime evidence. Explicit exit and the
-remaining identity/lifecycle checks are next. Visible group rendering,
+remaining identity/lifecycle checks follow its completion repair.
 The independent Sol checkpoint accepts the five saved observations at their
 stated ceiling but finds no declared completion barrier for derived-marker
 counts. Repair that composition before using it for exit. The accepted
 scheduling contract does not grant an implicit `link_count.links` producer
-edge; do not silently change the engine contract. Main has advanced through
-PR #219/core v52 and must be synchronized before the next builder increment.
+edge; do not silently change the engine contract. The branch is now rebased
+onto PR #219/core v52, registry/release v50. Preserve all its adopted members
+and choose unused disposable versions rather than overwrite intermediate v52.
+Use the repaired shared-answer experiment for the changed-base check; older
+observations retain their original hashes and meaning.
 Visible group rendering,
 production recording/routing and connected correction/withdrawal are unbuilt.
 The actual no-report compatibility path is line8a inapplicable, separate

@@ -3,7 +3,7 @@
   "version": 1,
   "phase": "Tax Circumstance Breadth",
   "topic": "mortgage-statement-borrowing",
-  "status": "Sol verified the saved proceeds observations but found an undeclared marker/count completion dependency. Repair that composition before explicit exit; synchronize newly advanced main first. No production built.",
+  "status": "Rebased onto PR #219/core v52. Repair the shared-answer completion gap using existing content before explicit exit; prior measured evidence remains historical. No production built.",
   "scope": [
     "extend the existing ordinary mortgage account to a bounded same-borrowing multiple-report case",
     "preserve report amounts, loan-level circumstances and their separate correction lifecycles",
@@ -170,7 +170,24 @@ The high-level goal is unchanged: keep two reports about one continuing home
 borrowing separate while calculating and explaining their supported interest
 treatment. No production path or schema successor has been selected.
 
-### Current base after PR #218
+### Current base after PR #219
+
+The branch now includes core calculations **v52**, registry **v50**, release
+**v50** (refund or amount owed). It retains the 26 input bindings. Mortgage,
+standard-deduction and line12e members are unchanged from v51; the two changed
+existing pins are IRA vocabulary v3 and direct foreign-tax-credit rule v2,
+alongside the new withholding/payment/refund members. Preserve that complete
+adopted surface; do not downgrade it to simplify the mortgage fixture.
+
+Use the first repaired shared-answer case as the new-base consumer check,
+not an extra rerun of the unchanged historical set. Validate its full package,
+registry and release chain. Unrelated refund inputs may remain unresolved:
+this milestone does not claim that its mortgage fixtures are complete returns.
+Select unused temporary package versions explicitly: the previous intermediate
+v52 now collides with adopted core v52. Earlier v59 observations and hashes
+stay historical, not rewritten as current-base proof or version reservations.
+
+### Retained v51 base and fixture inputs
 
 The branch now includes the merged senior/dependent-deduction milestone:
 core calculations **v51**, registry **v49**, release **v49**. Mortgage

@@ -152,9 +152,10 @@ IMPLEMENTATION or REPAIR REQUIRED, naming any exact missing decision or
 evidence. A valid saved experimental model is not visible production UI.
 No production edits or full suite; re-execute only a disputed specific claim.
 
-The branch now includes PR #218: verify remaining candidate work is based on
-core v51 / registry v49 / release v49 and preserves the newer standard-
-deduction v3, line13b v2, line16 and preferential-base pins. Earlier disposable
+The branch now includes PR #219: verify remaining candidate work is based on
+core v52 / registry v50 / release v50 and preserves the newer standard-
+deduction v3, line13b v2, line16, preferential-base, IRA-v3 and FTC-v2 pins,
+plus the new withholding/refund members. Earlier disposable
 versions are not adopted packages. Check the current-base saved result
 rather than treating an older $15,000 standard-deduction observation as
 current behavior. Historical helper defaults and observations stay intact.
