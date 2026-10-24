@@ -120,6 +120,13 @@ and complete lifecycle demonstration. Preserve old v1 saved-model validation.
 - Add focused tests, e.g. `tests/test_mortgage_borrowing_calculation.py` and
   group-projection tests. Small synthetic test helpers are permitted; do not
   import ignored temp output or depend on retained scratch artifacts.
+- Bounded CI repair: `tests/test_mortgage_borrowing_recording.py` drives real
+  ActLog admission/recovery over a full synthetic workspace. CI run
+  `40100599953` measured all seven stories at 4.5–13.1 seconds and refused
+  them in the 3-second fast lane. Mark this class honestly `live` with that
+  integration reason; do not change its assertions, raise the budget, or
+  skip it from the full suite. Focused execution and the next quick CI check
+  verify this routing repair. No new production recorder change is authorized.
 - Build report: `docs/reviews/mortgage-statement-borrowing/track2-build-report.md`.
   The Foreman owns plan/status/review changes. Do not edit recorder behavior,
   runner/evaluator/marshal/kernel, schemas, HTML or offered review/UI here.
