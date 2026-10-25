@@ -1,0 +1,17 @@
+{
+  "description": "Required symbols that the latest core package's rule declares but no part of the rule reads. Each entry is a by-design or recorded over-declaration; the static check fails on any miss not listed here, and on any entry that no longer matches a miss. Source: required-versus-read P0 (docs/phases/engineering-health/milestones/required-versus-read-evidence/p0-measure.md).",
+  "entries": [
+    {
+      "rule_id": "tax.us.2025.rule.form1040-line16",
+      "version": "v6",
+      "symbol": "filing_status",
+      "reason": "Over-declared. The rule's expression reads filing status only through the worksheet rules whose results it reads, so the symbol appears in its runtime pins but not in its own expression. Recorded, not corrected; P0 found no hazard in this row."
+    },
+    {
+      "rule_id": "tax.us.2025.rule.form1040-line16",
+      "version": "v6",
+      "symbol": "tax.us.2025.income.taxable-income",
+      "reason": "Over-declared. The rule's expression reads taxable income only through the worksheet rules whose results it reads, so the symbol appears in its runtime pins but not in its own expression. Recorded, not corrected; P0 found no hazard in this row."
+    }
+  ]
+}
