@@ -1,0 +1,71 @@
+PATH-DEPENDENT SCAN: declared required inputs not read on a published finding's path
+dump dir: route
+matched to a rule evaluation: 27826
+published findings: 33631
+published with a rule pin but no matching pins_for record: 729
+published without a rule pin (input or default finding): 5076
+
+Rule versions with at least one absent required input. 'never read' = absent on every published finding of that rule in the run; 'path-dependent' = absent on some findings only.
+rule version | in latest core package | published findings | tests | findings with an absent input | never read (symbol: findings) | path-dependent (symbol: absent/findings)
+tax.us.2025.rule.dependents-worksheet-line-1@v1 | yes | 101 | 91 | 80 | - | spouse_blind: 80/101; spouse_over_65: 80/101
+tax.us.2025.rule.eic-answer.age-25-under-65@v2 | yes | 35 | 12 | 1 | - | tax.us.2025.eic.column-count: 1/35
+tax.us.2025.rule.eic-answer.main-home-in-us@v2 | yes | 35 | 12 | 1 | - | tax.us.2025.eic.column-count: 1/35
+tax.us.2025.rule.eic-answer.no-qualifying-child@v1 | no | 38 | 20 | 3 | - | tax.us.2025.eic.worksheet-a.line-1: 1/38; tax.us.2025.eic.worksheet-a.line-3: 3/38
+tax.us.2025.rule.eic-answer.no-unsupported-situations@v1 | no | 36 | 18 | 31 | - | tax.us.2025.eic.column.completed: 30/36; tax.us.2025.eic.investment-income: 25/36; tax.us.2025.eic.status-class: 27/36; tax.us.2025.eic.worksheet-a.line-1: 26/36; tax.us.2025.eic.worksheet-a.line-3: 30/36
+tax.us.2025.rule.eic-answer.no-unsupported-situations@v2 | yes | 35 | 12 | 35 | tax.us.2025.eic.status-class: 35 | tax.us.2025.eic.column-count: 34/35; tax.us.2025.eic.column.completed: 34/35; tax.us.2025.eic.investment-income: 34/35; tax.us.2025.eic.worksheet-a.line-1: 34/35; tax.us.2025.eic.worksheet-a.line-3: 34/35
+tax.us.2025.rule.eic-answer.not-claimable-as-dependent@v1 | no | 38 | 19 | 11 | - | tax.us.2025.eic.status-class: 11/38
+tax.us.2025.rule.eic-answer.not-claimable-as-dependent@v2 | yes | 35 | 12 | 29 | - | tax.us.2025.eic.column-count: 1/35; tax.us.2025.eic.status-class: 29/35
+tax.us.2025.rule.eic-answer.not-qualifying-child-of-another@v1 | no | 38 | 19 | 11 | - | tax.us.2025.eic.status-class: 11/38
+tax.us.2025.rule.eic-answer.not-qualifying-child-of-another@v2 | yes | 35 | 12 | 1 | - | tax.us.2025.eic.status-class: 1/35
+tax.us.2025.rule.eic-answer.separated-spouse@v1 | yes | 36 | 12 | 7 | - | tax.us.2025.eic.column-count: 1/36; tax.us.2025.eic.status-class: 7/36
+tax.us.2025.rule.eic-answer.spouse-valid-ssn@v1 | yes | 73 | 32 | 12 | - | tax.us.2025.eic.status-class: 12/73
+tax.us.2025.rule.eic-early-stop@v1 | no | 36 | 18 | 35 | - | tax.us.2025.eic.answer.no-unsupported-situations: 33/36; tax.us.2025.eic.column.completed: 6/36; tax.us.2025.eic.status-class: 3/36; tax.us.2025.eic.worksheet-a.line-1: 2/36; tax.us.2025.eic.worksheet-a.line-3: 1/36
+tax.us.2025.rule.eic-early-stop@v2 | yes | 35 | 12 | 35 | tax.us.2025.eic.answer.no-unsupported-situations: 35 | tax.us.2025.eic.column-count: 1/35; tax.us.2025.eic.column.completed: 1/35; tax.us.2025.eic.status-class: 29/35; tax.us.2025.eic.worksheet-a.line-1: 1/35
+tax.us.2025.rule.eic-eligibility@v1 | no | 41 | 18 | 41 | tax.us.2025.eic.answer.no-qualifying-child: 41 | tax.us.2025.eic.answer.no-unsupported-situations: 11/41; tax.us.2025.eic.gate-result: 11/41
+tax.us.2025.rule.eic-eligibility@v2 | yes | 36 | 12 | 1 | - | tax.us.2025.eic.answer.no-unsupported-situations: 1/36; tax.us.2025.eic.gate-result: 1/36
+tax.us.2025.rule.eic-gate-result@v1 | no | 41 | 18 | 7 | - | tax.us.2025.eic.answer.age-25-under-65: 2/41; tax.us.2025.eic.answer.main-home-in-us: 3/41; tax.us.2025.eic.answer.no-unsupported-situations: 7/41; tax.us.2025.eic.answer.not-claimable-as-dependent: 6/41; tax.us.2025.eic.answer.not-nonresident-alien: 1/41; tax.us.2025.eic.answer.not-qualifying-child-of-another: 5/41; tax.us.2025.eic.answer.spouse-valid-ssn: 4/41; tax.us.2025.eic.worksheet-a.line-6: 7/41
+tax.us.2025.rule.eic-gate-result@v2 | yes | 36 | 12 | 1 | - | tax.us.2025.eic.answer.age-25-under-65: 1/36; tax.us.2025.eic.answer.main-home-in-us: 1/36; tax.us.2025.eic.answer.no-unsupported-situations: 1/36; tax.us.2025.eic.answer.not-claimable-as-dependent: 1/36; tax.us.2025.eic.worksheet-a.line-6: 1/36
+tax.us.2025.rule.eic-questions-required@v1 | no | 38 | 20 | 6 | - | tax.us.2025.eic.answer.no-qualifying-child: 3/38; tax.us.2025.eic.column.completed: 6/38; tax.us.2025.eic.status-class: 3/38; tax.us.2025.eic.worksheet-a.line-1: 1/38; tax.us.2025.eic.worksheet-a.line-3: 3/38
+tax.us.2025.rule.eic-questions-required@v2 | yes | 35 | 12 | 29 | - | tax.us.2025.eic.column-count: 1/35; tax.us.2025.eic.column.completed: 1/35; tax.us.2025.eic.status-class: 29/35; tax.us.2025.eic.worksheet-a.line-3: 1/35
+tax.us.2025.rule.eic-worksheet-a.line-6@v1 | no | 39 | 21 | 17 | - | filing_status: 17/39
+tax.us.2025.rule.eic-worksheet-a.line-6@v2 | yes | 35 | 12 | 22 | - | tax.us.2025.eic.table-key: 22/35
+tax.us.2025.rule.f1098-line8a@v1 | no | 29 | 17 | 29 | - | filing_status: 15/29; tax.us.2025.f1098.box2-outstanding-principal: 15/29; tax.us.2025.f1098.box3-origination-date: 23/29; tax.us.2025.f1098.box9-number-of-properties: 9/29; tax.us.2025.f1098.lives-there-most-of-the-time: 15/29; tax.us.2025.f1098.loan-timing-relative-to-building-or-improving: 23/29; tax.us.2025.f1098.loan-timing-relative-to-purchase: 23/29; tax.us.2025.f1098.mortgage-credit-certificate-received: 15/29; tax.us.2025.f1098.no-one-else-owes-it: 15/29; tax.us.2025.f1098.owes-the-loan: 9/29; tax.us.2025.f1098.owns-the-home: 15/29; tax.us.2025.f1098.paid-the-interest: 5/29; tax.us.2025.f1098.this-is-the-original-loan: 9/29; tax.us.2025.f1098.what-the-money-paid-for: 9/29
+tax.us.2025.rule.f1098-line8a@v2 | yes | 6 | 4 | 6 | - | filing_status: 3/6; tax.us.2025.f1098.box2-outstanding-principal: 3/6; tax.us.2025.f1098.box3-origination-date: 5/6; tax.us.2025.f1098.box9-number-of-properties: 2/6; tax.us.2025.f1098.filing-unit-owns-home: 3/6; tax.us.2025.f1098.loan-timing-relative-to-building-or-improving: 5/6; tax.us.2025.f1098.loan-timing-relative-to-purchase: 5/6; tax.us.2025.f1098.mortgage-credit-certificate-received: 3/6; tax.us.2025.f1098.no-one-else-owes-it: 3/6; tax.us.2025.f1098.owes-the-loan: 2/6; tax.us.2025.f1098.paid-the-interest: 1/6; tax.us.2025.f1098.shared-main-home: 3/6; tax.us.2025.f1098.this-is-the-original-loan: 2/6; tax.us.2025.f1098.what-the-money-paid-for: 2/6
+tax.us.2025.rule.f1099b-covered-w-lt-adjustment-subtotal@v2 | yes | 252 | 249 | 252 | tax.us.2025.f1099b.covered-w-lt.member-validation: 252 | -
+tax.us.2025.rule.f1099b-covered-w-lt-basis-subtotal@v2 | yes | 252 | 249 | 252 | tax.us.2025.f1099b.covered-w-lt.member-validation: 252 | -
+tax.us.2025.rule.f1099b-covered-w-lt-proceeds-subtotal@v2 | yes | 252 | 249 | 252 | tax.us.2025.f1099b.covered-w-lt.member-validation: 252 | -
+tax.us.2025.rule.f1099b-covered-w-st-adjustment-subtotal@v2 | yes | 244 | 240 | 244 | tax.us.2025.f1099b.covered-w-st.member-validation: 244 | -
+tax.us.2025.rule.f1099b-covered-w-st-basis-subtotal@v2 | yes | 243 | 240 | 243 | tax.us.2025.f1099b.covered-w-st.member-validation: 243 | -
+tax.us.2025.rule.f1099b-covered-w-st-proceeds-subtotal@v2 | yes | 243 | 240 | 243 | tax.us.2025.f1099b.covered-w-st.member-validation: 243 | -
+tax.us.2025.rule.f1099k-statement-loss-reason@v3 | no | 37 | 32 | 3 | - | tax.us.2025.f1099k.adjusted-basis: 3/37; tax.us.2025.f1099k.amount-realized: 3/37; tax.us.2025.f1099k.net-proceeds: 3/37; tax.us.2025.f1099k.selling-expenses: 3/37
+tax.us.2025.rule.form1040-line16@v5 | no | 106 | 86 | 20 | - | tax.us.2025.f1099b.covered-lt-proceeds-subtotal: 20/106
+tax.us.2025.rule.form1040-line16@v6 | yes | 122 | 89 | 122 | filing_status: 122; tax.us.2025.income.taxable-income: 122; tax.us.2025.qdcg-worksheet.line-25: 122 | tax.us.2025.f1099b.covered-lt-proceeds-subtotal: 5/122
+tax.us.2025.rule.form1040-line7a@v3 | no | 15 | 14 | 15 | - | tax.us.2025.capital-gains.selected-preferential-base: 13/15; tax.us.2025.f1099b.covered-lt-proceeds-subtotal: 12/15; tax.us.2025.schedule-d.line-16: 2/15; tax.us.2025.schedule-d.line-21: 6/15
+tax.us.2025.rule.form1040-line7a@v4 | no | 24 | 21 | 24 | - | tax.us.2025.capital-gains.selected-preferential-base: 22/24; tax.us.2025.capital-loss-carryover.long-term: 19/24; tax.us.2025.capital-loss-carryover.short-term: 8/24; tax.us.2025.f1099b.covered-lt-proceeds-subtotal: 8/24; tax.us.2025.schedule-d.line-16: 2/24; tax.us.2025.schedule-d.line-21: 2/24
+tax.us.2025.rule.form1040-line7a@v5 | yes | 266 | 260 | 266 | - | tax.us.2025.capital-gains.selected-preferential-base: 21/266; tax.us.2025.capital-loss-carryover.long-term: 9/266; tax.us.2025.capital-loss-carryover.short-term: 8/266; tax.us.2025.f1099b.covered-lt-proceeds-subtotal: 6/266; tax.us.2025.schedule-d.line-16: 245/266; tax.us.2025.schedule-d.line-1b: 9/266; tax.us.2025.schedule-d.line-21: 248/266; tax.us.2025.schedule-d.line-8b: 20/266
+tax.us.2025.rule.form1040-standard-deduction@v1 | no | 246 | 241 | 240 | - | spouse_blind: 240/246; spouse_over_65: 240/246
+tax.us.2025.rule.form1040-standard-deduction@v2 | no | 6 | 3 | 4 | - | spouse_blind: 4/6; spouse_over_65: 4/6
+tax.us.2025.rule.form1040-standard-deduction@v3 | yes | 103 | 90 | 103 | - | tax.us.2025.dependents-worksheet.line3: 12/103; tax.us.2025.dependents-worksheet.line4b: 12/103; tax.us.2025.dependents-worksheet.line4c: 91/103
+tax.us.2025.rule.qdcg-worksheet.line-22@v1 | yes | 122 | 89 | 64 | - | filing_status: 57/122; rounding.convention: 64/122
+tax.us.2025.rule.qdcg-worksheet.line-24@v1 | yes | 122 | 89 | 64 | - | filing_status: 57/122; rounding.convention: 64/122
+tax.us.2025.rule.schedule-d-line1b@v2 | yes | 244 | 240 | 244 | tax.us.2025.f1099b.covered-w-st.member-validation: 244 | -
+tax.us.2025.rule.schedule-d-line21@v1 | yes | 314 | 304 | 256 | - | filing_status: 256/314
+tax.us.2025.rule.schedule-d-line8b@v2 | yes | 252 | 249 | 252 | tax.us.2025.f1099b.covered-w-lt.member-validation: 252 | -
+tax.us.2025.rule.schedule1a-part-v-line-36a@v1 | yes | 91 | 90 | 73 | - | filing_status: 71/91; tax.us.2025.schedule1a.line35-per-person-amount: 73/91
+tax.us.2025.rule.schedule1a-part-v-line-36b@v1 | yes | 91 | 91 | 87 | - | filing_status: 84/91; tax.us.2025.schedule1a.line35-per-person-amount: 87/91
+tax.us.2025.rule.schedule3-line1-direct-ftc@v1 | no | 2 | 2 | 2 | tax.us.2025.direct-ftc-scope.no-line17-schedule2-additional: 2; tax.us.2025.direct-ftc-scope.no-line19-ctc-odc: 2; tax.us.2025.direct-ftc-scope.no-sch3-line2: 2; tax.us.2025.direct-ftc-scope.no-sch3-line3: 2; tax.us.2025.direct-ftc-scope.no-sch3-line4: 2; tax.us.2025.direct-ftc-scope.no-sch3-line5: 2; tax.us.2025.direct-ftc-scope.no-sch3-line6: 2 | -
+tax.us.2025.rule.schedule3-line1-direct-ftc@v2 | yes | 87 | 58 | 86 | - | filing_status: 86/87
+tax.us.2025.rule.selected-preferential-base@v1 | no | 8 | 8 | 8 | - | tax.us.2025.dividends.2a-subtotal: 6/8; tax.us.2025.schedule-d-required.conclusion: 6/8; tax.us.2025.schedule-d.line-16: 2/8
+tax.us.2025.rule.selected-preferential-base@v2 | no | 15 | 14 | 15 | - | tax.us.2025.dividends.2a-subtotal: 13/15; tax.us.2025.f1099b.covered-lt-proceeds-subtotal: 12/15; tax.us.2025.schedule-d-required.conclusion: 13/15; tax.us.2025.schedule-d.line-16: 2/15
+tax.us.2025.rule.selected-preferential-base@v3 | no | 24 | 21 | 24 | - | tax.us.2025.capital-loss-carryover.long-term: 19/24; tax.us.2025.capital-loss-carryover.short-term: 8/24; tax.us.2025.dividends.2a-subtotal: 22/24; tax.us.2025.f1099b.covered-lt-proceeds-subtotal: 8/24; tax.us.2025.schedule-d-required.conclusion: 22/24; tax.us.2025.schedule-d.line-16: 2/24
+tax.us.2025.rule.selected-preferential-base@v4 | no | 170 | 167 | 170 | - | tax.us.2025.capital-loss-carryover.long-term: 5/170; tax.us.2025.capital-loss-carryover.short-term: 4/170; tax.us.2025.dividends.2a-subtotal: 17/170; tax.us.2025.f1099b.covered-lt-proceeds-subtotal: 2/170; tax.us.2025.schedule-d-required.conclusion: 17/170; tax.us.2025.schedule-d.line-16: 153/170; tax.us.2025.schedule-d.line-1b: 5/170; tax.us.2025.schedule-d.line-8b: 16/170
+tax.us.2025.rule.selected-preferential-base@v5 | yes | 95 | 93 | 95 | - | tax.us.2025.capital-loss-carryover.long-term: 3/95; tax.us.2025.capital-loss-carryover.short-term: 3/95; tax.us.2025.dividends.2a-subtotal: 3/95; tax.us.2025.f1099b.covered-lt-proceeds-subtotal: 3/95; tax.us.2025.schedule-d-required.conclusion: 3/95; tax.us.2025.schedule-d.line-15: 92/95; tax.us.2025.schedule-d.line-16: 92/95; tax.us.2025.schedule-d.line-1b: 3/95; tax.us.2025.schedule-d.line-8b: 3/95
+tax.us.2025.rule.sli-worksheet@v1 | no | 17 | 11 | 7 | - | filing_status: 6/17; rounding.convention: 6/17; tax.us.2025.income.total-income: 7/17; tax.us.2025.sli-worksheet.line1-total-interest-paid-subtotal: 7/17
+tax.us.2025.rule.ss-benefits-worksheet@v3 | yes | 219 | 216 | 219 | filing_status: 219; rounding.convention: 219; tax.us.2025.capital-gains.line7a-total: 219; tax.us.2025.dividends.ordinary-total: 219; tax.us.2025.income.additional-income: 219; tax.us.2025.interest.taxable-total: 219; tax.us.2025.ira.distributions.line4b: 219; tax.us.2025.social-security.line6a: 219; tax.us.2025.tax-exempt-interest.line2a-total: 219; tax.us.2025.wages.total-w2-box1: 219 | -
+tax.us.2025.schedule-a.line8a.rule@v1 | no | 20 | 20 | 20 | tax.us.2025.f1098.box11-other: 20; tax.us.2025.f1098.box3-origination-date: 20; tax.us.2025.f1098.box4-overpaid-refund: 20; tax.us.2025.f1098.box5-mortgage-insurance: 20; tax.us.2025.f1098.box6-points: 20; tax.us.2025.f1098.box9-number-of-properties: 20 | -
+tax.us.2025.schedule-a.line8a.rule@v2 | no | 7 | 7 | 7 | tax.us.2025.f1098.box11-other: 7; tax.us.2025.f1098.box3-origination-date: 7; tax.us.2025.f1098.box4-overpaid-refund: 7; tax.us.2025.f1098.box5-mortgage-insurance: 7; tax.us.2025.f1098.box6-points: 7; tax.us.2025.f1098.box9-number-of-properties: 7 | -
+
+rule versions published in the run: 233
+rule versions with an absent required input on at least one published finding: 57
+rule-symbol pairs absent on every published finding of their rule: 43
+rule-symbol pairs absent on some but not all published findings: 164
