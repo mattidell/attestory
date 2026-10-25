@@ -1,0 +1,81 @@
+STATIC SCAN: required symbols with no reading part of the rule
+scope: packages/content/tax/**/package.*.json; members with role=computation
+resolved by member id+version; rules without `requires` are counted separately
+
+family | package files | member rows | scanned rule versions | rule versions with hits | (package, rule) hit pairs
+core-calculations | 54 | 15706 | 323 | 5 | 318
+first-tax-slice | 1 | 1 | 0 | 0 | 0
+interest-slice | 1 | 19 | 5 | 0 | 0
+
+non-scanned member rows (role, schema): count
+  ('attachment-rule', 'attachment-rule.v1'): 4
+  ('attachment-rule', 'attachment-rule.v11'): 18
+  ('attachment-rule', 'attachment-rule.v2'): 6
+  ('attachment-rule', 'attachment-rule.v3'): 1
+  ('attachment-rule', 'attachment-rule.v4'): 81
+  ('attachment-rule', 'attachment-rule.v6'): 36
+  ('attachment-rule', 'attachment-rule.v8'): 46
+  ('checked-conclusion-binding', 'checked-conclusion-binding.v1'): 48
+  ('citation', 'citation.v1'): 2764
+  ('composition', 'taxable-interest-composition.v1'): 55
+  ('dividend-universe', 'dividend-universe.v1'): 3
+  ('dividend-universe', 'dividend-universe.v2'): 10
+  ('dividend-universe', 'dividend-universe.v3'): 4
+  ('dividend-universe', 'dividend-universe.v4'): 34
+  ('fact-type-bundle', 'bundle.v2'): 1856
+  ('field-mapping', 'rule-artifact.v2'): 53
+  ('field-mapping', None): 1
+  ('form-field', 'form-field.v2'): 285
+  ('form-field', 'form-field.v3'): 1405
+  ('migration-artifact', 'migration-artifact.v1'): 44
+  ('parameter', 'parameter-declaration.v1'): 706
+  ('parameter', 'quantity-vocabulary.v1'): 108
+  ('parameter', 'quantity-vocabulary.v10'): 34
+  ('parameter', 'quantity-vocabulary.v11'): 33
+  ('parameter', 'quantity-vocabulary.v12'): 28
+  ('parameter', 'quantity-vocabulary.v2'): 102
+  ('parameter', 'quantity-vocabulary.v3'): 48
+  ('parameter', 'quantity-vocabulary.v4'): 6
+  ('parameter', 'quantity-vocabulary.v5'): 164
+  ('parameter', 'quantity-vocabulary.v6'): 38
+  ('parameter', 'quantity-vocabulary.v7'): 222
+  ('parameter', 'quantity-vocabulary.v8'): 36
+  ('parameter', 'quantity-vocabulary.v9'): 35
+  ('parameter', 'role-canon.v1'): 53
+  ('source-closure-mapping', 'source-closure-mapping.v2'): 1484
+  ('source-family', 'source-family.v1'): 1300
+  ('source-family', 'source-family.v2'): 184
+unresolved computation members: 0
+
+LATEST PACKAGE tax.us.2025.package.core-calculations@v54: 2 hits, 1 distinct rule ids
+  tax.us.2025.rule.form1040-line16@v6 | requires filing_status | origin top | publishes tax.us.2025.tax.total-tax | packages/content/tax/2025/rule.form1040-line16.v6.json
+  tax.us.2025.rule.form1040-line16@v6 | requires tax.us.2025.income.taxable-income | origin top | publishes tax.us.2025.tax.total-tax | packages/content/tax/2025/rule.form1040-line16.v6.json
+
+LATEST PACKAGE tax.us.2025.package.first-tax-slice@v1: 0 hits, 0 distinct rule ids
+
+LATEST PACKAGE tax.us.2025.package.interest-slice@v1: 0 hits, 0 distinct rule ids
+
+DISTINCT HITS ACROSS ALL PACKAGE FILES (rule version, required symbol, origin): carried by package versions
+  tax.us.2025.rule.eic-eligibility@v1 | requires tax.us.2025.eic.answer.no-qualifying-child | origin top | 1 package rows: v53
+  tax.us.2025.rule.form1040-line16@v6 | requires filing_status | origin top | 5 package rows: v50, v51, v52, v53, v54
+  tax.us.2025.rule.form1040-line16@v6 | requires tax.us.2025.income.taxable-income | origin top | 5 package rows: v50, v51, v52, v53, v54
+  tax.us.2025.rule.schedule3-line1-direct-ftc@v1 | requires tax.us.2025.direct-ftc-scope.no-line17-schedule2-additional | origin top | 31 package rows: v21, v22, v23, v24, v25, v26, v27, v28, v29, v30, v31, v32, v33, v34, v35, v36, v37, v38, v39, v40, v41, v42, v43, v44, v45, v46, v47, v48, v49, v50, v51
+  tax.us.2025.rule.schedule3-line1-direct-ftc@v1 | requires tax.us.2025.direct-ftc-scope.no-line19-ctc-odc | origin top | 31 package rows: v21, v22, v23, v24, v25, v26, v27, v28, v29, v30, v31, v32, v33, v34, v35, v36, v37, v38, v39, v40, v41, v42, v43, v44, v45, v46, v47, v48, v49, v50, v51
+  tax.us.2025.rule.schedule3-line1-direct-ftc@v1 | requires tax.us.2025.direct-ftc-scope.no-sch3-line2 | origin top | 31 package rows: v21, v22, v23, v24, v25, v26, v27, v28, v29, v30, v31, v32, v33, v34, v35, v36, v37, v38, v39, v40, v41, v42, v43, v44, v45, v46, v47, v48, v49, v50, v51
+  tax.us.2025.rule.schedule3-line1-direct-ftc@v1 | requires tax.us.2025.direct-ftc-scope.no-sch3-line3 | origin top | 31 package rows: v21, v22, v23, v24, v25, v26, v27, v28, v29, v30, v31, v32, v33, v34, v35, v36, v37, v38, v39, v40, v41, v42, v43, v44, v45, v46, v47, v48, v49, v50, v51
+  tax.us.2025.rule.schedule3-line1-direct-ftc@v1 | requires tax.us.2025.direct-ftc-scope.no-sch3-line4 | origin top | 31 package rows: v21, v22, v23, v24, v25, v26, v27, v28, v29, v30, v31, v32, v33, v34, v35, v36, v37, v38, v39, v40, v41, v42, v43, v44, v45, v46, v47, v48, v49, v50, v51
+  tax.us.2025.rule.schedule3-line1-direct-ftc@v1 | requires tax.us.2025.direct-ftc-scope.no-sch3-line5 | origin top | 31 package rows: v21, v22, v23, v24, v25, v26, v27, v28, v29, v30, v31, v32, v33, v34, v35, v36, v37, v38, v39, v40, v41, v42, v43, v44, v45, v46, v47, v48, v49, v50, v51
+  tax.us.2025.rule.schedule3-line1-direct-ftc@v1 | requires tax.us.2025.direct-ftc-scope.no-sch3-line6 | origin top | 31 package rows: v21, v22, v23, v24, v25, v26, v27, v28, v29, v30, v31, v32, v33, v34, v35, v36, v37, v38, v39, v40, v41, v42, v43, v44, v45, v46, v47, v48, v49, v50, v51
+  tax.us.2025.schedule-a.line8a.rule@v1 | requires tax.us.2025.f1098.box11-other | origin top | 14 package rows: v29, v30, v31, v32, v33, v34, v35, v36, v37, v38, v39, v40, v41, v42
+  tax.us.2025.schedule-a.line8a.rule@v1 | requires tax.us.2025.f1098.box3-origination-date | origin top | 14 package rows: v29, v30, v31, v32, v33, v34, v35, v36, v37, v38, v39, v40, v41, v42
+  tax.us.2025.schedule-a.line8a.rule@v1 | requires tax.us.2025.f1098.box4-overpaid-refund | origin top | 14 package rows: v29, v30, v31, v32, v33, v34, v35, v36, v37, v38, v39, v40, v41, v42
+  tax.us.2025.schedule-a.line8a.rule@v1 | requires tax.us.2025.f1098.box5-mortgage-insurance | origin top | 14 package rows: v29, v30, v31, v32, v33, v34, v35, v36, v37, v38, v39, v40, v41, v42
+  tax.us.2025.schedule-a.line8a.rule@v1 | requires tax.us.2025.f1098.box6-points | origin top | 14 package rows: v29, v30, v31, v32, v33, v34, v35, v36, v37, v38, v39, v40, v41, v42
+  tax.us.2025.schedule-a.line8a.rule@v1 | requires tax.us.2025.f1098.box9-number-of-properties | origin top | 14 package rows: v29, v30, v31, v32, v33, v34, v35, v36, v37, v38, v39, v40, v41, v42
+  tax.us.2025.schedule-a.line8a.rule@v2 | requires tax.us.2025.f1098.box11-other | origin top | 1 package rows: v43
+  tax.us.2025.schedule-a.line8a.rule@v2 | requires tax.us.2025.f1098.box3-origination-date | origin top | 1 package rows: v43
+  tax.us.2025.schedule-a.line8a.rule@v2 | requires tax.us.2025.f1098.box4-overpaid-refund | origin top | 1 package rows: v43
+  tax.us.2025.schedule-a.line8a.rule@v2 | requires tax.us.2025.f1098.box5-mortgage-insurance | origin top | 1 package rows: v43
+  tax.us.2025.schedule-a.line8a.rule@v2 | requires tax.us.2025.f1098.box6-points | origin top | 1 package rows: v43
+  tax.us.2025.schedule-a.line8a.rule@v2 | requires tax.us.2025.f1098.box9-number-of-properties | origin top | 1 package rows: v43
+
