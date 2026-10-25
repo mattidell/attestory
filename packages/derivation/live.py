@@ -27,6 +27,7 @@ from packages.derivation.presentation_projection import PresentationModelError, 
 from packages.derivation.production_executor import execute_and_record_marshaled, execute_marshaled
 from packages.derivation.production_resolver import PublicationSurface, Refusal, resolve_production_package
 from packages.derivation.records import RecordStream
+from packages.derivation.subject_dispatch import distinguishing_identity_keys
 from packages.kernel.currency import CurrencyView
 from packages.kernel.currency import compute_currency
 from packages.kernel.findings import FindingState, project
@@ -397,10 +398,10 @@ def _resolved_run_material(graph: Any) -> _ResolvedRunMaterial:
             if name not in collect_names:
                 collect_names.append(name)
 
-    # Track 1 Increment B (Option B): bounded emission discovery for Form 1099-K
-    # per-statement inputs. Emits required raw inputs for subject-scoped rules as
-    # SourceFact rows so subject_dispatch can bind them directly by shared keys.
-    # Fail-closed: declaration mismatch raises TransportContractError.
+    # Track 1: Generalize per-subject input discovery. Emits required raw inputs
+    # for subject-scoped rules as SourceFact rows so subject_dispatch can bind
+    # them directly by shared keys, never from the run-wide environment.
+    # Form 1099-K preserves its explicit bounded fail-closed contract.
     binding_by_symbol = {
         b.get("symbol"): b
         for b in (graph.package.get("input_bindings") or [])
@@ -414,72 +415,105 @@ def _resolved_run_material(graph: Any) -> _ResolvedRunMaterial:
 
     for rule in rules:
         subj = rule.get("subject")
-        if not (
-            isinstance(subj, Mapping)
-            and subj.get("id") == F1099K_BOX1A_SUBJECT_ID
+        if not (isinstance(subj, Mapping) and "id" in subj):
+            continue
+
+        if (
+            subj.get("id") == F1099K_BOX1A_SUBJECT_ID
             and subj.get("version") == F1099K_BOX1A_SUBJECT_VERSION
         ):
+            for req_sym in rule.get("requires", []):
+                if not isinstance(req_sym, str):
+                    continue
+
+                binding = binding_by_symbol.get(req_sym)
+                if binding is None and req_sym not in F1099K_ALLOWED_PER_STATEMENT_INPUTS:
+                    continue
+
+                if req_sym not in F1099K_ALLOWED_PER_STATEMENT_INPUTS:
+                    raise TransportContractError(
+                        f"subject-scoped rule {rule.get('id')} requires input binding {req_sym!r} "
+                        f"outside allowed per-statement input set"
+                    )
+
+                if binding is None:
+                    raise TransportContractError(
+                        f"subject-scoped rule {rule.get('id')} requires allowed input {req_sym!r} "
+                        f"with no matching input binding in package"
+                    )
+
+                bound_ft = binding.get("fact_type")
+                if not isinstance(bound_ft, Mapping):
+                    raise TransportContractError(
+                        f"input binding for {req_sym!r} has malformed fact_type descriptor"
+                    )
+                if binding.get("symbol") != bound_ft.get("id"):
+                    raise TransportContractError(
+                        f"input binding for {req_sym!r} uses alias: symbol {binding.get('symbol')!r} "
+                        f"!= fact_type.id {bound_ft.get('id')!r}"
+                    )
+
+                if binding.get("mode") != "optional_default":
+                    raise TransportContractError(
+                        f"input binding for {req_sym!r} mode is {binding.get('mode')!r}, "
+                        f"expected 'optional_default'"
+                    )
+                if bound_ft.get("version") != "v1":
+                    raise TransportContractError(
+                        f"input binding for {req_sym!r} fact_type version is {bound_ft.get('version')!r}, "
+                        f"expected 'v1'"
+                    )
+
+                ft_decl = ft_by_id_version.get((bound_ft.get("id"), bound_ft.get("version")))
+                if ft_decl is None:
+                    raise TransportContractError(
+                        f"fact type declaration for {bound_ft.get('id')!r}@{bound_ft.get('version')!r} not found"
+                    )
+                decl_keys = tuple(
+                    k["name"] if isinstance(k, Mapping) and "name" in k else str(k)
+                    for k in (ft_decl.get("identity_keys") or ())
+                )
+                if decl_keys != F1099K_STATEMENT_IDENTITY_KEYS:
+                    raise TransportContractError(
+                        f"fact type {bound_ft.get('id')!r} identity keys {decl_keys!r} "
+                        f"do not match expected statement keys {list(F1099K_STATEMENT_IDENTITY_KEYS)!r}"
+                    )
+
+                if req_sym not in collect_names and req_sym not in emission_only:
+                    emission_only.append(req_sym)
+            continue
+
+        subj_id = subj.get("id")
+        subj_ver = subj.get("version")
+        subj_ft = ft_by_id_version.get((subj_id, subj_ver))
+        if subj_ft is None:
+            subj_ft = next((ft for ft in fact_types if ft.get("id") == subj_id), None)
+        if subj_ft is None:
+            continue
+        subj_keys = distinguishing_identity_keys(subj_ft)
+        if not subj_keys:
             continue
 
         for req_sym in rule.get("requires", []):
             if not isinstance(req_sym, str):
                 continue
-
             binding = binding_by_symbol.get(req_sym)
-            if binding is None and req_sym not in F1099K_ALLOWED_PER_STATEMENT_INPUTS:
+            req_ft = None
+            if binding is not None:
+                b_ft = binding.get("fact_type")
+                if isinstance(b_ft, Mapping):
+                    req_ft = ft_by_id_version.get((b_ft.get("id"), b_ft.get("version")))
+            if req_ft is None:
+                req_ft = ft_by_id_version.get((req_sym, "v1"))
+            if req_ft is None:
+                req_ft = next((ft for ft in fact_types if ft.get("id") == req_sym), None)
+            if req_ft is None:
                 continue
 
-            if req_sym not in F1099K_ALLOWED_PER_STATEMENT_INPUTS:
-                raise TransportContractError(
-                    f"subject-scoped rule {rule.get('id')} requires input binding {req_sym!r} "
-                    f"outside allowed per-statement input set"
-                )
-
-            if binding is None:
-                raise TransportContractError(
-                    f"subject-scoped rule {rule.get('id')} requires allowed input {req_sym!r} "
-                    f"with no matching input binding in package"
-                )
-
-            bound_ft = binding.get("fact_type")
-            if not isinstance(bound_ft, Mapping):
-                raise TransportContractError(
-                    f"input binding for {req_sym!r} has malformed fact_type descriptor"
-                )
-            if binding.get("symbol") != bound_ft.get("id"):
-                raise TransportContractError(
-                    f"input binding for {req_sym!r} uses alias: symbol {binding.get('symbol')!r} "
-                    f"!= fact_type.id {bound_ft.get('id')!r}"
-                )
-
-            if binding.get("mode") != "optional_default":
-                raise TransportContractError(
-                    f"input binding for {req_sym!r} mode is {binding.get('mode')!r}, "
-                    f"expected 'optional_default'"
-                )
-            if bound_ft.get("version") != "v1":
-                raise TransportContractError(
-                    f"input binding for {req_sym!r} fact_type version is {bound_ft.get('version')!r}, "
-                    f"expected 'v1'"
-                )
-
-            ft_decl = ft_by_id_version.get((bound_ft.get("id"), bound_ft.get("version")))
-            if ft_decl is None:
-                raise TransportContractError(
-                    f"fact type declaration for {bound_ft.get('id')!r}@{bound_ft.get('version')!r} not found"
-                )
-            decl_keys = tuple(
-                k["name"] if isinstance(k, Mapping) and "name" in k else str(k)
-                for k in (ft_decl.get("identity_keys") or ())
-            )
-            if decl_keys != F1099K_STATEMENT_IDENTITY_KEYS:
-                raise TransportContractError(
-                    f"fact type {bound_ft.get('id')!r} identity keys {decl_keys!r} "
-                    f"do not match expected statement keys {list(F1099K_STATEMENT_IDENTITY_KEYS)!r}"
-                )
-
-            if req_sym not in collect_names and req_sym not in emission_only:
-                emission_only.append(req_sym)
+            req_keys = distinguishing_identity_keys(req_ft)
+            if subj_keys & req_keys:
+                if req_sym not in collect_names and req_sym not in emission_only:
+                    emission_only.append(req_sym)
 
     emission_only = [name for name in emission_only if name not in collect_names]
     return _ResolvedRunMaterial(

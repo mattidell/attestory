@@ -1,11 +1,11 @@
 <!-- foreman-context-v1
 {
   "version": 1,
-  "phase": "Engine Breadth",
-  "topic": "eic-qualifying-children",
-  "active_plan": "docs/phases/engine-breadth/milestones/eic-qualifying-children.md",
+  "phase": "Engineering Health",
+  "topic": "per-subject-binding",
+  "active_plan": "docs/phases/engineering-health/milestones/per-subject-binding.md",
   "milestone_state": "closed",
-  "status": "Closed. On core v54 the 2025 earned income credit is computed with one, two, or three or more qualifying children, each counted from six per-child answers on a closed roster; a child another person may also claim blocks. Earlier packages keep their results.",
+  "status": "Closed. A per-subject rule binds only its own subject's answers or a return-level value; the shipped Form 1098 reason rule no longer reads another statement's answers. No content or golden changed.",
   "current_role": "Foreman — select next milestone",
   "current_prompt": "docs/phases/engine-breadth/coverage-frontier.md"
 }
@@ -15,15 +15,23 @@
 
 ## Latest milestone
 
+**A Per-Subject Rule Reads Only Its Own Subject is closed**
+([plan](phases/engineering-health/milestones/per-subject-binding.md),
+[retrospective](milestone-retrospectives/2026-10-24-per-subject-binding.md)).
+A per-subject rule now binds only its own subject's answers or a return-level
+value. The shipped Form 1098 reason rule no longer reads another statement's
+answers; no content or golden changed. The next milestone is unselected.
+
+## Previous milestone
+
 **The 2025 Earned Income Credit with Qualifying Children is closed**
 ([plan](phases/engine-breadth/milestones/eic-qualifying-children.md),
 [retrospective](milestone-retrospectives/2026-10-24-eic-qualifying-children.md)).
 On core v54 the credit uses the column for the number of children who meet
 every test and have a valid SSN, each counted from six answers on a closed
-child roster. A child another person may also claim blocks. The next
-milestone is unselected.
+child roster. A child another person may also claim blocks.
 
-## Previous return-calculation milestone
+## Earlier return-calculation milestone
 
 **The 2025 Earned Income Credit is closed**
 ([plan](phases/engine-breadth/milestones/earned-income-credit.md),
@@ -163,8 +171,6 @@ loss). **Mortgage Interest and What the Loan Paid For** closed 2026-10-15
 - The EIC tie-breaker rules (a child another person may also claim is
   outside the class); Worksheet B, Form 8862, combat pay, the Medicaid waiver exclusion
   and Worksheet 1.
-- The Form 1098 flat per-subject rule shape can bind another subject's
-  answer (seen in the EIC child probe); the mortgage rules use it.
 - `explain()` re-expands shared inputs at each use: the line 27a walk is
   9,885 tree nodes over 218 findings.
 - Lines 28-31 refundable credits, Schedule 2 Part II taxes and the estimated
