@@ -2,10 +2,10 @@
 {
   "version": 1,
   "phase": "Engineering Health",
-  "topic": "per-subject-binding",
-  "active_plan": "docs/phases/engineering-health/milestones/per-subject-binding.md",
+  "topic": "required-versus-read",
+  "active_plan": "docs/phases/engineering-health/milestones/required-versus-read.md",
   "milestone_state": "closed",
-  "status": "Closed. A per-subject rule binds only its own subject's answers or a return-level value; the shipped Form 1098 reason rule no longer reads another statement's answers. No content or golden changed.",
+  "status": "Closed. A static check in CI keeps any rule from requiring an input it never references; the path scan is an on-demand tool. The rows examined in shipped content had no misleading question or correction hazard.",
   "current_role": "Foreman — select next milestone",
   "current_prompt": "docs/phases/engine-breadth/coverage-frontier.md"
 }
@@ -15,21 +15,23 @@
 
 ## Latest milestone
 
+**Every Required Answer Is Read is closed**
+([plan](phases/engineering-health/milestones/required-versus-read.md),
+[retrospective](milestone-retrospectives/2026-10-24-required-versus-read.md)).
+A static check in CI keeps a rule from requiring an input it never
+references; `tools/required_versus_read.py path` reports path-dependent cases
+on demand. The rows examined in shipped content had no misleading question
+or correction hazard.
+The next milestone is unselected.
+
+## Previous milestone
+
 **A Per-Subject Rule Reads Only Its Own Subject is closed**
 ([plan](phases/engineering-health/milestones/per-subject-binding.md),
 [retrospective](milestone-retrospectives/2026-10-24-per-subject-binding.md)).
 A per-subject rule now binds only its own subject's answers or a return-level
 value. The shipped Form 1098 reason rule no longer reads another statement's
-answers; no content or golden changed. The next milestone is unselected.
-
-## Previous milestone
-
-**The 2025 Earned Income Credit with Qualifying Children is closed**
-([plan](phases/engine-breadth/milestones/eic-qualifying-children.md),
-[retrospective](milestone-retrospectives/2026-10-24-eic-qualifying-children.md)).
-On core v54 the credit uses the column for the number of children who meet
-every test and have a valid SSN, each counted from six answers on a closed
-child roster. A child another person may also claim blocks.
+answers; no content or golden changed.
 
 ## Earlier return-calculation milestone
 
@@ -42,6 +44,11 @@ only where it can change line 27a; the plan and README give each stop.
 
 ## Earlier return-calculation milestones
 
+- **The 2025 Earned Income Credit with Qualifying Children**
+  ([plan](phases/engine-breadth/milestones/eic-qualifying-children.md),
+  [retrospective](milestone-retrospectives/2026-10-24-eic-qualifying-children.md)):
+  on core v54 the credit uses the column for the number of qualifying
+  children, each counted from six answers on a closed child roster.
 - **Refund or Amount Owed: Finishing the 2025 Return**
   ([plan](phases/engine-breadth/milestones/refund-or-amount-owed.md),
   [retrospective](milestone-retrospectives/2026-10-22-refund-or-amount-owed.md)):

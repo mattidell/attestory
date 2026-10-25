@@ -56,6 +56,17 @@ subject's own scope, or block; return-level inputs are unchanged. The shipped
 Form 1098 residence-interest reason rule was exposed, contained by the
 one-statement limit on line 8a; no content or golden changed.
 
+### Every Required Answer Is Read
+
+[Plan](milestones/required-versus-read.md). Measured shipped content for
+rules that require an input no evaluated path reads: one static hit in the
+latest package, and no misleading question or correction hazard in the rows
+examined. A static
+check now gates CI (`tests/test_required_versus_read.py`, fast lane, with a
+reasoned allowlist), and `tools/required_versus_read.py path` reports
+path-dependent cases on demand; it does not gate, because it also measures
+test coverage.
+
 ## Current boundary and remaining work
 
 The next milestone is unselected. Measured candidates:

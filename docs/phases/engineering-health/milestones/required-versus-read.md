@@ -3,7 +3,7 @@
   "version": 1,
   "phase": "Engineering Health",
   "topic": "required-versus-read",
-  "status": "P0 complete; contract settled. Track 1 adds the static check to CI and the path scan as an on-demand tool.",
+  "status": "Closed. A static check in CI keeps any rule from requiring an input it never references; the path scan is an on-demand tool. The rows examined in shipped content had no misleading question or correction hazard.",
   "scope": [
     "find every rule in a shipped package that requires an input no evaluated path reads, so a correction to that input would not displace the result",
     "add a check that keeps new content from reintroducing the defect",
@@ -34,7 +34,8 @@
       "docs/phases/engineering-health/milestones/required-versus-read.md",
       "docs/phases/engineering-health/engineering-health-roadmap.md"
     ]
-  }
+  },
+  "retrospective": "docs/milestone-retrospectives/2026-10-24-required-versus-read.md"
 }
 -->
 
@@ -97,9 +98,9 @@ P0 is complete ([measure](required-versus-read-evidence/p0-measure.md), scripts
 and raw output beside it). The latest package has one static hit
 (`form1040-line16` v6, two over-declared inputs) and 33 rule versions with a
 required input absent from some published finding's pins: 8 by-design
-compiler gates and 25 over-declared derived or return-level inputs. No shipped
-rule is a misleading question or a correction hazard; the Foreman
-reclassified the two the builder flagged. The path scan also measures test
+compiler gates and 25 over-declared derived or return-level inputs, classified
+by shape. None of the rows examined is a misleading question or a correction
+hazard; the Foreman reclassified the two the builder flagged. The path scan also measures test
 coverage, so it cannot be a CI gate.
 
 ## Contract
@@ -122,3 +123,15 @@ coverage, so it cannot be a CI gate.
    inputs are recorded, not changed.
 5. No production engine change, schema or rule-language change; the full
    lane and `mypy` run before ready.
+
+## Execution record
+
+- P0: static and path scans over shipped content; classified by the
+  Foreman.
+- Track 1: the static check in CI with its allowlist, the path tool, and
+  seeded tests for both.
+
+## Outcome
+
+Closed 2026-10-24. See the
+[retrospective](../../../milestone-retrospectives/2026-10-24-required-versus-read.md).
