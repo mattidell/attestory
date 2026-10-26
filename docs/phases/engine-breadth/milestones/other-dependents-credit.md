@@ -3,7 +3,7 @@
   "version": 1,
   "phase": "Engine Breadth",
   "topic": "other-dependents-credit",
-  "status": "Planned. P0 verifies the 2025 credit for other dependents and Credit Limit Worksheet B, and designs the dependents beyond qualifying children.",
+  "status": "P0 complete; contract settled. Track 1 builds the dependents, their answers and the Schedule 8812 successors on core v56.",
   "scope": [
     "compute the 2025 credit for other dependents on Schedule 8812 line 8 and line 19 for a bounded class, as successor content",
     "record dependents who are not qualifying children for the child tax credit, from answers about each, whose meaning matches the rules that read them",
@@ -110,3 +110,58 @@ needs something outside the class is refused, never given $0.
   combined credit.
 - A return answering none of the new questions blocks with the facts named;
   every existing golden keeps its result.
+
+## P0 result
+
+P0 is complete ([verify and design](other-dependents-credit-evidence/p0-verify-and-design.md),
+`odc_case_table.py` and `odc_probe.py` beside it; 26 cases through the real
+coordinator).
+
+- **A child who fails the child tax credit tests cannot move rosters:** a fact
+  belongs to one family. Such a child is marked on a second box, the form's
+  own per-dependent "credit for other dependents" checkbox, which is a second
+  family over the same child kind.
+- **Qualifying relatives** (a parent, for example) are a third family over a
+  new entity kind, with answers for relationship or household membership,
+  gross income under $5,200 (`i1040gi-2025.txt:1097-1099`), over half
+  support, not anyone's qualifying child, citizenship, and the identification
+  number.
+- **The identification-number answer is asked of every claimed child.** A
+  per-subject rule reads only the answers it names, so one child answer
+  cannot be required conditionally on another. One more question per child.
+- **Four answers were not reused** because their asked-when conditions do not
+  fit this credit: the EIC dependent answer (asked only off joint returns),
+  the child tax credit spouse SSN-or-ITIN answer (asked only with a counted
+  child), the EIC unsupported-situations answer, and the EIC taxpayer SSN.
+  New answers replace them.
+- **Credit Limit Worksheet B** cannot arise on the engine's routes without a
+  credit that is declared absent; it stays outside the class by the existing
+  answers.
+
+## Contract
+
+1. **Dependents.** The child tax credit roster unchanged; a second family over
+   the child kind for children claimed for this credit; a third family over a
+   new dependent-relative kind. Each with its own closure, counted by a
+   per-subject chain.
+2. **Per-dependent answers**, as P0 drafted them, with titles naming the
+   instruction step each implements. Outside the class by answer: a married
+   relative who files a joint return, a disabled relative with gross income
+   at or above $5,200, a multiple support agreement, and a nonresident alien
+   filer.
+3. **Return-level answers:** the taxpayer's TIN when any dependent counts, the
+   spouse's on a joint return, and a Form 2555 answer for this path.
+4. **Schedule 8812 lines 6 to 14** as successors combining both credits, with
+   Credit Limit Worksheet A; line 19 reads line 14. The return-level "no
+   other dependent" answer is succeeded.
+5. **Required exactly where read**, with an omitted-answer test per filing
+   status for every new and reused answer.
+6. **Successor content only:** core v56, registry v54, release v54 (unless PR
+   #216 merges first); earlier packages and goldens byte-identical.
+7. The full lane and `mypy` before ready.
+
+## Tracks
+
+- **Track 1:** the dependents, answers, Schedule 8812 successors and core
+  v56, with cases through the real path.
+- **Track 2:** saved presentations.
