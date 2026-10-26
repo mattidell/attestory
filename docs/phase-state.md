@@ -2,10 +2,10 @@
 {
   "version": 1,
   "phase": "Engine Breadth",
-  "topic": "child-tax-credit",
-  "active_plan": "docs/phases/engine-breadth/milestones/child-tax-credit.md",
+  "topic": "other-dependents-credit",
+  "active_plan": "docs/phases/engine-breadth/milestones/other-dependents-credit.md",
   "milestone_state": "closed",
-  "status": "Closed. On core v55 the 2025 child tax credit and additional child tax credit are computed from Schedule 8812, including Part II-B for three or more children. Earlier packages keep their results.",
+  "status": "Closed. On core v56 Schedule 8812 is complete for the class: the credit for other dependents is computed for children marked for it and qualifying relatives, combined with the child tax credit. Earlier packages keep their results.",
   "current_role": "Foreman — select next milestone",
   "current_prompt": "docs/phases/engine-breadth/coverage-frontier.md"
 }
@@ -15,15 +15,23 @@
 
 ## Latest milestone
 
+**The 2025 Credit for Other Dependents is closed**
+([plan](phases/engine-breadth/milestones/other-dependents-credit.md),
+[retrospective](milestone-retrospectives/2026-10-25-other-dependents-credit.md)).
+On core v56 Schedule 8812 is complete for the class: $500 for each child
+marked for this credit and each qualifying relative, combined with the child
+tax credit. The next milestone is unselected.
+
+## Previous milestone
+
 **The 2025 Child Tax Credit is closed**
 ([plan](phases/engine-breadth/milestones/child-tax-credit.md),
 [retrospective](milestone-retrospectives/2026-10-24-child-tax-credit.md)).
 On core v55 lines 19 and 28 come from Schedule 8812 for qualifying children
 on a credit roster, including Part II-B for three or more children. The
-credit for other dependents stays outside the class. The next milestone is
-unselected.
+credit for other dependents stays outside the class.
 
-## Previous milestone
+## Earlier engineering-health milestones
 
 **Every Required Answer Is Read is closed**
 ([plan](phases/engineering-health/milestones/required-versus-read.md),
@@ -32,8 +40,6 @@ A static check in CI keeps a rule from requiring an input it never
 references; `tools/required_versus_read.py path` reports path-dependent cases
 on demand. The rows examined in shipped content had no misleading question
 or correction hazard.
-
-## Earlier engineering-health milestone
 
 **A Per-Subject Rule Reads Only Its Own Subject is closed**
 ([plan](phases/engineering-health/milestones/per-subject-binding.md),
@@ -189,7 +195,8 @@ loss). **Mortgage Interest and What the Loan Paid For** closed 2026-10-15
   and Worksheet 1.
 - `explain()` re-expands shared inputs at each use: the line 27a walk is
   9,885 tree nodes over 218 findings.
-- The credit for other dependents and Credit Limit Worksheet B; lines 29-31
+- Disabled-over-limit relatives and multiple support agreements for the
+  credit for other dependents; lines 29-31
   refundable credits, Schedule 2 Part II taxes and the estimated tax
   penalty, each declared absent.
 - Worksheet lines as presentation rows; `demo.*` ids on the correct

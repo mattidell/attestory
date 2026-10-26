@@ -3,7 +3,7 @@
   "version": 1,
   "phase": "Engine Breadth",
   "topic": "other-dependents-credit",
-  "status": "Track 1 complete: the credit for other dependents on core v56. Track 2 adds saved presentations.",
+  "status": "Closed. On core v56 Schedule 8812 is complete for the class: the credit for other dependents is computed for children marked for it and qualifying relatives, combined with the child tax credit. Earlier packages keep their results.",
   "scope": [
     "compute the 2025 credit for other dependents on Schedule 8812 line 8 and line 19 for a bounded class, as successor content",
     "record dependents who are not qualifying children for the child tax credit, from answers about each, whose meaning matches the rules that read them",
@@ -37,7 +37,8 @@
       "docs/phases/engine-breadth/milestones/other-dependents-credit.md",
       "docs/phases/engine-breadth/coverage-frontier.md"
     ]
-  }
+  },
+  "retrospective": "docs/milestone-retrospectives/2026-10-25-other-dependents-credit.md"
 }
 -->
 
@@ -165,3 +166,16 @@ coordinator).
 - **Track 1:** the dependents, answers, Schedule 8812 successors and core
   v56, with cases through the real path.
 - **Track 2:** saved presentations.
+
+## Execution record
+
+- P0: the law; the two-family model and the identification-number cost,
+  traced in 26 probe cases; four reuses declined.
+- Track 1: the families, answers, chains, Schedule 8812 successors and core
+  v56, with an omitted-answer case per filing status.
+- Track 2: two v56 saved presentations.
+
+## Outcome
+
+Closed 2026-10-25. See the
+[retrospective](../../milestone-retrospectives/2026-10-25-other-dependents-credit.md).

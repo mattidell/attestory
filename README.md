@@ -7,9 +7,9 @@ This is the project's third iteration. The first proved a working return generat
 ## Where things stand
 
 - **Governance** (`docs/governance/`): the ratified v0.1 set — Constitution, Ontology, Engineering Constraints, Principles, Commentary. The sole contract authority for this repository.
-- **Phase state** (`docs/phase-state.md`): on core calculations v55 the 2025
-  child tax credit and additional child tax credit are computed (see "2025
-  child tax credit" below). Use `python3 tools/foreman_context.py --ref HEAD` for
+- **Phase state** (`docs/phase-state.md`): on core calculations v56 Schedule
+  8812 is complete for the supported class, including the credit for other
+  dependents (see "2025 child tax credit" below). Use `python3 tools/foreman_context.py --ref HEAD` for
   current routing; publication status is tracked by the pull request's checks.
 - **Current bounded capability:** production-shaped synthetic returns cover
   the Form 1099-DIV box-2a direct-reporting route, Schedule K-1 (Form 1065)
@@ -351,9 +351,22 @@ and Part II-B, which reads W-2 boxes 4 and 6 and the earned income credit.
 Each child the filer claims as a dependent is on a closed credit roster over
 the EIC child kind, with answers for age under 17, residency, support,
 U.S. citizenship, nationality or residence, and the shared EIC answers. A
-claimed dependent who is not a qualifying child (the credit for other
-dependents) is outside the class, as is a child another person may also
-claim.
+child another person may also claim is outside the class.
+
+On `core-calculations.v56` (registry `v54`, release
+`demo.release.sli-worksheet-integration.2025.v54.json`), the credit for other
+dependents adds $500 for each other dependent (Schedule 8812 line 6): a child
+the filer marks for this credit, such as one aged 17 or older or with an
+ITIN, and a qualifying relative, such as a parent, on a closed relatives
+roster with answers for relationship or household membership, gross income
+under $5,200, support, citizenship and identification number. Both credits
+combine on lines 8 to 14 and are capped at tax; the refundable part stays
+the child tax credit's. These questions are asked only when the return has
+an other dependent; a child tax credit return without one answers nothing
+new. A relative who files a joint return (other than only to claim a
+refund), a disabled relative with gross income of $5,200 or more, a multiple
+support agreement and a nonresident alien filer are outside the class by
+answer.
 
 ## Correction session walkthrough
 

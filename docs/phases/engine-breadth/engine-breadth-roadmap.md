@@ -374,6 +374,15 @@ the additional child tax credit from Schedule 8812 for qualifying children on
 a credit roster over the EIC child kind, including Part II-B for three or
 more children.
 
+## Bounded return — The 2025 Credit for Other Dependents
+
+[Plan](milestones/other-dependents-credit.md).
+
+A return with a dependent who was not a qualifying child under 17 was
+blocked. Add the $500 credit for children marked for it and for qualifying
+relatives, combined with the child tax credit, finishing Schedule 8812 for
+the class.
+
 ## Why line 7a comes before Schedule D
 
 The 2025 Form 1040 instructions permit eligible capital-gain distributions to
