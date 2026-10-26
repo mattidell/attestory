@@ -1,0 +1,16 @@
+{
+  "authorizes_subtotal": "tax.us.2025.odc.relative-count",
+  "closure_claim": "Every relative the filer claims for the credit for other dependents is recorded as a roster item.",
+  "id": "tax.us.2025.odc.relative-roster",
+  "member_predicate": {
+    "fact_type": "tax.us.2025.odc.dependent.other-dependent-box"
+  },
+  "schema": "source-family.v1",
+  "scope": {
+    "tax_year": 2025,
+    "jurisdiction": "US-federal",
+    "family": "individual-income-tax"
+  },
+  "title": "2025 other-dependent relative roster",
+  "version": "v1"
+}

@@ -1,0 +1,28 @@
+{
+  "act_id": "demo.act.adopt.core.v56",
+  "actor": "demo.user.filer-1",
+  "at": "2026-10-25T12:00:00Z",
+  "committed_against": 0,
+  "kind": "package-adoption",
+  "payload": {
+    "audit": {
+      "note": "synthetic successor adoption of core calculations v56 (credit for other dependents, Schedule 8812 lines 6 to 14); non-authoritative"
+    },
+    "package": {
+      "checksum": "20e3e1bf4874aeb00fbdfff979c5367940c56071b8860c74b56cf0dc27dff02b",
+      "id": "tax.us.2025.package.core-calculations",
+      "version": "v56"
+    },
+    "release": {
+      "checksum": "30fbccd842b07ac4747e08a1cc20bd270628704320db7141126d87ed03a6086b",
+      "id": "demo.release.sli-worksheet-integration.2025",
+      "version": "v54"
+    },
+    "revision": 56,
+    "scope": {
+      "jurisdiction": "us",
+      "year": "2025"
+    }
+  },
+  "schema": "act.v1"
+}

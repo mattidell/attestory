@@ -1,0 +1,87 @@
+{
+  "schema": "rule-artifact.v14",
+  "id": "tax.us.2025.rule.odc-child.identity-met",
+  "version": "v1",
+  "scope": {
+    "tax_year": 2025,
+    "jurisdiction": "US-federal",
+    "family": "individual-income-tax"
+  },
+  "role": "computation",
+  "requires": [
+    "tax.us.2025.eic.child.ssn",
+    "tax.us.2025.odc.child.tin"
+  ],
+  "pins": [
+    {
+      "id": "tax.us.2025.eic.child.ssn",
+      "origin": "assertion",
+      "role": "input",
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.odc.child.tin",
+      "origin": "assertion",
+      "role": "input",
+      "version": "v1"
+    }
+  ],
+  "when": true,
+  "value": {
+    "op": "choose",
+    "when": {
+      "op": "categorical_compare",
+      "cmp": "eq",
+      "left": {
+        "op": "ref",
+        "name": "tax.us.2025.eic.child.ssn"
+      },
+      "right": {
+        "op": "category_literal",
+        "fact_type": {
+          "id": "tax.us.2025.eic.child.ssn",
+          "version": "v1"
+        },
+        "value": "yes"
+      }
+    },
+    "then": 1,
+    "else": {
+      "op": "choose",
+      "when": {
+        "op": "categorical_compare",
+        "cmp": "eq",
+        "left": {
+          "op": "ref",
+          "name": "tax.us.2025.odc.child.tin"
+        },
+        "right": {
+          "op": "category_literal",
+          "fact_type": {
+            "id": "tax.us.2025.odc.child.tin",
+            "version": "v1"
+          },
+          "value": "yes"
+        }
+      },
+      "then": 1,
+      "else": 0
+    }
+  },
+  "publishes": "tax.us.2025.odc.child.identity-met",
+  "blocked": {
+    "code": "DEPENDENCY_ABSENT",
+    "missing": []
+  },
+  "citations": [
+    {
+      "id": "tax.us.2025.citation.schedule8812.part-i",
+      "version": "v1"
+    }
+  ],
+  "notes": "Per marked child: 1 with an SSN valid for employment, or else with an ITIN or ATIN by the due date; 0 otherwise. Runs only for marked children.",
+  "subject": {
+    "id": "tax.us.2025.odc.child.other-dependent-box",
+    "version": "v1"
+  }
+}

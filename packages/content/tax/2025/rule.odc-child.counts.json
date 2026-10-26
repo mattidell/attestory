@@ -1,0 +1,172 @@
+{
+  "schema": "rule-artifact.v14",
+  "id": "tax.us.2025.rule.odc-child.counts",
+  "version": "v1",
+  "scope": {
+    "tax_year": 2025,
+    "jurisdiction": "US-federal",
+    "family": "individual-income-tax"
+  },
+  "role": "computation",
+  "requires": [
+    "tax.us.2025.odc.child.other-dependent-box",
+    "tax.us.2025.ctc.child.claimed-as-dependent",
+    "tax.us.2025.ctc.child.under-17",
+    "tax.us.2025.eic.child.ssn",
+    "tax.us.2025.odc.child.other-tests-met",
+    "tax.us.2025.odc.child.identity-met"
+  ],
+  "pins": [],
+  "when": true,
+  "value": {
+    "op": "choose",
+    "when": {
+      "op": "categorical_compare",
+      "cmp": "eq",
+      "left": {
+        "op": "ref",
+        "name": "tax.us.2025.odc.child.other-dependent-box"
+      },
+      "right": {
+        "op": "category_literal",
+        "fact_type": {
+          "id": "tax.us.2025.odc.child.other-dependent-box",
+          "version": "v1"
+        },
+        "value": "no"
+      }
+    },
+    "then": 0,
+    "else": {
+      "op": "choose",
+      "when": {
+        "op": "categorical_compare",
+        "cmp": "eq",
+        "left": {
+          "op": "ref",
+          "name": "tax.us.2025.ctc.child.claimed-as-dependent"
+        },
+        "right": {
+          "op": "category_literal",
+          "fact_type": {
+            "id": "tax.us.2025.ctc.child.claimed-as-dependent",
+            "version": "v1"
+          },
+          "value": "yes"
+        }
+      },
+      "then": {
+        "op": "block",
+        "code": "DEPENDENCY_INVALID"
+      },
+      "else": {
+        "op": "choose",
+        "when": {
+          "op": "compare",
+          "cmp": "eq",
+          "left": {
+            "op": "ref",
+            "name": "tax.us.2025.odc.child.other-tests-met"
+          },
+          "right": 1
+        },
+        "then": {
+          "op": "choose",
+          "when": {
+            "op": "compare",
+            "cmp": "eq",
+            "left": {
+              "op": "add",
+              "args": [
+                {
+                  "op": "choose",
+                  "when": {
+                    "op": "categorical_compare",
+                    "cmp": "eq",
+                    "left": {
+                      "op": "ref",
+                      "name": "tax.us.2025.ctc.child.under-17"
+                    },
+                    "right": {
+                      "op": "category_literal",
+                      "fact_type": {
+                        "id": "tax.us.2025.ctc.child.under-17",
+                        "version": "v1"
+                      },
+                      "value": "yes"
+                    }
+                  },
+                  "then": 1,
+                  "else": 0
+                },
+                {
+                  "op": "choose",
+                  "when": {
+                    "op": "categorical_compare",
+                    "cmp": "eq",
+                    "left": {
+                      "op": "ref",
+                      "name": "tax.us.2025.eic.child.ssn"
+                    },
+                    "right": {
+                      "op": "category_literal",
+                      "fact_type": {
+                        "id": "tax.us.2025.eic.child.ssn",
+                        "version": "v1"
+                      },
+                      "value": "yes"
+                    }
+                  },
+                  "then": 1,
+                  "else": 0
+                }
+              ]
+            },
+            "right": 2
+          },
+          "then": {
+            "op": "block",
+            "code": "DEPENDENCY_INVALID"
+          },
+          "else": {
+            "op": "choose",
+            "when": {
+              "op": "compare",
+              "cmp": "eq",
+              "left": {
+                "op": "ref",
+                "name": "tax.us.2025.odc.child.identity-met"
+              },
+              "right": 1
+            },
+            "then": 1,
+            "else": {
+              "op": "block",
+              "code": "DEPENDENCY_INVALID"
+            }
+          }
+        },
+        "else": {
+          "op": "block",
+          "code": "DEPENDENCY_INVALID"
+        }
+      }
+    }
+  },
+  "publishes": "tax.us.2025.odc.child.counted",
+  "blocked": {
+    "code": "DEPENDENCY_ABSENT",
+    "missing": []
+  },
+  "citations": [
+    {
+      "id": "tax.us.2025.citation.schedule8812.part-i",
+      "version": "v1"
+    }
+  ],
+  "notes": "Per child on the other-dependent roster. 0 when the box is no. Blocks when the child tax credit box is also yes, when another test fails, or when the child passes every credit test (use the credit box). Otherwise 1 with an SSN valid for employment or, without one, an ITIN or ATIN by the due date.",
+  "subject": {
+    "id": "tax.us.2025.odc.child.other-dependent-box",
+    "version": "v1"
+  }
+}
