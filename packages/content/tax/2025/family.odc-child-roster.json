@@ -1,0 +1,16 @@
+{
+  "authorizes_subtotal": "tax.us.2025.odc.child-count",
+  "closure_claim": "Every child the filer claims for the credit for other dependents is recorded as a roster item.",
+  "id": "tax.us.2025.odc.child-roster",
+  "member_predicate": {
+    "fact_type": "tax.us.2025.odc.child.other-dependent-box"
+  },
+  "schema": "source-family.v1",
+  "scope": {
+    "tax_year": 2025,
+    "jurisdiction": "US-federal",
+    "family": "individual-income-tax"
+  },
+  "title": "2025 other-dependent child roster",
+  "version": "v1"
+}

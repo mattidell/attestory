@@ -1,0 +1,85 @@
+{
+  "schema": "rule-artifact.v14",
+  "id": "tax.us.2025.rule.odc-relative.counts",
+  "version": "v1",
+  "scope": {
+    "tax_year": 2025,
+    "jurisdiction": "US-federal",
+    "family": "individual-income-tax"
+  },
+  "role": "computation",
+  "requires": [
+    "tax.us.2025.odc.dependent.other-dependent-box",
+    "tax.us.2025.odc.dependent.tests-a-met",
+    "tax.us.2025.odc.dependent.tests-b-met"
+  ],
+  "pins": [],
+  "when": true,
+  "value": {
+    "op": "choose",
+    "when": {
+      "op": "categorical_compare",
+      "cmp": "eq",
+      "left": {
+        "op": "ref",
+        "name": "tax.us.2025.odc.dependent.other-dependent-box"
+      },
+      "right": {
+        "op": "category_literal",
+        "fact_type": {
+          "id": "tax.us.2025.odc.dependent.other-dependent-box",
+          "version": "v1"
+        },
+        "value": "no"
+      }
+    },
+    "then": 0,
+    "else": {
+      "op": "choose",
+      "when": {
+        "op": "all",
+        "args": [
+          {
+            "op": "compare",
+            "cmp": "eq",
+            "left": {
+              "op": "ref",
+              "name": "tax.us.2025.odc.dependent.tests-a-met"
+            },
+            "right": 1
+          },
+          {
+            "op": "compare",
+            "cmp": "eq",
+            "left": {
+              "op": "ref",
+              "name": "tax.us.2025.odc.dependent.tests-b-met"
+            },
+            "right": 1
+          }
+        ]
+      },
+      "then": 1,
+      "else": {
+        "op": "block",
+        "code": "DEPENDENCY_INVALID"
+      }
+    }
+  },
+  "publishes": "tax.us.2025.odc.dependent.counted",
+  "blocked": {
+    "code": "DEPENDENCY_ABSENT",
+    "missing": []
+  },
+  "citations": [
+    {
+      "id": "tax.us.2025.citation.schedule8812.part-i",
+      "version": "v1"
+    }
+  ],
+  "notes": "Per relative on the other-dependent roster. 0 when the box is no; 1 when every relative test passes; a failed test blocks as outside the class.",
+  "subject": {
+    "id": "tax.us.2025.odc.dependent.other-dependent-box",
+    "version": "v1"
+  }
+}

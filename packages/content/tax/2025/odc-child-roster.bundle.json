@@ -1,0 +1,120 @@
+{
+  "fact_types": [
+    {
+      "id": "tax.us.2025.odc.child.other-dependent-box",
+      "identity_keys": [
+        {
+          "kind": "entity",
+          "name": "child",
+          "entity_kind": "tax.us.eic-child"
+        },
+        {
+          "kind": "literal",
+          "name": "tax-year",
+          "values": [
+            "2025"
+          ]
+        }
+      ],
+      "nature": "determinable",
+      "schema": "fact-type.v2",
+      "supersession": {
+        "policy": "free"
+      },
+      "title": "You check the Credit for other dependents box in row (7) of the Dependents section for this child (Schedule 8812 instructions, Credit for Other Dependents, i1040s8.txt:90-96). Yes means you claim this child for the credit for other dependents; the child is then a member of the other-dependent roster. Contributed categorical assertion, domain {yes, no}, no default, presence-before-value, free supersession.",
+      "value_schema": {
+        "enum": [
+          "yes",
+          "no"
+        ]
+      },
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.odc.child.tin",
+      "identity_keys": [
+        {
+          "kind": "entity",
+          "name": "child",
+          "entity_kind": "tax.us.eic-child"
+        },
+        {
+          "kind": "literal",
+          "name": "tax-year",
+          "values": [
+            "2025"
+          ]
+        }
+      ],
+      "nature": "determinable",
+      "schema": "fact-type.v2",
+      "supersession": {
+        "policy": "free"
+      },
+      "title": "This child has a social security number, individual taxpayer identification number, or adoption taxpayer identification number issued on or before the due date of your 2025 return, including extensions (Schedule 8812 instructions, Dependent required to have a TIN, i1040s8.txt:56-60 and 82-84). Asked for each child marked for the credit for other dependents: the identity rule, which runs per marked child, requires it, and its value reads it only where the child's SSN is no. Contributed categorical assertion, domain {yes, no}, no default, presence-before-value, free supersession.",
+      "value_schema": {
+        "enum": [
+          "yes",
+          "no"
+        ]
+      },
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.odc.child-roster.source-closure",
+      "identity_keys": [
+        {
+          "kind": "entity",
+          "name": "family-horizon",
+          "entity_kind": "kernel.family-horizon"
+        },
+        {
+          "kind": "literal",
+          "name": "tax-year",
+          "values": [
+            "2025"
+          ]
+        }
+      ],
+      "nature": "determinable",
+      "schema": "fact-type.v2",
+      "supersession": {
+        "policy": "free"
+      },
+      "title": "Closure of the 2025 other-dependent child roster. Contributed boolean assertion, free supersession.",
+      "value_schema": {
+        "type": "boolean"
+      },
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.odc.child.inert-path-unwritten",
+      "identity_keys": [
+        {
+          "kind": "literal",
+          "name": "marker",
+          "values": [
+            "unused"
+          ]
+        }
+      ],
+      "nature": "determinable",
+      "schema": "fact-type.v2",
+      "supersession": {
+        "policy": "free"
+      },
+      "title": "Internal marker used only to complete an inert rule path for the other-dependent roster selection rule.",
+      "value_schema": {
+        "enum": [
+          "unused"
+        ],
+        "type": "string"
+      },
+      "version": "v1"
+    }
+  ],
+  "id": "tax.us.2025.odc-child-roster.vocabulary",
+  "label": "2025 other-dependent child roster vocabulary",
+  "schema": "bundle.v2",
+  "version": "v1"
+}

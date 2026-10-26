@@ -1,0 +1,300 @@
+{
+  "fact_types": [
+    {
+      "id": "tax.us.2025.odc.dependent.other-dependent-box",
+      "identity_keys": [
+        {
+          "kind": "entity",
+          "name": "dependent",
+          "entity_kind": "tax.us.odc-dependent"
+        },
+        {
+          "kind": "literal",
+          "name": "tax-year",
+          "values": [
+            "2025"
+          ]
+        }
+      ],
+      "nature": "determinable",
+      "schema": "fact-type.v2",
+      "supersession": {
+        "policy": "free"
+      },
+      "title": "You check the Credit for other dependents box in row (7) of the Dependents section for this person (Schedule 8812 instructions, i1040s8.txt:90-96). Yes means you claim this person for the credit for other dependents; the person is then a member of the other-dependent relative roster. Contributed categorical assertion, domain {yes, no}, no default, presence-before-value, free supersession.",
+      "value_schema": {
+        "enum": [
+          "yes",
+          "no"
+        ]
+      },
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.odc.dependent.relationship",
+      "identity_keys": [
+        {
+          "kind": "entity",
+          "name": "dependent",
+          "entity_kind": "tax.us.odc-dependent"
+        },
+        {
+          "kind": "literal",
+          "name": "tax-year",
+          "values": [
+            "2025"
+          ]
+        }
+      ],
+      "nature": "determinable",
+      "schema": "fact-type.v2",
+      "supersession": {
+        "policy": "free"
+      },
+      "title": "This person is related to you as listed in Form 1040 Step 4 (son, daughter, stepchild, foster child, sibling, parent, grandparent, aunt, uncle, niece, nephew, in-law, or a step relative), or lived with you all year as a member of your household (i1040gi-2025.txt:1054-1076). Contributed categorical assertion, domain {yes, no}, no default, presence-before-value, free supersession.",
+      "value_schema": {
+        "enum": [
+          "yes",
+          "no"
+        ]
+      },
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.odc.dependent.not-qualifying-child",
+      "identity_keys": [
+        {
+          "kind": "entity",
+          "name": "dependent",
+          "entity_kind": "tax.us.odc-dependent"
+        },
+        {
+          "kind": "literal",
+          "name": "tax-year",
+          "values": [
+            "2025"
+          ]
+        }
+      ],
+      "nature": "determinable",
+      "schema": "fact-type.v2",
+      "supersession": {
+        "policy": "free"
+      },
+      "title": "No other taxpayer may claim this person as a qualifying child for 2025 (Form 1040 Step 4, who wasn't a qualifying child of any taxpayer, i1040gi-2025.txt:1087-1088). Contributed categorical assertion, domain {yes, no}, no default, presence-before-value, free supersession.",
+      "value_schema": {
+        "enum": [
+          "yes",
+          "no"
+        ]
+      },
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.odc.dependent.gross-income-under-limit",
+      "identity_keys": [
+        {
+          "kind": "entity",
+          "name": "dependent",
+          "entity_kind": "tax.us.odc-dependent"
+        },
+        {
+          "kind": "literal",
+          "name": "tax-year",
+          "values": [
+            "2025"
+          ]
+        }
+      ],
+      "nature": "determinable",
+      "schema": "fact-type.v2",
+      "supersession": {
+        "policy": "free"
+      },
+      "title": "This person's 2025 gross income was less than $5,200 (Form 1040 Step 4, i1040gi-2025.txt:1097). A permanently and totally disabled person whose gross income is $5,200 or more is outside the class: answer no. Contributed categorical assertion, domain {yes, no}, no default, presence-before-value, free supersession.",
+      "value_schema": {
+        "enum": [
+          "yes",
+          "no"
+        ]
+      },
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.odc.dependent.over-half-support",
+      "identity_keys": [
+        {
+          "kind": "entity",
+          "name": "dependent",
+          "entity_kind": "tax.us.odc-dependent"
+        },
+        {
+          "kind": "literal",
+          "name": "tax-year",
+          "values": [
+            "2025"
+          ]
+        }
+      ],
+      "nature": "determinable",
+      "schema": "fact-type.v2",
+      "supersession": {
+        "policy": "free"
+      },
+      "title": "You provided more than half of this person's 2025 support (Form 1040 Step 4, i1040gi-2025.txt:1106-1107). A multiple support agreement is outside the class: answer no. Contributed categorical assertion, domain {yes, no}, no default, presence-before-value, free supersession.",
+      "value_schema": {
+        "enum": [
+          "yes",
+          "no"
+        ]
+      },
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.odc.dependent.tin",
+      "identity_keys": [
+        {
+          "kind": "entity",
+          "name": "dependent",
+          "entity_kind": "tax.us.odc-dependent"
+        },
+        {
+          "kind": "literal",
+          "name": "tax-year",
+          "values": [
+            "2025"
+          ]
+        }
+      ],
+      "nature": "determinable",
+      "schema": "fact-type.v2",
+      "supersession": {
+        "policy": "free"
+      },
+      "title": "This person has a social security number, individual taxpayer identification number, or adoption taxpayer identification number issued on or before the due date of your 2025 return, including extensions (Form 1040 Step 5 question 2, i1040gi-2025.txt:1110-1113; Schedule 8812 instructions, i1040s8.txt:56-60). Contributed categorical assertion, domain {yes, no}, no default, presence-before-value, free supersession.",
+      "value_schema": {
+        "enum": [
+          "yes",
+          "no"
+        ]
+      },
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.odc.dependent.citizen-or-resident",
+      "identity_keys": [
+        {
+          "kind": "entity",
+          "name": "dependent",
+          "entity_kind": "tax.us.odc-dependent"
+        },
+        {
+          "kind": "literal",
+          "name": "tax-year",
+          "values": [
+            "2025"
+          ]
+        }
+      ],
+      "nature": "determinable",
+      "schema": "fact-type.v2",
+      "supersession": {
+        "policy": "free"
+      },
+      "title": "This person was a U.S. citizen, U.S. national, or U.S. resident alien for 2025 (Form 1040 Step 5 question 3, i1040gi-2025.txt:1123-1124; Schedule 8812 instructions, i1040s8.txt:76-78). A resident of Canada or Mexico who is not one of these does not meet this test. Contributed categorical assertion, domain {yes, no}, no default, presence-before-value, free supersession.",
+      "value_schema": {
+        "enum": [
+          "yes",
+          "no"
+        ]
+      },
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.odc.dependent.not-joint-return",
+      "identity_keys": [
+        {
+          "kind": "entity",
+          "name": "dependent",
+          "entity_kind": "tax.us.odc-dependent"
+        },
+        {
+          "kind": "literal",
+          "name": "tax-year",
+          "values": [
+            "2025"
+          ]
+        }
+      ],
+      "nature": "determinable",
+      "schema": "fact-type.v2",
+      "supersession": {
+        "policy": "free"
+      },
+      "title": "This person did not file a joint return for 2025, or filed one only to claim a refund of withheld income tax or estimated tax paid (Form 1040 instructions, married person, i1040gi-2025.txt:1253-1257). A relative who files a joint return is outside the class: answer no. Married filing separately qualifies: answer yes. Contributed categorical assertion, domain {yes, no}, no default, presence-before-value, free supersession.",
+      "value_schema": {
+        "enum": [
+          "yes",
+          "no"
+        ]
+      },
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.odc.relative-roster.source-closure",
+      "identity_keys": [
+        {
+          "kind": "entity",
+          "name": "family-horizon",
+          "entity_kind": "kernel.family-horizon"
+        },
+        {
+          "kind": "literal",
+          "name": "tax-year",
+          "values": [
+            "2025"
+          ]
+        }
+      ],
+      "nature": "determinable",
+      "schema": "fact-type.v2",
+      "supersession": {
+        "policy": "free"
+      },
+      "title": "Closure of the 2025 other-dependent relative roster. Contributed boolean assertion, free supersession.",
+      "value_schema": {
+        "type": "boolean"
+      },
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.odc.dependent.inert-path-unwritten",
+      "identity_keys": [
+        {
+          "kind": "literal",
+          "name": "marker",
+          "values": [
+            "unused"
+          ]
+        }
+      ],
+      "nature": "determinable",
+      "schema": "fact-type.v2",
+      "supersession": {
+        "policy": "free"
+      },
+      "title": "Internal marker used only to complete an inert rule path for the other-dependent roster selection rule.",
+      "value_schema": {
+        "enum": [
+          "unused"
+        ],
+        "type": "string"
+      },
+      "version": "v1"
+    }
+  ],
+  "id": "tax.us.2025.odc-relative-roster.vocabulary",
+  "label": "2025 other-dependent relative roster vocabulary",
+  "schema": "bundle.v2",
+  "version": "v1"
+}

@@ -3,7 +3,7 @@
   "version": 1,
   "phase": "Engine Breadth",
   "topic": "other-dependents-credit",
-  "status": "P0 complete; contract settled. Track 1 builds the dependents, their answers and the Schedule 8812 successors on core v56.",
+  "status": "Track 1 complete: the credit for other dependents on core v56. Track 2 adds saved presentations.",
   "scope": [
     "compute the 2025 credit for other dependents on Schedule 8812 line 8 and line 19 for a bounded class, as successor content",
     "record dependents who are not qualifying children for the child tax credit, from answers about each, whose meaning matches the rules that read them",

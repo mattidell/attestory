@@ -1,0 +1,134 @@
+{
+  "schema": "rule-artifact.v14",
+  "id": "tax.us.2025.rule.odc-relative.tests-a-met",
+  "version": "v1",
+  "scope": {
+    "tax_year": 2025,
+    "jurisdiction": "US-federal",
+    "family": "individual-income-tax"
+  },
+  "role": "computation",
+  "requires": [
+    "tax.us.2025.odc.dependent.relationship",
+    "tax.us.2025.odc.dependent.not-qualifying-child",
+    "tax.us.2025.odc.dependent.gross-income-under-limit",
+    "tax.us.2025.odc.dependent.over-half-support"
+  ],
+  "pins": [],
+  "when": true,
+  "value": {
+    "op": "choose",
+    "when": {
+      "op": "compare",
+      "cmp": "eq",
+      "left": {
+        "op": "add",
+        "args": [
+          {
+            "op": "choose",
+            "when": {
+              "op": "categorical_compare",
+              "cmp": "eq",
+              "left": {
+                "op": "ref",
+                "name": "tax.us.2025.odc.dependent.relationship"
+              },
+              "right": {
+                "op": "category_literal",
+                "fact_type": {
+                  "id": "tax.us.2025.odc.dependent.relationship",
+                  "version": "v1"
+                },
+                "value": "yes"
+              }
+            },
+            "then": 1,
+            "else": 0
+          },
+          {
+            "op": "choose",
+            "when": {
+              "op": "categorical_compare",
+              "cmp": "eq",
+              "left": {
+                "op": "ref",
+                "name": "tax.us.2025.odc.dependent.not-qualifying-child"
+              },
+              "right": {
+                "op": "category_literal",
+                "fact_type": {
+                  "id": "tax.us.2025.odc.dependent.not-qualifying-child",
+                  "version": "v1"
+                },
+                "value": "yes"
+              }
+            },
+            "then": 1,
+            "else": 0
+          },
+          {
+            "op": "choose",
+            "when": {
+              "op": "categorical_compare",
+              "cmp": "eq",
+              "left": {
+                "op": "ref",
+                "name": "tax.us.2025.odc.dependent.gross-income-under-limit"
+              },
+              "right": {
+                "op": "category_literal",
+                "fact_type": {
+                  "id": "tax.us.2025.odc.dependent.gross-income-under-limit",
+                  "version": "v1"
+                },
+                "value": "yes"
+              }
+            },
+            "then": 1,
+            "else": 0
+          },
+          {
+            "op": "choose",
+            "when": {
+              "op": "categorical_compare",
+              "cmp": "eq",
+              "left": {
+                "op": "ref",
+                "name": "tax.us.2025.odc.dependent.over-half-support"
+              },
+              "right": {
+                "op": "category_literal",
+                "fact_type": {
+                  "id": "tax.us.2025.odc.dependent.over-half-support",
+                  "version": "v1"
+                },
+                "value": "yes"
+              }
+            },
+            "then": 1,
+            "else": 0
+          }
+        ]
+      },
+      "right": 4
+    },
+    "then": 1,
+    "else": 0
+  },
+  "publishes": "tax.us.2025.odc.dependent.tests-a-met",
+  "blocked": {
+    "code": "DEPENDENCY_ABSENT",
+    "missing": []
+  },
+  "citations": [
+    {
+      "id": "tax.us.2025.citation.schedule8812.part-i",
+      "version": "v1"
+    }
+  ],
+  "notes": "Per relative: relationship or household, not a qualifying child of any taxpayer, gross income under $5,200, and over-half support. 1 when all pass.",
+  "subject": {
+    "id": "tax.us.2025.odc.dependent.relationship",
+    "version": "v1"
+  }
+}

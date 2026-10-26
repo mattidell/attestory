@@ -1,0 +1,83 @@
+{
+  "fact_types": [
+    {
+      "id": "tax.us.2025.odc.taxpayer-tin",
+      "identity_keys": [
+        {
+          "kind": "literal",
+          "name": "tax-year",
+          "values": [
+            "2025"
+          ]
+        }
+      ],
+      "nature": "determinable",
+      "schema": "fact-type.v2",
+      "supersession": {
+        "policy": "free"
+      },
+      "title": "You, the taxpayer, have a social security number or individual taxpayer identification number issued on or before the due date of your 2025 return, including extensions (Schedule 8812 instructions, i1040s8.txt:47-50; Form 1040 Step 5 question 1, i1040gi-2025.txt:1098-1100). Asked when an other dependent is counted. The spouse has its own question. Contributed categorical assertion, domain {yes, no}, no default, presence-before-value, free supersession.",
+      "value_schema": {
+        "enum": [
+          "yes",
+          "no"
+        ]
+      },
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.odc.spouse-tin",
+      "identity_keys": [
+        {
+          "kind": "literal",
+          "name": "tax-year",
+          "values": [
+            "2025"
+          ]
+        }
+      ],
+      "nature": "determinable",
+      "schema": "fact-type.v2",
+      "supersession": {
+        "policy": "free"
+      },
+      "title": "On this joint return, your spouse has a social security number or individual taxpayer identification number issued on or before the due date of your 2025 return, including extensions (Schedule 8812 instructions, i1040s8.txt:47-50). Asked on a joint return when any dependent counts. Contributed categorical assertion, domain {yes, no}, no default, presence-before-value, free supersession.",
+      "value_schema": {
+        "enum": [
+          "yes",
+          "no"
+        ]
+      },
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.odc.no-form-2555",
+      "identity_keys": [
+        {
+          "kind": "literal",
+          "name": "tax-year",
+          "values": [
+            "2025"
+          ]
+        }
+      ],
+      "nature": "determinable",
+      "schema": "fact-type.v2",
+      "supersession": {
+        "policy": "free"
+      },
+      "title": "Your 2025 return claims no income excluded on Form 2555 (Schedule 8812 line 2b, f1040s8.txt:13). Asked when any dependent counts. Contributed categorical assertion, domain {yes, no}, no default, presence-before-value, free supersession.",
+      "value_schema": {
+        "enum": [
+          "yes",
+          "no"
+        ]
+      },
+      "version": "v1"
+    }
+  ],
+  "id": "tax.us.2025.odc-return-questions.vocabulary",
+  "label": "2025 other-dependent return questions",
+  "schema": "bundle.v2",
+  "version": "v1"
+}
