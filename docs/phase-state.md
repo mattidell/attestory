@@ -1,11 +1,11 @@
 <!-- foreman-context-v1
 {
   "version": 1,
-  "phase": "Engineering Health",
-  "topic": "required-versus-read",
-  "active_plan": "docs/phases/engineering-health/milestones/required-versus-read.md",
+  "phase": "Engine Breadth",
+  "topic": "child-tax-credit",
+  "active_plan": "docs/phases/engine-breadth/milestones/child-tax-credit.md",
   "milestone_state": "closed",
-  "status": "Closed. A static check in CI keeps any rule from requiring an input it never references; the path scan is an on-demand tool. The rows examined in shipped content had no misleading question or correction hazard.",
+  "status": "Closed. On core v55 the 2025 child tax credit and additional child tax credit are computed from Schedule 8812, including Part II-B for three or more children. Earlier packages keep their results.",
   "current_role": "Foreman — select next milestone",
   "current_prompt": "docs/phases/engine-breadth/coverage-frontier.md"
 }
@@ -15,6 +15,16 @@
 
 ## Latest milestone
 
+**The 2025 Child Tax Credit is closed**
+([plan](phases/engine-breadth/milestones/child-tax-credit.md),
+[retrospective](milestone-retrospectives/2026-10-24-child-tax-credit.md)).
+On core v55 lines 19 and 28 come from Schedule 8812 for qualifying children
+on a credit roster, including Part II-B for three or more children. The
+credit for other dependents stays outside the class. The next milestone is
+unselected.
+
+## Previous milestone
+
 **Every Required Answer Is Read is closed**
 ([plan](phases/engineering-health/milestones/required-versus-read.md),
 [retrospective](milestone-retrospectives/2026-10-24-required-versus-read.md)).
@@ -22,9 +32,8 @@ A static check in CI keeps a rule from requiring an input it never
 references; `tools/required_versus_read.py path` reports path-dependent cases
 on demand. The rows examined in shipped content had no misleading question
 or correction hazard.
-The next milestone is unselected.
 
-## Previous milestone
+## Earlier engineering-health milestone
 
 **A Per-Subject Rule Reads Only Its Own Subject is closed**
 ([plan](phases/engineering-health/milestones/per-subject-binding.md),
@@ -180,8 +189,9 @@ loss). **Mortgage Interest and What the Loan Paid For** closed 2026-10-15
   and Worksheet 1.
 - `explain()` re-expands shared inputs at each use: the line 27a walk is
   9,885 tree nodes over 218 findings.
-- Lines 28-31 refundable credits, Schedule 2 Part II taxes and the estimated
-  tax penalty, each declared absent.
+- The credit for other dependents and Credit Limit Worksheet B; lines 29-31
+  refundable credits, Schedule 2 Part II taxes and the estimated tax
+  penalty, each declared absent.
 - Worksheet lines as presentation rows; `demo.*` ids on the correct
   capital-loss and Social Security amounts.
 - The age questions' wording (born before January 2, 1961; a death in 2025

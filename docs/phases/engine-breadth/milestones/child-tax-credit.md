@@ -3,7 +3,7 @@
   "version": 1,
   "phase": "Engine Breadth",
   "topic": "child-tax-credit",
-  "status": "Track 1b complete: W-2 boxes 4 and 6 and Schedule 8812 Part II-B on core v55. Track 2 adds saved presentations.",
+  "status": "Closed. On core v55 the 2025 child tax credit and additional child tax credit are computed from Schedule 8812, including Part II-B for three or more children. Earlier packages keep their results.",
   "scope": [
     "compute the 2025 child tax credit (Form 1040 line 19) and the additional child tax credit (line 28) from Schedule 8812 for a bounded class, as successor content",
     "count each child from per-child answers whose meaning matches the rules that read them, building on the EIC child roster",
@@ -37,7 +37,8 @@
       "docs/phases/engine-breadth/milestones/child-tax-credit.md",
       "docs/phases/engine-breadth/coverage-frontier.md"
     ]
-  }
+  },
+  "retrospective": "docs/milestone-retrospectives/2026-10-24-child-tax-credit.md"
 }
 -->
 
@@ -176,3 +177,17 @@ P0 is complete ([verify and design](child-tax-credit-evidence/p0-verify-and-desi
   Worksheet A, Part II-A, the absence successors and core v55.
 - **Track 1b:** W-2 boxes 4 and 6, Part II-B, and the three-or-more cases.
 - **Track 2:** saved presentations.
+
+## Execution record
+
+- P0: Schedule 8812 verified; the credit roster proved on the real
+  coordinator; Part II-B found live for every three-child family.
+- Track 1a: the credit roster and chain, Part I, Worksheet A, Part II-A and
+  core v55; the Foreman corrected the citizenship question.
+- Track 1b: W-2 boxes 4 and 6 and Part II-B.
+- Track 2: two v55 saved presentations.
+
+## Outcome
+
+Closed 2026-10-24. See the
+[retrospective](../../milestone-retrospectives/2026-10-24-child-tax-credit.md).
