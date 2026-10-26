@@ -3,7 +3,7 @@
   "version": 1,
   "phase": "Engine Breadth",
   "topic": "child-tax-credit",
-  "status": "Planned. P0 verifies the 2025 child tax credit and additional child tax credit law (Schedule 8812) and designs the per-child answers on the existing child roster.",
+  "status": "P0 complete; contract settled. Track 1a builds the child tax credit family, Schedule 8812 Part I, Credit Limit Worksheet A and Part II-A on core v55.",
   "scope": [
     "compute the 2025 child tax credit (Form 1040 line 19) and the additional child tax credit (line 28) from Schedule 8812 for a bounded class, as successor content",
     "count each child from per-child answers whose meaning matches the rules that read them, building on the EIC child roster",
@@ -109,3 +109,70 @@ something outside the class refused rather than given $0.
 - Three or more children where the alternative ACTC method could be larger.
 - A return answering none of the new questions is blocked with the facts
   named, never a silent zero; every existing golden keeps its result.
+
+## P0 result
+
+P0 is complete ([verify and design](child-tax-credit-evidence/p0-verify-and-design.md),
+`ctc_case_table.py` and `ctc_child_probe.py` beside it).
+
+- **Law.** 2025 Schedule 8812: $2,200 per qualifying child under 17 with an
+  SSN valid for employment; the phase-out reduces the credit by $50 per
+  $1,000 (rounded up) of modified AGI over $200,000 ($400,000 joint); Credit
+  Limit Worksheet A caps line 19 at tax; the ACTC is the smaller of the
+  unused credit, $1,700 per child, and 15 percent of earned income over
+  $2,500 (Part II-A), or for three or more children the larger of that and
+  Part II-B (social security and Medicare tax withheld less the earned income
+  credit), when line 20 is below line 17.
+- **Roster.** The EIC child family cannot carry a second subtotal: a second
+  closure mapping on it fails with `SourceAuthorityError`. A separate credit
+  family over the same child kind, reusing the shared per-child answers
+  (relationship, joint return, SSN, tie-breaker) and adding this credit's own
+  (age under 17, residency without the EIC's United States requirement,
+  dependency and support, citizenship), works on the real coordinator with the EIC family
+  loaded; no engine change.
+- **Part II-B is live for any family with three or more children** whose 15
+  percent amount is below the unused credit, not only for Puerto Rico. It
+  needs W-2 boxes 4 and 6. Its other inputs are already declared absent
+  (Schedule 1 line 15; Schedule 2 lines 5, 6 and 13; Schedule 3 Part II) or
+  computed (line 27a).
+- **The credit for other dependents** cannot be left as a silent $0: a
+  return with an other dependent must say so.
+
+## Contract
+
+1. **Credit family.** `tax.us.2025.ctc.child-roster` over the EIC child kind
+   with its own closure, reusing the shared per-child answers unchanged in
+   meaning, plus the per-child answers for this credit (age under 17 at the
+   end of 2025, SSN valid for employment issued by the due date, the child is
+   the filer's dependent and did not provide over half their own support,
+   and U.S. citizenship, nationality or residence; a resident of Canada or
+   Mexico only does not qualify for this credit). A per-child chain counts qualifying children, as
+   the EIC chain does.
+2. **Schedule 8812 Part I and Credit Limit Worksheet A**, one rule per line,
+   publishing line 19 (the child tax credit part) and the unused credit.
+   Worksheet B and its inputs stay outside the class by answer.
+3. **Part II-A and Part II-B**, one rule per line, publishing line 28. Track
+   1b adds W-2 box 4 (social security tax withheld) and box 6 (Medicare tax
+   withheld) as per-statement amounts, in the W-2 box 2 pattern, with the
+   same box 1 completeness check.
+4. **Questions.** No other dependent for the credit for other dependents
+   (`no` blocks as outside the class); no Form 2555 or Puerto Rico exclusion
+   (the existing unsupported-situations answer where it applies, or a new
+   one). The successor to `tax.us.2025.direct-ftc-scope.no-line19-ctc-odc`
+   covers only what line 19 still declares absent; the successor to
+   `tax.us.2025.lines28-31-scope.no-other-refundable-credits` covers lines 29
+   to 31.
+5. **Required exactly where read**, checked with the new static check and the
+   path tool; a missing required answer blocks with the fact named.
+6. **Successor content only:** core v55, registry v53, release v53 (unless
+   PR #216 merges first), an adoption fixture and goldens; earlier packages,
+   presentations and goldens stay byte-identical.
+7. Each rule explains as the form does; the full lane and `mypy` run before
+   ready.
+
+## Tracks
+
+- **Track 1a:** the credit family, per-child chain, Part I, Credit Limit
+  Worksheet A, Part II-A, the absence successors and core v55.
+- **Track 1b:** W-2 boxes 4 and 6, Part II-B, and the three-or-more cases.
+- **Track 2:** saved presentations.
