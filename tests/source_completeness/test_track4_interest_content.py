@@ -305,6 +305,11 @@ class DataSafety(unittest.TestCase):
         # 151(d)(5)(C)(iii)): a statutory constant ($150,000 MFJ, $75,000
         # otherwise), never taxpayer/account data.
         "tax.us.2025.parameter.senior-deduction-magi-threshold",
+        # Child tax credit phase-out thresholds (Schedule 8812 line 9: $200,000
+        # and $400,000; 2025 instructions). Statutory constants, never
+        # taxpayer/account data; the other amounts in this parameter are
+        # below six digits.
+        "tax.us.2025.parameter.ctc-2025",
     })
 
     def test_no_private_markers_or_account_identifiers(self) -> None:

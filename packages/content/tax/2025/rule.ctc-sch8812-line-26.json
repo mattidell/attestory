@@ -1,0 +1,58 @@
+{
+  "schema": "rule-artifact.v14",
+  "id": "tax.us.2025.rule.ctc-sch8812-line-26",
+  "version": "v1",
+  "scope": {
+    "tax_year": 2025,
+    "jurisdiction": "US-federal",
+    "family": "individual-income-tax"
+  },
+  "role": "computation",
+  "requires": [
+    "tax.us.2025.ctc.sch8812.line-20",
+    "tax.us.2025.ctc.sch8812.line-25"
+  ],
+  "pins": [
+    {
+      "id": "tax.us.2025.ctc.sch8812.line-20",
+      "origin": "assertion",
+      "role": "input",
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.ctc.sch8812.line-25",
+      "origin": "assertion",
+      "role": "input",
+      "version": "v1"
+    }
+  ],
+  "when": true,
+  "value": {
+    "op": "max",
+    "args": [
+      {
+        "op": "ref",
+        "name": "tax.us.2025.ctc.sch8812.line-20"
+      },
+      {
+        "op": "ref",
+        "name": "tax.us.2025.ctc.sch8812.line-25"
+      }
+    ]
+  },
+  "publishes": "tax.us.2025.ctc.sch8812.line-26",
+  "blocked": {
+    "code": "DEPENDENCY_ABSENT",
+    "missing": [
+      "tax.us.2025.ctc.sch8812.line-20",
+      "tax.us.2025.ctc.sch8812.line-25"
+    ]
+  },
+  "citations": [
+    {
+      "id": "tax.us.2025.citation.schedule8812.part-ii-a",
+      "version": "v1"
+    }
+  ],
+  "notes": "Line 26: the larger of line 20 and line 25."
+}

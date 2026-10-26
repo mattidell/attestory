@@ -1,0 +1,58 @@
+{
+  "schema": "rule-artifact.v14",
+  "id": "tax.us.2025.rule.ctc-sch8812-line-3",
+  "version": "v1",
+  "scope": {
+    "tax_year": 2025,
+    "jurisdiction": "US-federal",
+    "family": "individual-income-tax"
+  },
+  "role": "computation",
+  "requires": [
+    "tax.us.2025.ctc.sch8812.line-1",
+    "tax.us.2025.ctc.sch8812.line-2d"
+  ],
+  "pins": [
+    {
+      "id": "tax.us.2025.ctc.sch8812.line-1",
+      "origin": "assertion",
+      "role": "input",
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.ctc.sch8812.line-2d",
+      "origin": "assertion",
+      "role": "input",
+      "version": "v1"
+    }
+  ],
+  "when": true,
+  "value": {
+    "op": "add",
+    "args": [
+      {
+        "op": "ref",
+        "name": "tax.us.2025.ctc.sch8812.line-1"
+      },
+      {
+        "op": "ref",
+        "name": "tax.us.2025.ctc.sch8812.line-2d"
+      }
+    ]
+  },
+  "publishes": "tax.us.2025.ctc.sch8812.line-3",
+  "blocked": {
+    "code": "DEPENDENCY_ABSENT",
+    "missing": [
+      "tax.us.2025.ctc.sch8812.line-1",
+      "tax.us.2025.ctc.sch8812.line-2d"
+    ]
+  },
+  "citations": [
+    {
+      "id": "tax.us.2025.citation.schedule8812.part-i",
+      "version": "v1"
+    }
+  ],
+  "notes": "Line 3: modified AGI, line 1 plus line 2d."
+}

@@ -1,0 +1,66 @@
+{
+  "schema": "rule-artifact.v14",
+  "id": "tax.us.2025.rule.ctc-sch8812-line-9",
+  "version": "v1",
+  "scope": {
+    "tax_year": 2025,
+    "jurisdiction": "US-federal",
+    "family": "individual-income-tax"
+  },
+  "role": "computation",
+  "requires": [
+    "filing_status"
+  ],
+  "pins": [
+    {
+      "id": "tax.us.2025.filing-status",
+      "origin": "assertion",
+      "role": "input",
+      "version": "v1"
+    }
+  ],
+  "when": true,
+  "value": {
+    "op": "choose",
+    "when": {
+      "op": "categorical_compare",
+      "cmp": "eq",
+      "left": {
+        "op": "ref",
+        "name": "filing_status"
+      },
+      "right": {
+        "op": "category_literal",
+        "fact_type": {
+          "id": "tax.us.2025.filing-status",
+          "version": "v1"
+        },
+        "value": "married_filing_jointly"
+      }
+    },
+    "then": {
+      "op": "parameter",
+      "key": "phaseout_joint",
+      "parameter_id": "tax.us.2025.parameter.ctc-2025"
+    },
+    "else": {
+      "op": "parameter",
+      "key": "phaseout_single",
+      "parameter_id": "tax.us.2025.parameter.ctc-2025"
+    }
+  },
+  "publishes": "tax.us.2025.ctc.sch8812.line-9",
+  "blocked": {
+    "code": "DEPENDENCY_ABSENT",
+    "missing": [
+      "filing_status"
+    ]
+  },
+  "citations": [
+    {
+      "id": "tax.us.2025.citation.schedule8812.part-i",
+      "version": "v1"
+    }
+  ],
+  "notes": "Line 9: $400,000 married filing jointly; $200,000 all other filing statuses."
+}

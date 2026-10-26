@@ -1,0 +1,84 @@
+{
+  "schema": "rule-artifact.v14",
+  "id": "tax.us.2025.rule.ctc-sch8812-part-ii-b-needed",
+  "version": "v1",
+  "scope": {
+    "tax_year": 2025,
+    "jurisdiction": "US-federal",
+    "family": "individual-income-tax"
+  },
+  "role": "computation",
+  "requires": [
+    "tax.us.2025.ctc.child-count",
+    "tax.us.2025.ctc.sch8812.line-17",
+    "tax.us.2025.ctc.sch8812.line-20"
+  ],
+  "pins": [
+    {
+      "id": "tax.us.2025.ctc.child-count",
+      "origin": "assertion",
+      "role": "input",
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.ctc.sch8812.line-17",
+      "origin": "assertion",
+      "role": "input",
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.ctc.sch8812.line-20",
+      "origin": "assertion",
+      "role": "input",
+      "version": "v1"
+    }
+  ],
+  "when": true,
+  "value": {
+    "op": "choose",
+    "when": {
+      "op": "all",
+      "args": [
+        {
+          "op": "compare",
+          "cmp": "gte",
+          "left": {
+            "op": "ref",
+            "name": "tax.us.2025.ctc.child-count"
+          },
+          "right": 3
+        },
+        {
+          "op": "compare",
+          "cmp": "lt",
+          "left": {
+            "op": "ref",
+            "name": "tax.us.2025.ctc.sch8812.line-20"
+          },
+          "right": {
+            "op": "ref",
+            "name": "tax.us.2025.ctc.sch8812.line-17"
+          }
+        }
+      ]
+    },
+    "then": 1,
+    "else": 0
+  },
+  "publishes": "tax.us.2025.ctc.sch8812.part-ii-b-needed",
+  "blocked": {
+    "code": "DEPENDENCY_ABSENT",
+    "missing": [
+      "tax.us.2025.ctc.child-count",
+      "tax.us.2025.ctc.sch8812.line-17",
+      "tax.us.2025.ctc.sch8812.line-20"
+    ]
+  },
+  "citations": [
+    {
+      "id": "tax.us.2025.citation.schedule8812.part-ii-a",
+      "version": "v1"
+    }
+  ],
+  "notes": "Schedule 8812 Part II-B is read when three or more children are counted and line 20 is below line 17 (f1040s8 lines 61-65). Otherwise lines 21-26 are not read: no W-2 box 4 or 6 answer is asked and no EIC is read by the credit."
+}

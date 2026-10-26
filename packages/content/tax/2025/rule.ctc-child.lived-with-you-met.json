@@ -1,0 +1,46 @@
+{
+  "schema": "rule-artifact.v14",
+  "id": "tax.us.2025.rule.ctc-child.lived-with-you-met",
+  "version": "v1",
+  "scope": {
+    "tax_year": 2025,
+    "jurisdiction": "US-federal",
+    "family": "individual-income-tax"
+  },
+  "role": "computation",
+  "requires": [],
+  "pins": [],
+  "when": true,
+  "value": {
+    "op": "choose",
+    "when": {
+      "op": "categorical_compare",
+      "cmp": "eq",
+      "left": {
+        "op": "ref",
+        "name": "tax.us.2025.ctc.child.lived-with-you"
+      },
+      "right": {
+        "op": "category_literal",
+        "fact_type": {
+          "id": "tax.us.2025.ctc.child.lived-with-you",
+          "version": "v1"
+        },
+        "value": "yes"
+      }
+    },
+    "then": 1,
+    "else": 0
+  },
+  "publishes": "tax.us.2025.ctc.child.lived-with-you-met",
+  "blocked": {
+    "code": "DEPENDENCY_ABSENT",
+    "missing": []
+  },
+  "citations": [],
+  "notes": "Per-child test: lived with you more than half of 2025. Counts 1 when yes, 0 otherwise.",
+  "subject": {
+    "id": "tax.us.2025.ctc.child.lived-with-you",
+    "version": "v1"
+  }
+}

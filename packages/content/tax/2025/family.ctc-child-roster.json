@@ -1,0 +1,16 @@
+{
+  "authorizes_subtotal": "tax.us.2025.ctc.child-count",
+  "closure_claim": "Every child the filer claims for the child tax credit is recorded as a roster item; the relationship roster is the earned income family.",
+  "id": "tax.us.2025.ctc.child-roster",
+  "member_predicate": {
+    "fact_type": "tax.us.2025.ctc.child.claimed-as-dependent"
+  },
+  "schema": "source-family.v1",
+  "scope": {
+    "tax_year": 2025,
+    "jurisdiction": "US-federal",
+    "family": "individual-income-tax"
+  },
+  "title": "2025 child tax credit child roster",
+  "version": "v1"
+}

@@ -1,0 +1,22 @@
+{
+  "schema": "parameter-declaration.v1",
+  "id": "tax.us.2025.parameter.ctc-2025",
+  "version": "v1",
+  "scope": {
+    "tax_year": 2025,
+    "jurisdiction": "US-federal",
+    "family": "individual-income-tax",
+    "effective_from": "2025-01-01"
+  },
+  "values": {
+    "credit_per_child": "2200",
+    "other_dependent_credit": "500",
+    "actc_per_child": "1700",
+    "earned_threshold": "2500",
+    "actc_rate": "0.15",
+    "phaseout_single": "200000",
+    "phaseout_joint": "400000",
+    "phaseout_per_unit": "50",
+    "phaseout_unit": "1000"
+  }
+}

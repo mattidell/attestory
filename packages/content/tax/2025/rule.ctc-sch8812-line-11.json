@@ -1,0 +1,59 @@
+{
+  "schema": "rule-artifact.v14",
+  "id": "tax.us.2025.rule.ctc-sch8812-line-11",
+  "version": "v1",
+  "scope": {
+    "tax_year": 2025,
+    "jurisdiction": "US-federal",
+    "family": "individual-income-tax"
+  },
+  "role": "computation",
+  "requires": [
+    "tax.us.2025.ctc.sch8812.line-10"
+  ],
+  "pins": [
+    {
+      "id": "tax.us.2025.ctc.sch8812.line-10",
+      "origin": "assertion",
+      "role": "input",
+      "version": "v1"
+    }
+  ],
+  "when": true,
+  "value": {
+    "op": "multiply",
+    "left": {
+      "op": "divide",
+      "left": {
+        "op": "ref",
+        "name": "tax.us.2025.ctc.sch8812.line-10"
+      },
+      "right": {
+        "op": "parameter",
+        "key": "phaseout_unit",
+        "parameter_id": "tax.us.2025.parameter.ctc-2025"
+      },
+      "rounding": "down",
+      "min_decimal_places": 0
+    },
+    "right": {
+      "op": "parameter",
+      "key": "phaseout_per_unit",
+      "parameter_id": "tax.us.2025.parameter.ctc-2025"
+    }
+  },
+  "publishes": "tax.us.2025.ctc.sch8812.line-11",
+  "blocked": {
+    "code": "DEPENDENCY_ABSENT",
+    "missing": [
+      "tax.us.2025.ctc.sch8812.line-10"
+    ]
+  },
+  "citations": [
+    {
+      "id": "tax.us.2025.citation.schedule8812.part-i",
+      "version": "v1"
+    }
+  ],
+  "notes": "Line 11: $50 for each $1,000 of line 10 (5 percent)."
+}

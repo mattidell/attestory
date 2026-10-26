@@ -1,0 +1,79 @@
+{
+  "schema": "rule-artifact.v14",
+  "id": "tax.us.2025.rule.ctc-sch8812-line-23",
+  "version": "v1",
+  "scope": {
+    "tax_year": 2025,
+    "jurisdiction": "US-federal",
+    "family": "individual-income-tax"
+  },
+  "role": "computation",
+  "requires": [
+    "tax.us.2025.ctc.sch8812.part-ii-b-needed",
+    "tax.us.2025.ctc.sch8812.line-21",
+    "tax.us.2025.ctc.sch8812.line-22"
+  ],
+  "pins": [
+    {
+      "id": "tax.us.2025.ctc.sch8812.part-ii-b-needed",
+      "origin": "assertion",
+      "role": "input",
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.ctc.sch8812.line-21",
+      "origin": "assertion",
+      "role": "input",
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.ctc.sch8812.line-22",
+      "origin": "assertion",
+      "role": "input",
+      "version": "v1"
+    }
+  ],
+  "when": true,
+  "value": {
+    "op": "choose",
+    "when": {
+      "op": "compare",
+      "cmp": "eq",
+      "left": {
+        "op": "ref",
+        "name": "tax.us.2025.ctc.sch8812.part-ii-b-needed"
+      },
+      "right": 1
+    },
+    "then": {
+      "op": "add",
+      "args": [
+        {
+          "op": "ref",
+          "name": "tax.us.2025.ctc.sch8812.line-21"
+        },
+        {
+          "op": "ref",
+          "name": "tax.us.2025.ctc.sch8812.line-22"
+        }
+      ]
+    },
+    "else": "0"
+  },
+  "publishes": "tax.us.2025.ctc.sch8812.line-23",
+  "blocked": {
+    "code": "DEPENDENCY_ABSENT",
+    "missing": [
+      "tax.us.2025.ctc.sch8812.part-ii-b-needed",
+      "tax.us.2025.ctc.sch8812.line-21",
+      "tax.us.2025.ctc.sch8812.line-22"
+    ]
+  },
+  "citations": [
+    {
+      "id": "tax.us.2025.citation.schedule8812.part-ii-a",
+      "version": "v1"
+    }
+  ],
+  "notes": "Line 23: lines 21 and 22."
+}

@@ -1,0 +1,22 @@
+{
+  "schema": "source-closure-mapping.v2",
+  "id": "tax.us.2025.closure-mapping.w2-box4",
+  "version": "v1",
+  "family": {
+    "id": "tax.us.2025.w2-box4",
+    "version": "v1"
+  },
+  "member_fact_type": {
+    "id": "tax.us.2025.w2.box4-social-security",
+    "version": "v1"
+  },
+  "closure_fact_type": {
+    "id": "tax.us.2025.w2-box4.source-closure",
+    "version": "v1"
+  },
+  "closure_horizon_key": "family-horizon",
+  "admits_symbol": "tax.us.2025.w2.box4-total",
+  "admission": {
+    "condition": "current-literal-true"
+  }
+}

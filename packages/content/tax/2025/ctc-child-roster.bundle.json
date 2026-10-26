@@ -1,0 +1,210 @@
+{
+  "fact_types": [
+    {
+      "id": "tax.us.2025.ctc.child.under-17",
+      "identity_keys": [
+        {
+          "kind": "entity",
+          "name": "child",
+          "entity_kind": "tax.us.eic-child"
+        },
+        {
+          "kind": "literal",
+          "name": "tax-year",
+          "values": [
+            "2025"
+          ]
+        }
+      ],
+      "nature": "determinable",
+      "schema": "fact-type.v2",
+      "supersession": {
+        "policy": "free"
+      },
+      "title": "The child was under age 17 at the end of 2025, for the child tax credit and additional child tax credit. Yes means the child meets the test. No means the child is not a qualifying child for the credit. Contributed categorical assertion, domain {yes, no}, no default, presence-before-value, free supersession.",
+      "value_schema": {
+        "enum": [
+          "yes",
+          "no"
+        ]
+      },
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.ctc.child.lived-with-you",
+      "identity_keys": [
+        {
+          "kind": "entity",
+          "name": "child",
+          "entity_kind": "tax.us.eic-child"
+        },
+        {
+          "kind": "literal",
+          "name": "tax-year",
+          "values": [
+            "2025"
+          ]
+        }
+      ],
+      "nature": "determinable",
+      "schema": "fact-type.v2",
+      "supersession": {
+        "policy": "free"
+      },
+      "title": "The child lived with you for more than half of 2025, taking into account temporary absences, birth or death during 2025, or extended active-duty military service. Unlike the earned income credit, no part of that time must be in the United States. Yes means the child meets the test. No means it does not. Contributed categorical assertion, domain {yes, no}, no default, presence-before-value, free supersession.",
+      "value_schema": {
+        "enum": [
+          "yes",
+          "no"
+        ]
+      },
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.ctc.child.no-over-half-support",
+      "identity_keys": [
+        {
+          "kind": "entity",
+          "name": "child",
+          "entity_kind": "tax.us.eic-child"
+        },
+        {
+          "kind": "literal",
+          "name": "tax-year",
+          "values": [
+            "2025"
+          ]
+        }
+      ],
+      "nature": "determinable",
+      "schema": "fact-type.v2",
+      "supersession": {
+        "policy": "free"
+      },
+      "title": "The child did not provide over half of their own support for 2025. Yes means the child meets the test. No means the child does not. Contributed categorical assertion, domain {yes, no}, no default, presence-before-value, free supersession.",
+      "value_schema": {
+        "enum": [
+          "yes",
+          "no"
+        ]
+      },
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.ctc.child.citizen-or-resident",
+      "identity_keys": [
+        {
+          "kind": "entity",
+          "name": "child",
+          "entity_kind": "tax.us.eic-child"
+        },
+        {
+          "kind": "literal",
+          "name": "tax-year",
+          "values": [
+            "2025"
+          ]
+        }
+      ],
+      "nature": "determinable",
+      "schema": "fact-type.v2",
+      "supersession": {
+        "policy": "free"
+      },
+      "title": "The child was a U.S. citizen, U.S. national, or U.S. resident alien for 2025 (Form 1040 instructions, child tax credit Step 2 question 2; an adopted child under the exception to the citizen test counts). A child who was only a resident of Canada or Mexico does not meet this test. Yes means the child meets the test. No means the child is not a qualifying child for the child tax credit. Contributed categorical assertion, domain {yes, no}, no default, presence-before-value, free supersession.",
+      "value_schema": {
+        "enum": [
+          "yes",
+          "no"
+        ]
+      },
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.ctc.child.claimed-as-dependent",
+      "identity_keys": [
+        {
+          "kind": "entity",
+          "name": "child",
+          "entity_kind": "tax.us.eic-child"
+        },
+        {
+          "kind": "literal",
+          "name": "tax-year",
+          "values": [
+            "2025"
+          ]
+        }
+      ],
+      "nature": "determinable",
+      "schema": "fact-type.v2",
+      "supersession": {
+        "policy": "free"
+      },
+      "title": "You claim this child as your dependent on this 2025 return, with the child tax credit box checked for the child. Yes means the child is claimed. No means the child is not claimed, and the credit does not count the child. Contributed categorical assertion, domain {yes, no}, no default, presence-before-value, free supersession.",
+      "value_schema": {
+        "enum": [
+          "yes",
+          "no"
+        ]
+      },
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.ctc.child-roster.source-closure",
+      "identity_keys": [
+        {
+          "kind": "entity",
+          "name": "family-horizon",
+          "entity_kind": "kernel.family-horizon"
+        },
+        {
+          "kind": "literal",
+          "name": "tax-year",
+          "values": [
+            "2025"
+          ]
+        }
+      ],
+      "nature": "determinable",
+      "schema": "fact-type.v2",
+      "supersession": {
+        "policy": "free"
+      },
+      "title": "Closure of the 2025 child tax credit child roster. Contributed boolean assertion, free supersession.",
+      "value_schema": {
+        "type": "boolean"
+      },
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.ctc.child.inert-path-unwritten",
+      "identity_keys": [
+        {
+          "kind": "literal",
+          "name": "marker",
+          "values": [
+            "unused"
+          ]
+        }
+      ],
+      "nature": "determinable",
+      "schema": "fact-type.v2",
+      "supersession": {
+        "policy": "free"
+      },
+      "title": "Internal marker used only to complete an inert rule path for the child tax credit roster selection rule.",
+      "value_schema": {
+        "enum": [
+          "unused"
+        ],
+        "type": "string"
+      },
+      "version": "v1"
+    }
+  ],
+  "id": "tax.us.2025.ctc-child-roster.vocabulary",
+  "label": "2025 child tax credit child roster vocabulary",
+  "schema": "bundle.v2",
+  "version": "v1"
+}

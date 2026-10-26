@@ -3,7 +3,7 @@
   "version": 1,
   "phase": "Engine Breadth",
   "topic": "child-tax-credit",
-  "status": "P0 complete; contract settled. Track 1a builds the child tax credit family, Schedule 8812 Part I, Credit Limit Worksheet A and Part II-A on core v55.",
+  "status": "Track 1b complete: W-2 boxes 4 and 6 and Schedule 8812 Part II-B on core v55. Track 2 adds saved presentations.",
   "scope": [
     "compute the 2025 child tax credit (Form 1040 line 19) and the additional child tax credit (line 28) from Schedule 8812 for a bounded class, as successor content",
     "count each child from per-child answers whose meaning matches the rules that read them, building on the EIC child roster",

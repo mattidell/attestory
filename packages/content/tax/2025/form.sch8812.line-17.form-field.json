@@ -1,0 +1,45 @@
+{
+  "binds_symbol": "tax.us.2025.ctc.sch8812.line-17",
+  "citation": {
+    "id": "tax.us.2025.citation.schedule8812.part-ii-a",
+    "version": "v1"
+  },
+  "description": "Schedule 8812 line 17: the smaller of line 16a and line 16b.",
+  "dispositions": {
+    "blocked": {
+      "codes": [
+        "DEPENDENCY_ABSENT",
+        "DEPENDENCY_INVALID"
+      ],
+      "explain": "Earned income credit is blocked because an input it needs is missing or invalid.",
+      "render": ""
+    },
+    "closure_backed_zero": {
+      "explain": "Earned income credit publishes zero through an honest closed-empty source family.",
+      "render": "0"
+    },
+    "computed_zero": {
+      "explain": "Earned income credit publishes a computed zero.",
+      "render": "0"
+    },
+    "guard_inapplicable": {
+      "explain": "No value is published for Earned income credit because its worksheet guard is not satisfied.",
+      "render": ""
+    },
+    "published_value": {
+      "explain": "Form 1040 line 27a: the earned income credit from Worksheet A line 6.",
+      "render": "{value}"
+    }
+  },
+  "form": {
+    "authority": "IRS",
+    "form_id": "Schedule 8812",
+    "jurisdiction": "US-federal",
+    "tax_year": 2025
+  },
+  "id": "tax.us.2025.form.sch8812.line-17",
+  "label": "Smaller of unused credit and the refundable cap",
+  "line": "8812-17",
+  "schema": "form-field.v3",
+  "version": "v1"
+}

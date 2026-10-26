@@ -1,0 +1,49 @@
+{
+  "schema": "rule-artifact.v14",
+  "id": "tax.us.2025.rule.ctc-sch8812-line-16b",
+  "version": "v1",
+  "scope": {
+    "tax_year": 2025,
+    "jurisdiction": "US-federal",
+    "family": "individual-income-tax"
+  },
+  "role": "computation",
+  "requires": [
+    "tax.us.2025.ctc.sch8812.line-4"
+  ],
+  "pins": [
+    {
+      "id": "tax.us.2025.ctc.sch8812.line-4",
+      "origin": "assertion",
+      "role": "input",
+      "version": "v1"
+    }
+  ],
+  "when": true,
+  "value": {
+    "op": "multiply",
+    "left": {
+      "op": "ref",
+      "name": "tax.us.2025.ctc.sch8812.line-4"
+    },
+    "right": {
+      "op": "parameter",
+      "key": "actc_per_child",
+      "parameter_id": "tax.us.2025.parameter.ctc-2025"
+    }
+  },
+  "publishes": "tax.us.2025.ctc.sch8812.line-16b",
+  "blocked": {
+    "code": "DEPENDENCY_ABSENT",
+    "missing": [
+      "tax.us.2025.ctc.sch8812.line-4"
+    ]
+  },
+  "citations": [
+    {
+      "id": "tax.us.2025.citation.schedule8812.part-ii-a",
+      "version": "v1"
+    }
+  ],
+  "notes": "Line 16b: qualifying children under 17 with a valid SSN times $1,700."
+}

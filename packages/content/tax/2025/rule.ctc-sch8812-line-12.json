@@ -1,0 +1,72 @@
+{
+  "schema": "rule-artifact.v14",
+  "id": "tax.us.2025.rule.ctc-sch8812-line-12",
+  "version": "v1",
+  "scope": {
+    "tax_year": 2025,
+    "jurisdiction": "US-federal",
+    "family": "individual-income-tax"
+  },
+  "role": "computation",
+  "requires": [
+    "tax.us.2025.ctc.sch8812.line-8",
+    "tax.us.2025.ctc.sch8812.line-11"
+  ],
+  "pins": [
+    {
+      "id": "tax.us.2025.ctc.sch8812.line-8",
+      "origin": "assertion",
+      "role": "input",
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.ctc.sch8812.line-11",
+      "origin": "assertion",
+      "role": "input",
+      "version": "v1"
+    }
+  ],
+  "when": true,
+  "value": {
+    "op": "choose",
+    "when": {
+      "op": "compare",
+      "cmp": "gt",
+      "left": {
+        "op": "ref",
+        "name": "tax.us.2025.ctc.sch8812.line-8"
+      },
+      "right": {
+        "op": "ref",
+        "name": "tax.us.2025.ctc.sch8812.line-11"
+      }
+    },
+    "then": {
+      "op": "subtract",
+      "left": {
+        "op": "ref",
+        "name": "tax.us.2025.ctc.sch8812.line-8"
+      },
+      "right": {
+        "op": "ref",
+        "name": "tax.us.2025.ctc.sch8812.line-11"
+      }
+    },
+    "else": 0
+  },
+  "publishes": "tax.us.2025.ctc.sch8812.line-12",
+  "blocked": {
+    "code": "DEPENDENCY_ABSENT",
+    "missing": [
+      "tax.us.2025.ctc.sch8812.line-8",
+      "tax.us.2025.ctc.sch8812.line-11"
+    ]
+  },
+  "citations": [
+    {
+      "id": "tax.us.2025.citation.schedule8812.part-i",
+      "version": "v1"
+    }
+  ],
+  "notes": "Line 12: line 8 minus line 11 when line 8 is more than line 11; otherwise no credit (the form's stop)."
+}

@@ -1,0 +1,55 @@
+{
+  "schema": "rule-artifact.v14",
+  "id": "tax.us.2025.rule.ctc-sch8812-line-19",
+  "version": "v1",
+  "scope": {
+    "tax_year": 2025,
+    "jurisdiction": "US-federal",
+    "family": "individual-income-tax"
+  },
+  "role": "computation",
+  "requires": [
+    "tax.us.2025.ctc.sch8812.line-18a"
+  ],
+  "pins": [
+    {
+      "id": "tax.us.2025.ctc.sch8812.line-18a",
+      "origin": "assertion",
+      "role": "input",
+      "version": "v1"
+    }
+  ],
+  "when": true,
+  "value": {
+    "op": "max",
+    "args": [
+      {
+        "op": "subtract",
+        "left": {
+          "op": "ref",
+          "name": "tax.us.2025.ctc.sch8812.line-18a"
+        },
+        "right": {
+          "op": "parameter",
+          "key": "earned_threshold",
+          "parameter_id": "tax.us.2025.parameter.ctc-2025"
+        }
+      },
+      0
+    ]
+  },
+  "publishes": "tax.us.2025.ctc.sch8812.line-19",
+  "blocked": {
+    "code": "DEPENDENCY_ABSENT",
+    "missing": [
+      "tax.us.2025.ctc.sch8812.line-18a"
+    ]
+  },
+  "citations": [
+    {
+      "id": "tax.us.2025.citation.schedule8812.part-ii-a",
+      "version": "v1"
+    }
+  ],
+  "notes": "Line 19: earned income above $2,500, minus $2,500; exactly $2,500 gives zero."
+}
