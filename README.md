@@ -7,9 +7,9 @@ This is the project's third iteration. The first proved a working return generat
 ## Where things stand
 
 - **Governance** (`docs/governance/`): the ratified v0.1 set — Constitution, Ontology, Engineering Constraints, Principles, Commentary. The sole contract authority for this repository.
-- **Phase state** (`docs/phase-state.md`): on core calculations v54 the 2025
-  earned income credit is computed with or without qualifying children (see
-  "2025 earned income credit" below). Use `python3 tools/foreman_context.py --ref HEAD` for
+- **Phase state** (`docs/phase-state.md`): on core calculations v55 the 2025
+  child tax credit and additional child tax credit are computed (see "2025
+  child tax credit" below). Use `python3 tools/foreman_context.py --ref HEAD` for
   current routing; publication status is tracked by the pull request's checks.
 - **Current bounded capability:** production-shaped synthetic returns cover
   the Form 1099-DIV box-2a direct-reporting route, Schedule K-1 (Form 1065)
@@ -336,6 +336,24 @@ claim, an unanswered child question or an unclosed roster blocks. A filer
 whose only qualifying children lack a valid SSN takes the self-only credit
 when otherwise eligible. A married filer on a married filing separately or
 head of household return with a child answers the separated-spouse question.
+
+## 2025 child tax credit
+
+On `core-calculations.v55` (registry `v53`, release
+`demo.release.sli-worksheet-integration.2025.v53.json`), Form 1040 line 19
+(the child tax credit) and line 28 (the additional child tax credit) come
+from Schedule 8812: $2,200 per qualifying child, reduced by $50 per $1,000 of
+modified AGI over $200,000 ($400,000 joint), capped at tax by Credit Limit
+Worksheet A, with the rest refundable up to $1,700 per child at 15 percent of
+earned income over $2,500, and for three or more children the larger of that
+and Part II-B, which reads W-2 boxes 4 and 6 and the earned income credit.
+
+Each child the filer claims as a dependent is on a closed credit roster over
+the EIC child kind, with answers for age under 17, residency, support,
+U.S. citizenship, nationality or residence, and the shared EIC answers. A
+claimed dependent who is not a qualifying child (the credit for other
+dependents) is outside the class, as is a child another person may also
+claim.
 
 ## Correction session walkthrough
 

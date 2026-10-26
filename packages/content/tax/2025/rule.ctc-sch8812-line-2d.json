@@ -1,0 +1,61 @@
+{
+  "schema": "rule-artifact.v14",
+  "id": "tax.us.2025.rule.ctc-sch8812-line-2d",
+  "version": "v1",
+  "scope": {
+    "tax_year": 2025,
+    "jurisdiction": "US-federal",
+    "family": "individual-income-tax"
+  },
+  "role": "computation",
+  "requires": [
+    "tax.us.2025.ctc.no-puerto-rico-or-4563-exclusion"
+  ],
+  "pins": [
+    {
+      "id": "tax.us.2025.ctc.no-puerto-rico-or-4563-exclusion",
+      "origin": "assertion",
+      "role": "input",
+      "version": "v1"
+    }
+  ],
+  "when": true,
+  "value": {
+    "op": "choose",
+    "when": {
+      "op": "categorical_compare",
+      "cmp": "eq",
+      "left": {
+        "op": "ref",
+        "name": "tax.us.2025.ctc.no-puerto-rico-or-4563-exclusion"
+      },
+      "right": {
+        "op": "category_literal",
+        "fact_type": {
+          "id": "tax.us.2025.ctc.no-puerto-rico-or-4563-exclusion",
+          "version": "v1"
+        },
+        "value": "yes"
+      }
+    },
+    "then": 0,
+    "else": {
+      "op": "block",
+      "code": "DEPENDENCY_INVALID"
+    }
+  },
+  "publishes": "tax.us.2025.ctc.sch8812.line-2d",
+  "blocked": {
+    "code": "DEPENDENCY_ABSENT",
+    "missing": [
+      "tax.us.2025.ctc.no-puerto-rico-or-4563-exclusion"
+    ]
+  },
+  "citations": [
+    {
+      "id": "tax.us.2025.citation.schedule8812.part-i",
+      "version": "v1"
+    }
+  ],
+  "notes": "Lines 2a-2d: Puerto Rico exclusion and Form 4563 amounts are absent by answer (yes gives 0; no blocks)."
+}

@@ -1,0 +1,46 @@
+{
+  "schema": "rule-artifact.v14",
+  "id": "tax.us.2025.rule.ctc-child.no-support-met",
+  "version": "v1",
+  "scope": {
+    "tax_year": 2025,
+    "jurisdiction": "US-federal",
+    "family": "individual-income-tax"
+  },
+  "role": "computation",
+  "requires": [],
+  "pins": [],
+  "when": true,
+  "value": {
+    "op": "choose",
+    "when": {
+      "op": "categorical_compare",
+      "cmp": "eq",
+      "left": {
+        "op": "ref",
+        "name": "tax.us.2025.ctc.child.no-over-half-support"
+      },
+      "right": {
+        "op": "category_literal",
+        "fact_type": {
+          "id": "tax.us.2025.ctc.child.no-over-half-support",
+          "version": "v1"
+        },
+        "value": "yes"
+      }
+    },
+    "then": 1,
+    "else": 0
+  },
+  "publishes": "tax.us.2025.ctc.child.no-support-met",
+  "blocked": {
+    "code": "DEPENDENCY_ABSENT",
+    "missing": []
+  },
+  "citations": [],
+  "notes": "Per-child test: did not provide over half of own support. Counts 1 when yes, 0 otherwise.",
+  "subject": {
+    "id": "tax.us.2025.ctc.child.no-over-half-support",
+    "version": "v1"
+  }
+}

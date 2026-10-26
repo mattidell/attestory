@@ -1,0 +1,68 @@
+{
+  "schema": "rule-artifact.v14",
+  "id": "tax.us.2025.rule.ctc-sch8812-line-17",
+  "version": "v1",
+  "scope": {
+    "tax_year": 2025,
+    "jurisdiction": "US-federal",
+    "family": "individual-income-tax"
+  },
+  "role": "computation",
+  "requires": [
+    "tax.us.2025.ctc.sch8812.line-16a",
+    "tax.us.2025.ctc.sch8812.line-16b"
+  ],
+  "pins": [
+    {
+      "id": "tax.us.2025.ctc.sch8812.line-16a",
+      "origin": "assertion",
+      "role": "input",
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.ctc.sch8812.line-16b",
+      "origin": "assertion",
+      "role": "input",
+      "version": "v1"
+    }
+  ],
+  "when": true,
+  "value": {
+    "op": "choose",
+    "when": {
+      "op": "compare",
+      "cmp": "lte",
+      "left": {
+        "op": "ref",
+        "name": "tax.us.2025.ctc.sch8812.line-16a"
+      },
+      "right": {
+        "op": "ref",
+        "name": "tax.us.2025.ctc.sch8812.line-16b"
+      }
+    },
+    "then": {
+      "op": "ref",
+      "name": "tax.us.2025.ctc.sch8812.line-16a"
+    },
+    "else": {
+      "op": "ref",
+      "name": "tax.us.2025.ctc.sch8812.line-16b"
+    }
+  },
+  "publishes": "tax.us.2025.ctc.sch8812.line-17",
+  "blocked": {
+    "code": "DEPENDENCY_ABSENT",
+    "missing": [
+      "tax.us.2025.ctc.sch8812.line-16a",
+      "tax.us.2025.ctc.sch8812.line-16b"
+    ]
+  },
+  "citations": [
+    {
+      "id": "tax.us.2025.citation.schedule8812.part-ii-a",
+      "version": "v1"
+    }
+  ],
+  "notes": "Line 17: smaller of 16a and 16b."
+}

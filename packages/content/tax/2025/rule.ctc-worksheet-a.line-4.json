@@ -1,0 +1,27 @@
+{
+  "schema": "rule-artifact.v14",
+  "id": "tax.us.2025.rule.ctc-worksheet-a.line-4",
+  "version": "v1",
+  "scope": {
+    "tax_year": 2025,
+    "jurisdiction": "US-federal",
+    "family": "individual-income-tax"
+  },
+  "role": "computation",
+  "requires": [],
+  "pins": [],
+  "when": true,
+  "value": 0,
+  "publishes": "tax.us.2025.ctc.sch8812.worksheet-a.line-4",
+  "blocked": {
+    "code": "DEPENDENCY_ABSENT",
+    "missing": []
+  },
+  "citations": [
+    {
+      "id": "tax.us.2025.citation.schedule8812.worksheet-a",
+      "version": "v1"
+    }
+  ],
+  "notes": "Worksheet A line 4: Credit Limit Worksheet B is not used in this class; its four credits are absent through the Schedule 3 lines 5 and 6 answers that line 2 requires."
+}

@@ -1,0 +1,145 @@
+{
+  "schema": "rule-artifact.v14",
+  "id": "tax.us.2025.rule.ctc-spouse-gate",
+  "version": "v1",
+  "scope": {
+    "tax_year": 2025,
+    "jurisdiction": "US-federal",
+    "family": "individual-income-tax"
+  },
+  "role": "computation",
+  "requires": [
+    "tax.us.2025.ctc.child-count",
+    "filing_status"
+  ],
+  "pins": [
+    {
+      "id": "tax.us.2025.ctc.child-count",
+      "origin": "assertion",
+      "role": "input",
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.filing-status",
+      "origin": "assertion",
+      "role": "input",
+      "version": "v1"
+    }
+  ],
+  "when": true,
+  "value": {
+    "op": "choose",
+    "when": {
+      "op": "compare",
+      "cmp": "eq",
+      "left": {
+        "op": "ref",
+        "name": "tax.us.2025.ctc.child-count"
+      },
+      "right": 0
+    },
+    "then": 1,
+    "else": {
+      "op": "choose",
+      "when": {
+        "op": "categorical_compare",
+        "cmp": "eq",
+        "left": {
+          "op": "ref",
+          "name": "filing_status"
+        },
+        "right": {
+          "op": "category_literal",
+          "fact_type": {
+            "id": "tax.us.2025.filing-status",
+            "version": "v1"
+          },
+          "value": "married_filing_jointly"
+        }
+      },
+      "then": {
+        "op": "choose",
+        "when": {
+          "op": "categorical_compare",
+          "cmp": "eq",
+          "left": {
+            "op": "ref",
+            "name": "tax.us.2025.eic.taxpayer-valid-ssn"
+          },
+          "right": {
+            "op": "category_literal",
+            "fact_type": {
+              "id": "tax.us.2025.eic.taxpayer-valid-ssn",
+              "version": "v1"
+            },
+            "value": "yes"
+          }
+        },
+        "then": {
+          "op": "choose",
+          "when": {
+            "op": "all",
+            "args": [
+              {
+                "op": "conditional_dependency_set",
+                "condition": {
+                  "op": "compare",
+                  "cmp": "gt",
+                  "left": {
+                    "op": "ref",
+                    "name": "tax.us.2025.ctc.child-count"
+                  },
+                  "right": 0
+                },
+                "members": [
+                  {
+                    "op": "ref",
+                    "name": "tax.us.2025.ctc.spouse-ssn-or-itin"
+                  }
+                ]
+              },
+              {
+                "op": "categorical_compare",
+                "cmp": "eq",
+                "left": {
+                  "op": "ref",
+                  "name": "tax.us.2025.ctc.spouse-ssn-or-itin"
+                },
+                "right": {
+                  "op": "category_literal",
+                  "fact_type": {
+                    "id": "tax.us.2025.ctc.spouse-ssn-or-itin",
+                    "version": "v1"
+                  },
+                  "value": "yes"
+                }
+              }
+            ]
+          },
+          "then": 1,
+          "else": {
+            "op": "block",
+            "code": "DEPENDENCY_INVALID"
+          }
+        },
+        "else": 1
+      },
+      "else": 1
+    }
+  },
+  "publishes": "tax.us.2025.ctc.spouse-gate",
+  "blocked": {
+    "code": "DEPENDENCY_ABSENT",
+    "missing": [
+      "tax.us.2025.ctc.child-count",
+      "filing_status"
+    ]
+  },
+  "citations": [
+    {
+      "id": "tax.us.2025.citation.schedule8812.part-i",
+      "version": "v1"
+    }
+  ],
+  "notes": "On a joint return with a counted child whose own SSN is valid: the other spouse's SSN or ITIN by the due date (spouse-ssn-or-itin) is required. When the taxpayer's SSN is not valid, the spouse's valid SSN is the filer gate's answer instead, and this gate asks nothing more. Other filing statuses and no counted child need no spouse answer."
+}

@@ -365,6 +365,15 @@ A filer with a qualifying child was outside the class on core v53. Count
 each child from per-child answers, take the table column for that count, and
 refuse when another person may also claim a child.
 
+## Bounded return — The 2025 Child Tax Credit
+
+[Plan](milestones/child-tax-credit.md).
+
+Lines 19 and 28 were $0 by absence answers. Compute the child tax credit and
+the additional child tax credit from Schedule 8812 for qualifying children on
+a credit roster over the EIC child kind, including Part II-B for three or
+more children.
+
 ## Why line 7a comes before Schedule D
 
 The 2025 Form 1040 instructions permit eligible capital-gain distributions to

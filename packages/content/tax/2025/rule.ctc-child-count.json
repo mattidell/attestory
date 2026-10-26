@@ -1,0 +1,108 @@
+{
+  "schema": "rule-artifact.v14",
+  "id": "tax.us.2025.rule.ctc-child-count",
+  "version": "v1",
+  "scope": {
+    "tax_year": 2025,
+    "jurisdiction": "US-federal",
+    "family": "individual-income-tax"
+  },
+  "role": "computation",
+  "requires": [],
+  "pins": [],
+  "when": true,
+  "blocked": {
+    "code": "DEPENDENCY_ABSENT",
+    "missing": []
+  },
+  "citations": [
+    {
+      "id": "tax.us.2025.citation.schedule8812.part-i",
+      "version": "v1"
+    }
+  ],
+  "publishes": "tax.us.2025.ctc.child-count",
+  "selection": {
+    "mode": "exclusive_presence",
+    "conflict": "refuse",
+    "paths": [
+      {
+        "id": "children",
+        "activity": {
+          "kind": "source_nonempty",
+          "member_fact_types": [
+            {
+              "id": "tax.us.2025.ctc.child.claimed-as-dependent",
+              "version": "v1"
+            }
+          ]
+        },
+        "reads_subject_results": [
+          {
+            "symbol": "tax.us.2025.ctc.child.counts",
+            "subject": {
+              "id": "tax.us.2025.eic.child.relationship",
+              "version": "v1"
+            }
+          }
+        ],
+        "requires": [],
+        "pins": [],
+        "when": {
+          "op": "require_closed",
+          "source_set": "tax.us.2025.ctc.child-roster"
+        },
+        "value": {
+          "op": "add",
+          "args": [
+            {
+              "op": "collect",
+              "name": "tax.us.2025.ctc.child.counts",
+              "source_set": "tax.us.2025.ctc.child-roster"
+            }
+          ]
+        }
+      },
+      {
+        "id": "inert",
+        "activity": {
+          "kind": "source_nonempty",
+          "member_fact_types": [
+            {
+              "id": "tax.us.2025.ctc.child.inert-path-unwritten",
+              "version": "v1"
+            }
+          ]
+        },
+        "reads_subject_results": [],
+        "requires": [],
+        "pins": [],
+        "when": true,
+        "value": {
+          "op": "block",
+          "code": "DEPENDENCY_ABSENT"
+        }
+      }
+    ],
+    "default": {
+      "id": "neither",
+      "reads_subject_results": [],
+      "requires": [],
+      "pins": [],
+      "when": true,
+      "value": {
+        "op": "count",
+        "name": "tax.us.2025.ctc.child.claimed-as-dependent",
+        "source_set": "tax.us.2025.ctc.child-roster"
+      }
+    },
+    "refusal": {
+      "code": "DEPENDENCY_INVALID",
+      "missing": [
+        "tax.us.2025.ctc.child-roster.inert-path-conflict"
+      ],
+      "pins": []
+    }
+  },
+  "notes": "Return-level count of children claimed for the child tax credit and meeting every test. Zero when the roster is closed and empty."
+}

@@ -1,0 +1,108 @@
+{
+  "fact_types": [
+    {
+      "id": "tax.us.2025.ctc.no-other-dependent",
+      "identity_keys": [
+        {
+          "kind": "literal",
+          "name": "tax-year",
+          "values": [
+            "2025"
+          ]
+        }
+      ],
+      "nature": "determinable",
+      "schema": "fact-type.v2",
+      "supersession": {
+        "policy": "free"
+      },
+      "title": "You claim no dependent on this 2025 return other than the children counted for the child tax credit. Yes means you claim no other dependent. No means you claim another dependent (for example a qualifying relative, or a child who fails a credit test), which is a credit for other dependents outside the class, and the return is blocked. Read on every return. Contributed categorical assertion, domain {yes, no}, no default, presence-before-value, free supersession.",
+      "value_schema": {
+        "enum": [
+          "yes",
+          "no"
+        ]
+      },
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.ctc.spouse-ssn-or-itin",
+      "identity_keys": [
+        {
+          "kind": "literal",
+          "name": "tax-year",
+          "values": [
+            "2025"
+          ]
+        }
+      ],
+      "nature": "determinable",
+      "schema": "fact-type.v2",
+      "supersession": {
+        "policy": "free"
+      },
+      "title": "On this joint return, your spouse has a social security number, or an individual taxpayer identification number, issued on or before the due date of your 2025 return (including extensions). Asked only on a joint return with at least one counted child. No blocks. Contributed categorical assertion, domain {yes, no}, no default, presence-before-value, free supersession.",
+      "value_schema": {
+        "enum": [
+          "yes",
+          "no"
+        ]
+      },
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.ctc.no-puerto-rico-or-4563-exclusion",
+      "identity_keys": [
+        {
+          "kind": "literal",
+          "name": "tax-year",
+          "values": [
+            "2025"
+          ]
+        }
+      ],
+      "nature": "determinable",
+      "schema": "fact-type.v2",
+      "supersession": {
+        "policy": "free"
+      },
+      "title": "Your 2025 return has no income from Puerto Rico that you excluded and no Form 4563 exclusion (Schedule 8812 lines 2a and 2c). Yes means none. No blocks, as outside the class. Read on every return. Contributed categorical assertion, domain {yes, no}, no default, presence-before-value, free supersession.",
+      "value_schema": {
+        "enum": [
+          "yes",
+          "no"
+        ]
+      },
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.lines29-31-scope.no-other-refundable-credits",
+      "identity_keys": [
+        {
+          "kind": "literal",
+          "name": "tax-year",
+          "values": [
+            "2025"
+          ]
+        }
+      ],
+      "nature": "determinable",
+      "schema": "fact-type.v2",
+      "supersession": {
+        "policy": "free"
+      },
+      "title": "The return claims none of the American opportunity credit, the refundable adoption credit, or Schedule 3 Part II credits (Form 1040 lines 29 through 31). Yes publishes those lines as $0. No blocks. Contributed categorical assertion, domain {yes, no}, no default, presence-before-value, free supersession.",
+      "value_schema": {
+        "enum": [
+          "yes",
+          "no"
+        ]
+      },
+      "version": "v1"
+    }
+  ],
+  "id": "tax.us.2025.ctc-return-questions.vocabulary",
+  "label": "2025 child tax credit return questions",
+  "schema": "bundle.v2",
+  "version": "v1"
+}

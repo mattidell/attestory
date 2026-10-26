@@ -1,0 +1,28 @@
+{
+  "act_id": "demo.act.adopt.core.v55",
+  "actor": "demo.user.filer-1",
+  "at": "2026-10-24T12:00:00Z",
+  "committed_against": 0,
+  "kind": "package-adoption",
+  "payload": {
+    "audit": {
+      "note": "synthetic successor adoption of core calculations v55 (child tax credit, Schedule 8812 Part I, Worksheet A, Part II-A); non-authoritative"
+    },
+    "package": {
+      "checksum": "41cdd72edfcb86d5967b16b0de13ec1dd0b67a9c423715fd40e2522d487c2a6f",
+      "id": "tax.us.2025.package.core-calculations",
+      "version": "v55"
+    },
+    "release": {
+      "checksum": "5df9f82f7e36ab07f459f6b746d1a8877d374dca869a7f6e51815e97bef94f2b",
+      "id": "demo.release.sli-worksheet-integration.2025",
+      "version": "v53"
+    },
+    "revision": 55,
+    "scope": {
+      "jurisdiction": "us",
+      "year": "2025"
+    }
+  },
+  "schema": "act.v1"
+}

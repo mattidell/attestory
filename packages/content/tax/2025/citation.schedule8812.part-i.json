@@ -1,0 +1,10 @@
+{
+  "authority": {
+    "family": "irs-instructions",
+    "form_id": "Schedule 8812 (Form 1040)",
+    "tax_year": 2025
+  },
+  "id": "tax.us.2025.citation.schedule8812.part-i",
+  "schema": "citation.v1",
+  "version": "v1"
+}

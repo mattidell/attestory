@@ -1,0 +1,56 @@
+{
+  "schema": "rule-artifact.v14",
+  "id": "tax.us.2025.rule.ctc-worksheet-a.line-5",
+  "version": "v1",
+  "scope": {
+    "tax_year": 2025,
+    "jurisdiction": "US-federal",
+    "family": "individual-income-tax"
+  },
+  "role": "computation",
+  "requires": [
+    "tax.us.2025.ctc.sch8812.worksheet-a.line-3",
+    "tax.us.2025.ctc.sch8812.worksheet-a.line-4"
+  ],
+  "pins": [
+    {
+      "id": "tax.us.2025.ctc.sch8812.worksheet-a.line-3",
+      "origin": "assertion",
+      "role": "input",
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.ctc.sch8812.worksheet-a.line-4",
+      "origin": "assertion",
+      "role": "input",
+      "version": "v1"
+    }
+  ],
+  "when": true,
+  "value": {
+    "op": "subtract",
+    "left": {
+      "op": "ref",
+      "name": "tax.us.2025.ctc.sch8812.worksheet-a.line-3"
+    },
+    "right": {
+      "op": "ref",
+      "name": "tax.us.2025.ctc.sch8812.worksheet-a.line-4"
+    }
+  },
+  "publishes": "tax.us.2025.ctc.sch8812.worksheet-a.line-5",
+  "blocked": {
+    "code": "DEPENDENCY_ABSENT",
+    "missing": [
+      "tax.us.2025.ctc.sch8812.worksheet-a.line-3",
+      "tax.us.2025.ctc.sch8812.worksheet-a.line-4"
+    ]
+  },
+  "citations": [
+    {
+      "id": "tax.us.2025.citation.schedule8812.worksheet-a",
+      "version": "v1"
+    }
+  ],
+  "notes": "Worksheet A line 5: line 3 minus line 4, to Schedule 8812 line 13."
+}

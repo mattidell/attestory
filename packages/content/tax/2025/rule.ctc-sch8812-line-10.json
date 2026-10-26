@@ -1,0 +1,80 @@
+{
+  "schema": "rule-artifact.v14",
+  "id": "tax.us.2025.rule.ctc-sch8812-line-10",
+  "version": "v1",
+  "scope": {
+    "tax_year": 2025,
+    "jurisdiction": "US-federal",
+    "family": "individual-income-tax"
+  },
+  "role": "computation",
+  "requires": [
+    "tax.us.2025.ctc.sch8812.line-3",
+    "tax.us.2025.ctc.sch8812.line-9"
+  ],
+  "pins": [
+    {
+      "id": "tax.us.2025.ctc.sch8812.line-3",
+      "origin": "assertion",
+      "role": "input",
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.ctc.sch8812.line-9",
+      "origin": "assertion",
+      "role": "input",
+      "version": "v1"
+    }
+  ],
+  "when": true,
+  "value": {
+    "op": "multiply",
+    "left": {
+      "op": "divide",
+      "left": {
+        "op": "max",
+        "args": [
+          {
+            "op": "subtract",
+            "left": {
+              "op": "ref",
+              "name": "tax.us.2025.ctc.sch8812.line-3"
+            },
+            "right": {
+              "op": "ref",
+              "name": "tax.us.2025.ctc.sch8812.line-9"
+            }
+          },
+          0
+        ]
+      },
+      "right": {
+        "op": "parameter",
+        "key": "phaseout_unit",
+        "parameter_id": "tax.us.2025.parameter.ctc-2025"
+      },
+      "rounding": "up",
+      "min_decimal_places": 0
+    },
+    "right": {
+      "op": "parameter",
+      "key": "phaseout_unit",
+      "parameter_id": "tax.us.2025.parameter.ctc-2025"
+    }
+  },
+  "publishes": "tax.us.2025.ctc.sch8812.line-10",
+  "blocked": {
+    "code": "DEPENDENCY_ABSENT",
+    "missing": [
+      "tax.us.2025.ctc.sch8812.line-3",
+      "tax.us.2025.ctc.sch8812.line-9"
+    ]
+  },
+  "citations": [
+    {
+      "id": "tax.us.2025.citation.schedule8812.part-i",
+      "version": "v1"
+    }
+  ],
+  "notes": "Line 10: line 3 minus line 9, zero or less is zero, otherwise rounded up to the next $1,000."
+}
