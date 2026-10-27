@@ -27,7 +27,10 @@ from packages.derivation.presentation_projection import PresentationModelError, 
 from packages.derivation.production_executor import execute_and_record_marshaled, execute_marshaled
 from packages.derivation.production_resolver import PublicationSurface, Refusal, resolve_production_package
 from packages.derivation.records import RecordStream
-from packages.derivation.subject_dispatch import distinguishing_identity_keys
+from packages.derivation.subject_dispatch import (
+    _iter_cds_member_names,
+    distinguishing_identity_keys,
+)
 from packages.kernel.currency import CurrencyView
 from packages.kernel.currency import compute_currency
 from packages.kernel.findings import FindingState, project
@@ -494,9 +497,15 @@ def _resolved_run_material(graph: Any) -> _ResolvedRunMaterial:
         if not subj_keys:
             continue
 
-        for req_sym in rule.get("requires", []):
-            if not isinstance(req_sym, str):
-                continue
+        candidate_symbols = [s for s in rule.get("requires", []) if isinstance(s, str)]
+        for name in _iter_cds_member_names(rule.get("when")):
+            if name not in candidate_symbols:
+                candidate_symbols.append(name)
+        for name in _iter_cds_member_names(rule.get("value")):
+            if name not in candidate_symbols:
+                candidate_symbols.append(name)
+
+        for req_sym in candidate_symbols:
             binding = binding_by_symbol.get(req_sym)
             req_ft = None
             if binding is not None:
