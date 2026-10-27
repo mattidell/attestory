@@ -3,7 +3,7 @@
   "version": 1,
   "phase": "Engine Breadth",
   "topic": "dependent-tie-breaker",
-  "status": "Track 0 built (proposed ADR-0081). Track 1 builds the tie-breaker on core v58.",
+  "status": "Closed. On core v58 a per-child tie-breaker decides whether a child another person could also claim counts for the three child credits. Earlier packages keep their results.",
   "scope": [
     "compute who may treat a child as a qualifying child when another person also could, for the 2025 earned income credit, child tax credit and credit for other dependents, as successor content",
     "replace the yes-blocks 'another person may also claim' answers with answers about the other person whose meaning matches the rule that reads them",
@@ -21,7 +21,7 @@
     "planning": [
       "docs/process/planning-and-development.md",
       "docs/phases/engine-breadth/coverage-frontier.md",
-      "docs/milestone-retrospectives/2026-10-25-other-dependents-credit.md",
+      "docs/milestone-retrospectives/2026-10-27-dependent-tie-breaker.md",
       "docs/phases/engine-breadth/milestones/dependent-tie-breaker.md"
     ],
     "implementation": [
@@ -33,11 +33,12 @@
       "docs/phases/engine-breadth/milestones/dependent-tie-breaker.md"
     ],
     "new_milestone": [
-      "docs/milestone-retrospectives/2026-10-25-other-dependents-credit.md",
+      "docs/milestone-retrospectives/2026-10-27-dependent-tie-breaker.md",
       "docs/phases/engine-breadth/milestones/dependent-tie-breaker.md",
       "docs/phases/engine-breadth/coverage-frontier.md"
     ]
-  }
+  },
+  "retrospective": "docs/milestone-retrospectives/2026-10-27-dependent-tie-breaker.md"
 }
 -->
 
@@ -220,9 +221,38 @@ with the resolution-table generator, the probe and the case script beside it.
    branch, asserting on the published lines; the full lane and `mypy`
    before ready.
 
+## Review dispositions
+
+- **Finding 5 of the Track 0–1 review is parked.** A child who fails every
+  credit's other tests is still asked the root tie-breaker question (and its
+  follow-ups when the root is `yes`); no published line changes. Asking only
+  where a credit can count needs a derived per-subject symbol as a
+  `conditional_dependency_set` member, which package validation, the
+  {yes, no} domain guard, per-subject typing and runner scheduling all
+  refuse today. That is a further engine change, listed for the frontier;
+  Contract item 2.1 ("asked of every child the filer claims") holds as built.
+
 ## Tracks
 
 - **Track 0:** per-subject conditional dependencies (engine, ADR-0081).
 - **Track 1:** the tie-breaker questions and successor rules for the three
   credits, core v58.
 - **Track 2:** saved presentations.
+
+## Execution record
+
+- P0 and its repair: the law with citations, the resolution table, and the
+  finding that the engine could not ask a child's answer only where it
+  decides.
+- Track 0: per-subject conditional dependencies (ADR-0081, accepted).
+- Track 1: the ten questions, the tie-breaker rule, successor count rules for
+  the three credits, core v58 / registry v56 / release v56.
+- Review (Argon) and repair: findings 1-4 and 6 fixed, finding 5 parked;
+  re-review sound.
+- Track 2: two v58 saved presentations.
+- Final review: sound; the line 19 and 28 explanation text is parked.
+
+## Outcome
+
+Closed 2026-10-27. See the
+[retrospective](../../../milestone-retrospectives/2026-10-27-dependent-tie-breaker.md).

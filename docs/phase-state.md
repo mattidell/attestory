@@ -1,19 +1,24 @@
 <!-- foreman-context-v1
 {
   "version": 1,
-  "phase": "Tax Circumstance Breadth",
-  "topic": "mortgage-statement-borrowing",
-  "active_plan": "docs/phases/tax-circumstance-breadth/milestones/mortgage-statement-borrowing.md",
+  "phase": "Engine Breadth",
+  "topic": "dependent-tie-breaker",
+  "active_plan": "docs/phases/engine-breadth/milestones/dependent-tie-breaker.md",
   "milestone_state": "closed",
-  "status": "One continuing home borrowing can be recorded and explained across one or two mortgage statements within the bounded calculation.",
-  "current_role": "Foreman — select next milestone",
-  "current_prompt": "docs/phases/tax-circumstance-breadth/tax-circumstance-breadth-roadmap.md"
+  "status": "Closed. On core v58 a per-child tie-breaker decides whether a child another person could also claim counts for the EIC, child tax credit and credit for other dependents. The owner accepted ADR-0081. Earlier packages keep their results.",
+  "current_role": "Foreman \u2014 select next milestone",
+  "current_prompt": "docs/phases/engine-breadth/coverage-frontier.md"
 }
 -->
 
 # Phase State
 
 ## Current direction
+
+The next milestone is unselected. ADR-0081 (per-subject conditional
+dependencies) is accepted.
+
+## Latest Tax Circumstance Breadth milestone
 
 The [mortgage result](phases/tax-circumstance-breadth/milestones/mortgage-statement-borrowing.md)
 has been reconstructed on the milestone branch against the merged
@@ -41,6 +46,16 @@ endpoint remains met; another vertical is not automatically selected.
 
 ## Latest milestone
 
+**A Child More Than One Person Could Claim is closed**
+([plan](phases/engine-breadth/milestones/dependent-tie-breaker.md),
+[retrospective](milestone-retrospectives/2026-10-27-dependent-tie-breaker.md)).
+On core v58 a per-child tie-breaker decides whether a contested child counts
+for the earned income credit, child tax credit and credit for other
+dependents; Form 8332 releases, more than one other claimant and unsettled
+equal-AGI ties are outside the class by answer.
+
+## Previous milestone
+
 **The 2025 Credit for Other Dependents is closed**
 ([plan](phases/engine-breadth/milestones/other-dependents-credit.md),
 [retrospective](milestone-retrospectives/2026-10-25-other-dependents-credit.md)).
@@ -48,7 +63,7 @@ On core v56 Schedule 8812 is complete for the class: $500 for each child
 marked for this credit and each qualifying relative, combined with the child
 tax credit. The next milestone is unselected.
 
-## Previous milestone
+## Earlier return-calculation milestone (child tax credit)
 
 **The 2025 Child Tax Credit is closed**
 ([plan](phases/engine-breadth/milestones/child-tax-credit.md),
@@ -219,8 +234,10 @@ loss). **Mortgage Interest and What the Loan Paid For** closed 2026-10-15
   second-home extension, mixed-use amounts, refinancing and the mortgage credit.
 - Form 1099-K, 1099-G and SSA-1099 withholding on line 25b; a 1099-INT,
   1099-DIV or 1099-R statement recorded without its box 4 answer; Form W-2G.
-- The EIC tie-breaker rules (a child another person may also claim is
-  outside the class); Worksheet B, Form 8862, combat pay, the Medicaid waiver exclusion
+- Form 8332 and decree releases, more than one other claimant and unsettled
+  equal-AGI ties (outside the class by answer); asking the tie-breaker only
+  of a child some credit can count, which needs derived per-subject results
+  as conditional members; Worksheet B, Form 8862, combat pay, the Medicaid waiver exclusion
   and Worksheet 1.
 - `explain()` re-expands shared inputs at each use: the line 27a walk is
   9,885 tree nodes over 218 findings.
@@ -228,6 +245,9 @@ loss). **Mortgage Interest and What the Loan Paid For** closed 2026-10-15
   credit for other dependents; lines 29-31
   refundable credits, Schedule 2 Part II taxes and the estimated tax
   penalty, each declared absent.
+- Lines 19 and 28's form-field explanations read as the earned income
+  credit (copied from line 27a on core v55), and no presentation line names
+  the tie-breaker step that decided a child.
 - Worksheet lines as presentation rows; `demo.*` ids on the correct
   capital-loss and Social Security amounts.
 - The age questions' wording (born before January 2, 1961; a death in 2025
