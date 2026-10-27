@@ -6,6 +6,8 @@ import unittest
 from pathlib import Path
 from typing import Any
 
+import pytest
+
 from packages.kernel.act_log import ActLog
 from packages.tax.loader import tax_registry
 from packages.tax.mortgage_borrowing_recording import introduce_mortgage_borrowing_reference_durably
@@ -20,6 +22,10 @@ from tests.test_f1098_statement_review import _append_seed
 from packages.tax.f1098_statement_review import (
     F1098ReviewRefused, answer_f1098_statement_review_question,
     correct_f1098_statement_review_answer, prepare_f1098_statement_review,
+)
+
+pytestmark = pytest.mark.live(
+    reason="durable ActLog admission and mortgage review snapshots exceed the fast-lane budget"
 )
 
 

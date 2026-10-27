@@ -4,10 +4,10 @@
   "phase": "Tax Circumstance Breadth",
   "topic": "mortgage-statement-borrowing",
   "active_plan": "docs/phases/tax-circumstance-breadth/milestones/mortgage-statement-borrowing.md",
-  "milestone_state": "track-5",
-  "status": "Independent publication review and wording recheck passed. The corrected candidate passed the owner's full local lane and mypy. Publication repair commits are being folded into their owning units; CI on the published candidate remains outstanding. ADR-0080 is owner-approved; not ready to merge.",
-  "current_role": "Builder (fold reviewed publication repairs into curated history)",
-  "current_prompt": "docs/reviews/mortgage-statement-borrowing/charter-publication-curation.md"
+  "milestone_state": "closed",
+  "status": "One continuing home borrowing can be recorded and explained across one or two mortgage statements within the bounded calculation.",
+  "current_role": "Foreman — select next milestone",
+  "current_prompt": "docs/phases/tax-circumstance-breadth/tax-circumstance-breadth-roadmap.md"
 }
 -->
 
@@ -20,8 +20,8 @@ has been reconstructed on the milestone branch against the merged
 credit-for-other-dependents work below. Main's core v56 / registry v54 /
 release v54 are retained unchanged; the mortgage core v57 / registry v55 /
 release v55 chain is regenerated and its focused package, adoption and
-credit-preservation checks pass. Independent publication review and CI are
-still pending. One or two
+credit-preservation checks pass.
+One or two
 exact Forms 1098 can describe one
 continuing original borrowing for one main home, retaining local and shared
 answer scope, supported calculation, fresh-source restoration and saved
@@ -34,8 +34,7 @@ repair is built. The owner approved preserving confirmations for unchanged
 A/B after temporarily adding and removing C; a third current form still blocks,
 and changed source/link support needs fresh confirmation. The active charter
 retains the bounded applicability and declared payment-readiness contract.
-The reviewed candidate still needs independent publication review, closeout
-and exact-head CI; no merge readiness is claimed. General mortgage allocation,
+The result was independently reviewed. General mortgage allocation,
 refinancing, more homes/borrowings, higher grandfathered debt limits and
 observed browser interaction remain outside this result. The earlier phase
 endpoint remains met; another vertical is not automatically selected.

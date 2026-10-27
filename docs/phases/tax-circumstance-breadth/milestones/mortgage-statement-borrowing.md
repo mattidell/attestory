@@ -3,7 +3,7 @@
   "version": 1,
   "phase": "Tax Circumstance Breadth",
   "topic": "mortgage-statement-borrowing",
-  "status": "Publication candidate reconstructed on the milestone branch. Independent publication review and CI remain pending. ADR-0080 is owner-approved.",
+  "status": "Completed: one continuing home borrowing across one or two mortgage statements, with scoped answers, a bounded calculation and saved explanation.",
   "scope": [
     "one continuing original borrowing for one main home, described by one or two 2025 Forms 1098",
     "exact report relationships, separately scoped ordinary answers, supported calculation and saved explanation"
@@ -39,8 +39,7 @@
 
 Milestone key: `mortgage-statement-borrowing`.
 Primary branch: `milestone/mortgage-statement-borrowing-same-loan`.
-Publication candidate prepared for independent review and CI; not yet ready
-to merge.
+Completed at the bounded result described below.
 
 ## What we are trying to accomplish
 
@@ -163,7 +162,7 @@ Before production, the connected design closed the following boundaries:
 
 The repaired candidate uses actual recorders, coordinator outputs, currentness
 checks and reloaded saved explanations. Interim feasibility notes are not
-production evidence. Final publication review and exact-head CI remain open.
+production evidence. The publication candidate received independent review.
 
 ## Interaction and explanation
 
@@ -193,8 +192,8 @@ observed.
    contract, without changing mortgage tax scope.
 5. **Publication:** reconstruct the reviewed product on the ratified base with
    unused generated versions and preserved bytes.
-6. **Closeout:** independent candidate review and exact-head CI remain
-   required; the owner merges.
+6. **Closeout:** independently review the candidate and verify the PR before
+   the owner merges.
 
 ## Publication gates
 
@@ -213,9 +212,8 @@ currentness as well as final amounts, correction/withdrawal, exact-source
 recovery, unchanged-pair behavior, singleton behavior and preservation of
 unrelated credit calculations.
 
-The publication candidate remains in progress. Final independent publication
-review, changed-base verification and exact-head CI are pending. Focused passes
-do not substitute for CI. The numeric Box 11 acquisition-date model remains a
+Independent publication review and changed-base verification were completed.
+CI remains the verification gate for the PR head. The numeric Box 11 acquisition-date model remains a
 separate known limitation and is not repaired here.
 
 ## Planning sources

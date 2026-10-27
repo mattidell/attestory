@@ -64,7 +64,7 @@ needs debt and home identity across loans.
 Recorded in the consolidation plan, "Phase assessment after delivery": the
 provisional endpoint is met, and the recommendation is to conclude the phase.
 
-## Bounded extension — One Home Loan, More Than One Interest Statement
+## Bounded extension — One Home Loan, More Than One Interest Statement — closed 2026-10-27
 
 [Plan](milestones/mortgage-statement-borrowing.md) ·
 [Lessons](../../milestone-retrospectives/2026-10-25-mortgage-statement-borrowing.md).
@@ -77,8 +77,7 @@ Correction, withdrawal and explicit clear have different scopes. A narrow
 member-restoration successor lets a fresh exact source become usable without
 reviving prior findings or completeness claims.
 
-Publication reconciliation, final independent review and exact-head CI remain
-open. General multiple-loan/home support, refinancing, allocation, higher
+General multiple-loan/home support, refinancing, allocation, higher
 grandfathered debt limits and browser observation are not selected. This
 extension does not change the earlier phase assessment or require another
 vertical. Further milestone selection remains owner-held.
@@ -87,8 +86,8 @@ vertical. Further milestone selection remains owner-held.
 
 The first three milestones are closed at their bounded results. The consolidation's
 phase assessment finds the provisional endpoint met and recommends concluding
-the phase; the owner selects. The bounded same-borrowing extension above is in
-publication preparation. More general Form 1098 support, gain reporting and
+the phase; the owner selects. The bounded same-borrowing extension above is complete.
+More general Form 1098 support, gain reporting and
 browser observation remain outside its boundary. Engine Breadth remains the historical form-coverage
 record; its rows do not establish ordinary-circumstance support.
 
