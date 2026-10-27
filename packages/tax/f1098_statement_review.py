@@ -20,6 +20,7 @@ from packages.tax.f1098_statement_recording import (
     record_f1098_statement_answers_durably,
     withdraw_f1098_statement_answer_durably,
 )
+from packages.tax.mortgage_borrowing_recording import _INCLUSION
 from packages.tax.loader import TAX_CONTENT_DIR, load_f1098_circumstances_bundle
 
 
@@ -35,17 +36,23 @@ QUESTIONS: dict[str, dict[str, Any]] = {
     "home-is-collateral": {"question": "Is this home collateral for the loan?", "help": "The lender can take the home if the loan is not paid.", "labels": {"yes": "Yes", "no": "No", "cannot-tell": "I can't tell"}},
     "owes-the-loan": {"question": "Do you or your spouse, if you file jointly, owe this loan?", "help": "Either spouse's obligation counts for a joint return.", "labels": {"yes": "Yes", "no": "No", "cannot-tell": "I can't tell"}},
     "paid-the-interest": {"question": "Who paid the interest reported on this statement?", "help": "For a joint return, include either spouse. “No” means neither spouse paid any and nobody paid any for you. Someone else paying some or all, or your filing unit paying only part, is a separate outside-coverage answer.", "labels": {"yes": "My filing unit paid all of it", "paid-by-others-or-partial": "Someone else paid some or all, or my filing unit paid only part", "no": "Neither spouse paid any, and nobody paid any for us", "cannot-tell": "I can't tell"}},
-    "no-one-else-owes-it": {"question": "Does anyone besides you or your spouse, if filing jointly, owe this loan with you?", "help": "A spouse is part of the filing unit, not someone else.", "labels": {"yes": "No one else owes it", "no": "Someone else owes it", "cannot-tell": "I can't tell"}},
+    "no-one-else-owes-it": {"question": "Do only you and, if filing jointly, your spouse owe this loan?", "help": "Only when you file jointly is your spouse part of the filing unit, not someone else. If you file separately, a spouse who also owes this loan is someone else.", "labels": {"yes": "No one else owes it", "no": "Someone else owes it", "cannot-tell": "I can't tell"}},
     USE_QUESTION: {"question": "What did the borrowed money pay for?", "help": "Choose the account that best describes what happened; the application determines its tax meaning.", "labels": {"bought-the-home": "It bought this home", "unrelated-personal-expense": "It paid a personal expense unrelated to the home", "other": "Something else", "cannot-tell": "I can't tell"}},
-    "this-is-the-original-loan": {"question": "Is this the original loan?", "help": "A purchase story alone does not establish that the loan was never refinanced.", "labels": {"yes": "Yes", "no": "No", "cannot-tell": "I can't tell"}},
+    "this-is-the-original-loan": {"question": "Is this the original loan?", "help": "A purchase story alone does not establish that the loan was never refinanced. A change in the company collecting payments does not, by itself, mean you got a new loan.", "labels": {"yes": "Yes", "no": "No", "cannot-tell": "I can't tell"}},
     "mortgage-credit-certificate-received": {"question": "Did you receive a mortgage credit certificate for this loan?", "help": "This route does not calculate the certificate credit.", "labels": {"received": "Yes", "not-received": "No", "cannot-tell": "I can't tell"}},
     "loan-timing-relative-to-purchase": {"question": "Was this loan taken out within 90 days before or after buying this home?", "help": "Use when the loan money was released. If an earlier written application could change your answer, choose “I can't tell.”", "labels": {"yes": "Yes", "no": "No", "cannot-tell": "I can't tell"}},
     "loan-timing-relative-to-building-or-improving": {"question": "Was this loan taken out before you finished building or improving this home, or within 90 days after you finished?", "help": "Include unfinished or paused projects and preparation before physical work began. Use when the loan money was released. If an earlier written application could change your answer, choose “I can't tell.”", "labels": {"yes": "Yes", "no": "No", "cannot-tell": "I can't tell"}},
 }
+_BORROWING_SHARED_QUESTIONS = frozenset({
+    "owes-the-loan", "no-one-else-owes-it", USE_QUESTION,
+    "this-is-the-original-loan", "mortgage-credit-certificate-received",
+})
+_AFFIRMED_BORROWING_LINK = _INCLUSION["report-inclusion"]["affirmed"]
 
 
 def prepare_f1098_statement_review(
     log: ActLog, registry: Any, *, review_id: str, shown_at: str, bundle_version: str | None = None,
+    statement_keys: Mapping[str, str] | None = None,
 ) -> dict[str, Any]:
     """Take an immutable, recognizable snapshot of the unique current statement and answers."""
     contents = log.read()
@@ -61,6 +68,19 @@ def prepare_f1098_statement_review(
         fact = lattice.get(finding.get("fact_id", ""))
         if fact is not None and fact.fact_type_id == STATEMENT_BOX1:
             statement_rows.append((finding_id, finding))
+    if statement_keys is not None:
+        if set(statement_keys) != {"payer", "statement", "tax-year"} or not all(
+            isinstance(value, str) and value for value in statement_keys.values()
+        ):
+            raise F1098ReviewRefused("explicit statement selection must name the exact payer, statement and tax year")
+        statement_rows = [
+            row for row in statement_rows
+            if dict(lattice[row[1]["fact_id"]].keys) == dict(statement_keys)
+        ]
+        if len(statement_rows) != 1:
+            raise F1098ReviewRefused("the explicitly selected Form 1098 statement is not one current exact source")
+    elif len(statement_rows) != 1:
+        raise F1098ReviewRefused("the bounded review requires exactly one current Form 1098 box 1 statement")
     if len(statement_rows) != 1:
         raise F1098ReviewRefused("the bounded review requires exactly one current Form 1098 box 1 statement")
     box1_finding_id, box1_finding = statement_rows[0]
@@ -108,6 +128,28 @@ def prepare_f1098_statement_review(
                 else "proposed-until-bundle-adoption",
             }
             answers[question]["label"] = "Not answered" if timing_relevant else "Not asked for this use"
+    linked_borrowings = sorted({
+        str(dict(fact.keys).get("borrowing"))
+        for finding_id, finding in state.findings.items()
+        if finding_id in current_ids
+        and (fact := lattice.get(str(finding.get("fact_id")))) is not None
+        and fact.fact_type_id == _AFFIRMED_BORROWING_LINK
+        and dict(fact.keys).get("payer") == keys["payer"]
+        and dict(fact.keys).get("statement") == keys["statement"]
+        and dict(fact.keys).get("tax-year") == keys["tax-year"]
+    })
+    if linked_borrowings:
+        for question in _BORROWING_SHARED_QUESTIONS:
+            row = answers[question]
+            row["collectionScope"] = "borrowing"
+            row["offerMode"] = "historical-answer-correctable" if row["state"] == "answered" else "use-borrowing-review"
+            row["help"] = (QUESTIONS[question]["help"] +
+                           " For a linked borrowing, this answer is collected once in its borrowing review; "
+                           "an earlier answer for this form remains visible and correctable.")
+    else:
+        for question in _BORROWING_SHARED_QUESTIONS:
+            answers[question]["collectionScope"] = "exact-report"
+            answers[question]["offerMode"] = "report-local"
     return {
         "schema": "tax.f1098.statement-review.v1", "reviewId": review_id, "shownAt": shown_at,
         "bundleVersion": version,
@@ -116,6 +158,7 @@ def prepare_f1098_statement_review(
             "taxYear": keys["tax-year"], "box1": box1_finding["value"], "box1FindingId": box1_finding_id,
         },
         "questions": {q: {**QUESTIONS[q], **answers[q]} for q in sorted(answers)},
+        "linkedBorrowings": linked_borrowings,
         "timingRelevant": timing_relevant, "bundleAdoption": adoption,
     }
 
@@ -151,7 +194,9 @@ def _revalidate(log: ActLog, registry: Any, review: Mapping[str, Any]) -> dict[s
     current = prepare_f1098_statement_review(log, registry,
                                             review_id=str(review.get("reviewId", "revalidation")),
                                             shown_at=str(review.get("shownAt", "")),
-                                            bundle_version=str(selected_version))
+                                            bundle_version=str(selected_version),
+                                            statement_keys=review.get("statement", {}).get("keys")
+                                            if isinstance(review.get("statement"), Mapping) else None)
     if current["revision"] != review.get("revision") or current["statement"] != review.get("statement"):
         raise F1098ReviewRefused("review is stale: statement source or revision changed")
     if current["questions"] != review.get("questions"):
@@ -167,6 +212,10 @@ def save_f1098_statement_review(log: ActLog, registry: Any, review: Mapping[str,
     selected_version = str(current["bundleVersion"])
     if bundle_version not in (None, selected_version):
         raise F1098ReviewRefused("save-time vocabulary conflicts with the reviewed question set")
+    if current["linkedBorrowings"] and any(
+        question in _BORROWING_SHARED_QUESTIONS for question in answers
+    ):
+        raise F1098ReviewRefused("shared borrowing answers are collected once in the borrowing review")
     try:
         return record_f1098_statement_answers_durably(
             log, registry, statement_keys=current["statement"]["keys"], answers=answers,
@@ -224,6 +273,8 @@ def answer_f1098_statement_review_question(log: ActLog, registry: Any, review: M
     target = current["questions"].get(question)
     if not isinstance(target, dict) or target.get("state") != "absent":
         raise F1098ReviewRefused("answer requires a question that is currently unanswered")
+    if target.get("offerMode") == "use-borrowing-review":
+        raise F1098ReviewRefused("this shared answer is collected once in the borrowing review")
     if question in TIMING_QUESTIONS and not current["timingRelevant"]:
         raise F1098ReviewRefused("timing questions are available only for personal-expense use")
     try:

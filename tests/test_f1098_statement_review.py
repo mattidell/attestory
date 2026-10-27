@@ -20,7 +20,7 @@ from packages.kernel.facts import facts_of
 from packages.kernel.findings import project
 from packages.tax.f1098_statement_recording import F1098RecordingRefused
 from packages.tax.f1098_statement_review import (
-    F1098ReviewRefused, answer_f1098_statement_review_question,
+    F1098ReviewRefused, QUESTIONS, answer_f1098_statement_review_question,
     answer_f1098_statement_review_timing, associate_saved_run,
     correct_f1098_statement_review_answer,
     prepare_f1098_statement_review, save_f1098_statement_review,
@@ -99,6 +99,16 @@ def _save(log: ActLog, registry: Any, answers: dict[str, str], submission: str =
 
 
 class F1098StatementReviewTests(unittest.TestCase):
+    def test_local_no_one_else_owes_wording_matches_yes_choice(self) -> None:
+        question = QUESTIONS["no-one-else-owes-it"]
+        self.assertEqual(question["question"], "Do only you and, if filing jointly, your spouse owe this loan?")
+        self.assertEqual(question["labels"]["yes"], "No one else owes it")
+        self.assertEqual(question["labels"]["no"], "Someone else owes it")
+        self.assertIn("Only when you file jointly", question["help"])
+        self.assertIn("If you file separately", question["help"])
+        original = QUESTIONS["this-is-the-original-loan"]
+        self.assertIn("change in the company collecting payments does not", original["help"])
+
     def setUp(self) -> None:
         self.temp = TemporaryDirectory(prefix="f1098-answer-review-")
         self.addCleanup(self.temp.cleanup)
@@ -132,6 +142,38 @@ class F1098StatementReviewTests(unittest.TestCase):
         self.assertEqual(sum(row["kind"] == "assertion" for row in acts), 9)
         fresh = _review(self.log, self.registry)
         self.assertEqual(fresh["questions"]["paid-the-interest"]["answer"], "yes")
+
+    def test_explicit_selection_reviews_one_of_two_current_statements(self) -> None:
+        log = ActLog(Path(self.temp.name) / "two-statements", self.registry)
+        _append_seed(log, second_interest=3500)
+        state = project(log.read().acts, self.registry)
+        lattice = facts_of(state.fact_state)
+        current_ids = compute_currency(state).current_finding_ids
+        sources = [lattice[finding["fact_id"]] for finding_id, finding in state.findings.items()
+                   if finding_id in current_ids and finding["fact_id"] in lattice
+                   and lattice[finding["fact_id"]].fact_type_id == "tax.us.2025.f1098.box1-mortgage-interest"]
+        sources = list({fact.fact_id: fact for fact in sources}.values())
+        self.assertEqual(len(sources), 2)
+        with self.assertRaises(F1098ReviewRefused):
+            _review(log, self.registry)
+        selected_keys = dict(sources[1].keys)
+        selected = prepare_f1098_statement_review(
+            log, self.registry, review_id="demo.review.selected-b",
+            shown_at="2026-10-15T12:00:00Z", statement_keys=selected_keys,
+        )
+        self.assertEqual(selected["statement"]["keys"], selected_keys)
+        saved = save_f1098_statement_review(
+            log, self.registry, selected, answers=BASE_ANSWERS,
+            submission_id="demo.f1098.selected-b", evidence_ids=_evidence_ids(BASE_ANSWERS),
+            actor=USER, at="2026-10-15T12:01:00Z",
+        )
+        self.assertEqual(len(saved["finding_ids"]), 9)
+        fresh = prepare_f1098_statement_review(
+            log, self.registry, review_id="demo.review.selected-b.fresh",
+            shown_at="2026-10-15T12:02:00Z", statement_keys=selected_keys,
+        )
+        self.assertEqual(fresh["questions"]["paid-the-interest"]["answer"], "yes")
+        self.assertEqual(fresh["revision"], saved["revision"])
 
     def test_first_save_interruption_leaves_no_adoption_or_partial_answers(self) -> None:
         review = _review(self.log, self.registry)
@@ -428,6 +470,7 @@ class F1098SavedRunAssociationTests(unittest.TestCase):
             result = run("demo.f1098.track4.run1")
             first_contents = log.read()
             presentation = json.loads(result.presentation_path.read_text("utf-8"))
+            saved_presentation_bytes = result.presentation_path.read_bytes()
             records = RecordStream(capability.location / "records", DerivationSchemas())
             self.assertEqual(associate_saved_run(presentation, records, first_contents.revision)["state"], "current")
             combined = review_f1098_statement_with_saved_presentation(
@@ -443,6 +486,16 @@ class F1098SavedRunAssociationTests(unittest.TestCase):
                 submission_id="demo.f1098.live-partial", evidence_id="demo.f1098.live-partial.evidence",
                 actor=USER, at="2026-10-15T12:30:00Z",
             )
+            changed_contents = log.read()
+            stale_association = associate_saved_run(presentation, records, changed_contents.revision)
+            self.assertEqual(stale_association["state"], "recalculation-needed")
+            self.assertEqual(stale_association["runRevision"], first_contents.revision)
+            self.assertEqual(stale_association["currentRevision"], changed_contents.revision)
+            # The saved artifact remains reviewable as the historical run; it is not
+            # silently relabeled as a calculation of the corrected source.
+            presentation_after_correction = json.loads(result.presentation_path.read_text("utf-8"))
+            self.assertEqual(result.presentation_path.read_bytes(), saved_presentation_bytes)
+            self.assertEqual(presentation_after_correction["runId"], presentation["runId"])
             partial = run("demo.f1098.track4.run2")
             partial_presentation = json.loads(partial.presentation_path.read_text("utf-8"))
             self.assertFalse(any(pub.finding.get("symbol") == "tax.us.2025.schedule-a.line8a"
