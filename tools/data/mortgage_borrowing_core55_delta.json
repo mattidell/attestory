@@ -1,0 +1,415 @@
+{
+  "member_anchors": {
+      "tax.us.2025.f1098-report-local-bridge": "tax.us.2025.f1098",
+      "tax.us.2025.mortgage-borrowing": "tax.us.2025.line2a-scope.vocabulary",
+      "tax.us.2025.mortgage-borrowing-calculation": "tax.us.2025.line2a-scope.vocabulary",
+      "tax.us.2025.parameter.mortgage-empty-link-support": "tax.us.2025.parameter.f1099k-not-asked-default",
+      "tax.us.2025.rule.borrowing-affirmed-count": "tax.us.2025.rule.basis.item-level-consequence.pairing-scoped",
+      "tax.us.2025.rule.borrowing-current-link-status": "tax.us.2025.rule.basis.item-level-consequence.pairing-scoped",
+      "tax.us.2025.rule.borrowing-denied-count": "tax.us.2025.rule.basis.item-level-consequence.pairing-scoped",
+      "tax.us.2025.rule.borrowing-unknown-count": "tax.us.2025.rule.basis.item-level-consequence.pairing-scoped",
+      "tax.us.2025.rule.borrowing-withdrawn-count": "tax.us.2025.rule.basis.item-level-consequence.pairing-scoped",
+      "tax.us.2025.rule.effective-proceeds-support-count": "tax.us.2025.rule.f1098-residence-interest-reason",
+      "tax.us.2025.rule.f1098-affirmed-source-match": "tax.us.2025.rule.eic-worksheet-a.line-6",
+      "tax.us.2025.rule.f1098-inclusion-integrity": "tax.us.2025.rule.eic-worksheet-a.line-6",
+      "tax.us.2025.rule.f1098-local-mortgage-credit-certificate-received-count": "tax.us.2025.rule.f1098-line8a",
+      "tax.us.2025.rule.f1098-local-no-one-else-owes-it-count": "tax.us.2025.rule.f1098-line8a",
+      "tax.us.2025.rule.f1098-local-owes-the-loan-count": "tax.us.2025.rule.f1098-line8a",
+      "tax.us.2025.rule.f1098-local-this-is-the-original-loan-count": "tax.us.2025.rule.f1098-line8a",
+      "tax.us.2025.rule.f1098-local-what-the-money-paid-for-count": "tax.us.2025.rule.f1098-line8a",
+      "tax.us.2025.rule.f1098-report-local-bridge.box2-outstanding-principal": "tax.us.2025.rule.f1098-line8a",
+      "tax.us.2025.rule.f1098-report-local-bridge.box3-origination-date": "tax.us.2025.rule.f1098-line8a",
+      "tax.us.2025.rule.f1098-report-local-bridge.box9-number-of-properties": "tax.us.2025.rule.f1098-line8a",
+      "tax.us.2025.rule.f1098-report-local-bridge.filing-unit-owns-home": "tax.us.2025.rule.f1098-line8a",
+      "tax.us.2025.rule.f1098-report-local-bridge.home-is-collateral": "tax.us.2025.rule.f1098-line8a",
+      "tax.us.2025.rule.f1098-report-local-bridge.paid-the-interest": "tax.us.2025.rule.f1098-line8a",
+      "tax.us.2025.rule.f1098-report-local-bridge.principal-ceiling-status": "tax.us.2025.rule.f1098-line8a",
+      "tax.us.2025.rule.f1098-report-local-bridge.shared-main-home": "tax.us.2025.rule.f1098-line8a",
+      "tax.us.2025.rule.local-proceeds-answer-count": "tax.us.2025.rule.interest.nominee-reduction",
+      "tax.us.2025.rule.mortgage-account-ceiling-selection": "tax.us.2025.rule.interest.nominee-reduction",
+      "tax.us.2025.rule.mortgage-account-readiness": "tax.us.2025.rule.interest.nominee-reduction",
+      "tax.us.2025.rule.mortgage-affirmed-link-count": "tax.us.2025.rule.interest.nominee-reduction",
+      "tax.us.2025.rule.mortgage-affirmed-link-coverage": "tax.us.2025.rule.interest.nominee-reduction",
+      "tax.us.2025.rule.mortgage-borrowing-readiness": "tax.us.2025.rule.interest.nominee-reduction",
+      "tax.us.2025.rule.mortgage-credit-certificate-received-effective-answer": "tax.us.2025.rule.f1098-residence-interest-reason",
+      "tax.us.2025.rule.mortgage-link-support": "tax.us.2025.rule.interest.nominee-reduction",
+      "tax.us.2025.rule.mortgage-payment-comparison-support-count": "tax.us.2025.rule.interest.nominee-reduction",
+      "tax.us.2025.rule.mortgage-shared-mortgage-credit-certificate-received-count": "tax.us.2025.rule.interest.nominee-reduction",
+      "tax.us.2025.rule.mortgage-shared-no-one-else-owes-it-count": "tax.us.2025.rule.interest.nominee-reduction",
+      "tax.us.2025.rule.mortgage-shared-owes-the-loan-count": "tax.us.2025.rule.interest.nominee-reduction",
+      "tax.us.2025.rule.mortgage-shared-this-is-the-original-loan-count": "tax.us.2025.rule.interest.nominee-reduction",
+      "tax.us.2025.rule.mortgage-shared-what-the-money-paid-for-count": "tax.us.2025.rule.interest.nominee-reduction",
+      "tax.us.2025.rule.no-one-else-owes-it-effective-answer": "tax.us.2025.rule.f1098-residence-interest-reason",
+      "tax.us.2025.rule.owes-the-loan-effective-answer": "tax.us.2025.rule.f1098-residence-interest-reason",
+      "tax.us.2025.rule.report-effective-support-coverage": "tax.us.2025.rule.f1098-residence-interest-reason",
+      "tax.us.2025.rule.this-is-the-original-loan-effective-answer": "tax.us.2025.rule.f1098-residence-interest-reason",
+      "tax.us.2025.rule.what-the-money-paid-for-effective-answer": "tax.us.2025.rule.f1098-residence-interest-reason"
+    }
+  ,
+  "successors": [
+    {"id": "tax.us.2025.rule.attachment.schedule-a", "role": "attachment-rule", "schema": "attachment-rule.v4", "version": "v2"},
+    {"id": "tax.us.2025.rule.f1098-line8a", "role": "computation", "schema": "rule-artifact.v14", "version": "v5"},
+    {"id": "tax.us.2025.rule.f1098-residence-interest-reason", "role": "computation", "schema": "rule-artifact.v14", "version": "v5"},
+    {"id": "tax.us.2025.rule.form1040-line12e", "role": "computation", "schema": "rule-artifact.v4", "version": "v2"}
+  ],
+  "entrypoints": [
+    {
+      "id": "tax.us.2025.f1098-report-local-bridge",
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.mortgage-borrowing",
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.mortgage-borrowing-calculation",
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.rule.attachment.schedule-a",
+      "version": "v2"
+    },
+    {
+      "id": "tax.us.2025.rule.f1098-line8a",
+      "version": "v5"
+    },
+    {
+      "id": "tax.us.2025.rule.f1098-local-mortgage-credit-certificate-received-count",
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.rule.f1098-local-no-one-else-owes-it-count",
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.rule.f1098-local-owes-the-loan-count",
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.rule.f1098-local-this-is-the-original-loan-count",
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.rule.f1098-local-what-the-money-paid-for-count",
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.rule.f1098-residence-interest-reason",
+      "version": "v5"
+    },
+    {
+      "id": "tax.us.2025.rule.form1040-line12e",
+      "version": "v2"
+    },
+    {
+      "id": "tax.us.2025.rule.mortgage-credit-certificate-received-effective-answer",
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.rule.mortgage-payment-comparison-support-count",
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.rule.mortgage-shared-mortgage-credit-certificate-received-count",
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.rule.mortgage-shared-no-one-else-owes-it-count",
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.rule.mortgage-shared-owes-the-loan-count",
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.rule.mortgage-shared-this-is-the-original-loan-count",
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.rule.mortgage-shared-what-the-money-paid-for-count",
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.rule.no-one-else-owes-it-effective-answer",
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.rule.owes-the-loan-effective-answer",
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.rule.this-is-the-original-loan-effective-answer",
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.rule.what-the-money-paid-for-effective-answer",
+      "version": "v1"
+    }
+  ],
+  "members": [
+    {
+      "id": "tax.us.2025.f1098-report-local-bridge",
+      "role": "fact-type-bundle",
+      "schema": "bundle.v2",
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.mortgage-borrowing",
+      "role": "fact-type-bundle",
+      "schema": "bundle.v2",
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.mortgage-borrowing-calculation",
+      "role": "fact-type-bundle",
+      "schema": "bundle.v2",
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.parameter.mortgage-empty-link-support",
+      "role": "parameter",
+      "schema": "parameter-declaration.v1",
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.rule.borrowing-affirmed-count",
+      "role": "computation",
+      "schema": "rule-artifact.v13",
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.rule.borrowing-current-link-status",
+      "role": "computation",
+      "schema": "rule-artifact.v13",
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.rule.borrowing-denied-count",
+      "role": "computation",
+      "schema": "rule-artifact.v13",
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.rule.borrowing-unknown-count",
+      "role": "computation",
+      "schema": "rule-artifact.v13",
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.rule.borrowing-withdrawn-count",
+      "role": "computation",
+      "schema": "rule-artifact.v13",
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.rule.report-effective-support-coverage",
+      "role": "computation",
+      "schema": "rule-artifact.v13",
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.rule.effective-proceeds-support-count",
+      "role": "computation",
+      "schema": "rule-artifact.v13",
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.rule.owes-the-loan-effective-answer",
+      "role": "computation",
+      "schema": "rule-artifact.v13",
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.rule.no-one-else-owes-it-effective-answer",
+      "role": "computation",
+      "schema": "rule-artifact.v13",
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.rule.what-the-money-paid-for-effective-answer",
+      "role": "computation",
+      "schema": "rule-artifact.v13",
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.rule.this-is-the-original-loan-effective-answer",
+      "role": "computation",
+      "schema": "rule-artifact.v13",
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.rule.mortgage-credit-certificate-received-effective-answer",
+      "role": "computation",
+      "schema": "rule-artifact.v13",
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.rule.f1098-affirmed-source-match",
+      "role": "computation",
+      "schema": "rule-artifact.v13",
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.rule.f1098-inclusion-integrity",
+      "role": "computation",
+      "schema": "rule-artifact.v14",
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.rule.f1098-local-mortgage-credit-certificate-received-count",
+      "role": "computation",
+      "schema": "rule-artifact.v13",
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.rule.f1098-local-no-one-else-owes-it-count",
+      "role": "computation",
+      "schema": "rule-artifact.v13",
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.rule.f1098-local-owes-the-loan-count",
+      "role": "computation",
+      "schema": "rule-artifact.v13",
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.rule.f1098-local-this-is-the-original-loan-count",
+      "role": "computation",
+      "schema": "rule-artifact.v13",
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.rule.f1098-local-what-the-money-paid-for-count",
+      "role": "computation",
+      "schema": "rule-artifact.v13",
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.rule.f1098-report-local-bridge.box2-outstanding-principal",
+      "role": "computation",
+      "schema": "rule-artifact.v13",
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.rule.f1098-report-local-bridge.box3-origination-date",
+      "role": "computation",
+      "schema": "rule-artifact.v13",
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.rule.f1098-report-local-bridge.box9-number-of-properties",
+      "role": "computation",
+      "schema": "rule-artifact.v13",
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.rule.f1098-report-local-bridge.filing-unit-owns-home",
+      "role": "computation",
+      "schema": "rule-artifact.v13",
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.rule.f1098-report-local-bridge.home-is-collateral",
+      "role": "computation",
+      "schema": "rule-artifact.v13",
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.rule.f1098-report-local-bridge.paid-the-interest",
+      "role": "computation",
+      "schema": "rule-artifact.v13",
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.rule.f1098-report-local-bridge.principal-ceiling-status",
+      "role": "computation",
+      "schema": "rule-artifact.v13",
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.rule.f1098-report-local-bridge.shared-main-home",
+      "role": "computation",
+      "schema": "rule-artifact.v13",
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.rule.local-proceeds-answer-count",
+      "role": "computation",
+      "schema": "rule-artifact.v13",
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.rule.mortgage-account-ceiling-selection",
+      "role": "computation",
+      "schema": "rule-artifact.v13",
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.rule.mortgage-account-readiness",
+      "role": "computation",
+      "schema": "rule-artifact.v13",
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.rule.mortgage-affirmed-link-count",
+      "role": "computation",
+      "schema": "rule-artifact.v13",
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.rule.mortgage-affirmed-link-coverage",
+      "role": "computation",
+      "schema": "rule-artifact.v13",
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.rule.mortgage-borrowing-readiness",
+      "role": "computation",
+      "schema": "rule-artifact.v14",
+      "version": "v2"
+    },
+    {
+      "id": "tax.us.2025.rule.mortgage-link-support",
+      "role": "computation",
+      "schema": "rule-artifact.v13",
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.rule.mortgage-payment-comparison-support-count",
+      "role": "computation",
+      "schema": "rule-artifact.v13",
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.rule.mortgage-shared-mortgage-credit-certificate-received-count",
+      "role": "computation",
+      "schema": "rule-artifact.v13",
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.rule.mortgage-shared-no-one-else-owes-it-count",
+      "role": "computation",
+      "schema": "rule-artifact.v13",
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.rule.mortgage-shared-owes-the-loan-count",
+      "role": "computation",
+      "schema": "rule-artifact.v13",
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.rule.mortgage-shared-this-is-the-original-loan-count",
+      "role": "computation",
+      "schema": "rule-artifact.v13",
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.rule.mortgage-shared-what-the-money-paid-for-count",
+      "role": "computation",
+      "schema": "rule-artifact.v13",
+      "version": "v1"
+    }
+  ]
+}

@@ -1,0 +1,324 @@
+{
+  "blocked": {
+    "code": "DEPENDENCY_INVALID",
+    "missing": []
+  },
+  "citations": [],
+  "direction": "joined_contains_subject",
+  "id": "tax.us.2025.rule.this-is-the-original-loan-effective-answer",
+  "joined": {
+    "id": "tax.us.2025.f1098.borrowing-inclusion",
+    "version": "v1"
+  },
+  "notes": "Effective this-is-the-original-loan value is selected only on the exact affirmed report link; local/shared disagreement blocks.",
+  "pins": [],
+  "publishes": "tax.us.2025.f1098.effective-original-loan",
+  "requires": [
+    "tax.us.2025.f1098.local-this-is-the-original-loan-count",
+    "tax.us.2025.mortgage.shared-this-is-the-original-loan-count"
+  ],
+  "role": "computation",
+  "schema": "rule-artifact.v13",
+  "scope": {
+    "family": "individual-income-tax",
+    "jurisdiction": "US-federal",
+    "tax_year": 2025
+  },
+  "subject": {
+    "id": "tax.us.2025.f1098.borrowing-inclusion",
+    "version": "v1"
+  },
+  "value": {
+    "else": {
+      "else": {
+        "code": "DEPENDENCY_ABSENT",
+        "op": "block"
+      },
+      "op": "choose",
+      "then": {
+        "else": {
+          "else": {
+            "else": {
+              "code": "DEPENDENCY_ABSENT",
+              "op": "block"
+            },
+            "op": "choose",
+            "then": {
+              "fact_type": {
+                "id": "tax.us.2025.f1098.effective-original-loan",
+                "version": "v1"
+              },
+              "op": "category_literal",
+              "value": "cannot-tell"
+            },
+            "when": {
+              "name": "tax.us.2025.mortgage.shared-original-loan",
+              "op": "collect_categorical_all_equal",
+              "value": {
+                "fact_type": {
+                  "id": "tax.us.2025.mortgage.shared-original-loan",
+                  "version": "v1"
+                },
+                "op": "category_literal",
+                "value": "cannot-tell"
+              }
+            }
+          },
+          "op": "choose",
+          "then": {
+            "fact_type": {
+              "id": "tax.us.2025.f1098.effective-original-loan",
+              "version": "v1"
+            },
+            "op": "category_literal",
+            "value": "no"
+          },
+          "when": {
+            "name": "tax.us.2025.mortgage.shared-original-loan",
+            "op": "collect_categorical_all_equal",
+            "value": {
+              "fact_type": {
+                "id": "tax.us.2025.mortgage.shared-original-loan",
+                "version": "v1"
+              },
+              "op": "category_literal",
+              "value": "no"
+            }
+          }
+        },
+        "op": "choose",
+        "then": {
+          "fact_type": {
+            "id": "tax.us.2025.f1098.effective-original-loan",
+            "version": "v1"
+          },
+          "op": "category_literal",
+          "value": "yes"
+        },
+        "when": {
+          "name": "tax.us.2025.mortgage.shared-original-loan",
+          "op": "collect_categorical_all_equal",
+          "value": {
+            "fact_type": {
+              "id": "tax.us.2025.mortgage.shared-original-loan",
+              "version": "v1"
+            },
+            "op": "category_literal",
+            "value": "yes"
+          }
+        }
+      },
+      "when": {
+        "cmp": "gt",
+        "left": {
+          "name": "tax.us.2025.mortgage.shared-this-is-the-original-loan-count",
+          "op": "ref"
+        },
+        "op": "compare",
+        "right": 0
+      }
+    },
+    "op": "choose",
+    "then": {
+      "else": {
+        "else": {
+          "else": {
+            "code": "DEPENDENCY_INVALID",
+            "op": "block"
+          },
+          "op": "choose",
+          "then": {
+            "else": {
+              "fact_type": {
+                "id": "tax.us.2025.f1098.effective-original-loan",
+                "version": "v1"
+              },
+              "op": "category_literal",
+              "value": "cannot-tell"
+            },
+            "op": "choose",
+            "then": {
+              "else": {
+                "code": "DEPENDENCY_INVALID",
+                "op": "block"
+              },
+              "op": "choose",
+              "then": {
+                "fact_type": {
+                  "id": "tax.us.2025.f1098.effective-original-loan",
+                  "version": "v1"
+                },
+                "op": "category_literal",
+                "value": "cannot-tell"
+              },
+              "when": {
+                "name": "tax.us.2025.mortgage.shared-original-loan",
+                "op": "collect_categorical_all_equal",
+                "value": {
+                  "fact_type": {
+                    "id": "tax.us.2025.mortgage.shared-original-loan",
+                    "version": "v1"
+                  },
+                  "op": "category_literal",
+                  "value": "cannot-tell"
+                }
+              }
+            },
+            "when": {
+              "cmp": "gt",
+              "left": {
+                "name": "tax.us.2025.mortgage.shared-this-is-the-original-loan-count",
+                "op": "ref"
+              },
+              "op": "compare",
+              "right": 0
+            }
+          },
+          "when": {
+            "name": "tax.us.2025.f1098.this-is-the-original-loan",
+            "op": "collect_categorical_all_equal",
+            "value": {
+              "fact_type": {
+                "id": "tax.us.2025.f1098.this-is-the-original-loan",
+                "version": "v2"
+              },
+              "op": "category_literal",
+              "value": "cannot-tell"
+            }
+          }
+        },
+        "op": "choose",
+        "then": {
+          "else": {
+            "fact_type": {
+              "id": "tax.us.2025.f1098.effective-original-loan",
+              "version": "v1"
+            },
+            "op": "category_literal",
+            "value": "no"
+          },
+          "op": "choose",
+          "then": {
+            "else": {
+              "code": "DEPENDENCY_INVALID",
+              "op": "block"
+            },
+            "op": "choose",
+            "then": {
+              "fact_type": {
+                "id": "tax.us.2025.f1098.effective-original-loan",
+                "version": "v1"
+              },
+              "op": "category_literal",
+              "value": "no"
+            },
+            "when": {
+              "name": "tax.us.2025.mortgage.shared-original-loan",
+              "op": "collect_categorical_all_equal",
+              "value": {
+                "fact_type": {
+                  "id": "tax.us.2025.mortgage.shared-original-loan",
+                  "version": "v1"
+                },
+                "op": "category_literal",
+                "value": "no"
+              }
+            }
+          },
+          "when": {
+            "cmp": "gt",
+            "left": {
+              "name": "tax.us.2025.mortgage.shared-this-is-the-original-loan-count",
+              "op": "ref"
+            },
+            "op": "compare",
+            "right": 0
+          }
+        },
+        "when": {
+          "name": "tax.us.2025.f1098.this-is-the-original-loan",
+          "op": "collect_categorical_all_equal",
+          "value": {
+            "fact_type": {
+              "id": "tax.us.2025.f1098.this-is-the-original-loan",
+              "version": "v2"
+            },
+            "op": "category_literal",
+            "value": "no"
+          }
+        }
+      },
+      "op": "choose",
+      "then": {
+        "else": {
+          "fact_type": {
+            "id": "tax.us.2025.f1098.effective-original-loan",
+            "version": "v1"
+          },
+          "op": "category_literal",
+          "value": "yes"
+        },
+        "op": "choose",
+        "then": {
+          "else": {
+            "code": "DEPENDENCY_INVALID",
+            "op": "block"
+          },
+          "op": "choose",
+          "then": {
+            "fact_type": {
+              "id": "tax.us.2025.f1098.effective-original-loan",
+              "version": "v1"
+            },
+            "op": "category_literal",
+            "value": "yes"
+          },
+          "when": {
+            "name": "tax.us.2025.mortgage.shared-original-loan",
+            "op": "collect_categorical_all_equal",
+            "value": {
+              "fact_type": {
+                "id": "tax.us.2025.mortgage.shared-original-loan",
+                "version": "v1"
+              },
+              "op": "category_literal",
+              "value": "yes"
+            }
+          }
+        },
+        "when": {
+          "cmp": "gt",
+          "left": {
+            "name": "tax.us.2025.mortgage.shared-this-is-the-original-loan-count",
+            "op": "ref"
+          },
+          "op": "compare",
+          "right": 0
+        }
+      },
+      "when": {
+        "name": "tax.us.2025.f1098.this-is-the-original-loan",
+        "op": "collect_categorical_all_equal",
+        "value": {
+          "fact_type": {
+            "id": "tax.us.2025.f1098.this-is-the-original-loan",
+            "version": "v2"
+          },
+          "op": "category_literal",
+          "value": "yes"
+        }
+      }
+    },
+    "when": {
+      "cmp": "gt",
+      "left": {
+        "name": "tax.us.2025.f1098.local-this-is-the-original-loan-count",
+        "op": "ref"
+      },
+      "op": "compare",
+      "right": 0
+    }
+  },
+  "version": "v1",
+  "when": true
+}

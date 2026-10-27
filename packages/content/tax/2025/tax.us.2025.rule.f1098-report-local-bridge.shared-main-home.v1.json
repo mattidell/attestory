@@ -1,0 +1,95 @@
+{
+  "blocked": {
+    "code": "DEPENDENCY_INVALID",
+    "missing": []
+  },
+  "citations": [],
+  "direction": "joined_contains_subject",
+  "id": "tax.us.2025.rule.f1098-report-local-bridge.shared-main-home",
+  "joined": {
+    "id": "tax.us.2025.f1098.shared-main-home",
+    "version": "v2"
+  },
+  "notes": "Resolves the main-home answer for this exact Form 1098's Box 1 scope; the circumstance remains report-specific.",
+  "pins": [],
+  "publishes": "tax.us.2025.f1098.answer-status.shared-main-home",
+  "requires": [
+    "tax.us.2025.f1098.shared-main-home"
+  ],
+  "role": "computation",
+  "schema": "rule-artifact.v13",
+  "scope": {
+    "family": "individual-income-tax",
+    "jurisdiction": "US-federal",
+    "tax_year": 2025
+  },
+  "subject": {
+    "id": "tax.us.2025.f1098.box1-mortgage-interest",
+    "version": "v1"
+  },
+  "value": {
+    "else": {
+      "else": {
+        "fact_type": {
+          "id": "tax.us.2025.f1098.answer-status.shared-main-home",
+          "version": "v1"
+        },
+        "op": "category_literal",
+        "value": "cannot-tell"
+      },
+      "op": "choose",
+      "then": {
+        "fact_type": {
+          "id": "tax.us.2025.f1098.answer-status.shared-main-home",
+          "version": "v1"
+        },
+        "op": "category_literal",
+        "value": "no"
+      },
+      "when": {
+        "cmp": "eq",
+        "left": {
+          "name": "tax.us.2025.f1098.shared-main-home",
+          "op": "ref"
+        },
+        "op": "categorical_compare",
+        "right": {
+          "fact_type": {
+            "id": "tax.us.2025.f1098.shared-main-home",
+            "version": "v2"
+          },
+          "op": "category_literal",
+          "value": "no"
+        }
+      }
+    },
+    "op": "choose",
+    "then": {
+      "fact_type": {
+        "id": "tax.us.2025.f1098.answer-status.shared-main-home",
+        "version": "v1"
+      },
+      "op": "category_literal",
+      "value": "yes"
+    },
+    "when": {
+      "cmp": "eq",
+      "left": {
+        "name": "tax.us.2025.f1098.shared-main-home",
+        "op": "ref"
+      },
+      "op": "categorical_compare",
+      "right": {
+        "fact_type": {
+          "id": "tax.us.2025.f1098.shared-main-home",
+          "version": "v2"
+        },
+        "op": "category_literal",
+        "value": "yes"
+      }
+    }
+  },
+  "version": "v1",
+  "when": true,
+  "wording": "Report-local bridge reads this report's shared-main-home observation or answer."
+}

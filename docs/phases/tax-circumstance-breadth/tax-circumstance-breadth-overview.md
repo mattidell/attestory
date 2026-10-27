@@ -1,5 +1,19 @@
 # Tax Circumstance Breadth
 
+## Bounded mortgage extension
+
+[One Home Loan, More Than One Interest Statement](milestones/mortgage-statement-borrowing.md)
+extends the earlier mortgage route to one or two Forms 1098 about one
+continuing original borrowing for one main home. Each report keeps its own
+amounts and local answers; explicitly shared borrowing answers reach it only
+through the person's exact link. The supported calculation and saved
+explanation preserve those scopes through correction, withdrawal and clear.
+
+This extension does not invalidate the earlier phase endpoint or select
+general mortgage allocation, refinancing, another home/borrowing or a general
+assumption system. Publication review and CI remain in progress. Further
+milestones remain unselected.
+
 ## Purpose
 
 Help a person describe circumstances that change the tax meaning of a document,

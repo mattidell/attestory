@@ -1,0 +1,43 @@
+{
+  "blocked": {
+    "code": "DEPENDENCY_INVALID",
+    "missing": [
+      "tax.us.2025.mortgage.effective-proceeds-support-count"
+    ]
+  },
+  "citations": [],
+  "direction": "joined_contains_subject",
+  "id": "tax.us.2025.rule.report-effective-support-coverage",
+  "joined": {
+    "id": "tax.us.2025.f1098.borrowing-inclusion",
+    "version": "v1"
+  },
+  "notes": "The link_coverage reductions edge makes connected effective production a real wait; empty exact-link sets yield zero.",
+  "pins": [],
+  "publishes": "tax.us.2025.mortgage.report-effective-support-coverage",
+  "requires": [],
+  "role": "computation",
+  "schema": "rule-artifact.v13",
+  "scope": {
+    "family": "individual-income-tax",
+    "jurisdiction": "US-federal",
+    "tax_year": 2025
+  },
+  "subject": {
+    "id": "tax.us.2025.f1098.box1-mortgage-interest",
+    "version": "v1"
+  },
+  "value": {
+    "empty": {
+      "parameter": {
+        "id": "tax.us.2025.parameter.mortgage-empty-link-support",
+        "version": "v1"
+      }
+    },
+    "links": "tax.us.2025.f1098.borrowing-inclusion",
+    "op": "link_coverage",
+    "reductions": "tax.us.2025.mortgage.effective-proceeds-support-count"
+  },
+  "version": "v1",
+  "when": true
+}

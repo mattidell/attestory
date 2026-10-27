@@ -64,13 +64,31 @@ needs debt and home identity across loans.
 Recorded in the consolidation plan, "Phase assessment after delivery": the
 provisional endpoint is met, and the recommendation is to conclude the phase.
 
+## Bounded extension — One Home Loan, More Than One Interest Statement — closed 2026-10-27
+
+[Plan](milestones/mortgage-statement-borrowing.md) ·
+[Lessons](../../milestone-retrospectives/2026-10-25-mortgage-statement-borrowing.md).
+
+The owner returned to product work for one continuing original home borrowing
+described by one or two Forms 1098. The implementation keeps the reports and
+their local answers separate, records explicit shared borrowing answers and
+links, calculates one bounded result and saves its actual support chain.
+Correction, withdrawal and explicit clear have different scopes. A narrow
+member-restoration successor lets a fresh exact source become usable without
+reviving prior findings or completeness claims.
+
+General multiple-loan/home support, refinancing, allocation, higher
+grandfathered debt limits and browser observation are not selected. This
+extension does not change the earlier phase assessment or require another
+vertical. Further milestone selection remains owner-held.
+
 ## Status
 
-All three milestones are closed at their bounded results. The consolidation's
+The first three milestones are closed at their bounded results. The consolidation's
 phase assessment finds the provisional endpoint met and recommends concluding
-the phase; the owner selects. More than one Form 1098, gain reporting and
-browser observation remain outside the delivered routes and stay in the
-phase-state parked list. Engine Breadth remains the historical form-coverage
+the phase; the owner selects. The bounded same-borrowing extension above is complete.
+More general Form 1098 support, gain reporting and
+browser observation remain outside its boundary. Engine Breadth remains the historical form-coverage
 record; its rows do not establish ordinary-circumstance support.
 
 Selection sources: the Form 1098 route and its

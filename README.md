@@ -132,6 +132,50 @@ answer changes, an earlier saved calculation is identified by its recorded
 run and workspace revision; a different revision means recalculation is
 needed.
 
+### One borrowing described by two mortgage statements
+
+The additive mortgage candidate uses core v57, published registry v55 and
+`demo.release.sli-worksheet-integration.2025.v55.json`, after main's
+other-dependents-credit update. It preserves the newer
+return calculations while extending the mortgage route to one or two 2025
+Forms 1098 about one continuing original borrowing for one main home.
+
+Introduce a recognizable borrowing with
+`packages.tax.mortgage_borrowing_recording.introduce_mortgage_borrowing_reference_durably`.
+Use `packages.tax.mortgage_borrowing_review.prepare_mortgage_borrowing_review`
+to show its finite questions, exact current forms, local answers and shared
+claims. The module's record/correct/withdraw/clear wrappers save only against
+the scope and revision shown. Form-local review accepts explicit
+`statement_keys`; omission still requires a single current form.
+
+The person affirms the form links, an annual balance upper bound and whether
+other secured home debt exists besides that borrowing. Five suitable ordinary
+answers can be explicitly borrowing-wide; old local answers are not copied or
+reinterpreted. Each form keeps its own reported interest, principal and date.
+For each linked report, the person also confirms that **all** its interest
+payments are separate from the other linked report's, or says it is a
+copy/correction or cannot tell. Only current separate-payment confirmations
+for every report permit combining Box 1; a copy/correction must be corrected
+at the existing report, and uncertainty or missing support withholds the
+amount. Equal amounts alone establish neither copying nor distinct payments.
+The calculation combines supported interest once, not the principal balances.
+Unknown coverage, unsupported cases or an unresolved form withhold the amount;
+they do not produce a favorable subset or fabricated zero. Clearing ends the
+current report links and payment comparisons while preserving forms and
+history. Confirmations for an unchanged A/B pair can remain after C is
+temporarily added and removed, but old derived results do not revive: current
+closure and rerun are required.
+
+The saved `mortgageBorrowingExplanation` keeps the actual calculation chain,
+pins and separately scoped answers. The citation-walk page renders that saved
+model without recalculating tax and distinguishes available from consumed
+support. Ordinary withdrawal is not clear, and earlier saved files stay
+unchanged.
+
+This is not a general multiple-loan, refinancing, second-home or allocation
+calculator. The conservative debt limit remains; the higher grandfathered
+limit is not modeled. See the [selected product contract](docs/phases/tax-circumstance-breadth/milestones/mortgage-statement-borrowing.md).
+
 ## Personal-item sale on Form 1099-K
 
 The bounded Form 1099-K route reviews each current Form 1099-K statement and its

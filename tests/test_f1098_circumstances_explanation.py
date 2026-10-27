@@ -196,6 +196,22 @@ class TestF1098CircumstancesExplanation(unittest.TestCase):
             self.assertIn("Current ordinary answers", content)
             self.assertIn("Schedule A line 8a deductible amount", content)
 
+    def test_borrowing_reader_functions_match_the_product_page(self) -> None:
+        from pathlib import Path
+
+        root = Path(__file__).resolve().parents[1]
+        product = (root / "packages/presentation/pages/citation-walk.v1.html").read_text("utf-8")
+        harness = (root / "tools/presentation_harness/examples/pages/citation-walk.v1.html").read_text("utf-8")
+
+        def mortgage_reader_functions(page: str, ending: str) -> str:
+            start = page.index("function validateMortgageBorrowingExplanation(")
+            end = page.index(ending, start)
+            return page[start:end].strip()
+
+        product_functions = mortgage_reader_functions(product, "\ndocument.addEventListener")
+        harness_functions = mortgage_reader_functions(harness, "\n\nconst sectionsRoot")
+        self.assertEqual(harness_functions, product_functions)
+
 
 if __name__ == "__main__":
     unittest.main()

@@ -1,0 +1,68 @@
+{
+  "blocked": {
+    "code": "DEPENDENCY_INVALID",
+    "missing": [
+      "tax.us.2025.f1098.effective-owes-the-loan",
+      "tax.us.2025.f1098.effective-no-one-else-owes-it",
+      "tax.us.2025.f1098.effective-original-loan",
+      "tax.us.2025.f1098.effective-credit-certificate",
+      "tax.us.2025.f1098.effective-proceeds-use"
+    ]
+  },
+  "citations": [],
+  "direction": "joined_contains_subject",
+  "id": "tax.us.2025.rule.effective-proceeds-support-count",
+  "joined": {
+    "id": "tax.us.2025.f1098.borrowing-inclusion",
+    "version": "v1"
+  },
+  "notes": "This retained candidate rule id publishes numeric 1 only when one exact affirmed link has all five current effective-answer categories; it is a completion witness, not a proceeds count.",
+  "pins": [],
+  "publishes": "tax.us.2025.mortgage.effective-proceeds-support-count",
+  "requires": [
+    "tax.us.2025.f1098.effective-owes-the-loan",
+    "tax.us.2025.f1098.effective-no-one-else-owes-it",
+    "tax.us.2025.f1098.effective-original-loan",
+    "tax.us.2025.f1098.effective-credit-certificate",
+    "tax.us.2025.f1098.effective-proceeds-use"
+  ],
+  "role": "computation",
+  "schema": "rule-artifact.v13",
+  "scope": {
+    "family": "individual-income-tax",
+    "jurisdiction": "US-federal",
+    "tax_year": 2025
+  },
+  "subject": {
+    "id": "tax.us.2025.f1098.borrowing-inclusion",
+    "version": "v1"
+  },
+  "value": 1,
+  "version": "v1",
+  "when": {
+    "condition": true,
+    "members": [
+      {
+        "name": "tax.us.2025.f1098.effective-credit-certificate",
+        "op": "ref"
+      },
+      {
+        "name": "tax.us.2025.f1098.effective-no-one-else-owes-it",
+        "op": "ref"
+      },
+      {
+        "name": "tax.us.2025.f1098.effective-original-loan",
+        "op": "ref"
+      },
+      {
+        "name": "tax.us.2025.f1098.effective-owes-the-loan",
+        "op": "ref"
+      },
+      {
+        "name": "tax.us.2025.f1098.effective-proceeds-use",
+        "op": "ref"
+      }
+    ],
+    "op": "conditional_dependency_set"
+  }
+}

@@ -127,10 +127,7 @@ def _require_current_statement(state: Any, keys: dict[str, str]) -> None:
                if fid in current and finding.get("fact_id") in lattice
                and lattice[finding["fact_id"]].fact_type_id == STATEMENT_BOX1
                and dict(lattice[finding["fact_id"]].keys) == keys]
-    all_sources = [(fid, finding) for fid, finding in state.findings.items()
-                   if fid in current and finding.get("fact_id") in lattice
-                   and lattice[finding["fact_id"]].fact_type_id == STATEMENT_BOX1]
-    if len(sources) != 1 or len(all_sources) != 1:
+    if len(sources) != 1:
         raise F1098RecordingRefused("answer requires one exact current Form 1098 box 1 source")
 
 

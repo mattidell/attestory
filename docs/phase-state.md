@@ -1,17 +1,43 @@
 <!-- foreman-context-v1
 {
   "version": 1,
-  "phase": "Engine Breadth",
-  "topic": "other-dependents-credit",
-  "active_plan": "docs/phases/engine-breadth/milestones/other-dependents-credit.md",
+  "phase": "Tax Circumstance Breadth",
+  "topic": "mortgage-statement-borrowing",
+  "active_plan": "docs/phases/tax-circumstance-breadth/milestones/mortgage-statement-borrowing.md",
   "milestone_state": "closed",
-  "status": "Closed. On core v56 Schedule 8812 is complete for the class: the credit for other dependents is computed for children marked for it and qualifying relatives, combined with the child tax credit. Earlier packages keep their results.",
+  "status": "One continuing home borrowing can be recorded and explained across one or two mortgage statements within the bounded calculation.",
   "current_role": "Foreman — select next milestone",
-  "current_prompt": "docs/phases/engine-breadth/coverage-frontier.md"
+  "current_prompt": "docs/phases/tax-circumstance-breadth/tax-circumstance-breadth-roadmap.md"
 }
 -->
 
 # Phase State
+
+## Current direction
+
+The [mortgage result](phases/tax-circumstance-breadth/milestones/mortgage-statement-borrowing.md)
+has been reconstructed on the milestone branch against the merged
+credit-for-other-dependents work below. Main's core v56 / registry v54 /
+release v54 are retained unchanged; the mortgage core v57 / registry v55 /
+release v55 chain is regenerated and its focused package, adoption and
+credit-preservation checks pass.
+One or two
+exact Forms 1098 can describe one
+continuing original borrowing for one main home, retaining local and shared
+answer scope, supported calculation, fresh-source restoration and saved
+explanation. The existing dependency guard now records helper prerequisites so
+their old findings become stale when support is withdrawn.
+
+Question meaning, one offered shared scope and actionable saved conflicts are
+repaired, as are stale production rule notes. The duplicate-payment calculation
+repair is built. The owner approved preserving confirmations for unchanged
+A/B after temporarily adding and removing C; a third current form still blocks,
+and changed source/link support needs fresh confirmation. The active charter
+retains the bounded applicability and declared payment-readiness contract.
+The result was independently reviewed. General mortgage allocation,
+refinancing, more homes/borrowings, higher grandfathered debt limits and
+observed browser interaction remain outside this result. The earlier phase
+endpoint remains met; another vertical is not automatically selected.
 
 ## Latest milestone
 
@@ -80,8 +106,7 @@ only where it can change line 27a; the plan and README give each stop.
   with the Tax Table, the Tax Computation Worksheet and the capital gains
   worksheet published line by line.
 
-The mortgage same-borrowing milestone (PR #216) continues in parallel and
-takes the next free package versions when it needs them.
+The mortgage publication candidate above preserves these return selections.
 
 ## Earlier engineering-health result
 
@@ -161,7 +186,11 @@ loss). **Mortgage Interest and What the Loan Paid For** closed 2026-10-15
 
 ## Begin here
 
-- [Latest milestone plan](phases/engine-breadth/milestones/eic-qualifying-children.md):
+- [Current mortgage plan](phases/tax-circumstance-breadth/milestones/mortgage-statement-borrowing.md)
+  and [lessons](milestone-retrospectives/2026-10-25-mortgage-statement-borrowing.md).
+- [Tax Circumstance Breadth roadmap](phases/tax-circumstance-breadth/tax-circumstance-breadth-roadmap.md):
+  the attained endpoint and separately selectable remaining work.
+- [Earlier return-calculation plan](phases/engine-breadth/milestones/eic-qualifying-children.md):
   P0, contract, tracks and outcome; and its
   [retrospective](milestone-retrospectives/2026-10-24-eic-qualifying-children.md).
 - [Previous return-calculation plan](phases/engine-breadth/milestones/earned-income-credit.md).
