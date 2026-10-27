@@ -518,6 +518,196 @@ function renderMortgageExplanation(container, block) {
   container.appendChild(root);
 }
 
+function validateMortgageBorrowingExplanation(block) {
+  if (!block || !["mortgage-borrowing-explanation.v1", "mortgage-borrowing-explanation.v2", "mortgage-borrowing-explanation.v3", "mortgage-borrowing-explanation.v4"].includes(block.schema) ||
+      !Array.isArray(block.reports) || !Array.isArray(block.groups) ||
+      !Array.isArray(block.line8aDispositions) || !Array.isArray(block.line8aFindings) ||
+      !Array.isArray(block.orphanRelationships)) throw new SectionError("malformed-mortgage-explanation");
+  const legacy = block.schema === "mortgage-borrowing-explanation.v1";
+  const paymentComparisons = block.schema === "mortgage-borrowing-explanation.v3" || block.schema === "mortgage-borrowing-explanation.v4";
+  for (const report of block.reports) {
+    if (!report || (!legacy && !report.statementLabel) || !report.reportedInterest ||
+        typeof report.reportedInterest.value !== "number" || !Number.isFinite(report.reportedInterest.value) ||
+        (!legacy && !Array.isArray(report.boxObservations)) ||
+        !Array.isArray(report.localAnswers) || !Array.isArray(report.relationships) ||
+        !Array.isArray(report.effectiveAnswers)) throw new SectionError("malformed-mortgage-explanation");
+    if (paymentComparisons && (!Array.isArray(report.paymentComparisons) || report.paymentComparisons.some((item) =>
+        !item || typeof item.findingId !== "string" || !item.findingId ||
+        !["different-payments", "copy-or-correction", "cannot-tell", "withdrawn"].includes(item.value) ||
+        (block.schema === "mortgage-borrowing-explanation.v4" ?
+          !((item.peerIdentityStatus === "present" && item.peer &&
+              ["payer", "statement", "tax-year"].every((key) => typeof item.peer[key] === "string" && item.peer[key])) ||
+            (item.peerIdentityStatus === "unavailable" && item.peer === null &&
+              item.applicability === "unresolved-applicability")) :
+          (!item.peer || !["payer", "statement", "tax-year"].every((key) => typeof item.peer[key] === "string" && item.peer[key]))) ||
+        !["current", "unresolved-applicability"].includes(item.applicability) ||
+        !Array.isArray(item.supportFindingIds) || item.supportFindingIds.some((id) => typeof id !== "string" || !id) ||
+        typeof item.explanation !== "string" || !item.explanation))) {
+      throw new SectionError("malformed-mortgage-explanation");
+    }
+    if (!legacy && report.boxObservations.some((item) =>
+        !item || !item.findingId || !item.factType ||
+        (item.factType === "tax.us.2025.f1098.box2-outstanding-principal" &&
+          (typeof item.value !== "number" || !Number.isFinite(item.value))) ||
+        (item.factType === "tax.us.2025.f1098.box3-origination-date" &&
+          (typeof item.value !== "string" || !item.value)))) {
+      throw new SectionError("malformed-mortgage-explanation");
+    }
+    if (!legacy && report.effectiveAnswers.some((answer) =>
+        !answer || !answer.findingId || !Array.isArray(answer.pins) ||
+        !["consumed", "available-not-consumed"].includes(answer.consumption))) {
+      throw new SectionError("malformed-mortgage-explanation");
+    }
+  }
+  const known = new Set(["published", "blocked", "inapplicable"]);
+  if (block.line8aDispositions.length !== 1 || block.line8aDispositions.some((row) =>
+      !row || row.artifact_id !== "tax.us.2025.rule.f1098-line8a" || !known.has(row.disposition))) {
+    throw new SectionError("malformed-mortgage-explanation");
+  }
+  for (const finding of block.line8aFindings) {
+    if (!finding || finding.symbol !== "tax.us.2025.schedule-a.line8a" || !finding.id ||
+        typeof finding.value !== "number" || !Number.isFinite(finding.value) || !Array.isArray(finding.pins)) {
+      throw new SectionError("malformed-mortgage-explanation");
+    }
+  }
+  if (block.line8aFindings.length > 1 ||
+      (block.line8aDispositions[0].disposition === "published") !== (block.line8aFindings.length === 1) ||
+      (block.line8aFindings.length === 1 && block.line8aDispositions[0].finding_id !== block.line8aFindings[0].id)) {
+    throw new SectionError("malformed-mortgage-explanation");
+  }
+  if (!legacy) {
+    const chain = block.calculationChain;
+    if (!chain || !Array.isArray(chain.publications) || !Array.isArray(chain.dispositions) ||
+        !Array.isArray(chain.resolvedContent) || chain.publications.some((finding) =>
+          !finding || !finding.id || !finding.symbol || !Array.isArray(finding.pins)) ||
+        chain.dispositions.some((row) => !row || !row.artifact_id || !known.has(row.disposition)) ||
+        chain.resolvedContent.some((member) => !member || !member.id || !member.schema)) {
+      throw new SectionError("malformed-mortgage-explanation");
+    }
+  }
+}
+
+function renderMortgageBorrowingExplanation(container, block) {
+  validateMortgageBorrowingExplanation(block);
+  const legacy = block.schema === "mortgage-borrowing-explanation.v1";
+  const root = el("section", { class: "mortgage-explanation", "data-mortgage-borrowing-explanation": "true" }, []);
+  root.appendChild(el("h2", null, ["Connected mortgage borrowing"]));
+  const disposition = block.line8aDispositions[0] && block.line8aDispositions[0].disposition;
+  const amount = block.line8aFindings[0] && block.line8aFindings[0].value;
+  if (amount !== undefined) {
+    root.appendChild(el("p", { class: "line-value" }, ["Schedule A line 8a group amount: " + String(amount)]));
+  } else {
+    root.appendChild(el("p", { class: "line-value blocked-value", role: "status" }, ["Schedule A line 8a amount unavailable; the connected result is not published."]));
+  }
+  for (const report of block.reports) {
+    const statementLabel = report.statementLabel || { statement: report.statement, lender: report.payer, taxYear: report.taxYear };
+    const label = [statementLabel.statement, statementLabel.lender, report.taxYear].filter(Boolean).join(", ");
+    const card = el("article", { class: "mortgage-account" }, [el("h3", null, [label || "Mortgage statement"])]);
+    card.appendChild(el("p", null, ["Box 1 interest reported: " + String(report.reportedInterest.value)]));
+    for (const item of report.boxObservations || []) {
+      const title = item.factType === "tax.us.2025.f1098.box2-outstanding-principal" ? "Box 2 outstanding principal" : "Box 3 origination date";
+      card.appendChild(el("p", null, [title + ": " + String(item.value)]));
+    }
+    if ((report.localAnswers || []).length) {
+      const details = el("details", null, [el("summary", null, ["Answers recorded for this form"])]);
+      details.appendChild(el("ul", null, report.localAnswers.map((answer) => el("li", null, [(answer.title || answer.factType) + ": " + String(answer.valueLabel || answer.value)]))));
+      card.appendChild(details);
+    }
+    if ((report.paymentComparisons || []).length) {
+      const details = el("details", null, [el("summary", null, ["How this report compares with the other report"])]);
+      details.appendChild(el("ul", null, report.paymentComparisons.map((comparison) => {
+        const peer = comparison.peerIdentityStatus === "unavailable" ? "peer report identity unavailable" :
+          comparison.peer.statement + " (" + comparison.peer.payer + ", " + comparison.peer["tax-year"] + ")";
+        const state = comparison.applicability === "current" ? "currently applicable" : "not currently applicable";
+        const ids = comparison.supportFindingIds.length ? " Current support finding IDs: " + comparison.supportFindingIds.join(", ") + "." : "";
+        return el("li", null, [
+          comparison.title + ": " + String(comparison.valueLabel || comparison.value) + " for peer " + peer +
+          " (" + comparison.findingId + "); " + state + ". " + comparison.explanation + ids,
+        ]);
+      })));
+      card.appendChild(details);
+    }
+    if ((report.answerConflicts || []).length) {
+      const conflicts = el("section", { class: "mortgage-answer-conflicts", role: "status" }, [
+        el("h4", null, ["Answers to reconcile"]),
+      ]);
+      conflicts.appendChild(el("ul", null, report.answerConflicts.map((conflict) => {
+        const item = el("li", null, [
+          conflict.question + ": " + conflict.local.scope + " says " +
+          String(conflict.local.valueLabel || conflict.local.value) +
+          " (" + conflict.local.findingId + "); " + conflict.shared.scope + " says " +
+          String(conflict.shared.valueLabel || conflict.shared.value) +
+          " (" + conflict.shared.findingId + "). " + conflict.correctionGuidance,
+        ]);
+        return item;
+      })));
+      card.appendChild(conflicts);
+    }
+    if (report.reasonChain) {
+      const pins = (report.reasonChain.pins || []).map((pin) => String(pin.id || pin)).join(", ");
+      card.appendChild(el("p", { class: "reason-chain" }, ["Saved explanation: " + String(report.reasonChain.value) + (pins ? " — pins: " + pins : "")]));
+    }
+    if ((report.relationships || []).length) {
+      const details = el("details", null, [el("summary", null, ["How this form is linked to the borrowing"])]);
+      details.appendChild(el("ul", null, report.relationships.map((link) => el("li", null, [link.disposition + " — " + link.response]))));
+      card.appendChild(details);
+    }
+    if ((report.effectiveAnswers || []).length) {
+      const details = el("details", null, [el("summary", null, ["Effective answers available for this linked report; pins show actual use"])]);
+      details.appendChild(el("ul", null, report.effectiveAnswers.map((answer) => el("li", null, [
+        (answer.title || answer.factType) + ": " + String(answer.valueLabel || answer.value) +
+        " — " + (answer.consumption === "consumed" ? "consumed by published line 8a" : "available, not consumed by published line 8a")
+      ]))));
+      card.appendChild(details);
+    }
+    root.appendChild(card);
+  }
+  for (const group of block.groups) {
+    const claims = Object.entries(group.recordedApplicableClaims || {});
+    if (!claims.length) continue;
+    const consumed = new Set(group.consumedFindingIds || []);
+    const details = el("details", null, [el("summary", null, ["Recorded borrowing-wide answers for " + (group.borrowingLabel || group.borrowing) + " (not all are necessarily active in this result)"])]);
+    details.appendChild(el("ul", null, claims.map(([factType, claim]) => el("li", null, [
+      (claim.title || factType) + ": " + String(claim.valueLabel || claim.value) +
+      " — " + (consumed.has(claim.findingId) ? "consumed by the published result" : "not shown as consumed")
+    ]))));
+    root.appendChild(details);
+  }
+  if (block.calculationChain && !legacy) {
+    const chain = el("details", null, [el("summary", null, ["Saved calculation evidence: publications, producers, pins, and missing inputs"])]);
+    const rows = [];
+    for (const finding of block.calculationChain.publications) {
+      const pins = (finding.pins || []).map((pin) => String(pin.id || pin)).join(", ");
+      rows.push(finding.symbol + " = " + String(finding.value) + " — pins: " + (pins || "none"));
+    }
+    for (const row of block.calculationChain.dispositions) {
+      const pins = (row.pins || []).map((pin) => String(pin.id || pin)).join(", ");
+      rows.push(row.artifact_id + ": " + row.disposition +
+        (row.missing && row.missing.length ? " — missing: " + row.missing.join(", ") : "") +
+        (pins ? " — pins: " + pins : ""));
+    }
+    for (const member of block.calculationChain.resolvedContent) {
+      const note = member.notes || member.description || member.title;
+      if (note) rows.push(member.id + "@" + String(member.version || "resolved") + ": " + String(note));
+      if (member.values && typeof member.values === "object") {
+        rows.push(member.id + "@" + String(member.version || "resolved") + " exact values: " + JSON.stringify(member.values));
+      }
+      if (member.id === "tax.us.2025.rule.f1098-residence-interest-reason" && member.value) {
+        rows.push(member.id + " resolved criteria: " + JSON.stringify(member.value));
+      }
+    }
+    chain.appendChild(el("ul", null, rows.map((row) => el("li", null, [row]))));
+    root.appendChild(chain);
+  }
+  if (block.orphanRelationships.length) {
+    const details = el("details", null, [el("summary", null, ["Recorded links whose source is no longer a current form"])]);
+    details.appendChild(el("ul", null, block.orphanRelationships.map((link) =>
+      el("li", null, [link.statement + " (" + link.taxYear + "): " + link.disposition + " — " + link.response]))));
+    root.appendChild(details);
+  }
+  container.appendChild(root);
+}
+
 const sectionsRoot = document.getElementById("sections-root");
 for (const section of FIXTURE.sections || []) {
   const wrap = el("div", { id: section.id }, []);
@@ -529,6 +719,12 @@ const attachmentStatusRoot = document.getElementById("attachment-status-root");
 if (FIXTURE.mortgageInterestExplanation !== undefined) {
   renderSafely("mortgage-explanation-root", renderMortgageExplanation,
     FIXTURE.mortgageInterestExplanation, "Mortgage interest explanation");
+}
+if (FIXTURE.mortgageBorrowingExplanation !== undefined) {
+  const root = document.getElementById("mortgage-explanation-root");
+  while (root.firstChild) root.removeChild(root.firstChild);
+  renderSafely("mortgage-explanation-root", renderMortgageBorrowingExplanation,
+    FIXTURE.mortgageBorrowingExplanation, "Mortgage borrowing explanation");
 }
 for (const attachment of FIXTURE.attachments || []) {
   const statusId = attachment.id + "-status";

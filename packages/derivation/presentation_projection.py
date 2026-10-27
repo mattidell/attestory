@@ -216,6 +216,23 @@ def _statement_label(keys: Mapping[str, str], state: FindingState) -> dict[str, 
     return label
 
 
+def _recorded_entity_label(entity_id: str, state: FindingState) -> str:
+    lifecycle = state.fact_state.entities.get(entity_id)
+    label = lifecycle.entity.get("label") if lifecycle is not None else None
+    return label if isinstance(label, str) and label else entity_id
+
+
+def _mortgage_answer_description(fact_type_id: str, value: Any, state: FindingState) -> tuple[str, str | None]:
+    declaration = state.fact_state.fact_types.get(fact_type_id, {})
+    title = declaration.get("title") if isinstance(declaration, Mapping) else None
+    schema = declaration.get("value_schema") if isinstance(declaration, Mapping) else None
+    labels = schema.get("oneOf") if isinstance(schema, Mapping) else None
+    value_label = next((row.get("description") for row in labels or []
+                        if isinstance(row, Mapping) and row.get("const") == value
+                        and isinstance(row.get("description"), str)), None)
+    return (title if isinstance(title, str) and title else fact_type_id, value_label)
+
+
 def _selection_blocked_reasons(
     row: Mapping[str, Any],
     rule: Mapping[str, Any],
@@ -1067,6 +1084,11 @@ _SLI_SUPPORTED_VALUE = "plain-case-supported"
 LINE21_EXPLANATION_VERSION = "line21-explanation.v1"
 
 _MORTGAGE_BOX1_FACT_TYPE = "tax.us.2025.f1098.box1-mortgage-interest"
+_MORTGAGE_BOX_FACT_TYPES = frozenset({
+    _MORTGAGE_BOX1_FACT_TYPE,
+    "tax.us.2025.f1098.box2-outstanding-principal",
+    "tax.us.2025.f1098.box3-origination-date",
+})
 _MORTGAGE_REASON_SYMBOL = "tax.us.2025.f1098.residence-interest-reason"
 _MORTGAGE_REASON_RULE_ID = "tax.us.2025.rule.f1098-residence-interest-reason"
 _MORTGAGE_AMOUNT_SYMBOL = "tax.us.2025.schedule-a.line8a"
@@ -1364,21 +1386,73 @@ def _mortgage_basis_answers(
                 found.extend(mappings(nested))
         return found
 
+    # A reason rule can contain branches for other mortgage answers that were
+    # not selected for this particular finding. Resolve reader labels only
+    # for answer types actually present in this finding's saved support chain;
+    # otherwise an unrelated dormant branch would make a legacy singleton
+    # projection fail despite the published conclusion having no such input.
+    reached_answer_types: set[str] = set()
+    support_rule_members: dict[tuple[str, str], Mapping[str, Any]] = {}
+    pending_support = [str(finding.get("id"))]
+    visited_support: set[str] = set()
+    while pending_support:
+        pub_id = pending_support.pop()
+        if pub_id in visited_support:
+            continue
+        visited_support.add(pub_id)
+        publication = publications_by_id.get(pub_id)
+        if publication is None:
+            continue
+        for pin in publication.get("pins", []) or []:
+            if not isinstance(pin, Mapping):
+                continue
+            if pin.get("role") == "computation":
+                rule_id, rule_version = pin.get("id"), pin.get("version")
+                matches = [member for member in resolved_members
+                           if member.get("id") == rule_id and member.get("version") == rule_version
+                           and "publishes" in member]
+                if (not matches and rule_id == reason_rule.get("id")
+                        and rule_version == reason_rule.get("version")):
+                    matches = [reason_rule]
+                if len(matches) != 1:
+                    raise PresentationModelError("mortgage support chain lacks one exact producing rule")
+                assert isinstance(rule_id, str) and isinstance(rule_version, str)
+                support_rule_members[(rule_id, rule_version)] = matches[0]
+                continue
+            if pin.get("role") not in _DEPENDENCY_ROLES:
+                continue
+            child_id = pin.get("id")
+            if not isinstance(child_id, str):
+                continue
+            if child_id in publications_by_id:
+                pending_support.append(child_id)
+            elif child_id in current:
+                source = state.findings.get(child_id)
+                fact = fact_map.get(str(source.get("fact_id"))) if source is not None else None
+                if fact is not None:
+                    reached_answer_types.add(fact.fact_type_id)
+
     selected_versions: dict[str, str] = {}
-    for node in mappings(reason_rule.get("value")):
-        ref = node.get("fact_type")
-        if node.get("op") != "category_literal" or not isinstance(ref, Mapping):
-            continue
-        fact_type_id, version = ref.get("id"), ref.get("version")
-        if (not isinstance(fact_type_id, str) or not fact_type_id.startswith(_MORTGAGE_ANSWER_PREFIX)
-                or fact_type_id == _MORTGAGE_REASON_SYMBOL):
-            continue
-        if not isinstance(version, str) or not version:
-            raise PresentationModelError(f"mortgage answer type {fact_type_id!r} lacks an exact version")
-        prior = selected_versions.get(fact_type_id)
-        if prior is not None and prior != version:
-            raise PresentationModelError(f"mortgage rule selects conflicting versions of {fact_type_id!r}")
-        selected_versions[fact_type_id] = version
+    for support_rule in support_rule_members.values():
+        refs = [node.get("fact_type") for node in mappings(support_rule.get("value"))
+                if node.get("op") == "category_literal"]
+        joined = support_rule.get("joined")
+        if isinstance(joined, Mapping):
+            refs.append(joined)
+        for ref in refs:
+            if not isinstance(ref, Mapping):
+                continue
+            fact_type_id, version = ref.get("id"), ref.get("version")
+            if (not isinstance(fact_type_id, str) or fact_type_id not in reached_answer_types
+                    or not fact_type_id.startswith(_MORTGAGE_ANSWER_PREFIX)
+                    or fact_type_id == _MORTGAGE_REASON_SYMBOL):
+                continue
+            if not isinstance(version, str) or not version:
+                raise PresentationModelError(f"mortgage answer type {fact_type_id!r} lacks an exact version")
+            prior = selected_versions.get(fact_type_id)
+            if prior is not None and prior != version:
+                raise PresentationModelError(f"mortgage rule selects conflicting versions of {fact_type_id!r}")
+            selected_versions[fact_type_id] = version
 
     exact_types: dict[str, Mapping[str, Any]] = {}
 
@@ -1448,10 +1522,11 @@ def _mortgage_basis_answers(
                     if fact_type_definition is None:
                         if ".box" not in fact_type:
                             raise PresentationModelError(
-                                f"mortgage answer type {fact_type!r} is not pinned by the selected rule"
+                                f"mortgage answer type {fact_type!r} is not pinned by a selected producing rule"
                             )
-                        # Numeric/date source-field titles retain their established source-fact title path.
-                        # Reader labels for answer facts above always come from exact selected-rule refs.
+                        # Numeric/date source-field titles retain their
+                        # established source-fact title path. Categorical
+                        # answer titles and labels require exact adopted refs.
                         fact_type_definition = state.fact_state.fact_types.get(fact_type)
                     title = fact_type_definition.get("title") if isinstance(fact_type_definition, Mapping) else None
                     if not isinstance(title, str) or not title:
@@ -2502,6 +2577,723 @@ def _validate_mortgage_interest_explanation(value: Any) -> None:
             raise PresentationModelError(f"{path}.accounts[0].basis: malformed basis group")
     elif "basis" in account:
         raise PresentationModelError(f"{path}.accounts[0]: justified zero cannot reuse qualified basis")
+
+
+_MORTGAGE_BORROWING_EXPLANATION_VERSION = "mortgage-borrowing-explanation.v4"
+_MORTGAGE_BORROWING_EXPLANATION_COMPARISON_VERSIONS = frozenset({
+    "mortgage-borrowing-explanation.v3", "mortgage-borrowing-explanation.v4",
+})
+_MORTGAGE_BORROWING_EXPLANATION_LEGACY_VERSIONS = frozenset({
+    "mortgage-borrowing-explanation.v1", "mortgage-borrowing-explanation.v2",
+})
+_MORTGAGE_REPORT_LINK_TYPES = {
+    "tax.us.2025.f1098.borrowing-inclusion": "affirmed",
+    "tax.us.2025.f1098.borrowing-denied": "denied",
+    "tax.us.2025.f1098.borrowing-unresolved": "cannot-tell",
+    "tax.us.2025.f1098.borrowing-withdrawn": "withdrawn",
+}
+_MORTGAGE_LOCAL_FACT_TYPES = frozenset({
+    "tax.us.2025.f1098.filing-unit-owns-home",
+    "tax.us.2025.f1098.shared-main-home",
+    "tax.us.2025.f1098.home-is-collateral",
+    "tax.us.2025.f1098.paid-the-interest",
+    "tax.us.2025.f1098.owes-the-loan",
+    "tax.us.2025.f1098.no-one-else-owes-it",
+    "tax.us.2025.f1098.what-the-money-paid-for",
+    "tax.us.2025.f1098.this-is-the-original-loan",
+    "tax.us.2025.f1098.mortgage-credit-certificate-received",
+})
+_MORTGAGE_SHARED_CONFLICTS = {
+    "tax.us.2025.f1098.owes-the-loan": (
+        "tax.us.2025.mortgage.shared-owes-the-loan", "Who owes this borrowing?", None,
+    ),
+    "tax.us.2025.f1098.no-one-else-owes-it": (
+        "tax.us.2025.mortgage.shared-no-one-else-owes-it", "Does anyone else owe this borrowing?", None,
+    ),
+    "tax.us.2025.f1098.what-the-money-paid-for": (
+        "tax.us.2025.mortgage.shared-proceeds-use", "What did this borrowing's proceeds pay for?", None,
+    ),
+    "tax.us.2025.f1098.this-is-the-original-loan": (
+        "tax.us.2025.mortgage.shared-original-loan", "Is this the original loan?", None,
+    ),
+    "tax.us.2025.f1098.mortgage-credit-certificate-received": (
+        "tax.us.2025.mortgage.shared-credit-certificate", "Was a mortgage credit certificate received?",
+        {"yes": "received", "no": "not-received", "cannot-tell": "cannot-tell"},
+    ),
+}
+
+
+def _mortgage_borrowing_explanation(
+    *, run_id: str, workspace_revision: int | None, resolved_members: Sequence[Mapping[str, Any]], state: FindingState,
+    publications: Sequence[Any], dispositions: Sequence[Mapping[str, Any]],
+) -> dict[str, Any] | None:
+    """Project current borrowing/report support from this run's recorded state.
+
+    This block is intentionally a bounded evidence ledger, not an eligibility
+    calculation. Every row is keyed from a current recorded fact identity; no
+    report identity is parsed from a display suffix and no workspace is read.
+    """
+    from packages.kernel.currency import compute_currency
+    from packages.kernel.facts import facts_of
+
+    if not any(member.get("id") == "tax.us.2025.mortgage-borrowing" and member.get("version") == "v1"
+               and member.get("schema") == "bundle.v2" for member in resolved_members):
+        return None
+
+    fact_map = facts_of(state.fact_state)
+    currency = compute_currency(state)
+    current = currency.current_finding_ids
+    current_findings = [
+        (finding_id, state.findings[finding_id], fact_map.get(str(state.findings[finding_id].get("fact_id"))))
+        for finding_id in current if finding_id in state.findings
+    ]
+    source_reports: dict[tuple[str, str, str], dict[str, Any]] = {}
+    for source_id, source, source_fact in current_findings:
+        if source_fact is None or source_fact.fact_type_id != _MORTGAGE_BOX1_FACT_TYPE:
+            continue
+        keys = dict(source_fact.keys)
+        payer, statement, tax_year = (keys.get(key) for key in ("payer", "statement", "tax-year"))
+        if not all(isinstance(item, str) and item for item in (payer, statement, tax_year)):
+            raise PresentationModelError("current Form 1098 box 1 source has incomplete identity")
+        source_ident = (str(payer), str(statement), str(tax_year))
+        if source_ident in source_reports:
+            raise PresentationModelError("multiple current Form 1098 box 1 findings share one exact report identity")
+        entity_label = _statement_label(keys, state)
+        source_reports[source_ident] = {
+            "payer": source_ident[0], "statement": source_ident[1], "taxYear": source_ident[2],
+            "statementLabel": entity_label,
+            "reportedInterest": {"findingId": source_id, "value": source.get("value")},
+            "boxObservations": [],
+            "reasonChain": None, "localAnswers": [], "relationships": [], "effectiveAnswers": [],
+            "paymentComparisons": [],
+        }
+    reports: dict[tuple[str, str, str, str], dict[str, Any]] = {}
+    orphan_relationships: list[dict[str, Any]] = []
+    for finding_id, finding, fact in current_findings:
+        if fact is not None and fact.fact_type_id in _MORTGAGE_BOX_FACT_TYPES and fact.fact_type_id != _MORTGAGE_BOX1_FACT_TYPE:
+            keys = dict(fact.keys)
+            report_ident = (keys.get("payer"), keys.get("statement"), keys.get("tax-year"))
+            if report_ident in source_reports:
+                source_reports[report_ident]["boxObservations"].append({
+                    "findingId": finding_id, "factType": fact.fact_type_id,
+                    "value": finding.get("value"),
+                })
+        if fact is None or fact.fact_type_id not in _MORTGAGE_REPORT_LINK_TYPES:
+            continue
+        keys = dict(fact.keys)
+        if not all(isinstance(keys.get(key), str) and keys[key] for key in ("payer", "statement", "tax-year", "borrowing")):
+            raise PresentationModelError("current mortgage report relationship has incomplete identity")
+        relationship_ident = (keys["borrowing"], keys["payer"], keys["statement"], keys["tax-year"])
+        report_ident = (relationship_ident[1], relationship_ident[2], relationship_ident[3])
+        relationship = {"borrowing": relationship_ident[0], "findingId": finding_id, "factType": fact.fact_type_id,
+                        "response": str(finding.get("value")),
+                        "disposition": _MORTGAGE_REPORT_LINK_TYPES[fact.fact_type_id]}
+        if report_ident in source_reports:
+            source_reports[report_ident]["relationships"].append(relationship)
+        else:
+            orphan_relationships.append({**relationship, "payer": relationship_ident[1], "statement": relationship_ident[2], "taxYear": relationship_ident[3]})
+        row = reports.setdefault(relationship_ident, {"borrowing": relationship_ident[0], "report": {
+            "payer": relationship_ident[1], "statement": relationship_ident[2], "taxYear": relationship_ident[3],
+            "relationship": relationship,
+            "reportedInterest": None, "reasonChain": None, "localAnswers": [], "effectiveAnswers": [],
+            "paymentComparisons": [],
+        }})
+        existing = row["report"]["relationship"]
+        if existing["factType"] != fact.fact_type_id:
+            raise PresentationModelError("multiple current mortgage relationship outcomes for one report and borrowing")
+        box1 = [
+            (source_id, source, source_fact) for source_id, source, source_fact in current_findings
+            if source_fact is not None and source_fact.fact_type_id == _MORTGAGE_BOX1_FACT_TYPE
+            and dict(source_fact.keys) == {"payer": relationship_ident[1], "statement": relationship_ident[2], "tax-year": relationship_ident[3]}
+        ]
+        if len(box1) > 1:
+            raise PresentationModelError("multiple current box 1 sources for one exact report")
+        if box1:
+            source_id, source, _ = box1[0]
+            row["report"]["reportedInterest"] = {"findingId": source_id, "value": source.get("value")}
+        local = [
+            (source_id, source, source_fact) for source_id, source, source_fact in current_findings
+            if source_fact is not None and source_fact.fact_type_id in _MORTGAGE_LOCAL_FACT_TYPES
+            and dict(source_fact.keys) == {"payer": relationship_ident[1], "statement": relationship_ident[2], "tax-year": relationship_ident[3]}
+        ]
+        row["report"]["localAnswers"] = [
+            {"findingId": source_id, "factType": source_fact.fact_type_id, "value": source.get("value"),
+             "title": _mortgage_answer_description(source_fact.fact_type_id, source.get("value"), state)[0],
+             "valueLabel": _mortgage_answer_description(source_fact.fact_type_id, source.get("value"), state)[1]}
+            for source_id, source, source_fact in sorted(local, key=lambda item: item[2].fact_type_id)
+        ]
+        if report_ident in source_reports:
+            source_reports[report_ident]["localAnswers"] = list(row["report"]["localAnswers"])
+
+    for report_ident, report in source_reports.items():
+        if report["localAnswers"]:
+            continue
+        exact_keys = {"payer": report_ident[0], "statement": report_ident[1], "tax-year": report_ident[2]}
+        report["localAnswers"] = [
+            {"findingId": source_id, "factType": source_fact.fact_type_id, "value": source.get("value"),
+             "title": _mortgage_answer_description(source_fact.fact_type_id, source.get("value"), state)[0],
+             "valueLabel": _mortgage_answer_description(source_fact.fact_type_id, source.get("value"), state)[1]}
+            for source_id, source, source_fact in sorted(
+                [(source_id, source, source_fact) for source_id, source, source_fact in current_findings
+                 if source_fact is not None and source_fact.fact_type_id in _MORTGAGE_LOCAL_FACT_TYPES
+                 and dict(source_fact.keys) == exact_keys],
+                key=lambda item: item[2].fact_type_id,
+            )
+        ]
+
+    if not reports and not source_reports and not orphan_relationships:
+        return None
+    derived: list[Mapping[str, Any]] = []
+    reason_findings: list[Mapping[str, Any]] = []
+    for publication in publications:
+        finding = publication.finding
+        if not isinstance(finding, Mapping) or not isinstance(finding.get("symbol"), str):
+            continue
+        symbol = finding["symbol"]
+        if symbol.startswith("tax.us.2025.f1098.effective-"):
+            derived.append(finding)
+        elif symbol.startswith("tax.us.2025.f1098.residence-interest-reason|"):
+            reason_findings.append(finding)
+    for report_ident, report in source_reports.items():
+        report_source_id = report["reportedInterest"]["findingId"]
+        matching_reasons = [
+            finding for finding in reason_findings
+            if any(isinstance(pin, Mapping) and pin.get("role") == "input" and pin.get("id") == report_source_id
+                   for pin in cast(Sequence[Any], finding.get("pins", []) or []))
+        ]
+        if len(matching_reasons) > 1:
+            raise PresentationModelError("multiple current mortgage reason results pin one exact report source")
+        if matching_reasons:
+            reason = matching_reasons[0]
+            report["reasonChain"] = {"findingId": reason.get("id"), "value": reason.get("value"),
+                                      "pins": list(reason.get("pins", []))}
+    effective_outputs = {
+        str(member.get("publishes")): member
+        for member in resolved_members
+        if isinstance(member.get("publishes"), str)
+        and member["publishes"].startswith("tax.us.2025.f1098.effective-")
+    }
+    for relationship_ident, row in reports.items():
+        report_ident = (relationship_ident[1], relationship_ident[2], relationship_ident[3])
+        report_keys = {"payer": relationship_ident[1], "statement": relationship_ident[2], "tax-year": relationship_ident[3], "borrowing": relationship_ident[0]}
+        for derived_finding in derived:
+            output = str(derived_finding["symbol"]).partition("|")[0]
+            declaration = effective_outputs.get(output)
+            subject = declaration.get("subject") if isinstance(declaration, Mapping) else None
+            subject_type = subject.get("id") if isinstance(subject, Mapping) else None
+            subject_keys = report_keys if subject_type == "tax.us.2025.f1098.borrowing-inclusion" else {
+                key: value for key, value in report_keys.items() if key != "borrowing"
+            }
+            subject_facts = [fact for fact in fact_map.values()
+                             if subject_type is not None and fact.fact_type_id == subject_type
+                             and dict(fact.keys) == subject_keys]
+            if (len(subject_facts) == 1
+                    and derived_finding.get("symbol") == f"{output}|{subject_facts[0].fact_id}"):
+                # The complete expected symbol comes from the declaration's
+                # output and its exact existing subject fact identity. The
+                # selected local branch need not have read/pinned that subject.
+                finding_id = cast(str, derived_finding.get("id"))
+                row["report"]["effectiveAnswers"].append({
+                    "findingId": finding_id, "factType": output,
+                    "value": derived_finding.get("value"), "pins": list(derived_finding.get("pins", [])),
+                    "title": _mortgage_answer_description(output, derived_finding.get("value"), state)[0],
+                    "valueLabel": _mortgage_answer_description(output, derived_finding.get("value"), state)[1],
+                })
+                if report_ident in source_reports:
+                    source_reports[report_ident]["effectiveAnswers"].append({
+                        "borrowing": relationship_ident[0], "findingId": finding_id,
+                        "factType": output, "value": derived_finding.get("value"),
+                        "pins": list(derived_finding.get("pins", [])),
+                        "title": _mortgage_answer_description(output, derived_finding.get("value"), state)[0],
+                        "valueLabel": _mortgage_answer_description(output, derived_finding.get("value"), state)[1],
+                    })
+                continue
+            # For non-subject-scoped outputs, an actual exact inclusion pin is
+            # still required to establish the report/borrowing relationship.
+            matching_link = False
+            for pin in cast(Sequence[Any], derived_finding.get("pins", []) or []):
+                pin_source_id = pin.get("id") if isinstance(pin, Mapping) else None
+                pin_source = state.findings.get(pin_source_id) if isinstance(pin_source_id, str) else None
+                source_fact = fact_map.get(str(pin_source["fact_id"])) if isinstance(pin_source, Mapping) else None
+                if source_fact is not None and source_fact.fact_type_id == "tax.us.2025.f1098.borrowing-inclusion" and dict(source_fact.keys) == report_keys:
+                    matching_link = True
+                    break
+            if not matching_link:
+                continue
+            finding_id = cast(str, derived_finding.get("id"))
+            row["report"]["effectiveAnswers"].append({
+                "findingId": finding_id, "factType": str(derived_finding["symbol"]).partition("|")[0],
+                "value": derived_finding.get("value"), "pins": list(derived_finding.get("pins", [])),
+                "title": _mortgage_answer_description(str(derived_finding["symbol"]).partition("|")[0], derived_finding.get("value"), state)[0],
+                "valueLabel": _mortgage_answer_description(str(derived_finding["symbol"]).partition("|")[0], derived_finding.get("value"), state)[1],
+            })
+            if report_ident in source_reports:
+                source_reports[report_ident]["effectiveAnswers"].append({
+                    "borrowing": relationship_ident[0], "findingId": finding_id,
+                    "factType": str(derived_finding["symbol"]).partition("|")[0],
+                    "value": derived_finding.get("value"), "pins": list(derived_finding.get("pins", [])),
+                    "title": _mortgage_answer_description(str(derived_finding["symbol"]).partition("|")[0], derived_finding.get("value"), state)[0],
+                    "valueLabel": _mortgage_answer_description(str(derived_finding["symbol"]).partition("|")[0], derived_finding.get("value"), state)[1],
+                })
+        row["report"]["effectiveAnswers"].sort(key=lambda item: item["factType"])
+
+    from packages.tax.mortgage_borrowing_recording import current_mortgage_payment_comparison_applicability
+
+    comparison_readings = current_mortgage_payment_comparison_applicability(
+        (), None, state=state, currency=currency, lattice=fact_map,
+    )
+    for reading in comparison_readings:
+        statement = reading.get("statement")
+        if not isinstance(statement, Mapping):
+            continue
+        report_key_values = [statement.get(key) for key in ("payer", "statement", "tax-year")]
+        if not all(isinstance(item, str) and item for item in report_key_values):
+            continue
+        report_ident = cast(tuple[str, str, str], tuple(report_key_values))
+        reading_finding_id = reading.get("finding_id")
+        comparison_finding = state.findings.get(reading_finding_id) if isinstance(reading_finding_id, str) else None
+        comparison_evidence_ids = comparison_finding.get("evidence_ids") if comparison_finding is not None else None
+        comparison_evidence_id = (comparison_evidence_ids[0] if isinstance(comparison_evidence_ids, list)
+                                  and len(comparison_evidence_ids) == 1 else None)
+        evidence = state.evidence.get(comparison_evidence_id) if isinstance(comparison_evidence_id, str) else None
+        evidence_value = evidence.evidence if evidence is not None else {}
+        evidence_content_raw = evidence_value.get("content", {}) if isinstance(evidence_value, Mapping) else {}
+        evidence_content = evidence_content_raw if isinstance(evidence_content_raw, Mapping) else {}
+        peer = evidence_content.get("peer_statement")
+        peer_available = isinstance(peer, Mapping) and all(
+            isinstance(peer.get(key), str) and peer.get(key)
+            for key in ("payer", "statement", "tax-year")
+        )
+        if not peer_available:
+            peer = None
+        fact = fact_map.get(str(reading.get("fact_id")))
+        fact_type_id = fact.fact_type_id if fact is not None else ""
+        title, value_label = _mortgage_answer_description(fact_type_id, reading.get("value"), state)
+        comparison_support = reading.get("comparison_support")
+        support_ids: list[str] = []
+        if isinstance(comparison_support, Mapping):
+            for report_support in comparison_support.get("reports", []):
+                if isinstance(report_support, Mapping):
+                    for key in ("box1_finding_id", "inclusion_finding_id"):
+                        if isinstance(report_support.get(key), str):
+                            support_ids.append(report_support[key])
+            if isinstance(comparison_support.get("recognition_finding_id"), str):
+                support_ids.append(comparison_support["recognition_finding_id"])
+        applicability = reading.get("applicability")
+        if not peer_available:
+            explanation = ("This recorded comparison cannot be used because the peer report identity is unavailable. "
+                           "No answer about whether the payments are separate has been inferred.")
+        elif applicability != "current":
+            explanation = ("This saved answer no longer matches the current report, source, link, or recognition support. "
+                           "It is not used; review the current pair and answer again if it still applies.")
+        elif reading.get("value") == "different-payments":
+            explanation = "This answer affirms that all payments on this report are separate from the named peer report."
+        elif reading.get("value") == "copy-or-correction":
+            explanation = "This report is a copy or correction; correct the existing report instead of adding its payments again."
+        elif reading.get("value") == "cannot-tell":
+            explanation = "The payment comparison is uncertain, so the two-report total is withheld."
+        else:
+            explanation = "This payment-comparison answer was withdrawn and does not support a total."
+        entry = {
+            "findingId": reading.get("finding_id"), "value": reading.get("value"), "title": title,
+            "valueLabel": value_label, "peer": dict(cast(Mapping[str, Any], peer)) if peer_available else None,
+            "peerIdentityStatus": "present" if peer_available else "unavailable",
+            "applicability": applicability, "supportFindingIds": sorted(set(support_ids)),
+            "explanation": explanation,
+        }
+        if report_ident in source_reports:
+            source_reports[report_ident]["paymentComparisons"].append(entry)
+        for relationship_ident, report_row in reports.items():
+            if relationship_ident[1:] == report_ident and relationship_ident[0] == reading.get("borrowing"):
+                report_row["report"]["paymentComparisons"].append(entry)
+
+    support: dict[str, dict[str, Any]] = {}
+    for finding_id, finding, fact in current_findings:
+        if fact is None:
+            continue
+        keys = dict(fact.keys)
+        borrowing = keys.get("borrowing")
+        if not isinstance(borrowing, str):
+            continue
+        if (fact.fact_type_id.startswith("tax.us.2025.mortgage.")
+                or fact.fact_type_id in {
+                    "tax.us.2025.f1098.borrowing-year-ceiling",
+                    "tax.us.2025.mortgage.continuing-borrowing",
+                    "tax.us.2025.mortgage.continuing-borrowing-denied",
+                    "tax.us.2025.mortgage.continuing-borrowing-unresolved",
+                    "tax.us.2025.mortgage.continuing-borrowing-withdrawn",
+                }):
+            support.setdefault(borrowing, {})[fact.fact_type_id] = {
+                "findingId": finding_id, "value": finding.get("value"), "keys": keys,
+                "title": _mortgage_answer_description(fact.fact_type_id, finding.get("value"), state)[0],
+                "valueLabel": _mortgage_answer_description(fact.fact_type_id, finding.get("value"), state)[1],
+            }
+    for relationship_ident, row in reports.items():
+        borrowing = relationship_ident[0]
+        borrowing_answers = support.get(borrowing, {})
+        conflicts = []
+        for local in row["report"]["localAnswers"]:
+            shared_type, question, normalization = _MORTGAGE_SHARED_CONFLICTS.get(
+                str(local["factType"]), ("", "", None))
+            shared = borrowing_answers.get(shared_type)
+            if not shared_type or shared is None:
+                continue
+            local_value = normalization.get(local["value"], local["value"]) if normalization else local["value"]
+            if local_value == shared["value"]:
+                continue
+            conflicts.append({
+                "question": question,
+                "local": {"scope": "this exact Form 1098", "findingId": local["findingId"],
+                          "factType": local["factType"], "value": local["value"],
+                          "valueLabel": local.get("valueLabel")},
+                "shared": {"scope": "this named borrowing for 2025", "findingId": shared["findingId"],
+                           "factType": shared_type, "value": shared["value"],
+                           "valueLabel": shared.get("valueLabel")},
+                "correctionGuidance": (
+                    "Review both answers. Correct the answer at the scope where it is wrong; "
+                    "the application does not choose which account is accurate."
+                ),
+            })
+        row["report"]["answerConflicts"] = conflicts
+        report_ident = (relationship_ident[1], relationship_ident[2], relationship_ident[3])
+        if report_ident in source_reports:
+            source_reports[report_ident]["answerConflicts"] = list(conflicts)
+    amounts = [dict(row) for row in dispositions if row.get("artifact_id") == "tax.us.2025.rule.f1098-line8a"]
+    if (source_reports or orphan_relationships) and len(amounts) != 1:
+        raise PresentationModelError(f"mortgage report projection requires one exact line-8a disposition, found {len(amounts)}")
+    # Preserve the actual published line-8a finding separately from the run
+    # disposition. A disposition says whether the producer ran; it is not the
+    # numeric result or its consumed provenance. Inapplicable/blocked results
+    # have no publication and are deliberately not filled from a subtotal.
+    line8a_findings: list[dict[str, Any]] = []
+    for publication in publications:
+        finding = publication.finding
+        if not isinstance(finding, Mapping) or finding.get("symbol") != "tax.us.2025.schedule-a.line8a":
+            continue
+        saved_finding = dict(finding)
+        saved_finding["value"] = _numeric_value(
+            finding.get("value"), symbol="tax.us.2025.schedule-a.line8a"
+        )
+        line8a_findings.append(saved_finding)
+    published_by_id = {
+        str(publication.finding["id"]): publication.finding
+        for publication in publications
+        if isinstance(publication.finding, Mapping) and isinstance(publication.finding.get("id"), str)
+    }
+    consumed_ids: set[str] = set()
+    pending = [str(pin["id"]) for finding in line8a_findings
+               for pin in finding.get("pins", []) if isinstance(pin, Mapping) and isinstance(pin.get("id"), str)]
+    while pending:
+        finding_id = pending.pop()
+        if finding_id in consumed_ids:
+            continue
+        consumed_ids.add(finding_id)
+        upstream = published_by_id.get(finding_id)
+        if isinstance(upstream, Mapping):
+            pending.extend(str(pin["id"]) for pin in upstream.get("pins", [])
+                           if isinstance(pin, Mapping) and isinstance(pin.get("id"), str))
+    for row in reports.values():
+        for answer in row["report"]["effectiveAnswers"]:
+            answer["consumption"] = "consumed" if answer["findingId"] in consumed_ids else "available-not-consumed"
+    for report in source_reports.values():
+        for answer in report["effectiveAnswers"]:
+            answer["consumption"] = "consumed" if answer["findingId"] in consumed_ids else "available-not-consumed"
+    chain_publications = []
+    for publication in publications:
+        finding = publication.finding
+        if not isinstance(finding, Mapping) or not isinstance(finding.get("symbol"), str):
+            continue
+        symbol = finding["symbol"]
+        if (symbol.startswith("tax.us.2025.mortgage.")
+                or symbol.startswith("tax.us.2025.f1098.effective-")
+                or symbol.startswith("tax.us.2025.f1098.residence-interest-reason|")
+                or symbol.startswith("tax.us.2025.f1098.principal-within-ceiling|")
+                or symbol == "tax.us.2025.schedule-a.line8a"):
+            chain_publications.append(dict(finding))
+    chain_output_prefixes = (
+        "tax.us.2025.mortgage.", "tax.us.2025.f1098.effective-",
+        "tax.us.2025.f1098.residence-interest-reason", "tax.us.2025.f1098.principal-within-ceiling",
+    )
+    chain_rule_ids = {str(member["id"]) for member in resolved_members
+                      if isinstance(member.get("id"), str)
+                      and (member.get("publishes") == "tax.us.2025.schedule-a.line8a"
+                           or isinstance(member.get("publishes"), str)
+                           and member["publishes"].startswith(chain_output_prefixes))}
+    chain_dispositions = [dict(row) for row in dispositions if row.get("artifact_id") in chain_rule_ids]
+    chain_content = [dict(member) for member in resolved_members
+                     if member.get("id") in chain_rule_ids
+                     or member.get("id") == "tax.us.2025.f1098.mortgage-interest-limit"]
+    consumed_by_borrowing = {
+        borrowing: sorted(claim["findingId"] for claim in claims.values()
+                          if claim["findingId"] in consumed_ids)
+        for borrowing, claims in support.items()
+    }
+    return {
+        "schema": _MORTGAGE_BORROWING_EXPLANATION_VERSION,
+        "runId": run_id,
+        "workspaceRevision": workspace_revision,
+        "reports": [row for _, row in sorted(source_reports.items())],
+        "orphanRelationships": orphan_relationships,
+        "line8aDispositions": amounts,
+        "line8aFindings": line8a_findings,
+        "calculationChain": {"publications": chain_publications, "dispositions": chain_dispositions,
+                             "resolvedContent": chain_content},
+        "groups": [{"borrowing": borrowing,
+                    "borrowingLabel": _recorded_entity_label(borrowing, state),
+                    "recordedApplicableClaims": support.get(borrowing, {}),
+                    "consumedFindingIds": consumed_by_borrowing.get(borrowing, []),
+                    "reportKeys": [{"payer": relationship_ident[1], "statement": relationship_ident[2], "taxYear": relationship_ident[3]}
+                                   for relationship_ident in sorted(reports) if relationship_ident[0] == borrowing and (relationship_ident[1], relationship_ident[2], relationship_ident[3]) in source_reports]}
+                   for borrowing in sorted({relationship_ident[0] for relationship_ident in reports} | set(support))],
+    }
+
+
+def _validate_mortgage_borrowing_explanation(value: Any) -> None:
+    path = "$.mortgageBorrowingExplanation"
+    schema_version = value.get("schema") if isinstance(value, Mapping) else None
+    legacy = schema_version == "mortgage-borrowing-explanation.v1"
+    comparison_version = schema_version in _MORTGAGE_BORROWING_EXPLANATION_COMPARISON_VERSIONS
+    required = {"schema", "runId", "workspaceRevision", "reports", "orphanRelationships", "line8aDispositions", "line8aFindings", "groups"}
+    if not legacy:
+        required.add("calculationChain")
+    _require_keys(value, frozenset(required), frozenset(), path)
+    if value["schema"] not in (_MORTGAGE_BORROWING_EXPLANATION_COMPARISON_VERSIONS
+                                | _MORTGAGE_BORROWING_EXPLANATION_LEGACY_VERSIONS) or not isinstance(value["runId"], str) or not value["runId"]:
+        raise PresentationModelError(f"{path}: unsupported schema or missing run id")
+    if value["workspaceRevision"] is not None and (not isinstance(value["workspaceRevision"], int) or value["workspaceRevision"] < 0):
+        raise PresentationModelError(f"{path}.workspaceRevision: expected non-negative integer or null")
+    groups = value["groups"]
+    if not isinstance(groups, list):
+        raise PresentationModelError(f"{path}.groups: expected list")
+    reports = value["reports"]
+    if not isinstance(reports, list):
+        raise PresentationModelError(f"{path}.reports: expected list")
+    report_keys: set[tuple[str, str, str]] = set()
+    for index, report in enumerate(reports):
+        rp = f"{path}.reports[{index}]"
+        report_keys_required = {"payer", "statement", "taxYear", "reportedInterest", "reasonChain", "localAnswers", "relationships", "effectiveAnswers"}
+        if not legacy:
+            report_keys_required |= {"statementLabel", "boxObservations"}
+        if comparison_version:
+            report_keys_required.add("paymentComparisons")
+        _require_keys(report, frozenset(report_keys_required),
+                      frozenset() if legacy else frozenset({"answerConflicts"} | ({"paymentComparisons"} if not comparison_version else set())), rp)
+        key = tuple(report.get(field) for field in ("payer", "statement", "taxYear"))
+        if not all(isinstance(item, str) and item for item in key) or key in report_keys:
+            raise PresentationModelError(f"{rp}: malformed or duplicate current report identity")
+        report_keys.add(key)
+        source = report["reportedInterest"]
+        _require_keys(source, frozenset({"findingId", "value"}), frozenset(), f"{rp}.reportedInterest")
+        if (not isinstance(source["findingId"], str) or not source["findingId"]
+                or not isinstance(source["value"], (int, float)) or isinstance(source["value"], bool)
+                or not math.isfinite(float(source["value"])) or source["value"] < 0):
+            raise PresentationModelError(f"{rp}.reportedInterest: malformed Box 1 source")
+        if not legacy and (
+            not isinstance(report["statementLabel"], dict)
+            or any(key not in {"lender", "statement", "taxYear"} or not isinstance(label, str) or not label
+                   for key, label in report["statementLabel"].items())
+            or report["statementLabel"].get("taxYear") not in (None, report["taxYear"])
+            or not isinstance(report["boxObservations"], list)
+        ):
+            raise PresentationModelError(f"{rp}: malformed report label or Box 2/3 observations")
+        for bindex, observation in enumerate(report.get("boxObservations", [])):
+            bp = f"{rp}.boxObservations[{bindex}]"
+            _require_keys(observation, frozenset({"findingId", "factType", "value"}), frozenset(), bp)
+            if observation["factType"] not in (_MORTGAGE_BOX_FACT_TYPES - {_MORTGAGE_BOX1_FACT_TYPE}) or not isinstance(observation["findingId"], str) or not observation["findingId"]:
+                raise PresentationModelError(f"{bp}: malformed Box 2/3 source observation")
+            if observation["factType"] == "tax.us.2025.f1098.box2-outstanding-principal":
+                if (not isinstance(observation["value"], (int, float)) or isinstance(observation["value"], bool)
+                        or not math.isfinite(float(observation["value"])) or observation["value"] < 0):
+                    raise PresentationModelError(f"{bp}: Box 2 must be the finite observed numeric value")
+            elif not isinstance(observation["value"], str) or not observation["value"]:
+                raise PresentationModelError(f"{bp}: Box 3 must be the observed date string")
+        reason = report["reasonChain"]
+        if reason is not None:
+            _require_keys(reason, frozenset({"findingId", "value", "pins"}), frozenset(), f"{rp}.reasonChain")
+            if not isinstance(reason["findingId"], str) or not reason["findingId"] or not isinstance(reason["value"], str) or not isinstance(reason["pins"], list):
+                raise PresentationModelError(f"{rp}.reasonChain: malformed actual reason finding")
+        for list_key in ("localAnswers", "relationships", "effectiveAnswers"):
+            if not isinstance(report[list_key], list):
+                raise PresentationModelError(f"{rp}.{list_key}: expected list")
+        for aindex, answer in enumerate(report["localAnswers"]):
+            ap = f"{rp}.localAnswers[{aindex}]"
+            answer_keys = {"findingId", "factType", "value"}
+            optional_answer_keys: set[str] = set()
+            if not legacy:
+                answer_keys.add("title")
+                optional_answer_keys.add("valueLabel")
+            _require_keys(answer, frozenset(answer_keys), frozenset(optional_answer_keys), ap)
+            if answer["factType"] not in _MORTGAGE_LOCAL_FACT_TYPES or not isinstance(answer["findingId"], str):
+                raise PresentationModelError(f"{ap}: malformed statement-local answer")
+            if not legacy and (not isinstance(answer["title"], str) or not answer["title"] or (answer.get("valueLabel") is not None and not isinstance(answer["valueLabel"], str))):
+                raise PresentationModelError(f"{ap}: malformed statement-local wording")
+        for aindex, answer in enumerate(report["effectiveAnswers"]):
+            ap = f"{rp}.effectiveAnswers[{aindex}]"
+            answer_keys = {"borrowing", "findingId", "factType", "value", "pins"}
+            optional_answer_keys = set()
+            if not legacy:
+                answer_keys.add("title")
+                answer_keys.add("consumption")
+                optional_answer_keys.add("valueLabel")
+            _require_keys(answer, frozenset(answer_keys), frozenset(optional_answer_keys), ap)
+            if not isinstance(answer["borrowing"], str) or not answer["borrowing"] or not isinstance(answer["pins"], list):
+                raise PresentationModelError(f"{ap}: malformed effective answer provenance")
+            if not legacy and (not isinstance(answer["title"], str) or not answer["title"]
+                               or answer["consumption"] not in {"consumed", "available-not-consumed"}
+                               or (answer.get("valueLabel") is not None and not isinstance(answer["valueLabel"], str))):
+                raise PresentationModelError(f"{ap}: malformed effective answer wording")
+        if not legacy and "answerConflicts" in report and not isinstance(report["answerConflicts"], list):
+            raise PresentationModelError(f"{rp}.answerConflicts: expected list")
+        for cindex, conflict in enumerate(report.get("answerConflicts", [])):
+            cp = f"{rp}.answerConflicts[{cindex}]"
+            _require_keys(conflict, frozenset({"question", "local", "shared", "correctionGuidance"}), frozenset(), cp)
+            for side in ("local", "shared"):
+                answer = conflict[side]
+                _require_keys(answer, frozenset({"scope", "findingId", "factType", "value"}),
+                              frozenset({"valueLabel"}), f"{cp}.{side}")
+                if any(not isinstance(answer[key], str) or not answer[key]
+                       for key in ("scope", "findingId", "factType")):
+                    raise PresentationModelError(f"{cp}.{side}: malformed scoped answer")
+            if any(not isinstance(conflict[key], str) or not conflict[key]
+                   for key in ("question", "correctionGuidance")):
+                raise PresentationModelError(f"{cp}: malformed question or correction guidance")
+        if comparison_version:
+            if not isinstance(report["paymentComparisons"], list):
+                raise PresentationModelError(f"{rp}.paymentComparisons: expected list")
+            for pindex, comparison in enumerate(report["paymentComparisons"]):
+                cp = f"{rp}.paymentComparisons[{pindex}]"
+                comparison_keys = {"findingId", "value", "title", "peer", "applicability",
+                                   "supportFindingIds", "explanation"}
+                if schema_version == _MORTGAGE_BORROWING_EXPLANATION_VERSION:
+                    comparison_keys.add("peerIdentityStatus")
+                _require_keys(comparison, frozenset(comparison_keys), frozenset({"valueLabel"}), cp)
+                peer_ok = (
+                    isinstance(comparison["peer"], Mapping)
+                    and all(isinstance(comparison["peer"].get(key), str) and comparison["peer"].get(key)
+                            for key in ("payer", "statement", "tax-year"))
+                )
+                peer_missing_ok = (
+                    schema_version == _MORTGAGE_BORROWING_EXPLANATION_VERSION
+                    and comparison.get("peerIdentityStatus") == "unavailable"
+                    and comparison["peer"] is None
+                    and comparison["applicability"] == "unresolved-applicability"
+                )
+                if schema_version == _MORTGAGE_BORROWING_EXPLANATION_VERSION:
+                    peer_ok = peer_ok and comparison.get("peerIdentityStatus") == "present"
+                if (not isinstance(comparison["findingId"], str) or not comparison["findingId"]
+                        or comparison["value"] not in {"different-payments", "copy-or-correction", "cannot-tell", "withdrawn"}
+                        or not isinstance(comparison["title"], str) or not comparison["title"]
+                        or not (peer_ok or peer_missing_ok)
+                        or comparison["applicability"] not in {"current", "unresolved-applicability"}
+                        or not isinstance(comparison["supportFindingIds"], list)
+                        or not all(isinstance(item, str) and item for item in comparison["supportFindingIds"])
+                        or not isinstance(comparison["explanation"], str) or not comparison["explanation"]
+                        or (comparison.get("valueLabel") is not None and not isinstance(comparison["valueLabel"], str))):
+                    raise PresentationModelError(f"{cp}: malformed saved payment comparison")
+        for lindex, relationship in enumerate(report["relationships"]):
+            lp = f"{rp}.relationships[{lindex}]"
+            _require_keys(relationship, frozenset({"borrowing", "findingId", "factType", "response", "disposition"}), frozenset(), lp)
+            if relationship["factType"] not in _MORTGAGE_REPORT_LINK_TYPES or relationship["disposition"] != _MORTGAGE_REPORT_LINK_TYPES[relationship["factType"]]:
+                raise PresentationModelError(f"{lp}: unknown current relationship outcome")
+    orphans = value["orphanRelationships"]
+    if not isinstance(orphans, list):
+        raise PresentationModelError(f"{path}.orphanRelationships: expected list")
+    orphan_identities: set[tuple[str, str, str, str, str]] = set()
+    for index, orphan in enumerate(orphans):
+        op = f"{path}.orphanRelationships[{index}]"
+        _require_keys(orphan, frozenset({"borrowing", "findingId", "factType", "response", "disposition", "payer", "statement", "taxYear"}), frozenset(), op)
+        if tuple(orphan[key] for key in ("payer", "statement", "taxYear")) in report_keys:
+            raise PresentationModelError(f"{op}: orphan relationship has a current exact report")
+        orphan_key = tuple(orphan[key] for key in ("borrowing", "payer", "statement", "taxYear", "findingId"))
+        if orphan_key in orphan_identities:
+            raise PresentationModelError(f"{op}: duplicate orphan relationship")
+        orphan_identities.add(orphan_key)
+    amounts = value["line8aDispositions"]
+    if not isinstance(amounts, list) or ((reports or orphans) and len(amounts) != 1):
+        raise PresentationModelError(f"{path}.line8aDispositions: expected exactly one adopted line-8a disposition")
+    for index, amount in enumerate(amounts):
+        ap = f"{path}.line8aDispositions[{index}]"
+        if (not isinstance(amount, Mapping) or amount.get("artifact_id") != "tax.us.2025.rule.f1098-line8a"
+                or amount.get("disposition") not in {"published", "blocked", "inapplicable"}):
+            raise PresentationModelError(f"{ap}: not the exact adopted line-8a publisher")
+    line_findings = value["line8aFindings"]
+    if not isinstance(line_findings, list) or len(line_findings) > 1:
+        raise PresentationModelError(f"{path}.line8aFindings: expected at most one actual published line-8a finding")
+    for index, finding in enumerate(line_findings):
+        fp = f"{path}.line8aFindings[{index}]"
+        if (not isinstance(finding, Mapping) or finding.get("symbol") != "tax.us.2025.schedule-a.line8a"
+                or not isinstance(finding.get("id"), str) or not finding.get("id")
+                or not isinstance(finding.get("pins"), list)
+                or not isinstance(finding.get("value"), (int, float)) or isinstance(finding.get("value"), bool)
+                or not math.isfinite(float(finding["value"])) or finding["value"] < 0):
+            raise PresentationModelError(f"{fp}: malformed actual numeric line-8a publication")
+    published_dispositions = [
+        row for row in amounts if row.get("disposition") == "published"
+    ]
+    if bool(published_dispositions) != bool(line_findings):
+        raise PresentationModelError(
+            f"{path}.line8aFindings: published disposition and actual finding must agree"
+        )
+    if line_findings and published_dispositions[0].get("finding_id") != line_findings[0].get("id"):
+        raise PresentationModelError(f"{path}.line8aFindings: actual finding does not match its exact publisher disposition")
+    if not legacy:
+        chain = value["calculationChain"]
+        _require_keys(chain, frozenset({"publications", "dispositions", "resolvedContent"}), frozenset(), f"{path}.calculationChain")
+        if (not isinstance(chain["publications"], list) or not isinstance(chain["dispositions"], list)
+                or not isinstance(chain["resolvedContent"], list)):
+            raise PresentationModelError(f"{path}.calculationChain: expected saved publications, dispositions and resolved content")
+        for index, finding in enumerate(chain["publications"]):
+            if (not isinstance(finding, Mapping) or not isinstance(finding.get("id"), str) or not finding["id"]
+                    or not isinstance(finding.get("symbol"), str) or not isinstance(finding.get("pins"), list)):
+                raise PresentationModelError(f"{path}.calculationChain.publications[{index}]: malformed actual publication")
+        for index, row in enumerate(chain["dispositions"]):
+            if (not isinstance(row, Mapping) or not isinstance(row.get("artifact_id"), str)
+                    or row.get("disposition") not in {"published", "blocked", "inapplicable"}):
+                raise PresentationModelError(f"{path}.calculationChain.dispositions[{index}]: malformed actual disposition")
+        for index, member in enumerate(chain["resolvedContent"]):
+            if (not isinstance(member, Mapping) or not isinstance(member.get("id"), str)
+                    or not isinstance(member.get("schema"), str)):
+                raise PresentationModelError(f"{path}.calculationChain.resolvedContent[{index}]: malformed resolved content")
+    seen_borrowings: set[str] = set()
+    for index, group in enumerate(groups):
+        gp = f"{path}.groups[{index}]"
+        group_required = {"borrowing", "recordedApplicableClaims", "consumedFindingIds", "reportKeys"}
+        if not legacy:
+            group_required.add("borrowingLabel")
+        _require_keys(group, frozenset(group_required), frozenset(), gp)
+        if not isinstance(group["borrowing"], str) or not group["borrowing"] or group["borrowing"] in seen_borrowings:
+            raise PresentationModelError(f"{gp}.borrowing: missing or duplicate borrowing")
+        if not legacy and (not isinstance(group["borrowingLabel"], str) or not group["borrowingLabel"]):
+            raise PresentationModelError(f"{gp}.borrowingLabel: expected recorded label or exact identity")
+        seen_borrowings.add(group["borrowing"])
+        if not isinstance(group["recordedApplicableClaims"], dict):
+            raise PresentationModelError(f"{gp}: malformed recorded support")
+        if not isinstance(group["consumedFindingIds"], list) or not all(isinstance(item, str) and item for item in group["consumedFindingIds"]):
+            raise PresentationModelError(f"{gp}.consumedFindingIds: expected finding ids")
+        if not isinstance(group["reportKeys"], list):
+            raise PresentationModelError(f"{gp}.reportKeys: expected list")
+        for rindex, key in enumerate(group["reportKeys"]):
+            rp = f"{gp}.reportKeys[{rindex}]"
+            _require_keys(key, frozenset({"payer", "statement", "taxYear"}), frozenset(), rp)
+            ident = tuple(key[field] for field in ("payer", "statement", "taxYear"))
+            if ident not in report_keys:
+                raise PresentationModelError(f"{rp}: account reference does not resolve to a current report")
+        for claim_id, claim in group["recordedApplicableClaims"].items():
+            cp = f"{gp}.recordedApplicableClaims[{claim_id!r}]"
+            claim_required = {"findingId", "value", "keys"}
+            claim_optional = set()
+            if not legacy:
+                claim_required.add("title")
+                claim_optional.add("valueLabel")
+            _require_keys(claim, frozenset(claim_required), frozenset(claim_optional), cp)
+            if not isinstance(claim["findingId"], str) or not claim["findingId"] or not isinstance(claim["keys"], dict):
+                raise PresentationModelError(f"{cp}: malformed recorded claim")
+            if not legacy and (not isinstance(claim["title"], str) or not claim["title"] or (claim.get("valueLabel") is not None and not isinstance(claim["valueLabel"], str))):
+                raise PresentationModelError(f"{cp}: malformed recorded claim wording")
+            if claim["keys"].get("borrowing") != group["borrowing"]:
+                raise PresentationModelError(f"{cp}: claim belongs to a different borrowing")
+            if claim["keys"].get("tax-year") != "2025":
+                raise PresentationModelError(f"{cp}: claim belongs to an unsupported tax year")
 
 
 _F1099K_REASON_SYMBOL = "tax.us.2025.f1099k.statement-loss-reason"
@@ -3697,12 +4489,47 @@ def build_presentation_model(
     )
     if line21_explanation is not None:
         model["line21Explanation"] = line21_explanation
-    mortgage_explanation = _mortgage_interest_explanation(
+    mortgage_borrowing_adopted = any(
+        member.get("id") == "tax.us.2025.mortgage-borrowing" and member.get("version") == "v1"
+        and member.get("schema") == "bundle.v2" for member in resolved_members
+    )
+    mortgage_borrowing_activity = False
+    if mortgage_borrowing_adopted:
+        from packages.kernel.currency import compute_currency
+        from packages.kernel.facts import facts_of
+        current_ids = compute_currency(state).current_finding_ids
+        current_facts = facts_of(state.fact_state)
+        # Only current route carriers mean the connected-account path is
+        # selected. Retained ceiling, shared answer, or other-debt findings
+        # are not route activity (notably after an explicit account clear).
+        mortgage_route_fact_types = {
+            "tax.us.2025.mortgage.continuing-borrowing",
+            "tax.us.2025.mortgage.continuing-borrowing-denied",
+            "tax.us.2025.mortgage.continuing-borrowing-unresolved",
+            "tax.us.2025.mortgage.continuing-borrowing-withdrawn",
+            "tax.us.2025.f1098.borrowing-inclusion",
+            "tax.us.2025.f1098.borrowing-denied",
+            "tax.us.2025.f1098.borrowing-unresolved",
+            "tax.us.2025.f1098.borrowing-withdrawn",
+        }
+        mortgage_borrowing_activity = any(
+            finding_id in current_ids
+            and (fact := current_facts.get(str(finding.get("fact_id")))) is not None
+            and fact.fact_type_id in mortgage_route_fact_types
+            for finding_id, finding in state.findings.items()
+        )
+    mortgage_explanation = None if mortgage_borrowing_activity else _mortgage_interest_explanation(
         resolved_members=resolved_members, state=state, publications=publications,
         publications_by_id=publications_by_id,
     )
     if mortgage_explanation is not None:
         model["mortgageInterestExplanation"] = mortgage_explanation
+    mortgage_borrowing_explanation = _mortgage_borrowing_explanation(
+        run_id=run_id, workspace_revision=workspace_revision, resolved_members=resolved_members, state=state,
+        publications=publications, dispositions=dispositions,
+    )
+    if mortgage_borrowing_explanation is not None:
+        model["mortgageBorrowingExplanation"] = mortgage_borrowing_explanation
     f1099k_explanation = _f1099k_statement_explanation(
         resolved_members=resolved_members, state=state, publications=publications,
         publications_by_id=publications_by_id, dispositions=dispositions,
@@ -4032,7 +4859,7 @@ def validate_presentation_model(model: Mapping[str, Any]) -> None:
             "schema", "runId", "pinLabels", "sections", "citationGroups", "attachments",
             "unsupportedSourceFindings",
         }),
-        frozenset({"authorization", "provenanceGroups", "calculationView", "line21Explanation", "mortgageInterestExplanation", "f1099kStatementExplanation"}),
+        frozenset({"authorization", "provenanceGroups", "calculationView", "line21Explanation", "mortgageInterestExplanation", "mortgageBorrowingExplanation", "f1099kStatementExplanation"}),
         "$",
     )
     if "authorization" in model:
@@ -4043,6 +4870,8 @@ def validate_presentation_model(model: Mapping[str, Any]) -> None:
         _validate_line21_explanation(model["line21Explanation"])
     if "mortgageInterestExplanation" in model:
         _validate_mortgage_interest_explanation(model["mortgageInterestExplanation"])
+    if "mortgageBorrowingExplanation" in model:
+        _validate_mortgage_borrowing_explanation(model["mortgageBorrowingExplanation"])
     if "f1099kStatementExplanation" in model:
         _validate_f1099k_statement_explanation(model["f1099kStatementExplanation"])
     if model["schema"] != PRESENTATION_MODEL_VERSION:
