@@ -1,0 +1,128 @@
+{
+  "schema": "rule-artifact.v14",
+  "id": "tax.us.2025.rule.ctc-child.counts",
+  "version": "v2",
+  "scope": {
+    "tax_year": 2025,
+    "jurisdiction": "US-federal",
+    "family": "individual-income-tax"
+  },
+  "role": "computation",
+  "requires": [
+    "tax.us.2025.ctc.child.claimed-met",
+    "tax.us.2025.ctc.child.joint-return-met",
+    "tax.us.2025.ctc.child.ssn-met",
+    "tax.us.2025.ctc.child.under-17-met",
+    "tax.us.2025.ctc.child.lived-with-you-met",
+    "tax.us.2025.ctc.child.no-support-met",
+    "tax.us.2025.ctc.child.citizen-met",
+    "tax.us.2025.dtb.child.tie-breaker-clear"
+  ],
+  "pins": [],
+  "when": true,
+  "value": {
+    "op": "choose",
+    "when": {
+      "op": "compare",
+      "cmp": "eq",
+      "left": {
+        "op": "add",
+        "args": [
+          {
+            "op": "ref",
+            "name": "tax.us.2025.ctc.child.joint-return-met"
+          },
+          {
+            "op": "ref",
+            "name": "tax.us.2025.ctc.child.ssn-met"
+          },
+          {
+            "op": "ref",
+            "name": "tax.us.2025.ctc.child.under-17-met"
+          },
+          {
+            "op": "ref",
+            "name": "tax.us.2025.ctc.child.lived-with-you-met"
+          },
+          {
+            "op": "ref",
+            "name": "tax.us.2025.ctc.child.no-support-met"
+          },
+          {
+            "op": "ref",
+            "name": "tax.us.2025.ctc.child.citizen-met"
+          },
+          {
+            "op": "ref",
+            "name": "tax.us.2025.dtb.child.tie-breaker-clear"
+          }
+        ]
+      },
+      "right": 7
+    },
+    "then": {
+      "op": "choose",
+      "when": {
+        "op": "compare",
+        "cmp": "eq",
+        "left": {
+          "op": "ref",
+          "name": "tax.us.2025.ctc.child.claimed-met"
+        },
+        "right": 0
+      },
+      "then": 0,
+      "else": 1
+    },
+    "else": {
+      "op": "choose",
+      "when": {
+        "op": "compare",
+        "cmp": "eq",
+        "left": {
+          "op": "ref",
+          "name": "tax.us.2025.dtb.child.tie-breaker-clear"
+        },
+        "right": 0
+      },
+      "then": 0,
+      "else": {
+        "op": "choose",
+        "when": {
+          "op": "compare",
+          "cmp": "eq",
+          "left": {
+            "op": "ref",
+            "name": "tax.us.2025.ctc.child.claimed-met"
+          },
+          "right": 0
+        },
+        "then": 0,
+        "else": {
+          "op": "block",
+          "code": "DEPENDENCY_INVALID"
+        }
+      }
+    }
+  },
+  "publishes": "tax.us.2025.ctc.child.counts",
+  "blocked": {
+    "code": "DEPENDENCY_ABSENT",
+    "missing": [
+      "tax.us.2025.ctc.child.claimed-met",
+      "tax.us.2025.ctc.child.joint-return-met",
+      "tax.us.2025.ctc.child.ssn-met",
+      "tax.us.2025.ctc.child.under-17-met",
+      "tax.us.2025.ctc.child.lived-with-you-met",
+      "tax.us.2025.ctc.child.no-support-met",
+      "tax.us.2025.ctc.child.citizen-met",
+      "tax.us.2025.dtb.child.tie-breaker-clear"
+    ]
+  },
+  "citations": [],
+  "notes": "Per child: every test is read first, so the explanation names each test. 0 when not claimed as a dependent or lost to tie-breaker; 1 when claimed and every test is met; a claimed child who fails any other credit test blocks as outside the class.",
+  "subject": {
+    "id": "tax.us.2025.eic.child.relationship",
+    "version": "v1"
+  }
+}
