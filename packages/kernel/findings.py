@@ -81,6 +81,10 @@ class FindingState:
     # remove/reclassify. Withdrawal is a displacement *root* over the
     # fact's findings (like correction), never a new edge kind.
     withdrawn_fact_ids: frozenset[str] = frozenset()
+    # Fact id -> horizon at which the member was removed. A later fresh
+    # assertion can restore membership only along this recorded successor
+    # lineage; unrelated family/scope chains cannot clear the marker.
+    withdrawal_horizons: dict[str, str] = field(default_factory=dict)
     # Withdrawn fact_id -> the fact_id the removing member-transition named
     # (via act-member-transition.v3's optional ``corresponds_to_fact_id``)
     # as whatever took over its computational role. Recorded for historical
@@ -891,6 +895,47 @@ def _withdraw_member_fact(state: FindingState, fact_id: str) -> frozenset[str]:
     return state.withdrawn_fact_ids | {fact_id}
 
 
+def member_restoration_is_on_removal_lineage(
+    state: FindingState, payload: dict[str, Any]
+) -> bool:
+    """Whether a member-transition's predecessor descends from its removal.
+
+    Horizon predecessor links remain authoritative across a legitimate family
+    handover. Historical unrelated-chain transitions are still foldable, but
+    this predicate lets ActLog reject writing one and lets the fold retain the
+    active withdrawal marker.
+    """
+    member = payload.get("member", {})
+    action = member.get("action")
+    if action not in ("assert", "reclassify"):
+        return True
+    finding = member.get("finding")
+    if not isinstance(finding, dict):
+        return True  # the normal act validator reports malformed payloads
+    fact_id = finding.get("fact_id")
+    if fact_id not in state.withdrawn_fact_ids:
+        return True
+    removal_horizon = state.withdrawal_horizons.get(fact_id)
+    if removal_horizon is None:
+        return False
+    predecessor = payload.get("successor", {}).get("predecessor")
+    if predecessor not in state.horizon_state.current_by_chain.values():
+        # Let the ordinary horizon transition validator report unknown or
+        # stale predecessors; this guard is specifically about a valid
+        # predecessor from an unrelated current chain.
+        return True
+    seen: set[str] = set()
+    while isinstance(predecessor, str) and predecessor not in seen:
+        if predecessor == removal_horizon:
+            return True
+        seen.add(predecessor)
+        lifecycle = state.horizon_state.horizons.get(predecessor)
+        if lifecycle is None:
+            return False
+        predecessor = lifecycle.horizon.get("predecessor")
+    return False
+
+
 def apply_member_transition(
     state: FindingState, payload: dict[str, Any], registry: SchemaRegistry
 ) -> FindingState:
@@ -918,8 +963,10 @@ def _apply_member_transition(
     member = payload["member"]
     findings = dict(state.findings)
     withdrawn = state.withdrawn_fact_ids
+    withdrawal_horizons = dict(state.withdrawal_horizons)
     withdrawal_correspondence = state.withdrawal_correspondence
     touched_fact_ids: list[str] = []
+    reclassified_withdrawn: frozenset[str] | None = None
     if member["action"] in ("assert", "reclassify"):
         finding = member["finding"]
         _validate_finding(state, finding, registry, lattice_holder)
@@ -937,10 +984,25 @@ def _apply_member_transition(
                 f"same-member correction belongs on the ordinary assertion path"
             )
 
+        if member["action"] == "reclassify":
+            # Validate the removed source against pre-transition membership.
+            # In particular, restoring A cannot make an already-absent A
+            # eligible to be removed again by the same reclassification.
+            reclassified_withdrawn = _withdraw_member_fact(state, member["fact_id"])
+
         findings[finding["id"]] = finding
+        if reclassified_withdrawn is not None:
+            withdrawn = reclassified_withdrawn
+        # Restore only on the removal's recorded horizon lineage. The prior
+        # finding remains displaced by same-fact correction and cannot revive.
+        if member_restoration_is_on_removal_lineage(state, payload):
+            withdrawn = withdrawn - {fact_id}
+            withdrawal_horizons.pop(fact_id, None)
         touched_fact_ids.append(fact_id)
     if member["action"] in ("remove", "reclassify"):
-        withdrawn = _withdraw_member_fact(state, member["fact_id"])
+        if member["action"] == "remove":
+            withdrawn = _withdraw_member_fact(state, member["fact_id"])
+        withdrawal_horizons[member["fact_id"]] = payload["successor"]["id"]
         touched_fact_ids.append(member["fact_id"])
         corresponds_to_fact_id = member.get("corresponds_to_fact_id")
         if corresponds_to_fact_id is not None:
@@ -966,6 +1028,7 @@ def _apply_member_transition(
         horizon_state=horizon_state,
         findings=findings,
         withdrawn_fact_ids=withdrawn,
+        withdrawal_horizons=withdrawal_horizons,
         withdrawal_correspondence=withdrawal_correspondence,
         fact_state=replace(state.fact_state, entities=entities),
     )

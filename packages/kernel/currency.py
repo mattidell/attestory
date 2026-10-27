@@ -130,8 +130,9 @@ def _finding_retractions(
 
     The root is the finding, not the fact: the stable fact keeps its
     identity and a later assertion answering it is admitted normally and
-    becomes current, unlike a member withdrawal, which is keyed by fact id
-    and therefore monotonic.
+    becomes current. Member-withdrawal roots instead follow the active
+    membership-absence marker: a valid restoration can clear that marker,
+    while the existing correction root keeps earlier same-fact findings ended.
     """
     displaced: set[str] = set()
     reasons: dict[str, list[DisplacementReason]] = {}

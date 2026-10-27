@@ -22,9 +22,11 @@ from pathlib import Path
 from typing import IO, Any, Sequence
 
 from packages.kernel.findings import (
+    FindingModelError,
     apply_act,
     declares_new_write_invariants,
     enforce_new_write_invariants,
+    member_restoration_is_on_removal_lineage,
     new_write_invariants_may_apply,
     project,
 )
@@ -225,6 +227,12 @@ class ActLog:
                 proj = project(contents.acts, self._registry)
             if act["kind"] == "horizon-genesis":
                 _enforce_second_genesis_rule(proj, act["payload"])
+            if act["kind"] == "member-transition" and not member_restoration_is_on_removal_lineage(
+                proj, act["payload"]
+            ):
+                raise FindingModelError(
+                    "restored member transition must descend from its recorded removal horizon"
+                )
             apply_act(proj, act, self._registry)
         line = json.dumps(act, sort_keys=True, separators=(",", ":"))
         self._path.parent.mkdir(parents=True, exist_ok=True)
@@ -287,6 +295,12 @@ class ActLog:
                     proj = project(tuple(staged), self._registry)
                 if act["kind"] == "horizon-genesis":
                     _enforce_second_genesis_rule(proj, act["payload"])
+                if act["kind"] == "member-transition" and not member_restoration_is_on_removal_lineage(
+                    proj, act["payload"]
+                ):
+                    raise FindingModelError(
+                        "restored member transition must descend from its recorded removal horizon"
+                    )
                 apply_act(proj, act, self._registry)
             known.add(act["act_id"])
             staged.append(act)
