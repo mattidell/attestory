@@ -1,0 +1,34 @@
+{
+  "blocked": {
+    "code": "DEPENDENCY_INVALID",
+    "missing": []
+  },
+  "citations": [],
+  "direction": "joined_contains_subject",
+  "id": "tax.us.2025.rule.mortgage-shared-no-one-else-owes-it-count",
+  "joined": {
+    "id": "tax.us.2025.mortgage.shared-no-one-else-owes-it",
+    "version": "v1"
+  },
+  "notes": "Count current raw answers after exact structured-key subject admission.",
+  "pins": [],
+  "publishes": "tax.us.2025.mortgage.shared-no-one-else-owes-it-count",
+  "requires": [],
+  "role": "computation",
+  "schema": "rule-artifact.v13",
+  "scope": {
+    "family": "individual-income-tax",
+    "jurisdiction": "US-federal",
+    "tax_year": 2025
+  },
+  "subject": {
+    "id": "tax.us.2025.mortgage.continuing-borrowing",
+    "version": "v1"
+  },
+  "value": {
+    "links": "tax.us.2025.mortgage.shared-no-one-else-owes-it",
+    "op": "link_count"
+  },
+  "version": "v1",
+  "when": true
+}

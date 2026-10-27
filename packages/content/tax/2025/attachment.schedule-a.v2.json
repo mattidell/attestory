@@ -1,0 +1,49 @@
+{
+  "schema": "attachment-rule.v4",
+  "id": "tax.us.2025.rule.attachment.schedule-a",
+  "version": "v2",
+  "title": "Schedule A itemized deductions attachment. Requires the derived Schedule A excess-over-standard result and the seven explicit non-mortgage category boundaries.",
+  "scope": {
+    "tax_year": 2025,
+    "jurisdiction": "US-federal",
+    "family": "individual-income-tax"
+  },
+  "attachment": {
+    "authority": "IRS",
+    "form_id": "1040-SCH-A",
+    "tax_year": 2025,
+    "jurisdiction": "US-federal"
+  },
+  "publishes": "tax.us.2025.scheduleA.disposition",
+  "requirement": {
+    "subtotals": ["tax.us.2025.schedule-a.excess-over-standard"],
+    "threshold_parameter": {"id": "tax.us.2025.parameter.default-zero", "version": "v1"},
+    "comparison": "strictly_greater_than",
+    "citation": {"id": "tax.us.2025.citation.attachment.schedule-a", "version": "v1"}
+  },
+  "itemizations": [
+    {
+      "part_id": "line-8a-home-mortgage-interest",
+      "label": "Line 8a: home mortgage interest reported on Form 1098",
+      "authority": {"kind": "single_family", "source_family": {"id": "tax.us.2025.f1098", "version": "v1"}},
+      "row_sets": [
+        {
+          "rows": {"op": "collect_members", "member_fact_type": {"id": "tax.us.2025.f1098.box1-mortgage-interest", "version": "v1"}, "source_family": {"id": "tax.us.2025.f1098", "version": "v1"}},
+          "subtotal_symbol": "tax.us.2025.schedule-a.line8a"
+        }
+      ],
+      "tie_out": {"line_symbol": "tax.us.2025.schedule-a.line8a"}
+    }
+  ],
+  "completeness": {
+    "required_answers": [
+      {"symbol": "tax.us.2025.schedule-a-boundary.no-medical-declared", "fact_type": {"id": "tax.us.2025.schedule-a-boundary.no-medical-declared", "version": "v1"}, "check": "value", "equals": "yes"},
+      {"symbol": "tax.us.2025.schedule-a-boundary.no-salt-declared", "fact_type": {"id": "tax.us.2025.schedule-a-boundary.no-salt-declared", "version": "v1"}, "check": "value", "equals": "yes"},
+      {"symbol": "tax.us.2025.schedule-a-boundary.no-other-interest-declared", "fact_type": {"id": "tax.us.2025.schedule-a-boundary.no-other-interest-declared", "version": "v1"}, "check": "value", "equals": "yes"},
+      {"symbol": "tax.us.2025.schedule-a-boundary.no-investment-interest-declared", "fact_type": {"id": "tax.us.2025.schedule-a-boundary.no-investment-interest-declared", "version": "v1"}, "check": "value", "equals": "yes"},
+      {"symbol": "tax.us.2025.schedule-a-boundary.no-charitable-declared", "fact_type": {"id": "tax.us.2025.schedule-a-boundary.no-charitable-declared", "version": "v1"}, "check": "value", "equals": "yes"},
+      {"symbol": "tax.us.2025.schedule-a-boundary.no-casualty-theft-declared", "fact_type": {"id": "tax.us.2025.schedule-a-boundary.no-casualty-theft-declared", "version": "v1"}, "check": "value", "equals": "yes"},
+      {"symbol": "tax.us.2025.schedule-a-boundary.no-gambling-other-declared", "fact_type": {"id": "tax.us.2025.schedule-a-boundary.no-gambling-other-declared", "version": "v1"}, "check": "value", "equals": "yes"}
+    ]
+  }
+}

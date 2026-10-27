@@ -1,0 +1,34 @@
+{
+  "blocked": {
+    "code": "DEPENDENCY_INVALID",
+    "missing": []
+  },
+  "citations": [],
+  "direction": "joined_contains_subject",
+  "id": "tax.us.2025.rule.mortgage-payment-comparison-support-count",
+  "joined": {
+    "id": "tax.us.2025.mortgage.payment-comparison-support-marker",
+    "version": "v1"
+  },
+  "notes": "Per borrowing, counts only current exact-pair comparison rows and their Box 1, inclusion, and recognition finding identities. The run adapter emits these typed rows only for a current, evidence-bound different-payments answer.",
+  "pins": [],
+  "publishes": "tax.us.2025.mortgage.payment-comparison-support-count",
+  "requires": [],
+  "role": "computation",
+  "schema": "rule-artifact.v13",
+  "scope": {
+    "family": "individual-income-tax",
+    "jurisdiction": "US-federal",
+    "tax_year": 2025
+  },
+  "subject": {
+    "id": "tax.us.2025.mortgage.continuing-borrowing",
+    "version": "v1"
+  },
+  "value": {
+    "links": "tax.us.2025.mortgage.payment-comparison-support-marker",
+    "op": "link_count"
+  },
+  "version": "v1",
+  "when": true
+}

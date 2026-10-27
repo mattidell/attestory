@@ -186,6 +186,14 @@ class ClaimApplicabilityMissing(ValueError):
     """
 
 
+class MortgagePaymentApplicabilityMissing(ValueError):
+    """A current mortgage payment comparison was marshalled without its reading."""
+
+
+class MortgagePaymentApplicabilityInvalid(ValueError):
+    """Supplied mortgage applicability did not exactly match this projection."""
+
+
 def _omit_unestablished_inclusions(
     current_findings: list[dict[str, Any]],
     lattice: Mapping[str, Any],
@@ -356,6 +364,7 @@ def marshal_run_context(
     reporting_year: int | None = None,
     parameter_index: Mapping[str, Mapping[str, Mapping[str, Any]]] | None = None,
     claim_applicability: Sequence[Mapping[str, str]] | None = None,
+    mortgage_payment_applicability: Sequence[Mapping[str, Any]] | None = None,
 ) -> RunContext:
     """Build a RunContext from current record state only (ADR-0032 MUST).
 
@@ -409,6 +418,83 @@ def marshal_run_context(
     current_findings, replay_markers = _omit_unestablished_inclusions(
         current_findings, _lattice, claim_applicability
     )
+
+    payment_support_marker = "tax.us.2025.mortgage.payment-comparison-support-marker"
+    payment_comparison_unresolved_marker = "tax.us.2025.mortgage.payment-comparison-applicability-unresolved"
+    mortgage_comparison_types = {
+        "tax.us.2025.mortgage.report-payment-comparison",
+        "tax.us.2025.mortgage.report-payment-copy-or-correction",
+        "tax.us.2025.mortgage.report-payment-comparison-unresolved",
+        "tax.us.2025.mortgage.report-payment-comparison-withdrawn",
+    }
+    current_mortgage_comparison_ids = {
+        finding["id"] for finding in current_findings
+        if _fact_type_id(finding["fact_id"]) in mortgage_comparison_types
+    }
+    from packages.tax.mortgage_borrowing_recording import (
+        mortgage_payment_comparison_applicability_from_projection,
+    )
+
+    expected_mortgage_applicability = mortgage_payment_comparison_applicability_from_projection(
+        state, currency, _lattice)
+    expected_mortgage_ids = {str(row["finding_id"]) for row in expected_mortgage_applicability}
+    if expected_mortgage_ids != current_mortgage_comparison_ids:
+        raise MortgagePaymentApplicabilityInvalid(
+            "the current projection could not establish every mortgage comparison reading"
+        )
+    if mortgage_payment_applicability is None:
+        if expected_mortgage_applicability:
+            raise MortgagePaymentApplicabilityMissing(
+                "current mortgage payment comparison cannot be marshalled without mortgage_payment_applicability "
+                "from the same projection (live_coordinate_run does)"
+            )
+        supplied_mortgage_rows: list[Mapping[str, Any]] = []
+    elif (not isinstance(mortgage_payment_applicability, Sequence)
+          or isinstance(mortgage_payment_applicability, (str, bytes, bytearray))):
+        raise MortgagePaymentApplicabilityInvalid("mortgage payment applicability must be a finite row sequence")
+    else:
+        supplied_mortgage_rows = list(mortgage_payment_applicability)
+
+    expected_by_id = {str(row["finding_id"]): row for row in expected_mortgage_applicability}
+    supplied_by_id: dict[str, Mapping[str, Any]] = {}
+    for reading in supplied_mortgage_rows:
+        if not isinstance(reading, Mapping) or not isinstance(reading.get("finding_id"), str):
+            raise MortgagePaymentApplicabilityInvalid("mortgage payment applicability contains a malformed row")
+        finding_id = reading["finding_id"]
+        if finding_id in supplied_by_id:
+            raise MortgagePaymentApplicabilityInvalid("mortgage payment applicability repeats a current comparison")
+        supplied_by_id[finding_id] = reading
+    if set(supplied_by_id) != set(expected_by_id):
+        raise MortgagePaymentApplicabilityInvalid(
+            "mortgage payment applicability must exactly cover current comparison findings"
+        )
+    for finding_id, reading in supplied_by_id.items():
+        if dict(reading) != expected_by_id[finding_id]:
+            raise MortgagePaymentApplicabilityInvalid(
+                "mortgage payment applicability disagrees with current comparison evidence or support"
+            )
+    # Consume the canonical result from this state/currency/lattice, not the
+    # caller's dictionaries, after verifying the supplied complete reading.
+    mortgage_payment_applicability = expected_mortgage_applicability
+
+    unresolved_mortgage_comparison_ids: set[str] = set()
+    if current_mortgage_comparison_ids:
+        unresolved_mortgage_comparison_ids = {
+            str(row["finding_id"])
+            for row in mortgage_payment_applicability
+            if str(row.get("finding_id")) in current_mortgage_comparison_ids
+            and row.get("applicability") != "current"
+        }
+
+    # Mortgage support-marker findings are runtime facts synthesized below
+    # from validated current applicability. Ordinary assertions of this
+    # otherwise admitted fact type are never system support and must not enter
+    # any binding, collect-source, or legacy fallback route.
+    current_findings = [
+        finding for finding in current_findings
+        if finding["id"] not in unresolved_mortgage_comparison_ids
+        and _fact_type_id(finding["fact_id"]) != payment_support_marker
+    ]
 
     inputs: list[InputFinding] = []
     used_finding_ids: set[str] = set()
@@ -503,6 +589,62 @@ def marshal_run_context(
                 keys=marker_keys,
             )
         )
+
+    for reading in mortgage_payment_applicability or ():
+        if reading.get("applicability") != "current" or reading.get("value") != "different-payments":
+            continue
+        support = reading.get("comparison_support")
+        if not isinstance(support, Mapping):
+            continue
+        statement = reading.get("statement")
+        if not isinstance(statement, Mapping):
+            continue
+        for report in support.get("reports", ()):
+            report_keys = report.get("keys") if isinstance(report, Mapping) else None
+            if not isinstance(report_keys, Mapping):
+                continue
+            own = {key: str(statement[key]) for key in ("payer", "statement", "tax-year")}
+            if {key: str(report_keys[key]) for key in ("payer", "statement", "tax-year")} != own:
+                continue
+            support_ids = (
+                ("comparison", str(reading["finding_id"])),
+                ("box1", str(report["box1_finding_id"])),
+                ("inclusion", str(report["inclusion_finding_id"])),
+                ("recognition", str(support["recognition_finding_id"])),
+            )
+            for support_kind, support_finding_id in support_ids:
+                keys = (("payer", own["payer"]), ("statement", own["statement"]),
+                        ("tax-year", own["tax-year"]), ("borrowing", str(reading["borrowing"])),
+                        ("support-kind", support_kind))
+                sources.append(SourceFact(
+                    name=payment_support_marker,
+                    value="ready",
+                    finding_id=support_finding_id,
+                    fact_id=kernel_facts.fact_id_for(payment_support_marker, keys),
+                    keys=keys,
+                ))
+
+    # A current but unusable ordinary comparison remains visible as a
+    # distinct, transient system marker. It is not projected into the
+    # person's answer vocabulary and cannot be read through ordinary aliases.
+    # The original finding id and exact report identity are retained so the
+    # blocked route remains attributable without making it usable.
+    # ``current_findings`` excludes unusable claims before normal routes;
+    # collect those directly from the supplied same-projection readings.
+    if unresolved_mortgage_comparison_ids:
+        for finding_id in sorted(unresolved_mortgage_comparison_ids):
+            unresolved_finding = state.findings.get(finding_id)
+            fact = (_lattice.get(str(unresolved_finding.get("fact_id")))
+                    if unresolved_finding is not None else None)
+            if fact is None:
+                continue
+            sources.append(SourceFact(
+                name=payment_comparison_unresolved_marker,
+                value="unresolved-applicability",
+                finding_id=finding_id,
+                fact_id=kernel_facts.fact_id_for(payment_comparison_unresolved_marker, fact.keys),
+                keys=fact.keys,
+            ))
 
     # Also marshal unbound current findings whose fact type equals a rule
     # input symbol (legacy demo path: symbol == fact type id).
@@ -615,6 +757,7 @@ def marshal_live_run_context(
     reporting_year: int | None = None,
     parameter_index: Mapping[str, Mapping[str, Mapping[str, Any]]] | None = None,
     claim_applicability: Sequence[Mapping[str, str]] | None = None,
+    mortgage_payment_applicability: Sequence[Mapping[str, Any]] | None = None,
 ) -> MarshalledRunContext:
     """Create the opaque marshalling result accepted by the production executor."""
     return MarshalledRunContext(
@@ -638,6 +781,7 @@ def marshal_live_run_context(
             reporting_year=reporting_year,
             parameter_index=parameter_index,
             claim_applicability=claim_applicability,
+            mortgage_payment_applicability=mortgage_payment_applicability,
         ),
         _MARSHAL_SEAL,
     )

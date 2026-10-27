@@ -1,0 +1,324 @@
+{
+  "blocked": {
+    "code": "DEPENDENCY_INVALID",
+    "missing": []
+  },
+  "citations": [],
+  "direction": "joined_contains_subject",
+  "id": "tax.us.2025.rule.no-one-else-owes-it-effective-answer",
+  "joined": {
+    "id": "tax.us.2025.f1098.borrowing-inclusion",
+    "version": "v1"
+  },
+  "notes": "Effective no-one-else-owes-it value is selected only on the exact affirmed report link; local/shared disagreement blocks.",
+  "pins": [],
+  "publishes": "tax.us.2025.f1098.effective-no-one-else-owes-it",
+  "requires": [
+    "tax.us.2025.f1098.local-no-one-else-owes-it-count",
+    "tax.us.2025.mortgage.shared-no-one-else-owes-it-count"
+  ],
+  "role": "computation",
+  "schema": "rule-artifact.v13",
+  "scope": {
+    "family": "individual-income-tax",
+    "jurisdiction": "US-federal",
+    "tax_year": 2025
+  },
+  "subject": {
+    "id": "tax.us.2025.f1098.borrowing-inclusion",
+    "version": "v1"
+  },
+  "value": {
+    "else": {
+      "else": {
+        "code": "DEPENDENCY_ABSENT",
+        "op": "block"
+      },
+      "op": "choose",
+      "then": {
+        "else": {
+          "else": {
+            "else": {
+              "code": "DEPENDENCY_ABSENT",
+              "op": "block"
+            },
+            "op": "choose",
+            "then": {
+              "fact_type": {
+                "id": "tax.us.2025.f1098.effective-no-one-else-owes-it",
+                "version": "v1"
+              },
+              "op": "category_literal",
+              "value": "cannot-tell"
+            },
+            "when": {
+              "name": "tax.us.2025.mortgage.shared-no-one-else-owes-it",
+              "op": "collect_categorical_all_equal",
+              "value": {
+                "fact_type": {
+                  "id": "tax.us.2025.mortgage.shared-no-one-else-owes-it",
+                  "version": "v1"
+                },
+                "op": "category_literal",
+                "value": "cannot-tell"
+              }
+            }
+          },
+          "op": "choose",
+          "then": {
+            "fact_type": {
+              "id": "tax.us.2025.f1098.effective-no-one-else-owes-it",
+              "version": "v1"
+            },
+            "op": "category_literal",
+            "value": "no"
+          },
+          "when": {
+            "name": "tax.us.2025.mortgage.shared-no-one-else-owes-it",
+            "op": "collect_categorical_all_equal",
+            "value": {
+              "fact_type": {
+                "id": "tax.us.2025.mortgage.shared-no-one-else-owes-it",
+                "version": "v1"
+              },
+              "op": "category_literal",
+              "value": "no"
+            }
+          }
+        },
+        "op": "choose",
+        "then": {
+          "fact_type": {
+            "id": "tax.us.2025.f1098.effective-no-one-else-owes-it",
+            "version": "v1"
+          },
+          "op": "category_literal",
+          "value": "yes"
+        },
+        "when": {
+          "name": "tax.us.2025.mortgage.shared-no-one-else-owes-it",
+          "op": "collect_categorical_all_equal",
+          "value": {
+            "fact_type": {
+              "id": "tax.us.2025.mortgage.shared-no-one-else-owes-it",
+              "version": "v1"
+            },
+            "op": "category_literal",
+            "value": "yes"
+          }
+        }
+      },
+      "when": {
+        "cmp": "gt",
+        "left": {
+          "name": "tax.us.2025.mortgage.shared-no-one-else-owes-it-count",
+          "op": "ref"
+        },
+        "op": "compare",
+        "right": 0
+      }
+    },
+    "op": "choose",
+    "then": {
+      "else": {
+        "else": {
+          "else": {
+            "code": "DEPENDENCY_INVALID",
+            "op": "block"
+          },
+          "op": "choose",
+          "then": {
+            "else": {
+              "fact_type": {
+                "id": "tax.us.2025.f1098.effective-no-one-else-owes-it",
+                "version": "v1"
+              },
+              "op": "category_literal",
+              "value": "cannot-tell"
+            },
+            "op": "choose",
+            "then": {
+              "else": {
+                "code": "DEPENDENCY_INVALID",
+                "op": "block"
+              },
+              "op": "choose",
+              "then": {
+                "fact_type": {
+                  "id": "tax.us.2025.f1098.effective-no-one-else-owes-it",
+                  "version": "v1"
+                },
+                "op": "category_literal",
+                "value": "cannot-tell"
+              },
+              "when": {
+                "name": "tax.us.2025.mortgage.shared-no-one-else-owes-it",
+                "op": "collect_categorical_all_equal",
+                "value": {
+                  "fact_type": {
+                    "id": "tax.us.2025.mortgage.shared-no-one-else-owes-it",
+                    "version": "v1"
+                  },
+                  "op": "category_literal",
+                  "value": "cannot-tell"
+                }
+              }
+            },
+            "when": {
+              "cmp": "gt",
+              "left": {
+                "name": "tax.us.2025.mortgage.shared-no-one-else-owes-it-count",
+                "op": "ref"
+              },
+              "op": "compare",
+              "right": 0
+            }
+          },
+          "when": {
+            "name": "tax.us.2025.f1098.no-one-else-owes-it",
+            "op": "collect_categorical_all_equal",
+            "value": {
+              "fact_type": {
+                "id": "tax.us.2025.f1098.no-one-else-owes-it",
+                "version": "v2"
+              },
+              "op": "category_literal",
+              "value": "cannot-tell"
+            }
+          }
+        },
+        "op": "choose",
+        "then": {
+          "else": {
+            "fact_type": {
+              "id": "tax.us.2025.f1098.effective-no-one-else-owes-it",
+              "version": "v1"
+            },
+            "op": "category_literal",
+            "value": "no"
+          },
+          "op": "choose",
+          "then": {
+            "else": {
+              "code": "DEPENDENCY_INVALID",
+              "op": "block"
+            },
+            "op": "choose",
+            "then": {
+              "fact_type": {
+                "id": "tax.us.2025.f1098.effective-no-one-else-owes-it",
+                "version": "v1"
+              },
+              "op": "category_literal",
+              "value": "no"
+            },
+            "when": {
+              "name": "tax.us.2025.mortgage.shared-no-one-else-owes-it",
+              "op": "collect_categorical_all_equal",
+              "value": {
+                "fact_type": {
+                  "id": "tax.us.2025.mortgage.shared-no-one-else-owes-it",
+                  "version": "v1"
+                },
+                "op": "category_literal",
+                "value": "no"
+              }
+            }
+          },
+          "when": {
+            "cmp": "gt",
+            "left": {
+              "name": "tax.us.2025.mortgage.shared-no-one-else-owes-it-count",
+              "op": "ref"
+            },
+            "op": "compare",
+            "right": 0
+          }
+        },
+        "when": {
+          "name": "tax.us.2025.f1098.no-one-else-owes-it",
+          "op": "collect_categorical_all_equal",
+          "value": {
+            "fact_type": {
+              "id": "tax.us.2025.f1098.no-one-else-owes-it",
+              "version": "v2"
+            },
+            "op": "category_literal",
+            "value": "no"
+          }
+        }
+      },
+      "op": "choose",
+      "then": {
+        "else": {
+          "fact_type": {
+            "id": "tax.us.2025.f1098.effective-no-one-else-owes-it",
+            "version": "v1"
+          },
+          "op": "category_literal",
+          "value": "yes"
+        },
+        "op": "choose",
+        "then": {
+          "else": {
+            "code": "DEPENDENCY_INVALID",
+            "op": "block"
+          },
+          "op": "choose",
+          "then": {
+            "fact_type": {
+              "id": "tax.us.2025.f1098.effective-no-one-else-owes-it",
+              "version": "v1"
+            },
+            "op": "category_literal",
+            "value": "yes"
+          },
+          "when": {
+            "name": "tax.us.2025.mortgage.shared-no-one-else-owes-it",
+            "op": "collect_categorical_all_equal",
+            "value": {
+              "fact_type": {
+                "id": "tax.us.2025.mortgage.shared-no-one-else-owes-it",
+                "version": "v1"
+              },
+              "op": "category_literal",
+              "value": "yes"
+            }
+          }
+        },
+        "when": {
+          "cmp": "gt",
+          "left": {
+            "name": "tax.us.2025.mortgage.shared-no-one-else-owes-it-count",
+            "op": "ref"
+          },
+          "op": "compare",
+          "right": 0
+        }
+      },
+      "when": {
+        "name": "tax.us.2025.f1098.no-one-else-owes-it",
+        "op": "collect_categorical_all_equal",
+        "value": {
+          "fact_type": {
+            "id": "tax.us.2025.f1098.no-one-else-owes-it",
+            "version": "v2"
+          },
+          "op": "category_literal",
+          "value": "yes"
+        }
+      }
+    },
+    "when": {
+      "cmp": "gt",
+      "left": {
+        "name": "tax.us.2025.f1098.local-no-one-else-owes-it-count",
+        "op": "ref"
+      },
+      "op": "compare",
+      "right": 0
+    }
+  },
+  "version": "v1",
+  "when": true
+}

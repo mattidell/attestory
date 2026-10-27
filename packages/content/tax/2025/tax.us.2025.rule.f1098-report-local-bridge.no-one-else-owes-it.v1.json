@@ -1,0 +1,95 @@
+{
+  "blocked": {
+    "code": "DEPENDENCY_INVALID",
+    "missing": []
+  },
+  "citations": [],
+  "direction": "joined_contains_subject",
+  "id": "tax.us.2025.rule.f1098-report-local-bridge.no-one-else-owes-it",
+  "joined": {
+    "id": "tax.us.2025.f1098.no-one-else-owes-it",
+    "version": "v2"
+  },
+  "notes": "Carries this report's historical co-obligor answer at its exact Box 1 scope; the effective-answer rule compares it with the borrowing-wide answer and blocks disagreement.",
+  "pins": [],
+  "publishes": "tax.us.2025.f1098.answer-status.no-one-else-owes-it",
+  "requires": [
+    "tax.us.2025.f1098.no-one-else-owes-it"
+  ],
+  "role": "computation",
+  "schema": "rule-artifact.v13",
+  "scope": {
+    "family": "individual-income-tax",
+    "jurisdiction": "US-federal",
+    "tax_year": 2025
+  },
+  "subject": {
+    "id": "tax.us.2025.f1098.box1-mortgage-interest",
+    "version": "v1"
+  },
+  "value": {
+    "else": {
+      "else": {
+        "fact_type": {
+          "id": "tax.us.2025.f1098.answer-status.no-one-else-owes-it",
+          "version": "v1"
+        },
+        "op": "category_literal",
+        "value": "cannot-tell"
+      },
+      "op": "choose",
+      "then": {
+        "fact_type": {
+          "id": "tax.us.2025.f1098.answer-status.no-one-else-owes-it",
+          "version": "v1"
+        },
+        "op": "category_literal",
+        "value": "no"
+      },
+      "when": {
+        "cmp": "eq",
+        "left": {
+          "name": "tax.us.2025.f1098.no-one-else-owes-it",
+          "op": "ref"
+        },
+        "op": "categorical_compare",
+        "right": {
+          "fact_type": {
+            "id": "tax.us.2025.f1098.no-one-else-owes-it",
+            "version": "v2"
+          },
+          "op": "category_literal",
+          "value": "no"
+        }
+      }
+    },
+    "op": "choose",
+    "then": {
+      "fact_type": {
+        "id": "tax.us.2025.f1098.answer-status.no-one-else-owes-it",
+        "version": "v1"
+      },
+      "op": "category_literal",
+      "value": "yes"
+    },
+    "when": {
+      "cmp": "eq",
+      "left": {
+        "name": "tax.us.2025.f1098.no-one-else-owes-it",
+        "op": "ref"
+      },
+      "op": "categorical_compare",
+      "right": {
+        "fact_type": {
+          "id": "tax.us.2025.f1098.no-one-else-owes-it",
+          "version": "v2"
+        },
+        "op": "category_literal",
+        "value": "yes"
+      }
+    }
+  },
+  "version": "v1",
+  "when": true,
+  "wording": "Report-local bridge reads this report's no-one-else-owes-it observation or answer."
+}

@@ -1,0 +1,194 @@
+{
+  "blocked": {
+    "code": "DEPENDENCY_INVALID",
+    "missing": []
+  },
+  "basis": {
+    "said": [
+      "The filer recorded the report-local answers and any connected borrowing-year claims required by the selected readiness route."
+    ],
+    "derived": [
+      "The selected route established a qualified residence-interest reason for each included report before publishing the sum of their reported box 1 amounts.",
+      "For a connected borrowing, each report's box 2 observation was tested against the separately recorded borrowing-year ceiling, and that ceiling was tested against the conservative filing-status limit. The annual ceiling was not substituted for any report's box 2 amount."
+    ],
+    "assumed": [
+      "For the unconnected single-statement route only, box 2 stands for acquisition debt throughout the year; this legacy shortcut is not applied to a connected borrowing, whose annual ceiling is separately recorded. Box 2 is not treated as an annual average on the connected route.",
+      "The bounded connected route retains conservative $750,000/$375,000 filing-status limits; a higher grandfathered debt limit is not modeled.",
+      "Each included report's box 1 amount is treated as the report's interest amount for this bounded calculation; no allocation or proration is performed across reports."
+    ],
+    "left_with_person": [
+      "This does not compute interest outside the reporting period, points, mortgage-insurance premiums, prior-year refunds, refinancing, mixed use, or above-limit allocation."
+    ]
+  },
+  "citations": [],
+  "composition": {
+    "id": "tax.us.2025.schedule-a",
+    "version": "v1"
+  },
+  "id": "tax.us.2025.rule.f1098-line8a",
+  "notes": "Publishes the selected Schedule A line 8a result from included Form 1098 Box 1 amounts after the applicable readiness gate; connected reports are not summed until the borrowing-level requirements are satisfied.",
+  "pins": [],
+  "publishes": "tax.us.2025.schedule-a.line8a",
+  "requires": [
+    "tax.us.2025.mortgage.same-borrowing-ready"
+  ],
+  "role": "computation",
+  "schema": "rule-artifact.v14",
+  "scope": {
+    "family": "individual-income-tax",
+    "jurisdiction": "US-federal",
+    "tax_year": 2025
+  },
+  "value": {
+    "else": {
+      "else": {
+        "code": "DEPENDENCY_INVALID",
+        "op": "block"
+      },
+      "op": "choose",
+      "then": {
+        "else": {
+          "else": {
+            "code": "DEPENDENCY_ABSENT",
+            "op": "block"
+          },
+          "op": "choose",
+          "then": 0,
+          "when": {
+            "args": [
+              {
+                "name": "tax.us.2025.f1098.residence-interest-reason",
+                "op": "collect_categorical_all_equal",
+                "value": {
+                  "fact_type": {
+                    "id": "tax.us.2025.f1098.residence-interest-reason",
+                    "version": "v2"
+                  },
+                  "op": "category_literal",
+                  "value": "not-paid"
+                }
+              },
+              {
+                "name": "tax.us.2025.f1098.residence-interest-reason",
+                "op": "collect_categorical_all_equal",
+                "value": {
+                  "fact_type": {
+                    "id": "tax.us.2025.f1098.residence-interest-reason",
+                    "version": "v2"
+                  },
+                  "op": "category_literal",
+                  "value": "not-collateral"
+                }
+              },
+              {
+                "name": "tax.us.2025.f1098.residence-interest-reason",
+                "op": "collect_categorical_all_equal",
+                "value": {
+                  "fact_type": {
+                    "id": "tax.us.2025.f1098.residence-interest-reason",
+                    "version": "v2"
+                  },
+                  "op": "category_literal",
+                  "value": "use-unrelated-personal-expense"
+                }
+              }
+            ],
+            "op": "any"
+          }
+        },
+        "op": "choose",
+        "then": {
+          "args": [
+            {
+              "name": "tax.us.2025.f1098.box1-mortgage-interest",
+              "op": "collect",
+              "source_set": "tax.us.2025.f1098"
+            }
+          ],
+          "op": "add"
+        },
+        "when": {
+          "name": "tax.us.2025.f1098.residence-interest-reason",
+          "op": "collect_categorical_all_equal",
+          "value": {
+            "fact_type": {
+              "id": "tax.us.2025.f1098.residence-interest-reason",
+              "version": "v2"
+            },
+            "op": "category_literal",
+            "value": "qualified"
+          }
+        }
+      },
+      "when": {
+        "args": [
+          {
+            "op": "not",
+            "value": {
+              "name": "tax.us.2025.mortgage.same-borrowing-ready",
+              "op": "ref"
+            }
+          },
+          {
+            "cmp": "eq",
+            "left": {
+              "name": "tax.us.2025.f1098.box1-mortgage-interest",
+              "op": "count",
+              "source_set": "tax.us.2025.f1098"
+            },
+            "op": "compare",
+            "right": 1
+          },
+          {
+            "name": "tax.us.2025.f1098.borrowing-current-link-status",
+            "op": "collect_categorical_all_equal",
+            "value": {
+              "fact_type": {
+                "id": "tax.us.2025.f1098.borrowing-current-link-status",
+                "version": "v1"
+              },
+              "op": "category_literal",
+              "value": "none"
+            }
+          }
+        ],
+        "op": "all"
+      }
+    },
+    "op": "choose",
+    "then": {
+      "args": [
+        {
+          "name": "tax.us.2025.f1098.box1-mortgage-interest",
+          "op": "collect",
+          "source_set": "tax.us.2025.f1098"
+        }
+      ],
+      "op": "add"
+    },
+    "when": {
+      "name": "tax.us.2025.mortgage.same-borrowing-ready",
+      "op": "ref"
+    }
+  },
+  "version": "v5",
+  "when": {
+    "args": [
+      {
+        "op": "require_closed",
+        "source_set": "tax.us.2025.f1098"
+      },
+      {
+        "cmp": "gt",
+        "left": {
+          "name": "tax.us.2025.f1098.box1-mortgage-interest",
+          "op": "count",
+          "source_set": "tax.us.2025.f1098"
+        },
+        "op": "compare",
+        "right": 0
+      }
+    ],
+    "op": "all"
+  }
+}

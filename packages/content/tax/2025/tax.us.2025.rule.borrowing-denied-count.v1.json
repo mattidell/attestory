@@ -1,0 +1,34 @@
+{
+  "blocked": {
+    "code": "DEPENDENCY_INVALID",
+    "missing": []
+  },
+  "citations": [],
+  "direction": "joined_contains_subject",
+  "id": "tax.us.2025.rule.borrowing-denied-count",
+  "joined": {
+    "id": "tax.us.2025.f1098.borrowing-denied",
+    "version": "v1"
+  },
+  "notes": "Counts current denied report-inclusion outcomes for each exact Form 1098 and year; the mortgage calculation joins this count to the named borrowing.",
+  "pins": [],
+  "publishes": "tax.us.2025.f1098.borrowing-denied-count",
+  "requires": [],
+  "role": "computation",
+  "schema": "rule-artifact.v13",
+  "scope": {
+    "family": "individual-income-tax",
+    "jurisdiction": "US-federal",
+    "tax_year": 2025
+  },
+  "subject": {
+    "id": "tax.us.2025.f1098.box1-mortgage-interest",
+    "version": "v1"
+  },
+  "value": {
+    "links": "tax.us.2025.f1098.borrowing-denied",
+    "op": "link_count"
+  },
+  "version": "v1",
+  "when": true
+}

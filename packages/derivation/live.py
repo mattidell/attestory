@@ -560,6 +560,27 @@ def _statement_inclusion_applicability(
     return _claim_applicability_from_current(acts, registry, state, currency, lattice)
 
 
+def _mortgage_payment_comparison_applicability(
+    acts: Sequence[dict[str, Any]],
+    registry: Any,
+    state: FindingState,
+    currency: CurrencyView,
+) -> list[dict[str, Any]]:
+    """Read comparison provenance from the coordinator's one current projection."""
+    from packages.kernel.facts import facts_of
+    from packages.tax.mortgage_borrowing_recording import current_mortgage_payment_comparison_applicability
+
+    if not any(
+        finding_id in currency.current_finding_ids and
+        str(finding.get("fact_id", "")).startswith("tax.us.2025.mortgage.report-payment-")
+        for finding_id, finding in state.findings.items()
+    ):
+        return []
+    lattice = facts_of(state.fact_state)
+    return current_mortgage_payment_comparison_applicability(
+        acts, registry, state=state, currency=currency, lattice=lattice)
+
+
 def live_coordinate_run(
     capability: WorkspaceCapability,
     *,
@@ -644,6 +665,8 @@ def live_coordinate_run(
     context = marshal_live_run_context(
         run_id=run_id, state=state, currency=currency, rules=rules, parameters=parameters,
         claim_applicability=_statement_inclusion_applicability(
+            run_acts, schemas.registry, state, currency),
+        mortgage_payment_applicability=_mortgage_payment_comparison_applicability(
             run_acts, schemas.registry, state, currency),
         canon=load_canon(schemas),
         adoption_pin={"role": "adoption", "id": resolved.package["id"], "version": resolved.package["version"]},

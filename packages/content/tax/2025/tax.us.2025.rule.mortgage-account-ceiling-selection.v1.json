@@ -1,0 +1,38 @@
+{
+  "blocked": {
+    "code": "DEPENDENCY_INVALID",
+    "missing": [
+      "tax.us.2025.f1098.borrowing-year-ceiling"
+    ]
+  },
+  "citations": [],
+  "direction": "joined_contains_subject",
+  "id": "tax.us.2025.rule.mortgage-account-ceiling-selection",
+  "joined": {
+    "id": "tax.us.2025.f1098.borrowing-year-ceiling",
+    "version": "v1"
+  },
+  "notes": "Exact borrowing/year join selects the current ceiling for each recognized opaque account.",
+  "pins": [],
+  "publishes": "tax.us.2025.mortgage.account-ceiling-selected",
+  "requires": [
+    "tax.us.2025.f1098.borrowing-year-ceiling"
+  ],
+  "role": "computation",
+  "schema": "rule-artifact.v13",
+  "scope": {
+    "family": "individual-income-tax",
+    "jurisdiction": "US-federal",
+    "tax_year": 2025
+  },
+  "subject": {
+    "id": "tax.us.2025.mortgage.continuing-borrowing",
+    "version": "v1"
+  },
+  "value": {
+    "name": "tax.us.2025.f1098.borrowing-year-ceiling",
+    "op": "ref"
+  },
+  "version": "v1",
+  "when": true
+}
