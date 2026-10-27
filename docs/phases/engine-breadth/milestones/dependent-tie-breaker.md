@@ -3,7 +3,7 @@
   "version": 1,
   "phase": "Engine Breadth",
   "topic": "dependent-tie-breaker",
-  "status": "Planned. P0 verifies the tie-breaker law and designs the questions; no content changes yet.",
+  "status": "Track 0 built (proposed ADR-0081). Track 1 builds the tie-breaker on core v58.",
   "scope": [
     "compute who may treat a child as a qualifying child when another person also could, for the 2025 earned income credit, child tax credit and credit for other dependents, as successor content",
     "replace the yes-blocks 'another person may also claim' answers with answers about the other person whose meaning matches the rule that reads them",
@@ -136,10 +136,93 @@ refused, never given the credit or $0 silently.
   the EIC (residency outside the United States), so the tie-breaker is asked
   on the path where it can change the result and nowhere else.
 
+## P0 result
+
+P0 and its repair are in
+[verify and design](dependent-tie-breaker-evidence/p0-verify-and-design.md),
+with the resolution-table generator, the probe and the case script beside it.
+
+- **Law.** All five child benefits travel together to the tie-breaker winner;
+  Form 8332 moves only the child tax credit and the credit for other
+  dependents. A non-parent needs AGI strictly higher than any parent who can
+  claim; the sources are silent on equal AGI between two parents with equal
+  nights, or between two non-parents.
+- **The engine cannot ask a child's answer only when another of that child's
+  answers makes it decide.** A per-subject rule binds only `requires`, so
+  every tie-breaker question would be required on every contested child.
+  Family gating avoids that only with eight rosters whose membership encodes
+  the whole tie-breaker, so the filer must work out the answer to place the
+  child. The repair stopped there, as chartered.
+- **Owner decision (2026-10-27): change the engine.** Track 0 lets a
+  per-subject rule use `conditional_dependency_set` on its own subject's
+  answers (proposed ADR-0081, extending ADR-0037).
+- Outside the class by answer: Form 8332, more than one other person who
+  could claim the child, and the equal-AGI ties the law does not settle.
+
 ## Contract
 
-To be written after P0.
+1. **One tie-breaker result per child.** A per-subject rule over the child
+   kind publishes whether the filer may treat the child as a qualifying child
+   (wins, loses, or blocks as outside the class). The EIC, child tax credit
+   and credit for other dependents counts each read it in place of the
+   other-claimant answer. All three credits follow it together (the five
+   benefits are not divided); each credit's own tests still apply.
+2. **Questions, yes/no, asked in this order, each only where it can decide**
+   (ADR-0081). "You" includes your spouse on a joint return; "the other
+   person" never means that spouse. "Parent" means a birth or adoptive
+   parent, not a stepparent or foster parent who has not adopted the child.
+   1. *Another person could also claim this child:* the child also meets the
+      conditions to be that person's qualifying child for 2025 (lived with
+      them more than half the year, related to them as the instructions list,
+      younger than them, and meets the age test for them). `no` decides: the
+      filer wins. Asked of every child the filer claims for any of the three
+      credits.
+   2. *More than one other person could also claim this child.* `yes` is
+      outside the class.
+   3. *You are this child's parent;* 4. *the other person is this child's
+      parent.*
+   5. Both parents only: *the release of the claim to this child for 2025 was
+      made with Form 8332 or a decree or agreement.* `yes` is outside the
+      class.
+   6. Both parents only: *the child lived with you more nights in 2025 than
+      with the other parent;* if `no`, *the same number of nights.*
+   7. Where AGI decides (the filer is not a parent and the other person is;
+      both parents with the same nights; neither is a parent): *your 2025
+      AGI is higher than the other person's;* if `no` and the law does not
+      settle a tie, *your AGI is the same as theirs* (`yes` is outside the
+      class).
+   8. Only where the filer would otherwise lose: *the other person will
+      claim this child on their 2025 return* for any of the five benefits.
+      `no` lets the filer win, except that a non-parent filer against a parent
+      still needs the higher AGI. A filer who does not know answers `yes`.
+3. **Resolution.** Parent over non-parent; between parents, more nights,
+   then higher AGI; between non-parents, higher AGI; a parent who could
+   claim but does not leaves the child to a non-parent only with AGI higher
+   than the parent's. Every combination of answers resolves through exactly
+   one step, shown by a generated table over these questions.
+4. **A child the filer loses** counts for none of the three credits. The EIC
+   then follows Pub. 596's rule that the filer may take the credit without a
+   qualifying child; the return-level "no qualifying child" answer must not
+   block that filer, and its successor wording must be true for them.
+5. **Succession.** The old other-claimant answer's published title says
+   `yes` blocks, so it cannot become the root of the new questions without
+   changing its meaning, and the engine has no operator to fall back from an
+   absent new answer to the old one (Track 1 stop, 2026-10-27). A v57 answer
+   set on v58 is therefore asked the one root question, *another person
+   could also claim this child*, for each child, and blocks naming it until
+   answered; with `no` on every child it then keeps every v57 result. The
+   regression test runs the v57 answer set on v58, asserts the block names
+   only that question, adds `no` per child and asserts the published lines
+   equal v57's. Earlier packages keep their results unchanged.
+6. **Successor content only:** core v58, registry v56, release v56; earlier
+   packages and goldens byte-identical.
+7. **Required exactly where read,** with an omitted-answer test on each
+   branch, asserting on the published lines; the full lane and `mypy`
+   before ready.
 
 ## Tracks
 
-To be written after P0.
+- **Track 0:** per-subject conditional dependencies (engine, ADR-0081).
+- **Track 1:** the tie-breaker questions and successor rules for the three
+  credits, core v58.
+- **Track 2:** saved presentations.
