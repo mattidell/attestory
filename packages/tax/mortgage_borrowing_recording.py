@@ -122,14 +122,20 @@ def _current_findings(state: Any, fact_types: frozenset[str], keys: dict[str, st
 
 
 def current_mortgage_payment_comparison_support(
-    acts: Sequence[dict[str, Any]], registry: Any, borrowing_ref: str,
+    acts: Sequence[dict[str, Any]], registry: Any, borrowing_ref: str, *,
+    state: Any | None = None,
 ) -> dict[str, Any] | None:
     """Read exact current support for an affirmed two-report comparison.
 
     The result is applicability evidence only. It binds both current Box 1
     findings, both affirmed inclusion findings, and the current recognition.
+
+    ``state`` is the projection of these ``acts`` under ``registry``. A caller
+    that already holds that projection passes it for this call only. Omitting
+    it folds ``acts``.
     """
-    state = project(tuple(copy.deepcopy(row) for row in acts), registry)
+    if state is None:
+        state = project(tuple(copy.deepcopy(row) for row in acts), registry)
     currency = compute_currency(state)
     return _mortgage_payment_comparison_support_from_current(
         borrowing_ref, state, currency, facts_of(state.fact_state))
@@ -471,7 +477,11 @@ def _save_claim(
     payment_context = None
     if claim == "payment-comparison" and value != WITHDRAWN:
         assert statement_keys is not None and peer_statement_keys is not None
-        payment_context = current_mortgage_payment_comparison_support(before.acts, registry, borrowing_ref)
+        # Support reads the log from before this save. ``_adopt`` may have
+        # appended a bundle, and that projection is then a different act list.
+        payment_context = current_mortgage_payment_comparison_support(
+            before.acts, registry, borrowing_ref,
+            state=None if len(staged) != len(before.acts) else state)
         if payment_context is None or comparison_support != payment_context:
             raise MortgageBorrowingRecordingRefused("comparison is not bound to the current exact two-report support")
         expected_pair = {tuple(sorted((key, value) for key, value in row["keys"].items() if key != "borrowing"))

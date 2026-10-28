@@ -67,21 +67,51 @@ reasoned allowlist), and `tools/required_versus_read.py path` reports
 path-dependent cases on demand; it does not gate, because it also measures
 test coverage.
 
+### Remaining Test and CI Cost
+
+[Plan](milestones/test-cost-remaining.md).
+[Retrospective](../../milestone-retrospectives/2026-10-28-test-cost-remaining.md).
+
+P0 ranked the suite again and separated elapsed wait, CPU, and runner time.
+The owner selected three changes. Mortgage recording and review reuse one
+projection inside the operation. A checked save folds its prefix
+incrementally and refuses as before. Full `verify` packs the same suite onto
+four runners and stays red unless every shard succeeds. The historical baseline guard fails
+closed when it cannot establish an independent comparison. At main-ui
+convergence it cannot restore a divergent historical file to main's bytes
+without an independent prior-main witness. One profiled mortgage
+case fell from 123.89s to 98.03s of CPU. The two profiled form saves show the
+batch fold itself: Form 1099-K `append_batch` from 6.189s to 1.221s, Form
+1098 from 31.771s to 3.607s, the latter mixed with the mortgage reuse. The
+first full sharded run failed. A successful exact-head `verify` was still
+outstanding when the milestone record closed. No test was removed or moved.
+
 ## Current boundary and remaining work
 
-The next milestone is unselected. Measured candidates:
+The next milestone is unselected.
 
-1. **Remaining re-projection.** Helper sites outside the last milestone's
-   named set (`_stage_enrollment_follows_schooling` inside `_commit_save`,
-   `_scan_displayed_answers`, `_attribute_borrowing_labels`), and the
-   save-path incremental fold, which preserves today's exact refusal timing.
-   Re-rank first; the save path was under 5% of folded acts.
-2. **Current-lattice rebuilds** after the fact state changes need an
+[Remaining Test and CI Cost](milestones/test-cost-remaining.md) is closed.
+PR #226's exact-head `verify` is the merge gate for that candidate and had
+not succeeded when the record was written.
+
+Still open:
+
+1. **Current-lattice rebuilds** after the fact state changes need an
    incremental-lattice design.
-3. **Cross-call prefix memo**, only if projection still dominates a new
-   ranking, keyed by exact act content and registry state.
+2. **Cross-call prefix memo**, only if a new ranking shows projection still
+   dominates, keyed by exact act content and registry state.
+3. **Helpers left in place.** `_stage_enrollment_follows_schooling` inside
+   `_commit_save`, `_scan_displayed_answers`, and
+   `_attribute_borrowing_labels`. On the short histories profiled at P0 their
+   cumulative time was 0.13s to 2.30s inside profiles of about 47–49s.
+4. **A green sharded verify**, with wait, process-tree CPU, and billed
+   minutes recorded separately. The 816.3s figure is a packing model on older
+   weights. The failed fan-in is not that measurement.
+5. **A trusted prior-main witness** for main-ui convergence if a divergent
+   historical file must be restored to main's bytes. The current guard
+   conservatively refuses that correction.
 
 Test moves below the coordinator were measured and are not worthwhile while
-the recorder holds the cost. Persistent caches, partial catalogs, CI sharding,
-test culling and application-module separation remain unselected. Parallel jobs
-reduce waiting, not CPU; label those benefits separately.
+the recorder holds the cost. Persistent caches, partial catalogs, test culling,
+and application-module separation remain unselected. Parallel jobs reduce
+waiting and spend more runner time; label those benefits separately.

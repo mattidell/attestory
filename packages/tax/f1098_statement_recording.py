@@ -93,7 +93,13 @@ def _adopted_bundle_version(staged: list[dict[str, Any]]) -> str | None:
 def _ensure_bundle(
     staged: list[dict[str, Any]], registry: Any, actor: str, at: str, suffix: str,
     requested_version: str | None = None,
-) -> None:
+) -> Any:
+    """Project ``staged`` and return that state, including a bundle act appended here.
+
+    The return matches ``staged`` under ``registry`` at this moment. A caller
+    may reuse it until either changes. An appended bundle is applied before
+    the return, so the caller does not keep the pre-append projection.
+    """
     state = project(tuple(copy.deepcopy(row) for row in staged), registry)
     adopted = _adopted_bundle_version(staged)
     version = adopted or requested_version or BUNDLE_VERSION
@@ -104,12 +110,13 @@ def _ensure_bundle(
     if selected_ownership in state.fact_state.fact_types:
         if adopted != version:
             raise F1098RecordingRefused("the selected mortgage answer vocabulary conflicts with current adoption")
-        return
+        return state
     bundle = load_f1098_circumstances_bundle(registry, version=version)
     if bundle.get("id") != BUNDLE_ID or bundle.get("version") != version:
         raise F1098RecordingRefused(f"the selected circumstance answer bundle {version} is unavailable")
     act = _act(len(staged), "bundle-adoption", {"bundle": bundle}, actor, at, suffix)
     staged.append(act)
+    return apply_act(state, act, registry)
 
 
 def _require_selected_bundle(staged: list[dict[str, Any]]) -> None:
@@ -179,9 +186,9 @@ def record_f1098_statement_answers_durably(
     before = _read_for_save(log, expected_revision)
     suffix = _token(submission_id)
     staged = list(copy.deepcopy(before.acts))
-    _ensure_bundle(staged, registry, actor, at, suffix, bundle_version)
-    _validate_answers(staged, registry, statement_keys, answers, evidence_ids, submission_id=submission_id)
-    state = project(tuple(copy.deepcopy(row) for row in staged), registry)
+    state = _ensure_bundle(staged, registry, actor, at, suffix, bundle_version)
+    _validate_answers(staged, registry, statement_keys, answers, evidence_ids, submission_id=submission_id,
+                      state=state)
     _require_current_statement(state, statement_keys)
     current_ids = compute_currency(state).current_finding_ids
     for question in answers:
@@ -205,7 +212,8 @@ def record_f1098_statement_answers_durably(
 
 def _validate_answers(staged: list[dict[str, Any]], registry: Any, keys: dict[str, str],
                       answers: dict[str, str], evidence_ids: dict[str, str], *,
-                      allow_partial: bool = False, submission_id: str) -> None:
+                      allow_partial: bool = False, submission_id: str,
+                      state: Any | None = None) -> None:
     required_keys = {"payer", "statement", "tax-year"}
     if set(keys) != required_keys or not all(isinstance(v, str) and v for v in keys.values()):
         raise F1098RecordingRefused("statement identity must be payer, statement and tax-year")
@@ -236,7 +244,10 @@ def _validate_answers(staged: list[dict[str, Any]], registry: Any, keys: dict[st
         raise F1098RecordingRefused("submission identity has already been used")
     if any(item.get("content", {}).get("request_id") == submission_id for item in prior_evidence):
         raise F1098RecordingRefused("submission identity has already been used")
-    state = project(tuple(copy.deepcopy(row) for row in staged), registry)
+    # ``state`` is the caller's projection of this same ``staged`` list and
+    # registry. Reuse it. A missing one means this call has to fold.
+    if state is None:
+        state = project(tuple(copy.deepcopy(row) for row in staged), registry)
     for suffix, answer in answers.items():
         fact_type = declarations[question_by_suffix[suffix]]
         schema = fact_type["value_schema"]
@@ -271,8 +282,7 @@ def correct_f1098_statement_answer_durably(
     before = _read_for_save(log, expected_revision)
     suffix = _token(submission_id)
     staged = list(copy.deepcopy(before.acts))
-    _ensure_bundle(staged, registry, actor, at, suffix)
-    state = project(tuple(copy.deepcopy(row) for row in staged), registry)
+    state = _ensure_bundle(staged, registry, actor, at, suffix)
     _require_current_statement(state, statement_keys)
     current_ids = compute_currency(state).current_finding_ids
     question_id = f"tax.us.2025.f1098.{question}"
@@ -289,7 +299,7 @@ def correct_f1098_statement_answer_durably(
         if use is None or use[1].get("value") != PERSONAL_EXPENSE:
             raise F1098RecordingRefused("timing answers can be corrected only while personal-expense use is current")
     _validate_answers(staged, registry, statement_keys, {question: answer}, {question: evidence_id},
-                      allow_partial=True, submission_id=submission_id)
+                      allow_partial=True, submission_id=submission_id, state=state)
     finding_id = f"f1098.answer.finding.{suffix}.{_token(question)}"
     contribution_id = f"f1098.answer.contribution.{suffix}.{_token(question)}"
     _, _ = _stage_answer(staged, registry, keys=statement_keys, question=question, answer=answer, actor=actor, at=at,
@@ -310,11 +320,10 @@ def answer_f1098_statement_answer_durably(
     before = _read_for_save(log, expected_revision)
     suffix = _token(submission_id)
     staged = list(copy.deepcopy(before.acts))
-    _ensure_bundle(staged, registry, actor, at, suffix, bundle_version)
+    state = _ensure_bundle(staged, registry, actor, at, suffix, bundle_version)
     version = _adopted_bundle_version(staged) or BUNDLE_VERSION
     if question not in _questions_for_version(version) | TIMING_QUESTIONS:
         raise F1098RecordingRefused("question is not part of the selected Form 1098 answer set")
-    state = project(tuple(copy.deepcopy(row) for row in staged), registry)
     _require_current_statement(state, statement_keys)
     keys = tuple(sorted(statement_keys.items()))
     use_id = fact_id_for(f"tax.us.2025.f1098.{USE_QUESTION}", keys)
@@ -326,7 +335,7 @@ def answer_f1098_statement_answer_durably(
     if _current_finding(state, timing_id, current_ids) is not None:
         raise F1098RecordingRefused("timing answer is already current; use correction")
     _validate_answers(staged, registry, statement_keys, {question: answer}, {question: evidence_id},
-                      allow_partial=True, submission_id=submission_id)
+                      allow_partial=True, submission_id=submission_id, state=state)
     finding_id = f"f1098.answer.finding.{suffix}.{_token(question)}"
     contribution_id = f"f1098.answer.contribution.{suffix}.{_token(question)}"
     _, _ = _stage_answer(staged, registry, keys=statement_keys, question=question, answer=answer, actor=actor, at=at,

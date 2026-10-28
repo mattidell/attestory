@@ -147,7 +147,10 @@ def prepare_mortgage_borrowing_review(
         account_claims = [row for row in claims if row["keys"].get("borrowing") == borrowing["id"]]
         for claim in _QUESTIONS:
             if claim in {"report-inclusion", "payment-comparison"}:
-                pair_support = (current_mortgage_payment_comparison_support(contents.acts, registry, borrowing["id"])
+                # ``state`` is still the projection of ``contents.acts``. This
+                # review has not staged an act since that fold.
+                pair_support = (current_mortgage_payment_comparison_support(
+                                    contents.acts, registry, borrowing["id"], state=state)
                                 if claim == "payment-comparison" else None)
                 for report in reports:
                     report_keys = report["keys"]

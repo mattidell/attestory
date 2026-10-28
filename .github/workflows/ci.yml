@@ -1,30 +1,16 @@
 name: verify
 
-# The authoritative gate. Runs the same quartet the role charters use, so a
-# green check on a commit is a tamper-resistant fact roles can reference instead
-# of re-running (AGENTS.md "Test economy"). Required for merge via branch
-# protection on main.
+# Required merge check for main and main-ui. The check context is the job id
+# `verify`. Classic branch protection treats a skipped job as success, so a
+# failed or skipped dependency must not skip this job: it uses `if: always()`
+# and exits non-zero unless the cheap checks and every shard succeeded.
+# Drafts fail in the first step and do not start the suite. A cancelled run
+# is not a success. Push and ready_for_review are full-gate events.
 #
-# Both continuous lines are gated. `main-ui` was added 2026-07-30 after the
-# Legible Entry phase ran three milestones on it with no check ever firing:
-# every charter on that line required a green `verify` that could not run, so
-# "green" meant a self-report, which AGENTS.md says is not a substitute for the
-# check. Adding a branch here is not enough on its own -- branch protection must
-# also require the check on `main-ui`, or it reports without blocking.
-#
-# Two jobs. `quick` runs the cheap checks and the fast lane on every push,
-# drafts included, so a type, lint, data-boundary or fast-lane failure reports
-# in about a minute. `verify` is the full gate and the required check.
-#
-# On a draft PR, `verify` fails at its first step without running the suite. It
-# must fail rather than be skipped: a skipped job is a success, and a skipped
-# required check would let a head pass that never ran the suite. The
-# `ready_for_review` event runs `verify` in full on the head being marked
-# ready, and every later push to a ready PR runs it again.
-#
-# `verify` stays self-contained (cheap checks plus the full suite) rather than
-# depending on `quick`, for the same reason: a job skipped because a
-# dependency failed reports as skipped.
+# The suite is the same collection as one pytest process, packed into four
+# runners. No marker filter is added. quick still runs the fast lane on
+# drafts and on ready pulls.
+
 on:
   pull_request:
     branches: [main, main-ui]
@@ -75,15 +61,10 @@ jobs:
       - name: Fast lane (pytest -m "not live")
         run: python -m pytest -m "not live"
 
-  verify:
+  precheck:
+    if: ${{ github.event_name != 'pull_request' || github.event.pull_request.draft == false }}
     runs-on: ubuntu-latest
     steps:
-      - name: Draft PRs do not run the full gate
-        if: github.event_name == 'pull_request' && github.event.pull_request.draft
-        run: |
-          echo "Draft PR: the full suite has not run on this head. Mark the PR ready for review to run verify."
-          exit 1
-
       - uses: actions/checkout@v4
         with:
           fetch-depth: 0  # envelope_scan diffs against the PR base
@@ -116,14 +97,86 @@ jobs:
           fi
           python tools/envelope_scan.py --range "$BASE..HEAD"
 
-      - name: Tests (pytest -n auto)
-        run: pytest --junitxml=test-results/pytest.xml --durations=50
+  suite-shard:
+    needs: precheck
+    if: ${{ !cancelled() && needs.precheck.result == 'success' }}
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        shard: [0, 1, 2, 3]
+    steps:
+      - uses: actions/checkout@v4
 
-      - name: Publish per-test durations
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+          cache: pip
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      # Each shard is its own checkout. precheck's hooks are not in this clone.
+      - name: Install ADR-0031 envelope git hooks (a proper clone has these)
+        run: python3 tools/install_envelope_hooks.py
+
+      # Pin the historical test's ref to the event-specific baseline and
+      # compare its bytes before the suite; the test itself can skip.
+      - name: Prepare historical baseline before the suite
+        env:
+          CI_EVENT_NAME: ${{ github.event_name }}
+          CI_BASE_REF: ${{ github.base_ref }}
+          CI_REF_NAME: ${{ github.ref_name }}
+          CI_BASE_SHA: ${{ github.event.pull_request.base.sha }}
+          CI_BEFORE_SHA: ${{ github.event.before }}
+          CI_AFTER_SHA: ${{ github.event.after }}
+        run: python3 -m tools.ci_historical_ref prepare
+
+      - name: Run one full-suite shard
+        run: python3 -m tools.ci_gate run-shard --index ${{ matrix.shard }} --count 4 --durations docs/phases/engineering-health/milestones/test-cost-remaining-evidence/ci-node-durations.json --results-dir test-results
+
+      - name: Publish shard durations and CPU
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: pytest-durations
-          path: test-results/pytest.xml
-          if-no-files-found: ignore
+          name: pytest-durations-shard-${{ matrix.shard }}
+          path: test-results/
+          if-no-files-found: error
           retention-days: 30
+
+  verify:
+    needs: [precheck, suite-shard]
+    if: always()
+    runs-on: ubuntu-latest
+    steps:
+      - name: Draft PRs do not run the full gate
+        if: github.event_name == 'pull_request' && github.event.pull_request.draft
+        run: |
+          echo "Draft PR: the full suite has not run on this head. Mark the PR ready for review to run verify."
+          exit 1
+
+      - uses: actions/checkout@v4
+
+      - name: Require successful cheap checks and shards
+        env:
+          CI_NEEDS_JSON: ${{ toJSON(needs) }}
+          CI_EVENT_NAME: ${{ github.event_name }}
+          CI_DRAFT: ${{ github.event.pull_request.draft }}
+        run: python3 -m tools.ci_gate prerequisites --needs-json "$CI_NEEDS_JSON" --event-name "$CI_EVENT_NAME" --draft "$CI_DRAFT"
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+          cache: pip
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Download shard results
+        uses: actions/download-artifact@v4
+        with:
+          pattern: pytest-durations-shard-*
+          path: ci-shard-artifacts
+
+      - name: Prove each collected test ran once
+        run: python3 -m tools.ci_gate coverage --artifacts ci-shard-artifacts --shard-count 4
