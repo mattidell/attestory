@@ -149,6 +149,22 @@ def domain_companion_value_domains() -> dict[str, frozenset[object]]:
     }
 
 
+def domain_package_companion_declarations() -> dict[tuple[str, str], dict[str, Any]]:
+    """Per-package companion declarations, keyed by adopted (package id, version).
+
+    ADR-0082. A package listed here replaces the global presence pairs and value
+    domains above for the entries it names, and only under that package; a
+    package not listed here (every package published before this mechanism)
+    is admitted and read under the global maps exactly as before. An entry is
+    ``{"presence_pairs": {subordinate: companion | [companions] | None},
+    "value_domains": {companion_type: frozenset | None}}``; ``None`` removes
+    the global entry. A published package is immutable, so its (id, version)
+    is a stable key; a successor package adds its own entry in the same
+    change that publishes it.
+    """
+    return {}
+
+
 def domain_companion_equality_pairs() -> dict[str, str]:
     """Same-statement numeric equality witnesses for bounded tax families."""
     return {
@@ -273,6 +289,11 @@ def install_domain_companion_presence(registry: SchemaRegistry) -> SchemaRegistr
         registry.companion_value_domains = {}
         domains = registry.companion_value_domains
     domains.update(domain_companion_value_domains())
+    declarations = getattr(registry, "package_companion_declarations", None)
+    if declarations is None:
+        registry.package_companion_declarations = {}
+        declarations = registry.package_companion_declarations
+    declarations.update(domain_package_companion_declarations())
     install_domain_migration_resolution_policies(registry)
     install_domain_scoped_supersession(registry)
     return registry
