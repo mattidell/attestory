@@ -1,0 +1,15 @@
+{
+  "format": 1,
+  "event_id": "20261028T050722Z-presentation-model-afd4df",
+  "recorded_at": "2026-10-28T05:07:22Z",
+  "milestone_key": "explanation-sharing",
+  "milestone_branch": "milestone/explanation-sharing-2025",
+  "milestone_commit": "dbad111534ad017973c74a99f328395f003f6724",
+  "schema_family": "presentation-model",
+  "schema_path": "packages/schemas/derivation/presentation-model.v2.schema.json",
+  "schema_version": "v2",
+  "action": "propose",
+  "change_kind": "additive",
+  "replaces_event": null,
+  "summary": "Flat successor with shared explanation graph and section roots; legacy internal v1 saved artifacts remain unchanged and readable."
+}
