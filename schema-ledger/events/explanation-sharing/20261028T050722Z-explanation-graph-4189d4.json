@@ -1,0 +1,15 @@
+{
+  "format": 1,
+  "event_id": "20261028T050722Z-explanation-graph-4189d4",
+  "recorded_at": "2026-10-28T05:07:22Z",
+  "milestone_key": "explanation-sharing",
+  "milestone_branch": "milestone/explanation-sharing-2025",
+  "milestone_commit": "dbad111534ad017973c74a99f328395f003f6724",
+  "schema_family": "explanation-graph",
+  "schema_path": "packages/schemas/derivation/explanation-graph.v1.schema.json",
+  "schema_version": "v1",
+  "action": "propose",
+  "change_kind": "additive",
+  "replaces_event": null,
+  "summary": "Run-local canonical explanation nodes and role-bearing pin edges; preserve references and root context."
+}
