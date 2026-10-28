@@ -23,9 +23,13 @@ from typing import IO, Any, Sequence
 
 from packages.kernel.findings import (
     FindingModelError,
+    FindingState,
+    _CurrentLatticeHolder,
+    _apply_project_act,
     apply_act,
     declares_new_write_invariants,
     enforce_new_write_invariants,
+    initial_state,
     member_restoration_is_on_removal_lineage,
     new_write_invariants_may_apply,
     project,
@@ -47,6 +51,32 @@ def _enforce_second_genesis_rule(finding_state: Any, payload: dict[str, Any]) ->
     for key in finding_state.horizon_state.current_by_chain:
         if key[0] == family_id and key[2] == scope_tuple:
             raise HorizonModelError("active chain already exists in scope")
+
+
+class _SaveFold:
+    """One save's fold of the committed prefix plus the acts staged before it.
+
+    ``through`` applies only acts not yet folded, using ``project``'s applier
+    and one lattice holder. Callers ask for a projection only when the act
+    being admitted is checked. The sequence must extend the one already
+    applied, so an unchecked act that fails during folding is still refused
+    at that later request and not before it.
+    """
+
+    def __init__(self, registry: SchemaRegistry) -> None:
+        self._registry = registry
+        self._state = initial_state()
+        self._holder = _CurrentLatticeHolder()
+        self._count = 0
+
+    def through(self, acts: Sequence[dict[str, Any]]) -> FindingState:
+        assert self._count <= len(acts)
+        while self._count < len(acts):
+            self._state = _apply_project_act(
+                self._state, acts[self._count], self._registry, self._holder
+            )
+            self._count += 1
+        return self._state
 
 
 
@@ -218,22 +248,8 @@ class ActLog:
             )
         if any(existing["act_id"] == act["act_id"] for existing in contents.acts):
             raise ActLogError(f"duplicate act_id: {act['act_id']}")
-        proj: Any = None
-        if new_write_invariants_may_apply(act, self._registry):
-            proj = project(contents.acts, self._registry)
-            enforce_new_write_invariants(proj, act, self._registry)
-        if act["kind"] in LIFECYCLE_ACT_KINDS:
-            if proj is None:
-                proj = project(contents.acts, self._registry)
-            if act["kind"] == "horizon-genesis":
-                _enforce_second_genesis_rule(proj, act["payload"])
-            if act["kind"] == "member-transition" and not member_restoration_is_on_removal_lineage(
-                proj, act["payload"]
-            ):
-                raise FindingModelError(
-                    "restored member transition must descend from its recorded removal horizon"
-                )
-            apply_act(proj, act, self._registry)
+        # One act, one projection. No fold is kept for a later call.
+        self._check_act_against_prefix(contents.acts, act, None)
         line = json.dumps(act, sort_keys=True, separators=(",", ":"))
         self._path.parent.mkdir(parents=True, exist_ok=True)
         with self._path.open("ab") as handle:
@@ -248,6 +264,10 @@ class ActLog:
         Every act is validated, its revision and identity checked, and the
         ADR 0077 Part 5 new-write step run against the acts staged before it,
         before anything is written. A refusal of any act writes nothing.
+        Inside this call, a checked act reuses the prefix already folded for
+        an earlier checked act. The fold is not kept after the call returns.
+        An unchecked act is folded only when a later checked act in this call
+        asks for that prefix.
 
         The write is the committed log plus the new lines in a pending file
         beside it, fsynced, then renamed over the log. An interruption before
@@ -278,6 +298,7 @@ class ActLog:
             )
         staged = list(contents.acts)
         known = {existing["act_id"] for existing in staged}
+        fold = _SaveFold(self._registry)
         for act in acts:
             if act["committed_against"] != len(staged):
                 raise ActLogError(
@@ -286,22 +307,7 @@ class ActLog:
                 )
             if act["act_id"] in known:
                 raise ActLogError(f"duplicate act_id: {act['act_id']}")
-            proj = None
-            if new_write_invariants_may_apply(act, self._registry):
-                proj = project(tuple(staged), self._registry)
-                enforce_new_write_invariants(proj, act, self._registry)
-            if act["kind"] in LIFECYCLE_ACT_KINDS:
-                if proj is None:
-                    proj = project(tuple(staged), self._registry)
-                if act["kind"] == "horizon-genesis":
-                    _enforce_second_genesis_rule(proj, act["payload"])
-                if act["kind"] == "member-transition" and not member_restoration_is_on_removal_lineage(
-                    proj, act["payload"]
-                ):
-                    raise FindingModelError(
-                        "restored member transition must descend from its recorded removal horizon"
-                    )
-                apply_act(proj, act, self._registry)
+            self._check_act_against_prefix(staged, act, fold)
             known.add(act["act_id"])
             staged.append(act)
         self._path.parent.mkdir(parents=True, exist_ok=True)
@@ -322,6 +328,43 @@ class ActLog:
         os.replace(pending, self._path)
         _fsync_directory(self._path.parent)
         return current + len(acts)
+
+    def _check_act_against_prefix(
+        self,
+        prefix: Sequence[dict[str, Any]],
+        act: dict[str, Any],
+        fold: _SaveFold | None,
+    ) -> None:
+        """Run the new-write and lifecycle checks for ``act`` against ``prefix``.
+
+        ``fold`` is this batch's incremental projection. ``None`` projects the
+        prefix from scratch, which is what a single ``append`` does.
+        """
+        proj: FindingState | None = None
+        if new_write_invariants_may_apply(act, self._registry):
+            proj = self._projection(prefix, fold)
+            enforce_new_write_invariants(proj, act, self._registry)
+        if act["kind"] in LIFECYCLE_ACT_KINDS:
+            if proj is None:
+                proj = self._projection(prefix, fold)
+            if act["kind"] == "horizon-genesis":
+                _enforce_second_genesis_rule(proj, act["payload"])
+            if act["kind"] == "member-transition" and not member_restoration_is_on_removal_lineage(
+                proj, act["payload"]
+            ):
+                raise FindingModelError(
+                    "restored member transition must descend from its recorded removal horizon"
+                )
+            apply_act(proj, act, self._registry)
+
+    def _projection(
+        self,
+        prefix: Sequence[dict[str, Any]],
+        fold: _SaveFold | None,
+    ) -> FindingState:
+        if fold is None:
+            return project(tuple(prefix), self._registry)
+        return fold.through(prefix)
 
     def _write_pending_line(self, handle: IO[bytes], line: bytes) -> None:
         """Write one newline-terminated act line of a batch to its pending file."""
