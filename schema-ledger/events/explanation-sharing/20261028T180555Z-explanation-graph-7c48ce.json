@@ -1,0 +1,15 @@
+{
+  "format": 1,
+  "event_id": "20261028T180555Z-explanation-graph-7c48ce",
+  "recorded_at": "2026-10-28T18:05:55Z",
+  "milestone_key": "explanation-sharing",
+  "milestone_branch": "milestone/explanation-sharing-2025",
+  "milestone_commit": "930f9b9a17eb27adaa5ae9e539e193db58e63097",
+  "schema_family": "explanation-graph",
+  "schema_path": "packages/schemas/derivation/explanation-graph.v1.schema.json",
+  "schema_version": "v1",
+  "action": "publish",
+  "change_kind": "additive",
+  "replaces_event": null,
+  "summary": "Publish the exact additive schema in the curated shared explanation implementation; preserve prior schema bytes."
+}
