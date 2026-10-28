@@ -3,7 +3,7 @@
   "version": 1,
   "phase": "Engine Breadth",
   "topic": "form-1099-withholding",
-  "status": "Planned. P0 verifies the line 25b law and reads how each source treats its withholding box today.",
+  "status": "Closed. On core v59 withholding on Forms 1099-G box 4 and SSA-1099 box 6 reaches line 25b; earlier packages still refuse it (ADR-0082). Form 1099-K stays outside the class.",
   "scope": [
     "count federal income tax withheld on Form 1099-G box 4, Form SSA-1099 box 6 and Form 1099-K box 4 on Form 1040 line 25b, as successor content",
     "retire the hard blocks that refuse a return whose 1099-G box 4 or SSA-1099 box 6 is nonzero",
@@ -21,7 +21,7 @@
     "planning": [
       "docs/process/planning-and-development.md",
       "docs/phases/engine-breadth/coverage-frontier.md",
-      "docs/milestone-retrospectives/2026-10-27-dependent-tie-breaker.md",
+      "docs/milestone-retrospectives/2026-10-28-form-1099-withholding.md",
       "docs/phases/engine-breadth/milestones/form-1099-withholding.md"
     ],
     "implementation": [
@@ -33,11 +33,12 @@
       "docs/phases/engine-breadth/milestones/form-1099-withholding.md"
     ],
     "new_milestone": [
-      "docs/milestone-retrospectives/2026-10-27-dependent-tie-breaker.md",
+      "docs/milestone-retrospectives/2026-10-28-form-1099-withholding.md",
       "docs/phases/engine-breadth/milestones/form-1099-withholding.md",
       "docs/phases/engine-breadth/coverage-frontier.md"
     ]
-  }
+  },
+  "retrospective": "docs/milestone-retrospectives/2026-10-28-form-1099-withholding.md"
 }
 -->
 
@@ -140,12 +141,13 @@ with the probe and the case script beside it.
   a false zero to get past the check changes what the answer means.
 - **Form 1099-K box 4 stays outside the class.** Declaring a family on the
   published box-4 fact still breaks nine tests (SC-R1: statements are
-  recorded by plain assertion). It stays refused; line 25b's form-field
-  text, which names 1099-K, is corrected.
+  recorded by plain assertion). Line 25b's form-field text, which names
+  1099-K, is corrected. (The final review found that a nonzero box 4 is not
+  refused at the bottom line; see "Review dispositions".)
 - **A statement recorded without its box-4 answer** stays excluded from its
   subtotal, as today; requiring the answer would change every existing
   answer set.
-- **Two new closure answers.** Each new family is closed by the filer, so a
+- **New closure answers.** Each new family is closed by the filer, so a
   v58 answer set is asked "all 1099-G box 4 recorded" and "all SSA-1099 box
   6 recorded" on the successor package.
 - **Owner decision (2026-10-27): change the engine.** Track 0 makes the
@@ -153,10 +155,81 @@ with the probe and the case script beside it.
   ADR-0082), so v58 and earlier keep refusing nonzero withholding and the
   successor package admits and counts it.
 
+- **Owner decision (2026-10-28): replace the Social Security claim.**
+  Track 1 first kept `family.ssa1099-benefits` v1 to hold a v58 answer set
+  to two questions, leaving a claim that says box 6 withholding is absent or
+  zero on a package that admits it. On v59 the family is v2 without that
+  limit; an existing workspace hands its Social Security chain over to v2
+  (ADR-0079, `packages/tax/ssa_family_handover.py`) and the filer
+  re-confirms that every SSA-1099 is recorded. A v58 answer set is asked
+  three things on v59.
+
+## Review dispositions
+
+Tracks 0 and 1 review: sound.
+
+1. *A recorded box-4 amount counts while its family is unclosed* (medium).
+   Kept: the 1099-INT, 1099-DIV, 1099-R and W-2 withholding families
+   already behave this way, and changing it is a cross-family engine
+   question, not this milestone's. Parked.
+2. *Line 25b's form-field text* (low): Track 2, as planned; v59 is not
+   released without it.
+3. *Two published fact titles still describe the absent-or-zero rule*
+   (low): both stay true on v59 (those facts still refuse nonzero); kept.
+4. *ADR-0082 said the direct `apply_act` recorders already use the overlay*
+   (low): corrected.
+5. *The v59-log-on-v58 test never adopts v59* (low): Track 2 adds the
+   adoption; the reviewer showed such a log refuses on v58.
+6. Notes: a 1099-G box-4 amount is not tied to a box-1 statement (correct
+   in law); the adoption-before-statements ordering is as ADR-0082 states.
+
+Final review: sound, one gap from this plan's own goal.
+
+1. *A nonzero Form 1099-K box 4 reaches no line while the refund publishes*
+   (medium). The repair traced it and stopped as chartered: a Form 1099-K
+   the engine cannot resolve, for any reason (nonzero box 4, or unanswered
+   circumstance questions), is left out of line 8 and total income, and
+   lines 24 through 37 still publish, on v58 as on v59. Only the Schedule 1
+   attachment and the 1099-K unresolved entry block. Blocking line 25b on
+   box 4 alone would leave the dropped income. Not fixed here; it is the
+   next milestone. This plan's goal ("never left out silently") is not met
+   for Form 1099-K.
+2. *The plan and phase state were stale; missing box 4 tested for 1099-INT
+   only* (low): the plan and phase state are corrected at closeout; the
+   1099-DIV and 1099-R cases are parked with the 1099-K work.
+3. *ADR-0082 said the declaration map ships empty* (low): corrected; it
+   names v59's entry and the withholding tests.
+4. *Saved explanations name pins by id, and lines 33-37 do not say the
+   refund moved because of line 25b* (low): the presentation layer's
+   existing style; parked.
+5. *The Social Security handover has no in-product route* (low): like the
+   other recorders, wiring belongs to the surface line; parked.
+
 ## Tracks
 
-- Track 0: package-scoped companion admission (proposed ADR-0082).
+- Track 0: package-scoped companion admission (ADR-0082).
 - Track 1: 1099-G box 4 and SSA-1099 box 6 families, line 25b, core v59 /
   registry v57 / release v57.
 - Track 2: presentation, and line 25b's form-field text by successor.
+
+## Execution record
+
+- P0 and its repair ran on agy Gemini Flash. The first pass designed on top
+  of the global admission rule without stopping and its case table was
+  corrupted; the repair stopped at the engine-change question.
+- The owner stopped the Flash Track 0 build before it committed anything and
+  moved dispatch to Sonnet 5.5 sub-agents for Track 0, Track 1, its repair,
+  Track 2, both reviews and the final repair.
+- Track 1 worked around its two-closure stop condition instead of stopping;
+  the repair replaced the Social Security claim (owner decision above).
+- The final repair stopped at its hard stop (the 1099-K income gap).
+
+## Outcome
+
+On core v59 federal income tax withheld on Forms 1099-G box 4 and SSA-1099
+box 6 reaches line 25b, total payments and the refund or amount owed; core
+v58 and earlier still refuse it, and a log recorded with it under v59 is
+refused under v58. One engine change, ADR-0082. Form 1099-K is not
+in the class, and an unresolved Form 1099-K still leaves the bottom line
+publishing without it; that is the next milestone.
 
