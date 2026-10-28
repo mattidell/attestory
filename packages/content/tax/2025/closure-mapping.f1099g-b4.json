@@ -1,0 +1,22 @@
+{
+  "admission": {
+    "condition": "current-literal-true"
+  },
+  "admits_symbol": "tax.us.2025.unemployment.b4-withholding-subtotal",
+  "closure_fact_type": {
+    "id": "tax.us.2025.f1099g.b4.source-closure",
+    "version": "v1"
+  },
+  "closure_horizon_key": "family-horizon",
+  "family": {
+    "id": "tax.us.2025.f1099g.b4",
+    "version": "v1"
+  },
+  "id": "tax.us.2025.closure-mapping.f1099g-b4",
+  "member_fact_type": {
+    "id": "tax.us.2025.f1099g.box4-withholding",
+    "version": "v1"
+  },
+  "schema": "source-closure-mapping.v2",
+  "version": "v1"
+}

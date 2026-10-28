@@ -2,7 +2,10 @@
 
 Admits only the ordinary SSA-1099 statement class: box 3/4/5 reconciled;
 authoritative taxpayer/spouse beneficiary; ordinary statement-kind witness;
-explicit false lump-sum-election witness; box-6 withholding absent or zero.
+explicit false lump-sum-election witness. Box-6 voluntary withholding is
+not part of this class: core v58 and earlier require it absent or zero as a
+companion, and core v59 records it in its own family
+(``tax.us.2025.ssa1099.b6``).
 Box 5 nonnegativity is enforced by the admitted fact type's own value schema
 (``tax.us.2025.ssa1099.box5-net-benefits``'s ``"minimum": 0``
 in ``ssa1099.bundle.v2.json``), not by this module: this module's

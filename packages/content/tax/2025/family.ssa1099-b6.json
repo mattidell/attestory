@@ -1,0 +1,16 @@
+{
+  "authorizes_subtotal": "tax.us.2025.ssa1099.b6-withholding-subtotal",
+  "closure_claim": "Every voluntary federal income tax withheld amount reported in box 6 of a Form SSA-1099 furnished to the taxpayer or spouse for tax year 2025 is recorded as a statement item as of the keyed horizon. This claim covers Form SSA-1099 box 6 only: it says nothing about box 5 net benefits, repayments, or Social Security worksheet completeness. Closed with members authorizes the sum of current members; closed-empty authorizes subtotal 0.",
+  "id": "tax.us.2025.ssa1099.b6",
+  "member_predicate": {
+    "fact_type": "tax.us.2025.ssa1099.box6-voluntary-withholding"
+  },
+  "schema": "source-family.v1",
+  "scope": {
+    "family": "individual-income-tax",
+    "jurisdiction": "US-federal",
+    "tax_year": 2025
+  },
+  "title": "Form SSA-1099 box 6 statement items, tax year 2025",
+  "version": "v1"
+}

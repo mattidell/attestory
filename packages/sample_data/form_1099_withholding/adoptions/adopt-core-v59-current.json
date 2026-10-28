@@ -1,0 +1,28 @@
+{
+  "act_id": "demo.act.adopt.core.v59",
+  "actor": "demo.user.filer-1",
+  "at": "2026-10-27T12:00:00Z",
+  "committed_against": 0,
+  "kind": "package-adoption",
+  "payload": {
+    "audit": {
+      "note": "synthetic successor adoption of core calculations v59 (federal tax withheld on Forms 1099-G and SSA-1099, 2025); non-authoritative"
+    },
+    "package": {
+      "checksum": "ead4ac48b1aa60d2d7b39e1bc302edaf1dcb9aa05aa84cea86106020bc6278bf",
+      "id": "tax.us.2025.package.core-calculations",
+      "version": "v59"
+    },
+    "release": {
+      "checksum": "3e28027e069cc717e06d4d89ef09341a9e276a63501d1673283ce6a0fd521f00",
+      "id": "demo.release.sli-worksheet-integration.2025",
+      "version": "v57"
+    },
+    "revision": 59,
+    "scope": {
+      "jurisdiction": "us",
+      "year": "2025"
+    }
+  },
+  "schema": "act.v1"
+}

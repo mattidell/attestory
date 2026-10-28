@@ -161,8 +161,36 @@ def domain_package_companion_declarations() -> dict[tuple[str, str], dict[str, A
     the global entry. A published package is immutable, so its (id, version)
     is a stable key; a successor package adds its own entry in the same
     change that publishes it.
+
+    Core calculations v59 (Form 1099 withholding): earlier packages read
+    neither Form 1099-G box 4 nor Form SSA-1099 box 6, so each is an
+    absent-or-zero authority witness there and a nonzero amount is refused.
+    v59 reads both amounts (its own families, summed on Form 1040 line 25b),
+    so it removes the 1099-G box-1 pair to the box-4 authority companion,
+    drops the box-6 companion from the SSA-1099 box-5 list, and removes both
+    companions' absent-or-zero domains. Every other pair and domain stays as
+    the global maps declare it. A log recorded under v59 with withholding and
+    run under an earlier package is refused with the companion named (ADR-0082
+    decision 4), never computed without the withholding.
     """
-    return {}
+    return {
+        ("tax.us.2025.package.core-calculations", "v59"): {
+            "presence_pairs": {
+                "tax.us.2025.f1099g.box1-unemployment": None,
+                "tax.us.2025.ssa1099.box5-net-benefits": [
+                    "tax.us.2025.ssa1099.box3-benefits-paid",
+                    "tax.us.2025.ssa1099.box4-repayment",
+                    "tax.us.2025.ssa1099.recipient",
+                    "tax.us.2025.ssa1099.statement-kind",
+                    "tax.us.2025.ssa1099.lump-sum-election",
+                ],
+            },
+            "value_domains": {
+                "tax.us.2025.f1099g.box4-federal-withholding-authority": None,
+                "tax.us.2025.ssa1099.box6-withholding": None,
+            },
+        },
+    }
 
 
 def domain_companion_equality_pairs() -> dict[str, str]:
