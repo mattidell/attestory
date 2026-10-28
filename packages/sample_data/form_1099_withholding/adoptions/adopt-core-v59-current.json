@@ -9,12 +9,12 @@
       "note": "synthetic successor adoption of core calculations v59 (federal tax withheld on Forms 1099-G and SSA-1099, 2025); non-authoritative"
     },
     "package": {
-      "checksum": "ead4ac48b1aa60d2d7b39e1bc302edaf1dcb9aa05aa84cea86106020bc6278bf",
+      "checksum": "60fd225a7017abb248fad79d887e4e9ee1edf62ccbd47d85696294e2192af6fb",
       "id": "tax.us.2025.package.core-calculations",
       "version": "v59"
     },
     "release": {
-      "checksum": "3e28027e069cc717e06d4d89ef09341a9e276a63501d1673283ce6a0fd521f00",
+      "checksum": "755fd89b0a5943234a97ea665a777d7874233d65dc16ddcb2e62b5128b684b2d",
       "id": "demo.release.sli-worksheet-integration.2025",
       "version": "v57"
     },

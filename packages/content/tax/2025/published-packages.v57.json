@@ -1551,6 +1551,11 @@
       "version": "v1"
     },
     {
+      "checksum": "3bcc0ec9bff145750687f83f78c7e33ccaa3966bda6e6524531aae9d65c9d0ec",
+      "id": "tax.us.2025.form1040.line-25b",
+      "version": "v2"
+    },
+    {
       "checksum": "b264088822db54e2f8cebc696c4580e79bf4d42952a7ee0aca1ec968feb95282",
       "id": "tax.us.2025.form1040.line-25c",
       "version": "v1"
@@ -4968,7 +4973,7 @@
       "checksum": "7f627cbb831c0eff4b1319352f154c04f02c4596e15788902a3fe8d49164fbe0"
     },
     {
-      "checksum": "ead4ac48b1aa60d2d7b39e1bc302edaf1dcb9aa05aa84cea86106020bc6278bf",
+      "checksum": "60fd225a7017abb248fad79d887e4e9ee1edf62ccbd47d85696294e2192af6fb",
       "id": "tax.us.2025.package.core-calculations",
       "version": "v59"
     },

@@ -2747,7 +2747,7 @@
       "id": "tax.us.2025.form1040.line-25b",
       "role": "form-field",
       "schema": "form-field.v3",
-      "version": "v1"
+      "version": "v2"
     },
     {
       "id": "tax.us.2025.form1040.line-25c",
@@ -5816,7 +5816,7 @@
       "version": "v2"
     }
   ],
-  "package_checksum": "ead4ac48b1aa60d2d7b39e1bc302edaf1dcb9aa05aa84cea86106020bc6278bf",
+  "package_checksum": "60fd225a7017abb248fad79d887e4e9ee1edf62ccbd47d85696294e2192af6fb",
   "schema": "artifact-package.v36",
   "scope": {
     "family": "individual-income-tax",

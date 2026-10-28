@@ -1,0 +1,46 @@
+{
+  "binds_symbol": "tax.us.2025.payments.line25b",
+  "citation": {
+    "id": "tax.us.2025.citation.form1040.line-25b",
+    "version": "v1"
+  },
+  "description": "Form 1040 line 25b: federal income tax withheld from Form(s) 1099 (Forms 1099-INT, 1099-DIV and 1099-R box 4, Form 1099-G box 4 and Form SSA-1099 box 6).",
+  "dispositions": {
+    "published_value": {
+      "explain": "Form 1040 line 25b equals the sum of the five 1099-document withholding subtotals: Forms 1099-INT, 1099-DIV and 1099-R box 4, Form 1099-G box 4 and Form SSA-1099 box 6.",
+      "render": "{value}"
+    },
+    "computed_zero": {
+      "explain": "Form 1040 line 25b publishes a computed zero.",
+      "render": "0"
+    },
+    "closure_backed_zero": {
+      "explain": "Form 1040 line 25b publishes zero through an honest closed-empty source family.",
+      "render": "0"
+    },
+    "blocked": {
+      "codes": [
+        "DEPENDENCY_ABSENT",
+        "DEPENDENCY_INVALID",
+        "SOURCE_SET_UNCLOSED"
+      ],
+      "explain": "Form 1040 line 25b is blocked because an input it needs is missing or not yet closed.",
+      "render": ""
+    },
+    "guard_inapplicable": {
+      "explain": "No value is published for line 25b because a scope or eligibility component is not satisfied.",
+      "render": ""
+    }
+  },
+  "form": {
+    "authority": "IRS",
+    "form_id": "1040",
+    "jurisdiction": "US-federal",
+    "tax_year": 2025
+  },
+  "id": "tax.us.2025.form1040.line-25b",
+  "label": "Federal income tax withheld from Form(s) 1099",
+  "line": "25b",
+  "schema": "form-field.v3",
+  "version": "v2"
+}

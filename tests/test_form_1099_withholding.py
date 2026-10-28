@@ -629,6 +629,32 @@ class EarlierPackagesStillRefuse(unittest.TestCase):
             _run(acts, "demo.fw.v58.ssa.nonzero", core="v58")
         self.assertIn(SSA_B6_WITNESS, str(raised.exception))
 
+    def test_a_log_that_adopts_v59_is_refused_on_v58_by_the_registry_check(self) -> None:
+        for name, acts in (
+            ("g", _unemployment_return(withheld=600.0)),
+            ("ssa", _social_security_return(withheld=800.0)),
+        ):
+            finished = _recorded_handover(_finished(acts, f"demo.fw.adopted.{name}", core="v59"), reconfirm=True)
+            adoptions = [a for a in finished if a["kind"] == "package-adoption"]
+            self.assertEqual([cast(Mapping[str, Any], cast(Mapping[str, Any], a["payload"])["package"])["version"] for a in adoptions], ["v59"])
+            with TemporaryDirectory() as tmp:
+                outcome = live_coordinate_run(
+                    WorkspaceCapability(Path(tmp) / "L"),
+                    repo_root=ROOT,
+                    authoritative_acts=finished,
+                    workspace_revision=len(finished),
+                    run_scope={"jurisdiction": "us", "year": YEAR},
+                    scope_user=USER,
+                    request={"schema": "run-request.v1"},
+                    run_id=f"demo.fw.adopted.{name}.on.v58",
+                    governance_pins=[],
+                    surface=SURFACE_V58,
+                    output_name="out.json",
+                )
+            self.assertIsNotNone(outcome.refusal)
+            assert outcome.refusal is not None
+            self.assertEqual(outcome.refusal.reason, "REGISTRY_CHECKSUM_MISMATCH")
+
     def test_a_log_recorded_on_v59_with_1099g_withholding_is_refused_on_v58_naming_the_companion(self) -> None:
         acts = _unemployment_return(withheld=600.0)
         self.assertEqual(_run(acts, "demo.fw.v59.ok", core="v59").value(LINE25B), 600)
