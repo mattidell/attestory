@@ -1,13 +1,13 @@
 <!-- foreman-context-v1
 {
   "version": 1,
-  "phase": "Engineering Health",
-  "topic": "test-cost-remaining",
-  "active_plan": "docs/phases/engineering-health/milestones/test-cost-remaining.md",
+  "phase": "Engine Breadth",
+  "topic": "form-1099-withholding",
+  "active_plan": "docs/phases/engine-breadth/milestones/form-1099-withholding.md",
   "milestone_state": "closed",
-  "status": "Mortgage projection reuse, incremental save folding and sharded CI are complete with the documented historical-baseline limitation.",
-  "current_role": "Foreman — select next milestone",
-  "current_prompt": "docs/phases/engineering-health/engineering-health-roadmap.md"
+  "status": "Closed. On core v59 withholding on Forms 1099-G box 4 and SSA-1099 box 6 reaches line 25b; earlier packages still refuse it (ADR-0082). Form 1099-K stays outside the class.",
+  "current_role": "Foreman \u2014 select next milestone",
+  "current_prompt": "docs/phases/engine-breadth/coverage-frontier.md"
 }
 -->
 
@@ -15,21 +15,23 @@
 
 ## Current direction
 
+The next milestone is unselected. The leading candidate: the
+form-1099-withholding final review found that an unresolved Form 1099-K is
+left out of line 8 and total income while the bottom line publishes, on v58
+as on v59. ADR-0082 (package-scoped companion admission) and ADR-0081
+(per-subject conditional dependencies) are accepted.
+
 Engineering Health's [Remaining Test and CI Cost](phases/engineering-health/milestones/test-cost-remaining.md)
-is closed
+is closed and merged
 ([retrospective](milestone-retrospectives/2026-10-28-test-cost-remaining.md)).
 Mortgage recording and review reuse one projection inside the operation. A
-checked save folds its prefix incrementally and refuses as before. Full
-verify runs as four shards under the same `verify` job. Its historical baseline
-guard fails closed; at main-ui convergence it refuses restoring a divergent
-historical file to main's bytes without an independent prior-main witness.
-The profiled mortgage case fell from 123.89s to 98.03s of CPU. The profiled
-form-save folds are a one-case result. PR #226's exact-head `verify` is the
-merge gate. The next milestone is unselected.
-
-The dependent-tie-breaker milestone has merged to main and is included here.
-
-ADR-0081 (per-subject conditional dependencies) is accepted.
+checked save folds its prefix incrementally and refuses as before; the fold
+follows the package in force (ADR-0082). Full verify runs as four shards under
+the same `verify` job. Its historical baseline guard fails closed; at main-ui
+convergence it refuses restoring a divergent historical file to main's bytes
+without an independent prior-main witness. The profiled mortgage case fell
+from 123.89s to 98.03s of CPU. The profiled form-save folds are a one-case
+result.
 
 ## Latest Tax Circumstance Breadth milestone
 
@@ -59,6 +61,18 @@ endpoint remains met; another vertical is not automatically selected.
 
 ## Latest milestone
 
+**Federal Tax Withheld on Forms 1099 is closed**
+([plan](phases/engine-breadth/milestones/form-1099-withholding.md),
+[retrospective](milestone-retrospectives/2026-10-28-form-1099-withholding.md)).
+On core v59 federal income tax withheld on Forms 1099-G box 4 and SSA-1099
+box 6 reaches line 25b and the refund or amount owed. Companion admission
+now belongs to the package being run (ADR-0082), so v58 and earlier
+still refuse that withholding. An existing return is asked two new closures
+and, after its Social Security family is handed over to v2, to re-confirm
+its SSA-1099s.
+
+## Previous milestone
+
 **A Child More Than One Person Could Claim is closed**
 ([plan](phases/engine-breadth/milestones/dependent-tie-breaker.md),
 [retrospective](milestone-retrospectives/2026-10-27-dependent-tie-breaker.md)).
@@ -66,15 +80,6 @@ On core v58 a per-child tie-breaker decides whether a contested child counts
 for the earned income credit, child tax credit and credit for other
 dependents; Form 8332 releases, more than one other claimant and unsettled
 equal-AGI ties are outside the class by answer.
-
-## Previous milestone
-
-**The 2025 Credit for Other Dependents is closed**
-([plan](phases/engine-breadth/milestones/other-dependents-credit.md),
-[retrospective](milestone-retrospectives/2026-10-25-other-dependents-credit.md)).
-On core v56 Schedule 8812 is complete for the class: $500 for each child
-marked for this credit and each qualifying relative, combined with the child
-tax credit. The next milestone is unselected.
 
 ## Earlier return-calculation milestone (child tax credit)
 
@@ -247,8 +252,16 @@ loss). **Mortgage Interest and What the Loan Paid For** closed 2026-10-15
 - Browser observation of the mortgage and sale pages.
 - Multiple Form 1098 support, interest allocation above the debt limit,
   second-home extension, mixed-use amounts, refinancing and the mortgage credit.
-- Form 1099-K, 1099-G and SSA-1099 withholding on line 25b; a 1099-INT,
-  1099-DIV or 1099-R statement recorded without its box 4 answer; Form W-2G.
+- An unresolved Form 1099-K (nonzero box 4, or unanswered circumstance
+  questions) is left out of line 8 and total income while lines 24-37
+  publish, on v58 and v59. Form 1099-K box 4 on line 25b (SC-R1); routing the
+  1098, 1099-K and nominee recorders through the package overlay first
+  (ADR-0082 production condition 2).
+- A recorded withholding amount counts while its family is unclosed, in
+  every withholding family; missing-box-4 tests for 1099-DIV and 1099-R;
+  Form W-2G (line 25c); package companion declarations in package content;
+  a generator for the core package, registry and release chain; an
+  in-product route for the Social Security handover.
 - Form 8332 and decree releases, more than one other claimant and unsettled
   equal-AGI ties (outside the class by answer); asking the tie-breaker only
   of a child some credit can count, which needs derived per-subject results

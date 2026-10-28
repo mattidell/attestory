@@ -392,6 +392,14 @@ all three child credits. Resolve the tie-breaker rules from answers about the
 other person, for the earned income credit, child tax credit and credit for
 other dependents together.
 
+## Bounded return — Federal Tax Withheld on Forms 1099 (2025)
+
+[Plan](milestones/form-1099-withholding.md).
+
+Withholding on unemployment (Form 1099-G box 4) and Social Security (Form
+SSA-1099 box 6) refused the return. Count it on line 25b on a successor
+package, while earlier packages keep refusing it.
+
 ## Why line 7a comes before Schedule D
 
 The 2025 Form 1040 instructions permit eligible capital-gain distributions to

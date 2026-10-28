@@ -149,6 +149,50 @@ def domain_companion_value_domains() -> dict[str, frozenset[object]]:
     }
 
 
+def domain_package_companion_declarations() -> dict[tuple[str, str], dict[str, Any]]:
+    """Per-package companion declarations, keyed by adopted (package id, version).
+
+    ADR-0082. A package listed here replaces the global presence pairs and value
+    domains above for the entries it names, and only under that package; a
+    package not listed here (every package published before this mechanism)
+    is admitted and read under the global maps exactly as before. An entry is
+    ``{"presence_pairs": {subordinate: companion | [companions] | None},
+    "value_domains": {companion_type: frozenset | None}}``; ``None`` removes
+    the global entry. A published package is immutable, so its (id, version)
+    is a stable key; a successor package adds its own entry in the same
+    change that publishes it.
+
+    Core calculations v59 (Form 1099 withholding): earlier packages read
+    neither Form 1099-G box 4 nor Form SSA-1099 box 6, so each is an
+    absent-or-zero authority witness there and a nonzero amount is refused.
+    v59 reads both amounts (its own families, summed on Form 1040 line 25b),
+    so it removes the 1099-G box-1 pair to the box-4 authority companion,
+    drops the box-6 companion from the SSA-1099 box-5 list, and removes both
+    companions' absent-or-zero domains. Every other pair and domain stays as
+    the global maps declare it. A log recorded under v59 with withholding and
+    run under an earlier package is refused with the companion named (ADR-0082
+    decision 4), never computed without the withholding.
+    """
+    return {
+        ("tax.us.2025.package.core-calculations", "v59"): {
+            "presence_pairs": {
+                "tax.us.2025.f1099g.box1-unemployment": None,
+                "tax.us.2025.ssa1099.box5-net-benefits": [
+                    "tax.us.2025.ssa1099.box3-benefits-paid",
+                    "tax.us.2025.ssa1099.box4-repayment",
+                    "tax.us.2025.ssa1099.recipient",
+                    "tax.us.2025.ssa1099.statement-kind",
+                    "tax.us.2025.ssa1099.lump-sum-election",
+                ],
+            },
+            "value_domains": {
+                "tax.us.2025.f1099g.box4-federal-withholding-authority": None,
+                "tax.us.2025.ssa1099.box6-withholding": None,
+            },
+        },
+    }
+
+
 def domain_companion_equality_pairs() -> dict[str, str]:
     """Same-statement numeric equality witnesses for bounded tax families."""
     return {
@@ -273,6 +317,11 @@ def install_domain_companion_presence(registry: SchemaRegistry) -> SchemaRegistr
         registry.companion_value_domains = {}
         domains = registry.companion_value_domains
     domains.update(domain_companion_value_domains())
+    declarations = getattr(registry, "package_companion_declarations", None)
+    if declarations is None:
+        registry.package_companion_declarations = {}
+        declarations = registry.package_companion_declarations
+    declarations.update(domain_package_companion_declarations())
     install_domain_migration_resolution_policies(registry)
     install_domain_scoped_supersession(registry)
     return registry

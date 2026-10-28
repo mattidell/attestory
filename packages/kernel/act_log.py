@@ -26,12 +26,15 @@ from packages.kernel.findings import (
     FindingState,
     _CurrentLatticeHolder,
     _apply_project_act,
+    companion_registry_for_package,
+    companion_registry_in_force,
     apply_act,
     declares_new_write_invariants,
     enforce_new_write_invariants,
     initial_state,
     member_restoration_is_on_removal_lineage,
     new_write_invariants_may_apply,
+    package_in_force,
     project,
 )
 from packages.kernel.horizons import HorizonModelError
@@ -64,19 +67,53 @@ class _SaveFold:
     """
 
     def __init__(self, registry: SchemaRegistry) -> None:
+        self._base = registry
         self._registry = registry
+        self._scoped = bool(
+            getattr(registry, "package_companion_declarations", None)
+        ) and not getattr(registry, "companion_scope_fixed", False)
+        self._package: tuple[str, str] | None = None
+        self._scanned = 0
+        if self._scoped:
+            self._registry = companion_registry_for_package(registry, None)
         self._state = initial_state()
         self._holder = _CurrentLatticeHolder()
         self._count = 0
 
     def through(self, acts: Sequence[dict[str, Any]]) -> FindingState:
         assert self._count <= len(acts)
+        self._follow_package_in_force(acts)
         while self._count < len(acts):
             self._state = _apply_project_act(
                 self._state, acts[self._count], self._registry, self._holder
             )
             self._count += 1
         return self._state
+
+    @property
+    def registry(self) -> SchemaRegistry:
+        """The registry the fold applies acts with: the package in force's maps."""
+        return self._registry
+
+    def _follow_package_in_force(self, acts: Sequence[dict[str, Any]]) -> None:
+        # ADR-0082: ``project`` folds every act under the maps of the prefix's
+        # package in force. Only an adoption act can change that package; when
+        # one does, the fold restarts under the new maps so it stays equal to
+        # ``project`` of the same prefix.
+        if not self._scoped:
+            return
+        fresh = acts[self._scanned :]
+        self._scanned = len(acts)
+        if not any(act.get("kind") == "package-adoption" for act in fresh):
+            return
+        package = package_in_force(acts)
+        if package == self._package:
+            return
+        self._package = package
+        self._registry = companion_registry_for_package(self._base, package)
+        self._state = initial_state()
+        self._holder = _CurrentLatticeHolder()
+        self._count = 0
 
 
 
@@ -355,7 +392,20 @@ class ActLog:
                 raise FindingModelError(
                     "restored member transition must descend from its recorded removal horizon"
                 )
-            apply_act(proj, act, self._registry)
+            registry = (
+                companion_registry_in_force(prefix, self._registry)
+                if fold is None
+                else fold.registry
+            )
+            apply_act(proj, act, registry)
+        if act["kind"] == "package-adoption" and getattr(
+            self._registry, "package_companion_declarations", None
+        ):
+            # ADR-0082: adopting a package changes which companion maps govern
+            # every statement already in the log. Refuse an adoption under
+            # which the log would no longer project, rather than write a log
+            # that cannot be run.
+            project((*prefix, act), self._registry)
 
     def _projection(
         self,

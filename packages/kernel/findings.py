@@ -8,6 +8,7 @@ derived evidentiary-standing view without rewriting findings.
 
 from __future__ import annotations
 
+import copy
 from dataclasses import dataclass, field, replace
 from decimal import Decimal, InvalidOperation
 from typing import Any
@@ -393,6 +394,118 @@ def _companion_list(pairs: dict[str, Any], subordinate_type: str) -> list[str]:
     if isinstance(raw, (list, tuple)):
         return [item for item in raw if isinstance(item, str) and item]
     return []
+
+
+_COMPANION_DECLARATION_KEYS = frozenset({"presence_pairs", "value_domains"})
+
+
+def _validated_companion_declaration(
+    key: tuple[str, str], declaration: Any
+) -> tuple[dict[str, Any], dict[str, Any]]:
+    """Return one package's (presence_pairs, value_domains), or refuse.
+
+    Fail closed: a malformed declaration must not silently fall back to the
+    global maps, which would admit or refuse differently from what the
+    package declared.
+    """
+    if not isinstance(declaration, dict) or not set(declaration) <= _COMPANION_DECLARATION_KEYS:
+        raise FindingModelError(
+            f"companion declaration for package {key[0]} {key[1]} is malformed; "
+            f"expected a mapping with only {sorted(_COMPANION_DECLARATION_KEYS)}"
+        )
+    pairs = declaration.get("presence_pairs", {})
+    domains = declaration.get("value_domains", {})
+    if not isinstance(pairs, dict) or not isinstance(domains, dict):
+        raise FindingModelError(
+            f"companion declaration for package {key[0]} {key[1]} is malformed; "
+            "presence_pairs and value_domains must be mappings"
+        )
+    return pairs, domains
+
+
+def companion_registry_for_package(
+    registry: SchemaRegistry, package_key: tuple[str, str] | None
+) -> SchemaRegistry:
+    """The registry whose companion maps are those of one adopted package.
+
+    ADR-0082. A shallow copy of ``registry`` whose ``companion_presence_pairs``
+    and ``companion_value_domains`` are the global maps overlaid with the
+    package's declaration: a pair entry replaces the global entry for that
+    subordinate (``None`` removes it); a domain entry replaces the global
+    domain for that companion type (``None`` removes the restriction, leaving
+    the fact type's ``value_schema``). A package with no declaration, or no
+    package, yields the global maps unchanged. The copy is marked fixed so a
+    projection over it does not resolve a package again. The shared registry
+    is never mutated.
+    """
+    scoped = copy.copy(registry)
+    scoped.companion_scope_fixed = True
+    declarations = getattr(registry, "package_companion_declarations", None) or {}
+    if package_key is None or package_key not in declarations:
+        return scoped
+    pairs_over, domains_over = _validated_companion_declaration(
+        package_key, declarations[package_key]
+    )
+    pairs = dict(registry.companion_presence_pairs)
+    for subordinate, companion in pairs_over.items():
+        if companion is None:
+            pairs.pop(subordinate, None)
+        else:
+            pairs[subordinate] = companion
+    domains = dict(getattr(registry, "companion_value_domains", None) or {})
+    for companion_type, allowed in domains_over.items():
+        if allowed is None:
+            domains.pop(companion_type, None)
+        else:
+            domains[companion_type] = frozenset(allowed)
+    scoped.companion_presence_pairs = pairs
+    scoped.companion_value_domains = domains
+    return scoped
+
+
+def package_in_force(acts: Any) -> tuple[str, str] | None:
+    """The package a log's own adoption acts put in force, or ``None``.
+
+    ADR-0082: among ``package-adoption`` acts, the one with the greatest
+    ``revision`` (the later act on a tie). A log with no adoption act has no
+    package in force. The live run does not use this: it passes the package
+    its resolver selected (scope, user and workspace revision).
+    """
+    best: tuple[int, int, tuple[str, str]] | None = None
+    for position, act in enumerate(acts):
+        if act.get("kind") != "package-adoption":
+            continue
+        payload = act.get("payload")
+        if not isinstance(payload, dict):
+            continue
+        package = payload.get("package")
+        revision = payload.get("revision")
+        if (
+            not isinstance(package, dict)
+            or not isinstance(package.get("id"), str)
+            or not isinstance(package.get("version"), str)
+            or not isinstance(revision, int)
+        ):
+            continue
+        rank = (revision, position)
+        if best is None or rank >= best[:2]:
+            best = (revision, position, (package["id"], package["version"]))
+    return best[2] if best is not None else None
+
+
+def companion_registry_in_force(acts: Any, registry: SchemaRegistry) -> SchemaRegistry:
+    """The registry to fold ``acts`` over: the package in force picks the maps.
+
+    Returns ``registry`` itself, with no work, unless the registry carries
+    per-package companion declarations and has not already been fixed to one
+    package. Earlier packages (and logs without an adoption act) therefore
+    see exactly the global maps.
+    """
+    if getattr(registry, "companion_scope_fixed", False):
+        return registry
+    if not getattr(registry, "package_companion_declarations", None):
+        return registry
+    return companion_registry_for_package(registry, package_in_force(acts))
 
 
 def _enforce_companion_presence(
@@ -1585,6 +1698,7 @@ def _apply_project_act(
 
 
 def project(acts: tuple[dict[str, Any], ...], registry: SchemaRegistry) -> FindingState:
+    registry = companion_registry_in_force(acts, registry)
     state = initial_state()
     lattice_holder = _CurrentLatticeHolder()
     for act in acts:

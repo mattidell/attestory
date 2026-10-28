@@ -33,7 +33,7 @@ from packages.derivation.subject_dispatch import (
 )
 from packages.kernel.currency import CurrencyView
 from packages.kernel.currency import compute_currency
-from packages.kernel.findings import FindingState, project
+from packages.kernel.findings import FindingState, companion_registry_for_package, project
 from packages.tax.loader import (
     domain_companion_presence_pairs,
     install_domain_companion_equalities,
@@ -237,8 +237,14 @@ def _parameters_by_exact_version(
     return parameters, grouped
 
 
-def _resolved_run_material(graph: Any) -> _ResolvedRunMaterial:
-    """Derive runner material solely from the resolver's exclusive graph."""
+def _resolved_run_material(
+    graph: Any, companion_pairs: Mapping[str, Any] | None = None
+) -> _ResolvedRunMaterial:
+    """Derive runner material solely from the resolver's exclusive graph.
+
+    ``companion_pairs`` are the presence pairs of the package in force
+    (ADR-0082); omitted, they are the global pairs.
+    """
     members = list(graph.resolved_members)
     # ADR-0036: an attachment citizen is interpreted directly from its
     # declarative requirement/itemizations/completeness structure (by
@@ -278,7 +284,7 @@ def _resolved_run_material(graph: Any) -> _ResolvedRunMaterial:
     # Fail closed: a loader or pair-map failure must not silently drop companions
     # and leave dependent derivations unpinned (box-9 / box-13 displacement).
     from packages.tax.loader import domain_companion_presence_pairs
-    pairs = domain_companion_presence_pairs()
+    pairs = domain_companion_presence_pairs() if companion_pairs is None else companion_pairs
     if not isinstance(pairs, dict):
         raise LiveRunError(
             f"domain companion-presence pairs must be a mapping; got {type(pairs)!r}"
@@ -633,8 +639,15 @@ def live_coordinate_run(
     install_domain_companion_presence(schemas.registry)
     install_domain_companion_equalities(schemas.registry)
     install_domain_declaration_signal_contradictions(schemas.registry)
+    # ADR-0082: companion admission belongs to the package being run. The
+    # package is the one the resolver selected above, not a scan of the log, so
+    # admission here and the pins below use the maps of the package that will
+    # read the statements.
+    run_registry = companion_registry_for_package(
+        schemas.registry, (resolved.package["id"], resolved.package["version"])
+    )
     run_acts = tuple(dict(act) for act in authoritative_acts)
-    state = project(run_acts, schemas.registry)
+    state = project(run_acts, run_registry)
     # ADR-0073 Decision 5 / substrate unit: the SSA source boundary reads
     # the same full projection every other kernel reader uses, not a
     # withdrawn-fact-id-only channel that could not see a retracted
@@ -643,7 +656,7 @@ def live_coordinate_run(
     currency = compute_currency(state)
     validate_projected_source_boundary(state.findings.values(), currency.current_finding_ids)
     try:
-        material = _resolved_run_material(resolved)
+        material = _resolved_run_material(resolved, run_registry.companion_presence_pairs)
     except TransportContractError as exc:
         return LiveCoordinatorOutcome(
             refusal=Refusal(reason=exc.reason, detail=exc.detail),
@@ -674,16 +687,16 @@ def live_coordinate_run(
     context = marshal_live_run_context(
         run_id=run_id, state=state, currency=currency, rules=rules, parameters=parameters,
         claim_applicability=_statement_inclusion_applicability(
-            run_acts, schemas.registry, state, currency),
+            run_acts, run_registry, state, currency),
         mortgage_payment_applicability=_mortgage_payment_comparison_applicability(
-            run_acts, schemas.registry, state, currency),
+            run_acts, run_registry, state, currency),
         canon=load_canon(schemas),
         adoption_pin={"role": "adoption", "id": resolved.package["id"], "version": resolved.package["version"]},
         governance_pins=[dict(pin) for pin in governance_pins],
         family_declarations=families, closure_mappings=mappings, fact_types=fact_types,
         input_bindings=bindings, collect_source_names=collect_names,
         emission_only_source_names=list(material.emission_only_names),
-        companion_presence_pairs=domain_companion_presence_pairs(),
+        companion_presence_pairs=dict(run_registry.companion_presence_pairs),
         authorization=authorization,
         reporting_year=reporting_year,
         parameter_index=material.parameter_index,

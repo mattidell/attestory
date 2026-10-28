@@ -112,6 +112,16 @@ class SchemaRegistry:
         # for selected companion types (e.g. absence/zero).
         self.companion_presence_pairs: dict[str, str | list[str]] = {}
         self.companion_value_domains: dict[str, frozenset[object]] = {}
+        # ADR-0082: per-package overlays on the two maps above, keyed by the
+        # adopted package's (id, version). Empty by default, in which case
+        # the maps above apply to every package unchanged. A domain loader
+        # populates entries; the kernel resolves the package in force
+        # (``findings.companion_registry_for_package`` /
+        # ``companion_registry_in_force``) and never names a package.
+        self.package_companion_declarations: dict[tuple[str, str], dict[str, Any]] = {}
+        # True on a registry copy whose companion maps were resolved for one
+        # package already; projection then does not resolve a package again.
+        self.companion_scope_fixed: bool = False
         # Same-statement equality witnesses: subordinate member fact type ->
         # numeric companion fact type.  The kernel enforces the relation
         # generically at finding admission; domain loaders provide the map.
