@@ -1,0 +1,15 @@
+{
+  "format": 1,
+  "event_id": "20261028T050722Z-npe-walk-700c29",
+  "recorded_at": "2026-10-28T05:07:22Z",
+  "milestone_key": "explanation-sharing",
+  "milestone_branch": "milestone/explanation-sharing-2025",
+  "milestone_commit": "dbad111534ad017973c74a99f328395f003f6724",
+  "schema_family": "npe-walk",
+  "schema_path": "packages/schemas/derivation/npe-walk.v4.schema.json",
+  "schema_version": "v4",
+  "action": "propose",
+  "change_kind": "additive",
+  "replaces_event": null,
+  "summary": "Shared-reference successor preserving recorded run and disposition selection; earlier versions unchanged."
+}
