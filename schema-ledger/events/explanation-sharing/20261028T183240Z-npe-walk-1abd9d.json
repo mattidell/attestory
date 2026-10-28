@@ -1,0 +1,15 @@
+{
+  "format": 1,
+  "event_id": "20261028T183240Z-npe-walk-1abd9d",
+  "recorded_at": "2026-10-28T18:32:40Z",
+  "milestone_key": "explanation-sharing",
+  "milestone_branch": "milestone/explanation-sharing-2025",
+  "milestone_commit": "53f00df3825557d2f8be52117debf4b7abd3de61",
+  "schema_family": "npe-walk",
+  "schema_path": "packages/schemas/derivation/npe-walk.v4.schema.json",
+  "schema_version": "v4",
+  "action": "publish",
+  "change_kind": "additive",
+  "replaces_event": null,
+  "summary": "Bind unchanged schema bytes to recurated implementation 2306656db6e5aadefe5c6bd46aed33004be83894 after provenance consumer repair; no schema redesign."
+}
