@@ -1,0 +1,1922 @@
+{
+  "schema": "rule-artifact.v14",
+  "id": "tax.us.2025.rule.dtb-child.tie-breaker-clear",
+  "version": "v1",
+  "scope": {
+    "tax_year": 2025,
+    "jurisdiction": "US-federal",
+    "family": "individual-income-tax"
+  },
+  "role": "computation",
+  "subject": {
+    "id": "tax.us.2025.eic.child.relationship",
+    "version": "v1"
+  },
+  "publishes": "tax.us.2025.dtb.child.tie-breaker-clear",
+  "requires": [
+    "tax.us.2025.dtb.child.another-could-claim"
+  ],
+  "pins": [],
+  "blocked": {
+    "code": "DEPENDENCY_ABSENT",
+    "missing": []
+  },
+  "citations": [
+    {
+      "id": "tax.us.2025.citation.schedule8812.part-i",
+      "version": "v1"
+    }
+  ],
+  "notes": "Per-child dependent tie-breaker rule under IRC \u00a7 152(c)(4) and Pub 596.",
+  "when": {
+    "op": "all",
+    "args": [
+      {
+        "op": "conditional_dependency_set",
+        "condition": {
+          "op": "categorical_compare",
+          "cmp": "eq",
+          "left": {
+            "op": "ref",
+            "name": "tax.us.2025.dtb.child.another-could-claim"
+          },
+          "right": {
+            "op": "category_literal",
+            "fact_type": {
+              "id": "tax.us.2025.dtb.child.another-could-claim",
+              "version": "v1"
+            },
+            "value": "yes"
+          }
+        },
+        "members": [
+          {
+            "op": "ref",
+            "name": "tax.us.2025.dtb.child.multiple-other-claimants"
+          }
+        ]
+      },
+      {
+        "op": "conditional_dependency_set",
+        "condition": {
+          "op": "all",
+          "args": [
+            {
+              "op": "categorical_compare",
+              "cmp": "eq",
+              "left": {
+                "op": "ref",
+                "name": "tax.us.2025.dtb.child.another-could-claim"
+              },
+              "right": {
+                "op": "category_literal",
+                "fact_type": {
+                  "id": "tax.us.2025.dtb.child.another-could-claim",
+                  "version": "v1"
+                },
+                "value": "yes"
+              }
+            },
+            {
+              "op": "categorical_compare",
+              "cmp": "eq",
+              "left": {
+                "op": "ref",
+                "name": "tax.us.2025.dtb.child.multiple-other-claimants"
+              },
+              "right": {
+                "op": "category_literal",
+                "fact_type": {
+                  "id": "tax.us.2025.dtb.child.multiple-other-claimants",
+                  "version": "v1"
+                },
+                "value": "no"
+              }
+            }
+          ]
+        },
+        "members": [
+          {
+            "op": "ref",
+            "name": "tax.us.2025.dtb.child.filer-is-parent"
+          },
+          {
+            "op": "ref",
+            "name": "tax.us.2025.dtb.child.other-is-parent"
+          }
+        ]
+      },
+      {
+        "op": "conditional_dependency_set",
+        "condition": {
+          "op": "all",
+          "args": [
+            {
+              "op": "all",
+              "args": [
+                {
+                  "op": "categorical_compare",
+                  "cmp": "eq",
+                  "left": {
+                    "op": "ref",
+                    "name": "tax.us.2025.dtb.child.another-could-claim"
+                  },
+                  "right": {
+                    "op": "category_literal",
+                    "fact_type": {
+                      "id": "tax.us.2025.dtb.child.another-could-claim",
+                      "version": "v1"
+                    },
+                    "value": "yes"
+                  }
+                },
+                {
+                  "op": "categorical_compare",
+                  "cmp": "eq",
+                  "left": {
+                    "op": "ref",
+                    "name": "tax.us.2025.dtb.child.multiple-other-claimants"
+                  },
+                  "right": {
+                    "op": "category_literal",
+                    "fact_type": {
+                      "id": "tax.us.2025.dtb.child.multiple-other-claimants",
+                      "version": "v1"
+                    },
+                    "value": "no"
+                  }
+                }
+              ]
+            },
+            {
+              "op": "categorical_compare",
+              "cmp": "eq",
+              "left": {
+                "op": "ref",
+                "name": "tax.us.2025.dtb.child.filer-is-parent"
+              },
+              "right": {
+                "op": "category_literal",
+                "fact_type": {
+                  "id": "tax.us.2025.dtb.child.filer-is-parent",
+                  "version": "v1"
+                },
+                "value": "yes"
+              }
+            },
+            {
+              "op": "categorical_compare",
+              "cmp": "eq",
+              "left": {
+                "op": "ref",
+                "name": "tax.us.2025.dtb.child.other-is-parent"
+              },
+              "right": {
+                "op": "category_literal",
+                "fact_type": {
+                  "id": "tax.us.2025.dtb.child.other-is-parent",
+                  "version": "v1"
+                },
+                "value": "yes"
+              }
+            }
+          ]
+        },
+        "members": [
+          {
+            "op": "ref",
+            "name": "tax.us.2025.dtb.child.form-8332-released"
+          }
+        ]
+      },
+      {
+        "op": "conditional_dependency_set",
+        "condition": {
+          "op": "all",
+          "args": [
+            {
+              "op": "all",
+              "args": [
+                {
+                  "op": "all",
+                  "args": [
+                    {
+                      "op": "categorical_compare",
+                      "cmp": "eq",
+                      "left": {
+                        "op": "ref",
+                        "name": "tax.us.2025.dtb.child.another-could-claim"
+                      },
+                      "right": {
+                        "op": "category_literal",
+                        "fact_type": {
+                          "id": "tax.us.2025.dtb.child.another-could-claim",
+                          "version": "v1"
+                        },
+                        "value": "yes"
+                      }
+                    },
+                    {
+                      "op": "categorical_compare",
+                      "cmp": "eq",
+                      "left": {
+                        "op": "ref",
+                        "name": "tax.us.2025.dtb.child.multiple-other-claimants"
+                      },
+                      "right": {
+                        "op": "category_literal",
+                        "fact_type": {
+                          "id": "tax.us.2025.dtb.child.multiple-other-claimants",
+                          "version": "v1"
+                        },
+                        "value": "no"
+                      }
+                    }
+                  ]
+                },
+                {
+                  "op": "categorical_compare",
+                  "cmp": "eq",
+                  "left": {
+                    "op": "ref",
+                    "name": "tax.us.2025.dtb.child.filer-is-parent"
+                  },
+                  "right": {
+                    "op": "category_literal",
+                    "fact_type": {
+                      "id": "tax.us.2025.dtb.child.filer-is-parent",
+                      "version": "v1"
+                    },
+                    "value": "yes"
+                  }
+                },
+                {
+                  "op": "categorical_compare",
+                  "cmp": "eq",
+                  "left": {
+                    "op": "ref",
+                    "name": "tax.us.2025.dtb.child.other-is-parent"
+                  },
+                  "right": {
+                    "op": "category_literal",
+                    "fact_type": {
+                      "id": "tax.us.2025.dtb.child.other-is-parent",
+                      "version": "v1"
+                    },
+                    "value": "yes"
+                  }
+                }
+              ]
+            },
+            {
+              "op": "categorical_compare",
+              "cmp": "eq",
+              "left": {
+                "op": "ref",
+                "name": "tax.us.2025.dtb.child.form-8332-released"
+              },
+              "right": {
+                "op": "category_literal",
+                "fact_type": {
+                  "id": "tax.us.2025.dtb.child.form-8332-released",
+                  "version": "v1"
+                },
+                "value": "no"
+              }
+            }
+          ]
+        },
+        "members": [
+          {
+            "op": "ref",
+            "name": "tax.us.2025.dtb.child.more-nights-with-filer"
+          }
+        ]
+      },
+      {
+        "op": "conditional_dependency_set",
+        "condition": {
+          "op": "all",
+          "args": [
+            {
+              "op": "all",
+              "args": [
+                {
+                  "op": "all",
+                  "args": [
+                    {
+                      "op": "all",
+                      "args": [
+                        {
+                          "op": "categorical_compare",
+                          "cmp": "eq",
+                          "left": {
+                            "op": "ref",
+                            "name": "tax.us.2025.dtb.child.another-could-claim"
+                          },
+                          "right": {
+                            "op": "category_literal",
+                            "fact_type": {
+                              "id": "tax.us.2025.dtb.child.another-could-claim",
+                              "version": "v1"
+                            },
+                            "value": "yes"
+                          }
+                        },
+                        {
+                          "op": "categorical_compare",
+                          "cmp": "eq",
+                          "left": {
+                            "op": "ref",
+                            "name": "tax.us.2025.dtb.child.multiple-other-claimants"
+                          },
+                          "right": {
+                            "op": "category_literal",
+                            "fact_type": {
+                              "id": "tax.us.2025.dtb.child.multiple-other-claimants",
+                              "version": "v1"
+                            },
+                            "value": "no"
+                          }
+                        }
+                      ]
+                    },
+                    {
+                      "op": "categorical_compare",
+                      "cmp": "eq",
+                      "left": {
+                        "op": "ref",
+                        "name": "tax.us.2025.dtb.child.filer-is-parent"
+                      },
+                      "right": {
+                        "op": "category_literal",
+                        "fact_type": {
+                          "id": "tax.us.2025.dtb.child.filer-is-parent",
+                          "version": "v1"
+                        },
+                        "value": "yes"
+                      }
+                    },
+                    {
+                      "op": "categorical_compare",
+                      "cmp": "eq",
+                      "left": {
+                        "op": "ref",
+                        "name": "tax.us.2025.dtb.child.other-is-parent"
+                      },
+                      "right": {
+                        "op": "category_literal",
+                        "fact_type": {
+                          "id": "tax.us.2025.dtb.child.other-is-parent",
+                          "version": "v1"
+                        },
+                        "value": "yes"
+                      }
+                    }
+                  ]
+                },
+                {
+                  "op": "categorical_compare",
+                  "cmp": "eq",
+                  "left": {
+                    "op": "ref",
+                    "name": "tax.us.2025.dtb.child.form-8332-released"
+                  },
+                  "right": {
+                    "op": "category_literal",
+                    "fact_type": {
+                      "id": "tax.us.2025.dtb.child.form-8332-released",
+                      "version": "v1"
+                    },
+                    "value": "no"
+                  }
+                }
+              ]
+            },
+            {
+              "op": "categorical_compare",
+              "cmp": "eq",
+              "left": {
+                "op": "ref",
+                "name": "tax.us.2025.dtb.child.more-nights-with-filer"
+              },
+              "right": {
+                "op": "category_literal",
+                "fact_type": {
+                  "id": "tax.us.2025.dtb.child.more-nights-with-filer",
+                  "version": "v1"
+                },
+                "value": "no"
+              }
+            }
+          ]
+        },
+        "members": [
+          {
+            "op": "ref",
+            "name": "tax.us.2025.dtb.child.same-nights"
+          }
+        ]
+      },
+      {
+        "op": "conditional_dependency_set",
+        "condition": {
+          "op": "all",
+          "args": [
+            {
+              "op": "all",
+              "args": [
+                {
+                  "op": "all",
+                  "args": [
+                    {
+                      "op": "all",
+                      "args": [
+                        {
+                          "op": "all",
+                          "args": [
+                            {
+                              "op": "categorical_compare",
+                              "cmp": "eq",
+                              "left": {
+                                "op": "ref",
+                                "name": "tax.us.2025.dtb.child.another-could-claim"
+                              },
+                              "right": {
+                                "op": "category_literal",
+                                "fact_type": {
+                                  "id": "tax.us.2025.dtb.child.another-could-claim",
+                                  "version": "v1"
+                                },
+                                "value": "yes"
+                              }
+                            },
+                            {
+                              "op": "categorical_compare",
+                              "cmp": "eq",
+                              "left": {
+                                "op": "ref",
+                                "name": "tax.us.2025.dtb.child.multiple-other-claimants"
+                              },
+                              "right": {
+                                "op": "category_literal",
+                                "fact_type": {
+                                  "id": "tax.us.2025.dtb.child.multiple-other-claimants",
+                                  "version": "v1"
+                                },
+                                "value": "no"
+                              }
+                            }
+                          ]
+                        },
+                        {
+                          "op": "categorical_compare",
+                          "cmp": "eq",
+                          "left": {
+                            "op": "ref",
+                            "name": "tax.us.2025.dtb.child.filer-is-parent"
+                          },
+                          "right": {
+                            "op": "category_literal",
+                            "fact_type": {
+                              "id": "tax.us.2025.dtb.child.filer-is-parent",
+                              "version": "v1"
+                            },
+                            "value": "yes"
+                          }
+                        },
+                        {
+                          "op": "categorical_compare",
+                          "cmp": "eq",
+                          "left": {
+                            "op": "ref",
+                            "name": "tax.us.2025.dtb.child.other-is-parent"
+                          },
+                          "right": {
+                            "op": "category_literal",
+                            "fact_type": {
+                              "id": "tax.us.2025.dtb.child.other-is-parent",
+                              "version": "v1"
+                            },
+                            "value": "yes"
+                          }
+                        }
+                      ]
+                    },
+                    {
+                      "op": "categorical_compare",
+                      "cmp": "eq",
+                      "left": {
+                        "op": "ref",
+                        "name": "tax.us.2025.dtb.child.form-8332-released"
+                      },
+                      "right": {
+                        "op": "category_literal",
+                        "fact_type": {
+                          "id": "tax.us.2025.dtb.child.form-8332-released",
+                          "version": "v1"
+                        },
+                        "value": "no"
+                      }
+                    }
+                  ]
+                },
+                {
+                  "op": "categorical_compare",
+                  "cmp": "eq",
+                  "left": {
+                    "op": "ref",
+                    "name": "tax.us.2025.dtb.child.more-nights-with-filer"
+                  },
+                  "right": {
+                    "op": "category_literal",
+                    "fact_type": {
+                      "id": "tax.us.2025.dtb.child.more-nights-with-filer",
+                      "version": "v1"
+                    },
+                    "value": "no"
+                  }
+                }
+              ]
+            },
+            {
+              "op": "categorical_compare",
+              "cmp": "eq",
+              "left": {
+                "op": "ref",
+                "name": "tax.us.2025.dtb.child.same-nights"
+              },
+              "right": {
+                "op": "category_literal",
+                "fact_type": {
+                  "id": "tax.us.2025.dtb.child.same-nights",
+                  "version": "v1"
+                },
+                "value": "yes"
+              }
+            }
+          ]
+        },
+        "members": [
+          {
+            "op": "ref",
+            "name": "tax.us.2025.dtb.child.filer-agi-higher"
+          }
+        ]
+      },
+      {
+        "op": "conditional_dependency_set",
+        "condition": {
+          "op": "all",
+          "args": [
+            {
+              "op": "all",
+              "args": [
+                {
+                  "op": "all",
+                  "args": [
+                    {
+                      "op": "all",
+                      "args": [
+                        {
+                          "op": "all",
+                          "args": [
+                            {
+                              "op": "all",
+                              "args": [
+                                {
+                                  "op": "categorical_compare",
+                                  "cmp": "eq",
+                                  "left": {
+                                    "op": "ref",
+                                    "name": "tax.us.2025.dtb.child.another-could-claim"
+                                  },
+                                  "right": {
+                                    "op": "category_literal",
+                                    "fact_type": {
+                                      "id": "tax.us.2025.dtb.child.another-could-claim",
+                                      "version": "v1"
+                                    },
+                                    "value": "yes"
+                                  }
+                                },
+                                {
+                                  "op": "categorical_compare",
+                                  "cmp": "eq",
+                                  "left": {
+                                    "op": "ref",
+                                    "name": "tax.us.2025.dtb.child.multiple-other-claimants"
+                                  },
+                                  "right": {
+                                    "op": "category_literal",
+                                    "fact_type": {
+                                      "id": "tax.us.2025.dtb.child.multiple-other-claimants",
+                                      "version": "v1"
+                                    },
+                                    "value": "no"
+                                  }
+                                }
+                              ]
+                            },
+                            {
+                              "op": "categorical_compare",
+                              "cmp": "eq",
+                              "left": {
+                                "op": "ref",
+                                "name": "tax.us.2025.dtb.child.filer-is-parent"
+                              },
+                              "right": {
+                                "op": "category_literal",
+                                "fact_type": {
+                                  "id": "tax.us.2025.dtb.child.filer-is-parent",
+                                  "version": "v1"
+                                },
+                                "value": "yes"
+                              }
+                            },
+                            {
+                              "op": "categorical_compare",
+                              "cmp": "eq",
+                              "left": {
+                                "op": "ref",
+                                "name": "tax.us.2025.dtb.child.other-is-parent"
+                              },
+                              "right": {
+                                "op": "category_literal",
+                                "fact_type": {
+                                  "id": "tax.us.2025.dtb.child.other-is-parent",
+                                  "version": "v1"
+                                },
+                                "value": "yes"
+                              }
+                            }
+                          ]
+                        },
+                        {
+                          "op": "categorical_compare",
+                          "cmp": "eq",
+                          "left": {
+                            "op": "ref",
+                            "name": "tax.us.2025.dtb.child.form-8332-released"
+                          },
+                          "right": {
+                            "op": "category_literal",
+                            "fact_type": {
+                              "id": "tax.us.2025.dtb.child.form-8332-released",
+                              "version": "v1"
+                            },
+                            "value": "no"
+                          }
+                        }
+                      ]
+                    },
+                    {
+                      "op": "categorical_compare",
+                      "cmp": "eq",
+                      "left": {
+                        "op": "ref",
+                        "name": "tax.us.2025.dtb.child.more-nights-with-filer"
+                      },
+                      "right": {
+                        "op": "category_literal",
+                        "fact_type": {
+                          "id": "tax.us.2025.dtb.child.more-nights-with-filer",
+                          "version": "v1"
+                        },
+                        "value": "no"
+                      }
+                    }
+                  ]
+                },
+                {
+                  "op": "categorical_compare",
+                  "cmp": "eq",
+                  "left": {
+                    "op": "ref",
+                    "name": "tax.us.2025.dtb.child.same-nights"
+                  },
+                  "right": {
+                    "op": "category_literal",
+                    "fact_type": {
+                      "id": "tax.us.2025.dtb.child.same-nights",
+                      "version": "v1"
+                    },
+                    "value": "yes"
+                  }
+                }
+              ]
+            },
+            {
+              "op": "categorical_compare",
+              "cmp": "eq",
+              "left": {
+                "op": "ref",
+                "name": "tax.us.2025.dtb.child.filer-agi-higher"
+              },
+              "right": {
+                "op": "category_literal",
+                "fact_type": {
+                  "id": "tax.us.2025.dtb.child.filer-agi-higher",
+                  "version": "v1"
+                },
+                "value": "no"
+              }
+            }
+          ]
+        },
+        "members": [
+          {
+            "op": "ref",
+            "name": "tax.us.2025.dtb.child.other-will-claim"
+          }
+        ]
+      },
+      {
+        "op": "conditional_dependency_set",
+        "condition": {
+          "op": "all",
+          "args": [
+            {
+              "op": "all",
+              "args": [
+                {
+                  "op": "all",
+                  "args": [
+                    {
+                      "op": "all",
+                      "args": [
+                        {
+                          "op": "all",
+                          "args": [
+                            {
+                              "op": "all",
+                              "args": [
+                                {
+                                  "op": "all",
+                                  "args": [
+                                    {
+                                      "op": "categorical_compare",
+                                      "cmp": "eq",
+                                      "left": {
+                                        "op": "ref",
+                                        "name": "tax.us.2025.dtb.child.another-could-claim"
+                                      },
+                                      "right": {
+                                        "op": "category_literal",
+                                        "fact_type": {
+                                          "id": "tax.us.2025.dtb.child.another-could-claim",
+                                          "version": "v1"
+                                        },
+                                        "value": "yes"
+                                      }
+                                    },
+                                    {
+                                      "op": "categorical_compare",
+                                      "cmp": "eq",
+                                      "left": {
+                                        "op": "ref",
+                                        "name": "tax.us.2025.dtb.child.multiple-other-claimants"
+                                      },
+                                      "right": {
+                                        "op": "category_literal",
+                                        "fact_type": {
+                                          "id": "tax.us.2025.dtb.child.multiple-other-claimants",
+                                          "version": "v1"
+                                        },
+                                        "value": "no"
+                                      }
+                                    }
+                                  ]
+                                },
+                                {
+                                  "op": "categorical_compare",
+                                  "cmp": "eq",
+                                  "left": {
+                                    "op": "ref",
+                                    "name": "tax.us.2025.dtb.child.filer-is-parent"
+                                  },
+                                  "right": {
+                                    "op": "category_literal",
+                                    "fact_type": {
+                                      "id": "tax.us.2025.dtb.child.filer-is-parent",
+                                      "version": "v1"
+                                    },
+                                    "value": "yes"
+                                  }
+                                },
+                                {
+                                  "op": "categorical_compare",
+                                  "cmp": "eq",
+                                  "left": {
+                                    "op": "ref",
+                                    "name": "tax.us.2025.dtb.child.other-is-parent"
+                                  },
+                                  "right": {
+                                    "op": "category_literal",
+                                    "fact_type": {
+                                      "id": "tax.us.2025.dtb.child.other-is-parent",
+                                      "version": "v1"
+                                    },
+                                    "value": "yes"
+                                  }
+                                }
+                              ]
+                            },
+                            {
+                              "op": "categorical_compare",
+                              "cmp": "eq",
+                              "left": {
+                                "op": "ref",
+                                "name": "tax.us.2025.dtb.child.form-8332-released"
+                              },
+                              "right": {
+                                "op": "category_literal",
+                                "fact_type": {
+                                  "id": "tax.us.2025.dtb.child.form-8332-released",
+                                  "version": "v1"
+                                },
+                                "value": "no"
+                              }
+                            }
+                          ]
+                        },
+                        {
+                          "op": "categorical_compare",
+                          "cmp": "eq",
+                          "left": {
+                            "op": "ref",
+                            "name": "tax.us.2025.dtb.child.more-nights-with-filer"
+                          },
+                          "right": {
+                            "op": "category_literal",
+                            "fact_type": {
+                              "id": "tax.us.2025.dtb.child.more-nights-with-filer",
+                              "version": "v1"
+                            },
+                            "value": "no"
+                          }
+                        }
+                      ]
+                    },
+                    {
+                      "op": "categorical_compare",
+                      "cmp": "eq",
+                      "left": {
+                        "op": "ref",
+                        "name": "tax.us.2025.dtb.child.same-nights"
+                      },
+                      "right": {
+                        "op": "category_literal",
+                        "fact_type": {
+                          "id": "tax.us.2025.dtb.child.same-nights",
+                          "version": "v1"
+                        },
+                        "value": "yes"
+                      }
+                    }
+                  ]
+                },
+                {
+                  "op": "categorical_compare",
+                  "cmp": "eq",
+                  "left": {
+                    "op": "ref",
+                    "name": "tax.us.2025.dtb.child.filer-agi-higher"
+                  },
+                  "right": {
+                    "op": "category_literal",
+                    "fact_type": {
+                      "id": "tax.us.2025.dtb.child.filer-agi-higher",
+                      "version": "v1"
+                    },
+                    "value": "no"
+                  }
+                }
+              ]
+            },
+            {
+              "op": "categorical_compare",
+              "cmp": "eq",
+              "left": {
+                "op": "ref",
+                "name": "tax.us.2025.dtb.child.other-will-claim"
+              },
+              "right": {
+                "op": "category_literal",
+                "fact_type": {
+                  "id": "tax.us.2025.dtb.child.other-will-claim",
+                  "version": "v1"
+                },
+                "value": "yes"
+              }
+            }
+          ]
+        },
+        "members": [
+          {
+            "op": "ref",
+            "name": "tax.us.2025.dtb.child.same-agi"
+          }
+        ]
+      },
+      {
+        "op": "conditional_dependency_set",
+        "condition": {
+          "op": "all",
+          "args": [
+            {
+              "op": "all",
+              "args": [
+                {
+                  "op": "all",
+                  "args": [
+                    {
+                      "op": "all",
+                      "args": [
+                        {
+                          "op": "all",
+                          "args": [
+                            {
+                              "op": "categorical_compare",
+                              "cmp": "eq",
+                              "left": {
+                                "op": "ref",
+                                "name": "tax.us.2025.dtb.child.another-could-claim"
+                              },
+                              "right": {
+                                "op": "category_literal",
+                                "fact_type": {
+                                  "id": "tax.us.2025.dtb.child.another-could-claim",
+                                  "version": "v1"
+                                },
+                                "value": "yes"
+                              }
+                            },
+                            {
+                              "op": "categorical_compare",
+                              "cmp": "eq",
+                              "left": {
+                                "op": "ref",
+                                "name": "tax.us.2025.dtb.child.multiple-other-claimants"
+                              },
+                              "right": {
+                                "op": "category_literal",
+                                "fact_type": {
+                                  "id": "tax.us.2025.dtb.child.multiple-other-claimants",
+                                  "version": "v1"
+                                },
+                                "value": "no"
+                              }
+                            }
+                          ]
+                        },
+                        {
+                          "op": "categorical_compare",
+                          "cmp": "eq",
+                          "left": {
+                            "op": "ref",
+                            "name": "tax.us.2025.dtb.child.filer-is-parent"
+                          },
+                          "right": {
+                            "op": "category_literal",
+                            "fact_type": {
+                              "id": "tax.us.2025.dtb.child.filer-is-parent",
+                              "version": "v1"
+                            },
+                            "value": "yes"
+                          }
+                        },
+                        {
+                          "op": "categorical_compare",
+                          "cmp": "eq",
+                          "left": {
+                            "op": "ref",
+                            "name": "tax.us.2025.dtb.child.other-is-parent"
+                          },
+                          "right": {
+                            "op": "category_literal",
+                            "fact_type": {
+                              "id": "tax.us.2025.dtb.child.other-is-parent",
+                              "version": "v1"
+                            },
+                            "value": "yes"
+                          }
+                        }
+                      ]
+                    },
+                    {
+                      "op": "categorical_compare",
+                      "cmp": "eq",
+                      "left": {
+                        "op": "ref",
+                        "name": "tax.us.2025.dtb.child.form-8332-released"
+                      },
+                      "right": {
+                        "op": "category_literal",
+                        "fact_type": {
+                          "id": "tax.us.2025.dtb.child.form-8332-released",
+                          "version": "v1"
+                        },
+                        "value": "no"
+                      }
+                    }
+                  ]
+                },
+                {
+                  "op": "categorical_compare",
+                  "cmp": "eq",
+                  "left": {
+                    "op": "ref",
+                    "name": "tax.us.2025.dtb.child.more-nights-with-filer"
+                  },
+                  "right": {
+                    "op": "category_literal",
+                    "fact_type": {
+                      "id": "tax.us.2025.dtb.child.more-nights-with-filer",
+                      "version": "v1"
+                    },
+                    "value": "no"
+                  }
+                }
+              ]
+            },
+            {
+              "op": "categorical_compare",
+              "cmp": "eq",
+              "left": {
+                "op": "ref",
+                "name": "tax.us.2025.dtb.child.same-nights"
+              },
+              "right": {
+                "op": "category_literal",
+                "fact_type": {
+                  "id": "tax.us.2025.dtb.child.same-nights",
+                  "version": "v1"
+                },
+                "value": "no"
+              }
+            }
+          ]
+        },
+        "members": [
+          {
+            "op": "ref",
+            "name": "tax.us.2025.dtb.child.other-will-claim"
+          }
+        ]
+      },
+      {
+        "op": "conditional_dependency_set",
+        "condition": {
+          "op": "all",
+          "args": [
+            {
+              "op": "all",
+              "args": [
+                {
+                  "op": "categorical_compare",
+                  "cmp": "eq",
+                  "left": {
+                    "op": "ref",
+                    "name": "tax.us.2025.dtb.child.another-could-claim"
+                  },
+                  "right": {
+                    "op": "category_literal",
+                    "fact_type": {
+                      "id": "tax.us.2025.dtb.child.another-could-claim",
+                      "version": "v1"
+                    },
+                    "value": "yes"
+                  }
+                },
+                {
+                  "op": "categorical_compare",
+                  "cmp": "eq",
+                  "left": {
+                    "op": "ref",
+                    "name": "tax.us.2025.dtb.child.multiple-other-claimants"
+                  },
+                  "right": {
+                    "op": "category_literal",
+                    "fact_type": {
+                      "id": "tax.us.2025.dtb.child.multiple-other-claimants",
+                      "version": "v1"
+                    },
+                    "value": "no"
+                  }
+                }
+              ]
+            },
+            {
+              "op": "categorical_compare",
+              "cmp": "eq",
+              "left": {
+                "op": "ref",
+                "name": "tax.us.2025.dtb.child.filer-is-parent"
+              },
+              "right": {
+                "op": "category_literal",
+                "fact_type": {
+                  "id": "tax.us.2025.dtb.child.filer-is-parent",
+                  "version": "v1"
+                },
+                "value": "no"
+              }
+            },
+            {
+              "op": "categorical_compare",
+              "cmp": "eq",
+              "left": {
+                "op": "ref",
+                "name": "tax.us.2025.dtb.child.other-is-parent"
+              },
+              "right": {
+                "op": "category_literal",
+                "fact_type": {
+                  "id": "tax.us.2025.dtb.child.other-is-parent",
+                  "version": "v1"
+                },
+                "value": "yes"
+              }
+            }
+          ]
+        },
+        "members": [
+          {
+            "op": "ref",
+            "name": "tax.us.2025.dtb.child.other-will-claim"
+          }
+        ]
+      },
+      {
+        "op": "conditional_dependency_set",
+        "condition": {
+          "op": "all",
+          "args": [
+            {
+              "op": "all",
+              "args": [
+                {
+                  "op": "all",
+                  "args": [
+                    {
+                      "op": "categorical_compare",
+                      "cmp": "eq",
+                      "left": {
+                        "op": "ref",
+                        "name": "tax.us.2025.dtb.child.another-could-claim"
+                      },
+                      "right": {
+                        "op": "category_literal",
+                        "fact_type": {
+                          "id": "tax.us.2025.dtb.child.another-could-claim",
+                          "version": "v1"
+                        },
+                        "value": "yes"
+                      }
+                    },
+                    {
+                      "op": "categorical_compare",
+                      "cmp": "eq",
+                      "left": {
+                        "op": "ref",
+                        "name": "tax.us.2025.dtb.child.multiple-other-claimants"
+                      },
+                      "right": {
+                        "op": "category_literal",
+                        "fact_type": {
+                          "id": "tax.us.2025.dtb.child.multiple-other-claimants",
+                          "version": "v1"
+                        },
+                        "value": "no"
+                      }
+                    }
+                  ]
+                },
+                {
+                  "op": "categorical_compare",
+                  "cmp": "eq",
+                  "left": {
+                    "op": "ref",
+                    "name": "tax.us.2025.dtb.child.filer-is-parent"
+                  },
+                  "right": {
+                    "op": "category_literal",
+                    "fact_type": {
+                      "id": "tax.us.2025.dtb.child.filer-is-parent",
+                      "version": "v1"
+                    },
+                    "value": "no"
+                  }
+                },
+                {
+                  "op": "categorical_compare",
+                  "cmp": "eq",
+                  "left": {
+                    "op": "ref",
+                    "name": "tax.us.2025.dtb.child.other-is-parent"
+                  },
+                  "right": {
+                    "op": "category_literal",
+                    "fact_type": {
+                      "id": "tax.us.2025.dtb.child.other-is-parent",
+                      "version": "v1"
+                    },
+                    "value": "yes"
+                  }
+                }
+              ]
+            },
+            {
+              "op": "categorical_compare",
+              "cmp": "eq",
+              "left": {
+                "op": "ref",
+                "name": "tax.us.2025.dtb.child.other-will-claim"
+              },
+              "right": {
+                "op": "category_literal",
+                "fact_type": {
+                  "id": "tax.us.2025.dtb.child.other-will-claim",
+                  "version": "v1"
+                },
+                "value": "no"
+              }
+            }
+          ]
+        },
+        "members": [
+          {
+            "op": "ref",
+            "name": "tax.us.2025.dtb.child.filer-agi-higher"
+          }
+        ]
+      },
+      {
+        "op": "conditional_dependency_set",
+        "condition": {
+          "op": "all",
+          "args": [
+            {
+              "op": "all",
+              "args": [
+                {
+                  "op": "categorical_compare",
+                  "cmp": "eq",
+                  "left": {
+                    "op": "ref",
+                    "name": "tax.us.2025.dtb.child.another-could-claim"
+                  },
+                  "right": {
+                    "op": "category_literal",
+                    "fact_type": {
+                      "id": "tax.us.2025.dtb.child.another-could-claim",
+                      "version": "v1"
+                    },
+                    "value": "yes"
+                  }
+                },
+                {
+                  "op": "categorical_compare",
+                  "cmp": "eq",
+                  "left": {
+                    "op": "ref",
+                    "name": "tax.us.2025.dtb.child.multiple-other-claimants"
+                  },
+                  "right": {
+                    "op": "category_literal",
+                    "fact_type": {
+                      "id": "tax.us.2025.dtb.child.multiple-other-claimants",
+                      "version": "v1"
+                    },
+                    "value": "no"
+                  }
+                }
+              ]
+            },
+            {
+              "op": "categorical_compare",
+              "cmp": "eq",
+              "left": {
+                "op": "ref",
+                "name": "tax.us.2025.dtb.child.filer-is-parent"
+              },
+              "right": {
+                "op": "category_literal",
+                "fact_type": {
+                  "id": "tax.us.2025.dtb.child.filer-is-parent",
+                  "version": "v1"
+                },
+                "value": "no"
+              }
+            },
+            {
+              "op": "categorical_compare",
+              "cmp": "eq",
+              "left": {
+                "op": "ref",
+                "name": "tax.us.2025.dtb.child.other-is-parent"
+              },
+              "right": {
+                "op": "category_literal",
+                "fact_type": {
+                  "id": "tax.us.2025.dtb.child.other-is-parent",
+                  "version": "v1"
+                },
+                "value": "no"
+              }
+            }
+          ]
+        },
+        "members": [
+          {
+            "op": "ref",
+            "name": "tax.us.2025.dtb.child.filer-agi-higher"
+          }
+        ]
+      },
+      {
+        "op": "conditional_dependency_set",
+        "condition": {
+          "op": "all",
+          "args": [
+            {
+              "op": "all",
+              "args": [
+                {
+                  "op": "all",
+                  "args": [
+                    {
+                      "op": "categorical_compare",
+                      "cmp": "eq",
+                      "left": {
+                        "op": "ref",
+                        "name": "tax.us.2025.dtb.child.another-could-claim"
+                      },
+                      "right": {
+                        "op": "category_literal",
+                        "fact_type": {
+                          "id": "tax.us.2025.dtb.child.another-could-claim",
+                          "version": "v1"
+                        },
+                        "value": "yes"
+                      }
+                    },
+                    {
+                      "op": "categorical_compare",
+                      "cmp": "eq",
+                      "left": {
+                        "op": "ref",
+                        "name": "tax.us.2025.dtb.child.multiple-other-claimants"
+                      },
+                      "right": {
+                        "op": "category_literal",
+                        "fact_type": {
+                          "id": "tax.us.2025.dtb.child.multiple-other-claimants",
+                          "version": "v1"
+                        },
+                        "value": "no"
+                      }
+                    }
+                  ]
+                },
+                {
+                  "op": "categorical_compare",
+                  "cmp": "eq",
+                  "left": {
+                    "op": "ref",
+                    "name": "tax.us.2025.dtb.child.filer-is-parent"
+                  },
+                  "right": {
+                    "op": "category_literal",
+                    "fact_type": {
+                      "id": "tax.us.2025.dtb.child.filer-is-parent",
+                      "version": "v1"
+                    },
+                    "value": "no"
+                  }
+                },
+                {
+                  "op": "categorical_compare",
+                  "cmp": "eq",
+                  "left": {
+                    "op": "ref",
+                    "name": "tax.us.2025.dtb.child.other-is-parent"
+                  },
+                  "right": {
+                    "op": "category_literal",
+                    "fact_type": {
+                      "id": "tax.us.2025.dtb.child.other-is-parent",
+                      "version": "v1"
+                    },
+                    "value": "no"
+                  }
+                }
+              ]
+            },
+            {
+              "op": "categorical_compare",
+              "cmp": "eq",
+              "left": {
+                "op": "ref",
+                "name": "tax.us.2025.dtb.child.filer-agi-higher"
+              },
+              "right": {
+                "op": "category_literal",
+                "fact_type": {
+                  "id": "tax.us.2025.dtb.child.filer-agi-higher",
+                  "version": "v1"
+                },
+                "value": "no"
+              }
+            }
+          ]
+        },
+        "members": [
+          {
+            "op": "ref",
+            "name": "tax.us.2025.dtb.child.other-will-claim"
+          }
+        ]
+      },
+      {
+        "op": "conditional_dependency_set",
+        "condition": {
+          "op": "all",
+          "args": [
+            {
+              "op": "all",
+              "args": [
+                {
+                  "op": "all",
+                  "args": [
+                    {
+                      "op": "all",
+                      "args": [
+                        {
+                          "op": "categorical_compare",
+                          "cmp": "eq",
+                          "left": {
+                            "op": "ref",
+                            "name": "tax.us.2025.dtb.child.another-could-claim"
+                          },
+                          "right": {
+                            "op": "category_literal",
+                            "fact_type": {
+                              "id": "tax.us.2025.dtb.child.another-could-claim",
+                              "version": "v1"
+                            },
+                            "value": "yes"
+                          }
+                        },
+                        {
+                          "op": "categorical_compare",
+                          "cmp": "eq",
+                          "left": {
+                            "op": "ref",
+                            "name": "tax.us.2025.dtb.child.multiple-other-claimants"
+                          },
+                          "right": {
+                            "op": "category_literal",
+                            "fact_type": {
+                              "id": "tax.us.2025.dtb.child.multiple-other-claimants",
+                              "version": "v1"
+                            },
+                            "value": "no"
+                          }
+                        }
+                      ]
+                    },
+                    {
+                      "op": "categorical_compare",
+                      "cmp": "eq",
+                      "left": {
+                        "op": "ref",
+                        "name": "tax.us.2025.dtb.child.filer-is-parent"
+                      },
+                      "right": {
+                        "op": "category_literal",
+                        "fact_type": {
+                          "id": "tax.us.2025.dtb.child.filer-is-parent",
+                          "version": "v1"
+                        },
+                        "value": "no"
+                      }
+                    },
+                    {
+                      "op": "categorical_compare",
+                      "cmp": "eq",
+                      "left": {
+                        "op": "ref",
+                        "name": "tax.us.2025.dtb.child.other-is-parent"
+                      },
+                      "right": {
+                        "op": "category_literal",
+                        "fact_type": {
+                          "id": "tax.us.2025.dtb.child.other-is-parent",
+                          "version": "v1"
+                        },
+                        "value": "no"
+                      }
+                    }
+                  ]
+                },
+                {
+                  "op": "categorical_compare",
+                  "cmp": "eq",
+                  "left": {
+                    "op": "ref",
+                    "name": "tax.us.2025.dtb.child.filer-agi-higher"
+                  },
+                  "right": {
+                    "op": "category_literal",
+                    "fact_type": {
+                      "id": "tax.us.2025.dtb.child.filer-agi-higher",
+                      "version": "v1"
+                    },
+                    "value": "no"
+                  }
+                }
+              ]
+            },
+            {
+              "op": "categorical_compare",
+              "cmp": "eq",
+              "left": {
+                "op": "ref",
+                "name": "tax.us.2025.dtb.child.other-will-claim"
+              },
+              "right": {
+                "op": "category_literal",
+                "fact_type": {
+                  "id": "tax.us.2025.dtb.child.other-will-claim",
+                  "version": "v1"
+                },
+                "value": "yes"
+              }
+            }
+          ]
+        },
+        "members": [
+          {
+            "op": "ref",
+            "name": "tax.us.2025.dtb.child.same-agi"
+          }
+        ]
+      }
+    ]
+  },
+  "value": {
+    "op": "choose",
+    "when": {
+      "op": "categorical_compare",
+      "cmp": "eq",
+      "left": {
+        "op": "ref",
+        "name": "tax.us.2025.dtb.child.another-could-claim"
+      },
+      "right": {
+        "op": "category_literal",
+        "fact_type": {
+          "id": "tax.us.2025.dtb.child.another-could-claim",
+          "version": "v1"
+        },
+        "value": "no"
+      }
+    },
+    "then": 1,
+    "else": {
+      "op": "choose",
+      "when": {
+        "op": "categorical_compare",
+        "cmp": "eq",
+        "left": {
+          "op": "ref",
+          "name": "tax.us.2025.dtb.child.multiple-other-claimants"
+        },
+        "right": {
+          "op": "category_literal",
+          "fact_type": {
+            "id": "tax.us.2025.dtb.child.multiple-other-claimants",
+            "version": "v1"
+          },
+          "value": "yes"
+        }
+      },
+      "then": {
+        "op": "block",
+        "code": "DEPENDENCY_INVALID"
+      },
+      "else": {
+        "op": "choose",
+        "when": {
+          "op": "categorical_compare",
+          "cmp": "eq",
+          "left": {
+            "op": "ref",
+            "name": "tax.us.2025.dtb.child.filer-is-parent"
+          },
+          "right": {
+            "op": "category_literal",
+            "fact_type": {
+              "id": "tax.us.2025.dtb.child.filer-is-parent",
+              "version": "v1"
+            },
+            "value": "yes"
+          }
+        },
+        "then": {
+          "op": "choose",
+          "when": {
+            "op": "categorical_compare",
+            "cmp": "eq",
+            "left": {
+              "op": "ref",
+              "name": "tax.us.2025.dtb.child.other-is-parent"
+            },
+            "right": {
+              "op": "category_literal",
+              "fact_type": {
+                "id": "tax.us.2025.dtb.child.other-is-parent",
+                "version": "v1"
+              },
+              "value": "yes"
+            }
+          },
+          "then": {
+            "op": "choose",
+            "when": {
+              "op": "categorical_compare",
+              "cmp": "eq",
+              "left": {
+                "op": "ref",
+                "name": "tax.us.2025.dtb.child.form-8332-released"
+              },
+              "right": {
+                "op": "category_literal",
+                "fact_type": {
+                  "id": "tax.us.2025.dtb.child.form-8332-released",
+                  "version": "v1"
+                },
+                "value": "yes"
+              }
+            },
+            "then": {
+              "op": "block",
+              "code": "DEPENDENCY_INVALID"
+            },
+            "else": {
+              "op": "choose",
+              "when": {
+                "op": "categorical_compare",
+                "cmp": "eq",
+                "left": {
+                  "op": "ref",
+                  "name": "tax.us.2025.dtb.child.more-nights-with-filer"
+                },
+                "right": {
+                  "op": "category_literal",
+                  "fact_type": {
+                    "id": "tax.us.2025.dtb.child.more-nights-with-filer",
+                    "version": "v1"
+                  },
+                  "value": "yes"
+                }
+              },
+              "then": 1,
+              "else": {
+                "op": "choose",
+                "when": {
+                  "op": "categorical_compare",
+                  "cmp": "eq",
+                  "left": {
+                    "op": "ref",
+                    "name": "tax.us.2025.dtb.child.same-nights"
+                  },
+                  "right": {
+                    "op": "category_literal",
+                    "fact_type": {
+                      "id": "tax.us.2025.dtb.child.same-nights",
+                      "version": "v1"
+                    },
+                    "value": "yes"
+                  }
+                },
+                "then": {
+                  "op": "choose",
+                  "when": {
+                    "op": "categorical_compare",
+                    "cmp": "eq",
+                    "left": {
+                      "op": "ref",
+                      "name": "tax.us.2025.dtb.child.filer-agi-higher"
+                    },
+                    "right": {
+                      "op": "category_literal",
+                      "fact_type": {
+                        "id": "tax.us.2025.dtb.child.filer-agi-higher",
+                        "version": "v1"
+                      },
+                      "value": "yes"
+                    }
+                  },
+                  "then": 1,
+                  "else": {
+                    "op": "choose",
+                    "when": {
+                      "op": "categorical_compare",
+                      "cmp": "eq",
+                      "left": {
+                        "op": "ref",
+                        "name": "tax.us.2025.dtb.child.other-will-claim"
+                      },
+                      "right": {
+                        "op": "category_literal",
+                        "fact_type": {
+                          "id": "tax.us.2025.dtb.child.other-will-claim",
+                          "version": "v1"
+                        },
+                        "value": "no"
+                      }
+                    },
+                    "then": 1,
+                    "else": {
+                      "op": "choose",
+                      "when": {
+                        "op": "categorical_compare",
+                        "cmp": "eq",
+                        "left": {
+                          "op": "ref",
+                          "name": "tax.us.2025.dtb.child.same-agi"
+                        },
+                        "right": {
+                          "op": "category_literal",
+                          "fact_type": {
+                            "id": "tax.us.2025.dtb.child.same-agi",
+                            "version": "v1"
+                          },
+                          "value": "yes"
+                        }
+                      },
+                      "then": {
+                        "op": "block",
+                        "code": "DEPENDENCY_INVALID"
+                      },
+                      "else": 0
+                    }
+                  }
+                },
+                "else": {
+                  "op": "choose",
+                  "when": {
+                    "op": "categorical_compare",
+                    "cmp": "eq",
+                    "left": {
+                      "op": "ref",
+                      "name": "tax.us.2025.dtb.child.other-will-claim"
+                    },
+                    "right": {
+                      "op": "category_literal",
+                      "fact_type": {
+                        "id": "tax.us.2025.dtb.child.other-will-claim",
+                        "version": "v1"
+                      },
+                      "value": "no"
+                    }
+                  },
+                  "then": 1,
+                  "else": 0
+                }
+              }
+            }
+          },
+          "else": 1
+        },
+        "else": {
+          "op": "choose",
+          "when": {
+            "op": "categorical_compare",
+            "cmp": "eq",
+            "left": {
+              "op": "ref",
+              "name": "tax.us.2025.dtb.child.other-is-parent"
+            },
+            "right": {
+              "op": "category_literal",
+              "fact_type": {
+                "id": "tax.us.2025.dtb.child.other-is-parent",
+                "version": "v1"
+              },
+              "value": "yes"
+            }
+          },
+          "then": {
+            "op": "choose",
+            "when": {
+              "op": "categorical_compare",
+              "cmp": "eq",
+              "left": {
+                "op": "ref",
+                "name": "tax.us.2025.dtb.child.other-will-claim"
+              },
+              "right": {
+                "op": "category_literal",
+                "fact_type": {
+                  "id": "tax.us.2025.dtb.child.other-will-claim",
+                  "version": "v1"
+                },
+                "value": "yes"
+              }
+            },
+            "then": 0,
+            "else": {
+              "op": "choose",
+              "when": {
+                "op": "categorical_compare",
+                "cmp": "eq",
+                "left": {
+                  "op": "ref",
+                  "name": "tax.us.2025.dtb.child.filer-agi-higher"
+                },
+                "right": {
+                  "op": "category_literal",
+                  "fact_type": {
+                    "id": "tax.us.2025.dtb.child.filer-agi-higher",
+                    "version": "v1"
+                  },
+                  "value": "yes"
+                }
+              },
+              "then": 1,
+              "else": 0
+            }
+          },
+          "else": {
+            "op": "choose",
+            "when": {
+              "op": "categorical_compare",
+              "cmp": "eq",
+              "left": {
+                "op": "ref",
+                "name": "tax.us.2025.dtb.child.filer-agi-higher"
+              },
+              "right": {
+                "op": "category_literal",
+                "fact_type": {
+                  "id": "tax.us.2025.dtb.child.filer-agi-higher",
+                  "version": "v1"
+                },
+                "value": "yes"
+              }
+            },
+            "then": 1,
+            "else": {
+              "op": "choose",
+              "when": {
+                "op": "categorical_compare",
+                "cmp": "eq",
+                "left": {
+                  "op": "ref",
+                  "name": "tax.us.2025.dtb.child.other-will-claim"
+                },
+                "right": {
+                  "op": "category_literal",
+                  "fact_type": {
+                    "id": "tax.us.2025.dtb.child.other-will-claim",
+                    "version": "v1"
+                  },
+                  "value": "no"
+                }
+              },
+              "then": 1,
+              "else": {
+                "op": "choose",
+                "when": {
+                  "op": "categorical_compare",
+                  "cmp": "eq",
+                  "left": {
+                    "op": "ref",
+                    "name": "tax.us.2025.dtb.child.same-agi"
+                  },
+                  "right": {
+                    "op": "category_literal",
+                    "fact_type": {
+                      "id": "tax.us.2025.dtb.child.same-agi",
+                      "version": "v1"
+                    },
+                    "value": "yes"
+                  }
+                },
+                "then": {
+                  "op": "block",
+                  "code": "DEPENDENCY_INVALID"
+                },
+                "else": 0
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

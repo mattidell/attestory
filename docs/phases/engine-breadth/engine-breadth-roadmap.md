@@ -383,6 +383,15 @@ blocked. Add the $500 credit for children marked for it and for qualifying
 relatives, combined with the child tax credit, finishing Schedule 8812 for
 the class.
 
+## Bounded return — A Child More Than One Person Could Claim (2025)
+
+[Plan](milestones/dependent-tie-breaker.md).
+
+A child who also lived with, or was related to, someone else was refused for
+all three child credits. Resolve the tie-breaker rules from answers about the
+other person, for the earned income credit, child tax credit and credit for
+other dependents together.
+
 ## Why line 7a comes before Schedule D
 
 The 2025 Form 1040 instructions permit eligible capital-gain distributions to

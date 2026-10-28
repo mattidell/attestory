@@ -1,0 +1,318 @@
+{
+  "fact_types": [
+    {
+      "id": "tax.us.2025.dtb.child.another-could-claim",
+      "identity_keys": [
+        {
+          "entity_kind": "tax.us.eic-child",
+          "kind": "entity",
+          "name": "child"
+        },
+        {
+          "kind": "literal",
+          "name": "tax-year",
+          "values": [
+            "2025"
+          ]
+        }
+      ],
+      "nature": "determinable",
+      "schema": "fact-type.v2",
+      "supersession": {
+        "policy": "free"
+      },
+      "title": "Another person (other than your spouse if filing jointly) could also claim this child as a qualifying child for 2025: the child meets the conditions to be that person's qualifying child (lived with them more than half the year, related to them, younger than them, and meets the age test for them; Form 1040 instructions Step 1 line 1220; Pub. 596 line 837). Asked of every child the filer claims for any of the three credits. No decides: the filer wins. Yes advances to the tie-breaker. Contributed categorical assertion, domain {yes, no}, no default, presence-before-value, free supersession.",
+      "value_schema": {
+        "enum": [
+          "yes",
+          "no"
+        ],
+        "type": "string"
+      },
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.dtb.child.multiple-other-claimants",
+      "identity_keys": [
+        {
+          "entity_kind": "tax.us.eic-child",
+          "kind": "entity",
+          "name": "child"
+        },
+        {
+          "kind": "literal",
+          "name": "tax-year",
+          "values": [
+            "2025"
+          ]
+        }
+      ],
+      "nature": "determinable",
+      "schema": "fact-type.v2",
+      "supersession": {
+        "policy": "free"
+      },
+      "title": "More than one other person (not counting your spouse if filing jointly) could also claim this child as a qualifying child for 2025 (Pub. 596 lines 838-839; i1040gi line 1220). Asked when another person could also claim this child. Yes is outside the supported class and blocks. No means exactly one other person could claim. Contributed categorical assertion, domain {yes, no}, no default, presence-before-value, free supersession.",
+      "value_schema": {
+        "enum": [
+          "yes",
+          "no"
+        ],
+        "type": "string"
+      },
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.dtb.child.filer-is-parent",
+      "identity_keys": [
+        {
+          "entity_kind": "tax.us.eic-child",
+          "kind": "entity",
+          "name": "child"
+        },
+        {
+          "kind": "literal",
+          "name": "tax-year",
+          "values": [
+            "2025"
+          ]
+        }
+      ],
+      "nature": "determinable",
+      "schema": "fact-type.v2",
+      "supersession": {
+        "policy": "free"
+      },
+      "title": "You (or your spouse if filing jointly) are this child's biological or adoptive parent (IRC § 152(c)(4)(A)(i); Pub. 596 lines 845-849; i1040gi lines 1239-1242). Asked when exactly one other person could also claim this child. Yes means you are the child's birth or adoptive parent; a stepparent or foster parent who has not adopted answers no. No means you are not the child's parent. Contributed categorical assertion, domain {yes, no}, no default, presence-before-value, free supersession.",
+      "value_schema": {
+        "enum": [
+          "yes",
+          "no"
+        ],
+        "type": "string"
+      },
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.dtb.child.other-is-parent",
+      "identity_keys": [
+        {
+          "entity_kind": "tax.us.eic-child",
+          "kind": "entity",
+          "name": "child"
+        },
+        {
+          "kind": "literal",
+          "name": "tax-year",
+          "values": [
+            "2025"
+          ]
+        }
+      ],
+      "nature": "determinable",
+      "schema": "fact-type.v2",
+      "supersession": {
+        "policy": "free"
+      },
+      "title": "The other person who could claim this child is the child's biological or adoptive parent (IRC § 152(c)(4)(A)(i); Pub. 596 lines 845-849; i1040gi lines 1239-1242). Asked when exactly one other person could also claim this child. Yes means the other person is a birth or adoptive parent; a stepparent or foster parent who has not adopted answers no. No means the other person is not the child's parent. Contributed categorical assertion, domain {yes, no}, no default, presence-before-value, free supersession.",
+      "value_schema": {
+        "enum": [
+          "yes",
+          "no"
+        ],
+        "type": "string"
+      },
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.dtb.child.form-8332-released",
+      "identity_keys": [
+        {
+          "entity_kind": "tax.us.eic-child",
+          "kind": "entity",
+          "name": "child"
+        },
+        {
+          "kind": "literal",
+          "name": "tax-year",
+          "values": [
+            "2025"
+          ]
+        }
+      ],
+      "nature": "determinable",
+      "schema": "fact-type.v2",
+      "supersession": {
+        "policy": "free"
+      },
+      "title": "The release of the claim to this child for 2025 was made with Form 8332 or a similar decree or agreement (IRC § 152(e); Pub. 596 lines 952-960; i1040gi lines 1162-1175). Asked only when both you and the other person are parents of the child. Yes is outside the supported class and blocks. No means no Form 8332 release applies. Contributed categorical assertion, domain {yes, no}, no default, presence-before-value, free supersession.",
+      "value_schema": {
+        "enum": [
+          "yes",
+          "no"
+        ],
+        "type": "string"
+      },
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.dtb.child.more-nights-with-filer",
+      "identity_keys": [
+        {
+          "entity_kind": "tax.us.eic-child",
+          "kind": "entity",
+          "name": "child"
+        },
+        {
+          "kind": "literal",
+          "name": "tax-year",
+          "values": [
+            "2025"
+          ]
+        }
+      ],
+      "nature": "determinable",
+      "schema": "fact-type.v2",
+      "supersession": {
+        "policy": "free"
+      },
+      "title": "The child lived with you for more nights in 2025 than with the other parent (IRC § 152(c)(4)(B)(i); Pub. 596 lines 857-864; i1040gi lines 1248-1252). Asked only when both you and the other person are parents and no Form 8332 release applies. Yes decides: the filer wins. No advances to the equal-nights question. Contributed categorical assertion, domain {yes, no}, no default, presence-before-value, free supersession.",
+      "value_schema": {
+        "enum": [
+          "yes",
+          "no"
+        ],
+        "type": "string"
+      },
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.dtb.child.same-nights",
+      "identity_keys": [
+        {
+          "entity_kind": "tax.us.eic-child",
+          "kind": "entity",
+          "name": "child"
+        },
+        {
+          "kind": "literal",
+          "name": "tax-year",
+          "values": [
+            "2025"
+          ]
+        }
+      ],
+      "nature": "determinable",
+      "schema": "fact-type.v2",
+      "supersession": {
+        "policy": "free"
+      },
+      "title": "The child lived with you for the same number of nights in 2025 as with the other parent (IRC § 152(c)(4)(B)(ii); Pub. 596 lines 864-869; i1040gi lines 1252-1254). Asked only when both parents claim and the child did not live with you for more nights. Yes advances to the AGI comparison. No means the child lived with the other parent for more nights and advances to whether the other parent will claim. Contributed categorical assertion, domain {yes, no}, no default, presence-before-value, free supersession.",
+      "value_schema": {
+        "enum": [
+          "yes",
+          "no"
+        ],
+        "type": "string"
+      },
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.dtb.child.filer-agi-higher",
+      "identity_keys": [
+        {
+          "entity_kind": "tax.us.eic-child",
+          "kind": "entity",
+          "name": "child"
+        },
+        {
+          "kind": "literal",
+          "name": "tax-year",
+          "values": [
+            "2025"
+          ]
+        }
+      ],
+      "nature": "determinable",
+      "schema": "fact-type.v2",
+      "supersession": {
+        "policy": "free"
+      },
+      "title": "Your 2025 adjusted gross income (AGI) is higher than the other person's 2025 AGI (IRC § 152(c)(4)(B)(ii), (C); Pub. 596 lines 864-879; i1040gi lines 1252-1263). Asked where AGI decides: when you are not a parent and the other person is; when both parents had equal nights; or when neither person is a parent. Yes decides: the filer wins, except against a parent who claims. No advances to tie resolution or whether the other person claims. Contributed categorical assertion, domain {yes, no}, no default, presence-before-value, free supersession.",
+      "value_schema": {
+        "enum": [
+          "yes",
+          "no"
+        ],
+        "type": "string"
+      },
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.dtb.child.same-agi",
+      "identity_keys": [
+        {
+          "entity_kind": "tax.us.eic-child",
+          "kind": "entity",
+          "name": "child"
+        },
+        {
+          "kind": "literal",
+          "name": "tax-year",
+          "values": [
+            "2025"
+          ]
+        }
+      ],
+      "nature": "determinable",
+      "schema": "fact-type.v2",
+      "supersession": {
+        "policy": "free"
+      },
+      "title": "Your 2025 adjusted gross income (AGI) is the same as the other person's 2025 AGI (Pub. 596 lines 868-872; i1040gi lines 1252-1257). Asked where the law requires higher AGI and does not settle a tie: both parents with equal nights, or two non-parents. Yes is outside the supported class where the law does not settle a tie and blocks. No means your AGI is lower. Contributed categorical assertion, domain {yes, no}, no default, presence-before-value, free supersession.",
+      "value_schema": {
+        "enum": [
+          "yes",
+          "no"
+        ],
+        "type": "string"
+      },
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.dtb.child.other-will-claim",
+      "identity_keys": [
+        {
+          "entity_kind": "tax.us.eic-child",
+          "kind": "entity",
+          "name": "child"
+        },
+        {
+          "kind": "literal",
+          "name": "tax-year",
+          "values": [
+            "2025"
+          ]
+        }
+      ],
+      "nature": "determinable",
+      "schema": "fact-type.v2",
+      "supersession": {
+        "policy": "free"
+      },
+      "title": "The other person will claim this child on their 2025 tax return for any of the five child-related tax benefits (IRC § 152(c)(4); Pub. 596 lines 819-835, 874-879; i1040gi lines 1226-1236, 1260-1263). Asked only where the filer would otherwise lose. Yes means they will claim or you do not know, and the filer loses. No lets the filer win, except that a non-parent filer against a parent still needs the higher AGI. Contributed categorical assertion, domain {yes, no}, no default, presence-before-value, free supersession.",
+      "value_schema": {
+        "enum": [
+          "yes",
+          "no"
+        ],
+        "type": "string"
+      },
+      "version": "v1"
+    }
+  ],
+  "id": "tax.us.2025.dtb-questions",
+  "label": "2025 dependent tie-breaker questions vocabulary",
+  "schema": "bundle.v2",
+  "version": "v1"
+}

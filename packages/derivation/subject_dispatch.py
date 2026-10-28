@@ -21,7 +21,7 @@ from __future__ import annotations
 
 import json
 from dataclasses import dataclass
-from typing import Any, Mapping, Sequence
+from typing import Any, Iterable, Mapping, Sequence
 
 from packages.derivation.evaluator import (
     KEYS_UNAVAILABLE,
@@ -280,6 +280,20 @@ def _shared_key_count_fact_types(rule: Mapping[str, Any]) -> list[str]:
     walk(rule.get("when"))
     walk(rule.get("value"))
     return names
+
+
+def _iter_cds_member_names(expr: Any) -> Iterable[str]:
+    """Yield ref names declared as conditional_dependency_set members."""
+    if isinstance(expr, dict):
+        if expr.get("op") == "conditional_dependency_set":
+            for member in expr.get("members", []):
+                if isinstance(member, dict) and member.get("op") == "ref" and isinstance(member.get("name"), str):
+                    yield member["name"]
+        for value in expr.values():
+            yield from _iter_cds_member_names(value)
+    elif isinstance(expr, list):
+        for item in expr:
+            yield from _iter_cds_member_names(item)
 
 
 def _present_rows_share_no_key_name(
@@ -635,6 +649,13 @@ def evaluate_subject_scoped_rule(
     required = _requires(rule)
     coverage_names = _declared_link_operator_names(rule.get("value"))
     link_type_names = _declared_link_operator_names(rule.get("value"), ("links",))
+    conditional_members = tuple(
+        name for name in dict.fromkeys(
+            list(_iter_cds_member_names(rule.get("when")))
+            + list(_iter_cds_member_names(rule.get("value")))
+        )
+        if name not in required
+    )
     # ADR 0077 Part 1: every current row of each counted type, unscoped.
     # The count compares one named key itself; ``_scope``'s shared-name
     # join is not a containment pass and is not used for it.
@@ -668,6 +689,7 @@ def evaluate_subject_scoped_rule(
         {source.name for source in sources if source.name != subject_type}
         | ({joined_id} if joined_id is not None else set())
         | {req for req in required if req != subject_type and _is_per_subject_type(run, subject_type, req)}
+        | {cond for cond in conditional_members if cond != subject_type and _is_per_subject_type(run, subject_type, cond)}
     )
     # Defect 1: an unreadable reference type (absent from `run.ctx.
     # fact_types`, or declared with no identity-key names) must not be
@@ -822,6 +844,33 @@ def evaluate_subject_scoped_rule(
                 missing=tuple(absent),
                 pins=tuple(_pins_naming(
                     run, rule, tuple(symbol_pin), symbol_pin, *maps, subject_type
+                )),
+            ))
+            continue
+
+        for cond in conditional_members:
+            if cond == subject_type or cond in local_symbols:
+                continue
+            if cond in scoped:
+                matched = scoped[cond]
+                if not matched:
+                    continue
+                chosen = _one_source(matched)
+                if chosen is None:
+                    invalid.extend(_subject_id(source) for source in matched)
+                    continue
+                local_symbols[cond] = _decode(chosen.value)
+                symbol_pin[cond] = (chosen.finding_id, "v1", "input", "assertion")
+                fact_types[cond] = _fact_type_of(run, cond)
+
+        if invalid:
+            blocked.append(SubjectBlocked(
+                subject_fact_id=subject_fact_id,
+                symbol=symbol,
+                code=DEPENDENCY_INVALID,
+                missing=tuple(invalid),
+                pins=tuple(_pins_naming(
+                    run, rule, (subject_type,), symbol_pin, *maps, subject_type
                 )),
             ))
             continue
