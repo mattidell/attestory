@@ -120,3 +120,43 @@ refused, never left out silently.
   result on the successor package; one with nonzero 1099-G box 4 goes from
   refused to computed.
 - A 1099-INT recorded without its box 4 answer, under whatever P0 decides.
+
+## P0 result
+
+P0 and its repair are in
+[verify and design](form-1099-withholding-evidence/p0-verify-and-design.md),
+with the probe and the case script beside it.
+
+- **Law.** Line 25b is Form 1099-R box 4, any Form 1099 box 4 (interest,
+  dividends, unemployment, other income), SSA-1099 box 6 and RRB-1099 box
+  10. W-2G, Schedule K-1 and the foreign withholding forms are line 25c.
+- **Recording refuses the withholding, for every package at once.** A
+  1099-G box 1 or SSA-1099 box 5 must carry a same-statement companion whose
+  value is absent or zero (`packages/tax/loader.py`,
+  `domain_companion_presence_pairs` and `domain_companion_value_domains`).
+  The kernel enforces these on every registry, not per package. Relaxing
+  them lets a v58 run admit $600 of unemployment withholding that its line
+  25b never reads: a $508 refund becomes $92 owed, with no refusal. Recording
+  a false zero to get past the check changes what the answer means.
+- **Form 1099-K box 4 stays outside the class.** Declaring a family on the
+  published box-4 fact still breaks nine tests (SC-R1: statements are
+  recorded by plain assertion). It stays refused; line 25b's form-field
+  text, which names 1099-K, is corrected.
+- **A statement recorded without its box-4 answer** stays excluded from its
+  subtotal, as today; requiring the answer would change every existing
+  answer set.
+- **Two new closure answers.** Each new family is closed by the filer, so a
+  v58 answer set is asked "all 1099-G box 4 recorded" and "all SSA-1099 box
+  6 recorded" on the successor package.
+- **Owner decision (2026-10-27): change the engine.** Track 0 makes the
+  companion admission rules belong to the package being run (proposed
+  ADR-0082), so v58 and earlier keep refusing nonzero withholding and the
+  successor package admits and counts it.
+
+## Tracks
+
+- Track 0: package-scoped companion admission (proposed ADR-0082).
+- Track 1: 1099-G box 4 and SSA-1099 box 6 families, line 25b, core v59 /
+  registry v57 / release v57.
+- Track 2: presentation, and line 25b's form-field text by successor.
+
