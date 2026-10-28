@@ -1,13 +1,13 @@
 <!-- foreman-context-v1
 {
   "version": 1,
-  "phase": "Engine Breadth",
-  "topic": "dependent-tie-breaker",
-  "active_plan": "docs/phases/engine-breadth/milestones/dependent-tie-breaker.md",
+  "phase": "Engineering Health",
+  "topic": "test-cost-remaining",
+  "active_plan": "docs/phases/engineering-health/milestones/test-cost-remaining.md",
   "milestone_state": "closed",
-  "status": "Closed. On core v58 a per-child tie-breaker decides whether a child another person could also claim counts for the EIC, child tax credit and credit for other dependents. The owner accepted ADR-0081. Earlier packages keep their results.",
-  "current_role": "Foreman \u2014 select next milestone",
-  "current_prompt": "docs/phases/engine-breadth/coverage-frontier.md"
+  "status": "Mortgage projection reuse, incremental save folding and sharded CI are complete with the documented historical-baseline limitation.",
+  "current_role": "Foreman — select next milestone",
+  "current_prompt": "docs/phases/engineering-health/engineering-health-roadmap.md"
 }
 -->
 
@@ -15,8 +15,21 @@
 
 ## Current direction
 
-The next milestone is unselected. ADR-0081 (per-subject conditional
-dependencies) is accepted.
+Engineering Health's [Remaining Test and CI Cost](phases/engineering-health/milestones/test-cost-remaining.md)
+is closed
+([retrospective](milestone-retrospectives/2026-10-28-test-cost-remaining.md)).
+Mortgage recording and review reuse one projection inside the operation. A
+checked save folds its prefix incrementally and refuses as before. Full
+verify runs as four shards under the same `verify` job. Its historical baseline
+guard fails closed; at main-ui convergence it refuses restoring a divergent
+historical file to main's bytes without an independent prior-main witness.
+The profiled mortgage case fell from 123.89s to 98.03s of CPU. The profiled
+form-save folds are a one-case result. PR #226's exact-head `verify` is the
+merge gate. The next milestone is unselected.
+
+The dependent-tie-breaker milestone has merged to main and is included here.
+
+ADR-0081 (per-subject conditional dependencies) is accepted.
 
 ## Latest Tax Circumstance Breadth milestone
 
@@ -136,7 +149,9 @@ fast lane, which runs about 1,528 tests in 23s on the CI runner. The save-path
 incremental fold was skipped as the smallest share.
 
 That retrospective lists the remaining re-projection sites, the save-path
-fold and current-lattice rebuilds; none is selected.
+fold and current-lattice rebuilds. Remaining Test and CI Cost, in the current
+direction above, took the mortgage recording and review repeats and the
+save-path fold. Current-lattice rebuilds stay unselected.
 
 ## Previous milestone
 

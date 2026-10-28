@@ -3,7 +3,7 @@
   "version": 1,
   "phase": "Engineering Health",
   "topic": "test-cost-remaining",
-  "status": "Closed. Mortgage recording and review reuse one projection inside the operation. A checked save folds its prefix incrementally and refuses as before. Full verify runs as four shards under the same verify job. PR #226 exact-head verify had not succeeded when this record was written. The next milestone is unselected.",
+  "status": "Closed. Mortgage recording and review reuse one projection inside the operation. A checked save folds its prefix incrementally and refuses as before. Full verify runs as four shards under the same verify job. Exact-head CI is the merge gate. The next milestone is unselected.",
   "retrospective": "docs/milestone-retrospectives/2026-10-28-test-cost-remaining.md",
   "scope": [
     "rank current test CPU and waiting time before selecting work",
