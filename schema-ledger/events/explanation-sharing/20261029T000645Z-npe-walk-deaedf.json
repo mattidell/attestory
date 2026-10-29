@@ -1,0 +1,15 @@
+{
+  "format": 1,
+  "event_id": "20261029T000645Z-npe-walk-deaedf",
+  "recorded_at": "2026-10-29T00:06:45Z",
+  "milestone_key": "explanation-sharing",
+  "milestone_branch": "milestone/explanation-sharing-2025",
+  "milestone_commit": "b4c5ae206a6485f91213bce06fa775ef6b8d2675",
+  "schema_family": "npe-walk",
+  "schema_path": "packages/schemas/derivation/npe-walk.v4.schema.json",
+  "schema_version": "v4",
+  "action": "publish",
+  "change_kind": "additive",
+  "replaces_event": null,
+  "summary": "Bind unchanged additive schema bytes to the candidate rebased onto merged Form 1099 withholding; schema implementation is ffb149157ece3568f51b0ebcf96d0319443b4b84. No schema or version change."
+}
