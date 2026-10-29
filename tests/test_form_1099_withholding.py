@@ -56,12 +56,14 @@ LINE25D = "tax.us.2025.payments.line25d"
 LINE33 = "tax.us.2025.payments.line33"
 LINE35A = "tax.us.2025.payments.line35a-refunded"
 LINE37 = "tax.us.2025.payments.line37-amount-owed"
+TOTAL_INCOME = "tax.us.2025.income.total-income"
 LINES = (LINE24, LINE25A, LINE25B, LINE25D, LINE33, LINE35A, LINE37)
 
 G_SUBTOTAL = "tax.us.2025.unemployment.b4-withholding-subtotal"
 SSA_SUBTOTAL = "tax.us.2025.ssa1099.b6-withholding-subtotal"
 INT_SUBTOTAL = "tax.us.2025.interest.b4-withholding-subtotal"
 IRA_SUBTOTAL = "tax.us.2025.ira.box4-withholding-subtotal"
+DIV_SUBTOTAL = "tax.us.2025.dividends.b4-withholding-subtotal"
 
 G_FAMILY = "tax.us.2025.f1099g.1"
 G_BOX1 = "tax.us.2025.f1099g.box1-unemployment"
@@ -86,6 +88,8 @@ IRA_FAMILY = "tax.us.2025.f1099r.ira-fully-taxable"
 IRA_B4_FAMILY = "tax.us.2025.f1099r.box4"
 INT_B1_FAMILY = "tax.us.2025.f1099int.b1"
 INT_B4_FAMILY = "tax.us.2025.f1099int.b4"
+DIV_1A_FAMILY = "tax.us.2025.f1099div.1a"
+DIV_B4_FAMILY = "tax.us.2025.f1099div.b4"
 
 
 # --- recording ---------------------------------------------------------------
@@ -250,6 +254,54 @@ def _interest(acts: list[dict[str, object]], statements: list[tuple[float, float
             )
     _close(acts, "tax.us.2025.f1099int.b1.source-closure", b1_head, "demo.fw.int.closure.box1")
     _close(acts, "tax.us.2025.f1099int.b4.source-closure", b4_head, "demo.fw.int.closure.box4")
+
+
+def _dividends(acts: list[dict[str, object]], statements: list[tuple[float, float | None]]) -> None:
+    """Form 1099-DIV statements: box 1a dividends, and the box 4 answer when there is one."""
+    a_head = _head(acts, DIV_1A_FAMILY)
+    b4_head = _head(acts, DIV_B4_FAMILY)
+    for i, (box1a, box4) in enumerate(statements):
+        payer, stmt = f"demo.fw.div.payer.{i}", f"demo.fw.div.stmt.{i}"
+        keys = (("payer", payer), ("statement", stmt))
+        _introduce(acts, payer, "tax.us.dividend-payer")
+        _introduce(acts, stmt, "tax.us.1099div-statement")
+        a_head = _transition(
+            acts, (DIV_1A_FAMILY, "v1"), a_head, f"demo.fw.div.1a.h{i + 1}", f"demo.fw.div.box1a.{i}",
+            "tax.us.2025.f1099div.box1a-ordinary", keys, box1a,
+        )
+        if box4 is not None:
+            b4_head = _transition(
+                acts, (DIV_B4_FAMILY, "v1"), b4_head, f"demo.fw.div.b4.h{i + 1}", f"demo.fw.div.box4.{i}",
+                "tax.us.2025.f1099div.box4-withholding", keys, box4,
+            )
+    _close(acts, "tax.us.2025.f1099div.1a.source-closure", a_head, "demo.fw.div.closure.box1a")
+    _close(acts, "tax.us.2025.f1099div.b4.source-closure", b4_head, "demo.fw.div.closure.box4")
+
+
+def _retirements(acts: list[dict[str, object]], statements: list[tuple[float, float | None]]) -> None:
+    """IRA-family Forms 1099-R: box 1 (= box 2a), and the box 4 answer when there is one."""
+    head = _head(acts, IRA_FAMILY)
+    b4_head = _head(acts, IRA_B4_FAMILY)
+    for i, (distribution, withheld) in enumerate(statements):
+        payer, stmt = f"demo.fw.r.payer.{i}", f"demo.fw.r.stmt.{i}"
+        keys = (("payer", payer), ("statement", stmt))
+        _introduce(acts, payer, "tax.us.ira-payer")
+        _introduce(acts, stmt, "tax.us.1099r-statement")
+        _assert(acts, f"demo.fw.r.box2a.{i}", "tax.us.2025.f1099r.ira-box2a-taxable-amount", keys, distribution)
+        _assert(acts, f"demo.fw.r.checkbox.{i}", "tax.us.2025.f1099r.ira-sep-simple-checkbox", keys, True)
+        _assert(acts, f"demo.fw.r.code.{i}", "tax.us.2025.f1099r.distribution-code", keys, "7")
+        _assert(acts, f"demo.fw.r.box2b.{i}", "tax.us.2025.f1099r.box2b-not-determined", keys, False)
+        head = _transition(
+            acts, (IRA_FAMILY, "v2"), head, f"demo.fw.r.h{i + 1}", f"demo.fw.r.box1.{i}",
+            "tax.us.2025.f1099r.ira-box1-taxable-distribution", keys, distribution,
+        )
+        if withheld is not None:
+            b4_head = _transition(
+                acts, (IRA_B4_FAMILY, "v1"), b4_head, f"demo.fw.r.b4.h{i + 1}", f"demo.fw.r.box4.{i}",
+                "tax.us.2025.f1099r.ira-box4-withholding", keys, withheld,
+            )
+    _close(acts, "tax.us.2025.f1099r.ira-fully-taxable.source-closure", head, "demo.fw.r.closure.box1")
+    _close(acts, "tax.us.2025.f1099r.box4.source-closure", b4_head, "demo.fw.r.closure.box4")
 
 
 def _w2_withholding(acts: list[dict[str, object]], amount: float) -> None:
@@ -795,6 +847,36 @@ class InterestWithoutItsBox4Answer(unittest.TestCase):
         self.assertEqual(v58.value(INT_SUBTOTAL), 50)
         self.assertEqual(v59.value(INT_SUBTOTAL), 50)
         self.assertEqual(v59.blocked, [])
+
+
+class DividendsAndRetirementWithoutTheirBox4Answer(unittest.TestCase):
+    """As ``InterestWithoutItsBox4Answer``: the statement with no box 4 answer is
+    left out of its subtotal, the answered amount is the whole subtotal and
+    reaches line 25b, nothing blocks, and v59 computes what v58 computes."""
+
+    def _check(self, record: Any, subtotal: str, token: str) -> None:
+        acts = _base(wages=50000.0, w2_withheld=4500.0)
+        record(acts, [(500.0, None), (300.0, 50.0)])
+        v58 = _run(acts, f"demo.fw.{token}.v58", core="v58")
+        closed = copy.deepcopy(acts)
+        _close_new_families_empty(closed)
+        v59 = _run(closed, f"demo.fw.{token}.v59", core="v59")
+        self.assertEqual(v58.value(subtotal), 50)
+        self.assertEqual(v59.value(subtotal), 50)
+        self.assertEqual(v59.value(LINE25B), 50)
+        self.assertEqual(v59.blocked, [])
+        self.assertEqual(_figures(v59), _figures(v58))
+        # Both statements' income is counted: 500 and 300 over the same base without them.
+        base = _base(wages=50000.0, w2_withheld=4500.0)
+        _close_new_families_empty(base)
+        without = _run(base, f"demo.fw.{token}.base", core="v59")
+        self.assertEqual(v59.value(TOTAL_INCOME) - without.value(TOTAL_INCOME), 800)
+
+    def test_a_1099div_statement_with_no_box_4_answer_behaves_as_on_v58(self) -> None:
+        self._check(_dividends, DIV_SUBTOTAL, "div")
+
+    def test_a_1099r_statement_with_no_box_4_answer_behaves_as_on_v58(self) -> None:
+        self._check(_retirements, IRA_SUBTOTAL, "ira")
 
 
 if __name__ == "__main__":

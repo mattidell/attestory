@@ -172,24 +172,29 @@ def domain_package_companion_declarations() -> dict[tuple[str, str], dict[str, A
     the global maps declare it. A log recorded under v59 with withholding and
     run under an earlier package is refused with the companion named (ADR-0082
     decision 4), never computed without the withholding.
+
+    Core calculations v60 publishes the Schedule 1 line 10 successor and reads
+    the same withholding amounts, so it shares v59's declaration.
     """
-    return {
-        ("tax.us.2025.package.core-calculations", "v59"): {
-            "presence_pairs": {
-                "tax.us.2025.f1099g.box1-unemployment": None,
-                "tax.us.2025.ssa1099.box5-net-benefits": [
-                    "tax.us.2025.ssa1099.box3-benefits-paid",
-                    "tax.us.2025.ssa1099.box4-repayment",
-                    "tax.us.2025.ssa1099.recipient",
-                    "tax.us.2025.ssa1099.statement-kind",
-                    "tax.us.2025.ssa1099.lump-sum-election",
-                ],
-            },
-            "value_domains": {
-                "tax.us.2025.f1099g.box4-federal-withholding-authority": None,
-                "tax.us.2025.ssa1099.box6-withholding": None,
-            },
+    withholding = {
+        "presence_pairs": {
+            "tax.us.2025.f1099g.box1-unemployment": None,
+            "tax.us.2025.ssa1099.box5-net-benefits": [
+                "tax.us.2025.ssa1099.box3-benefits-paid",
+                "tax.us.2025.ssa1099.box4-repayment",
+                "tax.us.2025.ssa1099.recipient",
+                "tax.us.2025.ssa1099.statement-kind",
+                "tax.us.2025.ssa1099.lump-sum-election",
+            ],
         },
+        "value_domains": {
+            "tax.us.2025.f1099g.box4-federal-withholding-authority": None,
+            "tax.us.2025.ssa1099.box6-withholding": None,
+        },
+    }
+    return {
+        ("tax.us.2025.package.core-calculations", "v59"): withholding,
+        ("tax.us.2025.package.core-calculations", "v60"): withholding,
     }
 
 
