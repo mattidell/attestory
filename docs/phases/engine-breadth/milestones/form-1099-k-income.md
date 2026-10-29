@@ -3,7 +3,7 @@
   "version": 1,
   "phase": "Engine Breadth",
   "topic": "form-1099-k-income",
-  "status": "Planned. P0 traces why an unresolved Form 1099-K leaves line 8 and the bottom line publishing.",
+  "status": "Track 1: block Schedule 1 line 10 on core v60 while any Form 1099-K is unresolved.",
   "scope": [
     "an unresolved or unsupported Form 1099-K stops every line that would otherwise publish without its income, on a successor core package",
     "a resolved Form 1099-K, and a return with none, keeps every result it has today",
@@ -64,11 +64,12 @@ reason; once the filer resolves it, the return computes as it does today.
 
 ## What we know
 
-- **Engine (core v59).** `rule.f1099k-unresolved` v3 publishes
-  `tax.us.2025.f1099k.unresolved`: it blocks when any statement's loss reason
-  is not `supported-loss`, and is otherwise `false`. The Schedule 1 top entry
-  and the Schedule 1 attachment read it. Its form-field text says "the
-  return's income does not yet account for this Form 1099-K statement".
+- **Engine (core v59).** `rule.f1099k-unresolved` v3 blocks when any
+  statement's loss reason is not `supported-loss`, and is otherwise
+  inapplicable (P0 corrected "otherwise `false`"). The Schedule 1 top entry
+  read the same loss reason (neither reads the unresolved symbol). Its
+  form-field text says "the return's income does not yet account for this
+  Form 1099-K statement".
 - **What we do not know.** Which rule chain carries Schedule 1 Part I into
   Form 1040 line 8, and why it publishes while the attachment blocks; whether
   line 8 should block or the whole chain from line 9 down should wait on the
@@ -102,6 +103,32 @@ reason; once the filer resolves it, the return computes as it does today.
 - A return with no Form 1099-K: every line as on v59.
 - A v59 answer set adopted onto v60 with a resolved 1099-K: no new question,
   same result.
+
+## P0 result
+
+P0 is in [trace and design](form-1099-k-income-evidence/p0-trace-and-design.md),
+with the probe and its output beside it.
+
+- **The gap.** Schedule 1 line 10 reads line 7 (unemployment) and the ten
+  Part I absence facts, nothing from the 1099-K. Line 8 reads line 10 only.
+  No rule pinned by v59 names `tax.us.2025.f1099k.unresolved`. A Form 1099-K
+  whose loss reason is anything but `supported-loss` blocks the top entry and
+  the attachment and nothing else; lines 8 through 37 publish. The same split
+  holds on v58.
+- **A resolved 1099-K adds nothing to line 10, correctly.** The only
+  supported class is a personal item sold at a loss, which the 2025 Schedule 1
+  reports in its top entry, not as income.
+- **Decision (foreman, 2026-10-28): block at Schedule 1 line 10.** A
+  successor `rule.schedule1-line10` v2 refs line 7 when every loss reason is
+  `supported-loss` (or there is no 1099-K), and otherwise a
+  `conditional_dependency_set` on `tax.us.2025.f1099k.unresolved`, so line 10
+  blocks naming it and lines 8 through 24 and 34 through 37 wait behind it.
+  Lines 25b and 33 do not read income and still publish. Line 10 rather than
+  line 8, because line 10 is the figure that publishes the additional income.
+  No engine, schema or expression-operation change; no new question on
+  adoption; no golden reaches a 1099-K statement.
+- **Core v60 must repeat v59's ADR-0082 companion declaration**, or it
+  refuses 1099-G and SSA-1099 withholding again.
 
 ## Tracks
 
