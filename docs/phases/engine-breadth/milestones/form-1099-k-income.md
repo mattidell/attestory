@@ -3,7 +3,7 @@
   "version": 1,
   "phase": "Engine Breadth",
   "topic": "form-1099-k-income",
-  "status": "Track 1: block Schedule 1 line 10 on core v60 while any Form 1099-K is unresolved.",
+  "status": "Closed. On core v60 an unresolved or unconfirmed Form 1099-K blocks Schedule 1 line 10; lines 8-24 and 32-37 wait behind it. Earlier packages keep the gap.",
   "scope": [
     "an unresolved or unsupported Form 1099-K stops every line that would otherwise publish without its income, on a successor core package",
     "a resolved Form 1099-K, and a return with none, keeps every result it has today",
@@ -21,7 +21,7 @@
   "deep_reads": {
     "planning": [
       "docs/process/planning-and-development.md",
-      "docs/milestone-retrospectives/2026-10-28-form-1099-withholding.md",
+      "docs/milestone-retrospectives/2026-10-29-form-1099-k-income.md",
       "docs/phases/engine-breadth/milestones/form-1099-k-income.md"
     ],
     "implementation": [
@@ -31,8 +31,14 @@
     "review": [
       "docs/process/planning-and-development.md",
       "docs/phases/engine-breadth/milestones/form-1099-k-income.md"
+    ],
+    "new_milestone": [
+      "docs/milestone-retrospectives/2026-10-29-form-1099-k-income.md",
+      "docs/phases/engine-breadth/milestones/form-1099-k-income.md",
+      "docs/phases/engine-breadth/coverage-frontier.md"
     ]
-  }
+  },
+  "retrospective": "docs/milestone-retrospectives/2026-10-29-form-1099-k-income.md"
 }
 -->
 
@@ -122,8 +128,10 @@ with the probe and its output beside it.
   successor `rule.schedule1-line10` v2 refs line 7 when every loss reason is
   `supported-loss` (or there is no 1099-K), and otherwise a
   `conditional_dependency_set` on `tax.us.2025.f1099k.unresolved`, so line 10
-  blocks naming it and lines 8 through 24 and 34 through 37 wait behind it.
-  Lines 25b and 33 do not read income and still publish. Line 10 rather than
+  blocks naming it and lines 8 through 24 and 32 through 37 wait behind it
+  (P0 expected line 33 to publish; Track 1's run blocks it, because line 32's
+  refundable credits read AGI). Line 25b does not read income and still
+  publishes. Line 10 rather than
   line 8, because line 10 is the figure that publishes the additional income.
   No engine, schema or expression-operation change; no new question on
   adoption; no golden reaches a 1099-K statement.
@@ -134,3 +142,40 @@ with the probe and its output beside it.
 
 - P0: trace and design.
 - Track 1: the block on core v60.
+
+## Review dispositions
+
+Final review: the plan's outcome holds for every unresolved cause; one
+medium and three low findings.
+
+1. *An unclosed Form 1099-K family still published the bottom line*
+   (medium). Fixed: line 10 v2 also requires the 1099-K family closed
+   (`require_closed`, as for unemployment), so it blocks
+   `SOURCE_SET_UNCLOSED` naming `tax.us.2025.f1099k`. No new question: v59
+   already asks this closure through the Schedule 1 top entry.
+2. *The 1099-DIV and 1099-R missing-box-4 tests did not pin that income is
+   counted* (low). Fixed: they assert total income rises by exactly the
+   statements' 800 against a run without them.
+3. *Stale line 33 text in a test docstring and P0, a misnamed helper*
+   (low). Fixed; P0 points to the correction.
+4. *Untested cases: several statements, SSA-1099 on v60* (low). Tested.
+   When a Part I absence answer is also missing, line 10 names the absence
+   first; parked as a wording follow-up.
+
+## Execution record
+
+- P0 and Track 1 deliverables 1 to 3 ran on the grok CLI; its balance ran
+  out and the foreman finished Track 1's tests (owner direction), correcting
+  two hand-traced expectations to what the run reports (line 33 blocks;
+  lower lines name further missing inputs).
+- The final review ran on agy Sonnet. agy's credit ran out early in the
+  repair; a Sonnet 5.5 sub-agent adopted its one uncommitted edit after
+  checking it and finished the repair.
+
+## Outcome
+
+On core v60, while any Form 1099-K is unresolved or not confirmed complete,
+Schedule 1 line 10 blocks naming the cause, and Form 1040 lines 8 through 24
+and 32 through 37 do not publish; line 25b does. A resolved Form 1099-K, or
+none, publishes exactly v59's values. Core v59 and earlier are unchanged.
+One successor rule and form field; no engine or schema change.
