@@ -3,9 +3,9 @@
   "version": 1,
   "phase": "Engineering Health",
   "topic": "package-successor-generator",
-  "status": "Completed: the generator constructs and validates package, registry and release candidates from explicit changes; both historical chains reproduce byte for byte. Publication and companion duties remain separate. The next milestone is unselected.",
+  "status": "Completed: the generator constructs and validates package, registry and release candidates from explicit changes; three historical chains through core v60 reproduce byte for byte. Publication and companion duties remain separate. The next milestone is unselected.",
   "retrospective": "docs/milestone-retrospectives/2026-10-28-package-successor-generator.md",
-  "scope": ["generate package, registry and release successors from explicit changes", "reproduce both historical chains in isolated destinations", "reject ambiguous or unsafe changes"],
+  "scope": ["generate package, registry and release successors from explicit changes", "reproduce three historical chains through core v60 in isolated destinations", "reject ambiguous or unsafe changes"],
   "non_goals": ["no new or edited package, registry, release or rule content", "no schema changes", "no companion-declaration redesign", "no rewrite of the existing one-off generator"],
   "deep_reads": {
     "planning": ["docs/process/planning-and-development.md", "docs/phases/engineering-health/engineering-health-roadmap.md"],
@@ -25,7 +25,7 @@ Milestone key: `package-successor-generator`. Phase: Engineering Health.
 Content milestones need a consistent successor package, publication registry
 and release without rewriting published history. The [generator guide](../../../tools/package-successor.md)
 describes the command, importable API, explicit changes and candidate output.
-The milestone traced both chains, built the generator, and independently
+The milestone traced three chains through core v60, built the generator, and independently
 reviewed and repaired it. Rival prototypes were not applicable to this bounded
 tooling milestone.
 The tool preserves unchanged selections and fields, resolves additions and
@@ -49,8 +49,9 @@ predecessor pin and checksum-verified body remain unchanged; it refuses an
 introduced mismatch. No citizen-specific exception or historical repair is
 made.
 
-Frozen deltas reproduce all six files byte for byte: package v57, registry
-v55 and release v55 to v58/v56/v56; then v58/v56/v56 to v59/v57/v57. The
+Frozen deltas reproduce all nine files byte for byte across three chains:
+package v57, registry v55 and release v55 to v58/v56/v56; then v58/v56/v56
+to v59/v57/v57; then v59/v57/v57 to v60/v58/v58. The
 expected successors are comparison targets, not generation inputs. Ordering
 controls account for observed member, binding and registry placement without
 copying an expected output. Independent review found malformed unused
@@ -80,8 +81,10 @@ CI's required `verify` remains the publication gate.
 The single full local suite passed with 3,687 tests, 6,607 subtests and
 20 skips in 640.53 seconds. Configured mypy passed 424 source files;
 whitespace, governance lint and envelope scans passed. The independent
-implementation review confirmed both historical reproductions, installation
-collision/failure behavior and the registry-validation repair. Exact-head CI
+implementation review confirmed the first two historical reproductions, installation
+collision/failure behavior and the registry-validation repair. The third
+frozen chain was added as an owner-directed repair without another review
+stage. Exact-head CI
 and final curated-candidate review remain separate publication gates.
 
 ## Lessons
