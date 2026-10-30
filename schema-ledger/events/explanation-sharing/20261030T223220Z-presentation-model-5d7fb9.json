@@ -1,0 +1,15 @@
+{
+  "format": 1,
+  "event_id": "20261030T223220Z-presentation-model-5d7fb9",
+  "recorded_at": "2026-10-30T22:32:20Z",
+  "milestone_key": "explanation-sharing",
+  "milestone_branch": "milestone/explanation-sharing-2025",
+  "milestone_commit": "2818d12e4e587db8c7e015358616518b570afbeb",
+  "schema_family": "presentation-model",
+  "schema_path": "packages/schemas/derivation/presentation-model.v2.schema.json",
+  "schema_version": "v2",
+  "action": "publish",
+  "change_kind": "additive",
+  "replaces_event": null,
+  "summary": "Bind unchanged additive schema bytes to the final main-synchronized candidate; schema implementation is 4d4e513b8a6f296d9b7b6964b0c5b11990fc25c3. Browser-resource follow-up changes no schema or version."
+}
