@@ -1,0 +1,15 @@
+{
+  "format": 1,
+  "event_id": "20261030T153109Z-npe-walk-afec84",
+  "recorded_at": "2026-10-30T15:31:09Z",
+  "milestone_key": "explanation-sharing",
+  "milestone_branch": "milestone/explanation-sharing-2025",
+  "milestone_commit": "b652a8dad29b442d74ea18495ffd1ba257f3d90f",
+  "schema_family": "npe-walk",
+  "schema_path": "packages/schemas/derivation/npe-walk.v4.schema.json",
+  "schema_version": "v4",
+  "action": "publish",
+  "change_kind": "additive",
+  "replaces_event": null,
+  "summary": "Bind unchanged additive schema bytes to the final main-synchronized candidate; schema implementation is 4d4e513b8a6f296d9b7b6964b0c5b11990fc25c3. Browser-resource follow-up changes no schema or version."
+}
