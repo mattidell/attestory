@@ -11,6 +11,7 @@ from typing import Any, cast
 
 import jsonschema
 
+from packages.derivation.presentation_projection import project_presentation_v1
 from packages.derivation.live import live_coordinate_run
 from packages.derivation.live_workspace import WorkspaceCapability
 from packages.derivation.loader import DerivationSchemas
@@ -1182,7 +1183,7 @@ class LiveEvidenceCases(unittest.TestCase):
             f"committed presentation golden required at {golden_path}",
         )
         golden = json.loads(golden_path.read_text("utf-8"))
-        self.assertEqual(model, golden)
+        self.assertEqual(project_presentation_v1(model), golden)
         section = _section(model, "line-Sch3-1")
         self.assertEqual(section["resolved"]["value"], 100)
         blob = json.dumps(section).lower()

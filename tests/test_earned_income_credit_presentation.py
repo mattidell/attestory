@@ -15,7 +15,8 @@ from typing import Any, cast
 
 import unittest
 
-from packages.derivation.explanation import explain, index_derived
+from packages.derivation.presentation_projection import project_presentation_v1
+from packages.derivation.explanation import explain_legacy as explain, index_derived
 from packages.derivation.live import live_coordinate_run
 from packages.derivation.live_workspace import WorkspaceCapability
 from packages.derivation.production_resolver import PublicationSurface
@@ -194,7 +195,7 @@ class EarnedIncomeCreditPresentationTests(unittest.TestCase):
     def test_single_phaseout_presentation_golden(self) -> None:
         model, _pubs = _present(_acts_single(), RUN_SINGLE, SURFACE_V53)
         golden = _load_golden(SINGLE_GOLDEN)
-        self.assertEqual(model, golden)
+        self.assertEqual(project_presentation_v1(model), golden)
         # Hand-checked against the 2025 EIC Table, 0-child other column.
         # Wages $12,000 are in the phase-out: the $12,000 cell is $542.
         # Interest $2,000 makes AGI $14,000: the $14,000 cell is $389.
@@ -218,7 +219,7 @@ class EarnedIncomeCreditPresentationTests(unittest.TestCase):
     def test_joint_plateau_presentation_golden(self) -> None:
         model, _pubs = _present(_acts_joint(), RUN_JOINT, SURFACE_V53)
         golden = _load_golden(JOINT_GOLDEN)
-        self.assertEqual(model, golden)
+        self.assertEqual(project_presentation_v1(model), golden)
         # Hand-checked, 0-child joint column. $8,000 plus $8,000 is $16,000,
         # inside the plateau ($8,490 through $17,730), so both table credits
         # are the $649 maximum. AGI is under the phase-out threshold, so
@@ -257,7 +258,7 @@ class EarnedIncomeCreditPresentationTests(unittest.TestCase):
     def test_v52_presentation_still_reads_as_before(self) -> None:
         model, _pubs = _present(_acts_refund(), RUN_REFUND, SURFACE_V52)
         golden = _load_golden(REFUND_GOLDEN)
-        self.assertEqual(model, golden)
+        self.assertEqual(project_presentation_v1(model), golden)
         self.assertEqual(_published_numeric(model, "line-34"), 965)
 
 

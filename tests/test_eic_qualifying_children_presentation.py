@@ -15,7 +15,8 @@ from typing import Any, cast
 
 import unittest
 
-from packages.derivation.explanation import explain, index_derived
+from packages.derivation.presentation_projection import project_presentation_v1
+from packages.derivation.explanation import explain_legacy as explain, index_derived
 from packages.derivation.live import live_coordinate_run
 from packages.derivation.live_workspace import WorkspaceCapability
 from packages.derivation.production_resolver import PublicationSurface
@@ -216,7 +217,7 @@ class EicQualifyingChildrenPresentationTests(unittest.TestCase):
     def test_hoh_two_children_presentation_golden(self) -> None:
         model, _pubs = _present(_acts_hoh_two_children(), RUN_HOH, SURFACE_V54)
         golden = _load_golden(HOH_GOLDEN)
-        self.assertEqual(model, golden)
+        self.assertEqual(project_presentation_v1(model), golden)
         # Hand-checked against the 2025 EIC Table:
         # Row: At least 15,000, But less than 15,050
         # Column: Single, head of household, or qualifying surviving spouse and you have 2 children
@@ -253,7 +254,7 @@ class EicQualifyingChildrenPresentationTests(unittest.TestCase):
             SURFACE_V54,
         )
         golden = _load_golden(JOINT_GOLDEN)
-        self.assertEqual(model, golden)
+        self.assertEqual(project_presentation_v1(model), golden)
         # Hand-checked against the 2025 EIC Table:
         # Row: At least 35,000, But less than 35,050
         # Column: Married filing jointly and you have 1 child
@@ -340,7 +341,7 @@ class EicQualifyingChildrenPresentationTests(unittest.TestCase):
     def test_v53_presentation_still_reads_as_before(self) -> None:
         model, _pubs = _present(_v53_acts_single(), V53_RUN_SINGLE, SURFACE_V53)
         golden = _load_golden(V53_SINGLE_GOLDEN)
-        self.assertEqual(model, golden)
+        self.assertEqual(project_presentation_v1(model), golden)
         self.assertEqual(_published_numeric(model, "line-27a"), 389)
         self.assertEqual(_published_numeric(model, "line-34"), 389)
 

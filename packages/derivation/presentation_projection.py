@@ -3,10 +3,10 @@
 Builds the citation-walk renderer's input model from exactly the four things
 already available inside a successful ``live_coordinate_run``: the resolved
 exclusive graph, the projected record state, ``RunResult.publications``, and
-``RunResult.dispositions``. This is an internal implementation shape with its
-own version and strict validator (below) — never a published schema, citizen,
-or caller-facing contract (ADR-0046 is unchanged; this module does not
-instantiate it).
+``RunResult.dispositions``. The projector remains an internal zero-authority
+implementation (ADR-0046 is unchanged). Historical presentation-model.v1
+was an internal shape; the v2 saved serialization has a published schema and
+strict runtime validation, including its shared explanation graph.
 
 The model's ``unsupportedSourceFindings`` list is the same two inputs this
 projector already holds (``state`` and ``resolved_members``) run through
@@ -37,11 +37,13 @@ from decimal import Decimal, InvalidOperation
 from typing import Any, Mapping, Sequence, cast
 
 from packages.derivation.derived_enumeration import derived_activity_present, fact_type_matches_symbol
+from packages.derivation.explanation_graph import GraphBuilder, validate_graph, validate_output_schema
 from packages.kernel.facts import fact_id_for
 from packages.kernel.findings import FindingState
 from packages.tax.coverage import untranslated_source_findings
 
-PRESENTATION_MODEL_VERSION = "presentation-model.v1"
+PRESENTATION_MODEL_VERSION = "presentation-model.v2"
+LEGACY_PRESENTATION_MODEL_VERSION = "presentation-model.v1"
 
 # form-field.v2 and .v3 share an identical renderer-facing shape (schema,
 # id, version, form, line, label, description, binds_symbol, citation,
@@ -428,19 +430,41 @@ def _leaf_pins(
     leaf is returned verbatim, carrying the exact version its own pin already
     declared (never re-derived or invented here).
     """
-    leaves: set[tuple[str, str]] = set()
-    for pin in pins:
-        if pin["role"] not in _DEPENDENCY_ROLES:
-            continue
-        finding_id = pin["id"]
-        if finding_id in seen:
-            continue
-        derived = publications_by_id.get(finding_id)
-        if derived is not None:
-            leaves |= _leaf_pins(derived["pins"], publications_by_id=publications_by_id, seen=seen | {finding_id})
-        else:
-            leaves.add((finding_id, pin["version"]))
-    return leaves
+    # Cache only cycle-free subwalks, and reuse one only when its descendants
+    # do not intersect this active path. This keeps the legacy cycle-skip
+    # semantics while avoiding repeated work across diamond paths.
+    memo: dict[str, tuple[set[tuple[str, str]], set[str]]] = {}
+
+    def visit(current: Sequence[Mapping[str, Any]], path: frozenset[str]) -> tuple[set[tuple[str, str]], set[str], bool]:
+        leaves: set[tuple[str, str]] = set()
+        touched: set[str] = set()
+        cyclic = False
+        for pin in current:
+            if pin["role"] not in _DEPENDENCY_ROLES:
+                continue
+            finding_id = str(pin["id"])
+            if finding_id in path:
+                cyclic = True
+                continue
+            derived = publications_by_id.get(finding_id)
+            if derived is None:
+                leaves.add((finding_id, str(pin["version"])))
+                continue
+            cached = memo.get(finding_id)
+            if cached is not None and not (cached[1] & path):
+                child_leaves, descendants = cached
+                child_cycle = False
+            else:
+                child_leaves, descendants, child_cycle = visit(derived["pins"], path | {finding_id})
+                descendants = descendants | {finding_id}
+                if not child_cycle:
+                    memo[finding_id] = (child_leaves, descendants)
+            leaves.update(child_leaves)
+            touched.update(descendants)
+            cyclic = cyclic or child_cycle
+        return leaves, touched, cyclic
+
+    return visit(pins, seen)[0]
 
 
 def _raw_leaves(
@@ -4405,6 +4429,44 @@ def build_presentation_model(
 
     pin_labels: dict[str, str] = {}
     sections: list[dict[str, Any]] = []
+    graph_builder = GraphBuilder(publications_by_id, state.findings, run_id=run_id)
+    section_roots: dict[str, dict[str, Any]] = {}
+    disposition_nodes: dict[str, dict[str, Any]] = {}
+    disposition_active: set[str] = set()
+    producers_by_symbol: dict[str, list[Mapping[str, Any]]] = {}
+    for rule in rules_by_id.values():
+        producers_by_symbol.setdefault(str(rule["publishes"]), []).append(rule)
+
+    def disposition_walk(symbol: str) -> str:
+        if symbol in disposition_active:
+            raise PresentationModelError("cyclic disposition explanation")
+        if symbol in disposition_nodes:
+            return symbol
+        disposition_active.add(symbol)
+        rows = by_symbol.get(symbol, [])
+        published = [r for r in rows if r.get("disposition") == "published"]
+        if len(published) > 1:
+            raise PresentationModelError("ambiguous published disposition predecessor")
+        blocked = [r for r in rows if r.get("disposition") == "blocked"]
+        inapplicable = [r for r in rows if r.get("disposition") == "inapplicable"]
+        selected = published[:1] or blocked or inapplicable
+        node: dict[str, Any] = {"symbol": symbol, "records": [dict(r) for r in selected], "children": []}
+        if published:
+            try:
+                node["findingRoot"] = graph_builder.add_root(str(published[0]["finding_id"]), role="input")
+            except (KeyError, TypeError, ValueError) as exc:
+                raise PresentationModelError("invalid disposition predecessor") from exc
+        elif selected:
+            selected_ids = {str(row.get("artifact_id")) for row in selected}
+            relevant = [rule for rule in producers_by_symbol.get(symbol, []) if
+                        not blocked or str(rule.get("id")) in selected_ids]
+            required = {dep for rule in relevant for dep in rule.get("requires", []) if isinstance(dep, str)}
+            for dependency in sorted(required & producers_by_symbol.keys()):
+                node["children"].append(disposition_walk(dependency))
+        disposition_active.remove(symbol)
+        disposition_nodes[symbol] = node
+        return symbol
+
     for field in sorted(fields, key=lambda f: f["id"]):
         symbol = field["binds_symbol"]
         row = _one_row(by_symbol.get(symbol, []), symbol=symbol)
@@ -4424,6 +4486,14 @@ def build_presentation_model(
             )
             if reasons:
                 resolved["reasons"] = reasons
+        if row["disposition"] == "published":
+            try:
+                graph_builder.add_root(str(row["finding_id"]), role="output", authorization=authorization)
+            except (KeyError, TypeError, ValueError) as exc:
+                raise PresentationModelError("invalid published explanation") from exc
+            section_roots[section_id] = {"kind": "published", "root": len(graph_builder.roots) - 1}
+        else:
+            section_roots[section_id] = {"kind": "disposition", "root": disposition_walk(str(symbol))}
         sections.append({
             "id": section_id,
             "field": dict(field),
@@ -4472,6 +4542,9 @@ def build_presentation_model(
         "citationGroups": citation_groups,
         "attachments": attachments_out,
         "unsupportedSourceFindings": unsupported_source_findings,
+        "explanationGraph": graph_builder.to_dict(),
+        "sectionRoots": section_roots,
+        "dispositionNodes": disposition_nodes,
     }
     if provenance_groups:
         model["provenanceGroups"] = provenance_groups
@@ -4851,8 +4924,96 @@ def _validate_calculation_view(view: Any) -> None:
                 raise PresentationModelError(f"{p}.lineNote: requires a published responsibility pinned to the conclusion")
 
 
+def project_presentation_v1(model: Mapping[str, Any]) -> dict[str, Any]:
+    """Return the named historical view without inventing graph data."""
+    validate_presentation_model(model)
+    result = dict(model)
+    if result["schema"] == PRESENTATION_MODEL_VERSION:
+        result.pop("explanationGraph")
+        result.pop("sectionRoots")
+        result.pop("dispositionNodes")
+        result["schema"] = LEGACY_PRESENTATION_MODEL_VERSION
+    return result
+
+
 def validate_presentation_model(model: Mapping[str, Any]) -> None:
     """Strict structural validation: unknown keys and invalid combinations reject."""
+    if model.get("schema") == PRESENTATION_MODEL_VERSION:
+        if "explanationGraph" not in model or "sectionRoots" not in model or "dispositionNodes" not in model:
+            raise PresentationModelError("missing shared explanation")
+        try:
+            validate_output_schema("presentation-model.v2", model)
+            graph = model["explanationGraph"]
+            validate_graph(graph)
+            if graph["run_id"] != model["runId"]:
+                raise ValueError("explanation run mismatch")
+            roots = model["sectionRoots"]
+            if not isinstance(roots, dict) or set(roots) != {section["id"] for section in model["sections"]}:
+                raise ValueError("section roots do not match sections")
+            for section in model["sections"]:
+                item = roots[section["id"]]
+                if section["resolved"]["disposition"] in _NUMERIC_DISPOSITIONS | _CATEGORICAL_DISPOSITIONS:
+                    if set(item) != {"kind", "root"} or item["kind"] != "published" or not isinstance(item["root"], int) or isinstance(item["root"], bool) or not 0 <= item["root"] < len(graph["roots"]):
+                        raise ValueError("invalid section root")
+                    root = graph["roots"][item["root"]]
+                    if root.get("authorization") != model.get("authorization"):
+                        raise ValueError("section authorization mismatch")
+                    target = root["target"]
+                    node = graph["nodes"][target]
+                    finding = section["resolved"]["act"]["finding"]
+                    if section["resolved"]["act"].get("run_id") != model["runId"]:
+                        raise ValueError("section run mismatch")
+                    if node["kind"] != "derived" or any(node[key] != finding.get(source) for key, source in (("id", "id"), ("version", "version"), ("symbol", "symbol"), ("value", "value"))):
+                        raise ValueError("section root finding mismatch")
+                    pins = sorted(finding["pins"], key=lambda pin: (pin["role"], pin["id"]))
+                    if [edge["pin"] for edge in node["edges"]] != pins:
+                        raise ValueError("section root pins mismatch")
+                    producers = [pin for pin in finding["pins"] if pin["role"] in {"computation", "applicability", "field-mapping", "cross-form-bridge"}]
+                    if node["produced_by"] != (producers[-1] if producers else None):
+                        raise ValueError("section producer mismatch")
+                elif set(item) != {"kind", "root"} or item["kind"] != "disposition":
+                    raise ValueError("invalid disposition root")
+                else:
+                    entry = model["dispositionNodes"][item["root"]]
+                    records = entry["records"]
+                    if not isinstance(records, list) or not records or not all(isinstance(row, dict) and row.get("disposition") == ("inapplicable" if section["resolved"]["disposition"] == "guard_inapplicable" else section["resolved"]["disposition"]) for row in records):
+                        raise ValueError("section disposition mismatch")
+                    if entry["symbol"] != section["field"]["binds_symbol"]:
+                        raise ValueError("section disposition symbol mismatch")
+            disposition_nodes = model["dispositionNodes"]
+            if not isinstance(disposition_nodes, dict):
+                raise ValueError("invalid disposition table")
+            active: set[str] = set()
+            done: set[str] = set()
+            def check_disposition(key: str) -> None:
+                if key in active:
+                    raise ValueError("cyclic disposition explanation")
+                if key in done:
+                    return
+                entry = disposition_nodes[key]
+                if not isinstance(entry, dict) or not {"symbol", "records", "children"} <= set(entry) or set(entry) - {"symbol", "records", "children", "findingRoot"} or entry.get("symbol") != key or not isinstance(entry.get("children"), list) or not isinstance(entry["records"], list) or not all(isinstance(row, dict) for row in entry["records"]):
+                    raise ValueError("invalid disposition node")
+                if "findingRoot" in entry:
+                    if entry["findingRoot"] not in graph["nodes"] or len(entry["records"]) != 1 or entry["records"][0].get("disposition") != "published" or entry["records"][0].get("finding_id") != graph["nodes"][entry["findingRoot"]]["id"]:
+                        raise ValueError("invalid disposition predecessor")
+                elif any(row.get("disposition") == "published" for row in entry["records"]):
+                    raise ValueError("missing disposition predecessor")
+                active.add(key)
+                for child in entry["children"]:
+                    check_disposition(child)
+                active.remove(key)
+                done.add(key)
+            for key in disposition_nodes:
+                check_disposition(key)
+        except (KeyError, TypeError, ValueError) as exc:
+            raise PresentationModelError("invalid shared explanation") from exc
+        legacy = dict(model)
+        legacy.pop("explanationGraph")
+        legacy.pop("sectionRoots")
+        legacy.pop("dispositionNodes")
+        legacy["schema"] = LEGACY_PRESENTATION_MODEL_VERSION
+        validate_presentation_model(legacy)
+        return
     _require_keys(
         model,
         frozenset({
@@ -4874,8 +5035,8 @@ def validate_presentation_model(model: Mapping[str, Any]) -> None:
         _validate_mortgage_borrowing_explanation(model["mortgageBorrowingExplanation"])
     if "f1099kStatementExplanation" in model:
         _validate_f1099k_statement_explanation(model["f1099kStatementExplanation"])
-    if model["schema"] != PRESENTATION_MODEL_VERSION:
-        raise PresentationModelError(f"$.schema: expected {PRESENTATION_MODEL_VERSION!r}")
+    if model["schema"] != LEGACY_PRESENTATION_MODEL_VERSION:
+        raise PresentationModelError(f"$.schema: expected {LEGACY_PRESENTATION_MODEL_VERSION!r}")
     if not isinstance(model["runId"], str) or not model["runId"]:
         raise PresentationModelError("$.runId: expected non-empty string")
     if not isinstance(model["pinLabels"], dict) or not all(

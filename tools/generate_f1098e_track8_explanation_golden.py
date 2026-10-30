@@ -37,7 +37,7 @@ ROOT = Path(__file__).resolve().parent.parent
 if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
-from packages.derivation.explanation import ExplanationNode, explain, index_derived, render_text
+from packages.derivation.explanation import ExplanationNode, explain_legacy as explain, index_derived, render_text
 from packages.derivation.live import live_coordinate_run
 from packages.derivation.live_workspace import WorkspaceCapability
 from tests.test_f1098e_student_loan_interest_agi_track6 import Statement, _f1098e_acts, _renumber

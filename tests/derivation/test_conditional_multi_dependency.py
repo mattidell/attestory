@@ -11,7 +11,7 @@ from tempfile import TemporaryDirectory
 from typing import Any, cast
 
 from packages.derivation.evaluator import BLOCK_INVALID, AccessLog, Environment, EvalBlocked, evaluate
-from packages.derivation.explanation import walk_npe
+from packages.derivation.explanation import walk_npe_legacy as walk_npe
 from packages.derivation.loader import DerivationSchemas, load_canon
 from packages.derivation.live import live_coordinate_run
 from packages.derivation.live_workspace import WorkspaceCapability

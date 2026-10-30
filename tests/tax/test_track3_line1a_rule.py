@@ -14,7 +14,7 @@ import unittest
 from pathlib import Path
 from typing import Any
 
-from packages.derivation.explanation import explain, index_derived
+from packages.derivation.explanation import explain_legacy as explain, index_derived
 from packages.derivation.loader import DerivationSchemas, load_canon
 from packages.derivation.package_validation import validate_package
 from packages.derivation.reference_runner import run_reference
@@ -180,14 +180,14 @@ class DeriveCliGoldens(unittest.TestCase):
     def test_json_report_matches_golden_for_every_scenario(self) -> None:
         for name in ("single_w2", "two_w2_same_employer", "present_zero_w2"):
             with self.subTest(scenario=name):
-                got = json.loads(self._run(name, "--json").stdout)
+                got = json.loads(self._run(name, "--json", "--legacy-tree").stdout)
                 expected = json.loads((SCENARIOS / name / "expected" / "report.json").read_text("utf-8"))
                 self.assertEqual(got, expected)
 
     def test_human_report_matches_golden_for_every_scenario(self) -> None:
         for name in ("single_w2", "two_w2_same_employer", "present_zero_w2"):
             with self.subTest(scenario=name):
-                got = self._run(name).stdout
+                got = self._run(name, "--legacy-tree").stdout
                 expected = (SCENARIOS / name / "expected" / "report.txt").read_text("utf-8")
                 self.assertEqual(got, expected)
 

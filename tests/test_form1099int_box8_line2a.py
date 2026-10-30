@@ -11,6 +11,7 @@ from typing import Any, cast
 
 import jsonschema
 
+from packages.derivation.presentation_projection import project_presentation_v1
 from packages.derivation.live import live_coordinate_run
 from packages.derivation.live_workspace import WorkspaceCapability
 from packages.derivation.loader import DerivationSchemas
@@ -921,7 +922,7 @@ class LiveEvidenceCases(unittest.TestCase):
         golden = json.loads(golden_path.read_text("utf-8"))
         # Full structural equality: value, citations, authority, explain, pin labels,
         # and every other section the surface publishes (P12 contract).
-        self.assertEqual(model, golden)
+        self.assertEqual(project_presentation_v1(model), golden)
         live_sec = _section(model, "line-2a")
         self.assertEqual(live_sec["resolved"]["value"], 180)
         explain = json.dumps(live_sec).lower()

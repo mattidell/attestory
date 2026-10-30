@@ -1,0 +1,47 @@
+{
+  "nodes": {
+    "derived:11:demo.result:v1": {
+      "edges": [
+        {
+          "pin": {
+            "id": "demo.source",
+            "role": "choice",
+            "version": "v1"
+          },
+          "target": "reference:11:demo.source:v1"
+        },
+        {
+          "pin": {
+            "id": "demo.source",
+            "role": "input",
+            "version": "v1"
+          },
+          "target": "reference:11:demo.source:v1"
+        }
+      ],
+      "id": "demo.result",
+      "kind": "derived",
+      "produced_by": null,
+      "symbol": "demo.result",
+      "value": "1",
+      "version": "v1"
+    },
+    "reference:11:demo.source:v1": {
+      "edges": [],
+      "id": "demo.source",
+      "kind": "reference",
+      "produced_by": null,
+      "symbol": null,
+      "value": null,
+      "version": "v1"
+    }
+  },
+  "roots": [
+    {
+      "role": "output",
+      "target": "derived:11:demo.result:v1"
+    }
+  ],
+  "run_id": "demo.run",
+  "schema": "explanation-graph.v1"
+}

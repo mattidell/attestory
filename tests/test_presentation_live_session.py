@@ -103,7 +103,7 @@ class SessionTests(unittest.TestCase):
                 with urlopen(session.url, timeout=2) as response:
                     body = response.read().decode("utf-8")
                 self.assertIn("Form 1040 — Citation Walk", body)
-                self.assertIn('"schema":"presentation-model.v1"', body)
+                self.assertIn('"schema":"presentation-model.v2"', body)
                 self.assertIn('"runId":"demo.presentation-live-session"', body)
                 self.assertTrue(session.url.startswith("http://127.0.0.1:"))
                 # The served page must not tell the owner what it is rendering.
@@ -116,7 +116,7 @@ class SessionTests(unittest.TestCase):
                 self.assertNotIn(str(root), repr(session))
                 model_path = root / "L" / "outputs" / "demo.presentation-live-session.presentation.json"
                 model = json.loads(model_path.read_text(encoding="utf-8"))
-                self.assertIn("presentation-model.v1", model["schema"])
+                self.assertIn("presentation-model.v2", model["schema"])
                 self.assertIn(root.resolve(), model_path.resolve().parents)
                 try:
                     urlopen(f"{session.url}not-allowed", timeout=2)

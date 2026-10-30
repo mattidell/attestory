@@ -1,0 +1,284 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "derivation/presentation-model.v2",
+  "title": "Saved presentation with shared explanation",
+  "type": "object",
+  "required": [
+    "schema",
+    "runId",
+    "pinLabels",
+    "sections",
+    "citationGroups",
+    "attachments",
+    "unsupportedSourceFindings",
+    "explanationGraph",
+    "sectionRoots",
+    "dispositionNodes"
+  ],
+  "properties": {
+    "schema": {
+      "const": "presentation-model.v2"
+    },
+    "runId": {
+      "type": "string",
+      "minLength": 1
+    },
+    "pinLabels": {
+      "type": "object"
+    },
+    "sections": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      }
+    },
+    "citationGroups": {
+      "type": "array"
+    },
+    "attachments": {
+      "type": "array"
+    },
+    "unsupportedSourceFindings": {
+      "type": "array"
+    },
+    "explanationGraph": {
+      "type": "object",
+      "required": [
+        "schema",
+        "run_id",
+        "roots",
+        "nodes"
+      ],
+      "properties": {
+        "schema": {
+          "const": "explanation-graph.v1"
+        },
+        "run_id": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "roots": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": [
+              "target",
+              "role"
+            ],
+            "properties": {
+              "target": {
+                "type": "string",
+                "minLength": 1
+              },
+              "role": {
+                "type": "string",
+                "minLength": 1
+              },
+              "authorization": {
+                "type": "object"
+              }
+            },
+            "additionalProperties": false
+          }
+        },
+        "nodes": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "object",
+            "required": [
+              "id",
+              "version",
+              "kind",
+              "symbol",
+              "value",
+              "produced_by",
+              "edges"
+            ],
+            "properties": {
+              "id": {
+                "type": "string",
+                "minLength": 1
+              },
+              "version": {
+                "type": "string",
+                "minLength": 1
+              },
+              "kind": {
+                "enum": [
+                  "derived",
+                  "input",
+                  "reference"
+                ]
+              },
+              "symbol": {
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "value": {},
+              "produced_by": {
+                "anyOf": [
+                  {
+                    "type": "object",
+                    "required": [
+                      "id",
+                      "version",
+                      "role"
+                    ],
+                    "properties": {
+                      "id": {
+                        "type": "string",
+                        "minLength": 1
+                      },
+                      "version": {
+                        "type": "string",
+                        "minLength": 1
+                      },
+                      "role": {
+                        "type": "string",
+                        "minLength": 1
+                      }
+                    },
+                    "additionalProperties": true
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "edges": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "required": [
+                    "target",
+                    "pin"
+                  ],
+                  "properties": {
+                    "target": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "pin": {
+                      "type": "object",
+                      "required": [
+                        "id",
+                        "version",
+                        "role"
+                      ],
+                      "properties": {
+                        "id": {
+                          "type": "string",
+                          "minLength": 1
+                        },
+                        "version": {
+                          "type": "string",
+                          "minLength": 1
+                        },
+                        "role": {
+                          "type": "string",
+                          "minLength": 1
+                        }
+                      },
+                      "additionalProperties": true
+                    }
+                  },
+                  "additionalProperties": false
+                }
+              }
+            },
+            "additionalProperties": false
+          }
+        }
+      },
+      "additionalProperties": false
+    },
+    "sectionRoots": {
+      "type": "object",
+      "additionalProperties": {
+        "oneOf": [
+          {
+            "type": "object",
+            "required": [
+              "kind",
+              "root"
+            ],
+            "properties": {
+              "kind": {
+                "const": "published"
+              },
+              "root": {
+                "type": "integer",
+                "minimum": 0
+              }
+            },
+            "additionalProperties": false
+          },
+          {
+            "type": "object",
+            "required": [
+              "kind",
+              "root"
+            ],
+            "properties": {
+              "kind": {
+                "const": "disposition"
+              },
+              "root": {
+                "type": "string",
+                "minLength": 1
+              }
+            },
+            "additionalProperties": false
+          }
+        ]
+      }
+    },
+    "dispositionNodes": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "object",
+        "required": [
+          "symbol",
+          "records",
+          "children"
+        ],
+        "properties": {
+          "symbol": {
+            "type": "string",
+            "minLength": 1
+          },
+          "records": {
+            "type": "array",
+            "items": {
+              "type": "object"
+            }
+          },
+          "children": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "minLength": 1
+            }
+          },
+          "findingRoot": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "additionalProperties": false
+      }
+    },
+    "authorization": {},
+    "provenanceGroups": {},
+    "calculationView": {},
+    "line21Explanation": {},
+    "mortgageInterestExplanation": {},
+    "mortgageBorrowingExplanation": {},
+    "f1099kStatementExplanation": {}
+  },
+  "additionalProperties": false
+}

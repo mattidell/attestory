@@ -21,6 +21,7 @@ import json
 import unittest
 from typing import Any
 
+from packages.derivation.presentation_projection import project_presentation_v1
 from packages.derivation.loader import DerivationSchemas
 from packages.derivation.marshal import marshal_run_context
 from packages.derivation.pairing_dispatch import (
@@ -3921,7 +3922,17 @@ class DurableReaderCoverageBlock(unittest.TestCase):
             self.assertEqual(model["sections"][0]["resolved"], resolved)
             self.assertEqual(model["sections"][0]["citationSites"], [])
             self.assertNotIn("provenanceGroups", model)
-        dumped = [json.dumps(model) for model in models]
+        for model, run in zip(models, (uncovered, nonnum, orphan, duplicate)):
+            root = model["sectionRoots"][model["sections"][0]["id"]]
+            assert root["kind"] == "disposition"
+            records = model["dispositionNodes"][root["root"]]["records"]
+            assert records and all(row in run.dispositions for row in records)
+            assert all(row["disposition"] == "blocked" for row in records)
+            actual_findings = {str(pub.finding["id"]) for pub in run.publications}
+            actual_findings.update(str(key) for key in (uncovered_state if run is uncovered else nonnum_state if run is nonnum else orphan_state if run is orphan else duplicate_state).findings)
+            assert all(node["id"] in actual_findings for node in model["explanationGraph"]["nodes"].values() if node["kind"] != "reference")
+            assert model["sections"][0]["resolved"]["act"] is None
+        dumped = [json.dumps(project_presentation_v1(model)) for model in models]
         for blob in dumped:
             self.assertNotIn(P3_LINK_INST, blob)
             self.assertNotIn(_P4_DUPLICATE_LINK, blob)
@@ -4125,7 +4136,9 @@ class DurableReaderCoveredReduction(unittest.TestCase):
         top_pins = section["resolved"]["act"]["finding"]["pins"]
         self.assertIn(inst_reduction["id"], {pin["id"] for pin in top_pins})
         self.assertIn(priv_reduction["id"], {pin["id"] for pin in top_pins})
-        blob = json.dumps(model)
+        graph_ids = {node["id"] for node in model["explanationGraph"]["nodes"].values()}
+        self.assertTrue({inst_status["id"], priv_status["id"], default_id} <= graph_ids)
+        blob = json.dumps(project_presentation_v1(model))
         self.assertNotIn(inst_status["id"], blob)
         self.assertNotIn(priv_status["id"], blob)
         self.assertNotIn(default_id, blob)
@@ -4160,7 +4173,8 @@ class DurableReaderCoveredReduction(unittest.TestCase):
         self.assertNotIn(T2_ENROL_EARLIER, {site["pinId"] for site in section["citationSites"]})
         top_pins = section["resolved"]["act"]["finding"]["pins"]
         self.assertIn(one_reduction["id"], {pin["id"] for pin in top_pins})
-        blob = json.dumps(model)
+        self.assertIn(one_status["id"], {node["id"] for node in model["explanationGraph"]["nodes"].values()})
+        blob = json.dumps(project_presentation_v1(model))
         self.assertNotIn(one_status["id"], blob)
         self.assertNotIn(STATUS, blob)
         self.assertNotIn(P3B_LINK_REDUCTION, blob)

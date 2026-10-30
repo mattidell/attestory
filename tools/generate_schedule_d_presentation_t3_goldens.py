@@ -17,6 +17,7 @@ ROOT = Path(__file__).resolve().parent.parent
 if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
+from packages.derivation.presentation_projection import project_presentation_v1
 from packages.derivation.live import live_coordinate_run
 from packages.derivation.live_workspace import WorkspaceCapability
 from packages.derivation.production_resolver import PublicationSurface
@@ -44,7 +45,7 @@ def run_model(name: str, acts: list[dict[str, object]]) -> dict[str, Any]:
         )
         assert outcome.refusal is None, outcome.refusal
         assert outcome.presentation_path is not None
-        return cast(dict[str, Any], json.loads(outcome.presentation_path.read_text("utf-8")))
+        return project_presentation_v1(cast(dict[str, Any], json.loads(outcome.presentation_path.read_text("utf-8"))))
 
 
 def regenerate() -> dict[str, dict[str, Any]]:

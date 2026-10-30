@@ -37,7 +37,8 @@ from tempfile import TemporaryDirectory
 from typing import Any, cast
 import unittest
 
-from packages.derivation.explanation import explain, index_derived
+from packages.derivation.presentation_projection import project_presentation_v1
+from packages.derivation.explanation import explain_legacy as explain, index_derived
 from packages.derivation.live import live_coordinate_run
 from packages.derivation.live_workspace import WorkspaceCapability
 from packages.derivation.production_resolver import PublicationSurface
@@ -191,7 +192,7 @@ def _numeric(model: dict[str, Any], section_id: str) -> Any:
 class DependentTieBreakerPresentationTests(unittest.TestCase):
     def test_single_parent_wins_golden_regenerates_and_matches(self) -> None:
         model, _ = _present(_acts_single_parent_wins(), RUN_PARENT_WINS)
-        self.assertEqual(model, _load_golden(PARENT_WINS_GOLDEN))
+        self.assertEqual(project_presentation_v1(model), _load_golden(PARENT_WINS_GOLDEN))
 
     def test_single_parent_wins_walk_from_line_28_and_pins(self) -> None:
         model, pubs = _present(_acts_single_parent_wins(), RUN_PARENT_WINS)
@@ -238,7 +239,7 @@ class DependentTieBreakerPresentationTests(unittest.TestCase):
 
     def test_single_grandparent_loses_golden_regenerates_and_matches(self) -> None:
         model, _ = _present(_acts_single_grandparent_loses(), RUN_GRANDPARENT_LOSES)
-        self.assertEqual(model, _load_golden(GRANDPARENT_LOSES_GOLDEN))
+        self.assertEqual(project_presentation_v1(model), _load_golden(GRANDPARENT_LOSES_GOLDEN))
 
     def test_single_grandparent_loses_walk_names_other_will_claim_not_filer_agi_higher(self) -> None:
         model, pubs = _present(_acts_single_grandparent_loses(), RUN_GRANDPARENT_LOSES)
@@ -349,8 +350,39 @@ class DependentTieBreakerPresentationTests(unittest.TestCase):
 
     def test_v56_other_dependents_credit_presentation_reads_as_before(self) -> None:
         model, _ = _odc_v56_present(_odc_v56_acts_mfj(), ODC_V56_RUN_MFJ)
-        self.assertEqual(model, _load_golden(ODC_V56_MFJ_GOLDEN))
+        self.assertEqual(project_presentation_v1(model), _load_golden(ODC_V56_MFJ_GOLDEN))
 
 
 if __name__ == "__main__":
     unittest.main()
+
+
+def test_v58_graph_preserves_every_recorded_pin_and_producer() -> None:
+    model, pubs = _present(_acts_single_parent_wins(), RUN_PARENT_WINS)
+    assert project_presentation_v1(model) == _load_golden(PARENT_WINS_GOLDEN)
+    nodes = model['explanationGraph']['nodes']
+    by_id = {str(f['id']): f for f in pubs.values()}
+    root = model['sectionRoots']['line-27a']
+    key = model['explanationGraph']['roots'][root['root']]['target']
+    reached = set()
+    pending = [key]
+    while pending:
+        key = pending.pop()
+        if key in reached:
+            continue
+        reached.add(key)
+        node = nodes[key]
+        if node['kind'] == 'derived':
+            finding = by_id[node['id']]
+            assert node['value'] == finding['value']
+            assert node['symbol'] == finding['symbol']
+            assert node['version'] == finding['version']
+            pins = sorted(finding['pins'], key=lambda pin: (pin['role'], pin['id']))
+            assert [edge['pin'] for edge in node['edges']] == pins
+            producers = [pin for pin in finding['pins'] if pin['role'] in {'computation','applicability','field-mapping','cross-form-bridge'}]
+            assert node['produced_by'] == (producers[-1] if producers else None)
+        for edge in node['edges']:
+            assert nodes[edge['target']]['id'] == edge['pin']['id']
+            pending.append(edge['target'])
+    assert len(reached) < 8608
+    assert sum(len(nodes[key]['edges']) for key in reached) < 8607

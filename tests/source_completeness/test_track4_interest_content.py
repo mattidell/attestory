@@ -276,7 +276,7 @@ class ScenarioRuns(unittest.TestCase):
                 expected_text = (SCENARIOS / name / "expected" / "report.txt").read_text("utf-8")
                 completed = subprocess.run(
                     [sys.executable, "-m", "packages.derivation.runners.derive",
-                     "--scenario", str(SCENARIOS / name / "scenario.json")],
+                     "--scenario", str(SCENARIOS / name / "scenario.json"), "--legacy-tree"],
                     capture_output=True, text=True, check=True,
                 )
                 self.assertEqual(completed.stdout, expected_text)

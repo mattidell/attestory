@@ -14,7 +14,8 @@ from typing import Any, cast
 
 import unittest
 
-from packages.derivation.explanation import ExplanationNode, explain, index_derived
+from packages.derivation.presentation_projection import project_presentation_v1
+from packages.derivation.explanation import ExplanationNode, explain_legacy as explain, index_derived
 from packages.derivation.live import live_coordinate_run
 from packages.derivation.live_workspace import WorkspaceCapability
 from packages.derivation.presentation_projection import validate_presentation_model
@@ -160,7 +161,7 @@ class TaxOnTaxableIncomeTrack2Tests(unittest.TestCase):
     def test_p1_presentation_golden_structural_equality(self) -> None:
         _raw, model, _pubs, _records_out = _present(_acts_p1(), RUN_P1)
         golden = _load_golden(P1_GOLDEN)
-        self.assertEqual(model, golden)
+        self.assertEqual(project_presentation_v1(model), golden)
         self.assertEqual(_published_numeric(model, "line-15"), 46850)
         self.assertEqual(_published_numeric(model, "line-16"), 5387)
         self.assertEqual(_published_numeric(model, "line-12e"), 15750)
@@ -171,7 +172,7 @@ class TaxOnTaxableIncomeTrack2Tests(unittest.TestCase):
     def test_p2_presentation_golden_structural_equality(self) -> None:
         _raw, model, _pubs, _records_out = _present(_acts_p2(), RUN_P2)
         golden = _load_golden(P2_GOLDEN)
-        self.assertEqual(model, golden)
+        self.assertEqual(project_presentation_v1(model), golden)
         self.assertEqual(_published_numeric(model, "line-16"), 4760)
         section = _section(model, "line-16")
         self.assertTrue(section.get("citationSites") or model.get("citationGroups"))
@@ -209,7 +210,7 @@ class TaxOnTaxableIncomeTrack2Tests(unittest.TestCase):
         _raw, model, _pubs, records = _present(acts, RUN_P1)
         reloaded = _load_golden(P1_GOLDEN)
         validate_presentation_model(reloaded)
-        self.assertEqual(reloaded, model)
+        self.assertEqual(reloaded, project_presentation_v1(model))
         self.assertEqual(reloaded["runId"], RUN_P1)
         completed = [
             row for row in records if row.get("run_id") == RUN_P1 and row.get("phase") == "completed"

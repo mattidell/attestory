@@ -25,6 +25,7 @@ from typing import Any, cast
 ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(ROOT))
 
+from packages.derivation.presentation_projection import project_presentation_v1
 from packages.derivation.live import live_coordinate_run  # noqa: E402
 from packages.derivation.live_workspace import WorkspaceCapability  # noqa: E402
 from packages.derivation.production_resolver import PublicationSurface  # noqa: E402
@@ -226,7 +227,7 @@ def regenerate() -> dict[str, Any]:
         if result.refusal is not None:
             raise SystemExit(f"canonical run refused: {result.refusal}")
         assert result.presentation_path is not None
-        model = cast(dict[str, Any], json.loads(result.presentation_path.read_text("utf-8")))
+        model = project_presentation_v1(cast(dict[str, Any], json.loads(result.presentation_path.read_text("utf-8"))))
     return model
 
 

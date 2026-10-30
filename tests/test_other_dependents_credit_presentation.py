@@ -25,7 +25,8 @@ from pathlib import Path
 from tempfile import TemporaryDirectory
 from typing import Any, cast
 
-from packages.derivation.explanation import explain, index_derived
+from packages.derivation.presentation_projection import project_presentation_v1
+from packages.derivation.explanation import explain_legacy as explain, index_derived
 from packages.derivation.live import live_coordinate_run
 from packages.derivation.live_workspace import WorkspaceCapability
 
@@ -164,11 +165,11 @@ def _child_tests(child: str) -> tuple[str, ...]:
 class OtherDependentPresentationTests(unittest.TestCase):
     def test_mfj_golden_regenerates_and_matches(self) -> None:
         model, _ = _present(_acts_mfj(), RUN_MFJ)
-        self.assertEqual(model, _load(MFJ_GOLDEN))
+        self.assertEqual(project_presentation_v1(model), _load(MFJ_GOLDEN))
 
     def test_single_golden_regenerates_and_matches(self) -> None:
         model, _ = _present(_acts_single(), RUN_SINGLE)
-        self.assertEqual(model, _load(SINGLE_GOLDEN))
+        self.assertEqual(project_presentation_v1(model), _load(SINGLE_GOLDEN))
 
     def test_mfj_hand_check(self) -> None:
         model, _ = _present(_acts_mfj(), RUN_MFJ)
@@ -244,7 +245,7 @@ class OtherDependentPresentationTests(unittest.TestCase):
 
     def test_v55_child_tax_credit_presentation_reads_as_before(self) -> None:
         model, _ = _ctc_v55_present(_ctc_v55_acts_joint(), CTC_V55_RUN_JOINT)
-        self.assertEqual(model, _load(CTC_V55_JOINT_GOLDEN))
+        self.assertEqual(project_presentation_v1(model), _load(CTC_V55_JOINT_GOLDEN))
 
 
 if __name__ == "__main__":

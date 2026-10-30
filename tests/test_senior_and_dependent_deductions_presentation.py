@@ -16,7 +16,8 @@ from typing import Any, cast
 
 import unittest
 
-from packages.derivation.explanation import explain, index_derived
+from packages.derivation.presentation_projection import project_presentation_v1
+from packages.derivation.explanation import explain_legacy as explain, index_derived
 from packages.derivation.live import live_coordinate_run
 from packages.derivation.live_workspace import WorkspaceCapability
 from packages.derivation.presentation_projection import validate_presentation_model
@@ -129,7 +130,7 @@ class SeniorAndDependentDeductionsPresentationTests(unittest.TestCase):
     def test_joint_65_presentation_golden(self) -> None:
         model, _pubs = _present(_acts_joint(), RUN_JOINT)
         golden = _load_golden(JOINT_GOLDEN)
-        self.assertEqual(model, golden)
+        self.assertEqual(project_presentation_v1(model), golden)
         self.assertEqual(_published_numeric(model, "line-12e"), 34700)
         self.assertEqual(_published_numeric(model, "line-13b"), 10800)
         _assert_no_machine_path(model)
@@ -137,7 +138,7 @@ class SeniorAndDependentDeductionsPresentationTests(unittest.TestCase):
     def test_dependent_66_blind_presentation_golden(self) -> None:
         model, _pubs = _present(_acts_dependent(), RUN_DEPENDENT)
         golden = _load_golden(DEPENDENT_GOLDEN)
-        self.assertEqual(model, golden)
+        self.assertEqual(project_presentation_v1(model), golden)
         self.assertEqual(_published_numeric(model, "line-12e"), 7450)
         self.assertEqual(_published_numeric(model, "line-13b"), 6000)
         _assert_no_machine_path(model)
@@ -199,7 +200,7 @@ class SeniorAndDependentDeductionsPresentationTests(unittest.TestCase):
             model = cast(dict[str, Any], json.loads(outcome.presentation_path.read_text(encoding="utf-8")))
         golden = _load_golden(P1_GOLDEN)
         validate_presentation_model(golden)
-        self.assertEqual(model, golden)
+        self.assertEqual(project_presentation_v1(model), golden)
         self.assertEqual(_published_numeric(model, "line-12e"), 15750)
 
 

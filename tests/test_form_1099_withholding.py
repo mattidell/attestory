@@ -24,7 +24,7 @@ from tempfile import TemporaryDirectory
 from typing import Any, Mapping, cast
 import unittest
 
-from packages.derivation.explanation import explain, index_derived
+from packages.derivation.explanation import explain_legacy as explain, index_derived
 from packages.derivation.live import live_coordinate_run
 from packages.derivation.live_workspace import WorkspaceCapability
 from packages.derivation.production_resolver import PublicationSurface
