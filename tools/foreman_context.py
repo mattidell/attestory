@@ -14,7 +14,6 @@ from typing import Any, Sequence
 
 MARKER_OPEN = "<!-- foreman-context-v1\n"
 MARKER_CLOSE = "\n-->"
-PHASE_STATE_PATH = "docs/phase-state.md"
 
 
 class ContextError(RuntimeError):
@@ -92,6 +91,10 @@ class GitRepository:
             return True
         except ContextError:
             return False
+
+    def tracked_paths(self, commit: str, prefix: str) -> list[str]:
+        raw = self.run("ls-tree", "-r", "--name-only", commit, "--", prefix)
+        return [line for line in raw.splitlines() if line]
 
     def divergence(self, base: str, head: str) -> tuple[int, int]:
         """(behind, ahead) of `head` relative to `base`."""
@@ -189,8 +192,8 @@ def validate_deep_reads(
 def path_of(target: str) -> str:
     """Drop a `#Heading` fragment. Pointers name a file and may name a section
     within it; only the file part addresses a blob. Every pointer in this
-    format is read through here, so `current_prompt` and `deep_reads` cannot
-    disagree about whether an anchor is spellable."""
+    format is read through here, so a charter and `deep_reads` cannot disagree
+    about whether an anchor is spellable."""
     return target.split("#", 1)[0]
 
 
@@ -201,7 +204,6 @@ def path_of(target: str) -> str:
 # than assuming `origin/main`.
 RATIFIED_LINE = re.compile(r"^main(-[0-9a-z]+)*$")
 DEFAULT_RATIFIED_REF = "origin/main"
-TRACK_STATE = re.compile(r"^track-(\d+)$")
 FULL_OBJECT_ID = re.compile(r"^[0-9a-f]{40}$")
 
 
@@ -238,64 +240,85 @@ def resolve_ratified_ref(repository: GitRepository, override: str | None = None)
         return DEFAULT_RATIFIED_REF
     return min(ranked)[2]
 
-# Phase state describes the selected branch tree. Planning and closing are
-# working conditions inside the milestone's single PR, not persisted states.
-PERSISTED_STATES = {"planned", "closed"}
+# A milestone's state is read from its plan, not declared beside it: a plan
+# that names an existing retrospective is closed; any other plan is open. A
+# separate state file had to be rewritten by every closeout, which is what made
+# parallel milestones conflict on it.
 NEXT_TRANSITION = {
-    "planned": "start the milestone's first track",
+    "open": "continue the milestone's next unfinished track, or its closing unit",
     "closed": "this milestone is closed — the next action is selecting a new milestone",
+    "none": "no milestone is active on this branch — select one",
 }
+PLAN_GLOB_PREFIX = "docs/phases/"
+PLAN_DIRECTORY = "/milestones/"
+RETROSPECTIVES = "docs/milestone-retrospectives/"
+RECENT_RETROSPECTIVES = 3
 
 
-def milestone_state_of(metadata: dict[str, Any], path: str) -> str:
-    state = required_string(metadata, "milestone_state", path)
-    if state not in PERSISTED_STATES and not TRACK_STATE.match(state):
-        allowed = ", ".join(sorted(PERSISTED_STATES)) + ", track-<n>"
-        raise ContextError(f"{path} milestone_state {state!r} is not one of: {allowed}")
-    return state
+def plan_for_branch(repository: GitRepository, commit: str, branch: str | None) -> str | None:
+    """The milestone plan a branch is working on, by name.
+
+    Branches are `milestone/<milestone-key>-<purpose>` (or the same under
+    `temp/`), and a plan is `docs/phases/<phase>/milestones/<milestone-key>.md`.
+    The purpose suffix is free text, so the plan is the longest key that the
+    branch name equals or extends with `-`.
+    """
+    if not branch:
+        return None
+    name = branch.removeprefix("temp/")
+    if not name.startswith("milestone/"):
+        return None
+    rest = name.removeprefix("milestone/")
+    best: tuple[int, str] | None = None
+    for path in repository.tracked_paths(commit, PLAN_GLOB_PREFIX):
+        if PLAN_DIRECTORY not in path or not path.endswith(".md"):
+            continue
+        key = PurePosixPath(path).stem
+        if rest == key or rest.startswith(key + "-"):
+            if best is None or len(key) > best[0]:
+                best = (len(key), path)
+    return best[1] if best else None
+
+
+def recent_retrospectives(repository: GitRepository, commit: str) -> list[str]:
+    paths = [
+        path
+        for path in repository.tracked_paths(commit, RETROSPECTIVES)
+        if path.endswith(".md") and PurePosixPath(path).name[:4].isdigit()
+    ]
+    return sorted(paths)[-RECENT_RETROSPECTIVES:][::-1]
 
 
 def resolve_milestone_state(
     repository: GitRepository,
     selected_commit: str,
-    phase: LoadedDocument,
-    plan: LoadedDocument,
+    plan: LoadedDocument | None,
     ratified_ref: str = DEFAULT_RATIFIED_REF,
 ) -> dict[str, Any]:
-    """Validate the selected commit's milestone lifecycle state.
+    """Derive the selected commit's milestone state from its plan.
 
-    The selected tree is the proposal that will land, so its own artifacts must
-    agree with its declaration. The target line is reported separately through
-    ratified_ref and the worktree divergence report; it cannot veto an honest
-    prospective state merely because the milestone PR has not merged yet.
+    The target line is reported separately through ratified_ref and the
+    worktree divergence report; it cannot veto an honest prospective state
+    merely because the milestone PR has not merged yet.
     """
-    state = milestone_state_of(phase.metadata, phase.path)
-    track = TRACK_STATE.match(state)
-
-    raw_retrospective = plan.metadata.get("retrospective")
-    if raw_retrospective is None and state == "closed":
-        raise ContextError(
-            f"{phase.path} milestone_state {state!r} requires a 'retrospective' "
-            "path in the active plan"
-        )
-    retrospective = (
-        require_relative_path(str(raw_retrospective), f"{plan.path} metadata 'retrospective'")
-        if raw_retrospective
-        else None
-    )
-
-    checks: list[dict[str, Any]] = [
-        corroborate_selected(repository, selected_commit, plan.path, state)
-    ]
-    if state == "closed" and retrospective is not None:
-        checks.append(
-            corroborate_selected(repository, selected_commit, retrospective, state)
-        )
+    checks: list[dict[str, Any]] = []
+    if plan is None:
+        state = "none"
+    else:
+        checks.append(corroborate_selected(repository, selected_commit, plan.path))
+        raw_retrospective = plan.metadata.get("retrospective")
+        state = "open"
+        if raw_retrospective is not None:
+            retrospective = require_relative_path(
+                str(raw_retrospective), f"{plan.path} metadata 'retrospective'"
+            )
+            checks.append(corroborate_selected(repository, selected_commit, retrospective))
+            state = "closed"
 
     ratified = repository.resolve_optional(ratified_ref)
     return {
         "state": state,
-        "next_transition": next_transition(state, track),
+        "next_transition": NEXT_TRANSITION[state],
         "ratified_ref": ratified,
         "ratified_line": ratified_ref,
         "checks": checks,
@@ -307,18 +330,10 @@ def resolve_milestone_state(
     }
 
 
-def corroborate_selected(
-    repository: GitRepository,
-    selected_commit: str,
-    path: str,
-    state: str,
-) -> dict[str, Any]:
+def corroborate_selected(repository: GitRepository, selected_commit: str, path: str) -> dict[str, Any]:
     actual = repository.path_exists_at(selected_commit, path)
     if not actual:
-        raise ContextError(
-            f"milestone_state {state!r} contradicts the selected commit: it requires "
-            f"{path} to be present, but it is absent"
-        )
+        raise ContextError(f"{path} is named by the active plan but absent from the selected commit")
     return {
         "check": "artifact in selected commit",
         "path": path,
@@ -340,13 +355,6 @@ def divergence_report(
         return None
     behind, ahead = repository.divergence(ratified, head)
     return {"ref": ratified_ref, "behind": behind, "ahead": ahead}
-
-
-def next_transition(state: str, track: re.Match[str] | None) -> str:
-    if track is not None:
-        number = int(track.group(1))
-        return f"complete Track {number}, then Track {number + 1} or the closing unit"
-    return NEXT_TRANSITION[state]
 
 
 def validate_initial_briefing_follow_up(
@@ -440,7 +448,10 @@ def validate_initial_briefing_follow_up(
 
 
 def render_context(
-    repository: GitRepository, ref: str, ratified_ref: str | None = None
+    repository: GitRepository,
+    ref: str,
+    ratified_ref: str | None = None,
+    plan_path: str | None = None,
 ) -> dict[str, Any]:
     # Resolve the ratified line here rather than defaulting to `origin/main`.
     # This used to take a literal default, and a caller that forgot to pass one
@@ -451,58 +462,16 @@ def render_context(
     if ratified_ref is None:
         ratified_ref = resolve_ratified_ref(repository)
     commit = repository.commit_for_ref(ref)
-    phase = load_document(repository, commit, PHASE_STATE_PATH)
-    active_plan_path = required_path(phase.metadata, "active_plan", phase.path)
-    raw_seat_path = phase.metadata.get("seat")
-    if raw_seat_path is not None and not isinstance(raw_seat_path, str):
-        raise ContextError(f"{phase.path} metadata 'seat' must be a string when present")
-    seat_path = require_relative_path(raw_seat_path, f"{phase.path} metadata 'seat'") if raw_seat_path else None
-    plan = load_document(repository, commit, active_plan_path)
-    seat = load_document(repository, commit, seat_path) if seat_path else None
-
-    topic = required_string(phase.metadata, "topic", phase.path)
-    documents_to_compare = [plan]
-    if seat is not None:
-        documents_to_compare.append(seat)
-    for document in documents_to_compare:
-        actual_topic = required_string(document.metadata, "topic", document.path)
-        if actual_topic != topic:
-            raise ContextError(
-                f"topic mismatch: {phase.path} names {topic!r}, "
-                f"but {document.path} names {actual_topic!r}"
-            )
-
-    raw_plan_seat = plan.metadata.get("seat")
-    if seat_path is None:
-        if raw_plan_seat is not None:
-            raise ContextError(f"seat mismatch: {plan.path} names a seat but {phase.path} does not")
-    elif required_path(plan.metadata, "seat", plan.path) != seat_path:
-        raise ContextError(f"seat mismatch: {plan.path} does not name {seat_path}")
-
-    deep_reads = validate_deep_reads(repository, commit, plan.metadata, plan.path)
-    current_prompt = required_string(phase.metadata, "current_prompt", phase.path)
-    current_prompt_path = require_relative_path(
-        path_of(current_prompt), f"{phase.path} metadata 'current_prompt'"
-    )
-    current_prompt_blob = repository.blob_for_path(commit, current_prompt_path)
-    sources = [phase, plan]
-    if seat is not None:
-        sources.append(seat)
-    seat_state: dict[str, Any] | None = None
-    if seat is not None:
-        seat_state = {
-            "role": required_string(seat.metadata, "role", seat.path),
-            "status": required_string(seat.metadata, "status", seat.path),
-            "rung": required_string(seat.metadata, "rung", seat.path),
-            "stop_conditions": required_strings(seat.metadata, "stop_conditions", seat.path),
-        }
-    source_documents = [{"path": item.path, "blob": item.blob} for item in sources]
-    source_documents.append({"path": current_prompt_path, "blob": current_prompt_blob})
-    milestone = resolve_milestone_state(repository, commit, phase, plan, ratified_ref)
-    briefing_follow_up = validate_initial_briefing_follow_up(
-        repository, plan, topic, milestone
-    )
     worktree = repository.worktree_status()
+    if plan_path is None:
+        plan_path = plan_for_branch(repository, commit, worktree["branch"])
+    plan = (
+        load_document(repository, commit, require_relative_path(plan_path, "--plan"))
+        if plan_path
+        else None
+    )
+
+    milestone = resolve_milestone_state(repository, commit, plan, ratified_ref)
     worktree["divergence"] = divergence_report(
         repository, milestone["ratified_ref"], ratified_ref
     )
@@ -526,29 +495,39 @@ def render_context(
         and drift["ahead"] == 0
         and branch_tip_reachable
     )
-    return {
-        "version": 1,
-        "source": {
-            "selected_ref": ref,
-            "commit": commit,
-            "documents": source_documents,
-        },
-        "worktree": worktree,
-        "milestone": milestone,
-        "state": {
-            "phase": required_string(phase.metadata, "phase", phase.path),
+
+    state: dict[str, Any] | None = None
+    deep_reads: dict[str, list[str]] = {}
+    documents: list[dict[str, str]] = []
+    if plan is not None:
+        topic = required_string(plan.metadata, "topic", plan.path)
+        deep_reads = validate_deep_reads(repository, commit, plan.metadata, plan.path)
+        briefing_follow_up = validate_initial_briefing_follow_up(
+            repository, plan, topic, milestone
+        )
+        documents.append({"path": plan.path, "blob": plan.blob})
+        state = {
+            "phase": plan.metadata.get("phase") or PurePosixPath(plan.path).parts[2],
             "topic": topic,
-            "active_plan": active_plan_path,
+            "active_plan": plan.path,
             "milestone_state": milestone["state"],
             "plan_status": required_string(plan.metadata, "status", plan.path),
-            "status": required_string(phase.metadata, "status", phase.path),
-            "current_role": required_string(phase.metadata, "current_role", phase.path),
-            "current_prompt": current_prompt,
             "initial_briefing_follow_up": briefing_follow_up is not None,
             "scope": required_strings(plan.metadata, "scope", plan.path),
             "non_goals": required_strings(plan.metadata, "non_goals", plan.path),
-            "seat": seat_state,
+        }
+    for path in recent_retrospectives(repository, commit):
+        documents.append({"path": path, "blob": repository.blob_for_path(commit, path)})
+    return {
+        "version": 2,
+        "source": {
+            "selected_ref": ref,
+            "commit": commit,
+            "documents": documents,
         },
+        "worktree": worktree,
+        "milestone": milestone,
+        "state": state,
         "deep_reads": deep_reads,
     }
 
@@ -565,35 +544,35 @@ def markdown_capsule(capsule: dict[str, Any]) -> str:
         worktree_line += f"; {drift['behind']} behind / {drift['ahead']} ahead of `{drift['ref']}`"
     worktree_line += f"; spent: `{worktree['spent']}`"
 
-    state_validation = "validated in the selected commit"
-    if milestone["ratified_ref"] is None:
-        state_validation += f"; {milestone['note']}"
-
     lines = [
         "# Foreman context capsule (advisory)",
         "",
         f"- Source: `{source['selected_ref']}` → `{source['commit']}`",
         worktree_line,
-        f"- Active: {state['phase']} / `{state['topic']}` ({state['plan_status']})",
-        f"- Milestone state: **{milestone['state']}** — {state_validation}",
-        f"- Next transition: {milestone['next_transition']}",
     ]
-    seat = state["seat"]
-    if seat is not None:
-        lines.append(f"- Seat: `{seat['role']}` — {seat['status']}; rung: {seat['rung']}")
-    lines.extend([
-        f"- Current role: {state['current_role']}",
-        f"- Current prompt: `{state['current_prompt']}`",
-    ])
-    if state["initial_briefing_follow_up"]:
-        lines.append(
-            "- Initial briefing follow-up: **available** — run "
-            "`python3 tools/foreman_context_followup.py --ref "
-            f"{source['selected_ref']} --format markdown`"
-        )
+    if state is None:
+        lines.append("- Active milestone: none on this branch")
     else:
-        lines.append("- Initial briefing follow-up: none")
-    if milestone["state"] == "closed":
+        lines.append(
+            f"- Active: {state['phase']} / `{state['topic']}` — `{state['active_plan']}`"
+        )
+        lines.append(f"- Plan status: {state['plan_status']}")
+    lines.append(f"- Milestone state: **{milestone['state']}** (derived from the plan)")
+    if milestone["ratified_ref"] is None:
+        lines.append(f"- Note: {milestone['note']}")
+    lines.append(f"- Next transition: {milestone['next_transition']}")
+    if state is not None:
+        if state["initial_briefing_follow_up"]:
+            lines.append(
+                "- Initial briefing follow-up: **available** — run "
+                "`python3 tools/foreman_context_followup.py --ref "
+                f"{source['selected_ref']} --format markdown`"
+            )
+        else:
+            lines.append("- Initial briefing follow-up: none")
+    if milestone["state"] == "open":
+        lines.extend(["", "## Read in full before acting", ""])
+    else:
         lines.extend([
             "",
             "## Initial briefing checkpoint",
@@ -605,10 +584,11 @@ def markdown_capsule(capsule: dict[str, Any]) -> str:
             "## Candidate follow-up context",
             "",
         ])
-    else:
-        lines.extend(["", "## Read in full before acting", ""])
     for action, targets in capsule["deep_reads"].items():
         lines.append(f"- `{action}`: {', '.join(f'`{target}`' for target in targets)}")
+    if state is None:
+        for document in source["documents"]:
+            lines.append(f"- recent retrospective: `{document['path']}`")
     lines.extend(["", "## Source blobs", ""])
     for document in source["documents"]:
         lines.append(f"- `{document['path']}` @ `{document['blob']}`")
@@ -624,6 +604,11 @@ def parse_arguments(argv: Sequence[str]) -> argparse.Namespace:
         "--no-fetch",
         action="store_true",
         help="skip the automatic `git fetch origin` (offline runs use last-known target refs)",
+    )
+    parser.add_argument(
+        "--plan",
+        default=None,
+        help="milestone plan to read (default: derived from the branch name)",
     )
     parser.add_argument(
         "--ratified-ref",
@@ -642,7 +627,7 @@ def main(argv: Sequence[str] | None = None) -> int:
         repository.fetch()
     try:
         ratified_ref = resolve_ratified_ref(repository, arguments.ratified_ref)
-        capsule = render_context(repository, arguments.ref, ratified_ref)
+        capsule = render_context(repository, arguments.ref, ratified_ref, arguments.plan)
     except ContextError as error:
         print(f"foreman context: {error}", file=sys.stderr)
         return 2

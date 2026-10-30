@@ -408,6 +408,65 @@ A Form 1099-K the engine could not resolve was left out of total income while
 the refund published. Block Schedule 1 line 10 on a successor package until
 every Form 1099-K is resolved and confirmed complete.
 
+## Parked work and open questions
+
+This is the single list of parked work and open owner-held questions for the
+engine line (it moved here when `docs/phase-state.md` was retired). A
+milestone that parks something adds it here in its closing commit; one that
+delivers an item removes it.
+
+### Open owner-held questions
+
+- Whether a representation-transfer adjudication act should exist, so a
+  nonzero legacy claim on a superseded entity could resolve honestly
+  (ADR-0072). Until then, the withdrawal policy blocks it.
+- Later-year basis reuse: cross-year identity and correction for an
+  acquisition reported in a later year.
+
+### Parked
+
+- Gain and break-even reporting on Form 8949 and Schedule D.
+- Additional seller-paid shipping under platform pass-through.
+- A v1 Form 1099-K workspace re-answers its completeness question under the
+  successor package; recovery for a log with two current family versions; a
+  full pre-save fold for every act kind.
+- Browser observation of the mortgage and sale pages.
+- The student-loan-interest browser tests time out on Chrome startup under
+  load (twice by 2026-10-29); a longer startup wait or one retry.
+- Multiple Form 1098 support, interest allocation above the debt limit,
+  second-home extension, mixed-use amounts, refinancing and the mortgage credit.
+- When a Schedule 1 Part I absence answer is also missing, line 10 names the
+  absence first and the Form 1099-K only once it is answered.
+- Form 1099-K box 4 on line 25b (SC-R1); routing the 1098, 1099-K and nominee
+  recorders through the package overlay first (ADR-0082 production
+  condition 2).
+- A recorded withholding amount counts while its family is unclosed, in every
+  withholding family; Form W-2G (line 25c); package companion declarations in
+  package content; a generator for the core package, registry and release
+  chain; an in-product route for the Social Security handover.
+- Form 8332 and decree releases, more than one other claimant and unsettled
+  equal-AGI ties (outside the class by answer); asking the tie-breaker only of
+  a child some credit can count, which needs derived per-subject results as
+  conditional members; Worksheet B, Form 8862, combat pay, the Medicaid waiver
+  exclusion and Worksheet 1.
+- `explain()` re-expands shared inputs at each use: the line 27a walk is 9,885
+  tree nodes over 218 findings.
+- Disabled-over-limit relatives and multiple support agreements for the
+  credit for other dependents; lines 29-31 refundable credits, Schedule 2
+  Part II taxes and the estimated tax penalty, each declared absent.
+- Lines 19 and 28's form-field explanations read as the earned income credit
+  (copied from line 27a on core v55), and no presentation line names the
+  tie-breaker step that decided a child.
+- Worksheet lines as presentation rows; `demo.*` ids on the correct
+  capital-loss and Social Security amounts.
+- The age questions' wording (born before January 2, 1961; a death in 2025
+  before age 65), and the SLI dependent answer ("is claimed", filer only)
+  beside the new "can be claimed" answer.
+- Use of the circumstance routes on the correction session, which still
+  resolves an older registry.
+- A general assumption framework, free-text intake and institutional
+  verification.
+
 ## Why line 7a comes before Schedule D
 
 The 2025 Form 1040 instructions permit eligible capital-gain distributions to

@@ -7,13 +7,16 @@ This is the project's third iteration. The first proved a working return generat
 ## Where things stand
 
 - **Governance** (`docs/governance/`): the ratified v0.1 set — Constitution, Ontology, Engineering Constraints, Principles, Commentary. The sole contract authority for this repository.
-- **Phase state** (`docs/phase-state.md`): on core calculations v60 an
+- **Current result**: on core calculations v60 an
   unresolved or unconfirmed Form 1099-K stops every line computed from
   income; v59 counts federal income tax withheld on Forms 1099-G and SSA-1099
   on line 25b; v58
   resolves a contested child for the three child credits, and Schedule 8812
-  is complete for the supported class (see "2025 child tax credit" below). Use `python3 tools/foreman_context.py --ref HEAD` for
-  current routing; publication status is tracked by the pull request's checks.
+  is complete for the supported class (see "2025 child tax credit" below).
+  Milestone plans, retrospectives and phase roadmaps (with their parked work)
+  are the record; `python3 tools/foreman_context.py --ref HEAD` reads the
+  active plan from the branch. Publication status is tracked by the pull
+  request's checks.
 - **Current bounded capability:** production-shaped synthetic returns cover
   the Form 1099-DIV box-2a direct-reporting route, Schedule K-1 (Form 1065)
   box-5 taxable interest, payer-reported current-inclusion market discount

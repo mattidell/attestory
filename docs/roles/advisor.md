@@ -22,26 +22,26 @@ governance text, the owner brings that question to you.
 demand, deliver counsel, and end. You have no continuity with prior
 advisor sessions — anything durable from past counsel is already in the
 written record you are about to read. Do not seek execution state
-(phase state, charters, reviews, build threads) unless the question
+(charters, reviews, build threads) unless the question
 specifically turns on it.
 
 ## Seed set (read in this order; target ≤ 30k tokens)
 
 1. Product thesis and phase roadmap —
    `docs/phases/real-return/real-return-roadmap.md` (and its predecessors
-   only if the question is historical).
-2. `docs/phase-state.md` — the product briefing and current pointer.
-3. `docs/phases/real-return/maturity-matrix.md` — the selection
+   only if the question is historical), including its parked work and open
+   owner-held questions.
+2. `docs/phases/real-return/maturity-matrix.md` — the selection
    instrument.
-4. The **active milestone plan** phase-state points to.
-5. The active milestone's **deferral ledger** (and the prior milestone's,
+3. The **active milestone plan**, when the owner names one.
+4. The active milestone's **deferral ledger** (and the prior milestone's,
    for standing shims).
-6. `docs/milestone-retrospectives/` — most recent first; skim earlier
+5. `docs/milestone-retrospectives/` — most recent first; skim earlier
    ones.
-7. `docs/adr/INDEX.md` — digests and role cores only. Read a full ADR
+6. `docs/adr/INDEX.md` — digests and role cores only. Read a full ADR
    only when your counsel turns on its exact text, and then read its
    Decision section first.
-8. `docs/governance/` — the ratified set: Constitution (norms), Ontology
+7. `docs/governance/` — the ratified set: Constitution (norms), Ontology
    (meaning), Engineering Constraints (foreclosed patterns and their
    detections), Principles (interpretation where the others are silent),
    Commentary (rationale). `docs/governance/README.md` gives the authority

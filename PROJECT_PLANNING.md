@@ -310,32 +310,28 @@ operational-capsule rule. There is no clerk seat and no Clerk Task Capsule
 (ADR-0045); mechanical work is one foreman turn, or a tool when it recurs or
 its output is bulky.
 
-**`docs/phase-state.md` is the single re-entry document.** It carries the
-high level milestone briefing, the current operational state, the durable
-pointers, and one
-`foreman-context-v1` block holding the phase, topic, active plan, status,
-`milestone_state`, `current_role`, and `current_prompt` — which
-`tools/foreman_context.py` and `tools/build_orientation_block.py` read from a
-resolved ref. There is no
-separate handoff note: two re-entry documents meant two statuses that could
-disagree, and the same milestone advance had to be written twice. The foreman keeps `current_role` and `current_prompt` accurate:
-before a plan or role cycle is marked complete, it prepares the next sequential
-role's charter and updates those fields. Prompt preparation records plan
-sequence; it does not launch or dispatch a role.
+**Re-entry reads Git, not a state file.** The milestone plan is the one
+document a returning foreman needs: `tools/foreman_context.py` finds it from
+the branch name (`milestone/<key>-<purpose>` reads
+`docs/phases/*/milestones/<key>.md`), derives open or closed from whether it
+names a landed retrospective, and reports divergence from the ratified line.
+Between milestones it lists the recent retrospectives. Builders and reviewers
+are launched with their role and charter path; nothing records "who is next"
+in the repository. A separate re-entry file was retired because every closeout
+rewrote it, so parallel milestones always conflicted on it, and it repeated
+what the plans, retrospectives and roadmaps already said.
 
-### Phase-State Context Firewall
+### Re-entry Context Firewall
 
-Phase state is a context firewall, not a project diary. It gives a
-returning foreman a curated allowlist: what the product can do now, the current
-product question, the active plan, the immediate next action, and explicitly
-parked work. It does not repeat track history, review narratives, milestone
-scores, retrospective lessons, or a foreman's interpretation of why prior work
-was important. `milestone_state` reports workflow position only; it is never
-evidence of product quality or direction.
+The capsule is a context firewall, not a project diary. It gives a returning
+foreman a curated allowlist: the active plan, its state, the immediate next
+action, and the recent retrospectives. Parked work and open owner-held
+questions live in the phase roadmap. Milestone state reports workflow position
+only; it is never evidence of product quality or direction.
 
 A foreman does not search old plans, reviews, retrospectives, branches, or
 other repository history to discover scope or choose work. Follow-up history
-is loaded only when the owner, phase state, or active plan names the specific
+is loaded only when the owner, the active plan, or a recent retrospective names the specific
 source and the current question it is meant to answer. Unnamed history remains
 available as history, not as boot context.
 
@@ -571,14 +567,12 @@ maintenance, not commits, so they get no PR.
 
 **What survives inside the milestone PR:** the final plan, atomic track
 commits, accepted ADRs and material evidence summaries, tests and fixtures,
-the retrospective, and the phase/roadmap/closeout state. Execution ceremony
+the retrospective, and the phase roadmap. Execution ceremony
 survives only when deliberately promoted under the durability test above.
 
-**Direct-main exception:** an inconsequential correction to
-`docs/phase-state.md` may be committed directly between milestones when it
-changes no plan, capability claim, or next-milestone choice. Normal milestone
-start, progress, and closeout state belongs in the milestone PR. Process and
-instruction changes made between milestones get their own PR.
+**No direct-main exception.** Milestone start, progress, and closeout state
+belongs in the milestone PR. Process and instruction changes made between
+milestones get their own PR.
 
 **Do not narrow a PR below reviewability.** The complete milestone PR must show
 the product capability, its contract decisions, executable evidence, material
@@ -599,9 +593,9 @@ transient until the milestone merge freezes them.
   legibility cost.
 
 **Re-entry pointer discipline.** During development, the milestone branch's
-`docs/phase-state.md` and working charters make that branch self-describing.
-The ratified line continues to describe the last completed milestone until the
-new milestone merges. The final PR must contain a coherent closed pointer.
+plan and working charters make that branch self-describing. The ratified line
+continues to describe the last completed milestone until the new milestone
+merges. The final PR must contain a closed plan naming its retrospective.
 
 **Before starting a milestone:** branch from the ratified line, commit the
 complete plan separately, open the draft milestone PR, and obtain owner plan
@@ -631,7 +625,7 @@ Each phase should have two phase-level documents:
 - `<phase-name>-overview.md`: product-facing phase purpose and shared scope.
 - `<phase-name>-roadmap.md`: product-facing milestone roadmap followed by roadmap status and implementation notes.
 
-The roadmap document is the canonical phase state document for that phase. It should contain the active milestone, milestone status, implementation notes, pivots, lessons learned, and impacted project areas.
+The roadmap document is the canonical phase state document for that phase. It should contain the active milestone, milestone status, implementation notes, pivots, lessons learned, impacted project areas, parked work, and open owner-held questions.
 
 Milestone plans live under the relevant phase's `milestones/` directory. A milestone plan is the execution planning document for one bounded milestone and should include that milestone's tracks.
 
@@ -717,44 +711,29 @@ norms the practice — not by a new ADR.
 
 Audience: Agents
 
-A milestone is always in exactly one of three persisted state shapes, declared as
-`milestone_state` in `docs/phase-state.md`'s `foreman-context-v1` block. The
-active plan remains the source of scope, status prose, and deep reads; it does
-not own lifecycle state. The foreman does not
-infer the state from prose and does not need to: the capsule reports it and
-checks that the selected commit contains the artifacts its state requires.
+A milestone's state is derived from its plan, never declared beside it:
 
 | State | Meaning | Next transition |
 | --- | --- | --- |
-| `planned` | The plan is committed on the milestone branch and approved in its draft PR; no track has started | Start the first track |
-| `track-<n>` | Track *n* is in flight | Finish track *n*, then the next track or the closing unit |
-| `closed` | The milestone is complete | Select the next milestone |
+| open | The plan is committed on the milestone branch and names no retrospective | Continue the next unfinished track, or the closing unit |
+| closed | The plan names a retrospective present in the same commit | Select the next milestone |
 
-`closed` is also how "no milestone is running" is expressed: `docs/phase-state.md`
-keeps pointing at the just-closed plan, so `active_plan` is never empty and a
-foreman that reads `closed` knows its job is selection, not execution.
+Which track is in flight is read from the plan's execution record and the
+branch's commits. Off a milestone branch, with no `--plan`, the capsule reports
+no active milestone; the foreman's job is then selection.
 
 **The committed state describes its own branch.** The ratified line remains at
-the last completed milestone while a draft milestone PR is open. On the
-milestone branch, the planning commit carries `planned`, track commits advance
-through `track-<n>`, and the final candidate carries `closed`. The single merge
-therefore publishes a self-consistent completed state rather than exposing
-in-flight lifecycle values on the ratified line.
-
-The selected commit must contain its active plan. A `closed` commit must also
-name and contain its retrospective. `tools/foreman_context.py` validates those
-facts in the selected tree. It fetches and reports the ratified line and branch
-divergence separately, so a prospective `planned` or `closed` state is not
-rejected merely because its boundary PR has not merged yet.
-
-The plan and closing transitions both occur on the milestone branch; only the
-closed transition reaches the ratified line.
+the last completed milestone while a draft milestone PR is open. The closing
+commit adds the retrospective and the plan's `retrospective` key together, so
+the single merge publishes a closed plan. `tools/foreman_context.py` checks that
+a named retrospective is present in the selected tree; it reports the ratified
+line and branch divergence separately, so a prospective close is not rejected
+merely because its PR has not merged yet.
 
 ## Milestone Start
 
 Establish the milestone key, create its conforming primary branch from the
-ratified line, commit the complete plan, set the branch's lifecycle to
-`planned`, and open the draft milestone PR. The owner-approved plan starts
+ratified line, commit the complete plan, and open the draft milestone PR. The owner-approved plan starts
 implementation without merging the PR. Workspace and branch mechanics are in
 `docs/process/concurrent-work.md`.
 
@@ -825,7 +804,7 @@ Before rebasing:
 3. Materialize the owner-supplied checker at
    `local-data/milestone-ledgers/<sanitized-branch-name>.checker.py`. <!-- envelope-scan: allow --> Neither
    the checker nor its output may be committed. The experiment itself does not
-   edit phase state, plans, ADRs, or retrospectives. Store the ledger beside the
+   edit plans, ADRs, or retrospectives. Store the ledger beside the
    checker as `<sanitized-branch-name>.json`.
 4. Capture the intended delta:
 
@@ -979,7 +958,7 @@ performs the merge.
 
 After the owner reports the merge, fetch and prune. Verify that the merge and
 milestone commits are reachable from the ratified line and that the ratified
-line contains the expected closed phase state. Apply
+line contains the closed plan and its retrospective. Apply
 `docs/process/concurrent-work.md` for branch and worktree ownership; report
 cleanup outside the current agent's owned subtree rather than performing it.
 Delete the pre-curation snapshot after confirming it is no longer needed.
@@ -997,20 +976,15 @@ stop and raise it as a project-execution question.
 
 Confirm all of the following in the final candidate:
 
-- `docs/phase-state.md` has `milestone_state: closed`;
-- `topic` and nonempty `active_plan` still identify the just-closed milestone;
-- the retrospective pointer is nonempty and resolves;
-- status and briefing describe the actual completed result without conditional
+- the plan's `retrospective` key names the retrospective, which resolves;
+- the plan's status describes the actual completed result without conditional
   or in-progress language;
-- the next milestone remains unselected;
-- `current_role` is the Foreman's between-milestones selection posture and
-  `current_prompt` routes to the applicable selection instrument;
 - `initial_briefing_follow_up` and temporary capsules are absent;
 - `deep_reads.new_milestone` routes through the retrospective;
 - the plan's execution record and status are complete;
 - the phase roadmap reflects closure;
 - the coverage frontier claims only the bounded delivered capability;
-- exclusions and remaining work remain in the deferral ledger;
+- exclusions, remaining work and newly parked items are in the phase roadmap;
 - README claims match changed production behavior; and
 - the retrospective is present and carries material dissent and reusable
   lessons not already normed elsewhere.
@@ -1024,9 +998,9 @@ python3 tools/envelope_scan.py --range <ratified-line>..HEAD
 python3 tools/foreman_context.py --ref HEAD --format markdown
 ```
 
-The context command must report lifecycle `closed`, the just-closed plan and
-retrospective, select-a-new-milestone as the next transition, no temporary
-follow-up capsule, and a valid initial briefing checkpoint. The Foreman does
+The context command must report state `closed`, the just-closed plan and
+retrospective, select-a-new-milestone as the next transition, and no temporary
+follow-up capsule. The Foreman does
 not run the full suite; CI remains the complete verification gate.
 
 ## Recording Owner Assent
@@ -1063,8 +1037,8 @@ document is addressed to the wrong reader.
 
 **Charters declare their audience.** A charter is a work order addressed to the
 role that executes it, and says so (`Audience: Builder`). Content only the owner
-or the foreman can act on belongs in `docs/phase-state.md`, whose
-`foreman-context-v1` block is the foreman↔owner channel. A charter that reports
+or the foreman can act on belongs in the milestone plan or the phase roadmap.
+A charter that reports
 the foreman's own compliance has the wrong reader; a builder cannot dispatch,
 and did not launch itself.
 

@@ -7,12 +7,10 @@ restated here (ADR-0045).
 
 ## How the owner launches you
 
-*"Resume as foreman.* Read `docs/phase-state.md` and the active plan it points
-to, then continue." `docs/phase-state.md` is the single re-entry document —
-high level milestone briefing, current state, pointers, and the
-`foreman-context-v1` block. You
-reconcile the in-flight state against Git; if the note looks stale against Git,
-trust Git and say so.
+*"Resume as foreman,"* in the milestone's worktree. The milestone plan the
+branch names is the re-entry document; between milestones, the recent
+retrospectives and the phase roadmap are. Reconcile what they say against Git;
+if a document looks stale against Git, trust Git and say so.
 
 *"Resume as foreman and prepare the current milestone PR for publication"*
 selects the publication-curation action after ordinary orientation. Read and
@@ -29,9 +27,9 @@ apply that named subsection before rewriting or publishing the candidate.
    not separately search Git history to corroborate the same fact. Reconcile
    its selected commit and source blobs with Git. If it refuses, read the named
    committed sources directly; never replace a refusal with an informal
-   summary. A lifecycle refusal means the selected commit carries an invalid
-   persisted state or lacks a required artifact; follow `PROJECT_PLANNING.md`
-   ("Milestone Lifecycle States") before doing anything else.
+   summary. A refusal over a missing retrospective means the plan names one
+   the selected commit lacks; follow `PROJECT_PLANNING.md` ("Milestone
+   Lifecycle States") before doing anything else.
 2. **This file** — your standing posture.
 3. `docs/adr/INDEX.md` — the routing surface. Read the digests; read a full ADR
    only when you are about to act on its exact text. Process is not in the ADR
@@ -60,7 +58,7 @@ If the capsule makes a prior completion, maturity, or next-step conclusion look
 unsupported, contradictory, or inaccurate, say that it may be a project
 execution error. Do not quietly backfill a corrected interpretation and proceed.
 
-Follow `PROJECT_PLANNING.md`, "Phase-State Context Firewall," for all
+Follow `PROJECT_PLANNING.md`, "Re-entry Context Firewall," for all
 follow-up retrieval. When the resulting milestone plan is prepared, preserve
 the useful supplement for successor foremen in the plan's optional
 `initial_briefing_follow_up` capsule:
@@ -162,54 +160,16 @@ Before dispatching or handing off to a builder or reviewer, prepare a compact
 resolves the ref to a commit at launch. The capsule routes; it cannot widen the
 charter or replace its cited authority.
 
-Keep phase state's `foreman-context-v1` block current — `current_role` and
-`current_prompt` are what `tools/build_orientation_block.py` reads to
-auto-detect a picked-up role. Foreman review and an in-scope Builder repair are
-one role cycle, so the pointer remains on that Builder charter. Before marking
-the scoped Builder unit complete, prepare the next planned Builder charter or
-the explicitly independent Reviewer charter and update those fields. That
-sequence record is the continuity obligation; there is no separate
-current-prompt file.
+A launch prompt — a dispatch brief or a pasteable prompt for the owner — names
+the role, the charter path, and `--clean-room` for a rival round; that is the
+whole hand-off. Commit the charter before launching so the role reads it from
+Git.
 
-**Filing a charter and advancing the pointer are one step, in one commit.**
-Not two steps that usually happen together. The omission is invisible from
-inside the session that commits it: filing the charter is the last act of a
-turn, the hand-off to the owner immediately follows, and nothing fails loudly
-because the owner supplies continuity out-of-band. The cost lands on a fresh
-Builder or Reviewer who orients onto a superseded charter. If you are about to
-say "ready for independent review" or "ready for the next build," the pointer
-commit is already done or you are not ready.
-
-For persisted milestone states and milestone-PR behavior, follow
+For milestone states and milestone-PR behavior, follow
 `PROJECT_PLANNING.md` ("Milestone Lifecycle States" and "Branch, PR, and Merge
 Protocol"). The default is one draft-to-final PR for the whole milestone; a
 separate prerequisite PR exists only when the approved plan names the
 exception.
-
-**The pointer's vocabulary is small, and the tool enforces it.**
-`current_role` must contain exactly one of `Builder` or `Reviewer` when a role
-is chartered — `detect_role` matches on those substrings and refuses on zero or
-two matches, so "Track 2 Builder" is fine and "Builder/Reviewer" is not.
-
-Between milestones, when no role is chartered, the resting state keeps `topic`
-and `active_plan` on the **just-closed** milestone and points the prompt at the
-selection instrument:
-
-```json
-"current_role": "Foreman (present next-milestone candidates; selection is owner-held)",
-"current_prompt": "docs/phases/real-return/maturity-matrix.md"
-```
-
-`topic` and `active_plan` must stay non-empty strings — the metadata schema
-rejects `null`, so "clearing the capsule" at close-out means retargeting these
-fields, never emptying them.
-
-`build_orientation_block.py` cannot infer a builder/reviewer role from that
-resting value and will say so. **That is the correct outcome, not a bug** —
-there is no builder or reviewer work to pick up, and the foreman path re-enters
-through `tools/foreman_context.py` instead. Do not invent a role value to make
-the orientation tool succeed; a tool that resolves a role when none is chartered
-would be the actual defect.
 
 ## Spawn versus owner-launch
 

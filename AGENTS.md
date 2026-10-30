@@ -20,37 +20,42 @@ what the work looks like.
 | Seat | Entry | Seat file |
 | --- | --- | --- |
 | **Foreman** | Owner says "resume as foreman" (or `/foreman`) | `docs/roles/foreman.md` |
-| **Builder** | Owner says "pick up the current task" (or `/pickup`), **or** the foreman dispatches you | `docs/roles/builder.md` |
+| **Builder** | The foreman dispatches you, or the owner launches you (`/pickup`) with a charter | `docs/roles/builder.md` |
 | **Reviewer** | Same two paths as builder | `docs/roles/reviewer.md` |
 | **Advisor** | Owner says "take the advisor seat" | `docs/roles/advisor.md` |
 
-**Builder and reviewer: you do not need to be told which.** Run the orientation
-command; the role is auto-detected from phase state's `current_role`:
+**Builder and reviewer: your launch prompt names your role and your charter.**
+Run the orientation command with both:
 
 ```sh
-python3 tools/build_orientation_block.py --ref HEAD
+python3 tools/build_orientation_block.py --ref HEAD --role <builder|reviewer> \
+  --charter <path>[#Section]
 ```
 
-Use `HEAD`, not a line name. Your charter usually has not merged yet, so it
-exists only on the branch you are standing on; orienting from `main` loads a
-phase state that has never heard of your track and reports a topic mismatch.
-The ratified line to corroborate against is a separate question and is derived
-for you — see "Check whether you are stale before you work."
+The milestone plan is found from the branch name (`milestone/<key>-<purpose>`
+reads `docs/phases/*/milestones/<key>.md`); pass `--plan <path>` on any other
+branch. Use `HEAD`, not a line name. Your charter usually has not merged yet,
+so it exists only on the branch you are standing on. The ratified line to
+corroborate against is a separate question and is derived for you — see
+"Check whether you are stale before you work."
 
 This prints one Orientation Block at a resolved commit: your current charter
 plus the plan's action-scoped, section-anchored deep reads — only the cited
 sections, as Git blob content rather than prose. Then: (1) verify the printed
-commit SHA against Git; (2) adopt the seat file for the detected role;
+commit SHA against Git; (2) adopt the seat file for your role;
 (3) echo back your understood scope, evidence ceiling, and stop conditions;
-(4) act. Pass `--role` / `--action` only if detection fails.
+(4) act. `--action` selects a deep-reads action other than the role's default.
 
-If phase state marks a **clean-room / rival** round, the block auto-switches —
-no flag. It emits charter, scope, and non-goals but lists deep reads as a
+For a **clean-room / rival** round the launch prompt adds `--clean-room`. The
+block then emits charter, scope, and non-goals but lists deep reads as a
 manifest only, and instructs you to reimplement from the spec without reading
 any other builder's implementation or thread.
 
 **Foreman:** re-enter with `python3 tools/foreman_context.py --ref HEAD
---format markdown`. Its capsule is **advisory** — reconcile its resolved commit
+--format markdown`. It reads the milestone plan the branch names (or
+`--plan`), derives open or closed from whether the plan names a landed
+retrospective, and lists recent retrospectives when no plan is active. Its
+capsule is **advisory** — reconcile its resolved commit
 and worktree report against Git before acting. If it refuses, read the
 committed sources it names directly; never replace a refusal with a prose
 summary.
@@ -301,9 +306,9 @@ be working in the same tree. Trust it for your first turn; re-check with
 
 **Check whether you are stale before you work.** The tree you resume into may
 have been overtaken while you were away: a PR of this branch may already be
-merged, or the ratified line may have moved past the state
-`docs/phase-state.md` describes. Fetch first, then compare — do not infer
-freshness from phase state, the plan status, or a hook line. The foreman's
+merged, or the ratified line may have moved past the plan you are reading.
+Fetch first, then compare — do not infer freshness from the plan status or a
+hook line. The foreman's
 required `tools/foreman_context.py --ref HEAD` call performs this fetch and
 reports divergence plus whether the current branch tip is already contained in
 the ratified line; that report satisfies the foreman check.
@@ -372,8 +377,7 @@ Read a document when its **When** column applies to you — not before.
 | `docs/process/planning-and-development.md` | Owner guidelines for developing plain-language understanding into decisions and evidenced behavior | When planning, investigating, designing, implementing, or reviewing milestone work |
 | `docs/roles/qualitative-review.md` | Cross-milestone qualitative review questions and evidence standard | Reviewer, on boot; Foreman, before completing Track 0 adversarial closure and when chartering final publication review |
 | `docs/adr/INDEX.md` | ADR routing (advisory) | On boot — digests only. Read a full ADR only when acting on its exact text |
-| `docs/phases/<phase>/` | Active phase overview, roadmap, milestone plans | Foreman. **Builders and reviewers orient from their charter and Orientation Block, never from phase state** |
-| `docs/phase-state.md` | High level milestone briefing, active pointer | Foreman and advisor |
+| `docs/phases/<phase>/` | Active phase overview, roadmap (including its parked items and open owner-held questions), milestone plans | Foreman and advisor. **Builders and reviewers orient from their charter and Orientation Block** |
 | `docs/milestone-retrospectives/` | Completed-milestone lessons | Foreman — when the initial milestone briefing names a specific retrospective as useful follow-up context |
 | `docs/governance/` | The sole contract authority | **Advisor only** (ADR-0045). Enforced for every other seat by CI and by the stop condition above |
 | `docs/roles/craft-notes.md` | Recurring how-to reminders per seat | When your seat file points you there |

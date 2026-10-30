@@ -671,7 +671,7 @@ class CaseDCompleteMigrationSequenceExecutesEndToEnd(unittest.TestCase):
         without error when no domain policy blocks it; proving that same
         sequence completes *with* the policy active, for a nonzero legacy
         claim, is not currently possible without the owner decision named
-        in ADR-0072 and ``docs/phase-state.md``."""
+        in ADR-0072 and ``docs/phases/engine-breadth/engine-breadth-roadmap.md``."""
         acts = _acts_with_legacy(
             amount=42.0,
             with_pairing=True,
