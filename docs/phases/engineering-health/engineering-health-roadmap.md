@@ -97,6 +97,23 @@ v60/v58/v58, all byte for byte. Structural replacement checks
 do not establish tax meaning; companion declarations and live release evidence
 remain separate publication duties.
 
+### Explain a Shared Input Once
+
+[Plan](milestones/explanation-sharing.md).
+[Retrospective](../../milestone-retrospectives/2026-10-28-explanation-sharing.md).
+
+Normal explanations, CLI and NPE output, and new saved presentations retain one
+shared graph with every recorded use and its pin metadata. A reader can follow
+a saved line to its source and navigate reuse without the originating run.
+Historical presentation bytes stay unchanged. The reproduced line 27a graphs
+are about 154–155 KB rather than 1.6 MB expanded trees; whole saved files grow
+because they newly preserve complete lineage. No runtime speedup or new tax
+coverage is claimed. Ordinary correction tests also reuse isolated browser
+contexts; fresh recovery/lifecycle paths remain, and startup is coordinated
+across workers. Direct CLI rendering is conservatively serialized. Fewer
+launches were demonstrated, not a full-suite speedup or the earlier startup
+failure's cause. PR #229's exact-head `verify` is the publication gate.
+
 ## Current boundary and remaining work
 
 The next milestone is unselected.

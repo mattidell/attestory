@@ -13,7 +13,7 @@ python3 docs/phases/engineering-health/milestones/explanation-sharing-evidence/c
 python3 -m docs.phases.engineering-health.milestones.explanation-sharing-evidence.negative_control
 ```
 
-The first command selects tracked JSON with the `presentation-model.v1` discriminator, so newer successor examples do not change the baseline. It reproduces `census.tsv`, which inventories all 36 committed v1 presentation goldens and nine harness examples, and every saved section root. Those files store zero `ExplanationNode` trees; a zero count means no such tree was stored, not that support was absent. The table records file bytes, root pins and flattened citation sites, with distinct `(id, version)` counts. Root rows report immediate saved pins and sites, not full lineage. File citation counts cover section sites; specialized blocks and citation groups are separate. Total golden bytes were 7,728,275; 15,219 section citation occurrences occupied 1,968,050 bytes in compact JSON. Existing line-local citation sites are retained in v2.
+The first command inventories tracked `presentation-model.v1` files in the current checkout; it excludes successor v2 examples. `census.tsv` preserves the original P0 snapshot of 36 v1 presentation goldens and nine harness examples, including every saved section root. Main subsequently added two withholding goldens, so the current inventory contains 38 goldens and nine examples rather than reproducing the original TSV byte for byte. Those two files are separately checked unchanged, as are all 47 historical presentations. The byte and citation totals below describe the original P0 snapshot. Its files store zero `ExplanationNode` trees; a zero count means no such tree was stored, not that support was absent. The table records file bytes, root pins and flattened citation sites, with distinct `(id, version)` counts. Root rows report immediate saved pins and sites, not full lineage. File citation counts cover section sites; specialized blocks and citation groups are separate. Total golden bytes were 7,728,275; 15,219 section citation occurrences occupied 1,968,050 bytes in compact JSON. Existing line-local citation sites are retained in v2.
 
 The historical 9,885 tree nodes over 218 findings observation lacks a recorded scenario and counting procedure. It cannot be reproduced exactly or treated as a comparison baseline. The identified v58 parent and grandparent scenarios below use the real coordinator, validate the successor and compare its named v1 projection against the unchanged golden. Compact byte counts use sorted-key UTF-8 JSON without whitespace. The single-root graph counts include producer and provenance pins, so their node and edge counts are not directly comparable with the legacy tree's distinct finding-ID count.
 
@@ -36,10 +36,20 @@ The old SLI durable-reader tests characterized what its flattened saved represen
 
 The evidence is bounded: the v58 graph relation test checks every reachable recorded pin, producer and value on that live path; a saved-file/browser test follows an actual numeric source and reuse link, and malformed references are refused. NPE tests cover blocked, violation and interrupted selection, including a real blocked coordinator record. The layered-diamond test checks graph and leaf-walk growth by node and edge counts rather than timing. This does not establish runtime improvement for unrelated presentation fields.
 
-## Verification status
+## Verification and operational evidence
 
-The provenance-boundary repair addresses two accepted mutations observed before the fix: redirecting a parameter pin to a derived node with the same ID, and adding a fabricated symbol and value to a bare reference. The pre-fix graph validator and actual saved loader accepted both; published and blocked browser traversal also accepted each mutation. Focused regressions now exercise those same boundaries and reject them, while preserving legitimate unknown references and same-ID nodes of different kinds. These checks do not alter the published schemas.
+Before-fix controls showed that graph validation, saved loading and browser
+traversal accepted wrong-kind provenance targets and fabricated bare-reference
+data. Focused regressions now reject both through those actual boundaries,
+including blocked traversal, while preserving valid unknown references and
+same-ID nodes of different kinds. Published schemas are unchanged by that
+repair. Complete local-suite and mypy checks passed for the integrated
+explanation implementation; immutable golden projections and schema integrity
+remain explicit checks.
 
-After that repair, `pytest -x` completed the full selection with 3,646 passed and 20 skipped in 631.63 seconds using the configured 10 workers. The focused graph and saved-browser selection passed 20 tests, and `python3 -m mypy` found no issues in 420 source files. Green `verify` on the final curated PR head remains required.
-
-An earlier complete local run reported 3,573 passed, 20 skipped and two failures: both were 60-second headless Chromium subprocess timeouts in line-21 page tests. The exact two cases subsequently passed together in isolation in 80.86 seconds total; one uses a newly generated v2 model and the other a committed v1 golden. Their timeout cause was not established.
+Browser timeouts observed during verification led to the bounded
+[startup investigation](chrome-startup.md), then the owner-approved
+[browser resource work](browser-resources.md). Neither a later pass nor fewer
+launches establishes the historical failure's cause. Final acceptance is the
+independent review and required verify on PR #229's exact curated head, rather
+than any earlier run recorded here.

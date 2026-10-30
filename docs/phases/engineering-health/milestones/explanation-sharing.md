@@ -3,7 +3,7 @@
   "version": 1,
   "phase": "Engineering Health",
   "topic": "explanation-sharing",
-  "status": "Scope and contracts established for shared explanation output, saved recovery and bounded test browser resources.",
+  "status": "Complete: shared explanations and saved recovery retain full lineage; isolated test browser reuse, bounded startup and safe owner failure evidence preserve the tested boundaries. Required exact-head CI is the publication gate.",
   "scope": [
     "explain each shared input once and reference it at every reuse",
     "preserve a walk from each result to every actual dependency, including its producer and pin role",
@@ -29,10 +29,12 @@
       "docs/phases/engineering-health/milestones/explanation-sharing.md"
     ],
     "new_milestone": [
+      "docs/milestone-retrospectives/2026-10-28-explanation-sharing.md",
       "docs/phases/engineering-health/engineering-health-roadmap.md",
       "docs/phases/engineering-health/milestones/explanation-sharing.md"
     ]
-  }
+  },
+  "retrospective": "docs/milestone-retrospectives/2026-10-28-explanation-sharing.md"
 }
 -->
 
@@ -210,6 +212,39 @@ premise without weakening the requested complete saved dependency walk.
    same P0 v58 cases, and tests linear construction/storage with layered
    diamonds. Storage and runtime improvements are reported separately.
 
+## Execution record
+
+- P0 inventoried 36 original v1 presentation goldens and nine examples. They
+  save roots and flattened citations rather than recursive trees. The linked
+  census and real v58 replays provide the reproducible comparison.
+- Track 1 delivers one graph across explanation, NPE, CLI and saved recovery,
+  strict loading, lazy browser traversal and explicit legacy adapters. Every
+  reachable recorded pin, producer, role and version remains available.
+  All 47 historical presentation files, including merged withholding goldens,
+  and every prior schema byte remain unchanged. Three additive derivation
+  schemas follow recorded intent; no tax content is published.
+- The reproduced line 27a graphs occupy 153,718 and 155,272 compact bytes
+  versus 1,594,462 and 1,607,412 expanded-tree bytes. Complete saved files
+  grow to about 1.06 MB because they newly retain full lineage. No runtime
+  improvement is inferred from these measurements.
+- Before-fix provenance controls exposed wrong-kind target substitutions and
+  fabricated bare-reference payloads. Graph validation, actual saved loading,
+  and published/blocked browser traversal now refuse those mutations while
+  retaining legitimate unknown references and same-ID kinds.
+- The bounded browser unit below preserves ordinary/recovery assertions while
+  reducing repeated launches and coordinating startup. Its focused integrated
+  checks passed, including the subsequent diagnostic-transport controls;
+  repository mypy passed 432 source files. The
+  original derivation implementation also received complete local-suite and
+  mypy verification. Captured outputs remain in ignored local evidence.
+- Upstream withholding, Form 1099-K, test-cost, package-generator and retired
+  phase-state work are preserved. Withholding's 29 tests use the explicit
+  legacy adapters; its two golden files are unchanged. Excluded substrate
+  files are identical to the ratified line.
+- Independent final review and required exact-head verify on PR #229 are the
+  publication gates. Historical CI evidence does not substitute for that
+  candidate's check. The owner holds the merge.
+
 ## Final publication review
 
 ### Context Capsule
@@ -218,7 +253,7 @@ premise without weakening the requested complete saved dependency walk.
   commit and the exact `origin/main..HEAD` range. Milestone explanation-sharing,
   primary branch milestone/explanation-sharing-2025; use only its primary tree.
 - Orient with `--role reviewer --charter
-  docs/phases/engineering-health/milestones/explanation-sharing.md#Final-publication-review`.
+  "docs/phases/engineering-health/milestones/explanation-sharing.md#Final publication review"`.
   Assigned object: the final curated range, read only. No implementation edits,
   full-suite repetition, push or PR mutation.
 - Deep reads: AGENTS.md, Reviewer seat, concurrent-work protocol, qualitative
@@ -237,7 +272,9 @@ independent checks where implementation bytes are unchanged.
 For browser resources, trace actual caller reuse into distinct contexts,
 same-origin storage isolation, success/error/timeout/killed borrower cleanup,
 worker/owner/browser failure, fresh recovery/lifecycle selection and lazy
-ownership. Check separate-process startup exclusion, Python/Node interoperability,
+ownership. Distinguish fake ready-handshake process-ownership controls from
+real Chrome scenario/storage evidence. Verify allowlisted startup diagnostics
+through the Node/Python boundary and unchanged opt-in grace behavior. Check separate-process startup exclusion, Python/Node interoperability,
 bounded queue/active timing and uncertain-owner refusal without stealing.
 Inspect direct CLI entrypoints and their conservative rendering serialization;
 ready-browser work must still overlap. No original scenario assertion, skip,
@@ -281,8 +318,14 @@ from active startup timing. An abandoned slot is not stolen: uncertain startup
 ownership fails within the queue bound. Ordinary ready-browser work can
 continue independently. Contexts are disposed on success, error and borrower
 disconnection. Python owns the worker browser process group and private profile
-root for detected hard-owner cleanup; normal worker teardown also closes it.
-This is not crash recovery across a host shutdown.
+root; normal worker teardown closes it. A deterministic ready-handshake fake
+child exercises hard-owner process/profile cleanup through the actual helpers;
+real Chrome controls establish isolated contexts and application behavior.
+This is not crash recovery across a host shutdown. Startup failures cross the
+Node/Python boundary as allowlisted outcomes, codes and numeric measurements;
+unknown causes remain unknown. Diagnostics never silently replay a failure.
+The extended observation grace remains opt-in; ordinary startup keeps the
+original active allowance and cleanup timing.
 
 Direct Chromium commands in saved graph, line 21 explanation/reasons and
 worksheet tests join the same slot. Without a separate readiness handshake,
@@ -297,5 +340,5 @@ actual launch counts, same-origin isolation, cleanup, cross-process and
 cross-language controls and their limits. Two real scenarios launched two
 fresh browsers versus one reused browser. Sampled timing is confounded by warm
 caches and load; it is not a suite speedup measurement or a historical-cause
-finding. Focused checks, mypy and the unchanged required CI gate verify the final
-candidate after fetching and synchronizing with main.
+finding. Focused checks and mypy passed; final publication uses the unchanged
+required CI gate after fetching and synchronizing with main.
