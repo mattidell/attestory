@@ -25,6 +25,7 @@ def parse_arguments(argv: Sequence[str]) -> argparse.Namespace:
     parser.add_argument("--ref", required=True, help="explicit Git revision to read")
     parser.add_argument("--repo", default=".", help="repository root (default: current directory)")
     parser.add_argument("--format", choices=("json", "markdown"), default="json")
+    parser.add_argument("--plan", default=None, help="milestone plan (default: derived from the branch name)")
     parser.add_argument(
         "--no-fetch",
         action="store_true",
@@ -59,8 +60,10 @@ def main(argv: Sequence[str] | None = None) -> int:
     if not arguments.no_fetch:
         repository.fetch()
     try:
-        context = render_context(repository, arguments.ref)
+        context = render_context(repository, arguments.ref, plan_path=arguments.plan)
         state = context["state"]
+        if state is None:
+            raise ContextError("no milestone plan is active on this branch")
         if not state["initial_briefing_follow_up"]:
             raise ContextError(
                 f"{state['active_plan']} has no active initial briefing follow-up capsule"

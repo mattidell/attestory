@@ -1095,7 +1095,8 @@ class TestReportingYearIsRunScopeNotUserAnswer(unittest.TestCase):
     # and the report's ``tax-year`` are literal identity keys restricted to
     # ``["2025"]`` in the adopted content). That property belongs to the
     # roadmap's "Later-year basis reuse" candidate (see
-    # ``docs/phase-state.md``'s "Open and owner-held" section), which
+    # ``docs/phases/engine-breadth/engine-breadth-roadmap.md``'s open
+    # owner-held questions), which
     # exercises cross-year identity and correction directly; it is out of
     # scope here and is not tested with a fabricated 2026 report.
 

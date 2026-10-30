@@ -242,8 +242,9 @@ def domain_migration_resolution_policies() -> dict[str, str]:
     already genuinely zero, where it migrates without naming any
     replacement. Whether to build a genuine representation-transfer
     adjudication act that could let a nonzero claim resolve honestly
-    remains an explicit, undecided owner question (see ADR-0072 and
-    ``docs/phase-state.md``'s "Open and owner-held"); this policy does not
+    remains an explicit, undecided owner question (see ADR-0072 and the
+    open owner-held questions in
+    ``docs/phases/engine-breadth/engine-breadth-roadmap.md``); this policy does not
     approximate that decision with a structural proxy.
     """
     return {

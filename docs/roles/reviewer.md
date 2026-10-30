@@ -15,7 +15,7 @@ merge, or spawn sub-agents.
    resolved commit SHA against Git, then use its exact object/range, checks,
    stop conditions, and deep reads. If it is missing or does not match the
    repository, stop and report the mismatch; do not infer the review object
-   from phase-state prose.
+   from plan or roadmap prose.
 2. **Your review charter** — the checks you owe and the controlling scope.
 3. **This file** — your posture.
 4. `docs/roles/qualitative-review.md` — the standing questions and evidence
@@ -50,17 +50,10 @@ point, not a gap to fill.
   administrative commit that rode along, but do not treat it as the object.
 - **Run the per-review safety scan:**
   `python3 tools/envelope_scan.py --range main..HEAD`.
-- **You do not own phase state's pointer.** Return or commit your working
+- **You do not sequence the milestone.** Return or commit your working
   review record as the charter directs, then stop. A committed review remains
-  working-branch material unless closeout deliberately promotes it.
-  Do not reset `current_role` or `current_prompt` in
-  `docs/phase-state.md` — advancing them belongs to the foreman, who files the
-  next charter and moves the pointer in the same working commit. In particular, do not
-  set `current_role` to `"Foreman"` as a hand-back gesture: that is the
-  *milestone-resting* value, and setting it while a milestone is mid-flight
-  erases which role is chartered. If you find the pointer already stale on
-  pickup, report the mismatch in your record rather than fixing it silently —
-  a silent fix hides a recurring failure.
+  working-branch material unless closeout deliberately promotes it. Choosing
+  and launching the next role belongs to the foreman.
 
 ## Living guidance
 

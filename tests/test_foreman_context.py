@@ -15,79 +15,63 @@ TOOL = REPO_ROOT / "tools" / "foreman_context.py"
 FOLLOWUP_TOOL = REPO_ROOT / "tools" / "foreman_context_followup.py"
 
 
-class ContextFixture(unittest.TestCase):
-    """Shared synthetic repository builder; holds no tests of its own."""
+PLAN = "docs/phases/demo/milestones/demo-topic.md"
+RETROSPECTIVE = "docs/milestone-retrospectives/2026-01-01-demo.md"
+BRANCH = "milestone/demo-topic-2025"
 
-    def phase_metadata(self, *, include_seat: bool = True, **overrides: Any) -> dict[str, Any]:
-        """Phase state is the single re-entry document: pointers plus the live
-        status/role/prompt that used to live in the separate handoff note."""
-        phase: dict[str, Any] = {
+
+class ContextFixture(unittest.TestCase):
+    """Shared synthetic repository builder; holds no tests of its own.
+
+    `main` is published to a bare origin, then the milestone branch is checked
+    out, so the plan is found from the branch name as it is in practice."""
+
+    def plan_metadata(self, **overrides: Any) -> dict[str, Any]:
+        plan: dict[str, Any] = {
             "version": 1,
             "phase": "Demo Phase",
             "topic": "demo-topic",
-            "active_plan": "docs/phases/demo/milestones/demo.md",
-            "milestone_state": "track-1",
-            "status": "planning only",
-            "current_role": "demo reviewer",
-            "current_prompt": "docs/reviews/demo-review.md",
-        }
-        if include_seat:
-            phase["seat"] = "docs/prototypes/demo/SEAT.md"
-        phase.update(overrides)
-        return phase
-
-    def make_repository(
-        self,
-        *,
-        plan_topic: str = "demo-topic",
-        include_seat: bool = True,
-        with_origin: bool = True,
-        milestone_state: str = "track-1",
-        **plan_overrides: Any,
-    ) -> Path:
-        root = Path(tempfile.mkdtemp())
-        self.addCleanup(shutil.rmtree, root)
-        self.git(root, "init", "-q")
-        self.git(root, "config", "user.name", "Demo")
-        self.git(root, "config", "user.email", "demo@example.test")
-        phase = self.phase_metadata(
-            include_seat=include_seat,
-            milestone_state=milestone_state,
-        )
-        plan = {
-            "version": 1,
-            "topic": plan_topic,
             "status": "draft",
             "scope": ["synthetic proof"],
             "non_goals": ["no real workspace"],
             "deep_reads": {
                 "dispatch": ["docs/adr/0005.md#Decision"],
-                "new_milestone": ["docs/milestone-retrospectives/demo.md"],
+                "new_milestone": [RETROSPECTIVE],
             },
         }
-        plan.update(plan_overrides)
-        if include_seat:
-            plan["seat"] = "docs/prototypes/demo/SEAT.md"
-        seat = {
-            "version": 1,
-            "topic": "demo-topic",
-            "role": "prototype foreman",
-            "status": "active",
-            "rung": "paper",
-            "stop_conditions": ["synthetic evidence only"],
-        }
-        self.write_document(root, "docs/phase-state.md", phase)
-        self.write_document(root, "docs/phases/demo/milestones/demo.md", plan)
-        self.write_plain(root, "docs/reviews/demo-review.md")
-        if include_seat:
-            self.write_document(root, "docs/prototypes/demo/SEAT.md", seat)
+        plan.update(overrides)
+        return plan
+
+    def make_repository(
+        self,
+        *,
+        with_origin: bool = True,
+        branch: str | None = BRANCH,
+        **plan_overrides: Any,
+    ) -> Path:
+        root = Path(tempfile.mkdtemp())
+        self.addCleanup(shutil.rmtree, root)
+        self.git(root, "init", "-q", "-b", "main")
+        self.git(root, "config", "user.name", "Demo")
+        self.git(root, "config", "user.email", "demo@example.test")
+        self.write_document(root, PLAN, self.plan_metadata(**plan_overrides))
         self.write_plain(root, "docs/adr/0005.md")
-        self.write_plain(root, "docs/milestone-retrospectives/demo.md")
+        self.write_plain(root, RETROSPECTIVE)
         self.git(root, "add", ".")
         self.git(root, "commit", "-qm", "seed")
         if with_origin:
             self.publish_to_origin(root)
+        if branch is not None:
+            self.git(root, "switch", "-qc", branch)
         return root
+
+    def amend_plan(self, root: Path, message: str, **overrides: Any) -> None:
+        text = (root / PLAN).read_text(encoding="utf-8")
+        metadata = json.loads(text[text.index("{") : text.index("\n-->")])
+        metadata.update(overrides)
+        self.write_document(root, PLAN, metadata)
+        self.git(root, "add", ".")
+        self.git(root, "commit", "-qm", message)
 
     def publish_to_origin(self, root: Path) -> None:
         """Give the fixture a ratified target line for divergence reporting."""
@@ -151,12 +135,7 @@ class ContextFixture(unittest.TestCase):
         grounding_commit = self.git(root, "rev-parse", "HEAD")
         source_path = "docs/adr/0005.md"
         source_blob = self.git(root, "rev-parse", f"{grounding_commit}:{source_path}")
-        plan_path = root / "docs/phases/demo/milestones/demo.md"
-        text = plan_path.read_text(encoding="utf-8")
-        start = text.index("{")
-        end = text.index("\n-->")
-        metadata = json.loads(text[start:end])
-        metadata["initial_briefing_follow_up"] = {
+        follow_up = {
             "version": 1,
             "expires": "milestone-close",
             "grounding_commit": grounding_commit,
@@ -168,9 +147,7 @@ class ContextFixture(unittest.TestCase):
                 }
             ],
         }
-        self.write_document(root, "docs/phases/demo/milestones/demo.md", metadata)
-        self.git(root, "add", ".")
-        self.git(root, "commit", "-qm", "add temporary briefing follow-up")
+        self.amend_plan(root, "add temporary briefing follow-up", initial_briefing_follow_up=follow_up)
         return grounding_commit, source_blob
 
     def run_followup_tool(
@@ -195,68 +172,70 @@ class ContextFixture(unittest.TestCase):
 
 
 class ForemanContextTests(ContextFixture):
-    def test_renders_committed_context_with_source_blobs(self) -> None:
-        root = self.make_repository()
-        result = self.run_tool(root)
+    def capsule(self, root: Path, ref: str = "HEAD", extra: tuple[str, ...] = ()) -> dict[str, Any]:
+        result = self.run_tool(root, ref, extra=extra)
         self.assertEqual(result.returncode, 0, result.stderr)
-        capsule = json.loads(result.stdout)
+        capsule: dict[str, Any] = json.loads(result.stdout)
+        return capsule
+
+    def test_finds_the_plan_from_the_branch_name(self) -> None:
+        capsule = self.capsule(self.make_repository())
+        self.assertEqual(capsule["state"]["active_plan"], PLAN)
         self.assertEqual(capsule["state"]["topic"], "demo-topic")
-        self.assertEqual(capsule["state"]["current_role"], "demo reviewer")
-        self.assertEqual(capsule["state"]["current_prompt"], "docs/reviews/demo-review.md")
+        self.assertEqual(capsule["state"]["phase"], "Demo Phase")
         self.assertFalse(capsule["worktree"]["dirty"])
-        self.assertEqual(len(capsule["source"]["documents"]), 4)
+        paths = [document["path"] for document in capsule["source"]["documents"]]
+        self.assertEqual(paths, [PLAN, RETROSPECTIVE])
         self.assertTrue(all(document["blob"] for document in capsule["source"]["documents"]))
+
+    def test_the_longest_matching_key_wins_and_temp_branches_match(self) -> None:
+        root = self.make_repository(branch=None)
+        self.write_document(root, "docs/phases/demo/milestones/demo.md", self.plan_metadata(topic="demo"))
+        self.git(root, "add", ".")
+        self.git(root, "commit", "-qm", "shorter key")
+        self.git(root, "switch", "-qc", "temp/milestone/demo-topic-repair")
+        self.assertEqual(self.capsule(root)["state"]["active_plan"], PLAN)
+        self.git(root, "switch", "-qc", "milestone/demo-other")
+        self.assertEqual(
+            self.capsule(root)["state"]["active_plan"], "docs/phases/demo/milestones/demo.md"
+        )
+
+    def test_a_plan_without_a_phase_field_takes_its_directory(self) -> None:
+        root = self.make_repository()
+        self.amend_plan(root, "no phase", phase="")
+        self.assertEqual(self.capsule(root)["state"]["phase"], "demo")
+
+    def test_no_plan_off_a_milestone_branch(self) -> None:
+        capsule = self.capsule(self.make_repository(branch="process/other"))
+        self.assertIsNone(capsule["state"])
+        self.assertEqual(capsule["milestone"]["state"], "none")
+        self.assertEqual(capsule["deep_reads"], {})
+        self.assertEqual([d["path"] for d in capsule["source"]["documents"]], [RETROSPECTIVE])
+
+    def test_an_explicit_plan_overrides_the_branch(self) -> None:
+        root = self.make_repository(branch="process/other")
+        capsule = self.capsule(root, extra=("--plan", PLAN))
+        self.assertEqual(capsule["state"]["active_plan"], PLAN)
 
     def test_selected_ref_ignores_newer_commit(self) -> None:
         root = self.make_repository()
-        self.write_document(
-            root,
-            "docs/phase-state.md",
-            self.phase_metadata(
-                status="newer status",
-                current_role="newer role",
-                current_prompt="docs/reviews/newer-review.md",
-            ),
-        )
-        self.write_plain(root, "docs/reviews/newer-review.md")
-        self.git(root, "add", ".")
-        self.git(root, "commit", "-qm", "newer")
-        result = self.run_tool(root, "HEAD~1")
-        self.assertEqual(result.returncode, 0, result.stderr)
-        self.assertEqual(json.loads(result.stdout)["state"]["status"], "planning only")
-        self.assertEqual(json.loads(result.stdout)["state"]["current_role"], "demo reviewer")
-        self.assertNotIn("newer status", result.stdout)
+        self.amend_plan(root, "newer", status="newer status")
+        capsule = self.capsule(root, "HEAD~1")
+        self.assertEqual(capsule["state"]["plan_status"], "draft")
+        self.assertNotIn("newer status", json.dumps(capsule))
 
     def test_dirty_worktree_is_reported_but_not_read(self) -> None:
         root = self.make_repository()
-        phase_path = root / "docs/phase-state.md"
-        phase_path.write_text("uncommitted private-looking placeholder\n", encoding="utf-8")
-        result = self.run_tool(root)
-        self.assertEqual(result.returncode, 0, result.stderr)
-        capsule = json.loads(result.stdout)
+        (root / PLAN).write_text("uncommitted private-looking placeholder\n", encoding="utf-8")
+        capsule = self.capsule(root)
         self.assertTrue(capsule["worktree"]["dirty"])
-        self.assertIn("docs/phase-state.md", capsule["worktree"]["dirty_paths"])
+        self.assertIn(PLAN, capsule["worktree"]["dirty_paths"])
         self.assertEqual(capsule["state"]["topic"], "demo-topic")
-        self.assertNotIn("private-looking", result.stdout)
-
-    def test_rejects_topic_mismatch(self) -> None:
-        root = self.make_repository(plan_topic="wrong-topic")
-        result = self.run_tool(root)
-        self.assertEqual(result.returncode, 2)
-        self.assertIn("topic mismatch", result.stderr)
-        self.assertEqual(result.stdout, "")
-
-    def test_renders_nonprototype_context_without_a_seat(self) -> None:
-        root = self.make_repository(include_seat=False)
-        result = self.run_tool(root)
-        self.assertEqual(result.returncode, 0, result.stderr)
-        capsule = json.loads(result.stdout)
-        self.assertIsNone(capsule["state"]["seat"])
-        self.assertEqual(len(capsule["source"]["documents"]), 3)
+        self.assertNotIn("private-looking", json.dumps(capsule))
 
     def test_rejects_malformed_metadata_and_missing_ref(self) -> None:
         root = self.make_repository()
-        (root / "docs/phase-state.md").write_text("<!-- foreman-context-v1\nnot-json\n-->\n", encoding="utf-8")
+        (root / PLAN).write_text("<!-- foreman-context-v1\nnot-json\n-->\n", encoding="utf-8")
         self.git(root, "add", ".")
         self.git(root, "commit", "-qm", "malformed")
         malformed = self.run_tool(root)
@@ -266,46 +245,17 @@ class ForemanContextTests(ContextFixture):
         self.assertEqual(missing.returncode, 2)
         self.assertIn("cannot be resolved", missing.stderr)
 
-    def test_current_prompt_may_name_a_section_of_its_file(self) -> None:
-        # A plan section can be the charter, so `current_prompt` carries the
-        # same `path#Heading` spelling `deep_reads` already accepts. Only the
-        # path addresses a blob; resolving the whole string looks to git like a
-        # missing file, which sends the reader hunting for one.
+    def test_rejects_a_missing_deep_read(self) -> None:
         root = self.make_repository()
-        self.write_document(
-            root,
-            "docs/phase-state.md",
-            self.phase_metadata(current_prompt="docs/phases/demo/milestones/demo.md#Tracks"),
-        )
-        self.git(root, "add", ".")
-        self.git(root, "commit", "-qm", "anchored prompt")
-        result = self.run_tool(root)
-        self.assertEqual(result.returncode, 0, result.stderr)
-        capsule = json.loads(result.stdout)
-        self.assertEqual(
-            capsule["state"]["current_prompt"],
-            "docs/phases/demo/milestones/demo.md#Tracks",
-        )
-        paths = [document["path"] for document in capsule["source"]["documents"]]
-        self.assertIn("docs/phases/demo/milestones/demo.md", paths)
-
-    def test_rejects_missing_current_prompt(self) -> None:
-        root = self.make_repository()
-        self.write_document(
-            root,
-            "docs/phase-state.md",
-            self.phase_metadata(current_prompt="docs/reviews/missing.md"),
-        )
-        self.git(root, "add", ".")
-        self.git(root, "commit", "-qm", "missing prompt")
+        self.amend_plan(root, "missing read", deep_reads={"review": ["docs/reviews/missing.md"]})
         result = self.run_tool(root)
         self.assertEqual(result.returncode, 2)
         self.assertIn("missing required source docs/reviews/missing.md", result.stderr)
 
 
 class MilestoneStateTests(ContextFixture):
-    """Phase state describes the selected commit's post-merge world, while the
-    target line is reported separately as current Git state."""
+    """The selected commit's plan says whether its milestone is open or closed;
+    the target line is reported separately as current Git state."""
 
     def capsule(self, root: Path, ref: str = "HEAD") -> dict[str, Any]:
         result = self.run_tool(root, ref)
@@ -313,108 +263,25 @@ class MilestoneStateTests(ContextFixture):
         capsule: dict[str, Any] = json.loads(result.stdout)
         return capsule
 
-    def test_reports_a_validated_state_and_its_next_transition(self) -> None:
+    def test_a_plan_without_a_retrospective_is_open(self) -> None:
         milestone = self.capsule(self.make_repository())["milestone"]
-        self.assertEqual(milestone["state"], "track-1")
-        self.assertIn("Track 2 or the closing unit", milestone["next_transition"])
+        self.assertEqual(milestone["state"], "open")
+        self.assertIn("next unfinished track", milestone["next_transition"])
         self.assertIsNotNone(milestone["ratified_ref"])
-        self.assertTrue(all(check["expected"] == check["actual"] for check in milestone["checks"]))
+        self.assertEqual([check["path"] for check in milestone["checks"]], [PLAN])
 
-    def test_refuses_planning_as_a_persisted_state(self) -> None:
-        root = self.make_repository(milestone_state="planning")
-        result = self.run_tool(root)
-        self.assertEqual(result.returncode, 2)
-        self.assertIn("is not one of", result.stderr)
-        self.assertEqual(result.stdout, "")
-
-    def test_refuses_closing_as_a_persisted_state(self) -> None:
-        root = self.make_repository(
-            milestone_state="closing",
-            retrospective="docs/milestone-retrospectives/demo.md",
-        )
-        result = self.run_tool(root)
-        self.assertEqual(result.returncode, 2)
-        self.assertIn("is not one of", result.stderr)
-
-    def test_accepts_closed_when_the_retrospective_has_landed(self) -> None:
-        root = self.make_repository(
-            milestone_state="closed",
-            retrospective="docs/milestone-retrospectives/demo.md",
-        )
-        milestone = self.capsule(root)["milestone"]
+    def test_a_plan_naming_its_landed_retrospective_is_closed(self) -> None:
+        milestone = self.capsule(self.make_repository(retrospective=RETROSPECTIVE))["milestone"]
         self.assertEqual(milestone["state"], "closed")
         self.assertIn("selecting a new milestone", milestone["next_transition"])
+        self.assertEqual(milestone["checks"][1]["path"], RETROSPECTIVE)
 
-    def test_closed_requires_a_retrospective_path(self) -> None:
-        result = self.run_tool(self.make_repository(milestone_state="closed"))
-        self.assertEqual(result.returncode, 2)
-        self.assertIn("requires a 'retrospective' path", result.stderr)
-
-    def test_closed_requires_the_retrospective_in_the_selected_commit(self) -> None:
+    def test_a_named_retrospective_must_be_in_the_selected_commit(self) -> None:
         result = self.run_tool(
-            self.make_repository(
-                milestone_state="closed",
-                retrospective="docs/milestone-retrospectives/missing.md",
-            )
+            self.make_repository(retrospective="docs/milestone-retrospectives/missing.md")
         )
         self.assertEqual(result.returncode, 2)
-        self.assertIn("contradicts the selected commit", result.stderr)
-
-    def test_accepts_prospective_planned_state_ahead_of_target_line(self) -> None:
-        root = self.make_repository()
-        self.git(root, "switch", "-qc", "next-plan")
-        phase = self.phase_metadata(
-            milestone_state="planned",
-            active_plan="docs/phases/demo/milestones/next.md",
-        )
-        plan = {
-            "version": 1,
-            "topic": "demo-topic",
-            "status": "ready after merge",
-            "scope": ["synthetic proof"],
-            "non_goals": ["no real workspace"],
-            "deep_reads": {"dispatch": ["docs/adr/0005.md#Decision"]},
-            "seat": "docs/prototypes/demo/SEAT.md",
-        }
-        self.write_document(root, "docs/phase-state.md", phase)
-        self.write_document(root, "docs/phases/demo/milestones/next.md", plan)
-        self.git(root, "add", ".")
-        self.git(root, "commit", "-qm", "propose next plan")
-
-        milestone = self.capsule(root)["milestone"]
-        self.assertEqual(milestone["state"], "planned")
-        self.assertEqual(milestone["ratified_line"], "origin/main")
-        self.assertEqual(milestone["checks"][0]["path"], "docs/phases/demo/milestones/next.md")
-
-    def test_accepts_prospective_closed_state_ahead_of_target_line(self) -> None:
-        root = self.make_repository()
-        self.git(root, "switch", "-qc", "close-milestone")
-        retrospective = "docs/milestone-retrospectives/prospective.md"
-        self.write_document(
-            root,
-            "docs/phase-state.md",
-            self.phase_metadata(milestone_state="closed"),
-        )
-        plan_path = root / "docs/phases/demo/milestones/demo.md"
-        text = plan_path.read_text(encoding="utf-8")
-        start = text.index("{")
-        end = text.index("\n-->")
-        metadata = json.loads(text[start:end])
-        metadata["retrospective"] = retrospective
-        self.write_document(root, "docs/phases/demo/milestones/demo.md", metadata)
-        self.write_plain(root, retrospective)
-        self.git(root, "add", ".")
-        self.git(root, "commit", "-qm", "propose milestone close")
-
-        milestone = self.capsule(root)["milestone"]
-        self.assertEqual(milestone["state"], "closed")
-        self.assertEqual(milestone["checks"][1]["path"], retrospective)
-
-    def test_rejects_an_unknown_state(self) -> None:
-        result = self.run_tool(self.make_repository(milestone_state="mostly done"))
-        self.assertEqual(result.returncode, 2)
-        self.assertIn("is not one of", result.stderr)
-        self.assertIn("track-<n>", result.stderr)
+        self.assertIn("absent from the selected commit", result.stderr)
 
     def test_reports_divergence_from_the_ratified_record(self) -> None:
         root = self.make_repository()
@@ -427,14 +294,13 @@ class MilestoneStateTests(ContextFixture):
 
     def test_reports_spent_when_non_main_branch_tip_is_already_on_main(self) -> None:
         root = self.make_repository()
-        self.git(root, "switch", "-qc", "topic")
         self.write_plain(root, "docs/reviews/topic.md")
         self.git(root, "add", ".")
         self.git(root, "commit", "-qm", "topic work")
         self.git(root, "switch", "-q", "main")
-        self.git(root, "merge", "--no-ff", "-qm", "merge topic", "topic")
+        self.git(root, "merge", "--no-ff", "-qm", "merge topic", BRANCH)
         self.git(root, "push", "-q", "origin", "main")
-        self.git(root, "switch", "-q", "topic")
+        self.git(root, "switch", "-q", BRANCH)
         result = self.run_tool(root, ref="main")
         self.assertEqual(result.returncode, 0, result.stderr)
         worktree = json.loads(result.stdout)["worktree"]
@@ -443,9 +309,9 @@ class MilestoneStateTests(ContextFixture):
         self.assertTrue(worktree["branch_tip_reachable_from_ratified"])
         self.assertTrue(worktree["spent"])
 
-    def test_validates_selected_state_without_a_ratified_record(self) -> None:
+    def test_derives_state_without_a_ratified_record(self) -> None:
         milestone = self.capsule(self.make_repository(with_origin=False))["milestone"]
-        self.assertEqual(milestone["state"], "track-1")
+        self.assertEqual(milestone["state"], "open")
         self.assertIsNone(milestone["ratified_ref"])
         self.assertTrue(milestone["checks"])
         self.assertIn("target-line comparison is unavailable", milestone["note"])
@@ -506,10 +372,7 @@ class RatifiedLineTests(ContextFixture):
 
 class InitialBriefingTests(ContextFixture):
     def test_closed_milestone_markdown_stops_before_follow_up_reads(self) -> None:
-        root = self.make_repository(
-            milestone_state="closed",
-            retrospective="docs/milestone-retrospectives/demo.md",
-        )
+        root = self.make_repository(retrospective=RETROSPECTIVE)
         result = self.run_tool(root, output_format="markdown")
         self.assertEqual(result.returncode, 0, result.stderr)
         self.assertIn("## Initial briefing checkpoint", result.stdout)
@@ -539,17 +402,25 @@ class InitialBriefingTests(ContextFixture):
         self.assertEqual(result.returncode, 2)
         self.assertIn("blob mismatch", result.stderr)
 
+    def test_follow_up_loader_refuses_without_a_plan(self) -> None:
+        result = self.run_followup_tool(self.make_repository(branch="process/other"))
+        self.assertEqual(result.returncode, 2)
+        self.assertIn("no milestone plan is active", result.stderr)
+
     def test_follow_up_loader_refuses_when_no_capsule_is_active(self) -> None:
         root = self.make_repository()
         result = self.run_followup_tool(root)
         self.assertEqual(result.returncode, 2)
         self.assertIn("has no active initial briefing follow-up capsule", result.stderr)
 
+    def test_open_milestone_markdown_lists_reads_to_take(self) -> None:
+        result = self.run_tool(self.make_repository(), output_format="markdown")
+        self.assertEqual(result.returncode, 0, result.stderr)
+        self.assertIn("## Read in full before acting", result.stdout)
+        self.assertIn("`dispatch`: `docs/adr/0005.md#Decision`", result.stdout)
+
     def test_closed_milestone_must_remove_temporary_follow_up(self) -> None:
-        root = self.make_repository(
-            milestone_state="closed",
-            retrospective="docs/milestone-retrospectives/demo.md",
-        )
+        root = self.make_repository(retrospective=RETROSPECTIVE)
         self.add_briefing_follow_up(root)
         result = self.run_tool(root)
         self.assertEqual(result.returncode, 2)

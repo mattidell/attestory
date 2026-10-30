@@ -1348,8 +1348,8 @@ def _refuse_unresolved_nonzero_noncurrent_predecessors(
     ``facts.facts_of`` (the lattice projects from current entities), so
     a fact on a superseded entity never reaches this function's loop at
     all -- it is not withdrawal, not retraction, and this function makes
-    no claim about it one way or the other. ADR-0072's "Open and
-    owner-held" question in ``docs/phase-state.md`` is precisely whether
+    no claim about it one way or the other. ADR-0072's open owner-held
+    question (``docs/phases/engine-breadth/engine-breadth-roadmap.md``) is precisely whether
     a genuine representation-transfer adjudication act should exist for
     that case; this function does not approximate one.
 

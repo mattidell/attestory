@@ -115,3 +115,13 @@ Test moves below the coordinator were measured and are not worthwhile while
 the recorder holds the cost. Persistent caches, partial catalogs, test culling,
 and application-module separation remain unselected. Parallel jobs reduce
 waiting and spend more runner time; label those benefits separately.
+
+## Process changes
+
+### Retire Phase State
+
+[Plan](milestones/retire-phase-state.md).
+[Retrospective](../../milestone-retrospectives/2026-10-29-retire-phase-state.md).
+`docs/phase-state.md` is retired. The foreman capsule reads the plan from the
+branch name and derives open or closed from it; orientation takes the role
+and charter explicitly. Parked work moved to the Engine Breadth roadmap.

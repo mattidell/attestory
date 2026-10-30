@@ -367,8 +367,9 @@ later-year consequence path exists in this branch, so no real run can
 actually have a 2026 report to associate against, and no cross-year
 association has actually run end to end. Exercising a genuine later-year
 report and the tax-consequence-year question it would raise is the
-roadmap's "Later-year basis reuse" candidate (see `docs/phase-state.md`'s
-"Open and owner-held" section), not something this milestone closes.
+roadmap's "Later-year basis reuse" candidate (an open owner-held question in
+`docs/phases/engine-breadth/engine-breadth-roadmap.md`), not something this
+milestone closes.
 
 ## What this model is not
 
