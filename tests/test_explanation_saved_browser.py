@@ -1,5 +1,7 @@
 """Saved graph survives recovery and browser navigation is lazy and bounded."""
 from __future__ import annotations
+
+from tests.helpers.chrome_startup_slot import browser_startup_slot
 import copy
 import json
 import subprocess
@@ -63,7 +65,8 @@ def test_actual_saved_graph_browser_reuse_and_contained_refusal() -> None:
         with TemporaryDirectory() as temp:
             path = Path(temp) / 'page.html'
             path.write_text(page)
-            return subprocess.run([BROWSER, '--headless', '--disable-gpu', '--no-sandbox', '--dump-dom', path.as_uri()], check=True, capture_output=True, text=True, timeout=40).stdout
+            with browser_startup_slot():
+                return subprocess.run([BROWSER, '--headless', '--disable-gpu', '--no-sandbox', '--dump-dom', path.as_uri()], check=True, capture_output=True, text=True, timeout=40).stdout
     script = '''
     const unit = document.getElementById("line-27a");
     const detail = unit.querySelector("details.shared-explanation");
@@ -187,7 +190,8 @@ def _assert_browser_refusal(model: dict[str, Any], section_id: str, tmp_path: Pa
     page = page.replace('</body>', script + '</body>')
     path = tmp_path / 'mutated-page.html'
     path.write_text(page, encoding='utf-8')
-    dom = subprocess.run([BROWSER, '--headless', '--disable-gpu', '--no-sandbox', '--dump-dom', path.as_uri()], check=True, capture_output=True, text=True, timeout=40).stdout
+    with browser_startup_slot():
+        dom = subprocess.run([BROWSER, '--headless', '--disable-gpu', '--no-sandbox', '--dump-dom', path.as_uri()], check=True, capture_output=True, text=True, timeout=40).stdout
     assert 'data-guard="refused"' in dom
 
 

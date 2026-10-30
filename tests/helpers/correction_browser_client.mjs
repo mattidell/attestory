@@ -1,5 +1,6 @@
 import { CDPClient } from "../../tools/presentation_harness/lib/cdp.mjs";
 import { launchChrome } from "../../tools/presentation_harness/lib/chrome.mjs";
+import { createObservation } from "../../tools/presentation_harness/lib/chrome-observation.mjs";
 
 // Visible-interaction evidence for Track 1 (plan, "account-review-correction",
 // Track 1 integrated review and repairs, and Track 1 corrections): a
@@ -26,6 +27,8 @@ if (!pageUrl) {
 let chrome;
 let client;
 let targetId;
+let contextId;
+const sharedEndpoint = process.env.DEMO_SHARED_CHROME_WS || null;
 
 async function evaluate(expression, sessionId) {
   const result = await client.send(
@@ -745,9 +748,14 @@ try {
   const run = SCENARIOS[scenario];
   if (!run) throw new Error("unknown-scenario: " + scenario);
 
-  chrome = await launchChrome(null);
-  client = await CDPClient.connect(chrome.wsUrl);
-  ({ targetId } = await client.send("Target.createTarget", { url: "about:blank" }));
+  const observer = process.env.DEMO_CHROME_TRACE ? createObservation({
+    label: scenario === "calculate-dropped" ? "correction-calculate-dropped" : "correction-other",
+    output: process.env.DEMO_CHROME_TRACE,
+  }) : null;
+  if (!sharedEndpoint) chrome = await launchChrome(null, { observer });
+  client = await CDPClient.connect(sharedEndpoint || chrome.wsUrl);
+  if (sharedEndpoint) ({ browserContextId: contextId } = await client.send("Target.createBrowserContext", { disposeOnDetach: true }));
+  ({ targetId } = await client.send("Target.createTarget", { url: "about:blank", ...(contextId ? { browserContextId: contextId } : {}) }));
   const { sessionId } = await client.send("Target.attachToTarget", { targetId, flatten: true });
   await client.send("Page.enable", {}, sessionId);
   await client.send("Runtime.enable", {}, sessionId);
@@ -769,7 +777,11 @@ try {
       // Cleanup continues through the owned browser process.
     }
   }
-  if (client) {
+  if (client && contextId) {
+    try { await client.send("Target.disposeBrowserContext", { browserContextId: contextId }); } catch { /* detached context is disposed by Chrome */ }
+  }
+  if (client && sharedEndpoint) client.close();
+  if (client && !sharedEndpoint) {
     // Ask Chrome to exit on its own before the harness removes its
     // disposable profile. Under a loaded CI runner a signalled Chrome can
     // still be writing the profile when the removal starts (ENOTEMPTY).

@@ -14,6 +14,8 @@ present.
 """
 from __future__ import annotations
 
+from tests.helpers.chrome_startup_slot import browser_startup_slot
+
 import copy
 import html
 import json
@@ -83,10 +85,11 @@ class BlockedLineExplanation(unittest.TestCase):
             model_path.write_text(json.dumps(model), "utf-8")
             page = Path(work) / "page.html"
             page.write_bytes(_render_page(ROOT, WorkspaceCapability(workspace), model_path))
-            done = subprocess.run(
-                [str(BROWSER), "--headless", "--disable-gpu", "--no-sandbox", f"--user-data-dir={work}/profile",
-                 "--virtual-time-budget=5000", "--dump-dom", page.as_uri()],
-                capture_output=True, text=True, timeout=60, check=True)
+            with browser_startup_slot():
+                done = subprocess.run(
+                    [str(BROWSER), "--headless", "--disable-gpu", "--no-sandbox", f"--user-data-dir={work}/profile",
+                     "--virtual-time-budget=5000", "--dump-dom", page.as_uri()],
+                    capture_output=True, text=True, timeout=60, check=True)
         self.assertIn("<section", done.stdout)
         return done.stdout
 

@@ -133,7 +133,17 @@ jobs:
         run: python3 -m tools.ci_historical_ref prepare
 
       - name: Run one full-suite shard
-        run: python3 -m tools.ci_gate run-shard --index ${{ matrix.shard }} --count 4 --durations docs/phases/engineering-health/milestones/test-cost-remaining-evidence/ci-node-durations.json --results-dir test-results
+        env:
+          DEMO_CHROME_TRACE: test-results/chrome-startup.jsonl
+        run: |
+          mkdir -p test-results
+          python3 -m tools.ci_gate run-shard --index ${{ matrix.shard }} --count 4 --durations docs/phases/engineering-health/milestones/test-cost-remaining-evidence/ci-node-durations.json --results-dir test-results
+
+      - name: Observe isolated and parallel Chrome startup
+        if: ${{ !cancelled() }}
+        continue-on-error: true
+        timeout-minutes: 3
+        run: node tools/presentation_harness/chrome-startup-probe.mjs test-results/chrome-probe.jsonl
 
       - name: Publish shard durations and CPU
         if: always()
