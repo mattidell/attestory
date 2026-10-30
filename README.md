@@ -7,8 +7,10 @@ This is the project's third iteration. The first proved a working return generat
 ## Where things stand
 
 - **Governance** (`docs/governance/`): the ratified v0.1 set — Constitution, Ontology, Engineering Constraints, Principles, Commentary. The sole contract authority for this repository.
-- **Phase state** (`docs/phase-state.md`): on core calculations v59 federal
-  income tax withheld on Forms 1099-G and SSA-1099 reaches line 25b; v58
+- **Phase state** (`docs/phase-state.md`): on core calculations v60 an
+  unresolved or unconfirmed Form 1099-K stops every line computed from
+  income; v59 counts federal income tax withheld on Forms 1099-G and SSA-1099
+  on line 25b; v58
   resolves a contested child for the three child credits, and Schedule 8812
   is complete for the supported class (see "2025 child tax credit" below). Use `python3 tools/foreman_context.py --ref HEAD` for
   current routing; publication status is tracked by the pull request's checks.

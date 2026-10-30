@@ -1,0 +1,28 @@
+{
+  "act_id": "demo.act.adopt.core.v60",
+  "actor": "demo.user.filer-1",
+  "at": "2026-10-28T12:00:00Z",
+  "committed_against": 0,
+  "kind": "package-adoption",
+  "payload": {
+    "audit": {
+      "note": "synthetic successor adoption of core calculations v60 (Schedule 1 line 10 blocks while any Form 1099-K is unresolved, 2025); non-authoritative"
+    },
+    "package": {
+      "checksum": "ce99d07da5bc3c1e4285793a0f94ea0ee29493e78f3c4af5c08a8977572340c3",
+      "id": "tax.us.2025.package.core-calculations",
+      "version": "v60"
+    },
+    "release": {
+      "checksum": "650f361894da7ab3f67c3320186e528a3a13e669ca60243b630678ad584318d2",
+      "id": "demo.release.sli-worksheet-integration.2025",
+      "version": "v58"
+    },
+    "revision": 60,
+    "scope": {
+      "jurisdiction": "us",
+      "year": "2025"
+    }
+  },
+  "schema": "act.v1"
+}

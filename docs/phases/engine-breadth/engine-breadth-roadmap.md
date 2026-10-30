@@ -400,6 +400,14 @@ Withholding on unemployment (Form 1099-G box 4) and Social Security (Form
 SSA-1099 box 6) refused the return. Count it on line 25b on a successor
 package, while earlier packages keep refusing it.
 
+## Bounded return — An Unresolved Form 1099-K Stops the Bottom Line (2025)
+
+[Plan](milestones/form-1099-k-income.md).
+
+A Form 1099-K the engine could not resolve was left out of total income while
+the refund published. Block Schedule 1 line 10 on a successor package until
+every Form 1099-K is resolved and confirmed complete.
+
 ## Why line 7a comes before Schedule D
 
 The 2025 Form 1040 instructions permit eligible capital-gain distributions to

@@ -1,0 +1,2656 @@
+{
+  "cases": [
+    {
+      "case": "none",
+      "core": "v59",
+      "result": {
+        "extras": [
+          {
+            "symbol": "tax.us.2025.f1099k.box1a-subtotal",
+            "value": "0"
+          },
+          {
+            "symbol": "tax.us.2025.schedule1.line7-unemployment",
+            "value": "6000"
+          }
+        ],
+        "loss_reason_rows": [],
+        "root_blocks": [],
+        "status": "ran",
+        "stop_reason": "saturated",
+        "table": [
+          {
+            "artifact_id": "tax.us.2025.rule.f1099k-unresolved",
+            "cell": "inapplicable (guard false)",
+            "code": null,
+            "disposition": "inapplicable",
+            "disposition_count": 1,
+            "guard_result": false,
+            "label": "unresolved",
+            "missing": null,
+            "published": null,
+            "symbol": "tax.us.2025.f1099k.unresolved",
+            "symbol_on_row": null
+          },
+          {
+            "artifact_id": "tax.us.2025.rule.schedule1-top-entry",
+            "cell": "published \"0\"",
+            "code": null,
+            "disposition": "published",
+            "disposition_count": 1,
+            "guard_result": null,
+            "label": "top-entry",
+            "missing": null,
+            "published": "0",
+            "symbol": "tax.us.2025.schedule1.top-entry",
+            "symbol_on_row": "tax.us.2025.schedule1.top-entry"
+          },
+          {
+            "artifact_id": "tax.us.2025.rule.attachment.schedule-1",
+            "cell": "published {\"object_keys\": [\"answers\", \"itemizations\", \"named_obligations\", \"required\", \"triggers\"]}",
+            "code": null,
+            "disposition": "published",
+            "disposition_count": 1,
+            "guard_result": null,
+            "label": "attachment",
+            "missing": null,
+            "published": {
+              "object_keys": [
+                "answers",
+                "itemizations",
+                "named_obligations",
+                "required",
+                "triggers"
+              ]
+            },
+            "symbol": "tax.us.2025.schedule1.disposition",
+            "symbol_on_row": "tax.us.2025.schedule1.disposition"
+          },
+          {
+            "artifact_id": "tax.us.2025.rule.schedule1-line10",
+            "cell": "published \"6000\"",
+            "code": null,
+            "disposition": "published",
+            "disposition_count": 1,
+            "guard_result": null,
+            "label": "sch1-line10",
+            "missing": null,
+            "published": "6000",
+            "symbol": "tax.us.2025.schedule1.line10-additional-income",
+            "symbol_on_row": "tax.us.2025.schedule1.line10-additional-income"
+          },
+          {
+            "artifact_id": "tax.us.2025.rule.form1040-line8",
+            "cell": "published \"6000\"",
+            "code": null,
+            "disposition": "published",
+            "disposition_count": 1,
+            "guard_result": null,
+            "label": "line8",
+            "missing": null,
+            "published": "6000",
+            "symbol": "tax.us.2025.income.additional-income",
+            "symbol_on_row": "tax.us.2025.income.additional-income"
+          },
+          {
+            "artifact_id": "tax.us.2025.rule.form1040-line9",
+            "cell": "published \"56000\"",
+            "code": null,
+            "disposition": "published",
+            "disposition_count": 1,
+            "guard_result": null,
+            "label": "line9",
+            "missing": null,
+            "published": "56000",
+            "symbol": "tax.us.2025.income.total-income",
+            "symbol_on_row": "tax.us.2025.income.total-income"
+          },
+          {
+            "artifact_id": "tax.us.2025.rule.form1040-line11",
+            "cell": "published \"56000\"",
+            "code": null,
+            "disposition": "published",
+            "disposition_count": 1,
+            "guard_result": null,
+            "label": "line11",
+            "missing": null,
+            "published": "56000",
+            "symbol": "tax.us.2025.income.agi",
+            "symbol_on_row": "tax.us.2025.income.agi"
+          },
+          {
+            "artifact_id": "tax.us.2025.rule.form1040-line15",
+            "cell": "published \"40250\"",
+            "code": null,
+            "disposition": "published",
+            "disposition_count": 1,
+            "guard_result": null,
+            "label": "line15",
+            "missing": null,
+            "published": "40250",
+            "symbol": "tax.us.2025.income.taxable-income",
+            "symbol_on_row": "tax.us.2025.income.taxable-income"
+          },
+          {
+            "artifact_id": "tax.us.2025.rule.form1040-line16",
+            "cell": "published \"4595\"",
+            "code": null,
+            "disposition": "published",
+            "disposition_count": 1,
+            "guard_result": null,
+            "label": "line16",
+            "missing": null,
+            "published": "4595",
+            "symbol": "tax.us.2025.tax.total-tax",
+            "symbol_on_row": "tax.us.2025.tax.total-tax"
+          },
+          {
+            "artifact_id": "tax.us.2025.rule.form1040-line24",
+            "cell": "published \"4595\"",
+            "code": null,
+            "disposition": "published",
+            "disposition_count": 1,
+            "guard_result": null,
+            "label": "line24",
+            "missing": null,
+            "published": "4595",
+            "symbol": "tax.us.2025.tax.line24-total-tax",
+            "symbol_on_row": "tax.us.2025.tax.line24-total-tax"
+          },
+          {
+            "artifact_id": "tax.us.2025.rule.form1040-line25b",
+            "cell": "published \"600\"",
+            "code": null,
+            "disposition": "published",
+            "disposition_count": 1,
+            "guard_result": null,
+            "label": "line25b",
+            "missing": null,
+            "published": "600",
+            "symbol": "tax.us.2025.payments.line25b",
+            "symbol_on_row": "tax.us.2025.payments.line25b"
+          },
+          {
+            "artifact_id": "tax.us.2025.rule.form1040-line33",
+            "cell": "published \"5100\"",
+            "code": null,
+            "disposition": "published",
+            "disposition_count": 1,
+            "guard_result": null,
+            "label": "line33",
+            "missing": null,
+            "published": "5100",
+            "symbol": "tax.us.2025.payments.line33",
+            "symbol_on_row": "tax.us.2025.payments.line33"
+          },
+          {
+            "artifact_id": "tax.us.2025.rule.form1040-line34",
+            "cell": "published \"505\"",
+            "code": null,
+            "disposition": "published",
+            "disposition_count": 1,
+            "guard_result": null,
+            "label": "line34",
+            "missing": null,
+            "published": "505",
+            "symbol": "tax.us.2025.payments.line34-overpaid",
+            "symbol_on_row": "tax.us.2025.payments.line34-overpaid"
+          },
+          {
+            "artifact_id": "tax.us.2025.rule.form1040-line35a",
+            "cell": "published \"505\"",
+            "code": null,
+            "disposition": "published",
+            "disposition_count": 1,
+            "guard_result": null,
+            "label": "line35a",
+            "missing": null,
+            "published": "505",
+            "symbol": "tax.us.2025.payments.line35a-refunded",
+            "symbol_on_row": "tax.us.2025.payments.line35a-refunded"
+          },
+          {
+            "artifact_id": "tax.us.2025.rule.form1040-line37",
+            "cell": "published \"0\"",
+            "code": null,
+            "disposition": "published",
+            "disposition_count": 1,
+            "guard_result": null,
+            "label": "line37",
+            "missing": null,
+            "published": "0",
+            "symbol": "tax.us.2025.payments.line37-amount-owed",
+            "symbol_on_row": "tax.us.2025.payments.line37-amount-owed"
+          }
+        ]
+      },
+      "run_id": "demo.p0.f1099k.literal.v59.none",
+      "shape": "literal",
+      "splice": null
+    },
+    {
+      "case": "a-supported-box4-0",
+      "core": "v59",
+      "result": {
+        "extras": [
+          {
+            "symbol": "tax.us.2025.f1099k.box1a-subtotal",
+            "value": "880.0"
+          },
+          {
+            "symbol": "tax.us.2025.f1099k.statement-loss-reason|tax.us.2025.f1099k.box1a-gross-amount|payer=demo.platform.a,statement=demo.stmt.a,tax-year=2025",
+            "value": "supported-loss"
+          },
+          {
+            "symbol": "tax.us.2025.schedule1.line7-unemployment",
+            "value": "6000"
+          }
+        ],
+        "loss_reason_rows": [
+          {
+            "code": null,
+            "disposition": "published",
+            "guard_result": null,
+            "missing": null,
+            "symbol": "tax.us.2025.f1099k.statement-loss-reason|tax.us.2025.f1099k.box1a-gross-amount|payer=demo.platform.a,statement=demo.stmt.a,tax-year=2025"
+          }
+        ],
+        "root_blocks": [],
+        "status": "ran",
+        "stop_reason": "saturated",
+        "table": [
+          {
+            "artifact_id": "tax.us.2025.rule.f1099k-unresolved",
+            "cell": "inapplicable (guard false)",
+            "code": null,
+            "disposition": "inapplicable",
+            "disposition_count": 1,
+            "guard_result": false,
+            "label": "unresolved",
+            "missing": null,
+            "published": null,
+            "symbol": "tax.us.2025.f1099k.unresolved",
+            "symbol_on_row": null
+          },
+          {
+            "artifact_id": "tax.us.2025.rule.schedule1-top-entry",
+            "cell": "published \"880.0\"",
+            "code": null,
+            "disposition": "published",
+            "disposition_count": 1,
+            "guard_result": null,
+            "label": "top-entry",
+            "missing": null,
+            "published": "880.0",
+            "symbol": "tax.us.2025.schedule1.top-entry",
+            "symbol_on_row": "tax.us.2025.schedule1.top-entry"
+          },
+          {
+            "artifact_id": "tax.us.2025.rule.attachment.schedule-1",
+            "cell": "published {\"object_keys\": [\"answers\", \"itemizations\", \"named_obligations\", \"required\", \"triggers\"]}",
+            "code": null,
+            "disposition": "published",
+            "disposition_count": 1,
+            "guard_result": null,
+            "label": "attachment",
+            "missing": null,
+            "published": {
+              "object_keys": [
+                "answers",
+                "itemizations",
+                "named_obligations",
+                "required",
+                "triggers"
+              ]
+            },
+            "symbol": "tax.us.2025.schedule1.disposition",
+            "symbol_on_row": "tax.us.2025.schedule1.disposition"
+          },
+          {
+            "artifact_id": "tax.us.2025.rule.schedule1-line10",
+            "cell": "published \"6000\"",
+            "code": null,
+            "disposition": "published",
+            "disposition_count": 1,
+            "guard_result": null,
+            "label": "sch1-line10",
+            "missing": null,
+            "published": "6000",
+            "symbol": "tax.us.2025.schedule1.line10-additional-income",
+            "symbol_on_row": "tax.us.2025.schedule1.line10-additional-income"
+          },
+          {
+            "artifact_id": "tax.us.2025.rule.form1040-line8",
+            "cell": "published \"6000\"",
+            "code": null,
+            "disposition": "published",
+            "disposition_count": 1,
+            "guard_result": null,
+            "label": "line8",
+            "missing": null,
+            "published": "6000",
+            "symbol": "tax.us.2025.income.additional-income",
+            "symbol_on_row": "tax.us.2025.income.additional-income"
+          },
+          {
+            "artifact_id": "tax.us.2025.rule.form1040-line9",
+            "cell": "published \"56000\"",
+            "code": null,
+            "disposition": "published",
+            "disposition_count": 1,
+            "guard_result": null,
+            "label": "line9",
+            "missing": null,
+            "published": "56000",
+            "symbol": "tax.us.2025.income.total-income",
+            "symbol_on_row": "tax.us.2025.income.total-income"
+          },
+          {
+            "artifact_id": "tax.us.2025.rule.form1040-line11",
+            "cell": "published \"56000\"",
+            "code": null,
+            "disposition": "published",
+            "disposition_count": 1,
+            "guard_result": null,
+            "label": "line11",
+            "missing": null,
+            "published": "56000",
+            "symbol": "tax.us.2025.income.agi",
+            "symbol_on_row": "tax.us.2025.income.agi"
+          },
+          {
+            "artifact_id": "tax.us.2025.rule.form1040-line15",
+            "cell": "published \"40250\"",
+            "code": null,
+            "disposition": "published",
+            "disposition_count": 1,
+            "guard_result": null,
+            "label": "line15",
+            "missing": null,
+            "published": "40250",
+            "symbol": "tax.us.2025.income.taxable-income",
+            "symbol_on_row": "tax.us.2025.income.taxable-income"
+          },
+          {
+            "artifact_id": "tax.us.2025.rule.form1040-line16",
+            "cell": "published \"4595\"",
+            "code": null,
+            "disposition": "published",
+            "disposition_count": 1,
+            "guard_result": null,
+            "label": "line16",
+            "missing": null,
+            "published": "4595",
+            "symbol": "tax.us.2025.tax.total-tax",
+            "symbol_on_row": "tax.us.2025.tax.total-tax"
+          },
+          {
+            "artifact_id": "tax.us.2025.rule.form1040-line24",
+            "cell": "published \"4595\"",
+            "code": null,
+            "disposition": "published",
+            "disposition_count": 1,
+            "guard_result": null,
+            "label": "line24",
+            "missing": null,
+            "published": "4595",
+            "symbol": "tax.us.2025.tax.line24-total-tax",
+            "symbol_on_row": "tax.us.2025.tax.line24-total-tax"
+          },
+          {
+            "artifact_id": "tax.us.2025.rule.form1040-line25b",
+            "cell": "published \"600\"",
+            "code": null,
+            "disposition": "published",
+            "disposition_count": 1,
+            "guard_result": null,
+            "label": "line25b",
+            "missing": null,
+            "published": "600",
+            "symbol": "tax.us.2025.payments.line25b",
+            "symbol_on_row": "tax.us.2025.payments.line25b"
+          },
+          {
+            "artifact_id": "tax.us.2025.rule.form1040-line33",
+            "cell": "published \"5100\"",
+            "code": null,
+            "disposition": "published",
+            "disposition_count": 1,
+            "guard_result": null,
+            "label": "line33",
+            "missing": null,
+            "published": "5100",
+            "symbol": "tax.us.2025.payments.line33",
+            "symbol_on_row": "tax.us.2025.payments.line33"
+          },
+          {
+            "artifact_id": "tax.us.2025.rule.form1040-line34",
+            "cell": "published \"505\"",
+            "code": null,
+            "disposition": "published",
+            "disposition_count": 1,
+            "guard_result": null,
+            "label": "line34",
+            "missing": null,
+            "published": "505",
+            "symbol": "tax.us.2025.payments.line34-overpaid",
+            "symbol_on_row": "tax.us.2025.payments.line34-overpaid"
+          },
+          {
+            "artifact_id": "tax.us.2025.rule.form1040-line35a",
+            "cell": "published \"505\"",
+            "code": null,
+            "disposition": "published",
+            "disposition_count": 1,
+            "guard_result": null,
+            "label": "line35a",
+            "missing": null,
+            "published": "505",
+            "symbol": "tax.us.2025.payments.line35a-refunded",
+            "symbol_on_row": "tax.us.2025.payments.line35a-refunded"
+          },
+          {
+            "artifact_id": "tax.us.2025.rule.form1040-line37",
+            "cell": "published \"0\"",
+            "code": null,
+            "disposition": "published",
+            "disposition_count": 1,
+            "guard_result": null,
+            "label": "line37",
+            "missing": null,
+            "published": "0",
+            "symbol": "tax.us.2025.payments.line37-amount-owed",
+            "symbol_on_row": "tax.us.2025.payments.line37-amount-owed"
+          }
+        ]
+      },
+      "run_id": "demo.p0.f1099k.literal.v59.a-supported-box4-0",
+      "shape": "literal",
+      "splice": {
+        "asserted_circumstance_count": 15,
+        "box1a_fact_id": "tax.us.2025.f1099k.box1a-gross-amount|payer=demo.platform.a,statement=demo.stmt.a,tax-year=2025",
+        "box4": 0.0,
+        "family_present_before": true,
+        "family_version": "v2",
+        "omitted_answer": null,
+        "predecessor_horizon": "demo.probe.f1099k.h0",
+        "scope_keys": [
+          "subject",
+          "tax-year"
+        ],
+        "successor_horizon": "demo.p0.f1099k.h1"
+      }
+    },
+    {
+      "case": "b-supported-box4-150",
+      "core": "v59",
+      "result": {
+        "extras": [
+          {
+            "symbol": "tax.us.2025.f1099k.box1a-subtotal",
+            "value": "880.0"
+          },
+          {
+            "symbol": "tax.us.2025.f1099k.statement-loss-reason|tax.us.2025.f1099k.box1a-gross-amount|payer=demo.platform.a,statement=demo.stmt.a,tax-year=2025",
+            "value": "backup-withholding-unsupported"
+          },
+          {
+            "symbol": "tax.us.2025.schedule1.line7-unemployment",
+            "value": "6000"
+          }
+        ],
+        "loss_reason_rows": [
+          {
+            "code": null,
+            "disposition": "published",
+            "guard_result": null,
+            "missing": null,
+            "symbol": "tax.us.2025.f1099k.statement-loss-reason|tax.us.2025.f1099k.box1a-gross-amount|payer=demo.platform.a,statement=demo.stmt.a,tax-year=2025"
+          }
+        ],
+        "root_blocks": [],
+        "status": "ran",
+        "stop_reason": "saturated",
+        "table": [
+          {
+            "artifact_id": "tax.us.2025.rule.f1099k-unresolved",
+            "cell": "blocked DEPENDENCY_ABSENT missing=[]",
+            "code": "DEPENDENCY_ABSENT",
+            "disposition": "blocked",
+            "disposition_count": 1,
+            "guard_result": null,
+            "label": "unresolved",
+            "missing": [],
+            "published": null,
+            "symbol": "tax.us.2025.f1099k.unresolved",
+            "symbol_on_row": null
+          },
+          {
+            "artifact_id": "tax.us.2025.rule.schedule1-top-entry",
+            "cell": "blocked DEPENDENCY_ABSENT missing=[]",
+            "code": "DEPENDENCY_ABSENT",
+            "disposition": "blocked",
+            "disposition_count": 1,
+            "guard_result": null,
+            "label": "top-entry",
+            "missing": [],
+            "published": null,
+            "symbol": "tax.us.2025.schedule1.top-entry",
+            "symbol_on_row": null
+          },
+          {
+            "artifact_id": "tax.us.2025.rule.attachment.schedule-1",
+            "cell": "blocked DEPENDENCY_ABSENT missing=[\"tax.us.2025.schedule1.top-entry\"]",
+            "code": "DEPENDENCY_ABSENT",
+            "disposition": "blocked",
+            "disposition_count": 1,
+            "guard_result": null,
+            "label": "attachment",
+            "missing": [
+              "tax.us.2025.schedule1.top-entry"
+            ],
+            "published": null,
+            "symbol": "tax.us.2025.schedule1.disposition",
+            "symbol_on_row": null
+          },
+          {
+            "artifact_id": "tax.us.2025.rule.schedule1-line10",
+            "cell": "published \"6000\"",
+            "code": null,
+            "disposition": "published",
+            "disposition_count": 1,
+            "guard_result": null,
+            "label": "sch1-line10",
+            "missing": null,
+            "published": "6000",
+            "symbol": "tax.us.2025.schedule1.line10-additional-income",
+            "symbol_on_row": "tax.us.2025.schedule1.line10-additional-income"
+          },
+          {
+            "artifact_id": "tax.us.2025.rule.form1040-line8",
+            "cell": "published \"6000\"",
+            "code": null,
+            "disposition": "published",
+            "disposition_count": 1,
+            "guard_result": null,
+            "label": "line8",
+            "missing": null,
+            "published": "6000",
+            "symbol": "tax.us.2025.income.additional-income",
+            "symbol_on_row": "tax.us.2025.income.additional-income"
+          },
+          {
+            "artifact_id": "tax.us.2025.rule.form1040-line9",
+            "cell": "published \"56000\"",
+            "code": null,
+            "disposition": "published",
+            "disposition_count": 1,
+            "guard_result": null,
+            "label": "line9",
+            "missing": null,
+            "published": "56000",
+            "symbol": "tax.us.2025.income.total-income",
+            "symbol_on_row": "tax.us.2025.income.total-income"
+          },
+          {
+            "artifact_id": "tax.us.2025.rule.form1040-line11",
+            "cell": "published \"56000\"",
+            "code": null,
+            "disposition": "published",
+            "disposition_count": 1,
+            "guard_result": null,
+            "label": "line11",
+            "missing": null,
+            "published": "56000",
+            "symbol": "tax.us.2025.income.agi",
+            "symbol_on_row": "tax.us.2025.income.agi"
+          },
+          {
+            "artifact_id": "tax.us.2025.rule.form1040-line15",
+            "cell": "published \"40250\"",
+            "code": null,
+            "disposition": "published",
+            "disposition_count": 1,
+            "guard_result": null,
+            "label": "line15",
+            "missing": null,
+            "published": "40250",
+            "symbol": "tax.us.2025.income.taxable-income",
+            "symbol_on_row": "tax.us.2025.income.taxable-income"
+          },
+          {
+            "artifact_id": "tax.us.2025.rule.form1040-line16",
+            "cell": "published \"4595\"",
+            "code": null,
+            "disposition": "published",
+            "disposition_count": 1,
+            "guard_result": null,
+            "label": "line16",
+            "missing": null,
+            "published": "4595",
+            "symbol": "tax.us.2025.tax.total-tax",
+            "symbol_on_row": "tax.us.2025.tax.total-tax"
+          },
+          {
+            "artifact_id": "tax.us.2025.rule.form1040-line24",
+            "cell": "published \"4595\"",
+            "code": null,
+            "disposition": "published",
+            "disposition_count": 1,
+            "guard_result": null,
+            "label": "line24",
+            "missing": null,
+            "published": "4595",
+            "symbol": "tax.us.2025.tax.line24-total-tax",
+            "symbol_on_row": "tax.us.2025.tax.line24-total-tax"
+          },
+          {
+            "artifact_id": "tax.us.2025.rule.form1040-line25b",
+            "cell": "published \"600\"",
+            "code": null,
+            "disposition": "published",
+            "disposition_count": 1,
+            "guard_result": null,
+            "label": "line25b",
+            "missing": null,
+            "published": "600",
+            "symbol": "tax.us.2025.payments.line25b",
+            "symbol_on_row": "tax.us.2025.payments.line25b"
+          },
+          {
+            "artifact_id": "tax.us.2025.rule.form1040-line33",
+            "cell": "published \"5100\"",
+            "code": null,
+            "disposition": "published",
+            "disposition_count": 1,
+            "guard_result": null,
+            "label": "line33",
+            "missing": null,
+            "published": "5100",
+            "symbol": "tax.us.2025.payments.line33",
+            "symbol_on_row": "tax.us.2025.payments.line33"
+          },
+          {
+            "artifact_id": "tax.us.2025.rule.form1040-line34",
+            "cell": "published \"505\"",
+            "code": null,
+            "disposition": "published",
+            "disposition_count": 1,
+            "guard_result": null,
+            "label": "line34",
+            "missing": null,
+            "published": "505",
+            "symbol": "tax.us.2025.payments.line34-overpaid",
+            "symbol_on_row": "tax.us.2025.payments.line34-overpaid"
+          },
+          {
+            "artifact_id": "tax.us.2025.rule.form1040-line35a",
+            "cell": "published \"505\"",
+            "code": null,
+            "disposition": "published",
+            "disposition_count": 1,
+            "guard_result": null,
+            "label": "line35a",
+            "missing": null,
+            "published": "505",
+            "symbol": "tax.us.2025.payments.line35a-refunded",
+            "symbol_on_row": "tax.us.2025.payments.line35a-refunded"
+          },
+          {
+            "artifact_id": "tax.us.2025.rule.form1040-line37",
+            "cell": "published \"0\"",
+            "code": null,
+            "disposition": "published",
+            "disposition_count": 1,
+            "guard_result": null,
+            "label": "line37",
+            "missing": null,
+            "published": "0",
+            "symbol": "tax.us.2025.payments.line37-amount-owed",
+            "symbol_on_row": "tax.us.2025.payments.line37-amount-owed"
+          }
+        ]
+      },
+      "run_id": "demo.p0.f1099k.literal.v59.b-supported-box4-150",
+      "shape": "literal",
+      "splice": {
+        "asserted_circumstance_count": 15,
+        "box1a_fact_id": "tax.us.2025.f1099k.box1a-gross-amount|payer=demo.platform.a,statement=demo.stmt.a,tax-year=2025",
+        "box4": 150.0,
+        "family_present_before": true,
+        "family_version": "v2",
+        "omitted_answer": null,
+        "predecessor_horizon": "demo.probe.f1099k.h0",
+        "scope_keys": [
+          "subject",
+          "tax-year"
+        ],
+        "successor_horizon": "demo.p0.f1099k.h1"
+      }
+    },
+    {
+      "case": "c-unanswered-q5",
+      "core": "v59",
+      "result": {
+        "extras": [
+          {
+            "symbol": "tax.us.2025.f1099k.box1a-subtotal",
+            "value": "880.0"
+          },
+          {
+            "symbol": "tax.us.2025.f1099k.statement-loss-reason|tax.us.2025.f1099k.box1a-gross-amount|payer=demo.platform.a,statement=demo.stmt.a,tax-year=2025",
+            "value": "personal-use-unconfirmed"
+          },
+          {
+            "symbol": "tax.us.2025.schedule1.line7-unemployment",
+            "value": "6000"
+          }
+        ],
+        "loss_reason_rows": [
+          {
+            "code": null,
+            "disposition": "published",
+            "guard_result": null,
+            "missing": null,
+            "symbol": "tax.us.2025.f1099k.statement-loss-reason|tax.us.2025.f1099k.box1a-gross-amount|payer=demo.platform.a,statement=demo.stmt.a,tax-year=2025"
+          }
+        ],
+        "root_blocks": [],
+        "status": "ran",
+        "stop_reason": "saturated",
+        "table": [
+          {
+            "artifact_id": "tax.us.2025.rule.f1099k-unresolved",
+            "cell": "blocked DEPENDENCY_ABSENT missing=[]",
+            "code": "DEPENDENCY_ABSENT",
+            "disposition": "blocked",
+            "disposition_count": 1,
+            "guard_result": null,
+            "label": "unresolved",
+            "missing": [],
+            "published": null,
+            "symbol": "tax.us.2025.f1099k.unresolved",
+            "symbol_on_row": null
+          },
+          {
+            "artifact_id": "tax.us.2025.rule.schedule1-top-entry",
+            "cell": "blocked DEPENDENCY_ABSENT missing=[]",
+            "code": "DEPENDENCY_ABSENT",
+            "disposition": "blocked",
+            "disposition_count": 1,
+            "guard_result": null,
+            "label": "top-entry",
+            "missing": [],
+            "published": null,
+            "symbol": "tax.us.2025.schedule1.top-entry",
+            "symbol_on_row": null
+          },
+          {
+            "artifact_id": "tax.us.2025.rule.attachment.schedule-1",
+            "cell": "blocked DEPENDENCY_ABSENT missing=[\"tax.us.2025.schedule1.top-entry\"]",
+            "code": "DEPENDENCY_ABSENT",
+            "disposition": "blocked",
+            "disposition_count": 1,
+            "guard_result": null,
+            "label": "attachment",
+            "missing": [
+              "tax.us.2025.schedule1.top-entry"
+            ],
+            "published": null,
+            "symbol": "tax.us.2025.schedule1.disposition",
+            "symbol_on_row": null
+          },
+          {
+            "artifact_id": "tax.us.2025.rule.schedule1-line10",
+            "cell": "published \"6000\"",
+            "code": null,
+            "disposition": "published",
+            "disposition_count": 1,
+            "guard_result": null,
+            "label": "sch1-line10",
+            "missing": null,
+            "published": "6000",
+            "symbol": "tax.us.2025.schedule1.line10-additional-income",
+            "symbol_on_row": "tax.us.2025.schedule1.line10-additional-income"
+          },
+          {
+            "artifact_id": "tax.us.2025.rule.form1040-line8",
+            "cell": "published \"6000\"",
+            "code": null,
+            "disposition": "published",
+            "disposition_count": 1,
+            "guard_result": null,
+            "label": "line8",
+            "missing": null,
+            "published": "6000",
+            "symbol": "tax.us.2025.income.additional-income",
+            "symbol_on_row": "tax.us.2025.income.additional-income"
+          },
+          {
+            "artifact_id": "tax.us.2025.rule.form1040-line9",
+            "cell": "published \"56000\"",
+            "code": null,
+            "disposition": "published",
+            "disposition_count": 1,
+            "guard_result": null,
+            "label": "line9",
+            "missing": null,
+            "published": "56000",
+            "symbol": "tax.us.2025.income.total-income",
+            "symbol_on_row": "tax.us.2025.income.total-income"
+          },
+          {
+            "artifact_id": "tax.us.2025.rule.form1040-line11",
+            "cell": "published \"56000\"",
+            "code": null,
+            "disposition": "published",
+            "disposition_count": 1,
+            "guard_result": null,
+            "label": "line11",
+            "missing": null,
+            "published": "56000",
+            "symbol": "tax.us.2025.income.agi",
+            "symbol_on_row": "tax.us.2025.income.agi"
+          },
+          {
+            "artifact_id": "tax.us.2025.rule.form1040-line15",
+            "cell": "published \"40250\"",
+            "code": null,
+            "disposition": "published",
+            "disposition_count": 1,
+            "guard_result": null,
+            "label": "line15",
+            "missing": null,
+            "published": "40250",
+            "symbol": "tax.us.2025.income.taxable-income",
+            "symbol_on_row": "tax.us.2025.income.taxable-income"
+          },
+          {
+            "artifact_id": "tax.us.2025.rule.form1040-line16",
+            "cell": "published \"4595\"",
+            "code": null,
+            "disposition": "published",
+            "disposition_count": 1,
+            "guard_result": null,
+            "label": "line16",
+            "missing": null,
+            "published": "4595",
+            "symbol": "tax.us.2025.tax.total-tax",
+            "symbol_on_row": "tax.us.2025.tax.total-tax"
+          },
+          {
+            "artifact_id": "tax.us.2025.rule.form1040-line24",
+            "cell": "published \"4595\"",
+            "code": null,
+            "disposition": "published",
+            "disposition_count": 1,
+            "guard_result": null,
+            "label": "line24",
+            "missing": null,
+            "published": "4595",
+            "symbol": "tax.us.2025.tax.line24-total-tax",
+            "symbol_on_row": "tax.us.2025.tax.line24-total-tax"
+          },
+          {
+            "artifact_id": "tax.us.2025.rule.form1040-line25b",
+            "cell": "published \"600\"",
+            "code": null,
+            "disposition": "published",
+            "disposition_count": 1,
+            "guard_result": null,
+            "label": "line25b",
+            "missing": null,
+            "published": "600",
+            "symbol": "tax.us.2025.payments.line25b",
+            "symbol_on_row": "tax.us.2025.payments.line25b"
+          },
+          {
+            "artifact_id": "tax.us.2025.rule.form1040-line33",
+            "cell": "published \"5100\"",
+            "code": null,
+            "disposition": "published",
+            "disposition_count": 1,
+            "guard_result": null,
+            "label": "line33",
+            "missing": null,
+            "published": "5100",
+            "symbol": "tax.us.2025.payments.line33",
+            "symbol_on_row": "tax.us.2025.payments.line33"
+          },
+          {
+            "artifact_id": "tax.us.2025.rule.form1040-line34",
+            "cell": "published \"505\"",
+            "code": null,
+            "disposition": "published",
+            "disposition_count": 1,
+            "guard_result": null,
+            "label": "line34",
+            "missing": null,
+            "published": "505",
+            "symbol": "tax.us.2025.payments.line34-overpaid",
+            "symbol_on_row": "tax.us.2025.payments.line34-overpaid"
+          },
+          {
+            "artifact_id": "tax.us.2025.rule.form1040-line35a",
+            "cell": "published \"505\"",
+            "code": null,
+            "disposition": "published",
+            "disposition_count": 1,
+            "guard_result": null,
+            "label": "line35a",
+            "missing": null,
+            "published": "505",
+            "symbol": "tax.us.2025.payments.line35a-refunded",
+            "symbol_on_row": "tax.us.2025.payments.line35a-refunded"
+          },
+          {
+            "artifact_id": "tax.us.2025.rule.form1040-line37",
+            "cell": "published \"0\"",
+            "code": null,
+            "disposition": "published",
+            "disposition_count": 1,
+            "guard_result": null,
+            "label": "line37",
+            "missing": null,
+            "published": "0",
+            "symbol": "tax.us.2025.payments.line37-amount-owed",
+            "symbol_on_row": "tax.us.2025.payments.line37-amount-owed"
+          }
+        ]
+      },
+      "run_id": "demo.p0.f1099k.literal.v59.c-unanswered-q5",
+      "shape": "literal",
+      "splice": {
+        "asserted_circumstance_count": 14,
+        "box1a_fact_id": "tax.us.2025.f1099k.box1a-gross-amount|payer=demo.platform.a,statement=demo.stmt.a,tax-year=2025",
+        "box4": 0.0,
+        "family_present_before": true,
+        "family_version": "v2",
+        "omitted_answer": "tax.us.2025.f1099k.exclusive-personal-use",
+        "predecessor_horizon": "demo.probe.f1099k.h0",
+        "scope_keys": [
+          "subject",
+          "tax-year"
+        ],
+        "successor_horizon": "demo.p0.f1099k.h1"
+      }
+    },
+    {
+      "case": "none",
+      "core": "v58",
+      "result": {
+        "error": "FindingModelError: companion presence violated: tax.us.2025.f1099g.box1-unemployment|payer=demo.fw.g.payer.0,statement=demo.fw.g.stmt.0,tax-year=2025 is current (6000.0) but tax.us.2025.f1099g.box4-federal-withholding-authority|payer=demo.fw.g.payer.0,statement=demo.fw.g.stmt.0,tax-year=2025 has no current value; rejected, not recorded",
+        "error_type": "FindingModelError",
+        "status": "error",
+        "traceback_tail": [
+          "  File \"[path]\", line 1151, in _apply_member_transition",
+          "    _enforce_companion_presence(new_state, registry, tuple(touched_fact_ids), view)",
+          "    ~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^",
+          "  File \"[path]\", line 569, in _enforce_companion_presence",
+          "    raise FindingModelError(",
+          "    ...<3 lines>...",
+          "    )",
+          "packages.kernel.findings.FindingModelError: companion presence violated: tax.us.2025.f1099g.box1-unemployment|payer=demo.fw.g.payer.0,statement=demo.fw.g.stmt.0,tax-year=2025 is current (6000.0) but tax.us.2025.f1099g.box4-federal-withholding-authority|payer=demo.fw.g.payer.0,statement=demo.fw.g.stmt.0,tax-year=2025 has no current value; rejected, not recorded"
+        ]
+      },
+      "run_id": "demo.p0.f1099k.literal.v58.none",
+      "shape": "literal",
+      "splice": null
+    },
+    {
+      "case": "a-supported-box4-0",
+      "core": "v58",
+      "result": {
+        "error": "FindingModelError: companion presence violated: tax.us.2025.f1099g.box1-unemployment|payer=demo.fw.g.payer.0,statement=demo.fw.g.stmt.0,tax-year=2025 is current (6000.0) but tax.us.2025.f1099g.box4-federal-withholding-authority|payer=demo.fw.g.payer.0,statement=demo.fw.g.stmt.0,tax-year=2025 has no current value; rejected, not recorded",
+        "error_type": "FindingModelError",
+        "status": "error",
+        "traceback_tail": [
+          "  File \"[path]\", line 1151, in _apply_member_transition",
+          "    _enforce_companion_presence(new_state, registry, tuple(touched_fact_ids), view)",
+          "    ~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^",
+          "  File \"[path]\", line 569, in _enforce_companion_presence",
+          "    raise FindingModelError(",
+          "    ...<3 lines>...",
+          "    )",
+          "packages.kernel.findings.FindingModelError: companion presence violated: tax.us.2025.f1099g.box1-unemployment|payer=demo.fw.g.payer.0,statement=demo.fw.g.stmt.0,tax-year=2025 is current (6000.0) but tax.us.2025.f1099g.box4-federal-withholding-authority|payer=demo.fw.g.payer.0,statement=demo.fw.g.stmt.0,tax-year=2025 has no current value; rejected, not recorded"
+        ]
+      },
+      "run_id": "demo.p0.f1099k.literal.v58.a-supported-box4-0",
+      "shape": "literal",
+      "splice": {
+        "asserted_circumstance_count": 15,
+        "box1a_fact_id": "tax.us.2025.f1099k.box1a-gross-amount|payer=demo.platform.a,statement=demo.stmt.a,tax-year=2025",
+        "box4": 0.0,
+        "family_present_before": true,
+        "family_version": "v2",
+        "omitted_answer": null,
+        "predecessor_horizon": "demo.probe.f1099k.h0",
+        "scope_keys": [
+          "subject",
+          "tax-year"
+        ],
+        "successor_horizon": "demo.p0.f1099k.h1"
+      }
+    },
+    {
+      "case": "b-supported-box4-150",
+      "core": "v58",
+      "result": {
+        "error": "FindingModelError: companion presence violated: tax.us.2025.f1099g.box1-unemployment|payer=demo.fw.g.payer.0,statement=demo.fw.g.stmt.0,tax-year=2025 is current (6000.0) but tax.us.2025.f1099g.box4-federal-withholding-authority|payer=demo.fw.g.payer.0,statement=demo.fw.g.stmt.0,tax-year=2025 has no current value; rejected, not recorded",
+        "error_type": "FindingModelError",
+        "status": "error",
+        "traceback_tail": [
+          "  File \"[path]\", line 1151, in _apply_member_transition",
+          "    _enforce_companion_presence(new_state, registry, tuple(touched_fact_ids), view)",
+          "    ~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^",
+          "  File \"[path]\", line 569, in _enforce_companion_presence",
+          "    raise FindingModelError(",
+          "    ...<3 lines>...",
+          "    )",
+          "packages.kernel.findings.FindingModelError: companion presence violated: tax.us.2025.f1099g.box1-unemployment|payer=demo.fw.g.payer.0,statement=demo.fw.g.stmt.0,tax-year=2025 is current (6000.0) but tax.us.2025.f1099g.box4-federal-withholding-authority|payer=demo.fw.g.payer.0,statement=demo.fw.g.stmt.0,tax-year=2025 has no current value; rejected, not recorded"
+        ]
+      },
+      "run_id": "demo.p0.f1099k.literal.v58.b-supported-box4-150",
+      "shape": "literal",
+      "splice": {
+        "asserted_circumstance_count": 15,
+        "box1a_fact_id": "tax.us.2025.f1099k.box1a-gross-amount|payer=demo.platform.a,statement=demo.stmt.a,tax-year=2025",
+        "box4": 150.0,
+        "family_present_before": true,
+        "family_version": "v2",
+        "omitted_answer": null,
+        "predecessor_horizon": "demo.probe.f1099k.h0",
+        "scope_keys": [
+          "subject",
+          "tax-year"
+        ],
+        "successor_horizon": "demo.p0.f1099k.h1"
+      }
+    },
+    {
+      "case": "c-unanswered-q5",
+      "core": "v58",
+      "result": {
+        "error": "FindingModelError: companion presence violated: tax.us.2025.f1099g.box1-unemployment|payer=demo.fw.g.payer.0,statement=demo.fw.g.stmt.0,tax-year=2025 is current (6000.0) but tax.us.2025.f1099g.box4-federal-withholding-authority|payer=demo.fw.g.payer.0,statement=demo.fw.g.stmt.0,tax-year=2025 has no current value; rejected, not recorded",
+        "error_type": "FindingModelError",
+        "status": "error",
+        "traceback_tail": [
+          "  File \"[path]\", line 1151, in _apply_member_transition",
+          "    _enforce_companion_presence(new_state, registry, tuple(touched_fact_ids), view)",
+          "    ~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^",
+          "  File \"[path]\", line 569, in _enforce_companion_presence",
+          "    raise FindingModelError(",
+          "    ...<3 lines>...",
+          "    )",
+          "packages.kernel.findings.FindingModelError: companion presence violated: tax.us.2025.f1099g.box1-unemployment|payer=demo.fw.g.payer.0,statement=demo.fw.g.stmt.0,tax-year=2025 is current (6000.0) but tax.us.2025.f1099g.box4-federal-withholding-authority|payer=demo.fw.g.payer.0,statement=demo.fw.g.stmt.0,tax-year=2025 has no current value; rejected, not recorded"
+        ]
+      },
+      "run_id": "demo.p0.f1099k.literal.v58.c-unanswered-q5",
+      "shape": "literal",
+      "splice": {
+        "asserted_circumstance_count": 14,
+        "box1a_fact_id": "tax.us.2025.f1099k.box1a-gross-amount|payer=demo.platform.a,statement=demo.stmt.a,tax-year=2025",
+        "box4": 0.0,
+        "family_present_before": true,
+        "family_version": "v2",
+        "omitted_answer": "tax.us.2025.f1099k.exclusive-personal-use",
+        "predecessor_horizon": "demo.probe.f1099k.h0",
+        "scope_keys": [
+          "subject",
+          "tax-year"
+        ],
+        "successor_horizon": "demo.p0.f1099k.h1"
+      }
+    },
+    {
+      "case": "none",
+      "core": "v58",
+      "result": {
+        "extras": [
+          {
+            "symbol": "tax.us.2025.f1099k.box1a-subtotal",
+            "value": "0"
+          },
+          {
+            "symbol": "tax.us.2025.schedule1.line7-unemployment",
+            "value": "6000"
+          }
+        ],
+        "loss_reason_rows": [],
+        "root_blocks": [],
+        "status": "ran",
+        "stop_reason": "saturated",
+        "table": [
+          {
+            "artifact_id": "tax.us.2025.rule.f1099k-unresolved",
+            "cell": "inapplicable (guard false)",
+            "code": null,
+            "disposition": "inapplicable",
+            "disposition_count": 1,
+            "guard_result": false,
+            "label": "unresolved",
+            "missing": null,
+            "published": null,
+            "symbol": "tax.us.2025.f1099k.unresolved",
+            "symbol_on_row": null
+          },
+          {
+            "artifact_id": "tax.us.2025.rule.schedule1-top-entry",
+            "cell": "published \"0\"",
+            "code": null,
+            "disposition": "published",
+            "disposition_count": 1,
+            "guard_result": null,
+            "label": "top-entry",
+            "missing": null,
+            "published": "0",
+            "symbol": "tax.us.2025.schedule1.top-entry",
+            "symbol_on_row": "tax.us.2025.schedule1.top-entry"
+          },
+          {
+            "artifact_id": "tax.us.2025.rule.attachment.schedule-1",
+            "cell": "published {\"object_keys\": [\"answers\", \"itemizations\", \"named_obligations\", \"required\", \"triggers\"]}",
+            "code": null,
+            "disposition": "published",
+            "disposition_count": 1,
+            "guard_result": null,
+            "label": "attachment",
+            "missing": null,
+            "published": {
+              "object_keys": [
+                "answers",
+                "itemizations",
+                "named_obligations",
+                "required",
+                "triggers"
+              ]
+            },
+            "symbol": "tax.us.2025.schedule1.disposition",
+            "symbol_on_row": "tax.us.2025.schedule1.disposition"
+          },
+          {
+            "artifact_id": "tax.us.2025.rule.schedule1-line10",
+            "cell": "published \"6000\"",
+            "code": null,
+            "disposition": "published",
+            "disposition_count": 1,
+            "guard_result": null,
+            "label": "sch1-line10",
+            "missing": null,
+            "published": "6000",
+            "symbol": "tax.us.2025.schedule1.line10-additional-income",
+            "symbol_on_row": "tax.us.2025.schedule1.line10-additional-income"
+          },
+          {
+            "artifact_id": "tax.us.2025.rule.form1040-line8",
+            "cell": "published \"6000\"",
+            "code": null,
+            "disposition": "published",
+            "disposition_count": 1,
+            "guard_result": null,
+            "label": "line8",
+            "missing": null,
+            "published": "6000",
+            "symbol": "tax.us.2025.income.additional-income",
+            "symbol_on_row": "tax.us.2025.income.additional-income"
+          },
+          {
+            "artifact_id": "tax.us.2025.rule.form1040-line9",
+            "cell": "published \"56000\"",
+            "code": null,
+            "disposition": "published",
+            "disposition_count": 1,
+            "guard_result": null,
+            "label": "line9",
+            "missing": null,
+            "published": "56000",
+            "symbol": "tax.us.2025.income.total-income",
+            "symbol_on_row": "tax.us.2025.income.total-income"
+          },
+          {
+            "artifact_id": "tax.us.2025.rule.form1040-line11",
+            "cell": "published \"56000\"",
+            "code": null,
+            "disposition": "published",
+            "disposition_count": 1,
+            "guard_result": null,
+            "label": "line11",
+            "missing": null,
+            "published": "56000",
+            "symbol": "tax.us.2025.income.agi",
+            "symbol_on_row": "tax.us.2025.income.agi"
+          },
+          {
+            "artifact_id": "tax.us.2025.rule.form1040-line15",
+            "cell": "published \"40250\"",
+            "code": null,
+            "disposition": "published",
+            "disposition_count": 1,
+            "guard_result": null,
+            "label": "line15",
+            "missing": null,
+            "published": "40250",
+            "symbol": "tax.us.2025.income.taxable-income",
+            "symbol_on_row": "tax.us.2025.income.taxable-income"
+          },
+          {
+            "artifact_id": "tax.us.2025.rule.form1040-line16",
+            "cell": "published \"4595\"",
+            "code": null,
+            "disposition": "published",
+            "disposition_count": 1,
+            "guard_result": null,
+            "label": "line16",
+            "missing": null,
+            "published": "4595",
+            "symbol": "tax.us.2025.tax.total-tax",
+            "symbol_on_row": "tax.us.2025.tax.total-tax"
+          },
+          {
+            "artifact_id": "tax.us.2025.rule.form1040-line24",
+            "cell": "published \"4595\"",
+            "code": null,
+            "disposition": "published",
+            "disposition_count": 1,
+            "guard_result": null,
+            "label": "line24",
+            "missing": null,
+            "published": "4595",
+            "symbol": "tax.us.2025.tax.line24-total-tax",
+            "symbol_on_row": "tax.us.2025.tax.line24-total-tax"
+          },
+          {
+            "artifact_id": "tax.us.2025.rule.form1040-line25b",
+            "cell": "published \"0\"",
+            "code": null,
+            "disposition": "published",
+            "disposition_count": 1,
+            "guard_result": null,
+            "label": "line25b",
+            "missing": null,
+            "published": "0",
+            "symbol": "tax.us.2025.payments.line25b",
+            "symbol_on_row": "tax.us.2025.payments.line25b"
+          },
+          {
+            "artifact_id": "tax.us.2025.rule.form1040-line33",
+            "cell": "published \"4500\"",
+            "code": null,
+            "disposition": "published",
+            "disposition_count": 1,
+            "guard_result": null,
+            "label": "line33",
+            "missing": null,
+            "published": "4500",
+            "symbol": "tax.us.2025.payments.line33",
+            "symbol_on_row": "tax.us.2025.payments.line33"
+          },
+          {
+            "artifact_id": "tax.us.2025.rule.form1040-line34",
+            "cell": "published \"0\"",
+            "code": null,
+            "disposition": "published",
+            "disposition_count": 1,
+            "guard_result": null,
+            "label": "line34",
+            "missing": null,
+            "published": "0",
+            "symbol": "tax.us.2025.payments.line34-overpaid",
+            "symbol_on_row": "tax.us.2025.payments.line34-overpaid"
+          },
+          {
+            "artifact_id": "tax.us.2025.rule.form1040-line35a",
+            "cell": "published \"0\"",
+            "code": null,
+            "disposition": "published",
+            "disposition_count": 1,
+            "guard_result": null,
+            "label": "line35a",
+            "missing": null,
+            "published": "0",
+            "symbol": "tax.us.2025.payments.line35a-refunded",
+            "symbol_on_row": "tax.us.2025.payments.line35a-refunded"
+          },
+          {
+            "artifact_id": "tax.us.2025.rule.form1040-line37",
+            "cell": "published \"95\"",
+            "code": null,
+            "disposition": "published",
+            "disposition_count": 1,
+            "guard_result": null,
+            "label": "line37",
+            "missing": null,
+            "published": "95",
+            "symbol": "tax.us.2025.payments.line37-amount-owed",
+            "symbol_on_row": "tax.us.2025.payments.line37-amount-owed"
+          }
+        ]
+      },
+      "run_id": "demo.p0.f1099k.v58-admissible.v58.none",
+      "shape": "v58-admissible",
+      "splice": null
+    },
+    {
+      "case": "a-supported-box4-0",
+      "core": "v58",
+      "result": {
+        "extras": [
+          {
+            "symbol": "tax.us.2025.f1099k.box1a-subtotal",
+            "value": "880.0"
+          },
+          {
+            "symbol": "tax.us.2025.f1099k.statement-loss-reason|tax.us.2025.f1099k.box1a-gross-amount|payer=demo.platform.a,statement=demo.stmt.a,tax-year=2025",
+            "value": "supported-loss"
+          },
+          {
+            "symbol": "tax.us.2025.schedule1.line7-unemployment",
+            "value": "6000"
+          }
+        ],
+        "loss_reason_rows": [
+          {
+            "code": null,
+            "disposition": "published",
+            "guard_result": null,
+            "missing": null,
+            "symbol": "tax.us.2025.f1099k.statement-loss-reason|tax.us.2025.f1099k.box1a-gross-amount|payer=demo.platform.a,statement=demo.stmt.a,tax-year=2025"
+          }
+        ],
+        "root_blocks": [],
+        "status": "ran",
+        "stop_reason": "saturated",
+        "table": [
+          {
+            "artifact_id": "tax.us.2025.rule.f1099k-unresolved",
+            "cell": "inapplicable (guard false)",
+            "code": null,
+            "disposition": "inapplicable",
+            "disposition_count": 1,
+            "guard_result": false,
+            "label": "unresolved",
+            "missing": null,
+            "published": null,
+            "symbol": "tax.us.2025.f1099k.unresolved",
+            "symbol_on_row": null
+          },
+          {
+            "artifact_id": "tax.us.2025.rule.schedule1-top-entry",
+            "cell": "published \"880.0\"",
+            "code": null,
+            "disposition": "published",
+            "disposition_count": 1,
+            "guard_result": null,
+            "label": "top-entry",
+            "missing": null,
+            "published": "880.0",
+            "symbol": "tax.us.2025.schedule1.top-entry",
+            "symbol_on_row": "tax.us.2025.schedule1.top-entry"
+          },
+          {
+            "artifact_id": "tax.us.2025.rule.attachment.schedule-1",
+            "cell": "published {\"object_keys\": [\"answers\", \"itemizations\", \"named_obligations\", \"required\", \"triggers\"]}",
+            "code": null,
+            "disposition": "published",
+            "disposition_count": 1,
+            "guard_result": null,
+            "label": "attachment",
+            "missing": null,
+            "published": {
+              "object_keys": [
+                "answers",
+                "itemizations",
+                "named_obligations",
+                "required",
+                "triggers"
+              ]
+            },
+            "symbol": "tax.us.2025.schedule1.disposition",
+            "symbol_on_row": "tax.us.2025.schedule1.disposition"
+          },
+          {
+            "artifact_id": "tax.us.2025.rule.schedule1-line10",
+            "cell": "published \"6000\"",
+            "code": null,
+            "disposition": "published",
+            "disposition_count": 1,
+            "guard_result": null,
+            "label": "sch1-line10",
+            "missing": null,
+            "published": "6000",
+            "symbol": "tax.us.2025.schedule1.line10-additional-income",
+            "symbol_on_row": "tax.us.2025.schedule1.line10-additional-income"
+          },
+          {
+            "artifact_id": "tax.us.2025.rule.form1040-line8",
+            "cell": "published \"6000\"",
+            "code": null,
+            "disposition": "published",
+            "disposition_count": 1,
+            "guard_result": null,
+            "label": "line8",
+            "missing": null,
+            "published": "6000",
+            "symbol": "tax.us.2025.income.additional-income",
+            "symbol_on_row": "tax.us.2025.income.additional-income"
+          },
+          {
+            "artifact_id": "tax.us.2025.rule.form1040-line9",
+            "cell": "published \"56000\"",
+            "code": null,
+            "disposition": "published",
+            "disposition_count": 1,
+            "guard_result": null,
+            "label": "line9",
+            "missing": null,
+            "published": "56000",
+            "symbol": "tax.us.2025.income.total-income",
+            "symbol_on_row": "tax.us.2025.income.total-income"
+          },
+          {
+            "artifact_id": "tax.us.2025.rule.form1040-line11",
+            "cell": "published \"56000\"",
+            "code": null,
+            "disposition": "published",
+            "disposition_count": 1,
+            "guard_result": null,
+            "label": "line11",
+            "missing": null,
+            "published": "56000",
+            "symbol": "tax.us.2025.income.agi",
+            "symbol_on_row": "tax.us.2025.income.agi"
+          },
+          {
+            "artifact_id": "tax.us.2025.rule.form1040-line15",
+            "cell": "published \"40250\"",
+            "code": null,
+            "disposition": "published",
+            "disposition_count": 1,
+            "guard_result": null,
+            "label": "line15",
+            "missing": null,
+            "published": "40250",
+            "symbol": "tax.us.2025.income.taxable-income",
+            "symbol_on_row": "tax.us.2025.income.taxable-income"
+          },
+          {
+            "artifact_id": "tax.us.2025.rule.form1040-line16",
+            "cell": "published \"4595\"",
+            "code": null,
+            "disposition": "published",
+            "disposition_count": 1,
+            "guard_result": null,
+            "label": "line16",
+            "missing": null,
+            "published": "4595",
+            "symbol": "tax.us.2025.tax.total-tax",
+            "symbol_on_row": "tax.us.2025.tax.total-tax"
+          },
+          {
+            "artifact_id": "tax.us.2025.rule.form1040-line24",
+            "cell": "published \"4595\"",
+            "code": null,
+            "disposition": "published",
+            "disposition_count": 1,
+            "guard_result": null,
+            "label": "line24",
+            "missing": null,
+            "published": "4595",
+            "symbol": "tax.us.2025.tax.line24-total-tax",
+            "symbol_on_row": "tax.us.2025.tax.line24-total-tax"
+          },
+          {
+            "artifact_id": "tax.us.2025.rule.form1040-line25b",
+            "cell": "published \"0\"",
+            "code": null,
+            "disposition": "published",
+            "disposition_count": 1,
+            "guard_result": null,
+            "label": "line25b",
+            "missing": null,
+            "published": "0",
+            "symbol": "tax.us.2025.payments.line25b",
+            "symbol_on_row": "tax.us.2025.payments.line25b"
+          },
+          {
+            "artifact_id": "tax.us.2025.rule.form1040-line33",
+            "cell": "published \"4500\"",
+            "code": null,
+            "disposition": "published",
+            "disposition_count": 1,
+            "guard_result": null,
+            "label": "line33",
+            "missing": null,
+            "published": "4500",
+            "symbol": "tax.us.2025.payments.line33",
+            "symbol_on_row": "tax.us.2025.payments.line33"
+          },
+          {
+            "artifact_id": "tax.us.2025.rule.form1040-line34",
+            "cell": "published \"0\"",
+            "code": null,
+            "disposition": "published",
+            "disposition_count": 1,
+            "guard_result": null,
+            "label": "line34",
+            "missing": null,
+            "published": "0",
+            "symbol": "tax.us.2025.payments.line34-overpaid",
+            "symbol_on_row": "tax.us.2025.payments.line34-overpaid"
+          },
+          {
+            "artifact_id": "tax.us.2025.rule.form1040-line35a",
+            "cell": "published \"0\"",
+            "code": null,
+            "disposition": "published",
+            "disposition_count": 1,
+            "guard_result": null,
+            "label": "line35a",
+            "missing": null,
+            "published": "0",
+            "symbol": "tax.us.2025.payments.line35a-refunded",
+            "symbol_on_row": "tax.us.2025.payments.line35a-refunded"
+          },
+          {
+            "artifact_id": "tax.us.2025.rule.form1040-line37",
+            "cell": "published \"95\"",
+            "code": null,
+            "disposition": "published",
+            "disposition_count": 1,
+            "guard_result": null,
+            "label": "line37",
+            "missing": null,
+            "published": "95",
+            "symbol": "tax.us.2025.payments.line37-amount-owed",
+            "symbol_on_row": "tax.us.2025.payments.line37-amount-owed"
+          }
+        ]
+      },
+      "run_id": "demo.p0.f1099k.v58-admissible.v58.a-supported-box4-0",
+      "shape": "v58-admissible",
+      "splice": {
+        "asserted_circumstance_count": 15,
+        "box1a_fact_id": "tax.us.2025.f1099k.box1a-gross-amount|payer=demo.platform.a,statement=demo.stmt.a,tax-year=2025",
+        "box4": 0.0,
+        "family_present_before": true,
+        "family_version": "v2",
+        "omitted_answer": null,
+        "predecessor_horizon": "demo.probe.f1099k.h0",
+        "scope_keys": [
+          "subject",
+          "tax-year"
+        ],
+        "successor_horizon": "demo.p0.f1099k.h1"
+      }
+    },
+    {
+      "case": "b-supported-box4-150",
+      "core": "v58",
+      "result": {
+        "extras": [
+          {
+            "symbol": "tax.us.2025.f1099k.box1a-subtotal",
+            "value": "880.0"
+          },
+          {
+            "symbol": "tax.us.2025.f1099k.statement-loss-reason|tax.us.2025.f1099k.box1a-gross-amount|payer=demo.platform.a,statement=demo.stmt.a,tax-year=2025",
+            "value": "backup-withholding-unsupported"
+          },
+          {
+            "symbol": "tax.us.2025.schedule1.line7-unemployment",
+            "value": "6000"
+          }
+        ],
+        "loss_reason_rows": [
+          {
+            "code": null,
+            "disposition": "published",
+            "guard_result": null,
+            "missing": null,
+            "symbol": "tax.us.2025.f1099k.statement-loss-reason|tax.us.2025.f1099k.box1a-gross-amount|payer=demo.platform.a,statement=demo.stmt.a,tax-year=2025"
+          }
+        ],
+        "root_blocks": [],
+        "status": "ran",
+        "stop_reason": "saturated",
+        "table": [
+          {
+            "artifact_id": "tax.us.2025.rule.f1099k-unresolved",
+            "cell": "blocked DEPENDENCY_ABSENT missing=[]",
+            "code": "DEPENDENCY_ABSENT",
+            "disposition": "blocked",
+            "disposition_count": 1,
+            "guard_result": null,
+            "label": "unresolved",
+            "missing": [],
+            "published": null,
+            "symbol": "tax.us.2025.f1099k.unresolved",
+            "symbol_on_row": null
+          },
+          {
+            "artifact_id": "tax.us.2025.rule.schedule1-top-entry",
+            "cell": "blocked DEPENDENCY_ABSENT missing=[]",
+            "code": "DEPENDENCY_ABSENT",
+            "disposition": "blocked",
+            "disposition_count": 1,
+            "guard_result": null,
+            "label": "top-entry",
+            "missing": [],
+            "published": null,
+            "symbol": "tax.us.2025.schedule1.top-entry",
+            "symbol_on_row": null
+          },
+          {
+            "artifact_id": "tax.us.2025.rule.attachment.schedule-1",
+            "cell": "blocked DEPENDENCY_ABSENT missing=[\"tax.us.2025.schedule1.top-entry\"]",
+            "code": "DEPENDENCY_ABSENT",
+            "disposition": "blocked",
+            "disposition_count": 1,
+            "guard_result": null,
+            "label": "attachment",
+            "missing": [
+              "tax.us.2025.schedule1.top-entry"
+            ],
+            "published": null,
+            "symbol": "tax.us.2025.schedule1.disposition",
+            "symbol_on_row": null
+          },
+          {
+            "artifact_id": "tax.us.2025.rule.schedule1-line10",
+            "cell": "published \"6000\"",
+            "code": null,
+            "disposition": "published",
+            "disposition_count": 1,
+            "guard_result": null,
+            "label": "sch1-line10",
+            "missing": null,
+            "published": "6000",
+            "symbol": "tax.us.2025.schedule1.line10-additional-income",
+            "symbol_on_row": "tax.us.2025.schedule1.line10-additional-income"
+          },
+          {
+            "artifact_id": "tax.us.2025.rule.form1040-line8",
+            "cell": "published \"6000\"",
+            "code": null,
+            "disposition": "published",
+            "disposition_count": 1,
+            "guard_result": null,
+            "label": "line8",
+            "missing": null,
+            "published": "6000",
+            "symbol": "tax.us.2025.income.additional-income",
+            "symbol_on_row": "tax.us.2025.income.additional-income"
+          },
+          {
+            "artifact_id": "tax.us.2025.rule.form1040-line9",
+            "cell": "published \"56000\"",
+            "code": null,
+            "disposition": "published",
+            "disposition_count": 1,
+            "guard_result": null,
+            "label": "line9",
+            "missing": null,
+            "published": "56000",
+            "symbol": "tax.us.2025.income.total-income",
+            "symbol_on_row": "tax.us.2025.income.total-income"
+          },
+          {
+            "artifact_id": "tax.us.2025.rule.form1040-line11",
+            "cell": "published \"56000\"",
+            "code": null,
+            "disposition": "published",
+            "disposition_count": 1,
+            "guard_result": null,
+            "label": "line11",
+            "missing": null,
+            "published": "56000",
+            "symbol": "tax.us.2025.income.agi",
+            "symbol_on_row": "tax.us.2025.income.agi"
+          },
+          {
+            "artifact_id": "tax.us.2025.rule.form1040-line15",
+            "cell": "published \"40250\"",
+            "code": null,
+            "disposition": "published",
+            "disposition_count": 1,
+            "guard_result": null,
+            "label": "line15",
+            "missing": null,
+            "published": "40250",
+            "symbol": "tax.us.2025.income.taxable-income",
+            "symbol_on_row": "tax.us.2025.income.taxable-income"
+          },
+          {
+            "artifact_id": "tax.us.2025.rule.form1040-line16",
+            "cell": "published \"4595\"",
+            "code": null,
+            "disposition": "published",
+            "disposition_count": 1,
+            "guard_result": null,
+            "label": "line16",
+            "missing": null,
+            "published": "4595",
+            "symbol": "tax.us.2025.tax.total-tax",
+            "symbol_on_row": "tax.us.2025.tax.total-tax"
+          },
+          {
+            "artifact_id": "tax.us.2025.rule.form1040-line24",
+            "cell": "published \"4595\"",
+            "code": null,
+            "disposition": "published",
+            "disposition_count": 1,
+            "guard_result": null,
+            "label": "line24",
+            "missing": null,
+            "published": "4595",
+            "symbol": "tax.us.2025.tax.line24-total-tax",
+            "symbol_on_row": "tax.us.2025.tax.line24-total-tax"
+          },
+          {
+            "artifact_id": "tax.us.2025.rule.form1040-line25b",
+            "cell": "published \"0\"",
+            "code": null,
+            "disposition": "published",
+            "disposition_count": 1,
+            "guard_result": null,
+            "label": "line25b",
+            "missing": null,
+            "published": "0",
+            "symbol": "tax.us.2025.payments.line25b",
+            "symbol_on_row": "tax.us.2025.payments.line25b"
+          },
+          {
+            "artifact_id": "tax.us.2025.rule.form1040-line33",
+            "cell": "published \"4500\"",
+            "code": null,
+            "disposition": "published",
+            "disposition_count": 1,
+            "guard_result": null,
+            "label": "line33",
+            "missing": null,
+            "published": "4500",
+            "symbol": "tax.us.2025.payments.line33",
+            "symbol_on_row": "tax.us.2025.payments.line33"
+          },
+          {
+            "artifact_id": "tax.us.2025.rule.form1040-line34",
+            "cell": "published \"0\"",
+            "code": null,
+            "disposition": "published",
+            "disposition_count": 1,
+            "guard_result": null,
+            "label": "line34",
+            "missing": null,
+            "published": "0",
+            "symbol": "tax.us.2025.payments.line34-overpaid",
+            "symbol_on_row": "tax.us.2025.payments.line34-overpaid"
+          },
+          {
+            "artifact_id": "tax.us.2025.rule.form1040-line35a",
+            "cell": "published \"0\"",
+            "code": null,
+            "disposition": "published",
+            "disposition_count": 1,
+            "guard_result": null,
+            "label": "line35a",
+            "missing": null,
+            "published": "0",
+            "symbol": "tax.us.2025.payments.line35a-refunded",
+            "symbol_on_row": "tax.us.2025.payments.line35a-refunded"
+          },
+          {
+            "artifact_id": "tax.us.2025.rule.form1040-line37",
+            "cell": "published \"95\"",
+            "code": null,
+            "disposition": "published",
+            "disposition_count": 1,
+            "guard_result": null,
+            "label": "line37",
+            "missing": null,
+            "published": "95",
+            "symbol": "tax.us.2025.payments.line37-amount-owed",
+            "symbol_on_row": "tax.us.2025.payments.line37-amount-owed"
+          }
+        ]
+      },
+      "run_id": "demo.p0.f1099k.v58-admissible.v58.b-supported-box4-150",
+      "shape": "v58-admissible",
+      "splice": {
+        "asserted_circumstance_count": 15,
+        "box1a_fact_id": "tax.us.2025.f1099k.box1a-gross-amount|payer=demo.platform.a,statement=demo.stmt.a,tax-year=2025",
+        "box4": 150.0,
+        "family_present_before": true,
+        "family_version": "v2",
+        "omitted_answer": null,
+        "predecessor_horizon": "demo.probe.f1099k.h0",
+        "scope_keys": [
+          "subject",
+          "tax-year"
+        ],
+        "successor_horizon": "demo.p0.f1099k.h1"
+      }
+    },
+    {
+      "case": "c-unanswered-q5",
+      "core": "v58",
+      "result": {
+        "extras": [
+          {
+            "symbol": "tax.us.2025.f1099k.box1a-subtotal",
+            "value": "880.0"
+          },
+          {
+            "symbol": "tax.us.2025.f1099k.statement-loss-reason|tax.us.2025.f1099k.box1a-gross-amount|payer=demo.platform.a,statement=demo.stmt.a,tax-year=2025",
+            "value": "personal-use-unconfirmed"
+          },
+          {
+            "symbol": "tax.us.2025.schedule1.line7-unemployment",
+            "value": "6000"
+          }
+        ],
+        "loss_reason_rows": [
+          {
+            "code": null,
+            "disposition": "published",
+            "guard_result": null,
+            "missing": null,
+            "symbol": "tax.us.2025.f1099k.statement-loss-reason|tax.us.2025.f1099k.box1a-gross-amount|payer=demo.platform.a,statement=demo.stmt.a,tax-year=2025"
+          }
+        ],
+        "root_blocks": [],
+        "status": "ran",
+        "stop_reason": "saturated",
+        "table": [
+          {
+            "artifact_id": "tax.us.2025.rule.f1099k-unresolved",
+            "cell": "blocked DEPENDENCY_ABSENT missing=[]",
+            "code": "DEPENDENCY_ABSENT",
+            "disposition": "blocked",
+            "disposition_count": 1,
+            "guard_result": null,
+            "label": "unresolved",
+            "missing": [],
+            "published": null,
+            "symbol": "tax.us.2025.f1099k.unresolved",
+            "symbol_on_row": null
+          },
+          {
+            "artifact_id": "tax.us.2025.rule.schedule1-top-entry",
+            "cell": "blocked DEPENDENCY_ABSENT missing=[]",
+            "code": "DEPENDENCY_ABSENT",
+            "disposition": "blocked",
+            "disposition_count": 1,
+            "guard_result": null,
+            "label": "top-entry",
+            "missing": [],
+            "published": null,
+            "symbol": "tax.us.2025.schedule1.top-entry",
+            "symbol_on_row": null
+          },
+          {
+            "artifact_id": "tax.us.2025.rule.attachment.schedule-1",
+            "cell": "blocked DEPENDENCY_ABSENT missing=[\"tax.us.2025.schedule1.top-entry\"]",
+            "code": "DEPENDENCY_ABSENT",
+            "disposition": "blocked",
+            "disposition_count": 1,
+            "guard_result": null,
+            "label": "attachment",
+            "missing": [
+              "tax.us.2025.schedule1.top-entry"
+            ],
+            "published": null,
+            "symbol": "tax.us.2025.schedule1.disposition",
+            "symbol_on_row": null
+          },
+          {
+            "artifact_id": "tax.us.2025.rule.schedule1-line10",
+            "cell": "published \"6000\"",
+            "code": null,
+            "disposition": "published",
+            "disposition_count": 1,
+            "guard_result": null,
+            "label": "sch1-line10",
+            "missing": null,
+            "published": "6000",
+            "symbol": "tax.us.2025.schedule1.line10-additional-income",
+            "symbol_on_row": "tax.us.2025.schedule1.line10-additional-income"
+          },
+          {
+            "artifact_id": "tax.us.2025.rule.form1040-line8",
+            "cell": "published \"6000\"",
+            "code": null,
+            "disposition": "published",
+            "disposition_count": 1,
+            "guard_result": null,
+            "label": "line8",
+            "missing": null,
+            "published": "6000",
+            "symbol": "tax.us.2025.income.additional-income",
+            "symbol_on_row": "tax.us.2025.income.additional-income"
+          },
+          {
+            "artifact_id": "tax.us.2025.rule.form1040-line9",
+            "cell": "published \"56000\"",
+            "code": null,
+            "disposition": "published",
+            "disposition_count": 1,
+            "guard_result": null,
+            "label": "line9",
+            "missing": null,
+            "published": "56000",
+            "symbol": "tax.us.2025.income.total-income",
+            "symbol_on_row": "tax.us.2025.income.total-income"
+          },
+          {
+            "artifact_id": "tax.us.2025.rule.form1040-line11",
+            "cell": "published \"56000\"",
+            "code": null,
+            "disposition": "published",
+            "disposition_count": 1,
+            "guard_result": null,
+            "label": "line11",
+            "missing": null,
+            "published": "56000",
+            "symbol": "tax.us.2025.income.agi",
+            "symbol_on_row": "tax.us.2025.income.agi"
+          },
+          {
+            "artifact_id": "tax.us.2025.rule.form1040-line15",
+            "cell": "published \"40250\"",
+            "code": null,
+            "disposition": "published",
+            "disposition_count": 1,
+            "guard_result": null,
+            "label": "line15",
+            "missing": null,
+            "published": "40250",
+            "symbol": "tax.us.2025.income.taxable-income",
+            "symbol_on_row": "tax.us.2025.income.taxable-income"
+          },
+          {
+            "artifact_id": "tax.us.2025.rule.form1040-line16",
+            "cell": "published \"4595\"",
+            "code": null,
+            "disposition": "published",
+            "disposition_count": 1,
+            "guard_result": null,
+            "label": "line16",
+            "missing": null,
+            "published": "4595",
+            "symbol": "tax.us.2025.tax.total-tax",
+            "symbol_on_row": "tax.us.2025.tax.total-tax"
+          },
+          {
+            "artifact_id": "tax.us.2025.rule.form1040-line24",
+            "cell": "published \"4595\"",
+            "code": null,
+            "disposition": "published",
+            "disposition_count": 1,
+            "guard_result": null,
+            "label": "line24",
+            "missing": null,
+            "published": "4595",
+            "symbol": "tax.us.2025.tax.line24-total-tax",
+            "symbol_on_row": "tax.us.2025.tax.line24-total-tax"
+          },
+          {
+            "artifact_id": "tax.us.2025.rule.form1040-line25b",
+            "cell": "published \"0\"",
+            "code": null,
+            "disposition": "published",
+            "disposition_count": 1,
+            "guard_result": null,
+            "label": "line25b",
+            "missing": null,
+            "published": "0",
+            "symbol": "tax.us.2025.payments.line25b",
+            "symbol_on_row": "tax.us.2025.payments.line25b"
+          },
+          {
+            "artifact_id": "tax.us.2025.rule.form1040-line33",
+            "cell": "published \"4500\"",
+            "code": null,
+            "disposition": "published",
+            "disposition_count": 1,
+            "guard_result": null,
+            "label": "line33",
+            "missing": null,
+            "published": "4500",
+            "symbol": "tax.us.2025.payments.line33",
+            "symbol_on_row": "tax.us.2025.payments.line33"
+          },
+          {
+            "artifact_id": "tax.us.2025.rule.form1040-line34",
+            "cell": "published \"0\"",
+            "code": null,
+            "disposition": "published",
+            "disposition_count": 1,
+            "guard_result": null,
+            "label": "line34",
+            "missing": null,
+            "published": "0",
+            "symbol": "tax.us.2025.payments.line34-overpaid",
+            "symbol_on_row": "tax.us.2025.payments.line34-overpaid"
+          },
+          {
+            "artifact_id": "tax.us.2025.rule.form1040-line35a",
+            "cell": "published \"0\"",
+            "code": null,
+            "disposition": "published",
+            "disposition_count": 1,
+            "guard_result": null,
+            "label": "line35a",
+            "missing": null,
+            "published": "0",
+            "symbol": "tax.us.2025.payments.line35a-refunded",
+            "symbol_on_row": "tax.us.2025.payments.line35a-refunded"
+          },
+          {
+            "artifact_id": "tax.us.2025.rule.form1040-line37",
+            "cell": "published \"95\"",
+            "code": null,
+            "disposition": "published",
+            "disposition_count": 1,
+            "guard_result": null,
+            "label": "line37",
+            "missing": null,
+            "published": "95",
+            "symbol": "tax.us.2025.payments.line37-amount-owed",
+            "symbol_on_row": "tax.us.2025.payments.line37-amount-owed"
+          }
+        ]
+      },
+      "run_id": "demo.p0.f1099k.v58-admissible.v58.c-unanswered-q5",
+      "shape": "v58-admissible",
+      "splice": {
+        "asserted_circumstance_count": 14,
+        "box1a_fact_id": "tax.us.2025.f1099k.box1a-gross-amount|payer=demo.platform.a,statement=demo.stmt.a,tax-year=2025",
+        "box4": 0.0,
+        "family_present_before": true,
+        "family_version": "v2",
+        "omitted_answer": "tax.us.2025.f1099k.exclusive-personal-use",
+        "predecessor_horizon": "demo.probe.f1099k.h0",
+        "scope_keys": [
+          "subject",
+          "tax-year"
+        ],
+        "successor_horizon": "demo.p0.f1099k.h1"
+      }
+    }
+  ],
+  "dependency_names": {
+    "yielded": [
+      "tax.us.2025.f1099k.statement-loss-reason",
+      "tax.us.2025.schedule1.line7-unemployment"
+    ],
+    "yields_line7": true,
+    "yields_loss_reason": true,
+    "yields_unresolved": false
+  },
+  "form_fields": [
+    {
+      "binds": null,
+      "blocked_explain": null,
+      "file": "schedule1.line-10.form-field.json",
+      "id": "tax.us.2025.schedule1.line-10",
+      "schema": "form-field.v3",
+      "version": "v1"
+    },
+    {
+      "binds": null,
+      "blocked_explain": null,
+      "file": "form1040.line-8.form-field.json",
+      "id": "tax.us.2025.form1040.line-8",
+      "schema": "form-field.v3",
+      "version": "v1"
+    },
+    {
+      "binds": null,
+      "blocked_explain": null,
+      "file": "f1099k.unresolved.form-field.json",
+      "id": "tax.us.2025.form.f1099k.unresolved.form-field",
+      "schema": "form-field.v3",
+      "version": "v1"
+    }
+  ],
+  "goldens": [
+    {
+      "box1a": false,
+      "closure": true,
+      "form_field": true,
+      "path": "packages/sample_data/child_tax_credit/presentation/hoh-one-child-actc-with-unclaimed-17.presentation-model.v1.json",
+      "unresolved_symbol": true
+    },
+    {
+      "box1a": false,
+      "closure": true,
+      "form_field": true,
+      "path": "packages/sample_data/child_tax_credit/presentation/joint-two-children-credit-on-line-19.presentation-model.v1.json",
+      "unresolved_symbol": true
+    },
+    {
+      "box1a": false,
+      "closure": true,
+      "form_field": true,
+      "path": "packages/sample_data/dependent_tie_breaker/presentation/single-grandparent-loses-child-to-parent.presentation-model.v1.json",
+      "unresolved_symbol": true
+    },
+    {
+      "box1a": false,
+      "closure": true,
+      "form_field": true,
+      "path": "packages/sample_data/dependent_tie_breaker/presentation/single-parent-wins-contested-child.presentation-model.v1.json",
+      "unresolved_symbol": true
+    },
+    {
+      "box1a": false,
+      "closure": true,
+      "form_field": true,
+      "path": "packages/sample_data/earned_income_credit/presentation/joint-plateau-two-w2.presentation-model.v1.json",
+      "unresolved_symbol": true
+    },
+    {
+      "box1a": false,
+      "closure": true,
+      "form_field": true,
+      "path": "packages/sample_data/earned_income_credit/presentation/single-phaseout-interest.presentation-model.v1.json",
+      "unresolved_symbol": true
+    },
+    {
+      "box1a": false,
+      "closure": true,
+      "form_field": true,
+      "path": "packages/sample_data/eic_qualifying_children/presentation/hoh-two-children-refund.presentation-model.v1.json",
+      "unresolved_symbol": true
+    },
+    {
+      "box1a": false,
+      "closure": true,
+      "form_field": true,
+      "path": "packages/sample_data/eic_qualifying_children/presentation/joint-three-children-one-qualifies.presentation-model.v1.json",
+      "unresolved_symbol": true
+    },
+    {
+      "box1a": false,
+      "closure": true,
+      "form_field": true,
+      "path": "packages/sample_data/form_1099_withholding/presentation/social-security-800-and-retirement-1200-withheld.presentation-model.v1.json",
+      "unresolved_symbol": true
+    },
+    {
+      "box1a": false,
+      "closure": true,
+      "form_field": true,
+      "path": "packages/sample_data/form_1099_withholding/presentation/unemployment-600-withheld.presentation-model.v1.json",
+      "unresolved_symbol": true
+    },
+    {
+      "box1a": false,
+      "closure": true,
+      "form_field": true,
+      "path": "packages/sample_data/other_dependents_credit/presentation/mfj-child-under-17-and-eighteen-year-old-credit-on-line-19.presentation-model.v1.json",
+      "unresolved_symbol": true
+    },
+    {
+      "box1a": false,
+      "closure": true,
+      "form_field": true,
+      "path": "packages/sample_data/other_dependents_credit/presentation/single-qualifying-relative-credit-on-line-19.presentation-model.v1.json",
+      "unresolved_symbol": true
+    },
+    {
+      "box1a": false,
+      "closure": true,
+      "form_field": true,
+      "path": "packages/sample_data/refund_or_amount_owed/presentation/amount-owed-w2-only.presentation-model.v1.json",
+      "unresolved_symbol": true
+    },
+    {
+      "box1a": false,
+      "closure": true,
+      "form_field": true,
+      "path": "packages/sample_data/refund_or_amount_owed/presentation/refund-w2-int-withholding-estimated.presentation-model.v1.json",
+      "unresolved_symbol": true
+    },
+    {
+      "box1a": false,
+      "closure": true,
+      "form_field": true,
+      "path": "packages/sample_data/senior_and_dependent_deductions/presentation/dependent-66-blind.presentation-model.v1.json",
+      "unresolved_symbol": true
+    },
+    {
+      "box1a": false,
+      "closure": true,
+      "form_field": true,
+      "path": "packages/sample_data/senior_and_dependent_deductions/presentation/joint-65-ssn.presentation-model.v1.json",
+      "unresolved_symbol": true
+    },
+    {
+      "box1a": false,
+      "closure": true,
+      "form_field": true,
+      "path": "packages/sample_data/tax_on_taxable_income/presentation/qdcg-straddle.presentation-model.v1.json",
+      "unresolved_symbol": true
+    },
+    {
+      "box1a": false,
+      "closure": true,
+      "form_field": true,
+      "path": "packages/sample_data/tax_on_taxable_income/presentation/w2-only-single.presentation-model.v1.json",
+      "unresolved_symbol": true
+    }
+  ],
+  "package_pins": {
+    "v58": [
+      {
+        "id": "tax.us.2025.f1099k",
+        "role": "source-family",
+        "schema": "source-family.v1",
+        "version": "v2"
+      },
+      {
+        "id": "tax.us.2025.f1099k.vocabulary",
+        "role": "fact-type-bundle",
+        "schema": "bundle.v2",
+        "version": "v3"
+      },
+      {
+        "id": "tax.us.2025.rule.attachment.schedule-1",
+        "role": "attachment-rule",
+        "schema": "attachment-rule.v4",
+        "version": "v4"
+      },
+      {
+        "id": "tax.us.2025.rule.f1099k-box1a-subtotal",
+        "role": "computation",
+        "schema": "rule-artifact.v14",
+        "version": "v1"
+      },
+      {
+        "id": "tax.us.2025.rule.f1099k-statement-loss-reason",
+        "role": "computation",
+        "schema": "rule-artifact.v14",
+        "version": "v4"
+      },
+      {
+        "id": "tax.us.2025.rule.f1099k-unresolved",
+        "role": "computation",
+        "schema": "rule-artifact.v14",
+        "version": "v3"
+      },
+      {
+        "id": "tax.us.2025.rule.form1040-line11",
+        "role": "computation",
+        "schema": "rule-artifact.v3",
+        "version": "v2"
+      },
+      {
+        "id": "tax.us.2025.rule.form1040-line15",
+        "role": "computation",
+        "schema": "rule-artifact.v4",
+        "version": "v2"
+      },
+      {
+        "id": "tax.us.2025.rule.form1040-line16",
+        "role": "computation",
+        "schema": "rule-artifact.v14",
+        "version": "v6"
+      },
+      {
+        "id": "tax.us.2025.rule.form1040-line24",
+        "role": "computation",
+        "schema": "rule-artifact.v3",
+        "version": "v1"
+      },
+      {
+        "id": "tax.us.2025.rule.form1040-line25b",
+        "role": "computation",
+        "schema": "rule-artifact.v3",
+        "version": "v1"
+      },
+      {
+        "id": "tax.us.2025.rule.form1040-line33",
+        "role": "computation",
+        "schema": "rule-artifact.v3",
+        "version": "v1"
+      },
+      {
+        "id": "tax.us.2025.rule.form1040-line34",
+        "role": "computation",
+        "schema": "rule-artifact.v3",
+        "version": "v1"
+      },
+      {
+        "id": "tax.us.2025.rule.form1040-line35a",
+        "role": "computation",
+        "schema": "rule-artifact.v3",
+        "version": "v1"
+      },
+      {
+        "id": "tax.us.2025.rule.form1040-line37",
+        "role": "computation",
+        "schema": "rule-artifact.v3",
+        "version": "v1"
+      },
+      {
+        "id": "tax.us.2025.rule.form1040-line8",
+        "role": "computation",
+        "schema": "rule-artifact.v3",
+        "version": "v1"
+      },
+      {
+        "id": "tax.us.2025.rule.form1040-line9",
+        "role": "computation",
+        "schema": "rule-artifact.v2",
+        "version": "v7"
+      },
+      {
+        "id": "tax.us.2025.rule.schedule1-line10",
+        "role": "computation",
+        "schema": "rule-artifact.v3",
+        "version": "v1"
+      },
+      {
+        "id": "tax.us.2025.rule.schedule1-line7",
+        "role": "computation",
+        "schema": "rule-artifact.v3",
+        "version": "v1"
+      },
+      {
+        "id": "tax.us.2025.rule.schedule1-top-entry",
+        "role": "computation",
+        "schema": "rule-artifact.v14",
+        "version": "v3"
+      }
+    ],
+    "v59": [
+      {
+        "id": "tax.us.2025.f1099k",
+        "role": "source-family",
+        "schema": "source-family.v1",
+        "version": "v2"
+      },
+      {
+        "id": "tax.us.2025.f1099k.vocabulary",
+        "role": "fact-type-bundle",
+        "schema": "bundle.v2",
+        "version": "v3"
+      },
+      {
+        "id": "tax.us.2025.rule.attachment.schedule-1",
+        "role": "attachment-rule",
+        "schema": "attachment-rule.v4",
+        "version": "v4"
+      },
+      {
+        "id": "tax.us.2025.rule.f1099k-box1a-subtotal",
+        "role": "computation",
+        "schema": "rule-artifact.v14",
+        "version": "v1"
+      },
+      {
+        "id": "tax.us.2025.rule.f1099k-statement-loss-reason",
+        "role": "computation",
+        "schema": "rule-artifact.v14",
+        "version": "v4"
+      },
+      {
+        "id": "tax.us.2025.rule.f1099k-unresolved",
+        "role": "computation",
+        "schema": "rule-artifact.v14",
+        "version": "v3"
+      },
+      {
+        "id": "tax.us.2025.rule.form1040-line11",
+        "role": "computation",
+        "schema": "rule-artifact.v3",
+        "version": "v2"
+      },
+      {
+        "id": "tax.us.2025.rule.form1040-line15",
+        "role": "computation",
+        "schema": "rule-artifact.v4",
+        "version": "v2"
+      },
+      {
+        "id": "tax.us.2025.rule.form1040-line16",
+        "role": "computation",
+        "schema": "rule-artifact.v14",
+        "version": "v6"
+      },
+      {
+        "id": "tax.us.2025.rule.form1040-line24",
+        "role": "computation",
+        "schema": "rule-artifact.v3",
+        "version": "v1"
+      },
+      {
+        "id": "tax.us.2025.rule.form1040-line33",
+        "role": "computation",
+        "schema": "rule-artifact.v3",
+        "version": "v1"
+      },
+      {
+        "id": "tax.us.2025.rule.form1040-line34",
+        "role": "computation",
+        "schema": "rule-artifact.v3",
+        "version": "v1"
+      },
+      {
+        "id": "tax.us.2025.rule.form1040-line35a",
+        "role": "computation",
+        "schema": "rule-artifact.v3",
+        "version": "v1"
+      },
+      {
+        "id": "tax.us.2025.rule.form1040-line37",
+        "role": "computation",
+        "schema": "rule-artifact.v3",
+        "version": "v1"
+      },
+      {
+        "id": "tax.us.2025.rule.form1040-line8",
+        "role": "computation",
+        "schema": "rule-artifact.v3",
+        "version": "v1"
+      },
+      {
+        "id": "tax.us.2025.rule.form1040-line9",
+        "role": "computation",
+        "schema": "rule-artifact.v2",
+        "version": "v7"
+      },
+      {
+        "id": "tax.us.2025.rule.schedule1-line10",
+        "role": "computation",
+        "schema": "rule-artifact.v3",
+        "version": "v1"
+      },
+      {
+        "id": "tax.us.2025.rule.schedule1-top-entry",
+        "role": "computation",
+        "schema": "rule-artifact.v14",
+        "version": "v3"
+      },
+      {
+        "id": "tax.us.2025.rule.form1040-line25b",
+        "role": "computation",
+        "schema": "rule-artifact.v3",
+        "version": "v2"
+      },
+      {
+        "id": "tax.us.2025.rule.schedule1-line7",
+        "role": "computation",
+        "schema": "rule-artifact.v3",
+        "version": "v2"
+      }
+    ]
+  },
+  "trace": {
+    "attachment_mentions_unresolved": false,
+    "attachment_subtotals": [
+      "tax.us.2025.unemployment.box1-subtotal",
+      "tax.us.2025.schedule1.line21-sli-deduction",
+      "tax.us.2025.schedule1.top-entry"
+    ],
+    "line10": {
+      "id": "tax.us.2025.rule.schedule1-line10",
+      "mentions_top_entry": false,
+      "mentions_unresolved": false,
+      "requires": [
+        "tax.us.2025.schedule1.line7-unemployment",
+        "tax.us.2025.schedule1-part1-scope.no-sch1-line1-taxable-refunds",
+        "tax.us.2025.schedule1-part1-scope.no-sch1-line2a-alimony",
+        "tax.us.2025.schedule1-part1-scope.no-sch1-line3-business",
+        "tax.us.2025.schedule1-part1-scope.no-sch1-line4-other-gains",
+        "tax.us.2025.schedule1-part1-scope.no-sch1-line5-rental",
+        "tax.us.2025.schedule1-part1-scope.no-sch1-line6-farm",
+        "tax.us.2025.schedule1-part1-scope.no-sch1-other-income",
+        "tax.us.2025.schedule1-part1-scope.no-unemployment-repayment",
+        "tax.us.2025.schedule1-part1-scope.no-f1099g-box2-state-refund",
+        "tax.us.2025.schedule1-part1-scope.no-f1099g-other-payment-classes"
+      ],
+      "schema": "rule-artifact.v3",
+      "value_refs": [
+        "tax.us.2025.schedule1.line7-unemployment"
+      ],
+      "version": "v1"
+    },
+    "line8": {
+      "id": "tax.us.2025.rule.form1040-line8",
+      "requires": [
+        "tax.us.2025.schedule1.line10-additional-income"
+      ],
+      "schema": "rule-artifact.v3",
+      "value_refs": [
+        "tax.us.2025.schedule1.line10-additional-income"
+      ],
+      "version": "v1"
+    },
+    "line8_requires_chain": [
+      {
+        "publishers": [
+          {
+            "id": "tax.us.2025.rule.form1040-line8",
+            "publishes": "tax.us.2025.income.additional-income",
+            "requires": [
+              "tax.us.2025.schedule1.line10-additional-income"
+            ],
+            "schema": "rule-artifact.v3",
+            "version": "v1"
+          }
+        ],
+        "symbol": "tax.us.2025.income.additional-income"
+      },
+      {
+        "publishers": [
+          {
+            "id": "tax.us.2025.rule.schedule1-line10",
+            "publishes": "tax.us.2025.schedule1.line10-additional-income",
+            "requires": [
+              "tax.us.2025.schedule1.line7-unemployment",
+              "tax.us.2025.schedule1-part1-scope.no-sch1-line1-taxable-refunds",
+              "tax.us.2025.schedule1-part1-scope.no-sch1-line2a-alimony",
+              "tax.us.2025.schedule1-part1-scope.no-sch1-line3-business",
+              "tax.us.2025.schedule1-part1-scope.no-sch1-line4-other-gains",
+              "tax.us.2025.schedule1-part1-scope.no-sch1-line5-rental",
+              "tax.us.2025.schedule1-part1-scope.no-sch1-line6-farm",
+              "tax.us.2025.schedule1-part1-scope.no-sch1-other-income",
+              "tax.us.2025.schedule1-part1-scope.no-unemployment-repayment",
+              "tax.us.2025.schedule1-part1-scope.no-f1099g-box2-state-refund",
+              "tax.us.2025.schedule1-part1-scope.no-f1099g-other-payment-classes"
+            ],
+            "schema": "rule-artifact.v3",
+            "version": "v1"
+          }
+        ],
+        "symbol": "tax.us.2025.schedule1.line10-additional-income"
+      },
+      {
+        "publishers": [
+          {
+            "id": "tax.us.2025.rule.schedule1-line7",
+            "publishes": "tax.us.2025.schedule1.line7-unemployment",
+            "requires": [
+              "tax.us.2025.unemployment.box1-subtotal"
+            ],
+            "schema": "rule-artifact.v3",
+            "version": "v2"
+          }
+        ],
+        "symbol": "tax.us.2025.schedule1.line7-unemployment"
+      },
+      {
+        "publishers": [
+          {
+            "id": "tax.us.2025.rule.f1099g-1-subtotal",
+            "publishes": "tax.us.2025.unemployment.box1-subtotal",
+            "requires": [
+              "rounding.convention"
+            ],
+            "schema": "rule-artifact.v3",
+            "version": "v1"
+          }
+        ],
+        "symbol": "tax.us.2025.unemployment.box1-subtotal"
+      },
+      {
+        "publishers": [],
+        "symbol": "rounding.convention"
+      },
+      {
+        "publishers": [],
+        "symbol": "tax.us.2025.schedule1-part1-scope.no-sch1-line1-taxable-refunds"
+      },
+      {
+        "publishers": [],
+        "symbol": "tax.us.2025.schedule1-part1-scope.no-sch1-line2a-alimony"
+      },
+      {
+        "publishers": [],
+        "symbol": "tax.us.2025.schedule1-part1-scope.no-sch1-line3-business"
+      },
+      {
+        "publishers": [],
+        "symbol": "tax.us.2025.schedule1-part1-scope.no-sch1-line4-other-gains"
+      },
+      {
+        "publishers": [],
+        "symbol": "tax.us.2025.schedule1-part1-scope.no-sch1-line5-rental"
+      },
+      {
+        "publishers": [],
+        "symbol": "tax.us.2025.schedule1-part1-scope.no-sch1-line6-farm"
+      },
+      {
+        "publishers": [],
+        "symbol": "tax.us.2025.schedule1-part1-scope.no-sch1-other-income"
+      },
+      {
+        "publishers": [],
+        "symbol": "tax.us.2025.schedule1-part1-scope.no-unemployment-repayment"
+      },
+      {
+        "publishers": [],
+        "symbol": "tax.us.2025.schedule1-part1-scope.no-f1099g-box2-state-refund"
+      },
+      {
+        "publishers": [],
+        "symbol": "tax.us.2025.schedule1-part1-scope.no-f1099g-other-payment-classes"
+      }
+    ],
+    "readers_of_unresolved": [],
+    "top_entry_mentions_unresolved": false,
+    "top_entry_requires_statements": [
+      "tax.us.2025.f1099k.box1a-subtotal"
+    ],
+    "unresolved_rule": {
+      "default_value": false,
+      "default_when": false,
+      "id": "tax.us.2025.rule.f1099k-unresolved",
+      "statement_value_op": "block",
+      "version": "v3"
+    }
+  }
+}

@@ -1,0 +1,633 @@
+{
+  "schema": "rule-artifact.v14",
+  "id": "tax.us.2025.rule.schedule1-line10",
+  "version": "v2",
+  "scope": {
+    "tax_year": 2025,
+    "jurisdiction": "US-federal",
+    "family": "individual-income-tax"
+  },
+  "role": "computation",
+  "requires": [],
+  "pins": [],
+  "when": true,
+  "selection": {
+    "mode": "exclusive_presence",
+    "conflict": "refuse",
+    "paths": [
+      {
+        "id": "statements",
+        "activity": {
+          "kind": "source_nonempty",
+          "source_family": {
+            "id": "tax.us.2025.f1099k",
+            "version": "v2"
+          },
+          "member_fact_types": [
+            {
+              "id": "tax.us.2025.f1099k.box1a-gross-amount",
+              "version": "v1"
+            }
+          ]
+        },
+        "reads_subject_results": [
+          {
+            "symbol": "tax.us.2025.f1099k.statement-loss-reason",
+            "subject": {
+              "id": "tax.us.2025.f1099k.box1a-gross-amount",
+              "version": "v1"
+            }
+          }
+        ],
+        "requires": [
+          "tax.us.2025.schedule1.line7-unemployment",
+          "tax.us.2025.schedule1-part1-scope.no-sch1-line1-taxable-refunds",
+          "tax.us.2025.schedule1-part1-scope.no-sch1-line2a-alimony",
+          "tax.us.2025.schedule1-part1-scope.no-sch1-line3-business",
+          "tax.us.2025.schedule1-part1-scope.no-sch1-line4-other-gains",
+          "tax.us.2025.schedule1-part1-scope.no-sch1-line5-rental",
+          "tax.us.2025.schedule1-part1-scope.no-sch1-line6-farm",
+          "tax.us.2025.schedule1-part1-scope.no-sch1-other-income",
+          "tax.us.2025.schedule1-part1-scope.no-unemployment-repayment",
+          "tax.us.2025.schedule1-part1-scope.no-f1099g-box2-state-refund",
+          "tax.us.2025.schedule1-part1-scope.no-f1099g-other-payment-classes"
+        ],
+        "pins": [
+          {
+            "id": "tax.us.2025.schedule1.line7-unemployment",
+            "origin": "assertion",
+            "role": "input",
+            "version": "v1"
+          },
+          {
+            "id": "tax.us.2025.schedule1-part1-scope.no-sch1-line1-taxable-refunds",
+            "origin": "assertion",
+            "role": "input",
+            "version": "v1"
+          },
+          {
+            "id": "tax.us.2025.schedule1-part1-scope.no-sch1-line2a-alimony",
+            "origin": "assertion",
+            "role": "input",
+            "version": "v1"
+          },
+          {
+            "id": "tax.us.2025.schedule1-part1-scope.no-sch1-line3-business",
+            "origin": "assertion",
+            "role": "input",
+            "version": "v1"
+          },
+          {
+            "id": "tax.us.2025.schedule1-part1-scope.no-sch1-line4-other-gains",
+            "origin": "assertion",
+            "role": "input",
+            "version": "v1"
+          },
+          {
+            "id": "tax.us.2025.schedule1-part1-scope.no-sch1-line5-rental",
+            "origin": "assertion",
+            "role": "input",
+            "version": "v1"
+          },
+          {
+            "id": "tax.us.2025.schedule1-part1-scope.no-sch1-line6-farm",
+            "origin": "assertion",
+            "role": "input",
+            "version": "v1"
+          },
+          {
+            "id": "tax.us.2025.schedule1-part1-scope.no-sch1-other-income",
+            "origin": "assertion",
+            "role": "input",
+            "version": "v1"
+          },
+          {
+            "id": "tax.us.2025.schedule1-part1-scope.no-unemployment-repayment",
+            "origin": "assertion",
+            "role": "input",
+            "version": "v1"
+          },
+          {
+            "id": "tax.us.2025.schedule1-part1-scope.no-f1099g-box2-state-refund",
+            "origin": "assertion",
+            "role": "input",
+            "version": "v1"
+          },
+          {
+            "id": "tax.us.2025.schedule1-part1-scope.no-f1099g-other-payment-classes",
+            "origin": "assertion",
+            "role": "input",
+            "version": "v1"
+          }
+        ],
+        "when": {
+          "args": [
+            {
+              "op": "require_closed",
+              "source_set": "tax.us.2025.f1099g.1"
+            },
+            {
+              "op": "require_closed",
+              "source_set": "tax.us.2025.f1099k"
+            },
+            {
+              "cmp": "eq",
+              "left": {
+                "name": "tax.us.2025.schedule1-part1-scope.no-sch1-line1-taxable-refunds",
+                "op": "ref"
+              },
+              "op": "categorical_compare",
+              "right": {
+                "fact_type": {
+                  "id": "tax.us.2025.schedule1-part1-scope.no-sch1-line1-taxable-refunds",
+                  "version": "v1"
+                },
+                "op": "category_literal",
+                "value": "yes"
+              }
+            },
+            {
+              "cmp": "eq",
+              "left": {
+                "name": "tax.us.2025.schedule1-part1-scope.no-sch1-line2a-alimony",
+                "op": "ref"
+              },
+              "op": "categorical_compare",
+              "right": {
+                "fact_type": {
+                  "id": "tax.us.2025.schedule1-part1-scope.no-sch1-line2a-alimony",
+                  "version": "v1"
+                },
+                "op": "category_literal",
+                "value": "yes"
+              }
+            },
+            {
+              "cmp": "eq",
+              "left": {
+                "name": "tax.us.2025.schedule1-part1-scope.no-sch1-line3-business",
+                "op": "ref"
+              },
+              "op": "categorical_compare",
+              "right": {
+                "fact_type": {
+                  "id": "tax.us.2025.schedule1-part1-scope.no-sch1-line3-business",
+                  "version": "v1"
+                },
+                "op": "category_literal",
+                "value": "yes"
+              }
+            },
+            {
+              "cmp": "eq",
+              "left": {
+                "name": "tax.us.2025.schedule1-part1-scope.no-sch1-line4-other-gains",
+                "op": "ref"
+              },
+              "op": "categorical_compare",
+              "right": {
+                "fact_type": {
+                  "id": "tax.us.2025.schedule1-part1-scope.no-sch1-line4-other-gains",
+                  "version": "v1"
+                },
+                "op": "category_literal",
+                "value": "yes"
+              }
+            },
+            {
+              "cmp": "eq",
+              "left": {
+                "name": "tax.us.2025.schedule1-part1-scope.no-sch1-line5-rental",
+                "op": "ref"
+              },
+              "op": "categorical_compare",
+              "right": {
+                "fact_type": {
+                  "id": "tax.us.2025.schedule1-part1-scope.no-sch1-line5-rental",
+                  "version": "v1"
+                },
+                "op": "category_literal",
+                "value": "yes"
+              }
+            },
+            {
+              "cmp": "eq",
+              "left": {
+                "name": "tax.us.2025.schedule1-part1-scope.no-sch1-line6-farm",
+                "op": "ref"
+              },
+              "op": "categorical_compare",
+              "right": {
+                "fact_type": {
+                  "id": "tax.us.2025.schedule1-part1-scope.no-sch1-line6-farm",
+                  "version": "v1"
+                },
+                "op": "category_literal",
+                "value": "yes"
+              }
+            },
+            {
+              "cmp": "eq",
+              "left": {
+                "name": "tax.us.2025.schedule1-part1-scope.no-sch1-other-income",
+                "op": "ref"
+              },
+              "op": "categorical_compare",
+              "right": {
+                "fact_type": {
+                  "id": "tax.us.2025.schedule1-part1-scope.no-sch1-other-income",
+                  "version": "v1"
+                },
+                "op": "category_literal",
+                "value": "yes"
+              }
+            },
+            {
+              "cmp": "eq",
+              "left": {
+                "name": "tax.us.2025.schedule1-part1-scope.no-unemployment-repayment",
+                "op": "ref"
+              },
+              "op": "categorical_compare",
+              "right": {
+                "fact_type": {
+                  "id": "tax.us.2025.schedule1-part1-scope.no-unemployment-repayment",
+                  "version": "v1"
+                },
+                "op": "category_literal",
+                "value": "yes"
+              }
+            },
+            {
+              "cmp": "eq",
+              "left": {
+                "name": "tax.us.2025.schedule1-part1-scope.no-f1099g-box2-state-refund",
+                "op": "ref"
+              },
+              "op": "categorical_compare",
+              "right": {
+                "fact_type": {
+                  "id": "tax.us.2025.schedule1-part1-scope.no-f1099g-box2-state-refund",
+                  "version": "v1"
+                },
+                "op": "category_literal",
+                "value": "yes"
+              }
+            },
+            {
+              "cmp": "eq",
+              "left": {
+                "name": "tax.us.2025.schedule1-part1-scope.no-f1099g-other-payment-classes",
+                "op": "ref"
+              },
+              "op": "categorical_compare",
+              "right": {
+                "fact_type": {
+                  "id": "tax.us.2025.schedule1-part1-scope.no-f1099g-other-payment-classes",
+                  "version": "v1"
+                },
+                "op": "category_literal",
+                "value": "yes"
+              }
+            }
+          ],
+          "op": "all"
+        },
+        "value": {
+          "op": "choose",
+          "when": {
+            "op": "collect_categorical_all_equal",
+            "name": "tax.us.2025.f1099k.statement-loss-reason",
+            "value": {
+              "op": "category_literal",
+              "fact_type": {
+                "id": "tax.us.2025.f1099k.statement-loss-reason",
+                "version": "v2"
+              },
+              "value": "supported-loss"
+            }
+          },
+          "then": {
+            "op": "ref",
+            "name": "tax.us.2025.schedule1.line7-unemployment"
+          },
+          "else": {
+            "op": "conditional_dependency_set",
+            "condition": true,
+            "members": [
+              {
+                "op": "ref",
+                "name": "tax.us.2025.f1099k.unresolved"
+              }
+            ]
+          }
+        }
+      },
+      {
+        "id": "inert",
+        "activity": {
+          "kind": "source_nonempty",
+          "member_fact_types": [
+            {
+              "id": "tax.us.2025.f1099k.inert-path-unwritten",
+              "version": "v1"
+            }
+          ]
+        },
+        "reads_subject_results": [],
+        "requires": [],
+        "pins": [],
+        "when": true,
+        "value": {
+          "op": "block",
+          "code": "DEPENDENCY_ABSENT"
+        }
+      }
+    ],
+    "default": {
+      "id": "neither",
+      "reads_subject_results": [],
+      "requires": [
+        "tax.us.2025.schedule1.line7-unemployment",
+        "tax.us.2025.schedule1-part1-scope.no-sch1-line1-taxable-refunds",
+        "tax.us.2025.schedule1-part1-scope.no-sch1-line2a-alimony",
+        "tax.us.2025.schedule1-part1-scope.no-sch1-line3-business",
+        "tax.us.2025.schedule1-part1-scope.no-sch1-line4-other-gains",
+        "tax.us.2025.schedule1-part1-scope.no-sch1-line5-rental",
+        "tax.us.2025.schedule1-part1-scope.no-sch1-line6-farm",
+        "tax.us.2025.schedule1-part1-scope.no-sch1-other-income",
+        "tax.us.2025.schedule1-part1-scope.no-unemployment-repayment",
+        "tax.us.2025.schedule1-part1-scope.no-f1099g-box2-state-refund",
+        "tax.us.2025.schedule1-part1-scope.no-f1099g-other-payment-classes"
+      ],
+      "pins": [
+        {
+          "id": "tax.us.2025.schedule1.line7-unemployment",
+          "origin": "assertion",
+          "role": "input",
+          "version": "v1"
+        },
+        {
+          "id": "tax.us.2025.schedule1-part1-scope.no-sch1-line1-taxable-refunds",
+          "origin": "assertion",
+          "role": "input",
+          "version": "v1"
+        },
+        {
+          "id": "tax.us.2025.schedule1-part1-scope.no-sch1-line2a-alimony",
+          "origin": "assertion",
+          "role": "input",
+          "version": "v1"
+        },
+        {
+          "id": "tax.us.2025.schedule1-part1-scope.no-sch1-line3-business",
+          "origin": "assertion",
+          "role": "input",
+          "version": "v1"
+        },
+        {
+          "id": "tax.us.2025.schedule1-part1-scope.no-sch1-line4-other-gains",
+          "origin": "assertion",
+          "role": "input",
+          "version": "v1"
+        },
+        {
+          "id": "tax.us.2025.schedule1-part1-scope.no-sch1-line5-rental",
+          "origin": "assertion",
+          "role": "input",
+          "version": "v1"
+        },
+        {
+          "id": "tax.us.2025.schedule1-part1-scope.no-sch1-line6-farm",
+          "origin": "assertion",
+          "role": "input",
+          "version": "v1"
+        },
+        {
+          "id": "tax.us.2025.schedule1-part1-scope.no-sch1-other-income",
+          "origin": "assertion",
+          "role": "input",
+          "version": "v1"
+        },
+        {
+          "id": "tax.us.2025.schedule1-part1-scope.no-unemployment-repayment",
+          "origin": "assertion",
+          "role": "input",
+          "version": "v1"
+        },
+        {
+          "id": "tax.us.2025.schedule1-part1-scope.no-f1099g-box2-state-refund",
+          "origin": "assertion",
+          "role": "input",
+          "version": "v1"
+        },
+        {
+          "id": "tax.us.2025.schedule1-part1-scope.no-f1099g-other-payment-classes",
+          "origin": "assertion",
+          "role": "input",
+          "version": "v1"
+        }
+      ],
+      "when": {
+        "args": [
+          {
+            "op": "require_closed",
+            "source_set": "tax.us.2025.f1099g.1"
+          },
+          {
+            "op": "require_closed",
+            "source_set": "tax.us.2025.f1099k"
+          },
+          {
+            "cmp": "eq",
+            "left": {
+              "name": "tax.us.2025.schedule1-part1-scope.no-sch1-line1-taxable-refunds",
+              "op": "ref"
+            },
+            "op": "categorical_compare",
+            "right": {
+              "fact_type": {
+                "id": "tax.us.2025.schedule1-part1-scope.no-sch1-line1-taxable-refunds",
+                "version": "v1"
+              },
+              "op": "category_literal",
+              "value": "yes"
+            }
+          },
+          {
+            "cmp": "eq",
+            "left": {
+              "name": "tax.us.2025.schedule1-part1-scope.no-sch1-line2a-alimony",
+              "op": "ref"
+            },
+            "op": "categorical_compare",
+            "right": {
+              "fact_type": {
+                "id": "tax.us.2025.schedule1-part1-scope.no-sch1-line2a-alimony",
+                "version": "v1"
+              },
+              "op": "category_literal",
+              "value": "yes"
+            }
+          },
+          {
+            "cmp": "eq",
+            "left": {
+              "name": "tax.us.2025.schedule1-part1-scope.no-sch1-line3-business",
+              "op": "ref"
+            },
+            "op": "categorical_compare",
+            "right": {
+              "fact_type": {
+                "id": "tax.us.2025.schedule1-part1-scope.no-sch1-line3-business",
+                "version": "v1"
+              },
+              "op": "category_literal",
+              "value": "yes"
+            }
+          },
+          {
+            "cmp": "eq",
+            "left": {
+              "name": "tax.us.2025.schedule1-part1-scope.no-sch1-line4-other-gains",
+              "op": "ref"
+            },
+            "op": "categorical_compare",
+            "right": {
+              "fact_type": {
+                "id": "tax.us.2025.schedule1-part1-scope.no-sch1-line4-other-gains",
+                "version": "v1"
+              },
+              "op": "category_literal",
+              "value": "yes"
+            }
+          },
+          {
+            "cmp": "eq",
+            "left": {
+              "name": "tax.us.2025.schedule1-part1-scope.no-sch1-line5-rental",
+              "op": "ref"
+            },
+            "op": "categorical_compare",
+            "right": {
+              "fact_type": {
+                "id": "tax.us.2025.schedule1-part1-scope.no-sch1-line5-rental",
+                "version": "v1"
+              },
+              "op": "category_literal",
+              "value": "yes"
+            }
+          },
+          {
+            "cmp": "eq",
+            "left": {
+              "name": "tax.us.2025.schedule1-part1-scope.no-sch1-line6-farm",
+              "op": "ref"
+            },
+            "op": "categorical_compare",
+            "right": {
+              "fact_type": {
+                "id": "tax.us.2025.schedule1-part1-scope.no-sch1-line6-farm",
+                "version": "v1"
+              },
+              "op": "category_literal",
+              "value": "yes"
+            }
+          },
+          {
+            "cmp": "eq",
+            "left": {
+              "name": "tax.us.2025.schedule1-part1-scope.no-sch1-other-income",
+              "op": "ref"
+            },
+            "op": "categorical_compare",
+            "right": {
+              "fact_type": {
+                "id": "tax.us.2025.schedule1-part1-scope.no-sch1-other-income",
+                "version": "v1"
+              },
+              "op": "category_literal",
+              "value": "yes"
+            }
+          },
+          {
+            "cmp": "eq",
+            "left": {
+              "name": "tax.us.2025.schedule1-part1-scope.no-unemployment-repayment",
+              "op": "ref"
+            },
+            "op": "categorical_compare",
+            "right": {
+              "fact_type": {
+                "id": "tax.us.2025.schedule1-part1-scope.no-unemployment-repayment",
+                "version": "v1"
+              },
+              "op": "category_literal",
+              "value": "yes"
+            }
+          },
+          {
+            "cmp": "eq",
+            "left": {
+              "name": "tax.us.2025.schedule1-part1-scope.no-f1099g-box2-state-refund",
+              "op": "ref"
+            },
+            "op": "categorical_compare",
+            "right": {
+              "fact_type": {
+                "id": "tax.us.2025.schedule1-part1-scope.no-f1099g-box2-state-refund",
+                "version": "v1"
+              },
+              "op": "category_literal",
+              "value": "yes"
+            }
+          },
+          {
+            "cmp": "eq",
+            "left": {
+              "name": "tax.us.2025.schedule1-part1-scope.no-f1099g-other-payment-classes",
+              "op": "ref"
+            },
+            "op": "categorical_compare",
+            "right": {
+              "fact_type": {
+                "id": "tax.us.2025.schedule1-part1-scope.no-f1099g-other-payment-classes",
+                "version": "v1"
+              },
+              "op": "category_literal",
+              "value": "yes"
+            }
+          }
+        ],
+        "op": "all"
+      },
+      "value": {
+        "op": "ref",
+        "name": "tax.us.2025.schedule1.line7-unemployment"
+      }
+    },
+    "refusal": {
+      "code": "DEPENDENCY_INVALID",
+      "missing": [
+        "schedule1-line10-inert-path-conflict"
+      ],
+      "pins": []
+    }
+  },
+  "publishes": "tax.us.2025.schedule1.line10-additional-income",
+  "blocked": {
+    "code": "DEPENDENCY_ABSENT",
+    "missing": []
+  },
+  "citations": [
+    {
+      "id": "tax.us.2025.citation.schedule1.line-10",
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.citation.schedule1.line-7",
+      "version": "v1"
+    }
+  ],
+  "notes": "Schedule 1 line 10 v2. Equals closed unemployment (line 7) when every Form 1099-K loss reason is supported-loss, or when no box 1a member is present. Otherwise blocks on tax.us.2025.f1099k.unresolved, so lines that read additional income do not publish. The inert path is the unwritten second path rule-artifact.v14 requires; it uses the same fact the other 1099-K selection rules already use. Requires and pins on the statement path and the default are line 10 v1's list."
+}
