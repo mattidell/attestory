@@ -86,6 +86,17 @@ batch fold itself: Form 1099-K `append_batch` from 6.189s to 1.221s, Form
 first full sharded run failed. A successful exact-head `verify` was still
 outstanding when the milestone record closed. No test was removed or moved.
 
+### Package Successor Generator
+
+[Plan](milestones/package-successor-generator.md).
+[Retrospective](../../milestone-retrospectives/2026-10-28-package-successor-generator.md).
+The generator constructs and validates candidate package, registry and release
+chains from explicit changes. It reproduces three chains through core v60:
+v57/v55/v55 to v58/v56/v56, v58/v56/v56 to v59/v57/v57, and v59/v57/v57 to
+v60/v58/v58, all byte for byte. Structural replacement checks
+do not establish tax meaning; companion declarations and live release evidence
+remain separate publication duties.
+
 ## Current boundary and remaining work
 
 The next milestone is unselected.

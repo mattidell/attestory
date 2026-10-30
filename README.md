@@ -48,6 +48,9 @@ This is the project's third iteration. The first proved a working return generat
 - **Planning** (`PROJECT_PLANNING.md`, `docs/phases/`): the planning protocol and phase/milestone/track documents.
 - **Agent guide** (`AGENTS.md`): operating rules for development agents.
 - **Decisions** (`docs/adr/`) and **retrospectives** (`docs/milestone-retrospectives/`).
+- **Package successor tool** ([usage guide](docs/tools/package-successor.md)):
+  construct and validate candidate package, registry, and release chains from
+  explicit changes; publication and companion admission remain separate.
 - **Historical documents** (`docs/archive/`): completed execution evidence and
   superseded planning. Reference only; not a source of contracts.
 - **Legacy engine** (`archive/`): the pre-governance v2 implementation.

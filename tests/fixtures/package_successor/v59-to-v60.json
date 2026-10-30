@@ -1,0 +1,61 @@
+{
+  "package_version": "v60",
+  "release_version": "v58",
+  "members": [
+    {
+      "op": "replace",
+      "old": {
+        "id": "tax.us.2025.rule.schedule1-line10",
+        "role": "computation",
+        "schema": "rule-artifact.v3",
+        "version": "v1"
+      },
+      "new": {
+        "id": "tax.us.2025.rule.schedule1-line10",
+        "role": "computation",
+        "schema": "rule-artifact.v14",
+        "version": "v2"
+      }
+    },
+    {
+      "op": "replace",
+      "old": {
+        "id": "tax.us.2025.schedule1.line-10",
+        "role": "form-field",
+        "schema": "form-field.v3",
+        "version": "v1"
+      },
+      "new": {
+        "id": "tax.us.2025.schedule1.line-10",
+        "role": "form-field",
+        "schema": "form-field.v3",
+        "version": "v2"
+      }
+    }
+  ],
+  "entrypoints": [
+    {
+      "op": "replace",
+      "old": {
+        "id": "tax.us.2025.rule.schedule1-line10",
+        "version": "v1"
+      },
+      "new": {
+        "id": "tax.us.2025.rule.schedule1-line10",
+        "version": "v2"
+      }
+    }
+  ],
+  "registry_sort": "id_version",
+  "registry_tail": [
+    [
+      "tax.us.2025.rule.odc-child.counts",
+      "v2"
+    ]
+  ],
+  "registry_new_key_order": [
+    "checksum",
+    "id",
+    "version"
+  ]
+}

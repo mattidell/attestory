@@ -1,0 +1,256 @@
+{
+  "package_version": "v58",
+  "release_version": "v56",
+  "members": [
+    {
+      "op": "replace",
+      "old": {
+        "id": "tax.us.2025.rule.eic-child.counts",
+        "role": "computation",
+        "schema": "rule-artifact.v14",
+        "version": "v1"
+      },
+      "new": {
+        "id": "tax.us.2025.rule.eic-child.counts",
+        "role": "computation",
+        "schema": "rule-artifact.v14",
+        "version": "v2"
+      },
+      "registry_before": [
+        "tax.us.2025.rule.eic-child.joint-return-met",
+        "v1"
+      ]
+    },
+    {
+      "op": "replace",
+      "old": {
+        "id": "tax.us.2025.rule.ctc-child.counts",
+        "role": "computation",
+        "schema": "rule-artifact.v14",
+        "version": "v1"
+      },
+      "new": {
+        "id": "tax.us.2025.rule.ctc-child.counts",
+        "role": "computation",
+        "schema": "rule-artifact.v14",
+        "version": "v2"
+      },
+      "registry_before": [
+        "tax.us.2025.rule.ctc-child.joint-return-met",
+        "v1"
+      ]
+    },
+    {
+      "op": "replace",
+      "old": {
+        "id": "tax.us.2025.rule.odc-child.other-tests-met",
+        "role": "computation",
+        "schema": "rule-artifact.v14",
+        "version": "v1"
+      },
+      "new": {
+        "id": "tax.us.2025.rule.odc-child.other-tests-met",
+        "role": "computation",
+        "schema": "rule-artifact.v14",
+        "version": "v2"
+      },
+      "registry_before": [
+        "tax.us.2025.rule.odc-dependent-present",
+        "v1"
+      ]
+    },
+    {
+      "op": "replace",
+      "old": {
+        "id": "tax.us.2025.rule.odc-child.counts",
+        "role": "computation",
+        "schema": "rule-artifact.v14",
+        "version": "v1"
+      },
+      "new": {
+        "id": "tax.us.2025.rule.odc-child.counts",
+        "role": "computation",
+        "schema": "rule-artifact.v14",
+        "version": "v2"
+      }
+    },
+    {
+      "op": "remove",
+      "old": {
+        "id": "tax.us.2025.rule.eic-child.other-claimant-clear",
+        "role": "computation",
+        "schema": "rule-artifact.v14",
+        "version": "v1"
+      }
+    },
+    {
+      "op": "remove",
+      "old": {
+        "id": "tax.us.2025.rule.ctc-child.other-claimant-clear",
+        "role": "computation",
+        "schema": "rule-artifact.v14",
+        "version": "v1"
+      }
+    },
+    {
+      "op": "add",
+      "new": {
+        "id": "tax.us.2025.dtb-questions",
+        "role": "fact-type-bundle",
+        "schema": "bundle.v2",
+        "version": "v1"
+      },
+      "before": [
+        "tax.us.2025.rule.eic-child.relationship-met",
+        "v1"
+      ],
+      "registry_before": [
+        "tax.us.2025.eic-child-roster.vocabulary",
+        "v1"
+      ]
+    },
+    {
+      "op": "add",
+      "new": {
+        "id": "tax.us.2025.rule.dtb-child.tie-breaker-clear",
+        "role": "computation",
+        "schema": "rule-artifact.v14",
+        "version": "v1"
+      },
+      "before": [
+        "tax.us.2025.rule.ctc-child.ssn-met",
+        "v1"
+      ],
+      "registry_before": [
+        "tax.us.2025.rule.effective-proceeds-support-count",
+        "v1"
+      ]
+    }
+  ],
+  "bindings": [
+    {
+      "op": "add",
+      "value": {
+        "symbol": "tax.us.2025.dtb.child.another-could-claim",
+        "fact_type": {
+          "id": "tax.us.2025.dtb.child.another-could-claim",
+          "version": "v1"
+        },
+        "mode": "required"
+      }
+    },
+    {
+      "op": "add",
+      "value": {
+        "symbol": "tax.us.2025.dtb.child.filer-agi-higher",
+        "fact_type": {
+          "id": "tax.us.2025.dtb.child.filer-agi-higher",
+          "version": "v1"
+        },
+        "mode": "required"
+      }
+    },
+    {
+      "op": "add",
+      "value": {
+        "symbol": "tax.us.2025.dtb.child.filer-is-parent",
+        "fact_type": {
+          "id": "tax.us.2025.dtb.child.filer-is-parent",
+          "version": "v1"
+        },
+        "mode": "required"
+      }
+    },
+    {
+      "op": "add",
+      "value": {
+        "symbol": "tax.us.2025.dtb.child.form-8332-released",
+        "fact_type": {
+          "id": "tax.us.2025.dtb.child.form-8332-released",
+          "version": "v1"
+        },
+        "mode": "required"
+      }
+    },
+    {
+      "op": "add",
+      "value": {
+        "symbol": "tax.us.2025.dtb.child.more-nights-with-filer",
+        "fact_type": {
+          "id": "tax.us.2025.dtb.child.more-nights-with-filer",
+          "version": "v1"
+        },
+        "mode": "required"
+      }
+    },
+    {
+      "op": "add",
+      "value": {
+        "symbol": "tax.us.2025.dtb.child.multiple-other-claimants",
+        "fact_type": {
+          "id": "tax.us.2025.dtb.child.multiple-other-claimants",
+          "version": "v1"
+        },
+        "mode": "required"
+      }
+    },
+    {
+      "op": "add",
+      "value": {
+        "symbol": "tax.us.2025.dtb.child.other-is-parent",
+        "fact_type": {
+          "id": "tax.us.2025.dtb.child.other-is-parent",
+          "version": "v1"
+        },
+        "mode": "required"
+      }
+    },
+    {
+      "op": "add",
+      "value": {
+        "symbol": "tax.us.2025.dtb.child.other-will-claim",
+        "fact_type": {
+          "id": "tax.us.2025.dtb.child.other-will-claim",
+          "version": "v1"
+        },
+        "mode": "required"
+      }
+    },
+    {
+      "op": "add",
+      "value": {
+        "symbol": "tax.us.2025.dtb.child.same-agi",
+        "fact_type": {
+          "id": "tax.us.2025.dtb.child.same-agi",
+          "version": "v1"
+        },
+        "mode": "required"
+      }
+    },
+    {
+      "op": "add",
+      "value": {
+        "symbol": "tax.us.2025.dtb.child.same-nights",
+        "fact_type": {
+          "id": "tax.us.2025.dtb.child.same-nights",
+          "version": "v1"
+        },
+        "mode": "required"
+      }
+    }
+  ],
+  "binding_sort": "symbol",
+  "registry_sort": "id_version",
+  "registry_tail": [
+    [
+      "tax.us.2025.rule.odc-child.counts",
+      "v2"
+    ]
+  ],
+  "release_key_order": [
+    "id",
+    "version",
+    "schema",
+    "package_registry_sha256"
+  ]
+}
