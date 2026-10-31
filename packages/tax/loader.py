@@ -251,6 +251,9 @@ def domain_package_companion_declarations() -> dict[tuple[str, str], dict[str, A
         # Core v67 reads gambling loss entries (its own family, limited to winnings
         # on Schedule A line 16): v66's declaration, and the loss pair removed.
         ("tax.us.2025.package.core-calculations", "v67"): gambling,
+        # Core v68 changes where interest rounds (interest-cents) and asks no new
+        # question, so it shares v67's declaration.
+        ("tax.us.2025.package.core-calculations", "v68"): gambling,
     }
 
 

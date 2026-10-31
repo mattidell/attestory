@@ -1,0 +1,261 @@
+{
+  "package_version": "v68",
+  "release_version": "v66",
+  "members": [
+    {
+      "op": "add",
+      "new": {
+        "id": "tax.us.2025.rule.form1040-line2b-rounded",
+        "role": "computation",
+        "schema": "rule-artifact.v3",
+        "version": "v1"
+      }
+    },
+    {
+      "op": "replace",
+      "old": {
+        "id": "tax.us.2025.form1040.line-2b",
+        "role": "form-field",
+        "schema": "form-field.v3",
+        "version": "v5"
+      },
+      "new": {
+        "id": "tax.us.2025.form1040.line-2b",
+        "role": "form-field",
+        "schema": "form-field.v3",
+        "version": "v6"
+      }
+    },
+    {
+      "op": "replace",
+      "old": {
+        "id": "tax.us.2025.rule.form1040-line9",
+        "role": "computation",
+        "schema": "rule-artifact.v2",
+        "version": "v7"
+      },
+      "new": {
+        "id": "tax.us.2025.rule.form1040-line9",
+        "role": "computation",
+        "schema": "rule-artifact.v2",
+        "version": "v8"
+      }
+    },
+    {
+      "op": "replace",
+      "old": {
+        "id": "tax.us.2025.rule.ss-benefits-worksheet",
+        "role": "computation",
+        "schema": "rule-artifact.v4",
+        "version": "v3"
+      },
+      "new": {
+        "id": "tax.us.2025.rule.ss-benefits-worksheet",
+        "role": "computation",
+        "schema": "rule-artifact.v4",
+        "version": "v4"
+      }
+    },
+    {
+      "op": "replace",
+      "old": {
+        "id": "tax.us.2025.rule.eic-investment-income",
+        "role": "computation",
+        "schema": "rule-artifact.v14",
+        "version": "v1"
+      },
+      "new": {
+        "id": "tax.us.2025.rule.eic-investment-income",
+        "role": "computation",
+        "schema": "rule-artifact.v14",
+        "version": "v2"
+      }
+    },
+    {
+      "op": "replace",
+      "old": {
+        "id": "tax.us.2025.rule.f1099int-b1-subtotal",
+        "role": "computation",
+        "schema": "rule-artifact.v2",
+        "version": "v2"
+      },
+      "new": {
+        "id": "tax.us.2025.rule.f1099int-b1-subtotal",
+        "role": "computation",
+        "schema": "rule-artifact.v2",
+        "version": "v3"
+      }
+    },
+    {
+      "op": "replace",
+      "old": {
+        "id": "tax.us.2025.rule.f1099int-b3-subtotal",
+        "role": "computation",
+        "schema": "rule-artifact.v2",
+        "version": "v2"
+      },
+      "new": {
+        "id": "tax.us.2025.rule.f1099int-b3-subtotal",
+        "role": "computation",
+        "schema": "rule-artifact.v2",
+        "version": "v3"
+      }
+    },
+    {
+      "op": "replace",
+      "old": {
+        "id": "tax.us.2025.rule.f1099int-b10-subtotal",
+        "role": "computation",
+        "schema": "rule-artifact.v3",
+        "version": "v2"
+      },
+      "new": {
+        "id": "tax.us.2025.rule.f1099int-b10-subtotal",
+        "role": "computation",
+        "schema": "rule-artifact.v3",
+        "version": "v3"
+      }
+    },
+    {
+      "op": "replace",
+      "old": {
+        "id": "tax.us.2025.rule.f1099oid-subtotal",
+        "role": "computation",
+        "schema": "rule-artifact.v2",
+        "version": "v2"
+      },
+      "new": {
+        "id": "tax.us.2025.rule.f1099oid-subtotal",
+        "role": "computation",
+        "schema": "rule-artifact.v2",
+        "version": "v3"
+      }
+    },
+    {
+      "op": "replace",
+      "old": {
+        "id": "tax.us.2025.rule.f1099oid-b5-subtotal",
+        "role": "computation",
+        "schema": "rule-artifact.v3",
+        "version": "v2"
+      },
+      "new": {
+        "id": "tax.us.2025.rule.f1099oid-b5-subtotal",
+        "role": "computation",
+        "schema": "rule-artifact.v3",
+        "version": "v3"
+      }
+    },
+    {
+      "op": "replace",
+      "old": {
+        "id": "tax.us.2025.rule.non-form-interest-subtotal",
+        "role": "computation",
+        "schema": "rule-artifact.v2",
+        "version": "v2"
+      },
+      "new": {
+        "id": "tax.us.2025.rule.non-form-interest-subtotal",
+        "role": "computation",
+        "schema": "rule-artifact.v2",
+        "version": "v3"
+      }
+    },
+    {
+      "op": "replace",
+      "old": {
+        "id": "tax.us.2025.rule.form1065-k1-box5-subtotal",
+        "role": "computation",
+        "schema": "rule-artifact.v3",
+        "version": "v2"
+      },
+      "new": {
+        "id": "tax.us.2025.rule.form1065-k1-box5-subtotal",
+        "role": "computation",
+        "schema": "rule-artifact.v3",
+        "version": "v3"
+      }
+    },
+    {
+      "op": "replace",
+      "old": {
+        "id": "tax.us.2025.rule.scheduleb-adjustment.nominee-subtotal",
+        "role": "computation",
+        "schema": "rule-artifact.v3",
+        "version": "v2"
+      },
+      "new": {
+        "id": "tax.us.2025.rule.scheduleb-adjustment.nominee-subtotal",
+        "role": "computation",
+        "schema": "rule-artifact.v3",
+        "version": "v3"
+      }
+    },
+    {
+      "op": "replace",
+      "old": {
+        "id": "tax.us.2025.rule.scheduleb-adjustment.abp-adjustment-subtotal",
+        "role": "computation",
+        "schema": "rule-artifact.v3",
+        "version": "v2"
+      },
+      "new": {
+        "id": "tax.us.2025.rule.scheduleb-adjustment.abp-adjustment-subtotal",
+        "role": "computation",
+        "schema": "rule-artifact.v3",
+        "version": "v3"
+      }
+    },
+    {
+      "op": "replace",
+      "old": {
+        "id": "tax.us.2025.rule.interest-positive-total",
+        "role": "computation",
+        "schema": "rule-artifact.v3",
+        "version": "v1"
+      },
+      "new": {
+        "id": "tax.us.2025.rule.interest-positive-total",
+        "role": "computation",
+        "schema": "rule-artifact.v3",
+        "version": "v2"
+      }
+    }
+  ],
+  "entrypoints": [
+    {
+      "op": "replace",
+      "old": {
+        "id": "tax.us.2025.rule.form1040-line9",
+        "version": "v7"
+      },
+      "new": {
+        "id": "tax.us.2025.rule.form1040-line9",
+        "version": "v8"
+      }
+    },
+    {
+      "op": "replace",
+      "old": {
+        "id": "tax.us.2025.rule.ss-benefits-worksheet",
+        "version": "v3"
+      },
+      "new": {
+        "id": "tax.us.2025.rule.ss-benefits-worksheet",
+        "version": "v4"
+      }
+    }
+  ],
+  "registry_sort": "id_version",
+  "registry_tail": [
+    [
+      "tax.us.2025.rule.odc-child.counts",
+      "v2"
+    ]
+  ],
+  "registry_new_key_order": [
+    "checksum",
+    "id",
+    "version"
+  ]
+}

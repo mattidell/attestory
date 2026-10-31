@@ -1,0 +1,88 @@
+{
+  "schema": "rule-artifact.v14",
+  "id": "tax.us.2025.rule.eic-investment-income",
+  "version": "v2",
+  "scope": {
+    "tax_year": 2025,
+    "jurisdiction": "US-federal",
+    "family": "individual-income-tax"
+  },
+  "role": "computation",
+  "requires": [
+    "tax.us.2025.tax-exempt-interest.line2a-total",
+    "tax.us.2025.interest.line-2b",
+    "tax.us.2025.dividends.ordinary-total",
+    "tax.us.2025.capital-gains.line7a-total"
+  ],
+  "pins": [
+    {
+      "role": "input",
+      "id": "tax.us.2025.tax-exempt-interest.line2a-total",
+      "version": "v1",
+      "origin": "assertion"
+    },
+    {
+      "role": "input",
+      "id": "tax.us.2025.interest.line-2b",
+      "version": "v1",
+      "origin": "assertion"
+    },
+    {
+      "role": "input",
+      "id": "tax.us.2025.dividends.ordinary-total",
+      "version": "v1",
+      "origin": "assertion"
+    },
+    {
+      "role": "input",
+      "id": "tax.us.2025.capital-gains.line7a-total",
+      "version": "v1",
+      "origin": "assertion"
+    }
+  ],
+  "when": true,
+  "value": {
+    "op": "add",
+    "args": [
+      {
+        "op": "ref",
+        "name": "tax.us.2025.tax-exempt-interest.line2a-total"
+      },
+      {
+        "op": "ref",
+        "name": "tax.us.2025.interest.line-2b"
+      },
+      {
+        "op": "ref",
+        "name": "tax.us.2025.dividends.ordinary-total"
+      },
+      {
+        "op": "max",
+        "args": [
+          {
+            "op": "ref",
+            "name": "tax.us.2025.capital-gains.line7a-total"
+          },
+          0
+        ]
+      }
+    ]
+  },
+  "publishes": "tax.us.2025.eic.investment-income",
+  "blocked": {
+    "code": "DEPENDENCY_ABSENT",
+    "missing": [
+      "tax.us.2025.tax-exempt-interest.line2a-total",
+      "tax.us.2025.interest.line-2b",
+      "tax.us.2025.dividends.ordinary-total",
+      "tax.us.2025.capital-gains.line7a-total"
+    ]
+  },
+  "citations": [
+    {
+      "id": "tax.us.2025.citation.form1040.line-27-31",
+      "version": "v1"
+    }
+  ],
+  "notes": "EIC investment income: line 2a, line 2b, line 3b, and the positive part of line 7a. A loss contributes 0. Core v68 reads the rounded line 2b (tax.us.2025.interest.line-2b), not the Schedule B Part I total, so a total that carries cents is rounded once before this rule adds it; the arithmetic is otherwise unchanged and a whole-dollar value is identical."
+}

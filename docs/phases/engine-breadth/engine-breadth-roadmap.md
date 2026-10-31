@@ -486,6 +486,14 @@ On core v67 a standard-deduction filer computes unchanged and an itemizer
 deducts losses up to winnings on Schedule A line 16; the Schedule A
 attachment does not itemize line 16 (open owner question).
 
+## Bounded return — Interest With Cents (2025)
+
+[Plan](milestones/interest-cents.md).
+
+Interest with cents blocked Schedule B Part I and line 2b rounded each
+subtotal first. With two owner-approved validator changes, core v68 lets
+the interest subtotals keep their cents and line 2b round once.
+
 ## Parked work and open questions
 
 This is the single list of parked work and open owner-held questions for the
@@ -507,13 +515,6 @@ delivers an item removes it.
   successors with questions written in plain words, admission edits in the
   live coordinator and three other derivation files, and a projector reason.
   Today the reader sees a generic "blocked" text and a family id.
-
-- Whether to extend the package validator's successor-graph table
-  (`packages/derivation/package_validation.py`, about lines 2711-2740) so
-  `form1040.line-2b`, `rule.form1040-line2b` and `attachment.schedule-b` can
-  take successors after core v65. Until then Schedule B Part I interest with
-  cents blocks its tie-out, and line 2b can differ by a dollar from the
-  instructions' "round only the total".
 
 - Whether a representation-transfer adjudication act should exist, so a
   nonzero legacy claim on a superseded entity could resolve honestly
@@ -543,9 +544,6 @@ delivers an item removes it.
 - Gambling outside the Form W-2G class: winnings not on a W-2G and business
   gambling (refused by answer); wagering expenses for 2025. The Form W-2G
   and the Schedule A instructions are not in the local sources.
-- Interest amounts with cents still block the Schedule B Part I tie-out, and
-  line 2b rounds each interest subtotal before adding them (see the open
-  question on the line 2b validator table).
 - Form 8332 and decree releases, more than one other claimant and unsettled
   equal-AGI ties (outside the class by answer); asking the tie-breaker only of
   a child some credit can count, which needs derived per-subject results as
