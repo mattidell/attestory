@@ -452,6 +452,15 @@ refused by answer. On core v65, Form W-2G box 1 reaches Schedule 1 line 8b
 and box 4 reaches line 25c, each family with its own closure; every earlier
 package refuses a recorded W-2G.
 
+## Bounded return — Statements With Cents (2025)
+
+[Plan](milestones/itemization-cents.md).
+
+Statements with cents blocked Schedule 1, Schedule D and Schedule B on the
+tie-out, and lines that add several amounts rounded each first. On core v66
+those lines include cents and round once at the total; Schedule B Part I
+interest waits on a validator question.
+
 ## Parked work and open questions
 
 This is the single list of parked work and open owner-held questions for the
@@ -460,6 +469,13 @@ milestone that parks something adds it here in its closing commit; one that
 delivers an item removes it.
 
 ### Open owner-held questions
+
+- Whether to extend the package validator's successor-graph table
+  (`packages/derivation/package_validation.py`, about lines 2711-2740) so
+  `form1040.line-2b`, `rule.form1040-line2b` and `attachment.schedule-b` can
+  take successors after core v65. Until then Schedule B Part I interest with
+  cents blocks its tie-out, and line 2b can differ by a dollar from the
+  instructions' "round only the total".
 
 - Whether a representation-transfer adjudication act should exist, so a
   nonzero legacy claim on a superseded entity could resolve honestly
@@ -492,9 +508,11 @@ delivers an item removes it.
   gambling, and gambling losses (refused by answer; a standard-deduction
   filer with losses is refused though losses do not change that return).
   The Form W-2G itself is not in the local sources.
-- Itemized amounts with cents block the Schedule 1 attachment's tie-out
-  (`ITEMIZATION_TIE_OUT_VIOLATION`): Form 1099-G box 1 on v64, Form W-2G box
-  1 on v65 (pinned).
+- Interest amounts with cents still block the Schedule B Part I tie-out, and
+  line 2b rounds each interest subtotal before adding them (see the open
+  question on the line 2b validator table). Lines 2a and Schedule 8812 line
+  21 are checked by rule evaluation only; no current-core harness drives
+  them, nor Form 1098-E student loan interest.
 - Form 8332 and decree releases, more than one other claimant and unsettled
   equal-AGI ties (outside the class by answer); asking the tie-breaker only of
   a child some credit can count, which needs derived per-subject results as
