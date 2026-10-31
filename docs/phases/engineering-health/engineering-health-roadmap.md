@@ -166,3 +166,13 @@ slot, the owner waits longer than the worst case, and slow launches are
 reported. No full-suite speedup or cause beyond disk-wait at first launch is
 claimed.
 
+### Complete Current-Core Returns for Tests
+
+[Plan](milestones/current-core-harnesses.md).
+[Retrospective](../../milestone-retrospectives/2026-10-31-current-core-harnesses.md).
+
+`tests/helpers/current_core_returns.py` builds complete returns on the latest
+core reaching line 2a, Schedule 8812 line 21 and Schedule 1 line 21. The
+checks the cents and correction milestones left structural now run live; no
+product defect was found.
+

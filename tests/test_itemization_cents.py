@@ -33,6 +33,7 @@ from tests import test_w2g_gambling as w2g
 from tests.test_attachment_closure import _add_member_with_companion
 from tests.test_form_1099_k_income import _handover
 from tests.test_refund_or_amount_owed_track1 import _finish
+from tests.helpers import current_core_returns as ccr
 from tests.test_withholding_closure import _strip_closure
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -401,6 +402,53 @@ class Track4OtherAddingLines(unittest.TestCase):
             self.assertEqual(new["value"]["mode"], {"name": "rounding.convention", "op": "ref"})
             self.assertIn("rounding.convention", new["requires"])
             self.assertEqual(new["when"], old["when"])
+
+
+class Track4LinesDrivenLive(unittest.TestCase):
+    """The checks ``test_lines_2a_and_8812_line_21_round_the_sum_once`` could only make on the rule bodies,
+    and the Form 1098-E line 21 check, now run on the real coordinator over the current-core returns of
+    ``tests/helpers/current_core_returns.py``. The structural check stays. Each hand value is the sum of
+    the cents, rounded once: two amounts of 100.40 are 200.80, so 201 (rounding each first would give 200)."""
+
+    def test_line_2a_over_two_box_8_amounts_rounds_the_sum_once(self) -> None:
+        run = ccr.run_current_core(ccr.add_tax_exempt_interest_1099int(ccr.base_return(), [100.40, 100.40]), "demo.ic.live.2a.b8")
+        self.assertEqual(run.blocked_names(), set())
+        self.assertEqual(run.value(ccr.BOX8_SUBTOTAL), Decimal("200.8"))
+        self.assertEqual(run.value(ccr.LINE2A), Decimal("201"))
+
+    def test_line_2a_over_two_box_12_amounts_rounds_the_sum_once(self) -> None:
+        run = ccr.run_current_core(ccr.add_exempt_interest_dividends_1099div(ccr.base_return(), [100.40, 100.40]), "demo.ic.live.2a.b12")
+        self.assertEqual(run.blocked_names(), set())
+        self.assertEqual(run.value(ccr.BOX12_SUBTOTAL), Decimal("200.8"))
+        self.assertEqual(run.value(ccr.LINE2A), Decimal("201"))
+
+    def test_line_2a_adds_box_8_and_box_12_before_it_rounds(self) -> None:
+        acts = ccr.add_tax_exempt_interest_1099int(ccr.base_return(), [100.40])
+        run = ccr.run_current_core(ccr.add_exempt_interest_dividends_1099div(acts, [100.40]), "demo.ic.live.2a.both")
+        self.assertEqual(run.blocked_names(), set())
+        self.assertEqual(run.value(ccr.LINE2A), Decimal("201"))  # 100.40 + 100.40 = 200.80, not 100 + 100
+
+    def test_schedule_8812_line_21_rounds_the_box_4_and_box_6_sum_once(self) -> None:
+        run = ccr.run_current_core(ccr.part_ii_b_return(box4=100.40, box6=100.40), "demo.ic.live.8812")
+        self.assertEqual(run.blocked_names(), set())
+        self.assertEqual(run.value(P + "w2.box4-total"), Decimal("100.4"))
+        self.assertEqual(run.value(P + "w2.box6-total"), Decimal("100.4"))
+        self.assertEqual(run.value(ccr.SCH8812_LINE21), Decimal("201"))
+        # Lines 23 and 25 follow the whole-dollar line 21: 201, then max(201 - 6,761, 0) = 0.
+        self.assertEqual(run.value(P + "ctc.sch8812.line-23"), Decimal("201"))
+        self.assertEqual(run.value(P + "ctc.sch8812.line-25"), Decimal("0"))
+
+    def test_schedule_1_line_21_rounds_the_two_form_1098_e_amounts_once(self) -> None:
+        run = ccr.run_current_core(ccr.add_student_loan_interest_1098e(ccr.base_return(), [100.40, 100.40]), "demo.ic.live.sli")
+        self.assertEqual(run.blocked_names(), set())
+        self.assertEqual(run.value(SLI_SUBTOTAL), Decimal("200.8"))
+        self.assertEqual(run.value(LINE21), Decimal("201"))
+        # Hand: AGI 50,000 - 201 = 49,799; taxable 49,799 - 15,750 = 34,049; Tax Table row 34,000-34,050
+        # (midpoint 34,025) 1,192.50 + 12% of 22,100 = 3,844.50 -> 3,845; refund 4,500 - 3,845 = 655.
+        self.assertEqual(run.value(AGI), Decimal("49799"))
+        self.assertEqual(run.value(TAXABLE), Decimal("34049"))
+        self.assertEqual(run.value(TAX), Decimal("3845"))
+        self.assertEqual(run.value(REFUND), Decimal("655"))
 
 
 class RecordedStatementMakesItsScheduleRequired(unittest.TestCase):
