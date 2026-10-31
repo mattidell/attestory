@@ -204,6 +204,79 @@ def select_current_adoption(
     return top[0]
 
 
+def resolve_adopted_surface(
+    adoption_acts: Sequence[Mapping[str, Any]],
+    *,
+    run_scope: Mapping[str, str],
+    scope_user: str,
+    workspace_revision: int,
+    release_dir: Path,
+    member_dir: Path,
+    schemas: DerivationSchemas | None = None,
+) -> PublicationSurface | Refusal:
+    """Choose the publication surface the workspace's current adoption names.
+
+    Selects the current adoption (:func:`select_current_adoption`), finds in
+    ``release_dir`` the release whose id, version and byte checksum equal the
+    adoption's release pin, then finds in ``member_dir`` the
+    ``published-packages*.json`` whose sha256 equals that release's
+    ``package_registry_sha256``. No filename is derived from a version.
+
+    This only chooses which registry to offer; :func:`resolve_production_package`
+    still verifies every byte, so a wrong choice refuses rather than miscalculates.
+    Refuses with the selection's own reason (no adoption, ambiguity),
+    ``RELEASE_ABSENT_OR_MISMATCH`` or ``REGISTRY_ABSENT``.
+    """
+    selected = select_current_adoption(
+        adoption_acts,
+        run_scope=run_scope,
+        scope_user=scope_user,
+        workspace_revision=workspace_revision,
+        schemas=schemas or DerivationSchemas(),
+    )
+    if isinstance(selected, Refusal):
+        return selected
+    pin = selected["payload"]["release"]
+    attested: set[str] = set()
+    try:
+        release_paths = sorted(release_dir.rglob("*.json"))
+    except OSError:
+        release_paths = []
+    for path in release_paths:
+        try:
+            raw = path.read_bytes()
+            candidate = json.loads(raw.decode("utf-8"))
+        except (OSError, UnicodeDecodeError, ValueError):
+            continue
+        if (
+            isinstance(candidate, dict)
+            and candidate.get("id") == pin["id"]
+            and candidate.get("version") == pin["version"]
+            and _sha256_bytes(raw) == str(pin["checksum"])
+            and isinstance(candidate.get("package_registry_sha256"), str)
+        ):
+            attested.add(candidate["package_registry_sha256"])
+    if not attested:
+        return Refusal(
+            "RELEASE_ABSENT_OR_MISMATCH",
+            f"no verified release {pin['id']}@{pin['version']} on surface",
+        )
+    if len(attested) > 1:
+        return Refusal("RELEASE_AMBIGUOUS", "multiple distinct release bodies share the pinned identity")
+    (registry_sha,) = attested
+    try:
+        registry_paths = sorted(member_dir.glob("published-packages*.json"))
+    except OSError:
+        registry_paths = []
+    for path in registry_paths:
+        try:
+            if _sha256_bytes(path.read_bytes()) == registry_sha:
+                return PublicationSurface(release_dir, path, member_dir)
+        except OSError:
+            continue
+    return Refusal("REGISTRY_ABSENT", "no registry on the member directory matches the release attestation")
+
+
 # --- Decision 2: verify release bytes before registry authenticates supply ---
 
 

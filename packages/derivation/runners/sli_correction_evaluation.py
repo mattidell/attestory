@@ -41,10 +41,11 @@ from packages.derivation.correction_session import (
     CorrectionRuntime,
     CorrectionSessionServer,
     build_correction_surface,
-    core_calculations_surface,
+    adopted_core_surface,
     load_seed_acts,
 )
 from packages.derivation.live import live_coordinate_run
+from packages.derivation.production_resolver import Refusal
 from packages.derivation.live_workspace import WorkspaceCapability, bootstrap_workspace
 from packages.derivation.loader import DerivationSchemas
 from packages.kernel.act_log import ActLog
@@ -176,7 +177,10 @@ def _serve_temporary(state: str) -> int:
         is_historical = state == STATE_HISTORICAL
         base_state = STATE_BASE if is_historical else state
         acts = load_seed_acts(REPO, base_state)
-        surface = core_calculations_surface(REPO)
+        surface = adopted_core_surface(REPO, acts, len(acts))
+        if isinstance(surface, Refusal):
+            print("Starting result refused.", file=sys.stderr)
+            return 1
 
         saved_capability = WorkspaceCapability(Path(saved_dir) / "L")
         saved_outcome = live_coordinate_run(
@@ -194,7 +198,7 @@ def _serve_temporary(state: str) -> int:
 
         session_capability = WorkspaceCapability(Path(session_dir) / "L")
         runtime = CorrectionRuntime(
-            session_capability, repo_root=REPO, surface=surface, run_scope=RUN_SCOPE,
+            session_capability, repo_root=REPO, run_scope=RUN_SCOPE,
             scope_user=SCOPE_USER, saved_presentation_path=saved_outcome.presentation_path,
             saved_run_id="demo.correction.run.initial", seed_acts=seed_acts_for_session,
             is_historical=is_historical,

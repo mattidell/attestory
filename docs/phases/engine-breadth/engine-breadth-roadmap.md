@@ -469,6 +469,14 @@ No closure family declares its question, and naming it needs a schema
 successor and a coordinator admission change, so the milestone closed on
 its investigation; the design is an open owner-held question.
 
+## Bounded return — A Correction Recalculates on the Current Core (2025)
+
+[Plan](milestones/correction-current-core.md).
+
+The correction session pinned registry v40 and refused every workspace
+adopted after core v42. It now resolves the surface from the workspace's
+adoption, so corrections calculate on the current core.
+
 ## Parked work and open questions
 
 This is the single list of parked work and open owner-held questions for the
@@ -546,8 +554,8 @@ delivers an item removes it.
 - The age questions' wording (born before January 2, 1961; a death in 2025
   before age 65), and the SLI dependent answer ("is claimed", filer only)
   beside the new "can be claimed" answer.
-- Use of the circumstance routes on the correction session, which still
-  resolves an older registry.
+- The W-2 entry loop (`packages/derivation/entry_loop.py`) fixes its own
+  registry; a filer-facing reason when a correction does not calculate.
 - Four source sets still reach an attachment without a guard of their own:
   Form 1099-DIV 1a, Form 1099-K and Form 1098-E are held by a guarded rule
   the attachment's requirement reads (pinned live); Form 1099-INT box 8 is

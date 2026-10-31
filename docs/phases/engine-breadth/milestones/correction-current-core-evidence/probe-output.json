@@ -1,0 +1,159 @@
+{
+  "cases": {
+    "1099g_family_unconfirmed": {
+      "fresh_v42": {
+        "exception": "FindingModelError",
+        "n_values": 0
+      },
+      "fresh_v66": {
+        "blocked": [
+          "rule.form1040-line25b:SOURCE_SET_UNCLOSED",
+          "rule.form1040-line25d:DEPENDENCY_ABSENT",
+          "rule.form1040-line33:DEPENDENCY_ABSENT",
+          "rule.form1040-line34:DEPENDENCY_ABSENT",
+          "rule.form1040-line35a:DEPENDENCY_ABSENT",
+          "rule.form1040-line36:DEPENDENCY_ABSENT",
+          "rule.form1040-line37:DEPENDENCY_ABSENT"
+        ],
+        "n_values": 236,
+        "refusal": null
+      },
+      "session_adopting_v42": {
+        "blocked": null,
+        "calculated": null,
+        "exception": "FindingModelError",
+        "n_values": 0,
+        "refusal": null
+      },
+      "session_adopting_v66": {
+        "blocked": [],
+        "calculated": false,
+        "n_values": 0,
+        "refusal": "REGISTRY_CHECKSUM_MISMATCH"
+      }
+    },
+    "1099g_withholding_closed": {
+      "fresh_v42": {
+        "exception": "FindingModelError",
+        "n_values": 0
+      },
+      "fresh_v66": {
+        "blocked": [],
+        "n_values": 243,
+        "refusal": null
+      },
+      "session_adopting_v42": {
+        "blocked": null,
+        "calculated": null,
+        "exception": "FindingModelError",
+        "n_values": 0,
+        "refusal": null
+      },
+      "session_adopting_v66": {
+        "blocked": [],
+        "calculated": false,
+        "n_values": 0,
+        "refusal": "REGISTRY_CHECKSUM_MISMATCH"
+      }
+    },
+    "w2g_winnings": {
+      "fresh_v42": {
+        "exception": "FindingModelError",
+        "n_values": 0
+      },
+      "fresh_v66": {
+        "blocked": [],
+        "n_values": 243,
+        "refusal": null
+      },
+      "session_adopting_v42": {
+        "blocked": null,
+        "calculated": null,
+        "exception": "FindingModelError",
+        "n_values": 0,
+        "refusal": null
+      },
+      "session_adopting_v66": {
+        "blocked": [],
+        "calculated": false,
+        "n_values": 0,
+        "refusal": "REGISTRY_CHECKSUM_MISMATCH"
+      }
+    }
+  },
+  "seed_workspace": {
+    "fresh_v66_same_acts": {
+      "blocked": [
+        "rule.attachment.schedule-1:DEPENDENCY_ABSENT",
+        "rule.attachment.schedule-a:DEPENDENCY_ABSENT",
+        "rule.ctc-child-count:SOURCE_SET_UNCLOSED",
+        "rule.ctc-filer-gate:DEPENDENCY_ABSENT",
+        "rule.ctc-filer-ssn-gate:DEPENDENCY_ABSENT",
+        "rule.ctc-form1040-line19:DEPENDENCY_ABSENT",
+        "rule.ctc-sch8812-line-10:DEPENDENCY_ABSENT",
+        "rule.ctc-sch8812-line-11:DEPENDENCY_ABSENT",
+        "rule.ctc-sch8812-line-12:DEPENDENCY_ABSENT",
+        "rule.ctc-sch8812-line-13:DEPENDENCY_ABSENT",
+        "rule.ctc-sch8812-line-14:DEPENDENCY_ABSENT",
+        "rule.ctc-sch8812-line-16a:DEPENDENCY_ABSENT"
+      ],
+      "n_blocked": 154,
+      "n_values": 171,
+      "refusal": null
+    },
+    "session_after_adopting_v66": {
+      "calculated": false,
+      "refusal": "REGISTRY_CHECKSUM_MISMATCH"
+    },
+    "session_on_seed_v42": {
+      "calculated": true,
+      "n_blocked": 25,
+      "n_values": 144,
+      "refusal": null
+    },
+    "session_v42_vs_fresh_v66": {
+      "changed_values_[session_v42, fresh_v66]": {},
+      "n_only_in_fresh_v66": 19,
+      "n_only_in_session_v42": 11,
+      "only_in_fresh_v66": [
+        "tax.us.2025.ctc.sch8812.line-9",
+        "tax.us.2025.ctc.sch8812.worksheet-a.line-4",
+        "tax.us.2025.dependents-worksheet.line1-box-count",
+        "tax.us.2025.dependents-worksheet.line2",
+        "tax.us.2025.dependents-worksheet.line3",
+        "tax.us.2025.dependents-worksheet.line4a",
+        "tax.us.2025.dependents-worksheet.line4b",
+        "tax.us.2025.dependents-worksheet.line4c",
+        "tax.us.2025.eic.investment-income",
+        "tax.us.2025.eic.status-class",
+        "tax.us.2025.eic.worksheet-a.line-1",
+        "tax.us.2025.f1098.box9-number-of-properties",
+        "tax.us.2025.f1099k.box4-federal-withholding",
+        "tax.us.2025.odc.child-marked-conflict",
+        "tax.us.2025.odc.relative-marked-conflict"
+      ],
+      "only_in_session_v42": [
+        "demo.form1040.standard_deduction",
+        "tax.us.2025.income.additional-income",
+        "tax.us.2025.income.agi",
+        "tax.us.2025.income.line10-adjustments",
+        "tax.us.2025.income.total-income",
+        "tax.us.2025.schedule1.line10-additional-income",
+        "tax.us.2025.schedule1.line21-sli-deduction",
+        "tax.us.2025.schedule1.line26-total-adjustments",
+        "tax.us.2025.social-security.line6a",
+        "tax.us.2025.social-security.line6b",
+        "tax.us.2025.ssa1099.benefits.box5-subtotal"
+      ]
+    }
+  },
+  "surface_pins": {
+    "registry": "published-packages.v40.json",
+    "release_dir": "student_loan_worksheet_integration/publication_surface/releases"
+  },
+  "unrecognised_adoptions": {
+    "no_adoption_in_scope": "ADOPTION_NONE_CURRENT",
+    "release_not_on_surface": "RELEASE_ABSENT_OR_MISMATCH",
+    "release_v64_registry_v40": "REGISTRY_CHECKSUM_MISMATCH"
+  }
+}
