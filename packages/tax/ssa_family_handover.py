@@ -92,7 +92,14 @@ def ssa_family_version_for_acts(
             return FAMILY_VERSION
         raise SsaHandoverRefused(f"current adoption selection refused: {selected.reason} ({selected.detail})")
     if surface is None:
-        surface = _default_production_surface_for_adoption(selected["payload"], content_dir)
+        surface = _default_production_surface_for_adoption(
+            acts, run_scope=run_scope, scope_user=actor,
+            workspace_revision=workspace_revision, schemas=schemas, content_dir=content_dir,
+        )
+        if isinstance(surface, Refusal):
+            raise SsaHandoverRefused(
+                f"adopted package in scope could not be resolved: {surface.reason} ({surface.detail})"
+            )
     resolved = resolve_production_package(
         acts,
         run_scope=run_scope,

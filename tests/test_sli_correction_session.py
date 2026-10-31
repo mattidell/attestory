@@ -49,7 +49,8 @@ from packages.derivation.correction_session import (
     STATE_SEED_LOGS,
     STATE_SHARED,
     build_correction_surface,
-    core_calculations_surface,
+    CORE_CONTENT,
+    CORE_RELEASE_DIR,
     enumerate_choices,
     load_seed_acts,
     resolve_correction_surface,
@@ -62,7 +63,7 @@ from packages.derivation.runners.sli_correction_evaluation import (
 from packages.derivation.live import LiveCoordinatorOutcome, live_coordinate_run
 from packages.derivation.live_workspace import WorkspaceCapability
 from packages.derivation.loader import DerivationSchemas
-from packages.derivation.production_resolver import Refusal
+from packages.derivation.production_resolver import PublicationSurface, Refusal
 from packages.kernel.act_log import ActLog
 from packages.kernel.contribution import ContributionBatchResult
 from packages.kernel.facts import fact_id_for
@@ -75,6 +76,14 @@ from packages.tax.sli_relationship_recording import (
 )
 
 REPO = Path(__file__).resolve().parent.parent
+
+
+def core_calculations_surface(repo_root: Path) -> PublicationSurface:
+    """History: these tests stay pinned to the v42 core (registry v40) the session first served."""
+    return PublicationSurface(
+        repo_root / CORE_RELEASE_DIR, repo_root / CORE_CONTENT / "published-packages.v40.json",
+        repo_root / CORE_CONTENT)
+
 _NODE = shutil.which("node")
 _BROWSER = next(
     (

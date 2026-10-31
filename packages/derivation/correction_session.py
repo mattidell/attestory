@@ -39,7 +39,7 @@ from urllib.parse import urlsplit
 from packages.derivation.live import live_coordinate_run
 from packages.derivation.live_workspace import WorkspaceCapability, bootstrap_workspace
 from packages.derivation.loader import DerivationSchemas
-from packages.derivation.production_resolver import PublicationSurface, Refusal
+from packages.derivation.production_resolver import PublicationSurface, Refusal, resolve_adopted_surface
 from packages.derivation.records import RecordStream, RecordStreamCorruption
 from packages.derivation.surface_resolver import ResolvedSurface, resolve_surface_artifact
 from packages.kernel.act_log import ActLog
@@ -170,14 +170,13 @@ SURFACE_ADOPTION = CORRECTION_FIXTURE / "surface" / "adoptions" / "adopt-sli-cor
 SCOPE_USER = "demo.user.filer"
 RUN_SCOPE = {"jurisdiction": "us", "year": "2025"}
 
-# The real, already-adopted v42 production surface (same fixture tests
-# already run v42 against). No new package, release, or registry version is
-# needed for this session (plan, Track 0 — readiness for implementation).
+# Where the session looks for the adopted core's release and registry. Which
+# release and registry it uses is read from the workspace's current adoption
+# (``resolve_adopted_surface``), never fixed here.
 CORE_CONTENT = Path("packages/content/tax/2025")
 CORE_RELEASE_DIR = Path(
     "packages/sample_data/student_loan_worksheet_integration/publication_surface/releases"
 )
-CORE_V40_REGISTRY = CORE_CONTENT / "published-packages.v40.json"
 
 _MAX_REQUEST_BYTES = 16_384
 
@@ -186,11 +185,17 @@ class CorrectionSessionError(RuntimeError):
     """A locator-free refusal suitable for the synthetic correction surface."""
 
 
-def core_calculations_surface(repo_root: Path) -> PublicationSurface:
-    """The adopted core-calculations surface this session recalculates against."""
+def adopted_core_surface(
+    repo_root: Path, acts: Sequence[Mapping[str, Any]], revision: int,
+    *, run_scope: Mapping[str, str] = RUN_SCOPE, scope_user: str = SCOPE_USER,
+    schemas: DerivationSchemas | None = None,
+) -> PublicationSurface | Refusal:
+    """The surface the workspace's current adoption names, or a typed ``Refusal``."""
 
-    return PublicationSurface(
-        repo_root / CORE_RELEASE_DIR, repo_root / CORE_V40_REGISTRY, repo_root / CORE_CONTENT,
+    return resolve_adopted_surface(
+        acts, run_scope=run_scope, scope_user=scope_user, workspace_revision=revision,
+        release_dir=repo_root / CORE_RELEASE_DIR, member_dir=repo_root / CORE_CONTENT,
+        schemas=schemas,
     )
 
 
@@ -733,7 +738,7 @@ class CorrectionRuntime:
         capability: WorkspaceCapability,
         *,
         repo_root: Path,
-        surface: PublicationSurface,
+        surface: PublicationSurface | None = None,
         run_scope: Mapping[str, str],
         scope_user: str,
         saved_presentation_path: Path,
@@ -744,7 +749,7 @@ class CorrectionRuntime:
     ) -> None:
         self._capability = capability
         self._repo_root = repo_root
-        self._surface = surface
+        self._surface_override = surface
         self._run_scope = dict(run_scope)
         self._scope_user = scope_user
         self._schemas = schemas or DerivationSchemas()
@@ -827,7 +832,10 @@ class CorrectionRuntime:
                 raise CorrectionSessionError("correction-fixture-invalid")
             log.append(body, expected_revision=expected)
         contents = log.read()
-        surface = core_calculations_surface(repo_root)
+        surface = adopted_core_surface(
+            repo_root, contents.acts, contents.revision, schemas=schemas)
+        if isinstance(surface, Refusal):
+            raise CorrectionSessionError("correction-opening-calculation-refused")
         try:
             outcome = live_coordinate_run(
                 capability, repo_root=repo_root, authoritative_acts=contents.acts,
@@ -847,7 +855,7 @@ class CorrectionRuntime:
         if not isinstance(model, dict):
             raise CorrectionSessionError("correction-opening-calculation-refused")
         return cls._adopt(
-            capability, repo_root=repo_root, surface=surface, schemas=schemas,
+            capability, repo_root=repo_root, surface=None, schemas=schemas,
             saved_presentation=model, saved_run_id="demo.correction.run.initial",
             awaiting_calculation=False,
         )
@@ -874,7 +882,7 @@ class CorrectionRuntime:
         if log.read().revision == 0:
             raise CorrectionSessionError("correction-workspace-empty")
         return cls._adopt(
-            capability, repo_root=repo_root, surface=core_calculations_surface(repo_root),
+            capability, repo_root=repo_root, surface=None,
             schemas=schemas, saved_presentation=None, saved_run_id="",
             awaiting_calculation=True,
         )
@@ -885,7 +893,7 @@ class CorrectionRuntime:
         capability: WorkspaceCapability,
         *,
         repo_root: Path,
-        surface: PublicationSurface,
+        surface: PublicationSurface | None,
         schemas: DerivationSchemas,
         saved_presentation: dict[str, Any] | None,
         saved_run_id: str,
@@ -895,7 +903,7 @@ class CorrectionRuntime:
         self = cls.__new__(cls)
         self._capability = capability
         self._repo_root = repo_root
-        self._surface = surface
+        self._surface_override = surface
         self._run_scope = dict(RUN_SCOPE)
         self._scope_user = SCOPE_USER
         self._schemas = schemas
@@ -1249,6 +1257,17 @@ class CorrectionRuntime:
             self._completed[token] = updated
             return updated
 
+    def _current_surface(self, acts: Sequence[Mapping[str, Any]], revision: int) -> PublicationSurface | None:
+        """The surface for one calculation: the override when one was given,
+        else the one the workspace's current adoption names. ``None`` when
+        that adoption names none (the caller reports the usual outcome)."""
+        if self._surface_override is not None:
+            return self._surface_override
+        resolved = adopted_core_surface(
+            self._repo_root, acts, revision, run_scope=self._run_scope,
+            scope_user=self._scope_user, schemas=self._schemas)
+        return None if isinstance(resolved, Refusal) else resolved
+
     def calculate(self) -> dict[str, Any]:
         """Calculate the log this process just read. Appends no act.
 
@@ -1265,12 +1284,15 @@ class CorrectionRuntime:
             serial = self._calculate_serial
             run_id = f"demo.correction.run.c{self._run_nonce}.s{serial}"
             output_name = f"{run_id}.json"
+            surface = self._current_surface(acts, revision)
+            if surface is None:
+                return {"calculated": False}
             try:
                 outcome = live_coordinate_run(
                     self._capability, repo_root=self._repo_root, authoritative_acts=acts,
                     workspace_revision=revision, run_scope=self._run_scope,
                     scope_user=self._scope_user, request={"schema": "run-request.v1"},
-                    run_id=run_id, governance_pins=[], surface=self._surface,
+                    run_id=run_id, governance_pins=[], surface=surface,
                     output_name=output_name, schemas=self._schemas)
             except Exception:
                 return {"calculated": False}
@@ -1317,13 +1339,16 @@ class CorrectionRuntime:
         contents = self._log.read()
         suffix = "" if attempt == 0 else f".retry{attempt}"
         output_name = f"demo.correction.run.{successor}{suffix}.json"
+        surface = self._current_surface(contents.acts, contents.revision)
+        if surface is None:
+            return saved_not_calculated
         try:
             run_outcome = live_coordinate_run(
                 self._capability, repo_root=self._repo_root, authoritative_acts=contents.acts,
                 workspace_revision=contents.revision, run_scope=self._run_scope,
                 scope_user=self._scope_user, request={"schema": "run-request.v1"},
                 run_id=f"demo.correction.run.{successor}{suffix}", governance_pins=[],
-                surface=self._surface, output_name=output_name, schemas=self._schemas)
+                surface=surface, output_name=output_name, schemas=self._schemas)
         except Exception:
             # An exception raised while recalculating (ResidencyViolation or
             # otherwise) never surfaces past the save boundary.
@@ -1672,7 +1697,6 @@ class CorrectionSessionServer(AbstractContextManager["CorrectionSessionServer"])
 __all__ = [
     "CORE_CONTENT",
     "CORE_RELEASE_DIR",
-    "CORE_V40_REGISTRY",
     "CORRECTION_FIXTURE",
     "LOAN_COST_FACT_TYPE",
     "LOAN_COST_QUESTION",
@@ -1691,7 +1715,7 @@ __all__ = [
     "CorrectionSessionError",
     "CorrectionSessionServer",
     "build_correction_surface",
-    "core_calculations_surface",
+    "adopted_core_surface",
     "enumerate_choices",
     "load_seed_acts",
     "resolve_correction_surface",

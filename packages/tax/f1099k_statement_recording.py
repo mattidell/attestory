@@ -93,11 +93,17 @@ class F1099KAdoptionResolutionError(F1099KRecordingRefused):
 
 
 def _default_production_surface_for_adoption(
-    adoption_payload: Mapping[str, Any],
+    acts: Sequence[Mapping[str, Any]],
+    *,
+    run_scope: Mapping[str, str],
+    scope_user: str,
+    workspace_revision: int,
+    schemas: Any,
     content_dir: Path | None = None,
 ) -> Any:
+    """The surface the workspace's current adoption names, or a typed ``Refusal``."""
     from packages.derivation.correction_session import CORE_RELEASE_DIR
-    from packages.derivation.production_resolver import PublicationSurface
+    from packages.derivation.production_resolver import resolve_adopted_surface
     from packages.tax.loader import TAX_CONTENT_DIR
 
     member_dir = content_dir or TAX_CONTENT_DIR
@@ -106,42 +112,9 @@ def _default_production_surface_for_adoption(
         if CORE_RELEASE_DIR.exists()
         else (member_dir.parents[3] / CORE_RELEASE_DIR)
     )
-    release_pin = adoption_payload.get("release", {})
-    rel_id = release_pin.get("id")
-    rel_ver = str(release_pin.get("version", ""))
-    rel_checksum = str(release_pin.get("checksum", ""))
-
-    matching_registry: Path | None = None
-    if release_dir.exists():
-        for candidate_path in release_dir.glob("*.json"):
-            try:
-                candidate_bytes = candidate_path.read_bytes()
-                candidate_data = json.loads(candidate_bytes.decode("utf-8"))
-                if (
-                    candidate_data.get("id") == rel_id
-                    and candidate_data.get("version") == rel_ver
-                    and hashlib.sha256(candidate_bytes).hexdigest() == rel_checksum
-                ):
-                    reg_sha = candidate_data.get("package_registry_sha256")
-                    if reg_sha:
-                        for reg_path in member_dir.glob("published-packages*.json"):
-                            try:
-                                if hashlib.sha256(reg_path.read_bytes()).hexdigest() == reg_sha:
-                                    matching_registry = reg_path
-                                    break
-                            except OSError:
-                                continue
-                    break
-            except (OSError, UnicodeDecodeError, json.JSONDecodeError):
-                continue
-
-    if matching_registry is None:
-        matching_registry = member_dir / f"published-packages.{rel_ver}.json"
-
-    return PublicationSurface(
-        release_dir=release_dir,
-        package_registry_path=matching_registry,
-        member_dir=member_dir,
+    return resolve_adopted_surface(
+        acts, run_scope=run_scope, scope_user=scope_user, workspace_revision=workspace_revision,
+        release_dir=release_dir, member_dir=member_dir, schemas=schemas,
     )
 
 
@@ -196,7 +169,14 @@ def f1099k_family_version_for_workspace(
         )
 
     if surface is None:
-        surface = _default_production_surface_for_adoption(selected["payload"], content_dir)
+        surface = _default_production_surface_for_adoption(
+            acts, run_scope=run_scope, scope_user=actor,
+            workspace_revision=workspace_revision, schemas=schemas, content_dir=content_dir,
+        )
+        if isinstance(surface, Refusal):
+            raise F1099KAdoptionResolutionError(
+                f"adopted package in scope could not be resolved: {surface.reason} ({surface.detail})"
+            )
 
     resolved = resolve_production_package(
         acts,
