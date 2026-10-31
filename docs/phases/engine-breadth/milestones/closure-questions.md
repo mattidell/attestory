@@ -3,11 +3,11 @@
   "version": 1,
   "phase": "Engine Breadth",
   "topic": "closure-questions",
-  "status": "Open. Builds the closure-question design costed in the closure-question-wording P0: a source-closure-mapping.v3 schema with closure_question, its admission, 50 questions in plain words, and a projector reason.",
+  "status": "Closed. On core v69 every closure mapping declares its question in plain words (source-closure-mapping.v3), and a saved presentation names it as the reason on every line an unconfirmed family blocks. Earlier cores render byte-for-byte as before.",
   "scope": [
     "a closure mapping can declare the question a filer answers to confirm a family complete (source-closure-mapping.v3, closure_question)",
     "the package validator, the closure authorization, the tax loader and the live coordinator admit v3 mappings alongside v2",
-    "every closure in the latest core has a question in plain words",
+    "every closure in the latest core (51) has a question in plain words",
     "a saved presentation names that question as the reason on every line blocked by an unconfirmed family"
   ],
   "non_goals": [
@@ -32,10 +32,12 @@
       "docs/phases/engine-breadth/milestones/closure-questions.md"
     ],
     "new_milestone": [
+      "docs/milestone-retrospectives/2026-10-31-closure-questions.md",
       "docs/phases/engine-breadth/milestones/closure-questions.md",
       "docs/phases/engine-breadth/engine-breadth-roadmap.md#Parked work and open questions"
     ]
-  }
+  },
+  "retrospective": "docs/milestone-retrospectives/2026-10-31-closure-questions.md"
 }
 -->
 
@@ -65,7 +67,7 @@ told, in plain words, the one question that releases it.
 - **Admission.** `package_validation.py`, `authorization_closure.py`,
   `packages/tax/loader.py` and the live coordinator (`live.py`, which today
   filters on exactly v2 and would drop v3 silently) accept v2 and v3.
-- **Content.** One v3 successor per closure mapping in the latest core (50),
+- **Content.** One v3 successor per closure mapping in the latest core (51),
   each with a question in plain words, written from the family's title and
   claim, never the internal terms.
 - **Projector.** For each blocked section, walk its missing chain to the
@@ -99,8 +101,54 @@ Foreman, 2026-10-31, after Track 2's stop:
    with v3 added to the member-schema list and nothing else changed,
    published by the same protocol; core v69 conforms to it.
 
+2. **The v3 schema refuses a blank question** (`pattern: \S`), changed in place
+   while unmerged; its `published.json` checksum was set directly because
+   `write_manifest` refuses a changed file. The entry exists only on this
+   branch, so against main the manifest still only adds.
+
 ## Process
 
 Dispatch to Sonnet 5.5 Agent sub-agents. Tracks 1 and 3 touch
 `packages/derivation/`, so the full suite runs before each handoff. Stop
 means stop.
+
+## Review dispositions
+
+Fresh-reader review: no required findings. The two schema successors differ
+from their predecessors only as planned; no exact-version admission check
+remains that would skip v3 or v37; on core v68 a saved presentation and page
+are byte-identical before and after the projector change (ten artifacts);
+the W-2G and Schedule 8812 roster cases carry the right question on every
+blocked line.
+
+1. *Three questions misled* (recommended): non-form interest (it read as
+   including Form 1099-OID and Schedule K-1), SSA-1099 benefits ("ordinary"
+   is the engine's word), Form 1099-K (personal-item sales only). Reworded.
+2. *Wash-sale window, the EIC roster wording* (notes). Reworded: "within 30
+   days before or after the sale"; the EIC roster lists every child who could
+   qualify.
+3. *A whitespace question passed the schema* (note). The schema now refuses
+   it (decision 2).
+4. *A line with a non-closure cause as well keeps the generic text* (note).
+   Intended: the reason is given only when every cause is a closure.
+5. *Scalar-family questions nearly repeat their parent's* (note). Kept; each
+   asks about a distinct recorded amount.
+
+## Execution record
+
+- One Sonnet 5.5 builder for three tracks and two repairs; one review. Two
+  stops, each on a schema the plan had not named (`artifact-package.v37`,
+  and the v3 check refusing a blank), both dispositioned within the owner's
+  approval.
+
+## Outcome
+
+On core v69, every one of the 51 closures declares the question a filer
+answers to confirm it, in plain words ("Have you recorded every federal
+income tax withheld amount in box 4 of every Form 1099-G you or your spouse
+received for 2025?"). When a line is blocked only by unconfirmed families,
+its saved presentation and page carry those questions as the reason, in
+place of a generic "blocked" text and a family id. Earlier cores render as
+before. Two schema successors (`source-closure-mapping.v3`,
+`artifact-package.v37`) and admission in four places, owner-approved; no
+value, disposition or block-code change.
