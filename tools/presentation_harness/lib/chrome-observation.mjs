@@ -31,7 +31,8 @@ async function sampleProcess(pid) {
   } catch { return { available: false }; }
 }
 
-export function createObservation({ label, output, graceMs = 60000 }) {
+export const OBSERVER_GRACE_MS = 60000;
+export function createObservation({ label, output, graceMs = OBSERVER_GRACE_MS }) {
   const safeLabel = ["correction-calculate-dropped", "correction-other", "isolated", "parallel"].includes(label) ? label : "other";
   let start = performance.now();
   let wallStart = Date.now();
@@ -41,7 +42,7 @@ export function createObservation({ label, output, graceMs = 60000 }) {
   let nextSample = 0;
   const elapsed = () => Math.round(performance.now() - start);
   return {
-    graceMs: Math.max(0, Math.min(60000, graceMs)),
+    graceMs: Math.max(0, Math.min(OBSERVER_GRACE_MS, graceMs)),
     beginActive(queueMs) { record.queue_ms = Math.round(queueMs); start = performance.now(); wallStart = Date.now(); },
     deadline() { record.deadline_monotonic_ms = elapsed(); record.deadline_wall_ms = Date.now() - wallStart; },
     recognize(name) { if (!record.stderr_categories.includes(name)) record.stderr_categories.push(name); },

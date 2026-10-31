@@ -2,6 +2,7 @@
 from __future__ import annotations
 
 import json
+import re
 import time
 from pathlib import Path
 
@@ -155,7 +156,7 @@ def test_unknown_owner_protocol_values_are_normalized() -> None:
     assert "demo-private" not in json.dumps(details) and "demo.invalid" not in json.dumps(details)
 
 
-def test_owner_without_trace_keeps_original_deadline(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:
+def test_owner_without_trace_fails_at_injected_allowance(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:
     if not correction._NODE:
         pytest.skip("needs Node")
     owner.close()
@@ -165,6 +166,7 @@ def test_owner_without_trace_keeps_original_deadline(tmp_path: Path, monkeypatch
     monkeypatch.setenv("PRESENTATION_HARNESS_CHROME", str(fake))
     monkeypatch.setenv("DEMO_CHROME_STARTUP_DIR", str(tmp_path))
     monkeypatch.delenv("DEMO_CHROME_TRACE", raising=False)
+    monkeypatch.setenv("DEMO_CHROME_LAUNCH_TIMEOUT_MS", "2000")
     started = time.monotonic()
     try:
         with pytest.raises(RuntimeError) as captured:
@@ -172,7 +174,27 @@ def test_owner_without_trace_keeps_original_deadline(tmp_path: Path, monkeypatch
         elapsed = time.monotonic() - started
         details = json.loads(str(captured.value).split(": ", 1)[1])
         assert details["outcome"] == "not_ready_after_grace"
-        assert 9 <= elapsed < 20
+        assert 1.5 <= elapsed < 20
         assert owner._owner is None and owner._profile_root is None
     finally:
         owner.close()
+
+
+def test_owner_wait_covers_worst_case_startup() -> None:
+    assert owner.LAUNCH_ALLOWANCE_S == 45
+    assert owner.OWNER_STARTUP_WAIT_S > (
+        owner.SLOT_QUEUE_TIMEOUT_S + owner.LAUNCH_ALLOWANCE_S + owner.OBSERVER_GRACE_S)
+
+
+def _js_const(path: str, name: str) -> int:
+    text = (Path(__file__).resolve().parents[1] / path).read_text()
+    match = re.search(rf"export const {name} = (\d+);", text)
+    assert match, name
+    return int(match.group(1))
+
+
+def test_python_and_js_timing_constants_agree() -> None:
+    harness = "tools/presentation_harness/lib/"
+    assert _js_const(harness + "chrome.mjs", "CHROME_LAUNCH_TIMEOUT_MS") == owner.LAUNCH_ALLOWANCE_S * 1000
+    assert _js_const(harness + "chrome.mjs", "SLOT_QUEUE_TIMEOUT_MS") == owner.SLOT_QUEUE_TIMEOUT_S * 1000
+    assert _js_const(harness + "chrome-observation.mjs", "OBSERVER_GRACE_MS") == owner.OBSERVER_GRACE_S * 1000

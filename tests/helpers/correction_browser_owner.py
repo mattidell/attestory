@@ -11,6 +11,13 @@ import subprocess
 from pathlib import Path
 from typing import Any
 
+# Worst-case startup the owner must outlive so a never-ready launch reports the
+# Chrome error rather than "owner startup timed out":
+#   slot queue 120 s + launch allowance 45 s + observer grace 60 s = 225 s.
+SLOT_QUEUE_TIMEOUT_S = 120
+LAUNCH_ALLOWANCE_S = 45
+OBSERVER_GRACE_S = 60
+OWNER_STARTUP_WAIT_S = 240
 _owner: subprocess.Popen[str] | None = None
 _endpoint: str | None = None
 _profile_root: str | None = None
@@ -75,7 +82,7 @@ def acquire() -> str:
             _profile_root = None
             raise
         assert _owner.stdout is not None
-        ready, _, _ = select.select([_owner.stdout], [], [], 210)
+        ready, _, _ = select.select([_owner.stdout], [], [], OWNER_STARTUP_WAIT_S)
         if not ready:
             close()
             raise RuntimeError("correction browser owner startup timed out")
