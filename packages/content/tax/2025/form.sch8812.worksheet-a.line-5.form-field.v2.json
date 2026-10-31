@@ -1,0 +1,45 @@
+{
+  "binds_symbol": "tax.us.2025.ctc.sch8812.worksheet-a.line-5",
+  "citation": {
+    "id": "tax.us.2025.citation.schedule8812.worksheet-a",
+    "version": "v1"
+  },
+  "description": "Credit Limit Worksheet A line 5: the tax after Schedule 3 credits, to Schedule 8812 line 13.",
+  "dispositions": {
+    "blocked": {
+      "codes": [
+        "DEPENDENCY_ABSENT",
+        "DEPENDENCY_INVALID"
+      ],
+      "explain": "Credit Limit Worksheet A line 5 is blocked because an input it needs is missing or invalid.",
+      "render": ""
+    },
+    "closure_backed_zero": {
+      "explain": "Credit Limit Worksheet A line 5 publishes zero through an honest closed-empty source family.",
+      "render": "0"
+    },
+    "computed_zero": {
+      "explain": "Credit Limit Worksheet A line 5 publishes a computed zero.",
+      "render": "0"
+    },
+    "guard_inapplicable": {
+      "explain": "No value is published for Credit Limit Worksheet A line 5 because its worksheet guard is not satisfied.",
+      "render": ""
+    },
+    "published_value": {
+      "explain": "Credit Limit Worksheet A line 5: the tax after Schedule 3 credits, to Schedule 8812 line 13.",
+      "render": "{value}"
+    }
+  },
+  "form": {
+    "authority": "IRS",
+    "form_id": "Schedule 8812",
+    "jurisdiction": "US-federal",
+    "tax_year": 2025
+  },
+  "id": "tax.us.2025.form.sch8812.worksheet-a.line-5",
+  "label": "Credit Limit Worksheet A line 5",
+  "line": "8812-wa-5",
+  "schema": "form-field.v3",
+  "version": "v2"
+}
