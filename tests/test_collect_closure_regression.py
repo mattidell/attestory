@@ -20,14 +20,14 @@ from tools.collect_closure_survey import CONTENT, survey
 
 PACKAGE_V61 = CONTENT / "package.core-calculations.v61.json"
 PACKAGE_V62 = CONTENT / "package.core-calculations.v62.json"
+PACKAGE_V63 = CONTENT / "package.core-calculations.v63.json"
 
 P = "tax.us.2025."
 
-# Known gap: line 2b v8 validator restriction, owner-held. Line 2b v8 publishes the
-# taxable-interest total with when=true, and the package validator authorizes a selection
-# rule only as line 2b @ v8 with a top-level when of true, so a guard needs a validator
-# change first. Nine interest sets still publish a partial sum on v62 (confirmed live in
-# tests/test_collect_closure.py). Remove an entry when the guard lands.
+# Known gap on v62 (pinned history): line 2b v8 publishes the taxable-interest total with
+# when=true and cannot take a guard, so nine interest sets still publish a partial sum on v62
+# (confirmed live in tests/test_collect_closure.py). Core v63 guards the subtotal rules line
+# 2b reads, so the list is empty on v63 (test_core_v63_has_no_unexplained_path_to_a_bound_line).
 KNOWN_GAP_LINE_2B = {
     P + s for s in (
         "f1099int.b1", "f1099int.b3", "f1099int.b10", "f1099oid.b1", "f1099oid.b5",
@@ -53,7 +53,8 @@ HELD_DOWNSTREAM = {
     P + "f1098e.1",      # sli-worksheet
 }
 
-# Known gap: attachment reads the subtotal directly; next milestone. An attachment citizen
+# Known gap on v62 (pinned history), closed on v63 except KNOWN_GAP_ATTACHMENTS_V63 below.
+# An attachment citizen
 # (attachment.schedule-d, schedule-1, schedule-b, f8949) is a published output like a
 # form-field-bound line, and it reads these subtotals without the closure guard the bound
 # lines now carry. Found by the extended survey on core v62 (24 source sets). The
@@ -78,6 +79,24 @@ KNOWN_GAP_ATTACHMENTS = {
         # Schedule 1 reads Form 1099-K and the student loan interest worksheet
         "f1099k", "f1098e.1",
     )
+}
+
+# What still reaches an attachment unguarded on v63, each with its reason. Core v63 guards the
+# subtotal rules the other 20 sets feed (tests/test_attachment_closure.py).
+KNOWN_GAP_ATTACHMENTS_V63 = {
+    # Schedule B reads dividend box 1a; its requirement reads dividends.ordinary-total, which
+    # the guarded line 3b rule holds. Pinned live (test_held_set_publishes_no_attachment_amount_on_v63).
+    P + "f1099div.1a",
+    # Schedule 1 reads Form 1099-K; its requirement reads schedule1.top-entry (guarded). Pinned live.
+    P + "f1099k",
+    # Schedule 1 reads the student loan worksheet; its deduction rule is held by the guarded
+    # sli-worksheet. Pinned live.
+    P + "f1098e.1",
+    # Form 1099-INT box 8: no attachment amount. Schedule 1 itemizes only f1099g.1, f1098e.1
+    # and f1099k; box 8 reaches it through the SLI deduction chain that line 2a and the
+    # worksheet already hold. Rests on the static read only: a live box 8 case blocks the whole
+    # return with DEPENDENCY_ABSENT on both cores, so it is unconfirmed either way.
+    P + "f1099int.b8",
 }
 
 # Safe by construction: the rule's own when evaluates a count over the set first, and count
@@ -137,8 +156,19 @@ def test_the_allowlists_have_not_gone_stale() -> None:
     assert _flagged_attachments(PACKAGE_V62) == KNOWN_GAP_ATTACHMENTS
 
 
+def test_core_v63_has_no_unexplained_path_to_a_bound_line() -> None:
+    # The line 2b known-gap list is empty on v63: nothing but the held-downstream sets remains.
+    assert _flagged(PACKAGE_V63) - HELD_DOWNSTREAM == set()
+    assert HELD_DOWNSTREAM <= _flagged(PACKAGE_V63)
+
+
+def test_core_v63_attachment_known_gaps_are_exactly_what_remains() -> None:
+    assert _flagged_attachments(PACKAGE_V63) == KNOWN_GAP_ATTACHMENTS_V63
+    assert KNOWN_GAP_ATTACHMENTS_V63 < KNOWN_GAP_ATTACHMENTS
+
+
 def test_safe_by_construction_cases_are_the_counted_sets() -> None:
-    for package in (PACKAGE_V61, PACKAGE_V62):
+    for package in (PACKAGE_V61, PACKAGE_V62, PACKAGE_V63):
         out = survey(package)
         counted = {e["source_set"] for e in out["inventory"] if e["auto_class"] == "guarded-by-own-count-in-when"}
         assert counted == SAFE_BY_CONSTRUCTION

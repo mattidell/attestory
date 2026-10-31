@@ -1,0 +1,397 @@
+{
+  "package_version": "v63",
+  "release_version": "v61",
+  "members": [
+    {
+      "op": "replace",
+      "old": {
+        "id": "tax.us.2025.rule.f1099b-covered-lt-basis-subtotal",
+        "role": "computation",
+        "schema": "rule-artifact.v2",
+        "version": "v1"
+      },
+      "new": {
+        "id": "tax.us.2025.rule.f1099b-covered-lt-basis-subtotal",
+        "role": "computation",
+        "schema": "rule-artifact.v2",
+        "version": "v2"
+      }
+    },
+    {
+      "op": "replace",
+      "old": {
+        "id": "tax.us.2025.rule.f1099b-covered-lt-proceeds-subtotal",
+        "role": "computation",
+        "schema": "rule-artifact.v2",
+        "version": "v1"
+      },
+      "new": {
+        "id": "tax.us.2025.rule.f1099b-covered-lt-proceeds-subtotal",
+        "role": "computation",
+        "schema": "rule-artifact.v2",
+        "version": "v2"
+      }
+    },
+    {
+      "op": "replace",
+      "old": {
+        "id": "tax.us.2025.rule.f1099b-covered-st-basis-subtotal",
+        "role": "computation",
+        "schema": "rule-artifact.v2",
+        "version": "v1"
+      },
+      "new": {
+        "id": "tax.us.2025.rule.f1099b-covered-st-basis-subtotal",
+        "role": "computation",
+        "schema": "rule-artifact.v2",
+        "version": "v2"
+      }
+    },
+    {
+      "op": "replace",
+      "old": {
+        "id": "tax.us.2025.rule.f1099b-covered-st-proceeds-subtotal",
+        "role": "computation",
+        "schema": "rule-artifact.v2",
+        "version": "v1"
+      },
+      "new": {
+        "id": "tax.us.2025.rule.f1099b-covered-st-proceeds-subtotal",
+        "role": "computation",
+        "schema": "rule-artifact.v2",
+        "version": "v2"
+      }
+    },
+    {
+      "op": "replace",
+      "old": {
+        "id": "tax.us.2025.rule.f1099b-covered-w-lt-adjustment-subtotal",
+        "role": "computation",
+        "schema": "rule-artifact.v5",
+        "version": "v2"
+      },
+      "new": {
+        "id": "tax.us.2025.rule.f1099b-covered-w-lt-adjustment-subtotal",
+        "role": "computation",
+        "schema": "rule-artifact.v5",
+        "version": "v3"
+      }
+    },
+    {
+      "op": "replace",
+      "old": {
+        "id": "tax.us.2025.rule.f1099b-covered-w-lt-basis-subtotal",
+        "role": "computation",
+        "schema": "rule-artifact.v5",
+        "version": "v2"
+      },
+      "new": {
+        "id": "tax.us.2025.rule.f1099b-covered-w-lt-basis-subtotal",
+        "role": "computation",
+        "schema": "rule-artifact.v5",
+        "version": "v3"
+      }
+    },
+    {
+      "op": "replace",
+      "old": {
+        "id": "tax.us.2025.rule.f1099b-covered-w-lt-proceeds-subtotal",
+        "role": "computation",
+        "schema": "rule-artifact.v5",
+        "version": "v2"
+      },
+      "new": {
+        "id": "tax.us.2025.rule.f1099b-covered-w-lt-proceeds-subtotal",
+        "role": "computation",
+        "schema": "rule-artifact.v5",
+        "version": "v3"
+      }
+    },
+    {
+      "op": "replace",
+      "old": {
+        "id": "tax.us.2025.rule.f1099b-covered-w-st-adjustment-subtotal",
+        "role": "computation",
+        "schema": "rule-artifact.v5",
+        "version": "v2"
+      },
+      "new": {
+        "id": "tax.us.2025.rule.f1099b-covered-w-st-adjustment-subtotal",
+        "role": "computation",
+        "schema": "rule-artifact.v5",
+        "version": "v3"
+      }
+    },
+    {
+      "op": "replace",
+      "old": {
+        "id": "tax.us.2025.rule.f1099b-covered-w-st-basis-subtotal",
+        "role": "computation",
+        "schema": "rule-artifact.v5",
+        "version": "v2"
+      },
+      "new": {
+        "id": "tax.us.2025.rule.f1099b-covered-w-st-basis-subtotal",
+        "role": "computation",
+        "schema": "rule-artifact.v5",
+        "version": "v3"
+      }
+    },
+    {
+      "op": "replace",
+      "old": {
+        "id": "tax.us.2025.rule.f1099b-covered-w-st-proceeds-subtotal",
+        "role": "computation",
+        "schema": "rule-artifact.v5",
+        "version": "v2"
+      },
+      "new": {
+        "id": "tax.us.2025.rule.f1099b-covered-w-st-proceeds-subtotal",
+        "role": "computation",
+        "schema": "rule-artifact.v5",
+        "version": "v3"
+      }
+    },
+    {
+      "op": "replace",
+      "old": {
+        "id": "tax.us.2025.rule.f1099g-1-subtotal",
+        "role": "computation",
+        "schema": "rule-artifact.v3",
+        "version": "v1"
+      },
+      "new": {
+        "id": "tax.us.2025.rule.f1099g-1-subtotal",
+        "role": "computation",
+        "schema": "rule-artifact.v3",
+        "version": "v2"
+      }
+    },
+    {
+      "op": "replace",
+      "old": {
+        "id": "tax.us.2025.rule.scheduleb-adjustment.nominee-subtotal",
+        "role": "computation",
+        "schema": "rule-artifact.v3",
+        "version": "v1"
+      },
+      "new": {
+        "id": "tax.us.2025.rule.scheduleb-adjustment.nominee-subtotal",
+        "role": "computation",
+        "schema": "rule-artifact.v3",
+        "version": "v2"
+      }
+    },
+    {
+      "op": "replace",
+      "old": {
+        "id": "tax.us.2025.rule.scheduleb-adjustment.abp-adjustment-subtotal",
+        "role": "computation",
+        "schema": "rule-artifact.v3",
+        "version": "v1"
+      },
+      "new": {
+        "id": "tax.us.2025.rule.scheduleb-adjustment.abp-adjustment-subtotal",
+        "role": "computation",
+        "schema": "rule-artifact.v3",
+        "version": "v2"
+      }
+    },
+    {
+      "op": "replace",
+      "old": {
+        "id": "tax.us.2025.rule.f1099int-b1-subtotal",
+        "role": "computation",
+        "schema": "rule-artifact.v2",
+        "version": "v1"
+      },
+      "new": {
+        "id": "tax.us.2025.rule.f1099int-b1-subtotal",
+        "role": "computation",
+        "schema": "rule-artifact.v2",
+        "version": "v2"
+      }
+    },
+    {
+      "op": "replace",
+      "old": {
+        "id": "tax.us.2025.rule.f1099int-b3-subtotal",
+        "role": "computation",
+        "schema": "rule-artifact.v2",
+        "version": "v1"
+      },
+      "new": {
+        "id": "tax.us.2025.rule.f1099int-b3-subtotal",
+        "role": "computation",
+        "schema": "rule-artifact.v2",
+        "version": "v2"
+      }
+    },
+    {
+      "op": "replace",
+      "old": {
+        "id": "tax.us.2025.rule.f1099int-b10-subtotal",
+        "role": "computation",
+        "schema": "rule-artifact.v3",
+        "version": "v1"
+      },
+      "new": {
+        "id": "tax.us.2025.rule.f1099int-b10-subtotal",
+        "role": "computation",
+        "schema": "rule-artifact.v3",
+        "version": "v2"
+      }
+    },
+    {
+      "op": "replace",
+      "old": {
+        "id": "tax.us.2025.rule.f1099oid-subtotal",
+        "role": "computation",
+        "schema": "rule-artifact.v2",
+        "version": "v1"
+      },
+      "new": {
+        "id": "tax.us.2025.rule.f1099oid-subtotal",
+        "role": "computation",
+        "schema": "rule-artifact.v2",
+        "version": "v2"
+      }
+    },
+    {
+      "op": "replace",
+      "old": {
+        "id": "tax.us.2025.rule.f1099oid-b5-subtotal",
+        "role": "computation",
+        "schema": "rule-artifact.v3",
+        "version": "v1"
+      },
+      "new": {
+        "id": "tax.us.2025.rule.f1099oid-b5-subtotal",
+        "role": "computation",
+        "schema": "rule-artifact.v3",
+        "version": "v2"
+      }
+    },
+    {
+      "op": "replace",
+      "old": {
+        "id": "tax.us.2025.rule.form1065-k1-box5-subtotal",
+        "role": "computation",
+        "schema": "rule-artifact.v3",
+        "version": "v1"
+      },
+      "new": {
+        "id": "tax.us.2025.rule.form1065-k1-box5-subtotal",
+        "role": "computation",
+        "schema": "rule-artifact.v3",
+        "version": "v2"
+      }
+    },
+    {
+      "op": "replace",
+      "old": {
+        "id": "tax.us.2025.rule.non-form-interest-subtotal",
+        "role": "computation",
+        "schema": "rule-artifact.v2",
+        "version": "v1"
+      },
+      "new": {
+        "id": "tax.us.2025.rule.non-form-interest-subtotal",
+        "role": "computation",
+        "schema": "rule-artifact.v2",
+        "version": "v2"
+      }
+    }
+  ],
+  "registry_sort": "id_version",
+  "registry_tail": [
+    [
+      "tax.us.2025.rule.odc-child.counts",
+      "v2"
+    ]
+  ],
+  "registry_new_key_order": [
+    "checksum",
+    "id",
+    "version"
+  ],
+  "entrypoints": [
+    {
+      "op": "replace",
+      "old": {
+        "id": "tax.us.2025.rule.f1099b-covered-w-lt-adjustment-subtotal",
+        "version": "v2"
+      },
+      "new": {
+        "id": "tax.us.2025.rule.f1099b-covered-w-lt-adjustment-subtotal",
+        "version": "v3"
+      }
+    },
+    {
+      "op": "replace",
+      "old": {
+        "id": "tax.us.2025.rule.f1099b-covered-w-lt-basis-subtotal",
+        "version": "v2"
+      },
+      "new": {
+        "id": "tax.us.2025.rule.f1099b-covered-w-lt-basis-subtotal",
+        "version": "v3"
+      }
+    },
+    {
+      "op": "replace",
+      "old": {
+        "id": "tax.us.2025.rule.f1099b-covered-w-lt-proceeds-subtotal",
+        "version": "v2"
+      },
+      "new": {
+        "id": "tax.us.2025.rule.f1099b-covered-w-lt-proceeds-subtotal",
+        "version": "v3"
+      }
+    },
+    {
+      "op": "replace",
+      "old": {
+        "id": "tax.us.2025.rule.f1099b-covered-w-st-adjustment-subtotal",
+        "version": "v2"
+      },
+      "new": {
+        "id": "tax.us.2025.rule.f1099b-covered-w-st-adjustment-subtotal",
+        "version": "v3"
+      }
+    },
+    {
+      "op": "replace",
+      "old": {
+        "id": "tax.us.2025.rule.f1099b-covered-w-st-basis-subtotal",
+        "version": "v2"
+      },
+      "new": {
+        "id": "tax.us.2025.rule.f1099b-covered-w-st-basis-subtotal",
+        "version": "v3"
+      }
+    },
+    {
+      "op": "replace",
+      "old": {
+        "id": "tax.us.2025.rule.f1099b-covered-w-st-proceeds-subtotal",
+        "version": "v2"
+      },
+      "new": {
+        "id": "tax.us.2025.rule.f1099b-covered-w-st-proceeds-subtotal",
+        "version": "v3"
+      }
+    },
+    {
+      "op": "replace",
+      "old": {
+        "id": "tax.us.2025.rule.f1099g-1-subtotal",
+        "version": "v1"
+      },
+      "new": {
+        "id": "tax.us.2025.rule.f1099g-1-subtotal",
+        "version": "v2"
+      }
+    }
+  ]
+}
