@@ -1,0 +1,23 @@
+{
+  "admission": {
+    "condition": "current-literal-true"
+  },
+  "admits_symbol": "tax.us.2025.interest.form1065-k1-box5-subtotal",
+  "closure_fact_type": {
+    "id": "tax.us.2025.form1065-k1.box5.source-closure",
+    "version": "v1"
+  },
+  "closure_horizon_key": "family-horizon",
+  "closure_question": "Have you recorded every interest income amount in box 5 of every Schedule K-1 (Form 1065) you or your spouse received for 2025?",
+  "family": {
+    "id": "tax.us.2025.form1065-k1.box5",
+    "version": "v1"
+  },
+  "id": "tax.us.2025.closure-mapping.form1065-k1-box5",
+  "member_fact_type": {
+    "id": "tax.us.2025.form1065-k1.box5-interest",
+    "version": "v1"
+  },
+  "schema": "source-closure-mapping.v3",
+  "version": "v2"
+}

@@ -20,6 +20,7 @@ from pathlib import Path
 from typing import Any
 
 from packages.derivation.loader import DERIVATION_SCHEMA_DIR
+from packages.derivation.package_validation import CLOSURE_MAPPING_SCHEMAS
 from packages.derivation.source_authority import validate_mapping_against_family
 from packages.kernel.schema_registry import (
     KERNEL_SCHEMA_DIR,
@@ -254,6 +255,9 @@ def domain_package_companion_declarations() -> dict[tuple[str, str], dict[str, A
         # Core v68 changes where interest rounds (interest-cents) and asks no new
         # question, so it shares v67's declaration.
         ("tax.us.2025.package.core-calculations", "v68"): gambling,
+        # Core v69 only declares the question each closure asks and asks no new
+        # question itself, so it shares v68's declaration.
+        ("tax.us.2025.package.core-calculations", "v69"): gambling,
     }
 
 
@@ -623,10 +627,10 @@ def load_closure_mappings(
     for path in sorted(TAX_CONTENT_DIR.glob("closure-mapping.*.json")):
         citizen: dict[str, Any] = json.loads(path.read_text("utf-8"))
         declared = reg.validate_declared(citizen)
-        if declared not in {"source-closure-mapping.v1", "source-closure-mapping.v2"}:
+        if declared not in {"source-closure-mapping.v1"} | CLOSURE_MAPPING_SCHEMAS:
             raise SchemaValidationError(
                 "source-closure-mapping.v2",
-                [f"{path.name} declares {declared}, not source-closure-mapping.v1 or source-closure-mapping.v2"],
+                [f"{path.name} declares {declared}, not source-closure-mapping.v1, v2 or v3"],
             )
         family = families.get(citizen["family"]["id"])
         if family is not None and family["version"] != citizen["family"]["version"]:

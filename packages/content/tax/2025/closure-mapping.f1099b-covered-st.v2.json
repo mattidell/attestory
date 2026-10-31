@@ -1,0 +1,23 @@
+{
+  "admission": {
+    "condition": "current-literal-true"
+  },
+  "admits_symbol": "tax.us.2025.f1099b.covered-st-subtotal",
+  "closure_fact_type": {
+    "id": "tax.us.2025.f1099b.covered-st.source-closure",
+    "version": "v1"
+  },
+  "closure_horizon_key": "family-horizon",
+  "closure_question": "Have you recorded every covered short-term sale (a sale of an investment you held a year or less, with your cost basis reported to the IRS) on every Form 1099-B you or your spouse received for 2025?",
+  "family": {
+    "id": "tax.us.2025.f1099b.covered-st",
+    "version": "v1"
+  },
+  "id": "tax.us.2025.closure-mapping.f1099b-covered-st",
+  "member_fact_type": {
+    "id": "tax.us.2025.f1099b.covered-st-txn",
+    "version": "v1"
+  },
+  "schema": "source-closure-mapping.v3",
+  "version": "v2"
+}

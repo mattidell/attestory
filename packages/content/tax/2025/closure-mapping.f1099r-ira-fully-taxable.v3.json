@@ -1,0 +1,23 @@
+{
+  "admission": {
+    "condition": "current-literal-true"
+  },
+  "admits_symbol": "tax.us.2025.ira.distributions.line4b",
+  "closure_fact_type": {
+    "id": "tax.us.2025.f1099r.ira-fully-taxable.source-closure",
+    "version": "v1"
+  },
+  "closure_horizon_key": "family-horizon",
+  "closure_question": "Have you recorded every Form 1099-R you or your spouse received for 2025 that reports a fully taxable IRA, SEP or SIMPLE distribution (the IRA/SEP/SIMPLE box checked and distribution code 7 in box 7)?",
+  "family": {
+    "id": "tax.us.2025.f1099r.ira-fully-taxable",
+    "version": "v2"
+  },
+  "id": "tax.us.2025.closure-mapping.f1099r-ira-fully-taxable",
+  "member_fact_type": {
+    "id": "tax.us.2025.f1099r.ira-box1-taxable-distribution",
+    "version": "v1"
+  },
+  "schema": "source-closure-mapping.v3",
+  "version": "v3"
+}

@@ -1,0 +1,23 @@
+{
+  "admission": {
+    "condition": "current-literal-true"
+  },
+  "admits_symbol": "tax.us.2025.ssa1099.b6-withholding-subtotal",
+  "closure_fact_type": {
+    "id": "tax.us.2025.ssa1099.b6.source-closure",
+    "version": "v1"
+  },
+  "closure_horizon_key": "family-horizon",
+  "closure_question": "Have you recorded every voluntary federal income tax withheld amount in box 6 of every Form SSA-1099 you or your spouse received for 2025?",
+  "family": {
+    "id": "tax.us.2025.ssa1099.b6",
+    "version": "v1"
+  },
+  "id": "tax.us.2025.closure-mapping.ssa1099-b6",
+  "member_fact_type": {
+    "id": "tax.us.2025.ssa1099.box6-voluntary-withholding",
+    "version": "v1"
+  },
+  "schema": "source-closure-mapping.v3",
+  "version": "v2"
+}

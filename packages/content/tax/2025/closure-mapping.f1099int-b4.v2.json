@@ -1,0 +1,23 @@
+{
+  "admission": {
+    "condition": "current-literal-true"
+  },
+  "admits_symbol": "tax.us.2025.interest.b4-withholding-subtotal",
+  "closure_fact_type": {
+    "id": "tax.us.2025.f1099int.b4.source-closure",
+    "version": "v1"
+  },
+  "closure_horizon_key": "family-horizon",
+  "closure_question": "Have you recorded every federal income tax withheld amount in box 4 of every Form 1099-INT you or your spouse received for 2025?",
+  "family": {
+    "id": "tax.us.2025.f1099int.b4",
+    "version": "v1"
+  },
+  "id": "tax.us.2025.closure-mapping.f1099int-b4",
+  "member_fact_type": {
+    "id": "tax.us.2025.f1099int.box4-withholding",
+    "version": "v1"
+  },
+  "schema": "source-closure-mapping.v3",
+  "version": "v2"
+}

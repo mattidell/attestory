@@ -1,0 +1,23 @@
+{
+  "admission": {
+    "condition": "current-literal-true"
+  },
+  "admits_symbol": "tax.us.2025.gambling.b4-withholding-subtotal",
+  "closure_fact_type": {
+    "id": "tax.us.2025.w2g.b4.source-closure",
+    "version": "v1"
+  },
+  "closure_horizon_key": "family-horizon",
+  "closure_question": "Have you recorded every federal income tax withheld amount in box 4 of every Form W-2G you or your spouse received for 2025?",
+  "family": {
+    "id": "tax.us.2025.w2g.b4",
+    "version": "v1"
+  },
+  "id": "tax.us.2025.closure-mapping.w2g-b4",
+  "member_fact_type": {
+    "id": "tax.us.2025.w2g.box4-withholding",
+    "version": "v1"
+  },
+  "schema": "source-closure-mapping.v3",
+  "version": "v2"
+}
