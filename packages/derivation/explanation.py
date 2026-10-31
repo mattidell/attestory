@@ -431,7 +431,7 @@ def validate_npe(walk: dict[str, Any]) -> None:
             raise ValueError("invalid NPE node")
         if node.get("node_kind") == "published":
             target = node.get("explanation_root")
-            if target not in graph["nodes"] or graph["nodes"][target]["id"] != node.get("finding_id"):
+            if target not in graph["nodes"] or graph["nodes"][target]["kind"] != "derived" or graph["nodes"][target]["id"] != node.get("finding_id"):
                 raise ValueError("invalid NPE finding reference")
         active.add(key)
         for child in node.get("children", []):

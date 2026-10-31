@@ -4994,7 +4994,7 @@ def validate_presentation_model(model: Mapping[str, Any]) -> None:
                 if not isinstance(entry, dict) or not {"symbol", "records", "children"} <= set(entry) or set(entry) - {"symbol", "records", "children", "findingRoot"} or entry.get("symbol") != key or not isinstance(entry.get("children"), list) or not isinstance(entry["records"], list) or not all(isinstance(row, dict) for row in entry["records"]):
                     raise ValueError("invalid disposition node")
                 if "findingRoot" in entry:
-                    if entry["findingRoot"] not in graph["nodes"] or len(entry["records"]) != 1 or entry["records"][0].get("disposition") != "published" or entry["records"][0].get("finding_id") != graph["nodes"][entry["findingRoot"]]["id"]:
+                    if entry["findingRoot"] not in graph["nodes"] or graph["nodes"][entry["findingRoot"]]["kind"] != "derived" or len(entry["records"]) != 1 or entry["records"][0].get("disposition") != "published" or entry["records"][0].get("finding_id") != graph["nodes"][entry["findingRoot"]]["id"]:
                         raise ValueError("invalid disposition predecessor")
                 elif any(row.get("disposition") == "published" for row in entry["records"]):
                     raise ValueError("missing disposition predecessor")

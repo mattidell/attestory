@@ -230,7 +230,8 @@ premise without weakening the requested complete saved dependency walk.
 - Before-fix provenance controls exposed wrong-kind target substitutions and
   fabricated bare-reference payloads. Graph validation, actual saved loading,
   and published/blocked browser traversal now refuse those mutations while
-  retaining legitimate unknown references and same-ID kinds.
+  retaining legitimate unknown references and same-ID kinds. The malformed
+  historical shared v2 presentation remains byte-identical and is now refused.
 - The bounded browser unit below preserves ordinary/recovery assertions while
   reducing repeated launches and coordinating startup. Its focused integrated
   checks passed, including the subsequent diagnostic-transport controls;

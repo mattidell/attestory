@@ -98,6 +98,8 @@ class SourceFact:
     # a consumer must treat as fail-closed rather than guessing.
     keys: tuple[tuple[str, str], ...] | None = None
     result_fact_type: tuple[str, str] | None = None
+    # Version of this finding, distinct from its fact type or producing rule.
+    finding_version: str = "v1"
 
 
 @dataclass(frozen=True)
@@ -346,7 +348,27 @@ def _sorted_pins(pins: list[dict[str, Any]]) -> list[dict[str, Any]]:
 class _Run:
     """Mutable per-run state, kept off the frozen public surface."""
 
+    _live_sources: list[SourceFact]
+    source_finding_versions: dict[str, str]
+
+    @property
+    def live_sources(self) -> list[SourceFact]:
+        return self._live_sources
+
+    @live_sources.setter
+    def live_sources(self, sources: list[SourceFact]) -> None:
+        versions = self.source_finding_versions.copy()
+        for fact in sources:
+            if not isinstance(fact.finding_version, str) or not fact.finding_version:
+                raise ValueError("missing source finding version")
+            previous = versions.setdefault(fact.finding_id, fact.finding_version)
+            if previous != fact.finding_version:
+                raise ValueError("conflicting source finding versions")
+        self.source_finding_versions = versions
+        self._live_sources = sources
+
     def __init__(self, ctx: RunContext, schemas: DerivationSchemas) -> None:
+        self.source_finding_versions = {}
         self.ctx = ctx
         self.schemas = schemas
         # Single dispatch: the admitted family set is computed here from
@@ -432,7 +454,7 @@ class _Run:
         # findings become collectable sources for later rules in this same
         # saturation (Seam 2 → 3 → 5). Isolation tests that pre-marshal
         # pairing findings keep them here from the start.
-        self.live_sources: list[SourceFact] = list(ctx.sources)
+        self.live_sources = list(ctx.sources)
 
         if self.use_v2:
             for binding in ctx.input_bindings:
@@ -497,6 +519,11 @@ class _Run:
         # value can never manufacture a false collision.
         self.source_fact_ids: dict[str, list[str]] = {}
         for fact in ctx.sources:
+            if not isinstance(fact.finding_version, str) or not fact.finding_version:
+                raise ValueError("missing source finding version")
+            existing_version = self.source_finding_versions.setdefault(fact.finding_id, fact.finding_version)
+            if existing_version != fact.finding_version:
+                raise ValueError("conflicting source finding versions")
             self.sources.setdefault(fact.name, []).append(fact.value)
             self.source_fids.setdefault(fact.name, []).append(fact.finding_id)
             self.source_fact_ids.setdefault(fact.name, []).append(
@@ -512,6 +539,12 @@ class _Run:
         self.dispositions: list[dict[str, Any]] = []
         self.blocked: list[dict[str, Any]] = []
         self.symbol_publisher: dict[str, dict[str, Any]] = {}
+
+    def source_finding_version(self, finding_id: str) -> str:
+        version = self.source_finding_versions.get(finding_id)
+        if version is None:
+            raise ValueError("missing source finding version")
+        return version
 
     def env(self) -> Environment:
         return Environment(
@@ -562,7 +595,7 @@ class _Run:
             fids = self.source_fids.get(name, [])
             fact_ids = self.source_fact_ids.get(name, [])
             for index, fid in enumerate(fids):
-                pin = {"role": "input", "id": fid, "version": "v1"}
+                pin = {"role": "input", "id": fid, "version": self.source_finding_version(fid)}
                 if self.use_v2:
                     pin["origin"] = "assertion"
                 pins.append(pin)
@@ -601,7 +634,7 @@ class _Run:
                         c_pin = {
                             "role": "input",
                             "id": companion_fids[c_index],
-                            "version": "v1",
+                            "version": self.source_finding_version(companion_fids[c_index]),
                         }
                         if self.use_v2:
                             c_pin["origin"] = "assertion"
@@ -1021,7 +1054,7 @@ class _Run:
             if kind == "source_nonempty":
                 for member in members:
                     for finding_id in self.current_source_fids.get(member, []):
-                        pins.append({"role": "input", "id": finding_id, "version": "v1", "origin": "assertion"})
+                        pins.append({"role": "input", "id": finding_id, "version": self.source_finding_version(finding_id), "origin": "assertion"})
             elif kind == "derived_activity":
                 for member in members:
                     for finding in enumerate_published_findings(self.publications, member):
@@ -1640,7 +1673,7 @@ class _Run:
                     if violations:
                         codes.extend(sorted({v.block_code for v in violations}))
 
-            member_pin = {"role": "input", "id": fid, "version": "v1"}
+            member_pin = {"role": "input", "id": fid, "version": self.source_finding_version(fid)}
             if self.use_v2:
                 member_pin["origin"] = "assertion"
             member_pins = _sorted_pins(
@@ -1649,7 +1682,7 @@ class _Run:
             member_value_out = {"member_fact_id": fact_id, "violations": violations_value}
             member_body = {
                 "member_fact_id": fact_id,
-                "member_value_pin": {"id": fid, "version": "v1"},
+                "member_value_pin": {"id": fid, "version": self.source_finding_version(fid)},
                 "declaration": {"id": declaration["id"], "version": declaration["version"]},
                 "violations": violations_value,
             }
@@ -1841,7 +1874,7 @@ class _Run:
             fids = self.source_fids.get(fact_name, [])
             rows = [{"finding_id": fid, "value": val} for val, fid in zip(values, fids)]
             pins = [
-                {"role": "input", "id": fid, "version": "v1",
+                {"role": "input", "id": fid, "version": self.source_finding_version(fid),
                  **({"origin": "assertion"} if self.use_v2 else {})}
                 for fid in fids
             ]
@@ -2133,7 +2166,7 @@ class _Run:
                         f"{part['part_id']}:{rows_spec['source_family']['id']}:{subtotal_symbol}"
                     )
                 part_sum += row_sum
-                row_pins.extend({"role": "input", "id": fid, "version": "v1",
+                row_pins.extend({"role": "input", "id": fid, "version": self.source_finding_version(fid),
                                   **({"origin": "assertion"} if self.use_v2 else {})}
                                  for fid in fids)
             adjustment_rows_value: list[dict[str, Any]] = []
@@ -2538,6 +2571,7 @@ class _Run:
         fact_id: str | None,
         keys: tuple[tuple[str, str], ...] | None = None,
         result_fact_type: tuple[str, str] | None = None,
+        finding_version: str = "v1",
     ) -> None:
         # Keys are supplied by the caller or omitted. The rendered symbol is
         # not parsed for them. Per-subject dispatch passes the subject
@@ -2546,6 +2580,11 @@ class _Run:
         # identity from an unkeyed source must refuse it rather than parse
         # the suffix (packages/tax/nominee_consequences._validated_keys).
         encoded = self._encode_source_value(value)
+        if not isinstance(finding_version, str) or not finding_version:
+            raise ValueError("missing source finding version")
+        previous = self.source_finding_versions.setdefault(finding_id, finding_version)
+        if previous != finding_version:
+            raise ValueError("conflicting source finding versions")
         self.live_sources.append(
             SourceFact(
                 name=name,
@@ -2554,6 +2593,7 @@ class _Run:
                 fact_id=fact_id,
                 keys=keys,
                 result_fact_type=result_fact_type or self.symbol_result_fact_types.get(name),
+                finding_version=finding_version,
             )
         )
         self.sources.setdefault(name, []).append(encoded)
@@ -2578,6 +2618,7 @@ class _Run:
             fact_id=source_fact_id or finding["id"],
             keys=keys,
             result_fact_type=result_fact_type or self.symbol_result_fact_types.get(symbol),
+            finding_version=finding["version"],
         )
 
     def _record_derived_publication(
@@ -2621,6 +2662,7 @@ class _Run:
                 value=finding["value"],
                 finding_id=finding["id"],
                 fact_id=finding["id"],
+                finding_version=finding["version"],
             )
         for refusal in result.refusals:
             self.blocked.append({
@@ -2678,6 +2720,7 @@ class _Run:
             value=value,
             finding_id=finding["id"],
             fact_id=source_fact_id,
+            finding_version=finding["version"],
         )
         self.resolved.add(rule_id)
         return finding

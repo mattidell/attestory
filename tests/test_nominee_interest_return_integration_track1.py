@@ -557,6 +557,12 @@ class CoherentReturnIntegration(unittest.TestCase):
             Decimal(str(cast(dict[str, Any], _publication(i1_result, LINE2B_SYMBOL))["value"])),
             Decimal("750"),
         )
+        subtotal = cast(dict[str, Any], _publication(i1_result, DERIVED_SUBTOTAL))
+        reductions = _publications_with_prefix(i1_result, NOMINEE_PUBLISHES + "|")
+        self.assertTrue(reductions)
+        for reduction in reductions:
+            self.assertEqual(reduction["version"], "v2")
+            self.assertIn((reduction["id"], "v2"), {(p["id"], p["version"]) for p in subtotal["pins"] if p["role"] == "input"})
         schedule_b = cast(dict[str, Any], _publication(i1_result, SCHEDULE_B_SYMBOL))
         self.assertTrue(schedule_b["value"]["required"])
         part = schedule_b["value"]["itemizations"][0]

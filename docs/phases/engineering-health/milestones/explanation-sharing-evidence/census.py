@@ -88,7 +88,7 @@ def v58():
     from packages.derivation.presentation_projection import project_presentation_v1
     for label, acts, run in [('parent',t._acts_single_parent_wins,t.RUN_PARENT_WINS),('grandparent',t._acts_single_grandparent_loses,t.RUN_GRANDPARENT_LOSES)]:
         model, pubs = t._present(acts(),run)
-        golden = t._load_golden(t.PARENT_WINS_GOLDEN if label=='parent' else t.GRANDPARENT_LOSES_GOLDEN)
+        golden = t._load_golden(t.PARENT_WINS_EXACT if label=='parent' else t.GRANDPARENT_LOSES_EXACT)
         assert project_presentation_v1(model) == golden
         root = explain(str(pubs[t.LINE27A]['id']),role='output',derived=index_derived(list(pubs.values())))
         n, ids, edges, size = metrics(root)

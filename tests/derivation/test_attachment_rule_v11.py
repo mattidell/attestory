@@ -125,6 +125,7 @@ def _fake_run(*, legacy: bool = False, derived: bool = False, accrued: bool = Fa
     if accrued:
         finding = {"schema": "derived-finding.v2", "id": "finding:derived:accrued", "symbol": "demo.interest.current-year-adjustment.pairing-scoped|report=demo", "value": "100", "version": "v2", "pins": []}
         run.publications.append(Publication(act={"run_id": run.ctx.run_id, "finding": finding}, finding=finding))
+    run.source_finding_versions = {fid: "v1" for ids in run.source_fids.values() for fid in ids}
     run.dispositions = []
     run.blocked = []
     run.resolved = set()

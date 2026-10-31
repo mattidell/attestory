@@ -66,6 +66,8 @@ JOINT_GOLDEN = (
     PRESENTATION
     / "joint-three-children-one-qualifies.presentation-model.v1.json"
 )
+HOH_EXACT = HOH_GOLDEN.with_name(HOH_GOLDEN.name.replace(".presentation-model.v1.json", ".exact-pins.presentation-model.v1.json"))
+JOINT_EXACT = JOINT_GOLDEN.with_name(JOINT_GOLDEN.name.replace(".presentation-model.v1.json", ".exact-pins.presentation-model.v1.json"))
 RUN_HOH = "demo.eic.presentation.hoh-two-children-refund"
 RUN_JOINT = "demo.eic.presentation.joint-three-children-one-qualifies"
 
@@ -216,7 +218,7 @@ def _assert_no_machine_path(model: dict[str, Any]) -> None:
 class EicQualifyingChildrenPresentationTests(unittest.TestCase):
     def test_hoh_two_children_presentation_golden(self) -> None:
         model, _pubs = _present(_acts_hoh_two_children(), RUN_HOH, SURFACE_V54)
-        golden = _load_golden(HOH_GOLDEN)
+        golden = _load_golden(HOH_EXACT)
         self.assertEqual(project_presentation_v1(model), golden)
         # Hand-checked against the 2025 EIC Table:
         # Row: At least 15,000, But less than 15,050
@@ -253,7 +255,7 @@ class EicQualifyingChildrenPresentationTests(unittest.TestCase):
             RUN_JOINT,
             SURFACE_V54,
         )
-        golden = _load_golden(JOINT_GOLDEN)
+        golden = _load_golden(JOINT_EXACT)
         self.assertEqual(project_presentation_v1(model), golden)
         # Hand-checked against the 2025 EIC Table:
         # Row: At least 35,000, But less than 35,050

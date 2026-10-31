@@ -13,6 +13,10 @@ uses. Producer references need their own identity, separate from findings.
 Matching an ID is insufficient: saved loaders and browser traversal must keep
 that kind distinction and the absence of a bare reference value.
 
+## What the evidence changed
+
+Strict graph checks exposed finding versions lost during collect and subject publication, requiring exact producer pins and derived roots while preserving malformed historical saves as explicit refusal evidence.
+
 ## What it cost
 
 One integrated build connected the walker, NPE, CLI, saved projection and

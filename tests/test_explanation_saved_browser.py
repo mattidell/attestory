@@ -15,7 +15,8 @@ from packages.derivation.presentation_projection import PresentationModelError, 
 from tests.test_sli_line21_explanation_page import BROWSER
 
 ROOT = Path(__file__).resolve().parents[1]
-SAMPLE = ROOT / 'packages/sample_data/derivation/explanation_sharing/presentation-model.v2.json'
+HISTORICAL_SAMPLE = ROOT / 'packages/sample_data/derivation/explanation_sharing/presentation-model.v2.json'
+SAMPLE = ROOT / 'packages/sample_data/derivation/explanation_sharing/presentation-model.exact-pins.v2.json'
 PAGE = ROOT / 'packages/presentation/pages/citation-walk.v1.html'
 
 
@@ -238,3 +239,10 @@ def test_blocked_provenance_mutation_refused(mutation: str, tmp_path: Path) -> N
     assert bad is not None
     _assert_browser_refusal(bad, 'line-15', tmp_path)
     _assert_rejected_by_saved_loader(bad, tmp_path)
+
+
+def test_historical_mismatched_v2_is_unchanged_and_refused() -> None:
+    import hashlib
+    assert hashlib.sha256(HISTORICAL_SAMPLE.read_bytes()).hexdigest() == 'cdeab129beca7a5c7e347249c3116e8e5b8d38991529d4f13b68809f430163ca'
+    with pytest.raises(PresentationModelError, match='invalid shared explanation'):
+        validate_presentation_model(json.loads(HISTORICAL_SAMPLE.read_text()))

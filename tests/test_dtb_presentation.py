@@ -70,6 +70,9 @@ from tests.test_other_dependents_credit_presentation import (
 PRESENTATION = ROOT / "packages" / "sample_data" / "dependent_tie_breaker" / "presentation"
 PARENT_WINS_GOLDEN = PRESENTATION / "single-parent-wins-contested-child.presentation-model.v1.json"
 GRANDPARENT_LOSES_GOLDEN = PRESENTATION / "single-grandparent-loses-child-to-parent.presentation-model.v1.json"
+PARENT_WINS_EXACT = PRESENTATION / "single-parent-wins-contested-child.exact-pins.presentation-model.v1.json"
+GRANDPARENT_LOSES_EXACT = PRESENTATION / "single-grandparent-loses-child-to-parent.exact-pins.presentation-model.v1.json"
+ODC_V56_MFJ_EXACT = ODC_V56_MFJ_GOLDEN.with_name(ODC_V56_MFJ_GOLDEN.name.replace(".presentation-model.v1.json", ".exact-pins.presentation-model.v1.json"))
 RUN_PARENT_WINS = "demo.dtb.presentation.single-parent-wins-contested-child"
 RUN_GRANDPARENT_LOSES = "demo.dtb.presentation.single-grandparent-loses-child-to-parent"
 
@@ -192,7 +195,7 @@ def _numeric(model: dict[str, Any], section_id: str) -> Any:
 class DependentTieBreakerPresentationTests(unittest.TestCase):
     def test_single_parent_wins_golden_regenerates_and_matches(self) -> None:
         model, _ = _present(_acts_single_parent_wins(), RUN_PARENT_WINS)
-        self.assertEqual(project_presentation_v1(model), _load_golden(PARENT_WINS_GOLDEN))
+        self.assertEqual(project_presentation_v1(model), _load_golden(PARENT_WINS_EXACT))
 
     def test_single_parent_wins_walk_from_line_28_and_pins(self) -> None:
         model, pubs = _present(_acts_single_parent_wins(), RUN_PARENT_WINS)
@@ -239,7 +242,7 @@ class DependentTieBreakerPresentationTests(unittest.TestCase):
 
     def test_single_grandparent_loses_golden_regenerates_and_matches(self) -> None:
         model, _ = _present(_acts_single_grandparent_loses(), RUN_GRANDPARENT_LOSES)
-        self.assertEqual(project_presentation_v1(model), _load_golden(GRANDPARENT_LOSES_GOLDEN))
+        self.assertEqual(project_presentation_v1(model), _load_golden(GRANDPARENT_LOSES_EXACT))
 
     def test_single_grandparent_loses_walk_names_other_will_claim_not_filer_agi_higher(self) -> None:
         model, pubs = _present(_acts_single_grandparent_loses(), RUN_GRANDPARENT_LOSES)
@@ -350,7 +353,7 @@ class DependentTieBreakerPresentationTests(unittest.TestCase):
 
     def test_v56_other_dependents_credit_presentation_reads_as_before(self) -> None:
         model, _ = _odc_v56_present(_odc_v56_acts_mfj(), ODC_V56_RUN_MFJ)
-        self.assertEqual(project_presentation_v1(model), _load_golden(ODC_V56_MFJ_GOLDEN))
+        self.assertEqual(project_presentation_v1(model), _load_golden(ODC_V56_MFJ_EXACT))
 
 
 if __name__ == "__main__":
@@ -359,7 +362,7 @@ if __name__ == "__main__":
 
 def test_v58_graph_preserves_every_recorded_pin_and_producer() -> None:
     model, pubs = _present(_acts_single_parent_wins(), RUN_PARENT_WINS)
-    assert project_presentation_v1(model) == _load_golden(PARENT_WINS_GOLDEN)
+    assert project_presentation_v1(model) == _load_golden(PARENT_WINS_EXACT)
     nodes = model['explanationGraph']['nodes']
     by_id = {str(f['id']): f for f in pubs.values()}
     root = model['sectionRoots']['line-27a']
@@ -386,3 +389,36 @@ def test_v58_graph_preserves_every_recorded_pin_and_producer() -> None:
             pending.append(edge['target'])
     assert len(reached) < 8608
     assert sum(len(nodes[key]['edges']) for key in reached) < 8607
+
+
+def test_historical_golden_bytes_remain_loadable() -> None:
+    import hashlib
+    from packages.derivation.presentation_projection import validate_presentation_model
+    historical = {
+        PARENT_WINS_GOLDEN: "8bef56c2dfe1b2b4ea313b12329cc1038b1a0fab6ea96cf234f72f5cfa8e8444",
+        GRANDPARENT_LOSES_GOLDEN: "7daad7c99a266ccac199c8086c2c1ceb6d8cf105d029f6c30d0a1b6f33f1db63",
+        ODC_V56_MFJ_GOLDEN: "9ee0884e4b36e5058bf4d45d77db8d3acac702697482c9ef2b005bdf7f9c6be7",
+    }
+    for path, expected in historical.items():
+        assert hashlib.sha256(path.read_bytes()).hexdigest() == expected
+        validate_presentation_model(_load_golden(path))
+
+
+def test_exact_pin_companions_preserve_historical_visible_sections() -> None:
+    import hashlib
+    cases = [
+        (PARENT_WINS_GOLDEN, '8bef56c2dfe1b2b4ea313b12329cc1038b1a0fab6ea96cf234f72f5cfa8e8444'),
+        (GRANDPARENT_LOSES_GOLDEN, '7daad7c99a266ccac199c8086c2c1ceb6d8cf105d029f6c30d0a1b6f33f1db63'),
+        (ODC_V56_MFJ_GOLDEN, '9ee0884e4b36e5058bf4d45d77db8d3acac702697482c9ef2b005bdf7f9c6be7'),
+        (ROOT / 'packages/sample_data/other_dependents_credit/presentation/single-qualifying-relative-credit-on-line-19.presentation-model.v1.json', '0db9ff2e025a6f9fb2c4f5fc0524e9e77fb80cb18d2b7488b6adfe64726ad7ff'),
+        (ROOT / 'packages/sample_data/child_tax_credit/presentation/joint-two-children-credit-on-line-19.presentation-model.v1.json', '4a32a0226dc8c9de6c47f4280ff0a31b1cea6e39b53366be83302f48c281ecdb'),
+        (ROOT / 'packages/sample_data/eic_qualifying_children/presentation/hoh-two-children-refund.presentation-model.v1.json', '603d1478ff4efa9ea27b89db238a55bacc38f1001f7f594585d68ef9d9a266cb'),
+        (ROOT / 'packages/sample_data/eic_qualifying_children/presentation/joint-three-children-one-qualifies.presentation-model.v1.json', 'fe6b6fab68b17d36cb7d89fdb7e67db76563a5c611d53725c15db78f4740a0b1'),
+        (ROOT / 'packages/sample_data/child_tax_credit/presentation/hoh-one-child-actc-with-unclaimed-17.presentation-model.v1.json', '044d0650c121a680b1f2a5929a803b6ceacfab23c8aed8db67af3e87df7142fb'),
+    ]
+    def visible(model: dict[str, Any]) -> list[tuple[Any, ...]]:
+        return [(s['id'], s['field'], s['resolved']['disposition'], s['resolved'].get('value'), s['citationSites']) for s in model['sections']]
+    for historical, digest in cases:
+        assert hashlib.sha256(historical.read_bytes()).hexdigest() == digest
+        corrected = historical.with_name(historical.name.replace('.presentation-model.v1.json', '.exact-pins.presentation-model.v1.json'))
+        assert visible(_load_golden(historical)) == visible(_load_golden(corrected))

@@ -47,7 +47,11 @@ class GraphBuilder:
         finding = self.derived.get(identifier) if dependency else None
         meta = self.inputs.get(identifier) if dependency and finding is None else None
         kind = 'derived' if finding is not None else 'input' if meta is not None else 'reference'
-        actual_version = str(finding.get('version', version)) if finding is not None else version
+        actual_version = finding.get('version') if finding is not None else version
+        if not isinstance(actual_version, str) or not actual_version:
+            raise ValueError('missing derived finding version')
+        if finding is not None and actual_version != version:
+            raise ValueError('derived dependency version mismatch')
         key = _key(kind, identifier, actual_version)
         if key in self.active:
             raise ValueError('CYCLIC_DEPENDENCY_ERROR')
@@ -76,7 +80,11 @@ class GraphBuilder:
 
     def add_root(self, identifier: str, *, role: str, authorization: Any = None) -> str:
         finding = self.derived.get(identifier)
-        version = str(finding.get('version', 'v1')) if finding is not None else 'v1'
+        if finding is None:
+            raise ValueError('explanation root is not a derived finding')
+        version = finding.get('version')
+        if not isinstance(version, str) or not version:
+            raise ValueError('missing derived finding version')
         target = self._walk(identifier, version, True)
         root: dict[str, Any] = {'target': target, 'role': role}
         if authorization is not None:
@@ -102,6 +110,9 @@ def validate_graph(graph: Mapping[str, Any]) -> None:
     for root in roots:
         if not isinstance(root, dict) or not {'target', 'role'} <= root.keys() or set(root) - {'target', 'role', 'authorization'} or not isinstance(root['role'], str) or not isinstance(root['target'], str) or root['target'] not in nodes:
             raise ValueError('invalid explanation graph root')
+    for root in roots:
+        if not isinstance(nodes[root["target"]], dict) or nodes[root["target"]].get("kind") != "derived":
+            raise ValueError("invalid explanation graph root finding")
     for key, node in nodes.items():
         if not isinstance(key, str) or not isinstance(node, dict) or set(node) != {'id','version','kind','symbol','value','produced_by','edges'}:
             raise ValueError('invalid explanation graph node')
@@ -115,7 +126,7 @@ def validate_graph(graph: Mapping[str, Any]) -> None:
             if not isinstance(edge, dict) or set(edge) != {'target','pin'} or not isinstance(edge['target'], str) or edge['target'] not in nodes or not isinstance(edge['pin'], dict) or not {'id','role','version'} <= edge['pin'].keys() or not all(isinstance(edge['pin'][field], str) and edge['pin'][field] for field in ('id','role','version')):
                 raise ValueError('invalid explanation graph edge')
             target = nodes[edge['target']]
-            if (edge['pin']['role'] not in DEPENDENCIES and target['kind'] != 'reference') or edge['pin']['id'] != target['id'] or (target['kind'] != 'derived' and edge['pin']['version'] != target['version']):
+            if (edge['pin']['role'] not in DEPENDENCIES and target['kind'] != 'reference') or edge['pin']['id'] != target['id'] or edge['pin']['version'] != target['version']:
                 raise ValueError('explanation graph pin mismatch')
         if node['produced_by'] is not None and not any(edge['pin'] == node['produced_by'] and edge['pin']['role'] in RULES for edge in node['edges']):
             raise ValueError('invalid explanation producer')

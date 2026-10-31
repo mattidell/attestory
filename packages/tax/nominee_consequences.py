@@ -217,7 +217,7 @@ def declared_selection_activity_pins(
                 continue
             for finding_id in getattr(run, "source_fids", {}).get(member_id, ()):
                 if isinstance(finding_id, str):
-                    pins.append(_input_pin(finding_id))
+                    pins.append(_input_pin(finding_id, run.source_finding_version(finding_id)))
         elif kind == "derived_activity":
             fact_pin = activity.get("fact_type")
             fact_type_id = fact_pin.get("id") if isinstance(fact_pin, Mapping) else None
@@ -239,7 +239,7 @@ def declared_selection_activity_pins(
                         or symbol.startswith(fact_type_id + "|")
                     )
                 ):
-                    pins.append(_input_pin(finding_id))
+                    pins.append(_input_pin(finding_id, finding["version"]))
             for row in getattr(run, "dispositions", ()):
                 symbol = row.get("symbol") if isinstance(row, Mapping) else None
                 if not (
@@ -416,8 +416,8 @@ def _group_symbol(report_fact_id: str) -> str:
     return f"{PUBLISHES}|{report_fact_id}"
 
 
-def _input_pin(finding_id: str) -> dict[str, Any]:
-    return {"role": "input", "id": finding_id, "version": "v1", "origin": "assertion"}
+def _input_pin(finding_id: str, finding_version: str) -> dict[str, Any]:
+    return {"role": "input", "id": finding_id, "version": finding_version, "origin": "assertion"}
 
 
 class NomineeCitationError(ValueError):
@@ -526,9 +526,9 @@ def _present_pins(
 ) -> list[dict[str, Any]]:
     pins = list(_shared_pins(run, rule))
     if report is not None:
-        pins.append(_input_pin(report.finding_id))
+        pins.append(_input_pin(report.finding_id, report.finding_version))
     for allocation in allocations:
-        pins.append(_input_pin(allocation.finding_id))
+        pins.append(_input_pin(allocation.finding_id, allocation.finding_version))
     pins.extend(run.dependency_pins_for_access(access))
     return _sorted_pins(pins)
 
@@ -771,7 +771,7 @@ def dispatch_nominee_aggregate_producer_on_run(
         (Decimal(str(finding["value"])) for finding in published), Decimal("0")
     )
     pins = list(_shared_pins(run, rule))
-    pins.extend(_input_pin(str(finding["id"])) for finding in published)
+    pins.extend(_input_pin(str(finding["id"]), finding["version"]) for finding in published)
     run.publish_symbol_finding(
         rule_id=rule["id"],
         symbol=DERIVED_NOMINEE_SYMBOL,
@@ -827,7 +827,7 @@ def dispatch_nominee_aggregate_on_run(run: Any, rule: Mapping[str, Any]) -> str:
         (Decimal(str(finding["value"])) for finding in published), Decimal("0")
     )
     pins = list(_shared_pins(run, rule))
-    pins.extend(_input_pin(str(finding["id"])) for finding in published)
+    pins.extend(_input_pin(str(finding["id"]), finding["version"]) for finding in published)
     run.publish_symbol_finding(
         rule_id=rule["id"],
         symbol=DERIVED_NOMINEE_SYMBOL,
