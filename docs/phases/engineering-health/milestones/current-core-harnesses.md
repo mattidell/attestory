@@ -3,7 +3,7 @@
   "version": 1,
   "phase": "Engineering Health",
   "topic": "current-core-harnesses",
-  "status": "Open. Track 1 builds committed test helpers that make complete current-core returns reaching Form 1040 line 2a, Schedule 8812 line 21 and Schedule 1 line 21 (Form 1098-E), and drives the checks that were structural only.",
+  "status": "Closed. tests/helpers/current_core_returns.py builds complete core v66 returns reaching line 2a, Schedule 8812 line 21 and Schedule 1 line 21; the checks earlier milestones left structural now run live and pass. No product defect found.",
   "scope": [
     "committed, reusable helpers that build complete returns on the latest core reaching line 2a (Form 1099-INT box 8 and Form 1099-DIV box 12), Schedule 8812 line 21 (W-2 boxes 4 and 6), and Schedule 1 line 21 (Form 1098-E student loan interest)",
     "the live checks that recent milestones could only make structurally, now driven on the real coordinator",
@@ -30,10 +30,12 @@
       "docs/phases/engineering-health/milestones/current-core-harnesses.md"
     ],
     "new_milestone": [
+      "docs/milestone-retrospectives/2026-10-31-current-core-harnesses.md",
       "docs/phases/engineering-health/milestones/current-core-harnesses.md",
       "docs/phases/engineering-health/engineering-health-roadmap.md"
     ]
-  }
+  },
+  "retrospective": "docs/milestone-retrospectives/2026-10-31-current-core-harnesses.md"
 }
 -->
 
@@ -79,3 +81,31 @@ structural.
 ## Process
 
 Dispatch to a Sonnet 5.5 Agent sub-agent. Stop means stop.
+
+## Review dispositions
+
+Fresh-reader review: no required findings. Every helper answer is one the
+core asks (clearing any of them fails its test); three hand values
+reproduced from the 2025 instructions and Tax Table; pointing the helpers at
+core v65 (the cents fix undone) fails every line 2a and Form 1098-E live
+check.
+
+1. *An adder failed with the kernel's entity error if called twice*
+   (recommended). Fixed: one call per return, documented, with a clear error.
+2. *`run_current_core` silently withdrew a contradicted declaration*
+   (recommended). Fixed: it raises, naming the declaration, so a helper
+   defect cannot be repaired out of sight.
+3. *Adders change the list passed in* (note). Documented.
+4. *The helper imports private functions from other test modules* (note).
+   Kept; a rename breaks it loudly.
+5. *The Part II-B children carry one specific tie-breaker story* (note). Kept;
+   the answers are ones the core asks.
+
+## Outcome
+
+One test module builds complete returns on the latest core: a base return
+with every closure and answer, and adders for Form 1099-INT box 8, Form
+1099-DIV box 12, Form 1098-E and a three-child Part II-B return. Line 2a,
+Schedule 8812 line 21 and Schedule 1 line 21 now run live with cents (201
+where rounding first gives 200), and the correction session's line 21 view
+shows its rows on v66. No product change.

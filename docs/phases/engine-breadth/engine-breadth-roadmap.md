@@ -531,9 +531,7 @@ delivers an item removes it.
   The Form W-2G itself is not in the local sources.
 - Interest amounts with cents still block the Schedule B Part I tie-out, and
   line 2b rounds each interest subtotal before adding them (see the open
-  question on the line 2b validator table). Lines 2a and Schedule 8812 line
-  21 are checked by rule evaluation only; no current-core harness drives
-  them, nor Form 1098-E student loan interest.
+  question on the line 2b validator table).
 - Form 8332 and decree releases, more than one other claimant and unsettled
   equal-AGI ties (outside the class by answer); asking the tie-breaker only of
   a child some credit can count, which needs derived per-subject results as
