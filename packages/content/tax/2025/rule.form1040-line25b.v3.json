@@ -1,0 +1,133 @@
+{
+  "blocked": {
+    "code": "DEPENDENCY_ABSENT",
+    "missing": [
+      "tax.us.2025.interest.b4-withholding-subtotal",
+      "tax.us.2025.dividends.b4-withholding-subtotal",
+      "tax.us.2025.ira.box4-withholding-subtotal",
+      "tax.us.2025.unemployment.b4-withholding-subtotal",
+      "tax.us.2025.ssa1099.b6-withholding-subtotal",
+      "rounding.convention"
+    ]
+  },
+  "citations": [
+    {
+      "id": "tax.us.2025.citation.form1040.line-25b",
+      "version": "v1"
+    }
+  ],
+  "id": "tax.us.2025.rule.form1040-line25b",
+  "notes": "Form 1040 line 25b: 'Add the amounts shown as federal income tax withheld' on the Form(s) 1099 named in the instructions -- 1099-R box 4, and any 1099 showing withholding on dividends, taxable or tax-exempt interest, unemployment compensation, social security benefits, or other income received, box 4 (i1040gi-2025 l.2559-2576) -- and Form SSA-1099 box 6. Of the documents this engine reads, that is Forms 1099-INT, 1099-DIV, 1099-R box 4, 1099-G box 4 and SSA-1099 box 6; v1 added only the first three. Form 1099-K box 4 stays outside the class: a new source family declaring the already-published tax.us.2025.f1099k.box4-federal-withholding as a member_predicate would retroactively require member-transition for every existing plain-assertion use of that fact (SC-R1), and one family may authorize only one subtotal (ADR-0016); a nonzero 1099-K box 4 is refused by the 1099-K loss-reason rule, never left out silently. Each document's own subtotal rule is pinned and added here, one addend per document, so the explanation walk reaches each one. The 1099-G and SSA-1099 subtotals exist only from core v59 (ADR-0082: earlier packages refuse the amounts this rule would otherwise omit). v3 adds a guard: the rule publishes only when every one of the five source sets above is closed at the current horizon (require_closed, as rule.form1040-line2b v6 does for its subtotals). Why: collect reads closure only when its set is empty; with any member recorded it sums what is present and never asks whether the set is complete, so v2 published a smaller line 25b (and a wrong refund or amount owed) when a family had a recorded amount and an unanswered or stale closure. With the guard, an unclosed family blocks line 25b SOURCE_SET_UNCLOSED, naming the first unclosed family in the order listed, and lines 25d and 33 through 37 wait behind it; lines 24 and 25a are unaffected. Residual, not closed here: a closure attested true over a box 4 or box 6 amount that was never recorded still publishes the smaller sum, because a blank box is a legal 'nothing withheld' and the engine cannot tell the two apart.",
+  "pins": [
+    {
+      "id": "tax.us.2025.rule.f1099int-b4-subtotal",
+      "origin": "assertion",
+      "role": "input",
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.rule.f1099div-b4-subtotal",
+      "origin": "assertion",
+      "role": "input",
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.rule.f1099r-box4-subtotal",
+      "origin": "assertion",
+      "role": "input",
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.rule.f1099g-b4-subtotal",
+      "origin": "assertion",
+      "role": "input",
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.rule.ssa1099-b6-subtotal",
+      "origin": "assertion",
+      "role": "input",
+      "version": "v1"
+    },
+    {
+      "id": "rounding.convention",
+      "origin": "assertion",
+      "role": "input",
+      "version": "v1"
+    }
+  ],
+  "publishes": "tax.us.2025.payments.line25b",
+  "requires": [
+    "tax.us.2025.interest.b4-withholding-subtotal",
+    "tax.us.2025.dividends.b4-withholding-subtotal",
+    "tax.us.2025.ira.box4-withholding-subtotal",
+    "tax.us.2025.unemployment.b4-withholding-subtotal",
+    "tax.us.2025.ssa1099.b6-withholding-subtotal",
+    "rounding.convention"
+  ],
+  "role": "computation",
+  "schema": "rule-artifact.v3",
+  "scope": {
+    "family": "individual-income-tax",
+    "jurisdiction": "US-federal",
+    "tax_year": 2025
+  },
+  "value": {
+    "mode": {
+      "name": "rounding.convention",
+      "op": "ref"
+    },
+    "op": "round",
+    "value": {
+      "args": [
+        {
+          "name": "tax.us.2025.interest.b4-withholding-subtotal",
+          "op": "ref"
+        },
+        {
+          "name": "tax.us.2025.dividends.b4-withholding-subtotal",
+          "op": "ref"
+        },
+        {
+          "name": "tax.us.2025.ira.box4-withholding-subtotal",
+          "op": "ref"
+        },
+        {
+          "name": "tax.us.2025.unemployment.b4-withholding-subtotal",
+          "op": "ref"
+        },
+        {
+          "name": "tax.us.2025.ssa1099.b6-withholding-subtotal",
+          "op": "ref"
+        }
+      ],
+      "op": "add"
+    }
+  },
+  "version": "v3",
+  "when": {
+    "args": [
+      {
+        "op": "require_closed",
+        "source_set": "tax.us.2025.f1099int.b4"
+      },
+      {
+        "op": "require_closed",
+        "source_set": "tax.us.2025.f1099div.b4"
+      },
+      {
+        "op": "require_closed",
+        "source_set": "tax.us.2025.f1099r.box4"
+      },
+      {
+        "op": "require_closed",
+        "source_set": "tax.us.2025.f1099g.b4"
+      },
+      {
+        "op": "require_closed",
+        "source_set": "tax.us.2025.ssa1099.b6"
+      }
+    ],
+    "op": "all"
+  }
+}
