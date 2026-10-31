@@ -1,0 +1,2881 @@
+{
+  "cases": [
+    {
+      "answered_blocked_count": 0,
+      "answered_lines_moved_from_base": [
+        "ctc.form1040-line19",
+        "ctc.sch8812.line-14",
+        "ctc.sch8812.line-4",
+        "payments.line32",
+        "payments.line33",
+        "payments.line34-overpaid",
+        "payments.line35a-refunded",
+        "tax.after-nonrefundable-credits",
+        "tax.line24-total-tax"
+      ],
+      "answered_lines_unpublished": [],
+      "answered_roots": [],
+      "closure_block_answered_run": [],
+      "closure_block_unanswered_run": [
+        {
+          "code": "SOURCE_SET_UNCLOSED",
+          "missing": [
+            "ctc.child-roster"
+          ],
+          "rule": "ctc-child-count"
+        }
+      ],
+      "companions_added": [],
+      "declarations_removed": [],
+      "member_value": "yes",
+      "moved_lines_not_downstream_of_this_set": [
+        "eic.worksheet-a.line-2",
+        "eic.worksheet-a.line-5",
+        "eic.worksheet-a.line-6",
+        "payments.line27a"
+      ],
+      "sample_gap_values": {},
+      "source_set": "tax.us.2025.ctc.child-roster",
+      "unanswered_blocked_count": 33,
+      "unanswered_gap_lines": [],
+      "unanswered_held_lines": [
+        "ctc.form1040-line19",
+        "ctc.sch8812.line-14",
+        "ctc.sch8812.line-4",
+        "payments.line32",
+        "payments.line33",
+        "payments.line34-overpaid",
+        "payments.line35a-refunded",
+        "tax.after-nonrefundable-credits",
+        "tax.line24-total-tax"
+      ],
+      "unanswered_other_lines": [],
+      "unanswered_roots": [
+        {
+          "code": "SOURCE_SET_UNCLOSED",
+          "missing": [
+            "ctc.child-roster"
+          ],
+          "rule": "ctc-child-count"
+        }
+      ],
+      "verdict": "held: unanswered closure keeps every moved bound line from publishing"
+    },
+    {
+      "answered_blocked_count": 0,
+      "answered_lines_moved_from_base": [
+        "eic.worksheet-a.line-2",
+        "eic.worksheet-a.line-5",
+        "eic.worksheet-a.line-6",
+        "payments.line27a",
+        "payments.line32",
+        "payments.line33",
+        "payments.line34-overpaid",
+        "payments.line35a-refunded"
+      ],
+      "answered_lines_unpublished": [],
+      "answered_roots": [],
+      "closure_block_answered_run": [],
+      "closure_block_unanswered_run": [
+        {
+          "code": "SOURCE_SET_UNCLOSED",
+          "missing": [
+            "eic.child-roster"
+          ],
+          "rule": "eic-qualifying-child-count"
+        }
+      ],
+      "companions_added": [],
+      "declarations_removed": [],
+      "member_value": "yes",
+      "moved_lines_not_downstream_of_this_set": [
+        "ctc.form1040-line19",
+        "ctc.sch8812.line-14",
+        "ctc.sch8812.line-4",
+        "tax.after-nonrefundable-credits",
+        "tax.line24-total-tax"
+      ],
+      "sample_gap_values": {},
+      "source_set": "tax.us.2025.eic.child-roster",
+      "unanswered_blocked_count": 29,
+      "unanswered_gap_lines": [],
+      "unanswered_held_lines": [
+        "eic.worksheet-a.line-2",
+        "eic.worksheet-a.line-5",
+        "eic.worksheet-a.line-6",
+        "payments.line27a",
+        "payments.line32",
+        "payments.line33",
+        "payments.line34-overpaid",
+        "payments.line35a-refunded"
+      ],
+      "unanswered_other_lines": [],
+      "unanswered_roots": [
+        {
+          "code": "SOURCE_SET_UNCLOSED",
+          "missing": [
+            "eic.child-roster"
+          ],
+          "rule": "eic-qualifying-child-count"
+        }
+      ],
+      "verdict": "held: unanswered closure keeps every moved bound line from publishing"
+    },
+    {
+      "answered_blocked_count": 0,
+      "answered_lines_moved_from_base": [
+        "schedule-d.line-15",
+        "schedule-d.line-16",
+        "schedule-d.line-21",
+        "schedule-d.line-8a-gain"
+      ],
+      "answered_lines_unpublished": [],
+      "answered_roots": [],
+      "closure_block_answered_run": [],
+      "closure_block_unanswered_run": [],
+      "companions_added": [],
+      "declarations_removed": [],
+      "member_value": 1000.0,
+      "moved_lines_not_downstream_of_this_set": [],
+      "sample_gap_values": {
+        "schedule-d.line-15": {
+          "answered": "-1000.0",
+          "base": "0",
+          "unanswered": "-1000.0"
+        },
+        "schedule-d.line-16": {
+          "answered": "-1000.0",
+          "base": "0",
+          "unanswered": "-1000.0"
+        },
+        "schedule-d.line-21": {
+          "answered": "1000.0",
+          "base": "0",
+          "unanswered": "1000.0"
+        },
+        "schedule-d.line-8a-gain": {
+          "answered": "-1000.0",
+          "base": "0",
+          "unanswered": "-1000.0"
+        }
+      },
+      "source_set": "tax.us.2025.f1099b.covered-lt-basis",
+      "unanswered_blocked_count": 0,
+      "unanswered_gap_lines": [
+        "schedule-d.line-15",
+        "schedule-d.line-16",
+        "schedule-d.line-21",
+        "schedule-d.line-8a-gain"
+      ],
+      "unanswered_held_lines": [],
+      "unanswered_other_lines": [],
+      "unanswered_roots": [],
+      "verdict": "GAP: unanswered closure publishes the partial sum on bound lines"
+    },
+    {
+      "answered_blocked_count": 0,
+      "answered_lines_moved_from_base": [
+        "capital-gains.line7a-total",
+        "eic.worksheet-a.line-3",
+        "income.agi",
+        "income.taxable-income",
+        "income.total-income",
+        "schedule-d.line-15",
+        "schedule-d.line-16",
+        "schedule-d.line-8a-gain"
+      ],
+      "answered_lines_unpublished": [],
+      "answered_roots": [],
+      "closure_block_answered_run": [],
+      "closure_block_unanswered_run": [],
+      "companions_added": [],
+      "declarations_removed": [],
+      "member_value": 1000.0,
+      "moved_lines_not_downstream_of_this_set": [],
+      "sample_gap_values": {
+        "capital-gains.line7a-total": {
+          "answered": "1000.0",
+          "base": "0",
+          "unanswered": "1000.0"
+        },
+        "eic.worksheet-a.line-3": {
+          "answered": "51000.0",
+          "base": "50000",
+          "unanswered": "51000.0"
+        },
+        "income.agi": {
+          "answered": "51000.0",
+          "base": "50000",
+          "unanswered": "51000.0"
+        },
+        "income.taxable-income": {
+          "answered": "35250.0",
+          "base": "34250",
+          "unanswered": "35250.0"
+        },
+        "income.total-income": {
+          "answered": "51000.0",
+          "base": "50000",
+          "unanswered": "51000.0"
+        },
+        "schedule-d.line-15": {
+          "answered": "1000.0",
+          "base": "0",
+          "unanswered": "1000.0"
+        }
+      },
+      "source_set": "tax.us.2025.f1099b.covered-lt-proceeds",
+      "unanswered_blocked_count": 0,
+      "unanswered_gap_lines": [
+        "capital-gains.line7a-total",
+        "eic.worksheet-a.line-3",
+        "income.agi",
+        "income.taxable-income",
+        "income.total-income",
+        "schedule-d.line-15",
+        "schedule-d.line-16",
+        "schedule-d.line-8a-gain"
+      ],
+      "unanswered_held_lines": [],
+      "unanswered_other_lines": [],
+      "unanswered_roots": [],
+      "verdict": "GAP: unanswered closure publishes the partial sum on bound lines"
+    },
+    {
+      "answered_blocked_count": 0,
+      "answered_lines_moved_from_base": [
+        "schedule-d.line-16",
+        "schedule-d.line-1a-gain",
+        "schedule-d.line-21",
+        "schedule-d.line-7"
+      ],
+      "answered_lines_unpublished": [],
+      "answered_roots": [],
+      "closure_block_answered_run": [],
+      "closure_block_unanswered_run": [],
+      "companions_added": [],
+      "declarations_removed": [],
+      "member_value": 1000.0,
+      "moved_lines_not_downstream_of_this_set": [],
+      "sample_gap_values": {
+        "schedule-d.line-16": {
+          "answered": "-1000.0",
+          "base": "0",
+          "unanswered": "-1000.0"
+        },
+        "schedule-d.line-1a-gain": {
+          "answered": "-1000.0",
+          "base": "0",
+          "unanswered": "-1000.0"
+        },
+        "schedule-d.line-21": {
+          "answered": "1000.0",
+          "base": "0",
+          "unanswered": "1000.0"
+        },
+        "schedule-d.line-7": {
+          "answered": "-1000.0",
+          "base": "0",
+          "unanswered": "-1000.0"
+        }
+      },
+      "source_set": "tax.us.2025.f1099b.covered-st-basis",
+      "unanswered_blocked_count": 0,
+      "unanswered_gap_lines": [
+        "schedule-d.line-16",
+        "schedule-d.line-1a-gain",
+        "schedule-d.line-21",
+        "schedule-d.line-7"
+      ],
+      "unanswered_held_lines": [],
+      "unanswered_other_lines": [],
+      "unanswered_roots": [],
+      "verdict": "GAP: unanswered closure publishes the partial sum on bound lines"
+    },
+    {
+      "answered_blocked_count": 0,
+      "answered_lines_moved_from_base": [
+        "capital-gains.line7a-total",
+        "ctc.sch8812.worksheet-a.line-5",
+        "eic.worksheet-a.line-3",
+        "income.agi",
+        "income.taxable-income",
+        "income.total-income",
+        "payments.line34-overpaid",
+        "payments.line35a-refunded",
+        "schedule-d.line-16",
+        "schedule-d.line-1a-gain",
+        "schedule-d.line-7",
+        "tax.after-nonrefundable-credits",
+        "tax.line24-total-tax",
+        "tax.total-tax"
+      ],
+      "answered_lines_unpublished": [],
+      "answered_roots": [],
+      "closure_block_answered_run": [],
+      "closure_block_unanswered_run": [],
+      "companions_added": [],
+      "declarations_removed": [],
+      "member_value": 1000.0,
+      "moved_lines_not_downstream_of_this_set": [],
+      "sample_gap_values": {
+        "capital-gains.line7a-total": {
+          "answered": "1000.0",
+          "base": "0",
+          "unanswered": "1000.0"
+        },
+        "ctc.sch8812.worksheet-a.line-5": {
+          "answered": "3995",
+          "base": "3875",
+          "unanswered": "3995"
+        },
+        "eic.worksheet-a.line-3": {
+          "answered": "51000.0",
+          "base": "50000",
+          "unanswered": "51000.0"
+        },
+        "income.agi": {
+          "answered": "51000.0",
+          "base": "50000",
+          "unanswered": "51000.0"
+        },
+        "income.taxable-income": {
+          "answered": "35250.0",
+          "base": "34250",
+          "unanswered": "35250.0"
+        },
+        "income.total-income": {
+          "answered": "51000.0",
+          "base": "50000",
+          "unanswered": "51000.0"
+        }
+      },
+      "source_set": "tax.us.2025.f1099b.covered-st-proceeds",
+      "unanswered_blocked_count": 0,
+      "unanswered_gap_lines": [
+        "capital-gains.line7a-total",
+        "ctc.sch8812.worksheet-a.line-5",
+        "eic.worksheet-a.line-3",
+        "income.agi",
+        "income.taxable-income",
+        "income.total-income",
+        "payments.line34-overpaid",
+        "payments.line35a-refunded",
+        "schedule-d.line-16",
+        "schedule-d.line-1a-gain",
+        "schedule-d.line-7",
+        "tax.after-nonrefundable-credits",
+        "tax.line24-total-tax",
+        "tax.total-tax"
+      ],
+      "unanswered_held_lines": [],
+      "unanswered_other_lines": [],
+      "unanswered_roots": [],
+      "verdict": "GAP: unanswered closure publishes the partial sum on bound lines"
+    },
+    {
+      "answered_blocked_count": 0,
+      "answered_lines_moved_from_base": [
+        "capital-gains.line7a-total",
+        "eic.worksheet-a.line-3",
+        "income.agi",
+        "income.taxable-income",
+        "income.total-income",
+        "schedule-d.line-15",
+        "schedule-d.line-16",
+        "schedule-d.line-8b"
+      ],
+      "answered_lines_unpublished": [],
+      "answered_roots": [],
+      "closure_block_answered_run": [],
+      "closure_block_unanswered_run": [
+        {
+          "code": "SOURCE_SET_UNCLOSED",
+          "missing": [
+            "f1099b.covered-w-lt-adjustment"
+          ],
+          "rule": "schedule-d-line8b"
+        }
+      ],
+      "companions_added": [],
+      "declarations_removed": [],
+      "member_value": 1000.0,
+      "moved_lines_not_downstream_of_this_set": [],
+      "sample_gap_values": {},
+      "source_set": "tax.us.2025.f1099b.covered-w-lt-adjustment",
+      "unanswered_blocked_count": 94,
+      "unanswered_gap_lines": [],
+      "unanswered_held_lines": [
+        "capital-gains.line7a-total",
+        "eic.worksheet-a.line-3",
+        "income.agi",
+        "income.taxable-income",
+        "income.total-income",
+        "schedule-d.line-15",
+        "schedule-d.line-16",
+        "schedule-d.line-8b"
+      ],
+      "unanswered_other_lines": [],
+      "unanswered_roots": [
+        {
+          "code": "SOURCE_SET_UNCLOSED",
+          "missing": [
+            "f1099b.covered-w-lt-adjustment"
+          ],
+          "rule": "schedule-d-line8b"
+        }
+      ],
+      "verdict": "held: unanswered closure keeps every moved bound line from publishing"
+    },
+    {
+      "answered_blocked_count": 0,
+      "answered_lines_moved_from_base": [
+        "capital-gains.line7a-total",
+        "ctc.sch8812.worksheet-a.line-5",
+        "eic.worksheet-a.line-3",
+        "income.agi",
+        "income.taxable-income",
+        "income.total-income",
+        "payments.line34-overpaid",
+        "payments.line35a-refunded",
+        "schedule-d.line-15",
+        "schedule-d.line-16",
+        "schedule-d.line-21",
+        "schedule-d.line-8b",
+        "tax.after-nonrefundable-credits",
+        "tax.line24-total-tax",
+        "tax.total-tax"
+      ],
+      "answered_lines_unpublished": [],
+      "answered_roots": [],
+      "closure_block_answered_run": [],
+      "closure_block_unanswered_run": [
+        {
+          "code": "SOURCE_SET_UNCLOSED",
+          "missing": [
+            "f1099b.covered-w-lt-basis"
+          ],
+          "rule": "schedule-d-line8b"
+        }
+      ],
+      "companions_added": [],
+      "declarations_removed": [],
+      "member_value": 1000.0,
+      "moved_lines_not_downstream_of_this_set": [],
+      "sample_gap_values": {},
+      "source_set": "tax.us.2025.f1099b.covered-w-lt-basis",
+      "unanswered_blocked_count": 94,
+      "unanswered_gap_lines": [],
+      "unanswered_held_lines": [
+        "capital-gains.line7a-total",
+        "ctc.sch8812.worksheet-a.line-5",
+        "eic.worksheet-a.line-3",
+        "income.agi",
+        "income.taxable-income",
+        "income.total-income",
+        "payments.line34-overpaid",
+        "payments.line35a-refunded",
+        "schedule-d.line-15",
+        "schedule-d.line-16",
+        "schedule-d.line-21",
+        "schedule-d.line-8b",
+        "tax.after-nonrefundable-credits",
+        "tax.line24-total-tax",
+        "tax.total-tax"
+      ],
+      "unanswered_other_lines": [],
+      "unanswered_roots": [
+        {
+          "code": "SOURCE_SET_UNCLOSED",
+          "missing": [
+            "f1099b.covered-w-lt-basis"
+          ],
+          "rule": "schedule-d-line8b"
+        }
+      ],
+      "verdict": "held: unanswered closure keeps every moved bound line from publishing"
+    },
+    {
+      "answered_blocked_count": 1,
+      "answered_lines_moved_from_base": [
+        "capital-gains.line7a-total",
+        "eic.worksheet-a.line-3",
+        "income.agi",
+        "income.taxable-income",
+        "income.total-income",
+        "schedule-d.line-15",
+        "schedule-d.line-16",
+        "schedule-d.line-8b"
+      ],
+      "answered_lines_unpublished": [],
+      "answered_roots": [],
+      "closure_block_answered_run": [],
+      "closure_block_unanswered_run": [
+        {
+          "code": "SOURCE_SET_UNCLOSED",
+          "missing": [
+            "f1099b.covered-w-lt-proceeds"
+          ],
+          "rule": "schedule-d-line8b"
+        }
+      ],
+      "companions_added": [],
+      "declarations_removed": [],
+      "member_value": 1000.0,
+      "moved_lines_not_downstream_of_this_set": [],
+      "sample_gap_values": {},
+      "source_set": "tax.us.2025.f1099b.covered-w-lt-proceeds",
+      "unanswered_blocked_count": 95,
+      "unanswered_gap_lines": [],
+      "unanswered_held_lines": [
+        "capital-gains.line7a-total",
+        "eic.worksheet-a.line-3",
+        "income.agi",
+        "income.taxable-income",
+        "income.total-income",
+        "schedule-d.line-15",
+        "schedule-d.line-16",
+        "schedule-d.line-8b"
+      ],
+      "unanswered_other_lines": [],
+      "unanswered_roots": [
+        {
+          "code": "SOURCE_SET_UNCLOSED",
+          "missing": [
+            "f1099b.covered-w-lt-proceeds"
+          ],
+          "rule": "schedule-d-line8b"
+        }
+      ],
+      "verdict": "held: unanswered closure keeps every moved bound line from publishing"
+    },
+    {
+      "answered_blocked_count": 0,
+      "answered_lines_moved_from_base": [
+        "capital-gains.line7a-total",
+        "ctc.sch8812.worksheet-a.line-5",
+        "eic.worksheet-a.line-3",
+        "income.agi",
+        "income.taxable-income",
+        "income.total-income",
+        "payments.line34-overpaid",
+        "payments.line35a-refunded",
+        "schedule-d.line-16",
+        "schedule-d.line-1b",
+        "schedule-d.line-7",
+        "tax.after-nonrefundable-credits",
+        "tax.line24-total-tax",
+        "tax.total-tax"
+      ],
+      "answered_lines_unpublished": [],
+      "answered_roots": [],
+      "closure_block_answered_run": [],
+      "closure_block_unanswered_run": [
+        {
+          "code": "SOURCE_SET_UNCLOSED",
+          "missing": [
+            "f1099b.covered-w-st-adjustment"
+          ],
+          "rule": "schedule-d-line1b"
+        }
+      ],
+      "companions_added": [],
+      "declarations_removed": [],
+      "member_value": 1000.0,
+      "moved_lines_not_downstream_of_this_set": [],
+      "sample_gap_values": {},
+      "source_set": "tax.us.2025.f1099b.covered-w-st-adjustment",
+      "unanswered_blocked_count": 94,
+      "unanswered_gap_lines": [],
+      "unanswered_held_lines": [
+        "capital-gains.line7a-total",
+        "ctc.sch8812.worksheet-a.line-5",
+        "eic.worksheet-a.line-3",
+        "income.agi",
+        "income.taxable-income",
+        "income.total-income",
+        "payments.line34-overpaid",
+        "payments.line35a-refunded",
+        "schedule-d.line-16",
+        "schedule-d.line-1b",
+        "schedule-d.line-7",
+        "tax.after-nonrefundable-credits",
+        "tax.line24-total-tax",
+        "tax.total-tax"
+      ],
+      "unanswered_other_lines": [],
+      "unanswered_roots": [
+        {
+          "code": "SOURCE_SET_UNCLOSED",
+          "missing": [
+            "f1099b.covered-w-st-adjustment"
+          ],
+          "rule": "schedule-d-line1b"
+        }
+      ],
+      "verdict": "held: unanswered closure keeps every moved bound line from publishing"
+    },
+    {
+      "answered_blocked_count": 0,
+      "answered_lines_moved_from_base": [
+        "capital-gains.line7a-total",
+        "ctc.sch8812.worksheet-a.line-5",
+        "eic.worksheet-a.line-3",
+        "income.agi",
+        "income.taxable-income",
+        "income.total-income",
+        "payments.line34-overpaid",
+        "payments.line35a-refunded",
+        "schedule-d.line-16",
+        "schedule-d.line-1b",
+        "schedule-d.line-21",
+        "schedule-d.line-7",
+        "tax.after-nonrefundable-credits",
+        "tax.line24-total-tax",
+        "tax.total-tax"
+      ],
+      "answered_lines_unpublished": [],
+      "answered_roots": [],
+      "closure_block_answered_run": [],
+      "closure_block_unanswered_run": [
+        {
+          "code": "SOURCE_SET_UNCLOSED",
+          "missing": [
+            "f1099b.covered-w-st-basis"
+          ],
+          "rule": "schedule-d-line1b"
+        }
+      ],
+      "companions_added": [],
+      "declarations_removed": [],
+      "member_value": 1000.0,
+      "moved_lines_not_downstream_of_this_set": [],
+      "sample_gap_values": {},
+      "source_set": "tax.us.2025.f1099b.covered-w-st-basis",
+      "unanswered_blocked_count": 94,
+      "unanswered_gap_lines": [],
+      "unanswered_held_lines": [
+        "capital-gains.line7a-total",
+        "ctc.sch8812.worksheet-a.line-5",
+        "eic.worksheet-a.line-3",
+        "income.agi",
+        "income.taxable-income",
+        "income.total-income",
+        "payments.line34-overpaid",
+        "payments.line35a-refunded",
+        "schedule-d.line-16",
+        "schedule-d.line-1b",
+        "schedule-d.line-21",
+        "schedule-d.line-7",
+        "tax.after-nonrefundable-credits",
+        "tax.line24-total-tax",
+        "tax.total-tax"
+      ],
+      "unanswered_other_lines": [],
+      "unanswered_roots": [
+        {
+          "code": "SOURCE_SET_UNCLOSED",
+          "missing": [
+            "f1099b.covered-w-st-basis"
+          ],
+          "rule": "schedule-d-line1b"
+        }
+      ],
+      "verdict": "held: unanswered closure keeps every moved bound line from publishing"
+    },
+    {
+      "answered_blocked_count": 1,
+      "answered_lines_moved_from_base": [
+        "capital-gains.line7a-total",
+        "ctc.sch8812.worksheet-a.line-5",
+        "eic.worksheet-a.line-3",
+        "income.agi",
+        "income.taxable-income",
+        "income.total-income",
+        "payments.line34-overpaid",
+        "payments.line35a-refunded",
+        "schedule-d.line-16",
+        "schedule-d.line-1b",
+        "schedule-d.line-7",
+        "tax.after-nonrefundable-credits",
+        "tax.line24-total-tax",
+        "tax.total-tax"
+      ],
+      "answered_lines_unpublished": [],
+      "answered_roots": [],
+      "closure_block_answered_run": [],
+      "closure_block_unanswered_run": [
+        {
+          "code": "SOURCE_SET_UNCLOSED",
+          "missing": [
+            "f1099b.covered-w-st-proceeds"
+          ],
+          "rule": "schedule-d-line1b"
+        }
+      ],
+      "companions_added": [],
+      "declarations_removed": [],
+      "member_value": 1000.0,
+      "moved_lines_not_downstream_of_this_set": [],
+      "sample_gap_values": {},
+      "source_set": "tax.us.2025.f1099b.covered-w-st-proceeds",
+      "unanswered_blocked_count": 95,
+      "unanswered_gap_lines": [],
+      "unanswered_held_lines": [
+        "capital-gains.line7a-total",
+        "ctc.sch8812.worksheet-a.line-5",
+        "eic.worksheet-a.line-3",
+        "income.agi",
+        "income.taxable-income",
+        "income.total-income",
+        "payments.line34-overpaid",
+        "payments.line35a-refunded",
+        "schedule-d.line-16",
+        "schedule-d.line-1b",
+        "schedule-d.line-7",
+        "tax.after-nonrefundable-credits",
+        "tax.line24-total-tax",
+        "tax.total-tax"
+      ],
+      "unanswered_other_lines": [],
+      "unanswered_roots": [
+        {
+          "code": "SOURCE_SET_UNCLOSED",
+          "missing": [
+            "f1099b.covered-w-st-proceeds"
+          ],
+          "rule": "schedule-d-line1b"
+        }
+      ],
+      "verdict": "held: unanswered closure keeps every moved bound line from publishing"
+    },
+    {
+      "answered_blocked_count": 0,
+      "answered_lines_moved_from_base": [
+        "tax-exempt-interest.line2a-total"
+      ],
+      "answered_lines_unpublished": [],
+      "answered_roots": [],
+      "closure_block_answered_run": [],
+      "closure_block_unanswered_run": [
+        {
+          "code": "SOURCE_SET_UNCLOSED",
+          "missing": [
+            "f1099div.12"
+          ],
+          "rule": "form1040-line2a"
+        }
+      ],
+      "companions_added": [
+        "f1099div.box13-specified-pab-authority"
+      ],
+      "declarations_removed": [],
+      "member_value": 1000.0,
+      "moved_lines_not_downstream_of_this_set": [],
+      "sample_gap_values": {},
+      "source_set": "tax.us.2025.f1099div.12",
+      "unanswered_blocked_count": 88,
+      "unanswered_gap_lines": [],
+      "unanswered_held_lines": [
+        "tax-exempt-interest.line2a-total"
+      ],
+      "unanswered_other_lines": [],
+      "unanswered_roots": [
+        {
+          "code": "SOURCE_SET_UNCLOSED",
+          "missing": [
+            "f1099div.12"
+          ],
+          "rule": "form1040-line2a"
+        }
+      ],
+      "verdict": "held: unanswered closure keeps every moved bound line from publishing"
+    },
+    {
+      "answered_blocked_count": 0,
+      "answered_lines_moved_from_base": [
+        "ctc.sch8812.worksheet-a.line-5",
+        "dividends.ordinary-total",
+        "eic.worksheet-a.line-3",
+        "income.agi",
+        "income.taxable-income",
+        "income.total-income",
+        "payments.line34-overpaid",
+        "payments.line35a-refunded",
+        "tax.after-nonrefundable-credits",
+        "tax.line24-total-tax",
+        "tax.total-tax"
+      ],
+      "answered_lines_unpublished": [],
+      "answered_roots": [],
+      "closure_block_answered_run": [],
+      "closure_block_unanswered_run": [
+        {
+          "code": "SOURCE_SET_UNCLOSED",
+          "missing": [
+            "f1099div.1a"
+          ],
+          "rule": "form1040-line3b"
+        }
+      ],
+      "companions_added": [],
+      "declarations_removed": [],
+      "member_value": 1000.0,
+      "moved_lines_not_downstream_of_this_set": [],
+      "sample_gap_values": {},
+      "source_set": "tax.us.2025.f1099div.1a",
+      "unanswered_blocked_count": 89,
+      "unanswered_gap_lines": [],
+      "unanswered_held_lines": [
+        "ctc.sch8812.worksheet-a.line-5",
+        "dividends.ordinary-total",
+        "eic.worksheet-a.line-3",
+        "income.agi",
+        "income.taxable-income",
+        "income.total-income",
+        "payments.line34-overpaid",
+        "payments.line35a-refunded",
+        "tax.after-nonrefundable-credits",
+        "tax.line24-total-tax",
+        "tax.total-tax"
+      ],
+      "unanswered_other_lines": [],
+      "unanswered_roots": [
+        {
+          "code": "SOURCE_SET_UNCLOSED",
+          "missing": [
+            "f1099div.1a"
+          ],
+          "rule": "form1040-line3b"
+        }
+      ],
+      "verdict": "held: unanswered closure keeps every moved bound line from publishing"
+    },
+    {
+      "answered_blocked_count": 0,
+      "answered_lines_moved_from_base": [
+        "ctc.sch8812.worksheet-a.line-5",
+        "dividends.qualified-total",
+        "payments.line34-overpaid",
+        "payments.line35a-refunded",
+        "tax.after-nonrefundable-credits",
+        "tax.line24-total-tax",
+        "tax.total-tax"
+      ],
+      "answered_lines_unpublished": [],
+      "answered_roots": [],
+      "closure_block_answered_run": [],
+      "closure_block_unanswered_run": [
+        {
+          "code": "SOURCE_SET_UNCLOSED",
+          "missing": [
+            "f1099div.1b"
+          ],
+          "rule": "form1040-line3a"
+        }
+      ],
+      "companions_added": [],
+      "declarations_removed": [],
+      "member_value": 1000.0,
+      "moved_lines_not_downstream_of_this_set": [],
+      "sample_gap_values": {},
+      "source_set": "tax.us.2025.f1099div.1b",
+      "unanswered_blocked_count": 51,
+      "unanswered_gap_lines": [],
+      "unanswered_held_lines": [
+        "ctc.sch8812.worksheet-a.line-5",
+        "dividends.qualified-total",
+        "payments.line34-overpaid",
+        "payments.line35a-refunded",
+        "tax.after-nonrefundable-credits",
+        "tax.line24-total-tax",
+        "tax.total-tax"
+      ],
+      "unanswered_other_lines": [],
+      "unanswered_roots": [
+        {
+          "code": "SOURCE_SET_UNCLOSED",
+          "missing": [
+            "f1099div.1b"
+          ],
+          "rule": "form1040-line3a"
+        }
+      ],
+      "verdict": "held: unanswered closure keeps every moved bound line from publishing"
+    },
+    {
+      "answered_blocked_count": 0,
+      "answered_lines_moved_from_base": [
+        "capital-gains.line7a-total",
+        "dividends.2a-subtotal",
+        "eic.worksheet-a.line-3",
+        "income.agi",
+        "income.taxable-income",
+        "income.total-income",
+        "schedule-d.line-15",
+        "schedule-d.line-16"
+      ],
+      "answered_lines_unpublished": [],
+      "answered_roots": [],
+      "closure_block_answered_run": [],
+      "closure_block_unanswered_run": [],
+      "companions_added": [],
+      "declarations_removed": [
+        "tax.us.2025.capital-gain-distributions"
+      ],
+      "member_value": 1000.0,
+      "moved_lines_not_downstream_of_this_set": [],
+      "sample_gap_values": {
+        "capital-gains.line7a-total": {
+          "answered": "1000",
+          "base": "0",
+          "unanswered": "1000"
+        },
+        "dividends.2a-subtotal": {
+          "answered": "1000",
+          "base": "0",
+          "unanswered": "1000"
+        },
+        "eic.worksheet-a.line-3": {
+          "answered": "51000",
+          "base": "50000",
+          "unanswered": "51000"
+        },
+        "income.agi": {
+          "answered": "51000",
+          "base": "50000",
+          "unanswered": "51000"
+        },
+        "income.taxable-income": {
+          "answered": "35250",
+          "base": "34250",
+          "unanswered": "35250"
+        },
+        "income.total-income": {
+          "answered": "51000",
+          "base": "50000",
+          "unanswered": "51000"
+        }
+      },
+      "source_set": "tax.us.2025.f1099div.2a",
+      "unanswered_blocked_count": 0,
+      "unanswered_gap_lines": [
+        "capital-gains.line7a-total",
+        "dividends.2a-subtotal",
+        "eic.worksheet-a.line-3",
+        "income.agi",
+        "income.taxable-income",
+        "income.total-income",
+        "schedule-d.line-15",
+        "schedule-d.line-16"
+      ],
+      "unanswered_held_lines": [],
+      "unanswered_other_lines": [],
+      "unanswered_roots": [],
+      "verdict": "GAP: unanswered closure publishes the partial sum on bound lines"
+    },
+    {
+      "answered_blocked_count": 30,
+      "answered_lines_moved_from_base": [
+        "credits.form1040-line20",
+        "ctc.form1040-line19",
+        "ctc.form1040-line28",
+        "ctc.sch8812.line-14",
+        "ctc.sch8812.line-17",
+        "ctc.sch8812.worksheet-a.line-5",
+        "payments.line32",
+        "payments.line33",
+        "payments.line34-overpaid",
+        "payments.line35a-refunded",
+        "payments.line37-amount-owed",
+        "schedule3.line1-direct-ftc",
+        "schedule3.line8-total",
+        "tax.after-nonrefundable-credits",
+        "tax.line24-total-tax"
+      ],
+      "answered_lines_unpublished": [
+        "credits.form1040-line20",
+        "ctc.form1040-line19",
+        "ctc.form1040-line28",
+        "ctc.sch8812.line-14",
+        "ctc.sch8812.line-17",
+        "ctc.sch8812.worksheet-a.line-5",
+        "payments.line32",
+        "payments.line33",
+        "payments.line34-overpaid",
+        "payments.line35a-refunded",
+        "payments.line37-amount-owed",
+        "schedule3.line1-direct-ftc",
+        "schedule3.line8-total",
+        "tax.after-nonrefundable-credits",
+        "tax.line24-total-tax"
+      ],
+      "answered_roots": [],
+      "closure_block_answered_run": [],
+      "closure_block_unanswered_run": [
+        {
+          "code": "SOURCE_SET_UNCLOSED",
+          "missing": [
+            "f1099div.7"
+          ],
+          "rule": "schedule3-line1-direct-ftc"
+        }
+      ],
+      "companions_added": [
+        "f1099div.box8-country-companion",
+        "f1099div.box1a-ordinary"
+      ],
+      "declarations_removed": [],
+      "member_value": 1000.0,
+      "moved_lines_not_downstream_of_this_set": [
+        "dividends.ordinary-total",
+        "eic.worksheet-a.line-3",
+        "income.agi",
+        "income.taxable-income",
+        "income.total-income",
+        "tax.total-tax"
+      ],
+      "sample_gap_values": {},
+      "source_set": "tax.us.2025.f1099div.7",
+      "unanswered_blocked_count": 31,
+      "unanswered_gap_lines": [],
+      "unanswered_held_lines": [],
+      "unanswered_other_lines": [],
+      "unanswered_roots": [
+        {
+          "code": "SOURCE_SET_UNCLOSED",
+          "missing": [
+            "f1099div.7"
+          ],
+          "rule": "schedule3-line1-direct-ftc"
+        }
+      ],
+      "verdict": "held (by root block only): the answered return is incomplete for other reasons, but the unanswered closure blocks schedule3-line1-direct-ftc"
+    },
+    {
+      "answered_blocked_count": 0,
+      "answered_lines_moved_from_base": [
+        "payments.line25b",
+        "payments.line25d",
+        "payments.line33",
+        "payments.line34-overpaid",
+        "payments.line35a-refunded"
+      ],
+      "answered_lines_unpublished": [],
+      "answered_roots": [],
+      "closure_block_answered_run": [],
+      "closure_block_unanswered_run": [
+        {
+          "code": "SOURCE_SET_UNCLOSED",
+          "missing": [
+            "f1099div.b4"
+          ],
+          "rule": "form1040-line25b"
+        }
+      ],
+      "companions_added": [],
+      "declarations_removed": [],
+      "member_value": 1000.0,
+      "moved_lines_not_downstream_of_this_set": [],
+      "sample_gap_values": {},
+      "source_set": "tax.us.2025.f1099div.b4",
+      "unanswered_blocked_count": 7,
+      "unanswered_gap_lines": [],
+      "unanswered_held_lines": [
+        "payments.line25b",
+        "payments.line25d",
+        "payments.line33",
+        "payments.line34-overpaid",
+        "payments.line35a-refunded"
+      ],
+      "unanswered_other_lines": [],
+      "unanswered_roots": [
+        {
+          "code": "SOURCE_SET_UNCLOSED",
+          "missing": [
+            "f1099div.b4"
+          ],
+          "rule": "form1040-line25b"
+        }
+      ],
+      "verdict": "held: unanswered closure keeps every moved bound line from publishing"
+    },
+    {
+      "answered_blocked_count": 0,
+      "answered_lines_moved_from_base": [
+        "ctc.sch8812.worksheet-a.line-5",
+        "eic.worksheet-a.line-3",
+        "income.additional-income",
+        "income.agi",
+        "income.taxable-income",
+        "income.total-income",
+        "payments.line34-overpaid",
+        "payments.line35a-refunded",
+        "schedule1.line10-additional-income",
+        "schedule1.line7-unemployment",
+        "tax.after-nonrefundable-credits",
+        "tax.line24-total-tax",
+        "tax.total-tax"
+      ],
+      "answered_lines_unpublished": [],
+      "answered_roots": [],
+      "closure_block_answered_run": [],
+      "closure_block_unanswered_run": [
+        {
+          "code": "SOURCE_SET_UNCLOSED",
+          "missing": [
+            "f1099g.1"
+          ],
+          "rule": "schedule1-line7"
+        }
+      ],
+      "companions_added": [],
+      "declarations_removed": [],
+      "member_value": 1000.0,
+      "moved_lines_not_downstream_of_this_set": [],
+      "sample_gap_values": {},
+      "source_set": "tax.us.2025.f1099g.1",
+      "unanswered_blocked_count": 89,
+      "unanswered_gap_lines": [],
+      "unanswered_held_lines": [
+        "ctc.sch8812.worksheet-a.line-5",
+        "eic.worksheet-a.line-3",
+        "income.additional-income",
+        "income.agi",
+        "income.taxable-income",
+        "income.total-income",
+        "payments.line34-overpaid",
+        "payments.line35a-refunded",
+        "schedule1.line10-additional-income",
+        "schedule1.line7-unemployment",
+        "tax.after-nonrefundable-credits",
+        "tax.line24-total-tax",
+        "tax.total-tax"
+      ],
+      "unanswered_other_lines": [],
+      "unanswered_roots": [
+        {
+          "code": "SOURCE_SET_UNCLOSED",
+          "missing": [
+            "f1099g.1"
+          ],
+          "rule": "schedule1-line7"
+        }
+      ],
+      "verdict": "held: unanswered closure keeps every moved bound line from publishing"
+    },
+    {
+      "answered_blocked_count": 0,
+      "answered_lines_moved_from_base": [
+        "payments.line25b",
+        "payments.line25d",
+        "payments.line33",
+        "payments.line34-overpaid",
+        "payments.line35a-refunded"
+      ],
+      "answered_lines_unpublished": [],
+      "answered_roots": [],
+      "closure_block_answered_run": [],
+      "closure_block_unanswered_run": [
+        {
+          "code": "SOURCE_SET_UNCLOSED",
+          "missing": [
+            "f1099g.b4"
+          ],
+          "rule": "form1040-line25b"
+        }
+      ],
+      "companions_added": [],
+      "declarations_removed": [],
+      "member_value": 1000.0,
+      "moved_lines_not_downstream_of_this_set": [],
+      "sample_gap_values": {},
+      "source_set": "tax.us.2025.f1099g.b4",
+      "unanswered_blocked_count": 7,
+      "unanswered_gap_lines": [],
+      "unanswered_held_lines": [
+        "payments.line25b",
+        "payments.line25d",
+        "payments.line33",
+        "payments.line34-overpaid",
+        "payments.line35a-refunded"
+      ],
+      "unanswered_other_lines": [],
+      "unanswered_roots": [
+        {
+          "code": "SOURCE_SET_UNCLOSED",
+          "missing": [
+            "f1099g.b4"
+          ],
+          "rule": "form1040-line25b"
+        }
+      ],
+      "verdict": "held: unanswered closure keeps every moved bound line from publishing"
+    },
+    {
+      "answered_blocked_count": 0,
+      "answered_lines_moved_from_base": [
+        "ctc.sch8812.worksheet-a.line-5",
+        "eic.worksheet-a.line-3",
+        "income.agi",
+        "income.taxable-income",
+        "income.total-income",
+        "interest.taxable-total",
+        "payments.line34-overpaid",
+        "payments.line35a-refunded",
+        "tax.after-nonrefundable-credits",
+        "tax.line24-total-tax",
+        "tax.total-tax"
+      ],
+      "answered_lines_unpublished": [],
+      "answered_roots": [],
+      "closure_block_answered_run": [],
+      "closure_block_unanswered_run": [
+        {
+          "code": "SOURCE_SET_UNCLOSED",
+          "missing": [
+            "f1099int.b1"
+          ],
+          "rule": "interest-positive-total"
+        }
+      ],
+      "companions_added": [],
+      "declarations_removed": [],
+      "member_value": 1000.0,
+      "moved_lines_not_downstream_of_this_set": [],
+      "sample_gap_values": {
+        "ctc.sch8812.worksheet-a.line-5": {
+          "answered": "3995",
+          "base": "3875",
+          "unanswered": "3995"
+        },
+        "eic.worksheet-a.line-3": {
+          "answered": "51000",
+          "base": "50000",
+          "unanswered": "51000"
+        },
+        "income.agi": {
+          "answered": "51000",
+          "base": "50000",
+          "unanswered": "51000"
+        },
+        "income.taxable-income": {
+          "answered": "35250",
+          "base": "34250",
+          "unanswered": "35250"
+        },
+        "income.total-income": {
+          "answered": "51000",
+          "base": "50000",
+          "unanswered": "51000"
+        },
+        "interest.taxable-total": {
+          "answered": "1000",
+          "base": "0",
+          "unanswered": "1000"
+        }
+      },
+      "source_set": "tax.us.2025.f1099int.b1",
+      "unanswered_blocked_count": 2,
+      "unanswered_gap_lines": [
+        "ctc.sch8812.worksheet-a.line-5",
+        "eic.worksheet-a.line-3",
+        "income.agi",
+        "income.taxable-income",
+        "income.total-income",
+        "interest.taxable-total",
+        "payments.line34-overpaid",
+        "payments.line35a-refunded",
+        "tax.after-nonrefundable-credits",
+        "tax.line24-total-tax",
+        "tax.total-tax"
+      ],
+      "unanswered_held_lines": [],
+      "unanswered_other_lines": [],
+      "unanswered_roots": [
+        {
+          "code": "SOURCE_SET_UNCLOSED",
+          "missing": [
+            "f1099int.b1"
+          ],
+          "rule": "interest-positive-total"
+        }
+      ],
+      "verdict": "GAP: unanswered closure publishes the partial sum on bound lines"
+    },
+    {
+      "answered_blocked_count": 0,
+      "answered_lines_moved_from_base": [
+        "ctc.sch8812.worksheet-a.line-5",
+        "eic.worksheet-a.line-3",
+        "income.agi",
+        "income.taxable-income",
+        "income.total-income",
+        "interest.taxable-total",
+        "payments.line34-overpaid",
+        "payments.line35a-refunded",
+        "tax.after-nonrefundable-credits",
+        "tax.line24-total-tax",
+        "tax.total-tax"
+      ],
+      "answered_lines_unpublished": [],
+      "answered_roots": [],
+      "closure_block_answered_run": [],
+      "closure_block_unanswered_run": [
+        {
+          "code": "SOURCE_SET_UNCLOSED",
+          "missing": [
+            "f1099int.b10"
+          ],
+          "rule": "interest-positive-total"
+        }
+      ],
+      "companions_added": [],
+      "declarations_removed": [],
+      "member_value": 1000.0,
+      "moved_lines_not_downstream_of_this_set": [],
+      "sample_gap_values": {
+        "ctc.sch8812.worksheet-a.line-5": {
+          "answered": "3995",
+          "base": "3875",
+          "unanswered": "3995"
+        },
+        "eic.worksheet-a.line-3": {
+          "answered": "51000",
+          "base": "50000",
+          "unanswered": "51000"
+        },
+        "income.agi": {
+          "answered": "51000",
+          "base": "50000",
+          "unanswered": "51000"
+        },
+        "income.taxable-income": {
+          "answered": "35250",
+          "base": "34250",
+          "unanswered": "35250"
+        },
+        "income.total-income": {
+          "answered": "51000",
+          "base": "50000",
+          "unanswered": "51000"
+        },
+        "interest.taxable-total": {
+          "answered": "1000",
+          "base": "0",
+          "unanswered": "1000"
+        }
+      },
+      "source_set": "tax.us.2025.f1099int.b10",
+      "unanswered_blocked_count": 2,
+      "unanswered_gap_lines": [
+        "ctc.sch8812.worksheet-a.line-5",
+        "eic.worksheet-a.line-3",
+        "income.agi",
+        "income.taxable-income",
+        "income.total-income",
+        "interest.taxable-total",
+        "payments.line34-overpaid",
+        "payments.line35a-refunded",
+        "tax.after-nonrefundable-credits",
+        "tax.line24-total-tax",
+        "tax.total-tax"
+      ],
+      "unanswered_held_lines": [],
+      "unanswered_other_lines": [],
+      "unanswered_roots": [
+        {
+          "code": "SOURCE_SET_UNCLOSED",
+          "missing": [
+            "f1099int.b10"
+          ],
+          "rule": "interest-positive-total"
+        }
+      ],
+      "verdict": "GAP: unanswered closure publishes the partial sum on bound lines"
+    },
+    {
+      "answered_blocked_count": 0,
+      "answered_lines_moved_from_base": [
+        "ctc.sch8812.worksheet-a.line-5",
+        "eic.worksheet-a.line-3",
+        "income.agi",
+        "income.taxable-income",
+        "income.total-income",
+        "interest.taxable-total",
+        "payments.line34-overpaid",
+        "payments.line35a-refunded",
+        "tax.after-nonrefundable-credits",
+        "tax.line24-total-tax",
+        "tax.total-tax"
+      ],
+      "answered_lines_unpublished": [],
+      "answered_roots": [],
+      "closure_block_answered_run": [],
+      "closure_block_unanswered_run": [
+        {
+          "code": "SOURCE_SET_UNCLOSED",
+          "missing": [
+            "f1099int.b3"
+          ],
+          "rule": "interest-positive-total"
+        }
+      ],
+      "companions_added": [],
+      "declarations_removed": [],
+      "member_value": 1000.0,
+      "moved_lines_not_downstream_of_this_set": [],
+      "sample_gap_values": {
+        "ctc.sch8812.worksheet-a.line-5": {
+          "answered": "3995",
+          "base": "3875",
+          "unanswered": "3995"
+        },
+        "eic.worksheet-a.line-3": {
+          "answered": "51000",
+          "base": "50000",
+          "unanswered": "51000"
+        },
+        "income.agi": {
+          "answered": "51000",
+          "base": "50000",
+          "unanswered": "51000"
+        },
+        "income.taxable-income": {
+          "answered": "35250",
+          "base": "34250",
+          "unanswered": "35250"
+        },
+        "income.total-income": {
+          "answered": "51000",
+          "base": "50000",
+          "unanswered": "51000"
+        },
+        "interest.taxable-total": {
+          "answered": "1000",
+          "base": "0",
+          "unanswered": "1000"
+        }
+      },
+      "source_set": "tax.us.2025.f1099int.b3",
+      "unanswered_blocked_count": 2,
+      "unanswered_gap_lines": [
+        "ctc.sch8812.worksheet-a.line-5",
+        "eic.worksheet-a.line-3",
+        "income.agi",
+        "income.taxable-income",
+        "income.total-income",
+        "interest.taxable-total",
+        "payments.line34-overpaid",
+        "payments.line35a-refunded",
+        "tax.after-nonrefundable-credits",
+        "tax.line24-total-tax",
+        "tax.total-tax"
+      ],
+      "unanswered_held_lines": [],
+      "unanswered_other_lines": [],
+      "unanswered_roots": [
+        {
+          "code": "SOURCE_SET_UNCLOSED",
+          "missing": [
+            "f1099int.b3"
+          ],
+          "rule": "interest-positive-total"
+        }
+      ],
+      "verdict": "GAP: unanswered closure publishes the partial sum on bound lines"
+    },
+    {
+      "answered_blocked_count": 0,
+      "answered_lines_moved_from_base": [
+        "payments.line25b",
+        "payments.line25d",
+        "payments.line33",
+        "payments.line34-overpaid",
+        "payments.line35a-refunded"
+      ],
+      "answered_lines_unpublished": [],
+      "answered_roots": [],
+      "closure_block_answered_run": [],
+      "closure_block_unanswered_run": [
+        {
+          "code": "SOURCE_SET_UNCLOSED",
+          "missing": [
+            "f1099int.b4"
+          ],
+          "rule": "form1040-line25b"
+        }
+      ],
+      "companions_added": [],
+      "declarations_removed": [],
+      "member_value": 1000.0,
+      "moved_lines_not_downstream_of_this_set": [],
+      "sample_gap_values": {},
+      "source_set": "tax.us.2025.f1099int.b4",
+      "unanswered_blocked_count": 7,
+      "unanswered_gap_lines": [],
+      "unanswered_held_lines": [
+        "payments.line25b",
+        "payments.line25d",
+        "payments.line33",
+        "payments.line34-overpaid",
+        "payments.line35a-refunded"
+      ],
+      "unanswered_other_lines": [],
+      "unanswered_roots": [
+        {
+          "code": "SOURCE_SET_UNCLOSED",
+          "missing": [
+            "f1099int.b4"
+          ],
+          "rule": "form1040-line25b"
+        }
+      ],
+      "verdict": "held: unanswered closure keeps every moved bound line from publishing"
+    },
+    {
+      "answered_blocked_count": 0,
+      "answered_lines_moved_from_base": [
+        "tax-exempt-interest.line2a-total"
+      ],
+      "answered_lines_unpublished": [],
+      "answered_roots": [],
+      "closure_block_answered_run": [],
+      "closure_block_unanswered_run": [
+        {
+          "code": "SOURCE_SET_UNCLOSED",
+          "missing": [
+            "f1099int.b8"
+          ],
+          "rule": "form1040-line2a"
+        }
+      ],
+      "companions_added": [
+        "f1099int.box9-specified-pab-authority"
+      ],
+      "declarations_removed": [],
+      "member_value": 1000.0,
+      "moved_lines_not_downstream_of_this_set": [],
+      "sample_gap_values": {},
+      "source_set": "tax.us.2025.f1099int.b8",
+      "unanswered_blocked_count": 88,
+      "unanswered_gap_lines": [],
+      "unanswered_held_lines": [
+        "tax-exempt-interest.line2a-total"
+      ],
+      "unanswered_other_lines": [],
+      "unanswered_roots": [
+        {
+          "code": "SOURCE_SET_UNCLOSED",
+          "missing": [
+            "f1099int.b8"
+          ],
+          "rule": "form1040-line2a"
+        }
+      ],
+      "verdict": "held: unanswered closure keeps every moved bound line from publishing"
+    },
+    {
+      "answered_blocked_count": 91,
+      "answered_lines_moved_from_base": [
+        "schedule1.top-entry"
+      ],
+      "answered_lines_unpublished": [
+        "schedule1.top-entry"
+      ],
+      "answered_roots": [],
+      "closure_block_answered_run": [],
+      "closure_block_unanswered_run": [
+        {
+          "code": "SOURCE_SET_UNCLOSED",
+          "missing": [
+            "f1099k"
+          ],
+          "rule": "schedule1-line10"
+        },
+        {
+          "code": "SOURCE_SET_UNCLOSED",
+          "missing": [
+            "f1099k"
+          ],
+          "rule": "schedule1-top-entry"
+        }
+      ],
+      "companions_added": [],
+      "declarations_removed": [],
+      "member_value": 1000.0,
+      "moved_lines_not_downstream_of_this_set": [
+        "credits.form1040-line20",
+        "ctc.form1040-line19",
+        "ctc.form1040-line28",
+        "ctc.sch8812.line-14",
+        "ctc.sch8812.line-17",
+        "ctc.sch8812.worksheet-a.line-5",
+        "deductions.line-14",
+        "deductions.schedule-1a",
+        "eic.worksheet-a.line-3",
+        "eic.worksheet-a.line-5",
+        "eic.worksheet-a.line-6",
+        "income.additional-income",
+        "income.agi",
+        "income.taxable-income",
+        "income.total-income",
+        "payments.line27a",
+        "payments.line32",
+        "payments.line33",
+        "payments.line34-overpaid",
+        "payments.line35a-refunded",
+        "payments.line37-amount-owed",
+        "schedule1.line10-additional-income",
+        "schedule3.line1-direct-ftc",
+        "schedule3.line8-total",
+        "social-security.line6b",
+        "tax.after-nonrefundable-credits",
+        "tax.line24-total-tax",
+        "tax.total-tax"
+      ],
+      "sample_gap_values": {},
+      "source_set": "tax.us.2025.f1099k",
+      "unanswered_blocked_count": 91,
+      "unanswered_gap_lines": [],
+      "unanswered_held_lines": [],
+      "unanswered_other_lines": [],
+      "unanswered_roots": [
+        {
+          "code": "SOURCE_SET_UNCLOSED",
+          "missing": [
+            "f1099k"
+          ],
+          "rule": "schedule1-line10"
+        },
+        {
+          "code": "SOURCE_SET_UNCLOSED",
+          "missing": [
+            "f1099k"
+          ],
+          "rule": "schedule1-top-entry"
+        }
+      ],
+      "verdict": "held (by root block only): the answered return is incomplete for other reasons, but the unanswered closure blocks schedule1-line10, schedule1-top-entry"
+    },
+    {
+      "answered_blocked_count": 0,
+      "answered_lines_moved_from_base": [
+        "ctc.sch8812.worksheet-a.line-5",
+        "eic.worksheet-a.line-3",
+        "income.agi",
+        "income.taxable-income",
+        "income.total-income",
+        "interest.taxable-total",
+        "payments.line34-overpaid",
+        "payments.line35a-refunded",
+        "tax.after-nonrefundable-credits",
+        "tax.line24-total-tax",
+        "tax.total-tax"
+      ],
+      "answered_lines_unpublished": [],
+      "answered_roots": [],
+      "closure_block_answered_run": [],
+      "closure_block_unanswered_run": [
+        {
+          "code": "SOURCE_SET_UNCLOSED",
+          "missing": [
+            "f1099oid.b5"
+          ],
+          "rule": "interest-positive-total"
+        }
+      ],
+      "companions_added": [],
+      "declarations_removed": [],
+      "member_value": 1000.0,
+      "moved_lines_not_downstream_of_this_set": [],
+      "sample_gap_values": {
+        "ctc.sch8812.worksheet-a.line-5": {
+          "answered": "3995",
+          "base": "3875",
+          "unanswered": "3995"
+        },
+        "eic.worksheet-a.line-3": {
+          "answered": "51000",
+          "base": "50000",
+          "unanswered": "51000"
+        },
+        "income.agi": {
+          "answered": "51000",
+          "base": "50000",
+          "unanswered": "51000"
+        },
+        "income.taxable-income": {
+          "answered": "35250",
+          "base": "34250",
+          "unanswered": "35250"
+        },
+        "income.total-income": {
+          "answered": "51000",
+          "base": "50000",
+          "unanswered": "51000"
+        },
+        "interest.taxable-total": {
+          "answered": "1000",
+          "base": "0",
+          "unanswered": "1000"
+        }
+      },
+      "source_set": "tax.us.2025.f1099oid.b5",
+      "unanswered_blocked_count": 2,
+      "unanswered_gap_lines": [
+        "ctc.sch8812.worksheet-a.line-5",
+        "eic.worksheet-a.line-3",
+        "income.agi",
+        "income.taxable-income",
+        "income.total-income",
+        "interest.taxable-total",
+        "payments.line34-overpaid",
+        "payments.line35a-refunded",
+        "tax.after-nonrefundable-credits",
+        "tax.line24-total-tax",
+        "tax.total-tax"
+      ],
+      "unanswered_held_lines": [],
+      "unanswered_other_lines": [],
+      "unanswered_roots": [
+        {
+          "code": "SOURCE_SET_UNCLOSED",
+          "missing": [
+            "f1099oid.b5"
+          ],
+          "rule": "interest-positive-total"
+        }
+      ],
+      "verdict": "GAP: unanswered closure publishes the partial sum on bound lines"
+    },
+    {
+      "answered_blocked_count": 0,
+      "answered_lines_moved_from_base": [
+        "ctc.sch8812.worksheet-a.line-5",
+        "eic.worksheet-a.line-3",
+        "income.agi",
+        "income.taxable-income",
+        "income.total-income",
+        "interest.taxable-total",
+        "payments.line34-overpaid",
+        "payments.line35a-refunded",
+        "tax.after-nonrefundable-credits",
+        "tax.line24-total-tax",
+        "tax.total-tax"
+      ],
+      "answered_lines_unpublished": [],
+      "answered_roots": [],
+      "closure_block_answered_run": [],
+      "closure_block_unanswered_run": [
+        {
+          "code": "SOURCE_SET_UNCLOSED",
+          "missing": [
+            "f1099oid.b1"
+          ],
+          "rule": "interest-positive-total"
+        }
+      ],
+      "companions_added": [],
+      "declarations_removed": [],
+      "member_value": 1000.0,
+      "moved_lines_not_downstream_of_this_set": [],
+      "sample_gap_values": {
+        "ctc.sch8812.worksheet-a.line-5": {
+          "answered": "3995",
+          "base": "3875",
+          "unanswered": "3995"
+        },
+        "eic.worksheet-a.line-3": {
+          "answered": "51000",
+          "base": "50000",
+          "unanswered": "51000"
+        },
+        "income.agi": {
+          "answered": "51000",
+          "base": "50000",
+          "unanswered": "51000"
+        },
+        "income.taxable-income": {
+          "answered": "35250",
+          "base": "34250",
+          "unanswered": "35250"
+        },
+        "income.total-income": {
+          "answered": "51000",
+          "base": "50000",
+          "unanswered": "51000"
+        },
+        "interest.taxable-total": {
+          "answered": "1000",
+          "base": "0",
+          "unanswered": "1000"
+        }
+      },
+      "source_set": "tax.us.2025.f1099oid.b1",
+      "unanswered_blocked_count": 2,
+      "unanswered_gap_lines": [
+        "ctc.sch8812.worksheet-a.line-5",
+        "eic.worksheet-a.line-3",
+        "income.agi",
+        "income.taxable-income",
+        "income.total-income",
+        "interest.taxable-total",
+        "payments.line34-overpaid",
+        "payments.line35a-refunded",
+        "tax.after-nonrefundable-credits",
+        "tax.line24-total-tax",
+        "tax.total-tax"
+      ],
+      "unanswered_held_lines": [],
+      "unanswered_other_lines": [],
+      "unanswered_roots": [
+        {
+          "code": "SOURCE_SET_UNCLOSED",
+          "missing": [
+            "f1099oid.b1"
+          ],
+          "rule": "interest-positive-total"
+        }
+      ],
+      "verdict": "GAP: unanswered closure publishes the partial sum on bound lines"
+    },
+    {
+      "answered_blocked_count": 0,
+      "answered_lines_moved_from_base": [
+        "payments.line25b",
+        "payments.line25d",
+        "payments.line33",
+        "payments.line34-overpaid",
+        "payments.line35a-refunded"
+      ],
+      "answered_lines_unpublished": [],
+      "answered_roots": [],
+      "closure_block_answered_run": [],
+      "closure_block_unanswered_run": [
+        {
+          "code": "SOURCE_SET_UNCLOSED",
+          "missing": [
+            "f1099r.box4"
+          ],
+          "rule": "form1040-line25b"
+        }
+      ],
+      "companions_added": [],
+      "declarations_removed": [],
+      "member_value": 1000.0,
+      "moved_lines_not_downstream_of_this_set": [],
+      "sample_gap_values": {},
+      "source_set": "tax.us.2025.f1099r.box4",
+      "unanswered_blocked_count": 7,
+      "unanswered_gap_lines": [],
+      "unanswered_held_lines": [
+        "payments.line25b",
+        "payments.line25d",
+        "payments.line33",
+        "payments.line34-overpaid",
+        "payments.line35a-refunded"
+      ],
+      "unanswered_other_lines": [],
+      "unanswered_roots": [
+        {
+          "code": "SOURCE_SET_UNCLOSED",
+          "missing": [
+            "f1099r.box4"
+          ],
+          "rule": "form1040-line25b"
+        }
+      ],
+      "verdict": "held: unanswered closure keeps every moved bound line from publishing"
+    },
+    {
+      "answered_blocked_count": 0,
+      "answered_lines_moved_from_base": [
+        "ctc.sch8812.worksheet-a.line-5",
+        "eic.worksheet-a.line-3",
+        "income.agi",
+        "income.taxable-income",
+        "income.total-income",
+        "ira.distributions.line4b",
+        "payments.line34-overpaid",
+        "payments.line35a-refunded",
+        "payments.line37-amount-owed",
+        "tax.after-nonrefundable-credits",
+        "tax.line24-total-tax",
+        "tax.total-tax"
+      ],
+      "answered_lines_unpublished": [],
+      "answered_roots": [],
+      "closure_block_answered_run": [],
+      "closure_block_unanswered_run": [],
+      "companions_added": [],
+      "declarations_removed": [],
+      "member_value": 1000.0,
+      "moved_lines_not_downstream_of_this_set": [],
+      "sample_gap_values": {
+        "ctc.sch8812.worksheet-a.line-5": {
+          "answered": "5075",
+          "base": "3875",
+          "unanswered": "5075"
+        },
+        "eic.worksheet-a.line-3": {
+          "answered": "60000",
+          "base": "50000",
+          "unanswered": "60000"
+        },
+        "income.agi": {
+          "answered": "60000",
+          "base": "50000",
+          "unanswered": "60000"
+        },
+        "income.taxable-income": {
+          "answered": "44250",
+          "base": "34250",
+          "unanswered": "44250"
+        },
+        "income.total-income": {
+          "answered": "60000",
+          "base": "50000",
+          "unanswered": "60000"
+        },
+        "ira.distributions.line4b": {
+          "answered": "10000",
+          "base": "0",
+          "unanswered": "10000"
+        }
+      },
+      "source_set": "tax.us.2025.f1099r.ira-fully-taxable",
+      "unanswered_blocked_count": 0,
+      "unanswered_gap_lines": [
+        "ctc.sch8812.worksheet-a.line-5",
+        "eic.worksheet-a.line-3",
+        "income.agi",
+        "income.taxable-income",
+        "income.total-income",
+        "ira.distributions.line4b",
+        "payments.line34-overpaid",
+        "payments.line35a-refunded",
+        "payments.line37-amount-owed",
+        "tax.after-nonrefundable-credits",
+        "tax.line24-total-tax",
+        "tax.total-tax"
+      ],
+      "unanswered_held_lines": [],
+      "unanswered_other_lines": [],
+      "unanswered_roots": [],
+      "verdict": "GAP: unanswered closure publishes the partial sum on bound lines"
+    },
+    {
+      "answered_blocked_count": 7,
+      "answered_lines_moved_from_base": [
+        "payments.line25a",
+        "payments.line25d",
+        "payments.line33",
+        "payments.line34-overpaid",
+        "payments.line35a-refunded",
+        "payments.line37-amount-owed"
+      ],
+      "answered_lines_unpublished": [
+        "payments.line25a",
+        "payments.line25d",
+        "payments.line33",
+        "payments.line34-overpaid",
+        "payments.line35a-refunded",
+        "payments.line37-amount-owed"
+      ],
+      "answered_roots": [],
+      "closure_block_answered_run": [],
+      "closure_block_unanswered_run": [
+        {
+          "code": "SOURCE_SET_UNCLOSED",
+          "missing": [
+            "w2-box2"
+          ],
+          "rule": "form1040-line25a"
+        }
+      ],
+      "companions_added": [],
+      "declarations_removed": [],
+      "member_value": 1000.0,
+      "moved_lines_not_downstream_of_this_set": [],
+      "sample_gap_values": {},
+      "source_set": "tax.us.2025.w2-box2",
+      "unanswered_blocked_count": 7,
+      "unanswered_gap_lines": [],
+      "unanswered_held_lines": [],
+      "unanswered_other_lines": [],
+      "unanswered_roots": [
+        {
+          "code": "SOURCE_SET_UNCLOSED",
+          "missing": [
+            "w2-box2"
+          ],
+          "rule": "form1040-line25a"
+        }
+      ],
+      "verdict": "held (by root block only): the answered return is incomplete for other reasons, but the unanswered closure blocks form1040-line25a"
+    },
+    {
+      "answered_blocked_count": 0,
+      "answered_lines_moved_from_base": [
+        "ctc.sch8812.worksheet-a.line-5",
+        "eic.worksheet-a.line-3",
+        "income.agi",
+        "income.taxable-income",
+        "income.total-income",
+        "interest.taxable-total",
+        "payments.line34-overpaid",
+        "payments.line35a-refunded",
+        "tax.after-nonrefundable-credits",
+        "tax.line24-total-tax",
+        "tax.total-tax"
+      ],
+      "answered_lines_unpublished": [],
+      "answered_roots": [],
+      "closure_block_answered_run": [],
+      "closure_block_unanswered_run": [
+        {
+          "code": "SOURCE_SET_UNCLOSED",
+          "missing": [
+            "form1065-k1.box5"
+          ],
+          "rule": "interest-positive-total"
+        }
+      ],
+      "companions_added": [],
+      "declarations_removed": [],
+      "member_value": 1000.0,
+      "moved_lines_not_downstream_of_this_set": [],
+      "sample_gap_values": {
+        "ctc.sch8812.worksheet-a.line-5": {
+          "answered": "3995",
+          "base": "3875",
+          "unanswered": "3995"
+        },
+        "eic.worksheet-a.line-3": {
+          "answered": "51000",
+          "base": "50000",
+          "unanswered": "51000"
+        },
+        "income.agi": {
+          "answered": "51000",
+          "base": "50000",
+          "unanswered": "51000"
+        },
+        "income.taxable-income": {
+          "answered": "35250",
+          "base": "34250",
+          "unanswered": "35250"
+        },
+        "income.total-income": {
+          "answered": "51000",
+          "base": "50000",
+          "unanswered": "51000"
+        },
+        "interest.taxable-total": {
+          "answered": "1000",
+          "base": "0",
+          "unanswered": "1000"
+        }
+      },
+      "source_set": "tax.us.2025.form1065-k1.box5",
+      "unanswered_blocked_count": 2,
+      "unanswered_gap_lines": [
+        "ctc.sch8812.worksheet-a.line-5",
+        "eic.worksheet-a.line-3",
+        "income.agi",
+        "income.taxable-income",
+        "income.total-income",
+        "interest.taxable-total",
+        "payments.line34-overpaid",
+        "payments.line35a-refunded",
+        "tax.after-nonrefundable-credits",
+        "tax.line24-total-tax",
+        "tax.total-tax"
+      ],
+      "unanswered_held_lines": [],
+      "unanswered_other_lines": [],
+      "unanswered_roots": [
+        {
+          "code": "SOURCE_SET_UNCLOSED",
+          "missing": [
+            "form1065-k1.box5"
+          ],
+          "rule": "interest-positive-total"
+        }
+      ],
+      "verdict": "GAP: unanswered closure publishes the partial sum on bound lines"
+    },
+    {
+      "answered_blocked_count": 67,
+      "answered_lines_moved_from_base": [
+        "credits.form1040-line20",
+        "ctc.form1040-line19",
+        "ctc.form1040-line28",
+        "ctc.sch8812.line-14",
+        "ctc.sch8812.line-17",
+        "ctc.sch8812.worksheet-a.line-5",
+        "deductions.line-12e",
+        "deductions.line-14",
+        "income.taxable-income",
+        "payments.line32",
+        "payments.line33",
+        "payments.line34-overpaid",
+        "payments.line35a-refunded",
+        "payments.line37-amount-owed",
+        "schedule3.line1-direct-ftc",
+        "schedule3.line8-total",
+        "tax.after-nonrefundable-credits",
+        "tax.line24-total-tax",
+        "tax.total-tax"
+      ],
+      "answered_lines_unpublished": [
+        "credits.form1040-line20",
+        "ctc.form1040-line19",
+        "ctc.form1040-line28",
+        "ctc.sch8812.line-14",
+        "ctc.sch8812.line-17",
+        "ctc.sch8812.worksheet-a.line-5",
+        "deductions.line-12e",
+        "deductions.line-14",
+        "income.taxable-income",
+        "payments.line32",
+        "payments.line33",
+        "payments.line34-overpaid",
+        "payments.line35a-refunded",
+        "payments.line37-amount-owed",
+        "schedule3.line1-direct-ftc",
+        "schedule3.line8-total",
+        "tax.after-nonrefundable-credits",
+        "tax.line24-total-tax",
+        "tax.total-tax"
+      ],
+      "answered_roots": [
+        {
+          "code": "DEPENDENCY_INVALID",
+          "missing": [
+            "f1098.box1-mortgage-interest|payer=demo.p0.cs.payer,statement=demo.p0.cs.statement,tax-year=2025"
+          ],
+          "rule": "f1098-residence-interest-unresolved"
+        }
+      ],
+      "closure_block_answered_run": [],
+      "closure_block_unanswered_run": [
+        {
+          "code": "SOURCE_SET_UNCLOSED",
+          "missing": [
+            "f1098"
+          ],
+          "rule": "schedule-a-total-closed-empty"
+        },
+        {
+          "code": "SOURCE_SET_UNCLOSED",
+          "missing": [
+            "f1098"
+          ],
+          "rule": "f1098-line8a"
+        }
+      ],
+      "companions_added": [],
+      "declarations_removed": [],
+      "member_value": 1000.0,
+      "moved_lines_not_downstream_of_this_set": [],
+      "sample_gap_values": {},
+      "source_set": "tax.us.2025.f1098",
+      "unanswered_blocked_count": 68,
+      "unanswered_gap_lines": [],
+      "unanswered_held_lines": [],
+      "unanswered_other_lines": [],
+      "unanswered_roots": [
+        {
+          "code": "SOURCE_SET_UNCLOSED",
+          "missing": [
+            "f1098"
+          ],
+          "rule": "schedule-a-total-closed-empty"
+        },
+        {
+          "code": "DEPENDENCY_INVALID",
+          "missing": [
+            "f1098.box1-mortgage-interest|payer=demo.p0.cs.payer,statement=demo.p0.cs.statement,tax-year=2025"
+          ],
+          "rule": "f1098-residence-interest-unresolved"
+        },
+        {
+          "code": "SOURCE_SET_UNCLOSED",
+          "missing": [
+            "f1098"
+          ],
+          "rule": "f1098-line8a"
+        }
+      ],
+      "verdict": "held (by root block only): the answered return is incomplete for other reasons, but the unanswered closure blocks schedule-a-total-closed-empty, f1098-line8a"
+    },
+    {
+      "answered_blocked_count": 0,
+      "answered_lines_moved_from_base": [
+        "ctc.sch8812.worksheet-a.line-5",
+        "eic.worksheet-a.line-3",
+        "income.agi",
+        "income.taxable-income",
+        "income.total-income",
+        "interest.taxable-total",
+        "payments.line34-overpaid",
+        "payments.line35a-refunded",
+        "tax.after-nonrefundable-credits",
+        "tax.line24-total-tax",
+        "tax.total-tax"
+      ],
+      "answered_lines_unpublished": [],
+      "answered_roots": [],
+      "closure_block_answered_run": [],
+      "closure_block_unanswered_run": [
+        {
+          "code": "SOURCE_SET_UNCLOSED",
+          "missing": [
+            "non-form-interest"
+          ],
+          "rule": "interest-positive-total"
+        }
+      ],
+      "companions_added": [],
+      "declarations_removed": [],
+      "member_value": 1000.0,
+      "moved_lines_not_downstream_of_this_set": [],
+      "sample_gap_values": {
+        "ctc.sch8812.worksheet-a.line-5": {
+          "answered": "3995",
+          "base": "3875",
+          "unanswered": "3995"
+        },
+        "eic.worksheet-a.line-3": {
+          "answered": "51000",
+          "base": "50000",
+          "unanswered": "51000"
+        },
+        "income.agi": {
+          "answered": "51000",
+          "base": "50000",
+          "unanswered": "51000"
+        },
+        "income.taxable-income": {
+          "answered": "35250",
+          "base": "34250",
+          "unanswered": "35250"
+        },
+        "income.total-income": {
+          "answered": "51000",
+          "base": "50000",
+          "unanswered": "51000"
+        },
+        "interest.taxable-total": {
+          "answered": "1000",
+          "base": "0",
+          "unanswered": "1000"
+        }
+      },
+      "source_set": "tax.us.2025.non-form-interest",
+      "unanswered_blocked_count": 2,
+      "unanswered_gap_lines": [
+        "ctc.sch8812.worksheet-a.line-5",
+        "eic.worksheet-a.line-3",
+        "income.agi",
+        "income.taxable-income",
+        "income.total-income",
+        "interest.taxable-total",
+        "payments.line34-overpaid",
+        "payments.line35a-refunded",
+        "tax.after-nonrefundable-credits",
+        "tax.line24-total-tax",
+        "tax.total-tax"
+      ],
+      "unanswered_held_lines": [],
+      "unanswered_other_lines": [],
+      "unanswered_roots": [
+        {
+          "code": "SOURCE_SET_UNCLOSED",
+          "missing": [
+            "non-form-interest"
+          ],
+          "rule": "interest-positive-total"
+        }
+      ],
+      "verdict": "GAP: unanswered closure publishes the partial sum on bound lines"
+    },
+    {
+      "answered_blocked_count": 29,
+      "answered_lines_moved_from_base": [
+        "ctc.form1040-line19",
+        "ctc.form1040-line28",
+        "ctc.sch8812.line-14",
+        "ctc.sch8812.line-17",
+        "ctc.sch8812.line-6",
+        "ctc.sch8812.line-7",
+        "payments.line32",
+        "payments.line33",
+        "payments.line34-overpaid",
+        "payments.line35a-refunded",
+        "payments.line37-amount-owed",
+        "tax.after-nonrefundable-credits",
+        "tax.line24-total-tax"
+      ],
+      "answered_lines_unpublished": [
+        "ctc.form1040-line19",
+        "ctc.form1040-line28",
+        "ctc.sch8812.line-14",
+        "ctc.sch8812.line-17",
+        "ctc.sch8812.line-6",
+        "ctc.sch8812.line-7",
+        "payments.line32",
+        "payments.line33",
+        "payments.line34-overpaid",
+        "payments.line35a-refunded",
+        "payments.line37-amount-owed",
+        "tax.after-nonrefundable-credits",
+        "tax.line24-total-tax"
+      ],
+      "answered_roots": [
+        {
+          "code": "DEPENDENCY_INVALID",
+          "missing": [],
+          "rule": "odc-child-marked-conflict"
+        }
+      ],
+      "closure_block_answered_run": [],
+      "closure_block_unanswered_run": [
+        {
+          "code": "SOURCE_SET_UNCLOSED",
+          "missing": [
+            "odc.child-roster"
+          ],
+          "rule": "odc-child-count"
+        }
+      ],
+      "companions_added": [],
+      "declarations_removed": [],
+      "member_value": "yes",
+      "moved_lines_not_downstream_of_this_set": [
+        "eic.worksheet-a.line-2",
+        "eic.worksheet-a.line-5",
+        "eic.worksheet-a.line-6",
+        "payments.line27a"
+      ],
+      "sample_gap_values": {},
+      "source_set": "tax.us.2025.odc.child-roster",
+      "unanswered_blocked_count": 30,
+      "unanswered_gap_lines": [],
+      "unanswered_held_lines": [],
+      "unanswered_other_lines": [],
+      "unanswered_roots": [
+        {
+          "code": "SOURCE_SET_UNCLOSED",
+          "missing": [
+            "odc.child-roster"
+          ],
+          "rule": "odc-child-count"
+        },
+        {
+          "code": "DEPENDENCY_INVALID",
+          "missing": [],
+          "rule": "odc-child-marked-conflict"
+        }
+      ],
+      "verdict": "held (by root block only): the answered return is incomplete for other reasons, but the unanswered closure blocks odc-child-count"
+    },
+    {
+      "answered_blocked_count": 29,
+      "answered_lines_moved_from_base": [
+        "ctc.form1040-line19",
+        "ctc.form1040-line28",
+        "ctc.sch8812.line-14",
+        "ctc.sch8812.line-17",
+        "ctc.sch8812.line-6",
+        "ctc.sch8812.line-7",
+        "payments.line32",
+        "payments.line33",
+        "payments.line34-overpaid",
+        "payments.line35a-refunded",
+        "payments.line37-amount-owed",
+        "tax.after-nonrefundable-credits",
+        "tax.line24-total-tax"
+      ],
+      "answered_lines_unpublished": [
+        "ctc.form1040-line19",
+        "ctc.form1040-line28",
+        "ctc.sch8812.line-14",
+        "ctc.sch8812.line-17",
+        "ctc.sch8812.line-6",
+        "ctc.sch8812.line-7",
+        "payments.line32",
+        "payments.line33",
+        "payments.line34-overpaid",
+        "payments.line35a-refunded",
+        "payments.line37-amount-owed",
+        "tax.after-nonrefundable-credits",
+        "tax.line24-total-tax"
+      ],
+      "answered_roots": [
+        {
+          "code": "DEPENDENCY_INVALID",
+          "missing": [],
+          "rule": "odc-relative-marked-conflict"
+        }
+      ],
+      "closure_block_answered_run": [],
+      "closure_block_unanswered_run": [
+        {
+          "code": "SOURCE_SET_UNCLOSED",
+          "missing": [
+            "odc.relative-roster"
+          ],
+          "rule": "odc-relative-count"
+        }
+      ],
+      "companions_added": [],
+      "declarations_removed": [],
+      "member_value": "yes",
+      "moved_lines_not_downstream_of_this_set": [],
+      "sample_gap_values": {},
+      "source_set": "tax.us.2025.odc.relative-roster",
+      "unanswered_blocked_count": 30,
+      "unanswered_gap_lines": [],
+      "unanswered_held_lines": [],
+      "unanswered_other_lines": [],
+      "unanswered_roots": [
+        {
+          "code": "SOURCE_SET_UNCLOSED",
+          "missing": [
+            "odc.relative-roster"
+          ],
+          "rule": "odc-relative-count"
+        },
+        {
+          "code": "DEPENDENCY_INVALID",
+          "missing": [],
+          "rule": "odc-relative-marked-conflict"
+        }
+      ],
+      "verdict": "held (by root block only): the answered return is incomplete for other reasons, but the unanswered closure blocks odc-relative-count"
+    },
+    {
+      "answered_blocked_count": 0,
+      "answered_lines_moved_from_base": [
+        "ctc.sch8812.worksheet-a.line-5",
+        "eic.worksheet-a.line-3",
+        "income.agi",
+        "income.taxable-income",
+        "income.total-income",
+        "interest.taxable-total",
+        "payments.line34-overpaid",
+        "payments.line35a-refunded",
+        "tax.after-nonrefundable-credits",
+        "tax.line24-total-tax",
+        "tax.total-tax"
+      ],
+      "answered_lines_unpublished": [],
+      "answered_roots": [],
+      "closure_block_answered_run": [],
+      "closure_block_unanswered_run": [],
+      "companions_added": [],
+      "declarations_removed": [],
+      "member_value": 1000.0,
+      "moved_lines_not_downstream_of_this_set": [],
+      "sample_gap_values": {
+        "ctc.sch8812.worksheet-a.line-5": {
+          "answered": "3755",
+          "base": "3875",
+          "unanswered": "3755"
+        },
+        "eic.worksheet-a.line-3": {
+          "answered": "49000",
+          "base": "50000",
+          "unanswered": "49000"
+        },
+        "income.agi": {
+          "answered": "49000",
+          "base": "50000",
+          "unanswered": "49000"
+        },
+        "income.taxable-income": {
+          "answered": "33250",
+          "base": "34250",
+          "unanswered": "33250"
+        },
+        "income.total-income": {
+          "answered": "49000",
+          "base": "50000",
+          "unanswered": "49000"
+        },
+        "interest.taxable-total": {
+          "answered": "-1000",
+          "base": "0",
+          "unanswered": "-1000"
+        }
+      },
+      "source_set": "tax.us.2025.scheduleb.adjustment.abp-adjustment",
+      "unanswered_blocked_count": 0,
+      "unanswered_gap_lines": [
+        "ctc.sch8812.worksheet-a.line-5",
+        "eic.worksheet-a.line-3",
+        "income.agi",
+        "income.taxable-income",
+        "income.total-income",
+        "interest.taxable-total",
+        "payments.line34-overpaid",
+        "payments.line35a-refunded",
+        "tax.after-nonrefundable-credits",
+        "tax.line24-total-tax",
+        "tax.total-tax"
+      ],
+      "unanswered_held_lines": [],
+      "unanswered_other_lines": [],
+      "unanswered_roots": [],
+      "verdict": "GAP: unanswered closure publishes the partial sum on bound lines"
+    },
+    {
+      "answered_blocked_count": 0,
+      "answered_lines_moved_from_base": [
+        "ctc.sch8812.worksheet-a.line-5",
+        "eic.worksheet-a.line-3",
+        "income.agi",
+        "income.taxable-income",
+        "income.total-income",
+        "interest.taxable-total",
+        "payments.line34-overpaid",
+        "payments.line35a-refunded",
+        "tax.after-nonrefundable-credits",
+        "tax.line24-total-tax",
+        "tax.total-tax"
+      ],
+      "answered_lines_unpublished": [],
+      "answered_roots": [],
+      "closure_block_answered_run": [],
+      "closure_block_unanswered_run": [],
+      "companions_added": [],
+      "declarations_removed": [],
+      "member_value": 1000.0,
+      "moved_lines_not_downstream_of_this_set": [],
+      "sample_gap_values": {
+        "ctc.sch8812.worksheet-a.line-5": {
+          "answered": "3755",
+          "base": "3875",
+          "unanswered": "3755"
+        },
+        "eic.worksheet-a.line-3": {
+          "answered": "49000",
+          "base": "50000",
+          "unanswered": "49000"
+        },
+        "income.agi": {
+          "answered": "49000",
+          "base": "50000",
+          "unanswered": "49000"
+        },
+        "income.taxable-income": {
+          "answered": "33250",
+          "base": "34250",
+          "unanswered": "33250"
+        },
+        "income.total-income": {
+          "answered": "49000",
+          "base": "50000",
+          "unanswered": "49000"
+        },
+        "interest.taxable-total": {
+          "answered": "-1000",
+          "base": "0",
+          "unanswered": "-1000"
+        }
+      },
+      "source_set": "tax.us.2025.scheduleb.adjustment.nominee",
+      "unanswered_blocked_count": 0,
+      "unanswered_gap_lines": [
+        "ctc.sch8812.worksheet-a.line-5",
+        "eic.worksheet-a.line-3",
+        "income.agi",
+        "income.taxable-income",
+        "income.total-income",
+        "interest.taxable-total",
+        "payments.line34-overpaid",
+        "payments.line35a-refunded",
+        "tax.after-nonrefundable-credits",
+        "tax.line24-total-tax",
+        "tax.total-tax"
+      ],
+      "unanswered_held_lines": [],
+      "unanswered_other_lines": [],
+      "unanswered_roots": [],
+      "verdict": "GAP: unanswered closure publishes the partial sum on bound lines"
+    },
+    {
+      "answered_blocked_count": 94,
+      "answered_lines_moved_from_base": [
+        "credits.form1040-line20",
+        "ctc.form1040-line19",
+        "ctc.form1040-line28",
+        "ctc.sch8812.line-14",
+        "ctc.sch8812.line-17",
+        "ctc.sch8812.worksheet-a.line-5",
+        "deductions.line-14",
+        "deductions.schedule-1a",
+        "eic.worksheet-a.line-3",
+        "eic.worksheet-a.line-5",
+        "eic.worksheet-a.line-6",
+        "income.agi",
+        "income.line10-adjustments",
+        "income.taxable-income",
+        "payments.line27a",
+        "payments.line32",
+        "payments.line33",
+        "payments.line34-overpaid",
+        "payments.line35a-refunded",
+        "payments.line37-amount-owed",
+        "schedule1.line21-sli-deduction",
+        "schedule3.line1-direct-ftc",
+        "schedule3.line8-total",
+        "tax.after-nonrefundable-credits",
+        "tax.line24-total-tax",
+        "tax.total-tax"
+      ],
+      "answered_lines_unpublished": [
+        "credits.form1040-line20",
+        "ctc.form1040-line19",
+        "ctc.form1040-line28",
+        "ctc.sch8812.line-14",
+        "ctc.sch8812.line-17",
+        "ctc.sch8812.worksheet-a.line-5",
+        "deductions.line-14",
+        "deductions.schedule-1a",
+        "eic.worksheet-a.line-3",
+        "eic.worksheet-a.line-5",
+        "eic.worksheet-a.line-6",
+        "income.agi",
+        "income.line10-adjustments",
+        "income.taxable-income",
+        "payments.line27a",
+        "payments.line32",
+        "payments.line33",
+        "payments.line34-overpaid",
+        "payments.line35a-refunded",
+        "payments.line37-amount-owed",
+        "schedule1.line21-sli-deduction",
+        "schedule3.line1-direct-ftc",
+        "schedule3.line8-total",
+        "tax.after-nonrefundable-credits",
+        "tax.line24-total-tax",
+        "tax.total-tax"
+      ],
+      "answered_roots": [
+        {
+          "code": "DEPENDENCY_INVALID",
+          "missing": [],
+          "rule": "sli-statement-combined-standing"
+        },
+        {
+          "code": "DEPENDENCY_INVALID",
+          "missing": [
+            "f1098e.box1-student-loan-interest|lender=demo.p0.cs.lender,statement=demo.p0.cs.statement,tax-year=2025"
+          ],
+          "rule": "sli-worksheet"
+        }
+      ],
+      "closure_block_answered_run": [],
+      "closure_block_unanswered_run": [
+        {
+          "code": "SOURCE_SET_UNCLOSED",
+          "missing": [
+            "f1098e.1"
+          ],
+          "rule": "sli-worksheet"
+        }
+      ],
+      "companions_added": [
+        "f1098e.box2-checked-authority"
+      ],
+      "declarations_removed": [],
+      "member_value": 1000.0,
+      "moved_lines_not_downstream_of_this_set": [],
+      "sample_gap_values": {},
+      "source_set": "tax.us.2025.f1098e.1",
+      "unanswered_blocked_count": 94,
+      "unanswered_gap_lines": [],
+      "unanswered_held_lines": [],
+      "unanswered_other_lines": [],
+      "unanswered_roots": [
+        {
+          "code": "DEPENDENCY_INVALID",
+          "missing": [],
+          "rule": "sli-statement-combined-standing"
+        },
+        {
+          "code": "SOURCE_SET_UNCLOSED",
+          "missing": [
+            "f1098e.1"
+          ],
+          "rule": "sli-worksheet"
+        }
+      ],
+      "verdict": "held (by root block only): the answered return is incomplete for other reasons, but the unanswered closure blocks sli-worksheet"
+    },
+    {
+      "answered_blocked_count": 0,
+      "answered_lines_moved_from_base": [
+        "payments.line25b",
+        "payments.line25d",
+        "payments.line33",
+        "payments.line34-overpaid",
+        "payments.line35a-refunded"
+      ],
+      "answered_lines_unpublished": [],
+      "answered_roots": [],
+      "closure_block_answered_run": [],
+      "closure_block_unanswered_run": [
+        {
+          "code": "SOURCE_SET_UNCLOSED",
+          "missing": [
+            "ssa1099.b6"
+          ],
+          "rule": "form1040-line25b"
+        }
+      ],
+      "companions_added": [],
+      "declarations_removed": [],
+      "member_value": 1000.0,
+      "moved_lines_not_downstream_of_this_set": [],
+      "sample_gap_values": {},
+      "source_set": "tax.us.2025.ssa1099.b6",
+      "unanswered_blocked_count": 7,
+      "unanswered_gap_lines": [],
+      "unanswered_held_lines": [
+        "payments.line25b",
+        "payments.line25d",
+        "payments.line33",
+        "payments.line34-overpaid",
+        "payments.line35a-refunded"
+      ],
+      "unanswered_other_lines": [],
+      "unanswered_roots": [
+        {
+          "code": "SOURCE_SET_UNCLOSED",
+          "missing": [
+            "ssa1099.b6"
+          ],
+          "rule": "form1040-line25b"
+        }
+      ],
+      "verdict": "held: unanswered closure keeps every moved bound line from publishing"
+    },
+    {
+      "answered_blocked_count": 0,
+      "answered_lines_moved_from_base": [
+        "ctc.sch8812.worksheet-a.line-5",
+        "eic.worksheet-a.line-3",
+        "income.agi",
+        "income.taxable-income",
+        "income.total-income",
+        "payments.line34-overpaid",
+        "payments.line35a-refunded",
+        "payments.line37-amount-owed",
+        "social-security.line6a",
+        "social-security.line6b",
+        "tax.after-nonrefundable-credits",
+        "tax.line24-total-tax",
+        "tax.total-tax"
+      ],
+      "answered_lines_unpublished": [],
+      "answered_roots": [],
+      "closure_block_answered_run": [],
+      "closure_block_unanswered_run": [
+        {
+          "code": "SOURCE_SET_UNCLOSED",
+          "missing": [
+            "ssa1099.benefits"
+          ],
+          "rule": "ss-benefits-worksheet"
+        }
+      ],
+      "companions_added": [],
+      "declarations_removed": [],
+      "member_value": 1000.0,
+      "moved_lines_not_downstream_of_this_set": [],
+      "sample_gap_values": {
+        "social-security.line6a": {
+          "answered": "12000",
+          "base": "0",
+          "unanswered": "12000"
+        }
+      },
+      "source_set": "tax.us.2025.ssa1099.benefits",
+      "unanswered_blocked_count": 86,
+      "unanswered_gap_lines": [
+        "social-security.line6a"
+      ],
+      "unanswered_held_lines": [
+        "ctc.sch8812.worksheet-a.line-5",
+        "eic.worksheet-a.line-3",
+        "income.agi",
+        "income.taxable-income",
+        "income.total-income",
+        "payments.line34-overpaid",
+        "payments.line35a-refunded",
+        "payments.line37-amount-owed",
+        "social-security.line6b",
+        "tax.after-nonrefundable-credits",
+        "tax.line24-total-tax",
+        "tax.total-tax"
+      ],
+      "unanswered_other_lines": [],
+      "unanswered_roots": [
+        {
+          "code": "SOURCE_SET_UNCLOSED",
+          "missing": [
+            "ssa1099.benefits"
+          ],
+          "rule": "ss-benefits-worksheet"
+        }
+      ],
+      "verdict": "GAP: unanswered closure publishes the partial sum on bound lines"
+    },
+    {
+      "answered_blocked_count": 0,
+      "answered_lines_moved_from_base": [],
+      "answered_lines_unpublished": [],
+      "answered_roots": [],
+      "closure_block_answered_run": [],
+      "closure_block_unanswered_run": [],
+      "companions_added": [],
+      "declarations_removed": [],
+      "member_value": 1000.0,
+      "moved_lines_not_downstream_of_this_set": [],
+      "sample_gap_values": {},
+      "source_set": "tax.us.2025.w2-box4",
+      "unanswered_blocked_count": 0,
+      "unanswered_gap_lines": [],
+      "unanswered_held_lines": [],
+      "unanswered_other_lines": [],
+      "unanswered_roots": [],
+      "verdict": "no closure block fires and no value compared: nothing blocks SOURCE_SET_UNCLOSED on this set although it is unanswered, but the member moves no bound line in this scenario (or the answered return is incomplete for other reasons); see the survey for the static guard"
+    },
+    {
+      "answered_blocked_count": 0,
+      "answered_lines_moved_from_base": [],
+      "answered_lines_unpublished": [],
+      "answered_roots": [],
+      "closure_block_answered_run": [],
+      "closure_block_unanswered_run": [],
+      "companions_added": [],
+      "declarations_removed": [],
+      "member_value": 1000.0,
+      "moved_lines_not_downstream_of_this_set": [],
+      "sample_gap_values": {},
+      "source_set": "tax.us.2025.w2-box6",
+      "unanswered_blocked_count": 0,
+      "unanswered_gap_lines": [],
+      "unanswered_held_lines": [],
+      "unanswered_other_lines": [],
+      "unanswered_roots": [],
+      "verdict": "no closure block fires and no value compared: nothing blocks SOURCE_SET_UNCLOSED on this set although it is unanswered, but the member moves no bound line in this scenario (or the answered return is incomplete for other reasons); see the survey for the static guard"
+    }
+  ],
+  "core": "v61"
+}

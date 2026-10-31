@@ -1,0 +1,139 @@
+{
+  "package_version": "v62",
+  "release_version": "v60",
+  "members": [
+    {
+      "op": "replace",
+      "old": {
+        "id": "tax.us.2025.rule.f1099div-2a-subtotal",
+        "role": "computation",
+        "schema": "rule-artifact.v2",
+        "version": "v1"
+      },
+      "new": {
+        "id": "tax.us.2025.rule.f1099div-2a-subtotal",
+        "role": "computation",
+        "schema": "rule-artifact.v2",
+        "version": "v2"
+      }
+    },
+    {
+      "op": "replace",
+      "old": {
+        "id": "tax.us.2025.rule.f1099r-ira-fully-taxable-subtotal",
+        "role": "computation",
+        "schema": "rule-artifact.v3",
+        "version": "v3"
+      },
+      "new": {
+        "id": "tax.us.2025.rule.f1099r-ira-fully-taxable-subtotal",
+        "role": "computation",
+        "schema": "rule-artifact.v3",
+        "version": "v4"
+      }
+    },
+    {
+      "op": "replace",
+      "old": {
+        "id": "tax.us.2025.rule.form1040-line6a",
+        "role": "computation",
+        "schema": "rule-artifact.v3",
+        "version": "v1"
+      },
+      "new": {
+        "id": "tax.us.2025.rule.form1040-line6a",
+        "role": "computation",
+        "schema": "rule-artifact.v3",
+        "version": "v2"
+      }
+    },
+    {
+      "op": "replace",
+      "old": {
+        "id": "tax.us.2025.rule.schedule-d-line8a-gain",
+        "role": "computation",
+        "schema": "rule-artifact.v3",
+        "version": "v2"
+      },
+      "new": {
+        "id": "tax.us.2025.rule.schedule-d-line8a-gain",
+        "role": "computation",
+        "schema": "rule-artifact.v3",
+        "version": "v3"
+      }
+    },
+    {
+      "op": "replace",
+      "old": {
+        "id": "tax.us.2025.rule.schedule-d-line1a-gain",
+        "role": "computation",
+        "schema": "rule-artifact.v3",
+        "version": "v1"
+      },
+      "new": {
+        "id": "tax.us.2025.rule.schedule-d-line1a-gain",
+        "role": "computation",
+        "schema": "rule-artifact.v3",
+        "version": "v2"
+      }
+    }
+  ],
+  "registry_sort": "id_version",
+  "registry_tail": [
+    [
+      "tax.us.2025.rule.odc-child.counts",
+      "v2"
+    ]
+  ],
+  "registry_new_key_order": [
+    "checksum",
+    "id",
+    "version"
+  ],
+  "entrypoints": [
+    {
+      "op": "replace",
+      "old": {
+        "id": "tax.us.2025.rule.f1099div-2a-subtotal",
+        "version": "v1"
+      },
+      "new": {
+        "id": "tax.us.2025.rule.f1099div-2a-subtotal",
+        "version": "v2"
+      }
+    },
+    {
+      "op": "replace",
+      "old": {
+        "id": "tax.us.2025.rule.f1099r-ira-fully-taxable-subtotal",
+        "version": "v3"
+      },
+      "new": {
+        "id": "tax.us.2025.rule.f1099r-ira-fully-taxable-subtotal",
+        "version": "v4"
+      }
+    },
+    {
+      "op": "replace",
+      "old": {
+        "id": "tax.us.2025.rule.form1040-line6a",
+        "version": "v1"
+      },
+      "new": {
+        "id": "tax.us.2025.rule.form1040-line6a",
+        "version": "v2"
+      }
+    },
+    {
+      "op": "replace",
+      "old": {
+        "id": "tax.us.2025.rule.schedule-d-line1a-gain",
+        "version": "v1"
+      },
+      "new": {
+        "id": "tax.us.2025.rule.schedule-d-line1a-gain",
+        "version": "v2"
+      }
+    }
+  ]
+}

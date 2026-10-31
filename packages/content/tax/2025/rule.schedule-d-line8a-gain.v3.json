@@ -1,0 +1,59 @@
+{
+  "blocked": {
+    "code": "DEPENDENCY_ABSENT",
+    "missing": [
+      "tax.us.2025.f1099b.covered-lt-proceeds-subtotal",
+      "tax.us.2025.f1099b.covered-lt-basis-subtotal"
+    ]
+  },
+  "citations": [
+    {
+      "id": "tax.us.2025.citation.schedule-d.line-8a",
+      "version": "v1"
+    }
+  ],
+  "id": "tax.us.2025.rule.schedule-d-line8a-gain",
+  "notes": "Schedule D line 8a (h) over LT gain-or-loss successor scalars (ADR-0057/0058). v1 remains historical gain-only. v3 extends the guard: besides the long-term covered family (f1099b.covered-lt), the rule publishes only when the basis (f1099b.covered-lt-basis) and proceeds (f1099b.covered-lt-proceeds) sets it subtracts are closed at the current horizon. Why: collect reads closure only when its set is empty; with any member recorded it sums what is present and never asks whether the set is complete, so v2 published a partial line 8a gain when a family had a recorded amount and an unanswered or stale closure. With the guard, an unclosed family blocks this rule SOURCE_SET_UNCLOSED, naming the first unclosed set in the order listed, and every line that reads it waits. A complete return (every family closed at the current horizon, or closed empty) publishes exactly what v2 did. Residual, not closed here: a closure attested true over an amount that was never recorded still publishes the smaller sum, because the engine cannot tell a blank from 'nothing'.",
+  "pins": [],
+  "publishes": "tax.us.2025.schedule-d.line-8a-gain",
+  "requires": [
+    "tax.us.2025.f1099b.covered-lt-proceeds-subtotal",
+    "tax.us.2025.f1099b.covered-lt-basis-subtotal"
+  ],
+  "role": "computation",
+  "schema": "rule-artifact.v3",
+  "scope": {
+    "family": "individual-income-tax",
+    "jurisdiction": "US-federal",
+    "tax_year": 2025
+  },
+  "value": {
+    "left": {
+      "name": "tax.us.2025.f1099b.covered-lt-proceeds-subtotal",
+      "op": "ref"
+    },
+    "op": "subtract",
+    "right": {
+      "name": "tax.us.2025.f1099b.covered-lt-basis-subtotal",
+      "op": "ref"
+    }
+  },
+  "version": "v3",
+  "when": {
+    "args": [
+      {
+        "op": "require_closed",
+        "source_set": "tax.us.2025.f1099b.covered-lt"
+      },
+      {
+        "op": "require_closed",
+        "source_set": "tax.us.2025.f1099b.covered-lt-basis"
+      },
+      {
+        "op": "require_closed",
+        "source_set": "tax.us.2025.f1099b.covered-lt-proceeds"
+      }
+    ],
+    "op": "all"
+  }
+}

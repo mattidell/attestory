@@ -1,0 +1,44 @@
+{
+  "blocked": {
+    "code": "DEPENDENCY_ABSENT",
+    "missing": [
+      "tax.us.2025.ssa1099.benefits.box5-subtotal"
+    ]
+  },
+  "citations": [
+    {
+      "id": "tax.us.2025.citation.form1040.line-6a",
+      "version": "v1"
+    }
+  ],
+  "id": "tax.us.2025.rule.form1040-line6a",
+  "notes": "Form 1040 line 6a equals the closed ordinary SSA-1099 box-5 family subtotal (W1). v2 adds a guard: the rule publishes only when the SSA-1099 benefits family (ssa1099.benefits) is closed at the current horizon (require_closed). Line 6b and below were already held by the benefits worksheet. Why: collect reads closure only when its set is empty; with any member recorded it sums what is present and never asks whether the set is complete, so v1 published a partial line 6a when a family had a recorded amount and an unanswered or stale closure. With the guard, an unclosed family blocks this rule SOURCE_SET_UNCLOSED, naming the first unclosed set in the order listed, and every line that reads it waits. A complete return (every family closed at the current horizon, or closed empty) publishes exactly what v1 did. Residual, not closed here: a closure attested true over an amount that was never recorded still publishes the smaller sum, because the engine cannot tell a blank from 'nothing'.",
+  "pins": [
+    {
+      "id": "tax.us.2025.ssa1099.benefits.box5-subtotal",
+      "origin": "assertion",
+      "role": "input",
+      "version": "v1"
+    }
+  ],
+  "publishes": "tax.us.2025.social-security.line6a",
+  "requires": [
+    "tax.us.2025.ssa1099.benefits.box5-subtotal"
+  ],
+  "role": "computation",
+  "schema": "rule-artifact.v3",
+  "scope": {
+    "family": "individual-income-tax",
+    "jurisdiction": "US-federal",
+    "tax_year": 2025
+  },
+  "value": {
+    "name": "tax.us.2025.ssa1099.benefits.box5-subtotal",
+    "op": "ref"
+  },
+  "version": "v2",
+  "when": {
+    "op": "require_closed",
+    "source_set": "tax.us.2025.ssa1099.benefits"
+  }
+}
