@@ -37,15 +37,16 @@ KNOWN_GAP_LINE_2B = {
 }
 
 # The static graph over-approximates (it follows refs in branches that may not run); it
-# flags these four although a rule downstream of each appears held on the unclosed set.
-# Evidence is uneven, and it is not a compared partial sum for any of them:
-#  - f1099k: run live in P0; schedule1-line10 and schedule1-top-entry block
-#    SOURCE_SET_UNCLOSED and no bound value moves (reviewer re-ran it).
-#  - f1099div.7, f1098e.1: root block only (the harness could not complete an answered
-#    return, so no value was compared); they rest on the static reading and that
-#    observation. The reviewer could not re-run them (missing same-statement companion).
-#  - f1099int.b8: P0 saw line 2a held, with a flipped declaration; the reviewer could not
-#    re-run it. It rests on the static reading and that observation.
+# flags these four although a rule downstream of each is held on the unclosed set. Each is
+# now confirmed live on core v66 (tests/test_closure_live_confirmation.py): a complete return
+# with one member recorded, closure answered against closure unanswered. Unanswered, the rule
+# that reads the subtotal blocks with SOURCE_SET_UNCLOSED, the target line is absent, and no
+# other published value differs from the answered run (no partial amount publishes).
+#  - f1099k: run live in P0 (schedule1-line10, schedule1-top-entry block SOURCE_SET_UNCLOSED).
+#  - f1099div.7: Schedule 3 line 1 (50.00 answered) is held by schedule3-line1-direct-ftc.
+#  - f1098e.1: Schedule 1 line 21 (100 answered) is held by sli-worksheet, and the Schedule 1
+#    attachment is withheld with it.
+#  - f1099int.b8: Form 1040 line 2a (100 answered) is held by form1040-line2a.
 HELD_DOWNSTREAM = {
     P + "f1099int.b8",   # form1040-line2a
     P + "f1099div.7",    # schedule3-line1-direct-ftc
@@ -94,8 +95,10 @@ KNOWN_GAP_ATTACHMENTS_V63 = {
     P + "f1098e.1",
     # Form 1099-INT box 8: no attachment amount. Schedule 1 itemizes only f1099g.1, f1098e.1
     # and f1099k; box 8 reaches it through the SLI deduction chain that line 2a and the
-    # worksheet already hold. Rests on the static read only: a live box 8 case blocks the whole
-    # return with DEPENDENCY_ABSENT on both cores, so it is unconfirmed either way.
+    # worksheet already hold. Confirmed live on v66 (tests/test_closure_live_confirmation.py):
+    # alone, no attachment publishes in either run; beside a Form 1098-E (which requires
+    # Schedule 1), the unanswered box 8 withholds the Schedule 1 attachment whole and never
+    # changes it, and the answered attachment does not itemize box 8.
     P + "f1099int.b8",
 }
 

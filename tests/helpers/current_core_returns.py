@@ -43,7 +43,7 @@ from tests.test_form_1099_withholding import (
     _unemployment_withholding,
 )
 from tests.test_form_1099_k_income import _handover
-from tests.test_refund_or_amount_owed_track1 import _act, _attested, _finish, _load
+from tests.test_refund_or_amount_owed_track1 import _act, _attested, _elective, _finish, _load
 from tests.test_withholding_closure import _horizons, _strip_closure
 
 ROOT = Path(__file__).resolve().parents[2]
@@ -70,6 +70,10 @@ LINE2A_NO_INT_SCOPE = P + "line2a-scope.no-f1099int-tax-exempt"
 BOX9_COMPANION = P + "f1099int.box9-specified-pab-authority"
 BOX13_COMPANION = P + "f1099div.box13-specified-pab-authority"
 BOX2_COMPANION = P + "f1098e.box2-checked-authority"
+BOX7_COUNTRY_COMPANION = P + "f1099div.box8-country-companion"
+BOX7_ORDINARY_COMPANION = P + "f1099div.box1a-ordinary"
+DIRECT_FTC_ELECTION = P + "direct-ftc.election"
+SCH3_LINE1 = P + "schedule3.line1-direct-ftc"
 SLI_WITNESSES = tuple(
     P + "f1098e." + token for token in (
         "no-related-person-interest",
@@ -289,6 +293,33 @@ def add_exempt_interest_dividends_1099div(acts: list[dict[str, object]], amounts
     Does not change ``acts``; returns a new act list.
     """
     return _record_members(acts, P + "f1099div.12", amounts, tag="b12", companions=[(BOX13_COMPANION, None)])
+
+
+def add_foreign_tax_1099div(acts: list[dict[str, object]], amounts: Sequence[float]) -> list[dict[str, object]]:
+    """Form 1099-DIV box 7 statements, one per amount of foreign tax paid.
+
+    Each statement carries its box 8 country companion ("FR") and a box 1a ordinary dividend
+    of 100.00, both asserted on the statement's own entities. The base's direct foreign tax
+    credit election is set to "yes" (a foreign-tax return must elect to be complete; the
+    scope answers the base already gives are kept). The box 7 family is closed after the
+    last statement. Reaches Schedule 3 line 1 through the box 7 subtotal.
+
+    All amounts go in one call: a second call on the same return raises ``AssertionError``.
+    Does not change ``acts``; returns a new act list.
+    """
+    acts = copy.deepcopy(acts)
+    prefix = DIRECT_FTC_ELECTION + "|"
+    acts = [a for a in acts if not str(_finding_of(a).get("fact_id", "")).startswith(prefix)]
+    acts.append(_act(len(acts), "assertion", {
+        "finding": _elective("demo.ccr.b7.election", f"{DIRECT_FTC_ELECTION}|tax-year={YEAR}", "yes")}))
+    return _record_members(
+        acts, P + "f1099div.7", amounts, tag="b7",
+        companions=[(BOX7_COUNTRY_COMPANION, "FR"), (BOX7_ORDINARY_COMPANION, 100.0)])
+
+
+def _finding_of(act: Mapping[str, Any]) -> Mapping[str, Any]:
+    finding = act.get("payload", {}).get("finding")
+    return finding if isinstance(finding, dict) else {}
 
 
 def add_student_loan_interest_1098e(acts: list[dict[str, object]], amounts: Sequence[float]) -> list[dict[str, object]]:
