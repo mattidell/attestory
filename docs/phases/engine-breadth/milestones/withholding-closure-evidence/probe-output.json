@@ -1,0 +1,1443 @@
+{
+  "cases": [
+    {
+      "blocked_count": 0,
+      "cause": "no-withholding-anywhere",
+      "family": "none",
+      "lines": {
+        "25a": "published 4500",
+        "25b": "published 0",
+        "25d": "published 4500",
+        "33": "published 4500",
+        "35a": "published 625",
+        "37": "published 0"
+      },
+      "root_blocks": [],
+      "run_id": "demo.p0.wc.none.no-withholding-anywhere",
+      "status": "ran",
+      "subtotals": {
+        "tax.us.2025.dividends.b4-withholding-subtotal": "0",
+        "tax.us.2025.interest.b4-withholding-subtotal": "0",
+        "tax.us.2025.ira.box4-withholding-subtotal": "0",
+        "tax.us.2025.ssa1099.b6-withholding-subtotal": "0",
+        "tax.us.2025.unemployment.b4-withholding-subtotal": "0"
+      }
+    },
+    {
+      "blocked_count": 0,
+      "cause": "base-one-w2-complete",
+      "family": "w2",
+      "lines": {
+        "25a": "published 4500",
+        "25b": "published 0",
+        "25d": "published 4500",
+        "33": "published 4500",
+        "35a": "published 625",
+        "37": "published 0"
+      },
+      "root_blocks": [],
+      "run_id": "demo.p0.wc.w2.base-one-w2-complete",
+      "status": "ran",
+      "subtotals": {
+        "tax.us.2025.dividends.b4-withholding-subtotal": "0",
+        "tax.us.2025.interest.b4-withholding-subtotal": "0",
+        "tax.us.2025.ira.box4-withholding-subtotal": "0",
+        "tax.us.2025.ssa1099.b6-withholding-subtotal": "0",
+        "tax.us.2025.unemployment.b4-withholding-subtotal": "0"
+      }
+    },
+    {
+      "blocked_count": 7,
+      "cause": "a-unanswered",
+      "family": "w2",
+      "lines": {
+        "25a": "blocked SOURCE_SET_UNCLOSED missing=[\"tax.us.2025.w2-box2\"]",
+        "25b": "published 0",
+        "25d": "blocked DEPENDENCY_ABSENT missing=[\"tax.us.2025.payments.line25a\"]",
+        "33": "blocked DEPENDENCY_ABSENT missing=[\"tax.us.2025.payments.line25d\"]",
+        "35a": "blocked DEPENDENCY_ABSENT missing=[\"tax.us.2025.payments.line34-overpaid\", \"tax.us.2025.payments.line36-applied-to-2026\"]",
+        "37": "blocked DEPENDENCY_ABSENT missing=[\"tax.us.2025.payments.line33\"]"
+      },
+      "root_blocks": [
+        {
+          "artifact_id": "tax.us.2025.rule.form1040-line25a",
+          "code": "SOURCE_SET_UNCLOSED",
+          "missing": [
+            "tax.us.2025.w2-box2"
+          ]
+        }
+      ],
+      "run_id": "demo.p0.wc.w2.a-unanswered",
+      "status": "ran",
+      "subtotals": {
+        "tax.us.2025.dividends.b4-withholding-subtotal": "0",
+        "tax.us.2025.interest.b4-withholding-subtotal": "0",
+        "tax.us.2025.ira.box4-withholding-subtotal": "0",
+        "tax.us.2025.ssa1099.b6-withholding-subtotal": "0",
+        "tax.us.2025.unemployment.b4-withholding-subtotal": "0"
+      }
+    },
+    {
+      "blocked_count": 7,
+      "cause": "a-answered",
+      "family": "w2",
+      "lines": {
+        "25a": "blocked DEPENDENCY_ABSENT missing=[\"tax.us.2025.w2.box2-withholding\"]",
+        "25b": "published 0",
+        "25d": "blocked DEPENDENCY_ABSENT missing=[\"tax.us.2025.payments.line25a\"]",
+        "33": "blocked DEPENDENCY_ABSENT missing=[\"tax.us.2025.payments.line25d\"]",
+        "35a": "blocked DEPENDENCY_ABSENT missing=[\"tax.us.2025.payments.line34-overpaid\", \"tax.us.2025.payments.line36-applied-to-2026\"]",
+        "37": "blocked DEPENDENCY_ABSENT missing=[\"tax.us.2025.payments.line33\"]"
+      },
+      "root_blocks": [],
+      "run_id": "demo.p0.wc.w2.a-answered",
+      "status": "ran",
+      "subtotals": {
+        "tax.us.2025.dividends.b4-withholding-subtotal": "0",
+        "tax.us.2025.interest.b4-withholding-subtotal": "0",
+        "tax.us.2025.ira.box4-withholding-subtotal": "0",
+        "tax.us.2025.ssa1099.b6-withholding-subtotal": "0",
+        "tax.us.2025.unemployment.b4-withholding-subtotal": "0"
+      }
+    },
+    {
+      "blocked_count": 7,
+      "cause": "b-unanswered",
+      "family": "w2",
+      "lines": {
+        "25a": "blocked SOURCE_SET_UNCLOSED missing=[\"tax.us.2025.w2-box2\"]",
+        "25b": "published 0",
+        "25d": "blocked DEPENDENCY_ABSENT missing=[\"tax.us.2025.payments.line25a\"]",
+        "33": "blocked DEPENDENCY_ABSENT missing=[\"tax.us.2025.payments.line25d\"]",
+        "35a": "blocked DEPENDENCY_ABSENT missing=[\"tax.us.2025.payments.line34-overpaid\", \"tax.us.2025.payments.line36-applied-to-2026\"]",
+        "37": "blocked DEPENDENCY_ABSENT missing=[\"tax.us.2025.payments.line33\"]"
+      },
+      "root_blocks": [
+        {
+          "artifact_id": "tax.us.2025.rule.form1040-line25a",
+          "code": "SOURCE_SET_UNCLOSED",
+          "missing": [
+            "tax.us.2025.w2-box2"
+          ]
+        }
+      ],
+      "run_id": "demo.p0.wc.w2.b-unanswered",
+      "status": "ran",
+      "subtotals": {
+        "tax.us.2025.dividends.b4-withholding-subtotal": "0",
+        "tax.us.2025.interest.b4-withholding-subtotal": "0",
+        "tax.us.2025.ira.box4-withholding-subtotal": "0",
+        "tax.us.2025.ssa1099.b6-withholding-subtotal": "0",
+        "tax.us.2025.unemployment.b4-withholding-subtotal": "0"
+      }
+    },
+    {
+      "blocked_count": 7,
+      "cause": "b-answered",
+      "family": "w2",
+      "lines": {
+        "25a": "blocked DEPENDENCY_ABSENT missing=[\"tax.us.2025.w2.box2-withholding\"]",
+        "25b": "published 0",
+        "25d": "blocked DEPENDENCY_ABSENT missing=[\"tax.us.2025.payments.line25a\"]",
+        "33": "blocked DEPENDENCY_ABSENT missing=[\"tax.us.2025.payments.line25d\"]",
+        "35a": "blocked DEPENDENCY_ABSENT missing=[\"tax.us.2025.payments.line34-overpaid\", \"tax.us.2025.payments.line36-applied-to-2026\"]",
+        "37": "blocked DEPENDENCY_ABSENT missing=[\"tax.us.2025.payments.line33\"]"
+      },
+      "root_blocks": [],
+      "run_id": "demo.p0.wc.w2.b-answered",
+      "status": "ran",
+      "subtotals": {
+        "tax.us.2025.dividends.b4-withholding-subtotal": "0",
+        "tax.us.2025.interest.b4-withholding-subtotal": "0",
+        "tax.us.2025.ira.box4-withholding-subtotal": "0",
+        "tax.us.2025.ssa1099.b6-withholding-subtotal": "0",
+        "tax.us.2025.unemployment.b4-withholding-subtotal": "0"
+      }
+    },
+    {
+      "blocked_count": 7,
+      "cause": "c-one-amount",
+      "family": "w2",
+      "lines": {
+        "25a": "blocked SOURCE_SET_UNCLOSED missing=[\"tax.us.2025.w2-box2\"]",
+        "25b": "published 0",
+        "25d": "blocked DEPENDENCY_ABSENT missing=[\"tax.us.2025.payments.line25a\"]",
+        "33": "blocked DEPENDENCY_ABSENT missing=[\"tax.us.2025.payments.line25d\"]",
+        "35a": "blocked DEPENDENCY_ABSENT missing=[\"tax.us.2025.payments.line34-overpaid\", \"tax.us.2025.payments.line36-applied-to-2026\"]",
+        "37": "blocked DEPENDENCY_ABSENT missing=[\"tax.us.2025.payments.line33\"]"
+      },
+      "root_blocks": [
+        {
+          "artifact_id": "tax.us.2025.rule.form1040-line25a",
+          "code": "SOURCE_SET_UNCLOSED",
+          "missing": [
+            "tax.us.2025.w2-box2"
+          ]
+        }
+      ],
+      "run_id": "demo.p0.wc.w2.c-one-amount",
+      "status": "ran",
+      "subtotals": {
+        "tax.us.2025.dividends.b4-withholding-subtotal": "0",
+        "tax.us.2025.interest.b4-withholding-subtotal": "0",
+        "tax.us.2025.ira.box4-withholding-subtotal": "0",
+        "tax.us.2025.ssa1099.b6-withholding-subtotal": "0",
+        "tax.us.2025.unemployment.b4-withholding-subtotal": "0"
+      }
+    },
+    {
+      "blocked_count": 0,
+      "cause": "d-control",
+      "family": "w2",
+      "lines": {
+        "25a": "published 5700",
+        "25b": "published 0",
+        "25d": "published 5700",
+        "33": "published 5700",
+        "35a": "published 0",
+        "37": "published 1155"
+      },
+      "root_blocks": [],
+      "run_id": "demo.p0.wc.w2.d-control",
+      "status": "ran",
+      "subtotals": {
+        "tax.us.2025.dividends.b4-withholding-subtotal": "0",
+        "tax.us.2025.interest.b4-withholding-subtotal": "0",
+        "tax.us.2025.ira.box4-withholding-subtotal": "0",
+        "tax.us.2025.ssa1099.b6-withholding-subtotal": "0",
+        "tax.us.2025.unemployment.b4-withholding-subtotal": "0"
+      }
+    },
+    {
+      "blocked_count": 0,
+      "cause": "single-every-family-complete",
+      "family": "all",
+      "lines": {
+        "25a": "published 4500",
+        "25b": "published 4340",
+        "25d": "published 8840",
+        "33": "published 8840",
+        "35a": "published 0",
+        "37": "published 2943"
+      },
+      "root_blocks": [],
+      "run_id": "demo.p0.wc.all.single-every-family-complete",
+      "status": "ran",
+      "subtotals": {
+        "tax.us.2025.dividends.b4-withholding-subtotal": "60",
+        "tax.us.2025.interest.b4-withholding-subtotal": "80",
+        "tax.us.2025.ira.box4-withholding-subtotal": "2000",
+        "tax.us.2025.ssa1099.b6-withholding-subtotal": "1300",
+        "tax.us.2025.unemployment.b4-withholding-subtotal": "900"
+      }
+    },
+    {
+      "blocked_count": 0,
+      "cause": "single-only-1099g-unanswered",
+      "family": "all",
+      "lines": {
+        "25a": "published 4500",
+        "25b": "published 4340",
+        "25d": "published 8840",
+        "33": "published 8840",
+        "35a": "published 0",
+        "37": "published 2943"
+      },
+      "root_blocks": [],
+      "run_id": "demo.p0.wc.all.single-only-1099g-unanswered",
+      "status": "ran",
+      "subtotals": {
+        "tax.us.2025.dividends.b4-withholding-subtotal": "60",
+        "tax.us.2025.interest.b4-withholding-subtotal": "80",
+        "tax.us.2025.ira.box4-withholding-subtotal": "2000",
+        "tax.us.2025.ssa1099.b6-withholding-subtotal": "1300",
+        "tax.us.2025.unemployment.b4-withholding-subtotal": "900"
+      }
+    },
+    {
+      "blocked_count": 0,
+      "cause": "single-g-one-amount-omitted-closure-true",
+      "family": "all",
+      "lines": {
+        "25a": "published 4500",
+        "25b": "published 3940",
+        "25d": "published 8440",
+        "33": "published 8440",
+        "35a": "published 0",
+        "37": "published 3343"
+      },
+      "root_blocks": [],
+      "run_id": "demo.p0.wc.all.single-g-one-amount-omitted-closure-true",
+      "status": "ran",
+      "subtotals": {
+        "tax.us.2025.dividends.b4-withholding-subtotal": "60",
+        "tax.us.2025.interest.b4-withholding-subtotal": "80",
+        "tax.us.2025.ira.box4-withholding-subtotal": "2000",
+        "tax.us.2025.ssa1099.b6-withholding-subtotal": "1300",
+        "tax.us.2025.unemployment.b4-withholding-subtotal": "500"
+      }
+    },
+    {
+      "blocked_count": 0,
+      "cause": "single-g-one-amount-omitted-closure-unanswered",
+      "family": "all",
+      "lines": {
+        "25a": "published 4500",
+        "25b": "published 3940",
+        "25d": "published 8440",
+        "33": "published 8440",
+        "35a": "published 0",
+        "37": "published 3343"
+      },
+      "root_blocks": [],
+      "run_id": "demo.p0.wc.all.single-g-one-amount-omitted-closure-unanswered",
+      "status": "ran",
+      "subtotals": {
+        "tax.us.2025.dividends.b4-withholding-subtotal": "60",
+        "tax.us.2025.interest.b4-withholding-subtotal": "80",
+        "tax.us.2025.ira.box4-withholding-subtotal": "2000",
+        "tax.us.2025.ssa1099.b6-withholding-subtotal": "1300",
+        "tax.us.2025.unemployment.b4-withholding-subtotal": "500"
+      }
+    },
+    {
+      "blocked_count": 0,
+      "cause": "joint-every-family-complete",
+      "family": "all",
+      "lines": {
+        "25a": "published 7000",
+        "25b": "published 4340",
+        "25d": "published 11340",
+        "33": "published 11340",
+        "35a": "published 906",
+        "37": "published 0"
+      },
+      "root_blocks": [],
+      "run_id": "demo.p0.wc.all.joint-every-family-complete",
+      "status": "ran",
+      "subtotals": {
+        "tax.us.2025.dividends.b4-withholding-subtotal": "60",
+        "tax.us.2025.interest.b4-withholding-subtotal": "80",
+        "tax.us.2025.ira.box4-withholding-subtotal": "2000",
+        "tax.us.2025.ssa1099.b6-withholding-subtotal": "1300",
+        "tax.us.2025.unemployment.b4-withholding-subtotal": "900"
+      }
+    },
+    {
+      "blocked_count": 0,
+      "cause": "joint-only-1099g-unanswered",
+      "family": "all",
+      "lines": {
+        "25a": "published 7000",
+        "25b": "published 4340",
+        "25d": "published 11340",
+        "33": "published 11340",
+        "35a": "published 906",
+        "37": "published 0"
+      },
+      "root_blocks": [],
+      "run_id": "demo.p0.wc.all.joint-only-1099g-unanswered",
+      "status": "ran",
+      "subtotals": {
+        "tax.us.2025.dividends.b4-withholding-subtotal": "60",
+        "tax.us.2025.interest.b4-withholding-subtotal": "80",
+        "tax.us.2025.ira.box4-withholding-subtotal": "2000",
+        "tax.us.2025.ssa1099.b6-withholding-subtotal": "1300",
+        "tax.us.2025.unemployment.b4-withholding-subtotal": "900"
+      }
+    },
+    {
+      "blocked_count": 0,
+      "cause": "joint-g-one-amount-omitted-closure-true",
+      "family": "all",
+      "lines": {
+        "25a": "published 7000",
+        "25b": "published 3940",
+        "25d": "published 10940",
+        "33": "published 10940",
+        "35a": "published 506",
+        "37": "published 0"
+      },
+      "root_blocks": [],
+      "run_id": "demo.p0.wc.all.joint-g-one-amount-omitted-closure-true",
+      "status": "ran",
+      "subtotals": {
+        "tax.us.2025.dividends.b4-withholding-subtotal": "60",
+        "tax.us.2025.interest.b4-withholding-subtotal": "80",
+        "tax.us.2025.ira.box4-withholding-subtotal": "2000",
+        "tax.us.2025.ssa1099.b6-withholding-subtotal": "1300",
+        "tax.us.2025.unemployment.b4-withholding-subtotal": "500"
+      }
+    },
+    {
+      "blocked_count": 0,
+      "cause": "joint-g-one-amount-omitted-closure-unanswered",
+      "family": "all",
+      "lines": {
+        "25a": "published 7000",
+        "25b": "published 3940",
+        "25d": "published 10940",
+        "33": "published 10940",
+        "35a": "published 506",
+        "37": "published 0"
+      },
+      "root_blocks": [],
+      "run_id": "demo.p0.wc.all.joint-g-one-amount-omitted-closure-unanswered",
+      "status": "ran",
+      "subtotals": {
+        "tax.us.2025.dividends.b4-withholding-subtotal": "60",
+        "tax.us.2025.interest.b4-withholding-subtotal": "80",
+        "tax.us.2025.ira.box4-withholding-subtotal": "2000",
+        "tax.us.2025.ssa1099.b6-withholding-subtotal": "1300",
+        "tax.us.2025.unemployment.b4-withholding-subtotal": "500"
+      }
+    },
+    {
+      "blocked_count": 0,
+      "cause": "single-int-and-g-both-unanswered",
+      "family": "all",
+      "lines": {
+        "25a": "published 4500",
+        "25b": "published 4340",
+        "25d": "published 8840",
+        "33": "published 8840",
+        "35a": "published 0",
+        "37": "published 2943"
+      },
+      "root_blocks": [],
+      "run_id": "demo.p0.wc.all.single-int-and-g-both-unanswered",
+      "status": "ran",
+      "subtotals": {
+        "tax.us.2025.dividends.b4-withholding-subtotal": "60",
+        "tax.us.2025.interest.b4-withholding-subtotal": "80",
+        "tax.us.2025.ira.box4-withholding-subtotal": "2000",
+        "tax.us.2025.ssa1099.b6-withholding-subtotal": "1300",
+        "tax.us.2025.unemployment.b4-withholding-subtotal": "900"
+      }
+    },
+    {
+      "blocked_count": 0,
+      "cause": "single-nothing-answered",
+      "family": "all",
+      "lines": {
+        "25a": "published 4500",
+        "25b": "published 4340",
+        "25d": "published 8840",
+        "33": "published 8840",
+        "35a": "published 0",
+        "37": "published 2943"
+      },
+      "root_blocks": [],
+      "run_id": "demo.p0.wc.all.single-nothing-answered",
+      "status": "ran",
+      "subtotals": {
+        "tax.us.2025.dividends.b4-withholding-subtotal": "60",
+        "tax.us.2025.interest.b4-withholding-subtotal": "80",
+        "tax.us.2025.ira.box4-withholding-subtotal": "2000",
+        "tax.us.2025.ssa1099.b6-withholding-subtotal": "1300",
+        "tax.us.2025.unemployment.b4-withholding-subtotal": "900"
+      }
+    },
+    {
+      "blocked_count": 0,
+      "cause": "a-unanswered",
+      "family": "g",
+      "lines": {
+        "25a": "published 4500",
+        "25b": "published 600",
+        "25d": "published 5100",
+        "33": "published 5100",
+        "35a": "published 25",
+        "37": "published 0"
+      },
+      "root_blocks": [],
+      "run_id": "demo.p0.wc.g.a-unanswered",
+      "status": "ran",
+      "subtotals": {
+        "tax.us.2025.dividends.b4-withholding-subtotal": "0",
+        "tax.us.2025.interest.b4-withholding-subtotal": "0",
+        "tax.us.2025.ira.box4-withholding-subtotal": "0",
+        "tax.us.2025.ssa1099.b6-withholding-subtotal": "0",
+        "tax.us.2025.unemployment.b4-withholding-subtotal": "600"
+      }
+    },
+    {
+      "blocked_count": 0,
+      "cause": "a-answered",
+      "family": "g",
+      "lines": {
+        "25a": "published 4500",
+        "25b": "published 600",
+        "25d": "published 5100",
+        "33": "published 5100",
+        "35a": "published 25",
+        "37": "published 0"
+      },
+      "root_blocks": [],
+      "run_id": "demo.p0.wc.g.a-answered",
+      "status": "ran",
+      "subtotals": {
+        "tax.us.2025.dividends.b4-withholding-subtotal": "0",
+        "tax.us.2025.interest.b4-withholding-subtotal": "0",
+        "tax.us.2025.ira.box4-withholding-subtotal": "0",
+        "tax.us.2025.ssa1099.b6-withholding-subtotal": "0",
+        "tax.us.2025.unemployment.b4-withholding-subtotal": "600"
+      }
+    },
+    {
+      "blocked_count": 8,
+      "cause": "b-unanswered",
+      "family": "g",
+      "lines": {
+        "25a": "published 4500",
+        "25b": "blocked DEPENDENCY_ABSENT missing=[\"tax.us.2025.unemployment.b4-withholding-subtotal\"]",
+        "25d": "blocked DEPENDENCY_ABSENT missing=[\"tax.us.2025.payments.line25b\"]",
+        "33": "blocked DEPENDENCY_ABSENT missing=[\"tax.us.2025.payments.line25d\"]",
+        "35a": "blocked DEPENDENCY_ABSENT missing=[\"tax.us.2025.payments.line34-overpaid\", \"tax.us.2025.payments.line36-applied-to-2026\"]",
+        "37": "blocked DEPENDENCY_ABSENT missing=[\"tax.us.2025.payments.line33\"]"
+      },
+      "root_blocks": [
+        {
+          "artifact_id": "tax.us.2025.rule.f1099g-b4-subtotal",
+          "code": "SOURCE_SET_UNCLOSED",
+          "missing": [
+            "tax.us.2025.f1099g.b4"
+          ]
+        }
+      ],
+      "run_id": "demo.p0.wc.g.b-unanswered",
+      "status": "ran",
+      "subtotals": {
+        "tax.us.2025.dividends.b4-withholding-subtotal": "0",
+        "tax.us.2025.interest.b4-withholding-subtotal": "0",
+        "tax.us.2025.ira.box4-withholding-subtotal": "0",
+        "tax.us.2025.ssa1099.b6-withholding-subtotal": "0",
+        "tax.us.2025.unemployment.b4-withholding-subtotal": null
+      }
+    },
+    {
+      "blocked_count": 0,
+      "cause": "b-answered",
+      "family": "g",
+      "lines": {
+        "25a": "published 4500",
+        "25b": "published 0",
+        "25d": "published 4500",
+        "33": "published 4500",
+        "35a": "published 0",
+        "37": "published 95"
+      },
+      "root_blocks": [],
+      "run_id": "demo.p0.wc.g.b-answered",
+      "status": "ran",
+      "subtotals": {
+        "tax.us.2025.dividends.b4-withholding-subtotal": "0",
+        "tax.us.2025.interest.b4-withholding-subtotal": "0",
+        "tax.us.2025.ira.box4-withholding-subtotal": "0",
+        "tax.us.2025.ssa1099.b6-withholding-subtotal": "0",
+        "tax.us.2025.unemployment.b4-withholding-subtotal": "0"
+      }
+    },
+    {
+      "blocked_count": 8,
+      "cause": "c-empty",
+      "family": "g",
+      "lines": {
+        "25a": "published 4500",
+        "25b": "blocked DEPENDENCY_ABSENT missing=[\"tax.us.2025.unemployment.b4-withholding-subtotal\"]",
+        "25d": "blocked DEPENDENCY_ABSENT missing=[\"tax.us.2025.payments.line25b\"]",
+        "33": "blocked DEPENDENCY_ABSENT missing=[\"tax.us.2025.payments.line25d\"]",
+        "35a": "blocked DEPENDENCY_ABSENT missing=[\"tax.us.2025.payments.line34-overpaid\", \"tax.us.2025.payments.line36-applied-to-2026\"]",
+        "37": "blocked DEPENDENCY_ABSENT missing=[\"tax.us.2025.payments.line33\"]"
+      },
+      "root_blocks": [
+        {
+          "artifact_id": "tax.us.2025.rule.f1099g-b4-subtotal",
+          "code": "SOURCE_SET_UNCLOSED",
+          "missing": [
+            "tax.us.2025.f1099g.b4"
+          ]
+        }
+      ],
+      "run_id": "demo.p0.wc.g.c-empty",
+      "status": "ran",
+      "subtotals": {
+        "tax.us.2025.dividends.b4-withholding-subtotal": "0",
+        "tax.us.2025.interest.b4-withholding-subtotal": "0",
+        "tax.us.2025.ira.box4-withholding-subtotal": "0",
+        "tax.us.2025.ssa1099.b6-withholding-subtotal": "0",
+        "tax.us.2025.unemployment.b4-withholding-subtotal": null
+      }
+    },
+    {
+      "blocked_count": 0,
+      "cause": "c-one-amount",
+      "family": "g",
+      "lines": {
+        "25a": "published 4500",
+        "25b": "published 600",
+        "25d": "published 5100",
+        "33": "published 5100",
+        "35a": "published 505",
+        "37": "published 0"
+      },
+      "root_blocks": [],
+      "run_id": "demo.p0.wc.g.c-one-amount",
+      "status": "ran",
+      "subtotals": {
+        "tax.us.2025.dividends.b4-withholding-subtotal": "0",
+        "tax.us.2025.interest.b4-withholding-subtotal": "0",
+        "tax.us.2025.ira.box4-withholding-subtotal": "0",
+        "tax.us.2025.ssa1099.b6-withholding-subtotal": "0",
+        "tax.us.2025.unemployment.b4-withholding-subtotal": "600"
+      }
+    },
+    {
+      "blocked_count": 0,
+      "cause": "stale",
+      "family": "g",
+      "lines": {
+        "25a": "published 4500",
+        "25b": "published 1000",
+        "25d": "published 5500",
+        "33": "published 5500",
+        "35a": "published 425",
+        "37": "published 0"
+      },
+      "root_blocks": [],
+      "run_id": "demo.p0.wc.g.stale",
+      "status": "ran",
+      "subtotals": {
+        "tax.us.2025.dividends.b4-withholding-subtotal": "0",
+        "tax.us.2025.interest.b4-withholding-subtotal": "0",
+        "tax.us.2025.ira.box4-withholding-subtotal": "0",
+        "tax.us.2025.ssa1099.b6-withholding-subtotal": "0",
+        "tax.us.2025.unemployment.b4-withholding-subtotal": "1000"
+      }
+    },
+    {
+      "blocked_count": 0,
+      "cause": "d-control",
+      "family": "g",
+      "lines": {
+        "25a": "published 4500",
+        "25b": "published 1000",
+        "25d": "published 5500",
+        "33": "published 5500",
+        "35a": "published 425",
+        "37": "published 0"
+      },
+      "root_blocks": [],
+      "run_id": "demo.p0.wc.g.d-control",
+      "status": "ran",
+      "subtotals": {
+        "tax.us.2025.dividends.b4-withholding-subtotal": "0",
+        "tax.us.2025.interest.b4-withholding-subtotal": "0",
+        "tax.us.2025.ira.box4-withholding-subtotal": "0",
+        "tax.us.2025.ssa1099.b6-withholding-subtotal": "0",
+        "tax.us.2025.unemployment.b4-withholding-subtotal": "1000"
+      }
+    },
+    {
+      "blocked_count": 0,
+      "cause": "a-unanswered",
+      "family": "ssa",
+      "lines": {
+        "25a": "published 4500",
+        "25b": "published 800",
+        "25d": "published 5300",
+        "33": "published 5300",
+        "35a": "published 0",
+        "37": "published 895"
+      },
+      "root_blocks": [],
+      "run_id": "demo.p0.wc.ssa.a-unanswered",
+      "status": "ran",
+      "subtotals": {
+        "tax.us.2025.dividends.b4-withholding-subtotal": "0",
+        "tax.us.2025.interest.b4-withholding-subtotal": "0",
+        "tax.us.2025.ira.box4-withholding-subtotal": "0",
+        "tax.us.2025.ssa1099.b6-withholding-subtotal": "800",
+        "tax.us.2025.unemployment.b4-withholding-subtotal": "0"
+      }
+    },
+    {
+      "blocked_count": 0,
+      "cause": "a-answered",
+      "family": "ssa",
+      "lines": {
+        "25a": "published 4500",
+        "25b": "published 800",
+        "25d": "published 5300",
+        "33": "published 5300",
+        "35a": "published 0",
+        "37": "published 895"
+      },
+      "root_blocks": [],
+      "run_id": "demo.p0.wc.ssa.a-answered",
+      "status": "ran",
+      "subtotals": {
+        "tax.us.2025.dividends.b4-withholding-subtotal": "0",
+        "tax.us.2025.interest.b4-withholding-subtotal": "0",
+        "tax.us.2025.ira.box4-withholding-subtotal": "0",
+        "tax.us.2025.ssa1099.b6-withholding-subtotal": "800",
+        "tax.us.2025.unemployment.b4-withholding-subtotal": "0"
+      }
+    },
+    {
+      "blocked_count": 8,
+      "cause": "b-unanswered",
+      "family": "ssa",
+      "lines": {
+        "25a": "published 4500",
+        "25b": "blocked DEPENDENCY_ABSENT missing=[\"tax.us.2025.ssa1099.b6-withholding-subtotal\"]",
+        "25d": "blocked DEPENDENCY_ABSENT missing=[\"tax.us.2025.payments.line25b\"]",
+        "33": "blocked DEPENDENCY_ABSENT missing=[\"tax.us.2025.payments.line25d\"]",
+        "35a": "blocked DEPENDENCY_ABSENT missing=[\"tax.us.2025.payments.line34-overpaid\", \"tax.us.2025.payments.line36-applied-to-2026\"]",
+        "37": "blocked DEPENDENCY_ABSENT missing=[\"tax.us.2025.payments.line33\"]"
+      },
+      "root_blocks": [
+        {
+          "artifact_id": "tax.us.2025.rule.ssa1099-b6-subtotal",
+          "code": "SOURCE_SET_UNCLOSED",
+          "missing": [
+            "tax.us.2025.ssa1099.b6"
+          ]
+        }
+      ],
+      "run_id": "demo.p0.wc.ssa.b-unanswered",
+      "status": "ran",
+      "subtotals": {
+        "tax.us.2025.dividends.b4-withholding-subtotal": "0",
+        "tax.us.2025.interest.b4-withholding-subtotal": "0",
+        "tax.us.2025.ira.box4-withholding-subtotal": "0",
+        "tax.us.2025.ssa1099.b6-withholding-subtotal": null,
+        "tax.us.2025.unemployment.b4-withholding-subtotal": "0"
+      }
+    },
+    {
+      "blocked_count": 0,
+      "cause": "b-answered",
+      "family": "ssa",
+      "lines": {
+        "25a": "published 4500",
+        "25b": "published 0",
+        "25d": "published 4500",
+        "33": "published 4500",
+        "35a": "published 0",
+        "37": "published 599"
+      },
+      "root_blocks": [],
+      "run_id": "demo.p0.wc.ssa.b-answered",
+      "status": "ran",
+      "subtotals": {
+        "tax.us.2025.dividends.b4-withholding-subtotal": "0",
+        "tax.us.2025.interest.b4-withholding-subtotal": "0",
+        "tax.us.2025.ira.box4-withholding-subtotal": "0",
+        "tax.us.2025.ssa1099.b6-withholding-subtotal": "0",
+        "tax.us.2025.unemployment.b4-withholding-subtotal": "0"
+      }
+    },
+    {
+      "blocked_count": 8,
+      "cause": "c-empty",
+      "family": "ssa",
+      "lines": {
+        "25a": "published 4500",
+        "25b": "blocked DEPENDENCY_ABSENT missing=[\"tax.us.2025.ssa1099.b6-withholding-subtotal\"]",
+        "25d": "blocked DEPENDENCY_ABSENT missing=[\"tax.us.2025.payments.line25b\"]",
+        "33": "blocked DEPENDENCY_ABSENT missing=[\"tax.us.2025.payments.line25d\"]",
+        "35a": "blocked DEPENDENCY_ABSENT missing=[\"tax.us.2025.payments.line34-overpaid\", \"tax.us.2025.payments.line36-applied-to-2026\"]",
+        "37": "blocked DEPENDENCY_ABSENT missing=[\"tax.us.2025.payments.line33\"]"
+      },
+      "root_blocks": [
+        {
+          "artifact_id": "tax.us.2025.rule.ssa1099-b6-subtotal",
+          "code": "SOURCE_SET_UNCLOSED",
+          "missing": [
+            "tax.us.2025.ssa1099.b6"
+          ]
+        }
+      ],
+      "run_id": "demo.p0.wc.ssa.c-empty",
+      "status": "ran",
+      "subtotals": {
+        "tax.us.2025.dividends.b4-withholding-subtotal": "0",
+        "tax.us.2025.interest.b4-withholding-subtotal": "0",
+        "tax.us.2025.ira.box4-withholding-subtotal": "0",
+        "tax.us.2025.ssa1099.b6-withholding-subtotal": null,
+        "tax.us.2025.unemployment.b4-withholding-subtotal": "0"
+      }
+    },
+    {
+      "blocked_count": 0,
+      "cause": "c-one-amount",
+      "family": "ssa",
+      "lines": {
+        "25a": "published 4500",
+        "25b": "published 800",
+        "25d": "published 5300",
+        "33": "published 5300",
+        "35a": "published 201",
+        "37": "published 0"
+      },
+      "root_blocks": [],
+      "run_id": "demo.p0.wc.ssa.c-one-amount",
+      "status": "ran",
+      "subtotals": {
+        "tax.us.2025.dividends.b4-withholding-subtotal": "0",
+        "tax.us.2025.interest.b4-withholding-subtotal": "0",
+        "tax.us.2025.ira.box4-withholding-subtotal": "0",
+        "tax.us.2025.ssa1099.b6-withholding-subtotal": "800",
+        "tax.us.2025.unemployment.b4-withholding-subtotal": "0"
+      }
+    },
+    {
+      "blocked_count": 0,
+      "cause": "stale",
+      "family": "ssa",
+      "lines": {
+        "25a": "published 4500",
+        "25b": "published 1300",
+        "25d": "published 5800",
+        "33": "published 5800",
+        "35a": "published 0",
+        "37": "published 395"
+      },
+      "root_blocks": [],
+      "run_id": "demo.p0.wc.ssa.stale",
+      "status": "ran",
+      "subtotals": {
+        "tax.us.2025.dividends.b4-withholding-subtotal": "0",
+        "tax.us.2025.interest.b4-withholding-subtotal": "0",
+        "tax.us.2025.ira.box4-withholding-subtotal": "0",
+        "tax.us.2025.ssa1099.b6-withholding-subtotal": "1300",
+        "tax.us.2025.unemployment.b4-withholding-subtotal": "0"
+      }
+    },
+    {
+      "blocked_count": 0,
+      "cause": "d-control",
+      "family": "ssa",
+      "lines": {
+        "25a": "published 4500",
+        "25b": "published 1300",
+        "25d": "published 5800",
+        "33": "published 5800",
+        "35a": "published 0",
+        "37": "published 395"
+      },
+      "root_blocks": [],
+      "run_id": "demo.p0.wc.ssa.d-control",
+      "status": "ran",
+      "subtotals": {
+        "tax.us.2025.dividends.b4-withholding-subtotal": "0",
+        "tax.us.2025.interest.b4-withholding-subtotal": "0",
+        "tax.us.2025.ira.box4-withholding-subtotal": "0",
+        "tax.us.2025.ssa1099.b6-withholding-subtotal": "1300",
+        "tax.us.2025.unemployment.b4-withholding-subtotal": "0"
+      }
+    },
+    {
+      "blocked_count": 0,
+      "cause": "a-unanswered",
+      "family": "int",
+      "lines": {
+        "25a": "published 4500",
+        "25b": "published 50",
+        "25d": "published 4550",
+        "33": "published 4550",
+        "35a": "published 579",
+        "37": "published 0"
+      },
+      "root_blocks": [],
+      "run_id": "demo.p0.wc.int.a-unanswered",
+      "status": "ran",
+      "subtotals": {
+        "tax.us.2025.dividends.b4-withholding-subtotal": "0",
+        "tax.us.2025.interest.b4-withholding-subtotal": "50",
+        "tax.us.2025.ira.box4-withholding-subtotal": "0",
+        "tax.us.2025.ssa1099.b6-withholding-subtotal": "0",
+        "tax.us.2025.unemployment.b4-withholding-subtotal": "0"
+      }
+    },
+    {
+      "blocked_count": 0,
+      "cause": "a-answered",
+      "family": "int",
+      "lines": {
+        "25a": "published 4500",
+        "25b": "published 50",
+        "25d": "published 4550",
+        "33": "published 4550",
+        "35a": "published 579",
+        "37": "published 0"
+      },
+      "root_blocks": [],
+      "run_id": "demo.p0.wc.int.a-answered",
+      "status": "ran",
+      "subtotals": {
+        "tax.us.2025.dividends.b4-withholding-subtotal": "0",
+        "tax.us.2025.interest.b4-withholding-subtotal": "50",
+        "tax.us.2025.ira.box4-withholding-subtotal": "0",
+        "tax.us.2025.ssa1099.b6-withholding-subtotal": "0",
+        "tax.us.2025.unemployment.b4-withholding-subtotal": "0"
+      }
+    },
+    {
+      "blocked_count": 8,
+      "cause": "b-unanswered",
+      "family": "int",
+      "lines": {
+        "25a": "published 4500",
+        "25b": "blocked DEPENDENCY_ABSENT missing=[\"tax.us.2025.interest.b4-withholding-subtotal\"]",
+        "25d": "blocked DEPENDENCY_ABSENT missing=[\"tax.us.2025.payments.line25b\"]",
+        "33": "blocked DEPENDENCY_ABSENT missing=[\"tax.us.2025.payments.line25d\"]",
+        "35a": "blocked DEPENDENCY_ABSENT missing=[\"tax.us.2025.payments.line34-overpaid\", \"tax.us.2025.payments.line36-applied-to-2026\"]",
+        "37": "blocked DEPENDENCY_ABSENT missing=[\"tax.us.2025.payments.line33\"]"
+      },
+      "root_blocks": [
+        {
+          "artifact_id": "tax.us.2025.rule.f1099int-b4-subtotal",
+          "code": "SOURCE_SET_UNCLOSED",
+          "missing": [
+            "tax.us.2025.f1099int.b4"
+          ]
+        }
+      ],
+      "run_id": "demo.p0.wc.int.b-unanswered",
+      "status": "ran",
+      "subtotals": {
+        "tax.us.2025.dividends.b4-withholding-subtotal": "0",
+        "tax.us.2025.interest.b4-withholding-subtotal": null,
+        "tax.us.2025.ira.box4-withholding-subtotal": "0",
+        "tax.us.2025.ssa1099.b6-withholding-subtotal": "0",
+        "tax.us.2025.unemployment.b4-withholding-subtotal": "0"
+      }
+    },
+    {
+      "blocked_count": 0,
+      "cause": "b-answered",
+      "family": "int",
+      "lines": {
+        "25a": "published 4500",
+        "25b": "published 0",
+        "25d": "published 4500",
+        "33": "published 4500",
+        "35a": "published 565",
+        "37": "published 0"
+      },
+      "root_blocks": [],
+      "run_id": "demo.p0.wc.int.b-answered",
+      "status": "ran",
+      "subtotals": {
+        "tax.us.2025.dividends.b4-withholding-subtotal": "0",
+        "tax.us.2025.interest.b4-withholding-subtotal": "0",
+        "tax.us.2025.ira.box4-withholding-subtotal": "0",
+        "tax.us.2025.ssa1099.b6-withholding-subtotal": "0",
+        "tax.us.2025.unemployment.b4-withholding-subtotal": "0"
+      }
+    },
+    {
+      "blocked_count": 8,
+      "cause": "c-empty",
+      "family": "int",
+      "lines": {
+        "25a": "published 4500",
+        "25b": "blocked DEPENDENCY_ABSENT missing=[\"tax.us.2025.interest.b4-withholding-subtotal\"]",
+        "25d": "blocked DEPENDENCY_ABSENT missing=[\"tax.us.2025.payments.line25b\"]",
+        "33": "blocked DEPENDENCY_ABSENT missing=[\"tax.us.2025.payments.line25d\"]",
+        "35a": "blocked DEPENDENCY_ABSENT missing=[\"tax.us.2025.payments.line34-overpaid\", \"tax.us.2025.payments.line36-applied-to-2026\"]",
+        "37": "blocked DEPENDENCY_ABSENT missing=[\"tax.us.2025.payments.line33\"]"
+      },
+      "root_blocks": [
+        {
+          "artifact_id": "tax.us.2025.rule.f1099int-b4-subtotal",
+          "code": "SOURCE_SET_UNCLOSED",
+          "missing": [
+            "tax.us.2025.f1099int.b4"
+          ]
+        }
+      ],
+      "run_id": "demo.p0.wc.int.c-empty",
+      "status": "ran",
+      "subtotals": {
+        "tax.us.2025.dividends.b4-withholding-subtotal": "0",
+        "tax.us.2025.interest.b4-withholding-subtotal": null,
+        "tax.us.2025.ira.box4-withholding-subtotal": "0",
+        "tax.us.2025.ssa1099.b6-withholding-subtotal": "0",
+        "tax.us.2025.unemployment.b4-withholding-subtotal": "0"
+      }
+    },
+    {
+      "blocked_count": 0,
+      "cause": "c-one-amount",
+      "family": "int",
+      "lines": {
+        "25a": "published 4500",
+        "25b": "published 50",
+        "25d": "published 4550",
+        "33": "published 4550",
+        "35a": "published 615",
+        "37": "published 0"
+      },
+      "root_blocks": [],
+      "run_id": "demo.p0.wc.int.c-one-amount",
+      "status": "ran",
+      "subtotals": {
+        "tax.us.2025.dividends.b4-withholding-subtotal": "0",
+        "tax.us.2025.interest.b4-withholding-subtotal": "50",
+        "tax.us.2025.ira.box4-withholding-subtotal": "0",
+        "tax.us.2025.ssa1099.b6-withholding-subtotal": "0",
+        "tax.us.2025.unemployment.b4-withholding-subtotal": "0"
+      }
+    },
+    {
+      "blocked_count": 0,
+      "cause": "stale",
+      "family": "int",
+      "lines": {
+        "25a": "published 4500",
+        "25b": "published 80",
+        "25d": "published 4580",
+        "33": "published 4580",
+        "35a": "published 609",
+        "37": "published 0"
+      },
+      "root_blocks": [],
+      "run_id": "demo.p0.wc.int.stale",
+      "status": "ran",
+      "subtotals": {
+        "tax.us.2025.dividends.b4-withholding-subtotal": "0",
+        "tax.us.2025.interest.b4-withholding-subtotal": "80",
+        "tax.us.2025.ira.box4-withholding-subtotal": "0",
+        "tax.us.2025.ssa1099.b6-withholding-subtotal": "0",
+        "tax.us.2025.unemployment.b4-withholding-subtotal": "0"
+      }
+    },
+    {
+      "blocked_count": 0,
+      "cause": "d-control",
+      "family": "int",
+      "lines": {
+        "25a": "published 4500",
+        "25b": "published 80",
+        "25d": "published 4580",
+        "33": "published 4580",
+        "35a": "published 609",
+        "37": "published 0"
+      },
+      "root_blocks": [],
+      "run_id": "demo.p0.wc.int.d-control",
+      "status": "ran",
+      "subtotals": {
+        "tax.us.2025.dividends.b4-withholding-subtotal": "0",
+        "tax.us.2025.interest.b4-withholding-subtotal": "80",
+        "tax.us.2025.ira.box4-withholding-subtotal": "0",
+        "tax.us.2025.ssa1099.b6-withholding-subtotal": "0",
+        "tax.us.2025.unemployment.b4-withholding-subtotal": "0"
+      }
+    },
+    {
+      "blocked_count": 0,
+      "cause": "a-unanswered",
+      "family": "div",
+      "lines": {
+        "25a": "published 4500",
+        "25b": "published 40",
+        "25d": "published 4540",
+        "33": "published 4540",
+        "35a": "published 569",
+        "37": "published 0"
+      },
+      "root_blocks": [],
+      "run_id": "demo.p0.wc.div.a-unanswered",
+      "status": "ran",
+      "subtotals": {
+        "tax.us.2025.dividends.b4-withholding-subtotal": "40",
+        "tax.us.2025.interest.b4-withholding-subtotal": "0",
+        "tax.us.2025.ira.box4-withholding-subtotal": "0",
+        "tax.us.2025.ssa1099.b6-withholding-subtotal": "0",
+        "tax.us.2025.unemployment.b4-withholding-subtotal": "0"
+      }
+    },
+    {
+      "blocked_count": 0,
+      "cause": "a-answered",
+      "family": "div",
+      "lines": {
+        "25a": "published 4500",
+        "25b": "published 40",
+        "25d": "published 4540",
+        "33": "published 4540",
+        "35a": "published 569",
+        "37": "published 0"
+      },
+      "root_blocks": [],
+      "run_id": "demo.p0.wc.div.a-answered",
+      "status": "ran",
+      "subtotals": {
+        "tax.us.2025.dividends.b4-withholding-subtotal": "40",
+        "tax.us.2025.interest.b4-withholding-subtotal": "0",
+        "tax.us.2025.ira.box4-withholding-subtotal": "0",
+        "tax.us.2025.ssa1099.b6-withholding-subtotal": "0",
+        "tax.us.2025.unemployment.b4-withholding-subtotal": "0"
+      }
+    },
+    {
+      "blocked_count": 8,
+      "cause": "b-unanswered",
+      "family": "div",
+      "lines": {
+        "25a": "published 4500",
+        "25b": "blocked DEPENDENCY_ABSENT missing=[\"tax.us.2025.dividends.b4-withholding-subtotal\"]",
+        "25d": "blocked DEPENDENCY_ABSENT missing=[\"tax.us.2025.payments.line25b\"]",
+        "33": "blocked DEPENDENCY_ABSENT missing=[\"tax.us.2025.payments.line25d\"]",
+        "35a": "blocked DEPENDENCY_ABSENT missing=[\"tax.us.2025.payments.line34-overpaid\", \"tax.us.2025.payments.line36-applied-to-2026\"]",
+        "37": "blocked DEPENDENCY_ABSENT missing=[\"tax.us.2025.payments.line33\"]"
+      },
+      "root_blocks": [
+        {
+          "artifact_id": "tax.us.2025.rule.f1099div-b4-subtotal",
+          "code": "SOURCE_SET_UNCLOSED",
+          "missing": [
+            "tax.us.2025.f1099div.b4"
+          ]
+        }
+      ],
+      "run_id": "demo.p0.wc.div.b-unanswered",
+      "status": "ran",
+      "subtotals": {
+        "tax.us.2025.dividends.b4-withholding-subtotal": null,
+        "tax.us.2025.interest.b4-withholding-subtotal": "0",
+        "tax.us.2025.ira.box4-withholding-subtotal": "0",
+        "tax.us.2025.ssa1099.b6-withholding-subtotal": "0",
+        "tax.us.2025.unemployment.b4-withholding-subtotal": "0"
+      }
+    },
+    {
+      "blocked_count": 0,
+      "cause": "b-answered",
+      "family": "div",
+      "lines": {
+        "25a": "published 4500",
+        "25b": "published 0",
+        "25d": "published 4500",
+        "33": "published 4500",
+        "35a": "published 565",
+        "37": "published 0"
+      },
+      "root_blocks": [],
+      "run_id": "demo.p0.wc.div.b-answered",
+      "status": "ran",
+      "subtotals": {
+        "tax.us.2025.dividends.b4-withholding-subtotal": "0",
+        "tax.us.2025.interest.b4-withholding-subtotal": "0",
+        "tax.us.2025.ira.box4-withholding-subtotal": "0",
+        "tax.us.2025.ssa1099.b6-withholding-subtotal": "0",
+        "tax.us.2025.unemployment.b4-withholding-subtotal": "0"
+      }
+    },
+    {
+      "blocked_count": 8,
+      "cause": "c-empty",
+      "family": "div",
+      "lines": {
+        "25a": "published 4500",
+        "25b": "blocked DEPENDENCY_ABSENT missing=[\"tax.us.2025.dividends.b4-withholding-subtotal\"]",
+        "25d": "blocked DEPENDENCY_ABSENT missing=[\"tax.us.2025.payments.line25b\"]",
+        "33": "blocked DEPENDENCY_ABSENT missing=[\"tax.us.2025.payments.line25d\"]",
+        "35a": "blocked DEPENDENCY_ABSENT missing=[\"tax.us.2025.payments.line34-overpaid\", \"tax.us.2025.payments.line36-applied-to-2026\"]",
+        "37": "blocked DEPENDENCY_ABSENT missing=[\"tax.us.2025.payments.line33\"]"
+      },
+      "root_blocks": [
+        {
+          "artifact_id": "tax.us.2025.rule.f1099div-b4-subtotal",
+          "code": "SOURCE_SET_UNCLOSED",
+          "missing": [
+            "tax.us.2025.f1099div.b4"
+          ]
+        }
+      ],
+      "run_id": "demo.p0.wc.div.c-empty",
+      "status": "ran",
+      "subtotals": {
+        "tax.us.2025.dividends.b4-withholding-subtotal": null,
+        "tax.us.2025.interest.b4-withholding-subtotal": "0",
+        "tax.us.2025.ira.box4-withholding-subtotal": "0",
+        "tax.us.2025.ssa1099.b6-withholding-subtotal": "0",
+        "tax.us.2025.unemployment.b4-withholding-subtotal": "0"
+      }
+    },
+    {
+      "blocked_count": 0,
+      "cause": "c-one-amount",
+      "family": "div",
+      "lines": {
+        "25a": "published 4500",
+        "25b": "published 40",
+        "25d": "published 4540",
+        "33": "published 4540",
+        "35a": "published 605",
+        "37": "published 0"
+      },
+      "root_blocks": [],
+      "run_id": "demo.p0.wc.div.c-one-amount",
+      "status": "ran",
+      "subtotals": {
+        "tax.us.2025.dividends.b4-withholding-subtotal": "40",
+        "tax.us.2025.interest.b4-withholding-subtotal": "0",
+        "tax.us.2025.ira.box4-withholding-subtotal": "0",
+        "tax.us.2025.ssa1099.b6-withholding-subtotal": "0",
+        "tax.us.2025.unemployment.b4-withholding-subtotal": "0"
+      }
+    },
+    {
+      "blocked_count": 0,
+      "cause": "stale",
+      "family": "div",
+      "lines": {
+        "25a": "published 4500",
+        "25b": "published 60",
+        "25d": "published 4560",
+        "33": "published 4560",
+        "35a": "published 589",
+        "37": "published 0"
+      },
+      "root_blocks": [],
+      "run_id": "demo.p0.wc.div.stale",
+      "status": "ran",
+      "subtotals": {
+        "tax.us.2025.dividends.b4-withholding-subtotal": "60",
+        "tax.us.2025.interest.b4-withholding-subtotal": "0",
+        "tax.us.2025.ira.box4-withholding-subtotal": "0",
+        "tax.us.2025.ssa1099.b6-withholding-subtotal": "0",
+        "tax.us.2025.unemployment.b4-withholding-subtotal": "0"
+      }
+    },
+    {
+      "blocked_count": 0,
+      "cause": "d-control",
+      "family": "div",
+      "lines": {
+        "25a": "published 4500",
+        "25b": "published 60",
+        "25d": "published 4560",
+        "33": "published 4560",
+        "35a": "published 589",
+        "37": "published 0"
+      },
+      "root_blocks": [],
+      "run_id": "demo.p0.wc.div.d-control",
+      "status": "ran",
+      "subtotals": {
+        "tax.us.2025.dividends.b4-withholding-subtotal": "60",
+        "tax.us.2025.interest.b4-withholding-subtotal": "0",
+        "tax.us.2025.ira.box4-withholding-subtotal": "0",
+        "tax.us.2025.ssa1099.b6-withholding-subtotal": "0",
+        "tax.us.2025.unemployment.b4-withholding-subtotal": "0"
+      }
+    },
+    {
+      "blocked_count": 0,
+      "cause": "a-unanswered",
+      "family": "ira",
+      "lines": {
+        "25a": "published 4500",
+        "25b": "published 1200",
+        "25d": "published 5700",
+        "33": "published 5700",
+        "35a": "published 0",
+        "37": "published 55"
+      },
+      "root_blocks": [],
+      "run_id": "demo.p0.wc.ira.a-unanswered",
+      "status": "ran",
+      "subtotals": {
+        "tax.us.2025.dividends.b4-withholding-subtotal": "0",
+        "tax.us.2025.interest.b4-withholding-subtotal": "0",
+        "tax.us.2025.ira.box4-withholding-subtotal": "1200",
+        "tax.us.2025.ssa1099.b6-withholding-subtotal": "0",
+        "tax.us.2025.unemployment.b4-withholding-subtotal": "0"
+      }
+    },
+    {
+      "blocked_count": 0,
+      "cause": "a-answered",
+      "family": "ira",
+      "lines": {
+        "25a": "published 4500",
+        "25b": "published 1200",
+        "25d": "published 5700",
+        "33": "published 5700",
+        "35a": "published 0",
+        "37": "published 55"
+      },
+      "root_blocks": [],
+      "run_id": "demo.p0.wc.ira.a-answered",
+      "status": "ran",
+      "subtotals": {
+        "tax.us.2025.dividends.b4-withholding-subtotal": "0",
+        "tax.us.2025.interest.b4-withholding-subtotal": "0",
+        "tax.us.2025.ira.box4-withholding-subtotal": "1200",
+        "tax.us.2025.ssa1099.b6-withholding-subtotal": "0",
+        "tax.us.2025.unemployment.b4-withholding-subtotal": "0"
+      }
+    },
+    {
+      "blocked_count": 8,
+      "cause": "b-unanswered",
+      "family": "ira",
+      "lines": {
+        "25a": "published 4500",
+        "25b": "blocked DEPENDENCY_ABSENT missing=[\"tax.us.2025.ira.box4-withholding-subtotal\"]",
+        "25d": "blocked DEPENDENCY_ABSENT missing=[\"tax.us.2025.payments.line25b\"]",
+        "33": "blocked DEPENDENCY_ABSENT missing=[\"tax.us.2025.payments.line25d\"]",
+        "35a": "blocked DEPENDENCY_ABSENT missing=[\"tax.us.2025.payments.line34-overpaid\", \"tax.us.2025.payments.line36-applied-to-2026\"]",
+        "37": "blocked DEPENDENCY_ABSENT missing=[\"tax.us.2025.payments.line33\"]"
+      },
+      "root_blocks": [
+        {
+          "artifact_id": "tax.us.2025.rule.f1099r-box4-subtotal",
+          "code": "SOURCE_SET_UNCLOSED",
+          "missing": [
+            "tax.us.2025.f1099r.box4"
+          ]
+        }
+      ],
+      "run_id": "demo.p0.wc.ira.b-unanswered",
+      "status": "ran",
+      "subtotals": {
+        "tax.us.2025.dividends.b4-withholding-subtotal": "0",
+        "tax.us.2025.interest.b4-withholding-subtotal": "0",
+        "tax.us.2025.ira.box4-withholding-subtotal": null,
+        "tax.us.2025.ssa1099.b6-withholding-subtotal": "0",
+        "tax.us.2025.unemployment.b4-withholding-subtotal": "0"
+      }
+    },
+    {
+      "blocked_count": 0,
+      "cause": "b-answered",
+      "family": "ira",
+      "lines": {
+        "25a": "published 4500",
+        "25b": "published 0",
+        "25d": "published 4500",
+        "33": "published 4500",
+        "35a": "published 0",
+        "37": "published 575"
+      },
+      "root_blocks": [],
+      "run_id": "demo.p0.wc.ira.b-answered",
+      "status": "ran",
+      "subtotals": {
+        "tax.us.2025.dividends.b4-withholding-subtotal": "0",
+        "tax.us.2025.interest.b4-withholding-subtotal": "0",
+        "tax.us.2025.ira.box4-withholding-subtotal": "0",
+        "tax.us.2025.ssa1099.b6-withholding-subtotal": "0",
+        "tax.us.2025.unemployment.b4-withholding-subtotal": "0"
+      }
+    },
+    {
+      "blocked_count": 8,
+      "cause": "c-empty",
+      "family": "ira",
+      "lines": {
+        "25a": "published 4500",
+        "25b": "blocked DEPENDENCY_ABSENT missing=[\"tax.us.2025.ira.box4-withholding-subtotal\"]",
+        "25d": "blocked DEPENDENCY_ABSENT missing=[\"tax.us.2025.payments.line25b\"]",
+        "33": "blocked DEPENDENCY_ABSENT missing=[\"tax.us.2025.payments.line25d\"]",
+        "35a": "blocked DEPENDENCY_ABSENT missing=[\"tax.us.2025.payments.line34-overpaid\", \"tax.us.2025.payments.line36-applied-to-2026\"]",
+        "37": "blocked DEPENDENCY_ABSENT missing=[\"tax.us.2025.payments.line33\"]"
+      },
+      "root_blocks": [
+        {
+          "artifact_id": "tax.us.2025.rule.f1099r-box4-subtotal",
+          "code": "SOURCE_SET_UNCLOSED",
+          "missing": [
+            "tax.us.2025.f1099r.box4"
+          ]
+        }
+      ],
+      "run_id": "demo.p0.wc.ira.c-empty",
+      "status": "ran",
+      "subtotals": {
+        "tax.us.2025.dividends.b4-withholding-subtotal": "0",
+        "tax.us.2025.interest.b4-withholding-subtotal": "0",
+        "tax.us.2025.ira.box4-withholding-subtotal": null,
+        "tax.us.2025.ssa1099.b6-withholding-subtotal": "0",
+        "tax.us.2025.unemployment.b4-withholding-subtotal": "0"
+      }
+    },
+    {
+      "blocked_count": 0,
+      "cause": "c-one-amount",
+      "family": "ira",
+      "lines": {
+        "25a": "published 4500",
+        "25b": "published 1200",
+        "25d": "published 5700",
+        "33": "published 5700",
+        "35a": "published 625",
+        "37": "published 0"
+      },
+      "root_blocks": [],
+      "run_id": "demo.p0.wc.ira.c-one-amount",
+      "status": "ran",
+      "subtotals": {
+        "tax.us.2025.dividends.b4-withholding-subtotal": "0",
+        "tax.us.2025.interest.b4-withholding-subtotal": "0",
+        "tax.us.2025.ira.box4-withholding-subtotal": "1200",
+        "tax.us.2025.ssa1099.b6-withholding-subtotal": "0",
+        "tax.us.2025.unemployment.b4-withholding-subtotal": "0"
+      }
+    },
+    {
+      "blocked_count": 0,
+      "cause": "stale",
+      "family": "ira",
+      "lines": {
+        "25a": "published 4500",
+        "25b": "published 2000",
+        "25d": "published 6500",
+        "33": "published 6500",
+        "35a": "published 745",
+        "37": "published 0"
+      },
+      "root_blocks": [],
+      "run_id": "demo.p0.wc.ira.stale",
+      "status": "ran",
+      "subtotals": {
+        "tax.us.2025.dividends.b4-withholding-subtotal": "0",
+        "tax.us.2025.interest.b4-withholding-subtotal": "0",
+        "tax.us.2025.ira.box4-withholding-subtotal": "2000",
+        "tax.us.2025.ssa1099.b6-withholding-subtotal": "0",
+        "tax.us.2025.unemployment.b4-withholding-subtotal": "0"
+      }
+    },
+    {
+      "blocked_count": 0,
+      "cause": "d-control",
+      "family": "ira",
+      "lines": {
+        "25a": "published 4500",
+        "25b": "published 2000",
+        "25d": "published 6500",
+        "33": "published 6500",
+        "35a": "published 745",
+        "37": "published 0"
+      },
+      "root_blocks": [],
+      "run_id": "demo.p0.wc.ira.d-control",
+      "status": "ran",
+      "subtotals": {
+        "tax.us.2025.dividends.b4-withholding-subtotal": "0",
+        "tax.us.2025.interest.b4-withholding-subtotal": "0",
+        "tax.us.2025.ira.box4-withholding-subtotal": "2000",
+        "tax.us.2025.ssa1099.b6-withholding-subtotal": "0",
+        "tax.us.2025.unemployment.b4-withholding-subtotal": "0"
+      }
+    }
+  ],
+  "core": "v60"
+}
