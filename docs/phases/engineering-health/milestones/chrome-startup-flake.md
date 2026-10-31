@@ -3,7 +3,7 @@
   "version": 1,
   "phase": "Engineering Health",
   "topic": "chrome-startup-flake",
-  "status": "Open. The traced failure was a late cold start (11.2 s against a 10 s allowance); Track 1 raises the launch allowance to 45 s inside the startup slot.",
+  "status": "Closed. The traced failure was a late cold start (11.2 s against a 10 s allowance). The launch allowance is 45 s inside the startup slot, the owner wait 240 s, one source across languages, and a launch slower than 10 s is reported.",
   "scope": [
     "find, from recorded CI traces, whether the failing Chrome launches become ready late or never",
     "make the required verify gate stop failing on this startup timeout without hiding a real browser failure",
@@ -31,10 +31,12 @@
       "docs/phases/engineering-health/milestones/chrome-startup-flake.md"
     ],
     "new_milestone": [
+      "docs/milestone-retrospectives/2026-10-31-chrome-startup-flake.md",
       "docs/phases/engineering-health/milestones/chrome-startup-flake.md",
       "docs/phases/engineering-health/engineering-health-roadmap.md"
     ]
-  }
+  },
+  "retrospective": "docs/milestone-retrospectives/2026-10-31-chrome-startup-flake.md"
 }
 -->
 
@@ -111,8 +113,9 @@ with the analysis script and a sanitized summary.
 - **Load is not the cause:** failing and passing shards carry the same wall
   time and the same share of the new live modules.
 - **Remedy:** raise the active launch allowance from 10 s to 45 s inside the
-  startup slot. That fits the Python owner's 210 s startup wait (120 s queue
-  plus 45 s launch). A fast launch costs nothing; a dead Chrome fails after
+  startup slot. With 120 s queue, 45 s launch and the observer's 60 s grace
+  the worst case is 225 s, so Track 1 raised the Python owner's wait from
+  210 s to 240 s. A fast launch costs nothing; a dead Chrome fails after
   45 s instead of 10 s; a Chrome that exits early still fails at once. One
   relaunch is not supported by the data: no launch was seen that never came
   up.
@@ -136,3 +139,39 @@ Foreman, 2026-10-31, on P0's recommendation:
    `tools/presentation_harness/lib/chrome.mjs`, its diagnostic, and fake-Chrome
    controls: late but within the allowance succeeds; never ready fails at the
    allowance; exits early fails at once.
+
+## Review dispositions
+
+Fresh-reader review of P0 and Track 1: no required findings. The reviewer
+re-derived the failing launch (ready at 11,193 ms against 10,024 ms) from
+the committed summary, and found no other timer that a 45 s launch or the
+225 s worst case would exceed.
+
+1. *The wired default was untested* (recommended). Fixed: the resolved
+   default of a launch with no timeout argument is asserted.
+2. *The timing constants were duplicated across JavaScript and Python*
+   (recommended). Fixed: a test reads the harness constants and asserts the
+   Python ones equal them.
+3. *A launch of 10 to 45 s was silent* (recommended). Fixed: it writes a
+   sanitized "slow Chrome launch" line, and the trace keeps its time.
+4. *A dead launch holds the startup slot for up to 105 s* (recommended).
+   Accepted: it needs a Chrome that never starts, which no trace has shown;
+   the queue still fails with its own message.
+5. *Stale "210 s" text and a test name* (note). Fixed.
+
+## Execution record
+
+- Sonnet 5.5 sub-agents: P0 about 10 minutes, reading CI artifacts with
+  paced API calls; Track 1 and two repair passes by one builder; one review.
+- The first Track 1 pass found the worst case (225 s) exceeded the owner's
+  210 s wait once the observer grace is counted; the repair raised it.
+
+## Outcome
+
+A Chrome launch now has 45 seconds to start inside the existing startup
+slot instead of ten. The one traced failure, a cold first launch ready at
+11.2 seconds, would have passed. The Python owner waits 240 seconds, longer
+than the 225-second worst case, so a launch that never starts still reports
+the Chrome error. The constants have one tested source across both
+languages, and a launch slower than ten seconds is reported rather than
+silent. No flag, slot, workflow or scenario assertion changed.
