@@ -38,6 +38,7 @@ from packages.derivation.production_resolver import PublicationSurface, Refusal,
 from packages.kernel.act_log import ActLog
 from packages.tax.loader import install_domain_scoped_supersession
 from tests import test_w2g_gambling as w2g
+from tests.helpers import current_core_returns as ccr
 from tests.test_form_1099_k_income import _handover
 from tests.test_form_1099_withholding import (
     _base,
@@ -194,6 +195,25 @@ class CurrentCoreCalculation(unittest.TestCase):
         view = _line21_view(ws.runtime._saved_presentation or {}, ws.log.read().acts, ws.runtime.registry)
         self.assertIsNone(view["line21_value"])
         self.assertEqual(view["line21_rows"], [])
+
+    def test_line21_view_shows_the_line_21_rows_of_a_v66_return_with_student_loan_interest(self) -> None:
+        # Live counterpart of the test above: two Forms 1098-E of 100.40 each. The view shows one row
+        # per statement at its own amount and the line at the whole-dollar sum, 100.40 + 100.40 = 200.80 -> 201.
+        v66 = _as_session_user(_v66_acts(ccr.add_student_loan_interest_1098e(ccr.base_return(), [100.40, 100.40]), "l21live"))
+        ws = _Workspace(v66)
+        self.addCleanup(ws.close)
+        self.assertEqual(ws.runtime.calculate(), {"calculated": True})
+        view = _line21_view(ws.runtime._saved_presentation or {}, ws.log.read().acts, ws.runtime.registry)
+        self.assertEqual(view["line21_value"], 201)
+        self.assertEqual(view["line21_disposition"], "published_value")
+        self.assertEqual([row["amount"] for row in view["line21_rows"]], [100.4, 100.4])
+        self.assertEqual(
+            sorted(row["statementKeys"]["statement"] for row in view["line21_rows"]),
+            ["demo.ccr.sli0.statement", "demo.ccr.sli1.statement"])
+        # The session's state carries the same rows, as the correction page reads them.
+        state = ws.runtime.state()
+        self.assertEqual(state["line21_value"], 201)
+        self.assertEqual(len(state["line21_rows"]), 2)
 
 
 class ResolverChoosesFromTheAdoption(unittest.TestCase):
