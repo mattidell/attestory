@@ -3,7 +3,7 @@
   "version": 1,
   "phase": "Engineering Health",
   "topic": "chrome-startup-flake",
-  "status": "Open. P0 reads the startup traces from CI failures after PR #229 and designs a remedy the evidence supports.",
+  "status": "Open. The traced failure was a late cold start (11.2 s against a 10 s allowance); Track 1 raises the launch allowance to 45 s inside the startup slot.",
   "scope": [
     "find, from recorded CI traces, whether the failing Chrome launches become ready late or never",
     "make the required verify gate stop failing on this startup timeout without hiding a real browser failure",
@@ -95,4 +95,44 @@ calls (the API rate limit was hit on 2026-10-31). Stop means stop.
 
 ## P0 result
 
-Pending.
+P0 is in [traces and design](chrome-startup-flake-evidence/p0-traces-and-design.md),
+with the analysis script and a sanitized summary.
+
+- **Nine failed shards in eight runs**, all in the correction-browser tests.
+  Only the post-#229 failure (run 41197479002) carries a startup trace.
+- **That launch was late, not dead.** It was the first launch in its shard,
+  waited 0 ms for the startup slot, stayed alive in disk-wait with memory
+  and threads rising, and wrote DevToolsActivePort at 11,193 ms, about 1.2 s
+  past the 10,024 ms deadline.
+- **Passing launches:** 51 launches over 15 traced shards. Later launches
+  take 248-414 ms; first launches usually take about 300 ms, but four took
+  5.0-8.4 s, within 1.6 s of the deadline. Shard 0's first launch was slow
+  in every traced run.
+- **Load is not the cause:** failing and passing shards carry the same wall
+  time and the same share of the new live modules.
+- **Remedy:** raise the active launch allowance from 10 s to 45 s inside the
+  startup slot. That fits the Python owner's 210 s startup wait (120 s queue
+  plus 45 s launch). A fast launch costs nothing; a dead Chrome fails after
+  45 s instead of 10 s; a Chrome that exits early still fails at once. One
+  relaunch is not supported by the data: no launch was seen that never came
+  up.
+- **Limits:** one failing launch is traced; the other eight are assumed to
+  be the same pattern. The disk explanation is inference.
+
+## Decisions
+
+Foreman, 2026-10-31, on P0's recommendation:
+
+1. **Raise the launch allowance to 45 s,** keeping the startup slot, the
+   flags and every scenario assertion.
+2. **Keep #229's observer** so the next late launch is recorded with its
+   time.
+3. **Not now:** a relaunch, warming the Chrome binary in the workflow, and
+   refreshing shard durations.
+
+## Tracks
+
+1. **Track 1 — allowance.** The default in
+   `tools/presentation_harness/lib/chrome.mjs`, its diagnostic, and fake-Chrome
+   controls: late but within the allowance succeeds; never ready fails at the
+   allowance; exits early fails at once.
