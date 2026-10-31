@@ -3,7 +3,7 @@
   "version": 1,
   "phase": "Engine Breadth",
   "topic": "correction-current-core",
-  "status": "Open. P0 found the session refuses every workspace adopted after core v42 (registry v40 is pinned); Track 1 resolves the surface from the workspace's adoption.",
+  "status": "Closed. The correction session resolves its publication surface from the workspace's current adoption, so a correction on core v66 calculates and matches a fresh run; a v42 workspace behaves as before.",
   "scope": [
     "a correction recalculates against the core package the workspace has adopted, not a fixed older registry",
     "the circumstance routes added since that registry work on the correction session",
@@ -29,10 +29,12 @@
       "docs/phases/engine-breadth/milestones/correction-current-core.md"
     ],
     "new_milestone": [
+      "docs/milestone-retrospectives/2026-10-31-correction-current-core.md",
       "docs/phases/engine-breadth/milestones/correction-current-core.md",
       "docs/phases/engine-breadth/engine-breadth-roadmap.md#Parked work and open questions"
     ]
-  }
+  },
+  "retrospective": "docs/milestone-retrospectives/2026-10-31-correction-current-core.md"
 }
 -->
 
@@ -118,3 +120,42 @@ Foreman, 2026-10-31:
 
 1. **Track 1 — resolve from the adoption.** The resolver, the session and
    runner wiring, the 1099-K recorder and SSA handover callers, and the tests.
+
+## Review dispositions
+
+Fresh-reader review of P0 and Track 1: no required findings. The resolver
+reads adoption, release and registry from the record and the release's
+attested hash, using the same adoption selection as the live coordinator; a
+v42 session's confirm result and saved presentation are identical before and
+after; a correction probe on v66 (open, calculate, choose, confirm) saved and
+calculated and matched a fresh run.
+
+1. *No test covered the save-time recalculation on v66* (recommended).
+   Fixed: a choose-and-confirm case, shown to fail when only that path is
+   pinned to registry v40.
+2. *`initialize` on a v66 seed was untested* (recommended). Fixed.
+3. *The W-2 entry loop still fixes its own registry* (note). It is a
+   different surface; parked.
+4. *The Form 1099-K and SSA callers report a refusal with new wording*
+   (note). Their tests pass; kept.
+5. *A v42 workspace that re-adopts v66 blocks line 21 for missing v66
+   answers* (note). Core content asks more; intended.
+
+## Execution record
+
+- One Sonnet 5.5 builder carried P0, Track 1 and the repair; one reviewer,
+  resumed once after a usage-limit stop.
+- P0's `probe.py` imports the removed `core_calculations_surface`; it is kept
+  as evidence of the pre-fix behaviour and no longer runs.
+
+## Outcome
+
+The correction session recalculates against the core the workspace has
+adopted. Before, it pinned registry v40, so every workspace adopted after
+core v42 was refused with `REGISTRY_CHECKSUM_MISMATCH` and the filer saw only
+"not calculated". On v66 a correction now calculates, at opening and at
+save, and matches a fresh run; an unconfirmed family blocks as it does there;
+a v42 workspace is unchanged; re-adopting mid-session switches core. One
+resolver in `production_resolver.py` serves the session, the evaluation
+runner and the Form 1099-K and SSA recorders. Refusals and the saved-file
+shape are unchanged.
