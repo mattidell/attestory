@@ -1667,6 +1667,12 @@ def check_validation_graph(
     return issues
 
 
+def _version_at_least(version: object, minimum: int) -> bool:
+    """True when a "vN" version string names N >= minimum (a malformed version is not)."""
+    text = str(version)
+    return text.startswith("v") and text[1:].isdigit() and int(text[1:]) >= minimum
+
+
 def validate_package(
     package: dict[str, Any],
     corpus: dict[tuple[str, str], dict[str, Any]],
@@ -1848,7 +1854,7 @@ def validate_package(
         or any(
             citizen.get("schema", "").startswith("rule-artifact.")
             and citizen.get("id") == "tax.us.2025.rule.ss-benefits-worksheet"
-            and citizen.get("version") == "v3"
+            and _version_at_least(citizen.get("version"), 3)
             for _pin, citizen in resolved
         )
     )
@@ -1856,7 +1862,7 @@ def validate_package(
         has_migration = any(citizen.get("id") == MIGRATION_ID for _pin, citizen in resolved)
         has_successor_bundle = SUCCESSOR_BUNDLE_ID in member_ids_for_succession
         has_worksheet_v3 = any(
-            pin["id"] == "tax.us.2025.rule.ss-benefits-worksheet" and pin["version"] == "v3"
+            pin["id"] == "tax.us.2025.rule.ss-benefits-worksheet" and _version_at_least(pin["version"], 3)
             for pin, _citizen in resolved
         )
         if not (has_migration and has_successor_bundle and has_worksheet_v3):
@@ -1864,7 +1870,7 @@ def validate_package(
                 package_id, str(package.get("version", "")),
                 "SUCCESSION_PACKAGE_INCOMPLETE",
                 "a package that claims this succession must pin the migration "
-                "citizen, the successor vocabulary bundle, and worksheet v3",
+                "citizen, the successor vocabulary bundle, and worksheet v3 or later",
             ))
 
     # 2. Member level checks
@@ -2733,6 +2739,12 @@ def validate_package(
             "tax.us.2025.interest-composition": ("taxable-interest-composition.v1", "v4"),
             "tax.us.2025.rule.form1040-line2b": ("rule-artifact.v9", "v8"),
             "tax.us.2025.form1040.line-2b": ("form-field.v3", "v5"),
+            "tax.us.2025.rule.attachment.schedule-b": ("attachment-rule.v11", "v7"),
+        }),
+        "v68": ("NOMINEE_RETURN_SUCCESSOR_GRAPH_MIXED", {
+            "tax.us.2025.interest-composition": ("taxable-interest-composition.v1", "v4"),
+            "tax.us.2025.rule.form1040-line2b": ("rule-artifact.v9", "v8"),
+            "tax.us.2025.form1040.line-2b": ("form-field.v3", "v6"),
             "tax.us.2025.rule.attachment.schedule-b": ("attachment-rule.v11", "v7"),
         }),
     }

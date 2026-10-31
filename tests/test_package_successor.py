@@ -198,8 +198,9 @@ class SuccessorTests(unittest.TestCase):
 
     def test_inherited_mismatch_is_reported(self) -> None:
         package, registry, release = self.chain(57, 55)
-        result = build_successor(package, registry, release, self.corpus, {"package_version": "v99", "release_version": "v99"})
-        self.assertEqual(json.loads(result.package)["version"], "v99")
+        # v58 (not a version past the successor-graph table's last entry): the chain is v57's.
+        result = build_successor(package, registry, release, self.corpus, {"package_version": "v58", "release_version": "v58"})
+        self.assertEqual(json.loads(result.package)["version"], "v58")
         self.assertEqual(result.inherited_inconsistencies, ((PREFIX + "rule.schedule3-line1-direct-ftc", "v3"),))
 
     def test_refuses_bad_release_pin_and_tampered_body(self) -> None:
