@@ -7,7 +7,9 @@ This is the project's third iteration. The first proved a working return generat
 ## Where things stand
 
 - **Governance** (`docs/governance/`): the ratified v0.1 set — Constitution, Ontology, Engineering Constraints, Principles, Commentary. The sole contract authority for this repository.
-- **Current result**: on core calculations v65 Form
+- **Current result**: on core calculations v66
+  statements with cents attach and multi-amount lines round once at their
+  total (Schedule B Part I interest excepted); v65 Form
   W-2G gambling winnings reach Schedule 1 line 8b and its withholding line
   25c; v64's child tax credit lines explain themselves; v63
   Schedule D, Form 8949, Schedule 1, Schedule B and line 2b wait until every

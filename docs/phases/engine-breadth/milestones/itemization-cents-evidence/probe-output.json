@@ -1,0 +1,448 @@
+{
+ "dollar_cases": {
+  "d1_line2b_two_interest_families_up": {
+   "blocked": [],
+   "members": [
+    [
+     "f1099int.b1",
+     100.4
+    ],
+    [
+     "f1099int.b3",
+     100.4
+    ]
+   ],
+   "v65": {
+    "income.agi": "50200",
+    "interest.taxable-total": "200",
+    "payments.line25b": "0",
+    "payments.line25d": "4500",
+    "payments.line35a-refunded": "601",
+    "payments.line37-amount-owed": "0",
+    "tax-exempt-interest.line2a-total": "0",
+    "tax.line24-total-tax": "3899"
+   }
+  },
+  "d2_line2b_two_interest_families_half": {
+   "blocked": [],
+   "members": [
+    [
+     "f1099int.b1",
+     100.5
+    ],
+    [
+     "f1099int.b3",
+     100.5
+    ]
+   ],
+   "v65": {
+    "income.agi": "50202",
+    "interest.taxable-total": "202",
+    "payments.line25b": "0",
+    "payments.line25d": "4500",
+    "payments.line35a-refunded": "601",
+    "payments.line37-amount-owed": "0",
+    "tax-exempt-interest.line2a-total": "0",
+    "tax.line24-total-tax": "3899"
+   }
+  },
+  "d3_line2b_less_nominee_adjustment": {
+   "blocked": [],
+   "members": [
+    [
+     "f1099int.b1",
+     300.6
+    ],
+    [
+     "scheduleb.adjustment.nominee",
+     100.4
+    ]
+   ],
+   "v65": {
+    "income.agi": "50201",
+    "interest.taxable-total": "201",
+    "payments.line25b": "0",
+    "payments.line25d": "4500",
+    "payments.line35a-refunded": "601",
+    "payments.line37-amount-owed": "0",
+    "tax-exempt-interest.line2a-total": "0",
+    "tax.line24-total-tax": "3899"
+   }
+  },
+  "d4_line25b_interest_and_dividend_withholding": {
+   "blocked": [],
+   "members": [
+    [
+     "f1099int.b4",
+     100.4
+    ],
+    [
+     "f1099div.b4",
+     100.4
+    ]
+   ],
+   "v65": {
+    "income.agi": "50000",
+    "interest.taxable-total": "0",
+    "payments.line25b": "200",
+    "payments.line25d": "4700",
+    "payments.line35a-refunded": "825",
+    "payments.line37-amount-owed": "0",
+    "tax-exempt-interest.line2a-total": "0",
+    "tax.line24-total-tax": "3875"
+   }
+  }
+ },
+ "tie_out": {
+  "f1098": {
+   "cents_10000.4_x2": {
+    "attachment": "schedule-a",
+    "attachment_outcome": "blocked",
+    "code": "DEPENDENCY_ABSENT",
+    "missing": [
+     "schedule-a.excess-over-standard"
+    ],
+    "subtotal_symbol_value": null
+   },
+   "whole_10000_x2": {
+    "attachment": "schedule-a",
+    "attachment_outcome": "blocked",
+    "code": "DEPENDENCY_ABSENT",
+    "missing": [
+     "schedule-a.excess-over-standard"
+    ],
+    "subtotal_symbol_value": null
+   }
+  },
+  "f1098e.1": {
+   "cents_100.4_x2": {
+    "attachment": "schedule-1",
+    "attachment_outcome": "blocked",
+    "code": "DEPENDENCY_ABSENT",
+    "missing": [
+     "schedule1.line21-sli-deduction"
+    ],
+    "subtotal_symbol_value": "201"
+   },
+   "whole_100_x2": {
+    "attachment": "schedule-1",
+    "attachment_outcome": "blocked",
+    "code": "DEPENDENCY_ABSENT",
+    "missing": [
+     "schedule1.line21-sli-deduction"
+    ],
+    "subtotal_symbol_value": "200"
+   }
+  },
+  "f1099b.covered-st-proceeds": {
+   "cents_100.4_x2": {
+    "attachment": "schedule-d",
+    "attachment_outcome": "published",
+    "part": "line-1a-proceeds",
+    "row_sum": "200.8",
+    "subtotal": "200.8",
+    "subtotal_symbol_value": "200.8"
+   },
+   "whole_100_x2": {
+    "attachment": "schedule-d",
+    "attachment_outcome": "published",
+    "part": "line-1a-proceeds",
+    "row_sum": "200.0",
+    "subtotal": "200.0",
+    "subtotal_symbol_value": "200.0"
+   }
+  },
+  "f1099b.covered-w-st-proceeds": {
+   "cents_100.4_x2": {
+    "attachment": "f8949",
+    "attachment_outcome": "published",
+    "part": "box-a-proceeds",
+    "row_sum": "200.8",
+    "subtotal": "200.8",
+    "subtotal_symbol_value": "200.8"
+   },
+   "whole_100_x2": {
+    "attachment": "f8949",
+    "attachment_outcome": "published",
+    "part": "box-a-proceeds",
+    "row_sum": "200.0",
+    "subtotal": "200.0",
+    "subtotal_symbol_value": "200.0"
+   }
+  },
+  "f1099div.1a": {
+   "cents_800.4_x2": {
+    "attachment": "schedule-b",
+    "attachment_outcome": "blocked",
+    "code": "ITEMIZATION_TIE_OUT_VIOLATION",
+    "missing": [
+     "part-ii-ordinary-dividends:dividends.1a-subtotal",
+     "part-ii-ordinary-dividends:f1099div.1a:dividends.1a-subtotal"
+    ],
+    "subtotal_symbol_value": "1601"
+   },
+   "whole_800_x2": {
+    "attachment": "schedule-b",
+    "attachment_outcome": "published",
+    "part": "part-ii-ordinary-dividends",
+    "row_sum": "1600.0",
+    "subtotal": "1600",
+    "subtotal_symbol_value": "1600"
+   }
+  },
+  "f1099div.2a": {
+   "cents_100.4_x2": {
+    "attachment": "schedule-d",
+    "attachment_outcome": "blocked",
+    "code": "ITEMIZATION_TIE_OUT_VIOLATION",
+    "missing": [
+     "line-13-box2a:dividends.2a-subtotal",
+     "line-13-box2a:f1099div.2a:dividends.2a-subtotal"
+    ],
+    "subtotal_symbol_value": "201"
+   },
+   "whole_100_x2": {
+    "attachment": "schedule-d",
+    "attachment_outcome": "published",
+    "part": "line-13-box2a",
+    "row_sum": "200.0",
+    "subtotal": "200",
+    "subtotal_symbol_value": "200"
+   }
+  },
+  "f1099g.1": {
+   "cents_100.4_x2": {
+    "attachment": "schedule-1",
+    "attachment_outcome": "blocked",
+    "code": "ITEMIZATION_TIE_OUT_VIOLATION",
+    "missing": [
+     "line-7-unemployment:f1099g.1:unemployment.box1-subtotal",
+     "line-7-unemployment:unemployment.box1-subtotal"
+    ],
+    "subtotal_symbol_value": "201"
+   },
+   "whole_100_x2": {
+    "attachment": "schedule-1",
+    "attachment_outcome": "published",
+    "part": "line-7-unemployment",
+    "row_sum": "200.0",
+    "subtotal": "200",
+    "subtotal_symbol_value": "200"
+   }
+  },
+  "f1099int.b1": {
+   "cents_800.4_x2": {
+    "attachment": "schedule-b",
+    "attachment_outcome": "blocked",
+    "code": "ITEMIZATION_TIE_OUT_VIOLATION",
+    "missing": [
+     "part-i-interest:f1099int.b1:interest.b1-subtotal",
+     "part-i-interest:interest.taxable-total"
+    ],
+    "subtotal_symbol_value": "1601"
+   },
+   "whole_800_x2": {
+    "attachment": "schedule-b",
+    "attachment_outcome": "published",
+    "part": "part-i-interest",
+    "row_sum": "1600.0",
+    "subtotal": "1600",
+    "subtotal_symbol_value": "1600"
+   }
+  },
+  "f1099int.b10": {
+   "cents_100.4_x2": {
+    "attachment": "schedule-b",
+    "attachment_outcome": "blocked",
+    "code": "ITEMIZATION_TIE_OUT_VIOLATION",
+    "missing": [
+     "part-i-interest:f1099int.b10:interest.b10-market-discount-subtotal",
+     "part-i-interest:interest.taxable-total"
+    ],
+    "subtotal_symbol_value": "201"
+   },
+   "whole_100_x2": {
+    "attachment": "schedule-b",
+    "attachment_outcome": "published",
+    "part": "part-i-interest",
+    "row_sum": "200.0",
+    "subtotal": "200",
+    "subtotal_symbol_value": "200"
+   }
+  },
+  "f1099int.b3": {
+   "cents_100.4_x2": {
+    "attachment": "schedule-b",
+    "attachment_outcome": "blocked",
+    "code": "ITEMIZATION_TIE_OUT_VIOLATION",
+    "missing": [
+     "part-i-interest:f1099int.b3:interest.b3-subtotal",
+     "part-i-interest:interest.taxable-total"
+    ],
+    "subtotal_symbol_value": "201"
+   },
+   "whole_100_x2": {
+    "attachment": "schedule-b",
+    "attachment_outcome": "published",
+    "part": "part-i-interest",
+    "row_sum": "200.0",
+    "subtotal": "200",
+    "subtotal_symbol_value": "200"
+   }
+  },
+  "f1099k": {
+   "cents_100.4_x2": {
+    "attachment": "schedule-1",
+    "attachment_outcome": "blocked",
+    "code": "DEPENDENCY_ABSENT",
+    "missing": [
+     "schedule1.top-entry"
+    ],
+    "subtotal_symbol_value": "200.8"
+   },
+   "whole_100_x2": {
+    "attachment": "schedule-1",
+    "attachment_outcome": "blocked",
+    "code": "DEPENDENCY_ABSENT",
+    "missing": [
+     "schedule1.top-entry"
+    ],
+    "subtotal_symbol_value": "200.0"
+   }
+  },
+  "f1099oid.b1": {
+   "cents_100.4_x2": {
+    "attachment": "schedule-b",
+    "attachment_outcome": "blocked",
+    "code": "ITEMIZATION_TIE_OUT_VIOLATION",
+    "missing": [
+     "part-i-interest:f1099oid.b1:interest.oid-subtotal",
+     "part-i-interest:interest.taxable-total"
+    ],
+    "subtotal_symbol_value": "201"
+   },
+   "whole_100_x2": {
+    "attachment": "schedule-b",
+    "attachment_outcome": "published",
+    "part": "part-i-interest",
+    "row_sum": "200.0",
+    "subtotal": "200",
+    "subtotal_symbol_value": "200"
+   }
+  },
+  "f1099oid.b5": {
+   "cents_100.4_x2": {
+    "attachment": "schedule-b",
+    "attachment_outcome": "blocked",
+    "code": "ITEMIZATION_TIE_OUT_VIOLATION",
+    "missing": [
+     "part-i-interest:f1099oid.b5:interest.oid-b5-market-discount-subtotal",
+     "part-i-interest:interest.taxable-total"
+    ],
+    "subtotal_symbol_value": "201"
+   },
+   "whole_100_x2": {
+    "attachment": "schedule-b",
+    "attachment_outcome": "published",
+    "part": "part-i-interest",
+    "row_sum": "200.0",
+    "subtotal": "200",
+    "subtotal_symbol_value": "200"
+   }
+  },
+  "form1065-k1.box5": {
+   "cents_100.4_x2": {
+    "attachment": "schedule-b",
+    "attachment_outcome": "blocked",
+    "code": "ITEMIZATION_TIE_OUT_VIOLATION",
+    "missing": [
+     "part-i-interest:form1065-k1.box5:interest.form1065-k1-box5-subtotal",
+     "part-i-interest:interest.taxable-total"
+    ],
+    "subtotal_symbol_value": "201"
+   },
+   "whole_100_x2": {
+    "attachment": "schedule-b",
+    "attachment_outcome": "published",
+    "part": "part-i-interest",
+    "row_sum": "200.0",
+    "subtotal": "200",
+    "subtotal_symbol_value": "200"
+   }
+  },
+  "non-form-interest": {
+   "cents_100.4_x2": {
+    "attachment": "schedule-b",
+    "attachment_outcome": "blocked",
+    "code": "ITEMIZATION_TIE_OUT_VIOLATION",
+    "missing": [
+     "part-i-interest:interest.taxable-total",
+     "part-i-interest:non-form-interest:interest.non-form-subtotal"
+    ],
+    "subtotal_symbol_value": "201"
+   },
+   "whole_100_x2": {
+    "attachment": "schedule-b",
+    "attachment_outcome": "published",
+    "part": "part-i-interest",
+    "row_sum": "200.0",
+    "subtotal": "200",
+    "subtotal_symbol_value": "200"
+   }
+  },
+  "scheduleb.adjustment.abp-adjustment": {
+   "cents_100.4_x2": {
+    "attachment": "schedule-b",
+    "attachment_outcome": "blocked",
+    "code": "ITEMIZATION_TIE_OUT_VIOLATION",
+    "missing": [
+     "part-i-interest:interest.taxable-total",
+     "part-i-interest:{'id': 'scheduleb.adjustment.abp-adjustment', 'version': 'v1'}:interest.scheduleb-abp-adjustment-subtotal"
+    ],
+    "subtotal_symbol_value": "201"
+   },
+   "whole_100_x2": {
+    "attachment": "schedule-b",
+    "attachment_outcome": "published",
+    "subtotal_symbol_value": "200"
+   }
+  },
+  "scheduleb.adjustment.nominee": {
+   "cents_100.4_x2": {
+    "attachment": "schedule-b",
+    "attachment_outcome": "blocked",
+    "code": "ITEMIZATION_TIE_OUT_VIOLATION",
+    "missing": [
+     "part-i-interest:interest.taxable-total",
+     "part-i-interest:{'id': 'scheduleb.adjustment.nominee', 'version': 'v1'}:interest.scheduleb-nominee-subtotal"
+    ],
+    "subtotal_symbol_value": "201"
+   },
+   "whole_100_x2": {
+    "attachment": "schedule-b",
+    "attachment_outcome": "published",
+    "subtotal_symbol_value": "200"
+   }
+  },
+  "w2g.b1": {
+   "cents_100.4_x2": {
+    "attachment": "schedule-1",
+    "attachment_outcome": "blocked",
+    "code": "ITEMIZATION_TIE_OUT_VIOLATION",
+    "missing": [
+     "line-8b-gambling:gambling.b1-winnings-subtotal",
+     "line-8b-gambling:w2g.b1:gambling.b1-winnings-subtotal"
+    ],
+    "subtotal_symbol_value": "201"
+   },
+   "whole_100_x2": {
+    "attachment": "schedule-1",
+    "attachment_outcome": "published",
+    "part": "line-8b-gambling",
+    "row_sum": "200.0",
+    "subtotal": "200",
+    "subtotal_symbol_value": "200"
+   }
+  }
+ }
+}
