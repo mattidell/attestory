@@ -1,0 +1,1877 @@
+{
+ "cases": [
+  {
+   "blocked_rows": [
+    {
+     "artifact_id": "tax.us.2025.rule.form1040-line25b",
+     "code": "SOURCE_SET_UNCLOSED",
+     "missing": [
+      "tax.us.2025.f1099g.b4"
+     ]
+    },
+    {
+     "artifact_id": "tax.us.2025.rule.form1040-line25d",
+     "code": "DEPENDENCY_ABSENT",
+     "missing": [
+      "tax.us.2025.payments.line25b"
+     ]
+    },
+    {
+     "artifact_id": "tax.us.2025.rule.form1040-line33",
+     "code": "DEPENDENCY_ABSENT",
+     "missing": [
+      "tax.us.2025.payments.line25d"
+     ]
+    },
+    {
+     "artifact_id": "tax.us.2025.rule.form1040-line34",
+     "code": "DEPENDENCY_ABSENT",
+     "missing": [
+      "tax.us.2025.payments.line33"
+     ]
+    },
+    {
+     "artifact_id": "tax.us.2025.rule.form1040-line35a",
+     "code": "DEPENDENCY_ABSENT",
+     "missing": [
+      "tax.us.2025.payments.line34-overpaid",
+      "tax.us.2025.payments.line36-applied-to-2026"
+     ]
+    },
+    {
+     "artifact_id": "tax.us.2025.rule.form1040-line36",
+     "code": "DEPENDENCY_ABSENT",
+     "missing": [
+      "tax.us.2025.payments.line34-overpaid"
+     ]
+    },
+    {
+     "artifact_id": "tax.us.2025.rule.form1040-line37",
+     "code": "DEPENDENCY_ABSENT",
+     "missing": [
+      "tax.us.2025.payments.line33"
+     ]
+    }
+   ],
+   "blocked_sections": [
+    {
+     "label": "Federal income tax withheld from Form(s) 1099",
+     "line": "25b",
+     "rendered_page_text": "Federal income tax withheld from Form(s) 1099 (Line 25b) | blocked | No value published \u2014 cannot compute. | Form 1040 line 25b is blocked because an input it needs is missing or not yet closed. | Missing dependency code(s): | SOURCE_SET_UNCLOSED | Remedy: | contribute the missing dependency to unblock this line. | Trace recorded support",
+     "saved_disposition_node_children": [
+      "tax.us.2025.dividends.b4-withholding-subtotal",
+      "tax.us.2025.interest.b4-withholding-subtotal",
+      "tax.us.2025.ira.box4-withholding-subtotal",
+      "tax.us.2025.ssa1099.b6-withholding-subtotal",
+      "tax.us.2025.unemployment.b4-withholding-subtotal"
+     ],
+     "saved_disposition_node_record": {
+      "artifact_id": "tax.us.2025.rule.form1040-line25b",
+      "code": "SOURCE_SET_UNCLOSED",
+      "disposition": "blocked",
+      "missing": [
+       "tax.us.2025.f1099g.b4"
+      ]
+     },
+     "saved_field_blocked_explain": "Form 1040 line 25b is blocked because an input it needs is missing or not yet closed.",
+     "saved_has_reasons_key": false,
+     "saved_resolved": {
+      "act": null,
+      "activeCodes": [
+       "SOURCE_SET_UNCLOSED"
+      ],
+      "disposition": "blocked"
+     },
+     "section": "line-25b"
+    },
+    {
+     "label": "Total federal income tax withheld",
+     "line": "25d",
+     "rendered_page_text": "Total federal income tax withheld (Line 25d) | blocked | No value published \u2014 cannot compute. | Form 1040 line 25d is blocked because an input it needs is missing or not yet closed. | Missing dependency code(s): | DEPENDENCY_ABSENT | Remedy: | contribute the missing dependency to unblock this line. | Trace recorded support",
+     "saved_disposition_node_children": [
+      "tax.us.2025.payments.line25a",
+      "tax.us.2025.payments.line25b",
+      "tax.us.2025.payments.line25c"
+     ],
+     "saved_disposition_node_record": {
+      "artifact_id": "tax.us.2025.rule.form1040-line25d",
+      "code": "DEPENDENCY_ABSENT",
+      "disposition": "blocked",
+      "missing": [
+       "tax.us.2025.payments.line25b"
+      ]
+     },
+     "saved_field_blocked_explain": "Form 1040 line 25d is blocked because an input it needs is missing or not yet closed.",
+     "saved_has_reasons_key": false,
+     "saved_resolved": {
+      "act": null,
+      "activeCodes": [
+       "DEPENDENCY_ABSENT"
+      ],
+      "disposition": "blocked"
+     },
+     "section": "line-25d"
+    },
+    {
+     "label": "Total payments",
+     "line": "33",
+     "rendered_page_text": "Total payments (Line 33) | blocked | No value published \u2014 cannot compute. | Form 1040 line 33 is blocked because an input it needs is missing or invalid. | Missing dependency code(s): | DEPENDENCY_ABSENT | Remedy: | contribute the missing dependency to unblock this line. | Trace recorded support",
+     "saved_disposition_node_children": [
+      "tax.us.2025.payments.line25d",
+      "tax.us.2025.payments.line26",
+      "tax.us.2025.payments.line32"
+     ],
+     "saved_disposition_node_record": {
+      "artifact_id": "tax.us.2025.rule.form1040-line33",
+      "code": "DEPENDENCY_ABSENT",
+      "disposition": "blocked",
+      "missing": [
+       "tax.us.2025.payments.line25d"
+      ]
+     },
+     "saved_field_blocked_explain": "Form 1040 line 33 is blocked because an input it needs is missing or invalid.",
+     "saved_has_reasons_key": false,
+     "saved_resolved": {
+      "act": null,
+      "activeCodes": [
+       "DEPENDENCY_ABSENT"
+      ],
+      "disposition": "blocked"
+     },
+     "section": "line-33"
+    },
+    {
+     "label": "Overpayment",
+     "line": "34",
+     "rendered_page_text": "Overpayment (Line 34) | blocked | No value published \u2014 cannot compute. | Form 1040 line 34 is blocked because an input it needs is missing or invalid. | Missing dependency code(s): | DEPENDENCY_ABSENT | Remedy: | contribute the missing dependency to unblock this line. | Trace recorded support",
+     "saved_disposition_node_children": [
+      "tax.us.2025.payments.line33",
+      "tax.us.2025.tax.line24-total-tax"
+     ],
+     "saved_disposition_node_record": {
+      "artifact_id": "tax.us.2025.rule.form1040-line34",
+      "code": "DEPENDENCY_ABSENT",
+      "disposition": "blocked",
+      "missing": [
+       "tax.us.2025.payments.line33"
+      ]
+     },
+     "saved_field_blocked_explain": "Form 1040 line 34 is blocked because an input it needs is missing or invalid.",
+     "saved_has_reasons_key": false,
+     "saved_resolved": {
+      "act": null,
+      "activeCodes": [
+       "DEPENDENCY_ABSENT"
+      ],
+      "disposition": "blocked"
+     },
+     "section": "line-34"
+    },
+    {
+     "label": "Refund",
+     "line": "35a",
+     "rendered_page_text": "Refund (Line 35a) | blocked | No value published \u2014 cannot compute. | Form 1040 line 35a is blocked because an input it needs is missing, invalid, or (line 36) exceeds line 34. | Missing dependency code(s): | DEPENDENCY_ABSENT | Remedy: | contribute the missing dependency to unblock this line. | Trace recorded support",
+     "saved_disposition_node_children": [
+      "tax.us.2025.payments.line34-overpaid",
+      "tax.us.2025.payments.line36-applied-to-2026"
+     ],
+     "saved_disposition_node_record": {
+      "artifact_id": "tax.us.2025.rule.form1040-line35a",
+      "code": "DEPENDENCY_ABSENT",
+      "disposition": "blocked",
+      "missing": [
+       "tax.us.2025.payments.line34-overpaid",
+       "tax.us.2025.payments.line36-applied-to-2026"
+      ]
+     },
+     "saved_field_blocked_explain": "Form 1040 line 35a is blocked because an input it needs is missing, invalid, or (line 36) exceeds line 34.",
+     "saved_has_reasons_key": false,
+     "saved_resolved": {
+      "act": null,
+      "activeCodes": [
+       "DEPENDENCY_ABSENT"
+      ],
+      "disposition": "blocked"
+     },
+     "section": "line-35a"
+    },
+    {
+     "label": "Amount you owe",
+     "line": "37",
+     "rendered_page_text": "Amount you owe (Line 37) | blocked | No value published \u2014 cannot compute. | Form 1040 line 37 is blocked because an input it needs is missing, invalid, or (line 36) exceeds line 34. | Missing dependency code(s): | DEPENDENCY_ABSENT | Remedy: | contribute the missing dependency to unblock this line. | Trace recorded support",
+     "saved_disposition_node_children": [
+      "tax.us.2025.payments.line33",
+      "tax.us.2025.tax.line24-total-tax"
+     ],
+     "saved_disposition_node_record": {
+      "artifact_id": "tax.us.2025.rule.form1040-line37",
+      "code": "DEPENDENCY_ABSENT",
+      "disposition": "blocked",
+      "missing": [
+       "tax.us.2025.payments.line33"
+      ]
+     },
+     "saved_field_blocked_explain": "Form 1040 line 37 is blocked because an input it needs is missing, invalid, or (line 36) exceeds line 34.",
+     "saved_has_reasons_key": false,
+     "saved_resolved": {
+      "act": null,
+      "activeCodes": [
+       "DEPENDENCY_ABSENT"
+      ],
+      "disposition": "blocked"
+     },
+     "section": "line-37"
+    }
+   ],
+   "browser_available": true,
+   "case": "A-1099g-box4-line25b",
+   "cli_blocked_lines": [
+    "  - tax.us.2025.rule.form1040-line25b: SOURCE_SET_UNCLOSED (missing tax.us.2025.f1099g.b4)",
+    "  - tax.us.2025.rule.form1040-line25d: DEPENDENCY_ABSENT (missing tax.us.2025.payments.line25b)",
+    "  - tax.us.2025.rule.form1040-line33: DEPENDENCY_ABSENT (missing tax.us.2025.payments.line25d)",
+    "  - tax.us.2025.rule.form1040-line34: DEPENDENCY_ABSENT (missing tax.us.2025.payments.line33)",
+    "  - tax.us.2025.rule.form1040-line35a: DEPENDENCY_ABSENT (missing tax.us.2025.payments.line34-overpaid, tax.us.2025.payments.line36-applied-to-2026)",
+    "  - tax.us.2025.rule.form1040-line36: DEPENDENCY_ABSENT (missing tax.us.2025.payments.line34-overpaid)",
+    "  - tax.us.2025.rule.form1040-line37: DEPENDENCY_ABSENT (missing tax.us.2025.payments.line33)"
+   ],
+   "design_check_sentence_only_reason": {
+    "rendered_page_text": {
+     "line-25b": "Federal income tax withheld from Form(s) 1099 (Line 25b) | blocked | No value published \u2014 cannot compute. | Missing dependency code(s): | SOURCE_SET_UNCLOSED | Why: | HAND-SUPPLIED TEST SENTENCE (not from content): Have you recorded every Form 1099-G box 4 amount? | Trace recorded support",
+     "line-33": "Total payments (Line 33) | blocked | No value published \u2014 cannot compute. | Missing dependency code(s): | DEPENDENCY_ABSENT | Why: | HAND-SUPPLIED TEST SENTENCE (not from content): Have you recorded every Form 1099-G box 4 amount? | Trace recorded support",
+     "line-37": "Amount you owe (Line 37) | blocked | No value published \u2014 cannot compute. | Missing dependency code(s): | DEPENDENCY_ABSENT | Why: | HAND-SUPPLIED TEST SENTENCE (not from content): Have you recorded every Form 1099-G box 4 amount? | Trace recorded support"
+    },
+    "validator_accepts": true
+   },
+   "model_schema": "presentation-model.v2",
+   "model_top_level_keys": [
+    "attachments",
+    "authorization",
+    "citationGroups",
+    "dispositionNodes",
+    "explanationGraph",
+    "pinLabels",
+    "runId",
+    "schema",
+    "sectionRoots",
+    "sections",
+    "unsupportedSourceFindings"
+   ],
+   "root_rows": [
+    "tax.us.2025.rule.form1040-line25b"
+   ],
+   "root_trace": {
+    "blocked_rows": 7,
+    "blocked_symbols": 7,
+    "closure_families_reached": [
+     "tax.us.2025.f1099g.b4"
+    ],
+    "rows_not_mapped_to_a_symbol": 0,
+    "symbols_by_root_kind": {
+     "only-closure-roots": 7
+    }
+   }
+  },
+  {
+   "blocked_rows": [
+    {
+     "artifact_id": "tax.us.2025.rule.f1099int-b1-subtotal",
+     "code": "SOURCE_SET_UNCLOSED",
+     "missing": [
+      "tax.us.2025.f1099int.b1"
+     ]
+    },
+    {
+     "artifact_id": "tax.us.2025.rule.attachment.schedule-b",
+     "code": "DEPENDENCY_ABSENT",
+     "missing": [
+      "tax.us.2025.interest.positive-total"
+     ]
+    },
+    {
+     "artifact_id": "tax.us.2025.rule.eic-answer.age-25-under-65",
+     "code": "DEPENDENCY_ABSENT",
+     "missing": [
+      "tax.us.2025.eic.questions-required"
+     ]
+    },
+    {
+     "artifact_id": "tax.us.2025.rule.eic-answer.main-home-in-us",
+     "code": "DEPENDENCY_ABSENT",
+     "missing": [
+      "tax.us.2025.eic.questions-required"
+     ]
+    },
+    {
+     "artifact_id": "tax.us.2025.rule.eic-answer.no-unsupported-situations",
+     "code": "DEPENDENCY_ABSENT",
+     "missing": [
+      "tax.us.2025.eic.questions-required",
+      "tax.us.2025.eic.investment-income",
+      "tax.us.2025.eic.worksheet-a.line-3"
+     ]
+    },
+    {
+     "artifact_id": "tax.us.2025.rule.eic-answer.not-claimable-as-dependent",
+     "code": "DEPENDENCY_ABSENT",
+     "missing": [
+      "tax.us.2025.eic.questions-required"
+     ]
+    },
+    {
+     "artifact_id": "tax.us.2025.rule.eic-answer.not-nonresident-alien",
+     "code": "DEPENDENCY_ABSENT",
+     "missing": [
+      "tax.us.2025.eic.questions-required"
+     ]
+    },
+    {
+     "artifact_id": "tax.us.2025.rule.eic-answer.not-qualifying-child-of-another",
+     "code": "DEPENDENCY_ABSENT",
+     "missing": [
+      "tax.us.2025.eic.questions-required"
+     ]
+    },
+    {
+     "artifact_id": "tax.us.2025.rule.eic-answer.separated-spouse",
+     "code": "DEPENDENCY_ABSENT",
+     "missing": [
+      "tax.us.2025.eic.questions-required"
+     ]
+    },
+    {
+     "artifact_id": "tax.us.2025.rule.eic-answer.spouse-valid-ssn",
+     "code": "DEPENDENCY_ABSENT",
+     "missing": [
+      "tax.us.2025.eic.questions-required"
+     ]
+    },
+    {
+     "artifact_id": "tax.us.2025.rule.eic-answer.taxpayer-valid-ssn",
+     "code": "DEPENDENCY_ABSENT",
+     "missing": [
+      "tax.us.2025.eic.questions-required"
+     ]
+    },
+    {
+     "artifact_id": "tax.us.2025.rule.eic-early-stop",
+     "code": "DEPENDENCY_ABSENT",
+     "missing": [
+      "tax.us.2025.eic.investment-income",
+      "tax.us.2025.eic.worksheet-a.line-3",
+      "tax.us.2025.eic.answer.no-unsupported-situations"
+     ]
+    },
+    {
+     "artifact_id": "tax.us.2025.rule.eic-eligibility",
+     "code": "DEPENDENCY_ABSENT",
+     "missing": [
+      "tax.us.2025.eic.early-stop",
+      "tax.us.2025.eic.gate-result",
+      "tax.us.2025.eic.answer.no-unsupported-situations"
+     ]
+    },
+    {
+     "artifact_id": "tax.us.2025.rule.eic-gate-result",
+     "code": "DEPENDENCY_ABSENT",
+     "missing": [
+      "tax.us.2025.eic.answer.taxpayer-valid-ssn",
+      "tax.us.2025.eic.answer.spouse-valid-ssn",
+      "tax.us.2025.eic.answer.not-nonresident-alien",
+      "tax.us.2025.eic.answer.not-qualifying-child-of-another",
+      "tax.us.2025.eic.answer.separated-spouse",
+      "tax.us.2025.eic.answer.age-25-under-65",
+      "tax.us.2025.eic.answer.main-home-in-us",
+      "tax.us.2025.eic.answer.not-claimable-as-dependent",
+      "tax.us.2025.eic.answer.no-unsupported-situations",
+      "tax.us.2025.eic.worksheet-a.line-6"
+     ]
+    },
+    {
+     "artifact_id": "tax.us.2025.rule.eic-investment-income",
+     "code": "DEPENDENCY_ABSENT",
+     "missing": [
+      "tax.us.2025.interest.taxable-total"
+     ]
+    },
+    {
+     "artifact_id": "tax.us.2025.rule.eic-questions-required",
+     "code": "DEPENDENCY_ABSENT",
+     "missing": [
+      "tax.us.2025.eic.investment-income",
+      "tax.us.2025.eic.worksheet-a.line-3"
+     ]
+    },
+    {
+     "artifact_id": "tax.us.2025.rule.eic-worksheet-a.line-3",
+     "code": "DEPENDENCY_ABSENT",
+     "missing": [
+      "tax.us.2025.income.agi"
+     ]
+    },
+    {
+     "artifact_id": "tax.us.2025.rule.eic-worksheet-a.line-5",
+     "code": "DEPENDENCY_ABSENT",
+     "missing": [
+      "tax.us.2025.eic.worksheet-a.line-3"
+     ]
+    },
+    {
+     "artifact_id": "tax.us.2025.rule.eic-worksheet-a.line-6",
+     "code": "DEPENDENCY_ABSENT",
+     "missing": [
+      "tax.us.2025.eic.worksheet-a.line-3"
+     ]
+    },
+    {
+     "artifact_id": "tax.us.2025.rule.form1040-line11",
+     "code": "DEPENDENCY_ABSENT",
+     "missing": [
+      "tax.us.2025.income.total-income"
+     ]
+    },
+    {
+     "artifact_id": "tax.us.2025.rule.form1040-line13b",
+     "code": "DEPENDENCY_ABSENT",
+     "missing": [
+      "tax.us.2025.schedule1a.line37-enhanced-deduction-total"
+     ]
+    },
+    {
+     "artifact_id": "tax.us.2025.rule.form1040-line14",
+     "code": "DEPENDENCY_ABSENT",
+     "missing": [
+      "tax.us.2025.deductions.schedule-1a"
+     ]
+    },
+    {
+     "artifact_id": "tax.us.2025.rule.form1040-line15",
+     "code": "DEPENDENCY_ABSENT",
+     "missing": [
+      "tax.us.2025.income.agi",
+      "tax.us.2025.deductions.line-14"
+     ]
+    },
+    {
+     "artifact_id": "tax.us.2025.rule.form1040-line16",
+     "code": "DEPENDENCY_ABSENT",
+     "missing": [
+      "tax.us.2025.income.taxable-income",
+      "tax.us.2025.qdcg-worksheet.line-24",
+      "tax.us.2025.qdcg-worksheet.line-25"
+     ]
+    },
+    {
+     "artifact_id": "tax.us.2025.rule.form1040-line20",
+     "code": "DEPENDENCY_ABSENT",
+     "missing": [
+      "tax.us.2025.schedule3.line8-total"
+     ]
+    },
+    {
+     "artifact_id": "tax.us.2025.rule.form1040-line24",
+     "code": "DEPENDENCY_ABSENT",
+     "missing": [
+      "tax.us.2025.tax.after-nonrefundable-credits"
+     ]
+    },
+    {
+     "artifact_id": "tax.us.2025.rule.form1040-line27a",
+     "code": "DEPENDENCY_ABSENT",
+     "missing": [
+      "tax.us.2025.eic.eligibility-result"
+     ]
+    },
+    {
+     "artifact_id": "tax.us.2025.rule.form1040-line2b",
+     "code": "DEPENDENCY_ABSENT",
+     "missing": [
+      "tax.us.2025.interest.b1-subtotal"
+     ]
+    },
+    {
+     "artifact_id": "tax.us.2025.rule.form1040-line32",
+     "code": "DEPENDENCY_ABSENT",
+     "missing": [
+      "tax.us.2025.payments.lines27-31-total"
+     ]
+    },
+    {
+     "artifact_id": "tax.us.2025.rule.form1040-line33",
+     "code": "DEPENDENCY_ABSENT",
+     "missing": [
+      "tax.us.2025.payments.line32"
+     ]
+    },
+    {
+     "artifact_id": "tax.us.2025.rule.form1040-line34",
+     "code": "DEPENDENCY_ABSENT",
+     "missing": [
+      "tax.us.2025.payments.line33",
+      "tax.us.2025.tax.line24-total-tax"
+     ]
+    },
+    {
+     "artifact_id": "tax.us.2025.rule.form1040-line35a",
+     "code": "DEPENDENCY_ABSENT",
+     "missing": [
+      "tax.us.2025.payments.line34-overpaid",
+      "tax.us.2025.payments.line36-applied-to-2026"
+     ]
+    },
+    {
+     "artifact_id": "tax.us.2025.rule.form1040-line36",
+     "code": "DEPENDENCY_ABSENT",
+     "missing": [
+      "tax.us.2025.payments.line34-overpaid"
+     ]
+    },
+    {
+     "artifact_id": "tax.us.2025.rule.form1040-line37",
+     "code": "DEPENDENCY_ABSENT",
+     "missing": [
+      "tax.us.2025.tax.line24-total-tax",
+      "tax.us.2025.payments.line33"
+     ]
+    },
+    {
+     "artifact_id": "tax.us.2025.rule.form1040-line9",
+     "code": "DEPENDENCY_ABSENT",
+     "missing": [
+      "tax.us.2025.interest.taxable-total",
+      "tax.us.2025.social-security.line6b"
+     ]
+    },
+    {
+     "artifact_id": "tax.us.2025.rule.form1040-lines27-31-total",
+     "code": "DEPENDENCY_ABSENT",
+     "missing": [
+      "tax.us.2025.payments.line27a",
+      "tax.us.2025.payments.lines28-31"
+     ]
+    },
+    {
+     "artifact_id": "tax.us.2025.rule.form1040-lines28-31",
+     "code": "DEPENDENCY_ABSENT",
+     "missing": [
+      "tax.us.2025.ctc.form1040-line28"
+     ]
+    },
+    {
+     "artifact_id": "tax.us.2025.rule.form1040-tax-after-credits",
+     "code": "DEPENDENCY_ABSENT",
+     "missing": [
+      "tax.us.2025.tax.total-tax",
+      "tax.us.2025.credits.form1040-line20",
+      "tax.us.2025.ctc.form1040-line19"
+     ]
+    },
+    {
+     "artifact_id": "tax.us.2025.rule.interest-positive-total",
+     "code": "DEPENDENCY_ABSENT",
+     "missing": [
+      "tax.us.2025.interest.b1-subtotal"
+     ]
+    },
+    {
+     "artifact_id": "tax.us.2025.rule.qdcg-worksheet.line-10",
+     "code": "DEPENDENCY_ABSENT",
+     "missing": [
+      "tax.us.2025.income.taxable-income"
+     ]
+    },
+    {
+     "artifact_id": "tax.us.2025.rule.qdcg-worksheet.line-11",
+     "code": "DEPENDENCY_ABSENT",
+     "missing": [
+      "tax.us.2025.qdcg-worksheet.line-9"
+     ]
+    },
+    {
+     "artifact_id": "tax.us.2025.rule.qdcg-worksheet.line-12",
+     "code": "DEPENDENCY_ABSENT",
+     "missing": [
+      "tax.us.2025.qdcg-worksheet.line-10",
+      "tax.us.2025.qdcg-worksheet.line-11"
+     ]
+    },
+    {
+     "artifact_id": "tax.us.2025.rule.qdcg-worksheet.line-14",
+     "code": "DEPENDENCY_ABSENT",
+     "missing": [
+      "tax.us.2025.income.taxable-income"
+     ]
+    },
+    {
+     "artifact_id": "tax.us.2025.rule.qdcg-worksheet.line-15",
+     "code": "DEPENDENCY_ABSENT",
+     "missing": [
+      "tax.us.2025.qdcg-worksheet.line-5",
+      "tax.us.2025.qdcg-worksheet.line-9"
+     ]
+    },
+    {
+     "artifact_id": "tax.us.2025.rule.qdcg-worksheet.line-16",
+     "code": "DEPENDENCY_ABSENT",
+     "missing": [
+      "tax.us.2025.qdcg-worksheet.line-14",
+      "tax.us.2025.qdcg-worksheet.line-15"
+     ]
+    },
+    {
+     "artifact_id": "tax.us.2025.rule.qdcg-worksheet.line-17",
+     "code": "DEPENDENCY_ABSENT",
+     "missing": [
+      "tax.us.2025.qdcg-worksheet.line-12",
+      "tax.us.2025.qdcg-worksheet.line-16"
+     ]
+    },
+    {
+     "artifact_id": "tax.us.2025.rule.qdcg-worksheet.line-18",
+     "code": "DEPENDENCY_ABSENT",
+     "missing": [
+      "tax.us.2025.qdcg-worksheet.line-17"
+     ]
+    },
+    {
+     "artifact_id": "tax.us.2025.rule.qdcg-worksheet.line-19",
+     "code": "DEPENDENCY_ABSENT",
+     "missing": [
+      "tax.us.2025.qdcg-worksheet.line-9",
+      "tax.us.2025.qdcg-worksheet.line-17"
+     ]
+    },
+    {
+     "artifact_id": "tax.us.2025.rule.qdcg-worksheet.line-20",
+     "code": "DEPENDENCY_ABSENT",
+     "missing": [
+      "tax.us.2025.qdcg-worksheet.line-10",
+      "tax.us.2025.qdcg-worksheet.line-19"
+     ]
+    },
+    {
+     "artifact_id": "tax.us.2025.rule.qdcg-worksheet.line-21",
+     "code": "DEPENDENCY_ABSENT",
+     "missing": [
+      "tax.us.2025.qdcg-worksheet.line-20"
+     ]
+    },
+    {
+     "artifact_id": "tax.us.2025.rule.qdcg-worksheet.line-22",
+     "code": "DEPENDENCY_ABSENT",
+     "missing": [
+      "tax.us.2025.qdcg-worksheet.line-5"
+     ]
+    },
+    {
+     "artifact_id": "tax.us.2025.rule.qdcg-worksheet.line-23",
+     "code": "DEPENDENCY_ABSENT",
+     "missing": [
+      "tax.us.2025.qdcg-worksheet.line-18",
+      "tax.us.2025.qdcg-worksheet.line-21",
+      "tax.us.2025.qdcg-worksheet.line-22"
+     ]
+    },
+    {
+     "artifact_id": "tax.us.2025.rule.qdcg-worksheet.line-24",
+     "code": "DEPENDENCY_ABSENT",
+     "missing": [
+      "tax.us.2025.income.taxable-income"
+     ]
+    },
+    {
+     "artifact_id": "tax.us.2025.rule.qdcg-worksheet.line-25",
+     "code": "DEPENDENCY_ABSENT",
+     "missing": [
+      "tax.us.2025.qdcg-worksheet.line-23",
+      "tax.us.2025.qdcg-worksheet.line-24"
+     ]
+    },
+    {
+     "artifact_id": "tax.us.2025.rule.qdcg-worksheet.line-5",
+     "code": "DEPENDENCY_ABSENT",
+     "missing": [
+      "tax.us.2025.income.taxable-income"
+     ]
+    },
+    {
+     "artifact_id": "tax.us.2025.rule.qdcg-worksheet.line-7",
+     "code": "DEPENDENCY_ABSENT",
+     "missing": [
+      "tax.us.2025.income.taxable-income"
+     ]
+    },
+    {
+     "artifact_id": "tax.us.2025.rule.qdcg-worksheet.line-8",
+     "code": "DEPENDENCY_ABSENT",
+     "missing": [
+      "tax.us.2025.qdcg-worksheet.line-5",
+      "tax.us.2025.qdcg-worksheet.line-7"
+     ]
+    },
+    {
+     "artifact_id": "tax.us.2025.rule.qdcg-worksheet.line-9",
+     "code": "DEPENDENCY_ABSENT",
+     "missing": [
+      "tax.us.2025.qdcg-worksheet.line-7",
+      "tax.us.2025.qdcg-worksheet.line-8"
+     ]
+    },
+    {
+     "artifact_id": "tax.us.2025.rule.schedule1a-part-v-line-33",
+     "code": "DEPENDENCY_ABSENT",
+     "missing": [
+      "tax.us.2025.income.agi"
+     ]
+    },
+    {
+     "artifact_id": "tax.us.2025.rule.schedule1a-part-v-line-34",
+     "code": "DEPENDENCY_ABSENT",
+     "missing": [
+      "tax.us.2025.schedule1a.line33-magi-excess"
+     ]
+    },
+    {
+     "artifact_id": "tax.us.2025.rule.schedule1a-part-v-line-35",
+     "code": "DEPENDENCY_ABSENT",
+     "missing": [
+      "tax.us.2025.schedule1a.line34-reduction"
+     ]
+    },
+    {
+     "artifact_id": "tax.us.2025.rule.schedule1a-part-v-line-36a",
+     "code": "DEPENDENCY_ABSENT",
+     "missing": [
+      "tax.us.2025.schedule1a.line35-per-person-amount"
+     ]
+    },
+    {
+     "artifact_id": "tax.us.2025.rule.schedule1a-part-v-line-36b",
+     "code": "DEPENDENCY_ABSENT",
+     "missing": [
+      "tax.us.2025.schedule1a.line35-per-person-amount"
+     ]
+    },
+    {
+     "artifact_id": "tax.us.2025.rule.schedule1a-part-v-line-37",
+     "code": "DEPENDENCY_ABSENT",
+     "missing": [
+      "tax.us.2025.schedule1a.line36a-taxpayer",
+      "tax.us.2025.schedule1a.line36b-spouse"
+     ]
+    },
+    {
+     "artifact_id": "tax.us.2025.rule.schedule3-line1-direct-ftc",
+     "code": "DEPENDENCY_ABSENT",
+     "missing": [
+      "tax.us.2025.tax.total-tax"
+     ]
+    },
+    {
+     "artifact_id": "tax.us.2025.rule.schedule3-line8",
+     "code": "DEPENDENCY_ABSENT",
+     "missing": [
+      "tax.us.2025.schedule3.line1-direct-ftc"
+     ]
+    },
+    {
+     "artifact_id": "tax.us.2025.rule.ss-benefits-worksheet",
+     "code": "DEPENDENCY_ABSENT",
+     "missing": [
+      "tax.us.2025.interest.taxable-total"
+     ]
+    },
+    {
+     "artifact_id": "tax.us.2025.rule.ctc-form1040-line19",
+     "code": "DEPENDENCY_ABSENT",
+     "missing": [
+      "tax.us.2025.ctc.sch8812.line-14"
+     ]
+    },
+    {
+     "artifact_id": "tax.us.2025.rule.ctc-sch8812-line-1",
+     "code": "DEPENDENCY_ABSENT",
+     "missing": [
+      "tax.us.2025.income.agi"
+     ]
+    },
+    {
+     "artifact_id": "tax.us.2025.rule.ctc-sch8812-line-10",
+     "code": "DEPENDENCY_ABSENT",
+     "missing": [
+      "tax.us.2025.ctc.sch8812.line-3"
+     ]
+    },
+    {
+     "artifact_id": "tax.us.2025.rule.ctc-sch8812-line-11",
+     "code": "DEPENDENCY_ABSENT",
+     "missing": [
+      "tax.us.2025.ctc.sch8812.line-10"
+     ]
+    },
+    {
+     "artifact_id": "tax.us.2025.rule.ctc-sch8812-line-12",
+     "code": "DEPENDENCY_ABSENT",
+     "missing": [
+      "tax.us.2025.ctc.sch8812.line-11"
+     ]
+    },
+    {
+     "artifact_id": "tax.us.2025.rule.ctc-sch8812-line-13",
+     "code": "DEPENDENCY_ABSENT",
+     "missing": [
+      "tax.us.2025.ctc.sch8812.worksheet-a.line-5"
+     ]
+    },
+    {
+     "artifact_id": "tax.us.2025.rule.ctc-sch8812-line-14",
+     "code": "DEPENDENCY_ABSENT",
+     "missing": [
+      "tax.us.2025.ctc.sch8812.line-12",
+      "tax.us.2025.ctc.sch8812.line-13"
+     ]
+    },
+    {
+     "artifact_id": "tax.us.2025.rule.ctc-sch8812-line-16a",
+     "code": "DEPENDENCY_ABSENT",
+     "missing": [
+      "tax.us.2025.ctc.sch8812.line-12",
+      "tax.us.2025.ctc.sch8812.line-14"
+     ]
+    },
+    {
+     "artifact_id": "tax.us.2025.rule.ctc-sch8812-line-17",
+     "code": "DEPENDENCY_ABSENT",
+     "missing": [
+      "tax.us.2025.ctc.sch8812.line-16a"
+     ]
+    },
+    {
+     "artifact_id": "tax.us.2025.rule.ctc-sch8812-line-21",
+     "code": "DEPENDENCY_ABSENT",
+     "missing": [
+      "tax.us.2025.ctc.sch8812.part-ii-b-needed"
+     ]
+    },
+    {
+     "artifact_id": "tax.us.2025.rule.ctc-sch8812-line-22",
+     "code": "DEPENDENCY_ABSENT",
+     "missing": [
+      "tax.us.2025.ctc.sch8812.part-ii-b-needed"
+     ]
+    },
+    {
+     "artifact_id": "tax.us.2025.rule.ctc-sch8812-line-23",
+     "code": "DEPENDENCY_ABSENT",
+     "missing": [
+      "tax.us.2025.ctc.sch8812.part-ii-b-needed",
+      "tax.us.2025.ctc.sch8812.line-21",
+      "tax.us.2025.ctc.sch8812.line-22"
+     ]
+    },
+    {
+     "artifact_id": "tax.us.2025.rule.ctc-sch8812-line-24",
+     "code": "DEPENDENCY_ABSENT",
+     "missing": [
+      "tax.us.2025.ctc.sch8812.part-ii-b-needed"
+     ]
+    },
+    {
+     "artifact_id": "tax.us.2025.rule.ctc-sch8812-line-25",
+     "code": "DEPENDENCY_ABSENT",
+     "missing": [
+      "tax.us.2025.ctc.sch8812.line-23",
+      "tax.us.2025.ctc.sch8812.line-24"
+     ]
+    },
+    {
+     "artifact_id": "tax.us.2025.rule.ctc-sch8812-line-26",
+     "code": "DEPENDENCY_ABSENT",
+     "missing": [
+      "tax.us.2025.ctc.sch8812.line-25"
+     ]
+    },
+    {
+     "artifact_id": "tax.us.2025.rule.ctc-sch8812-line-27",
+     "code": "DEPENDENCY_ABSENT",
+     "missing": [
+      "tax.us.2025.ctc.sch8812.line-17",
+      "tax.us.2025.ctc.sch8812.part-ii-b-needed"
+     ]
+    },
+    {
+     "artifact_id": "tax.us.2025.rule.ctc-sch8812-line-3",
+     "code": "DEPENDENCY_ABSENT",
+     "missing": [
+      "tax.us.2025.ctc.sch8812.line-1"
+     ]
+    },
+    {
+     "artifact_id": "tax.us.2025.rule.ctc-sch8812-part-ii-b-needed",
+     "code": "DEPENDENCY_ABSENT",
+     "missing": [
+      "tax.us.2025.ctc.sch8812.line-17"
+     ]
+    },
+    {
+     "artifact_id": "tax.us.2025.rule.ctc-worksheet-a.line-1",
+     "code": "DEPENDENCY_ABSENT",
+     "missing": [
+      "tax.us.2025.tax.total-tax"
+     ]
+    },
+    {
+     "artifact_id": "tax.us.2025.rule.ctc-worksheet-a.line-2",
+     "code": "DEPENDENCY_ABSENT",
+     "missing": [
+      "tax.us.2025.schedule3.line1-direct-ftc"
+     ]
+    },
+    {
+     "artifact_id": "tax.us.2025.rule.ctc-worksheet-a.line-3",
+     "code": "DEPENDENCY_ABSENT",
+     "missing": [
+      "tax.us.2025.ctc.sch8812.worksheet-a.line-1",
+      "tax.us.2025.ctc.sch8812.worksheet-a.line-2"
+     ]
+    },
+    {
+     "artifact_id": "tax.us.2025.rule.ctc-worksheet-a.line-5",
+     "code": "DEPENDENCY_ABSENT",
+     "missing": [
+      "tax.us.2025.ctc.sch8812.worksheet-a.line-3"
+     ]
+    },
+    {
+     "artifact_id": "tax.us.2025.rule.w2-box4-total",
+     "code": "DEPENDENCY_ABSENT",
+     "missing": [
+      "tax.us.2025.ctc.sch8812.part-ii-b-needed"
+     ]
+    },
+    {
+     "artifact_id": "tax.us.2025.rule.w2-box6-total",
+     "code": "DEPENDENCY_ABSENT",
+     "missing": [
+      "tax.us.2025.ctc.sch8812.part-ii-b-needed"
+     ]
+    }
+   ],
+   "blocked_sections": [
+    {
+     "label": "Worksheet A line 3",
+     "line": "eic-a-3",
+     "rendered_page_text": "Worksheet A line 3 (Line eic-a-3) | blocked | No value published \u2014 cannot compute. | Worksheet A line 3 is blocked because an input it needs is missing or invalid. | Missing dependency code(s): | DEPENDENCY_ABSENT | Remedy: | contribute the missing dependency to unblock this line. | Trace recorded support",
+     "saved_disposition_node_children": [
+      "tax.us.2025.income.agi"
+     ],
+     "saved_disposition_node_record": {
+      "artifact_id": "tax.us.2025.rule.eic-worksheet-a.line-3",
+      "code": "DEPENDENCY_ABSENT",
+      "disposition": "blocked",
+      "missing": [
+       "tax.us.2025.income.agi"
+      ]
+     },
+     "saved_field_blocked_explain": "Worksheet A line 3 is blocked because an input it needs is missing or invalid.",
+     "saved_has_reasons_key": false,
+     "saved_resolved": {
+      "act": null,
+      "activeCodes": [
+       "DEPENDENCY_ABSENT"
+      ],
+      "disposition": "blocked"
+     },
+     "section": "line-eic-a-3"
+    },
+    {
+     "label": "Worksheet A line 5",
+     "line": "eic-a-5",
+     "rendered_page_text": "Worksheet A line 5 (Line eic-a-5) | blocked | No value published \u2014 cannot compute. | Worksheet A line 5 is blocked because an input it needs is missing or invalid. | Missing dependency code(s): | DEPENDENCY_ABSENT | Remedy: | contribute the missing dependency to unblock this line. | Trace recorded support",
+     "saved_disposition_node_children": [
+      "tax.us.2025.eic.column.phaseout-threshold",
+      "tax.us.2025.eic.table-key",
+      "tax.us.2025.eic.worksheet-a.line-3"
+     ],
+     "saved_disposition_node_record": {
+      "artifact_id": "tax.us.2025.rule.eic-worksheet-a.line-5",
+      "code": "DEPENDENCY_ABSENT",
+      "disposition": "blocked",
+      "missing": [
+       "tax.us.2025.eic.worksheet-a.line-3"
+      ]
+     },
+     "saved_field_blocked_explain": "Worksheet A line 5 is blocked because an input it needs is missing or invalid.",
+     "saved_has_reasons_key": false,
+     "saved_resolved": {
+      "act": null,
+      "activeCodes": [
+       "DEPENDENCY_ABSENT"
+      ],
+      "disposition": "blocked"
+     },
+     "section": "line-eic-a-5"
+    },
+    {
+     "label": "Worksheet A line 6",
+     "line": "eic-a-6",
+     "rendered_page_text": "Worksheet A line 6 (Line eic-a-6) | blocked | No value published \u2014 cannot compute. | Worksheet A line 6 is blocked because an input it needs is missing or invalid. | Missing dependency code(s): | DEPENDENCY_ABSENT | Remedy: | contribute the missing dependency to unblock this line. | Trace recorded support",
+     "saved_disposition_node_children": [
+      "tax.us.2025.eic.column.phaseout-threshold",
+      "tax.us.2025.eic.table-key",
+      "tax.us.2025.eic.worksheet-a.line-2",
+      "tax.us.2025.eic.worksheet-a.line-3"
+     ],
+     "saved_disposition_node_record": {
+      "artifact_id": "tax.us.2025.rule.eic-worksheet-a.line-6",
+      "code": "DEPENDENCY_ABSENT",
+      "disposition": "blocked",
+      "missing": [
+       "tax.us.2025.eic.worksheet-a.line-3"
+      ]
+     },
+     "saved_field_blocked_explain": "Worksheet A line 6 is blocked because an input it needs is missing or invalid.",
+     "saved_has_reasons_key": false,
+     "saved_resolved": {
+      "act": null,
+      "activeCodes": [
+       "DEPENDENCY_ABSENT"
+      ],
+      "disposition": "blocked"
+     },
+     "section": "line-eic-a-6"
+    },
+    {
+     "label": "Child tax credit and credit for other dependents",
+     "line": "8812-14",
+     "rendered_page_text": "Child tax credit and credit for other dependents (Line 8812-14) | blocked | No value published \u2014 cannot compute. | Schedule 8812 line 14 is blocked because an input it needs is missing or invalid. | Missing dependency code(s): | DEPENDENCY_ABSENT | Remedy: | contribute the missing dependency to unblock this line. | Trace recorded support",
+     "saved_disposition_node_children": [
+      "tax.us.2025.ctc.filer-gate",
+      "tax.us.2025.ctc.sch8812.line-12",
+      "tax.us.2025.ctc.sch8812.line-13",
+      "tax.us.2025.ctc.spouse-gate"
+     ],
+     "saved_disposition_node_record": {
+      "artifact_id": "tax.us.2025.rule.ctc-sch8812-line-14",
+      "code": "DEPENDENCY_ABSENT",
+      "disposition": "blocked",
+      "missing": [
+       "tax.us.2025.ctc.sch8812.line-12",
+       "tax.us.2025.ctc.sch8812.line-13"
+      ]
+     },
+     "saved_field_blocked_explain": "Schedule 8812 line 14 is blocked because an input it needs is missing or invalid.",
+     "saved_has_reasons_key": false,
+     "saved_resolved": {
+      "act": null,
+      "activeCodes": [
+       "DEPENDENCY_ABSENT"
+      ],
+      "disposition": "blocked"
+     },
+     "section": "line-8812-14"
+    },
+    {
+     "label": "Smaller of unused credit and the refundable cap",
+     "line": "8812-17",
+     "rendered_page_text": "Smaller of unused credit and the refundable cap (Line 8812-17) | blocked | No value published \u2014 cannot compute. | Schedule 8812 line 17 is blocked because an input it needs is missing or invalid. | Missing dependency code(s): | DEPENDENCY_ABSENT | Remedy: | contribute the missing dependency to unblock this line. | Trace recorded support",
+     "saved_disposition_node_children": [
+      "tax.us.2025.ctc.sch8812.line-16a",
+      "tax.us.2025.ctc.sch8812.line-16b"
+     ],
+     "saved_disposition_node_record": {
+      "artifact_id": "tax.us.2025.rule.ctc-sch8812-line-17",
+      "code": "DEPENDENCY_ABSENT",
+      "disposition": "blocked",
+      "missing": [
+       "tax.us.2025.ctc.sch8812.line-16a"
+      ]
+     },
+     "saved_field_blocked_explain": "Schedule 8812 line 17 is blocked because an input it needs is missing or invalid.",
+     "saved_has_reasons_key": false,
+     "saved_resolved": {
+      "act": null,
+      "activeCodes": [
+       "DEPENDENCY_ABSENT"
+      ],
+      "disposition": "blocked"
+     },
+     "section": "line-8812-17"
+    },
+    {
+     "label": "Credit Limit Worksheet A line 5",
+     "line": "8812-wa-5",
+     "rendered_page_text": "Credit Limit Worksheet A line 5 (Line 8812-wa-5) | blocked | No value published \u2014 cannot compute. | Credit Limit Worksheet A line 5 is blocked because an input it needs is missing or invalid. | Missing dependency code(s): | DEPENDENCY_ABSENT | Remedy: | contribute the missing dependency to unblock this line. | Trace recorded support",
+     "saved_disposition_node_children": [
+      "tax.us.2025.ctc.sch8812.worksheet-a.line-3",
+      "tax.us.2025.ctc.sch8812.worksheet-a.line-4"
+     ],
+     "saved_disposition_node_record": {
+      "artifact_id": "tax.us.2025.rule.ctc-worksheet-a.line-5",
+      "code": "DEPENDENCY_ABSENT",
+      "disposition": "blocked",
+      "missing": [
+       "tax.us.2025.ctc.sch8812.worksheet-a.line-3"
+      ]
+     },
+     "saved_field_blocked_explain": "Credit Limit Worksheet A line 5 is blocked because an input it needs is missing or invalid.",
+     "saved_has_reasons_key": false,
+     "saved_resolved": {
+      "act": null,
+      "activeCodes": [
+       "DEPENDENCY_ABSENT"
+      ],
+      "disposition": "blocked"
+     },
+     "section": "line-8812-wa-5"
+    },
+    {
+     "label": "Adjusted gross income",
+     "line": "11a",
+     "rendered_page_text": "Adjusted gross income (Line 11a) | blocked | No value published \u2014 cannot compute. | Form 1040 line 11a is blocked because total income or Schedule 1 line 26 is incomplete or unavailable. | Missing dependency code(s): | DEPENDENCY_ABSENT | Remedy: | contribute the missing dependency to unblock this line. | Trace recorded support",
+     "saved_disposition_node_children": [
+      "tax.us.2025.income.total-income",
+      "tax.us.2025.schedule1.line26-total-adjustments"
+     ],
+     "saved_disposition_node_record": {
+      "artifact_id": "tax.us.2025.rule.form1040-line11",
+      "code": "DEPENDENCY_ABSENT",
+      "disposition": "blocked",
+      "missing": [
+       "tax.us.2025.income.total-income"
+      ]
+     },
+     "saved_field_blocked_explain": "Form 1040 line 11a is blocked because total income or Schedule 1 line 26 is incomplete or unavailable.",
+     "saved_has_reasons_key": false,
+     "saved_resolved": {
+      "act": null,
+      "activeCodes": [
+       "DEPENDENCY_ABSENT"
+      ],
+      "disposition": "blocked"
+     },
+     "section": "line-11a"
+    },
+    {
+     "label": "Amount from line 11a (adjusted gross income)",
+     "line": "11b",
+     "rendered_page_text": "Amount from line 11a (adjusted gross income) (Line 11b) | blocked | No value published \u2014 cannot compute. | Form 1040 line 11b is blocked because line 11a's adjusted gross income is incomplete or unavailable. | Missing dependency code(s): | DEPENDENCY_ABSENT | Remedy: | contribute the missing dependency to unblock this line. | Trace recorded support",
+     "saved_disposition_node_children": [
+      "tax.us.2025.income.total-income",
+      "tax.us.2025.schedule1.line26-total-adjustments"
+     ],
+     "saved_disposition_node_record": {
+      "artifact_id": "tax.us.2025.rule.form1040-line11",
+      "code": "DEPENDENCY_ABSENT",
+      "disposition": "blocked",
+      "missing": [
+       "tax.us.2025.income.total-income"
+      ]
+     },
+     "saved_field_blocked_explain": "Form 1040 line 11b is blocked because line 11a's adjusted gross income is incomplete or unavailable.",
+     "saved_has_reasons_key": false,
+     "saved_resolved": {
+      "act": null,
+      "activeCodes": [
+       "DEPENDENCY_ABSENT"
+      ],
+      "disposition": "blocked"
+     },
+     "section": "line-11b"
+    },
+    {
+     "label": "Schedule 1-A deductions",
+     "line": "13b",
+     "rendered_page_text": "Schedule 1-A deductions (Line 13b) | blocked | No value published \u2014 cannot compute. | blocked | Missing dependency code(s): | DEPENDENCY_ABSENT | Remedy: | contribute the missing dependency to unblock this line. | Trace recorded support",
+     "saved_disposition_node_children": [
+      "tax.us.2025.schedule1a.line37-enhanced-deduction-total"
+     ],
+     "saved_disposition_node_record": {
+      "artifact_id": "tax.us.2025.rule.form1040-line13b",
+      "code": "DEPENDENCY_ABSENT",
+      "disposition": "blocked",
+      "missing": [
+       "tax.us.2025.schedule1a.line37-enhanced-deduction-total"
+      ]
+     },
+     "saved_field_blocked_explain": "blocked",
+     "saved_has_reasons_key": false,
+     "saved_resolved": {
+      "act": null,
+      "activeCodes": [
+       "DEPENDENCY_ABSENT"
+      ],
+      "disposition": "blocked"
+     },
+     "section": "line-13b"
+    },
+    {
+     "label": "Add lines 12e, 13a, and 13b",
+     "line": "1040-14",
+     "rendered_page_text": "Add lines 12e, 13a, and 13b (Line 1040-14) | blocked | No value published \u2014 cannot compute. | blocked | Missing dependency code(s): | DEPENDENCY_ABSENT | Remedy: | contribute the missing dependency to unblock this line. | Trace recorded support",
+     "saved_disposition_node_children": [
+      "tax.us.2025.deductions.line-12e",
+      "tax.us.2025.deductions.qbi",
+      "tax.us.2025.deductions.schedule-1a"
+     ],
+     "saved_disposition_node_record": {
+      "artifact_id": "tax.us.2025.rule.form1040-line14",
+      "code": "DEPENDENCY_ABSENT",
+      "disposition": "blocked",
+      "missing": [
+       "tax.us.2025.deductions.schedule-1a"
+      ]
+     },
+     "saved_field_blocked_explain": "blocked",
+     "saved_has_reasons_key": false,
+     "saved_resolved": {
+      "act": null,
+      "activeCodes": [
+       "DEPENDENCY_ABSENT"
+      ],
+      "disposition": "blocked"
+     },
+     "section": "line-1040-14"
+    },
+    {
+     "label": "Taxable income",
+     "line": "15",
+     "rendered_page_text": "Taxable income (Line 15) | blocked | No value published \u2014 cannot compute. | blocked | Missing dependency code(s): | DEPENDENCY_ABSENT | Remedy: | contribute the missing dependency to unblock this line. | Trace recorded support",
+     "saved_disposition_node_children": [
+      "tax.us.2025.deductions.line-14",
+      "tax.us.2025.income.agi"
+     ],
+     "saved_disposition_node_record": {
+      "artifact_id": "tax.us.2025.rule.form1040-line15",
+      "code": "DEPENDENCY_ABSENT",
+      "disposition": "blocked",
+      "missing": [
+       "tax.us.2025.income.agi",
+       "tax.us.2025.deductions.line-14"
+      ]
+     },
+     "saved_field_blocked_explain": "blocked",
+     "saved_has_reasons_key": false,
+     "saved_resolved": {
+      "act": null,
+      "activeCodes": [
+       "DEPENDENCY_ABSENT"
+      ],
+      "disposition": "blocked"
+     },
+     "section": "line-15"
+    },
+    {
+     "label": "Tax",
+     "line": "16",
+     "rendered_page_text": "Tax (Line 16) | blocked | No value published \u2014 cannot compute. | blocked | Missing dependency code(s): | DEPENDENCY_ABSENT | Remedy: | contribute the missing dependency to unblock this line. | Trace recorded support",
+     "saved_disposition_node_children": [
+      "tax.us.2025.capital-gains.selected-preferential-base",
+      "tax.us.2025.dividends.qualified-total",
+      "tax.us.2025.f1099b.covered-lt-proceeds-subtotal",
+      "tax.us.2025.f1099b.covered-st-proceeds-subtotal",
+      "tax.us.2025.income.taxable-income",
+      "tax.us.2025.qdcg-worksheet.line-24",
+      "tax.us.2025.qdcg-worksheet.line-25"
+     ],
+     "saved_disposition_node_record": {
+      "artifact_id": "tax.us.2025.rule.form1040-line16",
+      "code": "DEPENDENCY_ABSENT",
+      "disposition": "blocked",
+      "missing": [
+       "tax.us.2025.income.taxable-income",
+       "tax.us.2025.qdcg-worksheet.line-24",
+       "tax.us.2025.qdcg-worksheet.line-25"
+      ]
+     },
+     "saved_field_blocked_explain": "blocked",
+     "saved_has_reasons_key": false,
+     "saved_resolved": {
+      "act": null,
+      "activeCodes": [
+       "DEPENDENCY_ABSENT"
+      ],
+      "disposition": "blocked"
+     },
+     "section": "line-16"
+    },
+    {
+     "label": "Child tax credit and credit for other dependents",
+     "line": "19",
+     "rendered_page_text": "Child tax credit and credit for other dependents (Line 19) | blocked | No value published \u2014 cannot compute. | Form 1040 line 19 is blocked because an input it needs is missing or invalid. | Missing dependency code(s): | DEPENDENCY_ABSENT | Remedy: | contribute the missing dependency to unblock this line. | Trace recorded support",
+     "saved_disposition_node_children": [
+      "tax.us.2025.ctc.sch8812.line-14"
+     ],
+     "saved_disposition_node_record": {
+      "artifact_id": "tax.us.2025.rule.ctc-form1040-line19",
+      "code": "DEPENDENCY_ABSENT",
+      "disposition": "blocked",
+      "missing": [
+       "tax.us.2025.ctc.sch8812.line-14"
+      ]
+     },
+     "saved_field_blocked_explain": "Form 1040 line 19 is blocked because an input it needs is missing or invalid.",
+     "saved_has_reasons_key": false,
+     "saved_resolved": {
+      "act": null,
+      "activeCodes": [
+       "DEPENDENCY_ABSENT"
+      ],
+      "disposition": "blocked"
+     },
+     "section": "line-19"
+    },
+    {
+     "label": "Other nonrefundable credits from Schedule 3",
+     "line": "20",
+     "rendered_page_text": "Other nonrefundable credits from Schedule 3 (Line 20) | blocked | No value published \u2014 cannot compute. | Form 1040 line 20 is blocked because Schedule 3 line 8 is blocked. | Missing dependency code(s): | DEPENDENCY_ABSENT | Remedy: | contribute the missing dependency to unblock this line. | Trace recorded support",
+     "saved_disposition_node_children": [
+      "tax.us.2025.schedule3.line8-total"
+     ],
+     "saved_disposition_node_record": {
+      "artifact_id": "tax.us.2025.rule.form1040-line20",
+      "code": "DEPENDENCY_ABSENT",
+      "disposition": "blocked",
+      "missing": [
+       "tax.us.2025.schedule3.line8-total"
+      ]
+     },
+     "saved_field_blocked_explain": "Form 1040 line 20 is blocked because Schedule 3 line 8 is blocked.",
+     "saved_has_reasons_key": false,
+     "saved_resolved": {
+      "act": null,
+      "activeCodes": [
+       "DEPENDENCY_ABSENT"
+      ],
+      "disposition": "blocked"
+     },
+     "section": "line-20"
+    },
+    {
+     "label": "Total tax",
+     "line": "24",
+     "rendered_page_text": "Total tax (Line 24) | blocked | No value published \u2014 cannot compute. | Form 1040 line 24 is blocked because an input it needs is missing or invalid. | Missing dependency code(s): | DEPENDENCY_ABSENT | Remedy: | contribute the missing dependency to unblock this line. | Trace recorded support",
+     "saved_disposition_node_children": [
+      "tax.us.2025.tax.after-nonrefundable-credits",
+      "tax.us.2025.tax.line23-other-taxes"
+     ],
+     "saved_disposition_node_record": {
+      "artifact_id": "tax.us.2025.rule.form1040-line24",
+      "code": "DEPENDENCY_ABSENT",
+      "disposition": "blocked",
+      "missing": [
+       "tax.us.2025.tax.after-nonrefundable-credits"
+      ]
+     },
+     "saved_field_blocked_explain": "Form 1040 line 24 is blocked because an input it needs is missing or invalid.",
+     "saved_has_reasons_key": false,
+     "saved_resolved": {
+      "act": null,
+      "activeCodes": [
+       "DEPENDENCY_ABSENT"
+      ],
+      "disposition": "blocked"
+     },
+     "section": "line-24"
+    },
+    {
+     "label": "Earned income credit",
+     "line": "27a",
+     "rendered_page_text": "Earned income credit (Line 27a) | blocked | No value published \u2014 cannot compute. | Earned income credit is blocked because an input it needs is missing or invalid. | Missing dependency code(s): | DEPENDENCY_ABSENT | Remedy: | contribute the missing dependency to unblock this line. | Trace recorded support",
+     "saved_disposition_node_children": [
+      "tax.us.2025.eic.eligibility-result"
+     ],
+     "saved_disposition_node_record": {
+      "artifact_id": "tax.us.2025.rule.form1040-line27a",
+      "code": "DEPENDENCY_ABSENT",
+      "disposition": "blocked",
+      "missing": [
+       "tax.us.2025.eic.eligibility-result"
+      ]
+     },
+     "saved_field_blocked_explain": "Earned income credit is blocked because an input it needs is missing or invalid.",
+     "saved_has_reasons_key": false,
+     "saved_resolved": {
+      "act": null,
+      "activeCodes": [
+       "DEPENDENCY_ABSENT"
+      ],
+      "disposition": "blocked"
+     },
+     "section": "line-27a"
+    },
+    {
+     "label": "Additional child tax credit",
+     "line": "28",
+     "rendered_page_text": "Additional child tax credit (Line 28) | blocked | No value published \u2014 cannot compute. | Form 1040 line 28 is blocked because an input it needs is missing or invalid. | Missing dependency code(s): | DEPENDENCY_ABSENT | Remedy: | contribute the missing dependency to unblock this line. | Trace recorded support",
+     "saved_disposition_node_children": [
+      "tax.us.2025.ctc.sch8812.line-17",
+      "tax.us.2025.ctc.sch8812.line-20",
+      "tax.us.2025.ctc.sch8812.part-ii-b-needed"
+     ],
+     "saved_disposition_node_record": {
+      "artifact_id": "tax.us.2025.rule.ctc-sch8812-line-27",
+      "code": "DEPENDENCY_ABSENT",
+      "disposition": "blocked",
+      "missing": [
+       "tax.us.2025.ctc.sch8812.line-17",
+       "tax.us.2025.ctc.sch8812.part-ii-b-needed"
+      ]
+     },
+     "saved_field_blocked_explain": "Form 1040 line 28 is blocked because an input it needs is missing or invalid.",
+     "saved_has_reasons_key": false,
+     "saved_resolved": {
+      "act": null,
+      "activeCodes": [
+       "DEPENDENCY_ABSENT"
+      ],
+      "disposition": "blocked"
+     },
+     "section": "line-28"
+    },
+    {
+     "label": "Taxable interest",
+     "line": "2b",
+     "rendered_page_text": "Taxable interest (Line 2b) | blocked | No value published \u2014 cannot compute. | Taxable interest is blocked because one or more constituent interest families are unclosed or their dependencies are missing. | Missing dependency code(s): | DEPENDENCY_ABSENT | Remedy: | contribute the missing dependency to unblock this line. | Trace recorded support",
+     "saved_disposition_node_children": [],
+     "saved_disposition_node_record": {
+      "artifact_id": "tax.us.2025.rule.form1040-line2b",
+      "code": "DEPENDENCY_ABSENT",
+      "disposition": "blocked",
+      "missing": [
+       "tax.us.2025.interest.b1-subtotal"
+      ],
+      "symbol": "tax.us.2025.interest.taxable-total"
+     },
+     "saved_field_blocked_explain": "Taxable interest is blocked because one or more constituent interest families are unclosed or their dependencies are missing.",
+     "saved_has_reasons_key": false,
+     "saved_resolved": {
+      "act": null,
+      "activeCodes": [
+       "DEPENDENCY_ABSENT"
+      ],
+      "disposition": "blocked"
+     },
+     "section": "line-2b"
+    },
+    {
+     "label": "Total other payments and refundable credits",
+     "line": "32",
+     "rendered_page_text": "Total other payments and refundable credits (Line 32) | blocked | No value published \u2014 cannot compute. | Total other payments and refundable credits is blocked because an input it needs is missing or invalid. | Missing dependency code(s): | DEPENDENCY_ABSENT | Remedy: | contribute the missing dependency to unblock this line. | Trace recorded support",
+     "saved_disposition_node_children": [
+      "tax.us.2025.payments.lines27-31-total"
+     ],
+     "saved_disposition_node_record": {
+      "artifact_id": "tax.us.2025.rule.form1040-line32",
+      "code": "DEPENDENCY_ABSENT",
+      "disposition": "blocked",
+      "missing": [
+       "tax.us.2025.payments.lines27-31-total"
+      ]
+     },
+     "saved_field_blocked_explain": "Total other payments and refundable credits is blocked because an input it needs is missing or invalid.",
+     "saved_has_reasons_key": false,
+     "saved_resolved": {
+      "act": null,
+      "activeCodes": [
+       "DEPENDENCY_ABSENT"
+      ],
+      "disposition": "blocked"
+     },
+     "section": "line-32"
+    },
+    {
+     "label": "Total payments",
+     "line": "33",
+     "rendered_page_text": "Total payments (Line 33) | blocked | No value published \u2014 cannot compute. | Form 1040 line 33 is blocked because an input it needs is missing or invalid. | Missing dependency code(s): | DEPENDENCY_ABSENT | Remedy: | contribute the missing dependency to unblock this line. | Trace recorded support",
+     "saved_disposition_node_children": [
+      "tax.us.2025.payments.line25d",
+      "tax.us.2025.payments.line26",
+      "tax.us.2025.payments.line32"
+     ],
+     "saved_disposition_node_record": {
+      "artifact_id": "tax.us.2025.rule.form1040-line33",
+      "code": "DEPENDENCY_ABSENT",
+      "disposition": "blocked",
+      "missing": [
+       "tax.us.2025.payments.line32"
+      ]
+     },
+     "saved_field_blocked_explain": "Form 1040 line 33 is blocked because an input it needs is missing or invalid.",
+     "saved_has_reasons_key": false,
+     "saved_resolved": {
+      "act": null,
+      "activeCodes": [
+       "DEPENDENCY_ABSENT"
+      ],
+      "disposition": "blocked"
+     },
+     "section": "line-33"
+    },
+    {
+     "label": "Overpayment",
+     "line": "34",
+     "rendered_page_text": "Overpayment (Line 34) | blocked | No value published \u2014 cannot compute. | Form 1040 line 34 is blocked because an input it needs is missing or invalid. | Missing dependency code(s): | DEPENDENCY_ABSENT | Remedy: | contribute the missing dependency to unblock this line. | Trace recorded support",
+     "saved_disposition_node_children": [
+      "tax.us.2025.payments.line33",
+      "tax.us.2025.tax.line24-total-tax"
+     ],
+     "saved_disposition_node_record": {
+      "artifact_id": "tax.us.2025.rule.form1040-line34",
+      "code": "DEPENDENCY_ABSENT",
+      "disposition": "blocked",
+      "missing": [
+       "tax.us.2025.payments.line33",
+       "tax.us.2025.tax.line24-total-tax"
+      ]
+     },
+     "saved_field_blocked_explain": "Form 1040 line 34 is blocked because an input it needs is missing or invalid.",
+     "saved_has_reasons_key": false,
+     "saved_resolved": {
+      "act": null,
+      "activeCodes": [
+       "DEPENDENCY_ABSENT"
+      ],
+      "disposition": "blocked"
+     },
+     "section": "line-34"
+    },
+    {
+     "label": "Refund",
+     "line": "35a",
+     "rendered_page_text": "Refund (Line 35a) | blocked | No value published \u2014 cannot compute. | Form 1040 line 35a is blocked because an input it needs is missing, invalid, or (line 36) exceeds line 34. | Missing dependency code(s): | DEPENDENCY_ABSENT | Remedy: | contribute the missing dependency to unblock this line. | Trace recorded support",
+     "saved_disposition_node_children": [
+      "tax.us.2025.payments.line34-overpaid",
+      "tax.us.2025.payments.line36-applied-to-2026"
+     ],
+     "saved_disposition_node_record": {
+      "artifact_id": "tax.us.2025.rule.form1040-line35a",
+      "code": "DEPENDENCY_ABSENT",
+      "disposition": "blocked",
+      "missing": [
+       "tax.us.2025.payments.line34-overpaid",
+       "tax.us.2025.payments.line36-applied-to-2026"
+      ]
+     },
+     "saved_field_blocked_explain": "Form 1040 line 35a is blocked because an input it needs is missing, invalid, or (line 36) exceeds line 34.",
+     "saved_has_reasons_key": false,
+     "saved_resolved": {
+      "act": null,
+      "activeCodes": [
+       "DEPENDENCY_ABSENT"
+      ],
+      "disposition": "blocked"
+     },
+     "section": "line-35a"
+    },
+    {
+     "label": "Amount you owe",
+     "line": "37",
+     "rendered_page_text": "Amount you owe (Line 37) | blocked | No value published \u2014 cannot compute. | Form 1040 line 37 is blocked because an input it needs is missing, invalid, or (line 36) exceeds line 34. | Missing dependency code(s): | DEPENDENCY_ABSENT | Remedy: | contribute the missing dependency to unblock this line. | Trace recorded support",
+     "saved_disposition_node_children": [
+      "tax.us.2025.payments.line33",
+      "tax.us.2025.tax.line24-total-tax"
+     ],
+     "saved_disposition_node_record": {
+      "artifact_id": "tax.us.2025.rule.form1040-line37",
+      "code": "DEPENDENCY_ABSENT",
+      "disposition": "blocked",
+      "missing": [
+       "tax.us.2025.tax.line24-total-tax",
+       "tax.us.2025.payments.line33"
+      ]
+     },
+     "saved_field_blocked_explain": "Form 1040 line 37 is blocked because an input it needs is missing, invalid, or (line 36) exceeds line 34.",
+     "saved_has_reasons_key": false,
+     "saved_resolved": {
+      "act": null,
+      "activeCodes": [
+       "DEPENDENCY_ABSENT"
+      ],
+      "disposition": "blocked"
+     },
+     "section": "line-37"
+    },
+    {
+     "label": "Taxable Social Security benefits",
+     "line": "6b",
+     "rendered_page_text": "Taxable Social Security benefits (Line 6b) | blocked | No value published \u2014 cannot compute. | line 6b is blocked because a worksheet or source dependency is incomplete | Missing dependency code(s): | DEPENDENCY_ABSENT | Remedy: | contribute the missing dependency to unblock this line. | Trace recorded support",
+     "saved_disposition_node_children": [
+      "tax.us.2025.capital-gains.line7a-total",
+      "tax.us.2025.dividends.ordinary-total",
+      "tax.us.2025.income.additional-income",
+      "tax.us.2025.interest.taxable-total",
+      "tax.us.2025.ira.distributions.line4b",
+      "tax.us.2025.social-security.line6a",
+      "tax.us.2025.tax-exempt-interest.line2a-total",
+      "tax.us.2025.wages.total-w2-box1"
+     ],
+     "saved_disposition_node_record": {
+      "artifact_id": "tax.us.2025.rule.ss-benefits-worksheet",
+      "code": "DEPENDENCY_ABSENT",
+      "disposition": "blocked",
+      "missing": [
+       "tax.us.2025.interest.taxable-total"
+      ]
+     },
+     "saved_field_blocked_explain": "line 6b is blocked because a worksheet or source dependency is incomplete",
+     "saved_has_reasons_key": false,
+     "saved_resolved": {
+      "act": null,
+      "activeCodes": [
+       "DEPENDENCY_ABSENT"
+      ],
+      "disposition": "blocked"
+     },
+     "section": "line-6b"
+    },
+    {
+     "label": "Total income",
+     "line": "9",
+     "rendered_page_text": "Total income (Line 9) | blocked | No value published \u2014 cannot compute. | blocked | Missing dependency code(s): | DEPENDENCY_ABSENT | Remedy: | contribute the missing dependency to unblock this line. | Trace recorded support",
+     "saved_disposition_node_children": [
+      "tax.us.2025.capital-gains.line7a-total",
+      "tax.us.2025.dividends.ordinary-total",
+      "tax.us.2025.income.additional-income",
+      "tax.us.2025.interest.taxable-total",
+      "tax.us.2025.ira.distributions.line4b",
+      "tax.us.2025.social-security.line6b",
+      "tax.us.2025.wages.total-w2-box1"
+     ],
+     "saved_disposition_node_record": {
+      "artifact_id": "tax.us.2025.rule.form1040-line9",
+      "code": "DEPENDENCY_ABSENT",
+      "disposition": "blocked",
+      "missing": [
+       "tax.us.2025.interest.taxable-total",
+       "tax.us.2025.social-security.line6b"
+      ]
+     },
+     "saved_field_blocked_explain": "blocked",
+     "saved_has_reasons_key": false,
+     "saved_resolved": {
+      "act": null,
+      "activeCodes": [
+       "DEPENDENCY_ABSENT"
+      ],
+      "disposition": "blocked"
+     },
+     "section": "line-9"
+    },
+    {
+     "label": "Tax after nonrefundable credits",
+     "line": "22",
+     "rendered_page_text": "Tax after nonrefundable credits (Line 22) | blocked | No value published \u2014 cannot compute. | Tax after credits is blocked because line 16, line 20, or line 17/19 absence authority is incomplete. | Missing dependency code(s): | DEPENDENCY_ABSENT | Remedy: | contribute the missing dependency to unblock this line. | Trace recorded support",
+     "saved_disposition_node_children": [
+      "tax.us.2025.credits.form1040-line20",
+      "tax.us.2025.ctc.form1040-line19",
+      "tax.us.2025.tax.total-tax"
+     ],
+     "saved_disposition_node_record": {
+      "artifact_id": "tax.us.2025.rule.form1040-tax-after-credits",
+      "code": "DEPENDENCY_ABSENT",
+      "disposition": "blocked",
+      "missing": [
+       "tax.us.2025.tax.total-tax",
+       "tax.us.2025.credits.form1040-line20",
+       "tax.us.2025.ctc.form1040-line19"
+      ]
+     },
+     "saved_field_blocked_explain": "Tax after credits is blocked because line 16, line 20, or line 17/19 absence authority is incomplete.",
+     "saved_has_reasons_key": false,
+     "saved_resolved": {
+      "act": null,
+      "activeCodes": [
+       "DEPENDENCY_ABSENT"
+      ],
+      "disposition": "blocked"
+     },
+     "section": "line-22"
+    },
+    {
+     "label": "Foreign tax credit",
+     "line": "Sch3-1",
+     "rendered_page_text": "Foreign tax credit (Line Sch3-1) | blocked | No value published \u2014 cannot compute. | Schedule 3 line 1 is blocked because election, creditability, associated-income, threshold, closure, or regular-tax scope authority is incomplete or failed. | Missing dependency code(s): | DEPENDENCY_ABSENT | Remedy: | contribute the missing dependency to unblock this line. | Trace recorded support",
+     "saved_disposition_node_children": [
+      "tax.us.2025.foreign-tax.box7-subtotal",
+      "tax.us.2025.tax.total-tax"
+     ],
+     "saved_disposition_node_record": {
+      "artifact_id": "tax.us.2025.rule.schedule3-line1-direct-ftc",
+      "code": "DEPENDENCY_ABSENT",
+      "disposition": "blocked",
+      "missing": [
+       "tax.us.2025.tax.total-tax"
+      ]
+     },
+     "saved_field_blocked_explain": "Schedule 3 line 1 is blocked because election, creditability, associated-income, threshold, closure, or regular-tax scope authority is incomplete or failed.",
+     "saved_has_reasons_key": false,
+     "saved_resolved": {
+      "act": null,
+      "activeCodes": [
+       "DEPENDENCY_ABSENT"
+      ],
+      "disposition": "blocked"
+     },
+     "section": "line-Sch3-1"
+    },
+    {
+     "label": "Total other nonrefundable credits",
+     "line": "Sch3-8",
+     "rendered_page_text": "Total other nonrefundable credits (Line Sch3-8) | blocked | No value published \u2014 cannot compute. | Schedule 3 line 8 is blocked because line 1 is blocked or another Part I credit absence authority is incomplete. | Missing dependency code(s): | DEPENDENCY_ABSENT | Remedy: | contribute the missing dependency to unblock this line. | Trace recorded support",
+     "saved_disposition_node_children": [
+      "tax.us.2025.schedule3.line1-direct-ftc"
+     ],
+     "saved_disposition_node_record": {
+      "artifact_id": "tax.us.2025.rule.schedule3-line8",
+      "code": "DEPENDENCY_ABSENT",
+      "disposition": "blocked",
+      "missing": [
+       "tax.us.2025.schedule3.line1-direct-ftc"
+      ]
+     },
+     "saved_field_blocked_explain": "Schedule 3 line 8 is blocked because line 1 is blocked or another Part I credit absence authority is incomplete.",
+     "saved_has_reasons_key": false,
+     "saved_resolved": {
+      "act": null,
+      "activeCodes": [
+       "DEPENDENCY_ABSENT"
+      ],
+      "disposition": "blocked"
+     },
+     "section": "line-Sch3-8"
+    }
+   ],
+   "browser_available": true,
+   "case": "B-1099int-box1-line2b",
+   "cli_blocked_lines": [
+    "  - tax.us.2025.rule.attachment.schedule-b: DEPENDENCY_ABSENT (missing tax.us.2025.interest.positive-total)",
+    "  - tax.us.2025.rule.ctc-form1040-line19: DEPENDENCY_ABSENT (missing tax.us.2025.ctc.sch8812.line-14)",
+    "  - tax.us.2025.rule.ctc-sch8812-line-1: DEPENDENCY_ABSENT (missing tax.us.2025.income.agi)",
+    "  - tax.us.2025.rule.ctc-sch8812-line-10: DEPENDENCY_ABSENT (missing tax.us.2025.ctc.sch8812.line-3)",
+    "  - tax.us.2025.rule.ctc-sch8812-line-11: DEPENDENCY_ABSENT (missing tax.us.2025.ctc.sch8812.line-10)",
+    "  - tax.us.2025.rule.ctc-sch8812-line-12: DEPENDENCY_ABSENT (missing tax.us.2025.ctc.sch8812.line-11)",
+    "  - tax.us.2025.rule.ctc-sch8812-line-13: DEPENDENCY_ABSENT (missing tax.us.2025.ctc.sch8812.worksheet-a.line-5)",
+    "  - tax.us.2025.rule.ctc-sch8812-line-14: DEPENDENCY_ABSENT (missing tax.us.2025.ctc.sch8812.line-12, tax.us.2025.ctc.sch8812.line-13)",
+    "  - tax.us.2025.rule.ctc-sch8812-line-16a: DEPENDENCY_ABSENT (missing tax.us.2025.ctc.sch8812.line-12, tax.us.2025.ctc.sch8812.line-14)",
+    "  - tax.us.2025.rule.ctc-sch8812-line-17: DEPENDENCY_ABSENT (missing tax.us.2025.ctc.sch8812.line-16a)",
+    "  - tax.us.2025.rule.ctc-sch8812-line-21: DEPENDENCY_ABSENT (missing tax.us.2025.ctc.sch8812.part-ii-b-needed)",
+    "  - tax.us.2025.rule.ctc-sch8812-line-22: DEPENDENCY_ABSENT (missing tax.us.2025.ctc.sch8812.part-ii-b-needed)",
+    "  - tax.us.2025.rule.ctc-sch8812-line-23: DEPENDENCY_ABSENT (missing tax.us.2025.ctc.sch8812.part-ii-b-needed, tax.us.2025.ctc.sch8812.line-21, tax.us.2025.ctc.sch8812.line-22)",
+    "  - tax.us.2025.rule.ctc-sch8812-line-24: DEPENDENCY_ABSENT (missing tax.us.2025.ctc.sch8812.part-ii-b-needed)",
+    "  - tax.us.2025.rule.ctc-sch8812-line-25: DEPENDENCY_ABSENT (missing tax.us.2025.ctc.sch8812.line-23, tax.us.2025.ctc.sch8812.line-24)",
+    "  - tax.us.2025.rule.ctc-sch8812-line-26: DEPENDENCY_ABSENT (missing tax.us.2025.ctc.sch8812.line-25)",
+    "  - tax.us.2025.rule.ctc-sch8812-line-27: DEPENDENCY_ABSENT (missing tax.us.2025.ctc.sch8812.line-17, tax.us.2025.ctc.sch8812.part-ii-b-needed)",
+    "  - tax.us.2025.rule.ctc-sch8812-line-3: DEPENDENCY_ABSENT (missing tax.us.2025.ctc.sch8812.line-1)",
+    "  - tax.us.2025.rule.ctc-sch8812-part-ii-b-needed: DEPENDENCY_ABSENT (missing tax.us.2025.ctc.sch8812.line-17)",
+    "  - tax.us.2025.rule.ctc-worksheet-a.line-1: DEPENDENCY_ABSENT (missing tax.us.2025.tax.total-tax)",
+    "  - tax.us.2025.rule.ctc-worksheet-a.line-2: DEPENDENCY_ABSENT (missing tax.us.2025.schedule3.line1-direct-ftc)",
+    "  - tax.us.2025.rule.ctc-worksheet-a.line-3: DEPENDENCY_ABSENT (missing tax.us.2025.ctc.sch8812.worksheet-a.line-1, tax.us.2025.ctc.sch8812.worksheet-a.line-2)",
+    "  - tax.us.2025.rule.ctc-worksheet-a.line-5: DEPENDENCY_ABSENT (missing tax.us.2025.ctc.sch8812.worksheet-a.line-3)",
+    "  - tax.us.2025.rule.eic-answer.age-25-under-65: DEPENDENCY_ABSENT (missing tax.us.2025.eic.questions-required)",
+    "  - tax.us.2025.rule.eic-answer.main-home-in-us: DEPENDENCY_ABSENT (missing tax.us.2025.eic.questions-required)",
+    "  - tax.us.2025.rule.eic-answer.no-unsupported-situations: DEPENDENCY_ABSENT (missing tax.us.2025.eic.questions-required, tax.us.2025.eic.investment-income, tax.us.2025.eic.worksheet-a.line-3)",
+    "  - tax.us.2025.rule.eic-answer.not-claimable-as-dependent: DEPENDENCY_ABSENT (missing tax.us.2025.eic.questions-required)",
+    "  - tax.us.2025.rule.eic-answer.not-nonresident-alien: DEPENDENCY_ABSENT (missing tax.us.2025.eic.questions-required)",
+    "  - tax.us.2025.rule.eic-answer.not-qualifying-child-of-another: DEPENDENCY_ABSENT (missing tax.us.2025.eic.questions-required)",
+    "  - tax.us.2025.rule.eic-answer.separated-spouse: DEPENDENCY_ABSENT (missing tax.us.2025.eic.questions-required)",
+    "  - tax.us.2025.rule.eic-answer.spouse-valid-ssn: DEPENDENCY_ABSENT (missing tax.us.2025.eic.questions-required)",
+    "  - tax.us.2025.rule.eic-answer.taxpayer-valid-ssn: DEPENDENCY_ABSENT (missing tax.us.2025.eic.questions-required)",
+    "  - tax.us.2025.rule.eic-early-stop: DEPENDENCY_ABSENT (missing tax.us.2025.eic.investment-income, tax.us.2025.eic.worksheet-a.line-3, tax.us.2025.eic.answer.no-unsupported-situations)",
+    "  - tax.us.2025.rule.eic-eligibility: DEPENDENCY_ABSENT (missing tax.us.2025.eic.early-stop, tax.us.2025.eic.gate-result, tax.us.2025.eic.answer.no-unsupported-situations)",
+    "  - tax.us.2025.rule.eic-gate-result: DEPENDENCY_ABSENT (missing tax.us.2025.eic.answer.taxpayer-valid-ssn, tax.us.2025.eic.answer.spouse-valid-ssn, tax.us.2025.eic.answer.not-nonresident-alien, tax.us.2025.eic.answer.not-qualifying-child-of-another, tax.us.2025.eic.answer.separated-spouse, tax.us.2025.eic.answer.age-25-under-65, tax.us.2025.eic.answer.main-home-in-us, tax.us.2025.eic.answer.not-claimable-as-dependent, tax.us.2025.eic.answer.no-unsupported-situations, tax.us.2025.eic.worksheet-a.line-6)",
+    "  - tax.us.2025.rule.eic-investment-income: DEPENDENCY_ABSENT (missing tax.us.2025.interest.taxable-total)",
+    "  - tax.us.2025.rule.eic-questions-required: DEPENDENCY_ABSENT (missing tax.us.2025.eic.investment-income, tax.us.2025.eic.worksheet-a.line-3)",
+    "  - tax.us.2025.rule.eic-worksheet-a.line-3: DEPENDENCY_ABSENT (missing tax.us.2025.income.agi)",
+    "  - tax.us.2025.rule.eic-worksheet-a.line-5: DEPENDENCY_ABSENT (missing tax.us.2025.eic.worksheet-a.line-3)",
+    "  - tax.us.2025.rule.eic-worksheet-a.line-6: DEPENDENCY_ABSENT (missing tax.us.2025.eic.worksheet-a.line-3)",
+    "  - tax.us.2025.rule.f1099int-b1-subtotal: SOURCE_SET_UNCLOSED (missing tax.us.2025.f1099int.b1)",
+    "  - tax.us.2025.rule.form1040-line11: DEPENDENCY_ABSENT (missing tax.us.2025.income.total-income)",
+    "  - tax.us.2025.rule.form1040-line13b: DEPENDENCY_ABSENT (missing tax.us.2025.schedule1a.line37-enhanced-deduction-total)",
+    "  - tax.us.2025.rule.form1040-line14: DEPENDENCY_ABSENT (missing tax.us.2025.deductions.schedule-1a)",
+    "  - tax.us.2025.rule.form1040-line15: DEPENDENCY_ABSENT (missing tax.us.2025.income.agi, tax.us.2025.deductions.line-14)",
+    "  - tax.us.2025.rule.form1040-line16: DEPENDENCY_ABSENT (missing tax.us.2025.income.taxable-income, tax.us.2025.qdcg-worksheet.line-24, tax.us.2025.qdcg-worksheet.line-25)",
+    "  - tax.us.2025.rule.form1040-line20: DEPENDENCY_ABSENT (missing tax.us.2025.schedule3.line8-total)",
+    "  - tax.us.2025.rule.form1040-line24: DEPENDENCY_ABSENT (missing tax.us.2025.tax.after-nonrefundable-credits)",
+    "  - tax.us.2025.rule.form1040-line27a: DEPENDENCY_ABSENT (missing tax.us.2025.eic.eligibility-result)",
+    "  - tax.us.2025.rule.form1040-line2b: DEPENDENCY_ABSENT (missing tax.us.2025.interest.b1-subtotal)",
+    "  - tax.us.2025.rule.form1040-line32: DEPENDENCY_ABSENT (missing tax.us.2025.payments.lines27-31-total)",
+    "  - tax.us.2025.rule.form1040-line33: DEPENDENCY_ABSENT (missing tax.us.2025.payments.line32)",
+    "  - tax.us.2025.rule.form1040-line34: DEPENDENCY_ABSENT (missing tax.us.2025.payments.line33, tax.us.2025.tax.line24-total-tax)",
+    "  - tax.us.2025.rule.form1040-line35a: DEPENDENCY_ABSENT (missing tax.us.2025.payments.line34-overpaid, tax.us.2025.payments.line36-applied-to-2026)",
+    "  - tax.us.2025.rule.form1040-line36: DEPENDENCY_ABSENT (missing tax.us.2025.payments.line34-overpaid)",
+    "  - tax.us.2025.rule.form1040-line37: DEPENDENCY_ABSENT (missing tax.us.2025.tax.line24-total-tax, tax.us.2025.payments.line33)",
+    "  - tax.us.2025.rule.form1040-line9: DEPENDENCY_ABSENT (missing tax.us.2025.interest.taxable-total, tax.us.2025.social-security.line6b)",
+    "  - tax.us.2025.rule.form1040-lines27-31-total: DEPENDENCY_ABSENT (missing tax.us.2025.payments.line27a, tax.us.2025.payments.lines28-31)",
+    "  - tax.us.2025.rule.form1040-lines28-31: DEPENDENCY_ABSENT (missing tax.us.2025.ctc.form1040-line28)",
+    "  - tax.us.2025.rule.form1040-tax-after-credits: DEPENDENCY_ABSENT (missing tax.us.2025.tax.total-tax, tax.us.2025.credits.form1040-line20, tax.us.2025.ctc.form1040-line19)",
+    "  - tax.us.2025.rule.interest-positive-total: DEPENDENCY_ABSENT (missing tax.us.2025.interest.b1-subtotal)",
+    "  - tax.us.2025.rule.qdcg-worksheet.line-10: DEPENDENCY_ABSENT (missing tax.us.2025.income.taxable-income)",
+    "  - tax.us.2025.rule.qdcg-worksheet.line-11: DEPENDENCY_ABSENT (missing tax.us.2025.qdcg-worksheet.line-9)",
+    "  - tax.us.2025.rule.qdcg-worksheet.line-12: DEPENDENCY_ABSENT (missing tax.us.2025.qdcg-worksheet.line-10, tax.us.2025.qdcg-worksheet.line-11)",
+    "  - tax.us.2025.rule.qdcg-worksheet.line-14: DEPENDENCY_ABSENT (missing tax.us.2025.income.taxable-income)",
+    "  - tax.us.2025.rule.qdcg-worksheet.line-15: DEPENDENCY_ABSENT (missing tax.us.2025.qdcg-worksheet.line-5, tax.us.2025.qdcg-worksheet.line-9)",
+    "  - tax.us.2025.rule.qdcg-worksheet.line-16: DEPENDENCY_ABSENT (missing tax.us.2025.qdcg-worksheet.line-14, tax.us.2025.qdcg-worksheet.line-15)",
+    "  - tax.us.2025.rule.qdcg-worksheet.line-17: DEPENDENCY_ABSENT (missing tax.us.2025.qdcg-worksheet.line-12, tax.us.2025.qdcg-worksheet.line-16)",
+    "  - tax.us.2025.rule.qdcg-worksheet.line-18: DEPENDENCY_ABSENT (missing tax.us.2025.qdcg-worksheet.line-17)",
+    "  - tax.us.2025.rule.qdcg-worksheet.line-19: DEPENDENCY_ABSENT (missing tax.us.2025.qdcg-worksheet.line-9, tax.us.2025.qdcg-worksheet.line-17)",
+    "  - tax.us.2025.rule.qdcg-worksheet.line-20: DEPENDENCY_ABSENT (missing tax.us.2025.qdcg-worksheet.line-10, tax.us.2025.qdcg-worksheet.line-19)",
+    "  - tax.us.2025.rule.qdcg-worksheet.line-21: DEPENDENCY_ABSENT (missing tax.us.2025.qdcg-worksheet.line-20)",
+    "  - tax.us.2025.rule.qdcg-worksheet.line-22: DEPENDENCY_ABSENT (missing tax.us.2025.qdcg-worksheet.line-5)",
+    "  - tax.us.2025.rule.qdcg-worksheet.line-23: DEPENDENCY_ABSENT (missing tax.us.2025.qdcg-worksheet.line-18, tax.us.2025.qdcg-worksheet.line-21, tax.us.2025.qdcg-worksheet.line-22)",
+    "  - tax.us.2025.rule.qdcg-worksheet.line-24: DEPENDENCY_ABSENT (missing tax.us.2025.income.taxable-income)",
+    "  - tax.us.2025.rule.qdcg-worksheet.line-25: DEPENDENCY_ABSENT (missing tax.us.2025.qdcg-worksheet.line-23, tax.us.2025.qdcg-worksheet.line-24)",
+    "  - tax.us.2025.rule.qdcg-worksheet.line-5: DEPENDENCY_ABSENT (missing tax.us.2025.income.taxable-income)",
+    "  - tax.us.2025.rule.qdcg-worksheet.line-7: DEPENDENCY_ABSENT (missing tax.us.2025.income.taxable-income)",
+    "  - tax.us.2025.rule.qdcg-worksheet.line-8: DEPENDENCY_ABSENT (missing tax.us.2025.qdcg-worksheet.line-5, tax.us.2025.qdcg-worksheet.line-7)",
+    "  - tax.us.2025.rule.qdcg-worksheet.line-9: DEPENDENCY_ABSENT (missing tax.us.2025.qdcg-worksheet.line-7, tax.us.2025.qdcg-worksheet.line-8)",
+    "  - tax.us.2025.rule.schedule1a-part-v-line-33: DEPENDENCY_ABSENT (missing tax.us.2025.income.agi)",
+    "  - tax.us.2025.rule.schedule1a-part-v-line-34: DEPENDENCY_ABSENT (missing tax.us.2025.schedule1a.line33-magi-excess)",
+    "  - tax.us.2025.rule.schedule1a-part-v-line-35: DEPENDENCY_ABSENT (missing tax.us.2025.schedule1a.line34-reduction)",
+    "  - tax.us.2025.rule.schedule1a-part-v-line-36a: DEPENDENCY_ABSENT (missing tax.us.2025.schedule1a.line35-per-person-amount)",
+    "  - tax.us.2025.rule.schedule1a-part-v-line-36b: DEPENDENCY_ABSENT (missing tax.us.2025.schedule1a.line35-per-person-amount)",
+    "  - tax.us.2025.rule.schedule1a-part-v-line-37: DEPENDENCY_ABSENT (missing tax.us.2025.schedule1a.line36a-taxpayer, tax.us.2025.schedule1a.line36b-spouse)",
+    "  - tax.us.2025.rule.schedule3-line1-direct-ftc: DEPENDENCY_ABSENT (missing tax.us.2025.tax.total-tax)",
+    "  - tax.us.2025.rule.schedule3-line8: DEPENDENCY_ABSENT (missing tax.us.2025.schedule3.line1-direct-ftc)",
+    "  - tax.us.2025.rule.ss-benefits-worksheet: DEPENDENCY_ABSENT (missing tax.us.2025.interest.taxable-total)",
+    "  - tax.us.2025.rule.w2-box4-total: DEPENDENCY_ABSENT (missing tax.us.2025.ctc.sch8812.part-ii-b-needed)",
+    "  - tax.us.2025.rule.w2-box6-total: DEPENDENCY_ABSENT (missing tax.us.2025.ctc.sch8812.part-ii-b-needed)"
+   ],
+   "design_check_sentence_only_reason": {
+    "rendered_page_text": {
+     "line-2b": "Taxable interest (Line 2b) | blocked | No value published \u2014 cannot compute. | Missing dependency code(s): | DEPENDENCY_ABSENT | Why: | HAND-SUPPLIED TEST SENTENCE (not from content): Have you recorded every Form 1099-G box 4 amount? | Trace recorded support",
+     "line-37": "Amount you owe (Line 37) | blocked | No value published \u2014 cannot compute. | Missing dependency code(s): | DEPENDENCY_ABSENT | Why: | HAND-SUPPLIED TEST SENTENCE (not from content): Have you recorded every Form 1099-G box 4 amount? | Trace recorded support"
+    },
+    "validator_accepts": true
+   },
+   "model_schema": "presentation-model.v2",
+   "model_top_level_keys": [
+    "attachments",
+    "authorization",
+    "citationGroups",
+    "dispositionNodes",
+    "explanationGraph",
+    "pinLabels",
+    "runId",
+    "schema",
+    "sectionRoots",
+    "sections",
+    "unsupportedSourceFindings"
+   ],
+   "root_rows": [
+    "tax.us.2025.rule.f1099int-b1-subtotal"
+   ],
+   "root_trace": {
+    "blocked_rows": 91,
+    "blocked_symbols": 90,
+    "closure_families_reached": [
+     "tax.us.2025.f1099int.b1"
+    ],
+    "rows_not_mapped_to_a_symbol": 1,
+    "symbols_by_root_kind": {
+     "only-closure-roots": 90
+    }
+   }
+  }
+ ],
+ "core": "v66"
+}

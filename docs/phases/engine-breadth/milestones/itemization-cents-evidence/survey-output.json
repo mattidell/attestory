@@ -1,0 +1,1535 @@
+{
+ "attachment_parts": [
+  {
+   "adjustment_subtotals": [],
+   "attachment": "tax.us.2025.rule.attachment.f8949",
+   "line_symbol": "tax.us.2025.f1099b.covered-w-st-proceeds-subtotal",
+   "part": "box-a-proceeds",
+   "positive_subtotals": [
+    "tax.us.2025.f1099b.covered-w-st-proceeds-subtotal"
+   ],
+   "version": "v2"
+  },
+  {
+   "adjustment_subtotals": [],
+   "attachment": "tax.us.2025.rule.attachment.f8949",
+   "line_symbol": "tax.us.2025.f1099b.covered-w-st-basis-subtotal",
+   "part": "box-a-basis",
+   "positive_subtotals": [
+    "tax.us.2025.f1099b.covered-w-st-basis-subtotal"
+   ],
+   "version": "v2"
+  },
+  {
+   "adjustment_subtotals": [],
+   "attachment": "tax.us.2025.rule.attachment.f8949",
+   "line_symbol": "tax.us.2025.f1099b.covered-w-st-adjustment-subtotal",
+   "part": "box-a-adjustment",
+   "positive_subtotals": [
+    "tax.us.2025.f1099b.covered-w-st-adjustment-subtotal"
+   ],
+   "version": "v2"
+  },
+  {
+   "adjustment_subtotals": [],
+   "attachment": "tax.us.2025.rule.attachment.f8949",
+   "line_symbol": "tax.us.2025.f1099b.covered-w-lt-proceeds-subtotal",
+   "part": "box-d-proceeds",
+   "positive_subtotals": [
+    "tax.us.2025.f1099b.covered-w-lt-proceeds-subtotal"
+   ],
+   "version": "v2"
+  },
+  {
+   "adjustment_subtotals": [],
+   "attachment": "tax.us.2025.rule.attachment.f8949",
+   "line_symbol": "tax.us.2025.f1099b.covered-w-lt-basis-subtotal",
+   "part": "box-d-basis",
+   "positive_subtotals": [
+    "tax.us.2025.f1099b.covered-w-lt-basis-subtotal"
+   ],
+   "version": "v2"
+  },
+  {
+   "adjustment_subtotals": [],
+   "attachment": "tax.us.2025.rule.attachment.f8949",
+   "line_symbol": "tax.us.2025.f1099b.covered-w-lt-adjustment-subtotal",
+   "part": "box-d-adjustment",
+   "positive_subtotals": [
+    "tax.us.2025.f1099b.covered-w-lt-adjustment-subtotal"
+   ],
+   "version": "v2"
+  },
+  {
+   "adjustment_subtotals": null,
+   "attachment": "tax.us.2025.rule.attachment.schedule-1",
+   "line_symbol": "tax.us.2025.unemployment.box1-subtotal",
+   "part": "line-7-unemployment",
+   "positive_subtotals": null,
+   "version": "v5"
+  },
+  {
+   "adjustment_subtotals": null,
+   "attachment": "tax.us.2025.rule.attachment.schedule-1",
+   "line_symbol": "tax.us.2025.gambling.b1-winnings-subtotal",
+   "part": "line-8b-gambling",
+   "positive_subtotals": null,
+   "version": "v5"
+  },
+  {
+   "adjustment_subtotals": null,
+   "attachment": "tax.us.2025.rule.attachment.schedule-1",
+   "line_symbol": "tax.us.2025.sli-worksheet.line1-total-interest-paid-subtotal",
+   "part": "line-21-student-loan-interest",
+   "positive_subtotals": null,
+   "version": "v5"
+  },
+  {
+   "adjustment_subtotals": null,
+   "attachment": "tax.us.2025.rule.attachment.schedule-1",
+   "line_symbol": "tax.us.2025.f1099k.box1a-subtotal",
+   "part": "sch1-top-entry-f1099k",
+   "positive_subtotals": null,
+   "version": "v5"
+  },
+  {
+   "adjustment_subtotals": null,
+   "attachment": "tax.us.2025.rule.attachment.schedule-a",
+   "line_symbol": "tax.us.2025.schedule-a.line8a",
+   "part": "line-8a-home-mortgage-interest",
+   "positive_subtotals": null,
+   "version": "v2"
+  },
+  {
+   "adjustment_subtotals": [
+    "tax.us.2025.interest.scheduleb-nominee-subtotal",
+    "tax.us.2025.interest.derived-nominee-subtotal",
+    "tax.us.2025.interest.current-year-adjustment-subtotal",
+    "tax.us.2025.interest.scheduleb-abp-adjustment-subtotal"
+   ],
+   "attachment": "tax.us.2025.rule.attachment.schedule-b",
+   "line_symbol": "tax.us.2025.interest.taxable-total",
+   "part": "part-i-interest",
+   "positive_subtotals": [
+    "tax.us.2025.interest.b1-subtotal",
+    "tax.us.2025.interest.b3-subtotal",
+    "tax.us.2025.interest.oid-subtotal",
+    "tax.us.2025.interest.non-form-subtotal",
+    "tax.us.2025.interest.form1065-k1-box5-subtotal",
+    "tax.us.2025.interest.b10-market-discount-subtotal",
+    "tax.us.2025.interest.oid-b5-market-discount-subtotal"
+   ],
+   "version": "v7"
+  },
+  {
+   "adjustment_subtotals": [],
+   "attachment": "tax.us.2025.rule.attachment.schedule-b",
+   "line_symbol": "tax.us.2025.dividends.1a-subtotal",
+   "part": "part-ii-ordinary-dividends",
+   "positive_subtotals": [
+    "tax.us.2025.dividends.1a-subtotal"
+   ],
+   "version": "v7"
+  },
+  {
+   "adjustment_subtotals": [],
+   "attachment": "tax.us.2025.rule.attachment.schedule-d",
+   "line_symbol": "tax.us.2025.f1099b.covered-st-proceeds-subtotal",
+   "part": "line-1a-proceeds",
+   "positive_subtotals": [
+    "tax.us.2025.f1099b.covered-st-proceeds-subtotal"
+   ],
+   "version": "v6"
+  },
+  {
+   "adjustment_subtotals": [],
+   "attachment": "tax.us.2025.rule.attachment.schedule-d",
+   "line_symbol": "tax.us.2025.f1099b.covered-st-basis-subtotal",
+   "part": "line-1a-basis",
+   "positive_subtotals": [
+    "tax.us.2025.f1099b.covered-st-basis-subtotal"
+   ],
+   "version": "v6"
+  },
+  {
+   "adjustment_subtotals": [],
+   "attachment": "tax.us.2025.rule.attachment.schedule-d",
+   "line_symbol": "tax.us.2025.f1099b.covered-lt-proceeds-subtotal",
+   "part": "line-8a-proceeds",
+   "positive_subtotals": [
+    "tax.us.2025.f1099b.covered-lt-proceeds-subtotal"
+   ],
+   "version": "v6"
+  },
+  {
+   "adjustment_subtotals": [],
+   "attachment": "tax.us.2025.rule.attachment.schedule-d",
+   "line_symbol": "tax.us.2025.f1099b.covered-lt-basis-subtotal",
+   "part": "line-8a-basis",
+   "positive_subtotals": [
+    "tax.us.2025.f1099b.covered-lt-basis-subtotal"
+   ],
+   "version": "v6"
+  },
+  {
+   "adjustment_subtotals": [],
+   "attachment": "tax.us.2025.rule.attachment.schedule-d",
+   "line_symbol": "tax.us.2025.dividends.2a-subtotal",
+   "part": "line-13-box2a",
+   "positive_subtotals": [
+    "tax.us.2025.dividends.2a-subtotal"
+   ],
+   "version": "v6"
+  }
+ ],
+ "package": "tax.us.2025.package.core-calculations v65",
+ "rounders": [
+  {
+   "bound_field": null,
+   "collects": [
+    [
+     "tax.us.2025.f1099div.box12-exempt-interest-dividends",
+     "tax.us.2025.f1099div.12"
+    ]
+   ],
+   "inner_refs": [],
+   "kind": "subtotal-of-collect",
+   "publishes": "tax.us.2025.dividends.12-subtotal",
+   "read_by": [
+    "tax.us.2025.rule.form1040-line2a"
+   ],
+   "round_count": 1,
+   "rule": "tax.us.2025.rule.f1099div-12-subtotal",
+   "ties_out_against": [],
+   "ties_out_as_line": [],
+   "version": "v1"
+  },
+  {
+   "bound_field": null,
+   "collects": [
+    [
+     "tax.us.2025.f1099div.box1a-ordinary",
+     "tax.us.2025.f1099div.1a"
+    ]
+   ],
+   "inner_refs": [],
+   "kind": "subtotal-of-collect",
+   "publishes": "tax.us.2025.dividends.1a-subtotal",
+   "read_by": [
+    "tax.us.2025.rule.form1040-line3b"
+   ],
+   "round_count": 1,
+   "rule": "tax.us.2025.rule.f1099div-1a-subtotal",
+   "ties_out_against": [
+    {
+     "attachment": "tax.us.2025.rule.attachment.schedule-b",
+     "family": "tax.us.2025.f1099div.1a",
+     "kind": "row_set",
+     "member": "tax.us.2025.f1099div.box1a-ordinary",
+     "part": "part-ii-ordinary-dividends",
+     "version": "v7"
+    }
+   ],
+   "ties_out_as_line": [
+    {
+     "adjustment_subtotals": [],
+     "attachment": "tax.us.2025.rule.attachment.schedule-b",
+     "line_symbol": "tax.us.2025.dividends.1a-subtotal",
+     "part": "part-ii-ordinary-dividends",
+     "positive_subtotals": [
+      "tax.us.2025.dividends.1a-subtotal"
+     ],
+     "version": "v7"
+    }
+   ],
+   "version": "v1"
+  },
+  {
+   "bound_field": null,
+   "collects": [
+    [
+     "tax.us.2025.f1099div.box1b-qualified",
+     "tax.us.2025.f1099div.1b"
+    ]
+   ],
+   "inner_refs": [],
+   "kind": "subtotal-of-collect",
+   "publishes": "tax.us.2025.dividends.1b-subtotal",
+   "read_by": [
+    "tax.us.2025.rule.form1040-line3a"
+   ],
+   "round_count": 1,
+   "rule": "tax.us.2025.rule.f1099div-1b-subtotal",
+   "ties_out_against": [],
+   "ties_out_as_line": [],
+   "version": "v1"
+  },
+  {
+   "bound_field": "tax.us.2025.schedule-d.line-13",
+   "collects": [
+    [
+     "tax.us.2025.f1099div.box2a-capital-gain-distribution",
+     "tax.us.2025.f1099div.2a"
+    ]
+   ],
+   "inner_refs": [],
+   "kind": "subtotal-of-collect",
+   "publishes": "tax.us.2025.dividends.2a-subtotal",
+   "read_by": [
+    "tax.us.2025.rule.schedule-d-line15",
+    "tax.us.2025.rule.selected-preferential-base"
+   ],
+   "round_count": 1,
+   "rule": "tax.us.2025.rule.f1099div-2a-subtotal",
+   "ties_out_against": [
+    {
+     "attachment": "tax.us.2025.rule.attachment.schedule-d",
+     "family": "tax.us.2025.f1099div.2a",
+     "kind": "row_set",
+     "member": "tax.us.2025.f1099div.box2a-capital-gain-distribution",
+     "part": "line-13-box2a",
+     "version": "v6"
+    }
+   ],
+   "ties_out_as_line": [
+    {
+     "adjustment_subtotals": [],
+     "attachment": "tax.us.2025.rule.attachment.schedule-d",
+     "line_symbol": "tax.us.2025.dividends.2a-subtotal",
+     "part": "line-13-box2a",
+     "positive_subtotals": [
+      "tax.us.2025.dividends.2a-subtotal"
+     ],
+     "version": "v6"
+    }
+   ],
+   "version": "v2"
+  },
+  {
+   "bound_field": null,
+   "collects": [
+    [
+     "tax.us.2025.f1099div.box7-foreign-tax-paid",
+     "tax.us.2025.f1099div.7"
+    ]
+   ],
+   "inner_refs": [],
+   "kind": "subtotal-of-collect",
+   "publishes": "tax.us.2025.foreign-tax.box7-subtotal",
+   "read_by": [
+    "tax.us.2025.rule.schedule3-line1-direct-ftc"
+   ],
+   "round_count": 1,
+   "rule": "tax.us.2025.rule.f1099div-7-subtotal",
+   "ties_out_against": [],
+   "ties_out_as_line": [],
+   "version": "v1"
+  },
+  {
+   "bound_field": null,
+   "collects": [
+    [
+     "tax.us.2025.f1099div.box4-withholding",
+     "tax.us.2025.f1099div.b4"
+    ]
+   ],
+   "inner_refs": [],
+   "kind": "subtotal-of-collect",
+   "publishes": "tax.us.2025.dividends.b4-withholding-subtotal",
+   "read_by": [
+    "tax.us.2025.rule.form1040-line25b"
+   ],
+   "round_count": 1,
+   "rule": "tax.us.2025.rule.f1099div-b4-subtotal",
+   "ties_out_against": [],
+   "ties_out_as_line": [],
+   "version": "v1"
+  },
+  {
+   "bound_field": null,
+   "collects": [
+    [
+     "tax.us.2025.f1099g.box1-unemployment",
+     "tax.us.2025.f1099g.1"
+    ]
+   ],
+   "inner_refs": [],
+   "kind": "subtotal-of-collect",
+   "publishes": "tax.us.2025.unemployment.box1-subtotal",
+   "read_by": [
+    "tax.us.2025.rule.schedule1-line7"
+   ],
+   "round_count": 1,
+   "rule": "tax.us.2025.rule.f1099g-1-subtotal",
+   "ties_out_against": [
+    {
+     "attachment": "tax.us.2025.rule.attachment.schedule-1",
+     "family": "tax.us.2025.f1099g.1",
+     "kind": "row_set",
+     "member": "tax.us.2025.f1099g.box1-unemployment",
+     "part": "line-7-unemployment",
+     "version": "v5"
+    }
+   ],
+   "ties_out_as_line": [
+    {
+     "adjustment_subtotals": null,
+     "attachment": "tax.us.2025.rule.attachment.schedule-1",
+     "line_symbol": "tax.us.2025.unemployment.box1-subtotal",
+     "part": "line-7-unemployment",
+     "positive_subtotals": null,
+     "version": "v5"
+    }
+   ],
+   "version": "v2"
+  },
+  {
+   "bound_field": null,
+   "collects": [
+    [
+     "tax.us.2025.f1099int.box1-interest",
+     "tax.us.2025.f1099int.b1"
+    ]
+   ],
+   "inner_refs": [],
+   "kind": "subtotal-of-collect",
+   "publishes": "tax.us.2025.interest.b1-subtotal",
+   "read_by": [
+    "tax.us.2025.rule.form1040-line2b",
+    "tax.us.2025.rule.interest-positive-total"
+   ],
+   "round_count": 1,
+   "rule": "tax.us.2025.rule.f1099int-b1-subtotal",
+   "ties_out_against": [
+    {
+     "attachment": "tax.us.2025.rule.attachment.schedule-b",
+     "family": "tax.us.2025.f1099int.b1",
+     "kind": "row_set",
+     "member": "tax.us.2025.f1099int.box1-interest",
+     "part": "part-i-interest",
+     "version": "v7"
+    }
+   ],
+   "ties_out_as_line": [],
+   "version": "v2"
+  },
+  {
+   "bound_field": null,
+   "collects": [
+    [
+     "tax.us.2025.f1099int.box10-market-discount",
+     "tax.us.2025.f1099int.b10"
+    ]
+   ],
+   "inner_refs": [],
+   "kind": "subtotal-of-collect",
+   "publishes": "tax.us.2025.interest.b10-market-discount-subtotal",
+   "read_by": [
+    "tax.us.2025.rule.form1040-line2b",
+    "tax.us.2025.rule.interest-positive-total"
+   ],
+   "round_count": 1,
+   "rule": "tax.us.2025.rule.f1099int-b10-subtotal",
+   "ties_out_against": [
+    {
+     "attachment": "tax.us.2025.rule.attachment.schedule-b",
+     "family": "tax.us.2025.f1099int.b10",
+     "kind": "row_set",
+     "member": "tax.us.2025.f1099int.box10-market-discount",
+     "part": "part-i-interest",
+     "version": "v7"
+    }
+   ],
+   "ties_out_as_line": [],
+   "version": "v2"
+  },
+  {
+   "bound_field": null,
+   "collects": [
+    [
+     "tax.us.2025.f1099int.box3-interest",
+     "tax.us.2025.f1099int.b3"
+    ]
+   ],
+   "inner_refs": [],
+   "kind": "subtotal-of-collect",
+   "publishes": "tax.us.2025.interest.b3-subtotal",
+   "read_by": [
+    "tax.us.2025.rule.form1040-line2b",
+    "tax.us.2025.rule.interest-positive-total"
+   ],
+   "round_count": 1,
+   "rule": "tax.us.2025.rule.f1099int-b3-subtotal",
+   "ties_out_against": [
+    {
+     "attachment": "tax.us.2025.rule.attachment.schedule-b",
+     "family": "tax.us.2025.f1099int.b3",
+     "kind": "row_set",
+     "member": "tax.us.2025.f1099int.box3-interest",
+     "part": "part-i-interest",
+     "version": "v7"
+    }
+   ],
+   "ties_out_as_line": [],
+   "version": "v2"
+  },
+  {
+   "bound_field": null,
+   "collects": [
+    [
+     "tax.us.2025.f1099int.box4-withholding",
+     "tax.us.2025.f1099int.b4"
+    ]
+   ],
+   "inner_refs": [],
+   "kind": "subtotal-of-collect",
+   "publishes": "tax.us.2025.interest.b4-withholding-subtotal",
+   "read_by": [
+    "tax.us.2025.rule.form1040-line25b"
+   ],
+   "round_count": 1,
+   "rule": "tax.us.2025.rule.f1099int-b4-subtotal",
+   "ties_out_against": [],
+   "ties_out_as_line": [],
+   "version": "v1"
+  },
+  {
+   "bound_field": null,
+   "collects": [
+    [
+     "tax.us.2025.f1099int.box8-tax-exempt-interest",
+     "tax.us.2025.f1099int.b8"
+    ]
+   ],
+   "inner_refs": [],
+   "kind": "subtotal-of-collect",
+   "publishes": "tax.us.2025.interest.b8-tax-exempt-subtotal",
+   "read_by": [
+    "tax.us.2025.rule.form1040-line2a"
+   ],
+   "round_count": 1,
+   "rule": "tax.us.2025.rule.f1099int-b8-subtotal",
+   "ties_out_against": [],
+   "ties_out_as_line": [],
+   "version": "v1"
+  },
+  {
+   "bound_field": null,
+   "collects": [
+    [
+     "tax.us.2025.f1099oid.box5-market-discount",
+     "tax.us.2025.f1099oid.b5"
+    ]
+   ],
+   "inner_refs": [],
+   "kind": "subtotal-of-collect",
+   "publishes": "tax.us.2025.interest.oid-b5-market-discount-subtotal",
+   "read_by": [
+    "tax.us.2025.rule.form1040-line2b",
+    "tax.us.2025.rule.interest-positive-total"
+   ],
+   "round_count": 1,
+   "rule": "tax.us.2025.rule.f1099oid-b5-subtotal",
+   "ties_out_against": [
+    {
+     "attachment": "tax.us.2025.rule.attachment.schedule-b",
+     "family": "tax.us.2025.f1099oid.b5",
+     "kind": "row_set",
+     "member": "tax.us.2025.f1099oid.box5-market-discount",
+     "part": "part-i-interest",
+     "version": "v7"
+    }
+   ],
+   "ties_out_as_line": [],
+   "version": "v2"
+  },
+  {
+   "bound_field": null,
+   "collects": [
+    [
+     "tax.us.2025.f1099oid.box1-interest-oid",
+     "tax.us.2025.f1099oid.b1"
+    ]
+   ],
+   "inner_refs": [],
+   "kind": "subtotal-of-collect",
+   "publishes": "tax.us.2025.interest.oid-subtotal",
+   "read_by": [
+    "tax.us.2025.rule.form1040-line2b",
+    "tax.us.2025.rule.interest-positive-total"
+   ],
+   "round_count": 1,
+   "rule": "tax.us.2025.rule.f1099oid-subtotal",
+   "ties_out_against": [
+    {
+     "attachment": "tax.us.2025.rule.attachment.schedule-b",
+     "family": "tax.us.2025.f1099oid.b1",
+     "kind": "row_set",
+     "member": "tax.us.2025.f1099oid.box1-interest-oid",
+     "part": "part-i-interest",
+     "version": "v7"
+    }
+   ],
+   "ties_out_as_line": [],
+   "version": "v2"
+  },
+  {
+   "bound_field": null,
+   "collects": [
+    [
+     "tax.us.2025.f1099r.ira-box4-withholding",
+     "tax.us.2025.f1099r.box4"
+    ]
+   ],
+   "inner_refs": [],
+   "kind": "subtotal-of-collect",
+   "publishes": "tax.us.2025.ira.box4-withholding-subtotal",
+   "read_by": [
+    "tax.us.2025.rule.form1040-line25b"
+   ],
+   "round_count": 1,
+   "rule": "tax.us.2025.rule.f1099r-box4-subtotal",
+   "ties_out_against": [],
+   "ties_out_as_line": [],
+   "version": "v1"
+  },
+  {
+   "bound_field": "tax.us.2025.form1040.line-4b",
+   "collects": [
+    [
+     "tax.us.2025.f1099r.ira-box1-taxable-distribution",
+     "tax.us.2025.f1099r.ira-fully-taxable"
+    ]
+   ],
+   "inner_refs": [],
+   "kind": "subtotal-of-collect",
+   "publishes": "tax.us.2025.ira.distributions.line4b",
+   "read_by": [
+    "tax.us.2025.rule.form1040-line9",
+    "tax.us.2025.rule.ss-benefits-worksheet"
+   ],
+   "round_count": 1,
+   "rule": "tax.us.2025.rule.f1099r-ira-fully-taxable-subtotal",
+   "ties_out_against": [],
+   "ties_out_as_line": [],
+   "version": "v4"
+  },
+  {
+   "bound_field": "tax.us.2025.form1040.line-16",
+   "collects": [],
+   "inner_refs": [
+    "tax.us.2025.capital-gains.selected-preferential-base",
+    "tax.us.2025.dividends.qualified-total",
+    "tax.us.2025.qdcg-worksheet.line-24",
+    "tax.us.2025.qdcg-worksheet.line-25"
+   ],
+   "kind": "other",
+   "publishes": "tax.us.2025.tax.total-tax",
+   "read_by": [
+    "tax.us.2025.rule.ctc-worksheet-a.line-1",
+    "tax.us.2025.rule.form1040-tax-after-credits",
+    "tax.us.2025.rule.schedule3-line1-direct-ftc"
+   ],
+   "round_count": 1,
+   "rule": "tax.us.2025.rule.form1040-line16",
+   "ties_out_against": [],
+   "ties_out_as_line": [],
+   "version": "v6"
+  },
+  {
+   "bound_field": "tax.us.2025.form1040.line-24",
+   "collects": [],
+   "inner_refs": [
+    "tax.us.2025.tax.after-nonrefundable-credits",
+    "tax.us.2025.tax.line23-other-taxes"
+   ],
+   "kind": "sum-of-refs",
+   "publishes": "tax.us.2025.tax.line24-total-tax",
+   "read_by": [
+    "tax.us.2025.rule.form1040-line34",
+    "tax.us.2025.rule.form1040-line37"
+   ],
+   "round_count": 1,
+   "rule": "tax.us.2025.rule.form1040-line24",
+   "ties_out_against": [],
+   "ties_out_as_line": [],
+   "version": "v1"
+  },
+  {
+   "bound_field": "tax.us.2025.form1040.line-25a",
+   "collects": [
+    [
+     "tax.us.2025.w2.box2-withholding",
+     "tax.us.2025.w2-box2"
+    ]
+   ],
+   "inner_refs": [],
+   "kind": "subtotal-of-collect",
+   "publishes": "tax.us.2025.payments.line25a",
+   "read_by": [
+    "tax.us.2025.rule.form1040-line25d"
+   ],
+   "round_count": 1,
+   "rule": "tax.us.2025.rule.form1040-line25a",
+   "ties_out_against": [],
+   "ties_out_as_line": [],
+   "version": "v1"
+  },
+  {
+   "bound_field": "tax.us.2025.form1040.line-25c",
+   "collects": [],
+   "inner_refs": [
+    "tax.us.2025.gambling.b4-withholding-subtotal"
+   ],
+   "kind": "round-of-ref",
+   "publishes": "tax.us.2025.payments.line25c",
+   "read_by": [
+    "tax.us.2025.rule.form1040-line25d"
+   ],
+   "round_count": 1,
+   "rule": "tax.us.2025.rule.form1040-line25c",
+   "ties_out_against": [],
+   "ties_out_as_line": [],
+   "version": "v2"
+  },
+  {
+   "bound_field": "tax.us.2025.form1040.line-25d",
+   "collects": [],
+   "inner_refs": [
+    "tax.us.2025.payments.line25a",
+    "tax.us.2025.payments.line25b",
+    "tax.us.2025.payments.line25c"
+   ],
+   "kind": "sum-of-refs",
+   "publishes": "tax.us.2025.payments.line25d",
+   "read_by": [
+    "tax.us.2025.rule.form1040-line33"
+   ],
+   "round_count": 1,
+   "rule": "tax.us.2025.rule.form1040-line25d",
+   "ties_out_against": [],
+   "ties_out_as_line": [],
+   "version": "v1"
+  },
+  {
+   "bound_field": "tax.us.2025.form1040.line-26",
+   "collects": [],
+   "inner_refs": [
+    "tax.us.2025.payments.estimated-and-prior-year-applied"
+   ],
+   "kind": "round-of-ref",
+   "publishes": "tax.us.2025.payments.line26",
+   "read_by": [
+    "tax.us.2025.rule.form1040-line33"
+   ],
+   "round_count": 1,
+   "rule": "tax.us.2025.rule.form1040-line26",
+   "ties_out_against": [],
+   "ties_out_as_line": [],
+   "version": "v1"
+  },
+  {
+   "bound_field": "tax.us.2025.form1040.line-32",
+   "collects": [],
+   "inner_refs": [
+    "tax.us.2025.payments.lines27-31-total"
+   ],
+   "kind": "round-of-ref",
+   "publishes": "tax.us.2025.payments.line32",
+   "read_by": [
+    "tax.us.2025.rule.form1040-line33"
+   ],
+   "round_count": 1,
+   "rule": "tax.us.2025.rule.form1040-line32",
+   "ties_out_against": [],
+   "ties_out_as_line": [],
+   "version": "v2"
+  },
+  {
+   "bound_field": "tax.us.2025.form1040.line-33",
+   "collects": [],
+   "inner_refs": [
+    "tax.us.2025.payments.line25d",
+    "tax.us.2025.payments.line26",
+    "tax.us.2025.payments.line32"
+   ],
+   "kind": "sum-of-refs",
+   "publishes": "tax.us.2025.payments.line33",
+   "read_by": [
+    "tax.us.2025.rule.form1040-line34",
+    "tax.us.2025.rule.form1040-line37"
+   ],
+   "round_count": 1,
+   "rule": "tax.us.2025.rule.form1040-line33",
+   "ties_out_against": [],
+   "ties_out_as_line": [],
+   "version": "v1"
+  },
+  {
+   "bound_field": "tax.us.2025.form1040.line-34",
+   "collects": [],
+   "inner_refs": [
+    "tax.us.2025.payments.line33",
+    "tax.us.2025.tax.line24-total-tax"
+   ],
+   "kind": "other",
+   "publishes": "tax.us.2025.payments.line34-overpaid",
+   "read_by": [
+    "tax.us.2025.rule.form1040-line35a",
+    "tax.us.2025.rule.form1040-line36"
+   ],
+   "round_count": 1,
+   "rule": "tax.us.2025.rule.form1040-line34",
+   "ties_out_against": [],
+   "ties_out_as_line": [],
+   "version": "v1"
+  },
+  {
+   "bound_field": "tax.us.2025.form1040.line-35a",
+   "collects": [],
+   "inner_refs": [
+    "tax.us.2025.payments.line34-overpaid",
+    "tax.us.2025.payments.line36-applied-to-2026"
+   ],
+   "kind": "other",
+   "publishes": "tax.us.2025.payments.line35a-refunded",
+   "read_by": [],
+   "round_count": 1,
+   "rule": "tax.us.2025.rule.form1040-line35a",
+   "ties_out_against": [],
+   "ties_out_as_line": [],
+   "version": "v1"
+  },
+  {
+   "bound_field": "tax.us.2025.form1040.line-37",
+   "collects": [],
+   "inner_refs": [
+    "tax.us.2025.payments.line33",
+    "tax.us.2025.tax.line24-total-tax"
+   ],
+   "kind": "other",
+   "publishes": "tax.us.2025.payments.line37-amount-owed",
+   "read_by": [],
+   "round_count": 1,
+   "rule": "tax.us.2025.rule.form1040-line37",
+   "ties_out_against": [],
+   "ties_out_as_line": [],
+   "version": "v1"
+  },
+  {
+   "bound_field": "tax.us.2025.form1040.tax-after-credits",
+   "collects": [],
+   "inner_refs": [
+    "tax.us.2025.credits.form1040-line20",
+    "tax.us.2025.ctc.form1040-line19",
+    "tax.us.2025.tax.total-tax"
+   ],
+   "kind": "other",
+   "publishes": "tax.us.2025.tax.after-nonrefundable-credits",
+   "read_by": [
+    "tax.us.2025.rule.form1040-line24"
+   ],
+   "round_count": 1,
+   "rule": "tax.us.2025.rule.form1040-tax-after-credits",
+   "ties_out_against": [],
+   "ties_out_as_line": [],
+   "version": "v2"
+  },
+  {
+   "bound_field": null,
+   "collects": [
+    [
+     "tax.us.2025.form1065-k1.box5-interest",
+     "tax.us.2025.form1065-k1.box5"
+    ]
+   ],
+   "inner_refs": [],
+   "kind": "subtotal-of-collect",
+   "publishes": "tax.us.2025.interest.form1065-k1-box5-subtotal",
+   "read_by": [
+    "tax.us.2025.rule.form1040-line2b",
+    "tax.us.2025.rule.interest-positive-total"
+   ],
+   "round_count": 1,
+   "rule": "tax.us.2025.rule.form1065-k1-box5-subtotal",
+   "ties_out_against": [
+    {
+     "attachment": "tax.us.2025.rule.attachment.schedule-b",
+     "family": "tax.us.2025.form1065-k1.box5",
+     "kind": "row_set",
+     "member": "tax.us.2025.form1065-k1.box5-interest",
+     "part": "part-i-interest",
+     "version": "v7"
+    }
+   ],
+   "ties_out_as_line": [],
+   "version": "v2"
+  },
+  {
+   "bound_field": null,
+   "collects": [
+    [
+     "tax.us.2025.non-form-interest.amount",
+     "tax.us.2025.non-form-interest"
+    ]
+   ],
+   "inner_refs": [],
+   "kind": "subtotal-of-collect",
+   "publishes": "tax.us.2025.interest.non-form-subtotal",
+   "read_by": [
+    "tax.us.2025.rule.form1040-line2b",
+    "tax.us.2025.rule.interest-positive-total"
+   ],
+   "round_count": 1,
+   "rule": "tax.us.2025.rule.non-form-interest-subtotal",
+   "ties_out_against": [
+    {
+     "attachment": "tax.us.2025.rule.attachment.schedule-b",
+     "family": "tax.us.2025.non-form-interest",
+     "kind": "row_set",
+     "member": "tax.us.2025.non-form-interest.amount",
+     "part": "part-i-interest",
+     "version": "v7"
+    }
+   ],
+   "ties_out_as_line": [],
+   "version": "v2"
+  },
+  {
+   "bound_field": null,
+   "collects": [],
+   "inner_refs": [
+    "filing_status",
+    "tax.us.2025.qdcg-worksheet.line-5"
+   ],
+   "kind": "other",
+   "publishes": "tax.us.2025.qdcg-worksheet.line-22",
+   "read_by": [
+    "tax.us.2025.rule.qdcg-worksheet.line-23"
+   ],
+   "round_count": 2,
+   "rule": "tax.us.2025.rule.qdcg-worksheet.line-22",
+   "ties_out_against": [],
+   "ties_out_as_line": [],
+   "version": "v1"
+  },
+  {
+   "bound_field": null,
+   "collects": [],
+   "inner_refs": [
+    "filing_status",
+    "tax.us.2025.income.taxable-income"
+   ],
+   "kind": "other",
+   "publishes": "tax.us.2025.qdcg-worksheet.line-24",
+   "read_by": [
+    "tax.us.2025.rule.form1040-line16",
+    "tax.us.2025.rule.qdcg-worksheet.line-25"
+   ],
+   "round_count": 2,
+   "rule": "tax.us.2025.rule.qdcg-worksheet.line-24",
+   "ties_out_against": [],
+   "ties_out_as_line": [],
+   "version": "v1"
+  },
+  {
+   "bound_field": "tax.us.2025.schedule3.line-1",
+   "collects": [],
+   "inner_refs": [
+    "tax.us.2025.foreign-tax.box7-subtotal",
+    "tax.us.2025.tax.total-tax"
+   ],
+   "kind": "other",
+   "publishes": "tax.us.2025.schedule3.line1-direct-ftc",
+   "read_by": [
+    "tax.us.2025.rule.ctc-worksheet-a.line-2",
+    "tax.us.2025.rule.schedule3-line8"
+   ],
+   "round_count": 1,
+   "rule": "tax.us.2025.rule.schedule3-line1-direct-ftc",
+   "ties_out_against": [],
+   "ties_out_as_line": [],
+   "version": "v3"
+  },
+  {
+   "bound_field": null,
+   "collects": [
+    [
+     "tax.us.2025.scheduleb.adjustment.abp-adjustment.amount",
+     "tax.us.2025.scheduleb.adjustment.abp-adjustment"
+    ]
+   ],
+   "inner_refs": [],
+   "kind": "subtotal-of-collect",
+   "publishes": "tax.us.2025.interest.scheduleb-abp-adjustment-subtotal",
+   "read_by": [
+    "tax.us.2025.rule.form1040-line2b"
+   ],
+   "round_count": 1,
+   "rule": "tax.us.2025.rule.scheduleb-adjustment.abp-adjustment-subtotal",
+   "ties_out_against": [
+    {
+     "attachment": "tax.us.2025.rule.attachment.schedule-b",
+     "kind": "adjustment_row:abp_adjustment",
+     "part": "part-i-interest",
+     "version": "v7"
+    }
+   ],
+   "ties_out_as_line": [],
+   "version": "v2"
+  },
+  {
+   "bound_field": null,
+   "collects": [
+    [
+     "tax.us.2025.scheduleb.adjustment.nominee.amount",
+     "tax.us.2025.scheduleb.adjustment.nominee"
+    ]
+   ],
+   "inner_refs": [],
+   "kind": "subtotal-of-collect",
+   "publishes": "tax.us.2025.interest.scheduleb-nominee-subtotal",
+   "read_by": [
+    "tax.us.2025.rule.form1040-line2b"
+   ],
+   "round_count": 1,
+   "rule": "tax.us.2025.rule.scheduleb-adjustment.nominee-subtotal",
+   "ties_out_against": [
+    {
+     "attachment": "tax.us.2025.rule.attachment.schedule-b",
+     "kind": "adjustment_row:nominee_distribution",
+     "part": "part-i-interest",
+     "version": "v7"
+    }
+   ],
+   "ties_out_as_line": [],
+   "version": "v2"
+  },
+  {
+   "bound_field": null,
+   "collects": [
+    [
+     "tax.us.2025.f1098e.box1-student-loan-interest",
+     "tax.us.2025.f1098e.1"
+    ]
+   ],
+   "inner_refs": [],
+   "kind": "subtotal-of-collect",
+   "publishes": "tax.us.2025.sli-worksheet.line1-total-interest-paid-subtotal",
+   "read_by": [
+    "tax.us.2025.rule.sli-worksheet"
+   ],
+   "round_count": 1,
+   "rule": "tax.us.2025.rule.sli-worksheet-line1-subtotal",
+   "ties_out_against": [
+    {
+     "attachment": "tax.us.2025.rule.attachment.schedule-1",
+     "family": "tax.us.2025.f1098e.1",
+     "kind": "row_set",
+     "member": "tax.us.2025.f1098e.box1-student-loan-interest",
+     "part": "line-21-student-loan-interest",
+     "version": "v5"
+    }
+   ],
+   "ties_out_as_line": [
+    {
+     "adjustment_subtotals": null,
+     "attachment": "tax.us.2025.rule.attachment.schedule-1",
+     "line_symbol": "tax.us.2025.sli-worksheet.line1-total-interest-paid-subtotal",
+     "part": "line-21-student-loan-interest",
+     "positive_subtotals": null,
+     "version": "v5"
+    }
+   ],
+   "version": "v1"
+  },
+  {
+   "bound_field": "tax.us.2025.form1040.line-6b",
+   "collects": [],
+   "inner_refs": [
+    "filing_status",
+    "tax.us.2025.capital-gains.line7a-total",
+    "tax.us.2025.dividends.ordinary-total",
+    "tax.us.2025.income.additional-income",
+    "tax.us.2025.interest.taxable-total",
+    "tax.us.2025.ira.distributions.line4b",
+    "tax.us.2025.mfs-lived-apart-all-year",
+    "tax.us.2025.social-security.line6a",
+    "tax.us.2025.tax-exempt-interest.line2a-total",
+    "tax.us.2025.wages.total-w2-box1"
+   ],
+   "kind": "other",
+   "publishes": "tax.us.2025.social-security.line6b",
+   "read_by": [
+    "tax.us.2025.rule.form1040-line9"
+   ],
+   "round_count": 1,
+   "rule": "tax.us.2025.rule.ss-benefits-worksheet",
+   "ties_out_against": [],
+   "ties_out_as_line": [],
+   "version": "v3"
+  },
+  {
+   "bound_field": null,
+   "collects": [
+    [
+     "tax.us.2025.ssa1099.box5-net-benefits",
+     "tax.us.2025.ssa1099.benefits"
+    ]
+   ],
+   "inner_refs": [],
+   "kind": "subtotal-of-collect",
+   "publishes": "tax.us.2025.ssa1099.benefits.box5-subtotal",
+   "read_by": [
+    "tax.us.2025.rule.form1040-line6a"
+   ],
+   "round_count": 1,
+   "rule": "tax.us.2025.rule.ssa1099-benefits-subtotal",
+   "ties_out_against": [],
+   "ties_out_as_line": [],
+   "version": "v1"
+  },
+  {
+   "bound_field": "tax.us.2025.form.sch8812.line-20",
+   "collects": [],
+   "inner_refs": [
+    "tax.us.2025.ctc.sch8812.line-19"
+   ],
+   "kind": "other",
+   "publishes": "tax.us.2025.ctc.sch8812.line-20",
+   "read_by": [
+    "tax.us.2025.rule.ctc-sch8812-line-26",
+    "tax.us.2025.rule.ctc-sch8812-line-27",
+    "tax.us.2025.rule.ctc-sch8812-part-ii-b-needed"
+   ],
+   "round_count": 1,
+   "rule": "tax.us.2025.rule.ctc-sch8812-line-20",
+   "ties_out_against": [],
+   "ties_out_as_line": [],
+   "version": "v1"
+  },
+  {
+   "bound_field": null,
+   "collects": [
+    [
+     "tax.us.2025.w2.box4-social-security",
+     "tax.us.2025.w2-box4"
+    ]
+   ],
+   "inner_refs": [],
+   "kind": "subtotal-of-collect",
+   "publishes": "tax.us.2025.w2.box4-total",
+   "read_by": [
+    "tax.us.2025.rule.ctc-sch8812-line-21"
+   ],
+   "round_count": 1,
+   "rule": "tax.us.2025.rule.w2-box4-total",
+   "ties_out_against": [],
+   "ties_out_as_line": [],
+   "version": "v1"
+  },
+  {
+   "bound_field": null,
+   "collects": [
+    [
+     "tax.us.2025.w2.box6-medicare",
+     "tax.us.2025.w2-box6"
+    ]
+   ],
+   "inner_refs": [],
+   "kind": "subtotal-of-collect",
+   "publishes": "tax.us.2025.w2.box6-total",
+   "read_by": [
+    "tax.us.2025.rule.ctc-sch8812-line-21"
+   ],
+   "round_count": 1,
+   "rule": "tax.us.2025.rule.w2-box6-total",
+   "ties_out_against": [],
+   "ties_out_as_line": [],
+   "version": "v1"
+  },
+  {
+   "bound_field": null,
+   "collects": [
+    [
+     "tax.us.2025.f1099g.box4-withholding",
+     "tax.us.2025.f1099g.b4"
+    ]
+   ],
+   "inner_refs": [],
+   "kind": "subtotal-of-collect",
+   "publishes": "tax.us.2025.unemployment.b4-withholding-subtotal",
+   "read_by": [
+    "tax.us.2025.rule.form1040-line25b"
+   ],
+   "round_count": 1,
+   "rule": "tax.us.2025.rule.f1099g-b4-subtotal",
+   "ties_out_against": [],
+   "ties_out_as_line": [],
+   "version": "v1"
+  },
+  {
+   "bound_field": null,
+   "collects": [
+    [
+     "tax.us.2025.ssa1099.box6-voluntary-withholding",
+     "tax.us.2025.ssa1099.b6"
+    ]
+   ],
+   "inner_refs": [],
+   "kind": "subtotal-of-collect",
+   "publishes": "tax.us.2025.ssa1099.b6-withholding-subtotal",
+   "read_by": [
+    "tax.us.2025.rule.form1040-line25b"
+   ],
+   "round_count": 1,
+   "rule": "tax.us.2025.rule.ssa1099-b6-subtotal",
+   "ties_out_against": [],
+   "ties_out_as_line": [],
+   "version": "v1"
+  },
+  {
+   "bound_field": "tax.us.2025.form1040.line-25b",
+   "collects": [],
+   "inner_refs": [
+    "tax.us.2025.dividends.b4-withholding-subtotal",
+    "tax.us.2025.interest.b4-withholding-subtotal",
+    "tax.us.2025.ira.box4-withholding-subtotal",
+    "tax.us.2025.ssa1099.b6-withholding-subtotal",
+    "tax.us.2025.unemployment.b4-withholding-subtotal"
+   ],
+   "kind": "sum-of-refs",
+   "publishes": "tax.us.2025.payments.line25b",
+   "read_by": [
+    "tax.us.2025.rule.form1040-line25d"
+   ],
+   "round_count": 1,
+   "rule": "tax.us.2025.rule.form1040-line25b",
+   "ties_out_against": [],
+   "ties_out_as_line": [],
+   "version": "v3"
+  },
+  {
+   "bound_field": null,
+   "collects": [
+    [
+     "tax.us.2025.w2g.box1-winnings",
+     "tax.us.2025.w2g.b1"
+    ]
+   ],
+   "inner_refs": [],
+   "kind": "subtotal-of-collect",
+   "publishes": "tax.us.2025.gambling.b1-winnings-subtotal",
+   "read_by": [
+    "tax.us.2025.rule.schedule1-line8b"
+   ],
+   "round_count": 1,
+   "rule": "tax.us.2025.rule.w2g-b1-subtotal",
+   "ties_out_against": [
+    {
+     "attachment": "tax.us.2025.rule.attachment.schedule-1",
+     "family": "tax.us.2025.w2g.b1",
+     "kind": "row_set",
+     "member": "tax.us.2025.w2g.box1-winnings",
+     "part": "line-8b-gambling",
+     "version": "v5"
+    }
+   ],
+   "ties_out_as_line": [
+    {
+     "adjustment_subtotals": null,
+     "attachment": "tax.us.2025.rule.attachment.schedule-1",
+     "line_symbol": "tax.us.2025.gambling.b1-winnings-subtotal",
+     "part": "line-8b-gambling",
+     "positive_subtotals": null,
+     "version": "v5"
+    }
+   ],
+   "version": "v1"
+  },
+  {
+   "bound_field": null,
+   "collects": [
+    [
+     "tax.us.2025.w2g.box4-withholding",
+     "tax.us.2025.w2g.b4"
+    ]
+   ],
+   "inner_refs": [],
+   "kind": "subtotal-of-collect",
+   "publishes": "tax.us.2025.gambling.b4-withholding-subtotal",
+   "read_by": [
+    "tax.us.2025.rule.form1040-line25c"
+   ],
+   "round_count": 1,
+   "rule": "tax.us.2025.rule.w2g-b4-subtotal",
+   "ties_out_against": [],
+   "ties_out_as_line": [],
+   "version": "v1"
+  }
+ ],
+ "tie_symbols_not_rounded": [
+  {
+   "rules": [
+    [
+     "tax.us.2025.rule.f1099b-covered-lt-basis-subtotal",
+     "v2"
+    ]
+   ],
+   "symbol": "tax.us.2025.f1099b.covered-lt-basis-subtotal",
+   "tie": [
+    {
+     "attachment": "tax.us.2025.rule.attachment.schedule-d",
+     "family": "tax.us.2025.f1099b.covered-lt-basis",
+     "kind": "row_set",
+     "member": "tax.us.2025.f1099b.covered-lt-txn.basis",
+     "part": "line-8a-basis",
+     "version": "v6"
+    }
+   ]
+  },
+  {
+   "rules": [
+    [
+     "tax.us.2025.rule.f1099b-covered-lt-proceeds-subtotal",
+     "v2"
+    ]
+   ],
+   "symbol": "tax.us.2025.f1099b.covered-lt-proceeds-subtotal",
+   "tie": [
+    {
+     "attachment": "tax.us.2025.rule.attachment.schedule-d",
+     "family": "tax.us.2025.f1099b.covered-lt-proceeds",
+     "kind": "row_set",
+     "member": "tax.us.2025.f1099b.covered-lt-txn.proceeds",
+     "part": "line-8a-proceeds",
+     "version": "v6"
+    }
+   ]
+  },
+  {
+   "rules": [
+    [
+     "tax.us.2025.rule.f1099b-covered-st-basis-subtotal",
+     "v2"
+    ]
+   ],
+   "symbol": "tax.us.2025.f1099b.covered-st-basis-subtotal",
+   "tie": [
+    {
+     "attachment": "tax.us.2025.rule.attachment.schedule-d",
+     "family": "tax.us.2025.f1099b.covered-st-basis",
+     "kind": "row_set",
+     "member": "tax.us.2025.f1099b.covered-st-txn.basis",
+     "part": "line-1a-basis",
+     "version": "v6"
+    }
+   ]
+  },
+  {
+   "rules": [
+    [
+     "tax.us.2025.rule.f1099b-covered-st-proceeds-subtotal",
+     "v2"
+    ]
+   ],
+   "symbol": "tax.us.2025.f1099b.covered-st-proceeds-subtotal",
+   "tie": [
+    {
+     "attachment": "tax.us.2025.rule.attachment.schedule-d",
+     "family": "tax.us.2025.f1099b.covered-st-proceeds",
+     "kind": "row_set",
+     "member": "tax.us.2025.f1099b.covered-st-txn.proceeds",
+     "part": "line-1a-proceeds",
+     "version": "v6"
+    }
+   ]
+  },
+  {
+   "rules": [
+    [
+     "tax.us.2025.rule.f1099b-covered-w-lt-adjustment-subtotal",
+     "v3"
+    ]
+   ],
+   "symbol": "tax.us.2025.f1099b.covered-w-lt-adjustment-subtotal",
+   "tie": [
+    {
+     "attachment": "tax.us.2025.rule.attachment.f8949",
+     "family": "tax.us.2025.f1099b.covered-w-lt-adjustment",
+     "kind": "row_set",
+     "member": "tax.us.2025.f1099b.covered-w-lt-txn.adjustment",
+     "part": "box-d-adjustment",
+     "version": "v2"
+    }
+   ]
+  },
+  {
+   "rules": [
+    [
+     "tax.us.2025.rule.f1099b-covered-w-lt-basis-subtotal",
+     "v3"
+    ]
+   ],
+   "symbol": "tax.us.2025.f1099b.covered-w-lt-basis-subtotal",
+   "tie": [
+    {
+     "attachment": "tax.us.2025.rule.attachment.f8949",
+     "family": "tax.us.2025.f1099b.covered-w-lt-basis",
+     "kind": "row_set",
+     "member": "tax.us.2025.f1099b.covered-w-lt-txn.basis",
+     "part": "box-d-basis",
+     "version": "v2"
+    }
+   ]
+  },
+  {
+   "rules": [
+    [
+     "tax.us.2025.rule.f1099b-covered-w-lt-proceeds-subtotal",
+     "v3"
+    ]
+   ],
+   "symbol": "tax.us.2025.f1099b.covered-w-lt-proceeds-subtotal",
+   "tie": [
+    {
+     "attachment": "tax.us.2025.rule.attachment.f8949",
+     "family": "tax.us.2025.f1099b.covered-w-lt-proceeds",
+     "kind": "row_set",
+     "member": "tax.us.2025.f1099b.covered-w-lt-txn.proceeds",
+     "part": "box-d-proceeds",
+     "version": "v2"
+    }
+   ]
+  },
+  {
+   "rules": [
+    [
+     "tax.us.2025.rule.f1099b-covered-w-st-adjustment-subtotal",
+     "v3"
+    ]
+   ],
+   "symbol": "tax.us.2025.f1099b.covered-w-st-adjustment-subtotal",
+   "tie": [
+    {
+     "attachment": "tax.us.2025.rule.attachment.f8949",
+     "family": "tax.us.2025.f1099b.covered-w-st-adjustment",
+     "kind": "row_set",
+     "member": "tax.us.2025.f1099b.covered-w-st-txn.adjustment",
+     "part": "box-a-adjustment",
+     "version": "v2"
+    }
+   ]
+  },
+  {
+   "rules": [
+    [
+     "tax.us.2025.rule.f1099b-covered-w-st-basis-subtotal",
+     "v3"
+    ]
+   ],
+   "symbol": "tax.us.2025.f1099b.covered-w-st-basis-subtotal",
+   "tie": [
+    {
+     "attachment": "tax.us.2025.rule.attachment.f8949",
+     "family": "tax.us.2025.f1099b.covered-w-st-basis",
+     "kind": "row_set",
+     "member": "tax.us.2025.f1099b.covered-w-st-txn.basis",
+     "part": "box-a-basis",
+     "version": "v2"
+    }
+   ]
+  },
+  {
+   "rules": [
+    [
+     "tax.us.2025.rule.f1099b-covered-w-st-proceeds-subtotal",
+     "v3"
+    ]
+   ],
+   "symbol": "tax.us.2025.f1099b.covered-w-st-proceeds-subtotal",
+   "tie": [
+    {
+     "attachment": "tax.us.2025.rule.attachment.f8949",
+     "family": "tax.us.2025.f1099b.covered-w-st-proceeds",
+     "kind": "row_set",
+     "member": "tax.us.2025.f1099b.covered-w-st-txn.proceeds",
+     "part": "box-a-proceeds",
+     "version": "v2"
+    }
+   ]
+  },
+  {
+   "rules": [
+    [
+     "tax.us.2025.rule.f1099k-box1a-subtotal",
+     "v1"
+    ]
+   ],
+   "symbol": "tax.us.2025.f1099k.box1a-subtotal",
+   "tie": [
+    {
+     "attachment": "tax.us.2025.rule.attachment.schedule-1",
+     "family": "tax.us.2025.f1099k",
+     "kind": "row_set",
+     "member": "tax.us.2025.f1099k.box1a-gross-amount",
+     "part": "sch1-top-entry-f1099k",
+     "version": "v5"
+    }
+   ]
+  },
+  {
+   "rules": [
+    [
+     "tax.us.2025.rule.interest.current-year-adjustment-subtotal",
+     "v1"
+    ]
+   ],
+   "symbol": "tax.us.2025.interest.current-year-adjustment-subtotal",
+   "tie": [
+    {
+     "attachment": "tax.us.2025.rule.attachment.schedule-b",
+     "kind": "adjustment_row:accrued_interest",
+     "part": "part-i-interest",
+     "version": "v7"
+    }
+   ]
+  },
+  {
+   "rules": [
+    [
+     "tax.us.2025.rule.interest.derived-nominee-subtotal",
+     "v1"
+    ]
+   ],
+   "symbol": "tax.us.2025.interest.derived-nominee-subtotal",
+   "tie": [
+    {
+     "attachment": "tax.us.2025.rule.attachment.schedule-b",
+     "kind": "adjustment_row:nominee_distribution",
+     "part": "part-i-interest",
+     "version": "v7"
+    }
+   ]
+  },
+  {
+   "rules": [
+    [
+     "tax.us.2025.rule.f1098-line8a",
+     "v5"
+    ]
+   ],
+   "symbol": "tax.us.2025.schedule-a.line8a",
+   "tie": [
+    {
+     "attachment": "tax.us.2025.rule.attachment.schedule-a",
+     "family": "tax.us.2025.f1098",
+     "kind": "row_set",
+     "member": "tax.us.2025.f1098.box1-mortgage-interest",
+     "part": "line-8a-home-mortgage-interest",
+     "version": "v2"
+    }
+   ]
+  }
+ ]
+}
