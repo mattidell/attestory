@@ -1824,6 +1824,15 @@ class TestOrderedRetractabilityOnRealContent(unittest.TestCase):
         for subordinate, companions in self.registry.companion_presence_pairs.items():
             declared.add(subordinate)
             declared |= set([companions] if isinstance(companions, str) else companions)
+        # Core v65's Form W-2G pairs (ADR-0082) are earlier-package refusal
+        # markers, not relations between recorded statements: their companion
+        # is a witness no log can hold, so there is no admissible fixture.
+        from packages.tax.loader import W2G_UNREAD_WITNESS
+
+        pairs = self.registry.companion_presence_pairs
+        self.assertEqual(pairs["tax.us.2025.w2g.box1-winnings"], W2G_UNREAD_WITNESS)
+        self.assertEqual(pairs["tax.us.2025.w2g.box4-withholding"], W2G_UNREAD_WITNESS)
+        declared -= {W2G_UNREAD_WITNESS, "tax.us.2025.w2g.box1-winnings", "tax.us.2025.w2g.box4-withholding"}
         covered = {t for _, types, _ in _RELATION_GROUPS for t in types}
         self.assertEqual(declared, covered)
         self.assertEqual(len(declared), 24)

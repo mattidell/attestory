@@ -1,0 +1,153 @@
+{
+  "fact_types": [
+    {
+      "id": "tax.us.2025.w2g.box1-winnings",
+      "identity_keys": [
+        {
+          "entity_kind": "tax.us.gambling-payer",
+          "kind": "entity",
+          "name": "payer"
+        },
+        {
+          "entity_kind": "tax.us.w2g-statement",
+          "kind": "entity",
+          "name": "statement"
+        },
+        {
+          "kind": "literal",
+          "name": "tax-year",
+          "values": [
+            "2025"
+          ]
+        }
+      ],
+      "nature": "determinable",
+      "schema": "fact-type.v2",
+      "supersession": {
+        "policy": "free"
+      },
+      "title": "Reportable gambling winnings in box 1 of one logical Form W-2G statement instance furnished by a payer for 2025. Nonnegative source amount only; the same payer, statement and tax-year identity as box 4 on the same statement, but a separate fact and a separate family. Not winnings without a Form W-2G, not gambling losses, not a professional gambler's business gambling.",
+      "value_schema": {
+        "minimum": 0,
+        "type": "number"
+      },
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.w2g.box4-withholding",
+      "identity_keys": [
+        {
+          "entity_kind": "tax.us.gambling-payer",
+          "kind": "entity",
+          "name": "payer"
+        },
+        {
+          "entity_kind": "tax.us.w2g-statement",
+          "kind": "entity",
+          "name": "statement"
+        },
+        {
+          "kind": "literal",
+          "name": "tax-year",
+          "values": [
+            "2025"
+          ]
+        }
+      ],
+      "nature": "determinable",
+      "schema": "fact-type.v2",
+      "supersession": {
+        "policy": "free"
+      },
+      "title": "Federal income tax withheld in box 4 of one logical Form W-2G statement instance furnished by a payer for 2025; same payer, statement and tax-year identity as box 1 on the same statement, but a separate fact and a separate family. Nonnegative source amount only. Not state or local withholding.",
+      "value_schema": {
+        "minimum": 0,
+        "type": "number"
+      },
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.w2g.b1.source-closure",
+      "identity_keys": [
+        {
+          "entity_kind": "kernel.family-horizon",
+          "kind": "entity",
+          "name": "family-horizon"
+        },
+        {
+          "kind": "literal",
+          "name": "tax-year",
+          "values": [
+            "2025"
+          ]
+        }
+      ],
+      "nature": "determinable",
+      "schema": "fact-type.v2",
+      "supersession": {
+        "policy": "free"
+      },
+      "title": "Affirmative closure of the Form W-2G box 1 winnings family at the current membership horizon.",
+      "value_schema": {
+        "type": "boolean"
+      },
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.w2g.b4.source-closure",
+      "identity_keys": [
+        {
+          "entity_kind": "kernel.family-horizon",
+          "kind": "entity",
+          "name": "family-horizon"
+        },
+        {
+          "kind": "literal",
+          "name": "tax-year",
+          "values": [
+            "2025"
+          ]
+        }
+      ],
+      "nature": "determinable",
+      "schema": "fact-type.v2",
+      "supersession": {
+        "policy": "free"
+      },
+      "title": "Affirmative closure of the Form W-2G box 4 withholding family at the current membership horizon.",
+      "value_schema": {
+        "type": "boolean"
+      },
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.w2g-scope.no-sch1-other-income-except-w2g",
+      "identity_keys": [
+        {
+          "kind": "literal",
+          "name": "tax-year",
+          "values": [
+            "2025"
+          ]
+        }
+      ],
+      "nature": "determinable",
+      "schema": "fact-type.v2",
+      "supersession": {
+        "policy": "free"
+      },
+      "title": "Schedule 1 / Form W-2G scope completeness component: apart from gambling winnings reported on a Form W-2G that is recorded, no Schedule 1 income on lines 8a-8z is present; in particular no gambling winnings that are not on a recorded Form W-2G, no Form W-2G in another person's name, and no gambling that is a trade or business. Contributed categorical assertion, domain {yes, no}, no default, presence-before-value, free supersession. yes asserts the named excluded sources are absent; no asserts one is present and blocks the bounded additional-income claim.",
+      "value_schema": {
+        "enum": [
+          "yes",
+          "no"
+        ]
+      },
+      "version": "v1"
+    }
+  ],
+  "id": "tax.us.2025.w2g.vocabulary",
+  "label": "Form W-2G winnings and withholding for tax year 2025",
+  "schema": "bundle.v2",
+  "version": "v1"
+}

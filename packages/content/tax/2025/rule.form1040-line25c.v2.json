@@ -1,0 +1,56 @@
+{
+  "blocked": {
+    "code": "DEPENDENCY_ABSENT",
+    "missing": [
+      "tax.us.2025.gambling.b4-withholding-subtotal",
+      "rounding.convention"
+    ]
+  },
+  "citations": [
+    {
+      "id": "tax.us.2025.citation.form1040.line-25c",
+      "version": "v1"
+    }
+  ],
+  "id": "tax.us.2025.rule.form1040-line25c",
+  "notes": "Form 1040 line 25c: 'Other forms.' The 2025 instructions name Form(s) W-2G box 4 (i1040gi-2025 l.2587-2592); this version sums the closed Form W-2G box 4 family. An unconfirmed family blocks the line (SOURCE_SET_UNCLOSED on the subtotal); a confirmed-empty family publishes zero. v1 published a constant zero because no W-2G route existed and remains historical.",
+  "pins": [
+    {
+      "id": "tax.us.2025.gambling.b4-withholding-subtotal",
+      "origin": "assertion",
+      "role": "input",
+      "version": "v1"
+    },
+    {
+      "id": "rounding.convention",
+      "origin": "assertion",
+      "role": "input",
+      "version": "v1"
+    }
+  ],
+  "publishes": "tax.us.2025.payments.line25c",
+  "requires": [
+    "tax.us.2025.gambling.b4-withholding-subtotal",
+    "rounding.convention"
+  ],
+  "role": "computation",
+  "schema": "rule-artifact.v3",
+  "scope": {
+    "family": "individual-income-tax",
+    "jurisdiction": "US-federal",
+    "tax_year": 2025
+  },
+  "value": {
+    "mode": {
+      "name": "rounding.convention",
+      "op": "ref"
+    },
+    "op": "round",
+    "value": {
+      "name": "tax.us.2025.gambling.b4-withholding-subtotal",
+      "op": "ref"
+    }
+  },
+  "version": "v2",
+  "when": true
+}

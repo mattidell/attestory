@@ -1,0 +1,483 @@
+{
+  "core": "v64",
+  "scenarios": {
+    "S0_no_gambling": {
+      "blocked_all": [],
+      "blocked_count": 0,
+      "blocked_roots": [],
+      "disposition_kinds": [
+        "inapplicable",
+        "published"
+      ],
+      "dispositions_of_interest": [
+        {
+          "artifact_id": "tax.us.2025.rule.attachment.schedule-a",
+          "disposition": "inapplicable"
+        },
+        {
+          "artifact_id": "tax.us.2025.rule.schedule-a-total",
+          "disposition": "inapplicable"
+        }
+      ],
+      "values": {
+        "agi": "50000",
+        "line24_total_tax": "3875",
+        "line25a": "4500",
+        "line25b": "0",
+        "line25c": "0",
+        "line25d": "4500",
+        "line33": "4500",
+        "line35a_refund": "625",
+        "line37_owed": "0",
+        "line8_additional_income": "0",
+        "schedule1_line10": "0",
+        "taxable_income": "34250",
+        "total_income": "50000"
+      }
+    },
+    "S1_other_income_answered_no": {
+      "blocked_all": [
+        "rule.ctc-form1040-line19",
+        "rule.ctc-sch8812-line-1",
+        "rule.ctc-sch8812-line-10",
+        "rule.ctc-sch8812-line-11",
+        "rule.ctc-sch8812-line-12",
+        "rule.ctc-sch8812-line-13",
+        "rule.ctc-sch8812-line-14",
+        "rule.ctc-sch8812-line-16a",
+        "rule.ctc-sch8812-line-17",
+        "rule.ctc-sch8812-line-21",
+        "rule.ctc-sch8812-line-22",
+        "rule.ctc-sch8812-line-23",
+        "rule.ctc-sch8812-line-24",
+        "rule.ctc-sch8812-line-25",
+        "rule.ctc-sch8812-line-26",
+        "rule.ctc-sch8812-line-27",
+        "rule.ctc-sch8812-line-3",
+        "rule.ctc-sch8812-part-ii-b-needed",
+        "rule.ctc-worksheet-a.line-1",
+        "rule.ctc-worksheet-a.line-2",
+        "rule.ctc-worksheet-a.line-3",
+        "rule.ctc-worksheet-a.line-5",
+        "rule.eic-answer.age-25-under-65",
+        "rule.eic-answer.main-home-in-us",
+        "rule.eic-answer.no-unsupported-situations",
+        "rule.eic-answer.not-claimable-as-dependent",
+        "rule.eic-answer.not-nonresident-alien",
+        "rule.eic-answer.not-qualifying-child-of-another",
+        "rule.eic-answer.separated-spouse",
+        "rule.eic-answer.spouse-valid-ssn",
+        "rule.eic-answer.taxpayer-valid-ssn",
+        "rule.eic-early-stop",
+        "rule.eic-eligibility",
+        "rule.eic-gate-result",
+        "rule.eic-questions-required",
+        "rule.eic-worksheet-a.line-3",
+        "rule.eic-worksheet-a.line-5",
+        "rule.eic-worksheet-a.line-6",
+        "rule.form1040-line11",
+        "rule.form1040-line13b",
+        "rule.form1040-line14",
+        "rule.form1040-line15",
+        "rule.form1040-line16",
+        "rule.form1040-line20",
+        "rule.form1040-line24",
+        "rule.form1040-line27a",
+        "rule.form1040-line32",
+        "rule.form1040-line33",
+        "rule.form1040-line34",
+        "rule.form1040-line35a",
+        "rule.form1040-line36",
+        "rule.form1040-line37",
+        "rule.form1040-line8",
+        "rule.form1040-line9",
+        "rule.form1040-lines27-31-total",
+        "rule.form1040-lines28-31",
+        "rule.form1040-tax-after-credits",
+        "rule.qdcg-worksheet.line-10",
+        "rule.qdcg-worksheet.line-11",
+        "rule.qdcg-worksheet.line-12",
+        "rule.qdcg-worksheet.line-14",
+        "rule.qdcg-worksheet.line-15",
+        "rule.qdcg-worksheet.line-16",
+        "rule.qdcg-worksheet.line-17",
+        "rule.qdcg-worksheet.line-18",
+        "rule.qdcg-worksheet.line-19",
+        "rule.qdcg-worksheet.line-20",
+        "rule.qdcg-worksheet.line-21",
+        "rule.qdcg-worksheet.line-22",
+        "rule.qdcg-worksheet.line-23",
+        "rule.qdcg-worksheet.line-24",
+        "rule.qdcg-worksheet.line-25",
+        "rule.qdcg-worksheet.line-5",
+        "rule.qdcg-worksheet.line-7",
+        "rule.qdcg-worksheet.line-8",
+        "rule.qdcg-worksheet.line-9",
+        "rule.schedule1a-part-v-line-33",
+        "rule.schedule1a-part-v-line-34",
+        "rule.schedule1a-part-v-line-35",
+        "rule.schedule1a-part-v-line-36a",
+        "rule.schedule1a-part-v-line-36b",
+        "rule.schedule1a-part-v-line-37",
+        "rule.schedule3-line1-direct-ftc",
+        "rule.schedule3-line8",
+        "rule.ss-benefits-worksheet",
+        "rule.w2-box4-total",
+        "rule.w2-box6-total"
+      ],
+      "blocked_count": 87,
+      "blocked_roots": [],
+      "disposition_kinds": [
+        "blocked",
+        "inapplicable",
+        "published"
+      ],
+      "dispositions_of_interest": [
+        {
+          "artifact_id": "tax.us.2025.rule.schedule1-line10",
+          "disposition": "inapplicable"
+        },
+        {
+          "artifact_id": "tax.us.2025.rule.attachment.schedule-a",
+          "disposition": "inapplicable"
+        },
+        {
+          "artifact_id": "tax.us.2025.rule.form1040-line11",
+          "code": "DEPENDENCY_ABSENT",
+          "disposition": "blocked",
+          "missing": [
+            "tax.us.2025.income.total-income"
+          ]
+        },
+        {
+          "artifact_id": "tax.us.2025.rule.form1040-line8",
+          "code": "DEPENDENCY_ABSENT",
+          "disposition": "blocked",
+          "missing": [
+            "tax.us.2025.schedule1.line10-additional-income"
+          ]
+        },
+        {
+          "artifact_id": "tax.us.2025.rule.schedule-a-total",
+          "disposition": "inapplicable"
+        }
+      ],
+      "values": {
+        "agi": null,
+        "line24_total_tax": null,
+        "line25a": "4500",
+        "line25b": "0",
+        "line25c": "0",
+        "line25d": "4500",
+        "line33": null,
+        "line35a_refund": null,
+        "line37_owed": null,
+        "line8_additional_income": null,
+        "schedule1_line10": null,
+        "taxable_income": null,
+        "total_income": null
+      }
+    },
+    "S2_schedule_a_gambling_answered_no": {
+      "blocked_all": [],
+      "blocked_count": 0,
+      "blocked_roots": [],
+      "disposition_kinds": [
+        "inapplicable",
+        "published"
+      ],
+      "dispositions_of_interest": [
+        {
+          "artifact_id": "tax.us.2025.rule.schedule-a-boundary-no-gambling-other",
+          "disposition": "inapplicable"
+        },
+        {
+          "artifact_id": "tax.us.2025.rule.attachment.schedule-a",
+          "disposition": "inapplicable"
+        },
+        {
+          "artifact_id": "tax.us.2025.rule.schedule-a-total",
+          "disposition": "inapplicable"
+        }
+      ],
+      "values": {
+        "agi": "50000",
+        "line24_total_tax": "3875",
+        "line25a": "4500",
+        "line25b": "0",
+        "line25c": "0",
+        "line25d": "4500",
+        "line33": "4500",
+        "line35a_refund": "625",
+        "line37_owed": "0",
+        "line8_additional_income": "0",
+        "schedule1_line10": "0",
+        "taxable_income": "34250",
+        "total_income": "50000"
+      }
+    },
+    "S3_both_no": {
+      "blocked_all": [
+        "rule.ctc-form1040-line19",
+        "rule.ctc-sch8812-line-1",
+        "rule.ctc-sch8812-line-10",
+        "rule.ctc-sch8812-line-11",
+        "rule.ctc-sch8812-line-12",
+        "rule.ctc-sch8812-line-13",
+        "rule.ctc-sch8812-line-14",
+        "rule.ctc-sch8812-line-16a",
+        "rule.ctc-sch8812-line-17",
+        "rule.ctc-sch8812-line-21",
+        "rule.ctc-sch8812-line-22",
+        "rule.ctc-sch8812-line-23",
+        "rule.ctc-sch8812-line-24",
+        "rule.ctc-sch8812-line-25",
+        "rule.ctc-sch8812-line-26",
+        "rule.ctc-sch8812-line-27",
+        "rule.ctc-sch8812-line-3",
+        "rule.ctc-sch8812-part-ii-b-needed",
+        "rule.ctc-worksheet-a.line-1",
+        "rule.ctc-worksheet-a.line-2",
+        "rule.ctc-worksheet-a.line-3",
+        "rule.ctc-worksheet-a.line-5",
+        "rule.eic-answer.age-25-under-65",
+        "rule.eic-answer.main-home-in-us",
+        "rule.eic-answer.no-unsupported-situations",
+        "rule.eic-answer.not-claimable-as-dependent",
+        "rule.eic-answer.not-nonresident-alien",
+        "rule.eic-answer.not-qualifying-child-of-another",
+        "rule.eic-answer.separated-spouse",
+        "rule.eic-answer.spouse-valid-ssn",
+        "rule.eic-answer.taxpayer-valid-ssn",
+        "rule.eic-early-stop",
+        "rule.eic-eligibility",
+        "rule.eic-gate-result",
+        "rule.eic-questions-required",
+        "rule.eic-worksheet-a.line-3",
+        "rule.eic-worksheet-a.line-5",
+        "rule.eic-worksheet-a.line-6",
+        "rule.form1040-line11",
+        "rule.form1040-line13b",
+        "rule.form1040-line14",
+        "rule.form1040-line15",
+        "rule.form1040-line16",
+        "rule.form1040-line20",
+        "rule.form1040-line24",
+        "rule.form1040-line27a",
+        "rule.form1040-line32",
+        "rule.form1040-line33",
+        "rule.form1040-line34",
+        "rule.form1040-line35a",
+        "rule.form1040-line36",
+        "rule.form1040-line37",
+        "rule.form1040-line8",
+        "rule.form1040-line9",
+        "rule.form1040-lines27-31-total",
+        "rule.form1040-lines28-31",
+        "rule.form1040-tax-after-credits",
+        "rule.qdcg-worksheet.line-10",
+        "rule.qdcg-worksheet.line-11",
+        "rule.qdcg-worksheet.line-12",
+        "rule.qdcg-worksheet.line-14",
+        "rule.qdcg-worksheet.line-15",
+        "rule.qdcg-worksheet.line-16",
+        "rule.qdcg-worksheet.line-17",
+        "rule.qdcg-worksheet.line-18",
+        "rule.qdcg-worksheet.line-19",
+        "rule.qdcg-worksheet.line-20",
+        "rule.qdcg-worksheet.line-21",
+        "rule.qdcg-worksheet.line-22",
+        "rule.qdcg-worksheet.line-23",
+        "rule.qdcg-worksheet.line-24",
+        "rule.qdcg-worksheet.line-25",
+        "rule.qdcg-worksheet.line-5",
+        "rule.qdcg-worksheet.line-7",
+        "rule.qdcg-worksheet.line-8",
+        "rule.qdcg-worksheet.line-9",
+        "rule.schedule1a-part-v-line-33",
+        "rule.schedule1a-part-v-line-34",
+        "rule.schedule1a-part-v-line-35",
+        "rule.schedule1a-part-v-line-36a",
+        "rule.schedule1a-part-v-line-36b",
+        "rule.schedule1a-part-v-line-37",
+        "rule.schedule3-line1-direct-ftc",
+        "rule.schedule3-line8",
+        "rule.ss-benefits-worksheet",
+        "rule.w2-box4-total",
+        "rule.w2-box6-total"
+      ],
+      "blocked_count": 87,
+      "blocked_roots": [],
+      "disposition_kinds": [
+        "blocked",
+        "inapplicable",
+        "published"
+      ],
+      "dispositions_of_interest": [
+        {
+          "artifact_id": "tax.us.2025.rule.schedule-a-boundary-no-gambling-other",
+          "disposition": "inapplicable"
+        },
+        {
+          "artifact_id": "tax.us.2025.rule.schedule1-line10",
+          "disposition": "inapplicable"
+        },
+        {
+          "artifact_id": "tax.us.2025.rule.attachment.schedule-a",
+          "disposition": "inapplicable"
+        },
+        {
+          "artifact_id": "tax.us.2025.rule.form1040-line11",
+          "code": "DEPENDENCY_ABSENT",
+          "disposition": "blocked",
+          "missing": [
+            "tax.us.2025.income.total-income"
+          ]
+        },
+        {
+          "artifact_id": "tax.us.2025.rule.form1040-line8",
+          "code": "DEPENDENCY_ABSENT",
+          "disposition": "blocked",
+          "missing": [
+            "tax.us.2025.schedule1.line10-additional-income"
+          ]
+        },
+        {
+          "artifact_id": "tax.us.2025.rule.schedule-a-total",
+          "disposition": "inapplicable"
+        }
+      ],
+      "values": {
+        "agi": null,
+        "line24_total_tax": null,
+        "line25a": "4500",
+        "line25b": "0",
+        "line25c": "0",
+        "line25d": "4500",
+        "line33": null,
+        "line35a_refund": null,
+        "line37_owed": null,
+        "line8_additional_income": null,
+        "schedule1_line10": null,
+        "taxable_income": null,
+        "total_income": null
+      }
+    },
+    "S4_both_yes_is_S0": {
+      "same_values_as_S0": true
+    },
+    "S5_w2g_in_log_run_on_v64": {
+      "blocked_all": [],
+      "blocked_count": 0,
+      "blocked_roots": [],
+      "disposition_kinds": [
+        "inapplicable",
+        "published"
+      ],
+      "dispositions_of_interest": [
+        {
+          "artifact_id": "tax.us.2025.rule.attachment.schedule-a",
+          "disposition": "inapplicable"
+        },
+        {
+          "artifact_id": "tax.us.2025.rule.schedule-a-total",
+          "disposition": "inapplicable"
+        }
+      ],
+      "same_values_as_S0": true,
+      "values": {
+        "agi": "50000",
+        "line24_total_tax": "3875",
+        "line25a": "4500",
+        "line25b": "0",
+        "line25c": "0",
+        "line25d": "4500",
+        "line33": "4500",
+        "line35a_refund": "625",
+        "line37_owed": "0",
+        "line8_additional_income": "0",
+        "schedule1_line10": "0",
+        "taxable_income": "34250",
+        "total_income": "50000"
+      }
+    }
+  },
+  "twins": {
+    "T1_single_1200_no_withholding": {
+      "engine": {
+        "agi": "51200",
+        "line24_total_tax": "4019",
+        "line25d": "4500",
+        "line35a_refund": "481",
+        "line37_owed": "0",
+        "taxable_income": "35450"
+      },
+      "expected_by_hand": {
+        "agi": "51200",
+        "line24_total_tax": "4019",
+        "line25d": "4500",
+        "line35a_refund": "481",
+        "line37_owed": "0",
+        "taxable_income": "35450"
+      },
+      "match": true
+    },
+    "T2_single_6000_1440_withheld": {
+      "engine": {
+        "agi": "56000",
+        "line24_total_tax": "4595",
+        "line25d": "5940",
+        "line35a_refund": "1345",
+        "line37_owed": "0",
+        "taxable_income": "40250"
+      },
+      "expected_by_hand": {
+        "agi": "56000",
+        "line24_total_tax": "4595",
+        "line25d": "5940",
+        "line35a_refund": "1345",
+        "line37_owed": "0",
+        "taxable_income": "40250"
+      },
+      "match": true
+    },
+    "T3_joint_base_80000": {
+      "engine": {
+        "agi": "80000",
+        "line24_total_tax": "5346",
+        "line25d": "7000",
+        "line35a_refund": "1654",
+        "line37_owed": "0",
+        "taxable_income": "48500"
+      },
+      "expected_by_hand": {
+        "agi": "80000",
+        "line24_total_tax": "5346",
+        "line25d": "7000",
+        "line35a_refund": "1654",
+        "line37_owed": "0",
+        "taxable_income": "48500"
+      },
+      "match": true
+    },
+    "T4_joint_two_w2g_5000_720_withheld": {
+      "engine": {
+        "agi": "85000",
+        "line24_total_tax": "5946",
+        "line25d": "7720",
+        "line35a_refund": "1774",
+        "line37_owed": "0",
+        "taxable_income": "53500"
+      },
+      "expected_by_hand": {
+        "agi": "85000",
+        "line24_total_tax": "5946",
+        "line25d": "7720",
+        "line35a_refund": "1774",
+        "line37_owed": "0",
+        "taxable_income": "53500"
+      },
+      "match": true
+    }
+  }
+}

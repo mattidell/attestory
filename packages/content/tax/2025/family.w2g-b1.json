@@ -1,0 +1,16 @@
+{
+  "authorizes_subtotal": "tax.us.2025.gambling.b1-winnings-subtotal",
+  "closure_claim": "Every Form W-2G furnished to the taxpayer (and, on a joint return, the spouse) for tax year 2025 is recorded as a statement item with its box 1 amount as of the keyed horizon. This claim covers Form W-2G box 1 only: it says nothing about box 4 withholding, gambling winnings without a Form W-2G, gambling losses, or other Schedule 1 items. Closed with members authorizes the sum of current members; closed-empty authorizes subtotal 0.",
+  "id": "tax.us.2025.w2g.b1",
+  "member_predicate": {
+    "fact_type": "tax.us.2025.w2g.box1-winnings"
+  },
+  "schema": "source-family.v1",
+  "scope": {
+    "family": "individual-income-tax",
+    "jurisdiction": "US-federal",
+    "tax_year": 2025
+  },
+  "title": "Form W-2G box 1 statement items, tax year 2025",
+  "version": "v1"
+}
