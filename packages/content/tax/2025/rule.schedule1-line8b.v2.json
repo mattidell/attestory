@@ -1,0 +1,55 @@
+{
+  "blocked": {
+    "code": "DEPENDENCY_ABSENT",
+    "missing": [
+      "tax.us.2025.gambling.b1-winnings-subtotal"
+    ]
+  },
+  "citations": [
+    {
+      "id": "tax.us.2025.citation.schedule1.line-8b",
+      "version": "v1"
+    }
+  ],
+  "id": "tax.us.2025.rule.schedule1-line8b",
+  "notes": "Schedule 1 (Form 1040) line 8b for the bounded 2025 class: gambling winnings not attributable to a trade or business, equal to the closed Form W-2G box 1 family subtotal (i1040gi-2025 l.6561-6575). Winnings without a Form W-2G, gambling that is a business, and gambling losses are outside the class and stay refused by answer (see rule.w2g-b1-subtotal and the w2g-scope answer on line 10). Core v66 (itemization-cents, Track 1): the subtotal it reads now carries cents, so this line rounds it once with the rounding convention. A whole-dollar subtotal gives the same value as before.",
+  "pins": [
+    {
+      "id": "rounding.convention",
+      "origin": "assertion",
+      "role": "input",
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.gambling.b1-winnings-subtotal",
+      "origin": "assertion",
+      "role": "input",
+      "version": "v1"
+    }
+  ],
+  "publishes": "tax.us.2025.schedule1.line8b-gambling",
+  "requires": [
+    "rounding.convention",
+    "tax.us.2025.gambling.b1-winnings-subtotal"
+  ],
+  "role": "computation",
+  "schema": "rule-artifact.v3",
+  "scope": {
+    "family": "individual-income-tax",
+    "jurisdiction": "US-federal",
+    "tax_year": 2025
+  },
+  "value": {
+    "mode": {
+      "name": "rounding.convention",
+      "op": "ref"
+    },
+    "op": "round",
+    "value": {
+      "name": "tax.us.2025.gambling.b1-winnings-subtotal",
+      "op": "ref"
+    }
+  },
+  "version": "v2",
+  "when": true
+}

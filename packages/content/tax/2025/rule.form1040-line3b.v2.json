@@ -1,0 +1,53 @@
+{
+  "blocked": {
+    "code": "OPEN_DEPENDENCY",
+    "missing": [
+      "tax.us.2025.dividends.1a-subtotal"
+    ]
+  },
+  "id": "tax.us.2025.rule.form1040-line3b",
+  "notes": "Form 1040 Line 3b: total ordinary dividends. Composes from box 1a over the closed tax.us.2025.f1099div.1a family only (ADR-0035 decisions 1-2, per-box closure independence): closed-empty publishes an honest zero, undeclared or open blocks this line independently of line 3a's box-1b family. Core v66 (itemization-cents, Track 2): the box-1a subtotal now carries cents, so this line rounds it once with the rounding convention. A whole-dollar subtotal gives the same value as before.",
+  "pins": [
+    {
+      "id": "rounding.convention",
+      "origin": "assertion",
+      "role": "input",
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.dividends.1a-subtotal",
+      "origin": "assertion",
+      "role": "input",
+      "version": "v1"
+    }
+  ],
+  "publishes": "tax.us.2025.dividends.ordinary-total",
+  "requires": [
+    "rounding.convention",
+    "tax.us.2025.dividends.1a-subtotal"
+  ],
+  "role": "computation",
+  "schema": "rule-artifact.v2",
+  "scope": {
+    "effective_from": "2025-01-01",
+    "family": "individual-income-tax",
+    "jurisdiction": "US-federal",
+    "tax_year": 2025
+  },
+  "value": {
+    "mode": {
+      "name": "rounding.convention",
+      "op": "ref"
+    },
+    "op": "round",
+    "value": {
+      "name": "tax.us.2025.dividends.1a-subtotal",
+      "op": "ref"
+    }
+  },
+  "version": "v2",
+  "when": {
+    "op": "require_closed",
+    "source_set": "tax.us.2025.f1099div.1a"
+  }
+}

@@ -234,6 +234,9 @@ def domain_package_companion_declarations() -> dict[tuple[str, str], dict[str, A
         ("tax.us.2025.package.core-calculations", "v63"): withholding,
         ("tax.us.2025.package.core-calculations", "v64"): withholding,
         ("tax.us.2025.package.core-calculations", "v65"): w2g,
+        # Core v66 changes where lines round (itemization-cents) and asks no new
+        # question, so it shares v65's declaration.
+        ("tax.us.2025.package.core-calculations", "v66"): w2g,
     }
 
 
