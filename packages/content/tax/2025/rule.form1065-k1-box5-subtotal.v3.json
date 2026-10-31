@@ -1,0 +1,41 @@
+{
+  "blocked": {
+    "code": "SOURCE_SET_UNCLOSED",
+    "missing": [
+      "tax.us.2025.form1065-k1.box5"
+    ]
+  },
+  "citations": [
+    {
+      "id": "tax.us.2025.citation.form1065-k1.box5",
+      "version": "v1"
+    }
+  ],
+  "id": "tax.us.2025.rule.form1065-k1-box5-subtotal",
+  "notes": "Aggregates only current 2025 Schedule K-1 (Form 1065) box-5 members under the dedicated closed family. Waits for tax.us.2025.form1065-k1.box5 to be confirmed closed (attachment-closure). Core v68 (interest-cents): this subtotal no longer rounds. It publishes the sum with cents, which is the figure the Schedule B Part I attachment's itemized rows add to, so the attachment ties out when a member carries cents. Line 2b (rule.form1040-line2b-rounded) rounds the total once (i1040gi-2025 'Rounding Off to Whole Dollars': include cents when adding amounts and round off only the total). Its closure guard is unchanged.",
+  "pins": [],
+  "publishes": "tax.us.2025.interest.form1065-k1-box5-subtotal",
+  "requires": [],
+  "role": "computation",
+  "schema": "rule-artifact.v3",
+  "scope": {
+    "family": "individual-income-tax",
+    "jurisdiction": "US-federal",
+    "tax_year": 2025
+  },
+  "value": {
+    "args": [
+      {
+        "name": "tax.us.2025.form1065-k1.box5-interest",
+        "op": "collect",
+        "source_set": "tax.us.2025.form1065-k1.box5"
+      }
+    ],
+    "op": "add"
+  },
+  "version": "v3",
+  "when": {
+    "op": "require_closed",
+    "source_set": "tax.us.2025.form1065-k1.box5"
+  }
+}

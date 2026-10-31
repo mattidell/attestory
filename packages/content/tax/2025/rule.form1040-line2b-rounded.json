@@ -1,0 +1,55 @@
+{
+  "blocked": {
+    "code": "DEPENDENCY_ABSENT",
+    "missing": [
+      "tax.us.2025.interest.taxable-total"
+    ]
+  },
+  "citations": [
+    {
+      "id": "tax.us.2025.citation.form1040.line-2b",
+      "version": "v1"
+    }
+  ],
+  "id": "tax.us.2025.rule.form1040-line2b-rounded",
+  "notes": "Form 1040 (2025) line 2b: the Schedule B Part I taxable interest total rounded once with the rounding convention (i1040gi-2025 'Rounding Off to Whole Dollars': include cents when adding amounts and round off only the total). The total (tax.us.2025.interest.taxable-total) is the Schedule B Part I tie-out value and keeps its symbol; this line is the whole-dollar figure line 9, the Social Security benefits worksheet and the EIC investment income test read. Identity on a whole-dollar total.",
+  "pins": [
+    {
+      "id": "rounding.convention",
+      "origin": "assertion",
+      "role": "input",
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.interest.taxable-total",
+      "origin": "assertion",
+      "role": "input",
+      "version": "v1"
+    }
+  ],
+  "publishes": "tax.us.2025.interest.line-2b",
+  "requires": [
+    "rounding.convention",
+    "tax.us.2025.interest.taxable-total"
+  ],
+  "role": "computation",
+  "schema": "rule-artifact.v3",
+  "scope": {
+    "family": "individual-income-tax",
+    "jurisdiction": "US-federal",
+    "tax_year": 2025
+  },
+  "value": {
+    "mode": {
+      "name": "rounding.convention",
+      "op": "ref"
+    },
+    "op": "round",
+    "value": {
+      "name": "tax.us.2025.interest.taxable-total",
+      "op": "ref"
+    }
+  },
+  "version": "v1",
+  "when": true
+}
