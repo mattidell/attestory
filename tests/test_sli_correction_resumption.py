@@ -1227,6 +1227,9 @@ class SavedAccountResumption(unittest.TestCase):
 
 def _drive_scenario(url: str, scenario: str, workspace: Path, token: str = "") -> dict[str, Any]:
     assert _NODE is not None
+    # Every resumption scenario retains a fresh browser and process group.
+    env = os.environ.copy()
+    env.pop("DEMO_SHARED_CHROME_WS", None)
     proc = subprocess.Popen(
         [_NODE, str(_BROWSER_CLIENT), url, scenario, token],
         cwd=str(REPO),
@@ -1234,7 +1237,7 @@ def _drive_scenario(url: str, scenario: str, workspace: Path, token: str = "") -
         stdout=subprocess.PIPE,
         stderr=subprocess.PIPE,
         text=True,
-        start_new_session=True,
+        start_new_session=True, env=env,
     )
     try:
         stdout, stderr = proc.communicate(

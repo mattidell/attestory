@@ -25,7 +25,8 @@ from pathlib import Path
 from tempfile import TemporaryDirectory
 from typing import Any, cast
 
-from packages.derivation.explanation import explain, index_derived
+from packages.derivation.presentation_projection import project_presentation_v1
+from packages.derivation.explanation import explain_legacy as explain, index_derived
 from packages.derivation.live import live_coordinate_run
 from packages.derivation.live_workspace import WorkspaceCapability
 
@@ -42,7 +43,7 @@ from tests.test_refund_or_amount_owed_track1 import ROOT, USER
 from tests.test_refund_or_amount_owed_track1 import _close_empty, _close_other_box4_families, _finish
 from tests.test_refund_or_amount_owed_track2 import _add_bottom_line_answers, _add_box2_only
 from tests.test_child_tax_credit_presentation import (
-    JOINT_GOLDEN as CTC_V55_JOINT_GOLDEN,
+    JOINT_EXACT as CTC_V55_JOINT_EXACT,
     RUN_JOINT as CTC_V55_RUN_JOINT,
     _acts_joint_two_children as _ctc_v55_acts_joint,
     _present as _ctc_v55_present,
@@ -50,7 +51,9 @@ from tests.test_child_tax_credit_presentation import (
 
 PRESENTATION = ROOT / "packages" / "sample_data" / "other_dependents_credit" / "presentation"
 MFJ_GOLDEN = PRESENTATION / "mfj-child-under-17-and-eighteen-year-old-credit-on-line-19.presentation-model.v1.json"
+MFJ_EXACT = PRESENTATION / "mfj-child-under-17-and-eighteen-year-old-credit-on-line-19.exact-pins.presentation-model.v1.json"
 SINGLE_GOLDEN = PRESENTATION / "single-qualifying-relative-credit-on-line-19.presentation-model.v1.json"
+SINGLE_EXACT = SINGLE_GOLDEN.with_name(SINGLE_GOLDEN.name.replace(".presentation-model.v1.json", ".exact-pins.presentation-model.v1.json"))
 RUN_MFJ = "demo.odc.presentation.mfj-child-and-eighteen-year-old"
 RUN_SINGLE = "demo.odc.presentation.single-qualifying-relative"
 
@@ -164,11 +167,11 @@ def _child_tests(child: str) -> tuple[str, ...]:
 class OtherDependentPresentationTests(unittest.TestCase):
     def test_mfj_golden_regenerates_and_matches(self) -> None:
         model, _ = _present(_acts_mfj(), RUN_MFJ)
-        self.assertEqual(model, _load(MFJ_GOLDEN))
+        self.assertEqual(project_presentation_v1(model), _load(MFJ_EXACT))
 
     def test_single_golden_regenerates_and_matches(self) -> None:
         model, _ = _present(_acts_single(), RUN_SINGLE)
-        self.assertEqual(model, _load(SINGLE_GOLDEN))
+        self.assertEqual(project_presentation_v1(model), _load(SINGLE_EXACT))
 
     def test_mfj_hand_check(self) -> None:
         model, _ = _present(_acts_mfj(), RUN_MFJ)
@@ -244,7 +247,7 @@ class OtherDependentPresentationTests(unittest.TestCase):
 
     def test_v55_child_tax_credit_presentation_reads_as_before(self) -> None:
         model, _ = _ctc_v55_present(_ctc_v55_acts_joint(), CTC_V55_RUN_JOINT)
-        self.assertEqual(model, _load(CTC_V55_JOINT_GOLDEN))
+        self.assertEqual(project_presentation_v1(model), _load(CTC_V55_JOINT_EXACT))
 
 
 if __name__ == "__main__":

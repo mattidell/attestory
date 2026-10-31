@@ -1,0 +1,30 @@
+{
+  "explanation_graph": {
+    "nodes": {},
+    "roots": [],
+    "run_id": "demo.run",
+    "schema": "explanation-graph.v1"
+  },
+  "id": "walk:demo.run:demo.out",
+  "nodes": {
+    "demo.out": {
+      "code": "DEPENDENCY_ABSENT",
+      "node_id": "demo.out",
+      "node_kind": "blocked",
+      "rule_references": [
+        {
+          "id": "demo.rule",
+          "version": "v1"
+        }
+      ],
+      "symbol": "demo.out",
+      "unmet_references": [
+        "demo.input"
+      ]
+    }
+  },
+  "root": "demo.out",
+  "run_id": "demo.run",
+  "schema": "npe-walk.v4",
+  "workspace_revision": 1
+}

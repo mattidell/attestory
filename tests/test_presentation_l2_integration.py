@@ -208,7 +208,7 @@ class ProjectorFailClosed(unittest.TestCase):
 class ValidatorStrictness(unittest.TestCase):
     def _valid_model(self) -> dict[str, Any]:
         return {
-            "schema": PRESENTATION_MODEL_VERSION, "runId": "r", "pinLabels": {},
+            "schema": "presentation-model.v1", "runId": "r", "pinLabels": {},
             "sections": [{
                 "id": "line-x", "field": FIELD,
                 "resolved": {"disposition": "guard_inapplicable", "act": None},

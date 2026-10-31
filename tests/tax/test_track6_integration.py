@@ -52,6 +52,7 @@ class Track6IntegrationScenarios(unittest.TestCase):
                 "--scenario",
                 str(self._path(name)),
                 "--json",
+                "--legacy-tree",
             ],
             check=True,
             text=True,

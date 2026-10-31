@@ -23,7 +23,8 @@ from tempfile import TemporaryDirectory
 from typing import Any, cast
 import unittest
 
-from packages.derivation.explanation import explain, index_derived
+from packages.derivation.presentation_projection import project_presentation_v1
+from packages.derivation.explanation import explain_legacy as explain, index_derived
 from packages.derivation.live import live_coordinate_run
 from packages.derivation.live_workspace import WorkspaceCapability
 from tests.test_form_1099_withholding import (
@@ -119,11 +120,11 @@ def _walk(pubs: dict[str, dict[str, Any]], symbol: str) -> tuple[set[str], set[s
 class WithholdingPresentationTests(unittest.TestCase):
     def test_unemployment_golden_regenerates_and_matches(self) -> None:
         model, _ = _unemployment()
-        self.assertEqual(model, _load_golden(UNEMPLOYMENT_GOLDEN))
+        self.assertEqual(project_presentation_v1(model), _load_golden(UNEMPLOYMENT_GOLDEN))
 
     def test_social_security_golden_regenerates_and_matches(self) -> None:
         model, _ = _social_security()
-        self.assertEqual(model, _load_golden(SOCIAL_SECURITY_GOLDEN))
+        self.assertEqual(project_presentation_v1(model), _load_golden(SOCIAL_SECURITY_GOLDEN))
 
     def test_unemployment_lines(self) -> None:
         model, _ = _unemployment()

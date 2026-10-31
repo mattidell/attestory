@@ -11,6 +11,7 @@ from typing import Any, cast
 
 import jsonschema
 
+from packages.derivation.presentation_projection import project_presentation_v1
 from packages.derivation.live import live_coordinate_run
 from packages.derivation.live_workspace import WorkspaceCapability
 from packages.derivation.loader import DerivationSchemas
@@ -1082,7 +1083,7 @@ class LiveEvidenceCases(unittest.TestCase):
         )
         golden = json.loads(golden_path.read_text("utf-8"))
         self.assertEqual(
-            model,
+            project_presentation_v1(model),
             golden,
             "regenerate with tools/generate_form1099g_box1_schedule1_line7_goldens.py",
         )

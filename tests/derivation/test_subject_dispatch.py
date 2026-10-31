@@ -1059,13 +1059,13 @@ class DeclaredDefaultRecording(unittest.TestCase):
         before = _recorded_defaults(run, default_id)
         self.assertEqual(len(before), 1)
         self._assert_init_shape(run, ctx, default_id)
-        run.live_sources.append(SourceFact(
+        run._append_live_source(
             name=CIRCUMSTANCE,
             value="adverse",
             finding_id="demo.finding.circumstance.unjoined",
             fact_id="demo.fact.circumstance.unjoined",
             keys=(("student", STUDENT), ("period", PERIOD_SUMMER)),
-        ))
+        )
         run.evaluate_subject_scoped_rule(subject_type=FINANCING, rule=rule)
         after = _recorded_defaults(run, default_id)
         self.assertEqual(after, before)

@@ -22,6 +22,8 @@ never invokes a package manager), but the *enforcement* is unverified there
 
 from __future__ import annotations
 
+from tests.helpers.chrome_startup_slot import browser_startup_slot
+
 import http.server
 import platform
 import shutil
@@ -165,12 +167,13 @@ class OpenInTheViewingVehicle(unittest.TestCase):
                 port = httpd.server_address[1]
                 url = f"http://127.0.0.1:{port}/index.html"
                 vehicle = LiveViewingVehicle()
-                session = vehicle.launch(
-                    WorkspaceCapability(workspace_location),
-                    chrome_executable=_BROWSER,
-                    launch_timeout_seconds=10.0,
-                    initial_url=url,
-                )
+                with browser_startup_slot():
+                    session = vehicle.launch(
+                        WorkspaceCapability(workspace_location),
+                        chrome_executable=_BROWSER,
+                        launch_timeout_seconds=10.0,
+                        initial_url=url,
+                    )
                 try:
                     self.assertTrue(session.websocket_url.startswith("ws://127.0.0.1:"))
                     self.assertEqual(session.navigate(url), url)

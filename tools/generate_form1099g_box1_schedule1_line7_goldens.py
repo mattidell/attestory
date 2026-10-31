@@ -17,6 +17,7 @@ REPO = Path(__file__).resolve().parent.parent
 if str(REPO) not in sys.path:
     sys.path.insert(0, str(REPO))
 
+from packages.derivation.presentation_projection import project_presentation_v1
 from packages.derivation.live import live_coordinate_run
 from packages.derivation.live_workspace import WorkspaceCapability
 from tests.test_form1099g_box1_schedule1_line7 import (
@@ -55,10 +56,10 @@ def regenerate() -> dict[str, Any]:
         if outcome.refusal is not None:
             raise RuntimeError(str(outcome.refusal))
         assert outcome.presentation_path is not None
-        return cast(
+        return project_presentation_v1(cast(
             dict[str, Any],
             json.loads(outcome.presentation_path.read_text("utf-8")),
-        )
+        ))
 
 
 def main() -> None:

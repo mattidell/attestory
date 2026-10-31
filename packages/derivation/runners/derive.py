@@ -24,7 +24,8 @@ import json
 from pathlib import Path
 from typing import Any, Sequence, cast
 
-from packages.derivation.explanation import explain, index_derived
+from packages.derivation.explanation import explain_legacy, index_derived
+from packages.derivation.explanation_graph import GraphBuilder, render_graph
 from packages.derivation.loader import DerivationSchemas, load_canon
 from packages.derivation.package_validation import (
     load_published_package_checksums,
@@ -178,7 +179,7 @@ def _context(scenario: dict[str, Any]) -> RunContext:
     )
 
 
-def build_report(scenario: dict[str, Any]) -> dict[str, Any]:
+def build_report(scenario: dict[str, Any], *, legacy_tree: bool = False) -> dict[str, Any]:
     schemas = DerivationSchemas()
     ctx = _context(scenario)
     result = run(ctx, schemas)
@@ -202,10 +203,16 @@ def build_report(scenario: dict[str, Any]) -> dict[str, Any]:
          for pub in result.publications),
         key=lambda entry: entry["symbol"],
     )
-    explanations = {
-        entry["symbol"]: explain(entry["finding_id"], role="output", derived=derived, inputs=input_index).to_dict()
-        for entry in published
-    }
+    if legacy_tree:
+        explanations = {
+            entry["symbol"]: explain_legacy(entry["finding_id"], role="output", derived=derived, inputs=input_index).to_dict()
+            for entry in published
+        }
+    else:
+        builder = GraphBuilder(derived, input_index, run_id=result.run_id)
+        for entry in published:
+            builder.add_root(entry["finding_id"], role="output")
+        explanations = builder.to_dict()
     return {
         "run_id": result.run_id,
         "stop_reason": result.stop_reason,
@@ -237,8 +244,11 @@ def _human(report: dict[str, Any]) -> str:
             children=tuple(_node(c) for c in d["children"]),
         )
 
-    for symbol in sorted(report["explanations"]):
-        lines.append(render_text(_node(report["explanations"][symbol]), indent=1))
+    if report["explanations"].get("schema") == "explanation-graph.v1":
+        lines.append(render_graph(report["explanations"]))
+    else:
+        for symbol in sorted(report["explanations"]):
+            lines.append(render_text(_node(report["explanations"][symbol]), indent=1))
     return "\n".join(lines) + "\n"
 
 
@@ -246,10 +256,11 @@ def main(argv: Sequence[str] | None = None) -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--scenario", required=True, type=Path, help="Path to a scenario JSON file")
     parser.add_argument("--json", action="store_true", help="Print the JSON report instead of the human summary")
+    parser.add_argument("--legacy-tree", action="store_true", help="Emit the historical expanded-tree report")
     args = parser.parse_args(argv)
 
     scenario = load_scenario(args.scenario)
-    report = build_report(scenario)
+    report = build_report(scenario, legacy_tree=args.legacy_tree)
     if args.json:
         print(json.dumps(report, indent=2, sort_keys=True))
     else:

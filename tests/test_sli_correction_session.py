@@ -13,6 +13,7 @@ from __future__ import annotations
 
 import atexit
 import json
+import os
 import re
 import shutil
 import socket
@@ -1185,12 +1186,24 @@ def _api(root: str, route: str, body: Mapping[str, Any] | None = None, *,
         return json.loads(response.read())
 
 
+# Recovery, history and restart evidence always gets a fresh browser.
+_REUSED_BROWSER_SCENARIOS = frozenset({
+    "confirmed", "indistinguishable", "stale-financing", "withdrawn",
+    "shared", "duplicate-labels", "unblock", "d1-visible",
+})
+
+
 def _drive_page(url: str, scenario: str) -> dict[str, Any]:
     assert _NODE is not None
+    env = os.environ.copy()
+    env.pop("DEMO_SHARED_CHROME_WS", None)
+    if scenario in _REUSED_BROWSER_SCENARIOS:
+        from tests.helpers.correction_browser_owner import acquire
+        env["DEMO_SHARED_CHROME_WS"] = acquire()
     result = subprocess.run(
         [_NODE, str(REPO / "tests" / "helpers" / "correction_browser_client.mjs"), url, scenario],
         stdin=subprocess.DEVNULL, stdout=subprocess.PIPE, stderr=subprocess.PIPE,
-        text=True, timeout=_browser_client_timeout(scenario), check=False,
+        text=True, timeout=_browser_client_timeout(scenario), check=False, env=env,
     )
     if result.returncode != 0:
         raise AssertionError(result.stderr)

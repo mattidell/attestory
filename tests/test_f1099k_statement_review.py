@@ -1075,8 +1075,10 @@ class F1099KStatementReviewLiveDerivationTests(unittest.TestCase):
         self.assertIsNone(outcome.refusal)
         assert outcome.presentation_path is not None
 
-        # Create a modified presentation without top-entry or unresolved form-field sections
-        model = json.loads(outcome.presentation_path.read_text("utf-8"))
+        # Historical v1 permits a coherent missing-output view; a v2 file with
+        # a stale root map is independently rejected by the saved-loader tests.
+        from packages.derivation.presentation_projection import project_presentation_v1
+        model = project_presentation_v1(json.loads(outcome.presentation_path.read_text("utf-8")))
         model["sections"] = [
             s for s in model["sections"]
             if (s.get("field") or {}).get("id") not in (

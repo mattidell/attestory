@@ -355,7 +355,7 @@ class ScenarioGoldens(unittest.TestCase):
                 expected = json.loads(
                     (root / "expected" / "report.json").read_text("utf-8")
                 )
-                self.assertEqual(build_report(scenario), expected)
+                self.assertEqual(build_report(scenario, legacy_tree=True), expected)
 
     def test_the_two_empty_dispositions_are_distinct(self) -> None:
         from pathlib import Path

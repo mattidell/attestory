@@ -878,6 +878,12 @@ class TestAggregateSupportability(unittest.TestCase):
             if pub.finding.get("symbol") == CURRENT_YEAR_SUBTOTAL_SYMBOL
         )
         self.assertEqual(Decimal(str(subtotal["value"])), Decimal("400.0"))
+        consequences = [pub.finding for pub in result.publications
+            if str(pub.finding.get("symbol", "")).startswith(CURRENT_YEAR_SYMBOL_PREFIX + "|")]
+        self.assertTrue(consequences)
+        for finding in consequences:
+            self.assertEqual(finding["version"], "v2")
+            self.assertIn((finding["id"], "v2"), {(p["id"], p["version"]) for p in subtotal["pins"] if p["role"] == "input"})
 
     def test_aggregate_rule_absent_does_not_change_isolation_test_behavior(self) -> None:
         """An isolation test that omits the aggregate rule stays unaffected."""

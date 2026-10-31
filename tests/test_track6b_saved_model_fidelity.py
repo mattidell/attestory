@@ -252,7 +252,7 @@ class Track6bSavedModelFidelity(unittest.TestCase):
             # Drop every in-memory live result before reopening the durable model.
             del publications, dispositions, report, saved_before_drop, outcome, members
             models[case] = cast(dict[str, Any], json.loads(path.read_text("utf-8")))
-            self.assertEqual(models[case]["schema"], "presentation-model.v1")
+            self.assertEqual(models[case]["schema"], "presentation-model.v2")
             self.assertIn("calculationView", models[case])
             self.assertFalse(models[case]["calculationView"]["integrated"])
             self.assertEqual(len(models[case]["calculationView"]["groups"]), 2)

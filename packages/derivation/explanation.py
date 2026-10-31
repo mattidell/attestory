@@ -13,7 +13,8 @@ from __future__ import annotations
 from dataclasses import dataclass, replace
 from typing import Any
 
-from packages.derivation.authorization import AuthorizationResolution
+from packages.derivation.authorization import AuthorizationResolution, authorization_provenance
+from packages.derivation.explanation_graph import GraphBuilder, render_graph, validate_graph, validate_output_schema
 
 _RULE_ROLES = frozenset({"computation", "applicability", "field-mapping", "cross-form-bridge"})
 _DEPENDENCY_ROLES = frozenset({"input", "choice"})
@@ -45,10 +46,16 @@ class ExplanationNode:
 
 
 def index_derived(findings: list[dict[str, Any]]) -> dict[str, dict[str, Any]]:
-    return {finding["id"]: finding for finding in findings}
+    indexed: dict[str, dict[str, Any]] = {}
+    for finding in findings:
+        identifier = finding["id"]
+        if identifier in indexed and indexed[identifier] != finding:
+            raise ValueError("conflicting finding identity")
+        indexed[identifier] = finding
+    return indexed
 
 
-def explain(
+def explain_legacy(
     finding_id: str,
     *,
     role: str,
@@ -83,7 +90,7 @@ def explain(
             if pin_role in _RULE_ROLES:
                 produced_by = pin
             elif pin_role in _DEPENDENCY_ROLES:
-                children.append(explain(
+                children.append(explain_legacy(
                     pin["id"],
                     role=pin_role,
                     derived=derived,
@@ -130,6 +137,27 @@ def explain(
     return _attach_root_authorization(node, authorization, is_root)
 
 
+class ExplanationGraph:
+    """Shared output for a single root, with explicit compatibility conversion."""
+
+    def __init__(self, builder: GraphBuilder) -> None:
+        self.builder = builder
+
+    def to_dict(self) -> dict[str, Any]:
+        return self.builder.to_dict()
+
+
+def explain(
+    finding_id: str, *, role: str, derived: dict[str, dict[str, Any]],
+    inputs: dict[str, dict[str, Any]] | None = None,
+    authorization: AuthorizationResolution | None = None,
+) -> ExplanationGraph:
+    builder = GraphBuilder(derived, inputs)
+    builder.add_root(finding_id, role=role,
+                     authorization=authorization_provenance(authorization) if authorization is not None else None)
+    return ExplanationGraph(builder)
+
+
 def _attach_root_authorization(
     node: ExplanationNode,
     authorization: AuthorizationResolution | None,
@@ -164,8 +192,10 @@ def _leaf(finding_id: str, role: str, kind: str, version: str) -> ExplanationNod
     )
 
 
-def render_text(node: ExplanationNode, indent: int = 0) -> str:
-    """A compact human rendering of an explanation tree."""
+def render_text(node: ExplanationNode | ExplanationGraph, indent: int = 0) -> str:
+    """Render graphs with references; trees are the explicit legacy input."""
+    if isinstance(node, ExplanationGraph):
+        return "\n".join("  " * indent + line for line in render_graph(node.to_dict()).splitlines())
     pad = "  " * indent
     head = node.symbol if node.symbol is not None else node.finding_id
     value = f" = {node.value}" if node.value is not None else ""
@@ -190,7 +220,7 @@ def walk_npe(
     derived: dict[str, dict[str, Any]] | None = None,
     inputs: dict[str, dict[str, Any]] | None = None,
 ) -> dict[str, Any]:
-    """Pure project walker returning an npe-walk.v3 payload (ADR-0020/ADR-0055)."""
+    """Project a run to shared npe-walk.v4 (ADR-0020/ADR-0055)."""
     # 1. Locate start/completion records
     start_rec = next((r for r in records if r["run_id"] == run_id and r["phase"] == "started"), None)
     closing_rec = next((r for r in records if r["run_id"] == run_id and r["phase"] in ("completed", "interrupted", "failed")), None)
@@ -208,56 +238,62 @@ def walk_npe(
     inputs_findings = inputs or {}
 
     memo: dict[str, dict[str, Any]] = {}
-    explain_memo: dict[str, ExplanationNode] = {}
+    graph_builder = GraphBuilder(derived_findings, inputs_findings, run_id=run_id)
 
-    derived_symbols = {r["publishes"] for r in rules}
+    rules_by_symbol: dict[str, list[dict[str, Any]]] = {}
+    for rule in rules:
+        rules_by_symbol.setdefault(rule["publishes"], []).append(rule)
+    derived_symbols = set(rules_by_symbol)
+    symbols_by_rule: dict[str, set[str]] = {}
+    for rule in rules:
+        symbols_by_rule.setdefault(rule["id"], set()).add(rule["publishes"])
+    ledger_by_symbol: dict[str, list[dict[str, Any]]] = {}
+    for row in ledger:
+        for produced_symbol in symbols_by_rule.get(row["artifact_id"], set()):
+            ledger_by_symbol.setdefault(produced_symbol, []).append(row)
+    log_by_symbol: dict[str, str] = {}
+    for act in act_log or []:
+        finding = act.get("payload", {}).get("finding", {})
+        if act.get("kind") == "derived-publication" and act.get("payload", {}).get("run_id") == run_id and finding.get("symbol") is not None:
+            log_by_symbol.setdefault(finding["symbol"], finding["id"])
 
-    def walk_symbol(s: str, path: frozenset[str]) -> dict[str, Any]:
+    def walk_symbol(s: str, path: frozenset[str]) -> str:
         if s in path:
             raise CyclicDependencyError("CYCLIC_DEPENDENCY_ERROR")
         if s in memo:
-            return memo[s]
+            return s
 
-        producers = [r for r in rules if r["publishes"] == s]
-        producer_ids = {r["id"] for r in producers}
+        producers = rules_by_symbol.get(s, [])
+        producer_rows = ledger_by_symbol.get(s, [])
 
         # 1. Search ledger for published row
-        pub_row = next((row for row in ledger if row["artifact_id"] in producer_ids and row["disposition"] == "published"), None)
+        pub_row = next((row for row in producer_rows if row["disposition"] == "published"), None)
         finding_id = pub_row.get("finding_id") if pub_row else None
 
         # 2. Search act log for run-scoped derived-publication
-        if finding_id is None and act_log:
-            for act in act_log:
-                if (
-                    act.get("kind") == "derived-publication"
-                    and act.get("payload", {}).get("run_id") == run_id
-                    and act.get("payload", {}).get("finding", {}).get("symbol") == s
-                ):
-                    finding_id = act["payload"]["finding"]["id"]
-                    break
+        if finding_id is None:
+            finding_id = log_by_symbol.get(s)
 
         node_id = s
         rule_refs = [{"id": r["id"], "version": r["version"]} for r in producers]
         rule_refs.sort(key=lambda r: r["id"])
 
         if finding_id is not None:
-            # Delegate to explain
-            exp_node = explain(
-                finding_id,
-                role="input",
-                derived=derived_findings,
-                inputs=inputs_findings,
-                _memo=explain_memo,
-            )
-
-            children_nodes = []
+            # Expand the selected publication once into the shared pin graph.
+            try:
+                explanation_root = graph_builder.add_root(finding_id, role="input")
+            except ValueError as exc:
+                if str(exc) == "CYCLIC_DEPENDENCY_ERROR":
+                    raise CyclicDependencyError(str(exc)) from exc
+                raise
+            children_nodes: list[str] = []
             new_path = path | {s}
-
-            for child in exp_node.children:
-                child_symbol = child.symbol
-                if child_symbol is None and child.finding_id in derived_findings:
-                    child_symbol = derived_findings[child.finding_id].get("symbol")
-
+            selected = derived_findings.get(finding_id, {})
+            for pin in selected.get("pins", []):
+                if pin.get("role") not in _DEPENDENCY_ROLES:
+                    continue
+                child = derived_findings.get(pin.get("id"), {})
+                child_symbol = child.get("symbol")
                 if child_symbol is not None and child_symbol in derived_symbols:
                     children_nodes.append(walk_symbol(child_symbol, new_path))
 
@@ -267,14 +303,15 @@ def walk_npe(
                 "symbol": s,
                 "rule_references": rule_refs,
                 "finding_id": finding_id,
+                "explanation_root": explanation_root,
             }
             if children_nodes:
                 node["children"] = children_nodes
             memo[s] = node
-            return node
+            return s
 
         # 3. Search ledger for non-published rows
-        non_pub_rows = [row for row in ledger if row["artifact_id"] in producer_ids and row["disposition"] in ("blocked", "inapplicable")]
+        non_pub_rows = [row for row in producer_rows if row["disposition"] in ("blocked", "inapplicable")]
         if non_pub_rows:
             blocked_rows = [row for row in non_pub_rows if row["disposition"] == "blocked"]
             if blocked_rows:
@@ -323,7 +360,7 @@ def walk_npe(
                 if children_nodes:
                     node["children"] = children_nodes
                 memo[s] = node
-                return node
+                return s
             else:
                 # Inapplicable (guard_inapplicable) node
                 children_nodes = []
@@ -345,7 +382,7 @@ def walk_npe(
                 if children_nodes:
                     node["children"] = children_nodes
                 memo[s] = node
-                return node
+                return s
 
         # 4. Else, no disposition recorded
         node = {
@@ -356,13 +393,69 @@ def walk_npe(
             "closing_phase": closing_phase,
         }
         memo[s] = node
-        return node
+        return s
 
     root_node = walk_symbol(symbol, frozenset())
-    return {
-        "schema": "npe-walk.v3",
+    result = {
+        "schema": "npe-walk.v4",
         "id": f"walk:{run_id}:{symbol}",
         "run_id": run_id,
         "workspace_revision": workspace_revision,
         "root": root_node,
+        "nodes": memo,
+        "explanation_graph": graph_builder.to_dict(),
     }
+    validate_npe(result)
+    return result
+
+
+def validate_npe(walk: dict[str, Any]) -> None:
+    """Reject broken NPE references and run-context mismatches."""
+    validate_output_schema("npe-walk.v4", walk)
+    graph = walk["explanation_graph"]
+    validate_graph(graph)
+    if walk.get("schema") != "npe-walk.v4" or graph["run_id"] != walk.get("run_id"):
+        raise ValueError("invalid NPE context")
+    nodes = walk["nodes"]
+    if not isinstance(nodes, dict) or walk["root"] not in nodes:
+        raise ValueError("invalid NPE root")
+    active: set[str] = set()
+    done: set[str] = set()
+    def visit(key: str) -> None:
+        if key in active:
+            raise CyclicDependencyError("CYCLIC_DEPENDENCY_ERROR")
+        if key in done:
+            return
+        node = nodes[key]
+        if node.get("node_id") != key or not isinstance(node.get("children", []), list):
+            raise ValueError("invalid NPE node")
+        if node.get("node_kind") == "published":
+            target = node.get("explanation_root")
+            if target not in graph["nodes"] or graph["nodes"][target]["kind"] != "derived" or graph["nodes"][target]["id"] != node.get("finding_id"):
+                raise ValueError("invalid NPE finding reference")
+        active.add(key)
+        for child in node.get("children", []):
+            if not isinstance(child, str) or child not in nodes:
+                raise ValueError("invalid NPE child reference")
+            visit(child)
+        active.remove(key)
+        done.add(key)
+    for key in nodes:
+        visit(key)
+
+
+def walk_npe_legacy(**kwargs: Any) -> dict[str, Any]:
+    """Explicit adapter for historical npe-walk.v3 recursive consumers."""
+    graph = walk_npe(**kwargs)
+    memo: dict[str, dict[str, Any]] = {}
+    def expand(key: str) -> dict[str, Any]:
+        if key in memo:
+            return memo[key]
+        source = graph['nodes'][key]
+        node = {name: value for name, value in source.items() if name not in ('children', 'explanation_root')}
+        memo[key] = node
+        if 'children' in source:
+            node['children'] = [expand(child) for child in source['children']]
+        return node
+    return {'schema': 'npe-walk.v3', 'id': graph['id'], 'run_id': graph['run_id'],
+            'workspace_revision': graph['workspace_revision'], 'root': expand(graph['root'])}

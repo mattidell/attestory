@@ -1,6 +1,8 @@
 """Track 2: render the saved line 21 explanation through the production page."""
 from __future__ import annotations
 
+from tests.helpers.chrome_startup_slot import browser_startup_slot
+
 import copy
 import html
 import json
@@ -156,7 +158,8 @@ class SavedLine21ExplanationPage(unittest.TestCase):
         else:
             screenshot.parent.mkdir(parents=True, exist_ok=True)
             command.extend([f"--screenshot={screenshot}", path.as_uri()])
-        result = subprocess.run(command, capture_output=True, text=True, timeout=60, check=True)
+        with browser_startup_slot():
+            result = subprocess.run(command, capture_output=True, text=True, timeout=60, check=True)
         return result.stdout
 
     def _line(self, case: str) -> tuple[str, str, list[str]]:

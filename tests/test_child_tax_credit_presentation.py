@@ -22,7 +22,8 @@ from typing import Any, cast
 
 import unittest
 
-from packages.derivation.explanation import explain, index_derived
+from packages.derivation.presentation_projection import project_presentation_v1
+from packages.derivation.explanation import explain_legacy as explain, index_derived
 from packages.derivation.live import live_coordinate_run
 from packages.derivation.live_workspace import WorkspaceCapability
 from packages.derivation.production_resolver import PublicationSurface
@@ -48,7 +49,7 @@ from tests.test_refund_or_amount_owed_track1 import (
 )
 from tests.test_refund_or_amount_owed_track2 import _add_bottom_line_answers, _add_box2_only
 from tests.test_eic_qualifying_children_presentation import (
-    HOH_GOLDEN as V54_HOH_GOLDEN,
+    HOH_EXACT as V54_HOH_GOLDEN,
     RUN_HOH as V54_RUN_HOH,
     _acts_hoh_two_children as _v54_acts_hoh,
     _present as _v54_present,
@@ -57,7 +58,9 @@ from tests.test_eic_qualifying_children_track1 import SURFACE_V54
 
 PRESENTATION = ROOT / "packages" / "sample_data" / "child_tax_credit" / "presentation"
 JOINT_GOLDEN = PRESENTATION / "joint-two-children-credit-on-line-19.presentation-model.v1.json"
+JOINT_EXACT = JOINT_GOLDEN.with_name(JOINT_GOLDEN.name.replace(".presentation-model.v1.json", ".exact-pins.presentation-model.v1.json"))
 HOH_GOLDEN = PRESENTATION / "hoh-one-child-actc-with-unclaimed-17.presentation-model.v1.json"
+HOH_EXACT = HOH_GOLDEN.with_name(HOH_GOLDEN.name.replace(".presentation-model.v1.json", ".exact-pins.presentation-model.v1.json"))
 RUN_JOINT = "demo.ctc.presentation.joint-two-children-credit-on-line-19"
 RUN_HOH = "demo.ctc.presentation.hoh-one-child-actc-with-unclaimed-17"
 PACKAGE_V55 = CONTENT / "package.core-calculations.v55.json"
@@ -187,7 +190,7 @@ def _child_walk_symbols(child: str) -> tuple[str, ...]:
 class ChildTaxCreditPresentationTests(unittest.TestCase):
     def test_joint_two_children_golden_and_hand_check(self) -> None:
         model, _pubs = _present(_acts_joint_two_children(), RUN_JOINT)
-        self.assertEqual(model, _load(JOINT_GOLDEN))
+        self.assertEqual(project_presentation_v1(model), _load(JOINT_EXACT))
         # Hand check, married filing jointly, two children under 17, wages $75,000.
         # Form 1040 line 1a = line 11a = 75,000 (no adjustments).
         # Standard deduction $31,500 (i1040gi-2025.txt:230): taxable 43,500.
@@ -213,7 +216,7 @@ class ChildTaxCreditPresentationTests(unittest.TestCase):
 
     def test_hoh_one_child_actc_golden_and_hand_check(self) -> None:
         model, _pubs = _present(_acts_hoh_one_child_and_unclaimed_17(), RUN_HOH)
-        self.assertEqual(model, _load(HOH_GOLDEN))
+        self.assertEqual(project_presentation_v1(model), _load(HOH_EXACT))
         # Hand check, head of household, wages $18,000. Standard deduction $23,625
         # (i1040gi-2025.txt:232): taxable income 0, so tax 0 (line 16).
         self.assertEqual(_numeric(model, "line-16"), 0)
@@ -270,7 +273,7 @@ class ChildTaxCreditPresentationTests(unittest.TestCase):
 
     def test_v54_presentation_still_reads_as_before(self) -> None:
         model, _pubs = _v54_present(_v54_acts_hoh(), V54_RUN_HOH, SURFACE_V54)
-        self.assertEqual(model, _load(V54_HOH_GOLDEN))
+        self.assertEqual(project_presentation_v1(model), _load(V54_HOH_GOLDEN))
 
 
 if __name__ == "__main__":

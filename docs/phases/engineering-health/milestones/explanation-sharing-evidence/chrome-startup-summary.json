@@ -1,0 +1,350 @@
+{
+  "format": 1,
+  "kind": "bounded-chrome-startup-observation",
+  "candidate": "12080dab675a769bdbb52b3e2140968f6b6e3962",
+  "run_id": 40885777387,
+  "run_url": "https://github.com/mattidell/attestory/actions/runs/40885777387",
+  "conclusion": "success",
+  "pytest": {
+    "passed": 3692,
+    "skipped": 20,
+    "collected": 3712
+  },
+  "application": {
+    "launches": 18,
+    "outcomes": [
+      "ready_accepted"
+    ],
+    "readiness_ms": {
+      "min": 177,
+      "median": 286.0,
+      "max": 7392
+    }
+  },
+  "post_shard_probe": {
+    "launches": 28,
+    "outcomes": [
+      "ready_accepted"
+    ],
+    "readiness_ms": {
+      "min": 136,
+      "median": 180.0,
+      "max": 278
+    }
+  },
+  "slow_launches": [
+    {
+      "artifact": "pytest-durations-shard-2",
+      "label": "correction-other",
+      "outcome": "ready_accepted",
+      "readiness_ms": 7392,
+      "advertised_ms": 7378,
+      "elapsed_ms": 7392,
+      "stderr_bytes": 1053,
+      "exit_kind": "alive",
+      "exit_code": null,
+      "exit_signal": null,
+      "spawn_code": null,
+      "stderr_categories": [],
+      "deadline_monotonic_ms": null,
+      "deadline_wall_ms": null,
+      "file_metadata": {
+        "size": 60,
+        "mtime_from_start_ms": 7377,
+        "observed_ms": 7391
+      },
+      "file_states": [
+        {
+          "ms": 25,
+          "state": "missing"
+        },
+        {
+          "ms": 7391,
+          "state": "ready"
+        }
+      ],
+      "samples": [
+        {
+          "ms": 25,
+          "alive": true,
+          "available": true,
+          "state": "R",
+          "threads": 1,
+          "rss_kb": 3532,
+          "fds": 4,
+          "cpu_user_ticks": 0,
+          "cpu_system_ticks": 0,
+          "voluntary_switches": 2,
+          "involuntary_switches": 0,
+          "cgroup_memory_current": null,
+          "cgroup_pids_current": null,
+          "cgroup_memory_max": null,
+          "cgroup_pids_max": null
+        },
+        {
+          "ms": 2040,
+          "alive": true,
+          "available": true,
+          "state": "D",
+          "threads": 1,
+          "rss_kb": 61328,
+          "fds": 3,
+          "cpu_user_ticks": 0,
+          "cpu_system_ticks": 3,
+          "voluntary_switches": 416,
+          "involuntary_switches": 8,
+          "cgroup_memory_current": null,
+          "cgroup_pids_current": null,
+          "cgroup_memory_max": null,
+          "cgroup_pids_max": null
+        },
+        {
+          "ms": 4056,
+          "alive": true,
+          "available": true,
+          "state": "D",
+          "threads": 2,
+          "rss_kb": 91628,
+          "fds": 16,
+          "cpu_user_ticks": 1,
+          "cpu_system_ticks": 5,
+          "voluntary_switches": 707,
+          "involuntary_switches": 11,
+          "cgroup_memory_current": null,
+          "cgroup_pids_current": null,
+          "cgroup_memory_max": null,
+          "cgroup_pids_max": null
+        },
+        {
+          "ms": 6074,
+          "alive": true,
+          "available": true,
+          "state": "D",
+          "threads": 23,
+          "rss_kb": 121184,
+          "fds": 41,
+          "cpu_user_ticks": 4,
+          "cpu_system_ticks": 12,
+          "voluntary_switches": 1238,
+          "involuntary_switches": 30,
+          "cgroup_memory_current": null,
+          "cgroup_pids_current": null,
+          "cgroup_memory_max": null,
+          "cgroup_pids_max": null
+        }
+      ],
+      "diagnostic_error": false
+    },
+    {
+      "artifact": "pytest-durations-shard-3",
+      "label": "correction-calculate-dropped",
+      "outcome": "ready_accepted",
+      "readiness_ms": 5214,
+      "advertised_ms": 5188,
+      "elapsed_ms": 5214,
+      "stderr_bytes": 1053,
+      "exit_kind": "alive",
+      "exit_code": null,
+      "exit_signal": null,
+      "spawn_code": null,
+      "stderr_categories": [],
+      "deadline_monotonic_ms": null,
+      "deadline_wall_ms": null,
+      "file_metadata": {
+        "size": 60,
+        "mtime_from_start_ms": 5189,
+        "observed_ms": 5214
+      },
+      "file_states": [
+        {
+          "ms": 24,
+          "state": "missing"
+        },
+        {
+          "ms": 5214,
+          "state": "ready"
+        }
+      ],
+      "samples": [
+        {
+          "ms": 24,
+          "alive": true,
+          "available": true,
+          "state": "S",
+          "threads": 1,
+          "rss_kb": 3584,
+          "fds": 4,
+          "cpu_user_ticks": 0,
+          "cpu_system_ticks": 0,
+          "voluntary_switches": 5,
+          "involuntary_switches": 1,
+          "cgroup_memory_current": null,
+          "cgroup_pids_current": null,
+          "cgroup_memory_max": null,
+          "cgroup_pids_max": null
+        },
+        {
+          "ms": 2031,
+          "alive": true,
+          "available": true,
+          "state": "D",
+          "threads": 1,
+          "rss_kb": 82560,
+          "fds": 5,
+          "cpu_user_ticks": 1,
+          "cpu_system_ticks": 5,
+          "voluntary_switches": 551,
+          "involuntary_switches": 11,
+          "cgroup_memory_current": null,
+          "cgroup_pids_current": null,
+          "cgroup_memory_max": null,
+          "cgroup_pids_max": null
+        },
+        {
+          "ms": 4055,
+          "alive": true,
+          "available": true,
+          "state": "D",
+          "threads": 20,
+          "rss_kb": 116032,
+          "fds": 32,
+          "cpu_user_ticks": 6,
+          "cpu_system_ticks": 16,
+          "voluntary_switches": 1130,
+          "involuntary_switches": 28,
+          "cgroup_memory_current": null,
+          "cgroup_pids_current": null,
+          "cgroup_memory_max": null,
+          "cgroup_pids_max": null
+        }
+      ],
+      "diagnostic_error": false
+    }
+  ],
+  "probe_environments": [
+    {
+      "artifact": "pytest-durations-shard-0",
+      "label": "probe_environment",
+      "browser_version": [
+        156,
+        0,
+        8078,
+        47
+      ],
+      "node_version": [
+        24,
+        22,
+        1
+      ],
+      "platform": "linux",
+      "cpu_count": 4
+    },
+    {
+      "artifact": "pytest-durations-shard-1",
+      "label": "probe_environment",
+      "browser_version": [
+        156,
+        0,
+        8078,
+        47
+      ],
+      "node_version": [
+        24,
+        22,
+        1
+      ],
+      "platform": "linux",
+      "cpu_count": 4
+    },
+    {
+      "artifact": "pytest-durations-shard-2",
+      "label": "probe_environment",
+      "browser_version": [
+        156,
+        0,
+        8078,
+        47
+      ],
+      "node_version": [
+        24,
+        22,
+        1
+      ],
+      "platform": "linux",
+      "cpu_count": 4
+    },
+    {
+      "artifact": "pytest-durations-shard-3",
+      "label": "probe_environment",
+      "browser_version": [
+        156,
+        0,
+        8078,
+        47
+      ],
+      "node_version": [
+        24,
+        22,
+        1
+      ],
+      "platform": "linux",
+      "cpu_count": 4
+    }
+  ],
+  "trace_integrity": [
+    {
+      "artifact": "pytest-durations-shard-0",
+      "file": "chrome-probe.jsonl",
+      "sha256": "5bb988fc3a1d45f48d4a0a1caaf9c8978944545430a51d11d3fd686847bbf6cf",
+      "records": 8
+    },
+    {
+      "artifact": "pytest-durations-shard-0",
+      "file": "chrome-startup.jsonl",
+      "sha256": "76e262182846141d1f653041a8624697bf694d6694ce11ba06d9720fa3d3fc4b",
+      "records": 3
+    },
+    {
+      "artifact": "pytest-durations-shard-1",
+      "file": "chrome-probe.jsonl",
+      "sha256": "2db3fd38803e423801ab470d3f6d2d1a55b9dc8d6074f02f454812bc19adbbca",
+      "records": 8
+    },
+    {
+      "artifact": "pytest-durations-shard-1",
+      "file": "chrome-startup.jsonl",
+      "sha256": "0f3655dbcbf28f930a6dc736fe9b1f494212aee24e56e96a006ceb58fe112602",
+      "records": 3
+    },
+    {
+      "artifact": "pytest-durations-shard-2",
+      "file": "chrome-probe.jsonl",
+      "sha256": "66d9400ecc7e8fbf2b0b99aab32cc586ab6e6e40af3a28891d0b67583834cae6",
+      "records": 8
+    },
+    {
+      "artifact": "pytest-durations-shard-2",
+      "file": "chrome-startup.jsonl",
+      "sha256": "6c8fccbb91d35c4f62ccec8455f7d293088eb316cbc19436378da3e4012b104d",
+      "records": 8
+    },
+    {
+      "artifact": "pytest-durations-shard-3",
+      "file": "chrome-probe.jsonl",
+      "sha256": "c39d688c5609b2c861e54f7fa78b167334c1ef1406889b8ea293108a3217ddb3",
+      "records": 8
+    },
+    {
+      "artifact": "pytest-durations-shard-3",
+      "file": "chrome-startup.jsonl",
+      "sha256": "adacc75f3ba625ddc8bade72d4999a74d9cf86e76f72193e4b18d96f32f1654f",
+      "records": 4
+    }
+  ],
+  "limits": [
+    "No real launch exceeded the original acceptance deadline; the post-deadline window was demonstrated with controls only.",
+    "Cgroup counters were unavailable.",
+    "Recovery shard used ubuntu-26.04 image 20261025.179.1; earlier passing and failing recovery shards used ubuntu-24.04 image 20261025.353.1.",
+    "No root cause for the earlier ten-second failure is established."
+  ]
+}

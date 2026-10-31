@@ -100,8 +100,8 @@ def _index_by_fact_id(sources: Sequence[SourceFact], type_name: str) -> dict[str
     return {s.fact_id: s for s in sources if s.name == type_name and s.fact_id}
 
 
-def _input_pin(finding_id: str) -> dict[str, Any]:
-    return {"role": "input", "id": finding_id, "version": "v1", "origin": "assertion"}
+def _input_pin(source: SourceFact) -> dict[str, Any]:
+    return {"role": "input", "id": source.finding_id, "version": source.finding_version, "origin": "assertion"}
 
 
 def evaluate_pairing_scoped_rule(
@@ -137,7 +137,7 @@ def evaluate_pairing_scoped_rule(
 
     for pairing in pairing_sources:
         pairing_fact_id = pairing.fact_id or pairing.finding_id
-        pairing_pin = _input_pin(pairing.finding_id)
+        pairing_pin = _input_pin(pairing)
         decoded = _decode(pairing.value)
         if not isinstance(decoded, dict):
             blocked.append(PairingScopedBlocked(
@@ -166,11 +166,11 @@ def evaluate_pairing_scoped_rule(
         if left is None:
             missing.append(left_fact_id)
         else:
-            present_pins.append(_input_pin(left.finding_id))
+            present_pins.append(_input_pin(left))
         if right is None:
             missing.append(right_fact_id)
         else:
-            present_pins.append(_input_pin(right.finding_id))
+            present_pins.append(_input_pin(right))
         if missing:
             blocked.append(PairingScopedBlocked(
                 pairing_fact_id=pairing_fact_id,

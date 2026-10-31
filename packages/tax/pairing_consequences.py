@@ -165,8 +165,8 @@ def _verdict_passes(raw: Any) -> bool:
     return False
 
 
-def _input_pin(finding_id: str) -> dict[str, Any]:
-    return {"role": "input", "id": finding_id, "version": "v1", "origin": "assertion"}
+def _input_pin(finding_id: str, finding_version: str) -> dict[str, Any]:
+    return {"role": "input", "id": finding_id, "version": finding_version, "origin": "assertion"}
 
 
 def _citation_pin(citation_id: str, version: str = "v1") -> dict[str, Any]:
@@ -290,7 +290,7 @@ def _evaluate_one_factory(
         if supportability is None or not _verdict_passes(supportability.value):
             extra: tuple[dict[str, Any], ...] = ()
             if supportability is not None:
-                extra = (_input_pin(supportability.finding_id),)
+                extra = (_input_pin(supportability.finding_id, supportability.finding_version),)
             return PairingBlock(
                 code=SUPPORTABILITY_NOT_ESTABLISHED,
                 missing=(binding.pairing_fact_id,),
@@ -305,7 +305,7 @@ def _evaluate_one_factory(
                 code=exc.category,
                 missing=tuple(exc.missing) or (binding.left_fact_id,),
                 extra_pins=(
-                    _input_pin(supportability.finding_id),
+                    _input_pin(supportability.finding_id, supportability.finding_version),
                     *_dependency_pins(run, access),
                 ),
             )
@@ -314,7 +314,7 @@ def _evaluate_one_factory(
                 code=DEPENDENCY_INVALID,
                 missing=(binding.left_fact_id,),
                 extra_pins=(
-                    _input_pin(supportability.finding_id),
+                    _input_pin(supportability.finding_id, supportability.finding_version),
                     *_dependency_pins(run, access),
                 ),
             )
@@ -325,14 +325,14 @@ def _evaluate_one_factory(
                 code=DEPENDENCY_INVALID,
                 missing=(binding.left_fact_id,),
                 extra_pins=(
-                    _input_pin(supportability.finding_id),
+                    _input_pin(supportability.finding_id, supportability.finding_version),
                     *_dependency_pins(run, access),
                 ),
             )
         return PairingPublish(
             value=format(amount, "f"),
             extra_pins=(
-                _input_pin(supportability.finding_id),
+                _input_pin(supportability.finding_id, supportability.finding_version),
                 *_dependency_pins(run, access),
             ),
         )
@@ -702,8 +702,8 @@ def dispatch_aggregate_supportability_on_run(run: Any, rule: Mapping[str, Any]) 
             (Decimal(str(finding["value"])) for finding in findings), Decimal("0")
         )
         report_amount = Decimal(str(_decode(report_source.value)))
-        input_pins = [_input_pin(report_source.finding_id)]
-        input_pins.extend(_input_pin(finding["id"]) for finding in findings)
+        input_pins = [_input_pin(report_source.finding_id, report_source.finding_version)]
+        input_pins.extend(_input_pin(finding["id"], finding["version"]) for finding in findings)
         if total > report_amount:
             blocked_any = True
             blocked_report_fact_ids.add(report_fact_id)
@@ -781,7 +781,7 @@ def dispatch_current_year_subtotal_on_run(run: Any, rule: Mapping[str, Any]) -> 
         if not isinstance(symbol, str) or not symbol.startswith(prefix):
             continue
         total += Decimal(str(pub.finding["value"]))
-        pins.append(_input_pin(pub.finding["id"]))
+        pins.append(_input_pin(pub.finding["id"], pub.finding["version"]))
     run.publish_symbol_finding(
         rule_id=rule["id"],
         symbol=CURRENT_YEAR_SUBTOTAL_SYMBOL,

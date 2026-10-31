@@ -1,0 +1,267 @@
+Consumer inventory at ratified P0 base bb9e05e98a390ce12631c5d8fd18025af5300cdd
+
+Each section records every textual match, including definitions and comments. Lines are candidates, not a claim every hit is a consumer. Reproduce from that baseline tree with the commands below; inspect indirect routes in README.md. Scope is tracked production, tools and tests; dynamic imports or renamed aliases require separate review.
+
+## Direct walker imports, calls, serializers and NPE
+$ rg --sort path -n 'from packages\.derivation\.explanation import|import packages\.derivation\.explanation|\bexplain\(|\bwalk_npe\(|\brender_text\(|\.to_dict\(' packages tests tools --glob '*.py'
+packages/derivation/evaluator.py:197:    # ``authorization_provenance`` / ``explain(..., authorization=...)``.
+packages/derivation/explanation.py:42:            "children": [child.to_dict() for child in self.children],
+packages/derivation/explanation.py:51:def explain(
+packages/derivation/explanation.py:86:                children.append(explain(
+packages/derivation/explanation.py:167:def render_text(node: ExplanationNode, indent: int = 0) -> str:
+packages/derivation/explanation.py:175:        lines.append(render_text(child, indent + 1))
+packages/derivation/explanation.py:183:def walk_npe(
+packages/derivation/explanation.py:245:            exp_node = explain(
+packages/derivation/live.py:105:    # presentation projector but not for `explain()`'s node values. None on
+packages/derivation/runners/derive.py:27:from packages.derivation.explanation import explain, index_derived
+packages/derivation/runners/derive.py:206:        entry["symbol"]: explain(entry["finding_id"], role="output", derived=derived, inputs=input_index).to_dict()
+packages/derivation/runners/derive.py:219:    from packages.derivation.explanation import ExplanationNode, render_text
+packages/derivation/runners/derive.py:241:        lines.append(render_text(_node(report["explanations"][symbol]), indent=1))
+tests/derivation/test_authorization_wiring.py:19:from packages.derivation.explanation import explain
+tests/derivation/test_authorization_wiring.py:99:        node = explain(
+tests/derivation/test_authorization_wiring.py:129:        node = explain("demo.finding.output", role="output", derived=derived)
+tests/derivation/test_authorization_wiring.py:158:        node = explain(
+tests/derivation/test_conditional_multi_dependency.py:14:from packages.derivation.explanation import walk_npe
+tests/derivation/test_conditional_multi_dependency.py:197:        walk = walk_npe(run_id="demo.cmdn.run", symbol="demo.conditional.output", rules=[rule], records=records)
+tests/derivation/test_conditional_multi_dependency.py:308:                    walk = walk_npe(run_id=f"demo.cmdn.{name}", symbol="demo.conditional.output", rules=[_rule()], records=records)
+tests/derivation/test_explanation_cli.py:15:from packages.derivation.explanation import explain, index_derived, render_text
+tests/derivation/test_explanation_cli.py:41:        node = explain("finding:derived:bbb", role="output", derived=derived, inputs=inputs)
+tests/derivation/test_explanation_cli.py:61:        node = explain("finding:derived:aaa", role="output", derived=index_derived([finding]))
+tests/derivation/test_explanation_cli.py:62:        text = render_text(node)
+tests/derivation/test_npe_walk.py:10:from packages.derivation.explanation import walk_npe, CyclicDependencyError
+tests/derivation/test_npe_walk.py:54:        walk = walk_npe(
+tests/derivation/test_npe_walk.py:95:        walk = walk_npe(
+tests/derivation/test_npe_walk.py:123:        walk = walk_npe(
+tests/derivation/test_npe_walk.py:156:        walk = walk_npe(
+tests/derivation/test_npe_walk.py:177:        walk = walk_npe(
+tests/derivation/test_npe_walk.py:206:            walk_npe(
+tests/derivation/test_npe_walk.py:240:        walk = walk_npe(
+tests/derivation/test_npe_walk.py:290:        walk_r1 = walk_npe(
+tests/derivation/test_npe_walk.py:300:        walk_r2 = walk_npe(
+tests/tax/test_track3_line1a_rule.py:17:from packages.derivation.explanation import explain, index_derived
+tests/tax/test_track3_line1a_rule.py:154:        node = explain(finding_id, role="output", derived=derived)
+tests/tax/test_track3_line1a_rule.py:164:        node = explain(finding_id, role="output", derived=derived)
+tests/test_child_tax_credit_presentation.py:25:from packages.derivation.explanation import explain, index_derived
+tests/test_child_tax_credit_presentation.py:247:        symbols = {node.symbol for node in _nodes(explain(str(finding["id"]), role="output", derived=derived))}
+tests/test_child_tax_credit_presentation.py:260:        symbols = {node.symbol for node in _nodes(explain(str(finding["id"]), role="output", derived=derived))}
+tests/test_dtb_presentation.py:40:from packages.derivation.explanation import explain, index_derived
+tests/test_dtb_presentation.py:203:        tree = explain(str(pubs[LINE28]["id"]), role="output", derived=derived)
+tests/test_dtb_presentation.py:253:            tree = explain(str(pubs[sym]["id"]), role="output", derived=derived)
+tests/test_earned_income_credit_presentation.py:18:from packages.derivation.explanation import explain, index_derived
+tests/test_earned_income_credit_presentation.py:246:        node = explain(str(finding["id"]), role="output", derived=derived)
+tests/test_eic_qualifying_children_presentation.py:18:from packages.derivation.explanation import explain, index_derived
+tests/test_eic_qualifying_children_presentation.py:292:        node = explain(str(finding["id"]), role="output", derived=derived)
+tests/test_other_dependents_credit_presentation.py:28:from packages.derivation.explanation import explain, index_derived
+tests/test_other_dependents_credit_presentation.py:146:    pending = [explain(str(finding["id"]), role="output", derived=derived)]
+tests/test_refund_or_amount_owed_presentation.py:19:from packages.derivation.explanation import explain, index_derived
+tests/test_refund_or_amount_owed_presentation.py:179:        node = explain(str(finding["id"]), role="output", derived=derived)
+tests/test_refund_or_amount_owed_presentation.py:194:        node = explain(str(finding["id"]), role="output", derived=derived)
+tests/test_senior_and_dependent_deductions_presentation.py:19:from packages.derivation.explanation import explain, index_derived
+tests/test_senior_and_dependent_deductions_presentation.py:150:        node = explain(str(finding["id"]), role="output", derived=derived)
+tests/test_senior_and_dependent_deductions_presentation.py:168:        node = explain(str(finding["id"]), role="output", derived=derived)
+tests/test_tax_on_taxable_income_track2.py:17:from packages.derivation.explanation import ExplanationNode, explain, index_derived
+tests/test_tax_on_taxable_income_track2.py:186:        node = explain(str(saved["id"]), role="output", derived=derived)
+tests/test_tax_on_taxable_income_track2.py:200:        node = explain(str(pubs[track1.STD]["id"]), role="output", derived=derived)
+tools/generate_f1098e_track8_explanation_golden.py:19:`explain()`'s node values. No RunContext shortcut: every value here is the
+tools/generate_f1098e_track8_explanation_golden.py:40:from packages.derivation.explanation import ExplanationNode, explain, index_derived, render_text
+tools/generate_f1098e_track8_explanation_golden.py:69:        node = explain(target["id"], role="output", derived=derived)
+tools/generate_f1098e_track8_explanation_golden.py:70:        return {"run_id": outcome.run_id, "target_symbol": TARGET_SYMBOL, "explanation": node.to_dict()}
+tools/generate_f1098e_track8_explanation_golden.py:82:    lines.append(render_text(_node(report["explanation"]), indent=1))
+
+## Indirect runner and explanation golden consumers
+$ rg --sort path -n 'build_report\(|_human\(|runners\.derive|generate_f1098e_track8_explanation_golden|\["explanations"\]' packages tests tools --glob '*.py'
+packages/derivation/production_resolver.py:12:raw evaluator (``runner.run`` / ``runners.derive``): it produces a resolved member
+packages/derivation/runners/derive.py:181:def build_report(scenario: dict[str, Any]) -> dict[str, Any]:
+packages/derivation/runners/derive.py:218:def _human(report: dict[str, Any]) -> str:
+packages/derivation/runners/derive.py:240:    for symbol in sorted(report["explanations"]):
+packages/derivation/runners/derive.py:241:        lines.append(render_text(_node(report["explanations"][symbol]), indent=1))
+packages/derivation/runners/derive.py:252:    report = build_report(scenario)
+packages/derivation/runners/derive.py:256:        print(_human(report), end="")
+packages/kernel/runners/inspect_workspace.py:27:def _human(model: dict[str, Any]) -> str:
+packages/kernel/runners/inspect_workspace.py:88:        print(_human(selected), end="")
+tests/derivation/test_explanation_cli.py:70:            [sys.executable, "-m", "packages.derivation.runners.derive",
+tests/derivation/test_parameter_adapter_versions.py:9:from packages.derivation.runners.derive import _context
+tests/source_completeness/test_track3_authority_dispatch.py:19:from packages.derivation.runners.derive import _context
+tests/source_completeness/test_track4_interest_content.py:278:                    [sys.executable, "-m", "packages.derivation.runners.derive",
+tests/source_completeness/test_track5_lifecycle.py:349:        from packages.derivation.runners.derive import build_report
+tests/source_completeness/test_track5_lifecycle.py:358:                self.assertEqual(build_report(scenario), expected)
+tests/source_completeness/test_track5_lifecycle.py:363:        from packages.derivation.runners.derive import build_report
+tests/source_completeness/test_track5_lifecycle.py:366:        closed = build_report(json.loads(
+tests/source_completeness/test_track5_lifecycle.py:368:        opened = build_report(json.loads(
+tests/source_completeness/test_track5_lifecycle.py:376:        explanation = json.dumps(closed["explanations"])
+tests/tax/test_track3_line1a_rule.py:174:                sys.executable, "-m", "packages.derivation.runners.derive",
+tests/tax/test_track6_integration.py:21:from packages.derivation.runners.derive import _context, load_scenario
+tests/tax/test_track6_integration.py:51:                "packages.derivation.runners.derive",
+tests/test_f1098e_student_loan_interest_track8_explanation.py:28:            [sys.executable, "-m", "tools.generate_f1098e_track8_explanation_golden", *args],
+tools/generate_f1098e_track8_explanation_golden.py:54:def build_report() -> dict[str, Any]:
+tools/generate_f1098e_track8_explanation_golden.py:73:def _human(report: dict[str, Any]) -> str:
+tools/generate_f1098e_track8_explanation_golden.py:91:    report = build_report()
+tools/generate_f1098e_track8_explanation_golden.py:95:        print(_human(report), end="")
+
+## Projection, saved-model writers and readers
+$ rg --sort path -n 'validate_presentation_model|build_presentation_model|presentation_path|def _leaf_pins|def _raw_leaves|def _resolve_field_row|def _line_values|_saved_presentation' packages tools --glob '*.py'
+packages/derivation/correction_session.py:739:        saved_presentation_path: Path,
+packages/derivation/correction_session.py:757:            loaded = json.loads(saved_presentation_path.read_text("utf-8"))
+packages/derivation/correction_session.py:764:        self._saved_presentation: dict[str, Any] | None = loaded
+packages/derivation/correction_session.py:841:        if outcome.refusal is not None or outcome.presentation_path is None:
+packages/derivation/correction_session.py:844:            model = json.loads(outcome.presentation_path.read_text("utf-8"))
+packages/derivation/correction_session.py:906:        self._saved_presentation = saved_presentation
+packages/derivation/correction_session.py:963:        saved = self._saved_presentation
+packages/derivation/correction_session.py:1277:            if outcome.refusal is not None or outcome.presentation_path is None:
+packages/derivation/correction_session.py:1283:                model = json.loads(outcome.presentation_path.read_text("utf-8"))
+packages/derivation/correction_session.py:1288:            self._saved_presentation = model
+packages/derivation/correction_session.py:1331:        if run_outcome.refusal is not None or run_outcome.presentation_path is None:
+packages/derivation/correction_session.py:1334:            new_model = json.loads(run_outcome.presentation_path.read_text("utf-8"))
+packages/derivation/entry_loop.py:380:def _line_values(model: Mapping[str, Any]) -> dict[str, dict[str, Any]]:
+packages/derivation/entry_loop.py:608:        if outcome.presentation_path is None:
+packages/derivation/entry_loop.py:612:            model = json.loads(outcome.presentation_path.read_text("utf-8"))
+packages/derivation/live.py:26:from packages.derivation.presentation_projection import PresentationModelError, build_presentation_model
+packages/derivation/live.py:98:    presentation_path: Path | None = None
+packages/derivation/live.py:652:            presentation_path=None,
+packages/derivation/live.py:713:                presentation_path=None,
+packages/derivation/live.py:720:    presentation_path = workspace.reserve_live_output_path(
+packages/derivation/live.py:737:        model = build_presentation_model(
+packages/derivation/live.py:748:        presentation_path.unlink(missing_ok=True)
+packages/derivation/live.py:762:    presentation_path.write_text(json.dumps(model, indent=2, sort_keys=True) + "\n", encoding="utf-8")
+packages/derivation/live.py:764:        refusal=None, output_path=output_path, run_id=run_id, presentation_path=presentation_path,
+packages/derivation/live_session.py:31:from packages.derivation.presentation_projection import PresentationModelError, validate_presentation_model
+packages/derivation/live_session.py:159:        validate_presentation_model(model)
+packages/derivation/live_session.py:336:    if outcome.presentation_path is None:
+packages/derivation/live_session.py:340:        page = _render_page(repo_root, capability, outcome.presentation_path)
+packages/derivation/presentation_projection.py:419:def _leaf_pins(
+packages/derivation/presentation_projection.py:446:def _raw_leaves(
+packages/derivation/presentation_projection.py:503:def _resolve_field_row(
+packages/derivation/presentation_projection.py:1062:# Every value here is read from what ``build_presentation_model`` already
+packages/derivation/presentation_projection.py:4352:def build_presentation_model(
+packages/derivation/presentation_projection.py:4539:    validate_presentation_model(model)
+packages/derivation/presentation_projection.py:4854:def validate_presentation_model(model: Mapping[str, Any]) -> None:
+packages/derivation/presentation_projection.py:5078:    "build_presentation_model",
+packages/derivation/presentation_projection.py:5079:    "validate_presentation_model",
+packages/derivation/runners/sli_correction_evaluation.py:188:        if saved_outcome.refusal is not None or saved_outcome.presentation_path is None:
+packages/derivation/runners/sli_correction_evaluation.py:198:            scope_user=SCOPE_USER, saved_presentation_path=saved_outcome.presentation_path,
+packages/tax/f1098_statement_review.py:10:from packages.derivation.presentation_projection import PresentationModelError, validate_presentation_model
+packages/tax/f1098_statement_review.py:329:def review_f1098_statement_with_saved_presentation(
+packages/tax/f1098_statement_review.py:330:    log: ActLog, registry: Any, presentation_path: Path, records: RecordStream, *,
+packages/tax/f1098_statement_review.py:336:        presentation = json.loads(presentation_path.read_text("utf-8"))
+packages/tax/f1098_statement_review.py:339:        validate_presentation_model(presentation)
+packages/tax/f1099k_statement_review.py:11:    validate_presentation_model,
+packages/tax/f1099k_statement_review.py:590:def review_f1099k_statement_with_saved_presentation(
+packages/tax/f1099k_statement_review.py:593:    presentation_path: Path,
+packages/tax/f1099k_statement_review.py:605:        presentation = json.loads(presentation_path.read_text("utf-8"))
+packages/tax/f1099k_statement_review.py:608:        validate_presentation_model(presentation)
+tools/generate_capital_gain_distributions_line7a_t3_presentation_goldens.py:55:        assert outcome.presentation_path is not None
+tools/generate_capital_gain_distributions_line7a_t3_presentation_goldens.py:56:        return cast(dict[str, Any], json.loads(outcome.presentation_path.read_text("utf-8")))
+tools/generate_f1098e_track8_presentation_goldens.py:76:        assert outcome.presentation_path is not None
+tools/generate_f1098e_track8_presentation_goldens.py:77:        return cast(dict[str, Any], json.loads(outcome.presentation_path.read_text("utf-8")))
+tools/generate_form1099g_box1_schedule1_line7_goldens.py:57:        assert outcome.presentation_path is not None
+tools/generate_form1099g_box1_schedule1_line7_goldens.py:60:            json.loads(outcome.presentation_path.read_text("utf-8")),
+tools/generate_k1_interest_breadth_goldens.py:43:        assert outcome.presentation_path is not None
+tools/generate_k1_interest_breadth_goldens.py:44:        return cast(dict[str, Any], json.loads(outcome.presentation_path.read_text("utf-8")))
+tools/generate_market_discount_interest_goldens.py:41:        assert outcome.presentation_path is not None
+tools/generate_market_discount_interest_goldens.py:42:        return cast(dict[str, Any], json.loads(outcome.presentation_path.read_text("utf-8")))
+tools/generate_presentation_l2_golden.py:228:        assert result.presentation_path is not None
+tools/generate_presentation_l2_golden.py:229:        model = cast(dict[str, Any], json.loads(result.presentation_path.read_text("utf-8")))
+tools/generate_schedule_b_interest_adjustments_goldens.py:41:        assert outcome.presentation_path is not None
+tools/generate_schedule_b_interest_adjustments_goldens.py:42:        return cast(dict[str, Any], json.loads(outcome.presentation_path.read_text("utf-8")))
+tools/generate_schedule_d_presentation_t3_goldens.py:46:        assert outcome.presentation_path is not None
+tools/generate_schedule_d_presentation_t3_goldens.py:47:        return cast(dict[str, Any], json.loads(outcome.presentation_path.read_text("utf-8")))
+tools/presentation_harness/examples/generate_track6b_saved_presentations.py:6:    python3 tools/presentation_harness/examples/generate_track6b_saved_presentations.py
+tools/presentation_harness/examples/generate_track6b_saved_presentations.py:35:from packages.derivation.presentation_projection import validate_presentation_model
+tools/presentation_harness/examples/generate_track6b_saved_presentations.py:409:    if output.presentation_path is None or not output.presentation_path.is_file():
+tools/presentation_harness/examples/generate_track6b_saved_presentations.py:414:    shutil.copyfile(output.presentation_path, saved_path)
+tools/presentation_harness/examples/generate_track6b_saved_presentations.py:418:def generate_saved_presentations(root: Path = ROOT) -> dict[str, Path]:
+tools/presentation_harness/examples/generate_track6b_saved_presentations.py:427:        validate_presentation_model(saved_model)
+tools/presentation_harness/examples/generate_track6b_saved_presentations.py:439:    generate_saved_presentations()
+
+## Browser, harness and independent specialized readers
+$ rg --sort path -n 'citation-walk\.v1\.html|citationSites|pinLabel\(|MODEL\.|line21Explanation|mortgageInterestExplanation|mortgageBorrowingExplanation|f1099kStatementExplanation' packages/presentation packages/derivation packages/tax tools/presentation_harness --glob '*.py' --glob '*.html' --glob '*.js'
+packages/presentation/pages/citation-walk.v1.html:18:  tools/presentation_harness/examples/pages/citation-walk.v1.html. That one is
+packages/presentation/pages/citation-walk.v1.html:192:   Citation registry. Built once, from every citationSites array
+packages/presentation/pages/citation-walk.v1.html:205:for (const section of MODEL.sections || []) {
+packages/presentation/pages/citation-walk.v1.html:206:  for (const site of section.citationSites || []) ALL_CITATION_SITES.push(site);
+packages/presentation/pages/citation-walk.v1.html:218:for (const group of MODEL.citationGroups || []) {
+packages/presentation/pages/citation-walk.v1.html:220:    for (const site of part.citationSites || []) ALL_CITATION_SITES.push(site);
+packages/presentation/pages/citation-walk.v1.html:228:function pinLabel(pinId, pinVersion) {
+packages/presentation/pages/citation-walk.v1.html:229:  const label = (MODEL.pinLabels || {})[pinId];
+packages/presentation/pages/citation-walk.v1.html:243:    el("span", { class: "citation-label" }, [pinLabel(pinId, pinVersion)]),
+packages/presentation/pages/citation-walk.v1.html:264:   whatever source-fact citationSites the model happens to list. A
+packages/presentation/pages/citation-walk.v1.html:269:   DOM with an empty citationSites array and no fallback to field.citation). */
+packages/presentation/pages/citation-walk.v1.html:548:      for (const site of section.citationSites || []) container.appendChild(renderCitation(site.siteId, site.pinId, site.pinVersion));
+packages/presentation/pages/citation-walk.v1.html:553:  const sites = section.citationSites || [];
+packages/presentation/pages/citation-walk.v1.html:838:  const hasLine21Block = isLine21 && MODEL.line21Explanation !== undefined;
+packages/presentation/pages/citation-walk.v1.html:861:      renderLine21Explanation(container, section, MODEL.line21Explanation);
+packages/presentation/pages/citation-walk.v1.html:918:        renderLine21Explanation(container, section, MODEL.line21Explanation);
+packages/presentation/pages/citation-walk.v1.html:928:      renderLine21Explanation(container, section, MODEL.line21Explanation);
+packages/presentation/pages/citation-walk.v1.html:1020:    for (const site of part.citationSites || []) {
+packages/presentation/pages/citation-walk.v1.html:1035:  const section = (MODEL.sections || []).find((s) => s.id === sectionId);
+packages/presentation/pages/citation-walk.v1.html:1070:for (const section of MODEL.sections || []) {
+packages/presentation/pages/citation-walk.v1.html:1077:if (MODEL.mortgageInterestExplanation !== undefined) {
+packages/presentation/pages/citation-walk.v1.html:1079:    MODEL.mortgageInterestExplanation, "Mortgage interest explanation");
+packages/presentation/pages/citation-walk.v1.html:1081:if (MODEL.mortgageBorrowingExplanation !== undefined) {
+packages/presentation/pages/citation-walk.v1.html:1085:    MODEL.mortgageBorrowingExplanation, "Mortgage borrowing explanation");
+packages/presentation/pages/citation-walk.v1.html:1087:for (const attachment of MODEL.attachments || []) {
+packages/presentation/pages/citation-walk.v1.html:1095:for (const group of MODEL.citationGroups || []) {
+packages/presentation/pages/citation-walk.v1.html:1102:for (const diag of MODEL.diagnostics || []) {
+packages/derivation/correction_session.py:273:    explanation = presentation.get("line21Explanation") or {}
+packages/derivation/correction_session.py:417:# ``section.resolved.reasons`` from (``citation-walk.v1.html``).
+packages/derivation/correction_session.py:534:    line21 = presentation.get("line21Explanation") or {}
+packages/derivation/correction_session.py:552:    line21 = presentation.get("line21Explanation")
+packages/derivation/live_session.py:36:PAGE_RELATIVE_PATH = Path("packages/presentation/pages/citation-walk.v1.html")
+packages/derivation/presentation_projection.py:488:    ``pinLabel()`` fallback already displays ``pinId@pinVersion`` when no
+packages/derivation/presentation_projection.py:548:            # The renderer's pinLabel() looks up FIXTURE.pinLabels by bare
+packages/derivation/presentation_projection.py:2266:    path = "$.line21Explanation"
+packages/derivation/presentation_projection.py:2505:    path = "$.mortgageInterestExplanation"
+packages/derivation/presentation_projection.py:3052:    path = "$.mortgageBorrowingExplanation"
+packages/derivation/presentation_projection.py:3598:    path = "$.f1099kStatementExplanation"
+packages/derivation/presentation_projection.py:4208:            "citationSites": sites,
+packages/derivation/presentation_projection.py:4236:                site_offset = len(existing_adjustment_part.get("citationSites", [])) if existing_adjustment_part else 0
+packages/derivation/presentation_projection.py:4266:                    "citationSites": adjustment_sites,
+packages/derivation/presentation_projection.py:4280:                    existing_adjustment_part["citationSites"].extend(adjustment_sites)
+packages/derivation/presentation_projection.py:4340:                        "citationSites": sites,
+packages/derivation/presentation_projection.py:4381:    and only feeds the optional ``line21Explanation`` block (Track 1a); it is
+packages/derivation/presentation_projection.py:4431:            "citationSites": citation_sites,
+packages/derivation/presentation_projection.py:4491:        model["line21Explanation"] = line21_explanation
+packages/derivation/presentation_projection.py:4526:        model["mortgageInterestExplanation"] = mortgage_explanation
+packages/derivation/presentation_projection.py:4532:        model["mortgageBorrowingExplanation"] = mortgage_borrowing_explanation
+packages/derivation/presentation_projection.py:4538:        model["f1099kStatementExplanation"] = f1099k_explanation
+packages/derivation/presentation_projection.py:4862:        frozenset({"authorization", "provenanceGroups", "calculationView", "line21Explanation", "mortgageInterestExplanation", "mortgageBorrowingExplanation", "f1099kStatementExplanation"}),
+packages/derivation/presentation_projection.py:4869:    if "line21Explanation" in model:
+packages/derivation/presentation_projection.py:4870:        _validate_line21_explanation(model["line21Explanation"])
+packages/derivation/presentation_projection.py:4871:    if "mortgageInterestExplanation" in model:
+packages/derivation/presentation_projection.py:4872:        _validate_mortgage_interest_explanation(model["mortgageInterestExplanation"])
+packages/derivation/presentation_projection.py:4873:    if "mortgageBorrowingExplanation" in model:
+packages/derivation/presentation_projection.py:4874:        _validate_mortgage_borrowing_explanation(model["mortgageBorrowingExplanation"])
+packages/derivation/presentation_projection.py:4875:    if "f1099kStatementExplanation" in model:
+packages/derivation/presentation_projection.py:4876:        _validate_f1099k_statement_explanation(model["f1099kStatementExplanation"])
+packages/derivation/presentation_projection.py:4891:        _require_keys(section, frozenset({"id", "field", "resolved", "citationSites"}), frozenset(), path)
+packages/derivation/presentation_projection.py:4900:        if not isinstance(section["citationSites"], list):
+packages/derivation/presentation_projection.py:4901:            raise PresentationModelError(f"{path}.citationSites: expected a list")
+packages/derivation/presentation_projection.py:4902:        for site_index, site in enumerate(section["citationSites"]):
+packages/derivation/presentation_projection.py:4903:            _validate_citation_site(site, f"{path}.citationSites[{site_index}]")
+packages/derivation/presentation_projection.py:4920:                frozenset({"heading", "citationSites", "tieOutText"}),
+packages/derivation/presentation_projection.py:4928:            if not isinstance(part["citationSites"], list):
+packages/derivation/presentation_projection.py:4929:                raise PresentationModelError(f"{part_path}.citationSites: expected a list")
+packages/derivation/presentation_projection.py:4930:            for site_index, site in enumerate(part["citationSites"]):
+packages/derivation/presentation_projection.py:4931:                _validate_citation_site(site, f"{part_path}.citationSites[{site_index}]")
+packages/derivation/presentation_projection.py:4968:            "label", "citationSites", "tieOutText",
+packages/derivation/presentation_projection.py:5014:            sites = group["citationSites"]
+packages/derivation/presentation_projection.py:5016:                raise PresentationModelError(f"{path}.citationSites: expected a non-empty list")
+packages/derivation/presentation_projection.py:5019:                _validate_citation_site(site, f"{path}.citationSites[{site_index}]")
+packages/derivation/presentation_projection.py:5022:                    raise PresentationModelError(f"{path}.citationSites: duplicate site id {site_id!r}")
+packages/derivation/presentation_projection.py:5040:                    for site in part.get("citationSites", [])
+packages/tax/f1098_statement_review.py:346:    explanation = presentation.get("mortgageInterestExplanation")
+packages/tax/f1099k_statement_review.py:649:    f1099k_expl = presentation.get("f1099kStatementExplanation")
+tools/presentation_harness/examples/pages/citation-walk.v1.html:157:   Citation registry. Built once, from every citationSites array
+tools/presentation_harness/examples/pages/citation-walk.v1.html:171:  for (const site of section.citationSites || []) ALL_CITATION_SITES.push(site);
+tools/presentation_harness/examples/pages/citation-walk.v1.html:185:    for (const site of part.citationSites || []) ALL_CITATION_SITES.push(site);
+tools/presentation_harness/examples/pages/citation-walk.v1.html:193:function pinLabel(pinId, pinVersion) {
+tools/presentation_harness/examples/pages/citation-walk.v1.html:208:    el("span", { class: "citation-label" }, [pinLabel(pinId, pinVersion)]),
+tools/presentation_harness/examples/pages/citation-walk.v1.html:229:   whatever source-fact citationSites the fixture happens to list. A
+tools/presentation_harness/examples/pages/citation-walk.v1.html:234:   DOM with an empty citationSites array and no fallback to field.citation). */
+tools/presentation_harness/examples/pages/citation-walk.v1.html:282:    for (const site of section.citationSites || []) {
+tools/presentation_harness/examples/pages/citation-walk.v1.html:412:    for (const site of part.citationSites || []) {
+tools/presentation_harness/examples/pages/citation-walk.v1.html:719:if (FIXTURE.mortgageInterestExplanation !== undefined) {
+tools/presentation_harness/examples/pages/citation-walk.v1.html:721:    FIXTURE.mortgageInterestExplanation, "Mortgage interest explanation");
+tools/presentation_harness/examples/pages/citation-walk.v1.html:723:if (FIXTURE.mortgageBorrowingExplanation !== undefined) {
+tools/presentation_harness/examples/pages/citation-walk.v1.html:727:    FIXTURE.mortgageBorrowingExplanation, "Mortgage borrowing explanation");
+tools/presentation_harness/examples/pages/statement-calculation.experimental.v1.html:260:const view = MODEL.calculationView;

@@ -659,7 +659,7 @@ class TestObligation9OneRowAndAValidModel(unittest.TestCase):
                 self.assertEqual(len(line6b_rows(report)), 1, label)
                 self.assertIsNotNone(model, label)
                 assert model is not None
-                self.assertEqual(model["schema"], "presentation-model.v1")
+                self.assertEqual(model["schema"], "presentation-model.v2")
                 self.assertIsNotNone(_disposition(model, "line-6b"), label)
 
     def test_the_package_declares_exactly_one_producer_of_line6b(self) -> None:

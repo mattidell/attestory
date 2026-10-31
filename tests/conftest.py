@@ -23,6 +23,7 @@ and the ungated run still executes every test.
 
 from __future__ import annotations
 
+import os
 from pathlib import Path
 from typing import Any
 
@@ -132,3 +133,19 @@ def pytest_runtest_makereport(item: pytest.Item, call: Any) -> Any:
             "why. Do not raise FAST_LANE_BUDGET_SECONDS to make this pass — "
             "that budget is the only thing keeping the fast lane fast."
         )
+
+
+@pytest.fixture(scope="session", autouse=True)
+def _test_browser_resources(tmp_path_factory: pytest.TempPathFactory, request: pytest.FixtureRequest) -> Any:
+    """Share the startup gate across xdist workers without eager browsers."""
+    base = tmp_path_factory.getbasetemp()
+    root = base.parent if hasattr(request.config, "workerinput") else base
+    previous = os.environ.get("DEMO_CHROME_STARTUP_DIR")
+    os.environ["DEMO_CHROME_STARTUP_DIR"] = str(root)
+    yield
+    from tests.helpers.correction_browser_owner import close
+    close()
+    if previous is None:
+        os.environ.pop("DEMO_CHROME_STARTUP_DIR", None)
+    else:
+        os.environ["DEMO_CHROME_STARTUP_DIR"] = previous

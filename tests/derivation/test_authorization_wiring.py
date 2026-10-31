@@ -16,7 +16,7 @@ from packages.derivation.authorization import (
 )
 from packages.derivation.authorization_closure import package_boundary_digest
 from packages.derivation.evaluator import AccessLog, Environment, evaluate
-from packages.derivation.explanation import explain
+from packages.derivation.explanation import explain_legacy as explain
 from packages.derivation.loader import DerivationSchemas
 from packages.derivation.runner import InputFinding, RunContext, SourceFact, _Run
 from tests.derivation.test_authorization_closure import ROOT, _corpus

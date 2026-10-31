@@ -177,6 +177,7 @@ const REASON_TEXT = Object.freeze({
   "missing-field-citation": "This line published a value with no citation attached. No value can be shown safely.",
   "unrecognized-attachment-code": "This attachment named a condition code this renderer does not recognize. No detail can be shown safely.",
   "malformed-mortgage-explanation": "The saved mortgage explanation failed validation. No account detail can be shown safely.",
+  "malformed-shared-explanation": "The saved explanation could not be displayed safely.",
   "malformed-line21-explanation": "This section's saved explanation could not be displayed safely.",
   "unknown-error": "This section failed to render safely.",
 });
@@ -830,6 +831,152 @@ document.addEventListener("click", (evt) => {
    render path here, called only from this function — a single
    citation/render-path binding, not one per call site.
    ============================================================ */
+function checkExplanationNode(node) {
+  if (!node || typeof node.id !== "string" || !["derived", "input", "reference"].includes(node.kind) || !Array.isArray(node.edges)) throw new SectionError("malformed-shared-explanation");
+  if (node.kind !== "derived" && node.edges.length) throw new SectionError("malformed-shared-explanation");
+  if (node.kind === "reference" && (node.symbol !== null || node.value !== null || node.produced_by !== null)) throw new SectionError("malformed-shared-explanation");
+}
+
+function checkExplanationEdge(edge, graph) {
+  const target = edge && graph.nodes[edge.target];
+  if (!edge || !edge.pin || typeof edge.pin.role !== "string" || !target || edge.pin.id !== target.id ||
+      (!["input", "choice"].includes(edge.pin.role) && target.kind !== "reference") ||
+      (target.kind !== "derived" && edge.pin.version !== target.version)) throw new SectionError("malformed-shared-explanation");
+}
+
+function sharedSection(section) {
+  if (MODEL.schema === "presentation-model.v1") return null;
+  if (MODEL.schema !== "presentation-model.v2") throw new SectionError("malformed-shared-explanation");
+  const graph = MODEL.explanationGraph;
+  const sectionRoot = MODEL.sectionRoots && MODEL.sectionRoots[section.id];
+  if (!graph || graph.schema !== "explanation-graph.v1" || graph.run_id !== MODEL.runId || !Array.isArray(graph.roots) ||
+      !graph.nodes || !sectionRoot) throw new SectionError("malformed-shared-explanation");
+  if (sectionRoot.kind === "disposition") {
+    if (NUMERIC_DISPOSITIONS.has(section.resolved.disposition) || section.resolved.disposition === "published_categorical") throw new SectionError("malformed-shared-explanation");
+    const table = MODEL.dispositionNodes;
+    const seen = new Set();
+    const active = new Set();
+    const graphSeen = new Set();
+    const graphActive = new Set();
+    function checkFinding(key) {
+      if (graphActive.has(key)) throw new SectionError("malformed-shared-explanation");
+      if (graphSeen.has(key)) return;
+      const node = graph.nodes[key];
+      checkExplanationNode(node);
+      graphActive.add(key);
+      for (const edge of node.edges) {
+        checkExplanationEdge(edge, graph);
+        checkFinding(edge.target);
+      }
+      graphActive.delete(key); graphSeen.add(key);
+    }
+    function check(key) {
+      if (active.has(key)) throw new SectionError("malformed-shared-explanation");
+      if (seen.has(key)) return;
+      const node = table && table[key];
+      if (!node || node.symbol !== key || !Array.isArray(node.records) || !Array.isArray(node.children)) throw new SectionError("malformed-shared-explanation");
+      if (node.findingRoot) checkFinding(node.findingRoot);
+      active.add(key);
+      for (const child of node.children) check(child);
+      active.delete(key); seen.add(key);
+    }
+    check(sectionRoot.root);
+    const root = table[sectionRoot.root];
+    const expected = section.resolved.disposition === "guard_inapplicable" ? "inapplicable" : section.resolved.disposition;
+    if (root.symbol !== section.field.binds_symbol || !root.records.length || root.records.some(row => row.disposition !== expected)) throw new SectionError("malformed-shared-explanation");
+    return {graph, disposition: sectionRoot.root};
+  }
+  if (sectionRoot.kind !== "published" || !Number.isInteger(sectionRoot.root) ||
+      !graph.roots[sectionRoot.root]) throw new SectionError("malformed-shared-explanation");
+  const root = graph.roots[sectionRoot.root];
+  const colors = new Map();
+  function validate(key) {
+    if (colors.get(key) === 1) throw new SectionError("malformed-shared-explanation");
+    if (colors.get(key) === 2) return;
+    const node = graph.nodes[key];
+    checkExplanationNode(node);
+    colors.set(key, 1);
+    for (const edge of node.edges) {
+      checkExplanationEdge(edge, graph);
+      validate(edge.target);
+    }
+    colors.set(key, 2);
+  }
+  validate(root.target);
+  const act = section.resolved.act;
+  const finding = act && act.finding;
+  const node = graph.nodes[root.target];
+  if (!finding || act.run_id !== MODEL.runId || node.kind !== "derived" ||
+      node.id !== finding.id || node.version !== finding.version || node.symbol !== finding.symbol ||
+      node.value !== finding.value || !Array.isArray(finding.pins)) throw new SectionError("malformed-shared-explanation");
+  const pins = [...finding.pins].sort((a, b) => (a.role < b.role ? -1 : a.role > b.role ? 1 : a.id < b.id ? -1 : a.id > b.id ? 1 : 0));
+  if (JSON.stringify(pins) !== JSON.stringify(node.edges.map(edge => edge.pin))) throw new SectionError("malformed-shared-explanation");
+  const rules = finding.pins.filter(pin => ["computation", "applicability", "field-mapping", "cross-form-bridge"].includes(pin.role));
+  if (JSON.stringify(rules.length ? rules[rules.length - 1] : null) !== JSON.stringify(node.produced_by)) throw new SectionError("malformed-shared-explanation");
+  return {graph, root};
+}
+
+function renderShared(container, shared) {
+  if (!shared) return;
+  const details = el("details", {class: "shared-explanation"}, [el("summary", null, ["Trace recorded support"])]);
+  const visited = new Map();
+  const body = el("div", null, []);
+  function show(key, role, target) {
+    const node = shared.graph.nodes[key];
+    const item = el("div", {"data-explanation-node": key, tabindex: "-1"}, []);
+    if (visited.has(key)) {
+      const reference = el("button", {type: "button", "data-explanation-reuse": key}, [role + ": reused " + (node.symbol || node.id)]);
+      reference.addEventListener("click", () => { const original = visited.get(key); original.focus(); original.scrollIntoView({block: "nearest"}); });
+      item.appendChild(reference);
+    } else {
+      visited.set(key, item);
+      const numeric = node.kind === "input" && (typeof node.value === "number" || (typeof node.value === "string" && /^-?\d+(?:\.\d+)?$/.test(node.value)));
+      item.appendChild(el("span", null, [role + ": " + (node.symbol || node.id) + (numeric ? " = " + node.value : "")]));
+      if (node.produced_by && typeof node.produced_by.id === "string") item.appendChild(el("span", null, [" — " + node.produced_by.id]));
+      for (const edge of node.edges) {
+        const button = el("button", {type: "button", "data-explanation-target": edge.target}, ["Show " + edge.pin.role + " " + edge.pin.id]);
+        const child = el("div", null, []);
+        button.addEventListener("click", () => { if (!child.firstChild) show(edge.target, edge.pin.role, child); });
+        item.appendChild(button);
+        item.appendChild(child);
+      }
+    }
+    target.appendChild(item);
+  }
+  const dispositionVisited = new Map();
+  function showDisposition(key, target) {
+    const node = MODEL.dispositionNodes[key];
+    if (dispositionVisited.has(key)) {
+      const reference = el("button", {type: "button", "data-explanation-reuse": key}, ["Reused " + node.symbol]);
+      reference.addEventListener("click", () => { const original = dispositionVisited.get(key); original.focus(); original.scrollIntoView({block: "nearest"}); });
+      target.appendChild(reference);
+      return;
+    }
+    const item = el("div", {tabindex: "-1", "data-disposition-node": key}, [node.symbol + (node.records.length ? ": " + node.records[0].disposition : ": no recorded disposition")]);
+    dispositionVisited.set(key, item);
+    if (node.findingRoot) {
+      const button = el("button", {type: "button"}, ["Show recorded predecessor"]);
+      const child = el("div", null, []);
+      button.addEventListener("click", () => { if (!child.firstChild) show(node.findingRoot, "input", child); });
+      item.appendChild(button); item.appendChild(child);
+    }
+    for (const ref of node.children) {
+      const button = el("button", {type: "button"}, ["Show dependency " + ref]);
+      const child = el("div", null, []);
+      button.addEventListener("click", () => { if (!child.firstChild) showDisposition(ref, child); });
+      item.appendChild(button); item.appendChild(child);
+    }
+    target.appendChild(item);
+  }
+  details.addEventListener("toggle", () => {
+    if (!details.open || body.firstChild) return;
+    if (shared.disposition) showDisposition(shared.disposition, body);
+    else show(shared.root.target, shared.root.role, body);
+  });
+  details.appendChild(body);
+  container.appendChild(details);
+}
+
 function renderLine(container, section) {
   const field = section.field;
   const resolved = section.resolved;
@@ -1070,7 +1217,11 @@ const sectionsRoot = document.getElementById("sections-root");
 for (const section of MODEL.sections || []) {
   const wrap = el("div", { id: section.id }, []);
   sectionsRoot.appendChild(wrap);
-  renderSafely(section.id, renderLine, section, (section.field && section.field.label) || section.id);
+  renderSafely(section.id, (unit, row) => {
+    const shared = sharedSection(row);
+    renderLine(unit, row);
+    renderShared(unit, shared);
+  }, section, (section.field && section.field.label) || section.id);
 }
 
 const attachmentStatusRoot = document.getElementById("attachment-status-root");

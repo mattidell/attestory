@@ -324,7 +324,7 @@ def _assert_valid_model_and_cardinality(model: dict[str, Any] | None) -> None:
     """Cardinality check: exactly one presentation row per form-field-bound
     symbol, mirroring the SSA no-activity precedent's own obligation 9."""
     assert model is not None
-    assert model["schema"] == "presentation-model.v1"
+    assert model["schema"] == "presentation-model.v2"
     seen_ids = [section["id"] for section in model.get("sections", [])]
     for section_id in SECTIONS:
         assert seen_ids.count(section_id) == 1, (section_id, seen_ids)

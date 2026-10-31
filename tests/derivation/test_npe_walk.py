@@ -7,7 +7,7 @@ scenarios, including cycle detection, memoization, and run-scoped selection.
 import unittest
 from typing import Any
 
-from packages.derivation.explanation import walk_npe, CyclicDependencyError
+from packages.derivation.explanation import walk_npe_legacy as walk_npe, CyclicDependencyError
 from packages.derivation.loader import DerivationSchemas
 
 

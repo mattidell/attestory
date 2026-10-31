@@ -554,19 +554,19 @@ def _assemble_pins(
         if subject_type in symbol_pin:
             pins.append(run._symbol_pin_entry(subject_type))
         for finding_id in access.link_coverage_findings:
-            pin: dict[str, Any] = {"role": "input", "id": finding_id, "version": "v1"}
+            pin: dict[str, Any] = {"role": "input", "id": finding_id, "version": run.source_finding_version(finding_id)}
             if run.use_v2:
                 pin["origin"] = "assertion"
             pins.append(pin)
         for finding_id in access.link_count_findings:
-            pin = {"role": "input", "id": finding_id, "version": "v1"}
+            pin = {"role": "input", "id": finding_id, "version": run.source_finding_version(finding_id)}
             if run.use_v2:
                 pin["origin"] = "assertion"
             pins.append(pin)
         # ADR 0077 Part 1: each counted row that agreed on the key, or each
         # bad counted row the count blocked on. A zero count adds none.
         for finding_id in access.shared_key_count_findings:
-            pin = {"role": "input", "id": finding_id, "version": "v1"}
+            pin = {"role": "input", "id": finding_id, "version": run.source_finding_version(finding_id)}
             if run.use_v2:
                 pin["origin"] = "assertion"
             pins.append(pin)
@@ -713,7 +713,7 @@ def evaluate_subject_scoped_rule(
         subject_fact_id = _subject_id(subject)
         symbol = f"{rule['publishes']}|{subject_fact_id}"
         symbol_pin: dict[str, tuple[str, str, str, str | None]] = {
-            subject_type: (subject.finding_id, "v1", "input", "assertion"),
+            subject_type: (subject.finding_id, subject.finding_version, "input", "assertion"),
         }
         local_symbols: dict[str, Any] = {subject_type: _decode(subject.value)}
         fact_types = dict(run.symbol_fact_types)
@@ -787,7 +787,7 @@ def evaluate_subject_scoped_rule(
                     invalid.extend(_subject_id(source) for source in matched)
                     continue
                 local_symbols[req] = _decode(chosen.value)
-                symbol_pin[req] = (chosen.finding_id, "v1", "input", "assertion")
+                symbol_pin[req] = (chosen.finding_id, chosen.finding_version, "input", "assertion")
                 fact_types[req] = _fact_type_of(run, req)
                 continue
             if req in run.symbol_pin and req in run.symbols:
@@ -860,7 +860,7 @@ def evaluate_subject_scoped_rule(
                     invalid.extend(_subject_id(source) for source in matched)
                     continue
                 local_symbols[cond] = _decode(chosen.value)
-                symbol_pin[cond] = (chosen.finding_id, "v1", "input", "assertion")
+                symbol_pin[cond] = (chosen.finding_id, chosen.finding_version, "input", "assertion")
                 fact_types[cond] = _fact_type_of(run, cond)
 
         if invalid:

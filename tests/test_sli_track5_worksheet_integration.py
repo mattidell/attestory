@@ -20,6 +20,8 @@ runners must agree.
 """
 from __future__ import annotations
 
+from tests.helpers.chrome_startup_slot import browser_startup_slot
+
 import hashlib
 import json
 import shutil
@@ -929,12 +931,13 @@ class LineReasons(unittest.TestCase):
             with tempfile.TemporaryDirectory(prefix="sli-track5-rendered-page-") as temporary:
                 page_path = Path(temporary) / "page.html"
                 page_path.write_text(page_html, encoding="utf-8")
-                rendered = subprocess.run(
-                    [BROWSER, "--headless", "--disable-gpu", "--no-sandbox",
-                     f"--user-data-dir={temporary}/profile", "--virtual-time-budget=5000",
-                     "--dump-dom", page_path.as_uri()],
-                    capture_output=True, text=True, timeout=60, check=True,
-                )
+                with browser_startup_slot():
+                    rendered = subprocess.run(
+                        [BROWSER, "--headless", "--disable-gpu", "--no-sandbox",
+                         f"--user-data-dir={temporary}/profile", "--virtual-time-budget=5000",
+                         "--dump-dom", page_path.as_uri()],
+                        capture_output=True, text=True, timeout=60, check=True,
+                    )
             visible_line = _line_text(rendered.stdout, outcome.section["field"]["label"])
             self.assertIn("Why: 2025 Form 1098-E from Cedar, Cedar Servicing: The statement this link was "
                           "confirmed against changed or was removed. Confirm the link again.", visible_line)

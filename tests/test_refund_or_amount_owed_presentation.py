@@ -16,7 +16,8 @@ from typing import Any, cast
 
 import unittest
 
-from packages.derivation.explanation import explain, index_derived
+from packages.derivation.presentation_projection import project_presentation_v1
+from packages.derivation.explanation import explain_legacy as explain, index_derived
 from packages.derivation.live import live_coordinate_run
 from packages.derivation.live_workspace import WorkspaceCapability
 from packages.derivation.presentation_projection import validate_presentation_model
@@ -141,7 +142,7 @@ class RefundOrAmountOwedPresentationTests(unittest.TestCase):
     def test_refund_presentation_golden(self) -> None:
         model, _pubs = _present_v52(_acts_refund(), RUN_REFUND)
         golden = _load_golden(REFUND_GOLDEN)
-        self.assertEqual(model, golden)
+        self.assertEqual(project_presentation_v1(model), golden)
         # Hand-checked from the sources (P0 Sec. 1; Track 2 contract):
         # AGI $50,500 (wages $50,000 + taxable interest $500), taxable
         # income $34,750, tax $3,935 (table).
@@ -158,7 +159,7 @@ class RefundOrAmountOwedPresentationTests(unittest.TestCase):
     def test_amount_owed_presentation_golden(self) -> None:
         model, _pubs = _present_v52(_acts_owed(), RUN_OWED)
         golden = _load_golden(OWED_GOLDEN)
-        self.assertEqual(model, golden)
+        self.assertEqual(project_presentation_v1(model), golden)
         # Hand-checked: wages $50,000 only, tax $3,875 (table), withholding
         # $1,000 < tax, no estimated payments.
         self.assertEqual(_published_numeric(model, "line-24"), 3875)
@@ -208,7 +209,7 @@ class RefundOrAmountOwedPresentationTests(unittest.TestCase):
         model, _pubs = _present(sdd_presentation._acts_joint(), sdd_presentation.RUN_JOINT, sdd_track1.SURFACE_V51)
         golden = _load_golden(sdd_presentation.JOINT_GOLDEN)
         validate_presentation_model(golden)
-        self.assertEqual(model, golden)
+        self.assertEqual(project_presentation_v1(model), golden)
         self.assertEqual(_published_numeric(model, "line-13b"), 10800)
 
 

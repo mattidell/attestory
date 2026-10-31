@@ -12,7 +12,7 @@ import sys
 import unittest
 from pathlib import Path
 
-from packages.derivation.explanation import explain, index_derived, render_text
+from packages.derivation.explanation import explain_legacy as explain, index_derived, render_text
 
 SCENARIO_DIR = Path("packages/sample_data/derivation/scenarios/first_slice")
 
@@ -73,12 +73,12 @@ class DeriveCliGoldens(unittest.TestCase):
         )
 
     def test_json_report_matches_golden(self) -> None:
-        got = json.loads(self._run("--json").stdout)
+        got = json.loads(self._run("--json", "--legacy-tree").stdout)
         expected = json.loads((SCENARIO_DIR / "expected" / "report.json").read_text("utf-8"))
         self.assertEqual(got, expected)
 
     def test_human_report_matches_golden(self) -> None:
-        self.assertEqual(self._run().stdout, (SCENARIO_DIR / "expected" / "report.txt").read_text("utf-8"))
+        self.assertEqual(self._run("--legacy-tree").stdout, (SCENARIO_DIR / "expected" / "report.txt").read_text("utf-8"))
 
     def test_report_is_demoable(self) -> None:
         out = self._run().stdout
