@@ -7,7 +7,8 @@ This is the project's third iteration. The first proved a working return generat
 ## Where things stand
 
 - **Governance** (`docs/governance/`): the ratified v0.1 set — Constitution, Ontology, Engineering Constraints, Principles, Commentary. The sole contract authority for this repository.
-- **Current result**: on core calculations v67 gambling
+- **Current result**: on core calculations v68 interest
+  with cents attaches on Schedule B and line 2b rounds once; on v67 gambling
   losses up to winnings reach Schedule A line 16; a correction recalculates
   on the workspace's adopted core; on v66
   statements with cents attach and multi-amount lines round once at their

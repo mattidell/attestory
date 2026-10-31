@@ -3,7 +3,7 @@
   "version": 1,
   "phase": "Engine Breadth",
   "topic": "interest-cents",
-  "status": "Open. Track 0 extends the package validator's interest successor-graph table for core v68; Tracks 3a and 3b, deferred from the statements-with-cents milestone, then let Schedule B Part I interest carry cents and line 2b round once.",
+  "status": "Closed. On core v68 interest with cents attaches on Schedule B Part I and line 2b rounds once at its total; the package validator admits the line 2b field successor and a Social Security worksheet v3 or later.",
   "scope": [
     "the package validator admits a line 2b form-field successor from core v68, by a new entry in its successor-graph table",
     "interest amounts with cents attach on Schedule B Part I, and line 2b rounds once at its total",
@@ -31,10 +31,12 @@
       "docs/phases/engine-breadth/milestones/interest-cents.md"
     ],
     "new_milestone": [
+      "docs/milestone-retrospectives/2026-10-31-interest-cents.md",
       "docs/phases/engine-breadth/milestones/interest-cents.md",
       "docs/phases/engine-breadth/engine-breadth-roadmap.md#Parked work and open questions"
     ]
-  }
+  },
+  "retrospective": "docs/milestone-retrospectives/2026-10-31-interest-cents.md"
 }
 -->
 
@@ -92,8 +94,45 @@ Foreman, 2026-10-31, after Track 3a's stop:
    compares the version number (v3 or later) in both places it is read; the
    migration citizen and successor bundle requirements are unchanged.
 
+2. **`interest-positive-total` rounds with a literal `half_up`.** The
+   composition validator allows that rule only its seven subtotal
+   references, so it cannot read `rounding.convention`. The instructions fix
+   the method (drop under 50 cents, raise 50 to 99), and the convention's
+   value schema admits only `half_up`; the rule's notes say to revisit it if
+   that enum is ever widened.
+
 ## Process
 
 Dispatch to a Sonnet 5.5 Agent sub-agent. Track 0 touches
 `packages/derivation/`, so the full suite runs before handoff. Stop means
 stop.
+
+## Review dispositions
+
+Fresh-reader review: no required or recommended findings. The validator
+changes are exactly the v68 entry and the v3-or-later worksheet comparison;
+the reviewer could not make either accept a mixed graph or an incomplete
+succession package that was refused before. Three further cents cases (Form
+1099-INT, 1099-OID and Schedule K-1 box 5 together; an ABP adjustment; a
+joint return) attached on v68 where v67 blocked, matching hand values. EIC
+and Social Security returns in whole dollars are identical on v67 and v68.
+
+1. *The literal `half_up` cannot disagree with the convention today*
+   (note). Recorded in decision 2.
+2. *Every later core inherits the v68 table entry* (note). By design.
+
+## Execution record
+
+- One Sonnet 5.5 builder for four tracks (0, 0b, 3a, 3b), stopping once on
+  the Social Security succession check and once on a usage limit; one
+  review.
+
+## Outcome
+
+On core v68, interest with cents (Form 1099-INT, 1099-OID, Schedule K-1 box
+5, non-form interest, and the Schedule B nominee and ABP adjustments)
+attaches on Schedule B Part I, where v67 blocked the tie-out. Line 2b rounds
+the cents total once, as the 2025 instructions say: two Form 1099-INT
+amounts of $100.50 give 201, where v67 gave 202. The Schedule B $1,500 test
+reads the rounded total. Whole-dollar returns compute as on v67. Fifteen
+successors, two narrow validator changes (owner-approved), no schema change.
