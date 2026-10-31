@@ -1,0 +1,140 @@
+[
+  {
+    "id": "tax.us.2025.form.sch8812.line-14",
+    "version": "v1",
+    "line": "8812-14",
+    "problems": [
+      "blocked: names the label 'earned income credit' of tax.us.2025.form1040.line-27a",
+      "closure_backed_zero: names the label 'earned income credit' of tax.us.2025.form1040.line-27a",
+      "computed_zero: names the label 'earned income credit' of tax.us.2025.form1040.line-27a",
+      "guard_inapplicable: names the label 'earned income credit' of tax.us.2025.form1040.line-27a",
+      "published_value: names the label 'worksheet a line 6' of tax.us.2025.form.eic-worksheet-a.line-6",
+      "published_value: names the label 'earned income credit' of tax.us.2025.form1040.line-27a",
+      "published_value: names line(s) ['27a', '6']"
+    ]
+  },
+  {
+    "id": "tax.us.2025.form.sch8812.line-17",
+    "version": "v1",
+    "line": "8812-17",
+    "problems": [
+      "blocked: names the label 'earned income credit' of tax.us.2025.form1040.line-27a",
+      "closure_backed_zero: names the label 'earned income credit' of tax.us.2025.form1040.line-27a",
+      "computed_zero: names the label 'earned income credit' of tax.us.2025.form1040.line-27a",
+      "guard_inapplicable: names the label 'earned income credit' of tax.us.2025.form1040.line-27a",
+      "published_value: names the label 'worksheet a line 6' of tax.us.2025.form.eic-worksheet-a.line-6",
+      "published_value: names the label 'earned income credit' of tax.us.2025.form1040.line-27a",
+      "published_value: names line(s) ['27a', '6']"
+    ]
+  },
+  {
+    "id": "tax.us.2025.form.sch8812.line-20",
+    "version": "v1",
+    "line": "8812-20",
+    "problems": [
+      "blocked: names the label 'earned income credit' of tax.us.2025.form1040.line-27a",
+      "closure_backed_zero: names the label 'earned income credit' of tax.us.2025.form1040.line-27a",
+      "computed_zero: names the label 'earned income credit' of tax.us.2025.form1040.line-27a",
+      "guard_inapplicable: names the label 'earned income credit' of tax.us.2025.form1040.line-27a",
+      "published_value: names the label 'worksheet a line 6' of tax.us.2025.form.eic-worksheet-a.line-6",
+      "published_value: names the label 'earned income credit' of tax.us.2025.form1040.line-27a",
+      "published_value: names line(s) ['27a', '6']"
+    ]
+  },
+  {
+    "id": "tax.us.2025.form.sch8812.line-4",
+    "version": "v1",
+    "line": "8812-4",
+    "problems": [
+      "blocked: names the label 'earned income credit' of tax.us.2025.form1040.line-27a",
+      "closure_backed_zero: names the label 'earned income credit' of tax.us.2025.form1040.line-27a",
+      "computed_zero: names the label 'earned income credit' of tax.us.2025.form1040.line-27a",
+      "guard_inapplicable: names the label 'earned income credit' of tax.us.2025.form1040.line-27a",
+      "published_value: names the label 'worksheet a line 6' of tax.us.2025.form.eic-worksheet-a.line-6",
+      "published_value: names the label 'earned income credit' of tax.us.2025.form1040.line-27a",
+      "published_value: names line(s) ['27a', '6']"
+    ]
+  },
+  {
+    "id": "tax.us.2025.form.sch8812.worksheet-a.line-5",
+    "version": "v1",
+    "line": "8812-wa-5",
+    "problems": [
+      "blocked: names the label 'earned income credit' of tax.us.2025.form1040.line-27a",
+      "closure_backed_zero: names the label 'earned income credit' of tax.us.2025.form1040.line-27a",
+      "computed_zero: names the label 'earned income credit' of tax.us.2025.form1040.line-27a",
+      "guard_inapplicable: names the label 'earned income credit' of tax.us.2025.form1040.line-27a",
+      "published_value: names the label 'worksheet a line 6' of tax.us.2025.form.eic-worksheet-a.line-6",
+      "published_value: names the label 'earned income credit' of tax.us.2025.form1040.line-27a",
+      "published_value: names line(s) ['27a', '6']"
+    ]
+  },
+  {
+    "id": "tax.us.2025.form1040.line-19",
+    "version": "v1",
+    "line": "19",
+    "problems": [
+      "blocked: names the label 'earned income credit' of tax.us.2025.form1040.line-27a",
+      "closure_backed_zero: names the label 'earned income credit' of tax.us.2025.form1040.line-27a",
+      "computed_zero: names the label 'earned income credit' of tax.us.2025.form1040.line-27a",
+      "guard_inapplicable: names the label 'earned income credit' of tax.us.2025.form1040.line-27a",
+      "published_value: names the label 'worksheet a line 6' of tax.us.2025.form.eic-worksheet-a.line-6",
+      "published_value: names the label 'earned income credit' of tax.us.2025.form1040.line-27a",
+      "published_value: names line(s) ['27a', '6']"
+    ]
+  },
+  {
+    "id": "tax.us.2025.form1040.line-28",
+    "version": "v1",
+    "line": "28",
+    "problems": [
+      "blocked: names the label 'earned income credit' of tax.us.2025.form1040.line-27a",
+      "closure_backed_zero: names the label 'earned income credit' of tax.us.2025.form1040.line-27a",
+      "computed_zero: names the label 'earned income credit' of tax.us.2025.form1040.line-27a",
+      "guard_inapplicable: names the label 'earned income credit' of tax.us.2025.form1040.line-27a",
+      "published_value: names the label 'worksheet a line 6' of tax.us.2025.form.eic-worksheet-a.line-6",
+      "published_value: names the label 'earned income credit' of tax.us.2025.form1040.line-27a",
+      "published_value: names line(s) ['27a', '6']"
+    ]
+  },
+  {
+    "id": "(shared text)",
+    "version": "",
+    "line": "",
+    "problems": [
+      "identical text on ['tax.us.2025.form.sch8812.line-14', 'tax.us.2025.form.sch8812.line-17', 'tax.us.2025.form.sch8812.line-20', 'tax.us.2025.form.sch8812.line-4', 'tax.us.2025.form.sch8812.worksheet-a.line-5', 'tax.us.2025.form1040.line-19', 'tax.us.2025.form1040.line-27a', 'tax.us.2025.form1040.line-28']: 'Earned income credit is blocked because an input it needs is missing or invalid.'"
+    ]
+  },
+  {
+    "id": "(shared text)",
+    "version": "",
+    "line": "",
+    "problems": [
+      "identical text on ['tax.us.2025.form.sch8812.line-14', 'tax.us.2025.form.sch8812.line-17', 'tax.us.2025.form.sch8812.line-20', 'tax.us.2025.form.sch8812.line-4', 'tax.us.2025.form.sch8812.worksheet-a.line-5', 'tax.us.2025.form1040.line-19', 'tax.us.2025.form1040.line-27a', 'tax.us.2025.form1040.line-28']: 'Earned income credit publishes a computed zero.'"
+    ]
+  },
+  {
+    "id": "(shared text)",
+    "version": "",
+    "line": "",
+    "problems": [
+      "identical text on ['tax.us.2025.form.sch8812.line-14', 'tax.us.2025.form.sch8812.line-17', 'tax.us.2025.form.sch8812.line-20', 'tax.us.2025.form.sch8812.line-4', 'tax.us.2025.form.sch8812.worksheet-a.line-5', 'tax.us.2025.form1040.line-19', 'tax.us.2025.form1040.line-27a', 'tax.us.2025.form1040.line-28']: 'Earned income credit publishes zero through an honest closed-empty source family.'"
+    ]
+  },
+  {
+    "id": "(shared text)",
+    "version": "",
+    "line": "",
+    "problems": [
+      "identical text on ['tax.us.2025.form.sch8812.line-14', 'tax.us.2025.form.sch8812.line-17', 'tax.us.2025.form.sch8812.line-20', 'tax.us.2025.form.sch8812.line-4', 'tax.us.2025.form.sch8812.worksheet-a.line-5', 'tax.us.2025.form1040.line-19', 'tax.us.2025.form1040.line-27a', 'tax.us.2025.form1040.line-28']: 'Form 1040 line 27a: the earned income credit from Worksheet A line 6.'"
+    ]
+  },
+  {
+    "id": "(shared text)",
+    "version": "",
+    "line": "",
+    "problems": [
+      "identical text on ['tax.us.2025.form.sch8812.line-14', 'tax.us.2025.form.sch8812.line-17', 'tax.us.2025.form.sch8812.line-20', 'tax.us.2025.form.sch8812.line-4', 'tax.us.2025.form.sch8812.worksheet-a.line-5', 'tax.us.2025.form1040.line-19', 'tax.us.2025.form1040.line-27a', 'tax.us.2025.form1040.line-28']: 'No value is published for Earned income credit because its worksheet guard is not satisfied.'"
+    ]
+  }
+]

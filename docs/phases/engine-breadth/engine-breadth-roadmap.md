@@ -435,6 +435,14 @@ unconfirmed families while the lines they support blocked, and line 2b
 summed unconfirmed interest. Twenty subtotal successors on core v63 make
 each wait; line 2b needed no validator change after all.
 
+## Bounded return — Each Credit Line Explains Itself (2025)
+
+[Plan](milestones/credit-line-explanations.md).
+
+Seven child tax credit form fields carried line 27a's earned income credit
+explanations word for word. Corrected successors on core v64, and a check
+that fails on a copied explanation; no value changes.
+
 ## Parked work and open questions
 
 This is the single list of parked work and open owner-held questions for the
@@ -480,9 +488,11 @@ delivers an item removes it.
 - Disabled-over-limit relatives and multiple support agreements for the
   credit for other dependents; lines 29-31 refundable credits, Schedule 2
   Part II taxes and the estimated tax penalty, each declared absent.
-- Lines 19 and 28's form-field explanations read as the earned income credit
-  (copied from line 27a on core v55), and no presentation line names the
-  tie-breaker step that decided a child.
+- No presentation line names the tie-breaker step that decided a child.
+- Generic form-field texts explain nothing: Form 1040 lines 9 and 12e-16 and
+  several Schedule D lines say only "blocked"; arithmetic lines carry the
+  closed-empty and worksheet-guard boilerplate; a blocked text never names
+  the missing input.
 - Worksheet lines as presentation rows; `demo.*` ids on the correct
   capital-loss and Social Security amounts.
 - The age questions' wording (born before January 2, 1961; a death in 2025

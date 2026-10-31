@@ -183,6 +183,8 @@ def domain_package_companion_declarations() -> dict[tuple[str, str], dict[str, A
     Core v63 publishes the guarded successors of the attachment and line 2b
     subtotal rules, which wait for their source sets to be closed, and reads
     the same amounts, so it shares it too.
+    Core v64 publishes form-field text successors only (no rule or value
+    changes), so it shares it as well.
     """
     withholding = {
         "presence_pairs": {
@@ -206,6 +208,7 @@ def domain_package_companion_declarations() -> dict[tuple[str, str], dict[str, A
         ("tax.us.2025.package.core-calculations", "v61"): withholding,
         ("tax.us.2025.package.core-calculations", "v62"): withholding,
         ("tax.us.2025.package.core-calculations", "v63"): withholding,
+        ("tax.us.2025.package.core-calculations", "v64"): withholding,
     }
 
 

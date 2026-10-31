@@ -1,0 +1,202 @@
+{
+  "package_version": "v64",
+  "release_version": "v62",
+  "members": [
+    {
+      "op": "replace",
+      "old": {
+        "id": "tax.us.2025.form.sch8812.line-14",
+        "role": "form-field",
+        "schema": "form-field.v3",
+        "version": "v1"
+      },
+      "new": {
+        "id": "tax.us.2025.form.sch8812.line-14",
+        "role": "form-field",
+        "schema": "form-field.v3",
+        "version": "v2"
+      }
+    },
+    {
+      "op": "replace",
+      "old": {
+        "id": "tax.us.2025.form.sch8812.line-17",
+        "role": "form-field",
+        "schema": "form-field.v3",
+        "version": "v1"
+      },
+      "new": {
+        "id": "tax.us.2025.form.sch8812.line-17",
+        "role": "form-field",
+        "schema": "form-field.v3",
+        "version": "v2"
+      }
+    },
+    {
+      "op": "replace",
+      "old": {
+        "id": "tax.us.2025.form.sch8812.line-20",
+        "role": "form-field",
+        "schema": "form-field.v3",
+        "version": "v1"
+      },
+      "new": {
+        "id": "tax.us.2025.form.sch8812.line-20",
+        "role": "form-field",
+        "schema": "form-field.v3",
+        "version": "v2"
+      }
+    },
+    {
+      "op": "replace",
+      "old": {
+        "id": "tax.us.2025.form.sch8812.line-4",
+        "role": "form-field",
+        "schema": "form-field.v3",
+        "version": "v1"
+      },
+      "new": {
+        "id": "tax.us.2025.form.sch8812.line-4",
+        "role": "form-field",
+        "schema": "form-field.v3",
+        "version": "v2"
+      }
+    },
+    {
+      "op": "replace",
+      "old": {
+        "id": "tax.us.2025.form.sch8812.worksheet-a.line-5",
+        "role": "form-field",
+        "schema": "form-field.v3",
+        "version": "v1"
+      },
+      "new": {
+        "id": "tax.us.2025.form.sch8812.worksheet-a.line-5",
+        "role": "form-field",
+        "schema": "form-field.v3",
+        "version": "v2"
+      }
+    },
+    {
+      "op": "replace",
+      "old": {
+        "id": "tax.us.2025.form1040.line-19",
+        "role": "form-field",
+        "schema": "form-field.v3",
+        "version": "v1"
+      },
+      "new": {
+        "id": "tax.us.2025.form1040.line-19",
+        "role": "form-field",
+        "schema": "form-field.v3",
+        "version": "v2"
+      }
+    },
+    {
+      "op": "replace",
+      "old": {
+        "id": "tax.us.2025.form1040.line-28",
+        "role": "form-field",
+        "schema": "form-field.v3",
+        "version": "v1"
+      },
+      "new": {
+        "id": "tax.us.2025.form1040.line-28",
+        "role": "form-field",
+        "schema": "form-field.v3",
+        "version": "v2"
+      }
+    }
+  ],
+  "entrypoints": [
+    {
+      "op": "replace",
+      "old": {
+        "id": "tax.us.2025.form.sch8812.line-14",
+        "version": "v1"
+      },
+      "new": {
+        "id": "tax.us.2025.form.sch8812.line-14",
+        "version": "v2"
+      }
+    },
+    {
+      "op": "replace",
+      "old": {
+        "id": "tax.us.2025.form.sch8812.line-17",
+        "version": "v1"
+      },
+      "new": {
+        "id": "tax.us.2025.form.sch8812.line-17",
+        "version": "v2"
+      }
+    },
+    {
+      "op": "replace",
+      "old": {
+        "id": "tax.us.2025.form.sch8812.line-20",
+        "version": "v1"
+      },
+      "new": {
+        "id": "tax.us.2025.form.sch8812.line-20",
+        "version": "v2"
+      }
+    },
+    {
+      "op": "replace",
+      "old": {
+        "id": "tax.us.2025.form.sch8812.line-4",
+        "version": "v1"
+      },
+      "new": {
+        "id": "tax.us.2025.form.sch8812.line-4",
+        "version": "v2"
+      }
+    },
+    {
+      "op": "replace",
+      "old": {
+        "id": "tax.us.2025.form.sch8812.worksheet-a.line-5",
+        "version": "v1"
+      },
+      "new": {
+        "id": "tax.us.2025.form.sch8812.worksheet-a.line-5",
+        "version": "v2"
+      }
+    },
+    {
+      "op": "replace",
+      "old": {
+        "id": "tax.us.2025.form1040.line-19",
+        "version": "v1"
+      },
+      "new": {
+        "id": "tax.us.2025.form1040.line-19",
+        "version": "v2"
+      }
+    },
+    {
+      "op": "replace",
+      "old": {
+        "id": "tax.us.2025.form1040.line-28",
+        "version": "v1"
+      },
+      "new": {
+        "id": "tax.us.2025.form1040.line-28",
+        "version": "v2"
+      }
+    }
+  ],
+  "registry_sort": "id_version",
+  "registry_tail": [
+    [
+      "tax.us.2025.rule.odc-child.counts",
+      "v2"
+    ]
+  ],
+  "registry_new_key_order": [
+    "checksum",
+    "id",
+    "version"
+  ]
+}
