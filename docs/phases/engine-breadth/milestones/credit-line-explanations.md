@@ -3,7 +3,7 @@
   "version": 1,
   "phase": "Engine Breadth",
   "topic": "credit-line-explanations",
-  "status": "Open. Seven child-tax-credit form fields explain themselves as the earned income credit; Track 1 publishes corrected successors on core v64.",
+  "status": "Closed. On core v64 Form 1040 lines 19 and 28, Schedule 8812 lines 4, 14, 17 and 20 and Credit Limit Worksheet A line 5 explain their own lines; a check fails on a copied explanation. No value changes.",
   "scope": [
     "every form field in the latest core package explains its own line: Form 1040 lines 19 and 28, Schedule 8812 lines 4, 14, 17 and 20, and Credit Limit Worksheet A line 5 stop reading as the earned income credit",
     "a check that fails if a form field's disposition text names another line or credit",
@@ -29,10 +29,12 @@
       "docs/phases/engine-breadth/milestones/credit-line-explanations.md"
     ],
     "new_milestone": [
+      "docs/milestone-retrospectives/2026-10-31-credit-line-explanations.md",
       "docs/phases/engine-breadth/milestones/credit-line-explanations.md",
       "docs/phases/engine-breadth/engine-breadth-roadmap.md#Parked work and open questions"
     ]
-  }
+  },
+  "retrospective": "docs/milestone-retrospectives/2026-10-31-credit-line-explanations.md"
 }
 -->
 
@@ -81,3 +83,36 @@ There is no P0: the defect and its fix are read directly from content.
 ## Process
 
 Dispatch to Sonnet 5.5 Agent sub-agents. Stop means stop.
+
+## Review dispositions
+
+Fresh-reader review of Track 1: no required findings.
+
+1. *Lines 19 and 14 described only the child tax credit* (recommended). Both
+   include the credit for other dependents (line 8 is lines 5 and 7), and
+   line 14's text omitted its gates and zero floor. Fixed in the unmerged v2
+   successors, and line 14's label now names both credits; registry v62 and
+   release v62 regenerated (core v64 pins only ids and versions, so its
+   bytes did not change).
+2. *The copy-check missed a whole-text copy that names no line*
+   (recommended). Fixed: identical texts across fields with different lines
+   are flagged, outside a commented list of generic phrases; a planted copy
+   proves it.
+3. *Line 28's Part II-B condition was incomplete* (note). Fixed: it also
+   needs line 20 below line 17.
+4. *Generic texts elsewhere explain nothing* (note). Parked.
+
+## Execution record
+
+- One Sonnet 5.5 builder (Track 1 and its repair) and one Sonnet 5.5
+  reviewer. The builder's first survey rule flagged 52 fields and was
+  narrowed to the seven; the review showed the narrowed rule could miss a
+  copy, which the repair closed.
+
+## Outcome
+
+On core v64, Form 1040 lines 19 and 28, Schedule 8812 lines 4, 14, 17 and 20
+and Credit Limit Worksheet A line 5 explain their own lines in every
+disposition. Every computed value is unchanged. Seven form-field successors;
+no rule, value, code or schema change. A regression check fails if a form
+field's text names another line or repeats another line's text.
