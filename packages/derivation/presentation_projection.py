@@ -413,6 +413,55 @@ def _selection_blocked_reasons(
     return reasons
 
 
+def _closure_question_reasons(
+    row: Mapping[str, Any],
+    *,
+    resolved_members: Sequence[Mapping[str, Any]],
+    by_symbol: Mapping[str, Sequence[Mapping[str, Any]]],
+) -> list[dict[str, Any]]:
+    """The declared question for every unconfirmed family a blocked line waits on.
+
+    Walks the line's ``missing`` symbols through blocked rows to the rows that
+    bottom out on ``SOURCE_SET_UNCLOSED``; their ``missing`` entries are family
+    ids. Each family's closure mapping declares its ``closure_question`` and it
+    is copied verbatim, never composed here and never replaced by a family
+    title, claim or id. Nothing is attached unless every root the line reaches
+    is such a closure root with a declared question: a reason hides the generic
+    blocked text, so a line with a second, different cause must keep it.
+    """
+    questions: dict[str, str] = {}
+    for member in resolved_members:
+        question = member.get("closure_question")
+        family = member.get("family")
+        if (str(member.get("schema", "")).startswith("source-closure-mapping.")
+                and isinstance(question, str) and question.strip() and isinstance(family, Mapping)):
+            questions[str(family.get("id"))] = question
+
+    families: set[str] = set()
+
+    def reach(current: Mapping[str, Any], seen: frozenset[str]) -> bool:
+        if current.get("code") == "SOURCE_SET_UNCLOSED":
+            missing = current.get("missing")
+            if not isinstance(missing, list) or not missing:
+                return False
+            families.update(str(family) for family in missing)
+            return True
+        missing = current.get("missing")
+        if not isinstance(missing, list) or not missing:
+            return False
+        for symbol in missing:
+            if symbol in seen:
+                continue
+            blocked = [r for r in by_symbol.get(str(symbol), []) if r.get("disposition") == "blocked"]
+            if not blocked or not all(reach(r, seen | {str(symbol)}) for r in blocked):
+                return False
+        return True
+
+    if not reach(row, frozenset()) or not families or any(family not in questions for family in families):
+        return []
+    return [{"sentence": sentence} for sentence in sorted({questions[family] for family in families})]
+
+
 def _is_closure_finding(finding_id: str, state: FindingState) -> bool:
     finding = state.findings.get(finding_id)
     return finding is not None and _CLOSURE_FACT_MARKER in finding.get("fact_id", "")
@@ -4486,6 +4535,12 @@ def build_presentation_model(
             )
             if reasons:
                 resolved["reasons"] = reasons
+        if resolved["disposition"] == "blocked" and "reasons" not in resolved:
+            closure_reasons = _closure_question_reasons(
+                row, resolved_members=resolved_members, by_symbol=by_symbol,
+            )
+            if closure_reasons:
+                resolved["reasons"] = closure_reasons
         if row["disposition"] == "published":
             try:
                 graph_builder.add_root(str(row["finding_id"]), role="output", authorization=authorization)
