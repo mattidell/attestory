@@ -56,11 +56,15 @@ from tests.test_withholding_closure import (
 PACKAGE_V62 = CONTENT / "package.core-calculations.v62.json"
 RELEASE_V60 = RELEASE_DIR / "demo.release.sli-worksheet-integration.2025.v60.json"
 SURFACE_V62 = PublicationSurface(RELEASE_DIR, CONTENT / "published-packages.v60.json", CONTENT)
+PACKAGE_V63 = CONTENT / "package.core-calculations.v63.json"
+RELEASE_V61 = RELEASE_DIR / "demo.release.sli-worksheet-integration.2025.v61.json"
+SURFACE_V63 = PublicationSurface(RELEASE_DIR, CONTENT / "published-packages.v61.json", CONTENT)
 P = "tax.us.2025."
 
 CORES = {
     "v61": (PACKAGE_V61, RELEASE_V59, "v59", SURFACE_V61),
     "v62": (PACKAGE_V62, RELEASE_V60, "v60", SURFACE_V62),
+    "v63": (PACKAGE_V63, RELEASE_V61, "v61", SURFACE_V63),
 }
 
 SUCCESSORS = {
@@ -274,11 +278,10 @@ def test_answering_the_closure_gives_v61_values_on_v62(family: str) -> None:
 
 # --- the nine interest gaps: known, parked ---------------------------------------
 
-# Known gap: line 2b v8 validator restriction, owner-held. Line 2b v8 has when=true, and the
-# package validator authorizes a selection rule only as exactly line 2b @ v8 with a
-# top-level when of true, so no guard can be added in a successor without a validator change.
-# These nine still publish a partial taxable-interest total on v62; when the owner lifts the
-# restriction, these cases flip deliberately.
+# Known gap on v62, closed on v63. Line 2b v8 has when=true and cannot be given a guard, so
+# core v63 guards the subtotal rules it reads instead (tests/test_attachment_closure.py pins
+# line 2b blocking on v63). These nine still publish a partial taxable-interest total on v62,
+# which stays pinned here as history.
 INTEREST_GAPS = {
     "f1099int.b1": 1000.0, "f1099int.b3": 1000.0, "f1099oid.b1": 1000.0, "non-form-interest": 1000.0,
     "form1065-k1.box5": 1000.0, "f1099int.b10": 1000.0, "f1099oid.b5": 1000.0,
@@ -300,7 +303,8 @@ def test_known_gap_schedule_d_attachment_still_publishes_the_partial_amount_on_v
     """Known gap: attachment.schedule-d reads the covered subtotals directly, so with one
     long-term proceeds member and the closure unanswered, line 8a blocks while
     schedule-d.disposition (the attachment's itemization) still publishes the partial
-    1,000. Guarding attachments is the next milestone; this case flips deliberately then."""
+    1,000. Core v63 guards the subtotal rule so the attachment waits too
+    (tests/test_attachment_closure.py); v62 stays pinned here as history."""
     result = _case(P + "f1099b.covered-lt-proceeds", False, "v62")
     assert not result.has("schedule-d.line-8a-gain")
     assert result.has("schedule-d.disposition")

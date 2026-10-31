@@ -1,0 +1,2592 @@
+{
+ "core": "v62",
+ "sets": {
+  "f1098e.1": {
+   "alone": {
+    "answered": {
+     "attachment_blocks": [
+      [
+       "rule.attachment.schedule-1",
+       "DEPENDENCY_ABSENT",
+       [
+        "schedule1.line21-sli-deduction"
+       ]
+      ]
+     ],
+     "companions_added": [
+      "f1098e.box2-checked-authority"
+     ],
+     "form8949": {
+      "published": false
+     },
+     "other_publishes": {
+      "dividends.1a-subtotal": 0.0,
+      "interest.taxable-total": 0.0,
+      "schedule-d.line-1a-gain": 0.0,
+      "schedule-d.line-8a-gain": 0.0,
+      "unemployment.box1-subtotal": 0.0
+     },
+     "schedule-1": {
+      "published": false
+     },
+     "schedule-b": {
+      "published": false
+     },
+     "schedule-d": {
+      "published": false
+     },
+     "source_set_unclosed_blocks": [],
+     "values_count": 173,
+     "values_sha256": "dbafee20319ae0fee82b10a2f81dd5283a8099f6bfcd8e54e4e32e486e2937e8"
+    },
+    "unanswered": {
+     "attachment_blocks": [
+      [
+       "rule.attachment.schedule-1",
+       "DEPENDENCY_ABSENT",
+       [
+        "schedule1.line21-sli-deduction"
+       ]
+      ]
+     ],
+     "companions_added": [
+      "f1098e.box2-checked-authority"
+     ],
+     "form8949": {
+      "published": false
+     },
+     "other_publishes": {
+      "dividends.1a-subtotal": 0.0,
+      "interest.taxable-total": 0.0,
+      "schedule-d.line-1a-gain": 0.0,
+      "schedule-d.line-8a-gain": 0.0,
+      "unemployment.box1-subtotal": 0.0
+     },
+     "schedule-1": {
+      "published": false
+     },
+     "schedule-b": {
+      "published": false
+     },
+     "schedule-d": {
+      "published": false
+     },
+     "source_set_unclosed_blocks": [
+      [
+       "rule.sli-worksheet",
+       [
+        "f1098e.1"
+       ]
+      ]
+     ],
+     "values_count": 173,
+     "values_sha256": "dbafee20319ae0fee82b10a2f81dd5283a8099f6bfcd8e54e4e32e486e2937e8"
+    }
+   },
+   "with_trigger": {
+    "answered": {
+     "attachment_blocks": [
+      [
+       "rule.attachment.schedule-1",
+       "DEPENDENCY_ABSENT",
+       [
+        "schedule1.line21-sli-deduction"
+       ]
+      ]
+     ],
+     "companions_added": [
+      "f1098e.box2-checked-authority"
+     ],
+     "form8949": {
+      "published": false
+     },
+     "other_publishes": {
+      "dividends.1a-subtotal": 0.0,
+      "interest.taxable-total": 0.0,
+      "schedule-d.line-1a-gain": 0.0,
+      "schedule-d.line-8a-gain": 0.0,
+      "unemployment.box1-subtotal": 1000.0
+     },
+     "schedule-1": {
+      "published": false
+     },
+     "schedule-b": {
+      "published": false
+     },
+     "schedule-d": {
+      "published": false
+     },
+     "source_set_unclosed_blocks": [],
+     "values_count": 173,
+     "values_sha256": "bc9318ef672c3542c76b6e95b0221603520b62dc979389c8476470f78deb8cf8"
+    },
+    "trigger": "f1099g.1",
+    "unanswered": {
+     "attachment_blocks": [
+      [
+       "rule.attachment.schedule-1",
+       "DEPENDENCY_ABSENT",
+       [
+        "schedule1.line21-sli-deduction"
+       ]
+      ]
+     ],
+     "companions_added": [
+      "f1098e.box2-checked-authority"
+     ],
+     "form8949": {
+      "published": false
+     },
+     "other_publishes": {
+      "dividends.1a-subtotal": 0.0,
+      "interest.taxable-total": 0.0,
+      "schedule-d.line-1a-gain": 0.0,
+      "schedule-d.line-8a-gain": 0.0,
+      "unemployment.box1-subtotal": 1000.0
+     },
+     "schedule-1": {
+      "published": false
+     },
+     "schedule-b": {
+      "published": false
+     },
+     "schedule-d": {
+      "published": false
+     },
+     "source_set_unclosed_blocks": [
+      [
+       "rule.sli-worksheet",
+       [
+        "f1098e.1"
+       ]
+      ]
+     ],
+     "values_count": 173,
+     "values_sha256": "bc9318ef672c3542c76b6e95b0221603520b62dc979389c8476470f78deb8cf8"
+    }
+   }
+  },
+  "f1099b.covered-lt-basis": {
+   "alone": {
+    "answered": {
+     "attachment_blocks": [],
+     "form8949": {
+      "published": false
+     },
+     "other_publishes": {
+      "dividends.1a-subtotal": 0.0,
+      "income.agi": 50000.0,
+      "interest.taxable-total": 0.0,
+      "schedule-d.line-1a-gain": 0.0,
+      "schedule-d.line-8a-gain": -1000.0,
+      "unemployment.box1-subtotal": 0.0
+     },
+     "schedule-1": {
+      "published": false
+     },
+     "schedule-b": {
+      "published": false
+     },
+     "schedule-d": {
+      "published": false
+     },
+     "source_set_unclosed_blocks": [],
+     "values_count": 239,
+     "values_sha256": "bb2f666b6ca30366df1b19fbd3de7d7a1e41f0df929022a4312bbfb480a6028b"
+    },
+    "unanswered": {
+     "attachment_blocks": [],
+     "form8949": {
+      "published": false
+     },
+     "other_publishes": {
+      "dividends.1a-subtotal": 0.0,
+      "interest.taxable-total": 0.0,
+      "schedule-d.line-1a-gain": 0.0,
+      "unemployment.box1-subtotal": 0.0
+     },
+     "schedule-1": {
+      "published": false
+     },
+     "schedule-b": {
+      "published": false
+     },
+     "schedule-d": {
+      "published": false
+     },
+     "source_set_unclosed_blocks": [
+      [
+       "rule.schedule-d-line8a-gain",
+       [
+        "f1099b.covered-lt-basis"
+       ]
+      ]
+     ],
+     "values_count": 147,
+     "values_sha256": "2e8fd4d3ed468e463a9bbd585d609265d6a713918e7510bd297daf28d82a7a14"
+    }
+   },
+   "with_trigger": {
+    "answered": {
+     "attachment_blocks": [],
+     "form8949": {
+      "published": false
+     },
+     "other_publishes": {
+      "dividends.1a-subtotal": 0.0,
+      "income.agi": 50000.0,
+      "interest.taxable-total": 0.0,
+      "schedule-d.line-1a-gain": 0.0,
+      "schedule-d.line-8a-gain": 0.0,
+      "unemployment.box1-subtotal": 0.0
+     },
+     "schedule-1": {
+      "published": false
+     },
+     "schedule-b": {
+      "published": false
+     },
+     "schedule-d": {
+      "nonzero_row_sets": [
+       {
+        "part": "line-8a-proceeds",
+        "row_sum": "1000.0",
+        "rows": 1,
+        "source_set": "f1099b.covered-lt-proceeds",
+        "subtotal": "1000.0"
+       },
+       {
+        "part": "line-8a-basis",
+        "row_sum": "1000.0",
+        "rows": 1,
+        "source_set": "f1099b.covered-lt-basis",
+        "subtotal": "1000.0"
+       }
+      ],
+      "published": true
+     },
+     "source_set_unclosed_blocks": [],
+     "values_count": 240,
+     "values_sha256": "5fd6e0ec451d75f492b362d6d5a2a10d1afb01782fdc759c1fb0c569f493c930"
+    },
+    "trigger": "f1099b.covered-lt-proceeds",
+    "unanswered": {
+     "attachment_blocks": [],
+     "form8949": {
+      "published": false
+     },
+     "other_publishes": {
+      "dividends.1a-subtotal": 0.0,
+      "interest.taxable-total": 0.0,
+      "schedule-d.line-1a-gain": 0.0,
+      "unemployment.box1-subtotal": 0.0
+     },
+     "schedule-1": {
+      "published": false
+     },
+     "schedule-b": {
+      "published": false
+     },
+     "schedule-d": {
+      "nonzero_row_sets": [
+       {
+        "part": "line-8a-proceeds",
+        "row_sum": "1000.0",
+        "rows": 1,
+        "source_set": "f1099b.covered-lt-proceeds",
+        "subtotal": "1000.0"
+       },
+       {
+        "part": "line-8a-basis",
+        "row_sum": "1000.0",
+        "rows": 1,
+        "source_set": "f1099b.covered-lt-basis",
+        "subtotal": "1000.0"
+       }
+      ],
+      "published": true
+     },
+     "source_set_unclosed_blocks": [
+      [
+       "rule.schedule-d-line8a-gain",
+       [
+        "f1099b.covered-lt-basis"
+       ]
+      ]
+     ],
+     "values_count": 148,
+     "values_sha256": "4a535daf33a447c3c22bb131a4ed498958bd8bd8c8287b502ba739c383fe520a"
+    }
+   }
+  },
+  "f1099b.covered-lt-proceeds": {
+   "alone": {
+    "answered": {
+     "attachment_blocks": [],
+     "form8949": {
+      "published": false
+     },
+     "other_publishes": {
+      "dividends.1a-subtotal": 0.0,
+      "income.agi": 51000.0,
+      "interest.taxable-total": 0.0,
+      "schedule-d.line-1a-gain": 0.0,
+      "schedule-d.line-8a-gain": 1000.0,
+      "unemployment.box1-subtotal": 0.0
+     },
+     "schedule-1": {
+      "published": false
+     },
+     "schedule-b": {
+      "published": false
+     },
+     "schedule-d": {
+      "nonzero_row_sets": [
+       {
+        "part": "line-8a-proceeds",
+        "row_sum": "1000.0",
+        "rows": 1,
+        "source_set": "f1099b.covered-lt-proceeds",
+        "subtotal": "1000.0"
+       }
+      ],
+      "published": true
+     },
+     "source_set_unclosed_blocks": [],
+     "values_count": 240,
+     "values_sha256": "0afaa1fd241768b12da561c9ec8a7a5d7efe72232b808fc5b39f7b86125c1356"
+    },
+    "unanswered": {
+     "attachment_blocks": [],
+     "form8949": {
+      "published": false
+     },
+     "other_publishes": {
+      "dividends.1a-subtotal": 0.0,
+      "interest.taxable-total": 0.0,
+      "schedule-d.line-1a-gain": 0.0,
+      "unemployment.box1-subtotal": 0.0
+     },
+     "schedule-1": {
+      "published": false
+     },
+     "schedule-b": {
+      "published": false
+     },
+     "schedule-d": {
+      "nonzero_row_sets": [
+       {
+        "part": "line-8a-proceeds",
+        "row_sum": "1000.0",
+        "rows": 1,
+        "source_set": "f1099b.covered-lt-proceeds",
+        "subtotal": "1000.0"
+       }
+      ],
+      "published": true
+     },
+     "source_set_unclosed_blocks": [
+      [
+       "rule.schedule-d-line8a-gain",
+       [
+        "f1099b.covered-lt-proceeds"
+       ]
+      ]
+     ],
+     "values_count": 148,
+     "values_sha256": "48c0276dfcc939b70c33b157563fabdfcba1171397397f830d630c7ec9b8c37f"
+    }
+   }
+  },
+  "f1099b.covered-st-basis": {
+   "alone": {
+    "answered": {
+     "attachment_blocks": [],
+     "form8949": {
+      "published": false
+     },
+     "other_publishes": {
+      "dividends.1a-subtotal": 0.0,
+      "income.agi": 50000.0,
+      "interest.taxable-total": 0.0,
+      "schedule-d.line-1a-gain": -1000.0,
+      "schedule-d.line-8a-gain": 0.0,
+      "unemployment.box1-subtotal": 0.0
+     },
+     "schedule-1": {
+      "published": false
+     },
+     "schedule-b": {
+      "published": false
+     },
+     "schedule-d": {
+      "published": false
+     },
+     "source_set_unclosed_blocks": [],
+     "values_count": 239,
+     "values_sha256": "9b99cf21f5a2a0766e48d6b0835c9aa29cf17cc3637a34b3eef9e0e98de9c783"
+    },
+    "unanswered": {
+     "attachment_blocks": [],
+     "form8949": {
+      "published": false
+     },
+     "other_publishes": {
+      "dividends.1a-subtotal": 0.0,
+      "interest.taxable-total": 0.0,
+      "schedule-d.line-8a-gain": 0.0,
+      "unemployment.box1-subtotal": 0.0
+     },
+     "schedule-1": {
+      "published": false
+     },
+     "schedule-b": {
+      "published": false
+     },
+     "schedule-d": {
+      "published": false
+     },
+     "source_set_unclosed_blocks": [
+      [
+       "rule.schedule-d-line1a-gain",
+       [
+        "f1099b.covered-st-basis"
+       ]
+      ]
+     ],
+     "values_count": 147,
+     "values_sha256": "03b8c8a5079f9c0d032a2e4baec3519cb460ec603e3c966cf60161b72853c054"
+    }
+   },
+   "with_trigger": {
+    "answered": {
+     "attachment_blocks": [],
+     "form8949": {
+      "published": false
+     },
+     "other_publishes": {
+      "dividends.1a-subtotal": 0.0,
+      "income.agi": 50000.0,
+      "interest.taxable-total": 0.0,
+      "schedule-d.line-1a-gain": 0.0,
+      "schedule-d.line-8a-gain": 0.0,
+      "unemployment.box1-subtotal": 0.0
+     },
+     "schedule-1": {
+      "published": false
+     },
+     "schedule-b": {
+      "published": false
+     },
+     "schedule-d": {
+      "nonzero_row_sets": [
+       {
+        "part": "line-1a-proceeds",
+        "row_sum": "1000.0",
+        "rows": 1,
+        "source_set": "f1099b.covered-st-proceeds",
+        "subtotal": "1000.0"
+       },
+       {
+        "part": "line-1a-basis",
+        "row_sum": "1000.0",
+        "rows": 1,
+        "source_set": "f1099b.covered-st-basis",
+        "subtotal": "1000.0"
+       }
+      ],
+      "published": true
+     },
+     "source_set_unclosed_blocks": [],
+     "values_count": 240,
+     "values_sha256": "e8a01a3358ba4c477f22076412d5c7b90b16a97a3e609bd00ac70e9159c7c3fa"
+    },
+    "trigger": "f1099b.covered-st-proceeds",
+    "unanswered": {
+     "attachment_blocks": [],
+     "form8949": {
+      "published": false
+     },
+     "other_publishes": {
+      "dividends.1a-subtotal": 0.0,
+      "interest.taxable-total": 0.0,
+      "schedule-d.line-8a-gain": 0.0,
+      "unemployment.box1-subtotal": 0.0
+     },
+     "schedule-1": {
+      "published": false
+     },
+     "schedule-b": {
+      "published": false
+     },
+     "schedule-d": {
+      "nonzero_row_sets": [
+       {
+        "part": "line-1a-proceeds",
+        "row_sum": "1000.0",
+        "rows": 1,
+        "source_set": "f1099b.covered-st-proceeds",
+        "subtotal": "1000.0"
+       },
+       {
+        "part": "line-1a-basis",
+        "row_sum": "1000.0",
+        "rows": 1,
+        "source_set": "f1099b.covered-st-basis",
+        "subtotal": "1000.0"
+       }
+      ],
+      "published": true
+     },
+     "source_set_unclosed_blocks": [
+      [
+       "rule.schedule-d-line1a-gain",
+       [
+        "f1099b.covered-st-basis"
+       ]
+      ]
+     ],
+     "values_count": 148,
+     "values_sha256": "de5685dd72d1160acecf0d074becba09969f9fd81a0f3ba1eca1ae912a39e491"
+    }
+   }
+  },
+  "f1099b.covered-st-proceeds": {
+   "alone": {
+    "answered": {
+     "attachment_blocks": [],
+     "form8949": {
+      "published": false
+     },
+     "other_publishes": {
+      "dividends.1a-subtotal": 0.0,
+      "income.agi": 51000.0,
+      "interest.taxable-total": 0.0,
+      "schedule-d.line-1a-gain": 1000.0,
+      "schedule-d.line-8a-gain": 0.0,
+      "unemployment.box1-subtotal": 0.0
+     },
+     "schedule-1": {
+      "published": false
+     },
+     "schedule-b": {
+      "published": false
+     },
+     "schedule-d": {
+      "nonzero_row_sets": [
+       {
+        "part": "line-1a-proceeds",
+        "row_sum": "1000.0",
+        "rows": 1,
+        "source_set": "f1099b.covered-st-proceeds",
+        "subtotal": "1000.0"
+       }
+      ],
+      "published": true
+     },
+     "source_set_unclosed_blocks": [],
+     "values_count": 240,
+     "values_sha256": "1085b176dc9c8e544387d221fcf72a8df45469fe09e383c92c1f8dea7aca7d09"
+    },
+    "unanswered": {
+     "attachment_blocks": [],
+     "form8949": {
+      "published": false
+     },
+     "other_publishes": {
+      "dividends.1a-subtotal": 0.0,
+      "interest.taxable-total": 0.0,
+      "schedule-d.line-8a-gain": 0.0,
+      "unemployment.box1-subtotal": 0.0
+     },
+     "schedule-1": {
+      "published": false
+     },
+     "schedule-b": {
+      "published": false
+     },
+     "schedule-d": {
+      "nonzero_row_sets": [
+       {
+        "part": "line-1a-proceeds",
+        "row_sum": "1000.0",
+        "rows": 1,
+        "source_set": "f1099b.covered-st-proceeds",
+        "subtotal": "1000.0"
+       }
+      ],
+      "published": true
+     },
+     "source_set_unclosed_blocks": [
+      [
+       "rule.schedule-d-line1a-gain",
+       [
+        "f1099b.covered-st-proceeds"
+       ]
+      ]
+     ],
+     "values_count": 148,
+     "values_sha256": "7794a60c9370a9aaa7e531606705df856e439e5fd526825559997fc9eebb68f3"
+    }
+   }
+  },
+  "f1099b.covered-w-lt-adjustment": {
+   "alone": {
+    "answered": {
+     "attachment_blocks": [],
+     "form8949": {
+      "published": false
+     },
+     "other_publishes": {
+      "dividends.1a-subtotal": 0.0,
+      "income.agi": 51000.0,
+      "interest.taxable-total": 0.0,
+      "schedule-d.line-1a-gain": 0.0,
+      "schedule-d.line-8a-gain": 0.0,
+      "unemployment.box1-subtotal": 0.0
+     },
+     "schedule-1": {
+      "published": false
+     },
+     "schedule-b": {
+      "published": false
+     },
+     "schedule-d": {
+      "published": false
+     },
+     "source_set_unclosed_blocks": [],
+     "values_count": 239,
+     "values_sha256": "06dc1a9fa0e61bad155c9dc6ed1151fa00e0cd047f219eb5fd5f107345305d4f"
+    },
+    "unanswered": {
+     "attachment_blocks": [],
+     "form8949": {
+      "published": false
+     },
+     "other_publishes": {
+      "dividends.1a-subtotal": 0.0,
+      "interest.taxable-total": 0.0,
+      "schedule-d.line-1a-gain": 0.0,
+      "schedule-d.line-8a-gain": 0.0,
+      "unemployment.box1-subtotal": 0.0
+     },
+     "schedule-1": {
+      "published": false
+     },
+     "schedule-b": {
+      "published": false
+     },
+     "schedule-d": {
+      "published": false
+     },
+     "source_set_unclosed_blocks": [
+      [
+       "rule.schedule-d-line8b",
+       [
+        "f1099b.covered-w-lt-adjustment"
+       ]
+      ]
+     ],
+     "values_count": 147,
+     "values_sha256": "33726f3ad1bf805da6282ad1297ec228c7f3b64aad92576d0ee46dda65bd17f0"
+    }
+   },
+   "with_trigger": {
+    "answered": {
+     "attachment_blocks": [],
+     "form8949": {
+      "nonzero_row_sets": [
+       {
+        "part": "box-d-proceeds",
+        "row_sum": "1000.0",
+        "rows": 1,
+        "source_set": "f1099b.covered-w-lt-proceeds",
+        "subtotal": "1000.0"
+       },
+       {
+        "part": "box-d-adjustment",
+        "row_sum": "1000.0",
+        "rows": 1,
+        "source_set": "f1099b.covered-w-lt-adjustment",
+        "subtotal": "1000.0"
+       }
+      ],
+      "published": true
+     },
+     "other_publishes": {
+      "dividends.1a-subtotal": 0.0,
+      "income.agi": 52000.0,
+      "interest.taxable-total": 0.0,
+      "schedule-d.line-1a-gain": 0.0,
+      "schedule-d.line-8a-gain": 0.0,
+      "unemployment.box1-subtotal": 0.0
+     },
+     "schedule-1": {
+      "published": false
+     },
+     "schedule-b": {
+      "published": false
+     },
+     "schedule-d": {
+      "nonzero_row_sets": [],
+      "published": true
+     },
+     "source_set_unclosed_blocks": [],
+     "values_count": 241,
+     "values_sha256": "b925f3681e0551a1a4e21acd38b467b157ce59f36046493acd678d15aa1bb57d"
+    },
+    "trigger": "f1099b.covered-w-lt-proceeds",
+    "unanswered": {
+     "attachment_blocks": [],
+     "form8949": {
+      "nonzero_row_sets": [
+       {
+        "part": "box-d-proceeds",
+        "row_sum": "1000.0",
+        "rows": 1,
+        "source_set": "f1099b.covered-w-lt-proceeds",
+        "subtotal": "1000.0"
+       },
+       {
+        "part": "box-d-adjustment",
+        "row_sum": "1000.0",
+        "rows": 1,
+        "source_set": "f1099b.covered-w-lt-adjustment",
+        "subtotal": "1000.0"
+       }
+      ],
+      "published": true
+     },
+     "other_publishes": {
+      "dividends.1a-subtotal": 0.0,
+      "interest.taxable-total": 0.0,
+      "schedule-d.line-1a-gain": 0.0,
+      "schedule-d.line-8a-gain": 0.0,
+      "unemployment.box1-subtotal": 0.0
+     },
+     "schedule-1": {
+      "published": false
+     },
+     "schedule-b": {
+      "published": false
+     },
+     "schedule-d": {
+      "nonzero_row_sets": [],
+      "published": true
+     },
+     "source_set_unclosed_blocks": [
+      [
+       "rule.schedule-d-line8b",
+       [
+        "f1099b.covered-w-lt-adjustment"
+       ]
+      ]
+     ],
+     "values_count": 149,
+     "values_sha256": "0ca863826df1ad398c396e51353a17b1a458857a77b356e196a144d13b9b1a61"
+    }
+   }
+  },
+  "f1099b.covered-w-lt-basis": {
+   "alone": {
+    "answered": {
+     "attachment_blocks": [],
+     "form8949": {
+      "published": false
+     },
+     "other_publishes": {
+      "dividends.1a-subtotal": 0.0,
+      "income.agi": 49000.0,
+      "interest.taxable-total": 0.0,
+      "schedule-d.line-1a-gain": 0.0,
+      "schedule-d.line-8a-gain": 0.0,
+      "unemployment.box1-subtotal": 0.0
+     },
+     "schedule-1": {
+      "published": false
+     },
+     "schedule-b": {
+      "published": false
+     },
+     "schedule-d": {
+      "published": false
+     },
+     "source_set_unclosed_blocks": [],
+     "values_count": 239,
+     "values_sha256": "067eedc7ba1fcbae588940679a6565772421ea48976c0161a61929c731ce96f5"
+    },
+    "unanswered": {
+     "attachment_blocks": [],
+     "form8949": {
+      "published": false
+     },
+     "other_publishes": {
+      "dividends.1a-subtotal": 0.0,
+      "interest.taxable-total": 0.0,
+      "schedule-d.line-1a-gain": 0.0,
+      "schedule-d.line-8a-gain": 0.0,
+      "unemployment.box1-subtotal": 0.0
+     },
+     "schedule-1": {
+      "published": false
+     },
+     "schedule-b": {
+      "published": false
+     },
+     "schedule-d": {
+      "published": false
+     },
+     "source_set_unclosed_blocks": [
+      [
+       "rule.schedule-d-line8b",
+       [
+        "f1099b.covered-w-lt-basis"
+       ]
+      ]
+     ],
+     "values_count": 147,
+     "values_sha256": "c95e38b3a922a6658bab9505e10053570bfccd4770d1f60806ba3d9636b4a482"
+    }
+   },
+   "with_trigger": {
+    "answered": {
+     "attachment_blocks": [],
+     "form8949": {
+      "nonzero_row_sets": [
+       {
+        "part": "box-d-proceeds",
+        "row_sum": "1000.0",
+        "rows": 1,
+        "source_set": "f1099b.covered-w-lt-proceeds",
+        "subtotal": "1000.0"
+       },
+       {
+        "part": "box-d-basis",
+        "row_sum": "1000.0",
+        "rows": 1,
+        "source_set": "f1099b.covered-w-lt-basis",
+        "subtotal": "1000.0"
+       }
+      ],
+      "published": true
+     },
+     "other_publishes": {
+      "dividends.1a-subtotal": 0.0,
+      "income.agi": 50000.0,
+      "interest.taxable-total": 0.0,
+      "schedule-d.line-1a-gain": 0.0,
+      "schedule-d.line-8a-gain": 0.0,
+      "unemployment.box1-subtotal": 0.0
+     },
+     "schedule-1": {
+      "published": false
+     },
+     "schedule-b": {
+      "published": false
+     },
+     "schedule-d": {
+      "nonzero_row_sets": [],
+      "published": true
+     },
+     "source_set_unclosed_blocks": [],
+     "values_count": 241,
+     "values_sha256": "7c0f946176d9dc01e76ead499a7bad2d743bac33a13132307f74f210bd0875be"
+    },
+    "trigger": "f1099b.covered-w-lt-proceeds",
+    "unanswered": {
+     "attachment_blocks": [],
+     "form8949": {
+      "nonzero_row_sets": [
+       {
+        "part": "box-d-proceeds",
+        "row_sum": "1000.0",
+        "rows": 1,
+        "source_set": "f1099b.covered-w-lt-proceeds",
+        "subtotal": "1000.0"
+       },
+       {
+        "part": "box-d-basis",
+        "row_sum": "1000.0",
+        "rows": 1,
+        "source_set": "f1099b.covered-w-lt-basis",
+        "subtotal": "1000.0"
+       }
+      ],
+      "published": true
+     },
+     "other_publishes": {
+      "dividends.1a-subtotal": 0.0,
+      "interest.taxable-total": 0.0,
+      "schedule-d.line-1a-gain": 0.0,
+      "schedule-d.line-8a-gain": 0.0,
+      "unemployment.box1-subtotal": 0.0
+     },
+     "schedule-1": {
+      "published": false
+     },
+     "schedule-b": {
+      "published": false
+     },
+     "schedule-d": {
+      "nonzero_row_sets": [],
+      "published": true
+     },
+     "source_set_unclosed_blocks": [
+      [
+       "rule.schedule-d-line8b",
+       [
+        "f1099b.covered-w-lt-basis"
+       ]
+      ]
+     ],
+     "values_count": 149,
+     "values_sha256": "f193fd6d19a6ee5a7aaf77e5345e3e8a75963b0e32dad64d28b37e50b07f243b"
+    }
+   }
+  },
+  "f1099b.covered-w-lt-proceeds": {
+   "alone": {
+    "answered": {
+     "attachment_blocks": [],
+     "form8949": {
+      "nonzero_row_sets": [
+       {
+        "part": "box-d-proceeds",
+        "row_sum": "1000.0",
+        "rows": 1,
+        "source_set": "f1099b.covered-w-lt-proceeds",
+        "subtotal": "1000.0"
+       }
+      ],
+      "published": true
+     },
+     "other_publishes": {
+      "dividends.1a-subtotal": 0.0,
+      "income.agi": 51000.0,
+      "interest.taxable-total": 0.0,
+      "schedule-d.line-1a-gain": 0.0,
+      "schedule-d.line-8a-gain": 0.0,
+      "unemployment.box1-subtotal": 0.0
+     },
+     "schedule-1": {
+      "published": false
+     },
+     "schedule-b": {
+      "published": false
+     },
+     "schedule-d": {
+      "nonzero_row_sets": [],
+      "published": true
+     },
+     "source_set_unclosed_blocks": [],
+     "values_count": 241,
+     "values_sha256": "6f5f0da12c749a5ea87eac30bbf8a292fa8b6be034b90147e4c883d0c517872e"
+    },
+    "unanswered": {
+     "attachment_blocks": [],
+     "form8949": {
+      "nonzero_row_sets": [
+       {
+        "part": "box-d-proceeds",
+        "row_sum": "1000.0",
+        "rows": 1,
+        "source_set": "f1099b.covered-w-lt-proceeds",
+        "subtotal": "1000.0"
+       }
+      ],
+      "published": true
+     },
+     "other_publishes": {
+      "dividends.1a-subtotal": 0.0,
+      "interest.taxable-total": 0.0,
+      "schedule-d.line-1a-gain": 0.0,
+      "schedule-d.line-8a-gain": 0.0,
+      "unemployment.box1-subtotal": 0.0
+     },
+     "schedule-1": {
+      "published": false
+     },
+     "schedule-b": {
+      "published": false
+     },
+     "schedule-d": {
+      "nonzero_row_sets": [],
+      "published": true
+     },
+     "source_set_unclosed_blocks": [
+      [
+       "rule.schedule-d-line8b",
+       [
+        "f1099b.covered-w-lt-proceeds"
+       ]
+      ]
+     ],
+     "values_count": 149,
+     "values_sha256": "ad738c2a0aaaf143dcb9f77f51238c83d41930cd9a1a08be279eb324a514b905"
+    }
+   }
+  },
+  "f1099b.covered-w-st-adjustment": {
+   "alone": {
+    "answered": {
+     "attachment_blocks": [],
+     "form8949": {
+      "published": false
+     },
+     "other_publishes": {
+      "dividends.1a-subtotal": 0.0,
+      "income.agi": 51000.0,
+      "interest.taxable-total": 0.0,
+      "schedule-d.line-1a-gain": 0.0,
+      "schedule-d.line-8a-gain": 0.0,
+      "unemployment.box1-subtotal": 0.0
+     },
+     "schedule-1": {
+      "published": false
+     },
+     "schedule-b": {
+      "published": false
+     },
+     "schedule-d": {
+      "published": false
+     },
+     "source_set_unclosed_blocks": [],
+     "values_count": 239,
+     "values_sha256": "033fa41e3f76789ec0830eea8cbd012a4f437acbbec55f0978d9e6b165274813"
+    },
+    "unanswered": {
+     "attachment_blocks": [],
+     "form8949": {
+      "published": false
+     },
+     "other_publishes": {
+      "dividends.1a-subtotal": 0.0,
+      "interest.taxable-total": 0.0,
+      "schedule-d.line-1a-gain": 0.0,
+      "schedule-d.line-8a-gain": 0.0,
+      "unemployment.box1-subtotal": 0.0
+     },
+     "schedule-1": {
+      "published": false
+     },
+     "schedule-b": {
+      "published": false
+     },
+     "schedule-d": {
+      "published": false
+     },
+     "source_set_unclosed_blocks": [
+      [
+       "rule.schedule-d-line1b",
+       [
+        "f1099b.covered-w-st-adjustment"
+       ]
+      ]
+     ],
+     "values_count": 147,
+     "values_sha256": "3ad3067f32f2e4f00f826f56db483702b2a6444e991eecbf3cbc94918207a22b"
+    }
+   },
+   "with_trigger": {
+    "answered": {
+     "attachment_blocks": [],
+     "form8949": {
+      "nonzero_row_sets": [
+       {
+        "part": "box-a-proceeds",
+        "row_sum": "1000.0",
+        "rows": 1,
+        "source_set": "f1099b.covered-w-st-proceeds",
+        "subtotal": "1000.0"
+       },
+       {
+        "part": "box-a-adjustment",
+        "row_sum": "1000.0",
+        "rows": 1,
+        "source_set": "f1099b.covered-w-st-adjustment",
+        "subtotal": "1000.0"
+       }
+      ],
+      "published": true
+     },
+     "other_publishes": {
+      "dividends.1a-subtotal": 0.0,
+      "income.agi": 52000.0,
+      "interest.taxable-total": 0.0,
+      "schedule-d.line-1a-gain": 0.0,
+      "schedule-d.line-8a-gain": 0.0,
+      "unemployment.box1-subtotal": 0.0
+     },
+     "schedule-1": {
+      "published": false
+     },
+     "schedule-b": {
+      "published": false
+     },
+     "schedule-d": {
+      "nonzero_row_sets": [],
+      "published": true
+     },
+     "source_set_unclosed_blocks": [],
+     "values_count": 241,
+     "values_sha256": "28edf25da789e65868b0871920763acb21aed10d41e983bd234e51337d8fbcde"
+    },
+    "trigger": "f1099b.covered-w-st-proceeds",
+    "unanswered": {
+     "attachment_blocks": [],
+     "form8949": {
+      "nonzero_row_sets": [
+       {
+        "part": "box-a-proceeds",
+        "row_sum": "1000.0",
+        "rows": 1,
+        "source_set": "f1099b.covered-w-st-proceeds",
+        "subtotal": "1000.0"
+       },
+       {
+        "part": "box-a-adjustment",
+        "row_sum": "1000.0",
+        "rows": 1,
+        "source_set": "f1099b.covered-w-st-adjustment",
+        "subtotal": "1000.0"
+       }
+      ],
+      "published": true
+     },
+     "other_publishes": {
+      "dividends.1a-subtotal": 0.0,
+      "interest.taxable-total": 0.0,
+      "schedule-d.line-1a-gain": 0.0,
+      "schedule-d.line-8a-gain": 0.0,
+      "unemployment.box1-subtotal": 0.0
+     },
+     "schedule-1": {
+      "published": false
+     },
+     "schedule-b": {
+      "published": false
+     },
+     "schedule-d": {
+      "nonzero_row_sets": [],
+      "published": true
+     },
+     "source_set_unclosed_blocks": [
+      [
+       "rule.schedule-d-line1b",
+       [
+        "f1099b.covered-w-st-adjustment"
+       ]
+      ]
+     ],
+     "values_count": 149,
+     "values_sha256": "35966514b14b3998c9ff63dd43c8fdcd44f55da77a50569216920115df9237b7"
+    }
+   }
+  },
+  "f1099b.covered-w-st-basis": {
+   "alone": {
+    "answered": {
+     "attachment_blocks": [],
+     "form8949": {
+      "published": false
+     },
+     "other_publishes": {
+      "dividends.1a-subtotal": 0.0,
+      "income.agi": 49000.0,
+      "interest.taxable-total": 0.0,
+      "schedule-d.line-1a-gain": 0.0,
+      "schedule-d.line-8a-gain": 0.0,
+      "unemployment.box1-subtotal": 0.0
+     },
+     "schedule-1": {
+      "published": false
+     },
+     "schedule-b": {
+      "published": false
+     },
+     "schedule-d": {
+      "published": false
+     },
+     "source_set_unclosed_blocks": [],
+     "values_count": 239,
+     "values_sha256": "8c5ff9d444dad8b042bd03fe2d1b41cf174c117ce8229c962cf7175d02ad2722"
+    },
+    "unanswered": {
+     "attachment_blocks": [],
+     "form8949": {
+      "published": false
+     },
+     "other_publishes": {
+      "dividends.1a-subtotal": 0.0,
+      "interest.taxable-total": 0.0,
+      "schedule-d.line-1a-gain": 0.0,
+      "schedule-d.line-8a-gain": 0.0,
+      "unemployment.box1-subtotal": 0.0
+     },
+     "schedule-1": {
+      "published": false
+     },
+     "schedule-b": {
+      "published": false
+     },
+     "schedule-d": {
+      "published": false
+     },
+     "source_set_unclosed_blocks": [
+      [
+       "rule.schedule-d-line1b",
+       [
+        "f1099b.covered-w-st-basis"
+       ]
+      ]
+     ],
+     "values_count": 147,
+     "values_sha256": "c514cc0d5a9c5315026845c8cd3c2a898e23bb754e9fe05301ab01f16407543e"
+    }
+   },
+   "with_trigger": {
+    "answered": {
+     "attachment_blocks": [],
+     "form8949": {
+      "nonzero_row_sets": [
+       {
+        "part": "box-a-proceeds",
+        "row_sum": "1000.0",
+        "rows": 1,
+        "source_set": "f1099b.covered-w-st-proceeds",
+        "subtotal": "1000.0"
+       },
+       {
+        "part": "box-a-basis",
+        "row_sum": "1000.0",
+        "rows": 1,
+        "source_set": "f1099b.covered-w-st-basis",
+        "subtotal": "1000.0"
+       }
+      ],
+      "published": true
+     },
+     "other_publishes": {
+      "dividends.1a-subtotal": 0.0,
+      "income.agi": 50000.0,
+      "interest.taxable-total": 0.0,
+      "schedule-d.line-1a-gain": 0.0,
+      "schedule-d.line-8a-gain": 0.0,
+      "unemployment.box1-subtotal": 0.0
+     },
+     "schedule-1": {
+      "published": false
+     },
+     "schedule-b": {
+      "published": false
+     },
+     "schedule-d": {
+      "nonzero_row_sets": [],
+      "published": true
+     },
+     "source_set_unclosed_blocks": [],
+     "values_count": 241,
+     "values_sha256": "e88e8cab555bb92131ef2162c040c507936c571b176b5dff6468cb5a6f78290f"
+    },
+    "trigger": "f1099b.covered-w-st-proceeds",
+    "unanswered": {
+     "attachment_blocks": [],
+     "form8949": {
+      "nonzero_row_sets": [
+       {
+        "part": "box-a-proceeds",
+        "row_sum": "1000.0",
+        "rows": 1,
+        "source_set": "f1099b.covered-w-st-proceeds",
+        "subtotal": "1000.0"
+       },
+       {
+        "part": "box-a-basis",
+        "row_sum": "1000.0",
+        "rows": 1,
+        "source_set": "f1099b.covered-w-st-basis",
+        "subtotal": "1000.0"
+       }
+      ],
+      "published": true
+     },
+     "other_publishes": {
+      "dividends.1a-subtotal": 0.0,
+      "interest.taxable-total": 0.0,
+      "schedule-d.line-1a-gain": 0.0,
+      "schedule-d.line-8a-gain": 0.0,
+      "unemployment.box1-subtotal": 0.0
+     },
+     "schedule-1": {
+      "published": false
+     },
+     "schedule-b": {
+      "published": false
+     },
+     "schedule-d": {
+      "nonzero_row_sets": [],
+      "published": true
+     },
+     "source_set_unclosed_blocks": [
+      [
+       "rule.schedule-d-line1b",
+       [
+        "f1099b.covered-w-st-basis"
+       ]
+      ]
+     ],
+     "values_count": 149,
+     "values_sha256": "7ed37ec7949e347b41f2cf35fa85bf79f10c30e89413893f7f4a9872c718bd80"
+    }
+   }
+  },
+  "f1099b.covered-w-st-proceeds": {
+   "alone": {
+    "answered": {
+     "attachment_blocks": [],
+     "form8949": {
+      "nonzero_row_sets": [
+       {
+        "part": "box-a-proceeds",
+        "row_sum": "1000.0",
+        "rows": 1,
+        "source_set": "f1099b.covered-w-st-proceeds",
+        "subtotal": "1000.0"
+       }
+      ],
+      "published": true
+     },
+     "other_publishes": {
+      "dividends.1a-subtotal": 0.0,
+      "income.agi": 51000.0,
+      "interest.taxable-total": 0.0,
+      "schedule-d.line-1a-gain": 0.0,
+      "schedule-d.line-8a-gain": 0.0,
+      "unemployment.box1-subtotal": 0.0
+     },
+     "schedule-1": {
+      "published": false
+     },
+     "schedule-b": {
+      "published": false
+     },
+     "schedule-d": {
+      "nonzero_row_sets": [],
+      "published": true
+     },
+     "source_set_unclosed_blocks": [],
+     "values_count": 241,
+     "values_sha256": "d078a797fe4dca972ac093e207d69d7c621e9e9801c99f2097bd983e3cd79a5b"
+    },
+    "unanswered": {
+     "attachment_blocks": [],
+     "form8949": {
+      "nonzero_row_sets": [
+       {
+        "part": "box-a-proceeds",
+        "row_sum": "1000.0",
+        "rows": 1,
+        "source_set": "f1099b.covered-w-st-proceeds",
+        "subtotal": "1000.0"
+       }
+      ],
+      "published": true
+     },
+     "other_publishes": {
+      "dividends.1a-subtotal": 0.0,
+      "interest.taxable-total": 0.0,
+      "schedule-d.line-1a-gain": 0.0,
+      "schedule-d.line-8a-gain": 0.0,
+      "unemployment.box1-subtotal": 0.0
+     },
+     "schedule-1": {
+      "published": false
+     },
+     "schedule-b": {
+      "published": false
+     },
+     "schedule-d": {
+      "nonzero_row_sets": [],
+      "published": true
+     },
+     "source_set_unclosed_blocks": [
+      [
+       "rule.schedule-d-line1b",
+       [
+        "f1099b.covered-w-st-proceeds"
+       ]
+      ]
+     ],
+     "values_count": 149,
+     "values_sha256": "5005cd312e243b5d97f6982176bbf4fe2068c44740850891e4c007eedf821133"
+    }
+   }
+  },
+  "f1099div.1a": {
+   "alone": {
+    "answered": {
+     "attachment_blocks": [],
+     "form8949": {
+      "published": false
+     },
+     "other_publishes": {
+      "dividends.1a-subtotal": 1000.0,
+      "income.agi": 51000.0,
+      "interest.taxable-total": 0.0,
+      "schedule-d.line-1a-gain": 0.0,
+      "schedule-d.line-8a-gain": 0.0,
+      "unemployment.box1-subtotal": 0.0
+     },
+     "schedule-1": {
+      "published": false
+     },
+     "schedule-b": {
+      "published": false
+     },
+     "schedule-d": {
+      "published": false
+     },
+     "source_set_unclosed_blocks": [],
+     "values_count": 239,
+     "values_sha256": "a7b848ec42031c6707ddbcba1cfe5bcd589e0de11dc6337395ffe3ecd1373b0a"
+    },
+    "unanswered": {
+     "attachment_blocks": [
+      [
+       "rule.attachment.schedule-b",
+       "DEPENDENCY_ABSENT",
+       [
+        "dividends.ordinary-total"
+       ]
+      ]
+     ],
+     "form8949": {
+      "published": false
+     },
+     "other_publishes": {
+      "dividends.1a-subtotal": 1000.0,
+      "interest.taxable-total": 0.0,
+      "schedule-d.line-1a-gain": 0.0,
+      "schedule-d.line-8a-gain": 0.0,
+      "unemployment.box1-subtotal": 0.0
+     },
+     "schedule-1": {
+      "published": false
+     },
+     "schedule-b": {
+      "published": false
+     },
+     "schedule-d": {
+      "published": false
+     },
+     "source_set_unclosed_blocks": [
+      [
+       "rule.form1040-line3b",
+       [
+        "f1099div.1a"
+       ]
+      ]
+     ],
+     "values_count": 153,
+     "values_sha256": "d50d7109f4588d7f97f0a33d83c8513d1bf74d3b3e00c648298bab0139a0e89e"
+    }
+   }
+  },
+  "f1099g.1": {
+   "alone": {
+    "answered": {
+     "attachment_blocks": [],
+     "form8949": {
+      "published": false
+     },
+     "other_publishes": {
+      "dividends.1a-subtotal": 0.0,
+      "income.agi": 51000.0,
+      "interest.taxable-total": 0.0,
+      "schedule-d.line-1a-gain": 0.0,
+      "schedule-d.line-8a-gain": 0.0,
+      "unemployment.box1-subtotal": 1000.0
+     },
+     "schedule-1": {
+      "nonzero_row_sets": [
+       {
+        "part": "line-7-unemployment",
+        "row_sum": "1000.0",
+        "rows": 1,
+        "source_set": "f1099g.1",
+        "subtotal": "1000"
+       }
+      ],
+      "published": true
+     },
+     "schedule-b": {
+      "published": false
+     },
+     "schedule-d": {
+      "published": false
+     },
+     "source_set_unclosed_blocks": [],
+     "values_count": 240,
+     "values_sha256": "9027ba145db84d3a8c124ab69a956d84ccc243914798dfc00ba2099e795ea90f"
+    },
+    "unanswered": {
+     "attachment_blocks": [],
+     "form8949": {
+      "published": false
+     },
+     "other_publishes": {
+      "dividends.1a-subtotal": 0.0,
+      "interest.taxable-total": 0.0,
+      "schedule-d.line-1a-gain": 0.0,
+      "schedule-d.line-8a-gain": 0.0,
+      "unemployment.box1-subtotal": 1000.0
+     },
+     "schedule-1": {
+      "nonzero_row_sets": [
+       {
+        "part": "line-7-unemployment",
+        "row_sum": "1000.0",
+        "rows": 1,
+        "source_set": "f1099g.1",
+        "subtotal": "1000"
+       }
+      ],
+      "published": true
+     },
+     "schedule-b": {
+      "published": false
+     },
+     "schedule-d": {
+      "published": false
+     },
+     "source_set_unclosed_blocks": [
+      [
+       "rule.schedule1-line7",
+       [
+        "f1099g.1"
+       ]
+      ]
+     ],
+     "values_count": 153,
+     "values_sha256": "1923cbb546f6d321fb9aec75202c1c4a7d80c4436495e83b3fd95e5320a1ffa2"
+    }
+   }
+  },
+  "f1099int.b1": {
+   "alone": {
+    "answered": {
+     "attachment_blocks": [],
+     "form8949": {
+      "published": false
+     },
+     "other_publishes": {
+      "dividends.1a-subtotal": 0.0,
+      "income.agi": 51000.0,
+      "interest.taxable-total": 1000.0,
+      "schedule-d.line-1a-gain": 0.0,
+      "schedule-d.line-8a-gain": 0.0,
+      "unemployment.box1-subtotal": 0.0
+     },
+     "schedule-1": {
+      "published": false
+     },
+     "schedule-b": {
+      "published": false
+     },
+     "schedule-d": {
+      "published": false
+     },
+     "source_set_unclosed_blocks": [],
+     "values_count": 239,
+     "values_sha256": "af4afcd258791461f5f0e6453e360449c0fece549e753790c88d538150e2953e"
+    },
+    "unanswered": {
+     "attachment_blocks": [
+      [
+       "rule.attachment.schedule-b",
+       "DEPENDENCY_ABSENT",
+       [
+        "interest.positive-total"
+       ]
+      ]
+     ],
+     "form8949": {
+      "published": false
+     },
+     "other_publishes": {
+      "dividends.1a-subtotal": 0.0,
+      "income.agi": 51000.0,
+      "interest.taxable-total": 1000.0,
+      "schedule-d.line-1a-gain": 0.0,
+      "schedule-d.line-8a-gain": 0.0,
+      "unemployment.box1-subtotal": 0.0
+     },
+     "schedule-1": {
+      "published": false
+     },
+     "schedule-b": {
+      "published": false
+     },
+     "schedule-d": {
+      "published": false
+     },
+     "source_set_unclosed_blocks": [
+      [
+       "rule.interest-positive-total",
+       [
+        "f1099int.b1"
+       ]
+      ]
+     ],
+     "values_count": 238,
+     "values_sha256": "e45427a416ab24ba460bd877303f737e94308242c8af6678c5ba7add1f5dc5b6"
+    }
+   }
+  },
+  "f1099int.b10": {
+   "alone": {
+    "answered": {
+     "attachment_blocks": [],
+     "form8949": {
+      "published": false
+     },
+     "other_publishes": {
+      "dividends.1a-subtotal": 0.0,
+      "income.agi": 51000.0,
+      "interest.taxable-total": 1000.0,
+      "schedule-d.line-1a-gain": 0.0,
+      "schedule-d.line-8a-gain": 0.0,
+      "unemployment.box1-subtotal": 0.0
+     },
+     "schedule-1": {
+      "published": false
+     },
+     "schedule-b": {
+      "published": false
+     },
+     "schedule-d": {
+      "published": false
+     },
+     "source_set_unclosed_blocks": [],
+     "values_count": 239,
+     "values_sha256": "727099b002c385e10be68bbb9a49b057bafb6d7503e843bb8c25bfefb75a3a73"
+    },
+    "unanswered": {
+     "attachment_blocks": [
+      [
+       "rule.attachment.schedule-b",
+       "DEPENDENCY_ABSENT",
+       [
+        "interest.positive-total"
+       ]
+      ]
+     ],
+     "form8949": {
+      "published": false
+     },
+     "other_publishes": {
+      "dividends.1a-subtotal": 0.0,
+      "income.agi": 51000.0,
+      "interest.taxable-total": 1000.0,
+      "schedule-d.line-1a-gain": 0.0,
+      "schedule-d.line-8a-gain": 0.0,
+      "unemployment.box1-subtotal": 0.0
+     },
+     "schedule-1": {
+      "published": false
+     },
+     "schedule-b": {
+      "published": false
+     },
+     "schedule-d": {
+      "published": false
+     },
+     "source_set_unclosed_blocks": [
+      [
+       "rule.interest-positive-total",
+       [
+        "f1099int.b10"
+       ]
+      ]
+     ],
+     "values_count": 238,
+     "values_sha256": "cf9e3b0344f3560d54f1e88723161c6e59f3836b95771b64488bbcfa86401699"
+    }
+   }
+  },
+  "f1099int.b3": {
+   "alone": {
+    "answered": {
+     "attachment_blocks": [],
+     "form8949": {
+      "published": false
+     },
+     "other_publishes": {
+      "dividends.1a-subtotal": 0.0,
+      "income.agi": 51000.0,
+      "interest.taxable-total": 1000.0,
+      "schedule-d.line-1a-gain": 0.0,
+      "schedule-d.line-8a-gain": 0.0,
+      "unemployment.box1-subtotal": 0.0
+     },
+     "schedule-1": {
+      "published": false
+     },
+     "schedule-b": {
+      "published": false
+     },
+     "schedule-d": {
+      "published": false
+     },
+     "source_set_unclosed_blocks": [],
+     "values_count": 239,
+     "values_sha256": "b73c90bfd4d1f3eea2e262ab7daf237dd461c87b04fde1beee55eeff8c7053a2"
+    },
+    "unanswered": {
+     "attachment_blocks": [
+      [
+       "rule.attachment.schedule-b",
+       "DEPENDENCY_ABSENT",
+       [
+        "interest.positive-total"
+       ]
+      ]
+     ],
+     "form8949": {
+      "published": false
+     },
+     "other_publishes": {
+      "dividends.1a-subtotal": 0.0,
+      "income.agi": 51000.0,
+      "interest.taxable-total": 1000.0,
+      "schedule-d.line-1a-gain": 0.0,
+      "schedule-d.line-8a-gain": 0.0,
+      "unemployment.box1-subtotal": 0.0
+     },
+     "schedule-1": {
+      "published": false
+     },
+     "schedule-b": {
+      "published": false
+     },
+     "schedule-d": {
+      "published": false
+     },
+     "source_set_unclosed_blocks": [
+      [
+       "rule.interest-positive-total",
+       [
+        "f1099int.b3"
+       ]
+      ]
+     ],
+     "values_count": 238,
+     "values_sha256": "ee1734a30bd8a3ba09cf47fafd75e50170365a8e3a72ea82a68d4b6dbd691bc1"
+    }
+   }
+  },
+  "f1099int.b8": {
+   "alone": {
+    "answered": {
+     "attachment_blocks": [],
+     "companions_added": [
+      "f1099int.box9-specified-pab-authority"
+     ],
+     "form8949": {
+      "published": false
+     },
+     "other_publishes": {
+      "dividends.1a-subtotal": 0.0,
+      "income.agi": 50000.0,
+      "interest.taxable-total": 0.0,
+      "schedule-d.line-1a-gain": 0.0,
+      "schedule-d.line-8a-gain": 0.0,
+      "unemployment.box1-subtotal": 0.0
+     },
+     "schedule-1": {
+      "published": false
+     },
+     "schedule-b": {
+      "published": false
+     },
+     "schedule-d": {
+      "published": false
+     },
+     "source_set_unclosed_blocks": [],
+     "values_count": 239,
+     "values_sha256": "5b38a216be0dd0f0c87f89799f5a35cbb3bb70f54e13901bf6f9f179edc46776"
+    },
+    "unanswered": {
+     "attachment_blocks": [],
+     "companions_added": [
+      "f1099int.box9-specified-pab-authority"
+     ],
+     "form8949": {
+      "published": false
+     },
+     "other_publishes": {
+      "dividends.1a-subtotal": 0.0,
+      "interest.taxable-total": 0.0,
+      "schedule-d.line-1a-gain": 0.0,
+      "schedule-d.line-8a-gain": 0.0,
+      "unemployment.box1-subtotal": 0.0
+     },
+     "schedule-1": {
+      "published": false
+     },
+     "schedule-b": {
+      "published": false
+     },
+     "schedule-d": {
+      "published": false
+     },
+     "source_set_unclosed_blocks": [
+      [
+       "rule.form1040-line2a",
+       [
+        "f1099int.b8"
+       ]
+      ]
+     ],
+     "values_count": 153,
+     "values_sha256": "94436852565dbeee47bb80795faed1f2b5062213f69edb3ccd3f602d88bc5025"
+    }
+   }
+  },
+  "f1099k": {
+   "alone": {
+    "answered": {
+     "attachment_blocks": [
+      [
+       "rule.attachment.schedule-1",
+       "DEPENDENCY_ABSENT",
+       [
+        "schedule1.top-entry"
+       ]
+      ]
+     ],
+     "form8949": {
+      "published": false
+     },
+     "other_publishes": {
+      "dividends.1a-subtotal": 0.0,
+      "interest.taxable-total": 0.0,
+      "schedule-d.line-1a-gain": 0.0,
+      "schedule-d.line-8a-gain": 0.0,
+      "unemployment.box1-subtotal": 0.0
+     },
+     "schedule-1": {
+      "published": false
+     },
+     "schedule-b": {
+      "published": false
+     },
+     "schedule-d": {
+      "published": false
+     },
+     "source_set_unclosed_blocks": [],
+     "values_count": 158,
+     "values_sha256": "5963ceeeda9517b5b3cc70784c9fbb5ed74c61563b3904bd397b719468dea363"
+    },
+    "unanswered": {
+     "attachment_blocks": [
+      [
+       "rule.attachment.schedule-1",
+       "DEPENDENCY_ABSENT",
+       [
+        "schedule1.top-entry"
+       ]
+      ]
+     ],
+     "form8949": {
+      "published": false
+     },
+     "other_publishes": {
+      "dividends.1a-subtotal": 0.0,
+      "interest.taxable-total": 0.0,
+      "schedule-d.line-1a-gain": 0.0,
+      "schedule-d.line-8a-gain": 0.0,
+      "unemployment.box1-subtotal": 0.0
+     },
+     "schedule-1": {
+      "published": false
+     },
+     "schedule-b": {
+      "published": false
+     },
+     "schedule-d": {
+      "published": false
+     },
+     "source_set_unclosed_blocks": [
+      [
+       "rule.schedule1-line10",
+       [
+        "f1099k"
+       ]
+      ],
+      [
+       "rule.schedule1-top-entry",
+       [
+        "f1099k"
+       ]
+      ]
+     ],
+     "values_count": 158,
+     "values_sha256": "5963ceeeda9517b5b3cc70784c9fbb5ed74c61563b3904bd397b719468dea363"
+    }
+   },
+   "with_trigger": {
+    "answered": {
+     "attachment_blocks": [
+      [
+       "rule.attachment.schedule-1",
+       "DEPENDENCY_ABSENT",
+       [
+        "schedule1.top-entry"
+       ]
+      ]
+     ],
+     "form8949": {
+      "published": false
+     },
+     "other_publishes": {
+      "dividends.1a-subtotal": 0.0,
+      "interest.taxable-total": 0.0,
+      "schedule-d.line-1a-gain": 0.0,
+      "schedule-d.line-8a-gain": 0.0,
+      "unemployment.box1-subtotal": 1000.0
+     },
+     "schedule-1": {
+      "published": false
+     },
+     "schedule-b": {
+      "published": false
+     },
+     "schedule-d": {
+      "published": false
+     },
+     "source_set_unclosed_blocks": [],
+     "values_count": 158,
+     "values_sha256": "f9a4f8dd8109e4eed093044eadedd896cd53ca8766c3faef75aa669a168d2923"
+    },
+    "trigger": "f1099g.1",
+    "unanswered": {
+     "attachment_blocks": [
+      [
+       "rule.attachment.schedule-1",
+       "DEPENDENCY_ABSENT",
+       [
+        "schedule1.top-entry"
+       ]
+      ]
+     ],
+     "form8949": {
+      "published": false
+     },
+     "other_publishes": {
+      "dividends.1a-subtotal": 0.0,
+      "interest.taxable-total": 0.0,
+      "schedule-d.line-1a-gain": 0.0,
+      "schedule-d.line-8a-gain": 0.0,
+      "unemployment.box1-subtotal": 1000.0
+     },
+     "schedule-1": {
+      "published": false
+     },
+     "schedule-b": {
+      "published": false
+     },
+     "schedule-d": {
+      "published": false
+     },
+     "source_set_unclosed_blocks": [
+      [
+       "rule.schedule1-line10",
+       [
+        "f1099k"
+       ]
+      ],
+      [
+       "rule.schedule1-top-entry",
+       [
+        "f1099k"
+       ]
+      ]
+     ],
+     "values_count": 158,
+     "values_sha256": "f9a4f8dd8109e4eed093044eadedd896cd53ca8766c3faef75aa669a168d2923"
+    }
+   }
+  },
+  "f1099oid.b1": {
+   "alone": {
+    "answered": {
+     "attachment_blocks": [],
+     "form8949": {
+      "published": false
+     },
+     "other_publishes": {
+      "dividends.1a-subtotal": 0.0,
+      "income.agi": 51000.0,
+      "interest.taxable-total": 1000.0,
+      "schedule-d.line-1a-gain": 0.0,
+      "schedule-d.line-8a-gain": 0.0,
+      "unemployment.box1-subtotal": 0.0
+     },
+     "schedule-1": {
+      "published": false
+     },
+     "schedule-b": {
+      "published": false
+     },
+     "schedule-d": {
+      "published": false
+     },
+     "source_set_unclosed_blocks": [],
+     "values_count": 239,
+     "values_sha256": "2a03f5f72d0c3a51a120e75ced3eab6309d35506572c022f9f889c56fd6d6a5d"
+    },
+    "unanswered": {
+     "attachment_blocks": [
+      [
+       "rule.attachment.schedule-b",
+       "DEPENDENCY_ABSENT",
+       [
+        "interest.positive-total"
+       ]
+      ]
+     ],
+     "form8949": {
+      "published": false
+     },
+     "other_publishes": {
+      "dividends.1a-subtotal": 0.0,
+      "income.agi": 51000.0,
+      "interest.taxable-total": 1000.0,
+      "schedule-d.line-1a-gain": 0.0,
+      "schedule-d.line-8a-gain": 0.0,
+      "unemployment.box1-subtotal": 0.0
+     },
+     "schedule-1": {
+      "published": false
+     },
+     "schedule-b": {
+      "published": false
+     },
+     "schedule-d": {
+      "published": false
+     },
+     "source_set_unclosed_blocks": [
+      [
+       "rule.interest-positive-total",
+       [
+        "f1099oid.b1"
+       ]
+      ]
+     ],
+     "values_count": 238,
+     "values_sha256": "41a98a68483dffff270675cbd5db3a319e5420c7826fdf51ecb8239f87c705d6"
+    }
+   }
+  },
+  "f1099oid.b5": {
+   "alone": {
+    "answered": {
+     "attachment_blocks": [],
+     "form8949": {
+      "published": false
+     },
+     "other_publishes": {
+      "dividends.1a-subtotal": 0.0,
+      "income.agi": 51000.0,
+      "interest.taxable-total": 1000.0,
+      "schedule-d.line-1a-gain": 0.0,
+      "schedule-d.line-8a-gain": 0.0,
+      "unemployment.box1-subtotal": 0.0
+     },
+     "schedule-1": {
+      "published": false
+     },
+     "schedule-b": {
+      "published": false
+     },
+     "schedule-d": {
+      "published": false
+     },
+     "source_set_unclosed_blocks": [],
+     "values_count": 239,
+     "values_sha256": "d8d4a5f72727e6009e55ace4aca30f1b52cc4bbe215fc8e039c6a8c467986c94"
+    },
+    "unanswered": {
+     "attachment_blocks": [
+      [
+       "rule.attachment.schedule-b",
+       "DEPENDENCY_ABSENT",
+       [
+        "interest.positive-total"
+       ]
+      ]
+     ],
+     "form8949": {
+      "published": false
+     },
+     "other_publishes": {
+      "dividends.1a-subtotal": 0.0,
+      "income.agi": 51000.0,
+      "interest.taxable-total": 1000.0,
+      "schedule-d.line-1a-gain": 0.0,
+      "schedule-d.line-8a-gain": 0.0,
+      "unemployment.box1-subtotal": 0.0
+     },
+     "schedule-1": {
+      "published": false
+     },
+     "schedule-b": {
+      "published": false
+     },
+     "schedule-d": {
+      "published": false
+     },
+     "source_set_unclosed_blocks": [
+      [
+       "rule.interest-positive-total",
+       [
+        "f1099oid.b5"
+       ]
+      ]
+     ],
+     "values_count": 238,
+     "values_sha256": "444e18d536d66f79760cf0b3e8c673f62e4bcafdf8917c055a896031987a44b8"
+    }
+   }
+  },
+  "form1065-k1.box5": {
+   "alone": {
+    "answered": {
+     "attachment_blocks": [],
+     "form8949": {
+      "published": false
+     },
+     "other_publishes": {
+      "dividends.1a-subtotal": 0.0,
+      "income.agi": 51000.0,
+      "interest.taxable-total": 1000.0,
+      "schedule-d.line-1a-gain": 0.0,
+      "schedule-d.line-8a-gain": 0.0,
+      "unemployment.box1-subtotal": 0.0
+     },
+     "schedule-1": {
+      "published": false
+     },
+     "schedule-b": {
+      "published": false
+     },
+     "schedule-d": {
+      "published": false
+     },
+     "source_set_unclosed_blocks": [],
+     "values_count": 239,
+     "values_sha256": "56c90639b561e06bfb0219c37f33e81446e34a1c351b899c072c6e6c7051102a"
+    },
+    "unanswered": {
+     "attachment_blocks": [
+      [
+       "rule.attachment.schedule-b",
+       "DEPENDENCY_ABSENT",
+       [
+        "interest.positive-total"
+       ]
+      ]
+     ],
+     "form8949": {
+      "published": false
+     },
+     "other_publishes": {
+      "dividends.1a-subtotal": 0.0,
+      "income.agi": 51000.0,
+      "interest.taxable-total": 1000.0,
+      "schedule-d.line-1a-gain": 0.0,
+      "schedule-d.line-8a-gain": 0.0,
+      "unemployment.box1-subtotal": 0.0
+     },
+     "schedule-1": {
+      "published": false
+     },
+     "schedule-b": {
+      "published": false
+     },
+     "schedule-d": {
+      "published": false
+     },
+     "source_set_unclosed_blocks": [
+      [
+       "rule.interest-positive-total",
+       [
+        "form1065-k1.box5"
+       ]
+      ]
+     ],
+     "values_count": 238,
+     "values_sha256": "023b8c76039b40a7834d5d865d475c93ab89b724bd237fce941d2aeb620c11b6"
+    }
+   }
+  },
+  "non-form-interest": {
+   "alone": {
+    "answered": {
+     "attachment_blocks": [],
+     "form8949": {
+      "published": false
+     },
+     "other_publishes": {
+      "dividends.1a-subtotal": 0.0,
+      "income.agi": 51000.0,
+      "interest.taxable-total": 1000.0,
+      "schedule-d.line-1a-gain": 0.0,
+      "schedule-d.line-8a-gain": 0.0,
+      "unemployment.box1-subtotal": 0.0
+     },
+     "schedule-1": {
+      "published": false
+     },
+     "schedule-b": {
+      "published": false
+     },
+     "schedule-d": {
+      "published": false
+     },
+     "source_set_unclosed_blocks": [],
+     "values_count": 239,
+     "values_sha256": "fd11e5153b199669be3268f383554b063e60e63160c6101ac5ce9f27c6a307b1"
+    },
+    "unanswered": {
+     "attachment_blocks": [
+      [
+       "rule.attachment.schedule-b",
+       "DEPENDENCY_ABSENT",
+       [
+        "interest.positive-total"
+       ]
+      ]
+     ],
+     "form8949": {
+      "published": false
+     },
+     "other_publishes": {
+      "dividends.1a-subtotal": 0.0,
+      "income.agi": 51000.0,
+      "interest.taxable-total": 1000.0,
+      "schedule-d.line-1a-gain": 0.0,
+      "schedule-d.line-8a-gain": 0.0,
+      "unemployment.box1-subtotal": 0.0
+     },
+     "schedule-1": {
+      "published": false
+     },
+     "schedule-b": {
+      "published": false
+     },
+     "schedule-d": {
+      "published": false
+     },
+     "source_set_unclosed_blocks": [
+      [
+       "rule.interest-positive-total",
+       [
+        "non-form-interest"
+       ]
+      ]
+     ],
+     "values_count": 238,
+     "values_sha256": "988a0d29e224f93ed98de51b245c21bd01f18270f153861cfce63f667302933c"
+    }
+   }
+  },
+  "scheduleb.adjustment.abp-adjustment": {
+   "alone": {
+    "answered": {
+     "attachment_blocks": [],
+     "form8949": {
+      "published": false
+     },
+     "other_publishes": {
+      "dividends.1a-subtotal": 0.0,
+      "income.agi": 49000.0,
+      "interest.taxable-total": -1000.0,
+      "schedule-d.line-1a-gain": 0.0,
+      "schedule-d.line-8a-gain": 0.0,
+      "unemployment.box1-subtotal": 0.0
+     },
+     "schedule-1": {
+      "published": false
+     },
+     "schedule-b": {
+      "published": false
+     },
+     "schedule-d": {
+      "published": false
+     },
+     "source_set_unclosed_blocks": [],
+     "values_count": 239,
+     "values_sha256": "d9cd0b08aa6ba1f59bd38d6ef221aaab3fee76443fa12d4cd1b0da227009c748"
+    },
+    "unanswered": {
+     "attachment_blocks": [],
+     "form8949": {
+      "published": false
+     },
+     "other_publishes": {
+      "dividends.1a-subtotal": 0.0,
+      "income.agi": 49000.0,
+      "interest.taxable-total": -1000.0,
+      "schedule-d.line-1a-gain": 0.0,
+      "schedule-d.line-8a-gain": 0.0,
+      "unemployment.box1-subtotal": 0.0
+     },
+     "schedule-1": {
+      "published": false
+     },
+     "schedule-b": {
+      "published": false
+     },
+     "schedule-d": {
+      "published": false
+     },
+     "source_set_unclosed_blocks": [],
+     "values_count": 239,
+     "values_sha256": "d9cd0b08aa6ba1f59bd38d6ef221aaab3fee76443fa12d4cd1b0da227009c748"
+    }
+   },
+   "with_trigger": {
+    "answered": {
+     "attachment_blocks": [],
+     "form8949": {
+      "published": false
+     },
+     "other_publishes": {
+      "dividends.1a-subtotal": 0.0,
+      "income.agi": 51000.0,
+      "interest.taxable-total": 1000.0,
+      "schedule-d.line-1a-gain": 0.0,
+      "schedule-d.line-8a-gain": 0.0,
+      "unemployment.box1-subtotal": 0.0
+     },
+     "schedule-1": {
+      "published": false
+     },
+     "schedule-b": {
+      "nonzero_row_sets": [
+       {
+        "part": "part-i-interest",
+        "row_sum": "2000.0",
+        "rows": 1,
+        "source_set": "f1099int.b1",
+        "subtotal": "2000"
+       },
+       {
+        "adjustment": "abp_adjustment",
+        "part": "part-i-interest",
+        "row_sum": "1000.0",
+        "rows": 1,
+        "subtotal": "1000"
+       }
+      ],
+      "published": true
+     },
+     "schedule-d": {
+      "published": false
+     },
+     "source_set_unclosed_blocks": [],
+     "values_count": 240,
+     "values_sha256": "a33d7316f7ac1332876825b0c7c1e874a60b86fb75fdfb9bb3aa51c581ef9a24"
+    },
+    "trigger": "f1099int.b1",
+    "unanswered": {
+     "attachment_blocks": [],
+     "form8949": {
+      "published": false
+     },
+     "other_publishes": {
+      "dividends.1a-subtotal": 0.0,
+      "income.agi": 51000.0,
+      "interest.taxable-total": 1000.0,
+      "schedule-d.line-1a-gain": 0.0,
+      "schedule-d.line-8a-gain": 0.0,
+      "unemployment.box1-subtotal": 0.0
+     },
+     "schedule-1": {
+      "published": false
+     },
+     "schedule-b": {
+      "nonzero_row_sets": [
+       {
+        "part": "part-i-interest",
+        "row_sum": "2000.0",
+        "rows": 1,
+        "source_set": "f1099int.b1",
+        "subtotal": "2000"
+       },
+       {
+        "adjustment": "abp_adjustment",
+        "part": "part-i-interest",
+        "row_sum": "1000.0",
+        "rows": 1,
+        "subtotal": "1000"
+       }
+      ],
+      "published": true
+     },
+     "schedule-d": {
+      "published": false
+     },
+     "source_set_unclosed_blocks": [],
+     "values_count": 240,
+     "values_sha256": "a33d7316f7ac1332876825b0c7c1e874a60b86fb75fdfb9bb3aa51c581ef9a24"
+    }
+   }
+  },
+  "scheduleb.adjustment.nominee": {
+   "alone": {
+    "answered": {
+     "attachment_blocks": [],
+     "form8949": {
+      "published": false
+     },
+     "other_publishes": {
+      "dividends.1a-subtotal": 0.0,
+      "income.agi": 49000.0,
+      "interest.taxable-total": -1000.0,
+      "schedule-d.line-1a-gain": 0.0,
+      "schedule-d.line-8a-gain": 0.0,
+      "unemployment.box1-subtotal": 0.0
+     },
+     "schedule-1": {
+      "published": false
+     },
+     "schedule-b": {
+      "published": false
+     },
+     "schedule-d": {
+      "published": false
+     },
+     "source_set_unclosed_blocks": [],
+     "values_count": 239,
+     "values_sha256": "84ab16fb6d9594674db3152ff87826e27d52ab31b492c4089af0e274251c6102"
+    },
+    "unanswered": {
+     "attachment_blocks": [],
+     "form8949": {
+      "published": false
+     },
+     "other_publishes": {
+      "dividends.1a-subtotal": 0.0,
+      "income.agi": 49000.0,
+      "interest.taxable-total": -1000.0,
+      "schedule-d.line-1a-gain": 0.0,
+      "schedule-d.line-8a-gain": 0.0,
+      "unemployment.box1-subtotal": 0.0
+     },
+     "schedule-1": {
+      "published": false
+     },
+     "schedule-b": {
+      "published": false
+     },
+     "schedule-d": {
+      "published": false
+     },
+     "source_set_unclosed_blocks": [],
+     "values_count": 239,
+     "values_sha256": "84ab16fb6d9594674db3152ff87826e27d52ab31b492c4089af0e274251c6102"
+    }
+   },
+   "with_trigger": {
+    "answered": {
+     "attachment_blocks": [],
+     "form8949": {
+      "published": false
+     },
+     "other_publishes": {
+      "dividends.1a-subtotal": 0.0,
+      "income.agi": 51000.0,
+      "interest.taxable-total": 1000.0,
+      "schedule-d.line-1a-gain": 0.0,
+      "schedule-d.line-8a-gain": 0.0,
+      "unemployment.box1-subtotal": 0.0
+     },
+     "schedule-1": {
+      "published": false
+     },
+     "schedule-b": {
+      "nonzero_row_sets": [
+       {
+        "part": "part-i-interest",
+        "row_sum": "2000.0",
+        "rows": 1,
+        "source_set": "f1099int.b1",
+        "subtotal": "2000"
+       },
+       {
+        "adjustment": "nominee_distribution",
+        "part": "part-i-interest",
+        "row_sum": "1000.0",
+        "rows": 1,
+        "subtotal": "1000"
+       }
+      ],
+      "published": true
+     },
+     "schedule-d": {
+      "published": false
+     },
+     "source_set_unclosed_blocks": [],
+     "values_count": 240,
+     "values_sha256": "109961fa850204c475b5c2229e6f228bab2efeabfdf8d0e605f843b9d144b7bb"
+    },
+    "trigger": "f1099int.b1",
+    "unanswered": {
+     "attachment_blocks": [],
+     "form8949": {
+      "published": false
+     },
+     "other_publishes": {
+      "dividends.1a-subtotal": 0.0,
+      "income.agi": 51000.0,
+      "interest.taxable-total": 1000.0,
+      "schedule-d.line-1a-gain": 0.0,
+      "schedule-d.line-8a-gain": 0.0,
+      "unemployment.box1-subtotal": 0.0
+     },
+     "schedule-1": {
+      "published": false
+     },
+     "schedule-b": {
+      "nonzero_row_sets": [
+       {
+        "part": "part-i-interest",
+        "row_sum": "2000.0",
+        "rows": 1,
+        "source_set": "f1099int.b1",
+        "subtotal": "2000"
+       },
+       {
+        "adjustment": "nominee_distribution",
+        "part": "part-i-interest",
+        "row_sum": "1000.0",
+        "rows": 1,
+        "subtotal": "1000"
+       }
+      ],
+      "published": true
+     },
+     "schedule-d": {
+      "published": false
+     },
+     "source_set_unclosed_blocks": [],
+     "values_count": 240,
+     "values_sha256": "109961fa850204c475b5c2229e6f228bab2efeabfdf8d0e605f843b9d144b7bb"
+    }
+   }
+  }
+ }
+}
