@@ -3,7 +3,7 @@
   "version": 1,
   "phase": "Engine Breadth",
   "topic": "w2g-gambling",
-  "status": "Open. P0 designed the Form W-2G route (two families, Schedule 1 line 8b, line 25c); Track 1 builds it on core v65.",
+  "status": "Closed. On core v65 Form W-2G box 1 reaches Schedule 1 line 8b and box 4 reaches line 25c, each family with its own closure; gambling outside the W-2G class is refused by answer and every earlier package refuses a recorded W-2G.",
   "scope": [
     "a return with gambling winnings reported on Form W-2G computes: box 1 on Schedule 1 line 8b, box 4 federal withholding on Form 1040 line 25c",
     "each W-2G family has its own closure, and an unconfirmed family blocks its lines",
@@ -33,10 +33,12 @@
       "docs/phases/engine-breadth/milestones/w2g-gambling.md"
     ],
     "new_milestone": [
+      "docs/milestone-retrospectives/2026-10-31-w2g-gambling.md",
       "docs/phases/engine-breadth/milestones/w2g-gambling.md",
       "docs/phases/engine-breadth/engine-breadth-roadmap.md#Parked work and open questions"
     ]
-  }
+  },
+  "retrospective": "docs/milestone-retrospectives/2026-10-31-w2g-gambling.md"
 }
 -->
 
@@ -166,3 +168,48 @@ Foreman, 2026-10-31, on P0's section 6:
    the loader entries; cases on the real coordinator for every case in P0
    section 5; v64 pinned; the closure regression test passing with the new
    collects.
+
+## Review dispositions
+
+Fresh-reader review of P0 and Track 1: no required findings. P0's line 8b
+and line 25c citations, the business exclusion and the 2025 loss rule were
+corroborated from the local sources; box 1 to line 8b rests on the form
+itself, which is not in them. Five further cases matched hand values (two
+W-2Gs for one filer; box 4 recorded as zero; W-2G with Form 1099-G
+withholding; a joint return with a family unconfirmed; a corrected amount).
+Every core version before v65, and a log with no adoption, refuses a
+recorded W-2G. The reviewer accepted the witness guard and found the test
+edit honest.
+
+1. *A box 4 amount with no box 1 credits line 25c and omits the winnings*
+   (recommended). Fixed: on v65 a box 4 amount requires a box 1 companion on
+   the same statement, so it is refused at recording.
+2. *Amounts with cents block the Schedule 1 attachment's tie-out*
+   (recommended). Inherited from Form 1099-G on v64; pinned and parked.
+3. *Only v64 tested the earlier-package guard* (recommended). Fixed: a
+   sweep over every earlier core and a log with no adoption.
+4. *Nothing pinned that the witness stays unregistered* (recommended).
+   Fixed.
+5. *The test edit would not catch the W-2G pairs disappearing* (note).
+   Fixed: it asserts them first.
+
+## Execution record
+
+- Sonnet 5.5 sub-agents: P0 about 15 minutes, Track 1 about 14, review about
+  14, one repair pass by the Track 1 builder.
+- Two departures from P0 were accepted: the box 1 subtotal uses the
+  already-published `rule-artifact.v4` (v3 has no `count`), and the
+  earlier-package guard is a presence pair naming an unregistered witness.
+
+## Outcome
+
+On core v65, a filer who records each Form W-2G and confirms every one is
+recorded sees box 1 on Schedule 1 line 8b, through total income to the
+bottom line, and box 4 on Form 1040 line 25c; each walks to its statement.
+$6,000 of winnings with $1,440 withheld moves line 8b by 6,000, line 25c by
+1,440 and the refund by 720 against the same return without it. An
+unconfirmed family blocks its own lines. Winnings not on a W-2G, other line
+8 income, business gambling and gambling losses are refused by answer. A
+return without gambling publishes v64's values once three new questions are
+answered. Every earlier package refuses a recorded W-2G. Ten new citizens
+and six successors; no engine or schema change.

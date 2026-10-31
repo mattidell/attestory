@@ -443,6 +443,15 @@ Seven child tax credit form fields carried line 27a's earned income credit
 explanations word for word. Corrected successors on core v64, and a check
 that fails on a copied explanation; no value changes.
 
+## Bounded return — Gambling Winnings on Form W-2G (2025)
+
+[Plan](milestones/w2g-gambling.md).
+
+Line 25c was a constant zero and a return with gambling winnings was
+refused by answer. On core v65, Form W-2G box 1 reaches Schedule 1 line 8b
+and box 4 reaches line 25c, each family with its own closure; every earlier
+package refuses a recorded W-2G.
+
 ## Parked work and open questions
 
 This is the single list of parked work and open owner-held questions for the
@@ -475,9 +484,17 @@ delivers an item removes it.
 - Form 1099-K box 4 on line 25b (SC-R1); routing the 1098, 1099-K and nominee
   recorders through the package overlay first (ADR-0082 production
   condition 2).
-- Form W-2G (line 25c); package companion declarations in
-  package content; a generator for the core package, registry and release
-  chain; an in-product route for the Social Security handover.
+- Package companion declarations in package content (the W-2G guard is a
+  presence pair naming an unregistered witness, removed by v65's declaration;
+  a successor that omits its declaration refuses every W-2G log); an
+  in-product route for the Social Security handover.
+- Gambling outside the Form W-2G class: winnings not on a W-2G, business
+  gambling, and gambling losses (refused by answer; a standard-deduction
+  filer with losses is refused though losses do not change that return).
+  The Form W-2G itself is not in the local sources.
+- Itemized amounts with cents block the Schedule 1 attachment's tie-out
+  (`ITEMIZATION_TIE_OUT_VIOLATION`): Form 1099-G box 1 on v64, Form W-2G box
+  1 on v65 (pinned).
 - Form 8332 and decree releases, more than one other claimant and unsettled
   equal-AGI ties (outside the class by answer); asking the tie-breaker only of
   a child some credit can count, which needs derived per-subject results as
