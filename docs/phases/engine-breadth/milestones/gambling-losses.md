@@ -3,7 +3,7 @@
   "version": 1,
   "phase": "Engine Breadth",
   "topic": "gambling-losses",
-  "status": "Open. P0 designed a gambling-losses family and Schedule A line 16 limited to winnings, entering the deduction choice; Track 1 builds them on core v67.",
+  "status": "Closed. On core v67 gambling losses up to winnings reach Schedule A line 16 and the deduction choice, and a standard-deduction filer with losses computes unchanged. The Schedule A attachment does not itemize line 16: an open owner-held question.",
   "scope": [
     "a filer with Form W-2G winnings and gambling losses computes: on the standard deduction, losses do not change the return and are no longer refused; when itemizing, losses up to winnings reach Schedule A line 16",
     "losses are recorded and confirmed complete like any other family",
@@ -32,10 +32,12 @@
       "docs/phases/engine-breadth/milestones/gambling-losses.md"
     ],
     "new_milestone": [
+      "docs/milestone-retrospectives/2026-10-31-gambling-losses.md",
       "docs/phases/engine-breadth/milestones/gambling-losses.md",
       "docs/phases/engine-breadth/engine-breadth-roadmap.md#Parked work and open questions"
     ]
-  }
+  },
+  "retrospective": "docs/milestone-retrospectives/2026-10-31-gambling-losses.md"
 }
 -->
 
@@ -115,9 +117,73 @@ Foreman, 2026-10-31, on P0's recommendations:
 3. **Wagering expenses stay out; losses with no winnings count as zero**
    (D3), which is the winnings limit, not a refusal.
 
+4. **After Track 1's stop (same day).** A named block code for D2 needs a new
+   runner code and a derivation-record schema successor. Accepted instead:
+   the combination refuses as `DEPENDENCY_INVALID`, with the reason in the
+   rule's notes; the line, taxable income and the refund do not publish.
+5. **No new entrypoint.** `rule.schedule-a-boundary-no-other-line16` would ask
+   every return the new declaration, so returns without gambling would gain a
+   question. It is dropped; the Schedule A attachment requires the
+   declaration directly, only when Schedule A is required.
+6. **Earlier packages refuse recorded losses** (as for Form W-2G, ADR-0082):
+   a presence pair naming an unregistered witness in the global companion
+   map, removed by v67's declaration. `packages/tax/loader.py` data, not an
+   engine change.
+
+7. **Two departures from P0, accepted.** The losses subtotal applies only
+   when a Form W-2G is recorded, and the Schedule A attachment does not
+   itemize line 16. Either alternative would make every Schedule A itemizer
+   without a W-2G confirm a losses family, changing returns without
+   gambling.
+8. **The attachment limit is an owner question.** Attachment parts always
+   run and tie out exactly to raw row sums (`attachment-rule.v4` to `v11`,
+   `attempt_attachment`), so a part cannot be conditional or limited to
+   winnings. For a gambling-loss itemizer the attachment lists line 8a
+   while line 12e includes line 16; a losses-only itemizer with no Form 1098
+   gets correct figures and an attachment blocked on line 8a. A conditional
+   or limited part needs an attachment-rule schema successor and a runner
+   change.
+
 ## Tracks
 
 1. **Track 1 — losses.** The 13 citizens in P0 section 3, core v67 / registry
    v65 / release v65 with `tools/package_successor.py`, the v67 companion
    entry, the D2 refusal, cases on the real coordinator for P0's section 4,
    v66 pinned.
+
+## Review dispositions
+
+Fresh-reader review: no required findings. Nine further cases on v67
+matched the 2025 Tax Table (joint returns, entries above winnings, cents,
+the standard-deduction boundary, withholding with an amount owed); four
+returns without gambling losses publish the same values as on v66.
+
+1. *The Schedule A attachment omits line 16* (recommended). Not fixable with
+   the existing attachment schemas (decision 8); recorded as an owner
+   question.
+2. *A losses-only itemizer's attachment blocks on line 8a* (recommended).
+   The same cause; pinned in the tests.
+3. *D2's refusal names nothing in the record* (note). Accepted; the reason is
+   in line 12e's notes.
+4. *Wagering expenses may also be deductible for 2025* (note). Parked.
+5. *An itemizer who has not answered the new declaration publishes figures
+   but not the Schedule A disposition; a W-2G return confirms the losses
+   family once* (note). Intended (decisions 1 and 5).
+
+## Execution record
+
+- Sonnet 5.5 sub-agents: one builder for P0, Track 1 and two repairs; one
+  review. Track 1 stopped twice correctly (a named block code; the
+  attachment shape).
+
+## Outcome
+
+On core v67, a Form W-2G filer with gambling losses computes. On the
+standard deduction the losses change nothing (refund 1,345 with or without
+$2,000 of losses). An itemizer deducts losses up to winnings on Schedule A
+line 16 ($9,000 of losses against $6,000 of winnings gives 6,000), and the
+losses enter the choice between itemizing and the standard deduction
+($20,000 of losses alone leads to itemizing). An unconfirmed losses family
+blocks line 12e; every core before v67 refuses a recorded loss. Ten new
+citizens and successors; no engine or schema change. The Schedule A
+attachment does not itemize line 16.

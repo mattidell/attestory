@@ -7,8 +7,9 @@ This is the project's third iteration. The first proved a working return generat
 ## Where things stand
 
 - **Governance** (`docs/governance/`): the ratified v0.1 set — Constitution, Ontology, Engineering Constraints, Principles, Commentary. The sole contract authority for this repository.
-- **Current result**: a correction recalculates on the
-  workspace's adopted core; on core calculations v66
+- **Current result**: on core calculations v67 gambling
+  losses up to winnings reach Schedule A line 16; a correction recalculates
+  on the workspace's adopted core; on v66
   statements with cents attach and multi-amount lines round once at their
   total (Schedule B Part I interest excepted); v65 Form
   W-2G gambling winnings reach Schedule 1 line 8b and its withholding line
