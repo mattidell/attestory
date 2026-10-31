@@ -31,6 +31,7 @@ _PACKAGES_DIR = Path(__file__).resolve().parent.parent
 TAX_SCHEMA_DIR = _PACKAGES_DIR / "schemas" / "tax"
 TAX_CONTENT_DIR = _PACKAGES_DIR / "content" / "tax" / "2025"
 
+W2G_UNREAD_WITNESS = "tax.us.2025.w2g.read-by-core-v65-witness"
 FORM_FIELD_SCHEMA = "form-field.v1"
 SOURCE_FAMILY_SCHEMA = "source-family.v1"
 SOURCE_FAMILY_SCHEMAS = {"source-family.v1", "source-family.v2"}
@@ -78,6 +79,14 @@ def domain_companion_presence_pairs() -> dict[str, str | list[str]]:
         "tax.us.2025.f1099g.box1-unemployment": (
             "tax.us.2025.f1099g.box4-federal-withholding-authority"
         ),
+        # Form W-2G (ADR-0082, core v65): no package before core v65 reads a
+        # Form W-2G, so a W-2G amount recorded in a log is refused under any
+        # earlier package, naming this witness, rather than silently left out
+        # of Schedule 1 line 8b or Form 1040 line 25c. The witness is not a
+        # registered fact type, so no log can satisfy it; core v65's
+        # package-scoped declaration removes both pairs.
+        "tax.us.2025.w2g.box1-winnings": W2G_UNREAD_WITNESS,
+        "tax.us.2025.w2g.box4-withholding": W2G_UNREAD_WITNESS,
         # Form 1099-INT box-8 route (B8-C2): each box-8 statement member
         # requires an explicit same-statement box-9 absence/zero companion.
         # Live production projection must install this pair (box-12 review
@@ -185,8 +194,12 @@ def domain_package_companion_declarations() -> dict[tuple[str, str], dict[str, A
     the same amounts, so it shares it too.
     Core v64 publishes form-field text successors only (no rule or value
     changes), so it shares it as well.
+    Core v65 reads Form W-2G box 1 and box 4 (its own families, summed on
+    Schedule 1 line 8b and Form 1040 line 25c), so it shares the withholding
+    declaration and additionally removes the two W-2G presence pairs that make
+    every earlier package refuse a recorded W-2G amount (ADR-0082 decision 4).
     """
-    withholding = {
+    withholding: dict[str, dict[str, Any]] = {
         "presence_pairs": {
             "tax.us.2025.f1099g.box1-unemployment": None,
             "tax.us.2025.ssa1099.box5-net-benefits": [
@@ -202,6 +215,17 @@ def domain_package_companion_declarations() -> dict[tuple[str, str], dict[str, A
             "tax.us.2025.ssa1099.box6-withholding": None,
         },
     }
+    w2g: dict[str, dict[str, Any]] = {
+        "presence_pairs": {
+            **withholding["presence_pairs"],
+            "tax.us.2025.w2g.box1-winnings": None,
+            # A box 4 amount credits line 25c only beside the same statement's
+            # box 1 winnings, so a withholding amount cannot be taken while the
+            # winnings it belongs to are omitted from line 8b.
+            "tax.us.2025.w2g.box4-withholding": "tax.us.2025.w2g.box1-winnings",
+        },
+        "value_domains": dict(withholding["value_domains"]),
+    }
     return {
         ("tax.us.2025.package.core-calculations", "v59"): withholding,
         ("tax.us.2025.package.core-calculations", "v60"): withholding,
@@ -209,6 +233,7 @@ def domain_package_companion_declarations() -> dict[tuple[str, str], dict[str, A
         ("tax.us.2025.package.core-calculations", "v62"): withholding,
         ("tax.us.2025.package.core-calculations", "v63"): withholding,
         ("tax.us.2025.package.core-calculations", "v64"): withholding,
+        ("tax.us.2025.package.core-calculations", "v65"): w2g,
     }
 
 

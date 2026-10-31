@@ -1,0 +1,47 @@
+{
+  "binds_symbol": "tax.us.2025.schedule1.line8b-gambling",
+  "citation": {
+    "id": "tax.us.2025.citation.schedule1.line-8b",
+    "version": "v1"
+  },
+  "description": "Schedule 1 (Form 1040) 2025, line 8b: gambling winnings not attributable to a trade or business, from the closed Form W-2G box 1 family for the bounded class. Gambling winnings without a Form W-2G, business gambling and gambling losses are outside the class and stay refused by answer.",
+  "dispositions": {
+    "blocked": {
+      "codes": [
+        "DEPENDENCY_ABSENT",
+        "DEPENDENCY_INVALID",
+        "CATEGORICAL_DOMAIN_MISMATCH",
+        "SOURCE_SET_UNCLOSED"
+      ],
+      "explain": "Schedule 1 line 8b is blocked because the Form W-2G box 1 family is not confirmed closed, the gambling/other Schedule A declaration is not 'yes' while a Form W-2G is recorded, or the subtotal is unavailable.",
+      "render": ""
+    },
+    "closure_backed_zero": {
+      "explain": "A current derived finding publishes zero because the supporting source family is attested closed-empty under complete authority.",
+      "render": "0"
+    },
+    "computed_zero": {
+      "explain": "A current derived finding publishes a computed zero under complete authority.",
+      "render": "0"
+    },
+    "guard_inapplicable": {
+      "explain": "No value is published because a completeness or guard condition is not satisfied.",
+      "render": ""
+    },
+    "published_value": {
+      "explain": "A current derived finding publishes the gambling winnings on Schedule 1 line 8b from the closed Form W-2G box 1 family.",
+      "render": "{value}"
+    }
+  },
+  "form": {
+    "authority": "IRS",
+    "form_id": "1040-SCH-1",
+    "jurisdiction": "US-federal",
+    "tax_year": 2025
+  },
+  "id": "tax.us.2025.schedule1.line-8b",
+  "label": "Gambling",
+  "line": "sch1-8b",
+  "schema": "form-field.v3",
+  "version": "v1"
+}

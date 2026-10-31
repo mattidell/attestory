@@ -1,0 +1,251 @@
+{
+  "attachment": {
+    "authority": "IRS",
+    "form_id": "1040-SCH-1",
+    "jurisdiction": "US-federal",
+    "tax_year": 2025
+  },
+  "completeness": {
+    "required_answers": [
+      {
+        "check": "value",
+        "equals": "yes",
+        "fact_type": {
+          "id": "tax.us.2025.schedule1-part1-scope.no-sch1-line1-taxable-refunds",
+          "version": "v1"
+        },
+        "symbol": "tax.us.2025.schedule1-part1-scope.no-sch1-line1-taxable-refunds"
+      },
+      {
+        "check": "value",
+        "equals": "yes",
+        "fact_type": {
+          "id": "tax.us.2025.schedule1-part1-scope.no-sch1-line2a-alimony",
+          "version": "v1"
+        },
+        "symbol": "tax.us.2025.schedule1-part1-scope.no-sch1-line2a-alimony"
+      },
+      {
+        "check": "value",
+        "equals": "yes",
+        "fact_type": {
+          "id": "tax.us.2025.schedule1-part1-scope.no-sch1-line3-business",
+          "version": "v1"
+        },
+        "symbol": "tax.us.2025.schedule1-part1-scope.no-sch1-line3-business"
+      },
+      {
+        "check": "value",
+        "equals": "yes",
+        "fact_type": {
+          "id": "tax.us.2025.schedule1-part1-scope.no-sch1-line4-other-gains",
+          "version": "v1"
+        },
+        "symbol": "tax.us.2025.schedule1-part1-scope.no-sch1-line4-other-gains"
+      },
+      {
+        "check": "value",
+        "equals": "yes",
+        "fact_type": {
+          "id": "tax.us.2025.schedule1-part1-scope.no-sch1-line5-rental",
+          "version": "v1"
+        },
+        "symbol": "tax.us.2025.schedule1-part1-scope.no-sch1-line5-rental"
+      },
+      {
+        "check": "value",
+        "equals": "yes",
+        "fact_type": {
+          "id": "tax.us.2025.schedule1-part1-scope.no-sch1-line6-farm",
+          "version": "v1"
+        },
+        "symbol": "tax.us.2025.schedule1-part1-scope.no-sch1-line6-farm"
+      },
+      {
+        "check": "value",
+        "equals": "yes",
+        "fact_type": {
+          "id": "tax.us.2025.w2g-scope.no-sch1-other-income-except-w2g",
+          "version": "v1"
+        },
+        "symbol": "tax.us.2025.w2g-scope.no-sch1-other-income-except-w2g"
+      },
+      {
+        "check": "value",
+        "equals": "yes",
+        "fact_type": {
+          "id": "tax.us.2025.schedule1-part1-scope.no-unemployment-repayment",
+          "version": "v1"
+        },
+        "symbol": "tax.us.2025.schedule1-part1-scope.no-unemployment-repayment"
+      },
+      {
+        "check": "value",
+        "equals": "yes",
+        "fact_type": {
+          "id": "tax.us.2025.schedule1-part1-scope.no-f1099g-box2-state-refund",
+          "version": "v1"
+        },
+        "symbol": "tax.us.2025.schedule1-part1-scope.no-f1099g-box2-state-refund"
+      },
+      {
+        "check": "value",
+        "equals": "yes",
+        "fact_type": {
+          "id": "tax.us.2025.schedule1-part1-scope.no-f1099g-other-payment-classes",
+          "version": "v1"
+        },
+        "symbol": "tax.us.2025.schedule1-part1-scope.no-f1099g-other-payment-classes"
+      }
+    ]
+  },
+  "id": "tax.us.2025.rule.attachment.schedule-1",
+  "itemizations": [
+    {
+      "authority": {
+        "kind": "single_family",
+        "source_family": {
+          "id": "tax.us.2025.f1099g.1",
+          "version": "v1"
+        }
+      },
+      "label": "Line 7: Unemployment compensation",
+      "part_id": "line-7-unemployment",
+      "row_sets": [
+        {
+          "rows": {
+            "member_fact_type": {
+              "id": "tax.us.2025.f1099g.box1-unemployment",
+              "version": "v1"
+            },
+            "op": "collect_members",
+            "source_family": {
+              "id": "tax.us.2025.f1099g.1",
+              "version": "v1"
+            }
+          },
+          "subtotal_symbol": "tax.us.2025.unemployment.box1-subtotal"
+        }
+      ],
+      "tie_out": {
+        "line_symbol": "tax.us.2025.unemployment.box1-subtotal"
+      }
+    },
+    {
+      "authority": {
+        "kind": "single_family",
+        "source_family": {
+          "id": "tax.us.2025.w2g.b1",
+          "version": "v1"
+        }
+      },
+      "label": "Line 8b: Gambling winnings (Form W-2G)",
+      "part_id": "line-8b-gambling",
+      "row_sets": [
+        {
+          "rows": {
+            "member_fact_type": {
+              "id": "tax.us.2025.w2g.box1-winnings",
+              "version": "v1"
+            },
+            "op": "collect_members",
+            "source_family": {
+              "id": "tax.us.2025.w2g.b1",
+              "version": "v1"
+            }
+          },
+          "subtotal_symbol": "tax.us.2025.gambling.b1-winnings-subtotal"
+        }
+      ],
+      "tie_out": {
+        "line_symbol": "tax.us.2025.gambling.b1-winnings-subtotal"
+      }
+    },
+    {
+      "authority": {
+        "kind": "single_family",
+        "source_family": {
+          "id": "tax.us.2025.f1098e.1",
+          "version": "v1"
+        }
+      },
+      "label": "Line 21: Student Loan Interest Deduction",
+      "part_id": "line-21-student-loan-interest",
+      "row_sets": [
+        {
+          "rows": {
+            "member_fact_type": {
+              "id": "tax.us.2025.f1098e.box1-student-loan-interest",
+              "version": "v1"
+            },
+            "op": "collect_members",
+            "source_family": {
+              "id": "tax.us.2025.f1098e.1",
+              "version": "v1"
+            }
+          },
+          "subtotal_symbol": "tax.us.2025.sli-worksheet.line1-total-interest-paid-subtotal"
+        }
+      ],
+      "tie_out": {
+        "line_symbol": "tax.us.2025.sli-worksheet.line1-total-interest-paid-subtotal"
+      }
+    },
+    {
+      "authority": {
+        "kind": "single_family",
+        "source_family": {
+          "id": "tax.us.2025.f1099k",
+          "version": "v2"
+        }
+      },
+      "label": "Schedule 1 top entry: Form 1099-K personal item sale loss gross payment amount",
+      "part_id": "sch1-top-entry-f1099k",
+      "row_sets": [
+        {
+          "rows": {
+            "member_fact_type": {
+              "id": "tax.us.2025.f1099k.box1a-gross-amount",
+              "version": "v1"
+            },
+            "op": "collect_members",
+            "source_family": {
+              "id": "tax.us.2025.f1099k",
+              "version": "v2"
+            }
+          },
+          "subtotal_symbol": "tax.us.2025.f1099k.box1a-subtotal"
+        }
+      ],
+      "tie_out": {
+        "line_symbol": "tax.us.2025.f1099k.box1a-subtotal"
+      }
+    }
+  ],
+  "publishes": "tax.us.2025.schedule1.disposition",
+  "requirement": {
+    "citation": {
+      "id": "tax.us.2025.citation.attachment.schedule-1",
+      "version": "v1"
+    },
+    "comparison": "strictly_greater_than",
+    "subtotals": [
+      "tax.us.2025.unemployment.box1-subtotal",
+      "tax.us.2025.gambling.b1-winnings-subtotal",
+      "tax.us.2025.schedule1.line21-sli-deduction",
+      "tax.us.2025.schedule1.top-entry"
+    ],
+    "threshold_parameter": {
+      "id": "tax.us.2025.parameter.default-zero",
+      "version": "v1"
+    }
+  },
+  "schema": "attachment-rule.v4",
+  "scope": {
+    "family": "individual-income-tax",
+    "jurisdiction": "US-federal",
+    "tax_year": 2025
+  },
+  "title": "Schedule 1 (Additional Income and Adjustments to Income) v5: v4 plus line 8b gambling winnings itemized from the closed Form W-2G box 1 family; required when any closed subtotal (line 7, line 8b, line 21 or the top entry) is strictly greater than zero. Completeness swaps the Part I 'no other income' answer for w2g-scope.no-sch1-other-income-except-w2g; the line 8b subtotal is held by its own rule until the family is confirmed closed and the gambling-loss declaration is 'yes', so the attachment cannot complete while line 8b is held. Not a general Schedule 1 claim. v4 remains historical.",
+  "version": "v5"
+}

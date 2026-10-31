@@ -1,0 +1,57 @@
+{
+  "blocked": {
+    "code": "OPEN_DEPENDENCY",
+    "missing": [
+      "rounding.convention"
+    ]
+  },
+  "citations": [
+    {
+      "id": "tax.us.2025.citation.form1040.line-25c",
+      "version": "v1"
+    }
+  ],
+  "id": "tax.us.2025.rule.w2g-b4-subtotal",
+  "notes": "Aggregates current Form W-2G box 4 federal-withholding findings into the family subtotal that Form 1040 line 25c reports (i1040gi-2025 l.2587-2592: 'any federal income tax withheld on your Form(s) W-2G ... shown in box 4'). Guards its own collect: the family must be confirmed closed, so an unconfirmed family is SOURCE_SET_UNCLOSED and never a partial sum. Closed-empty publishes zero only through current literal-true closure. A statement with no box 4 amount recorded is not a member and adds nothing. Never reads box 1, state or local withholding.",
+  "pins": [
+    {
+      "id": "rounding.convention",
+      "origin": "assertion",
+      "role": "input",
+      "version": "v1"
+    }
+  ],
+  "publishes": "tax.us.2025.gambling.b4-withholding-subtotal",
+  "requires": [
+    "rounding.convention"
+  ],
+  "role": "computation",
+  "schema": "rule-artifact.v3",
+  "scope": {
+    "family": "individual-income-tax",
+    "jurisdiction": "US-federal",
+    "tax_year": 2025
+  },
+  "value": {
+    "mode": {
+      "name": "rounding.convention",
+      "op": "ref"
+    },
+    "op": "round",
+    "value": {
+      "args": [
+        {
+          "name": "tax.us.2025.w2g.box4-withholding",
+          "op": "collect",
+          "source_set": "tax.us.2025.w2g.b4"
+        }
+      ],
+      "op": "add"
+    }
+  },
+  "version": "v1",
+  "when": {
+    "op": "require_closed",
+    "source_set": "tax.us.2025.w2g.b4"
+  }
+}
