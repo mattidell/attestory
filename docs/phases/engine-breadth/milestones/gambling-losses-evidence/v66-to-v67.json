@@ -1,0 +1,200 @@
+{
+  "package_version": "v67",
+  "release_version": "v65",
+  "members": [
+    {
+      "op": "add",
+      "new": {
+        "id": "tax.us.2025.gambling-losses.vocabulary",
+        "role": "fact-type-bundle",
+        "schema": "bundle.v2",
+        "version": "v1"
+      }
+    },
+    {
+      "op": "add",
+      "new": {
+        "id": "tax.us.2025.gambling.losses",
+        "role": "source-family",
+        "schema": "source-family.v1",
+        "version": "v1"
+      }
+    },
+    {
+      "op": "add",
+      "new": {
+        "id": "tax.us.2025.closure-mapping.gambling-losses",
+        "role": "source-closure-mapping",
+        "schema": "source-closure-mapping.v2",
+        "version": "v1"
+      }
+    },
+    {
+      "op": "add",
+      "new": {
+        "id": "tax.us.2025.rule.gambling-losses-subtotal",
+        "role": "computation",
+        "schema": "rule-artifact.v4",
+        "version": "v1"
+      }
+    },
+    {
+      "op": "add",
+      "new": {
+        "id": "tax.us.2025.rule.schedule-a-line16",
+        "role": "computation",
+        "schema": "rule-artifact.v4",
+        "version": "v1"
+      }
+    },
+    {
+      "op": "remove",
+      "old": {
+        "id": "tax.us.2025.rule.schedule-a-boundary-no-gambling-other",
+        "role": "computation",
+        "schema": "rule-artifact.v4",
+        "version": "v1"
+      }
+    },
+    {
+      "op": "replace",
+      "old": {
+        "id": "tax.us.2025.rule.w2g-b1-subtotal",
+        "role": "computation",
+        "schema": "rule-artifact.v4",
+        "version": "v2"
+      },
+      "new": {
+        "id": "tax.us.2025.rule.w2g-b1-subtotal",
+        "role": "computation",
+        "schema": "rule-artifact.v4",
+        "version": "v3"
+      }
+    },
+    {
+      "op": "replace",
+      "old": {
+        "id": "tax.us.2025.rule.schedule-a-total",
+        "role": "computation",
+        "schema": "rule-artifact.v4",
+        "version": "v1"
+      },
+      "new": {
+        "id": "tax.us.2025.rule.schedule-a-total",
+        "role": "computation",
+        "schema": "rule-artifact.v4",
+        "version": "v2"
+      }
+    },
+    {
+      "op": "replace",
+      "old": {
+        "id": "tax.us.2025.rule.schedule-a-total-closed-empty",
+        "role": "computation",
+        "schema": "rule-artifact.v4",
+        "version": "v1"
+      },
+      "new": {
+        "id": "tax.us.2025.rule.schedule-a-total-closed-empty",
+        "role": "computation",
+        "schema": "rule-artifact.v4",
+        "version": "v2"
+      }
+    },
+    {
+      "op": "replace",
+      "old": {
+        "id": "tax.us.2025.rule.form1040-line12e",
+        "role": "computation",
+        "schema": "rule-artifact.v4",
+        "version": "v2"
+      },
+      "new": {
+        "id": "tax.us.2025.rule.form1040-line12e",
+        "role": "computation",
+        "schema": "rule-artifact.v4",
+        "version": "v3"
+      }
+    },
+    {
+      "op": "replace",
+      "old": {
+        "id": "tax.us.2025.rule.attachment.schedule-a",
+        "role": "attachment-rule",
+        "schema": "attachment-rule.v4",
+        "version": "v2"
+      },
+      "new": {
+        "id": "tax.us.2025.rule.attachment.schedule-a",
+        "role": "attachment-rule",
+        "schema": "attachment-rule.v4",
+        "version": "v3"
+      }
+    }
+  ],
+  "entrypoints": [
+    {
+      "op": "replace",
+      "old": {
+        "id": "tax.us.2025.rule.schedule-a-total",
+        "version": "v1"
+      },
+      "new": {
+        "id": "tax.us.2025.rule.schedule-a-total",
+        "version": "v2"
+      }
+    },
+    {
+      "op": "replace",
+      "old": {
+        "id": "tax.us.2025.rule.schedule-a-total-closed-empty",
+        "version": "v1"
+      },
+      "new": {
+        "id": "tax.us.2025.rule.schedule-a-total-closed-empty",
+        "version": "v2"
+      }
+    },
+    {
+      "op": "replace",
+      "old": {
+        "id": "tax.us.2025.rule.form1040-line12e",
+        "version": "v2"
+      },
+      "new": {
+        "id": "tax.us.2025.rule.form1040-line12e",
+        "version": "v3"
+      }
+    },
+    {
+      "op": "replace",
+      "old": {
+        "id": "tax.us.2025.rule.attachment.schedule-a",
+        "version": "v2"
+      },
+      "new": {
+        "id": "tax.us.2025.rule.attachment.schedule-a",
+        "version": "v3"
+      }
+    },
+    {
+      "op": "remove",
+      "value": {
+        "id": "tax.us.2025.rule.schedule-a-boundary-no-gambling-other",
+        "version": "v1"
+      }
+    }
+  ],
+  "registry_sort": "id_version",
+  "registry_tail": [
+    [
+      "tax.us.2025.rule.odc-child.counts",
+      "v2"
+    ]
+  ],
+  "registry_new_key_order": [
+    "checksum",
+    "id",
+    "version"
+  ]
+}

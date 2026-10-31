@@ -1,4 +1,4 @@
-"""Complete returns on the latest core (v66), and the runner that drives them.
+"""Complete returns on the latest core (v67), and the runner that drives them.
 
 Why this exists: lines 2a (Form 1099-INT box 8, Form 1099-DIV box 12), Schedule 8812
 line 21 (W-2 boxes 4 and 6) and Schedule 1 line 21 (Form 1098-E) had no committed return
@@ -50,12 +50,17 @@ ROOT = Path(__file__).resolve().parents[2]
 CONTENT = ROOT / "packages/content/tax/2025"
 RELEASE_DIR = ROOT / "packages/sample_data/student_loan_worksheet_integration/publication_surface/releases"
 
-# The latest core: package v66 / release v64 / registry v64.
-PACKAGE = CONTENT / "package.core-calculations.v66.json"
-PACKAGE_VERSION = "v66"
-RELEASE = RELEASE_DIR / "demo.release.sli-worksheet-integration.2025.v64.json"
-RELEASE_VERSION = "v64"
-SURFACE = PublicationSurface(RELEASE_DIR, CONTENT / "published-packages.v64.json", CONTENT)
+# The latest core: package v67 / release v65 / registry v65.
+PACKAGE = CONTENT / "package.core-calculations.v67.json"
+PACKAGE_VERSION = "v67"
+RELEASE = RELEASE_DIR / "demo.release.sli-worksheet-integration.2025.v65.json"
+RELEASE_VERSION = "v65"
+SURFACE = PublicationSurface(RELEASE_DIR, CONTENT / "published-packages.v65.json", CONTENT)
+
+# The previous core, kept so a return can be run on both: package v66 / release v64 / registry v64.
+PACKAGE_V66 = CONTENT / "package.core-calculations.v66.json"
+RELEASE_V66 = RELEASE_DIR / "demo.release.sli-worksheet-integration.2025.v64.json"
+SURFACE_V66 = PublicationSurface(RELEASE_DIR, CONTENT / "published-packages.v64.json", CONTENT)
 
 P = "tax.us.2025."
 USER = "demo.user.filer-1"
@@ -113,7 +118,7 @@ class CurrentRun:
         return {(str(r.get("artifact_id", "")).replace(P, ""), str(r.get("code"))) for r in self.blocked}
 
 
-def run_current_core(acts: list[dict[str, object]], run_id: str) -> CurrentRun:
+def run_current_core(acts: list[dict[str, object]], run_id: str, *, core: str = "v67") -> CurrentRun:
     """Adopts the latest core on ``acts`` and runs them through ``live_coordinate_run``.
 
     Does not change ``acts``. A recorded member that contradicts a base declaration is a
@@ -121,7 +126,7 @@ def run_current_core(acts: list[dict[str, object]], run_id: str) -> CurrentRun:
     declaration, and the adder that records the member should have changed that answer.
     """
     try:
-        return _run_once(acts, run_id)
+        return _run_once(acts, run_id, core)
     except FindingModelError as exc:
         found = re.search(r"contradiction: (\S+) is currently", str(exc))
         if not found:
@@ -133,17 +138,23 @@ def run_current_core(acts: list[dict[str, object]], run_id: str) -> CurrentRun:
         ) from exc
 
 
-def finished_acts(acts: list[dict[str, object]], note: str) -> list[dict[str, object]]:
-    """``acts`` with the latest-core adoption and the hand-over appended, ready for a run or a session."""
+def finished_acts(acts: list[dict[str, object]], note: str, *, core: str = "v67",
+                  package: Path | None = None, version: str | None = None) -> list[dict[str, object]]:
+    """``acts`` with the core adoption (the latest, v67, or the previous, v66) and the hand-over appended."""
+    if core == "v66":
+        pkg, ver, release, rel_version, surface = PACKAGE_V66, "v66", RELEASE_V66, "v64", SURFACE_V66
+    else:
+        pkg, ver, release, rel_version, surface = PACKAGE, PACKAGE_VERSION, RELEASE, RELEASE_VERSION, SURFACE
     finished = _finish(
-        copy.deepcopy(acts), package_path=PACKAGE, package_version=PACKAGE_VERSION,
-        release_path=RELEASE, release_version=RELEASE_VERSION, note=note,
+        copy.deepcopy(acts), package_path=package or pkg, package_version=version or ver,
+        release_path=release, release_version=rel_version, note=note,
     )
-    return _handover(finished, surface=SURFACE, reconfirm=True)
+    return _handover(finished, surface=surface, reconfirm=True)
 
 
-def _run_once(acts: list[dict[str, object]], run_id: str) -> CurrentRun:
-    finished = finished_acts(acts, run_id)
+def _run_once(acts: list[dict[str, object]], run_id: str, core: str = "v67") -> CurrentRun:
+    finished = finished_acts(acts, run_id, core=core)
+    surface = SURFACE_V66 if core == "v66" else SURFACE
     with TemporaryDirectory() as tmp:
         outcome = live_coordinate_run(
             WorkspaceCapability(Path(tmp) / "L"),
@@ -155,7 +166,7 @@ def _run_once(acts: list[dict[str, object]], run_id: str) -> CurrentRun:
             request={"schema": "run-request.v1"},
             run_id=run_id,
             governance_pins=[],
-            surface=SURFACE,
+            surface=surface,
             output_name="out.json",
         )
         if outcome.refusal is not None:
@@ -368,3 +379,100 @@ def part_ii_b_return(*, box4: float, box6: float, wages: float = 15000.0, childr
     slip = {"employer": W2_EMPLOYER, "w2-slip": W2_SLIP}
     acts = _record_members(acts, P + "w2-box4", [box4], tag="w4", entities=slip)
     return _record_members(acts, P + "w2-box6", [box6], tag="w6", entities=slip)
+
+
+# --- gambling losses and the Form 1098 itemizer (core v67) -----------------------------------
+
+LOSSES_FAMILY = P + "gambling.losses"
+LOSS = P + "gambling.loss"
+LOSSES_CLOSURE = P + "gambling.losses.source-closure"
+NO_OTHER_LINE16 = P + "schedule-a-boundary.no-other-line16-declared"
+OLD_GAMBLING_DECLARED = P + "schedule-a-boundary.no-gambling-other-declared"
+ITEMIZED_ASSERTION = P + "deductions.itemized"
+NO_MORTGAGE_STATEMENT = P + "f1098-scope.no-mortgage-statement"
+
+# A Form 1098 purchase mortgage as v66 and v67 read it: the statement's box companions, the
+# eight per-statement authority answers, and the filer's circumstance answers.
+_F1098 = P + "f1098."
+_F1098_COMPANIONS: tuple[tuple[str, object], ...] = (
+    ("box2-outstanding-principal", 200000.0), ("box3-origination-date", "2020-06-01"),
+    ("box4-overpaid-refund", 0.0), ("box5-mortgage-insurance", 0.0), ("box6-points", 0.0),
+    ("box9-number-of-properties", 1.0), ("box11-other", 0.0),
+    *((a, "yes") for a in (
+        "liable-and-paid", "qualified-main-home", "acquisition-debt-use", "no-balance-increase",
+        "no-refinance", "single-mortgage-single-home", "not-shared-except-spouse", "no-mortgage-interest-credit")),
+    ("owns-the-home", "yes"), ("lives-there-most-of-the-time", "yes"), ("filing-unit-owns-home", "yes"),
+    ("shared-main-home", "yes"), ("home-is-collateral", "yes"), ("owes-the-loan", "yes"),
+    ("paid-the-interest", "yes"), ("no-one-else-owes-it", "yes"), ("this-is-the-original-loan", "yes"),
+    ("what-the-money-paid-for", "bought-the-home"), ("mortgage-credit-certificate-received", "not-received"),
+)
+
+
+def _adopt_losses_bundle(acts: list[dict[str, object]]) -> None:
+    for act in acts:
+        payload = act.get("payload")
+        bundle = payload.get("bundle") if isinstance(payload, dict) else None
+        if isinstance(bundle, dict) and bundle.get("id") == P + "gambling-losses.vocabulary":
+            return
+    _add(acts, "bundle-adoption", {"bundle": _load("gambling-losses.bundle.json")})
+
+
+def add_gambling_losses(
+    acts: list[dict[str, object]], amounts: Sequence[float], *, closure: str = "closed",
+) -> list[dict[str, object]]:
+    """Gambling loss entries, one per amount, in the gambling losses family.
+
+    ``closure`` is ``"closed"`` (attested after the last entry; no amounts is the closed-empty
+    family, "I had no gambling losses"), ``"never"`` (no closure) or ``"stale"`` (closed after the
+    first entry, then a later entry is recorded so the closure is behind the horizon; needs two
+    amounts). All amounts go in one call. Does not change ``acts``; returns a new act list.
+    """
+    out = copy.deepcopy(acts)
+    _adopt_losses_bundle(out)
+    head = "demo.gl.loss.h0"
+    _add(out, "horizon-genesis", {"family": {"id": LOSSES_FAMILY, "version": "v1"},
+                                  "scope": {"tax-year": YEAR, "subject": "demo.primary"}, "horizon_id": head})
+    for i, amount in enumerate(amounts):
+        _introduce(out, f"demo.gl.loss.{i}", "tax.us.gambling-loss-entry")
+        head = _transition_member(out, head, f"demo.gl.loss.h{i + 1}", f"demo.gl.loss.member.{i}", (("loss", f"demo.gl.loss.{i}"),), amount)
+        if closure == "stale" and i == 0 and len(amounts) > 1:
+            _close(out, LOSSES_CLOSURE, head, "demo.gl.loss.closure.stale")
+    if closure == "closed":
+        _close(out, LOSSES_CLOSURE, head, "demo.gl.loss.closure")
+    return out
+
+
+def _transition_member(acts: list[dict[str, object]], pred: str, succ: str, finding_id: str,
+                       keys: tuple[tuple[str, str], ...], amount: float) -> str:
+    from tests.test_form_1099_withholding import _transition
+    return _transition(acts, (LOSSES_FAMILY, "v1"), pred, succ, finding_id, LOSS, keys, amount)
+
+
+def declare_no_other_line16(acts: list[dict[str, object]], answer: str = "yes") -> list[dict[str, object]]:
+    """The core v67 Schedule A answer: apart from the recorded gambling losses, no line 16 deduction."""
+    out = copy.deepcopy(acts)
+    _adopt_losses_bundle(out)
+    _add(out, "assertion", {"finding": _attested("demo.gl.no-other-line16", f"{NO_OTHER_LINE16}|tax-year={YEAR}", answer)})
+    return out
+
+
+def add_mortgage_itemizer(acts: list[dict[str, object]], interest: float) -> list[dict[str, object]]:
+    """A Form 1098 statement of ``interest`` that makes the filer an itemizer through Schedule A line 8a.
+
+    Records the statement by member-transition (family closed), its box companions, authority and
+    circumstance answers, and the scope answer "a statement exists". Does not change ``acts``.
+    """
+    out = cc._add_member(copy.deepcopy(acts), P + "f1098", interest, close=True, tag="gl")
+    keys = "payer=demo.cc.gl.payer,statement=demo.cc.gl.statement,tax-year=2025"
+    for i, (short, value) in enumerate(_F1098_COMPANIONS):
+        cc._adopt(out, _F1098 + short)
+        _add(out, "assertion", {"finding": _attested(f"demo.gl.f1098.{i}", f"{_F1098}{short}|{keys}", value)})
+    _set_answer(out, NO_MORTGAGE_STATEMENT, False)
+    return _renumbered(out)
+
+
+def add_itemized_assertion(acts: list[dict[str, object]], amount: float) -> list[dict[str, object]]:
+    """The hand-entered itemized-deductions total (the route with no Form 1098 statement)."""
+    out = copy.deepcopy(acts)
+    _add(out, "assertion", {"finding": _attested("demo.gl.itemized", f"{ITEMIZED_ASSERTION}|tax-year={YEAR}", amount)})
+    return out

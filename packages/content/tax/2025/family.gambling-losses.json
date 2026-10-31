@@ -1,0 +1,16 @@
+{
+  "authorizes_subtotal": "tax.us.2025.gambling.losses-subtotal",
+  "closure_claim": "Every loss from a wagering transaction for tax year 2025 that the taxpayer (and, on a joint return, the spouse) claims is recorded as an entry as of the keyed horizon. This claim covers gambling losses only: it says nothing about winnings, expenses of wagering, a professional gambler's business, or other Schedule A line 16 deductions. Closed with members authorizes the sum of current members; closed-empty authorizes subtotal 0.",
+  "id": "tax.us.2025.gambling.losses",
+  "member_predicate": {
+    "fact_type": "tax.us.2025.gambling.loss"
+  },
+  "schema": "source-family.v1",
+  "scope": {
+    "family": "individual-income-tax",
+    "jurisdiction": "US-federal",
+    "tax_year": 2025
+  },
+  "title": "Gambling loss entries, tax year 2025",
+  "version": "v1"
+}

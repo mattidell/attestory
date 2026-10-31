@@ -1,0 +1,88 @@
+{
+  "fact_types": [
+    {
+      "id": "tax.us.2025.gambling.loss",
+      "identity_keys": [
+        {
+          "entity_kind": "tax.us.gambling-loss-entry",
+          "kind": "entity",
+          "name": "loss"
+        },
+        {
+          "kind": "literal",
+          "name": "tax-year",
+          "values": [
+            "2025"
+          ]
+        }
+      ],
+      "nature": "determinable",
+      "schema": "fact-type.v2",
+      "supersession": {
+        "policy": "free"
+      },
+      "title": "Losses from wagering transactions for 2025 recorded as one entry. Nonnegative source amount only. Not winnings, not a professional gambler's business gambling losses, and not expenses of wagering; the amount that counts is limited to the winnings reported on Schedule 1 line 8b.",
+      "value_schema": {
+        "minimum": 0,
+        "type": "number"
+      },
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.gambling.losses.source-closure",
+      "identity_keys": [
+        {
+          "entity_kind": "kernel.family-horizon",
+          "kind": "entity",
+          "name": "family-horizon"
+        },
+        {
+          "kind": "literal",
+          "name": "tax-year",
+          "values": [
+            "2025"
+          ]
+        }
+      ],
+      "nature": "determinable",
+      "schema": "fact-type.v2",
+      "supersession": {
+        "policy": "free"
+      },
+      "title": "Affirmative closure of the gambling losses family at the current membership horizon.",
+      "value_schema": {
+        "type": "boolean"
+      },
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.schedule-a-boundary.no-other-line16-declared",
+      "identity_keys": [
+        {
+          "kind": "literal",
+          "name": "tax-year",
+          "values": [
+            "2025"
+          ]
+        }
+      ],
+      "nature": "determinable",
+      "schema": "fact-type.v2",
+      "supersession": {
+        "policy": "free"
+      },
+      "title": "Taxpayer assertion: apart from gambling losses recorded in the gambling losses family, no other Schedule A line 16 (other itemized) deduction is present. Categorical, yes or no, no default.",
+      "value_schema": {
+        "enum": [
+          "yes",
+          "no"
+        ]
+      },
+      "version": "v1"
+    }
+  ],
+  "id": "tax.us.2025.gambling-losses.vocabulary",
+  "label": "Gambling losses and the Schedule A line 16 boundary for tax year 2025",
+  "schema": "bundle.v2",
+  "version": "v1"
+}

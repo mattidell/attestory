@@ -32,6 +32,7 @@ TAX_SCHEMA_DIR = _PACKAGES_DIR / "schemas" / "tax"
 TAX_CONTENT_DIR = _PACKAGES_DIR / "content" / "tax" / "2025"
 
 W2G_UNREAD_WITNESS = "tax.us.2025.w2g.read-by-core-v65-witness"
+GAMBLING_LOSS_UNREAD_WITNESS = "tax.us.2025.gambling.read-by-core-v67-witness"
 FORM_FIELD_SCHEMA = "form-field.v1"
 SOURCE_FAMILY_SCHEMA = "source-family.v1"
 SOURCE_FAMILY_SCHEMAS = {"source-family.v1", "source-family.v2"}
@@ -87,6 +88,12 @@ def domain_companion_presence_pairs() -> dict[str, str | list[str]]:
         # package-scoped declaration removes both pairs.
         "tax.us.2025.w2g.box1-winnings": W2G_UNREAD_WITNESS,
         "tax.us.2025.w2g.box4-withholding": W2G_UNREAD_WITNESS,
+        # Gambling losses (ADR-0082, core v67): no package before core v67 reads
+        # a gambling loss entry, so one recorded in a log is refused under any
+        # earlier package, naming this witness, rather than silently left out of
+        # Schedule A line 16. The witness is not a registered fact type; core
+        # v67's package-scoped declaration removes the pair.
+        "tax.us.2025.gambling.loss": GAMBLING_LOSS_UNREAD_WITNESS,
         # Form 1099-INT box-8 route (B8-C2): each box-8 statement member
         # requires an explicit same-statement box-9 absence/zero companion.
         # Live production projection must install this pair (box-12 review
@@ -226,6 +233,10 @@ def domain_package_companion_declarations() -> dict[tuple[str, str], dict[str, A
         },
         "value_domains": dict(withholding["value_domains"]),
     }
+    gambling: dict[str, dict[str, Any]] = {
+        "presence_pairs": {**w2g["presence_pairs"], "tax.us.2025.gambling.loss": None},
+        "value_domains": dict(w2g["value_domains"]),
+    }
     return {
         ("tax.us.2025.package.core-calculations", "v59"): withholding,
         ("tax.us.2025.package.core-calculations", "v60"): withholding,
@@ -237,6 +248,9 @@ def domain_package_companion_declarations() -> dict[tuple[str, str], dict[str, A
         # Core v66 changes where lines round (itemization-cents) and asks no new
         # question, so it shares v65's declaration.
         ("tax.us.2025.package.core-calculations", "v66"): w2g,
+        # Core v67 reads gambling loss entries (its own family, limited to winnings
+        # on Schedule A line 16): v66's declaration, and the loss pair removed.
+        ("tax.us.2025.package.core-calculations", "v67"): gambling,
     }
 
 
