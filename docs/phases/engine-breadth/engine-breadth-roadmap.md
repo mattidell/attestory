@@ -461,6 +461,14 @@ tie-out, and lines that add several amounts rounded each first. On core v66
 those lines include cents and round once at the total; Schedule B Part I
 interest waits on a validator question.
 
+## Bounded return — A Blocked Line Names Its Question (2025), closed on P0
+
+[Plan](milestones/closure-question-wording.md).
+
+No closure family declares its question, and naming it needs a schema
+successor and a coordinator admission change, so the milestone closed on
+its investigation; the design is an open owner-held question.
+
 ## Parked work and open questions
 
 This is the single list of parked work and open owner-held questions for the
@@ -469,6 +477,13 @@ milestone that parks something adds it here in its closing commit; one that
 delivers an item removes it.
 
 ### Open owner-held questions
+
+- Whether to name the closure question when a line blocks on an unconfirmed
+  family. The costed design is in the closure-question-wording P0: a
+  `source-closure-mapping.v3` schema with `closure_question`, 50 mapping
+  successors with questions written in plain words, admission edits in the
+  live coordinator and three other derivation files, and a projector reason.
+  Today the reader sees a generic "blocked" text and a family id.
 
 - Whether to extend the package validator's successor-graph table
   (`packages/derivation/package_validation.py`, about lines 2711-2740) so
