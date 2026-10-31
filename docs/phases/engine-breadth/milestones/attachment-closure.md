@@ -3,7 +3,7 @@
   "version": 1,
   "phase": "Engine Breadth",
   "topic": "attachment-closure",
-  "status": "Open. P0 confirmed 13 attachment paths that publish a partial amount; Track 1 guards their subtotals, and the seven positive interest subtotals behind line 2b, on core v63.",
+  "status": "Closed. On core v63 Schedule D, Form 8949, Schedule 1, Schedule B and line 2b wait until every family they read is confirmed complete; a complete return computes exactly as on v62. Twenty subtotal successors; no validator change.",
   "scope": [
     "an attachment (Schedule D, Form 8949, Schedule 1, Schedule B) does not publish an amount from a family that is not confirmed complete, on a successor core package",
     "a complete return's attachments are unchanged",
@@ -31,10 +31,12 @@
       "docs/phases/engine-breadth/milestones/attachment-closure.md"
     ],
     "new_milestone": [
+      "docs/milestone-retrospectives/2026-10-31-attachment-closure.md",
       "docs/phases/engine-breadth/milestones/attachment-closure.md",
       "docs/phases/engine-breadth/engine-breadth-roadmap.md#Parked work and open questions"
     ]
-  }
+  },
+  "retrospective": "docs/milestone-retrospectives/2026-10-31-attachment-closure.md"
 }
 -->
 
@@ -144,3 +146,44 @@ Foreman, 2026-10-30 (owner direction: keep working the queue):
    v61, release v61 with `tools/package_successor.py`; the v63 companion
    entry; cases on the real coordinator; v62 pinned; the regression test's
    lists shrunk.
+
+## Review dispositions
+
+Fresh-reader review of P0 and Track 1: no required findings. Further cases
+on v63 (two members; stale and false closures; wash-sale and non-wash
+families together; every interest family) all withheld the attachment or
+line; five further complete returns matched v62 in every value and every
+attachment payload; guard removals were caught by the regression test.
+
+1. *Tests covered only one member with an unanswered closure* (recommended).
+   Fixed: stale, false and two-member cases for Schedule D, Form 1099-G and
+   an interest family.
+2. *The Form 1099-INT box 8 known-gap entry rests on a static reading*
+   (recommended). A live box 8 case blocks the whole return on both cores, so
+   it is unconfirmed either way; the entry now says so.
+3. *A test helper kept only the last row set per part* (note). Fixed.
+4. *Schedule D also waits on an unconfirmed wash-sale family* (note).
+   Conservative and expected: line 8b reads the wash subtotal.
+5. *The Form 1099-G subtotal now reads the closure even with members* (note).
+   A corrected closure displaces it; intended.
+
+## Execution record
+
+- Dispatch was to Sonnet 5.5 Agent sub-agents. P0 took about 23 minutes. At
+  a usage-limit resume the foreman took its uncommitted files for an
+  interrupted unit and launched a second builder; the first was still
+  running and finished, and the second was stopped before it changed
+  anything. Track 1 took about 13 minutes; the review about 14; one repair
+  pass by the Track 1 builder.
+- The eight-citizen stop was met (13, then 20) and waived by decision 1.
+
+## Outcome
+
+On core v63, no subtotal that Schedule D, Form 8949, Schedule 1, Schedule B
+or line 2b reads publishes while its family is unconfirmed. The subtotal
+blocks `SOURCE_SET_UNCLOSED`, and the attachment or line waits. An
+unconfirmed Form 1099-INT, 1099-OID, Schedule K-1 box 5, non-form interest or
+Schedule B adjustment no longer moves line 2b, total income or AGI. A
+complete return publishes exactly v62's values and attachment payloads.
+Twenty subtotal successors; no attachment, line, validator, engine or schema
+change; no new question. Core v62 and earlier are unchanged.
