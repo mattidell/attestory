@@ -506,8 +506,6 @@ delivers an item removes it.
   successor package; recovery for a log with two current family versions; a
   full pre-save fold for every act kind.
 - Browser observation of the mortgage and sale pages.
-- The student-loan-interest browser tests time out on Chrome startup under
-  load (twice by 2026-10-29); a longer startup wait or one retry.
 - Multiple Form 1098 support, interest allocation above the debt limit,
   second-home extension, mixed-use amounts, refinancing and the mortgage credit.
 - When a Schedule 1 Part I absence answer is also missing, line 10 names the

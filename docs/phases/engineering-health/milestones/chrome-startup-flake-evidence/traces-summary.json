@@ -1,0 +1,2475 @@
+{
+ "format": 1,
+ "shards": [
+  {
+   "run": "41176202101",
+   "shard": 0,
+   "failed": true,
+   "wall_seconds": 1150.0,
+   "assigned": 972,
+   "unknown_to_durations": 80,
+   "browser_tests": 21,
+   "browser_tests_unknown": 0,
+   "has_trace": false
+  },
+  {
+   "run": "41176202101",
+   "shard": 1,
+   "failed": false,
+   "wall_seconds": 1184.8,
+   "assigned": 960,
+   "unknown_to_durations": 81,
+   "browser_tests": 19,
+   "browser_tests_unknown": 0,
+   "has_trace": false
+  },
+  {
+   "run": "41176202101",
+   "shard": 2,
+   "failed": false,
+   "wall_seconds": 825.5,
+   "assigned": 961,
+   "unknown_to_durations": 81,
+   "browser_tests": 22,
+   "browser_tests_unknown": 0,
+   "has_trace": false
+  },
+  {
+   "run": "41176202101",
+   "shard": 3,
+   "failed": false,
+   "wall_seconds": 836.3,
+   "assigned": 961,
+   "unknown_to_durations": 83,
+   "browser_tests": 25,
+   "browser_tests_unknown": 0,
+   "has_trace": false
+  },
+  {
+   "run": "41177428986",
+   "shard": 0,
+   "failed": true,
+   "wall_seconds": 1082.0,
+   "assigned": 967,
+   "unknown_to_durations": 87,
+   "browser_tests": 22,
+   "browser_tests_unknown": 0,
+   "has_trace": false
+  },
+  {
+   "run": "41177428986",
+   "shard": 1,
+   "failed": false,
+   "wall_seconds": 1215.1,
+   "assigned": 978,
+   "unknown_to_durations": 87,
+   "browser_tests": 20,
+   "browser_tests_unknown": 0,
+   "has_trace": false
+  },
+  {
+   "run": "41177428986",
+   "shard": 2,
+   "failed": false,
+   "wall_seconds": 1089.4,
+   "assigned": 967,
+   "unknown_to_durations": 89,
+   "browser_tests": 21,
+   "browser_tests_unknown": 0,
+   "has_trace": false
+  },
+  {
+   "run": "41177428986",
+   "shard": 3,
+   "failed": false,
+   "wall_seconds": 1169.6,
+   "assigned": 967,
+   "unknown_to_durations": 87,
+   "browser_tests": 24,
+   "browser_tests_unknown": 0,
+   "has_trace": false
+  },
+  {
+   "run": "41177701025",
+   "shard": 0,
+   "failed": false,
+   "wall_seconds": 1016.2,
+   "assigned": 972,
+   "unknown_to_durations": 80,
+   "browser_tests": 21,
+   "browser_tests_unknown": 0,
+   "has_trace": false
+  },
+  {
+   "run": "41177701025",
+   "shard": 1,
+   "failed": false,
+   "wall_seconds": 1169.4,
+   "assigned": 960,
+   "unknown_to_durations": 81,
+   "browser_tests": 19,
+   "browser_tests_unknown": 0,
+   "has_trace": false
+  },
+  {
+   "run": "41177701025",
+   "shard": 2,
+   "failed": false,
+   "wall_seconds": 1189.2,
+   "assigned": 961,
+   "unknown_to_durations": 81,
+   "browser_tests": 22,
+   "browser_tests_unknown": 0,
+   "has_trace": false
+  },
+  {
+   "run": "41177701025",
+   "shard": 3,
+   "failed": true,
+   "wall_seconds": 1184.3,
+   "assigned": 961,
+   "unknown_to_durations": 83,
+   "browser_tests": 25,
+   "browser_tests_unknown": 0,
+   "has_trace": false
+  },
+  {
+   "run": "41178877321",
+   "shard": 0,
+   "failed": false,
+   "wall_seconds": 693.0,
+   "assigned": 967,
+   "unknown_to_durations": 87,
+   "browser_tests": 22,
+   "browser_tests_unknown": 0,
+   "has_trace": false
+  },
+  {
+   "run": "41178877321",
+   "shard": 1,
+   "failed": false,
+   "wall_seconds": 913.0,
+   "assigned": 978,
+   "unknown_to_durations": 87,
+   "browser_tests": 20,
+   "browser_tests_unknown": 0,
+   "has_trace": false
+  },
+  {
+   "run": "41178877321",
+   "shard": 2,
+   "failed": true,
+   "wall_seconds": 1327.4,
+   "assigned": 967,
+   "unknown_to_durations": 89,
+   "browser_tests": 21,
+   "browser_tests_unknown": 0,
+   "has_trace": false
+  },
+  {
+   "run": "41178877321",
+   "shard": 3,
+   "failed": false,
+   "wall_seconds": 864.2,
+   "assigned": 967,
+   "unknown_to_durations": 87,
+   "browser_tests": 24,
+   "browser_tests_unknown": 0,
+   "has_trace": false
+  },
+  {
+   "run": "41197479002",
+   "shard": 0,
+   "failed": false,
+   "wall_seconds": 1121.8,
+   "assigned": 955,
+   "unknown_to_durations": 63,
+   "browser_tests": 24,
+   "browser_tests_unknown": 2,
+   "has_trace": true,
+   "launches": [
+    {
+     "label": "correction-other",
+     "outcome": "ready_accepted",
+     "readiness_ms": 8380,
+     "advertised_ms": 8361,
+     "elapsed_ms": 8380,
+     "queue_ms": 1,
+     "stderr_bytes": 1053,
+     "exit_kind": "alive",
+     "deadline_monotonic_ms": null,
+     "stderr_categories": [],
+     "file_states": [
+      {
+       "ms": 18,
+       "state": "missing"
+      },
+      {
+       "ms": 8380,
+       "state": "ready"
+      }
+     ],
+     "samples": [
+      {
+       "ms": 18,
+       "state": "S",
+       "threads": 1,
+       "rss_kb": 3620,
+       "fds": 5,
+       "cpu_user_ticks": 0,
+       "cpu_system_ticks": 0
+      },
+      {
+       "ms": 2037,
+       "state": "D",
+       "threads": 1,
+       "rss_kb": 74404,
+       "fds": 3,
+       "cpu_user_ticks": 1,
+       "cpu_system_ticks": 4
+      },
+      {
+       "ms": 4044,
+       "state": "S",
+       "threads": 2,
+       "rss_kb": 85748,
+       "fds": 10,
+       "cpu_user_ticks": 1,
+       "cpu_system_ticks": 6
+      },
+      {
+       "ms": 6062,
+       "state": "D",
+       "threads": 16,
+       "rss_kb": 106304,
+       "fds": 29,
+       "cpu_user_ticks": 4,
+       "cpu_system_ticks": 14
+      },
+      {
+       "ms": 8071,
+       "state": "D",
+       "threads": 24,
+       "rss_kb": 138988,
+       "fds": 69,
+       "cpu_user_ticks": 10,
+       "cpu_system_ticks": 19
+      }
+     ]
+    },
+    {
+     "label": "correction-other",
+     "outcome": "ready_accepted",
+     "readiness_ms": 346,
+     "advertised_ms": 342,
+     "elapsed_ms": 346,
+     "queue_ms": 1,
+     "stderr_bytes": 1053,
+     "exit_kind": "alive",
+     "deadline_monotonic_ms": null,
+     "stderr_categories": [],
+     "file_states": [
+      {
+       "ms": 10,
+       "state": "missing"
+      },
+      {
+       "ms": 345,
+       "state": "ready"
+      }
+     ],
+     "samples": [
+      {
+       "ms": 10,
+       "state": "S",
+       "threads": 1,
+       "rss_kb": 3596,
+       "fds": 5,
+       "cpu_user_ticks": 0,
+       "cpu_system_ticks": 0
+      }
+     ]
+    }
+   ],
+   "probe_readiness_ms": {
+    "isolated": [
+     194,
+     167,
+     166
+    ],
+    "parallel": [
+     222,
+     222,
+     225,
+     247
+    ]
+   }
+  },
+  {
+   "run": "41197479002",
+   "shard": 1,
+   "failed": false,
+   "wall_seconds": 1075.0,
+   "assigned": 943,
+   "unknown_to_durations": 64,
+   "browser_tests": 22,
+   "browser_tests_unknown": 2,
+   "has_trace": true,
+   "launches": [
+    {
+     "label": "correction-other",
+     "outcome": "ready_accepted",
+     "readiness_ms": 332,
+     "advertised_ms": 315,
+     "elapsed_ms": 332,
+     "queue_ms": 2,
+     "stderr_bytes": 1053,
+     "exit_kind": "alive",
+     "deadline_monotonic_ms": null,
+     "stderr_categories": [],
+     "file_states": [
+      {
+       "ms": 12,
+       "state": "missing"
+      },
+      {
+       "ms": 332,
+       "state": "ready"
+      }
+     ],
+     "samples": [
+      {
+       "ms": 12,
+       "state": "S",
+       "threads": 1,
+       "rss_kb": 3624,
+       "fds": 5,
+       "cpu_user_ticks": 0,
+       "cpu_system_ticks": 0
+      }
+     ]
+    },
+    {
+     "label": "correction-other",
+     "outcome": "ready_accepted",
+     "readiness_ms": 258,
+     "advertised_ms": 252,
+     "elapsed_ms": 258,
+     "queue_ms": 3,
+     "stderr_bytes": 1053,
+     "exit_kind": "alive",
+     "deadline_monotonic_ms": null,
+     "stderr_categories": [],
+     "file_states": [
+      {
+       "ms": 12,
+       "state": "missing"
+      },
+      {
+       "ms": 258,
+       "state": "ready"
+      }
+     ],
+     "samples": [
+      {
+       "ms": 12,
+       "state": "S",
+       "threads": 1,
+       "rss_kb": 3524,
+       "fds": 5,
+       "cpu_user_ticks": 0,
+       "cpu_system_ticks": 0
+      }
+     ]
+    },
+    {
+     "label": "correction-other",
+     "outcome": "ready_accepted",
+     "readiness_ms": 314,
+     "advertised_ms": 298,
+     "elapsed_ms": 314,
+     "queue_ms": 1,
+     "stderr_bytes": 1053,
+     "exit_kind": "alive",
+     "deadline_monotonic_ms": null,
+     "stderr_categories": [],
+     "file_states": [
+      {
+       "ms": 10,
+       "state": "missing"
+      },
+      {
+       "ms": 314,
+       "state": "ready"
+      }
+     ],
+     "samples": [
+      {
+       "ms": 10,
+       "state": "S",
+       "threads": 1,
+       "rss_kb": 3680,
+       "fds": 5,
+       "cpu_user_ticks": 0,
+       "cpu_system_ticks": 0
+      }
+     ]
+    }
+   ],
+   "probe_readiness_ms": {
+    "isolated": [
+     163,
+     184,
+     165
+    ],
+    "parallel": [
+     226,
+     249,
+     217,
+     248
+    ]
+   }
+  },
+  {
+   "run": "41197479002",
+   "shard": 2,
+   "failed": false,
+   "wall_seconds": 782.8,
+   "assigned": 944,
+   "unknown_to_durations": 64,
+   "browser_tests": 23,
+   "browser_tests_unknown": 2,
+   "has_trace": true,
+   "launches": [
+    {
+     "label": "correction-other",
+     "outcome": "ready_accepted",
+     "readiness_ms": 295,
+     "advertised_ms": 275,
+     "elapsed_ms": 295,
+     "queue_ms": 3,
+     "stderr_bytes": 1053,
+     "exit_kind": "alive",
+     "deadline_monotonic_ms": null,
+     "stderr_categories": [],
+     "file_states": [
+      {
+       "ms": 9,
+       "state": "missing"
+      },
+      {
+       "ms": 295,
+       "state": "ready"
+      }
+     ],
+     "samples": [
+      {
+       "ms": 9,
+       "state": "S",
+       "threads": 1,
+       "rss_kb": 3620,
+       "fds": 4,
+       "cpu_user_ticks": 0,
+       "cpu_system_ticks": 0
+      }
+     ]
+    },
+    {
+     "label": "correction-other",
+     "outcome": "ready_accepted",
+     "readiness_ms": 248,
+     "advertised_ms": 232,
+     "elapsed_ms": 248,
+     "queue_ms": 1,
+     "stderr_bytes": 1053,
+     "exit_kind": "alive",
+     "deadline_monotonic_ms": null,
+     "stderr_categories": [],
+     "file_states": [
+      {
+       "ms": 5,
+       "state": "missing"
+      },
+      {
+       "ms": 248,
+       "state": "ready"
+      }
+     ],
+     "samples": [
+      {
+       "ms": 5,
+       "state": "S",
+       "threads": 1,
+       "rss_kb": 3572,
+       "fds": 5,
+       "cpu_user_ticks": 0,
+       "cpu_system_ticks": 0
+      }
+     ]
+    },
+    {
+     "label": "correction-other",
+     "outcome": "ready_accepted",
+     "readiness_ms": 266,
+     "advertised_ms": 246,
+     "elapsed_ms": 266,
+     "queue_ms": 3,
+     "stderr_bytes": 1053,
+     "exit_kind": "alive",
+     "deadline_monotonic_ms": null,
+     "stderr_categories": [],
+     "file_states": [
+      {
+       "ms": 11,
+       "state": "missing"
+      },
+      {
+       "ms": 266,
+       "state": "ready"
+      }
+     ],
+     "samples": [
+      {
+       "ms": 11,
+       "state": "S",
+       "threads": 1,
+       "rss_kb": 3612,
+       "fds": 4,
+       "cpu_user_ticks": 0,
+       "cpu_system_ticks": 0
+      }
+     ]
+    },
+    {
+     "label": "correction-other",
+     "outcome": "ready_accepted",
+     "readiness_ms": 305,
+     "advertised_ms": 285,
+     "elapsed_ms": 305,
+     "queue_ms": 3,
+     "stderr_bytes": 1053,
+     "exit_kind": "alive",
+     "deadline_monotonic_ms": null,
+     "stderr_categories": [],
+     "file_states": [
+      {
+       "ms": 9,
+       "state": "missing"
+      },
+      {
+       "ms": 305,
+       "state": "ready"
+      }
+     ],
+     "samples": [
+      {
+       "ms": 9,
+       "state": "S",
+       "threads": 1,
+       "rss_kb": 3588,
+       "fds": 5,
+       "cpu_user_ticks": 0,
+       "cpu_system_ticks": 0
+      }
+     ]
+    },
+    {
+     "label": "correction-other",
+     "outcome": "ready_accepted",
+     "readiness_ms": 303,
+     "advertised_ms": 296,
+     "elapsed_ms": 303,
+     "queue_ms": 3,
+     "stderr_bytes": 1053,
+     "exit_kind": "alive",
+     "deadline_monotonic_ms": null,
+     "stderr_categories": [],
+     "file_states": [
+      {
+       "ms": 9,
+       "state": "missing"
+      },
+      {
+       "ms": 303,
+       "state": "ready"
+      }
+     ],
+     "samples": [
+      {
+       "ms": 9,
+       "state": "S",
+       "threads": 1,
+       "rss_kb": 3740,
+       "fds": 5,
+       "cpu_user_ticks": 0,
+       "cpu_system_ticks": 0
+      }
+     ]
+    }
+   ],
+   "probe_readiness_ms": {
+    "isolated": [
+     268,
+     268,
+     286
+    ],
+    "parallel": [
+     215,
+     238,
+     338,
+     338
+    ]
+   }
+  },
+  {
+   "run": "41197479002",
+   "shard": 3,
+   "failed": true,
+   "wall_seconds": 1108.0,
+   "assigned": 943,
+   "unknown_to_durations": 65,
+   "browser_tests": 26,
+   "browser_tests_unknown": 2,
+   "has_trace": true,
+   "launches": [
+    {
+     "label": "correction-calculate-dropped",
+     "outcome": "ready_after_deadline",
+     "readiness_ms": 11193,
+     "advertised_ms": 11192,
+     "elapsed_ms": 11193,
+     "queue_ms": 0,
+     "stderr_bytes": 1053,
+     "exit_kind": "alive",
+     "deadline_monotonic_ms": 10024,
+     "stderr_categories": [],
+     "file_states": [
+      {
+       "ms": 20,
+       "state": "missing"
+      },
+      {
+       "ms": 11193,
+       "state": "ready"
+      }
+     ],
+     "samples": [
+      {
+       "ms": 20,
+       "state": "S",
+       "threads": 1,
+       "rss_kb": 3660,
+       "fds": 5,
+       "cpu_user_ticks": 0,
+       "cpu_system_ticks": 0
+      },
+      {
+       "ms": 2027,
+       "state": "D",
+       "threads": 1,
+       "rss_kb": 43276,
+       "fds": 3,
+       "cpu_user_ticks": 0,
+       "cpu_system_ticks": 4
+      },
+      {
+       "ms": 4037,
+       "state": "D",
+       "threads": 1,
+       "rss_kb": 82060,
+       "fds": 4,
+       "cpu_user_ticks": 1,
+       "cpu_system_ticks": 5
+      },
+      {
+       "ms": 6038,
+       "state": "D",
+       "threads": 2,
+       "rss_kb": 94384,
+       "fds": 16,
+       "cpu_user_ticks": 1,
+       "cpu_system_ticks": 7
+      },
+      {
+       "ms": 8042,
+       "state": "D",
+       "threads": 16,
+       "rss_kb": 106112,
+       "fds": 30,
+       "cpu_user_ticks": 5,
+       "cpu_system_ticks": 12
+      },
+      {
+       "ms": 10049,
+       "state": "D",
+       "threads": 23,
+       "rss_kb": 130068,
+       "fds": 46,
+       "cpu_user_ticks": 9,
+       "cpu_system_ticks": 17
+      }
+     ]
+    },
+    {
+     "label": "correction-other",
+     "outcome": "ready_accepted",
+     "readiness_ms": 330,
+     "advertised_ms": 295,
+     "elapsed_ms": 330,
+     "queue_ms": 2,
+     "stderr_bytes": 1053,
+     "exit_kind": "alive",
+     "deadline_monotonic_ms": null,
+     "stderr_categories": [],
+     "file_states": [
+      {
+       "ms": 8,
+       "state": "missing"
+      },
+      {
+       "ms": 330,
+       "state": "ready"
+      }
+     ],
+     "samples": [
+      {
+       "ms": 8,
+       "state": "S",
+       "threads": 1,
+       "rss_kb": 3516,
+       "fds": 5,
+       "cpu_user_ticks": 0,
+       "cpu_system_ticks": 0
+      }
+     ]
+    },
+    {
+     "label": "correction-other",
+     "outcome": "ready_accepted",
+     "readiness_ms": 329,
+     "advertised_ms": 314,
+     "elapsed_ms": 329,
+     "queue_ms": 1,
+     "stderr_bytes": 1053,
+     "exit_kind": "alive",
+     "deadline_monotonic_ms": null,
+     "stderr_categories": [],
+     "file_states": [
+      {
+       "ms": 12,
+       "state": "missing"
+      },
+      {
+       "ms": 329,
+       "state": "ready"
+      }
+     ],
+     "samples": [
+      {
+       "ms": 12,
+       "state": "S",
+       "threads": 1,
+       "rss_kb": 3680,
+       "fds": 5,
+       "cpu_user_ticks": 0,
+       "cpu_system_ticks": 0
+      }
+     ]
+    }
+   ],
+   "probe_readiness_ms": {
+    "isolated": [
+     166,
+     166,
+     188
+    ],
+    "parallel": [
+     213,
+     213,
+     221,
+     226
+    ]
+   }
+  },
+  {
+   "run": "41197487146",
+   "shard": 0,
+   "failed": false,
+   "wall_seconds": 868.3,
+   "assigned": 978,
+   "unknown_to_durations": 98,
+   "browser_tests": 23,
+   "browser_tests_unknown": 2,
+   "has_trace": true,
+   "launches": [
+    {
+     "label": "correction-other",
+     "outcome": "ready_accepted",
+     "readiness_ms": 8113,
+     "advertised_ms": 8104,
+     "elapsed_ms": 8113,
+     "queue_ms": 1,
+     "stderr_bytes": 1053,
+     "exit_kind": "alive",
+     "deadline_monotonic_ms": null,
+     "stderr_categories": [],
+     "file_states": [
+      {
+       "ms": 21,
+       "state": "missing"
+      },
+      {
+       "ms": 8113,
+       "state": "ready"
+      }
+     ],
+     "samples": [
+      {
+       "ms": 21,
+       "state": "S",
+       "threads": 1,
+       "rss_kb": 3652,
+       "fds": 4,
+       "cpu_user_ticks": 0,
+       "cpu_system_ticks": 0
+      },
+      {
+       "ms": 2043,
+       "state": "D",
+       "threads": 1,
+       "rss_kb": 55732,
+       "fds": 3,
+       "cpu_user_ticks": 0,
+       "cpu_system_ticks": 3
+      },
+      {
+       "ms": 4061,
+       "state": "D",
+       "threads": 2,
+       "rss_kb": 98532,
+       "fds": 20,
+       "cpu_user_ticks": 1,
+       "cpu_system_ticks": 6
+      },
+      {
+       "ms": 6066,
+       "state": "D",
+       "threads": 17,
+       "rss_kb": 111732,
+       "fds": 31,
+       "cpu_user_ticks": 4,
+       "cpu_system_ticks": 12
+      },
+      {
+       "ms": 8083,
+       "state": "D",
+       "threads": 24,
+       "rss_kb": 143708,
+       "fds": 77,
+       "cpu_user_ticks": 9,
+       "cpu_system_ticks": 16
+      }
+     ]
+    },
+    {
+     "label": "correction-other",
+     "outcome": "ready_accepted",
+     "readiness_ms": 293,
+     "advertised_ms": 283,
+     "elapsed_ms": 293,
+     "queue_ms": 1,
+     "stderr_bytes": 1053,
+     "exit_kind": "alive",
+     "deadline_monotonic_ms": null,
+     "stderr_categories": [],
+     "file_states": [
+      {
+       "ms": 4,
+       "state": "missing"
+      },
+      {
+       "ms": 293,
+       "state": "ready"
+      }
+     ],
+     "samples": [
+      {
+       "ms": 4,
+       "state": "R",
+       "threads": 1,
+       "rss_kb": 3576,
+       "fds": 5,
+       "cpu_user_ticks": 0,
+       "cpu_system_ticks": 0
+      }
+     ]
+    }
+   ],
+   "probe_readiness_ms": {
+    "isolated": [
+     139,
+     140,
+     139
+    ],
+    "parallel": [
+     187,
+     187,
+     191,
+     192
+    ]
+   }
+  },
+  {
+   "run": "41197487146",
+   "shard": 1,
+   "failed": false,
+   "wall_seconds": 1201.9,
+   "assigned": 990,
+   "unknown_to_durations": 99,
+   "browser_tests": 21,
+   "browser_tests_unknown": 2,
+   "has_trace": true,
+   "launches": [
+    {
+     "label": "correction-other",
+     "outcome": "ready_accepted",
+     "readiness_ms": 298,
+     "advertised_ms": 284,
+     "elapsed_ms": 298,
+     "queue_ms": 2,
+     "stderr_bytes": 1053,
+     "exit_kind": "alive",
+     "deadline_monotonic_ms": null,
+     "stderr_categories": [],
+     "file_states": [
+      {
+       "ms": 15,
+       "state": "missing"
+      },
+      {
+       "ms": 298,
+       "state": "ready"
+      }
+     ],
+     "samples": [
+      {
+       "ms": 15,
+       "state": "S",
+       "threads": 1,
+       "rss_kb": 3640,
+       "fds": 4,
+       "cpu_user_ticks": 0,
+       "cpu_system_ticks": 0
+      }
+     ]
+    },
+    {
+     "label": "correction-other",
+     "outcome": "ready_accepted",
+     "readiness_ms": 335,
+     "advertised_ms": 315,
+     "elapsed_ms": 335,
+     "queue_ms": 3,
+     "stderr_bytes": 1053,
+     "exit_kind": "alive",
+     "deadline_monotonic_ms": null,
+     "stderr_categories": [],
+     "file_states": [
+      {
+       "ms": 10,
+       "state": "missing"
+      },
+      {
+       "ms": 335,
+       "state": "ready"
+      }
+     ],
+     "samples": [
+      {
+       "ms": 10,
+       "state": "S",
+       "threads": 1,
+       "rss_kb": 3524,
+       "fds": 5,
+       "cpu_user_ticks": 0,
+       "cpu_system_ticks": 0
+      }
+     ]
+    },
+    {
+     "label": "correction-other",
+     "outcome": "ready_accepted",
+     "readiness_ms": 310,
+     "advertised_ms": 304,
+     "elapsed_ms": 310,
+     "queue_ms": 2,
+     "stderr_bytes": 1053,
+     "exit_kind": "alive",
+     "deadline_monotonic_ms": null,
+     "stderr_categories": [],
+     "file_states": [
+      {
+       "ms": 10,
+       "state": "missing"
+      },
+      {
+       "ms": 309,
+       "state": "ready"
+      }
+     ],
+     "samples": [
+      {
+       "ms": 10,
+       "state": "S",
+       "threads": 1,
+       "rss_kb": 3680,
+       "fds": 5,
+       "cpu_user_ticks": 0,
+       "cpu_system_ticks": 0
+      }
+     ]
+    }
+   ],
+   "probe_readiness_ms": {
+    "isolated": [
+     165,
+     191,
+     166
+    ],
+    "parallel": [
+     218,
+     243,
+     199,
+     225
+    ]
+   }
+  },
+  {
+   "run": "41197487146",
+   "shard": 2,
+   "failed": false,
+   "wall_seconds": 972.3,
+   "assigned": 978,
+   "unknown_to_durations": 100,
+   "browser_tests": 24,
+   "browser_tests_unknown": 2,
+   "has_trace": true,
+   "launches": [
+    {
+     "label": "correction-other",
+     "outcome": "ready_accepted",
+     "readiness_ms": 304,
+     "advertised_ms": 300,
+     "elapsed_ms": 304,
+     "queue_ms": 1,
+     "stderr_bytes": 1053,
+     "exit_kind": "alive",
+     "deadline_monotonic_ms": null,
+     "stderr_categories": [],
+     "file_states": [
+      {
+       "ms": 13,
+       "state": "missing"
+      },
+      {
+       "ms": 304,
+       "state": "ready"
+      }
+     ],
+     "samples": [
+      {
+       "ms": 13,
+       "state": "S",
+       "threads": 1,
+       "rss_kb": 3652,
+       "fds": 3,
+       "cpu_user_ticks": 0,
+       "cpu_system_ticks": 0
+      }
+     ]
+    },
+    {
+     "label": "correction-other",
+     "outcome": "ready_accepted",
+     "readiness_ms": 320,
+     "advertised_ms": 300,
+     "elapsed_ms": 320,
+     "queue_ms": 2,
+     "stderr_bytes": 1053,
+     "exit_kind": "alive",
+     "deadline_monotonic_ms": null,
+     "stderr_categories": [],
+     "file_states": [
+      {
+       "ms": 9,
+       "state": "missing"
+      },
+      {
+       "ms": 320,
+       "state": "ready"
+      }
+     ],
+     "samples": [
+      {
+       "ms": 9,
+       "state": "S",
+       "threads": 1,
+       "rss_kb": 3624,
+       "fds": 4,
+       "cpu_user_ticks": 0,
+       "cpu_system_ticks": 0
+      }
+     ]
+    },
+    {
+     "label": "correction-other",
+     "outcome": "ready_accepted",
+     "readiness_ms": 326,
+     "advertised_ms": 314,
+     "elapsed_ms": 326,
+     "queue_ms": 1,
+     "stderr_bytes": 1053,
+     "exit_kind": "alive",
+     "deadline_monotonic_ms": null,
+     "stderr_categories": [],
+     "file_states": [
+      {
+       "ms": 16,
+       "state": "missing"
+      },
+      {
+       "ms": 325,
+       "state": "ready"
+      }
+     ],
+     "samples": [
+      {
+       "ms": 16,
+       "state": "S",
+       "threads": 1,
+       "rss_kb": 3668,
+       "fds": 5,
+       "cpu_user_ticks": 0,
+       "cpu_system_ticks": 0
+      }
+     ]
+    },
+    {
+     "label": "correction-other",
+     "outcome": "ready_accepted",
+     "readiness_ms": 321,
+     "advertised_ms": 312,
+     "elapsed_ms": 321,
+     "queue_ms": 1,
+     "stderr_bytes": 1053,
+     "exit_kind": "alive",
+     "deadline_monotonic_ms": null,
+     "stderr_categories": [],
+     "file_states": [
+      {
+       "ms": 12,
+       "state": "missing"
+      },
+      {
+       "ms": 321,
+       "state": "ready"
+      }
+     ],
+     "samples": [
+      {
+       "ms": 12,
+       "state": "S",
+       "threads": 1,
+       "rss_kb": 3680,
+       "fds": 5,
+       "cpu_user_ticks": 0,
+       "cpu_system_ticks": 0
+      }
+     ]
+    },
+    {
+     "label": "correction-other",
+     "outcome": "ready_accepted",
+     "readiness_ms": 283,
+     "advertised_ms": 256,
+     "elapsed_ms": 283,
+     "queue_ms": 1,
+     "stderr_bytes": 1053,
+     "exit_kind": "alive",
+     "deadline_monotonic_ms": null,
+     "stderr_categories": [],
+     "file_states": [
+      {
+       "ms": 10,
+       "state": "missing"
+      },
+      {
+       "ms": 283,
+       "state": "ready"
+      }
+     ],
+     "samples": [
+      {
+       "ms": 10,
+       "state": "S",
+       "threads": 1,
+       "rss_kb": 3580,
+       "fds": 4,
+       "cpu_user_ticks": 0,
+       "cpu_system_ticks": 0
+      }
+     ]
+    }
+   ],
+   "probe_readiness_ms": {
+    "isolated": [
+     164,
+     143,
+     133
+    ],
+    "parallel": [
+     193,
+     193,
+     186,
+     190
+    ]
+   }
+  },
+  {
+   "run": "41197487146",
+   "shard": 3,
+   "failed": false,
+   "wall_seconds": 1156.2,
+   "assigned": 978,
+   "unknown_to_durations": 98,
+   "browser_tests": 27,
+   "browser_tests_unknown": 2,
+   "has_trace": true,
+   "launches": [
+    {
+     "label": "correction-calculate-dropped",
+     "outcome": "ready_accepted",
+     "readiness_ms": 318,
+     "advertised_ms": 300,
+     "elapsed_ms": 318,
+     "queue_ms": 2,
+     "stderr_bytes": 1053,
+     "exit_kind": "alive",
+     "deadline_monotonic_ms": null,
+     "stderr_categories": [],
+     "file_states": [
+      {
+       "ms": 15,
+       "state": "missing"
+      },
+      {
+       "ms": 317,
+       "state": "ready"
+      }
+     ],
+     "samples": [
+      {
+       "ms": 15,
+       "state": "S",
+       "threads": 1,
+       "rss_kb": 3652,
+       "fds": 5,
+       "cpu_user_ticks": 0,
+       "cpu_system_ticks": 0
+      }
+     ]
+    },
+    {
+     "label": "correction-other",
+     "outcome": "ready_accepted",
+     "readiness_ms": 317,
+     "advertised_ms": 313,
+     "elapsed_ms": 317,
+     "queue_ms": 2,
+     "stderr_bytes": 1053,
+     "exit_kind": "alive",
+     "deadline_monotonic_ms": null,
+     "stderr_categories": [],
+     "file_states": [
+      {
+       "ms": 14,
+       "state": "missing"
+      },
+      {
+       "ms": 317,
+       "state": "ready"
+      }
+     ],
+     "samples": [
+      {
+       "ms": 14,
+       "state": "S",
+       "threads": 1,
+       "rss_kb": 3560,
+       "fds": 5,
+       "cpu_user_ticks": 0,
+       "cpu_system_ticks": 0
+      }
+     ]
+    },
+    {
+     "label": "correction-other",
+     "outcome": "ready_accepted",
+     "readiness_ms": 322,
+     "advertised_ms": 297,
+     "elapsed_ms": 322,
+     "queue_ms": 3,
+     "stderr_bytes": 1053,
+     "exit_kind": "alive",
+     "deadline_monotonic_ms": null,
+     "stderr_categories": [],
+     "file_states": [
+      {
+       "ms": 11,
+       "state": "missing"
+      },
+      {
+       "ms": 321,
+       "state": "ready"
+      }
+     ],
+     "samples": [
+      {
+       "ms": 11,
+       "state": "R",
+       "threads": 1,
+       "rss_kb": 3540,
+       "fds": 4,
+       "cpu_user_ticks": 0,
+       "cpu_system_ticks": 0
+      }
+     ]
+    }
+   ],
+   "probe_readiness_ms": {
+    "isolated": [
+     164,
+     165,
+     164
+    ],
+    "parallel": [
+     195,
+     223,
+     195,
+     220
+    ]
+   }
+  },
+  {
+   "run": "41197489310",
+   "shard": 0,
+   "failed": false,
+   "wall_seconds": 1268.9,
+   "assigned": 985,
+   "unknown_to_durations": 105,
+   "browser_tests": 24,
+   "browser_tests_unknown": 2,
+   "has_trace": true,
+   "launches": [
+    {
+     "label": "correction-other",
+     "outcome": "ready_accepted",
+     "readiness_ms": 5019,
+     "advertised_ms": 4994,
+     "elapsed_ms": 5019,
+     "queue_ms": 2,
+     "stderr_bytes": 1053,
+     "exit_kind": "alive",
+     "deadline_monotonic_ms": null,
+     "stderr_categories": [],
+     "file_states": [
+      {
+       "ms": 18,
+       "state": "missing"
+      },
+      {
+       "ms": 5019,
+       "state": "ready"
+      }
+     ],
+     "samples": [
+      {
+       "ms": 18,
+       "state": "S",
+       "threads": 1,
+       "rss_kb": 3528,
+       "fds": 5,
+       "cpu_user_ticks": 0,
+       "cpu_system_ticks": 0
+      },
+      {
+       "ms": 2037,
+       "state": "D",
+       "threads": 1,
+       "rss_kb": 83484,
+       "fds": 5,
+       "cpu_user_ticks": 0,
+       "cpu_system_ticks": 5
+      },
+      {
+       "ms": 4045,
+       "state": "D",
+       "threads": 23,
+       "rss_kb": 120588,
+       "fds": 41,
+       "cpu_user_ticks": 5,
+       "cpu_system_ticks": 14
+      }
+     ]
+    },
+    {
+     "label": "correction-other",
+     "outcome": "ready_accepted",
+     "readiness_ms": 333,
+     "advertised_ms": 316,
+     "elapsed_ms": 333,
+     "queue_ms": 2,
+     "stderr_bytes": 1053,
+     "exit_kind": "alive",
+     "deadline_monotonic_ms": null,
+     "stderr_categories": [],
+     "file_states": [
+      {
+       "ms": 11,
+       "state": "missing"
+      },
+      {
+       "ms": 333,
+       "state": "ready"
+      }
+     ],
+     "samples": [
+      {
+       "ms": 11,
+       "state": "S",
+       "threads": 1,
+       "rss_kb": 3640,
+       "fds": 5,
+       "cpu_user_ticks": 0,
+       "cpu_system_ticks": 0
+      }
+     ]
+    }
+   ],
+   "probe_readiness_ms": {
+    "isolated": [
+     172,
+     166,
+     171
+    ],
+    "parallel": [
+     195,
+     219,
+     193,
+     245
+    ]
+   }
+  },
+  {
+   "run": "41197489310",
+   "shard": 1,
+   "failed": false,
+   "wall_seconds": 1239.4,
+   "assigned": 996,
+   "unknown_to_durations": 105,
+   "browser_tests": 22,
+   "browser_tests_unknown": 2,
+   "has_trace": true,
+   "launches": [
+    {
+     "label": "correction-other",
+     "outcome": "ready_accepted",
+     "readiness_ms": 342,
+     "advertised_ms": 331,
+     "elapsed_ms": 342,
+     "queue_ms": 2,
+     "stderr_bytes": 1053,
+     "exit_kind": "alive",
+     "deadline_monotonic_ms": null,
+     "stderr_categories": [],
+     "file_states": [
+      {
+       "ms": 15,
+       "state": "missing"
+      },
+      {
+       "ms": 342,
+       "state": "ready"
+      }
+     ],
+     "samples": [
+      {
+       "ms": 15,
+       "state": "S",
+       "threads": 1,
+       "rss_kb": 3636,
+       "fds": 5,
+       "cpu_user_ticks": 0,
+       "cpu_system_ticks": 0
+      }
+     ]
+    },
+    {
+     "label": "correction-other",
+     "outcome": "ready_accepted",
+     "readiness_ms": 293,
+     "advertised_ms": 284,
+     "elapsed_ms": 293,
+     "queue_ms": 4,
+     "stderr_bytes": 1053,
+     "exit_kind": "alive",
+     "deadline_monotonic_ms": null,
+     "stderr_categories": [],
+     "file_states": [
+      {
+       "ms": 11,
+       "state": "missing"
+      },
+      {
+       "ms": 292,
+       "state": "ready"
+      }
+     ],
+     "samples": [
+      {
+       "ms": 11,
+       "state": "S",
+       "threads": 1,
+       "rss_kb": 3580,
+       "fds": 5,
+       "cpu_user_ticks": 0,
+       "cpu_system_ticks": 0
+      }
+     ]
+    },
+    {
+     "label": "correction-other",
+     "outcome": "ready_accepted",
+     "readiness_ms": 360,
+     "advertised_ms": 341,
+     "elapsed_ms": 360,
+     "queue_ms": 1,
+     "stderr_bytes": 1053,
+     "exit_kind": "alive",
+     "deadline_monotonic_ms": null,
+     "stderr_categories": [],
+     "file_states": [
+      {
+       "ms": 11,
+       "state": "missing"
+      },
+      {
+       "ms": 360,
+       "state": "ready"
+      }
+     ],
+     "samples": [
+      {
+       "ms": 11,
+       "state": "S",
+       "threads": 1,
+       "rss_kb": 3648,
+       "fds": 5,
+       "cpu_user_ticks": 0,
+       "cpu_system_ticks": 0
+      }
+     ]
+    }
+   ],
+   "probe_readiness_ms": {
+    "isolated": [
+     190,
+     187,
+     163
+    ],
+    "parallel": [
+     197,
+     224,
+     222,
+     245
+    ]
+   }
+  },
+  {
+   "run": "41197489310",
+   "shard": 2,
+   "failed": false,
+   "wall_seconds": 1358.8,
+   "assigned": 985,
+   "unknown_to_durations": 107,
+   "browser_tests": 23,
+   "browser_tests_unknown": 2,
+   "has_trace": true,
+   "launches": [
+    {
+     "label": "correction-other",
+     "outcome": "ready_accepted",
+     "readiness_ms": 291,
+     "advertised_ms": 285,
+     "elapsed_ms": 291,
+     "queue_ms": 1,
+     "stderr_bytes": 1053,
+     "exit_kind": "alive",
+     "deadline_monotonic_ms": null,
+     "stderr_categories": [],
+     "file_states": [
+      {
+       "ms": 19,
+       "state": "missing"
+      },
+      {
+       "ms": 291,
+       "state": "ready"
+      }
+     ],
+     "samples": [
+      {
+       "ms": 19,
+       "state": "S",
+       "threads": 1,
+       "rss_kb": 3684,
+       "fds": 5,
+       "cpu_user_ticks": 0,
+       "cpu_system_ticks": 0
+      }
+     ]
+    },
+    {
+     "label": "correction-other",
+     "outcome": "ready_accepted",
+     "readiness_ms": 288,
+     "advertised_ms": 277,
+     "elapsed_ms": 288,
+     "queue_ms": 2,
+     "stderr_bytes": 1053,
+     "exit_kind": "alive",
+     "deadline_monotonic_ms": null,
+     "stderr_categories": [],
+     "file_states": [
+      {
+       "ms": 9,
+       "state": "missing"
+      },
+      {
+       "ms": 288,
+       "state": "ready"
+      }
+     ],
+     "samples": [
+      {
+       "ms": 9,
+       "state": "S",
+       "threads": 1,
+       "rss_kb": 3616,
+       "fds": 4,
+       "cpu_user_ticks": 0,
+       "cpu_system_ticks": 0
+      }
+     ]
+    },
+    {
+     "label": "correction-other",
+     "outcome": "ready_accepted",
+     "readiness_ms": 268,
+     "advertised_ms": 251,
+     "elapsed_ms": 268,
+     "queue_ms": 3,
+     "stderr_bytes": 1053,
+     "exit_kind": "alive",
+     "deadline_monotonic_ms": null,
+     "stderr_categories": [],
+     "file_states": [
+      {
+       "ms": 12,
+       "state": "missing"
+      },
+      {
+       "ms": 268,
+       "state": "ready"
+      }
+     ],
+     "samples": [
+      {
+       "ms": 12,
+       "state": "S",
+       "threads": 1,
+       "rss_kb": 3656,
+       "fds": 5,
+       "cpu_user_ticks": 0,
+       "cpu_system_ticks": 0
+      }
+     ]
+    },
+    {
+     "label": "correction-other",
+     "outcome": "ready_accepted",
+     "readiness_ms": 332,
+     "advertised_ms": 314,
+     "elapsed_ms": 332,
+     "queue_ms": 2,
+     "stderr_bytes": 1053,
+     "exit_kind": "alive",
+     "deadline_monotonic_ms": null,
+     "stderr_categories": [],
+     "file_states": [
+      {
+       "ms": 11,
+       "state": "missing"
+      },
+      {
+       "ms": 332,
+       "state": "ready"
+      }
+     ],
+     "samples": [
+      {
+       "ms": 11,
+       "state": "S",
+       "threads": 1,
+       "rss_kb": 3632,
+       "fds": 5,
+       "cpu_user_ticks": 0,
+       "cpu_system_ticks": 0
+      }
+     ]
+    },
+    {
+     "label": "correction-other",
+     "outcome": "ready_accepted",
+     "readiness_ms": 339,
+     "advertised_ms": 326,
+     "elapsed_ms": 339,
+     "queue_ms": 2,
+     "stderr_bytes": 1053,
+     "exit_kind": "alive",
+     "deadline_monotonic_ms": null,
+     "stderr_categories": [],
+     "file_states": [
+      {
+       "ms": 12,
+       "state": "missing"
+      },
+      {
+       "ms": 339,
+       "state": "ready"
+      }
+     ],
+     "samples": [
+      {
+       "ms": 12,
+       "state": "S",
+       "threads": 1,
+       "rss_kb": 3656,
+       "fds": 5,
+       "cpu_user_ticks": 0,
+       "cpu_system_ticks": 0
+      }
+     ]
+    }
+   ],
+   "probe_readiness_ms": {
+    "isolated": [
+     168,
+     164,
+     166
+    ],
+    "parallel": [
+     249,
+     249,
+     215,
+     247
+    ]
+   }
+  },
+  {
+   "run": "41197489310",
+   "shard": 3,
+   "failed": false,
+   "wall_seconds": 681.6,
+   "assigned": 985,
+   "unknown_to_durations": 105,
+   "browser_tests": 26,
+   "browser_tests_unknown": 2,
+   "has_trace": true,
+   "launches": [
+    {
+     "label": "correction-calculate-dropped",
+     "outcome": "ready_accepted",
+     "readiness_ms": 255,
+     "advertised_ms": 235,
+     "elapsed_ms": 255,
+     "queue_ms": 1,
+     "stderr_bytes": 1053,
+     "exit_kind": "alive",
+     "deadline_monotonic_ms": null,
+     "stderr_categories": [],
+     "file_states": [
+      {
+       "ms": 12,
+       "state": "missing"
+      },
+      {
+       "ms": 255,
+       "state": "ready"
+      }
+     ],
+     "samples": [
+      {
+       "ms": 12,
+       "state": "S",
+       "threads": 1,
+       "rss_kb": 3648,
+       "fds": 5,
+       "cpu_user_ticks": 0,
+       "cpu_system_ticks": 0
+      }
+     ]
+    },
+    {
+     "label": "correction-other",
+     "outcome": "ready_accepted",
+     "readiness_ms": 257,
+     "advertised_ms": 247,
+     "elapsed_ms": 257,
+     "queue_ms": 1,
+     "stderr_bytes": 1053,
+     "exit_kind": "alive",
+     "deadline_monotonic_ms": null,
+     "stderr_categories": [],
+     "file_states": [
+      {
+       "ms": 8,
+       "state": "missing"
+      },
+      {
+       "ms": 256,
+       "state": "ready"
+      }
+     ],
+     "samples": [
+      {
+       "ms": 8,
+       "state": "S",
+       "threads": 1,
+       "rss_kb": 3676,
+       "fds": 5,
+       "cpu_user_ticks": 0,
+       "cpu_system_ticks": 0
+      }
+     ]
+    },
+    {
+     "label": "correction-other",
+     "outcome": "ready_accepted",
+     "readiness_ms": 269,
+     "advertised_ms": 241,
+     "elapsed_ms": 269,
+     "queue_ms": 3,
+     "stderr_bytes": 1053,
+     "exit_kind": "alive",
+     "deadline_monotonic_ms": null,
+     "stderr_categories": [],
+     "file_states": [
+      {
+       "ms": 11,
+       "state": "missing"
+      },
+      {
+       "ms": 268,
+       "state": "ready"
+      }
+     ],
+     "samples": [
+      {
+       "ms": 11,
+       "state": "S",
+       "threads": 1,
+       "rss_kb": 3692,
+       "fds": 4,
+       "cpu_user_ticks": 0,
+       "cpu_system_ticks": 0
+      }
+     ]
+    }
+   ],
+   "probe_readiness_ms": {
+    "isolated": [
+     137,
+     146,
+     161
+    ],
+    "parallel": [
+     172,
+     172,
+     166,
+     189
+    ]
+   }
+  },
+  {
+   "run": "41200226304",
+   "shard": 0,
+   "failed": false,
+   "wall_seconds": 974.4,
+   "assigned": 955,
+   "unknown_to_durations": 63,
+   "browser_tests": 24,
+   "browser_tests_unknown": 2,
+   "has_trace": true,
+   "launches": [
+    {
+     "label": "correction-other",
+     "outcome": "ready_accepted",
+     "readiness_ms": 6529,
+     "advertised_ms": 6511,
+     "elapsed_ms": 6529,
+     "queue_ms": 1,
+     "stderr_bytes": 1053,
+     "exit_kind": "alive",
+     "deadline_monotonic_ms": null,
+     "stderr_categories": [],
+     "file_states": [
+      {
+       "ms": 21,
+       "state": "missing"
+      },
+      {
+       "ms": 6529,
+       "state": "ready"
+      }
+     ],
+     "samples": [
+      {
+       "ms": 21,
+       "state": "S",
+       "threads": 1,
+       "rss_kb": 3592,
+       "fds": 5,
+       "cpu_user_ticks": 0,
+       "cpu_system_ticks": 0
+      },
+      {
+       "ms": 2029,
+       "state": "D",
+       "threads": 1,
+       "rss_kb": 70956,
+       "fds": 3,
+       "cpu_user_ticks": 1,
+       "cpu_system_ticks": 4
+      },
+      {
+       "ms": 4047,
+       "state": "D",
+       "threads": 2,
+       "rss_kb": 97008,
+       "fds": 16,
+       "cpu_user_ticks": 2,
+       "cpu_system_ticks": 7
+      },
+      {
+       "ms": 6071,
+       "state": "D",
+       "threads": 24,
+       "rss_kb": 136240,
+       "fds": 69,
+       "cpu_user_ticks": 9,
+       "cpu_system_ticks": 19
+      }
+     ]
+    },
+    {
+     "label": "correction-other",
+     "outcome": "ready_accepted",
+     "readiness_ms": 333,
+     "advertised_ms": 317,
+     "elapsed_ms": 333,
+     "queue_ms": 1,
+     "stderr_bytes": 1053,
+     "exit_kind": "alive",
+     "deadline_monotonic_ms": null,
+     "stderr_categories": [],
+     "file_states": [
+      {
+       "ms": 10,
+       "state": "missing"
+      },
+      {
+       "ms": 333,
+       "state": "ready"
+      }
+     ],
+     "samples": [
+      {
+       "ms": 10,
+       "state": "S",
+       "threads": 1,
+       "rss_kb": 3640,
+       "fds": 5,
+       "cpu_user_ticks": 0,
+       "cpu_system_ticks": 0
+      }
+     ]
+    }
+   ],
+   "probe_readiness_ms": {
+    "isolated": [
+     170,
+     185,
+     164
+    ],
+    "parallel": [
+     216,
+     216,
+     191,
+     246
+    ]
+   }
+  },
+  {
+   "run": "41200226304",
+   "shard": 1,
+   "failed": false,
+   "wall_seconds": 1082.7,
+   "assigned": 943,
+   "unknown_to_durations": 64,
+   "browser_tests": 22,
+   "browser_tests_unknown": 2,
+   "has_trace": true,
+   "launches": [
+    {
+     "label": "correction-other",
+     "outcome": "ready_accepted",
+     "readiness_ms": 310,
+     "advertised_ms": 295,
+     "elapsed_ms": 310,
+     "queue_ms": 1,
+     "stderr_bytes": 1053,
+     "exit_kind": "alive",
+     "deadline_monotonic_ms": null,
+     "stderr_categories": [],
+     "file_states": [
+      {
+       "ms": 11,
+       "state": "missing"
+      },
+      {
+       "ms": 310,
+       "state": "ready"
+      }
+     ],
+     "samples": [
+      {
+       "ms": 11,
+       "state": "S",
+       "threads": 1,
+       "rss_kb": 3620,
+       "fds": 5,
+       "cpu_user_ticks": 0,
+       "cpu_system_ticks": 0
+      }
+     ]
+    },
+    {
+     "label": "correction-other",
+     "outcome": "ready_accepted",
+     "readiness_ms": 340,
+     "advertised_ms": 315,
+     "elapsed_ms": 340,
+     "queue_ms": 2,
+     "stderr_bytes": 1053,
+     "exit_kind": "alive",
+     "deadline_monotonic_ms": null,
+     "stderr_categories": [],
+     "file_states": [
+      {
+       "ms": 13,
+       "state": "missing"
+      },
+      {
+       "ms": 340,
+       "state": "ready"
+      }
+     ],
+     "samples": [
+      {
+       "ms": 13,
+       "state": "S",
+       "threads": 1,
+       "rss_kb": 3584,
+       "fds": 5,
+       "cpu_user_ticks": 0,
+       "cpu_system_ticks": 0
+      }
+     ]
+    },
+    {
+     "label": "correction-other",
+     "outcome": "ready_accepted",
+     "readiness_ms": 314,
+     "advertised_ms": 293,
+     "elapsed_ms": 314,
+     "queue_ms": 2,
+     "stderr_bytes": 1053,
+     "exit_kind": "alive",
+     "deadline_monotonic_ms": null,
+     "stderr_categories": [],
+     "file_states": [
+      {
+       "ms": 10,
+       "state": "missing"
+      },
+      {
+       "ms": 313,
+       "state": "ready"
+      }
+     ],
+     "samples": [
+      {
+       "ms": 10,
+       "state": "S",
+       "threads": 1,
+       "rss_kb": 3624,
+       "fds": 5,
+       "cpu_user_ticks": 0,
+       "cpu_system_ticks": 0
+      }
+     ]
+    }
+   ],
+   "probe_readiness_ms": {
+    "isolated": [
+     169,
+     225,
+     168
+    ],
+    "parallel": [
+     214,
+     239,
+     217,
+     217
+    ]
+   }
+  },
+  {
+   "run": "41200226304",
+   "shard": 2,
+   "failed": false,
+   "wall_seconds": 1160.6,
+   "assigned": 944,
+   "unknown_to_durations": 64,
+   "browser_tests": 23,
+   "browser_tests_unknown": 2,
+   "has_trace": true,
+   "launches": [
+    {
+     "label": "correction-other",
+     "outcome": "ready_accepted",
+     "readiness_ms": 352,
+     "advertised_ms": 340,
+     "elapsed_ms": 352,
+     "queue_ms": 3,
+     "stderr_bytes": 1053,
+     "exit_kind": "alive",
+     "deadline_monotonic_ms": null,
+     "stderr_categories": [],
+     "file_states": [
+      {
+       "ms": 12,
+       "state": "missing"
+      },
+      {
+       "ms": 352,
+       "state": "ready"
+      }
+     ],
+     "samples": [
+      {
+       "ms": 12,
+       "state": "S",
+       "threads": 1,
+       "rss_kb": 3684,
+       "fds": 5,
+       "cpu_user_ticks": 0,
+       "cpu_system_ticks": 0
+      }
+     ]
+    },
+    {
+     "label": "correction-other",
+     "outcome": "ready_accepted",
+     "readiness_ms": 326,
+     "advertised_ms": 298,
+     "elapsed_ms": 326,
+     "queue_ms": 1,
+     "stderr_bytes": 1053,
+     "exit_kind": "alive",
+     "deadline_monotonic_ms": null,
+     "stderr_categories": [],
+     "file_states": [
+      {
+       "ms": 11,
+       "state": "missing"
+      },
+      {
+       "ms": 326,
+       "state": "ready"
+      }
+     ],
+     "samples": [
+      {
+       "ms": 11,
+       "state": "R",
+       "threads": 1,
+       "rss_kb": 3616,
+       "fds": 7,
+       "cpu_user_ticks": 0,
+       "cpu_system_ticks": 0
+      }
+     ]
+    },
+    {
+     "label": "correction-other",
+     "outcome": "ready_accepted",
+     "readiness_ms": 316,
+     "advertised_ms": 310,
+     "elapsed_ms": 316,
+     "queue_ms": 2,
+     "stderr_bytes": 1053,
+     "exit_kind": "alive",
+     "deadline_monotonic_ms": null,
+     "stderr_categories": [],
+     "file_states": [
+      {
+       "ms": 12,
+       "state": "missing"
+      },
+      {
+       "ms": 315,
+       "state": "ready"
+      }
+     ],
+     "samples": [
+      {
+       "ms": 12,
+       "state": "S",
+       "threads": 1,
+       "rss_kb": 3548,
+       "fds": 5,
+       "cpu_user_ticks": 0,
+       "cpu_system_ticks": 0
+      }
+     ]
+    },
+    {
+     "label": "correction-other",
+     "outcome": "ready_accepted",
+     "readiness_ms": 401,
+     "advertised_ms": 378,
+     "elapsed_ms": 401,
+     "queue_ms": 4,
+     "stderr_bytes": 1053,
+     "exit_kind": "alive",
+     "deadline_monotonic_ms": null,
+     "stderr_categories": [],
+     "file_states": [
+      {
+       "ms": 17,
+       "state": "missing"
+      },
+      {
+       "ms": 401,
+       "state": "ready"
+      }
+     ],
+     "samples": [
+      {
+       "ms": 17,
+       "state": "S",
+       "threads": 1,
+       "rss_kb": 3628,
+       "fds": 5,
+       "cpu_user_ticks": 0,
+       "cpu_system_ticks": 0
+      }
+     ]
+    },
+    {
+     "label": "correction-other",
+     "outcome": "ready_accepted",
+     "readiness_ms": 414,
+     "advertised_ms": 389,
+     "elapsed_ms": 414,
+     "queue_ms": 1,
+     "stderr_bytes": 1053,
+     "exit_kind": "alive",
+     "deadline_monotonic_ms": null,
+     "stderr_categories": [],
+     "file_states": [
+      {
+       "ms": 12,
+       "state": "missing"
+      },
+      {
+       "ms": 413,
+       "state": "ready"
+      }
+     ],
+     "samples": [
+      {
+       "ms": 12,
+       "state": "S",
+       "threads": 1,
+       "rss_kb": 3556,
+       "fds": 5,
+       "cpu_user_ticks": 0,
+       "cpu_system_ticks": 0
+      }
+     ]
+    }
+   ],
+   "probe_readiness_ms": {
+    "isolated": [
+     199,
+     190,
+     166
+    ],
+    "parallel": [
+     221,
+     247,
+     229,
+     229
+    ]
+   }
+  },
+  {
+   "run": "41200226304",
+   "shard": 3,
+   "failed": false,
+   "wall_seconds": 769.9,
+   "assigned": 943,
+   "unknown_to_durations": 65,
+   "browser_tests": 26,
+   "browser_tests_unknown": 2,
+   "has_trace": true,
+   "launches": [
+    {
+     "label": "correction-calculate-dropped",
+     "outcome": "ready_accepted",
+     "readiness_ms": 739,
+     "advertised_ms": 723,
+     "elapsed_ms": 739,
+     "queue_ms": 2,
+     "stderr_bytes": 1053,
+     "exit_kind": "alive",
+     "deadline_monotonic_ms": null,
+     "stderr_categories": [],
+     "file_states": [
+      {
+       "ms": 9,
+       "state": "missing"
+      },
+      {
+       "ms": 739,
+       "state": "ready"
+      }
+     ],
+     "samples": [
+      {
+       "ms": 9,
+       "state": "S",
+       "threads": 1,
+       "rss_kb": 3568,
+       "fds": 5,
+       "cpu_user_ticks": 0,
+       "cpu_system_ticks": 0
+      }
+     ]
+    },
+    {
+     "label": "correction-other",
+     "outcome": "ready_accepted",
+     "readiness_ms": 249,
+     "advertised_ms": 228,
+     "elapsed_ms": 249,
+     "queue_ms": 1,
+     "stderr_bytes": 1053,
+     "exit_kind": "alive",
+     "deadline_monotonic_ms": null,
+     "stderr_categories": [],
+     "file_states": [
+      {
+       "ms": 8,
+       "state": "missing"
+      },
+      {
+       "ms": 249,
+       "state": "ready"
+      }
+     ],
+     "samples": [
+      {
+       "ms": 8,
+       "state": "S",
+       "threads": 1,
+       "rss_kb": 3624,
+       "fds": 5,
+       "cpu_user_ticks": 0,
+       "cpu_system_ticks": 0
+      }
+     ]
+    },
+    {
+     "label": "correction-other",
+     "outcome": "ready_accepted",
+     "readiness_ms": 279,
+     "advertised_ms": 267,
+     "elapsed_ms": 279,
+     "queue_ms": 6,
+     "stderr_bytes": 1053,
+     "exit_kind": "alive",
+     "deadline_monotonic_ms": null,
+     "stderr_categories": [],
+     "file_states": [
+      {
+       "ms": 8,
+       "state": "missing"
+      },
+      {
+       "ms": 279,
+       "state": "ready"
+      }
+     ],
+     "samples": [
+      {
+       "ms": 8,
+       "state": "S",
+       "threads": 1,
+       "rss_kb": 3648,
+       "fds": 6,
+       "cpu_user_ticks": 0,
+       "cpu_system_ticks": 0
+      }
+     ]
+    }
+   ],
+   "probe_readiness_ms": {
+    "isolated": [
+     135,
+     137,
+     162
+    ],
+    "parallel": [
+     194,
+     194,
+     163,
+     189
+    ]
+   }
+  }
+ ]
+}

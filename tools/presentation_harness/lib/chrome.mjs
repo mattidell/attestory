@@ -45,7 +45,27 @@ export async function resolveChromeExecutable(explicitPath) {
   );
 }
 
-async function waitForDevToolsActivePort(profileDir, timeoutMs, state, observer) {
+// Active launch allowance (after the startup slot is held). Measured cold first
+// launches reached 11.2 s in CI. The Python owner (tests/helpers/
+// correction_browser_owner.py) waits 240 s, above queue + allowance + observer
+// grace = 120 + 45 + 60 s; a test keeps the two languages equal. Tests inject a
+// shorter `launchTimeoutMs` instead of waiting this long.
+export const CHROME_LAUNCH_TIMEOUT_MS = 45000;
+export const SLOT_QUEUE_TIMEOUT_MS = 120000;
+// A launch ready past this mark but inside the allowance is reported on stderr.
+export const SLOW_LAUNCH_MS = 10000;
+// Test-only override (DEMO_CHROME_LAUNCH_TIMEOUT_MS), else the allowance.
+export function resolveLaunchTimeoutMs(env = process.env) {
+  const value = Number.parseInt(env.DEMO_CHROME_LAUNCH_TIMEOUT_MS ?? "", 10);
+  return Number.isInteger(value) && value > 0 ? value : CHROME_LAUNCH_TIMEOUT_MS;
+}
+// The allowance launchChromeOwned applies when the caller passes none.
+export function launchTimeoutFor(options = {}) {
+  return options.launchTimeoutMs ?? resolveLaunchTimeoutMs();
+}
+
+async function waitForDevToolsActivePort(profileDir, timeoutMs, state, observer, slowMs = SLOW_LAUNCH_MS) {
+  const startedAt = Date.now();
   const filePath = join(profileDir, "DevToolsActivePort");
   const deadline = Date.now() + timeoutMs;
   let originalError = null;
@@ -79,6 +99,8 @@ async function waitForDevToolsActivePort(profileDir, timeoutMs, state, observer)
     if (observer) await observer.observe(fileState, state.pid(), true, metadata).catch(() => {});
     const now = Date.now();
     if (result && !originalError) {
+      const took = Date.now() - startedAt;
+      if (took > slowMs) process.stderr.write(`slow Chrome launch: ${took} ms\n`);
       if (observer) await observer.finish("ready_accepted", true, state.details()).catch(() => {});
       return result;
     }
@@ -104,7 +126,9 @@ async function waitForDevToolsActivePort(profileDir, timeoutMs, state, observer)
  * Launch one isolated Chrome process with a fresh temporary profile.
  * Returns a handle with { wsUrl, process, dispose() }.
  */
-async function launchChromeOwned(explicitPath, { launchTimeoutMs = 10000, onOwnership = null, observer = null } = {}) {
+async function launchChromeOwned(explicitPath, options = {}) {
+  const { onOwnership = null, observer = null, slowLaunchMs = SLOW_LAUNCH_MS } = options;
+  const launchTimeoutMs = launchTimeoutFor(options);
   let executable;
   try { executable = await resolveChromeExecutable(explicitPath); }
   catch (error) { if (observer) await observer.finish("resolve_failure", false, { exit_kind: "resolve_error", stderr_bytes: 0 }).catch(() => {}); throw error; }
@@ -232,7 +256,7 @@ async function launchChromeOwned(explicitPath, { launchTimeoutMs = 10000, onOwne
 
   let devtools;
   try {
-    devtools = await waitForDevToolsActivePort(profileDir, launchTimeoutMs, state, observer);
+    devtools = await waitForDevToolsActivePort(profileDir, launchTimeoutMs, state, observer, slowLaunchMs);
   } catch (error) {
     await dispose();
     throw error;
@@ -274,7 +298,7 @@ export async function launchChrome(explicitPath, options = {}) {
   });
   const queueStarted = performance.now();
   let slot;
-  try { slot = await acquireStartupSlot(root, { cancelled: () => cancelled, timeoutMs: options.queueTimeoutMs ?? 120000 }); }
+  try { slot = await acquireStartupSlot(root, { cancelled: () => cancelled, timeoutMs: options.queueTimeoutMs ?? SLOT_QUEUE_TIMEOUT_MS }); }
   catch (error) {
     if (options.observer) await options.observer.finish("queue_failed", false, {
       queue_ms: Math.round(performance.now() - queueStarted), exit_kind: "queue_error", stderr_bytes: 0,

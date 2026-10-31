@@ -16,7 +16,7 @@ async function caseRun(body, timeout = 3000, graceMs = 5000) {
     await chmod(binary, 0o755);
     const observer = createObservation({ label: "isolated", output, graceMs });
     let result = "success";
-    try { const chrome = await launchChrome(binary, { launchTimeoutMs: timeout, observer }); await chrome.dispose(); }
+    try { const chrome = await launchChrome(binary, timeout === null ? { observer } : { launchTimeoutMs: timeout, observer }); await chrome.dispose(); }
     catch (error) { result = error.message; }
     return { result, trace: JSON.parse(await readFile(output, "utf8")) };
   } finally { await rm(root, { recursive: true, force: true }); }
@@ -28,6 +28,42 @@ test("early readiness succeeds, records timing and hides endpoint", async () => 
   assert.equal(result, "success"); assert.equal(trace.outcome, "ready_accepted");
   assert.ok(trace.readiness_ms >= 0); assert.ok(trace.advertised_ms >= 0);
   assert.doesNotMatch(JSON.stringify(trace), /demo-secret|ws:\/\//);
+});
+test("the default launch allowance is 45 s and fits the owner's 210 s wait", async () => {
+  const { CHROME_LAUNCH_TIMEOUT_MS } = await import(pathToFileURL(new URL("../lib/chrome.mjs", import.meta.url).pathname).href);
+  assert.equal(CHROME_LAUNCH_TIMEOUT_MS, 45000);
+  assert.ok(120000 + CHROME_LAUNCH_TIMEOUT_MS + 60000 < 240000);
+});
+test("a launch with no timeout argument resolves to the 45 s allowance", async () => {
+  const mod = await import(pathToFileURL(new URL("../lib/chrome.mjs", import.meta.url).pathname).href);
+  assert.equal(mod.resolveLaunchTimeoutMs({}), 45000);
+  assert.equal(mod.resolveLaunchTimeoutMs({ DEMO_CHROME_LAUNCH_TIMEOUT_MS: "2000" }), 2000);
+  assert.equal(mod.launchTimeoutFor({}), process.env.DEMO_CHROME_LAUNCH_TIMEOUT_MS ? Number(process.env.DEMO_CHROME_LAUNCH_TIMEOUT_MS) : 45000);
+  assert.equal(mod.launchTimeoutFor({ launchTimeoutMs: 1234 }), 1234);
+});
+async function stderrOf(body, slowLaunchMs) {
+  const root = await mkdtemp(join(tmpdir(), "demo-slow-"));
+  const original = process.stderr.write; let seen = "";
+  try {
+    const binary = join(root, "chrome");
+    await writeFile(binary, `#!/usr/bin/env node\nimport {writeFileSync} from 'node:fs';\nconst p=process.argv.find(x=>x.startsWith('--user-data-dir=')).slice(16);\n${body}\n`);
+    await chmod(binary, 0o755);
+    process.stderr.write = function(chunk) { seen += String(chunk); return true; };
+    const chrome = await launchChrome(binary, { launchTimeoutMs: 5000, slowLaunchMs });
+    await chrome.dispose();
+  } finally { process.stderr.write = original; await rm(root, { recursive: true, force: true }); }
+  return seen;
+}
+test("a late-but-accepted launch writes one slow-launch line; a fast one does not", async () => {
+  const slow = await stderrOf(`setTimeout(()=>{${ready}},900); ${live}`, 400);
+  assert.match(slow, /^slow Chrome launch: \d+ ms\n$/);
+  const fast = await stderrOf(`${ready} ${live}`, 4000);
+  assert.equal(fast, "");
+});
+test("readiness before the injected allowance succeeds", async () => {
+  const { result, trace } = await caseRun(`setTimeout(()=>{${ready}},800); ${live}`, 3000);
+  assert.equal(result, "success"); assert.equal(trace.outcome, "ready_accepted");
+  assert.ok(trace.readiness_ms >= 500);
 });
 test("late readiness is measured but original deadline still fails", async () => {
   const { result, trace } = await caseRun(`writeFileSync(p+'/DevToolsActivePort','bad'); setTimeout(()=>{${ready}},4200); ${live}`);

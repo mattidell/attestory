@@ -153,3 +153,16 @@ waiting and spend more runner time; label those benefits separately.
 `docs/phase-state.md` is retired. The foreman capsule reads the plan from the
 branch name and derives open or closed from it; orientation takes the role
 and charter explicitly. Parked work moved to the Engine Breadth roadmap.
+
+### Chrome Starts Before the Gate Gives Up
+
+[Plan](milestones/chrome-startup-flake.md).
+[Retrospective](../../milestone-retrospectives/2026-10-31-chrome-startup-flake.md).
+
+Seven required runs failed in two days on one Chrome startup timeout. The
+one traced failure was a cold first launch ready at 11.2 seconds against a
+ten-second allowance. The allowance is now 45 seconds inside the startup
+slot, the owner waits longer than the worst case, and slow launches are
+reported. No full-suite speedup or cause beyond disk-wait at first launch is
+claimed.
+
