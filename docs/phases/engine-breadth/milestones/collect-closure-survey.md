@@ -3,7 +3,7 @@
   "version": 1,
   "phase": "Engine Breadth",
   "topic": "collect-closure-survey",
-  "status": "Open. P0 found 16 unguarded collects that publish partial sums on core v61; Track 1 guards the seven outside line 2b with five successor rules on core v62. Line 2b needs a validator change and awaits owner direction.",
+  "status": "Closed. On core v62 Form 1099-DIV 2a, Form 1099-R line 4b, SSA-1099 line 6a and Schedule D lines 1a and 8a wait until their families are confirmed complete; a regression test fails on any new unguarded path. Line 2b and the attachments still publish partial sums: an owner-held question and the next milestone.",
   "scope": [
     "survey every rule in the latest core package whose value collects a source set while its own when does not require that set closed",
     "for each, find whether a downstream rule guards the set, or whether a partial sum can reach a published line",
@@ -31,10 +31,12 @@
       "docs/phases/engine-breadth/milestones/collect-closure-survey.md"
     ],
     "new_milestone": [
+      "docs/milestone-retrospectives/2026-10-30-collect-closure-survey.md",
       "docs/phases/engine-breadth/milestones/collect-closure-survey.md",
       "docs/phases/engine-breadth/engine-breadth-roadmap.md#Parked work and open questions"
     ]
-  }
+  },
+  "retrospective": "docs/milestone-retrospectives/2026-10-30-collect-closure-survey.md"
 }
 -->
 
@@ -159,4 +161,50 @@ Foreman, 2026-10-30:
 1. **Track 1 — guard.** The five successors (decision 4); core v62, registry v60,
    release v60 with `tools/package_successor.py`; the v62 companion entry;
    cases on the real coordinator for each gap; v61 pinned; the regression
-   test.
+   test (`tools/collect_closure_survey.py`,
+   `tests/test_collect_closure_regression.py`).
+
+## Review dispositions
+
+Fresh-reader review of P0 and Track 1. Seven further gap cases (stale and
+false closures, two families at once, joint returns) all blocked on v62; two
+further complete returns were identical across 240 values; seven in-memory
+guard removals were each caught by the regression test, naming the dropped
+set; the line 2b validator cause was confirmed at the cited checks.
+
+1. *Schedule D publishes partial Form 1099-B proceeds on v62* (required).
+   `attachment.schedule-d` v6 reads the subtotals directly. Moved to the next
+   milestone (decision 5); a live test pins today's behaviour.
+2. *The survey could not see paths that end at an attachment* (required).
+   Fixed: the survey reports attachment paths; the regression test lists the
+   24 source sets that still reach an attachment unguarded on v62, by name,
+   as known gaps, and fails if the list goes stale.
+3. *The held-downstream allowlist overstated its live evidence* (recommended).
+   Fixed: each entry's comment says whether it is confirmed live (1099-K),
+   or rests on a root block and the static reading (1099-DIV box 7, 1098-E,
+   1099-INT b8).
+4. *"Seven-slot closure surface" matched no code* (note). Corrected in
+   decision 4.
+
+## Execution record
+
+- Dispatch was to Sonnet 5.5 Agent sub-agents. P0 took about 38 minutes;
+  Track 1 stopped at line 2b as chartered, was split by the foreman, and
+  resumed; the review took about 8 minutes; one repair pass by the Track 1
+  builder.
+- P0 said none of the six rules was an entrypoint; four are. The generator
+  reported it.
+
+## Outcome
+
+On core v62, a recorded Form 1099-DIV box 2a, Form 1099-R line 4b, SSA-1099
+benefit or non-wash Form 1099-B basis or proceeds amount does not reach its
+line until its family is confirmed complete; the line blocks
+`SOURCE_SET_UNCLOSED` naming the set and everything behind it waits. A
+complete return publishes exactly v61's values. Five successor rules; no
+engine or schema change; no new question. A regression test fails on any
+new unguarded path to a form-field line or an attachment.
+
+Still open: the nine interest families behind line 2b, which needs a
+validator change (owner-held), and 24 source sets that reach an attachment
+unguarded (next milestone).

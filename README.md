@@ -7,8 +7,10 @@ This is the project's third iteration. The first proved a working return generat
 ## Where things stand
 
 - **Governance** (`docs/governance/`): the ratified v0.1 set — Constitution, Ontology, Engineering Constraints, Principles, Commentary. The sole contract authority for this repository.
-- **Current result**: on core calculations v61 line
-  25b waits until every Form 1099 withholding family is confirmed complete;
+- **Current result**: on core calculations v62
+  Form 1099-DIV 2a, Form 1099-R line 4b, SSA-1099 line 6a and Schedule D
+  lines 1a and 8a wait until their families are confirmed complete; v61 line
+  25b waits for every Form 1099 withholding family;
   v60 stops every line computed from income while a Form 1099-K is
   unresolved or unconfirmed; v59 counts federal income tax withheld on Forms 1099-G and SSA-1099
   on line 25b; v58

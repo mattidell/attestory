@@ -416,6 +416,16 @@ A recorded Form 1099 withholding amount counted on line 25b while its family
 was not confirmed complete, so the refund published on a partial sum. Line
 25b waits for every withholding family on a successor package.
 
+## Bounded return — Every Sum Waits for Its Statements (2025)
+
+[Plan](milestones/collect-closure-survey.md).
+
+A survey of every rule that collects a source set found 16 that published a
+partial sum while the family was unconfirmed. Five successor rules guard
+seven of them on core v62, and a regression test fails on any new unguarded
+path. The nine interest families behind line 2b, and the attachments, are
+still open.
+
 ## Parked work and open questions
 
 This is the single list of parked work and open owner-held questions for the
@@ -424,6 +434,14 @@ milestone that parks something adds it here in its closing commit; one that
 delivers an item removes it.
 
 ### Open owner-held questions
+
+- Whether to lift the package validator's line 2b v8 restrictions (a
+  `rule-artifact.v9` selection rule is authorized only as
+  `form1040-line2b@v8`, with top-level `when: true` and no `require_closed`
+  in its paths), so a guarded successor can be published. Until then an
+  unconfirmed Form 1099-INT, 1099-OID, Schedule K-1 box 5, non-form interest
+  or Schedule B adjustment still moves line 2b, total income, AGI and the
+  tax.
 
 - Whether a representation-transfer adjudication act should exist, so a
   nonzero legacy claim on a superseded entity could resolve honestly
@@ -471,9 +489,9 @@ delivers an item removes it.
   beside the new "can be claimed" answer.
 - Use of the circumstance routes on the correction session, which still
   resolves an older registry.
-- `collect` reads closure only when its set is empty, so a rule without a
-  `require_closed` guard sums whatever members are present. 49 rules collect
-  unguarded; whether any publishes a partial income sum is not surveyed.
+- 24 source sets reach an attachment (Schedule D, Form 8949, Schedule 1,
+  Schedule B) without a closure guard; the attachments read subtotals
+  directly. Listed by name in `tests/test_collect_closure_regression.py`.
 - A withholding closure attested true over an amount never recorded still
   publishes the smaller line 25b; closing it needs a per-statement box 4
   answer (including $0), as W-2 box 2 has.
