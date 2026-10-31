@@ -1,0 +1,23 @@
+{
+  "admission": {
+    "condition": "current-literal-true"
+  },
+  "admits_symbol": "tax.us.2025.f1099b.covered-w-st-proceeds-subtotal",
+  "closure_fact_type": {
+    "id": "tax.us.2025.f1099b.covered-w-st-proceeds.source-closure",
+    "version": "v1"
+  },
+  "closure_horizon_key": "family-horizon",
+  "closure_question": "Have you recorded the sale proceeds of every covered short-term sale with a wash-sale loss adjustment (a loss disallowed because you bought the same investment within 30 days before or after the sale) on every Form 1099-B you or your spouse received for 2025?",
+  "family": {
+    "id": "tax.us.2025.f1099b.covered-w-st-proceeds",
+    "version": "v2"
+  },
+  "id": "tax.us.2025.closure-mapping.f1099b-covered-w-st-proceeds",
+  "member_fact_type": {
+    "id": "tax.us.2025.f1099b.covered-w-st-txn.proceeds",
+    "version": "v1"
+  },
+  "schema": "source-closure-mapping.v3",
+  "version": "v3"
+}

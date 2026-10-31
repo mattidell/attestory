@@ -1,0 +1,23 @@
+{
+  "admission": {
+    "condition": "current-literal-true"
+  },
+  "admits_symbol": "tax.us.2025.w2.box6-total",
+  "closure_fact_type": {
+    "id": "tax.us.2025.w2-box6.source-closure",
+    "version": "v1"
+  },
+  "closure_horizon_key": "family-horizon",
+  "closure_question": "Have you recorded every Medicare tax withheld amount in box 6 of every Form W-2 you or your spouse received for 2025?",
+  "family": {
+    "id": "tax.us.2025.w2-box6",
+    "version": "v1"
+  },
+  "id": "tax.us.2025.closure-mapping.w2-box6",
+  "member_fact_type": {
+    "id": "tax.us.2025.w2.box6-medicare",
+    "version": "v1"
+  },
+  "schema": "source-closure-mapping.v3",
+  "version": "v2"
+}

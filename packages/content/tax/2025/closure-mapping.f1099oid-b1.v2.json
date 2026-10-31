@@ -1,0 +1,23 @@
+{
+  "admission": {
+    "condition": "current-literal-true"
+  },
+  "admits_symbol": "tax.us.2025.interest.oid-subtotal",
+  "closure_fact_type": {
+    "id": "tax.us.2025.f1099oid.b1.source-closure",
+    "version": "v1"
+  },
+  "closure_horizon_key": "family-horizon",
+  "closure_question": "Have you recorded every original issue discount amount in box 1 of every Form 1099-OID you or your spouse received for 2025?",
+  "family": {
+    "id": "tax.us.2025.f1099oid.b1",
+    "version": "v1"
+  },
+  "id": "tax.us.2025.closure-mapping.f1099oid-b1",
+  "member_fact_type": {
+    "id": "tax.us.2025.f1099oid.box1-interest-oid",
+    "version": "v1"
+  },
+  "schema": "source-closure-mapping.v3",
+  "version": "v2"
+}

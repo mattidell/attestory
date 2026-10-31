@@ -1883,6 +1883,8 @@ class C8bCandidateAgainstCurrentPackageValidation(unittest.TestCase):
                 # comparison operator, not adopted into any package); it
                 # retains the full prior member set, so the finding holds.
                 "artifact-package.v36.schema.json",
+                # v37 is v36 plus source-closure-mapping.v3 only (closure-questions).
+                "artifact-package.v37.schema.json",
             ],
         )
 

@@ -1,0 +1,23 @@
+{
+  "admission": {
+    "condition": "current-literal-true"
+  },
+  "admits_symbol": "tax.us.2025.dividends.1a-subtotal",
+  "closure_fact_type": {
+    "id": "tax.us.2025.f1099div.1a.source-closure",
+    "version": "v1"
+  },
+  "closure_horizon_key": "family-horizon",
+  "closure_question": "Have you recorded every total ordinary dividend amount in box 1a of every Form 1099-DIV you or your spouse received for 2025?",
+  "family": {
+    "id": "tax.us.2025.f1099div.1a",
+    "version": "v1"
+  },
+  "id": "tax.us.2025.closure-mapping.f1099div-1a",
+  "member_fact_type": {
+    "id": "tax.us.2025.f1099div.box1a-ordinary",
+    "version": "v1"
+  },
+  "schema": "source-closure-mapping.v3",
+  "version": "v2"
+}

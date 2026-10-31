@@ -7,7 +7,7 @@ walkers ``package_validation.py`` already uses for its entrypoint-rooted
 BFS, and roots that walk at the composed rule(s) instead.
 
 Adjacency covers every schema kind that BFS actually emits edges for
-(rule-artifact.v1–v11, form-field.v1–v3, source-closure-mapping.v2,
+(rule-artifact.v1–v11, form-field.v1–v3, source-closure-mapping.v2/v3,
 taxable-interest-composition.v1, source-family.v1, attachment-rule.v6/v8,
 bundle.v1/v2, and role-canon.v1 as an inbound dependency of every other
 member). ``source-family.v2`` uses the same member-predicate / collect
@@ -28,6 +28,7 @@ import json
 from typing import Any, Mapping
 
 from packages.derivation.package_validation import (
+    CLOSURE_MAPPING_SCHEMAS,
     _iter_bound_source_names,
     _iter_collect_source_sets,
     _iter_link_coverage_nodes,
@@ -297,7 +298,7 @@ def build_dependency_edges(
             if isinstance(citation, dict) and citation.get("id") in ids:
                 edges[cid].add(citation["id"])
 
-        elif schema == "source-closure-mapping.v2":
+        elif schema in CLOSURE_MAPPING_SCHEMAS:
             for mapping_key in ("member_fact_type", "closure_fact_type"):
                 fact_pin = citizen.get(mapping_key)
                 if not isinstance(fact_pin, dict):
@@ -321,7 +322,7 @@ def build_dependency_edges(
             if isinstance(fact_type, str):
                 edges[cid].update(bundles_for_fact.get(fact_type, set()))
                 for other_id, other in corpus.items():
-                    if other.get("schema") != "source-closure-mapping.v2":
+                    if other.get("schema") not in CLOSURE_MAPPING_SCHEMAS:
                         continue
                     member_pin = other.get("member_fact_type", {})
                     if isinstance(member_pin, dict) and member_pin.get("id") == fact_type:

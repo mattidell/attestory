@@ -1,0 +1,23 @@
+{
+  "admission": {
+    "condition": "current-literal-true"
+  },
+  "admits_symbol": "tax.us.2025.eic.qualifying-child-count",
+  "closure_fact_type": {
+    "id": "tax.us.2025.eic.child-roster.source-closure",
+    "version": "v1"
+  },
+  "closure_horizon_key": "family-horizon",
+  "closure_question": "Have you listed every child who could be a qualifying child for the earned income credit on your 2025 return, even if you are not sure the child qualifies?",
+  "family": {
+    "id": "tax.us.2025.eic.child-roster",
+    "version": "v1"
+  },
+  "id": "tax.us.2025.closure-mapping.eic-child-roster",
+  "member_fact_type": {
+    "id": "tax.us.2025.eic.child.relationship",
+    "version": "v1"
+  },
+  "schema": "source-closure-mapping.v3",
+  "version": "v2"
+}

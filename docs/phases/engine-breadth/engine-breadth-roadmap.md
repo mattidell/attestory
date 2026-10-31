@@ -494,6 +494,14 @@ Interest with cents blocked Schedule B Part I and line 2b rounded each
 subtotal first. With two owner-approved validator changes, core v68 lets
 the interest subtotals keep their cents and line 2b round once.
 
+## Bounded return — A Blocked Line Names Its Question, Built (2025)
+
+[Plan](milestones/closure-questions.md).
+
+Every closure on core v69 declares its question in plain words, and a line
+held only by unconfirmed families names those questions instead of a
+generic "blocked" text.
+
 ## Parked work and open questions
 
 This is the single list of parked work and open owner-held questions for the
@@ -508,13 +516,6 @@ delivers an item removes it.
   attachment can itemize gambling losses on line 16. On core v67 a
   gambling-loss itemizer's figures are right but the attachment lists only
   line 8a, and a losses-only itemizer's attachment blocks on line 8a.
-
-- Whether to name the closure question when a line blocks on an unconfirmed
-  family. The costed design is in the closure-question-wording P0: a
-  `source-closure-mapping.v3` schema with `closure_question`, 50 mapping
-  successors with questions written in plain words, admission edits in the
-  live coordinator and three other derivation files, and a projector reason.
-  Today the reader sees a generic "blocked" text and a family id.
 
 - Whether a representation-transfer adjudication act should exist, so a
   nonzero legacy claim on a superseded entity could resolve honestly
@@ -575,8 +576,6 @@ delivers an item removes it.
 - A withholding closure attested true over an amount never recorded still
   publishes the smaller line 25b; closing it needs a per-statement box 4
   answer (including $0), as W-2 box 2 has.
-- The line 25b block names a family id, not the closure question the filer
-  answers (line 2b is the same).
 - A general assumption framework, free-text intake and institutional
   verification.
 

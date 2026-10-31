@@ -1,0 +1,23 @@
+{
+  "admission": {
+    "condition": "current-literal-true"
+  },
+  "admits_symbol": "tax.us.2025.ctc.child-count",
+  "closure_fact_type": {
+    "id": "tax.us.2025.ctc.child-roster.source-closure",
+    "version": "v1"
+  },
+  "closure_horizon_key": "family-horizon",
+  "closure_question": "Have you listed every child you claim for the child tax credit on your 2025 return?",
+  "family": {
+    "id": "tax.us.2025.ctc.child-roster",
+    "version": "v1"
+  },
+  "id": "tax.us.2025.closure-mapping.ctc-child-roster",
+  "member_fact_type": {
+    "id": "tax.us.2025.ctc.child.claimed-as-dependent",
+    "version": "v1"
+  },
+  "schema": "source-closure-mapping.v3",
+  "version": "v2"
+}

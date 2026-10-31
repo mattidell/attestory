@@ -19,6 +19,7 @@ from packages.derivation.authorization import authorization_provenance
 from packages.derivation.loader import DerivationSchemas, load_canon
 from packages.derivation.marshal import ClaimApplicabilityMissing, marshal_live_run_context
 from packages.derivation.package_validation import (
+    CLOSURE_MAPPING_SCHEMAS,
     selection_activity_fact_pins,
     subject_result_read_symbols,
     v13_selection_declarations,
@@ -258,7 +259,7 @@ def _resolved_run_material(
     ]
     parameters, parameter_index = _parameters_by_exact_version(members)
     families = [member for member in members if member.get("schema") in {"source-family.v1", "source-family.v2"}]
-    mappings = [member for member in members if member.get("schema") == "source-closure-mapping.v2"]
+    mappings = [member for member in members if member.get("schema") in CLOSURE_MAPPING_SCHEMAS]
     fact_types = [fact for member in members if member.get("schema") in {"bundle.v1", "bundle.v2"} for fact in member.get("fact_types", [])]
     # Track 5c (ADR-0076 Part 1/2 live path): package validation accepts a
     # standalone ``fact-type.v2`` member (not only a bundle-contained one --

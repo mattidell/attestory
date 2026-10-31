@@ -1,0 +1,23 @@
+{
+  "admission": {
+    "condition": "current-literal-true"
+  },
+  "admits_symbol": "tax.us.2025.dividends.2a-subtotal",
+  "closure_fact_type": {
+    "id": "tax.us.2025.f1099div.2a.source-closure",
+    "version": "v1"
+  },
+  "closure_horizon_key": "family-horizon",
+  "closure_question": "Have you recorded every capital gain distribution amount in box 2a of every Form 1099-DIV you or your spouse received for 2025?",
+  "family": {
+    "id": "tax.us.2025.f1099div.2a",
+    "version": "v1"
+  },
+  "id": "tax.us.2025.closure-mapping.f1099div-2a",
+  "member_fact_type": {
+    "id": "tax.us.2025.f1099div.box2a-capital-gain-distribution",
+    "version": "v1"
+  },
+  "schema": "source-closure-mapping.v3",
+  "version": "v2"
+}

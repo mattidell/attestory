@@ -166,7 +166,8 @@ class CoreV2Publication(unittest.TestCase):
         self.assertEqual(rounding["value_schema"], {"enum": ["half_up"]})
         closure = next(fact for fact in json.loads((CONTENT / "w2.bundle.v3.json").read_text())["fact_types"] if fact["id"] == "tax.us.2025.w2.source-closure")
         self.assertEqual(closure["identity_keys"][0]["name"], "family-horizon")
-        self.assertEqual(load_closure_mappings()["tax.us.2025.closure-mapping.w2"]["version"], "v3")
+        # v4 is the closure-questions successor (v3 plus a question); v3 is the pin this core uses.
+        self.assertEqual(load_closure_mappings()["tax.us.2025.closure-mapping.w2"]["version"], "v4")
 
 
 class W2Closure(unittest.TestCase):

@@ -1,0 +1,23 @@
+{
+  "admission": {
+    "condition": "current-literal-true"
+  },
+  "admits_symbol": "tax.us.2025.interest.non-form-subtotal",
+  "closure_fact_type": {
+    "id": "tax.us.2025.non-form-interest.source-closure",
+    "version": "v1"
+  },
+  "closure_horizon_key": "family-horizon",
+  "closure_question": "Have you recorded every amount of interest you or your spouse received in 2025 that was not reported on any Form 1099-INT (interest reported on a Form 1099-OID or Schedule K-1 is asked about separately)?",
+  "family": {
+    "id": "tax.us.2025.non-form-interest",
+    "version": "v1"
+  },
+  "id": "tax.us.2025.closure-mapping.non-form-interest",
+  "member_fact_type": {
+    "id": "tax.us.2025.non-form-interest.amount",
+    "version": "v1"
+  },
+  "schema": "source-closure-mapping.v3",
+  "version": "v2"
+}

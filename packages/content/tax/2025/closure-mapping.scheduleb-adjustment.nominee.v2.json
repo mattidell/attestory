@@ -1,0 +1,23 @@
+{
+  "admission": {
+    "condition": "current-literal-true"
+  },
+  "admits_symbol": "tax.us.2025.interest.scheduleb-nominee-subtotal",
+  "closure_fact_type": {
+    "id": "tax.us.2025.scheduleb.adjustment.nominee.source-closure",
+    "version": "v1"
+  },
+  "closure_horizon_key": "family-horizon",
+  "closure_question": "Have you recorded every nominee distribution adjustment to your 2025 interest income, meaning interest reported to you that belongs to someone else?",
+  "family": {
+    "id": "tax.us.2025.scheduleb.adjustment.nominee",
+    "version": "v1"
+  },
+  "id": "tax.us.2025.closure-mapping.scheduleb-adjustment.nominee",
+  "member_fact_type": {
+    "id": "tax.us.2025.scheduleb.adjustment.nominee.amount",
+    "version": "v1"
+  },
+  "schema": "source-closure-mapping.v3",
+  "version": "v2"
+}

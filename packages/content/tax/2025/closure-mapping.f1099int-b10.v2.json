@@ -1,0 +1,23 @@
+{
+  "admission": {
+    "condition": "current-literal-true"
+  },
+  "admits_symbol": "tax.us.2025.interest.b10-market-discount-subtotal",
+  "closure_fact_type": {
+    "id": "tax.us.2025.f1099int.b10.source-closure",
+    "version": "v1"
+  },
+  "closure_horizon_key": "family-horizon",
+  "closure_question": "Have you recorded every market discount amount in box 10 of every Form 1099-INT you or your spouse received for 2025 for which you elected to include market discount in income each year?",
+  "family": {
+    "id": "tax.us.2025.f1099int.b10",
+    "version": "v1"
+  },
+  "id": "tax.us.2025.closure-mapping.f1099int-b10",
+  "member_fact_type": {
+    "id": "tax.us.2025.f1099int.box10-market-discount",
+    "version": "v1"
+  },
+  "schema": "source-closure-mapping.v3",
+  "version": "v2"
+}

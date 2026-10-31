@@ -1,0 +1,940 @@
+{
+  "package_version": "v69",
+  "release_version": "v67",
+  "schema": "artifact-package.v37",
+  "members": [
+    {
+      "op": "replace",
+      "old": {
+        "id": "tax.us.2025.closure-mapping.eic-child-roster",
+        "role": "source-closure-mapping",
+        "schema": "source-closure-mapping.v2",
+        "version": "v1"
+      },
+      "new": {
+        "id": "tax.us.2025.closure-mapping.eic-child-roster",
+        "role": "source-closure-mapping",
+        "schema": "source-closure-mapping.v3",
+        "version": "v2"
+      }
+    },
+    {
+      "op": "replace",
+      "old": {
+        "id": "tax.us.2025.closure-mapping.f1098",
+        "role": "source-closure-mapping",
+        "schema": "source-closure-mapping.v2",
+        "version": "v1"
+      },
+      "new": {
+        "id": "tax.us.2025.closure-mapping.f1098",
+        "role": "source-closure-mapping",
+        "schema": "source-closure-mapping.v3",
+        "version": "v2"
+      }
+    },
+    {
+      "op": "replace",
+      "old": {
+        "id": "tax.us.2025.closure-mapping.f1098e.1",
+        "role": "source-closure-mapping",
+        "schema": "source-closure-mapping.v2",
+        "version": "v1"
+      },
+      "new": {
+        "id": "tax.us.2025.closure-mapping.f1098e.1",
+        "role": "source-closure-mapping",
+        "schema": "source-closure-mapping.v3",
+        "version": "v2"
+      }
+    },
+    {
+      "op": "replace",
+      "old": {
+        "id": "tax.us.2025.closure-mapping.f1099b-covered-lt",
+        "role": "source-closure-mapping",
+        "schema": "source-closure-mapping.v2",
+        "version": "v1"
+      },
+      "new": {
+        "id": "tax.us.2025.closure-mapping.f1099b-covered-lt",
+        "role": "source-closure-mapping",
+        "schema": "source-closure-mapping.v3",
+        "version": "v2"
+      }
+    },
+    {
+      "op": "replace",
+      "old": {
+        "id": "tax.us.2025.closure-mapping.f1099b-covered-lt-basis",
+        "role": "source-closure-mapping",
+        "schema": "source-closure-mapping.v2",
+        "version": "v1"
+      },
+      "new": {
+        "id": "tax.us.2025.closure-mapping.f1099b-covered-lt-basis",
+        "role": "source-closure-mapping",
+        "schema": "source-closure-mapping.v3",
+        "version": "v2"
+      }
+    },
+    {
+      "op": "replace",
+      "old": {
+        "id": "tax.us.2025.closure-mapping.f1099b-covered-lt-proceeds",
+        "role": "source-closure-mapping",
+        "schema": "source-closure-mapping.v2",
+        "version": "v1"
+      },
+      "new": {
+        "id": "tax.us.2025.closure-mapping.f1099b-covered-lt-proceeds",
+        "role": "source-closure-mapping",
+        "schema": "source-closure-mapping.v3",
+        "version": "v2"
+      }
+    },
+    {
+      "op": "replace",
+      "old": {
+        "id": "tax.us.2025.closure-mapping.f1099b-covered-st",
+        "role": "source-closure-mapping",
+        "schema": "source-closure-mapping.v2",
+        "version": "v1"
+      },
+      "new": {
+        "id": "tax.us.2025.closure-mapping.f1099b-covered-st",
+        "role": "source-closure-mapping",
+        "schema": "source-closure-mapping.v3",
+        "version": "v2"
+      }
+    },
+    {
+      "op": "replace",
+      "old": {
+        "id": "tax.us.2025.closure-mapping.f1099b-covered-st-basis",
+        "role": "source-closure-mapping",
+        "schema": "source-closure-mapping.v2",
+        "version": "v1"
+      },
+      "new": {
+        "id": "tax.us.2025.closure-mapping.f1099b-covered-st-basis",
+        "role": "source-closure-mapping",
+        "schema": "source-closure-mapping.v3",
+        "version": "v2"
+      }
+    },
+    {
+      "op": "replace",
+      "old": {
+        "id": "tax.us.2025.closure-mapping.f1099b-covered-st-proceeds",
+        "role": "source-closure-mapping",
+        "schema": "source-closure-mapping.v2",
+        "version": "v1"
+      },
+      "new": {
+        "id": "tax.us.2025.closure-mapping.f1099b-covered-st-proceeds",
+        "role": "source-closure-mapping",
+        "schema": "source-closure-mapping.v3",
+        "version": "v2"
+      }
+    },
+    {
+      "op": "replace",
+      "old": {
+        "id": "tax.us.2025.closure-mapping.f1099b-covered-w-lt",
+        "role": "source-closure-mapping",
+        "schema": "source-closure-mapping.v2",
+        "version": "v2"
+      },
+      "new": {
+        "id": "tax.us.2025.closure-mapping.f1099b-covered-w-lt",
+        "role": "source-closure-mapping",
+        "schema": "source-closure-mapping.v3",
+        "version": "v3"
+      }
+    },
+    {
+      "op": "replace",
+      "old": {
+        "id": "tax.us.2025.closure-mapping.f1099b-covered-w-lt-adjustment",
+        "role": "source-closure-mapping",
+        "schema": "source-closure-mapping.v2",
+        "version": "v2"
+      },
+      "new": {
+        "id": "tax.us.2025.closure-mapping.f1099b-covered-w-lt-adjustment",
+        "role": "source-closure-mapping",
+        "schema": "source-closure-mapping.v3",
+        "version": "v3"
+      }
+    },
+    {
+      "op": "replace",
+      "old": {
+        "id": "tax.us.2025.closure-mapping.f1099b-covered-w-lt-basis",
+        "role": "source-closure-mapping",
+        "schema": "source-closure-mapping.v2",
+        "version": "v2"
+      },
+      "new": {
+        "id": "tax.us.2025.closure-mapping.f1099b-covered-w-lt-basis",
+        "role": "source-closure-mapping",
+        "schema": "source-closure-mapping.v3",
+        "version": "v3"
+      }
+    },
+    {
+      "op": "replace",
+      "old": {
+        "id": "tax.us.2025.closure-mapping.f1099b-covered-w-lt-proceeds",
+        "role": "source-closure-mapping",
+        "schema": "source-closure-mapping.v2",
+        "version": "v2"
+      },
+      "new": {
+        "id": "tax.us.2025.closure-mapping.f1099b-covered-w-lt-proceeds",
+        "role": "source-closure-mapping",
+        "schema": "source-closure-mapping.v3",
+        "version": "v3"
+      }
+    },
+    {
+      "op": "replace",
+      "old": {
+        "id": "tax.us.2025.closure-mapping.f1099b-covered-w-st",
+        "role": "source-closure-mapping",
+        "schema": "source-closure-mapping.v2",
+        "version": "v2"
+      },
+      "new": {
+        "id": "tax.us.2025.closure-mapping.f1099b-covered-w-st",
+        "role": "source-closure-mapping",
+        "schema": "source-closure-mapping.v3",
+        "version": "v3"
+      }
+    },
+    {
+      "op": "replace",
+      "old": {
+        "id": "tax.us.2025.closure-mapping.f1099b-covered-w-st-adjustment",
+        "role": "source-closure-mapping",
+        "schema": "source-closure-mapping.v2",
+        "version": "v2"
+      },
+      "new": {
+        "id": "tax.us.2025.closure-mapping.f1099b-covered-w-st-adjustment",
+        "role": "source-closure-mapping",
+        "schema": "source-closure-mapping.v3",
+        "version": "v3"
+      }
+    },
+    {
+      "op": "replace",
+      "old": {
+        "id": "tax.us.2025.closure-mapping.f1099b-covered-w-st-basis",
+        "role": "source-closure-mapping",
+        "schema": "source-closure-mapping.v2",
+        "version": "v2"
+      },
+      "new": {
+        "id": "tax.us.2025.closure-mapping.f1099b-covered-w-st-basis",
+        "role": "source-closure-mapping",
+        "schema": "source-closure-mapping.v3",
+        "version": "v3"
+      }
+    },
+    {
+      "op": "replace",
+      "old": {
+        "id": "tax.us.2025.closure-mapping.f1099b-covered-w-st-proceeds",
+        "role": "source-closure-mapping",
+        "schema": "source-closure-mapping.v2",
+        "version": "v2"
+      },
+      "new": {
+        "id": "tax.us.2025.closure-mapping.f1099b-covered-w-st-proceeds",
+        "role": "source-closure-mapping",
+        "schema": "source-closure-mapping.v3",
+        "version": "v3"
+      }
+    },
+    {
+      "op": "replace",
+      "old": {
+        "id": "tax.us.2025.closure-mapping.f1099div-12",
+        "role": "source-closure-mapping",
+        "schema": "source-closure-mapping.v2",
+        "version": "v1"
+      },
+      "new": {
+        "id": "tax.us.2025.closure-mapping.f1099div-12",
+        "role": "source-closure-mapping",
+        "schema": "source-closure-mapping.v3",
+        "version": "v2"
+      }
+    },
+    {
+      "op": "replace",
+      "old": {
+        "id": "tax.us.2025.closure-mapping.f1099div-1a",
+        "role": "source-closure-mapping",
+        "schema": "source-closure-mapping.v2",
+        "version": "v1"
+      },
+      "new": {
+        "id": "tax.us.2025.closure-mapping.f1099div-1a",
+        "role": "source-closure-mapping",
+        "schema": "source-closure-mapping.v3",
+        "version": "v2"
+      }
+    },
+    {
+      "op": "replace",
+      "old": {
+        "id": "tax.us.2025.closure-mapping.f1099div-1b",
+        "role": "source-closure-mapping",
+        "schema": "source-closure-mapping.v2",
+        "version": "v1"
+      },
+      "new": {
+        "id": "tax.us.2025.closure-mapping.f1099div-1b",
+        "role": "source-closure-mapping",
+        "schema": "source-closure-mapping.v3",
+        "version": "v2"
+      }
+    },
+    {
+      "op": "replace",
+      "old": {
+        "id": "tax.us.2025.closure-mapping.f1099div-2a",
+        "role": "source-closure-mapping",
+        "schema": "source-closure-mapping.v2",
+        "version": "v1"
+      },
+      "new": {
+        "id": "tax.us.2025.closure-mapping.f1099div-2a",
+        "role": "source-closure-mapping",
+        "schema": "source-closure-mapping.v3",
+        "version": "v2"
+      }
+    },
+    {
+      "op": "replace",
+      "old": {
+        "id": "tax.us.2025.closure-mapping.f1099div-7",
+        "role": "source-closure-mapping",
+        "schema": "source-closure-mapping.v2",
+        "version": "v1"
+      },
+      "new": {
+        "id": "tax.us.2025.closure-mapping.f1099div-7",
+        "role": "source-closure-mapping",
+        "schema": "source-closure-mapping.v3",
+        "version": "v2"
+      }
+    },
+    {
+      "op": "replace",
+      "old": {
+        "id": "tax.us.2025.closure-mapping.f1099div-b4",
+        "role": "source-closure-mapping",
+        "schema": "source-closure-mapping.v2",
+        "version": "v1"
+      },
+      "new": {
+        "id": "tax.us.2025.closure-mapping.f1099div-b4",
+        "role": "source-closure-mapping",
+        "schema": "source-closure-mapping.v3",
+        "version": "v2"
+      }
+    },
+    {
+      "op": "replace",
+      "old": {
+        "id": "tax.us.2025.closure-mapping.f1099g-1",
+        "role": "source-closure-mapping",
+        "schema": "source-closure-mapping.v2",
+        "version": "v1"
+      },
+      "new": {
+        "id": "tax.us.2025.closure-mapping.f1099g-1",
+        "role": "source-closure-mapping",
+        "schema": "source-closure-mapping.v3",
+        "version": "v2"
+      }
+    },
+    {
+      "op": "replace",
+      "old": {
+        "id": "tax.us.2025.closure-mapping.f1099int-b1",
+        "role": "source-closure-mapping",
+        "schema": "source-closure-mapping.v2",
+        "version": "v1"
+      },
+      "new": {
+        "id": "tax.us.2025.closure-mapping.f1099int-b1",
+        "role": "source-closure-mapping",
+        "schema": "source-closure-mapping.v3",
+        "version": "v2"
+      }
+    },
+    {
+      "op": "replace",
+      "old": {
+        "id": "tax.us.2025.closure-mapping.f1099int-b10",
+        "role": "source-closure-mapping",
+        "schema": "source-closure-mapping.v2",
+        "version": "v1"
+      },
+      "new": {
+        "id": "tax.us.2025.closure-mapping.f1099int-b10",
+        "role": "source-closure-mapping",
+        "schema": "source-closure-mapping.v3",
+        "version": "v2"
+      }
+    },
+    {
+      "op": "replace",
+      "old": {
+        "id": "tax.us.2025.closure-mapping.f1099int-b3",
+        "role": "source-closure-mapping",
+        "schema": "source-closure-mapping.v2",
+        "version": "v1"
+      },
+      "new": {
+        "id": "tax.us.2025.closure-mapping.f1099int-b3",
+        "role": "source-closure-mapping",
+        "schema": "source-closure-mapping.v3",
+        "version": "v2"
+      }
+    },
+    {
+      "op": "replace",
+      "old": {
+        "id": "tax.us.2025.closure-mapping.f1099int-b4",
+        "role": "source-closure-mapping",
+        "schema": "source-closure-mapping.v2",
+        "version": "v1"
+      },
+      "new": {
+        "id": "tax.us.2025.closure-mapping.f1099int-b4",
+        "role": "source-closure-mapping",
+        "schema": "source-closure-mapping.v3",
+        "version": "v2"
+      }
+    },
+    {
+      "op": "replace",
+      "old": {
+        "id": "tax.us.2025.closure-mapping.f1099int-b8",
+        "role": "source-closure-mapping",
+        "schema": "source-closure-mapping.v2",
+        "version": "v1"
+      },
+      "new": {
+        "id": "tax.us.2025.closure-mapping.f1099int-b8",
+        "role": "source-closure-mapping",
+        "schema": "source-closure-mapping.v3",
+        "version": "v2"
+      }
+    },
+    {
+      "op": "replace",
+      "old": {
+        "id": "tax.us.2025.closure-mapping.f1099k",
+        "role": "source-closure-mapping",
+        "schema": "source-closure-mapping.v2",
+        "version": "v2"
+      },
+      "new": {
+        "id": "tax.us.2025.closure-mapping.f1099k",
+        "role": "source-closure-mapping",
+        "schema": "source-closure-mapping.v3",
+        "version": "v3"
+      }
+    },
+    {
+      "op": "replace",
+      "old": {
+        "id": "tax.us.2025.closure-mapping.f1099oid-b1",
+        "role": "source-closure-mapping",
+        "schema": "source-closure-mapping.v2",
+        "version": "v1"
+      },
+      "new": {
+        "id": "tax.us.2025.closure-mapping.f1099oid-b1",
+        "role": "source-closure-mapping",
+        "schema": "source-closure-mapping.v3",
+        "version": "v2"
+      }
+    },
+    {
+      "op": "replace",
+      "old": {
+        "id": "tax.us.2025.closure-mapping.f1099oid-b5",
+        "role": "source-closure-mapping",
+        "schema": "source-closure-mapping.v2",
+        "version": "v1"
+      },
+      "new": {
+        "id": "tax.us.2025.closure-mapping.f1099oid-b5",
+        "role": "source-closure-mapping",
+        "schema": "source-closure-mapping.v3",
+        "version": "v2"
+      }
+    },
+    {
+      "op": "replace",
+      "old": {
+        "id": "tax.us.2025.closure-mapping.f1099r-box4",
+        "role": "source-closure-mapping",
+        "schema": "source-closure-mapping.v2",
+        "version": "v1"
+      },
+      "new": {
+        "id": "tax.us.2025.closure-mapping.f1099r-box4",
+        "role": "source-closure-mapping",
+        "schema": "source-closure-mapping.v3",
+        "version": "v2"
+      }
+    },
+    {
+      "op": "replace",
+      "old": {
+        "id": "tax.us.2025.closure-mapping.f1099r-ira-fully-taxable",
+        "role": "source-closure-mapping",
+        "schema": "source-closure-mapping.v2",
+        "version": "v2"
+      },
+      "new": {
+        "id": "tax.us.2025.closure-mapping.f1099r-ira-fully-taxable",
+        "role": "source-closure-mapping",
+        "schema": "source-closure-mapping.v3",
+        "version": "v3"
+      }
+    },
+    {
+      "op": "replace",
+      "old": {
+        "id": "tax.us.2025.closure-mapping.form1065-k1-box5",
+        "role": "source-closure-mapping",
+        "schema": "source-closure-mapping.v2",
+        "version": "v1"
+      },
+      "new": {
+        "id": "tax.us.2025.closure-mapping.form1065-k1-box5",
+        "role": "source-closure-mapping",
+        "schema": "source-closure-mapping.v3",
+        "version": "v2"
+      }
+    },
+    {
+      "op": "replace",
+      "old": {
+        "id": "tax.us.2025.closure-mapping.non-form-interest",
+        "role": "source-closure-mapping",
+        "schema": "source-closure-mapping.v2",
+        "version": "v1"
+      },
+      "new": {
+        "id": "tax.us.2025.closure-mapping.non-form-interest",
+        "role": "source-closure-mapping",
+        "schema": "source-closure-mapping.v3",
+        "version": "v2"
+      }
+    },
+    {
+      "op": "replace",
+      "old": {
+        "id": "tax.us.2025.closure-mapping.scheduleb-adjustment.abp-adjustment",
+        "role": "source-closure-mapping",
+        "schema": "source-closure-mapping.v2",
+        "version": "v1"
+      },
+      "new": {
+        "id": "tax.us.2025.closure-mapping.scheduleb-adjustment.abp-adjustment",
+        "role": "source-closure-mapping",
+        "schema": "source-closure-mapping.v3",
+        "version": "v2"
+      }
+    },
+    {
+      "op": "replace",
+      "old": {
+        "id": "tax.us.2025.closure-mapping.scheduleb-adjustment.nominee",
+        "role": "source-closure-mapping",
+        "schema": "source-closure-mapping.v2",
+        "version": "v1"
+      },
+      "new": {
+        "id": "tax.us.2025.closure-mapping.scheduleb-adjustment.nominee",
+        "role": "source-closure-mapping",
+        "schema": "source-closure-mapping.v3",
+        "version": "v2"
+      }
+    },
+    {
+      "op": "replace",
+      "old": {
+        "id": "tax.us.2025.closure-mapping.w2",
+        "role": "source-closure-mapping",
+        "schema": "source-closure-mapping.v2",
+        "version": "v3"
+      },
+      "new": {
+        "id": "tax.us.2025.closure-mapping.w2",
+        "role": "source-closure-mapping",
+        "schema": "source-closure-mapping.v3",
+        "version": "v4"
+      }
+    },
+    {
+      "op": "replace",
+      "old": {
+        "id": "tax.us.2025.closure-mapping.w2-box2",
+        "role": "source-closure-mapping",
+        "schema": "source-closure-mapping.v2",
+        "version": "v1"
+      },
+      "new": {
+        "id": "tax.us.2025.closure-mapping.w2-box2",
+        "role": "source-closure-mapping",
+        "schema": "source-closure-mapping.v3",
+        "version": "v2"
+      }
+    },
+    {
+      "op": "replace",
+      "old": {
+        "id": "tax.us.2025.closure-mapping.ctc-child-roster",
+        "role": "source-closure-mapping",
+        "schema": "source-closure-mapping.v2",
+        "version": "v1"
+      },
+      "new": {
+        "id": "tax.us.2025.closure-mapping.ctc-child-roster",
+        "role": "source-closure-mapping",
+        "schema": "source-closure-mapping.v3",
+        "version": "v2"
+      }
+    },
+    {
+      "op": "replace",
+      "old": {
+        "id": "tax.us.2025.closure-mapping.w2-box4",
+        "role": "source-closure-mapping",
+        "schema": "source-closure-mapping.v2",
+        "version": "v1"
+      },
+      "new": {
+        "id": "tax.us.2025.closure-mapping.w2-box4",
+        "role": "source-closure-mapping",
+        "schema": "source-closure-mapping.v3",
+        "version": "v2"
+      }
+    },
+    {
+      "op": "replace",
+      "old": {
+        "id": "tax.us.2025.closure-mapping.w2-box6",
+        "role": "source-closure-mapping",
+        "schema": "source-closure-mapping.v2",
+        "version": "v1"
+      },
+      "new": {
+        "id": "tax.us.2025.closure-mapping.w2-box6",
+        "role": "source-closure-mapping",
+        "schema": "source-closure-mapping.v3",
+        "version": "v2"
+      }
+    },
+    {
+      "op": "replace",
+      "old": {
+        "id": "tax.us.2025.closure-mapping.odc-child-roster",
+        "role": "source-closure-mapping",
+        "schema": "source-closure-mapping.v2",
+        "version": "v1"
+      },
+      "new": {
+        "id": "tax.us.2025.closure-mapping.odc-child-roster",
+        "role": "source-closure-mapping",
+        "schema": "source-closure-mapping.v3",
+        "version": "v2"
+      }
+    },
+    {
+      "op": "replace",
+      "old": {
+        "id": "tax.us.2025.closure-mapping.odc-relative-roster",
+        "role": "source-closure-mapping",
+        "schema": "source-closure-mapping.v2",
+        "version": "v1"
+      },
+      "new": {
+        "id": "tax.us.2025.closure-mapping.odc-relative-roster",
+        "role": "source-closure-mapping",
+        "schema": "source-closure-mapping.v3",
+        "version": "v2"
+      }
+    },
+    {
+      "op": "replace",
+      "old": {
+        "id": "tax.us.2025.closure-mapping.f1099g-b4",
+        "role": "source-closure-mapping",
+        "schema": "source-closure-mapping.v2",
+        "version": "v1"
+      },
+      "new": {
+        "id": "tax.us.2025.closure-mapping.f1099g-b4",
+        "role": "source-closure-mapping",
+        "schema": "source-closure-mapping.v3",
+        "version": "v2"
+      }
+    },
+    {
+      "op": "replace",
+      "old": {
+        "id": "tax.us.2025.closure-mapping.ssa1099-b6",
+        "role": "source-closure-mapping",
+        "schema": "source-closure-mapping.v2",
+        "version": "v1"
+      },
+      "new": {
+        "id": "tax.us.2025.closure-mapping.ssa1099-b6",
+        "role": "source-closure-mapping",
+        "schema": "source-closure-mapping.v3",
+        "version": "v2"
+      }
+    },
+    {
+      "op": "replace",
+      "old": {
+        "id": "tax.us.2025.closure-mapping.ssa1099-benefits",
+        "role": "source-closure-mapping",
+        "schema": "source-closure-mapping.v2",
+        "version": "v2"
+      },
+      "new": {
+        "id": "tax.us.2025.closure-mapping.ssa1099-benefits",
+        "role": "source-closure-mapping",
+        "schema": "source-closure-mapping.v3",
+        "version": "v3"
+      }
+    },
+    {
+      "op": "replace",
+      "old": {
+        "id": "tax.us.2025.closure-mapping.w2g-b1",
+        "role": "source-closure-mapping",
+        "schema": "source-closure-mapping.v2",
+        "version": "v1"
+      },
+      "new": {
+        "id": "tax.us.2025.closure-mapping.w2g-b1",
+        "role": "source-closure-mapping",
+        "schema": "source-closure-mapping.v3",
+        "version": "v2"
+      }
+    },
+    {
+      "op": "replace",
+      "old": {
+        "id": "tax.us.2025.closure-mapping.w2g-b4",
+        "role": "source-closure-mapping",
+        "schema": "source-closure-mapping.v2",
+        "version": "v1"
+      },
+      "new": {
+        "id": "tax.us.2025.closure-mapping.w2g-b4",
+        "role": "source-closure-mapping",
+        "schema": "source-closure-mapping.v3",
+        "version": "v2"
+      }
+    },
+    {
+      "op": "replace",
+      "old": {
+        "id": "tax.us.2025.closure-mapping.gambling-losses",
+        "role": "source-closure-mapping",
+        "schema": "source-closure-mapping.v2",
+        "version": "v1"
+      },
+      "new": {
+        "id": "tax.us.2025.closure-mapping.gambling-losses",
+        "role": "source-closure-mapping",
+        "schema": "source-closure-mapping.v3",
+        "version": "v2"
+      }
+    }
+  ],
+  "entrypoints": [
+    {
+      "op": "replace",
+      "old": {
+        "id": "tax.us.2025.closure-mapping.eic-child-roster",
+        "version": "v1"
+      },
+      "new": {
+        "id": "tax.us.2025.closure-mapping.eic-child-roster",
+        "version": "v2"
+      }
+    },
+    {
+      "op": "replace",
+      "old": {
+        "id": "tax.us.2025.closure-mapping.f1098e.1",
+        "version": "v1"
+      },
+      "new": {
+        "id": "tax.us.2025.closure-mapping.f1098e.1",
+        "version": "v2"
+      }
+    },
+    {
+      "op": "replace",
+      "old": {
+        "id": "tax.us.2025.closure-mapping.f1099b-covered-w-lt",
+        "version": "v2"
+      },
+      "new": {
+        "id": "tax.us.2025.closure-mapping.f1099b-covered-w-lt",
+        "version": "v3"
+      }
+    },
+    {
+      "op": "replace",
+      "old": {
+        "id": "tax.us.2025.closure-mapping.f1099b-covered-w-lt-adjustment",
+        "version": "v2"
+      },
+      "new": {
+        "id": "tax.us.2025.closure-mapping.f1099b-covered-w-lt-adjustment",
+        "version": "v3"
+      }
+    },
+    {
+      "op": "replace",
+      "old": {
+        "id": "tax.us.2025.closure-mapping.f1099b-covered-w-lt-basis",
+        "version": "v2"
+      },
+      "new": {
+        "id": "tax.us.2025.closure-mapping.f1099b-covered-w-lt-basis",
+        "version": "v3"
+      }
+    },
+    {
+      "op": "replace",
+      "old": {
+        "id": "tax.us.2025.closure-mapping.f1099b-covered-w-lt-proceeds",
+        "version": "v2"
+      },
+      "new": {
+        "id": "tax.us.2025.closure-mapping.f1099b-covered-w-lt-proceeds",
+        "version": "v3"
+      }
+    },
+    {
+      "op": "replace",
+      "old": {
+        "id": "tax.us.2025.closure-mapping.f1099b-covered-w-st",
+        "version": "v2"
+      },
+      "new": {
+        "id": "tax.us.2025.closure-mapping.f1099b-covered-w-st",
+        "version": "v3"
+      }
+    },
+    {
+      "op": "replace",
+      "old": {
+        "id": "tax.us.2025.closure-mapping.f1099b-covered-w-st-adjustment",
+        "version": "v2"
+      },
+      "new": {
+        "id": "tax.us.2025.closure-mapping.f1099b-covered-w-st-adjustment",
+        "version": "v3"
+      }
+    },
+    {
+      "op": "replace",
+      "old": {
+        "id": "tax.us.2025.closure-mapping.f1099b-covered-w-st-basis",
+        "version": "v2"
+      },
+      "new": {
+        "id": "tax.us.2025.closure-mapping.f1099b-covered-w-st-basis",
+        "version": "v3"
+      }
+    },
+    {
+      "op": "replace",
+      "old": {
+        "id": "tax.us.2025.closure-mapping.f1099b-covered-w-st-proceeds",
+        "version": "v2"
+      },
+      "new": {
+        "id": "tax.us.2025.closure-mapping.f1099b-covered-w-st-proceeds",
+        "version": "v3"
+      }
+    },
+    {
+      "op": "replace",
+      "old": {
+        "id": "tax.us.2025.closure-mapping.ssa1099-benefits",
+        "version": "v2"
+      },
+      "new": {
+        "id": "tax.us.2025.closure-mapping.ssa1099-benefits",
+        "version": "v3"
+      }
+    },
+    {
+      "op": "replace",
+      "old": {
+        "id": "tax.us.2025.closure-mapping.ctc-child-roster",
+        "version": "v1"
+      },
+      "new": {
+        "id": "tax.us.2025.closure-mapping.ctc-child-roster",
+        "version": "v2"
+      }
+    },
+    {
+      "op": "replace",
+      "old": {
+        "id": "tax.us.2025.closure-mapping.odc-child-roster",
+        "version": "v1"
+      },
+      "new": {
+        "id": "tax.us.2025.closure-mapping.odc-child-roster",
+        "version": "v2"
+      }
+    },
+    {
+      "op": "replace",
+      "old": {
+        "id": "tax.us.2025.closure-mapping.odc-relative-roster",
+        "version": "v1"
+      },
+      "new": {
+        "id": "tax.us.2025.closure-mapping.odc-relative-roster",
+        "version": "v2"
+      }
+    }
+  ],
+  "admitted_schemas": [
+    {
+      "op": "add",
+      "value": "source-closure-mapping.v3"
+    }
+  ],
+  "registry_sort": "id_version",
+  "registry_new_key_order": [
+    "checksum",
+    "id",
+    "version"
+  ]
+}

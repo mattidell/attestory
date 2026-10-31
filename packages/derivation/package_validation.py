@@ -301,6 +301,10 @@ _NON_INPUT_SCHEMAS = frozenset({
     "derivation-record.v10",
 })
 
+# The closure-mapping schemas a package may carry. v3 adds the declared
+# closure question; every admission point reads this one set (never a literal).
+CLOSURE_MAPPING_SCHEMAS = frozenset({"source-closure-mapping.v2", "source-closure-mapping.v3"})
+
 # ADR-0066 Decision 7: closed supported-semantic-schema set. A registry-valid
 # member whose schema is absent here is rejected with MEMBER_SCHEMA_UNSUPPORTED
 # rather than becoming an inert graph node. Membership is an explicit constant
@@ -360,7 +364,7 @@ _SUPPORTED_SEMANTIC_SCHEMAS = frozenset({
     "rule-artifact.v12",
     "rule-artifact.v13",
     "rule-artifact.v14",
-    "source-closure-mapping.v2",
+    *sorted(CLOSURE_MAPPING_SCHEMAS),
     "source-family.v1",
     "source-family.v2",
     "taxable-interest-composition.v1",
@@ -1136,7 +1140,7 @@ def _reader_role_issues(
     resolved: list[tuple[dict[str, Any], dict[str, Any]]],
 ) -> list[MemberIssue]:
     """Validate the closed roles and their declared rule dependencies in v34."""
-    if package.get("schema") not in ("artifact-package.v34", "artifact-package.v35", "artifact-package.v36"):
+    if package.get("schema") not in ("artifact-package.v34", "artifact-package.v35", "artifact-package.v36", "artifact-package.v37"):
         return []
     issues: list[MemberIssue] = []
     role_rules = [
@@ -1949,7 +1953,7 @@ def validate_package(
             if pin_role != "source-family":
                 issues.append(MemberIssue(pin["id"], pin["version"], "ROLE_MISMATCH",
                                            f"source-family declared as role {pin_role!r}"))
-        elif citizen["schema"] == "source-closure-mapping.v2":
+        elif citizen["schema"] in CLOSURE_MAPPING_SCHEMAS:
             if pin_role != "source-closure-mapping":
                 issues.append(MemberIssue(pin["id"], pin["version"], "ROLE_MISMATCH",
                                            f"source-closure-mapping declared as role {pin_role!r}"))
@@ -2023,7 +2027,7 @@ def validate_package(
                                               f"rule citation {citation_key} is not an exact citation package member"))
 
         # Mapping exact joins validation
-        if citizen["schema"] == "source-closure-mapping.v2":
+        if citizen["schema"] in CLOSURE_MAPPING_SCHEMAS:
             for mapping_key in ("member_fact_type", "closure_fact_type"):
                 ft_pin = citizen.get(mapping_key)
                 if ft_pin:
@@ -2838,7 +2842,7 @@ def validate_package(
             "artifact-package.v20", "artifact-package.v21", "artifact-package.v22",
             "artifact-package.v23", "artifact-package.v24", "artifact-package.v25",
             "artifact-package.v26", "artifact-package.v29", "artifact-package.v30",
-            "artifact-package.v31", "artifact-package.v35", "artifact-package.v36",
+            "artifact-package.v31", "artifact-package.v35", "artifact-package.v36", "artifact-package.v37",
         }:
             members_by_key = {
                 (pin["id"], pin["version"]): pin for pin in package["members"]
@@ -3085,7 +3089,7 @@ def validate_package(
                 cit = citizen.get("citation")
                 if cit and cit["id"] in member_ids:
                     adj[m_id].add(cit["id"])
-            elif citizen["schema"] == "source-closure-mapping.v2":
+            elif citizen["schema"] in CLOSURE_MAPPING_SCHEMAS:
                 for mapping_key in ("member_fact_type", "closure_fact_type"):
                     ft_pin = citizen.get(mapping_key)
                     if ft_pin and ft_pin["id"] in member_ids:
@@ -3106,7 +3110,7 @@ def validate_package(
                                 adj[m_id].add(p_id)
                 # ALSO depend on source-closure-mapping for this family
                 for p2, c2 in resolved:
-                    if c2["schema"] == "source-closure-mapping.v2":
+                    if c2["schema"] in CLOSURE_MAPPING_SCHEMAS:
                         if c2.get("member_fact_type", {}).get("id") == ft_id:
                             adj[m_id].add(c2["id"])
             elif citizen["schema"] in {"attachment-rule.v6", "attachment-rule.v8", "attachment-rule.v11"}:
