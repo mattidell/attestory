@@ -554,8 +554,11 @@ delivers an item removes it.
 - The age questions' wording (born before January 2, 1961; a death in 2025
   before age 65), and the SLI dependent answer ("is claimed", filer only)
   beside the new "can be claimed" answer.
-- The W-2 entry loop (`packages/derivation/entry_loop.py`) fixes its own
-  registry; a filer-facing reason when a correction does not calculate.
+- The W-2 entry loop runs only on the core its seed adopts (package v6): its
+  surface is fixed, its line set expects lines 11 and 12 (v66 has 11a, 11b
+  and 12e), and its seed lacks later closures. Moving it to a current core
+  means changing its line set and seed (trace in the entry-loop-current-core
+  milestone). A filer-facing reason when a correction does not calculate.
 - Four source sets still reach an attachment without a guard of their own:
   Form 1099-DIV 1a, Form 1099-K and Form 1098-E are held by a guarded rule
   the attachment's requirement reads (pinned live); Form 1099-INT box 8 is
