@@ -1,0 +1,41 @@
+{
+  "blocked": {
+    "code": "SOURCE_SET_UNCLOSED",
+    "missing": [
+      "tax.us.2025.w2g.b1"
+    ]
+  },
+  "citations": [
+    {
+      "id": "tax.us.2025.citation.schedule1.line-8b",
+      "version": "v1"
+    }
+  ],
+  "id": "tax.us.2025.rule.w2g-b1-subtotal",
+  "notes": "Aggregates current Form W-2G box 1 winnings into the family subtotal that Schedule 1 line 8b reports (i1040gi-2025 l.6561-6575). Guards its own collect: the family must be confirmed closed (an unconfirmed family is SOURCE_SET_UNCLOSED). Core v67 (gambling-losses): the subtotal no longer reads the Schedule A gambling/other declaration. Gambling losses are now recorded in their own confirmed family and reach Schedule A line 16 limited to these winnings (rule.schedule-a-line16), so a filer with losses is no longer refused here. A statement with no box 1 amount recorded is not a member and adds nothing. Publishes the sum with cents; the line that reads it rounds once.",
+  "pins": [],
+  "publishes": "tax.us.2025.gambling.b1-winnings-subtotal",
+  "requires": [],
+  "role": "computation",
+  "schema": "rule-artifact.v4",
+  "scope": {
+    "family": "individual-income-tax",
+    "jurisdiction": "US-federal",
+    "tax_year": 2025
+  },
+  "value": {
+    "args": [
+      {
+        "name": "tax.us.2025.w2g.box1-winnings",
+        "op": "collect",
+        "source_set": "tax.us.2025.w2g.b1"
+      }
+    ],
+    "op": "add"
+  },
+  "version": "v3",
+  "when": {
+    "op": "require_closed",
+    "source_set": "tax.us.2025.w2g.b1"
+  }
+}

@@ -1,0 +1,100 @@
+{
+  "blocked": {
+    "code": "DEPENDENCY_ABSENT",
+    "missing": [
+      "tax.us.2025.gambling.b1-winnings-subtotal"
+    ]
+  },
+  "citations": [],
+  "composition": {
+    "id": "tax.us.2025.schedule-a",
+    "version": "v1"
+  },
+  "id": "tax.us.2025.rule.schedule-a-line16",
+  "notes": "Schedule A line 16 for the bounded class: gambling losses, limited to the gambling winnings reported on Schedule 1 line 8b (min of the gambling losses subtotal and the Form W-2G box 1 winnings subtotal; 100 percent of losses for 2025). The minimum is a comparison inside choose, not a new operation. With no Form W-2G recorded the winnings are zero, so the line is zero and the losses family is not read (a losses entry with no winnings counts as zero, never a refusal). With a Form W-2G recorded the losses family must be confirmed closed: an unconfirmed family is SOURCE_SET_UNCLOSED, an unresolved result and not a zero. Wagering expenses and a professional gambler's business are outside the class. The part of the losses that does not count is the losses subtotal minus this line.",
+  "pins": [
+    {
+      "id": "tax.us.2025.gambling.b1-winnings-subtotal",
+      "origin": "assertion",
+      "role": "input",
+      "version": "v1"
+    }
+  ],
+  "publishes": "tax.us.2025.schedule-a.line16",
+  "requires": [
+    "tax.us.2025.gambling.b1-winnings-subtotal"
+  ],
+  "role": "computation",
+  "schema": "rule-artifact.v4",
+  "scope": {
+    "family": "individual-income-tax",
+    "jurisdiction": "US-federal",
+    "tax_year": 2025
+  },
+  "value": {
+    "else": {
+      "else": {
+        "name": "tax.us.2025.gambling.b1-winnings-subtotal",
+        "op": "ref"
+      },
+      "op": "choose",
+      "then": {
+        "name": "tax.us.2025.gambling.losses-subtotal",
+        "op": "ref"
+      },
+      "when": {
+        "cmp": "lte",
+        "left": {
+          "name": "tax.us.2025.gambling.losses-subtotal",
+          "op": "ref"
+        },
+        "op": "compare",
+        "right": {
+          "name": "tax.us.2025.gambling.b1-winnings-subtotal",
+          "op": "ref"
+        }
+      }
+    },
+    "op": "choose",
+    "then": 0,
+    "when": {
+      "cmp": "eq",
+      "left": {
+        "name": "tax.us.2025.w2g.box1-winnings",
+        "op": "count",
+        "source_set": "tax.us.2025.w2g.b1"
+      },
+      "op": "compare",
+      "right": 0
+    }
+  },
+  "version": "v1",
+  "when": {
+    "args": [
+      {
+        "op": "require_closed",
+        "source_set": "tax.us.2025.w2g.b1"
+      },
+      {
+        "condition": {
+          "cmp": "ne",
+          "left": {
+            "name": "tax.us.2025.w2g.box1-winnings",
+            "op": "count",
+            "source_set": "tax.us.2025.w2g.b1"
+          },
+          "op": "compare",
+          "right": 0
+        },
+        "members": [
+          {
+            "name": "tax.us.2025.gambling.losses-subtotal",
+            "op": "ref"
+          }
+        ],
+        "op": "conditional_dependency_set"
+      }
+    ],
+    "op": "all"
+  }
+}

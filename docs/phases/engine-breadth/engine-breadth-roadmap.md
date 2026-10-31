@@ -477,6 +477,15 @@ The correction session pinned registry v40 and refused every workspace
 adopted after core v42. It now resolves the surface from the workspace's
 adoption, so corrections calculate on the current core.
 
+## Bounded return — Gambling Losses (2025)
+
+[Plan](milestones/gambling-losses.md).
+
+Gambling losses refused a Form W-2G return even on the standard deduction.
+On core v67 a standard-deduction filer computes unchanged and an itemizer
+deducts losses up to winnings on Schedule A line 16; the Schedule A
+attachment does not itemize line 16 (open owner question).
+
 ## Parked work and open questions
 
 This is the single list of parked work and open owner-held questions for the
@@ -485,6 +494,12 @@ milestone that parks something adds it here in its closing commit; one that
 delivers an item removes it.
 
 ### Open owner-held questions
+
+- Whether to extend the attachment-rule shape with a conditional or limited
+  part (a schema successor and a runner change), so the Schedule A
+  attachment can itemize gambling losses on line 16. On core v67 a
+  gambling-loss itemizer's figures are right but the attachment lists only
+  line 8a, and a losses-only itemizer's attachment blocks on line 8a.
 
 - Whether to name the closure question when a line blocks on an unconfirmed
   family. The costed design is in the closure-question-wording P0: a
@@ -525,10 +540,9 @@ delivers an item removes it.
   presence pair naming an unregistered witness, removed by v65's declaration;
   a successor that omits its declaration refuses every W-2G log); an
   in-product route for the Social Security handover.
-- Gambling outside the Form W-2G class: winnings not on a W-2G, business
-  gambling, and gambling losses (refused by answer; a standard-deduction
-  filer with losses is refused though losses do not change that return).
-  The Form W-2G itself is not in the local sources.
+- Gambling outside the Form W-2G class: winnings not on a W-2G and business
+  gambling (refused by answer); wagering expenses for 2025. The Form W-2G
+  and the Schedule A instructions are not in the local sources.
 - Interest amounts with cents still block the Schedule B Part I tie-out, and
   line 2b rounds each interest subtotal before adding them (see the open
   question on the line 2b validator table).

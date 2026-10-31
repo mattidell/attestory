@@ -1,0 +1,2435 @@
+{
+ "itemizer_1098_no_w2g_losses-no": {
+  "blocked": [
+   {
+    "code": "COMPLETENESS_VALUE_VIOLATION",
+    "missing": [
+     "schedule-a-boundary.no-gambling-other-declared=no"
+    ],
+    "rule": "rule.attachment.schedule-a"
+   }
+  ],
+  "bottom_line_published": true,
+  "held": [
+   "rule.attachment.f8949",
+   "rule.attachment.schedule-1",
+   "rule.attachment.schedule-b",
+   "rule.attachment.schedule-d",
+   "rule.f1098-residence-interest-unresolved",
+   "rule.f1099k-unresolved",
+   "rule.form1040-line6d",
+   "rule.form1040-line6d-not-checked",
+   "rule.interest.derived-nominee-subtotal",
+   "rule.interest.nominee-reduction",
+   "rule.schedule-a-boundary-no-gambling-other",
+   "rule.schedule-a-total-closed-empty",
+   "rule.w2-box4-total",
+   "rule.w2-box6-total"
+  ],
+  "published": {
+   "deductions.line-12e": "20000.0",
+   "gambling.b1-winnings-subtotal": "0",
+   "income.agi": "50000",
+   "income.taxable-income": "30000.0",
+   "payments.line35a-refunded": "1135",
+   "payments.line37-amount-owed": "0",
+   "schedule-a.excess-over-standard": "4250.0",
+   "schedule-a.line8a": "20000.0",
+   "schedule-a.total": "20000.0",
+   "schedule1.line8b-gambling": "0",
+   "tax.line24-total-tax": "3365"
+  }
+ },
+ "itemizer_1098_no_w2g_losses-yes": {
+  "blocked": [],
+  "bottom_line_published": true,
+  "held": [
+   "rule.attachment.f8949",
+   "rule.attachment.schedule-1",
+   "rule.attachment.schedule-b",
+   "rule.attachment.schedule-d",
+   "rule.f1098-residence-interest-unresolved",
+   "rule.f1099k-unresolved",
+   "rule.form1040-line6d",
+   "rule.form1040-line6d-not-checked",
+   "rule.interest.derived-nominee-subtotal",
+   "rule.interest.nominee-reduction",
+   "rule.schedule-a-total-closed-empty",
+   "rule.w2-box4-total",
+   "rule.w2-box6-total"
+  ],
+  "published": {
+   "deductions.line-12e": "20000.0",
+   "gambling.b1-winnings-subtotal": "0",
+   "income.agi": "50000",
+   "income.taxable-income": "30000.0",
+   "payments.line35a-refunded": "1135",
+   "payments.line37-amount-owed": "0",
+   "schedule-a.excess-over-standard": "4250.0",
+   "schedule-a.line8a": "20000.0",
+   "schedule-a.total": "20000.0",
+   "schedule1.line8b-gambling": "0",
+   "scheduleA.disposition": {
+    "answers": {
+     "tax.us.2025.schedule-a-boundary.no-casualty-theft-declared": "yes",
+     "tax.us.2025.schedule-a-boundary.no-charitable-declared": "yes",
+     "tax.us.2025.schedule-a-boundary.no-gambling-other-declared": "yes",
+     "tax.us.2025.schedule-a-boundary.no-investment-interest-declared": "yes",
+     "tax.us.2025.schedule-a-boundary.no-medical-declared": "yes",
+     "tax.us.2025.schedule-a-boundary.no-other-interest-declared": "yes",
+     "tax.us.2025.schedule-a-boundary.no-salt-declared": "yes"
+    },
+    "itemizations": [
+     {
+      "part_id": "line-8a-home-mortgage-interest",
+      "part_sum": "20000.0",
+      "row_sets": [
+       {
+        "row_sum": "20000.0",
+        "rows": [
+         {
+          "finding_id": "demo.cc.gl.member",
+          "value": "20000.0"
+         }
+        ],
+        "source_family": {
+         "id": "tax.us.2025.f1098",
+         "version": "v1"
+        },
+        "subtotal": {
+         "symbol": "tax.us.2025.schedule-a.line8a",
+         "value": "20000.0"
+        }
+       }
+      ],
+      "tie_out": {
+       "line_symbol": "tax.us.2025.schedule-a.line8a",
+       "line_value": "20000.0"
+      }
+     }
+    ],
+    "named_obligations": [],
+    "required": true,
+    "triggers": [
+     {
+      "over": true,
+      "subtotal": "tax.us.2025.schedule-a.excess-over-standard",
+      "value": "4250.0"
+     }
+    ]
+   },
+   "tax.line24-total-tax": "3365"
+  }
+ },
+ "itemizer_1098_w2g_losses-no": {
+  "blocked": [
+   {
+    "code": "DEPENDENCY_ABSENT",
+    "missing": [
+     "gambling.b1-winnings-subtotal"
+    ],
+    "rule": "rule.attachment.schedule-1"
+   },
+   {
+    "code": "COMPLETENESS_VALUE_VIOLATION",
+    "missing": [
+     "schedule-a-boundary.no-gambling-other-declared=no"
+    ],
+    "rule": "rule.attachment.schedule-a"
+   },
+   {
+    "code": "DEPENDENCY_ABSENT",
+    "missing": [
+     "ctc.sch8812.line-14"
+    ],
+    "rule": "rule.ctc-form1040-line19"
+   },
+   {
+    "code": "DEPENDENCY_ABSENT",
+    "missing": [
+     "income.agi"
+    ],
+    "rule": "rule.ctc-sch8812-line-1"
+   },
+   {
+    "code": "DEPENDENCY_ABSENT",
+    "missing": [
+     "ctc.sch8812.line-3"
+    ],
+    "rule": "rule.ctc-sch8812-line-10"
+   },
+   {
+    "code": "DEPENDENCY_ABSENT",
+    "missing": [
+     "ctc.sch8812.line-10"
+    ],
+    "rule": "rule.ctc-sch8812-line-11"
+   },
+   {
+    "code": "DEPENDENCY_ABSENT",
+    "missing": [
+     "ctc.sch8812.line-11"
+    ],
+    "rule": "rule.ctc-sch8812-line-12"
+   },
+   {
+    "code": "DEPENDENCY_ABSENT",
+    "missing": [
+     "ctc.sch8812.worksheet-a.line-5"
+    ],
+    "rule": "rule.ctc-sch8812-line-13"
+   },
+   {
+    "code": "DEPENDENCY_ABSENT",
+    "missing": [
+     "ctc.sch8812.line-12",
+     "ctc.sch8812.line-13"
+    ],
+    "rule": "rule.ctc-sch8812-line-14"
+   },
+   {
+    "code": "DEPENDENCY_ABSENT",
+    "missing": [
+     "ctc.sch8812.line-12",
+     "ctc.sch8812.line-14"
+    ],
+    "rule": "rule.ctc-sch8812-line-16a"
+   },
+   {
+    "code": "DEPENDENCY_ABSENT",
+    "missing": [
+     "ctc.sch8812.line-16a"
+    ],
+    "rule": "rule.ctc-sch8812-line-17"
+   },
+   {
+    "code": "DEPENDENCY_ABSENT",
+    "missing": [
+     "ctc.sch8812.part-ii-b-needed"
+    ],
+    "rule": "rule.ctc-sch8812-line-21"
+   },
+   {
+    "code": "DEPENDENCY_ABSENT",
+    "missing": [
+     "ctc.sch8812.part-ii-b-needed"
+    ],
+    "rule": "rule.ctc-sch8812-line-22"
+   },
+   {
+    "code": "DEPENDENCY_ABSENT",
+    "missing": [
+     "ctc.sch8812.line-21",
+     "ctc.sch8812.line-22",
+     "ctc.sch8812.part-ii-b-needed"
+    ],
+    "rule": "rule.ctc-sch8812-line-23"
+   },
+   {
+    "code": "DEPENDENCY_ABSENT",
+    "missing": [
+     "ctc.sch8812.part-ii-b-needed"
+    ],
+    "rule": "rule.ctc-sch8812-line-24"
+   },
+   {
+    "code": "DEPENDENCY_ABSENT",
+    "missing": [
+     "ctc.sch8812.line-23",
+     "ctc.sch8812.line-24"
+    ],
+    "rule": "rule.ctc-sch8812-line-25"
+   },
+   {
+    "code": "DEPENDENCY_ABSENT",
+    "missing": [
+     "ctc.sch8812.line-25"
+    ],
+    "rule": "rule.ctc-sch8812-line-26"
+   },
+   {
+    "code": "DEPENDENCY_ABSENT",
+    "missing": [
+     "ctc.sch8812.line-17",
+     "ctc.sch8812.part-ii-b-needed"
+    ],
+    "rule": "rule.ctc-sch8812-line-27"
+   },
+   {
+    "code": "DEPENDENCY_ABSENT",
+    "missing": [
+     "ctc.sch8812.line-1"
+    ],
+    "rule": "rule.ctc-sch8812-line-3"
+   },
+   {
+    "code": "DEPENDENCY_ABSENT",
+    "missing": [
+     "ctc.sch8812.line-17"
+    ],
+    "rule": "rule.ctc-sch8812-part-ii-b-needed"
+   },
+   {
+    "code": "DEPENDENCY_ABSENT",
+    "missing": [
+     "tax.total-tax"
+    ],
+    "rule": "rule.ctc-worksheet-a.line-1"
+   },
+   {
+    "code": "DEPENDENCY_ABSENT",
+    "missing": [
+     "schedule3.line1-direct-ftc"
+    ],
+    "rule": "rule.ctc-worksheet-a.line-2"
+   },
+   {
+    "code": "DEPENDENCY_ABSENT",
+    "missing": [
+     "ctc.sch8812.worksheet-a.line-1",
+     "ctc.sch8812.worksheet-a.line-2"
+    ],
+    "rule": "rule.ctc-worksheet-a.line-3"
+   },
+   {
+    "code": "DEPENDENCY_ABSENT",
+    "missing": [
+     "ctc.sch8812.worksheet-a.line-3"
+    ],
+    "rule": "rule.ctc-worksheet-a.line-5"
+   },
+   {
+    "code": "DEPENDENCY_ABSENT",
+    "missing": [
+     "eic.questions-required"
+    ],
+    "rule": "rule.eic-answer.age-25-under-65"
+   },
+   {
+    "code": "DEPENDENCY_ABSENT",
+    "missing": [
+     "eic.questions-required"
+    ],
+    "rule": "rule.eic-answer.main-home-in-us"
+   },
+   {
+    "code": "DEPENDENCY_ABSENT",
+    "missing": [
+     "eic.questions-required",
+     "eic.worksheet-a.line-3"
+    ],
+    "rule": "rule.eic-answer.no-unsupported-situations"
+   },
+   {
+    "code": "DEPENDENCY_ABSENT",
+    "missing": [
+     "eic.questions-required"
+    ],
+    "rule": "rule.eic-answer.not-claimable-as-dependent"
+   },
+   {
+    "code": "DEPENDENCY_ABSENT",
+    "missing": [
+     "eic.questions-required"
+    ],
+    "rule": "rule.eic-answer.not-nonresident-alien"
+   },
+   {
+    "code": "DEPENDENCY_ABSENT",
+    "missing": [
+     "eic.questions-required"
+    ],
+    "rule": "rule.eic-answer.not-qualifying-child-of-another"
+   },
+   {
+    "code": "DEPENDENCY_ABSENT",
+    "missing": [
+     "eic.questions-required"
+    ],
+    "rule": "rule.eic-answer.separated-spouse"
+   },
+   {
+    "code": "DEPENDENCY_ABSENT",
+    "missing": [
+     "eic.questions-required"
+    ],
+    "rule": "rule.eic-answer.spouse-valid-ssn"
+   },
+   {
+    "code": "DEPENDENCY_ABSENT",
+    "missing": [
+     "eic.questions-required"
+    ],
+    "rule": "rule.eic-answer.taxpayer-valid-ssn"
+   },
+   {
+    "code": "DEPENDENCY_ABSENT",
+    "missing": [
+     "eic.answer.no-unsupported-situations",
+     "eic.worksheet-a.line-3"
+    ],
+    "rule": "rule.eic-early-stop"
+   },
+   {
+    "code": "DEPENDENCY_ABSENT",
+    "missing": [
+     "eic.answer.no-unsupported-situations",
+     "eic.early-stop",
+     "eic.gate-result"
+    ],
+    "rule": "rule.eic-eligibility"
+   },
+   {
+    "code": "DEPENDENCY_ABSENT",
+    "missing": [
+     "eic.answer.age-25-under-65",
+     "eic.answer.main-home-in-us",
+     "eic.answer.no-unsupported-situations",
+     "eic.answer.not-claimable-as-dependent",
+     "eic.answer.not-nonresident-alien",
+     "eic.answer.not-qualifying-child-of-another",
+     "eic.answer.separated-spouse",
+     "eic.answer.spouse-valid-ssn",
+     "eic.answer.taxpayer-valid-ssn",
+     "eic.worksheet-a.line-6"
+    ],
+    "rule": "rule.eic-gate-result"
+   },
+   {
+    "code": "DEPENDENCY_ABSENT",
+    "missing": [
+     "eic.worksheet-a.line-3"
+    ],
+    "rule": "rule.eic-questions-required"
+   },
+   {
+    "code": "DEPENDENCY_ABSENT",
+    "missing": [
+     "income.agi"
+    ],
+    "rule": "rule.eic-worksheet-a.line-3"
+   },
+   {
+    "code": "DEPENDENCY_ABSENT",
+    "missing": [
+     "eic.worksheet-a.line-3"
+    ],
+    "rule": "rule.eic-worksheet-a.line-5"
+   },
+   {
+    "code": "DEPENDENCY_ABSENT",
+    "missing": [
+     "eic.worksheet-a.line-3"
+    ],
+    "rule": "rule.eic-worksheet-a.line-6"
+   },
+   {
+    "code": "DEPENDENCY_ABSENT",
+    "missing": [
+     "income.total-income"
+    ],
+    "rule": "rule.form1040-line11"
+   },
+   {
+    "code": "DEPENDENCY_ABSENT",
+    "missing": [
+     "schedule1a.line37-enhanced-deduction-total"
+    ],
+    "rule": "rule.form1040-line13b"
+   },
+   {
+    "code": "DEPENDENCY_ABSENT",
+    "missing": [
+     "deductions.schedule-1a"
+    ],
+    "rule": "rule.form1040-line14"
+   },
+   {
+    "code": "DEPENDENCY_ABSENT",
+    "missing": [
+     "deductions.line-14",
+     "income.agi"
+    ],
+    "rule": "rule.form1040-line15"
+   },
+   {
+    "code": "DEPENDENCY_ABSENT",
+    "missing": [
+     "income.taxable-income",
+     "qdcg-worksheet.line-24",
+     "qdcg-worksheet.line-25"
+    ],
+    "rule": "rule.form1040-line16"
+   },
+   {
+    "code": "DEPENDENCY_ABSENT",
+    "missing": [
+     "schedule3.line8-total"
+    ],
+    "rule": "rule.form1040-line20"
+   },
+   {
+    "code": "DEPENDENCY_ABSENT",
+    "missing": [
+     "tax.after-nonrefundable-credits"
+    ],
+    "rule": "rule.form1040-line24"
+   },
+   {
+    "code": "DEPENDENCY_ABSENT",
+    "missing": [
+     "eic.eligibility-result"
+    ],
+    "rule": "rule.form1040-line27a"
+   },
+   {
+    "code": "DEPENDENCY_ABSENT",
+    "missing": [
+     "payments.lines27-31-total"
+    ],
+    "rule": "rule.form1040-line32"
+   },
+   {
+    "code": "DEPENDENCY_ABSENT",
+    "missing": [
+     "payments.line32"
+    ],
+    "rule": "rule.form1040-line33"
+   },
+   {
+    "code": "DEPENDENCY_ABSENT",
+    "missing": [
+     "payments.line33",
+     "tax.line24-total-tax"
+    ],
+    "rule": "rule.form1040-line34"
+   },
+   {
+    "code": "DEPENDENCY_ABSENT",
+    "missing": [
+     "payments.line34-overpaid",
+     "payments.line36-applied-to-2026"
+    ],
+    "rule": "rule.form1040-line35a"
+   },
+   {
+    "code": "DEPENDENCY_ABSENT",
+    "missing": [
+     "payments.line34-overpaid"
+    ],
+    "rule": "rule.form1040-line36"
+   },
+   {
+    "code": "DEPENDENCY_ABSENT",
+    "missing": [
+     "payments.line33",
+     "tax.line24-total-tax"
+    ],
+    "rule": "rule.form1040-line37"
+   },
+   {
+    "code": "DEPENDENCY_ABSENT",
+    "missing": [
+     "schedule1.line10-additional-income"
+    ],
+    "rule": "rule.form1040-line8"
+   },
+   {
+    "code": "DEPENDENCY_ABSENT",
+    "missing": [
+     "income.additional-income",
+     "social-security.line6b"
+    ],
+    "rule": "rule.form1040-line9"
+   },
+   {
+    "code": "DEPENDENCY_ABSENT",
+    "missing": [
+     "payments.line27a",
+     "payments.lines28-31"
+    ],
+    "rule": "rule.form1040-lines27-31-total"
+   },
+   {
+    "code": "DEPENDENCY_ABSENT",
+    "missing": [
+     "ctc.form1040-line28"
+    ],
+    "rule": "rule.form1040-lines28-31"
+   },
+   {
+    "code": "DEPENDENCY_ABSENT",
+    "missing": [
+     "credits.form1040-line20",
+     "ctc.form1040-line19",
+     "tax.total-tax"
+    ],
+    "rule": "rule.form1040-tax-after-credits"
+   },
+   {
+    "code": "DEPENDENCY_ABSENT",
+    "missing": [
+     "income.taxable-income"
+    ],
+    "rule": "rule.qdcg-worksheet.line-10"
+   },
+   {
+    "code": "DEPENDENCY_ABSENT",
+    "missing": [
+     "qdcg-worksheet.line-9"
+    ],
+    "rule": "rule.qdcg-worksheet.line-11"
+   },
+   {
+    "code": "DEPENDENCY_ABSENT",
+    "missing": [
+     "qdcg-worksheet.line-10",
+     "qdcg-worksheet.line-11"
+    ],
+    "rule": "rule.qdcg-worksheet.line-12"
+   },
+   {
+    "code": "DEPENDENCY_ABSENT",
+    "missing": [
+     "income.taxable-income"
+    ],
+    "rule": "rule.qdcg-worksheet.line-14"
+   },
+   {
+    "code": "DEPENDENCY_ABSENT",
+    "missing": [
+     "qdcg-worksheet.line-5",
+     "qdcg-worksheet.line-9"
+    ],
+    "rule": "rule.qdcg-worksheet.line-15"
+   },
+   {
+    "code": "DEPENDENCY_ABSENT",
+    "missing": [
+     "qdcg-worksheet.line-14",
+     "qdcg-worksheet.line-15"
+    ],
+    "rule": "rule.qdcg-worksheet.line-16"
+   },
+   {
+    "code": "DEPENDENCY_ABSENT",
+    "missing": [
+     "qdcg-worksheet.line-12",
+     "qdcg-worksheet.line-16"
+    ],
+    "rule": "rule.qdcg-worksheet.line-17"
+   },
+   {
+    "code": "DEPENDENCY_ABSENT",
+    "missing": [
+     "qdcg-worksheet.line-17"
+    ],
+    "rule": "rule.qdcg-worksheet.line-18"
+   },
+   {
+    "code": "DEPENDENCY_ABSENT",
+    "missing": [
+     "qdcg-worksheet.line-17",
+     "qdcg-worksheet.line-9"
+    ],
+    "rule": "rule.qdcg-worksheet.line-19"
+   },
+   {
+    "code": "DEPENDENCY_ABSENT",
+    "missing": [
+     "qdcg-worksheet.line-10",
+     "qdcg-worksheet.line-19"
+    ],
+    "rule": "rule.qdcg-worksheet.line-20"
+   },
+   {
+    "code": "DEPENDENCY_ABSENT",
+    "missing": [
+     "qdcg-worksheet.line-20"
+    ],
+    "rule": "rule.qdcg-worksheet.line-21"
+   },
+   {
+    "code": "DEPENDENCY_ABSENT",
+    "missing": [
+     "qdcg-worksheet.line-5"
+    ],
+    "rule": "rule.qdcg-worksheet.line-22"
+   },
+   {
+    "code": "DEPENDENCY_ABSENT",
+    "missing": [
+     "qdcg-worksheet.line-18",
+     "qdcg-worksheet.line-21",
+     "qdcg-worksheet.line-22"
+    ],
+    "rule": "rule.qdcg-worksheet.line-23"
+   },
+   {
+    "code": "DEPENDENCY_ABSENT",
+    "missing": [
+     "income.taxable-income"
+    ],
+    "rule": "rule.qdcg-worksheet.line-24"
+   },
+   {
+    "code": "DEPENDENCY_ABSENT",
+    "missing": [
+     "qdcg-worksheet.line-23",
+     "qdcg-worksheet.line-24"
+    ],
+    "rule": "rule.qdcg-worksheet.line-25"
+   },
+   {
+    "code": "DEPENDENCY_ABSENT",
+    "missing": [
+     "income.taxable-income"
+    ],
+    "rule": "rule.qdcg-worksheet.line-5"
+   },
+   {
+    "code": "DEPENDENCY_ABSENT",
+    "missing": [
+     "income.taxable-income"
+    ],
+    "rule": "rule.qdcg-worksheet.line-7"
+   },
+   {
+    "code": "DEPENDENCY_ABSENT",
+    "missing": [
+     "qdcg-worksheet.line-5",
+     "qdcg-worksheet.line-7"
+    ],
+    "rule": "rule.qdcg-worksheet.line-8"
+   },
+   {
+    "code": "DEPENDENCY_ABSENT",
+    "missing": [
+     "qdcg-worksheet.line-7",
+     "qdcg-worksheet.line-8"
+    ],
+    "rule": "rule.qdcg-worksheet.line-9"
+   },
+   {
+    "code": "DEPENDENCY_ABSENT",
+    "missing": [
+     "schedule1.line8b-gambling"
+    ],
+    "rule": "rule.schedule1-line10"
+   },
+   {
+    "code": "DEPENDENCY_ABSENT",
+    "missing": [
+     "gambling.b1-winnings-subtotal"
+    ],
+    "rule": "rule.schedule1-line8b"
+   },
+   {
+    "code": "DEPENDENCY_ABSENT",
+    "missing": [
+     "income.agi"
+    ],
+    "rule": "rule.schedule1a-part-v-line-33"
+   },
+   {
+    "code": "DEPENDENCY_ABSENT",
+    "missing": [
+     "schedule1a.line33-magi-excess"
+    ],
+    "rule": "rule.schedule1a-part-v-line-34"
+   },
+   {
+    "code": "DEPENDENCY_ABSENT",
+    "missing": [
+     "schedule1a.line34-reduction"
+    ],
+    "rule": "rule.schedule1a-part-v-line-35"
+   },
+   {
+    "code": "DEPENDENCY_ABSENT",
+    "missing": [
+     "schedule1a.line35-per-person-amount"
+    ],
+    "rule": "rule.schedule1a-part-v-line-36a"
+   },
+   {
+    "code": "DEPENDENCY_ABSENT",
+    "missing": [
+     "schedule1a.line35-per-person-amount"
+    ],
+    "rule": "rule.schedule1a-part-v-line-36b"
+   },
+   {
+    "code": "DEPENDENCY_ABSENT",
+    "missing": [
+     "schedule1a.line36a-taxpayer",
+     "schedule1a.line36b-spouse"
+    ],
+    "rule": "rule.schedule1a-part-v-line-37"
+   },
+   {
+    "code": "DEPENDENCY_ABSENT",
+    "missing": [
+     "tax.total-tax"
+    ],
+    "rule": "rule.schedule3-line1-direct-ftc"
+   },
+   {
+    "code": "DEPENDENCY_ABSENT",
+    "missing": [
+     "schedule3.line1-direct-ftc"
+    ],
+    "rule": "rule.schedule3-line8"
+   },
+   {
+    "code": "DEPENDENCY_ABSENT",
+    "missing": [
+     "income.additional-income"
+    ],
+    "rule": "rule.ss-benefits-worksheet"
+   },
+   {
+    "code": "DEPENDENCY_ABSENT",
+    "missing": [
+     "ctc.sch8812.part-ii-b-needed"
+    ],
+    "rule": "rule.w2-box4-total"
+   },
+   {
+    "code": "DEPENDENCY_ABSENT",
+    "missing": [
+     "ctc.sch8812.part-ii-b-needed"
+    ],
+    "rule": "rule.w2-box6-total"
+   }
+  ],
+  "bottom_line_published": false,
+  "held": [
+   "rule.attachment.f8949",
+   "rule.attachment.schedule-b",
+   "rule.attachment.schedule-d",
+   "rule.f1098-residence-interest-unresolved",
+   "rule.f1099k-unresolved",
+   "rule.form1040-line6d",
+   "rule.form1040-line6d-not-checked",
+   "rule.interest.derived-nominee-subtotal",
+   "rule.interest.nominee-reduction",
+   "rule.schedule-a-boundary-no-gambling-other",
+   "rule.schedule-a-total-closed-empty",
+   "rule.w2g-b1-subtotal"
+  ],
+  "published": {
+   "deductions.line-12e": "20000.0",
+   "schedule-a.excess-over-standard": "4250.0",
+   "schedule-a.line8a": "20000.0",
+   "schedule-a.total": "20000.0"
+  }
+ },
+ "itemizer_1098_w2g_losses-yes": {
+  "blocked": [],
+  "bottom_line_published": true,
+  "held": [
+   "rule.attachment.f8949",
+   "rule.attachment.schedule-b",
+   "rule.attachment.schedule-d",
+   "rule.f1098-residence-interest-unresolved",
+   "rule.f1099k-unresolved",
+   "rule.form1040-line6d",
+   "rule.form1040-line6d-not-checked",
+   "rule.interest.derived-nominee-subtotal",
+   "rule.interest.nominee-reduction",
+   "rule.schedule-a-total-closed-empty",
+   "rule.w2-box4-total",
+   "rule.w2-box6-total"
+  ],
+  "published": {
+   "deductions.line-12e": "20000.0",
+   "gambling.b1-winnings-subtotal": "6000.0",
+   "income.agi": "56000",
+   "income.taxable-income": "36000.0",
+   "payments.line35a-refunded": "1855",
+   "payments.line37-amount-owed": "0",
+   "schedule-a.excess-over-standard": "4250.0",
+   "schedule-a.line8a": "20000.0",
+   "schedule-a.total": "20000.0",
+   "schedule1.line8b-gambling": "6000",
+   "scheduleA.disposition": {
+    "answers": {
+     "tax.us.2025.schedule-a-boundary.no-casualty-theft-declared": "yes",
+     "tax.us.2025.schedule-a-boundary.no-charitable-declared": "yes",
+     "tax.us.2025.schedule-a-boundary.no-gambling-other-declared": "yes",
+     "tax.us.2025.schedule-a-boundary.no-investment-interest-declared": "yes",
+     "tax.us.2025.schedule-a-boundary.no-medical-declared": "yes",
+     "tax.us.2025.schedule-a-boundary.no-other-interest-declared": "yes",
+     "tax.us.2025.schedule-a-boundary.no-salt-declared": "yes"
+    },
+    "itemizations": [
+     {
+      "part_id": "line-8a-home-mortgage-interest",
+      "part_sum": "20000.0",
+      "row_sets": [
+       {
+        "row_sum": "20000.0",
+        "rows": [
+         {
+          "finding_id": "demo.cc.gl.member",
+          "value": "20000.0"
+         }
+        ],
+        "source_family": {
+         "id": "tax.us.2025.f1098",
+         "version": "v1"
+        },
+        "subtotal": {
+         "symbol": "tax.us.2025.schedule-a.line8a",
+         "value": "20000.0"
+        }
+       }
+      ],
+      "tie_out": {
+       "line_symbol": "tax.us.2025.schedule-a.line8a",
+       "line_value": "20000.0"
+      }
+     }
+    ],
+    "named_obligations": [],
+    "required": true,
+    "triggers": [
+     {
+      "over": true,
+      "subtotal": "tax.us.2025.schedule-a.excess-over-standard",
+      "value": "4250.0"
+     }
+    ]
+   },
+   "tax.line24-total-tax": "4085"
+  }
+ },
+ "itemizer_assertion_w2g_losses-no": {
+  "blocked": [
+   {
+    "code": "DEPENDENCY_ABSENT",
+    "missing": [
+     "gambling.b1-winnings-subtotal"
+    ],
+    "rule": "rule.attachment.schedule-1"
+   },
+   {
+    "code": "DEPENDENCY_ABSENT",
+    "missing": [
+     "ctc.sch8812.line-14"
+    ],
+    "rule": "rule.ctc-form1040-line19"
+   },
+   {
+    "code": "DEPENDENCY_ABSENT",
+    "missing": [
+     "income.agi"
+    ],
+    "rule": "rule.ctc-sch8812-line-1"
+   },
+   {
+    "code": "DEPENDENCY_ABSENT",
+    "missing": [
+     "ctc.sch8812.line-3"
+    ],
+    "rule": "rule.ctc-sch8812-line-10"
+   },
+   {
+    "code": "DEPENDENCY_ABSENT",
+    "missing": [
+     "ctc.sch8812.line-10"
+    ],
+    "rule": "rule.ctc-sch8812-line-11"
+   },
+   {
+    "code": "DEPENDENCY_ABSENT",
+    "missing": [
+     "ctc.sch8812.line-11"
+    ],
+    "rule": "rule.ctc-sch8812-line-12"
+   },
+   {
+    "code": "DEPENDENCY_ABSENT",
+    "missing": [
+     "ctc.sch8812.worksheet-a.line-5"
+    ],
+    "rule": "rule.ctc-sch8812-line-13"
+   },
+   {
+    "code": "DEPENDENCY_ABSENT",
+    "missing": [
+     "ctc.sch8812.line-12",
+     "ctc.sch8812.line-13"
+    ],
+    "rule": "rule.ctc-sch8812-line-14"
+   },
+   {
+    "code": "DEPENDENCY_ABSENT",
+    "missing": [
+     "ctc.sch8812.line-12",
+     "ctc.sch8812.line-14"
+    ],
+    "rule": "rule.ctc-sch8812-line-16a"
+   },
+   {
+    "code": "DEPENDENCY_ABSENT",
+    "missing": [
+     "ctc.sch8812.line-16a"
+    ],
+    "rule": "rule.ctc-sch8812-line-17"
+   },
+   {
+    "code": "DEPENDENCY_ABSENT",
+    "missing": [
+     "ctc.sch8812.part-ii-b-needed"
+    ],
+    "rule": "rule.ctc-sch8812-line-21"
+   },
+   {
+    "code": "DEPENDENCY_ABSENT",
+    "missing": [
+     "ctc.sch8812.part-ii-b-needed"
+    ],
+    "rule": "rule.ctc-sch8812-line-22"
+   },
+   {
+    "code": "DEPENDENCY_ABSENT",
+    "missing": [
+     "ctc.sch8812.line-21",
+     "ctc.sch8812.line-22",
+     "ctc.sch8812.part-ii-b-needed"
+    ],
+    "rule": "rule.ctc-sch8812-line-23"
+   },
+   {
+    "code": "DEPENDENCY_ABSENT",
+    "missing": [
+     "ctc.sch8812.part-ii-b-needed"
+    ],
+    "rule": "rule.ctc-sch8812-line-24"
+   },
+   {
+    "code": "DEPENDENCY_ABSENT",
+    "missing": [
+     "ctc.sch8812.line-23",
+     "ctc.sch8812.line-24"
+    ],
+    "rule": "rule.ctc-sch8812-line-25"
+   },
+   {
+    "code": "DEPENDENCY_ABSENT",
+    "missing": [
+     "ctc.sch8812.line-25"
+    ],
+    "rule": "rule.ctc-sch8812-line-26"
+   },
+   {
+    "code": "DEPENDENCY_ABSENT",
+    "missing": [
+     "ctc.sch8812.line-17",
+     "ctc.sch8812.part-ii-b-needed"
+    ],
+    "rule": "rule.ctc-sch8812-line-27"
+   },
+   {
+    "code": "DEPENDENCY_ABSENT",
+    "missing": [
+     "ctc.sch8812.line-1"
+    ],
+    "rule": "rule.ctc-sch8812-line-3"
+   },
+   {
+    "code": "DEPENDENCY_ABSENT",
+    "missing": [
+     "ctc.sch8812.line-17"
+    ],
+    "rule": "rule.ctc-sch8812-part-ii-b-needed"
+   },
+   {
+    "code": "DEPENDENCY_ABSENT",
+    "missing": [
+     "tax.total-tax"
+    ],
+    "rule": "rule.ctc-worksheet-a.line-1"
+   },
+   {
+    "code": "DEPENDENCY_ABSENT",
+    "missing": [
+     "schedule3.line1-direct-ftc"
+    ],
+    "rule": "rule.ctc-worksheet-a.line-2"
+   },
+   {
+    "code": "DEPENDENCY_ABSENT",
+    "missing": [
+     "ctc.sch8812.worksheet-a.line-1",
+     "ctc.sch8812.worksheet-a.line-2"
+    ],
+    "rule": "rule.ctc-worksheet-a.line-3"
+   },
+   {
+    "code": "DEPENDENCY_ABSENT",
+    "missing": [
+     "ctc.sch8812.worksheet-a.line-3"
+    ],
+    "rule": "rule.ctc-worksheet-a.line-5"
+   },
+   {
+    "code": "DEPENDENCY_ABSENT",
+    "missing": [
+     "eic.questions-required"
+    ],
+    "rule": "rule.eic-answer.age-25-under-65"
+   },
+   {
+    "code": "DEPENDENCY_ABSENT",
+    "missing": [
+     "eic.questions-required"
+    ],
+    "rule": "rule.eic-answer.main-home-in-us"
+   },
+   {
+    "code": "DEPENDENCY_ABSENT",
+    "missing": [
+     "eic.questions-required",
+     "eic.worksheet-a.line-3"
+    ],
+    "rule": "rule.eic-answer.no-unsupported-situations"
+   },
+   {
+    "code": "DEPENDENCY_ABSENT",
+    "missing": [
+     "eic.questions-required"
+    ],
+    "rule": "rule.eic-answer.not-claimable-as-dependent"
+   },
+   {
+    "code": "DEPENDENCY_ABSENT",
+    "missing": [
+     "eic.questions-required"
+    ],
+    "rule": "rule.eic-answer.not-nonresident-alien"
+   },
+   {
+    "code": "DEPENDENCY_ABSENT",
+    "missing": [
+     "eic.questions-required"
+    ],
+    "rule": "rule.eic-answer.not-qualifying-child-of-another"
+   },
+   {
+    "code": "DEPENDENCY_ABSENT",
+    "missing": [
+     "eic.questions-required"
+    ],
+    "rule": "rule.eic-answer.separated-spouse"
+   },
+   {
+    "code": "DEPENDENCY_ABSENT",
+    "missing": [
+     "eic.questions-required"
+    ],
+    "rule": "rule.eic-answer.spouse-valid-ssn"
+   },
+   {
+    "code": "DEPENDENCY_ABSENT",
+    "missing": [
+     "eic.questions-required"
+    ],
+    "rule": "rule.eic-answer.taxpayer-valid-ssn"
+   },
+   {
+    "code": "DEPENDENCY_ABSENT",
+    "missing": [
+     "eic.answer.no-unsupported-situations",
+     "eic.worksheet-a.line-3"
+    ],
+    "rule": "rule.eic-early-stop"
+   },
+   {
+    "code": "DEPENDENCY_ABSENT",
+    "missing": [
+     "eic.answer.no-unsupported-situations",
+     "eic.early-stop",
+     "eic.gate-result"
+    ],
+    "rule": "rule.eic-eligibility"
+   },
+   {
+    "code": "DEPENDENCY_ABSENT",
+    "missing": [
+     "eic.answer.age-25-under-65",
+     "eic.answer.main-home-in-us",
+     "eic.answer.no-unsupported-situations",
+     "eic.answer.not-claimable-as-dependent",
+     "eic.answer.not-nonresident-alien",
+     "eic.answer.not-qualifying-child-of-another",
+     "eic.answer.separated-spouse",
+     "eic.answer.spouse-valid-ssn",
+     "eic.answer.taxpayer-valid-ssn",
+     "eic.worksheet-a.line-6"
+    ],
+    "rule": "rule.eic-gate-result"
+   },
+   {
+    "code": "DEPENDENCY_ABSENT",
+    "missing": [
+     "eic.worksheet-a.line-3"
+    ],
+    "rule": "rule.eic-questions-required"
+   },
+   {
+    "code": "DEPENDENCY_ABSENT",
+    "missing": [
+     "income.agi"
+    ],
+    "rule": "rule.eic-worksheet-a.line-3"
+   },
+   {
+    "code": "DEPENDENCY_ABSENT",
+    "missing": [
+     "eic.worksheet-a.line-3"
+    ],
+    "rule": "rule.eic-worksheet-a.line-5"
+   },
+   {
+    "code": "DEPENDENCY_ABSENT",
+    "missing": [
+     "eic.worksheet-a.line-3"
+    ],
+    "rule": "rule.eic-worksheet-a.line-6"
+   },
+   {
+    "code": "DEPENDENCY_ABSENT",
+    "missing": [
+     "income.total-income"
+    ],
+    "rule": "rule.form1040-line11"
+   },
+   {
+    "code": "DEPENDENCY_ABSENT",
+    "missing": [
+     "schedule1a.line37-enhanced-deduction-total"
+    ],
+    "rule": "rule.form1040-line13b"
+   },
+   {
+    "code": "DEPENDENCY_ABSENT",
+    "missing": [
+     "deductions.schedule-1a"
+    ],
+    "rule": "rule.form1040-line14"
+   },
+   {
+    "code": "DEPENDENCY_ABSENT",
+    "missing": [
+     "deductions.line-14",
+     "income.agi"
+    ],
+    "rule": "rule.form1040-line15"
+   },
+   {
+    "code": "DEPENDENCY_ABSENT",
+    "missing": [
+     "income.taxable-income",
+     "qdcg-worksheet.line-24",
+     "qdcg-worksheet.line-25"
+    ],
+    "rule": "rule.form1040-line16"
+   },
+   {
+    "code": "DEPENDENCY_ABSENT",
+    "missing": [
+     "schedule3.line8-total"
+    ],
+    "rule": "rule.form1040-line20"
+   },
+   {
+    "code": "DEPENDENCY_ABSENT",
+    "missing": [
+     "tax.after-nonrefundable-credits"
+    ],
+    "rule": "rule.form1040-line24"
+   },
+   {
+    "code": "DEPENDENCY_ABSENT",
+    "missing": [
+     "eic.eligibility-result"
+    ],
+    "rule": "rule.form1040-line27a"
+   },
+   {
+    "code": "DEPENDENCY_ABSENT",
+    "missing": [
+     "payments.lines27-31-total"
+    ],
+    "rule": "rule.form1040-line32"
+   },
+   {
+    "code": "DEPENDENCY_ABSENT",
+    "missing": [
+     "payments.line32"
+    ],
+    "rule": "rule.form1040-line33"
+   },
+   {
+    "code": "DEPENDENCY_ABSENT",
+    "missing": [
+     "payments.line33",
+     "tax.line24-total-tax"
+    ],
+    "rule": "rule.form1040-line34"
+   },
+   {
+    "code": "DEPENDENCY_ABSENT",
+    "missing": [
+     "payments.line34-overpaid",
+     "payments.line36-applied-to-2026"
+    ],
+    "rule": "rule.form1040-line35a"
+   },
+   {
+    "code": "DEPENDENCY_ABSENT",
+    "missing": [
+     "payments.line34-overpaid"
+    ],
+    "rule": "rule.form1040-line36"
+   },
+   {
+    "code": "DEPENDENCY_ABSENT",
+    "missing": [
+     "payments.line33",
+     "tax.line24-total-tax"
+    ],
+    "rule": "rule.form1040-line37"
+   },
+   {
+    "code": "DEPENDENCY_ABSENT",
+    "missing": [
+     "schedule1.line10-additional-income"
+    ],
+    "rule": "rule.form1040-line8"
+   },
+   {
+    "code": "DEPENDENCY_ABSENT",
+    "missing": [
+     "income.additional-income",
+     "social-security.line6b"
+    ],
+    "rule": "rule.form1040-line9"
+   },
+   {
+    "code": "DEPENDENCY_ABSENT",
+    "missing": [
+     "payments.line27a",
+     "payments.lines28-31"
+    ],
+    "rule": "rule.form1040-lines27-31-total"
+   },
+   {
+    "code": "DEPENDENCY_ABSENT",
+    "missing": [
+     "ctc.form1040-line28"
+    ],
+    "rule": "rule.form1040-lines28-31"
+   },
+   {
+    "code": "DEPENDENCY_ABSENT",
+    "missing": [
+     "credits.form1040-line20",
+     "ctc.form1040-line19",
+     "tax.total-tax"
+    ],
+    "rule": "rule.form1040-tax-after-credits"
+   },
+   {
+    "code": "DEPENDENCY_ABSENT",
+    "missing": [
+     "income.taxable-income"
+    ],
+    "rule": "rule.qdcg-worksheet.line-10"
+   },
+   {
+    "code": "DEPENDENCY_ABSENT",
+    "missing": [
+     "qdcg-worksheet.line-9"
+    ],
+    "rule": "rule.qdcg-worksheet.line-11"
+   },
+   {
+    "code": "DEPENDENCY_ABSENT",
+    "missing": [
+     "qdcg-worksheet.line-10",
+     "qdcg-worksheet.line-11"
+    ],
+    "rule": "rule.qdcg-worksheet.line-12"
+   },
+   {
+    "code": "DEPENDENCY_ABSENT",
+    "missing": [
+     "income.taxable-income"
+    ],
+    "rule": "rule.qdcg-worksheet.line-14"
+   },
+   {
+    "code": "DEPENDENCY_ABSENT",
+    "missing": [
+     "qdcg-worksheet.line-5",
+     "qdcg-worksheet.line-9"
+    ],
+    "rule": "rule.qdcg-worksheet.line-15"
+   },
+   {
+    "code": "DEPENDENCY_ABSENT",
+    "missing": [
+     "qdcg-worksheet.line-14",
+     "qdcg-worksheet.line-15"
+    ],
+    "rule": "rule.qdcg-worksheet.line-16"
+   },
+   {
+    "code": "DEPENDENCY_ABSENT",
+    "missing": [
+     "qdcg-worksheet.line-12",
+     "qdcg-worksheet.line-16"
+    ],
+    "rule": "rule.qdcg-worksheet.line-17"
+   },
+   {
+    "code": "DEPENDENCY_ABSENT",
+    "missing": [
+     "qdcg-worksheet.line-17"
+    ],
+    "rule": "rule.qdcg-worksheet.line-18"
+   },
+   {
+    "code": "DEPENDENCY_ABSENT",
+    "missing": [
+     "qdcg-worksheet.line-17",
+     "qdcg-worksheet.line-9"
+    ],
+    "rule": "rule.qdcg-worksheet.line-19"
+   },
+   {
+    "code": "DEPENDENCY_ABSENT",
+    "missing": [
+     "qdcg-worksheet.line-10",
+     "qdcg-worksheet.line-19"
+    ],
+    "rule": "rule.qdcg-worksheet.line-20"
+   },
+   {
+    "code": "DEPENDENCY_ABSENT",
+    "missing": [
+     "qdcg-worksheet.line-20"
+    ],
+    "rule": "rule.qdcg-worksheet.line-21"
+   },
+   {
+    "code": "DEPENDENCY_ABSENT",
+    "missing": [
+     "qdcg-worksheet.line-5"
+    ],
+    "rule": "rule.qdcg-worksheet.line-22"
+   },
+   {
+    "code": "DEPENDENCY_ABSENT",
+    "missing": [
+     "qdcg-worksheet.line-18",
+     "qdcg-worksheet.line-21",
+     "qdcg-worksheet.line-22"
+    ],
+    "rule": "rule.qdcg-worksheet.line-23"
+   },
+   {
+    "code": "DEPENDENCY_ABSENT",
+    "missing": [
+     "income.taxable-income"
+    ],
+    "rule": "rule.qdcg-worksheet.line-24"
+   },
+   {
+    "code": "DEPENDENCY_ABSENT",
+    "missing": [
+     "qdcg-worksheet.line-23",
+     "qdcg-worksheet.line-24"
+    ],
+    "rule": "rule.qdcg-worksheet.line-25"
+   },
+   {
+    "code": "DEPENDENCY_ABSENT",
+    "missing": [
+     "income.taxable-income"
+    ],
+    "rule": "rule.qdcg-worksheet.line-5"
+   },
+   {
+    "code": "DEPENDENCY_ABSENT",
+    "missing": [
+     "income.taxable-income"
+    ],
+    "rule": "rule.qdcg-worksheet.line-7"
+   },
+   {
+    "code": "DEPENDENCY_ABSENT",
+    "missing": [
+     "qdcg-worksheet.line-5",
+     "qdcg-worksheet.line-7"
+    ],
+    "rule": "rule.qdcg-worksheet.line-8"
+   },
+   {
+    "code": "DEPENDENCY_ABSENT",
+    "missing": [
+     "qdcg-worksheet.line-7",
+     "qdcg-worksheet.line-8"
+    ],
+    "rule": "rule.qdcg-worksheet.line-9"
+   },
+   {
+    "code": "DEPENDENCY_ABSENT",
+    "missing": [
+     "schedule1.line8b-gambling"
+    ],
+    "rule": "rule.schedule1-line10"
+   },
+   {
+    "code": "DEPENDENCY_ABSENT",
+    "missing": [
+     "gambling.b1-winnings-subtotal"
+    ],
+    "rule": "rule.schedule1-line8b"
+   },
+   {
+    "code": "DEPENDENCY_ABSENT",
+    "missing": [
+     "income.agi"
+    ],
+    "rule": "rule.schedule1a-part-v-line-33"
+   },
+   {
+    "code": "DEPENDENCY_ABSENT",
+    "missing": [
+     "schedule1a.line33-magi-excess"
+    ],
+    "rule": "rule.schedule1a-part-v-line-34"
+   },
+   {
+    "code": "DEPENDENCY_ABSENT",
+    "missing": [
+     "schedule1a.line34-reduction"
+    ],
+    "rule": "rule.schedule1a-part-v-line-35"
+   },
+   {
+    "code": "DEPENDENCY_ABSENT",
+    "missing": [
+     "schedule1a.line35-per-person-amount"
+    ],
+    "rule": "rule.schedule1a-part-v-line-36a"
+   },
+   {
+    "code": "DEPENDENCY_ABSENT",
+    "missing": [
+     "schedule1a.line35-per-person-amount"
+    ],
+    "rule": "rule.schedule1a-part-v-line-36b"
+   },
+   {
+    "code": "DEPENDENCY_ABSENT",
+    "missing": [
+     "schedule1a.line36a-taxpayer",
+     "schedule1a.line36b-spouse"
+    ],
+    "rule": "rule.schedule1a-part-v-line-37"
+   },
+   {
+    "code": "DEPENDENCY_ABSENT",
+    "missing": [
+     "tax.total-tax"
+    ],
+    "rule": "rule.schedule3-line1-direct-ftc"
+   },
+   {
+    "code": "DEPENDENCY_ABSENT",
+    "missing": [
+     "schedule3.line1-direct-ftc"
+    ],
+    "rule": "rule.schedule3-line8"
+   },
+   {
+    "code": "DEPENDENCY_ABSENT",
+    "missing": [
+     "income.additional-income"
+    ],
+    "rule": "rule.ss-benefits-worksheet"
+   },
+   {
+    "code": "DEPENDENCY_ABSENT",
+    "missing": [
+     "ctc.sch8812.part-ii-b-needed"
+    ],
+    "rule": "rule.w2-box4-total"
+   },
+   {
+    "code": "DEPENDENCY_ABSENT",
+    "missing": [
+     "ctc.sch8812.part-ii-b-needed"
+    ],
+    "rule": "rule.w2-box6-total"
+   }
+  ],
+  "bottom_line_published": false,
+  "held": [
+   "rule.attachment.f8949",
+   "rule.attachment.schedule-a",
+   "rule.attachment.schedule-b",
+   "rule.attachment.schedule-d",
+   "rule.f1098-line8a",
+   "rule.f1098-residence-interest-unresolved",
+   "rule.f1099k-unresolved",
+   "rule.form1040-line6d",
+   "rule.form1040-line6d-not-checked",
+   "rule.interest.derived-nominee-subtotal",
+   "rule.interest.nominee-reduction",
+   "rule.schedule-a-boundary-no-gambling-other",
+   "rule.schedule-a-total",
+   "rule.w2g-b1-subtotal"
+  ],
+  "published": {
+   "deductions.line-12e": "20000.0",
+   "schedule-a.excess-over-standard": "-15750",
+   "schedule-a.total": "0"
+  }
+ },
+ "itemizer_assertion_w2g_losses-yes": {
+  "blocked": [],
+  "bottom_line_published": true,
+  "held": [
+   "rule.attachment.f8949",
+   "rule.attachment.schedule-a",
+   "rule.attachment.schedule-b",
+   "rule.attachment.schedule-d",
+   "rule.f1098-line8a",
+   "rule.f1098-residence-interest-unresolved",
+   "rule.f1099k-unresolved",
+   "rule.form1040-line6d",
+   "rule.form1040-line6d-not-checked",
+   "rule.interest.derived-nominee-subtotal",
+   "rule.interest.nominee-reduction",
+   "rule.schedule-a-total",
+   "rule.w2-box4-total",
+   "rule.w2-box6-total"
+  ],
+  "published": {
+   "deductions.line-12e": "20000.0",
+   "gambling.b1-winnings-subtotal": "6000.0",
+   "income.agi": "56000",
+   "income.taxable-income": "36000.0",
+   "payments.line35a-refunded": "1855",
+   "payments.line37-amount-owed": "0",
+   "schedule-a.excess-over-standard": "-15750",
+   "schedule-a.total": "0",
+   "schedule1.line8b-gambling": "6000",
+   "tax.line24-total-tax": "4085"
+  }
+ },
+ "standard_no_w2g_losses-no": {
+  "blocked": [],
+  "bottom_line_published": true,
+  "held": [
+   "rule.attachment.f8949",
+   "rule.attachment.schedule-1",
+   "rule.attachment.schedule-a",
+   "rule.attachment.schedule-b",
+   "rule.attachment.schedule-d",
+   "rule.f1098-line8a",
+   "rule.f1098-residence-interest-unresolved",
+   "rule.f1099k-unresolved",
+   "rule.form1040-line6d",
+   "rule.form1040-line6d-not-checked",
+   "rule.interest.derived-nominee-subtotal",
+   "rule.interest.nominee-reduction",
+   "rule.schedule-a-boundary-no-gambling-other",
+   "rule.schedule-a-total",
+   "rule.w2-box4-total",
+   "rule.w2-box6-total"
+  ],
+  "published": {
+   "deductions.line-12e": "15750",
+   "gambling.b1-winnings-subtotal": "0",
+   "income.agi": "50000",
+   "income.taxable-income": "34250",
+   "payments.line35a-refunded": "625",
+   "payments.line37-amount-owed": "0",
+   "schedule-a.excess-over-standard": "-15750",
+   "schedule-a.total": "0",
+   "schedule1.line8b-gambling": "0",
+   "tax.line24-total-tax": "3875"
+  }
+ },
+ "standard_no_w2g_losses-yes": {
+  "blocked": [],
+  "bottom_line_published": true,
+  "held": [
+   "rule.attachment.f8949",
+   "rule.attachment.schedule-1",
+   "rule.attachment.schedule-a",
+   "rule.attachment.schedule-b",
+   "rule.attachment.schedule-d",
+   "rule.f1098-line8a",
+   "rule.f1098-residence-interest-unresolved",
+   "rule.f1099k-unresolved",
+   "rule.form1040-line6d",
+   "rule.form1040-line6d-not-checked",
+   "rule.interest.derived-nominee-subtotal",
+   "rule.interest.nominee-reduction",
+   "rule.schedule-a-total",
+   "rule.w2-box4-total",
+   "rule.w2-box6-total"
+  ],
+  "published": {
+   "deductions.line-12e": "15750",
+   "gambling.b1-winnings-subtotal": "0",
+   "income.agi": "50000",
+   "income.taxable-income": "34250",
+   "payments.line35a-refunded": "625",
+   "payments.line37-amount-owed": "0",
+   "schedule-a.excess-over-standard": "-15750",
+   "schedule-a.total": "0",
+   "schedule1.line8b-gambling": "0",
+   "tax.line24-total-tax": "3875"
+  }
+ },
+ "standard_w2g_losses-no": {
+  "blocked": [
+   {
+    "code": "DEPENDENCY_ABSENT",
+    "missing": [
+     "gambling.b1-winnings-subtotal"
+    ],
+    "rule": "rule.attachment.schedule-1"
+   },
+   {
+    "code": "DEPENDENCY_ABSENT",
+    "missing": [
+     "ctc.sch8812.line-14"
+    ],
+    "rule": "rule.ctc-form1040-line19"
+   },
+   {
+    "code": "DEPENDENCY_ABSENT",
+    "missing": [
+     "income.agi"
+    ],
+    "rule": "rule.ctc-sch8812-line-1"
+   },
+   {
+    "code": "DEPENDENCY_ABSENT",
+    "missing": [
+     "ctc.sch8812.line-3"
+    ],
+    "rule": "rule.ctc-sch8812-line-10"
+   },
+   {
+    "code": "DEPENDENCY_ABSENT",
+    "missing": [
+     "ctc.sch8812.line-10"
+    ],
+    "rule": "rule.ctc-sch8812-line-11"
+   },
+   {
+    "code": "DEPENDENCY_ABSENT",
+    "missing": [
+     "ctc.sch8812.line-11"
+    ],
+    "rule": "rule.ctc-sch8812-line-12"
+   },
+   {
+    "code": "DEPENDENCY_ABSENT",
+    "missing": [
+     "ctc.sch8812.worksheet-a.line-5"
+    ],
+    "rule": "rule.ctc-sch8812-line-13"
+   },
+   {
+    "code": "DEPENDENCY_ABSENT",
+    "missing": [
+     "ctc.sch8812.line-12",
+     "ctc.sch8812.line-13"
+    ],
+    "rule": "rule.ctc-sch8812-line-14"
+   },
+   {
+    "code": "DEPENDENCY_ABSENT",
+    "missing": [
+     "ctc.sch8812.line-12",
+     "ctc.sch8812.line-14"
+    ],
+    "rule": "rule.ctc-sch8812-line-16a"
+   },
+   {
+    "code": "DEPENDENCY_ABSENT",
+    "missing": [
+     "ctc.sch8812.line-16a"
+    ],
+    "rule": "rule.ctc-sch8812-line-17"
+   },
+   {
+    "code": "DEPENDENCY_ABSENT",
+    "missing": [
+     "ctc.sch8812.part-ii-b-needed"
+    ],
+    "rule": "rule.ctc-sch8812-line-21"
+   },
+   {
+    "code": "DEPENDENCY_ABSENT",
+    "missing": [
+     "ctc.sch8812.part-ii-b-needed"
+    ],
+    "rule": "rule.ctc-sch8812-line-22"
+   },
+   {
+    "code": "DEPENDENCY_ABSENT",
+    "missing": [
+     "ctc.sch8812.line-21",
+     "ctc.sch8812.line-22",
+     "ctc.sch8812.part-ii-b-needed"
+    ],
+    "rule": "rule.ctc-sch8812-line-23"
+   },
+   {
+    "code": "DEPENDENCY_ABSENT",
+    "missing": [
+     "ctc.sch8812.part-ii-b-needed"
+    ],
+    "rule": "rule.ctc-sch8812-line-24"
+   },
+   {
+    "code": "DEPENDENCY_ABSENT",
+    "missing": [
+     "ctc.sch8812.line-23",
+     "ctc.sch8812.line-24"
+    ],
+    "rule": "rule.ctc-sch8812-line-25"
+   },
+   {
+    "code": "DEPENDENCY_ABSENT",
+    "missing": [
+     "ctc.sch8812.line-25"
+    ],
+    "rule": "rule.ctc-sch8812-line-26"
+   },
+   {
+    "code": "DEPENDENCY_ABSENT",
+    "missing": [
+     "ctc.sch8812.line-17",
+     "ctc.sch8812.part-ii-b-needed"
+    ],
+    "rule": "rule.ctc-sch8812-line-27"
+   },
+   {
+    "code": "DEPENDENCY_ABSENT",
+    "missing": [
+     "ctc.sch8812.line-1"
+    ],
+    "rule": "rule.ctc-sch8812-line-3"
+   },
+   {
+    "code": "DEPENDENCY_ABSENT",
+    "missing": [
+     "ctc.sch8812.line-17"
+    ],
+    "rule": "rule.ctc-sch8812-part-ii-b-needed"
+   },
+   {
+    "code": "DEPENDENCY_ABSENT",
+    "missing": [
+     "tax.total-tax"
+    ],
+    "rule": "rule.ctc-worksheet-a.line-1"
+   },
+   {
+    "code": "DEPENDENCY_ABSENT",
+    "missing": [
+     "schedule3.line1-direct-ftc"
+    ],
+    "rule": "rule.ctc-worksheet-a.line-2"
+   },
+   {
+    "code": "DEPENDENCY_ABSENT",
+    "missing": [
+     "ctc.sch8812.worksheet-a.line-1",
+     "ctc.sch8812.worksheet-a.line-2"
+    ],
+    "rule": "rule.ctc-worksheet-a.line-3"
+   },
+   {
+    "code": "DEPENDENCY_ABSENT",
+    "missing": [
+     "ctc.sch8812.worksheet-a.line-3"
+    ],
+    "rule": "rule.ctc-worksheet-a.line-5"
+   },
+   {
+    "code": "DEPENDENCY_ABSENT",
+    "missing": [
+     "eic.questions-required"
+    ],
+    "rule": "rule.eic-answer.age-25-under-65"
+   },
+   {
+    "code": "DEPENDENCY_ABSENT",
+    "missing": [
+     "eic.questions-required"
+    ],
+    "rule": "rule.eic-answer.main-home-in-us"
+   },
+   {
+    "code": "DEPENDENCY_ABSENT",
+    "missing": [
+     "eic.questions-required",
+     "eic.worksheet-a.line-3"
+    ],
+    "rule": "rule.eic-answer.no-unsupported-situations"
+   },
+   {
+    "code": "DEPENDENCY_ABSENT",
+    "missing": [
+     "eic.questions-required"
+    ],
+    "rule": "rule.eic-answer.not-claimable-as-dependent"
+   },
+   {
+    "code": "DEPENDENCY_ABSENT",
+    "missing": [
+     "eic.questions-required"
+    ],
+    "rule": "rule.eic-answer.not-nonresident-alien"
+   },
+   {
+    "code": "DEPENDENCY_ABSENT",
+    "missing": [
+     "eic.questions-required"
+    ],
+    "rule": "rule.eic-answer.not-qualifying-child-of-another"
+   },
+   {
+    "code": "DEPENDENCY_ABSENT",
+    "missing": [
+     "eic.questions-required"
+    ],
+    "rule": "rule.eic-answer.separated-spouse"
+   },
+   {
+    "code": "DEPENDENCY_ABSENT",
+    "missing": [
+     "eic.questions-required"
+    ],
+    "rule": "rule.eic-answer.spouse-valid-ssn"
+   },
+   {
+    "code": "DEPENDENCY_ABSENT",
+    "missing": [
+     "eic.questions-required"
+    ],
+    "rule": "rule.eic-answer.taxpayer-valid-ssn"
+   },
+   {
+    "code": "DEPENDENCY_ABSENT",
+    "missing": [
+     "eic.answer.no-unsupported-situations",
+     "eic.worksheet-a.line-3"
+    ],
+    "rule": "rule.eic-early-stop"
+   },
+   {
+    "code": "DEPENDENCY_ABSENT",
+    "missing": [
+     "eic.answer.no-unsupported-situations",
+     "eic.early-stop",
+     "eic.gate-result"
+    ],
+    "rule": "rule.eic-eligibility"
+   },
+   {
+    "code": "DEPENDENCY_ABSENT",
+    "missing": [
+     "eic.answer.age-25-under-65",
+     "eic.answer.main-home-in-us",
+     "eic.answer.no-unsupported-situations",
+     "eic.answer.not-claimable-as-dependent",
+     "eic.answer.not-nonresident-alien",
+     "eic.answer.not-qualifying-child-of-another",
+     "eic.answer.separated-spouse",
+     "eic.answer.spouse-valid-ssn",
+     "eic.answer.taxpayer-valid-ssn",
+     "eic.worksheet-a.line-6"
+    ],
+    "rule": "rule.eic-gate-result"
+   },
+   {
+    "code": "DEPENDENCY_ABSENT",
+    "missing": [
+     "eic.worksheet-a.line-3"
+    ],
+    "rule": "rule.eic-questions-required"
+   },
+   {
+    "code": "DEPENDENCY_ABSENT",
+    "missing": [
+     "income.agi"
+    ],
+    "rule": "rule.eic-worksheet-a.line-3"
+   },
+   {
+    "code": "DEPENDENCY_ABSENT",
+    "missing": [
+     "eic.worksheet-a.line-3"
+    ],
+    "rule": "rule.eic-worksheet-a.line-5"
+   },
+   {
+    "code": "DEPENDENCY_ABSENT",
+    "missing": [
+     "eic.worksheet-a.line-3"
+    ],
+    "rule": "rule.eic-worksheet-a.line-6"
+   },
+   {
+    "code": "DEPENDENCY_ABSENT",
+    "missing": [
+     "income.total-income"
+    ],
+    "rule": "rule.form1040-line11"
+   },
+   {
+    "code": "DEPENDENCY_ABSENT",
+    "missing": [
+     "schedule1a.line37-enhanced-deduction-total"
+    ],
+    "rule": "rule.form1040-line13b"
+   },
+   {
+    "code": "DEPENDENCY_ABSENT",
+    "missing": [
+     "deductions.schedule-1a"
+    ],
+    "rule": "rule.form1040-line14"
+   },
+   {
+    "code": "DEPENDENCY_ABSENT",
+    "missing": [
+     "deductions.line-14",
+     "income.agi"
+    ],
+    "rule": "rule.form1040-line15"
+   },
+   {
+    "code": "DEPENDENCY_ABSENT",
+    "missing": [
+     "income.taxable-income",
+     "qdcg-worksheet.line-24",
+     "qdcg-worksheet.line-25"
+    ],
+    "rule": "rule.form1040-line16"
+   },
+   {
+    "code": "DEPENDENCY_ABSENT",
+    "missing": [
+     "schedule3.line8-total"
+    ],
+    "rule": "rule.form1040-line20"
+   },
+   {
+    "code": "DEPENDENCY_ABSENT",
+    "missing": [
+     "tax.after-nonrefundable-credits"
+    ],
+    "rule": "rule.form1040-line24"
+   },
+   {
+    "code": "DEPENDENCY_ABSENT",
+    "missing": [
+     "eic.eligibility-result"
+    ],
+    "rule": "rule.form1040-line27a"
+   },
+   {
+    "code": "DEPENDENCY_ABSENT",
+    "missing": [
+     "payments.lines27-31-total"
+    ],
+    "rule": "rule.form1040-line32"
+   },
+   {
+    "code": "DEPENDENCY_ABSENT",
+    "missing": [
+     "payments.line32"
+    ],
+    "rule": "rule.form1040-line33"
+   },
+   {
+    "code": "DEPENDENCY_ABSENT",
+    "missing": [
+     "payments.line33",
+     "tax.line24-total-tax"
+    ],
+    "rule": "rule.form1040-line34"
+   },
+   {
+    "code": "DEPENDENCY_ABSENT",
+    "missing": [
+     "payments.line34-overpaid",
+     "payments.line36-applied-to-2026"
+    ],
+    "rule": "rule.form1040-line35a"
+   },
+   {
+    "code": "DEPENDENCY_ABSENT",
+    "missing": [
+     "payments.line34-overpaid"
+    ],
+    "rule": "rule.form1040-line36"
+   },
+   {
+    "code": "DEPENDENCY_ABSENT",
+    "missing": [
+     "payments.line33",
+     "tax.line24-total-tax"
+    ],
+    "rule": "rule.form1040-line37"
+   },
+   {
+    "code": "DEPENDENCY_ABSENT",
+    "missing": [
+     "schedule1.line10-additional-income"
+    ],
+    "rule": "rule.form1040-line8"
+   },
+   {
+    "code": "DEPENDENCY_ABSENT",
+    "missing": [
+     "income.additional-income",
+     "social-security.line6b"
+    ],
+    "rule": "rule.form1040-line9"
+   },
+   {
+    "code": "DEPENDENCY_ABSENT",
+    "missing": [
+     "payments.line27a",
+     "payments.lines28-31"
+    ],
+    "rule": "rule.form1040-lines27-31-total"
+   },
+   {
+    "code": "DEPENDENCY_ABSENT",
+    "missing": [
+     "ctc.form1040-line28"
+    ],
+    "rule": "rule.form1040-lines28-31"
+   },
+   {
+    "code": "DEPENDENCY_ABSENT",
+    "missing": [
+     "credits.form1040-line20",
+     "ctc.form1040-line19",
+     "tax.total-tax"
+    ],
+    "rule": "rule.form1040-tax-after-credits"
+   },
+   {
+    "code": "DEPENDENCY_ABSENT",
+    "missing": [
+     "income.taxable-income"
+    ],
+    "rule": "rule.qdcg-worksheet.line-10"
+   },
+   {
+    "code": "DEPENDENCY_ABSENT",
+    "missing": [
+     "qdcg-worksheet.line-9"
+    ],
+    "rule": "rule.qdcg-worksheet.line-11"
+   },
+   {
+    "code": "DEPENDENCY_ABSENT",
+    "missing": [
+     "qdcg-worksheet.line-10",
+     "qdcg-worksheet.line-11"
+    ],
+    "rule": "rule.qdcg-worksheet.line-12"
+   },
+   {
+    "code": "DEPENDENCY_ABSENT",
+    "missing": [
+     "income.taxable-income"
+    ],
+    "rule": "rule.qdcg-worksheet.line-14"
+   },
+   {
+    "code": "DEPENDENCY_ABSENT",
+    "missing": [
+     "qdcg-worksheet.line-5",
+     "qdcg-worksheet.line-9"
+    ],
+    "rule": "rule.qdcg-worksheet.line-15"
+   },
+   {
+    "code": "DEPENDENCY_ABSENT",
+    "missing": [
+     "qdcg-worksheet.line-14",
+     "qdcg-worksheet.line-15"
+    ],
+    "rule": "rule.qdcg-worksheet.line-16"
+   },
+   {
+    "code": "DEPENDENCY_ABSENT",
+    "missing": [
+     "qdcg-worksheet.line-12",
+     "qdcg-worksheet.line-16"
+    ],
+    "rule": "rule.qdcg-worksheet.line-17"
+   },
+   {
+    "code": "DEPENDENCY_ABSENT",
+    "missing": [
+     "qdcg-worksheet.line-17"
+    ],
+    "rule": "rule.qdcg-worksheet.line-18"
+   },
+   {
+    "code": "DEPENDENCY_ABSENT",
+    "missing": [
+     "qdcg-worksheet.line-17",
+     "qdcg-worksheet.line-9"
+    ],
+    "rule": "rule.qdcg-worksheet.line-19"
+   },
+   {
+    "code": "DEPENDENCY_ABSENT",
+    "missing": [
+     "qdcg-worksheet.line-10",
+     "qdcg-worksheet.line-19"
+    ],
+    "rule": "rule.qdcg-worksheet.line-20"
+   },
+   {
+    "code": "DEPENDENCY_ABSENT",
+    "missing": [
+     "qdcg-worksheet.line-20"
+    ],
+    "rule": "rule.qdcg-worksheet.line-21"
+   },
+   {
+    "code": "DEPENDENCY_ABSENT",
+    "missing": [
+     "qdcg-worksheet.line-5"
+    ],
+    "rule": "rule.qdcg-worksheet.line-22"
+   },
+   {
+    "code": "DEPENDENCY_ABSENT",
+    "missing": [
+     "qdcg-worksheet.line-18",
+     "qdcg-worksheet.line-21",
+     "qdcg-worksheet.line-22"
+    ],
+    "rule": "rule.qdcg-worksheet.line-23"
+   },
+   {
+    "code": "DEPENDENCY_ABSENT",
+    "missing": [
+     "income.taxable-income"
+    ],
+    "rule": "rule.qdcg-worksheet.line-24"
+   },
+   {
+    "code": "DEPENDENCY_ABSENT",
+    "missing": [
+     "qdcg-worksheet.line-23",
+     "qdcg-worksheet.line-24"
+    ],
+    "rule": "rule.qdcg-worksheet.line-25"
+   },
+   {
+    "code": "DEPENDENCY_ABSENT",
+    "missing": [
+     "income.taxable-income"
+    ],
+    "rule": "rule.qdcg-worksheet.line-5"
+   },
+   {
+    "code": "DEPENDENCY_ABSENT",
+    "missing": [
+     "income.taxable-income"
+    ],
+    "rule": "rule.qdcg-worksheet.line-7"
+   },
+   {
+    "code": "DEPENDENCY_ABSENT",
+    "missing": [
+     "qdcg-worksheet.line-5",
+     "qdcg-worksheet.line-7"
+    ],
+    "rule": "rule.qdcg-worksheet.line-8"
+   },
+   {
+    "code": "DEPENDENCY_ABSENT",
+    "missing": [
+     "qdcg-worksheet.line-7",
+     "qdcg-worksheet.line-8"
+    ],
+    "rule": "rule.qdcg-worksheet.line-9"
+   },
+   {
+    "code": "DEPENDENCY_ABSENT",
+    "missing": [
+     "schedule1.line8b-gambling"
+    ],
+    "rule": "rule.schedule1-line10"
+   },
+   {
+    "code": "DEPENDENCY_ABSENT",
+    "missing": [
+     "gambling.b1-winnings-subtotal"
+    ],
+    "rule": "rule.schedule1-line8b"
+   },
+   {
+    "code": "DEPENDENCY_ABSENT",
+    "missing": [
+     "income.agi"
+    ],
+    "rule": "rule.schedule1a-part-v-line-33"
+   },
+   {
+    "code": "DEPENDENCY_ABSENT",
+    "missing": [
+     "schedule1a.line33-magi-excess"
+    ],
+    "rule": "rule.schedule1a-part-v-line-34"
+   },
+   {
+    "code": "DEPENDENCY_ABSENT",
+    "missing": [
+     "schedule1a.line34-reduction"
+    ],
+    "rule": "rule.schedule1a-part-v-line-35"
+   },
+   {
+    "code": "DEPENDENCY_ABSENT",
+    "missing": [
+     "schedule1a.line35-per-person-amount"
+    ],
+    "rule": "rule.schedule1a-part-v-line-36a"
+   },
+   {
+    "code": "DEPENDENCY_ABSENT",
+    "missing": [
+     "schedule1a.line35-per-person-amount"
+    ],
+    "rule": "rule.schedule1a-part-v-line-36b"
+   },
+   {
+    "code": "DEPENDENCY_ABSENT",
+    "missing": [
+     "schedule1a.line36a-taxpayer",
+     "schedule1a.line36b-spouse"
+    ],
+    "rule": "rule.schedule1a-part-v-line-37"
+   },
+   {
+    "code": "DEPENDENCY_ABSENT",
+    "missing": [
+     "tax.total-tax"
+    ],
+    "rule": "rule.schedule3-line1-direct-ftc"
+   },
+   {
+    "code": "DEPENDENCY_ABSENT",
+    "missing": [
+     "schedule3.line1-direct-ftc"
+    ],
+    "rule": "rule.schedule3-line8"
+   },
+   {
+    "code": "DEPENDENCY_ABSENT",
+    "missing": [
+     "income.additional-income"
+    ],
+    "rule": "rule.ss-benefits-worksheet"
+   },
+   {
+    "code": "DEPENDENCY_ABSENT",
+    "missing": [
+     "ctc.sch8812.part-ii-b-needed"
+    ],
+    "rule": "rule.w2-box4-total"
+   },
+   {
+    "code": "DEPENDENCY_ABSENT",
+    "missing": [
+     "ctc.sch8812.part-ii-b-needed"
+    ],
+    "rule": "rule.w2-box6-total"
+   }
+  ],
+  "bottom_line_published": false,
+  "held": [
+   "rule.attachment.f8949",
+   "rule.attachment.schedule-a",
+   "rule.attachment.schedule-b",
+   "rule.attachment.schedule-d",
+   "rule.f1098-line8a",
+   "rule.f1098-residence-interest-unresolved",
+   "rule.f1099k-unresolved",
+   "rule.form1040-line6d",
+   "rule.form1040-line6d-not-checked",
+   "rule.interest.derived-nominee-subtotal",
+   "rule.interest.nominee-reduction",
+   "rule.schedule-a-boundary-no-gambling-other",
+   "rule.schedule-a-total",
+   "rule.w2g-b1-subtotal"
+  ],
+  "published": {
+   "deductions.line-12e": "15750",
+   "schedule-a.excess-over-standard": "-15750",
+   "schedule-a.total": "0"
+  }
+ },
+ "standard_w2g_losses-yes": {
+  "blocked": [],
+  "bottom_line_published": true,
+  "held": [
+   "rule.attachment.f8949",
+   "rule.attachment.schedule-a",
+   "rule.attachment.schedule-b",
+   "rule.attachment.schedule-d",
+   "rule.f1098-line8a",
+   "rule.f1098-residence-interest-unresolved",
+   "rule.f1099k-unresolved",
+   "rule.form1040-line6d",
+   "rule.form1040-line6d-not-checked",
+   "rule.interest.derived-nominee-subtotal",
+   "rule.interest.nominee-reduction",
+   "rule.schedule-a-total",
+   "rule.w2-box4-total",
+   "rule.w2-box6-total"
+  ],
+  "published": {
+   "deductions.line-12e": "15750",
+   "gambling.b1-winnings-subtotal": "6000.0",
+   "income.agi": "56000",
+   "income.taxable-income": "40250",
+   "payments.line35a-refunded": "1345",
+   "payments.line37-amount-owed": "0",
+   "schedule-a.excess-over-standard": "-15750",
+   "schedule-a.total": "0",
+   "schedule1.line8b-gambling": "6000",
+   "tax.line24-total-tax": "4595"
+  }
+ }
+}
