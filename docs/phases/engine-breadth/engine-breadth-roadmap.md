@@ -557,10 +557,8 @@ delivers an item removes it.
   and 12e), and its seed lacks later closures. Moving it to a current core
   means changing its line set and seed (trace in the entry-loop-current-core
   milestone). A filer-facing reason when a correction does not calculate.
-- Four source sets still reach an attachment without a guard of their own:
-  Form 1099-DIV 1a, Form 1099-K and Form 1098-E are held by a guarded rule
-  the attachment's requirement reads (pinned live); Form 1099-INT box 8 is
-  believed to reach no attachment amount, on a static reading only. Listed in
+- Four source sets reach an attachment without a guard of their own; each
+  is held by a guarded rule downstream, confirmed live on core v66. Listed in
   `tests/test_collect_closure_regression.py`.
 - A withholding closure attested true over an amount never recorded still
   publishes the smaller line 25b; closing it needs a per-statement box 4
