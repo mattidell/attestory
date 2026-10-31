@@ -3,7 +3,7 @@
   "version": 1,
   "phase": "Engine Breadth",
   "topic": "withholding-closure",
-  "status": "Open. P0 confirmed the gap for the five Form 1099 withholding families (W-2 already blocks); Track 1 builds line 25b v3 with a closure guard on core v61.",
+  "status": "Closed. On core v61 line 25b, and every line behind it, waits until each Form 1099 withholding family is confirmed complete; a complete return computes exactly as on v60. Earlier packages keep the gap.",
   "scope": [
     "a withholding amount that is not known to be complete stops line 25 and every line behind it, on a successor core package",
     "a return whose withholding is complete keeps every result it has today",
@@ -35,10 +35,12 @@
       "docs/phases/engine-breadth/milestones/withholding-closure.md"
     ],
     "new_milestone": [
+      "docs/milestone-retrospectives/2026-10-30-withholding-closure.md",
       "docs/phases/engine-breadth/milestones/withholding-closure.md",
       "docs/phases/engine-breadth/engine-breadth-roadmap.md#Parked work and open questions"
     ]
-  }
+  },
+  "retrospective": "docs/milestone-retrospectives/2026-10-30-withholding-closure.md"
 }
 -->
 
@@ -163,8 +165,40 @@ Foreman, 2026-10-30, on P0's recommendations:
 
 ## Review dispositions
 
-Pending.
+Fresh-reader review of P0 and Track 1: no required findings. The reviewer
+ran eight further incomplete cases on v61 (closure attested false; a later
+false closure over the same horizon; a member removed after closure; an
+amount outside the family with the closure unanswered), all blocked, and five
+further complete returns, all identical to v60 across every published value.
+
+1. *The v61 companion entry has no test naming it* (note). The entry is
+   load-bearing (without it a v61 1099-G return is refused at recording).
+   Fixed: a test pins that v61 shares v60's declaration.
+2. *Only one pair of the guard's naming order was pinned* (recommended).
+   Fixed: a test closes the five families in turn and checks each is named
+   in guard order.
+3. *The block names a family id, not the question to answer* (note). The
+   id is the family whose existing closure question the filer answers; the
+   line 25b form-field text is the generic "missing or not yet closed", as
+   for line 2b. Kept; parked as a presentation follow-up.
+4. *No v61 adoption file* (decision check). Confirmed: the v60 one is used
+   by one test only.
 
 ## Execution record
 
-Pending.
+- Dispatch was to Sonnet 5.5 Agent sub-agents (owner direction).
+  P0 took about 30 minutes and found the cause in the evaluator; Track 1
+  took about 5 minutes with `tools/package_successor.py`, its first use in
+  a milestone; the review took about 9 minutes.
+- The foreman added the two review tests.
+
+## Outcome
+
+On core v61, a recorded withholding amount on Form 1099-INT, 1099-DIV,
+1099-R or 1099-G box 4, or SSA-1099 box 6, does not reach line 25b until its
+family is confirmed complete at the current horizon. Until then line 25b
+blocks `SOURCE_SET_UNCLOSED` naming the family, and lines 25d and 33 through
+37 do not publish; lines 24 and 25a do. A complete return, a closed-empty
+family and a return with no withholding publish exactly v60's values. Core
+v60 and earlier are unchanged. One successor rule; no engine or schema
+change; no new question.
