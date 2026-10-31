@@ -408,6 +408,14 @@ A Form 1099-K the engine could not resolve was left out of total income while
 the refund published. Block Schedule 1 line 10 on a successor package until
 every Form 1099-K is resolved and confirmed complete.
 
+## Bounded return — Withholding Waits for Every Statement (2025)
+
+[Plan](milestones/withholding-closure.md).
+
+A recorded Form 1099 withholding amount counted on line 25b while its family
+was not confirmed complete, so the refund published on a partial sum. Line
+25b waits for every withholding family on a successor package.
+
 ## Parked work and open questions
 
 This is the single list of parked work and open owner-held questions for the
@@ -440,8 +448,7 @@ delivers an item removes it.
 - Form 1099-K box 4 on line 25b (SC-R1); routing the 1098, 1099-K and nominee
   recorders through the package overlay first (ADR-0082 production
   condition 2).
-- A recorded withholding amount counts while its family is unclosed, in every
-  withholding family; Form W-2G (line 25c); package companion declarations in
+- Form W-2G (line 25c); package companion declarations in
   package content; a generator for the core package, registry and release
   chain; an in-product route for the Social Security handover.
 - Form 8332 and decree releases, more than one other claimant and unsettled
@@ -464,6 +471,14 @@ delivers an item removes it.
   beside the new "can be claimed" answer.
 - Use of the circumstance routes on the correction session, which still
   resolves an older registry.
+- `collect` reads closure only when its set is empty, so a rule without a
+  `require_closed` guard sums whatever members are present. 49 rules collect
+  unguarded; whether any publishes a partial income sum is not surveyed.
+- A withholding closure attested true over an amount never recorded still
+  publishes the smaller line 25b; closing it needs a per-statement box 4
+  answer (including $0), as W-2 box 2 has.
+- The line 25b block names a family id, not the closure question the filer
+  answers (line 2b is the same).
 - A general assumption framework, free-text intake and institutional
   verification.
 

@@ -174,7 +174,9 @@ def domain_package_companion_declarations() -> dict[tuple[str, str], dict[str, A
     decision 4), never computed without the withholding.
 
     Core calculations v60 publishes the Schedule 1 line 10 successor and reads
-    the same withholding amounts, so it shares v59's declaration.
+    the same withholding amounts, so it shares v59's declaration. Core v61
+    publishes the line 25b successor that waits for every withholding family's
+    closure and reads the same amounts, so it shares it too.
     """
     withholding = {
         "presence_pairs": {
@@ -195,6 +197,7 @@ def domain_package_companion_declarations() -> dict[tuple[str, str], dict[str, A
     return {
         ("tax.us.2025.package.core-calculations", "v59"): withholding,
         ("tax.us.2025.package.core-calculations", "v60"): withholding,
+        ("tax.us.2025.package.core-calculations", "v61"): withholding,
     }
 
 
