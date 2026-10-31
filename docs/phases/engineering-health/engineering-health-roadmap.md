@@ -176,3 +176,12 @@ core reaching line 2a, Schedule 8812 line 21 and Schedule 1 line 21. The
 checks the cents and correction milestones left structural now run live; no
 product defect was found.
 
+### The Remaining Closure Entries, Confirmed Live
+
+[Plan](milestones/closure-live-confirmation.md).
+[Retrospective](../../milestone-retrospectives/2026-10-31-closure-live-confirmation.md).
+
+Form 1099-INT box 8, Form 1099-DIV box 7 and Form 1098-E, allowed in the
+closure regression test on a static reading, hold live on core v66; so does
+box 8's attachment path. No gap was found.
+
