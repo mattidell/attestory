@@ -502,6 +502,14 @@ Every closure on core v69 declares its question in plain words, and a line
 held only by unconfirmed families names those questions instead of a
 generic "blocked" text.
 
+## Bounded return — Schedule A Shows Gambling Losses (2025)
+
+[Plan](milestones/attachment-limited-part.md).
+
+The Schedule A attachment now itemizes gambling losses on line 16, limited
+to winnings, through a conditional and limited attachment part
+(`attachment-rule.v12`); a losses-only itemizer's attachment publishes.
+
 ## Parked work and open questions
 
 This is the single list of parked work and open owner-held questions for the
@@ -510,12 +518,6 @@ milestone that parks something adds it here in its closing commit; one that
 delivers an item removes it.
 
 ### Open owner-held questions
-
-- Whether to extend the attachment-rule shape with a conditional or limited
-  part (a schema successor and a runner change), so the Schedule A
-  attachment can itemize gambling losses on line 16. On core v67 a
-  gambling-loss itemizer's figures are right but the attachment lists only
-  line 8a, and a losses-only itemizer's attachment blocks on line 8a.
 
 - Whether a representation-transfer adjudication act should exist, so a
   nonzero legacy claim on a superseded entity could resolve honestly

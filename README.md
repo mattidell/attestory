@@ -7,7 +7,8 @@ This is the project's third iteration. The first proved a working return generat
 ## Where things stand
 
 - **Governance** (`docs/governance/`): the ratified v0.1 set — Constitution, Ontology, Engineering Constraints, Principles, Commentary. The sole contract authority for this repository.
-- **Current result**: on core calculations v69 a line held
+- **Current result**: on core calculations v70 the
+  Schedule A attachment itemizes gambling losses on line 16; on v69 a line held
   by an unconfirmed family names the question that releases it; on v68 interest
   with cents attaches on Schedule B and line 2b rounds once; on v67 gambling
   losses up to winnings reach Schedule A line 16; a correction recalculates

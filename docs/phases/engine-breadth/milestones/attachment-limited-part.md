@@ -3,7 +3,7 @@
   "version": 1,
   "phase": "Engine Breadth",
   "topic": "attachment-limited-part",
-  "status": "Open. P0 designed attachment-rule.v12 (applies_when, tie_out.limited_to); Track 1 builds it and the Schedule A successor on core v70.",
+  "status": "Closed. On core v70 the Schedule A attachment itemizes gambling losses on line 16, limited to winnings, and a losses-only itemizer's attachment publishes; attachment-rule.v12 adds conditional parts and a limited tie-out, and every other attachment is unchanged.",
   "scope": [
     "an attachment-rule schema successor that lets a part apply only when a named line is nonzero, and tie out against a limited line rather than the raw row sum",
     "the runner's attachment code interprets it; every existing attachment behaves as before",
@@ -31,10 +31,12 @@
       "docs/phases/engine-breadth/milestones/attachment-limited-part.md"
     ],
     "new_milestone": [
+      "docs/milestone-retrospectives/2026-10-31-attachment-limited-part.md",
       "docs/phases/engine-breadth/milestones/attachment-limited-part.md",
       "docs/phases/engine-breadth/engine-breadth-roadmap.md#Parked work and open questions"
     ]
-  }
+  },
+  "retrospective": "docs/milestone-retrospectives/2026-10-31-attachment-limited-part.md"
 }
 -->
 
@@ -116,6 +118,11 @@ Foreman, 2026-10-31:
    nothing is deductible and line 16 is 0; the figures already show it.
 3. **The limited part pins the winnings subtotal,** so its source appears in
    the explanation.
+4. **`artifact-package.v38` admits `attachment-rule.v12`** (after Track 1's
+   stop). v37 restricts `admitted_schemas` to a closed enum without v12; v38
+   is v37 with v12 added and nothing else changed, published by the same
+   protocol, as v37 was for the v3 closure mapping. Within the owner's
+   approval of the attachment schema successor.
 
 ## Tracks
 
@@ -123,3 +130,40 @@ Foreman, 2026-10-31:
    changes, the projector sentence, `attachment.schedule-a` v4, core v70 /
    registry v68 / release v68, and tests: P0's cases, and per-attachment
    payload equality between v69 and v70 for every attachment except Schedule A.
+
+## Review dispositions
+
+Fresh-reader review: no required findings. Every guard held when probed on
+the real Schedule A citizen (a missing limit, a nonzero line with no rows, a
+mismatched line 8a, an absent line 8a with a nonempty family); a joint return
+and two cases with cents matched hand values; an unconfirmed losses family
+still blocks on v70 rather than becoming an omission; the two schemas differ
+from their predecessors only as planned.
+
+1. *The validator's v12 checks had no committed test* (recommended). Fixed.
+2. *One runner line required the limit symbol for every attachment schema*
+   (note). Unreachable on committed content; now guarded by v12 like the
+   rest.
+3. *A `family_nonempty` omission does not wait for its line* (note). Kept: the
+   line comes from the same family, and a published line still blocks.
+4. *A negative limit is not range-checked* (note). Unreachable; winnings are
+   never negative.
+5. *Cents print without a trailing zero in the limited part's sentence*
+   (note). Figures correct; kept.
+
+## Execution record
+
+- One Sonnet 5.5 builder for P0, Track 1 and a repair; one review. Track 1
+  stopped once, on the package schema (decision 4).
+
+## Outcome
+
+On core v70 a filed Schedule A matches the itemized total. For an itemizer
+with a mortgage and gambling losses it lists line 8a and line 16; with
+$9,000 of losses against $6,000 of winnings, line 16 shows the 9,000 recorded,
+the 6,000 counted and the 3,000 not counted. A losses-only itemizer's
+attachment publishes with line 16 alone, where v69 blocked on line 8a.
+`attachment-rule.v12` adds `applies_when` and `tie_out.limited_to`;
+`artifact-package.v38` admits it; every v12 path in the runner is guarded by
+the schema name, and Schedule 1, Schedule B, Schedule D and Form 8949 publish
+as on v69. No kernel change, no new block code.
