@@ -1,0 +1,911 @@
+{
+  "current_core_v70_run": {
+    "all_package_form_field_count": 73,
+    "blocked": {
+      "codes": {},
+      "count": 0
+    },
+    "bounded_profile_candidate_by_adopted_core": {
+      "v6": {
+        "expected-impact": [
+          {
+            "id": "tax.us.2025.form1040.line-1a",
+            "version": "v1"
+          },
+          {
+            "id": "tax.us.2025.form1040.line-9",
+            "version": "v1"
+          },
+          {
+            "id": "tax.us.2025.form1040.line-11",
+            "version": "v1"
+          },
+          {
+            "id": "tax.us.2025.form1040.line-15",
+            "version": "v1"
+          },
+          {
+            "id": "tax.us.2025.form1040.line-16",
+            "version": "v1"
+          }
+        ],
+        "untouched-comparison": [
+          {
+            "id": "tax.us.2025.form1040.line-2b",
+            "version": "v1"
+          },
+          {
+            "id": "tax.us.2025.form1040.line-3a",
+            "version": "v1"
+          },
+          {
+            "id": "tax.us.2025.form1040.line-3b",
+            "version": "v1"
+          },
+          {
+            "id": "tax.us.2025.form1040.line-12",
+            "version": "v1"
+          }
+        ]
+      },
+      "v70": {
+        "expected-impact": [
+          {
+            "id": "tax.us.2025.form1040.line-1a",
+            "version": "v1"
+          },
+          {
+            "id": "tax.us.2025.form1040.line-9",
+            "version": "v1"
+          },
+          {
+            "id": "tax.us.2025.form1040.line-11a",
+            "version": "v1"
+          },
+          {
+            "id": "tax.us.2025.form1040.line-11b",
+            "version": "v1"
+          },
+          {
+            "id": "tax.us.2025.form1040.line-15",
+            "version": "v1"
+          },
+          {
+            "id": "tax.us.2025.form1040.line-16",
+            "version": "v1"
+          }
+        ],
+        "untouched-comparison": [
+          {
+            "id": "tax.us.2025.form1040.line-2b",
+            "version": "v6"
+          },
+          {
+            "id": "tax.us.2025.form1040.line-3a",
+            "version": "v1"
+          },
+          {
+            "id": "tax.us.2025.form1040.line-3b",
+            "version": "v1"
+          },
+          {
+            "id": "tax.us.2025.form1040.line-12e",
+            "version": "v1"
+          }
+        ]
+      }
+    },
+    "controlled_box1_change": {
+      "baseline_blocked": {
+        "codes": {},
+        "count": 0
+      },
+      "changed_form1040_fields": [
+        {
+          "after": 90000,
+          "before": 50000,
+          "id": "tax.us.2025.form1040.line-11a",
+          "line": "11a",
+          "version": "v1"
+        },
+        {
+          "after": 90000,
+          "before": 50000,
+          "id": "tax.us.2025.form1040.line-11b",
+          "line": "11b",
+          "version": "v1"
+        },
+        {
+          "after": 74250,
+          "before": 34250,
+          "id": "tax.us.2025.form1040.line-15",
+          "line": "15",
+          "version": "v1"
+        },
+        {
+          "after": 11255,
+          "before": 3875,
+          "id": "tax.us.2025.form1040.line-16",
+          "line": "16",
+          "version": "v1"
+        },
+        {
+          "after": 90000,
+          "before": 50000,
+          "id": "tax.us.2025.form1040.line-1a",
+          "line": "1a",
+          "version": "v1"
+        },
+        {
+          "after": 11255,
+          "before": 3875,
+          "id": "tax.us.2025.form1040.line-24",
+          "line": "24",
+          "version": "v1"
+        },
+        {
+          "after": 0,
+          "before": 625,
+          "id": "tax.us.2025.form1040.line-34",
+          "line": "34",
+          "version": "v1"
+        },
+        {
+          "after": 0,
+          "before": 625,
+          "id": "tax.us.2025.form1040.line-35a",
+          "line": "35a",
+          "version": "v1"
+        },
+        {
+          "after": 6755,
+          "before": 0,
+          "id": "tax.us.2025.form1040.line-37",
+          "line": "37",
+          "version": "v1"
+        },
+        {
+          "after": 90000,
+          "before": 50000,
+          "id": "tax.us.2025.form1040.line-9",
+          "line": "9",
+          "version": "v1"
+        },
+        {
+          "after": 11255,
+          "before": 3875,
+          "id": "tax.us.2025.form1040.tax-after-credits",
+          "line": "22",
+          "version": "v1"
+        }
+      ],
+      "changed_input_blocked": {
+        "codes": {},
+        "count": 0
+      },
+      "only_input_changed": "W-2 Box 1 finding: 50,000 -> 90,000",
+      "profile_membership_observed": {
+        "expected-impact": [
+          {
+            "after": 90000,
+            "before": 50000,
+            "changed": true,
+            "id": "tax.us.2025.form1040.line-1a",
+            "line": "1a",
+            "version": "v1"
+          },
+          {
+            "after": 90000,
+            "before": 50000,
+            "changed": true,
+            "id": "tax.us.2025.form1040.line-9",
+            "line": "9",
+            "version": "v1"
+          },
+          {
+            "after": 90000,
+            "before": 50000,
+            "changed": true,
+            "id": "tax.us.2025.form1040.line-11a",
+            "line": "11a",
+            "version": "v1"
+          },
+          {
+            "after": 90000,
+            "before": 50000,
+            "changed": true,
+            "id": "tax.us.2025.form1040.line-11b",
+            "line": "11b",
+            "version": "v1"
+          },
+          {
+            "after": 74250,
+            "before": 34250,
+            "changed": true,
+            "id": "tax.us.2025.form1040.line-15",
+            "line": "15",
+            "version": "v1"
+          },
+          {
+            "after": 11255,
+            "before": 3875,
+            "changed": true,
+            "id": "tax.us.2025.form1040.line-16",
+            "line": "16",
+            "version": "v1"
+          }
+        ],
+        "untouched-comparison": [
+          {
+            "after": 0,
+            "before": 0,
+            "changed": false,
+            "id": "tax.us.2025.form1040.line-2b",
+            "line": "2b",
+            "version": "v6"
+          },
+          {
+            "after": 0,
+            "before": 0,
+            "changed": false,
+            "id": "tax.us.2025.form1040.line-3a",
+            "line": "3a",
+            "version": "v1"
+          },
+          {
+            "after": 0,
+            "before": 0,
+            "changed": false,
+            "id": "tax.us.2025.form1040.line-3b",
+            "line": "3b",
+            "version": "v1"
+          },
+          {
+            "after": 15750,
+            "before": 15750,
+            "changed": false,
+            "id": "tax.us.2025.form1040.line-12e",
+            "line": "12e",
+            "version": "v1"
+          }
+        ]
+      }
+    },
+    "duplicate_line_ids_across_forms": [],
+    "evaluation_line_constants_in_v6_runtime": [
+      "1a",
+      "9",
+      "11",
+      "15",
+      "16",
+      "2b",
+      "3a",
+      "3b",
+      "12"
+    ],
+    "expected_impact_constants_in_v6_runtime": [
+      "1a",
+      "9",
+      "11",
+      "15",
+      "16"
+    ],
+    "form1040_field_count": 41,
+    "form1040_lines": [
+      "10",
+      "1040-14",
+      "11a",
+      "11b",
+      "12e",
+      "13a",
+      "13b",
+      "15",
+      "16",
+      "19",
+      "1a",
+      "20",
+      "22",
+      "24",
+      "25a",
+      "25b",
+      "25c",
+      "25d",
+      "26",
+      "27a",
+      "28",
+      "2a",
+      "2b",
+      "32",
+      "33",
+      "34",
+      "35a",
+      "37",
+      "38",
+      "3a",
+      "3b",
+      "4b",
+      "6a",
+      "6b",
+      "6c",
+      "6d",
+      "6d-not-checked",
+      "7a",
+      "7b",
+      "8",
+      "9"
+    ],
+    "form_id_counts": {
+      "1040": 41,
+      "1040-EIC-WS-A": 5,
+      "1040-SCH-1": 6,
+      "1040-SCH-A": 1,
+      "1040-SCH-D": 11,
+      "1040-Schedule-3": 2,
+      "Schedule 8812": 7
+    },
+    "non_numeric_form1040_field_examples": [
+      {
+        "binds_symbol": "tax.us.2025.social-security.line6c-indicator",
+        "disposition": "published_categorical",
+        "form_id": "1040",
+        "id": "tax.us.2025.form1040.line-6c",
+        "label": "Lump-sum election",
+        "line": "6c",
+        "value": null,
+        "value_type": "NoneType",
+        "version": "v1"
+      },
+      {
+        "binds_symbol": "tax.us.2025.social-security.line6d-indicator",
+        "disposition": "guard_inapplicable",
+        "form_id": "1040",
+        "id": "tax.us.2025.form1040.line-6d",
+        "label": "MFS lived apart all year",
+        "line": "6d",
+        "value": null,
+        "value_type": "NoneType",
+        "version": "v1"
+      },
+      {
+        "binds_symbol": "tax.us.2025.social-security.line6d-not-checked",
+        "disposition": "guard_inapplicable",
+        "form_id": "1040",
+        "id": "tax.us.2025.form1040.line-6d-not-checked",
+        "label": "MFS lived with spouse (line 6d not checked)",
+        "line": "6d-not-checked",
+        "value": null,
+        "value_type": "NoneType",
+        "version": "v1"
+      },
+      {
+        "binds_symbol": "tax.us.2025.form1040.line7b-schedule-d-not-required",
+        "disposition": "published_categorical",
+        "form_id": "1040",
+        "id": "tax.us.2025.form1040.line-7b",
+        "label": "Schedule D not required",
+        "line": "7b",
+        "value": null,
+        "value_type": "NoneType",
+        "version": "v2"
+      }
+    ],
+    "observed_but_not_in_box1_entry_profile": [
+      {
+        "binds_symbol": "tax.us.2025.payments.line25d",
+        "disposition": "published_value",
+        "form_id": "1040",
+        "id": "tax.us.2025.form1040.line-25d",
+        "label": "Total federal income tax withheld",
+        "line": "25d",
+        "value": 4500,
+        "value_type": "int",
+        "version": "v1"
+      },
+      {
+        "binds_symbol": "tax.us.2025.payments.line35a-refunded",
+        "disposition": "published_value",
+        "form_id": "1040",
+        "id": "tax.us.2025.form1040.line-35a",
+        "label": "Refund",
+        "line": "35a",
+        "value": 625,
+        "value_type": "int",
+        "version": "v1"
+      },
+      {
+        "binds_symbol": "tax.us.2025.payments.line37-amount-owed",
+        "disposition": "computed_zero",
+        "form_id": "1040",
+        "id": "tax.us.2025.form1040.line-37",
+        "label": "Amount you owe",
+        "line": "37",
+        "value": 0,
+        "value_type": "int",
+        "version": "v1"
+      }
+    ],
+    "published_values": {
+      "9": "50000",
+      "15": "34250",
+      "16": "3875",
+      "37": "0",
+      "11a": "50000",
+      "11b": "50000",
+      "12e": "15750",
+      "1a": "50000",
+      "25d": "4500",
+      "2b": "0",
+      "35a": "625",
+      "3a": "0",
+      "3b": "0"
+    },
+    "refusal": null,
+    "selected_v70_field_states": [
+      {
+        "binds_symbol": "tax.us.2025.income.agi",
+        "disposition": "published_value",
+        "form_id": "1040",
+        "id": "tax.us.2025.form1040.line-11a",
+        "label": "Adjusted gross income",
+        "line": "11a",
+        "value": 50000,
+        "value_type": "int",
+        "version": "v1"
+      },
+      {
+        "binds_symbol": "tax.us.2025.income.agi",
+        "disposition": "published_value",
+        "form_id": "1040",
+        "id": "tax.us.2025.form1040.line-11b",
+        "label": "Amount from line 11a (adjusted gross income)",
+        "line": "11b",
+        "value": 50000,
+        "value_type": "int",
+        "version": "v1"
+      },
+      {
+        "binds_symbol": "tax.us.2025.deductions.line-12e",
+        "disposition": "published_value",
+        "form_id": "1040",
+        "id": "tax.us.2025.form1040.line-12e",
+        "label": "Standard deduction or itemized deductions",
+        "line": "12e",
+        "value": 15750,
+        "value_type": "int",
+        "version": "v1"
+      },
+      {
+        "binds_symbol": "tax.us.2025.income.taxable-income",
+        "disposition": "published_value",
+        "form_id": "1040",
+        "id": "tax.us.2025.form1040.line-15",
+        "label": "Taxable income",
+        "line": "15",
+        "value": 34250,
+        "value_type": "int",
+        "version": "v1"
+      },
+      {
+        "binds_symbol": "tax.us.2025.tax.total-tax",
+        "disposition": "published_value",
+        "form_id": "1040",
+        "id": "tax.us.2025.form1040.line-16",
+        "label": "Tax",
+        "line": "16",
+        "value": 3875,
+        "value_type": "int",
+        "version": "v1"
+      },
+      {
+        "binds_symbol": "tax.us.2025.wages.total-w2-box1",
+        "disposition": "published_value",
+        "form_id": "1040",
+        "id": "tax.us.2025.form1040.line-1a",
+        "label": "Total amount from Form(s) W-2, box 1 (see instructions)",
+        "line": "1a",
+        "value": 50000,
+        "value_type": "int",
+        "version": "v1"
+      },
+      {
+        "binds_symbol": "tax.us.2025.interest.line-2b",
+        "disposition": "computed_zero",
+        "form_id": "1040",
+        "id": "tax.us.2025.form1040.line-2b",
+        "label": "Taxable interest",
+        "line": "2b",
+        "value": 0,
+        "value_type": "int",
+        "version": "v6"
+      },
+      {
+        "binds_symbol": "tax.us.2025.dividends.qualified-total",
+        "disposition": "computed_zero",
+        "form_id": "1040",
+        "id": "tax.us.2025.form1040.line-3a",
+        "label": "Qualified dividends",
+        "line": "3a",
+        "value": 0,
+        "value_type": "int",
+        "version": "v1"
+      },
+      {
+        "binds_symbol": "tax.us.2025.dividends.ordinary-total",
+        "disposition": "computed_zero",
+        "form_id": "1040",
+        "id": "tax.us.2025.form1040.line-3b",
+        "label": "Ordinary dividends",
+        "line": "3b",
+        "value": 0,
+        "value_type": "int",
+        "version": "v1"
+      },
+      {
+        "binds_symbol": "tax.us.2025.income.total-income",
+        "disposition": "published_value",
+        "form_id": "1040",
+        "id": "tax.us.2025.form1040.line-9",
+        "label": "Total income",
+        "line": "9",
+        "value": 50000,
+        "value_type": "int",
+        "version": "v1"
+      }
+    ]
+  },
+  "form_field_v3_schema": {
+    "has_entry_role": false,
+    "has_explicit_value_type": false,
+    "properties": [
+      "binds_symbol",
+      "citation",
+      "description",
+      "dispositions",
+      "form",
+      "id",
+      "label",
+      "line",
+      "schema",
+      "version"
+    ]
+  },
+  "inputs": {
+    "helper": "tests/helpers/current_core_returns.py::base_return",
+    "legacy_seed": "packages/sample_data/entry_loop_t1/workspace/acts.jsonl",
+    "package": "tax.us.2025.package.core-calculations@v70",
+    "package_checksum": "fefc27600f12e577810c7a7b8cddbb354a710f258131a38750f67a11b275dc72",
+    "registry": "packages/content/tax/2025/published-packages.v68.json",
+    "release": "demo.release.sli-worksheet-integration.2025@v68",
+    "release_checksum": "3faac080d2806733b82ff473094f56fe7142055b16d6b0985f91d63d57cb9116",
+    "release_registry_checksum": "9cf53c422b7170602111ad72b1d68d00eb4c3128667e0f49ede90535d5a1d1b4",
+    "synthetic": true
+  },
+  "legacy_v6_runtime_unchanged_seed": {
+    "after_box1_50000": {
+      "complete": true,
+      "lines": [
+        {
+          "change": "changed",
+          "computed": true,
+          "group": "expected-impact",
+          "line": "1a",
+          "value": 50000
+        },
+        {
+          "change": "changed",
+          "computed": true,
+          "group": "expected-impact",
+          "line": "9",
+          "value": 53234
+        },
+        {
+          "change": "changed",
+          "computed": true,
+          "group": "expected-impact",
+          "line": "11",
+          "value": 53234
+        },
+        {
+          "change": "changed",
+          "computed": true,
+          "group": "expected-impact",
+          "line": "15",
+          "value": 38234
+        },
+        {
+          "change": "changed",
+          "computed": true,
+          "group": "expected-impact",
+          "line": "16",
+          "value": 4356
+        },
+        {
+          "change": "unchanged",
+          "computed": true,
+          "group": "untouched-comparison",
+          "line": "2b",
+          "value": 1234
+        },
+        {
+          "change": "unchanged",
+          "computed": true,
+          "group": "untouched-comparison",
+          "line": "3a",
+          "value": 600
+        },
+        {
+          "change": "unchanged",
+          "computed": true,
+          "group": "untouched-comparison",
+          "line": "3b",
+          "value": 2000
+        },
+        {
+          "change": "unchanged",
+          "computed": true,
+          "group": "untouched-comparison",
+          "line": "12",
+          "value": 15000
+        }
+      ],
+      "missing": []
+    },
+    "before": {
+      "complete": false,
+      "contribution_fields": [
+        "mode",
+        "synthetic",
+        "w2_box1"
+      ],
+      "lines": [
+        {
+          "computed": false,
+          "line": "1a",
+          "value": null
+        },
+        {
+          "computed": false,
+          "line": "9",
+          "value": null
+        },
+        {
+          "computed": false,
+          "line": "11",
+          "value": null
+        },
+        {
+          "computed": false,
+          "line": "15",
+          "value": null
+        },
+        {
+          "computed": false,
+          "line": "16",
+          "value": null
+        },
+        {
+          "computed": true,
+          "line": "2b",
+          "value": 1234
+        },
+        {
+          "computed": true,
+          "line": "3a",
+          "value": 600
+        },
+        {
+          "computed": true,
+          "line": "3b",
+          "value": 2000
+        },
+        {
+          "computed": true,
+          "line": "12",
+          "value": 15000
+        }
+      ],
+      "missing": [
+        "w2-box1"
+      ]
+    },
+    "legacy_seed_has_box2_withholding": false,
+    "surface": "runtime-fixed-frrs_t3"
+  },
+  "probe": "entry-loop-rescope-p0",
+  "recording_and_execution": {
+    "current_core_helper_box2_is_entry_control": false,
+    "legacy_entry_accepts_only": [
+      "w2_box1"
+    ],
+    "legacy_first_entry_recorder": [
+      "contribution act",
+      "W-2 member-transition for Box 1",
+      "W-2 family closure assertion"
+    ],
+    "line_values_source": "live_coordinate_run + package rules + resolved presentation fields",
+    "optional_defaults_source": "package input_bindings optional_default -> exact fact-type parameter in Runner"
+  },
+  "surface_resolution": {
+    "current_adopted_v70": {
+      "member_dir": "packages/content/tax/2025",
+      "registry": "packages/content/tax/2025/published-packages.v68.json",
+      "release_dir": "packages/sample_data/student_loan_worksheet_integration/publication_surface/releases"
+    },
+    "same_v70_adoption_on_entry_loop_fixed_surface": {
+      "refusal": "RELEASE_ABSENT_OR_MISMATCH"
+    }
+  },
+  "thin_v6_seed_re_pinned_to_v70": {
+    "blocked": {
+      "codes": {
+        "DEPENDENCY_ABSENT": 174,
+        "SOURCE_SET_UNCLOSED": 35
+      },
+      "count": 209
+    },
+    "entry_runtime_result_on_fixed_surface": "entry-run-refused:RELEASE_ABSENT_OR_MISMATCH",
+    "legacy_v6_line_selector_result": "entry-state-unavailable",
+    "selected_v70_field_states": [
+      {
+        "binds_symbol": "tax.us.2025.income.agi",
+        "disposition": "blocked",
+        "form_id": "1040",
+        "id": "tax.us.2025.form1040.line-11a",
+        "label": "Adjusted gross income",
+        "line": "11a",
+        "value": null,
+        "value_type": "NoneType",
+        "version": "v1"
+      },
+      {
+        "binds_symbol": "tax.us.2025.income.agi",
+        "disposition": "blocked",
+        "form_id": "1040",
+        "id": "tax.us.2025.form1040.line-11b",
+        "label": "Amount from line 11a (adjusted gross income)",
+        "line": "11b",
+        "value": null,
+        "value_type": "NoneType",
+        "version": "v1"
+      },
+      {
+        "binds_symbol": "tax.us.2025.deductions.line-12e",
+        "disposition": "blocked",
+        "form_id": "1040",
+        "id": "tax.us.2025.form1040.line-12e",
+        "label": "Standard deduction or itemized deductions",
+        "line": "12e",
+        "value": null,
+        "value_type": "NoneType",
+        "version": "v1"
+      },
+      {
+        "binds_symbol": "tax.us.2025.income.taxable-income",
+        "disposition": "blocked",
+        "form_id": "1040",
+        "id": "tax.us.2025.form1040.line-15",
+        "label": "Taxable income",
+        "line": "15",
+        "value": null,
+        "value_type": "NoneType",
+        "version": "v1"
+      },
+      {
+        "binds_symbol": "tax.us.2025.tax.total-tax",
+        "disposition": "blocked",
+        "form_id": "1040",
+        "id": "tax.us.2025.form1040.line-16",
+        "label": "Tax",
+        "line": "16",
+        "value": null,
+        "value_type": "NoneType",
+        "version": "v1"
+      },
+      {
+        "binds_symbol": "tax.us.2025.wages.total-w2-box1",
+        "disposition": "blocked",
+        "form_id": "1040",
+        "id": "tax.us.2025.form1040.line-1a",
+        "label": "Total amount from Form(s) W-2, box 1 (see instructions)",
+        "line": "1a",
+        "value": null,
+        "value_type": "NoneType",
+        "version": "v1"
+      },
+      {
+        "binds_symbol": "tax.us.2025.payments.line25d",
+        "disposition": "blocked",
+        "form_id": "1040",
+        "id": "tax.us.2025.form1040.line-25d",
+        "label": "Total federal income tax withheld",
+        "line": "25d",
+        "value": null,
+        "value_type": "NoneType",
+        "version": "v1"
+      },
+      {
+        "binds_symbol": "tax.us.2025.interest.line-2b",
+        "disposition": "blocked",
+        "form_id": "1040",
+        "id": "tax.us.2025.form1040.line-2b",
+        "label": "Taxable interest",
+        "line": "2b",
+        "value": null,
+        "value_type": "NoneType",
+        "version": "v6"
+      },
+      {
+        "binds_symbol": "tax.us.2025.payments.line35a-refunded",
+        "disposition": "blocked",
+        "form_id": "1040",
+        "id": "tax.us.2025.form1040.line-35a",
+        "label": "Refund",
+        "line": "35a",
+        "value": null,
+        "value_type": "NoneType",
+        "version": "v1"
+      },
+      {
+        "binds_symbol": "tax.us.2025.payments.line37-amount-owed",
+        "disposition": "blocked",
+        "form_id": "1040",
+        "id": "tax.us.2025.form1040.line-37",
+        "label": "Amount you owe",
+        "line": "37",
+        "value": null,
+        "value_type": "NoneType",
+        "version": "v1"
+      },
+      {
+        "binds_symbol": "tax.us.2025.dividends.qualified-total",
+        "disposition": "published_value",
+        "form_id": "1040",
+        "id": "tax.us.2025.form1040.line-3a",
+        "label": "Qualified dividends",
+        "line": "3a",
+        "value": 600,
+        "value_type": "int",
+        "version": "v1"
+      },
+      {
+        "binds_symbol": "tax.us.2025.dividends.ordinary-total",
+        "disposition": "published_value",
+        "form_id": "1040",
+        "id": "tax.us.2025.form1040.line-3b",
+        "label": "Ordinary dividends",
+        "line": "3b",
+        "value": 2000,
+        "value_type": "int",
+        "version": "v1"
+      },
+      {
+        "binds_symbol": "tax.us.2025.income.total-income",
+        "disposition": "blocked",
+        "form_id": "1040",
+        "id": "tax.us.2025.form1040.line-9",
+        "label": "Total income",
+        "line": "9",
+        "value": null,
+        "value_type": "NoneType",
+        "version": "v1"
+      }
+    ],
+    "surface_resolution": {
+      "member_dir": "packages/content/tax/2025",
+      "registry": "packages/content/tax/2025/published-packages.v68.json",
+      "release_dir": "packages/sample_data/student_loan_worksheet_integration/publication_surface/releases"
+    }
+  },
+  "v70_input_binding_modes": {
+    "optional_default_count": 24,
+    "optional_default_examples": [
+      "spouse_blind",
+      "spouse_over_65",
+      "tax.us.2025.deductions.itemized",
+      "tax.us.2025.f1098.box9-number-of-properties",
+      "tax.us.2025.f1098.loan-timing-relative-to-building-or-improving",
+      "tax.us.2025.f1098.loan-timing-relative-to-purchase"
+    ],
+    "required_count": 12
+  }
+}
