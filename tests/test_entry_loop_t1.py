@@ -2,37 +2,75 @@
 
 from __future__ import annotations
 
+import copy
+import io
 import json
 import shutil
 import subprocess
 import unittest
 import urllib.error
 import urllib.request
+from contextlib import redirect_stdout
 from pathlib import Path
 from tempfile import TemporaryDirectory
 from typing import Any, cast
+from unittest.mock import patch
 
+import packages.derivation.live as live_module
+from packages.derivation.authorization import (
+    STATUS_ABSENT,
+    STATUS_ADMITTED,
+    STATUS_YEAR_MISMATCH,
+)
+from packages.derivation.authorization_closure import package_boundary_digest
 from packages.derivation.entry_loop import (
     COMPARISON_LINES,
+    CURRENT_CORE_ENTRY_FIXTURE,
+    ENTRY_CORE_PROFILES,
+    ENTRY_PACKAGE_MEMBER_DIR,
+    ENTRY_PACKAGE_RELEASE_DIRS,
+    ENTRY_RUN_SCOPES,
+    ENTRY_SEED_FIXTURES,
     ENTRY_FIELD_SCHEMA,
     EXPECTED_IMPACT_LINES,
     EntryLoopError,
     EntryLoopServer,
     SyntheticW2EntryRuntime,
+    RUN_SCOPE,
+    SCOPE_USER,
+    W2_CLOSURE_FACT_ID,
+    W2_FACT_ID,
+    W2_PREDECESSOR,
+    W2_SUCCESSOR,
+    _line_values,
+    _resolve_adopted_core_surface,
+    _select_entry_core_profile,
     _parse_box1_with_format,
     build_entry_surface,
     load_seed_acts,
     resolve_entry_surface,
 )
 from packages.derivation.live_workspace import WorkspaceCapability
+from packages.derivation.live import live_coordinate_run
 from packages.derivation.surface_resolver import ResolvedSurface
+from packages.derivation.production_resolver import (
+    PublicationSurface,
+    Refusal,
+    ResolvedGraph,
+    resolve_adopted_surface,
+    resolve_production_package,
+)
 from packages.kernel.act_log import ActLog
 from packages.derivation.loader import DerivationSchemas
+from packages.derivation.runners.entry_loop_evaluation import _print_instructions
 from tools.generate_entry_loop_t1_fixtures import (
     CONTENT,
     content_stats,
     render_fixture_files,
     seed_acts,
+)
+from tools.generate_entry_loop_v70_fixture import (
+    render_fixture_files as render_v70_fixture_files,
 )
 
 
@@ -69,6 +107,119 @@ def _event(snapshot: dict[str, Any], value: object) -> dict[str, Any]:
 
 def _lines(snapshot: dict[str, Any]) -> dict[str, dict[str, Any]]:
     return {line["line"]: line for line in snapshot["lines"]}
+
+
+def _entry_package_boundary(
+    acts: list[dict[str, Any]],
+    *,
+    run_scope: dict[str, str],
+    surface: PublicationSurface,
+) -> str:
+    graph = resolve_production_package(
+        acts,
+        run_scope=run_scope,
+        scope_user=SCOPE_USER,
+        workspace_revision=len(acts),
+        surface=surface,
+        schemas=DerivationSchemas(),
+    )
+    if isinstance(graph, Refusal):
+        raise AssertionError(f"adopted package refused: {graph.reason}")
+    if not isinstance(graph, ResolvedGraph):
+        raise AssertionError("adopted package graph is unavailable")
+    corpus = {str(member["id"]): member for member in graph.resolved_members}
+    entrypoint_ids = {
+        str(entry["id"])
+        for entry in graph.package.get("entrypoints", [])
+        if isinstance(entry, dict) and isinstance(entry.get("id"), str)
+    }
+    root_rule_ids = {
+        str(member["id"])
+        for member in graph.resolved_members
+        if member.get("id") in entrypoint_ids
+        and isinstance(member.get("schema"), str)
+        and (
+            member["schema"].startswith("rule-artifact")
+            or member["schema"].startswith("attachment-rule")
+        )
+    }
+    return package_boundary_digest(root_rule_ids, corpus, package=graph.package)
+
+
+def _authorization_grant_act(
+    index: int,
+    *,
+    tax_year: str,
+    universe_id: str,
+) -> dict[str, Any]:
+    grant_id = f"demo.entry-loop.auth.v70.{tax_year}"
+    return {
+        "schema": "act.v1",
+        "act_id": f"demo.entry-loop.auth-act.{index}",
+        "kind": "calculation-authorization",
+        "actor": SCOPE_USER,
+        "at": "2026-10-31T00:00:00Z",
+        "committed_against": index,
+        "payload": {
+            "authorization": {
+                "schema": "workspace-calculation-authorization.v1",
+                "id": grant_id,
+                "subject_id": SCOPE_USER,
+                "tax_year": tax_year,
+                "universe_id": universe_id,
+            }
+        },
+    }
+
+
+def _run_live_with_reporting_year_capture(
+    acts: list[dict[str, Any]],
+    *,
+    run_scope: dict[str, str],
+    surface: PublicationSurface,
+    run_id: str,
+) -> tuple[dict[str, Any], dict[str, Any], dict[str, Any], list[Any]]:
+    reporting_years: list[Any] = []
+    original_marshal = getattr(live_module, "marshal_live_run_context")
+
+    def capture_reporting_year(*args: Any, **kwargs: Any) -> Any:
+        reporting_years.append(kwargs.get("reporting_year"))
+        return original_marshal(*args, **kwargs)
+
+    with TemporaryDirectory(prefix="demo-entry-auth-run-") as temporary:
+        capability = WorkspaceCapability(Path(temporary) / "workspace")
+        with patch.object(
+            live_module,
+            "marshal_live_run_context",
+            side_effect=capture_reporting_year,
+        ):
+            outcome = live_coordinate_run(
+                capability,
+                repo_root=REPO,
+                authoritative_acts=acts,
+                workspace_revision=len(acts),
+                run_scope=run_scope,
+                scope_user=SCOPE_USER,
+                request={"schema": "run-request.v1"},
+                run_id=run_id,
+                governance_pins=[],
+                surface=surface,
+                output_name=f"{run_id}.json",
+                schemas=DerivationSchemas(),
+            )
+        if outcome.refusal is not None:
+            raise AssertionError(f"live coordinator refused: {outcome.refusal.reason}")
+        if outcome.output_path is None:
+            raise AssertionError("live coordinator did not write a durable report")
+        if outcome.presentation_path is None:
+            raise AssertionError("live coordinator did not write a presentation")
+        report = json.loads(outcome.output_path.read_text("utf-8"))
+        presentation = json.loads(outcome.presentation_path.read_text("utf-8"))
+        outcome_status = {
+            "current": outcome.current,
+            "status": outcome.authorization_status,
+        }
+        return report, presentation, outcome_status, reporting_years
 
 
 class FixtureRegeneration(unittest.TestCase):
@@ -108,6 +259,297 @@ class FixtureRegeneration(unittest.TestCase):
         self.assertNotIn("demo.presentation-l2.contribution.w2", rendered)
         self.assertNotIn("demo.presentation-l2.finding.wages", rendered)
         self.assertNotIn("demo.presentation-l2.closure.w2", rendered)
+
+    def test_v70_seed_regenerates_and_leaves_only_box1_open(self) -> None:
+        rendered = render_v70_fixture_files()
+        for relative, expected in rendered.items():
+            with self.subTest(relative=relative):
+                self.assertEqual(
+                    (CURRENT_CORE_ENTRY_FIXTURE / relative).read_bytes(), expected
+                )
+        self.assertEqual(
+            load_seed_acts(REPO, seed_profile="v70"),
+            [
+                json.loads(line)
+                for line in (CURRENT_CORE_ENTRY_FIXTURE / "workspace/acts.jsonl")
+                .read_text("utf-8")
+                .splitlines()
+            ],
+        )
+        self.assertEqual(load_seed_acts(REPO), seed_acts())
+        current_seed = json.dumps(
+            load_seed_acts(REPO, seed_profile="v70"), sort_keys=True
+        )
+        self.assertIn("tax.us.2025.w2.box2-withholding", current_seed)
+        self.assertNotIn("tax.us.2025.w2.box1-wages|", current_seed)
+        self.assertNotIn("tax.us.2025.w2.source-closure|", current_seed)
+        adoption = next(
+            act for act in load_seed_acts(REPO, seed_profile="v70")
+            if act.get("kind") == "package-adoption"
+        )
+        self.assertEqual(adoption["payload"]["scope"], ENTRY_RUN_SCOPES["v70"])
+        self.assertEqual(ENTRY_RUN_SCOPES["v6"], {"jurisdiction": "us", "year": "2055"})
+
+
+class EvaluationLauncherGuidance(unittest.TestCase):
+    def _instructions(self, seed_profile: str) -> str:
+        evaluation = json.loads(
+            (
+                REPO
+                / ENTRY_SEED_FIXTURES[seed_profile]
+                / "evaluation-w2.json"
+            ).read_text("utf-8")
+        )
+        output = io.StringIO()
+        with redirect_stdout(output):
+            _print_instructions(
+                url="http://127.0.0.1:8000/",
+                fingerprint="demo-fingerprint",
+                evaluation=evaluation,
+                seed_profile=seed_profile,
+            )
+        return output.getvalue()
+
+    def test_v6_launcher_guidance_is_unchanged(self) -> None:
+        self.assertEqual(
+            self._instructions("v6"),
+            "Synthetic W-2 entry evaluation\n"
+            "URL: http://127.0.0.1:8000/\n"
+            "Evidence pack: docs/phases/legible-entry/entry-loop-synthetic-evidence-pack.md\n"
+            "W-2 Box 1 figure to enter: 90000\n"
+            "W-2 Box 1 corrected figure: 91000\n"
+            "Starting-state fingerprint: sha256:demo-fingerprint\n"
+            "Stop: press Ctrl-C in this terminal.\n"
+            "Clean restart: stop this command, then run the same command again.\n",
+        )
+
+    def test_v70_launcher_is_technical_only_and_names_its_line_sets(self) -> None:
+        output = self._instructions("v70")
+        self.assertIn(
+            "Mode: technical exercise only; not scoreable with the accepted v6 usability pack.",
+            output,
+        )
+        self.assertIn(
+            "Selected expected-impact Form 1040 lines: 1a, 9, 11a, 11b, 15, 16",
+            output,
+        )
+        self.assertIn(
+            "Selected untouched-comparison Form 1040 lines: 2b, 3a, 3b, 12e",
+            output,
+        )
+        self.assertNotIn("Evidence pack:", output)
+
+
+class CoreProfileSelection(unittest.TestCase):
+    def test_run_scopes_keep_v6_and_align_v70_with_tax_year(self) -> None:
+        self.assertEqual(RUN_SCOPE, {"jurisdiction": "us", "year": "2055"})
+        self.assertEqual(ENTRY_RUN_SCOPES["v6"], RUN_SCOPE)
+        self.assertEqual(
+            ENTRY_RUN_SCOPES["v70"],
+            {"jurisdiction": "us", "year": "2025"},
+        )
+
+    def test_profiles_name_exact_members_and_roles(self) -> None:
+        v6 = ENTRY_CORE_PROFILES[("tax.us.2025.package.core-calculations", "v6")]
+        v70 = ENTRY_CORE_PROFILES[("tax.us.2025.package.core-calculations", "v70")]
+        self.assertEqual(
+            [(field.id.rsplit("line-", 1)[-1], field.version) for field in v6.fields],
+            [
+                ("1a", "v1"),
+                ("9", "v1"),
+                ("11", "v1"),
+                ("15", "v1"),
+                ("16", "v1"),
+                ("2b", "v1"),
+                ("3a", "v1"),
+                ("3b", "v1"),
+                ("12", "v1"),
+            ],
+        )
+        agi_fields = [field for field in v70.fields if field.line in {"11a", "11b"}]
+        self.assertEqual(len(agi_fields), 2)
+        self.assertNotEqual(agi_fields[0].id, agi_fields[1].id)
+        self.assertEqual(
+            [(field.line, field.version) for field in v70.fields],
+            [
+                ("1a", "v1"),
+                ("9", "v1"),
+                ("11a", "v1"),
+                ("11b", "v1"),
+                ("15", "v1"),
+                ("16", "v1"),
+                ("2b", "v6"),
+                ("3a", "v1"),
+                ("3b", "v1"),
+                ("12e", "v1"),
+            ],
+        )
+
+    def test_selected_members_read_exact_bindings_from_both_packages(self) -> None:
+        expected_bindings = {
+            "v6": {
+                "1a": "tax.us.2025.wages.total-w2-box1",
+                "9": "tax.us.2025.income.total-income",
+                "11": "tax.us.2025.income.agi",
+                "15": "tax.us.2025.income.taxable-income",
+                "16": "tax.us.2025.tax.total-tax",
+                "2b": "tax.us.2025.interest.taxable-total",
+                "3a": "tax.us.2025.dividends.qualified-total",
+                "3b": "tax.us.2025.dividends.ordinary-total",
+                "12": "tax.us.2025.deductions.total",
+            },
+            "v70": {
+                "1a": "tax.us.2025.wages.total-w2-box1",
+                "9": "tax.us.2025.income.total-income",
+                "11a": "tax.us.2025.income.agi",
+                "11b": "tax.us.2025.income.agi",
+                "15": "tax.us.2025.income.taxable-income",
+                "16": "tax.us.2025.tax.total-tax",
+                "2b": "tax.us.2025.interest.line-2b",
+                "3a": "tax.us.2025.dividends.qualified-total",
+                "3b": "tax.us.2025.dividends.ordinary-total",
+                "12e": "tax.us.2025.deductions.line-12e",
+            },
+        }
+        for seed_profile, expected in expected_bindings.items():
+            profile = ENTRY_CORE_PROFILES[
+                ("tax.us.2025.package.core-calculations", seed_profile)
+            ]
+            acts = load_seed_acts(REPO, seed_profile=seed_profile)
+            run_scope = ENTRY_RUN_SCOPES[seed_profile]
+            surface = _resolve_adopted_core_surface(
+                acts,
+                run_scope=run_scope,
+                workspace_revision=len(acts),
+                repo_root=REPO,
+                schemas=DerivationSchemas(),
+            )
+            graph = resolve_production_package(
+                acts,
+                run_scope=run_scope,
+                scope_user=SCOPE_USER,
+                workspace_revision=len(acts),
+                surface=surface,
+                schemas=DerivationSchemas(),
+            )
+            if isinstance(graph, Refusal):
+                self.fail(f"adopted package refused: {graph.reason}")
+            resolved = {
+                (str(member.get("id")), str(member.get("version"))): member
+                for member in graph.resolved_members
+                if member.get("schema") in {"form-field.v2", "form-field.v3"}
+            }
+            self.assertEqual(
+                {(field.id, field.version) for field in profile.fields},
+                {
+                    key
+                    for key in resolved
+                    if key in {(field.id, field.version) for field in profile.fields}
+                },
+            )
+            for field_profile in profile.fields:
+                field = resolved[(field_profile.id, field_profile.version)]
+                self.assertEqual(field["schema"], field_profile.schema)
+                self.assertEqual(field["line"], field_profile.line)
+                self.assertEqual(field["binds_symbol"], expected[field_profile.line])
+                self.assertEqual(field["form"]["form_id"], "1040")
+                self.assertEqual(field["form"]["authority"], "IRS")
+                self.assertEqual(field["form"]["jurisdiction"], "US-federal")
+                self.assertEqual(field["form"]["tax_year"], profile.tax_year)
+
+    def test_unknown_adoption_and_mismatched_field_refuse(self) -> None:
+        acts = load_seed_acts(REPO, seed_profile="v70")
+        adoption = next(act for act in acts if act.get("kind") == "package-adoption")
+        adoption["payload"]["package"]["version"] = "v71"
+        with self.assertRaisesRegex(EntryLoopError, "entry-core-profile-unsupported"):
+            _select_entry_core_profile(
+                acts,
+                run_scope=ENTRY_RUN_SCOPES["v70"],
+                workspace_revision=len(acts),
+                schemas=DerivationSchemas(),
+            )
+
+        profile = ENTRY_CORE_PROFILES[("tax.us.2025.package.core-calculations", "v70")]
+        sections = []
+        for member in profile.fields:
+            sections.append(
+                {
+                    "field": {
+                        "schema": member.schema,
+                        "id": member.id,
+                        "version": member.version,
+                        "line": member.line,
+                        "label": f"Form 1040 line {member.line}",
+                        "binds_symbol": "demo.synthetic.package-binding",
+                        "form": {
+                            "authority": "IRS",
+                            "form_id": "1040",
+                            "jurisdiction": "US-federal",
+                            "tax_year": profile.tax_year,
+                        },
+                    },
+                    "resolved": {"disposition": "computed_zero", "value": 0},
+                }
+            )
+        cast(dict[str, Any], sections[0])["field"]["line"] = "not-the-adopted-line"
+        with self.assertRaisesRegex(EntryLoopError, "entry-state-unavailable"):
+            _line_values({"sections": sections}, profile)
+
+    def test_surface_selection_follows_each_adoption_and_refuses_wrong_root(self) -> None:
+        for seed_profile, expected_root, expected_registry in (
+            (
+                "v6",
+                "packages/sample_data/frrs_t3/publication_surface/releases",
+                "packages/content/tax/2025/published-packages.json",
+            ),
+            (
+                "v70",
+                "packages/sample_data/student_loan_worksheet_integration/publication_surface/releases",
+                "packages/content/tax/2025/published-packages.v68.json",
+            ),
+        ):
+            acts = load_seed_acts(REPO, seed_profile=seed_profile)
+            surface = _resolve_adopted_core_surface(
+                acts,
+                run_scope=ENTRY_RUN_SCOPES[seed_profile],
+                workspace_revision=len(acts),
+                repo_root=REPO,
+                schemas=DerivationSchemas(),
+            )
+            self.assertEqual(surface.release_dir, REPO / expected_root)
+            self.assertEqual(
+                surface.package_registry_path.relative_to(REPO).as_posix(),
+                expected_registry,
+            )
+
+        current_acts = load_seed_acts(REPO, seed_profile="v70")
+        wrong_root = resolve_adopted_surface(
+            current_acts,
+            run_scope=ENTRY_RUN_SCOPES["v70"],
+            scope_user=SCOPE_USER,
+            workspace_revision=len(current_acts),
+            release_dir=REPO / ENTRY_PACKAGE_RELEASE_DIRS[0],
+            member_dir=REPO / ENTRY_PACKAGE_MEMBER_DIR,
+            schemas=DerivationSchemas(),
+        )
+        if not isinstance(wrong_root, Refusal):
+            self.fail("wrong release root unexpectedly resolved")
+        self.assertEqual(wrong_root.reason, "RELEASE_ABSENT_OR_MISMATCH")
+
+    def test_seed_and_adoption_profiles_must_match(self) -> None:
+        with TemporaryDirectory(prefix="demo-entry-profile-mismatch-") as temporary:
+            capability = WorkspaceCapability(Path(temporary) / "L")
+            v70_acts = copy.deepcopy(load_seed_acts(REPO, seed_profile="v70"))
+            adoption = next(
+                act for act in v70_acts if act.get("kind") == "package-adoption"
+            )
+            cast(dict[str, Any], adoption["payload"])["scope"] = dict(RUN_SCOPE)
+            with self.assertRaisesRegex(EntryLoopError, "entry-seed-profile-mismatch"):
+                SyntheticW2EntryRuntime(
+                    capability,
+                    repo_root=REPO,
+                    seed_acts=v70_acts,
+                )
 
 
 class RuntimeFixture(unittest.TestCase):
@@ -298,6 +740,226 @@ class EntryAndCorrection(RuntimeFixture):
         self.assertIn("positive dollar amount", body)
         self.assertEqual(self.runtime.snapshot().revision, original_revision)
         self.assertFalse(self.runtime.snapshot().payload["complete"])
+
+
+class CurrentCoreEntryAndCorrection(unittest.TestCase):
+    def test_v70_first_entry_correction_and_fresh_coordinator_agree(self) -> None:
+        profile = ENTRY_CORE_PROFILES[("tax.us.2025.package.core-calculations", "v70")]
+        with TemporaryDirectory(prefix="demo-entry-loop-v70-") as temporary:
+            capability = WorkspaceCapability(Path(temporary) / "runtime")
+            runtime = SyntheticW2EntryRuntime(
+                capability,
+                repo_root=REPO,
+                seed_profile="v70",
+            )
+            initial = runtime.snapshot().payload
+            initial_lines = _lines(initial)
+            self.assertEqual(
+                set(initial_lines), {field.line for field in profile.fields}
+            )
+            self.assertEqual(
+                initial["missing"][0]["id"],
+                "w2-box1",
+            )
+            self.assertFalse(initial["complete"])
+            for line in ("1a", "9", "11a", "11b", "15", "16"):
+                self.assertFalse(initial_lines[line]["computed"], line)
+            for line in ("2b", "3a", "3b"):
+                self.assertTrue(initial_lines[line]["computed"], line)
+            self.assertFalse(initial_lines["12e"]["computed"])
+
+            entered = runtime.contribute(_event(initial, 50000)).payload
+            entered_lines = _lines(entered)
+            self.assertEqual(entered["last_action"], "entered")
+            self.assertEqual(entered["missing"], [])
+            self.assertTrue(entered["complete"])
+            self.assertEqual(entered_lines["1a"]["value"], 50000)
+            self.assertEqual(entered_lines["11a"]["value"], entered_lines["11b"]["value"])
+
+            corrected = runtime.contribute(_event(entered, 91000)).payload
+            corrected_lines = _lines(corrected)
+            self.assertEqual(corrected["last_action"], "corrected")
+            self.assertTrue(corrected["complete"])
+            for field in profile.fields:
+                before = entered_lines[field.line]
+                after = corrected_lines[field.line]
+                if field.group == "expected-impact":
+                    self.assertNotEqual(before["value"], after["value"], field.line)
+                    self.assertEqual(after["change"], "changed", field.line)
+                else:
+                    self.assertEqual(before["value"], after["value"], field.line)
+                    self.assertEqual(after["change"], "unchanged", field.line)
+
+            log = ActLog(
+                capability.location,
+                DerivationSchemas().registry,
+                read_only=True,
+            )
+            acts = list(log.read().acts)
+            seed_count = len(load_seed_acts(REPO, seed_profile="v70"))
+            added = acts[seed_count:]
+            self.assertEqual(
+                [act["kind"] for act in added],
+                ["contribution", "member-transition", "assertion", "contribution", "assertion"],
+            )
+            first_member = added[1]["payload"]
+            self.assertEqual(first_member["family"]["id"], "tax.us.2025.w2")
+            self.assertEqual(
+                first_member["successor"],
+                {"id": W2_SUCCESSOR, "predecessor": W2_PREDECESSOR},
+            )
+            self.assertEqual(first_member["member"]["finding"]["fact_id"], W2_FACT_ID)
+            self.assertEqual(
+                first_member["member"]["finding"]["contribution_id"],
+                added[0]["payload"]["contribution"]["id"],
+            )
+            self.assertEqual(
+                added[2]["payload"]["finding"]["fact_id"],
+                W2_CLOSURE_FACT_ID,
+            )
+            self.assertEqual(added[3]["payload"]["contribution"]["content"]["w2_box1"], 91000)
+            self.assertEqual(added[4]["payload"]["finding"]["value"], 91000)
+            supplied_box2 = [
+                act["payload"]["finding"]
+                for act in acts
+                if act.get("kind") == "assertion"
+                and str(act.get("payload", {}).get("finding", {}).get("fact_id", "")).startswith(
+                    "tax.us.2025.w2.box2-withholding|"
+                )
+            ]
+            self.assertEqual(len(supplied_box2), 1)
+            self.assertEqual(supplied_box2[0]["value"], 4500)
+
+            surface = _resolve_adopted_core_surface(
+                acts,
+                run_scope=ENTRY_RUN_SCOPES["v70"],
+                workspace_revision=len(acts),
+                repo_root=REPO,
+                schemas=DerivationSchemas(),
+            )
+            fresh_report, fresh_model, fresh_status, reporting_years = (
+                _run_live_with_reporting_year_capture(
+                    acts,
+                    run_scope=ENTRY_RUN_SCOPES["v70"],
+                    surface=surface,
+                    run_id="demo.entry-loop.fresh-v70-comparison",
+                )
+            )
+            self.assertEqual(reporting_years, [2025])
+            self.assertFalse(fresh_report["current"])
+            self.assertEqual(fresh_report["authorization_status"], STATUS_ABSENT)
+            self.assertEqual(fresh_status["current"], fresh_report["current"])
+            self.assertEqual(fresh_status["status"], fresh_report["authorization_status"])
+            fresh_lines = _line_values(fresh_model, profile)
+            fields_by_line = {
+                section["field"]["line"]: section["field"]
+                for section in fresh_model["sections"]
+                if section.get("field", {}).get("line")
+                in {field.line for field in profile.fields}
+            }
+            self.assertEqual(
+                fields_by_line["11a"]["binds_symbol"],
+                fields_by_line["11b"]["binds_symbol"],
+            )
+            self.assertEqual(
+                fields_by_line["2b"]["binds_symbol"],
+                "tax.us.2025.interest.line-2b",
+            )
+            for line, fresh in fresh_lines.items():
+                for key in ("title", "computed", "value"):
+                    self.assertEqual(
+                        corrected_lines[line][key],
+                        fresh[key],
+                        f"{line}.{key}",
+                    )
+
+            # Reproduce the reviewed wrong-year case: the adoption and
+            # coordinator both use the legacy synthetic 2055 scope, but the
+            # matching synthetic grant is for the Form 1040 tax year 2025.
+            wrong_year_acts = copy.deepcopy(acts)
+            wrong_year_adoption = next(
+                act for act in wrong_year_acts
+                if act.get("kind") == "package-adoption"
+            )
+            cast(dict[str, Any], wrong_year_adoption["payload"])["scope"] = dict(RUN_SCOPE)
+            wrong_year_surface = _resolve_adopted_core_surface(
+                wrong_year_acts,
+                run_scope=RUN_SCOPE,
+                workspace_revision=len(wrong_year_acts),
+                repo_root=REPO,
+                schemas=DerivationSchemas(),
+            )
+            wrong_year_universe = _entry_package_boundary(
+                wrong_year_acts,
+                run_scope=RUN_SCOPE,
+                surface=wrong_year_surface,
+            )
+            wrong_year_grant = _authorization_grant_act(
+                len(wrong_year_acts),
+                tax_year="2025",
+                universe_id=wrong_year_universe,
+            )
+            wrong_year_acts.append(wrong_year_grant)
+            wrong_report, wrong_model, wrong_status, wrong_reporting_years = (
+                _run_live_with_reporting_year_capture(
+                    wrong_year_acts,
+                    run_scope=RUN_SCOPE,
+                    surface=wrong_year_surface,
+                    run_id="demo.entry-loop.wrong-year-control",
+                )
+            )
+            self.assertEqual(wrong_reporting_years, [2055])
+            self.assertFalse(wrong_report["current"])
+            self.assertEqual(wrong_report["authorization_status"], STATUS_YEAR_MISMATCH)
+            self.assertEqual(wrong_status["current"], wrong_report["current"])
+            self.assertEqual(wrong_status["status"], wrong_report["authorization_status"])
+
+            # With the v70 profile's matching 2025 adoption and run scope, a
+            # 2025 grant is admitted and that currentness is persisted.
+            current_year_acts = copy.deepcopy(acts)
+            current_year_surface = _resolve_adopted_core_surface(
+                current_year_acts,
+                run_scope=ENTRY_RUN_SCOPES["v70"],
+                workspace_revision=len(current_year_acts),
+                repo_root=REPO,
+                schemas=DerivationSchemas(),
+            )
+            current_year_universe = _entry_package_boundary(
+                current_year_acts,
+                run_scope=ENTRY_RUN_SCOPES["v70"],
+                surface=current_year_surface,
+            )
+            current_year_grant = _authorization_grant_act(
+                len(current_year_acts),
+                tax_year="2025",
+                universe_id=current_year_universe,
+            )
+            current_year_acts.append(current_year_grant)
+            current_report, current_model, current_status, current_reporting_years = (
+                _run_live_with_reporting_year_capture(
+                    current_year_acts,
+                    run_scope=ENTRY_RUN_SCOPES["v70"],
+                    surface=current_year_surface,
+                    run_id="demo.entry-loop.current-year-grant",
+                )
+            )
+            self.assertEqual(current_reporting_years, [2025])
+            self.assertTrue(current_report["current"])
+            self.assertEqual(current_report["authorization_status"], STATUS_ADMITTED)
+            self.assertEqual(
+                current_report["authorization_grant_id"],
+                "demo.entry-loop.auth.v70.2025",
+            )
+            self.assertEqual(current_status["current"], current_report["current"])
+            self.assertEqual(current_status["status"], current_report["authorization_status"])
+            wrong_year_lines = _line_values(wrong_model, profile)
+            current_year_lines = _line_values(current_model, profile)
+            self.assertTrue(wrong_year_lines["1a"]["computed"])
+            self.assertEqual(wrong_year_lines["1a"]["value"], 91000)
+            self.assertEqual(
+                wrong_year_lines["1a"]["value"],
+                current_year_lines["1a"]["value"],
+            )
 
 
 class FieldContract(RuntimeFixture):

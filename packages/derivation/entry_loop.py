@@ -13,6 +13,7 @@ caller-supplied workspace locator through HTTP or exposes one in a response.
 from __future__ import annotations
 
 import json
+import math
 import mimetypes
 import re
 import shutil
@@ -37,7 +38,12 @@ from packages.derivation.live_workspace import (
     bootstrap_workspace,
 )
 from packages.derivation.loader import DerivationSchemas
-from packages.derivation.production_resolver import PublicationSurface, Refusal
+from packages.derivation.production_resolver import (
+    PublicationSurface,
+    Refusal,
+    resolve_adopted_surface,
+    select_current_adoption,
+)
 from packages.derivation.surface_resolver import (
     ResolvedSurface,
     resolve_surface_artifact,
@@ -50,6 +56,11 @@ from packages.tax.loader import install_domain_scoped_supersession
 
 
 ENTRY_FIXTURE = Path("packages/sample_data/entry_loop_t1")
+CURRENT_CORE_ENTRY_FIXTURE = Path("packages/sample_data/entry_loop_v70")
+ENTRY_SEED_FIXTURES = {
+    "v6": ENTRY_FIXTURE,
+    "v70": CURRENT_CORE_ENTRY_FIXTURE,
+}
 SEED_LOG = ENTRY_FIXTURE / "workspace" / "acts.jsonl"
 SURFACE_CONTENT = ENTRY_FIXTURE / "surface" / "content" / "app"
 SURFACE_MANIFESTS = ENTRY_FIXTURE / "surface" / "manifest"
@@ -62,7 +73,12 @@ SURFACE_ADOPTION = (
 )
 
 SCOPE_USER = "demo.user.filer-1"
-RUN_SCOPE = {"jurisdiction": "us", "year": "2055"}
+ENTRY_RUN_SCOPES = {
+    "v6": {"jurisdiction": "us", "year": "2055"},
+    "v70": {"jurisdiction": "us", "year": "2025"},
+}
+# Retain the legacy name and exact v6 scope for callers on the original path.
+RUN_SCOPE = ENTRY_RUN_SCOPES["v6"]
 W2_FAMILY = {"id": "tax.us.2025.w2", "version": "v2"}
 W2_SCOPE = {"tax-year": "2025", "subject": "demo.primary"}
 W2_PREDECESSOR = "demo.presentation-l2.w2.h0"
@@ -78,6 +94,8 @@ W2_CLOSURE_FACT_ID = (
     f"family-horizon={W2_SUCCESSOR},tax-year=2025"
 )
 
+# These v6 constants remain for the legacy evaluation fixture and callers.
+# Runtime display selection below follows the adopted package profile.
 EXPECTED_IMPACT_LINES = ("1a", "9", "11", "15", "16")
 COMPARISON_LINES = ("2b", "3a", "3b", "12")
 EVALUATION_LINES = EXPECTED_IMPACT_LINES + COMPARISON_LINES
@@ -90,17 +108,102 @@ W2_BOX1_FIELD = (
 ENTRY_FIELD_SCHEMA = Path("packages/schemas/entry/entry-field.v1.schema.json")
 
 _MAX_REQUEST_BYTES = 16_384
-_LINE_TITLES = {
-    "1a": "Wages, salaries, tips",
-    "2b": "Taxable interest",
-    "3a": "Qualified dividends",
-    "3b": "Ordinary dividends",
-    "9": "Total income",
-    "11": "Adjusted gross income",
-    "12": "Standard deduction",
-    "15": "Taxable income",
-    "16": "Tax",
+
+
+@dataclass(frozen=True)
+class EntryFieldProfile:
+    """One package field admitted to the bounded W-2 entry display."""
+
+    id: str
+    version: str
+    schema: str
+    line: str
+    group: str
+
+
+@dataclass(frozen=True)
+class EntryCoreProfile:
+    """Exact core and Form 1040 members supported by this entry loop."""
+
+    package_id: str
+    package_version: str
+    tax_year: int
+    seed_profile: str
+    fields: tuple[EntryFieldProfile, ...]
+
+
+_EXPECTED_IMPACT = "expected-impact"
+_UNTOUCHED_COMPARISON = "untouched-comparison"
+
+
+def _field_profile(
+    line: str,
+    version: str,
+    group: str,
+    schema: str = "form-field.v2",
+) -> EntryFieldProfile:
+    return EntryFieldProfile(
+        id=f"tax.us.2025.form1040.line-{line}",
+        version=version,
+        schema=schema,
+        line=line,
+        group=group,
+    )
+
+
+ENTRY_CORE_PROFILES: dict[tuple[str, str], EntryCoreProfile] = {
+    ("tax.us.2025.package.core-calculations", "v6"): EntryCoreProfile(
+        package_id="tax.us.2025.package.core-calculations",
+        package_version="v6",
+        tax_year=2025,
+        seed_profile="v6",
+        fields=(
+            _field_profile("1a", "v1", _EXPECTED_IMPACT),
+            _field_profile("9", "v1", _EXPECTED_IMPACT),
+            _field_profile("11", "v1", _EXPECTED_IMPACT),
+            _field_profile("15", "v1", _EXPECTED_IMPACT),
+            _field_profile("16", "v1", _EXPECTED_IMPACT),
+            _field_profile("2b", "v1", _UNTOUCHED_COMPARISON),
+            _field_profile("3a", "v1", _UNTOUCHED_COMPARISON, "form-field.v3"),
+            _field_profile("3b", "v1", _UNTOUCHED_COMPARISON, "form-field.v3"),
+            _field_profile("12", "v1", _UNTOUCHED_COMPARISON),
+        ),
+    ),
+    ("tax.us.2025.package.core-calculations", "v70"): EntryCoreProfile(
+        package_id="tax.us.2025.package.core-calculations",
+        package_version="v70",
+        tax_year=2025,
+        seed_profile="v70",
+        fields=(
+            _field_profile("1a", "v1", _EXPECTED_IMPACT),
+            _field_profile("9", "v1", _EXPECTED_IMPACT),
+            _field_profile("11a", "v1", _EXPECTED_IMPACT, "form-field.v3"),
+            _field_profile("11b", "v1", _EXPECTED_IMPACT, "form-field.v3"),
+            _field_profile("15", "v1", _EXPECTED_IMPACT),
+            _field_profile("16", "v1", _EXPECTED_IMPACT),
+            _field_profile(
+                "2b", "v6", _UNTOUCHED_COMPARISON, "form-field.v3"
+            ),
+            _field_profile(
+                "3a", "v1", _UNTOUCHED_COMPARISON, "form-field.v3"
+            ),
+            _field_profile(
+                "3b", "v1", _UNTOUCHED_COMPARISON, "form-field.v3"
+            ),
+            _field_profile(
+                "12e", "v1", _UNTOUCHED_COMPARISON, "form-field.v3"
+            ),
+        ),
+    ),
 }
+
+ENTRY_PACKAGE_RELEASE_DIRS = (
+    Path("packages/sample_data/frrs_t3/publication_surface/releases"),
+    Path(
+        "packages/sample_data/student_loan_worksheet_integration/publication_surface/releases"
+    ),
+)
+ENTRY_PACKAGE_MEMBER_DIR = Path("packages/content/tax/2025")
 
 
 class EntryLoopError(RuntimeError):
@@ -283,10 +386,13 @@ def _w2_box1_error(format_spec: Mapping[str, Any]) -> str:
     )
 
 
-def load_seed_acts(repo_root: Path) -> list[dict[str, Any]]:
-    """Read and validate the committed, newline-terminated seed act log."""
+def load_seed_acts(repo_root: Path, *, seed_profile: str = "v6") -> list[dict[str, Any]]:
+    """Read a committed, newline-terminated seed for a supported core profile."""
 
-    path = repo_root / SEED_LOG
+    fixture = ENTRY_SEED_FIXTURES.get(seed_profile)
+    if fixture is None:
+        raise EntryLoopError("entry-core-profile-unsupported")
+    path = repo_root / fixture / "workspace" / "acts.jsonl"
     try:
         raw = path.read_bytes()
     except OSError:
@@ -303,6 +409,78 @@ def load_seed_acts(repo_root: Path) -> list[dict[str, Any]]:
     except (json.JSONDecodeError, UnicodeError, ValueError):
         raise EntryLoopError("entry-loop-fixture-invalid") from None
     return acts
+
+
+def _select_entry_core_profile(
+    adoption_acts: Sequence[Mapping[str, Any]],
+    *,
+    run_scope: Mapping[str, str],
+    workspace_revision: int,
+    schemas: DerivationSchemas,
+) -> EntryCoreProfile:
+    selected = select_current_adoption(
+        adoption_acts,
+        run_scope=run_scope,
+        scope_user=SCOPE_USER,
+        workspace_revision=workspace_revision,
+        schemas=schemas,
+    )
+    if isinstance(selected, Refusal):
+        raise EntryLoopError(f"entry-run-refused:{selected.reason}")
+    payload = selected.get("payload")
+    package = payload.get("package") if isinstance(payload, Mapping) else None
+    if not isinstance(package, Mapping):
+        raise EntryLoopError("entry-core-profile-unsupported")
+    key = (str(package.get("id", "")), str(package.get("version", "")))
+    profile = ENTRY_CORE_PROFILES.get(key)
+    if profile is None:
+        raise EntryLoopError("entry-core-profile-unsupported")
+    return profile
+
+
+def _resolve_adopted_core_surface(
+    adoption_acts: Sequence[Mapping[str, Any]],
+    *,
+    run_scope: Mapping[str, str],
+    workspace_revision: int,
+    repo_root: Path,
+    schemas: DerivationSchemas,
+) -> PublicationSurface:
+    """Resolve the adopted package on one of the explicitly configured roots."""
+
+    resolved: list[PublicationSurface] = []
+    refusals: list[Refusal] = []
+    for release_root in ENTRY_PACKAGE_RELEASE_DIRS:
+        candidate = resolve_adopted_surface(
+            adoption_acts,
+            run_scope=run_scope,
+            scope_user=SCOPE_USER,
+            workspace_revision=workspace_revision,
+            release_dir=repo_root / release_root,
+            member_dir=repo_root / ENTRY_PACKAGE_MEMBER_DIR,
+            schemas=schemas,
+        )
+        if isinstance(candidate, Refusal):
+            refusals.append(candidate)
+        else:
+            resolved.append(candidate)
+    if len(resolved) == 1:
+        return resolved[0]
+    if len(resolved) > 1:
+        raise EntryLoopError("entry-run-refused:RELEASE_AMBIGUOUS")
+    if refusals:
+        # Adoption-selection failures are identical across both explicit roots;
+        # otherwise keep the final root's typed publication failure.
+        reason = next(
+            (
+                refusal.reason
+                for refusal in refusals
+                if refusal.reason != "RELEASE_ABSENT_OR_MISMATCH"
+            ),
+            refusals[-1].reason,
+        )
+        raise EntryLoopError(f"entry-run-refused:{reason}")
+    raise EntryLoopError("entry-run-refused:RELEASE_ABSENT_OR_MISMATCH")
 
 
 def _surface_publication(repo_root: Path) -> PublicationSurface:
@@ -377,11 +555,21 @@ def _derived_id(prefix: str, value: Any) -> str:
     return f"{prefix}{sha256(_canonical_bytes(value)).hexdigest()[:24]}"
 
 
-def _line_values(model: Mapping[str, Any]) -> dict[str, dict[str, Any]]:
-    values: dict[str, dict[str, Any]] = {}
+def _line_values(
+    model: Mapping[str, Any],
+    profile: EntryCoreProfile = ENTRY_CORE_PROFILES[
+        ("tax.us.2025.package.core-calculations", "v6")
+    ],
+) -> dict[str, dict[str, Any]]:
+    """Project only exact Form 1040 members admitted by the selected profile."""
+
     sections = model.get("sections")
     if not isinstance(sections, list):
         raise EntryLoopError("entry-state-unavailable")
+    expected = {(member.id, member.version) for member in profile.fields}
+    members: dict[
+        tuple[str, str], list[tuple[Mapping[str, Any], Mapping[str, Any]]]
+    ] = {}
     for section in sections:
         if not isinstance(section, dict):
             continue
@@ -389,30 +577,61 @@ def _line_values(model: Mapping[str, Any]) -> dict[str, dict[str, Any]]:
         resolved = section.get("resolved")
         if not isinstance(field, dict) or not isinstance(resolved, dict):
             continue
-        line = str(field.get("line", ""))
-        if line not in EVALUATION_LINES:
+        member_key = (str(field.get("id", "")), str(field.get("version", "")))
+        if member_key not in expected:
             continue
-        disposition = str(resolved.get("disposition", ""))
-        if disposition in {
-            "published_value",
-            "computed_zero",
-            "closure_backed_zero",
-        }:
-            values[line] = {
-                "line": line,
-                "title": _LINE_TITLES[line],
-                "computed": True,
-                "value": resolved.get("value"),
-            }
-        else:
-            values[line] = {
-                "line": line,
-                "title": _LINE_TITLES[line],
-                "computed": False,
-                "value": None,
-            }
-    if set(values) != set(EVALUATION_LINES):
+        members.setdefault(member_key, []).append((field, resolved))
+
+    if set(members) != expected or any(len(rows) != 1 for rows in members.values()):
         raise EntryLoopError("entry-state-unavailable")
+
+    values: dict[str, dict[str, Any]] = {}
+    computed_dispositions = {
+        "published_value",
+        "computed_zero",
+        "closure_backed_zero",
+    }
+    for member in profile.fields:
+        field, resolved = members[(member.id, member.version)][0]
+        form = field.get("form")
+        if (
+            field.get("schema") != member.schema
+            or field.get("line") != member.line
+            or not isinstance(field.get("binds_symbol"), str)
+            or not field.get("binds_symbol")
+            or not isinstance(field.get("label"), str)
+            or not field.get("label")
+            or not isinstance(form, dict)
+            or form.get("authority") != "IRS"
+            or form.get("form_id") != "1040"
+            or form.get("jurisdiction") != "US-federal"
+            or form.get("tax_year") != profile.tax_year
+            or member.line in values
+        ):
+            raise EntryLoopError("entry-state-unavailable")
+
+        disposition = resolved.get("disposition")
+        if disposition in computed_dispositions:
+            value = resolved.get("value")
+            if (
+                isinstance(value, bool)
+                or not isinstance(value, (int, float))
+                or not math.isfinite(float(value))
+            ):
+                raise EntryLoopError("entry-state-unavailable")
+            computed = True
+        elif disposition == "blocked" and resolved.get("value") is None:
+            value = None
+            computed = False
+        else:
+            raise EntryLoopError("entry-state-unavailable")
+
+        values[member.line] = {
+            "line": member.line,
+            "title": field["label"],
+            "computed": computed,
+            "value": value,
+        }
     return values
 
 
@@ -516,26 +735,29 @@ class SyntheticW2EntryRuntime:
         *,
         repo_root: Path,
         seed_acts: Sequence[Mapping[str, Any]] | None = None,
+        seed_profile: str = "v6",
     ) -> None:
+        if seed_profile not in ENTRY_SEED_FIXTURES:
+            raise EntryLoopError("entry-core-profile-unsupported")
         self._capability = capability
         self._repo_root = repo_root
+        self._seed_profile = seed_profile
         self._schemas = DerivationSchemas()
         self._lock = Lock()
         self._workspace = bootstrap_workspace(capability, repo_root=repo_root)
         # ADR 0077 Part 5: a writable ActLog requires the new-write declaration.
         install_domain_scoped_supersession(self._schemas.registry)
         self._log = ActLog(self._workspace.location, self._schemas.registry)
-        self._surface = PublicationSurface(
-            repo_root / "packages" / "sample_data" / "frrs_t3" / "publication_surface" / "releases",
-            repo_root / "packages" / "content" / "tax" / "2025" / "published-packages.json",
-            repo_root / "packages" / "content" / "tax" / "2025",
-        )
         self._w2_box1_format = _load_w2_box1_format(repo_root)
         self._w2_box1_field = _load_w2_box1_field(repo_root, self._w2_box1_format)
         self._previous_lines: dict[str, dict[str, Any]] | None = None
         self._last_accepted = False
         self._last_action = ""
-        self._seed(seed_acts or load_seed_acts(repo_root))
+        self._seed(
+            seed_acts
+            if seed_acts is not None
+            else load_seed_acts(repo_root, seed_profile=seed_profile)
+        )
         self._snapshot = self._compute_snapshot()
 
     def _seed(self, seed_acts: Sequence[Mapping[str, Any]]) -> None:
@@ -587,18 +809,34 @@ class SyntheticW2EntryRuntime:
     def _compute_snapshot(self) -> EntrySnapshot:
         contents = self._log.read()
         revision = contents.revision
+        run_scope = dict(ENTRY_RUN_SCOPES[self._seed_profile])
+        profile = _select_entry_core_profile(
+            contents.acts,
+            run_scope=run_scope,
+            workspace_revision=revision,
+            schemas=self._schemas,
+        )
+        if profile.seed_profile != self._seed_profile:
+            raise EntryLoopError("entry-seed-profile-mismatch")
+        surface = _resolve_adopted_core_surface(
+            contents.acts,
+            run_scope=run_scope,
+            workspace_revision=revision,
+            repo_root=self._repo_root,
+            schemas=self._schemas,
+        )
         output_name = f"entry-state-{revision}.json"
         outcome = live_coordinate_run(
             self._capability,
             repo_root=self._repo_root,
             authoritative_acts=contents.acts,
             workspace_revision=revision,
-            run_scope=RUN_SCOPE,
+            run_scope=run_scope,
             scope_user=SCOPE_USER,
             request={"schema": "run-request.v1"},
             run_id=f"demo.entry-loop.run.{revision}",
             governance_pins=[],
-            surface=self._surface,
+            surface=surface,
             output_name=output_name,
             schemas=self._schemas,
         )
@@ -613,7 +851,7 @@ class SyntheticW2EntryRuntime:
         except (OSError, UnicodeError, json.JSONDecodeError):
             raise EntryLoopError("entry-state-unavailable") from None
 
-        lines_by_id = _line_values(model)
+        lines_by_id = _line_values(model, profile)
         current = self._current_w2(contents.acts)
         missing = current is None
         blocked = [
@@ -625,13 +863,10 @@ class SyntheticW2EntryRuntime:
             line["computed"] for line in lines_by_id.values()
         )
         lines: list[dict[str, Any]] = []
-        for line_id in EVALUATION_LINES:
+        for field_profile in profile.fields:
+            line_id = field_profile.line
             line = dict(lines_by_id[line_id])
-            line["group"] = (
-                "expected-impact"
-                if line_id in EXPECTED_IMPACT_LINES
-                else "untouched-comparison"
-            )
+            line["group"] = field_profile.group
             before = (
                 self._previous_lines.get(line_id)
                 if self._previous_lines is not None
@@ -1024,7 +1259,10 @@ class EntryLoopServer(AbstractContextManager["EntryLoopServer"]):
 
 __all__ = [
     "COMPARISON_LINES",
+    "CURRENT_CORE_ENTRY_FIXTURE",
     "ENTRY_FIXTURE",
+    "ENTRY_CORE_PROFILES",
+    "ENTRY_SEED_FIXTURES",
     "EVALUATION_LINES",
     "EXPECTED_IMPACT_LINES",
     "EntryLoopError",
