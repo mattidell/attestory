@@ -6,6 +6,7 @@ loopback server.  It owns no entry or serving behavior of its own.
 
 from __future__ import annotations
 
+import argparse
 import hashlib
 import json
 import sys
@@ -15,7 +16,7 @@ from threading import Event
 from typing import Any, Mapping, Sequence
 
 from packages.derivation.entry_loop import (
-    ENTRY_FIXTURE,
+    ENTRY_SEED_FIXTURES,
     EntryLoopServer,
     EntrySnapshot,
     SyntheticW2EntryRuntime,
@@ -30,9 +31,12 @@ EVIDENCE_PACK = Path(
 )
 
 
-def _evaluation_fixture(repo_root: Path) -> dict[str, Any]:
+def _evaluation_fixture(repo_root: Path, seed_profile: str) -> dict[str, Any]:
+    fixture = ENTRY_SEED_FIXTURES.get(seed_profile)
+    if fixture is None:
+        raise ValueError("unsupported entry-loop seed profile")
     body = json.loads(
-        (repo_root / ENTRY_FIXTURE / "evaluation-w2.json").read_text("utf-8")
+        (repo_root / fixture / "evaluation-w2.json").read_text("utf-8")
     )
     if not isinstance(body, dict):
         raise ValueError("evaluation fixture must be an object")
@@ -70,6 +74,7 @@ def _print_instructions(
     url: str,
     fingerprint: str,
     evaluation: Mapping[str, Any],
+    seed_profile: str = "v6",
 ) -> None:
     entries = evaluation["entries"]
     if not isinstance(entries, dict):
@@ -81,7 +86,29 @@ def _print_instructions(
 
     print("Synthetic W-2 entry evaluation")
     print(f"URL: {url}")
-    print(f"Evidence pack: {EVIDENCE_PACK.as_posix()}")
+    if seed_profile == "v6":
+        print(f"Evidence pack: {EVIDENCE_PACK.as_posix()}")
+    elif seed_profile == "v70":
+        impact_lines = evaluation.get("expected_impact_lines")
+        comparison_lines = evaluation.get("untouched_comparison_lines")
+        if (
+            not isinstance(impact_lines, list)
+            or not all(isinstance(line, str) for line in impact_lines)
+            or not isinstance(comparison_lines, list)
+            or not all(isinstance(line, str) for line in comparison_lines)
+        ):
+            raise ValueError("evaluation fixture must declare its selected line sets")
+        print(
+            "Mode: technical exercise only; not scoreable with the accepted v6 "
+            "usability pack."
+        )
+        print(f"Selected expected-impact Form 1040 lines: {', '.join(impact_lines)}")
+        print(
+            "Selected untouched-comparison Form 1040 lines: "
+            f"{', '.join(comparison_lines)}"
+        )
+    else:
+        raise ValueError("unsupported entry-loop seed profile")
     print(f"W-2 Box 1 figure to enter: {initial['box1']}")
     print(f"W-2 Box 1 corrected figure: {correction['box1']}")
     print(f"Starting-state fingerprint: sha256:{fingerprint}")
@@ -92,10 +119,22 @@ def _print_instructions(
 
 def main(_argv: Sequence[str] | None = None) -> int:
     try:
-        evaluation = _evaluation_fixture(REPO)
+        parser = argparse.ArgumentParser(description=__doc__)
+        parser.add_argument(
+            "--seed-profile",
+            choices=sorted(ENTRY_SEED_FIXTURES),
+            default="v6",
+            help="select the v6 legacy or v70 current-core synthetic seed",
+        )
+        args = parser.parse_args(_argv)
+        evaluation = _evaluation_fixture(REPO, args.seed_profile)
         with TemporaryDirectory(prefix="demo-entry-evaluation-") as temporary:
             capability = WorkspaceCapability(Path(temporary) / "L")
-            runtime = SyntheticW2EntryRuntime(capability, repo_root=REPO)
+            runtime = SyntheticW2EntryRuntime(
+                capability,
+                repo_root=REPO,
+                seed_profile=args.seed_profile,
+            )
             dist = build_entry_surface(capability, repo_root=REPO)
             fingerprint = _starting_state_fingerprint(
                 runtime.snapshot(),
@@ -107,6 +146,7 @@ def main(_argv: Sequence[str] | None = None) -> int:
                     url=server.url,
                     fingerprint=fingerprint,
                     evaluation=evaluation,
+                    seed_profile=args.seed_profile,
                 )
                 Event().wait()
     except KeyboardInterrupt:

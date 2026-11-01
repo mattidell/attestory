@@ -435,6 +435,27 @@ refund), a disabled relative with gross income of $5,200 or more, a multiple
 support agreement and a nonresident alien filer are outside the class by
 answer.
 
+## W-2 entry-loop evaluation
+
+The synthetic W-2 entry loop resolves its publication surface and chooses an
+explicit line profile from the workspace's adoption. It supports v6 and v70
+profiles; the v6 profile is the default. In v70 mode the seed leaves Box 1
+missing, so the exercise demonstrates first entry and a later correction,
+then compares the result with a fresh coordinator run. The v6 seed and
+behavior remain unchanged. Box 2 is fixture data, not an entry control.
+
+Run the v70 technical exercise with:
+
+```sh
+python3 -m packages.derivation.runners.entry_loop_evaluation --seed-profile v70
+```
+
+Without `--seed-profile v70`, the command runs the legacy v6 profile. The v70
+exercise is technical evidence, not usability validation; it is not scoreable
+with the accepted v6 usability pack, and no support claim applies to unlisted
+future profiles. A complete entry-loop calculation does not establish that
+authorization is current or that a result may be relied on.
+
 ## Correction session walkthrough
 
 The synthetic student-loan interest correction session opens one saved result and lets you review one borrowing's loan-cost answer. Wording is provisional. Each command seeds one named state, prints what that state is, and serves the page on loopback. Stop with Ctrl-C. Run the same command again for a clean start.

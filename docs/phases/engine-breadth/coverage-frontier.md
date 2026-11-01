@@ -18,7 +18,7 @@ input boxes. Status is one of:
 
 “Synthetic complete” is an engine-coverage claim, not a real-data claim.
 
-## Frontier as of 2026-08-18
+## Frontier as of 2026-11-01
 
 | Candidate slice | New computable class | Current blocker | Contract novelty | Evidence target | Status |
 | --- | --- | --- | --- | --- | --- |
@@ -172,3 +172,26 @@ milestone cannot compute remain honestly outside it. Plan:
 `milestones/f1098e-student-loan-interest-agi-deferral-ledger.md`;
 retrospective:
 `docs/milestone-retrospectives/2026-08-18-f1098e-student-loan-interest-agi.md`.
+
+### W-2 entry-loop runtime exercise
+
+The entry loop resolves the workspace's adopted surface and selects one of two
+bounded profiles: v6 or v70. In v70 mode, the synthetic seed begins with W-2
+Box 1 missing; first entry and a later correction use the existing recorder
+path, and the recorded values agree with a fresh `live_coordinate_run`. The
+default v6 seed and its existing behavior remain intact. This does not add a
+tax route, validate usability, or establish support for unlisted future cores.
+
+Run the v70 technical exercise with:
+
+```sh
+python3 -m packages.derivation.runners.entry_loop_evaluation --seed-profile v70
+```
+
+The v70 launcher prints its expected-impact and untouched-comparison line
+sets and does not direct evaluators to the accepted v6 scorecard. A v70-matched
+usability pack remains a separate follow-up. The v70 fixture generator's use
+of test helpers is a bounded maintenance limitation; runtime imports none.
+Evidence is synthetic. The exact-head required `verify` check remains the
+publication gate. Plan: `milestones/entry-loop-rescope.md`; retrospective:
+`docs/milestone-retrospectives/2026-11-01-entry-loop-rescope.md`.
