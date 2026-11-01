@@ -52,7 +52,7 @@ LEGACY_PRESENTATION_MODEL_VERSION = "presentation-model.v1"
 # distinct presentation contract. Both are recognized field citizens.
 FIELD_SCHEMAS = frozenset({"form-field.v2", "form-field.v3"})
 ATTACHMENT_SCHEMAS = frozenset(
-    {"attachment-rule.v1", "attachment-rule.v2", "attachment-rule.v3", "attachment-rule.v4", "attachment-rule.v5", "attachment-rule.v6", "attachment-rule.v8", "attachment-rule.v11", "attachment-rule.v10"}
+    {"attachment-rule.v1", "attachment-rule.v2", "attachment-rule.v3", "attachment-rule.v4", "attachment-rule.v5", "attachment-rule.v6", "attachment-rule.v8", "attachment-rule.v11", "attachment-rule.v12", "attachment-rule.v10"}
 )
 
 _NUMERIC_DISPOSITIONS = frozenset({"published_value", "computed_zero", "closure_backed_zero"})
@@ -4234,6 +4234,13 @@ def _resolve_attachment(
         raise PresentationModelError(f"attachment cites unrecorded finding {row.get('finding_id')!r}")
     parts: list[dict[str, Any]] = []
     for itemization in attachment["itemizations"]:
+        if attachment.get("schema") == "attachment-rule.v12" and not any(
+            entry.get("part_id") == itemization["part_id"]
+            for entry in (attachment_finding.get("value") or {}).get("itemizations", [])
+        ):
+            # attachment-rule.v12: a part the run omitted is absent from the
+            # page; the reason stays in the finding's `omitted_parts`.
+            continue
         tie_symbol = itemization["tie_out"]["line_symbol"]
         tie_row = _one_row(dispositions_by_symbol.get(tie_symbol, []), symbol=tie_symbol)
         if tie_row["disposition"] != "published":
@@ -4249,7 +4256,7 @@ def _resolve_attachment(
                 (entry for entry in attachment_finding["value"].get("itemizations", []) if entry.get("part_id") == part_id),
                 None,
             )
-        if attachment.get("schema") in ("attachment-rule.v6", "attachment-rule.v8", "attachment-rule.v11", "attachment-rule.v10"):
+        if attachment.get("schema") in ("attachment-rule.v6", "attachment-rule.v8", "attachment-rule.v11", "attachment-rule.v10", "attachment-rule.v12"):
             if value_itemization is None:
                 raise PresentationModelError(f"attachment finding omits itemization value for {part_id!r}")
             assert isinstance(value_itemization, dict)
@@ -4276,10 +4283,20 @@ def _resolve_attachment(
                     raise PresentationModelError(f"conflicting citation labels for pin {leaf_id!r}")
                 pin_labels[leaf_id] = label
             sites.append(_citation_site(f"{part_id}-src-{index}", leaf_id, leaf_version, itemization["label"]))
+        tie_out_text = f"Reported subtotal: {value}"
+        if attachment.get("schema") == "attachment-rule.v12" and isinstance(value_itemization, dict) and "limited_to" in value_itemization:
+            limited = value_itemization["limited_to"]
+            def plain(text: Any) -> str:
+                return format(Decimal(str(text)).normalize(), "f")
+
+            tie_out_text = (
+                f"Recorded: {plain(value_itemization['part_sum'])}. Limited to {limited['label']} of {plain(limited['value'])}. "
+                f"On this line: {plain(value)}. Not counted: {plain(value_itemization['not_counted'])}."
+            )
         parts.append({
             "heading": itemization["label"],
             "citationSites": sites,
-            "tieOutText": f"Reported subtotal: {value}",
+            "tieOutText": tie_out_text,
         })
         if attachment.get("schema") in ("attachment-rule.v6", "attachment-rule.v8", "attachment-rule.v11", "attachment-rule.v10"):
             assert isinstance(value_itemization, dict)

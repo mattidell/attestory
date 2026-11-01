@@ -1,0 +1,47 @@
+{
+  "package_version": "v70",
+  "release_version": "v68",
+  "schema": "artifact-package.v38",
+  "members": [
+    {
+      "op": "replace",
+      "old": {
+        "id": "tax.us.2025.rule.attachment.schedule-a",
+        "role": "attachment-rule",
+        "schema": "attachment-rule.v4",
+        "version": "v3"
+      },
+      "new": {
+        "id": "tax.us.2025.rule.attachment.schedule-a",
+        "role": "attachment-rule",
+        "schema": "attachment-rule.v12",
+        "version": "v4"
+      }
+    }
+  ],
+  "entrypoints": [
+    {
+      "op": "replace",
+      "old": {
+        "id": "tax.us.2025.rule.attachment.schedule-a",
+        "version": "v3"
+      },
+      "new": {
+        "id": "tax.us.2025.rule.attachment.schedule-a",
+        "version": "v4"
+      }
+    }
+  ],
+  "admitted_schemas": [
+    {
+      "op": "add",
+      "value": "attachment-rule.v12"
+    }
+  ],
+  "registry_sort": "id_version",
+  "registry_new_key_order": [
+    "checksum",
+    "id",
+    "version"
+  ]
+}

@@ -185,7 +185,7 @@ _LEDGER_EXCLUDED_PIN_ROLES = frozenset(
 # directly from their declarative requirement/itemizations/completeness
 # structure by `_Run.attempt_attachment`, not by `evaluate()`.
 ATTACHMENT_SCHEMAS = frozenset(
-    {"attachment-rule.v1", "attachment-rule.v2", "attachment-rule.v3", "attachment-rule.v4", "attachment-rule.v5", "attachment-rule.v6", "attachment-rule.v8", "attachment-rule.v11"}
+    {"attachment-rule.v1", "attachment-rule.v2", "attachment-rule.v3", "attachment-rule.v4", "attachment-rule.v5", "attachment-rule.v6", "attachment-rule.v8", "attachment-rule.v11", "attachment-rule.v12"}
 )
 # attachment-rule.v8 is v6's exact inherited shape (Track 2: only the
 # additive optional `accounts_for[]` differs) - every v6-specific branch
@@ -717,7 +717,16 @@ class _Run:
             # reads closure/membership state directly and blocks honestly
             # if the pinned family is unclosed.
             symbols = list(requirement.get("subtotals", []))
-            if rule.get("schema") in ("attachment-rule.v2", "attachment-rule.v3", "attachment-rule.v4", "attachment-rule.v5", "attachment-rule.v6", "attachment-rule.v8", "attachment-rule.v11"):
+            if rule.get("schema") == "attachment-rule.v12":
+                # v12: a part that does not apply contributes nothing; a part whose
+                # condition is not yet readable waits only for the condition.
+                for part in rule["itemizations"]:
+                    status, detail = self._v12_part_status(part)
+                    if status == "applies":
+                        symbols.extend(self._v12_part_symbols(part))
+                    elif status == "unreadable" and part.get("applies_when") == "line_nonzero":
+                        symbols.append(part["tie_out"]["line_symbol"])
+            elif rule.get("schema") in ("attachment-rule.v2", "attachment-rule.v3", "attachment-rule.v4", "attachment-rule.v5", "attachment-rule.v6", "attachment-rule.v8", "attachment-rule.v11", "attachment-rule.v12"):
                 for part in rule["itemizations"]:
                     symbols.append(part["tie_out"]["line_symbol"])
                     symbols.extend(row_set["subtotal_symbol"] for row_set in part["row_sets"])
@@ -1930,6 +1939,33 @@ class _Run:
         required = any(t["over"] for t in triggers)
         return required, base_pins, triggers, None
 
+    @staticmethod
+    def _v12_part_symbols(part: dict[str, Any]) -> list[str]:
+        """attachment-rule.v12: every symbol an applying part reads."""
+        symbols = [part["tie_out"]["line_symbol"], *(row_set["subtotal_symbol"] for row_set in part["row_sets"])]
+        limited_to = part["tie_out"].get("limited_to")
+        if isinstance(limited_to, dict):
+            symbols.append(limited_to["symbol"])
+        return symbols
+
+    def _v12_part_status(self, part: dict[str, Any]) -> tuple[str, str | None]:
+        """attachment-rule.v12: ``applies``, ``omitted`` (detail is the reason), or
+        ``unreadable`` (detail names what the condition needs; never read as omission)."""
+        condition = part.get("applies_when", "always")
+        if condition == "line_nonzero":
+            line_symbol = part["tie_out"]["line_symbol"]
+            if line_symbol not in self.symbols:
+                return "unreadable", line_symbol
+            return ("applies", None) if Decimal(str(self.symbols[line_symbol])) != 0 else ("omitted", "line_is_zero")
+        if condition == "family_nonempty":
+            family_id = part["authority"]["source_family"]["id"]
+            if family_id not in self.admissions:
+                return "unreadable", family_id
+            declaration = next(d for d in self.ctx.family_declarations if d["id"] == family_id)
+            members = self.sources.get(declaration["member_predicate"]["fact_type"], [])
+            return ("applies", None) if len(members) > 0 else ("omitted", "family_empty")
+        return "applies", None
+
     def attempt_attachment(self, rule: dict[str, Any]) -> str:
         """Interpret one ADR-0036 attachment citizen directly from its
         declarative requirement/itemizations/completeness structure.
@@ -2001,14 +2037,34 @@ class _Run:
             self.resolved.add(rule_id)
             return "inapplicable"
 
+        # attachment-rule.v12: decide which parts apply; every other schema evaluates all parts.
+        parts_to_run: list[dict[str, Any]] = rule["itemizations"]
+        omitted_parts: list[dict[str, str]] = []
+        tie_out_violations: list[str] = []
+        if rule["schema"] == "attachment-rule.v12":
+            parts_to_run = []
+            for part in rule["itemizations"]:
+                status, detail = self._v12_part_status(part)
+                if status == "unreadable":
+                    self._attachment_block(rule_id, BLOCK_ABSENT, [str(detail)], base_pins)
+                    return "blocked"
+                if status == "applies":
+                    parts_to_run.append(part)
+                    continue
+                omitted_parts.append({"part_id": part["part_id"], "reason": str(detail)})
+                line_symbol = part["tie_out"]["line_symbol"]
+                if line_symbol in self.symbols and Decimal(str(self.symbols[line_symbol])) != 0:
+                    tie_out_violations.append(f"{part['part_id']}:omitted_but_line_present")
+
         itemization_pins: list[dict[str, Any]] = []
-        if rule["schema"] in ("attachment-rule.v2", "attachment-rule.v3", "attachment-rule.v4", "attachment-rule.v5", "attachment-rule.v6", "attachment-rule.v8", "attachment-rule.v11"):
+        if rule["schema"] in ("attachment-rule.v2", "attachment-rule.v3", "attachment-rule.v4", "attachment-rule.v5", "attachment-rule.v6", "attachment-rule.v8", "attachment-rule.v11", "attachment-rule.v12"):
             itemization_symbols = sorted({
                 symbol
-                for part in rule["itemizations"]
+                for part in parts_to_run
                 for symbol in (
                     part["tie_out"]["line_symbol"],
                     *(row_set["subtotal_symbol"] for row_set in part["row_sets"]),
+                    *([part["tie_out"]["limited_to"]["symbol"]] if rule["schema"] == "attachment-rule.v12" and isinstance(part["tie_out"].get("limited_to"), dict) else []),
                 )
             })
             if rule["schema"] in _V6_SHAPE_ATTACHMENT_SCHEMAS:
@@ -2138,8 +2194,7 @@ class _Run:
         # already collected; each part's row-sum ties out to its named line.
         itemizations_value: list[dict[str, Any]] = []
         row_pins: list[dict[str, Any]] = []
-        tie_out_violations: list[str] = []
-        for part in rule["itemizations"]:
+        for part in parts_to_run:
             if rule["schema"] == "attachment-rule.v1":
                 row_sets = [{"rows": part["rows"], "subtotal_symbol": part["tie_out"]["line_symbol"]}]
             else:
@@ -2265,14 +2320,29 @@ class _Run:
                     **({"adjustment_rows": adjustment_rows_value} if rule["schema"] in _V6_SHAPE_ATTACHMENT_SCHEMAS else {}),
                     "part_sum": _value_str(part_sum),
                     "tie_out": {"line_symbol": tie_symbol, "line_value": _value_str(line_value)},
+                    **(
+                        {
+                            "limited_to": {
+                                "symbol": part["tie_out"]["limited_to"]["symbol"],
+                                "label": part["tie_out"]["limited_to"]["label"],
+                                "value": _value_str(Decimal(str(self.symbols[part["tie_out"]["limited_to"]["symbol"]]))),
+                            },
+                            "not_counted": _value_str(part_sum - line_value),
+                        }
+                        if rule["schema"] == "attachment-rule.v12" and isinstance(part["tie_out"].get("limited_to"), dict)
+                        else {}
+                    ),
                 })
-            if part_sum != line_value:
+            expected_line = part_sum
+            if rule["schema"] == "attachment-rule.v12" and isinstance(part["tie_out"].get("limited_to"), dict):
+                expected_line = min(part_sum, Decimal(str(self.symbols[part["tie_out"]["limited_to"]["symbol"]])))
+            if expected_line != line_value:
                 tie_out_violations.append(f"{part['part_id']}:{tie_symbol}")
 
         if tie_out_violations:
             self._attachment_block(
                 rule_id, ITEMIZATION_TIE_OUT_VIOLATION, sorted(set(tie_out_violations)),
-                base_pins + itemization_pins + answer_pins + (row_pins if rule["schema"] in ("attachment-rule.v2", "attachment-rule.v3", "attachment-rule.v4", "attachment-rule.v5", "attachment-rule.v6", "attachment-rule.v8", "attachment-rule.v11") else []),
+                base_pins + itemization_pins + answer_pins + (row_pins if rule["schema"] in ("attachment-rule.v2", "attachment-rule.v3", "attachment-rule.v4", "attachment-rule.v5", "attachment-rule.v6", "attachment-rule.v8", "attachment-rule.v11", "attachment-rule.v12") else []),
             )
             return "blocked"
 
@@ -2282,6 +2352,7 @@ class _Run:
             "itemizations": itemizations_value,
             "answers": answers_value,
             "named_obligations": named_obligations,
+            **({"omitted_parts": omitted_parts} if rule["schema"] == "attachment-rule.v12" else {}),
         }
         symbol = rule["publishes"]
         pins = _sorted_pins(base_pins + itemization_pins + answer_pins + row_pins)

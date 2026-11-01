@@ -82,7 +82,7 @@ _RULE_DECLARED_REFS_OUTSIDE_REQUIRES = frozenset(
 _FORM_FIELD_SCHEMAS = frozenset({"form-field.v1", "form-field.v2", "form-field.v3"})
 _BUNDLE_SCHEMAS = frozenset({"bundle.v1", "bundle.v2"})
 _SOURCE_FAMILY_SCHEMAS = frozenset({"source-family.v1", "source-family.v2"})
-_ATTACHMENT_RULE_BFS_SCHEMAS = frozenset({"attachment-rule.v6", "attachment-rule.v8", "attachment-rule.v11"})
+_ATTACHMENT_RULE_BFS_SCHEMAS = frozenset({"attachment-rule.v6", "attachment-rule.v8", "attachment-rule.v11", "attachment-rule.v12"})
 
 
 def _closed_v2_surface(package: Mapping[str, Any] | None) -> bool:

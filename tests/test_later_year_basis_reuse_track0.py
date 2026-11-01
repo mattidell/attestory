@@ -1885,6 +1885,8 @@ class C8bCandidateAgainstCurrentPackageValidation(unittest.TestCase):
                 "artifact-package.v36.schema.json",
                 # v37 is v36 plus source-closure-mapping.v3 only (closure-questions).
                 "artifact-package.v37.schema.json",
+                # v38 is v37 plus attachment-rule.v12 only (attachment-limited-part).
+                "artifact-package.v38.schema.json",
             ],
         )
 

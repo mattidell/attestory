@@ -69,7 +69,7 @@ def _families_reached(
             for family_id in _iter_source_sets(expression):
                 reached.add((family_id, "itemizes_members"))
 
-    elif schema in {"attachment-rule.v1", "attachment-rule.v2", "attachment-rule.v3", "attachment-rule.v4", "attachment-rule.v5", "attachment-rule.v6", "attachment-rule.v8", "attachment-rule.v11"}:
+    elif schema in {"attachment-rule.v1", "attachment-rule.v2", "attachment-rule.v3", "attachment-rule.v4", "attachment-rule.v5", "attachment-rule.v6", "attachment-rule.v8", "attachment-rule.v11", "attachment-rule.v12"}:
         requirement = citizen.get("requirement", {})
         for symbol in requirement.get("subtotals", []):
             if symbol in families_by_subtotal:
@@ -320,7 +320,7 @@ _SUPPORTED_SEMANTIC_SCHEMAS = frozenset({
     "attachment-rule.v4",
     "attachment-rule.v5",
     "attachment-rule.v6",
-    "attachment-rule.v8", "attachment-rule.v11",
+    "attachment-rule.v8", "attachment-rule.v11", "attachment-rule.v12",
     "bundle.v1",
     "bundle.v2",
     "checked-conclusion-binding.v1",
@@ -1140,7 +1140,7 @@ def _reader_role_issues(
     resolved: list[tuple[dict[str, Any], dict[str, Any]]],
 ) -> list[MemberIssue]:
     """Validate the closed roles and their declared rule dependencies in v34."""
-    if package.get("schema") not in ("artifact-package.v34", "artifact-package.v35", "artifact-package.v36", "artifact-package.v37"):
+    if package.get("schema") not in ("artifact-package.v34", "artifact-package.v35", "artifact-package.v36", "artifact-package.v37", "artifact-package.v38"):
         return []
     issues: list[MemberIssue] = []
     role_rules = [
@@ -1539,7 +1539,7 @@ def compile_validation_graph(
 
     for member in resolved_members:
         schema_val = member.get("schema")
-        if schema_val not in {"rule-artifact.v1", "rule-artifact.v2", "rule-artifact.v3", "rule-artifact.v4", "rule-artifact.v5", "rule-artifact.v6", "rule-artifact.v7", "rule-artifact.v8", "rule-artifact.v9", "rule-artifact.v10", "rule-artifact.v11", "attachment-rule.v1", "attachment-rule.v2", "attachment-rule.v3", "attachment-rule.v4", "attachment-rule.v5", "attachment-rule.v6", "attachment-rule.v8", "attachment-rule.v11"}:
+        if schema_val not in {"rule-artifact.v1", "rule-artifact.v2", "rule-artifact.v3", "rule-artifact.v4", "rule-artifact.v5", "rule-artifact.v6", "rule-artifact.v7", "rule-artifact.v8", "rule-artifact.v9", "rule-artifact.v10", "rule-artifact.v11", "attachment-rule.v1", "attachment-rule.v2", "attachment-rule.v3", "attachment-rule.v4", "attachment-rule.v5", "attachment-rule.v6", "attachment-rule.v8", "attachment-rule.v11", "attachment-rule.v12"}:
             compiled.append(member)
             continue
 
@@ -1610,7 +1610,7 @@ def check_validation_graph(
 
     for member in compiled_members:
         schema_val = member.get("schema")
-        if schema_val not in {"rule-artifact.v1", "rule-artifact.v2", "rule-artifact.v3", "rule-artifact.v4", "rule-artifact.v5", "rule-artifact.v6", "rule-artifact.v7", "rule-artifact.v8", "rule-artifact.v9", "rule-artifact.v10", "rule-artifact.v11", "attachment-rule.v1", "attachment-rule.v2", "attachment-rule.v3", "attachment-rule.v4", "attachment-rule.v5", "attachment-rule.v6", "attachment-rule.v8", "attachment-rule.v11"}:
+        if schema_val not in {"rule-artifact.v1", "rule-artifact.v2", "rule-artifact.v3", "rule-artifact.v4", "rule-artifact.v5", "rule-artifact.v6", "rule-artifact.v7", "rule-artifact.v8", "rule-artifact.v9", "rule-artifact.v10", "rule-artifact.v11", "attachment-rule.v1", "attachment-rule.v2", "attachment-rule.v3", "attachment-rule.v4", "attachment-rule.v5", "attachment-rule.v6", "attachment-rule.v8", "attachment-rule.v11", "attachment-rule.v12"}:
             continue
 
         artifact_id = member["id"]
@@ -1985,7 +1985,7 @@ def validate_package(
             if pin_role != "checked-conclusion-binding":
                 issues.append(MemberIssue(pin["id"], pin["version"], "ROLE_MISMATCH",
                                            f"checked-conclusion-binding declared as role {pin_role!r}"))
-        elif citizen["schema"] in {"attachment-rule.v1", "attachment-rule.v2", "attachment-rule.v3", "attachment-rule.v4", "attachment-rule.v5", "attachment-rule.v6", "attachment-rule.v8", "attachment-rule.v11"}:
+        elif citizen["schema"] in {"attachment-rule.v1", "attachment-rule.v2", "attachment-rule.v3", "attachment-rule.v4", "attachment-rule.v5", "attachment-rule.v6", "attachment-rule.v8", "attachment-rule.v11", "attachment-rule.v12"}:
             if pin_role != "attachment-rule":
                 issues.append(MemberIssue(pin["id"], pin["version"], "ROLE_MISMATCH",
                                            f"attachment-rule declared as role {pin_role!r}"))
@@ -2842,7 +2842,7 @@ def validate_package(
             "artifact-package.v20", "artifact-package.v21", "artifact-package.v22",
             "artifact-package.v23", "artifact-package.v24", "artifact-package.v25",
             "artifact-package.v26", "artifact-package.v29", "artifact-package.v30",
-            "artifact-package.v31", "artifact-package.v35", "artifact-package.v36", "artifact-package.v37",
+            "artifact-package.v31", "artifact-package.v35", "artifact-package.v36", "artifact-package.v37", "artifact-package.v38",
         }:
             members_by_key = {
                 (pin["id"], pin["version"]): pin for pin in package["members"]
@@ -3113,7 +3113,7 @@ def validate_package(
                     if c2["schema"] in CLOSURE_MAPPING_SCHEMAS:
                         if c2.get("member_fact_type", {}).get("id") == ft_id:
                             adj[m_id].add(c2["id"])
-            elif citizen["schema"] in {"attachment-rule.v6", "attachment-rule.v8", "attachment-rule.v11"}:
+            elif citizen["schema"] in {"attachment-rule.v6", "attachment-rule.v8", "attachment-rule.v11", "attachment-rule.v12"}:
                 for part in citizen.get("itemizations", []):
                     authority = part.get("authority", {})
                     if authority.get("kind") == "composition":
@@ -3146,6 +3146,17 @@ def validate_package(
                                 dependency_pin = rows.get(pin_key, {})
                                 if dependency_pin.get("id") in member_ids:
                                     adj[m_id].add(dependency_pin["id"])
+                    if citizen["schema"] == "attachment-rule.v12":
+                        # v12: a conditional part's tie-out line and a limited
+                        # part's limit symbol are read at run time, so their
+                        # producers are inbound edges of the attachment.
+                        tie = part.get("tie_out", {})
+                        v12_symbols = [tie.get("line_symbol")]
+                        if isinstance(tie.get("limited_to"), dict):
+                            v12_symbols.append(tie["limited_to"].get("symbol"))
+                        for v12_symbol in v12_symbols:
+                            for p_id in produced.get(v12_symbol, []):
+                                adj[m_id].add(p_id)
                 for answer in citizen.get("completeness", {}).get("required_answers", []):
                     fact_pin = answer.get("fact_type", {})
                     if fact_pin.get("id") in member_ids:
@@ -3419,7 +3430,7 @@ def validate_package(
     # a boolean or otherwise falsy-encodable Part III answer fact type on an
     # attachment is rejected at admission.
     for pin, citizen in resolved:
-        if citizen["schema"] not in {"attachment-rule.v1", "attachment-rule.v2", "attachment-rule.v3", "attachment-rule.v4", "attachment-rule.v5", "attachment-rule.v6", "attachment-rule.v8", "attachment-rule.v11"}:
+        if citizen["schema"] not in {"attachment-rule.v1", "attachment-rule.v2", "attachment-rule.v3", "attachment-rule.v4", "attachment-rule.v5", "attachment-rule.v6", "attachment-rule.v8", "attachment-rule.v11", "attachment-rule.v12"}:
             continue
         answers = list(citizen["completeness"]["required_answers"])
         for branch in citizen["completeness"].get("branch_requirements", []):
@@ -3515,8 +3526,9 @@ def validate_package(
         (citizen["id"], citizen["version"]): citizen
         for _, citizen in resolved if citizen["schema"] == "taxable-interest-composition.v1"
     }
+    published_symbols = {str(c['publishes']) for _, c in resolved if isinstance(c.get('publishes'), str)}
     for pin, citizen in resolved:
-        if citizen["schema"] not in {"attachment-rule.v2", "attachment-rule.v3", "attachment-rule.v4", "attachment-rule.v5", "attachment-rule.v6", "attachment-rule.v8", "attachment-rule.v11"}:
+        if citizen["schema"] not in {"attachment-rule.v2", "attachment-rule.v3", "attachment-rule.v4", "attachment-rule.v5", "attachment-rule.v6", "attachment-rule.v8", "attachment-rule.v11", "attachment-rule.v12"}:
             continue
         for part in citizen["itemizations"]:
             actual_slots: list[tuple[str, str, str]] = []
@@ -3543,10 +3555,30 @@ def validate_package(
                 if actual_slots != authority_slots:
                     issues.append(MemberIssue(pin["id"], pin["version"], "ATTACHMENT_SINGLE_FAMILY_BIJECTION_MISMATCH",
                                               f"part {part['part_id']!r} row sets {actual_slots} do not exactly equal authority {authority_slots}"))
-                if family is not None and part["tie_out"]["line_symbol"] != family["authorizes_subtotal"]:
+                limited_to = part["tie_out"].get("limited_to") if citizen["schema"] == "attachment-rule.v12" else None
+                if limited_to is not None:
+                    # v12: a limited part's line is the lesser of the rows' subtotal and the limit,
+                    # so it is not the family subtotal; the limit must be a published symbol
+                    # distinct from the line and the subtotal (row-set checks above still apply).
+                    if limited_to["symbol"] not in published_symbols:
+                        issues.append(MemberIssue(pin["id"], pin["version"], "ATTACHMENT_LIMIT_SYMBOL_ABSENT",
+                                                  f"part {part['part_id']!r} limit symbol {limited_to['symbol']!r} is not published by a package rule"))
+                    if limited_to["symbol"] in {part["tie_out"]["line_symbol"], *(rs["subtotal_symbol"] for rs in part["row_sets"])}:
+                        issues.append(MemberIssue(pin["id"], pin["version"], "ATTACHMENT_LIMIT_SYMBOL_ABSENT",
+                                                  f"part {part['part_id']!r} limit symbol must differ from its line and row subtotal"))
+                elif family is not None and part["tie_out"]["line_symbol"] != family["authorizes_subtotal"]:
                     issues.append(MemberIssue(pin["id"], pin["version"], "ATTACHMENT_LINE_AUTHORITY_MISMATCH",
                                               f"part {part['part_id']!r} line symbol does not equal its family subtotal"))
+                if citizen["schema"] == "attachment-rule.v12" and part.get("applies_when") == "line_nonzero" \
+                        and part["tie_out"]["line_symbol"] not in published_symbols:
+                    issues.append(MemberIssue(pin["id"], pin["version"], "ATTACHMENT_LINE_AUTHORITY_MISMATCH",
+                                              f"part {part['part_id']!r} applies on its line, which no package rule publishes"))
             else:
+                if citizen["schema"] == "attachment-rule.v12" and (
+                    part.get("applies_when") == "family_nonempty" or part["tie_out"].get("limited_to") is not None
+                ):
+                    issues.append(MemberIssue(pin["id"], pin["version"], "ATTACHMENT_LINE_AUTHORITY_MISMATCH",
+                                              f"part {part['part_id']!r}: applies_when family_nonempty and limited_to need a single-family authority"))
                 comp_pin = authority["composition"]
                 comp = compositions_by_key.get((comp_pin["id"], comp_pin["version"]))
                 authority_slots = [] if comp is None else [
