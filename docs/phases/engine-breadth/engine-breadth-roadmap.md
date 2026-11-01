@@ -510,6 +510,18 @@ The Schedule A attachment now itemizes gambling losses on line 16, limited
 to winnings, through a conditional and limited attachment part
 (`attachment-rule.v12`); a losses-only itemizer's attachment publishes.
 
+## Bounded return — The W-2 Entry Loop Follows Its Adopted Core (2025)
+
+[Plan](milestones/entry-loop-rescope.md); retrospective:
+`docs/milestone-retrospectives/2026-11-01-entry-loop-rescope.md`.
+
+The entry loop now resolves the adopted surface and exact profile for package
+v6 or v70. The v70 technical exercise starts with Box 1 missing, records first
+entry and correction, and agrees with a fresh coordinator run; the v6 seed and
+behavior remain intact. This is not usability validation or support for
+unlisted future cores. A filer-facing reason when a correction does not
+calculate remains separate parked work.
+
 ## Parked work and open questions
 
 This is the single list of parked work and open owner-held questions for the
@@ -567,11 +579,13 @@ delivers an item removes it.
 - The age questions' wording (born before January 2, 1961; a death in 2025
   before age 65), and the SLI dependent answer ("is claimed", filer only)
   beside the new "can be claimed" answer.
-- The W-2 entry loop runs only on the core its seed adopts (package v6): its
-  surface is fixed, its line set expects lines 11 and 12 (v66 has 11a, 11b
-  and 12e), and its seed lacks later closures. Moving it to a current core
-  means changing its line set and seed (trace in the entry-loop-current-core
-  milestone). A filer-facing reason when a correction does not calculate.
+- A filer-facing reason when a W-2 correction does not calculate; this is a
+  separate protocol and presentation question.
+- The v70 entry seed generator still depends on test-module helpers. Runtime
+  imports none and byte-regeneration tests expose helper drift; independent
+  fixture generation remains a bounded maintenance follow-up.
+- A v70-matched usability evidence pack and scorecard, if selected. The v70
+  launcher is a technical exercise, and the accepted v6 scorecard is unchanged.
 - Four source sets reach an attachment without a guard of their own; each
   is held by a guarded rule downstream, confirmed live on core v66. Listed in
   `tests/test_collect_closure_regression.py`.
@@ -717,3 +731,11 @@ source and completeness boundary is selected.
   separate candidates; this selection does not absorb them.
 - Real Return — **closed 2026-07-28.** Its final matrix and roadmap remain the
   historical evidence for the bounded slice Engine Breadth starts from.
+- **The W-2 Entry Loop Follows Its Adopted Core — closed 2026-11-01 on this
+  milestone branch** (independent semantic review `READY`; exact-head `verify`
+  remains pending for publication). The runtime resolves only the exact v6
+  and v70 profiles from the workspace adoption. V70 first entry and correction
+  agree with a fresh coordinator run; legacy v6 behavior remains intact.
+  The v70 exercise does not establish usability or support for future cores.
+  Plan: `milestones/entry-loop-rescope.md`; retrospective:
+  `docs/milestone-retrospectives/2026-11-01-entry-loop-rescope.md`.
