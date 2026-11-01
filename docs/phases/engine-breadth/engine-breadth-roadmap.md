@@ -522,6 +522,15 @@ behavior remain intact. This is not usability validation or support for
 unlisted future cores. A filer-facing reason when a correction does not
 calculate remains separate parked work.
 
+## Prepared — When a W-2 Correction Cannot Recalculate (2025)
+
+The next proposed bounded milestone explains whether a correction was saved,
+why its result is unavailable or not current, and the next useful action.
+P0 traces real v6/v70 recorder and coordinator outcomes before choosing a
+presentation or entry-layer mechanism. No tax coverage or core publication.
+Plan: `milestones/w2-correction-guidance.md`. Initial scope awaits owner
+approval; the parked guidance item remains open until delivery.
+
 ## Parked work and open questions
 
 This is the single list of parked work and open owner-held questions for the
