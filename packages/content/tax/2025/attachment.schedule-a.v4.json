@@ -1,0 +1,167 @@
+{
+  "schema": "attachment-rule.v12",
+  "id": "tax.us.2025.rule.attachment.schedule-a",
+  "version": "v4",
+  "title": "Schedule A itemized deductions attachment. Requires the derived Schedule A excess-over-standard result and the seven explicit non-mortgage category boundaries. Core v70 (attachment-limited-part): a conditional two-part itemization. The line 8a part applies only when the Form 1098 family is closed with a statement, so a losses-only itemizer is no longer blocked on line 8a. The line 16 part applies only when line 16 is nonzero; it shows the recorded gambling losses as reported and ties line 16 to the lesser of those losses and the gambling winnings (Form W-2G box 1 subtotal), with the amount not counted recorded. Losses with no Form W-2G leave line 16 at 0 and the part out.",
+  "scope": {
+    "tax_year": 2025,
+    "jurisdiction": "US-federal",
+    "family": "individual-income-tax"
+  },
+  "attachment": {
+    "authority": "IRS",
+    "form_id": "1040-SCH-A",
+    "tax_year": 2025,
+    "jurisdiction": "US-federal"
+  },
+  "publishes": "tax.us.2025.scheduleA.disposition",
+  "requirement": {
+    "subtotals": [
+      "tax.us.2025.schedule-a.excess-over-standard"
+    ],
+    "threshold_parameter": {
+      "id": "tax.us.2025.parameter.default-zero",
+      "version": "v1"
+    },
+    "comparison": "strictly_greater_than",
+    "citation": {
+      "id": "tax.us.2025.citation.attachment.schedule-a",
+      "version": "v1"
+    }
+  },
+  "itemizations": [
+    {
+      "part_id": "line-8a-home-mortgage-interest",
+      "label": "Line 8a: home mortgage interest reported on Form 1098",
+      "authority": {
+        "kind": "single_family",
+        "source_family": {
+          "id": "tax.us.2025.f1098",
+          "version": "v1"
+        }
+      },
+      "row_sets": [
+        {
+          "rows": {
+            "op": "collect_members",
+            "member_fact_type": {
+              "id": "tax.us.2025.f1098.box1-mortgage-interest",
+              "version": "v1"
+            },
+            "source_family": {
+              "id": "tax.us.2025.f1098",
+              "version": "v1"
+            }
+          },
+          "subtotal_symbol": "tax.us.2025.schedule-a.line8a"
+        }
+      ],
+      "tie_out": {
+        "line_symbol": "tax.us.2025.schedule-a.line8a"
+      },
+      "applies_when": "family_nonempty"
+    },
+    {
+      "part_id": "line-16-gambling-losses",
+      "label": "Line 16: gambling losses recorded, limited to gambling winnings",
+      "authority": {
+        "kind": "single_family",
+        "source_family": {
+          "id": "tax.us.2025.gambling.losses",
+          "version": "v1"
+        }
+      },
+      "applies_when": "line_nonzero",
+      "row_sets": [
+        {
+          "rows": {
+            "op": "collect_members",
+            "member_fact_type": {
+              "id": "tax.us.2025.gambling.loss",
+              "version": "v1"
+            },
+            "source_family": {
+              "id": "tax.us.2025.gambling.losses",
+              "version": "v1"
+            }
+          },
+          "subtotal_symbol": "tax.us.2025.gambling.losses-subtotal"
+        }
+      ],
+      "tie_out": {
+        "line_symbol": "tax.us.2025.schedule-a.line16",
+        "limited_to": {
+          "symbol": "tax.us.2025.gambling.b1-winnings-subtotal",
+          "label": "gambling winnings"
+        }
+      }
+    }
+  ],
+  "completeness": {
+    "required_answers": [
+      {
+        "symbol": "tax.us.2025.schedule-a-boundary.no-medical-declared",
+        "fact_type": {
+          "id": "tax.us.2025.schedule-a-boundary.no-medical-declared",
+          "version": "v1"
+        },
+        "check": "value",
+        "equals": "yes"
+      },
+      {
+        "symbol": "tax.us.2025.schedule-a-boundary.no-salt-declared",
+        "fact_type": {
+          "id": "tax.us.2025.schedule-a-boundary.no-salt-declared",
+          "version": "v1"
+        },
+        "check": "value",
+        "equals": "yes"
+      },
+      {
+        "symbol": "tax.us.2025.schedule-a-boundary.no-other-interest-declared",
+        "fact_type": {
+          "id": "tax.us.2025.schedule-a-boundary.no-other-interest-declared",
+          "version": "v1"
+        },
+        "check": "value",
+        "equals": "yes"
+      },
+      {
+        "symbol": "tax.us.2025.schedule-a-boundary.no-investment-interest-declared",
+        "fact_type": {
+          "id": "tax.us.2025.schedule-a-boundary.no-investment-interest-declared",
+          "version": "v1"
+        },
+        "check": "value",
+        "equals": "yes"
+      },
+      {
+        "symbol": "tax.us.2025.schedule-a-boundary.no-charitable-declared",
+        "fact_type": {
+          "id": "tax.us.2025.schedule-a-boundary.no-charitable-declared",
+          "version": "v1"
+        },
+        "check": "value",
+        "equals": "yes"
+      },
+      {
+        "symbol": "tax.us.2025.schedule-a-boundary.no-casualty-theft-declared",
+        "fact_type": {
+          "id": "tax.us.2025.schedule-a-boundary.no-casualty-theft-declared",
+          "version": "v1"
+        },
+        "check": "value",
+        "equals": "yes"
+      },
+      {
+        "symbol": "tax.us.2025.schedule-a-boundary.no-other-line16-declared",
+        "fact_type": {
+          "id": "tax.us.2025.schedule-a-boundary.no-other-line16-declared",
+          "version": "v1"
+        },
+        "check": "value",
+        "equals": "yes"
+      }
+    ]
+  }
+}

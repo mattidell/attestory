@@ -258,6 +258,9 @@ def domain_package_companion_declarations() -> dict[tuple[str, str], dict[str, A
         # Core v69 only declares the question each closure asks and asks no new
         # question itself, so it shares v68's declaration.
         ("tax.us.2025.package.core-calculations", "v69"): gambling,
+        # Core v70 only makes the Schedule A attachment itemize line 16 (a conditional,
+        # limited part) and asks no new question, so it shares v69's declaration.
+        ("tax.us.2025.package.core-calculations", "v70"): gambling,
     }
 
 

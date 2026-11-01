@@ -1,0 +1,142 @@
+{
+  "case0_standard_deduction_with_losses": {
+    "attachment_disposition": [
+      {
+        "disposition": "inapplicable",
+        "pins": 4
+      }
+    ],
+    "lines": {
+      "deductions.line-12e": "15750",
+      "gambling.b1-winnings-subtotal": "6000",
+      "gambling.losses-subtotal": "2000",
+      "income.taxable-income": "40250",
+      "schedule-a.line16": "2000",
+      "schedule-a.total": "2000"
+    },
+    "other_blocked": []
+  },
+  "case1_itemizer_mortgage_20000_losses_2000": {
+    "attachment": {
+      "parts": [
+        {
+          "part_id": "line-8a-home-mortgage-interest",
+          "part_sum": "20000.0",
+          "row_sums": [
+            "20000.0"
+          ],
+          "tie_out": {
+            "line": "schedule-a.line8a",
+            "value": "20000.0"
+          }
+        }
+      ],
+      "required": true
+    },
+    "attachment_disposition": [
+      {
+        "disposition": "published",
+        "pins": 13
+      }
+    ],
+    "lines": {
+      "deductions.line-12e": "22000",
+      "gambling.b1-winnings-subtotal": "6000",
+      "gambling.losses-subtotal": "2000",
+      "income.taxable-income": "34000",
+      "schedule-a.line16": "2000",
+      "schedule-a.line8a": "20000",
+      "schedule-a.total": "22000"
+    },
+    "other_blocked": []
+  },
+  "case2_losses_only_itemizer_winnings_20000_losses_20000": {
+    "attachment_disposition": [
+      {
+        "code": "DEPENDENCY_ABSENT",
+        "disposition": "blocked",
+        "missing": [
+          "schedule-a.line8a"
+        ],
+        "pins": 4
+      }
+    ],
+    "lines": {
+      "deductions.line-12e": "20000",
+      "gambling.b1-winnings-subtotal": "20000",
+      "gambling.losses-subtotal": "20000",
+      "income.taxable-income": "50000",
+      "schedule-a.line16": "20000",
+      "schedule-a.total": "20000"
+    },
+    "other_blocked": []
+  },
+  "case3_itemizer_losses_9000_above_winnings_6000": {
+    "attachment": {
+      "parts": [
+        {
+          "part_id": "line-8a-home-mortgage-interest",
+          "part_sum": "20000.0",
+          "row_sums": [
+            "20000.0"
+          ],
+          "tie_out": {
+            "line": "schedule-a.line8a",
+            "value": "20000.0"
+          }
+        }
+      ],
+      "required": true
+    },
+    "attachment_disposition": [
+      {
+        "disposition": "published",
+        "pins": 13
+      }
+    ],
+    "lines": {
+      "deductions.line-12e": "26000",
+      "gambling.b1-winnings-subtotal": "6000",
+      "gambling.losses-subtotal": "9000",
+      "income.taxable-income": "30000",
+      "schedule-a.line16": "6000",
+      "schedule-a.line8a": "20000",
+      "schedule-a.total": "26000"
+    },
+    "other_blocked": []
+  },
+  "case4_itemizer_no_losses_control": {
+    "attachment": {
+      "parts": [
+        {
+          "part_id": "line-8a-home-mortgage-interest",
+          "part_sum": "20000.0",
+          "row_sums": [
+            "20000.0"
+          ],
+          "tie_out": {
+            "line": "schedule-a.line8a",
+            "value": "20000.0"
+          }
+        }
+      ],
+      "required": true
+    },
+    "attachment_disposition": [
+      {
+        "disposition": "published",
+        "pins": 13
+      }
+    ],
+    "lines": {
+      "deductions.line-12e": "20000",
+      "gambling.b1-winnings-subtotal": "6000",
+      "gambling.losses-subtotal": "0",
+      "income.taxable-income": "36000",
+      "schedule-a.line16": "0",
+      "schedule-a.line8a": "20000",
+      "schedule-a.total": "20000"
+    },
+    "other_blocked": []
+  }
+}
