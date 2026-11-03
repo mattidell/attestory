@@ -1,0 +1,15 @@
+{
+  "format": 1,
+  "event_id": "20261103T162854Z-artifact-package-dca64b",
+  "recorded_at": "2026-11-03T16:28:54Z",
+  "milestone_key": "missing-input-questions",
+  "milestone_branch": "milestone/missing-input-questions-2025",
+  "milestone_commit": "e52d20de6ea94f1ea4bb4f3ad26fda3aec09b9d2",
+  "schema_family": "artifact-package",
+  "schema_path": "packages/schemas/derivation/artifact-package.v39.schema.json",
+  "schema_version": "v39",
+  "action": "publish",
+  "change_kind": "additive",
+  "replaces_event": "20261103T160755Z-artifact-package-6f125f",
+  "summary": "artifact-package.v39 published as built: v38 plus input-question.v1 and the input-question role."
+}
