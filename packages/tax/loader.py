@@ -261,6 +261,9 @@ def domain_package_companion_declarations() -> dict[tuple[str, str], dict[str, A
         # Core v70 only makes the Schedule A attachment itemize line 16 (a conditional,
         # limited part) and asks no new question, so it shares v69's declaration.
         ("tax.us.2025.package.core-calculations", "v70"): gambling,
+        # Core v71 only makes line 25b wait for each statement's withholding answer (a count check,
+        # as line 25a has for Form W-2) and asks no new companion, so it shares v70's declaration.
+        ("tax.us.2025.package.core-calculations", "v71"): gambling,
     }
 
 

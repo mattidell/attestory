@@ -1,0 +1,3450 @@
+{
+  "cases": [
+    {
+      "cause": "no-withholding-anywhere",
+      "family": "none",
+      "lines_identical_to_v70": true,
+      "run_id": "demo.p0.swa.none.no-withholding-anywhere",
+      "v70_lines": {
+        "24": "3875",
+        "25a": "4500",
+        "25b": "0",
+        "25d": "4500",
+        "33": "4500",
+        "35a": "625",
+        "37": "0"
+      },
+      "v71": {
+        "blocked_count": 0,
+        "line_dispositions": {},
+        "lines": {
+          "24": "3875",
+          "25a": "4500",
+          "25b": "0",
+          "25d": "4500",
+          "33": "4500",
+          "35a": "625",
+          "37": "0"
+        },
+        "root_blocks": [],
+        "status": "ran",
+        "subtotals": {
+          "dividends.b4-withholding-subtotal": "0",
+          "interest.b4-withholding-subtotal": "0",
+          "ira.box4-withholding-subtotal": "0",
+          "ssa1099.b6-withholding-subtotal": "0",
+          "unemployment.b4-withholding-subtotal": "0"
+        }
+      }
+    },
+    {
+      "cause": "one-statement-no-answer-closed",
+      "family": "int",
+      "lines_identical_to_v70": false,
+      "run_id": "demo.p0.swa.int.one-statement-no-answer-closed",
+      "v70_lines": {
+        "24": "3935",
+        "25a": "4500",
+        "25b": "0",
+        "25d": "4500",
+        "33": "4500",
+        "35a": "565",
+        "37": "0"
+      },
+      "v71": {
+        "blocked_count": 7,
+        "line_dispositions": {
+          "form1040-line25b": {
+            "code": "DEPENDENCY_ABSENT",
+            "missing": [
+              "f1099int.box4-withholding"
+            ]
+          }
+        },
+        "lines": {
+          "24": "3935",
+          "25a": "4500",
+          "25b": "blocked",
+          "25d": "blocked",
+          "33": "blocked",
+          "35a": "blocked",
+          "37": "blocked"
+        },
+        "root_blocks": [],
+        "status": "ran",
+        "subtotals": {
+          "dividends.b4-withholding-subtotal": "0",
+          "interest.b4-withholding-subtotal": "0",
+          "ira.box4-withholding-subtotal": "0",
+          "ssa1099.b6-withholding-subtotal": "0",
+          "unemployment.b4-withholding-subtotal": "0"
+        }
+      }
+    },
+    {
+      "cause": "one-statement-zero-answered",
+      "family": "int",
+      "lines_identical_to_v70": true,
+      "run_id": "demo.p0.swa.int.one-statement-zero-answered",
+      "v70_lines": {
+        "24": "3935",
+        "25a": "4500",
+        "25b": "0",
+        "25d": "4500",
+        "33": "4500",
+        "35a": "565",
+        "37": "0"
+      },
+      "v71": {
+        "blocked_count": 0,
+        "line_dispositions": {},
+        "lines": {
+          "24": "3935",
+          "25a": "4500",
+          "25b": "0",
+          "25d": "4500",
+          "33": "4500",
+          "35a": "565",
+          "37": "0"
+        },
+        "root_blocks": [],
+        "status": "ran",
+        "subtotals": {
+          "dividends.b4-withholding-subtotal": "0",
+          "interest.b4-withholding-subtotal": "0.0",
+          "ira.box4-withholding-subtotal": "0",
+          "ssa1099.b6-withholding-subtotal": "0",
+          "unemployment.b4-withholding-subtotal": "0"
+        }
+      }
+    },
+    {
+      "cause": "one-statement-answered",
+      "family": "int",
+      "lines_identical_to_v70": true,
+      "run_id": "demo.p0.swa.int.one-statement-answered",
+      "v70_lines": {
+        "24": "3935",
+        "25a": "4500",
+        "25b": "50",
+        "25d": "4550",
+        "33": "4550",
+        "35a": "615",
+        "37": "0"
+      },
+      "v71": {
+        "blocked_count": 0,
+        "line_dispositions": {},
+        "lines": {
+          "24": "3935",
+          "25a": "4500",
+          "25b": "50",
+          "25d": "4550",
+          "33": "4550",
+          "35a": "615",
+          "37": "0"
+        },
+        "root_blocks": [],
+        "status": "ran",
+        "subtotals": {
+          "dividends.b4-withholding-subtotal": "0",
+          "interest.b4-withholding-subtotal": "50.0",
+          "ira.box4-withholding-subtotal": "0",
+          "ssa1099.b6-withholding-subtotal": "0",
+          "unemployment.b4-withholding-subtotal": "0"
+        }
+      }
+    },
+    {
+      "cause": "two-statements-first-answered-second-not",
+      "family": "int",
+      "lines_identical_to_v70": false,
+      "run_id": "demo.p0.swa.int.two-statements-first-answered-second-not",
+      "v70_lines": {
+        "24": "3971",
+        "25a": "4500",
+        "25b": "50",
+        "25d": "4550",
+        "33": "4550",
+        "35a": "579",
+        "37": "0"
+      },
+      "v71": {
+        "blocked_count": 7,
+        "line_dispositions": {
+          "form1040-line25b": {
+            "code": "DEPENDENCY_ABSENT",
+            "missing": [
+              "f1099int.box4-withholding"
+            ]
+          }
+        },
+        "lines": {
+          "24": "3971",
+          "25a": "4500",
+          "25b": "blocked",
+          "25d": "blocked",
+          "33": "blocked",
+          "35a": "blocked",
+          "37": "blocked"
+        },
+        "root_blocks": [],
+        "status": "ran",
+        "subtotals": {
+          "dividends.b4-withholding-subtotal": "0",
+          "interest.b4-withholding-subtotal": "50.0",
+          "ira.box4-withholding-subtotal": "0",
+          "ssa1099.b6-withholding-subtotal": "0",
+          "unemployment.b4-withholding-subtotal": "0"
+        }
+      }
+    },
+    {
+      "cause": "two-statements-first-answered-second-zero",
+      "family": "int",
+      "lines_identical_to_v70": true,
+      "run_id": "demo.p0.swa.int.two-statements-first-answered-second-zero",
+      "v70_lines": {
+        "24": "3971",
+        "25a": "4500",
+        "25b": "50",
+        "25d": "4550",
+        "33": "4550",
+        "35a": "579",
+        "37": "0"
+      },
+      "v71": {
+        "blocked_count": 0,
+        "line_dispositions": {},
+        "lines": {
+          "24": "3971",
+          "25a": "4500",
+          "25b": "50",
+          "25d": "4550",
+          "33": "4550",
+          "35a": "579",
+          "37": "0"
+        },
+        "root_blocks": [],
+        "status": "ran",
+        "subtotals": {
+          "dividends.b4-withholding-subtotal": "0",
+          "interest.b4-withholding-subtotal": "50.0",
+          "ira.box4-withholding-subtotal": "0",
+          "ssa1099.b6-withholding-subtotal": "0",
+          "unemployment.b4-withholding-subtotal": "0"
+        }
+      }
+    },
+    {
+      "cause": "two-statements-both-answered",
+      "family": "int",
+      "lines_identical_to_v70": true,
+      "run_id": "demo.p0.swa.int.two-statements-both-answered",
+      "v70_lines": {
+        "24": "3971",
+        "25a": "4500",
+        "25b": "80",
+        "25d": "4580",
+        "33": "4580",
+        "35a": "609",
+        "37": "0"
+      },
+      "v71": {
+        "blocked_count": 0,
+        "line_dispositions": {},
+        "lines": {
+          "24": "3971",
+          "25a": "4500",
+          "25b": "80",
+          "25d": "4580",
+          "33": "4580",
+          "35a": "609",
+          "37": "0"
+        },
+        "root_blocks": [],
+        "status": "ran",
+        "subtotals": {
+          "dividends.b4-withholding-subtotal": "0",
+          "interest.b4-withholding-subtotal": "80.0",
+          "ira.box4-withholding-subtotal": "0",
+          "ssa1099.b6-withholding-subtotal": "0",
+          "unemployment.b4-withholding-subtotal": "0"
+        }
+      }
+    },
+    {
+      "cause": "joint-two-statements-second-not-answered",
+      "family": "int",
+      "lines_identical_to_v70": false,
+      "run_id": "demo.p0.swa.int.joint-two-statements-second-not-answered",
+      "v70_lines": {
+        "24": "5442",
+        "25a": "7000",
+        "25b": "50",
+        "25d": "7050",
+        "33": "7050",
+        "35a": "1608",
+        "37": "0"
+      },
+      "v71": {
+        "blocked_count": 7,
+        "line_dispositions": {
+          "form1040-line25b": {
+            "code": "DEPENDENCY_ABSENT",
+            "missing": [
+              "f1099int.box4-withholding"
+            ]
+          }
+        },
+        "lines": {
+          "24": "5442",
+          "25a": "7000",
+          "25b": "blocked",
+          "25d": "blocked",
+          "33": "blocked",
+          "35a": "blocked",
+          "37": "blocked"
+        },
+        "root_blocks": [],
+        "status": "ran",
+        "subtotals": {
+          "dividends.b4-withholding-subtotal": "0",
+          "interest.b4-withholding-subtotal": "50.0",
+          "ira.box4-withholding-subtotal": "0",
+          "ssa1099.b6-withholding-subtotal": "0",
+          "unemployment.b4-withholding-subtotal": "0"
+        }
+      }
+    },
+    {
+      "cause": "joint-two-statements-both-answered",
+      "family": "int",
+      "lines_identical_to_v70": true,
+      "run_id": "demo.p0.swa.int.joint-two-statements-both-answered",
+      "v70_lines": {
+        "24": "5442",
+        "25a": "7000",
+        "25b": "80",
+        "25d": "7080",
+        "33": "7080",
+        "35a": "1638",
+        "37": "0"
+      },
+      "v71": {
+        "blocked_count": 0,
+        "line_dispositions": {},
+        "lines": {
+          "24": "5442",
+          "25a": "7000",
+          "25b": "80",
+          "25d": "7080",
+          "33": "7080",
+          "35a": "1638",
+          "37": "0"
+        },
+        "root_blocks": [],
+        "status": "ran",
+        "subtotals": {
+          "dividends.b4-withholding-subtotal": "0",
+          "interest.b4-withholding-subtotal": "80.0",
+          "ira.box4-withholding-subtotal": "0",
+          "ssa1099.b6-withholding-subtotal": "0",
+          "unemployment.b4-withholding-subtotal": "0"
+        }
+      }
+    },
+    {
+      "cause": "one-statement-no-answer-closed",
+      "family": "div",
+      "lines_identical_to_v70": false,
+      "run_id": "demo.p0.swa.div.one-statement-no-answer-closed",
+      "v70_lines": {
+        "24": "3935",
+        "25a": "4500",
+        "25b": "0",
+        "25d": "4500",
+        "33": "4500",
+        "35a": "565",
+        "37": "0"
+      },
+      "v71": {
+        "blocked_count": 7,
+        "line_dispositions": {
+          "form1040-line25b": {
+            "code": "DEPENDENCY_ABSENT",
+            "missing": [
+              "f1099div.box4-withholding"
+            ]
+          }
+        },
+        "lines": {
+          "24": "3935",
+          "25a": "4500",
+          "25b": "blocked",
+          "25d": "blocked",
+          "33": "blocked",
+          "35a": "blocked",
+          "37": "blocked"
+        },
+        "root_blocks": [],
+        "status": "ran",
+        "subtotals": {
+          "dividends.b4-withholding-subtotal": "0",
+          "interest.b4-withholding-subtotal": "0",
+          "ira.box4-withholding-subtotal": "0",
+          "ssa1099.b6-withholding-subtotal": "0",
+          "unemployment.b4-withholding-subtotal": "0"
+        }
+      }
+    },
+    {
+      "cause": "one-statement-zero-answered",
+      "family": "div",
+      "lines_identical_to_v70": true,
+      "run_id": "demo.p0.swa.div.one-statement-zero-answered",
+      "v70_lines": {
+        "24": "3935",
+        "25a": "4500",
+        "25b": "0",
+        "25d": "4500",
+        "33": "4500",
+        "35a": "565",
+        "37": "0"
+      },
+      "v71": {
+        "blocked_count": 0,
+        "line_dispositions": {},
+        "lines": {
+          "24": "3935",
+          "25a": "4500",
+          "25b": "0",
+          "25d": "4500",
+          "33": "4500",
+          "35a": "565",
+          "37": "0"
+        },
+        "root_blocks": [],
+        "status": "ran",
+        "subtotals": {
+          "dividends.b4-withholding-subtotal": "0.0",
+          "interest.b4-withholding-subtotal": "0",
+          "ira.box4-withholding-subtotal": "0",
+          "ssa1099.b6-withholding-subtotal": "0",
+          "unemployment.b4-withholding-subtotal": "0"
+        }
+      }
+    },
+    {
+      "cause": "one-statement-answered",
+      "family": "div",
+      "lines_identical_to_v70": true,
+      "run_id": "demo.p0.swa.div.one-statement-answered",
+      "v70_lines": {
+        "24": "3935",
+        "25a": "4500",
+        "25b": "40",
+        "25d": "4540",
+        "33": "4540",
+        "35a": "605",
+        "37": "0"
+      },
+      "v71": {
+        "blocked_count": 0,
+        "line_dispositions": {},
+        "lines": {
+          "24": "3935",
+          "25a": "4500",
+          "25b": "40",
+          "25d": "4540",
+          "33": "4540",
+          "35a": "605",
+          "37": "0"
+        },
+        "root_blocks": [],
+        "status": "ran",
+        "subtotals": {
+          "dividends.b4-withholding-subtotal": "40.0",
+          "interest.b4-withholding-subtotal": "0",
+          "ira.box4-withholding-subtotal": "0",
+          "ssa1099.b6-withholding-subtotal": "0",
+          "unemployment.b4-withholding-subtotal": "0"
+        }
+      }
+    },
+    {
+      "cause": "two-statements-first-answered-second-not",
+      "family": "div",
+      "lines_identical_to_v70": false,
+      "run_id": "demo.p0.swa.div.two-statements-first-answered-second-not",
+      "v70_lines": {
+        "24": "3971",
+        "25a": "4500",
+        "25b": "40",
+        "25d": "4540",
+        "33": "4540",
+        "35a": "569",
+        "37": "0"
+      },
+      "v71": {
+        "blocked_count": 7,
+        "line_dispositions": {
+          "form1040-line25b": {
+            "code": "DEPENDENCY_ABSENT",
+            "missing": [
+              "f1099div.box4-withholding"
+            ]
+          }
+        },
+        "lines": {
+          "24": "3971",
+          "25a": "4500",
+          "25b": "blocked",
+          "25d": "blocked",
+          "33": "blocked",
+          "35a": "blocked",
+          "37": "blocked"
+        },
+        "root_blocks": [],
+        "status": "ran",
+        "subtotals": {
+          "dividends.b4-withholding-subtotal": "40.0",
+          "interest.b4-withholding-subtotal": "0",
+          "ira.box4-withholding-subtotal": "0",
+          "ssa1099.b6-withholding-subtotal": "0",
+          "unemployment.b4-withholding-subtotal": "0"
+        }
+      }
+    },
+    {
+      "cause": "two-statements-first-answered-second-zero",
+      "family": "div",
+      "lines_identical_to_v70": true,
+      "run_id": "demo.p0.swa.div.two-statements-first-answered-second-zero",
+      "v70_lines": {
+        "24": "3971",
+        "25a": "4500",
+        "25b": "40",
+        "25d": "4540",
+        "33": "4540",
+        "35a": "569",
+        "37": "0"
+      },
+      "v71": {
+        "blocked_count": 0,
+        "line_dispositions": {},
+        "lines": {
+          "24": "3971",
+          "25a": "4500",
+          "25b": "40",
+          "25d": "4540",
+          "33": "4540",
+          "35a": "569",
+          "37": "0"
+        },
+        "root_blocks": [],
+        "status": "ran",
+        "subtotals": {
+          "dividends.b4-withholding-subtotal": "40.0",
+          "interest.b4-withholding-subtotal": "0",
+          "ira.box4-withholding-subtotal": "0",
+          "ssa1099.b6-withholding-subtotal": "0",
+          "unemployment.b4-withholding-subtotal": "0"
+        }
+      }
+    },
+    {
+      "cause": "two-statements-both-answered",
+      "family": "div",
+      "lines_identical_to_v70": true,
+      "run_id": "demo.p0.swa.div.two-statements-both-answered",
+      "v70_lines": {
+        "24": "3971",
+        "25a": "4500",
+        "25b": "60",
+        "25d": "4560",
+        "33": "4560",
+        "35a": "589",
+        "37": "0"
+      },
+      "v71": {
+        "blocked_count": 0,
+        "line_dispositions": {},
+        "lines": {
+          "24": "3971",
+          "25a": "4500",
+          "25b": "60",
+          "25d": "4560",
+          "33": "4560",
+          "35a": "589",
+          "37": "0"
+        },
+        "root_blocks": [],
+        "status": "ran",
+        "subtotals": {
+          "dividends.b4-withholding-subtotal": "60.0",
+          "interest.b4-withholding-subtotal": "0",
+          "ira.box4-withholding-subtotal": "0",
+          "ssa1099.b6-withholding-subtotal": "0",
+          "unemployment.b4-withholding-subtotal": "0"
+        }
+      }
+    },
+    {
+      "cause": "joint-two-statements-second-not-answered",
+      "family": "div",
+      "lines_identical_to_v70": false,
+      "run_id": "demo.p0.swa.div.joint-two-statements-second-not-answered",
+      "v70_lines": {
+        "24": "5442",
+        "25a": "7000",
+        "25b": "40",
+        "25d": "7040",
+        "33": "7040",
+        "35a": "1598",
+        "37": "0"
+      },
+      "v71": {
+        "blocked_count": 7,
+        "line_dispositions": {
+          "form1040-line25b": {
+            "code": "DEPENDENCY_ABSENT",
+            "missing": [
+              "f1099div.box4-withholding"
+            ]
+          }
+        },
+        "lines": {
+          "24": "5442",
+          "25a": "7000",
+          "25b": "blocked",
+          "25d": "blocked",
+          "33": "blocked",
+          "35a": "blocked",
+          "37": "blocked"
+        },
+        "root_blocks": [],
+        "status": "ran",
+        "subtotals": {
+          "dividends.b4-withholding-subtotal": "40.0",
+          "interest.b4-withholding-subtotal": "0",
+          "ira.box4-withholding-subtotal": "0",
+          "ssa1099.b6-withholding-subtotal": "0",
+          "unemployment.b4-withholding-subtotal": "0"
+        }
+      }
+    },
+    {
+      "cause": "joint-two-statements-both-answered",
+      "family": "div",
+      "lines_identical_to_v70": true,
+      "run_id": "demo.p0.swa.div.joint-two-statements-both-answered",
+      "v70_lines": {
+        "24": "5442",
+        "25a": "7000",
+        "25b": "60",
+        "25d": "7060",
+        "33": "7060",
+        "35a": "1618",
+        "37": "0"
+      },
+      "v71": {
+        "blocked_count": 0,
+        "line_dispositions": {},
+        "lines": {
+          "24": "5442",
+          "25a": "7000",
+          "25b": "60",
+          "25d": "7060",
+          "33": "7060",
+          "35a": "1618",
+          "37": "0"
+        },
+        "root_blocks": [],
+        "status": "ran",
+        "subtotals": {
+          "dividends.b4-withholding-subtotal": "60.0",
+          "interest.b4-withholding-subtotal": "0",
+          "ira.box4-withholding-subtotal": "0",
+          "ssa1099.b6-withholding-subtotal": "0",
+          "unemployment.b4-withholding-subtotal": "0"
+        }
+      }
+    },
+    {
+      "cause": "one-statement-no-answer-closed",
+      "family": "ira",
+      "lines_identical_to_v70": false,
+      "run_id": "demo.p0.swa.ira.one-statement-no-answer-closed",
+      "v70_lines": {
+        "24": "5075",
+        "25a": "4500",
+        "25b": "0",
+        "25d": "4500",
+        "33": "4500",
+        "35a": "0",
+        "37": "575"
+      },
+      "v71": {
+        "blocked_count": 7,
+        "line_dispositions": {
+          "form1040-line25b": {
+            "code": "DEPENDENCY_ABSENT",
+            "missing": [
+              "f1099r.ira-box4-withholding"
+            ]
+          }
+        },
+        "lines": {
+          "24": "5075",
+          "25a": "4500",
+          "25b": "blocked",
+          "25d": "blocked",
+          "33": "blocked",
+          "35a": "blocked",
+          "37": "blocked"
+        },
+        "root_blocks": [],
+        "status": "ran",
+        "subtotals": {
+          "dividends.b4-withholding-subtotal": "0",
+          "interest.b4-withholding-subtotal": "0",
+          "ira.box4-withholding-subtotal": "0",
+          "ssa1099.b6-withholding-subtotal": "0",
+          "unemployment.b4-withholding-subtotal": "0"
+        }
+      }
+    },
+    {
+      "cause": "one-statement-zero-answered",
+      "family": "ira",
+      "lines_identical_to_v70": true,
+      "run_id": "demo.p0.swa.ira.one-statement-zero-answered",
+      "v70_lines": {
+        "24": "5075",
+        "25a": "4500",
+        "25b": "0",
+        "25d": "4500",
+        "33": "4500",
+        "35a": "0",
+        "37": "575"
+      },
+      "v71": {
+        "blocked_count": 0,
+        "line_dispositions": {},
+        "lines": {
+          "24": "5075",
+          "25a": "4500",
+          "25b": "0",
+          "25d": "4500",
+          "33": "4500",
+          "35a": "0",
+          "37": "575"
+        },
+        "root_blocks": [],
+        "status": "ran",
+        "subtotals": {
+          "dividends.b4-withholding-subtotal": "0",
+          "interest.b4-withholding-subtotal": "0",
+          "ira.box4-withholding-subtotal": "0.0",
+          "ssa1099.b6-withholding-subtotal": "0",
+          "unemployment.b4-withholding-subtotal": "0"
+        }
+      }
+    },
+    {
+      "cause": "one-statement-answered",
+      "family": "ira",
+      "lines_identical_to_v70": true,
+      "run_id": "demo.p0.swa.ira.one-statement-answered",
+      "v70_lines": {
+        "24": "5075",
+        "25a": "4500",
+        "25b": "1200",
+        "25d": "5700",
+        "33": "5700",
+        "35a": "625",
+        "37": "0"
+      },
+      "v71": {
+        "blocked_count": 0,
+        "line_dispositions": {},
+        "lines": {
+          "24": "5075",
+          "25a": "4500",
+          "25b": "1200",
+          "25d": "5700",
+          "33": "5700",
+          "35a": "625",
+          "37": "0"
+        },
+        "root_blocks": [],
+        "status": "ran",
+        "subtotals": {
+          "dividends.b4-withholding-subtotal": "0",
+          "interest.b4-withholding-subtotal": "0",
+          "ira.box4-withholding-subtotal": "1200.0",
+          "ssa1099.b6-withholding-subtotal": "0",
+          "unemployment.b4-withholding-subtotal": "0"
+        }
+      }
+    },
+    {
+      "cause": "two-statements-first-answered-second-not",
+      "family": "ira",
+      "lines_identical_to_v70": false,
+      "run_id": "demo.p0.swa.ira.two-statements-first-answered-second-not",
+      "v70_lines": {
+        "24": "5755",
+        "25a": "4500",
+        "25b": "1200",
+        "25d": "5700",
+        "33": "5700",
+        "35a": "0",
+        "37": "55"
+      },
+      "v71": {
+        "blocked_count": 7,
+        "line_dispositions": {
+          "form1040-line25b": {
+            "code": "DEPENDENCY_ABSENT",
+            "missing": [
+              "f1099r.ira-box4-withholding"
+            ]
+          }
+        },
+        "lines": {
+          "24": "5755",
+          "25a": "4500",
+          "25b": "blocked",
+          "25d": "blocked",
+          "33": "blocked",
+          "35a": "blocked",
+          "37": "blocked"
+        },
+        "root_blocks": [],
+        "status": "ran",
+        "subtotals": {
+          "dividends.b4-withholding-subtotal": "0",
+          "interest.b4-withholding-subtotal": "0",
+          "ira.box4-withholding-subtotal": "1200.0",
+          "ssa1099.b6-withholding-subtotal": "0",
+          "unemployment.b4-withholding-subtotal": "0"
+        }
+      }
+    },
+    {
+      "cause": "two-statements-first-answered-second-zero",
+      "family": "ira",
+      "lines_identical_to_v70": true,
+      "run_id": "demo.p0.swa.ira.two-statements-first-answered-second-zero",
+      "v70_lines": {
+        "24": "5755",
+        "25a": "4500",
+        "25b": "1200",
+        "25d": "5700",
+        "33": "5700",
+        "35a": "0",
+        "37": "55"
+      },
+      "v71": {
+        "blocked_count": 0,
+        "line_dispositions": {},
+        "lines": {
+          "24": "5755",
+          "25a": "4500",
+          "25b": "1200",
+          "25d": "5700",
+          "33": "5700",
+          "35a": "0",
+          "37": "55"
+        },
+        "root_blocks": [],
+        "status": "ran",
+        "subtotals": {
+          "dividends.b4-withholding-subtotal": "0",
+          "interest.b4-withholding-subtotal": "0",
+          "ira.box4-withholding-subtotal": "1200.0",
+          "ssa1099.b6-withholding-subtotal": "0",
+          "unemployment.b4-withholding-subtotal": "0"
+        }
+      }
+    },
+    {
+      "cause": "two-statements-both-answered",
+      "family": "ira",
+      "lines_identical_to_v70": true,
+      "run_id": "demo.p0.swa.ira.two-statements-both-answered",
+      "v70_lines": {
+        "24": "5755",
+        "25a": "4500",
+        "25b": "2000",
+        "25d": "6500",
+        "33": "6500",
+        "35a": "745",
+        "37": "0"
+      },
+      "v71": {
+        "blocked_count": 0,
+        "line_dispositions": {},
+        "lines": {
+          "24": "5755",
+          "25a": "4500",
+          "25b": "2000",
+          "25d": "6500",
+          "33": "6500",
+          "35a": "745",
+          "37": "0"
+        },
+        "root_blocks": [],
+        "status": "ran",
+        "subtotals": {
+          "dividends.b4-withholding-subtotal": "0",
+          "interest.b4-withholding-subtotal": "0",
+          "ira.box4-withholding-subtotal": "2000.0",
+          "ssa1099.b6-withholding-subtotal": "0",
+          "unemployment.b4-withholding-subtotal": "0"
+        }
+      }
+    },
+    {
+      "cause": "joint-two-statements-second-not-answered",
+      "family": "ira",
+      "lines_identical_to_v70": false,
+      "run_id": "demo.p0.swa.ira.joint-two-statements-second-not-answered",
+      "v70_lines": {
+        "24": "7146",
+        "25a": "7000",
+        "25b": "1200",
+        "25d": "8200",
+        "33": "8200",
+        "35a": "1054",
+        "37": "0"
+      },
+      "v71": {
+        "blocked_count": 7,
+        "line_dispositions": {
+          "form1040-line25b": {
+            "code": "DEPENDENCY_ABSENT",
+            "missing": [
+              "f1099r.ira-box4-withholding"
+            ]
+          }
+        },
+        "lines": {
+          "24": "7146",
+          "25a": "7000",
+          "25b": "blocked",
+          "25d": "blocked",
+          "33": "blocked",
+          "35a": "blocked",
+          "37": "blocked"
+        },
+        "root_blocks": [],
+        "status": "ran",
+        "subtotals": {
+          "dividends.b4-withholding-subtotal": "0",
+          "interest.b4-withholding-subtotal": "0",
+          "ira.box4-withholding-subtotal": "1200.0",
+          "ssa1099.b6-withholding-subtotal": "0",
+          "unemployment.b4-withholding-subtotal": "0"
+        }
+      }
+    },
+    {
+      "cause": "joint-two-statements-both-answered",
+      "family": "ira",
+      "lines_identical_to_v70": true,
+      "run_id": "demo.p0.swa.ira.joint-two-statements-both-answered",
+      "v70_lines": {
+        "24": "7146",
+        "25a": "7000",
+        "25b": "2000",
+        "25d": "9000",
+        "33": "9000",
+        "35a": "1854",
+        "37": "0"
+      },
+      "v71": {
+        "blocked_count": 0,
+        "line_dispositions": {},
+        "lines": {
+          "24": "7146",
+          "25a": "7000",
+          "25b": "2000",
+          "25d": "9000",
+          "33": "9000",
+          "35a": "1854",
+          "37": "0"
+        },
+        "root_blocks": [],
+        "status": "ran",
+        "subtotals": {
+          "dividends.b4-withholding-subtotal": "0",
+          "interest.b4-withholding-subtotal": "0",
+          "ira.box4-withholding-subtotal": "2000.0",
+          "ssa1099.b6-withholding-subtotal": "0",
+          "unemployment.b4-withholding-subtotal": "0"
+        }
+      }
+    },
+    {
+      "cause": "one-statement-no-answer-closed",
+      "family": "g",
+      "lines_identical_to_v70": false,
+      "run_id": "demo.p0.swa.g.one-statement-no-answer-closed",
+      "v70_lines": {
+        "24": "4595",
+        "25a": "4500",
+        "25b": "0",
+        "25d": "4500",
+        "33": "4500",
+        "35a": "0",
+        "37": "95"
+      },
+      "v71": {
+        "blocked_count": 7,
+        "line_dispositions": {
+          "form1040-line25b": {
+            "code": "DEPENDENCY_ABSENT",
+            "missing": [
+              "f1099g.box4-withholding"
+            ]
+          }
+        },
+        "lines": {
+          "24": "4595",
+          "25a": "4500",
+          "25b": "blocked",
+          "25d": "blocked",
+          "33": "blocked",
+          "35a": "blocked",
+          "37": "blocked"
+        },
+        "root_blocks": [],
+        "status": "ran",
+        "subtotals": {
+          "dividends.b4-withholding-subtotal": "0",
+          "interest.b4-withholding-subtotal": "0",
+          "ira.box4-withholding-subtotal": "0",
+          "ssa1099.b6-withholding-subtotal": "0",
+          "unemployment.b4-withholding-subtotal": "0"
+        }
+      }
+    },
+    {
+      "cause": "one-statement-zero-answered",
+      "family": "g",
+      "lines_identical_to_v70": true,
+      "run_id": "demo.p0.swa.g.one-statement-zero-answered",
+      "v70_lines": {
+        "24": "4595",
+        "25a": "4500",
+        "25b": "0",
+        "25d": "4500",
+        "33": "4500",
+        "35a": "0",
+        "37": "95"
+      },
+      "v71": {
+        "blocked_count": 0,
+        "line_dispositions": {},
+        "lines": {
+          "24": "4595",
+          "25a": "4500",
+          "25b": "0",
+          "25d": "4500",
+          "33": "4500",
+          "35a": "0",
+          "37": "95"
+        },
+        "root_blocks": [],
+        "status": "ran",
+        "subtotals": {
+          "dividends.b4-withholding-subtotal": "0",
+          "interest.b4-withholding-subtotal": "0",
+          "ira.box4-withholding-subtotal": "0",
+          "ssa1099.b6-withholding-subtotal": "0",
+          "unemployment.b4-withholding-subtotal": "0.0"
+        }
+      }
+    },
+    {
+      "cause": "one-statement-answered",
+      "family": "g",
+      "lines_identical_to_v70": true,
+      "run_id": "demo.p0.swa.g.one-statement-answered",
+      "v70_lines": {
+        "24": "4595",
+        "25a": "4500",
+        "25b": "600",
+        "25d": "5100",
+        "33": "5100",
+        "35a": "505",
+        "37": "0"
+      },
+      "v71": {
+        "blocked_count": 0,
+        "line_dispositions": {},
+        "lines": {
+          "24": "4595",
+          "25a": "4500",
+          "25b": "600",
+          "25d": "5100",
+          "33": "5100",
+          "35a": "505",
+          "37": "0"
+        },
+        "root_blocks": [],
+        "status": "ran",
+        "subtotals": {
+          "dividends.b4-withholding-subtotal": "0",
+          "interest.b4-withholding-subtotal": "0",
+          "ira.box4-withholding-subtotal": "0",
+          "ssa1099.b6-withholding-subtotal": "0",
+          "unemployment.b4-withholding-subtotal": "600.0"
+        }
+      }
+    },
+    {
+      "cause": "two-statements-first-answered-second-not",
+      "family": "g",
+      "lines_identical_to_v70": false,
+      "run_id": "demo.p0.swa.g.two-statements-first-answered-second-not",
+      "v70_lines": {
+        "24": "5075",
+        "25a": "4500",
+        "25b": "600",
+        "25d": "5100",
+        "33": "5100",
+        "35a": "25",
+        "37": "0"
+      },
+      "v71": {
+        "blocked_count": 7,
+        "line_dispositions": {
+          "form1040-line25b": {
+            "code": "DEPENDENCY_ABSENT",
+            "missing": [
+              "f1099g.box4-withholding"
+            ]
+          }
+        },
+        "lines": {
+          "24": "5075",
+          "25a": "4500",
+          "25b": "blocked",
+          "25d": "blocked",
+          "33": "blocked",
+          "35a": "blocked",
+          "37": "blocked"
+        },
+        "root_blocks": [],
+        "status": "ran",
+        "subtotals": {
+          "dividends.b4-withholding-subtotal": "0",
+          "interest.b4-withholding-subtotal": "0",
+          "ira.box4-withholding-subtotal": "0",
+          "ssa1099.b6-withholding-subtotal": "0",
+          "unemployment.b4-withholding-subtotal": "600.0"
+        }
+      }
+    },
+    {
+      "cause": "two-statements-first-answered-second-zero",
+      "family": "g",
+      "lines_identical_to_v70": true,
+      "run_id": "demo.p0.swa.g.two-statements-first-answered-second-zero",
+      "v70_lines": {
+        "24": "5075",
+        "25a": "4500",
+        "25b": "600",
+        "25d": "5100",
+        "33": "5100",
+        "35a": "25",
+        "37": "0"
+      },
+      "v71": {
+        "blocked_count": 0,
+        "line_dispositions": {},
+        "lines": {
+          "24": "5075",
+          "25a": "4500",
+          "25b": "600",
+          "25d": "5100",
+          "33": "5100",
+          "35a": "25",
+          "37": "0"
+        },
+        "root_blocks": [],
+        "status": "ran",
+        "subtotals": {
+          "dividends.b4-withholding-subtotal": "0",
+          "interest.b4-withholding-subtotal": "0",
+          "ira.box4-withholding-subtotal": "0",
+          "ssa1099.b6-withholding-subtotal": "0",
+          "unemployment.b4-withholding-subtotal": "600.0"
+        }
+      }
+    },
+    {
+      "cause": "two-statements-both-answered",
+      "family": "g",
+      "lines_identical_to_v70": true,
+      "run_id": "demo.p0.swa.g.two-statements-both-answered",
+      "v70_lines": {
+        "24": "5075",
+        "25a": "4500",
+        "25b": "1000",
+        "25d": "5500",
+        "33": "5500",
+        "35a": "425",
+        "37": "0"
+      },
+      "v71": {
+        "blocked_count": 0,
+        "line_dispositions": {},
+        "lines": {
+          "24": "5075",
+          "25a": "4500",
+          "25b": "1000",
+          "25d": "5500",
+          "33": "5500",
+          "35a": "425",
+          "37": "0"
+        },
+        "root_blocks": [],
+        "status": "ran",
+        "subtotals": {
+          "dividends.b4-withholding-subtotal": "0",
+          "interest.b4-withholding-subtotal": "0",
+          "ira.box4-withholding-subtotal": "0",
+          "ssa1099.b6-withholding-subtotal": "0",
+          "unemployment.b4-withholding-subtotal": "1000.0"
+        }
+      }
+    },
+    {
+      "cause": "joint-two-statements-second-not-answered",
+      "family": "g",
+      "lines_identical_to_v70": false,
+      "run_id": "demo.p0.swa.g.joint-two-statements-second-not-answered",
+      "v70_lines": {
+        "24": "6546",
+        "25a": "7000",
+        "25b": "600",
+        "25d": "7600",
+        "33": "7600",
+        "35a": "1054",
+        "37": "0"
+      },
+      "v71": {
+        "blocked_count": 7,
+        "line_dispositions": {
+          "form1040-line25b": {
+            "code": "DEPENDENCY_ABSENT",
+            "missing": [
+              "f1099g.box4-withholding"
+            ]
+          }
+        },
+        "lines": {
+          "24": "6546",
+          "25a": "7000",
+          "25b": "blocked",
+          "25d": "blocked",
+          "33": "blocked",
+          "35a": "blocked",
+          "37": "blocked"
+        },
+        "root_blocks": [],
+        "status": "ran",
+        "subtotals": {
+          "dividends.b4-withholding-subtotal": "0",
+          "interest.b4-withholding-subtotal": "0",
+          "ira.box4-withholding-subtotal": "0",
+          "ssa1099.b6-withholding-subtotal": "0",
+          "unemployment.b4-withholding-subtotal": "600.0"
+        }
+      }
+    },
+    {
+      "cause": "joint-two-statements-both-answered",
+      "family": "g",
+      "lines_identical_to_v70": true,
+      "run_id": "demo.p0.swa.g.joint-two-statements-both-answered",
+      "v70_lines": {
+        "24": "6546",
+        "25a": "7000",
+        "25b": "1000",
+        "25d": "8000",
+        "33": "8000",
+        "35a": "1454",
+        "37": "0"
+      },
+      "v71": {
+        "blocked_count": 0,
+        "line_dispositions": {},
+        "lines": {
+          "24": "6546",
+          "25a": "7000",
+          "25b": "1000",
+          "25d": "8000",
+          "33": "8000",
+          "35a": "1454",
+          "37": "0"
+        },
+        "root_blocks": [],
+        "status": "ran",
+        "subtotals": {
+          "dividends.b4-withholding-subtotal": "0",
+          "interest.b4-withholding-subtotal": "0",
+          "ira.box4-withholding-subtotal": "0",
+          "ssa1099.b6-withholding-subtotal": "0",
+          "unemployment.b4-withholding-subtotal": "1000.0"
+        }
+      }
+    },
+    {
+      "cause": "one-statement-no-answer-closed",
+      "family": "ssa",
+      "lines_identical_to_v70": false,
+      "run_id": "demo.p0.swa.ssa.one-statement-no-answer-closed",
+      "v70_lines": {
+        "24": "5099",
+        "25a": "4500",
+        "25b": "0",
+        "25d": "4500",
+        "33": "4500",
+        "35a": "0",
+        "37": "599"
+      },
+      "v71": {
+        "blocked_count": 7,
+        "line_dispositions": {
+          "form1040-line25b": {
+            "code": "DEPENDENCY_ABSENT",
+            "missing": [
+              "ssa1099.box6-voluntary-withholding"
+            ]
+          }
+        },
+        "lines": {
+          "24": "5099",
+          "25a": "4500",
+          "25b": "blocked",
+          "25d": "blocked",
+          "33": "blocked",
+          "35a": "blocked",
+          "37": "blocked"
+        },
+        "root_blocks": [],
+        "status": "ran",
+        "subtotals": {
+          "dividends.b4-withholding-subtotal": "0",
+          "interest.b4-withholding-subtotal": "0",
+          "ira.box4-withholding-subtotal": "0",
+          "ssa1099.b6-withholding-subtotal": "0",
+          "unemployment.b4-withholding-subtotal": "0"
+        }
+      }
+    },
+    {
+      "cause": "one-statement-zero-answered",
+      "family": "ssa",
+      "lines_identical_to_v70": true,
+      "run_id": "demo.p0.swa.ssa.one-statement-zero-answered",
+      "v70_lines": {
+        "24": "5099",
+        "25a": "4500",
+        "25b": "0",
+        "25d": "4500",
+        "33": "4500",
+        "35a": "0",
+        "37": "599"
+      },
+      "v71": {
+        "blocked_count": 0,
+        "line_dispositions": {},
+        "lines": {
+          "24": "5099",
+          "25a": "4500",
+          "25b": "0",
+          "25d": "4500",
+          "33": "4500",
+          "35a": "0",
+          "37": "599"
+        },
+        "root_blocks": [],
+        "status": "ran",
+        "subtotals": {
+          "dividends.b4-withholding-subtotal": "0",
+          "interest.b4-withholding-subtotal": "0",
+          "ira.box4-withholding-subtotal": "0",
+          "ssa1099.b6-withholding-subtotal": "0.0",
+          "unemployment.b4-withholding-subtotal": "0"
+        }
+      }
+    },
+    {
+      "cause": "one-statement-answered",
+      "family": "ssa",
+      "lines_identical_to_v70": true,
+      "run_id": "demo.p0.swa.ssa.one-statement-answered",
+      "v70_lines": {
+        "24": "5099",
+        "25a": "4500",
+        "25b": "800",
+        "25d": "5300",
+        "33": "5300",
+        "35a": "201",
+        "37": "0"
+      },
+      "v71": {
+        "blocked_count": 0,
+        "line_dispositions": {},
+        "lines": {
+          "24": "5099",
+          "25a": "4500",
+          "25b": "800",
+          "25d": "5300",
+          "33": "5300",
+          "35a": "201",
+          "37": "0"
+        },
+        "root_blocks": [],
+        "status": "ran",
+        "subtotals": {
+          "dividends.b4-withholding-subtotal": "0",
+          "interest.b4-withholding-subtotal": "0",
+          "ira.box4-withholding-subtotal": "0",
+          "ssa1099.b6-withholding-subtotal": "800.0",
+          "unemployment.b4-withholding-subtotal": "0"
+        }
+      }
+    },
+    {
+      "cause": "two-statements-first-answered-second-not",
+      "family": "ssa",
+      "lines_identical_to_v70": false,
+      "run_id": "demo.p0.swa.ssa.two-statements-first-answered-second-not",
+      "v70_lines": {
+        "24": "6195",
+        "25a": "4500",
+        "25b": "800",
+        "25d": "5300",
+        "33": "5300",
+        "35a": "0",
+        "37": "895"
+      },
+      "v71": {
+        "blocked_count": 7,
+        "line_dispositions": {
+          "form1040-line25b": {
+            "code": "DEPENDENCY_ABSENT",
+            "missing": [
+              "ssa1099.box6-voluntary-withholding"
+            ]
+          }
+        },
+        "lines": {
+          "24": "6195",
+          "25a": "4500",
+          "25b": "blocked",
+          "25d": "blocked",
+          "33": "blocked",
+          "35a": "blocked",
+          "37": "blocked"
+        },
+        "root_blocks": [],
+        "status": "ran",
+        "subtotals": {
+          "dividends.b4-withholding-subtotal": "0",
+          "interest.b4-withholding-subtotal": "0",
+          "ira.box4-withholding-subtotal": "0",
+          "ssa1099.b6-withholding-subtotal": "800.0",
+          "unemployment.b4-withholding-subtotal": "0"
+        }
+      }
+    },
+    {
+      "cause": "two-statements-first-answered-second-zero",
+      "family": "ssa",
+      "lines_identical_to_v70": true,
+      "run_id": "demo.p0.swa.ssa.two-statements-first-answered-second-zero",
+      "v70_lines": {
+        "24": "6195",
+        "25a": "4500",
+        "25b": "800",
+        "25d": "5300",
+        "33": "5300",
+        "35a": "0",
+        "37": "895"
+      },
+      "v71": {
+        "blocked_count": 0,
+        "line_dispositions": {},
+        "lines": {
+          "24": "6195",
+          "25a": "4500",
+          "25b": "800",
+          "25d": "5300",
+          "33": "5300",
+          "35a": "0",
+          "37": "895"
+        },
+        "root_blocks": [],
+        "status": "ran",
+        "subtotals": {
+          "dividends.b4-withholding-subtotal": "0",
+          "interest.b4-withholding-subtotal": "0",
+          "ira.box4-withholding-subtotal": "0",
+          "ssa1099.b6-withholding-subtotal": "800.0",
+          "unemployment.b4-withholding-subtotal": "0"
+        }
+      }
+    },
+    {
+      "cause": "two-statements-both-answered",
+      "family": "ssa",
+      "lines_identical_to_v70": true,
+      "run_id": "demo.p0.swa.ssa.two-statements-both-answered",
+      "v70_lines": {
+        "24": "6195",
+        "25a": "4500",
+        "25b": "1300",
+        "25d": "5800",
+        "33": "5800",
+        "35a": "0",
+        "37": "395"
+      },
+      "v71": {
+        "blocked_count": 0,
+        "line_dispositions": {},
+        "lines": {
+          "24": "6195",
+          "25a": "4500",
+          "25b": "1300",
+          "25d": "5800",
+          "33": "5800",
+          "35a": "0",
+          "37": "395"
+        },
+        "root_blocks": [],
+        "status": "ran",
+        "subtotals": {
+          "dividends.b4-withholding-subtotal": "0",
+          "interest.b4-withholding-subtotal": "0",
+          "ira.box4-withholding-subtotal": "0",
+          "ssa1099.b6-withholding-subtotal": "1300.0",
+          "unemployment.b4-withholding-subtotal": "0"
+        }
+      }
+    },
+    {
+      "cause": "joint-two-statements-second-not-answered",
+      "family": "ssa",
+      "lines_identical_to_v70": false,
+      "run_id": "demo.p0.swa.ssa.joint-two-statements-second-not-answered",
+      "v70_lines": {
+        "24": "7386",
+        "25a": "7000",
+        "25b": "800",
+        "25d": "7800",
+        "33": "7800",
+        "35a": "414",
+        "37": "0"
+      },
+      "v71": {
+        "blocked_count": 7,
+        "line_dispositions": {
+          "form1040-line25b": {
+            "code": "DEPENDENCY_ABSENT",
+            "missing": [
+              "ssa1099.box6-voluntary-withholding"
+            ]
+          }
+        },
+        "lines": {
+          "24": "7386",
+          "25a": "7000",
+          "25b": "blocked",
+          "25d": "blocked",
+          "33": "blocked",
+          "35a": "blocked",
+          "37": "blocked"
+        },
+        "root_blocks": [],
+        "status": "ran",
+        "subtotals": {
+          "dividends.b4-withholding-subtotal": "0",
+          "interest.b4-withholding-subtotal": "0",
+          "ira.box4-withholding-subtotal": "0",
+          "ssa1099.b6-withholding-subtotal": "800.0",
+          "unemployment.b4-withholding-subtotal": "0"
+        }
+      }
+    },
+    {
+      "cause": "joint-two-statements-both-answered",
+      "family": "ssa",
+      "lines_identical_to_v70": true,
+      "run_id": "demo.p0.swa.ssa.joint-two-statements-both-answered",
+      "v70_lines": {
+        "24": "7386",
+        "25a": "7000",
+        "25b": "1300",
+        "25d": "8300",
+        "33": "8300",
+        "35a": "914",
+        "37": "0"
+      },
+      "v71": {
+        "blocked_count": 0,
+        "line_dispositions": {},
+        "lines": {
+          "24": "7386",
+          "25a": "7000",
+          "25b": "1300",
+          "25d": "8300",
+          "33": "8300",
+          "35a": "914",
+          "37": "0"
+        },
+        "root_blocks": [],
+        "status": "ran",
+        "subtotals": {
+          "dividends.b4-withholding-subtotal": "0",
+          "interest.b4-withholding-subtotal": "0",
+          "ira.box4-withholding-subtotal": "0",
+          "ssa1099.b6-withholding-subtotal": "1300.0",
+          "unemployment.b4-withholding-subtotal": "0"
+        }
+      }
+    },
+    {
+      "cause": "single-every-statement-answered",
+      "family": "all",
+      "lines_identical_to_v70": true,
+      "run_id": "demo.p0.swa.all.single-every-statement-answered",
+      "v70_lines": {
+        "24": "11783",
+        "25a": "4500",
+        "25b": "4340",
+        "25d": "8840",
+        "33": "8840",
+        "35a": "0",
+        "37": "2943"
+      },
+      "v71": {
+        "blocked_count": 0,
+        "line_dispositions": {},
+        "lines": {
+          "24": "11783",
+          "25a": "4500",
+          "25b": "4340",
+          "25d": "8840",
+          "33": "8840",
+          "35a": "0",
+          "37": "2943"
+        },
+        "root_blocks": [],
+        "status": "ran",
+        "subtotals": {
+          "dividends.b4-withholding-subtotal": "60.0",
+          "interest.b4-withholding-subtotal": "80.0",
+          "ira.box4-withholding-subtotal": "2000.0",
+          "ssa1099.b6-withholding-subtotal": "1300.0",
+          "unemployment.b4-withholding-subtotal": "900.0"
+        }
+      }
+    },
+    {
+      "cause": "single-only-int-second-not-answered",
+      "family": "all",
+      "lines_identical_to_v70": false,
+      "run_id": "demo.p0.swa.all.single-only-int-second-not-answered",
+      "v70_lines": {
+        "24": "11783",
+        "25a": "4500",
+        "25b": "4310",
+        "25d": "8810",
+        "33": "8810",
+        "35a": "0",
+        "37": "2973"
+      },
+      "v71": {
+        "blocked_count": 7,
+        "line_dispositions": {
+          "form1040-line25b": {
+            "code": "DEPENDENCY_ABSENT",
+            "missing": [
+              "f1099int.box4-withholding"
+            ]
+          }
+        },
+        "lines": {
+          "24": "11783",
+          "25a": "4500",
+          "25b": "blocked",
+          "25d": "blocked",
+          "33": "blocked",
+          "35a": "blocked",
+          "37": "blocked"
+        },
+        "root_blocks": [],
+        "status": "ran",
+        "subtotals": {
+          "dividends.b4-withholding-subtotal": "60.0",
+          "interest.b4-withholding-subtotal": "50.0",
+          "ira.box4-withholding-subtotal": "2000.0",
+          "ssa1099.b6-withholding-subtotal": "1300.0",
+          "unemployment.b4-withholding-subtotal": "900.0"
+        }
+      }
+    },
+    {
+      "cause": "single-only-int-second-zero",
+      "family": "all",
+      "lines_identical_to_v70": true,
+      "run_id": "demo.p0.swa.all.single-only-int-second-zero",
+      "v70_lines": {
+        "24": "11783",
+        "25a": "4500",
+        "25b": "4310",
+        "25d": "8810",
+        "33": "8810",
+        "35a": "0",
+        "37": "2973"
+      },
+      "v71": {
+        "blocked_count": 0,
+        "line_dispositions": {},
+        "lines": {
+          "24": "11783",
+          "25a": "4500",
+          "25b": "4310",
+          "25d": "8810",
+          "33": "8810",
+          "35a": "0",
+          "37": "2973"
+        },
+        "root_blocks": [],
+        "status": "ran",
+        "subtotals": {
+          "dividends.b4-withholding-subtotal": "60.0",
+          "interest.b4-withholding-subtotal": "50.0",
+          "ira.box4-withholding-subtotal": "2000.0",
+          "ssa1099.b6-withholding-subtotal": "1300.0",
+          "unemployment.b4-withholding-subtotal": "900.0"
+        }
+      }
+    },
+    {
+      "cause": "single-only-div-second-not-answered",
+      "family": "all",
+      "lines_identical_to_v70": false,
+      "run_id": "demo.p0.swa.all.single-only-div-second-not-answered",
+      "v70_lines": {
+        "24": "11783",
+        "25a": "4500",
+        "25b": "4320",
+        "25d": "8820",
+        "33": "8820",
+        "35a": "0",
+        "37": "2963"
+      },
+      "v71": {
+        "blocked_count": 7,
+        "line_dispositions": {
+          "form1040-line25b": {
+            "code": "DEPENDENCY_ABSENT",
+            "missing": [
+              "f1099div.box4-withholding"
+            ]
+          }
+        },
+        "lines": {
+          "24": "11783",
+          "25a": "4500",
+          "25b": "blocked",
+          "25d": "blocked",
+          "33": "blocked",
+          "35a": "blocked",
+          "37": "blocked"
+        },
+        "root_blocks": [],
+        "status": "ran",
+        "subtotals": {
+          "dividends.b4-withholding-subtotal": "40.0",
+          "interest.b4-withholding-subtotal": "80.0",
+          "ira.box4-withholding-subtotal": "2000.0",
+          "ssa1099.b6-withholding-subtotal": "1300.0",
+          "unemployment.b4-withholding-subtotal": "900.0"
+        }
+      }
+    },
+    {
+      "cause": "single-only-div-second-zero",
+      "family": "all",
+      "lines_identical_to_v70": true,
+      "run_id": "demo.p0.swa.all.single-only-div-second-zero",
+      "v70_lines": {
+        "24": "11783",
+        "25a": "4500",
+        "25b": "4320",
+        "25d": "8820",
+        "33": "8820",
+        "35a": "0",
+        "37": "2963"
+      },
+      "v71": {
+        "blocked_count": 0,
+        "line_dispositions": {},
+        "lines": {
+          "24": "11783",
+          "25a": "4500",
+          "25b": "4320",
+          "25d": "8820",
+          "33": "8820",
+          "35a": "0",
+          "37": "2963"
+        },
+        "root_blocks": [],
+        "status": "ran",
+        "subtotals": {
+          "dividends.b4-withholding-subtotal": "40.0",
+          "interest.b4-withholding-subtotal": "80.0",
+          "ira.box4-withholding-subtotal": "2000.0",
+          "ssa1099.b6-withholding-subtotal": "1300.0",
+          "unemployment.b4-withholding-subtotal": "900.0"
+        }
+      }
+    },
+    {
+      "cause": "single-only-ira-second-not-answered",
+      "family": "all",
+      "lines_identical_to_v70": false,
+      "run_id": "demo.p0.swa.all.single-only-ira-second-not-answered",
+      "v70_lines": {
+        "24": "11783",
+        "25a": "4500",
+        "25b": "3540",
+        "25d": "8040",
+        "33": "8040",
+        "35a": "0",
+        "37": "3743"
+      },
+      "v71": {
+        "blocked_count": 7,
+        "line_dispositions": {
+          "form1040-line25b": {
+            "code": "DEPENDENCY_ABSENT",
+            "missing": [
+              "f1099r.ira-box4-withholding"
+            ]
+          }
+        },
+        "lines": {
+          "24": "11783",
+          "25a": "4500",
+          "25b": "blocked",
+          "25d": "blocked",
+          "33": "blocked",
+          "35a": "blocked",
+          "37": "blocked"
+        },
+        "root_blocks": [],
+        "status": "ran",
+        "subtotals": {
+          "dividends.b4-withholding-subtotal": "60.0",
+          "interest.b4-withholding-subtotal": "80.0",
+          "ira.box4-withholding-subtotal": "1200.0",
+          "ssa1099.b6-withholding-subtotal": "1300.0",
+          "unemployment.b4-withholding-subtotal": "900.0"
+        }
+      }
+    },
+    {
+      "cause": "single-only-ira-second-zero",
+      "family": "all",
+      "lines_identical_to_v70": true,
+      "run_id": "demo.p0.swa.all.single-only-ira-second-zero",
+      "v70_lines": {
+        "24": "11783",
+        "25a": "4500",
+        "25b": "3540",
+        "25d": "8040",
+        "33": "8040",
+        "35a": "0",
+        "37": "3743"
+      },
+      "v71": {
+        "blocked_count": 0,
+        "line_dispositions": {},
+        "lines": {
+          "24": "11783",
+          "25a": "4500",
+          "25b": "3540",
+          "25d": "8040",
+          "33": "8040",
+          "35a": "0",
+          "37": "3743"
+        },
+        "root_blocks": [],
+        "status": "ran",
+        "subtotals": {
+          "dividends.b4-withholding-subtotal": "60.0",
+          "interest.b4-withholding-subtotal": "80.0",
+          "ira.box4-withholding-subtotal": "1200.0",
+          "ssa1099.b6-withholding-subtotal": "1300.0",
+          "unemployment.b4-withholding-subtotal": "900.0"
+        }
+      }
+    },
+    {
+      "cause": "single-only-g-second-not-answered",
+      "family": "all",
+      "lines_identical_to_v70": false,
+      "run_id": "demo.p0.swa.all.single-only-g-second-not-answered",
+      "v70_lines": {
+        "24": "11783",
+        "25a": "4500",
+        "25b": "3940",
+        "25d": "8440",
+        "33": "8440",
+        "35a": "0",
+        "37": "3343"
+      },
+      "v71": {
+        "blocked_count": 7,
+        "line_dispositions": {
+          "form1040-line25b": {
+            "code": "DEPENDENCY_ABSENT",
+            "missing": [
+              "f1099g.box4-withholding"
+            ]
+          }
+        },
+        "lines": {
+          "24": "11783",
+          "25a": "4500",
+          "25b": "blocked",
+          "25d": "blocked",
+          "33": "blocked",
+          "35a": "blocked",
+          "37": "blocked"
+        },
+        "root_blocks": [],
+        "status": "ran",
+        "subtotals": {
+          "dividends.b4-withholding-subtotal": "60.0",
+          "interest.b4-withholding-subtotal": "80.0",
+          "ira.box4-withholding-subtotal": "2000.0",
+          "ssa1099.b6-withholding-subtotal": "1300.0",
+          "unemployment.b4-withholding-subtotal": "500.0"
+        }
+      }
+    },
+    {
+      "cause": "single-only-g-second-zero",
+      "family": "all",
+      "lines_identical_to_v70": true,
+      "run_id": "demo.p0.swa.all.single-only-g-second-zero",
+      "v70_lines": {
+        "24": "11783",
+        "25a": "4500",
+        "25b": "3940",
+        "25d": "8440",
+        "33": "8440",
+        "35a": "0",
+        "37": "3343"
+      },
+      "v71": {
+        "blocked_count": 0,
+        "line_dispositions": {},
+        "lines": {
+          "24": "11783",
+          "25a": "4500",
+          "25b": "3940",
+          "25d": "8440",
+          "33": "8440",
+          "35a": "0",
+          "37": "3343"
+        },
+        "root_blocks": [],
+        "status": "ran",
+        "subtotals": {
+          "dividends.b4-withholding-subtotal": "60.0",
+          "interest.b4-withholding-subtotal": "80.0",
+          "ira.box4-withholding-subtotal": "2000.0",
+          "ssa1099.b6-withholding-subtotal": "1300.0",
+          "unemployment.b4-withholding-subtotal": "500.0"
+        }
+      }
+    },
+    {
+      "cause": "single-only-ssa-second-not-answered",
+      "family": "all",
+      "lines_identical_to_v70": false,
+      "run_id": "demo.p0.swa.all.single-only-ssa-second-not-answered",
+      "v70_lines": {
+        "24": "11783",
+        "25a": "4500",
+        "25b": "3840",
+        "25d": "8340",
+        "33": "8340",
+        "35a": "0",
+        "37": "3443"
+      },
+      "v71": {
+        "blocked_count": 7,
+        "line_dispositions": {
+          "form1040-line25b": {
+            "code": "DEPENDENCY_ABSENT",
+            "missing": [
+              "ssa1099.box6-voluntary-withholding"
+            ]
+          }
+        },
+        "lines": {
+          "24": "11783",
+          "25a": "4500",
+          "25b": "blocked",
+          "25d": "blocked",
+          "33": "blocked",
+          "35a": "blocked",
+          "37": "blocked"
+        },
+        "root_blocks": [],
+        "status": "ran",
+        "subtotals": {
+          "dividends.b4-withholding-subtotal": "60.0",
+          "interest.b4-withholding-subtotal": "80.0",
+          "ira.box4-withholding-subtotal": "2000.0",
+          "ssa1099.b6-withholding-subtotal": "800.0",
+          "unemployment.b4-withholding-subtotal": "900.0"
+        }
+      }
+    },
+    {
+      "cause": "single-only-ssa-second-zero",
+      "family": "all",
+      "lines_identical_to_v70": true,
+      "run_id": "demo.p0.swa.all.single-only-ssa-second-zero",
+      "v70_lines": {
+        "24": "11783",
+        "25a": "4500",
+        "25b": "3840",
+        "25d": "8340",
+        "33": "8340",
+        "35a": "0",
+        "37": "3443"
+      },
+      "v71": {
+        "blocked_count": 0,
+        "line_dispositions": {},
+        "lines": {
+          "24": "11783",
+          "25a": "4500",
+          "25b": "3840",
+          "25d": "8340",
+          "33": "8340",
+          "35a": "0",
+          "37": "3443"
+        },
+        "root_blocks": [],
+        "status": "ran",
+        "subtotals": {
+          "dividends.b4-withholding-subtotal": "60.0",
+          "interest.b4-withholding-subtotal": "80.0",
+          "ira.box4-withholding-subtotal": "2000.0",
+          "ssa1099.b6-withholding-subtotal": "800.0",
+          "unemployment.b4-withholding-subtotal": "900.0"
+        }
+      }
+    },
+    {
+      "cause": "joint-every-statement-answered",
+      "family": "all",
+      "lines_identical_to_v70": true,
+      "run_id": "demo.p0.swa.all.joint-every-statement-answered",
+      "v70_lines": {
+        "24": "10434",
+        "25a": "7000",
+        "25b": "4340",
+        "25d": "11340",
+        "33": "11340",
+        "35a": "906",
+        "37": "0"
+      },
+      "v71": {
+        "blocked_count": 0,
+        "line_dispositions": {},
+        "lines": {
+          "24": "10434",
+          "25a": "7000",
+          "25b": "4340",
+          "25d": "11340",
+          "33": "11340",
+          "35a": "906",
+          "37": "0"
+        },
+        "root_blocks": [],
+        "status": "ran",
+        "subtotals": {
+          "dividends.b4-withholding-subtotal": "60.0",
+          "interest.b4-withholding-subtotal": "80.0",
+          "ira.box4-withholding-subtotal": "2000.0",
+          "ssa1099.b6-withholding-subtotal": "1300.0",
+          "unemployment.b4-withholding-subtotal": "900.0"
+        }
+      }
+    },
+    {
+      "cause": "joint-only-int-second-not-answered",
+      "family": "all",
+      "lines_identical_to_v70": false,
+      "run_id": "demo.p0.swa.all.joint-only-int-second-not-answered",
+      "v70_lines": {
+        "24": "10434",
+        "25a": "7000",
+        "25b": "4310",
+        "25d": "11310",
+        "33": "11310",
+        "35a": "876",
+        "37": "0"
+      },
+      "v71": {
+        "blocked_count": 7,
+        "line_dispositions": {
+          "form1040-line25b": {
+            "code": "DEPENDENCY_ABSENT",
+            "missing": [
+              "f1099int.box4-withholding"
+            ]
+          }
+        },
+        "lines": {
+          "24": "10434",
+          "25a": "7000",
+          "25b": "blocked",
+          "25d": "blocked",
+          "33": "blocked",
+          "35a": "blocked",
+          "37": "blocked"
+        },
+        "root_blocks": [],
+        "status": "ran",
+        "subtotals": {
+          "dividends.b4-withholding-subtotal": "60.0",
+          "interest.b4-withholding-subtotal": "50.0",
+          "ira.box4-withholding-subtotal": "2000.0",
+          "ssa1099.b6-withholding-subtotal": "1300.0",
+          "unemployment.b4-withholding-subtotal": "900.0"
+        }
+      }
+    },
+    {
+      "cause": "joint-only-int-second-zero",
+      "family": "all",
+      "lines_identical_to_v70": true,
+      "run_id": "demo.p0.swa.all.joint-only-int-second-zero",
+      "v70_lines": {
+        "24": "10434",
+        "25a": "7000",
+        "25b": "4310",
+        "25d": "11310",
+        "33": "11310",
+        "35a": "876",
+        "37": "0"
+      },
+      "v71": {
+        "blocked_count": 0,
+        "line_dispositions": {},
+        "lines": {
+          "24": "10434",
+          "25a": "7000",
+          "25b": "4310",
+          "25d": "11310",
+          "33": "11310",
+          "35a": "876",
+          "37": "0"
+        },
+        "root_blocks": [],
+        "status": "ran",
+        "subtotals": {
+          "dividends.b4-withholding-subtotal": "60.0",
+          "interest.b4-withholding-subtotal": "50.0",
+          "ira.box4-withholding-subtotal": "2000.0",
+          "ssa1099.b6-withholding-subtotal": "1300.0",
+          "unemployment.b4-withholding-subtotal": "900.0"
+        }
+      }
+    },
+    {
+      "cause": "joint-only-div-second-not-answered",
+      "family": "all",
+      "lines_identical_to_v70": false,
+      "run_id": "demo.p0.swa.all.joint-only-div-second-not-answered",
+      "v70_lines": {
+        "24": "10434",
+        "25a": "7000",
+        "25b": "4320",
+        "25d": "11320",
+        "33": "11320",
+        "35a": "886",
+        "37": "0"
+      },
+      "v71": {
+        "blocked_count": 7,
+        "line_dispositions": {
+          "form1040-line25b": {
+            "code": "DEPENDENCY_ABSENT",
+            "missing": [
+              "f1099div.box4-withholding"
+            ]
+          }
+        },
+        "lines": {
+          "24": "10434",
+          "25a": "7000",
+          "25b": "blocked",
+          "25d": "blocked",
+          "33": "blocked",
+          "35a": "blocked",
+          "37": "blocked"
+        },
+        "root_blocks": [],
+        "status": "ran",
+        "subtotals": {
+          "dividends.b4-withholding-subtotal": "40.0",
+          "interest.b4-withholding-subtotal": "80.0",
+          "ira.box4-withholding-subtotal": "2000.0",
+          "ssa1099.b6-withholding-subtotal": "1300.0",
+          "unemployment.b4-withholding-subtotal": "900.0"
+        }
+      }
+    },
+    {
+      "cause": "joint-only-div-second-zero",
+      "family": "all",
+      "lines_identical_to_v70": true,
+      "run_id": "demo.p0.swa.all.joint-only-div-second-zero",
+      "v70_lines": {
+        "24": "10434",
+        "25a": "7000",
+        "25b": "4320",
+        "25d": "11320",
+        "33": "11320",
+        "35a": "886",
+        "37": "0"
+      },
+      "v71": {
+        "blocked_count": 0,
+        "line_dispositions": {},
+        "lines": {
+          "24": "10434",
+          "25a": "7000",
+          "25b": "4320",
+          "25d": "11320",
+          "33": "11320",
+          "35a": "886",
+          "37": "0"
+        },
+        "root_blocks": [],
+        "status": "ran",
+        "subtotals": {
+          "dividends.b4-withholding-subtotal": "40.0",
+          "interest.b4-withholding-subtotal": "80.0",
+          "ira.box4-withholding-subtotal": "2000.0",
+          "ssa1099.b6-withholding-subtotal": "1300.0",
+          "unemployment.b4-withholding-subtotal": "900.0"
+        }
+      }
+    },
+    {
+      "cause": "joint-only-ira-second-not-answered",
+      "family": "all",
+      "lines_identical_to_v70": false,
+      "run_id": "demo.p0.swa.all.joint-only-ira-second-not-answered",
+      "v70_lines": {
+        "24": "10434",
+        "25a": "7000",
+        "25b": "3540",
+        "25d": "10540",
+        "33": "10540",
+        "35a": "106",
+        "37": "0"
+      },
+      "v71": {
+        "blocked_count": 7,
+        "line_dispositions": {
+          "form1040-line25b": {
+            "code": "DEPENDENCY_ABSENT",
+            "missing": [
+              "f1099r.ira-box4-withholding"
+            ]
+          }
+        },
+        "lines": {
+          "24": "10434",
+          "25a": "7000",
+          "25b": "blocked",
+          "25d": "blocked",
+          "33": "blocked",
+          "35a": "blocked",
+          "37": "blocked"
+        },
+        "root_blocks": [],
+        "status": "ran",
+        "subtotals": {
+          "dividends.b4-withholding-subtotal": "60.0",
+          "interest.b4-withholding-subtotal": "80.0",
+          "ira.box4-withholding-subtotal": "1200.0",
+          "ssa1099.b6-withholding-subtotal": "1300.0",
+          "unemployment.b4-withholding-subtotal": "900.0"
+        }
+      }
+    },
+    {
+      "cause": "joint-only-ira-second-zero",
+      "family": "all",
+      "lines_identical_to_v70": true,
+      "run_id": "demo.p0.swa.all.joint-only-ira-second-zero",
+      "v70_lines": {
+        "24": "10434",
+        "25a": "7000",
+        "25b": "3540",
+        "25d": "10540",
+        "33": "10540",
+        "35a": "106",
+        "37": "0"
+      },
+      "v71": {
+        "blocked_count": 0,
+        "line_dispositions": {},
+        "lines": {
+          "24": "10434",
+          "25a": "7000",
+          "25b": "3540",
+          "25d": "10540",
+          "33": "10540",
+          "35a": "106",
+          "37": "0"
+        },
+        "root_blocks": [],
+        "status": "ran",
+        "subtotals": {
+          "dividends.b4-withholding-subtotal": "60.0",
+          "interest.b4-withholding-subtotal": "80.0",
+          "ira.box4-withholding-subtotal": "1200.0",
+          "ssa1099.b6-withholding-subtotal": "1300.0",
+          "unemployment.b4-withholding-subtotal": "900.0"
+        }
+      }
+    },
+    {
+      "cause": "joint-only-g-second-not-answered",
+      "family": "all",
+      "lines_identical_to_v70": false,
+      "run_id": "demo.p0.swa.all.joint-only-g-second-not-answered",
+      "v70_lines": {
+        "24": "10434",
+        "25a": "7000",
+        "25b": "3940",
+        "25d": "10940",
+        "33": "10940",
+        "35a": "506",
+        "37": "0"
+      },
+      "v71": {
+        "blocked_count": 7,
+        "line_dispositions": {
+          "form1040-line25b": {
+            "code": "DEPENDENCY_ABSENT",
+            "missing": [
+              "f1099g.box4-withholding"
+            ]
+          }
+        },
+        "lines": {
+          "24": "10434",
+          "25a": "7000",
+          "25b": "blocked",
+          "25d": "blocked",
+          "33": "blocked",
+          "35a": "blocked",
+          "37": "blocked"
+        },
+        "root_blocks": [],
+        "status": "ran",
+        "subtotals": {
+          "dividends.b4-withholding-subtotal": "60.0",
+          "interest.b4-withholding-subtotal": "80.0",
+          "ira.box4-withholding-subtotal": "2000.0",
+          "ssa1099.b6-withholding-subtotal": "1300.0",
+          "unemployment.b4-withholding-subtotal": "500.0"
+        }
+      }
+    },
+    {
+      "cause": "joint-only-g-second-zero",
+      "family": "all",
+      "lines_identical_to_v70": true,
+      "run_id": "demo.p0.swa.all.joint-only-g-second-zero",
+      "v70_lines": {
+        "24": "10434",
+        "25a": "7000",
+        "25b": "3940",
+        "25d": "10940",
+        "33": "10940",
+        "35a": "506",
+        "37": "0"
+      },
+      "v71": {
+        "blocked_count": 0,
+        "line_dispositions": {},
+        "lines": {
+          "24": "10434",
+          "25a": "7000",
+          "25b": "3940",
+          "25d": "10940",
+          "33": "10940",
+          "35a": "506",
+          "37": "0"
+        },
+        "root_blocks": [],
+        "status": "ran",
+        "subtotals": {
+          "dividends.b4-withholding-subtotal": "60.0",
+          "interest.b4-withholding-subtotal": "80.0",
+          "ira.box4-withholding-subtotal": "2000.0",
+          "ssa1099.b6-withholding-subtotal": "1300.0",
+          "unemployment.b4-withholding-subtotal": "500.0"
+        }
+      }
+    },
+    {
+      "cause": "joint-only-ssa-second-not-answered",
+      "family": "all",
+      "lines_identical_to_v70": false,
+      "run_id": "demo.p0.swa.all.joint-only-ssa-second-not-answered",
+      "v70_lines": {
+        "24": "10434",
+        "25a": "7000",
+        "25b": "3840",
+        "25d": "10840",
+        "33": "10840",
+        "35a": "406",
+        "37": "0"
+      },
+      "v71": {
+        "blocked_count": 7,
+        "line_dispositions": {
+          "form1040-line25b": {
+            "code": "DEPENDENCY_ABSENT",
+            "missing": [
+              "ssa1099.box6-voluntary-withholding"
+            ]
+          }
+        },
+        "lines": {
+          "24": "10434",
+          "25a": "7000",
+          "25b": "blocked",
+          "25d": "blocked",
+          "33": "blocked",
+          "35a": "blocked",
+          "37": "blocked"
+        },
+        "root_blocks": [],
+        "status": "ran",
+        "subtotals": {
+          "dividends.b4-withholding-subtotal": "60.0",
+          "interest.b4-withholding-subtotal": "80.0",
+          "ira.box4-withholding-subtotal": "2000.0",
+          "ssa1099.b6-withholding-subtotal": "800.0",
+          "unemployment.b4-withholding-subtotal": "900.0"
+        }
+      }
+    },
+    {
+      "cause": "joint-only-ssa-second-zero",
+      "family": "all",
+      "lines_identical_to_v70": true,
+      "run_id": "demo.p0.swa.all.joint-only-ssa-second-zero",
+      "v70_lines": {
+        "24": "10434",
+        "25a": "7000",
+        "25b": "3840",
+        "25d": "10840",
+        "33": "10840",
+        "35a": "406",
+        "37": "0"
+      },
+      "v71": {
+        "blocked_count": 0,
+        "line_dispositions": {},
+        "lines": {
+          "24": "10434",
+          "25a": "7000",
+          "25b": "3840",
+          "25d": "10840",
+          "33": "10840",
+          "35a": "406",
+          "37": "0"
+        },
+        "root_blocks": [],
+        "status": "ran",
+        "subtotals": {
+          "dividends.b4-withholding-subtotal": "60.0",
+          "interest.b4-withholding-subtotal": "80.0",
+          "ira.box4-withholding-subtotal": "2000.0",
+          "ssa1099.b6-withholding-subtotal": "800.0",
+          "unemployment.b4-withholding-subtotal": "900.0"
+        }
+      }
+    },
+    {
+      "cause": "int-zero-recorded-closure-not-reattested",
+      "family": "adopt",
+      "lines_identical_to_v70": true,
+      "run_id": "demo.p0.swa.adopt.int-zero-recorded-closure-not-reattested",
+      "v70_lines": {
+        "24": "3971",
+        "25a": "4500",
+        "25b": "blocked",
+        "25d": "blocked",
+        "33": "blocked",
+        "35a": "blocked",
+        "37": "blocked"
+      },
+      "v71": {
+        "blocked_count": 7,
+        "line_dispositions": {
+          "form1040-line25b": {
+            "code": "SOURCE_SET_UNCLOSED",
+            "missing": [
+              "f1099int.b4"
+            ]
+          }
+        },
+        "lines": {
+          "24": "3971",
+          "25a": "4500",
+          "25b": "blocked",
+          "25d": "blocked",
+          "33": "blocked",
+          "35a": "blocked",
+          "37": "blocked"
+        },
+        "root_blocks": [
+          {
+            "artifact": "form1040-line25b",
+            "code": "SOURCE_SET_UNCLOSED",
+            "missing": [
+              "f1099int.b4"
+            ]
+          }
+        ],
+        "status": "ran",
+        "subtotals": {
+          "dividends.b4-withholding-subtotal": "0",
+          "interest.b4-withholding-subtotal": "50.0",
+          "ira.box4-withholding-subtotal": "0",
+          "ssa1099.b6-withholding-subtotal": "0",
+          "unemployment.b4-withholding-subtotal": "0"
+        }
+      }
+    },
+    {
+      "cause": "int-zero-recorded-closure-reattested",
+      "family": "adopt",
+      "lines_identical_to_v70": true,
+      "run_id": "demo.p0.swa.adopt.int-zero-recorded-closure-reattested",
+      "v70_lines": {
+        "24": "3971",
+        "25a": "4500",
+        "25b": "50",
+        "25d": "4550",
+        "33": "4550",
+        "35a": "579",
+        "37": "0"
+      },
+      "v71": {
+        "blocked_count": 0,
+        "line_dispositions": {},
+        "lines": {
+          "24": "3971",
+          "25a": "4500",
+          "25b": "50",
+          "25d": "4550",
+          "33": "4550",
+          "35a": "579",
+          "37": "0"
+        },
+        "root_blocks": [],
+        "status": "ran",
+        "subtotals": {
+          "dividends.b4-withholding-subtotal": "0",
+          "interest.b4-withholding-subtotal": "50.0",
+          "ira.box4-withholding-subtotal": "0",
+          "ssa1099.b6-withholding-subtotal": "0",
+          "unemployment.b4-withholding-subtotal": "0"
+        }
+      }
+    },
+    {
+      "cause": "div-zero-recorded-closure-not-reattested",
+      "family": "adopt",
+      "lines_identical_to_v70": true,
+      "run_id": "demo.p0.swa.adopt.div-zero-recorded-closure-not-reattested",
+      "v70_lines": {
+        "24": "3971",
+        "25a": "4500",
+        "25b": "blocked",
+        "25d": "blocked",
+        "33": "blocked",
+        "35a": "blocked",
+        "37": "blocked"
+      },
+      "v71": {
+        "blocked_count": 7,
+        "line_dispositions": {
+          "form1040-line25b": {
+            "code": "SOURCE_SET_UNCLOSED",
+            "missing": [
+              "f1099div.b4"
+            ]
+          }
+        },
+        "lines": {
+          "24": "3971",
+          "25a": "4500",
+          "25b": "blocked",
+          "25d": "blocked",
+          "33": "blocked",
+          "35a": "blocked",
+          "37": "blocked"
+        },
+        "root_blocks": [
+          {
+            "artifact": "form1040-line25b",
+            "code": "SOURCE_SET_UNCLOSED",
+            "missing": [
+              "f1099div.b4"
+            ]
+          }
+        ],
+        "status": "ran",
+        "subtotals": {
+          "dividends.b4-withholding-subtotal": "40.0",
+          "interest.b4-withholding-subtotal": "0",
+          "ira.box4-withholding-subtotal": "0",
+          "ssa1099.b6-withholding-subtotal": "0",
+          "unemployment.b4-withholding-subtotal": "0"
+        }
+      }
+    },
+    {
+      "cause": "div-zero-recorded-closure-reattested",
+      "family": "adopt",
+      "lines_identical_to_v70": true,
+      "run_id": "demo.p0.swa.adopt.div-zero-recorded-closure-reattested",
+      "v70_lines": {
+        "24": "3971",
+        "25a": "4500",
+        "25b": "40",
+        "25d": "4540",
+        "33": "4540",
+        "35a": "569",
+        "37": "0"
+      },
+      "v71": {
+        "blocked_count": 0,
+        "line_dispositions": {},
+        "lines": {
+          "24": "3971",
+          "25a": "4500",
+          "25b": "40",
+          "25d": "4540",
+          "33": "4540",
+          "35a": "569",
+          "37": "0"
+        },
+        "root_blocks": [],
+        "status": "ran",
+        "subtotals": {
+          "dividends.b4-withholding-subtotal": "40.0",
+          "interest.b4-withholding-subtotal": "0",
+          "ira.box4-withholding-subtotal": "0",
+          "ssa1099.b6-withholding-subtotal": "0",
+          "unemployment.b4-withholding-subtotal": "0"
+        }
+      }
+    },
+    {
+      "cause": "ira-zero-recorded-closure-not-reattested",
+      "family": "adopt",
+      "lines_identical_to_v70": true,
+      "run_id": "demo.p0.swa.adopt.ira-zero-recorded-closure-not-reattested",
+      "v70_lines": {
+        "24": "5755",
+        "25a": "4500",
+        "25b": "blocked",
+        "25d": "blocked",
+        "33": "blocked",
+        "35a": "blocked",
+        "37": "blocked"
+      },
+      "v71": {
+        "blocked_count": 7,
+        "line_dispositions": {
+          "form1040-line25b": {
+            "code": "SOURCE_SET_UNCLOSED",
+            "missing": [
+              "f1099r.box4"
+            ]
+          }
+        },
+        "lines": {
+          "24": "5755",
+          "25a": "4500",
+          "25b": "blocked",
+          "25d": "blocked",
+          "33": "blocked",
+          "35a": "blocked",
+          "37": "blocked"
+        },
+        "root_blocks": [
+          {
+            "artifact": "form1040-line25b",
+            "code": "SOURCE_SET_UNCLOSED",
+            "missing": [
+              "f1099r.box4"
+            ]
+          }
+        ],
+        "status": "ran",
+        "subtotals": {
+          "dividends.b4-withholding-subtotal": "0",
+          "interest.b4-withholding-subtotal": "0",
+          "ira.box4-withholding-subtotal": "1200.0",
+          "ssa1099.b6-withholding-subtotal": "0",
+          "unemployment.b4-withholding-subtotal": "0"
+        }
+      }
+    },
+    {
+      "cause": "ira-zero-recorded-closure-reattested",
+      "family": "adopt",
+      "lines_identical_to_v70": true,
+      "run_id": "demo.p0.swa.adopt.ira-zero-recorded-closure-reattested",
+      "v70_lines": {
+        "24": "5755",
+        "25a": "4500",
+        "25b": "1200",
+        "25d": "5700",
+        "33": "5700",
+        "35a": "0",
+        "37": "55"
+      },
+      "v71": {
+        "blocked_count": 0,
+        "line_dispositions": {},
+        "lines": {
+          "24": "5755",
+          "25a": "4500",
+          "25b": "1200",
+          "25d": "5700",
+          "33": "5700",
+          "35a": "0",
+          "37": "55"
+        },
+        "root_blocks": [],
+        "status": "ran",
+        "subtotals": {
+          "dividends.b4-withholding-subtotal": "0",
+          "interest.b4-withholding-subtotal": "0",
+          "ira.box4-withholding-subtotal": "1200.0",
+          "ssa1099.b6-withholding-subtotal": "0",
+          "unemployment.b4-withholding-subtotal": "0"
+        }
+      }
+    },
+    {
+      "cause": "g-zero-recorded-closure-not-reattested",
+      "family": "adopt",
+      "lines_identical_to_v70": true,
+      "run_id": "demo.p0.swa.adopt.g-zero-recorded-closure-not-reattested",
+      "v70_lines": {
+        "24": "5075",
+        "25a": "4500",
+        "25b": "blocked",
+        "25d": "blocked",
+        "33": "blocked",
+        "35a": "blocked",
+        "37": "blocked"
+      },
+      "v71": {
+        "blocked_count": 7,
+        "line_dispositions": {
+          "form1040-line25b": {
+            "code": "SOURCE_SET_UNCLOSED",
+            "missing": [
+              "f1099g.b4"
+            ]
+          }
+        },
+        "lines": {
+          "24": "5075",
+          "25a": "4500",
+          "25b": "blocked",
+          "25d": "blocked",
+          "33": "blocked",
+          "35a": "blocked",
+          "37": "blocked"
+        },
+        "root_blocks": [
+          {
+            "artifact": "form1040-line25b",
+            "code": "SOURCE_SET_UNCLOSED",
+            "missing": [
+              "f1099g.b4"
+            ]
+          }
+        ],
+        "status": "ran",
+        "subtotals": {
+          "dividends.b4-withholding-subtotal": "0",
+          "interest.b4-withholding-subtotal": "0",
+          "ira.box4-withholding-subtotal": "0",
+          "ssa1099.b6-withholding-subtotal": "0",
+          "unemployment.b4-withholding-subtotal": "600.0"
+        }
+      }
+    },
+    {
+      "cause": "g-zero-recorded-closure-reattested",
+      "family": "adopt",
+      "lines_identical_to_v70": true,
+      "run_id": "demo.p0.swa.adopt.g-zero-recorded-closure-reattested",
+      "v70_lines": {
+        "24": "5075",
+        "25a": "4500",
+        "25b": "600",
+        "25d": "5100",
+        "33": "5100",
+        "35a": "25",
+        "37": "0"
+      },
+      "v71": {
+        "blocked_count": 0,
+        "line_dispositions": {},
+        "lines": {
+          "24": "5075",
+          "25a": "4500",
+          "25b": "600",
+          "25d": "5100",
+          "33": "5100",
+          "35a": "25",
+          "37": "0"
+        },
+        "root_blocks": [],
+        "status": "ran",
+        "subtotals": {
+          "dividends.b4-withholding-subtotal": "0",
+          "interest.b4-withholding-subtotal": "0",
+          "ira.box4-withholding-subtotal": "0",
+          "ssa1099.b6-withholding-subtotal": "0",
+          "unemployment.b4-withholding-subtotal": "600.0"
+        }
+      }
+    },
+    {
+      "cause": "ssa-zero-recorded-closure-not-reattested",
+      "family": "adopt",
+      "lines_identical_to_v70": true,
+      "run_id": "demo.p0.swa.adopt.ssa-zero-recorded-closure-not-reattested",
+      "v70_lines": {
+        "24": "6195",
+        "25a": "4500",
+        "25b": "blocked",
+        "25d": "blocked",
+        "33": "blocked",
+        "35a": "blocked",
+        "37": "blocked"
+      },
+      "v71": {
+        "blocked_count": 7,
+        "line_dispositions": {
+          "form1040-line25b": {
+            "code": "SOURCE_SET_UNCLOSED",
+            "missing": [
+              "ssa1099.b6"
+            ]
+          }
+        },
+        "lines": {
+          "24": "6195",
+          "25a": "4500",
+          "25b": "blocked",
+          "25d": "blocked",
+          "33": "blocked",
+          "35a": "blocked",
+          "37": "blocked"
+        },
+        "root_blocks": [
+          {
+            "artifact": "form1040-line25b",
+            "code": "SOURCE_SET_UNCLOSED",
+            "missing": [
+              "ssa1099.b6"
+            ]
+          }
+        ],
+        "status": "ran",
+        "subtotals": {
+          "dividends.b4-withholding-subtotal": "0",
+          "interest.b4-withholding-subtotal": "0",
+          "ira.box4-withholding-subtotal": "0",
+          "ssa1099.b6-withholding-subtotal": "800.0",
+          "unemployment.b4-withholding-subtotal": "0"
+        }
+      }
+    },
+    {
+      "cause": "ssa-zero-recorded-closure-reattested",
+      "family": "adopt",
+      "lines_identical_to_v70": true,
+      "run_id": "demo.p0.swa.adopt.ssa-zero-recorded-closure-reattested",
+      "v70_lines": {
+        "24": "6195",
+        "25a": "4500",
+        "25b": "800",
+        "25d": "5300",
+        "33": "5300",
+        "35a": "0",
+        "37": "895"
+      },
+      "v71": {
+        "blocked_count": 0,
+        "line_dispositions": {},
+        "lines": {
+          "24": "6195",
+          "25a": "4500",
+          "25b": "800",
+          "25d": "5300",
+          "33": "5300",
+          "35a": "0",
+          "37": "895"
+        },
+        "root_blocks": [],
+        "status": "ran",
+        "subtotals": {
+          "dividends.b4-withholding-subtotal": "0",
+          "interest.b4-withholding-subtotal": "0",
+          "ira.box4-withholding-subtotal": "0",
+          "ssa1099.b6-withholding-subtotal": "800.0",
+          "unemployment.b4-withholding-subtotal": "0"
+        }
+      }
+    },
+    {
+      "cause": "div-1a-closure-unanswered-box4-answered",
+      "family": "income-closure",
+      "lines_identical_to_v70": false,
+      "run_id": "demo.p0.swa.income-closure.div-1a-closure-unanswered-box4-answered",
+      "v70_lines": {
+        "24": "blocked",
+        "25a": "4500",
+        "25b": "40",
+        "25d": "4540",
+        "33": "blocked",
+        "35a": "blocked",
+        "37": "blocked"
+      },
+      "v71": {
+        "blocked_count": 91,
+        "line_dispositions": {
+          "form1040-line25b": {
+            "code": "SOURCE_SET_UNCLOSED",
+            "missing": [
+              "f1099div.1a"
+            ]
+          }
+        },
+        "lines": {
+          "24": "blocked",
+          "25a": "4500",
+          "25b": "blocked",
+          "25d": "blocked",
+          "33": "blocked",
+          "35a": "blocked",
+          "37": "blocked"
+        },
+        "root_blocks": [
+          {
+            "artifact": "form1040-line3b",
+            "code": "SOURCE_SET_UNCLOSED",
+            "missing": [
+              "f1099div.1a"
+            ]
+          },
+          {
+            "artifact": "form1040-line25b",
+            "code": "SOURCE_SET_UNCLOSED",
+            "missing": [
+              "f1099div.1a"
+            ]
+          }
+        ],
+        "status": "ran",
+        "subtotals": {
+          "dividends.b4-withholding-subtotal": "40.0",
+          "interest.b4-withholding-subtotal": "0",
+          "ira.box4-withholding-subtotal": "0",
+          "ssa1099.b6-withholding-subtotal": "0",
+          "unemployment.b4-withholding-subtotal": "0"
+        }
+      }
+    },
+    {
+      "cause": "single-int-and-g-second-not-answered",
+      "family": "all",
+      "lines_identical_to_v70": false,
+      "run_id": "demo.p0.swa.all.single-int-and-g-second-not-answered",
+      "v70_lines": {
+        "24": "11783",
+        "25a": "4500",
+        "25b": "3910",
+        "25d": "8410",
+        "33": "8410",
+        "35a": "0",
+        "37": "3373"
+      },
+      "v71": {
+        "blocked_count": 7,
+        "line_dispositions": {
+          "form1040-line25b": {
+            "code": "DEPENDENCY_ABSENT",
+            "missing": [
+              "f1099int.box4-withholding"
+            ]
+          }
+        },
+        "lines": {
+          "24": "11783",
+          "25a": "4500",
+          "25b": "blocked",
+          "25d": "blocked",
+          "33": "blocked",
+          "35a": "blocked",
+          "37": "blocked"
+        },
+        "root_blocks": [],
+        "status": "ran",
+        "subtotals": {
+          "dividends.b4-withholding-subtotal": "60.0",
+          "interest.b4-withholding-subtotal": "50.0",
+          "ira.box4-withholding-subtotal": "2000.0",
+          "ssa1099.b6-withholding-subtotal": "1300.0",
+          "unemployment.b4-withholding-subtotal": "500.0"
+        }
+      }
+    },
+    {
+      "cause": "int-box8-only-statement-no-box4",
+      "family": "census",
+      "lines_identical_to_v70": true,
+      "run_id": "demo.p0.swa.census.int-box8-only-statement-no-box4",
+      "v70_lines": {
+        "24": "3875",
+        "25a": "4500",
+        "25b": "0",
+        "25d": "4500",
+        "33": "4500",
+        "35a": "625",
+        "37": "0"
+      },
+      "v71": {
+        "blocked_count": 0,
+        "line_dispositions": {},
+        "lines": {
+          "24": "3875",
+          "25a": "4500",
+          "25b": "0",
+          "25d": "4500",
+          "33": "4500",
+          "35a": "625",
+          "37": "0"
+        },
+        "root_blocks": [],
+        "status": "ran",
+        "subtotals": {
+          "dividends.b4-withholding-subtotal": "0",
+          "interest.b4-withholding-subtotal": "0",
+          "ira.box4-withholding-subtotal": "0",
+          "ssa1099.b6-withholding-subtotal": "0",
+          "unemployment.b4-withholding-subtotal": "0"
+        }
+      }
+    },
+    {
+      "cause": "div-box12-only-statement-no-box4",
+      "family": "census",
+      "lines_identical_to_v70": true,
+      "run_id": "demo.p0.swa.census.div-box12-only-statement-no-box4",
+      "v70_lines": {
+        "24": "3875",
+        "25a": "4500",
+        "25b": "0",
+        "25d": "4500",
+        "33": "4500",
+        "35a": "625",
+        "37": "0"
+      },
+      "v71": {
+        "blocked_count": 0,
+        "line_dispositions": {},
+        "lines": {
+          "24": "3875",
+          "25a": "4500",
+          "25b": "0",
+          "25d": "4500",
+          "33": "4500",
+          "35a": "625",
+          "37": "0"
+        },
+        "root_blocks": [],
+        "status": "ran",
+        "subtotals": {
+          "dividends.b4-withholding-subtotal": "0",
+          "interest.b4-withholding-subtotal": "0",
+          "ira.box4-withholding-subtotal": "0",
+          "ssa1099.b6-withholding-subtotal": "0",
+          "unemployment.b4-withholding-subtotal": "0"
+        }
+      }
+    },
+    {
+      "cause": "int-box4-on-a-statement-without-box1",
+      "family": "census",
+      "lines_identical_to_v70": true,
+      "run_id": "demo.p0.swa.census.int-box4-on-a-statement-without-box1",
+      "v70_lines": {
+        "24": "3971",
+        "25a": "4500",
+        "25b": "57",
+        "25d": "4557",
+        "33": "4557",
+        "35a": "586",
+        "37": "0"
+      },
+      "v71": {
+        "blocked_count": 0,
+        "line_dispositions": {},
+        "lines": {
+          "24": "3971",
+          "25a": "4500",
+          "25b": "57",
+          "25d": "4557",
+          "33": "4557",
+          "35a": "586",
+          "37": "0"
+        },
+        "root_blocks": [],
+        "status": "ran",
+        "subtotals": {
+          "dividends.b4-withholding-subtotal": "0",
+          "interest.b4-withholding-subtotal": "57.0",
+          "ira.box4-withholding-subtotal": "0",
+          "ssa1099.b6-withholding-subtotal": "0",
+          "unemployment.b4-withholding-subtotal": "0"
+        }
+      }
+    },
+    {
+      "cause": "int-every-statement-answered-plus-one-answer-without-box1",
+      "family": "census",
+      "lines_identical_to_v70": false,
+      "run_id": "demo.p0.swa.census.int-every-statement-answered-plus-one-answer-without-box1",
+      "v70_lines": {
+        "24": "3971",
+        "25a": "4500",
+        "25b": "87",
+        "25d": "4587",
+        "33": "4587",
+        "35a": "616",
+        "37": "0"
+      },
+      "v71": {
+        "blocked_count": 7,
+        "line_dispositions": {
+          "form1040-line25b": {
+            "code": "DEPENDENCY_ABSENT",
+            "missing": [
+              "f1099int.box4-withholding"
+            ]
+          }
+        },
+        "lines": {
+          "24": "3971",
+          "25a": "4500",
+          "25b": "blocked",
+          "25d": "blocked",
+          "33": "blocked",
+          "35a": "blocked",
+          "37": "blocked"
+        },
+        "root_blocks": [],
+        "status": "ran",
+        "subtotals": {
+          "dividends.b4-withholding-subtotal": "0",
+          "interest.b4-withholding-subtotal": "87.0",
+          "ira.box4-withholding-subtotal": "0",
+          "ssa1099.b6-withholding-subtotal": "0",
+          "unemployment.b4-withholding-subtotal": "0"
+        }
+      }
+    },
+    {
+      "cause": "base-one-w2-answered",
+      "family": "w2",
+      "lines_identical_to_v70": true,
+      "run_id": "demo.p0.swa.w2.base-one-w2-answered",
+      "v70_lines": {
+        "24": "3875",
+        "25a": "4500",
+        "25b": "0",
+        "25d": "4500",
+        "33": "4500",
+        "35a": "625",
+        "37": "0"
+      },
+      "v71": {
+        "blocked_count": 0,
+        "line_dispositions": {},
+        "lines": {
+          "24": "3875",
+          "25a": "4500",
+          "25b": "0",
+          "25d": "4500",
+          "33": "4500",
+          "35a": "625",
+          "37": "0"
+        },
+        "root_blocks": [],
+        "status": "ran",
+        "subtotals": {
+          "dividends.b4-withholding-subtotal": "0",
+          "interest.b4-withholding-subtotal": "0",
+          "ira.box4-withholding-subtotal": "0",
+          "ssa1099.b6-withholding-subtotal": "0",
+          "unemployment.b4-withholding-subtotal": "0"
+        }
+      }
+    },
+    {
+      "cause": "one-w2-box2-zero",
+      "family": "w2",
+      "lines_identical_to_v70": true,
+      "run_id": "demo.p0.swa.w2.one-w2-box2-zero",
+      "v70_lines": {
+        "24": "3875",
+        "25a": "0",
+        "25b": "0",
+        "25d": "0",
+        "33": "0",
+        "35a": "0",
+        "37": "3875"
+      },
+      "v71": {
+        "blocked_count": 0,
+        "line_dispositions": {},
+        "lines": {
+          "24": "3875",
+          "25a": "0",
+          "25b": "0",
+          "25d": "0",
+          "33": "0",
+          "35a": "0",
+          "37": "3875"
+        },
+        "root_blocks": [],
+        "status": "ran",
+        "subtotals": {
+          "dividends.b4-withholding-subtotal": "0",
+          "interest.b4-withholding-subtotal": "0",
+          "ira.box4-withholding-subtotal": "0",
+          "ssa1099.b6-withholding-subtotal": "0",
+          "unemployment.b4-withholding-subtotal": "0"
+        }
+      }
+    },
+    {
+      "cause": "one-w2-no-box2-closed",
+      "family": "w2",
+      "lines_identical_to_v70": true,
+      "run_id": "demo.p0.swa.w2.one-w2-no-box2-closed",
+      "v70_lines": {
+        "24": "3875",
+        "25a": "blocked",
+        "25b": "0",
+        "25d": "blocked",
+        "33": "blocked",
+        "35a": "blocked",
+        "37": "blocked"
+      },
+      "v71": {
+        "blocked_count": 7,
+        "line_dispositions": {
+          "form1040-line25a": {
+            "code": "DEPENDENCY_ABSENT",
+            "missing": [
+              "w2.box2-withholding"
+            ]
+          }
+        },
+        "lines": {
+          "24": "3875",
+          "25a": "blocked",
+          "25b": "0",
+          "25d": "blocked",
+          "33": "blocked",
+          "35a": "blocked",
+          "37": "blocked"
+        },
+        "root_blocks": [],
+        "status": "ran",
+        "subtotals": {
+          "dividends.b4-withholding-subtotal": "0",
+          "interest.b4-withholding-subtotal": "0",
+          "ira.box4-withholding-subtotal": "0",
+          "ssa1099.b6-withholding-subtotal": "0",
+          "unemployment.b4-withholding-subtotal": "0"
+        }
+      }
+    },
+    {
+      "cause": "two-w2-one-box2-closed",
+      "family": "w2",
+      "lines_identical_to_v70": true,
+      "run_id": "demo.p0.swa.w2.two-w2-one-box2-closed",
+      "v70_lines": {
+        "24": "6855",
+        "25a": "blocked",
+        "25b": "0",
+        "25d": "blocked",
+        "33": "blocked",
+        "35a": "blocked",
+        "37": "blocked"
+      },
+      "v71": {
+        "blocked_count": 7,
+        "line_dispositions": {
+          "form1040-line25a": {
+            "code": "DEPENDENCY_ABSENT",
+            "missing": [
+              "w2.box2-withholding"
+            ]
+          }
+        },
+        "lines": {
+          "24": "6855",
+          "25a": "blocked",
+          "25b": "0",
+          "25d": "blocked",
+          "33": "blocked",
+          "35a": "blocked",
+          "37": "blocked"
+        },
+        "root_blocks": [],
+        "status": "ran",
+        "subtotals": {
+          "dividends.b4-withholding-subtotal": "0",
+          "interest.b4-withholding-subtotal": "0",
+          "ira.box4-withholding-subtotal": "0",
+          "ssa1099.b6-withholding-subtotal": "0",
+          "unemployment.b4-withholding-subtotal": "0"
+        }
+      }
+    },
+    {
+      "cause": "two-w2-second-box2-zero-closed",
+      "family": "w2",
+      "lines_identical_to_v70": true,
+      "run_id": "demo.p0.swa.w2.two-w2-second-box2-zero-closed",
+      "v70_lines": {
+        "24": "6855",
+        "25a": "4500",
+        "25b": "0",
+        "25d": "4500",
+        "33": "4500",
+        "35a": "0",
+        "37": "2355"
+      },
+      "v71": {
+        "blocked_count": 0,
+        "line_dispositions": {},
+        "lines": {
+          "24": "6855",
+          "25a": "4500",
+          "25b": "0",
+          "25d": "4500",
+          "33": "4500",
+          "35a": "0",
+          "37": "2355"
+        },
+        "root_blocks": [],
+        "status": "ran",
+        "subtotals": {
+          "dividends.b4-withholding-subtotal": "0",
+          "interest.b4-withholding-subtotal": "0",
+          "ira.box4-withholding-subtotal": "0",
+          "ssa1099.b6-withholding-subtotal": "0",
+          "unemployment.b4-withholding-subtotal": "0"
+        }
+      }
+    },
+    {
+      "cause": "two-w2-both-answered-closed",
+      "family": "w2",
+      "lines_identical_to_v70": true,
+      "run_id": "demo.p0.swa.w2.two-w2-both-answered-closed",
+      "v70_lines": {
+        "24": "6855",
+        "25a": "5700",
+        "25b": "0",
+        "25d": "5700",
+        "33": "5700",
+        "35a": "0",
+        "37": "1155"
+      },
+      "v71": {
+        "blocked_count": 0,
+        "line_dispositions": {},
+        "lines": {
+          "24": "6855",
+          "25a": "5700",
+          "25b": "0",
+          "25d": "5700",
+          "33": "5700",
+          "35a": "0",
+          "37": "1155"
+        },
+        "root_blocks": [],
+        "status": "ran",
+        "subtotals": {
+          "dividends.b4-withholding-subtotal": "0",
+          "interest.b4-withholding-subtotal": "0",
+          "ira.box4-withholding-subtotal": "0",
+          "ssa1099.b6-withholding-subtotal": "0",
+          "unemployment.b4-withholding-subtotal": "0"
+        }
+      }
+    }
+  ],
+  "cmp": "eq"
+}

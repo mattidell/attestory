@@ -1,0 +1,248 @@
+{
+  "blocked": {
+    "code": "DEPENDENCY_ABSENT",
+    "missing": [
+      "tax.us.2025.interest.b4-withholding-subtotal",
+      "tax.us.2025.dividends.b4-withholding-subtotal",
+      "tax.us.2025.ira.box4-withholding-subtotal",
+      "tax.us.2025.unemployment.b4-withholding-subtotal",
+      "tax.us.2025.ssa1099.b6-withholding-subtotal",
+      "rounding.convention"
+    ]
+  },
+  "citations": [
+    {
+      "id": "tax.us.2025.citation.form1040.line-25b",
+      "version": "v1"
+    }
+  ],
+  "id": "tax.us.2025.rule.form1040-line25b",
+  "notes": "Form 1040 line 25b: 'Add the amounts shown as federal income tax withheld' on Forms 1099-INT, 1099-DIV, 1099-R box 4, 1099-G box 4 and SSA-1099 box 6 (i1040gi-2025 l.2559-2576). Each document's own subtotal rule is pinned and added here, one addend per document, so the explanation walk reaches each one. Form 1099-K box 4 stays outside the class (SC-R1; a nonzero 1099-K box 4 is refused by the 1099-K loss-reason rule). v3 guarded the rule on every family's closure (require_closed). v4 adds, for each family, a count check beside line 25a's: the rule publishes only when the family holds at least as many box 4 (SSA-1099: box 6) answers as statements in the family that records the statement's income box (1099-INT box 1, 1099-DIV box 1a, 1099-R IRA box 1, 1099-G box 1, SSA-1099 box 5). A $0 answer is a recorded answer and counts; absence does not. Why: collect sums what is recorded and reads closure only for an empty set, so v3 published a smaller line 25b when a statement had no box 4 answer and the family's closure was attested true. Blocked as line 25a is: DEPENDENCY_ABSENT naming the family's withholding fact (the first family, in the order listed, that is short), and lines 25d and 33 through 37 wait behind it; lines 24 and 25a are unaffected. The check compares counts: it names the fact, not the statement, a statement recorded only through another box (1099-INT box 3, 8 or 10; 1099-DIV box 2a, 7 or 12) is not counted, and a surplus answer can offset a missing one. A return whose statements each carry their answer, including $0, computes as on v3.",
+  "pins": [
+    {
+      "id": "tax.us.2025.rule.f1099int-b4-subtotal",
+      "origin": "assertion",
+      "role": "input",
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.rule.f1099div-b4-subtotal",
+      "origin": "assertion",
+      "role": "input",
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.rule.f1099r-box4-subtotal",
+      "origin": "assertion",
+      "role": "input",
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.rule.f1099g-b4-subtotal",
+      "origin": "assertion",
+      "role": "input",
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.rule.ssa1099-b6-subtotal",
+      "origin": "assertion",
+      "role": "input",
+      "version": "v1"
+    },
+    {
+      "id": "rounding.convention",
+      "origin": "assertion",
+      "role": "input",
+      "version": "v1"
+    }
+  ],
+  "publishes": "tax.us.2025.payments.line25b",
+  "requires": [
+    "tax.us.2025.interest.b4-withholding-subtotal",
+    "tax.us.2025.dividends.b4-withholding-subtotal",
+    "tax.us.2025.ira.box4-withholding-subtotal",
+    "tax.us.2025.unemployment.b4-withholding-subtotal",
+    "tax.us.2025.ssa1099.b6-withholding-subtotal",
+    "rounding.convention"
+  ],
+  "role": "computation",
+  "schema": "rule-artifact.v4",
+  "scope": {
+    "family": "individual-income-tax",
+    "jurisdiction": "US-federal",
+    "tax_year": 2025
+  },
+  "value": {
+    "mode": {
+      "name": "rounding.convention",
+      "op": "ref"
+    },
+    "op": "round",
+    "value": {
+      "args": [
+        {
+          "name": "tax.us.2025.interest.b4-withholding-subtotal",
+          "op": "ref"
+        },
+        {
+          "name": "tax.us.2025.dividends.b4-withholding-subtotal",
+          "op": "ref"
+        },
+        {
+          "name": "tax.us.2025.ira.box4-withholding-subtotal",
+          "op": "ref"
+        },
+        {
+          "name": "tax.us.2025.unemployment.b4-withholding-subtotal",
+          "op": "ref"
+        },
+        {
+          "name": "tax.us.2025.ssa1099.b6-withholding-subtotal",
+          "op": "ref"
+        }
+      ],
+      "op": "add"
+    }
+  },
+  "version": "v4",
+  "when": {
+    "args": [
+      {
+        "op": "require_closed",
+        "source_set": "tax.us.2025.f1099int.b4"
+      },
+      {
+        "op": "require_closed",
+        "source_set": "tax.us.2025.f1099div.b4"
+      },
+      {
+        "op": "require_closed",
+        "source_set": "tax.us.2025.f1099r.box4"
+      },
+      {
+        "op": "require_closed",
+        "source_set": "tax.us.2025.f1099g.b4"
+      },
+      {
+        "op": "require_closed",
+        "source_set": "tax.us.2025.ssa1099.b6"
+      },
+      {
+        "args": [
+          {
+            "cmp": "gte",
+            "left": {
+              "name": "tax.us.2025.f1099int.box4-withholding",
+              "op": "count",
+              "source_set": "tax.us.2025.f1099int.b4"
+            },
+            "op": "compare",
+            "right": {
+              "name": "tax.us.2025.f1099int.box1-interest",
+              "op": "count",
+              "source_set": "tax.us.2025.f1099int.b1"
+            }
+          },
+          {
+            "name": "tax.us.2025.f1099int.box4-withholding",
+            "op": "ref"
+          }
+        ],
+        "op": "any"
+      },
+      {
+        "args": [
+          {
+            "cmp": "gte",
+            "left": {
+              "name": "tax.us.2025.f1099div.box4-withholding",
+              "op": "count",
+              "source_set": "tax.us.2025.f1099div.b4"
+            },
+            "op": "compare",
+            "right": {
+              "name": "tax.us.2025.f1099div.box1a-ordinary",
+              "op": "count",
+              "source_set": "tax.us.2025.f1099div.1a"
+            }
+          },
+          {
+            "name": "tax.us.2025.f1099div.box4-withholding",
+            "op": "ref"
+          }
+        ],
+        "op": "any"
+      },
+      {
+        "args": [
+          {
+            "cmp": "gte",
+            "left": {
+              "name": "tax.us.2025.f1099r.ira-box4-withholding",
+              "op": "count",
+              "source_set": "tax.us.2025.f1099r.box4"
+            },
+            "op": "compare",
+            "right": {
+              "name": "tax.us.2025.f1099r.ira-box1-taxable-distribution",
+              "op": "count",
+              "source_set": "tax.us.2025.f1099r.ira-fully-taxable"
+            }
+          },
+          {
+            "name": "tax.us.2025.f1099r.ira-box4-withholding",
+            "op": "ref"
+          }
+        ],
+        "op": "any"
+      },
+      {
+        "args": [
+          {
+            "cmp": "gte",
+            "left": {
+              "name": "tax.us.2025.f1099g.box4-withholding",
+              "op": "count",
+              "source_set": "tax.us.2025.f1099g.b4"
+            },
+            "op": "compare",
+            "right": {
+              "name": "tax.us.2025.f1099g.box1-unemployment",
+              "op": "count",
+              "source_set": "tax.us.2025.f1099g.1"
+            }
+          },
+          {
+            "name": "tax.us.2025.f1099g.box4-withholding",
+            "op": "ref"
+          }
+        ],
+        "op": "any"
+      },
+      {
+        "args": [
+          {
+            "cmp": "gte",
+            "left": {
+              "name": "tax.us.2025.ssa1099.box6-voluntary-withholding",
+              "op": "count",
+              "source_set": "tax.us.2025.ssa1099.b6"
+            },
+            "op": "compare",
+            "right": {
+              "name": "tax.us.2025.ssa1099.box5-net-benefits",
+              "op": "count",
+              "source_set": "tax.us.2025.ssa1099.benefits"
+            }
+          },
+          {
+            "name": "tax.us.2025.ssa1099.box6-voluntary-withholding",
+            "op": "ref"
+          }
+        ],
+        "op": "any"
+      }
+    ],
+    "op": "all"
+  }
+}
