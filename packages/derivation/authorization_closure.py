@@ -7,7 +7,7 @@ walkers ``package_validation.py`` already uses for its entrypoint-rooted
 BFS, and roots that walk at the composed rule(s) instead.
 
 Adjacency covers every schema kind that BFS actually emits edges for
-(rule-artifact.v1–v11, form-field.v1–v3, source-closure-mapping.v2/v3,
+(rule-artifact.v1–v11, form-field.v1–v3, source-closure-mapping.v2/v3, input-question.v1,
 taxable-interest-composition.v1, source-family.v1, attachment-rule.v6/v8,
 bundle.v1/v2, and role-canon.v1 as an inbound dependency of every other
 member). ``source-family.v2`` uses the same member-predicate / collect
@@ -29,6 +29,7 @@ from typing import Any, Mapping
 
 from packages.derivation.package_validation import (
     CLOSURE_MAPPING_SCHEMAS,
+    INPUT_QUESTION_SCHEMAS,
     _iter_bound_source_names,
     _iter_collect_source_sets,
     _iter_link_coverage_nodes,
@@ -303,6 +304,15 @@ def build_dependency_edges(
                 fact_pin = citizen.get(mapping_key)
                 if not isinstance(fact_pin, dict):
                     continue
+                fact_id = fact_pin.get("id")
+                if fact_id in ids:
+                    edges[cid].add(fact_id)
+                elif closed and isinstance(fact_id, str):
+                    edges[cid].update(bundles_for_fact.get(fact_id, set()))
+
+        elif schema in INPUT_QUESTION_SCHEMAS:
+            fact_pin = citizen.get("fact_type")
+            if isinstance(fact_pin, dict):
                 fact_id = fact_pin.get("id")
                 if fact_id in ids:
                     edges[cid].add(fact_id)

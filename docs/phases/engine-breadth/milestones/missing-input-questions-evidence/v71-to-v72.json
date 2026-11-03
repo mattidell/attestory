@@ -1,0 +1,149 @@
+{
+  "package_version": "v72",
+  "release_version": "v70",
+  "schema": "artifact-package.v39",
+  "members": [
+    {
+      "op": "add",
+      "new": {
+        "id": "tax.us.2025.input-question.f1099div-box4",
+        "role": "input-question",
+        "schema": "input-question.v1",
+        "version": "v1"
+      }
+    },
+    {
+      "op": "add",
+      "new": {
+        "id": "tax.us.2025.input-question.f1099g-box4",
+        "role": "input-question",
+        "schema": "input-question.v1",
+        "version": "v1"
+      }
+    },
+    {
+      "op": "add",
+      "new": {
+        "id": "tax.us.2025.input-question.f1099int-box4",
+        "role": "input-question",
+        "schema": "input-question.v1",
+        "version": "v1"
+      }
+    },
+    {
+      "op": "add",
+      "new": {
+        "id": "tax.us.2025.input-question.f1099r-box4",
+        "role": "input-question",
+        "schema": "input-question.v1",
+        "version": "v1"
+      }
+    },
+    {
+      "op": "add",
+      "new": {
+        "id": "tax.us.2025.input-question.line26-estimated-payments",
+        "role": "input-question",
+        "schema": "input-question.v1",
+        "version": "v1"
+      }
+    },
+    {
+      "op": "add",
+      "new": {
+        "id": "tax.us.2025.input-question.line36-applied-to-2026",
+        "role": "input-question",
+        "schema": "input-question.v1",
+        "version": "v1"
+      }
+    },
+    {
+      "op": "add",
+      "new": {
+        "id": "tax.us.2025.input-question.ssa1099-box6",
+        "role": "input-question",
+        "schema": "input-question.v1",
+        "version": "v1"
+      }
+    },
+    {
+      "op": "add",
+      "new": {
+        "id": "tax.us.2025.input-question.w2-box2",
+        "role": "input-question",
+        "schema": "input-question.v1",
+        "version": "v1"
+      }
+    }
+  ],
+  "entrypoints": [
+    {
+      "op": "add",
+      "value": {
+        "id": "tax.us.2025.input-question.f1099div-box4",
+        "version": "v1"
+      }
+    },
+    {
+      "op": "add",
+      "value": {
+        "id": "tax.us.2025.input-question.f1099g-box4",
+        "version": "v1"
+      }
+    },
+    {
+      "op": "add",
+      "value": {
+        "id": "tax.us.2025.input-question.f1099int-box4",
+        "version": "v1"
+      }
+    },
+    {
+      "op": "add",
+      "value": {
+        "id": "tax.us.2025.input-question.f1099r-box4",
+        "version": "v1"
+      }
+    },
+    {
+      "op": "add",
+      "value": {
+        "id": "tax.us.2025.input-question.line26-estimated-payments",
+        "version": "v1"
+      }
+    },
+    {
+      "op": "add",
+      "value": {
+        "id": "tax.us.2025.input-question.line36-applied-to-2026",
+        "version": "v1"
+      }
+    },
+    {
+      "op": "add",
+      "value": {
+        "id": "tax.us.2025.input-question.ssa1099-box6",
+        "version": "v1"
+      }
+    },
+    {
+      "op": "add",
+      "value": {
+        "id": "tax.us.2025.input-question.w2-box2",
+        "version": "v1"
+      }
+    }
+  ],
+  "admitted_schemas": [
+    {
+      "op": "add",
+      "value": "input-question.v1"
+    }
+  ],
+  "registry_sort": "id_version",
+  "registry_new_key_order": [
+    "checksum",
+    "id",
+    "version"
+  ]
+}

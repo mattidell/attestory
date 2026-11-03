@@ -419,25 +419,37 @@ def _closure_question_reasons(
     resolved_members: Sequence[Mapping[str, Any]],
     by_symbol: Mapping[str, Sequence[Mapping[str, Any]]],
 ) -> list[dict[str, Any]]:
-    """The declared question for every unconfirmed family a blocked line waits on.
+    """The declared question for every cause a blocked line waits on and a filer can answer.
 
-    Walks the line's ``missing`` symbols through blocked rows to the rows that
-    bottom out on ``SOURCE_SET_UNCLOSED``; their ``missing`` entries are family
-    ids. Each family's closure mapping declares its ``closure_question`` and it
-    is copied verbatim, never composed here and never replaced by a family
-    title, claim or id. Nothing is attached unless every root the line reaches
-    is such a closure root with a declared question: a reason hides the generic
-    blocked text, so a line with a second, different cause must keep it.
+    Walks the line's ``missing`` symbols through blocked rows to the roots. A
+    ``SOURCE_SET_UNCLOSED`` root's ``missing`` entries are family ids, and each
+    family's closure mapping declares its ``closure_question``. A
+    ``DEPENDENCY_ABSENT`` root whose missing symbol has no blocked row of its
+    own is a fact the filer has not supplied, and an ``input-question`` member
+    pinning that fact type declares what to enter. Every sentence is copied
+    verbatim, never composed here and never replaced by a family title, claim,
+    fact title or id. Nothing is attached unless every root the line reaches is
+    one of those with a declared question: a reason hides the generic blocked
+    text, so a line with a second, different cause must keep it. The distinct
+    sentences are returned sorted as strings.
     """
     questions: dict[str, str] = {}
+    input_questions: dict[str, str] = {}
     for member in resolved_members:
+        schema = str(member.get("schema", ""))
         question = member.get("closure_question")
         family = member.get("family")
-        if (str(member.get("schema", "")).startswith("source-closure-mapping.")
+        if (schema.startswith("source-closure-mapping.")
                 and isinstance(question, str) and question.strip() and isinstance(family, Mapping)):
             questions[str(family.get("id"))] = question
+        asked = member.get("question")
+        fact_type = member.get("fact_type")
+        if (schema.startswith("input-question.")
+                and isinstance(asked, str) and asked.strip() and isinstance(fact_type, Mapping)):
+            input_questions[str(fact_type.get("id"))] = asked
 
     families: set[str] = set()
+    facts: set[str] = set()
 
     def reach(current: Mapping[str, Any], seen: frozenset[str]) -> bool:
         if current.get("code") == "SOURCE_SET_UNCLOSED":
@@ -453,13 +465,20 @@ def _closure_question_reasons(
             if symbol in seen:
                 continue
             blocked = [r for r in by_symbol.get(str(symbol), []) if r.get("disposition") == "blocked"]
-            if not blocked or not all(reach(r, seen | {str(symbol)}) for r in blocked):
+            if not blocked:
+                if current.get("code") == "DEPENDENCY_ABSENT" and str(symbol) in input_questions:
+                    facts.add(str(symbol))
+                    continue
+                return False
+            if not all(reach(r, seen | {str(symbol)}) for r in blocked):
                 return False
         return True
 
-    if not reach(row, frozenset()) or not families or any(family not in questions for family in families):
+    if (not reach(row, frozenset()) or not (families or facts)
+            or any(family not in questions for family in families)):
         return []
-    return [{"sentence": sentence} for sentence in sorted({questions[family] for family in families})]
+    sentences = {questions[family] for family in families} | {input_questions[fact] for fact in facts}
+    return [{"sentence": sentence} for sentence in sorted(sentences)]
 
 
 def _is_closure_finding(finding_id: str, state: FindingState) -> bool:

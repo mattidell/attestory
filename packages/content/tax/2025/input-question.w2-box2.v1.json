@@ -1,0 +1,10 @@
+{
+  "fact_type": {
+    "id": "tax.us.2025.w2.box2-withholding",
+    "version": "v1"
+  },
+  "id": "tax.us.2025.input-question.w2-box2",
+  "question": "Enter the federal income tax withheld in box 2 of each Form W-2 you or your spouse received for 2025. If box 2 is blank, enter $0.",
+  "schema": "input-question.v1",
+  "version": "v1"
+}

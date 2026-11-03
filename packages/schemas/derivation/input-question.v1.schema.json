@@ -1,0 +1,6 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema", "$id": "derivation/input-question.v1", "title": "Declared question for one missing filer-supplied input",
+  "description": "The plain-words instruction a filer sees when a line is blocked because this fact has not been supplied. It names one fact type by exact pin and carries the sentence verbatim; the presentation copies it and never composes one. Resolution into the closed package fact surface is package validation.",
+  "type": "object", "properties": {"schema": {"const": "input-question.v1"}, "id": {"type": "string", "minLength": 1}, "version": {"type": "string", "pattern": "^v[0-9]+$"}, "fact_type": {"$ref": "#/$defs/pin"}, "question": {"type": "string", "minLength": 1, "pattern": "\\S"}}, "required": ["schema", "id", "version", "fact_type", "question"], "additionalProperties": false,
+  "$defs": {"pin": {"type": "object", "properties": {"id": {"type": "string", "minLength": 1}, "version": {"type": "string", "pattern": "^v[0-9]+$"}}, "required": ["id", "version"], "additionalProperties": false}}
+}

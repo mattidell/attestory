@@ -1,0 +1,10 @@
+{
+  "fact_type": {
+    "id": "tax.us.2025.payments.estimated-and-prior-year-applied",
+    "version": "v1"
+  },
+  "id": "tax.us.2025.input-question.line26-estimated-payments",
+  "question": "Enter the estimated tax payments you made for 2025, plus any 2024 overpayment you applied to 2025. If there were none, enter $0.",
+  "schema": "input-question.v1",
+  "version": "v1"
+}

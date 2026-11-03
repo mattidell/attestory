@@ -3,7 +3,7 @@
   "version": 1,
   "phase": "Engine Breadth",
   "topic": "missing-input-questions",
-  "status": "Open. P0 surveys which lines block on a missing input on core v71, what the person is shown, and whether a plain question for each already exists.",
+  "status": "Open. P0 done; owner approved a declared input question for eight amounts (input-question.v1, artifact-package.v39, core v72). Track 1 builds it.",
   "scope": [
     "a line blocked because a filer-supplied input is missing names, in plain words, what to answer, as a line held by an unconfirmed family names its closure question since core v69",
     "a line with mixed causes (missing input and unconfirmed family) names each instead of falling back to the generic text",
@@ -113,3 +113,75 @@ names both.
 Dispatch is to Sonnet 5.5 Agent sub-agents (owner direction, 2026-10-30).
 Charters live under `docs/reviews/missing-input-questions/` until closeout
 distills them here. Run commands in the foreground. Stop means stop.
+
+## P0 result
+
+P0 is in [survey and design](missing-input-questions-evidence/p0-survey-and-design.md),
+with the probe and its output beside it. P0 stopped as chartered: the design
+needs schema and admission changes beyond the presentation projection.
+
+- **Catalogue.** 760 runs on core v71, each withholding one input: 230
+  blocked a line; 72 distinct lines, 139 distinct roots. 44 roots are
+  unconfirmed families, named since v69 when alone on a line. 88 are
+  filer-answerable facts: 79 yes/no scope answers, 8 amounts (W-2 box 2;
+  box 4 on Forms 1099-INT, 1099-DIV, 1099-R and 1099-G; SSA-1099 box 6; the
+  line 26 and line 36 amounts) and filing status. The rest are application
+  or derived causes.
+- **What the page shows.** A blocked line without a reason shows the
+  field's generic sentence, "Missing dependency code(s): DEPENDENCY_ABSENT"
+  and "Remedy: contribute the missing dependency". The missing fact is never
+  named.
+- **No usable wording exists.** The only declared question is a family's
+  closure question ("Have you recorded every ...?"), which never says $0 is
+  an answer; fact-type titles are engineering prose.
+- **One cause per rule.** A rule reports its first cause; a mixed line is
+  downstream of two rules (W-2 box 2 missing and the Form 1099-INT box 4
+  family unconfirmed hold lines 25d and 33 through 37 for both).
+- **Design.** A new leaf citizen `input-question.v1` (`fact_type`,
+  `question`, blank refused), one per fact, listed by `artifact-package.v39`;
+  core v72, registry v70, release v70. `_closure_question_reasons`
+  generalises: a closure root gives its closure question, an absent leaf the
+  input question for its fact type; if every leaf has a sentence the
+  distinct sentences attach, sorted, otherwise the generic text stays.
+  Earlier packages carry no input question, so v71 and earlier render
+  byte-identically.
+
+## Decisions
+
+Owner, 2026-11-03: approve the design for the eight amounts (two new
+schemas and the same admission points the closure-question schema needed).
+
+Foreman, 2026-11-03:
+
+1. **The class is the eight amounts.** The 79 scope answers and filing
+   status are parked; their sentences would all be new wording.
+2. **The wording.** Each says what to enter and that $0 is an answer. The
+   check knows the fact, not the statement, so each names every statement of
+   its kind:
+   - W-2 box 2: "Enter the federal income tax withheld in box 2 of each
+     Form W-2 you or your spouse received for 2025. If box 2 is blank, enter
+     $0."
+   - Form 1099-INT, 1099-DIV, 1099-R, 1099-G box 4 (one each, form named):
+     "Enter the federal income tax withheld in box 4 of each Form 1099-INT
+     you or your spouse received for 2025. If box 4 is blank, enter $0."
+   - SSA-1099 box 6: "Enter the voluntary federal income tax withheld in
+     box 6 of each Form SSA-1099 you or your spouse received for 2025. If
+     box 6 is blank, enter $0."
+   - Line 26: "Enter the estimated tax payments you made for 2025, plus
+     any 2024 overpayment you applied to 2025. If there were none, enter $0."
+   - Line 36: "Enter how much of your 2025 overpayment you want applied to
+     your 2026 estimated tax. If none, enter $0."
+3. **Mixed reasons sort as strings**, as closure questions do today.
+4. **Parked:** the two `f1099b.covered-w-*` families report an unconfirmed
+   closure as `DEPENDENCY_ABSENT` and are never named; per-statement and
+   per-child causes (`DEPENDENCY_INVALID`) keep the generic text downstream.
+5. **Schema intent** for `input-question.v1` and `artifact-package.v39` is
+   appended to the schema ledger before the schema edit.
+
+## Tracks
+
+1. **Track 1 — build.** Schema-ledger events; `input-question.v1` and
+   `artifact-package.v39`; admission; eight citizens; the generalised
+   projection; core v72, registry v70, release v70 with
+   `tools/package_successor.py`; cases E1 to E11 of the P0 design; v68 to v71
+   presentations byte-identical.
