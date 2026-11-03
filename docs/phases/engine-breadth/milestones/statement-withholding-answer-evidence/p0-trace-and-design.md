@@ -3,7 +3,7 @@
 Milestone: `statement-withholding-answer`. Branch
 `milestone/statement-withholding-answer-2025`, base `f5efe368` (core v70,
 registry v68, release v68). Charter: the P0
-unit of the plan (removed at closeout; in history at `f5efe368`).
+unit of the plan (removed at closeout).
 
 Evidence in this directory:
 

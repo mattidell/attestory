@@ -3,7 +3,7 @@
   "version": 1,
   "phase": "Engine Breadth",
   "topic": "missing-input-questions",
-  "status": "Open. P0 done; owner approved a declared input question for eight amounts (input-question.v1, artifact-package.v39, core v72). Track 1 builds it.",
+  "status": "Closed. On core v72 a line blocked because one of eight amounts is missing (W-2 box 2; box 4 on Forms 1099-INT, 1099-DIV, 1099-R and 1099-G; SSA-1099 box 6; lines 26 and 36) names what to enter and that $0 is an answer; a line with a missing amount and an unconfirmed family names both. Earlier cores render byte-identically.",
   "scope": [
     "a line blocked because a filer-supplied input is missing names, in plain words, what to answer, as a line held by an unconfirmed family names its closure question since core v69",
     "a line with mixed causes (missing input and unconfirmed family) names each instead of falling back to the generic text",
@@ -35,10 +35,12 @@
       "docs/phases/engine-breadth/milestones/missing-input-questions.md"
     ],
     "new_milestone": [
+      "docs/milestone-retrospectives/2026-11-03-missing-input-questions.md",
       "docs/phases/engine-breadth/milestones/missing-input-questions.md",
       "docs/phases/engine-breadth/engine-breadth-roadmap.md#Parked work and open questions"
     ]
-  }
+  },
+  "retrospective": "docs/milestone-retrospectives/2026-11-03-missing-input-questions.md"
 }
 -->
 
@@ -111,8 +113,7 @@ names both.
 ## Process
 
 Dispatch is to Sonnet 5.5 Agent sub-agents (owner direction, 2026-10-30).
-Charters live under `docs/reviews/missing-input-questions/` until closeout
-distills them here. Run commands in the foreground. Stop means stop.
+Run commands in the foreground. Stop means stop.
 
 ## P0 result
 
@@ -185,3 +186,49 @@ Foreman, 2026-11-03:
    projection; core v72, registry v70, release v70 with
    `tools/package_successor.py`; cases E1 to E11 of the P0 design; v68 to v71
    presentations byte-identical.
+
+## Review dispositions
+
+Fresh-reader review of P0 and Track 1: READY, no required findings. Earlier
+cores v68 to v71 render byte-identically (including the v70 closure reasons
+PR #250 reads); each exact-version list was extended, not loosened; a v38
+package with an input question and an input question for a fact type outside
+the package are refused; the schema manifest only adds.
+
+1. *Line 36's sentence assumes an overpayment* (recommended). Kept: line 36
+   asks for the amount only when line 34 is more than 0 (a conditional
+   dependency in `rule.form1040-line36`), so a filer who owes never sees it.
+2. *A named reason can hide a second cause* (recommended). With W-2 box 2
+   and the line 36 amount both missing, lines 35a and 37 name only box 2,
+   because a rule reports its first cause. The same holds for closure
+   questions since v69. Kept; noted in the retrospective. The second
+   question appears once the first is answered.
+3. *"You or your spouse" shows to a single filer* (note). Kept, as in the
+   closure questions.
+4. *No sentence names where to enter the answer* (note). The entry surface
+   owns placement.
+
+## Execution record
+
+- One Sonnet 5.5 builder for P0 (about 28 minutes, 64 tool calls; stopped
+  as chartered on the schema change) and Track 1 (about 31 minutes, 51 tool
+  calls, full suite included); one fresh Sonnet reviewer (about 11 minutes,
+  24 tool calls).
+- The owner approved the two schemas and the class of eight on P0's
+  evidence.
+- The foreman's first Track 1 charter commit was refused by the envelope
+  gate (an absolute path); fixed before the build began.
+
+## Outcome
+
+On core v72 a line blocked because one of eight amounts is missing names
+what to enter: W-2 box 2; box 4 on Forms 1099-INT, 1099-DIV, 1099-R and
+1099-G; SSA-1099 box 6; the line 26 estimated payments; and the line 36
+amount applied to 2026. Each sentence says that a blank box is $0. A line
+held by both a missing amount and an unconfirmed family names both, sorted.
+A line with any cause that has no declared sentence keeps the generic text,
+because a reason hides it. Declared as content: `input-question.v1`, eight
+citizens, `artifact-package.v39`, core v72, registry v70, release v70; the
+presentation projection generalises the closure-question walk. v71 and
+earlier render exactly as before. The 79 yes/no scope answers and filing
+status still show the generic text.

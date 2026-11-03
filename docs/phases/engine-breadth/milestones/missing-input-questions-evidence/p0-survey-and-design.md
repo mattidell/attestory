@@ -1,6 +1,6 @@
 # P0: what a blocked line says when a filer-supplied input is missing (core v71)
 
-Charter: `docs/reviews/missing-input-questions/charter-p0.md`. Evidence: `probe.py` (run from the
+Charter: the P0 unit of the plan (removed at closeout). Evidence: `probe.py` (run from the
 repository root, `python3 .../probe.py [A|B|C|D|all]`) and `probe-output.json`. No production, test,
 content or schema file was edited. Every run is a real `live_coordinate_run` on the committed
 packages, with the saved presentation model it writes; synthetic `demo.*` data only.
