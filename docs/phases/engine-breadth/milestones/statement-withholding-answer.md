@@ -3,7 +3,7 @@
   "version": 1,
   "phase": "Engine Breadth",
   "topic": "statement-withholding-answer",
-  "status": "Open. P0 traces how a statement recorded without its withholding answer reaches line 25b on core v70 and designs a per-statement answer check.",
+  "status": "Closed. On core v71 line 25b, and every line behind it, waits until each Form 1099 withholding statement carries its box 4 (SSA-1099: box 6) answer, $0 included; an answered return computes exactly as on v70. A surplus answer on another statement can still offset a missing one.",
   "scope": [
     "a Form 1099-INT, 1099-DIV, 1099-R or 1099-G recorded without its box 4 answer, or a Form SSA-1099 without its box 6 answer, stops line 25b and every line behind it on a successor core package, as a Form W-2 without its box 2 answer already stops line 25a",
     "a return whose statements each carry their withholding answer, including $0, computes exactly as on core v70",
@@ -34,10 +34,12 @@
       "docs/phases/engine-breadth/milestones/statement-withholding-answer.md"
     ],
     "new_milestone": [
+      "docs/milestone-retrospectives/2026-11-02-statement-withholding-answer.md",
       "docs/phases/engine-breadth/milestones/statement-withholding-answer.md",
       "docs/phases/engine-breadth/engine-breadth-roadmap.md#Parked work and open questions"
     ]
-  }
+  },
+  "retrospective": "docs/milestone-retrospectives/2026-11-02-statement-withholding-answer.md"
 }
 -->
 
@@ -116,9 +118,7 @@ withholding statement carries its own box 4 answer, $0 included, before line
 
 Dispatch is to Sonnet 5.5 Agent sub-agents (owner direction, 2026-10-30).
 P0 and Track 1 are builder units; the close is a fresh-reader review. Each
-unit commits on this branch as it goes. Charters live under
-`docs/reviews/statement-withholding-answer/` until closeout distills them
-here. Stop means stop.
+unit commits on this branch as it goes. Stop means stop.
 
 ## P0 result
 
@@ -174,3 +174,55 @@ Foreman, 2026-11-02, on P0's recommendations:
    with `tools/package_successor.py`; the v71 companion entry; cases through
    the real coordinator for each family, joint, $0, no-withholding, the
    surplus answer, and the adopted v70 return; v70 pinned.
+
+## Review dispositions
+
+Fresh-reader review of P0 and Track 1: no required findings. The reviewer
+ran five further causes on v71: an answer retracted after closure (blocks in
+every family, where v70 publishes a smaller number), two statements from one
+payer, a statement whose income box is $0 (blocks unanswered, as a W-2 does),
+and SSA-1099 box 6 after the Social Security hand-over (blocks). Answered,
+$0, withholding-only and joint returns publish every value v70 does.
+
+1. *The surplus offset is a silent wrong answer* (recommended). Statement A
+   answered 50, statement B unanswered, and 7 on a third statement with no
+   income box publish line 25b as 57 on v71, as on v70. Fixed in the
+   account: the limit is stated in the status, the outcome and the parked
+   list. Closing it needs a keyed join, an engine change.
+2. *The filer is never told what to answer* (recommended). The block text is
+   the generic line 25b sentence; it names no statement and does not say $0
+   is an answer, and the entry loop has no v71 profile. Parked as a
+   person-facing gap, not counted as a delivered adoption path.
+3. *Recording the missing answer makes the family's closure stale* (note).
+   Stated in the outcome.
+4. *A $0 income-box statement without an answer blocks* (note). Stated in
+   the outcome.
+5. *Stale status line before close* (note). Fixed at close.
+
+## Execution record
+
+- One Sonnet 5.5 builder for P0 (about 70 minutes, 101 tool calls, 20 of
+  those minutes lost to two self-matching `pgrep` waiters) and Track 1
+  (about 11 minutes, 19 tool calls); one fresh Sonnet reviewer (about 12
+  minutes, 30 tool calls).
+- Run in its own worktree beside PR #250, which has its own foreman.
+
+## Outcome
+
+On core v71 a Form 1099-INT, 1099-DIV, 1099-R or 1099-G recorded without its
+box 4 answer, or a Form SSA-1099 without its box 6 answer, stops line 25b:
+it blocks `DEPENDENCY_ABSENT` naming that family's withholding fact, lines
+25d and 33 through 37 do not publish, and lines 24 and 25a do. A statement
+whose income box is $0 needs its answer too, as a W-2 does. Two Forms 1099-G
+with 600 answered and 400 unanswered no longer publish a refund of 25; with
+both answered they publish 1,000 and 425. A return that answers every
+statement, $0 included, publishes exactly v70's values. An existing v70
+return is asked each missing amount and then its family's closure question
+again, because recording the answer moves the family's horizon; the page
+says only that line 25b is blocked.
+
+Limits: the check counts statements through their income box, so a statement
+recorded only through another box is not checked, and a surplus answer on
+one statement can offset a missing answer on another. One successor rule,
+one loader entry; no engine or schema change. Core v70 and earlier are
+unchanged.

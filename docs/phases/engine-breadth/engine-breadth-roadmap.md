@@ -522,6 +522,16 @@ behavior remain intact. This is not usability validation or support for
 unlisted future cores. A filer-facing reason when a correction does not
 calculate remains separate parked work.
 
+## Bounded return — Each Statement Answers Its Withholding (2025)
+
+[Plan](milestones/statement-withholding-answer.md); retrospective:
+`docs/milestone-retrospectives/2026-11-02-statement-withholding-answer.md`.
+
+On core v71 line 25b waits until each Form 1099-INT, 1099-DIV, 1099-R and
+1099-G carries its box 4 answer, and each SSA-1099 its box 6 answer, $0
+included, as line 25a does for W-2 box 2. An answered return computes as on
+v70.
+
 ## Parked work and open questions
 
 This is the single list of parked work and open owner-held questions for the
@@ -589,9 +599,13 @@ delivers an item removes it.
 - Four source sets reach an attachment without a guard of their own; each
   is held by a guarded rule downstream, confirmed live on core v66. Listed in
   `tests/test_collect_closure_regression.py`.
-- A withholding closure attested true over an amount never recorded still
-  publishes the smaller line 25b; closing it needs a per-statement box 4
-  answer (including $0), as W-2 box 2 has.
+- Line 25b's statement check counts statements through their income box: a
+  Form 1099 recorded only through another box (1099-INT box 3, 8 or 10;
+  1099-DIV box 2a, 7 or 12) is not checked, and a surplus withholding answer
+  on one statement offsets a missing one on another. Closing either needs a
+  statement-level count or a keyed join.
+- A blocked line 25b says only that an input is missing; it does not name the
+  statement short of its box 4 answer or say that $0 is an answer.
 - A general assumption framework, free-text intake and institutional
   verification.
 
