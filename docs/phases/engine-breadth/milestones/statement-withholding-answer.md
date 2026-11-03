@@ -119,3 +119,58 @@ P0 and Track 1 are builder units; the close is a fresh-reader review. Each
 unit commits on this branch as it goes. Charters live under
 `docs/reviews/statement-withholding-answer/` until closeout distills them
 here. Stop means stop.
+
+## P0 result
+
+P0 is in [trace and design](statement-withholding-answer-evidence/p0-trace-and-design.md),
+with the probe, the scratch v71 prototype and their outputs beside it.
+
+- **The gap is real in all five families.** On v70 a statement recorded
+  without its box 4 (SSA-1099: box 6) answer, its family closed, computes
+  exactly as if $0 were answered. Two Forms 1099-G with 600 and an
+  unrecorded 400 publish line 25b as 600 and a refund of 25, not 1,000 and
+  425.
+- **Line 25a's mechanism carries over.** It compares the count of box 2
+  answers with the count of W-2 box 1 members and otherwise falls through
+  to a `ref` that blocks `DEPENDENCY_ABSENT` naming the box 2 fact. A $0
+  answer is an ordinary assertion and counts; absence is no finding.
+- **Design.** One successor, `rule.form1040-line25b` v3 → v4 in the
+  published `rule-artifact.v4` (line 25a's schema, which has `count`):
+  v3's five `require_closed` guards plus, per family, `any` of a count
+  comparison and a `ref` of the withholding fact. Core v71, registry v69,
+  release v69; a v71 companion entry in `packages/tax/loader.py`. The
+  prototype matched v70 on every answered, $0 and no-withholding case; all
+  27 differences of 85 are line 25b blocks.
+- **Cost.** No committed v70 fixture or golden carries a Form 1099 income
+  statement; earlier packages and their tests are pinned. An existing v70
+  return is asked each missing amount (or $0), then its family's closure
+  question again, because recording moves the family's horizon.
+- **Limits.** The check counts statements through their income box; a
+  statement recorded only through another box (Form 1099-INT box 3, 8 or 10;
+  Form 1099-DIV box 2a, 7 or 12) is not counted, and a surplus answer can
+  offset a missing one. The block names the fact, not the statement; naming
+  the statement needs a keyed join, an engine change.
+
+## Decisions
+
+Foreman, 2026-11-02, on P0's recommendations:
+
+1. **`gte`.** A return with an extra withholding answer (withholding on a
+   statement with no income box) computes as on v70; `eq` would block it.
+2. **The other-box boundary and the surplus offset are parked**, stated in
+   the outcome and the roadmap. Covering them needs a statement-level count
+   or a keyed join.
+3. **The block keeps line 25a's shape** (`DEPENDENCY_ABSENT` naming the
+   withholding fact). Track 1 reports what the existing explanation and
+   presentation say for it on v71; any wording change beyond existing
+   mechanisms is parked.
+4. **`rule-artifact.v4` is reused, not added**; the v71 loader entry is in
+   scope (as v61's was).
+5. **No v71 entry-loop profile.** The entry loop is #250's.
+
+## Tracks
+
+1. **Track 1 — check.** Line 25b v4; core v71, registry v69, release v69
+   with `tools/package_successor.py`; the v71 companion entry; cases through
+   the real coordinator for each family, joint, $0, no-withholding, the
+   surplus answer, and the adopted v70 return; v70 pinned.
