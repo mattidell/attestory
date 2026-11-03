@@ -1,0 +1,15 @@
+{
+  "format": 1,
+  "event_id": "20261103T160755Z-input-question-9ddf40",
+  "recorded_at": "2026-11-03T16:07:55Z",
+  "milestone_key": "missing-input-questions",
+  "milestone_branch": "milestone/missing-input-questions-2025",
+  "milestone_commit": "720f5c0ffadd7283d6b58dbc841c193fd87b59cc",
+  "schema_family": "input-question",
+  "schema_path": "packages/schemas/derivation/input-question.v1.schema.json",
+  "schema_version": "v1",
+  "action": "propose",
+  "change_kind": "additive",
+  "replaces_event": null,
+  "summary": "New leaf citizen schema declaring the plain question a filer answers to supply one missing fact (fact type reference and a non-blank question)."
+}

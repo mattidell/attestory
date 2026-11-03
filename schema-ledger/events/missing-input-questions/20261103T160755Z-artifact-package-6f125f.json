@@ -1,0 +1,15 @@
+{
+  "format": 1,
+  "event_id": "20261103T160755Z-artifact-package-6f125f",
+  "recorded_at": "2026-11-03T16:07:55Z",
+  "milestone_key": "missing-input-questions",
+  "milestone_branch": "milestone/missing-input-questions-2025",
+  "milestone_commit": "720f5c0ffadd7283d6b58dbc841c193fd87b59cc",
+  "schema_family": "artifact-package",
+  "schema_path": "packages/schemas/derivation/artifact-package.v39.schema.json",
+  "schema_version": "v39",
+  "action": "propose",
+  "change_kind": "additive",
+  "replaces_event": null,
+  "summary": "artifact-package.v38 with input-question.v1 added to the admitted member schemas and nothing else changed."
+}
