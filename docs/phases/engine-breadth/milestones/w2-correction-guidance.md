@@ -3,7 +3,8 @@
   "version": 1,
   "phase": "Engine Breadth",
   "topic": "w2-correction-guidance",
-  "status": "Open. Owner approved initial scope; P0 is tracing why a saved W-2 correction may leave a result unavailable. Production design is not selected.",
+  "status": "Closed. The v6/v70 reader distinguishes saved corrections, calculation status and authorization, preserves recovery after unusable responses, and passes attached v70 closure questions through without inventing diagnoses.",
+  "retrospective": "docs/milestone-retrospectives/2026-11-02-w2-correction-guidance.md",
   "scope": [
     "plain-language guidance when a W-2 correction cannot produce a usable result on the supported v6 and v70 entry profiles",
     "distinguish rejected input, a saved correction awaiting calculation, missing answers and authorization currentness using actual recorded outcomes",
@@ -18,7 +19,7 @@
     "planning": ["docs/process/planning-and-development.md", "docs/phases/engine-breadth/milestones/w2-correction-guidance.md"],
     "implementation": ["docs/process/planning-and-development.md", "docs/phases/engine-breadth/milestones/w2-correction-guidance.md"],
     "review": ["docs/roles/qualitative-review.md", "docs/phases/engine-breadth/milestones/w2-correction-guidance.md"],
-    "new_milestone": ["docs/phases/engine-breadth/engine-breadth-roadmap.md#Parked work and open questions"]
+    "new_milestone": ["docs/milestone-retrospectives/2026-11-02-w2-correction-guidance.md", "docs/phases/engine-breadth/engine-breadth-roadmap.md#Parked work and open questions"]
   }
 }
 -->
@@ -29,107 +30,78 @@ Milestone key: w2-correction-guidance.
 Branch: milestone/w2-correction-guidance-2025.
 Base: merged PR #249, core v70. This milestone publishes no core package.
 
-## Purpose
+## Purpose and current state
 
-A person corrects their wages and expects to see what changed. If the
-application cannot calculate, they need to know whether their correction was
-saved, what prevents the result, and what they can do next. A blank amount or
-an engine refusal code does not answer those questions.
+A person correcting wages needs to distinguish whether the new amount was
+saved, whether the selected figures calculated, and whether current
+authorization is recorded. The bounded v6/v70 entry surface now reports these
+as separate outcomes using the existing recorder, coordinator report, and
+saved presentation. This is surface guidance, not new tax coverage.
 
-The entry loop now supports its legacy v6 and current v70 profiles. This
-milestone makes a bounded unsuccessful correction understandable without
-changing tax rules or asking the person to diagnose the engine.
+The implementation and the repair for unusable successful responses are
+complete within scope. Independent semantic review is complete. The milestone
+is closed on its branch; curated-range confirmation and exact-candidate CI
+remain publication gates. Support is bounded to v6/v70, not the newer core v71.
 
-## What we need to understand
+## Current contract
 
-Saving an answer, calculating a figure and having authority to rely on that
-figure are different events. A correction can be rejected before saving,
-accepted while another answer is missing, or calculated without current
-authorization. The application must not describe these as the same failure.
-Nor should an internal fault be presented as a question the person can answer.
+- The ActLog is authoritative for the saved W-2 amount. The existing saved
+  report and presentation supply calculation disposition, line values, and
+  authorization currentness. The entry page adds no second outcome record.
+- A rejected value remains a pre-save validation error with its field-specific
+  instruction. An accepted correction is shown as saved even if another line
+  is blocked. Lines with `computed: false` and `value: null` display as
+  unavailable, never as zero.
+- A calculated figure remains calculated when authorization is absent; the
+  page states currentness separately. A prior calculation shown after a
+  post-save calculation failure is identified as prior, while the latest
+  calculation and authorization are unknown.
+- HTTP success does not establish a usable confirmed snapshot. The page
+  parses and shape-checks bounded JSON before installing it, for both submit
+  and state-read responses. Malformed or unusable responses preserve the last
+  confirmed snapshot, show uncertainty, disable resubmission, and offer the
+  existing state read. A usable read recovers the saved state without another
+  POST.
+- Recovery is a state read within the existing running session. It does not
+  promise recovery after process restart, rerun calculation, or provide an
+  automatic recalculation retry. General missing-answer copy remains the
+  deliberate fallback when the saved outcome carries no safe question. In the
+  v70 case where a blocked line reaches only one unconfirmed source family, the
+  existing v69+ presentation includes that family's declared closure question
+  verbatim, and the compiled v2 page displays it. This bounded pass-through
+  does not mean every dependency block names its question or license diagnosis
+  from an unattached mapping.
+- The bounded default is the v2 surface successor; `legacy-v1` remains
+  explicitly selectable and its published bytes are unchanged. No kernel,
+  schema, core, tax-content, runner-attachment, or authorization workflow
+  change is included.
 
-We have not yet established which of these outcomes the current reader can
-observe or explain faithfully. P0 must trace that before choosing fields,
-messages or transport. It should identify the smallest useful set of cases,
-not catalogue every possible engine refusal.
+## Review dispositions
 
-## Actions the team will take
+- Unusable HTTP success previously erased recovery controls. The repaired
+  page admits only parsed, usable snapshots on submission and recovery reads.
+  Independent compiled-page tests confirmed recovery without duplicate saves.
+- The no-question claim was too broad. Live v70 evidence and the compiled
+  page show an existing closure question verbatim for a single unconfirmed
+  family root. All current accounts now preserve that bounded capability and
+  the general fallback for other cases.
+- The duplicated W-2 missing/answered projection now uses one helper;
+  normal and post-save-failure behavior remains unchanged.
+- Final independent review found no material product-code defect. Its
+  remaining documentation finding was the stale no-question claim in README,
+  roadmap and coverage frontier; those accounts are corrected.
+- The final local full suite had 4,121 passes, 11 skips and three browser
+  failures. Each failed test passed independent focused reproduction. This
+  does not establish their original cause or make that full run green.
+  Exact-head CI must pass before merge; no test was removed or weakened.
 
-1. **Trace the experience.** Follow one successful correction and bounded
-   unsuccessful cases through saving, live coordination, saved output and
-   display. Separate supplied answers, defaults, derived results and authority.
-2. **Establish what can be said.** For each demonstrated outcome, identify
-   what was saved, what is known to prevent calculation or reliance, and the
-   next action the evidence supports. Identify information lost on the path.
-3. **Choose a connected design.** Compare reusing existing presentation
-   reasons with any small entry-layer addition. Record costs and decisions
-   after evidence; stop for a kernel, published-schema or content change.
-4. **Build and test the chosen path.** Preserve accepted values and history.
-   Test messages against actual coordinator outcomes and recovered saved
-   state, not manually constructed stand-ins. Charter the exact cases first.
-5. **Review and close.** Obtain independent fresh-reader review, repair
-   findings, then curate plan/evidence, implementation and closeout commits.
-   CI verifies the final candidate; the owner merges.
+## Deferred questions
 
-Each investigation step produces enough understanding to plan the next.
-P0 is evidence only. No production implementation is authorized by this plan
-until its design and Track 1 charter have been recorded. The owner approved
-the initial scope on 2026-11-01.
+- Identify an exact missing question only when the saved outcome supplies an
+  authoritative connection; do not infer it from a derived symbol.
+- Decide separately whether process-restart recovery or recalculation retry
+  is needed and how it would be authorized.
+- Consider broader internal-error guidance only from evidence, not as a
+  refusal-code catalogue.
 
-## Success and boundaries
-
-In the selected cases a person can distinguish an unsaved correction from a
-saved one, understand why the result is unavailable or not current, and see
-an honest next step. A valid result does not become an error merely because
-authority is absent, and a saved correction does not become lost merely
-because calculation is blocked. Successful v6/v70 results remain unchanged.
-
-This does not promise complete diagnosis of every refusal. P0 will state
-which cases are supported and how unknown internal faults remain honest.
-No free text, tax-rule expansion, new core publication, generic explanation
-redesign, or change to runner attachment code is included.
-
-## Planning sources and next step
-
-- Engine Breadth roadmap, parked correction-guidance item.
-- `docs/milestone-retrospectives/2026-11-01-entry-loop-rescope.md`: keep
-  computation separate from authorization and trace contextual identifiers.
-
-Next: execute P0 under
-`docs/reviews/w2-correction-guidance/charter-p0.md`. Builders use Luna Max;
-independent reviewers use Sol Medium under owner dispatch authorization. Derivation changes
-require the full suite before handoff; mypy is `python -m mypy`.
-
-## P0 result and selected design
-
-P0 used the real HTTP recorder and coordinator. Rejected input leaves history
-unchanged. A saved correction with a controlled omitted answer leaves lines
-12e/15/16 blocked, but the page asks for wages again and formats the comparison
-row's null as zero. Computed results separately report absent authorization,
-which the page omits. Evidence: `w2-correction-guidance-evidence/account.md`.
-
-Select projection of existing outcomes, not a new outcome record. The act log
-remains the source of recorded wages; saved coordinator report/presentation
-remain the source of calculation and currentness. Add only the entry-layer
-state needed to communicate those distinctions. Do not create an authorization
-workflow or describe absent authorization as a tax-calculation failure.
-
-Show an existing person-facing reason when available. A missing derived symbol
-does not establish a question: investigate the existing connection and use an
-honest general message if none is established. Never hard-code the probe's
-omitted answer as though every blocked deduction had that cause.
-
-Preserve published UI bytes by shipping the corrected page through a new
-surface-artifact instance under ADR-0049, using existing schemas and tools.
-This is not a core-package publication or schema successor. Keep the old
-surface available and preserve its existing tests. Additive app response
-fields are allowed; changing kernel, published-schema or tax-content contracts
-still requires owner direction.
-
-The save boundary also governs failure copy. A post-save calculation failure
-or lost response must not claim that nothing changed. Recover recorded values
-and display a safe retry/reload instruction without silently resubmitting the
-correction. Do not introduce transactions or a second outcome ledger.
-
-Next: Track 1 under `docs/reviews/w2-correction-guidance/charter-track1.md`,
-then independent Sol Medium fresh-reader review and repair.
+Retrospective: `docs/milestone-retrospectives/2026-11-02-w2-correction-guidance.md`.

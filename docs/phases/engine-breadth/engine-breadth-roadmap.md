@@ -519,8 +519,29 @@ The entry loop now resolves the adopted surface and exact profile for package
 v6 or v70. The v70 technical exercise starts with Box 1 missing, records first
 entry and correction, and agrees with a fresh coordinator run; the v6 seed and
 behavior remain intact. This is not usability validation or support for
-unlisted future cores. A filer-facing reason when a correction does not
-calculate remains separate parked work.
+unlisted future cores. Correction guidance is tracked separately below and
+does not expand this runtime or tax-coverage claim.
+
+## Delivered on milestone branch — W-2 correction guidance (2025)
+
+The bounded v6/v70 correction surface distinguishes a saved amount from
+calculation disposition and authorization currentness. It keeps blocked null
+figures unavailable rather than zero, separates known validation rejection
+from save uncertainty, and labels prior figures after a post-save calculation
+failure. A response is installed only after it parses and matches the page's
+bounded snapshot shape; an unusable successful response preserves the last
+confirmed view and offers a state read without resubmitting. A usable read
+recovers the saved state.
+
+This is same-running-session recovery, not process-restart recovery or an
+automatic recalculation retry. A demonstrated v70 line held only by an
+unconfirmed family displays its recorded closure question verbatim, including
+in the compiled page. Other outcomes without a safe attached sentence retain
+general guidance; this is not universal question diagnosis. This is surface
+behavior, not new tax coverage. The milestone is closed on its branch;
+exact-candidate CI remains the publication gate. Plan:
+`milestones/w2-correction-guidance.md`; retrospective:
+`docs/milestone-retrospectives/2026-11-02-w2-correction-guidance.md`.
 
 ## Bounded return — Each Statement Answers Its Withholding (2025)
 
@@ -589,8 +610,9 @@ delivers an item removes it.
 - The age questions' wording (born before January 2, 1961; a death in 2025
   before age 65), and the SLI dependent answer ("is claimed", filer only)
   beside the new "can be claimed" answer.
-- A filer-facing reason when a W-2 correction does not calculate; this is a
-  separate protocol and presentation question.
+- Exact question identification from saved outcomes, process-restart recovery,
+  and broader internal-error guidance remain separate questions. Do not infer
+  a missing answer from a derived symbol or treat them as delivered here.
 - The v70 entry seed generator still depends on test-module helpers. Runtime
   imports none and byte-regeneration tests expose helper drift; independent
   fixture generation remains a bounded maintenance follow-up.

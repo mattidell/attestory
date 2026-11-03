@@ -195,3 +195,17 @@ of test helpers is a bounded maintenance limitation; runtime imports none.
 Evidence is synthetic. The exact-head required `verify` check remains the
 publication gate. Plan: `milestones/entry-loop-rescope.md`; retrospective:
 `docs/milestone-retrospectives/2026-11-01-entry-loop-rescope.md`.
+
+Correction guidance is a bounded surface behavior over the same synthetic v6
+and v70 paths, not a new tax-coverage claim. Compiled-page evidence separates
+the saved correction, calculation disposition, and authorization currentness;
+blocked null figures stay unavailable. It covers known validation rejection,
+and post-save calculation failure. Uncertain or unusable responses preserve
+the last confirmed view. Recovery reads saved state in the existing running
+session when a usable response returns; it does not establish process-restart
+recovery or an automatic recalculation retry. A demonstrated v70 single-family
+closure block passes its recorded question verbatim through the compiled page.
+Other outcomes retain the general fallback when no safe sentence is attached;
+this is not a universal question-diagnosis claim. Plan:
+`milestones/w2-correction-guidance.md`; retrospective:
+`docs/milestone-retrospectives/2026-11-02-w2-correction-guidance.md`.
