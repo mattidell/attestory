@@ -48,13 +48,13 @@ try {
   await client.send("Runtime.enable", {}, sessionId);
   await client.send("Network.enable", {}, sessionId);
 
-  const requests = new Set();
+  const requests = { state: 0, contributions: 0 };
   const stopObserving = client.on(
     "Network.requestWillBeSent",
     ({ request }) => {
       const pathname = new URL(request.url).pathname;
-      if (pathname.endsWith("/api/state")) requests.add("state");
-      if (pathname.endsWith("/api/contributions")) requests.add("contributions");
+      if (pathname.endsWith("/api/state")) requests.state += 1;
+      if (pathname.endsWith("/api/contributions")) requests.contributions += 1;
     },
     sessionId,
   );
@@ -64,7 +64,28 @@ try {
   await loaded;
   await waitUntil(
     `document.querySelector("#w2-box1") !== null &&
-      document.body.textContent.includes("1 missing fact · W-2 Box 1")`,
+      document.body.textContent.includes("W-2 Box 1 is not saved yet")`,
+    sessionId,
+  );
+  await evaluate(
+    `(() => {
+      const input = document.querySelector("#w2-box1");
+      input.value = "synthetic-not-an-amount";
+      input.dispatchEvent(new Event("input", { bubbles: true }));
+      input.form.requestSubmit();
+      return true;
+    })()`,
+    sessionId,
+  );
+  await waitUntil(
+    `document.body.textContent.includes("positive dollar amount") &&
+      document.body.textContent.includes("W-2 Box 1 is not saved yet")`,
+    sessionId,
+  );
+  const validationRejectedBeforeSave = await evaluate(
+    `document.body.textContent.includes("Check this entry") &&
+      document.body.textContent.includes("positive dollar amount") &&
+      document.body.textContent.includes("W-2 Box 1 is not saved yet")`,
     sessionId,
   );
   await evaluate(
@@ -78,16 +99,20 @@ try {
     sessionId,
   );
   await waitUntil(
-    `document.body.textContent.includes("0 missing facts · fully computed") &&
-      document.body.textContent.includes("Accepted. The entry")`,
+    `document.body.textContent.includes("W-2 Box 1 is saved in this return") &&
+      document.body.textContent.includes("Your W-2 entry was saved.") &&
+      document.body.textContent.includes("No current calculation authorization is recorded")`,
     sessionId,
   );
   stopObserving();
   process.stdout.write(
     `${JSON.stringify({
-      complete: true,
-      contributionRequest: requests.has("contributions"),
-      stateRequest: requests.has("state"),
+      saved: true,
+      calculated: true,
+      authorizationAbsentVisible: true,
+      validationRejectedBeforeSave,
+      contributionRequests: requests.contributions,
+      stateRequests: requests.state,
     })}\n`,
   );
 } catch {
