@@ -1,0 +1,565 @@
+{
+  "probe": "w2-correction-guidance-p0",
+  "route": "EntryLoopServer /api/state and /api/contributions",
+  "synthetic_only": true,
+  "v6_comparison": {
+    "correction": {
+      "accepted": true,
+      "answered": [
+        {
+          "id": "w2-box1",
+          "label": "W-2 Box 1",
+          "target": "w2-box1",
+          "value": 91000
+        }
+      ],
+      "complete": true,
+      "http_status": 200,
+      "last_action": "corrected",
+      "lines": [
+        {
+          "change": "changed",
+          "computed": true,
+          "group": "expected-impact",
+          "line": "1a",
+          "value": 91000
+        },
+        {
+          "change": "changed",
+          "computed": true,
+          "group": "expected-impact",
+          "line": "9",
+          "value": 94234
+        },
+        {
+          "change": "changed",
+          "computed": true,
+          "group": "expected-impact",
+          "line": "11",
+          "value": 94234
+        },
+        {
+          "change": "changed",
+          "computed": true,
+          "group": "expected-impact",
+          "line": "15",
+          "value": 79234
+        },
+        {
+          "change": "changed",
+          "computed": true,
+          "group": "expected-impact",
+          "line": "16",
+          "value": 12442
+        },
+        {
+          "change": "unchanged",
+          "computed": true,
+          "group": "untouched-comparison",
+          "line": "2b",
+          "value": 1234
+        },
+        {
+          "change": "unchanged",
+          "computed": true,
+          "group": "untouched-comparison",
+          "line": "3a",
+          "value": 600
+        },
+        {
+          "change": "unchanged",
+          "computed": true,
+          "group": "untouched-comparison",
+          "line": "3b",
+          "value": 2000
+        },
+        {
+          "change": "unchanged",
+          "computed": true,
+          "group": "untouched-comparison",
+          "line": "12",
+          "value": 15000
+        }
+      ],
+      "missing_ids": []
+    },
+    "first_entry": {
+      "accepted": true,
+      "answered": [
+        {
+          "id": "w2-box1",
+          "label": "W-2 Box 1",
+          "target": "w2-box1",
+          "value": 90000
+        }
+      ],
+      "complete": true,
+      "http_status": 200,
+      "last_action": "entered"
+    },
+    "initial": {
+      "complete": false,
+      "missing_ids": [
+        "w2-box1"
+      ],
+      "revision": 47
+    },
+    "profile": "v6",
+    "recovered_log": {
+      "last_act_kinds": [
+        "contribution",
+        "member-transition",
+        "assertion",
+        "contribution",
+        "assertion"
+      ],
+      "revision": 52,
+      "w2_box1_contribution_values": [
+        90000,
+        91000
+      ]
+    },
+    "rejected_input": null,
+    "saved_live_run": {
+      "authorization_grant_id": null,
+      "authorization_status": "AUTHORIZATION_ABSENT",
+      "blocked_dispositions": [],
+      "current": false,
+      "presentation_authorization": {
+        "admitted": false,
+        "grant_id": null,
+        "status": "AUTHORIZATION_ABSENT"
+      },
+      "presentation_file": "entry-state-52.presentation.json",
+      "presentation_lines": [
+        {
+          "active_codes": [],
+          "disposition": "published_value",
+          "line": "1a",
+          "reason_sentences": [],
+          "value": 91000
+        },
+        {
+          "active_codes": [],
+          "disposition": "published_value",
+          "line": "11",
+          "reason_sentences": [],
+          "value": 94234
+        },
+        {
+          "active_codes": [],
+          "disposition": "published_value",
+          "line": "16",
+          "reason_sentences": [],
+          "value": 12442
+        }
+      ],
+      "report_file": "entry-state-52.json",
+      "run_id": "demo.entry-loop.run.52",
+      "stop_reason": "saturated"
+    }
+  },
+  "v70_saved_correction_with_one_answer_omitted": {
+    "case": {
+      "correction": {
+        "accepted": true,
+        "answered": [
+          {
+            "id": "w2-box1",
+            "label": "W-2 Box 1",
+            "target": "w2-box1",
+            "value": 91000
+          }
+        ],
+        "complete": false,
+        "http_status": 200,
+        "last_action": "corrected",
+        "lines": [
+          {
+            "change": "changed",
+            "computed": true,
+            "group": "expected-impact",
+            "line": "1a",
+            "value": 91000
+          },
+          {
+            "change": "changed",
+            "computed": true,
+            "group": "expected-impact",
+            "line": "9",
+            "value": 91000
+          },
+          {
+            "change": "changed",
+            "computed": true,
+            "group": "expected-impact",
+            "line": "11a",
+            "value": 91000
+          },
+          {
+            "change": "changed",
+            "computed": true,
+            "group": "expected-impact",
+            "line": "11b",
+            "value": 91000
+          },
+          {
+            "change": "unchanged",
+            "computed": false,
+            "group": "expected-impact",
+            "line": "15",
+            "value": null
+          },
+          {
+            "change": "unchanged",
+            "computed": false,
+            "group": "expected-impact",
+            "line": "16",
+            "value": null
+          },
+          {
+            "change": "unchanged",
+            "computed": true,
+            "group": "untouched-comparison",
+            "line": "2b",
+            "value": 0
+          },
+          {
+            "change": "unchanged",
+            "computed": true,
+            "group": "untouched-comparison",
+            "line": "3a",
+            "value": 0
+          },
+          {
+            "change": "unchanged",
+            "computed": true,
+            "group": "untouched-comparison",
+            "line": "3b",
+            "value": 0
+          },
+          {
+            "change": "unchanged",
+            "computed": false,
+            "group": "untouched-comparison",
+            "line": "12e",
+            "value": null
+          }
+        ],
+        "missing_ids": []
+      },
+      "first_entry": {
+        "accepted": true,
+        "answered": [
+          {
+            "id": "w2-box1",
+            "label": "W-2 Box 1",
+            "target": "w2-box1",
+            "value": 90000
+          }
+        ],
+        "complete": false,
+        "http_status": 200,
+        "last_action": "entered"
+      },
+      "initial": {
+        "complete": false,
+        "missing_ids": [
+          "w2-box1"
+        ],
+        "revision": 292
+      },
+      "profile": "v70",
+      "recovered_log": {
+        "last_act_kinds": [
+          "contribution",
+          "member-transition",
+          "assertion",
+          "contribution",
+          "assertion"
+        ],
+        "revision": 297,
+        "w2_box1_contribution_values": [
+          90000,
+          91000
+        ]
+      },
+      "rejected_input": null,
+      "saved_live_run": {
+        "authorization_grant_id": null,
+        "authorization_status": "AUTHORIZATION_ABSENT",
+        "blocked_dispositions": [
+          {
+            "artifact_id": "tax.us.2025.rule.attachment.schedule-a",
+            "code": "DEPENDENCY_ABSENT",
+            "missing": [
+              "tax.us.2025.schedule-a.excess-over-standard"
+            ]
+          },
+          {
+            "artifact_id": "tax.us.2025.rule.form1040-line12e",
+            "code": "DEPENDENCY_ABSENT",
+            "missing": [
+              "demo.form1040.standard_deduction"
+            ]
+          },
+          {
+            "artifact_id": "tax.us.2025.rule.form1040-line14",
+            "code": "DEPENDENCY_ABSENT",
+            "missing": [
+              "tax.us.2025.deductions.line-12e"
+            ]
+          },
+          {
+            "artifact_id": "tax.us.2025.rule.form1040-line15",
+            "code": "DEPENDENCY_ABSENT",
+            "missing": [
+              "tax.us.2025.deductions.line-14"
+            ]
+          },
+          {
+            "artifact_id": "tax.us.2025.rule.form1040-line16",
+            "code": "DEPENDENCY_ABSENT",
+            "missing": [
+              "tax.us.2025.income.taxable-income",
+              "tax.us.2025.qdcg-worksheet.line-24",
+              "tax.us.2025.qdcg-worksheet.line-25"
+            ]
+          },
+          {
+            "artifact_id": "tax.us.2025.rule.form1040-line20",
+            "code": "DEPENDENCY_ABSENT",
+            "missing": [
+              "tax.us.2025.schedule3.line8-total"
+            ]
+          },
+          {
+            "artifact_id": "tax.us.2025.rule.form1040-line24",
+            "code": "DEPENDENCY_ABSENT",
+            "missing": [
+              "tax.us.2025.tax.after-nonrefundable-credits"
+            ]
+          },
+          {
+            "artifact_id": "tax.us.2025.rule.form1040-line32",
+            "code": "DEPENDENCY_ABSENT",
+            "missing": [
+              "tax.us.2025.payments.lines27-31-total"
+            ]
+          }
+        ],
+        "current": false,
+        "presentation_authorization": {
+          "admitted": false,
+          "grant_id": null,
+          "status": "AUTHORIZATION_ABSENT"
+        },
+        "presentation_file": "entry-state-297.presentation.json",
+        "presentation_lines": [
+          {
+            "active_codes": [
+              "DEPENDENCY_ABSENT"
+            ],
+            "disposition": "blocked",
+            "line": "12e",
+            "reason_sentences": [],
+            "value": null
+          },
+          {
+            "active_codes": [
+              "DEPENDENCY_ABSENT"
+            ],
+            "disposition": "blocked",
+            "line": "15",
+            "reason_sentences": [],
+            "value": null
+          },
+          {
+            "active_codes": [
+              "DEPENDENCY_ABSENT"
+            ],
+            "disposition": "blocked",
+            "line": "16",
+            "reason_sentences": [],
+            "value": null
+          }
+        ],
+        "report_file": "entry-state-297.json",
+        "run_id": "demo.entry-loop.run.297",
+        "stop_reason": "saturated"
+      }
+    },
+    "omitted_fact_id": "tax.us.2025.standard-deduction.can-be-claimed-as-dependent|tax-year=2025"
+  },
+  "v70_success_and_rejection": {
+    "correction": {
+      "accepted": true,
+      "answered": [
+        {
+          "id": "w2-box1",
+          "label": "W-2 Box 1",
+          "target": "w2-box1",
+          "value": 91000
+        }
+      ],
+      "complete": true,
+      "http_status": 200,
+      "last_action": "corrected",
+      "lines": [
+        {
+          "change": "changed",
+          "computed": true,
+          "group": "expected-impact",
+          "line": "1a",
+          "value": 91000
+        },
+        {
+          "change": "changed",
+          "computed": true,
+          "group": "expected-impact",
+          "line": "9",
+          "value": 91000
+        },
+        {
+          "change": "changed",
+          "computed": true,
+          "group": "expected-impact",
+          "line": "11a",
+          "value": 91000
+        },
+        {
+          "change": "changed",
+          "computed": true,
+          "group": "expected-impact",
+          "line": "11b",
+          "value": 91000
+        },
+        {
+          "change": "changed",
+          "computed": true,
+          "group": "expected-impact",
+          "line": "15",
+          "value": 75250
+        },
+        {
+          "change": "changed",
+          "computed": true,
+          "group": "expected-impact",
+          "line": "16",
+          "value": 11475
+        },
+        {
+          "change": "unchanged",
+          "computed": true,
+          "group": "untouched-comparison",
+          "line": "2b",
+          "value": 0
+        },
+        {
+          "change": "unchanged",
+          "computed": true,
+          "group": "untouched-comparison",
+          "line": "3a",
+          "value": 0
+        },
+        {
+          "change": "unchanged",
+          "computed": true,
+          "group": "untouched-comparison",
+          "line": "3b",
+          "value": 0
+        },
+        {
+          "change": "unchanged",
+          "computed": true,
+          "group": "untouched-comparison",
+          "line": "12e",
+          "value": 15750
+        }
+      ],
+      "missing_ids": []
+    },
+    "first_entry": {
+      "accepted": true,
+      "answered": [
+        {
+          "id": "w2-box1",
+          "label": "W-2 Box 1",
+          "target": "w2-box1",
+          "value": 90000
+        }
+      ],
+      "complete": true,
+      "http_status": 200,
+      "last_action": "entered"
+    },
+    "initial": {
+      "complete": false,
+      "missing_ids": [
+        "w2-box1"
+      ],
+      "revision": 293
+    },
+    "profile": "v70",
+    "recovered_log": {
+      "last_act_kinds": [
+        "contribution",
+        "member-transition",
+        "assertion",
+        "contribution",
+        "assertion"
+      ],
+      "revision": 298,
+      "w2_box1_contribution_values": [
+        90000,
+        91000
+      ]
+    },
+    "rejected_input": {
+      "act_count_after": 293,
+      "act_count_before": 293,
+      "http_status": 422,
+      "message": "Enter W-2 Box 1 as a positive dollar amount with or without comma grouping and an optional $ prefix and with no more than 2 decimal places.",
+      "revision_after": 293,
+      "revision_before": 293
+    },
+    "saved_live_run": {
+      "authorization_grant_id": null,
+      "authorization_status": "AUTHORIZATION_ABSENT",
+      "blocked_dispositions": [],
+      "current": false,
+      "presentation_authorization": {
+        "admitted": false,
+        "grant_id": null,
+        "status": "AUTHORIZATION_ABSENT"
+      },
+      "presentation_file": "entry-state-298.presentation.json",
+      "presentation_lines": [
+        {
+          "active_codes": [],
+          "disposition": "published_value",
+          "line": "1a",
+          "reason_sentences": [],
+          "value": 91000
+        },
+        {
+          "active_codes": [],
+          "disposition": "published_value",
+          "line": "15",
+          "reason_sentences": [],
+          "value": 75250
+        },
+        {
+          "active_codes": [],
+          "disposition": "published_value",
+          "line": "16",
+          "reason_sentences": [],
+          "value": 11475
+        }
+      ],
+      "report_file": "entry-state-298.json",
+      "run_id": "demo.entry-loop.run.298",
+      "stop_reason": "saturated"
+    }
+  }
+}
