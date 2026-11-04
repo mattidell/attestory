@@ -1,0 +1,10 @@
+{
+  "fact_type": {
+    "id": "tax.us.2025.direct-ftc-scope.no-line17-schedule2-additional",
+    "version": "v1"
+  },
+  "id": "tax.us.2025.input-question.direct-ftc-scope-no-line17-schedule2-additional",
+  "question": "Does the tax on your 2025 Form 1040 line 16 include tax from a lump-sum distribution (Form 4972), or do you have any additional tax on Form 1040 line 17 (from Schedule 2)?",
+  "schema": "input-question.v1",
+  "version": "v1"
+}

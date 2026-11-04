@@ -1,0 +1,10 @@
+{
+  "fact_type": {
+    "id": "tax.us.2025.line2a-scope.no-f1099int-tax-exempt",
+    "version": "v1"
+  },
+  "id": "tax.us.2025.input-question.line2a-scope-no-f1099int-tax-exempt",
+  "question": "Did you receive tax-exempt interest on a Form 1099-INT (box 8) in 2025?",
+  "schema": "input-question.v1",
+  "version": "v1"
+}

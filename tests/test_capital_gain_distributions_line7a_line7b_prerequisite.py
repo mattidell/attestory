@@ -84,8 +84,9 @@ def _run_at_boundary(
         dispositions: Any,
         authorization: Any = None,
         workspace_revision: int | None = None,
+        symbol_fact_types: Any = None,
     ) -> dict[str, Any]:
-        del state, publications, dispositions, authorization, workspace_revision
+        del state, publications, dispositions, authorization, workspace_revision, symbol_fact_types
         captured["members"] = resolved_members
         return {
             "schema": "presentation-model.v1",

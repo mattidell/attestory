@@ -1,0 +1,10 @@
+{
+  "fact_type": {
+    "id": "tax.us.2025.direct-ftc-scope.no-schedule-a-deduction-election",
+    "version": "v1"
+  },
+  "id": "tax.us.2025.input-question.direct-ftc-scope-no-schedule-a-deduction-election",
+  "question": "Are you deducting foreign tax on Schedule A instead of taking a credit?",
+  "schema": "input-question.v1",
+  "version": "v1"
+}

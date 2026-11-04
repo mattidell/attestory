@@ -1,0 +1,10 @@
+{
+  "fact_type": {
+    "id": "tax.us.2025.schedule2-partii-scope.no-line21-additional-taxes",
+    "version": "v1"
+  },
+  "id": "tax.us.2025.input-question.schedule2-partii-scope-no-line21-additional-taxes",
+  "question": "Do you owe any of the other taxes on Schedule 2 Part II, such as self-employment tax, additional Medicare tax, or net investment income tax?",
+  "schema": "input-question.v1",
+  "version": "v1"
+}

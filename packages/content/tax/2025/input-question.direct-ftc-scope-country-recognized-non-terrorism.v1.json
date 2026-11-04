@@ -1,0 +1,10 @@
+{
+  "fact_type": {
+    "id": "tax.us.2025.direct-ftc-scope.country-recognized-non-terrorism",
+    "version": "v1"
+  },
+  "id": "tax.us.2025.input-question.direct-ftc-scope-country-recognized-non-terrorism",
+  "question": "Was the foreign tax you are claiming an income tax (or a tax charged in place of one), paid to a country the United States recognizes and that does not support terrorism, which you were legally responsible for and paid yourself?",
+  "schema": "input-question.v1",
+  "version": "v1"
+}

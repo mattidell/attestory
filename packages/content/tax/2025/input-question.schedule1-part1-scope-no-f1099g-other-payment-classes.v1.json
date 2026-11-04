@@ -1,0 +1,10 @@
+{
+  "fact_type": {
+    "id": "tax.us.2025.schedule1-part1-scope.no-f1099g-other-payment-classes",
+    "version": "v1"
+  },
+  "id": "tax.us.2025.input-question.schedule1-part1-scope-no-f1099g-other-payment-classes",
+  "question": "Did you receive any other payment on a Form 1099-G besides unemployment compensation and state or local tax refunds (for example a taxable grant or an agriculture payment)?",
+  "schema": "input-question.v1",
+  "version": "v1"
+}

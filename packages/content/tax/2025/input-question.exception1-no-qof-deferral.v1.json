@@ -1,0 +1,10 @@
+{
+  "fact_type": {
+    "id": "tax.us.2025.exception1.no-qof-deferral",
+    "version": "v1"
+  },
+  "id": "tax.us.2025.input-question.exception1-no-qof-deferral",
+  "question": "Besides capital gain distributions in box 2a of Form 1099-DIV, did you have any other capital gain or loss in 2025 (including any capital loss, any amount in Form 1099-DIV box 2b, 2c or 2d, or a gain deferred through a qualified opportunity fund)?",
+  "schema": "input-question.v1",
+  "version": "v1"
+}

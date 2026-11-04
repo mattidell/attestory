@@ -1,0 +1,10 @@
+{
+  "fact_type": {
+    "id": "tax.us.2025.direct-ftc-scope.no-short-sale-obligation",
+    "version": "v1"
+  },
+  "id": "tax.us.2025.input-question.direct-ftc-scope-no-short-sale-obligation",
+  "question": "Was any of the foreign tax refunded, rebated, subsidized or reimbursed to you, linked to income you excluded from your return, or tied to a short sale or other obligation to pay the dividend on to someone else?",
+  "schema": "input-question.v1",
+  "version": "v1"
+}

@@ -269,7 +269,8 @@ class CasesOnV72(unittest.TestCase):
 # --- earlier cores render exactly as before -----------------------------------------------------
 
 
-def _reference_closure_question_reasons(row: Any, *, resolved_members: Any, by_symbol: Any) -> list[dict[str, Any]]:
+def _reference_closure_question_reasons(row: Any, *, resolved_members: Any, by_symbol: Any,
+                                        symbol_fact_types: Any = None) -> list[dict[str, Any]]:
     """The v69 algorithm as it stood before the input question (the closure roots only)."""
     questions: dict[str, str] = {}
     for member in resolved_members:

@@ -1,0 +1,10 @@
+{
+  "fact_type": {
+    "id": "tax.us.2025.direct-ftc-scope.no-f1099int-foreign-tax",
+    "version": "v1"
+  },
+  "id": "tax.us.2025.input-question.direct-ftc-scope-no-f1099int-foreign-tax",
+  "question": "Besides the foreign tax shown on your Form 1099-DIV statements, did you have foreign income, or pay foreign tax, that was reported anywhere else (for example on a Form 1099-INT, a Schedule K-1 or K-3, or from any other source)?",
+  "schema": "input-question.v1",
+  "version": "v1"
+}

@@ -1,0 +1,10 @@
+{
+  "fact_type": {
+    "id": "tax.us.2025.ss-benefits-scope.no-lump-sum-election",
+    "version": "v1"
+  },
+  "id": "tax.us.2025.input-question.ss-benefits-scope-no-lump-sum-election",
+  "question": "Did you choose the lump-sum election for Social Security benefits that relate to an earlier year?",
+  "schema": "input-question.v1",
+  "version": "v1"
+}

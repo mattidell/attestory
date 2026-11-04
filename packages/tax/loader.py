@@ -267,6 +267,9 @@ def domain_package_companion_declarations() -> dict[tuple[str, str], dict[str, A
         # Core v72 only declares the question a filer answers to supply eight missing amounts and asks
         # no new question itself, so it shares v71's declaration.
         ("tax.us.2025.package.core-calculations", "v72"): gambling,
+        # Core v73 only declares the question for each scope answer and filing status and asks no new
+        # companion, so it shares v72's declaration.
+        ("tax.us.2025.package.core-calculations", "v73"): gambling,
     }
 
 

@@ -1,0 +1,10 @@
+{
+  "fact_type": {
+    "id": "tax.us.2025.direct-ftc-scope.no-carryback-carryforward",
+    "version": "v1"
+  },
+  "id": "tax.us.2025.input-question.direct-ftc-scope-no-carryback-carryforward",
+  "question": "Do you have foreign tax credit to carry back to an earlier year or forward from another year?",
+  "schema": "input-question.v1",
+  "version": "v1"
+}

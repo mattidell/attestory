@@ -1,0 +1,10 @@
+{
+  "fact_type": {
+    "id": "tax.us.2025.filing-status",
+    "version": "v1"
+  },
+  "id": "tax.us.2025.input-question.filing-status",
+  "question": "What is your filing status for 2025: single, married filing jointly, married filing separately, head of household, or qualifying surviving spouse?",
+  "schema": "input-question.v1",
+  "version": "v1"
+}

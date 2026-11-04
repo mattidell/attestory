@@ -1,0 +1,10 @@
+{
+  "fact_type": {
+    "id": "tax.us.2025.direct-ftc-scope.holding-period-16-day-met",
+    "version": "v1"
+  },
+  "id": "tax.us.2025.input-question.direct-ftc-scope-holding-period-16-day-met",
+  "question": "Did you hold each dividend-paying stock or fund that produced foreign tax for at least 16 days around its ex-dividend date?",
+  "schema": "input-question.v1",
+  "version": "v1"
+}

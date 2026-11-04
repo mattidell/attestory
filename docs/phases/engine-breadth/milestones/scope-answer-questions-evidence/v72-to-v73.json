@@ -1,0 +1,1295 @@
+{
+  "package_version": "v73",
+  "release_version": "v71",
+  "schema": "artifact-package.v39",
+  "members": [
+    {
+      "op": "add",
+      "new": {
+        "id": "tax.us.2025.input-question.ctc-no-other-dependent",
+        "role": "input-question",
+        "schema": "input-question.v1",
+        "version": "v1"
+      }
+    },
+    {
+      "op": "add",
+      "new": {
+        "id": "tax.us.2025.input-question.ctc-no-puerto-rico-or-4563-exclusion",
+        "role": "input-question",
+        "schema": "input-question.v1",
+        "version": "v1"
+      }
+    },
+    {
+      "op": "add",
+      "new": {
+        "id": "tax.us.2025.input-question.direct-ftc-scope-all-foreign-income-on-1099div",
+        "role": "input-question",
+        "schema": "input-question.v1",
+        "version": "v1"
+      }
+    },
+    {
+      "op": "add",
+      "new": {
+        "id": "tax.us.2025.input-question.direct-ftc-scope-all-foreign-income-passive",
+        "role": "input-question",
+        "schema": "input-question.v1",
+        "version": "v1"
+      }
+    },
+    {
+      "op": "add",
+      "new": {
+        "id": "tax.us.2025.input-question.direct-ftc-scope-country-recognized-non-terrorism",
+        "role": "input-question",
+        "schema": "input-question.v1",
+        "version": "v1"
+      }
+    },
+    {
+      "op": "add",
+      "new": {
+        "id": "tax.us.2025.input-question.direct-ftc-scope-holding-period-16-day-met",
+        "role": "input-question",
+        "schema": "input-question.v1",
+        "version": "v1"
+      }
+    },
+    {
+      "op": "add",
+      "new": {
+        "id": "tax.us.2025.input-question.direct-ftc-scope-legal-liability-and-paid",
+        "role": "input-question",
+        "schema": "input-question.v1",
+        "version": "v1"
+      }
+    },
+    {
+      "op": "add",
+      "new": {
+        "id": "tax.us.2025.input-question.direct-ftc-scope-no-carryback-carryforward",
+        "role": "input-question",
+        "schema": "input-question.v1",
+        "version": "v1"
+      }
+    },
+    {
+      "op": "add",
+      "new": {
+        "id": "tax.us.2025.input-question.direct-ftc-scope-no-excluded-income-association",
+        "role": "input-question",
+        "schema": "input-question.v1",
+        "version": "v1"
+      }
+    },
+    {
+      "op": "add",
+      "new": {
+        "id": "tax.us.2025.input-question.direct-ftc-scope-no-f1099int-foreign-tax",
+        "role": "input-question",
+        "schema": "input-question.v1",
+        "version": "v1"
+      }
+    },
+    {
+      "op": "add",
+      "new": {
+        "id": "tax.us.2025.input-question.direct-ftc-scope-no-form-1116-required",
+        "role": "input-question",
+        "schema": "input-question.v1",
+        "version": "v1"
+      }
+    },
+    {
+      "op": "add",
+      "new": {
+        "id": "tax.us.2025.input-question.direct-ftc-scope-no-form-4972-on-line16",
+        "role": "input-question",
+        "schema": "input-question.v1",
+        "version": "v1"
+      }
+    },
+    {
+      "op": "add",
+      "new": {
+        "id": "tax.us.2025.input-question.direct-ftc-scope-no-k1-k3-foreign-tax",
+        "role": "input-question",
+        "schema": "input-question.v1",
+        "version": "v1"
+      }
+    },
+    {
+      "op": "add",
+      "new": {
+        "id": "tax.us.2025.input-question.direct-ftc-scope-no-line17-schedule2-additional",
+        "role": "input-question",
+        "schema": "input-question.v1",
+        "version": "v1"
+      }
+    },
+    {
+      "op": "add",
+      "new": {
+        "id": "tax.us.2025.input-question.direct-ftc-scope-no-other-foreign-tax-source",
+        "role": "input-question",
+        "schema": "input-question.v1",
+        "version": "v1"
+      }
+    },
+    {
+      "op": "add",
+      "new": {
+        "id": "tax.us.2025.input-question.direct-ftc-scope-no-refund-rebate-subsidy",
+        "role": "input-question",
+        "schema": "input-question.v1",
+        "version": "v1"
+      }
+    },
+    {
+      "op": "add",
+      "new": {
+        "id": "tax.us.2025.input-question.direct-ftc-scope-no-sch3-line2",
+        "role": "input-question",
+        "schema": "input-question.v1",
+        "version": "v1"
+      }
+    },
+    {
+      "op": "add",
+      "new": {
+        "id": "tax.us.2025.input-question.direct-ftc-scope-no-sch3-line3",
+        "role": "input-question",
+        "schema": "input-question.v1",
+        "version": "v1"
+      }
+    },
+    {
+      "op": "add",
+      "new": {
+        "id": "tax.us.2025.input-question.direct-ftc-scope-no-sch3-line4",
+        "role": "input-question",
+        "schema": "input-question.v1",
+        "version": "v1"
+      }
+    },
+    {
+      "op": "add",
+      "new": {
+        "id": "tax.us.2025.input-question.direct-ftc-scope-no-sch3-line5",
+        "role": "input-question",
+        "schema": "input-question.v1",
+        "version": "v1"
+      }
+    },
+    {
+      "op": "add",
+      "new": {
+        "id": "tax.us.2025.input-question.direct-ftc-scope-no-sch3-line6",
+        "role": "input-question",
+        "schema": "input-question.v1",
+        "version": "v1"
+      }
+    },
+    {
+      "op": "add",
+      "new": {
+        "id": "tax.us.2025.input-question.direct-ftc-scope-no-schedule-a-deduction-election",
+        "role": "input-question",
+        "schema": "input-question.v1",
+        "version": "v1"
+      }
+    },
+    {
+      "op": "add",
+      "new": {
+        "id": "tax.us.2025.input-question.direct-ftc-scope-no-schedule2-regular-tax-add",
+        "role": "input-question",
+        "schema": "input-question.v1",
+        "version": "v1"
+      }
+    },
+    {
+      "op": "add",
+      "new": {
+        "id": "tax.us.2025.input-question.direct-ftc-scope-no-short-sale-obligation",
+        "role": "input-question",
+        "schema": "input-question.v1",
+        "version": "v1"
+      }
+    },
+    {
+      "op": "add",
+      "new": {
+        "id": "tax.us.2025.input-question.direct-ftc-scope-tax-type-creditable",
+        "role": "input-question",
+        "schema": "input-question.v1",
+        "version": "v1"
+      }
+    },
+    {
+      "op": "add",
+      "new": {
+        "id": "tax.us.2025.input-question.direct-ftc-election",
+        "role": "input-question",
+        "schema": "input-question.v1",
+        "version": "v1"
+      }
+    },
+    {
+      "op": "add",
+      "new": {
+        "id": "tax.us.2025.input-question.eic-no-unsupported-situations",
+        "role": "input-question",
+        "schema": "input-question.v1",
+        "version": "v1"
+      }
+    },
+    {
+      "op": "add",
+      "new": {
+        "id": "tax.us.2025.input-question.eic-not-nonresident-alien",
+        "role": "input-question",
+        "schema": "input-question.v1",
+        "version": "v1"
+      }
+    },
+    {
+      "op": "add",
+      "new": {
+        "id": "tax.us.2025.input-question.eic-not-qualifying-child-of-another",
+        "role": "input-question",
+        "schema": "input-question.v1",
+        "version": "v1"
+      }
+    },
+    {
+      "op": "add",
+      "new": {
+        "id": "tax.us.2025.input-question.eic-taxpayer-valid-ssn",
+        "role": "input-question",
+        "schema": "input-question.v1",
+        "version": "v1"
+      }
+    },
+    {
+      "op": "add",
+      "new": {
+        "id": "tax.us.2025.input-question.exception1-no-boxes-2b-2c-2d",
+        "role": "input-question",
+        "schema": "input-question.v1",
+        "version": "v1"
+      }
+    },
+    {
+      "op": "add",
+      "new": {
+        "id": "tax.us.2025.input-question.exception1-no-capital-losses",
+        "role": "input-question",
+        "schema": "input-question.v1",
+        "version": "v1"
+      }
+    },
+    {
+      "op": "add",
+      "new": {
+        "id": "tax.us.2025.input-question.exception1-no-qof-deferral",
+        "role": "input-question",
+        "schema": "input-question.v1",
+        "version": "v1"
+      }
+    },
+    {
+      "op": "add",
+      "new": {
+        "id": "tax.us.2025.input-question.exception1-only-box2a-capital-gains",
+        "role": "input-question",
+        "schema": "input-question.v1",
+        "version": "v1"
+      }
+    },
+    {
+      "op": "add",
+      "new": {
+        "id": "tax.us.2025.input-question.f1098-scope-no-mortgage-statement",
+        "role": "input-question",
+        "schema": "input-question.v1",
+        "version": "v1"
+      }
+    },
+    {
+      "op": "add",
+      "new": {
+        "id": "tax.us.2025.input-question.filing-status",
+        "role": "input-question",
+        "schema": "input-question.v1",
+        "version": "v1"
+      }
+    },
+    {
+      "op": "add",
+      "new": {
+        "id": "tax.us.2025.input-question.line2a-scope-no-amt-form-6251",
+        "role": "input-question",
+        "schema": "input-question.v1",
+        "version": "v1"
+      }
+    },
+    {
+      "op": "add",
+      "new": {
+        "id": "tax.us.2025.input-question.line2a-scope-no-child-income-election",
+        "role": "input-question",
+        "schema": "input-question.v1",
+        "version": "v1"
+      }
+    },
+    {
+      "op": "add",
+      "new": {
+        "id": "tax.us.2025.input-question.line2a-scope-no-credit-using-tax-exempt",
+        "role": "input-question",
+        "schema": "input-question.v1",
+        "version": "v1"
+      }
+    },
+    {
+      "op": "add",
+      "new": {
+        "id": "tax.us.2025.input-question.line2a-scope-no-deduction-using-tax-exempt",
+        "role": "input-question",
+        "schema": "input-question.v1",
+        "version": "v1"
+      }
+    },
+    {
+      "op": "add",
+      "new": {
+        "id": "tax.us.2025.input-question.line2a-scope-no-f1099int-tax-exempt",
+        "role": "input-question",
+        "schema": "input-question.v1",
+        "version": "v1"
+      }
+    },
+    {
+      "op": "add",
+      "new": {
+        "id": "tax.us.2025.input-question.line2a-scope-no-f1099oid-tax-exempt",
+        "role": "input-question",
+        "schema": "input-question.v1",
+        "version": "v1"
+      }
+    },
+    {
+      "op": "add",
+      "new": {
+        "id": "tax.us.2025.input-question.line2a-scope-no-premium-adjustment",
+        "role": "input-question",
+        "schema": "input-question.v1",
+        "version": "v1"
+      }
+    },
+    {
+      "op": "add",
+      "new": {
+        "id": "tax.us.2025.input-question.line2a-scope-no-unreported-tax-exempt",
+        "role": "input-question",
+        "schema": "input-question.v1",
+        "version": "v1"
+      }
+    },
+    {
+      "op": "add",
+      "new": {
+        "id": "tax.us.2025.input-question.line38-scope-no-estimated-tax-penalty",
+        "role": "input-question",
+        "schema": "input-question.v1",
+        "version": "v1"
+      }
+    },
+    {
+      "op": "add",
+      "new": {
+        "id": "tax.us.2025.input-question.lines29-31-scope-no-other-refundable-credits",
+        "role": "input-question",
+        "schema": "input-question.v1",
+        "version": "v1"
+      }
+    },
+    {
+      "op": "add",
+      "new": {
+        "id": "tax.us.2025.input-question.qbi-no-qbi-deduction-declared",
+        "role": "input-question",
+        "schema": "input-question.v1",
+        "version": "v1"
+      }
+    },
+    {
+      "op": "add",
+      "new": {
+        "id": "tax.us.2025.input-question.schedule-d-boundary-no-inbound-capital-loss-carryovers",
+        "role": "input-question",
+        "schema": "input-question.v1",
+        "version": "v1"
+      }
+    },
+    {
+      "op": "add",
+      "new": {
+        "id": "tax.us.2025.input-question.schedule1-adjustments-scope-no-line11-educator",
+        "role": "input-question",
+        "schema": "input-question.v1",
+        "version": "v1"
+      }
+    },
+    {
+      "op": "add",
+      "new": {
+        "id": "tax.us.2025.input-question.schedule1-adjustments-scope-no-line12-business-expenses",
+        "role": "input-question",
+        "schema": "input-question.v1",
+        "version": "v1"
+      }
+    },
+    {
+      "op": "add",
+      "new": {
+        "id": "tax.us.2025.input-question.schedule1-adjustments-scope-no-line13-hsa",
+        "role": "input-question",
+        "schema": "input-question.v1",
+        "version": "v1"
+      }
+    },
+    {
+      "op": "add",
+      "new": {
+        "id": "tax.us.2025.input-question.schedule1-adjustments-scope-no-line14-moving",
+        "role": "input-question",
+        "schema": "input-question.v1",
+        "version": "v1"
+      }
+    },
+    {
+      "op": "add",
+      "new": {
+        "id": "tax.us.2025.input-question.schedule1-adjustments-scope-no-line15-deductible-se",
+        "role": "input-question",
+        "schema": "input-question.v1",
+        "version": "v1"
+      }
+    },
+    {
+      "op": "add",
+      "new": {
+        "id": "tax.us.2025.input-question.schedule1-adjustments-scope-no-line16-se-retirement",
+        "role": "input-question",
+        "schema": "input-question.v1",
+        "version": "v1"
+      }
+    },
+    {
+      "op": "add",
+      "new": {
+        "id": "tax.us.2025.input-question.schedule1-adjustments-scope-no-line17-se-health",
+        "role": "input-question",
+        "schema": "input-question.v1",
+        "version": "v1"
+      }
+    },
+    {
+      "op": "add",
+      "new": {
+        "id": "tax.us.2025.input-question.schedule1-adjustments-scope-no-line18-penalty",
+        "role": "input-question",
+        "schema": "input-question.v1",
+        "version": "v1"
+      }
+    },
+    {
+      "op": "add",
+      "new": {
+        "id": "tax.us.2025.input-question.schedule1-adjustments-scope-no-line19-alimony-paid",
+        "role": "input-question",
+        "schema": "input-question.v1",
+        "version": "v1"
+      }
+    },
+    {
+      "op": "add",
+      "new": {
+        "id": "tax.us.2025.input-question.schedule1-adjustments-scope-no-line20-ira-deduction",
+        "role": "input-question",
+        "schema": "input-question.v1",
+        "version": "v1"
+      }
+    },
+    {
+      "op": "add",
+      "new": {
+        "id": "tax.us.2025.input-question.schedule1-adjustments-scope-no-line23-archer-msa",
+        "role": "input-question",
+        "schema": "input-question.v1",
+        "version": "v1"
+      }
+    },
+    {
+      "op": "add",
+      "new": {
+        "id": "tax.us.2025.input-question.schedule1-adjustments-scope-no-line25-other-adjustments",
+        "role": "input-question",
+        "schema": "input-question.v1",
+        "version": "v1"
+      }
+    },
+    {
+      "op": "add",
+      "new": {
+        "id": "tax.us.2025.input-question.schedule1-part1-scope-no-f1099g-box2-state-refund",
+        "role": "input-question",
+        "schema": "input-question.v1",
+        "version": "v1"
+      }
+    },
+    {
+      "op": "add",
+      "new": {
+        "id": "tax.us.2025.input-question.schedule1-part1-scope-no-f1099g-other-payment-classes",
+        "role": "input-question",
+        "schema": "input-question.v1",
+        "version": "v1"
+      }
+    },
+    {
+      "op": "add",
+      "new": {
+        "id": "tax.us.2025.input-question.schedule1-part1-scope-no-sch1-line1-taxable-refunds",
+        "role": "input-question",
+        "schema": "input-question.v1",
+        "version": "v1"
+      }
+    },
+    {
+      "op": "add",
+      "new": {
+        "id": "tax.us.2025.input-question.schedule1-part1-scope-no-sch1-line2a-alimony",
+        "role": "input-question",
+        "schema": "input-question.v1",
+        "version": "v1"
+      }
+    },
+    {
+      "op": "add",
+      "new": {
+        "id": "tax.us.2025.input-question.schedule1-part1-scope-no-sch1-line3-business",
+        "role": "input-question",
+        "schema": "input-question.v1",
+        "version": "v1"
+      }
+    },
+    {
+      "op": "add",
+      "new": {
+        "id": "tax.us.2025.input-question.schedule1-part1-scope-no-sch1-line4-other-gains",
+        "role": "input-question",
+        "schema": "input-question.v1",
+        "version": "v1"
+      }
+    },
+    {
+      "op": "add",
+      "new": {
+        "id": "tax.us.2025.input-question.schedule1-part1-scope-no-sch1-line5-rental",
+        "role": "input-question",
+        "schema": "input-question.v1",
+        "version": "v1"
+      }
+    },
+    {
+      "op": "add",
+      "new": {
+        "id": "tax.us.2025.input-question.schedule1-part1-scope-no-sch1-line6-farm",
+        "role": "input-question",
+        "schema": "input-question.v1",
+        "version": "v1"
+      }
+    },
+    {
+      "op": "add",
+      "new": {
+        "id": "tax.us.2025.input-question.schedule1-part1-scope-no-unemployment-repayment",
+        "role": "input-question",
+        "schema": "input-question.v1",
+        "version": "v1"
+      }
+    },
+    {
+      "op": "add",
+      "new": {
+        "id": "tax.us.2025.input-question.schedule1a-no-parts-ii-iv-deductions-declared",
+        "role": "input-question",
+        "schema": "input-question.v1",
+        "version": "v1"
+      }
+    },
+    {
+      "op": "add",
+      "new": {
+        "id": "tax.us.2025.input-question.schedule2-partii-scope-no-line21-additional-taxes",
+        "role": "input-question",
+        "schema": "input-question.v1",
+        "version": "v1"
+      }
+    },
+    {
+      "op": "add",
+      "new": {
+        "id": "tax.us.2025.input-question.sli-scope-legally-obligated-for-interest",
+        "role": "input-question",
+        "schema": "input-question.v1",
+        "version": "v1"
+      }
+    },
+    {
+      "op": "add",
+      "new": {
+        "id": "tax.us.2025.input-question.sli-scope-no-form-2555",
+        "role": "input-question",
+        "schema": "input-question.v1",
+        "version": "v1"
+      }
+    },
+    {
+      "op": "add",
+      "new": {
+        "id": "tax.us.2025.input-question.sli-scope-no-form-4563",
+        "role": "input-question",
+        "schema": "input-question.v1",
+        "version": "v1"
+      }
+    },
+    {
+      "op": "add",
+      "new": {
+        "id": "tax.us.2025.input-question.sli-scope-no-puerto-rico-or-samoa-income",
+        "role": "input-question",
+        "schema": "input-question.v1",
+        "version": "v1"
+      }
+    },
+    {
+      "op": "add",
+      "new": {
+        "id": "tax.us.2025.input-question.sli-scope-not-claimed-as-dependent",
+        "role": "input-question",
+        "schema": "input-question.v1",
+        "version": "v1"
+      }
+    },
+    {
+      "op": "add",
+      "new": {
+        "id": "tax.us.2025.input-question.ss-benefits-scope-no-lump-sum-election",
+        "role": "input-question",
+        "schema": "input-question.v1",
+        "version": "v1"
+      }
+    },
+    {
+      "op": "add",
+      "new": {
+        "id": "tax.us.2025.input-question.ss-benefits-scope-no-rrb-or-foreign-social-benefit",
+        "role": "input-question",
+        "schema": "input-question.v1",
+        "version": "v1"
+      }
+    },
+    {
+      "op": "add",
+      "new": {
+        "id": "tax.us.2025.input-question.standard-deduction-can-be-claimed-as-dependent",
+        "role": "input-question",
+        "schema": "input-question.v1",
+        "version": "v1"
+      }
+    },
+    {
+      "op": "add",
+      "new": {
+        "id": "tax.us.2025.input-question.w2g-scope-no-sch1-other-income-except-w2g",
+        "role": "input-question",
+        "schema": "input-question.v1",
+        "version": "v1"
+      }
+    }
+  ],
+  "entrypoints": [
+    {
+      "op": "add",
+      "value": {
+        "id": "tax.us.2025.input-question.ctc-no-other-dependent",
+        "version": "v1"
+      }
+    },
+    {
+      "op": "add",
+      "value": {
+        "id": "tax.us.2025.input-question.ctc-no-puerto-rico-or-4563-exclusion",
+        "version": "v1"
+      }
+    },
+    {
+      "op": "add",
+      "value": {
+        "id": "tax.us.2025.input-question.direct-ftc-scope-all-foreign-income-on-1099div",
+        "version": "v1"
+      }
+    },
+    {
+      "op": "add",
+      "value": {
+        "id": "tax.us.2025.input-question.direct-ftc-scope-all-foreign-income-passive",
+        "version": "v1"
+      }
+    },
+    {
+      "op": "add",
+      "value": {
+        "id": "tax.us.2025.input-question.direct-ftc-scope-country-recognized-non-terrorism",
+        "version": "v1"
+      }
+    },
+    {
+      "op": "add",
+      "value": {
+        "id": "tax.us.2025.input-question.direct-ftc-scope-holding-period-16-day-met",
+        "version": "v1"
+      }
+    },
+    {
+      "op": "add",
+      "value": {
+        "id": "tax.us.2025.input-question.direct-ftc-scope-legal-liability-and-paid",
+        "version": "v1"
+      }
+    },
+    {
+      "op": "add",
+      "value": {
+        "id": "tax.us.2025.input-question.direct-ftc-scope-no-carryback-carryforward",
+        "version": "v1"
+      }
+    },
+    {
+      "op": "add",
+      "value": {
+        "id": "tax.us.2025.input-question.direct-ftc-scope-no-excluded-income-association",
+        "version": "v1"
+      }
+    },
+    {
+      "op": "add",
+      "value": {
+        "id": "tax.us.2025.input-question.direct-ftc-scope-no-f1099int-foreign-tax",
+        "version": "v1"
+      }
+    },
+    {
+      "op": "add",
+      "value": {
+        "id": "tax.us.2025.input-question.direct-ftc-scope-no-form-1116-required",
+        "version": "v1"
+      }
+    },
+    {
+      "op": "add",
+      "value": {
+        "id": "tax.us.2025.input-question.direct-ftc-scope-no-form-4972-on-line16",
+        "version": "v1"
+      }
+    },
+    {
+      "op": "add",
+      "value": {
+        "id": "tax.us.2025.input-question.direct-ftc-scope-no-k1-k3-foreign-tax",
+        "version": "v1"
+      }
+    },
+    {
+      "op": "add",
+      "value": {
+        "id": "tax.us.2025.input-question.direct-ftc-scope-no-line17-schedule2-additional",
+        "version": "v1"
+      }
+    },
+    {
+      "op": "add",
+      "value": {
+        "id": "tax.us.2025.input-question.direct-ftc-scope-no-other-foreign-tax-source",
+        "version": "v1"
+      }
+    },
+    {
+      "op": "add",
+      "value": {
+        "id": "tax.us.2025.input-question.direct-ftc-scope-no-refund-rebate-subsidy",
+        "version": "v1"
+      }
+    },
+    {
+      "op": "add",
+      "value": {
+        "id": "tax.us.2025.input-question.direct-ftc-scope-no-sch3-line2",
+        "version": "v1"
+      }
+    },
+    {
+      "op": "add",
+      "value": {
+        "id": "tax.us.2025.input-question.direct-ftc-scope-no-sch3-line3",
+        "version": "v1"
+      }
+    },
+    {
+      "op": "add",
+      "value": {
+        "id": "tax.us.2025.input-question.direct-ftc-scope-no-sch3-line4",
+        "version": "v1"
+      }
+    },
+    {
+      "op": "add",
+      "value": {
+        "id": "tax.us.2025.input-question.direct-ftc-scope-no-sch3-line5",
+        "version": "v1"
+      }
+    },
+    {
+      "op": "add",
+      "value": {
+        "id": "tax.us.2025.input-question.direct-ftc-scope-no-sch3-line6",
+        "version": "v1"
+      }
+    },
+    {
+      "op": "add",
+      "value": {
+        "id": "tax.us.2025.input-question.direct-ftc-scope-no-schedule-a-deduction-election",
+        "version": "v1"
+      }
+    },
+    {
+      "op": "add",
+      "value": {
+        "id": "tax.us.2025.input-question.direct-ftc-scope-no-schedule2-regular-tax-add",
+        "version": "v1"
+      }
+    },
+    {
+      "op": "add",
+      "value": {
+        "id": "tax.us.2025.input-question.direct-ftc-scope-no-short-sale-obligation",
+        "version": "v1"
+      }
+    },
+    {
+      "op": "add",
+      "value": {
+        "id": "tax.us.2025.input-question.direct-ftc-scope-tax-type-creditable",
+        "version": "v1"
+      }
+    },
+    {
+      "op": "add",
+      "value": {
+        "id": "tax.us.2025.input-question.direct-ftc-election",
+        "version": "v1"
+      }
+    },
+    {
+      "op": "add",
+      "value": {
+        "id": "tax.us.2025.input-question.eic-no-unsupported-situations",
+        "version": "v1"
+      }
+    },
+    {
+      "op": "add",
+      "value": {
+        "id": "tax.us.2025.input-question.eic-not-nonresident-alien",
+        "version": "v1"
+      }
+    },
+    {
+      "op": "add",
+      "value": {
+        "id": "tax.us.2025.input-question.eic-not-qualifying-child-of-another",
+        "version": "v1"
+      }
+    },
+    {
+      "op": "add",
+      "value": {
+        "id": "tax.us.2025.input-question.eic-taxpayer-valid-ssn",
+        "version": "v1"
+      }
+    },
+    {
+      "op": "add",
+      "value": {
+        "id": "tax.us.2025.input-question.exception1-no-boxes-2b-2c-2d",
+        "version": "v1"
+      }
+    },
+    {
+      "op": "add",
+      "value": {
+        "id": "tax.us.2025.input-question.exception1-no-capital-losses",
+        "version": "v1"
+      }
+    },
+    {
+      "op": "add",
+      "value": {
+        "id": "tax.us.2025.input-question.exception1-no-qof-deferral",
+        "version": "v1"
+      }
+    },
+    {
+      "op": "add",
+      "value": {
+        "id": "tax.us.2025.input-question.exception1-only-box2a-capital-gains",
+        "version": "v1"
+      }
+    },
+    {
+      "op": "add",
+      "value": {
+        "id": "tax.us.2025.input-question.f1098-scope-no-mortgage-statement",
+        "version": "v1"
+      }
+    },
+    {
+      "op": "add",
+      "value": {
+        "id": "tax.us.2025.input-question.filing-status",
+        "version": "v1"
+      }
+    },
+    {
+      "op": "add",
+      "value": {
+        "id": "tax.us.2025.input-question.line2a-scope-no-amt-form-6251",
+        "version": "v1"
+      }
+    },
+    {
+      "op": "add",
+      "value": {
+        "id": "tax.us.2025.input-question.line2a-scope-no-child-income-election",
+        "version": "v1"
+      }
+    },
+    {
+      "op": "add",
+      "value": {
+        "id": "tax.us.2025.input-question.line2a-scope-no-credit-using-tax-exempt",
+        "version": "v1"
+      }
+    },
+    {
+      "op": "add",
+      "value": {
+        "id": "tax.us.2025.input-question.line2a-scope-no-deduction-using-tax-exempt",
+        "version": "v1"
+      }
+    },
+    {
+      "op": "add",
+      "value": {
+        "id": "tax.us.2025.input-question.line2a-scope-no-f1099int-tax-exempt",
+        "version": "v1"
+      }
+    },
+    {
+      "op": "add",
+      "value": {
+        "id": "tax.us.2025.input-question.line2a-scope-no-f1099oid-tax-exempt",
+        "version": "v1"
+      }
+    },
+    {
+      "op": "add",
+      "value": {
+        "id": "tax.us.2025.input-question.line2a-scope-no-premium-adjustment",
+        "version": "v1"
+      }
+    },
+    {
+      "op": "add",
+      "value": {
+        "id": "tax.us.2025.input-question.line2a-scope-no-unreported-tax-exempt",
+        "version": "v1"
+      }
+    },
+    {
+      "op": "add",
+      "value": {
+        "id": "tax.us.2025.input-question.line38-scope-no-estimated-tax-penalty",
+        "version": "v1"
+      }
+    },
+    {
+      "op": "add",
+      "value": {
+        "id": "tax.us.2025.input-question.lines29-31-scope-no-other-refundable-credits",
+        "version": "v1"
+      }
+    },
+    {
+      "op": "add",
+      "value": {
+        "id": "tax.us.2025.input-question.qbi-no-qbi-deduction-declared",
+        "version": "v1"
+      }
+    },
+    {
+      "op": "add",
+      "value": {
+        "id": "tax.us.2025.input-question.schedule-d-boundary-no-inbound-capital-loss-carryovers",
+        "version": "v1"
+      }
+    },
+    {
+      "op": "add",
+      "value": {
+        "id": "tax.us.2025.input-question.schedule1-adjustments-scope-no-line11-educator",
+        "version": "v1"
+      }
+    },
+    {
+      "op": "add",
+      "value": {
+        "id": "tax.us.2025.input-question.schedule1-adjustments-scope-no-line12-business-expenses",
+        "version": "v1"
+      }
+    },
+    {
+      "op": "add",
+      "value": {
+        "id": "tax.us.2025.input-question.schedule1-adjustments-scope-no-line13-hsa",
+        "version": "v1"
+      }
+    },
+    {
+      "op": "add",
+      "value": {
+        "id": "tax.us.2025.input-question.schedule1-adjustments-scope-no-line14-moving",
+        "version": "v1"
+      }
+    },
+    {
+      "op": "add",
+      "value": {
+        "id": "tax.us.2025.input-question.schedule1-adjustments-scope-no-line15-deductible-se",
+        "version": "v1"
+      }
+    },
+    {
+      "op": "add",
+      "value": {
+        "id": "tax.us.2025.input-question.schedule1-adjustments-scope-no-line16-se-retirement",
+        "version": "v1"
+      }
+    },
+    {
+      "op": "add",
+      "value": {
+        "id": "tax.us.2025.input-question.schedule1-adjustments-scope-no-line17-se-health",
+        "version": "v1"
+      }
+    },
+    {
+      "op": "add",
+      "value": {
+        "id": "tax.us.2025.input-question.schedule1-adjustments-scope-no-line18-penalty",
+        "version": "v1"
+      }
+    },
+    {
+      "op": "add",
+      "value": {
+        "id": "tax.us.2025.input-question.schedule1-adjustments-scope-no-line19-alimony-paid",
+        "version": "v1"
+      }
+    },
+    {
+      "op": "add",
+      "value": {
+        "id": "tax.us.2025.input-question.schedule1-adjustments-scope-no-line20-ira-deduction",
+        "version": "v1"
+      }
+    },
+    {
+      "op": "add",
+      "value": {
+        "id": "tax.us.2025.input-question.schedule1-adjustments-scope-no-line23-archer-msa",
+        "version": "v1"
+      }
+    },
+    {
+      "op": "add",
+      "value": {
+        "id": "tax.us.2025.input-question.schedule1-adjustments-scope-no-line25-other-adjustments",
+        "version": "v1"
+      }
+    },
+    {
+      "op": "add",
+      "value": {
+        "id": "tax.us.2025.input-question.schedule1-part1-scope-no-f1099g-box2-state-refund",
+        "version": "v1"
+      }
+    },
+    {
+      "op": "add",
+      "value": {
+        "id": "tax.us.2025.input-question.schedule1-part1-scope-no-f1099g-other-payment-classes",
+        "version": "v1"
+      }
+    },
+    {
+      "op": "add",
+      "value": {
+        "id": "tax.us.2025.input-question.schedule1-part1-scope-no-sch1-line1-taxable-refunds",
+        "version": "v1"
+      }
+    },
+    {
+      "op": "add",
+      "value": {
+        "id": "tax.us.2025.input-question.schedule1-part1-scope-no-sch1-line2a-alimony",
+        "version": "v1"
+      }
+    },
+    {
+      "op": "add",
+      "value": {
+        "id": "tax.us.2025.input-question.schedule1-part1-scope-no-sch1-line3-business",
+        "version": "v1"
+      }
+    },
+    {
+      "op": "add",
+      "value": {
+        "id": "tax.us.2025.input-question.schedule1-part1-scope-no-sch1-line4-other-gains",
+        "version": "v1"
+      }
+    },
+    {
+      "op": "add",
+      "value": {
+        "id": "tax.us.2025.input-question.schedule1-part1-scope-no-sch1-line5-rental",
+        "version": "v1"
+      }
+    },
+    {
+      "op": "add",
+      "value": {
+        "id": "tax.us.2025.input-question.schedule1-part1-scope-no-sch1-line6-farm",
+        "version": "v1"
+      }
+    },
+    {
+      "op": "add",
+      "value": {
+        "id": "tax.us.2025.input-question.schedule1-part1-scope-no-unemployment-repayment",
+        "version": "v1"
+      }
+    },
+    {
+      "op": "add",
+      "value": {
+        "id": "tax.us.2025.input-question.schedule1a-no-parts-ii-iv-deductions-declared",
+        "version": "v1"
+      }
+    },
+    {
+      "op": "add",
+      "value": {
+        "id": "tax.us.2025.input-question.schedule2-partii-scope-no-line21-additional-taxes",
+        "version": "v1"
+      }
+    },
+    {
+      "op": "add",
+      "value": {
+        "id": "tax.us.2025.input-question.sli-scope-legally-obligated-for-interest",
+        "version": "v1"
+      }
+    },
+    {
+      "op": "add",
+      "value": {
+        "id": "tax.us.2025.input-question.sli-scope-no-form-2555",
+        "version": "v1"
+      }
+    },
+    {
+      "op": "add",
+      "value": {
+        "id": "tax.us.2025.input-question.sli-scope-no-form-4563",
+        "version": "v1"
+      }
+    },
+    {
+      "op": "add",
+      "value": {
+        "id": "tax.us.2025.input-question.sli-scope-no-puerto-rico-or-samoa-income",
+        "version": "v1"
+      }
+    },
+    {
+      "op": "add",
+      "value": {
+        "id": "tax.us.2025.input-question.sli-scope-not-claimed-as-dependent",
+        "version": "v1"
+      }
+    },
+    {
+      "op": "add",
+      "value": {
+        "id": "tax.us.2025.input-question.ss-benefits-scope-no-lump-sum-election",
+        "version": "v1"
+      }
+    },
+    {
+      "op": "add",
+      "value": {
+        "id": "tax.us.2025.input-question.ss-benefits-scope-no-rrb-or-foreign-social-benefit",
+        "version": "v1"
+      }
+    },
+    {
+      "op": "add",
+      "value": {
+        "id": "tax.us.2025.input-question.standard-deduction-can-be-claimed-as-dependent",
+        "version": "v1"
+      }
+    },
+    {
+      "op": "add",
+      "value": {
+        "id": "tax.us.2025.input-question.w2g-scope-no-sch1-other-income-except-w2g",
+        "version": "v1"
+      }
+    }
+  ],
+  "registry_sort": "id_version",
+  "registry_new_key_order": [
+    "checksum",
+    "id",
+    "version"
+  ]
+}

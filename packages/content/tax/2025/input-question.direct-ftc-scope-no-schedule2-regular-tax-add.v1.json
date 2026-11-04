@@ -1,0 +1,10 @@
+{
+  "fact_type": {
+    "id": "tax.us.2025.direct-ftc-scope.no-schedule2-regular-tax-add",
+    "version": "v1"
+  },
+  "id": "tax.us.2025.input-question.direct-ftc-scope-no-schedule2-regular-tax-add",
+  "question": "Does your 2025 Schedule 2 show an amount on Part I line 1a or line 1z (an addition to your regular tax)?",
+  "schema": "input-question.v1",
+  "version": "v1"
+}

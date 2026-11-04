@@ -1,0 +1,10 @@
+{
+  "fact_type": {
+    "id": "tax.us.2025.schedule1-part1-scope.no-sch1-line2a-alimony",
+    "version": "v1"
+  },
+  "id": "tax.us.2025.input-question.schedule1-part1-scope-no-sch1-line2a-alimony",
+  "question": "In 2025, did you receive alimony, or have income or loss from a business, a farm, rental property or royalties, a partnership, S corporation or trust, or any other gain or loss reported on Schedule 1 lines 2a through 6?",
+  "schema": "input-question.v1",
+  "version": "v1"
+}

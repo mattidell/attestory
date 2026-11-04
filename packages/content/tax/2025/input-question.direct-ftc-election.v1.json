@@ -1,0 +1,10 @@
+{
+  "fact_type": {
+    "id": "tax.us.2025.direct-ftc.election",
+    "version": "v1"
+  },
+  "id": "tax.us.2025.input-question.direct-ftc-election",
+  "question": "Do you want to claim the foreign tax you paid as a credit without filing Form 1116?",
+  "schema": "input-question.v1",
+  "version": "v1"
+}

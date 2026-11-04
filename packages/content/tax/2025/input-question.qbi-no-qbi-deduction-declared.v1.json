@@ -1,0 +1,10 @@
+{
+  "fact_type": {
+    "id": "tax.us.2025.qbi.no-qbi-deduction-declared",
+    "version": "v1"
+  },
+  "id": "tax.us.2025.input-question.qbi-no-qbi-deduction-declared",
+  "question": "In 2025, did you have qualified business income, qualified REIT dividends (Form 1099-DIV box 5), or publicly traded partnership income that could give you a qualified business income deduction?",
+  "schema": "input-question.v1",
+  "version": "v1"
+}

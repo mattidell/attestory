@@ -1,0 +1,10 @@
+{
+  "fact_type": {
+    "id": "tax.us.2025.sli-scope.not-claimed-as-dependent",
+    "version": "v1"
+  },
+  "id": "tax.us.2025.input-question.sli-scope-not-claimed-as-dependent",
+  "question": "Is someone else claiming you as a dependent on their 2025 return?",
+  "schema": "input-question.v1",
+  "version": "v1"
+}

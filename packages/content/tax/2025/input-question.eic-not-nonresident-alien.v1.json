@@ -1,0 +1,10 @@
+{
+  "fact_type": {
+    "id": "tax.us.2025.eic.not-nonresident-alien",
+    "version": "v1"
+  },
+  "id": "tax.us.2025.input-question.eic-not-nonresident-alien",
+  "question": "Were you, or was your spouse, a nonresident alien for any part of 2025 (do not count a nonresident or dual-status alien spouse you chose to treat as a U.S. resident for the whole year)?",
+  "schema": "input-question.v1",
+  "version": "v1"
+}

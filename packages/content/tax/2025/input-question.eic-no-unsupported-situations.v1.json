@@ -1,0 +1,10 @@
+{
+  "fact_type": {
+    "id": "tax.us.2025.eic.no-unsupported-situations",
+    "version": "v1"
+  },
+  "id": "tax.us.2025.input-question.eic-no-unsupported-situations",
+  "question": "Does any of these apply to you for 2025: you file Form 2555; you must file Form 8862 or are barred from the earned income credit for a prior year; you are self-employed with Schedule SE or Schedule C as a statutory employee, or you are a member of the clergy or had church employee income of $108.28 or more; you elect to include nontaxable combat pay; you excluded a Medicaid waiver payment on Schedule 1 line 8s; or you have Schedule E, Form 4797, Form 8814, personal property rental, or passive activity income or loss?",
+  "schema": "input-question.v1",
+  "version": "v1"
+}
