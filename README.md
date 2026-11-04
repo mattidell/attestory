@@ -456,6 +456,25 @@ with the accepted v6 usability pack, and no support claim applies to unlisted
 future profiles. A complete entry-loop calculation does not establish that
 authorization is current or that a result may be relied on.
 
+The reader surface is selected independently from the seed profile. The
+default `resolve_entry_surface(repo_root)` and
+`build_entry_surface(capability, repo_root=repo_root)` use the v2
+`correction-guidance-v2` surface. To explicitly resolve or build the preserved
+legacy reader, pass `selection="legacy-v1"` to either function. The
+`entry_loop_evaluation` command's `--seed-profile` selects v6 or v70 seed data;
+it does not select the reader surface and offers no `--surface` option.
+
+The v2 correction reader reports a rejected value as a pre-save validation
+error and separates a saved amount from calculation status and authorization
+currentness. A blocked null figure is unavailable, not zero. On v70 a line
+held only by an unconfirmed family can display its recorded closure question
+verbatim. Outcomes without an attached safe sentence retain general guidance;
+this is not diagnosis of every missing answer. If a response is uncertain or unusable, the
+page keeps the last confirmed view, prevents resubmission, and offers a state
+read. A usable state response can recover within the running session; this
+does not promise recovery after process restart or an automatic recalculation
+retry.
+
 ## Correction session walkthrough
 
 The synthetic student-loan interest correction session opens one saved result and lets you review one borrowing's loan-cost answer. Wording is provisional. Each command seeds one named state, prints what that state is, and serves the page on loopback. Stop with Ctrl-C. Run the same command again for a clean start.

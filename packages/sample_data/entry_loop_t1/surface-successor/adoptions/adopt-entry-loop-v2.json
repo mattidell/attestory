@@ -1,0 +1,28 @@
+{
+  "act_id": "demo.act.adopt.surface.entry-loop.v2",
+  "actor": "demo.user.filer-1",
+  "at": "2026-11-01T00:00:00Z",
+  "committed_against": 1,
+  "kind": "surface-adoption",
+  "payload": {
+    "audit": {
+      "note": "synthetic W-2 correction-guidance surface; non-authoritative"
+    },
+    "package": {
+      "checksum": "ec9fbd9abc95f38832c3fb7ac00403c09776f88ec4b5981ca5bfc953a82e2e2d",
+      "id": "demo.surface.entry-loop",
+      "version": "v2"
+    },
+    "release": {
+      "checksum": "e28140d14050cad23e3c9024783ab1db012750414ccd9ca69a9c37b3e81ba49d",
+      "id": "demo.surface-release.entry-loop.2025",
+      "version": "v2"
+    },
+    "revision": 1,
+    "scope": {
+      "jurisdiction": "us",
+      "year": "2025"
+    }
+  },
+  "schema": "act.v1"
+}

@@ -19,6 +19,7 @@ import re
 import shutil
 import subprocess
 from contextlib import AbstractContextManager
+from copy import deepcopy
 from dataclasses import dataclass
 from decimal import Decimal, InvalidOperation
 from hashlib import sha256
@@ -71,6 +72,16 @@ SURFACE_RELEASES = ENTRY_FIXTURE / "surface" / "publication_surface" / "releases
 SURFACE_ADOPTION = (
     ENTRY_FIXTURE / "surface" / "adoptions" / "adopt-entry-loop-v1.json"
 )
+SURFACE_SUCCESSOR_ROOT = ENTRY_FIXTURE / "surface-successor"
+DEFAULT_ENTRY_SURFACE = "correction-guidance-v2"
+ENTRY_SURFACE_SELECTIONS = {
+    "legacy-v1": ENTRY_FIXTURE / "surface",
+    "correction-guidance-v2": SURFACE_SUCCESSOR_ROOT,
+}
+_ENTRY_SURFACE_ADOPTION_FILES = {
+    "legacy-v1": "adopt-entry-loop-v1.json",
+    "correction-guidance-v2": "adopt-entry-loop-v2.json",
+}
 
 SCOPE_USER = "demo.user.filer-1"
 ENTRY_RUN_SCOPES = {
@@ -483,8 +494,13 @@ def _resolve_adopted_core_surface(
     raise EntryLoopError("entry-run-refused:RELEASE_ABSENT_OR_MISMATCH")
 
 
-def _surface_publication(repo_root: Path) -> PublicationSurface:
-    root = repo_root / ENTRY_FIXTURE / "surface"
+def _surface_publication(
+    repo_root: Path, selection: str = DEFAULT_ENTRY_SURFACE
+) -> PublicationSurface:
+    root_relative = ENTRY_SURFACE_SELECTIONS.get(selection)
+    if root_relative is None:
+        raise EntryLoopError("entry-surface-selection-unsupported")
+    root = repo_root / root_relative
     return PublicationSurface(
         release_dir=root / "publication_surface" / "releases",
         package_registry_path=root / "registry" / "published-surface-artifacts.json",
@@ -492,17 +508,24 @@ def _surface_publication(repo_root: Path) -> PublicationSurface:
     )
 
 
-def resolve_entry_surface(repo_root: Path) -> ResolvedSurface:
-    """Resolve the entry program through the ADR-0049 surface artifact route."""
+def resolve_entry_surface(
+    repo_root: Path, *, selection: str = DEFAULT_ENTRY_SURFACE
+) -> ResolvedSurface:
+    """Resolve one explicitly bounded entry reader through ADR-0049."""
 
-    adoption = _load_json(repo_root / SURFACE_ADOPTION)
+    root_relative = ENTRY_SURFACE_SELECTIONS.get(selection)
+    adoption_file = _ENTRY_SURFACE_ADOPTION_FILES.get(selection)
+    if root_relative is None or adoption_file is None:
+        raise EntryLoopError("entry-surface-selection-unsupported")
+    root = repo_root / root_relative
+    adoption = _load_json(root / "adoptions" / adoption_file)
     resolved = resolve_surface_artifact(
         [adoption],
         run_scope={"jurisdiction": "us", "year": "2025"},
         scope_user=SCOPE_USER,
         workspace_revision=1,
-        surface=_surface_publication(repo_root),
-        content_dir=repo_root / SURFACE_CONTENT,
+        surface=_surface_publication(repo_root, selection),
+        content_dir=root / "content" / "app",
     )
     if isinstance(resolved, Refusal):
         raise EntryLoopError(f"entry-surface-refused:{resolved.reason}")
@@ -513,12 +536,13 @@ def build_entry_surface(
     capability: WorkspaceCapability,
     *,
     repo_root: Path,
+    selection: str = DEFAULT_ENTRY_SURFACE,
     timeout_seconds: float = 60.0,
 ) -> Path:
     """Verify, copy, and build the adopted surface inside the workspace."""
 
     workspace = bootstrap_workspace(capability, repo_root=repo_root)
-    resolved = resolve_entry_surface(repo_root)
+    resolved = resolve_entry_surface(repo_root, selection=selection)
     build_root = workspace.live_output_path(
         Path(".entry-surface") / resolved.manifest["id"]
     )
@@ -626,13 +650,77 @@ def _line_values(
         else:
             raise EntryLoopError("entry-state-unavailable")
 
+        reason_sentences: list[str] = []
+        reasons = resolved.get("reasons")
+        if isinstance(reasons, list):
+            for reason in reasons:
+                sentence = reason.get("sentence") if isinstance(reason, dict) else None
+                if (
+                    not isinstance(sentence, str)
+                    or not sentence.strip()
+                    or len(sentence) > 500
+                ):
+                    continue
+                # Presentation sentences are authored for people, but do not
+                # let an accidentally copied locator or internal identifier
+                # become page copy.
+                if re.search(
+                    r"(?:\b(?:demo|tax\.us)\.[A-Za-z0-9._|=,-]+|"
+                    r"(?:^|[\s:])/(?:[^\s]+)|"
+                    r"\b(?:packages|workspaces|private-archive|local-data)/[^\s]+|"
+                    r"\b[A-Za-z]:\\[^\s]+)",
+                    sentence,
+                    re.IGNORECASE,
+                ):
+                    continue
+                reason_sentences.append(sentence.strip())
+
+        active_codes = resolved.get("activeCodes")
+        if not isinstance(active_codes, list) or any(
+            not isinstance(code, str) for code in active_codes
+        ):
+            active_codes = []
+
         values[member.line] = {
             "line": member.line,
             "title": field["label"],
             "computed": computed,
             "value": value,
+            "disposition": disposition,
+            "reason_sentences": reason_sentences,
+            "reason_codes": list(active_codes),
         }
     return values
+
+
+def _w2_entry_lists(
+    current: Mapping[str, Any] | None,
+) -> tuple[list[dict[str, Any]], list[dict[str, Any]]]:
+    """Project the current W-2 answer into the page's missing/answered lists."""
+    if current is None:
+        return (
+            [
+                {
+                    "id": "w2-box1",
+                    "label": "W-2 from Demo Workshop — Box 1 wages",
+                    "document": "Form W-2",
+                    "box": "Box 1",
+                    "target": "w2-box1",
+                }
+            ],
+            [],
+        )
+    return (
+        [],
+        [
+            {
+                "id": "w2-box1",
+                "label": "W-2 Box 1",
+                "value": current["value"],
+                "target": "w2-box1",
+            }
+        ],
+    )
 
 
 def _parse_box1_with_format(
@@ -862,6 +950,17 @@ class SyntheticW2EntryRuntime:
         fully_computed = not missing and not blocked and all(
             line["computed"] for line in lines_by_id.values()
         )
+        calculation_status = (
+            "calculated"
+            if all(line["computed"] for line in lines_by_id.values())
+            else "blocked"
+        )
+        authorization_current = report.get("current")
+        authorization_status = report.get("authorization_status")
+        if not isinstance(authorization_current, bool) or not isinstance(
+            authorization_status, str
+        ):
+            raise EntryLoopError("entry-state-unavailable")
         lines: list[dict[str, Any]] = []
         for field_profile in profile.fields:
             line_id = field_profile.line
@@ -883,34 +982,21 @@ class SyntheticW2EntryRuntime:
                 line["change"] = "changed"
             lines.append(line)
 
+        missing_entries, answered_entries = _w2_entry_lists(current)
         payload = {
             "revision": revision,
-            "missing": (
-                [
-                    {
-                        "id": "w2-box1",
-                        "label": "W-2 from Demo Workshop — Box 1 wages",
-                        "document": "Form W-2",
-                        "box": "Box 1",
-                        "target": "w2-box1",
-                    }
-                ]
-                if missing
-                else []
-            ),
-            "answered": (
-                []
-                if current is None
-                else [
-                    {
-                        "id": "w2-box1",
-                        "label": "W-2 Box 1",
-                        "value": current["value"],
-                        "target": "w2-box1",
-                    }
-                ]
-            ),
+            "saved": current is not None,
+            "missing": missing_entries,
+            "answered": answered_entries,
             "lines": lines,
+            "calculation": {
+                "status": calculation_status,
+                "revision": revision,
+            },
+            "authorization": {
+                "current": authorization_current,
+                "status": authorization_status,
+            },
             "accepted": self._last_accepted,
             "last_action": self._last_action,
             "complete": fully_computed,
@@ -920,6 +1006,46 @@ class SyntheticW2EntryRuntime:
         }
         self._previous_lines = lines_by_id
         return EntrySnapshot(revision=revision, payload=payload)
+
+    def _snapshot_after_save_failure(self, action: str) -> EntrySnapshot:
+        """Recover the saved answer while labeling the last result as prior."""
+
+        contents = self._log.read()
+        current = self._current_w2(contents.acts)
+        previous = self._snapshot.payload
+        prior_calculation = previous.get("calculation")
+        if not isinstance(prior_calculation, dict):
+            prior_calculation = {}
+        prior_authorization = previous.get("authorization")
+        if prior_calculation.get("status") == "unavailable":
+            prior_authorization = prior_calculation.get(
+                "prior_authorization", prior_authorization
+            )
+        prior_revision = prior_calculation.get("revision", self._snapshot.revision)
+        missing_entries, answered_entries = _w2_entry_lists(current)
+
+        payload = deepcopy(previous)
+        payload.update(
+            {
+                "revision": contents.revision,
+                "saved": current is not None,
+                "missing": missing_entries,
+                "answered": answered_entries,
+                "calculation": {
+                    "status": "unavailable",
+                    "revision": prior_revision,
+                    "requested_revision": contents.revision,
+                    "prior_authorization": deepcopy(prior_authorization),
+                },
+                "authorization": {"current": None, "status": "UNKNOWN"},
+                "accepted": self._last_accepted,
+                "last_action": action,
+                "complete": False,
+                "computed": False,
+                "contribution": self._contribution_template(contents.revision),
+            }
+        )
+        return EntrySnapshot(revision=contents.revision, payload=payload)
 
     def snapshot(self) -> EntrySnapshot:
         with self._lock:
@@ -1084,7 +1210,13 @@ class SyntheticW2EntryRuntime:
 
             self._last_accepted = True
             self._last_action = action
-            self._snapshot = self._compute_snapshot()
+            try:
+                self._snapshot = self._compute_snapshot()
+            except Exception:
+                # The contribution and its successor acts are already in the
+                # authoritative log. Do not turn a later calculation failure
+                # into a claim that the update was rejected or unsaved.
+                self._snapshot = self._snapshot_after_save_failure(action)
             return self._snapshot
 
 
@@ -1260,8 +1392,10 @@ class EntryLoopServer(AbstractContextManager["EntryLoopServer"]):
 __all__ = [
     "COMPARISON_LINES",
     "CURRENT_CORE_ENTRY_FIXTURE",
+    "DEFAULT_ENTRY_SURFACE",
     "ENTRY_FIXTURE",
     "ENTRY_CORE_PROFILES",
+    "ENTRY_SURFACE_SELECTIONS",
     "ENTRY_SEED_FIXTURES",
     "EVALUATION_LINES",
     "EXPECTED_IMPACT_LINES",

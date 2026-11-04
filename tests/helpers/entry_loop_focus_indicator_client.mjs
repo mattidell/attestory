@@ -214,7 +214,8 @@ try {
     })()
   `);
   await waitUntil(
-    `document.body.textContent.includes("0 missing facts") && document.body.textContent.includes("Accepted")`,
+    `document.body.textContent.includes("W-2 Box 1 is saved in this return") &&
+      document.body.textContent.includes("Your W-2 entry was saved")`,
   );
   await sweep("complete");
 

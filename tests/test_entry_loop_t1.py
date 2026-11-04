@@ -6,6 +6,7 @@ import copy
 import io
 import json
 import shutil
+import socket
 import subprocess
 import unittest
 import urllib.error
@@ -26,13 +27,16 @@ from packages.derivation.authorization_closure import package_boundary_digest
 from packages.derivation.entry_loop import (
     COMPARISON_LINES,
     CURRENT_CORE_ENTRY_FIXTURE,
+    DEFAULT_ENTRY_SURFACE,
     ENTRY_CORE_PROFILES,
+    ENTRY_SURFACE_SELECTIONS,
     ENTRY_PACKAGE_MEMBER_DIR,
     ENTRY_PACKAGE_RELEASE_DIRS,
     ENTRY_RUN_SCOPES,
     ENTRY_SEED_FIXTURES,
     ENTRY_FIELD_SCHEMA,
     EXPECTED_IMPACT_LINES,
+    _EntryRequestHandler,
     EntryLoopError,
     EntryLoopServer,
     SyntheticW2EntryRuntime,
@@ -69,6 +73,10 @@ from tools.generate_entry_loop_t1_fixtures import (
     render_fixture_files,
     seed_acts,
 )
+from tools.generate_entry_loop_surface_successor import (
+    content_stats as surface_successor_content_stats,
+    render_fixture_files as render_surface_successor_fixture_files,
+)
 from tools.generate_entry_loop_v70_fixture import (
     render_fixture_files as render_v70_fixture_files,
 )
@@ -76,11 +84,15 @@ from tools.generate_entry_loop_v70_fixture import (
 
 REPO = Path(__file__).resolve().parent.parent
 FIXTURE = REPO / "packages" / "sample_data" / "entry_loop_t1"
+SURFACE_SUCCESSOR_CONTENT = (
+    FIXTURE / "surface-successor" / "content" / "app"
+)
 SOURCE = FIXTURE / "surface" / "content" / "app" / "src" / "EntryPage.svelte"
 FIELD_DECLARATION = (
     FIXTURE / "surface" / "content" / "app" / "src" / "w2-box1-field.js"
 )
 _VENDORED = (CONTENT / "node_modules").is_dir()
+_SUCCESSOR_VENDORED = (SURFACE_SUCCESSOR_CONTENT / "node_modules").is_dir()
 _NODE = shutil.which("node")
 _BROWSER = next(
     (
@@ -103,6 +115,24 @@ def _event(snapshot: dict[str, Any], value: object) -> dict[str, Any]:
     event = cast(dict[str, Any], json.loads(json.dumps(snapshot["contribution"])))
     event["payload"]["contribution"]["content"]["w2_box1"] = value
     return event
+
+
+def _seed_without_assertion(seed_profile: str, fact_id: str) -> list[dict[str, Any]]:
+    acts = load_seed_acts(REPO, seed_profile=seed_profile)
+    retained = [
+        act
+        for act in acts
+        if not (
+            act.get("kind") == "assertion"
+            and act.get("payload", {}).get("finding", {}).get("fact_id")
+            == fact_id
+        )
+    ]
+    if len(retained) != len(acts) - 1:
+        raise AssertionError("expected one matching synthetic assertion")
+    for revision, act in enumerate(retained):
+        act["committed_against"] = revision
+    return retained
 
 
 def _lines(snapshot: dict[str, Any]) -> dict[str, dict[str, Any]]:
@@ -238,6 +268,19 @@ class FixtureRegeneration(unittest.TestCase):
         for relative, expected in rendered.items():
             with self.subTest(relative=relative):
                 self.assertEqual((FIXTURE / relative).read_bytes(), expected)
+
+    def test_surface_successor_metadata_regenerates_without_vendoring_dependencies(self) -> None:
+        rendered = render_surface_successor_fixture_files()
+        for relative, expected in rendered.items():
+            with self.subTest(relative=relative):
+                self.assertEqual((FIXTURE / relative).read_bytes(), expected)
+
+    def test_surface_selection_is_bounded_and_defaults_to_the_successor(self) -> None:
+        self.assertEqual(DEFAULT_ENTRY_SURFACE, "correction-guidance-v2")
+        self.assertEqual(
+            set(ENTRY_SURFACE_SELECTIONS),
+            {"legacy-v1", "correction-guidance-v2"},
+        )
 
     def test_generated_build_output_is_not_a_shipped_input(self) -> None:
         manifest = json.loads(
@@ -586,8 +629,12 @@ class PhaseADependencies(RuntimeFixture):
         entered = self.enter()
         self.assertEqual(entered["missing"], [])
         self.assertEqual(len(entered["answered"]), 1)
+        self.assertTrue(entered["saved"])
         self.assertTrue(entered["computed"])
         self.assertTrue(entered["complete"])
+        self.assertEqual(entered["calculation"]["status"], "calculated")
+        self.assertEqual(entered["authorization"]["status"], STATUS_ABSENT)
+        self.assertFalse(entered["authorization"]["current"])
 
     def test_dependency_2_loopback_post_uses_admitted_contribution_acts(self) -> None:
         with TemporaryDirectory(prefix="demo-entry-static-") as tmp:
@@ -658,6 +705,9 @@ class EntryAndCorrection(RuntimeFixture):
         entered = self.enter()
         corrected = self.runtime.contribute(_event(entered, 91000)).payload
         self.assertTrue(corrected["complete"])
+        self.assertTrue(corrected["saved"])
+        self.assertEqual(corrected["calculation"]["status"], "calculated")
+        self.assertEqual(corrected["authorization"]["status"], STATUS_ABSENT)
         self.assertEqual(corrected["last_action"], "corrected")
         log = ActLog(self.capability.location, DerivationSchemas().registry, read_only=True)
         added = list(log.read().acts)[-2:]
@@ -758,9 +808,18 @@ class CurrentCoreEntryAndCorrection(unittest.TestCase):
                 set(initial_lines), {field.line for field in profile.fields}
             )
             self.assertEqual(
-                initial["missing"][0]["id"],
-                "w2-box1",
+                initial["missing"],
+                [
+                    {
+                        "id": "w2-box1",
+                        "label": "W-2 from Demo Workshop — Box 1 wages",
+                        "document": "Form W-2",
+                        "box": "Box 1",
+                        "target": "w2-box1",
+                    }
+                ],
             )
+            self.assertEqual(initial["answered"], [])
             self.assertFalse(initial["complete"])
             for line in ("1a", "9", "11a", "11b", "15", "16"):
                 self.assertFalse(initial_lines[line]["computed"], line)
@@ -779,7 +838,11 @@ class CurrentCoreEntryAndCorrection(unittest.TestCase):
             corrected = runtime.contribute(_event(entered, 91000)).payload
             corrected_lines = _lines(corrected)
             self.assertEqual(corrected["last_action"], "corrected")
+            self.assertTrue(corrected["saved"])
             self.assertTrue(corrected["complete"])
+            self.assertEqual(corrected["calculation"]["status"], "calculated")
+            self.assertEqual(corrected["authorization"]["status"], STATUS_ABSENT)
+            self.assertFalse(corrected["authorization"]["current"])
             for field in profile.fields:
                 before = entered_lines[field.line]
                 after = corrected_lines[field.line]
@@ -960,6 +1023,221 @@ class CurrentCoreEntryAndCorrection(unittest.TestCase):
                 wrong_year_lines["1a"]["value"],
                 current_year_lines["1a"]["value"],
             )
+
+
+class CorrectionGuidanceOutcomes(unittest.TestCase):
+    def _runtime(
+        self,
+        *,
+        seed_profile: str = "v70",
+        seed_acts: list[dict[str, Any]] | None = None,
+    ) -> SyntheticW2EntryRuntime:
+        temporary = TemporaryDirectory(prefix="demo-entry-guidance-")
+        self.addCleanup(temporary.cleanup)
+        capability = WorkspaceCapability(Path(temporary.name) / "runtime")
+        return SyntheticW2EntryRuntime(
+            capability,
+            repo_root=REPO,
+            seed_profile=seed_profile,
+            seed_acts=seed_acts,
+        )
+
+    def test_saved_blocked_correction_uses_general_fallback_without_a_question_link(self) -> None:
+        dependent_fact = (
+            "tax.us.2025.standard-deduction.can-be-claimed-as-dependent"
+            "|tax-year=2025"
+        )
+        runtime = self._runtime(
+            seed_acts=_seed_without_assertion("v70", dependent_fact)
+        )
+        entered = runtime.contribute(_event(runtime.snapshot().payload, 90000)).payload
+        corrected = runtime.contribute(_event(entered, 91000)).payload
+
+        lines = _lines(corrected)
+        line_12e = lines["12e"]
+        self.assertTrue(corrected["saved"])
+        self.assertEqual(corrected["answered"][0]["value"], 91000)
+        self.assertEqual(corrected["missing"], [])
+        self.assertEqual(corrected["calculation"]["status"], "blocked")
+        self.assertEqual(corrected["calculation"]["revision"], corrected["revision"])
+        self.assertFalse(corrected["authorization"]["current"])
+        self.assertEqual(corrected["authorization"]["status"], STATUS_ABSENT)
+        self.assertFalse(line_12e["computed"])
+        self.assertIsNone(line_12e["value"])
+        self.assertEqual(line_12e["disposition"], "blocked")
+        self.assertEqual(line_12e["reason_codes"], ["DEPENDENCY_ABSENT"])
+        self.assertEqual(line_12e["reason_sentences"], [])
+
+        log = ActLog(
+            runtime._capability.location,
+            DerivationSchemas().registry,
+            read_only=True,
+        )
+        values = [
+            act["payload"]["contribution"]["content"]["w2_box1"]
+            for act in log.read().acts
+            if act.get("kind") == "contribution"
+        ]
+        self.assertEqual(values, [90000, 91000])
+
+    def test_v6_does_not_infer_question_from_unattached_closure_mapping(self) -> None:
+        closure_fact = (
+            "tax.us.2025.f1099int.b1.source-closure|"
+            "family-horizon=demo.presentation-l2.int-b1.h2,tax-year=2025"
+        )
+        runtime = self._runtime(
+            seed_profile="v6",
+            seed_acts=_seed_without_assertion("v6", closure_fact),
+        )
+        entered = runtime.contribute(_event(runtime.snapshot().payload, 90000)).payload
+        corrected = runtime.contribute(_event(entered, 91000)).payload
+        line_2b = _lines(corrected)["2b"]
+
+        mapping = json.loads(
+            (REPO / "packages/content/tax/2025/closure-mapping.f1099int-b1.v2.json")
+            .read_text("utf-8")
+        )
+        self.assertFalse(line_2b["computed"])
+        self.assertEqual(line_2b["disposition"], "blocked")
+        # A mapping elsewhere in content is not evidence that this saved
+        # coordinator outcome attached that question to the blocked line.
+        self.assertEqual(line_2b["reason_sentences"], [])
+        self.assertEqual(line_2b["reason_codes"], ["SOURCE_SET_UNCLOSED"])
+        self.assertTrue(mapping["closure_question"])
+        self.assertNotIn("tax.us.", " ".join(line_2b["reason_sentences"]))
+
+    def test_v70_passes_through_question_for_single_unconfirmed_family(self) -> None:
+        closure_fact = (
+            "tax.us.2025.f1099int.b1.source-closure|"
+            "family-horizon=demo.cgd.t2.int-b1.h0,tax-year=2025"
+        )
+        runtime = self._runtime(
+            seed_acts=_seed_without_assertion("v70", closure_fact)
+        )
+        entered = runtime.contribute(_event(runtime.snapshot().payload, 90000)).payload
+        corrected = runtime.contribute(_event(entered, 91000)).payload
+        line_2b = _lines(corrected)["2b"]
+        mapping = json.loads(
+            (
+                REPO
+                / "packages/content/tax/2025/closure-mapping.f1099int-b1.v2.json"
+            ).read_text("utf-8")
+        )
+        question = mapping["closure_question"]
+
+        self.assertTrue(corrected["saved"])
+        self.assertEqual(corrected["answered"][0]["value"], 91000)
+        self.assertEqual(corrected["missing"], [])
+        self.assertFalse(line_2b["computed"])
+        self.assertIsNone(line_2b["value"])
+        self.assertEqual(line_2b["disposition"], "blocked")
+        # The 1040 line's direct cause is an absent subtotal. The saved
+        # coordinator report shows the single unconfirmed family at its root.
+        self.assertEqual(line_2b["reason_codes"], ["DEPENDENCY_ABSENT"])
+        self.assertEqual(line_2b["reason_sentences"], [question])
+        report = json.loads(
+            (
+                runtime._capability.location
+                / "outputs"
+                / f"entry-state-{corrected['revision']}.json"
+            ).read_text("utf-8")
+        )
+        closure_roots = [
+            row
+            for row in report["dispositions"]
+            if row.get("disposition") == "blocked"
+            and row.get("code") == "SOURCE_SET_UNCLOSED"
+        ]
+        self.assertEqual(len(closure_roots), 1)
+        self.assertEqual(
+            closure_roots[0]["missing"],
+            ["tax.us.2025.f1099int.b1"],
+        )
+
+    def test_saved_calculation_keeps_authorization_currentness_separate(self) -> None:
+        acts = load_seed_acts(REPO, seed_profile="v70")
+        surface = _resolve_adopted_core_surface(
+            acts,
+            run_scope=ENTRY_RUN_SCOPES["v70"],
+            workspace_revision=len(acts),
+            repo_root=REPO,
+            schemas=DerivationSchemas(),
+        )
+        universe_id = _entry_package_boundary(
+            acts,
+            run_scope=ENTRY_RUN_SCOPES["v70"],
+            surface=surface,
+        )
+        acts.append(
+            _authorization_grant_act(
+                len(acts), tax_year="2025", universe_id=universe_id
+            )
+        )
+        runtime = self._runtime(seed_acts=acts)
+        entered = runtime.contribute(_event(runtime.snapshot().payload, 90000)).payload
+        corrected = runtime.contribute(_event(entered, 91000)).payload
+
+        self.assertTrue(corrected["saved"])
+        self.assertEqual(corrected["calculation"]["status"], "calculated")
+        self.assertTrue(corrected["authorization"]["current"])
+        self.assertEqual(corrected["authorization"]["status"], STATUS_ADMITTED)
+        self.assertTrue(_lines(corrected)["1a"]["computed"])
+        self.assertEqual(_lines(corrected)["1a"]["value"], 91000)
+
+    def test_post_save_calculation_failure_recovers_from_log_without_resubmitting(self) -> None:
+        runtime = self._runtime(seed_profile="v6")
+        entered = runtime.contribute(_event(runtime.snapshot().payload, 90000)).payload
+        prior_lines = _lines(entered)
+        prior_revision = entered["calculation"]["revision"]
+
+        with patch(
+            "packages.derivation.entry_loop.live_coordinate_run",
+            side_effect=RuntimeError("synthetic coordinator failure"),
+        ):
+            corrected = runtime.contribute(_event(entered, 91000)).payload
+
+        self.assertTrue(corrected["saved"])
+        self.assertEqual(corrected["answered"][0]["value"], 91000)
+        self.assertEqual(corrected["missing"], [])
+        self.assertEqual(corrected["last_action"], "corrected")
+        self.assertEqual(corrected["calculation"]["status"], "unavailable")
+        self.assertEqual(corrected["calculation"]["revision"], prior_revision)
+        self.assertGreater(corrected["calculation"]["requested_revision"], prior_revision)
+        self.assertIsNone(corrected["authorization"]["current"])
+        self.assertEqual(corrected["authorization"]["status"], "UNKNOWN")
+        self.assertEqual(
+            {line: row["value"] for line, row in _lines(corrected).items()},
+            {line: row["value"] for line, row in prior_lines.items()},
+        )
+
+        static_root = Path(self._runtime_temp_for_static())
+        (static_root / "index.html").write_text("<!doctype html>", encoding="utf-8")
+        with EntryLoopServer(runtime, static_root) as server:
+            state_url = server.url.rsplit("/", 1)[0] + "/api/state"
+            with urllib.request.urlopen(state_url, timeout=5) as response:
+                recovered = json.load(response)
+        self.assertTrue(recovered["saved"])
+        self.assertEqual(recovered["missing"], [])
+        self.assertEqual(recovered["answered"][0]["value"], 91000)
+        self.assertEqual(recovered["calculation"]["status"], "unavailable")
+        log = ActLog(
+            runtime._capability.location,
+            DerivationSchemas().registry,
+            read_only=True,
+        )
+        values_before_read = [
+            act["payload"]["contribution"]["content"]["w2_box1"]
+            for act in log.read().acts
+            if act.get("kind") == "contribution"
+            and "w2_box1"
+            in act.get("payload", {}).get("contribution", {}).get("content", {})
+        ]
+        self.assertEqual(values_before_read, [90000, 91000])
+
+    def _runtime_temp_for_static(self) -> str:
+        temporary = TemporaryDirectory(prefix="demo-entry-guidance-static-")
+        self.addCleanup(temporary.cleanup)
+        return temporary.name
 
 
 class FieldContract(RuntimeFixture):
@@ -1329,21 +1607,46 @@ class AdversarialEntryBoundary(RuntimeFixture):
 )
 class SurfaceArtifactBuild(unittest.TestCase):
     def test_surface_resolves_and_builds_inside_the_synthetic_workspace(self) -> None:
-        resolved = resolve_entry_surface(REPO)
+        resolved = resolve_entry_surface(REPO, selection="legacy-v1")
         self.assertIsInstance(resolved, ResolvedSurface)
         count, total = content_stats()
         self.assertEqual(resolved.entry_count, count)
         self.assertEqual(resolved.total_bytes, total)
         with TemporaryDirectory(prefix="demo-entry-build-") as tmp:
             capability = WorkspaceCapability(Path(tmp) / "L")
-            dist = build_entry_surface(capability, repo_root=REPO)
+            dist = build_entry_surface(
+                capability, repo_root=REPO, selection="legacy-v1"
+            )
             html = (dist / "index.html").read_text("utf-8")
             self.assertIn("W-2 entry · Attestory", html)
             self.assertTrue((dist / "EntryPage.js").is_file())
 
 
 @unittest.skipUnless(
-    _NODE and _BROWSER and _VENDORED,
+    _NODE and _SUCCESSOR_VENDORED,
+    "needs Node and the successor surface's restored dependency tree",
+)
+class SurfaceSuccessorBuild(unittest.TestCase):
+    def test_default_surface_resolves_and_builds_the_v2_reader(self) -> None:
+        resolved = resolve_entry_surface(REPO)
+        self.assertIsInstance(resolved, ResolvedSurface)
+        self.assertEqual(resolved.manifest["version"], "v2")
+        self.assertEqual(resolved.content_dir, SURFACE_SUCCESSOR_CONTENT.resolve())
+        count, total = surface_successor_content_stats()
+        self.assertEqual(resolved.entry_count, count)
+        self.assertEqual(resolved.total_bytes, total)
+        with TemporaryDirectory(prefix="demo-entry-successor-build-") as tmp:
+            capability = WorkspaceCapability(Path(tmp) / "L")
+            dist = build_entry_surface(capability, repo_root=REPO)
+            self.assertTrue((dist / "EntryPage.js").is_file())
+            self.assertIn(
+                "W-2 entry · Attestory",
+                (dist / "index.html").read_text("utf-8"),
+            )
+
+
+@unittest.skipUnless(
+    _NODE and _BROWSER and _SUCCESSOR_VENDORED,
     "needs Node, a local Chrome/Chromium, and the surface artifact vendored tree",
 )
 class CompiledClientIntegration(RuntimeFixture):
@@ -1369,16 +1672,378 @@ class CompiledClientIntegration(RuntimeFixture):
         self.assertEqual(
             observed,
             {
-                "complete": True,
-                "contributionRequest": True,
-                "stateRequest": True,
+                "saved": True,
+                "calculated": True,
+                "authorizationAbsentVisible": True,
+                "validationRejectedBeforeSave": True,
+                "contributionRequests": 2,
+                "stateRequests": 1,
             },
         )
         self.assertTrue(self.runtime.snapshot().payload["complete"])
 
 
 @unittest.skipUnless(
-    _NODE and _BROWSER and _VENDORED,
+    _NODE and _BROWSER and _SUCCESSOR_VENDORED,
+    "needs Node, Chrome/Chromium, and the successor surface dependency tree",
+)
+class CorrectionGuidanceBrowser(unittest.TestCase):
+    def test_successful_responses_require_a_usable_snapshot_before_install(self) -> None:
+        assert _NODE is not None
+        dependent_fact = (
+            "tax.us.2025.standard-deduction.can-be-claimed-as-dependent"
+            "|tax-year=2025"
+        )
+        temporary = TemporaryDirectory(prefix="demo-entry-response-boundary-")
+        self.addCleanup(temporary.cleanup)
+        capability = WorkspaceCapability(Path(temporary.name) / "runtime")
+        runtime = SyntheticW2EntryRuntime(
+            capability,
+            repo_root=REPO,
+            seed_profile="v70",
+            seed_acts=_seed_without_assertion("v70", dependent_fact),
+        )
+        dist = build_entry_surface(capability, repo_root=REPO)
+        successful_posts = {"value": 0}
+        state_reads = {"value": 0}
+        original_json = _EntryRequestHandler._json
+
+        def raw_json(handler: Any, status: int, body: bytes) -> None:
+            handler.send_response(status)
+            handler.send_header("Content-Type", "application/json")
+            handler.send_header("Content-Length", str(len(body)))
+            handler.send_header("Cache-Control", "no-store")
+            handler.end_headers()
+            handler.wfile.write(body)
+
+        def malformed_successful_correction(
+            handler: Any, status: int, body: dict[str, Any]
+        ) -> None:
+            if handler.path.endswith("/api/state") and status == 200:
+                state_reads["value"] += 1
+                if state_reads["value"] == 2:
+                    raw_json(handler, 200, b"{")
+                    return
+                if state_reads["value"] == 3:
+                    raw_json(handler, 200, b"{}")
+                    return
+            if handler.path.endswith("/api/contributions") and status == 200:
+                successful_posts["value"] += 1
+                if successful_posts["value"] == 2:
+                    raw_json(handler, 200, b"{")
+                    return
+                if successful_posts["value"] == 3:
+                    raw_json(handler, 200, b'{"unexpected":"demo"}')
+                    return
+            original_json(handler, status, body)
+
+        with patch.object(
+            _EntryRequestHandler, "_json", new=malformed_successful_correction
+        ):
+            with EntryLoopServer(runtime, dist) as server:
+                result = subprocess.run(
+                    [
+                        _NODE,
+                        str(
+                            REPO
+                            / "tests"
+                            / "helpers"
+                            / "entry_loop_response_boundary_browser_client.mjs"
+                        ),
+                        server.url,
+                    ],
+                    stdin=subprocess.DEVNULL,
+                    stdout=subprocess.PIPE,
+                    stderr=subprocess.PIPE,
+                    text=True,
+                    timeout=90,
+                    check=False,
+                )
+
+        self.assertEqual(result.returncode, 0, result.stderr)
+        self.assertEqual(successful_posts["value"], 3)
+        self.assertEqual(state_reads["value"], 5)
+        observed = json.loads(result.stdout)
+        self.assertEqual(
+            observed,
+            {
+                "malformedSubmitUncertainty": True,
+                "malformedResponseCopyVisible": True,
+                "malformedSubmitKeptLastConfirmedSnapshot": True,
+                "malformedRecoveryPreserved": True,
+                "unusableRecoveryPreserved": True,
+                "recoveredAfterMalformedSubmit": True,
+                "unusableSubmitPreserved": True,
+                "recoveredAfterUnusableSubmit": True,
+                "contributionPosts": 3,
+                "stateReads": 5,
+                "contributionResponses": 3,
+                "stateResponses": 5,
+                "renderExceptionAbsent": True,
+            },
+        )
+        snapshot = runtime.snapshot().payload
+        self.assertEqual(snapshot["answered"][0]["value"], 92000)
+        log = ActLog(
+            capability.location,
+            DerivationSchemas().registry,
+            read_only=True,
+        )
+        values = [
+            act["payload"]["contribution"]["content"]["w2_box1"]
+            for act in log.read().acts
+            if act.get("kind") == "contribution"
+        ]
+        self.assertEqual(values, [90000, 91000, 92000])
+
+    @unittest.skipUnless(
+        _NODE and _BROWSER and _SUCCESSOR_VENDORED,
+        "needs Node, a local Chrome/Chromium, and the surface artifact vendored tree",
+    )
+    def test_v70_closure_question_is_rendered_verbatim_in_compiled_page(self) -> None:
+        assert _NODE is not None
+        closure_fact = (
+            "tax.us.2025.f1099int.b1.source-closure|"
+            "family-horizon=demo.cgd.t2.int-b1.h0,tax-year=2025"
+        )
+        temporary = TemporaryDirectory(prefix="demo-entry-closure-question-")
+        self.addCleanup(temporary.cleanup)
+        capability = WorkspaceCapability(Path(temporary.name) / "runtime")
+        runtime = SyntheticW2EntryRuntime(
+            capability,
+            repo_root=REPO,
+            seed_profile="v70",
+            seed_acts=_seed_without_assertion("v70", closure_fact),
+        )
+        entered = runtime.contribute(_event(runtime.snapshot().payload, 90000))
+        runtime.contribute(_event(entered.payload, 91000))
+        expected_question = json.loads(
+            (
+                REPO
+                / "packages/content/tax/2025/closure-mapping.f1099int-b1.v2.json"
+            ).read_text("utf-8")
+        )["closure_question"]
+        dist = build_entry_surface(capability, repo_root=REPO)
+
+        node_probe = """
+import { CDPClient } from "./tools/presentation_harness/lib/cdp.mjs";
+import { launchChrome } from "./tools/presentation_harness/lib/chrome.mjs";
+
+const pageUrl = process.argv[1];
+const expectedQuestion = JSON.parse(process.argv[2]);
+let chrome;
+let client;
+let targetId;
+
+async function evaluate(expression, sessionId) {
+  const result = await client.send(
+    "Runtime.evaluate",
+    { expression, awaitPromise: true, returnByValue: true },
+    sessionId,
+  );
+  if (result.exceptionDetails) throw new Error("browser-evaluation-failed");
+  return result.result.value;
+}
+
+async function waitUntil(expression, sessionId) {
+  const deadline = Date.now() + 30_000;
+  while (Date.now() < deadline) {
+    if (await evaluate(expression, sessionId)) return;
+    await new Promise((resolve) => setTimeout(resolve, 25));
+  }
+  throw new Error("browser-state-timeout");
+}
+
+try {
+  chrome = await launchChrome(null);
+  client = await CDPClient.connect(chrome.wsUrl);
+  ({ targetId } = await client.send("Target.createTarget", { url: "about:blank" }));
+  const { sessionId } = await client.send("Target.attachToTarget", {
+    targetId,
+    flatten: true,
+  });
+  await client.send("Page.enable", {}, sessionId);
+  await client.send("Runtime.enable", {}, sessionId);
+  const loaded = client.waitFor("Page.loadEventFired", sessionId, 10_000);
+  await client.send("Page.navigate", { url: pageUrl }, sessionId);
+  await loaded;
+  await waitUntil(
+    `document.querySelector("#w2-box1") !== null &&
+      document.body.innerText.includes(${JSON.stringify(expectedQuestion)})`,
+    sessionId,
+  );
+  const observed = await evaluate(
+    `(() => {
+          const row = Array.from(
+            document.querySelectorAll(".line-list li")
+          ).find((item) =>
+            item.querySelector(".line-number")?.textContent.trim().endsWith("2b")
+          );
+      return {
+        rowFound: Boolean(row),
+        unavailable: row?.innerText.includes("Unavailable") ?? false,
+        reason: row?.querySelector("small")?.innerText ?? null,
+        savedAnswerVisible: document.body.innerText.includes(
+          "W-2 Box 1: $91,000.00"
+        ),
+      };
+    })()`,
+    sessionId,
+  );
+  process.stdout.write(`${JSON.stringify(observed)}\\n`);
+} catch {
+  process.stderr.write("entry-v70-closure-browser-failed\\n");
+  process.exitCode = 1;
+} finally {
+  if (client && targetId) {
+    try {
+      await client.send("Target.closeTarget", { targetId });
+    } catch {
+      // Cleanup continues through the owned browser process.
+    }
+  }
+  if (client) client.close();
+  if (chrome) await chrome.dispose();
+}
+"""
+        with EntryLoopServer(runtime, dist) as server:
+            result = subprocess.run(
+                [
+                    _NODE,
+                    "--input-type=module",
+                    "-e",
+                    node_probe,
+                    server.url,
+                    json.dumps(expected_question),
+                ],
+                cwd=REPO,
+                stdin=subprocess.DEVNULL,
+                stdout=subprocess.PIPE,
+                stderr=subprocess.PIPE,
+                text=True,
+                timeout=90,
+                check=False,
+            )
+
+        self.assertEqual(result.returncode, 0, result.stderr)
+        observed = json.loads(result.stdout)
+        self.assertEqual(
+            observed,
+            {
+                "rowFound": True,
+                "unavailable": True,
+                "reason": expected_question,
+                "savedAnswerVisible": True,
+            },
+        )
+
+    def test_lost_response_and_post_save_failure_recover_in_the_compiled_page(self) -> None:
+        assert _NODE is not None
+        dependent_fact = (
+            "tax.us.2025.standard-deduction.can-be-claimed-as-dependent"
+            "|tax-year=2025"
+        )
+        temporary = TemporaryDirectory(prefix="demo-entry-guidance-browser-")
+        self.addCleanup(temporary.cleanup)
+        capability = WorkspaceCapability(Path(temporary.name) / "runtime")
+        runtime = SyntheticW2EntryRuntime(
+            capability,
+            repo_root=REPO,
+            seed_profile="v70",
+            seed_acts=_seed_without_assertion("v70", dependent_fact),
+        )
+        dist = build_entry_surface(capability, repo_root=REPO)
+        dropped = {"value": False}
+        corrected_runs = {"value": 0}
+        original_json = _EntryRequestHandler._json
+        original_coordinate = live_coordinate_run
+
+        def fail_second_correction(*args: Any, **kwargs: Any) -> Any:
+            if runtime._last_action == "corrected":
+                corrected_runs["value"] += 1
+                if corrected_runs["value"] == 2:
+                    raise RuntimeError("synthetic coordinator failure")
+            return original_coordinate(*args, **kwargs)
+
+        def drop_correction_response(
+            handler: Any, status: int, body: dict[str, Any]
+        ) -> None:
+            if (
+                not dropped["value"]
+                and handler.path.endswith("/api/contributions")
+                and status == 200
+                and runtime.snapshot().payload["last_action"] == "corrected"
+            ):
+                dropped["value"] = True
+                handler.close_connection = True
+                try:
+                    handler.connection.shutdown(socket.SHUT_RDWR)
+                except OSError:
+                    pass
+                handler.connection.close()
+                return
+            original_json(handler, status, body)
+
+        with (
+            patch(
+                "packages.derivation.entry_loop.live_coordinate_run",
+                new=fail_second_correction,
+            ),
+            patch.object(_EntryRequestHandler, "_json", new=drop_correction_response),
+        ):
+            with EntryLoopServer(runtime, dist) as server:
+                result = subprocess.run(
+                    [
+                        _NODE,
+                        str(
+                            REPO
+                            / "tests"
+                            / "helpers"
+                            / "entry_loop_guidance_browser_client.mjs"
+                        ),
+                        server.url,
+                    ],
+                    stdin=subprocess.DEVNULL,
+                    stdout=subprocess.PIPE,
+                    stderr=subprocess.PIPE,
+                    text=True,
+                    timeout=90,
+                    check=False,
+                )
+
+        self.assertTrue(dropped["value"])
+        self.assertEqual(result.returncode, 0, result.stderr)
+        observed = json.loads(result.stdout)
+        self.assertEqual(
+            observed,
+            {
+                "savedAfterRecovery": True,
+                "uncertaintyShown": True,
+                "noResubmit": True,
+                "stateReadForRecovery": True,
+                "blockedNullNotZero": True,
+                "genericFallbackVisible": True,
+                "authorizationCurrentnessSeparate": True,
+                "postSaveFailureCopyVisible": True,
+                "postSaveAmountRecovered": True,
+                "noInternalIdentifiers": True,
+            },
+        )
+        log = ActLog(
+            capability.location,
+            DerivationSchemas().registry,
+            read_only=True,
+        )
+        values = [
+            act["payload"]["contribution"]["content"]["w2_box1"]
+            for act in log.read().acts
+            if act.get("kind") == "contribution"
+        ]
+        self.assertEqual(values, [90000, 91000, 92000])
+
+
+@unittest.skipUnless(
+    _NODE and _BROWSER and _SUCCESSOR_VENDORED,
     "needs Node, a local Chrome/Chromium, and the surface artifact vendored tree",
 )
 class RenderedFieldDerivation(RuntimeFixture):
@@ -1395,7 +2060,7 @@ class RenderedFieldDerivation(RuntimeFixture):
     def test_dom_text_follows_a_mutated_declaration(self) -> None:
         assert _NODE is not None
         original = (
-            CONTENT / "src" / "w2-box1-field.js"
+            SURFACE_SUCCESSOR_CONTENT / "src" / "w2-box1-field.js"
         ).read_text("utf-8")
         replacements = {
             '"box": "Box 1"': '"box": "SYNTH-BOX-77"',
@@ -1419,7 +2084,7 @@ class RenderedFieldDerivation(RuntimeFixture):
 
         with TemporaryDirectory(prefix="demo-entry-derivation-") as tmp:
             content_copy = Path(tmp) / "app"
-            shutil.copytree(CONTENT, content_copy)
+            shutil.copytree(SURFACE_SUCCESSOR_CONTENT, content_copy)
             (content_copy / "src" / "w2-box1-field.js").write_text(
                 mutated, encoding="utf-8"
             )
@@ -1475,7 +2140,7 @@ class RenderedFieldDerivation(RuntimeFixture):
 
 
 @unittest.skipUnless(
-    _NODE and _BROWSER and _VENDORED,
+    _NODE and _BROWSER and _SUCCESSOR_VENDORED,
     "needs Node, a local Chrome/Chromium, and the surface artifact vendored tree",
 )
 class FocusIndicators(RuntimeFixture):
