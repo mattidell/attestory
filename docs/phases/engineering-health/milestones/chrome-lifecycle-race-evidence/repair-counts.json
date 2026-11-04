@@ -1,0 +1,16 @@
+{
+  "base_commit": "67c7914e09c69371dc30be4400422b0d64e482af",
+  "node": "v22.23.2",
+  "cpus": 10,
+  "load_workers": 4,
+  "command": "node docs/phases/engineering-health/milestones/chrome-lifecycle-race-evidence/repair-probe.mjs",
+  "test_command": "node --test tools/presentation_harness/tests/chrome-lifecycle.test.mjs",
+  "code": 0,
+  "ms": 4656,
+  "tests": 6,
+  "pass": 6,
+  "fail": 0,
+  "unhandledRejection": false,
+  "lateAsync": false,
+  "load_alive_after_stop": 0
+}

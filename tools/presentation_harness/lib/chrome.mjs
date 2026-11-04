@@ -86,9 +86,12 @@ async function waitForDevToolsActivePort(profileDir, timeoutMs, state, observer,
     try {
       const contents = await readFile(filePath, "utf8");
       if (observer) { try { const info = await stat(filePath); metadata = { size: info.size, mtime_wall_ms: info.mtimeMs }; } catch { /* unavailable */ } }
+      const newlineAt = contents.indexOf("\n");
       const [portLine, pathLine] = contents.split("\n");
-      const port = Number.parseInt(portLine, 10);
-      if (Number.isInteger(port) && port > 0) {
+      const port = newlineAt === -1 ? Number.NaN : Number.parseInt(portLine, 10);
+      // The port line is complete only after its newline, and only when every
+      // character is a decimal digit. parseInt would take a positive prefix.
+      if (newlineAt !== -1 && /^[0-9]+$/.test(portLine) && Number.isInteger(port) && port > 0) {
         fileState = "ready";
         result = { port, browserPath: pathLine ? pathLine.trim() : "" };
       } else fileState = "malformed";

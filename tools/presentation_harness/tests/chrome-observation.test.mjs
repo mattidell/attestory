@@ -161,3 +161,42 @@ test("failed observation writes preserve success and timeout and clean ownership
     await rm(root, { recursive: true, force: true });
   }
 });
+
+async function launchedUrl(body, timeout = 2000) {
+  const root = await mkdtemp(join(tmpdir(), "demo-observation-"));
+  try {
+    const binary = join(root, "chrome");
+    await writeFile(binary, `#!/usr/bin/env node\nimport {renameSync,writeFileSync} from 'node:fs';\nconst p=process.argv.find(x=>x.startsWith('--user-data-dir=')).slice(16);\n${body}\n`);
+    await chmod(binary, 0o755);
+    const chrome = await launchChrome(binary, { launchTimeoutMs: timeout });
+    try { return chrome.wsUrl; } finally { await chrome.dispose(); }
+  } finally { await rm(root, { recursive: true, force: true }); }
+}
+
+test("a complete decimal port line keeps the advertised browser path", async () => {
+  const url = await launchedUrl(`writeFileSync(p+'/DevToolsActivePort','12345\\n/devtools/browser/demo-path\\n'); setInterval(()=>{},1000);`);
+  assert.equal(url, "ws://127.0.0.1:12345/devtools/browser/demo-path");
+});
+
+test("readiness waits for a complete port line instead of a positive prefix", async () => {
+  const url = await launchedUrl(`writeFileSync(p+'/DevToolsActivePort','9222'); setTimeout(()=>{writeFileSync(p+'/DevToolsActivePort.complete','12345\\n/devtools/browser/demo-path\\n'); renameSync(p+'/DevToolsActivePort.complete', p+'/DevToolsActivePort');},180); setInterval(()=>{},1000);`, 2000);
+  assert.equal(url, "ws://127.0.0.1:12345/devtools/browser/demo-path");
+});
+
+test("a stuck positive port prefix is not an advertised port", async () => {
+  const { result, trace } = await caseRun(`writeFileSync(p+'/DevToolsActivePort','9222'); setInterval(()=>{},1000);`, 500, 100);
+  assert.match(result, /stayed alive without DevToolsActivePort before the launch timeout/);
+  assert.equal(trace.outcome, "not_ready_after_grace");
+  assert.ok(trace.file_states.some(state => state.state === "malformed"));
+  assert.equal(trace.file_states.some(state => state.state === "ready"), false);
+  assert.ok(trace.file_metadata && trace.file_metadata.size > 0);
+  assert.ok(trace.deadline_wall_ms >= 500);
+});
+
+test("a digit prefix before trailing junk is not a complete port line", async () => {
+  const { result, trace } = await caseRun(`writeFileSync(p+'/DevToolsActivePort','9222xyz\\n/devtools/browser/demo-path\\n'); setInterval(()=>{},1000);`, 500, 100);
+  assert.match(result, /stayed alive without DevToolsActivePort before the launch timeout/);
+  assert.equal(trace.outcome, "not_ready_after_grace");
+  assert.equal(trace.file_states.some(state => state.state === "ready"), false);
+  assert.ok(trace.deadline_wall_ms >= 500);
+});

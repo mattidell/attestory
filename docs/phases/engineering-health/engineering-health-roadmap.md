@@ -138,6 +138,13 @@ Still open:
 5. **A trusted prior-main witness** for main-ui convergence if a divergent
    historical file must be restored to main's bytes. The current guard
    conservatively refuses that correction.
+6. **Partial port and torn browser path.** The lifecycle milestone closed
+   the fake-marker race and the harness's whole-decimal port line only.
+   `packages/derivation/live_viewing.py` `_wait_for_devtools` still accepts
+   a digit-only `DevToolsActivePort` buffer with no newline. That reader
+   and `waitForDevToolsActivePort` still accept a torn path such as
+   `12345\n/devtools/bro`. Neither reader was brought under the stricter
+   rule.
 
 Test moves below the coordinator were measured and are not worthwhile while
 the recorder holds the cost. Persistent caches, partial catalogs, test culling,
@@ -165,6 +172,23 @@ ten-second allowance. The allowance is now 45 seconds inside the startup
 slot, the owner waits longer than the worst case, and slow launches are
 reported. No full-suite speedup or cause beyond disk-wait at first launch is
 claimed.
+
+### The Chrome Lifecycle Test Waits for Its Marker
+
+[Plan](milestones/chrome-lifecycle-race.md).
+[Retrospective](../../milestone-retrospectives/2026-11-04-chrome-lifecycle-race.md).
+
+The lifecycle fake publishes its marker by renaming a complete document and
+waits for usable JSON. The launch assertion is observed immediately, and
+cancellation and drain still run when that wait fails. A DevTools port is
+ready only as a whole decimal line. Deadlines, `browserPath` as the trimmed
+second field, and the profile-absent and `ESRCH` assertions stay. An injected
+empty marker failed 10 of 10 counted runs before the repair and passed 10 of
+10 after. Unmodified runs passed 46 of 46 on both sides. The Python live
+viewer still accepts a digit-only port buffer with no newline, and both that
+reader and the harness still accept a torn browser path. Those two readers
+are outside this result. Exact-head `verify` on the curated tree remains the
+publication gate.
 
 ### Complete Current-Core Returns for Tests
 
