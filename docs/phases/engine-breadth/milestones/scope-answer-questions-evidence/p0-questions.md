@@ -1,6 +1,6 @@
 # P0: a question for each yes/no scope answer and filing status (core v72)
 
-Charter: `docs/reviews/scope-answer-questions/charter-p0.md`. No production, test, content or schema file was
+Charter: the P0 unit of the plan (removed at closeout). No production, test, content or schema file was
 edited. Evidence: `probe.py` (withhold each fact on core v72), `probe_flip.py` and `probe_extra.py` (record the
 other value), `groups.py` (the drafted questions, data), `build_table.py` (renders the tables below),
 `scratch_v73.py` and `verify_v73.py` (scratch core v73), their outputs, and `filing-status-projection.diff`.

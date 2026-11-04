@@ -3,7 +3,7 @@
   "version": 1,
   "phase": "Engine Breadth",
   "topic": "scope-answer-questions",
-  "status": "Open. P0 drafted 39 filer questions for 80 facts; Track 1 builds them on core v73.",
+  "status": "Closed. On core v73 a line blocked on a missing yes/no scope answer or filing status names one of 41 filer questions covering 80 facts; yes always means the thing is present. Earlier cores render byte-identically.",
   "scope": [
     "a line blocked because a yes/no scope answer or filing status is missing names the question to answer, through declared input-question citizens, on a successor core",
     "each question is judged by what a filer would answer, and its yes and no mean exactly what the engine records",
@@ -32,10 +32,12 @@
       "docs/phases/engine-breadth/milestones/scope-answer-questions.md"
     ],
     "new_milestone": [
+      "docs/milestone-retrospectives/2026-11-03-scope-answer-questions.md",
       "docs/phases/engine-breadth/milestones/scope-answer-questions.md",
       "docs/phases/engine-breadth/engine-breadth-roadmap.md#Parked work and open questions"
     ]
-  }
+  },
+  "retrospective": "docs/milestone-retrospectives/2026-11-03-scope-answer-questions.md"
 }
 -->
 
@@ -206,3 +208,49 @@ new on this branch, so they are corrected in place and v73 is regenerated):
 
 Dispatch is to Sonnet 5.5 Agent sub-agents. Foreground commands
 only. Stop means stop.
+
+## Review dispositions
+
+Fresh-reader review of P0 and Track 1: mechanics clean (80 citizens, the
+registry only adds, v68 to v72 byte-identical, the binding map cannot attach
+a question to the wrong fact); wording not ready. One required and nine
+recommended findings, all accepted ("Decisions (after review)") and fixed in
+repair 1, which the reviewer confirmed.
+
+1. *S1A counted student loan interest as "any other adjustment"*
+   (required). Fixed: lines 24a through 24z, student loan interest excluded.
+2. *FTC11, M2, M3, M4 asked for a conclusion* (recommended). Fixed: each
+   asks what a filer can check.
+3. *L2A2, L2A3, FTC12 said more or less than the rule reads* (recommended).
+   Traced and reworded; FTC12 names line 1a and line 1z because the
+   repository's sources disagree.
+4. *DEP1 joined "can be claimed" and "is claimed"* (recommended). Split:
+   DEP2 asks whether someone is claiming the filer (the student loan fact).
+5. *M6 examples, EIC1 clause* (recommended). Fixed.
+6. *No test read polarity* (note). Fixed: a test checks each fact's flag
+   against its rule and title.
+7. *Residual* (note, kept): M2 is long and its $1,000 test depends on the
+   computed tax; L2A3 cannot list the credits that count tax-exempt interest
+   because the sources do not.
+
+## Execution record
+
+- One Sonnet 5.5 builder for P0 (about 21 minutes, 68 tool calls), Track 1
+  (about 47 minutes, full suite included) and repair 1 (about 15 minutes);
+  one fresh Sonnet reviewer (about 14 minutes, then a 2-minute
+  confirmation).
+- Two owner directions during P0 reshaped the drafting: yes means present,
+  and questions reduce to computed meaning (80 facts, 41 questions).
+
+## Outcome
+
+On core v73 a line blocked because a yes/no scope answer or filing status is
+missing names the question to answer: 41 filer questions, one per group of
+facts a filer settles with one answer, carried by 80 `input-question`
+citizens. Every question asks about presence, so "yes" means the thing is
+present; for a fact that asserts an absence, a "no" to the question is that
+absence. A "yes" to a group question means the return has something the
+engine does not compute; it is displayed, never recorded as a value for each
+member. Filing status reaches its question through the package's input
+binding (a presentation-only map from `live.py`). No schema change; core
+v73, registry v71, release v71. Earlier cores render exactly as before.
