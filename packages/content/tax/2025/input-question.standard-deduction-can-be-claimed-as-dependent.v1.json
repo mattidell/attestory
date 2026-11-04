@@ -1,0 +1,10 @@
+{
+  "fact_type": {
+    "id": "tax.us.2025.standard-deduction.can-be-claimed-as-dependent",
+    "version": "v1"
+  },
+  "id": "tax.us.2025.input-question.standard-deduction-can-be-claimed-as-dependent",
+  "question": "Can someone else claim you (or your spouse, on a joint return) as a dependent on their 2025 return?",
+  "schema": "input-question.v1",
+  "version": "v1"
+}

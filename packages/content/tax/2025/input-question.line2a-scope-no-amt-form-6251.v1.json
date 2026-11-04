@@ -1,0 +1,10 @@
+{
+  "fact_type": {
+    "id": "tax.us.2025.line2a-scope.no-amt-form-6251",
+    "version": "v1"
+  },
+  "id": "tax.us.2025.input-question.line2a-scope-no-amt-form-6251",
+  "question": "Does your 2025 return include Form 6251 (alternative minimum tax), Form 8814 (election to report your child's interest and dividends), or a credit or deduction that counts your tax-exempt interest as part of your income?",
+  "schema": "input-question.v1",
+  "version": "v1"
+}

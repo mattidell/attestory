@@ -1,0 +1,10 @@
+{
+  "fact_type": {
+    "id": "tax.us.2025.direct-ftc-scope.no-form-1116-required",
+    "version": "v1"
+  },
+  "id": "tax.us.2025.input-question.direct-ftc-scope-no-form-1116-required",
+  "question": "Is your total foreign tax from all sources more than $300 ($600 if you file jointly), or is there any other reason you must file Form 1116?",
+  "schema": "input-question.v1",
+  "version": "v1"
+}

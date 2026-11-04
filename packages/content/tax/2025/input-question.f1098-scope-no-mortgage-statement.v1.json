@@ -1,0 +1,10 @@
+{
+  "fact_type": {
+    "id": "tax.us.2025.f1098-scope.no-mortgage-statement",
+    "version": "v1"
+  },
+  "id": "tax.us.2025.input-question.f1098-scope-no-mortgage-statement",
+  "question": "Did you receive a Form 1098 mortgage interest statement for 2025?",
+  "schema": "input-question.v1",
+  "version": "v1"
+}

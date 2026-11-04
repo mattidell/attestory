@@ -1,0 +1,10 @@
+{
+  "fact_type": {
+    "id": "tax.us.2025.sli-scope.legally-obligated-for-interest",
+    "version": "v1"
+  },
+  "id": "tax.us.2025.input-question.sli-scope-legally-obligated-for-interest",
+  "question": "Are you legally obligated to pay the interest on the student loan(s) you are claiming?",
+  "schema": "input-question.v1",
+  "version": "v1"
+}

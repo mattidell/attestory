@@ -1,0 +1,10 @@
+{
+  "fact_type": {
+    "id": "tax.us.2025.schedule1a.no-parts-ii-iv-deductions-declared",
+    "version": "v1"
+  },
+  "id": "tax.us.2025.input-question.schedule1a-no-parts-ii-iv-deductions-declared",
+  "question": "Did you receive qualified tips or qualified overtime pay in 2025, or pay interest on a loan for a new personal vehicle (qualified passenger vehicle loan interest), that could give you a deduction on Schedule 1-A Parts II through IV?",
+  "schema": "input-question.v1",
+  "version": "v1"
+}

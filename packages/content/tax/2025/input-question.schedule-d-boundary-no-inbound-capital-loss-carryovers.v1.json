@@ -1,0 +1,10 @@
+{
+  "fact_type": {
+    "id": "tax.us.2025.schedule-d-boundary.no-inbound-capital-loss-carryovers",
+    "version": "v1"
+  },
+  "id": "tax.us.2025.input-question.schedule-d-boundary-no-inbound-capital-loss-carryovers",
+  "question": "Do you have a capital loss carried over from 2024 or an earlier year?",
+  "schema": "input-question.v1",
+  "version": "v1"
+}

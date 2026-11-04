@@ -1,0 +1,10 @@
+{
+  "fact_type": {
+    "id": "tax.us.2025.direct-ftc-scope.no-sch3-line3",
+    "version": "v1"
+  },
+  "id": "tax.us.2025.input-question.direct-ftc-scope-no-sch3-line3",
+  "question": "Do you claim any other nonrefundable credit on Schedule 3 lines 2 through 6 (for example child and dependent care, education, retirement savings, home energy, or other credits)?",
+  "schema": "input-question.v1",
+  "version": "v1"
+}

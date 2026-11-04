@@ -563,6 +563,15 @@ box 6, or the line 26 or 36 amount is missing names what to enter and that
 $0 is an answer, through a declared `input-question` citizen. Earlier cores
 render byte-identically.
 
+## Bounded return — A Blocked Line Asks Its Yes-or-No Question (2025)
+
+[Plan](milestones/scope-answer-questions.md); retrospective:
+`docs/milestone-retrospectives/2026-11-03-scope-answer-questions.md`.
+
+On core v73 a line blocked on a missing yes/no scope answer or filing status
+names one of 41 filer questions covering 80 facts, each asking about
+presence. Earlier cores render byte-identically.
+
 ## Parked work and open questions
 
 This is the single list of parked work and open owner-held questions for the
@@ -613,10 +622,15 @@ delivers an item removes it.
 - No presentation line names the tie-breaker step that decided a child.
 - Generic form-field texts explain nothing: Form 1040 lines 9 and 12e-16 and
   several Schedule D lines say only "blocked"; arithmetic lines carry the
-  closed-empty and worksheet-guard boilerplate. Since core v72 a blocked
-  line names eight missing amounts; the 79 yes/no scope answers and filing
-  status still show only the generic text, and a rule names only its first
-  cause.
+  closed-empty and worksheet-guard boilerplate. Since core v73 a blocked
+  line names every filer-answerable missing input (eight amounts, 79 scope
+  answers, filing status); a rule still names only its first cause.
+- Answers the return already implies are still asked: Form 1098 scope (true
+  exactly when no Form 1098 is recorded), line 2a Form 1099-INT tax-exempt
+  (the closed box 8 family), the other-dependent answer (the rosters), and in
+  part Form 1116 required and the Form 1099-OID and Exception 1 capital-gain
+  facts. A recording surface must also not turn a "yes" to a group question
+  into a value for every member.
 - Worksheet lines as presentation rows; `demo.*` ids on the correct
   capital-loss and Social Security amounts.
 - The age questions' wording (born before January 2, 1961; a death in 2025

@@ -1,0 +1,10 @@
+{
+  "fact_type": {
+    "id": "tax.us.2025.line2a-scope.no-unreported-tax-exempt",
+    "version": "v1"
+  },
+  "id": "tax.us.2025.input-question.line2a-scope-no-unreported-tax-exempt",
+  "question": "Did you receive tax-exempt interest or tax-exempt original issue discount shown on a Form 1099-OID, tax-exempt interest that was not reported on any form, or have an adjustment for bond premium or acquisition premium on tax-exempt bonds?",
+  "schema": "input-question.v1",
+  "version": "v1"
+}

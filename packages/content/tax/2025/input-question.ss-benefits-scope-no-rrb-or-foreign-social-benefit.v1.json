@@ -1,0 +1,10 @@
+{
+  "fact_type": {
+    "id": "tax.us.2025.ss-benefits-scope.no-rrb-or-foreign-social-benefit",
+    "version": "v1"
+  },
+  "id": "tax.us.2025.input-question.ss-benefits-scope-no-rrb-or-foreign-social-benefit",
+  "question": "Did you receive a Form RRB-1099, a Form SSA-1042S, or any foreign social benefit statement in 2025?",
+  "schema": "input-question.v1",
+  "version": "v1"
+}

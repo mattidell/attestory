@@ -1,0 +1,10 @@
+{
+  "fact_type": {
+    "id": "tax.us.2025.eic.not-qualifying-child-of-another",
+    "version": "v1"
+  },
+  "id": "tax.us.2025.input-question.eic-not-qualifying-child-of-another",
+  "question": "Could you be a qualifying child of another person for 2025 (do not count the case where that person is not required to file a 2025 return and is not filing one, or is filing only to claim a refund of withheld or estimated tax)?",
+  "schema": "input-question.v1",
+  "version": "v1"
+}

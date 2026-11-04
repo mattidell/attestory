@@ -1,0 +1,10 @@
+{
+  "fact_type": {
+    "id": "tax.us.2025.schedule1-adjustments-scope.no-line16-se-retirement",
+    "version": "v1"
+  },
+  "id": "tax.us.2025.input-question.schedule1-adjustments-scope-no-line16-se-retirement",
+  "question": "In 2025, did you have any of these adjustments to income: educator expenses; business expenses of a reservist, performing artist or fee-basis government official; a health savings account deduction; moving expenses for the Armed Forces; the deductible part of self-employment tax; a self-employed SEP, SIMPLE or qualified plan deduction; self-employed health insurance; a penalty on early withdrawal of savings; alimony you paid; an IRA deduction; an Archer MSA deduction; or any other adjustment listed on Schedule 1 lines 24a through 24z (do not count student loan interest)?",
+  "schema": "input-question.v1",
+  "version": "v1"
+}

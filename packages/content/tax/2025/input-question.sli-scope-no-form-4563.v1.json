@@ -1,0 +1,10 @@
+{
+  "fact_type": {
+    "id": "tax.us.2025.sli-scope.no-form-4563",
+    "version": "v1"
+  },
+  "id": "tax.us.2025.input-question.sli-scope-no-form-4563",
+  "question": "For 2025, did you claim the foreign earned income exclusion (Form 2555), or exclude income as a bona fide resident of Puerto Rico or American Samoa (Form 4563)?",
+  "schema": "input-question.v1",
+  "version": "v1"
+}

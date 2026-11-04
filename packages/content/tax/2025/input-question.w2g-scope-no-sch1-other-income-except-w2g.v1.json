@@ -1,0 +1,10 @@
+{
+  "fact_type": {
+    "id": "tax.us.2025.w2g-scope.no-sch1-other-income-except-w2g",
+    "version": "v1"
+  },
+  "id": "tax.us.2025.input-question.w2g-scope-no-sch1-other-income-except-w2g",
+  "question": "Besides gambling winnings on a Form W-2G you have recorded, did you have any other income that goes on Schedule 1 lines 8a through 8z (for example gambling winnings not on a W-2G, a Form W-2G in someone else's name, gambling that is a business, prizes and awards, jury duty pay, an Alaska Permanent Fund dividend, or canceled debt)?",
+  "schema": "input-question.v1",
+  "version": "v1"
+}

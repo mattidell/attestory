@@ -1,0 +1,10 @@
+{
+  "fact_type": {
+    "id": "tax.us.2025.ctc.no-other-dependent",
+    "version": "v1"
+  },
+  "id": "tax.us.2025.input-question.ctc-no-other-dependent",
+  "question": "Do you claim any dependent on your 2025 return besides the children you counted for the child tax credit (for example a qualifying relative, or a child who does not meet the child tax credit tests)?",
+  "schema": "input-question.v1",
+  "version": "v1"
+}

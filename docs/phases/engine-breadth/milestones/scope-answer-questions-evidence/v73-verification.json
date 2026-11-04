@@ -1,0 +1,485 @@
+{
+ "core": "v73 (scratch, outside the repository)",
+ "cases": [
+  {
+   "fact": "ctc.no-other-dependent",
+   "v73_lines_held": 13,
+   "v73_lines_with_expected_question": 13,
+   "v72_model_identical_with_and_without_change": true
+  },
+  {
+   "fact": "ctc.no-puerto-rico-or-4563-exclusion",
+   "v73_lines_held": 11,
+   "v73_lines_with_expected_question": 11,
+   "v72_model_identical_with_and_without_change": true
+  },
+  {
+   "fact": "direct-ftc-scope.all-foreign-income-on-1099div",
+   "v73_lines_held": 15,
+   "v73_lines_with_expected_question": 15,
+   "v72_model_identical_with_and_without_change": true
+  },
+  {
+   "fact": "direct-ftc-scope.all-foreign-income-passive",
+   "v73_lines_held": 15,
+   "v73_lines_with_expected_question": 15,
+   "v72_model_identical_with_and_without_change": true
+  },
+  {
+   "fact": "direct-ftc-scope.country-recognized-non-terrorism",
+   "v73_lines_held": 15,
+   "v73_lines_with_expected_question": 15,
+   "v72_model_identical_with_and_without_change": true
+  },
+  {
+   "fact": "direct-ftc-scope.holding-period-16-day-met",
+   "v73_lines_held": 15,
+   "v73_lines_with_expected_question": 15,
+   "v72_model_identical_with_and_without_change": true
+  },
+  {
+   "fact": "direct-ftc-scope.legal-liability-and-paid",
+   "v73_lines_held": 15,
+   "v73_lines_with_expected_question": 15,
+   "v72_model_identical_with_and_without_change": true
+  },
+  {
+   "fact": "direct-ftc-scope.no-carryback-carryforward",
+   "v73_lines_held": 15,
+   "v73_lines_with_expected_question": 15,
+   "v72_model_identical_with_and_without_change": true
+  },
+  {
+   "fact": "direct-ftc-scope.no-excluded-income-association",
+   "v73_lines_held": 15,
+   "v73_lines_with_expected_question": 15,
+   "v72_model_identical_with_and_without_change": true
+  },
+  {
+   "fact": "direct-ftc-scope.no-f1099int-foreign-tax",
+   "v73_lines_held": 15,
+   "v73_lines_with_expected_question": 15,
+   "v72_model_identical_with_and_without_change": true
+  },
+  {
+   "fact": "direct-ftc-scope.no-form-1116-required",
+   "v73_lines_held": 15,
+   "v73_lines_with_expected_question": 15,
+   "v72_model_identical_with_and_without_change": true
+  },
+  {
+   "fact": "direct-ftc-scope.no-form-4972-on-line16",
+   "v73_lines_held": 15,
+   "v73_lines_with_expected_question": 15,
+   "v72_model_identical_with_and_without_change": true
+  },
+  {
+   "fact": "direct-ftc-scope.no-k1-k3-foreign-tax",
+   "v73_lines_held": 15,
+   "v73_lines_with_expected_question": 15,
+   "v72_model_identical_with_and_without_change": true
+  },
+  {
+   "fact": "direct-ftc-scope.no-line17-schedule2-additional",
+   "v73_lines_held": 12,
+   "v73_lines_with_expected_question": 12,
+   "v72_model_identical_with_and_without_change": true
+  },
+  {
+   "fact": "direct-ftc-scope.no-other-foreign-tax-source",
+   "v73_lines_held": 15,
+   "v73_lines_with_expected_question": 15,
+   "v72_model_identical_with_and_without_change": true
+  },
+  {
+   "fact": "direct-ftc-scope.no-refund-rebate-subsidy",
+   "v73_lines_held": 15,
+   "v73_lines_with_expected_question": 15,
+   "v72_model_identical_with_and_without_change": true
+  },
+  {
+   "fact": "direct-ftc-scope.no-sch3-line2",
+   "v73_lines_held": 14,
+   "v73_lines_with_expected_question": 14,
+   "v72_model_identical_with_and_without_change": true
+  },
+  {
+   "fact": "direct-ftc-scope.no-sch3-line3",
+   "v73_lines_held": 14,
+   "v73_lines_with_expected_question": 14,
+   "v72_model_identical_with_and_without_change": true
+  },
+  {
+   "fact": "direct-ftc-scope.no-sch3-line4",
+   "v73_lines_held": 14,
+   "v73_lines_with_expected_question": 14,
+   "v72_model_identical_with_and_without_change": true
+  },
+  {
+   "fact": "direct-ftc-scope.no-sch3-line5",
+   "v73_lines_held": 14,
+   "v73_lines_with_expected_question": 14,
+   "v72_model_identical_with_and_without_change": true
+  },
+  {
+   "fact": "direct-ftc-scope.no-sch3-line6",
+   "v73_lines_held": 14,
+   "v73_lines_with_expected_question": 14,
+   "v72_model_identical_with_and_without_change": true
+  },
+  {
+   "fact": "direct-ftc-scope.no-schedule-a-deduction-election",
+   "v73_lines_held": 15,
+   "v73_lines_with_expected_question": 15,
+   "v72_model_identical_with_and_without_change": true
+  },
+  {
+   "fact": "direct-ftc-scope.no-schedule2-regular-tax-add",
+   "v73_lines_held": 15,
+   "v73_lines_with_expected_question": 15,
+   "v72_model_identical_with_and_without_change": true
+  },
+  {
+   "fact": "direct-ftc-scope.no-short-sale-obligation",
+   "v73_lines_held": 15,
+   "v73_lines_with_expected_question": 15,
+   "v72_model_identical_with_and_without_change": true
+  },
+  {
+   "fact": "direct-ftc-scope.tax-type-creditable",
+   "v73_lines_held": 15,
+   "v73_lines_with_expected_question": 15,
+   "v72_model_identical_with_and_without_change": true
+  },
+  {
+   "fact": "direct-ftc.election",
+   "v73_lines_held": 15,
+   "v73_lines_with_expected_question": 15,
+   "v72_model_identical_with_and_without_change": true
+  },
+  {
+   "fact": "eic.no-unsupported-situations",
+   "v73_lines_held": 7,
+   "v73_lines_with_expected_question": 7,
+   "v72_model_identical_with_and_without_change": true
+  },
+  {
+   "fact": "eic.not-nonresident-alien",
+   "v73_lines_held": 12,
+   "v73_lines_with_expected_question": 12,
+   "v72_model_identical_with_and_without_change": true
+  },
+  {
+   "fact": "eic.not-qualifying-child-of-another",
+   "v73_lines_held": 7,
+   "v73_lines_with_expected_question": 7,
+   "v72_model_identical_with_and_without_change": true
+  },
+  {
+   "fact": "eic.taxpayer-valid-ssn",
+   "v73_lines_held": 12,
+   "v73_lines_with_expected_question": 12,
+   "v72_model_identical_with_and_without_change": true
+  },
+  {
+   "fact": "exception1.no-boxes-2b-2c-2d",
+   "v73_lines_held": 29,
+   "v73_lines_with_expected_question": 29,
+   "v72_model_identical_with_and_without_change": true
+  },
+  {
+   "fact": "exception1.no-capital-losses",
+   "v73_lines_held": 29,
+   "v73_lines_with_expected_question": 29,
+   "v72_model_identical_with_and_without_change": true
+  },
+  {
+   "fact": "exception1.no-qof-deferral",
+   "v73_lines_held": 29,
+   "v73_lines_with_expected_question": 29,
+   "v72_model_identical_with_and_without_change": true
+  },
+  {
+   "fact": "exception1.only-box2a-capital-gains",
+   "v73_lines_held": 29,
+   "v73_lines_with_expected_question": 29,
+   "v72_model_identical_with_and_without_change": true
+  },
+  {
+   "fact": "f1098-scope.no-mortgage-statement",
+   "v73_lines_held": 19,
+   "v73_lines_with_expected_question": 19,
+   "v72_model_identical_with_and_without_change": true
+  },
+  {
+   "fact": "line2a-scope.no-amt-form-6251",
+   "v73_lines_held": 28,
+   "v73_lines_with_expected_question": 28,
+   "v72_model_identical_with_and_without_change": true
+  },
+  {
+   "fact": "line2a-scope.no-child-income-election",
+   "v73_lines_held": 28,
+   "v73_lines_with_expected_question": 28,
+   "v72_model_identical_with_and_without_change": true
+  },
+  {
+   "fact": "line2a-scope.no-credit-using-tax-exempt",
+   "v73_lines_held": 28,
+   "v73_lines_with_expected_question": 28,
+   "v72_model_identical_with_and_without_change": true
+  },
+  {
+   "fact": "line2a-scope.no-deduction-using-tax-exempt",
+   "v73_lines_held": 28,
+   "v73_lines_with_expected_question": 28,
+   "v72_model_identical_with_and_without_change": true
+  },
+  {
+   "fact": "line2a-scope.no-f1099int-tax-exempt",
+   "v73_lines_held": 28,
+   "v73_lines_with_expected_question": 28,
+   "v72_model_identical_with_and_without_change": true
+  },
+  {
+   "fact": "line2a-scope.no-f1099oid-tax-exempt",
+   "v73_lines_held": 28,
+   "v73_lines_with_expected_question": 28,
+   "v72_model_identical_with_and_without_change": true
+  },
+  {
+   "fact": "line2a-scope.no-premium-adjustment",
+   "v73_lines_held": 28,
+   "v73_lines_with_expected_question": 28,
+   "v72_model_identical_with_and_without_change": true
+  },
+  {
+   "fact": "line2a-scope.no-unreported-tax-exempt",
+   "v73_lines_held": 28,
+   "v73_lines_with_expected_question": 28,
+   "v72_model_identical_with_and_without_change": true
+  },
+  {
+   "fact": "line38-scope.no-estimated-tax-penalty",
+   "v73_lines_held": 1,
+   "v73_lines_with_expected_question": 1,
+   "v72_model_identical_with_and_without_change": true
+  },
+  {
+   "fact": "lines29-31-scope.no-other-refundable-credits",
+   "v73_lines_held": 5,
+   "v73_lines_with_expected_question": 5,
+   "v72_model_identical_with_and_without_change": true
+  },
+  {
+   "fact": "qbi.no-qbi-deduction-declared",
+   "v73_lines_held": 19,
+   "v73_lines_with_expected_question": 19,
+   "v72_model_identical_with_and_without_change": true
+  },
+  {
+   "fact": "schedule-d-boundary.no-inbound-capital-loss-carryovers",
+   "v73_lines_held": 34,
+   "v73_lines_with_expected_question": 34,
+   "v72_model_identical_with_and_without_change": true
+  },
+  {
+   "fact": "schedule1-adjustments-scope.no-line11-educator",
+   "v73_lines_held": 26,
+   "v73_lines_with_expected_question": 26,
+   "v72_model_identical_with_and_without_change": true
+  },
+  {
+   "fact": "schedule1-adjustments-scope.no-line12-business-expenses",
+   "v73_lines_held": 26,
+   "v73_lines_with_expected_question": 26,
+   "v72_model_identical_with_and_without_change": true
+  },
+  {
+   "fact": "schedule1-adjustments-scope.no-line13-hsa",
+   "v73_lines_held": 26,
+   "v73_lines_with_expected_question": 26,
+   "v72_model_identical_with_and_without_change": true
+  },
+  {
+   "fact": "schedule1-adjustments-scope.no-line14-moving",
+   "v73_lines_held": 26,
+   "v73_lines_with_expected_question": 26,
+   "v72_model_identical_with_and_without_change": true
+  },
+  {
+   "fact": "schedule1-adjustments-scope.no-line15-deductible-se",
+   "v73_lines_held": 26,
+   "v73_lines_with_expected_question": 26,
+   "v72_model_identical_with_and_without_change": true
+  },
+  {
+   "fact": "schedule1-adjustments-scope.no-line16-se-retirement",
+   "v73_lines_held": 26,
+   "v73_lines_with_expected_question": 26,
+   "v72_model_identical_with_and_without_change": true
+  },
+  {
+   "fact": "schedule1-adjustments-scope.no-line17-se-health",
+   "v73_lines_held": 26,
+   "v73_lines_with_expected_question": 26,
+   "v72_model_identical_with_and_without_change": true
+  },
+  {
+   "fact": "schedule1-adjustments-scope.no-line18-penalty",
+   "v73_lines_held": 26,
+   "v73_lines_with_expected_question": 26,
+   "v72_model_identical_with_and_without_change": true
+  },
+  {
+   "fact": "schedule1-adjustments-scope.no-line19-alimony-paid",
+   "v73_lines_held": 26,
+   "v73_lines_with_expected_question": 26,
+   "v72_model_identical_with_and_without_change": true
+  },
+  {
+   "fact": "schedule1-adjustments-scope.no-line20-ira-deduction",
+   "v73_lines_held": 26,
+   "v73_lines_with_expected_question": 26,
+   "v72_model_identical_with_and_without_change": true
+  },
+  {
+   "fact": "schedule1-adjustments-scope.no-line23-archer-msa",
+   "v73_lines_held": 26,
+   "v73_lines_with_expected_question": 26,
+   "v72_model_identical_with_and_without_change": true
+  },
+  {
+   "fact": "schedule1-adjustments-scope.no-line25-other-adjustments",
+   "v73_lines_held": 26,
+   "v73_lines_with_expected_question": 26,
+   "v72_model_identical_with_and_without_change": true
+  },
+  {
+   "fact": "schedule1-part1-scope.no-f1099g-box2-state-refund",
+   "v73_lines_held": 29,
+   "v73_lines_with_expected_question": 29,
+   "v72_model_identical_with_and_without_change": true
+  },
+  {
+   "fact": "schedule1-part1-scope.no-f1099g-other-payment-classes",
+   "v73_lines_held": 29,
+   "v73_lines_with_expected_question": 29,
+   "v72_model_identical_with_and_without_change": true
+  },
+  {
+   "fact": "schedule1-part1-scope.no-sch1-line1-taxable-refunds",
+   "v73_lines_held": 29,
+   "v73_lines_with_expected_question": 29,
+   "v72_model_identical_with_and_without_change": true
+  },
+  {
+   "fact": "schedule1-part1-scope.no-sch1-line2a-alimony",
+   "v73_lines_held": 29,
+   "v73_lines_with_expected_question": 29,
+   "v72_model_identical_with_and_without_change": true
+  },
+  {
+   "fact": "schedule1-part1-scope.no-sch1-line3-business",
+   "v73_lines_held": 29,
+   "v73_lines_with_expected_question": 29,
+   "v72_model_identical_with_and_without_change": true
+  },
+  {
+   "fact": "schedule1-part1-scope.no-sch1-line4-other-gains",
+   "v73_lines_held": 29,
+   "v73_lines_with_expected_question": 29,
+   "v72_model_identical_with_and_without_change": true
+  },
+  {
+   "fact": "schedule1-part1-scope.no-sch1-line5-rental",
+   "v73_lines_held": 29,
+   "v73_lines_with_expected_question": 29,
+   "v72_model_identical_with_and_without_change": true
+  },
+  {
+   "fact": "schedule1-part1-scope.no-sch1-line6-farm",
+   "v73_lines_held": 29,
+   "v73_lines_with_expected_question": 29,
+   "v72_model_identical_with_and_without_change": true
+  },
+  {
+   "fact": "schedule1-part1-scope.no-unemployment-repayment",
+   "v73_lines_held": 29,
+   "v73_lines_with_expected_question": 29,
+   "v72_model_identical_with_and_without_change": true
+  },
+  {
+   "fact": "schedule1a.no-parts-ii-iv-deductions-declared",
+   "v73_lines_held": 19,
+   "v73_lines_with_expected_question": 19,
+   "v72_model_identical_with_and_without_change": true
+  },
+  {
+   "fact": "schedule2-partii-scope.no-line21-additional-taxes",
+   "v73_lines_held": 4,
+   "v73_lines_with_expected_question": 4,
+   "v72_model_identical_with_and_without_change": true
+  },
+  {
+   "fact": "sli-scope.legally-obligated-for-interest",
+   "v73_lines_held": 27,
+   "v73_lines_with_expected_question": 27,
+   "v72_model_identical_with_and_without_change": true
+  },
+  {
+   "fact": "sli-scope.no-form-2555",
+   "v73_lines_held": 27,
+   "v73_lines_with_expected_question": 27,
+   "v72_model_identical_with_and_without_change": true
+  },
+  {
+   "fact": "sli-scope.no-form-4563",
+   "v73_lines_held": 27,
+   "v73_lines_with_expected_question": 27,
+   "v72_model_identical_with_and_without_change": true
+  },
+  {
+   "fact": "sli-scope.no-puerto-rico-or-samoa-income",
+   "v73_lines_held": 27,
+   "v73_lines_with_expected_question": 27,
+   "v72_model_identical_with_and_without_change": true
+  },
+  {
+   "fact": "sli-scope.not-claimed-as-dependent",
+   "v73_lines_held": 27,
+   "v73_lines_with_expected_question": 27,
+   "v72_model_identical_with_and_without_change": true
+  },
+  {
+   "fact": "ss-benefits-scope.no-lump-sum-election",
+   "v73_lines_held": 1,
+   "v73_lines_with_expected_question": 1,
+   "v72_model_identical_with_and_without_change": true
+  },
+  {
+   "fact": "ss-benefits-scope.no-rrb-or-foreign-social-benefit",
+   "v73_lines_held": 27,
+   "v73_lines_with_expected_question": 27,
+   "v72_model_identical_with_and_without_change": true
+  },
+  {
+   "fact": "standard-deduction.can-be-claimed-as-dependent",
+   "v73_lines_held": 19,
+   "v73_lines_with_expected_question": 19,
+   "v72_model_identical_with_and_without_change": true
+  },
+  {
+   "fact": "w2g-scope.no-sch1-other-income-except-w2g",
+   "v73_lines_held": 29,
+   "v73_lines_with_expected_question": 29,
+   "v72_model_identical_with_and_without_change": true
+  },
+  {
+   "fact": "filing-status",
+   "v73_lines_held": 35,
+   "v73_lines_with_expected_question": 35,
+   "v72_model_identical_with_and_without_change": true
+  }
+ ]
+}

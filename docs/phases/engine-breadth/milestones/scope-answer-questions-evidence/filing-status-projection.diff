@@ -1,0 +1,49 @@
+--- a/packages/derivation/presentation_projection.py
++++ b/packages/derivation/presentation_projection.py
+@@ -418,6 +418,7 @@
+     *,
+     resolved_members: Sequence[Mapping[str, Any]],
+     by_symbol: Mapping[str, Sequence[Mapping[str, Any]]],
++    symbol_fact_types: Mapping[str, str] | None = None,
+ ) -> list[dict[str, Any]]:
+     """The declared question for every cause a blocked line waits on and a filer can answer.
+ 
+@@ -466,8 +467,9 @@
+                 continue
+             blocked = [r for r in by_symbol.get(str(symbol), []) if r.get("disposition") == "blocked"]
+             if not blocked:
+-                if current.get("code") == "DEPENDENCY_ABSENT" and str(symbol) in input_questions:
+-                    facts.add(str(symbol))
++                bound = (symbol_fact_types or {}).get(str(symbol), str(symbol))
++                if current.get("code") == "DEPENDENCY_ABSENT" and bound in input_questions:
++                    facts.add(bound)
+                     continue
+                 return False
+             if not all(reach(r, seen | {str(symbol)}) for r in blocked):
+@@ -4467,6 +4469,7 @@
+     dispositions: Sequence[Mapping[str, Any]],
+     authorization: Mapping[str, Any] | None = None,
+     workspace_revision: int | None = None,
++    symbol_fact_types: Mapping[str, str] | None = None,
+ ) -> dict[str, Any]:
+     """Build the presentation-model.v1 payload from coordinator-internal state only.
+ 
+@@ -4574,6 +4577,7 @@
+         if resolved["disposition"] == "blocked" and "reasons" not in resolved:
+             closure_reasons = _closure_question_reasons(
+                 row, resolved_members=resolved_members, by_symbol=by_symbol,
++                symbol_fact_types=symbol_fact_types,
+             )
+             if closure_reasons:
+                 resolved["reasons"] = closure_reasons
+--- a/packages/derivation/live.py
++++ b/packages/derivation/live.py
+@@ -756,6 +756,8 @@
+             dispositions=result.dispositions,
+             authorization=authorization_provenance(authorization),
+             workspace_revision=workspace_revision,
++            symbol_fact_types={b["symbol"]: b["fact_type"]["id"] for b in resolved.package.get("input_bindings", [])
++                               if isinstance(b.get("symbol"), str) and isinstance(b.get("fact_type"), dict)},
+         )
+     except PresentationModelError:
+         output_path.unlink(missing_ok=True)

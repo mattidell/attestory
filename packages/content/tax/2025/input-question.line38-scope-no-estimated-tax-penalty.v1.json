@@ -1,0 +1,10 @@
+{
+  "fact_type": {
+    "id": "tax.us.2025.line38-scope.no-estimated-tax-penalty",
+    "version": "v1"
+  },
+  "id": "tax.us.2025.input-question.line38-scope-no-estimated-tax-penalty",
+  "question": "Do you owe $1,000 or more in tax for 2025 after subtracting your withholding and refundable credits, and did you pay less through withholding and estimated payments than both 90% of your 2025 tax and 100% of your 2024 tax (110% of your 2024 tax if your 2024 adjusted gross income was more than $150,000)?",
+  "schema": "input-question.v1",
+  "version": "v1"
+}

@@ -1,0 +1,10 @@
+{
+  "fact_type": {
+    "id": "tax.us.2025.lines29-31-scope.no-other-refundable-credits",
+    "version": "v1"
+  },
+  "id": "tax.us.2025.input-question.lines29-31-scope-no-other-refundable-credits",
+  "question": "Do you claim the American opportunity credit, the refundable adoption credit, or any Schedule 3 Part II credit (Form 1040 lines 29 through 31)?",
+  "schema": "input-question.v1",
+  "version": "v1"
+}

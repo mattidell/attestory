@@ -418,6 +418,7 @@ def _closure_question_reasons(
     *,
     resolved_members: Sequence[Mapping[str, Any]],
     by_symbol: Mapping[str, Sequence[Mapping[str, Any]]],
+    symbol_fact_types: Mapping[str, str] | None = None,
 ) -> list[dict[str, Any]]:
     """The declared question for every cause a blocked line waits on and a filer can answer.
 
@@ -432,6 +433,11 @@ def _closure_question_reasons(
     one of those with a declared question: a reason hides the generic blocked
     text, so a line with a second, different cause must keep it. The distinct
     sentences are returned sorted as strings.
+
+    ``symbol_fact_types`` maps a package input-binding symbol (for example
+    ``filing_status``) to the fact type it binds, so a missing binding symbol
+    reaches the question declared for that fact type. A symbol it does not
+    name is looked up as given.
     """
     questions: dict[str, str] = {}
     input_questions: dict[str, str] = {}
@@ -466,8 +472,9 @@ def _closure_question_reasons(
                 continue
             blocked = [r for r in by_symbol.get(str(symbol), []) if r.get("disposition") == "blocked"]
             if not blocked:
-                if current.get("code") == "DEPENDENCY_ABSENT" and str(symbol) in input_questions:
-                    facts.add(str(symbol))
+                bound = (symbol_fact_types or {}).get(str(symbol), str(symbol))
+                if current.get("code") == "DEPENDENCY_ABSENT" and bound in input_questions:
+                    facts.add(bound)
                     continue
                 return False
             if not all(reach(r, seen | {str(symbol)}) for r in blocked):
@@ -4467,6 +4474,7 @@ def build_presentation_model(
     dispositions: Sequence[Mapping[str, Any]],
     authorization: Mapping[str, Any] | None = None,
     workspace_revision: int | None = None,
+    symbol_fact_types: Mapping[str, str] | None = None,
 ) -> dict[str, Any]:
     """Build the presentation-model.v1 payload from coordinator-internal state only.
 
@@ -4475,6 +4483,10 @@ def build_presentation_model(
     Raises :class:`PresentationModelError` on any missing/ambiguous join,
     unknown disposition, invalid numeric publication, or untraceable citation
     lineage — never on a guess.
+
+    ``symbol_fact_types``, when supplied, is the package's input-binding map
+    (symbol -> fact type id); it lets a line blocked on a binding symbol name
+    the question declared for that fact type. Omitted, behaviour is unchanged.
 
     ``authorization``, when supplied, is the production
     ``authorization.authorization_provenance(resolution)`` payload for this
@@ -4574,6 +4586,7 @@ def build_presentation_model(
         if resolved["disposition"] == "blocked" and "reasons" not in resolved:
             closure_reasons = _closure_question_reasons(
                 row, resolved_members=resolved_members, by_symbol=by_symbol,
+                symbol_fact_types=symbol_fact_types,
             )
             if closure_reasons:
                 resolved["reasons"] = closure_reasons

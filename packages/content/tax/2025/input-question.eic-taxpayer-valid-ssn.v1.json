@@ -1,0 +1,10 @@
+{
+  "fact_type": {
+    "id": "tax.us.2025.eic.taxpayer-valid-ssn",
+    "version": "v1"
+  },
+  "id": "tax.us.2025.input-question.eic-taxpayer-valid-ssn",
+  "question": "Does your Social Security number allow you to work in the United States? Answer yes if it was issued by the Social Security Administration on or before the due date of your 2025 return (including extensions) and is not marked \"Not Valid for Employment\", or if it is marked \"Valid for Work Only With DHS Authorization\" and that authorization is still valid.",
+  "schema": "input-question.v1",
+  "version": "v1"
+}
