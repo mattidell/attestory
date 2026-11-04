@@ -758,6 +758,7 @@ def live_coordinate_run(
             workspace_revision=workspace_revision,
             symbol_fact_types={b["symbol"]: b["fact_type"]["id"] for b in resolved.package.get("input_bindings", [])
                                if isinstance(b.get("symbol"), str) and isinstance(b.get("fact_type"), dict)},
+            adopted_package=(resolved.package["id"], resolved.package["version"]),
         )
     except PresentationModelError:
         output_path.unlink(missing_ok=True)

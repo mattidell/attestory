@@ -488,6 +488,22 @@ def _closure_question_reasons(
     return [{"sentence": sentence} for sentence in sorted(sentences)]
 
 
+def _reasons_beside(
+    selection: Sequence[Mapping[str, Any]],
+    closure: Sequence[Mapping[str, Any]],
+) -> list[dict[str, Any]]:
+    """The selection reasons plus the closure questions, sorted and distinct.
+
+    A closure sentence the selection already states is not repeated. Each
+    selection reason keeps its fact id and statement label. The list is
+    ordered by sentence, the same order the closure walk uses.
+    """
+    present = {str(reason.get("sentence")) for reason in selection}
+    added = [dict(reason) for reason in closure if str(reason.get("sentence")) not in present]
+    combined = [dict(reason) for reason in selection] + added
+    return sorted(combined, key=lambda reason: str(reason.get("sentence")))
+
+
 def _is_closure_finding(finding_id: str, state: FindingState) -> bool:
     finding = state.findings.get(finding_id)
     return finding is not None and _CLOSURE_FACT_MARKER in finding.get("fact_id", "")
@@ -4475,6 +4491,7 @@ def build_presentation_model(
     authorization: Mapping[str, Any] | None = None,
     workspace_revision: int | None = None,
     symbol_fact_types: Mapping[str, str] | None = None,
+    adopted_package: tuple[str, str] | None = None,
 ) -> dict[str, Any]:
     """Build the presentation-model.v1 payload from coordinator-internal state only.
 
@@ -4501,7 +4518,19 @@ def build_presentation_model(
     function reads from outside its own four coordinator-internal inputs,
     and only feeds the optional ``line21Explanation`` block (Track 1a); it is
     never read from the workspace log after the run.
+
+    ``adopted_package``, when supplied, is ``(package id, version)`` of the
+    package the run adopted. From core v75 a blocked selection line whose
+    roots include an unconfirmed family names that family's closure question
+    beside its selection reason. Omitted, or any earlier package, the
+    selection reason stands alone, as before.
     """
+    from packages.tax.loader import unconfirmed_family_names_closure_question
+
+    names_closure_question = (
+        adopted_package is not None
+        and unconfirmed_family_names_closure_question(adopted_package[0], adopted_package[1])
+    )
     _reject_unsupported_presentation_schemas(resolved_members)
     fields = [m for m in resolved_members if m.get("schema") in FIELD_SCHEMAS]
     attachments = [m for m in resolved_members if m.get("schema") in ATTACHMENT_SCHEMAS]
@@ -4575,6 +4604,7 @@ def build_presentation_model(
         if resolved["disposition"] in _NUMERIC_DISPOSITIONS | _CATEGORICAL_DISPOSITIONS:
             _require_declared_field_citation_chain(field, row, rules_by_id, citations)
         producer = rules_by_id.get(str(row.get("artifact_id")))
+        selection_attached = False
         if (resolved["disposition"] == "blocked" and producer is not None
                 and producer.get("schema") in ("rule-artifact.v13", "rule-artifact.v14") and "selection" in producer):
             reasons = _selection_blocked_reasons(
@@ -4583,6 +4613,7 @@ def build_presentation_model(
             )
             if reasons:
                 resolved["reasons"] = reasons
+                selection_attached = True
         if resolved["disposition"] == "blocked" and "reasons" not in resolved:
             closure_reasons = _closure_question_reasons(
                 row, resolved_members=resolved_members, by_symbol=by_symbol,
@@ -4590,6 +4621,16 @@ def build_presentation_model(
             )
             if closure_reasons:
                 resolved["reasons"] = closure_reasons
+        elif selection_attached and names_closure_question and resolved["disposition"] == "blocked":
+            # The selection reason is already attached, which used to skip
+            # the closure walk. From core v75 the walk still runs, and its
+            # question is named beside that reason.
+            closure_reasons = _closure_question_reasons(
+                row, resolved_members=resolved_members, by_symbol=by_symbol,
+                symbol_fact_types=symbol_fact_types,
+            )
+            if closure_reasons:
+                resolved["reasons"] = _reasons_beside(resolved["reasons"], closure_reasons)
         if row["disposition"] == "published":
             try:
                 graph_builder.add_root(str(row["finding_id"]), role="output", authorization=authorization)
