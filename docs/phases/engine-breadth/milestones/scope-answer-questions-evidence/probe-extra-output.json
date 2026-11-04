@@ -1,0 +1,512 @@
+{
+ "core": "v72",
+ "cases": [
+  {
+   "root": "f1098-scope.no-mortgage-statement",
+   "as_built_value": true,
+   "new_value": false,
+   "status": "ran",
+   "changed": {}
+  },
+  {
+   "root": "filing-status",
+   "as_built_value": "single",
+   "new_value": "married_filing_jointly",
+   "status": "ran",
+   "changed": {
+    "line-8812-wa-5": {
+     "as_built": {
+      "label": "Credit Limit Worksheet A line 5",
+      "form": "Schedule 8812",
+      "disposition": "published_value",
+      "value": 3875,
+      "codes": null
+     },
+     "changed": {
+      "label": "Credit Limit Worksheet A line 5",
+      "form": "Schedule 8812",
+      "disposition": "published_value",
+      "value": 1853,
+      "codes": null
+     }
+    },
+    "line-12e": {
+     "as_built": {
+      "label": "Standard deduction or itemized deductions",
+      "form": "1040",
+      "disposition": "published_value",
+      "value": 15750,
+      "codes": null
+     },
+     "changed": {
+      "label": "Standard deduction or itemized deductions",
+      "form": "1040",
+      "disposition": "published_value",
+      "value": 31500,
+      "codes": null
+     }
+    },
+    "line-1040-14": {
+     "as_built": {
+      "label": "Add lines 12e, 13a, and 13b",
+      "form": "1040",
+      "disposition": "published_value",
+      "value": 15750,
+      "codes": null
+     },
+     "changed": {
+      "label": "Add lines 12e, 13a, and 13b",
+      "form": "1040",
+      "disposition": "published_value",
+      "value": 31500,
+      "codes": null
+     }
+    },
+    "line-15": {
+     "as_built": {
+      "label": "Taxable income",
+      "form": "1040",
+      "disposition": "published_value",
+      "value": 34250,
+      "codes": null
+     },
+     "changed": {
+      "label": "Taxable income",
+      "form": "1040",
+      "disposition": "published_value",
+      "value": 18500,
+      "codes": null
+     }
+    },
+    "line-16": {
+     "as_built": {
+      "label": "Tax",
+      "form": "1040",
+      "disposition": "published_value",
+      "value": 3875,
+      "codes": null
+     },
+     "changed": {
+      "label": "Tax",
+      "form": "1040",
+      "disposition": "published_value",
+      "value": 1853,
+      "codes": null
+     }
+    },
+    "line-24": {
+     "as_built": {
+      "label": "Total tax",
+      "form": "1040",
+      "disposition": "published_value",
+      "value": 3875,
+      "codes": null
+     },
+     "changed": {
+      "label": "Total tax",
+      "form": "1040",
+      "disposition": "published_value",
+      "value": 1853,
+      "codes": null
+     }
+    },
+    "line-34": {
+     "as_built": {
+      "label": "Overpayment",
+      "form": "1040",
+      "disposition": "published_value",
+      "value": 625,
+      "codes": null
+     },
+     "changed": {
+      "label": "Overpayment",
+      "form": "1040",
+      "disposition": "published_value",
+      "value": 2647,
+      "codes": null
+     }
+    },
+    "line-35a": {
+     "as_built": {
+      "label": "Refund",
+      "form": "1040",
+      "disposition": "published_value",
+      "value": 625,
+      "codes": null
+     },
+     "changed": {
+      "label": "Refund",
+      "form": "1040",
+      "disposition": "published_value",
+      "value": 2647,
+      "codes": null
+     }
+    },
+    "line-22": {
+     "as_built": {
+      "label": "Tax after nonrefundable credits",
+      "form": "1040",
+      "disposition": "published_value",
+      "value": 3875,
+      "codes": null
+     },
+     "changed": {
+      "label": "Tax after nonrefundable credits",
+      "form": "1040",
+      "disposition": "published_value",
+      "value": 1853,
+      "codes": null
+     }
+    }
+   }
+  },
+  {
+   "root": "filing-status",
+   "as_built_value": "single",
+   "new_value": "married_filing_separately",
+   "status": "ran",
+   "changed": {
+    "line-6d": {
+     "as_built": {
+      "label": "MFS lived apart all year",
+      "form": "1040",
+      "disposition": "guard_inapplicable",
+      "value": null,
+      "codes": null
+     },
+     "changed": {
+      "label": "MFS lived apart all year",
+      "form": "1040",
+      "disposition": "blocked",
+      "value": null,
+      "codes": [
+       "DEPENDENCY_ABSENT"
+      ]
+     }
+    },
+    "line-6d-not-checked": {
+     "as_built": {
+      "label": "MFS lived with spouse (line 6d not checked)",
+      "form": "1040",
+      "disposition": "guard_inapplicable",
+      "value": null,
+      "codes": null
+     },
+     "changed": {
+      "label": "MFS lived with spouse (line 6d not checked)",
+      "form": "1040",
+      "disposition": "blocked",
+      "value": null,
+      "codes": [
+       "DEPENDENCY_ABSENT"
+      ]
+     }
+    }
+   }
+  },
+  {
+   "root": "filing-status",
+   "as_built_value": "single",
+   "new_value": "head_of_household",
+   "status": "ran",
+   "changed": {
+    "line-8812-wa-5": {
+     "as_built": {
+      "label": "Credit Limit Worksheet A line 5",
+      "form": "Schedule 8812",
+      "disposition": "published_value",
+      "value": 3875,
+      "codes": null
+     },
+     "changed": {
+      "label": "Credit Limit Worksheet A line 5",
+      "form": "Schedule 8812",
+      "disposition": "published_value",
+      "value": 2825,
+      "codes": null
+     }
+    },
+    "line-12e": {
+     "as_built": {
+      "label": "Standard deduction or itemized deductions",
+      "form": "1040",
+      "disposition": "published_value",
+      "value": 15750,
+      "codes": null
+     },
+     "changed": {
+      "label": "Standard deduction or itemized deductions",
+      "form": "1040",
+      "disposition": "published_value",
+      "value": 23625,
+      "codes": null
+     }
+    },
+    "line-1040-14": {
+     "as_built": {
+      "label": "Add lines 12e, 13a, and 13b",
+      "form": "1040",
+      "disposition": "published_value",
+      "value": 15750,
+      "codes": null
+     },
+     "changed": {
+      "label": "Add lines 12e, 13a, and 13b",
+      "form": "1040",
+      "disposition": "published_value",
+      "value": 23625,
+      "codes": null
+     }
+    },
+    "line-15": {
+     "as_built": {
+      "label": "Taxable income",
+      "form": "1040",
+      "disposition": "published_value",
+      "value": 34250,
+      "codes": null
+     },
+     "changed": {
+      "label": "Taxable income",
+      "form": "1040",
+      "disposition": "published_value",
+      "value": 26375,
+      "codes": null
+     }
+    },
+    "line-16": {
+     "as_built": {
+      "label": "Tax",
+      "form": "1040",
+      "disposition": "published_value",
+      "value": 3875,
+      "codes": null
+     },
+     "changed": {
+      "label": "Tax",
+      "form": "1040",
+      "disposition": "published_value",
+      "value": 2825,
+      "codes": null
+     }
+    },
+    "line-24": {
+     "as_built": {
+      "label": "Total tax",
+      "form": "1040",
+      "disposition": "published_value",
+      "value": 3875,
+      "codes": null
+     },
+     "changed": {
+      "label": "Total tax",
+      "form": "1040",
+      "disposition": "published_value",
+      "value": 2825,
+      "codes": null
+     }
+    },
+    "line-34": {
+     "as_built": {
+      "label": "Overpayment",
+      "form": "1040",
+      "disposition": "published_value",
+      "value": 625,
+      "codes": null
+     },
+     "changed": {
+      "label": "Overpayment",
+      "form": "1040",
+      "disposition": "published_value",
+      "value": 1675,
+      "codes": null
+     }
+    },
+    "line-35a": {
+     "as_built": {
+      "label": "Refund",
+      "form": "1040",
+      "disposition": "published_value",
+      "value": 625,
+      "codes": null
+     },
+     "changed": {
+      "label": "Refund",
+      "form": "1040",
+      "disposition": "published_value",
+      "value": 1675,
+      "codes": null
+     }
+    },
+    "line-22": {
+     "as_built": {
+      "label": "Tax after nonrefundable credits",
+      "form": "1040",
+      "disposition": "published_value",
+      "value": 3875,
+      "codes": null
+     },
+     "changed": {
+      "label": "Tax after nonrefundable credits",
+      "form": "1040",
+      "disposition": "published_value",
+      "value": 2825,
+      "codes": null
+     }
+    }
+   }
+  },
+  {
+   "root": "filing-status",
+   "as_built_value": "single",
+   "new_value": "qualifying_surviving_spouse",
+   "status": "ran",
+   "changed": {
+    "line-8812-wa-5": {
+     "as_built": {
+      "label": "Credit Limit Worksheet A line 5",
+      "form": "Schedule 8812",
+      "disposition": "published_value",
+      "value": 3875,
+      "codes": null
+     },
+     "changed": {
+      "label": "Credit Limit Worksheet A line 5",
+      "form": "Schedule 8812",
+      "disposition": "published_value",
+      "value": 1853,
+      "codes": null
+     }
+    },
+    "line-12e": {
+     "as_built": {
+      "label": "Standard deduction or itemized deductions",
+      "form": "1040",
+      "disposition": "published_value",
+      "value": 15750,
+      "codes": null
+     },
+     "changed": {
+      "label": "Standard deduction or itemized deductions",
+      "form": "1040",
+      "disposition": "published_value",
+      "value": 31500,
+      "codes": null
+     }
+    },
+    "line-1040-14": {
+     "as_built": {
+      "label": "Add lines 12e, 13a, and 13b",
+      "form": "1040",
+      "disposition": "published_value",
+      "value": 15750,
+      "codes": null
+     },
+     "changed": {
+      "label": "Add lines 12e, 13a, and 13b",
+      "form": "1040",
+      "disposition": "published_value",
+      "value": 31500,
+      "codes": null
+     }
+    },
+    "line-15": {
+     "as_built": {
+      "label": "Taxable income",
+      "form": "1040",
+      "disposition": "published_value",
+      "value": 34250,
+      "codes": null
+     },
+     "changed": {
+      "label": "Taxable income",
+      "form": "1040",
+      "disposition": "published_value",
+      "value": 18500,
+      "codes": null
+     }
+    },
+    "line-16": {
+     "as_built": {
+      "label": "Tax",
+      "form": "1040",
+      "disposition": "published_value",
+      "value": 3875,
+      "codes": null
+     },
+     "changed": {
+      "label": "Tax",
+      "form": "1040",
+      "disposition": "published_value",
+      "value": 1853,
+      "codes": null
+     }
+    },
+    "line-24": {
+     "as_built": {
+      "label": "Total tax",
+      "form": "1040",
+      "disposition": "published_value",
+      "value": 3875,
+      "codes": null
+     },
+     "changed": {
+      "label": "Total tax",
+      "form": "1040",
+      "disposition": "published_value",
+      "value": 1853,
+      "codes": null
+     }
+    },
+    "line-34": {
+     "as_built": {
+      "label": "Overpayment",
+      "form": "1040",
+      "disposition": "published_value",
+      "value": 625,
+      "codes": null
+     },
+     "changed": {
+      "label": "Overpayment",
+      "form": "1040",
+      "disposition": "published_value",
+      "value": 2647,
+      "codes": null
+     }
+    },
+    "line-35a": {
+     "as_built": {
+      "label": "Refund",
+      "form": "1040",
+      "disposition": "published_value",
+      "value": 625,
+      "codes": null
+     },
+     "changed": {
+      "label": "Refund",
+      "form": "1040",
+      "disposition": "published_value",
+      "value": 2647,
+      "codes": null
+     }
+    },
+    "line-22": {
+     "as_built": {
+      "label": "Tax after nonrefundable credits",
+      "form": "1040",
+      "disposition": "published_value",
+      "value": 3875,
+      "codes": null
+     },
+     "changed": {
+      "label": "Tax after nonrefundable credits",
+      "form": "1040",
+      "disposition": "published_value",
+      "value": 1853,
+      "codes": null
+     }
+    }
+   }
+  }
+ ]
+}
