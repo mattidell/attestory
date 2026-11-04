@@ -1,7 +1,7 @@
 # Track 1: derive the four proved answers (core v74)
 
-Charter: `docs/reviews/derived-answers/charter-track1.md`. Source HEAD
-`3c7495c7719eea7319c89d038207ffb51b94c91e` on `milestone/derived-answers-2025`.
+Charter: `docs/reviews/derived-answers/charter-track1.md`. Source HEAD: the Track 1 charter commit
+(removed at closeout) on `milestone/derived-answers-2025`.
 Synthetic `demo.*` data only. Every live case is a real `live_coordinate_run`.
 
 ## Scope

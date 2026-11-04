@@ -3,7 +3,7 @@
   "version": 1,
   "phase": "Engine Breadth",
   "topic": "derived-answers",
-  "status": "Open. P0: trace each scope answer the return already implies and say, per fact, which direction the recorded statements actually prove.",
+  "status": "Closed. On core v74 a recorded Form 1098 answers the Form 1098 question, and Form 1099-DIV box 7 foreign tax over $300 ($600 joint) answers whether Form 1116 is required; the line computes with the amounts the agreed answer gives. Line 2a tax-exempt interest and the other-dependent answer were held. Earlier cores are unchanged.",
   "scope": [
     "a scope answer that the recorded statements already prove is not asked of the filer on a successor core, and the line it holds computes as if the filer had answered it",
     "the basis for each derived answer is named: what recorded fact proves it, and in which direction; an answer the record cannot prove is still asked",
@@ -32,8 +32,14 @@
       "docs/process/planning-and-development.md",
       "docs/roles/qualitative-review.md",
       "docs/phases/engine-breadth/milestones/derived-answers.md"
+    ],
+    "new_milestone": [
+      "docs/milestone-retrospectives/2026-11-03-derived-answers.md",
+      "docs/phases/engine-breadth/milestones/derived-answers.md",
+      "docs/phases/engine-breadth/engine-breadth-roadmap.md#Parked work and open questions"
     ]
-  }
+  },
+  "retrospective": "docs/milestone-retrospectives/2026-11-03-derived-answers.md"
 }
 -->
 
@@ -181,3 +187,61 @@ Foreman, 2026-11-03, on P0:
 1. **Track 1 — derive.** The successors from P0; core v74, registry v72,
    release v72 with `tools/package_successor.py`; any loader companion
    entry; cases through the real coordinator; v73 and earlier pinned.
+
+## Track 1 result
+
+[Track 1](derived-answers-evidence/track1.md). Decision 1's open-family
+check held two candidates. An answered "no tax-exempt interest" with the box
+8 family open publishes line 2a at 0 on v73 and blocks on the successor (88
+more blocked rows); that successor would also have published an unclosed
+box 8 of 125. An answered "no other dependent" with the rosters open
+publishes line 6 on v73 and blocks on the successors (31 more). Line 12e v4
+and Schedule 3 line 1 direct-credit v4 landed on core v74, registry v72,
+release v72; the loader shares v73's companion declaration.
+
+## Review dispositions
+
+Fresh-reader review ([review](derived-answers-evidence/review.md)): no
+required findings.
+
+1. *An unanswered Form 1098 on an open family no longer asks the scope
+   question* (recommended). Both cores block the same 19 lines; v73 asks
+   "Did you receive a Form 1098…?" and the completeness question, v74 only
+   the completeness question. Fixed in the account and locked by a test:
+   the record already shows a statement, so the remaining question is the
+   one that matters.
+2. *A Form 1098 with box 1 of $0 counts as a statement* (note). It publishes
+   the amounts of the answer "a statement was received", which is what it
+   is.
+3. *The contradiction block is unreachable on v74* for every recorded
+   count (note), as Decision 2 accepted.
+4. *Caps* (note): exactly $300 still asks on every non-joint status
+   (qualifying surviving spouse included) and exactly $600 on a joint
+   return; one dollar over stops asking.
+
+## Execution record
+
+- Grok CLI agents in this worktree (owner direction, 2026-11-03): P0 builder
+  (about 42 minutes, 130 turns, $3.57), Track 1 builder (about 49 minutes, 92
+  turns, $2.08, full suite 4,227 passed), fresh reviewer (about 38 minutes,
+  93 turns, $2.12). The foreman added the review's open-family test.
+
+## Outcome
+
+On core v74 a return that records a Form 1098 is not asked whether it
+received one: line 12e and the 18 lines behind it compute with the amounts
+the answer "yes" gives, jointly too, and a box 1 of $0 counts. A Form
+1099-DIV box 7 above $300 ($600 joint) is not asked whether Form 1116 is
+required; the direct credit stays unpublished, as on v73 after the same
+answer. With no Form 1098 recorded, or box 7 at or under the cap, the
+question is still asked. A return whose answer contradicts a recorded Form
+1098 publishes the statement where v73 blocked. Answered returns publish
+v73's amounts; their presentations differ by the proof's closure reads and,
+on the proved path, the dropped scope pin. Nothing on the page names the
+question the record answered.
+
+Held: line 2a tax-exempt interest and the other-dependent answer, because
+an answered return with that family open would newly block. Not derivable:
+the Form 1099-OID fact, Exception 1 and the other 74 facts. Two successor
+rules, no schema, operation or engine change; core v73 and earlier are
+unchanged.

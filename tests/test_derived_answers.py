@@ -26,7 +26,8 @@ from tests import test_w2g_gambling as w2g
 from tests.helpers import current_core_returns as ccr
 from tests.test_form_1099_k_income import _handover
 from tests.test_form_1099_withholding import YEAR, _social_security_withholding, _unemployment_withholding
-from tests.test_refund_or_amount_owed_track1 import _finish
+from tests.test_refund_or_amount_owed_track1 import _act, _attested, _finish
+from tests.test_refund_or_amount_owed_track1 import _load as _release_load
 
 ROOT = Path(__file__).resolve().parents[1]
 CONTENT = ccr.CONTENT
@@ -85,10 +86,10 @@ def _odc(answer: str | None) -> list[dict[str, object]]:
         answers[OD] = answer
     child = "demo-child-odc"
     acts = odc.build(wages=50000.0, children={child: odc.odc_child()}, return_answers=answers)
-    acts.append(ccr._act(len(acts), "bundle-adoption", {"bundle": ccr._load("dtb-questions.bundle.json")}))
+    acts.append(_act(len(acts), "bundle-adoption", {"bundle": _release_load("dtb-questions.bundle.json")}))
     for question, value in ccr._TIE_BREAKER_ANSWERS.items():
         fid = f"{P}dtb.child.{question}|child={child},tax-year=2025"
-        acts.append(ccr._act(len(acts), "assertion", {"finding": ccr._attested(f"demo.t1.dtb.{question}.{child}", fid, value)}))
+        acts.append(_act(len(acts), "assertion", {"finding": _attested(f"demo.t1.dtb.{question}.{child}", fid, value)}))
     if answer is None:
         acts = miq.drop(acts, OD)
     acts = odc._complete(acts)
@@ -105,6 +106,8 @@ def _acts(kind: str) -> list[dict[str, object]]:
         return miq.drop(_return(), SCOPE)
     if kind == "m1-proved":
         return miq.drop(ccr.add_mortgage_itemizer(_return(), 40000.0), SCOPE)
+    if kind == "m1-open":
+        return miq.drop(ccr.add_mortgage_itemizer(_return(), 40000.0), SCOPE, P + "f1098.source-closure")
     if kind == "m1-agreed":
         return ccr.add_mortgage_itemizer(_return(), 40000.0)
     if kind == "m1-contradict":
@@ -206,7 +209,8 @@ def _rows(run: Run, token: str) -> list[dict[str, Any]]:
 
 
 def _load(name: str) -> dict[str, Any]:
-    return json.loads((CONTENT / name).read_text(encoding="utf-8"))
+    doc: dict[str, Any] = json.loads((CONTENT / name).read_text(encoding="utf-8"))
+    return doc
 
 
 def test_v74_adds_the_two_rules_and_leaves_every_earlier_checksum() -> None:
@@ -279,6 +283,15 @@ def test_no_recorded_form_1098_still_asks_the_v73_question() -> None:
     old, new = go("m1-silent", "v73"), go("m1-silent", "v74")
     assert miq.blocked(old.model) == miq.blocked(new.model)
     assert "12e" in _asks(new, M1)
+
+
+def test_an_open_form_1098_family_blocks_the_same_lines_without_the_question_on_v74() -> None:
+    old, new = go("m1-open", "v73"), go("m1-open", "v74")
+    assert set(miq.blocked(old.model)) == set(miq.blocked(new.model))
+    assert "12e" in _asks(old, M1)
+    assert _asks(new, M1) == []
+    assert _dec(new, LINE12E) is None and _dec(old, LINE12E) is None
+    assert _money(old) == _money(new)
 
 
 def test_a_contradicting_form_1098_answer_publishes_the_statement_on_v74() -> None:
