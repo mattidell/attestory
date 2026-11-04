@@ -28,6 +28,7 @@ from typing import Any
 from packages.derivation.authorization import AuthorizationResolution
 from packages.derivation.evaluator import (
     BLOCK_ABSENT,
+    BLOCK_CLOSURE,
     BLOCK_INVALID,
     AccessLog,
     Environment,
@@ -1599,12 +1600,28 @@ class _Run:
         }]
         return required, base_pins, triggers, None
 
+    def _names_unconfirmed_family_question(self) -> bool:
+        """The one core-version switch the projection also reads."""
+        from packages.tax.loader import unconfirmed_family_names_closure_question
+
+        pin = self.ctx.adoption_pin
+        package_id = pin.get("id")
+        version = pin.get("version")
+        if not isinstance(package_id, str) or not isinstance(version, str):
+            return False
+        return unconfirmed_family_names_closure_question(package_id, version)
+
     def _evaluate_family_validation(self, rule: dict[str, Any], access: AccessLog) -> str:
         rule_id = rule["id"]
         family_id = rule_id[:-len(".member-validation.synthesized")]
 
         if family_id not in self.admissions:
-            self._record_blocked(rule, access, BLOCK_ABSENT, [family_id])
+            # An unadmitted constrained family has not been confirmed. From
+            # core v75 the block is the same one ``require_closed`` records,
+            # so the line can name that family's existing closure question.
+            # Admitted families, and every earlier core, stay on this path.
+            code = BLOCK_CLOSURE if self._names_unconfirmed_family_question() else BLOCK_ABSENT
+            self._record_blocked(rule, access, code, [family_id])
             return "blocked"
 
         admission = self.admissions[family_id]

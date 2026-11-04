@@ -56,6 +56,28 @@ def _version_rank(version: str) -> int:
     return int(version.removeprefix("v"))
 
 
+_CORE_CALCULATIONS = "tax.us.2025.package.core-calculations"
+# Core v75 is the first package on which an unconfirmed constrained family
+# names its existing closure question. Earlier cores keep the recorded block.
+_CLOSURE_QUESTION_COVERAGE_FROM = 75
+
+
+def unconfirmed_family_names_closure_question(package_id: str, version: str) -> bool:
+    """Whether this adopted package names an unconfirmed family's closure question.
+
+    On from core-calculations v75. The runner and the presentation projection
+    both read this switch. A package that is not core-calculations, or an
+    earlier core, keeps the recorded member-validation block and the
+    selection-only reason. No schema carries the switch: it is the adopted
+    package id and version, the same key a companion declaration uses.
+    """
+    if package_id != _CORE_CALCULATIONS:
+        return False
+    if not version.startswith("v") or not version[1:].isdigit():
+        return False
+    return _version_rank(version) >= _CLOSURE_QUESTION_COVERAGE_FROM
+
+
 def domain_companion_presence_pairs() -> dict[str, str | list[str]]:
     """Domain companion-presence pairs enforced at finding admission.
 
@@ -274,6 +296,10 @@ def domain_package_companion_declarations() -> dict[tuple[str, str], dict[str, A
         # Form 1116 answer when box 7 is over the cap. It asks no new companion, so it shares v73's
         # declaration.
         ("tax.us.2025.package.core-calculations", "v74"): gambling,
+        # Core v75 names an unconfirmed family's existing closure question. It asks no new
+        # companion, so it shares v74's declaration. Without this entry, v75 would fall back
+        # to the global maps and refuse amounts v74 admits.
+        ("tax.us.2025.package.core-calculations", "v75"): gambling,
     }
 
 

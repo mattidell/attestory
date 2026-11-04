@@ -1,0 +1,6 @@
+{
+  "package_version": "v75",
+  "release_version": "v73",
+  "registry_sort": "id_version",
+  "registry_new_key_order": ["checksum", "id", "version"]
+}
