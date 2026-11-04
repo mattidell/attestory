@@ -582,6 +582,16 @@ On core v74 a recorded Form 1098 answers the Form 1098 question, and Form
 The record proves presence only, so the other direction is still asked.
 Earlier cores are unchanged.
 
+## Bounded return — Every Unconfirmed Family Asks Its Question (2025)
+
+[Plan](milestones/closure-question-coverage.md); retrospective:
+`docs/milestone-retrospectives/2026-11-04-closure-question-coverage.md`.
+
+From core v75 an unconfirmed Form 1099-B wash-sale family names its
+completeness question on the 32 lines it blocks, and Form 1099-K's two
+Schedule 1 selection lines name it beside the single-sale question. All 51
+families now name their question. Earlier cores are unchanged.
+
 ## Parked work and open questions
 
 This is the single list of parked work and open owner-held questions for the
@@ -667,9 +677,13 @@ delivers an item removes it.
   on one statement offsets a missing one on another. Closing either needs a
   statement-level count or a keyed join.
 - A blocked line names the kind of statement short of its withholding
-  answer, not the statement itself (keyed join). Two Form 1099-B families
-  (`f1099b.covered-w-*`) report an unconfirmed closure as
-  `DEPENDENCY_ABSENT`, so their closure question is never named.
+  answer, not the statement itself (keyed join).
+- The two Form 1099-B wash-sale adjustment questions ask for an amount "of
+  every covered sale"; their basis and proceeds siblings limit to sales with
+  an adjustment. Wording only.
+- The core-v75 closure-question switch is keyed by package id and version
+  in `packages/tax/loader.py`, which the runner imports; passing it into the
+  run instead is a later cleanup.
 - A general assumption framework, free-text intake and institutional
   verification.
 

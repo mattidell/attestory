@@ -3,7 +3,7 @@
   "version": 1,
   "phase": "Engine Breadth",
   "topic": "closure-question-coverage",
-  "status": "Open. P0: survey every source family left unconfirmed and record whether the line it blocks names its completeness question.",
+  "status": "Closed. From core v75 an unconfirmed Form 1099-B wash-sale family names its completeness question on every line it blocks, and Form 1099-K's two Schedule 1 selection lines name it beside the single-sale question; all 51 families now do. Earlier cores are unchanged.",
   "scope": [
     "a line blocked because a statement family's completeness is unconfirmed names that family's completeness question, on a successor core where content must change",
     "the two f1099b.covered-w-* families, which block DEPENDENCY_ABSENT on an unconfirmed closure, are the known cases; P0 finds the rest",
@@ -32,8 +32,14 @@
       "docs/process/planning-and-development.md",
       "docs/roles/qualitative-review.md",
       "docs/phases/engine-breadth/milestones/closure-question-coverage.md"
+    ],
+    "new_milestone": [
+      "docs/milestone-retrospectives/2026-11-04-closure-question-coverage.md",
+      "docs/phases/engine-breadth/milestones/closure-question-coverage.md",
+      "docs/phases/engine-breadth/engine-breadth-roadmap.md#Parked work and open questions"
     ]
-  }
+  },
+  "retrospective": "docs/milestone-retrospectives/2026-11-04-closure-question-coverage.md"
 }
 -->
 
@@ -148,3 +154,52 @@ Foreman: the two adjustment questions' wording is parked, not changed.
    changes, core v75 (registry and release) with
    `tools/package_successor.py`, cases through the real coordinator, v74
    and earlier pinned; full suite (substrate).
+
+## Track 1 result
+
+[Track 1](closure-question-coverage-evidence/track1.md). The switch is
+`unconfirmed_family_names_closure_question` in `packages/tax/loader.py`: on
+for `core-calculations` v75 and later. The runner reads it from the run's
+adoption pin, and the projection from the adopted package that
+`live_coordinate_run` passes. Core v75, registry v73 and release v73 carry
+v74's members unchanged, plus a loader companion entry shared with v74. 130
+blocked-line instances gain the question: 32 lines for each wash-sale
+family, with and without members (128), and Form 1099-K's two selection
+lines.
+
+## Review dispositions
+
+Fresh-reader review ([review](closure-question-coverage-evidence/review.md)):
+no required findings.
+
+1. *Lock the closed-but-invalid cases* (recommended). A closed wash-sale
+   member with no disallowed amount, and one whose identity collides with a
+   covered short-term member, keep v74's validation block and never ask the
+   completeness question. Fixed: both are tests.
+2. *Layering* (note). The runner imports the switch from the tax loader;
+   the reviewer recommends keeping it keyed by package id and version.
+   Passing it in is parked.
+3. *Earlier cores* (note). The switch is false for v74, for non-core
+   packages and for malformed versions. The entry-loop and correction
+   sessions pin earlier cores.
+
+## Execution record
+
+- Grok CLI agents in this worktree (owner direction, 2026-11-04):
+  - the P0 builder (about 37 minutes, 126 turns, $3.32), which stopped on
+    the engine condition;
+  - the Track 1 builder (about 70 minutes, 130 turns, $3.44; full suite
+    4,247 passed), resumed once for the review's tests;
+  - a fresh reviewer (about 18 minutes, 67 turns, $1.78).
+
+## Outcome
+
+From core v75, a Form 1099-B wash-sale family the filer has not confirmed
+names its existing completeness question on each of the 32 lines it blocks,
+whether or not a sale is recorded. With one Form 1099-K recorded and its
+family unconfirmed, the two Schedule 1 selection lines name the
+completeness question beside the single-sale question. A confirmed family,
+or a closed family whose member is invalid, behaves as on v74. Every one of
+the 51 families core v75 reads now names its question when unconfirmed.
+Core v74 and earlier render as before. One engine and one projection
+change behind a version switch; no schema change.

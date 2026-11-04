@@ -1,6 +1,6 @@
 # P0: which unconfirmed families do not ask their question
 
-Builder unit on `milestone/closure-question-coverage-2025` at `c8f17430b540a3b8707a6f1cbc9abb4e2281d08b`.
+Builder unit on `milestone/closure-question-coverage-2025` at the plan-opening commit (removed at closeout).
 Core v74. Evidence only. No production, test, content, or schema edit.
 
 ## Scope

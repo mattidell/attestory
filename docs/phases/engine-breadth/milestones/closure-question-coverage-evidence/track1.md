@@ -73,3 +73,5 @@ The cases above gain the closure question on 130 line instances.
 `pytest`: 4247 passed, 24 skipped, 7986 subtests passed.
 
 No earlier-core golden moved.
+
+A closed wash-sale member with the flag set and the disallowed amount absent, and that member closed on the same broker, statement, transaction, and tax year as a covered short-term member, both record `DEPENDENCY_INVALID` on v74 and v75 and neither carries the completeness question.

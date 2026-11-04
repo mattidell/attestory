@@ -12,7 +12,7 @@ import importlib.util
 import json
 from pathlib import Path
 from tempfile import TemporaryDirectory
-from typing import Any
+from typing import Any, cast
 
 import pytest
 
@@ -365,6 +365,135 @@ def test_confirmed_base_return_matches_v74() -> None:
     assert after["published"] == before["published"]
     assert _face(after["model"]) == _face(before["model"])
     assert SURVEY["base"]["blocked_line_count"] == 0
+
+
+_WASH_ST = probe.P + "f1099b.covered-w-st"
+_COVERED_ST = probe.P + "f1099b.covered-st"
+_WASH_VALIDATION = _WASH_ST + ".member-validation"
+_WASH_SYNTHESIZED = _WASH_VALIDATION + ".synthesized"
+_WASH_CONSUMERS = (
+    "tax.us.2025.rule.attachment.f8949",
+    "tax.us.2025.rule.attachment.schedule-d",
+    "tax.us.2025.rule.f1099b-covered-w-st-adjustment-subtotal",
+    "tax.us.2025.rule.f1099b-covered-w-st-basis-subtotal",
+    "tax.us.2025.rule.f1099b-covered-w-st-proceeds-subtotal",
+    "tax.us.2025.rule.schedule-d-line1b",
+)
+_IDENTITY_BLOCK = "tax.us.2025.block.covered-w.identity-key-collision"
+
+
+def _member_finding(acts: list[dict[str, Any]], family_id: str) -> dict[str, Any]:
+    found: list[dict[str, Any]] = []
+    for act in acts:
+        if act.get("kind") != "member-transition":
+            continue
+        payload = act.get("payload")
+        if not isinstance(payload, dict) or payload.get("family", {}).get("id") != family_id:
+            continue
+        member = payload.get("member")
+        finding = member.get("finding") if isinstance(member, dict) else None
+        if isinstance(finding, dict):
+            found.append(finding)
+    assert len(found) == 1, family_id
+    return found[0]
+
+
+def _bound_entities(fact_id: str) -> dict[str, str]:
+    _fact_type, _bar, suffix = fact_id.partition("|")
+    entities: dict[str, str] = {}
+    for part in suffix.split(","):
+        name, value = part.split("=", 1)
+        if name != "tax-year":
+            entities[name] = value
+    return entities
+
+
+def _reclose(acts: list[dict[str, Any]], family_id: str, mappings: dict[str, Any], finding_id: str) -> None:
+    closure = str(mappings[family_id]["closure_fact_type"]["id"])
+    acts[:] = probe.strip_closure(acts, closure)
+    _close(acts, closure, probe.latest_horizon(acts, family_id), finding_id)
+
+
+def _closed_wash(*, drop_amount: bool, collide: bool) -> tuple[list[dict[str, Any]], str]:
+    """One closed covered short-term wash-sale member, optionally invalid or colliding."""
+    acts, _note = probe.prepare(_WASH_ST, "members")
+    families, mappings, fact_types, extra = probe.load_index()
+    question = str(mappings[_WASH_ST]["closure_question"])
+    if drop_amount:
+        value = _member_finding(acts, _WASH_ST)["value"]
+        assert value["box_1g_wash_sale_adjustment"] == "yes"
+        del value["box_1g_wash_sale_disallowed_amount"]
+    if collide:
+        entities = _bound_entities(str(_member_finding(acts, _WASH_ST)["fact_id"]))
+        mapped = str(mappings[_COVERED_ST]["family"]["version"])
+        probe.align_family_version(acts, _COVERED_ST, mapped)
+        saved = probe.REUSE_ENTITIES.get(_COVERED_ST)
+        probe.REUSE_ENTITIES[_COVERED_ST] = entities
+        try:
+            probe.add_member(acts, families[_COVERED_ST], mappings[_COVERED_ST], fact_types, extra["bundles"])
+        finally:
+            if saved is None:
+                probe.REUSE_ENTITIES.pop(_COVERED_ST, None)
+            else:
+                probe.REUSE_ENTITIES[_COVERED_ST] = saved
+        covered = _bound_entities(str(_member_finding(acts, _COVERED_ST)["fact_id"]))
+        assert covered == entities
+        _reclose(acts, _COVERED_ST, mappings, "demo.t1.covered-st.reclose")
+    _reclose(acts, _WASH_ST, mappings, "demo.t1.wash-st.reclose")
+    return acts, question
+
+
+def _blocked(payload: dict[str, Any], artifact_id: str) -> dict[str, Any]:
+    rows = [
+        row for row in payload["dispositions"]
+        if row.get("disposition") == "blocked" and row.get("artifact_id") == artifact_id
+    ]
+    assert len(rows) == 1, (artifact_id, rows)
+    return cast(dict[str, Any], rows[0])
+
+
+def _assert_validation_failure(payload: dict[str, Any], question: str, missing: set[str]) -> None:
+    synthesized = _blocked(payload, _WASH_SYNTHESIZED)
+    assert synthesized["code"] == "DEPENDENCY_INVALID"
+    assert set(synthesized["missing"]) == missing
+    symbol = _WASH_VALIDATION
+    for artifact_id in _WASH_CONSUMERS:
+        row = _blocked(payload, artifact_id)
+        assert row["code"] == "DEPENDENCY_ABSENT"
+        assert symbol in row["missing"]
+    for section in payload["model"].get("sections") or []:
+        resolved = section.get("resolved") or {}
+        if resolved.get("disposition") != "blocked":
+            continue
+        sentences = [str(reason.get("sentence")) for reason in resolved.get("reasons") or []]
+        assert question not in sentences
+
+
+def _both_cores(acts: list[dict[str, Any]], stem: str, question: str, missing: set[str]) -> None:
+    before = _run(acts, f"demo.t1.{stem}.v74", "v74")
+    after = _run(acts, f"demo.t1.{stem}.v75", "v75")
+    _assert_validation_failure(before, question, missing)
+    _assert_validation_failure(after, question, missing)
+    assert before["published"]
+    assert after["published"] == before["published"]
+    assert _face(after["model"]) == _face(before["model"])
+
+
+def test_closed_wash_sale_without_the_disallowed_amount_stays_invalid() -> None:
+    """A closed member with the flag set and the amount absent fails validation on both cores."""
+    acts, question = _closed_wash(drop_amount=True, collide=False)
+    _both_cores(acts, "wash-flag-without-amount", question, {"BOX_1G_FLAG_WITHOUT_AMOUNT"})
+
+
+def test_closed_wash_sale_identity_collision_stays_invalid() -> None:
+    """A closed wash-sale member that shares its identity with a closed covered short-term member."""
+    acts, question = _closed_wash(drop_amount=False, collide=True)
+    _both_cores(
+        acts,
+        "wash-identity-collision",
+        question,
+        {"IDENTITY_EXCLUSIVITY_COLLISION", f"identity_exclusivity:{_IDENTITY_BLOCK}"},
+    )
 
 
 def test_admitted_wash_sale_matches_v74() -> None:
