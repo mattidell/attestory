@@ -1,0 +1,10 @@
+{
+  "fact_type": {
+    "id": "tax.us.2025.payments.overpayment-applied-to-2026",
+    "version": "v1"
+  },
+  "id": "tax.us.2025.input-question.line36-applied-to-2026",
+  "question": "Enter how much of your 2025 overpayment you want applied to your 2026 estimated tax. If none, enter $0.",
+  "schema": "input-question.v1",
+  "version": "v1"
+}

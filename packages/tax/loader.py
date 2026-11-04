@@ -264,6 +264,9 @@ def domain_package_companion_declarations() -> dict[tuple[str, str], dict[str, A
         # Core v71 only makes line 25b wait for each statement's withholding answer (a count check,
         # as line 25a has for Form W-2) and asks no new companion, so it shares v70's declaration.
         ("tax.us.2025.package.core-calculations", "v71"): gambling,
+        # Core v72 only declares the question a filer answers to supply eight missing amounts and asks
+        # no new question itself, so it shares v71's declaration.
+        ("tax.us.2025.package.core-calculations", "v72"): gambling,
     }
 
 

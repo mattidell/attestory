@@ -1,0 +1,10 @@
+{
+  "fact_type": {
+    "id": "tax.us.2025.f1099g.box4-withholding",
+    "version": "v1"
+  },
+  "id": "tax.us.2025.input-question.f1099g-box4",
+  "question": "Enter the federal income tax withheld in box 4 of each Form 1099-G you or your spouse received for 2025. If box 4 is blank, enter $0.",
+  "schema": "input-question.v1",
+  "version": "v1"
+}

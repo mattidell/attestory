@@ -305,6 +305,10 @@ _NON_INPUT_SCHEMAS = frozenset({
 # closure question; every admission point reads this one set (never a literal).
 CLOSURE_MAPPING_SCHEMAS = frozenset({"source-closure-mapping.v2", "source-closure-mapping.v3"})
 
+# The declared question for one missing filer-supplied fact (artifact-package.v39).
+# Every admission point reads this one set (never a literal).
+INPUT_QUESTION_SCHEMAS = frozenset({"input-question.v1"})
+
 # ADR-0066 Decision 7: closed supported-semantic-schema set. A registry-valid
 # member whose schema is absent here is rejected with MEMBER_SCHEMA_UNSUPPORTED
 # rather than becoming an inert graph node. Membership is an explicit constant
@@ -334,6 +338,7 @@ _SUPPORTED_SEMANTIC_SCHEMAS = frozenset({
     "form-field.v2",
     "form-field.v3",
     "migration-artifact.v1",
+    *sorted(INPUT_QUESTION_SCHEMAS),
     "operation-semantics.v1",
     "operation-semantics.v2",
     "parameter-declaration.v1",
@@ -1140,7 +1145,7 @@ def _reader_role_issues(
     resolved: list[tuple[dict[str, Any], dict[str, Any]]],
 ) -> list[MemberIssue]:
     """Validate the closed roles and their declared rule dependencies in v34."""
-    if package.get("schema") not in ("artifact-package.v34", "artifact-package.v35", "artifact-package.v36", "artifact-package.v37", "artifact-package.v38"):
+    if package.get("schema") not in ("artifact-package.v34", "artifact-package.v35", "artifact-package.v36", "artifact-package.v37", "artifact-package.v38", "artifact-package.v39"):
         return []
     issues: list[MemberIssue] = []
     role_rules = [
@@ -1957,6 +1962,10 @@ def validate_package(
             if pin_role != "source-closure-mapping":
                 issues.append(MemberIssue(pin["id"], pin["version"], "ROLE_MISMATCH",
                                            f"source-closure-mapping declared as role {pin_role!r}"))
+        elif citizen["schema"] in INPUT_QUESTION_SCHEMAS:
+            if pin_role != "input-question":
+                issues.append(MemberIssue(pin["id"], pin["version"], "ROLE_MISMATCH",
+                                           f"input-question declared as role {pin_role!r}"))
         elif citizen["schema"] == "taxable-interest-composition.v1":
             if pin_role != "composition":
                 issues.append(MemberIssue(pin["id"], pin["version"], "ROLE_MISMATCH",
@@ -2035,6 +2044,13 @@ def validate_package(
                     if ft_key not in fact_surface:
                         issues.append(MemberIssue(pin["id"], pin["version"], "MAPPING_FACT_TYPE_NOT_ADMITTED",
                                                   f"mapping {mapping_key} {ft_key} not in package fact surface"))
+
+        # An input question names an exact fact type of the package's fact surface.
+        if citizen["schema"] in INPUT_QUESTION_SCHEMAS:
+            ft_pin = citizen.get("fact_type")
+            if ft_pin and (ft_pin["id"], ft_pin["version"]) not in fact_surface:
+                issues.append(MemberIssue(pin["id"], pin["version"], "INPUT_QUESTION_FACT_TYPE_NOT_ADMITTED",
+                                          f"input question fact_type {(ft_pin['id'], ft_pin['version'])} not in package fact surface"))
 
         # Form-field binds symbol & citation validation
         if citizen["schema"] in {"form-field.v1", "form-field.v2", "form-field.v3"}:
@@ -2842,7 +2858,7 @@ def validate_package(
             "artifact-package.v20", "artifact-package.v21", "artifact-package.v22",
             "artifact-package.v23", "artifact-package.v24", "artifact-package.v25",
             "artifact-package.v26", "artifact-package.v29", "artifact-package.v30",
-            "artifact-package.v31", "artifact-package.v35", "artifact-package.v36", "artifact-package.v37", "artifact-package.v38",
+            "artifact-package.v31", "artifact-package.v35", "artifact-package.v36", "artifact-package.v37", "artifact-package.v38", "artifact-package.v39",
         }:
             members_by_key = {
                 (pin["id"], pin["version"]): pin for pin in package["members"]
@@ -3096,6 +3112,12 @@ def validate_package(
                         adj[m_id].add(ft_pin["id"])
                     elif ft_pin and closed_v2_surface:
                         adj[m_id].update(bundles_for_fact.get(ft_pin["id"], set()))
+            elif citizen["schema"] in INPUT_QUESTION_SCHEMAS:
+                ft_pin = citizen.get("fact_type")
+                if ft_pin and ft_pin["id"] in member_ids:
+                    adj[m_id].add(ft_pin["id"])
+                elif ft_pin and closed_v2_surface:
+                    adj[m_id].update(bundles_for_fact.get(ft_pin["id"], set()))
             elif citizen["schema"] == "taxable-interest-composition.v1":
                 for c in citizen.get("constituents", []):
                     sf_id = c["source_family"]["id"]

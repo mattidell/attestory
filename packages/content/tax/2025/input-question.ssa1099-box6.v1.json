@@ -1,0 +1,10 @@
+{
+  "fact_type": {
+    "id": "tax.us.2025.ssa1099.box6-voluntary-withholding",
+    "version": "v1"
+  },
+  "id": "tax.us.2025.input-question.ssa1099-box6",
+  "question": "Enter the voluntary federal income tax withheld in box 6 of each Form SSA-1099 you or your spouse received for 2025. If box 6 is blank, enter $0.",
+  "schema": "input-question.v1",
+  "version": "v1"
+}

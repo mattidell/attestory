@@ -553,6 +553,16 @@ On core v71 line 25b waits until each Form 1099-INT, 1099-DIV, 1099-R and
 included, as line 25a does for W-2 box 2. An answered return computes as on
 v70.
 
+## Bounded return — A Blocked Line Names What Is Missing (2025)
+
+[Plan](milestones/missing-input-questions.md); retrospective:
+`docs/milestone-retrospectives/2026-11-03-missing-input-questions.md`.
+
+On core v72 a line blocked because W-2 box 2, a Form 1099 box 4, SSA-1099
+box 6, or the line 26 or 36 amount is missing names what to enter and that
+$0 is an answer, through a declared `input-question` citizen. Earlier cores
+render byte-identically.
+
 ## Parked work and open questions
 
 This is the single list of parked work and open owner-held questions for the
@@ -603,8 +613,10 @@ delivers an item removes it.
 - No presentation line names the tie-breaker step that decided a child.
 - Generic form-field texts explain nothing: Form 1040 lines 9 and 12e-16 and
   several Schedule D lines say only "blocked"; arithmetic lines carry the
-  closed-empty and worksheet-guard boilerplate; a blocked text never names
-  the missing input.
+  closed-empty and worksheet-guard boilerplate. Since core v72 a blocked
+  line names eight missing amounts; the 79 yes/no scope answers and filing
+  status still show only the generic text, and a rule names only its first
+  cause.
 - Worksheet lines as presentation rows; `demo.*` ids on the correct
   capital-loss and Social Security amounts.
 - The age questions' wording (born before January 2, 1961; a death in 2025
@@ -626,8 +638,10 @@ delivers an item removes it.
   1099-DIV box 2a, 7 or 12) is not checked, and a surplus withholding answer
   on one statement offsets a missing one on another. Closing either needs a
   statement-level count or a keyed join.
-- A blocked line 25b says only that an input is missing; it does not name the
-  statement short of its box 4 answer or say that $0 is an answer.
+- A blocked line names the kind of statement short of its withholding
+  answer, not the statement itself (keyed join). Two Form 1099-B families
+  (`f1099b.covered-w-*`) report an unconfirmed closure as
+  `DEPENDENCY_ABSENT`, so their closure question is never named.
 - A general assumption framework, free-text intake and institutional
   verification.
 
