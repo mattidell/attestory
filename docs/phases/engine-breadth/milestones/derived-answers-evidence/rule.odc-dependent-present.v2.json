@@ -1,0 +1,161 @@
+{
+  "schema": "rule-artifact.v14",
+  "id": "tax.us.2025.rule.odc-dependent-present",
+  "version": "v2",
+  "scope": {
+    "tax_year": 2025,
+    "jurisdiction": "US-federal",
+    "family": "individual-income-tax"
+  },
+  "role": "computation",
+  "requires": [],
+  "pins": [],
+  "when": true,
+  "value": {
+    "op": "choose",
+    "when": {
+      "op": "any",
+      "args": [
+        {
+          "op": "compare",
+          "cmp": "gt",
+          "left": {
+            "op": "count",
+            "name": "tax.us.2025.odc.child.other-dependent-box",
+            "source_set": "tax.us.2025.odc.child-roster"
+          },
+          "right": 0
+        },
+        {
+          "op": "compare",
+          "cmp": "gt",
+          "left": {
+            "op": "count",
+            "name": "tax.us.2025.odc.dependent.other-dependent-box",
+            "source_set": "tax.us.2025.odc.relative-roster"
+          },
+          "right": 0
+        }
+      ]
+    },
+    "then": {
+      "op": "choose",
+      "when": {
+        "op": "compare",
+        "cmp": "gt",
+        "left": {
+          "op": "add",
+          "args": [
+            {
+              "op": "ref",
+              "name": "tax.us.2025.odc.child-count"
+            },
+            {
+              "op": "ref",
+              "name": "tax.us.2025.odc.relative-count"
+            }
+          ]
+        },
+        "right": 0
+      },
+      "then": 1,
+      "else": 0
+    },
+    "else": {
+      "op": "choose",
+      "when": {
+        "op": "categorical_compare",
+        "cmp": "eq",
+        "left": {
+          "op": "ref",
+          "name": "tax.us.2025.ctc.no-other-dependent"
+        },
+        "right": {
+          "op": "category_literal",
+          "fact_type": {
+            "id": "tax.us.2025.ctc.no-other-dependent",
+            "version": "v1"
+          },
+          "value": "yes"
+        }
+      },
+      "then": 0,
+      "else": {
+        "op": "choose",
+        "when": {
+          "op": "all",
+          "args": [
+            {
+              "op": "conditional_dependency_set",
+              "condition": {
+                "op": "categorical_compare",
+                "cmp": "eq",
+                "left": {
+                  "op": "ref",
+                  "name": "tax.us.2025.ctc.no-other-dependent"
+                },
+                "right": {
+                  "op": "category_literal",
+                  "fact_type": {
+                    "id": "tax.us.2025.ctc.no-other-dependent",
+                    "version": "v1"
+                  },
+                  "value": "no"
+                }
+              },
+              "members": [
+                {
+                  "op": "ref",
+                  "name": "tax.us.2025.odc.child-count"
+                },
+                {
+                  "op": "ref",
+                  "name": "tax.us.2025.odc.relative-count"
+                }
+              ]
+            }
+          ]
+        },
+        "then": {
+          "op": "choose",
+          "when": {
+            "op": "compare",
+            "cmp": "gt",
+            "left": {
+              "op": "add",
+              "args": [
+                {
+                  "op": "ref",
+                  "name": "tax.us.2025.odc.child-count"
+                },
+                {
+                  "op": "ref",
+                  "name": "tax.us.2025.odc.relative-count"
+                }
+              ]
+            },
+            "right": 0
+          },
+          "then": 1,
+          "else": 0
+        },
+        "else": {
+          "op": "block",
+          "code": "DEPENDENCY_INVALID"
+        }
+      }
+    }
+  },
+  "publishes": "tax.us.2025.odc.dependent-present",
+  "blocked": {
+    "code": "DEPENDENCY_ABSENT",
+    "missing": []
+  },
+  "citations": [
+    {
+      "id": "tax.us.2025.citation.schedule8812.part-i",
+      "version": "v1"
+    }
+  ],
+  "notes": "Scratch evidence for derived-answers P0. Not a citizen. A marked other-dependent box takes the counted branch and does not read the return answer."
+}

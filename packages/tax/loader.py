@@ -270,6 +270,10 @@ def domain_package_companion_declarations() -> dict[tuple[str, str], dict[str, A
         # Core v73 only declares the question for each scope answer and filing status and asks no new
         # companion, so it shares v72's declaration.
         ("tax.us.2025.package.core-calculations", "v73"): gambling,
+        # Core v74 reads a recorded Form 1098 in place of the mortgage scope answer, and skips the
+        # Form 1116 answer when box 7 is over the cap. It asks no new companion, so it shares v73's
+        # declaration.
+        ("tax.us.2025.package.core-calculations", "v74"): gambling,
     }
 
 

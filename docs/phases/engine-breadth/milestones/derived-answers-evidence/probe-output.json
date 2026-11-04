@@ -1,0 +1,3695 @@
+{
+ "core": "v73",
+ "readers": {
+  "f1098-scope.no-mortgage-statement": [
+   "rule.form1040-line12e@v3"
+  ],
+  "line2a-scope.no-f1099int-tax-exempt": [
+   "rule.form1040-line2a@v4"
+  ],
+  "line2a-scope.no-f1099oid-tax-exempt": [
+   "rule.form1040-line2a@v4"
+  ],
+  "ctc.no-other-dependent": [
+   "rule.ctc-sch8812-line-6@v2",
+   "rule.odc-child-marked-conflict@v1",
+   "rule.odc-dependent-present@v1",
+   "rule.odc-relative-marked-conflict@v1"
+  ],
+  "direct-ftc-scope.no-form-1116-required": [
+   "rule.schedule3-line1-direct-ftc@v3"
+  ],
+  "exception1.only-box2a-capital-gains": [
+   "rule.schedule-d-required.conclusion@v1"
+  ],
+  "exception1.no-capital-losses": [
+   "rule.schedule-d-required.conclusion@v1"
+  ],
+  "exception1.no-qof-deferral": [
+   "rule.schedule-d-required.conclusion@v1"
+  ],
+  "exception1.no-boxes-2b-2c-2d": [
+   "rule.schedule-d-required.conclusion@v1"
+  ]
+ },
+ "families": [
+  {
+   "family": "ctc.child-roster",
+   "member": "ctc.child.claimed-as-dependent"
+  },
+  {
+   "family": "eic.child-roster",
+   "member": "eic.child.relationship"
+  },
+  {
+   "family": "f1098",
+   "member": "f1098.box1-mortgage-interest"
+  },
+  {
+   "family": "f1098e.1",
+   "member": "f1098e.box1-student-loan-interest"
+  },
+  {
+   "family": "f1099b.covered-lt-basis",
+   "member": "f1099b.covered-lt-txn.basis"
+  },
+  {
+   "family": "f1099b.covered-lt-proceeds",
+   "member": "f1099b.covered-lt-txn.proceeds"
+  },
+  {
+   "family": "f1099b.covered-lt",
+   "member": "f1099b.covered-lt-txn"
+  },
+  {
+   "family": "f1099b.covered-st-basis",
+   "member": "f1099b.covered-st-txn.basis"
+  },
+  {
+   "family": "f1099b.covered-st-proceeds",
+   "member": "f1099b.covered-st-txn.proceeds"
+  },
+  {
+   "family": "f1099b.covered-st",
+   "member": "f1099b.covered-st-txn"
+  },
+  {
+   "family": "f1099b.covered-w-lt-adjustment",
+   "member": "f1099b.covered-w-lt-txn.adjustment"
+  },
+  {
+   "family": "f1099b.covered-w-lt-basis",
+   "member": "f1099b.covered-w-lt-txn.basis"
+  },
+  {
+   "family": "f1099b.covered-w-lt-proceeds",
+   "member": "f1099b.covered-w-lt-txn.proceeds"
+  },
+  {
+   "family": "f1099b.covered-w-lt",
+   "member": "f1099b.covered-w-lt-txn"
+  },
+  {
+   "family": "f1099b.covered-w-st-adjustment",
+   "member": "f1099b.covered-w-st-txn.adjustment"
+  },
+  {
+   "family": "f1099b.covered-w-st-basis",
+   "member": "f1099b.covered-w-st-txn.basis"
+  },
+  {
+   "family": "f1099b.covered-w-st-proceeds",
+   "member": "f1099b.covered-w-st-txn.proceeds"
+  },
+  {
+   "family": "f1099b.covered-w-st",
+   "member": "f1099b.covered-w-st-txn"
+  },
+  {
+   "family": "f1099div.12",
+   "member": "f1099div.box12-exempt-interest-dividends"
+  },
+  {
+   "family": "f1099div.1a",
+   "member": "f1099div.box1a-ordinary"
+  },
+  {
+   "family": "f1099div.1b",
+   "member": "f1099div.box1b-qualified"
+  },
+  {
+   "family": "f1099div.2a",
+   "member": "f1099div.box2a-capital-gain-distribution"
+  },
+  {
+   "family": "f1099div.7",
+   "member": "f1099div.box7-foreign-tax-paid"
+  },
+  {
+   "family": "f1099div.b4",
+   "member": "f1099div.box4-withholding"
+  },
+  {
+   "family": "f1099g.1",
+   "member": "f1099g.box1-unemployment"
+  },
+  {
+   "family": "f1099g.b4",
+   "member": "f1099g.box4-withholding"
+  },
+  {
+   "family": "f1099int.b1",
+   "member": "f1099int.box1-interest"
+  },
+  {
+   "family": "f1099int.b10",
+   "member": "f1099int.box10-market-discount"
+  },
+  {
+   "family": "f1099int.b3",
+   "member": "f1099int.box3-interest"
+  },
+  {
+   "family": "f1099int.b4",
+   "member": "f1099int.box4-withholding"
+  },
+  {
+   "family": "f1099int.b8",
+   "member": "f1099int.box8-tax-exempt-interest"
+  },
+  {
+   "family": "f1099k",
+   "member": "f1099k.box1a-gross-amount"
+  },
+  {
+   "family": "f1099oid.b1",
+   "member": "f1099oid.box1-interest-oid"
+  },
+  {
+   "family": "f1099oid.b5",
+   "member": "f1099oid.box5-market-discount"
+  },
+  {
+   "family": "f1099r.box4",
+   "member": "f1099r.ira-box4-withholding"
+  },
+  {
+   "family": "f1099r.ira-fully-taxable",
+   "member": "f1099r.ira-box1-taxable-distribution"
+  },
+  {
+   "family": "form1065-k1.box5",
+   "member": "form1065-k1.box5-interest"
+  },
+  {
+   "family": "gambling.losses",
+   "member": "gambling.loss"
+  },
+  {
+   "family": "non-form-interest",
+   "member": "non-form-interest.amount"
+  },
+  {
+   "family": "odc.child-roster",
+   "member": "odc.child.other-dependent-box"
+  },
+  {
+   "family": "odc.relative-roster",
+   "member": "odc.dependent.other-dependent-box"
+  },
+  {
+   "family": "scheduleb.adjustment.abp-adjustment",
+   "member": "scheduleb.adjustment.abp-adjustment.amount"
+  },
+  {
+   "family": "scheduleb.adjustment.nominee",
+   "member": "scheduleb.adjustment.nominee.amount"
+  },
+  {
+   "family": "ssa1099.b6",
+   "member": "ssa1099.box6-voluntary-withholding"
+  },
+  {
+   "family": "ssa1099.benefits",
+   "member": "ssa1099.box5-net-benefits"
+  },
+  {
+   "family": "w2-box2",
+   "member": "w2.box2-withholding"
+  },
+  {
+   "family": "w2-box4",
+   "member": "w2.box4-social-security"
+  },
+  {
+   "family": "w2-box6",
+   "member": "w2.box6-medicare"
+  },
+  {
+   "family": "w2",
+   "member": "w2.box1-wages"
+  },
+  {
+   "family": "w2g.b1",
+   "member": "w2g.box1-winnings"
+  },
+  {
+   "family": "w2g.b4",
+   "member": "w2g.box4-withholding"
+  }
+ ],
+ "polarities": [
+  {
+   "question": "FTC1",
+   "fact": "direct-ftc.election",
+   "polarity": "pos",
+   "return": "div-b7"
+  },
+  {
+   "question": "FTC2",
+   "fact": "direct-ftc-scope.all-foreign-income-on-1099div",
+   "polarity": "abs",
+   "return": "div-b7"
+  },
+  {
+   "question": "FTC2",
+   "fact": "direct-ftc-scope.no-f1099int-foreign-tax",
+   "polarity": "abs",
+   "return": "div-b7"
+  },
+  {
+   "question": "FTC2",
+   "fact": "direct-ftc-scope.no-k1-k3-foreign-tax",
+   "polarity": "abs",
+   "return": "div-b7"
+  },
+  {
+   "question": "FTC2",
+   "fact": "direct-ftc-scope.no-other-foreign-tax-source",
+   "polarity": "abs",
+   "return": "div-b7"
+  },
+  {
+   "question": "FTC3",
+   "fact": "direct-ftc-scope.tax-type-creditable",
+   "polarity": "pos",
+   "return": "div-b7"
+  },
+  {
+   "question": "FTC3",
+   "fact": "direct-ftc-scope.country-recognized-non-terrorism",
+   "polarity": "pos",
+   "return": "div-b7"
+  },
+  {
+   "question": "FTC3",
+   "fact": "direct-ftc-scope.legal-liability-and-paid",
+   "polarity": "pos",
+   "return": "div-b7"
+  },
+  {
+   "question": "FTC4",
+   "fact": "direct-ftc-scope.all-foreign-income-passive",
+   "polarity": "pos",
+   "return": "div-b7"
+  },
+  {
+   "question": "FTC5",
+   "fact": "direct-ftc-scope.holding-period-16-day-met",
+   "polarity": "pos",
+   "return": "div-b7"
+  },
+  {
+   "question": "FTC6",
+   "fact": "direct-ftc-scope.no-refund-rebate-subsidy",
+   "polarity": "abs",
+   "return": "div-b7"
+  },
+  {
+   "question": "FTC6",
+   "fact": "direct-ftc-scope.no-excluded-income-association",
+   "polarity": "abs",
+   "return": "div-b7"
+  },
+  {
+   "question": "FTC6",
+   "fact": "direct-ftc-scope.no-short-sale-obligation",
+   "polarity": "abs",
+   "return": "div-b7"
+  },
+  {
+   "question": "FTC7",
+   "fact": "direct-ftc-scope.no-carryback-carryforward",
+   "polarity": "abs",
+   "return": "div-b7"
+  },
+  {
+   "question": "FTC8",
+   "fact": "direct-ftc-scope.no-schedule-a-deduction-election",
+   "polarity": "abs",
+   "return": "div-b7"
+  },
+  {
+   "question": "FTC9",
+   "fact": "direct-ftc-scope.no-sch3-line2",
+   "polarity": "abs",
+   "return": "base"
+  },
+  {
+   "question": "FTC9",
+   "fact": "direct-ftc-scope.no-sch3-line3",
+   "polarity": "abs",
+   "return": "base"
+  },
+  {
+   "question": "FTC9",
+   "fact": "direct-ftc-scope.no-sch3-line4",
+   "polarity": "abs",
+   "return": "base"
+  },
+  {
+   "question": "FTC9",
+   "fact": "direct-ftc-scope.no-sch3-line5",
+   "polarity": "abs",
+   "return": "base"
+  },
+  {
+   "question": "FTC9",
+   "fact": "direct-ftc-scope.no-sch3-line6",
+   "polarity": "abs",
+   "return": "base"
+  },
+  {
+   "question": "FTC10",
+   "fact": "direct-ftc-scope.no-form-4972-on-line16",
+   "polarity": "abs",
+   "return": "div-b7"
+  },
+  {
+   "question": "FTC10",
+   "fact": "direct-ftc-scope.no-line17-schedule2-additional",
+   "polarity": "abs",
+   "return": "base"
+  },
+  {
+   "question": "FTC12",
+   "fact": "direct-ftc-scope.no-schedule2-regular-tax-add",
+   "polarity": "abs",
+   "return": "div-b7"
+  },
+  {
+   "question": "FTC11",
+   "fact": "direct-ftc-scope.no-form-1116-required",
+   "polarity": "abs",
+   "return": "div-b7"
+  },
+  {
+   "question": "S1A",
+   "fact": "schedule1-adjustments-scope.no-line11-educator",
+   "polarity": "abs",
+   "return": "base"
+  },
+  {
+   "question": "S1A",
+   "fact": "schedule1-adjustments-scope.no-line12-business-expenses",
+   "polarity": "abs",
+   "return": "base"
+  },
+  {
+   "question": "S1A",
+   "fact": "schedule1-adjustments-scope.no-line13-hsa",
+   "polarity": "abs",
+   "return": "base"
+  },
+  {
+   "question": "S1A",
+   "fact": "schedule1-adjustments-scope.no-line14-moving",
+   "polarity": "abs",
+   "return": "base"
+  },
+  {
+   "question": "S1A",
+   "fact": "schedule1-adjustments-scope.no-line15-deductible-se",
+   "polarity": "abs",
+   "return": "base"
+  },
+  {
+   "question": "S1A",
+   "fact": "schedule1-adjustments-scope.no-line16-se-retirement",
+   "polarity": "abs",
+   "return": "base"
+  },
+  {
+   "question": "S1A",
+   "fact": "schedule1-adjustments-scope.no-line17-se-health",
+   "polarity": "abs",
+   "return": "base"
+  },
+  {
+   "question": "S1A",
+   "fact": "schedule1-adjustments-scope.no-line18-penalty",
+   "polarity": "abs",
+   "return": "base"
+  },
+  {
+   "question": "S1A",
+   "fact": "schedule1-adjustments-scope.no-line19-alimony-paid",
+   "polarity": "abs",
+   "return": "base"
+  },
+  {
+   "question": "S1A",
+   "fact": "schedule1-adjustments-scope.no-line20-ira-deduction",
+   "polarity": "abs",
+   "return": "base"
+  },
+  {
+   "question": "S1A",
+   "fact": "schedule1-adjustments-scope.no-line23-archer-msa",
+   "polarity": "abs",
+   "return": "base"
+  },
+  {
+   "question": "S1A",
+   "fact": "schedule1-adjustments-scope.no-line25-other-adjustments",
+   "polarity": "abs",
+   "return": "base"
+  },
+  {
+   "question": "S1B",
+   "fact": "schedule1-part1-scope.no-sch1-line2a-alimony",
+   "polarity": "abs",
+   "return": "base"
+  },
+  {
+   "question": "S1B",
+   "fact": "schedule1-part1-scope.no-sch1-line3-business",
+   "polarity": "abs",
+   "return": "base"
+  },
+  {
+   "question": "S1B",
+   "fact": "schedule1-part1-scope.no-sch1-line4-other-gains",
+   "polarity": "abs",
+   "return": "base"
+  },
+  {
+   "question": "S1B",
+   "fact": "schedule1-part1-scope.no-sch1-line5-rental",
+   "polarity": "abs",
+   "return": "base"
+  },
+  {
+   "question": "S1B",
+   "fact": "schedule1-part1-scope.no-sch1-line6-farm",
+   "polarity": "abs",
+   "return": "base"
+  },
+  {
+   "question": "S1C",
+   "fact": "schedule1-part1-scope.no-f1099g-box2-state-refund",
+   "polarity": "abs",
+   "return": "base"
+  },
+  {
+   "question": "S1C",
+   "fact": "schedule1-part1-scope.no-sch1-line1-taxable-refunds",
+   "polarity": "abs",
+   "return": "base"
+  },
+  {
+   "question": "S1D",
+   "fact": "schedule1-part1-scope.no-f1099g-other-payment-classes",
+   "polarity": "abs",
+   "return": "base"
+  },
+  {
+   "question": "S1E",
+   "fact": "schedule1-part1-scope.no-unemployment-repayment",
+   "polarity": "abs",
+   "return": "base"
+  },
+  {
+   "question": "L2A1",
+   "fact": "line2a-scope.no-f1099int-tax-exempt",
+   "polarity": "abs",
+   "return": "base"
+  },
+  {
+   "question": "L2A2",
+   "fact": "line2a-scope.no-f1099oid-tax-exempt",
+   "polarity": "abs",
+   "return": "base"
+  },
+  {
+   "question": "L2A2",
+   "fact": "line2a-scope.no-unreported-tax-exempt",
+   "polarity": "abs",
+   "return": "base"
+  },
+  {
+   "question": "L2A2",
+   "fact": "line2a-scope.no-premium-adjustment",
+   "polarity": "abs",
+   "return": "base"
+  },
+  {
+   "question": "L2A3",
+   "fact": "line2a-scope.no-amt-form-6251",
+   "polarity": "abs",
+   "return": "base"
+  },
+  {
+   "question": "L2A3",
+   "fact": "line2a-scope.no-credit-using-tax-exempt",
+   "polarity": "abs",
+   "return": "base"
+  },
+  {
+   "question": "L2A3",
+   "fact": "line2a-scope.no-deduction-using-tax-exempt",
+   "polarity": "abs",
+   "return": "base"
+  },
+  {
+   "question": "L2A3",
+   "fact": "line2a-scope.no-child-income-election",
+   "polarity": "abs",
+   "return": "base"
+  },
+  {
+   "question": "DEP1",
+   "fact": "standard-deduction.can-be-claimed-as-dependent",
+   "polarity": "pos",
+   "return": "base"
+  },
+  {
+   "question": "DEP2",
+   "fact": "sli-scope.not-claimed-as-dependent",
+   "polarity": "abs",
+   "return": "f1098e"
+  },
+  {
+   "question": "SLI1",
+   "fact": "sli-scope.legally-obligated-for-interest",
+   "polarity": "pos",
+   "return": "f1098e"
+  },
+  {
+   "question": "EXC1",
+   "fact": "sli-scope.no-form-2555",
+   "polarity": "abs",
+   "return": "f1098e"
+  },
+  {
+   "question": "EXC1",
+   "fact": "sli-scope.no-form-4563",
+   "polarity": "abs",
+   "return": "f1098e"
+  },
+  {
+   "question": "EXC1",
+   "fact": "sli-scope.no-puerto-rico-or-samoa-income",
+   "polarity": "abs",
+   "return": "f1098e"
+  },
+  {
+   "question": "EXC1",
+   "fact": "ctc.no-puerto-rico-or-4563-exclusion",
+   "polarity": "abs",
+   "return": "base"
+  },
+  {
+   "question": "EIC1",
+   "fact": "eic.taxpayer-valid-ssn",
+   "polarity": "pos",
+   "return": "part-ii-b"
+  },
+  {
+   "question": "EIC2",
+   "fact": "eic.not-nonresident-alien",
+   "polarity": "abs",
+   "return": "part-ii-b"
+  },
+  {
+   "question": "EIC3",
+   "fact": "eic.not-qualifying-child-of-another",
+   "polarity": "abs",
+   "return": "part-ii-b"
+  },
+  {
+   "question": "EIC4",
+   "fact": "eic.no-unsupported-situations",
+   "polarity": "abs",
+   "return": "base"
+  },
+  {
+   "question": "CG1",
+   "fact": "exception1.only-box2a-capital-gains",
+   "polarity": "abs",
+   "return": "base"
+  },
+  {
+   "question": "CG1",
+   "fact": "exception1.no-capital-losses",
+   "polarity": "abs",
+   "return": "base"
+  },
+  {
+   "question": "CG1",
+   "fact": "exception1.no-qof-deferral",
+   "polarity": "abs",
+   "return": "base"
+  },
+  {
+   "question": "CG1",
+   "fact": "exception1.no-boxes-2b-2c-2d",
+   "polarity": "abs",
+   "return": "base"
+  },
+  {
+   "question": "CG2",
+   "fact": "schedule-d-boundary.no-inbound-capital-loss-carryovers",
+   "polarity": "abs",
+   "return": "base"
+  },
+  {
+   "question": "CTC1",
+   "fact": "ctc.no-other-dependent",
+   "polarity": "abs",
+   "return": "base"
+  },
+  {
+   "question": "CR1",
+   "fact": "lines29-31-scope.no-other-refundable-credits",
+   "polarity": "abs",
+   "return": "base"
+  },
+  {
+   "question": "SS1",
+   "fact": "ss-benefits-scope.no-lump-sum-election",
+   "polarity": "abs",
+   "return": "base"
+  },
+  {
+   "question": "SS2",
+   "fact": "ss-benefits-scope.no-rrb-or-foreign-social-benefit",
+   "polarity": "abs",
+   "return": "base"
+  },
+  {
+   "question": "M1",
+   "fact": "f1098-scope.no-mortgage-statement",
+   "polarity": "abs",
+   "return": "base"
+  },
+  {
+   "question": "M2",
+   "fact": "line38-scope.no-estimated-tax-penalty",
+   "polarity": "abs",
+   "return": "base"
+  },
+  {
+   "question": "M3",
+   "fact": "qbi.no-qbi-deduction-declared",
+   "polarity": "abs",
+   "return": "base"
+  },
+  {
+   "question": "M4",
+   "fact": "schedule1a.no-parts-ii-iv-deductions-declared",
+   "polarity": "abs",
+   "return": "base"
+  },
+  {
+   "question": "M5",
+   "fact": "schedule2-partii-scope.no-line21-additional-taxes",
+   "polarity": "abs",
+   "return": "base"
+  },
+  {
+   "question": "M6",
+   "fact": "w2g-scope.no-sch1-other-income-except-w2g",
+   "polarity": "abs",
+   "return": "base"
+  },
+  {
+   "question": "FS1",
+   "fact": "filing-status",
+   "polarity": "choice",
+   "return": "base"
+  }
+ ],
+ "cases": [
+  {
+   "run_id": "base",
+   "blocked": 0,
+   "asked": [],
+   "lines": {
+    "tax-exempt-interest.line2a-total": "0",
+    "schedule-d-required.conclusion": "no",
+    "odc.child-count": "0",
+    "odc.child-marked-conflict": "0",
+    "odc.dependent-present": "0",
+    "ctc.sch8812.line-6": "0",
+    "deductions.line-12e": "15750",
+    "capital-gains.line7a-total": "0",
+    "schedule3.line1-direct-ftc": "0",
+    "payments.line37-amount-owed": "0",
+    "payments.line35a-refunded": "625"
+   },
+   "held": [
+    {
+     "rule": "form1040-line2a",
+     "disposition": "published",
+     "code": null,
+     "missing": []
+    },
+    {
+     "rule": "schedule-d-required.conclusion",
+     "disposition": "published",
+     "code": null,
+     "missing": []
+    },
+    {
+     "rule": "odc-child-marked-conflict",
+     "disposition": "published",
+     "code": null,
+     "missing": []
+    },
+    {
+     "rule": "odc-relative-marked-conflict",
+     "disposition": "published",
+     "code": null,
+     "missing": []
+    },
+    {
+     "rule": "odc-dependent-present",
+     "disposition": "published",
+     "code": null,
+     "missing": []
+    },
+    {
+     "rule": "ctc-sch8812-line-6",
+     "disposition": "published",
+     "code": null,
+     "missing": []
+    },
+    {
+     "rule": "form1040-line12e",
+     "disposition": "published",
+     "code": null,
+     "missing": []
+    },
+    {
+     "rule": "form1040-line7a",
+     "disposition": "published",
+     "code": null,
+     "missing": []
+    },
+    {
+     "rule": "schedule3-line1-direct-ftc",
+     "disposition": "published",
+     "code": null,
+     "missing": []
+    }
+   ],
+   "recorded": {
+    "f1098-scope.no-mortgage-statement": [
+     true
+    ],
+    "line2a-scope.no-f1099int-tax-exempt": [
+     "yes"
+    ],
+    "line2a-scope.no-f1099oid-tax-exempt": [
+     "yes"
+    ],
+    "ctc.no-other-dependent": [
+     "yes"
+    ],
+    "direct-ftc-scope.no-form-1116-required": [
+     "yes"
+    ],
+    "exception1.only-box2a-capital-gains": [
+     "yes"
+    ],
+    "exception1.no-capital-losses": [
+     "yes"
+    ],
+    "exception1.no-qof-deferral": [
+     "yes"
+    ],
+    "exception1.no-boxes-2b-2c-2d": [
+     "yes"
+    ]
+   },
+   "closures": [
+    "ctc.child-roster.source-closure",
+    "eic.child-roster.source-closure",
+    "f1098.source-closure",
+    "f1098e.1.source-closure",
+    "f1099div.2a.source-closure",
+    "f1099div.7.source-closure",
+    "f1099int.b8.source-closure",
+    "f1099oid.b1.source-closure",
+    "f1099oid.b5.source-closure",
+    "odc.child-roster.source-closure"
+   ],
+   "status": "ran"
+  },
+  {
+   "run_id": "m1-silent",
+   "blocked": 19,
+   "asked": [
+    "1040-14",
+    "12e",
+    "15",
+    "16",
+    "19",
+    "20",
+    "22",
+    "24",
+    "28",
+    "32",
+    "33",
+    "34",
+    "35a",
+    "37",
+    "8812-14",
+    "8812-17",
+    "8812-wa-5",
+    "Sch3-1",
+    "Sch3-8"
+   ],
+   "lines": {
+    "tax-exempt-interest.line2a-total": "0",
+    "schedule-d-required.conclusion": "no",
+    "odc.child-count": "0",
+    "odc.child-marked-conflict": "0",
+    "odc.dependent-present": "0",
+    "ctc.sch8812.line-6": "0",
+    "capital-gains.line7a-total": "0"
+   },
+   "held": [
+    {
+     "rule": "form1040-line2a",
+     "disposition": "published",
+     "code": null,
+     "missing": []
+    },
+    {
+     "rule": "schedule-d-required.conclusion",
+     "disposition": "published",
+     "code": null,
+     "missing": []
+    },
+    {
+     "rule": "odc-child-marked-conflict",
+     "disposition": "published",
+     "code": null,
+     "missing": []
+    },
+    {
+     "rule": "odc-relative-marked-conflict",
+     "disposition": "published",
+     "code": null,
+     "missing": []
+    },
+    {
+     "rule": "odc-dependent-present",
+     "disposition": "published",
+     "code": null,
+     "missing": []
+    },
+    {
+     "rule": "ctc-sch8812-line-6",
+     "disposition": "published",
+     "code": null,
+     "missing": []
+    },
+    {
+     "rule": "form1040-line7a",
+     "disposition": "published",
+     "code": null,
+     "missing": []
+    },
+    {
+     "rule": "form1040-line12e",
+     "disposition": "blocked",
+     "code": "DEPENDENCY_ABSENT",
+     "missing": [
+      "f1098-scope.no-mortgage-statement"
+     ]
+    },
+    {
+     "rule": "schedule3-line1-direct-ftc",
+     "disposition": "blocked",
+     "code": "DEPENDENCY_ABSENT",
+     "missing": [
+      "tax.total-tax"
+     ]
+    }
+   ],
+   "recorded": {
+    "f1098-scope.no-mortgage-statement": [],
+    "line2a-scope.no-f1099int-tax-exempt": [
+     "yes"
+    ],
+    "line2a-scope.no-f1099oid-tax-exempt": [
+     "yes"
+    ],
+    "ctc.no-other-dependent": [
+     "yes"
+    ],
+    "direct-ftc-scope.no-form-1116-required": [
+     "yes"
+    ],
+    "exception1.only-box2a-capital-gains": [
+     "yes"
+    ],
+    "exception1.no-capital-losses": [
+     "yes"
+    ],
+    "exception1.no-qof-deferral": [
+     "yes"
+    ],
+    "exception1.no-boxes-2b-2c-2d": [
+     "yes"
+    ]
+   },
+   "closures": [
+    "ctc.child-roster.source-closure",
+    "eic.child-roster.source-closure",
+    "f1098.source-closure",
+    "f1098e.1.source-closure",
+    "f1099div.2a.source-closure",
+    "f1099div.7.source-closure",
+    "f1099int.b8.source-closure",
+    "f1099oid.b1.source-closure",
+    "f1099oid.b5.source-closure",
+    "odc.child-roster.source-closure"
+   ],
+   "status": "ran"
+  },
+  {
+   "run_id": "m1-proved-unanswered",
+   "blocked": 19,
+   "asked": [
+    "1040-14",
+    "12e",
+    "15",
+    "16",
+    "19",
+    "20",
+    "22",
+    "24",
+    "28",
+    "32",
+    "33",
+    "34",
+    "35a",
+    "37",
+    "8812-14",
+    "8812-17",
+    "8812-wa-5",
+    "Sch3-1",
+    "Sch3-8"
+   ],
+   "lines": {
+    "interest.b8-tax-exempt-subtotal": "0",
+    "tax-exempt-interest.line2a-total": "0",
+    "schedule-d-required.conclusion": "no",
+    "odc.child-count": "0",
+    "odc.child-marked-conflict": "0",
+    "odc.dependent-present": "0",
+    "ctc.sch8812.line-6": "0",
+    "capital-gains.line7a-total": "0",
+    "schedule-a.line8a": "40000.0"
+   },
+   "held": [
+    {
+     "rule": "form1040-line2a",
+     "disposition": "published",
+     "code": null,
+     "missing": []
+    },
+    {
+     "rule": "schedule-d-required.conclusion",
+     "disposition": "published",
+     "code": null,
+     "missing": []
+    },
+    {
+     "rule": "odc-child-marked-conflict",
+     "disposition": "published",
+     "code": null,
+     "missing": []
+    },
+    {
+     "rule": "odc-relative-marked-conflict",
+     "disposition": "published",
+     "code": null,
+     "missing": []
+    },
+    {
+     "rule": "odc-dependent-present",
+     "disposition": "published",
+     "code": null,
+     "missing": []
+    },
+    {
+     "rule": "ctc-sch8812-line-6",
+     "disposition": "published",
+     "code": null,
+     "missing": []
+    },
+    {
+     "rule": "form1040-line7a",
+     "disposition": "published",
+     "code": null,
+     "missing": []
+    },
+    {
+     "rule": "form1040-line12e",
+     "disposition": "blocked",
+     "code": "DEPENDENCY_ABSENT",
+     "missing": [
+      "f1098-scope.no-mortgage-statement"
+     ]
+    },
+    {
+     "rule": "schedule3-line1-direct-ftc",
+     "disposition": "blocked",
+     "code": "DEPENDENCY_ABSENT",
+     "missing": [
+      "tax.total-tax"
+     ]
+    }
+   ],
+   "recorded": {
+    "f1098-scope.no-mortgage-statement": [],
+    "line2a-scope.no-f1099int-tax-exempt": [
+     "yes"
+    ],
+    "line2a-scope.no-f1099oid-tax-exempt": [
+     "yes"
+    ],
+    "ctc.no-other-dependent": [
+     "yes"
+    ],
+    "direct-ftc-scope.no-form-1116-required": [
+     "yes"
+    ],
+    "exception1.only-box2a-capital-gains": [
+     "yes"
+    ],
+    "exception1.no-capital-losses": [
+     "yes"
+    ],
+    "exception1.no-qof-deferral": [
+     "yes"
+    ],
+    "exception1.no-boxes-2b-2c-2d": [
+     "yes"
+    ]
+   },
+   "closures": [
+    "ctc.child-roster.source-closure",
+    "eic.child-roster.source-closure",
+    "f1098.source-closure",
+    "f1098e.1.source-closure",
+    "f1099div.2a.source-closure",
+    "f1099div.7.source-closure",
+    "f1099int.b8.source-closure",
+    "f1099oid.b1.source-closure",
+    "f1099oid.b5.source-closure",
+    "odc.child-roster.source-closure"
+   ],
+   "status": "ran"
+  },
+  {
+   "run_id": "m1-agreed",
+   "blocked": 0,
+   "asked": [],
+   "lines": {
+    "interest.b8-tax-exempt-subtotal": "0",
+    "tax-exempt-interest.line2a-total": "0",
+    "schedule-d-required.conclusion": "no",
+    "odc.child-count": "0",
+    "odc.child-marked-conflict": "0",
+    "odc.dependent-present": "0",
+    "ctc.sch8812.line-6": "0",
+    "capital-gains.line7a-total": "0",
+    "schedule-a.line8a": "40000.0",
+    "deductions.line-12e": "40000.0",
+    "schedule3.line1-direct-ftc": "0",
+    "payments.line37-amount-owed": "0",
+    "payments.line35a-refunded": "3497"
+   },
+   "held": [
+    {
+     "rule": "form1040-line2a",
+     "disposition": "published",
+     "code": null,
+     "missing": []
+    },
+    {
+     "rule": "schedule-d-required.conclusion",
+     "disposition": "published",
+     "code": null,
+     "missing": []
+    },
+    {
+     "rule": "odc-child-marked-conflict",
+     "disposition": "published",
+     "code": null,
+     "missing": []
+    },
+    {
+     "rule": "odc-relative-marked-conflict",
+     "disposition": "published",
+     "code": null,
+     "missing": []
+    },
+    {
+     "rule": "odc-dependent-present",
+     "disposition": "published",
+     "code": null,
+     "missing": []
+    },
+    {
+     "rule": "ctc-sch8812-line-6",
+     "disposition": "published",
+     "code": null,
+     "missing": []
+    },
+    {
+     "rule": "form1040-line7a",
+     "disposition": "published",
+     "code": null,
+     "missing": []
+    },
+    {
+     "rule": "form1040-line12e",
+     "disposition": "published",
+     "code": null,
+     "missing": []
+    },
+    {
+     "rule": "schedule3-line1-direct-ftc",
+     "disposition": "published",
+     "code": null,
+     "missing": []
+    }
+   ],
+   "recorded": {
+    "f1098-scope.no-mortgage-statement": [
+     false
+    ],
+    "line2a-scope.no-f1099int-tax-exempt": [
+     "yes"
+    ],
+    "line2a-scope.no-f1099oid-tax-exempt": [
+     "yes"
+    ],
+    "ctc.no-other-dependent": [
+     "yes"
+    ],
+    "direct-ftc-scope.no-form-1116-required": [
+     "yes"
+    ],
+    "exception1.only-box2a-capital-gains": [
+     "yes"
+    ],
+    "exception1.no-capital-losses": [
+     "yes"
+    ],
+    "exception1.no-qof-deferral": [
+     "yes"
+    ],
+    "exception1.no-boxes-2b-2c-2d": [
+     "yes"
+    ]
+   },
+   "closures": [
+    "ctc.child-roster.source-closure",
+    "eic.child-roster.source-closure",
+    "f1098.source-closure",
+    "f1098e.1.source-closure",
+    "f1099div.2a.source-closure",
+    "f1099div.7.source-closure",
+    "f1099int.b8.source-closure",
+    "f1099oid.b1.source-closure",
+    "f1099oid.b5.source-closure",
+    "odc.child-roster.source-closure"
+   ],
+   "status": "ran"
+  },
+  {
+   "run_id": "m1-contradict",
+   "blocked": 19,
+   "asked": [],
+   "lines": {
+    "interest.b8-tax-exempt-subtotal": "0",
+    "tax-exempt-interest.line2a-total": "0",
+    "schedule-d-required.conclusion": "no",
+    "odc.child-count": "0",
+    "odc.child-marked-conflict": "0",
+    "odc.dependent-present": "0",
+    "ctc.sch8812.line-6": "0",
+    "capital-gains.line7a-total": "0",
+    "schedule-a.line8a": "40000.0"
+   },
+   "held": [
+    {
+     "rule": "form1040-line2a",
+     "disposition": "published",
+     "code": null,
+     "missing": []
+    },
+    {
+     "rule": "schedule-d-required.conclusion",
+     "disposition": "published",
+     "code": null,
+     "missing": []
+    },
+    {
+     "rule": "odc-child-marked-conflict",
+     "disposition": "published",
+     "code": null,
+     "missing": []
+    },
+    {
+     "rule": "odc-relative-marked-conflict",
+     "disposition": "published",
+     "code": null,
+     "missing": []
+    },
+    {
+     "rule": "odc-dependent-present",
+     "disposition": "published",
+     "code": null,
+     "missing": []
+    },
+    {
+     "rule": "ctc-sch8812-line-6",
+     "disposition": "published",
+     "code": null,
+     "missing": []
+    },
+    {
+     "rule": "form1040-line7a",
+     "disposition": "published",
+     "code": null,
+     "missing": []
+    },
+    {
+     "rule": "form1040-line12e",
+     "disposition": "blocked",
+     "code": "F1098_SCOPE_CONTRADICTION",
+     "missing": []
+    },
+    {
+     "rule": "schedule3-line1-direct-ftc",
+     "disposition": "blocked",
+     "code": "DEPENDENCY_ABSENT",
+     "missing": [
+      "tax.total-tax"
+     ]
+    }
+   ],
+   "recorded": {
+    "f1098-scope.no-mortgage-statement": [
+     true
+    ],
+    "line2a-scope.no-f1099int-tax-exempt": [
+     "yes"
+    ],
+    "line2a-scope.no-f1099oid-tax-exempt": [
+     "yes"
+    ],
+    "ctc.no-other-dependent": [
+     "yes"
+    ],
+    "direct-ftc-scope.no-form-1116-required": [
+     "yes"
+    ],
+    "exception1.only-box2a-capital-gains": [
+     "yes"
+    ],
+    "exception1.no-capital-losses": [
+     "yes"
+    ],
+    "exception1.no-qof-deferral": [
+     "yes"
+    ],
+    "exception1.no-boxes-2b-2c-2d": [
+     "yes"
+    ]
+   },
+   "closures": [
+    "ctc.child-roster.source-closure",
+    "eic.child-roster.source-closure",
+    "f1098.source-closure",
+    "f1098e.1.source-closure",
+    "f1099div.2a.source-closure",
+    "f1099div.7.source-closure",
+    "f1099int.b8.source-closure",
+    "f1099oid.b1.source-closure",
+    "f1099oid.b5.source-closure",
+    "odc.child-roster.source-closure"
+   ],
+   "status": "ran"
+  },
+  {
+   "run_id": "m1-joint-proved-unanswered",
+   "blocked": 19,
+   "asked": [
+    "1040-14",
+    "12e",
+    "15",
+    "16",
+    "19",
+    "20",
+    "22",
+    "24",
+    "28",
+    "32",
+    "33",
+    "34",
+    "35a",
+    "37",
+    "8812-14",
+    "8812-17",
+    "8812-wa-5",
+    "Sch3-1",
+    "Sch3-8"
+   ],
+   "lines": {
+    "interest.b8-tax-exempt-subtotal": "0",
+    "tax-exempt-interest.line2a-total": "0",
+    "schedule-d-required.conclusion": "no",
+    "odc.child-count": "0",
+    "odc.child-marked-conflict": "0",
+    "odc.dependent-present": "0",
+    "ctc.sch8812.line-6": "0",
+    "capital-gains.line7a-total": "0",
+    "schedule-a.line8a": "40000.0"
+   },
+   "held": [
+    {
+     "rule": "form1040-line2a",
+     "disposition": "published",
+     "code": null,
+     "missing": []
+    },
+    {
+     "rule": "schedule-d-required.conclusion",
+     "disposition": "published",
+     "code": null,
+     "missing": []
+    },
+    {
+     "rule": "odc-child-marked-conflict",
+     "disposition": "published",
+     "code": null,
+     "missing": []
+    },
+    {
+     "rule": "odc-relative-marked-conflict",
+     "disposition": "published",
+     "code": null,
+     "missing": []
+    },
+    {
+     "rule": "odc-dependent-present",
+     "disposition": "published",
+     "code": null,
+     "missing": []
+    },
+    {
+     "rule": "ctc-sch8812-line-6",
+     "disposition": "published",
+     "code": null,
+     "missing": []
+    },
+    {
+     "rule": "form1040-line7a",
+     "disposition": "published",
+     "code": null,
+     "missing": []
+    },
+    {
+     "rule": "form1040-line12e",
+     "disposition": "blocked",
+     "code": "DEPENDENCY_ABSENT",
+     "missing": [
+      "f1098-scope.no-mortgage-statement"
+     ]
+    },
+    {
+     "rule": "schedule3-line1-direct-ftc",
+     "disposition": "blocked",
+     "code": "DEPENDENCY_ABSENT",
+     "missing": [
+      "tax.total-tax"
+     ]
+    }
+   ],
+   "recorded": {
+    "f1098-scope.no-mortgage-statement": [],
+    "line2a-scope.no-f1099int-tax-exempt": [
+     "yes"
+    ],
+    "line2a-scope.no-f1099oid-tax-exempt": [
+     "yes"
+    ],
+    "ctc.no-other-dependent": [
+     "yes"
+    ],
+    "direct-ftc-scope.no-form-1116-required": [
+     "yes"
+    ],
+    "exception1.only-box2a-capital-gains": [
+     "yes"
+    ],
+    "exception1.no-capital-losses": [
+     "yes"
+    ],
+    "exception1.no-qof-deferral": [
+     "yes"
+    ],
+    "exception1.no-boxes-2b-2c-2d": [
+     "yes"
+    ]
+   },
+   "closures": [
+    "ctc.child-roster.source-closure",
+    "eic.child-roster.source-closure",
+    "f1098.source-closure",
+    "f1098e.1.source-closure",
+    "f1099div.2a.source-closure",
+    "f1099div.7.source-closure",
+    "f1099int.b8.source-closure",
+    "f1099oid.b1.source-closure",
+    "f1099oid.b5.source-closure",
+    "odc.child-roster.source-closure"
+   ],
+   "status": "ran"
+  },
+  {
+   "run_id": "l2a-silent",
+   "blocked": 28,
+   "asked": [
+    "1040-14",
+    "11a",
+    "11b",
+    "13b",
+    "15",
+    "16",
+    "19",
+    "20",
+    "22",
+    "24",
+    "27a",
+    "28",
+    "2a",
+    "32",
+    "33",
+    "34",
+    "35a",
+    "37",
+    "6b",
+    "8812-14",
+    "8812-17",
+    "8812-wa-5",
+    "9",
+    "Sch3-1",
+    "Sch3-8",
+    "eic-a-3",
+    "eic-a-5",
+    "eic-a-6"
+   ],
+   "lines": {
+    "schedule-d-required.conclusion": "no",
+    "odc.child-count": "0",
+    "odc.child-marked-conflict": "0",
+    "odc.dependent-present": "0",
+    "ctc.sch8812.line-6": "0",
+    "deductions.line-12e": "15750",
+    "capital-gains.line7a-total": "0"
+   },
+   "held": [
+    {
+     "rule": "schedule-d-required.conclusion",
+     "disposition": "published",
+     "code": null,
+     "missing": []
+    },
+    {
+     "rule": "odc-child-marked-conflict",
+     "disposition": "published",
+     "code": null,
+     "missing": []
+    },
+    {
+     "rule": "odc-relative-marked-conflict",
+     "disposition": "published",
+     "code": null,
+     "missing": []
+    },
+    {
+     "rule": "odc-dependent-present",
+     "disposition": "published",
+     "code": null,
+     "missing": []
+    },
+    {
+     "rule": "ctc-sch8812-line-6",
+     "disposition": "published",
+     "code": null,
+     "missing": []
+    },
+    {
+     "rule": "form1040-line12e",
+     "disposition": "published",
+     "code": null,
+     "missing": []
+    },
+    {
+     "rule": "form1040-line7a",
+     "disposition": "published",
+     "code": null,
+     "missing": []
+    },
+    {
+     "rule": "form1040-line2a",
+     "disposition": "blocked",
+     "code": "DEPENDENCY_ABSENT",
+     "missing": [
+      "line2a-scope.no-f1099int-tax-exempt"
+     ]
+    },
+    {
+     "rule": "schedule3-line1-direct-ftc",
+     "disposition": "blocked",
+     "code": "DEPENDENCY_ABSENT",
+     "missing": [
+      "tax.total-tax"
+     ]
+    }
+   ],
+   "recorded": {
+    "f1098-scope.no-mortgage-statement": [
+     true
+    ],
+    "line2a-scope.no-f1099int-tax-exempt": [],
+    "line2a-scope.no-f1099oid-tax-exempt": [
+     "yes"
+    ],
+    "ctc.no-other-dependent": [
+     "yes"
+    ],
+    "direct-ftc-scope.no-form-1116-required": [
+     "yes"
+    ],
+    "exception1.only-box2a-capital-gains": [
+     "yes"
+    ],
+    "exception1.no-capital-losses": [
+     "yes"
+    ],
+    "exception1.no-qof-deferral": [
+     "yes"
+    ],
+    "exception1.no-boxes-2b-2c-2d": [
+     "yes"
+    ]
+   },
+   "closures": [
+    "ctc.child-roster.source-closure",
+    "eic.child-roster.source-closure",
+    "f1098.source-closure",
+    "f1098e.1.source-closure",
+    "f1099div.2a.source-closure",
+    "f1099div.7.source-closure",
+    "f1099int.b8.source-closure",
+    "f1099oid.b1.source-closure",
+    "f1099oid.b5.source-closure",
+    "odc.child-roster.source-closure"
+   ],
+   "status": "ran"
+  },
+  {
+   "run_id": "l2a-proved-unanswered",
+   "blocked": 28,
+   "asked": [
+    "1040-14",
+    "11a",
+    "11b",
+    "13b",
+    "15",
+    "16",
+    "19",
+    "20",
+    "22",
+    "24",
+    "27a",
+    "28",
+    "2a",
+    "32",
+    "33",
+    "34",
+    "35a",
+    "37",
+    "6b",
+    "8812-14",
+    "8812-17",
+    "8812-wa-5",
+    "9",
+    "Sch3-1",
+    "Sch3-8",
+    "eic-a-3",
+    "eic-a-5",
+    "eic-a-6"
+   ],
+   "lines": {
+    "schedule-d-required.conclusion": "no",
+    "odc.child-count": "0",
+    "odc.child-marked-conflict": "0",
+    "odc.dependent-present": "0",
+    "ctc.sch8812.line-6": "0",
+    "deductions.line-12e": "15750",
+    "capital-gains.line7a-total": "0"
+   },
+   "held": [
+    {
+     "rule": "schedule-d-required.conclusion",
+     "disposition": "published",
+     "code": null,
+     "missing": []
+    },
+    {
+     "rule": "odc-child-marked-conflict",
+     "disposition": "published",
+     "code": null,
+     "missing": []
+    },
+    {
+     "rule": "odc-relative-marked-conflict",
+     "disposition": "published",
+     "code": null,
+     "missing": []
+    },
+    {
+     "rule": "odc-dependent-present",
+     "disposition": "published",
+     "code": null,
+     "missing": []
+    },
+    {
+     "rule": "ctc-sch8812-line-6",
+     "disposition": "published",
+     "code": null,
+     "missing": []
+    },
+    {
+     "rule": "form1040-line12e",
+     "disposition": "published",
+     "code": null,
+     "missing": []
+    },
+    {
+     "rule": "form1040-line7a",
+     "disposition": "published",
+     "code": null,
+     "missing": []
+    },
+    {
+     "rule": "form1040-line2a",
+     "disposition": "blocked",
+     "code": "DEPENDENCY_ABSENT",
+     "missing": [
+      "line2a-scope.no-f1099int-tax-exempt"
+     ]
+    },
+    {
+     "rule": "schedule3-line1-direct-ftc",
+     "disposition": "blocked",
+     "code": "DEPENDENCY_ABSENT",
+     "missing": [
+      "tax.total-tax"
+     ]
+    }
+   ],
+   "recorded": {
+    "f1098-scope.no-mortgage-statement": [
+     true
+    ],
+    "line2a-scope.no-f1099int-tax-exempt": [],
+    "line2a-scope.no-f1099oid-tax-exempt": [
+     "yes"
+    ],
+    "ctc.no-other-dependent": [
+     "yes"
+    ],
+    "direct-ftc-scope.no-form-1116-required": [
+     "yes"
+    ],
+    "exception1.only-box2a-capital-gains": [
+     "yes"
+    ],
+    "exception1.no-capital-losses": [
+     "yes"
+    ],
+    "exception1.no-qof-deferral": [
+     "yes"
+    ],
+    "exception1.no-boxes-2b-2c-2d": [
+     "yes"
+    ]
+   },
+   "closures": [
+    "ctc.child-roster.source-closure",
+    "eic.child-roster.source-closure",
+    "f1098.source-closure",
+    "f1098e.1.source-closure",
+    "f1099div.2a.source-closure",
+    "f1099div.7.source-closure",
+    "f1099int.b8.source-closure",
+    "f1099oid.b1.source-closure",
+    "f1099oid.b5.source-closure",
+    "odc.child-roster.source-closure"
+   ],
+   "status": "ran"
+  },
+  {
+   "run_id": "l2a-agreed",
+   "blocked": 0,
+   "asked": [],
+   "lines": {
+    "tax-exempt-interest.line2a-total": "125",
+    "schedule-d-required.conclusion": "no",
+    "odc.child-count": "0",
+    "odc.child-marked-conflict": "0",
+    "odc.dependent-present": "0",
+    "ctc.sch8812.line-6": "0",
+    "deductions.line-12e": "15750",
+    "capital-gains.line7a-total": "0",
+    "schedule3.line1-direct-ftc": "0",
+    "payments.line37-amount-owed": "0",
+    "payments.line35a-refunded": "625"
+   },
+   "held": [
+    {
+     "rule": "form1040-line2a",
+     "disposition": "published",
+     "code": null,
+     "missing": []
+    },
+    {
+     "rule": "schedule-d-required.conclusion",
+     "disposition": "published",
+     "code": null,
+     "missing": []
+    },
+    {
+     "rule": "odc-child-marked-conflict",
+     "disposition": "published",
+     "code": null,
+     "missing": []
+    },
+    {
+     "rule": "odc-relative-marked-conflict",
+     "disposition": "published",
+     "code": null,
+     "missing": []
+    },
+    {
+     "rule": "odc-dependent-present",
+     "disposition": "published",
+     "code": null,
+     "missing": []
+    },
+    {
+     "rule": "ctc-sch8812-line-6",
+     "disposition": "published",
+     "code": null,
+     "missing": []
+    },
+    {
+     "rule": "form1040-line12e",
+     "disposition": "published",
+     "code": null,
+     "missing": []
+    },
+    {
+     "rule": "form1040-line7a",
+     "disposition": "published",
+     "code": null,
+     "missing": []
+    },
+    {
+     "rule": "schedule3-line1-direct-ftc",
+     "disposition": "published",
+     "code": null,
+     "missing": []
+    }
+   ],
+   "recorded": {
+    "f1098-scope.no-mortgage-statement": [
+     true
+    ],
+    "line2a-scope.no-f1099int-tax-exempt": [
+     "no"
+    ],
+    "line2a-scope.no-f1099oid-tax-exempt": [
+     "yes"
+    ],
+    "ctc.no-other-dependent": [
+     "yes"
+    ],
+    "direct-ftc-scope.no-form-1116-required": [
+     "yes"
+    ],
+    "exception1.only-box2a-capital-gains": [
+     "yes"
+    ],
+    "exception1.no-capital-losses": [
+     "yes"
+    ],
+    "exception1.no-qof-deferral": [
+     "yes"
+    ],
+    "exception1.no-boxes-2b-2c-2d": [
+     "yes"
+    ]
+   },
+   "closures": [
+    "ctc.child-roster.source-closure",
+    "eic.child-roster.source-closure",
+    "f1098.source-closure",
+    "f1098e.1.source-closure",
+    "f1099div.2a.source-closure",
+    "f1099div.7.source-closure",
+    "f1099int.b8.source-closure",
+    "f1099oid.b1.source-closure",
+    "f1099oid.b5.source-closure",
+    "odc.child-roster.source-closure"
+   ],
+   "status": "ran"
+  },
+  {
+   "run_id": "l2a-contradict",
+   "status": "error",
+   "error": "FindingModelError: declaration/signal contradiction: tax.us.2025.line2a-scope.no-f1099int-tax-exempt is currently 'yes' but a current tax.us.2025.f1099int.box8-tax-exempt-interest finding records non-null amount; rejected, not recorded"
+  },
+  {
+   "run_id": "l2a-zero-unanswered",
+   "blocked": 28,
+   "asked": [
+    "1040-14",
+    "11a",
+    "11b",
+    "13b",
+    "15",
+    "16",
+    "19",
+    "20",
+    "22",
+    "24",
+    "27a",
+    "28",
+    "2a",
+    "32",
+    "33",
+    "34",
+    "35a",
+    "37",
+    "6b",
+    "8812-14",
+    "8812-17",
+    "8812-wa-5",
+    "9",
+    "Sch3-1",
+    "Sch3-8",
+    "eic-a-3",
+    "eic-a-5",
+    "eic-a-6"
+   ],
+   "lines": {
+    "schedule-d-required.conclusion": "no",
+    "odc.child-count": "0",
+    "odc.child-marked-conflict": "0",
+    "odc.dependent-present": "0",
+    "ctc.sch8812.line-6": "0",
+    "deductions.line-12e": "15750",
+    "capital-gains.line7a-total": "0"
+   },
+   "held": [
+    {
+     "rule": "schedule-d-required.conclusion",
+     "disposition": "published",
+     "code": null,
+     "missing": []
+    },
+    {
+     "rule": "odc-child-marked-conflict",
+     "disposition": "published",
+     "code": null,
+     "missing": []
+    },
+    {
+     "rule": "odc-relative-marked-conflict",
+     "disposition": "published",
+     "code": null,
+     "missing": []
+    },
+    {
+     "rule": "odc-dependent-present",
+     "disposition": "published",
+     "code": null,
+     "missing": []
+    },
+    {
+     "rule": "ctc-sch8812-line-6",
+     "disposition": "published",
+     "code": null,
+     "missing": []
+    },
+    {
+     "rule": "form1040-line12e",
+     "disposition": "published",
+     "code": null,
+     "missing": []
+    },
+    {
+     "rule": "form1040-line7a",
+     "disposition": "published",
+     "code": null,
+     "missing": []
+    },
+    {
+     "rule": "form1040-line2a",
+     "disposition": "blocked",
+     "code": "DEPENDENCY_ABSENT",
+     "missing": [
+      "line2a-scope.no-f1099int-tax-exempt"
+     ]
+    },
+    {
+     "rule": "schedule3-line1-direct-ftc",
+     "disposition": "blocked",
+     "code": "DEPENDENCY_ABSENT",
+     "missing": [
+      "tax.total-tax"
+     ]
+    }
+   ],
+   "recorded": {
+    "f1098-scope.no-mortgage-statement": [
+     true
+    ],
+    "line2a-scope.no-f1099int-tax-exempt": [],
+    "line2a-scope.no-f1099oid-tax-exempt": [
+     "yes"
+    ],
+    "ctc.no-other-dependent": [
+     "yes"
+    ],
+    "direct-ftc-scope.no-form-1116-required": [
+     "yes"
+    ],
+    "exception1.only-box2a-capital-gains": [
+     "yes"
+    ],
+    "exception1.no-capital-losses": [
+     "yes"
+    ],
+    "exception1.no-qof-deferral": [
+     "yes"
+    ],
+    "exception1.no-boxes-2b-2c-2d": [
+     "yes"
+    ]
+   },
+   "closures": [
+    "ctc.child-roster.source-closure",
+    "eic.child-roster.source-closure",
+    "f1098.source-closure",
+    "f1098e.1.source-closure",
+    "f1099div.2a.source-closure",
+    "f1099div.7.source-closure",
+    "f1099int.b8.source-closure",
+    "f1099oid.b1.source-closure",
+    "f1099oid.b5.source-closure",
+    "odc.child-roster.source-closure"
+   ],
+   "status": "ran"
+  },
+  {
+   "run_id": "ctc-silent",
+   "blocked": 13,
+   "asked": [
+    "19",
+    "22",
+    "24",
+    "28",
+    "32",
+    "33",
+    "34",
+    "35a",
+    "37",
+    "8812-14",
+    "8812-17",
+    "8812-6",
+    "8812-7"
+   ],
+   "lines": {
+    "tax-exempt-interest.line2a-total": "0",
+    "schedule-d-required.conclusion": "no",
+    "odc.child-count": "0",
+    "odc.child-marked-conflict": "0",
+    "deductions.line-12e": "15750",
+    "capital-gains.line7a-total": "0",
+    "schedule3.line1-direct-ftc": "0"
+   },
+   "held": [
+    {
+     "rule": "form1040-line2a",
+     "disposition": "published",
+     "code": null,
+     "missing": []
+    },
+    {
+     "rule": "schedule-d-required.conclusion",
+     "disposition": "published",
+     "code": null,
+     "missing": []
+    },
+    {
+     "rule": "odc-child-marked-conflict",
+     "disposition": "published",
+     "code": null,
+     "missing": []
+    },
+    {
+     "rule": "odc-relative-marked-conflict",
+     "disposition": "published",
+     "code": null,
+     "missing": []
+    },
+    {
+     "rule": "form1040-line12e",
+     "disposition": "published",
+     "code": null,
+     "missing": []
+    },
+    {
+     "rule": "form1040-line7a",
+     "disposition": "published",
+     "code": null,
+     "missing": []
+    },
+    {
+     "rule": "schedule3-line1-direct-ftc",
+     "disposition": "published",
+     "code": null,
+     "missing": []
+    },
+    {
+     "rule": "odc-dependent-present",
+     "disposition": "blocked",
+     "code": "DEPENDENCY_ABSENT",
+     "missing": [
+      "ctc.no-other-dependent"
+     ]
+    },
+    {
+     "rule": "ctc-sch8812-line-6",
+     "disposition": "blocked",
+     "code": "DEPENDENCY_ABSENT",
+     "missing": [
+      "ctc.no-other-dependent",
+      "odc.return-gate",
+      "odc.spouse-gate"
+     ]
+    }
+   ],
+   "recorded": {
+    "f1098-scope.no-mortgage-statement": [
+     true
+    ],
+    "line2a-scope.no-f1099int-tax-exempt": [
+     "yes"
+    ],
+    "line2a-scope.no-f1099oid-tax-exempt": [
+     "yes"
+    ],
+    "ctc.no-other-dependent": [],
+    "direct-ftc-scope.no-form-1116-required": [
+     "yes"
+    ],
+    "exception1.only-box2a-capital-gains": [
+     "yes"
+    ],
+    "exception1.no-capital-losses": [
+     "yes"
+    ],
+    "exception1.no-qof-deferral": [
+     "yes"
+    ],
+    "exception1.no-boxes-2b-2c-2d": [
+     "yes"
+    ]
+   },
+   "closures": [
+    "ctc.child-roster.source-closure",
+    "eic.child-roster.source-closure",
+    "f1098.source-closure",
+    "f1098e.1.source-closure",
+    "f1099div.2a.source-closure",
+    "f1099div.7.source-closure",
+    "f1099int.b8.source-closure",
+    "f1099oid.b1.source-closure",
+    "f1099oid.b5.source-closure",
+    "odc.child-roster.source-closure"
+   ],
+   "status": "ran"
+  },
+  {
+   "run_id": "ctc-proved-unanswered",
+   "blocked": 13,
+   "asked": [
+    "19",
+    "22",
+    "24",
+    "28",
+    "32",
+    "33",
+    "34",
+    "35a",
+    "37",
+    "8812-14",
+    "8812-17",
+    "8812-6",
+    "8812-7"
+   ],
+   "lines": {
+    "interest.b8-tax-exempt-subtotal": "0",
+    "tax-exempt-interest.line2a-total": "0",
+    "schedule-d-required.conclusion": "no",
+    "odc.child-count": "1",
+    "deductions.line-12e": "15750",
+    "capital-gains.line7a-total": "0",
+    "schedule3.line1-direct-ftc": "0"
+   },
+   "held": [
+    {
+     "rule": "form1040-line2a",
+     "disposition": "published",
+     "code": null,
+     "missing": []
+    },
+    {
+     "rule": "schedule-d-required.conclusion",
+     "disposition": "published",
+     "code": null,
+     "missing": []
+    },
+    {
+     "rule": "odc-relative-marked-conflict",
+     "disposition": "published",
+     "code": null,
+     "missing": []
+    },
+    {
+     "rule": "form1040-line12e",
+     "disposition": "published",
+     "code": null,
+     "missing": []
+    },
+    {
+     "rule": "form1040-line7a",
+     "disposition": "published",
+     "code": null,
+     "missing": []
+    },
+    {
+     "rule": "schedule3-line1-direct-ftc",
+     "disposition": "published",
+     "code": null,
+     "missing": []
+    },
+    {
+     "rule": "odc-child-marked-conflict",
+     "disposition": "blocked",
+     "code": "DEPENDENCY_ABSENT",
+     "missing": [
+      "ctc.no-other-dependent"
+     ]
+    },
+    {
+     "rule": "odc-dependent-present",
+     "disposition": "blocked",
+     "code": "DEPENDENCY_ABSENT",
+     "missing": [
+      "ctc.no-other-dependent"
+     ]
+    },
+    {
+     "rule": "ctc-sch8812-line-6",
+     "disposition": "blocked",
+     "code": "DEPENDENCY_ABSENT",
+     "missing": [
+      "ctc.no-other-dependent",
+      "odc.child-marked-conflict",
+      "odc.return-gate",
+      "odc.spouse-gate"
+     ]
+    }
+   ],
+   "recorded": {
+    "f1098-scope.no-mortgage-statement": [
+     true
+    ],
+    "line2a-scope.no-f1099int-tax-exempt": [
+     "yes"
+    ],
+    "line2a-scope.no-f1099oid-tax-exempt": [
+     "yes"
+    ],
+    "ctc.no-other-dependent": [],
+    "direct-ftc-scope.no-form-1116-required": [
+     "yes"
+    ],
+    "exception1.only-box2a-capital-gains": [
+     "yes"
+    ],
+    "exception1.no-capital-losses": [
+     "yes"
+    ],
+    "exception1.no-qof-deferral": [
+     "yes"
+    ],
+    "exception1.no-boxes-2b-2c-2d": [
+     "yes"
+    ]
+   },
+   "closures": [
+    "ctc.child-roster.source-closure",
+    "eic.child-roster.source-closure",
+    "f1098.source-closure",
+    "f1098e.1.source-closure",
+    "f1099div.2a.source-closure",
+    "f1099div.7.source-closure",
+    "f1099int.b8.source-closure",
+    "f1099oid.b1.source-closure",
+    "f1099oid.b5.source-closure",
+    "odc.child-roster.source-closure"
+   ],
+   "status": "ran"
+  },
+  {
+   "run_id": "ctc-agreed",
+   "blocked": 0,
+   "asked": [],
+   "lines": {
+    "interest.b8-tax-exempt-subtotal": "0",
+    "tax-exempt-interest.line2a-total": "0",
+    "schedule-d-required.conclusion": "no",
+    "odc.child-count": "1",
+    "odc.child-marked-conflict": "0",
+    "odc.dependent-present": "1",
+    "ctc.sch8812.line-6": "1",
+    "deductions.line-12e": "15750",
+    "capital-gains.line7a-total": "0",
+    "schedule3.line1-direct-ftc": "0",
+    "payments.line37-amount-owed": "3310",
+    "payments.line35a-refunded": "0"
+   },
+   "held": [
+    {
+     "rule": "form1040-line2a",
+     "disposition": "published",
+     "code": null,
+     "missing": []
+    },
+    {
+     "rule": "schedule-d-required.conclusion",
+     "disposition": "published",
+     "code": null,
+     "missing": []
+    },
+    {
+     "rule": "odc-child-marked-conflict",
+     "disposition": "published",
+     "code": null,
+     "missing": []
+    },
+    {
+     "rule": "odc-relative-marked-conflict",
+     "disposition": "published",
+     "code": null,
+     "missing": []
+    },
+    {
+     "rule": "odc-dependent-present",
+     "disposition": "published",
+     "code": null,
+     "missing": []
+    },
+    {
+     "rule": "ctc-sch8812-line-6",
+     "disposition": "published",
+     "code": null,
+     "missing": []
+    },
+    {
+     "rule": "form1040-line12e",
+     "disposition": "published",
+     "code": null,
+     "missing": []
+    },
+    {
+     "rule": "form1040-line7a",
+     "disposition": "published",
+     "code": null,
+     "missing": []
+    },
+    {
+     "rule": "schedule3-line1-direct-ftc",
+     "disposition": "published",
+     "code": null,
+     "missing": []
+    }
+   ],
+   "recorded": {
+    "f1098-scope.no-mortgage-statement": [
+     true
+    ],
+    "line2a-scope.no-f1099int-tax-exempt": [
+     "yes"
+    ],
+    "line2a-scope.no-f1099oid-tax-exempt": [
+     "yes"
+    ],
+    "ctc.no-other-dependent": [
+     "no"
+    ],
+    "direct-ftc-scope.no-form-1116-required": [
+     "yes"
+    ],
+    "exception1.only-box2a-capital-gains": [
+     "yes"
+    ],
+    "exception1.no-capital-losses": [
+     "yes"
+    ],
+    "exception1.no-qof-deferral": [
+     "yes"
+    ],
+    "exception1.no-boxes-2b-2c-2d": [
+     "yes"
+    ]
+   },
+   "closures": [
+    "ctc.child-roster.source-closure",
+    "eic.child-roster.source-closure",
+    "f1098.source-closure",
+    "f1098e.1.source-closure",
+    "f1099div.2a.source-closure",
+    "f1099div.7.source-closure",
+    "f1099int.b8.source-closure",
+    "f1099oid.b1.source-closure",
+    "f1099oid.b5.source-closure",
+    "odc.child-roster.source-closure"
+   ],
+   "status": "ran"
+  },
+  {
+   "run_id": "ctc-contradict",
+   "blocked": 13,
+   "asked": [],
+   "lines": {
+    "interest.b8-tax-exempt-subtotal": "0",
+    "tax-exempt-interest.line2a-total": "0",
+    "schedule-d-required.conclusion": "no",
+    "odc.child-count": "1",
+    "odc.dependent-present": "0",
+    "deductions.line-12e": "15750",
+    "capital-gains.line7a-total": "0",
+    "schedule3.line1-direct-ftc": "0"
+   },
+   "held": [
+    {
+     "rule": "form1040-line2a",
+     "disposition": "published",
+     "code": null,
+     "missing": []
+    },
+    {
+     "rule": "schedule-d-required.conclusion",
+     "disposition": "published",
+     "code": null,
+     "missing": []
+    },
+    {
+     "rule": "odc-child-marked-conflict",
+     "disposition": "blocked",
+     "code": "DEPENDENCY_INVALID",
+     "missing": []
+    },
+    {
+     "rule": "odc-relative-marked-conflict",
+     "disposition": "published",
+     "code": null,
+     "missing": []
+    },
+    {
+     "rule": "odc-dependent-present",
+     "disposition": "published",
+     "code": null,
+     "missing": []
+    },
+    {
+     "rule": "form1040-line12e",
+     "disposition": "published",
+     "code": null,
+     "missing": []
+    },
+    {
+     "rule": "form1040-line7a",
+     "disposition": "published",
+     "code": null,
+     "missing": []
+    },
+    {
+     "rule": "schedule3-line1-direct-ftc",
+     "disposition": "published",
+     "code": null,
+     "missing": []
+    },
+    {
+     "rule": "ctc-sch8812-line-6",
+     "disposition": "blocked",
+     "code": "DEPENDENCY_ABSENT",
+     "missing": [
+      "odc.child-marked-conflict"
+     ]
+    }
+   ],
+   "recorded": {
+    "f1098-scope.no-mortgage-statement": [
+     true
+    ],
+    "line2a-scope.no-f1099int-tax-exempt": [
+     "yes"
+    ],
+    "line2a-scope.no-f1099oid-tax-exempt": [
+     "yes"
+    ],
+    "ctc.no-other-dependent": [
+     "yes"
+    ],
+    "direct-ftc-scope.no-form-1116-required": [
+     "yes"
+    ],
+    "exception1.only-box2a-capital-gains": [
+     "yes"
+    ],
+    "exception1.no-capital-losses": [
+     "yes"
+    ],
+    "exception1.no-qof-deferral": [
+     "yes"
+    ],
+    "exception1.no-boxes-2b-2c-2d": [
+     "yes"
+    ]
+   },
+   "closures": [
+    "ctc.child-roster.source-closure",
+    "eic.child-roster.source-closure",
+    "f1098.source-closure",
+    "f1098e.1.source-closure",
+    "f1099div.2a.source-closure",
+    "f1099div.7.source-closure",
+    "f1099int.b8.source-closure",
+    "f1099oid.b1.source-closure",
+    "f1099oid.b5.source-closure",
+    "odc.child-roster.source-closure"
+   ],
+   "status": "ran"
+  },
+  {
+   "run_id": "ftc-under-unanswered",
+   "blocked": 17,
+   "asked": [
+    "19",
+    "20",
+    "22",
+    "24",
+    "28",
+    "32",
+    "33",
+    "34",
+    "35a",
+    "37",
+    "8812-14",
+    "8812-17",
+    "8812-wa-5",
+    "Sch3-1",
+    "Sch3-8"
+   ],
+   "lines": {
+    "tax-exempt-interest.line2a-total": "0",
+    "schedule-d-required.conclusion": "no",
+    "odc.child-count": "0",
+    "odc.child-marked-conflict": "0",
+    "odc.dependent-present": "0",
+    "ctc.sch8812.line-6": "0",
+    "deductions.line-12e": "15750",
+    "capital-gains.line7a-total": "0"
+   },
+   "held": [
+    {
+     "rule": "form1040-line2a",
+     "disposition": "published",
+     "code": null,
+     "missing": []
+    },
+    {
+     "rule": "schedule-d-required.conclusion",
+     "disposition": "published",
+     "code": null,
+     "missing": []
+    },
+    {
+     "rule": "odc-child-marked-conflict",
+     "disposition": "published",
+     "code": null,
+     "missing": []
+    },
+    {
+     "rule": "odc-relative-marked-conflict",
+     "disposition": "published",
+     "code": null,
+     "missing": []
+    },
+    {
+     "rule": "odc-dependent-present",
+     "disposition": "published",
+     "code": null,
+     "missing": []
+    },
+    {
+     "rule": "ctc-sch8812-line-6",
+     "disposition": "published",
+     "code": null,
+     "missing": []
+    },
+    {
+     "rule": "form1040-line12e",
+     "disposition": "published",
+     "code": null,
+     "missing": []
+    },
+    {
+     "rule": "form1040-line7a",
+     "disposition": "published",
+     "code": null,
+     "missing": []
+    },
+    {
+     "rule": "schedule3-line1-direct-ftc",
+     "disposition": "blocked",
+     "code": "DEPENDENCY_ABSENT",
+     "missing": [
+      "direct-ftc-scope.no-form-1116-required"
+     ]
+    }
+   ],
+   "recorded": {
+    "f1098-scope.no-mortgage-statement": [
+     true
+    ],
+    "line2a-scope.no-f1099int-tax-exempt": [
+     "yes"
+    ],
+    "line2a-scope.no-f1099oid-tax-exempt": [
+     "yes"
+    ],
+    "ctc.no-other-dependent": [
+     "yes"
+    ],
+    "direct-ftc-scope.no-form-1116-required": [],
+    "exception1.only-box2a-capital-gains": [
+     "yes"
+    ],
+    "exception1.no-capital-losses": [
+     "yes"
+    ],
+    "exception1.no-qof-deferral": [
+     "yes"
+    ],
+    "exception1.no-boxes-2b-2c-2d": [
+     "yes"
+    ]
+   },
+   "closures": [
+    "ctc.child-roster.source-closure",
+    "eic.child-roster.source-closure",
+    "f1098.source-closure",
+    "f1098e.1.source-closure",
+    "f1099div.2a.source-closure",
+    "f1099div.7.source-closure",
+    "f1099int.b8.source-closure",
+    "f1099oid.b1.source-closure",
+    "f1099oid.b5.source-closure",
+    "odc.child-roster.source-closure"
+   ],
+   "status": "ran"
+  },
+  {
+   "run_id": "ftc-over-unanswered",
+   "blocked": 17,
+   "asked": [
+    "19",
+    "20",
+    "22",
+    "24",
+    "28",
+    "32",
+    "33",
+    "34",
+    "35a",
+    "37",
+    "8812-14",
+    "8812-17",
+    "8812-wa-5",
+    "Sch3-1",
+    "Sch3-8"
+   ],
+   "lines": {
+    "tax-exempt-interest.line2a-total": "0",
+    "schedule-d-required.conclusion": "no",
+    "odc.child-count": "0",
+    "odc.child-marked-conflict": "0",
+    "odc.dependent-present": "0",
+    "ctc.sch8812.line-6": "0",
+    "deductions.line-12e": "15750",
+    "capital-gains.line7a-total": "0"
+   },
+   "held": [
+    {
+     "rule": "form1040-line2a",
+     "disposition": "published",
+     "code": null,
+     "missing": []
+    },
+    {
+     "rule": "schedule-d-required.conclusion",
+     "disposition": "published",
+     "code": null,
+     "missing": []
+    },
+    {
+     "rule": "odc-child-marked-conflict",
+     "disposition": "published",
+     "code": null,
+     "missing": []
+    },
+    {
+     "rule": "odc-relative-marked-conflict",
+     "disposition": "published",
+     "code": null,
+     "missing": []
+    },
+    {
+     "rule": "odc-dependent-present",
+     "disposition": "published",
+     "code": null,
+     "missing": []
+    },
+    {
+     "rule": "ctc-sch8812-line-6",
+     "disposition": "published",
+     "code": null,
+     "missing": []
+    },
+    {
+     "rule": "form1040-line12e",
+     "disposition": "published",
+     "code": null,
+     "missing": []
+    },
+    {
+     "rule": "form1040-line7a",
+     "disposition": "published",
+     "code": null,
+     "missing": []
+    },
+    {
+     "rule": "schedule3-line1-direct-ftc",
+     "disposition": "blocked",
+     "code": "DEPENDENCY_ABSENT",
+     "missing": [
+      "direct-ftc-scope.no-form-1116-required"
+     ]
+    }
+   ],
+   "recorded": {
+    "f1098-scope.no-mortgage-statement": [
+     true
+    ],
+    "line2a-scope.no-f1099int-tax-exempt": [
+     "yes"
+    ],
+    "line2a-scope.no-f1099oid-tax-exempt": [
+     "yes"
+    ],
+    "ctc.no-other-dependent": [
+     "yes"
+    ],
+    "direct-ftc-scope.no-form-1116-required": [],
+    "exception1.only-box2a-capital-gains": [
+     "yes"
+    ],
+    "exception1.no-capital-losses": [
+     "yes"
+    ],
+    "exception1.no-qof-deferral": [
+     "yes"
+    ],
+    "exception1.no-boxes-2b-2c-2d": [
+     "yes"
+    ]
+   },
+   "closures": [
+    "ctc.child-roster.source-closure",
+    "eic.child-roster.source-closure",
+    "f1098.source-closure",
+    "f1098e.1.source-closure",
+    "f1099div.2a.source-closure",
+    "f1099div.7.source-closure",
+    "f1099int.b8.source-closure",
+    "f1099oid.b1.source-closure",
+    "f1099oid.b5.source-closure",
+    "odc.child-roster.source-closure"
+   ],
+   "status": "ran"
+  },
+  {
+   "run_id": "ftc-under-yes",
+   "blocked": 6,
+   "asked": [],
+   "lines": {
+    "tax-exempt-interest.line2a-total": "0",
+    "schedule-d-required.conclusion": "no",
+    "odc.child-count": "0",
+    "odc.child-marked-conflict": "0",
+    "odc.dependent-present": "0",
+    "ctc.sch8812.line-6": "0",
+    "deductions.line-12e": "15750",
+    "capital-gains.line7a-total": "0",
+    "schedule3.line1-direct-ftc": "30"
+   },
+   "held": [
+    {
+     "rule": "form1040-line2a",
+     "disposition": "published",
+     "code": null,
+     "missing": []
+    },
+    {
+     "rule": "schedule-d-required.conclusion",
+     "disposition": "published",
+     "code": null,
+     "missing": []
+    },
+    {
+     "rule": "odc-child-marked-conflict",
+     "disposition": "published",
+     "code": null,
+     "missing": []
+    },
+    {
+     "rule": "odc-relative-marked-conflict",
+     "disposition": "published",
+     "code": null,
+     "missing": []
+    },
+    {
+     "rule": "odc-dependent-present",
+     "disposition": "published",
+     "code": null,
+     "missing": []
+    },
+    {
+     "rule": "ctc-sch8812-line-6",
+     "disposition": "published",
+     "code": null,
+     "missing": []
+    },
+    {
+     "rule": "form1040-line12e",
+     "disposition": "published",
+     "code": null,
+     "missing": []
+    },
+    {
+     "rule": "form1040-line7a",
+     "disposition": "published",
+     "code": null,
+     "missing": []
+    },
+    {
+     "rule": "schedule3-line1-direct-ftc",
+     "disposition": "published",
+     "code": null,
+     "missing": []
+    }
+   ],
+   "recorded": {
+    "f1098-scope.no-mortgage-statement": [
+     true
+    ],
+    "line2a-scope.no-f1099int-tax-exempt": [
+     "yes"
+    ],
+    "line2a-scope.no-f1099oid-tax-exempt": [
+     "yes"
+    ],
+    "ctc.no-other-dependent": [
+     "yes"
+    ],
+    "direct-ftc-scope.no-form-1116-required": [
+     "yes"
+    ],
+    "exception1.only-box2a-capital-gains": [
+     "yes"
+    ],
+    "exception1.no-capital-losses": [
+     "yes"
+    ],
+    "exception1.no-qof-deferral": [
+     "yes"
+    ],
+    "exception1.no-boxes-2b-2c-2d": [
+     "yes"
+    ]
+   },
+   "closures": [
+    "ctc.child-roster.source-closure",
+    "eic.child-roster.source-closure",
+    "f1098.source-closure",
+    "f1098e.1.source-closure",
+    "f1099div.2a.source-closure",
+    "f1099div.7.source-closure",
+    "f1099int.b8.source-closure",
+    "f1099oid.b1.source-closure",
+    "f1099oid.b5.source-closure",
+    "odc.child-roster.source-closure"
+   ],
+   "status": "ran"
+  },
+  {
+   "run_id": "ftc-over-yes",
+   "blocked": 16,
+   "asked": [],
+   "lines": {
+    "tax-exempt-interest.line2a-total": "0",
+    "schedule-d-required.conclusion": "no",
+    "odc.child-count": "0",
+    "odc.child-marked-conflict": "0",
+    "odc.dependent-present": "0",
+    "ctc.sch8812.line-6": "0",
+    "deductions.line-12e": "15750",
+    "capital-gains.line7a-total": "0"
+   },
+   "held": [
+    {
+     "rule": "form1040-line2a",
+     "disposition": "published",
+     "code": null,
+     "missing": []
+    },
+    {
+     "rule": "schedule-d-required.conclusion",
+     "disposition": "published",
+     "code": null,
+     "missing": []
+    },
+    {
+     "rule": "odc-child-marked-conflict",
+     "disposition": "published",
+     "code": null,
+     "missing": []
+    },
+    {
+     "rule": "odc-relative-marked-conflict",
+     "disposition": "published",
+     "code": null,
+     "missing": []
+    },
+    {
+     "rule": "odc-dependent-present",
+     "disposition": "published",
+     "code": null,
+     "missing": []
+    },
+    {
+     "rule": "ctc-sch8812-line-6",
+     "disposition": "published",
+     "code": null,
+     "missing": []
+    },
+    {
+     "rule": "form1040-line12e",
+     "disposition": "published",
+     "code": null,
+     "missing": []
+    },
+    {
+     "rule": "form1040-line7a",
+     "disposition": "published",
+     "code": null,
+     "missing": []
+    },
+    {
+     "rule": "schedule3-line1-direct-ftc",
+     "disposition": "inapplicable",
+     "code": null,
+     "missing": []
+    }
+   ],
+   "recorded": {
+    "f1098-scope.no-mortgage-statement": [
+     true
+    ],
+    "line2a-scope.no-f1099int-tax-exempt": [
+     "yes"
+    ],
+    "line2a-scope.no-f1099oid-tax-exempt": [
+     "yes"
+    ],
+    "ctc.no-other-dependent": [
+     "yes"
+    ],
+    "direct-ftc-scope.no-form-1116-required": [
+     "yes"
+    ],
+    "exception1.only-box2a-capital-gains": [
+     "yes"
+    ],
+    "exception1.no-capital-losses": [
+     "yes"
+    ],
+    "exception1.no-qof-deferral": [
+     "yes"
+    ],
+    "exception1.no-boxes-2b-2c-2d": [
+     "yes"
+    ]
+   },
+   "closures": [
+    "ctc.child-roster.source-closure",
+    "eic.child-roster.source-closure",
+    "f1098.source-closure",
+    "f1098e.1.source-closure",
+    "f1099div.2a.source-closure",
+    "f1099div.7.source-closure",
+    "f1099int.b8.source-closure",
+    "f1099oid.b1.source-closure",
+    "f1099oid.b5.source-closure",
+    "odc.child-roster.source-closure"
+   ],
+   "status": "ran"
+  },
+  {
+   "run_id": "ftc-under-no",
+   "blocked": 16,
+   "asked": [],
+   "lines": {
+    "tax-exempt-interest.line2a-total": "0",
+    "schedule-d-required.conclusion": "no",
+    "odc.child-count": "0",
+    "odc.child-marked-conflict": "0",
+    "odc.dependent-present": "0",
+    "ctc.sch8812.line-6": "0",
+    "deductions.line-12e": "15750",
+    "capital-gains.line7a-total": "0"
+   },
+   "held": [
+    {
+     "rule": "form1040-line2a",
+     "disposition": "published",
+     "code": null,
+     "missing": []
+    },
+    {
+     "rule": "schedule-d-required.conclusion",
+     "disposition": "published",
+     "code": null,
+     "missing": []
+    },
+    {
+     "rule": "odc-child-marked-conflict",
+     "disposition": "published",
+     "code": null,
+     "missing": []
+    },
+    {
+     "rule": "odc-relative-marked-conflict",
+     "disposition": "published",
+     "code": null,
+     "missing": []
+    },
+    {
+     "rule": "odc-dependent-present",
+     "disposition": "published",
+     "code": null,
+     "missing": []
+    },
+    {
+     "rule": "ctc-sch8812-line-6",
+     "disposition": "published",
+     "code": null,
+     "missing": []
+    },
+    {
+     "rule": "form1040-line12e",
+     "disposition": "published",
+     "code": null,
+     "missing": []
+    },
+    {
+     "rule": "form1040-line7a",
+     "disposition": "published",
+     "code": null,
+     "missing": []
+    },
+    {
+     "rule": "schedule3-line1-direct-ftc",
+     "disposition": "inapplicable",
+     "code": null,
+     "missing": []
+    }
+   ],
+   "recorded": {
+    "f1098-scope.no-mortgage-statement": [
+     true
+    ],
+    "line2a-scope.no-f1099int-tax-exempt": [
+     "yes"
+    ],
+    "line2a-scope.no-f1099oid-tax-exempt": [
+     "yes"
+    ],
+    "ctc.no-other-dependent": [
+     "yes"
+    ],
+    "direct-ftc-scope.no-form-1116-required": [
+     "no"
+    ],
+    "exception1.only-box2a-capital-gains": [
+     "yes"
+    ],
+    "exception1.no-capital-losses": [
+     "yes"
+    ],
+    "exception1.no-qof-deferral": [
+     "yes"
+    ],
+    "exception1.no-boxes-2b-2c-2d": [
+     "yes"
+    ]
+   },
+   "closures": [
+    "ctc.child-roster.source-closure",
+    "eic.child-roster.source-closure",
+    "f1098.source-closure",
+    "f1098e.1.source-closure",
+    "f1099div.2a.source-closure",
+    "f1099div.7.source-closure",
+    "f1099int.b8.source-closure",
+    "f1099oid.b1.source-closure",
+    "f1099oid.b5.source-closure",
+    "odc.child-roster.source-closure"
+   ],
+   "status": "ran"
+  },
+  {
+   "run_id": "exc-silent",
+   "blocked": 29,
+   "asked": [
+    "1040-14",
+    "11a",
+    "11b",
+    "13b",
+    "15",
+    "16",
+    "19",
+    "20",
+    "22",
+    "24",
+    "27a",
+    "28",
+    "32",
+    "33",
+    "34",
+    "35a",
+    "37",
+    "6b",
+    "7a",
+    "7b",
+    "8812-14",
+    "8812-17",
+    "8812-wa-5",
+    "9",
+    "Sch3-1",
+    "Sch3-8",
+    "eic-a-3",
+    "eic-a-5",
+    "eic-a-6"
+   ],
+   "lines": {
+    "tax-exempt-interest.line2a-total": "0",
+    "odc.child-count": "0",
+    "odc.child-marked-conflict": "0",
+    "odc.dependent-present": "0",
+    "ctc.sch8812.line-6": "0",
+    "deductions.line-12e": "15750"
+   },
+   "held": [
+    {
+     "rule": "form1040-line2a",
+     "disposition": "published",
+     "code": null,
+     "missing": []
+    },
+    {
+     "rule": "schedule-d-required.conclusion",
+     "disposition": "blocked",
+     "code": "DEPENDENCY_ABSENT",
+     "missing": [
+      "exception1.only-box2a-capital-gains",
+      "exception1.no-capital-losses",
+      "exception1.no-qof-deferral",
+      "exception1.no-boxes-2b-2c-2d"
+     ]
+    },
+    {
+     "rule": "odc-child-marked-conflict",
+     "disposition": "published",
+     "code": null,
+     "missing": []
+    },
+    {
+     "rule": "odc-relative-marked-conflict",
+     "disposition": "published",
+     "code": null,
+     "missing": []
+    },
+    {
+     "rule": "odc-dependent-present",
+     "disposition": "published",
+     "code": null,
+     "missing": []
+    },
+    {
+     "rule": "ctc-sch8812-line-6",
+     "disposition": "published",
+     "code": null,
+     "missing": []
+    },
+    {
+     "rule": "form1040-line12e",
+     "disposition": "published",
+     "code": null,
+     "missing": []
+    },
+    {
+     "rule": "form1040-line7a",
+     "disposition": "blocked",
+     "code": "DEPENDENCY_ABSENT",
+     "missing": [
+      "capital-gains.selected-preferential-base"
+     ]
+    },
+    {
+     "rule": "schedule3-line1-direct-ftc",
+     "disposition": "blocked",
+     "code": "DEPENDENCY_ABSENT",
+     "missing": [
+      "tax.total-tax"
+     ]
+    }
+   ],
+   "recorded": {
+    "f1098-scope.no-mortgage-statement": [
+     true
+    ],
+    "line2a-scope.no-f1099int-tax-exempt": [
+     "yes"
+    ],
+    "line2a-scope.no-f1099oid-tax-exempt": [
+     "yes"
+    ],
+    "ctc.no-other-dependent": [
+     "yes"
+    ],
+    "direct-ftc-scope.no-form-1116-required": [
+     "yes"
+    ],
+    "exception1.only-box2a-capital-gains": [],
+    "exception1.no-capital-losses": [],
+    "exception1.no-qof-deferral": [],
+    "exception1.no-boxes-2b-2c-2d": []
+   },
+   "closures": [
+    "ctc.child-roster.source-closure",
+    "eic.child-roster.source-closure",
+    "f1098.source-closure",
+    "f1098e.1.source-closure",
+    "f1099div.2a.source-closure",
+    "f1099div.7.source-closure",
+    "f1099int.b8.source-closure",
+    "f1099oid.b1.source-closure",
+    "f1099oid.b5.source-closure",
+    "odc.child-roster.source-closure"
+   ],
+   "status": "ran"
+  },
+  {
+   "run_id": "exc-box2a-unanswered",
+   "blocked": 29,
+   "asked": [
+    "1040-14",
+    "11a",
+    "11b",
+    "13b",
+    "15",
+    "16",
+    "19",
+    "20",
+    "22",
+    "24",
+    "27a",
+    "28",
+    "32",
+    "33",
+    "34",
+    "35a",
+    "37",
+    "6b",
+    "7a",
+    "7b",
+    "8812-14",
+    "8812-17",
+    "8812-wa-5",
+    "9",
+    "Sch3-1",
+    "Sch3-8",
+    "eic-a-3",
+    "eic-a-5",
+    "eic-a-6"
+   ],
+   "lines": {
+    "interest.b8-tax-exempt-subtotal": "0",
+    "tax-exempt-interest.line2a-total": "0",
+    "odc.child-count": "0",
+    "odc.child-marked-conflict": "0",
+    "odc.dependent-present": "0",
+    "ctc.sch8812.line-6": "0",
+    "deductions.line-12e": "15750"
+   },
+   "held": [
+    {
+     "rule": "form1040-line2a",
+     "disposition": "published",
+     "code": null,
+     "missing": []
+    },
+    {
+     "rule": "schedule-d-required.conclusion",
+     "disposition": "blocked",
+     "code": "DEPENDENCY_ABSENT",
+     "missing": [
+      "exception1.only-box2a-capital-gains",
+      "exception1.no-capital-losses",
+      "exception1.no-qof-deferral",
+      "exception1.no-boxes-2b-2c-2d"
+     ]
+    },
+    {
+     "rule": "odc-child-marked-conflict",
+     "disposition": "published",
+     "code": null,
+     "missing": []
+    },
+    {
+     "rule": "odc-relative-marked-conflict",
+     "disposition": "published",
+     "code": null,
+     "missing": []
+    },
+    {
+     "rule": "odc-dependent-present",
+     "disposition": "published",
+     "code": null,
+     "missing": []
+    },
+    {
+     "rule": "ctc-sch8812-line-6",
+     "disposition": "published",
+     "code": null,
+     "missing": []
+    },
+    {
+     "rule": "form1040-line12e",
+     "disposition": "published",
+     "code": null,
+     "missing": []
+    },
+    {
+     "rule": "form1040-line7a",
+     "disposition": "blocked",
+     "code": "DEPENDENCY_ABSENT",
+     "missing": [
+      "capital-gains.selected-preferential-base"
+     ]
+    },
+    {
+     "rule": "schedule3-line1-direct-ftc",
+     "disposition": "blocked",
+     "code": "DEPENDENCY_ABSENT",
+     "missing": [
+      "tax.total-tax"
+     ]
+    }
+   ],
+   "recorded": {
+    "f1098-scope.no-mortgage-statement": [
+     true
+    ],
+    "line2a-scope.no-f1099int-tax-exempt": [
+     "yes"
+    ],
+    "line2a-scope.no-f1099oid-tax-exempt": [
+     "yes"
+    ],
+    "ctc.no-other-dependent": [
+     "yes"
+    ],
+    "direct-ftc-scope.no-form-1116-required": [
+     "yes"
+    ],
+    "exception1.only-box2a-capital-gains": [],
+    "exception1.no-capital-losses": [],
+    "exception1.no-qof-deferral": [],
+    "exception1.no-boxes-2b-2c-2d": []
+   },
+   "closures": [
+    "ctc.child-roster.source-closure",
+    "eic.child-roster.source-closure",
+    "f1098.source-closure",
+    "f1098e.1.source-closure",
+    "f1099div.2a.source-closure",
+    "f1099div.7.source-closure",
+    "f1099int.b8.source-closure",
+    "f1099oid.b1.source-closure",
+    "f1099oid.b5.source-closure",
+    "odc.child-roster.source-closure"
+   ],
+   "status": "ran"
+  },
+  {
+   "run_id": "oid-silent",
+   "blocked": 28,
+   "asked": [
+    "1040-14",
+    "11a",
+    "11b",
+    "13b",
+    "15",
+    "16",
+    "19",
+    "20",
+    "22",
+    "24",
+    "27a",
+    "28",
+    "2a",
+    "32",
+    "33",
+    "34",
+    "35a",
+    "37",
+    "6b",
+    "8812-14",
+    "8812-17",
+    "8812-wa-5",
+    "9",
+    "Sch3-1",
+    "Sch3-8",
+    "eic-a-3",
+    "eic-a-5",
+    "eic-a-6"
+   ],
+   "lines": {
+    "schedule-d-required.conclusion": "no",
+    "odc.child-count": "0",
+    "odc.child-marked-conflict": "0",
+    "odc.dependent-present": "0",
+    "ctc.sch8812.line-6": "0",
+    "deductions.line-12e": "15750",
+    "capital-gains.line7a-total": "0"
+   },
+   "held": [
+    {
+     "rule": "schedule-d-required.conclusion",
+     "disposition": "published",
+     "code": null,
+     "missing": []
+    },
+    {
+     "rule": "odc-child-marked-conflict",
+     "disposition": "published",
+     "code": null,
+     "missing": []
+    },
+    {
+     "rule": "odc-relative-marked-conflict",
+     "disposition": "published",
+     "code": null,
+     "missing": []
+    },
+    {
+     "rule": "odc-dependent-present",
+     "disposition": "published",
+     "code": null,
+     "missing": []
+    },
+    {
+     "rule": "ctc-sch8812-line-6",
+     "disposition": "published",
+     "code": null,
+     "missing": []
+    },
+    {
+     "rule": "form1040-line12e",
+     "disposition": "published",
+     "code": null,
+     "missing": []
+    },
+    {
+     "rule": "form1040-line7a",
+     "disposition": "published",
+     "code": null,
+     "missing": []
+    },
+    {
+     "rule": "form1040-line2a",
+     "disposition": "blocked",
+     "code": "DEPENDENCY_ABSENT",
+     "missing": [
+      "line2a-scope.no-f1099oid-tax-exempt"
+     ]
+    },
+    {
+     "rule": "schedule3-line1-direct-ftc",
+     "disposition": "blocked",
+     "code": "DEPENDENCY_ABSENT",
+     "missing": [
+      "tax.total-tax"
+     ]
+    }
+   ],
+   "recorded": {
+    "f1098-scope.no-mortgage-statement": [
+     true
+    ],
+    "line2a-scope.no-f1099int-tax-exempt": [
+     "yes"
+    ],
+    "line2a-scope.no-f1099oid-tax-exempt": [],
+    "ctc.no-other-dependent": [
+     "yes"
+    ],
+    "direct-ftc-scope.no-form-1116-required": [
+     "yes"
+    ],
+    "exception1.only-box2a-capital-gains": [
+     "yes"
+    ],
+    "exception1.no-capital-losses": [
+     "yes"
+    ],
+    "exception1.no-qof-deferral": [
+     "yes"
+    ],
+    "exception1.no-boxes-2b-2c-2d": [
+     "yes"
+    ]
+   },
+   "closures": [
+    "ctc.child-roster.source-closure",
+    "eic.child-roster.source-closure",
+    "f1098.source-closure",
+    "f1098e.1.source-closure",
+    "f1099div.2a.source-closure",
+    "f1099div.7.source-closure",
+    "f1099int.b8.source-closure",
+    "f1099oid.b1.source-closure",
+    "f1099oid.b5.source-closure",
+    "odc.child-roster.source-closure"
+   ],
+   "status": "ran"
+  },
+  {
+   "run_id": "oid-box1-unanswered",
+   "blocked": 28,
+   "asked": [
+    "1040-14",
+    "11a",
+    "11b",
+    "13b",
+    "15",
+    "16",
+    "19",
+    "20",
+    "22",
+    "24",
+    "27a",
+    "28",
+    "2a",
+    "32",
+    "33",
+    "34",
+    "35a",
+    "37",
+    "6b",
+    "8812-14",
+    "8812-17",
+    "8812-wa-5",
+    "9",
+    "Sch3-1",
+    "Sch3-8",
+    "eic-a-3",
+    "eic-a-5",
+    "eic-a-6"
+   ],
+   "lines": {
+    "schedule-d-required.conclusion": "no",
+    "odc.child-count": "0",
+    "odc.child-marked-conflict": "0",
+    "odc.dependent-present": "0",
+    "ctc.sch8812.line-6": "0",
+    "deductions.line-12e": "15750",
+    "capital-gains.line7a-total": "0"
+   },
+   "held": [
+    {
+     "rule": "schedule-d-required.conclusion",
+     "disposition": "published",
+     "code": null,
+     "missing": []
+    },
+    {
+     "rule": "odc-child-marked-conflict",
+     "disposition": "published",
+     "code": null,
+     "missing": []
+    },
+    {
+     "rule": "odc-relative-marked-conflict",
+     "disposition": "published",
+     "code": null,
+     "missing": []
+    },
+    {
+     "rule": "odc-dependent-present",
+     "disposition": "published",
+     "code": null,
+     "missing": []
+    },
+    {
+     "rule": "ctc-sch8812-line-6",
+     "disposition": "published",
+     "code": null,
+     "missing": []
+    },
+    {
+     "rule": "form1040-line12e",
+     "disposition": "published",
+     "code": null,
+     "missing": []
+    },
+    {
+     "rule": "form1040-line7a",
+     "disposition": "published",
+     "code": null,
+     "missing": []
+    },
+    {
+     "rule": "form1040-line2a",
+     "disposition": "blocked",
+     "code": "DEPENDENCY_ABSENT",
+     "missing": [
+      "line2a-scope.no-f1099oid-tax-exempt"
+     ]
+    },
+    {
+     "rule": "schedule3-line1-direct-ftc",
+     "disposition": "blocked",
+     "code": "DEPENDENCY_ABSENT",
+     "missing": [
+      "tax.total-tax"
+     ]
+    }
+   ],
+   "recorded": {
+    "f1098-scope.no-mortgage-statement": [
+     true
+    ],
+    "line2a-scope.no-f1099int-tax-exempt": [
+     "yes"
+    ],
+    "line2a-scope.no-f1099oid-tax-exempt": [],
+    "ctc.no-other-dependent": [
+     "yes"
+    ],
+    "direct-ftc-scope.no-form-1116-required": [
+     "yes"
+    ],
+    "exception1.only-box2a-capital-gains": [
+     "yes"
+    ],
+    "exception1.no-capital-losses": [
+     "yes"
+    ],
+    "exception1.no-qof-deferral": [
+     "yes"
+    ],
+    "exception1.no-boxes-2b-2c-2d": [
+     "yes"
+    ]
+   },
+   "closures": [
+    "ctc.child-roster.source-closure",
+    "eic.child-roster.source-closure",
+    "f1098.source-closure",
+    "f1098e.1.source-closure",
+    "f1099div.2a.source-closure",
+    "f1099div.7.source-closure",
+    "f1099int.b8.source-closure",
+    "f1099oid.b1.source-closure",
+    "f1099oid.b5.source-closure",
+    "odc.child-roster.source-closure"
+   ],
+   "status": "ran"
+  }
+ ]
+}

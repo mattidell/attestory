@@ -572,6 +572,16 @@ On core v73 a line blocked on a missing yes/no scope answer or filing status
 names one of 41 filer questions covering 80 facts, each asking about
 presence. Earlier cores render byte-identically.
 
+## Bounded return — The Return Answers What It Already Shows (2025)
+
+[Plan](milestones/derived-answers.md); retrospective:
+`docs/milestone-retrospectives/2026-11-03-derived-answers.md`.
+
+On core v74 a recorded Form 1098 answers the Form 1098 question, and Form
+1099-DIV box 7 over $300 ($600 joint) answers whether Form 1116 is required.
+The record proves presence only, so the other direction is still asked.
+Earlier cores are unchanged.
+
 ## Parked work and open questions
 
 This is the single list of parked work and open owner-held questions for the
@@ -625,12 +635,16 @@ delivers an item removes it.
   closed-empty and worksheet-guard boilerplate. Since core v73 a blocked
   line names every filer-answerable missing input (eight amounts, 79 scope
   answers, filing status); a rule still names only its first cause.
-- Answers the return already implies are still asked: Form 1098 scope (true
-  exactly when no Form 1098 is recorded), line 2a Form 1099-INT tax-exempt
-  (the closed box 8 family), the other-dependent answer (the rosters), and in
-  part Form 1116 required and the Form 1099-OID and Exception 1 capital-gain
-  facts. A recording surface must also not turn a "yes" to a group question
-  into a value for every member.
+- Two answers the record proves are still asked: line 2a Form 1099-INT
+  tax-exempt interest (a closed box 8 above 0) and the other-dependent answer
+  (a marked roster row). Deriving them needs the proof's family closed, so a
+  return that answered with that family open would newly block; it needs an
+  absent-tolerant read (an engine change), which would also restore the
+  Form 1098 and other-dependent contradiction blocks v74 gives up. A
+  recording surface must also not turn a "yes" to a group question into a
+  value for every member.
+- A derived answer is not named: the page does not say which question the
+  record answered or which finding proved it (a schema).
 - Worksheet lines as presentation rows; `demo.*` ids on the correct
   capital-loss and Social Security amounts.
 - The age questions' wording (born before January 2, 1961; a death in 2025
