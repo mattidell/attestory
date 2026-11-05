@@ -12,6 +12,66 @@
       "version": "v6",
       "symbol": "tax.us.2025.income.taxable-income",
       "reason": "Over-declared. The rule's expression reads taxable income only through the worksheet rules whose results it reads, so the symbol appears in its runtime pins but not in its own expression. Recorded, not corrected; P0 found no hazard in this row."
+    },
+    {
+      "rule_id": "tax.us.2025.rule.schedule-d-line1a-gain",
+      "version": "v3",
+      "symbol": "tax.us.2025.f1099b.covered-st.closure-check",
+      "reason": "Closure-check witness required so the family is named before the guard runs. The expression does not read the witness value."
+    },
+    {
+      "rule_id": "tax.us.2025.rule.schedule-d-line8a-gain",
+      "version": "v4",
+      "symbol": "tax.us.2025.f1099b.covered-lt.closure-check",
+      "reason": "Closure-check witness required so the family is named before the guard runs. The expression does not read the witness value."
+    },
+    {
+      "rule_id": "tax.us.2025.rule.f1099b-covered-w-st-basis-subtotal",
+      "version": "v4",
+      "symbol": "tax.us.2025.f1099b.covered-w-st-basis.closure-check",
+      "reason": "Closure-check witness required so the family is named before the guard runs. The expression does not read the witness value."
+    },
+    {
+      "rule_id": "tax.us.2025.rule.f1099b-covered-w-st-proceeds-subtotal",
+      "version": "v4",
+      "symbol": "tax.us.2025.f1099b.covered-w-st-proceeds.closure-check",
+      "reason": "Closure-check witness required so the family is named before the guard runs. The expression does not read the witness value."
+    },
+    {
+      "rule_id": "tax.us.2025.rule.f1099b-covered-w-st-adjustment-subtotal",
+      "version": "v4",
+      "symbol": "tax.us.2025.f1099b.covered-w-st-adjustment.closure-check",
+      "reason": "Closure-check witness required so the family is named before the guard runs. The expression does not read the witness value."
+    },
+    {
+      "rule_id": "tax.us.2025.rule.f1099b-covered-w-lt-basis-subtotal",
+      "version": "v4",
+      "symbol": "tax.us.2025.f1099b.covered-w-lt-basis.closure-check",
+      "reason": "Closure-check witness required so the family is named before the guard runs. The expression does not read the witness value."
+    },
+    {
+      "rule_id": "tax.us.2025.rule.f1099b-covered-w-lt-proceeds-subtotal",
+      "version": "v4",
+      "symbol": "tax.us.2025.f1099b.covered-w-lt-proceeds.closure-check",
+      "reason": "Closure-check witness required so the family is named before the guard runs. The expression does not read the witness value."
+    },
+    {
+      "rule_id": "tax.us.2025.rule.f1099b-covered-w-lt-adjustment-subtotal",
+      "version": "v4",
+      "symbol": "tax.us.2025.f1099b.covered-w-lt-adjustment.closure-check",
+      "reason": "Closure-check witness required so the family is named before the guard runs. The expression does not read the witness value."
+    },
+    {
+      "rule_id": "tax.us.2025.rule.form1040-line25a",
+      "version": "v2",
+      "symbol": "tax.us.2025.w2.closure-check",
+      "reason": "Closure-check witness required so the family is named before the guard runs. The expression does not read the witness value."
+    },
+    {
+      "rule_id": "tax.us.2025.rule.schedule3-line1-direct-ftc",
+      "version": "v5",
+      "symbol": "tax.us.2025.f1099div.7.closure-check",
+      "reason": "Closure-check witness required so the family is named before the guard runs. The expression does not read the witness value."
     }
   ]
 }

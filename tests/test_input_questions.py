@@ -270,8 +270,14 @@ class CasesOnV72(unittest.TestCase):
 
 
 def _reference_closure_question_reasons(row: Any, *, resolved_members: Any, by_symbol: Any,
-                                        symbol_fact_types: Any = None) -> list[dict[str, Any]]:
-    """The v69 algorithm as it stood before the input question (the closure roots only)."""
+                                        symbol_fact_types: Any = None,
+                                        later_any_arm_refs: bool = False) -> list[dict[str, Any]]:
+    """The v69 algorithm as it stood before the input question (the closure roots only).
+
+    ``later_any_arm_refs`` is the core v76 walk. This reference keeps the
+    earlier walk, which is what v68 through v71 render.
+    """
+    del later_any_arm_refs
     questions: dict[str, str] = {}
     for member in resolved_members:
         question = member.get("closure_question")

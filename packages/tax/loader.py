@@ -78,6 +78,27 @@ def unconfirmed_family_names_closure_question(package_id: str, version: str) -> 
     return _version_rank(version) >= _CLOSURE_QUESTION_COVERAGE_FROM
 
 
+# Core v76 is the first package on which a blocked count inside any also
+# names the refs of the later arms, when a compared set already has a member.
+_LATER_ANY_ARM_REFS_FROM = 76
+
+
+def later_any_arm_refs_while_count_blocked(package_id: str, version: str) -> bool:
+    """Whether a blocked count inside ``any`` also names the later arms' refs.
+
+    On from core-calculations v76. The runner and the presentation projection
+    both read this switch. A package that is not core-calculations, or an
+    earlier core, keeps the blocked row and the walk that core recorded.
+    Values do not change. No schema carries the switch: it is the adopted
+    package id and version, the same key a companion declaration uses.
+    """
+    if package_id != _CORE_CALCULATIONS:
+        return False
+    if not version.startswith("v") or not version[1:].isdigit():
+        return False
+    return _version_rank(version) >= _LATER_ANY_ARM_REFS_FROM
+
+
 def domain_companion_presence_pairs() -> dict[str, str | list[str]]:
     """Domain companion-presence pairs enforced at finding admission.
 
@@ -300,6 +321,11 @@ def domain_package_companion_declarations() -> dict[tuple[str, str], dict[str, A
         # companion, so it shares v74's declaration. Without this entry, v75 would fall back
         # to the global maps and refuse amounts v74 admits.
         ("tax.us.2025.package.core-calculations", "v75"): gambling,
+        # Core v76 names a closure that was already knowable, and a later withholding
+        # ref while a count is blocked. It asks no new companion, so it shares v75's
+        # declaration. Without this entry, v76 would fall back to the global maps and
+        # refuse amounts v75 admits.
+        ("tax.us.2025.package.core-calculations", "v76"): gambling,
     }
 
 
