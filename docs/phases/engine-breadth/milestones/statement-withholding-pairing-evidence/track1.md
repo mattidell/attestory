@@ -105,3 +105,15 @@ pins a `count` or `collect` would have added. An unclosed family still blocks
 as `SOURCE_SET_UNCLOSED` and does not also name the withholding ref. The
 measured rows were already closed, so the question shown is the withholding
 question. ADR 0083 is proposed.
+
+## Review repair
+
+`test_two_income_boxes_one_answer_publishes_forty` runs box 1 and box 3 on
+`demo.fw.int.stmt.0` with box 4 of 40, on v76 and v77. Both publish line 25b
+40.0 with no line 25 block. On v77 the finding that carries that box 3 fact
+id is an input pin of the published line 25b finding.
+`test_closed_empty_income_family_publishes_the_withholding`
+runs no box 1 row, that family closed, and one box 4 of 7, on both cores.
+Both publish line 25b 7.0 with no line 25 block. ADR 0083 now says a pass or
+an absent-withholding block records every examined finding id, and a null or
+missing key records only the offending ids.

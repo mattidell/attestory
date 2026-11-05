@@ -3,7 +3,7 @@
   "version": 1,
   "phase": "Engine Breadth",
   "topic": "statement-withholding-pairing",
-  "status": "Open. P0: show, through the real coordinator, the returns where line 25b publishes a wrong amount because a withholding answer on one statement covers a missing one on another, and whether the rule language can pair them per statement.",
+  "status": "Closed. On core v77 line 25b blocks unless every Form 1099-INT, 1099-DIV, 1099-R, 1099-G and SSA-1099 with an income amount has its own withholding answer, and line 25a does the same for each W-2; the blocked line shows the existing withholding question. Eleven returns that published a wrong amount on v76 now block. ADR 0083 (require_paired) is proposed for owner acceptance. Earlier cores are unchanged.",
   "scope": [
     "on a successor core, line 25b blocks unless every recorded Form 1099-INT, 1099-DIV, 1099-R, 1099-G and SSA-1099 has its own withholding answer, $0 included",
     "a statement recorded only through another box is checked too, where the record can show it is a statement",
@@ -33,8 +33,14 @@
       "docs/process/planning-and-development.md",
       "docs/roles/qualitative-review.md",
       "docs/phases/engine-breadth/milestones/statement-withholding-pairing.md"
+    ],
+    "new_milestone": [
+      "docs/milestone-retrospectives/2026-11-05-statement-withholding-pairing.md",
+      "docs/phases/engine-breadth/milestones/statement-withholding-pairing.md",
+      "docs/phases/engine-breadth/engine-breadth-roadmap.md#Parked work and open questions"
     ]
-  }
+  },
+  "retrospective": "docs/milestone-retrospectives/2026-11-05-statement-withholding-pairing.md"
 }
 -->
 
@@ -193,3 +199,41 @@ subtests passed. No earlier golden moved.
 
 The case table, the suite lines, and the limitations are in
 `docs/phases/engine-breadth/milestones/statement-withholding-pairing-evidence/track1.md`.
+
+## Review dispositions
+
+Fresh-reader review ([review](statement-withholding-pairing-evidence/review.md)):
+no required findings. No measured v77 return publishes line 25a or 25b
+while a statement with income lacks its own answer; answered, $0,
+withholding-only, joint and closed-empty returns match v76.
+
+1. *Two cases not locked* (recommended): a statement with income in two
+   boxes and one answer, and a withholding row beside a closed-empty income
+   family. Fixed: both are live tests on v76 and v77 (publish 40 and 7).
+2. *ADR 0083 overstated what is recorded* (recommended). Fixed: on a null
+   or missing key only the offending ids are recorded.
+
+## Execution record
+
+- Grok CLI agents in this worktree (owner direction): P0 builder (194
+  turns, $14.77), Track 1 builder (216 turns, $16.54, full suite 4,308
+  passed), fresh reviewer (50 turns, $3.82), review repair on the Track 1
+  session (49 turns, $3.89).
+
+## Outcome
+
+On core v77 line 25b blocks unless every Form 1099-INT, 1099-DIV, 1099-R
+(IRA), 1099-G and SSA-1099 with an income amount in any box has its own
+withholding answer on the same statement, $0 included, and line 25a does
+the same for each W-2 slip. The blocked line shows the existing box 4, box
+6 or box 2 question. Eleven returns that published a wrong amount on v76
+now block: five where a withholding-only statement covered a missing
+answer, five where a statement recorded only through box 3, 8, 10, 2a or 12
+published 0, and the W-2 case. Answered returns publish v76's amounts. The
+guard is a new rule-language operation, `require_paired`
+(`rule-artifact.v15`, `artifact-package.v40`, ADR 0083 proposed). Earlier
+cores are unchanged.
+
+Not done: a second current amount on one statement is still correction (an
+ordinary later assertion replaces it); the blocked line names the kind of
+statement, not which one.

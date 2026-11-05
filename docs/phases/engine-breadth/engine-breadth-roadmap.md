@@ -603,6 +603,16 @@ statement is recorded. Answering takes 2 rounds instead of 4 for open
 amounts and the mortgage, 3 instead of 4 for Form 1099-B, and 5 instead of
 6 for a dependent or foreign tax. Earlier cores are unchanged.
 
+## Bounded return — Each Statement Is Checked For Its Own Withholding (2025)
+
+[Plan](milestones/statement-withholding-pairing.md); retrospective:
+`docs/milestone-retrospectives/2026-11-05-statement-withholding-pairing.md`.
+
+On core v77 lines 25a and 25b block unless each statement with income has
+its own withholding answer, through the new `require_paired` guard. Eleven
+returns that published a wrong amount on v76 now block and ask the existing
+question. Earlier cores are unchanged.
+
 ## Parked work and open questions
 
 This is the single list of parked work and open owner-held questions for the
@@ -682,11 +692,8 @@ delivers an item removes it.
 - Four source sets reach an attachment without a guard of their own; each
   is held by a guarded rule downstream, confirmed live on core v66. Listed in
   `tests/test_collect_closure_regression.py`.
-- Line 25b's statement check counts statements through their income box: a
-  Form 1099 recorded only through another box (1099-INT box 3, 8 or 10;
-  1099-DIV box 2a, 7 or 12) is not checked, and a surplus withholding answer
-  on one statement offsets a missing one on another. Closing either needs a
-  statement-level count or a keyed join.
+- ADR 0083 (`require_paired`) is proposed; the owner accepts it or sends it
+  back.
 - A blocked line names the kind of statement short of its withholding
   answer, not the statement itself (keyed join).
 - The two Form 1099-B wash-sale adjustment questions ask for an amount "of

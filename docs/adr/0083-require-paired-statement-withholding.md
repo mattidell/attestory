@@ -33,7 +33,9 @@ exists.
 - A withholding row with no income row is not a failure.
 - The key is the name the rule writes (`statement` or `w2-slip`).
 
-The finding ids it examined are recorded and pinned as inputs. It does not
+On a pass or an absent-withholding block it records every examined finding
+id; on a null or missing key it records only the offending ids. The recorded
+ids are pinned as inputs. It does not
 sum, it does not change a line's value expression, and it does not invent
 question wording.
 

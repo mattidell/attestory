@@ -15,7 +15,7 @@ import json
 from decimal import Decimal
 from pathlib import Path
 from tempfile import TemporaryDirectory
-from typing import Any
+from typing import Any, cast
 
 import pytest
 
@@ -184,7 +184,7 @@ def _run(acts: list[dict[str, object]], name: str, core: tuple[str, str, str, st
                     "missing": [str(item) for item in row.get("missing", [])],
                 }
             )
-    return {"reachable": True, "lines": lines, "line_blocks": blocks, "model": model}
+    return {"reachable": True, "lines": lines, "line_blocks": blocks, "model": model, "pubs": pubs}
 
 
 def _sentences(model: dict[str, Any], section_id: str) -> list[str]:
@@ -253,6 +253,78 @@ def test_a_return_with_no_form_1099_is_unchanged() -> None:
     assert new["lines"]["line25a"] == "4500.0"
     assert new["lines"]["line25b"] == "0.0"
     assert new["line_blocks"] == []
+
+
+BOX3_ON_FIRST_INT = (
+    "tax.us.2025.f1099int.box3-interest"
+    "|payer=demo.fw.int.payer.0,statement=demo.fw.int.stmt.0,tax-year=2025"
+)
+
+
+def _finding_for_fact(acts: list[dict[str, object]], fact_id: str) -> str:
+    """Finding id of the recorded row whose fact id is ``fact_id``.
+
+    The guard pins that finding id. The fact id is the row's identity.
+    """
+    for act in acts:
+        payload = act.get("payload")
+        if not isinstance(payload, dict):
+            continue
+        member = payload.get("member")
+        candidates: tuple[object, ...] = (
+            member.get("finding") if isinstance(member, dict) else None,
+            payload.get("finding"),
+        )
+        for finding in candidates:
+            if isinstance(finding, dict) and finding.get("fact_id") == fact_id:
+                return str(finding["id"])
+    raise AssertionError(fact_id)
+
+
+def _two_income_boxes_one_answer() -> list[dict[str, object]]:
+    """Box 1 and box 3 on demo.fw.int.stmt.0, and box 4 of 40 on that statement."""
+    acts = PROBE.family_return("int", 1, [40.0])
+    return cast(
+        list[dict[str, object]],
+        PROBE.ccr._record_members(
+            acts,
+            PROBE.P + "f1099int.b3",
+            [PROBE.OTHER_AMOUNT],
+            tag="b3same",
+            entities={"payer": "demo.fw.int.payer.0", "statement": "demo.fw.int.stmt.0"},
+        ),
+    )
+
+
+def _closed_empty_income_family() -> list[dict[str, object]]:
+    """No Form 1099-INT box 1 row, that family already closed, one box 4 of 7."""
+    return cast(
+        list[dict[str, object]],
+        PROBE._add_orphan(PROBE._no_statements(), "int", PROBE.ORPHAN),
+    )
+
+
+@pytest.mark.parametrize("core", (V76, V77), ids=("v76", "v77"))
+def test_two_income_boxes_one_answer_publishes_forty(core: tuple[str, str, str, str, str]) -> None:
+    version = core[1]
+    acts = _two_income_boxes_one_answer()
+    box3 = _finding_for_fact(acts, BOX3_ON_FIRST_INT)
+    result = _run(acts, f"demo.swp.{version}.two-boxes", core)
+    assert result["reachable"] is True, result.get("refusal")
+    assert result["lines"]["line25b"] == "40.0"
+    assert result["line_blocks"] == []
+    if version == "v77":
+        pins = result["pubs"][PROBE.LINES["line25b"]]["pins"]
+        assert any(pin.get("role") == "input" and pin.get("id") == box3 for pin in pins)
+
+
+@pytest.mark.parametrize("core", (V76, V77), ids=("v76", "v77"))
+def test_closed_empty_income_family_publishes_the_withholding(core: tuple[str, str, str, str, str]) -> None:
+    version = core[1]
+    result = _run(_closed_empty_income_family(), f"demo.swp.{version}.closed-empty", core)
+    assert result["reachable"] is True, result.get("refusal")
+    assert result["lines"]["line25b"] == "7.0"
+    assert result["line_blocks"] == []
 
 
 def test_a_joint_return_with_one_statement_per_spouse_is_unchanged() -> None:
