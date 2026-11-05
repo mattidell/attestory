@@ -160,6 +160,10 @@ class AccessLog:
     # ADR 0077 Part 1: counted rows ``shared_key_count`` agreed on, or the
     # bad counted rows it blocked on. Not merged into ``collects``.
     shared_key_count_findings: set[str] = field(default_factory=set)
+    # Rows whose keys ``require_paired`` read, or the bad rows it blocked on.
+    # Not merged into ``collects``: that channel pins every source of the
+    # name and its companions, and this operation reads keys only.
+    require_paired_findings: set[str] = field(default_factory=set)
     # ADR 0077 Part 3: ``(finding id, version)`` of each per-subject
     # publication read through a selection path's ``reads_subject_results``.
     # Pinned role input, origin derived. Not merged into ``collects``: that
@@ -181,6 +185,14 @@ class SharedKeyScope:
 
     subject_keys: tuple[tuple[str, str], ...] | None
     rows: Mapping[str, tuple[Any, ...]]
+
+
+@dataclass(frozen=True)
+class PairedSourceRow:
+    """One current row ``require_paired`` may read. It carries no value."""
+
+    finding_id: str
+    keys: tuple[tuple[str, str], ...] | None
 
 
 @dataclass(frozen=True)
@@ -233,6 +245,10 @@ class Environment:
     # Core v76. Default false so an existing Environment keeps the
     # short-circuiting any, and a blocked count names only its own set.
     record_later_any_refs: bool = False
+    # Current rows keyed by fact-type id, for ``require_paired``. None means
+    # the slot was not installed and the operation fail-closes. An installed
+    # map with no entry for a name means zero rows of that name.
+    paired_sources: Mapping[str, tuple[PairedSourceRow, ...]] | None = None
 
 
 @dataclass(frozen=True)
@@ -633,6 +649,8 @@ def _evaluate(expr: Any, env: Environment, access: AccessLog) -> Any:
         return _link_count(expr, env, access)
     if op == "shared_key_count":
         return _shared_key_count(expr, env, access)
+    if op == "require_paired":
+        return _require_paired(expr, env, access)
 
     raise EvalBlocked(BLOCK_INVALID, [f"unknown op survived schema: {op}"])
 
@@ -815,6 +833,52 @@ def _shared_key_count(expr: dict[str, Any], env: Environment, access: AccessLog)
         raise EvalBlocked(BLOCK_INVALID, sorted(set(bad)))
     access.shared_key_count_findings.update(agreed)
     return Decimal(len(agreed))
+
+
+def _require_paired(expr: dict[str, Any], env: Environment, access: AccessLog) -> bool:
+    """Every income row has a withholding row on the same named key.
+
+    Reads keys only. A withholding row with no income row is not a failure.
+    A null or missing key blocks ``DEPENDENCY_INVALID`` and names that
+    finding. An income key with no withholding row blocks
+    ``DEPENDENCY_ABSENT`` and names the withholding fact type. An
+    uninstalled slot blocks ``link-coverage-scope-unbound``.
+    """
+    key = str(expr["key"])
+    withholding = str(expr["withholding"])
+    income_names = [str(name) for name in expr["income"]]
+    rows_by_name = env.paired_sources
+    if rows_by_name is None:
+        raise EvalBlocked(BLOCK_INVALID, [LINK_COVERAGE_SCOPE_UNBOUND])
+    installed = rows_by_name
+
+    bad: list[str] = []
+    examined: list[str] = []
+    income_keys: list[str] = []
+    covered: set[str] = set()
+
+    def take(name: str, *, covers: bool) -> None:
+        for row in installed.get(name, ()):
+            row_map = _coverage_key_map(row)
+            if row_map is None or key not in row_map:
+                bad.append(str(row.finding_id))
+                continue
+            examined.append(str(row.finding_id))
+            if covers:
+                covered.add(row_map[key])
+            else:
+                income_keys.append(row_map[key])
+
+    for name in income_names:
+        take(name, covers=False)
+    take(withholding, covers=True)
+    if bad:
+        access.require_paired_findings.update(bad)
+        raise EvalBlocked(BLOCK_INVALID, sorted(set(bad)))
+    access.require_paired_findings.update(examined)
+    if any(value not in covered for value in income_keys):
+        raise EvalBlocked(BLOCK_ABSENT, [withholding])
+    return True
 
 
 def evaluate_args(args: list[Any], env: Environment, access: AccessLog) -> list[Any]:

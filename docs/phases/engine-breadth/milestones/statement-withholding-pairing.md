@@ -175,3 +175,21 @@ Foreman:
    (proposed), line 25b and 25a successors, core v77, its registry and
    release; P0's 44 cases and the W-2 rows through the real coordinator;
    v76 and earlier pinned; full suite and mypy.
+
+## Track 1 result
+
+Landed. `require_paired` on `rule-artifact.v15`, admitted by
+`artifact-package.v40`. ADR 0083 is proposed. Line 25b v5 and line 25a v3
+keep the prior value and closures and replace the count comparison with the
+pairing check. Core v77, registry v75, and release v75. The loader shares
+v76's companion declaration.
+
+The ten line 25b defect rows and the W-2 4600 row now block and show the
+existing withholding question. Answered rows, the $0 answer, the
+withholding-only extra, a return with no Form 1099, and a joint return with
+one statement per spouse publish the v76 amount. v76 spot checks matched the
+recorded probe. The full suite passed: 4308 passed, 24 skipped, 8066
+subtests passed. No earlier golden moved.
+
+The case table, the suite lines, and the limitations are in
+`docs/phases/engine-breadth/milestones/statement-withholding-pairing-evidence/track1.md`.

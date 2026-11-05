@@ -50,6 +50,7 @@ READ_LIST_KEYS = {
     "link_coverage": ("links", "reductions"),
     "link_count": ("links",),
     "shared_key_count": ("fact_type",),
+    "require_paired": ("withholding", "income"),
 }
 # Top-level rule keys that are declarations, not evaluated expressions.
 NON_EXPRESSION_KEYS = {

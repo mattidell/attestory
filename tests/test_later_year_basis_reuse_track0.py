@@ -1888,6 +1888,9 @@ class C8bCandidateAgainstCurrentPackageValidation(unittest.TestCase):
                 # v38 is v37 plus attachment-rule.v12 only (attachment-limited-part).
                 "artifact-package.v38.schema.json",
                 "artifact-package.v39.schema.json",
+                # v40 is v39 plus rule-artifact.v15 only (require_paired). It
+                # stays outside the guard's v17 allowlist, so the finding holds.
+                "artifact-package.v40.schema.json",
             ],
         )
 

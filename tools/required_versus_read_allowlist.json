@@ -63,7 +63,7 @@
     },
     {
       "rule_id": "tax.us.2025.rule.form1040-line25a",
-      "version": "v2",
+      "version": "v3",
       "symbol": "tax.us.2025.w2.closure-check",
       "reason": "Closure-check witness required so the family is named before the guard runs. The expression does not read the witness value."
     },

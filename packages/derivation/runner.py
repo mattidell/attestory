@@ -33,6 +33,7 @@ from packages.derivation.evaluator import (
     AccessLog,
     Environment,
     EvalBlocked,
+    PairedSourceRow,
     SubjectResults,
     categorical_domain_key,
     evaluate,
@@ -236,7 +237,7 @@ SELECTION_PATH_PIN_CONTRACT_INVALID = "selection-path-pin-contract-invalid"
 def is_v13_selection_rule(rule: dict[str, Any]) -> bool:
     """A ``rule-artifact.v13`` (or ``v14``, ADR 0078) rule declaring ``selection``
     (ADR 0077 Part 4). v14 carries the same ``selection`` shape unchanged."""
-    return rule.get("schema") in ("rule-artifact.v13", "rule-artifact.v14") and "selection" in rule
+    return rule.get("schema") in ("rule-artifact.v13", "rule-artifact.v14", "rule-artifact.v15") and "selection" in rule
 
 
 def _never_ordinary(rule: dict[str, Any]) -> bool:
@@ -438,7 +439,7 @@ class _Run:
                 "rule-artifact.v11",
                 "rule-artifact.v12",
                 "rule-artifact.v13",
-                "rule-artifact.v14",
+                "rule-artifact.v14", "rule-artifact.v15",
             }
             for rule in ctx.rules
         ) or _uses_attachment_machinery(ctx.rules)
@@ -557,6 +558,7 @@ class _Run:
 
         self.sources: dict[str, list[str]] = {}
         self.source_fids: dict[str, list[str]] = {}
+        self._paired_source_rows: dict[str, list[PairedSourceRow]] = {}
         # ADR-0061 Decision 2 amended / Track 1 repair round 3: the raw
         # ADR-0011 fact ids actually asserted this run, keyed the same way
         # as `self.sources`/`self.source_fids` - the identity-key collision
@@ -575,6 +577,7 @@ class _Run:
             self.source_fact_ids.setdefault(fact.name, []).append(
                 fact.fact_id if fact.fact_id is not None else fact.finding_id
             )
+            self._record_paired_source(fact)
         # ADR 0077 Part 4: activity is decided from the marshalled current
         # sources, not from same-run sources appended during saturation, so
         # both schedulers reach the same plan whatever their order.
@@ -607,6 +610,16 @@ class _Run:
             fact_type_versions=self.fact_type_versions,
             symbol_result_fact_types=self.symbol_result_fact_types,
             record_later_any_refs=self._later_any_arm_refs_while_count_blocked(),
+            paired_sources=self.paired_sources(),
+        )
+
+    def paired_sources(self) -> dict[str, tuple[PairedSourceRow, ...]]:
+        """Current rows by fact-type id, keys only, for ``require_paired``."""
+        return {name: tuple(rows) for name, rows in self._paired_source_rows.items()}
+
+    def _record_paired_source(self, fact: SourceFact) -> None:
+        self._paired_source_rows.setdefault(fact.name, []).append(
+            PairedSourceRow(finding_id=fact.finding_id, keys=fact.keys)
         )
 
     def dependency_pins_for_access(self, access: AccessLog) -> list[dict[str, Any]]:
@@ -694,6 +707,15 @@ class _Run:
                             f"no same-statement {companion_type} source to pin "
                             f"(ADR-0010 displacement edge required)"
                         )
+        for finding_id in access.require_paired_findings:
+            pin = {
+                "role": "input",
+                "id": finding_id,
+                "version": self.source_finding_version(finding_id),
+            }
+            if self.use_v2:
+                pin["origin"] = "assertion"
+            pins.append(pin)
         # ADR 0077 Part 3: a per-subject publication read through a declared
         # selection read. It is a derived result, not an asserted input.
         for finding_id, version in sorted(access.subject_result_findings):
@@ -2750,20 +2772,20 @@ class _Run:
         previous = self.source_finding_versions.setdefault(finding_id, finding_version)
         if previous != finding_version:
             raise ValueError("conflicting source finding versions")
-        self.live_sources.append(
-            SourceFact(
-                name=name,
-                value=encoded,
-                finding_id=finding_id,
-                fact_id=fact_id,
-                keys=keys,
-                result_fact_type=result_fact_type or self.symbol_result_fact_types.get(name),
-                finding_version=finding_version,
-            )
+        recorded = SourceFact(
+            name=name,
+            value=encoded,
+            finding_id=finding_id,
+            fact_id=fact_id,
+            keys=keys,
+            result_fact_type=result_fact_type or self.symbol_result_fact_types.get(name),
+            finding_version=finding_version,
         )
+        self.live_sources.append(recorded)
         self.sources.setdefault(name, []).append(encoded)
         self.source_fids.setdefault(name, []).append(finding_id)
         self.source_fact_ids.setdefault(name, []).append(fact_id or finding_id)
+        self._record_paired_source(recorded)
 
     def _append_live_source_from_finding(
         self,
@@ -3211,7 +3233,7 @@ def run_and_record(
             "rule-artifact.v11",
             "rule-artifact.v12",
             "rule-artifact.v13",
-            "rule-artifact.v14",
+            "rule-artifact.v14", "rule-artifact.v15",
         }
         for rule in ctx.rules
     ) or _uses_attachment_machinery(ctx.rules)

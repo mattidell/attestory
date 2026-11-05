@@ -326,6 +326,10 @@ def domain_package_companion_declarations() -> dict[tuple[str, str], dict[str, A
         # declaration. Without this entry, v76 would fall back to the global maps and
         # refuse amounts v75 admits.
         ("tax.us.2025.package.core-calculations", "v76"): gambling,
+        # Core v77 pairs each statement with its own withholding row. It asks no new
+        # companion, so it shares v76's declaration. Without this entry, v77 would
+        # fall back to the global maps and refuse amounts v76 admits.
+        ("tax.us.2025.package.core-calculations", "v77"): gambling,
     }
 
 
