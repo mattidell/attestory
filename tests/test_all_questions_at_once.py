@@ -346,9 +346,17 @@ def test_question_rounds_match_the_prototype() -> None:
         shown = set(_round_sentences(loops["v76"][name], 1))
         present = [sentence for sentence in CONDITIONAL if sentence in shown]
         assert present == [], (name, present)
+    # Only the foreign-tax persona records a Form 1099-DIV, so only it is
+    # ever asked the box 4 amount, and from round 2 until the loop stops.
+    for name in _ROUNDS["v76"]:
+        if name == "foreign-tax-empty":
+            continue
+        for item in loops["v76"][name]["rounds"]:
+            assert BOX4 not in item["sentences"], (name, item["round"])
     foreign = loops["v76"]["foreign-tax-empty"]
     assert _first_round(foreign, BOX4) == 2
-    assert BOX4 in foreign["rounds"][-1]["sentences"]
+    for item in foreign["rounds"]:
+        assert (BOX4 in item["sentences"]) == (item["round"] >= 2), item["round"]
     assert _first_round(foreign, BOX7) == 1
     assert _first_round(foreign, CONDITIONAL[8]) == 3
     assert _first_round(foreign, CONDITIONAL[7]) == 4

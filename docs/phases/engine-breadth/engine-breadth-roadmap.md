@@ -592,6 +592,17 @@ completeness question on the 32 lines it blocks, and Form 1099-K's two
 Schedule 1 selection lines name it beside the single-sale question. All 51
 families now name their question. Earlier cores are unchanged.
 
+## Bounded return — Every Question At Once (2025)
+
+[Plan](milestones/all-questions-at-once.md); retrospective:
+`docs/milestone-retrospectives/2026-11-04-all-questions-at-once.md`.
+
+From core v76 the completeness questions a blocked return could already ask
+appear in round one, and a statement's withholding amount as soon as the
+statement is recorded. Answering takes 2 rounds instead of 4 for open
+amounts and the mortgage, 3 instead of 4 for Form 1099-B, and 5 instead of
+6 for a dependent or foreign tax. Earlier cores are unchanged.
+
 ## Parked work and open questions
 
 This is the single list of parked work and open owner-held questions for the
@@ -681,9 +692,13 @@ delivers an item removes it.
 - The two Form 1099-B wash-sale adjustment questions ask for an amount "of
   every covered sale"; their basis and proceeds siblings limit to sales with
   an adjustment. Wording only.
-- The core-v75 closure-question switch is keyed by package id and version
-  in `packages/tax/loader.py`, which the runner imports; passing it into the
-  run instead is a later cleanup.
+- The core-v75 closure-question and core-v76 later-arm switches are keyed
+  by package id and version in `packages/tax/loader.py`, which the runner
+  imports; passing them into the run, or declaring them in package content,
+  is a later cleanup.
+- Four internal subtotals block with no filer question: Form 1099-INT box 8
+  tax-exempt interest, the Schedule B nominee subtotal, and the
+  other-dependent child and relative counts. None holds a line a filer sees.
 - A general assumption framework, free-text intake and institutional
   verification.
 

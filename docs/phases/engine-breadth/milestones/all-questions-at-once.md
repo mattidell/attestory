@@ -3,7 +3,7 @@
   "version": 1,
   "phase": "Engine Breadth",
   "topic": "all-questions-at-once",
-  "status": "Open. P0: measure how often answering a blocked line's questions only reveals another question, and why.",
+  "status": "Closed. On core v76 the completeness questions a return could already show appear in round one: answering a blocked return takes 2 rounds instead of 4 for open amounts and the mortgage, 3 instead of 4 for Form 1099-B, and 5 instead of 6 for a dependent or foreign tax. Conditional questions still wait for their answer. Earlier cores are unchanged.",
   "scope": [
     "a filer who answers every question a blocked return shows is not then shown a new question that was already knowable, on a successor core where the engine or content must change",
     "measure first: how many answer rounds a return takes today, and which rules hide a later cause behind their first",
@@ -32,8 +32,14 @@
       "docs/process/planning-and-development.md",
       "docs/roles/qualitative-review.md",
       "docs/phases/engine-breadth/milestones/all-questions-at-once.md"
+    ],
+    "new_milestone": [
+      "docs/milestone-retrospectives/2026-11-04-all-questions-at-once.md",
+      "docs/phases/engine-breadth/milestones/all-questions-at-once.md",
+      "docs/phases/engine-breadth/engine-breadth-roadmap.md#Parked work and open questions"
     ]
-  }
+  },
+  "retrospective": "docs/milestone-retrospectives/2026-11-04-all-questions-at-once.md"
 }
 -->
 
@@ -166,3 +172,59 @@ Foreman:
    - Core v76, its registry and release, with
      `tools/package_successor.py`.
    - Round counts through the real coordinator; v75 pinned; full suite.
+
+## Track 1 result
+
+[Track 1](all-questions-at-once-evidence/track1.md). Ten closure-check
+witnesses (the two Form 1099-B parents, the six wash-sale families, W-2
+wages and Form 1099-DIV box 7) and ten consumer successors; the evaluator
+and runner change behind `later_any_arm_refs_while_count_blocked` in
+`packages/tax/loader.py`; core v76, registry v74, release v74.
+
+| Start | v75 rounds | v76 rounds |
+| --- | --- | --- |
+| scope withheld | 2 | 2 |
+| amounts open | 4 | 2 |
+| mortgage | 4 | 2 |
+| Form 1099-B | 4 | 3 |
+| dependent | 6 | 5 |
+| foreign tax | 6 | 5 |
+
+Foreign tax beats the prototype's 6: the successor names the box 7 closure
+on the credit rule, so round one asks it. Complete returns publish v75's
+amounts, headline and face. No golden moved.
+
+## Review dispositions
+
+Fresh-reader review ([review](all-questions-at-once-evidence/review.md)):
+no required findings.
+
+1. *The Form 1099-DIV box 4 amount is checked only in round one*
+   (recommended). Fixed: the test now asserts it is never asked on the five
+   starts with no Form 1099-DIV, and asked from round 2 until the loop stops
+   on the foreign-tax start.
+2. Notes: the switch is on for any core rank of 76 or more (`v100`
+   included) and off for every other package and pin; registry v74 is
+   add-only; a return with no W-2 is never asked box 2.
+
+## Execution record
+
+- Grok CLI agents in this worktree (owner direction): P0 builder, Track 1
+  builder (220 turns, $7.04, full suite 4,252 passed with one Chrome-harness
+  failure that passed alone), fresh reviewer (55 turns, $5.05). The foreman
+  added the review's box 4 assertions.
+
+## Outcome
+
+On core v76 a filer who answers a blocked return's questions is no longer
+then shown a completeness question the return could already have asked. The
+W-2 wage, Form 1099-B and wash-sale, and Form 1099-DIV box 7 questions
+appear in round one, and the W-2 box 2 and Form 1099-DIV box 4 amounts
+appear as soon as a statement is recorded, never before. Conditional
+questions (the Form 1098 answer, the dependent tests, the Form 1116 choice)
+still wait for the answer they depend on. Values do not change; core v75
+and earlier render byte-identically.
+
+Parked: four internal subtotals still block with no filer question (box 8
+tax-exempt interest, the Schedule B nominee subtotal and the two
+other-dependent counts); none holds a line a filer sees.
