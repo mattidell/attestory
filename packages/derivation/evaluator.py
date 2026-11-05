@@ -49,6 +49,10 @@ class EvalBlocked(Exception):
     def __init__(self, category: str, missing: list[str]) -> None:
         self.category = category
         self.missing = missing
+        # Set by count, and copied when any records later-arm refs. Callers
+        # that only read category and missing are unchanged.
+        self.from_count = False
+        self.later_refs: list[str] = []
         super().__init__(f"{category}: {', '.join(missing)}")
 
 
@@ -226,6 +230,9 @@ class Environment:
     # selected path of a v13 selection, one entry per declared symbol. An
     # ordinary Environment leaves it empty and every collect is unchanged.
     subject_results: dict[str, "SubjectResults"] = field(default_factory=dict)
+    # Core v76. Default false so an existing Environment keeps the
+    # short-circuiting any, and a blocked count names only its own set.
+    record_later_any_refs: bool = False
 
 
 @dataclass(frozen=True)
@@ -285,6 +292,85 @@ def _in_band(x: Decimal, lower: Decimal, upper: Decimal | None, boundary: str) -
     if boundary == "lower_inclusive_upper_exclusive":
         return x >= lower and (upper is None or x < upper)
     return x > lower and (upper is None or x <= upper)
+
+
+_LATER_REF_SKIP_OPS = frozenset({"choose", "conditional_dependency_set"})
+
+
+def _walk_unconditional(node: Any, visit: Any) -> None:
+    """Walk an expression, not entering ``choose`` or ``conditional_dependency_set``."""
+    if isinstance(node, list):
+        for item in node:
+            _walk_unconditional(item, visit)
+        return
+    if not isinstance(node, dict):
+        return
+    op = node.get("op")
+    if isinstance(op, str) and op in _LATER_REF_SKIP_OPS:
+        return
+    visit(node)
+    for value in node.values():
+        if isinstance(value, (dict, list)):
+            _walk_unconditional(value, visit)
+
+
+def _compared_set_has_member(arm: Any, env: Environment) -> bool:
+    found = False
+
+    def visit(node: dict[str, Any]) -> None:
+        nonlocal found
+        if found or node.get("op") != "count":
+            return
+        name = node.get("name")
+        if isinstance(name, str) and env.sources.get(name):
+            found = True
+
+    _walk_unconditional(arm, visit)
+    return found
+
+
+def _unconditional_ref_names(nodes: list[Any]) -> list[str]:
+    names: list[str] = []
+
+    def visit(node: dict[str, Any]) -> None:
+        name = node.get("name")
+        if node.get("op") == "ref" and isinstance(name, str) and name not in names:
+            names.append(name)
+
+    for node in nodes:
+        _walk_unconditional(node, visit)
+    return names
+
+
+def _any_recording_later_refs(expr: dict[str, Any], env: Environment, access: AccessLog) -> bool:
+    """``any``, and when a count blocks with a member present, keep later-arm refs.
+
+    The boolean result matches the short-circuiting ``any``. The exception's
+    missing list also names the later refs. ``later_refs`` is only those
+    additions, so a caller can tell them from the count's own family.
+    """
+    args = expr["args"]
+    for index, arm in enumerate(args):
+        try:
+            if bool(evaluate(arm, env, access)):
+                return True
+        except EvalBlocked as exc:
+            if exc.category == BLOCK_CLOSURE and exc.from_count and _compared_set_has_member(arm, env):
+                later = _unconditional_ref_names(args[index + 1 :])
+                if later or exc.later_refs:
+                    merged_missing = list(exc.missing)
+                    merged_later = list(exc.later_refs)
+                    for name in later:
+                        if name not in merged_later:
+                            merged_later.append(name)
+                        if name not in merged_missing:
+                            merged_missing.append(name)
+                    raised = EvalBlocked(exc.category, merged_missing)
+                    raised.from_count = True
+                    raised.later_refs = merged_later
+                    raise raised from None
+            raise
+    return False
 
 
 def evaluate(expr: Any, env: Environment, access: AccessLog) -> Any:
@@ -396,7 +482,9 @@ def _evaluate(expr: Any, env: Environment, access: AccessLog) -> Any:
         rows = env.sources.get(name, [])
         source_set = expr["source_set"]
         if source_set not in env.closed_sets:
-            raise EvalBlocked(BLOCK_CLOSURE, [source_set])
+            blocked = EvalBlocked(BLOCK_CLOSURE, [source_set])
+            blocked.from_count = True
+            raise blocked
         access.closure_reads.add(source_set)
         return len(rows)
 
@@ -447,6 +535,8 @@ def _evaluate(expr: Any, env: Environment, access: AccessLog) -> Any:
         return all(bool(evaluate(a, env, access)) for a in expr["args"])
 
     if op == "any":
+        if env.record_later_any_refs:
+            return _any_recording_later_refs(expr, env, access)
         return any(bool(evaluate(a, env, access)) for a in expr["args"])
 
     if op == "not":

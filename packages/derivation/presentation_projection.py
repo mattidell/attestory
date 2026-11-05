@@ -419,6 +419,7 @@ def _closure_question_reasons(
     resolved_members: Sequence[Mapping[str, Any]],
     by_symbol: Mapping[str, Sequence[Mapping[str, Any]]],
     symbol_fact_types: Mapping[str, str] | None = None,
+    later_any_arm_refs: bool = False,
 ) -> list[dict[str, Any]]:
     """The declared question for every cause a blocked line waits on and a filer can answer.
 
@@ -438,6 +439,13 @@ def _closure_question_reasons(
     ``filing_status``) to the fact type it binds, so a missing binding symbol
     reaches the question declared for that fact type. A symbol it does not
     name is looked up as given.
+
+    ``later_any_arm_refs``, from core v76, lets one blocked row name a family
+    id and a later-arm ref together. A count that blocks inside ``any`` keeps
+    the row's ``SOURCE_SET_UNCLOSED`` code and appends that ref. A ref that is
+    itself an input question is asked beside the closure. A ref that has no
+    question does not hide the closure. Off, the walk is the one this
+    function had.
     """
     questions: dict[str, str] = {}
     input_questions: dict[str, str] = {}
@@ -457,7 +465,37 @@ def _closure_question_reasons(
     families: set[str] = set()
     facts: set[str] = set()
 
+    def reach_mixed(current: Mapping[str, Any], seen: frozenset[str]) -> bool:
+        missing = current.get("missing")
+        if not isinstance(missing, list) or not missing:
+            return False
+        for entry in missing:
+            key = str(entry)
+            if key in seen:
+                continue
+            if key in questions:
+                families.add(key)
+                continue
+            blocked = [r for r in by_symbol.get(key, []) if r.get("disposition") == "blocked"]
+            if blocked:
+                if not all(reach_mixed(r, seen | {key}) for r in blocked):
+                    return False
+                continue
+            bound = (symbol_fact_types or {}).get(key, key)
+            if bound in input_questions:
+                facts.add(bound)
+                continue
+            # The later arm of a blocked count is recorded on this same
+            # SOURCE_SET_UNCLOSED row. When that ref is not itself a question,
+            # the family question is still the filer's answer.
+            if current.get("code") == "SOURCE_SET_UNCLOSED":
+                continue
+            return False
+        return True
+
     def reach(current: Mapping[str, Any], seen: frozenset[str]) -> bool:
+        if later_any_arm_refs:
+            return reach_mixed(current, seen)
         if current.get("code") == "SOURCE_SET_UNCLOSED":
             missing = current.get("missing")
             if not isinstance(missing, list) or not missing:
@@ -4525,11 +4563,18 @@ def build_presentation_model(
     beside its selection reason. Omitted, or any earlier package, the
     selection reason stands alone, as before.
     """
-    from packages.tax.loader import unconfirmed_family_names_closure_question
+    from packages.tax.loader import (
+        later_any_arm_refs_while_count_blocked,
+        unconfirmed_family_names_closure_question,
+    )
 
     names_closure_question = (
         adopted_package is not None
         and unconfirmed_family_names_closure_question(adopted_package[0], adopted_package[1])
+    )
+    names_later_refs = (
+        adopted_package is not None
+        and later_any_arm_refs_while_count_blocked(adopted_package[0], adopted_package[1])
     )
     _reject_unsupported_presentation_schemas(resolved_members)
     fields = [m for m in resolved_members if m.get("schema") in FIELD_SCHEMAS]
@@ -4618,6 +4663,7 @@ def build_presentation_model(
             closure_reasons = _closure_question_reasons(
                 row, resolved_members=resolved_members, by_symbol=by_symbol,
                 symbol_fact_types=symbol_fact_types,
+                later_any_arm_refs=names_later_refs,
             )
             if closure_reasons:
                 resolved["reasons"] = closure_reasons
@@ -4628,6 +4674,7 @@ def build_presentation_model(
             closure_reasons = _closure_question_reasons(
                 row, resolved_members=resolved_members, by_symbol=by_symbol,
                 symbol_fact_types=symbol_fact_types,
+                later_any_arm_refs=names_later_refs,
             )
             if closure_reasons:
                 resolved["reasons"] = _reasons_beside(resolved["reasons"], closure_reasons)

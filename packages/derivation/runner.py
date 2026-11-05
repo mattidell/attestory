@@ -252,6 +252,51 @@ def _never_ordinary(rule: dict[str, Any]) -> bool:
     return "selection" in rule or "aggregation" in rule or "value" not in rule
 
 
+def _is_closure_check_witness(rule: dict[str, Any]) -> bool:
+    """A rule whose only job is to name one family's closure.
+
+    ``value`` is JSON true and ``when`` is exactly one ``require_closed``.
+    No adopted computing rule has that shape. The predicate keeps the
+    preference off the wash-sale subtotals, which already use a single
+    ``require_closed`` and publish an amount.
+    """
+    if rule.get("value") is not True:
+        return False
+    when = rule.get("when")
+    return (
+        isinstance(when, dict)
+        and set(when) == {"op", "source_set"}
+        and when.get("op") == "require_closed"
+        and isinstance(when.get("source_set"), str)
+    )
+
+
+def _expr_has_op(node: Any, op: str) -> bool:
+    if isinstance(node, dict):
+        if node.get("op") == op:
+            return True
+        return any(_expr_has_op(value, op) for value in node.values())
+    if isinstance(node, list):
+        return any(_expr_has_op(item, op) for item in node)
+    return False
+
+
+def _later_arm_names(exc: EvalBlocked) -> list[str]:
+    """Family ids and later-arm refs carried on a count block, or nothing.
+
+    A ``require_closed`` failure has no ``later_refs``, so its family is not
+    copied onto an unrelated row.
+    """
+    later = [name for name in exc.later_refs if isinstance(name, str)]
+    if not later:
+        return []
+    names: list[str] = []
+    for name in list(exc.missing) + later:
+        if isinstance(name, str) and name not in names:
+            names.append(name)
+    return names
+
+
 def _selection_contract_failure(rule: dict[str, Any]) -> str | None:
     """The token for a v13 selection contract failure before the plan runs."""
     if rule.get("when") is not True or rule.get("requires") != [] or rule.get("pins") != []:
@@ -561,6 +606,7 @@ class _Run:
             parameter_index=self.ctx.parameter_index,
             fact_type_versions=self.fact_type_versions,
             symbol_result_fact_types=self.symbol_result_fact_types,
+            record_later_any_refs=self._later_any_arm_refs_while_count_blocked(),
         )
 
     def dependency_pins_for_access(self, access: AccessLog) -> list[dict[str, Any]]:
@@ -1410,9 +1456,29 @@ class _Run:
 
             return dispatch_current_year_subtotal_on_run(self, rule)
 
-        # 1. If any declared dependency is absent -> blocked
+        # 1. If any declared dependency is absent -> blocked.
+        # A closure-check witness names its family before an injected
+        # member-validation require, which would otherwise hide that closure.
+        # A rule whose guard is any keeps a later arm's ref on this same row
+        # when the count blocked and a compared set already has a member.
         missing = [req for req in rule["requires"] if req not in self.symbols]
         if missing:
+            if self._later_any_arm_refs_while_count_blocked():
+                if _is_closure_check_witness(rule):
+                    preflight = AccessLog()
+                    try:
+                        evaluate(rule["when"], self.env(), preflight)
+                    except EvalBlocked as exc:
+                        self._record_blocked(rule, preflight, exc.category, list(exc.missing))
+                        return "blocked"
+                elif _expr_has_op(rule.get("when"), "any"):
+                    preflight = AccessLog()
+                    try:
+                        evaluate(rule["when"], self.env(), preflight)
+                    except EvalBlocked as exc:
+                        for name in _later_arm_names(exc):
+                            if name not in missing:
+                                missing.append(name)
             self._record_blocked(rule, access, "DEPENDENCY_ABSENT", missing)
             return "blocked"
 
@@ -1610,6 +1676,17 @@ class _Run:
         if not isinstance(package_id, str) or not isinstance(version, str):
             return False
         return unconfirmed_family_names_closure_question(package_id, version)
+
+    def _later_any_arm_refs_while_count_blocked(self) -> bool:
+        """The core v76 switch. Off, a blocked row names only what it named before."""
+        from packages.tax.loader import later_any_arm_refs_while_count_blocked
+
+        pin = self.ctx.adoption_pin
+        package_id = pin.get("id")
+        version = pin.get("version")
+        if not isinstance(package_id, str) or not isinstance(version, str):
+            return False
+        return later_any_arm_refs_while_count_blocked(package_id, version)
 
     def _evaluate_family_validation(self, rule: dict[str, Any], access: AccessLog) -> str:
         rule_id = rule["id"]
@@ -2893,10 +2970,12 @@ class _Run:
             # below.  This lets declared guards classify their branch before
             # numeric work without turning missing inputs into assumed values.
             guard_access = AccessLog()
+            guard_blocked: EvalBlocked | None = None
             try:
                 guard_preflight = evaluate(rule["when"], self.env(), guard_access)
-            except EvalBlocked:
+            except EvalBlocked as exc:
                 guard_preflight = None
+                guard_blocked = exc
             if guard_preflight is False:
                 self.dispositions.append({
                     "artifact_id": rule["id"],
@@ -2907,9 +2986,21 @@ class _Run:
                 self.resolved.add(rule["id"])
                 continue
 
-            # 1. If any dependency is absent -> blocked
+            # 1. If any dependency is absent -> blocked.
+            # Same two preferences as attempt(): a closure-check witness records
+            # its require_closed before an injected member-validation require,
+            # and a blocked count inside any contributes its later-arm refs.
             missing = [req for req in rule["requires"] if req not in self.symbols]
             if missing:
+                if guard_blocked is not None and self._later_any_arm_refs_while_count_blocked():
+                    if _is_closure_check_witness(rule):
+                        self._record_blocked(
+                            rule, guard_access, guard_blocked.category, list(guard_blocked.missing)
+                        )
+                        continue
+                    for name in _later_arm_names(guard_blocked):
+                        if name not in missing:
+                            missing.append(name)
                 self.blocked.append({"artifact_id": rule["id"], "code": BLOCK_ABSENT, "missing": missing})
                 disposition_row = {
                     "artifact_id": rule["id"],
