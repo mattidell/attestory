@@ -1,0 +1,1028 @@
+{
+  "core": "v76",
+  "cases": [
+    {
+      "id": "cross.int-answered-div-open",
+      "form": "1099-INT and 1099-DIV",
+      "case": "INT both answered plus a withholding-only INT, and one DIV with no withholding",
+      "right_answer": "block",
+      "reachable": true,
+      "lines": {
+        "line24": "4031.0",
+        "line25a": "4500.0",
+        "line25b": null,
+        "line25d": null,
+        "line33": null,
+        "line35a": null,
+        "line37": null,
+        "int_b4": "87.0",
+        "div_b4": "0.0",
+        "ira_b4": "0.0",
+        "g_b4": "0.0",
+        "ssa_b6": "0.0"
+      },
+      "line_blocks": [
+        {
+          "artifact": "rule.form1040-line25b",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "f1099div.box4-withholding"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "div.answered-plus-orphan",
+      "form": "1099-DIV",
+      "case": "both statements answered, plus a withholding-only statement of 7",
+      "right_answer": "publish 67.0",
+      "reachable": true,
+      "lines": {
+        "line24": "3971.0",
+        "line25a": "4500.0",
+        "line25b": "67.0",
+        "line25d": "4567.0",
+        "line33": "4567.0",
+        "line35a": "596.0",
+        "line37": "0.0",
+        "int_b4": "0.0",
+        "div_b4": "67.0",
+        "ira_b4": "0.0",
+        "g_b4": "0.0",
+        "ssa_b6": "0.0"
+      },
+      "line_blocks": []
+    },
+    {
+      "id": "div.both-answered",
+      "form": "1099-DIV",
+      "case": "two statements, each with its own withholding answer",
+      "right_answer": "publish 60.0",
+      "reachable": true,
+      "lines": {
+        "line24": "3971.0",
+        "line25a": "4500.0",
+        "line25b": "60.0",
+        "line25d": "4560.0",
+        "line33": "4560.0",
+        "line35a": "589.0",
+        "line37": "0.0",
+        "int_b4": "0.0",
+        "div_b4": "60.0",
+        "ira_b4": "0.0",
+        "g_b4": "0.0",
+        "ssa_b6": "0.0"
+      },
+      "line_blocks": []
+    },
+    {
+      "id": "div.box12.answered",
+      "form": "1099-DIV",
+      "case": "a statement recorded only through box 12, withholding 7 on that statement",
+      "right_answer": "publish 7.0",
+      "reachable": true,
+      "lines": {
+        "line24": "3875.0",
+        "line25a": "4500.0",
+        "line25b": "7.0",
+        "line25d": "4507.0",
+        "line33": "4507.0",
+        "line35a": "632.0",
+        "line37": "0.0",
+        "int_b4": "0.0",
+        "div_b4": "7.0",
+        "ira_b4": "0.0",
+        "g_b4": "0.0",
+        "ssa_b6": "0.0"
+      },
+      "line_blocks": []
+    },
+    {
+      "id": "div.box12.unanswered",
+      "form": "1099-DIV",
+      "case": "a statement recorded only through box 12, no withholding answer",
+      "right_answer": "block",
+      "reachable": true,
+      "lines": {
+        "line24": "3875.0",
+        "line25a": "4500.0",
+        "line25b": "0.0",
+        "line25d": "4500.0",
+        "line33": "4500.0",
+        "line35a": "625.0",
+        "line37": "0.0",
+        "int_b4": "0.0",
+        "div_b4": "0.0",
+        "ira_b4": "0.0",
+        "g_b4": "0.0",
+        "ssa_b6": "0.0"
+      },
+      "line_blocks": []
+    },
+    {
+      "id": "div.box2a.answered",
+      "form": "1099-DIV",
+      "case": "a statement recorded only through box 2a, withholding 7 on that statement",
+      "right_answer": "publish 7.0",
+      "reachable": true,
+      "lines": {
+        "line24": "3875.0",
+        "line25a": "4500.0",
+        "line25b": "7.0",
+        "line25d": "4507.0",
+        "line33": "4507.0",
+        "line35a": "632.0",
+        "line37": "0.0",
+        "int_b4": "0.0",
+        "div_b4": "7.0",
+        "ira_b4": "0.0",
+        "g_b4": "0.0",
+        "ssa_b6": "0.0"
+      },
+      "line_blocks": []
+    },
+    {
+      "id": "div.box2a.unanswered",
+      "form": "1099-DIV",
+      "case": "a statement recorded only through box 2a, no withholding answer",
+      "right_answer": "block",
+      "reachable": true,
+      "lines": {
+        "line24": "3875.0",
+        "line25a": "4500.0",
+        "line25b": "0.0",
+        "line25d": "4500.0",
+        "line33": "4500.0",
+        "line35a": "625.0",
+        "line37": "0.0",
+        "int_b4": "0.0",
+        "div_b4": "0.0",
+        "ira_b4": "0.0",
+        "g_b4": "0.0",
+        "ssa_b6": "0.0"
+      },
+      "line_blocks": []
+    },
+    {
+      "id": "div.box7.answered",
+      "form": "1099-DIV",
+      "case": "a statement recorded only through box 7, withholding 7 on that statement",
+      "right_answer": "publish 7.0",
+      "reachable": true,
+      "lines": {
+        "line24": "3787.0",
+        "line25a": "4500.0",
+        "line25b": "7.0",
+        "line25d": "4507.0",
+        "line33": "4507.0",
+        "line35a": "720.0",
+        "line37": "0.0",
+        "int_b4": "0.0",
+        "div_b4": "7.0",
+        "ira_b4": "0.0",
+        "g_b4": "0.0",
+        "ssa_b6": "0.0"
+      },
+      "line_blocks": []
+    },
+    {
+      "id": "div.box7.unanswered",
+      "form": "1099-DIV",
+      "case": "a statement recorded only through box 7, no withholding answer",
+      "right_answer": "block",
+      "reachable": true,
+      "lines": {
+        "line24": "3787.0",
+        "line25a": "4500.0",
+        "line25b": null,
+        "line25d": null,
+        "line33": null,
+        "line35a": null,
+        "line37": null,
+        "int_b4": "0.0",
+        "div_b4": "0.0",
+        "ira_b4": "0.0",
+        "g_b4": "0.0",
+        "ssa_b6": "0.0"
+      },
+      "line_blocks": [
+        {
+          "artifact": "rule.form1040-line25b",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "f1099div.box4-withholding"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "div.offset",
+      "form": "1099-DIV",
+      "case": "two statements, one answer missing, plus a withholding-only statement of 7",
+      "right_answer": "block",
+      "reachable": true,
+      "lines": {
+        "line24": "3971.0",
+        "line25a": "4500.0",
+        "line25b": "47.0",
+        "line25d": "4547.0",
+        "line33": "4547.0",
+        "line35a": "576.0",
+        "line37": "0.0",
+        "int_b4": "0.0",
+        "div_b4": "47.0",
+        "ira_b4": "0.0",
+        "g_b4": "0.0",
+        "ssa_b6": "0.0"
+      },
+      "line_blocks": []
+    },
+    {
+      "id": "div.one-unanswered",
+      "form": "1099-DIV",
+      "case": "two statements, one withholding answer missing",
+      "right_answer": "block",
+      "reachable": true,
+      "lines": {
+        "line24": "3971.0",
+        "line25a": "4500.0",
+        "line25b": null,
+        "line25d": null,
+        "line33": null,
+        "line35a": null,
+        "line37": null,
+        "int_b4": "0.0",
+        "div_b4": "40.0",
+        "ira_b4": "0.0",
+        "g_b4": "0.0",
+        "ssa_b6": "0.0"
+      },
+      "line_blocks": [
+        {
+          "artifact": "rule.form1040-line25b",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "f1099div.box4-withholding"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "div.same-statement-second",
+      "form": "1099-DIV",
+      "case": "a second withholding member on the answered statement's own keys",
+      "right_answer": "one current answer for that statement; a second member is not a second statement",
+      "reachable": false,
+      "refusal": "FindingModelError: transition asserting fact tax.us.2025.f1099div.box4-withholding|payer=demo.fw.div.payer.0,statement=demo.fw.div.stmt.0,tax-year=2025 already in the family is rejected: same-member correction belongs on the ordinary assertion path"
+    },
+    {
+      "id": "g.answered-plus-orphan",
+      "form": "1099-G",
+      "case": "both statements answered, plus a withholding-only statement of 7",
+      "right_answer": "publish 1007.0",
+      "reachable": true,
+      "lines": {
+        "line24": "5075.0",
+        "line25a": "4500.0",
+        "line25b": "1007.0",
+        "line25d": "5507.0",
+        "line33": "5507.0",
+        "line35a": "432.0",
+        "line37": "0.0",
+        "int_b4": "0.0",
+        "div_b4": "0.0",
+        "ira_b4": "0.0",
+        "g_b4": "1007.0",
+        "ssa_b6": "0.0"
+      },
+      "line_blocks": []
+    },
+    {
+      "id": "g.both-answered",
+      "form": "1099-G",
+      "case": "two statements, each with its own withholding answer",
+      "right_answer": "publish 1000.0",
+      "reachable": true,
+      "lines": {
+        "line24": "5075.0",
+        "line25a": "4500.0",
+        "line25b": "1000.0",
+        "line25d": "5500.0",
+        "line33": "5500.0",
+        "line35a": "425.0",
+        "line37": "0.0",
+        "int_b4": "0.0",
+        "div_b4": "0.0",
+        "ira_b4": "0.0",
+        "g_b4": "1000.0",
+        "ssa_b6": "0.0"
+      },
+      "line_blocks": []
+    },
+    {
+      "id": "g.offset",
+      "form": "1099-G",
+      "case": "two statements, one answer missing, plus a withholding-only statement of 7",
+      "right_answer": "block",
+      "reachable": true,
+      "lines": {
+        "line24": "5075.0",
+        "line25a": "4500.0",
+        "line25b": "607.0",
+        "line25d": "5107.0",
+        "line33": "5107.0",
+        "line35a": "32.0",
+        "line37": "0.0",
+        "int_b4": "0.0",
+        "div_b4": "0.0",
+        "ira_b4": "0.0",
+        "g_b4": "607.0",
+        "ssa_b6": "0.0"
+      },
+      "line_blocks": []
+    },
+    {
+      "id": "g.one-unanswered",
+      "form": "1099-G",
+      "case": "two statements, one withholding answer missing",
+      "right_answer": "block",
+      "reachable": true,
+      "lines": {
+        "line24": "5075.0",
+        "line25a": "4500.0",
+        "line25b": null,
+        "line25d": null,
+        "line33": null,
+        "line35a": null,
+        "line37": null,
+        "int_b4": "0.0",
+        "div_b4": "0.0",
+        "ira_b4": "0.0",
+        "g_b4": "600.0",
+        "ssa_b6": "0.0"
+      },
+      "line_blocks": [
+        {
+          "artifact": "rule.form1040-line25b",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "f1099g.box4-withholding"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "g.same-statement-second",
+      "form": "1099-G",
+      "case": "a second withholding member on the answered statement's own keys",
+      "right_answer": "one current answer for that statement; a second member is not a second statement",
+      "reachable": false,
+      "refusal": "FindingModelError: transition asserting fact tax.us.2025.f1099g.box4-withholding|payer=demo.fw.g.payer.0,statement=demo.fw.g.stmt.0,tax-year=2025 already in the family is rejected: same-member correction belongs on the ordinary assertion path"
+    },
+    {
+      "id": "int.answered-plus-orphan",
+      "form": "1099-INT",
+      "case": "both statements answered, plus a withholding-only statement of 7",
+      "right_answer": "publish 87.0",
+      "reachable": true,
+      "lines": {
+        "line24": "3971.0",
+        "line25a": "4500.0",
+        "line25b": "87.0",
+        "line25d": "4587.0",
+        "line33": "4587.0",
+        "line35a": "616.0",
+        "line37": "0.0",
+        "int_b4": "87.0",
+        "div_b4": "0.0",
+        "ira_b4": "0.0",
+        "g_b4": "0.0",
+        "ssa_b6": "0.0"
+      },
+      "line_blocks": []
+    },
+    {
+      "id": "int.both-answered",
+      "form": "1099-INT",
+      "case": "two statements, each with its own withholding answer",
+      "right_answer": "publish 80.0",
+      "reachable": true,
+      "lines": {
+        "line24": "3971.0",
+        "line25a": "4500.0",
+        "line25b": "80.0",
+        "line25d": "4580.0",
+        "line33": "4580.0",
+        "line35a": "609.0",
+        "line37": "0.0",
+        "int_b4": "80.0",
+        "div_b4": "0.0",
+        "ira_b4": "0.0",
+        "g_b4": "0.0",
+        "ssa_b6": "0.0"
+      },
+      "line_blocks": []
+    },
+    {
+      "id": "int.box10.answered",
+      "form": "1099-INT",
+      "case": "a statement recorded only through box 10, withholding 7 on that statement",
+      "right_answer": "publish 7.0",
+      "reachable": true,
+      "lines": {
+        "line24": "3887.0",
+        "line25a": "4500.0",
+        "line25b": "7.0",
+        "line25d": "4507.0",
+        "line33": "4507.0",
+        "line35a": "620.0",
+        "line37": "0.0",
+        "int_b4": "7.0",
+        "div_b4": "0.0",
+        "ira_b4": "0.0",
+        "g_b4": "0.0",
+        "ssa_b6": "0.0"
+      },
+      "line_blocks": []
+    },
+    {
+      "id": "int.box10.unanswered",
+      "form": "1099-INT",
+      "case": "a statement recorded only through box 10, no withholding answer",
+      "right_answer": "block",
+      "reachable": true,
+      "lines": {
+        "line24": "3887.0",
+        "line25a": "4500.0",
+        "line25b": "0.0",
+        "line25d": "4500.0",
+        "line33": "4500.0",
+        "line35a": "613.0",
+        "line37": "0.0",
+        "int_b4": "0.0",
+        "div_b4": "0.0",
+        "ira_b4": "0.0",
+        "g_b4": "0.0",
+        "ssa_b6": "0.0"
+      },
+      "line_blocks": []
+    },
+    {
+      "id": "int.box3.answered",
+      "form": "1099-INT",
+      "case": "a statement recorded only through box 3, withholding 7 on that statement",
+      "right_answer": "publish 7.0",
+      "reachable": true,
+      "lines": {
+        "line24": "3887.0",
+        "line25a": "4500.0",
+        "line25b": "7.0",
+        "line25d": "4507.0",
+        "line33": "4507.0",
+        "line35a": "620.0",
+        "line37": "0.0",
+        "int_b4": "7.0",
+        "div_b4": "0.0",
+        "ira_b4": "0.0",
+        "g_b4": "0.0",
+        "ssa_b6": "0.0"
+      },
+      "line_blocks": []
+    },
+    {
+      "id": "int.box3.unanswered",
+      "form": "1099-INT",
+      "case": "a statement recorded only through box 3, no withholding answer",
+      "right_answer": "block",
+      "reachable": true,
+      "lines": {
+        "line24": "3887.0",
+        "line25a": "4500.0",
+        "line25b": "0.0",
+        "line25d": "4500.0",
+        "line33": "4500.0",
+        "line35a": "613.0",
+        "line37": "0.0",
+        "int_b4": "0.0",
+        "div_b4": "0.0",
+        "ira_b4": "0.0",
+        "g_b4": "0.0",
+        "ssa_b6": "0.0"
+      },
+      "line_blocks": []
+    },
+    {
+      "id": "int.box8.answered",
+      "form": "1099-INT",
+      "case": "a statement recorded only through box 8, withholding 7 on that statement",
+      "right_answer": "publish 7.0",
+      "reachable": true,
+      "lines": {
+        "line24": "3875.0",
+        "line25a": "4500.0",
+        "line25b": "7.0",
+        "line25d": "4507.0",
+        "line33": "4507.0",
+        "line35a": "632.0",
+        "line37": "0.0",
+        "int_b4": "7.0",
+        "div_b4": "0.0",
+        "ira_b4": "0.0",
+        "g_b4": "0.0",
+        "ssa_b6": "0.0"
+      },
+      "line_blocks": []
+    },
+    {
+      "id": "int.box8.unanswered",
+      "form": "1099-INT",
+      "case": "a statement recorded only through box 8, no withholding answer",
+      "right_answer": "block",
+      "reachable": true,
+      "lines": {
+        "line24": "3875.0",
+        "line25a": "4500.0",
+        "line25b": "0.0",
+        "line25d": "4500.0",
+        "line33": "4500.0",
+        "line35a": "625.0",
+        "line37": "0.0",
+        "int_b4": "0.0",
+        "div_b4": "0.0",
+        "ira_b4": "0.0",
+        "g_b4": "0.0",
+        "ssa_b6": "0.0"
+      },
+      "line_blocks": []
+    },
+    {
+      "id": "int.offset",
+      "form": "1099-INT",
+      "case": "two statements, one answer missing, plus a withholding-only statement of 7",
+      "right_answer": "block",
+      "reachable": true,
+      "lines": {
+        "line24": "3971.0",
+        "line25a": "4500.0",
+        "line25b": "57.0",
+        "line25d": "4557.0",
+        "line33": "4557.0",
+        "line35a": "586.0",
+        "line37": "0.0",
+        "int_b4": "57.0",
+        "div_b4": "0.0",
+        "ira_b4": "0.0",
+        "g_b4": "0.0",
+        "ssa_b6": "0.0"
+      },
+      "line_blocks": []
+    },
+    {
+      "id": "int.one-unanswered",
+      "form": "1099-INT",
+      "case": "two statements, one withholding answer missing",
+      "right_answer": "block",
+      "reachable": true,
+      "lines": {
+        "line24": "3971.0",
+        "line25a": "4500.0",
+        "line25b": null,
+        "line25d": null,
+        "line33": null,
+        "line35a": null,
+        "line37": null,
+        "int_b4": "50.0",
+        "div_b4": "0.0",
+        "ira_b4": "0.0",
+        "g_b4": "0.0",
+        "ssa_b6": "0.0"
+      },
+      "line_blocks": [
+        {
+          "artifact": "rule.form1040-line25b",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "f1099int.box4-withholding"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "int.same-statement-assert",
+      "form": "1099-INT",
+      "case": "an ordinary assertion of box 4 on the answered statement's own keys",
+      "right_answer": "one current answer for that statement; a second member is not a second statement",
+      "reachable": true,
+      "lines": {
+        "line24": "3935.0",
+        "line25a": "4500.0",
+        "line25b": "7.0",
+        "line25d": "4507.0",
+        "line33": "4507.0",
+        "line35a": "572.0",
+        "line37": "0.0",
+        "int_b4": "7.0",
+        "div_b4": "0.0",
+        "ira_b4": "0.0",
+        "g_b4": "0.0",
+        "ssa_b6": "0.0"
+      },
+      "line_blocks": []
+    },
+    {
+      "id": "int.same-statement-second",
+      "form": "1099-INT",
+      "case": "a second withholding member on the answered statement's own keys",
+      "right_answer": "one current answer for that statement; a second member is not a second statement",
+      "reachable": false,
+      "refusal": "FindingModelError: transition asserting fact tax.us.2025.f1099int.box4-withholding|payer=demo.fw.int.payer.0,statement=demo.fw.int.stmt.0,tax-year=2025 already in the family is rejected: same-member correction belongs on the ordinary assertion path"
+    },
+    {
+      "id": "int.zero-is-an-answer",
+      "form": "1099-INT",
+      "case": "two statements, the second withholding answer recorded as 0",
+      "right_answer": "publish 50.0",
+      "reachable": true,
+      "lines": {
+        "line24": "3971.0",
+        "line25a": "4500.0",
+        "line25b": "50.0",
+        "line25d": "4550.0",
+        "line33": "4550.0",
+        "line35a": "579.0",
+        "line37": "0.0",
+        "int_b4": "50.0",
+        "div_b4": "0.0",
+        "ira_b4": "0.0",
+        "g_b4": "0.0",
+        "ssa_b6": "0.0"
+      },
+      "line_blocks": []
+    },
+    {
+      "id": "ira.answered-plus-orphan",
+      "form": "1099-R",
+      "case": "both statements answered, plus a withholding-only statement of 7",
+      "right_answer": "publish 2007.0",
+      "reachable": true,
+      "lines": {
+        "line24": "5755.0",
+        "line25a": "4500.0",
+        "line25b": "2007.0",
+        "line25d": "6507.0",
+        "line33": "6507.0",
+        "line35a": "752.0",
+        "line37": "0.0",
+        "int_b4": "0.0",
+        "div_b4": "0.0",
+        "ira_b4": "2007.0",
+        "g_b4": "0.0",
+        "ssa_b6": "0.0"
+      },
+      "line_blocks": []
+    },
+    {
+      "id": "ira.both-answered",
+      "form": "1099-R",
+      "case": "two statements, each with its own withholding answer",
+      "right_answer": "publish 2000.0",
+      "reachable": true,
+      "lines": {
+        "line24": "5755.0",
+        "line25a": "4500.0",
+        "line25b": "2000.0",
+        "line25d": "6500.0",
+        "line33": "6500.0",
+        "line35a": "745.0",
+        "line37": "0.0",
+        "int_b4": "0.0",
+        "div_b4": "0.0",
+        "ira_b4": "2000.0",
+        "g_b4": "0.0",
+        "ssa_b6": "0.0"
+      },
+      "line_blocks": []
+    },
+    {
+      "id": "ira.offset",
+      "form": "1099-R",
+      "case": "two statements, one answer missing, plus a withholding-only statement of 7",
+      "right_answer": "block",
+      "reachable": true,
+      "lines": {
+        "line24": "5755.0",
+        "line25a": "4500.0",
+        "line25b": "1207.0",
+        "line25d": "5707.0",
+        "line33": "5707.0",
+        "line35a": "0.0",
+        "line37": "48.0",
+        "int_b4": "0.0",
+        "div_b4": "0.0",
+        "ira_b4": "1207.0",
+        "g_b4": "0.0",
+        "ssa_b6": "0.0"
+      },
+      "line_blocks": []
+    },
+    {
+      "id": "ira.one-unanswered",
+      "form": "1099-R",
+      "case": "two statements, one withholding answer missing",
+      "right_answer": "block",
+      "reachable": true,
+      "lines": {
+        "line24": "5755.0",
+        "line25a": "4500.0",
+        "line25b": null,
+        "line25d": null,
+        "line33": null,
+        "line35a": null,
+        "line37": null,
+        "int_b4": "0.0",
+        "div_b4": "0.0",
+        "ira_b4": "1200.0",
+        "g_b4": "0.0",
+        "ssa_b6": "0.0"
+      },
+      "line_blocks": [
+        {
+          "artifact": "rule.form1040-line25b",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "f1099r.ira-box4-withholding"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ira.same-statement-second",
+      "form": "1099-R",
+      "case": "a second withholding member on the answered statement's own keys",
+      "right_answer": "one current answer for that statement; a second member is not a second statement",
+      "reachable": false,
+      "refusal": "FindingModelError: transition asserting fact tax.us.2025.f1099r.ira-box4-withholding|payer=demo.fw.r.payer.0,statement=demo.fw.r.stmt.0,tax-year=2025 already in the family is rejected: same-member correction belongs on the ordinary assertion path"
+    },
+    {
+      "id": "ssa.answered-plus-orphan",
+      "form": "SSA-1099",
+      "case": "both statements answered, plus a withholding-only statement of 7",
+      "right_answer": "publish 1307.0",
+      "reachable": true,
+      "lines": {
+        "line24": "6195.0",
+        "line25a": "4500.0",
+        "line25b": "1307.0",
+        "line25d": "5807.0",
+        "line33": "5807.0",
+        "line35a": "0.0",
+        "line37": "388.0",
+        "int_b4": "0.0",
+        "div_b4": "0.0",
+        "ira_b4": "0.0",
+        "g_b4": "0.0",
+        "ssa_b6": "1307.0"
+      },
+      "line_blocks": []
+    },
+    {
+      "id": "ssa.both-answered",
+      "form": "SSA-1099",
+      "case": "two statements, each with its own withholding answer",
+      "right_answer": "publish 1300.0",
+      "reachable": true,
+      "lines": {
+        "line24": "6195.0",
+        "line25a": "4500.0",
+        "line25b": "1300.0",
+        "line25d": "5800.0",
+        "line33": "5800.0",
+        "line35a": "0.0",
+        "line37": "395.0",
+        "int_b4": "0.0",
+        "div_b4": "0.0",
+        "ira_b4": "0.0",
+        "g_b4": "0.0",
+        "ssa_b6": "1300.0"
+      },
+      "line_blocks": []
+    },
+    {
+      "id": "ssa.offset",
+      "form": "SSA-1099",
+      "case": "two statements, one answer missing, plus a withholding-only statement of 7",
+      "right_answer": "block",
+      "reachable": true,
+      "lines": {
+        "line24": "6195.0",
+        "line25a": "4500.0",
+        "line25b": "807.0",
+        "line25d": "5307.0",
+        "line33": "5307.0",
+        "line35a": "0.0",
+        "line37": "888.0",
+        "int_b4": "0.0",
+        "div_b4": "0.0",
+        "ira_b4": "0.0",
+        "g_b4": "0.0",
+        "ssa_b6": "807.0"
+      },
+      "line_blocks": []
+    },
+    {
+      "id": "ssa.one-unanswered",
+      "form": "SSA-1099",
+      "case": "two statements, one withholding answer missing",
+      "right_answer": "block",
+      "reachable": true,
+      "lines": {
+        "line24": "6195.0",
+        "line25a": "4500.0",
+        "line25b": null,
+        "line25d": null,
+        "line33": null,
+        "line35a": null,
+        "line37": null,
+        "int_b4": "0.0",
+        "div_b4": "0.0",
+        "ira_b4": "0.0",
+        "g_b4": "0.0",
+        "ssa_b6": "800.0"
+      },
+      "line_blocks": [
+        {
+          "artifact": "rule.form1040-line25b",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "ssa1099.box6-voluntary-withholding"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ssa.same-statement-second",
+      "form": "SSA-1099",
+      "case": "a second withholding member on the answered statement's own keys",
+      "right_answer": "one current answer for that statement; a second member is not a second statement",
+      "reachable": false,
+      "refusal": "FindingModelError: transition asserting fact tax.us.2025.ssa1099.box6-voluntary-withholding|statement=demo.fw.ssa.stmt.0,tax-year=2025 already in the family is rejected: same-member correction belongs on the ordinary assertion path"
+    },
+    {
+      "id": "w2.both-answered",
+      "form": "W-2",
+      "case": "two W-2 slips, each with its own box 2",
+      "right_answer": "publish 5300.0",
+      "w2_box1": [
+        "tax.us.2025.w2.box1-wages|employer=demo.cgd.t2.employer,w2-slip=demo.cgd.t2.w2,tax-year=2025",
+        "tax.us.2025.w2.box1-wages|employer=demo.swp.w2second.employer,w2-slip=demo.swp.w2second.slip,tax-year=2025"
+      ],
+      "w2_box2": [
+        "tax.us.2025.w2.box2-withholding|employer=demo.cgd.t2.employer,w2-slip=demo.cgd.t2.w2,tax-year=2025",
+        "tax.us.2025.w2.box2-withholding|employer=demo.swp.w2second.employer,w2-slip=demo.swp.w2second.slip,tax-year=2025"
+      ],
+      "w2_horizons": [
+        "demo.cgd.t2.w2.h0",
+        "demo.cgd.t2.w2.h1",
+        "demo.swp.w2.h2"
+      ],
+      "w2_box2_horizons": [
+        "demo.odc.complete.w2box2"
+      ],
+      "reachable": true,
+      "lines": {
+        "line24": "6855.0",
+        "line25a": "5300.0",
+        "line25b": "0.0",
+        "line25d": "5300.0",
+        "line33": "5300.0",
+        "line35a": "0.0",
+        "line37": "1555.0",
+        "int_b4": "0.0",
+        "div_b4": "0.0",
+        "ira_b4": "0.0",
+        "g_b4": "0.0",
+        "ssa_b6": "0.0"
+      },
+      "line_blocks": []
+    },
+    {
+      "id": "w2.offset",
+      "form": "W-2",
+      "case": "two W-2 slips with box 2 on the first only, plus a box-2-only third slip of 100",
+      "right_answer": "block",
+      "w2_box1": [
+        "tax.us.2025.w2.box1-wages|employer=demo.cgd.t2.employer,w2-slip=demo.cgd.t2.w2,tax-year=2025",
+        "tax.us.2025.w2.box1-wages|employer=demo.swp.w2second.employer,w2-slip=demo.swp.w2second.slip,tax-year=2025"
+      ],
+      "w2_box2": [
+        "tax.us.2025.w2.box2-withholding|employer=demo.cgd.t2.employer,w2-slip=demo.cgd.t2.w2,tax-year=2025",
+        "tax.us.2025.w2.box2-withholding|employer=demo.swp.w2third.employer,w2-slip=demo.swp.w2third.slip,tax-year=2025"
+      ],
+      "w2_horizons": [
+        "demo.cgd.t2.w2.h0",
+        "demo.cgd.t2.w2.h1",
+        "demo.swp.w2.h2"
+      ],
+      "w2_box2_horizons": [
+        "demo.odc.complete.w2box2"
+      ],
+      "reachable": true,
+      "lines": {
+        "line24": "6855.0",
+        "line25a": "4600.0",
+        "line25b": "0.0",
+        "line25d": "4600.0",
+        "line33": "4600.0",
+        "line35a": "0.0",
+        "line37": "2255.0",
+        "int_b4": "0.0",
+        "div_b4": "0.0",
+        "ira_b4": "0.0",
+        "g_b4": "0.0",
+        "ssa_b6": "0.0"
+      },
+      "line_blocks": []
+    },
+    {
+      "id": "w2.same-slip-second",
+      "form": "W-2",
+      "case": "a second box 2 write on the base slip's own keys",
+      "right_answer": "one current box 2 for that slip",
+      "w2_box1": [
+        "tax.us.2025.w2.box1-wages|employer=demo.cgd.t2.employer,w2-slip=demo.cgd.t2.w2,tax-year=2025"
+      ],
+      "w2_box2": [
+        "tax.us.2025.w2.box2-withholding|employer=demo.cgd.t2.employer,w2-slip=demo.cgd.t2.w2,tax-year=2025",
+        "tax.us.2025.w2.box2-withholding|employer=demo.cgd.t2.employer,w2-slip=demo.cgd.t2.w2,tax-year=2025"
+      ],
+      "w2_horizons": [
+        "demo.cgd.t2.w2.h0",
+        "demo.cgd.t2.w2.h1"
+      ],
+      "w2_box2_horizons": [
+        "demo.odc.complete.w2box2"
+      ],
+      "reachable": true,
+      "lines": {
+        "line24": "3875.0",
+        "line25a": "9999.0",
+        "line25b": "0.0",
+        "line25d": "9999.0",
+        "line33": "9999.0",
+        "line35a": "6124.0",
+        "line37": "0.0",
+        "int_b4": "0.0",
+        "div_b4": "0.0",
+        "ira_b4": "0.0",
+        "g_b4": "0.0",
+        "ssa_b6": "0.0"
+      },
+      "line_blocks": []
+    },
+    {
+      "id": "w2.second-slip-unanswered",
+      "form": "W-2",
+      "case": "two W-2 slips, box 2 answered on the first only",
+      "right_answer": "block",
+      "w2_box1": [
+        "tax.us.2025.w2.box1-wages|employer=demo.cgd.t2.employer,w2-slip=demo.cgd.t2.w2,tax-year=2025",
+        "tax.us.2025.w2.box1-wages|employer=demo.swp.w2second.employer,w2-slip=demo.swp.w2second.slip,tax-year=2025"
+      ],
+      "w2_box2": [
+        "tax.us.2025.w2.box2-withholding|employer=demo.cgd.t2.employer,w2-slip=demo.cgd.t2.w2,tax-year=2025"
+      ],
+      "w2_horizons": [
+        "demo.cgd.t2.w2.h0",
+        "demo.cgd.t2.w2.h1",
+        "demo.swp.w2.h2"
+      ],
+      "w2_box2_horizons": [
+        "demo.odc.complete.w2box2"
+      ],
+      "reachable": true,
+      "lines": {
+        "line24": "6855.0",
+        "line25a": null,
+        "line25b": "0.0",
+        "line25d": null,
+        "line33": null,
+        "line35a": null,
+        "line37": null,
+        "int_b4": "0.0",
+        "div_b4": "0.0",
+        "ira_b4": "0.0",
+        "g_b4": "0.0",
+        "ssa_b6": "0.0"
+      },
+      "line_blocks": [
+        {
+          "artifact": "rule.form1040-line25a",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "w2.box2-withholding"
+          ]
+        }
+      ]
+    }
+  ]
+}

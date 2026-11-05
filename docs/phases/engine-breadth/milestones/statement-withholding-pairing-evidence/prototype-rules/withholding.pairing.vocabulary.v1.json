@@ -1,0 +1,33 @@
+{
+  "schema": "bundle.v2",
+  "id": "tax.us.2025.withholding.pairing.vocabulary",
+  "version": "v1",
+  "label": "Scratch vocabulary for a statement withholding answer",
+  "fact_types": [
+    {
+      "schema": "fact-type.v2",
+      "id": "tax.us.2025.withholding.pairing.answer",
+      "version": "v1",
+      "title": "A statement has its own withholding answer",
+      "nature": "determinable",
+      "identity_keys": [
+        {
+          "name": "marker",
+          "kind": "literal",
+          "values": [
+            "unused"
+          ]
+        }
+      ],
+      "value_schema": {
+        "type": "string",
+        "enum": [
+          "answered"
+        ]
+      },
+      "supersession": {
+        "policy": "free"
+      }
+    }
+  ]
+}

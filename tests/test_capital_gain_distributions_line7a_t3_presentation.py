@@ -102,6 +102,7 @@ class ProductionShapedGoldens(unittest.TestCase):
             self.assertEqual(committed, model)
             validate_presentation_model(committed)
 
+    @pytest.mark.live  # Regenerates the capital-gain presentation goldens through the derivation.
     def test_three_dispositions_are_honest(self) -> None:
         models = goldens.regenerate()
         eligible = {section["id"]: section for section in models["eligible"]["sections"]}
