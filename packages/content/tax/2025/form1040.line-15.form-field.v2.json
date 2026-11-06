@@ -1,0 +1,45 @@
+{
+  "schema": "form-field.v2",
+  "id": "tax.us.2025.form1040.line-15",
+  "version": "v2",
+  "form": {
+    "authority": "IRS",
+    "form_id": "1040",
+    "tax_year": 2025,
+    "jurisdiction": "US-federal"
+  },
+  "line": "15",
+  "label": "Taxable income",
+  "description": "Form 1040 Line 15 taxable income",
+  "binds_symbol": "tax.us.2025.income.taxable-income",
+  "citation": {
+    "id": "tax.us.2025.citation.form1040.line-15",
+    "version": "v1"
+  },
+  "dispositions": {
+    "published_value": {
+      "render": "{value}",
+      "explain": "Your taxable income is line 11a minus line 14, and not below zero."
+    },
+    "computed_zero": {
+      "render": "0",
+      "explain": "Your taxable income is zero because line 11a is not more than line 14."
+    },
+    "closure_backed_zero": {
+      "render": "0",
+      "explain": "closure zero"
+    },
+    "blocked": {
+      "render": "",
+      "explain": "Your taxable income has no value yet. It is waiting for your adjusted gross income and your line 14 deductions.",
+      "codes": [
+        "DEPENDENCY_ABSENT",
+        "DEPENDENCY_INVALID"
+      ]
+    },
+    "guard_inapplicable": {
+      "render": "",
+      "explain": "guard false"
+    }
+  }
+}

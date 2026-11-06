@@ -1,0 +1,144 @@
+{
+  "case": "demo.le.p0.wages",
+  "v77_reachable": true,
+  "v78_reachable": true,
+  "v77_refusal": null,
+  "v78_refusal": null,
+  "successor": {
+    "package_version": "v78",
+    "release_version": "v76",
+    "inherited_inconsistencies": [],
+    "fields": [
+      {
+        "id": "tax.us.2025.form1040.line-9",
+        "from_version": "v1",
+        "version": "v2",
+        "schema": "form-field.v2",
+        "file": "form1040.line-9.form-field.v2.json",
+        "replaced_dispositions": [
+          "published_value",
+          "computed_zero",
+          "closure_backed_zero",
+          "blocked",
+          "guard_inapplicable"
+        ]
+      },
+      {
+        "id": "tax.us.2025.form1040.line-12e",
+        "from_version": "v1",
+        "version": "v2",
+        "schema": "form-field.v3",
+        "file": "form1040.line-12e.form-field.v2.json",
+        "replaced_dispositions": [
+          "published_value",
+          "computed_zero",
+          "closure_backed_zero",
+          "blocked",
+          "guard_inapplicable"
+        ]
+      },
+      {
+        "id": "tax.us.2025.schedule-d.line-7",
+        "from_version": "v1",
+        "version": "v2",
+        "schema": "form-field.v3",
+        "file": "schedule-d.line-7.form-field.v2.json",
+        "replaced_dispositions": [
+          "published_value",
+          "computed_zero",
+          "closure_backed_zero",
+          "blocked",
+          "guard_inapplicable"
+        ]
+      }
+    ]
+  },
+  "fields_compared": 73,
+  "value_and_disposition_mismatches": [],
+  "explain_changes": [
+    {
+      "field_id": "tax.us.2025.form1040.line-9",
+      "succeeded": true,
+      "v77_explain": "published total income",
+      "v78_explain": "Form 1040 line 9 (Total income) adds Total amount from Form(s) W-2, box 1, Taxable interest, Ordinary dividends, Capital gain or (loss), Additional income from Schedule 1, Taxable IRA distributions, and Taxable Social Security benefits.",
+      "changed": true,
+      "v77_disposition": "published_value",
+      "v78_disposition": "published_value",
+      "v77_value": 50000,
+      "v78_value": 50000
+    },
+    {
+      "field_id": "tax.us.2025.form1040.line-12e",
+      "succeeded": true,
+      "v77_explain": "published standard-or-itemized deduction",
+      "v78_explain": "Form 1040 line 12e is the larger of the standard deduction and the itemized deductions.",
+      "changed": true,
+      "v77_disposition": "published_value",
+      "v78_disposition": "published_value",
+      "v77_value": 15750,
+      "v78_value": 15750
+    },
+    {
+      "field_id": "tax.us.2025.schedule-d.line-7",
+      "succeeded": true,
+      "v77_explain": "Computed zero.",
+      "v78_explain": "Line 7 net short-term is zero because those amounts come to zero.",
+      "changed": true,
+      "v77_disposition": "computed_zero",
+      "v78_disposition": "computed_zero",
+      "v77_value": 0,
+      "v78_value": 0
+    },
+    {
+      "field_id": "tax.us.2025.form1040.line-16",
+      "succeeded": false,
+      "v77_explain": "published tax",
+      "v78_explain": "published tax",
+      "changed": false,
+      "v77_disposition": "published_value",
+      "v78_disposition": "published_value",
+      "v77_value": 3875,
+      "v78_value": 3875
+    }
+  ],
+  "v78_page": {
+    "browser": true,
+    "rows": {
+      "tax.us.2025.form1040.line-12e": {
+        "line": "12e",
+        "disposition": "published_value",
+        "value": 15750,
+        "explain": "Form 1040 line 12e is the larger of the standard deduction and the itemized deductions.",
+        "explain_in_rendered_page": true,
+        "browser": true
+      },
+      "tax.us.2025.form1040.line-16": {
+        "line": "16",
+        "disposition": "published_value",
+        "value": 3875,
+        "explain": "published tax",
+        "explain_in_rendered_page": true,
+        "browser": true
+      },
+      "tax.us.2025.form1040.line-9": {
+        "line": "9",
+        "disposition": "published_value",
+        "value": 50000,
+        "explain": "Form 1040 line 9 (Total income) adds Total amount from Form(s) W-2, box 1, Taxable interest, Ordinary dividends, Capital gain or (loss), Additional income from Schedule 1, Taxable IRA distributions, and Taxable Social Security benefits.",
+        "explain_in_rendered_page": true,
+        "browser": true
+      },
+      "tax.us.2025.schedule-d.line-7": {
+        "line": "7",
+        "disposition": "computed_zero",
+        "value": 0,
+        "explain": "Line 7 net short-term is zero because those amounts come to zero.",
+        "explain_in_rendered_page": true,
+        "browser": true
+      }
+    }
+  },
+  "values_and_dispositions_match": true,
+  "succeeded_explains_changed": true,
+  "control_explain_unchanged": true
+}

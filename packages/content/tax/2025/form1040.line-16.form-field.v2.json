@@ -1,0 +1,45 @@
+{
+  "schema": "form-field.v2",
+  "id": "tax.us.2025.form1040.line-16",
+  "version": "v2",
+  "form": {
+    "authority": "IRS",
+    "form_id": "1040",
+    "tax_year": 2025,
+    "jurisdiction": "US-federal"
+  },
+  "line": "16",
+  "label": "Tax",
+  "description": "Form 1040 Line 16 tax amount",
+  "binds_symbol": "tax.us.2025.tax.total-tax",
+  "citation": {
+    "id": "tax.us.2025.citation.form1040.line-16",
+    "version": "v1"
+  },
+  "dispositions": {
+    "published_value": {
+      "render": "{value}",
+      "explain": "Your tax is the tax on your taxable income when you have no qualified dividends and no preferential capital gain. Otherwise it is the tax from the Qualified Dividends and Capital Gain Tax Worksheet."
+    },
+    "computed_zero": {
+      "render": "0",
+      "explain": "Your tax is zero because the tax on your taxable income is zero when you have no qualified dividends and no preferential capital gain, or the qualified dividends and capital gain tax is zero."
+    },
+    "closure_backed_zero": {
+      "render": "0",
+      "explain": "closure zero"
+    },
+    "blocked": {
+      "render": "",
+      "explain": "Your tax has no value yet. It is waiting for your taxable income, your filing status, your qualified dividends and capital gain, or your covered sale proceeds.",
+      "codes": [
+        "DEPENDENCY_ABSENT",
+        "DEPENDENCY_INVALID"
+      ]
+    },
+    "guard_inapplicable": {
+      "render": "",
+      "explain": "Line 16 is computed here only when you sold covered securities, or when Schedule D is not required and your qualified dividends and capital gain fit your capital gain distributions answer. Neither is true on this return."
+    }
+  }
+}

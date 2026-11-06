@@ -1,0 +1,45 @@
+{
+  "schema": "form-field.v2",
+  "id": "tax.us.2025.form1040.line-9",
+  "version": "v2",
+  "form": {
+    "authority": "IRS",
+    "form_id": "1040",
+    "tax_year": 2025,
+    "jurisdiction": "US-federal"
+  },
+  "line": "9",
+  "label": "Total income",
+  "description": "Form 1040 Line 9 total income",
+  "binds_symbol": "tax.us.2025.income.total-income",
+  "citation": {
+    "id": "tax.us.2025.citation.form1040.line-9",
+    "version": "v1"
+  },
+  "dispositions": {
+    "published_value": {
+      "render": "{value}",
+      "explain": "Your total income: lines 1a, 2b, 3b, 4b, 6b, 7, and 8 added together."
+    },
+    "computed_zero": {
+      "render": "0",
+      "explain": "Your total income is zero because lines 1a, 2b, 3b, 4b, 6b, 7, and 8 add to zero."
+    },
+    "closure_backed_zero": {
+      "render": "0",
+      "explain": "closure zero"
+    },
+    "blocked": {
+      "render": "",
+      "explain": "Your total income has no value yet. It is waiting for whichever of lines 1a, 2b, 3b, 4b, 6b, 7, and 8 is still open.",
+      "codes": [
+        "DEPENDENCY_ABSENT",
+        "DEPENDENCY_INVALID"
+      ]
+    },
+    "guard_inapplicable": {
+      "render": "",
+      "explain": "guard false"
+    }
+  }
+}
