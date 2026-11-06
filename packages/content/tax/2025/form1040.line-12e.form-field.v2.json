@@ -1,0 +1,47 @@
+{
+  "schema": "form-field.v3",
+  "id": "tax.us.2025.form1040.line-12e",
+  "version": "v2",
+  "form": {
+    "authority": "IRS",
+    "form_id": "1040",
+    "tax_year": 2025,
+    "jurisdiction": "US-federal"
+  },
+  "line": "12e",
+  "label": "Standard deduction or itemized deductions",
+  "description": "Form 1040 Line 12e standard deduction or itemized deductions (successor to line 12; guards the itemized side to the derived Schedule A composition whenever a Form 1098 statement is on record).",
+  "binds_symbol": "tax.us.2025.deductions.line-12e",
+  "citation": {
+    "id": "tax.us.2025.citation.form1040.line-12e",
+    "version": "v1"
+  },
+  "dispositions": {
+    "published_value": {
+      "render": "{value}",
+      "explain": "Line 12e is the larger of your standard deduction and your itemized deductions."
+    },
+    "computed_zero": {
+      "render": "0",
+      "explain": "Line 12e is zero because neither your standard deduction nor your itemized deductions is above zero."
+    },
+    "closure_backed_zero": {
+      "render": "0",
+      "explain": "closure zero"
+    },
+    "blocked": {
+      "render": "",
+      "explain": "Line 12e has no value yet. It is waiting for your standard deduction and your itemized deductions.",
+      "codes": [
+        "DEPENDENCY_ABSENT",
+        "DEPENDENCY_INVALID",
+        "SOURCE_SET_UNCLOSED",
+        "CATEGORICAL_DOMAIN_MISMATCH"
+      ]
+    },
+    "guard_inapplicable": {
+      "render": "",
+      "explain": "guard false"
+    }
+  }
+}

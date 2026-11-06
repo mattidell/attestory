@@ -1,0 +1,45 @@
+{
+  "schema": "form-field.v3",
+  "id": "tax.us.2025.schedule-d.line-21",
+  "version": "v2",
+  "form": {
+    "authority": "IRS",
+    "form_id": "1040-SCH-D",
+    "tax_year": 2025,
+    "jurisdiction": "US-federal"
+  },
+  "line": "21",
+  "label": "Line 21 limited loss",
+  "description": "Schedule D (2025) Line 21 limited loss (ADR-0058).",
+  "binds_symbol": "tax.us.2025.schedule-d.line-21",
+  "citation": {
+    "id": "tax.us.2025.citation.schedule-d.line-21",
+    "version": "v1"
+  },
+  "dispositions": {
+    "published_value": {
+      "render": "{value}",
+      "explain": "Schedule D line 21 is the capital loss you can deduct this year, after the yearly limit."
+    },
+    "computed_zero": {
+      "render": "0",
+      "explain": "Schedule D line 21 is zero because line 16 is zero or a gain."
+    },
+    "closure_backed_zero": {
+      "render": "0",
+      "explain": "Closure-backed zero."
+    },
+    "blocked": {
+      "render": "",
+      "explain": "Schedule D line 21 has no value yet. It is waiting for your total gain or loss on line 16.",
+      "codes": [
+        "DEPENDENCY_ABSENT",
+        "SOURCE_SET_UNCLOSED"
+      ]
+    },
+    "guard_inapplicable": {
+      "render": "",
+      "explain": "Inapplicable."
+    }
+  }
+}

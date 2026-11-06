@@ -1,0 +1,45 @@
+{
+  "schema": "form-field.v2",
+  "id": "tax.us.2025.form1040.line-1a",
+  "version": "v2",
+  "form": {
+    "authority": "IRS",
+    "form_id": "1040",
+    "tax_year": 2025,
+    "jurisdiction": "US-federal"
+  },
+  "line": "1a",
+  "label": "Total amount from Form(s) W-2, box 1 (see instructions)",
+  "description": "Form 1040 (2025), line 1a: the total of box 1 wages, tips, and other compensation across the taxpayer's Forms W-2 for tax year 2025.",
+  "binds_symbol": "tax.us.2025.wages.total-w2-box1",
+  "citation": {
+    "id": "tax.us.2025.citation.form1040.line-1a",
+    "version": "v1"
+  },
+  "dispositions": {
+    "published_value": {
+      "render": "{value}",
+      "explain": "Line 1a is the total of box 1 wages, tips, and other compensation on your Forms W-2."
+    },
+    "computed_zero": {
+      "render": "0",
+      "explain": "Line 1a is zero because your Form W-2 box 1 amounts round to zero."
+    },
+    "closure_backed_zero": {
+      "render": "0",
+      "explain": "A current derived finding publishes a numeric zero whose lineage pins a W-2 source-set closure finding."
+    },
+    "blocked": {
+      "render": "",
+      "explain": "Line 1a has no value yet. It is waiting for a Form W-2 box 1 amount or confirmation that the wage record is complete.",
+      "codes": [
+        "DEPENDENCY_ABSENT",
+        "DEPENDENCY_INVALID"
+      ]
+    },
+    "guard_inapplicable": {
+      "render": "",
+      "explain": "No value exists because the declared rule guard is false."
+    }
+  }
+}

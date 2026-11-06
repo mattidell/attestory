@@ -330,6 +330,10 @@ def domain_package_companion_declarations() -> dict[tuple[str, str], dict[str, A
         # companion, so it shares v76's declaration. Without this entry, v77 would
         # fall back to the global maps and refuse amounts v76 admits.
         ("tax.us.2025.package.core-calculations", "v77"): gambling,
+        # Core v78 only replaces explain text on form fields. It asks no new
+        # companion, so it shares v77's declaration. Without this entry, v78 would
+        # fall back to the global maps and refuse amounts v77 admits.
+        ("tax.us.2025.package.core-calculations", "v78"): gambling,
     }
 
 

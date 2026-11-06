@@ -1,0 +1,45 @@
+{
+  "schema": "form-field.v3",
+  "id": "tax.us.2025.schedule-d.line-7",
+  "version": "v2",
+  "form": {
+    "authority": "IRS",
+    "form_id": "1040-SCH-D",
+    "tax_year": 2025,
+    "jurisdiction": "US-federal"
+  },
+  "line": "7",
+  "label": "Line 7 net short-term",
+  "description": "Schedule D (2025) Line 7 net short-term (ADR-0058).",
+  "binds_symbol": "tax.us.2025.schedule-d.line-7",
+  "citation": {
+    "id": "tax.us.2025.citation.schedule-d.line-7",
+    "version": "v1"
+  },
+  "dispositions": {
+    "published_value": {
+      "render": "{value}",
+      "explain": "Schedule D line 7 adds lines 1a, 1b, and 6."
+    },
+    "computed_zero": {
+      "render": "0",
+      "explain": "Schedule D line 7 is zero because lines 1a, 1b, and 6 add to zero."
+    },
+    "closure_backed_zero": {
+      "render": "0",
+      "explain": "You said you have no short-term capital gain or loss, so Schedule D line 7 is zero."
+    },
+    "blocked": {
+      "render": "",
+      "explain": "Schedule D line 7 has no value yet. It is waiting for whichever of lines 1a, 1b, and 6 is still open.",
+      "codes": [
+        "DEPENDENCY_ABSENT",
+        "SOURCE_SET_UNCLOSED"
+      ]
+    },
+    "guard_inapplicable": {
+      "render": "",
+      "explain": "Inapplicable."
+    }
+  }
+}
