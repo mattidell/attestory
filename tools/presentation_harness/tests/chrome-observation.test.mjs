@@ -6,7 +6,8 @@ import { join } from "node:path";
 import { pathToFileURL } from "node:url";
 const launcher = process.env.DEMO_LAUNCHER || new URL("../lib/chrome.mjs", import.meta.url).href;
 const { launchChrome } = await import(launcher.startsWith("file:") ? launcher : pathToFileURL(launcher).href);
-import { createObservation } from "../lib/chrome-observation.mjs";
+import { createObservation, PROGRESS_RECORD_LIMIT, PROCESS_TREE_LIMIT } from "../lib/chrome-observation.mjs";
+import { parseResourceTrace, readResourceTrace } from "../chrome-resource-probe.mjs";
 
 async function caseRun(body, timeout = 3000, graceMs = 5000) {
   const root = await mkdtemp(join(tmpdir(), "demo-observation-"));
@@ -23,6 +24,43 @@ async function caseRun(body, timeout = 3000, graceMs = 5000) {
 }
 const live = `setInterval(()=>{},1000);`;
 const ready = `writeFileSync(p+'/DevToolsActivePort','12345\\n/devtools/browser/demo-secret');`;
+test("resource trace parser preserves complete snapshots before an incomplete trailing append", () => {
+  const first = { label: "resource-controls", readiness_ms: null, progress_sequence: 1 };
+  const second = { label: "resource-controls", readiness_ms: 12, progress_sequence: 2 };
+  const parsed = parseResourceTrace(JSON.stringify(first) + "\n" + JSON.stringify(second) + '\n{"demo-private-tail":');
+  assert.deepEqual(parsed.records, [first, second]);
+  assert.equal(parsed.trace_status, "read");
+  assert.equal(parsed.incomplete_trailing_record, true);
+  assert.equal(parsed.unterminated_trailing_record, true);
+  assert.equal(parsed.malformed_records, 0);
+  assert.doesNotMatch(JSON.stringify(parsed), /demo-private-tail/);
+});
+test("resource trace parser distinguishes malformed complete records and an undelimited valid record", () => {
+  const row = { label: "resource-controls", progress_sequence: 1 };
+  const parsed = parseResourceTrace('demo-private-bad\nnull\n[]\n' + JSON.stringify(row));
+  assert.deepEqual(parsed.records, [row]);
+  assert.equal(parsed.malformed_records, 3);
+  assert.equal(parsed.incomplete_trailing_record, false);
+  assert.equal(parsed.unterminated_trailing_record, true);
+  assert.doesNotMatch(JSON.stringify(parsed), /demo-private-bad/);
+  assert.equal(parseResourceTrace("").trace_status, "read");
+  assert.deepEqual(parseResourceTrace('{"label":"correction-other"}\n').records, []);
+});
+test("resource trace reader distinguishes missing and unreadable files without leaking paths", async () => {
+  const root = await mkdtemp(join(tmpdir(), "demo-reader-private-"));
+  try {
+    const missing = await readResourceTrace(join(root, "missing"));
+    assert.equal(missing.trace_status, "missing"); assert.equal(missing.trace_read_error, "ENOENT");
+    const unreadable = await readResourceTrace(root);
+    assert.equal(unreadable.trace_status, "unreadable"); assert.equal(unreadable.trace_read_error, "EISDIR");
+    assert.deepEqual(missing.records, []); assert.deepEqual(unreadable.records, []);
+    assert.doesNotMatch(JSON.stringify([missing, unreadable]), /demo-reader-private/);
+    const output = join(root, "trace");
+    await writeFile(output, '{"label":"resource-controls","progress_sequence":1}\n{"demo-private-tail":');
+    const recovered = await readResourceTrace(output);
+    assert.equal(recovered.records.length, 1); assert.equal(recovered.incomplete_trailing_record, true);
+  } finally { await rm(root, { recursive: true, force: true }); }
+});
 test("early readiness succeeds, records timing and hides endpoint", async () => {
   const { result, trace } = await caseRun(`process.stderr.write('DevTools listening on ws://demo-secret'); ${ready} ${live}`, 5000);
   assert.equal(result, "success"); assert.equal(trace.outcome, "ready_accepted");
@@ -199,4 +237,77 @@ test("a digit prefix before trailing junk is not a complete port line", async ()
   assert.equal(trace.outcome, "not_ready_after_grace");
   assert.equal(trace.file_states.some(state => state.state === "ready"), false);
   assert.ok(trace.deadline_wall_ms >= 500);
+});
+
+async function progressRows(output) {
+  return (await readFile(output, "utf8")).trim().split("\n").map(JSON.parse);
+}
+test("zero-grace progress survives an unfinished startup and remains bounded and sanitized", async () => {
+  const root = await mkdtemp(join(tmpdir(), "demo-progress-"));
+  let cancel;
+  try {
+    const { binary, marker } = await fakeWithMarker(root, `process.stderr.write('demo-private-value'.repeat(100000)); ${live}`);
+    const output = join(root, "trace");
+    const observer = createObservation({ label: "resource-controls", output, graceMs: 0, progress: true });
+    observer.stage("test_started");
+    const pending = launchChrome(binary, { launchTimeoutMs: 5000, observer, onOwnership: dispose => { cancel = dispose; } });
+    const rejected = assert.rejects(pending, /cancelled/);
+    let rows;
+    for (let i = 0; i < 200; i++) {
+      try { rows = await progressRows(output); await readFile(marker, "utf8"); if (rows.some(row => row.samples.length)) break; } catch { /* process/write in flight */ }
+      await new Promise(resolve => setTimeout(resolve, 10));
+    }
+    assert.ok(rows.some(row => row.outcome === null && row.file_states.some(x => x.state === "missing")));
+    assert.equal(observer.graceMs, 0);
+    for (let i = 0; i < 300; i++) { observer.stage("child_wait_started"); observer.stage("demo-private-value"); }
+    await cancel(); await rejected; observer.close(); await observer.flushed();
+    await assertClean(marker);
+    rows = await progressRows(output);
+    assert.ok(rows.length <= PROGRESS_RECORD_LIMIT);
+    assert.ok(rows.every(row => row.stages.length <= 32 && row.samples.length <= 40));
+    assert.ok(Buffer.byteLength(await readFile(output, "utf8")) <= PROGRESS_RECORD_LIMIT * 65537);
+    assert.doesNotMatch(JSON.stringify(rows), /demo-private-value|demo-progress-|ws:\/\//);
+  } finally { if (cancel) await cancel(); await rm(root, { recursive: true, force: true }); }
+});
+
+test("progress output failure preserves original success and zero-grace timeout cleanup", async () => {
+  const root = await mkdtemp(join(tmpdir(), "demo-progress-io-"));
+  try {
+    for (const mode of ["success", "timeout"]) {
+      const { binary, marker } = await fakeWithMarker(root, `${mode === "success" ? ready : ""} ${live}`);
+      const observer = createObservation({ label: "resource-controls", output: root, graceMs: 0, progress: true });
+      observer.stage("test_started");
+      try {
+        if (mode === "success") { const chrome = await launchChrome(binary, { observer, launchTimeoutMs: 2000 }); await chrome.dispose(); }
+        else await assert.rejects(launchChrome(binary, { observer, launchTimeoutMs: 500 }), /launch timeout/);
+      } finally { observer.close(); await observer.flushed(); }
+      await assertClean(marker);
+    }
+  } finally { await rm(root, { recursive: true, force: true }); }
+});
+
+test("CPU-work and timer-delay calibration separates elapsed from available process counters", async () => {
+  const root = await mkdtemp(join(tmpdir(), "demo-calibration-"));
+  const measurements = [];
+  try {
+    for (const busy of [false, true]) {
+      const { binary } = await fakeWithMarker(root, `${busy ? "const end=Date.now()+2400; while(Date.now()<end) Math.sqrt(Math.random());" : ""}
+        ${busy ? ready : `setTimeout(()=>{${ready}},2400);`} ${live}`);
+      const output = join(root, busy ? "busy" : "waiting");
+      const observer = createObservation({ label: "resource-controls", output, graceMs: 0, progress: true });
+      try { const chrome = await launchChrome(binary, { observer, launchTimeoutMs: 5000 }); await chrome.dispose(); }
+      finally { observer.close(); await observer.flushed(); }
+      const rows = await progressRows(output), last = rows.at(-1);
+      assert.ok(last.readiness_ms >= 2000);
+      assert.ok(last.samples.length >= 2);
+      assert.ok(last.samples.every(x => x.sample_gap_ms === null || x.sample_gap_ms >= 0));
+      assert.ok(last.samples.every(x => !x.tree.available || x.tree.sampled_processes <= PROCESS_TREE_LIMIT));
+      if (process.platform === "linux") {
+        const samples = last.samples.filter(x => x.tree.available);
+        assert.ok(samples.length >= 2);
+        measurements.push(samples.at(-1).tree.cpu_user_ticks + samples.at(-1).tree.cpu_system_ticks - samples[0].tree.cpu_user_ticks - samples[0].tree.cpu_system_ticks);
+      } else assert.ok(last.samples.every(x => x.available === false && x.tree.available === false));
+    }
+    if (process.platform === "linux") assert.ok(measurements[1] > measurements[0] + 20);
+  } finally { await rm(root, { recursive: true, force: true }); }
 });
