@@ -2,7 +2,7 @@
 
 Fresh-reader review of `github/main..HEAD` on `milestone/line-explanations-2025`.
 
-Reviewed commit: `71f58071f0c0a9b25977a61041b9d34c6b47b54f`.
+Reviewed commit: the Track 1 build plus the review charter (removed at closeout).
 Ratified line: `origin/main`. At that commit the branch was 0 behind and 15 ahead. Draft PR #260 is open. No merged PR for this branch. The tree is not spent. Later commits on this branch are this review.
 
 Object: core v78 explain text, the P0 and Track 1 evidence, and the two wording tests. No production, test, or content edit in this review.

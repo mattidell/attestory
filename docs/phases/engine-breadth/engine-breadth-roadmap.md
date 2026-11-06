@@ -613,6 +613,16 @@ its own withholding answer, through the new `require_paired` guard. Eleven
 returns that published a wrong amount on v76 now block and ask the existing
 question. Earlier cores are unchanged.
 
+## Bounded return — Every Line Says What It Adds (2025)
+
+[Plan](milestones/line-explanations.md); retrospective:
+`docs/milestone-retrospectives/2026-11-05-line-explanations.md`.
+
+On core v78, 31 form lines that said only "blocked", "guard false" or
+"computed zero" say in plain words what they add, why they are zero, what
+they wait for, or when they are computed. Values and dispositions are
+unchanged from v77.
+
 ## Parked work and open questions
 
 This is the single list of parked work and open owner-held questions for the
@@ -661,11 +671,11 @@ delivers an item removes it.
   credit for other dependents; lines 29-31 refundable credits, Schedule 2
   Part II taxes and the estimated tax penalty, each declared absent.
 - No presentation line names the tie-breaker step that decided a child.
-- Generic form-field texts explain nothing: Form 1040 lines 9 and 12e-16 and
-  several Schedule D lines say only "blocked"; arithmetic lines carry the
-  closed-empty and worksheet-guard boilerplate. Since core v73 a blocked
-  line names every filer-answerable missing input (eight amounts, 79 scope
-  answers, filing status); a rule still names only its first cause.
+- A rule still names only its first cause when it blocks. Since core v78
+  every line a filer sees has a plain text; the page hides a blocked
+  line's own text when it shows questions, and shows nothing for a numeric
+  line with no citation (the Schedule 1 top entry). Several kept texts
+  still say "derived finding" or "closed-empty".
 - Two answers the record proves are still asked: line 2a Form 1099-INT
   tax-exempt interest (a closed box 8 above 0) and the other-dependent answer
   (a marked roster row). Deriving them needs the proof's family closed, so a

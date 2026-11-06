@@ -3,7 +3,7 @@
   "version": 1,
   "phase": "Engine Breadth",
   "topic": "line-explanations",
-  "status": "Open. P0 done: 36 of 73 fields on core v77 show a generic text. Track 1 succeeds them on core v78 under the wording standard in Decisions.",
+  "status": "Closed. On core v78, 31 form lines that showed a generic text (\"blocked\", \"guard false\", \"computed zero\") say in plain words what they add, why they are zero, what they wait for, or when they are computed. Values and dispositions equal v77. Earlier cores are unchanged.",
   "scope": [
     "on a successor core, every form line a filer sees says in its own words what it adds, why it is zero, or why it shows no value",
     "a blocked line's own text says what kind of input it waits for; the questions it already shows stay as they are",
@@ -34,10 +34,12 @@
       "docs/phases/engine-breadth/milestones/line-explanations.md"
     ],
     "new_milestone": [
+      "docs/milestone-retrospectives/2026-11-05-line-explanations.md",
       "docs/phases/engine-breadth/milestones/line-explanations.md",
       "docs/phases/engine-breadth/engine-breadth-roadmap.md#Parked work and open questions"
     ]
-  }
+  },
+  "retrospective": "docs/milestone-retrospectives/2026-11-05-line-explanations.md"
 }
 -->
 
@@ -220,10 +222,13 @@ Review: `line-explanations-evidence/review.md`.
    credit can be claimed without Form 1116, and the questions on that page
    say which condition is not met. Foreign tax of 601 with the election
    set to yes shows it.
-10. *Line 16 guard is not two short sentences* (recommended). Fixed. The
-    second sentence says Schedule D is required, or qualified dividends or
-    capital gain is below zero, or the capital gain distributions answer
-    does not match.
+10. *Line 16 guard is not two short sentences* (recommended). Fixed by the
+    foreman after the repair, whose version still began "you have no
+    covered sale proceeds above zero". The sentence now says the line is
+    computed here only when you sold covered securities, or when Schedule D
+    is not required and the dividend and gain amounts fit the capital gain
+    distributions answer, and that neither is true on this return. That
+    matches the rule's `when`.
 11. *Line 9 and Schedule D line 7 name lines that are already filled*
     (recommended). Fixed. Each waits for whichever of its lines is still
     open. The open-proceeds return shows both.
@@ -231,3 +236,31 @@ Review: `line-explanations-evidence/review.md`.
     Fixed. A replaced explain fails when it has more than two sentences or
     contains "not say that you have no". The live cases lock the nine
     required sentences.
+
+## Execution record
+
+- Grok CLI agents in this worktree (owner direction): P0 builder (129
+  turns over two runs, $9.05; the first hit its 120-turn limit while
+  running the prototype and was resumed), Track 1 builder (162 turns,
+  $12.74, full suite 4,316 passed), fresh reviewer (119 turns, $9.69),
+  review repair on the Track 1 session (63 turns, $5.37). The foreman
+  rewrote line 16's guard and recomputed its registry and release
+  checksums.
+
+## Outcome
+
+On core v78 (registry v76, release v76), 31 form lines that showed a
+generic text now say in plain words what they add, why they are zero, what
+they wait for, or when they are computed. Examples: line 9 reads "Your
+total income: lines 1a, 2b, 3b, 4b, 6b, 7, and 8 added together"; a
+rounded zero says the amounts round to zero; a scope guard says "This line
+is computed only when you have no ... . You have not answered that
+question, or you said you have one." The review found nine sentences false
+on some return; all were rewritten and are locked by live cases and a
+wording test. Every value and disposition equals v77. Earlier cores are
+unchanged.
+
+Not done: the page still hides a blocked line's own text when it shows
+questions, and shows nothing for a numeric line without a citation (the
+Schedule 1 top entry); five fields keep generic texts no rule can select;
+kept specific texts still use words such as "derived finding".
