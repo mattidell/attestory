@@ -10,7 +10,7 @@ from __future__ import annotations
 from dataclasses import dataclass, field
 from typing import Any, Mapping
 
-from packages.kernel.facts import facts_of, superseded_entity_ids
+from packages.kernel.facts import _historical_lattice_for_currency, superseded_entity_ids
 from packages.kernel.findings import FindingState, current_evidence_ids
 
 DECLARED_EDGE_KINDS = frozenset({"derivation", "individuation"})
@@ -159,7 +159,7 @@ def _declared_edges(state: FindingState) -> dict[str, dict[str, set[str]]]:
     # whose keyed-on entity was superseded has left current state, but
     # the edge from that entity to the findings answering the fact is
     # still what displacement propagates along.
-    lattice = facts_of(state.fact_state, include_displaced=True)
+    lattice = _historical_lattice_for_currency(state.fact_state)
     for finding_id, finding in state.findings.items():
         fact = lattice.get(finding["fact_id"])
         if fact is None:

@@ -69,9 +69,13 @@ class ProjectionLatticeReuse(unittest.TestCase):
             builds += 1
             return original(state, include_displaced=include_displaced)
 
-        with patch.object(facts, "facts_of", side_effect=counted):
+        with patch.object(facts, "facts_of", side_effect=counted), \
+                patch.object(facts, "Fact", wraps=facts.Fact) as constructed:
             optimized = project(rows, self.registry)
-        self.assertEqual(builds, 1)
+        # Replay now uses a private delta view, not the public dictionary path.
+        # Both demo Facts are constructed once despite six assertions.
+        self.assertEqual(builds, 0)
+        self.assertEqual(constructed.call_count, 2)
         cold = self.uncached_fold(rows)
         self.assertEqual(optimized, cold)
         self.assertEqual(compute_currency(optimized), compute_currency(cold))
@@ -198,10 +202,13 @@ class ProjectionLatticeReuse(unittest.TestCase):
             builds += 1
             return original(state, include_displaced=include_displaced)
 
-        with patch.object(facts, "facts_of", side_effect=counted):
+        with patch.object(facts, "facts_of", side_effect=counted), \
+                patch.object(facts, "Fact", wraps=facts.Fact) as constructed:
             optimized = project(rows, self.registry)
         cold = self.uncached_fold(rows)
-        self.assertEqual(builds, 2)
+        self.assertEqual(builds, 0)
+        # One closure Fact per successive horizon, not stale holder reuse.
+        self.assertEqual(constructed.call_count, 2)
         self.assertEqual(optimized, cold)
         self.assertEqual(compute_currency(optimized), compute_currency(cold))
         self.assertIn("demo.handover.close.v2", optimized.findings)

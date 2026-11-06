@@ -11,7 +11,7 @@ from __future__ import annotations
 import copy
 from dataclasses import dataclass, field, replace
 from decimal import Decimal, InvalidOperation
-from typing import Any
+from typing import Any, Mapping
 
 import jsonschema
 
@@ -731,7 +731,10 @@ class _CurrentLatticeHolder:
         self._fact_state: facts.KernelState | None = None
         self._lattice: dict[str, facts.Fact] | None = None
 
-    def for_state(self, fact_state: facts.KernelState) -> dict[str, facts.Fact]:
+    def for_state(self, fact_state: facts.KernelState) -> Mapping[str, facts.Fact]:
+        private = facts._current_lattice_for_replay(fact_state)
+        if private is not None:
+            return private
         if self._fact_state is not fact_state:
             self._fact_state = fact_state
             self._lattice = facts.facts_of(fact_state)
@@ -1698,12 +1701,13 @@ def _apply_project_act(
 
 
 def project(acts: tuple[dict[str, Any], ...], registry: SchemaRegistry) -> FindingState:
-    registry = companion_registry_in_force(acts, registry)
-    state = initial_state()
-    lattice_holder = _CurrentLatticeHolder()
-    for act in acts:
-        state = _apply_project_act(state, act, registry, lattice_holder)
-    return state
+    with facts._replay_lattices():
+        registry = companion_registry_in_force(acts, registry)
+        state = initial_state()
+        lattice_holder = _CurrentLatticeHolder()
+        for act in acts:
+            state = _apply_project_act(state, act, registry, lattice_holder)
+        return state
 
 
 def evidentiary_standing(state: FindingState) -> dict[str, FindingStanding]:
