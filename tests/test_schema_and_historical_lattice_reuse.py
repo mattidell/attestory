@@ -236,7 +236,8 @@ class SchemaAndHistoricalLatticeReuse(unittest.TestCase):
         self.assertIn(successor, after_lattice)
         self.assertEqual(after_lattice, real(after.fact_state, include_displaced=True))
 
-        with patch("packages.kernel.currency.facts_of", side_effect=real):
+        with patch("packages.kernel.currency._historical_lattice_for_currency",
+                   side_effect=lambda state: real(state, include_displaced=True)):
             uncached = compute_currency(after)
         self.assertIsInstance(view, CurrencyView)
         for field_name in _CURRENCY_FIELDS:

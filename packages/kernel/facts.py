@@ -15,10 +15,15 @@ from __future__ import annotations
 import itertools
 import json
 import weakref
+import threading
+from bisect import bisect_left, insort
 from collections import OrderedDict
+from collections.abc import Iterator, Mapping
+from contextlib import contextmanager
+from contextvars import ContextVar
 from dataclasses import dataclass, field, replace
 from importlib.metadata import version
-from typing import Any
+from typing import Any, NamedTuple
 
 import jsonschema
 
@@ -357,11 +362,22 @@ class _HistoricalLatticeMemo:
         self._entries: dict[
             int, tuple[weakref.ref[KernelState], dict[str, Fact]]
         ] = {}
+        self._pending: dict[int, _HistoricalSnapshot] = {}
 
     def for_state(self, fact_state: KernelState) -> dict[str, Fact]:
         found = self._get(fact_state)
         if found is not None:
             return found
+        pending = self._snapshot(fact_state)
+        if pending is not None:
+            index = pending.index()
+            if (index is None or index.owner_thread != threading.get_ident()
+                    or index.generation != pending.generation):
+                index = _LatticeIndex(include_displaced=True)
+                index.update(pending.metadata)
+            lattice = _LatticeView(index, index.generation, pending.metadata).materialize()
+            self._store(fact_state, lattice)
+            return lattice
         lattice = _project_fact_lattice(fact_state, include_displaced=True)
         self._store(fact_state, lattice)
         return lattice
@@ -378,6 +394,7 @@ class _HistoricalLatticeMemo:
 
     def _store(self, fact_state: KernelState, lattice: dict[str, Fact]) -> None:
         ident = id(fact_state)
+        self._pending.pop(ident, None)
 
         def _drop(
             ref: weakref.ref[KernelState], ident: int = ident
@@ -387,6 +404,286 @@ class _HistoricalLatticeMemo:
                 self._entries.pop(ident, None)
 
         self._entries[ident] = (weakref.ref(fact_state, _drop), lattice)
+
+    def _snapshot(self, state: KernelState) -> _HistoricalSnapshot | None:
+        entry = self._pending.get(id(state))
+        if entry is not None and entry.state() is not state:
+            self._pending.pop(id(state), None)
+            return None
+        return entry
+
+    def _remember(self, state: KernelState, view: _LatticeView) -> None:
+        ident = id(state)
+
+        def drop(ref: weakref.ref[KernelState]) -> None:
+            current = self._pending.get(ident)
+            if current is not None and current.state is ref:
+                self._pending.pop(ident, None)
+
+        self._pending[ident] = _HistoricalSnapshot(
+            weakref.ref(state, drop), view.metadata, weakref.ref(view.index), view.generation
+        )
+
+
+class _LatticeKey(NamedTuple):
+    name: str
+    entity_kind: str | None
+    literals: tuple[str, ...] = ()
+
+
+class _LatticeDeclaration(NamedTuple):
+    map_id: str
+    type_id: str
+    nature: str
+    keys: tuple[_LatticeKey, ...]
+
+
+_LatticeMetadata = tuple[
+    tuple[_LatticeDeclaration, ...], tuple[tuple[str, str], ...]
+]
+_Coordinate = str | int
+_Position = tuple[_Coordinate, ...]
+_Axes = tuple[tuple[_Coordinate, ...], ...]
+
+
+def _lattice_metadata(state: KernelState, include_displaced: bool) -> _LatticeMetadata:
+    """Copy construction inputs, including nested mutable declaration fields.
+
+    No identity-only shortcut: callers can mutate nested dictionaries. These
+    metadata scans are growing costs, distinct from changed-product work.
+    """
+    declarations = tuple(
+        _LatticeDeclaration(map_id, ft["id"], ft["nature"], tuple(
+            _LatticeKey(key["name"], key["entity_kind"]) if key["kind"] == "entity"
+            else _LatticeKey(key["name"], None, tuple(key["values"]))
+            for key in ft["identity_keys"]
+        )) for map_id, ft in state.fact_types.items()
+    )
+    entities = tuple(sorted(
+        (entity_id, lifecycle.entity["kind"])
+        for entity_id, lifecycle in state.entities.items()
+        if include_displaced or lifecycle.status == "current"
+    ))
+    return declarations, entities
+
+
+class _LatticeProduct:
+    """Combination records for one declaration, including overwritten ids.
+
+    Each axis has only string entity ids or only integer literal positions;
+    positions within one product therefore have a total lexicographic order.
+    First position owns insertion order; last position owns the winning Fact.
+    """
+
+    def __init__(self, declaration: _LatticeDeclaration, axes: _Axes) -> None:
+        self.declaration = declaration
+        self.axes = axes
+        self.by_combination: dict[_Position, str] = {}
+        self.by_id: dict[str, tuple[list[_Position], dict[_Position, Fact]]] = {}
+        for combination in itertools.product(*axes):
+            self._add(combination)
+
+    def _add(self, combination: _Position) -> None:
+        keys: list[tuple[str, str]] = []
+        owners: list[str] = []
+        for key, token in zip(self.declaration.keys, combination):
+            if key.entity_kind is not None:
+                assert isinstance(token, str)
+                keys.append((key.name, token))
+                owners.append(token)
+            else:
+                assert isinstance(token, int)
+                keys.append((key.name, key.literals[token]))
+        bindings = tuple(keys)
+        fact_id = _fact_id(self.declaration.type_id, bindings)
+        fact = Fact(fact_id, self.declaration.type_id, self.declaration.nature,
+                    bindings, tuple(owners))
+        positions, rows = self.by_id.setdefault(fact_id, ([], {}))
+        insort(positions, combination)
+        rows[combination] = fact
+        self.by_combination[combination] = fact_id
+
+    def _remove(self, combination: _Position) -> None:
+        fact_id = self.by_combination.pop(combination)
+        positions, rows = self.by_id[fact_id]
+        positions.pop(bisect_left(positions, combination))
+        del rows[combination]
+        if not positions:
+            del self.by_id[fact_id]
+
+    def update_axes(self, axes: _Axes) -> None:
+        removed = [set(old)-set(new) for old, new in zip(self.axes, axes)]
+        added = [set(new)-set(old) for old, new in zip(self.axes, axes)]
+        # First changed axis owns a combination, so multi-axis changes produce
+        # disjoint slices even when several keys use the same entity kind.
+        for axis, values in enumerate(removed):
+            if values:
+                slices = [tuple(v for v in old if v not in removed[i]) if i < axis
+                          else tuple(v for v in old if v in values) if i == axis else old
+                          for i, old in enumerate(self.axes)]
+                for combination in itertools.product(*slices):
+                    self._remove(combination)
+        for axis, values in enumerate(added):
+            if values:
+                slices = [tuple(v for v in new if v not in added[i]) if i < axis
+                          else tuple(v for v in new if v in values) if i == axis else new
+                          for i, new in enumerate(axes)]
+                for combination in itertools.product(*slices):
+                    self._add(combination)
+        self.axes = axes
+
+    def get(self, fact_id: str) -> Fact | None:
+        found = self.by_id.get(fact_id)
+        return None if found is None else found[1][found[0][-1]]
+
+    def ordered(self) -> Iterator[tuple[str, Fact]]:
+        for fact_id, (positions, rows) in sorted(self.by_id.items(), key=lambda item: item[1][0][0]):
+            yield fact_id, rows[positions[-1]]
+
+
+class _LatticeIndex:
+    """Projection-local delta construction; never owns a public dictionary."""
+
+    def __init__(self, include_displaced: bool = False) -> None:
+        self.include_displaced = include_displaced
+        self.metadata: _LatticeMetadata | None = None
+        self.parts: dict[str, _LatticeProduct] = {}
+        self.by_type_id: dict[str, list[_LatticeProduct]] = {}
+        self.generation = 0
+        self.owner_thread = threading.get_ident()
+
+    def view(self, state: KernelState) -> _LatticeView:
+        return self.view_metadata(_lattice_metadata(state, self.include_displaced))
+
+    def view_metadata(self, metadata: _LatticeMetadata) -> _LatticeView:
+        if metadata != self.metadata:
+            self.update(metadata)
+        return _LatticeView(self, self.generation, metadata)
+
+    def update(self, metadata: _LatticeMetadata) -> None:
+        declarations, entities = metadata
+        by_kind: dict[str, list[str]] = {}
+        for entity_id, kind in entities:
+            by_kind.setdefault(kind, []).append(entity_id)
+        parts: dict[str, _LatticeProduct] = {}
+        for declaration in declarations:
+            axes: _Axes = tuple(
+                tuple(by_kind.get(key.entity_kind, ())) if key.entity_kind is not None
+                else tuple(range(len(key.literals))) for key in declaration.keys
+            )
+            prior = self.parts.get(declaration.map_id)
+            if prior is None or prior.declaration != declaration:
+                prior = _LatticeProduct(declaration, axes)
+            elif prior.axes != axes:
+                prior.update_axes(axes)
+            parts[declaration.map_id] = prior
+        self.parts = parts
+        self.by_type_id = {}
+        for part in parts.values():
+            self.by_type_id.setdefault(part.declaration.type_id, []).append(part)
+        self.metadata = metadata
+        self.generation += 1
+
+
+class _LatticeView(Mapping[str, Fact]):
+    """Private lookup view; materialization is always a fresh ordered dict."""
+
+    def __init__(self, index: _LatticeIndex, generation: int, metadata: _LatticeMetadata) -> None:
+        self.index = index
+        self.generation = generation
+        self.metadata = metadata
+        self._snapshot: _LatticeIndex | None = None
+
+    def _index(self) -> _LatticeIndex:
+        if self.index.generation == self.generation:
+            return self.index
+        if self._snapshot is None:
+            self._snapshot = _LatticeIndex(self.index.include_displaced)
+            self._snapshot.update(self.metadata)
+        return self._snapshot
+
+    def __getitem__(self, fact_id: str) -> Fact:
+        # Published type-id patterns exclude '|'; entity ids remain opaque.
+        parts = self._index().by_type_id.get(fact_id.split("|", 1)[0], ())
+        for part in reversed(parts):
+            row = part.get(fact_id)
+            if row is not None:
+                return row
+        raise KeyError(fact_id)
+
+    def __iter__(self) -> Iterator[str]:
+        return iter(self.materialize())
+
+    def __len__(self) -> int:
+        index = self._index()
+        # Admitted types have unique ids; tolerate duplicate nested mutations
+        # defensively without claiming malformed states as admitted contracts.
+        if any(len(parts) > 1 for parts in index.by_type_id.values()):
+            return len(self.materialize())
+        return sum(len(part.by_id) for part in index.parts.values())
+
+    def materialize(self) -> dict[str, Fact]:
+        result: dict[str, Fact] = {}
+        for part in self._index().parts.values():
+            result.update(part.ordered())
+        return result
+
+
+@dataclass(frozen=True)
+class _HistoricalSnapshot:
+    state: weakref.ref[KernelState]
+    metadata: _LatticeMetadata
+    index: weakref.ref[_LatticeIndex]
+    generation: int
+
+
+class _ReplayLattices:
+    def __init__(self) -> None:
+        self.owner_thread = threading.get_ident()
+        self.current = _LatticeIndex()
+        self.historical = _LatticeIndex(include_displaced=True)
+
+
+_REPLAY_LATTICES: ContextVar[_ReplayLattices | None] = ContextVar("replay_lattices", default=None)
+
+
+@contextmanager
+def _replay_lattices() -> Iterator[None]:
+    """Nested calls own independent indexes; exceptions restore the caller."""
+    token = _REPLAY_LATTICES.set(_ReplayLattices())
+    try:
+        yield
+    finally:
+        _REPLAY_LATTICES.reset(token)
+
+
+def _active_lattices() -> _ReplayLattices | None:
+    replay = _REPLAY_LATTICES.get()
+    if replay is not None and replay.owner_thread == threading.get_ident():
+        return replay
+    return None
+
+
+def _current_lattice_for_replay(state: KernelState) -> Mapping[str, Fact] | None:
+    replay = _active_lattices()
+    return None if replay is None else replay.current.view(state)
+
+
+def _historical_lattice_for_currency(state: KernelState) -> Mapping[str, Fact]:
+    replay = _active_lattices()
+    if replay is None:
+        return facts_of(state, include_displaced=True)
+    existing = _HISTORICAL_LATTICES._get(state)
+    if existing is not None:
+        return existing
+    pending = _HISTORICAL_LATTICES._snapshot(state)
+    if pending is not None:
+        return replay.historical.view_metadata(pending.metadata)
+    view = replay.historical.view(state)
+    # Preserve the incumbent's first-read snapshot side effect, even if the
+    # caller later mutates the retained state's nested declarations/entities.
+    _HISTORICAL_LATTICES._remember(state, view)
+    return view
 
 
 _HISTORICAL_LATTICES = _HistoricalLatticeMemo()

@@ -4,6 +4,7 @@ import { createServer } from "node:http";
 import { spawn } from "node:child_process";
 import { CDPClient } from "../lib/cdp.mjs";
 import { launchChrome, resolveChromeExecutable } from "../lib/chrome.mjs";
+import { createObservation } from "../lib/chrome-observation.mjs";
 
 async function target(client, contextId, url) {
   const { targetId } = await client.send("Target.createTarget", { url: "about:blank", browserContextId: contextId });
@@ -22,28 +23,46 @@ test("one real browser isolates same-origin contexts and cleans detached borrowe
   const server = createServer((req,res) => { res.writeHead(200, { "Content-Type": "text/html" }); res.end(req.url === "/error" ? "<!doctype html><div id=choice-list><button>Other</button></div><div id=saved-rows>Recorded answer</div>" : "<!doctype html><title>demo</title>"); });
   await new Promise(resolve => server.listen(0, "127.0.0.1", resolve));
   const url = `http://127.0.0.1:${server.address().port}/`;
-  const chrome = await launchChrome(); const client = await CDPClient.connect(chrome.wsUrl);
+  const observer = process.env.DEMO_CHROME_TRACE ? createObservation({ label: "resource-controls",
+    output: process.env.DEMO_CHROME_TRACE, graceMs: 0, progress: true }) : null;
+  const stage = (name, pid = null) => observer?.stage(name, pid);
+  stage("test_started"); stage("launch_started");
+  let chrome, client;
+  try {
+    chrome = await launchChrome(undefined, observer ? { observer } : {});
+    stage("browser_ready", chrome.pid);
+    client = await CDPClient.connect(chrome.wsUrl);
+    stage("client_connected");
+  } catch (error) { observer?.close(); throw error; }
   try {
     const first = await client.send("Target.createBrowserContext", { disposeOnDetach: true });
     const second = await client.send("Target.createBrowserContext", { disposeOnDetach: true });
+    stage("contexts_created");
     assert.notEqual(first.browserContextId, second.browserContextId);
     const a = await target(client, first.browserContextId, url);
     const b = await target(client, second.browserContextId, url);
+    stage("targets_loaded");
     await evalIn(client, a.sessionId, `document.cookie='demo_cookie=demo_value'; localStorage.setItem('demo_key','demo_value'); sessionStorage.setItem('demo_key','demo_value'); window.demo_state='demo_value'`);
     assert.deepEqual(await evalIn(client, b.sessionId, `({cookie:document.cookie, local:localStorage.getItem('demo_key'), session:sessionStorage.getItem('demo_key'), state:window.demo_state ?? null})`), { cookie:"", local:null, session:null, state:null });
+    stage("isolation_checked");
     await client.send("Target.disposeBrowserContext", { browserContextId: first.browserContextId });
     await assert.rejects(client.send("Target.disposeBrowserContext", { browserContextId: first.browserContextId }));
     assert.equal(await evalIn(client, b.sessionId, "document.title"), "demo");
     await client.send("Target.disposeBrowserContext", { browserContextId: second.browserContextId });
+    stage("contexts_disposed");
 
     const moduleUrl = new URL("../lib/cdp.mjs", import.meta.url).href;
     const script = `import {CDPClient} from ${JSON.stringify(moduleUrl)}; const c=await CDPClient.connect(process.env.DEMO_WS); await c.send('Target.createBrowserContext',{disposeOnDetach:true}); process.stdout.write('ready\\n'); setInterval(()=>{},1000);`;
     const child = spawn(process.execPath, ["--input-type=module", "-e", script], { env: { ...process.env, DEMO_WS: chrome.wsUrl }, stdio: ["ignore", "pipe", "pipe"] });
+    stage("child_wait_started");
     await new Promise(resolve => child.stdout.once("data", resolve));
+    stage("child_ready");
     assert.equal((await client.send("Target.getBrowserContexts")).browserContextIds.length, 1);
     child.kill("SIGKILL"); await new Promise(resolve => child.once("close", resolve));
+    stage("child_reaped");
     for (let i=0;i<100;i++) { if ((await client.send("Target.getBrowserContexts")).browserContextIds.length === 0) break; await new Promise(resolve=>setTimeout(resolve,25)); }
     assert.equal((await client.send("Target.getBrowserContexts")).browserContextIds.length, 0);
+    stage("child_context_cleaned");
 
     // Exercise the actual borrowed client: a page-driven error and a killed
     // waiting client both release their contexts without closing the owner.
@@ -54,23 +73,35 @@ test("one real browser isolates same-origin contexts and cleans detached borrowe
       return spawn(process.execPath, [realClient.pathname, url + path, "confirmed"], { env, stdio: ["ignore", "ignore", "pipe"] });
     }
     const bad = borrowed("error");
+    stage("error_client_wait_started");
     const badCode = await new Promise(resolve => bad.once("close", resolve));
+    stage("error_client_closed");
     assert.notEqual(badCode, 0);
     assert.equal((await client.send("Target.getBrowserContexts")).browserContextIds.length, 0);
     const timed = borrowed("wait");
+    stage("waiting_client_started");
     for (let i=0;i<200;i++) { if ((await client.send("Target.getBrowserContexts")).browserContextIds.length === 1) break; await new Promise(resolve=>setTimeout(resolve,25)); }
     assert.equal((await client.send("Target.getBrowserContexts")).browserContextIds.length, 1);
+    stage("waiting_client_context");
     timed.kill("SIGKILL"); await new Promise(resolve => timed.once("close", resolve));
+    stage("waiting_client_reaped");
     for (let i=0;i<100;i++) { if ((await client.send("Target.getBrowserContexts")).browserContextIds.length === 0) break; await new Promise(resolve=>setTimeout(resolve,25)); }
     assert.equal((await client.send("Target.getBrowserContexts")).browserContextIds.length, 0);
     assert.equal(chrome.isExited(), false);
+    stage("waiting_client_cleaned");
     const doomedContext = await client.send("Target.createBrowserContext", { disposeOnDetach: true });
     const doomed = await target(client, doomedContext.browserContextId, url);
     const pending = client.send("Runtime.evaluate", { expression: "new Promise(()=>{})", awaitPromise: true }, doomed.sessionId);
     const failed = assert.rejects(pending, /connection closed/);
     const killer = await CDPClient.connect(chrome.wsUrl);
+    stage("browser_close_started");
     try { await killer.send("Browser.close"); } catch { /* closing may interrupt its reply */ }
     await failed;
+    stage("browser_close_observed");
     killer.close();
-  } finally { client.close(); await chrome.dispose(); await new Promise(resolve => server.close(resolve)); }
+  } finally {
+    stage("cleanup_started");
+    try { client.close(); await chrome.dispose(); await new Promise(resolve => server.close(resolve)); }
+    finally { stage("cleanup_finished"); observer?.close(); }
+  }
 });

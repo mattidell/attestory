@@ -18,6 +18,14 @@ input boxes. Status is one of:
 
 “Synthetic complete” is an engine-coverage claim, not a real-data claim.
 
+## Engineering Health boundary
+
+[Incremental kernel lattice replay](../engineering-health/milestones/lattice-rebuild.md)
+changes execution cost while preserving public fact states, findings and
+refusals. It publishes no tax package and advances none of the return classes
+below. Its selected-case benefit, memory tradeoff and added verification cost
+are measured separately; no net-suite or linear whole-replay claim is made.
+
 ## Frontier as of 2026-11-01
 
 | Candidate slice | New computable class | Current blocker | Contract novelty | Evidence target | Status |

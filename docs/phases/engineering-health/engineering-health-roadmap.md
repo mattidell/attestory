@@ -114,9 +114,28 @@ across workers. Direct CLI rendering is conservatively serialized. Fewer
 launches were demonstrated, not a full-suite speedup or the earlier startup
 failure's cause. PR #229's exact-head `verify` is the publication gate.
 
-## Current boundary and remaining work
+### Replay a Log in One Pass
 
-The next milestone is unselected.
+[Plan](milestones/lattice-rebuild.md).
+[Retrospective](../../milestone-retrospectives/2026-11-05-lattice-rebuild.md).
+[Measurements](milestones/lattice-rebuild-evidence/measured-performance.md).
+
+One kernel projection incrementally maintains current and historical lattice
+combinations. Public dictionary ownership, historical first-read snapshots,
+ordering and refusals remain compatible with full rebuild. The owner selected
+this bounded optimization after P0 found a narrower opportunity than October's
+ranking implied. The integrated core-v76 pair saved 16.4% process-tree CPU on
+two cases; whole replay is not established as linear, active-index memory can
+increase, and no net-suite saving is claimed. Every fixture-prefix observation
+is retained with a cheaper differential execution strategy and explicit cold
+checkpoints; the permanent tests and final repaired-head cost are documented.
+Exact-head green `verify` on PR #258 remains the publication gate. The
+owner-requested browser-resource instrumentation is also delivered: CI
+retained bounded progress and Linux process samples on the exact launch path,
+with upload-on-failure and no deadline increase. A passing instrumented run
+does not explain the earlier 20-second startup.
+
+## Current boundary and remaining work
 
 [Remaining Test and CI Cost](milestones/test-cost-remaining.md) is closed.
 PR #226's exact-head `verify` is the merge gate for that candidate and had
@@ -124,8 +143,12 @@ not succeeded when the record was written.
 
 Still open:
 
-1. **Current-lattice rebuilds** after the fact state changes need an
-   incremental-lattice design.
+1. **Package resolution and remaining replay scans.** Current-lattice delta
+   maintenance is delivered by lattice-rebuild, but metadata scans, ordered
+   output and finding/currency work still grow. P0 found package resolution
+   dominant in other leading sampled cases. Profile it before selecting the
+   next slice; no resolver optimization is selected here. Establish a same-base
+   net-suite comparison including the added differential-test cost.
 2. **Cross-call prefix memo**, only if a new ranking shows projection still
    dominates, keyed by exact act content and registry state.
 3. **Helpers left in place.** `_stage_enrollment_follows_schooling` inside
@@ -145,6 +168,11 @@ Still open:
    and `waitForDevToolsActivePort` still accept a torn path such as
    `12345\n/devtools/bro`. Neither reader was brought under the stricter
    rule.
+7. **Chrome lifecycle observation under load.** The lattice-rebuild full run
+   failed the stuck-positive-port test's observation of a malformed file within
+   its existing deadline; the unchanged test passed alone. Cause and repair
+   remain unestablished. This is not grounds to exempt the check or call it
+   infrastructure; diagnose separately if it recurs in exact-head CI.
 
 Test moves below the coordinator were measured and are not worthwhile while
 the recorder holds the cost. Persistent caches, partial catalogs, test culling,
