@@ -27,11 +27,11 @@
     },
     "closure_backed_zero": {
       "render": "0",
-      "explain": "You said you have no long-term sales whose basis was not reported, so Schedule D line 9, column (h), is zero."
+      "explain": "Schedule D line 9, column (h), is zero. No long-term sale whose basis was not reported to the IRS is recorded, and your answer about those sales confirms the list is complete."
     },
     "blocked": {
       "render": "",
-      "explain": "Schedule D line 9, column (h), has no value yet. It is waiting for the basis of a long-term sale whose basis was not reported to the IRS.",
+      "explain": "Schedule D line 9, column (h), has no value yet. It waits for your answers about sales whose basis was not reported to the IRS, or for a recorded long-term sale of that kind to pass its checks.",
       "codes": [
         "DEPENDENCY_ABSENT",
         "SOURCE_SET_UNCLOSED"

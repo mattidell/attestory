@@ -69,7 +69,10 @@ phase's frontier was named for either one.
 
 **Carried into the next phase, unclosed:**
 
-1. The **noncovered / basis-not-reported Form 8949 milestone must be re-cut**
+1. **Delivered 2026-11-06 (milestone noncovered-sales, PR #261, core v79):**
+   Form 8949 boxes B and E with code W, on ADR 0084. Other codes, boxes C
+   and F and broker-basis corrections remain candidates. History: the
+   noncovered / basis-not-reported Form 8949 milestone was to be re-cut
    against ADR-0066. Its reusable C1 evaluation-ordering analysis and
    `accounts_for` traversal-totality proof are archived, but old proposed
    ADR-0063/0064/0065 were superseded before ratification. Owner blocker C3
@@ -86,7 +89,7 @@ phase's frontier was named for either one.
    requires hand-edited JSON, and the product still cannot file a return.
 4. Live breadth candidates remain recorded without being selected: general
    Form 1116, other Schedule D sources, other Schedule K-1 boxes, and the
-   re-cut noncovered-basis row.
+   remaining Form 8949 codes and boxes C and F.
 5. Every Engine Breadth milestone deferral ledger remains open by its own
    terms:
 
@@ -624,6 +627,18 @@ On core v78, 31 form lines that said only "blocked", "guard false" or
 they wait for, or when they are computed. Values and dispositions are
 unchanged from v77.
 
+## Bounded return — Sales Whose Basis Was Not Reported (2025)
+
+[Plan](milestones/noncovered-sales.md); retrospective:
+`docs/milestone-retrospectives/2026-11-06-noncovered-sales.md`.
+
+On core v79 a Form 1099-B sale whose basis was not reported to the IRS
+reaches Form 8949 box B or E, Schedule D line 2 or 9, Form 1040 line 7a and
+the tax, from a basis the filer supplies, with code W allowed. One question
+closes the eight new families (ADR 0084, `source-closure-mapping.v4`). A
+covered sale flagged basis-not-reported now blocks with its own reason
+instead of publishing line 8a. Earlier cores are unchanged.
+
 ## Parked work and open questions
 
 This is the single list of parked work and open owner-held questions for the
@@ -641,6 +656,11 @@ delivers an item removes it.
 
 ### Parked
 
+- Form 8949 adjustment codes other than W, boxes C and F, and broker-basis
+  corrections (refused by answer on core v79).
+- The covered-flag refusal code sits in `missing` as
+  `BASIS_NOT_REPORTED_ON_COVERED`; a derivation-record successor would put
+  it on the row.
 - Gain and break-even reporting on Form 8949 and Schedule D.
 - Additional seller-paid shipping under platform pass-through.
 - A v1 Form 1099-K workspace re-answers its completeness question under the

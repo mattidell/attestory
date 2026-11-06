@@ -28,6 +28,34 @@ REFUSAL_SENTENCE = (
     "Record this sale as a noncovered sale. The broker did not report its basis to the IRS."
 )
 WASH_SENTENCE = "A wash-sale disallowance is recorded on a sale that is not a loss."
+# Lines 2 and 9 select closure_backed_zero under a "yes" with no member of that
+# term as well as under a "no", and block for an unanswered, stale or
+# conflicting answer, a refused in-class boundary, or a failed sale check.
+LINE_EXPLAINS = {
+    "schedule-d.line-2": {
+        "closure_backed_zero": (
+            "Schedule D line 2, column (h), is zero. No short-term sale whose basis was not "
+            "reported to the IRS is recorded, and your answer about those sales confirms the list is complete."
+        ),
+        "blocked": (
+            "Schedule D line 2, column (h), has no value yet. It waits for your answers about sales "
+            "whose basis was not reported to the IRS, or for a recorded short-term sale of that kind "
+            "to pass its checks."
+        ),
+    },
+    "schedule-d.line-9": {
+        "closure_backed_zero": (
+            "Schedule D line 9, column (h), is zero. No long-term sale whose basis was not "
+            "reported to the IRS is recorded, and your answer about those sales confirms the list is complete."
+        ),
+        "blocked": (
+            "Schedule D line 9, column (h), has no value yet. It waits for your answers about sales "
+            "whose basis was not reported to the IRS, or for a recorded long-term sale of that kind "
+            "to pass its checks."
+        ),
+    },
+}
+RETIRED_EXPLAINS = ("You said you have no", "waiting for the basis of")
 QUESTION_CASES = {
     "boundary_no_with_member",
     "late_member_unclosed",
@@ -80,6 +108,10 @@ EXPECTED = json.loads(r"""
           "closure_backed_zero",
           0
         ],
+        "schedule-d.line-7": [
+          "computed_zero",
+          0
+        ],
         "schedule-d.line-8a": [
           "closure_backed_zero",
           0
@@ -103,7 +135,7 @@ EXPECTED = json.loads(r"""
       },
       "attachments": {
         "f8949": "blocked",
-        "schedule-d": "guard_inapplicable"
+        "schedule-d": "blocked"
       },
       "error": null
     },
@@ -127,6 +159,10 @@ EXPECTED = json.loads(r"""
         ],
         "schedule-d.line-2": [
           "closure_backed_zero",
+          0
+        ],
+        "schedule-d.line-7": [
+          "computed_zero",
           0
         ],
         "schedule-d.line-8a": [
@@ -178,6 +214,10 @@ EXPECTED = json.loads(r"""
           "closure_backed_zero",
           0
         ],
+        "schedule-d.line-7": [
+          "computed_zero",
+          0
+        ],
         "schedule-d.line-8a": [
           "closure_backed_zero",
           0
@@ -201,7 +241,7 @@ EXPECTED = json.loads(r"""
       },
       "attachments": {
         "f8949": "blocked",
-        "schedule-d": "guard_inapplicable"
+        "schedule-d": "blocked"
       },
       "error": null
     },
@@ -225,6 +265,10 @@ EXPECTED = json.loads(r"""
         ],
         "schedule-d.line-2": [
           "closure_backed_zero",
+          0
+        ],
+        "schedule-d.line-7": [
+          "computed_zero",
           0
         ],
         "schedule-d.line-8a": [
@@ -276,6 +320,10 @@ EXPECTED = json.loads(r"""
           "closure_backed_zero",
           0
         ],
+        "schedule-d.line-7": [
+          "computed_zero",
+          0
+        ],
         "schedule-d.line-8a": [
           "blocked",
           null
@@ -323,6 +371,10 @@ EXPECTED = json.loads(r"""
         ],
         "schedule-d.line-2": [
           "closure_backed_zero",
+          0
+        ],
+        "schedule-d.line-7": [
+          "computed_zero",
           0
         ],
         "schedule-d.line-8a": [
@@ -374,6 +426,10 @@ EXPECTED = json.loads(r"""
           "closure_backed_zero",
           0
         ],
+        "schedule-d.line-7": [
+          "computed_zero",
+          0
+        ],
         "schedule-d.line-8a": [
           "blocked",
           null
@@ -423,6 +479,10 @@ EXPECTED = json.loads(r"""
           "closure_backed_zero",
           0
         ],
+        "schedule-d.line-7": [
+          "blocked",
+          null
+        ],
         "schedule-d.line-8a": [
           "closure_backed_zero",
           0
@@ -470,6 +530,10 @@ EXPECTED = json.loads(r"""
         ],
         "schedule-d.line-2": [
           "closure_backed_zero",
+          0
+        ],
+        "schedule-d.line-7": [
+          "computed_zero",
           0
         ],
         "schedule-d.line-8a": [
@@ -521,6 +585,10 @@ EXPECTED = json.loads(r"""
           "closure_backed_zero",
           0
         ],
+        "schedule-d.line-7": [
+          "blocked",
+          null
+        ],
         "schedule-d.line-8a": [
           "closure_backed_zero",
           0
@@ -568,6 +636,10 @@ EXPECTED = json.loads(r"""
         ],
         "schedule-d.line-2": [
           "closure_backed_zero",
+          0
+        ],
+        "schedule-d.line-7": [
+          "computed_zero",
           0
         ],
         "schedule-d.line-8a": [
@@ -624,6 +696,10 @@ EXPECTED = json.loads(r"""
           "closure_backed_zero",
           0
         ],
+        "schedule-d.line-7": [
+          "computed_zero",
+          0
+        ],
         "schedule-d.line-8a": [
           "closure_backed_zero",
           0
@@ -647,7 +723,7 @@ EXPECTED = json.loads(r"""
       },
       "attachments": {
         "f8949": "published",
-        "schedule-d": "guard_inapplicable"
+        "schedule-d": "published"
       },
       "error": null
     },
@@ -673,6 +749,10 @@ EXPECTED = json.loads(r"""
           "closure_backed_zero",
           0
         ],
+        "schedule-d.line-7": [
+          "computed_zero",
+          0
+        ],
         "schedule-d.line-8a": [
           "closure_backed_zero",
           0
@@ -696,7 +776,7 @@ EXPECTED = json.loads(r"""
       },
       "attachments": {
         "f8949": "blocked",
-        "schedule-d": "guard_inapplicable"
+        "schedule-d": "blocked"
       },
       "error": null
     },
@@ -722,6 +802,10 @@ EXPECTED = json.loads(r"""
           "closure_backed_zero",
           0
         ],
+        "schedule-d.line-7": [
+          "computed_zero",
+          0
+        ],
         "schedule-d.line-8a": [
           "closure_backed_zero",
           0
@@ -745,7 +829,7 @@ EXPECTED = json.loads(r"""
       },
       "attachments": {
         "f8949": "published",
-        "schedule-d": "guard_inapplicable"
+        "schedule-d": "published"
       },
       "error": null
     },
@@ -771,6 +855,10 @@ EXPECTED = json.loads(r"""
           "closure_backed_zero",
           0
         ],
+        "schedule-d.line-7": [
+          "computed_zero",
+          0
+        ],
         "schedule-d.line-8a": [
           "closure_backed_zero",
           0
@@ -794,7 +882,7 @@ EXPECTED = json.loads(r"""
       },
       "attachments": {
         "f8949": "blocked",
-        "schedule-d": "guard_inapplicable"
+        "schedule-d": "blocked"
       },
       "error": null
     },
@@ -820,6 +908,10 @@ EXPECTED = json.loads(r"""
           "closure_backed_zero",
           0
         ],
+        "schedule-d.line-7": [
+          "computed_zero",
+          0
+        ],
         "schedule-d.line-8a": [
           "closure_backed_zero",
           0
@@ -843,7 +935,7 @@ EXPECTED = json.loads(r"""
       },
       "attachments": {
         "f8949": "published",
-        "schedule-d": "guard_inapplicable"
+        "schedule-d": "published"
       },
       "error": null
     },
@@ -867,6 +959,10 @@ EXPECTED = json.loads(r"""
         ],
         "schedule-d.line-2": [
           "closure_backed_zero",
+          0
+        ],
+        "schedule-d.line-7": [
+          "computed_zero",
           0
         ],
         "schedule-d.line-8a": [
@@ -918,6 +1014,10 @@ EXPECTED = json.loads(r"""
           "closure_backed_zero",
           0
         ],
+        "schedule-d.line-7": [
+          "computed_zero",
+          0
+        ],
         "schedule-d.line-8a": [
           "closure_backed_zero",
           0
@@ -965,6 +1065,10 @@ EXPECTED = json.loads(r"""
         ],
         "schedule-d.line-2": [
           "closure_backed_zero",
+          0
+        ],
+        "schedule-d.line-7": [
+          "computed_zero",
           0
         ],
         "schedule-d.line-8a": [
@@ -1016,6 +1120,10 @@ EXPECTED = json.loads(r"""
           "closure_backed_zero",
           0
         ],
+        "schedule-d.line-7": [
+          "computed_zero",
+          0
+        ],
         "schedule-d.line-8a": [
           "closure_backed_zero",
           0
@@ -1063,6 +1171,10 @@ EXPECTED = json.loads(r"""
         ],
         "schedule-d.line-2": [
           "closure_backed_zero",
+          0
+        ],
+        "schedule-d.line-7": [
+          "computed_zero",
           0
         ],
         "schedule-d.line-8a": [
@@ -1114,6 +1226,10 @@ EXPECTED = json.loads(r"""
           "closure_backed_zero",
           0
         ],
+        "schedule-d.line-7": [
+          "computed_zero",
+          0
+        ],
         "schedule-d.line-8a": [
           "closure_backed_zero",
           0
@@ -1161,6 +1277,10 @@ EXPECTED = json.loads(r"""
         ],
         "schedule-d.line-2": [
           "closure_backed_zero",
+          0
+        ],
+        "schedule-d.line-7": [
+          "computed_zero",
           0
         ],
         "schedule-d.line-8a": [
@@ -1212,6 +1332,10 @@ EXPECTED = json.loads(r"""
           "closure_backed_zero",
           0
         ],
+        "schedule-d.line-7": [
+          "computed_zero",
+          0
+        ],
         "schedule-d.line-8a": [
           "closure_backed_zero",
           0
@@ -1259,6 +1383,10 @@ EXPECTED = json.loads(r"""
         ],
         "schedule-d.line-2": [
           "closure_backed_zero",
+          0
+        ],
+        "schedule-d.line-7": [
+          "computed_zero",
           0
         ],
         "schedule-d.line-8a": [
@@ -1310,6 +1438,10 @@ EXPECTED = json.loads(r"""
           "closure_backed_zero",
           0
         ],
+        "schedule-d.line-7": [
+          "computed_zero",
+          0
+        ],
         "schedule-d.line-8a": [
           "closure_backed_zero",
           0
@@ -1359,6 +1491,10 @@ EXPECTED = json.loads(r"""
           "published_value",
           -6000
         ],
+        "schedule-d.line-7": [
+          "published_value",
+          -6000
+        ],
         "schedule-d.line-8a": [
           "closure_backed_zero",
           0
@@ -1382,7 +1518,7 @@ EXPECTED = json.loads(r"""
       },
       "attachments": {
         "f8949": "published",
-        "schedule-d": "guard_inapplicable"
+        "schedule-d": "published"
       },
       "error": null
     },
@@ -1408,6 +1544,10 @@ EXPECTED = json.loads(r"""
           "blocked",
           null
         ],
+        "schedule-d.line-7": [
+          "blocked",
+          null
+        ],
         "schedule-d.line-8a": [
           "closure_backed_zero",
           0
@@ -1431,7 +1571,7 @@ EXPECTED = json.loads(r"""
       },
       "attachments": {
         "f8949": "blocked",
-        "schedule-d": "guard_inapplicable"
+        "schedule-d": "blocked"
       },
       "error": null
     },
@@ -1457,6 +1597,10 @@ EXPECTED = json.loads(r"""
           "closure_backed_zero",
           0
         ],
+        "schedule-d.line-7": [
+          "computed_zero",
+          0
+        ],
         "schedule-d.line-8a": [
           "closure_backed_zero",
           0
@@ -1480,7 +1624,7 @@ EXPECTED = json.loads(r"""
       },
       "attachments": {
         "f8949": "published",
-        "schedule-d": "guard_inapplicable"
+        "schedule-d": "published"
       },
       "error": null
     },
@@ -1506,6 +1650,10 @@ EXPECTED = json.loads(r"""
           "closure_backed_zero",
           0
         ],
+        "schedule-d.line-7": [
+          "computed_zero",
+          0
+        ],
         "schedule-d.line-8a": [
           "closure_backed_zero",
           0
@@ -1529,7 +1677,7 @@ EXPECTED = json.loads(r"""
       },
       "attachments": {
         "f8949": "blocked",
-        "schedule-d": "guard_inapplicable"
+        "schedule-d": "blocked"
       },
       "error": null
     }
@@ -1566,6 +1714,10 @@ EXPECTED = json.loads(r"""
           4000
         ],
         "schedule-d.line-21": [
+          "computed_zero",
+          0
+        ],
+        "schedule-d.line-7": [
           "computed_zero",
           0
         ]
@@ -1609,6 +1761,10 @@ EXPECTED = json.loads(r"""
         "schedule-d.line-21": [
           "computed_zero",
           0
+        ],
+        "schedule-d.line-7": [
+          "computed_zero",
+          0
         ]
       },
       "attachments": {
@@ -1648,6 +1804,10 @@ EXPECTED = json.loads(r"""
           0
         ],
         "schedule-d.line-21": [
+          "computed_zero",
+          0
+        ],
+        "schedule-d.line-7": [
           "computed_zero",
           0
         ]
@@ -1691,6 +1851,10 @@ EXPECTED = json.loads(r"""
         "schedule-d.line-21": [
           "computed_zero",
           0
+        ],
+        "schedule-d.line-7": [
+          "computed_zero",
+          0
         ]
       },
       "attachments": {
@@ -1730,6 +1894,10 @@ EXPECTED = json.loads(r"""
           0
         ],
         "schedule-d.line-21": [
+          "computed_zero",
+          0
+        ],
+        "schedule-d.line-7": [
           "computed_zero",
           0
         ]
@@ -1773,6 +1941,10 @@ EXPECTED = json.loads(r"""
         "schedule-d.line-21": [
           "computed_zero",
           0
+        ],
+        "schedule-d.line-7": [
+          "computed_zero",
+          0
         ]
       },
       "attachments": {
@@ -1812,6 +1984,10 @@ EXPECTED = json.loads(r"""
           0
         ],
         "schedule-d.line-21": [
+          "computed_zero",
+          0
+        ],
+        "schedule-d.line-7": [
           "computed_zero",
           0
         ]
@@ -1855,6 +2031,10 @@ EXPECTED = json.loads(r"""
         "schedule-d.line-21": [
           "computed_zero",
           0
+        ],
+        "schedule-d.line-7": [
+          "computed_zero",
+          0
         ]
       },
       "attachments": {
@@ -1896,6 +2076,10 @@ EXPECTED = json.loads(r"""
         "schedule-d.line-21": [
           "computed_zero",
           0
+        ],
+        "schedule-d.line-7": [
+          "computed_zero",
+          0
         ]
       },
       "attachments": {
@@ -1935,6 +2119,10 @@ EXPECTED = json.loads(r"""
           0
         ],
         "schedule-d.line-21": [
+          "computed_zero",
+          0
+        ],
+        "schedule-d.line-7": [
           "computed_zero",
           0
         ]
@@ -2025,7 +2213,7 @@ def _line_map(result: dict[str, Any]) -> dict[str, list[Any]]:
         short = citizen.removeprefix("tax.us.2025.")
         if short in {
             "form1040.line-15", "form1040.line-16", "form1040.line-7a",
-            "schedule-d.line-1a", "schedule-d.line-2", "schedule-d.line-8a",
+            "schedule-d.line-1a", "schedule-d.line-2", "schedule-d.line-7", "schedule-d.line-8a",
             "schedule-d.line-9", "schedule-d.line-15", "schedule-d.line-16",
             "schedule-d.line-21",
         }:
@@ -2042,6 +2230,15 @@ def _attachments(result: dict[str, Any]) -> dict[str, str]:
         name = str(row.get("id") or "").split(".")[-1]
         if name in {"f8949", "schedule-d"}:
             found[name] = row.get("disposition")
+    return found
+
+
+def _explains(result: dict[str, Any]) -> dict[str, tuple[Any, Any]]:
+    found: dict[str, tuple[Any, Any]] = {}
+    for row in result.get("lines") or []:
+        short = str(row.get("id") or "").removeprefix("tax.us.2025.")
+        if short in LINE_EXPLAINS:
+            found[short] = (row.get("disposition"), row.get("explain"))
     return found
 
 
@@ -2075,6 +2272,20 @@ def test_v79_matches_the_track0_rerun(world: SimpleNamespace, name: str) -> None
         assert any(REFUSAL_SENTENCE in sentence for sentence in sentences)
     if name == "code_w_on_gain":
         assert any(WASH_SENTENCE in sentence for sentence in sentences)
+    for field, (disposition, explain) in _explains(result).items():
+        assert not any(retired in str(explain) for retired in RETIRED_EXPLAINS), (field, explain)
+        if disposition in LINE_EXPLAINS[field]:
+            assert explain == LINE_EXPLAINS[field][disposition], (field, disposition)
+    if name == "lt_gain":
+        # A "yes" with no short-term member: the zero must not claim a denial.
+        assert _explains(result)["schedule-d.line-2"][0] == "closure_backed_zero"
+    if name in {"lt_gain", "st_loss", "wash"}:
+        # A pure box B or box E return attaches Schedule D.
+        assert _attachments(result)["schedule-d"] == "published"
+    if name == "one_wage":
+        # One "no" on a wage return: no Schedule D, as on v78.
+        assert _attachments(result)["schedule-d"] == "guard_inapplicable"
+
 
 
 @pytest.mark.parametrize("name", list(NINE) + ["covered_flag_no_path_a"])

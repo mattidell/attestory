@@ -105,7 +105,8 @@ def later_any_arm_refs_while_count_blocked(package_id: str, version: str) -> boo
 # A covered sale recorded with basis_reported_to_irs "no" is not that
 # family's admitted member. The kernel companion declaration accepts only
 # presence pairs and value domains, so the map is a sibling of that
-# declaration, keyed by the same (package id, version).
+# declaration, keyed by the same (package id, version). The map names only the
+# four covered sale objects core v79 publishes; covered-ltcg is not a member.
 COVERED_FLAG_REFUSAL_CODE = "BASIS_NOT_REPORTED_ON_COVERED"
 COVERED_FLAG_REFUSAL_SENTENCE = (
     "Record this sale as a noncovered sale. The broker did not report its basis to the IRS."
@@ -113,7 +114,6 @@ COVERED_FLAG_REFUSAL_SENTENCE = (
 COVERED_FLAG_REFUSAL_OBJECTS: dict[str, str] = {
     "tax.us.2025.f1099b.covered-st-txn": "tax.us.2025.f1099b.covered-st",
     "tax.us.2025.f1099b.covered-lt-txn": "tax.us.2025.f1099b.covered-lt",
-    "tax.us.2025.f1099b.covered-ltcg-txn": "tax.us.2025.f1099b.covered-ltcg",
     "tax.us.2025.f1099b.covered-w-st-txn": "tax.us.2025.f1099b.covered-w-st",
     "tax.us.2025.f1099b.covered-w-lt-txn": "tax.us.2025.f1099b.covered-w-lt",
 }

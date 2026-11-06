@@ -5,7 +5,7 @@ Sales whose basis was not reported to the IRS. Evidence for
 and a scratch prototype only. No production, test, or content edits.
 
 Source ref for the orientation that opened this unit:
-`98c7aea3a13ab4407e3dfe04b130dcab406c2884` on
+`(removed at closeout)` on
 `milestone/noncovered-sales-2025`.
 
 ## Law
@@ -234,7 +234,7 @@ milestone. They are not a box-12 class.
 
 ## Cases on core v78
 
-Measured by `live_coordinate_run` in commit `af76ffcc`, recorded in
+Measured by `live_coordinate_run` in commit `(removed at closeout)`, recorded in
 `probe-output.json`. Package `core-calculations` v78, release v76.
 Each completed run stopped `saturated`. Core v78 has no Schedule D
 line 2, line 3, line 9, or line 10. The probe therefore put the sale

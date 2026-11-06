@@ -618,7 +618,7 @@ def main() -> None:
     backup = Path(tempfile.mkdtemp(prefix="p0b-rules-"))
     shutil.copytree(rules, backup / "rules")
     payload: dict[str, Any] = {
-        "source_ref": "0a7fc60f5ab42ed8d568362f1a5c9a750d7394c0",
+        "source_ref": "(removed at closeout)",
         "refusal_code": REFUSAL_CODE,
         "covered_ltcg_absent": (
             "tax.us.2025.f1099b.covered-ltcg is not a member of core v78 or this v79 "

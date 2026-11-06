@@ -3,7 +3,7 @@
   "version": 1,
   "phase": "Engine Breadth",
   "topic": "noncovered-sales",
-  "status": "Open. P0 done: a content successor (core v79) with no engine or schema change. Owner decided the class, the misroute fix and C3. Track 0 adversarial closure runs before Track 1.",
+  "status": "Closed. On core v79 a Form 1099-B sale whose basis was not reported to the IRS (Form 8949 box B or E, code W allowed) computes Schedule D lines 2 and 9, Form 1040 line 7a and the tax from a filer-supplied basis. One question closes the eight new families (source-closure-mapping.v4, ADR 0084 accepted). A covered sale flagged basis-not-reported blocks with its own reason. Core v78 and earlier are unchanged.",
   "scope": [
     "a return with a Form 1099-B sale whose basis the broker did not report to the IRS (Form 8949 box B or E) computes Schedule D and Form 1040 line 7 from a basis the filer supplies",
     "every return core v78 computes computes the same on the successor, and earlier cores render byte-identically",
@@ -33,6 +33,7 @@
       "docs/phases/engine-breadth/milestones/noncovered-sales.md"
     ],
     "new_milestone": [
+      "docs/milestone-retrospectives/2026-11-06-noncovered-sales.md",
       "docs/phases/engine-breadth/milestones/noncovered-sales.md",
       "docs/phases/engine-breadth/engine-breadth-roadmap.md#Parked work and open questions"
     ]
@@ -47,6 +48,8 @@ Branch: milestone/noncovered-sales-2025.
 Phase: Engine Breadth, bounded return. Opening plan: 2026-11-06.
 Starting point: `github/main` at `e73d32cf` (PR #260 merged; core v78 is
 the latest).
+Closed 2026-11-06. Retrospective:
+`docs/milestone-retrospectives/2026-11-06-noncovered-sales.md`.
 
 ## What we are trying to accomplish
 
@@ -193,7 +196,7 @@ Owner, 2026-11-06, on P0b:
 
 ## Track 0 adversarial closure
 
-Evidence: `docs/phases/engine-breadth/milestones/noncovered-sales-evidence/track0-closure.md`. Scratch core v79, `live_coordinate_run`, digest `track0-output.json`. Source ref `bb766465641abe3fb367a527701a5ca7393fb488`.
+Evidence: `docs/phases/engine-breadth/milestones/noncovered-sales-evidence/track0-closure.md`. Scratch core v79, `live_coordinate_run`, digest `track0-output.json`. Source ref `(removed at closeout)`.
 
 - Authority-lifecycle table: FAIL — one shared closure fact does not admit the eight families (`one_finding`, `eight_findings`); a shared horizon id is `HorizonModelError` (`duplicate_horizon`). Admission requires exactly one current true finding per family horizon, and marshalling appends a shared fact type once per mapping.
 - Empty/nonempty authority matrix: FAIL — closed-empty with eight true closures matches the wage return, and a boundary `no` blocks a recorded noncovered sale (`boundary_no_gain`). A covered sale with `basis_reported_to_irs` no still publishes line 8a at 4000 (`covered_flag_no_path_a`, `covered_flag_corrected_to_no`). Scalar identity exclusivity is an engine change and is not installed.
@@ -210,7 +213,7 @@ first (P0b), then rerun Track 0 and build v79.
 
 ### Track 0 rerun
 
-Evidence: `docs/phases/engine-breadth/milestones/noncovered-sales-evidence/track0-closure.md`, section "Rerun over the P0b contract". Scratch core v79 / release v77, 41 members, `live_coordinate_run`, digest `track0b-output.json`. Source ref `0a7fc60f5ab42ed8d568362f1a5c9a750d7394c0`.
+Evidence: `docs/phases/engine-breadth/milestones/noncovered-sales-evidence/track0-closure.md`, section "Rerun over the P0b contract". Scratch core v79 / release v77, 41 members, `live_coordinate_run`, digest `track0b-output.json`. Source ref `(removed at closeout)`.
 
 - Authority-lifecycle table: PASS — one shared answer (`tax.us.2025.f1099b.noncovered-sold.source-closure`) admits the eight families. `one_finding` publishes the wage return at 34250 / 3875 with lines 2 and 9 at `closure_backed_zero`. `wage_unclosed` blocks lines 2, 9, 15, and 16 and shows the question. A later member-transition strips only that family (`late_yes_stale`); a later answer admits it (`late_yes_reanswered`, line 9 = 4000). `duplicate_horizon` is still `HorizonModelError` on `demo.ns.p0b.shared.h0`.
 - Empty/nonempty authority matrix: PASS — one `no` and no member computes every harness return at its v78 line 15 and line 16. A long-term member after `no`, or after `yes`, or a later `no` beside that member, blocks line 9 and leaves line 2 at 0. `st_loss` reaches line 7a at −3000 and tax 3515. `wash` reaches line 7a at −2000 and tax 3635. Covered `basis_reported_to_irs` no blocks line 8a or line 1a, or the wash line, with `missing: [BASIS_NOT_REPORTED_ON_COVERED]`.
@@ -254,3 +257,58 @@ The Track 0 rerun cases run through the coordinator on core v79 (`tests/test_non
 The v4 reason walk names each listed family without rebinding the disposition row. Staleness reads `payload.member.action` on a recorded member-transition. A removal does not strip. The required-but-unread allowlist follows line 1a v4 and line 8a v5, the same closure-check witnesses the replaced versions declared.
 
 ADR 0084 is not accepted. The scalar-without-its-sale case calls the kernel companion enforcer directly. Cores before v78 were not live-rerun; `tests/test_noncovered_sales_v78_switch.py` checks that those packages do not name the refusal map. CI `verify` remains the merge gate.
+
+### Repair
+
+After the fresh-reader review (`docs/reviews/noncovered-sales/review.md`).
+
+- **The covered-flag refusal map.** Core v79 refuses four covered sale
+  objects: `covered-st-txn`, `covered-lt-txn`, `covered-w-st-txn` and
+  `covered-w-lt-txn`. `covered-ltcg-txn` is not a member of core v79 and is
+  no longer in the map. Decision 9's "all five" counted it. ADR 0084 names
+  the four.
+- **Lines 2 and 9 explains.** The closure-backed zero is selected under a
+  `no` and under a `yes` with no sale of that term, so it no longer says the
+  filer denied such sales. It now reads: "Schedule D line 2, column (h), is
+  zero. No short-term sale whose basis was not reported to the IRS is
+  recorded, and your answer about those sales confirms the list is
+  complete." (line 9 the same, long-term). The blocked text reached an
+  unanswered, stale or conflicting shared answer, an in-class boundary that
+  is not `yes`, and a failed sale check (code W on a gain), not only a
+  missing basis. It now reads: "... has no value yet. It waits for your
+  answers about sales whose basis was not reported to the IRS, or for a
+  recorded short-term sale of that kind to pass its checks." The covered-flag
+  refusal does not reach lines 2 or 9; it reaches line 7 through line 1a,
+  whose v3 text names the open line. The six noncovered subtotals have no
+  form field. `tests/test_noncovered_sales_v79.py` checks the page explain
+  of both lines on every case.
+- **Schedule D attachment on a box B or E return.** `attachment.schedule-d.v7`
+  required Schedule D only when a covered proceeds subtotal, a loss
+  carryover, a covered code W proceeds subtotal, or line 1a or 8a was above
+  zero. Nothing it read moved on a return whose only sales were noncovered,
+  so it was `guard_inapplicable` beside published lines 2, 9 and 16. The
+  requirement now also reads the box B and E proceeds and basis subtotals and
+  lines 2 and 9. `lt_gain`, `st_loss`, `wash`, `late_member_reopened` and
+  `late_yes_reanswered` publish the attachment. A return whose noncovered
+  subtotals or line 2 or 9 block (`wage_unclosed`, `late_yes_stale`,
+  `late_member_unclosed`, `boundary_no_with_member`,
+  `yes_then_no_with_member`, `code_w_on_gain`) now blocks it, as Form 8949
+  already did there. The wage return and the other current-core returns
+  under one `no` stay `guard_inapplicable`. The attachment still itemizes
+  only lines 1a, 8a and 13; Form 8949 carries the box B and E rows.
+- **Schedule D line 7 in the digest.** Every case in
+  `tests/test_noncovered_sales_v79.py`, on v79 and pinned v78, now asserts
+  line 7: `st_loss` −6000 published, `wage_unclosed`, `covered_flag_no_st`
+  and `covered_flag_no_w_st` blocked, every other case `computed_zero` 0.
+- **Hashes and checks.** Three unmerged citizens changed in place: Schedule D
+  line 2 and line 9 form fields and `attachment.schedule-d.v7`. The package
+  file and its checksum are unchanged. Registry v77 sha256 is now
+  `7afc01b6d9ded447f9acf7b63d55da9838b36f3cfd6d9c2519cd69ece06b7e6b`, and
+  release v77 sha256 is now
+  `2b5ba9784670085d1de5d96385f505bc8ed9d7a83066178f65507cbf14f3e129`. The
+  Track 1 figures above are the earlier values. No change touches
+  `packages/derivation/`, so the full suite was not re-run.
+  `tests/test_noncovered_sales_v79.py`, the v78 switch tests and
+  `tests/test_schema_registry.py`: 61 passed. `pytest -m "not live"`: 1675
+  passed, 8 skipped, 4013 subtests. `python3 -m mypy`: no issues in 464
+  source files. These are local runs; CI `verify` is the gate.

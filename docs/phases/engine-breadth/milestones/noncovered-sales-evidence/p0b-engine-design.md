@@ -1,6 +1,6 @@
 # P0b: one answer, the covered flag, and scalar exclusivity
 
-Charter: `docs/reviews/noncovered-sales/charter-p0b.md`. Source ref `bfb057d0`. Scratch only. The module is `p0b.py`. The runs are `p0b-output.json`. Nothing under `packages/` was edited.
+Charter: `docs/reviews/noncovered-sales/charter-p0b.md`. Source ref `(removed at closeout)`. Scratch only. The module is `p0b.py`. The runs are `p0b-output.json`. Nothing under `packages/` was edited.
 
 ## Cause
 

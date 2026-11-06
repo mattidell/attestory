@@ -1,6 +1,6 @@
 # ADR 0084 — One answer admits several source families
 
-- Status: **proposed**
+- Status: **accepted** (owner, 2026-11-06, before PR #261 went ready)
 - Tier: 2
 - Date: 2026-11-06
 
@@ -55,10 +55,11 @@ not edit ADR-0014 or any other accepted ADR.
 
 ## Consequences
 
-- This status is proposed. The owner accepts it before the PR goes ready.
-  The text is not authority until it is accepted.
 - The first package that carries a v4 mapping and names the refusal map is
-  core v79, built after this record.
+  core v79, built after this record. Its map names the four covered sale
+  objects core v79 publishes: `covered-st-txn`, `covered-lt-txn`,
+  `covered-w-st-txn` and `covered-w-lt-txn`. `covered-ltcg-txn` is not a
+  member of core v79, so the map does not name it.
 
 ## Links
 

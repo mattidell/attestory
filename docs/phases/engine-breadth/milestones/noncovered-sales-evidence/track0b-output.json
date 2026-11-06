@@ -4,7 +4,7 @@
   "question": "Did you sell any securities whose basis was not reported to the IRS?",
   "refusal_code": "BASIS_NOT_REPORTED_ON_COVERED",
   "shared_fact": "tax.us.2025.f1099b.noncovered-sold.source-closure",
-  "source_ref": "0a7fc60f5ab42ed8d568362f1a5c9a750d7394c0",
+  "source_ref": "(removed at closeout)",
   "successor": {
     "members": 41,
     "package": "v79",

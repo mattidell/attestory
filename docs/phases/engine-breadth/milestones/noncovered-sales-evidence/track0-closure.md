@@ -5,7 +5,7 @@ over Decisions 2–6 in
 `docs/phases/engine-breadth/milestones/noncovered-sales.md`. No production,
 test, or content edits. Synthetic `demo.*` findings only.
 
-Source ref: `bb766465641abe3fb367a527701a5ca7393fb488` on
+Source ref: `(removed at closeout)` on
 `milestone/noncovered-sales-2025`.
 
 The scratch package is core v79 / release v77 (40 members, `source-family.v2`
@@ -176,7 +176,7 @@ Not installed, because each one needs an engine, schema, or recording change:
 The first run above stays the history of Decisions 2–6. This section is the
 rerun after Decisions 7–9. Scratch core v79 / release v77, 41 members.
 `live_coordinate_run`. Digest `track0b-output.json`, produced by `p0b.py`
-at source ref `0a7fc60f5ab42ed8d568362f1a5c9a750d7394c0`. The extra member is
+at source ref `(removed at closeout)`. The extra member is
 `attachment.schedule-d.v7`, which replaces v6 in the scratch package only.
 Every saturated case has `presentation_valid` true. No production, test,
 schema, or content edit. No kernel edit.

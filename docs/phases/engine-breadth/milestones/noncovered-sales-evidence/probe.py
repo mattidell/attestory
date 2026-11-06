@@ -325,11 +325,13 @@ def summarize_run(outcome: Any) -> dict[str, Any]:
         for reason in (resolved.get("reasons") or [])[:4]:
             if isinstance(reason, dict) and reason.get("sentence"):
                 reasons.append(scrub(str(reason["sentence"]))[:240])
+        instruction = (field.get("dispositions") or {}).get(str(resolved.get("disposition"))) or {}
         lines.append({
             "id": citizen,
             "disposition": resolved.get("disposition"),
             "value": resolved.get("value"),
             "reasons": reasons,
+            "explain": instruction.get("explain"),
         })
     attachments = []
     for attachment in model.get("attachments") or []:

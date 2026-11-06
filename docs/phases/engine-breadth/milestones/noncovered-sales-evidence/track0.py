@@ -116,7 +116,7 @@ def _declare_once() -> None:
 def _load() -> dict[str, Any]:
     if OUT.exists():
         return json.loads(OUT.read_text(encoding="utf-8"))
-    return {"source_ref": "bb766465641abe3fb367a527701a5ca7393fb488", "modes": {}}
+    return {"source_ref": "(removed at closeout)", "modes": {}}
 
 
 def _save(payload: dict[str, Any]) -> None:

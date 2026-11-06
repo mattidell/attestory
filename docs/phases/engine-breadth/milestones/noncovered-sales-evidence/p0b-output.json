@@ -2,7 +2,7 @@
   "duplicate_horizon_is_kernel": true,
   "question": "Did you sell any securities whose basis was not reported to the IRS?",
   "shared_fact": "tax.us.2025.f1099b.noncovered-sold.source-closure",
-  "source_ref": "bfb057d0f04636e119364a4ba7dbe79dd97db391",
+  "source_ref": "(removed at closeout)",
   "successor": {
     "members": 40,
     "package": "v79",
