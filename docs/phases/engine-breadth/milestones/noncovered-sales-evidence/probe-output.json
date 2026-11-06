@@ -1,0 +1,2792 @@
+{
+  "baseline": {
+    "attachments": [
+      {
+        "disposition": "guard_inapplicable",
+        "id": "tax.us.2025.rule.attachment.f8949",
+        "value": null
+      },
+      {
+        "disposition": "guard_inapplicable",
+        "id": "tax.us.2025.rule.attachment.schedule-d",
+        "value": null
+      }
+    ],
+    "blocked": [],
+    "lines": [
+      {
+        "disposition": "published_value",
+        "id": "tax.us.2025.form1040.line-15",
+        "reasons": [],
+        "value": 34250
+      },
+      {
+        "disposition": "published_value",
+        "id": "tax.us.2025.form1040.line-16",
+        "reasons": [],
+        "value": 3875
+      },
+      {
+        "disposition": "computed_zero",
+        "id": "tax.us.2025.form1040.line-7a",
+        "reasons": [],
+        "value": 0
+      },
+      {
+        "disposition": "published_categorical",
+        "id": "tax.us.2025.form1040.line-7b",
+        "reasons": [],
+        "value": null
+      },
+      {
+        "disposition": "computed_zero",
+        "id": "tax.us.2025.schedule-d.line-13",
+        "reasons": [],
+        "value": 0
+      },
+      {
+        "disposition": "computed_zero",
+        "id": "tax.us.2025.schedule-d.line-14",
+        "reasons": [],
+        "value": 0
+      },
+      {
+        "disposition": "computed_zero",
+        "id": "tax.us.2025.schedule-d.line-15",
+        "reasons": [],
+        "value": 0
+      },
+      {
+        "disposition": "computed_zero",
+        "id": "tax.us.2025.schedule-d.line-16",
+        "reasons": [],
+        "value": 0
+      },
+      {
+        "disposition": "closure_backed_zero",
+        "id": "tax.us.2025.schedule-d.line-1a",
+        "reasons": [],
+        "value": 0
+      },
+      {
+        "disposition": "closure_backed_zero",
+        "id": "tax.us.2025.schedule-d.line-1b",
+        "reasons": [],
+        "value": 0
+      },
+      {
+        "disposition": "computed_zero",
+        "id": "tax.us.2025.schedule-d.line-21",
+        "reasons": [],
+        "value": 0
+      },
+      {
+        "disposition": "computed_zero",
+        "id": "tax.us.2025.schedule-d.line-6",
+        "reasons": [],
+        "value": 0
+      },
+      {
+        "disposition": "computed_zero",
+        "id": "tax.us.2025.schedule-d.line-7",
+        "reasons": [],
+        "value": 0
+      },
+      {
+        "disposition": "closure_backed_zero",
+        "id": "tax.us.2025.schedule-d.line-8a",
+        "reasons": [],
+        "value": 0
+      },
+      {
+        "disposition": "closure_backed_zero",
+        "id": "tax.us.2025.schedule-d.line-8b",
+        "reasons": [],
+        "value": 0
+      }
+    ],
+    "published": [
+      {
+        "symbol": "tax.us.2025.qdcg-worksheet.line-13",
+        "value": "533400"
+      },
+      {
+        "symbol": "tax.us.2025.qdcg-worksheet.line-6",
+        "value": "48350"
+      },
+      {
+        "symbol": "tax.us.2025.schedule-d.line-14",
+        "value": "0"
+      },
+      {
+        "symbol": "tax.us.2025.schedule-d.line-6",
+        "value": "0"
+      },
+      {
+        "symbol": "tax.us.2025.schedule-d.line-13",
+        "value": "0"
+      },
+      {
+        "symbol": "tax.us.2025.schedule-d.line-1a-gain",
+        "value": "0"
+      },
+      {
+        "symbol": "tax.us.2025.schedule-d.line-8a-gain",
+        "value": "0"
+      },
+      {
+        "symbol": "tax.us.2025.schedule-d.line-1b",
+        "value": "0"
+      },
+      {
+        "symbol": "tax.us.2025.schedule-d.line-7",
+        "value": "0"
+      },
+      {
+        "symbol": "tax.us.2025.schedule-d.line-8b",
+        "value": "0"
+      },
+      {
+        "symbol": "tax.us.2025.schedule-d.line-15",
+        "value": "0"
+      },
+      {
+        "symbol": "tax.us.2025.schedule-d.line-16",
+        "value": "0"
+      },
+      {
+        "symbol": "tax.us.2025.schedule-d.line-21",
+        "value": "0"
+      },
+      {
+        "symbol": "tax.us.2025.capital-gains.selected-preferential-base",
+        "value": "0"
+      },
+      {
+        "symbol": "tax.us.2025.interest.taxable-total",
+        "value": "0"
+      },
+      {
+        "symbol": "tax.us.2025.capital-gains.line7a-total",
+        "value": "0"
+      },
+      {
+        "symbol": "tax.us.2025.qdcg-worksheet.line-4",
+        "value": "0"
+      },
+      {
+        "symbol": "tax.us.2025.income.taxable-income",
+        "value": "34250"
+      },
+      {
+        "symbol": "tax.us.2025.qdcg-worksheet.line-10",
+        "value": "0"
+      },
+      {
+        "symbol": "tax.us.2025.qdcg-worksheet.line-14",
+        "value": "34250"
+      },
+      {
+        "symbol": "tax.us.2025.qdcg-worksheet.line-24",
+        "value": "3875"
+      },
+      {
+        "symbol": "tax.us.2025.qdcg-worksheet.line-5",
+        "value": "34250"
+      },
+      {
+        "symbol": "tax.us.2025.qdcg-worksheet.line-7",
+        "value": "34250"
+      },
+      {
+        "symbol": "tax.us.2025.qdcg-worksheet.line-8",
+        "value": "34250"
+      },
+      {
+        "symbol": "tax.us.2025.qdcg-worksheet.line-9",
+        "value": "0"
+      },
+      {
+        "symbol": "tax.us.2025.qdcg-worksheet.line-11",
+        "value": "0"
+      },
+      {
+        "symbol": "tax.us.2025.qdcg-worksheet.line-12",
+        "value": "0"
+      },
+      {
+        "symbol": "tax.us.2025.qdcg-worksheet.line-15",
+        "value": "34250"
+      },
+      {
+        "symbol": "tax.us.2025.qdcg-worksheet.line-16",
+        "value": "0"
+      },
+      {
+        "symbol": "tax.us.2025.qdcg-worksheet.line-17",
+        "value": "0"
+      },
+      {
+        "symbol": "tax.us.2025.qdcg-worksheet.line-18",
+        "value": "0.00"
+      },
+      {
+        "symbol": "tax.us.2025.qdcg-worksheet.line-19",
+        "value": "0"
+      },
+      {
+        "symbol": "tax.us.2025.qdcg-worksheet.line-20",
+        "value": "0"
+      },
+      {
+        "symbol": "tax.us.2025.qdcg-worksheet.line-21",
+        "value": "0.00"
+      },
+      {
+        "symbol": "tax.us.2025.qdcg-worksheet.line-22",
+        "value": "3875"
+      },
+      {
+        "symbol": "tax.us.2025.qdcg-worksheet.line-23",
+        "value": "3875.00"
+      },
+      {
+        "symbol": "tax.us.2025.qdcg-worksheet.line-25",
+        "value": "3875.00"
+      }
+    ],
+    "refusal": null,
+    "stop_reason": "saturated"
+  },
+  "basis_family_unclosed": {
+    "attachments": [
+      {
+        "disposition": "guard_inapplicable",
+        "id": "tax.us.2025.rule.attachment.f8949",
+        "value": null
+      },
+      {
+        "disposition": "blocked",
+        "id": "tax.us.2025.rule.attachment.schedule-d",
+        "value": null
+      }
+    ],
+    "blocked": [
+      {
+        "artifact_id": "tax.us.2025.rule.f1099b-covered-lt-basis-subtotal",
+        "code": "SOURCE_SET_UNCLOSED",
+        "missing": [
+          "tax.us.2025.f1099b.covered-lt-basis"
+        ]
+      },
+      {
+        "artifact_id": "tax.us.2025.rule.attachment.schedule-d",
+        "code": "DEPENDENCY_ABSENT",
+        "missing": [
+          "tax.us.2025.f1099b.covered-lt-basis-subtotal"
+        ]
+      },
+      {
+        "artifact_id": "tax.us.2025.rule.eic-investment-income",
+        "code": "DEPENDENCY_ABSENT",
+        "missing": [
+          "tax.us.2025.capital-gains.line7a-total"
+        ]
+      },
+      {
+        "artifact_id": "tax.us.2025.rule.form1040-line16",
+        "code": "DEPENDENCY_ABSENT",
+        "missing": [
+          "tax.us.2025.income.taxable-income",
+          "tax.us.2025.capital-gains.selected-preferential-base",
+          "tax.us.2025.qdcg-worksheet.line-24",
+          "tax.us.2025.qdcg-worksheet.line-25"
+        ]
+      },
+      {
+        "artifact_id": "tax.us.2025.rule.form1040-line7a",
+        "code": "DEPENDENCY_ABSENT",
+        "missing": [
+          "tax.us.2025.schedule-d.line-16",
+          "tax.us.2025.schedule-d.line-21",
+          "tax.us.2025.capital-gains.selected-preferential-base"
+        ]
+      },
+      {
+        "artifact_id": "tax.us.2025.rule.form1040-line9",
+        "code": "DEPENDENCY_ABSENT",
+        "missing": [
+          "tax.us.2025.capital-gains.line7a-total",
+          "tax.us.2025.social-security.line6b"
+        ]
+      },
+      {
+        "artifact_id": "tax.us.2025.rule.qdcg-worksheet.line-10",
+        "code": "DEPENDENCY_ABSENT",
+        "missing": [
+          "tax.us.2025.income.taxable-income",
+          "tax.us.2025.qdcg-worksheet.line-4"
+        ]
+      },
+      {
+        "artifact_id": "tax.us.2025.rule.qdcg-worksheet.line-11",
+        "code": "DEPENDENCY_ABSENT",
+        "missing": [
+          "tax.us.2025.qdcg-worksheet.line-9"
+        ]
+      },
+      {
+        "artifact_id": "tax.us.2025.rule.qdcg-worksheet.line-12",
+        "code": "DEPENDENCY_ABSENT",
+        "missing": [
+          "tax.us.2025.qdcg-worksheet.line-10",
+          "tax.us.2025.qdcg-worksheet.line-11"
+        ]
+      },
+      {
+        "artifact_id": "tax.us.2025.rule.qdcg-worksheet.line-14",
+        "code": "DEPENDENCY_ABSENT",
+        "missing": [
+          "tax.us.2025.income.taxable-income"
+        ]
+      },
+      {
+        "artifact_id": "tax.us.2025.rule.qdcg-worksheet.line-15",
+        "code": "DEPENDENCY_ABSENT",
+        "missing": [
+          "tax.us.2025.qdcg-worksheet.line-5",
+          "tax.us.2025.qdcg-worksheet.line-9"
+        ]
+      },
+      {
+        "artifact_id": "tax.us.2025.rule.qdcg-worksheet.line-16",
+        "code": "DEPENDENCY_ABSENT",
+        "missing": [
+          "tax.us.2025.qdcg-worksheet.line-14",
+          "tax.us.2025.qdcg-worksheet.line-15"
+        ]
+      },
+      {
+        "artifact_id": "tax.us.2025.rule.qdcg-worksheet.line-17",
+        "code": "DEPENDENCY_ABSENT",
+        "missing": [
+          "tax.us.2025.qdcg-worksheet.line-12",
+          "tax.us.2025.qdcg-worksheet.line-16"
+        ]
+      },
+      {
+        "artifact_id": "tax.us.2025.rule.qdcg-worksheet.line-18",
+        "code": "DEPENDENCY_ABSENT",
+        "missing": [
+          "tax.us.2025.qdcg-worksheet.line-17"
+        ]
+      },
+      {
+        "artifact_id": "tax.us.2025.rule.qdcg-worksheet.line-19",
+        "code": "DEPENDENCY_ABSENT",
+        "missing": [
+          "tax.us.2025.qdcg-worksheet.line-9",
+          "tax.us.2025.qdcg-worksheet.line-17"
+        ]
+      },
+      {
+        "artifact_id": "tax.us.2025.rule.qdcg-worksheet.line-20",
+        "code": "DEPENDENCY_ABSENT",
+        "missing": [
+          "tax.us.2025.qdcg-worksheet.line-10",
+          "tax.us.2025.qdcg-worksheet.line-19"
+        ]
+      },
+      {
+        "artifact_id": "tax.us.2025.rule.qdcg-worksheet.line-21",
+        "code": "DEPENDENCY_ABSENT",
+        "missing": [
+          "tax.us.2025.qdcg-worksheet.line-20"
+        ]
+      },
+      {
+        "artifact_id": "tax.us.2025.rule.qdcg-worksheet.line-22",
+        "code": "DEPENDENCY_ABSENT",
+        "missing": [
+          "tax.us.2025.qdcg-worksheet.line-5"
+        ]
+      },
+      {
+        "artifact_id": "tax.us.2025.rule.qdcg-worksheet.line-23",
+        "code": "DEPENDENCY_ABSENT",
+        "missing": [
+          "tax.us.2025.qdcg-worksheet.line-18",
+          "tax.us.2025.qdcg-worksheet.line-21",
+          "tax.us.2025.qdcg-worksheet.line-22"
+        ]
+      },
+      {
+        "artifact_id": "tax.us.2025.rule.qdcg-worksheet.line-24",
+        "code": "DEPENDENCY_ABSENT",
+        "missing": [
+          "tax.us.2025.income.taxable-income"
+        ]
+      },
+      {
+        "artifact_id": "tax.us.2025.rule.qdcg-worksheet.line-25",
+        "code": "DEPENDENCY_ABSENT",
+        "missing": [
+          "tax.us.2025.qdcg-worksheet.line-23",
+          "tax.us.2025.qdcg-worksheet.line-24"
+        ]
+      },
+      {
+        "artifact_id": "tax.us.2025.rule.qdcg-worksheet.line-4",
+        "code": "DEPENDENCY_ABSENT",
+        "missing": [
+          "tax.us.2025.capital-gains.selected-preferential-base"
+        ]
+      },
+      {
+        "artifact_id": "tax.us.2025.rule.qdcg-worksheet.line-5",
+        "code": "DEPENDENCY_ABSENT",
+        "missing": [
+          "tax.us.2025.income.taxable-income",
+          "tax.us.2025.capital-gains.selected-preferential-base"
+        ]
+      },
+      {
+        "artifact_id": "tax.us.2025.rule.qdcg-worksheet.line-7",
+        "code": "DEPENDENCY_ABSENT",
+        "missing": [
+          "tax.us.2025.income.taxable-income"
+        ]
+      },
+      {
+        "artifact_id": "tax.us.2025.rule.qdcg-worksheet.line-8",
+        "code": "DEPENDENCY_ABSENT",
+        "missing": [
+          "tax.us.2025.qdcg-worksheet.line-5",
+          "tax.us.2025.qdcg-worksheet.line-7"
+        ]
+      },
+      {
+        "artifact_id": "tax.us.2025.rule.qdcg-worksheet.line-9",
+        "code": "DEPENDENCY_ABSENT",
+        "missing": [
+          "tax.us.2025.qdcg-worksheet.line-7",
+          "tax.us.2025.qdcg-worksheet.line-8"
+        ]
+      },
+      {
+        "artifact_id": "tax.us.2025.rule.schedule-d-line15",
+        "code": "DEPENDENCY_ABSENT",
+        "missing": [
+          "tax.us.2025.schedule-d.line-8a-gain"
+        ]
+      },
+      {
+        "artifact_id": "tax.us.2025.rule.schedule-d-line16",
+        "code": "DEPENDENCY_ABSENT",
+        "missing": [
+          "tax.us.2025.schedule-d.line-15"
+        ]
+      },
+      {
+        "artifact_id": "tax.us.2025.rule.schedule-d-line21",
+        "code": "DEPENDENCY_ABSENT",
+        "missing": [
+          "tax.us.2025.schedule-d.line-16"
+        ]
+      },
+      {
+        "artifact_id": "tax.us.2025.rule.schedule-d-line8a-gain",
+        "code": "DEPENDENCY_ABSENT",
+        "missing": [
+          "tax.us.2025.f1099b.covered-lt-basis-subtotal"
+        ]
+      },
+      {
+        "artifact_id": "tax.us.2025.rule.selected-preferential-base",
+        "code": "DEPENDENCY_ABSENT",
+        "missing": [
+          "tax.us.2025.schedule-d.line-16",
+          "tax.us.2025.schedule-d.line-15"
+        ]
+      },
+      {
+        "artifact_id": "tax.us.2025.rule.ss-benefits-worksheet",
+        "code": "DEPENDENCY_ABSENT",
+        "missing": [
+          "tax.us.2025.capital-gains.line7a-total"
+        ]
+      }
+    ],
+    "lines": [
+      {
+        "disposition": "blocked",
+        "id": "tax.us.2025.form1040.line-15",
+        "reasons": [
+          "Have you recorded the cost basis of every covered long-term sale on every Form 1099-B you or your spouse received for 2025?"
+        ],
+        "value": null
+      },
+      {
+        "disposition": "blocked",
+        "id": "tax.us.2025.form1040.line-16",
+        "reasons": [
+          "Have you recorded the cost basis of every covered long-term sale on every Form 1099-B you or your spouse received for 2025?"
+        ],
+        "value": null
+      },
+      {
+        "disposition": "blocked",
+        "id": "tax.us.2025.form1040.line-7a",
+        "reasons": [
+          "Have you recorded the cost basis of every covered long-term sale on every Form 1099-B you or your spouse received for 2025?"
+        ],
+        "value": null
+      },
+      {
+        "disposition": "published_categorical",
+        "id": "tax.us.2025.form1040.line-7b",
+        "reasons": [],
+        "value": null
+      },
+      {
+        "disposition": "computed_zero",
+        "id": "tax.us.2025.schedule-d.line-13",
+        "reasons": [],
+        "value": 0
+      },
+      {
+        "disposition": "computed_zero",
+        "id": "tax.us.2025.schedule-d.line-14",
+        "reasons": [],
+        "value": 0
+      },
+      {
+        "disposition": "blocked",
+        "id": "tax.us.2025.schedule-d.line-15",
+        "reasons": [
+          "Have you recorded the cost basis of every covered long-term sale on every Form 1099-B you or your spouse received for 2025?"
+        ],
+        "value": null
+      },
+      {
+        "disposition": "blocked",
+        "id": "tax.us.2025.schedule-d.line-16",
+        "reasons": [
+          "Have you recorded the cost basis of every covered long-term sale on every Form 1099-B you or your spouse received for 2025?"
+        ],
+        "value": null
+      },
+      {
+        "disposition": "closure_backed_zero",
+        "id": "tax.us.2025.schedule-d.line-1a",
+        "reasons": [],
+        "value": 0
+      },
+      {
+        "disposition": "closure_backed_zero",
+        "id": "tax.us.2025.schedule-d.line-1b",
+        "reasons": [],
+        "value": 0
+      },
+      {
+        "disposition": "blocked",
+        "id": "tax.us.2025.schedule-d.line-21",
+        "reasons": [
+          "Have you recorded the cost basis of every covered long-term sale on every Form 1099-B you or your spouse received for 2025?"
+        ],
+        "value": null
+      },
+      {
+        "disposition": "computed_zero",
+        "id": "tax.us.2025.schedule-d.line-6",
+        "reasons": [],
+        "value": 0
+      },
+      {
+        "disposition": "computed_zero",
+        "id": "tax.us.2025.schedule-d.line-7",
+        "reasons": [],
+        "value": 0
+      },
+      {
+        "disposition": "blocked",
+        "id": "tax.us.2025.schedule-d.line-8a",
+        "reasons": [
+          "Have you recorded the cost basis of every covered long-term sale on every Form 1099-B you or your spouse received for 2025?"
+        ],
+        "value": null
+      },
+      {
+        "disposition": "closure_backed_zero",
+        "id": "tax.us.2025.schedule-d.line-8b",
+        "reasons": [],
+        "value": 0
+      }
+    ],
+    "published": [
+      {
+        "symbol": "tax.us.2025.qdcg-worksheet.line-13",
+        "value": "533400"
+      },
+      {
+        "symbol": "tax.us.2025.qdcg-worksheet.line-6",
+        "value": "48350"
+      },
+      {
+        "symbol": "tax.us.2025.schedule-d.line-14",
+        "value": "0"
+      },
+      {
+        "symbol": "tax.us.2025.schedule-d.line-6",
+        "value": "0"
+      },
+      {
+        "symbol": "tax.us.2025.schedule-d.line-13",
+        "value": "0"
+      },
+      {
+        "symbol": "tax.us.2025.schedule-d.line-1a-gain",
+        "value": "0"
+      },
+      {
+        "symbol": "tax.us.2025.schedule-d.line-1b",
+        "value": "0"
+      },
+      {
+        "symbol": "tax.us.2025.schedule-d.line-7",
+        "value": "0"
+      },
+      {
+        "symbol": "tax.us.2025.schedule-d.line-8b",
+        "value": "0"
+      },
+      {
+        "symbol": "tax.us.2025.interest.taxable-total",
+        "value": "0"
+      }
+    ],
+    "refusal": null,
+    "stop_reason": "saturated"
+  },
+  "basis_omitted_on_object": {
+    "error": "FindingModelError",
+    "message": "finding demo.ns.omito.member value does not conform to tax.us.2025.f1099b.covered-lt-txn: 'basis' is a required property",
+    "trace": "  File \"./docs/phases/engine-breadth/milestones/noncovered-sales-evidence/probe.py\", line 319, in run_one\n    finished = _handover(\n        _finish(\n    ...<8 lines>...\n        reconfirm=True,\n    )\n  File \"./tests/test_form_1099_k_income.py\", line 134, in _handover\n    act, _unused = stage_ssa_family_handover(\n                   ~~~~~~~~~~~~~~~~~~~~~~~~~^\n        finished, registry, actor=USER, at=\"2026-10-28T12:00:00Z\", family_version=version\n        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n    )\n    ^\n  File \"./packages/tax/ssa_family_handover.py\", line 147, in stage_ssa_family_handover\n    state = project(tuple(copy.deepcopy(row) for row in staged), registry)\n  File \"./packages/kernel/findings.py\", line 1705, in project\n    state = _apply_project_act(state, act, registry, lattice_holder)\n  File \"./packages/kernel/findings.py\", line 1694, in _apply_project_act\n    return _apply_member_transition(state, act[\"payload\"], registry, lattice_holder)\n  File \"./packages/kernel/findings.py\", line 1085, in _apply_member_transition\n    _validate_finding(state, finding, registry, lattice_holder)\n    ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"./packages/kernel/findings.py\", line 796, in _validate_finding\n    raise FindingModelError(\n    ...<2 lines>...\n    )\npackages.kernel.findings.FindingModelError: finding demo.ns.omito.member value does not conform to tax.us.2025.f1099b.covered-lt-txn: 'basis' is a required property\n"
+  },
+  "lt_gain_boundary_no": {
+    "attachments": [
+      {
+        "disposition": "guard_inapplicable",
+        "id": "tax.us.2025.rule.attachment.f8949",
+        "value": null
+      },
+      {
+        "disposition": "published",
+        "id": "tax.us.2025.rule.attachment.schedule-d",
+        "value": null
+      }
+    ],
+    "blocked": [
+      {
+        "artifact_id": "tax.us.2025.rule.eic-investment-income",
+        "code": "DEPENDENCY_ABSENT",
+        "missing": [
+          "tax.us.2025.capital-gains.line7a-total"
+        ]
+      },
+      {
+        "artifact_id": "tax.us.2025.rule.form1040-line16",
+        "code": "DEPENDENCY_ABSENT",
+        "missing": [
+          "tax.us.2025.income.taxable-income",
+          "tax.us.2025.capital-gains.selected-preferential-base",
+          "tax.us.2025.qdcg-worksheet.line-24",
+          "tax.us.2025.qdcg-worksheet.line-25"
+        ]
+      },
+      {
+        "artifact_id": "tax.us.2025.rule.form1040-line7a",
+        "code": "DEPENDENCY_ABSENT",
+        "missing": [
+          "tax.us.2025.capital-gains.selected-preferential-base"
+        ]
+      },
+      {
+        "artifact_id": "tax.us.2025.rule.form1040-line9",
+        "code": "DEPENDENCY_ABSENT",
+        "missing": [
+          "tax.us.2025.capital-gains.line7a-total",
+          "tax.us.2025.social-security.line6b"
+        ]
+      },
+      {
+        "artifact_id": "tax.us.2025.rule.qdcg-worksheet.line-10",
+        "code": "DEPENDENCY_ABSENT",
+        "missing": [
+          "tax.us.2025.income.taxable-income",
+          "tax.us.2025.qdcg-worksheet.line-4"
+        ]
+      },
+      {
+        "artifact_id": "tax.us.2025.rule.qdcg-worksheet.line-11",
+        "code": "DEPENDENCY_ABSENT",
+        "missing": [
+          "tax.us.2025.qdcg-worksheet.line-9"
+        ]
+      },
+      {
+        "artifact_id": "tax.us.2025.rule.qdcg-worksheet.line-12",
+        "code": "DEPENDENCY_ABSENT",
+        "missing": [
+          "tax.us.2025.qdcg-worksheet.line-10",
+          "tax.us.2025.qdcg-worksheet.line-11"
+        ]
+      },
+      {
+        "artifact_id": "tax.us.2025.rule.qdcg-worksheet.line-14",
+        "code": "DEPENDENCY_ABSENT",
+        "missing": [
+          "tax.us.2025.income.taxable-income"
+        ]
+      },
+      {
+        "artifact_id": "tax.us.2025.rule.qdcg-worksheet.line-15",
+        "code": "DEPENDENCY_ABSENT",
+        "missing": [
+          "tax.us.2025.qdcg-worksheet.line-5",
+          "tax.us.2025.qdcg-worksheet.line-9"
+        ]
+      },
+      {
+        "artifact_id": "tax.us.2025.rule.qdcg-worksheet.line-16",
+        "code": "DEPENDENCY_ABSENT",
+        "missing": [
+          "tax.us.2025.qdcg-worksheet.line-14",
+          "tax.us.2025.qdcg-worksheet.line-15"
+        ]
+      },
+      {
+        "artifact_id": "tax.us.2025.rule.qdcg-worksheet.line-17",
+        "code": "DEPENDENCY_ABSENT",
+        "missing": [
+          "tax.us.2025.qdcg-worksheet.line-12",
+          "tax.us.2025.qdcg-worksheet.line-16"
+        ]
+      },
+      {
+        "artifact_id": "tax.us.2025.rule.qdcg-worksheet.line-18",
+        "code": "DEPENDENCY_ABSENT",
+        "missing": [
+          "tax.us.2025.qdcg-worksheet.line-17"
+        ]
+      },
+      {
+        "artifact_id": "tax.us.2025.rule.qdcg-worksheet.line-19",
+        "code": "DEPENDENCY_ABSENT",
+        "missing": [
+          "tax.us.2025.qdcg-worksheet.line-9",
+          "tax.us.2025.qdcg-worksheet.line-17"
+        ]
+      },
+      {
+        "artifact_id": "tax.us.2025.rule.qdcg-worksheet.line-20",
+        "code": "DEPENDENCY_ABSENT",
+        "missing": [
+          "tax.us.2025.qdcg-worksheet.line-10",
+          "tax.us.2025.qdcg-worksheet.line-19"
+        ]
+      },
+      {
+        "artifact_id": "tax.us.2025.rule.qdcg-worksheet.line-21",
+        "code": "DEPENDENCY_ABSENT",
+        "missing": [
+          "tax.us.2025.qdcg-worksheet.line-20"
+        ]
+      },
+      {
+        "artifact_id": "tax.us.2025.rule.qdcg-worksheet.line-22",
+        "code": "DEPENDENCY_ABSENT",
+        "missing": [
+          "tax.us.2025.qdcg-worksheet.line-5"
+        ]
+      },
+      {
+        "artifact_id": "tax.us.2025.rule.qdcg-worksheet.line-23",
+        "code": "DEPENDENCY_ABSENT",
+        "missing": [
+          "tax.us.2025.qdcg-worksheet.line-18",
+          "tax.us.2025.qdcg-worksheet.line-21",
+          "tax.us.2025.qdcg-worksheet.line-22"
+        ]
+      },
+      {
+        "artifact_id": "tax.us.2025.rule.qdcg-worksheet.line-24",
+        "code": "DEPENDENCY_ABSENT",
+        "missing": [
+          "tax.us.2025.income.taxable-income"
+        ]
+      },
+      {
+        "artifact_id": "tax.us.2025.rule.qdcg-worksheet.line-25",
+        "code": "DEPENDENCY_ABSENT",
+        "missing": [
+          "tax.us.2025.qdcg-worksheet.line-23",
+          "tax.us.2025.qdcg-worksheet.line-24"
+        ]
+      },
+      {
+        "artifact_id": "tax.us.2025.rule.qdcg-worksheet.line-4",
+        "code": "DEPENDENCY_ABSENT",
+        "missing": [
+          "tax.us.2025.capital-gains.selected-preferential-base"
+        ]
+      },
+      {
+        "artifact_id": "tax.us.2025.rule.qdcg-worksheet.line-5",
+        "code": "DEPENDENCY_ABSENT",
+        "missing": [
+          "tax.us.2025.income.taxable-income",
+          "tax.us.2025.capital-gains.selected-preferential-base"
+        ]
+      },
+      {
+        "artifact_id": "tax.us.2025.rule.qdcg-worksheet.line-7",
+        "code": "DEPENDENCY_ABSENT",
+        "missing": [
+          "tax.us.2025.income.taxable-income"
+        ]
+      },
+      {
+        "artifact_id": "tax.us.2025.rule.qdcg-worksheet.line-8",
+        "code": "DEPENDENCY_ABSENT",
+        "missing": [
+          "tax.us.2025.qdcg-worksheet.line-5",
+          "tax.us.2025.qdcg-worksheet.line-7"
+        ]
+      },
+      {
+        "artifact_id": "tax.us.2025.rule.qdcg-worksheet.line-9",
+        "code": "DEPENDENCY_ABSENT",
+        "missing": [
+          "tax.us.2025.qdcg-worksheet.line-7",
+          "tax.us.2025.qdcg-worksheet.line-8"
+        ]
+      },
+      {
+        "artifact_id": "tax.us.2025.rule.ss-benefits-worksheet",
+        "code": "DEPENDENCY_ABSENT",
+        "missing": [
+          "tax.us.2025.capital-gains.line7a-total"
+        ]
+      }
+    ],
+    "lines": [
+      {
+        "disposition": "blocked",
+        "id": "tax.us.2025.form1040.line-15",
+        "reasons": [],
+        "value": null
+      },
+      {
+        "disposition": "blocked",
+        "id": "tax.us.2025.form1040.line-16",
+        "reasons": [],
+        "value": null
+      },
+      {
+        "disposition": "blocked",
+        "id": "tax.us.2025.form1040.line-7a",
+        "reasons": [],
+        "value": null
+      },
+      {
+        "disposition": "published_categorical",
+        "id": "tax.us.2025.form1040.line-7b",
+        "reasons": [],
+        "value": null
+      },
+      {
+        "disposition": "computed_zero",
+        "id": "tax.us.2025.schedule-d.line-13",
+        "reasons": [],
+        "value": 0
+      },
+      {
+        "disposition": "computed_zero",
+        "id": "tax.us.2025.schedule-d.line-14",
+        "reasons": [],
+        "value": 0
+      },
+      {
+        "disposition": "published_value",
+        "id": "tax.us.2025.schedule-d.line-15",
+        "reasons": [],
+        "value": 4000
+      },
+      {
+        "disposition": "published_value",
+        "id": "tax.us.2025.schedule-d.line-16",
+        "reasons": [],
+        "value": 4000
+      },
+      {
+        "disposition": "closure_backed_zero",
+        "id": "tax.us.2025.schedule-d.line-1a",
+        "reasons": [],
+        "value": 0
+      },
+      {
+        "disposition": "closure_backed_zero",
+        "id": "tax.us.2025.schedule-d.line-1b",
+        "reasons": [],
+        "value": 0
+      },
+      {
+        "disposition": "computed_zero",
+        "id": "tax.us.2025.schedule-d.line-21",
+        "reasons": [],
+        "value": 0
+      },
+      {
+        "disposition": "computed_zero",
+        "id": "tax.us.2025.schedule-d.line-6",
+        "reasons": [],
+        "value": 0
+      },
+      {
+        "disposition": "computed_zero",
+        "id": "tax.us.2025.schedule-d.line-7",
+        "reasons": [],
+        "value": 0
+      },
+      {
+        "disposition": "published_value",
+        "id": "tax.us.2025.schedule-d.line-8a",
+        "reasons": [],
+        "value": 4000
+      },
+      {
+        "disposition": "closure_backed_zero",
+        "id": "tax.us.2025.schedule-d.line-8b",
+        "reasons": [],
+        "value": 0
+      }
+    ],
+    "published": [
+      {
+        "symbol": "tax.us.2025.qdcg-worksheet.line-13",
+        "value": "533400"
+      },
+      {
+        "symbol": "tax.us.2025.qdcg-worksheet.line-6",
+        "value": "48350"
+      },
+      {
+        "symbol": "tax.us.2025.schedule-d.line-14",
+        "value": "0"
+      },
+      {
+        "symbol": "tax.us.2025.schedule-d.line-6",
+        "value": "0"
+      },
+      {
+        "symbol": "tax.us.2025.schedule-d.line-13",
+        "value": "0"
+      },
+      {
+        "symbol": "tax.us.2025.schedule-d.line-1a-gain",
+        "value": "0"
+      },
+      {
+        "symbol": "tax.us.2025.schedule-d.line-8a-gain",
+        "value": "4000.0"
+      },
+      {
+        "symbol": "tax.us.2025.schedule-d.line-1b",
+        "value": "0"
+      },
+      {
+        "symbol": "tax.us.2025.schedule-d.line-7",
+        "value": "0"
+      },
+      {
+        "symbol": "tax.us.2025.schedule-d.line-8b",
+        "value": "0"
+      },
+      {
+        "symbol": "tax.us.2025.schedule-d.line-15",
+        "value": "4000.0"
+      },
+      {
+        "symbol": "tax.us.2025.schedule-d.line-16",
+        "value": "4000.0"
+      },
+      {
+        "symbol": "tax.us.2025.schedule-d.line-21",
+        "value": "0"
+      },
+      {
+        "symbol": "tax.us.2025.interest.taxable-total",
+        "value": "0"
+      }
+    ],
+    "refusal": null,
+    "stop_reason": "saturated"
+  },
+  "lt_gain_on_covered_family": {
+    "attachments": [
+      {
+        "disposition": "guard_inapplicable",
+        "id": "tax.us.2025.rule.attachment.f8949",
+        "value": null
+      },
+      {
+        "disposition": "published",
+        "id": "tax.us.2025.rule.attachment.schedule-d",
+        "value": null
+      }
+    ],
+    "blocked": [],
+    "lines": [
+      {
+        "disposition": "published_value",
+        "id": "tax.us.2025.form1040.line-15",
+        "reasons": [],
+        "value": 38250
+      },
+      {
+        "disposition": "published_value",
+        "id": "tax.us.2025.form1040.line-16",
+        "reasons": [],
+        "value": 3875
+      },
+      {
+        "disposition": "published_value",
+        "id": "tax.us.2025.form1040.line-7a",
+        "reasons": [],
+        "value": 4000
+      },
+      {
+        "disposition": "published_categorical",
+        "id": "tax.us.2025.form1040.line-7b",
+        "reasons": [],
+        "value": null
+      },
+      {
+        "disposition": "computed_zero",
+        "id": "tax.us.2025.schedule-d.line-13",
+        "reasons": [],
+        "value": 0
+      },
+      {
+        "disposition": "computed_zero",
+        "id": "tax.us.2025.schedule-d.line-14",
+        "reasons": [],
+        "value": 0
+      },
+      {
+        "disposition": "published_value",
+        "id": "tax.us.2025.schedule-d.line-15",
+        "reasons": [],
+        "value": 4000
+      },
+      {
+        "disposition": "published_value",
+        "id": "tax.us.2025.schedule-d.line-16",
+        "reasons": [],
+        "value": 4000
+      },
+      {
+        "disposition": "closure_backed_zero",
+        "id": "tax.us.2025.schedule-d.line-1a",
+        "reasons": [],
+        "value": 0
+      },
+      {
+        "disposition": "closure_backed_zero",
+        "id": "tax.us.2025.schedule-d.line-1b",
+        "reasons": [],
+        "value": 0
+      },
+      {
+        "disposition": "computed_zero",
+        "id": "tax.us.2025.schedule-d.line-21",
+        "reasons": [],
+        "value": 0
+      },
+      {
+        "disposition": "computed_zero",
+        "id": "tax.us.2025.schedule-d.line-6",
+        "reasons": [],
+        "value": 0
+      },
+      {
+        "disposition": "computed_zero",
+        "id": "tax.us.2025.schedule-d.line-7",
+        "reasons": [],
+        "value": 0
+      },
+      {
+        "disposition": "published_value",
+        "id": "tax.us.2025.schedule-d.line-8a",
+        "reasons": [],
+        "value": 4000
+      },
+      {
+        "disposition": "closure_backed_zero",
+        "id": "tax.us.2025.schedule-d.line-8b",
+        "reasons": [],
+        "value": 0
+      }
+    ],
+    "published": [
+      {
+        "symbol": "tax.us.2025.qdcg-worksheet.line-13",
+        "value": "533400"
+      },
+      {
+        "symbol": "tax.us.2025.qdcg-worksheet.line-6",
+        "value": "48350"
+      },
+      {
+        "symbol": "tax.us.2025.schedule-d.line-14",
+        "value": "0"
+      },
+      {
+        "symbol": "tax.us.2025.schedule-d.line-6",
+        "value": "0"
+      },
+      {
+        "symbol": "tax.us.2025.schedule-d.line-13",
+        "value": "0"
+      },
+      {
+        "symbol": "tax.us.2025.schedule-d.line-1a-gain",
+        "value": "0"
+      },
+      {
+        "symbol": "tax.us.2025.schedule-d.line-8a-gain",
+        "value": "4000.0"
+      },
+      {
+        "symbol": "tax.us.2025.schedule-d.line-1b",
+        "value": "0"
+      },
+      {
+        "symbol": "tax.us.2025.schedule-d.line-7",
+        "value": "0"
+      },
+      {
+        "symbol": "tax.us.2025.schedule-d.line-8b",
+        "value": "0"
+      },
+      {
+        "symbol": "tax.us.2025.schedule-d.line-15",
+        "value": "4000.0"
+      },
+      {
+        "symbol": "tax.us.2025.schedule-d.line-16",
+        "value": "4000.0"
+      },
+      {
+        "symbol": "tax.us.2025.schedule-d.line-21",
+        "value": "0"
+      },
+      {
+        "symbol": "tax.us.2025.capital-gains.selected-preferential-base",
+        "value": "4000.0"
+      },
+      {
+        "symbol": "tax.us.2025.interest.taxable-total",
+        "value": "0"
+      },
+      {
+        "symbol": "tax.us.2025.capital-gains.line7a-total",
+        "value": "4000.0"
+      },
+      {
+        "symbol": "tax.us.2025.qdcg-worksheet.line-4",
+        "value": "4000.0"
+      },
+      {
+        "symbol": "tax.us.2025.income.taxable-income",
+        "value": "38250.0"
+      },
+      {
+        "symbol": "tax.us.2025.qdcg-worksheet.line-10",
+        "value": "4000.0"
+      },
+      {
+        "symbol": "tax.us.2025.qdcg-worksheet.line-14",
+        "value": "38250.0"
+      },
+      {
+        "symbol": "tax.us.2025.qdcg-worksheet.line-24",
+        "value": "4355"
+      },
+      {
+        "symbol": "tax.us.2025.qdcg-worksheet.line-5",
+        "value": "34250.0"
+      },
+      {
+        "symbol": "tax.us.2025.qdcg-worksheet.line-7",
+        "value": "38250.0"
+      },
+      {
+        "symbol": "tax.us.2025.qdcg-worksheet.line-8",
+        "value": "34250.0"
+      },
+      {
+        "symbol": "tax.us.2025.qdcg-worksheet.line-9",
+        "value": "4000.0"
+      },
+      {
+        "symbol": "tax.us.2025.qdcg-worksheet.line-11",
+        "value": "4000.0"
+      },
+      {
+        "symbol": "tax.us.2025.qdcg-worksheet.line-12",
+        "value": "0.0"
+      },
+      {
+        "symbol": "tax.us.2025.qdcg-worksheet.line-15",
+        "value": "38250.0"
+      },
+      {
+        "symbol": "tax.us.2025.qdcg-worksheet.line-16",
+        "value": "0.0"
+      },
+      {
+        "symbol": "tax.us.2025.qdcg-worksheet.line-17",
+        "value": "0.0"
+      },
+      {
+        "symbol": "tax.us.2025.qdcg-worksheet.line-18",
+        "value": "0.000"
+      },
+      {
+        "symbol": "tax.us.2025.qdcg-worksheet.line-19",
+        "value": "4000.0"
+      },
+      {
+        "symbol": "tax.us.2025.qdcg-worksheet.line-20",
+        "value": "0.0"
+      },
+      {
+        "symbol": "tax.us.2025.qdcg-worksheet.line-21",
+        "value": "0.000"
+      },
+      {
+        "symbol": "tax.us.2025.qdcg-worksheet.line-22",
+        "value": "3875"
+      },
+      {
+        "symbol": "tax.us.2025.qdcg-worksheet.line-23",
+        "value": "3875.000"
+      },
+      {
+        "symbol": "tax.us.2025.qdcg-worksheet.line-25",
+        "value": "3875.000"
+      }
+    ],
+    "refusal": null,
+    "stop_reason": "saturated"
+  },
+  "mixed_on_covered_families": {
+    "attachments": [
+      {
+        "disposition": "guard_inapplicable",
+        "id": "tax.us.2025.rule.attachment.f8949",
+        "value": null
+      },
+      {
+        "disposition": "published",
+        "id": "tax.us.2025.rule.attachment.schedule-d",
+        "value": null
+      }
+    ],
+    "blocked": [],
+    "lines": [
+      {
+        "disposition": "published_value",
+        "id": "tax.us.2025.form1040.line-15",
+        "reasons": [],
+        "value": 39250
+      },
+      {
+        "disposition": "published_value",
+        "id": "tax.us.2025.form1040.line-16",
+        "reasons": [],
+        "value": 3995
+      },
+      {
+        "disposition": "published_value",
+        "id": "tax.us.2025.form1040.line-7a",
+        "reasons": [],
+        "value": 5000
+      },
+      {
+        "disposition": "published_categorical",
+        "id": "tax.us.2025.form1040.line-7b",
+        "reasons": [],
+        "value": null
+      },
+      {
+        "disposition": "computed_zero",
+        "id": "tax.us.2025.schedule-d.line-13",
+        "reasons": [],
+        "value": 0
+      },
+      {
+        "disposition": "computed_zero",
+        "id": "tax.us.2025.schedule-d.line-14",
+        "reasons": [],
+        "value": 0
+      },
+      {
+        "disposition": "published_value",
+        "id": "tax.us.2025.schedule-d.line-15",
+        "reasons": [],
+        "value": 4000
+      },
+      {
+        "disposition": "published_value",
+        "id": "tax.us.2025.schedule-d.line-16",
+        "reasons": [],
+        "value": 5000
+      },
+      {
+        "disposition": "published_value",
+        "id": "tax.us.2025.schedule-d.line-1a",
+        "reasons": [],
+        "value": 1000
+      },
+      {
+        "disposition": "closure_backed_zero",
+        "id": "tax.us.2025.schedule-d.line-1b",
+        "reasons": [],
+        "value": 0
+      },
+      {
+        "disposition": "computed_zero",
+        "id": "tax.us.2025.schedule-d.line-21",
+        "reasons": [],
+        "value": 0
+      },
+      {
+        "disposition": "computed_zero",
+        "id": "tax.us.2025.schedule-d.line-6",
+        "reasons": [],
+        "value": 0
+      },
+      {
+        "disposition": "published_value",
+        "id": "tax.us.2025.schedule-d.line-7",
+        "reasons": [],
+        "value": 1000
+      },
+      {
+        "disposition": "published_value",
+        "id": "tax.us.2025.schedule-d.line-8a",
+        "reasons": [],
+        "value": 4000
+      },
+      {
+        "disposition": "closure_backed_zero",
+        "id": "tax.us.2025.schedule-d.line-8b",
+        "reasons": [],
+        "value": 0
+      }
+    ],
+    "published": [
+      {
+        "symbol": "tax.us.2025.qdcg-worksheet.line-13",
+        "value": "533400"
+      },
+      {
+        "symbol": "tax.us.2025.qdcg-worksheet.line-6",
+        "value": "48350"
+      },
+      {
+        "symbol": "tax.us.2025.schedule-d.line-14",
+        "value": "0"
+      },
+      {
+        "symbol": "tax.us.2025.schedule-d.line-6",
+        "value": "0"
+      },
+      {
+        "symbol": "tax.us.2025.schedule-d.line-13",
+        "value": "0"
+      },
+      {
+        "symbol": "tax.us.2025.schedule-d.line-1a-gain",
+        "value": "1000.0"
+      },
+      {
+        "symbol": "tax.us.2025.schedule-d.line-8a-gain",
+        "value": "4000.0"
+      },
+      {
+        "symbol": "tax.us.2025.schedule-d.line-1b",
+        "value": "0"
+      },
+      {
+        "symbol": "tax.us.2025.schedule-d.line-7",
+        "value": "1000.0"
+      },
+      {
+        "symbol": "tax.us.2025.schedule-d.line-8b",
+        "value": "0"
+      },
+      {
+        "symbol": "tax.us.2025.schedule-d.line-15",
+        "value": "4000.0"
+      },
+      {
+        "symbol": "tax.us.2025.schedule-d.line-16",
+        "value": "5000.0"
+      },
+      {
+        "symbol": "tax.us.2025.schedule-d.line-21",
+        "value": "0"
+      },
+      {
+        "symbol": "tax.us.2025.capital-gains.selected-preferential-base",
+        "value": "4000.0"
+      },
+      {
+        "symbol": "tax.us.2025.interest.taxable-total",
+        "value": "0"
+      },
+      {
+        "symbol": "tax.us.2025.capital-gains.line7a-total",
+        "value": "5000.0"
+      },
+      {
+        "symbol": "tax.us.2025.qdcg-worksheet.line-4",
+        "value": "4000.0"
+      },
+      {
+        "symbol": "tax.us.2025.income.taxable-income",
+        "value": "39250.0"
+      },
+      {
+        "symbol": "tax.us.2025.qdcg-worksheet.line-10",
+        "value": "4000.0"
+      },
+      {
+        "symbol": "tax.us.2025.qdcg-worksheet.line-14",
+        "value": "39250.0"
+      },
+      {
+        "symbol": "tax.us.2025.qdcg-worksheet.line-24",
+        "value": "4475"
+      },
+      {
+        "symbol": "tax.us.2025.qdcg-worksheet.line-5",
+        "value": "35250.0"
+      },
+      {
+        "symbol": "tax.us.2025.qdcg-worksheet.line-7",
+        "value": "39250.0"
+      },
+      {
+        "symbol": "tax.us.2025.qdcg-worksheet.line-8",
+        "value": "35250.0"
+      },
+      {
+        "symbol": "tax.us.2025.qdcg-worksheet.line-9",
+        "value": "4000.0"
+      },
+      {
+        "symbol": "tax.us.2025.qdcg-worksheet.line-11",
+        "value": "4000.0"
+      },
+      {
+        "symbol": "tax.us.2025.qdcg-worksheet.line-12",
+        "value": "0.0"
+      },
+      {
+        "symbol": "tax.us.2025.qdcg-worksheet.line-15",
+        "value": "39250.0"
+      },
+      {
+        "symbol": "tax.us.2025.qdcg-worksheet.line-16",
+        "value": "0.0"
+      },
+      {
+        "symbol": "tax.us.2025.qdcg-worksheet.line-17",
+        "value": "0.0"
+      },
+      {
+        "symbol": "tax.us.2025.qdcg-worksheet.line-18",
+        "value": "0.000"
+      },
+      {
+        "symbol": "tax.us.2025.qdcg-worksheet.line-19",
+        "value": "4000.0"
+      },
+      {
+        "symbol": "tax.us.2025.qdcg-worksheet.line-20",
+        "value": "0.0"
+      },
+      {
+        "symbol": "tax.us.2025.qdcg-worksheet.line-21",
+        "value": "0.000"
+      },
+      {
+        "symbol": "tax.us.2025.qdcg-worksheet.line-22",
+        "value": "3995"
+      },
+      {
+        "symbol": "tax.us.2025.qdcg-worksheet.line-23",
+        "value": "3995.000"
+      },
+      {
+        "symbol": "tax.us.2025.qdcg-worksheet.line-25",
+        "value": "3995.000"
+      }
+    ],
+    "refusal": null,
+    "stop_reason": "saturated"
+  },
+  "st_loss_boundary_no": {
+    "attachments": [
+      {
+        "disposition": "guard_inapplicable",
+        "id": "tax.us.2025.rule.attachment.f8949",
+        "value": null
+      },
+      {
+        "disposition": "published",
+        "id": "tax.us.2025.rule.attachment.schedule-d",
+        "value": null
+      }
+    ],
+    "blocked": [
+      {
+        "artifact_id": "tax.us.2025.rule.eic-investment-income",
+        "code": "DEPENDENCY_ABSENT",
+        "missing": [
+          "tax.us.2025.capital-gains.line7a-total"
+        ]
+      },
+      {
+        "artifact_id": "tax.us.2025.rule.form1040-line16",
+        "code": "DEPENDENCY_ABSENT",
+        "missing": [
+          "tax.us.2025.income.taxable-income",
+          "tax.us.2025.capital-gains.selected-preferential-base",
+          "tax.us.2025.qdcg-worksheet.line-24",
+          "tax.us.2025.qdcg-worksheet.line-25"
+        ]
+      },
+      {
+        "artifact_id": "tax.us.2025.rule.form1040-line7a",
+        "code": "DEPENDENCY_ABSENT",
+        "missing": [
+          "tax.us.2025.capital-gains.selected-preferential-base"
+        ]
+      },
+      {
+        "artifact_id": "tax.us.2025.rule.form1040-line9",
+        "code": "DEPENDENCY_ABSENT",
+        "missing": [
+          "tax.us.2025.capital-gains.line7a-total",
+          "tax.us.2025.social-security.line6b"
+        ]
+      },
+      {
+        "artifact_id": "tax.us.2025.rule.qdcg-worksheet.line-10",
+        "code": "DEPENDENCY_ABSENT",
+        "missing": [
+          "tax.us.2025.income.taxable-income",
+          "tax.us.2025.qdcg-worksheet.line-4"
+        ]
+      },
+      {
+        "artifact_id": "tax.us.2025.rule.qdcg-worksheet.line-11",
+        "code": "DEPENDENCY_ABSENT",
+        "missing": [
+          "tax.us.2025.qdcg-worksheet.line-9"
+        ]
+      },
+      {
+        "artifact_id": "tax.us.2025.rule.qdcg-worksheet.line-12",
+        "code": "DEPENDENCY_ABSENT",
+        "missing": [
+          "tax.us.2025.qdcg-worksheet.line-10",
+          "tax.us.2025.qdcg-worksheet.line-11"
+        ]
+      },
+      {
+        "artifact_id": "tax.us.2025.rule.qdcg-worksheet.line-14",
+        "code": "DEPENDENCY_ABSENT",
+        "missing": [
+          "tax.us.2025.income.taxable-income"
+        ]
+      },
+      {
+        "artifact_id": "tax.us.2025.rule.qdcg-worksheet.line-15",
+        "code": "DEPENDENCY_ABSENT",
+        "missing": [
+          "tax.us.2025.qdcg-worksheet.line-5",
+          "tax.us.2025.qdcg-worksheet.line-9"
+        ]
+      },
+      {
+        "artifact_id": "tax.us.2025.rule.qdcg-worksheet.line-16",
+        "code": "DEPENDENCY_ABSENT",
+        "missing": [
+          "tax.us.2025.qdcg-worksheet.line-14",
+          "tax.us.2025.qdcg-worksheet.line-15"
+        ]
+      },
+      {
+        "artifact_id": "tax.us.2025.rule.qdcg-worksheet.line-17",
+        "code": "DEPENDENCY_ABSENT",
+        "missing": [
+          "tax.us.2025.qdcg-worksheet.line-12",
+          "tax.us.2025.qdcg-worksheet.line-16"
+        ]
+      },
+      {
+        "artifact_id": "tax.us.2025.rule.qdcg-worksheet.line-18",
+        "code": "DEPENDENCY_ABSENT",
+        "missing": [
+          "tax.us.2025.qdcg-worksheet.line-17"
+        ]
+      },
+      {
+        "artifact_id": "tax.us.2025.rule.qdcg-worksheet.line-19",
+        "code": "DEPENDENCY_ABSENT",
+        "missing": [
+          "tax.us.2025.qdcg-worksheet.line-9",
+          "tax.us.2025.qdcg-worksheet.line-17"
+        ]
+      },
+      {
+        "artifact_id": "tax.us.2025.rule.qdcg-worksheet.line-20",
+        "code": "DEPENDENCY_ABSENT",
+        "missing": [
+          "tax.us.2025.qdcg-worksheet.line-10",
+          "tax.us.2025.qdcg-worksheet.line-19"
+        ]
+      },
+      {
+        "artifact_id": "tax.us.2025.rule.qdcg-worksheet.line-21",
+        "code": "DEPENDENCY_ABSENT",
+        "missing": [
+          "tax.us.2025.qdcg-worksheet.line-20"
+        ]
+      },
+      {
+        "artifact_id": "tax.us.2025.rule.qdcg-worksheet.line-22",
+        "code": "DEPENDENCY_ABSENT",
+        "missing": [
+          "tax.us.2025.qdcg-worksheet.line-5"
+        ]
+      },
+      {
+        "artifact_id": "tax.us.2025.rule.qdcg-worksheet.line-23",
+        "code": "DEPENDENCY_ABSENT",
+        "missing": [
+          "tax.us.2025.qdcg-worksheet.line-18",
+          "tax.us.2025.qdcg-worksheet.line-21",
+          "tax.us.2025.qdcg-worksheet.line-22"
+        ]
+      },
+      {
+        "artifact_id": "tax.us.2025.rule.qdcg-worksheet.line-24",
+        "code": "DEPENDENCY_ABSENT",
+        "missing": [
+          "tax.us.2025.income.taxable-income"
+        ]
+      },
+      {
+        "artifact_id": "tax.us.2025.rule.qdcg-worksheet.line-25",
+        "code": "DEPENDENCY_ABSENT",
+        "missing": [
+          "tax.us.2025.qdcg-worksheet.line-23",
+          "tax.us.2025.qdcg-worksheet.line-24"
+        ]
+      },
+      {
+        "artifact_id": "tax.us.2025.rule.qdcg-worksheet.line-4",
+        "code": "DEPENDENCY_ABSENT",
+        "missing": [
+          "tax.us.2025.capital-gains.selected-preferential-base"
+        ]
+      },
+      {
+        "artifact_id": "tax.us.2025.rule.qdcg-worksheet.line-5",
+        "code": "DEPENDENCY_ABSENT",
+        "missing": [
+          "tax.us.2025.income.taxable-income",
+          "tax.us.2025.capital-gains.selected-preferential-base"
+        ]
+      },
+      {
+        "artifact_id": "tax.us.2025.rule.qdcg-worksheet.line-7",
+        "code": "DEPENDENCY_ABSENT",
+        "missing": [
+          "tax.us.2025.income.taxable-income"
+        ]
+      },
+      {
+        "artifact_id": "tax.us.2025.rule.qdcg-worksheet.line-8",
+        "code": "DEPENDENCY_ABSENT",
+        "missing": [
+          "tax.us.2025.qdcg-worksheet.line-5",
+          "tax.us.2025.qdcg-worksheet.line-7"
+        ]
+      },
+      {
+        "artifact_id": "tax.us.2025.rule.qdcg-worksheet.line-9",
+        "code": "DEPENDENCY_ABSENT",
+        "missing": [
+          "tax.us.2025.qdcg-worksheet.line-7",
+          "tax.us.2025.qdcg-worksheet.line-8"
+        ]
+      },
+      {
+        "artifact_id": "tax.us.2025.rule.ss-benefits-worksheet",
+        "code": "DEPENDENCY_ABSENT",
+        "missing": [
+          "tax.us.2025.capital-gains.line7a-total"
+        ]
+      }
+    ],
+    "lines": [
+      {
+        "disposition": "blocked",
+        "id": "tax.us.2025.form1040.line-15",
+        "reasons": [],
+        "value": null
+      },
+      {
+        "disposition": "blocked",
+        "id": "tax.us.2025.form1040.line-16",
+        "reasons": [],
+        "value": null
+      },
+      {
+        "disposition": "blocked",
+        "id": "tax.us.2025.form1040.line-7a",
+        "reasons": [],
+        "value": null
+      },
+      {
+        "disposition": "published_categorical",
+        "id": "tax.us.2025.form1040.line-7b",
+        "reasons": [],
+        "value": null
+      },
+      {
+        "disposition": "computed_zero",
+        "id": "tax.us.2025.schedule-d.line-13",
+        "reasons": [],
+        "value": 0
+      },
+      {
+        "disposition": "computed_zero",
+        "id": "tax.us.2025.schedule-d.line-14",
+        "reasons": [],
+        "value": 0
+      },
+      {
+        "disposition": "computed_zero",
+        "id": "tax.us.2025.schedule-d.line-15",
+        "reasons": [],
+        "value": 0
+      },
+      {
+        "disposition": "published_value",
+        "id": "tax.us.2025.schedule-d.line-16",
+        "reasons": [],
+        "value": -6000
+      },
+      {
+        "disposition": "published_value",
+        "id": "tax.us.2025.schedule-d.line-1a",
+        "reasons": [],
+        "value": -6000
+      },
+      {
+        "disposition": "closure_backed_zero",
+        "id": "tax.us.2025.schedule-d.line-1b",
+        "reasons": [],
+        "value": 0
+      },
+      {
+        "disposition": "published_value",
+        "id": "tax.us.2025.schedule-d.line-21",
+        "reasons": [],
+        "value": 3000
+      },
+      {
+        "disposition": "computed_zero",
+        "id": "tax.us.2025.schedule-d.line-6",
+        "reasons": [],
+        "value": 0
+      },
+      {
+        "disposition": "published_value",
+        "id": "tax.us.2025.schedule-d.line-7",
+        "reasons": [],
+        "value": -6000
+      },
+      {
+        "disposition": "closure_backed_zero",
+        "id": "tax.us.2025.schedule-d.line-8a",
+        "reasons": [],
+        "value": 0
+      },
+      {
+        "disposition": "closure_backed_zero",
+        "id": "tax.us.2025.schedule-d.line-8b",
+        "reasons": [],
+        "value": 0
+      }
+    ],
+    "published": [
+      {
+        "symbol": "tax.us.2025.qdcg-worksheet.line-13",
+        "value": "533400"
+      },
+      {
+        "symbol": "tax.us.2025.qdcg-worksheet.line-6",
+        "value": "48350"
+      },
+      {
+        "symbol": "tax.us.2025.schedule-d.line-14",
+        "value": "0"
+      },
+      {
+        "symbol": "tax.us.2025.schedule-d.line-6",
+        "value": "0"
+      },
+      {
+        "symbol": "tax.us.2025.schedule-d.line-13",
+        "value": "0"
+      },
+      {
+        "symbol": "tax.us.2025.schedule-d.line-1a-gain",
+        "value": "-6000.0"
+      },
+      {
+        "symbol": "tax.us.2025.schedule-d.line-8a-gain",
+        "value": "0"
+      },
+      {
+        "symbol": "tax.us.2025.schedule-d.line-1b",
+        "value": "0"
+      },
+      {
+        "symbol": "tax.us.2025.schedule-d.line-7",
+        "value": "-6000.0"
+      },
+      {
+        "symbol": "tax.us.2025.schedule-d.line-8b",
+        "value": "0"
+      },
+      {
+        "symbol": "tax.us.2025.schedule-d.line-15",
+        "value": "0"
+      },
+      {
+        "symbol": "tax.us.2025.schedule-d.line-16",
+        "value": "-6000.0"
+      },
+      {
+        "symbol": "tax.us.2025.schedule-d.line-21",
+        "value": "3000"
+      },
+      {
+        "symbol": "tax.us.2025.interest.taxable-total",
+        "value": "0"
+      }
+    ],
+    "refusal": null,
+    "stop_reason": "saturated"
+  },
+  "st_loss_on_covered_family": {
+    "attachments": [
+      {
+        "disposition": "guard_inapplicable",
+        "id": "tax.us.2025.rule.attachment.f8949",
+        "value": null
+      },
+      {
+        "disposition": "published",
+        "id": "tax.us.2025.rule.attachment.schedule-d",
+        "value": null
+      }
+    ],
+    "blocked": [],
+    "lines": [
+      {
+        "disposition": "published_value",
+        "id": "tax.us.2025.form1040.line-15",
+        "reasons": [],
+        "value": 31250
+      },
+      {
+        "disposition": "published_value",
+        "id": "tax.us.2025.form1040.line-16",
+        "reasons": [],
+        "value": 3515
+      },
+      {
+        "disposition": "published_value",
+        "id": "tax.us.2025.form1040.line-7a",
+        "reasons": [],
+        "value": -3000
+      },
+      {
+        "disposition": "published_categorical",
+        "id": "tax.us.2025.form1040.line-7b",
+        "reasons": [],
+        "value": null
+      },
+      {
+        "disposition": "computed_zero",
+        "id": "tax.us.2025.schedule-d.line-13",
+        "reasons": [],
+        "value": 0
+      },
+      {
+        "disposition": "computed_zero",
+        "id": "tax.us.2025.schedule-d.line-14",
+        "reasons": [],
+        "value": 0
+      },
+      {
+        "disposition": "computed_zero",
+        "id": "tax.us.2025.schedule-d.line-15",
+        "reasons": [],
+        "value": 0
+      },
+      {
+        "disposition": "published_value",
+        "id": "tax.us.2025.schedule-d.line-16",
+        "reasons": [],
+        "value": -6000
+      },
+      {
+        "disposition": "published_value",
+        "id": "tax.us.2025.schedule-d.line-1a",
+        "reasons": [],
+        "value": -6000
+      },
+      {
+        "disposition": "closure_backed_zero",
+        "id": "tax.us.2025.schedule-d.line-1b",
+        "reasons": [],
+        "value": 0
+      },
+      {
+        "disposition": "published_value",
+        "id": "tax.us.2025.schedule-d.line-21",
+        "reasons": [],
+        "value": 3000
+      },
+      {
+        "disposition": "computed_zero",
+        "id": "tax.us.2025.schedule-d.line-6",
+        "reasons": [],
+        "value": 0
+      },
+      {
+        "disposition": "published_value",
+        "id": "tax.us.2025.schedule-d.line-7",
+        "reasons": [],
+        "value": -6000
+      },
+      {
+        "disposition": "closure_backed_zero",
+        "id": "tax.us.2025.schedule-d.line-8a",
+        "reasons": [],
+        "value": 0
+      },
+      {
+        "disposition": "closure_backed_zero",
+        "id": "tax.us.2025.schedule-d.line-8b",
+        "reasons": [],
+        "value": 0
+      }
+    ],
+    "published": [
+      {
+        "symbol": "tax.us.2025.qdcg-worksheet.line-13",
+        "value": "533400"
+      },
+      {
+        "symbol": "tax.us.2025.qdcg-worksheet.line-6",
+        "value": "48350"
+      },
+      {
+        "symbol": "tax.us.2025.schedule-d.line-14",
+        "value": "0"
+      },
+      {
+        "symbol": "tax.us.2025.schedule-d.line-6",
+        "value": "0"
+      },
+      {
+        "symbol": "tax.us.2025.schedule-d.line-13",
+        "value": "0"
+      },
+      {
+        "symbol": "tax.us.2025.schedule-d.line-1a-gain",
+        "value": "-6000.0"
+      },
+      {
+        "symbol": "tax.us.2025.schedule-d.line-8a-gain",
+        "value": "0"
+      },
+      {
+        "symbol": "tax.us.2025.schedule-d.line-1b",
+        "value": "0"
+      },
+      {
+        "symbol": "tax.us.2025.schedule-d.line-7",
+        "value": "-6000.0"
+      },
+      {
+        "symbol": "tax.us.2025.schedule-d.line-8b",
+        "value": "0"
+      },
+      {
+        "symbol": "tax.us.2025.schedule-d.line-15",
+        "value": "0"
+      },
+      {
+        "symbol": "tax.us.2025.schedule-d.line-16",
+        "value": "-6000.0"
+      },
+      {
+        "symbol": "tax.us.2025.schedule-d.line-21",
+        "value": "3000"
+      },
+      {
+        "symbol": "tax.us.2025.capital-gains.selected-preferential-base",
+        "value": "0"
+      },
+      {
+        "symbol": "tax.us.2025.interest.taxable-total",
+        "value": "0"
+      },
+      {
+        "symbol": "tax.us.2025.capital-gains.line7a-total",
+        "value": "-3000"
+      },
+      {
+        "symbol": "tax.us.2025.qdcg-worksheet.line-4",
+        "value": "0"
+      },
+      {
+        "symbol": "tax.us.2025.income.taxable-income",
+        "value": "31250"
+      },
+      {
+        "symbol": "tax.us.2025.qdcg-worksheet.line-10",
+        "value": "0"
+      },
+      {
+        "symbol": "tax.us.2025.qdcg-worksheet.line-14",
+        "value": "31250"
+      },
+      {
+        "symbol": "tax.us.2025.qdcg-worksheet.line-24",
+        "value": "3515"
+      },
+      {
+        "symbol": "tax.us.2025.qdcg-worksheet.line-5",
+        "value": "31250"
+      },
+      {
+        "symbol": "tax.us.2025.qdcg-worksheet.line-7",
+        "value": "31250"
+      },
+      {
+        "symbol": "tax.us.2025.qdcg-worksheet.line-8",
+        "value": "31250"
+      },
+      {
+        "symbol": "tax.us.2025.qdcg-worksheet.line-9",
+        "value": "0"
+      },
+      {
+        "symbol": "tax.us.2025.qdcg-worksheet.line-11",
+        "value": "0"
+      },
+      {
+        "symbol": "tax.us.2025.qdcg-worksheet.line-12",
+        "value": "0"
+      },
+      {
+        "symbol": "tax.us.2025.qdcg-worksheet.line-15",
+        "value": "31250"
+      },
+      {
+        "symbol": "tax.us.2025.qdcg-worksheet.line-16",
+        "value": "0"
+      },
+      {
+        "symbol": "tax.us.2025.qdcg-worksheet.line-17",
+        "value": "0"
+      },
+      {
+        "symbol": "tax.us.2025.qdcg-worksheet.line-18",
+        "value": "0.00"
+      },
+      {
+        "symbol": "tax.us.2025.qdcg-worksheet.line-19",
+        "value": "0"
+      },
+      {
+        "symbol": "tax.us.2025.qdcg-worksheet.line-20",
+        "value": "0"
+      },
+      {
+        "symbol": "tax.us.2025.qdcg-worksheet.line-21",
+        "value": "0.00"
+      },
+      {
+        "symbol": "tax.us.2025.qdcg-worksheet.line-22",
+        "value": "3515"
+      },
+      {
+        "symbol": "tax.us.2025.qdcg-worksheet.line-23",
+        "value": "3515.00"
+      },
+      {
+        "symbol": "tax.us.2025.qdcg-worksheet.line-25",
+        "value": "3515.00"
+      }
+    ],
+    "refusal": null,
+    "stop_reason": "saturated"
+  },
+  "wash_boundary_no": {
+    "attachments": [
+      {
+        "disposition": "published",
+        "id": "tax.us.2025.rule.attachment.f8949",
+        "value": null
+      },
+      {
+        "disposition": "published",
+        "id": "tax.us.2025.rule.attachment.schedule-d",
+        "value": null
+      }
+    ],
+    "blocked": [
+      {
+        "artifact_id": "tax.us.2025.rule.eic-investment-income",
+        "code": "DEPENDENCY_ABSENT",
+        "missing": [
+          "tax.us.2025.capital-gains.line7a-total"
+        ]
+      },
+      {
+        "artifact_id": "tax.us.2025.rule.form1040-line16",
+        "code": "DEPENDENCY_ABSENT",
+        "missing": [
+          "tax.us.2025.income.taxable-income",
+          "tax.us.2025.capital-gains.selected-preferential-base",
+          "tax.us.2025.qdcg-worksheet.line-24",
+          "tax.us.2025.qdcg-worksheet.line-25"
+        ]
+      },
+      {
+        "artifact_id": "tax.us.2025.rule.form1040-line7a",
+        "code": "DEPENDENCY_ABSENT",
+        "missing": [
+          "tax.us.2025.capital-gains.selected-preferential-base"
+        ]
+      },
+      {
+        "artifact_id": "tax.us.2025.rule.form1040-line9",
+        "code": "DEPENDENCY_ABSENT",
+        "missing": [
+          "tax.us.2025.capital-gains.line7a-total",
+          "tax.us.2025.social-security.line6b"
+        ]
+      },
+      {
+        "artifact_id": "tax.us.2025.rule.qdcg-worksheet.line-10",
+        "code": "DEPENDENCY_ABSENT",
+        "missing": [
+          "tax.us.2025.income.taxable-income",
+          "tax.us.2025.qdcg-worksheet.line-4"
+        ]
+      },
+      {
+        "artifact_id": "tax.us.2025.rule.qdcg-worksheet.line-11",
+        "code": "DEPENDENCY_ABSENT",
+        "missing": [
+          "tax.us.2025.qdcg-worksheet.line-9"
+        ]
+      },
+      {
+        "artifact_id": "tax.us.2025.rule.qdcg-worksheet.line-12",
+        "code": "DEPENDENCY_ABSENT",
+        "missing": [
+          "tax.us.2025.qdcg-worksheet.line-10",
+          "tax.us.2025.qdcg-worksheet.line-11"
+        ]
+      },
+      {
+        "artifact_id": "tax.us.2025.rule.qdcg-worksheet.line-14",
+        "code": "DEPENDENCY_ABSENT",
+        "missing": [
+          "tax.us.2025.income.taxable-income"
+        ]
+      },
+      {
+        "artifact_id": "tax.us.2025.rule.qdcg-worksheet.line-15",
+        "code": "DEPENDENCY_ABSENT",
+        "missing": [
+          "tax.us.2025.qdcg-worksheet.line-5",
+          "tax.us.2025.qdcg-worksheet.line-9"
+        ]
+      },
+      {
+        "artifact_id": "tax.us.2025.rule.qdcg-worksheet.line-16",
+        "code": "DEPENDENCY_ABSENT",
+        "missing": [
+          "tax.us.2025.qdcg-worksheet.line-14",
+          "tax.us.2025.qdcg-worksheet.line-15"
+        ]
+      },
+      {
+        "artifact_id": "tax.us.2025.rule.qdcg-worksheet.line-17",
+        "code": "DEPENDENCY_ABSENT",
+        "missing": [
+          "tax.us.2025.qdcg-worksheet.line-12",
+          "tax.us.2025.qdcg-worksheet.line-16"
+        ]
+      },
+      {
+        "artifact_id": "tax.us.2025.rule.qdcg-worksheet.line-18",
+        "code": "DEPENDENCY_ABSENT",
+        "missing": [
+          "tax.us.2025.qdcg-worksheet.line-17"
+        ]
+      },
+      {
+        "artifact_id": "tax.us.2025.rule.qdcg-worksheet.line-19",
+        "code": "DEPENDENCY_ABSENT",
+        "missing": [
+          "tax.us.2025.qdcg-worksheet.line-9",
+          "tax.us.2025.qdcg-worksheet.line-17"
+        ]
+      },
+      {
+        "artifact_id": "tax.us.2025.rule.qdcg-worksheet.line-20",
+        "code": "DEPENDENCY_ABSENT",
+        "missing": [
+          "tax.us.2025.qdcg-worksheet.line-10",
+          "tax.us.2025.qdcg-worksheet.line-19"
+        ]
+      },
+      {
+        "artifact_id": "tax.us.2025.rule.qdcg-worksheet.line-21",
+        "code": "DEPENDENCY_ABSENT",
+        "missing": [
+          "tax.us.2025.qdcg-worksheet.line-20"
+        ]
+      },
+      {
+        "artifact_id": "tax.us.2025.rule.qdcg-worksheet.line-22",
+        "code": "DEPENDENCY_ABSENT",
+        "missing": [
+          "tax.us.2025.qdcg-worksheet.line-5"
+        ]
+      },
+      {
+        "artifact_id": "tax.us.2025.rule.qdcg-worksheet.line-23",
+        "code": "DEPENDENCY_ABSENT",
+        "missing": [
+          "tax.us.2025.qdcg-worksheet.line-18",
+          "tax.us.2025.qdcg-worksheet.line-21",
+          "tax.us.2025.qdcg-worksheet.line-22"
+        ]
+      },
+      {
+        "artifact_id": "tax.us.2025.rule.qdcg-worksheet.line-24",
+        "code": "DEPENDENCY_ABSENT",
+        "missing": [
+          "tax.us.2025.income.taxable-income"
+        ]
+      },
+      {
+        "artifact_id": "tax.us.2025.rule.qdcg-worksheet.line-25",
+        "code": "DEPENDENCY_ABSENT",
+        "missing": [
+          "tax.us.2025.qdcg-worksheet.line-23",
+          "tax.us.2025.qdcg-worksheet.line-24"
+        ]
+      },
+      {
+        "artifact_id": "tax.us.2025.rule.qdcg-worksheet.line-4",
+        "code": "DEPENDENCY_ABSENT",
+        "missing": [
+          "tax.us.2025.capital-gains.selected-preferential-base"
+        ]
+      },
+      {
+        "artifact_id": "tax.us.2025.rule.qdcg-worksheet.line-5",
+        "code": "DEPENDENCY_ABSENT",
+        "missing": [
+          "tax.us.2025.income.taxable-income",
+          "tax.us.2025.capital-gains.selected-preferential-base"
+        ]
+      },
+      {
+        "artifact_id": "tax.us.2025.rule.qdcg-worksheet.line-7",
+        "code": "DEPENDENCY_ABSENT",
+        "missing": [
+          "tax.us.2025.income.taxable-income"
+        ]
+      },
+      {
+        "artifact_id": "tax.us.2025.rule.qdcg-worksheet.line-8",
+        "code": "DEPENDENCY_ABSENT",
+        "missing": [
+          "tax.us.2025.qdcg-worksheet.line-5",
+          "tax.us.2025.qdcg-worksheet.line-7"
+        ]
+      },
+      {
+        "artifact_id": "tax.us.2025.rule.qdcg-worksheet.line-9",
+        "code": "DEPENDENCY_ABSENT",
+        "missing": [
+          "tax.us.2025.qdcg-worksheet.line-7",
+          "tax.us.2025.qdcg-worksheet.line-8"
+        ]
+      },
+      {
+        "artifact_id": "tax.us.2025.rule.ss-benefits-worksheet",
+        "code": "DEPENDENCY_ABSENT",
+        "missing": [
+          "tax.us.2025.capital-gains.line7a-total"
+        ]
+      }
+    ],
+    "lines": [
+      {
+        "disposition": "blocked",
+        "id": "tax.us.2025.form1040.line-15",
+        "reasons": [],
+        "value": null
+      },
+      {
+        "disposition": "blocked",
+        "id": "tax.us.2025.form1040.line-16",
+        "reasons": [],
+        "value": null
+      },
+      {
+        "disposition": "blocked",
+        "id": "tax.us.2025.form1040.line-7a",
+        "reasons": [],
+        "value": null
+      },
+      {
+        "disposition": "published_categorical",
+        "id": "tax.us.2025.form1040.line-7b",
+        "reasons": [],
+        "value": null
+      },
+      {
+        "disposition": "computed_zero",
+        "id": "tax.us.2025.schedule-d.line-13",
+        "reasons": [],
+        "value": 0
+      },
+      {
+        "disposition": "computed_zero",
+        "id": "tax.us.2025.schedule-d.line-14",
+        "reasons": [],
+        "value": 0
+      },
+      {
+        "disposition": "published_value",
+        "id": "tax.us.2025.schedule-d.line-15",
+        "reasons": [],
+        "value": -2000
+      },
+      {
+        "disposition": "published_value",
+        "id": "tax.us.2025.schedule-d.line-16",
+        "reasons": [],
+        "value": -2000
+      },
+      {
+        "disposition": "closure_backed_zero",
+        "id": "tax.us.2025.schedule-d.line-1a",
+        "reasons": [],
+        "value": 0
+      },
+      {
+        "disposition": "closure_backed_zero",
+        "id": "tax.us.2025.schedule-d.line-1b",
+        "reasons": [],
+        "value": 0
+      },
+      {
+        "disposition": "published_value",
+        "id": "tax.us.2025.schedule-d.line-21",
+        "reasons": [],
+        "value": 2000
+      },
+      {
+        "disposition": "computed_zero",
+        "id": "tax.us.2025.schedule-d.line-6",
+        "reasons": [],
+        "value": 0
+      },
+      {
+        "disposition": "computed_zero",
+        "id": "tax.us.2025.schedule-d.line-7",
+        "reasons": [],
+        "value": 0
+      },
+      {
+        "disposition": "closure_backed_zero",
+        "id": "tax.us.2025.schedule-d.line-8a",
+        "reasons": [],
+        "value": 0
+      },
+      {
+        "disposition": "published_value",
+        "id": "tax.us.2025.schedule-d.line-8b",
+        "reasons": [],
+        "value": -2000
+      }
+    ],
+    "published": [
+      {
+        "symbol": "tax.us.2025.qdcg-worksheet.line-13",
+        "value": "533400"
+      },
+      {
+        "symbol": "tax.us.2025.qdcg-worksheet.line-6",
+        "value": "48350"
+      },
+      {
+        "symbol": "tax.us.2025.schedule-d.line-14",
+        "value": "0"
+      },
+      {
+        "symbol": "tax.us.2025.schedule-d.line-6",
+        "value": "0"
+      },
+      {
+        "symbol": "tax.us.2025.schedule-d.line-13",
+        "value": "0"
+      },
+      {
+        "symbol": "tax.us.2025.schedule-d.line-1a-gain",
+        "value": "0"
+      },
+      {
+        "symbol": "tax.us.2025.schedule-d.line-8a-gain",
+        "value": "0"
+      },
+      {
+        "symbol": "tax.us.2025.schedule-d.line-1b",
+        "value": "0"
+      },
+      {
+        "symbol": "tax.us.2025.schedule-d.line-7",
+        "value": "0"
+      },
+      {
+        "symbol": "tax.us.2025.schedule-d.line-8b",
+        "value": "-2000.0"
+      },
+      {
+        "symbol": "tax.us.2025.schedule-d.line-15",
+        "value": "-2000.0"
+      },
+      {
+        "symbol": "tax.us.2025.schedule-d.line-16",
+        "value": "-2000.0"
+      },
+      {
+        "symbol": "tax.us.2025.schedule-d.line-21",
+        "value": "2000.0"
+      },
+      {
+        "symbol": "tax.us.2025.interest.taxable-total",
+        "value": "0"
+      }
+    ],
+    "refusal": null,
+    "stop_reason": "saturated"
+  },
+  "wash_on_covered_w_path_b": {
+    "attachments": [
+      {
+        "disposition": "published",
+        "id": "tax.us.2025.rule.attachment.f8949",
+        "value": null
+      },
+      {
+        "disposition": "published",
+        "id": "tax.us.2025.rule.attachment.schedule-d",
+        "value": null
+      }
+    ],
+    "blocked": [],
+    "lines": [
+      {
+        "disposition": "published_value",
+        "id": "tax.us.2025.form1040.line-15",
+        "reasons": [],
+        "value": 32250
+      },
+      {
+        "disposition": "published_value",
+        "id": "tax.us.2025.form1040.line-16",
+        "reasons": [],
+        "value": 3635
+      },
+      {
+        "disposition": "published_value",
+        "id": "tax.us.2025.form1040.line-7a",
+        "reasons": [],
+        "value": -2000
+      },
+      {
+        "disposition": "published_categorical",
+        "id": "tax.us.2025.form1040.line-7b",
+        "reasons": [],
+        "value": null
+      },
+      {
+        "disposition": "computed_zero",
+        "id": "tax.us.2025.schedule-d.line-13",
+        "reasons": [],
+        "value": 0
+      },
+      {
+        "disposition": "computed_zero",
+        "id": "tax.us.2025.schedule-d.line-14",
+        "reasons": [],
+        "value": 0
+      },
+      {
+        "disposition": "published_value",
+        "id": "tax.us.2025.schedule-d.line-15",
+        "reasons": [],
+        "value": -2000
+      },
+      {
+        "disposition": "published_value",
+        "id": "tax.us.2025.schedule-d.line-16",
+        "reasons": [],
+        "value": -2000
+      },
+      {
+        "disposition": "closure_backed_zero",
+        "id": "tax.us.2025.schedule-d.line-1a",
+        "reasons": [],
+        "value": 0
+      },
+      {
+        "disposition": "closure_backed_zero",
+        "id": "tax.us.2025.schedule-d.line-1b",
+        "reasons": [],
+        "value": 0
+      },
+      {
+        "disposition": "published_value",
+        "id": "tax.us.2025.schedule-d.line-21",
+        "reasons": [],
+        "value": 2000
+      },
+      {
+        "disposition": "computed_zero",
+        "id": "tax.us.2025.schedule-d.line-6",
+        "reasons": [],
+        "value": 0
+      },
+      {
+        "disposition": "computed_zero",
+        "id": "tax.us.2025.schedule-d.line-7",
+        "reasons": [],
+        "value": 0
+      },
+      {
+        "disposition": "closure_backed_zero",
+        "id": "tax.us.2025.schedule-d.line-8a",
+        "reasons": [],
+        "value": 0
+      },
+      {
+        "disposition": "published_value",
+        "id": "tax.us.2025.schedule-d.line-8b",
+        "reasons": [],
+        "value": -2000
+      }
+    ],
+    "published": [
+      {
+        "symbol": "tax.us.2025.qdcg-worksheet.line-13",
+        "value": "533400"
+      },
+      {
+        "symbol": "tax.us.2025.qdcg-worksheet.line-6",
+        "value": "48350"
+      },
+      {
+        "symbol": "tax.us.2025.schedule-d.line-14",
+        "value": "0"
+      },
+      {
+        "symbol": "tax.us.2025.schedule-d.line-6",
+        "value": "0"
+      },
+      {
+        "symbol": "tax.us.2025.schedule-d.line-13",
+        "value": "0"
+      },
+      {
+        "symbol": "tax.us.2025.schedule-d.line-1a-gain",
+        "value": "0"
+      },
+      {
+        "symbol": "tax.us.2025.schedule-d.line-8a-gain",
+        "value": "0"
+      },
+      {
+        "symbol": "tax.us.2025.schedule-d.line-1b",
+        "value": "0"
+      },
+      {
+        "symbol": "tax.us.2025.schedule-d.line-7",
+        "value": "0"
+      },
+      {
+        "symbol": "tax.us.2025.schedule-d.line-8b",
+        "value": "-2000.0"
+      },
+      {
+        "symbol": "tax.us.2025.schedule-d.line-15",
+        "value": "-2000.0"
+      },
+      {
+        "symbol": "tax.us.2025.schedule-d.line-16",
+        "value": "-2000.0"
+      },
+      {
+        "symbol": "tax.us.2025.schedule-d.line-21",
+        "value": "2000.0"
+      },
+      {
+        "symbol": "tax.us.2025.capital-gains.selected-preferential-base",
+        "value": "0"
+      },
+      {
+        "symbol": "tax.us.2025.interest.taxable-total",
+        "value": "0"
+      },
+      {
+        "symbol": "tax.us.2025.capital-gains.line7a-total",
+        "value": "-2000.0"
+      },
+      {
+        "symbol": "tax.us.2025.qdcg-worksheet.line-4",
+        "value": "0"
+      },
+      {
+        "symbol": "tax.us.2025.income.taxable-income",
+        "value": "32250.0"
+      },
+      {
+        "symbol": "tax.us.2025.qdcg-worksheet.line-10",
+        "value": "0"
+      },
+      {
+        "symbol": "tax.us.2025.qdcg-worksheet.line-14",
+        "value": "32250.0"
+      },
+      {
+        "symbol": "tax.us.2025.qdcg-worksheet.line-24",
+        "value": "3635"
+      },
+      {
+        "symbol": "tax.us.2025.qdcg-worksheet.line-5",
+        "value": "32250.0"
+      },
+      {
+        "symbol": "tax.us.2025.qdcg-worksheet.line-7",
+        "value": "32250.0"
+      },
+      {
+        "symbol": "tax.us.2025.qdcg-worksheet.line-8",
+        "value": "32250.0"
+      },
+      {
+        "symbol": "tax.us.2025.qdcg-worksheet.line-9",
+        "value": "0.0"
+      },
+      {
+        "symbol": "tax.us.2025.qdcg-worksheet.line-11",
+        "value": "0.0"
+      },
+      {
+        "symbol": "tax.us.2025.qdcg-worksheet.line-12",
+        "value": "0.0"
+      },
+      {
+        "symbol": "tax.us.2025.qdcg-worksheet.line-15",
+        "value": "32250.0"
+      },
+      {
+        "symbol": "tax.us.2025.qdcg-worksheet.line-16",
+        "value": "0.0"
+      },
+      {
+        "symbol": "tax.us.2025.qdcg-worksheet.line-17",
+        "value": "0.0"
+      },
+      {
+        "symbol": "tax.us.2025.qdcg-worksheet.line-18",
+        "value": "0.000"
+      },
+      {
+        "symbol": "tax.us.2025.qdcg-worksheet.line-19",
+        "value": "0.0"
+      },
+      {
+        "symbol": "tax.us.2025.qdcg-worksheet.line-20",
+        "value": "0.0"
+      },
+      {
+        "symbol": "tax.us.2025.qdcg-worksheet.line-21",
+        "value": "0.000"
+      },
+      {
+        "symbol": "tax.us.2025.qdcg-worksheet.line-22",
+        "value": "3635"
+      },
+      {
+        "symbol": "tax.us.2025.qdcg-worksheet.line-23",
+        "value": "3635.000"
+      },
+      {
+        "symbol": "tax.us.2025.qdcg-worksheet.line-25",
+        "value": "3635.000"
+      }
+    ],
+    "refusal": null,
+    "stop_reason": "saturated"
+  }
+}

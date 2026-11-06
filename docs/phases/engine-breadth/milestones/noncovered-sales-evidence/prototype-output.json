@@ -1,0 +1,3689 @@
+{
+  "cases": {
+    "basis_omitted": {
+      "error": "FindingModelError",
+      "message": "finding demo.ns.omit.noncovered-lt.member value does not conform to tax.us.2025.f1099b.noncovered-lt-txn: 'basis' is a required property"
+    },
+    "basis_unclosed": {
+      "attachments": [
+        {
+          "disposition": "blocked",
+          "id": "tax.us.2025.rule.attachment.f8949",
+          "value": null
+        },
+        {
+          "disposition": "guard_inapplicable",
+          "id": "tax.us.2025.rule.attachment.schedule-d",
+          "value": null
+        }
+      ],
+      "blocked": [
+        {
+          "artifact_id": "tax.us.2025.rule.f1099b-noncovered-lt-basis-subtotal",
+          "code": "SOURCE_SET_UNCLOSED",
+          "missing": [
+            "tax.us.2025.f1099b.noncovered-lt-basis"
+          ]
+        },
+        {
+          "artifact_id": "tax.us.2025.rule.attachment.f8949",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "tax.us.2025.f1099b.noncovered-lt-basis-subtotal"
+          ]
+        },
+        {
+          "artifact_id": "tax.us.2025.rule.eic-investment-income",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "tax.us.2025.capital-gains.line7a-total"
+          ]
+        },
+        {
+          "artifact_id": "tax.us.2025.rule.form1040-line16",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "tax.us.2025.income.taxable-income",
+            "tax.us.2025.capital-gains.selected-preferential-base",
+            "tax.us.2025.qdcg-worksheet.line-24",
+            "tax.us.2025.qdcg-worksheet.line-25"
+          ]
+        },
+        {
+          "artifact_id": "tax.us.2025.rule.form1040-line7a",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "tax.us.2025.schedule-d.line-16",
+            "tax.us.2025.schedule-d.line-21",
+            "tax.us.2025.capital-gains.selected-preferential-base"
+          ]
+        },
+        {
+          "artifact_id": "tax.us.2025.rule.form1040-line9",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "tax.us.2025.capital-gains.line7a-total",
+            "tax.us.2025.social-security.line6b"
+          ]
+        },
+        {
+          "artifact_id": "tax.us.2025.rule.qdcg-worksheet.line-10",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "tax.us.2025.income.taxable-income",
+            "tax.us.2025.qdcg-worksheet.line-4"
+          ]
+        },
+        {
+          "artifact_id": "tax.us.2025.rule.qdcg-worksheet.line-11",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "tax.us.2025.qdcg-worksheet.line-9"
+          ]
+        },
+        {
+          "artifact_id": "tax.us.2025.rule.qdcg-worksheet.line-12",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "tax.us.2025.qdcg-worksheet.line-10",
+            "tax.us.2025.qdcg-worksheet.line-11"
+          ]
+        },
+        {
+          "artifact_id": "tax.us.2025.rule.qdcg-worksheet.line-14",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "tax.us.2025.income.taxable-income"
+          ]
+        },
+        {
+          "artifact_id": "tax.us.2025.rule.qdcg-worksheet.line-15",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "tax.us.2025.qdcg-worksheet.line-5",
+            "tax.us.2025.qdcg-worksheet.line-9"
+          ]
+        },
+        {
+          "artifact_id": "tax.us.2025.rule.qdcg-worksheet.line-16",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "tax.us.2025.qdcg-worksheet.line-14",
+            "tax.us.2025.qdcg-worksheet.line-15"
+          ]
+        },
+        {
+          "artifact_id": "tax.us.2025.rule.qdcg-worksheet.line-17",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "tax.us.2025.qdcg-worksheet.line-12",
+            "tax.us.2025.qdcg-worksheet.line-16"
+          ]
+        },
+        {
+          "artifact_id": "tax.us.2025.rule.qdcg-worksheet.line-18",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "tax.us.2025.qdcg-worksheet.line-17"
+          ]
+        },
+        {
+          "artifact_id": "tax.us.2025.rule.qdcg-worksheet.line-19",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "tax.us.2025.qdcg-worksheet.line-9",
+            "tax.us.2025.qdcg-worksheet.line-17"
+          ]
+        },
+        {
+          "artifact_id": "tax.us.2025.rule.qdcg-worksheet.line-20",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "tax.us.2025.qdcg-worksheet.line-10",
+            "tax.us.2025.qdcg-worksheet.line-19"
+          ]
+        },
+        {
+          "artifact_id": "tax.us.2025.rule.qdcg-worksheet.line-21",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "tax.us.2025.qdcg-worksheet.line-20"
+          ]
+        },
+        {
+          "artifact_id": "tax.us.2025.rule.qdcg-worksheet.line-22",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "tax.us.2025.qdcg-worksheet.line-5"
+          ]
+        },
+        {
+          "artifact_id": "tax.us.2025.rule.qdcg-worksheet.line-23",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "tax.us.2025.qdcg-worksheet.line-18",
+            "tax.us.2025.qdcg-worksheet.line-21",
+            "tax.us.2025.qdcg-worksheet.line-22"
+          ]
+        },
+        {
+          "artifact_id": "tax.us.2025.rule.qdcg-worksheet.line-24",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "tax.us.2025.income.taxable-income"
+          ]
+        },
+        {
+          "artifact_id": "tax.us.2025.rule.qdcg-worksheet.line-25",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "tax.us.2025.qdcg-worksheet.line-23",
+            "tax.us.2025.qdcg-worksheet.line-24"
+          ]
+        },
+        {
+          "artifact_id": "tax.us.2025.rule.qdcg-worksheet.line-4",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "tax.us.2025.capital-gains.selected-preferential-base"
+          ]
+        },
+        {
+          "artifact_id": "tax.us.2025.rule.qdcg-worksheet.line-5",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "tax.us.2025.income.taxable-income",
+            "tax.us.2025.capital-gains.selected-preferential-base"
+          ]
+        },
+        {
+          "artifact_id": "tax.us.2025.rule.qdcg-worksheet.line-7",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "tax.us.2025.income.taxable-income"
+          ]
+        },
+        {
+          "artifact_id": "tax.us.2025.rule.qdcg-worksheet.line-8",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "tax.us.2025.qdcg-worksheet.line-5",
+            "tax.us.2025.qdcg-worksheet.line-7"
+          ]
+        },
+        {
+          "artifact_id": "tax.us.2025.rule.qdcg-worksheet.line-9",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "tax.us.2025.qdcg-worksheet.line-7",
+            "tax.us.2025.qdcg-worksheet.line-8"
+          ]
+        },
+        {
+          "artifact_id": "tax.us.2025.rule.schedule-d-line15",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "tax.us.2025.schedule-d.line-9"
+          ]
+        },
+        {
+          "artifact_id": "tax.us.2025.rule.schedule-d-line16",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "tax.us.2025.schedule-d.line-15"
+          ]
+        },
+        {
+          "artifact_id": "tax.us.2025.rule.schedule-d-line21",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "tax.us.2025.schedule-d.line-16"
+          ]
+        },
+        {
+          "artifact_id": "tax.us.2025.rule.selected-preferential-base",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "tax.us.2025.schedule-d.line-16",
+            "tax.us.2025.schedule-d.line-15",
+            "tax.us.2025.schedule-d.line-9"
+          ]
+        },
+        {
+          "artifact_id": "tax.us.2025.rule.ss-benefits-worksheet",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "tax.us.2025.capital-gains.line7a-total"
+          ]
+        },
+        {
+          "artifact_id": "tax.us.2025.rule.schedule-d-line9",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "tax.us.2025.f1099b.noncovered-lt-basis-subtotal"
+          ]
+        }
+      ],
+      "groups": [],
+      "lines": [
+        {
+          "disposition": "blocked",
+          "id": "tax.us.2025.form1040.line-15",
+          "reasons": [
+            "What is the basis of this long-term sale whose basis was not reported to the IRS?"
+          ],
+          "value": null
+        },
+        {
+          "disposition": "blocked",
+          "id": "tax.us.2025.form1040.line-16",
+          "reasons": [
+            "What is the basis of this long-term sale whose basis was not reported to the IRS?"
+          ],
+          "value": null
+        },
+        {
+          "disposition": "blocked",
+          "id": "tax.us.2025.form1040.line-7a",
+          "reasons": [
+            "What is the basis of this long-term sale whose basis was not reported to the IRS?"
+          ],
+          "value": null
+        },
+        {
+          "disposition": "published_categorical",
+          "id": "tax.us.2025.form1040.line-7b",
+          "reasons": [],
+          "value": null
+        },
+        {
+          "disposition": "computed_zero",
+          "id": "tax.us.2025.schedule-d.line-13",
+          "reasons": [],
+          "value": 0
+        },
+        {
+          "disposition": "computed_zero",
+          "id": "tax.us.2025.schedule-d.line-14",
+          "reasons": [],
+          "value": 0
+        },
+        {
+          "disposition": "blocked",
+          "id": "tax.us.2025.schedule-d.line-15",
+          "reasons": [
+            "What is the basis of this long-term sale whose basis was not reported to the IRS?"
+          ],
+          "value": null
+        },
+        {
+          "disposition": "blocked",
+          "id": "tax.us.2025.schedule-d.line-16",
+          "reasons": [
+            "What is the basis of this long-term sale whose basis was not reported to the IRS?"
+          ],
+          "value": null
+        },
+        {
+          "disposition": "closure_backed_zero",
+          "id": "tax.us.2025.schedule-d.line-1a",
+          "reasons": [],
+          "value": 0
+        },
+        {
+          "disposition": "closure_backed_zero",
+          "id": "tax.us.2025.schedule-d.line-1b",
+          "reasons": [],
+          "value": 0
+        },
+        {
+          "disposition": "closure_backed_zero",
+          "id": "tax.us.2025.schedule-d.line-2",
+          "reasons": [],
+          "value": 0
+        },
+        {
+          "disposition": "blocked",
+          "id": "tax.us.2025.schedule-d.line-21",
+          "reasons": [
+            "What is the basis of this long-term sale whose basis was not reported to the IRS?"
+          ],
+          "value": null
+        },
+        {
+          "disposition": "computed_zero",
+          "id": "tax.us.2025.schedule-d.line-6",
+          "reasons": [],
+          "value": 0
+        },
+        {
+          "disposition": "computed_zero",
+          "id": "tax.us.2025.schedule-d.line-7",
+          "reasons": [],
+          "value": 0
+        },
+        {
+          "disposition": "closure_backed_zero",
+          "id": "tax.us.2025.schedule-d.line-8a",
+          "reasons": [],
+          "value": 0
+        },
+        {
+          "disposition": "closure_backed_zero",
+          "id": "tax.us.2025.schedule-d.line-8b",
+          "reasons": [],
+          "value": 0
+        },
+        {
+          "disposition": "blocked",
+          "id": "tax.us.2025.schedule-d.line-9",
+          "reasons": [
+            "What is the basis of this long-term sale whose basis was not reported to the IRS?"
+          ],
+          "value": null
+        }
+      ],
+      "published": [
+        {
+          "symbol": "tax.us.2025.qdcg-worksheet.line-13",
+          "value": "533400"
+        },
+        {
+          "symbol": "tax.us.2025.qdcg-worksheet.line-6",
+          "value": "48350"
+        },
+        {
+          "symbol": "tax.us.2025.schedule-d.line-14",
+          "value": "0"
+        },
+        {
+          "symbol": "tax.us.2025.schedule-d.line-6",
+          "value": "0"
+        },
+        {
+          "symbol": "tax.us.2025.schedule-d.line-13",
+          "value": "0"
+        },
+        {
+          "symbol": "tax.us.2025.schedule-d.line-2",
+          "value": "0"
+        },
+        {
+          "symbol": "tax.us.2025.schedule-d.line-1a-gain",
+          "value": "0"
+        },
+        {
+          "symbol": "tax.us.2025.schedule-d.line-8a-gain",
+          "value": "0"
+        },
+        {
+          "symbol": "tax.us.2025.schedule-d.line-1b",
+          "value": "0"
+        },
+        {
+          "symbol": "tax.us.2025.schedule-d.line-7",
+          "value": "0"
+        },
+        {
+          "symbol": "tax.us.2025.schedule-d.line-8b",
+          "value": "0"
+        },
+        {
+          "symbol": "tax.us.2025.interest.taxable-total",
+          "value": "0"
+        }
+      ],
+      "refusal": null,
+      "stop_reason": "saturated"
+    },
+    "boundary_no": {
+      "attachments": [
+        {
+          "disposition": "published",
+          "id": "tax.us.2025.rule.attachment.f8949",
+          "value": null
+        },
+        {
+          "disposition": "guard_inapplicable",
+          "id": "tax.us.2025.rule.attachment.schedule-d",
+          "value": null
+        }
+      ],
+      "blocked": [
+        {
+          "artifact_id": "tax.us.2025.rule.eic-investment-income",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "tax.us.2025.capital-gains.line7a-total"
+          ]
+        },
+        {
+          "artifact_id": "tax.us.2025.rule.form1040-line16",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "tax.us.2025.income.taxable-income",
+            "tax.us.2025.capital-gains.selected-preferential-base",
+            "tax.us.2025.qdcg-worksheet.line-24",
+            "tax.us.2025.qdcg-worksheet.line-25"
+          ]
+        },
+        {
+          "artifact_id": "tax.us.2025.rule.form1040-line7a",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "tax.us.2025.schedule-d.line-16",
+            "tax.us.2025.schedule-d.line-21",
+            "tax.us.2025.capital-gains.selected-preferential-base"
+          ]
+        },
+        {
+          "artifact_id": "tax.us.2025.rule.form1040-line9",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "tax.us.2025.capital-gains.line7a-total",
+            "tax.us.2025.social-security.line6b"
+          ]
+        },
+        {
+          "artifact_id": "tax.us.2025.rule.qdcg-worksheet.line-10",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "tax.us.2025.income.taxable-income",
+            "tax.us.2025.qdcg-worksheet.line-4"
+          ]
+        },
+        {
+          "artifact_id": "tax.us.2025.rule.qdcg-worksheet.line-11",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "tax.us.2025.qdcg-worksheet.line-9"
+          ]
+        },
+        {
+          "artifact_id": "tax.us.2025.rule.qdcg-worksheet.line-12",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "tax.us.2025.qdcg-worksheet.line-10",
+            "tax.us.2025.qdcg-worksheet.line-11"
+          ]
+        },
+        {
+          "artifact_id": "tax.us.2025.rule.qdcg-worksheet.line-14",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "tax.us.2025.income.taxable-income"
+          ]
+        },
+        {
+          "artifact_id": "tax.us.2025.rule.qdcg-worksheet.line-15",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "tax.us.2025.qdcg-worksheet.line-5",
+            "tax.us.2025.qdcg-worksheet.line-9"
+          ]
+        },
+        {
+          "artifact_id": "tax.us.2025.rule.qdcg-worksheet.line-16",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "tax.us.2025.qdcg-worksheet.line-14",
+            "tax.us.2025.qdcg-worksheet.line-15"
+          ]
+        },
+        {
+          "artifact_id": "tax.us.2025.rule.qdcg-worksheet.line-17",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "tax.us.2025.qdcg-worksheet.line-12",
+            "tax.us.2025.qdcg-worksheet.line-16"
+          ]
+        },
+        {
+          "artifact_id": "tax.us.2025.rule.qdcg-worksheet.line-18",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "tax.us.2025.qdcg-worksheet.line-17"
+          ]
+        },
+        {
+          "artifact_id": "tax.us.2025.rule.qdcg-worksheet.line-19",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "tax.us.2025.qdcg-worksheet.line-9",
+            "tax.us.2025.qdcg-worksheet.line-17"
+          ]
+        },
+        {
+          "artifact_id": "tax.us.2025.rule.qdcg-worksheet.line-20",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "tax.us.2025.qdcg-worksheet.line-10",
+            "tax.us.2025.qdcg-worksheet.line-19"
+          ]
+        },
+        {
+          "artifact_id": "tax.us.2025.rule.qdcg-worksheet.line-21",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "tax.us.2025.qdcg-worksheet.line-20"
+          ]
+        },
+        {
+          "artifact_id": "tax.us.2025.rule.qdcg-worksheet.line-22",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "tax.us.2025.qdcg-worksheet.line-5"
+          ]
+        },
+        {
+          "artifact_id": "tax.us.2025.rule.qdcg-worksheet.line-23",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "tax.us.2025.qdcg-worksheet.line-18",
+            "tax.us.2025.qdcg-worksheet.line-21",
+            "tax.us.2025.qdcg-worksheet.line-22"
+          ]
+        },
+        {
+          "artifact_id": "tax.us.2025.rule.qdcg-worksheet.line-24",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "tax.us.2025.income.taxable-income"
+          ]
+        },
+        {
+          "artifact_id": "tax.us.2025.rule.qdcg-worksheet.line-25",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "tax.us.2025.qdcg-worksheet.line-23",
+            "tax.us.2025.qdcg-worksheet.line-24"
+          ]
+        },
+        {
+          "artifact_id": "tax.us.2025.rule.qdcg-worksheet.line-4",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "tax.us.2025.capital-gains.selected-preferential-base"
+          ]
+        },
+        {
+          "artifact_id": "tax.us.2025.rule.qdcg-worksheet.line-5",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "tax.us.2025.income.taxable-income",
+            "tax.us.2025.capital-gains.selected-preferential-base"
+          ]
+        },
+        {
+          "artifact_id": "tax.us.2025.rule.qdcg-worksheet.line-7",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "tax.us.2025.income.taxable-income"
+          ]
+        },
+        {
+          "artifact_id": "tax.us.2025.rule.qdcg-worksheet.line-8",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "tax.us.2025.qdcg-worksheet.line-5",
+            "tax.us.2025.qdcg-worksheet.line-7"
+          ]
+        },
+        {
+          "artifact_id": "tax.us.2025.rule.qdcg-worksheet.line-9",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "tax.us.2025.qdcg-worksheet.line-7",
+            "tax.us.2025.qdcg-worksheet.line-8"
+          ]
+        },
+        {
+          "artifact_id": "tax.us.2025.rule.schedule-d-line15",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "tax.us.2025.schedule-d.line-9"
+          ]
+        },
+        {
+          "artifact_id": "tax.us.2025.rule.schedule-d-line16",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "tax.us.2025.schedule-d.line-15"
+          ]
+        },
+        {
+          "artifact_id": "tax.us.2025.rule.schedule-d-line21",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "tax.us.2025.schedule-d.line-16"
+          ]
+        },
+        {
+          "artifact_id": "tax.us.2025.rule.selected-preferential-base",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "tax.us.2025.schedule-d.line-16",
+            "tax.us.2025.schedule-d.line-15",
+            "tax.us.2025.schedule-d.line-9"
+          ]
+        },
+        {
+          "artifact_id": "tax.us.2025.rule.ss-benefits-worksheet",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "tax.us.2025.capital-gains.line7a-total"
+          ]
+        }
+      ],
+      "groups": [
+        {
+          "id": "tax.us.2025.rule.attachment.f8949",
+          "parts": [
+            {
+              "heading": "Part I box A column (d): short-term wash-sale proceeds",
+              "sites": 0,
+              "tieOutText": "Reported subtotal: 0"
+            },
+            {
+              "heading": "Part I box A column (e): short-term wash-sale basis",
+              "sites": 0,
+              "tieOutText": "Reported subtotal: 0"
+            },
+            {
+              "heading": "Part I box A column (g): short-term wash-sale adjustment",
+              "sites": 0,
+              "tieOutText": "Reported subtotal: 0"
+            },
+            {
+              "heading": "Part II box D column (d): long-term wash-sale proceeds",
+              "sites": 0,
+              "tieOutText": "Reported subtotal: 0"
+            },
+            {
+              "heading": "Part II box D column (e): long-term wash-sale basis",
+              "sites": 0,
+              "tieOutText": "Reported subtotal: 0"
+            },
+            {
+              "heading": "Part II box D column (g): long-term wash-sale adjustment",
+              "sites": 0,
+              "tieOutText": "Reported subtotal: 0"
+            },
+            {
+              "heading": "Part I box B column (d): short-term basis-not-reported proceeds",
+              "sites": 0,
+              "tieOutText": "Reported subtotal: 0"
+            },
+            {
+              "heading": "Part I box B column (e): short-term basis the filer supplies",
+              "sites": 0,
+              "tieOutText": "Reported subtotal: 0"
+            },
+            {
+              "heading": "Part I box B column (g): short-term wash-sale adjustment",
+              "sites": 0,
+              "tieOutText": "Reported subtotal: 0"
+            },
+            {
+              "heading": "Part II box E column (d): long-term basis-not-reported proceeds",
+              "sites": 1,
+              "tieOutText": "Reported subtotal: 6000"
+            },
+            {
+              "heading": "Part II box E column (e): long-term basis the filer supplies",
+              "sites": 1,
+              "tieOutText": "Reported subtotal: 2000"
+            },
+            {
+              "heading": "Part II box E column (g): long-term wash-sale adjustment",
+              "sites": 0,
+              "tieOutText": "Reported subtotal: 0"
+            }
+          ]
+        }
+      ],
+      "lines": [
+        {
+          "disposition": "blocked",
+          "id": "tax.us.2025.form1040.line-15",
+          "reasons": [],
+          "value": null
+        },
+        {
+          "disposition": "blocked",
+          "id": "tax.us.2025.form1040.line-16",
+          "reasons": [],
+          "value": null
+        },
+        {
+          "disposition": "blocked",
+          "id": "tax.us.2025.form1040.line-7a",
+          "reasons": [],
+          "value": null
+        },
+        {
+          "disposition": "published_categorical",
+          "id": "tax.us.2025.form1040.line-7b",
+          "reasons": [],
+          "value": null
+        },
+        {
+          "disposition": "computed_zero",
+          "id": "tax.us.2025.schedule-d.line-13",
+          "reasons": [],
+          "value": 0
+        },
+        {
+          "disposition": "computed_zero",
+          "id": "tax.us.2025.schedule-d.line-14",
+          "reasons": [],
+          "value": 0
+        },
+        {
+          "disposition": "blocked",
+          "id": "tax.us.2025.schedule-d.line-15",
+          "reasons": [],
+          "value": null
+        },
+        {
+          "disposition": "blocked",
+          "id": "tax.us.2025.schedule-d.line-16",
+          "reasons": [],
+          "value": null
+        },
+        {
+          "disposition": "closure_backed_zero",
+          "id": "tax.us.2025.schedule-d.line-1a",
+          "reasons": [],
+          "value": 0
+        },
+        {
+          "disposition": "closure_backed_zero",
+          "id": "tax.us.2025.schedule-d.line-1b",
+          "reasons": [],
+          "value": 0
+        },
+        {
+          "disposition": "closure_backed_zero",
+          "id": "tax.us.2025.schedule-d.line-2",
+          "reasons": [],
+          "value": 0
+        },
+        {
+          "disposition": "blocked",
+          "id": "tax.us.2025.schedule-d.line-21",
+          "reasons": [],
+          "value": null
+        },
+        {
+          "disposition": "computed_zero",
+          "id": "tax.us.2025.schedule-d.line-6",
+          "reasons": [],
+          "value": 0
+        },
+        {
+          "disposition": "computed_zero",
+          "id": "tax.us.2025.schedule-d.line-7",
+          "reasons": [],
+          "value": 0
+        },
+        {
+          "disposition": "closure_backed_zero",
+          "id": "tax.us.2025.schedule-d.line-8a",
+          "reasons": [],
+          "value": 0
+        },
+        {
+          "disposition": "closure_backed_zero",
+          "id": "tax.us.2025.schedule-d.line-8b",
+          "reasons": [],
+          "value": 0
+        },
+        {
+          "disposition": "blocked",
+          "id": "tax.us.2025.schedule-d.line-9",
+          "reasons": [],
+          "value": null
+        }
+      ],
+      "published": [
+        {
+          "symbol": "tax.us.2025.qdcg-worksheet.line-13",
+          "value": "533400"
+        },
+        {
+          "symbol": "tax.us.2025.qdcg-worksheet.line-6",
+          "value": "48350"
+        },
+        {
+          "symbol": "tax.us.2025.schedule-d.line-14",
+          "value": "0"
+        },
+        {
+          "symbol": "tax.us.2025.schedule-d.line-6",
+          "value": "0"
+        },
+        {
+          "symbol": "tax.us.2025.schedule-d.line-13",
+          "value": "0"
+        },
+        {
+          "symbol": "tax.us.2025.schedule-d.line-2",
+          "value": "0"
+        },
+        {
+          "symbol": "tax.us.2025.schedule-d.line-1a-gain",
+          "value": "0"
+        },
+        {
+          "symbol": "tax.us.2025.schedule-d.line-8a-gain",
+          "value": "0"
+        },
+        {
+          "symbol": "tax.us.2025.schedule-d.line-1b",
+          "value": "0"
+        },
+        {
+          "symbol": "tax.us.2025.schedule-d.line-7",
+          "value": "0"
+        },
+        {
+          "symbol": "tax.us.2025.schedule-d.line-8b",
+          "value": "0"
+        },
+        {
+          "symbol": "tax.us.2025.interest.taxable-total",
+          "value": "0"
+        }
+      ],
+      "refusal": null,
+      "stop_reason": "saturated"
+    },
+    "lt_gain": {
+      "attachments": [
+        {
+          "disposition": "published",
+          "id": "tax.us.2025.rule.attachment.f8949",
+          "value": null
+        },
+        {
+          "disposition": "guard_inapplicable",
+          "id": "tax.us.2025.rule.attachment.schedule-d",
+          "value": null
+        }
+      ],
+      "blocked": [],
+      "groups": [
+        {
+          "id": "tax.us.2025.rule.attachment.f8949",
+          "parts": [
+            {
+              "heading": "Part I box A column (d): short-term wash-sale proceeds",
+              "sites": 0,
+              "tieOutText": "Reported subtotal: 0"
+            },
+            {
+              "heading": "Part I box A column (e): short-term wash-sale basis",
+              "sites": 0,
+              "tieOutText": "Reported subtotal: 0"
+            },
+            {
+              "heading": "Part I box A column (g): short-term wash-sale adjustment",
+              "sites": 0,
+              "tieOutText": "Reported subtotal: 0"
+            },
+            {
+              "heading": "Part II box D column (d): long-term wash-sale proceeds",
+              "sites": 0,
+              "tieOutText": "Reported subtotal: 0"
+            },
+            {
+              "heading": "Part II box D column (e): long-term wash-sale basis",
+              "sites": 0,
+              "tieOutText": "Reported subtotal: 0"
+            },
+            {
+              "heading": "Part II box D column (g): long-term wash-sale adjustment",
+              "sites": 0,
+              "tieOutText": "Reported subtotal: 0"
+            },
+            {
+              "heading": "Part I box B column (d): short-term basis-not-reported proceeds",
+              "sites": 0,
+              "tieOutText": "Reported subtotal: 0"
+            },
+            {
+              "heading": "Part I box B column (e): short-term basis the filer supplies",
+              "sites": 0,
+              "tieOutText": "Reported subtotal: 0"
+            },
+            {
+              "heading": "Part I box B column (g): short-term wash-sale adjustment",
+              "sites": 0,
+              "tieOutText": "Reported subtotal: 0"
+            },
+            {
+              "heading": "Part II box E column (d): long-term basis-not-reported proceeds",
+              "sites": 1,
+              "tieOutText": "Reported subtotal: 6000"
+            },
+            {
+              "heading": "Part II box E column (e): long-term basis the filer supplies",
+              "sites": 1,
+              "tieOutText": "Reported subtotal: 2000"
+            },
+            {
+              "heading": "Part II box E column (g): long-term wash-sale adjustment",
+              "sites": 0,
+              "tieOutText": "Reported subtotal: 0"
+            }
+          ]
+        }
+      ],
+      "lines": [
+        {
+          "disposition": "published_value",
+          "id": "tax.us.2025.form1040.line-15",
+          "reasons": [],
+          "value": 38250
+        },
+        {
+          "disposition": "published_value",
+          "id": "tax.us.2025.form1040.line-16",
+          "reasons": [],
+          "value": 3875
+        },
+        {
+          "disposition": "published_value",
+          "id": "tax.us.2025.form1040.line-7a",
+          "reasons": [],
+          "value": 4000
+        },
+        {
+          "disposition": "published_categorical",
+          "id": "tax.us.2025.form1040.line-7b",
+          "reasons": [],
+          "value": null
+        },
+        {
+          "disposition": "computed_zero",
+          "id": "tax.us.2025.schedule-d.line-13",
+          "reasons": [],
+          "value": 0
+        },
+        {
+          "disposition": "computed_zero",
+          "id": "tax.us.2025.schedule-d.line-14",
+          "reasons": [],
+          "value": 0
+        },
+        {
+          "disposition": "published_value",
+          "id": "tax.us.2025.schedule-d.line-15",
+          "reasons": [],
+          "value": 4000
+        },
+        {
+          "disposition": "published_value",
+          "id": "tax.us.2025.schedule-d.line-16",
+          "reasons": [],
+          "value": 4000
+        },
+        {
+          "disposition": "closure_backed_zero",
+          "id": "tax.us.2025.schedule-d.line-1a",
+          "reasons": [],
+          "value": 0
+        },
+        {
+          "disposition": "closure_backed_zero",
+          "id": "tax.us.2025.schedule-d.line-1b",
+          "reasons": [],
+          "value": 0
+        },
+        {
+          "disposition": "closure_backed_zero",
+          "id": "tax.us.2025.schedule-d.line-2",
+          "reasons": [],
+          "value": 0
+        },
+        {
+          "disposition": "computed_zero",
+          "id": "tax.us.2025.schedule-d.line-21",
+          "reasons": [],
+          "value": 0
+        },
+        {
+          "disposition": "computed_zero",
+          "id": "tax.us.2025.schedule-d.line-6",
+          "reasons": [],
+          "value": 0
+        },
+        {
+          "disposition": "computed_zero",
+          "id": "tax.us.2025.schedule-d.line-7",
+          "reasons": [],
+          "value": 0
+        },
+        {
+          "disposition": "closure_backed_zero",
+          "id": "tax.us.2025.schedule-d.line-8a",
+          "reasons": [],
+          "value": 0
+        },
+        {
+          "disposition": "closure_backed_zero",
+          "id": "tax.us.2025.schedule-d.line-8b",
+          "reasons": [],
+          "value": 0
+        },
+        {
+          "disposition": "published_value",
+          "id": "tax.us.2025.schedule-d.line-9",
+          "reasons": [],
+          "value": 4000
+        }
+      ],
+      "published": [
+        {
+          "symbol": "tax.us.2025.qdcg-worksheet.line-13",
+          "value": "533400"
+        },
+        {
+          "symbol": "tax.us.2025.qdcg-worksheet.line-6",
+          "value": "48350"
+        },
+        {
+          "symbol": "tax.us.2025.schedule-d.line-14",
+          "value": "0"
+        },
+        {
+          "symbol": "tax.us.2025.schedule-d.line-6",
+          "value": "0"
+        },
+        {
+          "symbol": "tax.us.2025.schedule-d.line-13",
+          "value": "0"
+        },
+        {
+          "symbol": "tax.us.2025.schedule-d.line-2",
+          "value": "0"
+        },
+        {
+          "symbol": "tax.us.2025.schedule-d.line-9",
+          "value": "4000.0"
+        },
+        {
+          "symbol": "tax.us.2025.schedule-d.line-1a-gain",
+          "value": "0"
+        },
+        {
+          "symbol": "tax.us.2025.schedule-d.line-8a-gain",
+          "value": "0"
+        },
+        {
+          "symbol": "tax.us.2025.schedule-d.line-1b",
+          "value": "0"
+        },
+        {
+          "symbol": "tax.us.2025.schedule-d.line-7",
+          "value": "0"
+        },
+        {
+          "symbol": "tax.us.2025.schedule-d.line-8b",
+          "value": "0"
+        },
+        {
+          "symbol": "tax.us.2025.schedule-d.line-15",
+          "value": "4000.0"
+        },
+        {
+          "symbol": "tax.us.2025.schedule-d.line-16",
+          "value": "4000.0"
+        },
+        {
+          "symbol": "tax.us.2025.schedule-d.line-21",
+          "value": "0"
+        },
+        {
+          "symbol": "tax.us.2025.capital-gains.selected-preferential-base",
+          "value": "4000.0"
+        },
+        {
+          "symbol": "tax.us.2025.interest.taxable-total",
+          "value": "0"
+        },
+        {
+          "symbol": "tax.us.2025.capital-gains.line7a-total",
+          "value": "4000.0"
+        },
+        {
+          "symbol": "tax.us.2025.qdcg-worksheet.line-4",
+          "value": "4000.0"
+        },
+        {
+          "symbol": "tax.us.2025.income.taxable-income",
+          "value": "38250.0"
+        },
+        {
+          "symbol": "tax.us.2025.qdcg-worksheet.line-10",
+          "value": "4000.0"
+        },
+        {
+          "symbol": "tax.us.2025.qdcg-worksheet.line-14",
+          "value": "38250.0"
+        },
+        {
+          "symbol": "tax.us.2025.qdcg-worksheet.line-24",
+          "value": "4355"
+        },
+        {
+          "symbol": "tax.us.2025.qdcg-worksheet.line-5",
+          "value": "34250.0"
+        },
+        {
+          "symbol": "tax.us.2025.qdcg-worksheet.line-7",
+          "value": "38250.0"
+        },
+        {
+          "symbol": "tax.us.2025.qdcg-worksheet.line-8",
+          "value": "34250.0"
+        },
+        {
+          "symbol": "tax.us.2025.qdcg-worksheet.line-9",
+          "value": "4000.0"
+        },
+        {
+          "symbol": "tax.us.2025.qdcg-worksheet.line-11",
+          "value": "4000.0"
+        },
+        {
+          "symbol": "tax.us.2025.qdcg-worksheet.line-12",
+          "value": "0.0"
+        },
+        {
+          "symbol": "tax.us.2025.qdcg-worksheet.line-15",
+          "value": "38250.0"
+        },
+        {
+          "symbol": "tax.us.2025.qdcg-worksheet.line-16",
+          "value": "0.0"
+        },
+        {
+          "symbol": "tax.us.2025.qdcg-worksheet.line-17",
+          "value": "0.0"
+        },
+        {
+          "symbol": "tax.us.2025.qdcg-worksheet.line-18",
+          "value": "0.000"
+        },
+        {
+          "symbol": "tax.us.2025.qdcg-worksheet.line-19",
+          "value": "4000.0"
+        },
+        {
+          "symbol": "tax.us.2025.qdcg-worksheet.line-20",
+          "value": "0.0"
+        },
+        {
+          "symbol": "tax.us.2025.qdcg-worksheet.line-21",
+          "value": "0.000"
+        },
+        {
+          "symbol": "tax.us.2025.qdcg-worksheet.line-22",
+          "value": "3875"
+        },
+        {
+          "symbol": "tax.us.2025.qdcg-worksheet.line-23",
+          "value": "3875.000"
+        },
+        {
+          "symbol": "tax.us.2025.qdcg-worksheet.line-25",
+          "value": "3875.000"
+        }
+      ],
+      "refusal": null,
+      "stop_reason": "saturated"
+    },
+    "mixed": {
+      "attachments": [
+        {
+          "disposition": "published",
+          "id": "tax.us.2025.rule.attachment.f8949",
+          "value": null
+        },
+        {
+          "disposition": "published",
+          "id": "tax.us.2025.rule.attachment.schedule-d",
+          "value": null
+        }
+      ],
+      "blocked": [],
+      "groups": [
+        {
+          "id": "tax.us.2025.rule.attachment.f8949",
+          "parts": [
+            {
+              "heading": "Part I box A column (d): short-term wash-sale proceeds",
+              "sites": 0,
+              "tieOutText": "Reported subtotal: 0"
+            },
+            {
+              "heading": "Part I box A column (e): short-term wash-sale basis",
+              "sites": 0,
+              "tieOutText": "Reported subtotal: 0"
+            },
+            {
+              "heading": "Part I box A column (g): short-term wash-sale adjustment",
+              "sites": 0,
+              "tieOutText": "Reported subtotal: 0"
+            },
+            {
+              "heading": "Part II box D column (d): long-term wash-sale proceeds",
+              "sites": 0,
+              "tieOutText": "Reported subtotal: 0"
+            },
+            {
+              "heading": "Part II box D column (e): long-term wash-sale basis",
+              "sites": 0,
+              "tieOutText": "Reported subtotal: 0"
+            },
+            {
+              "heading": "Part II box D column (g): long-term wash-sale adjustment",
+              "sites": 0,
+              "tieOutText": "Reported subtotal: 0"
+            },
+            {
+              "heading": "Part I box B column (d): short-term basis-not-reported proceeds",
+              "sites": 0,
+              "tieOutText": "Reported subtotal: 0"
+            },
+            {
+              "heading": "Part I box B column (e): short-term basis the filer supplies",
+              "sites": 0,
+              "tieOutText": "Reported subtotal: 0"
+            },
+            {
+              "heading": "Part I box B column (g): short-term wash-sale adjustment",
+              "sites": 0,
+              "tieOutText": "Reported subtotal: 0"
+            },
+            {
+              "heading": "Part II box E column (d): long-term basis-not-reported proceeds",
+              "sites": 1,
+              "tieOutText": "Reported subtotal: 6000"
+            },
+            {
+              "heading": "Part II box E column (e): long-term basis the filer supplies",
+              "sites": 1,
+              "tieOutText": "Reported subtotal: 2000"
+            },
+            {
+              "heading": "Part II box E column (g): long-term wash-sale adjustment",
+              "sites": 0,
+              "tieOutText": "Reported subtotal: 0"
+            }
+          ]
+        }
+      ],
+      "lines": [
+        {
+          "disposition": "published_value",
+          "id": "tax.us.2025.form1040.line-15",
+          "reasons": [],
+          "value": 39250
+        },
+        {
+          "disposition": "published_value",
+          "id": "tax.us.2025.form1040.line-16",
+          "reasons": [],
+          "value": 3995
+        },
+        {
+          "disposition": "published_value",
+          "id": "tax.us.2025.form1040.line-7a",
+          "reasons": [],
+          "value": 5000
+        },
+        {
+          "disposition": "published_categorical",
+          "id": "tax.us.2025.form1040.line-7b",
+          "reasons": [],
+          "value": null
+        },
+        {
+          "disposition": "computed_zero",
+          "id": "tax.us.2025.schedule-d.line-13",
+          "reasons": [],
+          "value": 0
+        },
+        {
+          "disposition": "computed_zero",
+          "id": "tax.us.2025.schedule-d.line-14",
+          "reasons": [],
+          "value": 0
+        },
+        {
+          "disposition": "published_value",
+          "id": "tax.us.2025.schedule-d.line-15",
+          "reasons": [],
+          "value": 4000
+        },
+        {
+          "disposition": "published_value",
+          "id": "tax.us.2025.schedule-d.line-16",
+          "reasons": [],
+          "value": 5000
+        },
+        {
+          "disposition": "published_value",
+          "id": "tax.us.2025.schedule-d.line-1a",
+          "reasons": [],
+          "value": 1000
+        },
+        {
+          "disposition": "closure_backed_zero",
+          "id": "tax.us.2025.schedule-d.line-1b",
+          "reasons": [],
+          "value": 0
+        },
+        {
+          "disposition": "closure_backed_zero",
+          "id": "tax.us.2025.schedule-d.line-2",
+          "reasons": [],
+          "value": 0
+        },
+        {
+          "disposition": "computed_zero",
+          "id": "tax.us.2025.schedule-d.line-21",
+          "reasons": [],
+          "value": 0
+        },
+        {
+          "disposition": "computed_zero",
+          "id": "tax.us.2025.schedule-d.line-6",
+          "reasons": [],
+          "value": 0
+        },
+        {
+          "disposition": "published_value",
+          "id": "tax.us.2025.schedule-d.line-7",
+          "reasons": [],
+          "value": 1000
+        },
+        {
+          "disposition": "closure_backed_zero",
+          "id": "tax.us.2025.schedule-d.line-8a",
+          "reasons": [],
+          "value": 0
+        },
+        {
+          "disposition": "closure_backed_zero",
+          "id": "tax.us.2025.schedule-d.line-8b",
+          "reasons": [],
+          "value": 0
+        },
+        {
+          "disposition": "published_value",
+          "id": "tax.us.2025.schedule-d.line-9",
+          "reasons": [],
+          "value": 4000
+        }
+      ],
+      "published": [
+        {
+          "symbol": "tax.us.2025.qdcg-worksheet.line-13",
+          "value": "533400"
+        },
+        {
+          "symbol": "tax.us.2025.qdcg-worksheet.line-6",
+          "value": "48350"
+        },
+        {
+          "symbol": "tax.us.2025.schedule-d.line-14",
+          "value": "0"
+        },
+        {
+          "symbol": "tax.us.2025.schedule-d.line-6",
+          "value": "0"
+        },
+        {
+          "symbol": "tax.us.2025.schedule-d.line-13",
+          "value": "0"
+        },
+        {
+          "symbol": "tax.us.2025.schedule-d.line-2",
+          "value": "0"
+        },
+        {
+          "symbol": "tax.us.2025.schedule-d.line-9",
+          "value": "4000.0"
+        },
+        {
+          "symbol": "tax.us.2025.schedule-d.line-1a-gain",
+          "value": "1000.0"
+        },
+        {
+          "symbol": "tax.us.2025.schedule-d.line-8a-gain",
+          "value": "0"
+        },
+        {
+          "symbol": "tax.us.2025.schedule-d.line-1b",
+          "value": "0"
+        },
+        {
+          "symbol": "tax.us.2025.schedule-d.line-7",
+          "value": "1000.0"
+        },
+        {
+          "symbol": "tax.us.2025.schedule-d.line-8b",
+          "value": "0"
+        },
+        {
+          "symbol": "tax.us.2025.schedule-d.line-15",
+          "value": "4000.0"
+        },
+        {
+          "symbol": "tax.us.2025.schedule-d.line-16",
+          "value": "5000.0"
+        },
+        {
+          "symbol": "tax.us.2025.schedule-d.line-21",
+          "value": "0"
+        },
+        {
+          "symbol": "tax.us.2025.capital-gains.selected-preferential-base",
+          "value": "4000.0"
+        },
+        {
+          "symbol": "tax.us.2025.interest.taxable-total",
+          "value": "0"
+        },
+        {
+          "symbol": "tax.us.2025.capital-gains.line7a-total",
+          "value": "5000.0"
+        },
+        {
+          "symbol": "tax.us.2025.qdcg-worksheet.line-4",
+          "value": "4000.0"
+        },
+        {
+          "symbol": "tax.us.2025.income.taxable-income",
+          "value": "39250.0"
+        },
+        {
+          "symbol": "tax.us.2025.qdcg-worksheet.line-10",
+          "value": "4000.0"
+        },
+        {
+          "symbol": "tax.us.2025.qdcg-worksheet.line-14",
+          "value": "39250.0"
+        },
+        {
+          "symbol": "tax.us.2025.qdcg-worksheet.line-24",
+          "value": "4475"
+        },
+        {
+          "symbol": "tax.us.2025.qdcg-worksheet.line-5",
+          "value": "35250.0"
+        },
+        {
+          "symbol": "tax.us.2025.qdcg-worksheet.line-7",
+          "value": "39250.0"
+        },
+        {
+          "symbol": "tax.us.2025.qdcg-worksheet.line-8",
+          "value": "35250.0"
+        },
+        {
+          "symbol": "tax.us.2025.qdcg-worksheet.line-9",
+          "value": "4000.0"
+        },
+        {
+          "symbol": "tax.us.2025.qdcg-worksheet.line-11",
+          "value": "4000.0"
+        },
+        {
+          "symbol": "tax.us.2025.qdcg-worksheet.line-12",
+          "value": "0.0"
+        },
+        {
+          "symbol": "tax.us.2025.qdcg-worksheet.line-15",
+          "value": "39250.0"
+        },
+        {
+          "symbol": "tax.us.2025.qdcg-worksheet.line-16",
+          "value": "0.0"
+        },
+        {
+          "symbol": "tax.us.2025.qdcg-worksheet.line-17",
+          "value": "0.0"
+        },
+        {
+          "symbol": "tax.us.2025.qdcg-worksheet.line-18",
+          "value": "0.000"
+        },
+        {
+          "symbol": "tax.us.2025.qdcg-worksheet.line-19",
+          "value": "4000.0"
+        },
+        {
+          "symbol": "tax.us.2025.qdcg-worksheet.line-20",
+          "value": "0.0"
+        },
+        {
+          "symbol": "tax.us.2025.qdcg-worksheet.line-21",
+          "value": "0.000"
+        },
+        {
+          "symbol": "tax.us.2025.qdcg-worksheet.line-22",
+          "value": "3995"
+        },
+        {
+          "symbol": "tax.us.2025.qdcg-worksheet.line-23",
+          "value": "3995.000"
+        },
+        {
+          "symbol": "tax.us.2025.qdcg-worksheet.line-25",
+          "value": "3995.000"
+        }
+      ],
+      "refusal": null,
+      "stop_reason": "saturated"
+    },
+    "st_loss": {
+      "attachments": [
+        {
+          "disposition": "published",
+          "id": "tax.us.2025.rule.attachment.f8949",
+          "value": null
+        },
+        {
+          "disposition": "guard_inapplicable",
+          "id": "tax.us.2025.rule.attachment.schedule-d",
+          "value": null
+        }
+      ],
+      "blocked": [],
+      "groups": [
+        {
+          "id": "tax.us.2025.rule.attachment.f8949",
+          "parts": [
+            {
+              "heading": "Part I box A column (d): short-term wash-sale proceeds",
+              "sites": 0,
+              "tieOutText": "Reported subtotal: 0"
+            },
+            {
+              "heading": "Part I box A column (e): short-term wash-sale basis",
+              "sites": 0,
+              "tieOutText": "Reported subtotal: 0"
+            },
+            {
+              "heading": "Part I box A column (g): short-term wash-sale adjustment",
+              "sites": 0,
+              "tieOutText": "Reported subtotal: 0"
+            },
+            {
+              "heading": "Part II box D column (d): long-term wash-sale proceeds",
+              "sites": 0,
+              "tieOutText": "Reported subtotal: 0"
+            },
+            {
+              "heading": "Part II box D column (e): long-term wash-sale basis",
+              "sites": 0,
+              "tieOutText": "Reported subtotal: 0"
+            },
+            {
+              "heading": "Part II box D column (g): long-term wash-sale adjustment",
+              "sites": 0,
+              "tieOutText": "Reported subtotal: 0"
+            },
+            {
+              "heading": "Part I box B column (d): short-term basis-not-reported proceeds",
+              "sites": 1,
+              "tieOutText": "Reported subtotal: 2000"
+            },
+            {
+              "heading": "Part I box B column (e): short-term basis the filer supplies",
+              "sites": 1,
+              "tieOutText": "Reported subtotal: 8000"
+            },
+            {
+              "heading": "Part I box B column (g): short-term wash-sale adjustment",
+              "sites": 0,
+              "tieOutText": "Reported subtotal: 0"
+            },
+            {
+              "heading": "Part II box E column (d): long-term basis-not-reported proceeds",
+              "sites": 0,
+              "tieOutText": "Reported subtotal: 0"
+            },
+            {
+              "heading": "Part II box E column (e): long-term basis the filer supplies",
+              "sites": 0,
+              "tieOutText": "Reported subtotal: 0"
+            },
+            {
+              "heading": "Part II box E column (g): long-term wash-sale adjustment",
+              "sites": 0,
+              "tieOutText": "Reported subtotal: 0"
+            }
+          ]
+        }
+      ],
+      "lines": [
+        {
+          "disposition": "published_value",
+          "id": "tax.us.2025.form1040.line-15",
+          "reasons": [],
+          "value": 34250
+        },
+        {
+          "disposition": "published_value",
+          "id": "tax.us.2025.form1040.line-16",
+          "reasons": [],
+          "value": 3875
+        },
+        {
+          "disposition": "computed_zero",
+          "id": "tax.us.2025.form1040.line-7a",
+          "reasons": [],
+          "value": 0
+        },
+        {
+          "disposition": "published_categorical",
+          "id": "tax.us.2025.form1040.line-7b",
+          "reasons": [],
+          "value": null
+        },
+        {
+          "disposition": "computed_zero",
+          "id": "tax.us.2025.schedule-d.line-13",
+          "reasons": [],
+          "value": 0
+        },
+        {
+          "disposition": "computed_zero",
+          "id": "tax.us.2025.schedule-d.line-14",
+          "reasons": [],
+          "value": 0
+        },
+        {
+          "disposition": "computed_zero",
+          "id": "tax.us.2025.schedule-d.line-15",
+          "reasons": [],
+          "value": 0
+        },
+        {
+          "disposition": "published_value",
+          "id": "tax.us.2025.schedule-d.line-16",
+          "reasons": [],
+          "value": -6000
+        },
+        {
+          "disposition": "closure_backed_zero",
+          "id": "tax.us.2025.schedule-d.line-1a",
+          "reasons": [],
+          "value": 0
+        },
+        {
+          "disposition": "closure_backed_zero",
+          "id": "tax.us.2025.schedule-d.line-1b",
+          "reasons": [],
+          "value": 0
+        },
+        {
+          "disposition": "published_value",
+          "id": "tax.us.2025.schedule-d.line-2",
+          "reasons": [],
+          "value": -6000
+        },
+        {
+          "disposition": "published_value",
+          "id": "tax.us.2025.schedule-d.line-21",
+          "reasons": [],
+          "value": 3000
+        },
+        {
+          "disposition": "computed_zero",
+          "id": "tax.us.2025.schedule-d.line-6",
+          "reasons": [],
+          "value": 0
+        },
+        {
+          "disposition": "published_value",
+          "id": "tax.us.2025.schedule-d.line-7",
+          "reasons": [],
+          "value": -6000
+        },
+        {
+          "disposition": "closure_backed_zero",
+          "id": "tax.us.2025.schedule-d.line-8a",
+          "reasons": [],
+          "value": 0
+        },
+        {
+          "disposition": "closure_backed_zero",
+          "id": "tax.us.2025.schedule-d.line-8b",
+          "reasons": [],
+          "value": 0
+        },
+        {
+          "disposition": "closure_backed_zero",
+          "id": "tax.us.2025.schedule-d.line-9",
+          "reasons": [],
+          "value": 0
+        }
+      ],
+      "published": [
+        {
+          "symbol": "tax.us.2025.qdcg-worksheet.line-13",
+          "value": "533400"
+        },
+        {
+          "symbol": "tax.us.2025.qdcg-worksheet.line-6",
+          "value": "48350"
+        },
+        {
+          "symbol": "tax.us.2025.schedule-d.line-14",
+          "value": "0"
+        },
+        {
+          "symbol": "tax.us.2025.schedule-d.line-6",
+          "value": "0"
+        },
+        {
+          "symbol": "tax.us.2025.schedule-d.line-13",
+          "value": "0"
+        },
+        {
+          "symbol": "tax.us.2025.schedule-d.line-2",
+          "value": "-6000.0"
+        },
+        {
+          "symbol": "tax.us.2025.schedule-d.line-9",
+          "value": "0"
+        },
+        {
+          "symbol": "tax.us.2025.schedule-d.line-1a-gain",
+          "value": "0"
+        },
+        {
+          "symbol": "tax.us.2025.schedule-d.line-8a-gain",
+          "value": "0"
+        },
+        {
+          "symbol": "tax.us.2025.schedule-d.line-1b",
+          "value": "0"
+        },
+        {
+          "symbol": "tax.us.2025.schedule-d.line-7",
+          "value": "-6000.0"
+        },
+        {
+          "symbol": "tax.us.2025.schedule-d.line-8b",
+          "value": "0"
+        },
+        {
+          "symbol": "tax.us.2025.schedule-d.line-15",
+          "value": "0"
+        },
+        {
+          "symbol": "tax.us.2025.schedule-d.line-16",
+          "value": "-6000.0"
+        },
+        {
+          "symbol": "tax.us.2025.schedule-d.line-21",
+          "value": "3000"
+        },
+        {
+          "symbol": "tax.us.2025.capital-gains.selected-preferential-base",
+          "value": "0"
+        },
+        {
+          "symbol": "tax.us.2025.interest.taxable-total",
+          "value": "0"
+        },
+        {
+          "symbol": "tax.us.2025.capital-gains.line7a-total",
+          "value": "0"
+        },
+        {
+          "symbol": "tax.us.2025.qdcg-worksheet.line-4",
+          "value": "0"
+        },
+        {
+          "symbol": "tax.us.2025.income.taxable-income",
+          "value": "34250"
+        },
+        {
+          "symbol": "tax.us.2025.qdcg-worksheet.line-10",
+          "value": "0"
+        },
+        {
+          "symbol": "tax.us.2025.qdcg-worksheet.line-14",
+          "value": "34250"
+        },
+        {
+          "symbol": "tax.us.2025.qdcg-worksheet.line-24",
+          "value": "3875"
+        },
+        {
+          "symbol": "tax.us.2025.qdcg-worksheet.line-5",
+          "value": "34250"
+        },
+        {
+          "symbol": "tax.us.2025.qdcg-worksheet.line-7",
+          "value": "34250"
+        },
+        {
+          "symbol": "tax.us.2025.qdcg-worksheet.line-8",
+          "value": "34250"
+        },
+        {
+          "symbol": "tax.us.2025.qdcg-worksheet.line-9",
+          "value": "0"
+        },
+        {
+          "symbol": "tax.us.2025.qdcg-worksheet.line-11",
+          "value": "0"
+        },
+        {
+          "symbol": "tax.us.2025.qdcg-worksheet.line-12",
+          "value": "0"
+        },
+        {
+          "symbol": "tax.us.2025.qdcg-worksheet.line-15",
+          "value": "34250"
+        },
+        {
+          "symbol": "tax.us.2025.qdcg-worksheet.line-16",
+          "value": "0"
+        },
+        {
+          "symbol": "tax.us.2025.qdcg-worksheet.line-17",
+          "value": "0"
+        },
+        {
+          "symbol": "tax.us.2025.qdcg-worksheet.line-18",
+          "value": "0.00"
+        },
+        {
+          "symbol": "tax.us.2025.qdcg-worksheet.line-19",
+          "value": "0"
+        },
+        {
+          "symbol": "tax.us.2025.qdcg-worksheet.line-20",
+          "value": "0"
+        },
+        {
+          "symbol": "tax.us.2025.qdcg-worksheet.line-21",
+          "value": "0.00"
+        },
+        {
+          "symbol": "tax.us.2025.qdcg-worksheet.line-22",
+          "value": "3875"
+        },
+        {
+          "symbol": "tax.us.2025.qdcg-worksheet.line-23",
+          "value": "3875.00"
+        },
+        {
+          "symbol": "tax.us.2025.qdcg-worksheet.line-25",
+          "value": "3875.00"
+        }
+      ],
+      "refusal": null,
+      "stop_reason": "saturated"
+    },
+    "wage_closed_empty": {
+      "attachments": [
+        {
+          "disposition": "guard_inapplicable",
+          "id": "tax.us.2025.rule.attachment.f8949",
+          "value": null
+        },
+        {
+          "disposition": "guard_inapplicable",
+          "id": "tax.us.2025.rule.attachment.schedule-d",
+          "value": null
+        }
+      ],
+      "blocked": [],
+      "groups": [],
+      "lines": [
+        {
+          "disposition": "published_value",
+          "id": "tax.us.2025.form1040.line-15",
+          "reasons": [],
+          "value": 34250
+        },
+        {
+          "disposition": "published_value",
+          "id": "tax.us.2025.form1040.line-16",
+          "reasons": [],
+          "value": 3875
+        },
+        {
+          "disposition": "computed_zero",
+          "id": "tax.us.2025.form1040.line-7a",
+          "reasons": [],
+          "value": 0
+        },
+        {
+          "disposition": "published_categorical",
+          "id": "tax.us.2025.form1040.line-7b",
+          "reasons": [],
+          "value": null
+        },
+        {
+          "disposition": "computed_zero",
+          "id": "tax.us.2025.schedule-d.line-13",
+          "reasons": [],
+          "value": 0
+        },
+        {
+          "disposition": "computed_zero",
+          "id": "tax.us.2025.schedule-d.line-14",
+          "reasons": [],
+          "value": 0
+        },
+        {
+          "disposition": "computed_zero",
+          "id": "tax.us.2025.schedule-d.line-15",
+          "reasons": [],
+          "value": 0
+        },
+        {
+          "disposition": "computed_zero",
+          "id": "tax.us.2025.schedule-d.line-16",
+          "reasons": [],
+          "value": 0
+        },
+        {
+          "disposition": "closure_backed_zero",
+          "id": "tax.us.2025.schedule-d.line-1a",
+          "reasons": [],
+          "value": 0
+        },
+        {
+          "disposition": "closure_backed_zero",
+          "id": "tax.us.2025.schedule-d.line-1b",
+          "reasons": [],
+          "value": 0
+        },
+        {
+          "disposition": "closure_backed_zero",
+          "id": "tax.us.2025.schedule-d.line-2",
+          "reasons": [],
+          "value": 0
+        },
+        {
+          "disposition": "computed_zero",
+          "id": "tax.us.2025.schedule-d.line-21",
+          "reasons": [],
+          "value": 0
+        },
+        {
+          "disposition": "computed_zero",
+          "id": "tax.us.2025.schedule-d.line-6",
+          "reasons": [],
+          "value": 0
+        },
+        {
+          "disposition": "computed_zero",
+          "id": "tax.us.2025.schedule-d.line-7",
+          "reasons": [],
+          "value": 0
+        },
+        {
+          "disposition": "closure_backed_zero",
+          "id": "tax.us.2025.schedule-d.line-8a",
+          "reasons": [],
+          "value": 0
+        },
+        {
+          "disposition": "closure_backed_zero",
+          "id": "tax.us.2025.schedule-d.line-8b",
+          "reasons": [],
+          "value": 0
+        },
+        {
+          "disposition": "closure_backed_zero",
+          "id": "tax.us.2025.schedule-d.line-9",
+          "reasons": [],
+          "value": 0
+        }
+      ],
+      "published": [
+        {
+          "symbol": "tax.us.2025.qdcg-worksheet.line-13",
+          "value": "533400"
+        },
+        {
+          "symbol": "tax.us.2025.qdcg-worksheet.line-6",
+          "value": "48350"
+        },
+        {
+          "symbol": "tax.us.2025.schedule-d.line-14",
+          "value": "0"
+        },
+        {
+          "symbol": "tax.us.2025.schedule-d.line-6",
+          "value": "0"
+        },
+        {
+          "symbol": "tax.us.2025.schedule-d.line-13",
+          "value": "0"
+        },
+        {
+          "symbol": "tax.us.2025.schedule-d.line-2",
+          "value": "0"
+        },
+        {
+          "symbol": "tax.us.2025.schedule-d.line-9",
+          "value": "0"
+        },
+        {
+          "symbol": "tax.us.2025.schedule-d.line-1a-gain",
+          "value": "0"
+        },
+        {
+          "symbol": "tax.us.2025.schedule-d.line-8a-gain",
+          "value": "0"
+        },
+        {
+          "symbol": "tax.us.2025.schedule-d.line-1b",
+          "value": "0"
+        },
+        {
+          "symbol": "tax.us.2025.schedule-d.line-7",
+          "value": "0"
+        },
+        {
+          "symbol": "tax.us.2025.schedule-d.line-8b",
+          "value": "0"
+        },
+        {
+          "symbol": "tax.us.2025.schedule-d.line-15",
+          "value": "0"
+        },
+        {
+          "symbol": "tax.us.2025.schedule-d.line-16",
+          "value": "0"
+        },
+        {
+          "symbol": "tax.us.2025.schedule-d.line-21",
+          "value": "0"
+        },
+        {
+          "symbol": "tax.us.2025.capital-gains.selected-preferential-base",
+          "value": "0"
+        },
+        {
+          "symbol": "tax.us.2025.interest.taxable-total",
+          "value": "0"
+        },
+        {
+          "symbol": "tax.us.2025.capital-gains.line7a-total",
+          "value": "0"
+        },
+        {
+          "symbol": "tax.us.2025.qdcg-worksheet.line-4",
+          "value": "0"
+        },
+        {
+          "symbol": "tax.us.2025.income.taxable-income",
+          "value": "34250"
+        },
+        {
+          "symbol": "tax.us.2025.qdcg-worksheet.line-10",
+          "value": "0"
+        },
+        {
+          "symbol": "tax.us.2025.qdcg-worksheet.line-14",
+          "value": "34250"
+        },
+        {
+          "symbol": "tax.us.2025.qdcg-worksheet.line-24",
+          "value": "3875"
+        },
+        {
+          "symbol": "tax.us.2025.qdcg-worksheet.line-5",
+          "value": "34250"
+        },
+        {
+          "symbol": "tax.us.2025.qdcg-worksheet.line-7",
+          "value": "34250"
+        },
+        {
+          "symbol": "tax.us.2025.qdcg-worksheet.line-8",
+          "value": "34250"
+        },
+        {
+          "symbol": "tax.us.2025.qdcg-worksheet.line-9",
+          "value": "0"
+        },
+        {
+          "symbol": "tax.us.2025.qdcg-worksheet.line-11",
+          "value": "0"
+        },
+        {
+          "symbol": "tax.us.2025.qdcg-worksheet.line-12",
+          "value": "0"
+        },
+        {
+          "symbol": "tax.us.2025.qdcg-worksheet.line-15",
+          "value": "34250"
+        },
+        {
+          "symbol": "tax.us.2025.qdcg-worksheet.line-16",
+          "value": "0"
+        },
+        {
+          "symbol": "tax.us.2025.qdcg-worksheet.line-17",
+          "value": "0"
+        },
+        {
+          "symbol": "tax.us.2025.qdcg-worksheet.line-18",
+          "value": "0.00"
+        },
+        {
+          "symbol": "tax.us.2025.qdcg-worksheet.line-19",
+          "value": "0"
+        },
+        {
+          "symbol": "tax.us.2025.qdcg-worksheet.line-20",
+          "value": "0"
+        },
+        {
+          "symbol": "tax.us.2025.qdcg-worksheet.line-21",
+          "value": "0.00"
+        },
+        {
+          "symbol": "tax.us.2025.qdcg-worksheet.line-22",
+          "value": "3875"
+        },
+        {
+          "symbol": "tax.us.2025.qdcg-worksheet.line-23",
+          "value": "3875.00"
+        },
+        {
+          "symbol": "tax.us.2025.qdcg-worksheet.line-25",
+          "value": "3875.00"
+        }
+      ],
+      "refusal": null,
+      "stop_reason": "saturated"
+    },
+    "wage_unclosed": {
+      "attachments": [
+        {
+          "disposition": "blocked",
+          "id": "tax.us.2025.rule.attachment.f8949",
+          "value": null
+        },
+        {
+          "disposition": "guard_inapplicable",
+          "id": "tax.us.2025.rule.attachment.schedule-d",
+          "value": null
+        }
+      ],
+      "blocked": [
+        {
+          "artifact_id": "tax.us.2025.rule.f1099b-noncovered-st-proceeds-subtotal",
+          "code": "SOURCE_SET_UNCLOSED",
+          "missing": [
+            "tax.us.2025.f1099b.noncovered-st-proceeds"
+          ]
+        },
+        {
+          "artifact_id": "tax.us.2025.rule.f1099b-noncovered-st-basis-subtotal",
+          "code": "SOURCE_SET_UNCLOSED",
+          "missing": [
+            "tax.us.2025.f1099b.noncovered-st-basis"
+          ]
+        },
+        {
+          "artifact_id": "tax.us.2025.rule.f1099b-noncovered-st-adjustment-subtotal",
+          "code": "SOURCE_SET_UNCLOSED",
+          "missing": [
+            "tax.us.2025.f1099b.noncovered-st-adjustment"
+          ]
+        },
+        {
+          "artifact_id": "tax.us.2025.rule.f1099b-noncovered-lt-proceeds-subtotal",
+          "code": "SOURCE_SET_UNCLOSED",
+          "missing": [
+            "tax.us.2025.f1099b.noncovered-lt-proceeds"
+          ]
+        },
+        {
+          "artifact_id": "tax.us.2025.rule.f1099b-noncovered-lt-basis-subtotal",
+          "code": "SOURCE_SET_UNCLOSED",
+          "missing": [
+            "tax.us.2025.f1099b.noncovered-lt-basis"
+          ]
+        },
+        {
+          "artifact_id": "tax.us.2025.rule.f1099b-noncovered-lt-adjustment-subtotal",
+          "code": "SOURCE_SET_UNCLOSED",
+          "missing": [
+            "tax.us.2025.f1099b.noncovered-lt-adjustment"
+          ]
+        },
+        {
+          "artifact_id": "tax.us.2025.rule.attachment.f8949",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "tax.us.2025.f1099b.noncovered-st-proceeds-subtotal",
+            "tax.us.2025.f1099b.noncovered-lt-proceeds-subtotal"
+          ]
+        },
+        {
+          "artifact_id": "tax.us.2025.rule.eic-investment-income",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "tax.us.2025.capital-gains.line7a-total"
+          ]
+        },
+        {
+          "artifact_id": "tax.us.2025.rule.form1040-line16",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "tax.us.2025.income.taxable-income",
+            "tax.us.2025.capital-gains.selected-preferential-base",
+            "tax.us.2025.qdcg-worksheet.line-24",
+            "tax.us.2025.qdcg-worksheet.line-25"
+          ]
+        },
+        {
+          "artifact_id": "tax.us.2025.rule.form1040-line7a",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "tax.us.2025.schedule-d.line-16",
+            "tax.us.2025.schedule-d.line-21",
+            "tax.us.2025.capital-gains.selected-preferential-base"
+          ]
+        },
+        {
+          "artifact_id": "tax.us.2025.rule.form1040-line9",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "tax.us.2025.capital-gains.line7a-total",
+            "tax.us.2025.social-security.line6b"
+          ]
+        },
+        {
+          "artifact_id": "tax.us.2025.rule.qdcg-worksheet.line-10",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "tax.us.2025.income.taxable-income",
+            "tax.us.2025.qdcg-worksheet.line-4"
+          ]
+        },
+        {
+          "artifact_id": "tax.us.2025.rule.qdcg-worksheet.line-11",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "tax.us.2025.qdcg-worksheet.line-9"
+          ]
+        },
+        {
+          "artifact_id": "tax.us.2025.rule.qdcg-worksheet.line-12",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "tax.us.2025.qdcg-worksheet.line-10",
+            "tax.us.2025.qdcg-worksheet.line-11"
+          ]
+        },
+        {
+          "artifact_id": "tax.us.2025.rule.qdcg-worksheet.line-14",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "tax.us.2025.income.taxable-income"
+          ]
+        },
+        {
+          "artifact_id": "tax.us.2025.rule.qdcg-worksheet.line-15",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "tax.us.2025.qdcg-worksheet.line-5",
+            "tax.us.2025.qdcg-worksheet.line-9"
+          ]
+        },
+        {
+          "artifact_id": "tax.us.2025.rule.qdcg-worksheet.line-16",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "tax.us.2025.qdcg-worksheet.line-14",
+            "tax.us.2025.qdcg-worksheet.line-15"
+          ]
+        },
+        {
+          "artifact_id": "tax.us.2025.rule.qdcg-worksheet.line-17",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "tax.us.2025.qdcg-worksheet.line-12",
+            "tax.us.2025.qdcg-worksheet.line-16"
+          ]
+        },
+        {
+          "artifact_id": "tax.us.2025.rule.qdcg-worksheet.line-18",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "tax.us.2025.qdcg-worksheet.line-17"
+          ]
+        },
+        {
+          "artifact_id": "tax.us.2025.rule.qdcg-worksheet.line-19",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "tax.us.2025.qdcg-worksheet.line-9",
+            "tax.us.2025.qdcg-worksheet.line-17"
+          ]
+        },
+        {
+          "artifact_id": "tax.us.2025.rule.qdcg-worksheet.line-20",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "tax.us.2025.qdcg-worksheet.line-10",
+            "tax.us.2025.qdcg-worksheet.line-19"
+          ]
+        },
+        {
+          "artifact_id": "tax.us.2025.rule.qdcg-worksheet.line-21",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "tax.us.2025.qdcg-worksheet.line-20"
+          ]
+        },
+        {
+          "artifact_id": "tax.us.2025.rule.qdcg-worksheet.line-22",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "tax.us.2025.qdcg-worksheet.line-5"
+          ]
+        },
+        {
+          "artifact_id": "tax.us.2025.rule.qdcg-worksheet.line-23",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "tax.us.2025.qdcg-worksheet.line-18",
+            "tax.us.2025.qdcg-worksheet.line-21",
+            "tax.us.2025.qdcg-worksheet.line-22"
+          ]
+        },
+        {
+          "artifact_id": "tax.us.2025.rule.qdcg-worksheet.line-24",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "tax.us.2025.income.taxable-income"
+          ]
+        },
+        {
+          "artifact_id": "tax.us.2025.rule.qdcg-worksheet.line-25",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "tax.us.2025.qdcg-worksheet.line-23",
+            "tax.us.2025.qdcg-worksheet.line-24"
+          ]
+        },
+        {
+          "artifact_id": "tax.us.2025.rule.qdcg-worksheet.line-4",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "tax.us.2025.capital-gains.selected-preferential-base"
+          ]
+        },
+        {
+          "artifact_id": "tax.us.2025.rule.qdcg-worksheet.line-5",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "tax.us.2025.income.taxable-income",
+            "tax.us.2025.capital-gains.selected-preferential-base"
+          ]
+        },
+        {
+          "artifact_id": "tax.us.2025.rule.qdcg-worksheet.line-7",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "tax.us.2025.income.taxable-income"
+          ]
+        },
+        {
+          "artifact_id": "tax.us.2025.rule.qdcg-worksheet.line-8",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "tax.us.2025.qdcg-worksheet.line-5",
+            "tax.us.2025.qdcg-worksheet.line-7"
+          ]
+        },
+        {
+          "artifact_id": "tax.us.2025.rule.qdcg-worksheet.line-9",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "tax.us.2025.qdcg-worksheet.line-7",
+            "tax.us.2025.qdcg-worksheet.line-8"
+          ]
+        },
+        {
+          "artifact_id": "tax.us.2025.rule.schedule-d-line15",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "tax.us.2025.schedule-d.line-9"
+          ]
+        },
+        {
+          "artifact_id": "tax.us.2025.rule.schedule-d-line16",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "tax.us.2025.schedule-d.line-7",
+            "tax.us.2025.schedule-d.line-15"
+          ]
+        },
+        {
+          "artifact_id": "tax.us.2025.rule.schedule-d-line21",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "tax.us.2025.schedule-d.line-16"
+          ]
+        },
+        {
+          "artifact_id": "tax.us.2025.rule.schedule-d-line7",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "tax.us.2025.schedule-d.line-2"
+          ]
+        },
+        {
+          "artifact_id": "tax.us.2025.rule.selected-preferential-base",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "tax.us.2025.schedule-d.line-16",
+            "tax.us.2025.schedule-d.line-15",
+            "tax.us.2025.schedule-d.line-2",
+            "tax.us.2025.schedule-d.line-9"
+          ]
+        },
+        {
+          "artifact_id": "tax.us.2025.rule.ss-benefits-worksheet",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "tax.us.2025.capital-gains.line7a-total"
+          ]
+        },
+        {
+          "artifact_id": "tax.us.2025.rule.schedule-d-line2",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "tax.us.2025.f1099b.noncovered-st-proceeds-subtotal",
+            "tax.us.2025.f1099b.noncovered-st-basis-subtotal",
+            "tax.us.2025.f1099b.noncovered-st-adjustment-subtotal"
+          ]
+        },
+        {
+          "artifact_id": "tax.us.2025.rule.schedule-d-line9",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "tax.us.2025.f1099b.noncovered-lt-proceeds-subtotal",
+            "tax.us.2025.f1099b.noncovered-lt-basis-subtotal",
+            "tax.us.2025.f1099b.noncovered-lt-adjustment-subtotal"
+          ]
+        }
+      ],
+      "groups": [],
+      "lines": [
+        {
+          "disposition": "blocked",
+          "id": "tax.us.2025.form1040.line-15",
+          "reasons": [
+            "What are the proceeds of this long-term sale whose basis was not reported to the IRS?",
+            "What are the proceeds of this short-term sale whose basis was not reported to the IRS?",
+            "What is the basis of this long-term sale whose basis was not reported to the IRS?",
+            "What is the basis of this short-term sale whose basis was not reported to the IRS?"
+          ],
+          "value": null
+        },
+        {
+          "disposition": "blocked",
+          "id": "tax.us.2025.form1040.line-16",
+          "reasons": [
+            "What are the proceeds of this long-term sale whose basis was not reported to the IRS?",
+            "What are the proceeds of this short-term sale whose basis was not reported to the IRS?",
+            "What is the basis of this long-term sale whose basis was not reported to the IRS?",
+            "What is the basis of this short-term sale whose basis was not reported to the IRS?"
+          ],
+          "value": null
+        },
+        {
+          "disposition": "blocked",
+          "id": "tax.us.2025.form1040.line-7a",
+          "reasons": [
+            "What are the proceeds of this long-term sale whose basis was not reported to the IRS?",
+            "What are the proceeds of this short-term sale whose basis was not reported to the IRS?",
+            "What is the basis of this long-term sale whose basis was not reported to the IRS?",
+            "What is the basis of this short-term sale whose basis was not reported to the IRS?"
+          ],
+          "value": null
+        },
+        {
+          "disposition": "published_categorical",
+          "id": "tax.us.2025.form1040.line-7b",
+          "reasons": [],
+          "value": null
+        },
+        {
+          "disposition": "computed_zero",
+          "id": "tax.us.2025.schedule-d.line-13",
+          "reasons": [],
+          "value": 0
+        },
+        {
+          "disposition": "computed_zero",
+          "id": "tax.us.2025.schedule-d.line-14",
+          "reasons": [],
+          "value": 0
+        },
+        {
+          "disposition": "blocked",
+          "id": "tax.us.2025.schedule-d.line-15",
+          "reasons": [
+            "What are the proceeds of this long-term sale whose basis was not reported to the IRS?",
+            "What is the basis of this long-term sale whose basis was not reported to the IRS?",
+            "What wash-sale adjustment applies to this long-term sale whose basis was not reported to the IRS? Use zero when none of the loss is a wash sale."
+          ],
+          "value": null
+        },
+        {
+          "disposition": "blocked",
+          "id": "tax.us.2025.schedule-d.line-16",
+          "reasons": [
+            "What are the proceeds of this long-term sale whose basis was not reported to the IRS?",
+            "What are the proceeds of this short-term sale whose basis was not reported to the IRS?",
+            "What is the basis of this long-term sale whose basis was not reported to the IRS?",
+            "What is the basis of this short-term sale whose basis was not reported to the IRS?"
+          ],
+          "value": null
+        },
+        {
+          "disposition": "closure_backed_zero",
+          "id": "tax.us.2025.schedule-d.line-1a",
+          "reasons": [],
+          "value": 0
+        },
+        {
+          "disposition": "closure_backed_zero",
+          "id": "tax.us.2025.schedule-d.line-1b",
+          "reasons": [],
+          "value": 0
+        },
+        {
+          "disposition": "blocked",
+          "id": "tax.us.2025.schedule-d.line-2",
+          "reasons": [
+            "What are the proceeds of this short-term sale whose basis was not reported to the IRS?",
+            "What is the basis of this short-term sale whose basis was not reported to the IRS?",
+            "What wash-sale adjustment applies to this short-term sale whose basis was not reported to the IRS? Use zero when none of the loss is a wash sale."
+          ],
+          "value": null
+        },
+        {
+          "disposition": "blocked",
+          "id": "tax.us.2025.schedule-d.line-21",
+          "reasons": [
+            "What are the proceeds of this long-term sale whose basis was not reported to the IRS?",
+            "What are the proceeds of this short-term sale whose basis was not reported to the IRS?",
+            "What is the basis of this long-term sale whose basis was not reported to the IRS?",
+            "What is the basis of this short-term sale whose basis was not reported to the IRS?"
+          ],
+          "value": null
+        },
+        {
+          "disposition": "computed_zero",
+          "id": "tax.us.2025.schedule-d.line-6",
+          "reasons": [],
+          "value": 0
+        },
+        {
+          "disposition": "blocked",
+          "id": "tax.us.2025.schedule-d.line-7",
+          "reasons": [
+            "What are the proceeds of this short-term sale whose basis was not reported to the IRS?",
+            "What is the basis of this short-term sale whose basis was not reported to the IRS?",
+            "What wash-sale adjustment applies to this short-term sale whose basis was not reported to the IRS? Use zero when none of the loss is a wash sale."
+          ],
+          "value": null
+        },
+        {
+          "disposition": "closure_backed_zero",
+          "id": "tax.us.2025.schedule-d.line-8a",
+          "reasons": [],
+          "value": 0
+        },
+        {
+          "disposition": "closure_backed_zero",
+          "id": "tax.us.2025.schedule-d.line-8b",
+          "reasons": [],
+          "value": 0
+        },
+        {
+          "disposition": "blocked",
+          "id": "tax.us.2025.schedule-d.line-9",
+          "reasons": [
+            "What are the proceeds of this long-term sale whose basis was not reported to the IRS?",
+            "What is the basis of this long-term sale whose basis was not reported to the IRS?",
+            "What wash-sale adjustment applies to this long-term sale whose basis was not reported to the IRS? Use zero when none of the loss is a wash sale."
+          ],
+          "value": null
+        }
+      ],
+      "published": [
+        {
+          "symbol": "tax.us.2025.qdcg-worksheet.line-13",
+          "value": "533400"
+        },
+        {
+          "symbol": "tax.us.2025.qdcg-worksheet.line-6",
+          "value": "48350"
+        },
+        {
+          "symbol": "tax.us.2025.schedule-d.line-14",
+          "value": "0"
+        },
+        {
+          "symbol": "tax.us.2025.schedule-d.line-6",
+          "value": "0"
+        },
+        {
+          "symbol": "tax.us.2025.schedule-d.line-13",
+          "value": "0"
+        },
+        {
+          "symbol": "tax.us.2025.schedule-d.line-1a-gain",
+          "value": "0"
+        },
+        {
+          "symbol": "tax.us.2025.schedule-d.line-8a-gain",
+          "value": "0"
+        },
+        {
+          "symbol": "tax.us.2025.schedule-d.line-1b",
+          "value": "0"
+        },
+        {
+          "symbol": "tax.us.2025.schedule-d.line-8b",
+          "value": "0"
+        },
+        {
+          "symbol": "tax.us.2025.interest.taxable-total",
+          "value": "0"
+        }
+      ],
+      "refusal": null,
+      "stop_reason": "saturated"
+    },
+    "wash": {
+      "attachments": [
+        {
+          "disposition": "published",
+          "id": "tax.us.2025.rule.attachment.f8949",
+          "value": null
+        },
+        {
+          "disposition": "guard_inapplicable",
+          "id": "tax.us.2025.rule.attachment.schedule-d",
+          "value": null
+        }
+      ],
+      "blocked": [],
+      "groups": [
+        {
+          "id": "tax.us.2025.rule.attachment.f8949",
+          "parts": [
+            {
+              "heading": "Part I box A column (d): short-term wash-sale proceeds",
+              "sites": 0,
+              "tieOutText": "Reported subtotal: 0"
+            },
+            {
+              "heading": "Part I box A column (e): short-term wash-sale basis",
+              "sites": 0,
+              "tieOutText": "Reported subtotal: 0"
+            },
+            {
+              "heading": "Part I box A column (g): short-term wash-sale adjustment",
+              "sites": 0,
+              "tieOutText": "Reported subtotal: 0"
+            },
+            {
+              "heading": "Part II box D column (d): long-term wash-sale proceeds",
+              "sites": 0,
+              "tieOutText": "Reported subtotal: 0"
+            },
+            {
+              "heading": "Part II box D column (e): long-term wash-sale basis",
+              "sites": 0,
+              "tieOutText": "Reported subtotal: 0"
+            },
+            {
+              "heading": "Part II box D column (g): long-term wash-sale adjustment",
+              "sites": 0,
+              "tieOutText": "Reported subtotal: 0"
+            },
+            {
+              "heading": "Part I box B column (d): short-term basis-not-reported proceeds",
+              "sites": 0,
+              "tieOutText": "Reported subtotal: 0"
+            },
+            {
+              "heading": "Part I box B column (e): short-term basis the filer supplies",
+              "sites": 0,
+              "tieOutText": "Reported subtotal: 0"
+            },
+            {
+              "heading": "Part I box B column (g): short-term wash-sale adjustment",
+              "sites": 0,
+              "tieOutText": "Reported subtotal: 0"
+            },
+            {
+              "heading": "Part II box E column (d): long-term basis-not-reported proceeds",
+              "sites": 1,
+              "tieOutText": "Reported subtotal: 4000"
+            },
+            {
+              "heading": "Part II box E column (e): long-term basis the filer supplies",
+              "sites": 1,
+              "tieOutText": "Reported subtotal: 7000"
+            },
+            {
+              "heading": "Part II box E column (g): long-term wash-sale adjustment",
+              "sites": 1,
+              "tieOutText": "Reported subtotal: 1000"
+            }
+          ]
+        }
+      ],
+      "lines": [
+        {
+          "disposition": "published_value",
+          "id": "tax.us.2025.form1040.line-15",
+          "reasons": [],
+          "value": 34250
+        },
+        {
+          "disposition": "published_value",
+          "id": "tax.us.2025.form1040.line-16",
+          "reasons": [],
+          "value": 3875
+        },
+        {
+          "disposition": "computed_zero",
+          "id": "tax.us.2025.form1040.line-7a",
+          "reasons": [],
+          "value": 0
+        },
+        {
+          "disposition": "published_categorical",
+          "id": "tax.us.2025.form1040.line-7b",
+          "reasons": [],
+          "value": null
+        },
+        {
+          "disposition": "computed_zero",
+          "id": "tax.us.2025.schedule-d.line-13",
+          "reasons": [],
+          "value": 0
+        },
+        {
+          "disposition": "computed_zero",
+          "id": "tax.us.2025.schedule-d.line-14",
+          "reasons": [],
+          "value": 0
+        },
+        {
+          "disposition": "published_value",
+          "id": "tax.us.2025.schedule-d.line-15",
+          "reasons": [],
+          "value": -2000
+        },
+        {
+          "disposition": "published_value",
+          "id": "tax.us.2025.schedule-d.line-16",
+          "reasons": [],
+          "value": -2000
+        },
+        {
+          "disposition": "closure_backed_zero",
+          "id": "tax.us.2025.schedule-d.line-1a",
+          "reasons": [],
+          "value": 0
+        },
+        {
+          "disposition": "closure_backed_zero",
+          "id": "tax.us.2025.schedule-d.line-1b",
+          "reasons": [],
+          "value": 0
+        },
+        {
+          "disposition": "closure_backed_zero",
+          "id": "tax.us.2025.schedule-d.line-2",
+          "reasons": [],
+          "value": 0
+        },
+        {
+          "disposition": "published_value",
+          "id": "tax.us.2025.schedule-d.line-21",
+          "reasons": [],
+          "value": 2000
+        },
+        {
+          "disposition": "computed_zero",
+          "id": "tax.us.2025.schedule-d.line-6",
+          "reasons": [],
+          "value": 0
+        },
+        {
+          "disposition": "computed_zero",
+          "id": "tax.us.2025.schedule-d.line-7",
+          "reasons": [],
+          "value": 0
+        },
+        {
+          "disposition": "closure_backed_zero",
+          "id": "tax.us.2025.schedule-d.line-8a",
+          "reasons": [],
+          "value": 0
+        },
+        {
+          "disposition": "closure_backed_zero",
+          "id": "tax.us.2025.schedule-d.line-8b",
+          "reasons": [],
+          "value": 0
+        },
+        {
+          "disposition": "published_value",
+          "id": "tax.us.2025.schedule-d.line-9",
+          "reasons": [],
+          "value": -2000
+        }
+      ],
+      "published": [
+        {
+          "symbol": "tax.us.2025.qdcg-worksheet.line-13",
+          "value": "533400"
+        },
+        {
+          "symbol": "tax.us.2025.qdcg-worksheet.line-6",
+          "value": "48350"
+        },
+        {
+          "symbol": "tax.us.2025.schedule-d.line-14",
+          "value": "0"
+        },
+        {
+          "symbol": "tax.us.2025.schedule-d.line-6",
+          "value": "0"
+        },
+        {
+          "symbol": "tax.us.2025.schedule-d.line-13",
+          "value": "0"
+        },
+        {
+          "symbol": "tax.us.2025.schedule-d.line-2",
+          "value": "0"
+        },
+        {
+          "symbol": "tax.us.2025.schedule-d.line-9",
+          "value": "-2000.0"
+        },
+        {
+          "symbol": "tax.us.2025.schedule-d.line-1a-gain",
+          "value": "0"
+        },
+        {
+          "symbol": "tax.us.2025.schedule-d.line-8a-gain",
+          "value": "0"
+        },
+        {
+          "symbol": "tax.us.2025.schedule-d.line-1b",
+          "value": "0"
+        },
+        {
+          "symbol": "tax.us.2025.schedule-d.line-7",
+          "value": "0"
+        },
+        {
+          "symbol": "tax.us.2025.schedule-d.line-8b",
+          "value": "0"
+        },
+        {
+          "symbol": "tax.us.2025.schedule-d.line-15",
+          "value": "-2000.0"
+        },
+        {
+          "symbol": "tax.us.2025.schedule-d.line-16",
+          "value": "-2000.0"
+        },
+        {
+          "symbol": "tax.us.2025.schedule-d.line-21",
+          "value": "2000.0"
+        },
+        {
+          "symbol": "tax.us.2025.capital-gains.selected-preferential-base",
+          "value": "0"
+        },
+        {
+          "symbol": "tax.us.2025.interest.taxable-total",
+          "value": "0"
+        },
+        {
+          "symbol": "tax.us.2025.capital-gains.line7a-total",
+          "value": "0"
+        },
+        {
+          "symbol": "tax.us.2025.qdcg-worksheet.line-4",
+          "value": "0"
+        },
+        {
+          "symbol": "tax.us.2025.income.taxable-income",
+          "value": "34250"
+        },
+        {
+          "symbol": "tax.us.2025.qdcg-worksheet.line-10",
+          "value": "0"
+        },
+        {
+          "symbol": "tax.us.2025.qdcg-worksheet.line-14",
+          "value": "34250"
+        },
+        {
+          "symbol": "tax.us.2025.qdcg-worksheet.line-24",
+          "value": "3875"
+        },
+        {
+          "symbol": "tax.us.2025.qdcg-worksheet.line-5",
+          "value": "34250"
+        },
+        {
+          "symbol": "tax.us.2025.qdcg-worksheet.line-7",
+          "value": "34250"
+        },
+        {
+          "symbol": "tax.us.2025.qdcg-worksheet.line-8",
+          "value": "34250"
+        },
+        {
+          "symbol": "tax.us.2025.qdcg-worksheet.line-9",
+          "value": "0"
+        },
+        {
+          "symbol": "tax.us.2025.qdcg-worksheet.line-11",
+          "value": "0"
+        },
+        {
+          "symbol": "tax.us.2025.qdcg-worksheet.line-12",
+          "value": "0"
+        },
+        {
+          "symbol": "tax.us.2025.qdcg-worksheet.line-15",
+          "value": "34250"
+        },
+        {
+          "symbol": "tax.us.2025.qdcg-worksheet.line-16",
+          "value": "0"
+        },
+        {
+          "symbol": "tax.us.2025.qdcg-worksheet.line-17",
+          "value": "0"
+        },
+        {
+          "symbol": "tax.us.2025.qdcg-worksheet.line-18",
+          "value": "0.00"
+        },
+        {
+          "symbol": "tax.us.2025.qdcg-worksheet.line-19",
+          "value": "0"
+        },
+        {
+          "symbol": "tax.us.2025.qdcg-worksheet.line-20",
+          "value": "0"
+        },
+        {
+          "symbol": "tax.us.2025.qdcg-worksheet.line-21",
+          "value": "0.00"
+        },
+        {
+          "symbol": "tax.us.2025.qdcg-worksheet.line-22",
+          "value": "3875"
+        },
+        {
+          "symbol": "tax.us.2025.qdcg-worksheet.line-23",
+          "value": "3875.00"
+        },
+        {
+          "symbol": "tax.us.2025.qdcg-worksheet.line-25",
+          "value": "3875.00"
+        }
+      ],
+      "refusal": null,
+      "stop_reason": "saturated"
+    }
+  },
+  "digest": {
+    "basis_omitted": {
+      "attachments": null,
+      "error": "FindingModelError",
+      "groups": null,
+      "line15": null,
+      "line16": null,
+      "line1a": null,
+      "line2": null,
+      "line21": null,
+      "line2_reasons": [],
+      "line7": null,
+      "line7a": null,
+      "line9": null,
+      "line9_reasons": [],
+      "message": "finding demo.ns.omit.noncovered-lt.member value does not conform to tax.us.2025.f1099b.noncovered-lt-txn: 'basis' is a required property",
+      "preferential": null,
+      "tax": null,
+      "taxable": null
+    },
+    "basis_unclosed": {
+      "attachments": [
+        {
+          "disposition": "blocked",
+          "id": "tax.us.2025.rule.attachment.f8949",
+          "value": null
+        },
+        {
+          "disposition": "guard_inapplicable",
+          "id": "tax.us.2025.rule.attachment.schedule-d",
+          "value": null
+        }
+      ],
+      "error": null,
+      "groups": [],
+      "line15": null,
+      "line16": null,
+      "line1a": 0,
+      "line2": 0,
+      "line21": null,
+      "line2_reasons": [],
+      "line7": 0,
+      "line7a": null,
+      "line9": null,
+      "line9_reasons": [
+        "What is the basis of this long-term sale whose basis was not reported to the IRS?"
+      ],
+      "message": null,
+      "preferential": null,
+      "tax": null,
+      "taxable": null
+    },
+    "boundary_no": {
+      "attachments": [
+        {
+          "disposition": "published",
+          "id": "tax.us.2025.rule.attachment.f8949",
+          "value": null
+        },
+        {
+          "disposition": "guard_inapplicable",
+          "id": "tax.us.2025.rule.attachment.schedule-d",
+          "value": null
+        }
+      ],
+      "error": null,
+      "groups": [
+        {
+          "id": "tax.us.2025.rule.attachment.f8949",
+          "parts": [
+            {
+              "heading": "Part I box A column (d): short-term wash-sale proceeds",
+              "sites": 0,
+              "tieOutText": "Reported subtotal: 0"
+            },
+            {
+              "heading": "Part I box A column (e): short-term wash-sale basis",
+              "sites": 0,
+              "tieOutText": "Reported subtotal: 0"
+            },
+            {
+              "heading": "Part I box A column (g): short-term wash-sale adjustment",
+              "sites": 0,
+              "tieOutText": "Reported subtotal: 0"
+            },
+            {
+              "heading": "Part II box D column (d): long-term wash-sale proceeds",
+              "sites": 0,
+              "tieOutText": "Reported subtotal: 0"
+            },
+            {
+              "heading": "Part II box D column (e): long-term wash-sale basis",
+              "sites": 0,
+              "tieOutText": "Reported subtotal: 0"
+            },
+            {
+              "heading": "Part II box D column (g): long-term wash-sale adjustment",
+              "sites": 0,
+              "tieOutText": "Reported subtotal: 0"
+            },
+            {
+              "heading": "Part I box B column (d): short-term basis-not-reported proceeds",
+              "sites": 0,
+              "tieOutText": "Reported subtotal: 0"
+            },
+            {
+              "heading": "Part I box B column (e): short-term basis the filer supplies",
+              "sites": 0,
+              "tieOutText": "Reported subtotal: 0"
+            },
+            {
+              "heading": "Part I box B column (g): short-term wash-sale adjustment",
+              "sites": 0,
+              "tieOutText": "Reported subtotal: 0"
+            },
+            {
+              "heading": "Part II box E column (d): long-term basis-not-reported proceeds",
+              "sites": 1,
+              "tieOutText": "Reported subtotal: 6000"
+            },
+            {
+              "heading": "Part II box E column (e): long-term basis the filer supplies",
+              "sites": 1,
+              "tieOutText": "Reported subtotal: 2000"
+            },
+            {
+              "heading": "Part II box E column (g): long-term wash-sale adjustment",
+              "sites": 0,
+              "tieOutText": "Reported subtotal: 0"
+            }
+          ]
+        }
+      ],
+      "line15": null,
+      "line16": null,
+      "line1a": 0,
+      "line2": 0,
+      "line21": null,
+      "line2_reasons": [],
+      "line7": 0,
+      "line7a": null,
+      "line9": null,
+      "line9_reasons": [],
+      "message": null,
+      "preferential": null,
+      "tax": null,
+      "taxable": null
+    },
+    "lt_gain": {
+      "attachments": [
+        {
+          "disposition": "published",
+          "id": "tax.us.2025.rule.attachment.f8949",
+          "value": null
+        },
+        {
+          "disposition": "guard_inapplicable",
+          "id": "tax.us.2025.rule.attachment.schedule-d",
+          "value": null
+        }
+      ],
+      "error": null,
+      "groups": [
+        {
+          "id": "tax.us.2025.rule.attachment.f8949",
+          "parts": [
+            {
+              "heading": "Part I box A column (d): short-term wash-sale proceeds",
+              "sites": 0,
+              "tieOutText": "Reported subtotal: 0"
+            },
+            {
+              "heading": "Part I box A column (e): short-term wash-sale basis",
+              "sites": 0,
+              "tieOutText": "Reported subtotal: 0"
+            },
+            {
+              "heading": "Part I box A column (g): short-term wash-sale adjustment",
+              "sites": 0,
+              "tieOutText": "Reported subtotal: 0"
+            },
+            {
+              "heading": "Part II box D column (d): long-term wash-sale proceeds",
+              "sites": 0,
+              "tieOutText": "Reported subtotal: 0"
+            },
+            {
+              "heading": "Part II box D column (e): long-term wash-sale basis",
+              "sites": 0,
+              "tieOutText": "Reported subtotal: 0"
+            },
+            {
+              "heading": "Part II box D column (g): long-term wash-sale adjustment",
+              "sites": 0,
+              "tieOutText": "Reported subtotal: 0"
+            },
+            {
+              "heading": "Part I box B column (d): short-term basis-not-reported proceeds",
+              "sites": 0,
+              "tieOutText": "Reported subtotal: 0"
+            },
+            {
+              "heading": "Part I box B column (e): short-term basis the filer supplies",
+              "sites": 0,
+              "tieOutText": "Reported subtotal: 0"
+            },
+            {
+              "heading": "Part I box B column (g): short-term wash-sale adjustment",
+              "sites": 0,
+              "tieOutText": "Reported subtotal: 0"
+            },
+            {
+              "heading": "Part II box E column (d): long-term basis-not-reported proceeds",
+              "sites": 1,
+              "tieOutText": "Reported subtotal: 6000"
+            },
+            {
+              "heading": "Part II box E column (e): long-term basis the filer supplies",
+              "sites": 1,
+              "tieOutText": "Reported subtotal: 2000"
+            },
+            {
+              "heading": "Part II box E column (g): long-term wash-sale adjustment",
+              "sites": 0,
+              "tieOutText": "Reported subtotal: 0"
+            }
+          ]
+        }
+      ],
+      "line15": 4000,
+      "line16": 4000,
+      "line1a": 0,
+      "line2": 0,
+      "line21": 0,
+      "line2_reasons": [],
+      "line7": 0,
+      "line7a": 4000,
+      "line9": 4000,
+      "line9_reasons": [],
+      "message": null,
+      "preferential": null,
+      "tax": 3875,
+      "taxable": 38250
+    },
+    "mixed": {
+      "attachments": [
+        {
+          "disposition": "published",
+          "id": "tax.us.2025.rule.attachment.f8949",
+          "value": null
+        },
+        {
+          "disposition": "published",
+          "id": "tax.us.2025.rule.attachment.schedule-d",
+          "value": null
+        }
+      ],
+      "error": null,
+      "groups": [
+        {
+          "id": "tax.us.2025.rule.attachment.f8949",
+          "parts": [
+            {
+              "heading": "Part I box A column (d): short-term wash-sale proceeds",
+              "sites": 0,
+              "tieOutText": "Reported subtotal: 0"
+            },
+            {
+              "heading": "Part I box A column (e): short-term wash-sale basis",
+              "sites": 0,
+              "tieOutText": "Reported subtotal: 0"
+            },
+            {
+              "heading": "Part I box A column (g): short-term wash-sale adjustment",
+              "sites": 0,
+              "tieOutText": "Reported subtotal: 0"
+            },
+            {
+              "heading": "Part II box D column (d): long-term wash-sale proceeds",
+              "sites": 0,
+              "tieOutText": "Reported subtotal: 0"
+            },
+            {
+              "heading": "Part II box D column (e): long-term wash-sale basis",
+              "sites": 0,
+              "tieOutText": "Reported subtotal: 0"
+            },
+            {
+              "heading": "Part II box D column (g): long-term wash-sale adjustment",
+              "sites": 0,
+              "tieOutText": "Reported subtotal: 0"
+            },
+            {
+              "heading": "Part I box B column (d): short-term basis-not-reported proceeds",
+              "sites": 0,
+              "tieOutText": "Reported subtotal: 0"
+            },
+            {
+              "heading": "Part I box B column (e): short-term basis the filer supplies",
+              "sites": 0,
+              "tieOutText": "Reported subtotal: 0"
+            },
+            {
+              "heading": "Part I box B column (g): short-term wash-sale adjustment",
+              "sites": 0,
+              "tieOutText": "Reported subtotal: 0"
+            },
+            {
+              "heading": "Part II box E column (d): long-term basis-not-reported proceeds",
+              "sites": 1,
+              "tieOutText": "Reported subtotal: 6000"
+            },
+            {
+              "heading": "Part II box E column (e): long-term basis the filer supplies",
+              "sites": 1,
+              "tieOutText": "Reported subtotal: 2000"
+            },
+            {
+              "heading": "Part II box E column (g): long-term wash-sale adjustment",
+              "sites": 0,
+              "tieOutText": "Reported subtotal: 0"
+            }
+          ]
+        }
+      ],
+      "line15": 4000,
+      "line16": 5000,
+      "line1a": 1000,
+      "line2": 0,
+      "line21": 0,
+      "line2_reasons": [],
+      "line7": 1000,
+      "line7a": 5000,
+      "line9": 4000,
+      "line9_reasons": [],
+      "message": null,
+      "preferential": null,
+      "tax": 3995,
+      "taxable": 39250
+    },
+    "st_loss": {
+      "attachments": [
+        {
+          "disposition": "published",
+          "id": "tax.us.2025.rule.attachment.f8949",
+          "value": null
+        },
+        {
+          "disposition": "guard_inapplicable",
+          "id": "tax.us.2025.rule.attachment.schedule-d",
+          "value": null
+        }
+      ],
+      "error": null,
+      "groups": [
+        {
+          "id": "tax.us.2025.rule.attachment.f8949",
+          "parts": [
+            {
+              "heading": "Part I box A column (d): short-term wash-sale proceeds",
+              "sites": 0,
+              "tieOutText": "Reported subtotal: 0"
+            },
+            {
+              "heading": "Part I box A column (e): short-term wash-sale basis",
+              "sites": 0,
+              "tieOutText": "Reported subtotal: 0"
+            },
+            {
+              "heading": "Part I box A column (g): short-term wash-sale adjustment",
+              "sites": 0,
+              "tieOutText": "Reported subtotal: 0"
+            },
+            {
+              "heading": "Part II box D column (d): long-term wash-sale proceeds",
+              "sites": 0,
+              "tieOutText": "Reported subtotal: 0"
+            },
+            {
+              "heading": "Part II box D column (e): long-term wash-sale basis",
+              "sites": 0,
+              "tieOutText": "Reported subtotal: 0"
+            },
+            {
+              "heading": "Part II box D column (g): long-term wash-sale adjustment",
+              "sites": 0,
+              "tieOutText": "Reported subtotal: 0"
+            },
+            {
+              "heading": "Part I box B column (d): short-term basis-not-reported proceeds",
+              "sites": 1,
+              "tieOutText": "Reported subtotal: 2000"
+            },
+            {
+              "heading": "Part I box B column (e): short-term basis the filer supplies",
+              "sites": 1,
+              "tieOutText": "Reported subtotal: 8000"
+            },
+            {
+              "heading": "Part I box B column (g): short-term wash-sale adjustment",
+              "sites": 0,
+              "tieOutText": "Reported subtotal: 0"
+            },
+            {
+              "heading": "Part II box E column (d): long-term basis-not-reported proceeds",
+              "sites": 0,
+              "tieOutText": "Reported subtotal: 0"
+            },
+            {
+              "heading": "Part II box E column (e): long-term basis the filer supplies",
+              "sites": 0,
+              "tieOutText": "Reported subtotal: 0"
+            },
+            {
+              "heading": "Part II box E column (g): long-term wash-sale adjustment",
+              "sites": 0,
+              "tieOutText": "Reported subtotal: 0"
+            }
+          ]
+        }
+      ],
+      "line15": 0,
+      "line16": -6000,
+      "line1a": 0,
+      "line2": -6000,
+      "line21": 3000,
+      "line2_reasons": [],
+      "line7": -6000,
+      "line7a": 0,
+      "line9": 0,
+      "line9_reasons": [],
+      "message": null,
+      "preferential": null,
+      "tax": 3875,
+      "taxable": 34250
+    },
+    "wage_closed_empty": {
+      "attachments": [
+        {
+          "disposition": "guard_inapplicable",
+          "id": "tax.us.2025.rule.attachment.f8949",
+          "value": null
+        },
+        {
+          "disposition": "guard_inapplicable",
+          "id": "tax.us.2025.rule.attachment.schedule-d",
+          "value": null
+        }
+      ],
+      "error": null,
+      "groups": [],
+      "line15": 0,
+      "line16": 0,
+      "line1a": 0,
+      "line2": 0,
+      "line21": 0,
+      "line2_reasons": [],
+      "line7": 0,
+      "line7a": 0,
+      "line9": 0,
+      "line9_reasons": [],
+      "message": null,
+      "met": false,
+      "preferential": null,
+      "tax": 3875,
+      "taxable": 34250
+    },
+    "wage_unclosed": {
+      "attachments": [
+        {
+          "disposition": "blocked",
+          "id": "tax.us.2025.rule.attachment.f8949",
+          "value": null
+        },
+        {
+          "disposition": "guard_inapplicable",
+          "id": "tax.us.2025.rule.attachment.schedule-d",
+          "value": null
+        }
+      ],
+      "error": null,
+      "groups": [],
+      "line15": null,
+      "line16": null,
+      "line1a": 0,
+      "line2": null,
+      "line21": null,
+      "line2_reasons": [
+        "What are the proceeds of this short-term sale whose basis was not reported to the IRS?",
+        "What is the basis of this short-term sale whose basis was not reported to the IRS?"
+      ],
+      "line7": null,
+      "line7a": null,
+      "line9": null,
+      "line9_reasons": [
+        "What are the proceeds of this long-term sale whose basis was not reported to the IRS?",
+        "What is the basis of this long-term sale whose basis was not reported to the IRS?"
+      ],
+      "message": null,
+      "preferential": null,
+      "tax": null,
+      "taxable": null
+    },
+    "wash": {
+      "attachments": [
+        {
+          "disposition": "published",
+          "id": "tax.us.2025.rule.attachment.f8949",
+          "value": null
+        },
+        {
+          "disposition": "guard_inapplicable",
+          "id": "tax.us.2025.rule.attachment.schedule-d",
+          "value": null
+        }
+      ],
+      "error": null,
+      "groups": [
+        {
+          "id": "tax.us.2025.rule.attachment.f8949",
+          "parts": [
+            {
+              "heading": "Part I box A column (d): short-term wash-sale proceeds",
+              "sites": 0,
+              "tieOutText": "Reported subtotal: 0"
+            },
+            {
+              "heading": "Part I box A column (e): short-term wash-sale basis",
+              "sites": 0,
+              "tieOutText": "Reported subtotal: 0"
+            },
+            {
+              "heading": "Part I box A column (g): short-term wash-sale adjustment",
+              "sites": 0,
+              "tieOutText": "Reported subtotal: 0"
+            },
+            {
+              "heading": "Part II box D column (d): long-term wash-sale proceeds",
+              "sites": 0,
+              "tieOutText": "Reported subtotal: 0"
+            },
+            {
+              "heading": "Part II box D column (e): long-term wash-sale basis",
+              "sites": 0,
+              "tieOutText": "Reported subtotal: 0"
+            },
+            {
+              "heading": "Part II box D column (g): long-term wash-sale adjustment",
+              "sites": 0,
+              "tieOutText": "Reported subtotal: 0"
+            },
+            {
+              "heading": "Part I box B column (d): short-term basis-not-reported proceeds",
+              "sites": 0,
+              "tieOutText": "Reported subtotal: 0"
+            },
+            {
+              "heading": "Part I box B column (e): short-term basis the filer supplies",
+              "sites": 0,
+              "tieOutText": "Reported subtotal: 0"
+            },
+            {
+              "heading": "Part I box B column (g): short-term wash-sale adjustment",
+              "sites": 0,
+              "tieOutText": "Reported subtotal: 0"
+            },
+            {
+              "heading": "Part II box E column (d): long-term basis-not-reported proceeds",
+              "sites": 1,
+              "tieOutText": "Reported subtotal: 4000"
+            },
+            {
+              "heading": "Part II box E column (e): long-term basis the filer supplies",
+              "sites": 1,
+              "tieOutText": "Reported subtotal: 7000"
+            },
+            {
+              "heading": "Part II box E column (g): long-term wash-sale adjustment",
+              "sites": 1,
+              "tieOutText": "Reported subtotal: 1000"
+            }
+          ]
+        }
+      ],
+      "line15": -2000,
+      "line16": -2000,
+      "line1a": 0,
+      "line2": 0,
+      "line21": 2000,
+      "line2_reasons": [],
+      "line7": 0,
+      "line7a": 0,
+      "line9": -2000,
+      "line9_reasons": [],
+      "message": null,
+      "preferential": null,
+      "tax": 3875,
+      "taxable": 34250
+    }
+  },
+  "sentence_files": [
+    {
+      "needles": [
+        "lines 1a, 1b, and 6 add to zero"
+      ],
+      "path": "tests/test_line_explanations.py"
+    }
+  ],
+  "successor": {
+    "activity_anys": 5,
+    "inherited_inconsistencies": [],
+    "members": 37,
+    "package": "v79",
+    "release": "v77"
+  }
+}

@@ -72,9 +72,10 @@ phase's frontier was named for either one.
 1. The **noncovered / basis-not-reported Form 8949 milestone must be re-cut**
    against ADR-0066. Its reusable C1 evaluation-ordering analysis and
    `accounts_for` traversal-totality proof are archived, but old proposed
-   ADR-0063/0064/0065 were superseded before ratification. Owner blocker C3 is
-   still unanswered: may a closure gate pass while documenting
-   counterexamples to its own bar?
+   ADR-0063/0064/0065 were superseded before ratification. Owner blocker C3
+   (may a closure gate pass while documenting counterexamples to its own
+   bar?) was answered no on 2026-11-06; see `PROJECT_PLANNING.md`, "Track 0
+   Adversarial Closure Gate".
 2. The **P1 rule-artifact/attachment-rule capability-table consolidation**
    (`docs/phases/engine-breadth/milestones/rule-artifact-capability-table-consolidation.md`)
    remains filed, scoped, deliberately unselected hardening. Seven-to-nine
@@ -702,8 +703,6 @@ delivers an item removes it.
 - Four source sets reach an attachment without a guard of their own; each
   is held by a guarded rule downstream, confirmed live on core v66. Listed in
   `tests/test_collect_closure_regression.py`.
-- ADR 0083 (`require_paired`) is proposed; the owner accepts it or sends it
-  back.
 - A blocked line names the kind of statement short of its withholding
   answer, not the statement itself (keyed join).
 - The two Form 1099-B wash-sale adjustment questions ask for an amount "of

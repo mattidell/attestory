@@ -1,0 +1,33 @@
+{
+  "schema": "bundle.v2",
+  "id": "tax.us.2025.schedule-d-boundary.noncovered-in-class.vocabulary",
+  "version": "v1",
+  "label": "Whether Form 8949 work beyond covered sales and code W is only boxes B and E",
+  "fact_types": [
+    {
+      "schema": "fact-type.v2",
+      "id": "tax.us.2025.schedule-d-boundary.noncovered-in-class",
+      "version": "v1",
+      "title": "Whether this return's Form 8949 work beyond covered sales and code W is only boxes B and E (a filer-supplied basis and an optional wash-sale adjustment). yes or no.",
+      "nature": "determinable",
+      "identity_keys": [
+        {
+          "name": "tax-year",
+          "kind": "literal",
+          "values": [
+            "2025"
+          ]
+        }
+      ],
+      "value_schema": {
+        "enum": [
+          "yes",
+          "no"
+        ]
+      },
+      "supersession": {
+        "policy": "free"
+      }
+    }
+  ]
+}

@@ -1,0 +1,16 @@
+{
+  "schema": "source-family.v1",
+  "id": "tax.us.2025.f1099b.noncovered-lt",
+  "version": "v1",
+  "title": "long-term sales whose basis was not reported to the IRS, tax year 2025",
+  "scope": {
+    "tax_year": 2025,
+    "jurisdiction": "US-federal",
+    "family": "individual-income-tax"
+  },
+  "closure_claim": "Every long-term sale whose basis was not reported to the IRS is recorded as of the keyed horizon.",
+  "member_predicate": {
+    "fact_type": "tax.us.2025.f1099b.noncovered-lt-txn"
+  },
+  "authorizes_subtotal": "tax.us.2025.f1099b.noncovered-lt-subtotal"
+}

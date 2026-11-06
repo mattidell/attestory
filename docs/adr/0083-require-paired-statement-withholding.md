@@ -1,6 +1,6 @@
 # ADR 0083 — Require-Paired Statement Withholding
 
-- Status: **proposed**
+- Status: **accepted** (2026-11-06; owner-accepted after core v77 merged in PR #259)
 - Tier: 2
 - Date: 2026-11-04
 

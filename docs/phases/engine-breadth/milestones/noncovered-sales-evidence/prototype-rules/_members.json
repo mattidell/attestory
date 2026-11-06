@@ -1,0 +1,224 @@
+[
+  {
+    "id": "tax.us.2025.f1099b.noncovered-st.vocabulary",
+    "version": "v1",
+    "schema": "bundle.v2",
+    "role": "fact-type-bundle"
+  },
+  {
+    "id": "tax.us.2025.f1099b.noncovered-lt.vocabulary",
+    "version": "v1",
+    "schema": "bundle.v2",
+    "role": "fact-type-bundle"
+  },
+  {
+    "id": "tax.us.2025.schedule-d-boundary.noncovered-in-class.vocabulary",
+    "version": "v1",
+    "schema": "bundle.v2",
+    "role": "fact-type-bundle"
+  },
+  {
+    "id": "tax.us.2025.f1099b.noncovered-st",
+    "version": "v1",
+    "schema": "source-family.v1",
+    "role": "source-family"
+  },
+  {
+    "id": "tax.us.2025.f1099b.noncovered-st-proceeds",
+    "version": "v1",
+    "schema": "source-family.v1",
+    "role": "source-family"
+  },
+  {
+    "id": "tax.us.2025.f1099b.noncovered-st-basis",
+    "version": "v1",
+    "schema": "source-family.v1",
+    "role": "source-family"
+  },
+  {
+    "id": "tax.us.2025.f1099b.noncovered-st-adjustment",
+    "version": "v1",
+    "schema": "source-family.v1",
+    "role": "source-family"
+  },
+  {
+    "id": "tax.us.2025.f1099b.noncovered-lt",
+    "version": "v1",
+    "schema": "source-family.v1",
+    "role": "source-family"
+  },
+  {
+    "id": "tax.us.2025.f1099b.noncovered-lt-proceeds",
+    "version": "v1",
+    "schema": "source-family.v1",
+    "role": "source-family"
+  },
+  {
+    "id": "tax.us.2025.f1099b.noncovered-lt-basis",
+    "version": "v1",
+    "schema": "source-family.v1",
+    "role": "source-family"
+  },
+  {
+    "id": "tax.us.2025.f1099b.noncovered-lt-adjustment",
+    "version": "v1",
+    "schema": "source-family.v1",
+    "role": "source-family"
+  },
+  {
+    "id": "tax.us.2025.closure-mapping.f1099b.noncovered-st",
+    "version": "v1",
+    "schema": "source-closure-mapping.v3",
+    "role": "source-closure-mapping"
+  },
+  {
+    "id": "tax.us.2025.closure-mapping.f1099b.noncovered-st-proceeds",
+    "version": "v1",
+    "schema": "source-closure-mapping.v3",
+    "role": "source-closure-mapping"
+  },
+  {
+    "id": "tax.us.2025.closure-mapping.f1099b.noncovered-st-basis",
+    "version": "v1",
+    "schema": "source-closure-mapping.v3",
+    "role": "source-closure-mapping"
+  },
+  {
+    "id": "tax.us.2025.closure-mapping.f1099b.noncovered-st-adjustment",
+    "version": "v1",
+    "schema": "source-closure-mapping.v3",
+    "role": "source-closure-mapping"
+  },
+  {
+    "id": "tax.us.2025.closure-mapping.f1099b.noncovered-lt",
+    "version": "v1",
+    "schema": "source-closure-mapping.v3",
+    "role": "source-closure-mapping"
+  },
+  {
+    "id": "tax.us.2025.closure-mapping.f1099b.noncovered-lt-proceeds",
+    "version": "v1",
+    "schema": "source-closure-mapping.v3",
+    "role": "source-closure-mapping"
+  },
+  {
+    "id": "tax.us.2025.closure-mapping.f1099b.noncovered-lt-basis",
+    "version": "v1",
+    "schema": "source-closure-mapping.v3",
+    "role": "source-closure-mapping"
+  },
+  {
+    "id": "tax.us.2025.closure-mapping.f1099b.noncovered-lt-adjustment",
+    "version": "v1",
+    "schema": "source-closure-mapping.v3",
+    "role": "source-closure-mapping"
+  },
+  {
+    "id": "tax.us.2025.rule.f1099b-noncovered-st-proceeds-subtotal",
+    "version": "v1",
+    "schema": "rule-artifact.v2",
+    "role": "computation"
+  },
+  {
+    "id": "tax.us.2025.rule.f1099b-noncovered-st-basis-subtotal",
+    "version": "v1",
+    "schema": "rule-artifact.v2",
+    "role": "computation"
+  },
+  {
+    "id": "tax.us.2025.rule.f1099b-noncovered-st-adjustment-subtotal",
+    "version": "v1",
+    "schema": "rule-artifact.v2",
+    "role": "computation"
+  },
+  {
+    "id": "tax.us.2025.rule.f1099b-noncovered-lt-proceeds-subtotal",
+    "version": "v1",
+    "schema": "rule-artifact.v2",
+    "role": "computation"
+  },
+  {
+    "id": "tax.us.2025.rule.f1099b-noncovered-lt-basis-subtotal",
+    "version": "v1",
+    "schema": "rule-artifact.v2",
+    "role": "computation"
+  },
+  {
+    "id": "tax.us.2025.rule.f1099b-noncovered-lt-adjustment-subtotal",
+    "version": "v1",
+    "schema": "rule-artifact.v2",
+    "role": "computation"
+  },
+  {
+    "id": "tax.us.2025.rule.schedule-d-line2",
+    "version": "v1",
+    "schema": "rule-artifact.v4",
+    "role": "computation"
+  },
+  {
+    "id": "tax.us.2025.rule.schedule-d-line9",
+    "version": "v1",
+    "schema": "rule-artifact.v4",
+    "role": "computation"
+  },
+  {
+    "id": "tax.us.2025.rule.schedule-d-line7",
+    "version": "v4",
+    "schema": "rule-artifact.v3",
+    "role": "computation"
+  },
+  {
+    "id": "tax.us.2025.rule.schedule-d-line15",
+    "version": "v6",
+    "schema": "rule-artifact.v3",
+    "role": "computation"
+  },
+  {
+    "id": "tax.us.2025.rule.selected-preferential-base",
+    "version": "v7",
+    "schema": "rule-artifact.v3",
+    "role": "computation"
+  },
+  {
+    "id": "tax.us.2025.rule.attachment.f8949",
+    "version": "v3",
+    "schema": "attachment-rule.v8",
+    "role": "attachment-rule"
+  },
+  {
+    "id": "tax.us.2025.schedule-d.line-2",
+    "version": "v1",
+    "schema": "form-field.v3",
+    "role": "form-field"
+  },
+  {
+    "id": "tax.us.2025.schedule-d.line-9",
+    "version": "v1",
+    "schema": "form-field.v3",
+    "role": "form-field"
+  },
+  {
+    "id": "tax.us.2025.schedule-d.line-7",
+    "version": "v3",
+    "schema": "form-field.v3",
+    "role": "form-field"
+  },
+  {
+    "id": "tax.us.2025.schedule-d.line-15",
+    "version": "v3",
+    "schema": "form-field.v3",
+    "role": "form-field"
+  },
+  {
+    "id": "tax.us.2025.citation.schedule-d.line-2",
+    "version": "v1",
+    "schema": "citation.v1",
+    "role": "citation"
+  },
+  {
+    "id": "tax.us.2025.citation.schedule-d.line-9",
+    "version": "v1",
+    "schema": "citation.v1",
+    "role": "citation"
+  }
+]
