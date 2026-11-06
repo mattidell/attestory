@@ -1,0 +1,51 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "derivation/source-closure-mapping.v4",
+  "title": "Grouped source-closure mapping",
+  "description": "One yes/no closure fact admits every listed family. A no admits a listed family that has a current horizon and no current members. A yes admits each listed family until a member is added to that family after the current answer. The answer is not keyed by a family horizon. v3 remains one family per mapping.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema", "id", "version", "closure_fact_type", "closure_question", "admission", "families"],
+  "properties": {
+    "schema": {"const": "source-closure-mapping.v4"},
+    "id": {"type": "string", "minLength": 1},
+    "version": {"type": "string", "pattern": "^v[0-9]+$"},
+    "closure_fact_type": {"$ref": "#/$defs/pin"},
+    "closure_question": {"type": "string", "minLength": 1, "pattern": "\\S"},
+    "admission": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["no", "yes"],
+      "properties": {
+        "no": {"const": "closed-empty"},
+        "yes": {"const": "until-later-member"}
+      }
+    },
+    "families": {
+      "type": "array",
+      "minItems": 1,
+      "items": {"$ref": "#/$defs/listed_family"}
+    }
+  },
+  "$defs": {
+    "pin": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "version"],
+      "properties": {
+        "id": {"type": "string", "minLength": 1},
+        "version": {"type": "string", "pattern": "^v[0-9]+$"}
+      }
+    },
+    "listed_family": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["family", "member_fact_type", "admits_symbol"],
+      "properties": {
+        "family": {"$ref": "#/$defs/pin"},
+        "member_fact_type": {"$ref": "#/$defs/pin"},
+        "admits_symbol": {"type": "string", "minLength": 1}
+      }
+    }
+  }
+}

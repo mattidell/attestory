@@ -20,49 +20,49 @@
   {
     "id": "tax.us.2025.f1099b.noncovered-st",
     "version": "v1",
-    "schema": "source-family.v1",
+    "schema": "source-family.v2",
     "role": "source-family"
   },
   {
     "id": "tax.us.2025.f1099b.noncovered-st-proceeds",
     "version": "v1",
-    "schema": "source-family.v1",
+    "schema": "source-family.v2",
     "role": "source-family"
   },
   {
     "id": "tax.us.2025.f1099b.noncovered-st-basis",
     "version": "v1",
-    "schema": "source-family.v1",
+    "schema": "source-family.v2",
     "role": "source-family"
   },
   {
     "id": "tax.us.2025.f1099b.noncovered-st-adjustment",
     "version": "v1",
-    "schema": "source-family.v1",
+    "schema": "source-family.v2",
     "role": "source-family"
   },
   {
     "id": "tax.us.2025.f1099b.noncovered-lt",
     "version": "v1",
-    "schema": "source-family.v1",
+    "schema": "source-family.v2",
     "role": "source-family"
   },
   {
     "id": "tax.us.2025.f1099b.noncovered-lt-proceeds",
     "version": "v1",
-    "schema": "source-family.v1",
+    "schema": "source-family.v2",
     "role": "source-family"
   },
   {
     "id": "tax.us.2025.f1099b.noncovered-lt-basis",
     "version": "v1",
-    "schema": "source-family.v1",
+    "schema": "source-family.v2",
     "role": "source-family"
   },
   {
     "id": "tax.us.2025.f1099b.noncovered-lt-adjustment",
     "version": "v1",
-    "schema": "source-family.v1",
+    "schema": "source-family.v2",
     "role": "source-family"
   },
   {
@@ -116,49 +116,49 @@
   {
     "id": "tax.us.2025.rule.f1099b-noncovered-st-proceeds-subtotal",
     "version": "v1",
-    "schema": "rule-artifact.v2",
+    "schema": "rule-artifact.v5",
     "role": "computation"
   },
   {
     "id": "tax.us.2025.rule.f1099b-noncovered-st-basis-subtotal",
     "version": "v1",
-    "schema": "rule-artifact.v2",
+    "schema": "rule-artifact.v5",
     "role": "computation"
   },
   {
     "id": "tax.us.2025.rule.f1099b-noncovered-st-adjustment-subtotal",
     "version": "v1",
-    "schema": "rule-artifact.v2",
+    "schema": "rule-artifact.v5",
     "role": "computation"
   },
   {
     "id": "tax.us.2025.rule.f1099b-noncovered-lt-proceeds-subtotal",
     "version": "v1",
-    "schema": "rule-artifact.v2",
+    "schema": "rule-artifact.v5",
     "role": "computation"
   },
   {
     "id": "tax.us.2025.rule.f1099b-noncovered-lt-basis-subtotal",
     "version": "v1",
-    "schema": "rule-artifact.v2",
+    "schema": "rule-artifact.v5",
     "role": "computation"
   },
   {
     "id": "tax.us.2025.rule.f1099b-noncovered-lt-adjustment-subtotal",
     "version": "v1",
-    "schema": "rule-artifact.v2",
+    "schema": "rule-artifact.v5",
     "role": "computation"
   },
   {
     "id": "tax.us.2025.rule.schedule-d-line2",
     "version": "v1",
-    "schema": "rule-artifact.v4",
+    "schema": "rule-artifact.v5",
     "role": "computation"
   },
   {
     "id": "tax.us.2025.rule.schedule-d-line9",
     "version": "v1",
-    "schema": "rule-artifact.v4",
+    "schema": "rule-artifact.v5",
     "role": "computation"
   },
   {
@@ -169,6 +169,24 @@
   },
   {
     "id": "tax.us.2025.rule.schedule-d-line15",
+    "version": "v6",
+    "schema": "rule-artifact.v3",
+    "role": "computation"
+  },
+  {
+    "id": "tax.us.2025.rule.schedule-d-line1a-gain",
+    "version": "v4",
+    "schema": "rule-artifact.v4",
+    "role": "computation"
+  },
+  {
+    "id": "tax.us.2025.rule.schedule-d-line8a-gain",
+    "version": "v5",
+    "schema": "rule-artifact.v4",
+    "role": "computation"
+  },
+  {
+    "id": "tax.us.2025.rule.form1040-line7a",
     "version": "v6",
     "schema": "rule-artifact.v3",
     "role": "computation"

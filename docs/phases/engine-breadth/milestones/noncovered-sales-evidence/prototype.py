@@ -36,6 +36,8 @@ SCOPE = {"tax_year": 2025, "jurisdiction": "US-federal", "family": "individual-i
 TERMS = ("st", "lt")
 KINDS = ("proceeds", "basis", "adjustment")
 TERM_WORD = {"st": "short-term", "lt": "long-term"}
+USE_V2 = False
+EXTRAS: list[Any] = []
 
 BUILT: dict[str, Any] = {}
 
@@ -105,12 +107,14 @@ def _object_schema() -> dict[str, Any]:
     return {
         "type": "object",
         "additionalProperties": False,
-        "required": ["proceeds", "basis", "basis_reported_to_irs", "long_term"],
+        "required": ["proceeds", "basis", "basis_reported_to_irs", "long_term"]
+        + (["wash_disallowed"] if USE_V2 else []),
         "properties": {
             "proceeds": {"type": "number", "minimum": 0},
             "basis": {"type": "number", "minimum": 0},
             "basis_reported_to_irs": {"enum": ["yes", "no"]},
             "long_term": {"enum": ["yes", "no"]},
+            **({"wash_disallowed": {"type": "number", "minimum": 0}} if USE_V2 else {}),
         },
     }
 
@@ -191,8 +195,8 @@ def _family(term: str, kind: str | None) -> dict[str, Any]:
         title = f"{word} basis-not-reported {kind}, tax year 2025"
         claim = f"Every {kind} amount of a {word} sale whose basis was not reported to the IRS is recorded as of the keyed horizon."
     family_id = _family_id(term, kind)
-    return {
-        "schema": "source-family.v1",
+    body: dict[str, Any] = {
+        "schema": "source-family.v2" if USE_V2 else "source-family.v1",
         "id": family_id,
         "version": "v1",
         "title": title,
@@ -201,6 +205,93 @@ def _family(term: str, kind: str | None) -> dict[str, Any]:
         "member_predicate": {"fact_type": _member_fact(term, kind)},
         "authorizes_subtotal": family_id + "-subtotal",
     }
+    if USE_V2 and kind is None:
+        # Scalar members are numbers. Member validation only accepts an object,
+        # so constraints and exclusivity live on the sale, not on the scalars.
+        body["identity_exclusivity"] = _exclusivity(term, None)
+        body["member_constraints"] = _object_constraints(term)
+    return body
+
+
+def _exclusivity(term: str, kind: str | None) -> list[dict[str, Any]]:
+    if kind is None:
+        pairs = [(f"{P}f1099b.covered-{term}", "v1"), (f"{P}f1099b.covered-w-{term}", "v2")]
+    elif kind == "adjustment":
+        pairs = [(f"{P}f1099b.covered-w-{term}-adjustment", "v2")]
+    else:
+        pairs = [
+            (f"{P}f1099b.covered-{term}-{kind}", "v1"),
+            (f"{P}f1099b.covered-w-{term}-{kind}", "v2"),
+        ]
+    found = []
+    for family_id, version in pairs:
+        found.append({
+            "id": f"{P}block.noncovered-{term}-{kind or 'txn'}.excludes.{family_id.split('.')[-1]}",
+            "incompatible_family": {"id": family_id, "version": version},
+            "components": [
+                {"fact_id_bound_key": name}
+                for name in ("broker", "statement", "transaction", "tax-year")
+            ],
+        })
+    return found
+
+
+def _object_constraints(term: str) -> list[dict[str, Any]]:
+    wrong_term = "yes" if term == "st" else "no"
+    wash = {"op": "field", "field": "wash_disallowed", "default": 0}
+    return [
+        {
+            "id": f"{P}constraint.noncovered-{term}.basis-was-reported",
+            "block_code": "BASIS_WAS_REPORTED",
+            "meaning": "A sale whose basis was reported to the IRS is not a member of this family.",
+            "violated_when": {"op": "field_equals", "field": "basis_reported_to_irs", "arg": "yes"},
+        },
+        {
+            "id": f"{P}constraint.noncovered-{term}.holding-period",
+            "block_code": "HOLDING_PERIOD_MISMATCH",
+            "meaning": "The holding period does not match this short-term or long-term family.",
+            "violated_when": {"op": "field_equals", "field": "long_term", "arg": wrong_term},
+        },
+        {
+            "id": f"{P}constraint.noncovered-{term}.code-w-on-gain",
+            "block_code": "CODE_W_ON_GAIN",
+            "meaning": "A wash-sale disallowance is recorded on a sale that is not a loss.",
+            "violated_when": {
+                "op": "all",
+                "args": [
+                    {"op": "compare", "comparison": "gt", "left": wash, "right": {"op": "literal", "arg": 0}},
+                    {
+                        "op": "compare",
+                        "comparison": "ge",
+                        "left": {"op": "field", "field": "proceeds"},
+                        "right": {"op": "field", "field": "basis"},
+                    },
+                ],
+            },
+        },
+        {
+            "id": f"{P}constraint.noncovered-{term}.adjustment-exceeds-loss",
+            "block_code": "ADJUSTMENT_EXCEEDS_LOSS",
+            "meaning": "The wash-sale disallowance exceeds this sale's own loss.",
+            "violated_when": {
+                "op": "compare",
+                "comparison": "gt",
+                "left": wash,
+                "right": {
+                    "op": "floor_zero",
+                    "value": {
+                        "op": "subtract",
+                        "left": {"op": "field", "field": "basis"},
+                        "right": {"op": "field", "field": "proceeds"},
+                    },
+                },
+            },
+        },
+    ]
+
+
+def _account(family_id: str, relationship: str) -> dict[str, Any]:
+    return {"family": {"id": family_id, "version": "v1"}, "relationship": relationship}
 
 
 def _mapping(term: str, kind: str | None) -> dict[str, Any]:
@@ -222,28 +313,50 @@ def _mapping(term: str, kind: str | None) -> dict[str, Any]:
 
 def _subtotal(term: str, kind: str) -> dict[str, Any]:
     family_id = _family_id(term, kind)
-    return {
-        "schema": "rule-artifact.v2",
+    member = _member_fact(term, kind)
+
+    def collected() -> dict[str, Any]:
+        return {
+            "op": "add",
+            "args": [{"name": member, "op": "collect", "source_set": family_id}],
+        }
+
+    zero = {"op": "compare", "cmp": "eq", "left": collected(), "right": 0}
+    body = {
+        "schema": "rule-artifact.v5" if USE_V2 else "rule-artifact.v4",
         "id": f"{P}rule.f1099b-noncovered-{term}-{kind}-subtotal",
         "version": "v1",
-        "notes": "PROTOTYPE. Sums one basis-not-reported scalar family. A closed empty family publishes 0.",
+        "notes": (
+            "PROTOTYPE. Sums one basis-not-reported scalar family. A closed empty "
+            "family publishes 0 and does not read the boundary. A recorded amount "
+            "publishes only when that boundary is yes, so a refusal cannot itemize it."
+        ),
         "pins": [],
         "publishes": family_id + "-subtotal",
         "requires": [],
         "role": "computation",
-        "scope": {
-            "effective_from": "2025-01-01",
-            "family": "individual-income-tax",
-            "jurisdiction": "US-federal",
-            "tax_year": 2025,
-        },
+        "scope": dict(SCOPE),
         "value": {
-            "op": "add",
-            "args": [{"name": _member_fact(term, kind), "op": "collect", "source_set": family_id}],
+            "op": "choose",
+            "when": {"op": "any", "args": [zero, _yes(NONCOVERED)]},
+            "then": collected(),
+            "else": {"op": "block", "code": "DEPENDENCY_ABSENT"},
         },
         "blocked": {"code": "SOURCE_SET_UNCLOSED", "missing": [family_id]},
-        "when": True,
+        "when": {"op": "require_closed", "source_set": family_id},
     }
+    if USE_V2:
+        # The sale object carries the constraints. A scalar subtotal that does
+        # not reach it will publish a refused or unclosed sale on Form 8949.
+        body["when"] = {
+            "op": "all",
+            "args": [
+                {"op": "require_closed", "source_set": family_id},
+                {"op": "require_closed", "source_set": _family_id(term, None)},
+            ],
+        }
+        body["accounts_for"] = [_account(_family_id(term, None), "itemizes_members")]
+    return body
 
 
 def _yes(symbol: str) -> dict[str, Any]:
@@ -282,8 +395,8 @@ def _line(line: str, term: str) -> dict[str, Any]:
             {"op": "ref", "name": adjustment},
         ],
     }
-    return {
-        "schema": "rule-artifact.v4",
+    body = {
+        "schema": "rule-artifact.v5" if USE_V2 else "rule-artifact.v4",
         "id": f"{P}rule.schedule-d-line{line}",
         "version": "v1",
         "notes": (
@@ -306,6 +419,9 @@ def _line(line: str, term: str) -> dict[str, Any]:
             "else": {"op": "block", "code": "DEPENDENCY_ABSENT"},
         },
     }
+    if USE_V2:
+        body["accounts_for"] = [_account(_family_id(term, None), "itemizes_members")]
+    return body
 
 
 def _insert_ref(args: list[dict[str, Any]], after: str, name: str) -> list[dict[str, Any]]:
@@ -411,6 +527,73 @@ def _patch_preferential(rule: dict[str, Any]) -> dict[str, Any]:
     return rule
 
 
+def _line7a() -> dict[str, Any]:
+    rule = json.loads((probe.CONTENT / "rule.form1040-line7a.v5.json").read_text(encoding="utf-8"))
+    activity = rule["value"]["when"]
+    names = [
+        (arg.get("left") or {}).get("name")
+        for arg in activity.get("args", [])
+        if isinstance(arg, dict) and arg.get("op") == "compare"
+    ]
+    if P + "schedule-d.line-1b" not in names or P + "schedule-d.line-8b" not in names:
+        raise SystemExit(f"line 7a activity any has {names}")
+    activity["args"].extend([_ne(P + "schedule-d.line-2"), _ne(P + "schedule-d.line-9")])
+    for key in ("requires",):
+        rule[key] = list(rule[key]) + [P + "schedule-d.line-2", P + "schedule-d.line-9"]
+    rule["blocked"]["missing"] = list(rule["blocked"]["missing"]) + [
+        P + "schedule-d.line-2",
+        P + "schedule-d.line-9",
+    ]
+    rule["version"] = "v6"
+    rule["notes"] = (
+        rule.get("notes", "")
+        + " PROTOTYPE v6: line 2 and line 9 count as Schedule D activity, so a pure "
+        "noncovered loss reaches line 7a."
+    )
+    return rule
+
+
+def _gate_direct(source_name: str, version: str) -> dict[str, Any]:
+    """Publish a closed-empty direct line without the new boundary. Block a nonzero line when both Form 8949 boundaries are no and the new boundary is not yes."""
+    rule = json.loads((probe.CONTENT / source_name).read_text(encoding="utf-8"))
+    proceeds = next(name for name in rule["requires"] if name.endswith("-proceeds-subtotal"))
+    basis = next(name for name in rule["requires"] if name.endswith("-basis-subtotal"))
+    amount = rule["value"]
+    rule["schema"] = "rule-artifact.v4"
+    rule["version"] = version
+    rule["value"] = {
+        "op": "choose",
+        "when": {
+            "op": "all",
+            "args": [
+                {"op": "compare", "cmp": "eq", "left": {"op": "ref", "name": proceeds}, "right": 0},
+                {"op": "compare", "cmp": "eq", "left": {"op": "ref", "name": basis}, "right": 0},
+            ],
+        },
+        "then": amount,
+        "else": {
+            "op": "choose",
+            "when": {
+                "op": "any",
+                "args": [
+                    _yes(P + "schedule-d-boundary.no-form8949-sources"),
+                    _yes(P + "schedule-d-boundary.no-other-form8949-adjustments"),
+                    _yes(NONCOVERED),
+                ],
+            },
+            "then": amount,
+            "else": {"op": "block", "code": "DEPENDENCY_ABSENT"},
+        },
+    }
+    rule["notes"] = (
+        rule.get("notes", "")
+        + " PROTOTYPE: a nonzero direct total is blocked when both Form 8949 "
+        "boundaries are no and the basis-not-reported boundary is not yes. "
+        "A closed-empty total stays on the zero arm and does not read that boundary."
+    )
+    return rule
+
+
 def _part(box: str, term: str, kind: str, label: str) -> dict[str, Any]:
     family_id = _family_id(term, kind)
     subtotal = family_id + "-subtotal"
@@ -498,6 +681,7 @@ def _write(content: Path, rules: Path, name: str, body: dict[str, Any]) -> dict[
     role = {
         "bundle.v2": "fact-type-bundle",
         "source-family.v1": "source-family",
+        "source-family.v2": "source-family",
         "source-closure-mapping.v3": "source-closure-mapping",
         "citation.v1": "citation",
         "form-field.v3": "form-field",
@@ -604,12 +788,18 @@ def build(scratch: Path) -> dict[str, Any]:
     field15["dispositions"]["blocked"]["explain"] = (
         "Schedule D line 15 has no value yet. It is waiting for whichever of lines 8a, 8b, 9, 13, and 14 is still open."
     )
+    line1a = _gate_direct("rule.schedule-d-line1a-gain.v3.json", "v4")
+    line8a = _gate_direct("rule.schedule-d-line8a-gain.v4.json", "v5")
+    line7a = _line7a()
     artifacts.extend(
         [
             ("rule.schedule-d-line2.json", line2),
             ("rule.schedule-d-line9.json", line9),
             ("rule.schedule-d-line7.v4.json", line7),
             ("rule.schedule-d-line15.v6.json", line15),
+            ("rule.schedule-d-line1a-gain.v4.json", line1a),
+            ("rule.schedule-d-line8a-gain.v5.json", line8a),
+            ("rule.form1040-line7a.v6.json", line7a),
             ("rule.selected-preferential-base.v7.json", preferential),
             ("attachment.f8949.v3.json", attachment),
             ("schedule-d.line-2.form-field.json", field2),
@@ -631,6 +821,9 @@ def build(scratch: Path) -> dict[str, Any]:
         (P + "rule.attachment.f8949", "v3"),
         (P + "schedule-d.line-7", "v3"),
         (P + "schedule-d.line-15", "v3"),
+        (P + "rule.schedule-d-line1a-gain", "v4"),
+        (P + "rule.schedule-d-line8a-gain", "v5"),
+        (P + "rule.form1040-line7a", "v6"),
     }
     old = {
         (P + "rule.schedule-d-line7", "v4"): {"version": "v3", "schema": "rule-artifact.v3", "role": "computation"},
@@ -639,6 +832,9 @@ def build(scratch: Path) -> dict[str, Any]:
         (P + "rule.attachment.f8949", "v3"): {"version": "v2", "schema": "attachment-rule.v8", "role": "attachment-rule"},
         (P + "schedule-d.line-7", "v3"): {"version": "v2", "schema": "form-field.v3", "role": "form-field"},
         (P + "schedule-d.line-15", "v3"): {"version": "v2", "schema": "form-field.v3", "role": "form-field"},
+        (P + "rule.schedule-d-line1a-gain", "v4"): {"version": "v3", "schema": "rule-artifact.v3", "role": "computation"},
+        (P + "rule.schedule-d-line8a-gain", "v5"): {"version": "v4", "schema": "rule-artifact.v3", "role": "computation"},
+        (P + "rule.form1040-line7a", "v6"): {"version": "v5", "schema": "rule-artifact.v3", "role": "computation"},
     }
     for member in written:
         key = (member["id"], member["version"])
@@ -666,6 +862,8 @@ def build(scratch: Path) -> dict[str, Any]:
                 "op": "add",
                 "value": {"id": edit["new"]["id"], "version": edit["new"]["version"]},
             })
+    for extra in EXTRAS:
+        extra(content, members, entrypoints)
     changes = {
         "package_version": "v79",
         "release_version": "v77",
@@ -750,7 +948,7 @@ def _open_families(acts: list[dict[str, Any]], skip_close: set[str]) -> None:
             probe._close(acts, family_id + ".source-closure", horizon, f"demo.ns.open.{slug}.closure")
 
 
-def _record(acts: list[dict[str, Any]], family_id: str, value: object, tag: str) -> None:
+def _record(acts: list[dict[str, Any]], family_id: str, value: object, tag: str, *, close: bool = True) -> None:
     fact = BUILT["facts"][BUILT["member_of"][family_id]]
     out_index = acts
     stripped = probe._strip_closure(out_index, family_id + ".source-closure")
@@ -784,7 +982,8 @@ def _record(acts: list[dict[str, Any]], family_id: str, value: object, tag: str)
         },
         "successor": {"id": successor, "predecessor": head},
     })
-    probe._close(out_index, family_id + ".source-closure", successor, f"demo.ns.{tag}.{slug}.closure")
+    if close:
+        probe._close(out_index, family_id + ".source-closure", successor, f"demo.ns.{tag}.{slug}.closure")
 
 
 def _sale(acts: list[dict[str, Any]], term: str, proceeds: float, basis: float | None, tag: str, adjustment: float | None = None) -> None:
@@ -795,6 +994,8 @@ def _sale(acts: list[dict[str, Any]], term: str, proceeds: float, basis: float |
     }
     if basis is not None:
         value["basis"] = basis
+    if USE_V2:
+        value["wash_disallowed"] = 0 if adjustment is None else adjustment
     _record(acts, _family_id(term, None), value, tag)
     _record(acts, _family_id(term, "proceeds"), proceeds, tag)
     if basis is not None:
@@ -832,12 +1033,15 @@ def cases() -> dict[str, list[dict[str, Any]]]:
     washed = _prepared()
     _sale(washed, "lt", 4000.0, 7000.0, "wash", adjustment=1000.0)
     unclosed = _prepared({_family_id("lt", "basis")})
-    _record(unclosed, _family_id("lt", None), {
+    omitted_object = {
         "proceeds": 6000.0,
         "basis": 2000.0,
         "basis_reported_to_irs": "no",
         "long_term": "yes",
-    }, "openb")
+    }
+    if USE_V2:
+        omitted_object["wash_disallowed"] = 0
+    _record(unclosed, _family_id("lt", None), omitted_object, "openb")
     _record(unclosed, _family_id("lt", "proceeds"), 6000.0, "openb")
     omitted = _prepared()
     _sale(omitted, "lt", 6000.0, None, "omit")

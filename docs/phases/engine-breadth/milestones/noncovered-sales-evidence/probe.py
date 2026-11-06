@@ -117,19 +117,27 @@ def record(acts: list[dict[str, Any]], family_id: str, value: object, tag: str) 
     for key in fact_type["identity_keys"]:
         if key["kind"] == "entity":
             entity_id = f"demo.ns.{tag}.{key['name']}"
-            _introduce(out, entity_id, key["entity_kind"])
+            if not any(
+                act.get("kind") == "entity-introduced"
+                and isinstance(act.get("payload"), dict)
+                and isinstance(act["payload"].get("entity"), dict)
+                and act["payload"]["entity"].get("id") == entity_id
+                for act in out
+            ):
+                _introduce(out, entity_id, key["entity_kind"])
             declared.append((key["name"], entity_id))
         else:
             declared.append((key["name"], key["values"][0]))
     head = horizons(out, family_id)[-1]
-    successor = f"demo.ns.{tag}.h1"
+    horizon_index = len(horizons(out, family_id))
+    successor = f"demo.ns.{tag}.h{horizon_index}"
     _add(out, "member-transition", {
         "family": {"id": family_id, "version": version},
         "scope": {"tax-year": YEAR, "subject": "demo.primary"},
         "member": {
             "action": "assert",
             "finding": _attested(
-                f"demo.ns.{tag}.member",
+                f"demo.ns.{tag}.member.h{horizon_index}",
                 fact_id_for(fact_type["id"], tuple(declared)),
                 value,
             ),
@@ -137,6 +145,33 @@ def record(acts: list[dict[str, Any]], family_id: str, value: object, tag: str) 
         "successor": {"id": successor, "predecessor": head},
     })
     _close(out, family_id + ".source-closure", successor, f"demo.ns.{tag}.closure")
+    return ccr._renumbered(out)
+
+
+def _identity(acts: list[dict[str, Any]], family_id: str, tag: str) -> tuple[str, tuple[tuple[str, str], ...]]:
+    version = family_version(acts, family_id)
+    family = FAMILIES[(family_id, version)]
+    fact_type = FACT_TYPES[str(family["member_predicate"]["fact_type"])]
+    declared: list[tuple[str, str]] = []
+    for key in fact_type["identity_keys"]:
+        if key["kind"] == "entity":
+            declared.append((key["name"], f"demo.ns.{tag}.{key['name']}"))
+        else:
+            declared.append((key["name"], key["values"][0]))
+    return fact_type["id"], tuple(declared)
+
+
+def correct(acts: list[dict[str, Any]], family_id: str, value: object, tag: str) -> list[dict[str, Any]]:
+    """Same-member value correction. A second transition of the same fact is rejected; the ordinary assertion path is the one the kernel names."""
+    out = copy.deepcopy(acts)
+    fact_type_id, declared = _identity(out, family_id, tag)
+    _add(out, "assertion", {
+        "finding": _attested(
+            f"demo.ns.{tag}.corrected",
+            fact_id_for(fact_type_id, declared),
+            value,
+        ),
+    })
     return ccr._renumbered(out)
 
 

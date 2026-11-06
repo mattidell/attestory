@@ -15,15 +15,15 @@
     },
     {
       "rule_id": "tax.us.2025.rule.schedule-d-line1a-gain",
-      "version": "v3",
+      "version": "v4",
       "symbol": "tax.us.2025.f1099b.covered-st.closure-check",
-      "reason": "Closure-check witness required so the family is named before the guard runs. The expression does not read the witness value."
+      "reason": "Closure-check witness required so the family is named before the guard runs. The expression does not read the witness value. v4 is the core v79 successor of the same over-declaration on v3."
     },
     {
       "rule_id": "tax.us.2025.rule.schedule-d-line8a-gain",
-      "version": "v4",
+      "version": "v5",
       "symbol": "tax.us.2025.f1099b.covered-lt.closure-check",
-      "reason": "Closure-check witness required so the family is named before the guard runs. The expression does not read the witness value."
+      "reason": "Closure-check witness required so the family is named before the guard runs. The expression does not read the witness value. v5 is the core v79 successor of the same over-declaration on v4."
     },
     {
       "rule_id": "tax.us.2025.rule.f1099b-covered-w-st-basis-subtotal",

@@ -732,6 +732,7 @@ def live_coordinate_run(
         authorization=authorization,
         reporting_year=reporting_year,
         parameter_index=material.parameter_index,
+        authoritative_acts=run_acts,
     )
     # The nominee coordinator has a deliberately bounded identity policy.  It
     # consumes only the current report/allocation sources marshalled for the

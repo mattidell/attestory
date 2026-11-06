@@ -41,7 +41,8 @@
           "proceeds",
           "basis",
           "basis_reported_to_irs",
-          "long_term"
+          "long_term",
+          "wash_disallowed"
         ],
         "properties": {
           "proceeds": {
@@ -63,6 +64,10 @@
               "yes",
               "no"
             ]
+          },
+          "wash_disallowed": {
+            "type": "number",
+            "minimum": 0
           }
         }
       },

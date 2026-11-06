@@ -1,0 +1,45 @@
+{
+  "schema": "form-field.v3",
+  "id": "tax.us.2025.schedule-d.line-2",
+  "version": "v1",
+  "form": {
+    "authority": "IRS",
+    "form_id": "1040-SCH-D",
+    "tax_year": 2025,
+    "jurisdiction": "US-federal"
+  },
+  "line": "2-h",
+  "label": "Line 2 column (h)",
+  "description": "Schedule D (2025) line 2 column (h).",
+  "binds_symbol": "tax.us.2025.schedule-d.line-2",
+  "citation": {
+    "id": "tax.us.2025.citation.schedule-d.line-2",
+    "version": "v1"
+  },
+  "dispositions": {
+    "published_value": {
+      "render": "{value}",
+      "explain": "Schedule D line 2, column (h), is your short-term Form 8949 box B gain or loss, proceeds minus basis plus adjustments."
+    },
+    "computed_zero": {
+      "render": "0",
+      "explain": "Schedule D line 2, column (h), is zero because your box B proceeds, basis, and adjustments net to zero."
+    },
+    "closure_backed_zero": {
+      "render": "0",
+      "explain": "You said you have no short-term sales whose basis was not reported, so Schedule D line 2, column (h), is zero."
+    },
+    "blocked": {
+      "render": "",
+      "explain": "Schedule D line 2, column (h), has no value yet. It is waiting for the basis of a short-term sale whose basis was not reported to the IRS.",
+      "codes": [
+        "DEPENDENCY_ABSENT",
+        "SOURCE_SET_UNCLOSED"
+      ]
+    },
+    "guard_inapplicable": {
+      "render": "",
+      "explain": "Inapplicable."
+    }
+  }
+}

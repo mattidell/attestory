@@ -303,7 +303,11 @@ _NON_INPUT_SCHEMAS = frozenset({
 
 # The closure-mapping schemas a package may carry. v3 adds the declared
 # closure question; every admission point reads this one set (never a literal).
-CLOSURE_MAPPING_SCHEMAS = frozenset({"source-closure-mapping.v2", "source-closure-mapping.v3"})
+CLOSURE_MAPPING_SCHEMAS = frozenset({
+    "source-closure-mapping.v2",
+    "source-closure-mapping.v3",
+    "source-closure-mapping.v4",
+})
 
 # The declared question for one missing filer-supplied fact (artifact-package.v39).
 # Every admission point reads this one set (never a literal).
@@ -2107,8 +2111,16 @@ def validate_package(
 
         # Mapping exact joins validation
         if citizen["schema"] in CLOSURE_MAPPING_SCHEMAS:
-            for mapping_key in ("member_fact_type", "closure_fact_type"):
-                ft_pin = citizen.get(mapping_key)
+            fact_pins: list[tuple[str, Any]] = []
+            if citizen["schema"] == "source-closure-mapping.v4":
+                fact_pins.append(("closure_fact_type", citizen.get("closure_fact_type")))
+                for row in citizen.get("families") or []:
+                    if isinstance(row, dict):
+                        fact_pins.append(("member_fact_type", row.get("member_fact_type")))
+            else:
+                for mapping_key in ("member_fact_type", "closure_fact_type"):
+                    fact_pins.append((mapping_key, citizen.get(mapping_key)))
+            for mapping_key, ft_pin in fact_pins:
                 if ft_pin:
                     ft_key = (ft_pin["id"], ft_pin["version"])
                     if ft_key not in fact_surface:
@@ -3185,8 +3197,16 @@ def validate_package(
                 if cit and cit["id"] in member_ids:
                     adj[m_id].add(cit["id"])
             elif citizen["schema"] in CLOSURE_MAPPING_SCHEMAS:
-                for mapping_key in ("member_fact_type", "closure_fact_type"):
-                    ft_pin = citizen.get(mapping_key)
+                closure_pins: list[Any] = []
+                if citizen["schema"] == "source-closure-mapping.v4":
+                    closure_pins.append(citizen.get("closure_fact_type"))
+                    for family_row in citizen.get("families") or []:
+                        if isinstance(family_row, dict):
+                            closure_pins.append(family_row.get("member_fact_type"))
+                else:
+                    for mapping_key in ("member_fact_type", "closure_fact_type"):
+                        closure_pins.append(citizen.get(mapping_key))
+                for ft_pin in closure_pins:
                     if ft_pin and ft_pin["id"] in member_ids:
                         adj[m_id].add(ft_pin["id"])
                     elif ft_pin and closed_v2_surface:
@@ -3212,8 +3232,28 @@ def validate_package(
                 # ALSO depend on source-closure-mapping for this family
                 for p2, c2 in resolved:
                     if c2["schema"] in CLOSURE_MAPPING_SCHEMAS:
-                        if c2.get("member_fact_type", {}).get("id") == ft_id:
+                        if c2["schema"] == "source-closure-mapping.v4":
+                            listed = [
+                                (row.get("member_fact_type") or {}).get("id")
+                                for row in c2.get("families") or []
+                                if isinstance(row, dict)
+                            ]
+                            if ft_id in listed:
+                                adj[m_id].add(c2["id"])
+                        elif c2.get("member_fact_type", {}).get("id") == ft_id:
                             adj[m_id].add(c2["id"])
+            elif citizen["schema"] == "source-family.v2":
+                ft_id = citizen["member_predicate"]["fact_type"]
+                for _p2, c2 in resolved:
+                    if c2["schema"] != "source-closure-mapping.v4":
+                        continue
+                    listed = [
+                        (row.get("member_fact_type") or {}).get("id")
+                        for row in c2.get("families") or []
+                        if isinstance(row, dict)
+                    ]
+                    if ft_id in listed:
+                        adj[m_id].add(c2["id"])
             elif citizen["schema"] in {"attachment-rule.v6", "attachment-rule.v8", "attachment-rule.v11", "attachment-rule.v12"}:
                 for part in citizen.get("itemizations", []):
                     authority = part.get("authority", {})

@@ -1,5 +1,5 @@
 {
-  "schema": "source-family.v1",
+  "schema": "source-family.v2",
   "id": "tax.us.2025.f1099b.noncovered-st-basis",
   "version": "v1",
   "title": "short-term basis-not-reported basis, tax year 2025",

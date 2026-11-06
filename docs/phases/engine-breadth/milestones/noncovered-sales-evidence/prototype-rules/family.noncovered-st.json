@@ -1,5 +1,5 @@
 {
-  "schema": "source-family.v1",
+  "schema": "source-family.v2",
   "id": "tax.us.2025.f1099b.noncovered-st",
   "version": "v1",
   "title": "short-term sales whose basis was not reported to the IRS, tax year 2025",
@@ -12,5 +12,134 @@
   "member_predicate": {
     "fact_type": "tax.us.2025.f1099b.noncovered-st-txn"
   },
-  "authorizes_subtotal": "tax.us.2025.f1099b.noncovered-st-subtotal"
+  "authorizes_subtotal": "tax.us.2025.f1099b.noncovered-st-subtotal",
+  "identity_exclusivity": [
+    {
+      "id": "tax.us.2025.block.noncovered-st-txn.excludes.covered-st",
+      "incompatible_family": {
+        "id": "tax.us.2025.f1099b.covered-st",
+        "version": "v1"
+      },
+      "components": [
+        {
+          "fact_id_bound_key": "broker"
+        },
+        {
+          "fact_id_bound_key": "statement"
+        },
+        {
+          "fact_id_bound_key": "transaction"
+        },
+        {
+          "fact_id_bound_key": "tax-year"
+        }
+      ]
+    },
+    {
+      "id": "tax.us.2025.block.noncovered-st-txn.excludes.covered-w-st",
+      "incompatible_family": {
+        "id": "tax.us.2025.f1099b.covered-w-st",
+        "version": "v2"
+      },
+      "components": [
+        {
+          "fact_id_bound_key": "broker"
+        },
+        {
+          "fact_id_bound_key": "statement"
+        },
+        {
+          "fact_id_bound_key": "transaction"
+        },
+        {
+          "fact_id_bound_key": "tax-year"
+        }
+      ]
+    }
+  ],
+  "member_constraints": [
+    {
+      "id": "tax.us.2025.constraint.noncovered-st.basis-was-reported",
+      "block_code": "BASIS_WAS_REPORTED",
+      "meaning": "A sale whose basis was reported to the IRS is not a member of this family.",
+      "violated_when": {
+        "op": "field_equals",
+        "field": "basis_reported_to_irs",
+        "arg": "yes"
+      }
+    },
+    {
+      "id": "tax.us.2025.constraint.noncovered-st.holding-period",
+      "block_code": "HOLDING_PERIOD_MISMATCH",
+      "meaning": "The holding period does not match this short-term or long-term family.",
+      "violated_when": {
+        "op": "field_equals",
+        "field": "long_term",
+        "arg": "yes"
+      }
+    },
+    {
+      "id": "tax.us.2025.constraint.noncovered-st.code-w-on-gain",
+      "block_code": "CODE_W_ON_GAIN",
+      "meaning": "A wash-sale disallowance is recorded on a sale that is not a loss.",
+      "violated_when": {
+        "op": "all",
+        "args": [
+          {
+            "op": "compare",
+            "comparison": "gt",
+            "left": {
+              "op": "field",
+              "field": "wash_disallowed",
+              "default": 0
+            },
+            "right": {
+              "op": "literal",
+              "arg": 0
+            }
+          },
+          {
+            "op": "compare",
+            "comparison": "ge",
+            "left": {
+              "op": "field",
+              "field": "proceeds"
+            },
+            "right": {
+              "op": "field",
+              "field": "basis"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "tax.us.2025.constraint.noncovered-st.adjustment-exceeds-loss",
+      "block_code": "ADJUSTMENT_EXCEEDS_LOSS",
+      "meaning": "The wash-sale disallowance exceeds this sale's own loss.",
+      "violated_when": {
+        "op": "compare",
+        "comparison": "gt",
+        "left": {
+          "op": "field",
+          "field": "wash_disallowed",
+          "default": 0
+        },
+        "right": {
+          "op": "floor_zero",
+          "value": {
+            "op": "subtract",
+            "left": {
+              "op": "field",
+              "field": "basis"
+            },
+            "right": {
+              "op": "field",
+              "field": "proceeds"
+            }
+          }
+        }
+      }
+    }
+  ]
 }

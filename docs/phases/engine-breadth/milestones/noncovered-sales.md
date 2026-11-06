@@ -98,6 +98,13 @@ boundary answer. The useful outcome is that it computes.
    `PROJECT_PLANNING.md`, "Track 0 Adversarial Closure Gate", over the
    decided design, each with built evidence. No row may pass beside a
    standing counterexample (C3). A `FAIL` returns to design or the owner.
+   (Ran 2026-11-06: four FAIL. Owner sent it to P0b.)
+3b. **P0b: engine and recording change.** One answer closes several
+   families; the covered-family flag stops publishing line 8a; scalar
+   identity exclusivity kept or dropped. Designed and proved on scratch,
+   with the schema, ADR and loader contract named. Then the owner accepts
+   the contract, Track 0 reruns over the changed design, and Track 1
+   builds the engine change and core v79 together.
 4. **Track 1: build.** Successors, core v79 and its registry and release,
    cases through the real coordinator and the page, v78 and earlier
    pinned, full suite.
@@ -169,10 +176,81 @@ Foreman:
 6. Families use `source-family.v2` constraints and identity exclusivity
    against the covered families, with `accounts_for` extended to match.
 
+Owner, 2026-11-06, on P0b:
+
+7. **Accept the P0b contract.** `source-closure-mapping.v4` lets one
+   yes/no answer cover the eight noncovered families; the next
+   artifact-package version admits it; one new ADR records it. No kernel
+   change. The ADR text comes to the owner for acceptance before the PR
+   goes ready.
+8. **A "yes" goes stale like today's closures.** A later sale strips the
+   answer for that sale's families and the question returns, the same
+   lifecycle per-family closures have.
+9. **The covered-flag refusal has its own reason.** A covered sale with
+   `basis_reported_to_irs` no blocks with a dedicated code and an
+   explanation telling the filer to record it as a noncovered sale, not
+   `SOURCE_SET_UNCLOSED`. Measured on all five covered sale objects.
+
 ## Track 0 adversarial closure
 
-Pending.
+Evidence: `docs/phases/engine-breadth/milestones/noncovered-sales-evidence/track0-closure.md`. Scratch core v79, `live_coordinate_run`, digest `track0-output.json`. Source ref `bb766465641abe3fb367a527701a5ca7393fb488`.
+
+- Authority-lifecycle table: FAIL — one shared closure fact does not admit the eight families (`one_finding`, `eight_findings`); a shared horizon id is `HorizonModelError` (`duplicate_horizon`). Admission requires exactly one current true finding per family horizon, and marshalling appends a shared fact type once per mapping.
+- Empty/nonempty authority matrix: FAIL — closed-empty with eight true closures matches the wage return, and a boundary `no` blocks a recorded noncovered sale (`boundary_no_gain`). A covered sale with `basis_reported_to_irs` no still publishes line 8a at 4000 (`covered_flag_no_path_a`, `covered_flag_corrected_to_no`). Scalar identity exclusivity is an engine change and is not installed.
+- Late-member lifecycle: FAIL — add-without-reclose blocks line 9 and Form 8949; reclose publishes line 9 = 4000. The one-question `no` never becomes that close. Correcting the covered flag from yes to no leaves line 8a at 4000.
+- Neighboring capability dependency diff: FAIL — wage, foreign tax 601, exempt interest 50, and student loan 200 match v78 only after eight new closure findings. Without them the wage return blocks Form 1040 (`wage_unclosed`). No other v78 live return was measured. No content-only change makes one answer close eight families.
+- Reused-claim semantic/lifecycle equivalence: PASS — `no-form8949-sources` and `no-other-form8949-adjustments` keep their proposition, tax-year identity, and free supersession. The preferential gate is v7 with a third arm and is not reused. Covered closure fact types are not reused.
+- Integration surface: PASS — one publisher each for lines 2, 7, 9, 15, 16, 21, line 7a, the preferential base, and Form 8949. Disposition paths built: published gain, published loss, `computed_zero`, `closure_backed_zero`, and blocked. `validate_presentation_model` passed on every saturated case.
+- Known limitations affecting correctness: owner disposition required
+
+Track 1 does not start. A PASS here would need one answer to close the eight new families, and the covered-family flag `no` to stop publishing line 8a, without an engine, schema, or recording change. Neither holds on the scratch package.
+
+Owner, 2026-11-06, on this FAIL: change the engine and recording surface
+first (P0b), then rerun Track 0 and build v79.
+
+### Track 0 rerun
+
+Evidence: `docs/phases/engine-breadth/milestones/noncovered-sales-evidence/track0-closure.md`, section "Rerun over the P0b contract". Scratch core v79 / release v77, 41 members, `live_coordinate_run`, digest `track0b-output.json`. Source ref `0a7fc60f5ab42ed8d568362f1a5c9a750d7394c0`.
+
+- Authority-lifecycle table: PASS — one shared answer (`tax.us.2025.f1099b.noncovered-sold.source-closure`) admits the eight families. `one_finding` publishes the wage return at 34250 / 3875 with lines 2 and 9 at `closure_backed_zero`. `wage_unclosed` blocks lines 2, 9, 15, and 16 and shows the question. A later member-transition strips only that family (`late_yes_stale`); a later answer admits it (`late_yes_reanswered`, line 9 = 4000). `duplicate_horizon` is still `HorizonModelError` on `demo.ns.p0b.shared.h0`.
+- Empty/nonempty authority matrix: PASS — one `no` and no member computes every harness return at its v78 line 15 and line 16. A long-term member after `no`, or after `yes`, or a later `no` beside that member, blocks line 9 and leaves line 2 at 0. `st_loss` reaches line 7a at −3000 and tax 3515. `wash` reaches line 7a at −2000 and tax 3635. Covered `basis_reported_to_irs` no blocks line 8a or line 1a, or the wash line, with `missing: [BASIS_NOT_REPORTED_ON_COVERED]`.
+- Late-member lifecycle: PASS — attest and close are the shared answer. `late_member_unclosed` blocks line 9. `late_member_reopened` publishes line 9 = 4000. `covered_flag_corrected_to_no` blocks line 8a. `covered_flag_corrected_to_yes` publishes line 8a = 4000.
+- Neighboring capability dependency diff: PASS — wage, foreign tax, exempt interest, exempt dividend, student loan, gambling loss, mortgage, itemized, and part II-B match v78 line 15 and line 16 under one `no`. `wage_unclosed` blocks Form 1040. v78 `covered_flag_no_path_a` still publishes line 8a at 4000.
+- Reused-claim semantic/lifecycle equivalence: PASS — `no-form8949-sources` and `no-other-form8949-adjustments` keep their proposition, tax-year identity, and free supersession. The preferential gate and the covered closure facts are not reused. Scalar exclusivity stays off the number families. The ADR-0082 companion pairs were not installed in this scratch.
+- Integration surface: PASS — published gain, published loss, `computed_zero`, `closure_backed_zero`, and the blocked paths above were built. `validate_presentation_model` passed on every saturated case. `covered_both_boundaries_no` leaves the Schedule D attachment `blocked` (missing `schedule-d.line-8a-gain`). The four covered objects on this package show the sentence "Record this sale as a noncovered sale. The broker did not report its basis to the IRS." The row `code` is `DEPENDENCY_INVALID`; the dedicated token is the `missing` entry. `covered-ltcg` is not a member of core v78 or this successor, so it has no publisher here.
+- Known limitations affecting correctness: none
+
+Each counterexample in the rerun section is fixed, or refused by an answer. `covered-ltcg` is refused because the family is not on the package. `duplicate_horizon` is refused because a shared horizon id stays illegal. Scalar exclusivity is refused because Decision 7 dropped it. Track 1 is a separate unit.
+
+## P0b result
+
+Recorded in
+[p0b-engine-design.md](noncovered-sales-evidence/p0b-engine-design.md).
+Scratch runs: `noncovered-sales-evidence/p0b-output.json`.
+
+One yes/no fact admits the eight new families (`source-closure-mapping.v4`).
+`no` closes each empty family. A recorded sale under that `no` reopens only
+the families the sale belongs to; correcting the answer to `yes` publishes
+line 9 at 4000. The nine v78 live returns the current-core harness builds
+keep their Form 1040 line 15 and line 16 dollars with that one `no`. A
+covered object member with `basis_reported_to_irs` no loses covered-family
+admission, so line 8a stops publishing, and no family handover is required.
+Scalar identity exclusivity stays on the sale object; scalar families use
+companion pairs instead. No kernel change. Track 0 reruns after the owner
+accepts the contract.
 
 ## Track 1 result
 
-Pending.
+Core `tax.us.2025.package.core-calculations` v79 (`artifact-package.v41`), registry `published-packages.v77.json`, release `demo.release.sli-worksheet-integration.2025.v77.json`. Package checksum `95728e35919867fecafd3801d400d8d025b2924cea1172134b418a89392f4c93`. Registry sha256 `bdd19f75dfcb46b12dcc565c9c2c1960310fbe61ce66653619ad975156cd0cb1`. Release sha256 `b89f5cfb2c4093d0c56a031989de7f4e1202d413508fbb6927082f7d07b95c26`. 876 members, 372 entrypoints. The package admits `source-closure-mapping.v4`.
+
+Schemas added, manifests add-only: `source-closure-mapping.v4` (`4381cb8d33f3331bfc1fd11b118a233268a0448a74bf1df7bb6a33d7f85a23f6`) and `artifact-package.v41` (`99adceccf2cc94a69e87cf138d56bbeda9bf9dfb225845b8433aab9a9e94d57a`). Core v78 stays `artifact-package.v40`, checksum `ab13e399445e8c5d5ad3fd71c8ea9bd1a96b05581aef640fa950105daf2d2eb1`, and does not admit v4.
+
+ADR 0084 is proposed. It supplements ADR-0014. The owner accepts it before this PR is ready.
+
+The Track 0 rerun cases run through the coordinator on core v79 (`tests/test_noncovered_sales_v79.py`). One `no` publishes the nine current-core returns at the same Form 1040 line 15 and line 16 as v78. Those nine, plus `covered_flag_no_path_a`, pinned to v78 keep the v78 dollars; pinned v78 still publishes line 8a at 4000 for that covered flag. `duplicate_horizon` is `HorizonModelError` on `demo.ns.p0b.shared.h0`. A covered sale with `basis_reported_to_irs` no blocks with `missing: [BASIS_NOT_REPORTED_ON_COVERED]` and the sentence "Record this sale as a noncovered sale. The broker did not report its basis to the IRS." A member recorded after `yes` strips only that family (`late_yes_stale` stays blocked; `late_yes_reanswered` publishes line 9 at 4000). The blocked noncovered wash page shows the short family sentences, including "A wash-sale disallowance is recorded on a sale that is not a loss."
+
+`pytest -m "not live"`: 1675 passed, 8 skipped, 4013 subtests (16.87s). Full `pytest`: 4389 passed, 24 skipped, 8277 subtests (1367.44s). `python3 -m mypy`: no issues in 464 source files.
+
+The v4 reason walk names each listed family without rebinding the disposition row. Staleness reads `payload.member.action` on a recorded member-transition. A removal does not strip. The required-but-unread allowlist follows line 1a v4 and line 8a v5, the same closure-check witnesses the replaced versions declared.
+
+ADR 0084 is not accepted. The scalar-without-its-sale case calls the kernel companion enforcer directly. Cores before v78 were not live-rerun; `tests/test_noncovered_sales_v78_switch.py` checks that those packages do not name the refusal map. CI `verify` remains the merge gate.

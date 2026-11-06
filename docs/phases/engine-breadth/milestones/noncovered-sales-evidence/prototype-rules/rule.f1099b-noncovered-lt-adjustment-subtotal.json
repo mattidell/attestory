@@ -1,27 +1,69 @@
 {
-  "schema": "rule-artifact.v2",
+  "schema": "rule-artifact.v5",
   "id": "tax.us.2025.rule.f1099b-noncovered-lt-adjustment-subtotal",
   "version": "v1",
-  "notes": "PROTOTYPE. Sums one basis-not-reported scalar family. A closed empty family publishes 0.",
+  "notes": "PROTOTYPE. Sums one basis-not-reported scalar family. A closed empty family publishes 0 and does not read the boundary. A recorded amount publishes only when that boundary is yes, so a refusal cannot itemize it.",
   "pins": [],
   "publishes": "tax.us.2025.f1099b.noncovered-lt-adjustment-subtotal",
   "requires": [],
   "role": "computation",
   "scope": {
-    "effective_from": "2025-01-01",
-    "family": "individual-income-tax",
+    "tax_year": 2025,
     "jurisdiction": "US-federal",
-    "tax_year": 2025
+    "family": "individual-income-tax"
   },
   "value": {
-    "op": "add",
-    "args": [
-      {
-        "name": "tax.us.2025.f1099b.noncovered-lt-txn.adjustment",
-        "op": "collect",
-        "source_set": "tax.us.2025.f1099b.noncovered-lt-adjustment"
-      }
-    ]
+    "op": "choose",
+    "when": {
+      "op": "any",
+      "args": [
+        {
+          "op": "compare",
+          "cmp": "eq",
+          "left": {
+            "op": "add",
+            "args": [
+              {
+                "name": "tax.us.2025.f1099b.noncovered-lt-txn.adjustment",
+                "op": "collect",
+                "source_set": "tax.us.2025.f1099b.noncovered-lt-adjustment"
+              }
+            ]
+          },
+          "right": 0
+        },
+        {
+          "cmp": "eq",
+          "left": {
+            "name": "tax.us.2025.schedule-d-boundary.noncovered-in-class",
+            "op": "ref"
+          },
+          "op": "categorical_compare",
+          "right": {
+            "fact_type": {
+              "id": "tax.us.2025.schedule-d-boundary.noncovered-in-class",
+              "version": "v1"
+            },
+            "op": "category_literal",
+            "value": "yes"
+          }
+        }
+      ]
+    },
+    "then": {
+      "op": "add",
+      "args": [
+        {
+          "name": "tax.us.2025.f1099b.noncovered-lt-txn.adjustment",
+          "op": "collect",
+          "source_set": "tax.us.2025.f1099b.noncovered-lt-adjustment"
+        }
+      ]
+    },
+    "else": {
+      "op": "block",
+      "code": "DEPENDENCY_ABSENT"
+    }
   },
   "blocked": {
     "code": "SOURCE_SET_UNCLOSED",
@@ -29,5 +71,26 @@
       "tax.us.2025.f1099b.noncovered-lt-adjustment"
     ]
   },
-  "when": true
+  "when": {
+    "op": "all",
+    "args": [
+      {
+        "op": "require_closed",
+        "source_set": "tax.us.2025.f1099b.noncovered-lt-adjustment"
+      },
+      {
+        "op": "require_closed",
+        "source_set": "tax.us.2025.f1099b.noncovered-lt"
+      }
+    ]
+  },
+  "accounts_for": [
+    {
+      "family": {
+        "id": "tax.us.2025.f1099b.noncovered-lt",
+        "version": "v1"
+      },
+      "relationship": "itemizes_members"
+    }
+  ]
 }

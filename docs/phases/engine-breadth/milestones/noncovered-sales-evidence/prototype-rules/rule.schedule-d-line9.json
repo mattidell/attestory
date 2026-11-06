@@ -1,5 +1,5 @@
 {
-  "schema": "rule-artifact.v4",
+  "schema": "rule-artifact.v5",
   "id": "tax.us.2025.rule.schedule-d-line9",
   "version": "v1",
   "notes": "PROTOTYPE. Column (h) is proceeds minus basis plus the wash-sale adjustment. Closed-empty subtotals publish 0 and do not read the noncovered boundary. A recorded sale publishes only when that boundary is yes.",
@@ -130,5 +130,14 @@
       "op": "block",
       "code": "DEPENDENCY_ABSENT"
     }
-  }
+  },
+  "accounts_for": [
+    {
+      "family": {
+        "id": "tax.us.2025.f1099b.noncovered-lt",
+        "version": "v1"
+      },
+      "relationship": "itemizes_members"
+    }
+  ]
 }

@@ -107,7 +107,10 @@ class FamilyAndMapping(unittest.TestCase):
         families = load_source_families()
         mappings = load_closure_mappings()
         self.assertIn(FAMILY_ID, families)
-        mapping = next(m for m in mappings.values() if m["family"]["id"] == FAMILY_ID)
+        mapping = next(
+            m for m in mappings.values()
+            if isinstance(m.get("family"), dict) and m["family"]["id"] == FAMILY_ID
+        )
         m_type = mapping["member_fact_type"]
         member_id = m_type["id"] if isinstance(m_type, dict) else m_type
         c_type = mapping["closure_fact_type"]

@@ -271,13 +271,17 @@ class CasesOnV72(unittest.TestCase):
 
 def _reference_closure_question_reasons(row: Any, *, resolved_members: Any, by_symbol: Any,
                                         symbol_fact_types: Any = None,
-                                        later_any_arm_refs: bool = False) -> list[dict[str, Any]]:
+                                        later_any_arm_refs: bool = False,
+                                        refusal_sentence: Any = None,
+                                        refusal_token: Any = None,
+                                        constraint_meanings: Any = None) -> list[dict[str, Any]]:
     """The v69 algorithm as it stood before the input question (the closure roots only).
 
     ``later_any_arm_refs`` is the core v76 walk. This reference keeps the
-    earlier walk, which is what v68 through v71 render.
+    earlier walk, which is what v68 through v71 render. The refusal and
+    constraint arguments are the core v79 walk; this reference ignores them.
     """
-    del later_any_arm_refs
+    del later_any_arm_refs, refusal_sentence, refusal_token, constraint_meanings
     questions: dict[str, str] = {}
     for member in resolved_members:
         question = member.get("closure_question")

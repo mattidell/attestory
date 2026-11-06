@@ -413,6 +413,55 @@ def _selection_blocked_reasons(
     return reasons
 
 
+def _constraint_meanings(resolved_members: Sequence[Mapping[str, Any]]) -> dict[str, str]:
+    """block_code -> meaning declared on the resolved source families."""
+    found: dict[str, str] = {}
+
+    def walk(node: Any) -> None:
+        if isinstance(node, dict):
+            code = node.get("block_code")
+            meaning = node.get("meaning")
+            if isinstance(code, str) and isinstance(meaning, str) and meaning.strip() and code not in found:
+                found[code] = meaning
+            for value in node.values():
+                walk(value)
+        elif isinstance(node, list):
+            for item in node:
+                walk(item)
+
+    for member in resolved_members:
+        if str(member.get("schema", "")).startswith("source-family."):
+            walk(member.get("member_constraints"))
+    return found
+
+
+def _missing_mentions(
+    row: Mapping[str, Any],
+    by_symbol: Mapping[str, Sequence[Mapping[str, Any]]],
+    token: str,
+) -> bool:
+    """Whether ``token`` appears in this blocked row or a blocked row it reaches."""
+    seen: set[str] = set()
+
+    def hit(current: Mapping[str, Any]) -> bool:
+        missing = current.get("missing")
+        if not isinstance(missing, list):
+            return False
+        for item in missing:
+            key = str(item)
+            if key == token:
+                return True
+            if key in seen:
+                continue
+            seen.add(key)
+            for child in by_symbol.get(key, []):
+                if child.get("disposition") == "blocked" and hit(child):
+                    return True
+        return False
+
+    return hit(row)
+
+
 def _closure_question_reasons(
     row: Mapping[str, Any],
     *,
@@ -420,6 +469,9 @@ def _closure_question_reasons(
     by_symbol: Mapping[str, Sequence[Mapping[str, Any]]],
     symbol_fact_types: Mapping[str, str] | None = None,
     later_any_arm_refs: bool = False,
+    refusal_sentence: str | None = None,
+    refusal_token: str | None = None,
+    constraint_meanings: Mapping[str, str] | None = None,
 ) -> list[dict[str, Any]]:
     """The declared question for every cause a blocked line waits on and a filer can answer.
 
@@ -446,6 +498,12 @@ def _closure_question_reasons(
     itself an input question is asked beside the closure. A ref that has no
     question does not hide the closure. Off, the walk is the one this
     function had.
+
+    ``refusal_sentence`` and ``constraint_meanings`` are passed only when
+    the adopted package names the covered-flag refusal. The refusal token
+    then shows that sentence, and a constraint code that would otherwise
+    leave the page blank shows the meaning its family declared. Both stay
+    unset for every earlier package.
     """
     questions: dict[str, str] = {}
     input_questions: dict[str, str] = {}
@@ -453,6 +511,13 @@ def _closure_question_reasons(
         schema = str(member.get("schema", ""))
         question = member.get("closure_question")
         family = member.get("family")
+        if (schema == "source-closure-mapping.v4"
+                and isinstance(question, str) and question.strip()):
+            for family_row in member.get("families") or []:
+                listed = family_row.get("family") if isinstance(family_row, Mapping) else None
+                if isinstance(listed, Mapping) and listed.get("id"):
+                    questions[str(listed.get("id"))] = question
+            continue
         if (schema.startswith("source-closure-mapping.")
                 and isinstance(question, str) and question.strip() and isinstance(family, Mapping)):
             questions[str(family.get("id"))] = question
@@ -464,6 +529,38 @@ def _closure_question_reasons(
 
     families: set[str] = set()
     facts: set[str] = set()
+    extras: set[str] = set()
+    meanings = constraint_meanings or {}
+
+    def meaning_for(current: Mapping[str, Any], key: str) -> str | None:
+        """The blocking family's own wording when this row is its validation.
+
+        The same block code is declared on more than one family. The global
+        map keeps the first meaning it saw, which can be a covered sale's
+        long sentence. A noncovered sale's validation row names its family,
+        and that family's meaning is the one the page shows.
+        """
+        artifact = str(current.get("artifact_id") or "")
+        marker = ".member-validation.synthesized"
+        if artifact.endswith(marker):
+            family_id = artifact[: -len(marker)]
+            for member in resolved_members:
+                if str(member.get("id")) != family_id:
+                    continue
+                owned = _constraint_meanings([member])
+                if key in owned:
+                    return owned[key]
+        return meanings.get(key)
+
+    def explain(current: Mapping[str, Any], key: str) -> bool:
+        sentence = meaning_for(current, key)
+        if sentence:
+            extras.add(sentence)
+            return True
+        if refusal_sentence and refusal_token and key == refusal_token:
+            extras.add(refusal_sentence)
+            return True
+        return False
 
     def reach_mixed(current: Mapping[str, Any], seen: frozenset[str]) -> bool:
         missing = current.get("missing")
@@ -475,6 +572,8 @@ def _closure_question_reasons(
                 continue
             if key in questions:
                 families.add(key)
+                continue
+            if explain(current, key):
                 continue
             blocked = [r for r in by_symbol.get(key, []) if r.get("disposition") == "blocked"]
             if blocked:
@@ -506,24 +605,40 @@ def _closure_question_reasons(
         if not isinstance(missing, list) or not missing:
             return False
         for symbol in missing:
-            if symbol in seen:
+            key = str(symbol)
+            if key in seen:
                 continue
-            blocked = [r for r in by_symbol.get(str(symbol), []) if r.get("disposition") == "blocked"]
+            if explain(current, key):
+                continue
+            blocked = [r for r in by_symbol.get(key, []) if r.get("disposition") == "blocked"]
             if not blocked:
-                bound = (symbol_fact_types or {}).get(str(symbol), str(symbol))
+                bound = (symbol_fact_types or {}).get(key, key)
                 if current.get("code") == "DEPENDENCY_ABSENT" and bound in input_questions:
                     facts.add(bound)
                     continue
                 return False
-            if not all(reach(r, seen | {str(symbol)}) for r in blocked):
+            if not all(reach(r, seen | {key}) for r in blocked):
                 return False
         return True
 
-    if (not reach(row, frozenset()) or not (families or facts)
+    if (not reach(row, frozenset()) or not (families or facts or extras)
             or any(family not in questions for family in families)):
-        return []
-    sentences = {questions[family] for family in families} | {input_questions[fact] for fact in facts}
-    return [{"sentence": sentence} for sentence in sorted(sentences)]
+        reasons: list[dict[str, Any]] = []
+    else:
+        sentences = (
+            {questions[family] for family in families}
+            | {input_questions[fact] for fact in facts}
+            | extras
+        )
+        reasons = [{"sentence": sentence} for sentence in sorted(sentences)]
+    if (
+        refusal_sentence
+        and refusal_token
+        and _missing_mentions(row, by_symbol, refusal_token)
+        and not any(reason.get("sentence") == refusal_sentence for reason in reasons)
+    ):
+        reasons = [{"sentence": refusal_sentence}, *reasons]
+    return reasons
 
 
 def _reasons_beside(
@@ -4564,6 +4679,9 @@ def build_presentation_model(
     selection reason stands alone, as before.
     """
     from packages.tax.loader import (
+        COVERED_FLAG_REFUSAL_CODE,
+        COVERED_FLAG_REFUSAL_SENTENCE,
+        covered_flag_refusal_map,
         later_any_arm_refs_while_count_blocked,
         unconfirmed_family_names_closure_question,
     )
@@ -4576,6 +4694,13 @@ def build_presentation_model(
         adopted_package is not None
         and later_any_arm_refs_while_count_blocked(adopted_package[0], adopted_package[1])
     )
+    names_covered_flag_refusal = (
+        adopted_package is not None
+        and covered_flag_refusal_map(adopted_package[0], adopted_package[1]) is not None
+    )
+    refusal_sentence = COVERED_FLAG_REFUSAL_SENTENCE if names_covered_flag_refusal else None
+    refusal_token = COVERED_FLAG_REFUSAL_CODE if names_covered_flag_refusal else None
+    constraint_meanings = _constraint_meanings(resolved_members) if names_covered_flag_refusal else None
     _reject_unsupported_presentation_schemas(resolved_members)
     fields = [m for m in resolved_members if m.get("schema") in FIELD_SCHEMAS]
     attachments = [m for m in resolved_members if m.get("schema") in ATTACHMENT_SCHEMAS]
@@ -4664,6 +4789,9 @@ def build_presentation_model(
                 row, resolved_members=resolved_members, by_symbol=by_symbol,
                 symbol_fact_types=symbol_fact_types,
                 later_any_arm_refs=names_later_refs,
+                refusal_sentence=refusal_sentence,
+                refusal_token=refusal_token,
+                constraint_meanings=constraint_meanings,
             )
             if closure_reasons:
                 resolved["reasons"] = closure_reasons
@@ -4675,6 +4803,9 @@ def build_presentation_model(
                 row, resolved_members=resolved_members, by_symbol=by_symbol,
                 symbol_fact_types=symbol_fact_types,
                 later_any_arm_refs=names_later_refs,
+                refusal_sentence=refusal_sentence,
+                refusal_token=refusal_token,
+                constraint_meanings=constraint_meanings,
             )
             if closure_reasons:
                 resolved["reasons"] = _reasons_beside(resolved["reasons"], closure_reasons)

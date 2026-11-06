@@ -1,5 +1,5 @@
 {
-  "schema": "source-family.v1",
+  "schema": "source-family.v2",
   "id": "tax.us.2025.f1099b.noncovered-lt-adjustment",
   "version": "v1",
   "title": "long-term basis-not-reported adjustment, tax year 2025",

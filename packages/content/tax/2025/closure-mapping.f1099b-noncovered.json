@@ -1,0 +1,104 @@
+{
+  "schema": "source-closure-mapping.v4",
+  "id": "tax.us.2025.closure-mapping.f1099b.noncovered",
+  "version": "v1",
+  "closure_fact_type": {
+    "id": "tax.us.2025.f1099b.noncovered-sold.source-closure",
+    "version": "v1"
+  },
+  "closure_question": "Did you sell any securities whose basis was not reported to the IRS?",
+  "admission": {
+    "no": "closed-empty",
+    "yes": "until-later-member"
+  },
+  "families": [
+    {
+      "family": {
+        "id": "tax.us.2025.f1099b.noncovered-st",
+        "version": "v1"
+      },
+      "member_fact_type": {
+        "id": "tax.us.2025.f1099b.noncovered-st-txn",
+        "version": "v1"
+      },
+      "admits_symbol": "tax.us.2025.f1099b.noncovered-st-subtotal"
+    },
+    {
+      "family": {
+        "id": "tax.us.2025.f1099b.noncovered-st-proceeds",
+        "version": "v1"
+      },
+      "member_fact_type": {
+        "id": "tax.us.2025.f1099b.noncovered-st-txn.proceeds",
+        "version": "v1"
+      },
+      "admits_symbol": "tax.us.2025.f1099b.noncovered-st-proceeds-subtotal"
+    },
+    {
+      "family": {
+        "id": "tax.us.2025.f1099b.noncovered-st-basis",
+        "version": "v1"
+      },
+      "member_fact_type": {
+        "id": "tax.us.2025.f1099b.noncovered-st-txn.basis",
+        "version": "v1"
+      },
+      "admits_symbol": "tax.us.2025.f1099b.noncovered-st-basis-subtotal"
+    },
+    {
+      "family": {
+        "id": "tax.us.2025.f1099b.noncovered-st-adjustment",
+        "version": "v1"
+      },
+      "member_fact_type": {
+        "id": "tax.us.2025.f1099b.noncovered-st-txn.adjustment",
+        "version": "v1"
+      },
+      "admits_symbol": "tax.us.2025.f1099b.noncovered-st-adjustment-subtotal"
+    },
+    {
+      "family": {
+        "id": "tax.us.2025.f1099b.noncovered-lt",
+        "version": "v1"
+      },
+      "member_fact_type": {
+        "id": "tax.us.2025.f1099b.noncovered-lt-txn",
+        "version": "v1"
+      },
+      "admits_symbol": "tax.us.2025.f1099b.noncovered-lt-subtotal"
+    },
+    {
+      "family": {
+        "id": "tax.us.2025.f1099b.noncovered-lt-proceeds",
+        "version": "v1"
+      },
+      "member_fact_type": {
+        "id": "tax.us.2025.f1099b.noncovered-lt-txn.proceeds",
+        "version": "v1"
+      },
+      "admits_symbol": "tax.us.2025.f1099b.noncovered-lt-proceeds-subtotal"
+    },
+    {
+      "family": {
+        "id": "tax.us.2025.f1099b.noncovered-lt-basis",
+        "version": "v1"
+      },
+      "member_fact_type": {
+        "id": "tax.us.2025.f1099b.noncovered-lt-txn.basis",
+        "version": "v1"
+      },
+      "admits_symbol": "tax.us.2025.f1099b.noncovered-lt-basis-subtotal"
+    },
+    {
+      "family": {
+        "id": "tax.us.2025.f1099b.noncovered-lt-adjustment",
+        "version": "v1"
+      },
+      "member_fact_type": {
+        "id": "tax.us.2025.f1099b.noncovered-lt-txn.adjustment",
+        "version": "v1"
+      },
+      "admits_symbol": "tax.us.2025.f1099b.noncovered-lt-adjustment-subtotal"
+    }
+  ]
+}

@@ -1891,6 +1891,9 @@ class C8bCandidateAgainstCurrentPackageValidation(unittest.TestCase):
                 # v40 is v39 plus rule-artifact.v15 only (require_paired). It
                 # stays outside the guard's v17 allowlist, so the finding holds.
                 "artifact-package.v40.schema.json",
+                # v41 is v40 plus source-closure-mapping.v4 only. It retains
+                # the prior member set and stays outside the v17 allowlist.
+                "artifact-package.v41.schema.json",
             ],
         )
 
@@ -2234,18 +2237,18 @@ class C11NoBrokerBasisComparisonMechanism(unittest.TestCase):
 
     The trace's result is stronger and simpler than a co-occurrence test
     could show: the derived side has **no declared consumer at all**. Two
-    categories, not ten inputs. Five declared rule IDs (across seven rule
-    documents -- two IDs are each committed at two document versions)
-    consume the five transaction-basis VALUE fact types
-    (``tax.us.2025.f1099b.covered-{st,lt,ltcg,w-st,w-lt}-txn.basis``) --
-    these, and ONLY these, feed those subtotal rule IDs; zero committed
-    rules consume the pairing-scoped basis consequence; no Python module
-    under ``packages/`` names any broker-reported-basis fact type, and the
-    only Python module naming the derived consequence is its own producer.
-    The five corresponding CLOSURE-AUTHORITY fact types (the
+    categories, not fourteen inputs. Seven declared rule IDs consume the
+    seven transaction-basis VALUE fact types: the five broker-reported
+    ``tax.us.2025.f1099b.covered-{st,lt,ltcg,w-st,w-lt}-txn.basis`` and the
+    two filer-supplied ``tax.us.2025.f1099b.noncovered-{st,lt}-txn.basis``.
+    These, and only these, feed those subtotal rule IDs. Zero committed
+    rules consume the pairing-scoped basis consequence. No Python module
+    under ``packages/`` names any of those basis fact types, and the only
+    Python module naming the derived consequence is its own producer.
+    The seven corresponding CLOSURE-AUTHORITY fact types (the
     ``.source-closure`` ones) establish source-set completeness and are NOT
     direct expression inputs to the subtotal rules; they are not counted
-    among the five VALUE fact types above. The intersection is empty
+    among the seven VALUE fact types above. The intersection is empty
     because one side is empty -- which is exactly what the committed rule's
     own note records ("A later-year disposition consumer of this finding is
     still open").
@@ -2284,11 +2287,13 @@ class C11NoBrokerBasisComparisonMechanism(unittest.TestCase):
     def _broker_basis_fact_types(self) -> set[str]:
         """Committed ``f1099b`` ``*basis*`` fact-type ids, resolved from
         ``fact-type.v2`` citizens rather than guessed. The set contains two
-        categories: five transaction-basis VALUE types (the only inputs to
-        the five subtotal rules) and five corresponding CLOSURE-AUTHORITY
+        categories: seven transaction-basis VALUE types (the inputs to the
+        basis subtotal rules) and seven corresponding CLOSURE-AUTHORITY
         ``.source-closure`` types (source-set completeness, not expression
-        inputs). The consumer-trace test enumerates both; they must not be
-        read as ten inputs of one kind."""
+        inputs). Five of each are broker-reported covered basis; two of
+        each are filer-supplied noncovered basis. The consumer-trace test
+        enumerates both; they must not be read as fourteen inputs of one
+        kind."""
         fact_types: set[str] = set()
         for path in sorted((ROOT / "packages" / "content").rglob("*.json")):
             try:
@@ -2325,6 +2330,10 @@ class C11NoBrokerBasisComparisonMechanism(unittest.TestCase):
                 "tax.us.2025.f1099b.covered-w-lt-txn.basis",
                 "tax.us.2025.f1099b.covered-w-st-basis.source-closure",
                 "tax.us.2025.f1099b.covered-w-st-txn.basis",
+                "tax.us.2025.f1099b.noncovered-lt-basis.source-closure",
+                "tax.us.2025.f1099b.noncovered-lt-txn.basis",
+                "tax.us.2025.f1099b.noncovered-st-basis.source-closure",
+                "tax.us.2025.f1099b.noncovered-st-txn.basis",
             ],
         )
 
@@ -2353,6 +2362,8 @@ class C11NoBrokerBasisComparisonMechanism(unittest.TestCase):
                 "tax.us.2025.rule.f1099b-covered-st-basis-subtotal",
                 "tax.us.2025.rule.f1099b-covered-w-lt-basis-subtotal",
                 "tax.us.2025.rule.f1099b-covered-w-st-basis-subtotal",
+                "tax.us.2025.rule.f1099b-noncovered-lt-basis-subtotal",
+                "tax.us.2025.rule.f1099b-noncovered-st-basis-subtotal",
             ],
         )
         # Derived side: NO committed declared rule consumes it at all.

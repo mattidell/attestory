@@ -17,11 +17,14 @@ from __future__ import annotations
 
 import json
 from pathlib import Path
-from typing import Any
+from typing import Any, cast
 
 from packages.derivation.loader import DERIVATION_SCHEMA_DIR
 from packages.derivation.package_validation import CLOSURE_MAPPING_SCHEMAS
-from packages.derivation.source_authority import validate_mapping_against_family
+from packages.derivation.source_authority import (
+    validate_listed_family,
+    validate_mapping_against_family,
+)
 from packages.kernel.schema_registry import (
     KERNEL_SCHEMA_DIR,
     SchemaRegistry,
@@ -97,6 +100,67 @@ def later_any_arm_refs_while_count_blocked(package_id: str, version: str) -> boo
     if not version.startswith("v") or not version[1:].isdigit():
         return False
     return _version_rank(version) >= _LATER_ANY_ARM_REFS_FROM
+
+
+# A covered sale recorded with basis_reported_to_irs "no" is not that
+# family's admitted member. The kernel companion declaration accepts only
+# presence pairs and value domains, so the map is a sibling of that
+# declaration, keyed by the same (package id, version).
+COVERED_FLAG_REFUSAL_CODE = "BASIS_NOT_REPORTED_ON_COVERED"
+COVERED_FLAG_REFUSAL_SENTENCE = (
+    "Record this sale as a noncovered sale. The broker did not report its basis to the IRS."
+)
+COVERED_FLAG_REFUSAL_OBJECTS: dict[str, str] = {
+    "tax.us.2025.f1099b.covered-st-txn": "tax.us.2025.f1099b.covered-st",
+    "tax.us.2025.f1099b.covered-lt-txn": "tax.us.2025.f1099b.covered-lt",
+    "tax.us.2025.f1099b.covered-ltcg-txn": "tax.us.2025.f1099b.covered-ltcg",
+    "tax.us.2025.f1099b.covered-w-st-txn": "tax.us.2025.f1099b.covered-w-st",
+    "tax.us.2025.f1099b.covered-w-lt-txn": "tax.us.2025.f1099b.covered-w-lt",
+}
+
+
+def noncovered_scalar_presence_pairs() -> dict[str, str]:
+    """Each noncovered scalar amount requires its sale object on the same identity.
+
+    ADR-0082. A proceeds, basis, or adjustment figure recorded without the sale
+    is refused. The sale object may be recorded on its own. Core v79 installs
+    these pairs; earlier cores do not.
+    """
+    pairs: dict[str, str] = {}
+    for term in ("st", "lt"):
+        sale = f"tax.us.2025.f1099b.noncovered-{term}-txn"
+        for kind in ("proceeds", "basis", "adjustment"):
+            pairs[f"{sale}.{kind}"] = sale
+    return pairs
+
+
+def named_covered_flag_refusal_maps() -> dict[tuple[str, str], dict[str, str]]:
+    """Packages whose companion declaration names the covered-flag refusal.
+
+    Core v79 is the first package that names it. Core v78 and earlier are
+    absent, so their runs never consult the map. The map is a sibling of the
+    companion declaration: the kernel declaration only carries presence pairs
+    and value domains.
+    """
+    return {
+        ("tax.us.2025.package.core-calculations", "v79"): dict(COVERED_FLAG_REFUSAL_OBJECTS),
+    }
+
+
+def covered_flag_refusal_map(package_id: str, version: str) -> dict[str, str] | None:
+    """The object-to-family map when this package's declaration names it.
+
+    ``None`` unless the package has a companion declaration and
+    ``named_covered_flag_refusal_maps`` lists it. Callers treat ``None`` as
+    the refusal being off.
+    """
+    key = (package_id, version)
+    if key not in domain_package_companion_declarations():
+        return None
+    objects = named_covered_flag_refusal_maps().get(key)
+    if objects is None:
+        return None
+    return dict(objects)
 
 
 def domain_companion_presence_pairs() -> dict[str, str | list[str]]:
@@ -334,6 +398,15 @@ def domain_package_companion_declarations() -> dict[tuple[str, str], dict[str, A
         # companion, so it shares v77's declaration. Without this entry, v78 would
         # fall back to the global maps and refuse amounts v77 admits.
         ("tax.us.2025.package.core-calculations", "v78"): gambling,
+        # Core v79 reads a noncovered sale from a filer-supplied basis. Each
+        # proceeds, basis, and adjustment figure requires its sale object
+        # (ADR-0082). The covered-flag refusal is named beside this declaration,
+        # not inside it. Without this entry, v79 would fall back to the global
+        # maps and refuse amounts v78 admits.
+        ("tax.us.2025.package.core-calculations", "v79"): {
+            "presence_pairs": {**gambling["presence_pairs"], **noncovered_scalar_presence_pairs()},
+            "value_domains": dict(gambling["value_domains"]),
+        },
     }
 
 
@@ -686,6 +759,59 @@ def load_source_families(
     return by_id
 
 
+def _pinned_family(
+    families: dict[str, dict[str, Any]],
+    family_id: str,
+    version: str,
+    reg: SchemaRegistry,
+) -> dict[str, Any] | None:
+    """The committed declaration a mapping pins, including a historical version."""
+    family = families.get(family_id)
+    if family is not None and family["version"] != version:
+        family = None
+    if family is not None:
+        return family
+    for family_path in sorted(TAX_CONTENT_DIR.glob("family.*.json")):
+        candidate = json.loads(family_path.read_text("utf-8"))
+        if (
+            isinstance(candidate, dict)
+            and candidate.get("id") == family_id
+            and candidate.get("version") == version
+        ):
+            reg.validate_declared(candidate)
+            return cast(dict[str, Any], candidate)
+    return None
+
+
+def _validate_group_mapping(
+    filename: str,
+    citizen: dict[str, Any],
+    families: dict[str, dict[str, Any]],
+    reg: SchemaRegistry,
+) -> None:
+    """Each family a v4 mapping lists honors its pinned declaration."""
+    rows = citizen.get("families")
+    if not isinstance(rows, list) or not rows:
+        raise SchemaValidationError(
+            "source-closure-mapping.v4",
+            [f"{filename} lists no families"],
+        )
+    for row in rows:
+        pin = row.get("family") if isinstance(row, dict) else None
+        if not isinstance(pin, dict) or "id" not in pin or "version" not in pin:
+            raise SchemaValidationError(
+                "source-closure-mapping.v4",
+                [f"{filename} lists a family with no pin"],
+            )
+        family = _pinned_family(families, str(pin["id"]), str(pin["version"]), reg)
+        if family is None:
+            raise SchemaValidationError(
+                "source-closure-mapping.v4",
+                [f"{filename} pins family {pin['id']}, which no committed declaration provides"],
+            )
+        validate_listed_family(str(citizen["id"]), row, family)
+
+
 def load_closure_mappings(
     registry: SchemaRegistry | None = None,
 ) -> dict[str, dict[str, Any]]:
@@ -706,8 +832,22 @@ def load_closure_mappings(
         if declared not in {"source-closure-mapping.v1"} | CLOSURE_MAPPING_SCHEMAS:
             raise SchemaValidationError(
                 "source-closure-mapping.v2",
-                [f"{path.name} declares {declared}, not source-closure-mapping.v1, v2 or v3"],
+                [f"{path.name} declares {declared}, not source-closure-mapping.v1, v2, v3, or v4"],
             )
+        if declared == "source-closure-mapping.v4":
+            _validate_group_mapping(path.name, citizen, families, reg)
+            existing = by_id.get(citizen["id"])
+            if existing is None:
+                by_id[citizen["id"]] = citizen
+                continue
+            if existing["version"] == citizen["version"]:
+                raise SchemaValidationError(
+                    "source-closure-mapping.v4",
+                    [f"duplicate mapping id/version: {citizen['id']}@{citizen['version']}"],
+                )
+            if _version_rank(citizen["version"]) > _version_rank(existing["version"]):
+                by_id[citizen["id"]] = citizen
+            continue
         family = families.get(citizen["family"]["id"])
         if family is not None and family["version"] != citizen["family"]["version"]:
             # Validate historical mappings against their exact family
