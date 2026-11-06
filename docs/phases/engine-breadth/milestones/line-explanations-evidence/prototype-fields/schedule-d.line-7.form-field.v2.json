@@ -1,0 +1,45 @@
+{
+  "schema": "form-field.v3",
+  "id": "tax.us.2025.schedule-d.line-7",
+  "version": "v2",
+  "form": {
+    "authority": "IRS",
+    "form_id": "1040-SCH-D",
+    "tax_year": 2025,
+    "jurisdiction": "US-federal"
+  },
+  "line": "7",
+  "label": "Line 7 net short-term",
+  "description": "Schedule D (2025) Line 7 net short-term (ADR-0058).",
+  "binds_symbol": "tax.us.2025.schedule-d.line-7",
+  "citation": {
+    "id": "tax.us.2025.citation.schedule-d.line-7",
+    "version": "v1"
+  },
+  "dispositions": {
+    "published_value": {
+      "render": "{value}",
+      "explain": "Line 7 net short-term adds Line 1a column (h), Line 1b column (h), and Line 6 short-term capital loss carryover."
+    },
+    "computed_zero": {
+      "render": "0",
+      "explain": "Line 7 net short-term is zero because those amounts come to zero."
+    },
+    "closure_backed_zero": {
+      "render": "0",
+      "explain": "Line 7 net short-term is zero because nothing was recorded and that record is complete."
+    },
+    "blocked": {
+      "render": "",
+      "explain": "Line 7 net short-term has no value yet. It is waiting for the amounts it adds.",
+      "codes": [
+        "DEPENDENCY_ABSENT",
+        "SOURCE_SET_UNCLOSED"
+      ]
+    },
+    "guard_inapplicable": {
+      "render": "",
+      "explain": "Line 7 net short-term has no condition that turns it off, so this sentence is not shown."
+    }
+  }
+}
