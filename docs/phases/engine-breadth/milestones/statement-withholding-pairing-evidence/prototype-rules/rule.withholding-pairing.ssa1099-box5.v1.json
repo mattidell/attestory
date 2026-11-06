@@ -1,0 +1,49 @@
+{
+  "schema": "rule-artifact.v14",
+  "id": "tax.us.2025.rule.withholding-pairing.ssa1099-box5",
+  "version": "v1",
+  "scope": {
+    "tax_year": 2025,
+    "jurisdiction": "US-federal",
+    "family": "individual-income-tax"
+  },
+  "role": "computation",
+  "subject": {
+    "id": "tax.us.2025.ssa1099.box5-net-benefits",
+    "version": "v1"
+  },
+  "requires": [],
+  "pins": [],
+  "when": true,
+  "value": {
+    "op": "choose",
+    "when": {
+      "op": "compare",
+      "cmp": "gte",
+      "left": {
+        "op": "shared_key_count",
+        "fact_type": "tax.us.2025.ssa1099.box6-voluntary-withholding",
+        "key": "statement"
+      },
+      "right": 1
+    },
+    "then": {
+      "op": "category_literal",
+      "fact_type": {
+        "id": "tax.us.2025.withholding.pairing.answer",
+        "version": "v1"
+      },
+      "value": "answered"
+    },
+    "else": {
+      "op": "block",
+      "code": "DEPENDENCY_ABSENT"
+    }
+  },
+  "publishes": "tax.us.2025.withholding.pairing.ssa1099-box5",
+  "blocked": {
+    "code": "DEPENDENCY_ABSENT",
+    "missing": []
+  },
+  "notes": "PROTOTYPE, not a citizen. One current withholding row on this statement's statement key is an answer, including 0. Absence blocks this subject. The published category is the favorable value presentation reads."
+}

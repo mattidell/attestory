@@ -570,6 +570,11 @@ def _assemble_pins(
             if run.use_v2:
                 pin["origin"] = "assertion"
             pins.append(pin)
+        for finding_id in access.require_paired_findings:
+            pin = {"role": "input", "id": finding_id, "version": run.source_finding_version(finding_id)}
+            if run.use_v2:
+                pin["origin"] = "assertion"
+            pins.append(pin)
         return _sorted_pins(pins)
     finally:
         run.symbol_pin = saved_pin
@@ -921,6 +926,7 @@ def evaluate_subject_scoped_rule(
                     if len(rows) == 1 and (source := rows[0]).result_fact_type is not None
                 },
             },
+            paired_sources=run.paired_sources(),
         )
         access = AccessLog()
         try:

@@ -1,0 +1,68 @@
+[
+  {
+    "id": "tax.us.2025.withholding.pairing.vocabulary",
+    "version": "v1",
+    "schema": "bundle.v2",
+    "role": "fact-type-bundle"
+  },
+  {
+    "id": "tax.us.2025.rule.withholding-pairing.f1099int-box1",
+    "version": "v1",
+    "schema": "rule-artifact.v14",
+    "role": "computation"
+  },
+  {
+    "id": "tax.us.2025.rule.withholding-pairing.f1099int-box3",
+    "version": "v1",
+    "schema": "rule-artifact.v14",
+    "role": "computation"
+  },
+  {
+    "id": "tax.us.2025.rule.withholding-pairing.f1099int-box8",
+    "version": "v1",
+    "schema": "rule-artifact.v14",
+    "role": "computation"
+  },
+  {
+    "id": "tax.us.2025.rule.withholding-pairing.f1099int-box10",
+    "version": "v1",
+    "schema": "rule-artifact.v14",
+    "role": "computation"
+  },
+  {
+    "id": "tax.us.2025.rule.withholding-pairing.f1099div-box1a",
+    "version": "v1",
+    "schema": "rule-artifact.v14",
+    "role": "computation"
+  },
+  {
+    "id": "tax.us.2025.rule.withholding-pairing.f1099div-box2a",
+    "version": "v1",
+    "schema": "rule-artifact.v14",
+    "role": "computation"
+  },
+  {
+    "id": "tax.us.2025.rule.withholding-pairing.f1099div-box12",
+    "version": "v1",
+    "schema": "rule-artifact.v14",
+    "role": "computation"
+  },
+  {
+    "id": "tax.us.2025.rule.withholding-pairing.f1099r-box1",
+    "version": "v1",
+    "schema": "rule-artifact.v14",
+    "role": "computation"
+  },
+  {
+    "id": "tax.us.2025.rule.withholding-pairing.f1099g-box1",
+    "version": "v1",
+    "schema": "rule-artifact.v14",
+    "role": "computation"
+  },
+  {
+    "id": "tax.us.2025.rule.withholding-pairing.ssa1099-box5",
+    "version": "v1",
+    "schema": "rule-artifact.v14",
+    "role": "computation"
+  }
+]

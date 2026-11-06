@@ -1,0 +1,85 @@
+{
+  "blocked": {
+    "code": "OPEN_DEPENDENCY",
+    "missing": [
+      "rounding.convention",
+      "tax.us.2025.w2.closure-check"
+    ]
+  },
+  "citations": [
+    {
+      "id": "tax.us.2025.citation.form1040.line-25a",
+      "version": "v1"
+    }
+  ],
+  "id": "tax.us.2025.rule.form1040-line25a",
+  "notes": "Form 1040 line 25a: 'Add the amounts shown as federal income tax withheld on your Form(s) W-2. The amount withheld should be shown in box 2 of Form W-2' (i1040gi-2025 l.2551-2556). v2 published only when the number of current W-2 box-2 statements equaled the number of W-2 box-1 statements. v3 replaces that comparison with require_paired on the w2-slip key: every current box-1 row has a current box-2 row on the same slip. Both family closures stay inside the arm. A missing box 2 blocks DEPENDENCY_ABSENT naming tax.us.2025.w2.box2-withholding. A $0 row counts because the row exists. A box-2 row with no box-1 row is not a failure. The aggregation itself (value) is collect+add+round over the box-2 family, same shape as box 1's own rule.wages-line1a. This version requires tax.us.2025.w2.closure-check so that closure is named before the guard runs. The expression does not read the symbol.",
+  "pins": [
+    {
+      "id": "rounding.convention",
+      "origin": "assertion",
+      "role": "input",
+      "version": "v1"
+    }
+  ],
+  "publishes": "tax.us.2025.payments.line25a",
+  "requires": [
+    "rounding.convention",
+    "tax.us.2025.w2.closure-check"
+  ],
+  "role": "computation",
+  "schema": "rule-artifact.v15",
+  "scope": {
+    "family": "individual-income-tax",
+    "jurisdiction": "US-federal",
+    "tax_year": 2025
+  },
+  "value": {
+    "mode": {
+      "name": "rounding.convention",
+      "op": "ref"
+    },
+    "op": "round",
+    "value": {
+      "args": [
+        {
+          "name": "tax.us.2025.w2.box2-withholding",
+          "op": "collect",
+          "source_set": "tax.us.2025.w2-box2"
+        }
+      ],
+      "op": "add"
+    }
+  },
+  "version": "v3",
+  "when": {
+    "args": [
+      {
+        "args": [
+          {
+            "op": "require_closed",
+            "source_set": "tax.us.2025.w2-box2"
+          },
+          {
+            "op": "require_closed",
+            "source_set": "tax.us.2025.w2"
+          },
+          {
+            "op": "require_paired",
+            "key": "w2-slip",
+            "withholding": "tax.us.2025.w2.box2-withholding",
+            "income": [
+              "tax.us.2025.w2.box1-wages"
+            ]
+          }
+        ],
+        "op": "all"
+      },
+      {
+        "name": "tax.us.2025.w2.box2-withholding",
+        "op": "ref"
+      }
+    ],
+    "op": "any"
+  }
+}

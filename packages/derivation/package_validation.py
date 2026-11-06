@@ -61,7 +61,7 @@ def _families_reached(
     reached: set[tuple[str, str]] = set()
     schema = citizen.get("schema")
 
-    if schema in {"rule-artifact.v1", "rule-artifact.v2", "rule-artifact.v3", "rule-artifact.v4", "rule-artifact.v5", "rule-artifact.v6", "rule-artifact.v7", "rule-artifact.v8", "rule-artifact.v9", "rule-artifact.v10", "rule-artifact.v11", "rule-artifact.v12", "rule-artifact.v13", "rule-artifact.v14"}:
+    if schema in {"rule-artifact.v1", "rule-artifact.v2", "rule-artifact.v3", "rule-artifact.v4", "rule-artifact.v5", "rule-artifact.v6", "rule-artifact.v7", "rule-artifact.v8", "rule-artifact.v9", "rule-artifact.v10", "rule-artifact.v11", "rule-artifact.v12", "rule-artifact.v13", "rule-artifact.v14", "rule-artifact.v15"}:
         for symbol in citizen.get("requires", []):
             if symbol in families_by_subtotal:
                 reached.add((families_by_subtotal[symbol], "reads_subtotal"))
@@ -197,7 +197,7 @@ def _predicate_depth(node: Any) -> int:
 
 _RULE_ROLES = frozenset({"computation", "applicability", "field-mapping", "cross-form-bridge"})
 _RULE_ARTIFACT_SCHEMAS = frozenset(
-    {"rule-artifact.v1", "rule-artifact.v2", "rule-artifact.v3", "rule-artifact.v4", "rule-artifact.v5", "rule-artifact.v6", "rule-artifact.v7", "rule-artifact.v8", "rule-artifact.v9", "rule-artifact.v10", "rule-artifact.v11", "rule-artifact.v12", "rule-artifact.v13", "rule-artifact.v14"}
+    {"rule-artifact.v1", "rule-artifact.v2", "rule-artifact.v3", "rule-artifact.v4", "rule-artifact.v5", "rule-artifact.v6", "rule-artifact.v7", "rule-artifact.v8", "rule-artifact.v9", "rule-artifact.v10", "rule-artifact.v11", "rule-artifact.v12", "rule-artifact.v13", "rule-artifact.v14", "rule-artifact.v15"}
 )
 _SCOPE_KEYS = ("tax_year", "jurisdiction", "family")
 
@@ -368,7 +368,7 @@ _SUPPORTED_SEMANTIC_SCHEMAS = frozenset({
     "rule-artifact.v11",
     "rule-artifact.v12",
     "rule-artifact.v13",
-    "rule-artifact.v14",
+    "rule-artifact.v14", "rule-artifact.v15",
     *sorted(CLOSURE_MAPPING_SCHEMAS),
     "source-family.v1",
     "source-family.v2",
@@ -624,7 +624,7 @@ def _link_coverage_issues(
     fact_ids = {fact_id for fact_id, _version in fact_surface}
 
     for pin, citizen in resolved:
-        if citizen.get("schema") not in ("rule-artifact.v10", "rule-artifact.v11", "rule-artifact.v12", "rule-artifact.v13", "rule-artifact.v14"):
+        if citizen.get("schema") not in ("rule-artifact.v10", "rule-artifact.v11", "rule-artifact.v12", "rule-artifact.v13", "rule-artifact.v14", "rule-artifact.v15"):
             continue
         value_nodes = list(_iter_link_coverage_nodes(citizen.get("value")))
         when_nodes = list(_iter_link_coverage_nodes(citizen.get("when")))
@@ -721,7 +721,7 @@ def _subject_relationship_issues(
     fact_ids = {fact_id for fact_id, _version in fact_types_by_key}
 
     for pin, citizen in resolved:
-        if citizen.get("schema") not in ("rule-artifact.v11", "rule-artifact.v12", "rule-artifact.v13", "rule-artifact.v14"):
+        if citizen.get("schema") not in ("rule-artifact.v11", "rule-artifact.v12", "rule-artifact.v13", "rule-artifact.v14", "rule-artifact.v15"):
             continue
 
         subject = citizen.get("subject")
@@ -732,7 +732,7 @@ def _subject_relationship_issues(
         # refuses ``joined`` without ``subject``. v11 and v12 require it.
         # v14 (ADR 0078) carries the same optional-subject shape unchanged.
         return_level = (
-            citizen.get("schema") in ("rule-artifact.v13", "rule-artifact.v14") and subject is None
+            citizen.get("schema") in ("rule-artifact.v13", "rule-artifact.v14", "rule-artifact.v15") and subject is None
         )
         if subject_type is None and not return_level:
             issues.append(MemberIssue(
@@ -781,7 +781,7 @@ def _subject_relationship_issues(
                     "fact type and direction joined_contains_subject",
                 ))
 
-        if citizen.get("schema") in ("rule-artifact.v12", "rule-artifact.v13", "rule-artifact.v14"):
+        if citizen.get("schema") in ("rule-artifact.v12", "rule-artifact.v13", "rule-artifact.v14", "rule-artifact.v15"):
             count_nodes = list(_iter_link_count_nodes(citizen.get("value")))
             when_count_nodes = list(_iter_link_count_nodes(citizen.get("when")))
             if when_count_nodes or (count_nodes and len(count_nodes) != 1):
@@ -843,7 +843,7 @@ def _shared_key_count_issues(
     """
     issues: list[MemberIssue] = []
     for pin, citizen in resolved:
-        if citizen.get("schema") not in ("rule-artifact.v13", "rule-artifact.v14"):
+        if citizen.get("schema") not in ("rule-artifact.v13", "rule-artifact.v14", "rule-artifact.v15"):
             continue
         value_nodes = list(_iter_shared_key_count_nodes(citizen.get("value")))
         elsewhere = [
@@ -878,6 +878,76 @@ def _shared_key_count_issues(
                 issue(f"key {key!r} is not an identity-key name of counted fact type {counted!r}")
             if subject_type is not None and key not in _identity_key_names(subject_type):
                 issue(f"key {key!r} is not an identity-key name of subject {subject_key!r}")
+    return issues
+
+
+def _iter_require_paired_nodes(expr: Any) -> Iterable[dict[str, Any]]:
+    """Yield every ``require_paired`` node."""
+    if isinstance(expr, dict):
+        if expr.get("op") == "require_paired":
+            yield expr
+        for value in expr.values():
+            yield from _iter_require_paired_nodes(value)
+    elif isinstance(expr, list):
+        for item in expr:
+            yield from _iter_require_paired_nodes(item)
+
+
+def _require_paired_names(node: Mapping[str, Any]) -> list[str]:
+    """The withholding fact type, then each income fact type, as named."""
+    names: list[str] = []
+    withholding = node.get("withholding")
+    if isinstance(withholding, str) and withholding:
+        names.append(withholding)
+    income = node.get("income")
+    if isinstance(income, list):
+        names.extend(name for name in income if isinstance(name, str) and name)
+    return names
+
+
+def _require_paired_issues(
+    resolved: list[tuple[dict[str, Any], dict[str, Any]]],
+    fact_types_by_key: Mapping[tuple[str, str], dict[str, Any]],
+) -> list[MemberIssue]:
+    """``key`` is an identity-key name of every declared version of each named fact type.
+
+    The withholding fact type and every income fact type are on the package
+    fact surface. The operation reads no values. It may appear in ``when``.
+    """
+    issues: list[MemberIssue] = []
+    for pin, citizen in resolved:
+        if citizen.get("schema") != "rule-artifact.v15":
+            continue
+        nodes = [
+            node
+            for expression in _rule_expression_nodes(citizen)
+            for node in _iter_require_paired_nodes(expression)
+        ]
+        if not nodes:
+            continue
+
+        def issue(detail: str) -> None:
+            issues.append(MemberIssue(pin["id"], pin["version"], "REQUIRE_PAIRED_INVALID", detail))
+
+        for node in nodes:
+            key = node.get("key")
+            names = _require_paired_names(node)
+            if not isinstance(key, str) or not key or not names or not isinstance(node.get("withholding"), str):
+                issue("require_paired must name a key, a withholding fact type, and at least one income fact type")
+                continue
+            income = node.get("income")
+            if not isinstance(income, list) or not income:
+                issue("require_paired must name at least one income fact type")
+                continue
+            for fact_id in names:
+                versions = [
+                    fact_type for (found_id, _version), fact_type in sorted(fact_types_by_key.items())
+                    if found_id == fact_id
+                ]
+                if not versions:
+                    issue(f"fact type {fact_id!r} is not on the package fact surface")
+                elif any(key not in _identity_key_names(fact_type) for fact_type in versions):
+                    issue(f"key {key!r} is not an identity-key name of fact type {fact_id!r}")
     return issues
 
 
@@ -944,7 +1014,7 @@ def _basis_issues(resolved: list[tuple[dict[str, Any], dict[str, Any]]]) -> list
 
 def v13_selection_declarations(citizen: Mapping[str, Any]) -> list[Mapping[str, Any]]:
     """The paths and the default of a v13 (or v14) ``selection``, in declared order."""
-    if citizen.get("schema") not in ("rule-artifact.v13", "rule-artifact.v14"):
+    if citizen.get("schema") not in ("rule-artifact.v13", "rule-artifact.v14", "rule-artifact.v15"):
         return []
     selection = citizen.get("selection")
     if not isinstance(selection, Mapping):
@@ -1050,7 +1120,7 @@ def _v13_selection_issues(resolved: list[tuple[dict[str, Any], dict[str, Any]]])
     }
 
     for pin, citizen in resolved:
-        if citizen.get("schema") not in ("rule-artifact.v13", "rule-artifact.v14") or "selection" not in citizen:
+        if citizen.get("schema") not in ("rule-artifact.v13", "rule-artifact.v14", "rule-artifact.v15") or "selection" not in citizen:
             continue
 
         def issue(code: str, detail: str) -> None:
@@ -1145,16 +1215,16 @@ def _reader_role_issues(
     resolved: list[tuple[dict[str, Any], dict[str, Any]]],
 ) -> list[MemberIssue]:
     """Validate the closed roles and their declared rule dependencies in v34."""
-    if package.get("schema") not in ("artifact-package.v34", "artifact-package.v35", "artifact-package.v36", "artifact-package.v37", "artifact-package.v38", "artifact-package.v39"):
+    if package.get("schema") not in ("artifact-package.v34", "artifact-package.v35", "artifact-package.v36", "artifact-package.v37", "artifact-package.v38", "artifact-package.v39", "artifact-package.v40"):
         return []
     issues: list[MemberIssue] = []
     role_rules = [
         (pin, rule) for pin, rule in resolved
-        if rule.get("schema") in ("rule-artifact.v12", "rule-artifact.v13", "rule-artifact.v14")
+        if rule.get("schema") in ("rule-artifact.v12", "rule-artifact.v13", "rule-artifact.v14", "rule-artifact.v15")
         and isinstance(rule.get("reader_role"), str)
     ]
     for pin, rule in resolved:
-        if rule.get("schema") in ("rule-artifact.v12", "rule-artifact.v13", "rule-artifact.v14") and "lineNote" in rule and rule.get("reader_role") != "bare-statement-conclusion":
+        if rule.get("schema") in ("rule-artifact.v12", "rule-artifact.v13", "rule-artifact.v14", "rule-artifact.v15") and "lineNote" in rule and rule.get("reader_role") != "bare-statement-conclusion":
             issues.append(MemberIssue(
                 pin["id"], pin["version"], "READER_ROLE_TEXT_INVALID",
                 "lineNote is only valid on a bare-statement-conclusion rule",
@@ -2468,6 +2538,7 @@ def validate_package(
     ))
     issues.extend(_subject_relationship_issues(resolved, fact_types_by_key))
     issues.extend(_shared_key_count_issues(resolved, fact_types_by_key))
+    issues.extend(_require_paired_issues(resolved, fact_types_by_key))
     issues.extend(_basis_issues(resolved))
     issues.extend(_v13_selection_issues(resolved))
     issues.extend(_reader_role_issues(package, resolved))
@@ -2858,7 +2929,7 @@ def validate_package(
             "artifact-package.v20", "artifact-package.v21", "artifact-package.v22",
             "artifact-package.v23", "artifact-package.v24", "artifact-package.v25",
             "artifact-package.v26", "artifact-package.v29", "artifact-package.v30",
-            "artifact-package.v31", "artifact-package.v35", "artifact-package.v36", "artifact-package.v37", "artifact-package.v38", "artifact-package.v39",
+            "artifact-package.v31", "artifact-package.v35", "artifact-package.v36", "artifact-package.v37", "artifact-package.v38", "artifact-package.v39", "artifact-package.v40",
         }:
             members_by_key = {
                 (pin["id"], pin["version"]): pin for pin in package["members"]
@@ -2934,7 +3005,7 @@ def validate_package(
                 # declared-refs-outside-requires capability. v11 is v10's
                 # grammar plus subject/joined/direction, none of which are
                 # `ref` expressions; it carries the same capability.
-                if citizen["schema"] in {"rule-artifact.v3", "rule-artifact.v4", "rule-artifact.v5", "rule-artifact.v6", "rule-artifact.v7", "rule-artifact.v8", "rule-artifact.v9", "rule-artifact.v10", "rule-artifact.v11", "rule-artifact.v12", "rule-artifact.v13", "rule-artifact.v14"}:
+                if citizen["schema"] in {"rule-artifact.v3", "rule-artifact.v4", "rule-artifact.v5", "rule-artifact.v6", "rule-artifact.v7", "rule-artifact.v8", "rule-artifact.v9", "rule-artifact.v10", "rule-artifact.v11", "rule-artifact.v12", "rule-artifact.v13", "rule-artifact.v14", "rule-artifact.v15"}:
                     declared_refs.update(
                         ref for expression in _rule_expression_nodes(citizen)
                         for ref in _iter_ref_names(expression)
@@ -2983,7 +3054,7 @@ def validate_package(
                 # The edge is what makes that rule a predecessor. The link
                 # fact type and the empty parameter are reached the same way.
                 # v11 admits the same link_coverage node; same edges.
-                if citizen["schema"] in ("rule-artifact.v10", "rule-artifact.v11", "rule-artifact.v12", "rule-artifact.v13", "rule-artifact.v14"):
+                if citizen["schema"] in ("rule-artifact.v10", "rule-artifact.v11", "rule-artifact.v12", "rule-artifact.v13", "rule-artifact.v14", "rule-artifact.v15"):
                     for node in _iter_link_coverage_nodes(citizen.get("value")):
                         links_name = node.get("links")
                         reductions_name = node.get("reductions")
@@ -3000,7 +3071,7 @@ def validate_package(
                         parameter = empty.get("parameter") if isinstance(empty, dict) else None
                         if isinstance(parameter, dict) and parameter.get("id") in member_ids:
                             adj[m_id].add(parameter["id"])
-                if citizen["schema"] in ("rule-artifact.v12", "rule-artifact.v13", "rule-artifact.v14"):
+                if citizen["schema"] in ("rule-artifact.v12", "rule-artifact.v13", "rule-artifact.v14", "rule-artifact.v15"):
                     for node in _iter_link_count_nodes(citizen.get("value")):
                         links_name = node.get("links")
                         if isinstance(links_name, str):
@@ -3011,7 +3082,7 @@ def validate_package(
                 # ADR 0077 Part 1 (and ADR 0078's v14, unchanged here): the
                 # counted fact type is reached the same way a link_count's
                 # links fact type is.
-                if citizen["schema"] in ("rule-artifact.v13", "rule-artifact.v14"):
+                if citizen["schema"] in ("rule-artifact.v13", "rule-artifact.v14", "rule-artifact.v15"):
                     for node in _iter_shared_key_count_nodes(citizen.get("value")):
                         counted_name = node.get("fact_type")
                         if isinstance(counted_name, str):
@@ -3019,6 +3090,14 @@ def validate_package(
                                 if fact.get("schema") == "fact-type.v2" and fact.get("id") == counted_name:
                                     adj[m_id].add(fact_pin["id"])
                             adj[m_id].update(bundles_for_fact.get(counted_name, set()))
+                if citizen["schema"] == "rule-artifact.v15":
+                    for expression in _rule_expression_nodes(citizen):
+                        for node in _iter_require_paired_nodes(expression):
+                            for fact_name in _require_paired_names(node):
+                                for fact_pin, fact in resolved:
+                                    if fact.get("schema") == "fact-type.v2" and fact.get("id") == fact_name:
+                                        adj[m_id].add(fact_pin["id"])
+                                adj[m_id].update(bundles_for_fact.get(fact_name, set()))
                 # v9 declarations carry exact dependency pins outside the
                 # ordinary expression tree. Keep the closed-package graph in
                 # lockstep with the authorization-closure graph: the selected
@@ -3812,7 +3891,7 @@ def validate_package(
         # 1/6b); the conditional_dependency_set/category_literal domain-match
         # check applies identically. v11 is v10's grammar plus
         # subject/joined/direction; the same when/value shape applies.
-        if citizen["schema"] not in {"rule-artifact.v3", "rule-artifact.v4", "rule-artifact.v5", "rule-artifact.v6", "rule-artifact.v7", "rule-artifact.v8", "rule-artifact.v9", "rule-artifact.v10", "rule-artifact.v11", "rule-artifact.v12", "rule-artifact.v13", "rule-artifact.v14"}:
+        if citizen["schema"] not in {"rule-artifact.v3", "rule-artifact.v4", "rule-artifact.v5", "rule-artifact.v6", "rule-artifact.v7", "rule-artifact.v8", "rule-artifact.v9", "rule-artifact.v10", "rule-artifact.v11", "rule-artifact.v12", "rule-artifact.v13", "rule-artifact.v14", "rule-artifact.v15"}:
             continue
         member_names = {
             name for expression in _rule_expression_nodes(citizen)
@@ -3871,7 +3950,7 @@ def validate_package(
     # value_schema.properties. Misspelled fields and field-on-scalar are
     # rejected here, never as a silent None/zero at evaluation.
     for pin, citizen in resolved:
-        if citizen["schema"] not in {"rule-artifact.v7", "rule-artifact.v8", "rule-artifact.v9", "rule-artifact.v10", "rule-artifact.v11", "rule-artifact.v12", "rule-artifact.v13", "rule-artifact.v14"}:
+        if citizen["schema"] not in {"rule-artifact.v7", "rule-artifact.v8", "rule-artifact.v9", "rule-artifact.v10", "rule-artifact.v11", "rule-artifact.v12", "rule-artifact.v13", "rule-artifact.v14", "rule-artifact.v15"}:
             continue
         if citizen["schema"] in {"rule-artifact.v7", "rule-artifact.v8"}:
             issues.extend(check_field_ref_bindings(

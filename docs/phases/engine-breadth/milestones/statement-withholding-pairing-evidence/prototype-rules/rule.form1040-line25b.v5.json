@@ -1,0 +1,633 @@
+{
+  "schema": "rule-artifact.v14",
+  "id": "tax.us.2025.rule.form1040-line25b",
+  "version": "v5",
+  "scope": {
+    "tax_year": 2025,
+    "jurisdiction": "US-federal",
+    "family": "individual-income-tax"
+  },
+  "role": "computation",
+  "requires": [],
+  "pins": [],
+  "when": true,
+  "selection": {
+    "mode": "exclusive_presence",
+    "conflict": "refuse",
+    "paths": [
+      {
+        "id": "statements",
+        "activity": {
+          "kind": "source_nonempty",
+          "member_fact_types": [
+            {
+              "id": "tax.us.2025.f1099int.box1-interest",
+              "version": "v1"
+            },
+            {
+              "id": "tax.us.2025.f1099int.box3-interest",
+              "version": "v1"
+            },
+            {
+              "id": "tax.us.2025.f1099int.box8-tax-exempt-interest",
+              "version": "v1"
+            },
+            {
+              "id": "tax.us.2025.f1099int.box10-market-discount",
+              "version": "v1"
+            },
+            {
+              "id": "tax.us.2025.f1099div.box1a-ordinary",
+              "version": "v1"
+            },
+            {
+              "id": "tax.us.2025.f1099div.box2a-capital-gain-distribution",
+              "version": "v1"
+            },
+            {
+              "id": "tax.us.2025.f1099div.box12-exempt-interest-dividends",
+              "version": "v1"
+            },
+            {
+              "id": "tax.us.2025.f1099r.ira-box1-taxable-distribution",
+              "version": "v1"
+            },
+            {
+              "id": "tax.us.2025.f1099g.box1-unemployment",
+              "version": "v1"
+            },
+            {
+              "id": "tax.us.2025.ssa1099.box5-net-benefits",
+              "version": "v1"
+            }
+          ]
+        },
+        "reads_subject_results": [
+          {
+            "symbol": "tax.us.2025.withholding.pairing.f1099int-box1",
+            "subject": {
+              "id": "tax.us.2025.f1099int.box1-interest",
+              "version": "v1"
+            }
+          },
+          {
+            "symbol": "tax.us.2025.withholding.pairing.f1099int-box3",
+            "subject": {
+              "id": "tax.us.2025.f1099int.box3-interest",
+              "version": "v1"
+            }
+          },
+          {
+            "symbol": "tax.us.2025.withholding.pairing.f1099int-box8",
+            "subject": {
+              "id": "tax.us.2025.f1099int.box8-tax-exempt-interest",
+              "version": "v1"
+            }
+          },
+          {
+            "symbol": "tax.us.2025.withholding.pairing.f1099int-box10",
+            "subject": {
+              "id": "tax.us.2025.f1099int.box10-market-discount",
+              "version": "v1"
+            }
+          },
+          {
+            "symbol": "tax.us.2025.withholding.pairing.f1099div-box1a",
+            "subject": {
+              "id": "tax.us.2025.f1099div.box1a-ordinary",
+              "version": "v1"
+            }
+          },
+          {
+            "symbol": "tax.us.2025.withholding.pairing.f1099div-box2a",
+            "subject": {
+              "id": "tax.us.2025.f1099div.box2a-capital-gain-distribution",
+              "version": "v1"
+            }
+          },
+          {
+            "symbol": "tax.us.2025.withholding.pairing.f1099div-box12",
+            "subject": {
+              "id": "tax.us.2025.f1099div.box12-exempt-interest-dividends",
+              "version": "v1"
+            }
+          },
+          {
+            "symbol": "tax.us.2025.withholding.pairing.f1099r-box1",
+            "subject": {
+              "id": "tax.us.2025.f1099r.ira-box1-taxable-distribution",
+              "version": "v1"
+            }
+          },
+          {
+            "symbol": "tax.us.2025.withholding.pairing.f1099g-box1",
+            "subject": {
+              "id": "tax.us.2025.f1099g.box1-unemployment",
+              "version": "v1"
+            }
+          },
+          {
+            "symbol": "tax.us.2025.withholding.pairing.ssa1099-box5",
+            "subject": {
+              "id": "tax.us.2025.ssa1099.box5-net-benefits",
+              "version": "v1"
+            }
+          }
+        ],
+        "requires": [
+          "rounding.convention",
+          "tax.us.2025.interest.b4-withholding-subtotal",
+          "tax.us.2025.dividends.b4-withholding-subtotal",
+          "tax.us.2025.ira.box4-withholding-subtotal",
+          "tax.us.2025.unemployment.b4-withholding-subtotal",
+          "tax.us.2025.ssa1099.b6-withholding-subtotal"
+        ],
+        "pins": [
+          {
+            "id": "rounding.convention",
+            "role": "input",
+            "version": "v1",
+            "origin": "assertion"
+          },
+          {
+            "id": "tax.us.2025.interest.b4-withholding-subtotal",
+            "role": "input",
+            "version": "v1",
+            "origin": "assertion"
+          },
+          {
+            "id": "tax.us.2025.dividends.b4-withholding-subtotal",
+            "role": "input",
+            "version": "v1",
+            "origin": "assertion"
+          },
+          {
+            "id": "tax.us.2025.ira.box4-withholding-subtotal",
+            "role": "input",
+            "version": "v1",
+            "origin": "assertion"
+          },
+          {
+            "id": "tax.us.2025.unemployment.b4-withholding-subtotal",
+            "role": "input",
+            "version": "v1",
+            "origin": "assertion"
+          },
+          {
+            "id": "tax.us.2025.ssa1099.b6-withholding-subtotal",
+            "role": "input",
+            "version": "v1",
+            "origin": "assertion"
+          }
+        ],
+        "when": true,
+        "value": {
+          "op": "choose",
+          "when": {
+            "op": "all",
+            "args": [
+              {
+                "op": "choose",
+                "when": {
+                  "op": "compare",
+                  "cmp": "gt",
+                  "left": {
+                    "op": "count",
+                    "name": "tax.us.2025.withholding.pairing.f1099int-box1",
+                    "source_set": "tax.us.2025.f1099int.b1"
+                  },
+                  "right": 0
+                },
+                "then": {
+                  "op": "collect_categorical_all_equal",
+                  "name": "tax.us.2025.withholding.pairing.f1099int-box1",
+                  "value": {
+                    "op": "category_literal",
+                    "fact_type": {
+                      "id": "tax.us.2025.withholding.pairing.answer",
+                      "version": "v1"
+                    },
+                    "value": "answered"
+                  }
+                },
+                "else": true
+              },
+              {
+                "op": "choose",
+                "when": {
+                  "op": "compare",
+                  "cmp": "gt",
+                  "left": {
+                    "op": "count",
+                    "name": "tax.us.2025.withholding.pairing.f1099int-box3",
+                    "source_set": "tax.us.2025.f1099int.b3"
+                  },
+                  "right": 0
+                },
+                "then": {
+                  "op": "collect_categorical_all_equal",
+                  "name": "tax.us.2025.withholding.pairing.f1099int-box3",
+                  "value": {
+                    "op": "category_literal",
+                    "fact_type": {
+                      "id": "tax.us.2025.withholding.pairing.answer",
+                      "version": "v1"
+                    },
+                    "value": "answered"
+                  }
+                },
+                "else": true
+              },
+              {
+                "op": "choose",
+                "when": {
+                  "op": "compare",
+                  "cmp": "gt",
+                  "left": {
+                    "op": "count",
+                    "name": "tax.us.2025.withholding.pairing.f1099int-box8",
+                    "source_set": "tax.us.2025.f1099int.b8"
+                  },
+                  "right": 0
+                },
+                "then": {
+                  "op": "collect_categorical_all_equal",
+                  "name": "tax.us.2025.withholding.pairing.f1099int-box8",
+                  "value": {
+                    "op": "category_literal",
+                    "fact_type": {
+                      "id": "tax.us.2025.withholding.pairing.answer",
+                      "version": "v1"
+                    },
+                    "value": "answered"
+                  }
+                },
+                "else": true
+              },
+              {
+                "op": "choose",
+                "when": {
+                  "op": "compare",
+                  "cmp": "gt",
+                  "left": {
+                    "op": "count",
+                    "name": "tax.us.2025.withholding.pairing.f1099int-box10",
+                    "source_set": "tax.us.2025.f1099int.b10"
+                  },
+                  "right": 0
+                },
+                "then": {
+                  "op": "collect_categorical_all_equal",
+                  "name": "tax.us.2025.withholding.pairing.f1099int-box10",
+                  "value": {
+                    "op": "category_literal",
+                    "fact_type": {
+                      "id": "tax.us.2025.withholding.pairing.answer",
+                      "version": "v1"
+                    },
+                    "value": "answered"
+                  }
+                },
+                "else": true
+              },
+              {
+                "op": "choose",
+                "when": {
+                  "op": "compare",
+                  "cmp": "gt",
+                  "left": {
+                    "op": "count",
+                    "name": "tax.us.2025.withholding.pairing.f1099div-box1a",
+                    "source_set": "tax.us.2025.f1099div.1a"
+                  },
+                  "right": 0
+                },
+                "then": {
+                  "op": "collect_categorical_all_equal",
+                  "name": "tax.us.2025.withholding.pairing.f1099div-box1a",
+                  "value": {
+                    "op": "category_literal",
+                    "fact_type": {
+                      "id": "tax.us.2025.withholding.pairing.answer",
+                      "version": "v1"
+                    },
+                    "value": "answered"
+                  }
+                },
+                "else": true
+              },
+              {
+                "op": "choose",
+                "when": {
+                  "op": "compare",
+                  "cmp": "gt",
+                  "left": {
+                    "op": "count",
+                    "name": "tax.us.2025.withholding.pairing.f1099div-box2a",
+                    "source_set": "tax.us.2025.f1099div.2a"
+                  },
+                  "right": 0
+                },
+                "then": {
+                  "op": "collect_categorical_all_equal",
+                  "name": "tax.us.2025.withholding.pairing.f1099div-box2a",
+                  "value": {
+                    "op": "category_literal",
+                    "fact_type": {
+                      "id": "tax.us.2025.withholding.pairing.answer",
+                      "version": "v1"
+                    },
+                    "value": "answered"
+                  }
+                },
+                "else": true
+              },
+              {
+                "op": "choose",
+                "when": {
+                  "op": "compare",
+                  "cmp": "gt",
+                  "left": {
+                    "op": "count",
+                    "name": "tax.us.2025.withholding.pairing.f1099div-box12",
+                    "source_set": "tax.us.2025.f1099div.12"
+                  },
+                  "right": 0
+                },
+                "then": {
+                  "op": "collect_categorical_all_equal",
+                  "name": "tax.us.2025.withholding.pairing.f1099div-box12",
+                  "value": {
+                    "op": "category_literal",
+                    "fact_type": {
+                      "id": "tax.us.2025.withholding.pairing.answer",
+                      "version": "v1"
+                    },
+                    "value": "answered"
+                  }
+                },
+                "else": true
+              },
+              {
+                "op": "choose",
+                "when": {
+                  "op": "compare",
+                  "cmp": "gt",
+                  "left": {
+                    "op": "count",
+                    "name": "tax.us.2025.withholding.pairing.f1099r-box1",
+                    "source_set": "tax.us.2025.f1099r.ira-fully-taxable"
+                  },
+                  "right": 0
+                },
+                "then": {
+                  "op": "collect_categorical_all_equal",
+                  "name": "tax.us.2025.withholding.pairing.f1099r-box1",
+                  "value": {
+                    "op": "category_literal",
+                    "fact_type": {
+                      "id": "tax.us.2025.withholding.pairing.answer",
+                      "version": "v1"
+                    },
+                    "value": "answered"
+                  }
+                },
+                "else": true
+              },
+              {
+                "op": "choose",
+                "when": {
+                  "op": "compare",
+                  "cmp": "gt",
+                  "left": {
+                    "op": "count",
+                    "name": "tax.us.2025.withholding.pairing.f1099g-box1",
+                    "source_set": "tax.us.2025.f1099g.1"
+                  },
+                  "right": 0
+                },
+                "then": {
+                  "op": "collect_categorical_all_equal",
+                  "name": "tax.us.2025.withholding.pairing.f1099g-box1",
+                  "value": {
+                    "op": "category_literal",
+                    "fact_type": {
+                      "id": "tax.us.2025.withholding.pairing.answer",
+                      "version": "v1"
+                    },
+                    "value": "answered"
+                  }
+                },
+                "else": true
+              },
+              {
+                "op": "choose",
+                "when": {
+                  "op": "compare",
+                  "cmp": "gt",
+                  "left": {
+                    "op": "count",
+                    "name": "tax.us.2025.withholding.pairing.ssa1099-box5",
+                    "source_set": "tax.us.2025.ssa1099.benefits"
+                  },
+                  "right": 0
+                },
+                "then": {
+                  "op": "collect_categorical_all_equal",
+                  "name": "tax.us.2025.withholding.pairing.ssa1099-box5",
+                  "value": {
+                    "op": "category_literal",
+                    "fact_type": {
+                      "id": "tax.us.2025.withholding.pairing.answer",
+                      "version": "v1"
+                    },
+                    "value": "answered"
+                  }
+                },
+                "else": true
+              }
+            ]
+          },
+          "then": {
+            "mode": {
+              "name": "rounding.convention",
+              "op": "ref"
+            },
+            "op": "round",
+            "value": {
+              "args": [
+                {
+                  "name": "tax.us.2025.interest.b4-withholding-subtotal",
+                  "op": "ref"
+                },
+                {
+                  "name": "tax.us.2025.dividends.b4-withholding-subtotal",
+                  "op": "ref"
+                },
+                {
+                  "name": "tax.us.2025.ira.box4-withholding-subtotal",
+                  "op": "ref"
+                },
+                {
+                  "name": "tax.us.2025.unemployment.b4-withholding-subtotal",
+                  "op": "ref"
+                },
+                {
+                  "name": "tax.us.2025.ssa1099.b6-withholding-subtotal",
+                  "op": "ref"
+                }
+              ],
+              "op": "add"
+            }
+          },
+          "else": {
+            "op": "block",
+            "code": "DEPENDENCY_ABSENT"
+          }
+        }
+      },
+      {
+        "id": "domain",
+        "activity": {
+          "kind": "source_nonempty",
+          "member_fact_types": [
+            {
+              "id": "tax.us.2025.withholding.pairing.answer",
+              "version": "v1"
+            }
+          ]
+        },
+        "reads_subject_results": [],
+        "requires": [],
+        "pins": [],
+        "when": true,
+        "value": {
+          "op": "block",
+          "code": "DEPENDENCY_ABSENT"
+        }
+      },
+      {
+        "id": "inert",
+        "activity": {
+          "kind": "source_nonempty",
+          "member_fact_types": [
+            {
+              "id": "tax.us.2025.f1099k.inert-path-unwritten",
+              "version": "v1"
+            }
+          ]
+        },
+        "reads_subject_results": [],
+        "requires": [],
+        "pins": [],
+        "when": true,
+        "value": {
+          "op": "block",
+          "code": "DEPENDENCY_ABSENT"
+        }
+      }
+    ],
+    "default": {
+      "id": "neither",
+      "reads_subject_results": [],
+      "requires": [
+        "rounding.convention",
+        "tax.us.2025.interest.b4-withholding-subtotal",
+        "tax.us.2025.dividends.b4-withholding-subtotal",
+        "tax.us.2025.ira.box4-withholding-subtotal",
+        "tax.us.2025.unemployment.b4-withholding-subtotal",
+        "tax.us.2025.ssa1099.b6-withholding-subtotal"
+      ],
+      "pins": [
+        {
+          "id": "rounding.convention",
+          "role": "input",
+          "version": "v1",
+          "origin": "assertion"
+        },
+        {
+          "id": "tax.us.2025.interest.b4-withholding-subtotal",
+          "role": "input",
+          "version": "v1",
+          "origin": "assertion"
+        },
+        {
+          "id": "tax.us.2025.dividends.b4-withholding-subtotal",
+          "role": "input",
+          "version": "v1",
+          "origin": "assertion"
+        },
+        {
+          "id": "tax.us.2025.ira.box4-withholding-subtotal",
+          "role": "input",
+          "version": "v1",
+          "origin": "assertion"
+        },
+        {
+          "id": "tax.us.2025.unemployment.b4-withholding-subtotal",
+          "role": "input",
+          "version": "v1",
+          "origin": "assertion"
+        },
+        {
+          "id": "tax.us.2025.ssa1099.b6-withholding-subtotal",
+          "role": "input",
+          "version": "v1",
+          "origin": "assertion"
+        }
+      ],
+      "when": true,
+      "value": {
+        "mode": {
+          "name": "rounding.convention",
+          "op": "ref"
+        },
+        "op": "round",
+        "value": {
+          "args": [
+            {
+              "name": "tax.us.2025.interest.b4-withholding-subtotal",
+              "op": "ref"
+            },
+            {
+              "name": "tax.us.2025.dividends.b4-withholding-subtotal",
+              "op": "ref"
+            },
+            {
+              "name": "tax.us.2025.ira.box4-withholding-subtotal",
+              "op": "ref"
+            },
+            {
+              "name": "tax.us.2025.unemployment.b4-withholding-subtotal",
+              "op": "ref"
+            },
+            {
+              "name": "tax.us.2025.ssa1099.b6-withholding-subtotal",
+              "op": "ref"
+            }
+          ],
+          "op": "add"
+        }
+      }
+    },
+    "refusal": {
+      "code": "DEPENDENCY_INVALID",
+      "missing": [
+        "withholding-pairing-inert-path-conflict"
+      ],
+      "pins": []
+    }
+  },
+  "publishes": "tax.us.2025.payments.line25b",
+  "blocked": {
+    "code": "DEPENDENCY_ABSENT",
+    "missing": []
+  },
+  "citations": [
+    {
+      "id": "tax.us.2025.citation.form1040.line-25b",
+      "version": "v1"
+    }
+  ],
+  "notes": "PROTOTYPE, not a citizen. The value is still the five withholding subtotals. A statement path reads each subject rule first. An empty guard is true. A blocked subject fails closed before the sum, and the favorable category is what presentation expects. The domain path names the scratch fact type so the package graph reaches it. Nothing writes that fact, so the path stays inactive. The sum itself is unchanged, so an answered return, including a withholding-only extra and a 0 answer, matches v4."
+}
