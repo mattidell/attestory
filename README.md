@@ -65,6 +65,10 @@ This is the project's third iteration. The first proved a working return generat
 - **Package successor tool** ([usage guide](docs/tools/package-successor.md)):
   construct and validate candidate package, registry, and release chains from
   explicit changes; publication and companion admission remain separate.
+- **Kernel replay:** one projection incrementally maintains its private fact
+  lattices, with public dictionary ownership and refusals preserved. This adds
+  no tax coverage and does not make all replay linear. See the
+  [measured benefit and verification cost](docs/phases/engineering-health/milestones/lattice-rebuild-evidence/measured-performance.md).
 - **Historical documents** (`docs/archive/`): completed execution evidence and
   superseded planning. Reference only; not a source of contracts.
 - **Legacy engine** (`archive/`): the pre-governance v2 implementation.
