@@ -20,7 +20,7 @@ Synthetic demo.* data only.
 from __future__ import annotations
 
 import copy
-import importlib
+import importlib.util
 import json
 import sys
 from pathlib import Path
@@ -40,6 +40,7 @@ pytestmark = pytest.mark.live
 
 REPO = Path(__file__).resolve().parents[1]
 EVIDENCE = REPO / "docs/phases/engine-breadth/milestones/f8949-boxes-cf-evidence"
+TRACK0_MODULE = "f8949_boxes_cf_track0"
 P = "tax.us.2025."
 PACKAGE, PACKAGE_VERSION = "package.core-calculations.v80.json", "v80"
 REGISTRY = "published-packages.v78.json"
@@ -99,7 +100,15 @@ Acts = list[dict[str, Any]]
 @pytest.fixture(scope="module")
 def world() -> SimpleNamespace:
     sys.path.insert(0, str(EVIDENCE))
-    track0 = cast(Any, importlib.import_module("track0"))
+    # tests/test_noncovered_sales_v79.py imports the noncovered evidence's own
+    # ``track0``; this one is loaded under its own name so neither shadows the other.
+    track0 = cast(Any, sys.modules.get(TRACK0_MODULE))
+    if track0 is None:
+        spec = importlib.util.spec_from_file_location(TRACK0_MODULE, EVIDENCE / "track0.py")
+        assert spec is not None and spec.loader is not None
+        track0 = importlib.util.module_from_spec(spec)
+        sys.modules[TRACK0_MODULE] = track0
+        spec.loader.exec_module(track0)
     cfp, cp = track0.cfp, track0.cp
     assert cfp.REPAIRS == REPAIRS
     cp.pin_v79()

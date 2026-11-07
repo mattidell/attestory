@@ -257,4 +257,58 @@ Lines 2 and 9 take Decision 3 as decided.
 
 ## Track 1 result
 
-Pending.
+Core v80, registry v78 and release v78 are published on this branch. They
+are built from the Track 0 scratch v80 with every `REPAIRS` switch on.
+
+- **Successors.** The 61 member edits (43 added, 18 replaced) are the files
+  in `cf-prototype-rules/`, copied byte for byte into
+  `packages/content/tax/2025/`. `tools.package_successor` produced the
+  same package checksum (`3e5444b2…`) and release sha256 (`76c864bd…`)
+  as the Track 0 scratch build. Registry v78 only adds entries. No
+  published citizen or schema is edited.
+- **Loader.** v80's companion declaration is v79's pairs plus the six box
+  C and F scalar pairs. v80 names v79's covered-flag refusal map. These
+  are the two entries the prototype patched in process.
+- **Cases.** `tests/test_no1099b_sales_v80.py` runs the cases on the
+  published v80 through `live_coordinate_run` and the presentation model:
+  - All 71 Track 0 cases. 69 run. Two are rejected before a run, as
+    recorded: `c_basis_object_missing` (the sale schema needs a basis) and
+    `d3_b_orphan_basis` (ADR-0082 presence pair).
+  - The 50 v79 returns under the new "no". 48 run. Two are rejected as on
+    v79: `duplicate_horizon` and `probe_e_basis_object_missing`.
+
+  Each run's lines, attachment dispositions and questions equal the
+  Track 0 record. `cf_prototype.check`'s hand values hold. Each run also
+  shows:
+  - one disposition row per publisher of lines 2, 3, 7, 9, 10, 15, 16 and
+    21, line 7a, the preferential base, both attachments and the four
+    amount checks;
+  - explain text on lines 2, 3, 7, 9, 10 and 15;
+  - no blocked line without a blocked text or reason.
+
+  Form 1040 lines 15 and 16 keep their v79 dollars, except the ten
+  returns accepted as newly blocked:
+  - Decision 2: four returns, including `boundary_no_without_member`;
+  - Decision 3: two returns;
+  - Decision 5: four returns.
+
+  `tests/test_noncovered_sales_v79.py` is unchanged.
+  `tests/test_no1099b_sales_v80_package.py` checks the successor and
+  registry facts statically.
+- **Other test updates the new members require:**
+  - the refusal-map test names v80;
+  - the broker-basis consumer trace names the noncovered amount-agreement
+    rules and lines 2 and 9;
+  - `tools/required_versus_read_allowlist.json` moves the line 1a and 8a
+    witnesses to v5 and v6, and lists the amount-check witness that lines
+    2, 3, 9 and 10 require but do not read.
+- **Deviation from the prototype:** none in content, package or loader.
+  The allowlist edit sits in `tools/`, outside the charter's literal list,
+  as v79's did. The new live module loads the f8949 evidence `track0.py`
+  under its own module name, because the noncovered evidence has a
+  `track0.py` too. On the first full run that name clash failed 41 v79
+  tests.
+- **Checks:**
+  - `pytest -m "not live"`: 1693 passed, 8 skipped.
+  - Full `pytest`: 4563 passed, 24 skipped, 0 failed.
+  - `python3 -m mypy`: no issues in 467 files.
