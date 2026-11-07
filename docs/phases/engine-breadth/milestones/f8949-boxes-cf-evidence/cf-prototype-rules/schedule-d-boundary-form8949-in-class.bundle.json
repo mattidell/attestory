@@ -8,7 +8,7 @@
       "schema": "fact-type.v2",
       "id": "tax.us.2025.schedule-d-boundary.form8949-in-class",
       "version": "v1",
-      "title": "Whether this return's Form 8949 work beyond covered sales and code W is only boxes B, C, E and F: sales of stocks or other securities with a basis you supply (and, on boxes C and F, net proceeds you supply) and an optional wash-sale adjustment. yes or no.",
+      "title": "Whether this return's Form 8949 work beyond covered sales and code W is only boxes B, C, E and F: sales of stocks or other securities, each recorded once under the one box its statement gives it, with a basis you supply (and, on boxes C and F, net proceeds you supply) and an optional wash-sale adjustment. yes or no.",
       "nature": "determinable",
       "identity_keys": [
         {

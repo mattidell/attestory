@@ -13,6 +13,12 @@ entries for v80.
 
 Writes cf-prototype-output.json beside this file, and the small JSON of each
 new or successor member under cf-prototype-rules/.
+
+Track 0 added Decision 3 (lines 2 and 9 v2 on rule-artifact.v15 with
+require_paired, and four input questions) and the repairs listed at
+REPAIRS. cf-prototype-output.json is P0's record from before them;
+track0.py reruns every case on the current design and writes
+track0-output.json (see track0-closure.md).
 """
 
 from __future__ import annotations
@@ -47,7 +53,37 @@ OLD_IC = P + "schedule-d-boundary.noncovered-in-class"
 NEW_IC = P + "schedule-d-boundary.form8949-in-class"
 NO8949 = P + "schedule-d-boundary.no-form8949-sources"
 PATH_B = P + "schedule-d-boundary.no-other-form8949-adjustments"
+Q1 = P + "f1099b.noncovered-sold.source-closure"
 Q2 = P + "f8949.no1099b-sold.source-closure"
+# Track 0 repairs (track0-closure.md). All are on by default; track0.py turns
+# them off to show the counterexample each one fixes.
+#   q1_unbacked_yes: lines 3 and 10 are zero only if the v79 noncovered answer
+#     is "no" or a box B/E sale is recorded, so a v79 "yes" with nothing behind
+#     it blocks (check 2 for the v79 question). Lines 2 and 9 keep the v79 zero
+#     path, so their closure-backed zero sentence is unchanged.
+#   old_ic_backed: the v79 in-class "yes" admits a Form 8949 "no" on lines 3
+#     and 10 only beside a v79 "yes".
+#   sale_needs_8949_no: lines 2, 3, 9 and 10 publish a recorded sale only
+#     beside a Form 8949 "no". A Form 8949 "yes" says there are no Form 8949
+#     transactions; with a sale recorded it published Form 1040 while the Form
+#     8949 attachment blocked.
+#   f8949_reads_lines_2_9: the Form 8949 attachment requirement reads lines 2
+#     and 9, so a box B/E sale missing an amount blocks the attachment too.
+#   nc_count_pairing: lines 2 and 9 also need as many proceeds rows and basis
+#     rows as sale objects. require_paired reads one key, and a box B/E sale is
+#     keyed by broker, statement and transaction; two sales on different
+#     statements can share a transaction entity. The ADR-0082 presence pairs
+#     refuse a scalar without its own sale object, so equal counts mean every
+#     sale has its own rows.
+#   amounts_agree: each sale's own proceeds, basis and wash-sale rows must
+#     equal the amounts on its sale object, whose member constraints (code W
+#     on a gain, adjustment above the loss, holding period) are the only
+#     checks. A per-sale rule (the sale object is the subject) publishes agree
+#     or disagree, and a return-level selection rule publishes 0 only when
+#     every sale agrees. Lines 2, 3, 9 and 10 require it. Same shape as the
+#     Form 1099-K statement-loss-reason / unresolved pair.
+REPAIRS: set[str] = {"q1_unbacked_yes", "old_ic_backed", "sale_needs_8949_no", "f8949_reads_lines_2_9",
+                     "nc_count_pairing", "amounts_agree"}
 Q2_TEXT = "Did you sell any stocks or other securities for which you did not receive a Form 1099-B or substitute statement?"
 SALE_KIND = "tax.us.f8949-sale"
 TERMS = ("st", "lt")
@@ -197,8 +233,125 @@ def bundle(term: str) -> dict[str, Any]:
                           {"type": "number", "minimum": 0}, SALE_KEYS))
         facts.append(fact(fam(term, kind) + ".source-closure",
                           f"Closure of the {w} no-Form-1099-B {kind} family.", {"type": "boolean"}, CLOSURE_KEYS))
+    if "amounts_agree" in REPAIRS:
+        facts += agree_facts(member_fact(term, None), SALE_KEYS, f"{w} sale you received no Form 1099-B for")
     return {"schema": "bundle.v2", "id": P + f"f8949.no1099b-{term}.vocabulary", "version": "v1",
             "label": f"Vocabulary for {w} sales of securities with no Form 1099-B", "fact_types": facts}
+
+
+# ---- Track 0 repair amounts_agree ------------------------------------------
+
+
+def agree_fact(sale_fact: str) -> str:
+    return sale_fact + ".amounts-agree"
+
+
+def check_symbol(sale_fact: str) -> str:
+    return sale_fact + ".amounts-check"
+
+
+def inert_fact(sale_fact: str) -> str:
+    return sale_fact + ".amounts-check-inert-path-unwritten"
+
+
+def agree_facts(sale_fact: str, keys: list[dict[str, Any]], what: str) -> list[dict[str, Any]]:
+    domain = {"oneOf": [
+        {"const": "agree", "description": "The sale's own proceeds, basis and wash-sale rows equal the amounts on the sale."},
+        {"const": "disagree", "description": "A proceeds, basis or wash-sale row differs from the amount on the sale."},
+    ]}
+    return [fact(agree_fact(sale_fact), f"Whether each amount row of one {what} equals the amount on the sale.",
+                 domain, keys),
+            fact(inert_fact(sale_fact), "Never recorded; the second selection path the selection shape requires.",
+                 {"type": "boolean"}, [{"name": "tax-year", "kind": "literal", "values": ["2025"]}])]
+
+
+def nc_keys() -> list[dict[str, Any]]:
+    return copy.deepcopy(BUILT_NC_KEYS)
+
+
+BUILT_NC_KEYS: list[dict[str, Any]] = []
+
+
+def nc_check_bundle() -> dict[str, Any]:
+    if not BUILT_NC_KEYS:
+        BUILT_NC_KEYS.extend(read("f1099b-noncovered-st.bundle.json")["fact_types"][0]["identity_keys"])
+    facts: list[dict[str, Any]] = []
+    for term in TERMS:
+        facts += agree_facts(P + f"f1099b.noncovered-{term}-txn", nc_keys(),
+                             f"{WORD[term]} sale whose basis was not reported to the IRS")
+    return {"schema": "bundle.v2", "id": P + "f1099b.noncovered-amounts-check.vocabulary", "version": "v1",
+            "label": "Whether each sale whose basis was not reported has amount rows equal to the sale", "fact_types": facts}
+
+
+def agree_rule(sale_fact: str, family_stem: str) -> dict[str, Any]:
+    """Per sale: the amount rows equal the sale object's own amounts."""
+    proceeds, basis, adj = (sale_fact + "." + k for k in KINDS)
+    subject = {"op": "ref", "name": sale_fact}
+    field = lambda f: {**subject, "field": f}  # noqa: E731
+    eq = lambda left, right: {"op": "compare", "cmp": "eq", "left": left, "right": right}  # noqa: E731
+    rows = lambda name, kind: {"op": "count", "name": name, "source_set": family_stem + "-" + kind}  # noqa: E731
+    present = lambda name, kind: {"op": "all", "args": [  # noqa: E731
+        {"op": "compare", "cmp": "gt", "left": rows(name, kind), "right": 0},
+        {"op": "conditional_dependency_set", "condition": True, "members": [ref(name)]}]}
+
+    def amount_ok(name: str, kind: str) -> dict[str, Any]:
+        # A missing row is not compared here: the line's require_paired asks for it.
+        return {"op": "any", "args": [eq(rows(name, kind), 0),
+                                      {"op": "all", "args": [present(name, kind), eq(ref(name), field(kind))]}]}
+
+    wash_ok = {"op": "any", "args": [
+        {"op": "all", "args": [eq(rows(adj, "adjustment"), 0), eq(field("wash_disallowed"), 0)]},
+        {"op": "all", "args": [present(adj, "adjustment"), eq(ref(adj), field("wash_disallowed"))]},
+    ]}
+    lit = lambda v: {"op": "category_literal", "fact_type": {"id": agree_fact(sale_fact), "version": "v1"}, "value": v}  # noqa: E731
+    return {
+        "schema": "rule-artifact.v15", "id": sale_fact.replace(P, P + "rule.") + ".amounts-agree", "version": "v1",
+        "scope": read("rule.schedule-d-line2.json")["scope"], "role": "computation",
+        "subject": {"id": sale_fact, "version": "v1"},
+        "requires": [sale_fact], "pins": [], "when": True,
+        "value": {"op": "choose", "when": {"op": "all", "args": [
+            amount_ok(proceeds, "proceeds"), amount_ok(basis, "basis"), wash_ok]},
+            "then": lit("agree"), "else": lit("disagree")},
+        "publishes": agree_fact(sale_fact), "blocked": {"code": "DEPENDENCY_ABSENT", "missing": []}, "citations": [],
+        "notes": "Track 0: the line reads the amount rows; the member constraints read the sale. They must agree.",
+    }
+
+
+def check_rule(sale_fact: str, family_id: str) -> dict[str, Any]:
+    """Return level: 0 when every sale agrees or none is recorded; else block."""
+    agree = {"op": "category_literal", "fact_type": {"id": agree_fact(sale_fact), "version": "v1"}, "value": "agree"}
+    path = lambda pid, activity, reads, value: {"id": pid, "activity": activity, "reads_subject_results": reads,  # noqa: E731
+                                                 "requires": [], "pins": [], "when": True, "value": value}
+    return {
+        "schema": "rule-artifact.v15", "id": sale_fact.replace(P, P + "rule.") + ".amounts-check", "version": "v1",
+        "scope": read("rule.schedule-d-line2.json")["scope"], "role": "computation", "requires": [], "pins": [],
+        "when": True,
+        "selection": {"mode": "exclusive_presence", "conflict": "refuse", "paths": [
+            path("sales", {"kind": "source_nonempty", "source_family": {"id": family_id, "version": "v1"},
+                           "member_fact_types": [{"id": sale_fact, "version": "v1"}]},
+                 [{"symbol": agree_fact(sale_fact), "subject": {"id": sale_fact, "version": "v1"}}],
+                 {"op": "choose", "when": {"op": "collect_categorical_all_equal", "name": agree_fact(sale_fact),
+                                           "value": agree},
+                  "then": 0, "else": {"op": "block", "code": "DEPENDENCY_INVALID"}}),
+            path("inert", {"kind": "source_nonempty", "member_fact_types": [{"id": inert_fact(sale_fact), "version": "v1"}]},
+                 [], {"op": "block", "code": "DEPENDENCY_ABSENT"}),
+        ], "default": {"id": "neither", "reads_subject_results": [], "requires": [], "pins": [], "when": True, "value": 0},
+            "refusal": {"code": "DEPENDENCY_INVALID", "missing": [sale_fact.removeprefix(P) + "-amounts-check-conflict"],
+                        "pins": []}},
+        "publishes": check_symbol(sale_fact), "blocked": {"code": "DEPENDENCY_ABSENT", "missing": []}, "citations": [],
+        "notes": "Track 0: blocks unless every recorded sale's amount rows equal the sale's own amounts.",
+    }
+
+
+def agreement_members() -> list[tuple[str, dict[str, Any]]]:
+    out: list[tuple[str, dict[str, Any]]] = [("f1099b-noncovered-amounts-check.bundle.json", nc_check_bundle())]
+    for term in TERMS:
+        for sale, family_id, stem in ((member_fact(term, None), fam(term, None), fam(term, None)),
+                                      (nc_fact(term, None), P + f"f1099b.noncovered-{term}", P + f"f1099b.noncovered-{term}")):
+            slug = sale.removeprefix(P)
+            out.append((f"rule.{slug}.amounts-agree.json", agree_rule(sale, stem)))
+            out.append((f"rule.{slug}.amounts-check.json", check_rule(sale, family_id)))
+    return out
 
 
 def boundary_bundle() -> dict[str, Any]:
@@ -209,8 +362,9 @@ def boundary_bundle() -> dict[str, Any]:
         "label": "Whether Form 8949 work beyond covered sales and code W is only boxes B, C, E and F",
         "fact_types": [
             fact(NEW_IC, "Whether this return's Form 8949 work beyond covered sales and code W is only boxes B, C, "
-                 "E and F: sales of stocks or other securities with a basis you supply (and, on boxes C and F, net "
-                 "proceeds you supply) and an optional wash-sale adjustment. yes or no.", yes_no, year),
+                 "E and F: sales of stocks or other securities, each recorded once under the one box its statement "
+                 "gives it, with a basis you supply (and, on boxes C and F, net proceeds you supply) and an optional "
+                 "wash-sale adjustment. yes or no.", yes_no, year),
             fact(Q2, Q2_TEXT, yes_no, year),
         ],
     }
@@ -258,8 +412,8 @@ def question() -> dict[str, Any]:
 
 
 NEW_IC_TEXT = ("Apart from sales your broker reported with their basis, is every sale on your Form 8949 a sale of stocks "
-               "or other securities, with a basis you supply, net proceeds you supply when you got no Form 1099-B, "
-               "and no adjustment other than a wash-sale loss?")
+               "or other securities, entered only once, with a basis you supply, net proceeds you supply when you got "
+               "no Form 1099-B, and no adjustment other than a wash-sale loss?")
 
 
 def amount_questions() -> list[tuple[str, dict[str, Any]]]:
@@ -308,10 +462,19 @@ def line_rule(term: str) -> dict[str, Any]:
     other = "lt" if term == "st" else "st"
     p, b, a = (subtotal(term, k) for k in KINDS)
     sale = member_fact(term, None)
-    admitted = {"op": "any", "args": [cat(NO8949, "yes"), cat(PATH_B, "yes"), GUARDED, cat(OLD_IC, "yes")]}
+    old_arm = (cat(OLD_IC, "yes") if "old_ic_backed" not in REPAIRS
+               else {"op": "all", "args": [cat(Q1, "yes"), cat(OLD_IC, "yes")]})
+    admitted = {"op": "any", "args": [cat(NO8949, "yes"), cat(PATH_B, "yes"), GUARDED, old_arm]}
     answered = {"op": "any", "args": [cat(Q2, "no"), ne0(subtotal(other, "proceeds")), ne0(subtotal(other, "basis"))]}
-    zero = {"op": "all", "args": [eq0(p), eq0(b), eq0(a), admitted, answered]}
-    present = {"op": "all", "args": [cat(NEW_IC, "yes"), {"op": "any", "args": [ne0(p), ne0(b)]}]}
+    nc_subs = [P + f"f1099b.noncovered-{t}-{k}-subtotal" for t in TERMS for k in ("proceeds", "basis")]
+    zero_args = [eq0(p), eq0(b), eq0(a), admitted, answered]
+    if "q1_unbacked_yes" in REPAIRS:
+        zero_args.append({"op": "any", "args": [cat(Q1, "no"), *(ne0(n) for n in nc_subs)]})
+    zero = {"op": "all", "args": zero_args}
+    present_args = [cat(NEW_IC, "yes"), {"op": "any", "args": [ne0(p), ne0(b)]}]
+    if "sale_needs_8949_no" in REPAIRS:
+        present_args.insert(0, cat(NO8949, "no"))
+    present = {"op": "all", "args": present_args}
     when = {"op": "all", "args": [
         *({"op": "require_closed", "source_set": fam(term, kind)} for kind in (None, *KINDS)),
         {"op": "require_paired", "key": "sale", "withholding": member_fact(term, "proceeds"), "income": [sale]},
@@ -325,7 +488,9 @@ def line_rule(term: str) -> dict[str, Any]:
                   "is not an unbacked yes."),
         "role": "computation", "scope": read("rule.schedule-d-line2.json")["scope"],
         "publishes": P + f"schedule-d.line-{LINE[term]}",
-        "requires": [p, b, a, subtotal(other, "proceeds"), subtotal(other, "basis")],
+        "requires": [p, b, a, subtotal(other, "proceeds"), subtotal(other, "basis"),
+                     *(nc_subs if "q1_unbacked_yes" in REPAIRS else []),
+                     *([check_symbol(sale)] if "amounts_agree" in REPAIRS else [])],
         "blocked": {"code": "DEPENDENCY_ABSENT", "missing": [p, b, a]},
         "citations": [{"id": P + f"citation.schedule-d.line-{LINE[term]}", "version": "v1"}],
         "pins": [], "when": when,
@@ -353,7 +518,8 @@ def form_field(term: str) -> dict[str, Any]:
                                            "Form 1099-B for is recorded, and your answer about those sales confirms "
                                            "the list is complete.")
     d["blocked"]["explain"] = (f"Schedule D line {n}, column (h), has no value yet. It waits for your answers about "
-                               "sales you received no Form 1099-B for and about Form 8949, or for each recorded "
+                               "sales you received no Form 1099-B for, sales whose basis was not reported, and Form "
+                               "8949 to agree with the sales you recorded, or for each recorded "
                                f"{w} sale of that kind to have its proceeds and basis and pass its checks.")
     return body
 
@@ -373,6 +539,62 @@ def successor(name: str, version: str, *, pairs: list[tuple[str, str]], arm: boo
     if "notes" in body:
         body["notes"] = body["notes"] + " " + notes
     return body
+
+
+def nc_fact(term: str, kind: str | None) -> str:
+    return P + f"f1099b.noncovered-{term}-txn" + (f".{kind}" if kind else "")
+
+
+def paired_nc_line(body: dict[str, Any], term: str) -> dict[str, Any]:
+    """Decision 3: lines 2 and 9 take the missing-amount check lines 3 and 10 carry.
+
+    rule-artifact.v15 for require_paired. The v79 sale is keyed by broker,
+    statement and transaction; the pairing key is the transaction entity.
+    v15 has no ``accounts_for`` and gets no synthesized member-validation
+    edge (package_validation compiles that edge for v1-v11 only), so the
+    family's checks reach the line only through the v5 subtotals it requires.
+    Track 0 builds a case for that (``b_code_w_on_gain``).
+    """
+    body = copy.deepcopy(body)
+    body["schema"] = "rule-artifact.v15"
+    body.pop("accounts_for", None)
+    body["when"]["args"] += [
+        {"op": "require_paired", "key": "transaction", "withholding": nc_fact(term, kind), "income": [nc_fact(term, None)]}
+        for kind in ("proceeds", "basis")
+    ]
+    body["notes"] += " v2 (Decision 3): every recorded sale needs its own proceeds and basis rows (require_paired)."
+    if "sale_needs_8949_no" in REPAIRS:
+        zero, *admit = body["value"]["when"]["args"]
+        present = {"op": "all", "args": [cat(NO8949, "no"), {"op": "any", "args": admit}]}
+        body["value"]["when"]["args"] = [zero, present]
+        body["notes"] += (" A recorded sale publishes only beside a Form 8949 no: a sale is a Form 8949 transaction "
+                          "(Track 0).")
+    if "amounts_agree" in REPAIRS:
+        body["requires"].append(check_symbol(nc_fact(term, None)))
+    if "nc_count_pairing" in REPAIRS:
+        def count(kind: str | None) -> dict[str, Any]:
+            return {"op": "count", "name": nc_fact(term, kind),
+                    "source_set": P + f"f1099b.noncovered-{term}" + (f"-{kind}" if kind else "")}
+        same = [{"op": "compare", "cmp": "eq", "left": count(None), "right": count(kind)} for kind in ("proceeds", "basis")]
+        body["value"] = {"op": "choose", "when": {"op": "all", "args": same}, "then": body["value"],
+                         "else": {"op": "block", "code": "DEPENDENCY_ABSENT"}}
+        body["notes"] += (" As many proceeds and basis rows as sales: the pairing key is one of three identity keys "
+                          "(Track 0).")
+    return body
+
+
+def nc_amount_questions() -> list[tuple[str, dict[str, Any]]]:
+    """What the page asks when a box B or E sale lacks its own proceeds or basis row."""
+    out = []
+    for term in TERMS:
+        for kind in ("proceeds", "basis"):
+            text = (f"What are the proceeds of each {WORD[term]} sale you recorded whose basis was not reported to the IRS?"
+                    if kind == "proceeds" else
+                    f"What is the basis of each {WORD[term]} sale you recorded whose basis was not reported to the IRS?")
+            out.append((f"input-question.f1099b-noncovered-{term}-{kind}.json", {
+                "schema": "input-question.v1", "id": P + f"input-question.f1099b-noncovered-{term}-{kind}",
+                "version": "v1", "fact_type": {"id": nc_fact(term, kind), "version": "v1"}, "question": text}))
+    return out
 
 
 LINE_PAIRS = [(P + "schedule-d.line-2", P + "schedule-d.line-3"), (P + "schedule-d.line-9", P + "schedule-d.line-10")]
@@ -402,6 +624,8 @@ def attachment_f8949() -> dict[str, Any]:
     subs = list(body["requirement"]["subtotals"])
     for term in TERMS:
         subs += [subtotal(term, "proceeds"), subtotal(term, "basis"), P + f"schedule-d.line-{LINE[term]}"]
+    if "f8949_reads_lines_2_9" in REPAIRS:
+        subs += [P + f"schedule-d.line-{NC_LINE[term]}" for term in TERMS if P + f"schedule-d.line-{NC_LINE[term]}" not in subs]
     body["requirement"]["subtotals"] = subs
     return body
 
@@ -461,8 +685,14 @@ def artifacts() -> tuple[list[tuple[str, dict[str, Any]]], dict[tuple[str, str],
         for kind in KINDS:
             succ(f"rule.f1099b-noncovered-{term}-{kind}-subtotal.json",
                  f"rule.f1099b-noncovered-{term}-{kind}-subtotal.v2.json", "v2", "v1", pairs=[], arm=True, notes=arm_note)
-    succ("rule.schedule-d-line2.json", "rule.schedule-d-line2.v2.json", "v2", "v1", pairs=[], arm=True, notes=arm_note)
-    succ("rule.schedule-d-line9.json", "rule.schedule-d-line9.v2.json", "v2", "v1", pairs=[], arm=True, notes=arm_note)
+    for term in TERMS:
+        name = f"rule.schedule-d-line{NC_LINE[term]}.json"
+        body = paired_nc_line(successor(name, "v2", pairs=[], arm=True, notes=arm_note), term)
+        old[(body["id"], "v2")] = ("v1", read(name)["schema"])
+        out.append((f"rule.schedule-d-line{NC_LINE[term]}.v2.json", body))
+    out.extend(nc_amount_questions())
+    if "amounts_agree" in REPAIRS:
+        out.extend(agreement_members())
     succ("rule.schedule-d-line1a-gain.v4.json", "rule.schedule-d-line1a-gain.v5.json", "v5", "v4", pairs=[], arm=True, notes=arm_note)
     succ("rule.schedule-d-line8a-gain.v5.json", "rule.schedule-d-line8a-gain.v6.json", "v6", "v5", pairs=[], arm=True, notes=arm_note)
     succ("rule.selected-preferential-base.v7.json", "rule.selected-preferential-base.v8.json", "v8", "v7",
@@ -517,15 +747,16 @@ def digest(folder: Path) -> dict[str, str]:
     return {p.name: hashlib.sha256(p.read_bytes()).hexdigest() for p in sorted(folder.glob("*.json"))}
 
 
-def build(scratch: Path) -> dict[str, Any]:
+def build(scratch: Path, *, write_rules: bool = True) -> dict[str, Any]:
     source_content, source_releases = probe.CONTENT, probe.RELEASE_DIR
     content, releases = scratch / "content", scratch / "releases"
     shutil.copytree(source_content, content)
     shutil.copytree(source_releases, releases)
     before = digest(content)
-    if RULES.exists():
-        shutil.rmtree(RULES)
-    RULES.mkdir()
+    if write_rules:
+        if RULES.exists():
+            shutil.rmtree(RULES)
+        RULES.mkdir()
     bodies, old = artifacts()
     members, entrypoints = [], []
     pinned = json.loads((content / "package.core-calculations.v79.json").read_text(encoding="utf-8"))
@@ -535,7 +766,8 @@ def build(scratch: Path) -> dict[str, Any]:
             raise AssertionError(f"{name} already exists")
         text = json.dumps(body, indent=2) + "\n"
         (content / name).write_text(text, encoding="utf-8")
-        (RULES / name).write_text(text, encoding="utf-8")
+        if write_rules:
+            (RULES / name).write_text(text, encoding="utf-8")
         new = {"id": body["id"], "version": body["version"], "schema": body["schema"],
                "role": ROLE.get(body["schema"], "computation")}
         key = (body["id"], body["version"])
@@ -566,7 +798,8 @@ def build(scratch: Path) -> dict[str, Any]:
     after = digest(content)
     changed = sorted(n for n in before if after.get(n) != before[n])
     added = sorted(n for n in after if n not in before)
-    (RULES / "_members.json").write_text(json.dumps(members, indent=2) + "\n", encoding="utf-8")
+    if write_rules:
+        (RULES / "_members.json").write_text(json.dumps(members, indent=2) + "\n", encoding="utf-8")
     companion_v80()
     probe.CONTENT, probe.RELEASE_DIR = content, releases
     return {
@@ -598,6 +831,8 @@ def open_cf(acts: list[dict[str, Any]]) -> None:
         b = BUNDLES.setdefault(term, bundle(term))
         cp.proto._adopt(acts, b)
     cp.proto._adopt(acts, BUNDLES.setdefault("boundary", boundary_bundle()))
+    if "amounts_agree" in REPAIRS:
+        cp.proto._adopt(acts, BUNDLES.setdefault("nc_check", nc_check_bundle()))
     for term in TERMS:
         for kind in (None, *KINDS):
             slug = fam(term, kind).removeprefix(P + "f8949.")
@@ -645,7 +880,7 @@ def say(acts: list[dict[str, Any]], fact_type: str, value: str, tag: str) -> lis
     return acts
 
 
-def v80_return(*, q1: str = "no", q2: str | None = "no", form8949: str | None = None, path_b: str | None = None,
+def v80_return(*, q1: str | None = "no", q2: str | None = "no", form8949: str | None = None, path_b: str | None = None,
                old_ic: str | None = None, new_ic: str | None = None,
                sales: Callable[[list[dict[str, Any]]], list[dict[str, Any]] | None] | None = None) -> list[dict[str, Any]]:
     """A harness return with both noncovered and no-1099-B families open.
@@ -659,7 +894,8 @@ def v80_return(*, q1: str = "no", q2: str | None = "no", form8949: str | None = 
         replaced = sales(acts)
         if replaced is not None:
             acts = replaced
-    acts = say(acts, P + "f1099b.noncovered-sold.source-closure", q1, "q1")
+    if q1 is not None:
+        acts = say(acts, P + "f1099b.noncovered-sold.source-closure", q1, "q1")
     if q2 is not None:
         acts = say(acts, Q2, q2, "q2")
     acts = ccr._renumbered(acts)

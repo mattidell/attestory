@@ -249,6 +249,64 @@
       "supersession": {
         "policy": "free"
       }
+    },
+    {
+      "schema": "fact-type.v2",
+      "id": "tax.us.2025.f8949.no1099b-lt-txn.amounts-agree",
+      "version": "v1",
+      "title": "Whether each amount row of one long-term sale you received no Form 1099-B for equals the amount on the sale.",
+      "nature": "determinable",
+      "identity_keys": [
+        {
+          "name": "sale",
+          "kind": "entity",
+          "entity_kind": "tax.us.f8949-sale"
+        },
+        {
+          "name": "tax-year",
+          "kind": "literal",
+          "values": [
+            "2025"
+          ]
+        }
+      ],
+      "value_schema": {
+        "oneOf": [
+          {
+            "const": "agree",
+            "description": "The sale's own proceeds, basis and wash-sale rows equal the amounts on the sale."
+          },
+          {
+            "const": "disagree",
+            "description": "A proceeds, basis or wash-sale row differs from the amount on the sale."
+          }
+        ]
+      },
+      "supersession": {
+        "policy": "free"
+      }
+    },
+    {
+      "schema": "fact-type.v2",
+      "id": "tax.us.2025.f8949.no1099b-lt-txn.amounts-check-inert-path-unwritten",
+      "version": "v1",
+      "title": "Never recorded; the second selection path the selection shape requires.",
+      "nature": "determinable",
+      "identity_keys": [
+        {
+          "name": "tax-year",
+          "kind": "literal",
+          "values": [
+            "2025"
+          ]
+        }
+      ],
+      "value_schema": {
+        "type": "boolean"
+      },
+      "supersession": {
+        "policy": "free"
+      }
     }
   ]
 }

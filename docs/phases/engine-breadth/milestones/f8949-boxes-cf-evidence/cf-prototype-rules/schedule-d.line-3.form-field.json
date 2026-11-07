@@ -31,7 +31,7 @@
     },
     "blocked": {
       "render": "",
-      "explain": "Schedule D line 3, column (h), has no value yet. It waits for your answers about sales you received no Form 1099-B for and about Form 8949, or for each recorded short-term sale of that kind to have its proceeds and basis and pass its checks.",
+      "explain": "Schedule D line 3, column (h), has no value yet. It waits for your answers about sales you received no Form 1099-B for, sales whose basis was not reported, and Form 8949 to agree with the sales you recorded, or for each recorded short-term sale of that kind to have its proceeds and basis and pass its checks.",
       "codes": [
         "DEPENDENCY_ABSENT",
         "SOURCE_SET_UNCLOSED"

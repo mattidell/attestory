@@ -1,8 +1,8 @@
 {
-  "schema": "rule-artifact.v5",
+  "schema": "rule-artifact.v15",
   "id": "tax.us.2025.rule.schedule-d-line2",
   "version": "v2",
-  "notes": "Column (h) is proceeds minus basis plus the wash-sale adjustment. Closed-empty subtotals publish 0 and do not read the noncovered boundary. A recorded sale publishes only when that boundary is yes. v80: the form8949-in-class answer (boxes B, C, E and F) admits the return as the v79 answer does.",
+  "notes": "Column (h) is proceeds minus basis plus the wash-sale adjustment. Closed-empty subtotals publish 0 and do not read the noncovered boundary. A recorded sale publishes only when that boundary is yes. v80: the form8949-in-class answer (boxes B, C, E and F) admits the return as the v79 answer does. v2 (Decision 3): every recorded sale needs its own proceeds and basis rows (require_paired). A recorded sale publishes only beside a Form 8949 no: a sale is a Form 8949 transaction (Track 0). As many proceeds and basis rows as sales: the pairing key is one of three identity keys (Track 0).",
   "role": "computation",
   "scope": {
     "tax_year": 2025,
@@ -13,7 +13,8 @@
   "requires": [
     "tax.us.2025.f1099b.noncovered-st-proceeds-subtotal",
     "tax.us.2025.f1099b.noncovered-st-basis-subtotal",
-    "tax.us.2025.f1099b.noncovered-st-adjustment-subtotal"
+    "tax.us.2025.f1099b.noncovered-st-adjustment-subtotal",
+    "tax.us.2025.f1099b.noncovered-st-txn.amounts-check"
   ],
   "blocked": {
     "code": "DEPENDENCY_ABSENT",
@@ -48,133 +49,206 @@
       {
         "op": "require_closed",
         "source_set": "tax.us.2025.f1099b.noncovered-st-adjustment"
+      },
+      {
+        "op": "require_paired",
+        "key": "transaction",
+        "withholding": "tax.us.2025.f1099b.noncovered-st-txn.proceeds",
+        "income": [
+          "tax.us.2025.f1099b.noncovered-st-txn"
+        ]
+      },
+      {
+        "op": "require_paired",
+        "key": "transaction",
+        "withholding": "tax.us.2025.f1099b.noncovered-st-txn.basis",
+        "income": [
+          "tax.us.2025.f1099b.noncovered-st-txn"
+        ]
       }
     ]
   },
   "value": {
     "op": "choose",
     "when": {
-      "op": "any",
+      "op": "all",
       "args": [
         {
-          "op": "all",
-          "args": [
-            {
-              "op": "compare",
-              "cmp": "eq",
-              "left": {
-                "op": "ref",
-                "name": "tax.us.2025.f1099b.noncovered-st-proceeds-subtotal"
-              },
-              "right": 0
-            },
-            {
-              "op": "compare",
-              "cmp": "eq",
-              "left": {
-                "op": "ref",
-                "name": "tax.us.2025.f1099b.noncovered-st-basis-subtotal"
-              },
-              "right": 0
-            },
-            {
-              "op": "compare",
-              "cmp": "eq",
-              "left": {
-                "op": "ref",
-                "name": "tax.us.2025.f1099b.noncovered-st-adjustment-subtotal"
-              },
-              "right": 0
-            }
-          ]
-        },
-        {
-          "op": "all",
-          "args": [
-            {
-              "op": "categorical_compare",
-              "cmp": "eq",
-              "left": {
-                "op": "ref",
-                "name": "tax.us.2025.f8949.no1099b-sold.source-closure"
-              },
-              "right": {
-                "op": "category_literal",
-                "fact_type": {
-                  "id": "tax.us.2025.f8949.no1099b-sold.source-closure",
-                  "version": "v1"
-                },
-                "value": "yes"
-              }
-            },
-            {
-              "op": "categorical_compare",
-              "cmp": "eq",
-              "left": {
-                "op": "ref",
-                "name": "tax.us.2025.schedule-d-boundary.form8949-in-class"
-              },
-              "right": {
-                "op": "category_literal",
-                "fact_type": {
-                  "id": "tax.us.2025.schedule-d-boundary.form8949-in-class",
-                  "version": "v1"
-                },
-                "value": "yes"
-              }
-            }
-          ]
-        },
-        {
+          "op": "compare",
           "cmp": "eq",
           "left": {
-            "name": "tax.us.2025.schedule-d-boundary.noncovered-in-class",
-            "op": "ref"
+            "op": "count",
+            "name": "tax.us.2025.f1099b.noncovered-st-txn",
+            "source_set": "tax.us.2025.f1099b.noncovered-st"
           },
-          "op": "categorical_compare",
           "right": {
-            "fact_type": {
-              "id": "tax.us.2025.schedule-d-boundary.noncovered-in-class",
-              "version": "v1"
-            },
-            "op": "category_literal",
-            "value": "yes"
+            "op": "count",
+            "name": "tax.us.2025.f1099b.noncovered-st-txn.proceeds",
+            "source_set": "tax.us.2025.f1099b.noncovered-st-proceeds"
+          }
+        },
+        {
+          "op": "compare",
+          "cmp": "eq",
+          "left": {
+            "op": "count",
+            "name": "tax.us.2025.f1099b.noncovered-st-txn",
+            "source_set": "tax.us.2025.f1099b.noncovered-st"
+          },
+          "right": {
+            "op": "count",
+            "name": "tax.us.2025.f1099b.noncovered-st-txn.basis",
+            "source_set": "tax.us.2025.f1099b.noncovered-st-basis"
           }
         }
       ]
     },
     "then": {
-      "op": "add",
-      "args": [
-        {
-          "op": "subtract",
-          "left": {
-            "op": "ref",
-            "name": "tax.us.2025.f1099b.noncovered-st-proceeds-subtotal"
+      "op": "choose",
+      "when": {
+        "op": "any",
+        "args": [
+          {
+            "op": "all",
+            "args": [
+              {
+                "op": "compare",
+                "cmp": "eq",
+                "left": {
+                  "op": "ref",
+                  "name": "tax.us.2025.f1099b.noncovered-st-proceeds-subtotal"
+                },
+                "right": 0
+              },
+              {
+                "op": "compare",
+                "cmp": "eq",
+                "left": {
+                  "op": "ref",
+                  "name": "tax.us.2025.f1099b.noncovered-st-basis-subtotal"
+                },
+                "right": 0
+              },
+              {
+                "op": "compare",
+                "cmp": "eq",
+                "left": {
+                  "op": "ref",
+                  "name": "tax.us.2025.f1099b.noncovered-st-adjustment-subtotal"
+                },
+                "right": 0
+              }
+            ]
           },
-          "right": {
-            "op": "ref",
-            "name": "tax.us.2025.f1099b.noncovered-st-basis-subtotal"
+          {
+            "op": "all",
+            "args": [
+              {
+                "op": "categorical_compare",
+                "cmp": "eq",
+                "left": {
+                  "op": "ref",
+                  "name": "tax.us.2025.schedule-d-boundary.no-form8949-sources"
+                },
+                "right": {
+                  "op": "category_literal",
+                  "fact_type": {
+                    "id": "tax.us.2025.schedule-d-boundary.no-form8949-sources",
+                    "version": "v1"
+                  },
+                  "value": "no"
+                }
+              },
+              {
+                "op": "any",
+                "args": [
+                  {
+                    "op": "all",
+                    "args": [
+                      {
+                        "op": "categorical_compare",
+                        "cmp": "eq",
+                        "left": {
+                          "op": "ref",
+                          "name": "tax.us.2025.f8949.no1099b-sold.source-closure"
+                        },
+                        "right": {
+                          "op": "category_literal",
+                          "fact_type": {
+                            "id": "tax.us.2025.f8949.no1099b-sold.source-closure",
+                            "version": "v1"
+                          },
+                          "value": "yes"
+                        }
+                      },
+                      {
+                        "op": "categorical_compare",
+                        "cmp": "eq",
+                        "left": {
+                          "op": "ref",
+                          "name": "tax.us.2025.schedule-d-boundary.form8949-in-class"
+                        },
+                        "right": {
+                          "op": "category_literal",
+                          "fact_type": {
+                            "id": "tax.us.2025.schedule-d-boundary.form8949-in-class",
+                            "version": "v1"
+                          },
+                          "value": "yes"
+                        }
+                      }
+                    ]
+                  },
+                  {
+                    "cmp": "eq",
+                    "left": {
+                      "name": "tax.us.2025.schedule-d-boundary.noncovered-in-class",
+                      "op": "ref"
+                    },
+                    "op": "categorical_compare",
+                    "right": {
+                      "fact_type": {
+                        "id": "tax.us.2025.schedule-d-boundary.noncovered-in-class",
+                        "version": "v1"
+                      },
+                      "op": "category_literal",
+                      "value": "yes"
+                    }
+                  }
+                ]
+              }
+            ]
           }
-        },
-        {
-          "op": "ref",
-          "name": "tax.us.2025.f1099b.noncovered-st-adjustment-subtotal"
-        }
-      ]
+        ]
+      },
+      "then": {
+        "op": "add",
+        "args": [
+          {
+            "op": "subtract",
+            "left": {
+              "op": "ref",
+              "name": "tax.us.2025.f1099b.noncovered-st-proceeds-subtotal"
+            },
+            "right": {
+              "op": "ref",
+              "name": "tax.us.2025.f1099b.noncovered-st-basis-subtotal"
+            }
+          },
+          {
+            "op": "ref",
+            "name": "tax.us.2025.f1099b.noncovered-st-adjustment-subtotal"
+          }
+        ]
+      },
+      "else": {
+        "op": "block",
+        "code": "DEPENDENCY_ABSENT"
+      }
     },
     "else": {
       "op": "block",
       "code": "DEPENDENCY_ABSENT"
     }
-  },
-  "accounts_for": [
-    {
-      "family": {
-        "id": "tax.us.2025.f1099b.noncovered-st",
-        "version": "v1"
-      },
-      "relationship": "itemizes_members"
-    }
-  ]
+  }
 }
