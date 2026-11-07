@@ -499,6 +499,9 @@ def test_historical_first_read_snapshot_identity_mutation_and_weak_cleanup() -> 
         assert ref() is None and ident not in memo._entries
 
 
+# Three full projections and a foreign-thread replay take about 1.8s locally
+# and 4.9s on a loaded CI runner, past the fast-lane budget.
+@pytest.mark.live
 def test_nested_exception_and_thread_context_cleanup() -> None:
     state = _demo_state()
     memo = facts._HistoricalLatticeMemo()
