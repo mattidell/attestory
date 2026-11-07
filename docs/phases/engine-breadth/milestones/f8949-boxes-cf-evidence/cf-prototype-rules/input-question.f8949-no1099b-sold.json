@@ -1,0 +1,10 @@
+{
+  "schema": "input-question.v1",
+  "id": "tax.us.2025.input-question.f8949-no1099b-sold",
+  "version": "v1",
+  "fact_type": {
+    "id": "tax.us.2025.f8949.no1099b-sold.source-closure",
+    "version": "v1"
+  },
+  "question": "Did you sell any stocks or other securities for which you did not receive a Form 1099-B or substitute statement?"
+}

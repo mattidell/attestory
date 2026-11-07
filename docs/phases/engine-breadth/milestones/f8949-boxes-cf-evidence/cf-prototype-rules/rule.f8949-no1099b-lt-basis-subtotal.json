@@ -1,0 +1,96 @@
+{
+  "schema": "rule-artifact.v5",
+  "id": "tax.us.2025.rule.f8949-no1099b-lt-basis-subtotal",
+  "version": "v1",
+  "notes": "Sums one no-Form-1099-B scalar family. A closed empty family publishes 0 and does not read the boundary. A recorded amount publishes only when the form8949-in-class answer is yes.",
+  "pins": [],
+  "publishes": "tax.us.2025.f8949.no1099b-lt-basis-subtotal",
+  "requires": [],
+  "role": "computation",
+  "scope": {
+    "tax_year": 2025,
+    "jurisdiction": "US-federal",
+    "family": "individual-income-tax"
+  },
+  "value": {
+    "op": "choose",
+    "when": {
+      "op": "any",
+      "args": [
+        {
+          "op": "compare",
+          "cmp": "eq",
+          "left": {
+            "op": "add",
+            "args": [
+              {
+                "name": "tax.us.2025.f8949.no1099b-lt-txn.basis",
+                "op": "collect",
+                "source_set": "tax.us.2025.f8949.no1099b-lt-basis"
+              }
+            ]
+          },
+          "right": 0
+        },
+        {
+          "cmp": "eq",
+          "left": {
+            "name": "tax.us.2025.schedule-d-boundary.form8949-in-class",
+            "op": "ref"
+          },
+          "op": "categorical_compare",
+          "right": {
+            "fact_type": {
+              "id": "tax.us.2025.schedule-d-boundary.form8949-in-class",
+              "version": "v1"
+            },
+            "op": "category_literal",
+            "value": "yes"
+          }
+        }
+      ]
+    },
+    "then": {
+      "op": "add",
+      "args": [
+        {
+          "name": "tax.us.2025.f8949.no1099b-lt-txn.basis",
+          "op": "collect",
+          "source_set": "tax.us.2025.f8949.no1099b-lt-basis"
+        }
+      ]
+    },
+    "else": {
+      "op": "block",
+      "code": "DEPENDENCY_ABSENT"
+    }
+  },
+  "blocked": {
+    "code": "SOURCE_SET_UNCLOSED",
+    "missing": [
+      "tax.us.2025.f8949.no1099b-lt-basis"
+    ]
+  },
+  "when": {
+    "op": "all",
+    "args": [
+      {
+        "op": "require_closed",
+        "source_set": "tax.us.2025.f8949.no1099b-lt-basis"
+      },
+      {
+        "op": "require_closed",
+        "source_set": "tax.us.2025.f8949.no1099b-lt"
+      }
+    ]
+  },
+  "accounts_for": [
+    {
+      "family": {
+        "id": "tax.us.2025.f8949.no1099b-lt",
+        "version": "v1"
+      },
+      "relationship": "itemizes_members"
+    }
+  ]
+}

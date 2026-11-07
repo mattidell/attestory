@@ -1,0 +1,240 @@
+{
+  "schema": "rule-artifact.v15",
+  "id": "tax.us.2025.rule.f8949.no1099b-lt-txn.amounts-agree",
+  "version": "v1",
+  "scope": {
+    "tax_year": 2025,
+    "jurisdiction": "US-federal",
+    "family": "individual-income-tax"
+  },
+  "role": "computation",
+  "subject": {
+    "id": "tax.us.2025.f8949.no1099b-lt-txn",
+    "version": "v1"
+  },
+  "requires": [
+    "tax.us.2025.f8949.no1099b-lt-txn"
+  ],
+  "pins": [],
+  "when": true,
+  "value": {
+    "op": "choose",
+    "when": {
+      "op": "all",
+      "args": [
+        {
+          "op": "any",
+          "args": [
+            {
+              "op": "compare",
+              "cmp": "eq",
+              "left": {
+                "op": "count",
+                "name": "tax.us.2025.f8949.no1099b-lt-txn.proceeds",
+                "source_set": "tax.us.2025.f8949.no1099b-lt-proceeds"
+              },
+              "right": 0
+            },
+            {
+              "op": "all",
+              "args": [
+                {
+                  "op": "all",
+                  "args": [
+                    {
+                      "op": "compare",
+                      "cmp": "gt",
+                      "left": {
+                        "op": "count",
+                        "name": "tax.us.2025.f8949.no1099b-lt-txn.proceeds",
+                        "source_set": "tax.us.2025.f8949.no1099b-lt-proceeds"
+                      },
+                      "right": 0
+                    },
+                    {
+                      "op": "conditional_dependency_set",
+                      "condition": true,
+                      "members": [
+                        {
+                          "op": "ref",
+                          "name": "tax.us.2025.f8949.no1099b-lt-txn.proceeds"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "op": "compare",
+                  "cmp": "eq",
+                  "left": {
+                    "op": "ref",
+                    "name": "tax.us.2025.f8949.no1099b-lt-txn.proceeds"
+                  },
+                  "right": {
+                    "op": "ref",
+                    "name": "tax.us.2025.f8949.no1099b-lt-txn",
+                    "field": "proceeds"
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "op": "any",
+          "args": [
+            {
+              "op": "compare",
+              "cmp": "eq",
+              "left": {
+                "op": "count",
+                "name": "tax.us.2025.f8949.no1099b-lt-txn.basis",
+                "source_set": "tax.us.2025.f8949.no1099b-lt-basis"
+              },
+              "right": 0
+            },
+            {
+              "op": "all",
+              "args": [
+                {
+                  "op": "all",
+                  "args": [
+                    {
+                      "op": "compare",
+                      "cmp": "gt",
+                      "left": {
+                        "op": "count",
+                        "name": "tax.us.2025.f8949.no1099b-lt-txn.basis",
+                        "source_set": "tax.us.2025.f8949.no1099b-lt-basis"
+                      },
+                      "right": 0
+                    },
+                    {
+                      "op": "conditional_dependency_set",
+                      "condition": true,
+                      "members": [
+                        {
+                          "op": "ref",
+                          "name": "tax.us.2025.f8949.no1099b-lt-txn.basis"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "op": "compare",
+                  "cmp": "eq",
+                  "left": {
+                    "op": "ref",
+                    "name": "tax.us.2025.f8949.no1099b-lt-txn.basis"
+                  },
+                  "right": {
+                    "op": "ref",
+                    "name": "tax.us.2025.f8949.no1099b-lt-txn",
+                    "field": "basis"
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "op": "any",
+          "args": [
+            {
+              "op": "all",
+              "args": [
+                {
+                  "op": "compare",
+                  "cmp": "eq",
+                  "left": {
+                    "op": "count",
+                    "name": "tax.us.2025.f8949.no1099b-lt-txn.adjustment",
+                    "source_set": "tax.us.2025.f8949.no1099b-lt-adjustment"
+                  },
+                  "right": 0
+                },
+                {
+                  "op": "compare",
+                  "cmp": "eq",
+                  "left": {
+                    "op": "ref",
+                    "name": "tax.us.2025.f8949.no1099b-lt-txn",
+                    "field": "wash_disallowed"
+                  },
+                  "right": 0
+                }
+              ]
+            },
+            {
+              "op": "all",
+              "args": [
+                {
+                  "op": "all",
+                  "args": [
+                    {
+                      "op": "compare",
+                      "cmp": "gt",
+                      "left": {
+                        "op": "count",
+                        "name": "tax.us.2025.f8949.no1099b-lt-txn.adjustment",
+                        "source_set": "tax.us.2025.f8949.no1099b-lt-adjustment"
+                      },
+                      "right": 0
+                    },
+                    {
+                      "op": "conditional_dependency_set",
+                      "condition": true,
+                      "members": [
+                        {
+                          "op": "ref",
+                          "name": "tax.us.2025.f8949.no1099b-lt-txn.adjustment"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "op": "compare",
+                  "cmp": "eq",
+                  "left": {
+                    "op": "ref",
+                    "name": "tax.us.2025.f8949.no1099b-lt-txn.adjustment"
+                  },
+                  "right": {
+                    "op": "ref",
+                    "name": "tax.us.2025.f8949.no1099b-lt-txn",
+                    "field": "wash_disallowed"
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    "then": {
+      "op": "category_literal",
+      "fact_type": {
+        "id": "tax.us.2025.f8949.no1099b-lt-txn.amounts-agree",
+        "version": "v1"
+      },
+      "value": "agree"
+    },
+    "else": {
+      "op": "category_literal",
+      "fact_type": {
+        "id": "tax.us.2025.f8949.no1099b-lt-txn.amounts-agree",
+        "version": "v1"
+      },
+      "value": "disagree"
+    }
+  },
+  "publishes": "tax.us.2025.f8949.no1099b-lt-txn.amounts-agree",
+  "blocked": {
+    "code": "DEPENDENCY_ABSENT",
+    "missing": []
+  },
+  "citations": [],
+  "notes": "Track 0: the line reads the amount rows; the member constraints read the sale. They must agree."
+}

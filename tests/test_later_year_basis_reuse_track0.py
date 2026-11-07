@@ -2364,6 +2364,12 @@ class C11NoBrokerBasisComparisonMechanism(unittest.TestCase):
                 "tax.us.2025.rule.f1099b-covered-w-st-basis-subtotal",
                 "tax.us.2025.rule.f1099b-noncovered-lt-basis-subtotal",
                 "tax.us.2025.rule.f1099b-noncovered-st-basis-subtotal",
+                # Core v80: each noncovered sale's basis row must equal its sale
+                # object, and lines 2 and 9 pair each sale with its basis row.
+                "tax.us.2025.rule.f1099b.noncovered-lt-txn.amounts-agree",
+                "tax.us.2025.rule.f1099b.noncovered-st-txn.amounts-agree",
+                "tax.us.2025.rule.schedule-d-line2",
+                "tax.us.2025.rule.schedule-d-line9",
             ],
         )
         # Derived side: NO committed declared rule consumes it at all.

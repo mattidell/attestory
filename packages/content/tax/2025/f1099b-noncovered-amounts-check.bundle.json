@@ -1,0 +1,144 @@
+{
+  "schema": "bundle.v2",
+  "id": "tax.us.2025.f1099b.noncovered-amounts-check.vocabulary",
+  "version": "v1",
+  "label": "Whether each sale whose basis was not reported has amount rows equal to the sale",
+  "fact_types": [
+    {
+      "schema": "fact-type.v2",
+      "id": "tax.us.2025.f1099b.noncovered-st-txn.amounts-agree",
+      "version": "v1",
+      "title": "Whether each amount row of one short-term sale whose basis was not reported to the IRS equals the amount on the sale.",
+      "nature": "determinable",
+      "identity_keys": [
+        {
+          "name": "broker",
+          "kind": "entity",
+          "entity_kind": "tax.us.f1099b-broker"
+        },
+        {
+          "name": "statement",
+          "kind": "entity",
+          "entity_kind": "tax.us.f1099b-statement"
+        },
+        {
+          "name": "transaction",
+          "kind": "entity",
+          "entity_kind": "tax.us.f1099b-transaction"
+        },
+        {
+          "name": "tax-year",
+          "kind": "literal",
+          "values": [
+            "2025"
+          ]
+        }
+      ],
+      "value_schema": {
+        "oneOf": [
+          {
+            "const": "agree",
+            "description": "The sale's own proceeds, basis and wash-sale rows equal the amounts on the sale."
+          },
+          {
+            "const": "disagree",
+            "description": "A proceeds, basis or wash-sale row differs from the amount on the sale."
+          }
+        ]
+      },
+      "supersession": {
+        "policy": "free"
+      }
+    },
+    {
+      "schema": "fact-type.v2",
+      "id": "tax.us.2025.f1099b.noncovered-st-txn.amounts-check-inert-path-unwritten",
+      "version": "v1",
+      "title": "Never recorded; the second selection path the selection shape requires.",
+      "nature": "determinable",
+      "identity_keys": [
+        {
+          "name": "tax-year",
+          "kind": "literal",
+          "values": [
+            "2025"
+          ]
+        }
+      ],
+      "value_schema": {
+        "type": "boolean"
+      },
+      "supersession": {
+        "policy": "free"
+      }
+    },
+    {
+      "schema": "fact-type.v2",
+      "id": "tax.us.2025.f1099b.noncovered-lt-txn.amounts-agree",
+      "version": "v1",
+      "title": "Whether each amount row of one long-term sale whose basis was not reported to the IRS equals the amount on the sale.",
+      "nature": "determinable",
+      "identity_keys": [
+        {
+          "name": "broker",
+          "kind": "entity",
+          "entity_kind": "tax.us.f1099b-broker"
+        },
+        {
+          "name": "statement",
+          "kind": "entity",
+          "entity_kind": "tax.us.f1099b-statement"
+        },
+        {
+          "name": "transaction",
+          "kind": "entity",
+          "entity_kind": "tax.us.f1099b-transaction"
+        },
+        {
+          "name": "tax-year",
+          "kind": "literal",
+          "values": [
+            "2025"
+          ]
+        }
+      ],
+      "value_schema": {
+        "oneOf": [
+          {
+            "const": "agree",
+            "description": "The sale's own proceeds, basis and wash-sale rows equal the amounts on the sale."
+          },
+          {
+            "const": "disagree",
+            "description": "A proceeds, basis or wash-sale row differs from the amount on the sale."
+          }
+        ]
+      },
+      "supersession": {
+        "policy": "free"
+      }
+    },
+    {
+      "schema": "fact-type.v2",
+      "id": "tax.us.2025.f1099b.noncovered-lt-txn.amounts-check-inert-path-unwritten",
+      "version": "v1",
+      "title": "Never recorded; the second selection path the selection shape requires.",
+      "nature": "determinable",
+      "identity_keys": [
+        {
+          "name": "tax-year",
+          "kind": "literal",
+          "values": [
+            "2025"
+          ]
+        }
+      ],
+      "value_schema": {
+        "type": "boolean"
+      },
+      "supersession": {
+        "policy": "free"
+      }
+    }
+  ]
+}
