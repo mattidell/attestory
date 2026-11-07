@@ -1,0 +1,45 @@
+{
+  "schema": "form-field.v3",
+  "id": "tax.us.2025.schedule-d.line-10",
+  "version": "v1",
+  "form": {
+    "authority": "IRS",
+    "form_id": "1040-SCH-D",
+    "tax_year": 2025,
+    "jurisdiction": "US-federal"
+  },
+  "line": "10-h",
+  "label": "Line 10 column (h)",
+  "description": "Schedule D (2025) line 10 column (h).",
+  "binds_symbol": "tax.us.2025.schedule-d.line-10",
+  "citation": {
+    "id": "tax.us.2025.citation.schedule-d.line-10",
+    "version": "v1"
+  },
+  "dispositions": {
+    "published_value": {
+      "render": "{value}",
+      "explain": "Schedule D line 10, column (h), is your long-term Form 8949 box F gain or loss, proceeds minus basis plus adjustments."
+    },
+    "computed_zero": {
+      "render": "0",
+      "explain": "Schedule D line 10, column (h), is zero. Either no long-term sale you received no Form 1099-B for is recorded and your Form 8949 answers confirm it, or your box F proceeds, basis, and adjustments net to zero."
+    },
+    "closure_backed_zero": {
+      "render": "0",
+      "explain": "Schedule D line 10, column (h), is zero. No long-term sale you received no Form 1099-B for is recorded, and your answer about those sales confirms the list is complete."
+    },
+    "blocked": {
+      "render": "",
+      "explain": "Schedule D line 10, column (h), has no value yet. It waits for your answers about sales you received no Form 1099-B for, sales whose basis was not reported, and Form 8949 to agree with the sales you recorded, or for each recorded long-term sale of that kind to have its proceeds and basis and pass its checks.",
+      "codes": [
+        "DEPENDENCY_ABSENT",
+        "SOURCE_SET_UNCLOSED"
+      ]
+    },
+    "guard_inapplicable": {
+      "render": "",
+      "explain": "Inapplicable."
+    }
+  }
+}

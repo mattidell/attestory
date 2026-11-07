@@ -1,0 +1,10 @@
+{
+  "schema": "input-question.v1",
+  "id": "tax.us.2025.input-question.f1099b-noncovered-st-proceeds",
+  "version": "v1",
+  "fact_type": {
+    "id": "tax.us.2025.f1099b.noncovered-st-txn.proceeds",
+    "version": "v1"
+  },
+  "question": "What are the proceeds of each short-term sale you recorded whose basis was not reported to the IRS?"
+}

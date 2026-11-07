@@ -306,7 +306,7 @@
     "jurisdiction": "US-federal",
     "tax_year": 2025
   },
-  "title": "Schedule D attachment v7: the v6 threshold, plus line 1a and line 8a so a blocked covered line does not publish the attachment, plus the box B and E proceeds and basis subtotals and lines 2 and 9 so a sale whose basis was not reported requires it.",
+  "title": "Schedule D attachment v8: the v7 requirement (the v6 threshold, lines 1a and 8a, and the box B and E proceeds and basis subtotals and lines 2 and 9), plus the box C and F proceeds and basis subtotals and lines 3 and 10 so a sale with no Form 1099-B requires it.",
   "version": "v8",
   "accounts_for": [
     {

@@ -1,0 +1,91 @@
+{
+  "schema": "source-family.v2",
+  "id": "tax.us.2025.f8949.no1099b-st",
+  "version": "v1",
+  "title": "short-term sales of securities with no Form 1099-B, tax year 2025",
+  "scope": {
+    "tax_year": 2025,
+    "jurisdiction": "US-federal",
+    "family": "individual-income-tax"
+  },
+  "closure_claim": "Every short-term sale of securities you received no Form 1099-B for is recorded as of the keyed horizon.",
+  "member_predicate": {
+    "fact_type": "tax.us.2025.f8949.no1099b-st-txn"
+  },
+  "authorizes_subtotal": "tax.us.2025.f8949.no1099b-st-subtotal",
+  "member_constraints": [
+    {
+      "id": "tax.us.2025.constraint.no1099b-st.holding-period",
+      "block_code": "HOLDING_PERIOD_MISMATCH",
+      "meaning": "The holding period does not match this short-term or long-term family.",
+      "violated_when": {
+        "op": "field_equals",
+        "field": "long_term",
+        "arg": "yes"
+      }
+    },
+    {
+      "id": "tax.us.2025.constraint.no1099b-st.code-w-on-gain",
+      "block_code": "CODE_W_ON_GAIN",
+      "meaning": "A wash-sale disallowance is recorded on a sale that is not a loss.",
+      "violated_when": {
+        "op": "all",
+        "args": [
+          {
+            "op": "compare",
+            "comparison": "gt",
+            "left": {
+              "op": "field",
+              "field": "wash_disallowed",
+              "default": 0
+            },
+            "right": {
+              "op": "literal",
+              "arg": 0
+            }
+          },
+          {
+            "op": "compare",
+            "comparison": "ge",
+            "left": {
+              "op": "field",
+              "field": "proceeds"
+            },
+            "right": {
+              "op": "field",
+              "field": "basis"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "tax.us.2025.constraint.no1099b-st.adjustment-exceeds-loss",
+      "block_code": "ADJUSTMENT_EXCEEDS_LOSS",
+      "meaning": "The wash-sale disallowance exceeds this sale's own loss.",
+      "violated_when": {
+        "op": "compare",
+        "comparison": "gt",
+        "left": {
+          "op": "field",
+          "field": "wash_disallowed",
+          "default": 0
+        },
+        "right": {
+          "op": "floor_zero",
+          "value": {
+            "op": "subtract",
+            "left": {
+              "op": "field",
+              "field": "basis"
+            },
+            "right": {
+              "op": "field",
+              "field": "proceeds"
+            }
+          }
+        }
+      }
+    }
+  ]
+}

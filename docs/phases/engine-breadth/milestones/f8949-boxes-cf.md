@@ -257,4 +257,145 @@ Lines 2 and 9 take Decision 3 as decided.
 
 ## Track 1 result
 
-Pending.
+Core v80, registry v78 and release v78 are published on this branch. They
+are built from the Track 0 scratch v80 with every `REPAIRS` switch on.
+
+- **Successors.** The 61 member edits (43 added, 18 replaced) are the files
+  in `cf-prototype-rules/`, copied byte for byte into
+  `packages/content/tax/2025/`. `tools.package_successor` produced the
+  same package checksum (`3e5444b2…`) and release sha256 (`76c864bd…`)
+  as the Track 0 scratch build. Registry v78 only adds entries. No
+  published citizen or schema is edited.
+- **Loader.** v80's companion declaration is v79's pairs plus the six box
+  C and F scalar pairs. v80 names v79's covered-flag refusal map. These
+  are the two entries the prototype patched in process.
+- **Cases.** `tests/test_no1099b_sales_v80.py` runs the cases on the
+  published v80 through `live_coordinate_run` and the presentation model:
+  - All 71 Track 0 cases. 69 run. Two are rejected before a run, as
+    recorded: `c_basis_object_missing` (the sale schema needs a basis) and
+    `d3_b_orphan_basis` (ADR-0082 presence pair).
+  - The 50 v79 returns under the new "no". 48 run. Two are rejected as on
+    v79: `duplicate_horizon` and `probe_e_basis_object_missing`.
+
+  Each run's lines, attachment dispositions and questions equal the
+  Track 0 record. `cf_prototype.check`'s hand values hold. Each run also
+  shows:
+  - one disposition row per publisher of lines 2, 3, 7, 9, 10, 15, 16 and
+    21, line 7a, the preferential base, both attachments and the four
+    amount checks;
+  - explain text on lines 2, 3, 7, 9, 10 and 15;
+  - no blocked line without a blocked text or reason.
+
+  Form 1040 lines 15 and 16 keep their v79 dollars, except the ten
+  returns accepted as newly blocked:
+  - Decision 2: four returns, including `boundary_no_without_member`;
+  - Decision 3: two returns;
+  - Decision 5: four returns.
+
+  `tests/test_noncovered_sales_v79.py` is unchanged.
+  `tests/test_no1099b_sales_v80_package.py` checks the successor and
+  registry facts statically.
+- **Other test updates the new members require:**
+  - the refusal-map test names v80;
+  - the broker-basis consumer trace names the noncovered amount-agreement
+    rules and lines 2 and 9;
+  - `tools/required_versus_read_allowlist.json` moves the line 1a and 8a
+    witnesses to v5 and v6, and lists the amount-check witness that lines
+    2, 3, 9 and 10 require but do not read.
+- **Deviation from the prototype:** none in content, package or loader.
+  The allowlist edit sits in `tools/`, outside the charter's literal list,
+  as v79's did. The new live module loads the f8949 evidence `track0.py`
+  under its own module name, because the noncovered evidence has a
+  `track0.py` too. On the first full run that name clash failed 41 v79
+  tests.
+- **Checks:**
+  - `pytest -m "not live"`: 1693 passed, 8 skipped.
+  - Full `pytest`: 4563 passed, 24 skipped, 0 failed.
+  - `python3 -m mypy`: no issues in 467 files.
+
+### Repair
+
+This repair covers the fresh-reader review
+([review.md](../../../reviews/f8949-boxes-cf/review.md), charter
+`docs/reviews/f8949-boxes-cf/charter-repair.md`). Core v80, registry v78
+and release v78 are rebuilt in place, still from v79. The package
+checksum stays `3e5444b2…`, because the member list is unchanged. The
+changed members' registry entries and the release sha256 (`00d498fe…`)
+are new. `cf_prototype.build` now removes the branch's v80 copies
+before it builds, so the scratch build runs beside the published files.
+All 61 `cf-prototype-rules/` files are still byte-identical to
+`packages/content/tax/2025/`.
+
+- **B1.** The in-class question now exempts a covered sale only when it
+  has no adjustment other than a wash-sale loss. That matches the
+  proposition ("beyond covered sales and code W").
+  `test_the_in_class_question_asks_exactly_the_proposition` pins the
+  wording to the bundle.
+- **B2.** `test_collision_order_backtracking_and_duplicate_declared_id_boundary`
+  is marked `live`, with its measured reason: 1.8 s locally and 3.9 s
+  in CI. The budget is unchanged.
+- **S1.** Lines 3 and 10 now `choose` on a count of their own sales.
+  Each "a sale is recorded" test is a count, not a subtotal. So when a
+  sale of the other term fails its own checks, the line stays at zero
+  (`c_code_w_on_gain`, `f_holding_mismatch`, `d3_b_code_w_on_gain`).
+  Two orderings keep the page honest:
+  - The counts come before the answers. A count over a family that no
+    answer confirms blocks on that family's closure, so every stale or
+    missing answer is still asked again, now on the line's own block.
+  - No count sits in an `any` ahead of an arm that reads an input
+    question. So an answered question is never asked beside a closure.
+
+  A line with no sale of its own no longer asks the new in-class
+  question. On the ten returns that asked it, answering it could not
+  admit the return (review N2). One of them is `boundary_no_without_member`;
+  its test now pins that the question is not asked.
+- **S2.** Each term's amounts-agree rule also requires that no sale of
+  the other term is recorded for the same sale entity. One sale
+  recorded as both box C and box F (`c_and_f_same_sale`) blocks both
+  amount checks.
+- **S3.** The live projection now pins two more things for each case:
+  - the reason sentences of each blocked Schedule D line;
+  - the (disposition, code, missing) of the rows for lines 2, 3, 9 and
+    10 and the four amount checks.
+
+  Review Q5's four exact duplicates (`m_c_no_yes`, `m_b_yes_no`,
+  `m_no_no`, `m_no_unanswered`) are dropped by name. Their projections
+  are still the same as the cases they duplicate. The two near
+  duplicates differ only in answer order, so they are not exact
+  duplicates and stay. `late_member_after_no`'s projection differs from
+  `t1_stage1`'s. `late_member_reanswered_yes`'s equals `t1_stage4`'s.
+- **S4.** Every v80 admission `any` that holds the guarded arm now reads
+  it before the ADR-0061 Path B answer: lines 3 and 10, line 1a v5,
+  line 8a v6 and the preferential base v8. On a box C or F return with
+  Path B unanswered, lines 3 and 10 compute
+  (`c_loss_path_b_unanswered` −6000, `f_gain_path_b_unanswered` 4000).
+  A v79 return answers the new question "no" and reads Path B as
+  before. No pinned case changes.
+- **N1.** Form 8949 attachment v4 and Schedule D attachment v8 now carry
+  their own version in the title, and name boxes C and F and lines 3
+  and 10.
+- **New limits.** These are pinned as they behave and parked with
+  Decisions 4 and 6:
+  - *Path B unanswered (S4).* The preferential base and both
+    attachments require Path B through their own dependency set
+    whenever Schedule D has activity and Form 8949 is "no". So line 7a
+    and the Form 1040 still block, with no question, as on v79 for
+    boxes B and E. Removing that requirement would change when the
+    ADR-0061 pair is required. This repair does not do that.
+  - *A late sale after a "yes" (S2).* In `q2_late_yes_stale`, a box C
+    sale is recorded after a "yes" that a box F sale backs. The box F
+    amount check now needs the box C family confirmed, so it blocks on
+    that closure. The page cannot trace a per-sale check to its closure
+    question, so it no longer asks the no-1099-B question again. Both
+    lines show their blocked text, and answering "yes" again publishes.
+- **Track 0 harness rerun** (`track0.py`, source ref `245345a0`):
+  - Every hand value holds. The only mismatch is the expected
+    `d3_b_orphan_basis` rejection, unchanged.
+  - The 50 v79 returns on v80 differ from v79 in Form 1040 only for the
+    same ten accepted blocks.
+  - `code_w_on_gain` is now identical to v79 (line 7 zero).
+  - The decided-design runs are unchanged.
+- **Checks:**
+  - `pytest -m "not live"`: 1694 passed, 8 skipped.
+  - Full `pytest`: 4571 passed, 24 skipped, 0 failed.
+  - `python3 -m mypy`: no issues in 467 files.

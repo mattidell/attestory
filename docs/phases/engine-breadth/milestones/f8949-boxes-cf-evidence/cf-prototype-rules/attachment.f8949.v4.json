@@ -2,7 +2,7 @@
   "schema": "attachment-rule.v8",
   "id": "tax.us.2025.rule.attachment.f8949",
   "version": "v4",
-  "title": "Form 8949 attachment: box A/D kept, plus box B and box E for a filer-supplied basis.",
+  "title": "Form 8949 attachment v4: box A/D kept, plus box B and box E for a filer-supplied basis, plus box C and box F for a sale with no Form 1099-B, and lines 2, 3, 9 and 10.",
   "scope": {
     "family": "individual-income-tax",
     "jurisdiction": "US-federal",

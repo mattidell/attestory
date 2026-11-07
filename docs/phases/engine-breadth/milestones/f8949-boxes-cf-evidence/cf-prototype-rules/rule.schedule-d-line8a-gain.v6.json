@@ -87,22 +87,6 @@
             }
           },
           {
-            "cmp": "eq",
-            "left": {
-              "name": "tax.us.2025.schedule-d-boundary.no-other-form8949-adjustments",
-              "op": "ref"
-            },
-            "op": "categorical_compare",
-            "right": {
-              "fact_type": {
-                "id": "tax.us.2025.schedule-d-boundary.no-other-form8949-adjustments",
-                "version": "v1"
-              },
-              "op": "category_literal",
-              "value": "yes"
-            }
-          },
-          {
             "op": "all",
             "args": [
               {
@@ -138,6 +122,22 @@
                 }
               }
             ]
+          },
+          {
+            "cmp": "eq",
+            "left": {
+              "name": "tax.us.2025.schedule-d-boundary.no-other-form8949-adjustments",
+              "op": "ref"
+            },
+            "op": "categorical_compare",
+            "right": {
+              "fact_type": {
+                "id": "tax.us.2025.schedule-d-boundary.no-other-form8949-adjustments",
+                "version": "v1"
+              },
+              "op": "category_literal",
+              "value": "yes"
+            }
           },
           {
             "cmp": "eq",

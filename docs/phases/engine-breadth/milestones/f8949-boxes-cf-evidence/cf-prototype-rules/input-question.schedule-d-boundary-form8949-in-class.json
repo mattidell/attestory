@@ -6,5 +6,5 @@
     "id": "tax.us.2025.schedule-d-boundary.form8949-in-class",
     "version": "v1"
   },
-  "question": "Apart from sales your broker reported with their basis, is every sale on your Form 8949 a sale of stocks or other securities, entered only once, with a basis you supply, net proceeds you supply when you got no Form 1099-B, and no adjustment other than a wash-sale loss?"
+  "question": "Is every sale on your Form 8949 either a sale your broker reported with its basis and no adjustment other than a wash-sale loss, or a sale of stocks or other securities, entered only once, with a basis you supply (and net proceeds you supply when you got no Form 1099-B) and no adjustment other than a wash-sale loss?"
 }

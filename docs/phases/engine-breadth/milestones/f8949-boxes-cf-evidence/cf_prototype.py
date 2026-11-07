@@ -171,8 +171,26 @@ def widen(node: Any, pairs: list[tuple[str, str]], arm: bool) -> Any:
                 if item == old or (isinstance(item, dict) and mentions(item, old) and not mentions(item, new)
                                    and item.get("op") in {"ref", "compare"}):
                     result.append(swap(item, old, new))
-        return result
+        return guarded_before_path_b(result) if arm else result
     return node
+
+
+def guarded_before_path_b(args: list[Any]) -> list[Any]:
+    """Review S4: the guarded arm is read before the ADR-0061 Path B answer.
+
+    ``any`` blocks at the first missing answer. A box C or F return admitted by
+    the no-Form-1099-B answer and the new in-class answer never needs Path B,
+    so its arm comes first. A v79 return answers the no-Form-1099-B question no,
+    so the guarded arm is false and it reads Path B as before.
+    """
+    if GUARDED not in args:
+        return args
+    at = next((i for i, item in enumerate(args) if is_cat(item, PATH_B)), None)
+    if at is None or at > args.index(GUARDED):
+        return args
+    out = [item for item in args if item != GUARDED]
+    out.insert(at, copy.deepcopy(GUARDED))
+    return out
 
 
 GUARDED = guarded()
@@ -303,17 +321,25 @@ def agree_rule(sale_fact: str, family_stem: str) -> dict[str, Any]:
         {"op": "all", "args": [eq(rows(adj, "adjustment"), 0), eq(field("wash_disallowed"), 0)]},
         {"op": "all", "args": [present(adj, "adjustment"), eq(ref(adj), field("wash_disallowed"))]},
     ]}
+    checks = [amount_ok(proceeds, "proceeds"), amount_ok(basis, "basis"), wash_ok]
+    for term in TERMS:
+        if sale_fact == member_fact(term, None):
+            # Review S2: a box C and a box F sale share the sale key, so one sale
+            # entity recorded under both terms is the same sale counted twice.
+            other = "lt" if term == "st" else "st"
+            checks.append(eq({"op": "count", "name": member_fact(other, None), "source_set": fam(other, None)}, 0))
     lit = lambda v: {"op": "category_literal", "fact_type": {"id": agree_fact(sale_fact), "version": "v1"}, "value": v}  # noqa: E731
     return {
         "schema": "rule-artifact.v15", "id": sale_fact.replace(P, P + "rule.") + ".amounts-agree", "version": "v1",
         "scope": read("rule.schedule-d-line2.json")["scope"], "role": "computation",
         "subject": {"id": sale_fact, "version": "v1"},
         "requires": [sale_fact], "pins": [], "when": True,
-        "value": {"op": "choose", "when": {"op": "all", "args": [
-            amount_ok(proceeds, "proceeds"), amount_ok(basis, "basis"), wash_ok]},
+        "value": {"op": "choose", "when": {"op": "all", "args": checks},
             "then": lit("agree"), "else": lit("disagree")},
         "publishes": agree_fact(sale_fact), "blocked": {"code": "DEPENDENCY_ABSENT", "missing": []}, "citations": [],
-        "notes": "Track 0: the line reads the amount rows; the member constraints read the sale. They must agree.",
+        "notes": "Track 0: the line reads the amount rows; the member constraints read the sale. They must agree."
+                 + (" A sale whose sale entity is also recorded under the other term disagrees (review S2)."
+                    if len(checks) > 3 else ""),
     }
 
 
@@ -411,9 +437,13 @@ def question() -> dict[str, Any]:
             "fact_type": {"id": Q2, "version": "v1"}, "question": Q2_TEXT}
 
 
-NEW_IC_TEXT = ("Apart from sales your broker reported with their basis, is every sale on your Form 8949 a sale of stocks "
-               "or other securities, entered only once, with a basis you supply, net proceeds you supply when you got "
-               "no Form 1099-B, and no adjustment other than a wash-sale loss?")
+# Review B1: a covered sale is exempt only with no adjustment or only code W, as the
+# proposition ("beyond covered sales and code W") says. A covered sale with any other
+# code is Form 8949 work beyond it, so the truthful answer is no.
+NEW_IC_TEXT = ("Is every sale on your Form 8949 either a sale your broker reported with its basis and no adjustment "
+               "other than a wash-sale loss, or a sale of stocks or other securities, entered only once, with a basis "
+               "you supply (and net proceeds you supply when you got no Form 1099-B) and no adjustment other than a "
+               "wash-sale loss?")
 
 
 def amount_questions() -> list[tuple[str, dict[str, Any]]]:
@@ -454,27 +484,44 @@ def line_rule(term: str) -> dict[str, Any]:
 
     when: the four families are closed, and every recorded sale has its own
     proceeds and its own basis row (require_paired on the sale key).
-    value: zero when the three subtotals are zero and (a) some Form 8949
-    answer admits the return, and (b) the no-1099-B answer is no or the other
-    term has a sale; otherwise proceeds minus basis plus adjustment when the
-    new in-class answer is yes and a sale of this term is recorded; else block.
+
+    value (review S1): one ``choose`` on whether a sale of this term is
+    recorded (a count; ``when`` already closed the family, so it never blocks).
+
+    - A sale of this term is recorded: proceeds minus basis plus adjustment
+      when the other term's sale family is confirmed by an answer, Form 8949
+      is answered no, and the new in-class answer is yes; else block.
+    - None is recorded: zero when the three subtotals are zero, the
+      no-1099-B answer is no or the other term has a sale recorded, the v79
+      noncovered answer is no or a box B or E sale is recorded, and some
+      Form 8949 answer admits the return; else block.
+
+    Each "sale recorded" test is a count, not a subtotal, so a sale of the
+    other term (or on box B or E) that fails its own checks blocks only its
+    own line. A count over a family no answer has confirmed (a stale or
+    missing answer) blocks on that family's closure, and the page asks its
+    closure question again. No ``any`` holds a count before an arm that reads
+    an input question, so an answered question is never asked beside it.
     """
     other = "lt" if term == "st" else "st"
     p, b, a = (subtotal(term, k) for k in KINDS)
     sale = member_fact(term, None)
+    total = {"op": "add", "args": [{"op": "subtract", "left": ref(p), "right": ref(b)}, ref(a)]}
+    block = {"op": "block", "code": "DEPENDENCY_ABSENT"}
     old_arm = (cat(OLD_IC, "yes") if "old_ic_backed" not in REPAIRS
                else {"op": "all", "args": [cat(Q1, "yes"), cat(OLD_IC, "yes")]})
-    admitted = {"op": "any", "args": [cat(NO8949, "yes"), cat(PATH_B, "yes"), GUARDED, old_arm]}
-    answered = {"op": "any", "args": [cat(Q2, "no"), ne0(subtotal(other, "proceeds")), ne0(subtotal(other, "basis"))]}
-    nc_subs = [P + f"f1099b.noncovered-{t}-{k}-subtotal" for t in TERMS for k in ("proceeds", "basis")]
-    zero_args = [eq0(p), eq0(b), eq0(a), admitted, answered]
+    admitted = {"op": "any", "args": guarded_before_path_b([cat(NO8949, "yes"), cat(PATH_B, "yes"), GUARDED, old_arm])}
+    answered = {"op": "any", "args": [has_sale(member_fact(other, None), fam(other, None)), cat(Q2, "no")]}
+    zero_args = [eq0(p), eq0(b), eq0(a), answered]
     if "q1_unbacked_yes" in REPAIRS:
-        zero_args.append({"op": "any", "args": [cat(Q1, "no"), *(ne0(n) for n in nc_subs)]})
-    zero = {"op": "all", "args": zero_args}
-    present_args = [cat(NEW_IC, "yes"), {"op": "any", "args": [ne0(p), ne0(b)]}]
+        zero_args.append({"op": "any", "args": [
+            *(has_sale(nc_fact(t, None), P + f"f1099b.noncovered-{t}") for t in TERMS), cat(Q1, "no")]})
+    zero_args.append(admitted)
+    other_confirmed = {"op": "compare", "cmp": "gte", "right": 0,
+                       "left": {"op": "count", "name": member_fact(other, None), "source_set": fam(other, None)}}
+    present_args = [other_confirmed, cat(NEW_IC, "yes")]
     if "sale_needs_8949_no" in REPAIRS:
-        present_args.insert(0, cat(NO8949, "no"))
-    present = {"op": "all", "args": present_args}
+        present_args.insert(1, cat(NO8949, "no"))
     when = {"op": "all", "args": [
         *({"op": "require_closed", "source_set": fam(term, kind)} for kind in (None, *KINDS)),
         {"op": "require_paired", "key": "sale", "withholding": member_fact(term, "proceeds"), "income": [sale]},
@@ -485,19 +532,25 @@ def line_rule(term: str) -> dict[str, Any]:
         "notes": (f"Schedule D line {LINE[term]}, column (h): Form 8949 box {BOX[term]} proceeds minus basis plus "
                   "the wash-sale adjustment. Every recorded sale needs its own proceeds and basis rows. A closed "
                   "empty set is zero only when a Form 8949 answer admits the return and the no-Form-1099-B answer "
-                  "is not an unbacked yes."),
+                  "is not an unbacked yes. Whether a sale is recorded is a count, so another line's sale that "
+                  "fails its checks does not block this line."),
         "role": "computation", "scope": read("rule.schedule-d-line2.json")["scope"],
         "publishes": P + f"schedule-d.line-{LINE[term]}",
-        "requires": [p, b, a, subtotal(other, "proceeds"), subtotal(other, "basis"),
-                     *(nc_subs if "q1_unbacked_yes" in REPAIRS else []),
-                     *([check_symbol(sale)] if "amounts_agree" in REPAIRS else [])],
+        "requires": [p, b, a, *([check_symbol(sale)] if "amounts_agree" in REPAIRS else [])],
         "blocked": {"code": "DEPENDENCY_ABSENT", "missing": [p, b, a]},
         "citations": [{"id": P + f"citation.schedule-d.line-{LINE[term]}", "version": "v1"}],
         "pins": [], "when": when,
-        "value": {"op": "choose", "when": {"op": "any", "args": [zero, present]},
-                  "then": {"op": "add", "args": [{"op": "subtract", "left": ref(p), "right": ref(b)}, ref(a)]},
-                  "else": {"op": "block", "code": "DEPENDENCY_ABSENT"}},
+        "value": {"op": "choose", "when": has_sale(sale, fam(term, None)),
+                  "then": {"op": "choose", "when": {"op": "all", "args": present_args}, "then": total, "else": block},
+                  "else": {"op": "choose", "when": {"op": "all", "args": zero_args}, "then": total,
+                           "else": copy.deepcopy(block)}},
     }
+
+
+def has_sale(sale_fact: str, family_id: str) -> dict[str, Any]:
+    """At least one sale object is recorded in the family; reads no subtotal."""
+    return {"op": "compare", "cmp": "gt", "left": {"op": "count", "name": sale_fact, "source_set": family_id},
+            "right": 0}
 
 
 def form_field(term: str) -> dict[str, Any]:
@@ -603,6 +656,9 @@ LINE_PAIRS = [(P + "schedule-d.line-2", P + "schedule-d.line-3"), (P + "schedule
 def attachment_f8949() -> dict[str, Any]:
     body = read("attachment.f8949.v3.json")
     body["version"] = "v4"
+    # Review N1: the title names what v4 adds.
+    body["title"] = ("Form 8949 attachment v4: box A/D kept, plus box B and box E for a filer-supplied basis, plus "
+                     "box C and box F for a sale with no Form 1099-B, and lines 2, 3, 9 and 10.")
     parts = list(body["itemizations"])
     for part in body["itemizations"]:
         pid = part["part_id"]
@@ -633,6 +689,10 @@ def attachment_f8949() -> dict[str, Any]:
 def attachment_schedule_d() -> dict[str, Any]:
     body = read("attachment.schedule-d.v7.json")
     body["version"] = "v8"
+    # Review N1: the title names what v8 adds.
+    body["title"] = ("Schedule D attachment v8: the v7 requirement (the v6 threshold, lines 1a and 8a, and the box B "
+                     "and E proceeds and basis subtotals and lines 2 and 9), plus the box C and F proceeds and basis "
+                     "subtotals and lines 3 and 10 so a sale with no Form 1099-B requires it.")
     subs = list(body["requirement"]["subtotals"])
     for term in TERMS:
         subs += [subtotal(term, "proceeds"), subtotal(term, "basis"), P + f"schedule-d.line-{LINE[term]}"]
@@ -752,12 +812,24 @@ def build(scratch: Path, *, write_rules: bool = True) -> dict[str, Any]:
     content, releases = scratch / "content", scratch / "releases"
     shutil.copytree(source_content, content)
     shutil.copytree(source_releases, releases)
+    bodies, old = artifacts()
+    # Core v80, registry v78 and release v78 are published on this branch but
+    # not merged; the scratch build starts from v79, so the copies are removed.
+    # A member registry v77 already lists is never removed.
+    v77 = json.loads((content / "published-packages.v77.json").read_text(encoding="utf-8"))
+    listed = {(e["id"], e["version"]) for e in v77["citizens"]}
+    for name, body in bodies:
+        if (body["id"], body["version"]) in listed:
+            raise AssertionError(f"{name} is published before v80")
+        (content / name).unlink(missing_ok=True)
+    (content / "package.core-calculations.v80.json").unlink(missing_ok=True)
+    (content / "published-packages.v78.json").unlink(missing_ok=True)
+    (releases / "demo.release.sli-worksheet-integration.2025.v78.json").unlink(missing_ok=True)
     before = digest(content)
     if write_rules:
         if RULES.exists():
             shutil.rmtree(RULES)
         RULES.mkdir()
-    bodies, old = artifacts()
     members, entrypoints = [], []
     pinned = json.loads((content / "package.core-calculations.v79.json").read_text(encoding="utf-8"))
     entry_keys = {(e["id"], e["version"]) for e in pinned["entrypoints"]}
@@ -953,6 +1025,15 @@ def new_cases() -> dict[str, Callable[[], list[dict[str, Any]]]]:
         "f_holding_mismatch": with_sales(lambda a: cf_sale(a, "lt", 6000.0, 2000.0, "hold", long_term="no"), **cls),
         "q2_yes_nothing_recorded": with_sales(late, **cls),
         "unrecorded_out_of_class": lambda: v80_return(q2="no", form8949="no", path_b="no", new_ic="no"),
+        # Review S4: the ADR-0061 Path B answer left unanswered on a box C or F return.
+        # Lines 3 and 10 compute; the Form 1040 blocks on Path B with no question.
+        "c_loss_path_b_unanswered": with_sales(lambda a: cf_sale(a, "st", 2000.0, 8000.0, "cpbu"),
+                                               **{**cls, "path_b": None}),
+        "f_gain_path_b_unanswered": with_sales(lambda a: cf_sale(a, "lt", 6000.0, 2000.0, "fpbu"),
+                                               **{**cls, "path_b": None}),
+        # Review S2: one sale entity recorded as a box C and as a box F sale.
+        "c_and_f_same_sale": with_sales(lambda a: [cf_sale(a, "st", 2000.0, 8000.0, "same"),
+                                                   cf_sale(a, "lt", 2000.0, 8000.0, "same")] and None, **cls),
         "unrecorded_8949_no_only": lambda: v80_return(q2="no", form8949="no"),
         "late_member_after_no": late_member(None),
         "late_member_reanswered_yes": late_member("yes"),
@@ -1017,6 +1098,11 @@ BLOCKED = {  # Form 1040 line 15 and 16 blocked; attachments (f8949, schedule-d)
     "f_holding_mismatch": ("blocked", "blocked"),
     "q2_yes_nothing_recorded": ("blocked", "blocked"),
     "unrecorded_out_of_class": ("blocked", "blocked"),
+    "c_and_f_same_sale": ("blocked", "blocked"),
+    # Review S4: lines 3 and 10 compute; the preferential base and both attachments
+    # require the ADR-0061 Path B answer by their own dependency set, as on v79.
+    "c_loss_path_b_unanswered": ("blocked", "blocked"),
+    "f_gain_path_b_unanswered": ("blocked", "blocked"),
     "unrecorded_8949_no_only": ("blocked", "blocked"),
     "late_member_after_no": ("blocked", "blocked"),
 }

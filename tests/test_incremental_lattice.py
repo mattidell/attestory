@@ -561,6 +561,10 @@ def test_exception_after_historical_read_drops_pending_state() -> None:
     assert facts._active_lattices() is None
 
 
+# Eight acts, each state projected twice in both lattice modes, take about 1.8s
+# locally and 3.9s on a loaded CI runner (quick job, PR #262), past the
+# fast-lane budget.
+@pytest.mark.live
 def test_collision_order_backtracking_and_duplicate_declared_id_boundary() -> None:
     ft = deepcopy(demo_bundle()["fact_types"][0])
     ft["id"] = "demo.delta.cross"

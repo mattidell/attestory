@@ -210,6 +210,16 @@
               ]
             }
           ]
+        },
+        {
+          "op": "compare",
+          "cmp": "eq",
+          "left": {
+            "op": "count",
+            "name": "tax.us.2025.f8949.no1099b-lt-txn",
+            "source_set": "tax.us.2025.f8949.no1099b-lt"
+          },
+          "right": 0
         }
       ]
     },
@@ -236,5 +246,5 @@
     "missing": []
   },
   "citations": [],
-  "notes": "Track 0: the line reads the amount rows; the member constraints read the sale. They must agree."
+  "notes": "Track 0: the line reads the amount rows; the member constraints read the sale. They must agree. A sale whose sale entity is also recorded under the other term disagrees (review S2)."
 }
