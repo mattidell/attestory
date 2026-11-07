@@ -111,7 +111,43 @@ Each unit commits on this branch as it goes.
 
 ## P0 result
 
-Pending.
+Recorded in
+[p0-law-state-design.md](f8949-boxes-cf-evidence/p0-law-state-design.md),
+with `cf_probe.py` / `cf-probe-output.json` (core v79) and
+`cf_prototype.py` / `cf-prototype-output.json` / `cf-prototype-rules/`
+(scratch core v80).
+
+- **Law.** Box C and box F are short- and long-term sales with no Form
+  1099-B or substitute statement. They feed Schedule D lines 3 and 10.
+  Column (d) is net proceeds, column (e) is the filer's basis, and code W
+  works as on B and E. The 2025 sources are local IRS PDFs in a scratch
+  directory, not in the repository.
+- **v79.** Recording the sale on box B or E with the v79 in-class answer
+  yes gives the right dollars on the wrong line. The in-class "no" refuses
+  it. Left unrecorded with every Form 8949 boundary answered "no", v79
+  publishes the wage return: no answer refuses it, and v78 does the same.
+  A box E sale missing its basis or proceeds amount computes silently.
+- **Design.** A content-only successor of 48 member edits plus the two
+  per-core loader entries.
+  - A second grouped question: "Did you sell any stocks or other
+    securities for which you did not receive a Form 1099-B or substitute
+    statement?" It keeps every v79 answer's meaning.
+  - A new in-class answer for boxes B, C, E and F, read through a guarded
+    arm so v79 returns never need it.
+  - Lines 3 and 10 carry three checks:
+    1. each sale has its own proceeds and basis (`require_paired`);
+    2. a "yes" is backed by a recorded sale;
+    3. a Form 8949 "no" is admitted by some answer.
+
+  The gain, loss, wash and mixed cases match the hand values.
+- **v79 returns on v80.** Without the new answer, all 46 block. With a
+  "no", 24 of the 28 v79 computes are identical. The other 4 (8949 "no",
+  nothing admitted, nothing recorded) now block, including the pinned
+  `boundary_no_without_member`.
+- **No engine, schema, or recording change** is needed.
+- **Owner questions:**
+  1. Accept those 4 newly blocked returns.
+  2. Decide whether lines 2 and 9 take the same missing-amount check.
 
 ## Decisions
 
