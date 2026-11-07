@@ -134,16 +134,34 @@ def noncovered_scalar_presence_pairs() -> dict[str, str]:
     return pairs
 
 
+def no1099b_scalar_presence_pairs() -> dict[str, str]:
+    """Each no-Form-1099-B scalar amount requires its sale object on the same identity.
+
+    ADR-0082, as for the noncovered pairs. A box C or box F proceeds, basis, or
+    adjustment figure recorded without the sale is refused. Core v80 installs
+    these pairs; earlier cores do not.
+    """
+    pairs: dict[str, str] = {}
+    for term in ("st", "lt"):
+        sale = f"tax.us.2025.f8949.no1099b-{term}-txn"
+        for kind in ("proceeds", "basis", "adjustment"):
+            pairs[f"{sale}.{kind}"] = sale
+    return pairs
+
+
 def named_covered_flag_refusal_maps() -> dict[tuple[str, str], dict[str, str]]:
     """Packages whose companion declaration names the covered-flag refusal.
 
-    Core v79 is the first package that names it. Core v78 and earlier are
+    Core v79 is the first package that names it, and core v80 names the same
+    map. Core v78 and earlier are
     absent, so their runs never consult the map. The map is a sibling of the
     companion declaration: the kernel declaration only carries presence pairs
     and value domains.
     """
     return {
         ("tax.us.2025.package.core-calculations", "v79"): dict(COVERED_FLAG_REFUSAL_OBJECTS),
+        # Core v80 adds no covered sale object, so it names v79's map.
+        ("tax.us.2025.package.core-calculations", "v80"): dict(COVERED_FLAG_REFUSAL_OBJECTS),
     }
 
 
@@ -405,6 +423,19 @@ def domain_package_companion_declarations() -> dict[tuple[str, str], dict[str, A
         # maps and refuse amounts v78 admits.
         ("tax.us.2025.package.core-calculations", "v79"): {
             "presence_pairs": {**gambling["presence_pairs"], **noncovered_scalar_presence_pairs()},
+            "value_domains": dict(gambling["value_domains"]),
+        },
+        # Core v80 reads a sale with no Form 1099-B (Form 8949 boxes C and F)
+        # from filer-supplied proceeds and basis. Each of its proceeds, basis,
+        # and adjustment figures requires its sale object, as v79's noncovered
+        # figures do. Without this entry, v80 would fall back to the global maps
+        # and refuse amounts v79 admits.
+        ("tax.us.2025.package.core-calculations", "v80"): {
+            "presence_pairs": {
+                **gambling["presence_pairs"],
+                **noncovered_scalar_presence_pairs(),
+                **no1099b_scalar_presence_pairs(),
+            },
             "value_domains": dict(gambling["value_domains"]),
         },
     }
