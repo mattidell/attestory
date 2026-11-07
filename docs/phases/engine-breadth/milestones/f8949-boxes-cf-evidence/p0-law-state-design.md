@@ -183,3 +183,70 @@ value: the 2025 single schedule (10% to 11,925, 12% to 48,475) at the
 midpoint of the 50-dollar row, rounded to the dollar. A net capital gain
 uses the Qualified Dividends and Capital Gain Tax Worksheet; the single 0%
 ceiling is 48,350 (`i1040sd` line 2454).
+
+## State on core v79
+
+Measured by `cf_probe.py` through `live_coordinate_run`, recorded in
+`cf-probe-output.json`. Package `core-calculations` v79, registry v77,
+release v77, on the harness wage return (`ccr.base_return()`, which answers
+`no-form8949-sources` yes). Every completed run stopped `saturated` and
+passed `validate_presentation_model`. The probe reuses the noncovered-sales
+evidence helpers (`probe`, `prototype`, `p0b`) exactly as
+`tests/test_noncovered_sales_v79.py` does.
+
+Core v79 has no box C or box F family and no Schedule D line 3 or line 10.
+A filer with such a sale can do one of two things. Either record nothing,
+or put the sale on the box B or box E families, the only families that take
+a filer-supplied basis. Those families are keyed by a Form 1099-B broker,
+statement and transaction, so that route means inventing a statement.
+Both routes are measured.
+
+"Answers" below: `q1` is `f1099b.noncovered-sold.source-closure` (the v79
+grouped question), `8949` is `no-form8949-sources`, `B` is
+`no-other-form8949-adjustments` (ADR-0061 Path B), `IC` is
+`noncovered-in-class` ("only boxes B and E"). Dollars are whole dollars.
+TI is Form 1040 line 15; tax is line 16. Attachments are Form 8949 then
+Schedule D.
+
+| Case | Answers | What v79 does | Right answer (by hand) |
+| --- | --- | --- | --- |
+| `wage_one_no` | q1 no | TI 34250, tax 3875, lines 1a/2/8a/9 `closure_backed_zero`, 7/15/16/21/7a `computed_zero`; both `guard_inapplicable` | Same. This is the identity the successor keeps. |
+| `c_unrecorded_8949_no` | q1 no, 8949 no | **Publishes TI 34250, tax 3875**; Schedule D all zero; both `guard_inapplicable` | Refuse. The filer says there are Form 8949 sales and none is recorded. |
+| `c_unrecorded_8949_no_other_no` | + B no | Same publish | Refuse |
+| `c_unrecorded_all_no` | + IC no | Same publish. **No answer refuses it.** v78 with 8949 no and B no publishes the same. | Refuse |
+| `f_gain_on_e_in_class_yes` | box F sale 6000/2000 on box E, q1 yes, IC yes | Line 9 4000, 15 4000, 16 4000, 7a 4000, TI 38250, tax 3875, preferential base 4000; both published. Box E, line 9. | Box F, line 10 4000; line 15 4000; line 16 4000; 7a 4000; TI 38250; preferential 4000; tax 3875 (34250 ordinary at table 3875, 4000 at 0%). Same dollars, wrong box and line, and the IC "yes" is false. |
+| `f_gain_on_e_in_class_no` | same, IC no | Lines 9, 15, 16, 21, 7a, TI and tax blocked; both attachments blocked. **Refused by `noncovered-in-class` = no.** | As above |
+| `c_loss_on_b_in_class_yes` | box C 2000/8000 on box B | Line 2 −6000, 7 −6000, 16 −6000, 21 3000, 7a −3000, TI 31250, tax 3515 | Line 3 −6000; line 7 −6000; 16 −6000; 21 is the loss limited to (3,000); 7a −3000; TI 31250; tax 3515 (table row 31250–31300). The engine carries line 21 as the positive 3000. |
+| `c_loss_on_b_in_class_no` | IC no | Lines 2, 7, 16, 21, 7a, TI, tax blocked; both blocked | As above |
+| `c_wash_on_b_in_class_yes` | box C 4000/7000, W 1000, on box B | Line 2 −2000, 7 −2000, 16 −2000, 21 2000, 7a −2000, TI 32250, tax 3635 | Column (h) −3000 + 1000 = −2000 on line 3; 7 −2000; 16 −2000; 21 (2,000); 7a −2000; TI 32250; tax 3635. |
+| `c_wash_on_b_in_class_no` | IC no | Blocked as the loss | As above |
+| `mixed_abcf_in_class_yes` | A st 5000/4000; B st 3000/3500; C st 2500/1000 on box B; F lt 6000/2000 on box E; q1 yes, IC yes | Line 1a 1000, 2 1000, 7 2000, 9 4000, 15 4000, 16 6000, 7a 6000, TI 40250, tax 4115, preferential 4000 | 1a 1000; 2 −500; **3 1500**; 7 2000; 9 0; **10 4000**; 15 4000; 16 6000; 7a 6000; TI 40250; preferential min(4000, 6000) = 4000; tax 4115 (ordinary 36250 at table 4115, 4000 at 0% under the 48350 ceiling). |
+| `mixed_abcf_in_class_no` | IC no | Every Schedule D line including 1a, and Form 1040 lines 7a/15/16, blocked | As above |
+| `e_basis_scalar_missing` | box E object basis 2000, proceeds scalar 6000, **no basis scalar**, q1 yes, IC yes | **Publishes line 9 6000, TI 40250, tax 3875.** The basis is read as 0. | Block and ask for the basis. |
+| `e_proceeds_scalar_missing` | basis scalar 2000, **no proceeds scalar** | **Publishes line 9 −2000, TI 32250, tax 3635**; Form 8949 `guard_inapplicable`, Schedule D published | Block and ask for the proceeds. |
+| `e_basis_object_missing` | object without `basis` | `FindingModelError` at contribution: `basis` is required on `f1099b.noncovered-lt-txn` | A schema rejection, before any question. Same shape the successor inherits. |
+
+What this shows:
+
+1. **The boundary refuses a box C or F sale only if the filer records it on
+   a box B or E family.** Answered honestly with the sale left unrecorded,
+   v79 publishes the wage return. The boundary answers (`8949` no, `B` no,
+   `IC` no) are read only inside arms that run when a member exists, so a
+   "no" with nothing recorded refuses nothing. That is a silent omission,
+   not a partial computation. It predates v79: core v78 with `8949` no and
+   `B` no publishes the same 34250 / 3875.
+2. **Recorded on box B or E with `IC` yes, v79 gets the dollars right and
+   the form wrong.** The rows land on line 2 or 9, Form 8949 box B or E. The
+   `IC` "yes" is a false statement: its proposition says only boxes B and E.
+3. **A missing proceeds or basis amount on a box B or E sale computes
+   silently on v79.** The sale object carries `basis` (required), but the
+   subtotals read the scalar families. ADR-0082's presence pairs require a
+   scalar's sale object, not the reverse. A "yes" admits the scalar family
+   that has no member, so its subtotal is 0. The successor's box C and F
+   copy of this pattern would inherit the defect unless it checks each
+   sale's own rows.
+4. A "yes" to the v79 grouped question with no member recorded is a
+   `closure_backed_zero` ("until a later member", ADR 0084). That is the
+   accepted v79 meaning. It is why, on a successor, an honest "yes" to a
+   box C/F question followed by no recording would also be silent unless
+   the successor checks for it.
