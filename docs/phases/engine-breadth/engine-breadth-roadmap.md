@@ -70,8 +70,9 @@ phase's frontier was named for either one.
 **Carried into the next phase, unclosed:**
 
 1. **Delivered 2026-11-06 (milestone noncovered-sales, PR #261, core v79):**
-   Form 8949 boxes B and E with code W, on ADR 0084. Other codes, boxes C
-   and F and broker-basis corrections remain candidates. History: the
+   Form 8949 boxes B and E with code W, on ADR 0084. Boxes C and F were
+   delivered 2026-11-07 (milestone f8949-boxes-cf, PR #262, core v80).
+   Other codes and broker-basis corrections remain candidates. History: the
    noncovered / basis-not-reported Form 8949 milestone was to be re-cut
    against ADR-0066. Its reusable C1 evaluation-ordering analysis and
    `accounts_for` traversal-totality proof are archived, but old proposed
@@ -639,6 +640,20 @@ closes the eight new families (ADR 0084, `source-closure-mapping.v4`). A
 covered sale flagged basis-not-reported now blocks with its own reason
 instead of publishing line 8a. Earlier cores are unchanged.
 
+## Bounded return — Sales Without a Form 1099-B (2025)
+
+[Plan](milestones/f8949-boxes-cf.md); retrospective:
+`docs/milestone-retrospectives/2026-11-07-f8949-boxes-cf.md`.
+
+On core v80 a sale of securities with no Form 1099-B or substitute statement
+reaches Form 8949 box C or F, Schedule D line 3 or 10, Form 1040 line 7a and
+the tax, from proceeds and basis the filer supplies, with code W allowed. A
+second grouped question closes the new families and keeps every v79 answer's
+meaning. Lines 2, 3, 9 and 10 now block when a sale is missing an amount,
+shares a record with another sale, or disagrees with its own amounts. Ten
+returns that v79 published silently or wrongly now block. Earlier cores are
+unchanged.
+
 ## Parked work and open questions
 
 This is the single list of parked work and open owner-held questions for the
@@ -656,8 +671,21 @@ delivers an item removes it.
 
 ### Parked
 
-- Form 8949 adjustment codes other than W, boxes C and F, and broker-basis
-  corrections (refused by answer on core v79).
+- Form 8949 adjustment codes other than W and broker-basis corrections
+  (refused by answer on core v80).
+- On core v80 a blocked Schedule D line can show a true reason but no
+  question in several refused paths. These include a "yes" with nothing
+  recorded, a Form 8949 "no" nothing admits, a sale beside a Form 8949
+  "yes", a shared or disagreeing sale record, and a box C or F return
+  with the ADR-0061 Path B unanswered (line 7a). A rule-artifact
+  successor whose block names the question it waits on would fix them.
+  Making Path B optional for box C/F-only returns changes when the
+  ADR-0061 answer is required, which is the owner's call.
+- A sale entered both on a Form 1099-B family and as a no-1099-B sale is
+  refused only by the in-class answer ("entered only once"); the two are
+  keyed differently, so content cannot see it.
+- The married-filing-separately $1,500 loss limit and the 2026 carryover
+  are not exercised for boxes C and F.
 - The covered-flag refusal code sits in `missing` as
   `BASIS_NOT_REPORTED_ON_COVERED`; a derivation-record successor would put
   it on the row.

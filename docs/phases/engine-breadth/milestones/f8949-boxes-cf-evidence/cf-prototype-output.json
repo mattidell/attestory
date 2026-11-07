@@ -1,0 +1,4632 @@
+{
+ "build": {
+  "added_members": 30,
+  "existing_files_changed": [],
+  "files_added": 50,
+  "inherited_inconsistencies": [],
+  "members_edited": 48,
+  "package": {
+   "checksum": "5c2881505c7cd7e79c7a772811c0e3e3c52e3f7224910fac072992c49991cf54",
+   "id": "tax.us.2025.package.core-calculations",
+   "version": "v80"
+  },
+  "release": {
+   "id": "demo.release.sli-worksheet-integration.2025",
+   "sha256": "217f5b908af2b0a989061267e9231087af9eaf2e73a8c452f9104740e85d3073",
+   "version": "v78"
+  },
+  "replaced_members": 18
+ },
+ "scratch": "v80 / registry v78 / release v78 from v79",
+ "source_ref": "(removed at closeout)",
+ "v79_returns_on_v80": {
+  "boundary_no_with_member": {
+   "v79": {
+    "attachments": {
+     "f8949": "blocked",
+     "schedule-d": "blocked"
+    },
+    "error": null,
+    "form1040": [
+     null,
+     null
+    ]
+   },
+   "v80_q2_no_diff": {
+    "schedule-d.line-7": [
+     [
+      "computed_zero",
+      0
+     ],
+     [
+      "blocked",
+      null
+     ]
+    ]
+   },
+   "v80_q2_no_lines_3_10": {
+    "schedule-d.line-10": [
+     "blocked",
+     null
+    ],
+    "schedule-d.line-3": [
+     "blocked",
+     null
+    ]
+   },
+   "v80_q2_unanswered_form1040": [
+    null,
+    null
+   ]
+  },
+  "boundary_no_without_member": {
+   "v79": {
+    "attachments": {
+     "f8949": "guard_inapplicable",
+     "schedule-d": "guard_inapplicable"
+    },
+    "error": null,
+    "form1040": [
+     34250,
+     3875
+    ]
+   },
+   "v80_q2_no_diff": {
+    "attachments": [
+     {
+      "f8949": "guard_inapplicable",
+      "schedule-d": "guard_inapplicable"
+     },
+     {
+      "f8949": "blocked",
+      "schedule-d": "blocked"
+     }
+    ],
+    "form1040.line-15": [
+     [
+      "published_value",
+      34250
+     ],
+     [
+      "blocked",
+      null
+     ]
+    ],
+    "form1040.line-16": [
+     [
+      "published_value",
+      3875
+     ],
+     [
+      "blocked",
+      null
+     ]
+    ],
+    "form1040.line-7a": [
+     [
+      "computed_zero",
+      0
+     ],
+     [
+      "blocked",
+      null
+     ]
+    ],
+    "schedule-d.line-15": [
+     [
+      "computed_zero",
+      0
+     ],
+     [
+      "blocked",
+      null
+     ]
+    ],
+    "schedule-d.line-16": [
+     [
+      "computed_zero",
+      0
+     ],
+     [
+      "blocked",
+      null
+     ]
+    ],
+    "schedule-d.line-21": [
+     [
+      "computed_zero",
+      0
+     ],
+     [
+      "blocked",
+      null
+     ]
+    ],
+    "schedule-d.line-7": [
+     [
+      "computed_zero",
+      0
+     ],
+     [
+      "blocked",
+      null
+     ]
+    ]
+   },
+   "v80_q2_no_lines_3_10": {
+    "schedule-d.line-10": [
+     "blocked",
+     null
+    ],
+    "schedule-d.line-3": [
+     "blocked",
+     null
+    ]
+   },
+   "v80_q2_unanswered_form1040": [
+    null,
+    null
+   ]
+  },
+  "code_w_on_gain": {
+   "v79": {
+    "attachments": {
+     "f8949": "blocked",
+     "schedule-d": "blocked"
+    },
+    "error": null,
+    "form1040": [
+     null,
+     null
+    ]
+   },
+   "v80_q2_no_diff": {},
+   "v80_q2_no_lines_3_10": {
+    "schedule-d.line-10": [
+     "computed_zero",
+     0
+    ],
+    "schedule-d.line-3": [
+     "computed_zero",
+     0
+    ]
+   },
+   "v80_q2_unanswered_form1040": [
+    null,
+    null
+   ]
+  },
+  "covered_both_boundaries_no": {
+   "v79": {
+    "attachments": {
+     "f8949": "guard_inapplicable",
+     "schedule-d": "blocked"
+    },
+    "error": null,
+    "form1040": [
+     null,
+     null
+    ]
+   },
+   "v80_q2_no_diff": {
+    "attachments": [
+     {
+      "f8949": "guard_inapplicable",
+      "schedule-d": "blocked"
+     },
+     {
+      "f8949": "blocked",
+      "schedule-d": "blocked"
+     }
+    ],
+    "schedule-d.line-7": [
+     [
+      "computed_zero",
+      0
+     ],
+     [
+      "blocked",
+      null
+     ]
+    ]
+   },
+   "v80_q2_no_lines_3_10": {
+    "schedule-d.line-10": [
+     "blocked",
+     null
+    ],
+    "schedule-d.line-3": [
+     "blocked",
+     null
+    ]
+   },
+   "v80_q2_unanswered_form1040": [
+    null,
+    null
+   ]
+  },
+  "covered_flag_corrected_to_no": {
+   "v79": {
+    "attachments": {
+     "f8949": "guard_inapplicable",
+     "schedule-d": "blocked"
+    },
+    "error": null,
+    "form1040": [
+     null,
+     null
+    ]
+   },
+   "v80_q2_no_diff": {},
+   "v80_q2_no_lines_3_10": {
+    "schedule-d.line-10": [
+     "computed_zero",
+     0
+    ],
+    "schedule-d.line-3": [
+     "computed_zero",
+     0
+    ]
+   },
+   "v80_q2_unanswered_form1040": [
+    null,
+    null
+   ]
+  },
+  "covered_flag_corrected_to_yes": {
+   "v79": {
+    "attachments": {
+     "f8949": "guard_inapplicable",
+     "schedule-d": "published"
+    },
+    "error": null,
+    "form1040": [
+     38250,
+     3875
+    ]
+   },
+   "v80_q2_no_diff": {},
+   "v80_q2_no_lines_3_10": {
+    "schedule-d.line-10": [
+     "computed_zero",
+     0
+    ],
+    "schedule-d.line-3": [
+     "computed_zero",
+     0
+    ]
+   },
+   "v80_q2_unanswered_form1040": [
+    null,
+    null
+   ]
+  },
+  "covered_flag_no_path_a": {
+   "v79": {
+    "attachments": {
+     "f8949": "guard_inapplicable",
+     "schedule-d": "blocked"
+    },
+    "error": null,
+    "form1040": [
+     null,
+     null
+    ]
+   },
+   "v80_q2_no_diff": {},
+   "v80_q2_no_lines_3_10": {
+    "schedule-d.line-10": [
+     "computed_zero",
+     0
+    ],
+    "schedule-d.line-3": [
+     "computed_zero",
+     0
+    ]
+   },
+   "v80_q2_unanswered_form1040": [
+    null,
+    null
+   ]
+  },
+  "covered_flag_no_st": {
+   "v79": {
+    "attachments": {
+     "f8949": "guard_inapplicable",
+     "schedule-d": "blocked"
+    },
+    "error": null,
+    "form1040": [
+     null,
+     null
+    ]
+   },
+   "v80_q2_no_diff": {},
+   "v80_q2_no_lines_3_10": {
+    "schedule-d.line-10": [
+     "computed_zero",
+     0
+    ],
+    "schedule-d.line-3": [
+     "computed_zero",
+     0
+    ]
+   },
+   "v80_q2_unanswered_form1040": [
+    null,
+    null
+   ]
+  },
+  "covered_flag_no_w_lt": {
+   "v79": {
+    "attachments": {
+     "f8949": "blocked",
+     "schedule-d": "blocked"
+    },
+    "error": null,
+    "form1040": [
+     null,
+     null
+    ]
+   },
+   "v80_q2_no_diff": {},
+   "v80_q2_no_lines_3_10": {
+    "schedule-d.line-10": [
+     "computed_zero",
+     0
+    ],
+    "schedule-d.line-3": [
+     "computed_zero",
+     0
+    ]
+   },
+   "v80_q2_unanswered_form1040": [
+    null,
+    null
+   ]
+  },
+  "covered_flag_no_w_st": {
+   "v79": {
+    "attachments": {
+     "f8949": "blocked",
+     "schedule-d": "blocked"
+    },
+    "error": null,
+    "form1040": [
+     null,
+     null
+    ]
+   },
+   "v80_q2_no_diff": {},
+   "v80_q2_no_lines_3_10": {
+    "schedule-d.line-10": [
+     "computed_zero",
+     0
+    ],
+    "schedule-d.line-3": [
+     "computed_zero",
+     0
+    ]
+   },
+   "v80_q2_unanswered_form1040": [
+    null,
+    null
+   ]
+  },
+  "covered_flag_yes": {
+   "v79": {
+    "attachments": {
+     "f8949": "guard_inapplicable",
+     "schedule-d": "published"
+    },
+    "error": null,
+    "form1040": [
+     38250,
+     3875
+    ]
+   },
+   "v80_q2_no_diff": {},
+   "v80_q2_no_lines_3_10": {
+    "schedule-d.line-10": [
+     "computed_zero",
+     0
+    ],
+    "schedule-d.line-3": [
+     "computed_zero",
+     0
+    ]
+   },
+   "v80_q2_unanswered_form1040": [
+    null,
+    null
+   ]
+  },
+  "duplicate_horizon": {
+   "v79": {
+    "attachments": null,
+    "error": "HorizonModelError",
+    "form1040": [
+     null,
+     null
+    ]
+   },
+   "v80_q2_no_diff": {},
+   "v80_q2_no_lines_3_10": {
+    "schedule-d.line-10": null,
+    "schedule-d.line-3": null
+   },
+   "v80_q2_unanswered_form1040": [
+    null,
+    null
+   ]
+  },
+  "late_member_reopened": {
+   "v79": {
+    "attachments": {
+     "f8949": "published",
+     "schedule-d": "published"
+    },
+    "error": null,
+    "form1040": [
+     38250,
+     3875
+    ]
+   },
+   "v80_q2_no_diff": {},
+   "v80_q2_no_lines_3_10": {
+    "schedule-d.line-10": [
+     "computed_zero",
+     0
+    ],
+    "schedule-d.line-3": [
+     "computed_zero",
+     0
+    ]
+   },
+   "v80_q2_unanswered_form1040": [
+    null,
+    null
+   ]
+  },
+  "late_member_unclosed": {
+   "v79": {
+    "attachments": {
+     "f8949": "blocked",
+     "schedule-d": "blocked"
+    },
+    "error": null,
+    "form1040": [
+     null,
+     null
+    ]
+   },
+   "v80_q2_no_diff": {},
+   "v80_q2_no_lines_3_10": {
+    "schedule-d.line-10": [
+     "computed_zero",
+     0
+    ],
+    "schedule-d.line-3": [
+     "computed_zero",
+     0
+    ]
+   },
+   "v80_q2_unanswered_form1040": [
+    null,
+    null
+   ]
+  },
+  "late_yes_reanswered": {
+   "v79": {
+    "attachments": {
+     "f8949": "published",
+     "schedule-d": "published"
+    },
+    "error": null,
+    "form1040": [
+     38250,
+     3875
+    ]
+   },
+   "v80_q2_no_diff": {},
+   "v80_q2_no_lines_3_10": {
+    "schedule-d.line-10": [
+     "computed_zero",
+     0
+    ],
+    "schedule-d.line-3": [
+     "computed_zero",
+     0
+    ]
+   },
+   "v80_q2_unanswered_form1040": [
+    null,
+    null
+   ]
+  },
+  "late_yes_stale": {
+   "v79": {
+    "attachments": {
+     "f8949": "blocked",
+     "schedule-d": "blocked"
+    },
+    "error": null,
+    "form1040": [
+     null,
+     null
+    ]
+   },
+   "v80_q2_no_diff": {},
+   "v80_q2_no_lines_3_10": {
+    "schedule-d.line-10": [
+     "computed_zero",
+     0
+    ],
+    "schedule-d.line-3": [
+     "computed_zero",
+     0
+    ]
+   },
+   "v80_q2_unanswered_form1040": [
+    null,
+    null
+   ]
+  },
+  "lt_gain": {
+   "v79": {
+    "attachments": {
+     "f8949": "published",
+     "schedule-d": "published"
+    },
+    "error": null,
+    "form1040": [
+     38250,
+     3875
+    ]
+   },
+   "v80_q2_no_diff": {},
+   "v80_q2_no_lines_3_10": {
+    "schedule-d.line-10": [
+     "computed_zero",
+     0
+    ],
+    "schedule-d.line-3": [
+     "computed_zero",
+     0
+    ]
+   },
+   "v80_q2_unanswered_form1040": [
+    null,
+    null
+   ]
+  },
+  "one_exempt_dividend": {
+   "v79": {
+    "attachments": {
+     "f8949": "guard_inapplicable",
+     "schedule-d": "guard_inapplicable"
+    },
+    "error": null,
+    "form1040": [
+     34250,
+     3875
+    ]
+   },
+   "v80_q2_no_diff": {},
+   "v80_q2_no_lines_3_10": {
+    "schedule-d.line-10": [
+     "computed_zero",
+     0
+    ],
+    "schedule-d.line-3": [
+     "computed_zero",
+     0
+    ]
+   },
+   "v80_q2_unanswered_form1040": [
+    null,
+    null
+   ]
+  },
+  "one_exempt_interest": {
+   "v79": {
+    "attachments": {
+     "f8949": "guard_inapplicable",
+     "schedule-d": "guard_inapplicable"
+    },
+    "error": null,
+    "form1040": [
+     34250,
+     3875
+    ]
+   },
+   "v80_q2_no_diff": {},
+   "v80_q2_no_lines_3_10": {
+    "schedule-d.line-10": [
+     "computed_zero",
+     0
+    ],
+    "schedule-d.line-3": [
+     "computed_zero",
+     0
+    ]
+   },
+   "v80_q2_unanswered_form1040": [
+    null,
+    null
+   ]
+  },
+  "one_finding": {
+   "v79": {
+    "attachments": {
+     "f8949": "guard_inapplicable",
+     "schedule-d": "guard_inapplicable"
+    },
+    "error": null,
+    "form1040": [
+     34250,
+     3875
+    ]
+   },
+   "v80_q2_no_diff": {},
+   "v80_q2_no_lines_3_10": {
+    "schedule-d.line-10": [
+     "computed_zero",
+     0
+    ],
+    "schedule-d.line-3": [
+     "computed_zero",
+     0
+    ]
+   },
+   "v80_q2_unanswered_form1040": [
+    null,
+    null
+   ]
+  },
+  "one_foreign_tax": {
+   "v79": {
+    "attachments": {
+     "f8949": "guard_inapplicable",
+     "schedule-d": "guard_inapplicable"
+    },
+    "error": null,
+    "form1040": [
+     34350,
+     3887
+    ]
+   },
+   "v80_q2_no_diff": {},
+   "v80_q2_no_lines_3_10": {
+    "schedule-d.line-10": [
+     "computed_zero",
+     0
+    ],
+    "schedule-d.line-3": [
+     "computed_zero",
+     0
+    ]
+   },
+   "v80_q2_unanswered_form1040": [
+    null,
+    null
+   ]
+  },
+  "one_gambling_loss": {
+   "v79": {
+    "attachments": {
+     "f8949": "guard_inapplicable",
+     "schedule-d": "guard_inapplicable"
+    },
+    "error": null,
+    "form1040": [
+     34250,
+     3875
+    ]
+   },
+   "v80_q2_no_diff": {},
+   "v80_q2_no_lines_3_10": {
+    "schedule-d.line-10": [
+     "computed_zero",
+     0
+    ],
+    "schedule-d.line-3": [
+     "computed_zero",
+     0
+    ]
+   },
+   "v80_q2_unanswered_form1040": [
+    null,
+    null
+   ]
+  },
+  "one_itemized": {
+   "v79": {
+    "attachments": {
+     "f8949": "guard_inapplicable",
+     "schedule-d": "guard_inapplicable"
+    },
+    "error": null,
+    "form1040": [
+     34250,
+     3875
+    ]
+   },
+   "v80_q2_no_diff": {},
+   "v80_q2_no_lines_3_10": {
+    "schedule-d.line-10": [
+     "computed_zero",
+     0
+    ],
+    "schedule-d.line-3": [
+     "computed_zero",
+     0
+    ]
+   },
+   "v80_q2_unanswered_form1040": [
+    null,
+    null
+   ]
+  },
+  "one_mortgage": {
+   "v79": {
+    "attachments": {
+     "f8949": "guard_inapplicable",
+     "schedule-d": "guard_inapplicable"
+    },
+    "error": null,
+    "form1040": [
+     34250,
+     3875
+    ]
+   },
+   "v80_q2_no_diff": {},
+   "v80_q2_no_lines_3_10": {
+    "schedule-d.line-10": [
+     "computed_zero",
+     0
+    ],
+    "schedule-d.line-3": [
+     "computed_zero",
+     0
+    ]
+   },
+   "v80_q2_unanswered_form1040": [
+    null,
+    null
+   ]
+  },
+  "one_part_ii_b": {
+   "v79": {
+    "attachments": {
+     "f8949": "guard_inapplicable",
+     "schedule-d": "guard_inapplicable"
+    },
+    "error": null,
+    "form1040": [
+     0,
+     0
+    ]
+   },
+   "v80_q2_no_diff": {},
+   "v80_q2_no_lines_3_10": {
+    "schedule-d.line-10": [
+     "computed_zero",
+     0
+    ],
+    "schedule-d.line-3": [
+     "computed_zero",
+     0
+    ]
+   },
+   "v80_q2_unanswered_form1040": [
+    null,
+    null
+   ]
+  },
+  "one_student_loan": {
+   "v79": {
+    "attachments": {
+     "f8949": "guard_inapplicable",
+     "schedule-d": "guard_inapplicable"
+    },
+    "error": null,
+    "form1040": [
+     34050,
+     3851
+    ]
+   },
+   "v80_q2_no_diff": {},
+   "v80_q2_no_lines_3_10": {
+    "schedule-d.line-10": [
+     "computed_zero",
+     0
+    ],
+    "schedule-d.line-3": [
+     "computed_zero",
+     0
+    ]
+   },
+   "v80_q2_unanswered_form1040": [
+    null,
+    null
+   ]
+  },
+  "one_wage": {
+   "v79": {
+    "attachments": {
+     "f8949": "guard_inapplicable",
+     "schedule-d": "guard_inapplicable"
+    },
+    "error": null,
+    "form1040": [
+     34250,
+     3875
+    ]
+   },
+   "v80_q2_no_diff": {},
+   "v80_q2_no_lines_3_10": {
+    "schedule-d.line-10": [
+     "computed_zero",
+     0
+    ],
+    "schedule-d.line-3": [
+     "computed_zero",
+     0
+    ]
+   },
+   "v80_q2_unanswered_form1040": [
+    null,
+    null
+   ]
+  },
+  "probe_c_loss_on_b_in_class_no": {
+   "v79": {
+    "attachments": {
+     "f8949": "blocked",
+     "schedule-d": "blocked"
+    },
+    "error": null,
+    "form1040": [
+     null,
+     null
+    ]
+   },
+   "v80_q2_no_diff": {
+    "schedule-d.line-15": [
+     [
+      "computed_zero",
+      0
+     ],
+     [
+      "blocked",
+      null
+     ]
+    ]
+   },
+   "v80_q2_no_lines_3_10": {
+    "schedule-d.line-10": [
+     "blocked",
+     null
+    ],
+    "schedule-d.line-3": [
+     "blocked",
+     null
+    ]
+   },
+   "v80_q2_unanswered_form1040": [
+    null,
+    null
+   ]
+  },
+  "probe_c_loss_on_b_in_class_yes": {
+   "v79": {
+    "attachments": {
+     "f8949": "published",
+     "schedule-d": "published"
+    },
+    "error": null,
+    "form1040": [
+     31250,
+     3515
+    ]
+   },
+   "v80_q2_no_diff": {},
+   "v80_q2_no_lines_3_10": {
+    "schedule-d.line-10": [
+     "computed_zero",
+     0
+    ],
+    "schedule-d.line-3": [
+     "computed_zero",
+     0
+    ]
+   },
+   "v80_q2_unanswered_form1040": [
+    null,
+    null
+   ]
+  },
+  "probe_c_unrecorded_8949_no": {
+   "v79": {
+    "attachments": {
+     "f8949": "guard_inapplicable",
+     "schedule-d": "guard_inapplicable"
+    },
+    "error": null,
+    "form1040": [
+     34250,
+     3875
+    ]
+   },
+   "v80_q2_no_diff": {
+    "attachments": [
+     {
+      "f8949": "guard_inapplicable",
+      "schedule-d": "guard_inapplicable"
+     },
+     {
+      "f8949": "blocked",
+      "schedule-d": "blocked"
+     }
+    ],
+    "form1040.line-15": [
+     [
+      "published_value",
+      34250
+     ],
+     [
+      "blocked",
+      null
+     ]
+    ],
+    "form1040.line-16": [
+     [
+      "published_value",
+      3875
+     ],
+     [
+      "blocked",
+      null
+     ]
+    ],
+    "form1040.line-7a": [
+     [
+      "computed_zero",
+      0
+     ],
+     [
+      "blocked",
+      null
+     ]
+    ],
+    "schedule-d.line-15": [
+     [
+      "computed_zero",
+      0
+     ],
+     [
+      "blocked",
+      null
+     ]
+    ],
+    "schedule-d.line-16": [
+     [
+      "computed_zero",
+      0
+     ],
+     [
+      "blocked",
+      null
+     ]
+    ],
+    "schedule-d.line-21": [
+     [
+      "computed_zero",
+      0
+     ],
+     [
+      "blocked",
+      null
+     ]
+    ],
+    "schedule-d.line-7": [
+     [
+      "computed_zero",
+      0
+     ],
+     [
+      "blocked",
+      null
+     ]
+    ]
+   },
+   "v80_q2_no_lines_3_10": {
+    "schedule-d.line-10": [
+     "blocked",
+     null
+    ],
+    "schedule-d.line-3": [
+     "blocked",
+     null
+    ]
+   },
+   "v80_q2_unanswered_form1040": [
+    null,
+    null
+   ]
+  },
+  "probe_c_unrecorded_8949_no_other_no": {
+   "v79": {
+    "attachments": {
+     "f8949": "guard_inapplicable",
+     "schedule-d": "guard_inapplicable"
+    },
+    "error": null,
+    "form1040": [
+     34250,
+     3875
+    ]
+   },
+   "v80_q2_no_diff": {
+    "attachments": [
+     {
+      "f8949": "guard_inapplicable",
+      "schedule-d": "guard_inapplicable"
+     },
+     {
+      "f8949": "blocked",
+      "schedule-d": "blocked"
+     }
+    ],
+    "form1040.line-15": [
+     [
+      "published_value",
+      34250
+     ],
+     [
+      "blocked",
+      null
+     ]
+    ],
+    "form1040.line-16": [
+     [
+      "published_value",
+      3875
+     ],
+     [
+      "blocked",
+      null
+     ]
+    ],
+    "form1040.line-7a": [
+     [
+      "computed_zero",
+      0
+     ],
+     [
+      "blocked",
+      null
+     ]
+    ],
+    "schedule-d.line-15": [
+     [
+      "computed_zero",
+      0
+     ],
+     [
+      "blocked",
+      null
+     ]
+    ],
+    "schedule-d.line-16": [
+     [
+      "computed_zero",
+      0
+     ],
+     [
+      "blocked",
+      null
+     ]
+    ],
+    "schedule-d.line-21": [
+     [
+      "computed_zero",
+      0
+     ],
+     [
+      "blocked",
+      null
+     ]
+    ],
+    "schedule-d.line-7": [
+     [
+      "computed_zero",
+      0
+     ],
+     [
+      "blocked",
+      null
+     ]
+    ]
+   },
+   "v80_q2_no_lines_3_10": {
+    "schedule-d.line-10": [
+     "blocked",
+     null
+    ],
+    "schedule-d.line-3": [
+     "blocked",
+     null
+    ]
+   },
+   "v80_q2_unanswered_form1040": [
+    null,
+    null
+   ]
+  },
+  "probe_c_unrecorded_all_no": {
+   "v79": {
+    "attachments": {
+     "f8949": "guard_inapplicable",
+     "schedule-d": "guard_inapplicable"
+    },
+    "error": null,
+    "form1040": [
+     34250,
+     3875
+    ]
+   },
+   "v80_q2_no_diff": {
+    "attachments": [
+     {
+      "f8949": "guard_inapplicable",
+      "schedule-d": "guard_inapplicable"
+     },
+     {
+      "f8949": "blocked",
+      "schedule-d": "blocked"
+     }
+    ],
+    "form1040.line-15": [
+     [
+      "published_value",
+      34250
+     ],
+     [
+      "blocked",
+      null
+     ]
+    ],
+    "form1040.line-16": [
+     [
+      "published_value",
+      3875
+     ],
+     [
+      "blocked",
+      null
+     ]
+    ],
+    "form1040.line-7a": [
+     [
+      "computed_zero",
+      0
+     ],
+     [
+      "blocked",
+      null
+     ]
+    ],
+    "schedule-d.line-15": [
+     [
+      "computed_zero",
+      0
+     ],
+     [
+      "blocked",
+      null
+     ]
+    ],
+    "schedule-d.line-16": [
+     [
+      "computed_zero",
+      0
+     ],
+     [
+      "blocked",
+      null
+     ]
+    ],
+    "schedule-d.line-21": [
+     [
+      "computed_zero",
+      0
+     ],
+     [
+      "blocked",
+      null
+     ]
+    ],
+    "schedule-d.line-7": [
+     [
+      "computed_zero",
+      0
+     ],
+     [
+      "blocked",
+      null
+     ]
+    ]
+   },
+   "v80_q2_no_lines_3_10": {
+    "schedule-d.line-10": [
+     "blocked",
+     null
+    ],
+    "schedule-d.line-3": [
+     "blocked",
+     null
+    ]
+   },
+   "v80_q2_unanswered_form1040": [
+    null,
+    null
+   ]
+  },
+  "probe_c_wash_on_b_in_class_no": {
+   "v79": {
+    "attachments": {
+     "f8949": "blocked",
+     "schedule-d": "blocked"
+    },
+    "error": null,
+    "form1040": [
+     null,
+     null
+    ]
+   },
+   "v80_q2_no_diff": {
+    "schedule-d.line-15": [
+     [
+      "computed_zero",
+      0
+     ],
+     [
+      "blocked",
+      null
+     ]
+    ]
+   },
+   "v80_q2_no_lines_3_10": {
+    "schedule-d.line-10": [
+     "blocked",
+     null
+    ],
+    "schedule-d.line-3": [
+     "blocked",
+     null
+    ]
+   },
+   "v80_q2_unanswered_form1040": [
+    null,
+    null
+   ]
+  },
+  "probe_c_wash_on_b_in_class_yes": {
+   "v79": {
+    "attachments": {
+     "f8949": "published",
+     "schedule-d": "published"
+    },
+    "error": null,
+    "form1040": [
+     32250,
+     3635
+    ]
+   },
+   "v80_q2_no_diff": {},
+   "v80_q2_no_lines_3_10": {
+    "schedule-d.line-10": [
+     "computed_zero",
+     0
+    ],
+    "schedule-d.line-3": [
+     "computed_zero",
+     0
+    ]
+   },
+   "v80_q2_unanswered_form1040": [
+    null,
+    null
+   ]
+  },
+  "probe_e_basis_object_missing": {
+   "v79": {
+    "attachments": null,
+    "error": "FindingModelError",
+    "form1040": [
+     null,
+     null
+    ]
+   },
+   "v80_q2_no_diff": {},
+   "v80_q2_no_lines_3_10": {
+    "schedule-d.line-10": null,
+    "schedule-d.line-3": null
+   },
+   "v80_q2_unanswered_form1040": [
+    null,
+    null
+   ]
+  },
+  "probe_e_basis_scalar_missing": {
+   "v79": {
+    "attachments": {
+     "f8949": "published",
+     "schedule-d": "published"
+    },
+    "error": null,
+    "form1040": [
+     40250,
+     3875
+    ]
+   },
+   "v80_q2_no_diff": {},
+   "v80_q2_no_lines_3_10": {
+    "schedule-d.line-10": [
+     "computed_zero",
+     0
+    ],
+    "schedule-d.line-3": [
+     "computed_zero",
+     0
+    ]
+   },
+   "v80_q2_unanswered_form1040": [
+    null,
+    null
+   ]
+  },
+  "probe_e_proceeds_scalar_missing": {
+   "v79": {
+    "attachments": {
+     "f8949": "guard_inapplicable",
+     "schedule-d": "published"
+    },
+    "error": null,
+    "form1040": [
+     32250,
+     3635
+    ]
+   },
+   "v80_q2_no_diff": {},
+   "v80_q2_no_lines_3_10": {
+    "schedule-d.line-10": [
+     "computed_zero",
+     0
+    ],
+    "schedule-d.line-3": [
+     "computed_zero",
+     0
+    ]
+   },
+   "v80_q2_unanswered_form1040": [
+    null,
+    null
+   ]
+  },
+  "probe_f_gain_on_e_in_class_no": {
+   "v79": {
+    "attachments": {
+     "f8949": "blocked",
+     "schedule-d": "blocked"
+    },
+    "error": null,
+    "form1040": [
+     null,
+     null
+    ]
+   },
+   "v80_q2_no_diff": {
+    "schedule-d.line-7": [
+     [
+      "computed_zero",
+      0
+     ],
+     [
+      "blocked",
+      null
+     ]
+    ]
+   },
+   "v80_q2_no_lines_3_10": {
+    "schedule-d.line-10": [
+     "blocked",
+     null
+    ],
+    "schedule-d.line-3": [
+     "blocked",
+     null
+    ]
+   },
+   "v80_q2_unanswered_form1040": [
+    null,
+    null
+   ]
+  },
+  "probe_f_gain_on_e_in_class_yes": {
+   "v79": {
+    "attachments": {
+     "f8949": "published",
+     "schedule-d": "published"
+    },
+    "error": null,
+    "form1040": [
+     38250,
+     3875
+    ]
+   },
+   "v80_q2_no_diff": {},
+   "v80_q2_no_lines_3_10": {
+    "schedule-d.line-10": [
+     "computed_zero",
+     0
+    ],
+    "schedule-d.line-3": [
+     "computed_zero",
+     0
+    ]
+   },
+   "v80_q2_unanswered_form1040": [
+    null,
+    null
+   ]
+  },
+  "probe_mixed_abcf_in_class_no": {
+   "v79": {
+    "attachments": {
+     "f8949": "blocked",
+     "schedule-d": "blocked"
+    },
+    "error": null,
+    "form1040": [
+     null,
+     null
+    ]
+   },
+   "v80_q2_no_diff": {},
+   "v80_q2_no_lines_3_10": {
+    "schedule-d.line-10": [
+     "blocked",
+     null
+    ],
+    "schedule-d.line-3": [
+     "blocked",
+     null
+    ]
+   },
+   "v80_q2_unanswered_form1040": [
+    null,
+    null
+   ]
+  },
+  "probe_mixed_abcf_in_class_yes": {
+   "v79": {
+    "attachments": {
+     "f8949": "published",
+     "schedule-d": "published"
+    },
+    "error": null,
+    "form1040": [
+     40250,
+     4115
+    ]
+   },
+   "v80_q2_no_diff": {},
+   "v80_q2_no_lines_3_10": {
+    "schedule-d.line-10": [
+     "computed_zero",
+     0
+    ],
+    "schedule-d.line-3": [
+     "computed_zero",
+     0
+    ]
+   },
+   "v80_q2_unanswered_form1040": [
+    null,
+    null
+   ]
+  },
+  "probe_wage_one_no": {
+   "v79": {
+    "attachments": {
+     "f8949": "guard_inapplicable",
+     "schedule-d": "guard_inapplicable"
+    },
+    "error": null,
+    "form1040": [
+     34250,
+     3875
+    ]
+   },
+   "v80_q2_no_diff": {},
+   "v80_q2_no_lines_3_10": {
+    "schedule-d.line-10": [
+     "computed_zero",
+     0
+    ],
+    "schedule-d.line-3": [
+     "computed_zero",
+     0
+    ]
+   },
+   "v80_q2_unanswered_form1040": [
+    null,
+    null
+   ]
+  },
+  "st_loss": {
+   "v79": {
+    "attachments": {
+     "f8949": "published",
+     "schedule-d": "published"
+    },
+    "error": null,
+    "form1040": [
+     31250,
+     3515
+    ]
+   },
+   "v80_q2_no_diff": {},
+   "v80_q2_no_lines_3_10": {
+    "schedule-d.line-10": [
+     "computed_zero",
+     0
+    ],
+    "schedule-d.line-3": [
+     "computed_zero",
+     0
+    ]
+   },
+   "v80_q2_unanswered_form1040": [
+    null,
+    null
+   ]
+  },
+  "wage_unclosed": {
+   "v79": {
+    "attachments": {
+     "f8949": "blocked",
+     "schedule-d": "blocked"
+    },
+    "error": null,
+    "form1040": [
+     null,
+     null
+    ]
+   },
+   "v80_q2_no_diff": {},
+   "v80_q2_no_lines_3_10": {
+    "schedule-d.line-10": [
+     "computed_zero",
+     0
+    ],
+    "schedule-d.line-3": [
+     "computed_zero",
+     0
+    ]
+   },
+   "v80_q2_unanswered_form1040": [
+    null,
+    null
+   ]
+  },
+  "wash": {
+   "v79": {
+    "attachments": {
+     "f8949": "published",
+     "schedule-d": "published"
+    },
+    "error": null,
+    "form1040": [
+     32250,
+     3635
+    ]
+   },
+   "v80_q2_no_diff": {},
+   "v80_q2_no_lines_3_10": {
+    "schedule-d.line-10": [
+     "computed_zero",
+     0
+    ],
+    "schedule-d.line-3": [
+     "computed_zero",
+     0
+    ]
+   },
+   "v80_q2_unanswered_form1040": [
+    null,
+    null
+   ]
+  },
+  "yes_then_no_with_member": {
+   "v79": {
+    "attachments": {
+     "f8949": "blocked",
+     "schedule-d": "blocked"
+    },
+    "error": null,
+    "form1040": [
+     null,
+     null
+    ]
+   },
+   "v80_q2_no_diff": {},
+   "v80_q2_no_lines_3_10": {
+    "schedule-d.line-10": [
+     "computed_zero",
+     0
+    ],
+    "schedule-d.line-3": [
+     "computed_zero",
+     0
+    ]
+   },
+   "v80_q2_unanswered_form1040": [
+    null,
+    null
+   ]
+  }
+ },
+ "v80_cases": {
+  "c_basis_missing": {
+   "mismatch": {},
+   "result": {
+    "attachments": {
+     "f8949": "blocked",
+     "schedule-d": "blocked"
+    },
+    "blocked": [
+     {
+      "artifact": "rule.schedule-d-line3",
+      "code": "DEPENDENCY_ABSENT",
+      "missing": [
+       "f8949.no1099b-st-txn.basis"
+      ]
+     },
+     {
+      "artifact": "rule.attachment.f8949",
+      "code": "DEPENDENCY_ABSENT",
+      "missing": [
+       "schedule-d.line-3"
+      ]
+     },
+     {
+      "artifact": "rule.attachment.schedule-d",
+      "code": "DEPENDENCY_ABSENT",
+      "missing": [
+       "schedule-d.line-3"
+      ]
+     },
+     {
+      "artifact": "rule.form1040-line7a",
+      "code": "DEPENDENCY_ABSENT",
+      "missing": [
+       "schedule-d.line-16",
+       "schedule-d.line-21",
+       "capital-gains.selected-preferential-base",
+       "schedule-d.line-3"
+      ]
+     },
+     {
+      "artifact": "rule.schedule-d-line16",
+      "code": "DEPENDENCY_ABSENT",
+      "missing": [
+       "schedule-d.line-7"
+      ]
+     },
+     {
+      "artifact": "rule.schedule-d-line21",
+      "code": "DEPENDENCY_ABSENT",
+      "missing": [
+       "schedule-d.line-16"
+      ]
+     },
+     {
+      "artifact": "rule.schedule-d-line7",
+      "code": "DEPENDENCY_ABSENT",
+      "missing": [
+       "schedule-d.line-3"
+      ]
+     },
+     {
+      "artifact": "rule.selected-preferential-base",
+      "code": "DEPENDENCY_ABSENT",
+      "missing": [
+       "schedule-d.line-16",
+       "schedule-d.line-3"
+      ]
+     }
+    ],
+    "line_text": {
+     "schedule-d.line-10": {
+      "explain": "Schedule D line 10, column (h), is zero. Either no long-term sale you received no Form 1099-B for is recorded and your Form 8949 answers confirm it, or your box F proceeds, basis, and adjustments net to zero.",
+      "reasons": []
+     },
+     "schedule-d.line-2": {
+      "explain": "Schedule D line 2, column (h), is zero. No short-term sale whose basis was not reported to the IRS is recorded, and your answer about those sales confirms the list is complete.",
+      "reasons": []
+     },
+     "schedule-d.line-3": {
+      "explain": "Schedule D line 3, column (h), has no value yet. It waits for your answers about sales you received no Form 1099-B for and about Form 8949, or for each recorded short-term sale of that kind to have its proceeds and basis and pass its checks.",
+      "reasons": [
+       "What is the basis of each short-term sale you recorded without a Form 1099-B?"
+      ]
+     },
+     "schedule-d.line-9": {
+      "explain": "Schedule D line 9, column (h), is zero. No long-term sale whose basis was not reported to the IRS is recorded, and your answer about those sales confirms the list is complete.",
+      "reasons": []
+     }
+    },
+    "lines": {
+     "form1040.line-15": [
+      "blocked",
+      null
+     ],
+     "form1040.line-16": [
+      "blocked",
+      null
+     ],
+     "form1040.line-7a": [
+      "blocked",
+      null
+     ],
+     "schedule-d.line-10": [
+      "computed_zero",
+      0
+     ],
+     "schedule-d.line-15": [
+      "computed_zero",
+      0
+     ],
+     "schedule-d.line-16": [
+      "blocked",
+      null
+     ],
+     "schedule-d.line-1a": [
+      "closure_backed_zero",
+      0
+     ],
+     "schedule-d.line-2": [
+      "closure_backed_zero",
+      0
+     ],
+     "schedule-d.line-21": [
+      "blocked",
+      null
+     ],
+     "schedule-d.line-3": [
+      "blocked",
+      null
+     ],
+     "schedule-d.line-7": [
+      "blocked",
+      null
+     ],
+     "schedule-d.line-8a": [
+      "closure_backed_zero",
+      0
+     ],
+     "schedule-d.line-9": [
+      "closure_backed_zero",
+      0
+     ]
+    },
+    "presentation_valid": true,
+    "questions": [
+     "What is the basis of each short-term sale you recorded without a Form 1099-B?"
+    ],
+    "seconds": 5.5,
+    "stop_reason": "saturated"
+   }
+  },
+  "c_basis_object_missing": {
+   "mismatch": {},
+   "result": {
+    "error": "FindingModelError",
+    "message": "finding demo.cf.noobj.no1099b-st.member value does not conform to tax.us.2025.f8949.no1099b-st-txn: 'basis' is a required property",
+    "seconds": 2.2
+   }
+  },
+  "c_code_w_on_gain": {
+   "mismatch": {},
+   "result": {
+    "attachments": {
+     "f8949": "blocked",
+     "schedule-d": "blocked"
+    },
+    "blocked": [
+     {
+      "artifact": "f8949.no1099b-st.member-validation.synthesized",
+      "code": "DEPENDENCY_INVALID",
+      "missing": [
+       "ADJUSTMENT_EXCEEDS_LOSS",
+       "CODE_W_ON_GAIN"
+      ]
+     },
+     {
+      "artifact": "rule.attachment.f8949",
+      "code": "DEPENDENCY_ABSENT",
+      "missing": [
+       "f8949.no1099b-st-proceeds-subtotal",
+       "f8949.no1099b-st-basis-subtotal",
+       "schedule-d.line-3",
+       "schedule-d.line-10"
+      ]
+     },
+     {
+      "artifact": "rule.attachment.schedule-d",
+      "code": "DEPENDENCY_ABSENT",
+      "missing": [
+       "f8949.no1099b-st-proceeds-subtotal",
+       "f8949.no1099b-st-basis-subtotal",
+       "schedule-d.line-3",
+       "schedule-d.line-10"
+      ]
+     },
+     {
+      "artifact": "rule.form1040-line7a",
+      "code": "DEPENDENCY_ABSENT",
+      "missing": [
+       "schedule-d.line-16",
+       "schedule-d.line-21",
+       "capital-gains.selected-preferential-base",
+       "schedule-d.line-3",
+       "schedule-d.line-10"
+      ]
+     },
+     {
+      "artifact": "rule.schedule-d-line15",
+      "code": "DEPENDENCY_ABSENT",
+      "missing": [
+       "schedule-d.line-10"
+      ]
+     },
+     {
+      "artifact": "rule.schedule-d-line16",
+      "code": "DEPENDENCY_ABSENT",
+      "missing": [
+       "schedule-d.line-7",
+       "schedule-d.line-15"
+      ]
+     },
+     {
+      "artifact": "rule.schedule-d-line21",
+      "code": "DEPENDENCY_ABSENT",
+      "missing": [
+       "schedule-d.line-16"
+      ]
+     },
+     {
+      "artifact": "rule.schedule-d-line7",
+      "code": "DEPENDENCY_ABSENT",
+      "missing": [
+       "schedule-d.line-3"
+      ]
+     },
+     {
+      "artifact": "rule.selected-preferential-base",
+      "code": "DEPENDENCY_ABSENT",
+      "missing": [
+       "schedule-d.line-16",
+       "schedule-d.line-15",
+       "schedule-d.line-3",
+       "schedule-d.line-10"
+      ]
+     },
+     {
+      "artifact": "rule.f8949-no1099b-st-proceeds-subtotal",
+      "code": "DEPENDENCY_ABSENT",
+      "missing": [
+       "f8949.no1099b-st.member-validation"
+      ]
+     },
+     {
+      "artifact": "rule.f8949-no1099b-st-basis-subtotal",
+      "code": "DEPENDENCY_ABSENT",
+      "missing": [
+       "f8949.no1099b-st.member-validation"
+      ]
+     },
+     {
+      "artifact": "rule.f8949-no1099b-st-adjustment-subtotal",
+      "code": "DEPENDENCY_ABSENT",
+      "missing": [
+       "f8949.no1099b-st.member-validation"
+      ]
+     },
+     {
+      "artifact": "rule.schedule-d-line3",
+      "code": "DEPENDENCY_ABSENT",
+      "missing": [
+       "f8949.no1099b-st-proceeds-subtotal",
+       "f8949.no1099b-st-basis-subtotal",
+       "f8949.no1099b-st-adjustment-subtotal"
+      ]
+     },
+     {
+      "artifact": "rule.schedule-d-line10",
+      "code": "DEPENDENCY_ABSENT",
+      "missing": [
+       "f8949.no1099b-st-proceeds-subtotal",
+       "f8949.no1099b-st-basis-subtotal"
+      ]
+     }
+    ],
+    "line_text": {
+     "schedule-d.line-10": {
+      "explain": "Schedule D line 10, column (h), has no value yet. It waits for your answers about sales you received no Form 1099-B for and about Form 8949, or for each recorded long-term sale of that kind to have its proceeds and basis and pass its checks.",
+      "reasons": [
+       "A wash-sale disallowance is recorded on a sale that is not a loss.",
+       "The wash-sale disallowance exceeds this sale's own loss."
+      ]
+     },
+     "schedule-d.line-2": {
+      "explain": "Schedule D line 2, column (h), is zero. No short-term sale whose basis was not reported to the IRS is recorded, and your answer about those sales confirms the list is complete.",
+      "reasons": []
+     },
+     "schedule-d.line-3": {
+      "explain": "Schedule D line 3, column (h), has no value yet. It waits for your answers about sales you received no Form 1099-B for and about Form 8949, or for each recorded short-term sale of that kind to have its proceeds and basis and pass its checks.",
+      "reasons": [
+       "A wash-sale disallowance is recorded on a sale that is not a loss.",
+       "The wash-sale disallowance exceeds this sale's own loss."
+      ]
+     },
+     "schedule-d.line-9": {
+      "explain": "Schedule D line 9, column (h), is zero. No long-term sale whose basis was not reported to the IRS is recorded, and your answer about those sales confirms the list is complete.",
+      "reasons": []
+     }
+    },
+    "lines": {
+     "form1040.line-15": [
+      "blocked",
+      null
+     ],
+     "form1040.line-16": [
+      "blocked",
+      null
+     ],
+     "form1040.line-7a": [
+      "blocked",
+      null
+     ],
+     "schedule-d.line-10": [
+      "blocked",
+      null
+     ],
+     "schedule-d.line-15": [
+      "blocked",
+      null
+     ],
+     "schedule-d.line-16": [
+      "blocked",
+      null
+     ],
+     "schedule-d.line-1a": [
+      "closure_backed_zero",
+      0
+     ],
+     "schedule-d.line-2": [
+      "closure_backed_zero",
+      0
+     ],
+     "schedule-d.line-21": [
+      "blocked",
+      null
+     ],
+     "schedule-d.line-3": [
+      "blocked",
+      null
+     ],
+     "schedule-d.line-7": [
+      "blocked",
+      null
+     ],
+     "schedule-d.line-8a": [
+      "closure_backed_zero",
+      0
+     ],
+     "schedule-d.line-9": [
+      "closure_backed_zero",
+      0
+     ]
+    },
+    "presentation_valid": true,
+    "seconds": 36.9,
+    "stop_reason": "saturated"
+   }
+  },
+  "c_loss": {
+   "mismatch": {},
+   "result": {
+    "attachments": {
+     "f8949": "published",
+     "schedule-d": "published"
+    },
+    "f8949_parts": [
+     "Part I box A column (d): short-term wash-sale proceeds",
+     "Part I box A column (e): short-term wash-sale basis",
+     "Part I box A column (g): short-term wash-sale adjustment",
+     "Part II box D column (d): long-term wash-sale proceeds",
+     "Part II box D column (e): long-term wash-sale basis",
+     "Part II box D column (g): long-term wash-sale adjustment",
+     "Part I box B column (d): short-term basis-not-reported proceeds",
+     "Part I box B column (e): short-term basis the filer supplies",
+     "Part I box B column (g): short-term wash-sale adjustment",
+     "Part II box E column (d): long-term basis-not-reported proceeds",
+     "Part II box E column (e): long-term basis the filer supplies",
+     "Part II box E column (g): long-term wash-sale adjustment",
+     "Part I box C column (d): short-term net proceeds, no Form 1099-B",
+     "Part I box C column (e): short-term basis you supply, no Form 1099-B",
+     "Part I box C column (g): short-term wash-sale adjustment, no Form 1099-B",
+     "Part II box F column (d): long-term net proceeds, no Form 1099-B",
+     "Part II box F column (e): long-term basis you supply, no Form 1099-B",
+     "Part II box F column (g): long-term wash-sale adjustment, no Form 1099-B"
+    ],
+    "line_text": {
+     "schedule-d.line-10": {
+      "explain": "Schedule D line 10, column (h), is zero. Either no long-term sale you received no Form 1099-B for is recorded and your Form 8949 answers confirm it, or your box F proceeds, basis, and adjustments net to zero.",
+      "reasons": []
+     },
+     "schedule-d.line-2": {
+      "explain": "Schedule D line 2, column (h), is zero. No short-term sale whose basis was not reported to the IRS is recorded, and your answer about those sales confirms the list is complete.",
+      "reasons": []
+     },
+     "schedule-d.line-3": {
+      "explain": "Schedule D line 3, column (h), is your short-term Form 8949 box C gain or loss, proceeds minus basis plus adjustments.",
+      "reasons": []
+     },
+     "schedule-d.line-9": {
+      "explain": "Schedule D line 9, column (h), is zero. No long-term sale whose basis was not reported to the IRS is recorded, and your answer about those sales confirms the list is complete.",
+      "reasons": []
+     }
+    },
+    "lines": {
+     "form1040.line-15": [
+      "published_value",
+      31250
+     ],
+     "form1040.line-16": [
+      "published_value",
+      3515
+     ],
+     "form1040.line-7a": [
+      "published_value",
+      -3000
+     ],
+     "schedule-d.line-10": [
+      "computed_zero",
+      0
+     ],
+     "schedule-d.line-15": [
+      "computed_zero",
+      0
+     ],
+     "schedule-d.line-16": [
+      "published_value",
+      -6000
+     ],
+     "schedule-d.line-1a": [
+      "closure_backed_zero",
+      0
+     ],
+     "schedule-d.line-2": [
+      "closure_backed_zero",
+      0
+     ],
+     "schedule-d.line-21": [
+      "published_value",
+      3000
+     ],
+     "schedule-d.line-3": [
+      "published_value",
+      -6000
+     ],
+     "schedule-d.line-7": [
+      "published_value",
+      -6000
+     ],
+     "schedule-d.line-8a": [
+      "closure_backed_zero",
+      0
+     ],
+     "schedule-d.line-9": [
+      "closure_backed_zero",
+      0
+     ]
+    },
+    "presentation_valid": true,
+    "seconds": 5.2,
+    "stop_reason": "saturated",
+    "symbols": {
+     "capital-gains.selected-preferential-base": "0"
+    }
+   }
+  },
+  "c_proceeds_missing": {
+   "mismatch": {},
+   "result": {
+    "attachments": {
+     "f8949": "blocked",
+     "schedule-d": "blocked"
+    },
+    "blocked": [
+     {
+      "artifact": "rule.schedule-d-line3",
+      "code": "DEPENDENCY_ABSENT",
+      "missing": [
+       "f8949.no1099b-st-txn.proceeds"
+      ]
+     },
+     {
+      "artifact": "rule.attachment.f8949",
+      "code": "DEPENDENCY_ABSENT",
+      "missing": [
+       "schedule-d.line-3"
+      ]
+     },
+     {
+      "artifact": "rule.attachment.schedule-d",
+      "code": "DEPENDENCY_ABSENT",
+      "missing": [
+       "schedule-d.line-3"
+      ]
+     },
+     {
+      "artifact": "rule.form1040-line7a",
+      "code": "DEPENDENCY_ABSENT",
+      "missing": [
+       "schedule-d.line-16",
+       "schedule-d.line-21",
+       "capital-gains.selected-preferential-base",
+       "schedule-d.line-3"
+      ]
+     },
+     {
+      "artifact": "rule.schedule-d-line16",
+      "code": "DEPENDENCY_ABSENT",
+      "missing": [
+       "schedule-d.line-7"
+      ]
+     },
+     {
+      "artifact": "rule.schedule-d-line21",
+      "code": "DEPENDENCY_ABSENT",
+      "missing": [
+       "schedule-d.line-16"
+      ]
+     },
+     {
+      "artifact": "rule.schedule-d-line7",
+      "code": "DEPENDENCY_ABSENT",
+      "missing": [
+       "schedule-d.line-3"
+      ]
+     },
+     {
+      "artifact": "rule.selected-preferential-base",
+      "code": "DEPENDENCY_ABSENT",
+      "missing": [
+       "schedule-d.line-16",
+       "schedule-d.line-3"
+      ]
+     }
+    ],
+    "line_text": {
+     "schedule-d.line-10": {
+      "explain": "Schedule D line 10, column (h), is zero. Either no long-term sale you received no Form 1099-B for is recorded and your Form 8949 answers confirm it, or your box F proceeds, basis, and adjustments net to zero.",
+      "reasons": []
+     },
+     "schedule-d.line-2": {
+      "explain": "Schedule D line 2, column (h), is zero. No short-term sale whose basis was not reported to the IRS is recorded, and your answer about those sales confirms the list is complete.",
+      "reasons": []
+     },
+     "schedule-d.line-3": {
+      "explain": "Schedule D line 3, column (h), has no value yet. It waits for your answers about sales you received no Form 1099-B for and about Form 8949, or for each recorded short-term sale of that kind to have its proceeds and basis and pass its checks.",
+      "reasons": [
+       "What are the net proceeds of each short-term sale you recorded without a Form 1099-B?"
+      ]
+     },
+     "schedule-d.line-9": {
+      "explain": "Schedule D line 9, column (h), is zero. No long-term sale whose basis was not reported to the IRS is recorded, and your answer about those sales confirms the list is complete.",
+      "reasons": []
+     }
+    },
+    "lines": {
+     "form1040.line-15": [
+      "blocked",
+      null
+     ],
+     "form1040.line-16": [
+      "blocked",
+      null
+     ],
+     "form1040.line-7a": [
+      "blocked",
+      null
+     ],
+     "schedule-d.line-10": [
+      "computed_zero",
+      0
+     ],
+     "schedule-d.line-15": [
+      "computed_zero",
+      0
+     ],
+     "schedule-d.line-16": [
+      "blocked",
+      null
+     ],
+     "schedule-d.line-1a": [
+      "closure_backed_zero",
+      0
+     ],
+     "schedule-d.line-2": [
+      "closure_backed_zero",
+      0
+     ],
+     "schedule-d.line-21": [
+      "blocked",
+      null
+     ],
+     "schedule-d.line-3": [
+      "blocked",
+      null
+     ],
+     "schedule-d.line-7": [
+      "blocked",
+      null
+     ],
+     "schedule-d.line-8a": [
+      "closure_backed_zero",
+      0
+     ],
+     "schedule-d.line-9": [
+      "closure_backed_zero",
+      0
+     ]
+    },
+    "presentation_valid": true,
+    "questions": [
+     "What are the net proceeds of each short-term sale you recorded without a Form 1099-B?"
+    ],
+    "seconds": 5.4,
+    "stop_reason": "saturated"
+   }
+  },
+  "c_wash": {
+   "mismatch": {},
+   "result": {
+    "attachments": {
+     "f8949": "published",
+     "schedule-d": "published"
+    },
+    "f8949_parts": [
+     "Part I box A column (d): short-term wash-sale proceeds",
+     "Part I box A column (e): short-term wash-sale basis",
+     "Part I box A column (g): short-term wash-sale adjustment",
+     "Part II box D column (d): long-term wash-sale proceeds",
+     "Part II box D column (e): long-term wash-sale basis",
+     "Part II box D column (g): long-term wash-sale adjustment",
+     "Part I box B column (d): short-term basis-not-reported proceeds",
+     "Part I box B column (e): short-term basis the filer supplies",
+     "Part I box B column (g): short-term wash-sale adjustment",
+     "Part II box E column (d): long-term basis-not-reported proceeds",
+     "Part II box E column (e): long-term basis the filer supplies",
+     "Part II box E column (g): long-term wash-sale adjustment",
+     "Part I box C column (d): short-term net proceeds, no Form 1099-B",
+     "Part I box C column (e): short-term basis you supply, no Form 1099-B",
+     "Part I box C column (g): short-term wash-sale adjustment, no Form 1099-B",
+     "Part II box F column (d): long-term net proceeds, no Form 1099-B",
+     "Part II box F column (e): long-term basis you supply, no Form 1099-B",
+     "Part II box F column (g): long-term wash-sale adjustment, no Form 1099-B"
+    ],
+    "line_text": {
+     "schedule-d.line-10": {
+      "explain": "Schedule D line 10, column (h), is zero. Either no long-term sale you received no Form 1099-B for is recorded and your Form 8949 answers confirm it, or your box F proceeds, basis, and adjustments net to zero.",
+      "reasons": []
+     },
+     "schedule-d.line-2": {
+      "explain": "Schedule D line 2, column (h), is zero. No short-term sale whose basis was not reported to the IRS is recorded, and your answer about those sales confirms the list is complete.",
+      "reasons": []
+     },
+     "schedule-d.line-3": {
+      "explain": "Schedule D line 3, column (h), is your short-term Form 8949 box C gain or loss, proceeds minus basis plus adjustments.",
+      "reasons": []
+     },
+     "schedule-d.line-9": {
+      "explain": "Schedule D line 9, column (h), is zero. No long-term sale whose basis was not reported to the IRS is recorded, and your answer about those sales confirms the list is complete.",
+      "reasons": []
+     }
+    },
+    "lines": {
+     "form1040.line-15": [
+      "published_value",
+      32250
+     ],
+     "form1040.line-16": [
+      "published_value",
+      3635
+     ],
+     "form1040.line-7a": [
+      "published_value",
+      -2000
+     ],
+     "schedule-d.line-10": [
+      "computed_zero",
+      0
+     ],
+     "schedule-d.line-15": [
+      "computed_zero",
+      0
+     ],
+     "schedule-d.line-16": [
+      "published_value",
+      -2000
+     ],
+     "schedule-d.line-1a": [
+      "closure_backed_zero",
+      0
+     ],
+     "schedule-d.line-2": [
+      "closure_backed_zero",
+      0
+     ],
+     "schedule-d.line-21": [
+      "published_value",
+      2000
+     ],
+     "schedule-d.line-3": [
+      "published_value",
+      -2000
+     ],
+     "schedule-d.line-7": [
+      "published_value",
+      -2000
+     ],
+     "schedule-d.line-8a": [
+      "closure_backed_zero",
+      0
+     ],
+     "schedule-d.line-9": [
+      "closure_backed_zero",
+      0
+     ]
+    },
+    "presentation_valid": true,
+    "seconds": 5.3,
+    "stop_reason": "saturated",
+    "symbols": {
+     "capital-gains.selected-preferential-base": "0"
+    }
+   }
+  },
+  "f_gain": {
+   "mismatch": {},
+   "result": {
+    "attachments": {
+     "f8949": "published",
+     "schedule-d": "published"
+    },
+    "f8949_parts": [
+     "Part I box A column (d): short-term wash-sale proceeds",
+     "Part I box A column (e): short-term wash-sale basis",
+     "Part I box A column (g): short-term wash-sale adjustment",
+     "Part II box D column (d): long-term wash-sale proceeds",
+     "Part II box D column (e): long-term wash-sale basis",
+     "Part II box D column (g): long-term wash-sale adjustment",
+     "Part I box B column (d): short-term basis-not-reported proceeds",
+     "Part I box B column (e): short-term basis the filer supplies",
+     "Part I box B column (g): short-term wash-sale adjustment",
+     "Part II box E column (d): long-term basis-not-reported proceeds",
+     "Part II box E column (e): long-term basis the filer supplies",
+     "Part II box E column (g): long-term wash-sale adjustment",
+     "Part I box C column (d): short-term net proceeds, no Form 1099-B",
+     "Part I box C column (e): short-term basis you supply, no Form 1099-B",
+     "Part I box C column (g): short-term wash-sale adjustment, no Form 1099-B",
+     "Part II box F column (d): long-term net proceeds, no Form 1099-B",
+     "Part II box F column (e): long-term basis you supply, no Form 1099-B",
+     "Part II box F column (g): long-term wash-sale adjustment, no Form 1099-B"
+    ],
+    "line_text": {
+     "schedule-d.line-10": {
+      "explain": "Schedule D line 10, column (h), is your long-term Form 8949 box F gain or loss, proceeds minus basis plus adjustments.",
+      "reasons": []
+     },
+     "schedule-d.line-2": {
+      "explain": "Schedule D line 2, column (h), is zero. No short-term sale whose basis was not reported to the IRS is recorded, and your answer about those sales confirms the list is complete.",
+      "reasons": []
+     },
+     "schedule-d.line-3": {
+      "explain": "Schedule D line 3, column (h), is zero. Either no short-term sale you received no Form 1099-B for is recorded and your Form 8949 answers confirm it, or your box C proceeds, basis, and adjustments net to zero.",
+      "reasons": []
+     },
+     "schedule-d.line-9": {
+      "explain": "Schedule D line 9, column (h), is zero. No long-term sale whose basis was not reported to the IRS is recorded, and your answer about those sales confirms the list is complete.",
+      "reasons": []
+     }
+    },
+    "lines": {
+     "form1040.line-15": [
+      "published_value",
+      38250
+     ],
+     "form1040.line-16": [
+      "published_value",
+      3875
+     ],
+     "form1040.line-7a": [
+      "published_value",
+      4000
+     ],
+     "schedule-d.line-10": [
+      "published_value",
+      4000
+     ],
+     "schedule-d.line-15": [
+      "published_value",
+      4000
+     ],
+     "schedule-d.line-16": [
+      "published_value",
+      4000
+     ],
+     "schedule-d.line-1a": [
+      "closure_backed_zero",
+      0
+     ],
+     "schedule-d.line-2": [
+      "closure_backed_zero",
+      0
+     ],
+     "schedule-d.line-21": [
+      "computed_zero",
+      0
+     ],
+     "schedule-d.line-3": [
+      "computed_zero",
+      0
+     ],
+     "schedule-d.line-7": [
+      "computed_zero",
+      0
+     ],
+     "schedule-d.line-8a": [
+      "closure_backed_zero",
+      0
+     ],
+     "schedule-d.line-9": [
+      "closure_backed_zero",
+      0
+     ]
+    },
+    "presentation_valid": true,
+    "seconds": 5.5,
+    "stop_reason": "saturated",
+    "symbols": {
+     "capital-gains.selected-preferential-base": "4000.0"
+    }
+   }
+  },
+  "f_gain_new_ic_no": {
+   "mismatch": {},
+   "result": {
+    "attachments": {
+     "f8949": "blocked",
+     "schedule-d": "blocked"
+    },
+    "blocked": [
+     {
+      "artifact": "rule.f8949-no1099b-lt-proceeds-subtotal",
+      "code": "DEPENDENCY_ABSENT",
+      "missing": []
+     },
+     {
+      "artifact": "rule.f8949-no1099b-lt-basis-subtotal",
+      "code": "DEPENDENCY_ABSENT",
+      "missing": []
+     },
+     {
+      "artifact": "rule.attachment.f8949",
+      "code": "DEPENDENCY_ABSENT",
+      "missing": [
+       "schedule-d.line-3",
+       "f8949.no1099b-lt-proceeds-subtotal",
+       "f8949.no1099b-lt-basis-subtotal",
+       "schedule-d.line-10"
+      ]
+     },
+     {
+      "artifact": "rule.attachment.schedule-d",
+      "code": "DEPENDENCY_ABSENT",
+      "missing": [
+       "schedule-d.line-3",
+       "f8949.no1099b-lt-proceeds-subtotal",
+       "f8949.no1099b-lt-basis-subtotal",
+       "schedule-d.line-10"
+      ]
+     },
+     {
+      "artifact": "rule.form1040-line7a",
+      "code": "DEPENDENCY_ABSENT",
+      "missing": [
+       "schedule-d.line-16",
+       "schedule-d.line-21",
+       "capital-gains.selected-preferential-base",
+       "schedule-d.line-3",
+       "schedule-d.line-10"
+      ]
+     },
+     {
+      "artifact": "rule.schedule-d-line15",
+      "code": "DEPENDENCY_ABSENT",
+      "missing": [
+       "schedule-d.line-10"
+      ]
+     },
+     {
+      "artifact": "rule.schedule-d-line16",
+      "code": "DEPENDENCY_ABSENT",
+      "missing": [
+       "schedule-d.line-7",
+       "schedule-d.line-15"
+      ]
+     },
+     {
+      "artifact": "rule.schedule-d-line21",
+      "code": "DEPENDENCY_ABSENT",
+      "missing": [
+       "schedule-d.line-16"
+      ]
+     },
+     {
+      "artifact": "rule.schedule-d-line7",
+      "code": "DEPENDENCY_ABSENT",
+      "missing": [
+       "schedule-d.line-3"
+      ]
+     },
+     {
+      "artifact": "rule.selected-preferential-base",
+      "code": "DEPENDENCY_ABSENT",
+      "missing": [
+       "schedule-d.line-16",
+       "schedule-d.line-15",
+       "schedule-d.line-3",
+       "schedule-d.line-10"
+      ]
+     },
+     {
+      "artifact": "rule.schedule-d-line3",
+      "code": "DEPENDENCY_ABSENT",
+      "missing": [
+       "f8949.no1099b-lt-proceeds-subtotal",
+       "f8949.no1099b-lt-basis-subtotal"
+      ]
+     },
+     {
+      "artifact": "rule.schedule-d-line10",
+      "code": "DEPENDENCY_ABSENT",
+      "missing": [
+       "f8949.no1099b-lt-proceeds-subtotal",
+       "f8949.no1099b-lt-basis-subtotal"
+      ]
+     }
+    ],
+    "line_text": {
+     "schedule-d.line-10": {
+      "explain": "Schedule D line 10, column (h), has no value yet. It waits for your answers about sales you received no Form 1099-B for and about Form 8949, or for each recorded long-term sale of that kind to have its proceeds and basis and pass its checks.",
+      "reasons": []
+     },
+     "schedule-d.line-2": {
+      "explain": "Schedule D line 2, column (h), is zero. No short-term sale whose basis was not reported to the IRS is recorded, and your answer about those sales confirms the list is complete.",
+      "reasons": []
+     },
+     "schedule-d.line-3": {
+      "explain": "Schedule D line 3, column (h), has no value yet. It waits for your answers about sales you received no Form 1099-B for and about Form 8949, or for each recorded short-term sale of that kind to have its proceeds and basis and pass its checks.",
+      "reasons": []
+     },
+     "schedule-d.line-9": {
+      "explain": "Schedule D line 9, column (h), is zero. No long-term sale whose basis was not reported to the IRS is recorded, and your answer about those sales confirms the list is complete.",
+      "reasons": []
+     }
+    },
+    "lines": {
+     "form1040.line-15": [
+      "blocked",
+      null
+     ],
+     "form1040.line-16": [
+      "blocked",
+      null
+     ],
+     "form1040.line-7a": [
+      "blocked",
+      null
+     ],
+     "schedule-d.line-10": [
+      "blocked",
+      null
+     ],
+     "schedule-d.line-15": [
+      "blocked",
+      null
+     ],
+     "schedule-d.line-16": [
+      "blocked",
+      null
+     ],
+     "schedule-d.line-1a": [
+      "closure_backed_zero",
+      0
+     ],
+     "schedule-d.line-2": [
+      "closure_backed_zero",
+      0
+     ],
+     "schedule-d.line-21": [
+      "blocked",
+      null
+     ],
+     "schedule-d.line-3": [
+      "blocked",
+      null
+     ],
+     "schedule-d.line-7": [
+      "blocked",
+      null
+     ],
+     "schedule-d.line-8a": [
+      "closure_backed_zero",
+      0
+     ],
+     "schedule-d.line-9": [
+      "closure_backed_zero",
+      0
+     ]
+    },
+    "presentation_valid": true,
+    "seconds": 5.1,
+    "stop_reason": "saturated"
+   }
+  },
+  "f_gain_new_ic_unanswered": {
+   "mismatch": {},
+   "result": {
+    "attachments": {
+     "f8949": "blocked",
+     "schedule-d": "blocked"
+    },
+    "blocked": [
+     {
+      "artifact": "rule.f8949-no1099b-lt-proceeds-subtotal",
+      "code": "DEPENDENCY_ABSENT",
+      "missing": [
+       "schedule-d-boundary.form8949-in-class"
+      ]
+     },
+     {
+      "artifact": "rule.f8949-no1099b-lt-basis-subtotal",
+      "code": "DEPENDENCY_ABSENT",
+      "missing": [
+       "schedule-d-boundary.form8949-in-class"
+      ]
+     },
+     {
+      "artifact": "rule.attachment.f8949",
+      "code": "DEPENDENCY_ABSENT",
+      "missing": [
+       "schedule-d.line-3",
+       "f8949.no1099b-lt-proceeds-subtotal",
+       "f8949.no1099b-lt-basis-subtotal",
+       "schedule-d.line-10"
+      ]
+     },
+     {
+      "artifact": "rule.attachment.schedule-d",
+      "code": "DEPENDENCY_ABSENT",
+      "missing": [
+       "schedule-d.line-3",
+       "f8949.no1099b-lt-proceeds-subtotal",
+       "f8949.no1099b-lt-basis-subtotal",
+       "schedule-d.line-10"
+      ]
+     },
+     {
+      "artifact": "rule.form1040-line7a",
+      "code": "DEPENDENCY_ABSENT",
+      "missing": [
+       "schedule-d.line-16",
+       "schedule-d.line-21",
+       "capital-gains.selected-preferential-base",
+       "schedule-d.line-3",
+       "schedule-d.line-10"
+      ]
+     },
+     {
+      "artifact": "rule.schedule-d-line15",
+      "code": "DEPENDENCY_ABSENT",
+      "missing": [
+       "schedule-d.line-10"
+      ]
+     },
+     {
+      "artifact": "rule.schedule-d-line16",
+      "code": "DEPENDENCY_ABSENT",
+      "missing": [
+       "schedule-d.line-7",
+       "schedule-d.line-15"
+      ]
+     },
+     {
+      "artifact": "rule.schedule-d-line21",
+      "code": "DEPENDENCY_ABSENT",
+      "missing": [
+       "schedule-d.line-16"
+      ]
+     },
+     {
+      "artifact": "rule.schedule-d-line7",
+      "code": "DEPENDENCY_ABSENT",
+      "missing": [
+       "schedule-d.line-3"
+      ]
+     },
+     {
+      "artifact": "rule.selected-preferential-base",
+      "code": "DEPENDENCY_ABSENT",
+      "missing": [
+       "schedule-d.line-16",
+       "schedule-d.line-15",
+       "schedule-d.line-3",
+       "schedule-d.line-10"
+      ]
+     },
+     {
+      "artifact": "rule.schedule-d-line3",
+      "code": "DEPENDENCY_ABSENT",
+      "missing": [
+       "f8949.no1099b-lt-proceeds-subtotal",
+       "f8949.no1099b-lt-basis-subtotal"
+      ]
+     },
+     {
+      "artifact": "rule.schedule-d-line10",
+      "code": "DEPENDENCY_ABSENT",
+      "missing": [
+       "f8949.no1099b-lt-proceeds-subtotal",
+       "f8949.no1099b-lt-basis-subtotal"
+      ]
+     }
+    ],
+    "line_text": {
+     "schedule-d.line-10": {
+      "explain": "Schedule D line 10, column (h), has no value yet. It waits for your answers about sales you received no Form 1099-B for and about Form 8949, or for each recorded long-term sale of that kind to have its proceeds and basis and pass its checks.",
+      "reasons": [
+       "Apart from sales your broker reported with their basis, is every sale on your Form 8949 a sale of stocks or other securities, with a basis you supply, net proceeds you supply when you got no Form 1099-B, and no adjustment other than a wash-"
+      ]
+     },
+     "schedule-d.line-2": {
+      "explain": "Schedule D line 2, column (h), is zero. No short-term sale whose basis was not reported to the IRS is recorded, and your answer about those sales confirms the list is complete.",
+      "reasons": []
+     },
+     "schedule-d.line-3": {
+      "explain": "Schedule D line 3, column (h), has no value yet. It waits for your answers about sales you received no Form 1099-B for and about Form 8949, or for each recorded short-term sale of that kind to have its proceeds and basis and pass its checks.",
+      "reasons": [
+       "Apart from sales your broker reported with their basis, is every sale on your Form 8949 a sale of stocks or other securities, with a basis you supply, net proceeds you supply when you got no Form 1099-B, and no adjustment other than a wash-"
+      ]
+     },
+     "schedule-d.line-9": {
+      "explain": "Schedule D line 9, column (h), is zero. No long-term sale whose basis was not reported to the IRS is recorded, and your answer about those sales confirms the list is complete.",
+      "reasons": []
+     }
+    },
+    "lines": {
+     "form1040.line-15": [
+      "blocked",
+      null
+     ],
+     "form1040.line-16": [
+      "blocked",
+      null
+     ],
+     "form1040.line-7a": [
+      "blocked",
+      null
+     ],
+     "schedule-d.line-10": [
+      "blocked",
+      null
+     ],
+     "schedule-d.line-15": [
+      "blocked",
+      null
+     ],
+     "schedule-d.line-16": [
+      "blocked",
+      null
+     ],
+     "schedule-d.line-1a": [
+      "closure_backed_zero",
+      0
+     ],
+     "schedule-d.line-2": [
+      "closure_backed_zero",
+      0
+     ],
+     "schedule-d.line-21": [
+      "blocked",
+      null
+     ],
+     "schedule-d.line-3": [
+      "blocked",
+      null
+     ],
+     "schedule-d.line-7": [
+      "blocked",
+      null
+     ],
+     "schedule-d.line-8a": [
+      "closure_backed_zero",
+      0
+     ],
+     "schedule-d.line-9": [
+      "closure_backed_zero",
+      0
+     ]
+    },
+    "presentation_valid": true,
+    "seconds": 5.8,
+    "stop_reason": "saturated"
+   }
+  },
+  "f_gain_q2_no_with_member": {
+   "mismatch": {},
+   "result": {
+    "attachments": {
+     "f8949": "blocked",
+     "schedule-d": "blocked"
+    },
+    "blocked": [
+     {
+      "artifact": "f8949.no1099b-lt.member-validation.synthesized",
+      "code": "SOURCE_SET_UNCLOSED",
+      "missing": [
+       "f8949.no1099b-lt"
+      ]
+     },
+     {
+      "artifact": "rule.attachment.f8949",
+      "code": "DEPENDENCY_ABSENT",
+      "missing": [
+       "schedule-d.line-3",
+       "f8949.no1099b-lt-proceeds-subtotal",
+       "f8949.no1099b-lt-basis-subtotal",
+       "schedule-d.line-10"
+      ]
+     },
+     {
+      "artifact": "rule.attachment.schedule-d",
+      "code": "DEPENDENCY_ABSENT",
+      "missing": [
+       "schedule-d.line-3",
+       "f8949.no1099b-lt-proceeds-subtotal",
+       "f8949.no1099b-lt-basis-subtotal",
+       "schedule-d.line-10"
+      ]
+     },
+     {
+      "artifact": "rule.form1040-line7a",
+      "code": "DEPENDENCY_ABSENT",
+      "missing": [
+       "schedule-d.line-16",
+       "schedule-d.line-21",
+       "capital-gains.selected-preferential-base",
+       "schedule-d.line-3",
+       "schedule-d.line-10"
+      ]
+     },
+     {
+      "artifact": "rule.schedule-d-line15",
+      "code": "DEPENDENCY_ABSENT",
+      "missing": [
+       "schedule-d.line-10"
+      ]
+     },
+     {
+      "artifact": "rule.schedule-d-line16",
+      "code": "DEPENDENCY_ABSENT",
+      "missing": [
+       "schedule-d.line-7",
+       "schedule-d.line-15"
+      ]
+     },
+     {
+      "artifact": "rule.schedule-d-line21",
+      "code": "DEPENDENCY_ABSENT",
+      "missing": [
+       "schedule-d.line-16"
+      ]
+     },
+     {
+      "artifact": "rule.schedule-d-line7",
+      "code": "DEPENDENCY_ABSENT",
+      "missing": [
+       "schedule-d.line-3"
+      ]
+     },
+     {
+      "artifact": "rule.selected-preferential-base",
+      "code": "DEPENDENCY_ABSENT",
+      "missing": [
+       "schedule-d.line-16",
+       "schedule-d.line-15",
+       "schedule-d.line-3",
+       "schedule-d.line-10"
+      ]
+     },
+     {
+      "artifact": "rule.schedule-d-line3",
+      "code": "DEPENDENCY_ABSENT",
+      "missing": [
+       "f8949.no1099b-lt-proceeds-subtotal",
+       "f8949.no1099b-lt-basis-subtotal"
+      ]
+     },
+     {
+      "artifact": "rule.f8949-no1099b-lt-proceeds-subtotal",
+      "code": "DEPENDENCY_ABSENT",
+      "missing": [
+       "f8949.no1099b-lt.member-validation"
+      ]
+     },
+     {
+      "artifact": "rule.f8949-no1099b-lt-basis-subtotal",
+      "code": "DEPENDENCY_ABSENT",
+      "missing": [
+       "f8949.no1099b-lt.member-validation"
+      ]
+     },
+     {
+      "artifact": "rule.f8949-no1099b-lt-adjustment-subtotal",
+      "code": "DEPENDENCY_ABSENT",
+      "missing": [
+       "f8949.no1099b-lt.member-validation"
+      ]
+     },
+     {
+      "artifact": "rule.schedule-d-line10",
+      "code": "DEPENDENCY_ABSENT",
+      "missing": [
+       "f8949.no1099b-lt-proceeds-subtotal",
+       "f8949.no1099b-lt-basis-subtotal",
+       "f8949.no1099b-lt-adjustment-subtotal"
+      ]
+     }
+    ],
+    "line_text": {
+     "schedule-d.line-10": {
+      "explain": "Schedule D line 10, column (h), has no value yet. It waits for your answers about sales you received no Form 1099-B for and about Form 8949, or for each recorded long-term sale of that kind to have its proceeds and basis and pass its checks.",
+      "reasons": [
+       "Did you sell any stocks or other securities for which you did not receive a Form 1099-B or substitute statement?"
+      ]
+     },
+     "schedule-d.line-2": {
+      "explain": "Schedule D line 2, column (h), is zero. No short-term sale whose basis was not reported to the IRS is recorded, and your answer about those sales confirms the list is complete.",
+      "reasons": []
+     },
+     "schedule-d.line-3": {
+      "explain": "Schedule D line 3, column (h), has no value yet. It waits for your answers about sales you received no Form 1099-B for and about Form 8949, or for each recorded short-term sale of that kind to have its proceeds and basis and pass its checks.",
+      "reasons": [
+       "Did you sell any stocks or other securities for which you did not receive a Form 1099-B or substitute statement?"
+      ]
+     },
+     "schedule-d.line-9": {
+      "explain": "Schedule D line 9, column (h), is zero. No long-term sale whose basis was not reported to the IRS is recorded, and your answer about those sales confirms the list is complete.",
+      "reasons": []
+     }
+    },
+    "lines": {
+     "form1040.line-15": [
+      "blocked",
+      null
+     ],
+     "form1040.line-16": [
+      "blocked",
+      null
+     ],
+     "form1040.line-7a": [
+      "blocked",
+      null
+     ],
+     "schedule-d.line-10": [
+      "blocked",
+      null
+     ],
+     "schedule-d.line-15": [
+      "blocked",
+      null
+     ],
+     "schedule-d.line-16": [
+      "blocked",
+      null
+     ],
+     "schedule-d.line-1a": [
+      "closure_backed_zero",
+      0
+     ],
+     "schedule-d.line-2": [
+      "closure_backed_zero",
+      0
+     ],
+     "schedule-d.line-21": [
+      "blocked",
+      null
+     ],
+     "schedule-d.line-3": [
+      "blocked",
+      null
+     ],
+     "schedule-d.line-7": [
+      "blocked",
+      null
+     ],
+     "schedule-d.line-8a": [
+      "closure_backed_zero",
+      0
+     ],
+     "schedule-d.line-9": [
+      "closure_backed_zero",
+      0
+     ]
+    },
+    "presentation_valid": true,
+    "questions": [
+     "Did you sell any stocks or other securities for which you did not receive a Form 1099-B or substitute statement?"
+    ],
+    "seconds": 6.5,
+    "stop_reason": "saturated"
+   }
+  },
+  "f_holding_mismatch": {
+   "mismatch": {},
+   "result": {
+    "attachments": {
+     "f8949": "blocked",
+     "schedule-d": "blocked"
+    },
+    "blocked": [
+     {
+      "artifact": "f8949.no1099b-lt.member-validation.synthesized",
+      "code": "DEPENDENCY_INVALID",
+      "missing": [
+       "HOLDING_PERIOD_MISMATCH"
+      ]
+     },
+     {
+      "artifact": "rule.attachment.f8949",
+      "code": "DEPENDENCY_ABSENT",
+      "missing": [
+       "schedule-d.line-3",
+       "f8949.no1099b-lt-proceeds-subtotal",
+       "f8949.no1099b-lt-basis-subtotal",
+       "schedule-d.line-10"
+      ]
+     },
+     {
+      "artifact": "rule.attachment.schedule-d",
+      "code": "DEPENDENCY_ABSENT",
+      "missing": [
+       "schedule-d.line-3",
+       "f8949.no1099b-lt-proceeds-subtotal",
+       "f8949.no1099b-lt-basis-subtotal",
+       "schedule-d.line-10"
+      ]
+     },
+     {
+      "artifact": "rule.form1040-line7a",
+      "code": "DEPENDENCY_ABSENT",
+      "missing": [
+       "schedule-d.line-16",
+       "schedule-d.line-21",
+       "capital-gains.selected-preferential-base",
+       "schedule-d.line-3",
+       "schedule-d.line-10"
+      ]
+     },
+     {
+      "artifact": "rule.schedule-d-line15",
+      "code": "DEPENDENCY_ABSENT",
+      "missing": [
+       "schedule-d.line-10"
+      ]
+     },
+     {
+      "artifact": "rule.schedule-d-line16",
+      "code": "DEPENDENCY_ABSENT",
+      "missing": [
+       "schedule-d.line-7",
+       "schedule-d.line-15"
+      ]
+     },
+     {
+      "artifact": "rule.schedule-d-line21",
+      "code": "DEPENDENCY_ABSENT",
+      "missing": [
+       "schedule-d.line-16"
+      ]
+     },
+     {
+      "artifact": "rule.schedule-d-line7",
+      "code": "DEPENDENCY_ABSENT",
+      "missing": [
+       "schedule-d.line-3"
+      ]
+     },
+     {
+      "artifact": "rule.selected-preferential-base",
+      "code": "DEPENDENCY_ABSENT",
+      "missing": [
+       "schedule-d.line-16",
+       "schedule-d.line-15",
+       "schedule-d.line-3",
+       "schedule-d.line-10"
+      ]
+     },
+     {
+      "artifact": "rule.schedule-d-line3",
+      "code": "DEPENDENCY_ABSENT",
+      "missing": [
+       "f8949.no1099b-lt-proceeds-subtotal",
+       "f8949.no1099b-lt-basis-subtotal"
+      ]
+     },
+     {
+      "artifact": "rule.f8949-no1099b-lt-proceeds-subtotal",
+      "code": "DEPENDENCY_ABSENT",
+      "missing": [
+       "f8949.no1099b-lt.member-validation"
+      ]
+     },
+     {
+      "artifact": "rule.f8949-no1099b-lt-basis-subtotal",
+      "code": "DEPENDENCY_ABSENT",
+      "missing": [
+       "f8949.no1099b-lt.member-validation"
+      ]
+     },
+     {
+      "artifact": "rule.f8949-no1099b-lt-adjustment-subtotal",
+      "code": "DEPENDENCY_ABSENT",
+      "missing": [
+       "f8949.no1099b-lt.member-validation"
+      ]
+     },
+     {
+      "artifact": "rule.schedule-d-line10",
+      "code": "DEPENDENCY_ABSENT",
+      "missing": [
+       "f8949.no1099b-lt-proceeds-subtotal",
+       "f8949.no1099b-lt-basis-subtotal",
+       "f8949.no1099b-lt-adjustment-subtotal"
+      ]
+     }
+    ],
+    "line_text": {
+     "schedule-d.line-10": {
+      "explain": "Schedule D line 10, column (h), has no value yet. It waits for your answers about sales you received no Form 1099-B for and about Form 8949, or for each recorded long-term sale of that kind to have its proceeds and basis and pass its checks.",
+      "reasons": [
+       "The holding period does not match this short-term or long-term family."
+      ]
+     },
+     "schedule-d.line-2": {
+      "explain": "Schedule D line 2, column (h), is zero. No short-term sale whose basis was not reported to the IRS is recorded, and your answer about those sales confirms the list is complete.",
+      "reasons": []
+     },
+     "schedule-d.line-3": {
+      "explain": "Schedule D line 3, column (h), has no value yet. It waits for your answers about sales you received no Form 1099-B for and about Form 8949, or for each recorded short-term sale of that kind to have its proceeds and basis and pass its checks.",
+      "reasons": [
+       "The holding period does not match this short-term or long-term family."
+      ]
+     },
+     "schedule-d.line-9": {
+      "explain": "Schedule D line 9, column (h), is zero. No long-term sale whose basis was not reported to the IRS is recorded, and your answer about those sales confirms the list is complete.",
+      "reasons": []
+     }
+    },
+    "lines": {
+     "form1040.line-15": [
+      "blocked",
+      null
+     ],
+     "form1040.line-16": [
+      "blocked",
+      null
+     ],
+     "form1040.line-7a": [
+      "blocked",
+      null
+     ],
+     "schedule-d.line-10": [
+      "blocked",
+      null
+     ],
+     "schedule-d.line-15": [
+      "blocked",
+      null
+     ],
+     "schedule-d.line-16": [
+      "blocked",
+      null
+     ],
+     "schedule-d.line-1a": [
+      "closure_backed_zero",
+      0
+     ],
+     "schedule-d.line-2": [
+      "closure_backed_zero",
+      0
+     ],
+     "schedule-d.line-21": [
+      "blocked",
+      null
+     ],
+     "schedule-d.line-3": [
+      "blocked",
+      null
+     ],
+     "schedule-d.line-7": [
+      "blocked",
+      null
+     ],
+     "schedule-d.line-8a": [
+      "closure_backed_zero",
+      0
+     ],
+     "schedule-d.line-9": [
+      "closure_backed_zero",
+      0
+     ]
+    },
+    "presentation_valid": true,
+    "seconds": 23.0,
+    "stop_reason": "saturated"
+   }
+  },
+  "late_member_after_no": {
+   "mismatch": {},
+   "result": {
+    "attachments": {
+     "f8949": "blocked",
+     "schedule-d": "blocked"
+    },
+    "blocked": [
+     {
+      "artifact": "f8949.no1099b-lt.member-validation.synthesized",
+      "code": "SOURCE_SET_UNCLOSED",
+      "missing": [
+       "f8949.no1099b-lt"
+      ]
+     },
+     {
+      "artifact": "rule.attachment.f8949",
+      "code": "DEPENDENCY_ABSENT",
+      "missing": [
+       "schedule-d.line-3",
+       "f8949.no1099b-lt-proceeds-subtotal",
+       "f8949.no1099b-lt-basis-subtotal",
+       "schedule-d.line-10"
+      ]
+     },
+     {
+      "artifact": "rule.attachment.schedule-d",
+      "code": "DEPENDENCY_ABSENT",
+      "missing": [
+       "schedule-d.line-3",
+       "f8949.no1099b-lt-proceeds-subtotal",
+       "f8949.no1099b-lt-basis-subtotal",
+       "schedule-d.line-10"
+      ]
+     },
+     {
+      "artifact": "rule.form1040-line7a",
+      "code": "DEPENDENCY_ABSENT",
+      "missing": [
+       "schedule-d.line-16",
+       "schedule-d.line-21",
+       "capital-gains.selected-preferential-base",
+       "schedule-d.line-3",
+       "schedule-d.line-10"
+      ]
+     },
+     {
+      "artifact": "rule.schedule-d-line15",
+      "code": "DEPENDENCY_ABSENT",
+      "missing": [
+       "schedule-d.line-10"
+      ]
+     },
+     {
+      "artifact": "rule.schedule-d-line16",
+      "code": "DEPENDENCY_ABSENT",
+      "missing": [
+       "schedule-d.line-7",
+       "schedule-d.line-15"
+      ]
+     },
+     {
+      "artifact": "rule.schedule-d-line21",
+      "code": "DEPENDENCY_ABSENT",
+      "missing": [
+       "schedule-d.line-16"
+      ]
+     },
+     {
+      "artifact": "rule.schedule-d-line7",
+      "code": "DEPENDENCY_ABSENT",
+      "missing": [
+       "schedule-d.line-3"
+      ]
+     },
+     {
+      "artifact": "rule.selected-preferential-base",
+      "code": "DEPENDENCY_ABSENT",
+      "missing": [
+       "schedule-d.line-16",
+       "schedule-d.line-15",
+       "schedule-d.line-3",
+       "schedule-d.line-10"
+      ]
+     },
+     {
+      "artifact": "rule.schedule-d-line3",
+      "code": "DEPENDENCY_ABSENT",
+      "missing": [
+       "f8949.no1099b-lt-proceeds-subtotal",
+       "f8949.no1099b-lt-basis-subtotal"
+      ]
+     },
+     {
+      "artifact": "rule.f8949-no1099b-lt-proceeds-subtotal",
+      "code": "DEPENDENCY_ABSENT",
+      "missing": [
+       "f8949.no1099b-lt.member-validation"
+      ]
+     },
+     {
+      "artifact": "rule.f8949-no1099b-lt-basis-subtotal",
+      "code": "DEPENDENCY_ABSENT",
+      "missing": [
+       "f8949.no1099b-lt.member-validation"
+      ]
+     },
+     {
+      "artifact": "rule.f8949-no1099b-lt-adjustment-subtotal",
+      "code": "DEPENDENCY_ABSENT",
+      "missing": [
+       "f8949.no1099b-lt.member-validation"
+      ]
+     },
+     {
+      "artifact": "rule.schedule-d-line10",
+      "code": "DEPENDENCY_ABSENT",
+      "missing": [
+       "f8949.no1099b-lt-proceeds-subtotal",
+       "f8949.no1099b-lt-basis-subtotal",
+       "f8949.no1099b-lt-adjustment-subtotal"
+      ]
+     }
+    ],
+    "line_text": {
+     "schedule-d.line-10": {
+      "explain": "Schedule D line 10, column (h), has no value yet. It waits for your answers about sales you received no Form 1099-B for and about Form 8949, or for each recorded long-term sale of that kind to have its proceeds and basis and pass its checks.",
+      "reasons": [
+       "Did you sell any stocks or other securities for which you did not receive a Form 1099-B or substitute statement?"
+      ]
+     },
+     "schedule-d.line-2": {
+      "explain": "Schedule D line 2, column (h), is zero. No short-term sale whose basis was not reported to the IRS is recorded, and your answer about those sales confirms the list is complete.",
+      "reasons": []
+     },
+     "schedule-d.line-3": {
+      "explain": "Schedule D line 3, column (h), has no value yet. It waits for your answers about sales you received no Form 1099-B for and about Form 8949, or for each recorded short-term sale of that kind to have its proceeds and basis and pass its checks.",
+      "reasons": [
+       "Did you sell any stocks or other securities for which you did not receive a Form 1099-B or substitute statement?"
+      ]
+     },
+     "schedule-d.line-9": {
+      "explain": "Schedule D line 9, column (h), is zero. No long-term sale whose basis was not reported to the IRS is recorded, and your answer about those sales confirms the list is complete.",
+      "reasons": []
+     }
+    },
+    "lines": {
+     "form1040.line-15": [
+      "blocked",
+      null
+     ],
+     "form1040.line-16": [
+      "blocked",
+      null
+     ],
+     "form1040.line-7a": [
+      "blocked",
+      null
+     ],
+     "schedule-d.line-10": [
+      "blocked",
+      null
+     ],
+     "schedule-d.line-15": [
+      "blocked",
+      null
+     ],
+     "schedule-d.line-16": [
+      "blocked",
+      null
+     ],
+     "schedule-d.line-1a": [
+      "closure_backed_zero",
+      0
+     ],
+     "schedule-d.line-2": [
+      "closure_backed_zero",
+      0
+     ],
+     "schedule-d.line-21": [
+      "blocked",
+      null
+     ],
+     "schedule-d.line-3": [
+      "blocked",
+      null
+     ],
+     "schedule-d.line-7": [
+      "blocked",
+      null
+     ],
+     "schedule-d.line-8a": [
+      "closure_backed_zero",
+      0
+     ],
+     "schedule-d.line-9": [
+      "closure_backed_zero",
+      0
+     ]
+    },
+    "presentation_valid": true,
+    "questions": [
+     "Did you sell any stocks or other securities for which you did not receive a Form 1099-B or substitute statement?"
+    ],
+    "seconds": 6.1,
+    "stop_reason": "saturated"
+   }
+  },
+  "late_member_reanswered_yes": {
+   "mismatch": {},
+   "result": {
+    "attachments": {
+     "f8949": "published",
+     "schedule-d": "published"
+    },
+    "f8949_parts": [
+     "Part I box A column (d): short-term wash-sale proceeds",
+     "Part I box A column (e): short-term wash-sale basis",
+     "Part I box A column (g): short-term wash-sale adjustment",
+     "Part II box D column (d): long-term wash-sale proceeds",
+     "Part II box D column (e): long-term wash-sale basis",
+     "Part II box D column (g): long-term wash-sale adjustment",
+     "Part I box B column (d): short-term basis-not-reported proceeds",
+     "Part I box B column (e): short-term basis the filer supplies",
+     "Part I box B column (g): short-term wash-sale adjustment",
+     "Part II box E column (d): long-term basis-not-reported proceeds",
+     "Part II box E column (e): long-term basis the filer supplies",
+     "Part II box E column (g): long-term wash-sale adjustment",
+     "Part I box C column (d): short-term net proceeds, no Form 1099-B",
+     "Part I box C column (e): short-term basis you supply, no Form 1099-B",
+     "Part I box C column (g): short-term wash-sale adjustment, no Form 1099-B",
+     "Part II box F column (d): long-term net proceeds, no Form 1099-B",
+     "Part II box F column (e): long-term basis you supply, no Form 1099-B",
+     "Part II box F column (g): long-term wash-sale adjustment, no Form 1099-B"
+    ],
+    "line_text": {
+     "schedule-d.line-10": {
+      "explain": "Schedule D line 10, column (h), is your long-term Form 8949 box F gain or loss, proceeds minus basis plus adjustments.",
+      "reasons": []
+     },
+     "schedule-d.line-2": {
+      "explain": "Schedule D line 2, column (h), is zero. No short-term sale whose basis was not reported to the IRS is recorded, and your answer about those sales confirms the list is complete.",
+      "reasons": []
+     },
+     "schedule-d.line-3": {
+      "explain": "Schedule D line 3, column (h), is zero. Either no short-term sale you received no Form 1099-B for is recorded and your Form 8949 answers confirm it, or your box C proceeds, basis, and adjustments net to zero.",
+      "reasons": []
+     },
+     "schedule-d.line-9": {
+      "explain": "Schedule D line 9, column (h), is zero. No long-term sale whose basis was not reported to the IRS is recorded, and your answer about those sales confirms the list is complete.",
+      "reasons": []
+     }
+    },
+    "lines": {
+     "form1040.line-15": [
+      "published_value",
+      38250
+     ],
+     "form1040.line-16": [
+      "published_value",
+      3875
+     ],
+     "form1040.line-7a": [
+      "published_value",
+      4000
+     ],
+     "schedule-d.line-10": [
+      "published_value",
+      4000
+     ],
+     "schedule-d.line-15": [
+      "published_value",
+      4000
+     ],
+     "schedule-d.line-16": [
+      "published_value",
+      4000
+     ],
+     "schedule-d.line-1a": [
+      "closure_backed_zero",
+      0
+     ],
+     "schedule-d.line-2": [
+      "closure_backed_zero",
+      0
+     ],
+     "schedule-d.line-21": [
+      "computed_zero",
+      0
+     ],
+     "schedule-d.line-3": [
+      "computed_zero",
+      0
+     ],
+     "schedule-d.line-7": [
+      "computed_zero",
+      0
+     ],
+     "schedule-d.line-8a": [
+      "closure_backed_zero",
+      0
+     ],
+     "schedule-d.line-9": [
+      "closure_backed_zero",
+      0
+     ]
+    },
+    "presentation_valid": true,
+    "seconds": 5.3,
+    "stop_reason": "saturated",
+    "symbols": {
+     "capital-gains.selected-preferential-base": "4000.0"
+    }
+   }
+  },
+  "mixed_abcf": {
+   "mismatch": {},
+   "result": {
+    "attachments": {
+     "f8949": "published",
+     "schedule-d": "published"
+    },
+    "f8949_parts": [
+     "Part I box A column (d): short-term wash-sale proceeds",
+     "Part I box A column (e): short-term wash-sale basis",
+     "Part I box A column (g): short-term wash-sale adjustment",
+     "Part II box D column (d): long-term wash-sale proceeds",
+     "Part II box D column (e): long-term wash-sale basis",
+     "Part II box D column (g): long-term wash-sale adjustment",
+     "Part I box B column (d): short-term basis-not-reported proceeds",
+     "Part I box B column (e): short-term basis the filer supplies",
+     "Part I box B column (g): short-term wash-sale adjustment",
+     "Part II box E column (d): long-term basis-not-reported proceeds",
+     "Part II box E column (e): long-term basis the filer supplies",
+     "Part II box E column (g): long-term wash-sale adjustment",
+     "Part I box C column (d): short-term net proceeds, no Form 1099-B",
+     "Part I box C column (e): short-term basis you supply, no Form 1099-B",
+     "Part I box C column (g): short-term wash-sale adjustment, no Form 1099-B",
+     "Part II box F column (d): long-term net proceeds, no Form 1099-B",
+     "Part II box F column (e): long-term basis you supply, no Form 1099-B",
+     "Part II box F column (g): long-term wash-sale adjustment, no Form 1099-B"
+    ],
+    "line_text": {
+     "schedule-d.line-10": {
+      "explain": "Schedule D line 10, column (h), is your long-term Form 8949 box F gain or loss, proceeds minus basis plus adjustments.",
+      "reasons": []
+     },
+     "schedule-d.line-2": {
+      "explain": "Schedule D line 2, column (h), is your short-term Form 8949 box B gain or loss, proceeds minus basis plus adjustments.",
+      "reasons": []
+     },
+     "schedule-d.line-3": {
+      "explain": "Schedule D line 3, column (h), is your short-term Form 8949 box C gain or loss, proceeds minus basis plus adjustments.",
+      "reasons": []
+     },
+     "schedule-d.line-9": {
+      "explain": "Schedule D line 9, column (h), is zero. No long-term sale whose basis was not reported to the IRS is recorded, and your answer about those sales confirms the list is complete.",
+      "reasons": []
+     }
+    },
+    "lines": {
+     "form1040.line-15": [
+      "published_value",
+      40250
+     ],
+     "form1040.line-16": [
+      "published_value",
+      4115
+     ],
+     "form1040.line-7a": [
+      "published_value",
+      6000
+     ],
+     "schedule-d.line-10": [
+      "published_value",
+      4000
+     ],
+     "schedule-d.line-15": [
+      "published_value",
+      4000
+     ],
+     "schedule-d.line-16": [
+      "published_value",
+      6000
+     ],
+     "schedule-d.line-1a": [
+      "published_value",
+      1000
+     ],
+     "schedule-d.line-2": [
+      "published_value",
+      -500
+     ],
+     "schedule-d.line-21": [
+      "computed_zero",
+      0
+     ],
+     "schedule-d.line-3": [
+      "published_value",
+      1500
+     ],
+     "schedule-d.line-7": [
+      "published_value",
+      2000
+     ],
+     "schedule-d.line-8a": [
+      "closure_backed_zero",
+      0
+     ],
+     "schedule-d.line-9": [
+      "closure_backed_zero",
+      0
+     ]
+    },
+    "presentation_valid": true,
+    "seconds": 5.6,
+    "stop_reason": "saturated",
+    "symbols": {
+     "capital-gains.selected-preferential-base": "4000.0"
+    }
+   }
+  },
+  "mixed_abcf_old_ic_unanswered": {
+   "mismatch": {},
+   "result": {
+    "attachments": {
+     "f8949": "published",
+     "schedule-d": "published"
+    },
+    "f8949_parts": [
+     "Part I box A column (d): short-term wash-sale proceeds",
+     "Part I box A column (e): short-term wash-sale basis",
+     "Part I box A column (g): short-term wash-sale adjustment",
+     "Part II box D column (d): long-term wash-sale proceeds",
+     "Part II box D column (e): long-term wash-sale basis",
+     "Part II box D column (g): long-term wash-sale adjustment",
+     "Part I box B column (d): short-term basis-not-reported proceeds",
+     "Part I box B column (e): short-term basis the filer supplies",
+     "Part I box B column (g): short-term wash-sale adjustment",
+     "Part II box E column (d): long-term basis-not-reported proceeds",
+     "Part II box E column (e): long-term basis the filer supplies",
+     "Part II box E column (g): long-term wash-sale adjustment",
+     "Part I box C column (d): short-term net proceeds, no Form 1099-B",
+     "Part I box C column (e): short-term basis you supply, no Form 1099-B",
+     "Part I box C column (g): short-term wash-sale adjustment, no Form 1099-B",
+     "Part II box F column (d): long-term net proceeds, no Form 1099-B",
+     "Part II box F column (e): long-term basis you supply, no Form 1099-B",
+     "Part II box F column (g): long-term wash-sale adjustment, no Form 1099-B"
+    ],
+    "line_text": {
+     "schedule-d.line-10": {
+      "explain": "Schedule D line 10, column (h), is your long-term Form 8949 box F gain or loss, proceeds minus basis plus adjustments.",
+      "reasons": []
+     },
+     "schedule-d.line-2": {
+      "explain": "Schedule D line 2, column (h), is your short-term Form 8949 box B gain or loss, proceeds minus basis plus adjustments.",
+      "reasons": []
+     },
+     "schedule-d.line-3": {
+      "explain": "Schedule D line 3, column (h), is your short-term Form 8949 box C gain or loss, proceeds minus basis plus adjustments.",
+      "reasons": []
+     },
+     "schedule-d.line-9": {
+      "explain": "Schedule D line 9, column (h), is zero. No long-term sale whose basis was not reported to the IRS is recorded, and your answer about those sales confirms the list is complete.",
+      "reasons": []
+     }
+    },
+    "lines": {
+     "form1040.line-15": [
+      "published_value",
+      40250
+     ],
+     "form1040.line-16": [
+      "published_value",
+      4115
+     ],
+     "form1040.line-7a": [
+      "published_value",
+      6000
+     ],
+     "schedule-d.line-10": [
+      "published_value",
+      4000
+     ],
+     "schedule-d.line-15": [
+      "published_value",
+      4000
+     ],
+     "schedule-d.line-16": [
+      "published_value",
+      6000
+     ],
+     "schedule-d.line-1a": [
+      "published_value",
+      1000
+     ],
+     "schedule-d.line-2": [
+      "published_value",
+      -500
+     ],
+     "schedule-d.line-21": [
+      "computed_zero",
+      0
+     ],
+     "schedule-d.line-3": [
+      "published_value",
+      1500
+     ],
+     "schedule-d.line-7": [
+      "published_value",
+      2000
+     ],
+     "schedule-d.line-8a": [
+      "closure_backed_zero",
+      0
+     ],
+     "schedule-d.line-9": [
+      "closure_backed_zero",
+      0
+     ]
+    },
+    "presentation_valid": true,
+    "seconds": 5.4,
+    "stop_reason": "saturated",
+    "symbols": {
+     "capital-gains.selected-preferential-base": "4000.0"
+    }
+   }
+  },
+  "q2_yes_nothing_recorded": {
+   "mismatch": {},
+   "result": {
+    "attachments": {
+     "f8949": "blocked",
+     "schedule-d": "blocked"
+    },
+    "blocked": [
+     {
+      "artifact": "rule.schedule-d-line10",
+      "code": "DEPENDENCY_ABSENT",
+      "missing": []
+     },
+     {
+      "artifact": "rule.schedule-d-line3",
+      "code": "DEPENDENCY_ABSENT",
+      "missing": []
+     },
+     {
+      "artifact": "rule.attachment.f8949",
+      "code": "DEPENDENCY_ABSENT",
+      "missing": [
+       "schedule-d.line-3",
+       "schedule-d.line-10"
+      ]
+     },
+     {
+      "artifact": "rule.attachment.schedule-d",
+      "code": "DEPENDENCY_ABSENT",
+      "missing": [
+       "schedule-d.line-3",
+       "schedule-d.line-10"
+      ]
+     },
+     {
+      "artifact": "rule.form1040-line7a",
+      "code": "DEPENDENCY_ABSENT",
+      "missing": [
+       "schedule-d.line-16",
+       "schedule-d.line-21",
+       "capital-gains.selected-preferential-base",
+       "schedule-d.line-3",
+       "schedule-d.line-10"
+      ]
+     },
+     {
+      "artifact": "rule.schedule-d-line15",
+      "code": "DEPENDENCY_ABSENT",
+      "missing": [
+       "schedule-d.line-10"
+      ]
+     },
+     {
+      "artifact": "rule.schedule-d-line16",
+      "code": "DEPENDENCY_ABSENT",
+      "missing": [
+       "schedule-d.line-7",
+       "schedule-d.line-15"
+      ]
+     },
+     {
+      "artifact": "rule.schedule-d-line21",
+      "code": "DEPENDENCY_ABSENT",
+      "missing": [
+       "schedule-d.line-16"
+      ]
+     },
+     {
+      "artifact": "rule.schedule-d-line7",
+      "code": "DEPENDENCY_ABSENT",
+      "missing": [
+       "schedule-d.line-3"
+      ]
+     },
+     {
+      "artifact": "rule.selected-preferential-base",
+      "code": "DEPENDENCY_ABSENT",
+      "missing": [
+       "schedule-d.line-16",
+       "schedule-d.line-15",
+       "schedule-d.line-3",
+       "schedule-d.line-10"
+      ]
+     }
+    ],
+    "line_text": {
+     "schedule-d.line-10": {
+      "explain": "Schedule D line 10, column (h), has no value yet. It waits for your answers about sales you received no Form 1099-B for and about Form 8949, or for each recorded long-term sale of that kind to have its proceeds and basis and pass its checks.",
+      "reasons": []
+     },
+     "schedule-d.line-2": {
+      "explain": "Schedule D line 2, column (h), is zero. No short-term sale whose basis was not reported to the IRS is recorded, and your answer about those sales confirms the list is complete.",
+      "reasons": []
+     },
+     "schedule-d.line-3": {
+      "explain": "Schedule D line 3, column (h), has no value yet. It waits for your answers about sales you received no Form 1099-B for and about Form 8949, or for each recorded short-term sale of that kind to have its proceeds and basis and pass its checks.",
+      "reasons": []
+     },
+     "schedule-d.line-9": {
+      "explain": "Schedule D line 9, column (h), is zero. No long-term sale whose basis was not reported to the IRS is recorded, and your answer about those sales confirms the list is complete.",
+      "reasons": []
+     }
+    },
+    "lines": {
+     "form1040.line-15": [
+      "blocked",
+      null
+     ],
+     "form1040.line-16": [
+      "blocked",
+      null
+     ],
+     "form1040.line-7a": [
+      "blocked",
+      null
+     ],
+     "schedule-d.line-10": [
+      "blocked",
+      null
+     ],
+     "schedule-d.line-15": [
+      "blocked",
+      null
+     ],
+     "schedule-d.line-16": [
+      "blocked",
+      null
+     ],
+     "schedule-d.line-1a": [
+      "closure_backed_zero",
+      0
+     ],
+     "schedule-d.line-2": [
+      "closure_backed_zero",
+      0
+     ],
+     "schedule-d.line-21": [
+      "blocked",
+      null
+     ],
+     "schedule-d.line-3": [
+      "blocked",
+      null
+     ],
+     "schedule-d.line-7": [
+      "blocked",
+      null
+     ],
+     "schedule-d.line-8a": [
+      "closure_backed_zero",
+      0
+     ],
+     "schedule-d.line-9": [
+      "closure_backed_zero",
+      0
+     ]
+    },
+    "presentation_valid": true,
+    "seconds": 5.3,
+    "stop_reason": "saturated"
+   }
+  },
+  "unrecorded_8949_no_only": {
+   "mismatch": {},
+   "result": {
+    "attachments": {
+     "f8949": "blocked",
+     "schedule-d": "blocked"
+    },
+    "blocked": [
+     {
+      "artifact": "rule.schedule-d-line10",
+      "code": "DEPENDENCY_ABSENT",
+      "missing": [
+       "schedule-d-boundary.no-other-form8949-adjustments"
+      ]
+     },
+     {
+      "artifact": "rule.schedule-d-line3",
+      "code": "DEPENDENCY_ABSENT",
+      "missing": [
+       "schedule-d-boundary.no-other-form8949-adjustments"
+      ]
+     },
+     {
+      "artifact": "rule.attachment.f8949",
+      "code": "DEPENDENCY_ABSENT",
+      "missing": [
+       "schedule-d.line-3",
+       "schedule-d.line-10"
+      ]
+     },
+     {
+      "artifact": "rule.attachment.schedule-d",
+      "code": "DEPENDENCY_ABSENT",
+      "missing": [
+       "schedule-d.line-3",
+       "schedule-d.line-10"
+      ]
+     },
+     {
+      "artifact": "rule.form1040-line7a",
+      "code": "DEPENDENCY_ABSENT",
+      "missing": [
+       "schedule-d.line-16",
+       "schedule-d.line-21",
+       "capital-gains.selected-preferential-base",
+       "schedule-d.line-3",
+       "schedule-d.line-10"
+      ]
+     },
+     {
+      "artifact": "rule.schedule-d-line15",
+      "code": "DEPENDENCY_ABSENT",
+      "missing": [
+       "schedule-d.line-10"
+      ]
+     },
+     {
+      "artifact": "rule.schedule-d-line16",
+      "code": "DEPENDENCY_ABSENT",
+      "missing": [
+       "schedule-d.line-7",
+       "schedule-d.line-15"
+      ]
+     },
+     {
+      "artifact": "rule.schedule-d-line21",
+      "code": "DEPENDENCY_ABSENT",
+      "missing": [
+       "schedule-d.line-16"
+      ]
+     },
+     {
+      "artifact": "rule.schedule-d-line7",
+      "code": "DEPENDENCY_ABSENT",
+      "missing": [
+       "schedule-d.line-3"
+      ]
+     },
+     {
+      "artifact": "rule.selected-preferential-base",
+      "code": "DEPENDENCY_ABSENT",
+      "missing": [
+       "schedule-d.line-16",
+       "schedule-d.line-15",
+       "schedule-d.line-3",
+       "schedule-d.line-10"
+      ]
+     }
+    ],
+    "line_text": {
+     "schedule-d.line-10": {
+      "explain": "Schedule D line 10, column (h), has no value yet. It waits for your answers about sales you received no Form 1099-B for and about Form 8949, or for each recorded long-term sale of that kind to have its proceeds and basis and pass its checks.",
+      "reasons": []
+     },
+     "schedule-d.line-2": {
+      "explain": "Schedule D line 2, column (h), is zero. No short-term sale whose basis was not reported to the IRS is recorded, and your answer about those sales confirms the list is complete.",
+      "reasons": []
+     },
+     "schedule-d.line-3": {
+      "explain": "Schedule D line 3, column (h), has no value yet. It waits for your answers about sales you received no Form 1099-B for and about Form 8949, or for each recorded short-term sale of that kind to have its proceeds and basis and pass its checks.",
+      "reasons": []
+     },
+     "schedule-d.line-9": {
+      "explain": "Schedule D line 9, column (h), is zero. No long-term sale whose basis was not reported to the IRS is recorded, and your answer about those sales confirms the list is complete.",
+      "reasons": []
+     }
+    },
+    "lines": {
+     "form1040.line-15": [
+      "blocked",
+      null
+     ],
+     "form1040.line-16": [
+      "blocked",
+      null
+     ],
+     "form1040.line-7a": [
+      "blocked",
+      null
+     ],
+     "schedule-d.line-10": [
+      "blocked",
+      null
+     ],
+     "schedule-d.line-15": [
+      "blocked",
+      null
+     ],
+     "schedule-d.line-16": [
+      "blocked",
+      null
+     ],
+     "schedule-d.line-1a": [
+      "closure_backed_zero",
+      0
+     ],
+     "schedule-d.line-2": [
+      "closure_backed_zero",
+      0
+     ],
+     "schedule-d.line-21": [
+      "blocked",
+      null
+     ],
+     "schedule-d.line-3": [
+      "blocked",
+      null
+     ],
+     "schedule-d.line-7": [
+      "blocked",
+      null
+     ],
+     "schedule-d.line-8a": [
+      "closure_backed_zero",
+      0
+     ],
+     "schedule-d.line-9": [
+      "closure_backed_zero",
+      0
+     ]
+    },
+    "presentation_valid": true,
+    "seconds": 5.1,
+    "stop_reason": "saturated"
+   }
+  },
+  "unrecorded_out_of_class": {
+   "mismatch": {},
+   "result": {
+    "attachments": {
+     "f8949": "blocked",
+     "schedule-d": "blocked"
+    },
+    "blocked": [
+     {
+      "artifact": "rule.schedule-d-line10",
+      "code": "DEPENDENCY_ABSENT",
+      "missing": [
+       "schedule-d-boundary.noncovered-in-class"
+      ]
+     },
+     {
+      "artifact": "rule.schedule-d-line3",
+      "code": "DEPENDENCY_ABSENT",
+      "missing": [
+       "schedule-d-boundary.noncovered-in-class"
+      ]
+     },
+     {
+      "artifact": "rule.attachment.f8949",
+      "code": "DEPENDENCY_ABSENT",
+      "missing": [
+       "schedule-d.line-3",
+       "schedule-d.line-10"
+      ]
+     },
+     {
+      "artifact": "rule.attachment.schedule-d",
+      "code": "DEPENDENCY_ABSENT",
+      "missing": [
+       "schedule-d.line-3",
+       "schedule-d.line-10"
+      ]
+     },
+     {
+      "artifact": "rule.form1040-line7a",
+      "code": "DEPENDENCY_ABSENT",
+      "missing": [
+       "schedule-d.line-16",
+       "schedule-d.line-21",
+       "capital-gains.selected-preferential-base",
+       "schedule-d.line-3",
+       "schedule-d.line-10"
+      ]
+     },
+     {
+      "artifact": "rule.schedule-d-line15",
+      "code": "DEPENDENCY_ABSENT",
+      "missing": [
+       "schedule-d.line-10"
+      ]
+     },
+     {
+      "artifact": "rule.schedule-d-line16",
+      "code": "DEPENDENCY_ABSENT",
+      "missing": [
+       "schedule-d.line-7",
+       "schedule-d.line-15"
+      ]
+     },
+     {
+      "artifact": "rule.schedule-d-line21",
+      "code": "DEPENDENCY_ABSENT",
+      "missing": [
+       "schedule-d.line-16"
+      ]
+     },
+     {
+      "artifact": "rule.schedule-d-line7",
+      "code": "DEPENDENCY_ABSENT",
+      "missing": [
+       "schedule-d.line-3"
+      ]
+     },
+     {
+      "artifact": "rule.selected-preferential-base",
+      "code": "DEPENDENCY_ABSENT",
+      "missing": [
+       "schedule-d.line-16",
+       "schedule-d.line-15",
+       "schedule-d.line-3",
+       "schedule-d.line-10"
+      ]
+     }
+    ],
+    "line_text": {
+     "schedule-d.line-10": {
+      "explain": "Schedule D line 10, column (h), has no value yet. It waits for your answers about sales you received no Form 1099-B for and about Form 8949, or for each recorded long-term sale of that kind to have its proceeds and basis and pass its checks.",
+      "reasons": []
+     },
+     "schedule-d.line-2": {
+      "explain": "Schedule D line 2, column (h), is zero. No short-term sale whose basis was not reported to the IRS is recorded, and your answer about those sales confirms the list is complete.",
+      "reasons": []
+     },
+     "schedule-d.line-3": {
+      "explain": "Schedule D line 3, column (h), has no value yet. It waits for your answers about sales you received no Form 1099-B for and about Form 8949, or for each recorded short-term sale of that kind to have its proceeds and basis and pass its checks.",
+      "reasons": []
+     },
+     "schedule-d.line-9": {
+      "explain": "Schedule D line 9, column (h), is zero. No long-term sale whose basis was not reported to the IRS is recorded, and your answer about those sales confirms the list is complete.",
+      "reasons": []
+     }
+    },
+    "lines": {
+     "form1040.line-15": [
+      "blocked",
+      null
+     ],
+     "form1040.line-16": [
+      "blocked",
+      null
+     ],
+     "form1040.line-7a": [
+      "blocked",
+      null
+     ],
+     "schedule-d.line-10": [
+      "blocked",
+      null
+     ],
+     "schedule-d.line-15": [
+      "blocked",
+      null
+     ],
+     "schedule-d.line-16": [
+      "blocked",
+      null
+     ],
+     "schedule-d.line-1a": [
+      "closure_backed_zero",
+      0
+     ],
+     "schedule-d.line-2": [
+      "closure_backed_zero",
+      0
+     ],
+     "schedule-d.line-21": [
+      "blocked",
+      null
+     ],
+     "schedule-d.line-3": [
+      "blocked",
+      null
+     ],
+     "schedule-d.line-7": [
+      "blocked",
+      null
+     ],
+     "schedule-d.line-8a": [
+      "closure_backed_zero",
+      0
+     ],
+     "schedule-d.line-9": [
+      "closure_backed_zero",
+      0
+     ]
+    },
+    "presentation_valid": true,
+    "seconds": 5.2,
+    "stop_reason": "saturated"
+   }
+  },
+  "wage_q2_no": {
+   "mismatch": {},
+   "result": {
+    "attachments": {
+     "f8949": "guard_inapplicable",
+     "schedule-d": "guard_inapplicable"
+    },
+    "line_text": {
+     "schedule-d.line-10": {
+      "explain": "Schedule D line 10, column (h), is zero. Either no long-term sale you received no Form 1099-B for is recorded and your Form 8949 answers confirm it, or your box F proceeds, basis, and adjustments net to zero.",
+      "reasons": []
+     },
+     "schedule-d.line-2": {
+      "explain": "Schedule D line 2, column (h), is zero. No short-term sale whose basis was not reported to the IRS is recorded, and your answer about those sales confirms the list is complete.",
+      "reasons": []
+     },
+     "schedule-d.line-3": {
+      "explain": "Schedule D line 3, column (h), is zero. Either no short-term sale you received no Form 1099-B for is recorded and your Form 8949 answers confirm it, or your box C proceeds, basis, and adjustments net to zero.",
+      "reasons": []
+     },
+     "schedule-d.line-9": {
+      "explain": "Schedule D line 9, column (h), is zero. No long-term sale whose basis was not reported to the IRS is recorded, and your answer about those sales confirms the list is complete.",
+      "reasons": []
+     }
+    },
+    "lines": {
+     "form1040.line-15": [
+      "published_value",
+      34250
+     ],
+     "form1040.line-16": [
+      "published_value",
+      3875
+     ],
+     "form1040.line-7a": [
+      "computed_zero",
+      0
+     ],
+     "schedule-d.line-10": [
+      "computed_zero",
+      0
+     ],
+     "schedule-d.line-15": [
+      "computed_zero",
+      0
+     ],
+     "schedule-d.line-16": [
+      "computed_zero",
+      0
+     ],
+     "schedule-d.line-1a": [
+      "closure_backed_zero",
+      0
+     ],
+     "schedule-d.line-2": [
+      "closure_backed_zero",
+      0
+     ],
+     "schedule-d.line-21": [
+      "computed_zero",
+      0
+     ],
+     "schedule-d.line-3": [
+      "computed_zero",
+      0
+     ],
+     "schedule-d.line-7": [
+      "computed_zero",
+      0
+     ],
+     "schedule-d.line-8a": [
+      "closure_backed_zero",
+      0
+     ],
+     "schedule-d.line-9": [
+      "closure_backed_zero",
+      0
+     ]
+    },
+    "presentation_valid": true,
+    "seconds": 5.3,
+    "stop_reason": "saturated",
+    "symbols": {
+     "capital-gains.selected-preferential-base": "0"
+    }
+   }
+  },
+  "wage_q2_unanswered": {
+   "mismatch": {},
+   "result": {
+    "attachments": {
+     "f8949": "blocked",
+     "schedule-d": "blocked"
+    },
+    "blocked": [
+     {
+      "artifact": "f8949.no1099b-lt.member-validation.synthesized",
+      "code": "SOURCE_SET_UNCLOSED",
+      "missing": [
+       "f8949.no1099b-lt"
+      ]
+     },
+     {
+      "artifact": "f8949.no1099b-st.member-validation.synthesized",
+      "code": "SOURCE_SET_UNCLOSED",
+      "missing": [
+       "f8949.no1099b-st"
+      ]
+     },
+     {
+      "artifact": "rule.attachment.f8949",
+      "code": "DEPENDENCY_ABSENT",
+      "missing": [
+       "f8949.no1099b-st-proceeds-subtotal",
+       "f8949.no1099b-st-basis-subtotal",
+       "schedule-d.line-3",
+       "f8949.no1099b-lt-proceeds-subtotal",
+       "f8949.no1099b-lt-basis-subtotal",
+       "schedule-d.line-10"
+      ]
+     },
+     {
+      "artifact": "rule.attachment.schedule-d",
+      "code": "DEPENDENCY_ABSENT",
+      "missing": [
+       "f8949.no1099b-st-proceeds-subtotal",
+       "f8949.no1099b-st-basis-subtotal",
+       "schedule-d.line-3",
+       "f8949.no1099b-lt-proceeds-subtotal",
+       "f8949.no1099b-lt-basis-subtotal",
+       "schedule-d.line-10"
+      ]
+     },
+     {
+      "artifact": "rule.form1040-line7a",
+      "code": "DEPENDENCY_ABSENT",
+      "missing": [
+       "schedule-d.line-16",
+       "schedule-d.line-21",
+       "capital-gains.selected-preferential-base",
+       "schedule-d.line-3",
+       "schedule-d.line-10"
+      ]
+     },
+     {
+      "artifact": "rule.schedule-d-line15",
+      "code": "DEPENDENCY_ABSENT",
+      "missing": [
+       "schedule-d.line-10"
+      ]
+     },
+     {
+      "artifact": "rule.schedule-d-line16",
+      "code": "DEPENDENCY_ABSENT",
+      "missing": [
+       "schedule-d.line-7",
+       "schedule-d.line-15"
+      ]
+     },
+     {
+      "artifact": "rule.schedule-d-line21",
+      "code": "DEPENDENCY_ABSENT",
+      "missing": [
+       "schedule-d.line-16"
+      ]
+     },
+     {
+      "artifact": "rule.schedule-d-line7",
+      "code": "DEPENDENCY_ABSENT",
+      "missing": [
+       "schedule-d.line-3"
+      ]
+     },
+     {
+      "artifact": "rule.selected-preferential-base",
+      "code": "DEPENDENCY_ABSENT",
+      "missing": [
+       "schedule-d.line-16",
+       "schedule-d.line-15",
+       "schedule-d.line-3",
+       "schedule-d.line-10"
+      ]
+     },
+     {
+      "artifact": "rule.f8949-no1099b-st-proceeds-subtotal",
+      "code": "DEPENDENCY_ABSENT",
+      "missing": [
+       "f8949.no1099b-st.member-validation"
+      ]
+     },
+     {
+      "artifact": "rule.f8949-no1099b-st-basis-subtotal",
+      "code": "DEPENDENCY_ABSENT",
+      "missing": [
+       "f8949.no1099b-st.member-validation"
+      ]
+     },
+     {
+      "artifact": "rule.f8949-no1099b-st-adjustment-subtotal",
+      "code": "DEPENDENCY_ABSENT",
+      "missing": [
+       "f8949.no1099b-st.member-validation"
+      ]
+     },
+     {
+      "artifact": "rule.schedule-d-line3",
+      "code": "DEPENDENCY_ABSENT",
+      "missing": [
+       "f8949.no1099b-st-proceeds-subtotal",
+       "f8949.no1099b-st-basis-subtotal",
+       "f8949.no1099b-st-adjustment-subtotal",
+       "f8949.no1099b-lt-proceeds-subtotal",
+       "f8949.no1099b-lt-basis-subtotal"
+      ]
+     }
+    ],
+    "line_text": {
+     "schedule-d.line-10": {
+      "explain": "Schedule D line 10, column (h), has no value yet. It waits for your answers about sales you received no Form 1099-B for and about Form 8949, or for each recorded long-term sale of that kind to have its proceeds and basis and pass its checks.",
+      "reasons": [
+       "Did you sell any stocks or other securities for which you did not receive a Form 1099-B or substitute statement?"
+      ]
+     },
+     "schedule-d.line-2": {
+      "explain": "Schedule D line 2, column (h), is zero. No short-term sale whose basis was not reported to the IRS is recorded, and your answer about those sales confirms the list is complete.",
+      "reasons": []
+     },
+     "schedule-d.line-3": {
+      "explain": "Schedule D line 3, column (h), has no value yet. It waits for your answers about sales you received no Form 1099-B for and about Form 8949, or for each recorded short-term sale of that kind to have its proceeds and basis and pass its checks.",
+      "reasons": [
+       "Did you sell any stocks or other securities for which you did not receive a Form 1099-B or substitute statement?"
+      ]
+     },
+     "schedule-d.line-9": {
+      "explain": "Schedule D line 9, column (h), is zero. No long-term sale whose basis was not reported to the IRS is recorded, and your answer about those sales confirms the list is complete.",
+      "reasons": []
+     }
+    },
+    "lines": {
+     "form1040.line-15": [
+      "blocked",
+      null
+     ],
+     "form1040.line-16": [
+      "blocked",
+      null
+     ],
+     "form1040.line-7a": [
+      "blocked",
+      null
+     ],
+     "schedule-d.line-10": [
+      "blocked",
+      null
+     ],
+     "schedule-d.line-15": [
+      "blocked",
+      null
+     ],
+     "schedule-d.line-16": [
+      "blocked",
+      null
+     ],
+     "schedule-d.line-1a": [
+      "closure_backed_zero",
+      0
+     ],
+     "schedule-d.line-2": [
+      "closure_backed_zero",
+      0
+     ],
+     "schedule-d.line-21": [
+      "blocked",
+      null
+     ],
+     "schedule-d.line-3": [
+      "blocked",
+      null
+     ],
+     "schedule-d.line-7": [
+      "blocked",
+      null
+     ],
+     "schedule-d.line-8a": [
+      "closure_backed_zero",
+      0
+     ],
+     "schedule-d.line-9": [
+      "closure_backed_zero",
+      0
+     ]
+    },
+    "presentation_valid": true,
+    "questions": [
+     "Did you sell any stocks or other securities for which you did not receive a Form 1099-B or substitute statement?"
+    ],
+    "seconds": 6.7,
+    "stop_reason": "saturated"
+   }
+  }
+ }
+}
