@@ -178,6 +178,22 @@ choice; the owner adjusts after):
    - The married-filing-separately $1,500 limit and the 2026 carryover are
      not exercised.
 
+Foreman, 2026-11-06, on Track 0:
+
+5. **Track 0's six content repairs are adopted** (B1 to B6 and the
+   "entered only once" wording). The four further v79-computed returns
+   that now block are accepted: `t0_q1_yes_nothing`,
+   `t0_8949no_old_ic_yes_q1_no`, `t0_b_loss_8949_yes` and
+   `t0_b_w_scalar_only_on_gain`. Each one was a silent omission or a
+   wrong number on v79.
+6. **The presentation limit in Decision 4 covers the five refused paths
+   Track 0 named.** Each shows a true blocked reason but no question. A
+   rule-artifact successor whose block names the question it waits on is
+   parked for the roadmap.
+7. **The new question is asked even on a return that answers Form 8949
+   "yes"**, as v79 asks its own question. Not asking it would need an
+   engine change.
+
 ## Track 0 adversarial closure
 
 Evidence:
