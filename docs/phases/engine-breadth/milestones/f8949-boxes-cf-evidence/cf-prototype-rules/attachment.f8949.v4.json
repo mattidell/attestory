@@ -31,7 +31,9 @@
       "tax.us.2025.schedule-d.line-3",
       "tax.us.2025.f8949.no1099b-lt-proceeds-subtotal",
       "tax.us.2025.f8949.no1099b-lt-basis-subtotal",
-      "tax.us.2025.schedule-d.line-10"
+      "tax.us.2025.schedule-d.line-10",
+      "tax.us.2025.schedule-d.line-2",
+      "tax.us.2025.schedule-d.line-9"
     ],
     "threshold_parameter": {
       "id": "tax.us.2025.parameter.default-zero",
