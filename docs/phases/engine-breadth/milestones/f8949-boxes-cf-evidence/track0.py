@@ -366,20 +366,66 @@ def surface(content: Path) -> dict[str, Any]:
 # ---- main -----------------------------------------------------------------
 
 
+PROBED = tuple(f"schedule-d.line-{n}" for n in ("2", "3", "7", "9", "10", "15"))
 KEEP_ROWS = ("rule.schedule-d-line", "rule.form1040-line7a", "rule.selected-preferential-base", "rule.attachment.")
 
 
+def dump(payload: dict[str, Any]) -> str:
+    """Indented at the top, one case per line below, so the file stays small and diffs by case."""
+    lines = ["{"]
+    keys = sorted(payload)
+    for i, key in enumerate(keys):
+        value = payload[key]
+        end = "," if i < len(keys) - 1 else ""
+        if isinstance(value, dict) and key in ("v80_cases", "decided_design", "v79_returns_on_v80", "extra_v79"):
+            lines.append(f" {json.dumps(key)}: {{")
+            names = sorted(value)
+            for j, name in enumerate(names):
+                comma = "," if j < len(names) - 1 else ""
+                lines.append(f"  {json.dumps(name)}: {json.dumps(value[name], sort_keys=True, default=str)}{comma}")
+            lines.append(f" }}{end}")
+        else:
+            lines.append(f" {json.dumps(key)}: {json.dumps(value, sort_keys=True, default=str)}{end}")
+    lines.append("}")
+    return probe.scrub("\n".join(lines)) + "\n"
+
+
+PARTS_KEPT = ("f_gain", "c_loss", "mixed_abcf")
+
+
 def compact(payload: dict[str, Any]) -> dict[str, Any]:
-    """Drop what ``fields`` and ``dispositions`` already carry, and the subtotal rows."""
+    """Drop what ``fields`` and ``dispositions`` already carry, and the subtotal rows.
+
+    Disposition rows become [artifact, disposition, code, missing]. Field
+    sentences are stored once per field and disposition under
+    ``field_sentences``; each case keeps the disposition, value and reasons.
+    """
+    sentences: dict[str, dict[str, str]] = payload.setdefault("field_sentences", {})
     for section in ("v80_cases", "decided_design"):
-        for case in payload.get(section, {}).values():
+        for name, case in payload.get(section, {}).items():
             result = case["result"]
             result.pop("line_text", None)
             result.pop("blocked", None)
             result.pop("seconds", None)
+            if result.get("fields"):
+                kept = {}
+                for field_name, field in result["fields"].items():
+                    if field_name not in PROBED:
+                        continue
+                    field = dict(field)
+                    explain = field.pop("explain", None)
+                    if explain is not None:
+                        sentences.setdefault(field_name, {})[str(field.get("disposition"))] = explain
+                    kept[field_name] = field
+                result["fields"] = kept
+            if name not in PARTS_KEPT:
+                result.pop("f8949_parts", None)
             if result.get("dispositions"):
-                result["dispositions"] = [row for row in result["dispositions"]
-                                          if row[0].startswith(KEEP_ROWS) or row[0].endswith(".amounts-check")]
+                result["dispositions"] = [
+                    [row[0], *row[2:]] if len(row) == 5 and row[1] is None else row
+                    for row in result["dispositions"]
+                    if row[0].startswith(KEEP_ROWS) or row[0].endswith(".amounts-check")
+                ]
     return payload
 
 
@@ -393,7 +439,7 @@ def main() -> None:
             cfp.build(Path(tmp).resolve() / "scratch", write_rules=False)
             payload = json.loads(OUT.read_text(encoding="utf-8"))
             payload["surface"] = surface(Path(tmp).resolve() / "scratch" / "content")
-        OUT.write_text(probe.scrub(json.dumps(payload, indent=1, sort_keys=True, default=str)) + "\n", encoding="utf-8")
+        OUT.write_text(dump(payload), encoding="utf-8")
         return
     if sys.argv[1:2] == ["only"]:  # run the named v80 cases on the final design and merge them
         init(sorted(cfp.REPAIRS))
@@ -404,8 +450,7 @@ def main() -> None:
                 payload.setdefault("extra_v79", {})[name] = run((kind, name))[1]
             else:
                 payload["v80_cases"][name] = run(("new", name))[1]
-        OUT.write_text(probe.scrub(json.dumps(compact(payload), indent=1, sort_keys=True, default=str)) + "\n",
-                       encoding="utf-8")
+        OUT.write_text(dump(compact(payload)), encoding="utf-8")
         return
     workers = int(sys.argv[1]) if len(sys.argv) > 1 else 8
     cp.pin_v79()
@@ -446,8 +491,7 @@ def main() -> None:
     payload = {"source_ref": "eb02b548", "repairs": sorted(cfp.REPAIRS), "build": build, "surface": static,
                "v80_cases": results["new"], "decided_design": results.get("decided", {}),
                "v79_returns_on_v80": carry}
-    OUT.write_text(probe.scrub(json.dumps(compact(payload), indent=1, sort_keys=True, default=str)) + "\n",
-                   encoding="utf-8")
+    OUT.write_text(dump(compact(payload)), encoding="utf-8")
     print(f"wrote {OUT.name}", flush=True)
 
 

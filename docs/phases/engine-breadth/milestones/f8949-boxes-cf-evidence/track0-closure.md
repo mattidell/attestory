@@ -290,7 +290,9 @@ join is by identity-key names, and on boxes B and E it uses broker,
 statement and transaction together, so a reused transaction entity does not
 cross-join (`d3_b_shared_transaction`, `w_b_scalar_only_on_gain`).
 
-**Presentation-model probe** (fields under `v80_cases.<case>.result.fields`):
+**Presentation-model probe.** Each case's disposition, value and reasons
+are under `v80_cases.<case>.result.fields`. The sentence for each field and
+disposition is under `field_sentences`.
 
 | Field | Path (case) | Value | Explanation sentence | Blocked reason / question shown |
 | --- | --- | --- | --- | --- |
