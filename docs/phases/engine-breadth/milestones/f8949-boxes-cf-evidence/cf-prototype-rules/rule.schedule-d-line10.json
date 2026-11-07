@@ -19,7 +19,8 @@
     "tax.us.2025.f1099b.noncovered-st-proceeds-subtotal",
     "tax.us.2025.f1099b.noncovered-st-basis-subtotal",
     "tax.us.2025.f1099b.noncovered-lt-proceeds-subtotal",
-    "tax.us.2025.f1099b.noncovered-lt-basis-subtotal"
+    "tax.us.2025.f1099b.noncovered-lt-basis-subtotal",
+    "tax.us.2025.f8949.no1099b-lt-txn.amounts-check"
   ],
   "blocked": {
     "code": "DEPENDENCY_ABSENT",

@@ -13,7 +13,8 @@
   "requires": [
     "tax.us.2025.f1099b.noncovered-st-proceeds-subtotal",
     "tax.us.2025.f1099b.noncovered-st-basis-subtotal",
-    "tax.us.2025.f1099b.noncovered-st-adjustment-subtotal"
+    "tax.us.2025.f1099b.noncovered-st-adjustment-subtotal",
+    "tax.us.2025.f1099b.noncovered-st-txn.amounts-check"
   ],
   "blocked": {
     "code": "DEPENDENCY_ABSENT",

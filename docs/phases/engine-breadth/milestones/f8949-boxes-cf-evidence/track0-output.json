@@ -1,23 +1,591 @@
 {
  "build": {
-  "added_members": 34,
+  "added_members": 43,
   "existing_files_changed": [],
-  "files_added": 54,
+  "files_added": 63,
   "inherited_inconsistencies": [],
-  "members_edited": 52,
+  "members_edited": 61,
   "package": {
-   "checksum": "c34b3530202d0c0fba85d99b69a83f1f7666368dda9d38da09410cbc48da14dd",
+   "checksum": "3e5444b299d69565c6f157db2b770023bc21d5584d7a4d4049c06d2a31bf89d9",
    "id": "tax.us.2025.package.core-calculations",
    "version": "v80"
   },
   "release": {
    "id": "demo.release.sli-worksheet-integration.2025",
-   "sha256": "d783cf6d550cbc042265b4c1b06d083a63a6f3343bf9c61ebf9c4228f76534b5",
+   "sha256": "e1aded3dc8b1b878d7e3608721d56dc622d04f77480978f0316f9153670ab403",
    "version": "v78"
   },
   "replaced_members": 18
  },
  "decided_design": {
+  "c_basis_missing": {
+   "mismatch": {},
+   "result": {
+    "attachments": {
+     "f8949": "blocked",
+     "schedule-d": "blocked"
+    },
+    "dispositions": [
+     [
+      "rule.attachment.f8949",
+      null,
+      "blocked",
+      "DEPENDENCY_ABSENT",
+      [
+       "schedule-d.line-3"
+      ]
+     ],
+     [
+      "rule.attachment.schedule-d",
+      null,
+      "blocked",
+      "DEPENDENCY_ABSENT",
+      [
+       "schedule-d.line-3"
+      ]
+     ],
+     [
+      "rule.form1040-line7a",
+      null,
+      "blocked",
+      "DEPENDENCY_ABSENT",
+      [
+       "schedule-d.line-16",
+       "schedule-d.line-21",
+       "capital-gains.selected-preferential-base",
+       "schedule-d.line-3"
+      ]
+     ],
+     [
+      "rule.schedule-d-line10",
+      null,
+      "published",
+      null,
+      []
+     ],
+     [
+      "rule.schedule-d-line13",
+      null,
+      "published",
+      null,
+      []
+     ],
+     [
+      "rule.schedule-d-line14",
+      null,
+      "published",
+      null,
+      []
+     ],
+     [
+      "rule.schedule-d-line15",
+      null,
+      "published",
+      null,
+      []
+     ],
+     [
+      "rule.schedule-d-line16",
+      null,
+      "blocked",
+      "DEPENDENCY_ABSENT",
+      [
+       "schedule-d.line-7"
+      ]
+     ],
+     [
+      "rule.schedule-d-line1a-gain",
+      null,
+      "published",
+      null,
+      []
+     ],
+     [
+      "rule.schedule-d-line1b",
+      null,
+      "published",
+      null,
+      []
+     ],
+     [
+      "rule.schedule-d-line2",
+      null,
+      "published",
+      null,
+      []
+     ],
+     [
+      "rule.schedule-d-line21",
+      null,
+      "blocked",
+      "DEPENDENCY_ABSENT",
+      [
+       "schedule-d.line-16"
+      ]
+     ],
+     [
+      "rule.schedule-d-line3",
+      null,
+      "blocked",
+      "DEPENDENCY_ABSENT",
+      [
+       "f8949.no1099b-st-txn.basis"
+      ]
+     ],
+     [
+      "rule.schedule-d-line6",
+      null,
+      "published",
+      null,
+      []
+     ],
+     [
+      "rule.schedule-d-line7",
+      null,
+      "blocked",
+      "DEPENDENCY_ABSENT",
+      [
+       "schedule-d.line-3"
+      ]
+     ],
+     [
+      "rule.schedule-d-line8a-gain",
+      null,
+      "published",
+      null,
+      []
+     ],
+     [
+      "rule.schedule-d-line8b",
+      null,
+      "published",
+      null,
+      []
+     ],
+     [
+      "rule.schedule-d-line9",
+      null,
+      "published",
+      null,
+      []
+     ],
+     [
+      "rule.selected-preferential-base",
+      null,
+      "blocked",
+      "DEPENDENCY_ABSENT",
+      [
+       "schedule-d.line-16",
+       "schedule-d.line-3"
+      ]
+     ]
+    ],
+    "fields": {
+     "form1040.line-7a": {
+      "disposition": "blocked",
+      "explain": "Line 7a is blocked because Exception-1 authority is incomplete or the box-2a family is unclosed.",
+      "reasons": [
+       "What is the basis of each short-term sale you recorded without a Form 1099-B?"
+      ],
+      "value": null
+     },
+     "schedule-d.line-10": {
+      "disposition": "computed_zero",
+      "explain": "Schedule D line 10, column (h), is zero. Either no long-term sale you received no Form 1099-B for is recorded and your Form 8949 answers confirm it, or your box F proceeds, basis, and adjustments net to zero.",
+      "reasons": [],
+      "value": 0
+     },
+     "schedule-d.line-15": {
+      "disposition": "computed_zero",
+      "explain": "Schedule D line 15 is zero because lines 8a, 8b, 9, 10, 13, and 14 add to zero.",
+      "reasons": [],
+      "value": 0
+     },
+     "schedule-d.line-16": {
+      "disposition": "blocked",
+      "explain": "Schedule D line 16 has no value yet. It is waiting for line 7 or line 15.",
+      "reasons": [
+       "What is the basis of each short-term sale you recorded without a Form 1099-B?"
+      ],
+      "value": null
+     },
+     "schedule-d.line-2": {
+      "disposition": "closure_backed_zero",
+      "explain": "Schedule D line 2, column (h), is zero. No short-term sale whose basis was not reported to the IRS is recorded, and your answer about those sales confirms the list is complete.",
+      "reasons": [],
+      "value": 0
+     },
+     "schedule-d.line-21": {
+      "disposition": "blocked",
+      "explain": "Schedule D line 21 has no value yet. It is waiting for your total gain or loss on line 16.",
+      "reasons": [
+       "What is the basis of each short-term sale you recorded without a Form 1099-B?"
+      ],
+      "value": null
+     },
+     "schedule-d.line-3": {
+      "disposition": "blocked",
+      "explain": "Schedule D line 3, column (h), has no value yet. It waits for your answers about sales you received no Form 1099-B for, sales whose basis was not reported, and Form 8949 to agree with the sales you recorded, or for each recorded short-term sale of that kind to have its proceeds and basis and pass its checks.",
+      "reasons": [
+       "What is the basis of each short-term sale you recorded without a Form 1099-B?"
+      ],
+      "value": null
+     },
+     "schedule-d.line-7": {
+      "disposition": "blocked",
+      "explain": "Schedule D line 7 has no value yet. It is waiting for whichever of lines 1a, 1b, 2, 3, and 6 is still open.",
+      "reasons": [
+       "What is the basis of each short-term sale you recorded without a Form 1099-B?"
+      ],
+      "value": null
+     },
+     "schedule-d.line-9": {
+      "disposition": "closure_backed_zero",
+      "explain": "Schedule D line 9, column (h), is zero. No long-term sale whose basis was not reported to the IRS is recorded, and your answer about those sales confirms the list is complete.",
+      "reasons": [],
+      "value": 0
+     }
+    },
+    "lines": {
+     "form1040.line-15": [
+      "blocked",
+      null
+     ],
+     "form1040.line-16": [
+      "blocked",
+      null
+     ],
+     "form1040.line-7a": [
+      "blocked",
+      null
+     ],
+     "schedule-d.line-10": [
+      "computed_zero",
+      0
+     ],
+     "schedule-d.line-15": [
+      "computed_zero",
+      0
+     ],
+     "schedule-d.line-16": [
+      "blocked",
+      null
+     ],
+     "schedule-d.line-1a": [
+      "closure_backed_zero",
+      0
+     ],
+     "schedule-d.line-2": [
+      "closure_backed_zero",
+      0
+     ],
+     "schedule-d.line-21": [
+      "blocked",
+      null
+     ],
+     "schedule-d.line-3": [
+      "blocked",
+      null
+     ],
+     "schedule-d.line-7": [
+      "blocked",
+      null
+     ],
+     "schedule-d.line-8a": [
+      "closure_backed_zero",
+      0
+     ],
+     "schedule-d.line-9": [
+      "closure_backed_zero",
+      0
+     ]
+    },
+    "presentation_valid": true,
+    "questions": [
+     "What is the basis of each short-term sale you recorded without a Form 1099-B?"
+    ],
+    "stop_reason": "saturated"
+   }
+  },
+  "c_wash": {
+   "mismatch": {},
+   "result": {
+    "attachments": {
+     "f8949": "published",
+     "schedule-d": "published"
+    },
+    "dispositions": [
+     [
+      "rule.attachment.f8949",
+      null,
+      "published",
+      null,
+      []
+     ],
+     [
+      "rule.attachment.schedule-d",
+      null,
+      "published",
+      null,
+      []
+     ],
+     [
+      "rule.form1040-line7a",
+      null,
+      "published",
+      null,
+      []
+     ],
+     [
+      "rule.schedule-d-line10",
+      null,
+      "published",
+      null,
+      []
+     ],
+     [
+      "rule.schedule-d-line13",
+      null,
+      "published",
+      null,
+      []
+     ],
+     [
+      "rule.schedule-d-line14",
+      null,
+      "published",
+      null,
+      []
+     ],
+     [
+      "rule.schedule-d-line15",
+      null,
+      "published",
+      null,
+      []
+     ],
+     [
+      "rule.schedule-d-line16",
+      null,
+      "published",
+      null,
+      []
+     ],
+     [
+      "rule.schedule-d-line1a-gain",
+      null,
+      "published",
+      null,
+      []
+     ],
+     [
+      "rule.schedule-d-line1b",
+      null,
+      "published",
+      null,
+      []
+     ],
+     [
+      "rule.schedule-d-line2",
+      null,
+      "published",
+      null,
+      []
+     ],
+     [
+      "rule.schedule-d-line21",
+      null,
+      "published",
+      null,
+      []
+     ],
+     [
+      "rule.schedule-d-line3",
+      null,
+      "published",
+      null,
+      []
+     ],
+     [
+      "rule.schedule-d-line6",
+      null,
+      "published",
+      null,
+      []
+     ],
+     [
+      "rule.schedule-d-line7",
+      null,
+      "published",
+      null,
+      []
+     ],
+     [
+      "rule.schedule-d-line8a-gain",
+      null,
+      "published",
+      null,
+      []
+     ],
+     [
+      "rule.schedule-d-line8b",
+      null,
+      "published",
+      null,
+      []
+     ],
+     [
+      "rule.schedule-d-line9",
+      null,
+      "published",
+      null,
+      []
+     ],
+     [
+      "rule.selected-preferential-base",
+      null,
+      "published",
+      null,
+      []
+     ]
+    ],
+    "f8949_parts": [
+     "Part I box A column (d): short-term wash-sale proceeds",
+     "Part I box A column (e): short-term wash-sale basis",
+     "Part I box A column (g): short-term wash-sale adjustment",
+     "Part II box D column (d): long-term wash-sale proceeds",
+     "Part II box D column (e): long-term wash-sale basis",
+     "Part II box D column (g): long-term wash-sale adjustment",
+     "Part I box B column (d): short-term basis-not-reported proceeds",
+     "Part I box B column (e): short-term basis the filer supplies",
+     "Part I box B column (g): short-term wash-sale adjustment",
+     "Part II box E column (d): long-term basis-not-reported proceeds",
+     "Part II box E column (e): long-term basis the filer supplies",
+     "Part II box E column (g): long-term wash-sale adjustment",
+     "Part I box C column (d): short-term net proceeds, no Form 1099-B",
+     "Part I box C column (e): short-term basis you supply, no Form 1099-B",
+     "Part I box C column (g): short-term wash-sale adjustment, no Form 1099-B",
+     "Part II box F column (d): long-term net proceeds, no Form 1099-B",
+     "Part II box F column (e): long-term basis you supply, no Form 1099-B",
+     "Part II box F column (g): long-term wash-sale adjustment, no Form 1099-B"
+    ],
+    "fields": {
+     "form1040.line-7a": {
+      "disposition": "published_value",
+      "explain": "A current derived finding publishes this capital-gain distributions amount on the direct line-7a route.",
+      "reasons": [],
+      "value": -2000
+     },
+     "schedule-d.line-10": {
+      "disposition": "computed_zero",
+      "explain": "Schedule D line 10, column (h), is zero. Either no long-term sale you received no Form 1099-B for is recorded and your Form 8949 answers confirm it, or your box F proceeds, basis, and adjustments net to zero.",
+      "reasons": [],
+      "value": 0
+     },
+     "schedule-d.line-15": {
+      "disposition": "computed_zero",
+      "explain": "Schedule D line 15 is zero because lines 8a, 8b, 9, 10, 13, and 14 add to zero.",
+      "reasons": [],
+      "value": 0
+     },
+     "schedule-d.line-16": {
+      "disposition": "published_value",
+      "explain": "A current derived finding publishes line 16 equal to line 15.",
+      "reasons": [],
+      "value": -2000
+     },
+     "schedule-d.line-2": {
+      "disposition": "closure_backed_zero",
+      "explain": "Schedule D line 2, column (h), is zero. No short-term sale whose basis was not reported to the IRS is recorded, and your answer about those sales confirms the list is complete.",
+      "reasons": [],
+      "value": 0
+     },
+     "schedule-d.line-21": {
+      "disposition": "published_value",
+      "explain": "Schedule D line 21 is the capital loss you can deduct this year, after the yearly limit.",
+      "reasons": [],
+      "value": 2000
+     },
+     "schedule-d.line-3": {
+      "disposition": "published_value",
+      "explain": "Schedule D line 3, column (h), is your short-term Form 8949 box C gain or loss, proceeds minus basis plus adjustments.",
+      "reasons": [],
+      "value": -2000
+     },
+     "schedule-d.line-7": {
+      "disposition": "published_value",
+      "explain": "Schedule D line 7 adds lines 1a, 1b, 2, 3, and 6.",
+      "reasons": [],
+      "value": -2000
+     },
+     "schedule-d.line-9": {
+      "disposition": "closure_backed_zero",
+      "explain": "Schedule D line 9, column (h), is zero. No long-term sale whose basis was not reported to the IRS is recorded, and your answer about those sales confirms the list is complete.",
+      "reasons": [],
+      "value": 0
+     }
+    },
+    "lines": {
+     "form1040.line-15": [
+      "published_value",
+      32250
+     ],
+     "form1040.line-16": [
+      "published_value",
+      3635
+     ],
+     "form1040.line-7a": [
+      "published_value",
+      -2000
+     ],
+     "schedule-d.line-10": [
+      "computed_zero",
+      0
+     ],
+     "schedule-d.line-15": [
+      "computed_zero",
+      0
+     ],
+     "schedule-d.line-16": [
+      "published_value",
+      -2000
+     ],
+     "schedule-d.line-1a": [
+      "closure_backed_zero",
+      0
+     ],
+     "schedule-d.line-2": [
+      "closure_backed_zero",
+      0
+     ],
+     "schedule-d.line-21": [
+      "published_value",
+      2000
+     ],
+     "schedule-d.line-3": [
+      "published_value",
+      -2000
+     ],
+     "schedule-d.line-7": [
+      "published_value",
+      -2000
+     ],
+     "schedule-d.line-8a": [
+      "closure_backed_zero",
+      0
+     ],
+     "schedule-d.line-9": [
+      "closure_backed_zero",
+      0
+     ]
+    },
+    "presentation_valid": true,
+    "stop_reason": "saturated",
+    "symbols": {
+     "capital-gains.selected-preferential-base": "0"
+    }
+   }
+  },
   "d3_b_basis_missing": {
    "mismatch": {},
    "result": {
@@ -3307,6 +3875,285 @@
     "stop_reason": "saturated"
    }
   },
+  "mixed_abcf": {
+   "mismatch": {},
+   "result": {
+    "attachments": {
+     "f8949": "published",
+     "schedule-d": "published"
+    },
+    "dispositions": [
+     [
+      "rule.attachment.f8949",
+      null,
+      "published",
+      null,
+      []
+     ],
+     [
+      "rule.attachment.schedule-d",
+      null,
+      "published",
+      null,
+      []
+     ],
+     [
+      "rule.form1040-line7a",
+      null,
+      "published",
+      null,
+      []
+     ],
+     [
+      "rule.schedule-d-line10",
+      null,
+      "published",
+      null,
+      []
+     ],
+     [
+      "rule.schedule-d-line13",
+      null,
+      "published",
+      null,
+      []
+     ],
+     [
+      "rule.schedule-d-line14",
+      null,
+      "published",
+      null,
+      []
+     ],
+     [
+      "rule.schedule-d-line15",
+      null,
+      "published",
+      null,
+      []
+     ],
+     [
+      "rule.schedule-d-line16",
+      null,
+      "published",
+      null,
+      []
+     ],
+     [
+      "rule.schedule-d-line1a-gain",
+      null,
+      "published",
+      null,
+      []
+     ],
+     [
+      "rule.schedule-d-line1b",
+      null,
+      "published",
+      null,
+      []
+     ],
+     [
+      "rule.schedule-d-line2",
+      null,
+      "published",
+      null,
+      []
+     ],
+     [
+      "rule.schedule-d-line21",
+      null,
+      "published",
+      null,
+      []
+     ],
+     [
+      "rule.schedule-d-line3",
+      null,
+      "published",
+      null,
+      []
+     ],
+     [
+      "rule.schedule-d-line6",
+      null,
+      "published",
+      null,
+      []
+     ],
+     [
+      "rule.schedule-d-line7",
+      null,
+      "published",
+      null,
+      []
+     ],
+     [
+      "rule.schedule-d-line8a-gain",
+      null,
+      "published",
+      null,
+      []
+     ],
+     [
+      "rule.schedule-d-line8b",
+      null,
+      "published",
+      null,
+      []
+     ],
+     [
+      "rule.schedule-d-line9",
+      null,
+      "published",
+      null,
+      []
+     ],
+     [
+      "rule.selected-preferential-base",
+      null,
+      "published",
+      null,
+      []
+     ]
+    ],
+    "f8949_parts": [
+     "Part I box A column (d): short-term wash-sale proceeds",
+     "Part I box A column (e): short-term wash-sale basis",
+     "Part I box A column (g): short-term wash-sale adjustment",
+     "Part II box D column (d): long-term wash-sale proceeds",
+     "Part II box D column (e): long-term wash-sale basis",
+     "Part II box D column (g): long-term wash-sale adjustment",
+     "Part I box B column (d): short-term basis-not-reported proceeds",
+     "Part I box B column (e): short-term basis the filer supplies",
+     "Part I box B column (g): short-term wash-sale adjustment",
+     "Part II box E column (d): long-term basis-not-reported proceeds",
+     "Part II box E column (e): long-term basis the filer supplies",
+     "Part II box E column (g): long-term wash-sale adjustment",
+     "Part I box C column (d): short-term net proceeds, no Form 1099-B",
+     "Part I box C column (e): short-term basis you supply, no Form 1099-B",
+     "Part I box C column (g): short-term wash-sale adjustment, no Form 1099-B",
+     "Part II box F column (d): long-term net proceeds, no Form 1099-B",
+     "Part II box F column (e): long-term basis you supply, no Form 1099-B",
+     "Part II box F column (g): long-term wash-sale adjustment, no Form 1099-B"
+    ],
+    "fields": {
+     "form1040.line-7a": {
+      "disposition": "published_value",
+      "explain": "A current derived finding publishes this capital-gain distributions amount on the direct line-7a route.",
+      "reasons": [],
+      "value": 6000
+     },
+     "schedule-d.line-10": {
+      "disposition": "published_value",
+      "explain": "Schedule D line 10, column (h), is your long-term Form 8949 box F gain or loss, proceeds minus basis plus adjustments.",
+      "reasons": [],
+      "value": 4000
+     },
+     "schedule-d.line-15": {
+      "disposition": "published_value",
+      "explain": "Schedule D line 15 adds lines 8a, 8b, 9, 10, 13, and 14.",
+      "reasons": [],
+      "value": 4000
+     },
+     "schedule-d.line-16": {
+      "disposition": "published_value",
+      "explain": "A current derived finding publishes line 16 equal to line 15.",
+      "reasons": [],
+      "value": 6000
+     },
+     "schedule-d.line-2": {
+      "disposition": "published_value",
+      "explain": "Schedule D line 2, column (h), is your short-term Form 8949 box B gain or loss, proceeds minus basis plus adjustments.",
+      "reasons": [],
+      "value": -500
+     },
+     "schedule-d.line-21": {
+      "disposition": "computed_zero",
+      "explain": "Schedule D line 21 is zero because line 16 is zero or a gain.",
+      "reasons": [],
+      "value": 0
+     },
+     "schedule-d.line-3": {
+      "disposition": "published_value",
+      "explain": "Schedule D line 3, column (h), is your short-term Form 8949 box C gain or loss, proceeds minus basis plus adjustments.",
+      "reasons": [],
+      "value": 1500
+     },
+     "schedule-d.line-7": {
+      "disposition": "published_value",
+      "explain": "Schedule D line 7 adds lines 1a, 1b, 2, 3, and 6.",
+      "reasons": [],
+      "value": 2000
+     },
+     "schedule-d.line-9": {
+      "disposition": "closure_backed_zero",
+      "explain": "Schedule D line 9, column (h), is zero. No long-term sale whose basis was not reported to the IRS is recorded, and your answer about those sales confirms the list is complete.",
+      "reasons": [],
+      "value": 0
+     }
+    },
+    "lines": {
+     "form1040.line-15": [
+      "published_value",
+      40250
+     ],
+     "form1040.line-16": [
+      "published_value",
+      4115
+     ],
+     "form1040.line-7a": [
+      "published_value",
+      6000
+     ],
+     "schedule-d.line-10": [
+      "published_value",
+      4000
+     ],
+     "schedule-d.line-15": [
+      "published_value",
+      4000
+     ],
+     "schedule-d.line-16": [
+      "published_value",
+      6000
+     ],
+     "schedule-d.line-1a": [
+      "published_value",
+      1000
+     ],
+     "schedule-d.line-2": [
+      "published_value",
+      -500
+     ],
+     "schedule-d.line-21": [
+      "computed_zero",
+      0
+     ],
+     "schedule-d.line-3": [
+      "published_value",
+      1500
+     ],
+     "schedule-d.line-7": [
+      "published_value",
+      2000
+     ],
+     "schedule-d.line-8a": [
+      "closure_backed_zero",
+      0
+     ],
+     "schedule-d.line-9": [
+      "closure_backed_zero",
+      0
+     ]
+    },
+    "presentation_valid": true,
+    "stop_reason": "saturated",
+    "symbols": {
+     "capital-gains.selected-preferential-base": "4000.0"
+    }
+   }
+  },
   "t1_stage3": {
    "mismatch": {},
    "result": {
@@ -3567,9 +4414,1126 @@
      "capital-gains.selected-preferential-base": "4000.0"
     }
    }
+  },
+  "w_b_scalar_only_on_gain": {
+   "mismatch": {},
+   "result": {
+    "attachments": {
+     "f8949": "published",
+     "schedule-d": "published"
+    },
+    "dispositions": [
+     [
+      "rule.attachment.f8949",
+      null,
+      "published",
+      null,
+      []
+     ],
+     [
+      "rule.attachment.schedule-d",
+      null,
+      "published",
+      null,
+      []
+     ],
+     [
+      "rule.form1040-line7a",
+      null,
+      "published",
+      null,
+      []
+     ],
+     [
+      "rule.schedule-d-line10",
+      null,
+      "published",
+      null,
+      []
+     ],
+     [
+      "rule.schedule-d-line13",
+      null,
+      "published",
+      null,
+      []
+     ],
+     [
+      "rule.schedule-d-line14",
+      null,
+      "published",
+      null,
+      []
+     ],
+     [
+      "rule.schedule-d-line15",
+      null,
+      "published",
+      null,
+      []
+     ],
+     [
+      "rule.schedule-d-line16",
+      null,
+      "published",
+      null,
+      []
+     ],
+     [
+      "rule.schedule-d-line1a-gain",
+      null,
+      "published",
+      null,
+      []
+     ],
+     [
+      "rule.schedule-d-line1b",
+      null,
+      "published",
+      null,
+      []
+     ],
+     [
+      "rule.schedule-d-line2",
+      null,
+      "published",
+      null,
+      []
+     ],
+     [
+      "rule.schedule-d-line21",
+      null,
+      "published",
+      null,
+      []
+     ],
+     [
+      "rule.schedule-d-line3",
+      null,
+      "published",
+      null,
+      []
+     ],
+     [
+      "rule.schedule-d-line6",
+      null,
+      "published",
+      null,
+      []
+     ],
+     [
+      "rule.schedule-d-line7",
+      null,
+      "published",
+      null,
+      []
+     ],
+     [
+      "rule.schedule-d-line8a-gain",
+      null,
+      "published",
+      null,
+      []
+     ],
+     [
+      "rule.schedule-d-line8b",
+      null,
+      "published",
+      null,
+      []
+     ],
+     [
+      "rule.schedule-d-line9",
+      null,
+      "published",
+      null,
+      []
+     ],
+     [
+      "rule.selected-preferential-base",
+      null,
+      "published",
+      null,
+      []
+     ]
+    ],
+    "f8949_parts": [
+     "Part I box A column (d): short-term wash-sale proceeds",
+     "Part I box A column (e): short-term wash-sale basis",
+     "Part I box A column (g): short-term wash-sale adjustment",
+     "Part II box D column (d): long-term wash-sale proceeds",
+     "Part II box D column (e): long-term wash-sale basis",
+     "Part II box D column (g): long-term wash-sale adjustment",
+     "Part I box B column (d): short-term basis-not-reported proceeds",
+     "Part I box B column (e): short-term basis the filer supplies",
+     "Part I box B column (g): short-term wash-sale adjustment",
+     "Part II box E column (d): long-term basis-not-reported proceeds",
+     "Part II box E column (e): long-term basis the filer supplies",
+     "Part II box E column (g): long-term wash-sale adjustment",
+     "Part I box C column (d): short-term net proceeds, no Form 1099-B",
+     "Part I box C column (e): short-term basis you supply, no Form 1099-B",
+     "Part I box C column (g): short-term wash-sale adjustment, no Form 1099-B",
+     "Part II box F column (d): long-term net proceeds, no Form 1099-B",
+     "Part II box F column (e): long-term basis you supply, no Form 1099-B",
+     "Part II box F column (g): long-term wash-sale adjustment, no Form 1099-B"
+    ],
+    "fields": {
+     "form1040.line-7a": {
+      "disposition": "published_value",
+      "explain": "A current derived finding publishes this capital-gain distributions amount on the direct line-7a route.",
+      "reasons": [],
+      "value": 4500
+     },
+     "schedule-d.line-10": {
+      "disposition": "computed_zero",
+      "explain": "Schedule D line 10, column (h), is zero. Either no long-term sale you received no Form 1099-B for is recorded and your Form 8949 answers confirm it, or your box F proceeds, basis, and adjustments net to zero.",
+      "reasons": [],
+      "value": 0
+     },
+     "schedule-d.line-15": {
+      "disposition": "computed_zero",
+      "explain": "Schedule D line 15 is zero because lines 8a, 8b, 9, 10, 13, and 14 add to zero.",
+      "reasons": [],
+      "value": 0
+     },
+     "schedule-d.line-16": {
+      "disposition": "published_value",
+      "explain": "A current derived finding publishes line 16 equal to line 15.",
+      "reasons": [],
+      "value": 4500
+     },
+     "schedule-d.line-2": {
+      "disposition": "published_value",
+      "explain": "Schedule D line 2, column (h), is your short-term Form 8949 box B gain or loss, proceeds minus basis plus adjustments.",
+      "reasons": [],
+      "value": 4500
+     },
+     "schedule-d.line-21": {
+      "disposition": "computed_zero",
+      "explain": "Schedule D line 21 is zero because line 16 is zero or a gain.",
+      "reasons": [],
+      "value": 0
+     },
+     "schedule-d.line-3": {
+      "disposition": "computed_zero",
+      "explain": "Schedule D line 3, column (h), is zero. Either no short-term sale you received no Form 1099-B for is recorded and your Form 8949 answers confirm it, or your box C proceeds, basis, and adjustments net to zero.",
+      "reasons": [],
+      "value": 0
+     },
+     "schedule-d.line-7": {
+      "disposition": "published_value",
+      "explain": "Schedule D line 7 adds lines 1a, 1b, 2, 3, and 6.",
+      "reasons": [],
+      "value": 4500
+     },
+     "schedule-d.line-9": {
+      "disposition": "closure_backed_zero",
+      "explain": "Schedule D line 9, column (h), is zero. No long-term sale whose basis was not reported to the IRS is recorded, and your answer about those sales confirms the list is complete.",
+      "reasons": [],
+      "value": 0
+     }
+    },
+    "lines": {
+     "form1040.line-15": [
+      "published_value",
+      38750
+     ],
+     "form1040.line-16": [
+      "published_value",
+      4415
+     ],
+     "form1040.line-7a": [
+      "published_value",
+      4500
+     ],
+     "schedule-d.line-10": [
+      "computed_zero",
+      0
+     ],
+     "schedule-d.line-15": [
+      "computed_zero",
+      0
+     ],
+     "schedule-d.line-16": [
+      "published_value",
+      4500
+     ],
+     "schedule-d.line-1a": [
+      "closure_backed_zero",
+      0
+     ],
+     "schedule-d.line-2": [
+      "published_value",
+      4500
+     ],
+     "schedule-d.line-21": [
+      "computed_zero",
+      0
+     ],
+     "schedule-d.line-3": [
+      "computed_zero",
+      0
+     ],
+     "schedule-d.line-7": [
+      "published_value",
+      4500
+     ],
+     "schedule-d.line-8a": [
+      "closure_backed_zero",
+      0
+     ],
+     "schedule-d.line-9": [
+      "closure_backed_zero",
+      0
+     ]
+    },
+    "presentation_valid": true,
+    "stop_reason": "saturated",
+    "symbols": {
+     "capital-gains.selected-preferential-base": "0"
+    }
+   }
+  },
+  "w_c_amounts_disagree": {
+   "mismatch": {},
+   "result": {
+    "attachments": {
+     "f8949": "published",
+     "schedule-d": "published"
+    },
+    "dispositions": [
+     [
+      "rule.attachment.f8949",
+      null,
+      "published",
+      null,
+      []
+     ],
+     [
+      "rule.attachment.schedule-d",
+      null,
+      "published",
+      null,
+      []
+     ],
+     [
+      "rule.form1040-line7a",
+      null,
+      "published",
+      null,
+      []
+     ],
+     [
+      "rule.schedule-d-line10",
+      null,
+      "published",
+      null,
+      []
+     ],
+     [
+      "rule.schedule-d-line13",
+      null,
+      "published",
+      null,
+      []
+     ],
+     [
+      "rule.schedule-d-line14",
+      null,
+      "published",
+      null,
+      []
+     ],
+     [
+      "rule.schedule-d-line15",
+      null,
+      "published",
+      null,
+      []
+     ],
+     [
+      "rule.schedule-d-line16",
+      null,
+      "published",
+      null,
+      []
+     ],
+     [
+      "rule.schedule-d-line1a-gain",
+      null,
+      "published",
+      null,
+      []
+     ],
+     [
+      "rule.schedule-d-line1b",
+      null,
+      "published",
+      null,
+      []
+     ],
+     [
+      "rule.schedule-d-line2",
+      null,
+      "published",
+      null,
+      []
+     ],
+     [
+      "rule.schedule-d-line21",
+      null,
+      "published",
+      null,
+      []
+     ],
+     [
+      "rule.schedule-d-line3",
+      null,
+      "published",
+      null,
+      []
+     ],
+     [
+      "rule.schedule-d-line6",
+      null,
+      "published",
+      null,
+      []
+     ],
+     [
+      "rule.schedule-d-line7",
+      null,
+      "published",
+      null,
+      []
+     ],
+     [
+      "rule.schedule-d-line8a-gain",
+      null,
+      "published",
+      null,
+      []
+     ],
+     [
+      "rule.schedule-d-line8b",
+      null,
+      "published",
+      null,
+      []
+     ],
+     [
+      "rule.schedule-d-line9",
+      null,
+      "published",
+      null,
+      []
+     ],
+     [
+      "rule.selected-preferential-base",
+      null,
+      "published",
+      null,
+      []
+     ]
+    ],
+    "f8949_parts": [
+     "Part I box A column (d): short-term wash-sale proceeds",
+     "Part I box A column (e): short-term wash-sale basis",
+     "Part I box A column (g): short-term wash-sale adjustment",
+     "Part II box D column (d): long-term wash-sale proceeds",
+     "Part II box D column (e): long-term wash-sale basis",
+     "Part II box D column (g): long-term wash-sale adjustment",
+     "Part I box B column (d): short-term basis-not-reported proceeds",
+     "Part I box B column (e): short-term basis the filer supplies",
+     "Part I box B column (g): short-term wash-sale adjustment",
+     "Part II box E column (d): long-term basis-not-reported proceeds",
+     "Part II box E column (e): long-term basis the filer supplies",
+     "Part II box E column (g): long-term wash-sale adjustment",
+     "Part I box C column (d): short-term net proceeds, no Form 1099-B",
+     "Part I box C column (e): short-term basis you supply, no Form 1099-B",
+     "Part I box C column (g): short-term wash-sale adjustment, no Form 1099-B",
+     "Part II box F column (d): long-term net proceeds, no Form 1099-B",
+     "Part II box F column (e): long-term basis you supply, no Form 1099-B",
+     "Part II box F column (g): long-term wash-sale adjustment, no Form 1099-B"
+    ],
+    "fields": {
+     "form1040.line-7a": {
+      "disposition": "published_value",
+      "explain": "A current derived finding publishes this capital-gain distributions amount on the direct line-7a route.",
+      "reasons": [],
+      "value": 5000
+     },
+     "schedule-d.line-10": {
+      "disposition": "computed_zero",
+      "explain": "Schedule D line 10, column (h), is zero. Either no long-term sale you received no Form 1099-B for is recorded and your Form 8949 answers confirm it, or your box F proceeds, basis, and adjustments net to zero.",
+      "reasons": [],
+      "value": 0
+     },
+     "schedule-d.line-15": {
+      "disposition": "computed_zero",
+      "explain": "Schedule D line 15 is zero because lines 8a, 8b, 9, 10, 13, and 14 add to zero.",
+      "reasons": [],
+      "value": 0
+     },
+     "schedule-d.line-16": {
+      "disposition": "published_value",
+      "explain": "A current derived finding publishes line 16 equal to line 15.",
+      "reasons": [],
+      "value": 5000
+     },
+     "schedule-d.line-2": {
+      "disposition": "closure_backed_zero",
+      "explain": "Schedule D line 2, column (h), is zero. No short-term sale whose basis was not reported to the IRS is recorded, and your answer about those sales confirms the list is complete.",
+      "reasons": [],
+      "value": 0
+     },
+     "schedule-d.line-21": {
+      "disposition": "computed_zero",
+      "explain": "Schedule D line 21 is zero because line 16 is zero or a gain.",
+      "reasons": [],
+      "value": 0
+     },
+     "schedule-d.line-3": {
+      "disposition": "published_value",
+      "explain": "Schedule D line 3, column (h), is your short-term Form 8949 box C gain or loss, proceeds minus basis plus adjustments.",
+      "reasons": [],
+      "value": 5000
+     },
+     "schedule-d.line-7": {
+      "disposition": "published_value",
+      "explain": "Schedule D line 7 adds lines 1a, 1b, 2, 3, and 6.",
+      "reasons": [],
+      "value": 5000
+     },
+     "schedule-d.line-9": {
+      "disposition": "closure_backed_zero",
+      "explain": "Schedule D line 9, column (h), is zero. No long-term sale whose basis was not reported to the IRS is recorded, and your answer about those sales confirms the list is complete.",
+      "reasons": [],
+      "value": 0
+     }
+    },
+    "lines": {
+     "form1040.line-15": [
+      "published_value",
+      39250
+     ],
+     "form1040.line-16": [
+      "published_value",
+      4475
+     ],
+     "form1040.line-7a": [
+      "published_value",
+      5000
+     ],
+     "schedule-d.line-10": [
+      "computed_zero",
+      0
+     ],
+     "schedule-d.line-15": [
+      "computed_zero",
+      0
+     ],
+     "schedule-d.line-16": [
+      "published_value",
+      5000
+     ],
+     "schedule-d.line-1a": [
+      "closure_backed_zero",
+      0
+     ],
+     "schedule-d.line-2": [
+      "closure_backed_zero",
+      0
+     ],
+     "schedule-d.line-21": [
+      "computed_zero",
+      0
+     ],
+     "schedule-d.line-3": [
+      "published_value",
+      5000
+     ],
+     "schedule-d.line-7": [
+      "published_value",
+      5000
+     ],
+     "schedule-d.line-8a": [
+      "closure_backed_zero",
+      0
+     ],
+     "schedule-d.line-9": [
+      "closure_backed_zero",
+      0
+     ]
+    },
+    "presentation_valid": true,
+    "stop_reason": "saturated",
+    "symbols": {
+     "capital-gains.selected-preferential-base": "0"
+    }
+   }
+  },
+  "w_c_object_wash_no_row": {
+   "mismatch": {},
+   "result": {
+    "attachments": {
+     "f8949": "published",
+     "schedule-d": "published"
+    },
+    "dispositions": [
+     [
+      "rule.attachment.f8949",
+      null,
+      "published",
+      null,
+      []
+     ],
+     [
+      "rule.attachment.schedule-d",
+      null,
+      "published",
+      null,
+      []
+     ],
+     [
+      "rule.form1040-line7a",
+      null,
+      "published",
+      null,
+      []
+     ],
+     [
+      "rule.schedule-d-line10",
+      null,
+      "published",
+      null,
+      []
+     ],
+     [
+      "rule.schedule-d-line13",
+      null,
+      "published",
+      null,
+      []
+     ],
+     [
+      "rule.schedule-d-line14",
+      null,
+      "published",
+      null,
+      []
+     ],
+     [
+      "rule.schedule-d-line15",
+      null,
+      "published",
+      null,
+      []
+     ],
+     [
+      "rule.schedule-d-line16",
+      null,
+      "published",
+      null,
+      []
+     ],
+     [
+      "rule.schedule-d-line1a-gain",
+      null,
+      "published",
+      null,
+      []
+     ],
+     [
+      "rule.schedule-d-line1b",
+      null,
+      "published",
+      null,
+      []
+     ],
+     [
+      "rule.schedule-d-line2",
+      null,
+      "published",
+      null,
+      []
+     ],
+     [
+      "rule.schedule-d-line21",
+      null,
+      "published",
+      null,
+      []
+     ],
+     [
+      "rule.schedule-d-line3",
+      null,
+      "published",
+      null,
+      []
+     ],
+     [
+      "rule.schedule-d-line6",
+      null,
+      "published",
+      null,
+      []
+     ],
+     [
+      "rule.schedule-d-line7",
+      null,
+      "published",
+      null,
+      []
+     ],
+     [
+      "rule.schedule-d-line8a-gain",
+      null,
+      "published",
+      null,
+      []
+     ],
+     [
+      "rule.schedule-d-line8b",
+      null,
+      "published",
+      null,
+      []
+     ],
+     [
+      "rule.schedule-d-line9",
+      null,
+      "published",
+      null,
+      []
+     ],
+     [
+      "rule.selected-preferential-base",
+      null,
+      "published",
+      null,
+      []
+     ]
+    ],
+    "f8949_parts": [
+     "Part I box A column (d): short-term wash-sale proceeds",
+     "Part I box A column (e): short-term wash-sale basis",
+     "Part I box A column (g): short-term wash-sale adjustment",
+     "Part II box D column (d): long-term wash-sale proceeds",
+     "Part II box D column (e): long-term wash-sale basis",
+     "Part II box D column (g): long-term wash-sale adjustment",
+     "Part I box B column (d): short-term basis-not-reported proceeds",
+     "Part I box B column (e): short-term basis the filer supplies",
+     "Part I box B column (g): short-term wash-sale adjustment",
+     "Part II box E column (d): long-term basis-not-reported proceeds",
+     "Part II box E column (e): long-term basis the filer supplies",
+     "Part II box E column (g): long-term wash-sale adjustment",
+     "Part I box C column (d): short-term net proceeds, no Form 1099-B",
+     "Part I box C column (e): short-term basis you supply, no Form 1099-B",
+     "Part I box C column (g): short-term wash-sale adjustment, no Form 1099-B",
+     "Part II box F column (d): long-term net proceeds, no Form 1099-B",
+     "Part II box F column (e): long-term basis you supply, no Form 1099-B",
+     "Part II box F column (g): long-term wash-sale adjustment, no Form 1099-B"
+    ],
+    "fields": {
+     "form1040.line-7a": {
+      "disposition": "published_value",
+      "explain": "A current derived finding publishes this capital-gain distributions amount on the direct line-7a route.",
+      "reasons": [],
+      "value": -3000
+     },
+     "schedule-d.line-10": {
+      "disposition": "computed_zero",
+      "explain": "Schedule D line 10, column (h), is zero. Either no long-term sale you received no Form 1099-B for is recorded and your Form 8949 answers confirm it, or your box F proceeds, basis, and adjustments net to zero.",
+      "reasons": [],
+      "value": 0
+     },
+     "schedule-d.line-15": {
+      "disposition": "computed_zero",
+      "explain": "Schedule D line 15 is zero because lines 8a, 8b, 9, 10, 13, and 14 add to zero.",
+      "reasons": [],
+      "value": 0
+     },
+     "schedule-d.line-16": {
+      "disposition": "published_value",
+      "explain": "A current derived finding publishes line 16 equal to line 15.",
+      "reasons": [],
+      "value": -3000
+     },
+     "schedule-d.line-2": {
+      "disposition": "closure_backed_zero",
+      "explain": "Schedule D line 2, column (h), is zero. No short-term sale whose basis was not reported to the IRS is recorded, and your answer about those sales confirms the list is complete.",
+      "reasons": [],
+      "value": 0
+     },
+     "schedule-d.line-21": {
+      "disposition": "published_value",
+      "explain": "Schedule D line 21 is the capital loss you can deduct this year, after the yearly limit.",
+      "reasons": [],
+      "value": 3000
+     },
+     "schedule-d.line-3": {
+      "disposition": "published_value",
+      "explain": "Schedule D line 3, column (h), is your short-term Form 8949 box C gain or loss, proceeds minus basis plus adjustments.",
+      "reasons": [],
+      "value": -3000
+     },
+     "schedule-d.line-7": {
+      "disposition": "published_value",
+      "explain": "Schedule D line 7 adds lines 1a, 1b, 2, 3, and 6.",
+      "reasons": [],
+      "value": -3000
+     },
+     "schedule-d.line-9": {
+      "disposition": "closure_backed_zero",
+      "explain": "Schedule D line 9, column (h), is zero. No long-term sale whose basis was not reported to the IRS is recorded, and your answer about those sales confirms the list is complete.",
+      "reasons": [],
+      "value": 0
+     }
+    },
+    "lines": {
+     "form1040.line-15": [
+      "published_value",
+      31250
+     ],
+     "form1040.line-16": [
+      "published_value",
+      3515
+     ],
+     "form1040.line-7a": [
+      "published_value",
+      -3000
+     ],
+     "schedule-d.line-10": [
+      "computed_zero",
+      0
+     ],
+     "schedule-d.line-15": [
+      "computed_zero",
+      0
+     ],
+     "schedule-d.line-16": [
+      "published_value",
+      -3000
+     ],
+     "schedule-d.line-1a": [
+      "closure_backed_zero",
+      0
+     ],
+     "schedule-d.line-2": [
+      "closure_backed_zero",
+      0
+     ],
+     "schedule-d.line-21": [
+      "published_value",
+      3000
+     ],
+     "schedule-d.line-3": [
+      "published_value",
+      -3000
+     ],
+     "schedule-d.line-7": [
+      "published_value",
+      -3000
+     ],
+     "schedule-d.line-8a": [
+      "closure_backed_zero",
+      0
+     ],
+     "schedule-d.line-9": [
+      "closure_backed_zero",
+      0
+     ]
+    },
+    "presentation_valid": true,
+    "stop_reason": "saturated",
+    "symbols": {
+     "capital-gains.selected-preferential-base": "0"
+    }
+   }
+  },
+  "w_c_scalar_only_on_gain": {
+   "mismatch": {},
+   "result": {
+    "attachments": {
+     "f8949": "published",
+     "schedule-d": "published"
+    },
+    "dispositions": [
+     [
+      "rule.attachment.f8949",
+      null,
+      "published",
+      null,
+      []
+     ],
+     [
+      "rule.attachment.schedule-d",
+      null,
+      "published",
+      null,
+      []
+     ],
+     [
+      "rule.form1040-line7a",
+      null,
+      "published",
+      null,
+      []
+     ],
+     [
+      "rule.schedule-d-line10",
+      null,
+      "published",
+      null,
+      []
+     ],
+     [
+      "rule.schedule-d-line13",
+      null,
+      "published",
+      null,
+      []
+     ],
+     [
+      "rule.schedule-d-line14",
+      null,
+      "published",
+      null,
+      []
+     ],
+     [
+      "rule.schedule-d-line15",
+      null,
+      "published",
+      null,
+      []
+     ],
+     [
+      "rule.schedule-d-line16",
+      null,
+      "published",
+      null,
+      []
+     ],
+     [
+      "rule.schedule-d-line1a-gain",
+      null,
+      "published",
+      null,
+      []
+     ],
+     [
+      "rule.schedule-d-line1b",
+      null,
+      "published",
+      null,
+      []
+     ],
+     [
+      "rule.schedule-d-line2",
+      null,
+      "published",
+      null,
+      []
+     ],
+     [
+      "rule.schedule-d-line21",
+      null,
+      "published",
+      null,
+      []
+     ],
+     [
+      "rule.schedule-d-line3",
+      null,
+      "published",
+      null,
+      []
+     ],
+     [
+      "rule.schedule-d-line6",
+      null,
+      "published",
+      null,
+      []
+     ],
+     [
+      "rule.schedule-d-line7",
+      null,
+      "published",
+      null,
+      []
+     ],
+     [
+      "rule.schedule-d-line8a-gain",
+      null,
+      "published",
+      null,
+      []
+     ],
+     [
+      "rule.schedule-d-line8b",
+      null,
+      "published",
+      null,
+      []
+     ],
+     [
+      "rule.schedule-d-line9",
+      null,
+      "published",
+      null,
+      []
+     ],
+     [
+      "rule.selected-preferential-base",
+      null,
+      "published",
+      null,
+      []
+     ]
+    ],
+    "f8949_parts": [
+     "Part I box A column (d): short-term wash-sale proceeds",
+     "Part I box A column (e): short-term wash-sale basis",
+     "Part I box A column (g): short-term wash-sale adjustment",
+     "Part II box D column (d): long-term wash-sale proceeds",
+     "Part II box D column (e): long-term wash-sale basis",
+     "Part II box D column (g): long-term wash-sale adjustment",
+     "Part I box B column (d): short-term basis-not-reported proceeds",
+     "Part I box B column (e): short-term basis the filer supplies",
+     "Part I box B column (g): short-term wash-sale adjustment",
+     "Part II box E column (d): long-term basis-not-reported proceeds",
+     "Part II box E column (e): long-term basis the filer supplies",
+     "Part II box E column (g): long-term wash-sale adjustment",
+     "Part I box C column (d): short-term net proceeds, no Form 1099-B",
+     "Part I box C column (e): short-term basis you supply, no Form 1099-B",
+     "Part I box C column (g): short-term wash-sale adjustment, no Form 1099-B",
+     "Part II box F column (d): long-term net proceeds, no Form 1099-B",
+     "Part II box F column (e): long-term basis you supply, no Form 1099-B",
+     "Part II box F column (g): long-term wash-sale adjustment, no Form 1099-B"
+    ],
+    "fields": {
+     "form1040.line-7a": {
+      "disposition": "published_value",
+      "explain": "A current derived finding publishes this capital-gain distributions amount on the direct line-7a route.",
+      "reasons": [],
+      "value": 4500
+     },
+     "schedule-d.line-10": {
+      "disposition": "computed_zero",
+      "explain": "Schedule D line 10, column (h), is zero. Either no long-term sale you received no Form 1099-B for is recorded and your Form 8949 answers confirm it, or your box F proceeds, basis, and adjustments net to zero.",
+      "reasons": [],
+      "value": 0
+     },
+     "schedule-d.line-15": {
+      "disposition": "computed_zero",
+      "explain": "Schedule D line 15 is zero because lines 8a, 8b, 9, 10, 13, and 14 add to zero.",
+      "reasons": [],
+      "value": 0
+     },
+     "schedule-d.line-16": {
+      "disposition": "published_value",
+      "explain": "A current derived finding publishes line 16 equal to line 15.",
+      "reasons": [],
+      "value": 4500
+     },
+     "schedule-d.line-2": {
+      "disposition": "closure_backed_zero",
+      "explain": "Schedule D line 2, column (h), is zero. No short-term sale whose basis was not reported to the IRS is recorded, and your answer about those sales confirms the list is complete.",
+      "reasons": [],
+      "value": 0
+     },
+     "schedule-d.line-21": {
+      "disposition": "computed_zero",
+      "explain": "Schedule D line 21 is zero because line 16 is zero or a gain.",
+      "reasons": [],
+      "value": 0
+     },
+     "schedule-d.line-3": {
+      "disposition": "published_value",
+      "explain": "Schedule D line 3, column (h), is your short-term Form 8949 box C gain or loss, proceeds minus basis plus adjustments.",
+      "reasons": [],
+      "value": 4500
+     },
+     "schedule-d.line-7": {
+      "disposition": "published_value",
+      "explain": "Schedule D line 7 adds lines 1a, 1b, 2, 3, and 6.",
+      "reasons": [],
+      "value": 4500
+     },
+     "schedule-d.line-9": {
+      "disposition": "closure_backed_zero",
+      "explain": "Schedule D line 9, column (h), is zero. No long-term sale whose basis was not reported to the IRS is recorded, and your answer about those sales confirms the list is complete.",
+      "reasons": [],
+      "value": 0
+     }
+    },
+    "lines": {
+     "form1040.line-15": [
+      "published_value",
+      38750
+     ],
+     "form1040.line-16": [
+      "published_value",
+      4415
+     ],
+     "form1040.line-7a": [
+      "published_value",
+      4500
+     ],
+     "schedule-d.line-10": [
+      "computed_zero",
+      0
+     ],
+     "schedule-d.line-15": [
+      "computed_zero",
+      0
+     ],
+     "schedule-d.line-16": [
+      "published_value",
+      4500
+     ],
+     "schedule-d.line-1a": [
+      "closure_backed_zero",
+      0
+     ],
+     "schedule-d.line-2": [
+      "closure_backed_zero",
+      0
+     ],
+     "schedule-d.line-21": [
+      "computed_zero",
+      0
+     ],
+     "schedule-d.line-3": [
+      "published_value",
+      4500
+     ],
+     "schedule-d.line-7": [
+      "published_value",
+      4500
+     ],
+     "schedule-d.line-8a": [
+      "closure_backed_zero",
+      0
+     ],
+     "schedule-d.line-9": [
+      "closure_backed_zero",
+      0
+     ]
+    },
+    "presentation_valid": true,
+    "stop_reason": "saturated",
+    "symbols": {
+     "capital-gains.selected-preferential-base": "0"
+    }
+   }
   }
  },
  "repairs": [
+  "amounts_agree",
   "f8949_reads_lines_2_9",
   "nc_count_pairing",
   "old_ic_backed",
@@ -3578,11 +5542,18 @@
  ],
  "source_ref": "eb02b548",
  "surface": {
-  "attachment.f8949": {
-   "members": []
-  },
-  "attachment.schedule-d": {
-   "members": []
+  "capital-gains.line7a-total": {
+   "consumers": [
+    "rule.eic-investment-income v2 (rule-artifact.v14)",
+    "rule.form1040-line9 v8 (rule-artifact.v2)",
+    "rule.ss-benefits-worksheet v4 (rule-artifact.v4)"
+   ],
+   "form_fields": [
+    "form1040.line-7a v1 (form-field.v3)"
+   ],
+   "publishers": [
+    "rule.form1040-line7a v7 (rule-artifact.v3)"
+   ]
   },
   "capital-gains.selected-preferential-base": {
    "consumers": [
@@ -3596,13 +5567,22 @@
     "rule.selected-preferential-base v8 (rule-artifact.v3)"
    ]
   },
-  "form1040.line-7a": {
+  "form8949.disposition": {
    "consumers": [],
    "form_fields": [],
-   "publishers": []
+   "publishers": [
+    "rule.attachment.f8949 v4 (attachment-rule.v8)"
+   ]
   },
-  "members_listed": 910,
-  "members_resolved": 910,
+  "members_listed": 919,
+  "members_resolved": 919,
+  "schedule-d.disposition": {
+   "consumers": [],
+   "form_fields": [],
+   "publishers": [
+    "rule.attachment.schedule-d v8 (attachment-rule.v8)"
+   ]
+  },
   "schedule-d.line-10": {
    "consumers": [
     "rule.attachment.f8949 v4 (attachment-rule.v8)",
@@ -5873,6 +7853,119 @@
      [
       "published_value",
       -6000
+     ],
+     [
+      "blocked",
+      null
+     ]
+    ]
+   },
+   "v80_q2_no_lines_3_10": {
+    "schedule-d.line-10": [
+     "computed_zero",
+     0
+    ],
+    "schedule-d.line-3": [
+     "computed_zero",
+     0
+    ]
+   },
+   "v80_q2_no_questions": [],
+   "v80_q2_unanswered_form1040": [
+    null,
+    null
+   ],
+   "v80_q2_unanswered_questions": [
+    "Did you sell any stocks or other securities for which you did not receive a Form 1099-B or substitute statement?"
+   ]
+  },
+  "t0_b_w_scalar_only_on_gain": {
+   "v79": {
+    "attachments": {
+     "f8949": "published",
+     "schedule-d": "published"
+    },
+    "error": null,
+    "form1040": [
+     38750,
+     4415
+    ]
+   },
+   "v80_q2_no_diff": {
+    "attachments": [
+     {
+      "f8949": "published",
+      "schedule-d": "published"
+     },
+     {
+      "f8949": "blocked",
+      "schedule-d": "blocked"
+     }
+    ],
+    "form1040.line-15": [
+     [
+      "published_value",
+      38750
+     ],
+     [
+      "blocked",
+      null
+     ]
+    ],
+    "form1040.line-16": [
+     [
+      "published_value",
+      4415
+     ],
+     [
+      "blocked",
+      null
+     ]
+    ],
+    "form1040.line-7a": [
+     [
+      "published_value",
+      4500
+     ],
+     [
+      "blocked",
+      null
+     ]
+    ],
+    "schedule-d.line-16": [
+     [
+      "published_value",
+      4500
+     ],
+     [
+      "blocked",
+      null
+     ]
+    ],
+    "schedule-d.line-2": [
+     [
+      "published_value",
+      4500
+     ],
+     [
+      "blocked",
+      null
+     ]
+    ],
+    "schedule-d.line-21": [
+     [
+      "computed_zero",
+      0
+     ],
+     [
+      "blocked",
+      null
+     ]
+    ],
+    "schedule-d.line-7": [
+     [
+      "published_value",
+      4500
      ],
      [
       "blocked",
@@ -10846,7 +12939,8 @@
       [
        "f8949.no1099b-lt-proceeds-subtotal",
        "f8949.no1099b-lt-basis-subtotal",
-       "f8949.no1099b-lt-adjustment-subtotal"
+       "f8949.no1099b-lt-adjustment-subtotal",
+       "f8949.no1099b-lt-txn.amounts-check"
       ]
      ],
      [
@@ -10976,33 +13070,25 @@
      "form1040.line-7a": {
       "disposition": "blocked",
       "explain": "Line 7a is blocked because Exception-1 authority is incomplete or the box-2a family is unclosed.",
-      "reasons": [
-       "Did you sell any stocks or other securities for which you did not receive a Form 1099-B or substitute statement?"
-      ],
+      "reasons": [],
       "value": null
      },
      "schedule-d.line-10": {
       "disposition": "blocked",
       "explain": "Schedule D line 10, column (h), has no value yet. It waits for your answers about sales you received no Form 1099-B for, sales whose basis was not reported, and Form 8949 to agree with the sales you recorded, or for each recorded long-term sale of that kind to have its proceeds and basis and pass its checks.",
-      "reasons": [
-       "Did you sell any stocks or other securities for which you did not receive a Form 1099-B or substitute statement?"
-      ],
+      "reasons": [],
       "value": null
      },
      "schedule-d.line-15": {
       "disposition": "blocked",
       "explain": "Schedule D line 15 has no value yet. It is waiting for whichever of lines 8a, 8b, 9, 10, 13, and 14 is still open.",
-      "reasons": [
-       "Did you sell any stocks or other securities for which you did not receive a Form 1099-B or substitute statement?"
-      ],
+      "reasons": [],
       "value": null
      },
      "schedule-d.line-16": {
       "disposition": "blocked",
       "explain": "Schedule D line 16 has no value yet. It is waiting for line 7 or line 15.",
-      "reasons": [
-       "Did you sell any stocks or other securities for which you did not receive a Form 1099-B or substitute statement?"
-      ],
+      "reasons": [],
       "value": null
      },
      "schedule-d.line-2": {
@@ -11014,9 +13100,7 @@
      "schedule-d.line-21": {
       "disposition": "blocked",
       "explain": "Schedule D line 21 has no value yet. It is waiting for your total gain or loss on line 16.",
-      "reasons": [
-       "Did you sell any stocks or other securities for which you did not receive a Form 1099-B or substitute statement?"
-      ],
+      "reasons": [],
       "value": null
      },
      "schedule-d.line-3": {
@@ -11461,7 +13545,8 @@
       [
        "f8949.no1099b-lt-proceeds-subtotal",
        "f8949.no1099b-lt-basis-subtotal",
-       "f8949.no1099b-lt-adjustment-subtotal"
+       "f8949.no1099b-lt-adjustment-subtotal",
+       "f8949.no1099b-lt-txn.amounts-check"
       ]
      ],
      [
@@ -11591,33 +13676,25 @@
      "form1040.line-7a": {
       "disposition": "blocked",
       "explain": "Line 7a is blocked because Exception-1 authority is incomplete or the box-2a family is unclosed.",
-      "reasons": [
-       "Did you sell any stocks or other securities for which you did not receive a Form 1099-B or substitute statement?"
-      ],
+      "reasons": [],
       "value": null
      },
      "schedule-d.line-10": {
       "disposition": "blocked",
       "explain": "Schedule D line 10, column (h), has no value yet. It waits for your answers about sales you received no Form 1099-B for, sales whose basis was not reported, and Form 8949 to agree with the sales you recorded, or for each recorded long-term sale of that kind to have its proceeds and basis and pass its checks.",
-      "reasons": [
-       "Did you sell any stocks or other securities for which you did not receive a Form 1099-B or substitute statement?"
-      ],
+      "reasons": [],
       "value": null
      },
      "schedule-d.line-15": {
       "disposition": "blocked",
       "explain": "Schedule D line 15 has no value yet. It is waiting for whichever of lines 8a, 8b, 9, 10, 13, and 14 is still open.",
-      "reasons": [
-       "Did you sell any stocks or other securities for which you did not receive a Form 1099-B or substitute statement?"
-      ],
+      "reasons": [],
       "value": null
      },
      "schedule-d.line-16": {
       "disposition": "blocked",
       "explain": "Schedule D line 16 has no value yet. It is waiting for line 7 or line 15.",
-      "reasons": [
-       "Did you sell any stocks or other securities for which you did not receive a Form 1099-B or substitute statement?"
-      ],
+      "reasons": [],
       "value": null
      },
      "schedule-d.line-2": {
@@ -11629,9 +13706,7 @@
      "schedule-d.line-21": {
       "disposition": "blocked",
       "explain": "Schedule D line 21 has no value yet. It is waiting for your total gain or loss on line 16.",
-      "reasons": [
-       "Did you sell any stocks or other securities for which you did not receive a Form 1099-B or substitute statement?"
-      ],
+      "reasons": [],
       "value": null
      },
      "schedule-d.line-3": {
@@ -12675,7 +14750,8 @@
       [
        "f1099b.noncovered-st-proceeds-subtotal",
        "f1099b.noncovered-st-basis-subtotal",
-       "f1099b.noncovered-st-adjustment-subtotal"
+       "f1099b.noncovered-st-adjustment-subtotal",
+       "f1099b.noncovered-st-txn.amounts-check"
       ]
      ],
      [
@@ -12752,9 +14828,7 @@
      "form1040.line-7a": {
       "disposition": "blocked",
       "explain": "Line 7a is blocked because Exception-1 authority is incomplete or the box-2a family is unclosed.",
-      "reasons": [
-       "Did you sell any securities whose basis was not reported to the IRS?"
-      ],
+      "reasons": [],
       "value": null
      },
      "schedule-d.line-10": {
@@ -12776,25 +14850,19 @@
      "schedule-d.line-16": {
       "disposition": "blocked",
       "explain": "Schedule D line 16 has no value yet. It is waiting for line 7 or line 15.",
-      "reasons": [
-       "Did you sell any securities whose basis was not reported to the IRS?"
-      ],
+      "reasons": [],
       "value": null
      },
      "schedule-d.line-2": {
       "disposition": "blocked",
       "explain": "Schedule D line 2, column (h), has no value yet. It waits for your answers about sales whose basis was not reported to the IRS, or for a recorded short-term sale of that kind to pass its checks.",
-      "reasons": [
-       "Did you sell any securities whose basis was not reported to the IRS?"
-      ],
+      "reasons": [],
       "value": null
      },
      "schedule-d.line-21": {
       "disposition": "blocked",
       "explain": "Schedule D line 21 has no value yet. It is waiting for your total gain or loss on line 16.",
-      "reasons": [
-       "Did you sell any securities whose basis was not reported to the IRS?"
-      ],
+      "reasons": [],
       "value": null
      },
      "schedule-d.line-3": {
@@ -12808,9 +14876,7 @@
      "schedule-d.line-7": {
       "disposition": "blocked",
       "explain": "Schedule D line 7 has no value yet. It is waiting for whichever of lines 1a, 1b, 2, 3, and 6 is still open.",
-      "reasons": [
-       "Did you sell any securities whose basis was not reported to the IRS?"
-      ],
+      "reasons": [],
       "value": null
      },
      "schedule-d.line-9": {
@@ -14682,7 +16748,8 @@
       [
        "f8949.no1099b-st-proceeds-subtotal",
        "f8949.no1099b-st-basis-subtotal",
-       "f8949.no1099b-st-adjustment-subtotal"
+       "f8949.no1099b-st-adjustment-subtotal",
+       "f8949.no1099b-st-txn.amounts-check"
       ]
      ],
      [
@@ -14739,9 +16806,7 @@
      "form1040.line-7a": {
       "disposition": "blocked",
       "explain": "Line 7a is blocked because Exception-1 authority is incomplete or the box-2a family is unclosed.",
-      "reasons": [
-       "Did you sell any stocks or other securities for which you did not receive a Form 1099-B or substitute statement?"
-      ],
+      "reasons": [],
       "value": null
      },
      "schedule-d.line-10": {
@@ -14763,9 +16828,7 @@
      "schedule-d.line-16": {
       "disposition": "blocked",
       "explain": "Schedule D line 16 has no value yet. It is waiting for line 7 or line 15.",
-      "reasons": [
-       "Did you sell any stocks or other securities for which you did not receive a Form 1099-B or substitute statement?"
-      ],
+      "reasons": [],
       "value": null
      },
      "schedule-d.line-2": {
@@ -14777,25 +16840,19 @@
      "schedule-d.line-21": {
       "disposition": "blocked",
       "explain": "Schedule D line 21 has no value yet. It is waiting for your total gain or loss on line 16.",
-      "reasons": [
-       "Did you sell any stocks or other securities for which you did not receive a Form 1099-B or substitute statement?"
-      ],
+      "reasons": [],
       "value": null
      },
      "schedule-d.line-3": {
       "disposition": "blocked",
       "explain": "Schedule D line 3, column (h), has no value yet. It waits for your answers about sales you received no Form 1099-B for, sales whose basis was not reported, and Form 8949 to agree with the sales you recorded, or for each recorded short-term sale of that kind to have its proceeds and basis and pass its checks.",
-      "reasons": [
-       "Did you sell any stocks or other securities for which you did not receive a Form 1099-B or substitute statement?"
-      ],
+      "reasons": [],
       "value": null
      },
      "schedule-d.line-7": {
       "disposition": "blocked",
       "explain": "Schedule D line 7 has no value yet. It is waiting for whichever of lines 1a, 1b, 2, 3, and 6 is still open.",
-      "reasons": [
-       "Did you sell any stocks or other securities for which you did not receive a Form 1099-B or substitute statement?"
-      ],
+      "reasons": [],
       "value": null
      },
      "schedule-d.line-9": {
@@ -19446,6 +21503,585 @@
     }
    }
   },
+  "q2_late_yes_reanswered": {
+   "mismatch": {},
+   "result": {
+    "attachments": {
+     "f8949": "published",
+     "schedule-d": "published"
+    },
+    "dispositions": [
+     [
+      "rule.attachment.f8949",
+      null,
+      "published",
+      null,
+      []
+     ],
+     [
+      "rule.attachment.schedule-d",
+      null,
+      "published",
+      null,
+      []
+     ],
+     [
+      "rule.form1040-line7a",
+      null,
+      "published",
+      null,
+      []
+     ],
+     [
+      "rule.schedule-d-line10",
+      null,
+      "published",
+      null,
+      []
+     ],
+     [
+      "rule.schedule-d-line13",
+      null,
+      "published",
+      null,
+      []
+     ],
+     [
+      "rule.schedule-d-line14",
+      null,
+      "published",
+      null,
+      []
+     ],
+     [
+      "rule.schedule-d-line15",
+      null,
+      "published",
+      null,
+      []
+     ],
+     [
+      "rule.schedule-d-line16",
+      null,
+      "published",
+      null,
+      []
+     ],
+     [
+      "rule.schedule-d-line1a-gain",
+      null,
+      "published",
+      null,
+      []
+     ],
+     [
+      "rule.schedule-d-line1b",
+      null,
+      "published",
+      null,
+      []
+     ],
+     [
+      "rule.schedule-d-line2",
+      null,
+      "published",
+      null,
+      []
+     ],
+     [
+      "rule.schedule-d-line21",
+      null,
+      "published",
+      null,
+      []
+     ],
+     [
+      "rule.schedule-d-line3",
+      null,
+      "published",
+      null,
+      []
+     ],
+     [
+      "rule.schedule-d-line6",
+      null,
+      "published",
+      null,
+      []
+     ],
+     [
+      "rule.schedule-d-line7",
+      null,
+      "published",
+      null,
+      []
+     ],
+     [
+      "rule.schedule-d-line8a-gain",
+      null,
+      "published",
+      null,
+      []
+     ],
+     [
+      "rule.schedule-d-line8b",
+      null,
+      "published",
+      null,
+      []
+     ],
+     [
+      "rule.schedule-d-line9",
+      null,
+      "published",
+      null,
+      []
+     ],
+     [
+      "rule.selected-preferential-base",
+      null,
+      "published",
+      null,
+      []
+     ]
+    ],
+    "f8949_parts": [
+     "Part I box A column (d): short-term wash-sale proceeds",
+     "Part I box A column (e): short-term wash-sale basis",
+     "Part I box A column (g): short-term wash-sale adjustment",
+     "Part II box D column (d): long-term wash-sale proceeds",
+     "Part II box D column (e): long-term wash-sale basis",
+     "Part II box D column (g): long-term wash-sale adjustment",
+     "Part I box B column (d): short-term basis-not-reported proceeds",
+     "Part I box B column (e): short-term basis the filer supplies",
+     "Part I box B column (g): short-term wash-sale adjustment",
+     "Part II box E column (d): long-term basis-not-reported proceeds",
+     "Part II box E column (e): long-term basis the filer supplies",
+     "Part II box E column (g): long-term wash-sale adjustment",
+     "Part I box C column (d): short-term net proceeds, no Form 1099-B",
+     "Part I box C column (e): short-term basis you supply, no Form 1099-B",
+     "Part I box C column (g): short-term wash-sale adjustment, no Form 1099-B",
+     "Part II box F column (d): long-term net proceeds, no Form 1099-B",
+     "Part II box F column (e): long-term basis you supply, no Form 1099-B",
+     "Part II box F column (g): long-term wash-sale adjustment, no Form 1099-B"
+    ],
+    "fields": {
+     "form1040.line-7a": {
+      "disposition": "published_value",
+      "explain": "A current derived finding publishes this capital-gain distributions amount on the direct line-7a route.",
+      "reasons": [],
+      "value": -2000
+     },
+     "schedule-d.line-10": {
+      "disposition": "published_value",
+      "explain": "Schedule D line 10, column (h), is your long-term Form 8949 box F gain or loss, proceeds minus basis plus adjustments.",
+      "reasons": [],
+      "value": 4000
+     },
+     "schedule-d.line-15": {
+      "disposition": "published_value",
+      "explain": "Schedule D line 15 adds lines 8a, 8b, 9, 10, 13, and 14.",
+      "reasons": [],
+      "value": 4000
+     },
+     "schedule-d.line-16": {
+      "disposition": "published_value",
+      "explain": "A current derived finding publishes line 16 equal to line 15.",
+      "reasons": [],
+      "value": -2000
+     },
+     "schedule-d.line-2": {
+      "disposition": "closure_backed_zero",
+      "explain": "Schedule D line 2, column (h), is zero. No short-term sale whose basis was not reported to the IRS is recorded, and your answer about those sales confirms the list is complete.",
+      "reasons": [],
+      "value": 0
+     },
+     "schedule-d.line-21": {
+      "disposition": "published_value",
+      "explain": "Schedule D line 21 is the capital loss you can deduct this year, after the yearly limit.",
+      "reasons": [],
+      "value": 2000
+     },
+     "schedule-d.line-3": {
+      "disposition": "published_value",
+      "explain": "Schedule D line 3, column (h), is your short-term Form 8949 box C gain or loss, proceeds minus basis plus adjustments.",
+      "reasons": [],
+      "value": -6000
+     },
+     "schedule-d.line-7": {
+      "disposition": "published_value",
+      "explain": "Schedule D line 7 adds lines 1a, 1b, 2, 3, and 6.",
+      "reasons": [],
+      "value": -6000
+     },
+     "schedule-d.line-9": {
+      "disposition": "closure_backed_zero",
+      "explain": "Schedule D line 9, column (h), is zero. No long-term sale whose basis was not reported to the IRS is recorded, and your answer about those sales confirms the list is complete.",
+      "reasons": [],
+      "value": 0
+     }
+    },
+    "lines": {
+     "form1040.line-15": [
+      "published_value",
+      32250
+     ],
+     "form1040.line-16": [
+      "published_value",
+      3635
+     ],
+     "form1040.line-7a": [
+      "published_value",
+      -2000
+     ],
+     "schedule-d.line-10": [
+      "published_value",
+      4000
+     ],
+     "schedule-d.line-15": [
+      "published_value",
+      4000
+     ],
+     "schedule-d.line-16": [
+      "published_value",
+      -2000
+     ],
+     "schedule-d.line-1a": [
+      "closure_backed_zero",
+      0
+     ],
+     "schedule-d.line-2": [
+      "closure_backed_zero",
+      0
+     ],
+     "schedule-d.line-21": [
+      "published_value",
+      2000
+     ],
+     "schedule-d.line-3": [
+      "published_value",
+      -6000
+     ],
+     "schedule-d.line-7": [
+      "published_value",
+      -6000
+     ],
+     "schedule-d.line-8a": [
+      "closure_backed_zero",
+      0
+     ],
+     "schedule-d.line-9": [
+      "closure_backed_zero",
+      0
+     ]
+    },
+    "presentation_valid": true,
+    "stop_reason": "saturated",
+    "symbols": {
+     "capital-gains.selected-preferential-base": "0"
+    }
+   }
+  },
+  "q2_late_yes_stale": {
+   "mismatch": {},
+   "result": {
+    "attachments": {
+     "f8949": "blocked",
+     "schedule-d": "blocked"
+    },
+    "dispositions": [
+     [
+      "rule.attachment.f8949",
+      null,
+      "blocked",
+      "DEPENDENCY_ABSENT",
+      [
+       "f8949.no1099b-st-proceeds-subtotal",
+       "f8949.no1099b-st-basis-subtotal",
+       "schedule-d.line-3",
+       "schedule-d.line-10"
+      ]
+     ],
+     [
+      "rule.attachment.schedule-d",
+      null,
+      "blocked",
+      "DEPENDENCY_ABSENT",
+      [
+       "f8949.no1099b-st-proceeds-subtotal",
+       "f8949.no1099b-st-basis-subtotal",
+       "schedule-d.line-3",
+       "schedule-d.line-10"
+      ]
+     ],
+     [
+      "rule.form1040-line7a",
+      null,
+      "blocked",
+      "DEPENDENCY_ABSENT",
+      [
+       "schedule-d.line-16",
+       "schedule-d.line-21",
+       "capital-gains.selected-preferential-base",
+       "schedule-d.line-3"
+      ]
+     ],
+     [
+      "rule.schedule-d-line10",
+      null,
+      "blocked",
+      "DEPENDENCY_ABSENT",
+      [
+       "f8949.no1099b-st-proceeds-subtotal",
+       "f8949.no1099b-st-basis-subtotal"
+      ]
+     ],
+     [
+      "rule.schedule-d-line13",
+      null,
+      "published",
+      null,
+      []
+     ],
+     [
+      "rule.schedule-d-line14",
+      null,
+      "published",
+      null,
+      []
+     ],
+     [
+      "rule.schedule-d-line15",
+      null,
+      "blocked",
+      "DEPENDENCY_ABSENT",
+      [
+       "schedule-d.line-10"
+      ]
+     ],
+     [
+      "rule.schedule-d-line16",
+      null,
+      "blocked",
+      "DEPENDENCY_ABSENT",
+      [
+       "schedule-d.line-7",
+       "schedule-d.line-15"
+      ]
+     ],
+     [
+      "rule.schedule-d-line1a-gain",
+      null,
+      "published",
+      null,
+      []
+     ],
+     [
+      "rule.schedule-d-line1b",
+      null,
+      "published",
+      null,
+      []
+     ],
+     [
+      "rule.schedule-d-line2",
+      null,
+      "published",
+      null,
+      []
+     ],
+     [
+      "rule.schedule-d-line21",
+      null,
+      "blocked",
+      "DEPENDENCY_ABSENT",
+      [
+       "schedule-d.line-16"
+      ]
+     ],
+     [
+      "rule.schedule-d-line3",
+      null,
+      "blocked",
+      "DEPENDENCY_ABSENT",
+      [
+       "f8949.no1099b-st-proceeds-subtotal",
+       "f8949.no1099b-st-basis-subtotal",
+       "f8949.no1099b-st-adjustment-subtotal",
+       "f8949.no1099b-st-txn.amounts-check"
+      ]
+     ],
+     [
+      "rule.schedule-d-line6",
+      null,
+      "published",
+      null,
+      []
+     ],
+     [
+      "rule.schedule-d-line7",
+      null,
+      "blocked",
+      "DEPENDENCY_ABSENT",
+      [
+       "schedule-d.line-3"
+      ]
+     ],
+     [
+      "rule.schedule-d-line8a-gain",
+      null,
+      "published",
+      null,
+      []
+     ],
+     [
+      "rule.schedule-d-line8b",
+      null,
+      "published",
+      null,
+      []
+     ],
+     [
+      "rule.schedule-d-line9",
+      null,
+      "published",
+      null,
+      []
+     ],
+     [
+      "rule.selected-preferential-base",
+      null,
+      "blocked",
+      "DEPENDENCY_ABSENT",
+      [
+       "schedule-d.line-16",
+       "schedule-d.line-15",
+       "schedule-d.line-3",
+       "schedule-d.line-10"
+      ]
+     ]
+    ],
+    "fields": {
+     "form1040.line-7a": {
+      "disposition": "blocked",
+      "explain": "Line 7a is blocked because Exception-1 authority is incomplete or the box-2a family is unclosed.",
+      "reasons": [],
+      "value": null
+     },
+     "schedule-d.line-10": {
+      "disposition": "blocked",
+      "explain": "Schedule D line 10, column (h), has no value yet. It waits for your answers about sales you received no Form 1099-B for, sales whose basis was not reported, and Form 8949 to agree with the sales you recorded, or for each recorded long-term sale of that kind to have its proceeds and basis and pass its checks.",
+      "reasons": [
+       "Did you sell any stocks or other securities for which you did not receive a Form 1099-B or substitute statement?"
+      ],
+      "value": null
+     },
+     "schedule-d.line-15": {
+      "disposition": "blocked",
+      "explain": "Schedule D line 15 has no value yet. It is waiting for whichever of lines 8a, 8b, 9, 10, 13, and 14 is still open.",
+      "reasons": [
+       "Did you sell any stocks or other securities for which you did not receive a Form 1099-B or substitute statement?"
+      ],
+      "value": null
+     },
+     "schedule-d.line-16": {
+      "disposition": "blocked",
+      "explain": "Schedule D line 16 has no value yet. It is waiting for line 7 or line 15.",
+      "reasons": [],
+      "value": null
+     },
+     "schedule-d.line-2": {
+      "disposition": "closure_backed_zero",
+      "explain": "Schedule D line 2, column (h), is zero. No short-term sale whose basis was not reported to the IRS is recorded, and your answer about those sales confirms the list is complete.",
+      "reasons": [],
+      "value": 0
+     },
+     "schedule-d.line-21": {
+      "disposition": "blocked",
+      "explain": "Schedule D line 21 has no value yet. It is waiting for your total gain or loss on line 16.",
+      "reasons": [],
+      "value": null
+     },
+     "schedule-d.line-3": {
+      "disposition": "blocked",
+      "explain": "Schedule D line 3, column (h), has no value yet. It waits for your answers about sales you received no Form 1099-B for, sales whose basis was not reported, and Form 8949 to agree with the sales you recorded, or for each recorded short-term sale of that kind to have its proceeds and basis and pass its checks.",
+      "reasons": [],
+      "value": null
+     },
+     "schedule-d.line-7": {
+      "disposition": "blocked",
+      "explain": "Schedule D line 7 has no value yet. It is waiting for whichever of lines 1a, 1b, 2, 3, and 6 is still open.",
+      "reasons": [],
+      "value": null
+     },
+     "schedule-d.line-9": {
+      "disposition": "closure_backed_zero",
+      "explain": "Schedule D line 9, column (h), is zero. No long-term sale whose basis was not reported to the IRS is recorded, and your answer about those sales confirms the list is complete.",
+      "reasons": [],
+      "value": 0
+     }
+    },
+    "lines": {
+     "form1040.line-15": [
+      "blocked",
+      null
+     ],
+     "form1040.line-16": [
+      "blocked",
+      null
+     ],
+     "form1040.line-7a": [
+      "blocked",
+      null
+     ],
+     "schedule-d.line-10": [
+      "blocked",
+      null
+     ],
+     "schedule-d.line-15": [
+      "blocked",
+      null
+     ],
+     "schedule-d.line-16": [
+      "blocked",
+      null
+     ],
+     "schedule-d.line-1a": [
+      "closure_backed_zero",
+      0
+     ],
+     "schedule-d.line-2": [
+      "closure_backed_zero",
+      0
+     ],
+     "schedule-d.line-21": [
+      "blocked",
+      null
+     ],
+     "schedule-d.line-3": [
+      "blocked",
+      null
+     ],
+     "schedule-d.line-7": [
+      "blocked",
+      null
+     ],
+     "schedule-d.line-8a": [
+      "closure_backed_zero",
+      0
+     ],
+     "schedule-d.line-9": [
+      "closure_backed_zero",
+      0
+     ]
+    },
+    "presentation_valid": true,
+    "questions": [
+     "Did you sell any stocks or other securities for which you did not receive a Form 1099-B or substitute statement?"
+    ],
+    "stop_reason": "saturated"
+   }
+  },
   "q2_yes_nothing_recorded": {
    "mismatch": {},
    "result": {
@@ -20038,7 +22674,8 @@
       [
        "f8949.no1099b-lt-proceeds-subtotal",
        "f8949.no1099b-lt-basis-subtotal",
-       "f8949.no1099b-lt-adjustment-subtotal"
+       "f8949.no1099b-lt-adjustment-subtotal",
+       "f8949.no1099b-lt-txn.amounts-check"
       ]
      ],
      [
@@ -20168,33 +22805,25 @@
      "form1040.line-7a": {
       "disposition": "blocked",
       "explain": "Line 7a is blocked because Exception-1 authority is incomplete or the box-2a family is unclosed.",
-      "reasons": [
-       "Did you sell any stocks or other securities for which you did not receive a Form 1099-B or substitute statement?"
-      ],
+      "reasons": [],
       "value": null
      },
      "schedule-d.line-10": {
       "disposition": "blocked",
       "explain": "Schedule D line 10, column (h), has no value yet. It waits for your answers about sales you received no Form 1099-B for, sales whose basis was not reported, and Form 8949 to agree with the sales you recorded, or for each recorded long-term sale of that kind to have its proceeds and basis and pass its checks.",
-      "reasons": [
-       "Did you sell any stocks or other securities for which you did not receive a Form 1099-B or substitute statement?"
-      ],
+      "reasons": [],
       "value": null
      },
      "schedule-d.line-15": {
       "disposition": "blocked",
       "explain": "Schedule D line 15 has no value yet. It is waiting for whichever of lines 8a, 8b, 9, 10, 13, and 14 is still open.",
-      "reasons": [
-       "Did you sell any stocks or other securities for which you did not receive a Form 1099-B or substitute statement?"
-      ],
+      "reasons": [],
       "value": null
      },
      "schedule-d.line-16": {
       "disposition": "blocked",
       "explain": "Schedule D line 16 has no value yet. It is waiting for line 7 or line 15.",
-      "reasons": [
-       "Did you sell any stocks or other securities for which you did not receive a Form 1099-B or substitute statement?"
-      ],
+      "reasons": [],
       "value": null
      },
      "schedule-d.line-2": {
@@ -20206,9 +22835,7 @@
      "schedule-d.line-21": {
       "disposition": "blocked",
       "explain": "Schedule D line 21 has no value yet. It is waiting for your total gain or loss on line 16.",
-      "reasons": [
-       "Did you sell any stocks or other securities for which you did not receive a Form 1099-B or substitute statement?"
-      ],
+      "reasons": [],
       "value": null
      },
      "schedule-d.line-3": {
@@ -21561,7 +24188,8 @@
       [
        "f8949.no1099b-st-proceeds-subtotal",
        "f8949.no1099b-st-basis-subtotal",
-       "f8949.no1099b-st-adjustment-subtotal"
+       "f8949.no1099b-st-adjustment-subtotal",
+       "f8949.no1099b-st-txn.amounts-check"
       ]
      ],
      [
@@ -21618,9 +24246,7 @@
      "form1040.line-7a": {
       "disposition": "blocked",
       "explain": "Line 7a is blocked because Exception-1 authority is incomplete or the box-2a family is unclosed.",
-      "reasons": [
-       "Did you sell any stocks or other securities for which you did not receive a Form 1099-B or substitute statement?"
-      ],
+      "reasons": [],
       "value": null
      },
      "schedule-d.line-10": {
@@ -21642,9 +24268,7 @@
      "schedule-d.line-16": {
       "disposition": "blocked",
       "explain": "Schedule D line 16 has no value yet. It is waiting for line 7 or line 15.",
-      "reasons": [
-       "Did you sell any stocks or other securities for which you did not receive a Form 1099-B or substitute statement?"
-      ],
+      "reasons": [],
       "value": null
      },
      "schedule-d.line-2": {
@@ -21656,25 +24280,19 @@
      "schedule-d.line-21": {
       "disposition": "blocked",
       "explain": "Schedule D line 21 has no value yet. It is waiting for your total gain or loss on line 16.",
-      "reasons": [
-       "Did you sell any stocks or other securities for which you did not receive a Form 1099-B or substitute statement?"
-      ],
+      "reasons": [],
       "value": null
      },
      "schedule-d.line-3": {
       "disposition": "blocked",
       "explain": "Schedule D line 3, column (h), has no value yet. It waits for your answers about sales you received no Form 1099-B for, sales whose basis was not reported, and Form 8949 to agree with the sales you recorded, or for each recorded short-term sale of that kind to have its proceeds and basis and pass its checks.",
-      "reasons": [
-       "Did you sell any stocks or other securities for which you did not receive a Form 1099-B or substitute statement?"
-      ],
+      "reasons": [],
       "value": null
      },
      "schedule-d.line-7": {
       "disposition": "blocked",
       "explain": "Schedule D line 7 has no value yet. It is waiting for whichever of lines 1a, 1b, 2, 3, and 6 is still open.",
-      "reasons": [
-       "Did you sell any stocks or other securities for which you did not receive a Form 1099-B or substitute statement?"
-      ],
+      "reasons": [],
       "value": null
      },
      "schedule-d.line-9": {
@@ -22064,6 +24682,285 @@
    }
   },
   "t2_stage3": {
+   "mismatch": {},
+   "result": {
+    "attachments": {
+     "f8949": "published",
+     "schedule-d": "published"
+    },
+    "dispositions": [
+     [
+      "rule.attachment.f8949",
+      null,
+      "published",
+      null,
+      []
+     ],
+     [
+      "rule.attachment.schedule-d",
+      null,
+      "published",
+      null,
+      []
+     ],
+     [
+      "rule.form1040-line7a",
+      null,
+      "published",
+      null,
+      []
+     ],
+     [
+      "rule.schedule-d-line10",
+      null,
+      "published",
+      null,
+      []
+     ],
+     [
+      "rule.schedule-d-line13",
+      null,
+      "published",
+      null,
+      []
+     ],
+     [
+      "rule.schedule-d-line14",
+      null,
+      "published",
+      null,
+      []
+     ],
+     [
+      "rule.schedule-d-line15",
+      null,
+      "published",
+      null,
+      []
+     ],
+     [
+      "rule.schedule-d-line16",
+      null,
+      "published",
+      null,
+      []
+     ],
+     [
+      "rule.schedule-d-line1a-gain",
+      null,
+      "published",
+      null,
+      []
+     ],
+     [
+      "rule.schedule-d-line1b",
+      null,
+      "published",
+      null,
+      []
+     ],
+     [
+      "rule.schedule-d-line2",
+      null,
+      "published",
+      null,
+      []
+     ],
+     [
+      "rule.schedule-d-line21",
+      null,
+      "published",
+      null,
+      []
+     ],
+     [
+      "rule.schedule-d-line3",
+      null,
+      "published",
+      null,
+      []
+     ],
+     [
+      "rule.schedule-d-line6",
+      null,
+      "published",
+      null,
+      []
+     ],
+     [
+      "rule.schedule-d-line7",
+      null,
+      "published",
+      null,
+      []
+     ],
+     [
+      "rule.schedule-d-line8a-gain",
+      null,
+      "published",
+      null,
+      []
+     ],
+     [
+      "rule.schedule-d-line8b",
+      null,
+      "published",
+      null,
+      []
+     ],
+     [
+      "rule.schedule-d-line9",
+      null,
+      "published",
+      null,
+      []
+     ],
+     [
+      "rule.selected-preferential-base",
+      null,
+      "published",
+      null,
+      []
+     ]
+    ],
+    "f8949_parts": [
+     "Part I box A column (d): short-term wash-sale proceeds",
+     "Part I box A column (e): short-term wash-sale basis",
+     "Part I box A column (g): short-term wash-sale adjustment",
+     "Part II box D column (d): long-term wash-sale proceeds",
+     "Part II box D column (e): long-term wash-sale basis",
+     "Part II box D column (g): long-term wash-sale adjustment",
+     "Part I box B column (d): short-term basis-not-reported proceeds",
+     "Part I box B column (e): short-term basis the filer supplies",
+     "Part I box B column (g): short-term wash-sale adjustment",
+     "Part II box E column (d): long-term basis-not-reported proceeds",
+     "Part II box E column (e): long-term basis the filer supplies",
+     "Part II box E column (g): long-term wash-sale adjustment",
+     "Part I box C column (d): short-term net proceeds, no Form 1099-B",
+     "Part I box C column (e): short-term basis you supply, no Form 1099-B",
+     "Part I box C column (g): short-term wash-sale adjustment, no Form 1099-B",
+     "Part II box F column (d): long-term net proceeds, no Form 1099-B",
+     "Part II box F column (e): long-term basis you supply, no Form 1099-B",
+     "Part II box F column (g): long-term wash-sale adjustment, no Form 1099-B"
+    ],
+    "fields": {
+     "form1040.line-7a": {
+      "disposition": "published_value",
+      "explain": "A current derived finding publishes this capital-gain distributions amount on the direct line-7a route.",
+      "reasons": [],
+      "value": 1000
+     },
+     "schedule-d.line-10": {
+      "disposition": "computed_zero",
+      "explain": "Schedule D line 10, column (h), is zero. Either no long-term sale you received no Form 1099-B for is recorded and your Form 8949 answers confirm it, or your box F proceeds, basis, and adjustments net to zero.",
+      "reasons": [],
+      "value": 0
+     },
+     "schedule-d.line-15": {
+      "disposition": "computed_zero",
+      "explain": "Schedule D line 15 is zero because lines 8a, 8b, 9, 10, 13, and 14 add to zero.",
+      "reasons": [],
+      "value": 0
+     },
+     "schedule-d.line-16": {
+      "disposition": "published_value",
+      "explain": "A current derived finding publishes line 16 equal to line 15.",
+      "reasons": [],
+      "value": 1000
+     },
+     "schedule-d.line-2": {
+      "disposition": "published_value",
+      "explain": "Schedule D line 2, column (h), is your short-term Form 8949 box B gain or loss, proceeds minus basis plus adjustments.",
+      "reasons": [],
+      "value": -500
+     },
+     "schedule-d.line-21": {
+      "disposition": "computed_zero",
+      "explain": "Schedule D line 21 is zero because line 16 is zero or a gain.",
+      "reasons": [],
+      "value": 0
+     },
+     "schedule-d.line-3": {
+      "disposition": "published_value",
+      "explain": "Schedule D line 3, column (h), is your short-term Form 8949 box C gain or loss, proceeds minus basis plus adjustments.",
+      "reasons": [],
+      "value": 1500
+     },
+     "schedule-d.line-7": {
+      "disposition": "published_value",
+      "explain": "Schedule D line 7 adds lines 1a, 1b, 2, 3, and 6.",
+      "reasons": [],
+      "value": 1000
+     },
+     "schedule-d.line-9": {
+      "disposition": "closure_backed_zero",
+      "explain": "Schedule D line 9, column (h), is zero. No long-term sale whose basis was not reported to the IRS is recorded, and your answer about those sales confirms the list is complete.",
+      "reasons": [],
+      "value": 0
+     }
+    },
+    "lines": {
+     "form1040.line-15": [
+      "published_value",
+      35250
+     ],
+     "form1040.line-16": [
+      "published_value",
+      3995
+     ],
+     "form1040.line-7a": [
+      "published_value",
+      1000
+     ],
+     "schedule-d.line-10": [
+      "computed_zero",
+      0
+     ],
+     "schedule-d.line-15": [
+      "computed_zero",
+      0
+     ],
+     "schedule-d.line-16": [
+      "published_value",
+      1000
+     ],
+     "schedule-d.line-1a": [
+      "closure_backed_zero",
+      0
+     ],
+     "schedule-d.line-2": [
+      "published_value",
+      -500
+     ],
+     "schedule-d.line-21": [
+      "computed_zero",
+      0
+     ],
+     "schedule-d.line-3": [
+      "published_value",
+      1500
+     ],
+     "schedule-d.line-7": [
+      "published_value",
+      1000
+     ],
+     "schedule-d.line-8a": [
+      "closure_backed_zero",
+      0
+     ],
+     "schedule-d.line-9": [
+      "closure_backed_zero",
+      0
+     ]
+    },
+    "presentation_valid": true,
+    "stop_reason": "saturated",
+    "symbols": {
+     "capital-gains.selected-preferential-base": "0"
+    }
+   }
+  },
+  "t2_stage3_old_ic_no": {
    "mismatch": {},
    "result": {
     "attachments": {
@@ -22870,6 +25767,1110 @@
      "schedule-d.line-15": [
       "blocked",
       null
+     ],
+     "schedule-d.line-16": [
+      "blocked",
+      null
+     ],
+     "schedule-d.line-1a": [
+      "closure_backed_zero",
+      0
+     ],
+     "schedule-d.line-2": [
+      "closure_backed_zero",
+      0
+     ],
+     "schedule-d.line-21": [
+      "blocked",
+      null
+     ],
+     "schedule-d.line-3": [
+      "blocked",
+      null
+     ],
+     "schedule-d.line-7": [
+      "blocked",
+      null
+     ],
+     "schedule-d.line-8a": [
+      "closure_backed_zero",
+      0
+     ],
+     "schedule-d.line-9": [
+      "closure_backed_zero",
+      0
+     ]
+    },
+    "presentation_valid": true,
+    "stop_reason": "saturated"
+   }
+  },
+  "w_b_scalar_only_on_gain": {
+   "mismatch": {},
+   "result": {
+    "attachments": {
+     "f8949": "blocked",
+     "schedule-d": "blocked"
+    },
+    "dispositions": [
+     [
+      "rule.attachment.f8949",
+      null,
+      "blocked",
+      "DEPENDENCY_ABSENT",
+      [
+       "schedule-d.line-2"
+      ]
+     ],
+     [
+      "rule.attachment.schedule-d",
+      null,
+      "blocked",
+      "DEPENDENCY_ABSENT",
+      [
+       "schedule-d.line-2"
+      ]
+     ],
+     [
+      "rule.form1040-line7a",
+      null,
+      "blocked",
+      "DEPENDENCY_ABSENT",
+      [
+       "schedule-d.line-16",
+       "schedule-d.line-21",
+       "capital-gains.selected-preferential-base",
+       "schedule-d.line-2"
+      ]
+     ],
+     [
+      "rule.schedule-d-line10",
+      null,
+      "published",
+      null,
+      []
+     ],
+     [
+      "rule.schedule-d-line13",
+      null,
+      "published",
+      null,
+      []
+     ],
+     [
+      "rule.schedule-d-line14",
+      null,
+      "published",
+      null,
+      []
+     ],
+     [
+      "rule.schedule-d-line15",
+      null,
+      "published",
+      null,
+      []
+     ],
+     [
+      "rule.schedule-d-line16",
+      null,
+      "blocked",
+      "DEPENDENCY_ABSENT",
+      [
+       "schedule-d.line-7"
+      ]
+     ],
+     [
+      "rule.schedule-d-line1a-gain",
+      null,
+      "published",
+      null,
+      []
+     ],
+     [
+      "rule.schedule-d-line1b",
+      null,
+      "published",
+      null,
+      []
+     ],
+     [
+      "rule.schedule-d-line2",
+      null,
+      "blocked",
+      "DEPENDENCY_ABSENT",
+      [
+       "f1099b.noncovered-st-txn.amounts-check"
+      ]
+     ],
+     [
+      "rule.schedule-d-line21",
+      null,
+      "blocked",
+      "DEPENDENCY_ABSENT",
+      [
+       "schedule-d.line-16"
+      ]
+     ],
+     [
+      "rule.schedule-d-line3",
+      null,
+      "published",
+      null,
+      []
+     ],
+     [
+      "rule.schedule-d-line6",
+      null,
+      "published",
+      null,
+      []
+     ],
+     [
+      "rule.schedule-d-line7",
+      null,
+      "blocked",
+      "DEPENDENCY_ABSENT",
+      [
+       "schedule-d.line-2"
+      ]
+     ],
+     [
+      "rule.schedule-d-line8a-gain",
+      null,
+      "published",
+      null,
+      []
+     ],
+     [
+      "rule.schedule-d-line8b",
+      null,
+      "published",
+      null,
+      []
+     ],
+     [
+      "rule.schedule-d-line9",
+      null,
+      "published",
+      null,
+      []
+     ],
+     [
+      "rule.selected-preferential-base",
+      null,
+      "blocked",
+      "DEPENDENCY_ABSENT",
+      [
+       "schedule-d.line-16",
+       "schedule-d.line-2"
+      ]
+     ]
+    ],
+    "fields": {
+     "form1040.line-7a": {
+      "disposition": "blocked",
+      "explain": "Line 7a is blocked because Exception-1 authority is incomplete or the box-2a family is unclosed.",
+      "reasons": [],
+      "value": null
+     },
+     "schedule-d.line-10": {
+      "disposition": "computed_zero",
+      "explain": "Schedule D line 10, column (h), is zero. Either no long-term sale you received no Form 1099-B for is recorded and your Form 8949 answers confirm it, or your box F proceeds, basis, and adjustments net to zero.",
+      "reasons": [],
+      "value": 0
+     },
+     "schedule-d.line-15": {
+      "disposition": "computed_zero",
+      "explain": "Schedule D line 15 is zero because lines 8a, 8b, 9, 10, 13, and 14 add to zero.",
+      "reasons": [],
+      "value": 0
+     },
+     "schedule-d.line-16": {
+      "disposition": "blocked",
+      "explain": "Schedule D line 16 has no value yet. It is waiting for line 7 or line 15.",
+      "reasons": [],
+      "value": null
+     },
+     "schedule-d.line-2": {
+      "disposition": "blocked",
+      "explain": "Schedule D line 2, column (h), has no value yet. It waits for your answers about sales whose basis was not reported to the IRS, or for a recorded short-term sale of that kind to pass its checks.",
+      "reasons": [],
+      "value": null
+     },
+     "schedule-d.line-21": {
+      "disposition": "blocked",
+      "explain": "Schedule D line 21 has no value yet. It is waiting for your total gain or loss on line 16.",
+      "reasons": [],
+      "value": null
+     },
+     "schedule-d.line-3": {
+      "disposition": "computed_zero",
+      "explain": "Schedule D line 3, column (h), is zero. Either no short-term sale you received no Form 1099-B for is recorded and your Form 8949 answers confirm it, or your box C proceeds, basis, and adjustments net to zero.",
+      "reasons": [],
+      "value": 0
+     },
+     "schedule-d.line-7": {
+      "disposition": "blocked",
+      "explain": "Schedule D line 7 has no value yet. It is waiting for whichever of lines 1a, 1b, 2, 3, and 6 is still open.",
+      "reasons": [],
+      "value": null
+     },
+     "schedule-d.line-9": {
+      "disposition": "closure_backed_zero",
+      "explain": "Schedule D line 9, column (h), is zero. No long-term sale whose basis was not reported to the IRS is recorded, and your answer about those sales confirms the list is complete.",
+      "reasons": [],
+      "value": 0
+     }
+    },
+    "lines": {
+     "form1040.line-15": [
+      "blocked",
+      null
+     ],
+     "form1040.line-16": [
+      "blocked",
+      null
+     ],
+     "form1040.line-7a": [
+      "blocked",
+      null
+     ],
+     "schedule-d.line-10": [
+      "computed_zero",
+      0
+     ],
+     "schedule-d.line-15": [
+      "computed_zero",
+      0
+     ],
+     "schedule-d.line-16": [
+      "blocked",
+      null
+     ],
+     "schedule-d.line-1a": [
+      "closure_backed_zero",
+      0
+     ],
+     "schedule-d.line-2": [
+      "blocked",
+      null
+     ],
+     "schedule-d.line-21": [
+      "blocked",
+      null
+     ],
+     "schedule-d.line-3": [
+      "computed_zero",
+      0
+     ],
+     "schedule-d.line-7": [
+      "blocked",
+      null
+     ],
+     "schedule-d.line-8a": [
+      "closure_backed_zero",
+      0
+     ],
+     "schedule-d.line-9": [
+      "closure_backed_zero",
+      0
+     ]
+    },
+    "presentation_valid": true,
+    "stop_reason": "saturated"
+   }
+  },
+  "w_c_amounts_disagree": {
+   "mismatch": {},
+   "result": {
+    "attachments": {
+     "f8949": "blocked",
+     "schedule-d": "blocked"
+    },
+    "dispositions": [
+     [
+      "rule.attachment.f8949",
+      null,
+      "blocked",
+      "DEPENDENCY_ABSENT",
+      [
+       "schedule-d.line-3"
+      ]
+     ],
+     [
+      "rule.attachment.schedule-d",
+      null,
+      "blocked",
+      "DEPENDENCY_ABSENT",
+      [
+       "schedule-d.line-3"
+      ]
+     ],
+     [
+      "rule.form1040-line7a",
+      null,
+      "blocked",
+      "DEPENDENCY_ABSENT",
+      [
+       "schedule-d.line-16",
+       "schedule-d.line-21",
+       "capital-gains.selected-preferential-base",
+       "schedule-d.line-3"
+      ]
+     ],
+     [
+      "rule.schedule-d-line10",
+      null,
+      "published",
+      null,
+      []
+     ],
+     [
+      "rule.schedule-d-line13",
+      null,
+      "published",
+      null,
+      []
+     ],
+     [
+      "rule.schedule-d-line14",
+      null,
+      "published",
+      null,
+      []
+     ],
+     [
+      "rule.schedule-d-line15",
+      null,
+      "published",
+      null,
+      []
+     ],
+     [
+      "rule.schedule-d-line16",
+      null,
+      "blocked",
+      "DEPENDENCY_ABSENT",
+      [
+       "schedule-d.line-7"
+      ]
+     ],
+     [
+      "rule.schedule-d-line1a-gain",
+      null,
+      "published",
+      null,
+      []
+     ],
+     [
+      "rule.schedule-d-line1b",
+      null,
+      "published",
+      null,
+      []
+     ],
+     [
+      "rule.schedule-d-line2",
+      null,
+      "published",
+      null,
+      []
+     ],
+     [
+      "rule.schedule-d-line21",
+      null,
+      "blocked",
+      "DEPENDENCY_ABSENT",
+      [
+       "schedule-d.line-16"
+      ]
+     ],
+     [
+      "rule.schedule-d-line3",
+      null,
+      "blocked",
+      "DEPENDENCY_ABSENT",
+      [
+       "f8949.no1099b-st-txn.amounts-check"
+      ]
+     ],
+     [
+      "rule.schedule-d-line6",
+      null,
+      "published",
+      null,
+      []
+     ],
+     [
+      "rule.schedule-d-line7",
+      null,
+      "blocked",
+      "DEPENDENCY_ABSENT",
+      [
+       "schedule-d.line-3"
+      ]
+     ],
+     [
+      "rule.schedule-d-line8a-gain",
+      null,
+      "published",
+      null,
+      []
+     ],
+     [
+      "rule.schedule-d-line8b",
+      null,
+      "published",
+      null,
+      []
+     ],
+     [
+      "rule.schedule-d-line9",
+      null,
+      "published",
+      null,
+      []
+     ],
+     [
+      "rule.selected-preferential-base",
+      null,
+      "blocked",
+      "DEPENDENCY_ABSENT",
+      [
+       "schedule-d.line-16",
+       "schedule-d.line-3"
+      ]
+     ]
+    ],
+    "fields": {
+     "form1040.line-7a": {
+      "disposition": "blocked",
+      "explain": "Line 7a is blocked because Exception-1 authority is incomplete or the box-2a family is unclosed.",
+      "reasons": [],
+      "value": null
+     },
+     "schedule-d.line-10": {
+      "disposition": "computed_zero",
+      "explain": "Schedule D line 10, column (h), is zero. Either no long-term sale you received no Form 1099-B for is recorded and your Form 8949 answers confirm it, or your box F proceeds, basis, and adjustments net to zero.",
+      "reasons": [],
+      "value": 0
+     },
+     "schedule-d.line-15": {
+      "disposition": "computed_zero",
+      "explain": "Schedule D line 15 is zero because lines 8a, 8b, 9, 10, 13, and 14 add to zero.",
+      "reasons": [],
+      "value": 0
+     },
+     "schedule-d.line-16": {
+      "disposition": "blocked",
+      "explain": "Schedule D line 16 has no value yet. It is waiting for line 7 or line 15.",
+      "reasons": [],
+      "value": null
+     },
+     "schedule-d.line-2": {
+      "disposition": "closure_backed_zero",
+      "explain": "Schedule D line 2, column (h), is zero. No short-term sale whose basis was not reported to the IRS is recorded, and your answer about those sales confirms the list is complete.",
+      "reasons": [],
+      "value": 0
+     },
+     "schedule-d.line-21": {
+      "disposition": "blocked",
+      "explain": "Schedule D line 21 has no value yet. It is waiting for your total gain or loss on line 16.",
+      "reasons": [],
+      "value": null
+     },
+     "schedule-d.line-3": {
+      "disposition": "blocked",
+      "explain": "Schedule D line 3, column (h), has no value yet. It waits for your answers about sales you received no Form 1099-B for, sales whose basis was not reported, and Form 8949 to agree with the sales you recorded, or for each recorded short-term sale of that kind to have its proceeds and basis and pass its checks.",
+      "reasons": [],
+      "value": null
+     },
+     "schedule-d.line-7": {
+      "disposition": "blocked",
+      "explain": "Schedule D line 7 has no value yet. It is waiting for whichever of lines 1a, 1b, 2, 3, and 6 is still open.",
+      "reasons": [],
+      "value": null
+     },
+     "schedule-d.line-9": {
+      "disposition": "closure_backed_zero",
+      "explain": "Schedule D line 9, column (h), is zero. No long-term sale whose basis was not reported to the IRS is recorded, and your answer about those sales confirms the list is complete.",
+      "reasons": [],
+      "value": 0
+     }
+    },
+    "lines": {
+     "form1040.line-15": [
+      "blocked",
+      null
+     ],
+     "form1040.line-16": [
+      "blocked",
+      null
+     ],
+     "form1040.line-7a": [
+      "blocked",
+      null
+     ],
+     "schedule-d.line-10": [
+      "computed_zero",
+      0
+     ],
+     "schedule-d.line-15": [
+      "computed_zero",
+      0
+     ],
+     "schedule-d.line-16": [
+      "blocked",
+      null
+     ],
+     "schedule-d.line-1a": [
+      "closure_backed_zero",
+      0
+     ],
+     "schedule-d.line-2": [
+      "closure_backed_zero",
+      0
+     ],
+     "schedule-d.line-21": [
+      "blocked",
+      null
+     ],
+     "schedule-d.line-3": [
+      "blocked",
+      null
+     ],
+     "schedule-d.line-7": [
+      "blocked",
+      null
+     ],
+     "schedule-d.line-8a": [
+      "closure_backed_zero",
+      0
+     ],
+     "schedule-d.line-9": [
+      "closure_backed_zero",
+      0
+     ]
+    },
+    "presentation_valid": true,
+    "stop_reason": "saturated"
+   }
+  },
+  "w_c_object_wash_no_row": {
+   "mismatch": {},
+   "result": {
+    "attachments": {
+     "f8949": "blocked",
+     "schedule-d": "blocked"
+    },
+    "dispositions": [
+     [
+      "rule.attachment.f8949",
+      null,
+      "blocked",
+      "DEPENDENCY_ABSENT",
+      [
+       "schedule-d.line-3"
+      ]
+     ],
+     [
+      "rule.attachment.schedule-d",
+      null,
+      "blocked",
+      "DEPENDENCY_ABSENT",
+      [
+       "schedule-d.line-3"
+      ]
+     ],
+     [
+      "rule.form1040-line7a",
+      null,
+      "blocked",
+      "DEPENDENCY_ABSENT",
+      [
+       "schedule-d.line-16",
+       "schedule-d.line-21",
+       "capital-gains.selected-preferential-base",
+       "schedule-d.line-3"
+      ]
+     ],
+     [
+      "rule.schedule-d-line10",
+      null,
+      "published",
+      null,
+      []
+     ],
+     [
+      "rule.schedule-d-line13",
+      null,
+      "published",
+      null,
+      []
+     ],
+     [
+      "rule.schedule-d-line14",
+      null,
+      "published",
+      null,
+      []
+     ],
+     [
+      "rule.schedule-d-line15",
+      null,
+      "published",
+      null,
+      []
+     ],
+     [
+      "rule.schedule-d-line16",
+      null,
+      "blocked",
+      "DEPENDENCY_ABSENT",
+      [
+       "schedule-d.line-7"
+      ]
+     ],
+     [
+      "rule.schedule-d-line1a-gain",
+      null,
+      "published",
+      null,
+      []
+     ],
+     [
+      "rule.schedule-d-line1b",
+      null,
+      "published",
+      null,
+      []
+     ],
+     [
+      "rule.schedule-d-line2",
+      null,
+      "published",
+      null,
+      []
+     ],
+     [
+      "rule.schedule-d-line21",
+      null,
+      "blocked",
+      "DEPENDENCY_ABSENT",
+      [
+       "schedule-d.line-16"
+      ]
+     ],
+     [
+      "rule.schedule-d-line3",
+      null,
+      "blocked",
+      "DEPENDENCY_ABSENT",
+      [
+       "f8949.no1099b-st-txn.amounts-check"
+      ]
+     ],
+     [
+      "rule.schedule-d-line6",
+      null,
+      "published",
+      null,
+      []
+     ],
+     [
+      "rule.schedule-d-line7",
+      null,
+      "blocked",
+      "DEPENDENCY_ABSENT",
+      [
+       "schedule-d.line-3"
+      ]
+     ],
+     [
+      "rule.schedule-d-line8a-gain",
+      null,
+      "published",
+      null,
+      []
+     ],
+     [
+      "rule.schedule-d-line8b",
+      null,
+      "published",
+      null,
+      []
+     ],
+     [
+      "rule.schedule-d-line9",
+      null,
+      "published",
+      null,
+      []
+     ],
+     [
+      "rule.selected-preferential-base",
+      null,
+      "blocked",
+      "DEPENDENCY_ABSENT",
+      [
+       "schedule-d.line-16",
+       "schedule-d.line-3"
+      ]
+     ]
+    ],
+    "fields": {
+     "form1040.line-7a": {
+      "disposition": "blocked",
+      "explain": "Line 7a is blocked because Exception-1 authority is incomplete or the box-2a family is unclosed.",
+      "reasons": [],
+      "value": null
+     },
+     "schedule-d.line-10": {
+      "disposition": "computed_zero",
+      "explain": "Schedule D line 10, column (h), is zero. Either no long-term sale you received no Form 1099-B for is recorded and your Form 8949 answers confirm it, or your box F proceeds, basis, and adjustments net to zero.",
+      "reasons": [],
+      "value": 0
+     },
+     "schedule-d.line-15": {
+      "disposition": "computed_zero",
+      "explain": "Schedule D line 15 is zero because lines 8a, 8b, 9, 10, 13, and 14 add to zero.",
+      "reasons": [],
+      "value": 0
+     },
+     "schedule-d.line-16": {
+      "disposition": "blocked",
+      "explain": "Schedule D line 16 has no value yet. It is waiting for line 7 or line 15.",
+      "reasons": [],
+      "value": null
+     },
+     "schedule-d.line-2": {
+      "disposition": "closure_backed_zero",
+      "explain": "Schedule D line 2, column (h), is zero. No short-term sale whose basis was not reported to the IRS is recorded, and your answer about those sales confirms the list is complete.",
+      "reasons": [],
+      "value": 0
+     },
+     "schedule-d.line-21": {
+      "disposition": "blocked",
+      "explain": "Schedule D line 21 has no value yet. It is waiting for your total gain or loss on line 16.",
+      "reasons": [],
+      "value": null
+     },
+     "schedule-d.line-3": {
+      "disposition": "blocked",
+      "explain": "Schedule D line 3, column (h), has no value yet. It waits for your answers about sales you received no Form 1099-B for, sales whose basis was not reported, and Form 8949 to agree with the sales you recorded, or for each recorded short-term sale of that kind to have its proceeds and basis and pass its checks.",
+      "reasons": [],
+      "value": null
+     },
+     "schedule-d.line-7": {
+      "disposition": "blocked",
+      "explain": "Schedule D line 7 has no value yet. It is waiting for whichever of lines 1a, 1b, 2, 3, and 6 is still open.",
+      "reasons": [],
+      "value": null
+     },
+     "schedule-d.line-9": {
+      "disposition": "closure_backed_zero",
+      "explain": "Schedule D line 9, column (h), is zero. No long-term sale whose basis was not reported to the IRS is recorded, and your answer about those sales confirms the list is complete.",
+      "reasons": [],
+      "value": 0
+     }
+    },
+    "lines": {
+     "form1040.line-15": [
+      "blocked",
+      null
+     ],
+     "form1040.line-16": [
+      "blocked",
+      null
+     ],
+     "form1040.line-7a": [
+      "blocked",
+      null
+     ],
+     "schedule-d.line-10": [
+      "computed_zero",
+      0
+     ],
+     "schedule-d.line-15": [
+      "computed_zero",
+      0
+     ],
+     "schedule-d.line-16": [
+      "blocked",
+      null
+     ],
+     "schedule-d.line-1a": [
+      "closure_backed_zero",
+      0
+     ],
+     "schedule-d.line-2": [
+      "closure_backed_zero",
+      0
+     ],
+     "schedule-d.line-21": [
+      "blocked",
+      null
+     ],
+     "schedule-d.line-3": [
+      "blocked",
+      null
+     ],
+     "schedule-d.line-7": [
+      "blocked",
+      null
+     ],
+     "schedule-d.line-8a": [
+      "closure_backed_zero",
+      0
+     ],
+     "schedule-d.line-9": [
+      "closure_backed_zero",
+      0
+     ]
+    },
+    "presentation_valid": true,
+    "stop_reason": "saturated"
+   }
+  },
+  "w_c_scalar_only_on_gain": {
+   "mismatch": {},
+   "result": {
+    "attachments": {
+     "f8949": "blocked",
+     "schedule-d": "blocked"
+    },
+    "dispositions": [
+     [
+      "rule.attachment.f8949",
+      null,
+      "blocked",
+      "DEPENDENCY_ABSENT",
+      [
+       "schedule-d.line-3"
+      ]
+     ],
+     [
+      "rule.attachment.schedule-d",
+      null,
+      "blocked",
+      "DEPENDENCY_ABSENT",
+      [
+       "schedule-d.line-3"
+      ]
+     ],
+     [
+      "rule.form1040-line7a",
+      null,
+      "blocked",
+      "DEPENDENCY_ABSENT",
+      [
+       "schedule-d.line-16",
+       "schedule-d.line-21",
+       "capital-gains.selected-preferential-base",
+       "schedule-d.line-3"
+      ]
+     ],
+     [
+      "rule.schedule-d-line10",
+      null,
+      "published",
+      null,
+      []
+     ],
+     [
+      "rule.schedule-d-line13",
+      null,
+      "published",
+      null,
+      []
+     ],
+     [
+      "rule.schedule-d-line14",
+      null,
+      "published",
+      null,
+      []
+     ],
+     [
+      "rule.schedule-d-line15",
+      null,
+      "published",
+      null,
+      []
+     ],
+     [
+      "rule.schedule-d-line16",
+      null,
+      "blocked",
+      "DEPENDENCY_ABSENT",
+      [
+       "schedule-d.line-7"
+      ]
+     ],
+     [
+      "rule.schedule-d-line1a-gain",
+      null,
+      "published",
+      null,
+      []
+     ],
+     [
+      "rule.schedule-d-line1b",
+      null,
+      "published",
+      null,
+      []
+     ],
+     [
+      "rule.schedule-d-line2",
+      null,
+      "published",
+      null,
+      []
+     ],
+     [
+      "rule.schedule-d-line21",
+      null,
+      "blocked",
+      "DEPENDENCY_ABSENT",
+      [
+       "schedule-d.line-16"
+      ]
+     ],
+     [
+      "rule.schedule-d-line3",
+      null,
+      "blocked",
+      "DEPENDENCY_ABSENT",
+      [
+       "f8949.no1099b-st-txn.amounts-check"
+      ]
+     ],
+     [
+      "rule.schedule-d-line6",
+      null,
+      "published",
+      null,
+      []
+     ],
+     [
+      "rule.schedule-d-line7",
+      null,
+      "blocked",
+      "DEPENDENCY_ABSENT",
+      [
+       "schedule-d.line-3"
+      ]
+     ],
+     [
+      "rule.schedule-d-line8a-gain",
+      null,
+      "published",
+      null,
+      []
+     ],
+     [
+      "rule.schedule-d-line8b",
+      null,
+      "published",
+      null,
+      []
+     ],
+     [
+      "rule.schedule-d-line9",
+      null,
+      "published",
+      null,
+      []
+     ],
+     [
+      "rule.selected-preferential-base",
+      null,
+      "blocked",
+      "DEPENDENCY_ABSENT",
+      [
+       "schedule-d.line-16",
+       "schedule-d.line-3"
+      ]
+     ]
+    ],
+    "fields": {
+     "form1040.line-7a": {
+      "disposition": "blocked",
+      "explain": "Line 7a is blocked because Exception-1 authority is incomplete or the box-2a family is unclosed.",
+      "reasons": [],
+      "value": null
+     },
+     "schedule-d.line-10": {
+      "disposition": "computed_zero",
+      "explain": "Schedule D line 10, column (h), is zero. Either no long-term sale you received no Form 1099-B for is recorded and your Form 8949 answers confirm it, or your box F proceeds, basis, and adjustments net to zero.",
+      "reasons": [],
+      "value": 0
+     },
+     "schedule-d.line-15": {
+      "disposition": "computed_zero",
+      "explain": "Schedule D line 15 is zero because lines 8a, 8b, 9, 10, 13, and 14 add to zero.",
+      "reasons": [],
+      "value": 0
+     },
+     "schedule-d.line-16": {
+      "disposition": "blocked",
+      "explain": "Schedule D line 16 has no value yet. It is waiting for line 7 or line 15.",
+      "reasons": [],
+      "value": null
+     },
+     "schedule-d.line-2": {
+      "disposition": "closure_backed_zero",
+      "explain": "Schedule D line 2, column (h), is zero. No short-term sale whose basis was not reported to the IRS is recorded, and your answer about those sales confirms the list is complete.",
+      "reasons": [],
+      "value": 0
+     },
+     "schedule-d.line-21": {
+      "disposition": "blocked",
+      "explain": "Schedule D line 21 has no value yet. It is waiting for your total gain or loss on line 16.",
+      "reasons": [],
+      "value": null
+     },
+     "schedule-d.line-3": {
+      "disposition": "blocked",
+      "explain": "Schedule D line 3, column (h), has no value yet. It waits for your answers about sales you received no Form 1099-B for, sales whose basis was not reported, and Form 8949 to agree with the sales you recorded, or for each recorded short-term sale of that kind to have its proceeds and basis and pass its checks.",
+      "reasons": [],
+      "value": null
+     },
+     "schedule-d.line-7": {
+      "disposition": "blocked",
+      "explain": "Schedule D line 7 has no value yet. It is waiting for whichever of lines 1a, 1b, 2, 3, and 6 is still open.",
+      "reasons": [],
+      "value": null
+     },
+     "schedule-d.line-9": {
+      "disposition": "closure_backed_zero",
+      "explain": "Schedule D line 9, column (h), is zero. No long-term sale whose basis was not reported to the IRS is recorded, and your answer about those sales confirms the list is complete.",
+      "reasons": [],
+      "value": 0
+     }
+    },
+    "lines": {
+     "form1040.line-15": [
+      "blocked",
+      null
+     ],
+     "form1040.line-16": [
+      "blocked",
+      null
+     ],
+     "form1040.line-7a": [
+      "blocked",
+      null
+     ],
+     "schedule-d.line-10": [
+      "computed_zero",
+      0
+     ],
+     "schedule-d.line-15": [
+      "computed_zero",
+      0
      ],
      "schedule-d.line-16": [
       "blocked",

@@ -96,6 +96,42 @@ def orphan_basis(acts: Acts) -> None:
     proto._record(acts, proto._family_id("st", "basis"), 4000.0, "orp2")
 
 
+def c_w_scalar_only(acts: Acts) -> None:
+    """A box C gain whose sale object carries no wash amount, with a wash-sale adjustment row of 500."""
+    cfp.cf_sale(acts, "st", 6000.0, 2000.0, "cwso", scalars=("proceeds", "basis"))
+    cfp.record(acts, "st", "adjustment", 500.0, "cwso")
+
+
+def c_amounts_disagree(acts: Acts) -> None:
+    """The sale object says a 2000/8000 loss with W 1000; the amount rows say 6000/2000 with W 1000."""
+    cfp.record(acts, "st", None, {"proceeds": 2000.0, "basis": 8000.0, "long_term": "no", "wash_disallowed": 1000.0},
+               "cdis")
+    for kind, value in (("proceeds", 6000.0), ("basis", 2000.0), ("adjustment", 1000.0)):
+        cfp.record(acts, "st", kind, value, "cdis")
+
+
+def c_object_wash_no_row(acts: Acts) -> None:
+    """A box C loss whose sale object says W 1000 but has no wash-sale adjustment row."""
+    cfp.cf_sale(acts, "st", 4000.0, 7000.0, "cowr", adjustment=1000.0, scalars=("proceeds", "basis"))
+
+
+def b_w_scalar_only(acts: Acts) -> None:
+    """The box B version of c_w_scalar_only (inherited from v79)."""
+    cp.on_be(acts, "st", 6000.0, 2000.0, "bwso")
+    proto._record(acts, proto._family_id("st", "adjustment"), 500.0, "bwso")
+
+
+def late_yes(reanswer: bool) -> Callable[[], Acts]:
+    """q2 yes with a box F sale, then a box C sale (and optionally yes again)."""
+    def build() -> Acts:
+        acts = cfp.v80_return(sales=lambda a: cfp.cf_sale(a, "lt", 6000.0, 2000.0, "lyf"), **CLS)
+        cfp.cf_sale(acts, "st", 2000.0, 8000.0, "lyc")
+        if reanswer:
+            acts = cfp.say(acts, cfp.Q2, "yes", "lyagain")
+        return ccr_renumbered(acts)
+    return build
+
+
 def two_c_one_missing(acts: Acts) -> None:
     cfp.cf_sale(acts, "st", 3000.0, 1000.0, "two1")
     cfp.cf_sale(acts, "st", 2000.0, 5000.0, "two2", scalars=("proceeds",))
@@ -117,8 +153,11 @@ def t1(stage: int) -> Callable[[], Acts]:
     return build
 
 
-def t2(stage: int) -> Callable[[], Acts]:
-    """A v79-style box B return, computed; then a box C sale and the answers that follow it."""
+def t2(stage: int, old_ic_after: str | None = None) -> Callable[[], Acts]:
+    """A v79-style box B return, computed; then a box C sale and the answers that follow it.
+
+    ``old_ic_after`` corrects the v79 in-class answer at the end. It is false once a box C sale exists.
+    """
     def build() -> Acts:
         acts = cfp.v80_return(sales=lambda a: cp.on_be(a, "st", 3000.0, 3500.0, "t2b"), **V79CLS)
         if stage >= 1:
@@ -127,6 +166,8 @@ def t2(stage: int) -> Callable[[], Acts]:
             acts = cfp.say(acts, cfp.Q2, "yes", "t2q2")
         if stage >= 3:
             acts = probe.answer(ccr_renumbered(acts), cfp.NEW_IC, "yes", "t2ic")
+        if old_ic_after is not None:
+            acts = probe.answer(ccr_renumbered(acts), cfp.OLD_IC, old_ic_after, "t2oic")
         return ccr_renumbered(acts)
     return build
 
@@ -151,6 +192,12 @@ def track0_cases() -> dict[str, Callable[[], Acts]]:
         "d3_b_shared_transaction": ret(shared_transaction, **V79CLS),
         "d3_c_two_sales_one_missing": ret(two_c_one_missing, **CLS),
         "d3_b_orphan_basis": ret(orphan_basis, **V79CLS),
+        "w_c_scalar_only_on_gain": ret(c_w_scalar_only, **CLS),
+        "w_c_amounts_disagree": ret(c_amounts_disagree, **CLS),
+        "w_c_object_wash_no_row": ret(c_object_wash_no_row, **CLS),
+        "w_b_scalar_only_on_gain": ret(b_w_scalar_only, **V79CLS),
+        "q2_late_yes_stale": late_yes(False),
+        "q2_late_yes_reanswered": late_yes(True),
         # Empty/nonempty matrix. Default Form 8949 answer is the harness "yes" (no Form 8949 sources).
         "m_no_no": ret(),
         "m_no_unanswered": ret(q2=None),
@@ -181,13 +228,15 @@ def track0_cases() -> dict[str, Callable[[], Acts]]:
         cases[f"t1_stage{n}"] = t1(n)
     for n in range(4):
         cases[f"t2_stage{n}"] = t2(n)
+    cases["t2_stage3_old_ic_no"] = t2(3, "no")
     return cases
 
 
 # Cases whose counterexample a Track 0 repair fixes, run again on the decided design.
 DECIDED = ("m_yes_nothing_no", "m_yes_nothing_no_old_ic_yes", "m_yes_yes_nothing", "m_f_q1_yes_nothing", "m_no_no_8949no_old_ic_yes",
            "m_no_no_8949no_new_ic_yes", "d3_b_shared_transaction", "d3_b_basis_missing", "m_no_no", "d3_b_loss",
-           "m_c_8949_yes", "m_b_8949_yes", "t1_stage3")
+           "m_c_8949_yes", "m_b_8949_yes", "t1_stage3", "w_c_scalar_only_on_gain", "w_c_amounts_disagree",
+           "w_c_object_wash_no_row", "w_b_scalar_only_on_gain", "c_basis_missing", "c_wash", "mixed_abcf")
 
 
 # ---- worker ---------------------------------------------------------------
@@ -250,6 +299,9 @@ def v79_case(name: str) -> Acts:
         cp.on_be(acts, "st", 2000.0, 8000.0, "b8949y")
         cases["t0_b_loss_8949_yes"] = cp.answered(acts, q1="yes", form8949="yes", other=None, in_class="yes", tag="b8949y")
         cases["t0_q1_yes_nothing"] = p0b._with_answer(cfp.ccr.base_return(), "yes")
+        bw = cp.opened()
+        b_w_scalar_only(bw)
+        cases["t0_b_w_scalar_only_on_gain"] = cp.answered(bw, q1="yes", in_class="yes", tag="bwso")
         cases["t0_8949no_old_ic_yes_q1_no"] = cp.answered(cp.opened(), q1="no", form8949="no", other="no",
                                                           in_class="yes", tag="oicq1no")
         STATE["v79"] = cases
@@ -289,7 +341,9 @@ def surface(content: Path) -> dict[str, Any]:
             bodies[(body["id"], body["version"])] = body
     symbols = [P + s for s in ("schedule-d.line-2", "schedule-d.line-3", "schedule-d.line-7", "schedule-d.line-9",
                                "schedule-d.line-10", "schedule-d.line-15", "schedule-d.line-16", "schedule-d.line-21",
-                               "form1040.line-7a", "capital-gains.selected-preferential-base")]
+                               "capital-gains.line7a-total", "capital-gains.selected-preferential-base")]
+    symbols += [body["publishes"] for (mid, _v), body in sorted(bodies.items())
+                if mid in (P + "rule.attachment.f8949", P + "rule.attachment.schedule-d")]
     out: dict[str, Any] = {"members_resolved": len(bodies), "members_listed": len(wanted)}
     for symbol in symbols:
         publishers, fields, consumers = [], [], []
@@ -302,9 +356,6 @@ def surface(content: Path) -> dict[str, Any]:
             elif cfp.mentions({k: v for k, v in body.items() if k not in ("id", "notes")}, symbol):
                 consumers.append(tag)
         out[symbol.removeprefix(P)] = {"publishers": publishers, "form_fields": fields, "consumers": consumers}
-    for att in ("attachment.f8949", "attachment.schedule-d"):
-        rows = [f"{mid.removeprefix(P)} {ver}" for (mid, ver) in bodies if mid == P + att]
-        out[att] = {"members": rows}
     return out
 
 
@@ -330,6 +381,27 @@ def compact(payload: dict[str, Any]) -> dict[str, Any]:
 
 
 def main() -> None:
+    if sys.argv[1:] == ["surface"]:  # rebuild and refresh only the static integration surface
+        cp.pin_v79()
+        cp.install_v79_noncovered()
+        with tempfile.TemporaryDirectory() as tmp:
+            cfp.build(Path(tmp).resolve() / "scratch", write_rules=False)
+            payload = json.loads(OUT.read_text(encoding="utf-8"))
+            payload["surface"] = surface(Path(tmp).resolve() / "scratch" / "content")
+        OUT.write_text(probe.scrub(json.dumps(payload, indent=1, sort_keys=True, default=str)) + "\n", encoding="utf-8")
+        return
+    if sys.argv[1:2] == ["only"]:  # run the named v80 cases on the final design and merge them
+        init(sorted(cfp.REPAIRS))
+        payload = json.loads(OUT.read_text(encoding="utf-8"))
+        for token in sys.argv[2:]:  # name (a v80 case) or c79:name (a v79 return on v79)
+            kind, _, name = token.rpartition(":")
+            if kind:
+                payload.setdefault("extra_v79", {})[name] = run((kind, name))[1]
+            else:
+                payload["v80_cases"][name] = run(("new", name))[1]
+        OUT.write_text(probe.scrub(json.dumps(compact(payload), indent=1, sort_keys=True, default=str)) + "\n",
+                       encoding="utf-8")
+        return
     workers = int(sys.argv[1]) if len(sys.argv) > 1 else 8
     cp.pin_v79()
     cp.install_v79_noncovered()
@@ -341,7 +413,8 @@ def main() -> None:
     cp.pin_v79()
     STATE.clear()
     new_names = list({**cfp.new_cases(), **track0_cases()})
-    v79_names = sorted(cfp.v79_cases()) + ["t0_b_loss_8949_yes", "t0_q1_yes_nothing", "t0_8949no_old_ic_yes_q1_no"]
+    v79_names = sorted(cfp.v79_cases()) + ["t0_b_loss_8949_yes", "t0_q1_yes_nothing", "t0_8949no_old_ic_yes_q1_no",
+                                           "t0_b_w_scalar_only_on_gain"]
     tasks = [("new", n) for n in new_names] + [(k, n) for n in v79_names for k in ("c79", "c80", "u80")]
     results: dict[str, Any] = {}
     with ProcessPoolExecutor(workers, initializer=init, initargs=(sorted(cfp.REPAIRS),)) as pool:

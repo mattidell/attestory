@@ -69,8 +69,15 @@ Q2 = P + "f8949.no1099b-sold.source-closure"
 #     statements can share a transaction entity. The ADR-0082 presence pairs
 #     refuse a scalar without its own sale object, so equal counts mean every
 #     sale has its own rows.
+#   amounts_agree: each sale's own proceeds, basis and wash-sale rows must
+#     equal the amounts on its sale object, whose member constraints (code W
+#     on a gain, adjustment above the loss, holding period) are the only
+#     checks. A per-sale rule (the sale object is the subject) publishes agree
+#     or disagree, and a return-level selection rule publishes 0 only when
+#     every sale agrees. Lines 2, 3, 9 and 10 require it. Same shape as the
+#     Form 1099-K statement-loss-reason / unresolved pair.
 REPAIRS: set[str] = {"q1_unbacked_yes", "old_ic_backed", "sale_needs_8949_no", "f8949_reads_lines_2_9",
-                     "nc_count_pairing"}
+                     "nc_count_pairing", "amounts_agree"}
 Q2_TEXT = "Did you sell any stocks or other securities for which you did not receive a Form 1099-B or substitute statement?"
 SALE_KIND = "tax.us.f8949-sale"
 TERMS = ("st", "lt")
@@ -220,8 +227,125 @@ def bundle(term: str) -> dict[str, Any]:
                           {"type": "number", "minimum": 0}, SALE_KEYS))
         facts.append(fact(fam(term, kind) + ".source-closure",
                           f"Closure of the {w} no-Form-1099-B {kind} family.", {"type": "boolean"}, CLOSURE_KEYS))
+    if "amounts_agree" in REPAIRS:
+        facts += agree_facts(member_fact(term, None), SALE_KEYS, f"{w} sale you received no Form 1099-B for")
     return {"schema": "bundle.v2", "id": P + f"f8949.no1099b-{term}.vocabulary", "version": "v1",
             "label": f"Vocabulary for {w} sales of securities with no Form 1099-B", "fact_types": facts}
+
+
+# ---- Track 0 repair amounts_agree ------------------------------------------
+
+
+def agree_fact(sale_fact: str) -> str:
+    return sale_fact + ".amounts-agree"
+
+
+def check_symbol(sale_fact: str) -> str:
+    return sale_fact + ".amounts-check"
+
+
+def inert_fact(sale_fact: str) -> str:
+    return sale_fact + ".amounts-check-inert-path-unwritten"
+
+
+def agree_facts(sale_fact: str, keys: list[dict[str, Any]], what: str) -> list[dict[str, Any]]:
+    domain = {"oneOf": [
+        {"const": "agree", "description": "The sale's own proceeds, basis and wash-sale rows equal the amounts on the sale."},
+        {"const": "disagree", "description": "A proceeds, basis or wash-sale row differs from the amount on the sale."},
+    ]}
+    return [fact(agree_fact(sale_fact), f"Whether each amount row of one {what} equals the amount on the sale.",
+                 domain, keys),
+            fact(inert_fact(sale_fact), "Never recorded; the second selection path the selection shape requires.",
+                 {"type": "boolean"}, [{"name": "tax-year", "kind": "literal", "values": ["2025"]}])]
+
+
+def nc_keys() -> list[dict[str, Any]]:
+    return copy.deepcopy(BUILT_NC_KEYS)
+
+
+BUILT_NC_KEYS: list[dict[str, Any]] = []
+
+
+def nc_check_bundle() -> dict[str, Any]:
+    if not BUILT_NC_KEYS:
+        BUILT_NC_KEYS.extend(read("f1099b-noncovered-st.bundle.json")["fact_types"][0]["identity_keys"])
+    facts: list[dict[str, Any]] = []
+    for term in TERMS:
+        facts += agree_facts(P + f"f1099b.noncovered-{term}-txn", nc_keys(),
+                             f"{WORD[term]} sale whose basis was not reported to the IRS")
+    return {"schema": "bundle.v2", "id": P + "f1099b.noncovered-amounts-check.vocabulary", "version": "v1",
+            "label": "Whether each sale whose basis was not reported has amount rows equal to the sale", "fact_types": facts}
+
+
+def agree_rule(sale_fact: str, family_stem: str) -> dict[str, Any]:
+    """Per sale: the amount rows equal the sale object's own amounts."""
+    proceeds, basis, adj = (sale_fact + "." + k for k in KINDS)
+    subject = {"op": "ref", "name": sale_fact}
+    field = lambda f: {**subject, "field": f}  # noqa: E731
+    eq = lambda left, right: {"op": "compare", "cmp": "eq", "left": left, "right": right}  # noqa: E731
+    rows = lambda name, kind: {"op": "count", "name": name, "source_set": family_stem + "-" + kind}  # noqa: E731
+    present = lambda name, kind: {"op": "all", "args": [  # noqa: E731
+        {"op": "compare", "cmp": "gt", "left": rows(name, kind), "right": 0},
+        {"op": "conditional_dependency_set", "condition": True, "members": [ref(name)]}]}
+
+    def amount_ok(name: str, kind: str) -> dict[str, Any]:
+        # A missing row is not compared here: the line's require_paired asks for it.
+        return {"op": "any", "args": [eq(rows(name, kind), 0),
+                                      {"op": "all", "args": [present(name, kind), eq(ref(name), field(kind))]}]}
+
+    wash_ok = {"op": "any", "args": [
+        {"op": "all", "args": [eq(rows(adj, "adjustment"), 0), eq(field("wash_disallowed"), 0)]},
+        {"op": "all", "args": [present(adj, "adjustment"), eq(ref(adj), field("wash_disallowed"))]},
+    ]}
+    lit = lambda v: {"op": "category_literal", "fact_type": {"id": agree_fact(sale_fact), "version": "v1"}, "value": v}  # noqa: E731
+    return {
+        "schema": "rule-artifact.v15", "id": sale_fact.replace(P, P + "rule.") + ".amounts-agree", "version": "v1",
+        "scope": read("rule.schedule-d-line2.json")["scope"], "role": "computation",
+        "subject": {"id": sale_fact, "version": "v1"},
+        "requires": [sale_fact], "pins": [], "when": True,
+        "value": {"op": "choose", "when": {"op": "all", "args": [
+            amount_ok(proceeds, "proceeds"), amount_ok(basis, "basis"), wash_ok]},
+            "then": lit("agree"), "else": lit("disagree")},
+        "publishes": agree_fact(sale_fact), "blocked": {"code": "DEPENDENCY_ABSENT", "missing": []}, "citations": [],
+        "notes": "Track 0: the line reads the amount rows; the member constraints read the sale. They must agree.",
+    }
+
+
+def check_rule(sale_fact: str, family_id: str) -> dict[str, Any]:
+    """Return level: 0 when every sale agrees or none is recorded; else block."""
+    agree = {"op": "category_literal", "fact_type": {"id": agree_fact(sale_fact), "version": "v1"}, "value": "agree"}
+    path = lambda pid, activity, reads, value: {"id": pid, "activity": activity, "reads_subject_results": reads,  # noqa: E731
+                                                 "requires": [], "pins": [], "when": True, "value": value}
+    return {
+        "schema": "rule-artifact.v15", "id": sale_fact.replace(P, P + "rule.") + ".amounts-check", "version": "v1",
+        "scope": read("rule.schedule-d-line2.json")["scope"], "role": "computation", "requires": [], "pins": [],
+        "when": True,
+        "selection": {"mode": "exclusive_presence", "conflict": "refuse", "paths": [
+            path("sales", {"kind": "source_nonempty", "source_family": {"id": family_id, "version": "v1"},
+                           "member_fact_types": [{"id": sale_fact, "version": "v1"}]},
+                 [{"symbol": agree_fact(sale_fact), "subject": {"id": sale_fact, "version": "v1"}}],
+                 {"op": "choose", "when": {"op": "collect_categorical_all_equal", "name": agree_fact(sale_fact),
+                                           "value": agree},
+                  "then": 0, "else": {"op": "block", "code": "DEPENDENCY_INVALID"}}),
+            path("inert", {"kind": "source_nonempty", "member_fact_types": [{"id": inert_fact(sale_fact), "version": "v1"}]},
+                 [], {"op": "block", "code": "DEPENDENCY_ABSENT"}),
+        ], "default": {"id": "neither", "reads_subject_results": [], "requires": [], "pins": [], "when": True, "value": 0},
+            "refusal": {"code": "DEPENDENCY_INVALID", "missing": [sale_fact.removeprefix(P) + "-amounts-check-conflict"],
+                        "pins": []}},
+        "publishes": check_symbol(sale_fact), "blocked": {"code": "DEPENDENCY_ABSENT", "missing": []}, "citations": [],
+        "notes": "Track 0: blocks unless every recorded sale's amount rows equal the sale's own amounts.",
+    }
+
+
+def agreement_members() -> list[tuple[str, dict[str, Any]]]:
+    out: list[tuple[str, dict[str, Any]]] = [("f1099b-noncovered-amounts-check.bundle.json", nc_check_bundle())]
+    for term in TERMS:
+        for sale, family_id, stem in ((member_fact(term, None), fam(term, None), fam(term, None)),
+                                      (nc_fact(term, None), P + f"f1099b.noncovered-{term}", P + f"f1099b.noncovered-{term}")):
+            slug = sale.removeprefix(P)
+            out.append((f"rule.{slug}.amounts-agree.json", agree_rule(sale, stem)))
+            out.append((f"rule.{slug}.amounts-check.json", check_rule(sale, family_id)))
+    return out
 
 
 def boundary_bundle() -> dict[str, Any]:
@@ -358,7 +482,8 @@ def line_rule(term: str) -> dict[str, Any]:
         "role": "computation", "scope": read("rule.schedule-d-line2.json")["scope"],
         "publishes": P + f"schedule-d.line-{LINE[term]}",
         "requires": [p, b, a, subtotal(other, "proceeds"), subtotal(other, "basis"),
-                     *(nc_subs if "q1_unbacked_yes" in REPAIRS else [])],
+                     *(nc_subs if "q1_unbacked_yes" in REPAIRS else []),
+                     *([check_symbol(sale)] if "amounts_agree" in REPAIRS else [])],
         "blocked": {"code": "DEPENDENCY_ABSENT", "missing": [p, b, a]},
         "citations": [{"id": P + f"citation.schedule-d.line-{LINE[term]}", "version": "v1"}],
         "pins": [], "when": when,
@@ -437,6 +562,8 @@ def paired_nc_line(body: dict[str, Any], term: str) -> dict[str, Any]:
         body["value"]["when"]["args"] = [zero, present]
         body["notes"] += (" A recorded sale publishes only beside a Form 8949 no: a sale is a Form 8949 transaction "
                           "(Track 0).")
+    if "amounts_agree" in REPAIRS:
+        body["requires"].append(check_symbol(nc_fact(term, None)))
     if "nc_count_pairing" in REPAIRS:
         def count(kind: str | None) -> dict[str, Any]:
             return {"op": "count", "name": nc_fact(term, kind),
@@ -557,6 +684,8 @@ def artifacts() -> tuple[list[tuple[str, dict[str, Any]]], dict[tuple[str, str],
         old[(body["id"], "v2")] = ("v1", read(name)["schema"])
         out.append((f"rule.schedule-d-line{NC_LINE[term]}.v2.json", body))
     out.extend(nc_amount_questions())
+    if "amounts_agree" in REPAIRS:
+        out.extend(agreement_members())
     succ("rule.schedule-d-line1a-gain.v4.json", "rule.schedule-d-line1a-gain.v5.json", "v5", "v4", pairs=[], arm=True, notes=arm_note)
     succ("rule.schedule-d-line8a-gain.v5.json", "rule.schedule-d-line8a-gain.v6.json", "v6", "v5", pairs=[], arm=True, notes=arm_note)
     succ("rule.selected-preferential-base.v7.json", "rule.selected-preferential-base.v8.json", "v8", "v7",
@@ -695,6 +824,8 @@ def open_cf(acts: list[dict[str, Any]]) -> None:
         b = BUNDLES.setdefault(term, bundle(term))
         cp.proto._adopt(acts, b)
     cp.proto._adopt(acts, BUNDLES.setdefault("boundary", boundary_bundle()))
+    if "amounts_agree" in REPAIRS:
+        cp.proto._adopt(acts, BUNDLES.setdefault("nc_check", nc_check_bundle()))
     for term in TERMS:
         for kind in (None, *KINDS):
             slug = fam(term, kind).removeprefix(P + "f8949.")

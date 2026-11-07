@@ -426,6 +426,87 @@
     }
   },
   {
+    "op": "add",
+    "new": {
+      "id": "tax.us.2025.f1099b.noncovered-amounts-check.vocabulary",
+      "version": "v1",
+      "schema": "bundle.v2",
+      "role": "fact-type-bundle"
+    }
+  },
+  {
+    "op": "add",
+    "new": {
+      "id": "tax.us.2025.rule.f8949.no1099b-st-txn.amounts-agree",
+      "version": "v1",
+      "schema": "rule-artifact.v15",
+      "role": "computation"
+    }
+  },
+  {
+    "op": "add",
+    "new": {
+      "id": "tax.us.2025.rule.f8949.no1099b-st-txn.amounts-check",
+      "version": "v1",
+      "schema": "rule-artifact.v15",
+      "role": "computation"
+    }
+  },
+  {
+    "op": "add",
+    "new": {
+      "id": "tax.us.2025.rule.f1099b.noncovered-st-txn.amounts-agree",
+      "version": "v1",
+      "schema": "rule-artifact.v15",
+      "role": "computation"
+    }
+  },
+  {
+    "op": "add",
+    "new": {
+      "id": "tax.us.2025.rule.f1099b.noncovered-st-txn.amounts-check",
+      "version": "v1",
+      "schema": "rule-artifact.v15",
+      "role": "computation"
+    }
+  },
+  {
+    "op": "add",
+    "new": {
+      "id": "tax.us.2025.rule.f8949.no1099b-lt-txn.amounts-agree",
+      "version": "v1",
+      "schema": "rule-artifact.v15",
+      "role": "computation"
+    }
+  },
+  {
+    "op": "add",
+    "new": {
+      "id": "tax.us.2025.rule.f8949.no1099b-lt-txn.amounts-check",
+      "version": "v1",
+      "schema": "rule-artifact.v15",
+      "role": "computation"
+    }
+  },
+  {
+    "op": "add",
+    "new": {
+      "id": "tax.us.2025.rule.f1099b.noncovered-lt-txn.amounts-agree",
+      "version": "v1",
+      "schema": "rule-artifact.v15",
+      "role": "computation"
+    }
+  },
+  {
+    "op": "add",
+    "new": {
+      "id": "tax.us.2025.rule.f1099b.noncovered-lt-txn.amounts-check",
+      "version": "v1",
+      "schema": "rule-artifact.v15",
+      "role": "computation"
+    }
+  },
+  {
     "op": "replace",
     "old": {
       "id": "tax.us.2025.rule.schedule-d-line1a-gain",
