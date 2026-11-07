@@ -1,0 +1,254 @@
+{
+  "schema": "bundle.v2",
+  "id": "tax.us.2025.f8949.no1099b-lt.vocabulary",
+  "version": "v1",
+  "label": "Vocabulary for long-term sales of securities with no Form 1099-B",
+  "fact_types": [
+    {
+      "schema": "fact-type.v2",
+      "id": "tax.us.2025.f8949.no1099b-lt-txn",
+      "version": "v1",
+      "title": "One long-term sale of securities you received no Form 1099-B or substitute statement for. You supply the net proceeds and the basis.",
+      "nature": "determinable",
+      "identity_keys": [
+        {
+          "name": "sale",
+          "kind": "entity",
+          "entity_kind": "tax.us.f8949-sale"
+        },
+        {
+          "name": "tax-year",
+          "kind": "literal",
+          "values": [
+            "2025"
+          ]
+        }
+      ],
+      "value_schema": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "proceeds",
+          "basis",
+          "long_term",
+          "wash_disallowed"
+        ],
+        "properties": {
+          "proceeds": {
+            "type": "number",
+            "minimum": 0
+          },
+          "basis": {
+            "type": "number",
+            "minimum": 0
+          },
+          "long_term": {
+            "enum": [
+              "yes",
+              "no"
+            ]
+          },
+          "wash_disallowed": {
+            "type": "number",
+            "minimum": 0
+          }
+        }
+      },
+      "supersession": {
+        "policy": "free"
+      }
+    },
+    {
+      "schema": "fact-type.v2",
+      "id": "tax.us.2025.f8949.no1099b-lt.source-closure",
+      "version": "v1",
+      "title": "Closure of the long-term no-Form-1099-B sale family.",
+      "nature": "determinable",
+      "identity_keys": [
+        {
+          "name": "family-horizon",
+          "kind": "entity",
+          "entity_kind": "kernel.family-horizon"
+        },
+        {
+          "name": "tax-year",
+          "kind": "literal",
+          "values": [
+            "2025"
+          ]
+        }
+      ],
+      "value_schema": {
+        "type": "boolean"
+      },
+      "supersession": {
+        "policy": "free"
+      }
+    },
+    {
+      "schema": "fact-type.v2",
+      "id": "tax.us.2025.f8949.no1099b-lt-txn.proceeds",
+      "version": "v1",
+      "title": "The net proceeds (gross proceeds minus selling expenses) of a long-term sale you received no Form 1099-B for.",
+      "nature": "determinable",
+      "identity_keys": [
+        {
+          "name": "sale",
+          "kind": "entity",
+          "entity_kind": "tax.us.f8949-sale"
+        },
+        {
+          "name": "tax-year",
+          "kind": "literal",
+          "values": [
+            "2025"
+          ]
+        }
+      ],
+      "value_schema": {
+        "type": "number",
+        "minimum": 0
+      },
+      "supersession": {
+        "policy": "free"
+      }
+    },
+    {
+      "schema": "fact-type.v2",
+      "id": "tax.us.2025.f8949.no1099b-lt-proceeds.source-closure",
+      "version": "v1",
+      "title": "Closure of the long-term no-Form-1099-B proceeds family.",
+      "nature": "determinable",
+      "identity_keys": [
+        {
+          "name": "family-horizon",
+          "kind": "entity",
+          "entity_kind": "kernel.family-horizon"
+        },
+        {
+          "name": "tax-year",
+          "kind": "literal",
+          "values": [
+            "2025"
+          ]
+        }
+      ],
+      "value_schema": {
+        "type": "boolean"
+      },
+      "supersession": {
+        "policy": "free"
+      }
+    },
+    {
+      "schema": "fact-type.v2",
+      "id": "tax.us.2025.f8949.no1099b-lt-txn.basis",
+      "version": "v1",
+      "title": "The basis of a long-term sale you received no Form 1099-B for.",
+      "nature": "determinable",
+      "identity_keys": [
+        {
+          "name": "sale",
+          "kind": "entity",
+          "entity_kind": "tax.us.f8949-sale"
+        },
+        {
+          "name": "tax-year",
+          "kind": "literal",
+          "values": [
+            "2025"
+          ]
+        }
+      ],
+      "value_schema": {
+        "type": "number",
+        "minimum": 0
+      },
+      "supersession": {
+        "policy": "free"
+      }
+    },
+    {
+      "schema": "fact-type.v2",
+      "id": "tax.us.2025.f8949.no1099b-lt-basis.source-closure",
+      "version": "v1",
+      "title": "Closure of the long-term no-Form-1099-B basis family.",
+      "nature": "determinable",
+      "identity_keys": [
+        {
+          "name": "family-horizon",
+          "kind": "entity",
+          "entity_kind": "kernel.family-horizon"
+        },
+        {
+          "name": "tax-year",
+          "kind": "literal",
+          "values": [
+            "2025"
+          ]
+        }
+      ],
+      "value_schema": {
+        "type": "boolean"
+      },
+      "supersession": {
+        "policy": "free"
+      }
+    },
+    {
+      "schema": "fact-type.v2",
+      "id": "tax.us.2025.f8949.no1099b-lt-txn.adjustment",
+      "version": "v1",
+      "title": "The wash-sale adjustment of a long-term sale you received no Form 1099-B for.",
+      "nature": "determinable",
+      "identity_keys": [
+        {
+          "name": "sale",
+          "kind": "entity",
+          "entity_kind": "tax.us.f8949-sale"
+        },
+        {
+          "name": "tax-year",
+          "kind": "literal",
+          "values": [
+            "2025"
+          ]
+        }
+      ],
+      "value_schema": {
+        "type": "number",
+        "minimum": 0
+      },
+      "supersession": {
+        "policy": "free"
+      }
+    },
+    {
+      "schema": "fact-type.v2",
+      "id": "tax.us.2025.f8949.no1099b-lt-adjustment.source-closure",
+      "version": "v1",
+      "title": "Closure of the long-term no-Form-1099-B adjustment family.",
+      "nature": "determinable",
+      "identity_keys": [
+        {
+          "name": "family-horizon",
+          "kind": "entity",
+          "entity_kind": "kernel.family-horizon"
+        },
+        {
+          "name": "tax-year",
+          "kind": "literal",
+          "values": [
+            "2025"
+          ]
+        }
+      ],
+      "value_schema": {
+        "type": "boolean"
+      },
+      "supersession": {
+        "policy": "free"
+      }
+    }
+  ]
+}

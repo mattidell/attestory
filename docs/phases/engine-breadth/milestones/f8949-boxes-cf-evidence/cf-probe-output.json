@@ -1,0 +1,1465 @@
+{
+ "cases": {
+  "c_loss_on_b_in_class_no": {
+   "attachments": {
+    "f8949": "blocked",
+    "schedule-d": "blocked"
+   },
+   "blocked": [
+    {
+     "artifact": "rule.f1099b-noncovered-st-basis-subtotal",
+     "code": "DEPENDENCY_ABSENT",
+     "missing": []
+    },
+    {
+     "artifact": "rule.f1099b-noncovered-st-proceeds-subtotal",
+     "code": "DEPENDENCY_ABSENT",
+     "missing": []
+    },
+    {
+     "artifact": "rule.attachment.f8949",
+     "code": "DEPENDENCY_ABSENT",
+     "missing": [
+      "f1099b.noncovered-st-proceeds-subtotal"
+     ]
+    },
+    {
+     "artifact": "rule.attachment.schedule-d",
+     "code": "DEPENDENCY_ABSENT",
+     "missing": [
+      "f1099b.noncovered-st-proceeds-subtotal",
+      "f1099b.noncovered-st-basis-subtotal",
+      "schedule-d.line-2"
+     ]
+    },
+    {
+     "artifact": "rule.form1040-line7a",
+     "code": "DEPENDENCY_ABSENT",
+     "missing": [
+      "schedule-d.line-16",
+      "schedule-d.line-21",
+      "capital-gains.selected-preferential-base",
+      "schedule-d.line-2"
+     ]
+    },
+    {
+     "artifact": "rule.schedule-d-line16",
+     "code": "DEPENDENCY_ABSENT",
+     "missing": [
+      "schedule-d.line-7"
+     ]
+    },
+    {
+     "artifact": "rule.schedule-d-line21",
+     "code": "DEPENDENCY_ABSENT",
+     "missing": [
+      "schedule-d.line-16"
+     ]
+    },
+    {
+     "artifact": "rule.schedule-d-line7",
+     "code": "DEPENDENCY_ABSENT",
+     "missing": [
+      "schedule-d.line-2"
+     ]
+    },
+    {
+     "artifact": "rule.selected-preferential-base",
+     "code": "DEPENDENCY_ABSENT",
+     "missing": [
+      "schedule-d.line-16",
+      "schedule-d.line-2"
+     ]
+    },
+    {
+     "artifact": "rule.schedule-d-line2",
+     "code": "DEPENDENCY_ABSENT",
+     "missing": [
+      "f1099b.noncovered-st-proceeds-subtotal",
+      "f1099b.noncovered-st-basis-subtotal"
+     ]
+    }
+   ],
+   "duplicate_field_ids": [],
+   "f8949_parts": [],
+   "line_text": {
+    "schedule-d.line-2": {
+     "explain": "Schedule D line 2, column (h), has no value yet. It waits for your answers about sales whose basis was not reported to the IRS, or for a recorded short-term sale of that kind to pass its checks.",
+     "reasons": []
+    },
+    "schedule-d.line-9": {
+     "explain": "Schedule D line 9, column (h), is zero. No long-term sale whose basis was not reported to the IRS is recorded, and your answer about those sales confirms the list is complete.",
+     "reasons": []
+    }
+   },
+   "lines": {
+    "form1040.line-15": [
+     "blocked",
+     null
+    ],
+    "form1040.line-16": [
+     "blocked",
+     null
+    ],
+    "form1040.line-7a": [
+     "blocked",
+     null
+    ],
+    "schedule-d.line-15": [
+     "computed_zero",
+     0
+    ],
+    "schedule-d.line-16": [
+     "blocked",
+     null
+    ],
+    "schedule-d.line-1a": [
+     "closure_backed_zero",
+     0
+    ],
+    "schedule-d.line-2": [
+     "blocked",
+     null
+    ],
+    "schedule-d.line-21": [
+     "blocked",
+     null
+    ],
+    "schedule-d.line-7": [
+     "blocked",
+     null
+    ],
+    "schedule-d.line-8a": [
+     "closure_backed_zero",
+     0
+    ],
+    "schedule-d.line-9": [
+     "closure_backed_zero",
+     0
+    ]
+   },
+   "missing_lines": [
+    "schedule-d.line-10",
+    "schedule-d.line-3"
+   ],
+   "presentation_valid": true,
+   "questions": [],
+   "seconds": 4.7,
+   "stop_reason": "saturated",
+   "symbols": {}
+  },
+  "c_loss_on_b_in_class_yes": {
+   "attachments": {
+    "f8949": "published",
+    "schedule-d": "published"
+   },
+   "blocked": [],
+   "duplicate_field_ids": [],
+   "f8949_parts": [
+    "Part I box A column (d): short-term wash-sale proceeds",
+    "Part I box A column (e): short-term wash-sale basis",
+    "Part I box A column (g): short-term wash-sale adjustment",
+    "Part II box D column (d): long-term wash-sale proceeds",
+    "Part II box D column (e): long-term wash-sale basis",
+    "Part II box D column (g): long-term wash-sale adjustment",
+    "Part I box B column (d): short-term basis-not-reported proceeds",
+    "Part I box B column (e): short-term basis the filer supplies",
+    "Part I box B column (g): short-term wash-sale adjustment",
+    "Part II box E column (d): long-term basis-not-reported proceeds",
+    "Part II box E column (e): long-term basis the filer supplies",
+    "Part II box E column (g): long-term wash-sale adjustment"
+   ],
+   "line_text": {
+    "schedule-d.line-2": {
+     "explain": "Schedule D line 2, column (h), is your short-term Form 8949 box B gain or loss, proceeds minus basis plus adjustments.",
+     "reasons": []
+    },
+    "schedule-d.line-9": {
+     "explain": "Schedule D line 9, column (h), is zero. No long-term sale whose basis was not reported to the IRS is recorded, and your answer about those sales confirms the list is complete.",
+     "reasons": []
+    }
+   },
+   "lines": {
+    "form1040.line-15": [
+     "published_value",
+     31250
+    ],
+    "form1040.line-16": [
+     "published_value",
+     3515
+    ],
+    "form1040.line-7a": [
+     "published_value",
+     -3000
+    ],
+    "schedule-d.line-15": [
+     "computed_zero",
+     0
+    ],
+    "schedule-d.line-16": [
+     "published_value",
+     -6000
+    ],
+    "schedule-d.line-1a": [
+     "closure_backed_zero",
+     0
+    ],
+    "schedule-d.line-2": [
+     "published_value",
+     -6000
+    ],
+    "schedule-d.line-21": [
+     "published_value",
+     3000
+    ],
+    "schedule-d.line-7": [
+     "published_value",
+     -6000
+    ],
+    "schedule-d.line-8a": [
+     "closure_backed_zero",
+     0
+    ],
+    "schedule-d.line-9": [
+     "closure_backed_zero",
+     0
+    ]
+   },
+   "missing_lines": [
+    "schedule-d.line-10",
+    "schedule-d.line-3"
+   ],
+   "presentation_valid": true,
+   "questions": [],
+   "seconds": 4.8,
+   "stop_reason": "saturated",
+   "symbols": {
+    "capital-gains.selected-preferential-base": "0"
+   }
+  },
+  "c_unrecorded_8949_no": {
+   "attachments": {
+    "f8949": "guard_inapplicable",
+    "schedule-d": "guard_inapplicable"
+   },
+   "blocked": [],
+   "duplicate_field_ids": [],
+   "f8949_parts": [],
+   "line_text": {
+    "schedule-d.line-2": {
+     "explain": "Schedule D line 2, column (h), is zero. No short-term sale whose basis was not reported to the IRS is recorded, and your answer about those sales confirms the list is complete.",
+     "reasons": []
+    },
+    "schedule-d.line-9": {
+     "explain": "Schedule D line 9, column (h), is zero. No long-term sale whose basis was not reported to the IRS is recorded, and your answer about those sales confirms the list is complete.",
+     "reasons": []
+    }
+   },
+   "lines": {
+    "form1040.line-15": [
+     "published_value",
+     34250
+    ],
+    "form1040.line-16": [
+     "published_value",
+     3875
+    ],
+    "form1040.line-7a": [
+     "computed_zero",
+     0
+    ],
+    "schedule-d.line-15": [
+     "computed_zero",
+     0
+    ],
+    "schedule-d.line-16": [
+     "computed_zero",
+     0
+    ],
+    "schedule-d.line-1a": [
+     "closure_backed_zero",
+     0
+    ],
+    "schedule-d.line-2": [
+     "closure_backed_zero",
+     0
+    ],
+    "schedule-d.line-21": [
+     "computed_zero",
+     0
+    ],
+    "schedule-d.line-7": [
+     "computed_zero",
+     0
+    ],
+    "schedule-d.line-8a": [
+     "closure_backed_zero",
+     0
+    ],
+    "schedule-d.line-9": [
+     "closure_backed_zero",
+     0
+    ]
+   },
+   "missing_lines": [
+    "schedule-d.line-10",
+    "schedule-d.line-3"
+   ],
+   "presentation_valid": true,
+   "questions": [],
+   "seconds": 4.7,
+   "stop_reason": "saturated",
+   "symbols": {
+    "capital-gains.selected-preferential-base": "0"
+   }
+  },
+  "c_unrecorded_8949_no_other_no": {
+   "attachments": {
+    "f8949": "guard_inapplicable",
+    "schedule-d": "guard_inapplicable"
+   },
+   "blocked": [],
+   "duplicate_field_ids": [],
+   "f8949_parts": [],
+   "line_text": {
+    "schedule-d.line-2": {
+     "explain": "Schedule D line 2, column (h), is zero. No short-term sale whose basis was not reported to the IRS is recorded, and your answer about those sales confirms the list is complete.",
+     "reasons": []
+    },
+    "schedule-d.line-9": {
+     "explain": "Schedule D line 9, column (h), is zero. No long-term sale whose basis was not reported to the IRS is recorded, and your answer about those sales confirms the list is complete.",
+     "reasons": []
+    }
+   },
+   "lines": {
+    "form1040.line-15": [
+     "published_value",
+     34250
+    ],
+    "form1040.line-16": [
+     "published_value",
+     3875
+    ],
+    "form1040.line-7a": [
+     "computed_zero",
+     0
+    ],
+    "schedule-d.line-15": [
+     "computed_zero",
+     0
+    ],
+    "schedule-d.line-16": [
+     "computed_zero",
+     0
+    ],
+    "schedule-d.line-1a": [
+     "closure_backed_zero",
+     0
+    ],
+    "schedule-d.line-2": [
+     "closure_backed_zero",
+     0
+    ],
+    "schedule-d.line-21": [
+     "computed_zero",
+     0
+    ],
+    "schedule-d.line-7": [
+     "computed_zero",
+     0
+    ],
+    "schedule-d.line-8a": [
+     "closure_backed_zero",
+     0
+    ],
+    "schedule-d.line-9": [
+     "closure_backed_zero",
+     0
+    ]
+   },
+   "missing_lines": [
+    "schedule-d.line-10",
+    "schedule-d.line-3"
+   ],
+   "presentation_valid": true,
+   "questions": [],
+   "seconds": 4.8,
+   "stop_reason": "saturated",
+   "symbols": {
+    "capital-gains.selected-preferential-base": "0"
+   }
+  },
+  "c_unrecorded_all_no": {
+   "attachments": {
+    "f8949": "guard_inapplicable",
+    "schedule-d": "guard_inapplicable"
+   },
+   "blocked": [],
+   "duplicate_field_ids": [],
+   "f8949_parts": [],
+   "line_text": {
+    "schedule-d.line-2": {
+     "explain": "Schedule D line 2, column (h), is zero. No short-term sale whose basis was not reported to the IRS is recorded, and your answer about those sales confirms the list is complete.",
+     "reasons": []
+    },
+    "schedule-d.line-9": {
+     "explain": "Schedule D line 9, column (h), is zero. No long-term sale whose basis was not reported to the IRS is recorded, and your answer about those sales confirms the list is complete.",
+     "reasons": []
+    }
+   },
+   "lines": {
+    "form1040.line-15": [
+     "published_value",
+     34250
+    ],
+    "form1040.line-16": [
+     "published_value",
+     3875
+    ],
+    "form1040.line-7a": [
+     "computed_zero",
+     0
+    ],
+    "schedule-d.line-15": [
+     "computed_zero",
+     0
+    ],
+    "schedule-d.line-16": [
+     "computed_zero",
+     0
+    ],
+    "schedule-d.line-1a": [
+     "closure_backed_zero",
+     0
+    ],
+    "schedule-d.line-2": [
+     "closure_backed_zero",
+     0
+    ],
+    "schedule-d.line-21": [
+     "computed_zero",
+     0
+    ],
+    "schedule-d.line-7": [
+     "computed_zero",
+     0
+    ],
+    "schedule-d.line-8a": [
+     "closure_backed_zero",
+     0
+    ],
+    "schedule-d.line-9": [
+     "closure_backed_zero",
+     0
+    ]
+   },
+   "missing_lines": [
+    "schedule-d.line-10",
+    "schedule-d.line-3"
+   ],
+   "presentation_valid": true,
+   "questions": [],
+   "seconds": 4.8,
+   "stop_reason": "saturated",
+   "symbols": {
+    "capital-gains.selected-preferential-base": "0"
+   }
+  },
+  "c_wash_on_b_in_class_no": {
+   "attachments": {
+    "f8949": "blocked",
+    "schedule-d": "blocked"
+   },
+   "blocked": [
+    {
+     "artifact": "rule.f1099b-noncovered-st-adjustment-subtotal",
+     "code": "DEPENDENCY_ABSENT",
+     "missing": []
+    },
+    {
+     "artifact": "rule.f1099b-noncovered-st-basis-subtotal",
+     "code": "DEPENDENCY_ABSENT",
+     "missing": []
+    },
+    {
+     "artifact": "rule.f1099b-noncovered-st-proceeds-subtotal",
+     "code": "DEPENDENCY_ABSENT",
+     "missing": []
+    },
+    {
+     "artifact": "rule.attachment.f8949",
+     "code": "DEPENDENCY_ABSENT",
+     "missing": [
+      "f1099b.noncovered-st-proceeds-subtotal"
+     ]
+    },
+    {
+     "artifact": "rule.attachment.schedule-d",
+     "code": "DEPENDENCY_ABSENT",
+     "missing": [
+      "f1099b.noncovered-st-proceeds-subtotal",
+      "f1099b.noncovered-st-basis-subtotal",
+      "schedule-d.line-2"
+     ]
+    },
+    {
+     "artifact": "rule.form1040-line7a",
+     "code": "DEPENDENCY_ABSENT",
+     "missing": [
+      "schedule-d.line-16",
+      "schedule-d.line-21",
+      "capital-gains.selected-preferential-base",
+      "schedule-d.line-2"
+     ]
+    },
+    {
+     "artifact": "rule.schedule-d-line16",
+     "code": "DEPENDENCY_ABSENT",
+     "missing": [
+      "schedule-d.line-7"
+     ]
+    },
+    {
+     "artifact": "rule.schedule-d-line21",
+     "code": "DEPENDENCY_ABSENT",
+     "missing": [
+      "schedule-d.line-16"
+     ]
+    },
+    {
+     "artifact": "rule.schedule-d-line7",
+     "code": "DEPENDENCY_ABSENT",
+     "missing": [
+      "schedule-d.line-2"
+     ]
+    },
+    {
+     "artifact": "rule.selected-preferential-base",
+     "code": "DEPENDENCY_ABSENT",
+     "missing": [
+      "schedule-d.line-16",
+      "schedule-d.line-2"
+     ]
+    },
+    {
+     "artifact": "rule.schedule-d-line2",
+     "code": "DEPENDENCY_ABSENT",
+     "missing": [
+      "f1099b.noncovered-st-proceeds-subtotal",
+      "f1099b.noncovered-st-basis-subtotal",
+      "f1099b.noncovered-st-adjustment-subtotal"
+     ]
+    }
+   ],
+   "duplicate_field_ids": [],
+   "f8949_parts": [],
+   "line_text": {
+    "schedule-d.line-2": {
+     "explain": "Schedule D line 2, column (h), has no value yet. It waits for your answers about sales whose basis was not reported to the IRS, or for a recorded short-term sale of that kind to pass its checks.",
+     "reasons": []
+    },
+    "schedule-d.line-9": {
+     "explain": "Schedule D line 9, column (h), is zero. No long-term sale whose basis was not reported to the IRS is recorded, and your answer about those sales confirms the list is complete.",
+     "reasons": []
+    }
+   },
+   "lines": {
+    "form1040.line-15": [
+     "blocked",
+     null
+    ],
+    "form1040.line-16": [
+     "blocked",
+     null
+    ],
+    "form1040.line-7a": [
+     "blocked",
+     null
+    ],
+    "schedule-d.line-15": [
+     "computed_zero",
+     0
+    ],
+    "schedule-d.line-16": [
+     "blocked",
+     null
+    ],
+    "schedule-d.line-1a": [
+     "closure_backed_zero",
+     0
+    ],
+    "schedule-d.line-2": [
+     "blocked",
+     null
+    ],
+    "schedule-d.line-21": [
+     "blocked",
+     null
+    ],
+    "schedule-d.line-7": [
+     "blocked",
+     null
+    ],
+    "schedule-d.line-8a": [
+     "closure_backed_zero",
+     0
+    ],
+    "schedule-d.line-9": [
+     "closure_backed_zero",
+     0
+    ]
+   },
+   "missing_lines": [
+    "schedule-d.line-10",
+    "schedule-d.line-3"
+   ],
+   "presentation_valid": true,
+   "questions": [],
+   "seconds": 4.7,
+   "stop_reason": "saturated",
+   "symbols": {}
+  },
+  "c_wash_on_b_in_class_yes": {
+   "attachments": {
+    "f8949": "published",
+    "schedule-d": "published"
+   },
+   "blocked": [],
+   "duplicate_field_ids": [],
+   "f8949_parts": [
+    "Part I box A column (d): short-term wash-sale proceeds",
+    "Part I box A column (e): short-term wash-sale basis",
+    "Part I box A column (g): short-term wash-sale adjustment",
+    "Part II box D column (d): long-term wash-sale proceeds",
+    "Part II box D column (e): long-term wash-sale basis",
+    "Part II box D column (g): long-term wash-sale adjustment",
+    "Part I box B column (d): short-term basis-not-reported proceeds",
+    "Part I box B column (e): short-term basis the filer supplies",
+    "Part I box B column (g): short-term wash-sale adjustment",
+    "Part II box E column (d): long-term basis-not-reported proceeds",
+    "Part II box E column (e): long-term basis the filer supplies",
+    "Part II box E column (g): long-term wash-sale adjustment"
+   ],
+   "line_text": {
+    "schedule-d.line-2": {
+     "explain": "Schedule D line 2, column (h), is your short-term Form 8949 box B gain or loss, proceeds minus basis plus adjustments.",
+     "reasons": []
+    },
+    "schedule-d.line-9": {
+     "explain": "Schedule D line 9, column (h), is zero. No long-term sale whose basis was not reported to the IRS is recorded, and your answer about those sales confirms the list is complete.",
+     "reasons": []
+    }
+   },
+   "lines": {
+    "form1040.line-15": [
+     "published_value",
+     32250
+    ],
+    "form1040.line-16": [
+     "published_value",
+     3635
+    ],
+    "form1040.line-7a": [
+     "published_value",
+     -2000
+    ],
+    "schedule-d.line-15": [
+     "computed_zero",
+     0
+    ],
+    "schedule-d.line-16": [
+     "published_value",
+     -2000
+    ],
+    "schedule-d.line-1a": [
+     "closure_backed_zero",
+     0
+    ],
+    "schedule-d.line-2": [
+     "published_value",
+     -2000
+    ],
+    "schedule-d.line-21": [
+     "published_value",
+     2000
+    ],
+    "schedule-d.line-7": [
+     "published_value",
+     -2000
+    ],
+    "schedule-d.line-8a": [
+     "closure_backed_zero",
+     0
+    ],
+    "schedule-d.line-9": [
+     "closure_backed_zero",
+     0
+    ]
+   },
+   "missing_lines": [
+    "schedule-d.line-10",
+    "schedule-d.line-3"
+   ],
+   "presentation_valid": true,
+   "questions": [],
+   "seconds": 4.8,
+   "stop_reason": "saturated",
+   "symbols": {
+    "capital-gains.selected-preferential-base": "0"
+   }
+  },
+  "e_basis_object_missing": {
+   "error": "FindingModelError",
+   "message": "finding demo.ns.objnob.noncovered-lt.member value does not conform to tax.us.2025.f1099b.noncovered-lt-txn: 'basis' is a required property",
+   "seconds": 1.9,
+   "trace": "es/kernel/findings.py\", line 1088, in _apply_member_transition\n    _validate_finding(state, finding, registry, lattice_holder)\n    ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"./packages/kernel/findings.py\", line 799, in _validate_finding\n    raise FindingModelError(\n    ...<2 lines>...\n    )\npackages.kernel.findings.FindingModelError: finding demo.ns.objnob.noncovered-lt.member value does not conform to tax.us.2025.f1099b.noncovered-lt-txn: 'basis' is a required property\n"
+  },
+  "e_basis_scalar_missing": {
+   "attachments": {
+    "f8949": "published",
+    "schedule-d": "published"
+   },
+   "blocked": [],
+   "duplicate_field_ids": [],
+   "f8949_parts": [
+    "Part I box A column (d): short-term wash-sale proceeds",
+    "Part I box A column (e): short-term wash-sale basis",
+    "Part I box A column (g): short-term wash-sale adjustment",
+    "Part II box D column (d): long-term wash-sale proceeds",
+    "Part II box D column (e): long-term wash-sale basis",
+    "Part II box D column (g): long-term wash-sale adjustment",
+    "Part I box B column (d): short-term basis-not-reported proceeds",
+    "Part I box B column (e): short-term basis the filer supplies",
+    "Part I box B column (g): short-term wash-sale adjustment",
+    "Part II box E column (d): long-term basis-not-reported proceeds",
+    "Part II box E column (e): long-term basis the filer supplies",
+    "Part II box E column (g): long-term wash-sale adjustment"
+   ],
+   "line_text": {
+    "schedule-d.line-2": {
+     "explain": "Schedule D line 2, column (h), is zero. No short-term sale whose basis was not reported to the IRS is recorded, and your answer about those sales confirms the list is complete.",
+     "reasons": []
+    },
+    "schedule-d.line-9": {
+     "explain": "Schedule D line 9, column (h), is your long-term Form 8949 box E gain or loss, proceeds minus basis plus adjustments.",
+     "reasons": []
+    }
+   },
+   "lines": {
+    "form1040.line-15": [
+     "published_value",
+     40250
+    ],
+    "form1040.line-16": [
+     "published_value",
+     3875
+    ],
+    "form1040.line-7a": [
+     "published_value",
+     6000
+    ],
+    "schedule-d.line-15": [
+     "published_value",
+     6000
+    ],
+    "schedule-d.line-16": [
+     "published_value",
+     6000
+    ],
+    "schedule-d.line-1a": [
+     "closure_backed_zero",
+     0
+    ],
+    "schedule-d.line-2": [
+     "closure_backed_zero",
+     0
+    ],
+    "schedule-d.line-21": [
+     "computed_zero",
+     0
+    ],
+    "schedule-d.line-7": [
+     "computed_zero",
+     0
+    ],
+    "schedule-d.line-8a": [
+     "closure_backed_zero",
+     0
+    ],
+    "schedule-d.line-9": [
+     "published_value",
+     6000
+    ]
+   },
+   "missing_lines": [
+    "schedule-d.line-10",
+    "schedule-d.line-3"
+   ],
+   "presentation_valid": true,
+   "questions": [],
+   "seconds": 4.8,
+   "stop_reason": "saturated",
+   "symbols": {
+    "capital-gains.selected-preferential-base": "6000.0"
+   }
+  },
+  "e_proceeds_scalar_missing": {
+   "attachments": {
+    "f8949": "guard_inapplicable",
+    "schedule-d": "published"
+   },
+   "blocked": [],
+   "duplicate_field_ids": [],
+   "f8949_parts": [],
+   "line_text": {
+    "schedule-d.line-2": {
+     "explain": "Schedule D line 2, column (h), is zero. No short-term sale whose basis was not reported to the IRS is recorded, and your answer about those sales confirms the list is complete.",
+     "reasons": []
+    },
+    "schedule-d.line-9": {
+     "explain": "Schedule D line 9, column (h), is your long-term Form 8949 box E gain or loss, proceeds minus basis plus adjustments.",
+     "reasons": []
+    }
+   },
+   "lines": {
+    "form1040.line-15": [
+     "published_value",
+     32250
+    ],
+    "form1040.line-16": [
+     "published_value",
+     3635
+    ],
+    "form1040.line-7a": [
+     "published_value",
+     -2000
+    ],
+    "schedule-d.line-15": [
+     "published_value",
+     -2000
+    ],
+    "schedule-d.line-16": [
+     "published_value",
+     -2000
+    ],
+    "schedule-d.line-1a": [
+     "closure_backed_zero",
+     0
+    ],
+    "schedule-d.line-2": [
+     "closure_backed_zero",
+     0
+    ],
+    "schedule-d.line-21": [
+     "published_value",
+     2000
+    ],
+    "schedule-d.line-7": [
+     "computed_zero",
+     0
+    ],
+    "schedule-d.line-8a": [
+     "closure_backed_zero",
+     0
+    ],
+    "schedule-d.line-9": [
+     "published_value",
+     -2000
+    ]
+   },
+   "missing_lines": [
+    "schedule-d.line-10",
+    "schedule-d.line-3"
+   ],
+   "presentation_valid": true,
+   "questions": [],
+   "seconds": 4.7,
+   "stop_reason": "saturated",
+   "symbols": {
+    "capital-gains.selected-preferential-base": "0"
+   }
+  },
+  "f_gain_on_e_in_class_no": {
+   "attachments": {
+    "f8949": "blocked",
+    "schedule-d": "blocked"
+   },
+   "blocked": [
+    {
+     "artifact": "rule.f1099b-noncovered-lt-basis-subtotal",
+     "code": "DEPENDENCY_ABSENT",
+     "missing": []
+    },
+    {
+     "artifact": "rule.f1099b-noncovered-lt-proceeds-subtotal",
+     "code": "DEPENDENCY_ABSENT",
+     "missing": []
+    },
+    {
+     "artifact": "rule.attachment.f8949",
+     "code": "DEPENDENCY_ABSENT",
+     "missing": [
+      "f1099b.noncovered-lt-proceeds-subtotal"
+     ]
+    },
+    {
+     "artifact": "rule.attachment.schedule-d",
+     "code": "DEPENDENCY_ABSENT",
+     "missing": [
+      "f1099b.noncovered-lt-proceeds-subtotal",
+      "f1099b.noncovered-lt-basis-subtotal",
+      "schedule-d.line-9"
+     ]
+    },
+    {
+     "artifact": "rule.form1040-line7a",
+     "code": "DEPENDENCY_ABSENT",
+     "missing": [
+      "schedule-d.line-16",
+      "schedule-d.line-21",
+      "capital-gains.selected-preferential-base",
+      "schedule-d.line-9"
+     ]
+    },
+    {
+     "artifact": "rule.schedule-d-line15",
+     "code": "DEPENDENCY_ABSENT",
+     "missing": [
+      "schedule-d.line-9"
+     ]
+    },
+    {
+     "artifact": "rule.schedule-d-line16",
+     "code": "DEPENDENCY_ABSENT",
+     "missing": [
+      "schedule-d.line-15"
+     ]
+    },
+    {
+     "artifact": "rule.schedule-d-line21",
+     "code": "DEPENDENCY_ABSENT",
+     "missing": [
+      "schedule-d.line-16"
+     ]
+    },
+    {
+     "artifact": "rule.selected-preferential-base",
+     "code": "DEPENDENCY_ABSENT",
+     "missing": [
+      "schedule-d.line-16",
+      "schedule-d.line-15",
+      "schedule-d.line-9"
+     ]
+    },
+    {
+     "artifact": "rule.schedule-d-line9",
+     "code": "DEPENDENCY_ABSENT",
+     "missing": [
+      "f1099b.noncovered-lt-proceeds-subtotal",
+      "f1099b.noncovered-lt-basis-subtotal"
+     ]
+    }
+   ],
+   "duplicate_field_ids": [],
+   "f8949_parts": [],
+   "line_text": {
+    "schedule-d.line-2": {
+     "explain": "Schedule D line 2, column (h), is zero. No short-term sale whose basis was not reported to the IRS is recorded, and your answer about those sales confirms the list is complete.",
+     "reasons": []
+    },
+    "schedule-d.line-9": {
+     "explain": "Schedule D line 9, column (h), has no value yet. It waits for your answers about sales whose basis was not reported to the IRS, or for a recorded long-term sale of that kind to pass its checks.",
+     "reasons": []
+    }
+   },
+   "lines": {
+    "form1040.line-15": [
+     "blocked",
+     null
+    ],
+    "form1040.line-16": [
+     "blocked",
+     null
+    ],
+    "form1040.line-7a": [
+     "blocked",
+     null
+    ],
+    "schedule-d.line-15": [
+     "blocked",
+     null
+    ],
+    "schedule-d.line-16": [
+     "blocked",
+     null
+    ],
+    "schedule-d.line-1a": [
+     "closure_backed_zero",
+     0
+    ],
+    "schedule-d.line-2": [
+     "closure_backed_zero",
+     0
+    ],
+    "schedule-d.line-21": [
+     "blocked",
+     null
+    ],
+    "schedule-d.line-7": [
+     "computed_zero",
+     0
+    ],
+    "schedule-d.line-8a": [
+     "closure_backed_zero",
+     0
+    ],
+    "schedule-d.line-9": [
+     "blocked",
+     null
+    ]
+   },
+   "missing_lines": [
+    "schedule-d.line-10",
+    "schedule-d.line-3"
+   ],
+   "presentation_valid": true,
+   "questions": [],
+   "seconds": 4.8,
+   "stop_reason": "saturated",
+   "symbols": {}
+  },
+  "f_gain_on_e_in_class_yes": {
+   "attachments": {
+    "f8949": "published",
+    "schedule-d": "published"
+   },
+   "blocked": [],
+   "duplicate_field_ids": [],
+   "f8949_parts": [
+    "Part I box A column (d): short-term wash-sale proceeds",
+    "Part I box A column (e): short-term wash-sale basis",
+    "Part I box A column (g): short-term wash-sale adjustment",
+    "Part II box D column (d): long-term wash-sale proceeds",
+    "Part II box D column (e): long-term wash-sale basis",
+    "Part II box D column (g): long-term wash-sale adjustment",
+    "Part I box B column (d): short-term basis-not-reported proceeds",
+    "Part I box B column (e): short-term basis the filer supplies",
+    "Part I box B column (g): short-term wash-sale adjustment",
+    "Part II box E column (d): long-term basis-not-reported proceeds",
+    "Part II box E column (e): long-term basis the filer supplies",
+    "Part II box E column (g): long-term wash-sale adjustment"
+   ],
+   "line_text": {
+    "schedule-d.line-2": {
+     "explain": "Schedule D line 2, column (h), is zero. No short-term sale whose basis was not reported to the IRS is recorded, and your answer about those sales confirms the list is complete.",
+     "reasons": []
+    },
+    "schedule-d.line-9": {
+     "explain": "Schedule D line 9, column (h), is your long-term Form 8949 box E gain or loss, proceeds minus basis plus adjustments.",
+     "reasons": []
+    }
+   },
+   "lines": {
+    "form1040.line-15": [
+     "published_value",
+     38250
+    ],
+    "form1040.line-16": [
+     "published_value",
+     3875
+    ],
+    "form1040.line-7a": [
+     "published_value",
+     4000
+    ],
+    "schedule-d.line-15": [
+     "published_value",
+     4000
+    ],
+    "schedule-d.line-16": [
+     "published_value",
+     4000
+    ],
+    "schedule-d.line-1a": [
+     "closure_backed_zero",
+     0
+    ],
+    "schedule-d.line-2": [
+     "closure_backed_zero",
+     0
+    ],
+    "schedule-d.line-21": [
+     "computed_zero",
+     0
+    ],
+    "schedule-d.line-7": [
+     "computed_zero",
+     0
+    ],
+    "schedule-d.line-8a": [
+     "closure_backed_zero",
+     0
+    ],
+    "schedule-d.line-9": [
+     "published_value",
+     4000
+    ]
+   },
+   "missing_lines": [
+    "schedule-d.line-10",
+    "schedule-d.line-3"
+   ],
+   "presentation_valid": true,
+   "questions": [],
+   "seconds": 4.8,
+   "stop_reason": "saturated",
+   "symbols": {
+    "capital-gains.selected-preferential-base": "4000.0"
+   }
+  },
+  "mixed_abcf_in_class_no": {
+   "attachments": {
+    "f8949": "blocked",
+    "schedule-d": "blocked"
+   },
+   "blocked": [
+    {
+     "artifact": "rule.schedule-d-line1a-gain",
+     "code": "DEPENDENCY_ABSENT",
+     "missing": []
+    },
+    {
+     "artifact": "rule.f1099b-noncovered-lt-basis-subtotal",
+     "code": "DEPENDENCY_ABSENT",
+     "missing": []
+    },
+    {
+     "artifact": "rule.f1099b-noncovered-lt-proceeds-subtotal",
+     "code": "DEPENDENCY_ABSENT",
+     "missing": []
+    },
+    {
+     "artifact": "rule.f1099b-noncovered-st-basis-subtotal",
+     "code": "DEPENDENCY_ABSENT",
+     "missing": []
+    },
+    {
+     "artifact": "rule.f1099b-noncovered-st-proceeds-subtotal",
+     "code": "DEPENDENCY_ABSENT",
+     "missing": []
+    },
+    {
+     "artifact": "rule.attachment.f8949",
+     "code": "DEPENDENCY_ABSENT",
+     "missing": [
+      "f1099b.noncovered-st-proceeds-subtotal",
+      "f1099b.noncovered-lt-proceeds-subtotal"
+     ]
+    },
+    {
+     "artifact": "rule.attachment.schedule-d",
+     "code": "DEPENDENCY_ABSENT",
+     "missing": [
+      "schedule-d.line-1a-gain",
+      "f1099b.noncovered-st-proceeds-subtotal",
+      "f1099b.noncovered-st-basis-subtotal",
+      "f1099b.noncovered-lt-proceeds-subtotal",
+      "f1099b.noncovered-lt-basis-subtotal",
+      "schedule-d.line-2"
+     ]
+    },
+    {
+     "artifact": "rule.form1040-line7a",
+     "code": "DEPENDENCY_ABSENT",
+     "missing": [
+      "schedule-d.line-16",
+      "schedule-d.line-21",
+      "capital-gains.selected-preferential-base",
+      "schedule-d.line-2",
+      "schedule-d.line-9"
+     ]
+    },
+    {
+     "artifact": "rule.schedule-d-line15",
+     "code": "DEPENDENCY_ABSENT",
+     "missing": [
+      "schedule-d.line-9"
+     ]
+    },
+    {
+     "artifact": "rule.schedule-d-line16",
+     "code": "DEPENDENCY_ABSENT",
+     "missing": [
+      "schedule-d.line-7",
+      "schedule-d.line-15"
+     ]
+    },
+    {
+     "artifact": "rule.schedule-d-line21",
+     "code": "DEPENDENCY_ABSENT",
+     "missing": [
+      "schedule-d.line-16"
+     ]
+    },
+    {
+     "artifact": "rule.schedule-d-line7",
+     "code": "DEPENDENCY_ABSENT",
+     "missing": [
+      "schedule-d.line-1a-gain",
+      "schedule-d.line-2"
+     ]
+    },
+    {
+     "artifact": "rule.schedule-d-line2",
+     "code": "DEPENDENCY_ABSENT",
+     "missing": [
+      "f1099b.noncovered-st-proceeds-subtotal",
+      "f1099b.noncovered-st-basis-subtotal"
+     ]
+    },
+    {
+     "artifact": "rule.schedule-d-line9",
+     "code": "DEPENDENCY_ABSENT",
+     "missing": [
+      "f1099b.noncovered-lt-proceeds-subtotal",
+      "f1099b.noncovered-lt-basis-subtotal"
+     ]
+    }
+   ],
+   "duplicate_field_ids": [],
+   "f8949_parts": [],
+   "line_text": {
+    "schedule-d.line-2": {
+     "explain": "Schedule D line 2, column (h), has no value yet. It waits for your answers about sales whose basis was not reported to the IRS, or for a recorded short-term sale of that kind to pass its checks.",
+     "reasons": []
+    },
+    "schedule-d.line-9": {
+     "explain": "Schedule D line 9, column (h), has no value yet. It waits for your answers about sales whose basis was not reported to the IRS, or for a recorded long-term sale of that kind to pass its checks.",
+     "reasons": []
+    }
+   },
+   "lines": {
+    "form1040.line-15": [
+     "blocked",
+     null
+    ],
+    "form1040.line-16": [
+     "blocked",
+     null
+    ],
+    "form1040.line-7a": [
+     "blocked",
+     null
+    ],
+    "schedule-d.line-15": [
+     "blocked",
+     null
+    ],
+    "schedule-d.line-16": [
+     "blocked",
+     null
+    ],
+    "schedule-d.line-1a": [
+     "blocked",
+     null
+    ],
+    "schedule-d.line-2": [
+     "blocked",
+     null
+    ],
+    "schedule-d.line-21": [
+     "blocked",
+     null
+    ],
+    "schedule-d.line-7": [
+     "blocked",
+     null
+    ],
+    "schedule-d.line-8a": [
+     "closure_backed_zero",
+     0
+    ],
+    "schedule-d.line-9": [
+     "blocked",
+     null
+    ]
+   },
+   "missing_lines": [
+    "schedule-d.line-10",
+    "schedule-d.line-3"
+   ],
+   "presentation_valid": true,
+   "questions": [],
+   "seconds": 4.9,
+   "stop_reason": "saturated",
+   "symbols": {}
+  },
+  "mixed_abcf_in_class_yes": {
+   "attachments": {
+    "f8949": "published",
+    "schedule-d": "published"
+   },
+   "blocked": [],
+   "duplicate_field_ids": [],
+   "f8949_parts": [
+    "Part I box A column (d): short-term wash-sale proceeds",
+    "Part I box A column (e): short-term wash-sale basis",
+    "Part I box A column (g): short-term wash-sale adjustment",
+    "Part II box D column (d): long-term wash-sale proceeds",
+    "Part II box D column (e): long-term wash-sale basis",
+    "Part II box D column (g): long-term wash-sale adjustment",
+    "Part I box B column (d): short-term basis-not-reported proceeds",
+    "Part I box B column (e): short-term basis the filer supplies",
+    "Part I box B column (g): short-term wash-sale adjustment",
+    "Part II box E column (d): long-term basis-not-reported proceeds",
+    "Part II box E column (e): long-term basis the filer supplies",
+    "Part II box E column (g): long-term wash-sale adjustment"
+   ],
+   "line_text": {
+    "schedule-d.line-2": {
+     "explain": "Schedule D line 2, column (h), is your short-term Form 8949 box B gain or loss, proceeds minus basis plus adjustments.",
+     "reasons": []
+    },
+    "schedule-d.line-9": {
+     "explain": "Schedule D line 9, column (h), is your long-term Form 8949 box E gain or loss, proceeds minus basis plus adjustments.",
+     "reasons": []
+    }
+   },
+   "lines": {
+    "form1040.line-15": [
+     "published_value",
+     40250
+    ],
+    "form1040.line-16": [
+     "published_value",
+     4115
+    ],
+    "form1040.line-7a": [
+     "published_value",
+     6000
+    ],
+    "schedule-d.line-15": [
+     "published_value",
+     4000
+    ],
+    "schedule-d.line-16": [
+     "published_value",
+     6000
+    ],
+    "schedule-d.line-1a": [
+     "published_value",
+     1000
+    ],
+    "schedule-d.line-2": [
+     "published_value",
+     1000
+    ],
+    "schedule-d.line-21": [
+     "computed_zero",
+     0
+    ],
+    "schedule-d.line-7": [
+     "published_value",
+     2000
+    ],
+    "schedule-d.line-8a": [
+     "closure_backed_zero",
+     0
+    ],
+    "schedule-d.line-9": [
+     "published_value",
+     4000
+    ]
+   },
+   "missing_lines": [
+    "schedule-d.line-10",
+    "schedule-d.line-3"
+   ],
+   "presentation_valid": true,
+   "questions": [],
+   "seconds": 5.1,
+   "stop_reason": "saturated",
+   "symbols": {
+    "capital-gains.selected-preferential-base": "4000.0"
+   }
+  },
+  "wage_one_no": {
+   "attachments": {
+    "f8949": "guard_inapplicable",
+    "schedule-d": "guard_inapplicable"
+   },
+   "blocked": [],
+   "duplicate_field_ids": [],
+   "f8949_parts": [],
+   "line_text": {
+    "schedule-d.line-2": {
+     "explain": "Schedule D line 2, column (h), is zero. No short-term sale whose basis was not reported to the IRS is recorded, and your answer about those sales confirms the list is complete.",
+     "reasons": []
+    },
+    "schedule-d.line-9": {
+     "explain": "Schedule D line 9, column (h), is zero. No long-term sale whose basis was not reported to the IRS is recorded, and your answer about those sales confirms the list is complete.",
+     "reasons": []
+    }
+   },
+   "lines": {
+    "form1040.line-15": [
+     "published_value",
+     34250
+    ],
+    "form1040.line-16": [
+     "published_value",
+     3875
+    ],
+    "form1040.line-7a": [
+     "computed_zero",
+     0
+    ],
+    "schedule-d.line-15": [
+     "computed_zero",
+     0
+    ],
+    "schedule-d.line-16": [
+     "computed_zero",
+     0
+    ],
+    "schedule-d.line-1a": [
+     "closure_backed_zero",
+     0
+    ],
+    "schedule-d.line-2": [
+     "closure_backed_zero",
+     0
+    ],
+    "schedule-d.line-21": [
+     "computed_zero",
+     0
+    ],
+    "schedule-d.line-7": [
+     "computed_zero",
+     0
+    ],
+    "schedule-d.line-8a": [
+     "closure_backed_zero",
+     0
+    ],
+    "schedule-d.line-9": [
+     "closure_backed_zero",
+     0
+    ]
+   },
+   "missing_lines": [
+    "schedule-d.line-10",
+    "schedule-d.line-3"
+   ],
+   "presentation_valid": true,
+   "questions": [],
+   "seconds": 16.5,
+   "stop_reason": "saturated",
+   "symbols": {
+    "capital-gains.selected-preferential-base": "0"
+   }
+  }
+ },
+ "package": "core-calculations v79",
+ "release": "v77"
+}
