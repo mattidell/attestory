@@ -1,0 +1,104 @@
+{
+  "schema": "source-closure-mapping.v4",
+  "id": "tax.us.2025.closure-mapping.f8949.no1099b",
+  "version": "v1",
+  "closure_fact_type": {
+    "id": "tax.us.2025.f8949.no1099b-sold.source-closure",
+    "version": "v1"
+  },
+  "closure_question": "Did you sell any stocks or other securities for which you did not receive a Form 1099-B or substitute statement?",
+  "admission": {
+    "no": "closed-empty",
+    "yes": "until-later-member"
+  },
+  "families": [
+    {
+      "family": {
+        "id": "tax.us.2025.f8949.no1099b-st",
+        "version": "v1"
+      },
+      "member_fact_type": {
+        "id": "tax.us.2025.f8949.no1099b-st-txn",
+        "version": "v1"
+      },
+      "admits_symbol": "tax.us.2025.f8949.no1099b-st-subtotal"
+    },
+    {
+      "family": {
+        "id": "tax.us.2025.f8949.no1099b-st-proceeds",
+        "version": "v1"
+      },
+      "member_fact_type": {
+        "id": "tax.us.2025.f8949.no1099b-st-txn.proceeds",
+        "version": "v1"
+      },
+      "admits_symbol": "tax.us.2025.f8949.no1099b-st-proceeds-subtotal"
+    },
+    {
+      "family": {
+        "id": "tax.us.2025.f8949.no1099b-st-basis",
+        "version": "v1"
+      },
+      "member_fact_type": {
+        "id": "tax.us.2025.f8949.no1099b-st-txn.basis",
+        "version": "v1"
+      },
+      "admits_symbol": "tax.us.2025.f8949.no1099b-st-basis-subtotal"
+    },
+    {
+      "family": {
+        "id": "tax.us.2025.f8949.no1099b-st-adjustment",
+        "version": "v1"
+      },
+      "member_fact_type": {
+        "id": "tax.us.2025.f8949.no1099b-st-txn.adjustment",
+        "version": "v1"
+      },
+      "admits_symbol": "tax.us.2025.f8949.no1099b-st-adjustment-subtotal"
+    },
+    {
+      "family": {
+        "id": "tax.us.2025.f8949.no1099b-lt",
+        "version": "v1"
+      },
+      "member_fact_type": {
+        "id": "tax.us.2025.f8949.no1099b-lt-txn",
+        "version": "v1"
+      },
+      "admits_symbol": "tax.us.2025.f8949.no1099b-lt-subtotal"
+    },
+    {
+      "family": {
+        "id": "tax.us.2025.f8949.no1099b-lt-proceeds",
+        "version": "v1"
+      },
+      "member_fact_type": {
+        "id": "tax.us.2025.f8949.no1099b-lt-txn.proceeds",
+        "version": "v1"
+      },
+      "admits_symbol": "tax.us.2025.f8949.no1099b-lt-proceeds-subtotal"
+    },
+    {
+      "family": {
+        "id": "tax.us.2025.f8949.no1099b-lt-basis",
+        "version": "v1"
+      },
+      "member_fact_type": {
+        "id": "tax.us.2025.f8949.no1099b-lt-txn.basis",
+        "version": "v1"
+      },
+      "admits_symbol": "tax.us.2025.f8949.no1099b-lt-basis-subtotal"
+    },
+    {
+      "family": {
+        "id": "tax.us.2025.f8949.no1099b-lt-adjustment",
+        "version": "v1"
+      },
+      "member_fact_type": {
+        "id": "tax.us.2025.f8949.no1099b-lt-txn.adjustment",
+        "version": "v1"
+      },
+      "admits_symbol": "tax.us.2025.f8949.no1099b-lt-adjustment-subtotal"
+    }
+  ]
+}

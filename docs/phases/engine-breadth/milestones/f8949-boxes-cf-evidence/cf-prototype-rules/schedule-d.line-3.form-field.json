@@ -1,0 +1,45 @@
+{
+  "schema": "form-field.v3",
+  "id": "tax.us.2025.schedule-d.line-3",
+  "version": "v1",
+  "form": {
+    "authority": "IRS",
+    "form_id": "1040-SCH-D",
+    "tax_year": 2025,
+    "jurisdiction": "US-federal"
+  },
+  "line": "3-h",
+  "label": "Line 3 column (h)",
+  "description": "Schedule D (2025) line 3 column (h).",
+  "binds_symbol": "tax.us.2025.schedule-d.line-3",
+  "citation": {
+    "id": "tax.us.2025.citation.schedule-d.line-3",
+    "version": "v1"
+  },
+  "dispositions": {
+    "published_value": {
+      "render": "{value}",
+      "explain": "Schedule D line 3, column (h), is your short-term Form 8949 box C gain or loss, proceeds minus basis plus adjustments."
+    },
+    "computed_zero": {
+      "render": "0",
+      "explain": "Schedule D line 3, column (h), is zero. Either no short-term sale you received no Form 1099-B for is recorded and your Form 8949 answers confirm it, or your box C proceeds, basis, and adjustments net to zero."
+    },
+    "closure_backed_zero": {
+      "render": "0",
+      "explain": "Schedule D line 3, column (h), is zero. No short-term sale you received no Form 1099-B for is recorded, and your answer about those sales confirms the list is complete."
+    },
+    "blocked": {
+      "render": "",
+      "explain": "Schedule D line 3, column (h), has no value yet. It waits for your answers about sales you received no Form 1099-B for and about Form 8949, or for each recorded short-term sale of that kind to have its proceeds and basis and pass its checks.",
+      "codes": [
+        "DEPENDENCY_ABSENT",
+        "SOURCE_SET_UNCLOSED"
+      ]
+    },
+    "guard_inapplicable": {
+      "render": "",
+      "explain": "Inapplicable."
+    }
+  }
+}

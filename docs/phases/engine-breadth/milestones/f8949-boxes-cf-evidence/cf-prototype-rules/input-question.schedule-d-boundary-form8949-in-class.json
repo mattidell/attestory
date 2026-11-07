@@ -1,0 +1,10 @@
+{
+  "schema": "input-question.v1",
+  "id": "tax.us.2025.input-question.schedule-d-boundary-form8949-in-class",
+  "version": "v1",
+  "fact_type": {
+    "id": "tax.us.2025.schedule-d-boundary.form8949-in-class",
+    "version": "v1"
+  },
+  "question": "Apart from sales your broker reported with their basis, is every sale on your Form 8949 a sale of stocks or other securities, with a basis you supply, net proceeds you supply when you got no Form 1099-B, and no adjustment other than a wash-sale loss?"
+}

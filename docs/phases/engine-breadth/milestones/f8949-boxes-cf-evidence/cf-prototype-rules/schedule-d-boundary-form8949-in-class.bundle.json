@@ -1,0 +1,58 @@
+{
+  "schema": "bundle.v2",
+  "id": "tax.us.2025.schedule-d-boundary.form8949-in-class.vocabulary",
+  "version": "v1",
+  "label": "Whether Form 8949 work beyond covered sales and code W is only boxes B, C, E and F",
+  "fact_types": [
+    {
+      "schema": "fact-type.v2",
+      "id": "tax.us.2025.schedule-d-boundary.form8949-in-class",
+      "version": "v1",
+      "title": "Whether this return's Form 8949 work beyond covered sales and code W is only boxes B, C, E and F: sales of stocks or other securities with a basis you supply (and, on boxes C and F, net proceeds you supply) and an optional wash-sale adjustment. yes or no.",
+      "nature": "determinable",
+      "identity_keys": [
+        {
+          "name": "tax-year",
+          "kind": "literal",
+          "values": [
+            "2025"
+          ]
+        }
+      ],
+      "value_schema": {
+        "enum": [
+          "yes",
+          "no"
+        ]
+      },
+      "supersession": {
+        "policy": "free"
+      }
+    },
+    {
+      "schema": "fact-type.v2",
+      "id": "tax.us.2025.f8949.no1099b-sold.source-closure",
+      "version": "v1",
+      "title": "Did you sell any stocks or other securities for which you did not receive a Form 1099-B or substitute statement?",
+      "nature": "determinable",
+      "identity_keys": [
+        {
+          "name": "tax-year",
+          "kind": "literal",
+          "values": [
+            "2025"
+          ]
+        }
+      ],
+      "value_schema": {
+        "enum": [
+          "yes",
+          "no"
+        ]
+      },
+      "supersession": {
+        "policy": "free"
+      }
+    }
+  ]
+}
