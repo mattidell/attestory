@@ -196,6 +196,10 @@ def track0_cases() -> dict[str, Callable[[], Acts]]:
         "w_c_amounts_disagree": ret(c_amounts_disagree, **CLS),
         "w_c_object_wash_no_row": ret(c_object_wash_no_row, **CLS),
         "w_b_scalar_only_on_gain": ret(b_w_scalar_only, **V79CLS),
+        "dup_b_and_c_ic_yes": ret(lambda a: [b_full(a), c_full(a)] and None,
+                                  **{**V79CLS, "q2": "yes", "new_ic": "yes"}),
+        "dup_b_and_c_ic_no": ret(lambda a: [b_full(a), c_full(a)] and None,
+                                 **{**V79CLS, "q2": "yes", "new_ic": "no"}),
         "q2_late_yes_stale": late_yes(False),
         "q2_late_yes_reanswered": late_yes(True),
         # Empty/nonempty matrix. Default Form 8949 answer is the harness "yes" (no Form 8949 sources).

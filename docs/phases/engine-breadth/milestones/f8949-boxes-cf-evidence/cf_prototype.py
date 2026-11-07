@@ -356,8 +356,9 @@ def boundary_bundle() -> dict[str, Any]:
         "label": "Whether Form 8949 work beyond covered sales and code W is only boxes B, C, E and F",
         "fact_types": [
             fact(NEW_IC, "Whether this return's Form 8949 work beyond covered sales and code W is only boxes B, C, "
-                 "E and F: sales of stocks or other securities with a basis you supply (and, on boxes C and F, net "
-                 "proceeds you supply) and an optional wash-sale adjustment. yes or no.", yes_no, year),
+                 "E and F: sales of stocks or other securities, each recorded once under the one box its statement "
+                 "gives it, with a basis you supply (and, on boxes C and F, net proceeds you supply) and an optional "
+                 "wash-sale adjustment. yes or no.", yes_no, year),
             fact(Q2, Q2_TEXT, yes_no, year),
         ],
     }
@@ -405,8 +406,8 @@ def question() -> dict[str, Any]:
 
 
 NEW_IC_TEXT = ("Apart from sales your broker reported with their basis, is every sale on your Form 8949 a sale of stocks "
-               "or other securities, with a basis you supply, net proceeds you supply when you got no Form 1099-B, "
-               "and no adjustment other than a wash-sale loss?")
+               "or other securities, entered only once, with a basis you supply, net proceeds you supply when you got "
+               "no Form 1099-B, and no adjustment other than a wash-sale loss?")
 
 
 def amount_questions() -> list[tuple[str, dict[str, Any]]]:
