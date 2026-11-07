@@ -13,6 +13,12 @@ entries for v80.
 
 Writes cf-prototype-output.json beside this file, and the small JSON of each
 new or successor member under cf-prototype-rules/.
+
+Track 0 added Decision 3 (lines 2 and 9 v2 on rule-artifact.v15 with
+require_paired, and four input questions) and the repairs listed at
+REPAIRS. cf-prototype-output.json is P0's record from before them;
+track0.py reruns every case on the current design and writes
+track0-output.json (see track0-closure.md).
 """
 
 from __future__ import annotations

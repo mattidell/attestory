@@ -378,7 +378,8 @@ def compact(payload: dict[str, Any]) -> dict[str, Any]:
             result.pop("blocked", None)
             result.pop("seconds", None)
             if result.get("dispositions"):
-                result["dispositions"] = [row for row in result["dispositions"] if row[0].startswith(KEEP_ROWS)]
+                result["dispositions"] = [row for row in result["dispositions"]
+                                          if row[0].startswith(KEEP_ROWS) or row[0].endswith(".amounts-check")]
     return payload
 
 

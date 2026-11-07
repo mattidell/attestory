@@ -180,7 +180,64 @@ choice; the owner adjusts after):
 
 ## Track 0 adversarial closure
 
-Pending.
+Evidence:
+[track0-closure.md](f8949-boxes-cf-evidence/track0-closure.md). Scratch
+core v80 through `live_coordinate_run`; `track0.py` writes
+`track0-output.json`. Source ref `eb02b548`.
+
+The decided design had seven counterexamples. The prototype now fixes six
+with content-only repairs, and refuses the seventh by an answer:
+
+- each box B/E sale needs its own amount rows (a count beside
+  `require_paired`);
+- the Form 8949 attachment reads lines 2 and 9;
+- each sale's amount rows must equal its sale object (per-sale agreement
+  rule, the 1099-K shape);
+- a v79 "yes" needs a recorded sale;
+- a v79 in-class "yes" admits a Form 8949 "no" only beside a v79 "yes";
+- a recorded sale needs a Form 8949 "no";
+- the new in-class answer now says "entered only once", so its "no" refuses
+  a duplicate entry.
+
+Lines 2 and 9 take Decision 3 as decided.
+
+- Authority-lifecycle table: PASS — every contributed fact and its
+  invalidating events, each with built cases. Code W on boxes C and F holds
+  only with the amount-agreement repair (`w_c_scalar_only_on_gain`,
+  `w_c_amounts_disagree`, `w_c_object_wash_no_row` publish on the decided
+  design and block now). A reused transaction entity is caught
+  (`d3_b_shared_transaction`).
+- Empty/nonempty authority matrix: PASS — 24 rows over both group questions,
+  including a "yes" with nothing recorded (`m_yes_nothing_no`,
+  `m_no_yes_nothing`, `m_yes_yes_nothing`) and Form 8949 "no" with nothing
+  admitted (`m_no_no_8949no*`). Every closed-empty, fully answered row is
+  the wage return, 34250 / 3875. Every out-of-class row blocks Form 1040 and
+  both attachments.
+- Late-member lifecycle: PASS — `t1_stage0`–`4` (box F after a "no"),
+  `t2_stage0`–`3` (box C after a computed v79-style return) and
+  `q2_late_yes_*`. Each stale closure asks again. After a box C sale the
+  false v79 in-class "yes" decides nothing (`t2_stage3_old_ic_no` is
+  identical to `t2_stage3`).
+- Neighboring capability dependency diff: PASS — the only new prerequisite
+  on a return with no sales is the new question. It is justified by lines 3
+  and 10's own closure under ADR 0084, as Q1 is on v79, and it cannot be
+  derived from the Form 8949 answer without an engine change. Of the 28
+  returns v79 computes in P0's set, 22 are identical, and 6 change as
+  Decisions 2 and 3 accepted. Four Track 0 returns that v79 computes wrongly
+  or silently now block (owner question 1).
+- Reused-claim semantic/lifecycle equivalence: PASS — the v79 group
+  question, the ADR-0061 pair and the v79 in-class answer keep their
+  proposition, identity, lifecycle and scope. Their v79 carriers are
+  unchanged members. The preferential gate is a successor (v8), not a reuse.
+- Integration surface: PASS — exactly one disposition row per publisher of
+  lines 2, 3, 7, 9, 10, 15, 16, 21, line 7a, the preferential base and both
+  attachments in all 89 runs. Each of the four amount checks has one row
+  per run. There is a built model per disposition path, and a
+  presentation-model probe for lines 2, 3, 7, 9, 10 and 15.
+- Known limitations affecting correctness: none. Owner disposition required
+  for the four newly blocked v79-computed returns, and for the
+  presentation-only block-without-question paths beyond Decision 4
+  (track0-closure.md, "Owner questions").
 
 ## Track 1 result
 

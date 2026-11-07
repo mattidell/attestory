@@ -8247,6 +8247,34 @@
       ]
      ],
      [
+      "rule.f1099b.noncovered-lt-txn.amounts-check",
+      null,
+      "published",
+      null,
+      []
+     ],
+     [
+      "rule.f1099b.noncovered-st-txn.amounts-check",
+      null,
+      "published",
+      null,
+      []
+     ],
+     [
+      "rule.f8949.no1099b-lt-txn.amounts-check",
+      null,
+      "published",
+      null,
+      []
+     ],
+     [
+      "rule.f8949.no1099b-st-txn.amounts-check",
+      null,
+      "published",
+      null,
+      []
+     ],
+     [
       "rule.form1040-line7a",
       null,
       "blocked",
@@ -8549,6 +8577,34 @@
        "schedule-d.line-3",
        "schedule-d.line-10"
       ]
+     ],
+     [
+      "rule.f1099b.noncovered-lt-txn.amounts-check",
+      null,
+      "published",
+      null,
+      []
+     ],
+     [
+      "rule.f1099b.noncovered-st-txn.amounts-check",
+      null,
+      "published",
+      null,
+      []
+     ],
+     [
+      "rule.f8949.no1099b-lt-txn.amounts-check",
+      null,
+      "published",
+      null,
+      []
+     ],
+     [
+      "rule.f8949.no1099b-st-txn.amounts-check",
+      null,
+      "published",
+      null,
+      []
      ],
      [
       "rule.form1040-line7a",
@@ -8854,6 +8910,34 @@
       []
      ],
      [
+      "rule.f1099b.noncovered-lt-txn.amounts-check",
+      null,
+      "published",
+      null,
+      []
+     ],
+     [
+      "rule.f1099b.noncovered-st-txn.amounts-check",
+      null,
+      "published",
+      null,
+      []
+     ],
+     [
+      "rule.f8949.no1099b-lt-txn.amounts-check",
+      null,
+      "published",
+      null,
+      []
+     ],
+     [
+      "rule.f8949.no1099b-st-txn.amounts-check",
+      null,
+      "published",
+      null,
+      []
+     ],
+     [
       "rule.form1040-line7a",
       null,
       "published",
@@ -9135,6 +9219,34 @@
       [
        "schedule-d.line-3"
       ]
+     ],
+     [
+      "rule.f1099b.noncovered-lt-txn.amounts-check",
+      null,
+      "published",
+      null,
+      []
+     ],
+     [
+      "rule.f1099b.noncovered-st-txn.amounts-check",
+      null,
+      "published",
+      null,
+      []
+     ],
+     [
+      "rule.f8949.no1099b-lt-txn.amounts-check",
+      null,
+      "published",
+      null,
+      []
+     ],
+     [
+      "rule.f8949.no1099b-st-txn.amounts-check",
+      null,
+      "published",
+      null,
+      []
      ],
      [
       "rule.form1040-line7a",
@@ -9422,6 +9534,34 @@
       []
      ],
      [
+      "rule.f1099b.noncovered-lt-txn.amounts-check",
+      null,
+      "published",
+      null,
+      []
+     ],
+     [
+      "rule.f1099b.noncovered-st-txn.amounts-check",
+      null,
+      "published",
+      null,
+      []
+     ],
+     [
+      "rule.f8949.no1099b-lt-txn.amounts-check",
+      null,
+      "published",
+      null,
+      []
+     ],
+     [
+      "rule.f8949.no1099b-st-txn.amounts-check",
+      null,
+      "published",
+      null,
+      []
+     ],
+     [
       "rule.form1040-line7a",
       null,
       "published",
@@ -9703,6 +9843,34 @@
       [
        "schedule-d.line-2"
       ]
+     ],
+     [
+      "rule.f1099b.noncovered-lt-txn.amounts-check",
+      null,
+      "published",
+      null,
+      []
+     ],
+     [
+      "rule.f1099b.noncovered-st-txn.amounts-check",
+      null,
+      "published",
+      null,
+      []
+     ],
+     [
+      "rule.f8949.no1099b-lt-txn.amounts-check",
+      null,
+      "published",
+      null,
+      []
+     ],
+     [
+      "rule.f8949.no1099b-st-txn.amounts-check",
+      null,
+      "published",
+      null,
+      []
      ],
      [
       "rule.form1040-line7a",
@@ -9998,6 +10166,34 @@
        "schedule-d.line-2",
        "schedule-d.line-3"
       ]
+     ],
+     [
+      "rule.f1099b.noncovered-lt-txn.amounts-check",
+      null,
+      "published",
+      null,
+      []
+     ],
+     [
+      "rule.f1099b.noncovered-st-txn.amounts-check",
+      null,
+      "published",
+      null,
+      []
+     ],
+     [
+      "rule.f8949.no1099b-lt-txn.amounts-check",
+      null,
+      "published",
+      null,
+      []
+     ],
+     [
+      "rule.f8949.no1099b-st-txn.amounts-check",
+      null,
+      "published",
+      null,
+      []
      ],
      [
       "rule.form1040-line7a",
@@ -10310,6 +10506,34 @@
       []
      ],
      [
+      "rule.f1099b.noncovered-lt-txn.amounts-check",
+      null,
+      "published",
+      null,
+      []
+     ],
+     [
+      "rule.f1099b.noncovered-st-txn.amounts-check",
+      null,
+      "published",
+      null,
+      []
+     ],
+     [
+      "rule.f8949.no1099b-lt-txn.amounts-check",
+      null,
+      "published",
+      null,
+      []
+     ],
+     [
+      "rule.f8949.no1099b-st-txn.amounts-check",
+      null,
+      "published",
+      null,
+      []
+     ],
+     [
       "rule.form1040-line7a",
       null,
       "published",
@@ -10604,6 +10828,34 @@
       ]
      ],
      [
+      "rule.f1099b.noncovered-lt-txn.amounts-check",
+      null,
+      "published",
+      null,
+      []
+     ],
+     [
+      "rule.f1099b.noncovered-st-txn.amounts-check",
+      null,
+      "published",
+      null,
+      []
+     ],
+     [
+      "rule.f8949.no1099b-lt-txn.amounts-check",
+      null,
+      "published",
+      null,
+      []
+     ],
+     [
+      "rule.f8949.no1099b-st-txn.amounts-check",
+      null,
+      "published",
+      null,
+      []
+     ],
+     [
       "rule.form1040-line7a",
       null,
       "blocked",
@@ -10893,6 +11145,34 @@
       ]
      ],
      [
+      "rule.f1099b.noncovered-lt-txn.amounts-check",
+      null,
+      "published",
+      null,
+      []
+     ],
+     [
+      "rule.f1099b.noncovered-st-txn.amounts-check",
+      null,
+      "published",
+      null,
+      []
+     ],
+     [
+      "rule.f8949.no1099b-lt-txn.amounts-check",
+      null,
+      "published",
+      null,
+      []
+     ],
+     [
+      "rule.f8949.no1099b-st-txn.amounts-check",
+      null,
+      "published",
+      null,
+      []
+     ],
+     [
       "rule.form1040-line7a",
       null,
       "blocked",
@@ -11165,6 +11445,34 @@
       [
        "schedule-d.line-3"
       ]
+     ],
+     [
+      "rule.f1099b.noncovered-lt-txn.amounts-check",
+      null,
+      "published",
+      null,
+      []
+     ],
+     [
+      "rule.f1099b.noncovered-st-txn.amounts-check",
+      null,
+      "published",
+      null,
+      []
+     ],
+     [
+      "rule.f8949.no1099b-lt-txn.amounts-check",
+      null,
+      "published",
+      null,
+      []
+     ],
+     [
+      "rule.f8949.no1099b-st-txn.amounts-check",
+      null,
+      "published",
+      null,
+      []
      ],
      [
       "rule.form1040-line7a",
@@ -11456,6 +11764,34 @@
       ]
      ],
      [
+      "rule.f1099b.noncovered-lt-txn.amounts-check",
+      null,
+      "published",
+      null,
+      []
+     ],
+     [
+      "rule.f1099b.noncovered-st-txn.amounts-check",
+      null,
+      "published",
+      null,
+      []
+     ],
+     [
+      "rule.f8949.no1099b-lt-txn.amounts-check",
+      null,
+      "published",
+      null,
+      []
+     ],
+     [
+      "rule.f8949.no1099b-st-txn.amounts-check",
+      null,
+      "published",
+      null,
+      []
+     ],
+     [
       "rule.form1040-line7a",
       null,
       "blocked",
@@ -11744,6 +12080,34 @@
       [
        "schedule-d.line-9"
       ]
+     ],
+     [
+      "rule.f1099b.noncovered-lt-txn.amounts-check",
+      null,
+      "published",
+      null,
+      []
+     ],
+     [
+      "rule.f1099b.noncovered-st-txn.amounts-check",
+      null,
+      "published",
+      null,
+      []
+     ],
+     [
+      "rule.f8949.no1099b-lt-txn.amounts-check",
+      null,
+      "published",
+      null,
+      []
+     ],
+     [
+      "rule.f8949.no1099b-st-txn.amounts-check",
+      null,
+      "published",
+      null,
+      []
      ],
      [
       "rule.form1040-line7a",
@@ -12042,6 +12406,34 @@
       ]
      ],
      [
+      "rule.f1099b.noncovered-lt-txn.amounts-check",
+      null,
+      "published",
+      null,
+      []
+     ],
+     [
+      "rule.f1099b.noncovered-st-txn.amounts-check",
+      null,
+      "published",
+      null,
+      []
+     ],
+     [
+      "rule.f8949.no1099b-lt-txn.amounts-check",
+      null,
+      "published",
+      null,
+      []
+     ],
+     [
+      "rule.f8949.no1099b-st-txn.amounts-check",
+      null,
+      "published",
+      null,
+      []
+     ],
+     [
       "rule.form1040-line7a",
       null,
       "blocked",
@@ -12323,6 +12715,34 @@
       []
      ],
      [
+      "rule.f1099b.noncovered-lt-txn.amounts-check",
+      null,
+      "published",
+      null,
+      []
+     ],
+     [
+      "rule.f1099b.noncovered-st-txn.amounts-check",
+      null,
+      "published",
+      null,
+      []
+     ],
+     [
+      "rule.f8949.no1099b-lt-txn.amounts-check",
+      null,
+      "published",
+      null,
+      []
+     ],
+     [
+      "rule.f8949.no1099b-st-txn.amounts-check",
+      null,
+      "published",
+      null,
+      []
+     ],
+     [
       "rule.form1040-line7a",
       null,
       "published",
@@ -12596,6 +13016,34 @@
      ],
      [
       "rule.attachment.schedule-d",
+      null,
+      "published",
+      null,
+      []
+     ],
+     [
+      "rule.f1099b.noncovered-lt-txn.amounts-check",
+      null,
+      "published",
+      null,
+      []
+     ],
+     [
+      "rule.f1099b.noncovered-st-txn.amounts-check",
+      null,
+      "published",
+      null,
+      []
+     ],
+     [
+      "rule.f8949.no1099b-lt-txn.amounts-check",
+      null,
+      "published",
+      null,
+      []
+     ],
+     [
+      "rule.f8949.no1099b-st-txn.amounts-check",
       null,
       "published",
       null,
@@ -12891,6 +13339,34 @@
       ]
      ],
      [
+      "rule.f1099b.noncovered-lt-txn.amounts-check",
+      null,
+      "published",
+      null,
+      []
+     ],
+     [
+      "rule.f1099b.noncovered-st-txn.amounts-check",
+      null,
+      "published",
+      null,
+      []
+     ],
+     [
+      "rule.f8949.no1099b-lt-txn.amounts-check",
+      null,
+      "published",
+      null,
+      []
+     ],
+     [
+      "rule.f8949.no1099b-st-txn.amounts-check",
+      null,
+      "published",
+      null,
+      []
+     ],
+     [
       "rule.form1040-line7a",
       null,
       "blocked",
@@ -13180,6 +13656,34 @@
        "f8949.no1099b-lt-basis-subtotal",
        "schedule-d.line-10"
       ]
+     ],
+     [
+      "rule.f1099b.noncovered-lt-txn.amounts-check",
+      null,
+      "published",
+      null,
+      []
+     ],
+     [
+      "rule.f1099b.noncovered-st-txn.amounts-check",
+      null,
+      "published",
+      null,
+      []
+     ],
+     [
+      "rule.f8949.no1099b-lt-txn.amounts-check",
+      null,
+      "published",
+      null,
+      []
+     ],
+     [
+      "rule.f8949.no1099b-st-txn.amounts-check",
+      null,
+      "published",
+      null,
+      []
      ],
      [
       "rule.form1040-line7a",
@@ -13490,6 +13994,36 @@
       ]
      ],
      [
+      "rule.f1099b.noncovered-lt-txn.amounts-check",
+      null,
+      "published",
+      null,
+      []
+     ],
+     [
+      "rule.f1099b.noncovered-st-txn.amounts-check",
+      null,
+      "published",
+      null,
+      []
+     ],
+     [
+      "rule.f8949.no1099b-lt-txn.amounts-check",
+      null,
+      "blocked",
+      "DEPENDENCY_INVALID",
+      [
+       "f8949.no1099b-lt-txn|sale=demo.cf.fq2no.sale,tax-year=2025"
+      ]
+     ],
+     [
+      "rule.f8949.no1099b-st-txn.amounts-check",
+      null,
+      "published",
+      null,
+      []
+     ],
+     [
       "rule.form1040-line7a",
       null,
       "blocked",
@@ -13788,6 +14322,34 @@
        "f8949.no1099b-lt-basis-subtotal",
        "schedule-d.line-10"
       ]
+     ],
+     [
+      "rule.f1099b.noncovered-lt-txn.amounts-check",
+      null,
+      "published",
+      null,
+      []
+     ],
+     [
+      "rule.f1099b.noncovered-st-txn.amounts-check",
+      null,
+      "published",
+      null,
+      []
+     ],
+     [
+      "rule.f8949.no1099b-lt-txn.amounts-check",
+      null,
+      "published",
+      null,
+      []
+     ],
+     [
+      "rule.f8949.no1099b-st-txn.amounts-check",
+      null,
+      "published",
+      null,
+      []
      ],
      [
       "rule.form1040-line7a",
@@ -14096,6 +14658,36 @@
       ]
      ],
      [
+      "rule.f1099b.noncovered-lt-txn.amounts-check",
+      null,
+      "published",
+      null,
+      []
+     ],
+     [
+      "rule.f1099b.noncovered-st-txn.amounts-check",
+      null,
+      "published",
+      null,
+      []
+     ],
+     [
+      "rule.f8949.no1099b-lt-txn.amounts-check",
+      null,
+      "blocked",
+      "DEPENDENCY_INVALID",
+      [
+       "f8949.no1099b-lt-txn|sale=demo.cf.late.sale,tax-year=2025"
+      ]
+     ],
+     [
+      "rule.f8949.no1099b-st-txn.amounts-check",
+      null,
+      "published",
+      null,
+      []
+     ],
+     [
       "rule.form1040-line7a",
       null,
       "blocked",
@@ -14386,6 +14978,34 @@
       []
      ],
      [
+      "rule.f1099b.noncovered-lt-txn.amounts-check",
+      null,
+      "published",
+      null,
+      []
+     ],
+     [
+      "rule.f1099b.noncovered-st-txn.amounts-check",
+      null,
+      "published",
+      null,
+      []
+     ],
+     [
+      "rule.f8949.no1099b-lt-txn.amounts-check",
+      null,
+      "published",
+      null,
+      []
+     ],
+     [
+      "rule.f8949.no1099b-st-txn.amounts-check",
+      null,
+      "published",
+      null,
+      []
+     ],
+     [
       "rule.form1040-line7a",
       null,
       "published",
@@ -14669,6 +15289,34 @@
       ]
      ],
      [
+      "rule.f1099b.noncovered-lt-txn.amounts-check",
+      null,
+      "published",
+      null,
+      []
+     ],
+     [
+      "rule.f1099b.noncovered-st-txn.amounts-check",
+      null,
+      "published",
+      null,
+      []
+     ],
+     [
+      "rule.f8949.no1099b-lt-txn.amounts-check",
+      null,
+      "published",
+      null,
+      []
+     ],
+     [
+      "rule.f8949.no1099b-st-txn.amounts-check",
+      null,
+      "published",
+      null,
+      []
+     ],
+     [
       "rule.form1040-line7a",
       null,
       "blocked",
@@ -14947,6 +15595,34 @@
        "schedule-d.line-2",
        "schedule-d.line-3"
       ]
+     ],
+     [
+      "rule.f1099b.noncovered-lt-txn.amounts-check",
+      null,
+      "published",
+      null,
+      []
+     ],
+     [
+      "rule.f1099b.noncovered-st-txn.amounts-check",
+      null,
+      "published",
+      null,
+      []
+     ],
+     [
+      "rule.f8949.no1099b-lt-txn.amounts-check",
+      null,
+      "published",
+      null,
+      []
+     ],
+     [
+      "rule.f8949.no1099b-st-txn.amounts-check",
+      null,
+      "published",
+      null,
+      []
      ],
      [
       "rule.form1040-line7a",
@@ -15242,6 +15918,36 @@
        "schedule-d.line-2",
        "schedule-d.line-3"
       ]
+     ],
+     [
+      "rule.f1099b.noncovered-lt-txn.amounts-check",
+      null,
+      "published",
+      null,
+      []
+     ],
+     [
+      "rule.f1099b.noncovered-st-txn.amounts-check",
+      null,
+      "blocked",
+      "DEPENDENCY_INVALID",
+      [
+       "f1099b.noncovered-st-txn|broker=demo.ns.bl.broker,statement=demo.ns.bl.statement,transaction=demo.ns.bl.transaction,tax-year=2025"
+      ]
+     ],
+     [
+      "rule.f8949.no1099b-lt-txn.amounts-check",
+      null,
+      "published",
+      null,
+      []
+     ],
+     [
+      "rule.f8949.no1099b-st-txn.amounts-check",
+      null,
+      "published",
+      null,
+      []
      ],
      [
       "rule.form1040-line7a",
@@ -15540,6 +16246,34 @@
       []
      ],
      [
+      "rule.f1099b.noncovered-lt-txn.amounts-check",
+      null,
+      "published",
+      null,
+      []
+     ],
+     [
+      "rule.f1099b.noncovered-st-txn.amounts-check",
+      null,
+      "published",
+      null,
+      []
+     ],
+     [
+      "rule.f8949.no1099b-lt-txn.amounts-check",
+      null,
+      "published",
+      null,
+      []
+     ],
+     [
+      "rule.f8949.no1099b-st-txn.amounts-check",
+      null,
+      "published",
+      null,
+      []
+     ],
+     [
       "rule.form1040-line7a",
       null,
       "published",
@@ -15813,6 +16547,34 @@
      ],
      [
       "rule.attachment.schedule-d",
+      null,
+      "published",
+      null,
+      []
+     ],
+     [
+      "rule.f1099b.noncovered-lt-txn.amounts-check",
+      null,
+      "published",
+      null,
+      []
+     ],
+     [
+      "rule.f1099b.noncovered-st-txn.amounts-check",
+      null,
+      "published",
+      null,
+      []
+     ],
+     [
+      "rule.f8949.no1099b-lt-txn.amounts-check",
+      null,
+      "published",
+      null,
+      []
+     ],
+     [
+      "rule.f8949.no1099b-st-txn.amounts-check",
       null,
       "published",
       null,
@@ -16102,6 +16864,34 @@
       ]
      ],
      [
+      "rule.f1099b.noncovered-lt-txn.amounts-check",
+      null,
+      "published",
+      null,
+      []
+     ],
+     [
+      "rule.f1099b.noncovered-st-txn.amounts-check",
+      null,
+      "published",
+      null,
+      []
+     ],
+     [
+      "rule.f8949.no1099b-lt-txn.amounts-check",
+      null,
+      "published",
+      null,
+      []
+     ],
+     [
+      "rule.f8949.no1099b-st-txn.amounts-check",
+      null,
+      "published",
+      null,
+      []
+     ],
+     [
       "rule.form1040-line7a",
       null,
       "blocked",
@@ -16374,6 +17164,34 @@
       [
        "schedule-d.line-3"
       ]
+     ],
+     [
+      "rule.f1099b.noncovered-lt-txn.amounts-check",
+      null,
+      "published",
+      null,
+      []
+     ],
+     [
+      "rule.f1099b.noncovered-st-txn.amounts-check",
+      null,
+      "published",
+      null,
+      []
+     ],
+     [
+      "rule.f8949.no1099b-lt-txn.amounts-check",
+      null,
+      "published",
+      null,
+      []
+     ],
+     [
+      "rule.f8949.no1099b-st-txn.amounts-check",
+      null,
+      "published",
+      null,
+      []
      ],
      [
       "rule.form1040-line7a",
@@ -16656,6 +17474,34 @@
       ]
      ],
      [
+      "rule.f1099b.noncovered-lt-txn.amounts-check",
+      null,
+      "published",
+      null,
+      []
+     ],
+     [
+      "rule.f1099b.noncovered-st-txn.amounts-check",
+      null,
+      "published",
+      null,
+      []
+     ],
+     [
+      "rule.f8949.no1099b-lt-txn.amounts-check",
+      null,
+      "published",
+      null,
+      []
+     ],
+     [
+      "rule.f8949.no1099b-st-txn.amounts-check",
+      null,
+      "published",
+      null,
+      []
+     ],
+     [
       "rule.form1040-line7a",
       null,
       "blocked",
@@ -16931,6 +17777,34 @@
      ],
      [
       "rule.attachment.schedule-d",
+      null,
+      "published",
+      null,
+      []
+     ],
+     [
+      "rule.f1099b.noncovered-lt-txn.amounts-check",
+      null,
+      "published",
+      null,
+      []
+     ],
+     [
+      "rule.f1099b.noncovered-st-txn.amounts-check",
+      null,
+      "published",
+      null,
+      []
+     ],
+     [
+      "rule.f8949.no1099b-lt-txn.amounts-check",
+      null,
+      "published",
+      null,
+      []
+     ],
+     [
+      "rule.f8949.no1099b-st-txn.amounts-check",
       null,
       "published",
       null,
@@ -17223,6 +18097,36 @@
        "f8949.no1099b-st-basis-subtotal",
        "schedule-d.line-3",
        "schedule-d.line-10"
+      ]
+     ],
+     [
+      "rule.f1099b.noncovered-lt-txn.amounts-check",
+      null,
+      "published",
+      null,
+      []
+     ],
+     [
+      "rule.f1099b.noncovered-st-txn.amounts-check",
+      null,
+      "published",
+      null,
+      []
+     ],
+     [
+      "rule.f8949.no1099b-lt-txn.amounts-check",
+      null,
+      "published",
+      null,
+      []
+     ],
+     [
+      "rule.f8949.no1099b-st-txn.amounts-check",
+      null,
+      "blocked",
+      "DEPENDENCY_INVALID",
+      [
+       "f8949.no1099b-st-txn|sale=demo.cf.cl.sale,tax-year=2025"
       ]
      ],
      [
@@ -17522,6 +18426,34 @@
       ]
      ],
      [
+      "rule.f1099b.noncovered-lt-txn.amounts-check",
+      null,
+      "published",
+      null,
+      []
+     ],
+     [
+      "rule.f1099b.noncovered-st-txn.amounts-check",
+      null,
+      "published",
+      null,
+      []
+     ],
+     [
+      "rule.f8949.no1099b-lt-txn.amounts-check",
+      null,
+      "published",
+      null,
+      []
+     ],
+     [
+      "rule.f8949.no1099b-st-txn.amounts-check",
+      null,
+      "published",
+      null,
+      []
+     ],
+     [
       "rule.form1040-line7a",
       null,
       "blocked",
@@ -17801,6 +18733,34 @@
       ]
      ],
      [
+      "rule.f1099b.noncovered-lt-txn.amounts-check",
+      null,
+      "published",
+      null,
+      []
+     ],
+     [
+      "rule.f1099b.noncovered-st-txn.amounts-check",
+      null,
+      "published",
+      null,
+      []
+     ],
+     [
+      "rule.f8949.no1099b-lt-txn.amounts-check",
+      null,
+      "published",
+      null,
+      []
+     ],
+     [
+      "rule.f8949.no1099b-st-txn.amounts-check",
+      null,
+      "published",
+      null,
+      []
+     ],
+     [
       "rule.form1040-line7a",
       null,
       "blocked",
@@ -18071,6 +19031,34 @@
       []
      ],
      [
+      "rule.f1099b.noncovered-lt-txn.amounts-check",
+      null,
+      "published",
+      null,
+      []
+     ],
+     [
+      "rule.f1099b.noncovered-st-txn.amounts-check",
+      null,
+      "published",
+      null,
+      []
+     ],
+     [
+      "rule.f8949.no1099b-lt-txn.amounts-check",
+      null,
+      "published",
+      null,
+      []
+     ],
+     [
+      "rule.f8949.no1099b-st-txn.amounts-check",
+      null,
+      "published",
+      null,
+      []
+     ],
+     [
       "rule.form1040-line7a",
       null,
       "published",
@@ -18334,6 +19322,34 @@
        "schedule-d.line-3",
        "schedule-d.line-10"
       ]
+     ],
+     [
+      "rule.f1099b.noncovered-lt-txn.amounts-check",
+      null,
+      "published",
+      null,
+      []
+     ],
+     [
+      "rule.f1099b.noncovered-st-txn.amounts-check",
+      null,
+      "published",
+      null,
+      []
+     ],
+     [
+      "rule.f8949.no1099b-lt-txn.amounts-check",
+      null,
+      "published",
+      null,
+      []
+     ],
+     [
+      "rule.f8949.no1099b-st-txn.amounts-check",
+      null,
+      "published",
+      null,
+      []
      ],
      [
       "rule.form1040-line7a",
@@ -18638,6 +19654,34 @@
       ]
      ],
      [
+      "rule.f1099b.noncovered-lt-txn.amounts-check",
+      null,
+      "published",
+      null,
+      []
+     ],
+     [
+      "rule.f1099b.noncovered-st-txn.amounts-check",
+      null,
+      "published",
+      null,
+      []
+     ],
+     [
+      "rule.f8949.no1099b-lt-txn.amounts-check",
+      null,
+      "published",
+      null,
+      []
+     ],
+     [
+      "rule.f8949.no1099b-st-txn.amounts-check",
+      null,
+      "published",
+      null,
+      []
+     ],
+     [
       "rule.form1040-line7a",
       null,
       "blocked",
@@ -18917,6 +19961,34 @@
        "schedule-d.line-3",
        "schedule-d.line-10"
       ]
+     ],
+     [
+      "rule.f1099b.noncovered-lt-txn.amounts-check",
+      null,
+      "published",
+      null,
+      []
+     ],
+     [
+      "rule.f1099b.noncovered-st-txn.amounts-check",
+      null,
+      "published",
+      null,
+      []
+     ],
+     [
+      "rule.f8949.no1099b-lt-txn.amounts-check",
+      null,
+      "published",
+      null,
+      []
+     ],
+     [
+      "rule.f8949.no1099b-st-txn.amounts-check",
+      null,
+      "published",
+      null,
+      []
      ],
      [
       "rule.form1040-line7a",
@@ -19215,6 +20287,34 @@
       []
      ],
      [
+      "rule.f1099b.noncovered-lt-txn.amounts-check",
+      null,
+      "published",
+      null,
+      []
+     ],
+     [
+      "rule.f1099b.noncovered-st-txn.amounts-check",
+      null,
+      "published",
+      null,
+      []
+     ],
+     [
+      "rule.f8949.no1099b-lt-txn.amounts-check",
+      null,
+      "published",
+      null,
+      []
+     ],
+     [
+      "rule.f8949.no1099b-st-txn.amounts-check",
+      null,
+      "published",
+      null,
+      []
+     ],
+     [
       "rule.form1040-line7a",
       null,
       "published",
@@ -19482,6 +20582,34 @@
        "schedule-d.line-3",
        "f8949.no1099b-lt-proceeds-subtotal"
       ]
+     ],
+     [
+      "rule.f1099b.noncovered-lt-txn.amounts-check",
+      null,
+      "published",
+      null,
+      []
+     ],
+     [
+      "rule.f1099b.noncovered-st-txn.amounts-check",
+      null,
+      "published",
+      null,
+      []
+     ],
+     [
+      "rule.f8949.no1099b-lt-txn.amounts-check",
+      null,
+      "published",
+      null,
+      []
+     ],
+     [
+      "rule.f8949.no1099b-st-txn.amounts-check",
+      null,
+      "published",
+      null,
+      []
      ],
      [
       "rule.form1040-line7a",
@@ -19792,6 +20920,34 @@
       ]
      ],
      [
+      "rule.f1099b.noncovered-lt-txn.amounts-check",
+      null,
+      "published",
+      null,
+      []
+     ],
+     [
+      "rule.f1099b.noncovered-st-txn.amounts-check",
+      null,
+      "published",
+      null,
+      []
+     ],
+     [
+      "rule.f8949.no1099b-lt-txn.amounts-check",
+      null,
+      "published",
+      null,
+      []
+     ],
+     [
+      "rule.f8949.no1099b-st-txn.amounts-check",
+      null,
+      "published",
+      null,
+      []
+     ],
+     [
       "rule.form1040-line7a",
       null,
       "blocked",
@@ -20075,6 +21231,34 @@
        "f1099b.noncovered-lt-proceeds-subtotal",
        "f1099b.noncovered-lt-basis-subtotal"
       ]
+     ],
+     [
+      "rule.f1099b.noncovered-lt-txn.amounts-check",
+      null,
+      "published",
+      null,
+      []
+     ],
+     [
+      "rule.f1099b.noncovered-st-txn.amounts-check",
+      null,
+      "published",
+      null,
+      []
+     ],
+     [
+      "rule.f8949.no1099b-lt-txn.amounts-check",
+      null,
+      "published",
+      null,
+      []
+     ],
+     [
+      "rule.f8949.no1099b-st-txn.amounts-check",
+      null,
+      "published",
+      null,
+      []
      ],
      [
       "rule.form1040-line7a",
@@ -20399,6 +21583,34 @@
       ]
      ],
      [
+      "rule.f1099b.noncovered-lt-txn.amounts-check",
+      null,
+      "published",
+      null,
+      []
+     ],
+     [
+      "rule.f1099b.noncovered-st-txn.amounts-check",
+      null,
+      "published",
+      null,
+      []
+     ],
+     [
+      "rule.f8949.no1099b-lt-txn.amounts-check",
+      null,
+      "published",
+      null,
+      []
+     ],
+     [
+      "rule.f8949.no1099b-st-txn.amounts-check",
+      null,
+      "published",
+      null,
+      []
+     ],
+     [
       "rule.form1040-line7a",
       null,
       "blocked",
@@ -20678,6 +21890,34 @@
        "schedule-d.line-3",
        "schedule-d.line-10"
       ]
+     ],
+     [
+      "rule.f1099b.noncovered-lt-txn.amounts-check",
+      null,
+      "published",
+      null,
+      []
+     ],
+     [
+      "rule.f1099b.noncovered-st-txn.amounts-check",
+      null,
+      "published",
+      null,
+      []
+     ],
+     [
+      "rule.f8949.no1099b-lt-txn.amounts-check",
+      null,
+      "published",
+      null,
+      []
+     ],
+     [
+      "rule.f8949.no1099b-st-txn.amounts-check",
+      null,
+      "published",
+      null,
+      []
      ],
      [
       "rule.form1040-line7a",
@@ -20982,6 +22222,34 @@
       ]
      ],
      [
+      "rule.f1099b.noncovered-lt-txn.amounts-check",
+      null,
+      "published",
+      null,
+      []
+     ],
+     [
+      "rule.f1099b.noncovered-st-txn.amounts-check",
+      null,
+      "published",
+      null,
+      []
+     ],
+     [
+      "rule.f8949.no1099b-lt-txn.amounts-check",
+      null,
+      "published",
+      null,
+      []
+     ],
+     [
+      "rule.f8949.no1099b-st-txn.amounts-check",
+      null,
+      "published",
+      null,
+      []
+     ],
+     [
       "rule.form1040-line7a",
       null,
       "blocked",
@@ -21263,6 +22531,34 @@
       ]
      ],
      [
+      "rule.f1099b.noncovered-lt-txn.amounts-check",
+      null,
+      "published",
+      null,
+      []
+     ],
+     [
+      "rule.f1099b.noncovered-st-txn.amounts-check",
+      null,
+      "published",
+      null,
+      []
+     ],
+     [
+      "rule.f8949.no1099b-lt-txn.amounts-check",
+      null,
+      "published",
+      null,
+      []
+     ],
+     [
+      "rule.f8949.no1099b-st-txn.amounts-check",
+      null,
+      "published",
+      null,
+      []
+     ],
+     [
       "rule.form1040-line7a",
       null,
       "blocked",
@@ -21532,6 +22828,34 @@
      ],
      [
       "rule.attachment.schedule-d",
+      null,
+      "published",
+      null,
+      []
+     ],
+     [
+      "rule.f1099b.noncovered-lt-txn.amounts-check",
+      null,
+      "published",
+      null,
+      []
+     ],
+     [
+      "rule.f1099b.noncovered-st-txn.amounts-check",
+      null,
+      "published",
+      null,
+      []
+     ],
+     [
+      "rule.f8949.no1099b-lt-txn.amounts-check",
+      null,
+      "published",
+      null,
+      []
+     ],
+     [
+      "rule.f8949.no1099b-st-txn.amounts-check",
       null,
       "published",
       null,
@@ -21817,6 +23141,34 @@
       []
      ],
      [
+      "rule.f1099b.noncovered-lt-txn.amounts-check",
+      null,
+      "published",
+      null,
+      []
+     ],
+     [
+      "rule.f1099b.noncovered-st-txn.amounts-check",
+      null,
+      "published",
+      null,
+      []
+     ],
+     [
+      "rule.f8949.no1099b-lt-txn.amounts-check",
+      null,
+      "published",
+      null,
+      []
+     ],
+     [
+      "rule.f8949.no1099b-st-txn.amounts-check",
+      null,
+      "published",
+      null,
+      []
+     ],
+     [
       "rule.form1040-line7a",
       null,
       "published",
@@ -22090,6 +23442,34 @@
      ],
      [
       "rule.attachment.schedule-d",
+      null,
+      "published",
+      null,
+      []
+     ],
+     [
+      "rule.f1099b.noncovered-lt-txn.amounts-check",
+      null,
+      "published",
+      null,
+      []
+     ],
+     [
+      "rule.f1099b.noncovered-st-txn.amounts-check",
+      null,
+      "published",
+      null,
+      []
+     ],
+     [
+      "rule.f8949.no1099b-lt-txn.amounts-check",
+      null,
+      "published",
+      null,
+      []
+     ],
+     [
+      "rule.f8949.no1099b-st-txn.amounts-check",
       null,
       "published",
       null,
@@ -22382,6 +23762,36 @@
        "f8949.no1099b-st-basis-subtotal",
        "schedule-d.line-3",
        "schedule-d.line-10"
+      ]
+     ],
+     [
+      "rule.f1099b.noncovered-lt-txn.amounts-check",
+      null,
+      "published",
+      null,
+      []
+     ],
+     [
+      "rule.f1099b.noncovered-st-txn.amounts-check",
+      null,
+      "published",
+      null,
+      []
+     ],
+     [
+      "rule.f8949.no1099b-lt-txn.amounts-check",
+      null,
+      "published",
+      null,
+      []
+     ],
+     [
+      "rule.f8949.no1099b-st-txn.amounts-check",
+      null,
+      "blocked",
+      "DEPENDENCY_INVALID",
+      [
+       "f8949.no1099b-st-txn|sale=demo.cf.lyc.sale,tax-year=2025"
       ]
      ],
      [
@@ -22681,6 +24091,34 @@
       ]
      ],
      [
+      "rule.f1099b.noncovered-lt-txn.amounts-check",
+      null,
+      "published",
+      null,
+      []
+     ],
+     [
+      "rule.f1099b.noncovered-st-txn.amounts-check",
+      null,
+      "published",
+      null,
+      []
+     ],
+     [
+      "rule.f8949.no1099b-lt-txn.amounts-check",
+      null,
+      "published",
+      null,
+      []
+     ],
+     [
+      "rule.f8949.no1099b-st-txn.amounts-check",
+      null,
+      "published",
+      null,
+      []
+     ],
+     [
       "rule.form1040-line7a",
       null,
       "blocked",
@@ -22956,6 +24394,34 @@
       []
      ],
      [
+      "rule.f1099b.noncovered-lt-txn.amounts-check",
+      null,
+      "published",
+      null,
+      []
+     ],
+     [
+      "rule.f1099b.noncovered-st-txn.amounts-check",
+      null,
+      "published",
+      null,
+      []
+     ],
+     [
+      "rule.f8949.no1099b-lt-txn.amounts-check",
+      null,
+      "published",
+      null,
+      []
+     ],
+     [
+      "rule.f8949.no1099b-st-txn.amounts-check",
+      null,
+      "published",
+      null,
+      []
+     ],
+     [
       "rule.form1040-line7a",
       null,
       "published",
@@ -23223,6 +24689,36 @@
        "f8949.no1099b-lt-basis-subtotal",
        "schedule-d.line-10"
       ]
+     ],
+     [
+      "rule.f1099b.noncovered-lt-txn.amounts-check",
+      null,
+      "published",
+      null,
+      []
+     ],
+     [
+      "rule.f1099b.noncovered-st-txn.amounts-check",
+      null,
+      "published",
+      null,
+      []
+     ],
+     [
+      "rule.f8949.no1099b-lt-txn.amounts-check",
+      null,
+      "blocked",
+      "DEPENDENCY_INVALID",
+      [
+       "f8949.no1099b-lt-txn|sale=demo.cf.t1.sale,tax-year=2025"
+      ]
+     ],
+     [
+      "rule.f8949.no1099b-st-txn.amounts-check",
+      null,
+      "published",
+      null,
+      []
      ],
      [
       "rule.form1040-line7a",
@@ -23523,6 +25019,34 @@
        "f8949.no1099b-lt-basis-subtotal",
        "schedule-d.line-10"
       ]
+     ],
+     [
+      "rule.f1099b.noncovered-lt-txn.amounts-check",
+      null,
+      "published",
+      null,
+      []
+     ],
+     [
+      "rule.f1099b.noncovered-st-txn.amounts-check",
+      null,
+      "published",
+      null,
+      []
+     ],
+     [
+      "rule.f8949.no1099b-lt-txn.amounts-check",
+      null,
+      "published",
+      null,
+      []
+     ],
+     [
+      "rule.f8949.no1099b-st-txn.amounts-check",
+      null,
+      "published",
+      null,
+      []
      ],
      [
       "rule.form1040-line7a",
@@ -23827,6 +25351,34 @@
       ]
      ],
      [
+      "rule.f1099b.noncovered-lt-txn.amounts-check",
+      null,
+      "published",
+      null,
+      []
+     ],
+     [
+      "rule.f1099b.noncovered-st-txn.amounts-check",
+      null,
+      "published",
+      null,
+      []
+     ],
+     [
+      "rule.f8949.no1099b-lt-txn.amounts-check",
+      null,
+      "published",
+      null,
+      []
+     ],
+     [
+      "rule.f8949.no1099b-st-txn.amounts-check",
+      null,
+      "published",
+      null,
+      []
+     ],
+     [
       "rule.form1040-line7a",
       null,
       "blocked",
@@ -24092,6 +25644,34 @@
      ],
      [
       "rule.attachment.schedule-d",
+      null,
+      "published",
+      null,
+      []
+     ],
+     [
+      "rule.f1099b.noncovered-lt-txn.amounts-check",
+      null,
+      "published",
+      null,
+      []
+     ],
+     [
+      "rule.f1099b.noncovered-st-txn.amounts-check",
+      null,
+      "published",
+      null,
+      []
+     ],
+     [
+      "rule.f8949.no1099b-lt-txn.amounts-check",
+      null,
+      "published",
+      null,
+      []
+     ],
+     [
+      "rule.f8949.no1099b-st-txn.amounts-check",
       null,
       "published",
       null,
@@ -24371,6 +25951,34 @@
      ],
      [
       "rule.attachment.schedule-d",
+      null,
+      "published",
+      null,
+      []
+     ],
+     [
+      "rule.f1099b.noncovered-lt-txn.amounts-check",
+      null,
+      "published",
+      null,
+      []
+     ],
+     [
+      "rule.f1099b.noncovered-st-txn.amounts-check",
+      null,
+      "published",
+      null,
+      []
+     ],
+     [
+      "rule.f8949.no1099b-lt-txn.amounts-check",
+      null,
+      "published",
+      null,
+      []
+     ],
+     [
+      "rule.f8949.no1099b-st-txn.amounts-check",
       null,
       "published",
       null,
@@ -24663,6 +26271,36 @@
        "f8949.no1099b-st-basis-subtotal",
        "schedule-d.line-3",
        "schedule-d.line-10"
+      ]
+     ],
+     [
+      "rule.f1099b.noncovered-lt-txn.amounts-check",
+      null,
+      "published",
+      null,
+      []
+     ],
+     [
+      "rule.f1099b.noncovered-st-txn.amounts-check",
+      null,
+      "published",
+      null,
+      []
+     ],
+     [
+      "rule.f8949.no1099b-lt-txn.amounts-check",
+      null,
+      "published",
+      null,
+      []
+     ],
+     [
+      "rule.f8949.no1099b-st-txn.amounts-check",
+      null,
+      "blocked",
+      "DEPENDENCY_INVALID",
+      [
+       "f8949.no1099b-st-txn|sale=demo.cf.t2c.sale,tax-year=2025"
       ]
      ],
      [
@@ -24964,6 +26602,34 @@
        "schedule-d.line-2",
        "f8949.no1099b-st-proceeds-subtotal"
       ]
+     ],
+     [
+      "rule.f1099b.noncovered-lt-txn.amounts-check",
+      null,
+      "published",
+      null,
+      []
+     ],
+     [
+      "rule.f1099b.noncovered-st-txn.amounts-check",
+      null,
+      "published",
+      null,
+      []
+     ],
+     [
+      "rule.f8949.no1099b-lt-txn.amounts-check",
+      null,
+      "published",
+      null,
+      []
+     ],
+     [
+      "rule.f8949.no1099b-st-txn.amounts-check",
+      null,
+      "published",
+      null,
+      []
      ],
      [
       "rule.form1040-line7a",
@@ -25274,6 +26940,34 @@
       []
      ],
      [
+      "rule.f1099b.noncovered-lt-txn.amounts-check",
+      null,
+      "published",
+      null,
+      []
+     ],
+     [
+      "rule.f1099b.noncovered-st-txn.amounts-check",
+      null,
+      "published",
+      null,
+      []
+     ],
+     [
+      "rule.f8949.no1099b-lt-txn.amounts-check",
+      null,
+      "published",
+      null,
+      []
+     ],
+     [
+      "rule.f8949.no1099b-st-txn.amounts-check",
+      null,
+      "published",
+      null,
+      []
+     ],
+     [
       "rule.form1040-line7a",
       null,
       "published",
@@ -25547,6 +27241,34 @@
      ],
      [
       "rule.attachment.schedule-d",
+      null,
+      "published",
+      null,
+      []
+     ],
+     [
+      "rule.f1099b.noncovered-lt-txn.amounts-check",
+      null,
+      "published",
+      null,
+      []
+     ],
+     [
+      "rule.f1099b.noncovered-st-txn.amounts-check",
+      null,
+      "published",
+      null,
+      []
+     ],
+     [
+      "rule.f8949.no1099b-lt-txn.amounts-check",
+      null,
+      "published",
+      null,
+      []
+     ],
+     [
+      "rule.f8949.no1099b-st-txn.amounts-check",
       null,
       "published",
       null,
@@ -25838,6 +27560,34 @@
       ]
      ],
      [
+      "rule.f1099b.noncovered-lt-txn.amounts-check",
+      null,
+      "published",
+      null,
+      []
+     ],
+     [
+      "rule.f1099b.noncovered-st-txn.amounts-check",
+      null,
+      "published",
+      null,
+      []
+     ],
+     [
+      "rule.f8949.no1099b-lt-txn.amounts-check",
+      null,
+      "published",
+      null,
+      []
+     ],
+     [
+      "rule.f8949.no1099b-st-txn.amounts-check",
+      null,
+      "published",
+      null,
+      []
+     ],
+     [
       "rule.form1040-line7a",
       null,
       "blocked",
@@ -26123,6 +27873,34 @@
       ]
      ],
      [
+      "rule.f1099b.noncovered-lt-txn.amounts-check",
+      null,
+      "published",
+      null,
+      []
+     ],
+     [
+      "rule.f1099b.noncovered-st-txn.amounts-check",
+      null,
+      "published",
+      null,
+      []
+     ],
+     [
+      "rule.f8949.no1099b-lt-txn.amounts-check",
+      null,
+      "published",
+      null,
+      []
+     ],
+     [
+      "rule.f8949.no1099b-st-txn.amounts-check",
+      null,
+      "published",
+      null,
+      []
+     ],
+     [
       "rule.form1040-line7a",
       null,
       "blocked",
@@ -26402,6 +28180,34 @@
       ]
      ],
      [
+      "rule.f1099b.noncovered-lt-txn.amounts-check",
+      null,
+      "published",
+      null,
+      []
+     ],
+     [
+      "rule.f1099b.noncovered-st-txn.amounts-check",
+      null,
+      "blocked",
+      "DEPENDENCY_INVALID",
+      []
+     ],
+     [
+      "rule.f8949.no1099b-lt-txn.amounts-check",
+      null,
+      "published",
+      null,
+      []
+     ],
+     [
+      "rule.f8949.no1099b-st-txn.amounts-check",
+      null,
+      "published",
+      null,
+      []
+     ],
+     [
       "rule.form1040-line7a",
       null,
       "blocked",
@@ -26676,6 +28482,34 @@
       [
        "schedule-d.line-3"
       ]
+     ],
+     [
+      "rule.f1099b.noncovered-lt-txn.amounts-check",
+      null,
+      "published",
+      null,
+      []
+     ],
+     [
+      "rule.f1099b.noncovered-st-txn.amounts-check",
+      null,
+      "published",
+      null,
+      []
+     ],
+     [
+      "rule.f8949.no1099b-lt-txn.amounts-check",
+      null,
+      "published",
+      null,
+      []
+     ],
+     [
+      "rule.f8949.no1099b-st-txn.amounts-check",
+      null,
+      "blocked",
+      "DEPENDENCY_INVALID",
+      []
      ],
      [
       "rule.form1040-line7a",
@@ -26954,6 +28788,34 @@
       ]
      ],
      [
+      "rule.f1099b.noncovered-lt-txn.amounts-check",
+      null,
+      "published",
+      null,
+      []
+     ],
+     [
+      "rule.f1099b.noncovered-st-txn.amounts-check",
+      null,
+      "published",
+      null,
+      []
+     ],
+     [
+      "rule.f8949.no1099b-lt-txn.amounts-check",
+      null,
+      "published",
+      null,
+      []
+     ],
+     [
+      "rule.f8949.no1099b-st-txn.amounts-check",
+      null,
+      "blocked",
+      "DEPENDENCY_INVALID",
+      []
+     ],
+     [
       "rule.form1040-line7a",
       null,
       "blocked",
@@ -27230,6 +29092,34 @@
       ]
      ],
      [
+      "rule.f1099b.noncovered-lt-txn.amounts-check",
+      null,
+      "published",
+      null,
+      []
+     ],
+     [
+      "rule.f1099b.noncovered-st-txn.amounts-check",
+      null,
+      "published",
+      null,
+      []
+     ],
+     [
+      "rule.f8949.no1099b-lt-txn.amounts-check",
+      null,
+      "published",
+      null,
+      []
+     ],
+     [
+      "rule.f8949.no1099b-st-txn.amounts-check",
+      null,
+      "blocked",
+      "DEPENDENCY_INVALID",
+      []
+     ],
+     [
       "rule.form1040-line7a",
       null,
       "blocked",
@@ -27502,6 +29392,34 @@
       []
      ],
      [
+      "rule.f1099b.noncovered-lt-txn.amounts-check",
+      null,
+      "published",
+      null,
+      []
+     ],
+     [
+      "rule.f1099b.noncovered-st-txn.amounts-check",
+      null,
+      "published",
+      null,
+      []
+     ],
+     [
+      "rule.f8949.no1099b-lt-txn.amounts-check",
+      null,
+      "published",
+      null,
+      []
+     ],
+     [
+      "rule.f8949.no1099b-st-txn.amounts-check",
+      null,
+      "published",
+      null,
+      []
+     ],
+     [
       "rule.form1040-line7a",
       null,
       "published",
@@ -27769,6 +29687,34 @@
        "schedule-d.line-3",
        "f8949.no1099b-lt-proceeds-subtotal"
       ]
+     ],
+     [
+      "rule.f1099b.noncovered-lt-txn.amounts-check",
+      null,
+      "published",
+      null,
+      []
+     ],
+     [
+      "rule.f1099b.noncovered-st-txn.amounts-check",
+      null,
+      "published",
+      null,
+      []
+     ],
+     [
+      "rule.f8949.no1099b-lt-txn.amounts-check",
+      null,
+      "published",
+      null,
+      []
+     ],
+     [
+      "rule.f8949.no1099b-st-txn.amounts-check",
+      null,
+      "published",
+      null,
+      []
      ],
      [
       "rule.form1040-line7a",
