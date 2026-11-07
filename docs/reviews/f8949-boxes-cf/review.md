@@ -1,8 +1,8 @@
 # Review: sales without a Form 1099-B (Form 8949 boxes C and F), core v80
 
 Reviewer: fresh reader, author-independent.
-Charter: `docs/reviews/f8949-boxes-cf/charter-review.md` @ `dd5eefec`.
-Object: `milestone/f8949-boxes-cf-2025` at `1386d2290baca958cb3994e415fde63657bcea4a`
+Charter: `docs/reviews/f8949-boxes-cf/charter-review.md` @ (removed at closeout).
+Object: `milestone/f8949-boxes-cf-2025` at (removed at closeout)
 (the Orientation Block SHA matches `git rev-parse HEAD`), diffed against
 `github/main`. After `git fetch`: 0 commits behind, 17 ahead. PR #262 is open
 as a draft and has not merged.
@@ -67,7 +67,7 @@ did not run `pytest`.
 - **Where.** `tests/test_incremental_lattice.py:564`
   (`test_collision_order_backtracking_and_duplicate_declared_id_boundary`).
 - **Reproduction.** `gh pr checks 262`: `quick` fails, job 128301328055 of
-  run 42338671606, head `1386d229`. The log reads "fast-lane budget
+  run 42338671606, head (removed at closeout). The log reads "fast-lane budget
   exceeded: 3.9s > 3.0s", 1 failed and 1692 passed. `verify` also shows
   "fail", but that is the expected first-step stop on a draft. The fast lane
   that `verify` runs will hit the same test.

@@ -1168,7 +1168,7 @@ def main() -> None:
     selected = set(sys.argv[1:])
     cp.pin_v79()
     cp.install_v79_noncovered()
-    payload: dict[str, Any] = {"source_ref": "79448842", "scratch": "v80 / registry v78 / release v78 from v79"}
+    payload: dict[str, Any] = {"source_ref": "(removed at closeout)", "scratch": "v80 / registry v78 / release v78 from v79"}
     with tempfile.TemporaryDirectory() as tmp:
         payload["build"] = build(Path(tmp).resolve() / "scratch")
         print("built", payload["build"]["package"], flush=True)

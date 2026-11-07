@@ -488,7 +488,7 @@ def main() -> None:
             "v80_q2_unanswered_form1040": cfp.form1040(untouched),
             "v80_q2_unanswered_questions": untouched.get("questions"),
         }
-    payload = {"source_ref": "245345a0", "repairs": sorted(cfp.REPAIRS), "build": build, "surface": static,
+    payload = {"source_ref": "(removed at closeout)", "repairs": sorted(cfp.REPAIRS), "build": build, "surface": static,
                "v80_cases": results["new"], "decided_design": results.get("decided", {}),
                "v79_returns_on_v80": carry}
     OUT.write_text(dump(compact(payload)), encoding="utf-8")

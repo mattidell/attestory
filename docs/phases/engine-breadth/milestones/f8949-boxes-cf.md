@@ -3,7 +3,7 @@
   "version": 1,
   "phase": "Engine Breadth",
   "topic": "f8949-boxes-cf",
-  "status": "Open. P0 (law, state on core v79, design) first.",
+  "status": "Closed. On core v80 a sale of securities with no Form 1099-B (Form 8949 box C or F, code W allowed) computes Schedule D lines 3 and 10, Form 1040 line 7a and the tax from filer-supplied proceeds and basis. A second grouped question closes the new families; every v79 answer keeps its meaning. Lines 2, 3, 9 and 10 block on a missing, shared or disagreeing amount. Core v79 and earlier are unchanged.",
   "scope": [
     "a return with a sale of securities the filer did not receive a Form 1099-B (or substitute statement) for computes Form 8949 box C (short-term) or F (long-term), Schedule D lines 3 and 10, Form 1040 line 7a and the tax, from proceeds and basis the filer supplies, with code W allowed as on boxes B and E",
     "every return core v79 computes computes the same on the successor, and earlier cores render byte-identically",
@@ -21,6 +21,7 @@
       "docs/phases/engine-breadth/coverage-frontier.md",
       "docs/phases/engine-breadth/engine-breadth-roadmap.md#Parked work and open questions",
       "docs/milestone-retrospectives/2026-11-06-noncovered-sales.md",
+      "docs/milestone-retrospectives/2026-11-07-f8949-boxes-cf.md",
       "docs/phases/engine-breadth/milestones/f8949-boxes-cf.md"
     ],
     "implementation": [
@@ -47,6 +48,8 @@ Branch: milestone/f8949-boxes-cf-2025.
 Phase: Engine Breadth, bounded return. Opening plan: 2026-11-06.
 Starting point: `github/main` at `87b05daf` (PR #261 merged; core v79 is
 the latest).
+Closed 2026-11-07. Retrospective:
+`docs/milestone-retrospectives/2026-11-07-f8949-boxes-cf.md`.
 
 ## What we are trying to accomplish
 
@@ -199,7 +202,7 @@ Foreman, 2026-11-06, on Track 0:
 Evidence:
 [track0-closure.md](f8949-boxes-cf-evidence/track0-closure.md). Scratch
 core v80 through `live_coordinate_run`; `track0.py` writes
-`track0-output.json`. Source ref `eb02b548`.
+`track0-output.json`. Source ref (removed at closeout).
 
 The decided design had seven counterexamples. The prototype now fixes six
 with content-only repairs, and refuses the seventh by an answer:
@@ -388,7 +391,7 @@ All 61 `cf-prototype-rules/` files are still byte-identical to
     that closure. The page cannot trace a per-sale check to its closure
     question, so it no longer asks the no-1099-B question again. Both
     lines show their blocked text, and answering "yes" again publishes.
-- **Track 0 harness rerun** (`track0.py`, source ref `245345a0`):
+- **Track 0 harness rerun** (`track0.py`, source ref (removed at closeout)):
   - Every hand value holds. The only mismatch is the expected
     `d3_b_orphan_basis` rejection, unchanged.
   - The 50 v79 returns on v80 differ from v79 in Form 1040 only for the

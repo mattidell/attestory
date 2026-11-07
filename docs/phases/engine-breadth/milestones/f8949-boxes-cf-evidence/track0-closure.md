@@ -5,7 +5,7 @@ Decisions 1-3 in `docs/phases/engine-breadth/milestones/f8949-boxes-cf.md`.
 Charter: `docs/reviews/f8949-boxes-cf/charter-track0.md`. Scratch prototype
 only. No production, test or content edits. Synthetic `demo.*` findings.
 
-Source ref: `eb02b548` on `milestone/f8949-boxes-cf-2025`.
+Source ref: (removed at closeout) on `milestone/f8949-boxes-cf-2025`.
 
 ## How the evidence was built
 

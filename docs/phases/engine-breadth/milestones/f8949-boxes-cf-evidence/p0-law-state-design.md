@@ -6,7 +6,7 @@ and box F). Evidence for
 `docs/reviews/f8949-boxes-cf/charter-p0.md`. Investigation and a scratch
 prototype only. No production, test, or content edits.
 
-Source ref: `79448842` on `milestone/f8949-boxes-cf-2025`.
+Source ref: (removed at closeout) on `milestone/f8949-boxes-cf-2025`.
 
 ## Law
 
