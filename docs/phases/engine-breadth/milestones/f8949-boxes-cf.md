@@ -151,7 +151,32 @@ with `cf_probe.py` / `cf-probe-output.json` (core v79) and
 
 ## Decisions
 
-Pending.
+Foreman, 2026-11-06, on P0 (owner direction: proceed on the recommended
+choice; the owner adjusts after):
+
+1. **The P0 design is adopted.** A second grouped question for sales with
+   no Form 1099-B, a new in-class answer for boxes B, C, E and F read
+   through a guarded arm, and the three checks on lines 3 and 10. The v79
+   question and answers keep their meaning.
+2. **The four newly blocked v79 returns are accepted.** Each is a Form
+   8949 "no" that no answer admits, with nothing recorded. v79 publishes
+   it silently, so blocking it is the fix. Track 1 changes the
+   current-core expectation for `boundary_no_without_member`. The v79
+   pin in `tests/test_noncovered_sales_v79.py` stays as it is, because it
+   pins the published v79 package.
+3. **Lines 2 and 9 take the same missing-amount check.** A box B or E
+   sale missing its proceeds or basis amount blocks and asks for it,
+   instead of computing a wrong line. It is the same defect as on lines 3
+   and 10, and it is fixed in the same successor.
+4. **Accepted limits.** These are parked in the roadmap at closeout, not
+   fixed here:
+   - A "yes" with nothing recorded behind it shows only the line's blocked
+     text, with no question. Showing a question would need a rule-schema
+     successor.
+   - A sale entered both on a 1099-B family and as a no-statement sale is
+     not caught.
+   - The married-filing-separately $1,500 limit and the 2026 carryover are
+     not exercised.
 
 ## Track 0 adversarial closure
 
