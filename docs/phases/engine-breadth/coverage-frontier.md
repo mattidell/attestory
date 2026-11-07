@@ -26,6 +26,15 @@ refusals. It publishes no tax package and advances none of the return classes
 below. Its selected-case benefit, memory tradeoff and added verification cost
 are measured separately; no net-suite or linear whole-replay claim is made.
 
+## Saved-page observation boundary
+
+[Mortgage and sale browser observations](milestones/sale-page-observation.md)
+exercise existing core-v79 synthetic return classes in real Chrome. They add
+no computable tax class or package. Amounts, reasons and attachment states have
+bounded live evidence; rendering alerts, duplicate questions and the ordinary
+Schedule A display gap remain explicit in the roadmap rather than upgrading
+these pages to a general correctness or filing claim.
+
 ## Frontier as of 2026-11-01
 
 | Candidate slice | New computable class | Current blocker | Contract novelty | Evidence target | Status |

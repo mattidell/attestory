@@ -639,6 +639,19 @@ closes the eight new families (ADR 0084, `source-closure-mapping.v4`). A
 covered sale flagged basis-not-reported now blocks with its own reason
 instead of publishing line 8a. Earlier cores are unchanged.
 
+## Saved-page observation — Mortgage and Sales (2025)
+
+[Plan](milestones/sale-page-observation.md); retrospective:
+`docs/milestone-retrospectives/2026-11-06-sale-page-observation.md`.
+
+Synthetic core-v79 mortgage, covered/noncovered and code W sale pages were
+observed through the actual coordinator, saved citation-walk renderer and
+Chrome. Live regressions retain exact amounts, the covered-basis refusal,
+blocked reasons and attachment states, including missing/complete itemizing
+mortgage scope. No tax package or production code changed. The broad browser
+observation item is retired; specific rendering/question defects remain below.
+This is not a once-only-question or fully correct-page claim.
+
 ## Parked work and open questions
 
 This is the single list of parked work and open owner-held questions for the
@@ -666,7 +679,18 @@ delivers an item removes it.
 - A v1 Form 1099-K workspace re-answers its completeness question under the
   successor package; recovery for a log with two current family versions; a
   full pre-save fold for every act kind.
-- Browser observation of the mortgage and sale pages.
+- Saved-page content successors on the core-v80 line: line 6c supplies
+  `not_elected` where the categorical renderer accepts `checked`, and the
+  Schedule 1 top-entry field lacks a citation. Both display safe-render alerts
+  on the observed v79 returns; no published bytes were changed here.
+- Shared-question display on the saved citation-walk page: unanswered/stale
+  noncovered-sale questions repeat on line-local blocked-reason lists. Ask once
+  without losing each line's reason/connection; a page change is not selected
+  by the observation milestone.
+- Schedule A8a display/itemization: the special mortgage explanation shows
+  the amount and a complete-scope itemizer's attachment publishes, but the
+  saved page has no ordinary line-8a row or Schedule A subtotal heading/value.
+  Establish the intended display before choosing a production repair.
 - Multiple Form 1098 support, interest allocation above the debt limit,
   second-home extension, mixed-use amounts, refinancing and the mortgage credit.
 - When a Schedule 1 Part I absence answer is also missing, line 10 names the

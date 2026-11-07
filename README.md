@@ -203,6 +203,12 @@ This is not a general multiple-loan, refinancing, second-home or allocation
 calculator. The conservative debt limit remains; the higher grandfathered
 limit is not modeled. See the [selected product contract](docs/phases/tax-circumstance-breadth/milestones/mortgage-statement-borrowing.md).
 
+Synthetic saved mortgage and Form 1099-B page observations run with
+`pytest tests/test_sale_page_observation.py`. They use the actual coordinator
+and Chrome, not model-only assertions. The [observation plan](docs/phases/engine-breadth/milestones/sale-page-observation.md)
+distinguishes supported values/reasons/attachment states from the remaining
+rendering alerts and repeated-question findings; this is not a filing claim.
+
 ## Personal-item sale on Form 1099-K
 
 The bounded Form 1099-K route reviews each current Form 1099-K statement and its
