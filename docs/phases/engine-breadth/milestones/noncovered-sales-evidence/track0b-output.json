@@ -1,0 +1,5756 @@
+{
+  "covered_ltcg_absent": "tax.us.2025.f1099b.covered-ltcg is not a member of core v78 or this v79 successor. Line 8a v4 and v5 read tax.us.2025.f1099b.covered-lt. The gain-only family has no recorded horizon on the harness return.",
+  "duplicate_horizon_is_kernel": true,
+  "question": "Did you sell any securities whose basis was not reported to the IRS?",
+  "refusal_code": "BASIS_NOT_REPORTED_ON_COVERED",
+  "shared_fact": "tax.us.2025.f1099b.noncovered-sold.source-closure",
+  "source_ref": "(removed at closeout)",
+  "successor": {
+    "members": 41,
+    "package": "v79",
+    "release": "v77"
+  },
+  "v78": {
+    "covered_flag_no_path_a": {
+      "attachments": [
+        {
+          "disposition": "guard_inapplicable",
+          "id": "tax.us.2025.rule.attachment.f8949",
+          "value": null
+        },
+        {
+          "disposition": "published",
+          "id": "tax.us.2025.rule.attachment.schedule-d",
+          "value": null
+        }
+      ],
+      "lines": {
+        "tax.us.2025.form1040.line-15": {
+          "disposition": "published_value",
+          "value": 38250
+        },
+        "tax.us.2025.form1040.line-16": {
+          "disposition": "published_value",
+          "value": 3875
+        },
+        "tax.us.2025.form1040.line-7a": {
+          "disposition": "published_value",
+          "value": 4000
+        },
+        "tax.us.2025.schedule-d.line-15": {
+          "disposition": "published_value",
+          "value": 4000
+        },
+        "tax.us.2025.schedule-d.line-16": {
+          "disposition": "published_value",
+          "value": 4000
+        },
+        "tax.us.2025.schedule-d.line-1a": {
+          "disposition": "closure_backed_zero",
+          "value": 0
+        },
+        "tax.us.2025.schedule-d.line-21": {
+          "disposition": "computed_zero",
+          "value": 0
+        },
+        "tax.us.2025.schedule-d.line-7": {
+          "disposition": "computed_zero",
+          "value": 0
+        },
+        "tax.us.2025.schedule-d.line-8a": {
+          "disposition": "published_value",
+          "value": 4000
+        }
+      },
+      "money": {
+        "line15": {
+          "disposition": "published_value",
+          "value": 38250
+        },
+        "line16": {
+          "disposition": "published_value",
+          "value": 3875
+        },
+        "line1a": {
+          "disposition": "closure_backed_zero",
+          "value": 0
+        },
+        "line2": null,
+        "line21": {
+          "disposition": "computed_zero",
+          "value": 0
+        },
+        "line7a": {
+          "disposition": "published_value",
+          "value": 4000
+        },
+        "line8a": {
+          "disposition": "published_value",
+          "value": 4000
+        },
+        "line9": null
+      },
+      "presentation_valid": true,
+      "seconds": 5.01,
+      "section_count": 73,
+      "stop_reason": "saturated"
+    },
+    "exempt_dividend": {
+      "attachments": [
+        {
+          "disposition": "guard_inapplicable",
+          "id": "tax.us.2025.rule.attachment.f8949",
+          "value": null
+        },
+        {
+          "disposition": "guard_inapplicable",
+          "id": "tax.us.2025.rule.attachment.schedule-d",
+          "value": null
+        }
+      ],
+      "lines": {
+        "tax.us.2025.form1040.line-15": {
+          "disposition": "published_value",
+          "value": 34250
+        },
+        "tax.us.2025.form1040.line-16": {
+          "disposition": "published_value",
+          "value": 3875
+        },
+        "tax.us.2025.form1040.line-7a": {
+          "disposition": "computed_zero",
+          "value": 0
+        },
+        "tax.us.2025.schedule-d.line-15": {
+          "disposition": "computed_zero",
+          "value": 0
+        },
+        "tax.us.2025.schedule-d.line-16": {
+          "disposition": "computed_zero",
+          "value": 0
+        },
+        "tax.us.2025.schedule-d.line-1a": {
+          "disposition": "closure_backed_zero",
+          "value": 0
+        },
+        "tax.us.2025.schedule-d.line-21": {
+          "disposition": "computed_zero",
+          "value": 0
+        },
+        "tax.us.2025.schedule-d.line-7": {
+          "disposition": "computed_zero",
+          "value": 0
+        },
+        "tax.us.2025.schedule-d.line-8a": {
+          "disposition": "closure_backed_zero",
+          "value": 0
+        }
+      },
+      "money": {
+        "line15": {
+          "disposition": "published_value",
+          "value": 34250
+        },
+        "line16": {
+          "disposition": "published_value",
+          "value": 3875
+        },
+        "line1a": {
+          "disposition": "closure_backed_zero",
+          "value": 0
+        },
+        "line2": null,
+        "line21": {
+          "disposition": "computed_zero",
+          "value": 0
+        },
+        "line7a": {
+          "disposition": "computed_zero",
+          "value": 0
+        },
+        "line8a": {
+          "disposition": "closure_backed_zero",
+          "value": 0
+        },
+        "line9": null
+      },
+      "presentation_valid": true,
+      "seconds": 5.06,
+      "section_count": 73,
+      "stop_reason": "saturated"
+    },
+    "exempt_interest": {
+      "attachments": [
+        {
+          "disposition": "guard_inapplicable",
+          "id": "tax.us.2025.rule.attachment.f8949",
+          "value": null
+        },
+        {
+          "disposition": "guard_inapplicable",
+          "id": "tax.us.2025.rule.attachment.schedule-d",
+          "value": null
+        }
+      ],
+      "lines": {
+        "tax.us.2025.form1040.line-15": {
+          "disposition": "published_value",
+          "value": 34250
+        },
+        "tax.us.2025.form1040.line-16": {
+          "disposition": "published_value",
+          "value": 3875
+        },
+        "tax.us.2025.form1040.line-7a": {
+          "disposition": "computed_zero",
+          "value": 0
+        },
+        "tax.us.2025.schedule-d.line-15": {
+          "disposition": "computed_zero",
+          "value": 0
+        },
+        "tax.us.2025.schedule-d.line-16": {
+          "disposition": "computed_zero",
+          "value": 0
+        },
+        "tax.us.2025.schedule-d.line-1a": {
+          "disposition": "closure_backed_zero",
+          "value": 0
+        },
+        "tax.us.2025.schedule-d.line-21": {
+          "disposition": "computed_zero",
+          "value": 0
+        },
+        "tax.us.2025.schedule-d.line-7": {
+          "disposition": "computed_zero",
+          "value": 0
+        },
+        "tax.us.2025.schedule-d.line-8a": {
+          "disposition": "closure_backed_zero",
+          "value": 0
+        }
+      },
+      "money": {
+        "line15": {
+          "disposition": "published_value",
+          "value": 34250
+        },
+        "line16": {
+          "disposition": "published_value",
+          "value": 3875
+        },
+        "line1a": {
+          "disposition": "closure_backed_zero",
+          "value": 0
+        },
+        "line2": null,
+        "line21": {
+          "disposition": "computed_zero",
+          "value": 0
+        },
+        "line7a": {
+          "disposition": "computed_zero",
+          "value": 0
+        },
+        "line8a": {
+          "disposition": "closure_backed_zero",
+          "value": 0
+        },
+        "line9": null
+      },
+      "presentation_valid": true,
+      "seconds": 4.85,
+      "section_count": 73,
+      "stop_reason": "saturated"
+    },
+    "foreign_tax": {
+      "attachments": [
+        {
+          "disposition": "guard_inapplicable",
+          "id": "tax.us.2025.rule.attachment.f8949",
+          "value": null
+        },
+        {
+          "disposition": "guard_inapplicable",
+          "id": "tax.us.2025.rule.attachment.schedule-d",
+          "value": null
+        }
+      ],
+      "lines": {
+        "tax.us.2025.form1040.line-15": {
+          "disposition": "published_value",
+          "value": 34350
+        },
+        "tax.us.2025.form1040.line-16": {
+          "disposition": "published_value",
+          "value": 3887
+        },
+        "tax.us.2025.form1040.line-7a": {
+          "disposition": "computed_zero",
+          "value": 0
+        },
+        "tax.us.2025.schedule-d.line-15": {
+          "disposition": "computed_zero",
+          "value": 0
+        },
+        "tax.us.2025.schedule-d.line-16": {
+          "disposition": "computed_zero",
+          "value": 0
+        },
+        "tax.us.2025.schedule-d.line-1a": {
+          "disposition": "closure_backed_zero",
+          "value": 0
+        },
+        "tax.us.2025.schedule-d.line-21": {
+          "disposition": "computed_zero",
+          "value": 0
+        },
+        "tax.us.2025.schedule-d.line-7": {
+          "disposition": "computed_zero",
+          "value": 0
+        },
+        "tax.us.2025.schedule-d.line-8a": {
+          "disposition": "closure_backed_zero",
+          "value": 0
+        }
+      },
+      "money": {
+        "line15": {
+          "disposition": "published_value",
+          "value": 34350
+        },
+        "line16": {
+          "disposition": "published_value",
+          "value": 3887
+        },
+        "line1a": {
+          "disposition": "closure_backed_zero",
+          "value": 0
+        },
+        "line2": null,
+        "line21": {
+          "disposition": "computed_zero",
+          "value": 0
+        },
+        "line7a": {
+          "disposition": "computed_zero",
+          "value": 0
+        },
+        "line8a": {
+          "disposition": "closure_backed_zero",
+          "value": 0
+        },
+        "line9": null
+      },
+      "presentation_valid": true,
+      "seconds": 4.82,
+      "section_count": 73,
+      "stop_reason": "saturated"
+    },
+    "gambling_loss": {
+      "attachments": [
+        {
+          "disposition": "guard_inapplicable",
+          "id": "tax.us.2025.rule.attachment.f8949",
+          "value": null
+        },
+        {
+          "disposition": "guard_inapplicable",
+          "id": "tax.us.2025.rule.attachment.schedule-d",
+          "value": null
+        }
+      ],
+      "lines": {
+        "tax.us.2025.form1040.line-15": {
+          "disposition": "published_value",
+          "value": 34250
+        },
+        "tax.us.2025.form1040.line-16": {
+          "disposition": "published_value",
+          "value": 3875
+        },
+        "tax.us.2025.form1040.line-7a": {
+          "disposition": "computed_zero",
+          "value": 0
+        },
+        "tax.us.2025.schedule-d.line-15": {
+          "disposition": "computed_zero",
+          "value": 0
+        },
+        "tax.us.2025.schedule-d.line-16": {
+          "disposition": "computed_zero",
+          "value": 0
+        },
+        "tax.us.2025.schedule-d.line-1a": {
+          "disposition": "closure_backed_zero",
+          "value": 0
+        },
+        "tax.us.2025.schedule-d.line-21": {
+          "disposition": "computed_zero",
+          "value": 0
+        },
+        "tax.us.2025.schedule-d.line-7": {
+          "disposition": "computed_zero",
+          "value": 0
+        },
+        "tax.us.2025.schedule-d.line-8a": {
+          "disposition": "closure_backed_zero",
+          "value": 0
+        }
+      },
+      "money": {
+        "line15": {
+          "disposition": "published_value",
+          "value": 34250
+        },
+        "line16": {
+          "disposition": "published_value",
+          "value": 3875
+        },
+        "line1a": {
+          "disposition": "closure_backed_zero",
+          "value": 0
+        },
+        "line2": null,
+        "line21": {
+          "disposition": "computed_zero",
+          "value": 0
+        },
+        "line7a": {
+          "disposition": "computed_zero",
+          "value": 0
+        },
+        "line8a": {
+          "disposition": "closure_backed_zero",
+          "value": 0
+        },
+        "line9": null
+      },
+      "presentation_valid": true,
+      "seconds": 4.92,
+      "section_count": 73,
+      "stop_reason": "saturated"
+    },
+    "itemized": {
+      "attachments": [
+        {
+          "disposition": "guard_inapplicable",
+          "id": "tax.us.2025.rule.attachment.f8949",
+          "value": null
+        },
+        {
+          "disposition": "guard_inapplicable",
+          "id": "tax.us.2025.rule.attachment.schedule-d",
+          "value": null
+        }
+      ],
+      "lines": {
+        "tax.us.2025.form1040.line-15": {
+          "disposition": "published_value",
+          "value": 34250
+        },
+        "tax.us.2025.form1040.line-16": {
+          "disposition": "published_value",
+          "value": 3875
+        },
+        "tax.us.2025.form1040.line-7a": {
+          "disposition": "computed_zero",
+          "value": 0
+        },
+        "tax.us.2025.schedule-d.line-15": {
+          "disposition": "computed_zero",
+          "value": 0
+        },
+        "tax.us.2025.schedule-d.line-16": {
+          "disposition": "computed_zero",
+          "value": 0
+        },
+        "tax.us.2025.schedule-d.line-1a": {
+          "disposition": "closure_backed_zero",
+          "value": 0
+        },
+        "tax.us.2025.schedule-d.line-21": {
+          "disposition": "computed_zero",
+          "value": 0
+        },
+        "tax.us.2025.schedule-d.line-7": {
+          "disposition": "computed_zero",
+          "value": 0
+        },
+        "tax.us.2025.schedule-d.line-8a": {
+          "disposition": "closure_backed_zero",
+          "value": 0
+        }
+      },
+      "money": {
+        "line15": {
+          "disposition": "published_value",
+          "value": 34250
+        },
+        "line16": {
+          "disposition": "published_value",
+          "value": 3875
+        },
+        "line1a": {
+          "disposition": "closure_backed_zero",
+          "value": 0
+        },
+        "line2": null,
+        "line21": {
+          "disposition": "computed_zero",
+          "value": 0
+        },
+        "line7a": {
+          "disposition": "computed_zero",
+          "value": 0
+        },
+        "line8a": {
+          "disposition": "closure_backed_zero",
+          "value": 0
+        },
+        "line9": null
+      },
+      "presentation_valid": true,
+      "seconds": 4.81,
+      "section_count": 73,
+      "stop_reason": "saturated"
+    },
+    "mortgage": {
+      "attachments": [
+        {
+          "disposition": "guard_inapplicable",
+          "id": "tax.us.2025.rule.attachment.f8949",
+          "value": null
+        },
+        {
+          "disposition": "guard_inapplicable",
+          "id": "tax.us.2025.rule.attachment.schedule-d",
+          "value": null
+        }
+      ],
+      "lines": {
+        "tax.us.2025.form1040.line-15": {
+          "disposition": "published_value",
+          "value": 34250
+        },
+        "tax.us.2025.form1040.line-16": {
+          "disposition": "published_value",
+          "value": 3875
+        },
+        "tax.us.2025.form1040.line-7a": {
+          "disposition": "computed_zero",
+          "value": 0
+        },
+        "tax.us.2025.schedule-d.line-15": {
+          "disposition": "computed_zero",
+          "value": 0
+        },
+        "tax.us.2025.schedule-d.line-16": {
+          "disposition": "computed_zero",
+          "value": 0
+        },
+        "tax.us.2025.schedule-d.line-1a": {
+          "disposition": "closure_backed_zero",
+          "value": 0
+        },
+        "tax.us.2025.schedule-d.line-21": {
+          "disposition": "computed_zero",
+          "value": 0
+        },
+        "tax.us.2025.schedule-d.line-7": {
+          "disposition": "computed_zero",
+          "value": 0
+        },
+        "tax.us.2025.schedule-d.line-8a": {
+          "disposition": "closure_backed_zero",
+          "value": 0
+        }
+      },
+      "money": {
+        "line15": {
+          "disposition": "published_value",
+          "value": 34250
+        },
+        "line16": {
+          "disposition": "published_value",
+          "value": 3875
+        },
+        "line1a": {
+          "disposition": "closure_backed_zero",
+          "value": 0
+        },
+        "line2": null,
+        "line21": {
+          "disposition": "computed_zero",
+          "value": 0
+        },
+        "line7a": {
+          "disposition": "computed_zero",
+          "value": 0
+        },
+        "line8a": {
+          "disposition": "closure_backed_zero",
+          "value": 0
+        },
+        "line9": null
+      },
+      "presentation_valid": true,
+      "seconds": 5.03,
+      "section_count": 73,
+      "stop_reason": "saturated"
+    },
+    "part_ii_b": {
+      "attachments": [
+        {
+          "disposition": "guard_inapplicable",
+          "id": "tax.us.2025.rule.attachment.f8949",
+          "value": null
+        },
+        {
+          "disposition": "guard_inapplicable",
+          "id": "tax.us.2025.rule.attachment.schedule-d",
+          "value": null
+        }
+      ],
+      "lines": {
+        "tax.us.2025.form1040.line-15": {
+          "disposition": "computed_zero",
+          "value": 0
+        },
+        "tax.us.2025.form1040.line-16": {
+          "disposition": "computed_zero",
+          "value": 0
+        },
+        "tax.us.2025.form1040.line-7a": {
+          "disposition": "computed_zero",
+          "value": 0
+        },
+        "tax.us.2025.schedule-d.line-15": {
+          "disposition": "computed_zero",
+          "value": 0
+        },
+        "tax.us.2025.schedule-d.line-16": {
+          "disposition": "computed_zero",
+          "value": 0
+        },
+        "tax.us.2025.schedule-d.line-1a": {
+          "disposition": "closure_backed_zero",
+          "value": 0
+        },
+        "tax.us.2025.schedule-d.line-21": {
+          "disposition": "computed_zero",
+          "value": 0
+        },
+        "tax.us.2025.schedule-d.line-7": {
+          "disposition": "computed_zero",
+          "value": 0
+        },
+        "tax.us.2025.schedule-d.line-8a": {
+          "disposition": "closure_backed_zero",
+          "value": 0
+        }
+      },
+      "money": {
+        "line15": {
+          "disposition": "computed_zero",
+          "value": 0
+        },
+        "line16": {
+          "disposition": "computed_zero",
+          "value": 0
+        },
+        "line1a": {
+          "disposition": "closure_backed_zero",
+          "value": 0
+        },
+        "line2": null,
+        "line21": {
+          "disposition": "computed_zero",
+          "value": 0
+        },
+        "line7a": {
+          "disposition": "computed_zero",
+          "value": 0
+        },
+        "line8a": {
+          "disposition": "closure_backed_zero",
+          "value": 0
+        },
+        "line9": null
+      },
+      "presentation_valid": true,
+      "seconds": 5.35,
+      "section_count": 73,
+      "stop_reason": "saturated"
+    },
+    "student_loan": {
+      "attachments": [
+        {
+          "disposition": "guard_inapplicable",
+          "id": "tax.us.2025.rule.attachment.f8949",
+          "value": null
+        },
+        {
+          "disposition": "guard_inapplicable",
+          "id": "tax.us.2025.rule.attachment.schedule-d",
+          "value": null
+        }
+      ],
+      "lines": {
+        "tax.us.2025.form1040.line-15": {
+          "disposition": "published_value",
+          "value": 34050
+        },
+        "tax.us.2025.form1040.line-16": {
+          "disposition": "published_value",
+          "value": 3851
+        },
+        "tax.us.2025.form1040.line-7a": {
+          "disposition": "computed_zero",
+          "value": 0
+        },
+        "tax.us.2025.schedule-d.line-15": {
+          "disposition": "computed_zero",
+          "value": 0
+        },
+        "tax.us.2025.schedule-d.line-16": {
+          "disposition": "computed_zero",
+          "value": 0
+        },
+        "tax.us.2025.schedule-d.line-1a": {
+          "disposition": "closure_backed_zero",
+          "value": 0
+        },
+        "tax.us.2025.schedule-d.line-21": {
+          "disposition": "computed_zero",
+          "value": 0
+        },
+        "tax.us.2025.schedule-d.line-7": {
+          "disposition": "computed_zero",
+          "value": 0
+        },
+        "tax.us.2025.schedule-d.line-8a": {
+          "disposition": "closure_backed_zero",
+          "value": 0
+        }
+      },
+      "money": {
+        "line15": {
+          "disposition": "published_value",
+          "value": 34050
+        },
+        "line16": {
+          "disposition": "published_value",
+          "value": 3851
+        },
+        "line1a": {
+          "disposition": "closure_backed_zero",
+          "value": 0
+        },
+        "line2": null,
+        "line21": {
+          "disposition": "computed_zero",
+          "value": 0
+        },
+        "line7a": {
+          "disposition": "computed_zero",
+          "value": 0
+        },
+        "line8a": {
+          "disposition": "closure_backed_zero",
+          "value": 0
+        },
+        "line9": null
+      },
+      "presentation_valid": true,
+      "seconds": 5.03,
+      "section_count": 73,
+      "stop_reason": "saturated"
+    },
+    "wage": {
+      "attachments": [
+        {
+          "disposition": "guard_inapplicable",
+          "id": "tax.us.2025.rule.attachment.f8949",
+          "value": null
+        },
+        {
+          "disposition": "guard_inapplicable",
+          "id": "tax.us.2025.rule.attachment.schedule-d",
+          "value": null
+        }
+      ],
+      "lines": {
+        "tax.us.2025.form1040.line-15": {
+          "disposition": "published_value",
+          "value": 34250
+        },
+        "tax.us.2025.form1040.line-16": {
+          "disposition": "published_value",
+          "value": 3875
+        },
+        "tax.us.2025.form1040.line-7a": {
+          "disposition": "computed_zero",
+          "value": 0
+        },
+        "tax.us.2025.schedule-d.line-15": {
+          "disposition": "computed_zero",
+          "value": 0
+        },
+        "tax.us.2025.schedule-d.line-16": {
+          "disposition": "computed_zero",
+          "value": 0
+        },
+        "tax.us.2025.schedule-d.line-1a": {
+          "disposition": "closure_backed_zero",
+          "value": 0
+        },
+        "tax.us.2025.schedule-d.line-21": {
+          "disposition": "computed_zero",
+          "value": 0
+        },
+        "tax.us.2025.schedule-d.line-7": {
+          "disposition": "computed_zero",
+          "value": 0
+        },
+        "tax.us.2025.schedule-d.line-8a": {
+          "disposition": "closure_backed_zero",
+          "value": 0
+        }
+      },
+      "money": {
+        "line15": {
+          "disposition": "published_value",
+          "value": 34250
+        },
+        "line16": {
+          "disposition": "published_value",
+          "value": 3875
+        },
+        "line1a": {
+          "disposition": "closure_backed_zero",
+          "value": 0
+        },
+        "line2": null,
+        "line21": {
+          "disposition": "computed_zero",
+          "value": 0
+        },
+        "line7a": {
+          "disposition": "computed_zero",
+          "value": 0
+        },
+        "line8a": {
+          "disposition": "closure_backed_zero",
+          "value": 0
+        },
+        "line9": null
+      },
+      "presentation_valid": true,
+      "seconds": 4.88,
+      "section_count": 73,
+      "stop_reason": "saturated"
+    }
+  },
+  "v79": {
+    "boundary_no_with_member": {
+      "attachments": [
+        {
+          "disposition": "blocked",
+          "id": "tax.us.2025.rule.attachment.f8949",
+          "value": null
+        },
+        {
+          "disposition": "guard_inapplicable",
+          "id": "tax.us.2025.rule.attachment.schedule-d",
+          "value": null
+        }
+      ],
+      "blocked": [
+        {
+          "artifact_id": "tax.us.2025.f1099b.noncovered-lt.member-validation.synthesized",
+          "code": "SOURCE_SET_UNCLOSED",
+          "missing": [
+            "tax.us.2025.f1099b.noncovered-lt"
+          ]
+        },
+        {
+          "artifact_id": "tax.us.2025.rule.attachment.f8949",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "tax.us.2025.f1099b.noncovered-lt-proceeds-subtotal"
+          ]
+        },
+        {
+          "artifact_id": "tax.us.2025.rule.form1040-line7a",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "tax.us.2025.schedule-d.line-16",
+            "tax.us.2025.schedule-d.line-21",
+            "tax.us.2025.capital-gains.selected-preferential-base",
+            "tax.us.2025.schedule-d.line-9"
+          ]
+        },
+        {
+          "artifact_id": "tax.us.2025.rule.schedule-d-line15",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "tax.us.2025.schedule-d.line-9"
+          ]
+        },
+        {
+          "artifact_id": "tax.us.2025.rule.schedule-d-line16",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "tax.us.2025.schedule-d.line-15"
+          ]
+        },
+        {
+          "artifact_id": "tax.us.2025.rule.schedule-d-line21",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "tax.us.2025.schedule-d.line-16"
+          ]
+        },
+        {
+          "artifact_id": "tax.us.2025.rule.selected-preferential-base",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "tax.us.2025.schedule-d.line-16",
+            "tax.us.2025.schedule-d.line-15",
+            "tax.us.2025.schedule-d.line-9"
+          ]
+        },
+        {
+          "artifact_id": "tax.us.2025.rule.f1099b-noncovered-lt-proceeds-subtotal",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "tax.us.2025.f1099b.noncovered-lt.member-validation"
+          ]
+        },
+        {
+          "artifact_id": "tax.us.2025.rule.f1099b-noncovered-lt-basis-subtotal",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "tax.us.2025.f1099b.noncovered-lt.member-validation"
+          ]
+        },
+        {
+          "artifact_id": "tax.us.2025.rule.f1099b-noncovered-lt-adjustment-subtotal",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "tax.us.2025.f1099b.noncovered-lt.member-validation"
+          ]
+        },
+        {
+          "artifact_id": "tax.us.2025.rule.schedule-d-line9",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "tax.us.2025.f1099b.noncovered-lt-proceeds-subtotal",
+            "tax.us.2025.f1099b.noncovered-lt-basis-subtotal",
+            "tax.us.2025.f1099b.noncovered-lt-adjustment-subtotal",
+            "tax.us.2025.f1099b.noncovered-lt.member-validation"
+          ]
+        }
+      ],
+      "lines": {
+        "tax.us.2025.form1040.line-15": {
+          "disposition": "blocked",
+          "value": null
+        },
+        "tax.us.2025.form1040.line-16": {
+          "disposition": "blocked",
+          "value": null
+        },
+        "tax.us.2025.form1040.line-7a": {
+          "disposition": "blocked",
+          "value": null
+        },
+        "tax.us.2025.schedule-d.line-15": {
+          "disposition": "blocked",
+          "value": null
+        },
+        "tax.us.2025.schedule-d.line-16": {
+          "disposition": "blocked",
+          "value": null
+        },
+        "tax.us.2025.schedule-d.line-1a": {
+          "disposition": "closure_backed_zero",
+          "value": 0
+        },
+        "tax.us.2025.schedule-d.line-2": {
+          "disposition": "closure_backed_zero",
+          "value": 0
+        },
+        "tax.us.2025.schedule-d.line-21": {
+          "disposition": "blocked",
+          "value": null
+        },
+        "tax.us.2025.schedule-d.line-7": {
+          "disposition": "computed_zero",
+          "value": 0
+        },
+        "tax.us.2025.schedule-d.line-8a": {
+          "disposition": "closure_backed_zero",
+          "value": 0
+        },
+        "tax.us.2025.schedule-d.line-9": {
+          "disposition": "blocked",
+          "value": null
+        }
+      },
+      "money": {
+        "line15": {
+          "disposition": "blocked",
+          "value": null
+        },
+        "line16": {
+          "disposition": "blocked",
+          "value": null
+        },
+        "line1a": {
+          "disposition": "closure_backed_zero",
+          "value": 0
+        },
+        "line2": {
+          "disposition": "closure_backed_zero",
+          "value": 0
+        },
+        "line21": {
+          "disposition": "blocked",
+          "value": null
+        },
+        "line7a": {
+          "disposition": "blocked",
+          "value": null
+        },
+        "line8a": {
+          "disposition": "closure_backed_zero",
+          "value": 0
+        },
+        "line9": {
+          "disposition": "blocked",
+          "value": null
+        }
+      },
+      "noncovered_blocked": [
+        "tax.us.2025.f1099b.noncovered-lt",
+        "tax.us.2025.f1099b.noncovered-lt-adjustment-subtotal",
+        "tax.us.2025.f1099b.noncovered-lt-basis-subtotal",
+        "tax.us.2025.f1099b.noncovered-lt-proceeds-subtotal",
+        "tax.us.2025.f1099b.noncovered-lt.member-validation"
+      ],
+      "page": [
+        {
+          "disposition": "blocked",
+          "id": "tax.us.2025.form1040.line-15",
+          "reasons": [
+            "Did you sell any securities whose basis was not reported to the IRS?"
+          ],
+          "value": null
+        },
+        {
+          "disposition": "blocked",
+          "id": "tax.us.2025.form1040.line-7a",
+          "reasons": [
+            "Did you sell any securities whose basis was not reported to the IRS?"
+          ],
+          "value": null
+        },
+        {
+          "disposition": "blocked",
+          "id": "tax.us.2025.schedule-d.line-15",
+          "reasons": [
+            "Did you sell any securities whose basis was not reported to the IRS?"
+          ],
+          "value": null
+        },
+        {
+          "disposition": "blocked",
+          "id": "tax.us.2025.schedule-d.line-21",
+          "reasons": [
+            "Did you sell any securities whose basis was not reported to the IRS?"
+          ],
+          "value": null
+        },
+        {
+          "disposition": "blocked",
+          "id": "tax.us.2025.schedule-d.line-9",
+          "reasons": [
+            "Did you sell any securities whose basis was not reported to the IRS?"
+          ],
+          "value": null
+        }
+      ],
+      "presentation_valid": true,
+      "seconds": 5.73,
+      "section_count": 75,
+      "stop_reason": "saturated"
+    },
+    "boundary_no_without_member": {
+      "attachments": [
+        {
+          "disposition": "guard_inapplicable",
+          "id": "tax.us.2025.rule.attachment.f8949",
+          "value": null
+        },
+        {
+          "disposition": "guard_inapplicable",
+          "id": "tax.us.2025.rule.attachment.schedule-d",
+          "value": null
+        }
+      ],
+      "lines": {
+        "tax.us.2025.form1040.line-15": {
+          "disposition": "published_value",
+          "value": 34250
+        },
+        "tax.us.2025.form1040.line-16": {
+          "disposition": "published_value",
+          "value": 3875
+        },
+        "tax.us.2025.form1040.line-7a": {
+          "disposition": "computed_zero",
+          "value": 0
+        },
+        "tax.us.2025.schedule-d.line-15": {
+          "disposition": "computed_zero",
+          "value": 0
+        },
+        "tax.us.2025.schedule-d.line-16": {
+          "disposition": "computed_zero",
+          "value": 0
+        },
+        "tax.us.2025.schedule-d.line-1a": {
+          "disposition": "closure_backed_zero",
+          "value": 0
+        },
+        "tax.us.2025.schedule-d.line-2": {
+          "disposition": "closure_backed_zero",
+          "value": 0
+        },
+        "tax.us.2025.schedule-d.line-21": {
+          "disposition": "computed_zero",
+          "value": 0
+        },
+        "tax.us.2025.schedule-d.line-7": {
+          "disposition": "computed_zero",
+          "value": 0
+        },
+        "tax.us.2025.schedule-d.line-8a": {
+          "disposition": "closure_backed_zero",
+          "value": 0
+        },
+        "tax.us.2025.schedule-d.line-9": {
+          "disposition": "closure_backed_zero",
+          "value": 0
+        }
+      },
+      "money": {
+        "line15": {
+          "disposition": "published_value",
+          "value": 34250
+        },
+        "line16": {
+          "disposition": "published_value",
+          "value": 3875
+        },
+        "line1a": {
+          "disposition": "closure_backed_zero",
+          "value": 0
+        },
+        "line2": {
+          "disposition": "closure_backed_zero",
+          "value": 0
+        },
+        "line21": {
+          "disposition": "computed_zero",
+          "value": 0
+        },
+        "line7a": {
+          "disposition": "computed_zero",
+          "value": 0
+        },
+        "line8a": {
+          "disposition": "closure_backed_zero",
+          "value": 0
+        },
+        "line9": {
+          "disposition": "closure_backed_zero",
+          "value": 0
+        }
+      },
+      "presentation_valid": true,
+      "seconds": 5.12,
+      "section_count": 75,
+      "stop_reason": "saturated"
+    },
+    "code_w_on_gain": {
+      "attachments": [
+        {
+          "disposition": "blocked",
+          "id": "tax.us.2025.rule.attachment.f8949",
+          "value": null
+        },
+        {
+          "disposition": "guard_inapplicable",
+          "id": "tax.us.2025.rule.attachment.schedule-d",
+          "value": null
+        }
+      ],
+      "blocked": [
+        {
+          "artifact_id": "tax.us.2025.f1099b.noncovered-lt.member-validation.synthesized",
+          "code": "DEPENDENCY_INVALID",
+          "missing": [
+            "ADJUSTMENT_EXCEEDS_LOSS",
+            "CODE_W_ON_GAIN"
+          ]
+        },
+        {
+          "artifact_id": "tax.us.2025.rule.attachment.f8949",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "tax.us.2025.f1099b.noncovered-lt-proceeds-subtotal"
+          ]
+        },
+        {
+          "artifact_id": "tax.us.2025.rule.form1040-line7a",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "tax.us.2025.schedule-d.line-16",
+            "tax.us.2025.schedule-d.line-21",
+            "tax.us.2025.capital-gains.selected-preferential-base",
+            "tax.us.2025.schedule-d.line-9"
+          ]
+        },
+        {
+          "artifact_id": "tax.us.2025.rule.schedule-d-line15",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "tax.us.2025.schedule-d.line-9"
+          ]
+        },
+        {
+          "artifact_id": "tax.us.2025.rule.schedule-d-line16",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "tax.us.2025.schedule-d.line-15"
+          ]
+        },
+        {
+          "artifact_id": "tax.us.2025.rule.schedule-d-line21",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "tax.us.2025.schedule-d.line-16"
+          ]
+        },
+        {
+          "artifact_id": "tax.us.2025.rule.selected-preferential-base",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "tax.us.2025.schedule-d.line-16",
+            "tax.us.2025.schedule-d.line-15",
+            "tax.us.2025.schedule-d.line-9"
+          ]
+        },
+        {
+          "artifact_id": "tax.us.2025.rule.f1099b-noncovered-lt-proceeds-subtotal",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "tax.us.2025.f1099b.noncovered-lt.member-validation"
+          ]
+        },
+        {
+          "artifact_id": "tax.us.2025.rule.f1099b-noncovered-lt-basis-subtotal",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "tax.us.2025.f1099b.noncovered-lt.member-validation"
+          ]
+        },
+        {
+          "artifact_id": "tax.us.2025.rule.f1099b-noncovered-lt-adjustment-subtotal",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "tax.us.2025.f1099b.noncovered-lt.member-validation"
+          ]
+        },
+        {
+          "artifact_id": "tax.us.2025.rule.schedule-d-line9",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "tax.us.2025.f1099b.noncovered-lt-proceeds-subtotal",
+            "tax.us.2025.f1099b.noncovered-lt-basis-subtotal",
+            "tax.us.2025.f1099b.noncovered-lt-adjustment-subtotal",
+            "tax.us.2025.f1099b.noncovered-lt.member-validation"
+          ]
+        }
+      ],
+      "lines": {
+        "tax.us.2025.form1040.line-15": {
+          "disposition": "blocked",
+          "value": null
+        },
+        "tax.us.2025.form1040.line-16": {
+          "disposition": "blocked",
+          "value": null
+        },
+        "tax.us.2025.form1040.line-7a": {
+          "disposition": "blocked",
+          "value": null
+        },
+        "tax.us.2025.schedule-d.line-15": {
+          "disposition": "blocked",
+          "value": null
+        },
+        "tax.us.2025.schedule-d.line-16": {
+          "disposition": "blocked",
+          "value": null
+        },
+        "tax.us.2025.schedule-d.line-1a": {
+          "disposition": "closure_backed_zero",
+          "value": 0
+        },
+        "tax.us.2025.schedule-d.line-2": {
+          "disposition": "closure_backed_zero",
+          "value": 0
+        },
+        "tax.us.2025.schedule-d.line-21": {
+          "disposition": "blocked",
+          "value": null
+        },
+        "tax.us.2025.schedule-d.line-7": {
+          "disposition": "computed_zero",
+          "value": 0
+        },
+        "tax.us.2025.schedule-d.line-8a": {
+          "disposition": "closure_backed_zero",
+          "value": 0
+        },
+        "tax.us.2025.schedule-d.line-9": {
+          "disposition": "blocked",
+          "value": null
+        }
+      },
+      "money": {
+        "line15": {
+          "disposition": "blocked",
+          "value": null
+        },
+        "line16": {
+          "disposition": "blocked",
+          "value": null
+        },
+        "line1a": {
+          "disposition": "closure_backed_zero",
+          "value": 0
+        },
+        "line2": {
+          "disposition": "closure_backed_zero",
+          "value": 0
+        },
+        "line21": {
+          "disposition": "blocked",
+          "value": null
+        },
+        "line7a": {
+          "disposition": "blocked",
+          "value": null
+        },
+        "line8a": {
+          "disposition": "closure_backed_zero",
+          "value": 0
+        },
+        "line9": {
+          "disposition": "blocked",
+          "value": null
+        }
+      },
+      "noncovered_blocked": [
+        "tax.us.2025.f1099b.noncovered-lt-adjustment-subtotal",
+        "tax.us.2025.f1099b.noncovered-lt-basis-subtotal",
+        "tax.us.2025.f1099b.noncovered-lt-proceeds-subtotal",
+        "tax.us.2025.f1099b.noncovered-lt.member-validation"
+      ],
+      "page": [
+        {
+          "disposition": "blocked",
+          "id": "tax.us.2025.form1040.line-15",
+          "reasons": [],
+          "value": null
+        },
+        {
+          "disposition": "blocked",
+          "id": "tax.us.2025.form1040.line-7a",
+          "reasons": [],
+          "value": null
+        },
+        {
+          "disposition": "blocked",
+          "id": "tax.us.2025.schedule-d.line-15",
+          "reasons": [],
+          "value": null
+        },
+        {
+          "disposition": "blocked",
+          "id": "tax.us.2025.schedule-d.line-21",
+          "reasons": [],
+          "value": null
+        },
+        {
+          "disposition": "blocked",
+          "id": "tax.us.2025.schedule-d.line-9",
+          "reasons": [],
+          "value": null
+        }
+      ],
+      "presentation_valid": true,
+      "seconds": 5.32,
+      "section_count": 75,
+      "stop_reason": "saturated"
+    },
+    "covered_both_boundaries_no": {
+      "attachments": [
+        {
+          "disposition": "guard_inapplicable",
+          "id": "tax.us.2025.rule.attachment.f8949",
+          "value": null
+        },
+        {
+          "disposition": "blocked",
+          "id": "tax.us.2025.rule.attachment.schedule-d",
+          "value": null
+        }
+      ],
+      "blocked": [
+        {
+          "artifact_id": "tax.us.2025.rule.closure-check.f1099b-covered-lt",
+          "code": "DEPENDENCY_INVALID",
+          "missing": [
+            "BASIS_NOT_REPORTED_ON_COVERED"
+          ]
+        },
+        {
+          "artifact_id": "tax.us.2025.rule.attachment.schedule-d",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "tax.us.2025.schedule-d.line-8a-gain"
+          ]
+        },
+        {
+          "artifact_id": "tax.us.2025.rule.form1040-line7a",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "tax.us.2025.schedule-d.line-16",
+            "tax.us.2025.schedule-d.line-21",
+            "tax.us.2025.capital-gains.selected-preferential-base"
+          ]
+        },
+        {
+          "artifact_id": "tax.us.2025.rule.schedule-d-line15",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "tax.us.2025.schedule-d.line-8a-gain"
+          ]
+        },
+        {
+          "artifact_id": "tax.us.2025.rule.schedule-d-line16",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "tax.us.2025.schedule-d.line-15"
+          ]
+        },
+        {
+          "artifact_id": "tax.us.2025.rule.schedule-d-line21",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "tax.us.2025.schedule-d.line-16"
+          ]
+        },
+        {
+          "artifact_id": "tax.us.2025.rule.schedule-d-line8a-gain",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "tax.us.2025.f1099b.covered-lt.closure-check"
+          ]
+        },
+        {
+          "artifact_id": "tax.us.2025.rule.selected-preferential-base",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "tax.us.2025.schedule-d.line-16",
+            "tax.us.2025.schedule-d.line-15"
+          ]
+        }
+      ],
+      "lines": {
+        "tax.us.2025.form1040.line-15": {
+          "disposition": "blocked",
+          "value": null
+        },
+        "tax.us.2025.form1040.line-16": {
+          "disposition": "blocked",
+          "value": null
+        },
+        "tax.us.2025.form1040.line-7a": {
+          "disposition": "blocked",
+          "value": null
+        },
+        "tax.us.2025.schedule-d.line-15": {
+          "disposition": "blocked",
+          "value": null
+        },
+        "tax.us.2025.schedule-d.line-16": {
+          "disposition": "blocked",
+          "value": null
+        },
+        "tax.us.2025.schedule-d.line-1a": {
+          "disposition": "closure_backed_zero",
+          "value": 0
+        },
+        "tax.us.2025.schedule-d.line-2": {
+          "disposition": "closure_backed_zero",
+          "value": 0
+        },
+        "tax.us.2025.schedule-d.line-21": {
+          "disposition": "blocked",
+          "value": null
+        },
+        "tax.us.2025.schedule-d.line-7": {
+          "disposition": "computed_zero",
+          "value": 0
+        },
+        "tax.us.2025.schedule-d.line-8a": {
+          "disposition": "blocked",
+          "value": null
+        },
+        "tax.us.2025.schedule-d.line-9": {
+          "disposition": "closure_backed_zero",
+          "value": 0
+        }
+      },
+      "money": {
+        "line15": {
+          "disposition": "blocked",
+          "value": null
+        },
+        "line16": {
+          "disposition": "blocked",
+          "value": null
+        },
+        "line1a": {
+          "disposition": "closure_backed_zero",
+          "value": 0
+        },
+        "line2": {
+          "disposition": "closure_backed_zero",
+          "value": 0
+        },
+        "line21": {
+          "disposition": "blocked",
+          "value": null
+        },
+        "line7a": {
+          "disposition": "blocked",
+          "value": null
+        },
+        "line8a": {
+          "disposition": "blocked",
+          "value": null
+        },
+        "line9": {
+          "disposition": "closure_backed_zero",
+          "value": 0
+        }
+      },
+      "page": [
+        {
+          "disposition": "blocked",
+          "id": "tax.us.2025.form1040.line-15",
+          "reasons": [
+            "Record this sale as a noncovered sale. The broker did not report its basis to the IRS."
+          ],
+          "value": null
+        },
+        {
+          "disposition": "blocked",
+          "id": "tax.us.2025.form1040.line-7a",
+          "reasons": [
+            "Record this sale as a noncovered sale. The broker did not report its basis to the IRS."
+          ],
+          "value": null
+        },
+        {
+          "disposition": "blocked",
+          "id": "tax.us.2025.schedule-d.line-15",
+          "reasons": [
+            "Record this sale as a noncovered sale. The broker did not report its basis to the IRS."
+          ],
+          "value": null
+        },
+        {
+          "disposition": "blocked",
+          "id": "tax.us.2025.schedule-d.line-21",
+          "reasons": [
+            "Record this sale as a noncovered sale. The broker did not report its basis to the IRS."
+          ],
+          "value": null
+        },
+        {
+          "disposition": "blocked",
+          "id": "tax.us.2025.schedule-d.line-8a",
+          "reasons": [
+            "Record this sale as a noncovered sale. The broker did not report its basis to the IRS."
+          ],
+          "value": null
+        }
+      ],
+      "presentation_valid": true,
+      "refusal_rows": [
+        {
+          "artifact_id": "tax.us.2025.rule.closure-check.f1099b-covered-lt",
+          "code": "DEPENDENCY_INVALID",
+          "missing": [
+            "BASIS_NOT_REPORTED_ON_COVERED"
+          ]
+        }
+      ],
+      "seconds": 5.56,
+      "section_count": 75,
+      "stop_reason": "saturated"
+    },
+    "covered_flag_corrected_to_no": {
+      "attachments": [
+        {
+          "disposition": "guard_inapplicable",
+          "id": "tax.us.2025.rule.attachment.f8949",
+          "value": null
+        },
+        {
+          "disposition": "blocked",
+          "id": "tax.us.2025.rule.attachment.schedule-d",
+          "value": null
+        }
+      ],
+      "blocked": [
+        {
+          "artifact_id": "tax.us.2025.rule.closure-check.f1099b-covered-lt",
+          "code": "DEPENDENCY_INVALID",
+          "missing": [
+            "BASIS_NOT_REPORTED_ON_COVERED"
+          ]
+        },
+        {
+          "artifact_id": "tax.us.2025.rule.attachment.schedule-d",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "tax.us.2025.schedule-d.line-8a-gain"
+          ]
+        },
+        {
+          "artifact_id": "tax.us.2025.rule.form1040-line7a",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "tax.us.2025.schedule-d.line-16",
+            "tax.us.2025.schedule-d.line-21",
+            "tax.us.2025.capital-gains.selected-preferential-base"
+          ]
+        },
+        {
+          "artifact_id": "tax.us.2025.rule.schedule-d-line15",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "tax.us.2025.schedule-d.line-8a-gain"
+          ]
+        },
+        {
+          "artifact_id": "tax.us.2025.rule.schedule-d-line16",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "tax.us.2025.schedule-d.line-15"
+          ]
+        },
+        {
+          "artifact_id": "tax.us.2025.rule.schedule-d-line21",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "tax.us.2025.schedule-d.line-16"
+          ]
+        },
+        {
+          "artifact_id": "tax.us.2025.rule.schedule-d-line8a-gain",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "tax.us.2025.f1099b.covered-lt.closure-check"
+          ]
+        },
+        {
+          "artifact_id": "tax.us.2025.rule.selected-preferential-base",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "tax.us.2025.schedule-d.line-16",
+            "tax.us.2025.schedule-d.line-15"
+          ]
+        }
+      ],
+      "lines": {
+        "tax.us.2025.form1040.line-15": {
+          "disposition": "blocked",
+          "value": null
+        },
+        "tax.us.2025.form1040.line-16": {
+          "disposition": "blocked",
+          "value": null
+        },
+        "tax.us.2025.form1040.line-7a": {
+          "disposition": "blocked",
+          "value": null
+        },
+        "tax.us.2025.schedule-d.line-15": {
+          "disposition": "blocked",
+          "value": null
+        },
+        "tax.us.2025.schedule-d.line-16": {
+          "disposition": "blocked",
+          "value": null
+        },
+        "tax.us.2025.schedule-d.line-1a": {
+          "disposition": "closure_backed_zero",
+          "value": 0
+        },
+        "tax.us.2025.schedule-d.line-2": {
+          "disposition": "closure_backed_zero",
+          "value": 0
+        },
+        "tax.us.2025.schedule-d.line-21": {
+          "disposition": "blocked",
+          "value": null
+        },
+        "tax.us.2025.schedule-d.line-7": {
+          "disposition": "computed_zero",
+          "value": 0
+        },
+        "tax.us.2025.schedule-d.line-8a": {
+          "disposition": "blocked",
+          "value": null
+        },
+        "tax.us.2025.schedule-d.line-9": {
+          "disposition": "closure_backed_zero",
+          "value": 0
+        }
+      },
+      "money": {
+        "line15": {
+          "disposition": "blocked",
+          "value": null
+        },
+        "line16": {
+          "disposition": "blocked",
+          "value": null
+        },
+        "line1a": {
+          "disposition": "closure_backed_zero",
+          "value": 0
+        },
+        "line2": {
+          "disposition": "closure_backed_zero",
+          "value": 0
+        },
+        "line21": {
+          "disposition": "blocked",
+          "value": null
+        },
+        "line7a": {
+          "disposition": "blocked",
+          "value": null
+        },
+        "line8a": {
+          "disposition": "blocked",
+          "value": null
+        },
+        "line9": {
+          "disposition": "closure_backed_zero",
+          "value": 0
+        }
+      },
+      "page": [
+        {
+          "disposition": "blocked",
+          "id": "tax.us.2025.form1040.line-15",
+          "reasons": [
+            "Record this sale as a noncovered sale. The broker did not report its basis to the IRS."
+          ],
+          "value": null
+        },
+        {
+          "disposition": "blocked",
+          "id": "tax.us.2025.form1040.line-7a",
+          "reasons": [
+            "Record this sale as a noncovered sale. The broker did not report its basis to the IRS."
+          ],
+          "value": null
+        },
+        {
+          "disposition": "blocked",
+          "id": "tax.us.2025.schedule-d.line-15",
+          "reasons": [
+            "Record this sale as a noncovered sale. The broker did not report its basis to the IRS."
+          ],
+          "value": null
+        },
+        {
+          "disposition": "blocked",
+          "id": "tax.us.2025.schedule-d.line-21",
+          "reasons": [
+            "Record this sale as a noncovered sale. The broker did not report its basis to the IRS."
+          ],
+          "value": null
+        },
+        {
+          "disposition": "blocked",
+          "id": "tax.us.2025.schedule-d.line-8a",
+          "reasons": [
+            "Record this sale as a noncovered sale. The broker did not report its basis to the IRS."
+          ],
+          "value": null
+        }
+      ],
+      "presentation_valid": true,
+      "refusal_rows": [
+        {
+          "artifact_id": "tax.us.2025.rule.closure-check.f1099b-covered-lt",
+          "code": "DEPENDENCY_INVALID",
+          "missing": [
+            "BASIS_NOT_REPORTED_ON_COVERED"
+          ]
+        }
+      ],
+      "seconds": 5.23,
+      "section_count": 75,
+      "stop_reason": "saturated"
+    },
+    "covered_flag_corrected_to_yes": {
+      "attachments": [
+        {
+          "disposition": "guard_inapplicable",
+          "id": "tax.us.2025.rule.attachment.f8949",
+          "value": null
+        },
+        {
+          "disposition": "published",
+          "id": "tax.us.2025.rule.attachment.schedule-d",
+          "value": null
+        }
+      ],
+      "lines": {
+        "tax.us.2025.form1040.line-15": {
+          "disposition": "published_value",
+          "value": 38250
+        },
+        "tax.us.2025.form1040.line-16": {
+          "disposition": "published_value",
+          "value": 3875
+        },
+        "tax.us.2025.form1040.line-7a": {
+          "disposition": "published_value",
+          "value": 4000
+        },
+        "tax.us.2025.schedule-d.line-15": {
+          "disposition": "published_value",
+          "value": 4000
+        },
+        "tax.us.2025.schedule-d.line-16": {
+          "disposition": "published_value",
+          "value": 4000
+        },
+        "tax.us.2025.schedule-d.line-1a": {
+          "disposition": "closure_backed_zero",
+          "value": 0
+        },
+        "tax.us.2025.schedule-d.line-2": {
+          "disposition": "closure_backed_zero",
+          "value": 0
+        },
+        "tax.us.2025.schedule-d.line-21": {
+          "disposition": "computed_zero",
+          "value": 0
+        },
+        "tax.us.2025.schedule-d.line-7": {
+          "disposition": "computed_zero",
+          "value": 0
+        },
+        "tax.us.2025.schedule-d.line-8a": {
+          "disposition": "published_value",
+          "value": 4000
+        },
+        "tax.us.2025.schedule-d.line-9": {
+          "disposition": "closure_backed_zero",
+          "value": 0
+        }
+      },
+      "money": {
+        "line15": {
+          "disposition": "published_value",
+          "value": 38250
+        },
+        "line16": {
+          "disposition": "published_value",
+          "value": 3875
+        },
+        "line1a": {
+          "disposition": "closure_backed_zero",
+          "value": 0
+        },
+        "line2": {
+          "disposition": "closure_backed_zero",
+          "value": 0
+        },
+        "line21": {
+          "disposition": "computed_zero",
+          "value": 0
+        },
+        "line7a": {
+          "disposition": "published_value",
+          "value": 4000
+        },
+        "line8a": {
+          "disposition": "published_value",
+          "value": 4000
+        },
+        "line9": {
+          "disposition": "closure_backed_zero",
+          "value": 0
+        }
+      },
+      "presentation_valid": true,
+      "seconds": 5.33,
+      "section_count": 75,
+      "stop_reason": "saturated"
+    },
+    "covered_flag_no_path_a": {
+      "attachments": [
+        {
+          "disposition": "guard_inapplicable",
+          "id": "tax.us.2025.rule.attachment.f8949",
+          "value": null
+        },
+        {
+          "disposition": "blocked",
+          "id": "tax.us.2025.rule.attachment.schedule-d",
+          "value": null
+        }
+      ],
+      "blocked": [
+        {
+          "artifact_id": "tax.us.2025.rule.closure-check.f1099b-covered-lt",
+          "code": "DEPENDENCY_INVALID",
+          "missing": [
+            "BASIS_NOT_REPORTED_ON_COVERED"
+          ]
+        },
+        {
+          "artifact_id": "tax.us.2025.rule.attachment.schedule-d",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "tax.us.2025.schedule-d.line-8a-gain"
+          ]
+        },
+        {
+          "artifact_id": "tax.us.2025.rule.form1040-line7a",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "tax.us.2025.schedule-d.line-16",
+            "tax.us.2025.schedule-d.line-21",
+            "tax.us.2025.capital-gains.selected-preferential-base"
+          ]
+        },
+        {
+          "artifact_id": "tax.us.2025.rule.schedule-d-line15",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "tax.us.2025.schedule-d.line-8a-gain"
+          ]
+        },
+        {
+          "artifact_id": "tax.us.2025.rule.schedule-d-line16",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "tax.us.2025.schedule-d.line-15"
+          ]
+        },
+        {
+          "artifact_id": "tax.us.2025.rule.schedule-d-line21",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "tax.us.2025.schedule-d.line-16"
+          ]
+        },
+        {
+          "artifact_id": "tax.us.2025.rule.schedule-d-line8a-gain",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "tax.us.2025.f1099b.covered-lt.closure-check"
+          ]
+        },
+        {
+          "artifact_id": "tax.us.2025.rule.selected-preferential-base",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "tax.us.2025.schedule-d.line-16",
+            "tax.us.2025.schedule-d.line-15"
+          ]
+        }
+      ],
+      "lines": {
+        "tax.us.2025.form1040.line-15": {
+          "disposition": "blocked",
+          "value": null
+        },
+        "tax.us.2025.form1040.line-16": {
+          "disposition": "blocked",
+          "value": null
+        },
+        "tax.us.2025.form1040.line-7a": {
+          "disposition": "blocked",
+          "value": null
+        },
+        "tax.us.2025.schedule-d.line-15": {
+          "disposition": "blocked",
+          "value": null
+        },
+        "tax.us.2025.schedule-d.line-16": {
+          "disposition": "blocked",
+          "value": null
+        },
+        "tax.us.2025.schedule-d.line-1a": {
+          "disposition": "closure_backed_zero",
+          "value": 0
+        },
+        "tax.us.2025.schedule-d.line-2": {
+          "disposition": "closure_backed_zero",
+          "value": 0
+        },
+        "tax.us.2025.schedule-d.line-21": {
+          "disposition": "blocked",
+          "value": null
+        },
+        "tax.us.2025.schedule-d.line-7": {
+          "disposition": "computed_zero",
+          "value": 0
+        },
+        "tax.us.2025.schedule-d.line-8a": {
+          "disposition": "blocked",
+          "value": null
+        },
+        "tax.us.2025.schedule-d.line-9": {
+          "disposition": "closure_backed_zero",
+          "value": 0
+        }
+      },
+      "money": {
+        "line15": {
+          "disposition": "blocked",
+          "value": null
+        },
+        "line16": {
+          "disposition": "blocked",
+          "value": null
+        },
+        "line1a": {
+          "disposition": "closure_backed_zero",
+          "value": 0
+        },
+        "line2": {
+          "disposition": "closure_backed_zero",
+          "value": 0
+        },
+        "line21": {
+          "disposition": "blocked",
+          "value": null
+        },
+        "line7a": {
+          "disposition": "blocked",
+          "value": null
+        },
+        "line8a": {
+          "disposition": "blocked",
+          "value": null
+        },
+        "line9": {
+          "disposition": "closure_backed_zero",
+          "value": 0
+        }
+      },
+      "page": [
+        {
+          "disposition": "blocked",
+          "id": "tax.us.2025.form1040.line-15",
+          "reasons": [
+            "Record this sale as a noncovered sale. The broker did not report its basis to the IRS."
+          ],
+          "value": null
+        },
+        {
+          "disposition": "blocked",
+          "id": "tax.us.2025.form1040.line-7a",
+          "reasons": [
+            "Record this sale as a noncovered sale. The broker did not report its basis to the IRS."
+          ],
+          "value": null
+        },
+        {
+          "disposition": "blocked",
+          "id": "tax.us.2025.schedule-d.line-15",
+          "reasons": [
+            "Record this sale as a noncovered sale. The broker did not report its basis to the IRS."
+          ],
+          "value": null
+        },
+        {
+          "disposition": "blocked",
+          "id": "tax.us.2025.schedule-d.line-21",
+          "reasons": [
+            "Record this sale as a noncovered sale. The broker did not report its basis to the IRS."
+          ],
+          "value": null
+        },
+        {
+          "disposition": "blocked",
+          "id": "tax.us.2025.schedule-d.line-8a",
+          "reasons": [
+            "Record this sale as a noncovered sale. The broker did not report its basis to the IRS."
+          ],
+          "value": null
+        }
+      ],
+      "presentation_valid": true,
+      "refusal_rows": [
+        {
+          "artifact_id": "tax.us.2025.rule.closure-check.f1099b-covered-lt",
+          "code": "DEPENDENCY_INVALID",
+          "missing": [
+            "BASIS_NOT_REPORTED_ON_COVERED"
+          ]
+        }
+      ],
+      "seconds": 5.22,
+      "section_count": 75,
+      "stop_reason": "saturated"
+    },
+    "covered_flag_no_st": {
+      "attachments": [
+        {
+          "disposition": "guard_inapplicable",
+          "id": "tax.us.2025.rule.attachment.f8949",
+          "value": null
+        },
+        {
+          "disposition": "blocked",
+          "id": "tax.us.2025.rule.attachment.schedule-d",
+          "value": null
+        }
+      ],
+      "blocked": [
+        {
+          "artifact_id": "tax.us.2025.rule.closure-check.f1099b-covered-st",
+          "code": "DEPENDENCY_INVALID",
+          "missing": [
+            "BASIS_NOT_REPORTED_ON_COVERED"
+          ]
+        },
+        {
+          "artifact_id": "tax.us.2025.rule.attachment.schedule-d",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "tax.us.2025.schedule-d.line-1a-gain"
+          ]
+        },
+        {
+          "artifact_id": "tax.us.2025.rule.form1040-line7a",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "tax.us.2025.schedule-d.line-16",
+            "tax.us.2025.schedule-d.line-21",
+            "tax.us.2025.capital-gains.selected-preferential-base"
+          ]
+        },
+        {
+          "artifact_id": "tax.us.2025.rule.schedule-d-line16",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "tax.us.2025.schedule-d.line-7"
+          ]
+        },
+        {
+          "artifact_id": "tax.us.2025.rule.schedule-d-line1a-gain",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "tax.us.2025.f1099b.covered-st.closure-check"
+          ]
+        },
+        {
+          "artifact_id": "tax.us.2025.rule.schedule-d-line21",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "tax.us.2025.schedule-d.line-16"
+          ]
+        },
+        {
+          "artifact_id": "tax.us.2025.rule.schedule-d-line7",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "tax.us.2025.schedule-d.line-1a-gain"
+          ]
+        },
+        {
+          "artifact_id": "tax.us.2025.rule.selected-preferential-base",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "tax.us.2025.schedule-d.line-16"
+          ]
+        }
+      ],
+      "lines": {
+        "tax.us.2025.form1040.line-15": {
+          "disposition": "blocked",
+          "value": null
+        },
+        "tax.us.2025.form1040.line-16": {
+          "disposition": "blocked",
+          "value": null
+        },
+        "tax.us.2025.form1040.line-7a": {
+          "disposition": "blocked",
+          "value": null
+        },
+        "tax.us.2025.schedule-d.line-15": {
+          "disposition": "computed_zero",
+          "value": 0
+        },
+        "tax.us.2025.schedule-d.line-16": {
+          "disposition": "blocked",
+          "value": null
+        },
+        "tax.us.2025.schedule-d.line-1a": {
+          "disposition": "blocked",
+          "value": null
+        },
+        "tax.us.2025.schedule-d.line-2": {
+          "disposition": "closure_backed_zero",
+          "value": 0
+        },
+        "tax.us.2025.schedule-d.line-21": {
+          "disposition": "blocked",
+          "value": null
+        },
+        "tax.us.2025.schedule-d.line-7": {
+          "disposition": "blocked",
+          "value": null
+        },
+        "tax.us.2025.schedule-d.line-8a": {
+          "disposition": "closure_backed_zero",
+          "value": 0
+        },
+        "tax.us.2025.schedule-d.line-9": {
+          "disposition": "closure_backed_zero",
+          "value": 0
+        }
+      },
+      "money": {
+        "line15": {
+          "disposition": "blocked",
+          "value": null
+        },
+        "line16": {
+          "disposition": "blocked",
+          "value": null
+        },
+        "line1a": {
+          "disposition": "blocked",
+          "value": null
+        },
+        "line2": {
+          "disposition": "closure_backed_zero",
+          "value": 0
+        },
+        "line21": {
+          "disposition": "blocked",
+          "value": null
+        },
+        "line7a": {
+          "disposition": "blocked",
+          "value": null
+        },
+        "line8a": {
+          "disposition": "closure_backed_zero",
+          "value": 0
+        },
+        "line9": {
+          "disposition": "closure_backed_zero",
+          "value": 0
+        }
+      },
+      "page": [
+        {
+          "disposition": "blocked",
+          "id": "tax.us.2025.form1040.line-15",
+          "reasons": [
+            "Record this sale as a noncovered sale. The broker did not report its basis to the IRS."
+          ],
+          "value": null
+        },
+        {
+          "disposition": "blocked",
+          "id": "tax.us.2025.form1040.line-7a",
+          "reasons": [
+            "Record this sale as a noncovered sale. The broker did not report its basis to the IRS."
+          ],
+          "value": null
+        },
+        {
+          "disposition": "blocked",
+          "id": "tax.us.2025.schedule-d.line-1a",
+          "reasons": [
+            "Record this sale as a noncovered sale. The broker did not report its basis to the IRS."
+          ],
+          "value": null
+        },
+        {
+          "disposition": "blocked",
+          "id": "tax.us.2025.schedule-d.line-21",
+          "reasons": [
+            "Record this sale as a noncovered sale. The broker did not report its basis to the IRS."
+          ],
+          "value": null
+        }
+      ],
+      "presentation_valid": true,
+      "refusal_rows": [
+        {
+          "artifact_id": "tax.us.2025.rule.closure-check.f1099b-covered-st",
+          "code": "DEPENDENCY_INVALID",
+          "missing": [
+            "BASIS_NOT_REPORTED_ON_COVERED"
+          ]
+        }
+      ],
+      "seconds": 5.29,
+      "section_count": 75,
+      "stop_reason": "saturated"
+    },
+    "covered_flag_no_w_lt": {
+      "attachments": [
+        {
+          "disposition": "blocked",
+          "id": "tax.us.2025.rule.attachment.f8949",
+          "value": null
+        },
+        {
+          "disposition": "blocked",
+          "id": "tax.us.2025.rule.attachment.schedule-d",
+          "value": null
+        }
+      ],
+      "blocked": [
+        {
+          "artifact_id": "tax.us.2025.f1099b.covered-w-lt.member-validation.synthesized",
+          "code": "DEPENDENCY_INVALID",
+          "missing": [
+            "BASIS_NOT_REPORTED_ON_COVERED"
+          ]
+        },
+        {
+          "artifact_id": "tax.us.2025.rule.attachment.f8949",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "tax.us.2025.f1099b.covered-w-lt.member-validation"
+          ]
+        },
+        {
+          "artifact_id": "tax.us.2025.rule.attachment.schedule-d",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "tax.us.2025.f1099b.covered-w-lt.member-validation"
+          ]
+        },
+        {
+          "artifact_id": "tax.us.2025.rule.f1099b-covered-w-lt-adjustment-subtotal",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "tax.us.2025.f1099b.covered-w-lt-adjustment.closure-check",
+            "tax.us.2025.f1099b.covered-w-lt.member-validation"
+          ]
+        },
+        {
+          "artifact_id": "tax.us.2025.rule.f1099b-covered-w-lt-basis-subtotal",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "tax.us.2025.f1099b.covered-w-lt-basis.closure-check",
+            "tax.us.2025.f1099b.covered-w-lt.member-validation"
+          ]
+        },
+        {
+          "artifact_id": "tax.us.2025.rule.f1099b-covered-w-lt-proceeds-subtotal",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "tax.us.2025.f1099b.covered-w-lt-proceeds.closure-check",
+            "tax.us.2025.f1099b.covered-w-lt.member-validation"
+          ]
+        },
+        {
+          "artifact_id": "tax.us.2025.rule.form1040-line7a",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "tax.us.2025.schedule-d.line-16",
+            "tax.us.2025.schedule-d.line-21",
+            "tax.us.2025.capital-gains.selected-preferential-base",
+            "tax.us.2025.schedule-d.line-8b"
+          ]
+        },
+        {
+          "artifact_id": "tax.us.2025.rule.schedule-d-line15",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "tax.us.2025.schedule-d.line-8b"
+          ]
+        },
+        {
+          "artifact_id": "tax.us.2025.rule.schedule-d-line16",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "tax.us.2025.schedule-d.line-15"
+          ]
+        },
+        {
+          "artifact_id": "tax.us.2025.rule.schedule-d-line21",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "tax.us.2025.schedule-d.line-16"
+          ]
+        },
+        {
+          "artifact_id": "tax.us.2025.rule.schedule-d-line8b",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "tax.us.2025.f1099b.covered-w-lt-proceeds-subtotal",
+            "tax.us.2025.f1099b.covered-w-lt-basis-subtotal",
+            "tax.us.2025.f1099b.covered-w-lt-adjustment-subtotal",
+            "tax.us.2025.f1099b.covered-w-lt.member-validation"
+          ]
+        },
+        {
+          "artifact_id": "tax.us.2025.rule.selected-preferential-base",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "tax.us.2025.schedule-d.line-8b",
+            "tax.us.2025.schedule-d.line-16",
+            "tax.us.2025.schedule-d.line-15"
+          ]
+        },
+        {
+          "artifact_id": "tax.us.2025.rule.closure-check.f1099b-covered-w-lt-basis",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "tax.us.2025.f1099b.covered-w-lt.member-validation"
+          ]
+        },
+        {
+          "artifact_id": "tax.us.2025.rule.closure-check.f1099b-covered-w-lt-proceeds",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "tax.us.2025.f1099b.covered-w-lt.member-validation"
+          ]
+        },
+        {
+          "artifact_id": "tax.us.2025.rule.closure-check.f1099b-covered-w-lt-adjustment",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "tax.us.2025.f1099b.covered-w-lt.member-validation"
+          ]
+        }
+      ],
+      "lines": {
+        "tax.us.2025.form1040.line-15": {
+          "disposition": "blocked",
+          "value": null
+        },
+        "tax.us.2025.form1040.line-16": {
+          "disposition": "blocked",
+          "value": null
+        },
+        "tax.us.2025.form1040.line-7a": {
+          "disposition": "blocked",
+          "value": null
+        },
+        "tax.us.2025.schedule-d.line-15": {
+          "disposition": "blocked",
+          "value": null
+        },
+        "tax.us.2025.schedule-d.line-16": {
+          "disposition": "blocked",
+          "value": null
+        },
+        "tax.us.2025.schedule-d.line-1a": {
+          "disposition": "closure_backed_zero",
+          "value": 0
+        },
+        "tax.us.2025.schedule-d.line-2": {
+          "disposition": "closure_backed_zero",
+          "value": 0
+        },
+        "tax.us.2025.schedule-d.line-21": {
+          "disposition": "blocked",
+          "value": null
+        },
+        "tax.us.2025.schedule-d.line-7": {
+          "disposition": "computed_zero",
+          "value": 0
+        },
+        "tax.us.2025.schedule-d.line-8a": {
+          "disposition": "closure_backed_zero",
+          "value": 0
+        },
+        "tax.us.2025.schedule-d.line-9": {
+          "disposition": "closure_backed_zero",
+          "value": 0
+        }
+      },
+      "money": {
+        "line15": {
+          "disposition": "blocked",
+          "value": null
+        },
+        "line16": {
+          "disposition": "blocked",
+          "value": null
+        },
+        "line1a": {
+          "disposition": "closure_backed_zero",
+          "value": 0
+        },
+        "line2": {
+          "disposition": "closure_backed_zero",
+          "value": 0
+        },
+        "line21": {
+          "disposition": "blocked",
+          "value": null
+        },
+        "line7a": {
+          "disposition": "blocked",
+          "value": null
+        },
+        "line8a": {
+          "disposition": "closure_backed_zero",
+          "value": 0
+        },
+        "line9": {
+          "disposition": "closure_backed_zero",
+          "value": 0
+        }
+      },
+      "page": [
+        {
+          "disposition": "blocked",
+          "id": "tax.us.2025.form1040.line-15",
+          "reasons": [
+            "Record this sale as a noncovered sale. The broker did not report its basis to the IRS."
+          ],
+          "value": null
+        },
+        {
+          "disposition": "blocked",
+          "id": "tax.us.2025.form1040.line-7a",
+          "reasons": [
+            "Record this sale as a noncovered sale. The broker did not report its basis to the IRS."
+          ],
+          "value": null
+        },
+        {
+          "disposition": "blocked",
+          "id": "tax.us.2025.schedule-d.line-15",
+          "reasons": [
+            "Record this sale as a noncovered sale. The broker did not report its basis to the IRS."
+          ],
+          "value": null
+        },
+        {
+          "disposition": "blocked",
+          "id": "tax.us.2025.schedule-d.line-21",
+          "reasons": [
+            "Record this sale as a noncovered sale. The broker did not report its basis to the IRS."
+          ],
+          "value": null
+        }
+      ],
+      "presentation_valid": true,
+      "refusal_rows": [
+        {
+          "artifact_id": "tax.us.2025.f1099b.covered-w-lt.member-validation.synthesized",
+          "code": "DEPENDENCY_INVALID",
+          "missing": [
+            "BASIS_NOT_REPORTED_ON_COVERED"
+          ]
+        }
+      ],
+      "seconds": 5.33,
+      "section_count": 75,
+      "stop_reason": "saturated"
+    },
+    "covered_flag_no_w_st": {
+      "attachments": [
+        {
+          "disposition": "blocked",
+          "id": "tax.us.2025.rule.attachment.f8949",
+          "value": null
+        },
+        {
+          "disposition": "blocked",
+          "id": "tax.us.2025.rule.attachment.schedule-d",
+          "value": null
+        }
+      ],
+      "blocked": [
+        {
+          "artifact_id": "tax.us.2025.f1099b.covered-w-st.member-validation.synthesized",
+          "code": "DEPENDENCY_INVALID",
+          "missing": [
+            "BASIS_NOT_REPORTED_ON_COVERED"
+          ]
+        },
+        {
+          "artifact_id": "tax.us.2025.rule.attachment.f8949",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "tax.us.2025.f1099b.covered-w-st.member-validation"
+          ]
+        },
+        {
+          "artifact_id": "tax.us.2025.rule.attachment.schedule-d",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "tax.us.2025.f1099b.covered-w-st.member-validation"
+          ]
+        },
+        {
+          "artifact_id": "tax.us.2025.rule.f1099b-covered-w-st-adjustment-subtotal",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "tax.us.2025.f1099b.covered-w-st-adjustment.closure-check",
+            "tax.us.2025.f1099b.covered-w-st.member-validation"
+          ]
+        },
+        {
+          "artifact_id": "tax.us.2025.rule.f1099b-covered-w-st-basis-subtotal",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "tax.us.2025.f1099b.covered-w-st-basis.closure-check",
+            "tax.us.2025.f1099b.covered-w-st.member-validation"
+          ]
+        },
+        {
+          "artifact_id": "tax.us.2025.rule.f1099b-covered-w-st-proceeds-subtotal",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "tax.us.2025.f1099b.covered-w-st-proceeds.closure-check",
+            "tax.us.2025.f1099b.covered-w-st.member-validation"
+          ]
+        },
+        {
+          "artifact_id": "tax.us.2025.rule.form1040-line7a",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "tax.us.2025.schedule-d.line-16",
+            "tax.us.2025.schedule-d.line-21",
+            "tax.us.2025.capital-gains.selected-preferential-base",
+            "tax.us.2025.schedule-d.line-1b"
+          ]
+        },
+        {
+          "artifact_id": "tax.us.2025.rule.schedule-d-line16",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "tax.us.2025.schedule-d.line-7"
+          ]
+        },
+        {
+          "artifact_id": "tax.us.2025.rule.schedule-d-line1b",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "tax.us.2025.f1099b.covered-w-st-proceeds-subtotal",
+            "tax.us.2025.f1099b.covered-w-st-basis-subtotal",
+            "tax.us.2025.f1099b.covered-w-st-adjustment-subtotal",
+            "tax.us.2025.f1099b.covered-w-st.member-validation"
+          ]
+        },
+        {
+          "artifact_id": "tax.us.2025.rule.schedule-d-line21",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "tax.us.2025.schedule-d.line-16"
+          ]
+        },
+        {
+          "artifact_id": "tax.us.2025.rule.schedule-d-line7",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "tax.us.2025.schedule-d.line-1b"
+          ]
+        },
+        {
+          "artifact_id": "tax.us.2025.rule.selected-preferential-base",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "tax.us.2025.schedule-d.line-1b",
+            "tax.us.2025.schedule-d.line-16"
+          ]
+        },
+        {
+          "artifact_id": "tax.us.2025.rule.closure-check.f1099b-covered-w-st-basis",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "tax.us.2025.f1099b.covered-w-st.member-validation"
+          ]
+        },
+        {
+          "artifact_id": "tax.us.2025.rule.closure-check.f1099b-covered-w-st-proceeds",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "tax.us.2025.f1099b.covered-w-st.member-validation"
+          ]
+        },
+        {
+          "artifact_id": "tax.us.2025.rule.closure-check.f1099b-covered-w-st-adjustment",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "tax.us.2025.f1099b.covered-w-st.member-validation"
+          ]
+        }
+      ],
+      "lines": {
+        "tax.us.2025.form1040.line-15": {
+          "disposition": "blocked",
+          "value": null
+        },
+        "tax.us.2025.form1040.line-16": {
+          "disposition": "blocked",
+          "value": null
+        },
+        "tax.us.2025.form1040.line-7a": {
+          "disposition": "blocked",
+          "value": null
+        },
+        "tax.us.2025.schedule-d.line-15": {
+          "disposition": "computed_zero",
+          "value": 0
+        },
+        "tax.us.2025.schedule-d.line-16": {
+          "disposition": "blocked",
+          "value": null
+        },
+        "tax.us.2025.schedule-d.line-1a": {
+          "disposition": "closure_backed_zero",
+          "value": 0
+        },
+        "tax.us.2025.schedule-d.line-2": {
+          "disposition": "closure_backed_zero",
+          "value": 0
+        },
+        "tax.us.2025.schedule-d.line-21": {
+          "disposition": "blocked",
+          "value": null
+        },
+        "tax.us.2025.schedule-d.line-7": {
+          "disposition": "blocked",
+          "value": null
+        },
+        "tax.us.2025.schedule-d.line-8a": {
+          "disposition": "closure_backed_zero",
+          "value": 0
+        },
+        "tax.us.2025.schedule-d.line-9": {
+          "disposition": "closure_backed_zero",
+          "value": 0
+        }
+      },
+      "money": {
+        "line15": {
+          "disposition": "blocked",
+          "value": null
+        },
+        "line16": {
+          "disposition": "blocked",
+          "value": null
+        },
+        "line1a": {
+          "disposition": "closure_backed_zero",
+          "value": 0
+        },
+        "line2": {
+          "disposition": "closure_backed_zero",
+          "value": 0
+        },
+        "line21": {
+          "disposition": "blocked",
+          "value": null
+        },
+        "line7a": {
+          "disposition": "blocked",
+          "value": null
+        },
+        "line8a": {
+          "disposition": "closure_backed_zero",
+          "value": 0
+        },
+        "line9": {
+          "disposition": "closure_backed_zero",
+          "value": 0
+        }
+      },
+      "page": [
+        {
+          "disposition": "blocked",
+          "id": "tax.us.2025.form1040.line-15",
+          "reasons": [
+            "Record this sale as a noncovered sale. The broker did not report its basis to the IRS."
+          ],
+          "value": null
+        },
+        {
+          "disposition": "blocked",
+          "id": "tax.us.2025.form1040.line-7a",
+          "reasons": [
+            "Record this sale as a noncovered sale. The broker did not report its basis to the IRS."
+          ],
+          "value": null
+        },
+        {
+          "disposition": "blocked",
+          "id": "tax.us.2025.schedule-d.line-21",
+          "reasons": [
+            "Record this sale as a noncovered sale. The broker did not report its basis to the IRS."
+          ],
+          "value": null
+        }
+      ],
+      "presentation_valid": true,
+      "refusal_rows": [
+        {
+          "artifact_id": "tax.us.2025.f1099b.covered-w-st.member-validation.synthesized",
+          "code": "DEPENDENCY_INVALID",
+          "missing": [
+            "BASIS_NOT_REPORTED_ON_COVERED"
+          ]
+        }
+      ],
+      "seconds": 5.24,
+      "section_count": 75,
+      "stop_reason": "saturated"
+    },
+    "covered_flag_yes": {
+      "attachments": [
+        {
+          "disposition": "guard_inapplicable",
+          "id": "tax.us.2025.rule.attachment.f8949",
+          "value": null
+        },
+        {
+          "disposition": "published",
+          "id": "tax.us.2025.rule.attachment.schedule-d",
+          "value": null
+        }
+      ],
+      "lines": {
+        "tax.us.2025.form1040.line-15": {
+          "disposition": "published_value",
+          "value": 38250
+        },
+        "tax.us.2025.form1040.line-16": {
+          "disposition": "published_value",
+          "value": 3875
+        },
+        "tax.us.2025.form1040.line-7a": {
+          "disposition": "published_value",
+          "value": 4000
+        },
+        "tax.us.2025.schedule-d.line-15": {
+          "disposition": "published_value",
+          "value": 4000
+        },
+        "tax.us.2025.schedule-d.line-16": {
+          "disposition": "published_value",
+          "value": 4000
+        },
+        "tax.us.2025.schedule-d.line-1a": {
+          "disposition": "closure_backed_zero",
+          "value": 0
+        },
+        "tax.us.2025.schedule-d.line-2": {
+          "disposition": "closure_backed_zero",
+          "value": 0
+        },
+        "tax.us.2025.schedule-d.line-21": {
+          "disposition": "computed_zero",
+          "value": 0
+        },
+        "tax.us.2025.schedule-d.line-7": {
+          "disposition": "computed_zero",
+          "value": 0
+        },
+        "tax.us.2025.schedule-d.line-8a": {
+          "disposition": "published_value",
+          "value": 4000
+        },
+        "tax.us.2025.schedule-d.line-9": {
+          "disposition": "closure_backed_zero",
+          "value": 0
+        }
+      },
+      "money": {
+        "line15": {
+          "disposition": "published_value",
+          "value": 38250
+        },
+        "line16": {
+          "disposition": "published_value",
+          "value": 3875
+        },
+        "line1a": {
+          "disposition": "closure_backed_zero",
+          "value": 0
+        },
+        "line2": {
+          "disposition": "closure_backed_zero",
+          "value": 0
+        },
+        "line21": {
+          "disposition": "computed_zero",
+          "value": 0
+        },
+        "line7a": {
+          "disposition": "published_value",
+          "value": 4000
+        },
+        "line8a": {
+          "disposition": "published_value",
+          "value": 4000
+        },
+        "line9": {
+          "disposition": "closure_backed_zero",
+          "value": 0
+        }
+      },
+      "presentation_valid": true,
+      "seconds": 5.32,
+      "section_count": 75,
+      "stop_reason": "saturated"
+    },
+    "duplicate_horizon": {
+      "error": "HorizonModelError",
+      "horizon_refused": true,
+      "message": "horizon id already recorded: demo.ns.p0b.shared.h0",
+      "money": {
+        "line15": null,
+        "line16": null,
+        "line1a": null,
+        "line2": null,
+        "line21": null,
+        "line7a": null,
+        "line8a": null,
+        "line9": null
+      },
+      "seconds": 2.16
+    },
+    "late_member_reopened": {
+      "attachments": [
+        {
+          "disposition": "published",
+          "id": "tax.us.2025.rule.attachment.f8949",
+          "value": null
+        },
+        {
+          "disposition": "guard_inapplicable",
+          "id": "tax.us.2025.rule.attachment.schedule-d",
+          "value": null
+        }
+      ],
+      "groups": [
+        {
+          "id": "tax.us.2025.rule.attachment.f8949",
+          "parts": [
+            {
+              "heading": "Part I box A column (d): short-term wash-sale proceeds",
+              "sites": 0,
+              "tieOutText": "Reported subtotal: 0"
+            },
+            {
+              "heading": "Part I box A column (e): short-term wash-sale basis",
+              "sites": 0,
+              "tieOutText": "Reported subtotal: 0"
+            },
+            {
+              "heading": "Part I box A column (g): short-term wash-sale adjustment",
+              "sites": 0,
+              "tieOutText": "Reported subtotal: 0"
+            },
+            {
+              "heading": "Part II box D column (d): long-term wash-sale proceeds",
+              "sites": 0,
+              "tieOutText": "Reported subtotal: 0"
+            },
+            {
+              "heading": "Part II box D column (e): long-term wash-sale basis",
+              "sites": 0,
+              "tieOutText": "Reported subtotal: 0"
+            },
+            {
+              "heading": "Part II box D column (g): long-term wash-sale adjustment",
+              "sites": 0,
+              "tieOutText": "Reported subtotal: 0"
+            },
+            {
+              "heading": "Part I box B column (d): short-term basis-not-reported proceeds",
+              "sites": 0,
+              "tieOutText": "Reported subtotal: 0"
+            },
+            {
+              "heading": "Part I box B column (e): short-term basis the filer supplies",
+              "sites": 0,
+              "tieOutText": "Reported subtotal: 0"
+            },
+            {
+              "heading": "Part I box B column (g): short-term wash-sale adjustment",
+              "sites": 0,
+              "tieOutText": "Reported subtotal: 0"
+            },
+            {
+              "heading": "Part II box E column (d): long-term basis-not-reported proceeds",
+              "sites": 1,
+              "tieOutText": "Reported subtotal: 6000"
+            },
+            {
+              "heading": "Part II box E column (e): long-term basis the filer supplies",
+              "sites": 1,
+              "tieOutText": "Reported subtotal: 2000"
+            },
+            {
+              "heading": "Part II box E column (g): long-term wash-sale adjustment",
+              "sites": 0,
+              "tieOutText": "Reported subtotal: 0"
+            }
+          ]
+        }
+      ],
+      "lines": {
+        "tax.us.2025.form1040.line-15": {
+          "disposition": "published_value",
+          "value": 38250
+        },
+        "tax.us.2025.form1040.line-16": {
+          "disposition": "published_value",
+          "value": 3875
+        },
+        "tax.us.2025.form1040.line-7a": {
+          "disposition": "published_value",
+          "value": 4000
+        },
+        "tax.us.2025.schedule-d.line-15": {
+          "disposition": "published_value",
+          "value": 4000
+        },
+        "tax.us.2025.schedule-d.line-16": {
+          "disposition": "published_value",
+          "value": 4000
+        },
+        "tax.us.2025.schedule-d.line-1a": {
+          "disposition": "closure_backed_zero",
+          "value": 0
+        },
+        "tax.us.2025.schedule-d.line-2": {
+          "disposition": "closure_backed_zero",
+          "value": 0
+        },
+        "tax.us.2025.schedule-d.line-21": {
+          "disposition": "computed_zero",
+          "value": 0
+        },
+        "tax.us.2025.schedule-d.line-7": {
+          "disposition": "computed_zero",
+          "value": 0
+        },
+        "tax.us.2025.schedule-d.line-8a": {
+          "disposition": "closure_backed_zero",
+          "value": 0
+        },
+        "tax.us.2025.schedule-d.line-9": {
+          "disposition": "published_value",
+          "value": 4000
+        }
+      },
+      "money": {
+        "line15": {
+          "disposition": "published_value",
+          "value": 38250
+        },
+        "line16": {
+          "disposition": "published_value",
+          "value": 3875
+        },
+        "line1a": {
+          "disposition": "closure_backed_zero",
+          "value": 0
+        },
+        "line2": {
+          "disposition": "closure_backed_zero",
+          "value": 0
+        },
+        "line21": {
+          "disposition": "computed_zero",
+          "value": 0
+        },
+        "line7a": {
+          "disposition": "published_value",
+          "value": 4000
+        },
+        "line8a": {
+          "disposition": "closure_backed_zero",
+          "value": 0
+        },
+        "line9": {
+          "disposition": "published_value",
+          "value": 4000
+        }
+      },
+      "presentation_valid": true,
+      "seconds": 5.38,
+      "section_count": 75,
+      "stop_reason": "saturated"
+    },
+    "late_member_unclosed": {
+      "attachments": [
+        {
+          "disposition": "blocked",
+          "id": "tax.us.2025.rule.attachment.f8949",
+          "value": null
+        },
+        {
+          "disposition": "guard_inapplicable",
+          "id": "tax.us.2025.rule.attachment.schedule-d",
+          "value": null
+        }
+      ],
+      "blocked": [
+        {
+          "artifact_id": "tax.us.2025.f1099b.noncovered-lt.member-validation.synthesized",
+          "code": "SOURCE_SET_UNCLOSED",
+          "missing": [
+            "tax.us.2025.f1099b.noncovered-lt"
+          ]
+        },
+        {
+          "artifact_id": "tax.us.2025.rule.attachment.f8949",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "tax.us.2025.f1099b.noncovered-lt-proceeds-subtotal"
+          ]
+        },
+        {
+          "artifact_id": "tax.us.2025.rule.form1040-line7a",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "tax.us.2025.schedule-d.line-16",
+            "tax.us.2025.schedule-d.line-21",
+            "tax.us.2025.capital-gains.selected-preferential-base",
+            "tax.us.2025.schedule-d.line-9"
+          ]
+        },
+        {
+          "artifact_id": "tax.us.2025.rule.schedule-d-line15",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "tax.us.2025.schedule-d.line-9"
+          ]
+        },
+        {
+          "artifact_id": "tax.us.2025.rule.schedule-d-line16",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "tax.us.2025.schedule-d.line-15"
+          ]
+        },
+        {
+          "artifact_id": "tax.us.2025.rule.schedule-d-line21",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "tax.us.2025.schedule-d.line-16"
+          ]
+        },
+        {
+          "artifact_id": "tax.us.2025.rule.selected-preferential-base",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "tax.us.2025.schedule-d.line-16",
+            "tax.us.2025.schedule-d.line-15",
+            "tax.us.2025.schedule-d.line-9"
+          ]
+        },
+        {
+          "artifact_id": "tax.us.2025.rule.f1099b-noncovered-lt-proceeds-subtotal",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "tax.us.2025.f1099b.noncovered-lt.member-validation"
+          ]
+        },
+        {
+          "artifact_id": "tax.us.2025.rule.f1099b-noncovered-lt-basis-subtotal",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "tax.us.2025.f1099b.noncovered-lt.member-validation"
+          ]
+        },
+        {
+          "artifact_id": "tax.us.2025.rule.f1099b-noncovered-lt-adjustment-subtotal",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "tax.us.2025.f1099b.noncovered-lt.member-validation"
+          ]
+        },
+        {
+          "artifact_id": "tax.us.2025.rule.schedule-d-line9",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "tax.us.2025.f1099b.noncovered-lt-proceeds-subtotal",
+            "tax.us.2025.f1099b.noncovered-lt-basis-subtotal",
+            "tax.us.2025.f1099b.noncovered-lt-adjustment-subtotal",
+            "tax.us.2025.f1099b.noncovered-lt.member-validation"
+          ]
+        }
+      ],
+      "lines": {
+        "tax.us.2025.form1040.line-15": {
+          "disposition": "blocked",
+          "value": null
+        },
+        "tax.us.2025.form1040.line-16": {
+          "disposition": "blocked",
+          "value": null
+        },
+        "tax.us.2025.form1040.line-7a": {
+          "disposition": "blocked",
+          "value": null
+        },
+        "tax.us.2025.schedule-d.line-15": {
+          "disposition": "blocked",
+          "value": null
+        },
+        "tax.us.2025.schedule-d.line-16": {
+          "disposition": "blocked",
+          "value": null
+        },
+        "tax.us.2025.schedule-d.line-1a": {
+          "disposition": "closure_backed_zero",
+          "value": 0
+        },
+        "tax.us.2025.schedule-d.line-2": {
+          "disposition": "closure_backed_zero",
+          "value": 0
+        },
+        "tax.us.2025.schedule-d.line-21": {
+          "disposition": "blocked",
+          "value": null
+        },
+        "tax.us.2025.schedule-d.line-7": {
+          "disposition": "computed_zero",
+          "value": 0
+        },
+        "tax.us.2025.schedule-d.line-8a": {
+          "disposition": "closure_backed_zero",
+          "value": 0
+        },
+        "tax.us.2025.schedule-d.line-9": {
+          "disposition": "blocked",
+          "value": null
+        }
+      },
+      "money": {
+        "line15": {
+          "disposition": "blocked",
+          "value": null
+        },
+        "line16": {
+          "disposition": "blocked",
+          "value": null
+        },
+        "line1a": {
+          "disposition": "closure_backed_zero",
+          "value": 0
+        },
+        "line2": {
+          "disposition": "closure_backed_zero",
+          "value": 0
+        },
+        "line21": {
+          "disposition": "blocked",
+          "value": null
+        },
+        "line7a": {
+          "disposition": "blocked",
+          "value": null
+        },
+        "line8a": {
+          "disposition": "closure_backed_zero",
+          "value": 0
+        },
+        "line9": {
+          "disposition": "blocked",
+          "value": null
+        }
+      },
+      "noncovered_blocked": [
+        "tax.us.2025.f1099b.noncovered-lt",
+        "tax.us.2025.f1099b.noncovered-lt-adjustment-subtotal",
+        "tax.us.2025.f1099b.noncovered-lt-basis-subtotal",
+        "tax.us.2025.f1099b.noncovered-lt-proceeds-subtotal",
+        "tax.us.2025.f1099b.noncovered-lt.member-validation"
+      ],
+      "page": [
+        {
+          "disposition": "blocked",
+          "id": "tax.us.2025.form1040.line-15",
+          "reasons": [
+            "Did you sell any securities whose basis was not reported to the IRS?"
+          ],
+          "value": null
+        },
+        {
+          "disposition": "blocked",
+          "id": "tax.us.2025.form1040.line-7a",
+          "reasons": [
+            "Did you sell any securities whose basis was not reported to the IRS?"
+          ],
+          "value": null
+        },
+        {
+          "disposition": "blocked",
+          "id": "tax.us.2025.schedule-d.line-15",
+          "reasons": [
+            "Did you sell any securities whose basis was not reported to the IRS?"
+          ],
+          "value": null
+        },
+        {
+          "disposition": "blocked",
+          "id": "tax.us.2025.schedule-d.line-21",
+          "reasons": [
+            "Did you sell any securities whose basis was not reported to the IRS?"
+          ],
+          "value": null
+        },
+        {
+          "disposition": "blocked",
+          "id": "tax.us.2025.schedule-d.line-9",
+          "reasons": [
+            "Did you sell any securities whose basis was not reported to the IRS?"
+          ],
+          "value": null
+        }
+      ],
+      "presentation_valid": true,
+      "seconds": 6.01,
+      "section_count": 75,
+      "stop_reason": "saturated"
+    },
+    "late_yes_reanswered": {
+      "attachments": [
+        {
+          "disposition": "published",
+          "id": "tax.us.2025.rule.attachment.f8949",
+          "value": null
+        },
+        {
+          "disposition": "guard_inapplicable",
+          "id": "tax.us.2025.rule.attachment.schedule-d",
+          "value": null
+        }
+      ],
+      "groups": [
+        {
+          "id": "tax.us.2025.rule.attachment.f8949",
+          "parts": [
+            {
+              "heading": "Part I box A column (d): short-term wash-sale proceeds",
+              "sites": 0,
+              "tieOutText": "Reported subtotal: 0"
+            },
+            {
+              "heading": "Part I box A column (e): short-term wash-sale basis",
+              "sites": 0,
+              "tieOutText": "Reported subtotal: 0"
+            },
+            {
+              "heading": "Part I box A column (g): short-term wash-sale adjustment",
+              "sites": 0,
+              "tieOutText": "Reported subtotal: 0"
+            },
+            {
+              "heading": "Part II box D column (d): long-term wash-sale proceeds",
+              "sites": 0,
+              "tieOutText": "Reported subtotal: 0"
+            },
+            {
+              "heading": "Part II box D column (e): long-term wash-sale basis",
+              "sites": 0,
+              "tieOutText": "Reported subtotal: 0"
+            },
+            {
+              "heading": "Part II box D column (g): long-term wash-sale adjustment",
+              "sites": 0,
+              "tieOutText": "Reported subtotal: 0"
+            },
+            {
+              "heading": "Part I box B column (d): short-term basis-not-reported proceeds",
+              "sites": 0,
+              "tieOutText": "Reported subtotal: 0"
+            },
+            {
+              "heading": "Part I box B column (e): short-term basis the filer supplies",
+              "sites": 0,
+              "tieOutText": "Reported subtotal: 0"
+            },
+            {
+              "heading": "Part I box B column (g): short-term wash-sale adjustment",
+              "sites": 0,
+              "tieOutText": "Reported subtotal: 0"
+            },
+            {
+              "heading": "Part II box E column (d): long-term basis-not-reported proceeds",
+              "sites": 1,
+              "tieOutText": "Reported subtotal: 6000"
+            },
+            {
+              "heading": "Part II box E column (e): long-term basis the filer supplies",
+              "sites": 1,
+              "tieOutText": "Reported subtotal: 2000"
+            },
+            {
+              "heading": "Part II box E column (g): long-term wash-sale adjustment",
+              "sites": 0,
+              "tieOutText": "Reported subtotal: 0"
+            }
+          ]
+        }
+      ],
+      "lines": {
+        "tax.us.2025.form1040.line-15": {
+          "disposition": "published_value",
+          "value": 38250
+        },
+        "tax.us.2025.form1040.line-16": {
+          "disposition": "published_value",
+          "value": 3875
+        },
+        "tax.us.2025.form1040.line-7a": {
+          "disposition": "published_value",
+          "value": 4000
+        },
+        "tax.us.2025.schedule-d.line-15": {
+          "disposition": "published_value",
+          "value": 4000
+        },
+        "tax.us.2025.schedule-d.line-16": {
+          "disposition": "published_value",
+          "value": 4000
+        },
+        "tax.us.2025.schedule-d.line-1a": {
+          "disposition": "closure_backed_zero",
+          "value": 0
+        },
+        "tax.us.2025.schedule-d.line-2": {
+          "disposition": "closure_backed_zero",
+          "value": 0
+        },
+        "tax.us.2025.schedule-d.line-21": {
+          "disposition": "computed_zero",
+          "value": 0
+        },
+        "tax.us.2025.schedule-d.line-7": {
+          "disposition": "computed_zero",
+          "value": 0
+        },
+        "tax.us.2025.schedule-d.line-8a": {
+          "disposition": "closure_backed_zero",
+          "value": 0
+        },
+        "tax.us.2025.schedule-d.line-9": {
+          "disposition": "published_value",
+          "value": 4000
+        }
+      },
+      "money": {
+        "line15": {
+          "disposition": "published_value",
+          "value": 38250
+        },
+        "line16": {
+          "disposition": "published_value",
+          "value": 3875
+        },
+        "line1a": {
+          "disposition": "closure_backed_zero",
+          "value": 0
+        },
+        "line2": {
+          "disposition": "closure_backed_zero",
+          "value": 0
+        },
+        "line21": {
+          "disposition": "computed_zero",
+          "value": 0
+        },
+        "line7a": {
+          "disposition": "published_value",
+          "value": 4000
+        },
+        "line8a": {
+          "disposition": "closure_backed_zero",
+          "value": 0
+        },
+        "line9": {
+          "disposition": "published_value",
+          "value": 4000
+        }
+      },
+      "presentation_valid": true,
+      "seconds": 5.3,
+      "section_count": 75,
+      "stop_reason": "saturated"
+    },
+    "late_yes_stale": {
+      "attachments": [
+        {
+          "disposition": "blocked",
+          "id": "tax.us.2025.rule.attachment.f8949",
+          "value": null
+        },
+        {
+          "disposition": "guard_inapplicable",
+          "id": "tax.us.2025.rule.attachment.schedule-d",
+          "value": null
+        }
+      ],
+      "blocked": [
+        {
+          "artifact_id": "tax.us.2025.f1099b.noncovered-lt.member-validation.synthesized",
+          "code": "SOURCE_SET_UNCLOSED",
+          "missing": [
+            "tax.us.2025.f1099b.noncovered-lt"
+          ]
+        },
+        {
+          "artifact_id": "tax.us.2025.rule.attachment.f8949",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "tax.us.2025.f1099b.noncovered-lt-proceeds-subtotal"
+          ]
+        },
+        {
+          "artifact_id": "tax.us.2025.rule.form1040-line7a",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "tax.us.2025.schedule-d.line-16",
+            "tax.us.2025.schedule-d.line-21",
+            "tax.us.2025.capital-gains.selected-preferential-base",
+            "tax.us.2025.schedule-d.line-9"
+          ]
+        },
+        {
+          "artifact_id": "tax.us.2025.rule.schedule-d-line15",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "tax.us.2025.schedule-d.line-9"
+          ]
+        },
+        {
+          "artifact_id": "tax.us.2025.rule.schedule-d-line16",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "tax.us.2025.schedule-d.line-15"
+          ]
+        },
+        {
+          "artifact_id": "tax.us.2025.rule.schedule-d-line21",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "tax.us.2025.schedule-d.line-16"
+          ]
+        },
+        {
+          "artifact_id": "tax.us.2025.rule.selected-preferential-base",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "tax.us.2025.schedule-d.line-16",
+            "tax.us.2025.schedule-d.line-15",
+            "tax.us.2025.schedule-d.line-9"
+          ]
+        },
+        {
+          "artifact_id": "tax.us.2025.rule.f1099b-noncovered-lt-proceeds-subtotal",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "tax.us.2025.f1099b.noncovered-lt.member-validation"
+          ]
+        },
+        {
+          "artifact_id": "tax.us.2025.rule.f1099b-noncovered-lt-basis-subtotal",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "tax.us.2025.f1099b.noncovered-lt.member-validation"
+          ]
+        },
+        {
+          "artifact_id": "tax.us.2025.rule.f1099b-noncovered-lt-adjustment-subtotal",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "tax.us.2025.f1099b.noncovered-lt.member-validation"
+          ]
+        },
+        {
+          "artifact_id": "tax.us.2025.rule.schedule-d-line9",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "tax.us.2025.f1099b.noncovered-lt-proceeds-subtotal",
+            "tax.us.2025.f1099b.noncovered-lt-basis-subtotal",
+            "tax.us.2025.f1099b.noncovered-lt-adjustment-subtotal",
+            "tax.us.2025.f1099b.noncovered-lt.member-validation"
+          ]
+        }
+      ],
+      "lines": {
+        "tax.us.2025.form1040.line-15": {
+          "disposition": "blocked",
+          "value": null
+        },
+        "tax.us.2025.form1040.line-16": {
+          "disposition": "blocked",
+          "value": null
+        },
+        "tax.us.2025.form1040.line-7a": {
+          "disposition": "blocked",
+          "value": null
+        },
+        "tax.us.2025.schedule-d.line-15": {
+          "disposition": "blocked",
+          "value": null
+        },
+        "tax.us.2025.schedule-d.line-16": {
+          "disposition": "blocked",
+          "value": null
+        },
+        "tax.us.2025.schedule-d.line-1a": {
+          "disposition": "closure_backed_zero",
+          "value": 0
+        },
+        "tax.us.2025.schedule-d.line-2": {
+          "disposition": "closure_backed_zero",
+          "value": 0
+        },
+        "tax.us.2025.schedule-d.line-21": {
+          "disposition": "blocked",
+          "value": null
+        },
+        "tax.us.2025.schedule-d.line-7": {
+          "disposition": "computed_zero",
+          "value": 0
+        },
+        "tax.us.2025.schedule-d.line-8a": {
+          "disposition": "closure_backed_zero",
+          "value": 0
+        },
+        "tax.us.2025.schedule-d.line-9": {
+          "disposition": "blocked",
+          "value": null
+        }
+      },
+      "money": {
+        "line15": {
+          "disposition": "blocked",
+          "value": null
+        },
+        "line16": {
+          "disposition": "blocked",
+          "value": null
+        },
+        "line1a": {
+          "disposition": "closure_backed_zero",
+          "value": 0
+        },
+        "line2": {
+          "disposition": "closure_backed_zero",
+          "value": 0
+        },
+        "line21": {
+          "disposition": "blocked",
+          "value": null
+        },
+        "line7a": {
+          "disposition": "blocked",
+          "value": null
+        },
+        "line8a": {
+          "disposition": "closure_backed_zero",
+          "value": 0
+        },
+        "line9": {
+          "disposition": "blocked",
+          "value": null
+        }
+      },
+      "noncovered_blocked": [
+        "tax.us.2025.f1099b.noncovered-lt",
+        "tax.us.2025.f1099b.noncovered-lt-adjustment-subtotal",
+        "tax.us.2025.f1099b.noncovered-lt-basis-subtotal",
+        "tax.us.2025.f1099b.noncovered-lt-proceeds-subtotal",
+        "tax.us.2025.f1099b.noncovered-lt.member-validation"
+      ],
+      "page": [
+        {
+          "disposition": "blocked",
+          "id": "tax.us.2025.form1040.line-15",
+          "reasons": [
+            "Did you sell any securities whose basis was not reported to the IRS?"
+          ],
+          "value": null
+        },
+        {
+          "disposition": "blocked",
+          "id": "tax.us.2025.form1040.line-7a",
+          "reasons": [
+            "Did you sell any securities whose basis was not reported to the IRS?"
+          ],
+          "value": null
+        },
+        {
+          "disposition": "blocked",
+          "id": "tax.us.2025.schedule-d.line-15",
+          "reasons": [
+            "Did you sell any securities whose basis was not reported to the IRS?"
+          ],
+          "value": null
+        },
+        {
+          "disposition": "blocked",
+          "id": "tax.us.2025.schedule-d.line-21",
+          "reasons": [
+            "Did you sell any securities whose basis was not reported to the IRS?"
+          ],
+          "value": null
+        },
+        {
+          "disposition": "blocked",
+          "id": "tax.us.2025.schedule-d.line-9",
+          "reasons": [
+            "Did you sell any securities whose basis was not reported to the IRS?"
+          ],
+          "value": null
+        }
+      ],
+      "presentation_valid": true,
+      "seconds": 5.81,
+      "section_count": 75,
+      "stop_reason": "saturated"
+    },
+    "lt_gain": {
+      "attachments": [
+        {
+          "disposition": "published",
+          "id": "tax.us.2025.rule.attachment.f8949",
+          "value": null
+        },
+        {
+          "disposition": "guard_inapplicable",
+          "id": "tax.us.2025.rule.attachment.schedule-d",
+          "value": null
+        }
+      ],
+      "groups": [
+        {
+          "id": "tax.us.2025.rule.attachment.f8949",
+          "parts": [
+            {
+              "heading": "Part I box A column (d): short-term wash-sale proceeds",
+              "sites": 0,
+              "tieOutText": "Reported subtotal: 0"
+            },
+            {
+              "heading": "Part I box A column (e): short-term wash-sale basis",
+              "sites": 0,
+              "tieOutText": "Reported subtotal: 0"
+            },
+            {
+              "heading": "Part I box A column (g): short-term wash-sale adjustment",
+              "sites": 0,
+              "tieOutText": "Reported subtotal: 0"
+            },
+            {
+              "heading": "Part II box D column (d): long-term wash-sale proceeds",
+              "sites": 0,
+              "tieOutText": "Reported subtotal: 0"
+            },
+            {
+              "heading": "Part II box D column (e): long-term wash-sale basis",
+              "sites": 0,
+              "tieOutText": "Reported subtotal: 0"
+            },
+            {
+              "heading": "Part II box D column (g): long-term wash-sale adjustment",
+              "sites": 0,
+              "tieOutText": "Reported subtotal: 0"
+            },
+            {
+              "heading": "Part I box B column (d): short-term basis-not-reported proceeds",
+              "sites": 0,
+              "tieOutText": "Reported subtotal: 0"
+            },
+            {
+              "heading": "Part I box B column (e): short-term basis the filer supplies",
+              "sites": 0,
+              "tieOutText": "Reported subtotal: 0"
+            },
+            {
+              "heading": "Part I box B column (g): short-term wash-sale adjustment",
+              "sites": 0,
+              "tieOutText": "Reported subtotal: 0"
+            },
+            {
+              "heading": "Part II box E column (d): long-term basis-not-reported proceeds",
+              "sites": 1,
+              "tieOutText": "Reported subtotal: 6000"
+            },
+            {
+              "heading": "Part II box E column (e): long-term basis the filer supplies",
+              "sites": 1,
+              "tieOutText": "Reported subtotal: 2000"
+            },
+            {
+              "heading": "Part II box E column (g): long-term wash-sale adjustment",
+              "sites": 0,
+              "tieOutText": "Reported subtotal: 0"
+            }
+          ]
+        }
+      ],
+      "lines": {
+        "tax.us.2025.form1040.line-15": {
+          "disposition": "published_value",
+          "value": 38250
+        },
+        "tax.us.2025.form1040.line-16": {
+          "disposition": "published_value",
+          "value": 3875
+        },
+        "tax.us.2025.form1040.line-7a": {
+          "disposition": "published_value",
+          "value": 4000
+        },
+        "tax.us.2025.schedule-d.line-15": {
+          "disposition": "published_value",
+          "value": 4000
+        },
+        "tax.us.2025.schedule-d.line-16": {
+          "disposition": "published_value",
+          "value": 4000
+        },
+        "tax.us.2025.schedule-d.line-1a": {
+          "disposition": "closure_backed_zero",
+          "value": 0
+        },
+        "tax.us.2025.schedule-d.line-2": {
+          "disposition": "closure_backed_zero",
+          "value": 0
+        },
+        "tax.us.2025.schedule-d.line-21": {
+          "disposition": "computed_zero",
+          "value": 0
+        },
+        "tax.us.2025.schedule-d.line-7": {
+          "disposition": "computed_zero",
+          "value": 0
+        },
+        "tax.us.2025.schedule-d.line-8a": {
+          "disposition": "closure_backed_zero",
+          "value": 0
+        },
+        "tax.us.2025.schedule-d.line-9": {
+          "disposition": "published_value",
+          "value": 4000
+        }
+      },
+      "money": {
+        "line15": {
+          "disposition": "published_value",
+          "value": 38250
+        },
+        "line16": {
+          "disposition": "published_value",
+          "value": 3875
+        },
+        "line1a": {
+          "disposition": "closure_backed_zero",
+          "value": 0
+        },
+        "line2": {
+          "disposition": "closure_backed_zero",
+          "value": 0
+        },
+        "line21": {
+          "disposition": "computed_zero",
+          "value": 0
+        },
+        "line7a": {
+          "disposition": "published_value",
+          "value": 4000
+        },
+        "line8a": {
+          "disposition": "closure_backed_zero",
+          "value": 0
+        },
+        "line9": {
+          "disposition": "published_value",
+          "value": 4000
+        }
+      },
+      "presentation_valid": true,
+      "seconds": 5.36,
+      "section_count": 75,
+      "stop_reason": "saturated"
+    },
+    "one_exempt_dividend": {
+      "attachments": [
+        {
+          "disposition": "guard_inapplicable",
+          "id": "tax.us.2025.rule.attachment.f8949",
+          "value": null
+        },
+        {
+          "disposition": "guard_inapplicable",
+          "id": "tax.us.2025.rule.attachment.schedule-d",
+          "value": null
+        }
+      ],
+      "lines": {
+        "tax.us.2025.form1040.line-15": {
+          "disposition": "published_value",
+          "value": 34250
+        },
+        "tax.us.2025.form1040.line-16": {
+          "disposition": "published_value",
+          "value": 3875
+        },
+        "tax.us.2025.form1040.line-7a": {
+          "disposition": "computed_zero",
+          "value": 0
+        },
+        "tax.us.2025.schedule-d.line-15": {
+          "disposition": "computed_zero",
+          "value": 0
+        },
+        "tax.us.2025.schedule-d.line-16": {
+          "disposition": "computed_zero",
+          "value": 0
+        },
+        "tax.us.2025.schedule-d.line-1a": {
+          "disposition": "closure_backed_zero",
+          "value": 0
+        },
+        "tax.us.2025.schedule-d.line-2": {
+          "disposition": "closure_backed_zero",
+          "value": 0
+        },
+        "tax.us.2025.schedule-d.line-21": {
+          "disposition": "computed_zero",
+          "value": 0
+        },
+        "tax.us.2025.schedule-d.line-7": {
+          "disposition": "computed_zero",
+          "value": 0
+        },
+        "tax.us.2025.schedule-d.line-8a": {
+          "disposition": "closure_backed_zero",
+          "value": 0
+        },
+        "tax.us.2025.schedule-d.line-9": {
+          "disposition": "closure_backed_zero",
+          "value": 0
+        }
+      },
+      "money": {
+        "line15": {
+          "disposition": "published_value",
+          "value": 34250
+        },
+        "line16": {
+          "disposition": "published_value",
+          "value": 3875
+        },
+        "line1a": {
+          "disposition": "closure_backed_zero",
+          "value": 0
+        },
+        "line2": {
+          "disposition": "closure_backed_zero",
+          "value": 0
+        },
+        "line21": {
+          "disposition": "computed_zero",
+          "value": 0
+        },
+        "line7a": {
+          "disposition": "computed_zero",
+          "value": 0
+        },
+        "line8a": {
+          "disposition": "closure_backed_zero",
+          "value": 0
+        },
+        "line9": {
+          "disposition": "closure_backed_zero",
+          "value": 0
+        }
+      },
+      "presentation_valid": true,
+      "seconds": 5.15,
+      "section_count": 75,
+      "stop_reason": "saturated"
+    },
+    "one_exempt_interest": {
+      "attachments": [
+        {
+          "disposition": "guard_inapplicable",
+          "id": "tax.us.2025.rule.attachment.f8949",
+          "value": null
+        },
+        {
+          "disposition": "guard_inapplicable",
+          "id": "tax.us.2025.rule.attachment.schedule-d",
+          "value": null
+        }
+      ],
+      "lines": {
+        "tax.us.2025.form1040.line-15": {
+          "disposition": "published_value",
+          "value": 34250
+        },
+        "tax.us.2025.form1040.line-16": {
+          "disposition": "published_value",
+          "value": 3875
+        },
+        "tax.us.2025.form1040.line-7a": {
+          "disposition": "computed_zero",
+          "value": 0
+        },
+        "tax.us.2025.schedule-d.line-15": {
+          "disposition": "computed_zero",
+          "value": 0
+        },
+        "tax.us.2025.schedule-d.line-16": {
+          "disposition": "computed_zero",
+          "value": 0
+        },
+        "tax.us.2025.schedule-d.line-1a": {
+          "disposition": "closure_backed_zero",
+          "value": 0
+        },
+        "tax.us.2025.schedule-d.line-2": {
+          "disposition": "closure_backed_zero",
+          "value": 0
+        },
+        "tax.us.2025.schedule-d.line-21": {
+          "disposition": "computed_zero",
+          "value": 0
+        },
+        "tax.us.2025.schedule-d.line-7": {
+          "disposition": "computed_zero",
+          "value": 0
+        },
+        "tax.us.2025.schedule-d.line-8a": {
+          "disposition": "closure_backed_zero",
+          "value": 0
+        },
+        "tax.us.2025.schedule-d.line-9": {
+          "disposition": "closure_backed_zero",
+          "value": 0
+        }
+      },
+      "money": {
+        "line15": {
+          "disposition": "published_value",
+          "value": 34250
+        },
+        "line16": {
+          "disposition": "published_value",
+          "value": 3875
+        },
+        "line1a": {
+          "disposition": "closure_backed_zero",
+          "value": 0
+        },
+        "line2": {
+          "disposition": "closure_backed_zero",
+          "value": 0
+        },
+        "line21": {
+          "disposition": "computed_zero",
+          "value": 0
+        },
+        "line7a": {
+          "disposition": "computed_zero",
+          "value": 0
+        },
+        "line8a": {
+          "disposition": "closure_backed_zero",
+          "value": 0
+        },
+        "line9": {
+          "disposition": "closure_backed_zero",
+          "value": 0
+        }
+      },
+      "presentation_valid": true,
+      "seconds": 5.13,
+      "section_count": 75,
+      "stop_reason": "saturated"
+    },
+    "one_finding": {
+      "attachments": [
+        {
+          "disposition": "guard_inapplicable",
+          "id": "tax.us.2025.rule.attachment.f8949",
+          "value": null
+        },
+        {
+          "disposition": "guard_inapplicable",
+          "id": "tax.us.2025.rule.attachment.schedule-d",
+          "value": null
+        }
+      ],
+      "lines": {
+        "tax.us.2025.form1040.line-15": {
+          "disposition": "published_value",
+          "value": 34250
+        },
+        "tax.us.2025.form1040.line-16": {
+          "disposition": "published_value",
+          "value": 3875
+        },
+        "tax.us.2025.form1040.line-7a": {
+          "disposition": "computed_zero",
+          "value": 0
+        },
+        "tax.us.2025.schedule-d.line-15": {
+          "disposition": "computed_zero",
+          "value": 0
+        },
+        "tax.us.2025.schedule-d.line-16": {
+          "disposition": "computed_zero",
+          "value": 0
+        },
+        "tax.us.2025.schedule-d.line-1a": {
+          "disposition": "closure_backed_zero",
+          "value": 0
+        },
+        "tax.us.2025.schedule-d.line-2": {
+          "disposition": "closure_backed_zero",
+          "value": 0
+        },
+        "tax.us.2025.schedule-d.line-21": {
+          "disposition": "computed_zero",
+          "value": 0
+        },
+        "tax.us.2025.schedule-d.line-7": {
+          "disposition": "computed_zero",
+          "value": 0
+        },
+        "tax.us.2025.schedule-d.line-8a": {
+          "disposition": "closure_backed_zero",
+          "value": 0
+        },
+        "tax.us.2025.schedule-d.line-9": {
+          "disposition": "closure_backed_zero",
+          "value": 0
+        }
+      },
+      "money": {
+        "line15": {
+          "disposition": "published_value",
+          "value": 34250
+        },
+        "line16": {
+          "disposition": "published_value",
+          "value": 3875
+        },
+        "line1a": {
+          "disposition": "closure_backed_zero",
+          "value": 0
+        },
+        "line2": {
+          "disposition": "closure_backed_zero",
+          "value": 0
+        },
+        "line21": {
+          "disposition": "computed_zero",
+          "value": 0
+        },
+        "line7a": {
+          "disposition": "computed_zero",
+          "value": 0
+        },
+        "line8a": {
+          "disposition": "closure_backed_zero",
+          "value": 0
+        },
+        "line9": {
+          "disposition": "closure_backed_zero",
+          "value": 0
+        }
+      },
+      "presentation_valid": true,
+      "seconds": 5.13,
+      "section_count": 75,
+      "stop_reason": "saturated"
+    },
+    "one_foreign_tax": {
+      "attachments": [
+        {
+          "disposition": "guard_inapplicable",
+          "id": "tax.us.2025.rule.attachment.f8949",
+          "value": null
+        },
+        {
+          "disposition": "guard_inapplicable",
+          "id": "tax.us.2025.rule.attachment.schedule-d",
+          "value": null
+        }
+      ],
+      "lines": {
+        "tax.us.2025.form1040.line-15": {
+          "disposition": "published_value",
+          "value": 34350
+        },
+        "tax.us.2025.form1040.line-16": {
+          "disposition": "published_value",
+          "value": 3887
+        },
+        "tax.us.2025.form1040.line-7a": {
+          "disposition": "computed_zero",
+          "value": 0
+        },
+        "tax.us.2025.schedule-d.line-15": {
+          "disposition": "computed_zero",
+          "value": 0
+        },
+        "tax.us.2025.schedule-d.line-16": {
+          "disposition": "computed_zero",
+          "value": 0
+        },
+        "tax.us.2025.schedule-d.line-1a": {
+          "disposition": "closure_backed_zero",
+          "value": 0
+        },
+        "tax.us.2025.schedule-d.line-2": {
+          "disposition": "closure_backed_zero",
+          "value": 0
+        },
+        "tax.us.2025.schedule-d.line-21": {
+          "disposition": "computed_zero",
+          "value": 0
+        },
+        "tax.us.2025.schedule-d.line-7": {
+          "disposition": "computed_zero",
+          "value": 0
+        },
+        "tax.us.2025.schedule-d.line-8a": {
+          "disposition": "closure_backed_zero",
+          "value": 0
+        },
+        "tax.us.2025.schedule-d.line-9": {
+          "disposition": "closure_backed_zero",
+          "value": 0
+        }
+      },
+      "money": {
+        "line15": {
+          "disposition": "published_value",
+          "value": 34350
+        },
+        "line16": {
+          "disposition": "published_value",
+          "value": 3887
+        },
+        "line1a": {
+          "disposition": "closure_backed_zero",
+          "value": 0
+        },
+        "line2": {
+          "disposition": "closure_backed_zero",
+          "value": 0
+        },
+        "line21": {
+          "disposition": "computed_zero",
+          "value": 0
+        },
+        "line7a": {
+          "disposition": "computed_zero",
+          "value": 0
+        },
+        "line8a": {
+          "disposition": "closure_backed_zero",
+          "value": 0
+        },
+        "line9": {
+          "disposition": "closure_backed_zero",
+          "value": 0
+        }
+      },
+      "presentation_valid": true,
+      "seconds": 5.08,
+      "section_count": 75,
+      "stop_reason": "saturated"
+    },
+    "one_gambling_loss": {
+      "attachments": [
+        {
+          "disposition": "guard_inapplicable",
+          "id": "tax.us.2025.rule.attachment.f8949",
+          "value": null
+        },
+        {
+          "disposition": "guard_inapplicable",
+          "id": "tax.us.2025.rule.attachment.schedule-d",
+          "value": null
+        }
+      ],
+      "lines": {
+        "tax.us.2025.form1040.line-15": {
+          "disposition": "published_value",
+          "value": 34250
+        },
+        "tax.us.2025.form1040.line-16": {
+          "disposition": "published_value",
+          "value": 3875
+        },
+        "tax.us.2025.form1040.line-7a": {
+          "disposition": "computed_zero",
+          "value": 0
+        },
+        "tax.us.2025.schedule-d.line-15": {
+          "disposition": "computed_zero",
+          "value": 0
+        },
+        "tax.us.2025.schedule-d.line-16": {
+          "disposition": "computed_zero",
+          "value": 0
+        },
+        "tax.us.2025.schedule-d.line-1a": {
+          "disposition": "closure_backed_zero",
+          "value": 0
+        },
+        "tax.us.2025.schedule-d.line-2": {
+          "disposition": "closure_backed_zero",
+          "value": 0
+        },
+        "tax.us.2025.schedule-d.line-21": {
+          "disposition": "computed_zero",
+          "value": 0
+        },
+        "tax.us.2025.schedule-d.line-7": {
+          "disposition": "computed_zero",
+          "value": 0
+        },
+        "tax.us.2025.schedule-d.line-8a": {
+          "disposition": "closure_backed_zero",
+          "value": 0
+        },
+        "tax.us.2025.schedule-d.line-9": {
+          "disposition": "closure_backed_zero",
+          "value": 0
+        }
+      },
+      "money": {
+        "line15": {
+          "disposition": "published_value",
+          "value": 34250
+        },
+        "line16": {
+          "disposition": "published_value",
+          "value": 3875
+        },
+        "line1a": {
+          "disposition": "closure_backed_zero",
+          "value": 0
+        },
+        "line2": {
+          "disposition": "closure_backed_zero",
+          "value": 0
+        },
+        "line21": {
+          "disposition": "computed_zero",
+          "value": 0
+        },
+        "line7a": {
+          "disposition": "computed_zero",
+          "value": 0
+        },
+        "line8a": {
+          "disposition": "closure_backed_zero",
+          "value": 0
+        },
+        "line9": {
+          "disposition": "closure_backed_zero",
+          "value": 0
+        }
+      },
+      "presentation_valid": true,
+      "seconds": 5.17,
+      "section_count": 75,
+      "stop_reason": "saturated"
+    },
+    "one_itemized": {
+      "attachments": [
+        {
+          "disposition": "guard_inapplicable",
+          "id": "tax.us.2025.rule.attachment.f8949",
+          "value": null
+        },
+        {
+          "disposition": "guard_inapplicable",
+          "id": "tax.us.2025.rule.attachment.schedule-d",
+          "value": null
+        }
+      ],
+      "lines": {
+        "tax.us.2025.form1040.line-15": {
+          "disposition": "published_value",
+          "value": 34250
+        },
+        "tax.us.2025.form1040.line-16": {
+          "disposition": "published_value",
+          "value": 3875
+        },
+        "tax.us.2025.form1040.line-7a": {
+          "disposition": "computed_zero",
+          "value": 0
+        },
+        "tax.us.2025.schedule-d.line-15": {
+          "disposition": "computed_zero",
+          "value": 0
+        },
+        "tax.us.2025.schedule-d.line-16": {
+          "disposition": "computed_zero",
+          "value": 0
+        },
+        "tax.us.2025.schedule-d.line-1a": {
+          "disposition": "closure_backed_zero",
+          "value": 0
+        },
+        "tax.us.2025.schedule-d.line-2": {
+          "disposition": "closure_backed_zero",
+          "value": 0
+        },
+        "tax.us.2025.schedule-d.line-21": {
+          "disposition": "computed_zero",
+          "value": 0
+        },
+        "tax.us.2025.schedule-d.line-7": {
+          "disposition": "computed_zero",
+          "value": 0
+        },
+        "tax.us.2025.schedule-d.line-8a": {
+          "disposition": "closure_backed_zero",
+          "value": 0
+        },
+        "tax.us.2025.schedule-d.line-9": {
+          "disposition": "closure_backed_zero",
+          "value": 0
+        }
+      },
+      "money": {
+        "line15": {
+          "disposition": "published_value",
+          "value": 34250
+        },
+        "line16": {
+          "disposition": "published_value",
+          "value": 3875
+        },
+        "line1a": {
+          "disposition": "closure_backed_zero",
+          "value": 0
+        },
+        "line2": {
+          "disposition": "closure_backed_zero",
+          "value": 0
+        },
+        "line21": {
+          "disposition": "computed_zero",
+          "value": 0
+        },
+        "line7a": {
+          "disposition": "computed_zero",
+          "value": 0
+        },
+        "line8a": {
+          "disposition": "closure_backed_zero",
+          "value": 0
+        },
+        "line9": {
+          "disposition": "closure_backed_zero",
+          "value": 0
+        }
+      },
+      "presentation_valid": true,
+      "seconds": 5.1,
+      "section_count": 75,
+      "stop_reason": "saturated"
+    },
+    "one_mortgage": {
+      "attachments": [
+        {
+          "disposition": "guard_inapplicable",
+          "id": "tax.us.2025.rule.attachment.f8949",
+          "value": null
+        },
+        {
+          "disposition": "guard_inapplicable",
+          "id": "tax.us.2025.rule.attachment.schedule-d",
+          "value": null
+        }
+      ],
+      "lines": {
+        "tax.us.2025.form1040.line-15": {
+          "disposition": "published_value",
+          "value": 34250
+        },
+        "tax.us.2025.form1040.line-16": {
+          "disposition": "published_value",
+          "value": 3875
+        },
+        "tax.us.2025.form1040.line-7a": {
+          "disposition": "computed_zero",
+          "value": 0
+        },
+        "tax.us.2025.schedule-d.line-15": {
+          "disposition": "computed_zero",
+          "value": 0
+        },
+        "tax.us.2025.schedule-d.line-16": {
+          "disposition": "computed_zero",
+          "value": 0
+        },
+        "tax.us.2025.schedule-d.line-1a": {
+          "disposition": "closure_backed_zero",
+          "value": 0
+        },
+        "tax.us.2025.schedule-d.line-2": {
+          "disposition": "closure_backed_zero",
+          "value": 0
+        },
+        "tax.us.2025.schedule-d.line-21": {
+          "disposition": "computed_zero",
+          "value": 0
+        },
+        "tax.us.2025.schedule-d.line-7": {
+          "disposition": "computed_zero",
+          "value": 0
+        },
+        "tax.us.2025.schedule-d.line-8a": {
+          "disposition": "closure_backed_zero",
+          "value": 0
+        },
+        "tax.us.2025.schedule-d.line-9": {
+          "disposition": "closure_backed_zero",
+          "value": 0
+        }
+      },
+      "money": {
+        "line15": {
+          "disposition": "published_value",
+          "value": 34250
+        },
+        "line16": {
+          "disposition": "published_value",
+          "value": 3875
+        },
+        "line1a": {
+          "disposition": "closure_backed_zero",
+          "value": 0
+        },
+        "line2": {
+          "disposition": "closure_backed_zero",
+          "value": 0
+        },
+        "line21": {
+          "disposition": "computed_zero",
+          "value": 0
+        },
+        "line7a": {
+          "disposition": "computed_zero",
+          "value": 0
+        },
+        "line8a": {
+          "disposition": "closure_backed_zero",
+          "value": 0
+        },
+        "line9": {
+          "disposition": "closure_backed_zero",
+          "value": 0
+        }
+      },
+      "presentation_valid": true,
+      "seconds": 5.36,
+      "section_count": 75,
+      "stop_reason": "saturated"
+    },
+    "one_part_ii_b": {
+      "attachments": [
+        {
+          "disposition": "guard_inapplicable",
+          "id": "tax.us.2025.rule.attachment.f8949",
+          "value": null
+        },
+        {
+          "disposition": "guard_inapplicable",
+          "id": "tax.us.2025.rule.attachment.schedule-d",
+          "value": null
+        }
+      ],
+      "lines": {
+        "tax.us.2025.form1040.line-15": {
+          "disposition": "computed_zero",
+          "value": 0
+        },
+        "tax.us.2025.form1040.line-16": {
+          "disposition": "computed_zero",
+          "value": 0
+        },
+        "tax.us.2025.form1040.line-7a": {
+          "disposition": "computed_zero",
+          "value": 0
+        },
+        "tax.us.2025.schedule-d.line-15": {
+          "disposition": "computed_zero",
+          "value": 0
+        },
+        "tax.us.2025.schedule-d.line-16": {
+          "disposition": "computed_zero",
+          "value": 0
+        },
+        "tax.us.2025.schedule-d.line-1a": {
+          "disposition": "closure_backed_zero",
+          "value": 0
+        },
+        "tax.us.2025.schedule-d.line-2": {
+          "disposition": "closure_backed_zero",
+          "value": 0
+        },
+        "tax.us.2025.schedule-d.line-21": {
+          "disposition": "computed_zero",
+          "value": 0
+        },
+        "tax.us.2025.schedule-d.line-7": {
+          "disposition": "computed_zero",
+          "value": 0
+        },
+        "tax.us.2025.schedule-d.line-8a": {
+          "disposition": "closure_backed_zero",
+          "value": 0
+        },
+        "tax.us.2025.schedule-d.line-9": {
+          "disposition": "closure_backed_zero",
+          "value": 0
+        }
+      },
+      "money": {
+        "line15": {
+          "disposition": "computed_zero",
+          "value": 0
+        },
+        "line16": {
+          "disposition": "computed_zero",
+          "value": 0
+        },
+        "line1a": {
+          "disposition": "closure_backed_zero",
+          "value": 0
+        },
+        "line2": {
+          "disposition": "closure_backed_zero",
+          "value": 0
+        },
+        "line21": {
+          "disposition": "computed_zero",
+          "value": 0
+        },
+        "line7a": {
+          "disposition": "computed_zero",
+          "value": 0
+        },
+        "line8a": {
+          "disposition": "closure_backed_zero",
+          "value": 0
+        },
+        "line9": {
+          "disposition": "closure_backed_zero",
+          "value": 0
+        }
+      },
+      "presentation_valid": true,
+      "seconds": 5.61,
+      "section_count": 75,
+      "stop_reason": "saturated"
+    },
+    "one_student_loan": {
+      "attachments": [
+        {
+          "disposition": "guard_inapplicable",
+          "id": "tax.us.2025.rule.attachment.f8949",
+          "value": null
+        },
+        {
+          "disposition": "guard_inapplicable",
+          "id": "tax.us.2025.rule.attachment.schedule-d",
+          "value": null
+        }
+      ],
+      "lines": {
+        "tax.us.2025.form1040.line-15": {
+          "disposition": "published_value",
+          "value": 34050
+        },
+        "tax.us.2025.form1040.line-16": {
+          "disposition": "published_value",
+          "value": 3851
+        },
+        "tax.us.2025.form1040.line-7a": {
+          "disposition": "computed_zero",
+          "value": 0
+        },
+        "tax.us.2025.schedule-d.line-15": {
+          "disposition": "computed_zero",
+          "value": 0
+        },
+        "tax.us.2025.schedule-d.line-16": {
+          "disposition": "computed_zero",
+          "value": 0
+        },
+        "tax.us.2025.schedule-d.line-1a": {
+          "disposition": "closure_backed_zero",
+          "value": 0
+        },
+        "tax.us.2025.schedule-d.line-2": {
+          "disposition": "closure_backed_zero",
+          "value": 0
+        },
+        "tax.us.2025.schedule-d.line-21": {
+          "disposition": "computed_zero",
+          "value": 0
+        },
+        "tax.us.2025.schedule-d.line-7": {
+          "disposition": "computed_zero",
+          "value": 0
+        },
+        "tax.us.2025.schedule-d.line-8a": {
+          "disposition": "closure_backed_zero",
+          "value": 0
+        },
+        "tax.us.2025.schedule-d.line-9": {
+          "disposition": "closure_backed_zero",
+          "value": 0
+        }
+      },
+      "money": {
+        "line15": {
+          "disposition": "published_value",
+          "value": 34050
+        },
+        "line16": {
+          "disposition": "published_value",
+          "value": 3851
+        },
+        "line1a": {
+          "disposition": "closure_backed_zero",
+          "value": 0
+        },
+        "line2": {
+          "disposition": "closure_backed_zero",
+          "value": 0
+        },
+        "line21": {
+          "disposition": "computed_zero",
+          "value": 0
+        },
+        "line7a": {
+          "disposition": "computed_zero",
+          "value": 0
+        },
+        "line8a": {
+          "disposition": "closure_backed_zero",
+          "value": 0
+        },
+        "line9": {
+          "disposition": "closure_backed_zero",
+          "value": 0
+        }
+      },
+      "presentation_valid": true,
+      "seconds": 5.3,
+      "section_count": 75,
+      "stop_reason": "saturated"
+    },
+    "one_wage": {
+      "attachments": [
+        {
+          "disposition": "guard_inapplicable",
+          "id": "tax.us.2025.rule.attachment.f8949",
+          "value": null
+        },
+        {
+          "disposition": "guard_inapplicable",
+          "id": "tax.us.2025.rule.attachment.schedule-d",
+          "value": null
+        }
+      ],
+      "lines": {
+        "tax.us.2025.form1040.line-15": {
+          "disposition": "published_value",
+          "value": 34250
+        },
+        "tax.us.2025.form1040.line-16": {
+          "disposition": "published_value",
+          "value": 3875
+        },
+        "tax.us.2025.form1040.line-7a": {
+          "disposition": "computed_zero",
+          "value": 0
+        },
+        "tax.us.2025.schedule-d.line-15": {
+          "disposition": "computed_zero",
+          "value": 0
+        },
+        "tax.us.2025.schedule-d.line-16": {
+          "disposition": "computed_zero",
+          "value": 0
+        },
+        "tax.us.2025.schedule-d.line-1a": {
+          "disposition": "closure_backed_zero",
+          "value": 0
+        },
+        "tax.us.2025.schedule-d.line-2": {
+          "disposition": "closure_backed_zero",
+          "value": 0
+        },
+        "tax.us.2025.schedule-d.line-21": {
+          "disposition": "computed_zero",
+          "value": 0
+        },
+        "tax.us.2025.schedule-d.line-7": {
+          "disposition": "computed_zero",
+          "value": 0
+        },
+        "tax.us.2025.schedule-d.line-8a": {
+          "disposition": "closure_backed_zero",
+          "value": 0
+        },
+        "tax.us.2025.schedule-d.line-9": {
+          "disposition": "closure_backed_zero",
+          "value": 0
+        }
+      },
+      "money": {
+        "line15": {
+          "disposition": "published_value",
+          "value": 34250
+        },
+        "line16": {
+          "disposition": "published_value",
+          "value": 3875
+        },
+        "line1a": {
+          "disposition": "closure_backed_zero",
+          "value": 0
+        },
+        "line2": {
+          "disposition": "closure_backed_zero",
+          "value": 0
+        },
+        "line21": {
+          "disposition": "computed_zero",
+          "value": 0
+        },
+        "line7a": {
+          "disposition": "computed_zero",
+          "value": 0
+        },
+        "line8a": {
+          "disposition": "closure_backed_zero",
+          "value": 0
+        },
+        "line9": {
+          "disposition": "closure_backed_zero",
+          "value": 0
+        }
+      },
+      "presentation_valid": true,
+      "seconds": 5.24,
+      "section_count": 75,
+      "stop_reason": "saturated"
+    },
+    "st_loss": {
+      "attachments": [
+        {
+          "disposition": "published",
+          "id": "tax.us.2025.rule.attachment.f8949",
+          "value": null
+        },
+        {
+          "disposition": "guard_inapplicable",
+          "id": "tax.us.2025.rule.attachment.schedule-d",
+          "value": null
+        }
+      ],
+      "groups": [
+        {
+          "id": "tax.us.2025.rule.attachment.f8949",
+          "parts": [
+            {
+              "heading": "Part I box A column (d): short-term wash-sale proceeds",
+              "sites": 0,
+              "tieOutText": "Reported subtotal: 0"
+            },
+            {
+              "heading": "Part I box A column (e): short-term wash-sale basis",
+              "sites": 0,
+              "tieOutText": "Reported subtotal: 0"
+            },
+            {
+              "heading": "Part I box A column (g): short-term wash-sale adjustment",
+              "sites": 0,
+              "tieOutText": "Reported subtotal: 0"
+            },
+            {
+              "heading": "Part II box D column (d): long-term wash-sale proceeds",
+              "sites": 0,
+              "tieOutText": "Reported subtotal: 0"
+            },
+            {
+              "heading": "Part II box D column (e): long-term wash-sale basis",
+              "sites": 0,
+              "tieOutText": "Reported subtotal: 0"
+            },
+            {
+              "heading": "Part II box D column (g): long-term wash-sale adjustment",
+              "sites": 0,
+              "tieOutText": "Reported subtotal: 0"
+            },
+            {
+              "heading": "Part I box B column (d): short-term basis-not-reported proceeds",
+              "sites": 1,
+              "tieOutText": "Reported subtotal: 2000"
+            },
+            {
+              "heading": "Part I box B column (e): short-term basis the filer supplies",
+              "sites": 1,
+              "tieOutText": "Reported subtotal: 8000"
+            },
+            {
+              "heading": "Part I box B column (g): short-term wash-sale adjustment",
+              "sites": 0,
+              "tieOutText": "Reported subtotal: 0"
+            },
+            {
+              "heading": "Part II box E column (d): long-term basis-not-reported proceeds",
+              "sites": 0,
+              "tieOutText": "Reported subtotal: 0"
+            },
+            {
+              "heading": "Part II box E column (e): long-term basis the filer supplies",
+              "sites": 0,
+              "tieOutText": "Reported subtotal: 0"
+            },
+            {
+              "heading": "Part II box E column (g): long-term wash-sale adjustment",
+              "sites": 0,
+              "tieOutText": "Reported subtotal: 0"
+            }
+          ]
+        }
+      ],
+      "lines": {
+        "tax.us.2025.form1040.line-15": {
+          "disposition": "published_value",
+          "value": 31250
+        },
+        "tax.us.2025.form1040.line-16": {
+          "disposition": "published_value",
+          "value": 3515
+        },
+        "tax.us.2025.form1040.line-7a": {
+          "disposition": "published_value",
+          "value": -3000
+        },
+        "tax.us.2025.schedule-d.line-15": {
+          "disposition": "computed_zero",
+          "value": 0
+        },
+        "tax.us.2025.schedule-d.line-16": {
+          "disposition": "published_value",
+          "value": -6000
+        },
+        "tax.us.2025.schedule-d.line-1a": {
+          "disposition": "closure_backed_zero",
+          "value": 0
+        },
+        "tax.us.2025.schedule-d.line-2": {
+          "disposition": "published_value",
+          "value": -6000
+        },
+        "tax.us.2025.schedule-d.line-21": {
+          "disposition": "published_value",
+          "value": 3000
+        },
+        "tax.us.2025.schedule-d.line-7": {
+          "disposition": "published_value",
+          "value": -6000
+        },
+        "tax.us.2025.schedule-d.line-8a": {
+          "disposition": "closure_backed_zero",
+          "value": 0
+        },
+        "tax.us.2025.schedule-d.line-9": {
+          "disposition": "closure_backed_zero",
+          "value": 0
+        }
+      },
+      "money": {
+        "line15": {
+          "disposition": "published_value",
+          "value": 31250
+        },
+        "line16": {
+          "disposition": "published_value",
+          "value": 3515
+        },
+        "line1a": {
+          "disposition": "closure_backed_zero",
+          "value": 0
+        },
+        "line2": {
+          "disposition": "published_value",
+          "value": -6000
+        },
+        "line21": {
+          "disposition": "published_value",
+          "value": 3000
+        },
+        "line7a": {
+          "disposition": "published_value",
+          "value": -3000
+        },
+        "line8a": {
+          "disposition": "closure_backed_zero",
+          "value": 0
+        },
+        "line9": {
+          "disposition": "closure_backed_zero",
+          "value": 0
+        }
+      },
+      "presentation_valid": true,
+      "seconds": 5.28,
+      "section_count": 75,
+      "stop_reason": "saturated"
+    },
+    "wage_unclosed": {
+      "attachments": [
+        {
+          "disposition": "blocked",
+          "id": "tax.us.2025.rule.attachment.f8949",
+          "value": null
+        },
+        {
+          "disposition": "guard_inapplicable",
+          "id": "tax.us.2025.rule.attachment.schedule-d",
+          "value": null
+        }
+      ],
+      "blocked": [
+        {
+          "artifact_id": "tax.us.2025.f1099b.noncovered-lt.member-validation.synthesized",
+          "code": "SOURCE_SET_UNCLOSED",
+          "missing": [
+            "tax.us.2025.f1099b.noncovered-lt"
+          ]
+        },
+        {
+          "artifact_id": "tax.us.2025.f1099b.noncovered-st.member-validation.synthesized",
+          "code": "SOURCE_SET_UNCLOSED",
+          "missing": [
+            "tax.us.2025.f1099b.noncovered-st"
+          ]
+        },
+        {
+          "artifact_id": "tax.us.2025.rule.attachment.f8949",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "tax.us.2025.f1099b.noncovered-st-proceeds-subtotal",
+            "tax.us.2025.f1099b.noncovered-lt-proceeds-subtotal"
+          ]
+        },
+        {
+          "artifact_id": "tax.us.2025.rule.form1040-line7a",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "tax.us.2025.schedule-d.line-16",
+            "tax.us.2025.schedule-d.line-21",
+            "tax.us.2025.capital-gains.selected-preferential-base",
+            "tax.us.2025.schedule-d.line-2",
+            "tax.us.2025.schedule-d.line-9"
+          ]
+        },
+        {
+          "artifact_id": "tax.us.2025.rule.schedule-d-line15",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "tax.us.2025.schedule-d.line-9"
+          ]
+        },
+        {
+          "artifact_id": "tax.us.2025.rule.schedule-d-line16",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "tax.us.2025.schedule-d.line-7",
+            "tax.us.2025.schedule-d.line-15"
+          ]
+        },
+        {
+          "artifact_id": "tax.us.2025.rule.schedule-d-line21",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "tax.us.2025.schedule-d.line-16"
+          ]
+        },
+        {
+          "artifact_id": "tax.us.2025.rule.schedule-d-line7",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "tax.us.2025.schedule-d.line-2"
+          ]
+        },
+        {
+          "artifact_id": "tax.us.2025.rule.selected-preferential-base",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "tax.us.2025.schedule-d.line-16",
+            "tax.us.2025.schedule-d.line-15",
+            "tax.us.2025.schedule-d.line-2",
+            "tax.us.2025.schedule-d.line-9"
+          ]
+        },
+        {
+          "artifact_id": "tax.us.2025.rule.f1099b-noncovered-st-proceeds-subtotal",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "tax.us.2025.f1099b.noncovered-st.member-validation"
+          ]
+        },
+        {
+          "artifact_id": "tax.us.2025.rule.f1099b-noncovered-st-basis-subtotal",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "tax.us.2025.f1099b.noncovered-st.member-validation"
+          ]
+        },
+        {
+          "artifact_id": "tax.us.2025.rule.f1099b-noncovered-st-adjustment-subtotal",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "tax.us.2025.f1099b.noncovered-st.member-validation"
+          ]
+        },
+        {
+          "artifact_id": "tax.us.2025.rule.f1099b-noncovered-lt-proceeds-subtotal",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "tax.us.2025.f1099b.noncovered-lt.member-validation"
+          ]
+        },
+        {
+          "artifact_id": "tax.us.2025.rule.f1099b-noncovered-lt-basis-subtotal",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "tax.us.2025.f1099b.noncovered-lt.member-validation"
+          ]
+        },
+        {
+          "artifact_id": "tax.us.2025.rule.f1099b-noncovered-lt-adjustment-subtotal",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "tax.us.2025.f1099b.noncovered-lt.member-validation"
+          ]
+        },
+        {
+          "artifact_id": "tax.us.2025.rule.schedule-d-line2",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "tax.us.2025.f1099b.noncovered-st-proceeds-subtotal",
+            "tax.us.2025.f1099b.noncovered-st-basis-subtotal",
+            "tax.us.2025.f1099b.noncovered-st-adjustment-subtotal",
+            "tax.us.2025.f1099b.noncovered-st.member-validation"
+          ]
+        }
+      ],
+      "lines": {
+        "tax.us.2025.form1040.line-15": {
+          "disposition": "blocked",
+          "value": null
+        },
+        "tax.us.2025.form1040.line-16": {
+          "disposition": "blocked",
+          "value": null
+        },
+        "tax.us.2025.form1040.line-7a": {
+          "disposition": "blocked",
+          "value": null
+        },
+        "tax.us.2025.schedule-d.line-15": {
+          "disposition": "blocked",
+          "value": null
+        },
+        "tax.us.2025.schedule-d.line-16": {
+          "disposition": "blocked",
+          "value": null
+        },
+        "tax.us.2025.schedule-d.line-1a": {
+          "disposition": "closure_backed_zero",
+          "value": 0
+        },
+        "tax.us.2025.schedule-d.line-2": {
+          "disposition": "blocked",
+          "value": null
+        },
+        "tax.us.2025.schedule-d.line-21": {
+          "disposition": "blocked",
+          "value": null
+        },
+        "tax.us.2025.schedule-d.line-7": {
+          "disposition": "blocked",
+          "value": null
+        },
+        "tax.us.2025.schedule-d.line-8a": {
+          "disposition": "closure_backed_zero",
+          "value": 0
+        },
+        "tax.us.2025.schedule-d.line-9": {
+          "disposition": "blocked",
+          "value": null
+        }
+      },
+      "money": {
+        "line15": {
+          "disposition": "blocked",
+          "value": null
+        },
+        "line16": {
+          "disposition": "blocked",
+          "value": null
+        },
+        "line1a": {
+          "disposition": "closure_backed_zero",
+          "value": 0
+        },
+        "line2": {
+          "disposition": "blocked",
+          "value": null
+        },
+        "line21": {
+          "disposition": "blocked",
+          "value": null
+        },
+        "line7a": {
+          "disposition": "blocked",
+          "value": null
+        },
+        "line8a": {
+          "disposition": "closure_backed_zero",
+          "value": 0
+        },
+        "line9": {
+          "disposition": "blocked",
+          "value": null
+        }
+      },
+      "noncovered_blocked": [
+        "tax.us.2025.f1099b.noncovered-lt",
+        "tax.us.2025.f1099b.noncovered-lt-proceeds-subtotal",
+        "tax.us.2025.f1099b.noncovered-lt.member-validation",
+        "tax.us.2025.f1099b.noncovered-st",
+        "tax.us.2025.f1099b.noncovered-st-adjustment-subtotal",
+        "tax.us.2025.f1099b.noncovered-st-basis-subtotal",
+        "tax.us.2025.f1099b.noncovered-st-proceeds-subtotal",
+        "tax.us.2025.f1099b.noncovered-st.member-validation"
+      ],
+      "page": [
+        {
+          "disposition": "blocked",
+          "id": "tax.us.2025.form1040.line-15",
+          "reasons": [
+            "Did you sell any securities whose basis was not reported to the IRS?"
+          ],
+          "value": null
+        },
+        {
+          "disposition": "blocked",
+          "id": "tax.us.2025.form1040.line-7a",
+          "reasons": [
+            "Did you sell any securities whose basis was not reported to the IRS?"
+          ],
+          "value": null
+        },
+        {
+          "disposition": "blocked",
+          "id": "tax.us.2025.schedule-d.line-15",
+          "reasons": [
+            "Did you sell any securities whose basis was not reported to the IRS?"
+          ],
+          "value": null
+        },
+        {
+          "disposition": "blocked",
+          "id": "tax.us.2025.schedule-d.line-2",
+          "reasons": [
+            "Did you sell any securities whose basis was not reported to the IRS?"
+          ],
+          "value": null
+        },
+        {
+          "disposition": "blocked",
+          "id": "tax.us.2025.schedule-d.line-21",
+          "reasons": [
+            "Did you sell any securities whose basis was not reported to the IRS?"
+          ],
+          "value": null
+        },
+        {
+          "disposition": "blocked",
+          "id": "tax.us.2025.schedule-d.line-9",
+          "reasons": [
+            "Did you sell any securities whose basis was not reported to the IRS?"
+          ],
+          "value": null
+        }
+      ],
+      "presentation_valid": true,
+      "seconds": 6.34,
+      "section_count": 75,
+      "stop_reason": "saturated"
+    },
+    "wash": {
+      "attachments": [
+        {
+          "disposition": "published",
+          "id": "tax.us.2025.rule.attachment.f8949",
+          "value": null
+        },
+        {
+          "disposition": "guard_inapplicable",
+          "id": "tax.us.2025.rule.attachment.schedule-d",
+          "value": null
+        }
+      ],
+      "groups": [
+        {
+          "id": "tax.us.2025.rule.attachment.f8949",
+          "parts": [
+            {
+              "heading": "Part I box A column (d): short-term wash-sale proceeds",
+              "sites": 0,
+              "tieOutText": "Reported subtotal: 0"
+            },
+            {
+              "heading": "Part I box A column (e): short-term wash-sale basis",
+              "sites": 0,
+              "tieOutText": "Reported subtotal: 0"
+            },
+            {
+              "heading": "Part I box A column (g): short-term wash-sale adjustment",
+              "sites": 0,
+              "tieOutText": "Reported subtotal: 0"
+            },
+            {
+              "heading": "Part II box D column (d): long-term wash-sale proceeds",
+              "sites": 0,
+              "tieOutText": "Reported subtotal: 0"
+            },
+            {
+              "heading": "Part II box D column (e): long-term wash-sale basis",
+              "sites": 0,
+              "tieOutText": "Reported subtotal: 0"
+            },
+            {
+              "heading": "Part II box D column (g): long-term wash-sale adjustment",
+              "sites": 0,
+              "tieOutText": "Reported subtotal: 0"
+            },
+            {
+              "heading": "Part I box B column (d): short-term basis-not-reported proceeds",
+              "sites": 0,
+              "tieOutText": "Reported subtotal: 0"
+            },
+            {
+              "heading": "Part I box B column (e): short-term basis the filer supplies",
+              "sites": 0,
+              "tieOutText": "Reported subtotal: 0"
+            },
+            {
+              "heading": "Part I box B column (g): short-term wash-sale adjustment",
+              "sites": 0,
+              "tieOutText": "Reported subtotal: 0"
+            },
+            {
+              "heading": "Part II box E column (d): long-term basis-not-reported proceeds",
+              "sites": 1,
+              "tieOutText": "Reported subtotal: 4000"
+            },
+            {
+              "heading": "Part II box E column (e): long-term basis the filer supplies",
+              "sites": 1,
+              "tieOutText": "Reported subtotal: 7000"
+            },
+            {
+              "heading": "Part II box E column (g): long-term wash-sale adjustment",
+              "sites": 1,
+              "tieOutText": "Reported subtotal: 1000"
+            }
+          ]
+        }
+      ],
+      "lines": {
+        "tax.us.2025.form1040.line-15": {
+          "disposition": "published_value",
+          "value": 32250
+        },
+        "tax.us.2025.form1040.line-16": {
+          "disposition": "published_value",
+          "value": 3635
+        },
+        "tax.us.2025.form1040.line-7a": {
+          "disposition": "published_value",
+          "value": -2000
+        },
+        "tax.us.2025.schedule-d.line-15": {
+          "disposition": "published_value",
+          "value": -2000
+        },
+        "tax.us.2025.schedule-d.line-16": {
+          "disposition": "published_value",
+          "value": -2000
+        },
+        "tax.us.2025.schedule-d.line-1a": {
+          "disposition": "closure_backed_zero",
+          "value": 0
+        },
+        "tax.us.2025.schedule-d.line-2": {
+          "disposition": "closure_backed_zero",
+          "value": 0
+        },
+        "tax.us.2025.schedule-d.line-21": {
+          "disposition": "published_value",
+          "value": 2000
+        },
+        "tax.us.2025.schedule-d.line-7": {
+          "disposition": "computed_zero",
+          "value": 0
+        },
+        "tax.us.2025.schedule-d.line-8a": {
+          "disposition": "closure_backed_zero",
+          "value": 0
+        },
+        "tax.us.2025.schedule-d.line-9": {
+          "disposition": "published_value",
+          "value": -2000
+        }
+      },
+      "money": {
+        "line15": {
+          "disposition": "published_value",
+          "value": 32250
+        },
+        "line16": {
+          "disposition": "published_value",
+          "value": 3635
+        },
+        "line1a": {
+          "disposition": "closure_backed_zero",
+          "value": 0
+        },
+        "line2": {
+          "disposition": "closure_backed_zero",
+          "value": 0
+        },
+        "line21": {
+          "disposition": "published_value",
+          "value": 2000
+        },
+        "line7a": {
+          "disposition": "published_value",
+          "value": -2000
+        },
+        "line8a": {
+          "disposition": "closure_backed_zero",
+          "value": 0
+        },
+        "line9": {
+          "disposition": "published_value",
+          "value": -2000
+        }
+      },
+      "presentation_valid": true,
+      "seconds": 5.35,
+      "section_count": 75,
+      "stop_reason": "saturated"
+    },
+    "yes_then_no_with_member": {
+      "attachments": [
+        {
+          "disposition": "blocked",
+          "id": "tax.us.2025.rule.attachment.f8949",
+          "value": null
+        },
+        {
+          "disposition": "guard_inapplicable",
+          "id": "tax.us.2025.rule.attachment.schedule-d",
+          "value": null
+        }
+      ],
+      "blocked": [
+        {
+          "artifact_id": "tax.us.2025.f1099b.noncovered-lt.member-validation.synthesized",
+          "code": "SOURCE_SET_UNCLOSED",
+          "missing": [
+            "tax.us.2025.f1099b.noncovered-lt"
+          ]
+        },
+        {
+          "artifact_id": "tax.us.2025.rule.attachment.f8949",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "tax.us.2025.f1099b.noncovered-lt-proceeds-subtotal"
+          ]
+        },
+        {
+          "artifact_id": "tax.us.2025.rule.form1040-line7a",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "tax.us.2025.schedule-d.line-16",
+            "tax.us.2025.schedule-d.line-21",
+            "tax.us.2025.capital-gains.selected-preferential-base",
+            "tax.us.2025.schedule-d.line-9"
+          ]
+        },
+        {
+          "artifact_id": "tax.us.2025.rule.schedule-d-line15",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "tax.us.2025.schedule-d.line-9"
+          ]
+        },
+        {
+          "artifact_id": "tax.us.2025.rule.schedule-d-line16",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "tax.us.2025.schedule-d.line-15"
+          ]
+        },
+        {
+          "artifact_id": "tax.us.2025.rule.schedule-d-line21",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "tax.us.2025.schedule-d.line-16"
+          ]
+        },
+        {
+          "artifact_id": "tax.us.2025.rule.selected-preferential-base",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "tax.us.2025.schedule-d.line-16",
+            "tax.us.2025.schedule-d.line-15",
+            "tax.us.2025.schedule-d.line-9"
+          ]
+        },
+        {
+          "artifact_id": "tax.us.2025.rule.f1099b-noncovered-lt-proceeds-subtotal",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "tax.us.2025.f1099b.noncovered-lt.member-validation"
+          ]
+        },
+        {
+          "artifact_id": "tax.us.2025.rule.f1099b-noncovered-lt-basis-subtotal",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "tax.us.2025.f1099b.noncovered-lt.member-validation"
+          ]
+        },
+        {
+          "artifact_id": "tax.us.2025.rule.f1099b-noncovered-lt-adjustment-subtotal",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "tax.us.2025.f1099b.noncovered-lt.member-validation"
+          ]
+        },
+        {
+          "artifact_id": "tax.us.2025.rule.schedule-d-line9",
+          "code": "DEPENDENCY_ABSENT",
+          "missing": [
+            "tax.us.2025.f1099b.noncovered-lt-proceeds-subtotal",
+            "tax.us.2025.f1099b.noncovered-lt-basis-subtotal",
+            "tax.us.2025.f1099b.noncovered-lt-adjustment-subtotal",
+            "tax.us.2025.f1099b.noncovered-lt.member-validation"
+          ]
+        }
+      ],
+      "lines": {
+        "tax.us.2025.form1040.line-15": {
+          "disposition": "blocked",
+          "value": null
+        },
+        "tax.us.2025.form1040.line-16": {
+          "disposition": "blocked",
+          "value": null
+        },
+        "tax.us.2025.form1040.line-7a": {
+          "disposition": "blocked",
+          "value": null
+        },
+        "tax.us.2025.schedule-d.line-15": {
+          "disposition": "blocked",
+          "value": null
+        },
+        "tax.us.2025.schedule-d.line-16": {
+          "disposition": "blocked",
+          "value": null
+        },
+        "tax.us.2025.schedule-d.line-1a": {
+          "disposition": "closure_backed_zero",
+          "value": 0
+        },
+        "tax.us.2025.schedule-d.line-2": {
+          "disposition": "closure_backed_zero",
+          "value": 0
+        },
+        "tax.us.2025.schedule-d.line-21": {
+          "disposition": "blocked",
+          "value": null
+        },
+        "tax.us.2025.schedule-d.line-7": {
+          "disposition": "computed_zero",
+          "value": 0
+        },
+        "tax.us.2025.schedule-d.line-8a": {
+          "disposition": "closure_backed_zero",
+          "value": 0
+        },
+        "tax.us.2025.schedule-d.line-9": {
+          "disposition": "blocked",
+          "value": null
+        }
+      },
+      "money": {
+        "line15": {
+          "disposition": "blocked",
+          "value": null
+        },
+        "line16": {
+          "disposition": "blocked",
+          "value": null
+        },
+        "line1a": {
+          "disposition": "closure_backed_zero",
+          "value": 0
+        },
+        "line2": {
+          "disposition": "closure_backed_zero",
+          "value": 0
+        },
+        "line21": {
+          "disposition": "blocked",
+          "value": null
+        },
+        "line7a": {
+          "disposition": "blocked",
+          "value": null
+        },
+        "line8a": {
+          "disposition": "closure_backed_zero",
+          "value": 0
+        },
+        "line9": {
+          "disposition": "blocked",
+          "value": null
+        }
+      },
+      "noncovered_blocked": [
+        "tax.us.2025.f1099b.noncovered-lt",
+        "tax.us.2025.f1099b.noncovered-lt-adjustment-subtotal",
+        "tax.us.2025.f1099b.noncovered-lt-basis-subtotal",
+        "tax.us.2025.f1099b.noncovered-lt-proceeds-subtotal",
+        "tax.us.2025.f1099b.noncovered-lt.member-validation"
+      ],
+      "page": [
+        {
+          "disposition": "blocked",
+          "id": "tax.us.2025.form1040.line-15",
+          "reasons": [
+            "Did you sell any securities whose basis was not reported to the IRS?"
+          ],
+          "value": null
+        },
+        {
+          "disposition": "blocked",
+          "id": "tax.us.2025.form1040.line-7a",
+          "reasons": [
+            "Did you sell any securities whose basis was not reported to the IRS?"
+          ],
+          "value": null
+        },
+        {
+          "disposition": "blocked",
+          "id": "tax.us.2025.schedule-d.line-15",
+          "reasons": [
+            "Did you sell any securities whose basis was not reported to the IRS?"
+          ],
+          "value": null
+        },
+        {
+          "disposition": "blocked",
+          "id": "tax.us.2025.schedule-d.line-21",
+          "reasons": [
+            "Did you sell any securities whose basis was not reported to the IRS?"
+          ],
+          "value": null
+        },
+        {
+          "disposition": "blocked",
+          "id": "tax.us.2025.schedule-d.line-9",
+          "reasons": [
+            "Did you sell any securities whose basis was not reported to the IRS?"
+          ],
+          "value": null
+        }
+      ],
+      "presentation_valid": true,
+      "seconds": 5.84,
+      "section_count": 75,
+      "stop_reason": "saturated"
+    }
+  }
+}

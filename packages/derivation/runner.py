@@ -55,6 +55,9 @@ from packages.derivation.source_authority import (
     ClosureFindingRecord,
     SourceAuthorityError,
     audit_collect_authority,
+    covered_flag_block,
+    families_refused_for_unreported_basis,
+    group_member_counts,
     resolve_closure_admissions,
 )
 
@@ -147,6 +150,10 @@ class RunContext:
     # the exact index. The ``parameters`` dict holds only parameter citizens,
     # and only for an id that has a single version.
     parameter_index: dict[str, dict[str, dict[str, Any]]] = field(default_factory=dict)
+    # Ordered record acts. v4 admission reads them to see a member added
+    # after the current shared answer. Empty on fixture paths that do not
+    # supply the log; v2 and v3 admission does not read the field.
+    authoritative_acts: tuple[Any, ...] = ()
 
 
 @dataclass(frozen=True)
@@ -392,6 +399,25 @@ def _sorted_pins(pins: list[dict[str, Any]]) -> list[dict[str, Any]]:
     return [unique[key] for key in sorted(unique)]
 
 
+def _refused_covered_families(ctx: RunContext) -> frozenset[str]:
+    """Families the adopted package refuses because basis was not reported.
+
+    Off unless that package's companion declaration names the map. An
+    earlier core, including v78, gets an empty set.
+    """
+    from packages.tax.loader import covered_flag_refusal_map
+
+    pin = ctx.adoption_pin
+    package_id = pin.get("id")
+    version = pin.get("version")
+    if not isinstance(package_id, str) or not isinstance(version, str):
+        return frozenset()
+    objects = covered_flag_refusal_map(package_id, version)
+    if objects is None:
+        return frozenset()
+    return families_refused_for_unreported_basis(ctx.sources, objects)
+
+
 class _Run:
     """Mutable per-run state, kept off the frozen public surface."""
 
@@ -424,11 +450,15 @@ class _Run:
         audit_collect_authority(
             ctx.rules, ctx.closure_mappings, ctx.family_declarations
         )
+        self.refused_covered_families = _refused_covered_families(ctx)
         self.admissions = resolve_closure_admissions(
             ctx.closure_mappings,
             ctx.family_declarations,
             ctx.closure_findings,
             ctx.current_horizons,
+            member_counts=group_member_counts(ctx.closure_mappings, ctx.sources),
+            acts=tuple(ctx.authoritative_acts),
+            refused_families=self.refused_covered_families,
         )
 
         self.use_v2 = any(
@@ -2499,6 +2529,7 @@ class _Run:
         return "published"
 
     def _record_blocked(self, rule: dict[str, Any], access: AccessLog, code: str, missing: list[str]) -> None:
+        code, missing = self._apply_covered_flag_block(code, missing)
         rule_id = rule["id"]
         self.blocked.append({"artifact_id": rule_id, "code": code, "missing": missing})
         disposition_row = {
@@ -2540,6 +2571,7 @@ class _Run:
         ``symbol`` is the ADR-0074 group identity on a nominee row; omitted
         for existing aggregate-supportability callers.
         """
+        code, missing = self._apply_covered_flag_block(code, missing)
         self.blocked.append({"artifact_id": rule_id, "code": code, "missing": list(missing)})
         ledger_pins = [pin for pin in pins if pin["role"] not in _LEDGER_EXCLUDED_PIN_ROLES]
         disposition_row: dict[str, Any] = {
@@ -2553,6 +2585,14 @@ class _Run:
         if symbol is not None:
             disposition_row["symbol"] = symbol
         self.dispositions.append(disposition_row)
+
+    def _apply_covered_flag_block(self, code: str, missing: list[str]) -> tuple[str, list[str]]:
+        """Name the covered-flag refusal when this row's missing family was dropped."""
+        from packages.tax.loader import COVERED_FLAG_REFUSAL_CODE
+
+        return covered_flag_block(
+            code, missing, self.refused_covered_families, COVERED_FLAG_REFUSAL_CODE,
+        )
 
     def evaluate_pairing_scoped_rule(
         self,

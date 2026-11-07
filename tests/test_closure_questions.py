@@ -78,7 +78,14 @@ def _corpus() -> dict[tuple[str, str], dict[str, Any]]:
 
 class ClosureMappingV3Test(unittest.TestCase):
     def test_schema_set_admits_v2_and_v3(self) -> None:
-        self.assertEqual(CLOSURE_MAPPING_SCHEMAS, {"source-closure-mapping.v2", "source-closure-mapping.v3"})
+        self.assertEqual(
+            CLOSURE_MAPPING_SCHEMAS,
+            {
+                "source-closure-mapping.v2",
+                "source-closure-mapping.v3",
+                "source-closure-mapping.v4",
+            },
+        )
 
     def test_v3_mapping_validates_and_v2_still_does(self) -> None:
         schemas = DerivationSchemas()

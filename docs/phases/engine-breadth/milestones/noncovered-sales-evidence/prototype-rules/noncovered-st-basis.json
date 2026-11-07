@@ -1,0 +1,23 @@
+{
+  "schema": "source-closure-mapping.v3",
+  "id": "tax.us.2025.closure-mapping.f1099b.noncovered-st-basis",
+  "version": "v1",
+  "family": {
+    "id": "tax.us.2025.f1099b.noncovered-st-basis",
+    "version": "v1"
+  },
+  "member_fact_type": {
+    "id": "tax.us.2025.f1099b.noncovered-st-txn.basis",
+    "version": "v1"
+  },
+  "closure_fact_type": {
+    "id": "tax.us.2025.f1099b.noncovered-st-basis.source-closure",
+    "version": "v1"
+  },
+  "closure_horizon_key": "family-horizon",
+  "closure_question": "What is the basis of this short-term sale whose basis was not reported to the IRS?",
+  "admits_symbol": "tax.us.2025.f1099b.noncovered-st-basis-subtotal",
+  "admission": {
+    "condition": "current-literal-true"
+  }
+}

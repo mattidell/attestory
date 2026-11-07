@@ -18,6 +18,9 @@ from typing import TYPE_CHECKING, Any, Iterable, Mapping, Sequence
 from packages.derivation.source_authority import (
     ClosureFindingRecord,
     SourceAuthorityError,
+    is_group_mapping,
+    mapping_family_rows,
+    pin_id,
 )
 from packages.kernel import facts as kernel_facts
 from packages.kernel.currency import CurrencyView
@@ -275,7 +278,27 @@ def marshal_closure_authority(
     ambiguous that selected version.
     """
     records: list[ClosureFindingRecord] = []
+    recorded_group: set[tuple[str, str]] = set()
     for mapping in mappings:
+        if is_group_mapping(mapping):
+            fact_type_id = pin_id(mapping.get("closure_fact_type"))
+            for finding_id in sorted(currency.current_finding_ids):
+                finding = state.findings.get(finding_id)
+                if finding is None or not _fact_id_has_type(finding["fact_id"], fact_type_id):
+                    continue
+                key = (fact_type_id, finding_id)
+                if key in recorded_group:
+                    continue
+                recorded_group.add(key)
+                records.append(
+                    ClosureFindingRecord(
+                        finding_id=finding_id,
+                        fact_type=fact_type_id,
+                        horizon_id="",
+                        value=finding["value"],
+                    )
+                )
+            continue
         fact_type = mapping["closure_fact_type"]
         fact_type_id = fact_type["id"] if isinstance(fact_type, dict) else fact_type
         horizon_key = mapping["closure_horizon_key"]
@@ -301,16 +324,22 @@ def marshal_closure_authority(
 
     adopted_family_versions: dict[str, str] = {}
     for mapping in mappings:
-        fam = mapping.get("family")
-        if isinstance(fam, dict):
-            fid, fver = fam.get("id"), fam.get("version")
-            if fid and fver:
-                if fid in adopted_family_versions and adopted_family_versions[fid] != fver:
-                    raise SourceAuthorityError(
-                        f"ambiguous mapping versions for family {fid}: "
-                        f"{adopted_family_versions[fid]} vs {fver}"
-                    )
-                adopted_family_versions[fid] = fver
+        if is_group_mapping(mapping):
+            family_pins = [
+                row.get("family") for row in mapping_family_rows(mapping)
+            ]
+        else:
+            family_pins = [mapping.get("family")]
+        for fam in family_pins:
+            if isinstance(fam, dict):
+                fid, fver = fam.get("id"), fam.get("version")
+                if fid and fver:
+                    if fid in adopted_family_versions and adopted_family_versions[fid] != fver:
+                        raise SourceAuthorityError(
+                            f"ambiguous mapping versions for family {fid}: "
+                            f"{adopted_family_versions[fid]} vs {fver}"
+                        )
+                    adopted_family_versions[fid] = fver
 
     current_horizons: dict[str, str] = {}
     for family_id, version in sorted(adopted_family_versions.items()):
@@ -365,6 +394,7 @@ def marshal_run_context(
     parameter_index: Mapping[str, Mapping[str, Mapping[str, Any]]] | None = None,
     claim_applicability: Sequence[Mapping[str, str]] | None = None,
     mortgage_payment_applicability: Sequence[Mapping[str, Any]] | None = None,
+    authoritative_acts: Sequence[Mapping[str, Any]] | None = None,
 ) -> RunContext:
     """Build a RunContext from current record state only (ADR-0032 MUST).
 
@@ -724,6 +754,7 @@ def marshal_run_context(
         companion_presence_pairs=dict(companion_presence_pairs or {}),
         authorization=authorization,
         reporting_year=reporting_year,
+        authoritative_acts=tuple(dict(act) for act in (authoritative_acts or ())),
         parameter_index={
             str(param_id): {
                 str(version): dict(citizen)
@@ -758,6 +789,7 @@ def marshal_live_run_context(
     parameter_index: Mapping[str, Mapping[str, Mapping[str, Any]]] | None = None,
     claim_applicability: Sequence[Mapping[str, str]] | None = None,
     mortgage_payment_applicability: Sequence[Mapping[str, Any]] | None = None,
+    authoritative_acts: Sequence[Mapping[str, Any]] | None = None,
 ) -> MarshalledRunContext:
     """Create the opaque marshalling result accepted by the production executor."""
     return MarshalledRunContext(
@@ -782,6 +814,7 @@ def marshal_live_run_context(
             parameter_index=parameter_index,
             claim_applicability=claim_applicability,
             mortgage_payment_applicability=mortgage_payment_applicability,
+            authoritative_acts=authoritative_acts,
         ),
         _MARSHAL_SEAL,
     )

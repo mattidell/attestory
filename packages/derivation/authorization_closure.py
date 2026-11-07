@@ -310,8 +310,16 @@ def build_dependency_edges(
                 edges[cid].add(citation["id"])
 
         elif schema in CLOSURE_MAPPING_SCHEMAS:
-            for mapping_key in ("member_fact_type", "closure_fact_type"):
-                fact_pin = citizen.get(mapping_key)
+            fact_pins = []
+            if schema == "source-closure-mapping.v4":
+                fact_pins.append(citizen.get("closure_fact_type"))
+                for row in citizen.get("families") or []:
+                    if isinstance(row, dict):
+                        fact_pins.append(row.get("member_fact_type"))
+            else:
+                for mapping_key in ("member_fact_type", "closure_fact_type"):
+                    fact_pins.append(citizen.get(mapping_key))
+            for fact_pin in fact_pins:
                 if not isinstance(fact_pin, dict):
                     continue
                 fact_id = fact_pin.get("id")
@@ -343,6 +351,15 @@ def build_dependency_edges(
                 edges[cid].update(bundles_for_fact.get(fact_type, set()))
                 for other_id, other in corpus.items():
                     if other.get("schema") not in CLOSURE_MAPPING_SCHEMAS:
+                        continue
+                    if other.get("schema") == "source-closure-mapping.v4":
+                        listed = [
+                            (row.get("member_fact_type") or {}).get("id")
+                            for row in other.get("families") or []
+                            if isinstance(row, dict)
+                        ]
+                        if fact_type in listed:
+                            edges[cid].add(other_id)
                         continue
                     member_pin = other.get("member_fact_type", {})
                     if isinstance(member_pin, dict) and member_pin.get("id") == fact_type:

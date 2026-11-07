@@ -1214,6 +1214,12 @@ lacks a counterexample showing that the coupling is correct. Such a result retur
 to the owner for disposition; it is never downgraded to “nonblocking” by the
 Foreman.
 
+A `PASS` row may not stand beside a counterexample to its own bar (owner,
+2026-11-06). Each counterexample the evidence records is either fixed, or
+put outside the class by an answer that refuses it; the row names which.
+A counterexample that is only listed, parked, or called a known limitation
+makes the row `FAIL`.
+
 ## Payload Instantiation Gate
 
 A schema that names another citizen as its payload — a `$ref`, "carries a finding," "wraps an act" — has deferred a modeling decision, not made one. The deferral stays invisible until something must *produce* the payload, often several tracks later in runner code, at which point discovering a bad fit costs a half-built runner instead of a paper example. This gate pulls that discovery left, to the cheapest point.
