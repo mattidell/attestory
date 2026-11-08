@@ -16,6 +16,11 @@ lists every new or successor member. The bodies are not committed, to keep
 the output small; ``python3 ... codeb_prototype.py rules <dir>`` writes them
 to a directory outside the repository for inspection.
 
+Track 0 added the switchable repairs in ``REPAIRS`` (all on by default; an
+empty set builds the decided design). codeb-prototype-output.json is P0's
+record of the design before them; codeb_track0.py and
+codeb-track0-output.json supersede it for every case they rerun.
+
 The f8949-boxes-cf harness (track0 and through it cf_prototype, cf_probe and
 the noncovered-sales helpers) is loaded once, under a unique module name, as
 tests/test_no1099b_sales_v80.py loads it.
@@ -68,6 +73,25 @@ from packages.tax import loader  # noqa: E402
 from tests.helpers import current_core_returns as ccr  # noqa: E402
 from tests.test_refund_or_amount_owed_track1 import _attested  # noqa: E402
 from tools.package_successor import generate_to_directory  # noqa: E402
+
+# Track 0 repairs (track0-closure.md). Each is a switch; all are on by default.
+# An empty set builds the decided design (Decisions 1-4), which is P0's design.
+#
+# - cross_term_exclusive: a code B sale family also excludes the other term's
+#   covered, code W and box B/E families, so one transaction cannot be counted
+#   once as a code B sale and again on the other term's line.
+# - check_closes_first: the return-level amounts check closes over the code B
+#   families before it reads any sale's agreement, so a code B answer made
+#   stale by a later member blocks it SOURCE_SET_UNCLOSED, and the page asks
+#   that answer again even when both terms have members.
+# - attachments_read_count: a return-level count of code B sales per term
+#   (f1099b.code-b-{st,lt}-count), and both attachments are required when it is
+#   above zero, so a code B row whose proceeds and shown basis are both zero
+#   still requires Form 8949 and Schedule D.
+# - field_words: the line 1b and 8b blocked sentence names what the line waits
+#   for (the column (g) row), not the correct basis, which is refused at entry.
+ALL_REPAIRS: frozenset[str] = frozenset({"cross_term_exclusive", "check_closes_first", "attachments_read_count", "field_words"})
+REPAIRS: set[str] = set(ALL_REPAIRS)
 
 PKG = P + "package.core-calculations"
 IC2 = cfp.NEW_IC  # schedule-d-boundary.form8949-in-class (v80)
@@ -218,7 +242,10 @@ def family(term: str, kind: str | None) -> dict[str, Any]:
     ]
     body["member_constraints"] = constraints
     exclusive = []
-    for other, version in ((f"covered-{term}", "v1"), (f"covered-w-{term}", "v2"), (f"noncovered-{term}", "v1")):
+    terms = TERMS if "cross_term_exclusive" in REPAIRS else (term,)
+    neighbours = [(f"{name}-{t}", version) for t in terms for name, version in
+                  (("covered", "v1"), ("covered-w", "v2"), ("noncovered", "v1"))]
+    for other, version in neighbours:
         exclusive.append({"id": P + f"block.code-b-{term}-txn.excludes.{other}",
                           "incompatible_family": {"id": P + f"f1099b.{other}", "version": version},
                           "components": [{"fact_id_bound_key": k} for k in ("broker", "statement", "transaction", "tax-year")]})
@@ -316,6 +343,53 @@ def agree_rule(term: str) -> dict[str, Any]:
                  "sale's, and the column (g) row equals the basis shown minus the correct basis plus the wash-sale "
                  "loss disallowed (the Worksheet for Basis Adjustments in Column (g), netted under More than one code).",
     }
+
+
+def count_symbol(term: str) -> str:
+    return P + f"f1099b.code-b-{term}-count"
+
+
+def count_rule(term: str) -> dict[str, Any]:
+    """The number of code B sales of one term (repair attachments_read_count).
+
+    Every valid code B row has a shown or a correct basis above zero, but both
+    proceeds and the shown basis can be zero (a broker that reports $0 for
+    each), and then no amount the attachments read is above zero. The count
+    is.
+    """
+    return {
+        "schema": "rule-artifact.v15", "id": P + f"rule.f1099b-code-b-{term}-count", "version": "v1",
+        "notes": (f"The number of {WORD[term]} code B sales recorded (Form 8949 box {BOX[term]} rows with code B). "
+                  "Both attachments are required when it is above zero."),
+        "role": "computation", "scope": read("rule.schedule-d-line2.json")["scope"],
+        "publishes": count_symbol(term), "requires": [],
+        "blocked": {"code": "SOURCE_SET_UNCLOSED", "missing": [fam(term, None), Q3]},
+        "citations": [], "pins": [], "when": True,
+        "value": {"op": "count", "name": member_fact(term, None), "source_set": fam(term, None)},
+    }
+
+
+def check_rule(term: str) -> dict[str, Any]:
+    """The v80 return-level amounts check over the per-sale agreement (cfp.check_rule).
+
+    With check_closes_first, the sales path first requires every family the
+    agreement reads to be closed: this term's four and the other term's sale
+    family. On an unclosed family the check then blocks SOURCE_SET_UNCLOSED
+    naming those families, whose closure question the page asks, instead of
+    DEPENDENCY_INVALID naming the sale, which has no question and hides the
+    closure question from every line that reads the check.
+    """
+    body = cfp.check_rule(member_fact(term, None), fam(term, None))
+    if "check_closes_first" in REPAIRS:
+        other = "lt" if term == "st" else "st"
+        closed = [*({"op": "require_closed", "source_set": fam(term, kind)} for kind in (None, *KINDS)),
+                  {"op": "require_closed", "source_set": fam(other, None)}]
+        for path in body["selection"]["paths"]:
+            if path["id"] == "sales":
+                path["when"] = {"op": "all", "args": closed}
+        body["notes"] += (" The sales path first requires the code B families the agreement reads to be closed, so "
+                          "an unclosed family asks its closure question.")
+    return body
 
 
 def gain_rule(term: str) -> dict[str, Any]:
@@ -475,6 +549,8 @@ def attachment_f8949() -> dict[str, Any]:
     subs = list(body["requirement"]["subtotals"])
     for term in TERMS:
         subs += [subtotal(term, "proceeds"), subtotal(term, "basis"), gain(term)]
+        if "attachments_read_count" in REPAIRS:
+            subs.append(count_symbol(term))
     body["requirement"]["subtotals"] = subs
     return body
 
@@ -487,6 +563,8 @@ def attachment_schedule_d() -> dict[str, Any]:
     subs = list(body["requirement"]["subtotals"])
     for term in TERMS:
         subs += [subtotal(term, "proceeds"), subtotal(term, "basis"), gain(term)]
+        if "attachments_read_count" in REPAIRS:
+            subs.append(count_symbol(term))
     body["requirement"]["subtotals"] = subs
     return body
 
@@ -504,9 +582,14 @@ def form_field(term: str) -> dict[str, Any]:
     d["closure_backed_zero"]["explain"] = (f"You said you have no {w} Form 8949 box {box} sales with a wash-sale "
                                            "adjustment or a wrong reported basis, so Schedule D line "
                                            f"{n}, column (h), is zero.")
-    d["blocked"]["explain"] = (f"Schedule D line {n}, column (h), has no value yet. It is waiting for your Form 8949 "
-                               f"box {box} proceeds, basis, and adjustments, including the correct basis of any sale "
-                               "whose reported basis is wrong, and your answers about those sales.")
+    if "field_words" in REPAIRS:
+        d["blocked"]["explain"] = (f"Schedule D line {n}, column (h), has no value yet. It is waiting for your Form 8949 "
+                                   f"box {box} proceeds, basis, and adjustments, including the column (g) correction of "
+                                   "any sale whose reported basis is wrong, and your answers about those sales.")
+    else:
+        d["blocked"]["explain"] = (f"Schedule D line {n}, column (h), has no value yet. It is waiting for your Form 8949 "
+                                   f"box {box} proceeds, basis, and adjustments, including the correct basis of any sale "
+                                   "whose reported basis is wrong, and your answers about those sales.")
     return body
 
 
@@ -533,8 +616,10 @@ def artifacts() -> tuple[list[tuple[str, dict[str, Any]]], dict[tuple[str, str],
             out.append((f"rule.f1099b-code-b-{term}-{kind}-subtotal.json", subtotal_rule(term, kind)))
         slug = member_fact(term, None).removeprefix(P)
         out.append((f"rule.{slug}.amounts-agree.json", agree_rule(term)))
-        out.append((f"rule.{slug}.amounts-check.json", cfp.check_rule(member_fact(term, None), fam(term, None))))
+        out.append((f"rule.{slug}.amounts-check.json", check_rule(term)))
         out.append((f"rule.f1099b-code-b-{term}-gain.json", gain_rule(term)))
+        if "attachments_read_count" in REPAIRS:
+            out.append((f"rule.f1099b-code-b-{term}-count.json", count_rule(term)))
     old: dict[tuple[str, str], tuple[str, str]] = {}
 
     def replaced(prior_name: str, body: dict[str, Any]) -> None:

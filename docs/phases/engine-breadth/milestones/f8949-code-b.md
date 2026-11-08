@@ -184,9 +184,112 @@ recommended choice; the owner adjusts afterwards.
    rows) is parked for a later milestone that models column (f) letters
    for every code.
 
+Foreman, 2026-11-07, on Track 0:
+
+5. **Track 0's four repairs are adopted:** cross-term exclusivity, the
+   amounts check closing first, attachment counts, and the field words.
+6. **The four inherited v80 gaps are taken into Track 1**, by content
+   only. Each one publishes a wrong or incomplete return today, and the
+   f8949-boxes-cf milestone set the precedent of blocking such returns:
+   - A code W row with zero proceeds requires neither attachment.
+   - A box B row with zero proceeds does not require Form 8949.
+   - One transaction recorded on box B and on line 8a is counted twice.
+     The same applies to every pair of covered and noncovered families
+     across terms.
+   - A covered sale flagged `taxpayer_side_adjustment` "yes" publishes
+     the broker's gain. It must block and say why.
+
+   The returns that change are listed in Track 1 and accepted on the same
+   terms as before. If any fix needs more than content, it is parked
+   instead.
+7. **The presentation limit from f8949-boxes-cf extends** to the refused
+   code B paths that block with a true reason but no question. One
+   example is a code B sale beside a Form 8949 "yes". These stay parked
+   with the rule-artifact successor.
+8. **A false Path B "yes" beside a code B row is accepted.** It gives the
+   same result as the honest answer, as on f8949-boxes-cf.
+
 ## Track 0 adversarial closure
 
-Pending.
+Evidence: `f8949-code-b-evidence/track0-closure.md`, from
+`codeb_track0.py` / `codeb-track0-output.json`. These run on the scratch
+core v81 of `codeb_prototype.py` with its `REPAIRS` on. That is 99 cases
+on the final and decided designs, plus the 143 v80 returns and four v80
+neighbour probes, all through `live_coordinate_run`.
+
+Track 0 found four counterexamples on the decided design, and each is
+fixed by a switchable content repair:
+
+- `cross_term_exclusive`: one transaction recorded as a code B sale and on
+  the other term's v80 family was counted twice.
+- `check_closes_first`: a code B answer made stale while both terms have
+  members asked no question.
+- `attachments_read_count`: a code B row with zero proceeds and zero shown
+  basis published Form 1040 with neither attachment required.
+- `field_words`: the line 1b and 8b blocked sentence named a wait that
+  cannot occur.
+
+The final build has 59 member edits (34 adds, 25 replacements). No engine,
+schema or recording change is needed.
+
+- Authority-lifecycle table: PASS. Closure document, artifact 1. The sale,
+  the paired rows, the column (g) row, code W with B, Q3, IC3 and the
+  checks each name their invalidating events and the cases that show them.
+  These include `x_corrected_basis_changed_g_stale` and `..._g_fixed`,
+  `x_remove_sale_keep_rows`, `x_bw_w_exceeds_correct_loss_within_shown`
+  and `x_g_sign_flipped`.
+- Empty/nonempty authority matrix: PASS. Artifact 2:
+  - the code B families against the A/D direct, A/D code W, B/E and C/F
+    families, under closed-empty, missing, unbacked-"yes", eligible and
+    ineligible states;
+  - a "yes" with nothing recorded is refused, beside each neighbour
+    (`m_q3_yes_nothing_*`);
+  - a code B sale beside a "no" asks Q3 (`a_q3_no_with_member`,
+    `m_d_q3_no_with_member`);
+  - a code B sale beside a v80-only in-class answer asks IC3
+    (`m_a_v80_ic_only`, `m_a_v79_ic_only`).
+- Late-member lifecycle: PASS. Artifact 3:
+  - T1: "no", compute, add a code B sale, re-answer, recompute;
+  - T2: a covered line 1a sale corrected into a code B sale, with
+    `t2_stage4_keep_covered` refused by identity exclusivity;
+  - T3: a code W row corrected into BW;
+  - a stale "yes", and a stale "no" with both terms (`x_q3_*`, which ask
+    Q3 after `check_closes_first`).
+- Neighboring capability dependency diff: PASS. Artifact 5. With Q3 "no",
+  all 143 v80 returns are identical in every line, attachment, question
+  and watched row (55 publish, 84 are blocked, 4 are rejected before a
+  run). Unanswered, none publishes and every one that runs asks Q3. The
+  only new prerequisite is Q3, justified by lines 1b and 8b now summing
+  the code B families (ADR 0084). Only the line 1b and 8b sentences change
+  wording.
+- Reused-claim semantic/lifecycle equivalence: PASS. Artifact 4:
+  - Q1, Q2, IC79 and IC80 are never widened, and they decide nothing under
+    the guarded arm (`m_a_c_ic3_yes_v80_ic_no` = `..._v80_ic_yes`);
+  - Path B is never read as admitting a code B row (`x_path_b_yes` =
+    `a_high`);
+  - by ADR-0061 Decision 2, the code W families' proposition excludes code
+    B rows, and exclusivity enforces it in both terms.
+- Integration surface: PASS. Artifact 6:
+  - every consumer of lines 1a, 1b, 2, 7, 8a, 8b, 9, 15, 16 and 21, line
+    7a, the preferential base, both attachments, the column (h) and count
+    symbols;
+  - exactly one row per publisher in all 97 saturated cases and all 139
+    v81 runs of v80 returns;
+  - one built model per disposition path, the blocked rows' (disposition,
+    code, missing) pinned, and a presentation probe of the line 1b and 8b
+    v3 fields and the Form 8949 v5 code B parts.
+- Known limitations affecting correctness: none in the code B class.
+  Owner disposition is required for four inherited v80 neighbour
+  behaviours, measured unchanged on v81 (closure document, owner question
+  1):
+  - zero-proceeds code W rows and zero-proceeds box B rows do not require
+    Form 8949;
+  - cross-term duplicates between v80 families are counted twice;
+  - a covered sale flagged with a taxpayer-side adjustment publishes the
+    broker's gain.
+
+  Owner questions 2 and 3 (block-only presentation, and Path B "yes" beside
+  a code B row) are presentation and posture questions, not correctness.
 
 ## Track 1 result
 
