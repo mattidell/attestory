@@ -1,0 +1,10 @@
+{
+  "schema": "input-question.v1",
+  "id": "tax.us.2025.input-question.f1099b-code-b-lt-adjustment",
+  "version": "v1",
+  "fact_type": {
+    "id": "tax.us.2025.f1099b.code-b-lt-txn.adjustment",
+    "version": "v1"
+  },
+  "question": "What is the column (g) adjustment for each long-term sale you recorded whose reported basis is wrong: the basis shown minus the correct basis, plus any wash-sale loss disallowed?"
+}

@@ -1,0 +1,10 @@
+{
+  "schema": "input-question.v1",
+  "id": "tax.us.2025.input-question.f1099b-code-b-sold",
+  "version": "v1",
+  "fact_type": {
+    "id": "tax.us.2025.f1099b.code-b-sold.source-closure",
+    "version": "v1"
+  },
+  "question": "Did any Form 1099-B or substitute statement you received show a cost or other basis, reported to the IRS, that is wrong?"
+}

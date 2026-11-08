@@ -2320,6 +2320,12 @@ class C11NoBrokerBasisComparisonMechanism(unittest.TestCase):
         self.assertEqual(
             sorted(broker_fact_types),
             [
+                # Core v81: the code B families' basis rows are the basis the
+                # Form 1099-B shows (column (e)), so they are broker-reported.
+                "tax.us.2025.f1099b.code-b-lt-basis.source-closure",
+                "tax.us.2025.f1099b.code-b-lt-txn.basis",
+                "tax.us.2025.f1099b.code-b-st-basis.source-closure",
+                "tax.us.2025.f1099b.code-b-st-txn.basis",
                 "tax.us.2025.f1099b.covered-lt-basis.source-closure",
                 "tax.us.2025.f1099b.covered-lt-txn.basis",
                 "tax.us.2025.f1099b.covered-ltcg-basis.source-closure",
@@ -2357,6 +2363,12 @@ class C11NoBrokerBasisComparisonMechanism(unittest.TestCase):
         self.assertEqual(
             sorted(broker_consumers),
             [
+                # Core v81: the code B basis subtotal, column (h), and each code
+                # B sale's agreement of its basis row with the sale object.
+                "tax.us.2025.rule.f1099b-code-b-lt-basis-subtotal",
+                "tax.us.2025.rule.f1099b-code-b-lt-gain",
+                "tax.us.2025.rule.f1099b-code-b-st-basis-subtotal",
+                "tax.us.2025.rule.f1099b-code-b-st-gain",
                 "tax.us.2025.rule.f1099b-covered-lt-basis-subtotal",
                 "tax.us.2025.rule.f1099b-covered-ltcg-basis-subtotal",
                 "tax.us.2025.rule.f1099b-covered-st-basis-subtotal",
@@ -2364,6 +2376,8 @@ class C11NoBrokerBasisComparisonMechanism(unittest.TestCase):
                 "tax.us.2025.rule.f1099b-covered-w-st-basis-subtotal",
                 "tax.us.2025.rule.f1099b-noncovered-lt-basis-subtotal",
                 "tax.us.2025.rule.f1099b-noncovered-st-basis-subtotal",
+                "tax.us.2025.rule.f1099b.code-b-lt-txn.amounts-agree",
+                "tax.us.2025.rule.f1099b.code-b-st-txn.amounts-agree",
                 # Core v80: each noncovered sale's basis row must equal its sale
                 # object, and lines 2 and 9 pair each sale with its basis row.
                 "tax.us.2025.rule.f1099b.noncovered-lt-txn.amounts-agree",
@@ -2443,12 +2457,20 @@ class C11NoBrokerBasisComparisonMechanism(unittest.TestCase):
         hits = sorted(str(path.relative_to(ROOT)) for path in self._matching_paths())
         self.assertTrue(hits, "the selector found no files at all -- it cannot be trusted")
         # Exactly what the search returns, stated precisely:
-        # five f1099b-covered-* bundle files, two occurrences each, plus one
-        # sample-data negative fixture that is NOT a bundle declaration.
-        bundles = [h for h in hits if h.startswith("packages/content/tax/2025/")]
+        # five f1099b-covered-* bundle files, two occurrences each; the four
+        # core v81 admission rules, which refuse a sale flagged "yes" and
+        # compare the flag with no basis; plus one sample-data negative
+        # fixture that is NOT a bundle declaration.
+        content = [h for h in hits if h.startswith("packages/content/tax/2025/")]
+        bundles = [h for h in content if h.endswith(".bundle.json")]
+        admission = [h for h in content if not h.endswith(".bundle.json")]
         others = [h for h in hits if not h.startswith("packages/content/tax/2025/")]
         self.assertEqual(len(bundles), 5, bundles)
         self.assertTrue(all("f1099b-covered-" in h for h in bundles), bundles)
+        self.assertEqual(admission, [
+            f"packages/content/tax/2025/rule.f1099b.{kind}-{term}-txn.admission.json"
+            for kind, term in (("covered", "lt"), ("covered", "st"), ("covered-w", "lt"), ("covered-w", "st"))
+        ])
         self.assertEqual(
             others, ["packages/sample_data/schedule_d_covered_ltcg_8a_t1/negatives/"
                      "value.covered-ltcg-txn-missing-gain-only.json"], others

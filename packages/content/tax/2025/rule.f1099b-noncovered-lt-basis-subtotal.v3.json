@@ -1,0 +1,170 @@
+{
+  "schema": "rule-artifact.v5",
+  "id": "tax.us.2025.rule.f1099b-noncovered-lt-basis-subtotal",
+  "version": "v3",
+  "notes": "Sums one basis-not-reported scalar family. A closed empty family publishes 0 and does not read the boundary. A recorded amount publishes only when that boundary is yes, so a refusal cannot itemize it. v80: the form8949-in-class answer (boxes B, C, E and F) admits the return as the v79 answer does. v3: the form8949-code-b-in-class answer admits the return as the v80 answer does, read only when the code B answer is yes.",
+  "pins": [],
+  "publishes": "tax.us.2025.f1099b.noncovered-lt-basis-subtotal",
+  "requires": [],
+  "role": "computation",
+  "scope": {
+    "tax_year": 2025,
+    "jurisdiction": "US-federal",
+    "family": "individual-income-tax"
+  },
+  "value": {
+    "op": "choose",
+    "when": {
+      "op": "any",
+      "args": [
+        {
+          "op": "compare",
+          "cmp": "eq",
+          "left": {
+            "op": "add",
+            "args": [
+              {
+                "name": "tax.us.2025.f1099b.noncovered-lt-txn.basis",
+                "op": "collect",
+                "source_set": "tax.us.2025.f1099b.noncovered-lt-basis"
+              }
+            ]
+          },
+          "right": 0
+        },
+        {
+          "op": "all",
+          "args": [
+            {
+              "op": "categorical_compare",
+              "cmp": "eq",
+              "left": {
+                "op": "ref",
+                "name": "tax.us.2025.f1099b.code-b-sold.source-closure"
+              },
+              "right": {
+                "op": "category_literal",
+                "fact_type": {
+                  "id": "tax.us.2025.f1099b.code-b-sold.source-closure",
+                  "version": "v1"
+                },
+                "value": "yes"
+              }
+            },
+            {
+              "op": "categorical_compare",
+              "cmp": "eq",
+              "left": {
+                "op": "ref",
+                "name": "tax.us.2025.schedule-d-boundary.form8949-code-b-in-class"
+              },
+              "right": {
+                "op": "category_literal",
+                "fact_type": {
+                  "id": "tax.us.2025.schedule-d-boundary.form8949-code-b-in-class",
+                  "version": "v1"
+                },
+                "value": "yes"
+              }
+            }
+          ]
+        },
+        {
+          "op": "all",
+          "args": [
+            {
+              "op": "categorical_compare",
+              "cmp": "eq",
+              "left": {
+                "op": "ref",
+                "name": "tax.us.2025.f8949.no1099b-sold.source-closure"
+              },
+              "right": {
+                "op": "category_literal",
+                "fact_type": {
+                  "id": "tax.us.2025.f8949.no1099b-sold.source-closure",
+                  "version": "v1"
+                },
+                "value": "yes"
+              }
+            },
+            {
+              "op": "categorical_compare",
+              "cmp": "eq",
+              "left": {
+                "op": "ref",
+                "name": "tax.us.2025.schedule-d-boundary.form8949-in-class"
+              },
+              "right": {
+                "op": "category_literal",
+                "fact_type": {
+                  "id": "tax.us.2025.schedule-d-boundary.form8949-in-class",
+                  "version": "v1"
+                },
+                "value": "yes"
+              }
+            }
+          ]
+        },
+        {
+          "cmp": "eq",
+          "left": {
+            "name": "tax.us.2025.schedule-d-boundary.noncovered-in-class",
+            "op": "ref"
+          },
+          "op": "categorical_compare",
+          "right": {
+            "fact_type": {
+              "id": "tax.us.2025.schedule-d-boundary.noncovered-in-class",
+              "version": "v1"
+            },
+            "op": "category_literal",
+            "value": "yes"
+          }
+        }
+      ]
+    },
+    "then": {
+      "op": "add",
+      "args": [
+        {
+          "name": "tax.us.2025.f1099b.noncovered-lt-txn.basis",
+          "op": "collect",
+          "source_set": "tax.us.2025.f1099b.noncovered-lt-basis"
+        }
+      ]
+    },
+    "else": {
+      "op": "block",
+      "code": "DEPENDENCY_ABSENT"
+    }
+  },
+  "blocked": {
+    "code": "SOURCE_SET_UNCLOSED",
+    "missing": [
+      "tax.us.2025.f1099b.noncovered-lt-basis"
+    ]
+  },
+  "when": {
+    "op": "all",
+    "args": [
+      {
+        "op": "require_closed",
+        "source_set": "tax.us.2025.f1099b.noncovered-lt-basis"
+      },
+      {
+        "op": "require_closed",
+        "source_set": "tax.us.2025.f1099b.noncovered-lt"
+      }
+    ]
+  },
+  "accounts_for": [
+    {
+      "family": {
+        "id": "tax.us.2025.f1099b.noncovered-lt",
+        "version": "v1"
+      },
+      "relationship": "itemizes_members"
+    }
+  ]
+}

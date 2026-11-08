@@ -424,3 +424,55 @@ entries patched in process.
    on the f8949-boxes-cf precedent (`t2_stage3_old_ic_no`). The
    alternative is to refuse it with one more arm in each column (h) rule,
    with no question shown.
+
+## Track 1 rerun: the four inherited v80 fixes (Decision 6)
+
+Owner question 1 is answered by Decision 6. Track 1 added four further
+switches to `codeb_prototype.REPAIRS` (all on in `final`; `decided` is
+unchanged) and reran this harness. `codeb-track0-output.json` now records
+that run.
+
+- `w_zero_proceeds` and `b_zero_proceeds`: a count of the code W sales
+  and of the box B and E sales per term, read by both attachments, as
+  `attachments_read_count` does for code B.
+- `v80_cross_term_exclusive`: each Form 1099-B sale family checks, per
+  sale, that the other term's families at or before it in the order
+  covered, code W, noncovered hold no sale on the same identity. The
+  noncovered amounts-agree rule takes the check (v2). The covered and code
+  W sales get a per-sale admission rule and a return-level admission check,
+  which lines 1a, 8a, 1b and 8b require. Form 8949 also reads the line 1a
+  and 8a checks. The family-level `identity_exclusivity` the code B
+  families use is not available to the v80 families without family
+  successors, which would need a horizon handover in every v80 workspace
+  (a recording change).
+- `covered_tsa_blocks`: the same admission rule refuses a covered or code
+  W sale flagged `taxpayer_side_adjustment` "yes". A rule cannot compare a
+  text field, so the flag is read through a yes/no parameter
+  (`parameter.f1099b-yes-no-flag`, the filing-status lookup pattern). The
+  line 1a and 8a blocked sentences (fields v3 and v2) and the line 1b and
+  8b ones now say that such a sale, or one recorded under both terms, is
+  outside what this return computes.
+
+Result: 99 of 99 `final` cases match, and `decided` shows the same seven
+counterexamples as before. The build has 77 member edits (48 adds, 29
+replacements), changes no existing file and reports no inherited
+inconsistency. The surface resolves 967 of 967 members, and every
+publisher, including the new counts and checks, records exactly one row in
+all 99 cases, the 139 v80 returns that run, and all 19 neighbour probes.
+
+All 19 neighbour probes match their v81 expectations
+(`NEIGHBOUR_HAND`, `NEIGHBOUR_BLOCKED`). The four probes above now
+compute or refuse as Decision 6 requires. Track 1 added 15 more: box E,
+code W box D and box B 0/0 zero-proceeds rows; six more cross-term pairs;
+and covered box D and code W taxpayer-side flags. Four controls compute
+exactly as on v80: the same shapes on two transactions, and a flag of
+"no".
+
+Of the 143 v80 returns, 138 are identical on v81 under Q3 "no". Five
+change only in a blocked attachment row's `missing` list, which now also
+names the box B or E count waiting on the same unclosed family. Those five
+are `carried_boundary_no_with_member`, `carried_late_member_unclosed`,
+`carried_late_yes_stale`, `carried_yes_then_no_with_member` and
+`v80_m_b_q1_no_with_member`. No line, value, disposition, attachment
+disposition or question changes on any of them. Unanswered, none
+publishes and every one that runs asks Q3.

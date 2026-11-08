@@ -1,0 +1,58 @@
+{
+  "schema": "bundle.v2",
+  "id": "tax.us.2025.schedule-d-boundary.form8949-code-b-in-class.vocabulary",
+  "version": "v1",
+  "label": "Whether Form 8949 work is in the class with code B corrections",
+  "fact_types": [
+    {
+      "schema": "fact-type.v2",
+      "id": "tax.us.2025.schedule-d-boundary.form8949-code-b-in-class",
+      "version": "v1",
+      "title": "Whether this return's Form 8949 work is only (1) sales your broker reported to the IRS with their basis, with no adjustment other than a wash-sale loss or a correction of a wrong reported basis (code B, column (e) the basis shown and column (g) the correction), and (2) sales of stocks or other securities in boxes B, C, E and F, each recorded once under the one box its statement gives it, with a basis you supply that is the correct basis even where a Form 1099-B showed another (and, on boxes C and F, net proceeds you supply), and an optional wash-sale adjustment. yes or no.",
+      "nature": "determinable",
+      "identity_keys": [
+        {
+          "name": "tax-year",
+          "kind": "literal",
+          "values": [
+            "2025"
+          ]
+        }
+      ],
+      "value_schema": {
+        "enum": [
+          "yes",
+          "no"
+        ]
+      },
+      "supersession": {
+        "policy": "free"
+      }
+    },
+    {
+      "schema": "fact-type.v2",
+      "id": "tax.us.2025.f1099b.code-b-sold.source-closure",
+      "version": "v1",
+      "title": "Did any Form 1099-B or substitute statement you received show a cost or other basis, reported to the IRS, that is wrong?",
+      "nature": "determinable",
+      "identity_keys": [
+        {
+          "name": "tax-year",
+          "kind": "literal",
+          "values": [
+            "2025"
+          ]
+        }
+      ],
+      "value_schema": {
+        "enum": [
+          "yes",
+          "no"
+        ]
+      },
+      "supersession": {
+        "policy": "free"
+      }
+    }
+  ]
+}

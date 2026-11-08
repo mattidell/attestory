@@ -90,7 +90,47 @@ from tools.package_successor import generate_to_directory  # noqa: E402
 #   still requires Form 8949 and Schedule D.
 # - field_words: the line 1b and 8b blocked sentence names what the line waits
 #   for (the column (g) row), not the correct basis, which is refused at entry.
-ALL_REPAIRS: frozenset[str] = frozenset({"cross_term_exclusive", "check_closes_first", "attachments_read_count", "field_words"})
+#
+# Track 1 (Decision 6) adds four switches that fix inherited v80 gaps. Each one
+# changes returns v80 computes; codeb_track0.py lists every one that changes.
+#
+# - w_zero_proceeds: a return-level count of code W sales per term
+#   (f1099b.covered-w-{st,lt}-count), and both attachments are required when it
+#   is above zero, so a code W row with zero proceeds requires Form 8949 and
+#   Schedule D.
+# - b_zero_proceeds: the same count for the box B and box E sales
+#   (f1099b.noncovered-{st,lt}-count), so a box B or E row with zero proceeds
+#   requires Form 8949.
+# - v80_cross_term_exclusive: one transaction recorded on a Form 1099-B sale
+#   family of one term and on one of the other term is refused, never counted
+#   twice. Each family checks the other term's families at or before it in the
+#   order covered (line 1a/8a), code W, noncovered (box B/E), so every pair is
+#   checked and no covered or code W check reads the noncovered closure. The
+#   noncovered amounts-agree rule takes the check (v2); the covered and code W
+#   sales get a new per-sale admission rule and a return-level check that lines
+#   1a, 8a, 1b and 8b require.
+# - covered_tsa_blocks: a covered or code W sale flagged
+#   taxpayer_side_adjustment "yes" is refused by the same admission rule (the
+#   flag is read through a yes/no parameter, since a rule cannot compare a text
+#   field), and lines 1a and 8a say why (form fields v3 and v2).
+#
+# The fresh-reader review repair (docs/reviews/f8949-code-b/review.md) adds two
+# more, and rewords the line fields and the two new questions:
+#
+# - direct_zero_proceeds (B1): a return-level count of the line 1a and 8a sales
+#   per term (f1099b.covered-{st,lt}-count), read by the Schedule D attachment,
+#   and Form 1040 line 7a v8, which treats a nonzero line 1a or 8a as Schedule D
+#   activity. A direct sale with zero proceeds then requires Schedule D and
+#   reaches line 7a.
+# - covered_flags_block (S5): the admission rule also refuses a covered or code
+#   W sale flagged ordinary_indicated, box_1f_market_discount, qof_indicated or
+#   collectibles_or_special_rate "yes" (ADR-0052 Decision 1 lists all five flags
+#   in the eligible-sale predicate).
+TRACK1_REPAIRS: frozenset[str] = frozenset({"w_zero_proceeds", "b_zero_proceeds", "v80_cross_term_exclusive",
+                                            "covered_tsa_blocks", "direct_zero_proceeds", "covered_flags_block"})
+TRACK0_REPAIRS: frozenset[str] = frozenset({"cross_term_exclusive", "check_closes_first", "attachments_read_count",
+                                            "field_words"})
+ALL_REPAIRS: frozenset[str] = TRACK0_REPAIRS | TRACK1_REPAIRS
 REPAIRS: set[str] = set(ALL_REPAIRS)
 
 PKG = P + "package.core-calculations"
@@ -105,8 +145,8 @@ WORD = {"st": "short-term", "lt": "long-term"}
 BOX = {"st": "A", "lt": "D"}
 LINE = {"st": "1b", "lt": "8b"}
 PART = {"st": "I", "lt": "II"}
-Q3_TEXT = ("Did any Form 1099-B or substitute statement you received report to the IRS a cost or other basis for a "
-           "sale that is wrong?")
+Q3_TEXT = ("Did any Form 1099-B or substitute statement you received show a cost or other basis, reported to the IRS, "
+           "that is wrong?")
 IC3_TITLE = (
     "Whether this return's Form 8949 work is only (1) sales your broker reported to the IRS with their basis, with "
     "no adjustment other than a wash-sale loss or a correction of a wrong reported basis (code B, column (e) the "
@@ -115,10 +155,11 @@ IC3_TITLE = (
     "basis even where a Form 1099-B showed another (and, on boxes C and F, net proceeds you supply), and an "
     "optional wash-sale adjustment. yes or no.")
 IC3_TEXT = (
-    "Is every sale on your Form 8949 either a sale your broker reported with its basis and no adjustment other than "
-    "a wash-sale loss or a correction of that basis, or a sale of stocks or other securities, entered only once, "
-    "with a basis you supply (the correct basis, even if your Form 1099-B showed a different one, and net proceeds "
-    "you supply when you got no Form 1099-B) and no adjustment other than a wash-sale loss?")
+    "Each sale on your Form 8949 should be one of two kinds. (1) A sale your broker reported to the IRS with its "
+    "basis, with no adjustment other than a wash-sale loss or a correction of that basis. (2) A sale of stocks or "
+    "other securities, entered only once and in the one box its statement gives it, with a basis you supply (the "
+    "correct basis, even if your Form 1099-B showed a different one), net proceeds you supply when you got no Form "
+    "1099-B, and no adjustment other than a wash-sale loss. Is every sale on your Form 8949 one of these two kinds?")
 
 
 # ---- small helpers ---------------------------------------------------------
@@ -448,6 +489,8 @@ def line_successor(term: str) -> dict[str, Any]:
     body["value"] = {"op": "add", "args": [body["value"], ref(gain(term))]}
     body["requires"] = [*body["requires"], gain(term)]
     body["blocked"]["missing"] = [*body["blocked"]["missing"], gain(term)]
+    if admission_wanted():
+        body = checked_line(body, [admission_check(v80_sale("covered-w", term))])
     body["notes"] += (f" v3: adds the code B rows of box {BOX[term]} ({gain(term).removeprefix(P)}), whose column (g) "
                       "carries the basis correction and any wash-sale adjustment.")
     return body
@@ -551,6 +594,7 @@ def attachment_f8949() -> dict[str, Any]:
         subs += [subtotal(term, "proceeds"), subtotal(term, "basis"), gain(term)]
         if "attachments_read_count" in REPAIRS:
             subs.append(count_symbol(term))
+    subs += attachment_reads() + f8949_reads()
     body["requirement"]["subtotals"] = subs
     return body
 
@@ -565,6 +609,7 @@ def attachment_schedule_d() -> dict[str, Any]:
         subs += [subtotal(term, "proceeds"), subtotal(term, "basis"), gain(term)]
         if "attachments_read_count" in REPAIRS:
             subs.append(count_symbol(term))
+    subs += attachment_reads() + schedule_d_reads()
     body["requirement"]["subtotals"] = subs
     return body
 
@@ -577,26 +622,302 @@ def form_field(term: str) -> dict[str, Any]:
     d["published_value"]["explain"] = (f"Schedule D line {n}, column (h), is your {w} gain or loss from Form 8949 box "
                                        f"{box}, proceeds minus basis plus adjustments. Column (g) carries any wash-sale "
                                        "adjustment and any code B correction of a wrong reported basis.")
-    d["computed_zero"]["explain"] = (f"Schedule D line {n}, column (h), is zero because your Form 8949 box {box} "
+    # Review S1: under a code B "yes" an empty term computes zero, so the sentence covers no sales too.
+    d["computed_zero"]["explain"] = (f"Schedule D line {n}, column (h), is zero: no {w} Form 8949 box {box} sales "
+                                     "with a wash-sale adjustment or a wrong reported basis are recorded, or their "
                                      "proceeds, basis, and adjustments net to zero.")
     d["closure_backed_zero"]["explain"] = (f"You said you have no {w} Form 8949 box {box} sales with a wash-sale "
                                            "adjustment or a wrong reported basis, so Schedule D line "
                                            f"{n}, column (h), is zero.")
     if "field_words" in REPAIRS:
+        # Review S2: a refused sale waits for nothing, so the sentence names the checks and the refusals.
         d["blocked"]["explain"] = (f"Schedule D line {n}, column (h), has no value yet. It is waiting for your Form 8949 "
                                    f"box {box} proceeds, basis, and adjustments, including the column (g) correction of "
-                                   "any sale whose reported basis is wrong, and your answers about those sales.")
+                                   "any sale whose reported basis is wrong, and your answers about those sales, or for "
+                                   "each sale recorded there to pass its checks (the column (g) of a sale whose "
+                                   "reported basis is wrong must equal the basis shown minus the correct basis, plus "
+                                   "any wash-sale loss disallowed).")
     else:
         d["blocked"]["explain"] = (f"Schedule D line {n}, column (h), has no value yet. It is waiting for your Form 8949 "
                                    f"box {box} proceeds, basis, and adjustments, including the correct basis of any sale "
                                    "whose reported basis is wrong, and your answers about those sales.")
+    if admission_wanted():
+        d["blocked"]["explain"] += outside_words(term)
+    return body
+
+
+# ---- Track 1: the inherited v80 fixes (Decision 6) ----------------------------
+
+
+def other_term(term: str) -> str:
+    return "lt" if term == "st" else "st"
+
+
+# The v80 Form 1099-B sale families, in the order the cross-term check follows.
+V80_KINDS = ("covered", "covered-w", "noncovered")
+V80_FAMILY_VERSION = {"covered": "v1", "covered-w": "v2", "noncovered": "v1"}
+FLAG_PARAMETER = P + "parameter.f1099b-yes-no-flag"
+# The other four flags of ADR-0052 Decision 1's eligible-sale predicate (review S5).
+ELIGIBILITY_FLAGS = ("ordinary_indicated", "box_1f_market_discount", "qof_indicated", "collectibles_or_special_rate")
+
+
+def v80_sale(kind: str, term: str) -> str:
+    return P + f"f1099b.{kind}-{term}-txn"
+
+
+def v80_family(kind: str, term: str) -> str:
+    return P + f"f1099b.{kind}-{term}"
+
+
+def counted_other_term(kind: str, term: str) -> list[tuple[str, str]]:
+    """The other term's (sale fact, family) this family's sales are checked against."""
+    other = other_term(term)
+    return [(v80_sale(k, other), v80_family(k, other)) for k in V80_KINDS[:V80_KINDS.index(kind) + 1]]
+
+
+def not_on_other_term(kind: str, term: str) -> list[dict[str, Any]]:
+    """Per sale: no sale of the other term's checked families shares its identity.
+
+    In a per-sale rule a count of another fact type that shares the sale's
+    identity-key names counts only the rows on this sale's identity (the
+    review S2 check of boxes C and F, and the code B sale's own check).
+    """
+    return [{"op": "compare", "cmp": "eq", "left": {"op": "count", "name": sale, "source_set": family}, "right": 0}
+            for sale, family in counted_other_term(kind, term)]
+
+
+def admission_fact(sale: str) -> str:
+    return sale + ".admission"
+
+
+def admission_check(sale: str) -> str:
+    return sale + ".admission-check"
+
+
+def admission_inert(sale: str) -> str:
+    return sale + ".admission-check-inert-path-unwritten"
+
+
+ADMITTED_KINDS = ("covered", "covered-w")
+
+
+def admission_wanted() -> bool:
+    return bool({"v80_cross_term_exclusive", "covered_tsa_blocks"} & REPAIRS)
+
+
+def admission_bundle() -> dict[str, Any]:
+    keys = sale_keys()
+    domain = {"oneOf": [
+        {"const": "admitted", "description": "The sale has no adjustment you make yourself and is recorded only once."},
+        {"const": "taxpayer-side-adjustment",
+         "description": "The sale is flagged with an adjustment you make yourself, which this return does not compute."},
+        {"const": "recorded-twice", "description": "The same transaction is also recorded as a sale of the other term."},
+    ]}
+    if "covered_flags_block" in REPAIRS:
+        domain["oneOf"].append({"const": "flagged-outside-class", "description": (
+            "The sale is flagged as ordinary income, market discount, a qualified opportunity fund investment, or a "
+            "collectibles or other special-rate gain, which this return does not compute.")})
+    facts: list[dict[str, Any]] = []
+    for kind in ADMITTED_KINDS:
+        for term in TERMS:
+            sale = v80_sale(kind, term)
+            what = f"{WORD[term]} " + ("Form 1099-B sale reported on line " + ("1a" if term == "st" else "8a")
+                                       if kind == "covered" else f"code W sale in box {BOX[term]}")
+            facts.append(cfp.fact(admission_fact(sale), f"Whether one {what} is admitted to this return.", domain, keys))
+            facts.append(cfp.fact(admission_inert(sale), "Never recorded; the second selection path the selection shape "
+                                  "requires.", {"type": "boolean"}, [{"name": "tax-year", "kind": "literal", "values": ["2025"]}]))
+    return {"schema": "bundle.v2", "id": P + "f1099b.covered-admission.vocabulary", "version": "v1",
+            "label": "Whether each covered or code W Form 1099-B sale is admitted to this return", "fact_types": facts}
+
+
+def flag_parameter() -> dict[str, Any]:
+    body = read("parameter.default-zero.json")
+    return {"schema": body["schema"], "id": FLAG_PARAMETER, "version": "v1", "scope": copy.deepcopy(body["scope"]),
+            "values": {"yes": "1", "no": "0"}}
+
+
+def admission_rule(kind: str, term: str) -> dict[str, Any]:
+    """Per covered or code W sale: refused when any of the five eligibility flags is yes, or when recorded under both terms."""
+    sale = v80_sale(kind, term)
+    lit = lambda v: {"op": "category_literal", "fact_type": {"id": admission_fact(sale), "version": "v1"}, "value": v}  # noqa: E731
+    value: dict[str, Any] = lit("admitted")
+    notes = []
+    if "v80_cross_term_exclusive" in REPAIRS:
+        value = {"op": "choose", "when": {"op": "all", "args": not_on_other_term(kind, term)}, "then": value,
+                 "else": lit("recorded-twice")}
+        notes.append("A sale whose transaction is also recorded on the other term's "
+                     + ", ".join(f.removeprefix(P + "f1099b.") for _s, f in counted_other_term(kind, term))
+                     + " family is recorded twice.")
+    def flagged(name: str) -> dict[str, Any]:
+        flag = {"op": "parameter", "parameter_id": FLAG_PARAMETER, "key": {"op": "ref", "name": sale, "field": name}}
+        return {"op": "compare", "cmp": "eq", "left": flag, "right": 1}
+
+    if "covered_flags_block" in REPAIRS:
+        value = {"op": "choose", "when": {"op": "any", "args": [flagged(name) for name in ELIGIBILITY_FLAGS]},
+                 "then": lit("flagged-outside-class"), "else": value}
+        notes.append("A sale flagged " + ", ".join(ELIGIBILITY_FLAGS) + " yes is outside the eligible-sale predicate.")
+    if "covered_tsa_blocks" in REPAIRS:
+        value = {"op": "choose", "when": flagged("taxpayer_side_adjustment"),
+                 "then": lit("taxpayer-side-adjustment"), "else": value}
+        notes.append("A sale flagged taxpayer_side_adjustment yes needs an adjustment this return does not compute.")
+    return {
+        "schema": "rule-artifact.v15", "id": sale.replace(P, P + "rule.") + ".admission", "version": "v1",
+        "scope": read("rule.schedule-d-line2.json")["scope"], "role": "computation",
+        "subject": {"id": sale, "version": "v1"}, "requires": [sale], "pins": [], "when": True, "value": value,
+        "publishes": admission_fact(sale), "blocked": {"code": "DEPENDENCY_ABSENT", "missing": []}, "citations": [],
+        "notes": " ".join(notes),
+    }
+
+
+def admission_check_rule(kind: str, term: str) -> dict[str, Any]:
+    """Return level: 0 when every sale is admitted or none is recorded; else block (cfp.check_rule's shape)."""
+    sale, family = v80_sale(kind, term), v80_family(kind, term)
+    body = cfp.check_rule(sale, family)
+    body = swap(body, cfp.agree_fact(sale), admission_fact(sale))
+    body = swap(body, cfp.check_symbol(sale), admission_check(sale))
+    body = swap(body, cfp.inert_fact(sale), admission_inert(sale))
+    body = swap(body, sale.removeprefix(P) + "-amounts-check-conflict", sale.removeprefix(P) + "-admission-check-conflict")
+    body = swap(body, "agree", "admitted")
+    body["id"] = sale.replace(P, P + "rule.") + ".admission-check"
+    for path in body["selection"]["paths"]:
+        if path["id"] == "sales":
+            path["activity"]["source_family"]["version"] = V80_FAMILY_VERSION[kind]
+    body["notes"] = ("Blocks unless every recorded sale is admitted: no adjustment you make yourself, no flag for "
+                     "ordinary income, market discount, a qualified opportunity fund or a special-rate gain, and not "
+                     "also recorded as a sale of the other term.")
+    assert "amounts" not in json.dumps(body), body["id"]
+    return body
+
+
+def noncovered_agree_successor(term: str) -> dict[str, Any]:
+    body = read(f"rule.f1099b.noncovered-{term}-txn.amounts-agree.json")
+    body["version"] = "v2"
+    body["value"]["when"]["args"] = [*body["value"]["when"]["args"], *not_on_other_term("noncovered", term)]
+    body["notes"] += (" v2: a sale whose transaction is also recorded on the other term's covered, code W or "
+                      "noncovered family disagrees, so one transaction is never counted twice.")
+    return body
+
+
+def v80_count_symbol(kind: str, term: str) -> str:
+    return P + f"f1099b.{kind}-{term}-count"
+
+
+def v80_count_rule(kind: str, term: str) -> dict[str, Any]:
+    body = count_rule(term)
+    body["id"] = P + f"rule.f1099b-{kind}-{term}-count"
+    body["publishes"] = v80_count_symbol(kind, term)
+    body["blocked"] = {"code": "SOURCE_SET_UNCLOSED", "missing": [v80_family(kind, term)]}
+    body["value"] = {"op": "count", "name": v80_sale(kind, term), "source_set": v80_family(kind, term)}
+    if kind == "covered":
+        body["notes"] = (f"The number of {WORD[term]} Form 1099-B sales reported directly on Schedule D line "
+                         f"{'1a' if term == 'st' else '8a'}. Schedule D is required when it is above zero, so a sale "
+                         "with zero proceeds is still reported.")
+        return body
+    what = f"code W sales in box {BOX[term]}" if kind == "covered-w" else \
+        f"box {'B' if term == 'st' else 'E'} sales whose basis was not reported to the IRS"
+    body["notes"] = (f"The number of {WORD[term]} {what}. Both attachments are required when it is above zero, so a "
+                     "sale with zero proceeds is still reported.")
+    return body
+
+
+def count_kinds() -> list[str]:
+    return [k for k, switch in (("covered-w", "w_zero_proceeds"), ("noncovered", "b_zero_proceeds")) if switch in REPAIRS]
+
+
+def count_rule_kinds() -> list[str]:
+    """Every v80 family that gets a count rule: the attachment counts, and the direct counts of B1."""
+    return [*(["covered"] if "direct_zero_proceeds" in REPAIRS else []), *count_kinds()]
+
+
+def attachment_reads() -> list[str]:
+    """The Track 1 symbols both attachments read (each is 0 or a count; a block blocks the attachment)."""
+    out = [v80_count_symbol(kind, term) for kind in count_kinds() for term in TERMS]
+    return out
+
+
+def schedule_d_reads() -> list[str]:
+    """Schedule D also reads the line 1a and 8a sale counts (B1); a direct sale needs no Form 8949."""
+    if "direct_zero_proceeds" not in REPAIRS:
+        return []
+    return [v80_count_symbol("covered", term) for term in TERMS]
+
+
+LINE_7A_ACTIVITY = (P + "schedule-d.line-1a-gain", P + "schedule-d.line-8a-gain")
+
+
+def line7a_successor() -> dict[str, Any]:
+    """Form 1040 line 7a v8: a nonzero line 1a or 8a is Schedule D activity (B1).
+
+    v7 tests the covered proceeds subtotals, which are zero for a direct sale
+    with zero proceeds, so such a sale's loss on line 1a or 8a never reached
+    line 7a.
+    """
+    body = read("rule.form1040-line7a.v7.json")
+    body["version"] = "v8"
+    arms = [{"op": "compare", "cmp": "ne", "left": {"op": "ref", "name": name}, "right": 0} for name in LINE_7A_ACTIVITY]
+    body["value"]["when"]["args"] = [*body["value"]["when"]["args"], *arms]
+    body["requires"] = [*body["requires"], *LINE_7A_ACTIVITY]
+    body["blocked"]["missing"] = [*body["blocked"]["missing"], *LINE_7A_ACTIVITY]
+    body["notes"] += (" v8: a nonzero line 1a or line 8a is Schedule D activity, so a direct sale with zero proceeds "
+                      "reaches line 7a.")
+    return body
+
+
+def f8949_reads() -> list[str]:
+    """Form 8949 also reads the line 1a and 8a admission checks, so a refused direct sale blocks it."""
+    if not admission_wanted():
+        return []
+    return [admission_check(v80_sale("covered", term)) for term in TERMS]
+
+
+LINE_1A_8A = {"st": ("rule.schedule-d-line1a-gain.v5.json", "schedule-d.line-1a.form-field.v2.json"),
+              "lt": ("rule.schedule-d-line8a-gain.v6.json", "schedule-d.line-8a.form-field.json")}
+
+
+def checked_line(body: dict[str, Any], symbols: list[str]) -> dict[str, Any]:
+    """A line successor that also requires the admission checks of the sales it sums."""
+    body["requires"] = [*body["requires"], *symbols]
+    body["notes"] = body.get("notes", "") + (" It also requires the admission check of each sale it sums, so a sale "
+                                             "flagged with an adjustment you make yourself, or recorded under both "
+                                             "terms, blocks the line.")
+    return body
+
+
+def outside_words(term: str) -> str:
+    """The refusals each line 1a, 8a, 1b and 8b blocked sentence names (review S2, S4 and S5)."""
+    other = WORD[other_term(term)]
+    flags = (" a sale flagged as ordinary income, market discount, a qualified opportunity fund investment, or a "
+             "collectibles or other special-rate gain," if "covered_flags_block" in REPAIRS else "")
+    return (f" A sale your answers place outside this return,{flags} and a sale also recorded as a {other} sale are "
+            "outside what this return computes. So is a sale with an adjustment you make yourself, unless the "
+            "adjustment corrects a wrong basis the Form 1099-B reported; record that sale as a sale whose reported "
+            "basis is wrong.")
+
+
+
+def direct_field(term: str) -> dict[str, Any]:
+    body = read(LINE_1A_8A[term][1])
+    body["version"] = bump(body["version"])
+    n = "1a" if term == "st" else "8a"
+    d = body["dispositions"]
+    if term == "lt":
+        # Review S3: line 8a in line 1a's plain words.
+        d["published_value"]["explain"] = ("Schedule D line 8a, column (h), is long-term proceeds minus basis for the "
+                                           "sales you report directly on Schedule D.")
+        d["computed_zero"]["explain"] = ("Schedule D line 8a, column (h), is zero because your long-term proceeds "
+                                         "equal your basis.")
+        d["closure_backed_zero"]["explain"] = ("You said you have no long-term sales reported directly on Schedule D, "
+                                               "so line 8a, column (h), is zero.")
+    d["blocked"]["explain"] = (
+        f"Schedule D line {n}, column (h), has no value yet. It is waiting for your {WORD[term]} proceeds and basis, "
+        f"or for each sale recorded there to pass its checks." + outside_words(term))
     return body
 
 
 # ---- the successor set ---------------------------------------------------------
 
 
-ROLE = {"bundle.v2": "fact-type-bundle", "source-family.v2": "source-family",
+ROLE = {"parameter-declaration.v1": "parameter", "bundle.v2": "fact-type-bundle", "source-family.v2": "source-family",
         "source-closure-mapping.v4": "source-closure-mapping", "citation.v1": "citation",
         "form-field.v3": "form-field", "attachment-rule.v8": "attachment-rule", "input-question.v1": "input-question"}
 
@@ -620,6 +941,18 @@ def artifacts() -> tuple[list[tuple[str, dict[str, Any]]], dict[tuple[str, str],
         out.append((f"rule.f1099b-code-b-{term}-gain.json", gain_rule(term)))
         if "attachments_read_count" in REPAIRS:
             out.append((f"rule.f1099b-code-b-{term}-count.json", count_rule(term)))
+    for kind in count_rule_kinds():
+        for term in TERMS:
+            out.append((f"rule.f1099b-{kind}-{term}-count.json", v80_count_rule(kind, term)))
+    if admission_wanted():
+        out.append(("f1099b-covered-admission.bundle.json", admission_bundle()))
+        if "covered_tsa_blocks" in REPAIRS:
+            out.append(("parameter.f1099b-yes-no-flag.json", flag_parameter()))
+        for kind in ADMITTED_KINDS:
+            for term in TERMS:
+                slug = v80_sale(kind, term).removeprefix(P)
+                out.append((f"rule.{slug}.admission.json", admission_rule(kind, term)))
+                out.append((f"rule.{slug}.admission-check.json", admission_check_rule(kind, term)))
     old: dict[tuple[str, str], tuple[str, str]] = {}
 
     def replaced(prior_name: str, body: dict[str, Any]) -> None:
@@ -628,12 +961,24 @@ def artifacts() -> tuple[list[tuple[str, dict[str, Any]]], dict[tuple[str, str],
         out.append((file_for(prior_name, body["version"]), body))
 
     for name in IC2_READERS:
-        replaced(name, ic2_successor(name))
+        body = ic2_successor(name)
+        for term, (rule_name, _field) in LINE_1A_8A.items():
+            if name == rule_name and admission_wanted():
+                body = checked_line(body, [admission_check(v80_sale("covered", term))])
+        replaced(name, body)
+    if "v80_cross_term_exclusive" in REPAIRS:
+        for term in TERMS:
+            replaced(f"rule.f1099b.noncovered-{term}-txn.amounts-agree.json", noncovered_agree_successor(term))
+    if admission_wanted():
+        for term in TERMS:
+            replaced(LINE_1A_8A[term][1], direct_field(term))
     for term in TERMS:
         replaced(f"rule.schedule-d-line{LINE[term]}.v2.json", line_successor(term))
         replaced(f"schedule-d.line-{LINE[term]}.form-field.v2.json", form_field(term))
     replaced("attachment.f8949.v4.json", attachment_f8949())
     replaced("attachment.schedule-d.v8.json", attachment_schedule_d())
+    if "direct_zero_proceeds" in REPAIRS:
+        replaced("rule.form1040-line7a.v7.json", line7a_successor())
     return out, old
 
 
@@ -664,6 +1009,22 @@ def companion_v81() -> None:
     loader._codeb_patched = True  # type: ignore[attr-defined]
 
 
+V81_FILES = ("package.core-calculations.v81.json", "published-packages.v79.json")
+V81_RELEASE_FILES = ("demo.release.sli-worksheet-integration.2025.v79.json",)
+
+
+def published_names() -> list[str]:
+    """The member files the published v81 has (every switch on), whatever REPAIRS this build uses."""
+    saved = set(REPAIRS)
+    try:
+        REPAIRS.clear()
+        REPAIRS.update(ALL_REPAIRS)
+        return [name for name, _ in artifacts()[0]]
+    finally:
+        REPAIRS.clear()
+        REPAIRS.update(saved)
+
+
 def digest(folder: Path) -> dict[str, str]:
     return {p.name: hashlib.sha256(p.read_bytes()).hexdigest() for p in sorted(folder.glob("*.json"))}
 
@@ -674,6 +1035,14 @@ def build(scratch: Path, *, rules_dir: Path | None = None) -> dict[str, Any]:
     shutil.copytree(source_content, content)
     shutil.copytree(source_releases, releases)
     bodies, old = artifacts()
+    # This branch publishes core v81 in place (Track 1, rebuilt by the review
+    # repair). The scratch build starts from v80: the published v81 package,
+    # registry v79, release v79 and every v81 member body are removed from the
+    # copy first. artifacts() reads only their predecessors.
+    for name in (*(n for n, _ in bodies), *published_names(), *V81_FILES):
+        (content / name).unlink(missing_ok=True)
+    for name in V81_RELEASE_FILES:
+        (releases / name).unlink(missing_ok=True)
     for missing in ("package.core-calculations.v81.json", "published-packages.v79.json"):
         assert not (content / missing).exists(), missing
     assert not (releases / "demo.release.sli-worksheet-integration.2025.v79.json").exists()
@@ -729,6 +1098,30 @@ def build(scratch: Path, *, rules_dir: Path | None = None) -> dict[str, Any]:
         "existing_files_changed": sorted(n for n in before if after.get(n) != before[n]),
         "files_added": len([n for n in after if n not in before]),
     }
+
+
+def publish() -> None:
+    """Write the v81 member bodies, package v81, registry v79 and release v79 into the repository.
+
+    Core v81 is unmerged, so it is rebuilt in place: the scratch build (from
+    v80, with every REPAIRS switch on) is copied over the published files.
+    tests/test_code_b_sales_v81_package.py then holds them to the prototype
+    byte for byte.
+    """
+    assert REPAIRS == set(ALL_REPAIRS), sorted(REPAIRS)
+    codeb_probe.pin_v80()
+    ORIGIN[:] = [probe.CONTENT, probe.RELEASE_DIR]
+    content, releases = ORIGIN
+    with tempfile.TemporaryDirectory() as tmp:
+        scratch = Path(tmp).resolve() / "scratch"
+        build(scratch)
+        bodies, _old = artifacts()
+        names = [n for n, _ in bodies]
+        for name in (*names, *V81_FILES):
+            shutil.copy(scratch / "content" / name, content / name)
+        for name in V81_RELEASE_FILES:
+            shutil.copy(scratch / "releases" / name, releases / name)
+    print("published", len(names), "member bodies, package v81, registry v79 and release v79")
 
 
 def pin(version: str) -> None:
@@ -1160,6 +1553,9 @@ def compare(before: dict[str, Any], after: dict[str, Any]) -> dict[str, Any]:
 
 def main() -> None:
     args = sys.argv[1:]
+    if args[:1] == ["publish"]:  # rebuild the published v81 in place (Track 1 and the review repair)
+        publish()
+        return
     if args[:1] == ["rules"]:  # write the member bodies to a directory outside the repository
         codeb_probe.pin_v80()
         ORIGIN[:] = [probe.CONTENT, probe.RELEASE_DIR]

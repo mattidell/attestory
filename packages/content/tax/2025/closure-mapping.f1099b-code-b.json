@@ -1,0 +1,104 @@
+{
+  "schema": "source-closure-mapping.v4",
+  "id": "tax.us.2025.closure-mapping.f1099b.code-b",
+  "version": "v1",
+  "closure_fact_type": {
+    "id": "tax.us.2025.f1099b.code-b-sold.source-closure",
+    "version": "v1"
+  },
+  "closure_question": "Did any Form 1099-B or substitute statement you received show a cost or other basis, reported to the IRS, that is wrong?",
+  "admission": {
+    "no": "closed-empty",
+    "yes": "until-later-member"
+  },
+  "families": [
+    {
+      "family": {
+        "id": "tax.us.2025.f1099b.code-b-st",
+        "version": "v1"
+      },
+      "member_fact_type": {
+        "id": "tax.us.2025.f1099b.code-b-st-txn",
+        "version": "v1"
+      },
+      "admits_symbol": "tax.us.2025.f1099b.code-b-st-subtotal"
+    },
+    {
+      "family": {
+        "id": "tax.us.2025.f1099b.code-b-st-proceeds",
+        "version": "v1"
+      },
+      "member_fact_type": {
+        "id": "tax.us.2025.f1099b.code-b-st-txn.proceeds",
+        "version": "v1"
+      },
+      "admits_symbol": "tax.us.2025.f1099b.code-b-st-proceeds-subtotal"
+    },
+    {
+      "family": {
+        "id": "tax.us.2025.f1099b.code-b-st-basis",
+        "version": "v1"
+      },
+      "member_fact_type": {
+        "id": "tax.us.2025.f1099b.code-b-st-txn.basis",
+        "version": "v1"
+      },
+      "admits_symbol": "tax.us.2025.f1099b.code-b-st-basis-subtotal"
+    },
+    {
+      "family": {
+        "id": "tax.us.2025.f1099b.code-b-st-adjustment",
+        "version": "v1"
+      },
+      "member_fact_type": {
+        "id": "tax.us.2025.f1099b.code-b-st-txn.adjustment",
+        "version": "v1"
+      },
+      "admits_symbol": "tax.us.2025.f1099b.code-b-st-adjustment-subtotal"
+    },
+    {
+      "family": {
+        "id": "tax.us.2025.f1099b.code-b-lt",
+        "version": "v1"
+      },
+      "member_fact_type": {
+        "id": "tax.us.2025.f1099b.code-b-lt-txn",
+        "version": "v1"
+      },
+      "admits_symbol": "tax.us.2025.f1099b.code-b-lt-subtotal"
+    },
+    {
+      "family": {
+        "id": "tax.us.2025.f1099b.code-b-lt-proceeds",
+        "version": "v1"
+      },
+      "member_fact_type": {
+        "id": "tax.us.2025.f1099b.code-b-lt-txn.proceeds",
+        "version": "v1"
+      },
+      "admits_symbol": "tax.us.2025.f1099b.code-b-lt-proceeds-subtotal"
+    },
+    {
+      "family": {
+        "id": "tax.us.2025.f1099b.code-b-lt-basis",
+        "version": "v1"
+      },
+      "member_fact_type": {
+        "id": "tax.us.2025.f1099b.code-b-lt-txn.basis",
+        "version": "v1"
+      },
+      "admits_symbol": "tax.us.2025.f1099b.code-b-lt-basis-subtotal"
+    },
+    {
+      "family": {
+        "id": "tax.us.2025.f1099b.code-b-lt-adjustment",
+        "version": "v1"
+      },
+      "member_fact_type": {
+        "id": "tax.us.2025.f1099b.code-b-lt-txn.adjustment",
+        "version": "v1"
+      },
+      "admits_symbol": "tax.us.2025.f1099b.code-b-lt-adjustment-subtotal"
+    }
+  ]
+}

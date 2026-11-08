@@ -149,11 +149,26 @@ def no1099b_scalar_presence_pairs() -> dict[str, str]:
     return pairs
 
 
+def code_b_scalar_presence_pairs() -> dict[str, str]:
+    """Each code B scalar amount requires its sale object on the same identity.
+
+    ADR-0082, as for the noncovered and no-Form-1099-B pairs. A box A or box D
+    code B proceeds, basis-shown, or column (g) figure recorded without the sale
+    is refused. Core v81 installs these pairs; earlier cores do not.
+    """
+    pairs: dict[str, str] = {}
+    for term in ("st", "lt"):
+        sale = f"tax.us.2025.f1099b.code-b-{term}-txn"
+        for kind in ("proceeds", "basis", "adjustment"):
+            pairs[f"{sale}.{kind}"] = sale
+    return pairs
+
+
 def named_covered_flag_refusal_maps() -> dict[tuple[str, str], dict[str, str]]:
     """Packages whose companion declaration names the covered-flag refusal.
 
-    Core v79 is the first package that names it, and core v80 names the same
-    map. Core v78 and earlier are
+    Core v79 is the first package that names it, and cores v80 and v81 name
+    the same map. Core v78 and earlier are
     absent, so their runs never consult the map. The map is a sibling of the
     companion declaration: the kernel declaration only carries presence pairs
     and value domains.
@@ -162,6 +177,9 @@ def named_covered_flag_refusal_maps() -> dict[tuple[str, str], dict[str, str]]:
         ("tax.us.2025.package.core-calculations", "v79"): dict(COVERED_FLAG_REFUSAL_OBJECTS),
         # Core v80 adds no covered sale object, so it names v79's map.
         ("tax.us.2025.package.core-calculations", "v80"): dict(COVERED_FLAG_REFUSAL_OBJECTS),
+        # Core v81 adds the code B sale objects. Their basis was reported to the
+        # IRS by definition, so they are not in the map; it names v80's map.
+        ("tax.us.2025.package.core-calculations", "v81"): dict(COVERED_FLAG_REFUSAL_OBJECTS),
     }
 
 
@@ -435,6 +453,20 @@ def domain_package_companion_declarations() -> dict[tuple[str, str], dict[str, A
                 **gambling["presence_pairs"],
                 **noncovered_scalar_presence_pairs(),
                 **no1099b_scalar_presence_pairs(),
+            },
+            "value_domains": dict(gambling["value_domains"]),
+        },
+        # Core v81 reads a Form 1099-B sale whose reported basis is wrong (Form
+        # 8949 boxes A and D, code B). Each of its proceeds, basis-shown, and
+        # column (g) figures requires its sale object, as v80's figures do.
+        # Without this entry, v81 would fall back to the global maps and refuse
+        # amounts v80 admits.
+        ("tax.us.2025.package.core-calculations", "v81"): {
+            "presence_pairs": {
+                **gambling["presence_pairs"],
+                **noncovered_scalar_presence_pairs(),
+                **no1099b_scalar_presence_pairs(),
+                **code_b_scalar_presence_pairs(),
             },
             "value_domains": dict(gambling["value_domains"]),
         },

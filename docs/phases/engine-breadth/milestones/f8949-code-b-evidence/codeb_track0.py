@@ -71,7 +71,10 @@ PUBLISHERS = tuple(P + "rule." + n for n in (
     "schedule-d-line8a-gain", "schedule-d-line8b", "schedule-d-line9", "schedule-d-line10", "schedule-d-line15",
     "schedule-d-line16", "schedule-d-line21", "form1040-line7a", "selected-preferential-base", "attachment.f8949",
     "attachment.schedule-d", "f1099b-code-b-st-gain", "f1099b-code-b-lt-gain", "f1099b.code-b-st-txn.amounts-check",
-    "f1099b.code-b-lt-txn.amounts-check", "f1099b-code-b-st-count", "f1099b-code-b-lt-count"))
+    "f1099b.code-b-lt-txn.amounts-check", "f1099b-code-b-st-count", "f1099b-code-b-lt-count",
+    *(f"f1099b.{k}-{t}-txn.admission-check" for k in ("covered", "covered-w") for t in ("st", "lt")),
+    *(f"f1099b.noncovered-{t}-txn.amounts-check" for t in ("st", "lt")),
+    *(f"f1099b-{k}-{t}-count" for k in ("covered", "covered-w", "noncovered") for t in ("st", "lt"))))
 codeb_probe.WHY_ROWS = tuple(dict.fromkeys(codeb_probe.WHY_ROWS + PUBLISHERS))
 
 
@@ -547,17 +550,70 @@ def check(name: str, result: dict[str, Any]) -> dict[str, Any]:
 
 
 # ---- v80 neighbour probes ------------------------------------------------------------
-# Neighbouring v80 families, run on v80 and on v81 with the code B answer "no", to
-# show which of Track 0's counterexample patterns v80 already has (inherited).
+# Neighbouring v80 families, run on v80 and on v81 with the code B answer "no".
+# Track 0 measured the first four as inherited v80 gaps (owner question 1).
+# Decision 6 takes them into Track 1, so on v81 they now carry expectations
+# (NEIGHBOUR_HAND, NEIGHBOUR_BLOCKED); the rest are Track 1's further probes of
+# the same four patterns, and controls that must not change.
+
+
+def sale_on(acts: Acts, kind: str, term: str, proceeds: float, basis: float, tag: str, *, wash: float | None = None,
+            tsa: str = "no", flag: str | None = None) -> Acts:
+    """One sale on a v80 Form 1099-B family whose sale object is keyed by ``tag``, with its amount rows.
+
+    ``flag`` names one more eligibility flag of the sale object to set "yes".
+    """
+    acts = ccr._renumbered(acts)
+    if kind == "noncovered":
+        cp.on_be(acts, term, proceeds, basis, tag, wash)
+        return ccr._renumbered(acts)
+    sale = probe.txn(proceeds=proceeds, basis=basis, long_term="yes" if term == "lt" else "no", wash=wash,
+                     reported="yes", covered="yes")
+    sale["taxpayer_side_adjustment"] = tsa
+    if flag is not None:
+        assert sale[flag] == "no", flag
+        sale[flag] = "yes"
+    acts = record_keyed(acts, P + f"f1099b.{kind}-{term}", sale, tag)
+    acts = record_keyed(acts, P + f"f1099b.{kind}-{term}-proceeds", proceeds, tag + "p")
+    acts = record_keyed(acts, P + f"f1099b.{kind}-{term}-basis", basis, tag + "b")
+    if kind == "covered-w":
+        acts = record_keyed(acts, P + f"f1099b.{kind}-{term}-adjustment", wash or 0.0, tag + "a")
+    return acts
+
+
+def record_keyed(acts: Acts, family_id: str, value: object, tag: str) -> Acts:
+    """probe.record with the family in the horizon ids, so one tag can key sales on two families."""
+    slug = family_id.removeprefix(P + "f1099b.")
+    out = probe._strip_closure(copy.deepcopy(acts), family_id + ".source-closure")
+    version = probe.family_version(out, family_id)
+    fact_type = probe.FACT_TYPES[str(probe.FAMILIES[(family_id, version)]["member_predicate"]["fact_type"])]
+    probe._adopt(out, fact_type["id"])
+    declared: list[tuple[str, str]] = []
+    for key in fact_type["identity_keys"]:
+        if key["kind"] == "entity":
+            entity = f"demo.ns.{tag}.{key['name']}"
+            if not cp.proto._known_entity(out, entity):
+                probe._introduce(out, entity, key["entity_kind"])
+            declared.append((key["name"], entity))
+        else:
+            declared.append((key["name"], key["values"][0]))
+    head = probe.horizons(out, family_id)[-1]
+    n = len(probe.horizons(out, family_id))
+    successor = f"demo.ns.{tag}.{slug}.h{n}"
+    probe._add(out, "member-transition", {
+        "family": {"id": family_id, "version": version},
+        "scope": {"tax-year": probe.YEAR, "subject": "demo.primary"},
+        "member": {"action": "assert", "finding": _attested(
+            f"demo.ns.{tag}.{slug}.member.h{n}", fact_id_for(fact_type["id"], tuple(declared)), value)},
+        "successor": {"id": successor, "predecessor": head},
+    })
+    probe._close(out, family_id + ".source-closure", successor, f"demo.ns.{tag}.{slug}.closure")
+    return ccr._renumbered(out)
 
 
 def tsa_direct(acts: Acts) -> Acts:
-    """A covered box A sale on line 1a whose filer flags taxpayer_side_adjustment yes (the field no rule reads)."""
-    sale = probe.txn(proceeds=10000.0, basis=7000.0, long_term="no", reported="yes", covered="yes")
-    sale["taxpayer_side_adjustment"] = "yes"
-    acts = probe.record(ccr._renumbered(acts), P + "f1099b.covered-st", sale, "tsa")
-    acts = probe.record(acts, P + "f1099b.covered-st-proceeds", 10000.0, "tsap")
-    return probe.record(acts, P + "f1099b.covered-st-basis", 7000.0, "tsab")
+    """A covered box A sale on line 1a whose filer flags taxpayer_side_adjustment yes."""
+    return sale_on(acts, "covered", "st", 10000.0, 7000.0, "tsa", tsa="yes")
 
 
 def b_and_covered_lt(acts: Acts) -> Acts:
@@ -565,15 +621,186 @@ def b_and_covered_lt(acts: Acts) -> Acts:
     return codeb_probe.direct(ccr._renumbered(acts), "lt", 10000.0, 7000.0, "nbdup")
 
 
+Sale = tuple[str, str, float, float, float | None]  # kind, term, proceeds, basis, wash
+
+
+def pair(first: Sale, second: Sale, *, same: bool = True) -> Callable[[Acts], Acts]:
+    """Two sales, on one transaction (``same``) or on two."""
+    def build(acts: Acts) -> Acts:
+        acts = sale_on(acts, *first[:4], "pa", wash=first[4])
+        return sale_on(acts, *second[:4], "pa" if same else "pb", wash=second[4])
+    return build
+
+
 ON_BE = {"q1": "yes", "q2": "no", "form8949": "no", "path_b": "no", "old_ic": "yes"}
+ON_W = {"q1": "no", "q2": "no", "form8949": "no", "path_b": "yes"}
+DIRECT = {"q1": "no", "q2": "no"}
+B_ST: Sale = ("noncovered", "st", 10000.0, 4000.0, None)
+E_LT: Sale = ("noncovered", "lt", 6000.0, 2000.0, None)
+A_ST: Sale = ("covered", "st", 10000.0, 7000.0, None)
+D_LT: Sale = ("covered", "lt", 10000.0, 7000.0, None)
+W_ST: Sale = ("covered-w", "st", 4000.0, 5000.0, 300.0)
+W_LT: Sale = ("covered-w", "lt", 4000.0, 5000.0, 300.0)
 NEIGHBOUR: dict[str, Callable[[], Acts]] = {
+    # Pattern 1 and 2: a zero-proceeds code W or box B/E row requires its attachments.
     "n_b_zero_proceeds": lambda: cfp.v80_return(sales=lambda a: cp.on_be(a, "st", 0.0, 500.0, "nbz"), **ON_BE),
+    "n_e_zero_proceeds": lambda: cfp.v80_return(sales=lambda a: cp.on_be(a, "lt", 0.0, 500.0, "nez"), **ON_BE),
+    "n_b_zero_proceeds_zero_basis": lambda: cfp.v80_return(sales=lambda a: cp.on_be(a, "st", 0.0, 0.0, "nbzz"), **ON_BE),
     "n_w_zero_proceeds": lambda: cfp.v80_return(
-        sales=lambda a: codeb_probe.wash(ccr._renumbered(a), "st", 0.0, 500.0, 300.0, "nwz"),
-        q1="no", q2="no", form8949="no", path_b="yes"),
+        sales=lambda a: codeb_probe.wash(ccr._renumbered(a), "st", 0.0, 500.0, 300.0, "nwz"), **ON_W),
+    "n_w_lt_zero_proceeds": lambda: cfp.v80_return(
+        sales=lambda a: codeb_probe.wash(ccr._renumbered(a), "lt", 0.0, 500.0, 300.0, "nwlz"), **ON_W),
+    # Review B1: a line 1a or 8a sale with zero proceeds requires Schedule D and reaches line 7a.
+    "n_covered_st_zero_proceeds": lambda: cfp.v80_return(
+        sales=lambda a: sale_on(a, "covered", "st", 0.0, 500.0, "dzp"), **DIRECT),
+    "n_covered_lt_zero_proceeds": lambda: cfp.v80_return(
+        sales=lambda a: sale_on(a, "covered", "lt", 0.0, 500.0, "dzpl"), **DIRECT),
+    "n_covered_st_zero_proceeds_zero_basis": lambda: cfp.v80_return(
+        sales=lambda a: sale_on(a, "covered", "st", 0.0, 0.0, "dzz"), **DIRECT),
+    # Pattern 3: one transaction on families of both terms.
     "n_dup_b_and_covered_lt": lambda: cfp.v80_return(sales=b_and_covered_lt, **ON_BE),
-    "n_covered_tsa_yes_no8949": lambda: cfp.v80_return(sales=tsa_direct, q1="no", q2="no"),
+    "n_dup_b_and_e": lambda: cfp.v80_return(sales=pair(B_ST, E_LT), **ON_BE),
+    "n_dup_e_and_covered_st": lambda: cfp.v80_return(sales=pair(A_ST, E_LT), **ON_BE),
+    "n_dup_covered_st_and_covered_lt": lambda: cfp.v80_return(sales=pair(A_ST, D_LT), **DIRECT),
+    "n_dup_w_st_and_covered_lt": lambda: cfp.v80_return(sales=pair(W_ST, D_LT), **ON_W),
+    "n_dup_covered_st_and_w_lt": lambda: cfp.v80_return(sales=pair(A_ST, W_LT), **ON_W),
+    "n_dup_w_st_and_w_lt": lambda: cfp.v80_return(sales=pair(W_ST, W_LT), **ON_W),
+    # Pattern 4: a covered or code W sale flagged with a taxpayer-side adjustment.
+    "n_covered_tsa_yes_no8949": lambda: cfp.v80_return(sales=tsa_direct, **DIRECT),
+    "n_covered_lt_tsa_yes": lambda: cfp.v80_return(
+        sales=lambda a: sale_on(a, "covered", "lt", 10000.0, 7000.0, "tsal", tsa="yes"), **DIRECT),
+    "n_w_st_tsa_yes": lambda: cfp.v80_return(
+        sales=lambda a: sale_on(a, "covered-w", "st", 4000.0, 5000.0, "tsaw", wash=300.0, tsa="yes"), **ON_W),
+    # Review S5: each of the other four eligibility flags refuses a covered sale (and a code W sale).
+    "n_covered_st_ordinary_yes": lambda: cfp.v80_return(
+        sales=lambda a: sale_on(a, "covered", "st", 10000.0, 7000.0, "flor", flag="ordinary_indicated"), **DIRECT),
+    "n_covered_lt_market_discount_yes": lambda: cfp.v80_return(
+        sales=lambda a: sale_on(a, "covered", "lt", 10000.0, 7000.0, "flmd", flag="box_1f_market_discount"), **DIRECT),
+    "n_covered_lt_qof_yes": lambda: cfp.v80_return(
+        sales=lambda a: sale_on(a, "covered", "lt", 10000.0, 7000.0, "flqf", flag="qof_indicated"), **DIRECT),
+    "n_covered_lt_collectibles_yes": lambda: cfp.v80_return(
+        sales=lambda a: sale_on(a, "covered", "lt", 10000.0, 7000.0, "flco", flag="collectibles_or_special_rate"),
+        **DIRECT),
+    "n_w_lt_collectibles_yes": lambda: cfp.v80_return(
+        sales=lambda a: sale_on(a, "covered-w", "lt", 4000.0, 5000.0, "flwc", wash=300.0,
+                                flag="collectibles_or_special_rate"), **ON_W),
+    # Controls: the same shapes on two transactions, and a flag of "no", compute as on v80.
+    "n_two_b_and_covered_lt": lambda: cfp.v80_return(sales=pair(B_ST, D_LT, same=False), **ON_BE),
+    "n_two_covered_st_and_covered_lt": lambda: cfp.v80_return(sales=pair(A_ST, D_LT, same=False), **DIRECT),
+    "n_two_w_st_and_w_lt": lambda: cfp.v80_return(sales=pair(W_ST, W_LT, same=False), **ON_W),
+    "n_covered_tsa_no": lambda: cfp.v80_return(
+        sales=lambda a: sale_on(a, "covered", "st", 10000.0, 7000.0, "tsan"), **DIRECT),
 }
+# v81 expectations. Single, wages 50,000: taxable income 34,250 before capital gains.
+NEIGHBOUR_HAND: dict[str, dict[str, Any]] = {
+    # 0 - 500 + 300 = -200 on line 1b (8b): both attachments now required.
+    "n_w_zero_proceeds": {"schedule-d.line-1b": -200, "schedule-d.line-16": -200, "form1040.line-7a": -200,
+                          "form1040.line-15": 34050, "form1040.line-16": 3851, "attachments": PUB},
+    "n_w_lt_zero_proceeds": {"schedule-d.line-8b": -200, "schedule-d.line-16": -200, "form1040.line-7a": -200,
+                             "form1040.line-15": 34050, "form1040.line-16": 3851, "attachments": PUB},
+    "n_b_zero_proceeds": {"schedule-d.line-2": -500, "schedule-d.line-16": -500, "form1040.line-7a": -500,
+                          "form1040.line-15": 33750, "form1040.line-16": 3815, "attachments": PUB},
+    "n_e_zero_proceeds": {"schedule-d.line-9": -500, "schedule-d.line-16": -500, "form1040.line-7a": -500,
+                          "form1040.line-15": 33750, "form1040.line-16": 3815, "attachments": PUB},
+    "n_b_zero_proceeds_zero_basis": {"schedule-d.line-2": 0, "schedule-d.line-16": 0, "form1040.line-7a": 0,
+                                     "form1040.line-15": 34250, "form1040.line-16": 3875, "attachments": PUB},
+    # B1: 0 - 500 on line 1a (8a). Line 16 -500, line 21 500, line 7a -500; taxable income 33,750, tax 3,815.
+    # A direct sale needs Schedule D but not Form 8949.
+    "n_covered_st_zero_proceeds": {"schedule-d.line-1a": -500, "schedule-d.line-7": -500, "schedule-d.line-16": -500,
+                                   "schedule-d.line-21": 500, "form1040.line-7a": -500, "form1040.line-15": 33750,
+                                   "form1040.line-16": 3815, "attachments": ("guard_inapplicable", "published")},
+    "n_covered_lt_zero_proceeds": {"schedule-d.line-8a": -500, "schedule-d.line-15": -500, "schedule-d.line-16": -500,
+                                   "schedule-d.line-21": 500, "form1040.line-7a": -500, "form1040.line-15": 33750,
+                                   "form1040.line-16": 3815, "preferential": 0,
+                                   "attachments": ("guard_inapplicable", "published")},
+    "n_covered_st_zero_proceeds_zero_basis": {"schedule-d.line-1a": 0, "schedule-d.line-16": 0, "form1040.line-7a": 0,
+                                              "form1040.line-15": 34250, "form1040.line-16": 3875,
+                                              "attachments": ("guard_inapplicable", "published")},
+    # 6000 short-term (box B) and 3000 long-term (line 8a): 3000 at 0%, 40,250 ordinary.
+    "n_two_b_and_covered_lt": {"schedule-d.line-2": 6000, "schedule-d.line-8a": 3000, "schedule-d.line-16": 9000,
+                               "form1040.line-7a": 9000, "form1040.line-15": 43250, "form1040.line-16": 4595,
+                               "preferential": 3000, "attachments": PUB},
+    "n_two_covered_st_and_covered_lt": {"schedule-d.line-1a": 3000, "schedule-d.line-8a": 3000,
+                                        "schedule-d.line-16": 6000, "form1040.line-7a": 6000,
+                                        "form1040.line-15": 40250, "form1040.line-16": 4235, "preferential": 3000},
+    # -700 and -700: line 16 -1400, limited to itself.
+    "n_two_w_st_and_w_lt": {"schedule-d.line-1b": -700, "schedule-d.line-8b": -700, "schedule-d.line-16": -1400,
+                            "form1040.line-7a": -1400, "form1040.line-15": 32850, "form1040.line-16": 3707,
+                            "attachments": PUB},
+    "n_covered_tsa_no": {"schedule-d.line-1a": 3000, "form1040.line-7a": 3000, "form1040.line-15": 37250,
+                         "form1040.line-16": 4235},
+}
+
+
+def check_row(kind: str, term: str) -> tuple[str, list[Any]]:
+    name = "amounts-check" if kind == "noncovered" else "admission-check"
+    return (f"f1099b.{kind}-{term}-txn.{name}", ["blocked", "DEPENDENCY_INVALID", []])
+
+
+NEIGHBOUR_BLOCKED: dict[str, dict[str, Any]] = {
+    "n_dup_b_and_covered_lt": {"attachments": BB, "row": check_row("noncovered", "st"), "published": ["schedule-d.line-8a"]},
+    "n_dup_b_and_e": {"attachments": BB, "row": check_row("noncovered", "st"),
+                      "also_rows": [check_row("noncovered", "lt")]},
+    "n_dup_e_and_covered_st": {"attachments": BB, "row": check_row("noncovered", "lt"), "published": ["schedule-d.line-1a"]},
+    "n_dup_covered_st_and_covered_lt": {"attachments": BB, "row": check_row("covered", "st"),
+                                        "also_rows": [check_row("covered", "lt")]},
+    # The code W row is required on Form 8949 and Schedule D whatever else is wrong.
+    "n_dup_w_st_and_covered_lt": {"attachments": PUB, "row": check_row("covered-w", "st"), "published": ["schedule-d.line-8a"]},
+    "n_dup_covered_st_and_w_lt": {"attachments": PUB, "row": check_row("covered-w", "lt"), "published": ["schedule-d.line-1a"]},
+    "n_dup_w_st_and_w_lt": {"attachments": PUB, "row": check_row("covered-w", "st"),
+                            "also_rows": [check_row("covered-w", "lt")]},
+    "n_covered_tsa_yes_no8949": {"attachments": BB, "row": check_row("covered", "st")},
+    "n_covered_lt_tsa_yes": {"attachments": BB, "row": check_row("covered", "lt")},
+    "n_w_st_tsa_yes": {"attachments": PUB, "row": check_row("covered-w", "st")},
+    "n_covered_st_ordinary_yes": {"attachments": BB, "row": check_row("covered", "st")},
+    "n_covered_lt_market_discount_yes": {"attachments": BB, "row": check_row("covered", "lt")},
+    "n_covered_lt_qof_yes": {"attachments": BB, "row": check_row("covered", "lt")},
+    "n_covered_lt_collectibles_yes": {"attachments": BB, "row": check_row("covered", "lt")},
+    "n_w_lt_collectibles_yes": {"attachments": PUB, "row": check_row("covered-w", "lt")},
+}
+# The field sentence each refused probe's blocked line shows.
+NEIGHBOUR_FIELD: dict[str, str] = {
+    "n_dup_b_and_covered_lt": "schedule-d.line-2", "n_dup_b_and_e": "schedule-d.line-2",
+    "n_dup_e_and_covered_st": "schedule-d.line-9", "n_dup_covered_st_and_covered_lt": "schedule-d.line-1a",
+    "n_dup_w_st_and_covered_lt": "schedule-d.line-1b", "n_dup_covered_st_and_w_lt": "schedule-d.line-8b",
+    "n_dup_w_st_and_w_lt": "schedule-d.line-1b", "n_covered_tsa_yes_no8949": "schedule-d.line-1a",
+    "n_covered_lt_tsa_yes": "schedule-d.line-8a", "n_w_st_tsa_yes": "schedule-d.line-1b",
+    "n_covered_st_ordinary_yes": "schedule-d.line-1a", "n_covered_lt_market_discount_yes": "schedule-d.line-8a",
+    "n_covered_lt_qof_yes": "schedule-d.line-8a", "n_covered_lt_collectibles_yes": "schedule-d.line-8a",
+    "n_w_lt_collectibles_yes": "schedule-d.line-8b",
+}
+
+
+def check_neighbour(name: str, result: dict[str, Any]) -> dict[str, Any]:
+    """A v81 neighbour run against NEIGHBOUR_HAND / NEIGHBOUR_BLOCKED (empty is a pass)."""
+    if name in NEIGHBOUR_HAND:
+        saved = dict(cbp.HAND)
+        try:
+            cbp.HAND[name] = NEIGHBOUR_HAND[name]
+            return cbp.check(name, result)
+        finally:
+            cbp.HAND.clear()
+            cbp.HAND.update(saved)
+    want = NEIGHBOUR_BLOCKED[name]
+    saved_b = dict(cbp.BLOCKED)
+    try:
+        cbp.BLOCKED[name] = {k: v for k, v in want.items() if k in ("attachments", "row")}
+        bad = cbp.check(name, result)
+    finally:
+        cbp.BLOCKED.clear()
+        cbp.BLOCKED.update(saved_b)
+    rows = result.get("rows") or {}
+    for row_name, row_want in want.get("also_rows", []):
+        if rows.get(row_name) != row_want:
+            bad["row:" + row_name] = {"want": row_want, "got": rows.get(row_name)}
+    lines = result.get("lines") or {}
+    for line in want.get("published", []):
+        if (lines.get(line) or [None])[0] != "published_value":
+            bad[line] = lines.get(line)
+    field = (result.get("fields") or {}).get(NEIGHBOUR_FIELD[name]) or {}
+    if field.get("disposition") != "blocked":
+        bad["field"] = field
+    return bad
 
 
 # ---- worker ------------------------------------------------------------------------
@@ -653,6 +880,8 @@ def run(task: tuple[str, str]) -> tuple[tuple[str, str], dict[str, Any]]:
                 answer = "no" if kind == "v81_q3_no" else None
                 result = codeb_probe.execute(lambda: cbp.with_q3(build(), answer), f"demo.codeb.t0{kind}.{name}")
             out = trim(result)
+            if kind == "v81_q3_no" and name in NEIGHBOUR and set(cbp.TRACK1_REPAIRS) <= cbp.REPAIRS:
+                out["mismatch"] = check_neighbour(name, result)
     except Exception as exc:  # noqa: BLE001
         out = {"error": type(exc).__name__, "message": probe.scrub(str(exc))[:600],
                "trace": probe.scrub(traceback.format_exc())[-800:]}
@@ -667,7 +896,9 @@ SURFACE_SYMBOLS = ["schedule-d.line-1a-gain", "schedule-d.line-8a-gain"] + [
     f"schedule-d.line-{n}" for n in ("1b", "2", "7", "8b", "9", "15", "16", "21")] + [
     "capital-gains.line7a-total", "capital-gains.selected-preferential-base", "form8949.disposition",
     "schedule-d.disposition", "f1099b.code-b-st-gain", "f1099b.code-b-lt-gain", "f1099b.code-b-st-count",
-    "f1099b.code-b-lt-count"]
+    "f1099b.code-b-lt-count"] + [f"f1099b.{k}-{t}-count" for k in ("covered", "covered-w", "noncovered")
+                                 for t in ("st", "lt")] + [
+    f"f1099b.{k}-{t}-txn.admission-check" for k in ("covered", "covered-w") for t in ("st", "lt")]
 
 
 def surface(content: Path) -> dict[str, Any]:
@@ -784,7 +1015,7 @@ def pool_run(repairs: list[str], tasks: list[tuple[str, str]], workers: int, lab
     with ProcessPoolExecutor(min(workers, max(1, len(tasks))), initializer=init, initargs=(repairs,)) as pool:
         for (kind, name), result in pool.map(run, tasks):
             results.setdefault(kind, {})[name] = result
-            shown = result.get("mismatch") if kind == "case" else cbp.form1040(result)
+            shown = result.get("mismatch") if "mismatch" in result else cbp.form1040(result)
             print(label, kind, name, result.get("error") or (result.get("result") or {}).get("error") or "",
                   shown if shown else "ok", flush=True)
     return results
@@ -818,6 +1049,12 @@ def main() -> None:
         payload["surface"] = surface(STATE["content"])
         OUT.write_text(dump(payload), encoding="utf-8")
         return
+    if args[:1] == ["neighbours"]:  # rerun the neighbour probes only and merge them
+        payload = json.loads(OUT.read_text(encoding="utf-8")) if OUT.exists() else {}
+        results = pool_run(final, [(k, n) for n in NEIGHBOUR for k in ("v80", "v81_q3_no")], 8, "neighbour")
+        payload["neighbour_probes"] = {n: {"v80": results["v80"][n], "v81_q3_no": results["v81_q3_no"][n]} for n in NEIGHBOUR}
+        OUT.write_text(dump(payload), encoding="utf-8")
+        return
     if args[:1] == ["only"]:
         design, names = args[1], args[2:]
         payload = json.loads(OUT.read_text(encoding="utf-8")) if OUT.exists() else {}
@@ -831,7 +1068,9 @@ def main() -> None:
     # Two parts, each in its own foreground run: ``cases`` (both designs) and ``carry``
     # (every v80 return, and the neighbour probes). No argument runs both.
     workers = int(args[0]) if args and args[0].isdigit() else 8
-    parts = {a for a in args if not a.isdigit()} or {"cases", "carry"}
+    # ``carry`` may name a shard, ``carry 1/2``: every second carried return and probe, merged into the output.
+    shard = next(((int(a.split("/")[0]), int(a.split("/")[1])) for a in args if "/" in a), None)
+    parts = {a for a in args if not a.isdigit() and "/" not in a} or {"cases", "carry"}
     payload = json.loads(OUT.read_text(encoding="utf-8")) if OUT.exists() else {}
     payload.update({"source_ref": "milestone/f8949-code-b-2025", "repairs": final})
     init(final)
@@ -846,12 +1085,21 @@ def main() -> None:
         payload["field_sentences"] = sentences
     if "carry" in parts:
         carry_names = sorted(cbp.v80_world())
+        probe_names = list(NEIGHBOUR)
+        if shard is not None:
+            index, count = shard
+            carry_names = carry_names[index - 1::count]
+            probe_names = probe_names[index - 1::count]
         tasks = [(k, n) for n in carry_names for k in ("v80", "v81_q3_no", "v81_q3_unanswered")]
-        tasks += [(k, n) for n in NEIGHBOUR for k in ("v80", "v81_q3_no")]
+        tasks += [(k, n) for n in probe_names for k in ("v80", "v81_q3_no")]
         results = pool_run(final, tasks, workers, "carry")
-        payload["v80_returns_on_v81"] = carry_table(
-            {k: {n: r for n, r in v.items() if n not in NEIGHBOUR} for k, v in results.items()})
-        payload["neighbour_probes"] = {n: {"v80": results["v80"][n], "v81_q3_no": results["v81_q3_no"][n]} for n in NEIGHBOUR}
+        carried = carry_table({k: {n: r for n, r in v.items() if n not in NEIGHBOUR} for k, v in results.items()})
+        probed = {n: {"v80": results["v80"][n], "v81_q3_no": results["v81_q3_no"][n]} for n in probe_names}
+        if shard is None:
+            payload["v80_returns_on_v81"], payload["neighbour_probes"] = carried, probed
+        else:
+            payload.setdefault("v80_returns_on_v81", {}).update(carried)
+            payload.setdefault("neighbour_probes", {}).update(probed)
     payload.pop("decided_design", None)
     OUT.write_text(dump(payload), encoding="utf-8")
     print(f"wrote {OUT.name}", flush=True)

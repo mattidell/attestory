@@ -1,0 +1,366 @@
+{
+  "schema": "bundle.v2",
+  "id": "tax.us.2025.f1099b.code-b-lt.vocabulary",
+  "version": "v1",
+  "label": "Vocabulary for long-term Form 1099-B sales whose reported basis is wrong (code B)",
+  "fact_types": [
+    {
+      "schema": "fact-type.v2",
+      "id": "tax.us.2025.f1099b.code-b-lt-txn",
+      "version": "v1",
+      "title": "One long-term Form 1099-B sale whose basis the broker reported to the IRS and which is wrong (Form 8949 box D, code B). basis is the basis the Form 1099-B shows (column (e)); corrected_basis is the correct basis you supply; wash_disallowed is any wash-sale loss disallowed (code W).",
+      "nature": "determinable",
+      "identity_keys": [
+        {
+          "name": "broker",
+          "kind": "entity",
+          "entity_kind": "tax.us.f1099b-broker"
+        },
+        {
+          "name": "statement",
+          "kind": "entity",
+          "entity_kind": "tax.us.f1099b-statement"
+        },
+        {
+          "name": "transaction",
+          "kind": "entity",
+          "entity_kind": "tax.us.f1099b-transaction"
+        },
+        {
+          "name": "tax-year",
+          "kind": "literal",
+          "values": [
+            "2025"
+          ]
+        }
+      ],
+      "value_schema": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "proceeds",
+          "basis",
+          "corrected_basis",
+          "long_term",
+          "wash_disallowed"
+        ],
+        "properties": {
+          "proceeds": {
+            "type": "number",
+            "minimum": 0
+          },
+          "basis": {
+            "type": "number",
+            "minimum": 0
+          },
+          "corrected_basis": {
+            "type": "number",
+            "minimum": 0
+          },
+          "long_term": {
+            "enum": [
+              "yes",
+              "no"
+            ]
+          },
+          "wash_disallowed": {
+            "type": "number",
+            "minimum": 0
+          }
+        }
+      },
+      "supersession": {
+        "policy": "free"
+      }
+    },
+    {
+      "schema": "fact-type.v2",
+      "id": "tax.us.2025.f1099b.code-b-lt.source-closure",
+      "version": "v1",
+      "title": "Closure of the long-term code B sale family.",
+      "nature": "determinable",
+      "identity_keys": [
+        {
+          "name": "family-horizon",
+          "kind": "entity",
+          "entity_kind": "kernel.family-horizon"
+        },
+        {
+          "name": "tax-year",
+          "kind": "literal",
+          "values": [
+            "2025"
+          ]
+        }
+      ],
+      "value_schema": {
+        "type": "boolean"
+      },
+      "supersession": {
+        "policy": "free"
+      }
+    },
+    {
+      "schema": "fact-type.v2",
+      "id": "tax.us.2025.f1099b.code-b-lt-txn.proceeds",
+      "version": "v1",
+      "title": "The proceeds shown on the Form 1099-B (column (d)) of a long-term code B sale.",
+      "nature": "determinable",
+      "identity_keys": [
+        {
+          "name": "broker",
+          "kind": "entity",
+          "entity_kind": "tax.us.f1099b-broker"
+        },
+        {
+          "name": "statement",
+          "kind": "entity",
+          "entity_kind": "tax.us.f1099b-statement"
+        },
+        {
+          "name": "transaction",
+          "kind": "entity",
+          "entity_kind": "tax.us.f1099b-transaction"
+        },
+        {
+          "name": "tax-year",
+          "kind": "literal",
+          "values": [
+            "2025"
+          ]
+        }
+      ],
+      "value_schema": {
+        "type": "number",
+        "minimum": 0
+      },
+      "supersession": {
+        "policy": "free"
+      }
+    },
+    {
+      "schema": "fact-type.v2",
+      "id": "tax.us.2025.f1099b.code-b-lt-proceeds.source-closure",
+      "version": "v1",
+      "title": "Closure of the long-term code B proceeds family.",
+      "nature": "determinable",
+      "identity_keys": [
+        {
+          "name": "family-horizon",
+          "kind": "entity",
+          "entity_kind": "kernel.family-horizon"
+        },
+        {
+          "name": "tax-year",
+          "kind": "literal",
+          "values": [
+            "2025"
+          ]
+        }
+      ],
+      "value_schema": {
+        "type": "boolean"
+      },
+      "supersession": {
+        "policy": "free"
+      }
+    },
+    {
+      "schema": "fact-type.v2",
+      "id": "tax.us.2025.f1099b.code-b-lt-txn.basis",
+      "version": "v1",
+      "title": "The basis shown on the Form 1099-B (column (e)) of a long-term code B sale.",
+      "nature": "determinable",
+      "identity_keys": [
+        {
+          "name": "broker",
+          "kind": "entity",
+          "entity_kind": "tax.us.f1099b-broker"
+        },
+        {
+          "name": "statement",
+          "kind": "entity",
+          "entity_kind": "tax.us.f1099b-statement"
+        },
+        {
+          "name": "transaction",
+          "kind": "entity",
+          "entity_kind": "tax.us.f1099b-transaction"
+        },
+        {
+          "name": "tax-year",
+          "kind": "literal",
+          "values": [
+            "2025"
+          ]
+        }
+      ],
+      "value_schema": {
+        "type": "number",
+        "minimum": 0
+      },
+      "supersession": {
+        "policy": "free"
+      }
+    },
+    {
+      "schema": "fact-type.v2",
+      "id": "tax.us.2025.f1099b.code-b-lt-basis.source-closure",
+      "version": "v1",
+      "title": "Closure of the long-term code B basis family.",
+      "nature": "determinable",
+      "identity_keys": [
+        {
+          "name": "family-horizon",
+          "kind": "entity",
+          "entity_kind": "kernel.family-horizon"
+        },
+        {
+          "name": "tax-year",
+          "kind": "literal",
+          "values": [
+            "2025"
+          ]
+        }
+      ],
+      "value_schema": {
+        "type": "boolean"
+      },
+      "supersession": {
+        "policy": "free"
+      }
+    },
+    {
+      "schema": "fact-type.v2",
+      "id": "tax.us.2025.f1099b.code-b-lt-txn.adjustment",
+      "version": "v1",
+      "title": "The column (g) adjustment (the basis shown minus the correct basis, plus any wash-sale loss disallowed) of a long-term code B sale.",
+      "nature": "determinable",
+      "identity_keys": [
+        {
+          "name": "broker",
+          "kind": "entity",
+          "entity_kind": "tax.us.f1099b-broker"
+        },
+        {
+          "name": "statement",
+          "kind": "entity",
+          "entity_kind": "tax.us.f1099b-statement"
+        },
+        {
+          "name": "transaction",
+          "kind": "entity",
+          "entity_kind": "tax.us.f1099b-transaction"
+        },
+        {
+          "name": "tax-year",
+          "kind": "literal",
+          "values": [
+            "2025"
+          ]
+        }
+      ],
+      "value_schema": {
+        "type": "number"
+      },
+      "supersession": {
+        "policy": "free"
+      }
+    },
+    {
+      "schema": "fact-type.v2",
+      "id": "tax.us.2025.f1099b.code-b-lt-adjustment.source-closure",
+      "version": "v1",
+      "title": "Closure of the long-term code B adjustment family.",
+      "nature": "determinable",
+      "identity_keys": [
+        {
+          "name": "family-horizon",
+          "kind": "entity",
+          "entity_kind": "kernel.family-horizon"
+        },
+        {
+          "name": "tax-year",
+          "kind": "literal",
+          "values": [
+            "2025"
+          ]
+        }
+      ],
+      "value_schema": {
+        "type": "boolean"
+      },
+      "supersession": {
+        "policy": "free"
+      }
+    },
+    {
+      "schema": "fact-type.v2",
+      "id": "tax.us.2025.f1099b.code-b-lt-txn.amounts-agree",
+      "version": "v1",
+      "title": "Whether each amount row of one long-term code B sale equals the amount on the sale.",
+      "nature": "determinable",
+      "identity_keys": [
+        {
+          "name": "broker",
+          "kind": "entity",
+          "entity_kind": "tax.us.f1099b-broker"
+        },
+        {
+          "name": "statement",
+          "kind": "entity",
+          "entity_kind": "tax.us.f1099b-statement"
+        },
+        {
+          "name": "transaction",
+          "kind": "entity",
+          "entity_kind": "tax.us.f1099b-transaction"
+        },
+        {
+          "name": "tax-year",
+          "kind": "literal",
+          "values": [
+            "2025"
+          ]
+        }
+      ],
+      "value_schema": {
+        "oneOf": [
+          {
+            "const": "agree",
+            "description": "The sale's own proceeds, basis and wash-sale rows equal the amounts on the sale."
+          },
+          {
+            "const": "disagree",
+            "description": "A proceeds, basis or wash-sale row differs from the amount on the sale."
+          }
+        ]
+      },
+      "supersession": {
+        "policy": "free"
+      }
+    },
+    {
+      "schema": "fact-type.v2",
+      "id": "tax.us.2025.f1099b.code-b-lt-txn.amounts-check-inert-path-unwritten",
+      "version": "v1",
+      "title": "Never recorded; the second selection path the selection shape requires.",
+      "nature": "determinable",
+      "identity_keys": [
+        {
+          "name": "tax-year",
+          "kind": "literal",
+          "values": [
+            "2025"
+          ]
+        }
+      ],
+      "value_schema": {
+        "type": "boolean"
+      },
+      "supersession": {
+        "policy": "free"
+      }
+    }
+  ]
+}
