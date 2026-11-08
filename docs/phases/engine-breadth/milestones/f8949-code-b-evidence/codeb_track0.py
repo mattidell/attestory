@@ -807,7 +807,7 @@ def check_neighbour(name: str, result: dict[str, Any]) -> dict[str, Any]:
 
 
 STATE: dict[str, Any] = {}
-P0_SUMMARY = cp.summarize  # codeb_probe.summary, installed by codeb_probe
+P0_SUMMARY = codeb_probe.summary
 
 
 def summary(outcome: Any) -> dict[str, Any]:
@@ -837,7 +837,7 @@ def summary(outcome: Any) -> dict[str, Any]:
 def init(repairs: list[str]) -> None:
     cbp.REPAIRS.clear()
     cbp.REPAIRS.update(repairs)
-    cp.summarize = summary
+    codeb_probe.SUMMARIZE[0] = summary
     codeb_probe.pin_v80()
     cbp.ORIGIN[:] = [probe.CONTENT, probe.RELEASE_DIR]
     tmp = tempfile.mkdtemp(prefix="codeb-t0-")

@@ -19,6 +19,7 @@ measured on the box B/E families with the correct basis.
 
 from __future__ import annotations
 
+import contextlib
 import copy
 import importlib.util
 import json
@@ -26,7 +27,7 @@ import sys
 import time
 import traceback
 from pathlib import Path
-from typing import Any, Callable
+from typing import Any, Callable, Iterator
 
 HERE = Path(__file__).resolve().parent
 REPO = HERE.parents[4]
@@ -60,9 +61,11 @@ P = cfp.P
 from tests.helpers import current_core_returns as ccr  # noqa: E402
 
 WATCH_LINES = ("1a", "1b", "2", "3", "7", "8a", "8b", "9", "10", "15", "16", "21")
-cp.WATCH = tuple(P + f"schedule-d.line-{n}" for n in WATCH_LINES) + tuple(
+# cf_probe is shared with tests/test_no1099b_sales_v80.py in one test process, so
+# these replace its globals only while a code B case runs (``execute``).
+CODEB_WATCH = tuple(P + f"schedule-d.line-{n}" for n in WATCH_LINES) + tuple(
     P + f"form1040.line-{n}" for n in ("7a", "15", "16"))
-cp.TEXT_LINES = tuple(P + f"schedule-d.line-{n}" for n in ("1b", "2", "8b", "9"))
+CODEB_TEXT_LINES = tuple(P + f"schedule-d.line-{n}" for n in ("1b", "2", "8b", "9"))
 # The rows that say why a line blocks: (disposition, code, missing).
 WHY_ROWS = tuple(P + "rule." + name for name in (
     "schedule-d-line1a-gain", "schedule-d-line1b", "schedule-d-line2", "schedule-d-line8a-gain",
@@ -201,13 +204,26 @@ def summary(outcome: Any) -> dict[str, Any]:
     return result
 
 
-cp.summarize = summary  # cf_probe.run_case reads its module global
+# The summary a code B run installs; Track 0 and the live test replace it.
+SUMMARIZE: list[Callable[[Any], dict[str, Any]]] = [summary]
+
+
+@contextlib.contextmanager
+def codeb_globals() -> Iterator[None]:
+    """cf_probe.run_case reads its module globals; set them for one run, then restore."""
+    saved = (cp.WATCH, cp.TEXT_LINES, cp.summarize)
+    cp.WATCH, cp.TEXT_LINES, cp.summarize = CODEB_WATCH, CODEB_TEXT_LINES, SUMMARIZE[0]
+    try:
+        yield
+    finally:
+        cp.WATCH, cp.TEXT_LINES, cp.summarize = saved
 
 
 def execute(build: Callable[[], Acts], run_id: str) -> dict[str, Any]:
     started = time.monotonic()
     try:
-        result = cp.run_case(build(), run_id)
+        with codeb_globals():
+            result = cp.run_case(build(), run_id)
     except Exception as exc:  # noqa: BLE001 — record the failure instead of hiding it
         result = {"error": type(exc).__name__, "message": probe.scrub(str(exc))[:600],
                   "trace": probe.scrub(traceback.format_exc())[-500:]}

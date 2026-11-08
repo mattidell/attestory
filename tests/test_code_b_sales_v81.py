@@ -174,7 +174,7 @@ def build_world() -> SimpleNamespace:
     for key, name in (("st", "f1099b-code-b-st.bundle.json"), ("lt", "f1099b-code-b-lt.bundle.json"),
                       ("boundary", "schedule-d-boundary-form8949-code-b-in-class.bundle.json")):
         cbp.BUNDLES[key] = json.loads((content / name).read_text(encoding="utf-8"))
-    cbp.cp.summarize = _summarizer(t0, codeb_probe.summary)
+    codeb_probe.SUMMARIZE[0] = _summarizer(t0, codeb_probe.summary)
     builds: dict[str, dict[str, Callable[[], Acts]]] = {
         "case": {**cbp.new_cases(), **t0.track0_cases()},
         "v80": {name: _with_q3_no(cbp, build) for name, build in cbp.v80_world().items()},
