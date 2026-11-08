@@ -1,0 +1,10 @@
+{
+  "schema": "input-question.v1",
+  "id": "tax.us.2025.input-question.f1099b-code-b-lt-proceeds",
+  "version": "v1",
+  "fact_type": {
+    "id": "tax.us.2025.f1099b.code-b-lt-txn.proceeds",
+    "version": "v1"
+  },
+  "question": "What are the proceeds shown on your Form 1099-B for each long-term sale you recorded whose reported basis is wrong?"
+}

@@ -1,0 +1,10 @@
+{
+  "schema": "input-question.v1",
+  "id": "tax.us.2025.input-question.f1099b-code-b-st-basis",
+  "version": "v1",
+  "fact_type": {
+    "id": "tax.us.2025.f1099b.code-b-st-txn.basis",
+    "version": "v1"
+  },
+  "question": "What basis does your Form 1099-B show for each short-term sale you recorded whose reported basis is wrong?"
+}

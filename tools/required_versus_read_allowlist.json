@@ -15,15 +15,15 @@
     },
     {
       "rule_id": "tax.us.2025.rule.schedule-d-line1a-gain",
-      "version": "v5",
+      "version": "v6",
       "symbol": "tax.us.2025.f1099b.covered-st.closure-check",
-      "reason": "Closure-check witness required so the family is named before the guard runs. The expression does not read the witness value. v5 is the core v80 successor of the same over-declaration on v4 and v3."
+      "reason": "Closure-check witness required so the family is named before the guard runs. The expression does not read the witness value. v5 is the core v80 successor of the same over-declaration on v4 and v3. v6 is the core v81 successor of the same requirement."
     },
     {
       "rule_id": "tax.us.2025.rule.schedule-d-line8a-gain",
-      "version": "v6",
+      "version": "v7",
       "symbol": "tax.us.2025.f1099b.covered-lt.closure-check",
-      "reason": "Closure-check witness required so the family is named before the guard runs. The expression does not read the witness value. v6 is the core v80 successor of the same over-declaration on v5 and v4."
+      "reason": "Closure-check witness required so the family is named before the guard runs. The expression does not read the witness value. v6 is the core v80 successor of the same over-declaration on v5 and v4. v7 is the core v81 successor of the same requirement."
     },
     {
       "rule_id": "tax.us.2025.rule.f1099b-covered-w-st-basis-subtotal",
@@ -75,27 +75,63 @@
     },
     {
       "rule_id": "tax.us.2025.rule.schedule-d-line2",
-      "version": "v2",
+      "version": "v3",
       "symbol": "tax.us.2025.f1099b.noncovered-st-txn.amounts-check",
-      "reason": "Amount-agreement witness required so the line blocks when a recorded sale's amount rows differ from the sale. The witness publishes 0 or blocks; the expression does not read its value (core v80, Track 0 repair amounts_agree)."
+      "reason": "Amount-agreement witness required so the line blocks when a recorded sale's amount rows differ from the sale. The witness publishes 0 or blocks; the expression does not read its value (core v80, Track 0 repair amounts_agree). v3 is the core v81 successor of the same requirement."
     },
     {
       "rule_id": "tax.us.2025.rule.schedule-d-line9",
-      "version": "v2",
+      "version": "v3",
       "symbol": "tax.us.2025.f1099b.noncovered-lt-txn.amounts-check",
-      "reason": "Amount-agreement witness required so the line blocks when a recorded sale's amount rows differ from the sale. The witness publishes 0 or blocks; the expression does not read its value (core v80, Track 0 repair amounts_agree)."
+      "reason": "Amount-agreement witness required so the line blocks when a recorded sale's amount rows differ from the sale. The witness publishes 0 or blocks; the expression does not read its value (core v80, Track 0 repair amounts_agree). v3 is the core v81 successor of the same requirement."
     },
     {
       "rule_id": "tax.us.2025.rule.schedule-d-line3",
-      "version": "v1",
+      "version": "v2",
       "symbol": "tax.us.2025.f8949.no1099b-st-txn.amounts-check",
-      "reason": "Amount-agreement witness required so the line blocks when a recorded sale's amount rows differ from the sale. The witness publishes 0 or blocks; the expression does not read its value (core v80, Track 0 repair amounts_agree)."
+      "reason": "Amount-agreement witness required so the line blocks when a recorded sale's amount rows differ from the sale. The witness publishes 0 or blocks; the expression does not read its value (core v80, Track 0 repair amounts_agree). v2 is the core v81 successor of the same requirement."
     },
     {
       "rule_id": "tax.us.2025.rule.schedule-d-line10",
-      "version": "v1",
+      "version": "v2",
       "symbol": "tax.us.2025.f8949.no1099b-lt-txn.amounts-check",
-      "reason": "Amount-agreement witness required so the line blocks when a recorded sale's amount rows differ from the sale. The witness publishes 0 or blocks; the expression does not read its value (core v80, Track 0 repair amounts_agree)."
+      "reason": "Amount-agreement witness required so the line blocks when a recorded sale's amount rows differ from the sale. The witness publishes 0 or blocks; the expression does not read its value (core v80, Track 0 repair amounts_agree). v2 is the core v81 successor of the same requirement."
+    },
+    {
+      "rule_id": "tax.us.2025.rule.schedule-d-line1a-gain",
+      "version": "v6",
+      "symbol": "tax.us.2025.f1099b.covered-st-txn.admission-check",
+      "reason": "Admission witness required so the line blocks when a recorded sale is flagged with a taxpayer-side adjustment or is recorded under both terms. The witness publishes 0 or blocks; the expression does not read its value (core v81, Track 1 repairs v80_cross_term_exclusive and covered_tsa_blocks)."
+    },
+    {
+      "rule_id": "tax.us.2025.rule.schedule-d-line8a-gain",
+      "version": "v7",
+      "symbol": "tax.us.2025.f1099b.covered-lt-txn.admission-check",
+      "reason": "Admission witness required so the line blocks when a recorded sale is flagged with a taxpayer-side adjustment or is recorded under both terms. The witness publishes 0 or blocks; the expression does not read its value (core v81, Track 1 repairs v80_cross_term_exclusive and covered_tsa_blocks)."
+    },
+    {
+      "rule_id": "tax.us.2025.rule.schedule-d-line1b",
+      "version": "v3",
+      "symbol": "tax.us.2025.f1099b.covered-w-st-txn.admission-check",
+      "reason": "Admission witness required so the line blocks when a recorded sale is flagged with a taxpayer-side adjustment or is recorded under both terms. The witness publishes 0 or blocks; the expression does not read its value (core v81, Track 1 repairs v80_cross_term_exclusive and covered_tsa_blocks)."
+    },
+    {
+      "rule_id": "tax.us.2025.rule.schedule-d-line8b",
+      "version": "v3",
+      "symbol": "tax.us.2025.f1099b.covered-w-lt-txn.admission-check",
+      "reason": "Admission witness required so the line blocks when a recorded sale is flagged with a taxpayer-side adjustment or is recorded under both terms. The witness publishes 0 or blocks; the expression does not read its value (core v81, Track 1 repairs v80_cross_term_exclusive and covered_tsa_blocks)."
+    },
+    {
+      "rule_id": "tax.us.2025.rule.f1099b-code-b-st-gain",
+      "version": "v1",
+      "symbol": "tax.us.2025.f1099b.code-b-st-txn.amounts-check",
+      "reason": "Amount-agreement witness required so column (h) blocks when a code B sale's rows differ from the sale or its column (g) row is not the worksheet result. The witness publishes 0 or blocks; the expression does not read its value (core v81)."
+    },
+    {
+      "rule_id": "tax.us.2025.rule.f1099b-code-b-lt-gain",
+      "version": "v1",
+      "symbol": "tax.us.2025.f1099b.code-b-lt-txn.amounts-check",
+      "reason": "Amount-agreement witness required so column (h) blocks when a code B sale's rows differ from the sale or its column (g) row is not the worksheet result. The witness publishes 0 or blocks; the expression does not read its value (core v81)."
     }
   ]
 }

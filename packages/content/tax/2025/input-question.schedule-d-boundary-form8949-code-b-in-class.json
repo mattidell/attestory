@@ -1,0 +1,10 @@
+{
+  "schema": "input-question.v1",
+  "id": "tax.us.2025.input-question.schedule-d-boundary-form8949-code-b-in-class",
+  "version": "v1",
+  "fact_type": {
+    "id": "tax.us.2025.schedule-d-boundary.form8949-code-b-in-class",
+    "version": "v1"
+  },
+  "question": "Each sale on your Form 8949 should be one of two kinds. (1) A sale your broker reported to the IRS with its basis, with no adjustment other than a wash-sale loss or a correction of that basis. (2) A sale of stocks or other securities, entered only once and in the one box its statement gives it, with a basis you supply (the correct basis, even if your Form 1099-B showed a different one), net proceeds you supply when you got no Form 1099-B, and no adjustment other than a wash-sale loss. Is every sale on your Form 8949 one of these two kinds?"
+}

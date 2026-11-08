@@ -1,0 +1,236 @@
+{
+  "schema": "source-family.v2",
+  "id": "tax.us.2025.f1099b.code-b-lt",
+  "version": "v1",
+  "title": "long-term Form 1099-B sales whose reported basis is wrong (code B), tax year 2025",
+  "scope": {
+    "tax_year": 2025,
+    "jurisdiction": "US-federal",
+    "family": "individual-income-tax"
+  },
+  "closure_claim": "Every long-term sale whose basis a Form 1099-B reported to the IRS and which is wrong is recorded as of the keyed horizon.",
+  "member_predicate": {
+    "fact_type": "tax.us.2025.f1099b.code-b-lt-txn"
+  },
+  "authorizes_subtotal": "tax.us.2025.f1099b.code-b-lt-subtotal",
+  "member_constraints": [
+    {
+      "id": "tax.us.2025.constraint.code-b-lt.holding-period",
+      "block_code": "HOLDING_PERIOD_MISMATCH",
+      "meaning": "The holding period does not match this short-term or long-term family.",
+      "violated_when": {
+        "op": "field_equals",
+        "field": "long_term",
+        "arg": "no"
+      }
+    },
+    {
+      "id": "tax.us.2025.constraint.code-b-lt.no-correction",
+      "block_code": "CODE_B_WITHOUT_CORRECTION",
+      "meaning": "The correct basis equals the basis the Form 1099-B shows, so there is nothing to correct. Record the sale as a sale with no adjustment (or with code W only).",
+      "violated_when": {
+        "op": "compare",
+        "comparison": "eq",
+        "left": {
+          "op": "field",
+          "field": "basis"
+        },
+        "right": {
+          "op": "field",
+          "field": "corrected_basis"
+        }
+      }
+    },
+    {
+      "id": "tax.us.2025.constraint.code-b-lt.code-w-on-gain",
+      "block_code": "CODE_W_ON_GAIN",
+      "meaning": "A wash-sale disallowance is recorded on a sale that is not a loss once its basis is corrected.",
+      "violated_when": {
+        "op": "all",
+        "args": [
+          {
+            "op": "compare",
+            "comparison": "gt",
+            "left": {
+              "op": "field",
+              "field": "wash_disallowed",
+              "default": 0
+            },
+            "right": {
+              "op": "literal",
+              "arg": 0
+            }
+          },
+          {
+            "op": "compare",
+            "comparison": "ge",
+            "left": {
+              "op": "field",
+              "field": "proceeds"
+            },
+            "right": {
+              "op": "field",
+              "field": "corrected_basis"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "tax.us.2025.constraint.code-b-lt.adjustment-exceeds-loss",
+      "block_code": "ADJUSTMENT_EXCEEDS_LOSS",
+      "meaning": "The wash-sale disallowance exceeds this sale's own loss once its basis is corrected.",
+      "violated_when": {
+        "op": "compare",
+        "comparison": "gt",
+        "left": {
+          "op": "field",
+          "field": "wash_disallowed",
+          "default": 0
+        },
+        "right": {
+          "op": "floor_zero",
+          "value": {
+            "op": "subtract",
+            "left": {
+              "op": "field",
+              "field": "corrected_basis"
+            },
+            "right": {
+              "op": "field",
+              "field": "proceeds"
+            }
+          }
+        }
+      }
+    }
+  ],
+  "identity_exclusivity": [
+    {
+      "id": "tax.us.2025.block.code-b-lt-txn.excludes.covered-st",
+      "incompatible_family": {
+        "id": "tax.us.2025.f1099b.covered-st",
+        "version": "v1"
+      },
+      "components": [
+        {
+          "fact_id_bound_key": "broker"
+        },
+        {
+          "fact_id_bound_key": "statement"
+        },
+        {
+          "fact_id_bound_key": "transaction"
+        },
+        {
+          "fact_id_bound_key": "tax-year"
+        }
+      ]
+    },
+    {
+      "id": "tax.us.2025.block.code-b-lt-txn.excludes.covered-w-st",
+      "incompatible_family": {
+        "id": "tax.us.2025.f1099b.covered-w-st",
+        "version": "v2"
+      },
+      "components": [
+        {
+          "fact_id_bound_key": "broker"
+        },
+        {
+          "fact_id_bound_key": "statement"
+        },
+        {
+          "fact_id_bound_key": "transaction"
+        },
+        {
+          "fact_id_bound_key": "tax-year"
+        }
+      ]
+    },
+    {
+      "id": "tax.us.2025.block.code-b-lt-txn.excludes.noncovered-st",
+      "incompatible_family": {
+        "id": "tax.us.2025.f1099b.noncovered-st",
+        "version": "v1"
+      },
+      "components": [
+        {
+          "fact_id_bound_key": "broker"
+        },
+        {
+          "fact_id_bound_key": "statement"
+        },
+        {
+          "fact_id_bound_key": "transaction"
+        },
+        {
+          "fact_id_bound_key": "tax-year"
+        }
+      ]
+    },
+    {
+      "id": "tax.us.2025.block.code-b-lt-txn.excludes.covered-lt",
+      "incompatible_family": {
+        "id": "tax.us.2025.f1099b.covered-lt",
+        "version": "v1"
+      },
+      "components": [
+        {
+          "fact_id_bound_key": "broker"
+        },
+        {
+          "fact_id_bound_key": "statement"
+        },
+        {
+          "fact_id_bound_key": "transaction"
+        },
+        {
+          "fact_id_bound_key": "tax-year"
+        }
+      ]
+    },
+    {
+      "id": "tax.us.2025.block.code-b-lt-txn.excludes.covered-w-lt",
+      "incompatible_family": {
+        "id": "tax.us.2025.f1099b.covered-w-lt",
+        "version": "v2"
+      },
+      "components": [
+        {
+          "fact_id_bound_key": "broker"
+        },
+        {
+          "fact_id_bound_key": "statement"
+        },
+        {
+          "fact_id_bound_key": "transaction"
+        },
+        {
+          "fact_id_bound_key": "tax-year"
+        }
+      ]
+    },
+    {
+      "id": "tax.us.2025.block.code-b-lt-txn.excludes.noncovered-lt",
+      "incompatible_family": {
+        "id": "tax.us.2025.f1099b.noncovered-lt",
+        "version": "v1"
+      },
+      "components": [
+        {
+          "fact_id_bound_key": "broker"
+        },
+        {
+          "fact_id_bound_key": "statement"
+        },
+        {
+          "fact_id_bound_key": "transaction"
+        },
+        {
+          "fact_id_bound_key": "tax-year"
+        }
+      ]
+    }
+  ]
+}

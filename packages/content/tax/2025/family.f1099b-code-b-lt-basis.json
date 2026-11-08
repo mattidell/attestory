@@ -1,0 +1,16 @@
+{
+  "schema": "source-family.v2",
+  "id": "tax.us.2025.f1099b.code-b-lt-basis",
+  "version": "v1",
+  "title": "long-term Form 1099-B sales whose reported basis is wrong (code B), basis, tax year 2025",
+  "scope": {
+    "tax_year": 2025,
+    "jurisdiction": "US-federal",
+    "family": "individual-income-tax"
+  },
+  "closure_claim": "Every long-term sale whose basis a Form 1099-B reported to the IRS and which is wrong is recorded with its basis as of the keyed horizon.",
+  "member_predicate": {
+    "fact_type": "tax.us.2025.f1099b.code-b-lt-txn.basis"
+  },
+  "authorizes_subtotal": "tax.us.2025.f1099b.code-b-lt-basis-subtotal"
+}

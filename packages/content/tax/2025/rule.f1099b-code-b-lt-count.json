@@ -1,0 +1,29 @@
+{
+  "schema": "rule-artifact.v15",
+  "id": "tax.us.2025.rule.f1099b-code-b-lt-count",
+  "version": "v1",
+  "notes": "The number of long-term code B sales recorded (Form 8949 box D rows with code B). Both attachments are required when it is above zero.",
+  "role": "computation",
+  "scope": {
+    "tax_year": 2025,
+    "jurisdiction": "US-federal",
+    "family": "individual-income-tax"
+  },
+  "publishes": "tax.us.2025.f1099b.code-b-lt-count",
+  "requires": [],
+  "blocked": {
+    "code": "SOURCE_SET_UNCLOSED",
+    "missing": [
+      "tax.us.2025.f1099b.code-b-lt",
+      "tax.us.2025.f1099b.code-b-sold.source-closure"
+    ]
+  },
+  "citations": [],
+  "pins": [],
+  "when": true,
+  "value": {
+    "op": "count",
+    "name": "tax.us.2025.f1099b.code-b-lt-txn",
+    "source_set": "tax.us.2025.f1099b.code-b-lt"
+  }
+}
