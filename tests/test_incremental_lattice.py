@@ -611,6 +611,9 @@ def test_collision_order_backtracking_and_duplicate_declared_id_boundary() -> No
     assert all(view[key] == row for key,row in full.items())
 
 
+# The one-axis case takes about 2.4s locally and 6.5s on a loaded CI runner,
+# past the fast-lane budget.
+@pytest.mark.live
 @pytest.mark.parametrize("axes", [1,2])
 def test_construction_count_is_delta_not_repeated_full_product(axes: int) -> None:
     registry = _registry()

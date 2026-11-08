@@ -1,0 +1,3061 @@
+{
+ "cases": {
+  "a_bw_on_w_broker": {
+   "attachments": {
+    "f8949": "blocked",
+    "schedule-d": "blocked"
+   },
+   "blocked": [
+    {
+     "artifact": "f1099b.covered-w-st.member-validation.synthesized",
+     "code": "DEPENDENCY_INVALID",
+     "missing": [
+      "ADJUSTMENT_EXCEEDS_LOSS"
+     ]
+    },
+    {
+     "artifact": "rule.schedule-d-line3",
+     "code": "DEPENDENCY_ABSENT",
+     "missing": []
+    },
+    {
+     "artifact": "rule.schedule-d-line10",
+     "code": "DEPENDENCY_ABSENT",
+     "missing": []
+    },
+    {
+     "artifact": "rule.attachment.f8949",
+     "code": "DEPENDENCY_ABSENT",
+     "missing": [
+      "f1099b.covered-w-st.member-validation"
+     ]
+    },
+    {
+     "artifact": "rule.attachment.schedule-d",
+     "code": "DEPENDENCY_ABSENT",
+     "missing": [
+      "f1099b.covered-w-st.member-validation"
+     ]
+    },
+    {
+     "artifact": "rule.f1099b-covered-w-st-adjustment-subtotal",
+     "code": "DEPENDENCY_ABSENT",
+     "missing": [
+      "f1099b.covered-w-st-adjustment.closure-check",
+      "f1099b.covered-w-st.member-validation"
+     ]
+    },
+    {
+     "artifact": "rule.f1099b-covered-w-st-basis-subtotal",
+     "code": "DEPENDENCY_ABSENT",
+     "missing": [
+      "f1099b.covered-w-st-basis.closure-check",
+      "f1099b.covered-w-st.member-validation"
+     ]
+    },
+    {
+     "artifact": "rule.f1099b-covered-w-st-proceeds-subtotal",
+     "code": "DEPENDENCY_ABSENT",
+     "missing": [
+      "f1099b.covered-w-st-proceeds.closure-check",
+      "f1099b.covered-w-st.member-validation"
+     ]
+    },
+    {
+     "artifact": "rule.form1040-line7a",
+     "code": "DEPENDENCY_ABSENT",
+     "missing": [
+      "schedule-d.line-16",
+      "schedule-d.line-21",
+      "capital-gains.selected-preferential-base",
+      "schedule-d.line-1b",
+      "schedule-d.line-3",
+      "schedule-d.line-10"
+     ]
+    },
+    {
+     "artifact": "rule.schedule-d-line15",
+     "code": "DEPENDENCY_ABSENT",
+     "missing": [
+      "schedule-d.line-10"
+     ]
+    },
+    {
+     "artifact": "rule.schedule-d-line16",
+     "code": "DEPENDENCY_ABSENT",
+     "missing": [
+      "schedule-d.line-7",
+      "schedule-d.line-15"
+     ]
+    },
+    {
+     "artifact": "rule.schedule-d-line1b",
+     "code": "DEPENDENCY_ABSENT",
+     "missing": [
+      "f1099b.covered-w-st-proceeds-subtotal",
+      "f1099b.covered-w-st-basis-subtotal",
+      "f1099b.covered-w-st-adjustment-subtotal",
+      "f1099b.covered-w-st.member-validation"
+     ]
+    }
+   ],
+   "lines": {
+    "form1040.line-15": [
+     "blocked",
+     null
+    ],
+    "form1040.line-16": [
+     "blocked",
+     null
+    ],
+    "form1040.line-7a": [
+     "blocked",
+     null
+    ],
+    "schedule-d.line-10": [
+     "blocked",
+     null
+    ],
+    "schedule-d.line-15": [
+     "blocked",
+     null
+    ],
+    "schedule-d.line-16": [
+     "blocked",
+     null
+    ],
+    "schedule-d.line-1a": [
+     "closure_backed_zero",
+     0
+    ],
+    "schedule-d.line-1b": [
+     "blocked",
+     null
+    ],
+    "schedule-d.line-2": [
+     "closure_backed_zero",
+     0
+    ],
+    "schedule-d.line-21": [
+     "blocked",
+     null
+    ],
+    "schedule-d.line-3": [
+     "blocked",
+     null
+    ],
+    "schedule-d.line-7": [
+     "blocked",
+     null
+    ],
+    "schedule-d.line-8a": [
+     "closure_backed_zero",
+     0
+    ],
+    "schedule-d.line-8b": [
+     "closure_backed_zero",
+     0
+    ],
+    "schedule-d.line-9": [
+     "closure_backed_zero",
+     0
+    ]
+   },
+   "presentation_valid": true,
+   "rows": {
+    "attachment.f8949": [
+     "blocked",
+     "DEPENDENCY_ABSENT",
+     [
+      "f1099b.covered-w-st.member-validation"
+     ]
+    ],
+    "attachment.schedule-d": [
+     "blocked",
+     "DEPENDENCY_ABSENT",
+     [
+      "f1099b.covered-w-st.member-validation"
+     ]
+    ],
+    "form1040-line7a": [
+     "blocked",
+     "DEPENDENCY_ABSENT",
+     [
+      "schedule-d.line-16",
+      "schedule-d.line-21",
+      "capital-gains.selected-preferential-base",
+      "schedule-d.line-1b",
+      "schedule-d.line-3",
+      "schedule-d.line-10"
+     ]
+    ],
+    "schedule-d-line1a-gain": [
+     "published",
+     null,
+     []
+    ],
+    "schedule-d-line1b": [
+     "blocked",
+     "DEPENDENCY_ABSENT",
+     [
+      "f1099b.covered-w-st-proceeds-subtotal",
+      "f1099b.covered-w-st-basis-subtotal",
+      "f1099b.covered-w-st-adjustment-subtotal",
+      "f1099b.covered-w-st.member-validation"
+     ]
+    ],
+    "schedule-d-line2": [
+     "published",
+     null,
+     []
+    ],
+    "schedule-d-line8a-gain": [
+     "published",
+     null,
+     []
+    ],
+    "schedule-d-line8b": [
+     "published",
+     null,
+     []
+    ],
+    "schedule-d-line9": [
+     "published",
+     null,
+     []
+    ],
+    "selected-preferential-base": [
+     "blocked",
+     "DEPENDENCY_ABSENT",
+     [
+      "schedule-d.line-1b",
+      "schedule-d.line-16",
+      "schedule-d.line-15",
+      "schedule-d.line-3",
+      "schedule-d.line-10"
+     ]
+    ]
+   },
+   "stop_reason": "saturated"
+  },
+  "a_bw_on_w_fixed": {
+   "attachments": {
+    "f8949": "blocked",
+    "schedule-d": "blocked"
+   },
+   "blocked": [
+    {
+     "artifact": "rule.schedule-d-line3",
+     "code": "DEPENDENCY_ABSENT",
+     "missing": []
+    },
+    {
+     "artifact": "rule.schedule-d-line10",
+     "code": "DEPENDENCY_ABSENT",
+     "missing": []
+    },
+    {
+     "artifact": "rule.attachment.f8949",
+     "code": "DEPENDENCY_ABSENT",
+     "missing": [
+      "schedule-d.line-3",
+      "schedule-d.line-10"
+     ]
+    },
+    {
+     "artifact": "rule.attachment.schedule-d",
+     "code": "DEPENDENCY_ABSENT",
+     "missing": [
+      "schedule-d.line-3",
+      "schedule-d.line-10"
+     ]
+    },
+    {
+     "artifact": "rule.form1040-line7a",
+     "code": "DEPENDENCY_ABSENT",
+     "missing": [
+      "schedule-d.line-16",
+      "schedule-d.line-21",
+      "capital-gains.selected-preferential-base",
+      "schedule-d.line-3",
+      "schedule-d.line-10"
+     ]
+    },
+    {
+     "artifact": "rule.schedule-d-line15",
+     "code": "DEPENDENCY_ABSENT",
+     "missing": [
+      "schedule-d.line-10"
+     ]
+    },
+    {
+     "artifact": "rule.schedule-d-line16",
+     "code": "DEPENDENCY_ABSENT",
+     "missing": [
+      "schedule-d.line-7",
+      "schedule-d.line-15"
+     ]
+    },
+    {
+     "artifact": "rule.schedule-d-line21",
+     "code": "DEPENDENCY_ABSENT",
+     "missing": [
+      "schedule-d.line-16"
+     ]
+    },
+    {
+     "artifact": "rule.schedule-d-line7",
+     "code": "DEPENDENCY_ABSENT",
+     "missing": [
+      "schedule-d.line-3"
+     ]
+    }
+   ],
+   "lines": {
+    "form1040.line-15": [
+     "blocked",
+     null
+    ],
+    "form1040.line-16": [
+     "blocked",
+     null
+    ],
+    "form1040.line-7a": [
+     "blocked",
+     null
+    ],
+    "schedule-d.line-10": [
+     "blocked",
+     null
+    ],
+    "schedule-d.line-15": [
+     "blocked",
+     null
+    ],
+    "schedule-d.line-16": [
+     "blocked",
+     null
+    ],
+    "schedule-d.line-1a": [
+     "closure_backed_zero",
+     0
+    ],
+    "schedule-d.line-1b": [
+     "published_value",
+     -1000
+    ],
+    "schedule-d.line-2": [
+     "closure_backed_zero",
+     0
+    ],
+    "schedule-d.line-21": [
+     "blocked",
+     null
+    ],
+    "schedule-d.line-3": [
+     "blocked",
+     null
+    ],
+    "schedule-d.line-7": [
+     "blocked",
+     null
+    ],
+    "schedule-d.line-8a": [
+     "closure_backed_zero",
+     0
+    ],
+    "schedule-d.line-8b": [
+     "closure_backed_zero",
+     0
+    ],
+    "schedule-d.line-9": [
+     "closure_backed_zero",
+     0
+    ]
+   },
+   "presentation_valid": true,
+   "rows": {
+    "attachment.f8949": [
+     "blocked",
+     "DEPENDENCY_ABSENT",
+     [
+      "schedule-d.line-3",
+      "schedule-d.line-10"
+     ]
+    ],
+    "attachment.schedule-d": [
+     "blocked",
+     "DEPENDENCY_ABSENT",
+     [
+      "schedule-d.line-3",
+      "schedule-d.line-10"
+     ]
+    ],
+    "form1040-line7a": [
+     "blocked",
+     "DEPENDENCY_ABSENT",
+     [
+      "schedule-d.line-16",
+      "schedule-d.line-21",
+      "capital-gains.selected-preferential-base",
+      "schedule-d.line-3",
+      "schedule-d.line-10"
+     ]
+    ],
+    "schedule-d-line1a-gain": [
+     "published",
+     null,
+     []
+    ],
+    "schedule-d-line1b": [
+     "published",
+     null,
+     []
+    ],
+    "schedule-d-line2": [
+     "published",
+     null,
+     []
+    ],
+    "schedule-d-line8a-gain": [
+     "published",
+     null,
+     []
+    ],
+    "schedule-d-line8b": [
+     "published",
+     null,
+     []
+    ],
+    "schedule-d-line9": [
+     "published",
+     null,
+     []
+    ],
+    "selected-preferential-base": [
+     "inapplicable",
+     null,
+     []
+    ]
+   },
+   "stop_reason": "saturated"
+  },
+  "a_bw_on_w_fixed_path_b_yes": {
+   "attachments": {
+    "f8949": "published",
+    "schedule-d": "published"
+   },
+   "f8949_parts": [
+    "Part I box A column (d): short-term wash-sale proceeds",
+    "Part I box A column (e): short-term wash-sale basis",
+    "Part I box A column (g): short-term wash-sale adjustment",
+    "Part II box D column (d): long-term wash-sale proceeds",
+    "Part II box D column (e): long-term wash-sale basis",
+    "Part II box D column (g): long-term wash-sale adjustment",
+    "Part I box B column (d): short-term basis-not-reported proceeds",
+    "Part I box B column (e): short-term basis the filer supplies",
+    "Part I box B column (g): short-term wash-sale adjustment",
+    "Part II box E column (d): long-term basis-not-reported proceeds",
+    "Part II box E column (e): long-term basis the filer supplies",
+    "Part II box E column (g): long-term wash-sale adjustment",
+    "Part I box C column (d): short-term net proceeds, no Form 1099-B",
+    "Part I box C column (e): short-term basis you supply, no Form 1099-B",
+    "Part I box C column (g): short-term wash-sale adjustment, no Form 1099-B",
+    "Part II box F column (d): long-term net proceeds, no Form 1099-B",
+    "Part II box F column (e): long-term basis you supply, no Form 1099-B",
+    "Part II box F column (g): long-term wash-sale adjustment, no Form 1099-B"
+   ],
+   "lines": {
+    "form1040.line-15": [
+     "published_value",
+     33250
+    ],
+    "form1040.line-16": [
+     "published_value",
+     3755
+    ],
+    "form1040.line-7a": [
+     "published_value",
+     -1000
+    ],
+    "schedule-d.line-10": [
+     "computed_zero",
+     0
+    ],
+    "schedule-d.line-15": [
+     "computed_zero",
+     0
+    ],
+    "schedule-d.line-16": [
+     "published_value",
+     -1000
+    ],
+    "schedule-d.line-1a": [
+     "closure_backed_zero",
+     0
+    ],
+    "schedule-d.line-1b": [
+     "published_value",
+     -1000
+    ],
+    "schedule-d.line-2": [
+     "closure_backed_zero",
+     0
+    ],
+    "schedule-d.line-21": [
+     "published_value",
+     1000
+    ],
+    "schedule-d.line-3": [
+     "computed_zero",
+     0
+    ],
+    "schedule-d.line-7": [
+     "published_value",
+     -1000
+    ],
+    "schedule-d.line-8a": [
+     "closure_backed_zero",
+     0
+    ],
+    "schedule-d.line-8b": [
+     "closure_backed_zero",
+     0
+    ],
+    "schedule-d.line-9": [
+     "closure_backed_zero",
+     0
+    ]
+   },
+   "presentation_valid": true,
+   "rows": {
+    "attachment.f8949": [
+     "published",
+     null,
+     []
+    ],
+    "attachment.schedule-d": [
+     "published",
+     null,
+     []
+    ],
+    "form1040-line7a": [
+     "published",
+     null,
+     []
+    ],
+    "schedule-d-line1a-gain": [
+     "published",
+     null,
+     []
+    ],
+    "schedule-d-line1b": [
+     "published",
+     null,
+     []
+    ],
+    "schedule-d-line2": [
+     "published",
+     null,
+     []
+    ],
+    "schedule-d-line8a-gain": [
+     "published",
+     null,
+     []
+    ],
+    "schedule-d-line8b": [
+     "published",
+     null,
+     []
+    ],
+    "schedule-d-line9": [
+     "published",
+     null,
+     []
+    ],
+    "selected-preferential-base": [
+     "published",
+     null,
+     []
+    ]
+   },
+   "stop_reason": "saturated",
+   "symbols": {
+    "capital-gains.selected-preferential-base": "0"
+   }
+  },
+  "a_high_direct_broker_honest": {
+   "attachments": {
+    "f8949": "blocked",
+    "schedule-d": "blocked"
+   },
+   "blocked": [
+    {
+     "artifact": "rule.schedule-d-line1a-gain",
+     "code": "DEPENDENCY_ABSENT",
+     "missing": []
+    },
+    {
+     "artifact": "rule.schedule-d-line3",
+     "code": "DEPENDENCY_ABSENT",
+     "missing": []
+    },
+    {
+     "artifact": "rule.schedule-d-line10",
+     "code": "DEPENDENCY_ABSENT",
+     "missing": []
+    },
+    {
+     "artifact": "rule.attachment.f8949",
+     "code": "DEPENDENCY_ABSENT",
+     "missing": [
+      "schedule-d.line-3",
+      "schedule-d.line-10"
+     ]
+    },
+    {
+     "artifact": "rule.attachment.schedule-d",
+     "code": "DEPENDENCY_ABSENT",
+     "missing": [
+      "schedule-d.line-1a-gain",
+      "schedule-d.line-3",
+      "schedule-d.line-10"
+     ]
+    },
+    {
+     "artifact": "rule.form1040-line7a",
+     "code": "DEPENDENCY_ABSENT",
+     "missing": [
+      "schedule-d.line-16",
+      "schedule-d.line-21",
+      "capital-gains.selected-preferential-base",
+      "schedule-d.line-3",
+      "schedule-d.line-10"
+     ]
+    },
+    {
+     "artifact": "rule.schedule-d-line15",
+     "code": "DEPENDENCY_ABSENT",
+     "missing": [
+      "schedule-d.line-10"
+     ]
+    },
+    {
+     "artifact": "rule.schedule-d-line16",
+     "code": "DEPENDENCY_ABSENT",
+     "missing": [
+      "schedule-d.line-7",
+      "schedule-d.line-15"
+     ]
+    },
+    {
+     "artifact": "rule.schedule-d-line21",
+     "code": "DEPENDENCY_ABSENT",
+     "missing": [
+      "schedule-d.line-16"
+     ]
+    },
+    {
+     "artifact": "rule.schedule-d-line7",
+     "code": "DEPENDENCY_ABSENT",
+     "missing": [
+      "schedule-d.line-1a-gain",
+      "schedule-d.line-3"
+     ]
+    }
+   ],
+   "lines": {
+    "form1040.line-15": [
+     "blocked",
+     null
+    ],
+    "form1040.line-16": [
+     "blocked",
+     null
+    ],
+    "form1040.line-7a": [
+     "blocked",
+     null
+    ],
+    "schedule-d.line-10": [
+     "blocked",
+     null
+    ],
+    "schedule-d.line-15": [
+     "blocked",
+     null
+    ],
+    "schedule-d.line-16": [
+     "blocked",
+     null
+    ],
+    "schedule-d.line-1a": [
+     "blocked",
+     null
+    ],
+    "schedule-d.line-1b": [
+     "closure_backed_zero",
+     0
+    ],
+    "schedule-d.line-2": [
+     "closure_backed_zero",
+     0
+    ],
+    "schedule-d.line-21": [
+     "blocked",
+     null
+    ],
+    "schedule-d.line-3": [
+     "blocked",
+     null
+    ],
+    "schedule-d.line-7": [
+     "blocked",
+     null
+    ],
+    "schedule-d.line-8a": [
+     "closure_backed_zero",
+     0
+    ],
+    "schedule-d.line-8b": [
+     "closure_backed_zero",
+     0
+    ],
+    "schedule-d.line-9": [
+     "closure_backed_zero",
+     0
+    ]
+   },
+   "presentation_valid": true,
+   "rows": {
+    "attachment.f8949": [
+     "blocked",
+     "DEPENDENCY_ABSENT",
+     [
+      "schedule-d.line-3",
+      "schedule-d.line-10"
+     ]
+    ],
+    "attachment.schedule-d": [
+     "blocked",
+     "DEPENDENCY_ABSENT",
+     [
+      "schedule-d.line-1a-gain",
+      "schedule-d.line-3",
+      "schedule-d.line-10"
+     ]
+    ],
+    "form1040-line7a": [
+     "blocked",
+     "DEPENDENCY_ABSENT",
+     [
+      "schedule-d.line-16",
+      "schedule-d.line-21",
+      "capital-gains.selected-preferential-base",
+      "schedule-d.line-3",
+      "schedule-d.line-10"
+     ]
+    ],
+    "schedule-d-line1a-gain": [
+     "blocked",
+     "DEPENDENCY_ABSENT",
+     []
+    ],
+    "schedule-d-line1b": [
+     "published",
+     null,
+     []
+    ],
+    "schedule-d-line2": [
+     "published",
+     null,
+     []
+    ],
+    "schedule-d-line8a-gain": [
+     "published",
+     null,
+     []
+    ],
+    "schedule-d-line8b": [
+     "published",
+     null,
+     []
+    ],
+    "schedule-d-line9": [
+     "published",
+     null,
+     []
+    ],
+    "selected-preferential-base": [
+     "inapplicable",
+     null,
+     []
+    ]
+   },
+   "stop_reason": "saturated"
+  },
+  "a_high_direct_broker_no8949": {
+   "attachments": {
+    "f8949": "guard_inapplicable",
+    "schedule-d": "published"
+   },
+   "lines": {
+    "form1040.line-15": [
+     "published_value",
+     37250
+    ],
+    "form1040.line-16": [
+     "published_value",
+     4235
+    ],
+    "form1040.line-7a": [
+     "published_value",
+     3000
+    ],
+    "schedule-d.line-10": [
+     "computed_zero",
+     0
+    ],
+    "schedule-d.line-15": [
+     "computed_zero",
+     0
+    ],
+    "schedule-d.line-16": [
+     "published_value",
+     3000
+    ],
+    "schedule-d.line-1a": [
+     "published_value",
+     3000
+    ],
+    "schedule-d.line-1b": [
+     "closure_backed_zero",
+     0
+    ],
+    "schedule-d.line-2": [
+     "closure_backed_zero",
+     0
+    ],
+    "schedule-d.line-21": [
+     "computed_zero",
+     0
+    ],
+    "schedule-d.line-3": [
+     "computed_zero",
+     0
+    ],
+    "schedule-d.line-7": [
+     "published_value",
+     3000
+    ],
+    "schedule-d.line-8a": [
+     "closure_backed_zero",
+     0
+    ],
+    "schedule-d.line-8b": [
+     "closure_backed_zero",
+     0
+    ],
+    "schedule-d.line-9": [
+     "closure_backed_zero",
+     0
+    ]
+   },
+   "presentation_valid": true,
+   "rows": {
+    "attachment.f8949": [
+     "inapplicable",
+     null,
+     []
+    ],
+    "attachment.schedule-d": [
+     "published",
+     null,
+     []
+    ],
+    "form1040-line7a": [
+     "published",
+     null,
+     []
+    ],
+    "schedule-d-line1a-gain": [
+     "published",
+     null,
+     []
+    ],
+    "schedule-d-line1b": [
+     "published",
+     null,
+     []
+    ],
+    "schedule-d-line2": [
+     "published",
+     null,
+     []
+    ],
+    "schedule-d-line8a-gain": [
+     "published",
+     null,
+     []
+    ],
+    "schedule-d-line8b": [
+     "published",
+     null,
+     []
+    ],
+    "schedule-d-line9": [
+     "published",
+     null,
+     []
+    ],
+    "selected-preferential-base": [
+     "published",
+     null,
+     []
+    ]
+   },
+   "stop_reason": "saturated",
+   "symbols": {
+    "capital-gains.selected-preferential-base": "0"
+   }
+  },
+  "a_high_direct_fixed_honest": {
+   "attachments": {
+    "f8949": "blocked",
+    "schedule-d": "blocked"
+   },
+   "blocked": [
+    {
+     "artifact": "rule.schedule-d-line1a-gain",
+     "code": "DEPENDENCY_ABSENT",
+     "missing": []
+    },
+    {
+     "artifact": "rule.schedule-d-line3",
+     "code": "DEPENDENCY_ABSENT",
+     "missing": []
+    },
+    {
+     "artifact": "rule.schedule-d-line10",
+     "code": "DEPENDENCY_ABSENT",
+     "missing": []
+    },
+    {
+     "artifact": "rule.attachment.f8949",
+     "code": "DEPENDENCY_ABSENT",
+     "missing": [
+      "schedule-d.line-3",
+      "schedule-d.line-10"
+     ]
+    },
+    {
+     "artifact": "rule.attachment.schedule-d",
+     "code": "DEPENDENCY_ABSENT",
+     "missing": [
+      "schedule-d.line-1a-gain",
+      "schedule-d.line-3",
+      "schedule-d.line-10"
+     ]
+    },
+    {
+     "artifact": "rule.form1040-line7a",
+     "code": "DEPENDENCY_ABSENT",
+     "missing": [
+      "schedule-d.line-16",
+      "schedule-d.line-21",
+      "capital-gains.selected-preferential-base",
+      "schedule-d.line-3",
+      "schedule-d.line-10"
+     ]
+    },
+    {
+     "artifact": "rule.schedule-d-line15",
+     "code": "DEPENDENCY_ABSENT",
+     "missing": [
+      "schedule-d.line-10"
+     ]
+    },
+    {
+     "artifact": "rule.schedule-d-line16",
+     "code": "DEPENDENCY_ABSENT",
+     "missing": [
+      "schedule-d.line-7",
+      "schedule-d.line-15"
+     ]
+    },
+    {
+     "artifact": "rule.schedule-d-line21",
+     "code": "DEPENDENCY_ABSENT",
+     "missing": [
+      "schedule-d.line-16"
+     ]
+    },
+    {
+     "artifact": "rule.schedule-d-line7",
+     "code": "DEPENDENCY_ABSENT",
+     "missing": [
+      "schedule-d.line-1a-gain",
+      "schedule-d.line-3"
+     ]
+    }
+   ],
+   "lines": {
+    "form1040.line-15": [
+     "blocked",
+     null
+    ],
+    "form1040.line-16": [
+     "blocked",
+     null
+    ],
+    "form1040.line-7a": [
+     "blocked",
+     null
+    ],
+    "schedule-d.line-10": [
+     "blocked",
+     null
+    ],
+    "schedule-d.line-15": [
+     "blocked",
+     null
+    ],
+    "schedule-d.line-16": [
+     "blocked",
+     null
+    ],
+    "schedule-d.line-1a": [
+     "blocked",
+     null
+    ],
+    "schedule-d.line-1b": [
+     "closure_backed_zero",
+     0
+    ],
+    "schedule-d.line-2": [
+     "closure_backed_zero",
+     0
+    ],
+    "schedule-d.line-21": [
+     "blocked",
+     null
+    ],
+    "schedule-d.line-3": [
+     "blocked",
+     null
+    ],
+    "schedule-d.line-7": [
+     "blocked",
+     null
+    ],
+    "schedule-d.line-8a": [
+     "closure_backed_zero",
+     0
+    ],
+    "schedule-d.line-8b": [
+     "closure_backed_zero",
+     0
+    ],
+    "schedule-d.line-9": [
+     "closure_backed_zero",
+     0
+    ]
+   },
+   "presentation_valid": true,
+   "rows": {
+    "attachment.f8949": [
+     "blocked",
+     "DEPENDENCY_ABSENT",
+     [
+      "schedule-d.line-3",
+      "schedule-d.line-10"
+     ]
+    ],
+    "attachment.schedule-d": [
+     "blocked",
+     "DEPENDENCY_ABSENT",
+     [
+      "schedule-d.line-1a-gain",
+      "schedule-d.line-3",
+      "schedule-d.line-10"
+     ]
+    ],
+    "form1040-line7a": [
+     "blocked",
+     "DEPENDENCY_ABSENT",
+     [
+      "schedule-d.line-16",
+      "schedule-d.line-21",
+      "capital-gains.selected-preferential-base",
+      "schedule-d.line-3",
+      "schedule-d.line-10"
+     ]
+    ],
+    "schedule-d-line1a-gain": [
+     "blocked",
+     "DEPENDENCY_ABSENT",
+     []
+    ],
+    "schedule-d-line1b": [
+     "published",
+     null,
+     []
+    ],
+    "schedule-d-line2": [
+     "published",
+     null,
+     []
+    ],
+    "schedule-d-line8a-gain": [
+     "published",
+     null,
+     []
+    ],
+    "schedule-d-line8b": [
+     "published",
+     null,
+     []
+    ],
+    "schedule-d-line9": [
+     "published",
+     null,
+     []
+    ],
+    "selected-preferential-base": [
+     "inapplicable",
+     null,
+     []
+    ]
+   },
+   "stop_reason": "saturated"
+  },
+  "a_high_direct_fixed_no8949": {
+   "attachments": {
+    "f8949": "guard_inapplicable",
+    "schedule-d": "published"
+   },
+   "lines": {
+    "form1040.line-15": [
+     "published_value",
+     40250
+    ],
+    "form1040.line-16": [
+     "published_value",
+     4595
+    ],
+    "form1040.line-7a": [
+     "published_value",
+     6000
+    ],
+    "schedule-d.line-10": [
+     "computed_zero",
+     0
+    ],
+    "schedule-d.line-15": [
+     "computed_zero",
+     0
+    ],
+    "schedule-d.line-16": [
+     "published_value",
+     6000
+    ],
+    "schedule-d.line-1a": [
+     "published_value",
+     6000
+    ],
+    "schedule-d.line-1b": [
+     "closure_backed_zero",
+     0
+    ],
+    "schedule-d.line-2": [
+     "closure_backed_zero",
+     0
+    ],
+    "schedule-d.line-21": [
+     "computed_zero",
+     0
+    ],
+    "schedule-d.line-3": [
+     "computed_zero",
+     0
+    ],
+    "schedule-d.line-7": [
+     "published_value",
+     6000
+    ],
+    "schedule-d.line-8a": [
+     "closure_backed_zero",
+     0
+    ],
+    "schedule-d.line-8b": [
+     "closure_backed_zero",
+     0
+    ],
+    "schedule-d.line-9": [
+     "closure_backed_zero",
+     0
+    ]
+   },
+   "presentation_valid": true,
+   "rows": {
+    "attachment.f8949": [
+     "inapplicable",
+     null,
+     []
+    ],
+    "attachment.schedule-d": [
+     "published",
+     null,
+     []
+    ],
+    "form1040-line7a": [
+     "published",
+     null,
+     []
+    ],
+    "schedule-d-line1a-gain": [
+     "published",
+     null,
+     []
+    ],
+    "schedule-d-line1b": [
+     "published",
+     null,
+     []
+    ],
+    "schedule-d-line2": [
+     "published",
+     null,
+     []
+    ],
+    "schedule-d-line8a-gain": [
+     "published",
+     null,
+     []
+    ],
+    "schedule-d-line8b": [
+     "published",
+     null,
+     []
+    ],
+    "schedule-d-line9": [
+     "published",
+     null,
+     []
+    ],
+    "selected-preferential-base": [
+     "published",
+     null,
+     []
+    ]
+   },
+   "stop_reason": "saturated",
+   "symbols": {
+    "capital-gains.selected-preferential-base": "0"
+   }
+  },
+  "a_high_on_b_fixed": {
+   "attachments": {
+    "f8949": "published",
+    "schedule-d": "published"
+   },
+   "f8949_parts": [
+    "Part I box A column (d): short-term wash-sale proceeds",
+    "Part I box A column (e): short-term wash-sale basis",
+    "Part I box A column (g): short-term wash-sale adjustment",
+    "Part II box D column (d): long-term wash-sale proceeds",
+    "Part II box D column (e): long-term wash-sale basis",
+    "Part II box D column (g): long-term wash-sale adjustment",
+    "Part I box B column (d): short-term basis-not-reported proceeds",
+    "Part I box B column (e): short-term basis the filer supplies",
+    "Part I box B column (g): short-term wash-sale adjustment",
+    "Part II box E column (d): long-term basis-not-reported proceeds",
+    "Part II box E column (e): long-term basis the filer supplies",
+    "Part II box E column (g): long-term wash-sale adjustment",
+    "Part I box C column (d): short-term net proceeds, no Form 1099-B",
+    "Part I box C column (e): short-term basis you supply, no Form 1099-B",
+    "Part I box C column (g): short-term wash-sale adjustment, no Form 1099-B",
+    "Part II box F column (d): long-term net proceeds, no Form 1099-B",
+    "Part II box F column (e): long-term basis you supply, no Form 1099-B",
+    "Part II box F column (g): long-term wash-sale adjustment, no Form 1099-B"
+   ],
+   "lines": {
+    "form1040.line-15": [
+     "published_value",
+     40250
+    ],
+    "form1040.line-16": [
+     "published_value",
+     4595
+    ],
+    "form1040.line-7a": [
+     "published_value",
+     6000
+    ],
+    "schedule-d.line-10": [
+     "computed_zero",
+     0
+    ],
+    "schedule-d.line-15": [
+     "computed_zero",
+     0
+    ],
+    "schedule-d.line-16": [
+     "published_value",
+     6000
+    ],
+    "schedule-d.line-1a": [
+     "closure_backed_zero",
+     0
+    ],
+    "schedule-d.line-1b": [
+     "closure_backed_zero",
+     0
+    ],
+    "schedule-d.line-2": [
+     "published_value",
+     6000
+    ],
+    "schedule-d.line-21": [
+     "computed_zero",
+     0
+    ],
+    "schedule-d.line-3": [
+     "computed_zero",
+     0
+    ],
+    "schedule-d.line-7": [
+     "published_value",
+     6000
+    ],
+    "schedule-d.line-8a": [
+     "closure_backed_zero",
+     0
+    ],
+    "schedule-d.line-8b": [
+     "closure_backed_zero",
+     0
+    ],
+    "schedule-d.line-9": [
+     "closure_backed_zero",
+     0
+    ]
+   },
+   "presentation_valid": true,
+   "rows": {
+    "attachment.f8949": [
+     "published",
+     null,
+     []
+    ],
+    "attachment.schedule-d": [
+     "published",
+     null,
+     []
+    ],
+    "form1040-line7a": [
+     "published",
+     null,
+     []
+    ],
+    "schedule-d-line1a-gain": [
+     "published",
+     null,
+     []
+    ],
+    "schedule-d-line1b": [
+     "published",
+     null,
+     []
+    ],
+    "schedule-d-line2": [
+     "published",
+     null,
+     []
+    ],
+    "schedule-d-line8a-gain": [
+     "published",
+     null,
+     []
+    ],
+    "schedule-d-line8b": [
+     "published",
+     null,
+     []
+    ],
+    "schedule-d-line9": [
+     "published",
+     null,
+     []
+    ],
+    "selected-preferential-base": [
+     "published",
+     null,
+     []
+    ]
+   },
+   "stop_reason": "saturated",
+   "symbols": {
+    "capital-gains.selected-preferential-base": "0"
+   }
+  },
+  "a_high_on_w_broker": {
+   "attachments": {
+    "f8949": "blocked",
+    "schedule-d": "blocked"
+   },
+   "blocked": [
+    {
+     "artifact": "f1099b.covered-w-st.member-validation.synthesized",
+     "code": "DEPENDENCY_INVALID",
+     "missing": [
+      "ADJUSTMENT_EXCEEDS_LOSS",
+      "CODE_W_ON_GAIN"
+     ]
+    },
+    {
+     "artifact": "rule.schedule-d-line3",
+     "code": "DEPENDENCY_ABSENT",
+     "missing": []
+    },
+    {
+     "artifact": "rule.schedule-d-line10",
+     "code": "DEPENDENCY_ABSENT",
+     "missing": []
+    },
+    {
+     "artifact": "rule.attachment.f8949",
+     "code": "DEPENDENCY_ABSENT",
+     "missing": [
+      "f1099b.covered-w-st.member-validation"
+     ]
+    },
+    {
+     "artifact": "rule.attachment.schedule-d",
+     "code": "DEPENDENCY_ABSENT",
+     "missing": [
+      "f1099b.covered-w-st.member-validation"
+     ]
+    },
+    {
+     "artifact": "rule.f1099b-covered-w-st-adjustment-subtotal",
+     "code": "DEPENDENCY_ABSENT",
+     "missing": [
+      "f1099b.covered-w-st-adjustment.closure-check",
+      "f1099b.covered-w-st.member-validation"
+     ]
+    },
+    {
+     "artifact": "rule.f1099b-covered-w-st-basis-subtotal",
+     "code": "DEPENDENCY_ABSENT",
+     "missing": [
+      "f1099b.covered-w-st-basis.closure-check",
+      "f1099b.covered-w-st.member-validation"
+     ]
+    },
+    {
+     "artifact": "rule.f1099b-covered-w-st-proceeds-subtotal",
+     "code": "DEPENDENCY_ABSENT",
+     "missing": [
+      "f1099b.covered-w-st-proceeds.closure-check",
+      "f1099b.covered-w-st.member-validation"
+     ]
+    },
+    {
+     "artifact": "rule.form1040-line7a",
+     "code": "DEPENDENCY_ABSENT",
+     "missing": [
+      "schedule-d.line-16",
+      "schedule-d.line-21",
+      "capital-gains.selected-preferential-base",
+      "schedule-d.line-1b",
+      "schedule-d.line-3",
+      "schedule-d.line-10"
+     ]
+    },
+    {
+     "artifact": "rule.schedule-d-line15",
+     "code": "DEPENDENCY_ABSENT",
+     "missing": [
+      "schedule-d.line-10"
+     ]
+    },
+    {
+     "artifact": "rule.schedule-d-line16",
+     "code": "DEPENDENCY_ABSENT",
+     "missing": [
+      "schedule-d.line-7",
+      "schedule-d.line-15"
+     ]
+    },
+    {
+     "artifact": "rule.schedule-d-line1b",
+     "code": "DEPENDENCY_ABSENT",
+     "missing": [
+      "f1099b.covered-w-st-proceeds-subtotal",
+      "f1099b.covered-w-st-basis-subtotal",
+      "f1099b.covered-w-st-adjustment-subtotal",
+      "f1099b.covered-w-st.member-validation"
+     ]
+    }
+   ],
+   "lines": {
+    "form1040.line-15": [
+     "blocked",
+     null
+    ],
+    "form1040.line-16": [
+     "blocked",
+     null
+    ],
+    "form1040.line-7a": [
+     "blocked",
+     null
+    ],
+    "schedule-d.line-10": [
+     "blocked",
+     null
+    ],
+    "schedule-d.line-15": [
+     "blocked",
+     null
+    ],
+    "schedule-d.line-16": [
+     "blocked",
+     null
+    ],
+    "schedule-d.line-1a": [
+     "closure_backed_zero",
+     0
+    ],
+    "schedule-d.line-1b": [
+     "blocked",
+     null
+    ],
+    "schedule-d.line-2": [
+     "closure_backed_zero",
+     0
+    ],
+    "schedule-d.line-21": [
+     "blocked",
+     null
+    ],
+    "schedule-d.line-3": [
+     "blocked",
+     null
+    ],
+    "schedule-d.line-7": [
+     "blocked",
+     null
+    ],
+    "schedule-d.line-8a": [
+     "closure_backed_zero",
+     0
+    ],
+    "schedule-d.line-8b": [
+     "closure_backed_zero",
+     0
+    ],
+    "schedule-d.line-9": [
+     "closure_backed_zero",
+     0
+    ]
+   },
+   "presentation_valid": true,
+   "rows": {
+    "attachment.f8949": [
+     "blocked",
+     "DEPENDENCY_ABSENT",
+     [
+      "f1099b.covered-w-st.member-validation"
+     ]
+    ],
+    "attachment.schedule-d": [
+     "blocked",
+     "DEPENDENCY_ABSENT",
+     [
+      "f1099b.covered-w-st.member-validation"
+     ]
+    ],
+    "form1040-line7a": [
+     "blocked",
+     "DEPENDENCY_ABSENT",
+     [
+      "schedule-d.line-16",
+      "schedule-d.line-21",
+      "capital-gains.selected-preferential-base",
+      "schedule-d.line-1b",
+      "schedule-d.line-3",
+      "schedule-d.line-10"
+     ]
+    ],
+    "schedule-d-line1a-gain": [
+     "published",
+     null,
+     []
+    ],
+    "schedule-d-line1b": [
+     "blocked",
+     "DEPENDENCY_ABSENT",
+     [
+      "f1099b.covered-w-st-proceeds-subtotal",
+      "f1099b.covered-w-st-basis-subtotal",
+      "f1099b.covered-w-st-adjustment-subtotal",
+      "f1099b.covered-w-st.member-validation"
+     ]
+    ],
+    "schedule-d-line2": [
+     "published",
+     null,
+     []
+    ],
+    "schedule-d-line8a-gain": [
+     "published",
+     null,
+     []
+    ],
+    "schedule-d-line8b": [
+     "published",
+     null,
+     []
+    ],
+    "schedule-d-line9": [
+     "published",
+     null,
+     []
+    ],
+    "selected-preferential-base": [
+     "blocked",
+     "DEPENDENCY_ABSENT",
+     [
+      "schedule-d.line-1b",
+      "schedule-d.line-16",
+      "schedule-d.line-15",
+      "schedule-d.line-3",
+      "schedule-d.line-10"
+     ]
+    ]
+   },
+   "stop_reason": "saturated"
+  },
+  "a_loss_direct_broker_no8949": {
+   "attachments": {
+    "f8949": "guard_inapplicable",
+    "schedule-d": "published"
+   },
+   "lines": {
+    "form1040.line-15": [
+     "published_value",
+     36250
+    ],
+    "form1040.line-16": [
+     "published_value",
+     4115
+    ],
+    "form1040.line-7a": [
+     "published_value",
+     2000
+    ],
+    "schedule-d.line-10": [
+     "computed_zero",
+     0
+    ],
+    "schedule-d.line-15": [
+     "computed_zero",
+     0
+    ],
+    "schedule-d.line-16": [
+     "published_value",
+     2000
+    ],
+    "schedule-d.line-1a": [
+     "published_value",
+     2000
+    ],
+    "schedule-d.line-1b": [
+     "closure_backed_zero",
+     0
+    ],
+    "schedule-d.line-2": [
+     "closure_backed_zero",
+     0
+    ],
+    "schedule-d.line-21": [
+     "computed_zero",
+     0
+    ],
+    "schedule-d.line-3": [
+     "computed_zero",
+     0
+    ],
+    "schedule-d.line-7": [
+     "published_value",
+     2000
+    ],
+    "schedule-d.line-8a": [
+     "closure_backed_zero",
+     0
+    ],
+    "schedule-d.line-8b": [
+     "closure_backed_zero",
+     0
+    ],
+    "schedule-d.line-9": [
+     "closure_backed_zero",
+     0
+    ]
+   },
+   "presentation_valid": true,
+   "rows": {
+    "attachment.f8949": [
+     "inapplicable",
+     null,
+     []
+    ],
+    "attachment.schedule-d": [
+     "published",
+     null,
+     []
+    ],
+    "form1040-line7a": [
+     "published",
+     null,
+     []
+    ],
+    "schedule-d-line1a-gain": [
+     "published",
+     null,
+     []
+    ],
+    "schedule-d-line1b": [
+     "published",
+     null,
+     []
+    ],
+    "schedule-d-line2": [
+     "published",
+     null,
+     []
+    ],
+    "schedule-d-line8a-gain": [
+     "published",
+     null,
+     []
+    ],
+    "schedule-d-line8b": [
+     "published",
+     null,
+     []
+    ],
+    "schedule-d-line9": [
+     "published",
+     null,
+     []
+    ],
+    "selected-preferential-base": [
+     "published",
+     null,
+     []
+    ]
+   },
+   "stop_reason": "saturated",
+   "symbols": {
+    "capital-gains.selected-preferential-base": "0"
+   }
+  },
+  "a_loss_direct_fixed_no8949": {
+   "attachments": {
+    "f8949": "guard_inapplicable",
+    "schedule-d": "published"
+   },
+   "lines": {
+    "form1040.line-15": [
+     "published_value",
+     31250
+    ],
+    "form1040.line-16": [
+     "published_value",
+     3515
+    ],
+    "form1040.line-7a": [
+     "published_value",
+     -3000
+    ],
+    "schedule-d.line-10": [
+     "computed_zero",
+     0
+    ],
+    "schedule-d.line-15": [
+     "computed_zero",
+     0
+    ],
+    "schedule-d.line-16": [
+     "published_value",
+     -4000
+    ],
+    "schedule-d.line-1a": [
+     "published_value",
+     -4000
+    ],
+    "schedule-d.line-1b": [
+     "closure_backed_zero",
+     0
+    ],
+    "schedule-d.line-2": [
+     "closure_backed_zero",
+     0
+    ],
+    "schedule-d.line-21": [
+     "published_value",
+     3000
+    ],
+    "schedule-d.line-3": [
+     "computed_zero",
+     0
+    ],
+    "schedule-d.line-7": [
+     "published_value",
+     -4000
+    ],
+    "schedule-d.line-8a": [
+     "closure_backed_zero",
+     0
+    ],
+    "schedule-d.line-8b": [
+     "closure_backed_zero",
+     0
+    ],
+    "schedule-d.line-9": [
+     "closure_backed_zero",
+     0
+    ]
+   },
+   "presentation_valid": true,
+   "rows": {
+    "attachment.f8949": [
+     "inapplicable",
+     null,
+     []
+    ],
+    "attachment.schedule-d": [
+     "published",
+     null,
+     []
+    ],
+    "form1040-line7a": [
+     "published",
+     null,
+     []
+    ],
+    "schedule-d-line1a-gain": [
+     "published",
+     null,
+     []
+    ],
+    "schedule-d-line1b": [
+     "published",
+     null,
+     []
+    ],
+    "schedule-d-line2": [
+     "published",
+     null,
+     []
+    ],
+    "schedule-d-line8a-gain": [
+     "published",
+     null,
+     []
+    ],
+    "schedule-d-line8b": [
+     "published",
+     null,
+     []
+    ],
+    "schedule-d-line9": [
+     "published",
+     null,
+     []
+    ],
+    "selected-preferential-base": [
+     "published",
+     null,
+     []
+    ]
+   },
+   "stop_reason": "saturated",
+   "symbols": {
+    "capital-gains.selected-preferential-base": "0"
+   }
+  },
+  "a_loss_on_b_fixed": {
+   "attachments": {
+    "f8949": "published",
+    "schedule-d": "published"
+   },
+   "f8949_parts": [
+    "Part I box A column (d): short-term wash-sale proceeds",
+    "Part I box A column (e): short-term wash-sale basis",
+    "Part I box A column (g): short-term wash-sale adjustment",
+    "Part II box D column (d): long-term wash-sale proceeds",
+    "Part II box D column (e): long-term wash-sale basis",
+    "Part II box D column (g): long-term wash-sale adjustment",
+    "Part I box B column (d): short-term basis-not-reported proceeds",
+    "Part I box B column (e): short-term basis the filer supplies",
+    "Part I box B column (g): short-term wash-sale adjustment",
+    "Part II box E column (d): long-term basis-not-reported proceeds",
+    "Part II box E column (e): long-term basis the filer supplies",
+    "Part II box E column (g): long-term wash-sale adjustment",
+    "Part I box C column (d): short-term net proceeds, no Form 1099-B",
+    "Part I box C column (e): short-term basis you supply, no Form 1099-B",
+    "Part I box C column (g): short-term wash-sale adjustment, no Form 1099-B",
+    "Part II box F column (d): long-term net proceeds, no Form 1099-B",
+    "Part II box F column (e): long-term basis you supply, no Form 1099-B",
+    "Part II box F column (g): long-term wash-sale adjustment, no Form 1099-B"
+   ],
+   "lines": {
+    "form1040.line-15": [
+     "published_value",
+     31250
+    ],
+    "form1040.line-16": [
+     "published_value",
+     3515
+    ],
+    "form1040.line-7a": [
+     "published_value",
+     -3000
+    ],
+    "schedule-d.line-10": [
+     "computed_zero",
+     0
+    ],
+    "schedule-d.line-15": [
+     "computed_zero",
+     0
+    ],
+    "schedule-d.line-16": [
+     "published_value",
+     -4000
+    ],
+    "schedule-d.line-1a": [
+     "closure_backed_zero",
+     0
+    ],
+    "schedule-d.line-1b": [
+     "closure_backed_zero",
+     0
+    ],
+    "schedule-d.line-2": [
+     "published_value",
+     -4000
+    ],
+    "schedule-d.line-21": [
+     "published_value",
+     3000
+    ],
+    "schedule-d.line-3": [
+     "computed_zero",
+     0
+    ],
+    "schedule-d.line-7": [
+     "published_value",
+     -4000
+    ],
+    "schedule-d.line-8a": [
+     "closure_backed_zero",
+     0
+    ],
+    "schedule-d.line-8b": [
+     "closure_backed_zero",
+     0
+    ],
+    "schedule-d.line-9": [
+     "closure_backed_zero",
+     0
+    ]
+   },
+   "presentation_valid": true,
+   "rows": {
+    "attachment.f8949": [
+     "published",
+     null,
+     []
+    ],
+    "attachment.schedule-d": [
+     "published",
+     null,
+     []
+    ],
+    "form1040-line7a": [
+     "published",
+     null,
+     []
+    ],
+    "schedule-d-line1a-gain": [
+     "published",
+     null,
+     []
+    ],
+    "schedule-d-line1b": [
+     "published",
+     null,
+     []
+    ],
+    "schedule-d-line2": [
+     "published",
+     null,
+     []
+    ],
+    "schedule-d-line8a-gain": [
+     "published",
+     null,
+     []
+    ],
+    "schedule-d-line8b": [
+     "published",
+     null,
+     []
+    ],
+    "schedule-d-line9": [
+     "published",
+     null,
+     []
+    ],
+    "selected-preferential-base": [
+     "published",
+     null,
+     []
+    ]
+   },
+   "stop_reason": "saturated",
+   "symbols": {
+    "capital-gains.selected-preferential-base": "0"
+   }
+  },
+  "b_code_b_on_b": {
+   "attachments": {
+    "f8949": "published",
+    "schedule-d": "published"
+   },
+   "f8949_parts": [
+    "Part I box A column (d): short-term wash-sale proceeds",
+    "Part I box A column (e): short-term wash-sale basis",
+    "Part I box A column (g): short-term wash-sale adjustment",
+    "Part II box D column (d): long-term wash-sale proceeds",
+    "Part II box D column (e): long-term wash-sale basis",
+    "Part II box D column (g): long-term wash-sale adjustment",
+    "Part I box B column (d): short-term basis-not-reported proceeds",
+    "Part I box B column (e): short-term basis the filer supplies",
+    "Part I box B column (g): short-term wash-sale adjustment",
+    "Part II box E column (d): long-term basis-not-reported proceeds",
+    "Part II box E column (e): long-term basis the filer supplies",
+    "Part II box E column (g): long-term wash-sale adjustment",
+    "Part I box C column (d): short-term net proceeds, no Form 1099-B",
+    "Part I box C column (e): short-term basis you supply, no Form 1099-B",
+    "Part I box C column (g): short-term wash-sale adjustment, no Form 1099-B",
+    "Part II box F column (d): long-term net proceeds, no Form 1099-B",
+    "Part II box F column (e): long-term basis you supply, no Form 1099-B",
+    "Part II box F column (g): long-term wash-sale adjustment, no Form 1099-B"
+   ],
+   "lines": {
+    "form1040.line-15": [
+     "published_value",
+     36250
+    ],
+    "form1040.line-16": [
+     "published_value",
+     4115
+    ],
+    "form1040.line-7a": [
+     "published_value",
+     2000
+    ],
+    "schedule-d.line-10": [
+     "computed_zero",
+     0
+    ],
+    "schedule-d.line-15": [
+     "computed_zero",
+     0
+    ],
+    "schedule-d.line-16": [
+     "published_value",
+     2000
+    ],
+    "schedule-d.line-1a": [
+     "closure_backed_zero",
+     0
+    ],
+    "schedule-d.line-1b": [
+     "closure_backed_zero",
+     0
+    ],
+    "schedule-d.line-2": [
+     "published_value",
+     2000
+    ],
+    "schedule-d.line-21": [
+     "computed_zero",
+     0
+    ],
+    "schedule-d.line-3": [
+     "computed_zero",
+     0
+    ],
+    "schedule-d.line-7": [
+     "published_value",
+     2000
+    ],
+    "schedule-d.line-8a": [
+     "closure_backed_zero",
+     0
+    ],
+    "schedule-d.line-8b": [
+     "closure_backed_zero",
+     0
+    ],
+    "schedule-d.line-9": [
+     "closure_backed_zero",
+     0
+    ]
+   },
+   "presentation_valid": true,
+   "rows": {
+    "attachment.f8949": [
+     "published",
+     null,
+     []
+    ],
+    "attachment.schedule-d": [
+     "published",
+     null,
+     []
+    ],
+    "form1040-line7a": [
+     "published",
+     null,
+     []
+    ],
+    "schedule-d-line1a-gain": [
+     "published",
+     null,
+     []
+    ],
+    "schedule-d-line1b": [
+     "published",
+     null,
+     []
+    ],
+    "schedule-d-line2": [
+     "published",
+     null,
+     []
+    ],
+    "schedule-d-line8a-gain": [
+     "published",
+     null,
+     []
+    ],
+    "schedule-d-line8b": [
+     "published",
+     null,
+     []
+    ],
+    "schedule-d-line9": [
+     "published",
+     null,
+     []
+    ],
+    "selected-preferential-base": [
+     "published",
+     null,
+     []
+    ]
+   },
+   "stop_reason": "saturated",
+   "symbols": {
+    "capital-gains.selected-preferential-base": "0"
+   }
+  },
+  "d_low_direct_broker_honest": {
+   "attachments": {
+    "f8949": "blocked",
+    "schedule-d": "blocked"
+   },
+   "blocked": [
+    {
+     "artifact": "rule.schedule-d-line8a-gain",
+     "code": "DEPENDENCY_ABSENT",
+     "missing": []
+    },
+    {
+     "artifact": "rule.schedule-d-line3",
+     "code": "DEPENDENCY_ABSENT",
+     "missing": []
+    },
+    {
+     "artifact": "rule.schedule-d-line10",
+     "code": "DEPENDENCY_ABSENT",
+     "missing": []
+    },
+    {
+     "artifact": "rule.attachment.f8949",
+     "code": "DEPENDENCY_ABSENT",
+     "missing": [
+      "schedule-d.line-3",
+      "schedule-d.line-10"
+     ]
+    },
+    {
+     "artifact": "rule.attachment.schedule-d",
+     "code": "DEPENDENCY_ABSENT",
+     "missing": [
+      "schedule-d.line-8a-gain",
+      "schedule-d.line-3",
+      "schedule-d.line-10"
+     ]
+    },
+    {
+     "artifact": "rule.form1040-line7a",
+     "code": "DEPENDENCY_ABSENT",
+     "missing": [
+      "schedule-d.line-16",
+      "schedule-d.line-21",
+      "capital-gains.selected-preferential-base",
+      "schedule-d.line-3",
+      "schedule-d.line-10"
+     ]
+    },
+    {
+     "artifact": "rule.schedule-d-line15",
+     "code": "DEPENDENCY_ABSENT",
+     "missing": [
+      "schedule-d.line-8a-gain",
+      "schedule-d.line-10"
+     ]
+    },
+    {
+     "artifact": "rule.schedule-d-line16",
+     "code": "DEPENDENCY_ABSENT",
+     "missing": [
+      "schedule-d.line-7",
+      "schedule-d.line-15"
+     ]
+    },
+    {
+     "artifact": "rule.schedule-d-line21",
+     "code": "DEPENDENCY_ABSENT",
+     "missing": [
+      "schedule-d.line-16"
+     ]
+    },
+    {
+     "artifact": "rule.schedule-d-line7",
+     "code": "DEPENDENCY_ABSENT",
+     "missing": [
+      "schedule-d.line-3"
+     ]
+    }
+   ],
+   "lines": {
+    "form1040.line-15": [
+     "blocked",
+     null
+    ],
+    "form1040.line-16": [
+     "blocked",
+     null
+    ],
+    "form1040.line-7a": [
+     "blocked",
+     null
+    ],
+    "schedule-d.line-10": [
+     "blocked",
+     null
+    ],
+    "schedule-d.line-15": [
+     "blocked",
+     null
+    ],
+    "schedule-d.line-16": [
+     "blocked",
+     null
+    ],
+    "schedule-d.line-1a": [
+     "closure_backed_zero",
+     0
+    ],
+    "schedule-d.line-1b": [
+     "closure_backed_zero",
+     0
+    ],
+    "schedule-d.line-2": [
+     "closure_backed_zero",
+     0
+    ],
+    "schedule-d.line-21": [
+     "blocked",
+     null
+    ],
+    "schedule-d.line-3": [
+     "blocked",
+     null
+    ],
+    "schedule-d.line-7": [
+     "blocked",
+     null
+    ],
+    "schedule-d.line-8a": [
+     "blocked",
+     null
+    ],
+    "schedule-d.line-8b": [
+     "closure_backed_zero",
+     0
+    ],
+    "schedule-d.line-9": [
+     "closure_backed_zero",
+     0
+    ]
+   },
+   "presentation_valid": true,
+   "rows": {
+    "attachment.f8949": [
+     "blocked",
+     "DEPENDENCY_ABSENT",
+     [
+      "schedule-d.line-3",
+      "schedule-d.line-10"
+     ]
+    ],
+    "attachment.schedule-d": [
+     "blocked",
+     "DEPENDENCY_ABSENT",
+     [
+      "schedule-d.line-8a-gain",
+      "schedule-d.line-3",
+      "schedule-d.line-10"
+     ]
+    ],
+    "form1040-line7a": [
+     "blocked",
+     "DEPENDENCY_ABSENT",
+     [
+      "schedule-d.line-16",
+      "schedule-d.line-21",
+      "capital-gains.selected-preferential-base",
+      "schedule-d.line-3",
+      "schedule-d.line-10"
+     ]
+    ],
+    "schedule-d-line1a-gain": [
+     "published",
+     null,
+     []
+    ],
+    "schedule-d-line1b": [
+     "published",
+     null,
+     []
+    ],
+    "schedule-d-line2": [
+     "published",
+     null,
+     []
+    ],
+    "schedule-d-line8a-gain": [
+     "blocked",
+     "DEPENDENCY_ABSENT",
+     []
+    ],
+    "schedule-d-line8b": [
+     "published",
+     null,
+     []
+    ],
+    "schedule-d-line9": [
+     "published",
+     null,
+     []
+    ],
+    "selected-preferential-base": [
+     "inapplicable",
+     null,
+     []
+    ]
+   },
+   "stop_reason": "saturated"
+  },
+  "d_low_direct_broker_no8949": {
+   "attachments": {
+    "f8949": "guard_inapplicable",
+    "schedule-d": "published"
+   },
+   "lines": {
+    "form1040.line-15": [
+     "published_value",
+     38250
+    ],
+    "form1040.line-16": [
+     "published_value",
+     3875
+    ],
+    "form1040.line-7a": [
+     "published_value",
+     4000
+    ],
+    "schedule-d.line-10": [
+     "computed_zero",
+     0
+    ],
+    "schedule-d.line-15": [
+     "published_value",
+     4000
+    ],
+    "schedule-d.line-16": [
+     "published_value",
+     4000
+    ],
+    "schedule-d.line-1a": [
+     "closure_backed_zero",
+     0
+    ],
+    "schedule-d.line-1b": [
+     "closure_backed_zero",
+     0
+    ],
+    "schedule-d.line-2": [
+     "closure_backed_zero",
+     0
+    ],
+    "schedule-d.line-21": [
+     "computed_zero",
+     0
+    ],
+    "schedule-d.line-3": [
+     "computed_zero",
+     0
+    ],
+    "schedule-d.line-7": [
+     "computed_zero",
+     0
+    ],
+    "schedule-d.line-8a": [
+     "published_value",
+     4000
+    ],
+    "schedule-d.line-8b": [
+     "closure_backed_zero",
+     0
+    ],
+    "schedule-d.line-9": [
+     "closure_backed_zero",
+     0
+    ]
+   },
+   "presentation_valid": true,
+   "rows": {
+    "attachment.f8949": [
+     "inapplicable",
+     null,
+     []
+    ],
+    "attachment.schedule-d": [
+     "published",
+     null,
+     []
+    ],
+    "form1040-line7a": [
+     "published",
+     null,
+     []
+    ],
+    "schedule-d-line1a-gain": [
+     "published",
+     null,
+     []
+    ],
+    "schedule-d-line1b": [
+     "published",
+     null,
+     []
+    ],
+    "schedule-d-line2": [
+     "published",
+     null,
+     []
+    ],
+    "schedule-d-line8a-gain": [
+     "published",
+     null,
+     []
+    ],
+    "schedule-d-line8b": [
+     "published",
+     null,
+     []
+    ],
+    "schedule-d-line9": [
+     "published",
+     null,
+     []
+    ],
+    "selected-preferential-base": [
+     "published",
+     null,
+     []
+    ]
+   },
+   "stop_reason": "saturated",
+   "symbols": {
+    "capital-gains.selected-preferential-base": "4000.0"
+   }
+  },
+  "d_low_direct_fixed_no8949": {
+   "attachments": {
+    "f8949": "guard_inapplicable",
+    "schedule-d": "published"
+   },
+   "lines": {
+    "form1040.line-15": [
+     "published_value",
+     37250
+    ],
+    "form1040.line-16": [
+     "published_value",
+     3875
+    ],
+    "form1040.line-7a": [
+     "published_value",
+     3000
+    ],
+    "schedule-d.line-10": [
+     "computed_zero",
+     0
+    ],
+    "schedule-d.line-15": [
+     "published_value",
+     3000
+    ],
+    "schedule-d.line-16": [
+     "published_value",
+     3000
+    ],
+    "schedule-d.line-1a": [
+     "closure_backed_zero",
+     0
+    ],
+    "schedule-d.line-1b": [
+     "closure_backed_zero",
+     0
+    ],
+    "schedule-d.line-2": [
+     "closure_backed_zero",
+     0
+    ],
+    "schedule-d.line-21": [
+     "computed_zero",
+     0
+    ],
+    "schedule-d.line-3": [
+     "computed_zero",
+     0
+    ],
+    "schedule-d.line-7": [
+     "computed_zero",
+     0
+    ],
+    "schedule-d.line-8a": [
+     "published_value",
+     3000
+    ],
+    "schedule-d.line-8b": [
+     "closure_backed_zero",
+     0
+    ],
+    "schedule-d.line-9": [
+     "closure_backed_zero",
+     0
+    ]
+   },
+   "presentation_valid": true,
+   "rows": {
+    "attachment.f8949": [
+     "inapplicable",
+     null,
+     []
+    ],
+    "attachment.schedule-d": [
+     "published",
+     null,
+     []
+    ],
+    "form1040-line7a": [
+     "published",
+     null,
+     []
+    ],
+    "schedule-d-line1a-gain": [
+     "published",
+     null,
+     []
+    ],
+    "schedule-d-line1b": [
+     "published",
+     null,
+     []
+    ],
+    "schedule-d-line2": [
+     "published",
+     null,
+     []
+    ],
+    "schedule-d-line8a-gain": [
+     "published",
+     null,
+     []
+    ],
+    "schedule-d-line8b": [
+     "published",
+     null,
+     []
+    ],
+    "schedule-d-line9": [
+     "published",
+     null,
+     []
+    ],
+    "selected-preferential-base": [
+     "published",
+     null,
+     []
+    ]
+   },
+   "stop_reason": "saturated",
+   "symbols": {
+    "capital-gains.selected-preferential-base": "3000.0"
+   }
+  },
+  "d_low_on_e_fixed": {
+   "attachments": {
+    "f8949": "published",
+    "schedule-d": "published"
+   },
+   "f8949_parts": [
+    "Part I box A column (d): short-term wash-sale proceeds",
+    "Part I box A column (e): short-term wash-sale basis",
+    "Part I box A column (g): short-term wash-sale adjustment",
+    "Part II box D column (d): long-term wash-sale proceeds",
+    "Part II box D column (e): long-term wash-sale basis",
+    "Part II box D column (g): long-term wash-sale adjustment",
+    "Part I box B column (d): short-term basis-not-reported proceeds",
+    "Part I box B column (e): short-term basis the filer supplies",
+    "Part I box B column (g): short-term wash-sale adjustment",
+    "Part II box E column (d): long-term basis-not-reported proceeds",
+    "Part II box E column (e): long-term basis the filer supplies",
+    "Part II box E column (g): long-term wash-sale adjustment",
+    "Part I box C column (d): short-term net proceeds, no Form 1099-B",
+    "Part I box C column (e): short-term basis you supply, no Form 1099-B",
+    "Part I box C column (g): short-term wash-sale adjustment, no Form 1099-B",
+    "Part II box F column (d): long-term net proceeds, no Form 1099-B",
+    "Part II box F column (e): long-term basis you supply, no Form 1099-B",
+    "Part II box F column (g): long-term wash-sale adjustment, no Form 1099-B"
+   ],
+   "lines": {
+    "form1040.line-15": [
+     "published_value",
+     37250
+    ],
+    "form1040.line-16": [
+     "published_value",
+     3875
+    ],
+    "form1040.line-7a": [
+     "published_value",
+     3000
+    ],
+    "schedule-d.line-10": [
+     "computed_zero",
+     0
+    ],
+    "schedule-d.line-15": [
+     "published_value",
+     3000
+    ],
+    "schedule-d.line-16": [
+     "published_value",
+     3000
+    ],
+    "schedule-d.line-1a": [
+     "closure_backed_zero",
+     0
+    ],
+    "schedule-d.line-1b": [
+     "closure_backed_zero",
+     0
+    ],
+    "schedule-d.line-2": [
+     "closure_backed_zero",
+     0
+    ],
+    "schedule-d.line-21": [
+     "computed_zero",
+     0
+    ],
+    "schedule-d.line-3": [
+     "computed_zero",
+     0
+    ],
+    "schedule-d.line-7": [
+     "computed_zero",
+     0
+    ],
+    "schedule-d.line-8a": [
+     "closure_backed_zero",
+     0
+    ],
+    "schedule-d.line-8b": [
+     "closure_backed_zero",
+     0
+    ],
+    "schedule-d.line-9": [
+     "published_value",
+     3000
+    ]
+   },
+   "presentation_valid": true,
+   "rows": {
+    "attachment.f8949": [
+     "published",
+     null,
+     []
+    ],
+    "attachment.schedule-d": [
+     "published",
+     null,
+     []
+    ],
+    "form1040-line7a": [
+     "published",
+     null,
+     []
+    ],
+    "schedule-d-line1a-gain": [
+     "published",
+     null,
+     []
+    ],
+    "schedule-d-line1b": [
+     "published",
+     null,
+     []
+    ],
+    "schedule-d-line2": [
+     "published",
+     null,
+     []
+    ],
+    "schedule-d-line8a-gain": [
+     "published",
+     null,
+     []
+    ],
+    "schedule-d-line8b": [
+     "published",
+     null,
+     []
+    ],
+    "schedule-d-line9": [
+     "published",
+     null,
+     []
+    ],
+    "selected-preferential-base": [
+     "published",
+     null,
+     []
+    ]
+   },
+   "stop_reason": "saturated",
+   "symbols": {
+    "capital-gains.selected-preferential-base": "3000.0"
+   }
+  },
+  "e_code_b_on_e": {
+   "attachments": {
+    "f8949": "published",
+    "schedule-d": "published"
+   },
+   "f8949_parts": [
+    "Part I box A column (d): short-term wash-sale proceeds",
+    "Part I box A column (e): short-term wash-sale basis",
+    "Part I box A column (g): short-term wash-sale adjustment",
+    "Part II box D column (d): long-term wash-sale proceeds",
+    "Part II box D column (e): long-term wash-sale basis",
+    "Part II box D column (g): long-term wash-sale adjustment",
+    "Part I box B column (d): short-term basis-not-reported proceeds",
+    "Part I box B column (e): short-term basis the filer supplies",
+    "Part I box B column (g): short-term wash-sale adjustment",
+    "Part II box E column (d): long-term basis-not-reported proceeds",
+    "Part II box E column (e): long-term basis the filer supplies",
+    "Part II box E column (g): long-term wash-sale adjustment",
+    "Part I box C column (d): short-term net proceeds, no Form 1099-B",
+    "Part I box C column (e): short-term basis you supply, no Form 1099-B",
+    "Part I box C column (g): short-term wash-sale adjustment, no Form 1099-B",
+    "Part II box F column (d): long-term net proceeds, no Form 1099-B",
+    "Part II box F column (e): long-term basis you supply, no Form 1099-B",
+    "Part II box F column (g): long-term wash-sale adjustment, no Form 1099-B"
+   ],
+   "lines": {
+    "form1040.line-15": [
+     "published_value",
+     38250
+    ],
+    "form1040.line-16": [
+     "published_value",
+     3875
+    ],
+    "form1040.line-7a": [
+     "published_value",
+     4000
+    ],
+    "schedule-d.line-10": [
+     "computed_zero",
+     0
+    ],
+    "schedule-d.line-15": [
+     "published_value",
+     4000
+    ],
+    "schedule-d.line-16": [
+     "published_value",
+     4000
+    ],
+    "schedule-d.line-1a": [
+     "closure_backed_zero",
+     0
+    ],
+    "schedule-d.line-1b": [
+     "closure_backed_zero",
+     0
+    ],
+    "schedule-d.line-2": [
+     "closure_backed_zero",
+     0
+    ],
+    "schedule-d.line-21": [
+     "computed_zero",
+     0
+    ],
+    "schedule-d.line-3": [
+     "computed_zero",
+     0
+    ],
+    "schedule-d.line-7": [
+     "computed_zero",
+     0
+    ],
+    "schedule-d.line-8a": [
+     "closure_backed_zero",
+     0
+    ],
+    "schedule-d.line-8b": [
+     "closure_backed_zero",
+     0
+    ],
+    "schedule-d.line-9": [
+     "published_value",
+     4000
+    ]
+   },
+   "presentation_valid": true,
+   "rows": {
+    "attachment.f8949": [
+     "published",
+     null,
+     []
+    ],
+    "attachment.schedule-d": [
+     "published",
+     null,
+     []
+    ],
+    "form1040-line7a": [
+     "published",
+     null,
+     []
+    ],
+    "schedule-d-line1a-gain": [
+     "published",
+     null,
+     []
+    ],
+    "schedule-d-line1b": [
+     "published",
+     null,
+     []
+    ],
+    "schedule-d-line2": [
+     "published",
+     null,
+     []
+    ],
+    "schedule-d-line8a-gain": [
+     "published",
+     null,
+     []
+    ],
+    "schedule-d-line8b": [
+     "published",
+     null,
+     []
+    ],
+    "schedule-d-line9": [
+     "published",
+     null,
+     []
+    ],
+    "selected-preferential-base": [
+     "published",
+     null,
+     []
+    ]
+   },
+   "stop_reason": "saturated",
+   "symbols": {
+    "capital-gains.selected-preferential-base": "4000.0"
+   }
+  },
+  "wage": {
+   "attachments": {
+    "f8949": "guard_inapplicable",
+    "schedule-d": "guard_inapplicable"
+   },
+   "lines": {
+    "form1040.line-15": [
+     "published_value",
+     34250
+    ],
+    "form1040.line-16": [
+     "published_value",
+     3875
+    ],
+    "form1040.line-7a": [
+     "computed_zero",
+     0
+    ],
+    "schedule-d.line-10": [
+     "computed_zero",
+     0
+    ],
+    "schedule-d.line-15": [
+     "computed_zero",
+     0
+    ],
+    "schedule-d.line-16": [
+     "computed_zero",
+     0
+    ],
+    "schedule-d.line-1a": [
+     "closure_backed_zero",
+     0
+    ],
+    "schedule-d.line-1b": [
+     "closure_backed_zero",
+     0
+    ],
+    "schedule-d.line-2": [
+     "closure_backed_zero",
+     0
+    ],
+    "schedule-d.line-21": [
+     "computed_zero",
+     0
+    ],
+    "schedule-d.line-3": [
+     "computed_zero",
+     0
+    ],
+    "schedule-d.line-7": [
+     "computed_zero",
+     0
+    ],
+    "schedule-d.line-8a": [
+     "closure_backed_zero",
+     0
+    ],
+    "schedule-d.line-8b": [
+     "closure_backed_zero",
+     0
+    ],
+    "schedule-d.line-9": [
+     "closure_backed_zero",
+     0
+    ]
+   },
+   "presentation_valid": true,
+   "rows": {
+    "attachment.f8949": [
+     "inapplicable",
+     null,
+     []
+    ],
+    "attachment.schedule-d": [
+     "inapplicable",
+     null,
+     []
+    ],
+    "form1040-line7a": [
+     "published",
+     null,
+     []
+    ],
+    "schedule-d-line1a-gain": [
+     "published",
+     null,
+     []
+    ],
+    "schedule-d-line1b": [
+     "published",
+     null,
+     []
+    ],
+    "schedule-d-line2": [
+     "published",
+     null,
+     []
+    ],
+    "schedule-d-line8a-gain": [
+     "published",
+     null,
+     []
+    ],
+    "schedule-d-line8b": [
+     "published",
+     null,
+     []
+    ],
+    "schedule-d-line9": [
+     "published",
+     null,
+     []
+    ],
+    "selected-preferential-base": [
+     "published",
+     null,
+     []
+    ]
+   },
+   "stop_reason": "saturated",
+   "symbols": {
+    "capital-gains.selected-preferential-base": "0"
+   }
+  }
+ },
+ "package": "core-calculations v80",
+ "registry": "v78",
+ "release": "v78"
+}
