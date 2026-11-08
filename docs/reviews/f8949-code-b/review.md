@@ -1,8 +1,8 @@
 # Review: broker basis corrections (Form 8949 code B), core v81
 
 Reviewer: fresh reader, author-independent.
-Charter: `docs/reviews/f8949-code-b/charter-review.md` @ `06903fc9`.
-Object: `milestone/f8949-code-b-2025` at `7b26e4ec75be386461e68d749ebd1ac8b75574c6`.
+Charter: `docs/reviews/f8949-code-b/charter-review.md` @ (removed at closeout).
+Object: `milestone/f8949-code-b-2025` at (removed at closeout).
 The Orientation Block SHA matches `git rev-parse HEAD`. It is diffed against
 `github/main`. After `git fetch`: 0 behind, 15 ahead. PR #264 is open as a
 draft and has not merged.
@@ -69,7 +69,7 @@ written to the repo, and `git status` is clean. I did not run `pytest`.
   touch this test.
 - **Context.** `github/main` at `dd81de67` is red on the sibling test
   `test_construction_count_is_delta_not_repeated_full_product[1]`. This
-  branch moved that sibling to the live lane (`a8717839`), and the next
+  branch moved that sibling to the live lane (removed at closeout), and the next
   slow test in the same module now trips the limit. The candidate is not
   `READY` while a required gate is red.
 - **Fix.** Make this test fast, or mark it `live` with the same comment as

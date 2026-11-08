@@ -5,7 +5,7 @@ for `docs/phases/engine-breadth/milestones/f8949-code-b.md`. Charter:
 `docs/reviews/f8949-code-b/charter-p0.md`. Investigation and a scratch
 prototype only. No production, test, or content edits.
 
-Source ref: `milestone/f8949-code-b-2025`, from `edbc896b` (core v80,
+Source ref: `milestone/f8949-code-b-2025`, from (removed at closeout) (core v80,
 registry v78, release v78).
 
 ## Law

@@ -7,7 +7,7 @@ design under test is Decisions 1-4 in
 only: no production, test or content edits, and only synthetic `demo.*`
 findings.
 
-Source ref: `milestone/f8949-code-b-2025`, from `b822070a` (core v80,
+Source ref: `milestone/f8949-code-b-2025`, from (removed at closeout) (core v80,
 registry v78, release v78).
 
 ## How the evidence was built

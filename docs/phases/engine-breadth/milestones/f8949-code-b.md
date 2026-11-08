@@ -3,7 +3,7 @@
   "version": 1,
   "phase": "Engine Breadth",
   "topic": "f8949-code-b",
-  "status": "Open. P0 (law, state on core v80, design) first.",
+  "status": "Closed. On core v81 a Form 1099-B sale with a wrong reported basis computes Form 8949 box A or D with code B (or BW), Schedule D lines 1b and 8b, Form 1040 line 7a and the tax from a filer-supplied correct basis. Zero-proceeds, cross-term duplicate and flagged covered sales no longer publish wrong returns. Core v80 and earlier are unchanged.",
   "scope": [
     "a return with a Form 1099-B sale whose reported basis is wrong computes Form 8949 with code B and the column (g) correction, Schedule D, Form 1040 line 7a and the tax, from a corrected basis the filer supplies, on boxes A, B, D and E as the instructions allow",
     "every return core v80 computes computes the same on the successor, and earlier cores render byte-identically",
@@ -21,6 +21,7 @@
       "docs/phases/engine-breadth/coverage-frontier.md",
       "docs/phases/engine-breadth/engine-breadth-roadmap.md#Parked work and open questions",
       "docs/milestone-retrospectives/2026-11-07-f8949-boxes-cf.md",
+      "docs/milestone-retrospectives/2026-11-07-f8949-code-b.md",
       "docs/phases/engine-breadth/milestones/f8949-code-b.md"
     ],
     "implementation": [
@@ -48,6 +49,8 @@ Phase: Engine Breadth, bounded return. Opening plan: 2026-11-07.
 Starting point: `milestone/f8949-boxes-cf-2025` at `27fc2390` (PR #262,
 core v80). It was rebased onto `github/main` at `dd81de67` after #262
 merged.
+Closed 2026-11-07. Retrospective:
+`docs/milestone-retrospectives/2026-11-07-f8949-code-b.md`.
 
 ## What we are trying to accomplish
 
