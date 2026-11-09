@@ -1,0 +1,198 @@
+{
+  "blocked": {
+    "code": "DEPENDENCY_ABSENT",
+    "missing": [
+      "tax.us.2025.schedule-d-required.conclusion",
+      "tax.us.2025.f1099b.covered-st-proceeds-subtotal",
+      "tax.us.2025.f1099b.covered-lt-proceeds-subtotal",
+      "tax.us.2025.f1099b.covered-st-count",
+      "tax.us.2025.f1099b.covered-lt-count",
+      "tax.us.2025.f1099b.covered-w-st-count",
+      "tax.us.2025.f1099b.covered-w-lt-count",
+      "tax.us.2025.f1099b.noncovered-st-count",
+      "tax.us.2025.f1099b.noncovered-lt-count",
+      "tax.us.2025.f1099b.code-b-st-count",
+      "tax.us.2025.f1099b.code-b-lt-count",
+      "tax.us.2025.f8949.no1099b-st-count",
+      "tax.us.2025.f8949.no1099b-lt-count"
+    ]
+  },
+  "citations": [
+    {
+      "id": "tax.us.2025.citation.form1040.line-7b",
+      "version": "v1"
+    }
+  ],
+  "id": "tax.us.2025.rule.form1040-line7b",
+  "notes": "ADR-0050 Decision 5/8: affirmative Schedule-D-not-required disposition on line 7b publishes only from checked conclusion no, pinning the exact line-7b citation once. Conclusion yes is guard_inapplicable; missing conclusion blocks. v2: a recorded sale (a sale count, or covered proceeds, above zero) is reported on Form 8949 or Schedule D, so Exception 1 does not apply and line 7b is guard_inapplicable; the conclusion decides line 7b only when no sale is recorded. It reads the same sale counts as Form 1040 line 16 v7.",
+  "pins": [
+    {
+      "id": "tax.us.2025.schedule-d-required.conclusion",
+      "origin": "assertion",
+      "role": "input",
+      "version": "v1"
+    }
+  ],
+  "publishes": "tax.us.2025.form1040.line7b-schedule-d-not-required",
+  "requires": [
+    "tax.us.2025.schedule-d-required.conclusion",
+    "tax.us.2025.f1099b.covered-st-proceeds-subtotal",
+    "tax.us.2025.f1099b.covered-lt-proceeds-subtotal",
+    "tax.us.2025.f1099b.covered-st-count",
+    "tax.us.2025.f1099b.covered-lt-count",
+    "tax.us.2025.f1099b.covered-w-st-count",
+    "tax.us.2025.f1099b.covered-w-lt-count",
+    "tax.us.2025.f1099b.noncovered-st-count",
+    "tax.us.2025.f1099b.noncovered-lt-count",
+    "tax.us.2025.f1099b.code-b-st-count",
+    "tax.us.2025.f1099b.code-b-lt-count",
+    "tax.us.2025.f8949.no1099b-st-count",
+    "tax.us.2025.f8949.no1099b-lt-count"
+  ],
+  "role": "computation",
+  "schema": "rule-artifact.v3",
+  "scope": {
+    "family": "individual-income-tax",
+    "jurisdiction": "US-federal",
+    "tax_year": 2025
+  },
+  "value": "checked",
+  "version": "v2",
+  "when": {
+    "op": "all",
+    "args": [
+      {
+        "cmp": "eq",
+        "left": {
+          "name": "tax.us.2025.schedule-d-required.conclusion",
+          "op": "ref"
+        },
+        "op": "categorical_compare",
+        "right": {
+          "fact_type": {
+            "id": "tax.us.2025.schedule-d-required.conclusion",
+            "version": "v1"
+          },
+          "op": "category_literal",
+          "value": "no"
+        }
+      },
+      {
+        "op": "not",
+        "value": {
+          "op": "any",
+          "args": [
+            {
+              "op": "compare",
+              "cmp": "gt",
+              "left": {
+                "op": "ref",
+                "name": "tax.us.2025.f1099b.covered-st-proceeds-subtotal"
+              },
+              "right": 0
+            },
+            {
+              "op": "compare",
+              "cmp": "gt",
+              "left": {
+                "op": "ref",
+                "name": "tax.us.2025.f1099b.covered-lt-proceeds-subtotal"
+              },
+              "right": 0
+            },
+            {
+              "op": "compare",
+              "cmp": "gt",
+              "left": {
+                "op": "ref",
+                "name": "tax.us.2025.f1099b.covered-st-count"
+              },
+              "right": 0
+            },
+            {
+              "op": "compare",
+              "cmp": "gt",
+              "left": {
+                "op": "ref",
+                "name": "tax.us.2025.f1099b.covered-lt-count"
+              },
+              "right": 0
+            },
+            {
+              "op": "compare",
+              "cmp": "gt",
+              "left": {
+                "op": "ref",
+                "name": "tax.us.2025.f1099b.covered-w-st-count"
+              },
+              "right": 0
+            },
+            {
+              "op": "compare",
+              "cmp": "gt",
+              "left": {
+                "op": "ref",
+                "name": "tax.us.2025.f1099b.covered-w-lt-count"
+              },
+              "right": 0
+            },
+            {
+              "op": "compare",
+              "cmp": "gt",
+              "left": {
+                "op": "ref",
+                "name": "tax.us.2025.f1099b.noncovered-st-count"
+              },
+              "right": 0
+            },
+            {
+              "op": "compare",
+              "cmp": "gt",
+              "left": {
+                "op": "ref",
+                "name": "tax.us.2025.f1099b.noncovered-lt-count"
+              },
+              "right": 0
+            },
+            {
+              "op": "compare",
+              "cmp": "gt",
+              "left": {
+                "op": "ref",
+                "name": "tax.us.2025.f1099b.code-b-st-count"
+              },
+              "right": 0
+            },
+            {
+              "op": "compare",
+              "cmp": "gt",
+              "left": {
+                "op": "ref",
+                "name": "tax.us.2025.f1099b.code-b-lt-count"
+              },
+              "right": 0
+            },
+            {
+              "op": "compare",
+              "cmp": "gt",
+              "left": {
+                "op": "ref",
+                "name": "tax.us.2025.f8949.no1099b-st-count"
+              },
+              "right": 0
+            },
+            {
+              "op": "compare",
+              "cmp": "gt",
+              "left": {
+                "op": "ref",
+                "name": "tax.us.2025.f8949.no1099b-lt-count"
+              },
+              "right": 0
+            }
+          ]
+        }
+      }
+    ]
+  }
+}

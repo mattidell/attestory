@@ -676,6 +676,27 @@ Several v80 gaps are also closed:
 
 Earlier cores are unchanged.
 
+## Bounded return — Every Sale Fact Is Read (2025)
+
+[Plan](milestones/sale-family-audit.md); retrospective:
+`docs/milestone-retrospectives/2026-11-09-sale-family-audit.md`.
+
+An audit of every Form 1099-B and Form 8949 sale family on core v81 found
+eight defects; core v82 fixes them with content and loader entries only:
+- a filer who answers the Exception 1 questions truthfully now gets the
+  Schedule D tax route instead of no tax, and the questions are reworded so
+  each "yes" means its fact's "yes";
+- line 7a and the preferential base count sales that net to zero, and line
+  7b no longer says Schedule D is not required beside a recorded sale;
+- boxes C and F have a count, so a 0/0 sale requires its attachments;
+- box 1g on direct sales and `long_term` on covered and code W sales are read;
+- every amount row must sit on its own sale, on every sale kind;
+- box 4 backup withholding and box 7 are asked once per Form 1099-B
+  statement and refuse on "yes".
+
+The audit is a committed test: a sale fact field that loses its last reader
+fails it. No v81 published number changes; earlier cores are unchanged.
+
 ## Parked work and open questions
 
 This is the single list of parked work and open owner-held questions for the
@@ -792,6 +813,20 @@ delivers an item removes it.
   other-dependent child and relative counts. None holds a line a filer sees.
 - A general assumption framework, free-text intake and institutional
   verification.
+- Form 1099-B box 4 backup withholding as a real line 25b family (refused
+  by answer per statement on core v82).
+- Box 7 read only beside a loss (core v82 refuses any "yes"); Form 1099-B
+  box 13 bartering, whose refusing answer is not established.
+- The per-statement box 4 and box 7 questions do not name the statement.
+- A false Exception 1 "no" with no sale recorded refuses with no question,
+  and the v2 Exception 1 words still invite "yes" beside a zero-net sale
+  (no rule reads them there since line 7b v2).
+- The unasked boundary answers (lines 18-19, QOF, Path B, no Form 8949).
+- Kernel reverse presence check: removing a sale checks only one of its
+  amount rows (`packages/kernel/findings.py`), so a leftover row is
+  refused by the run, not at entry. Nothing publishes.
+- Evidence-backed live modules load several harnesses into one CI process;
+  run them in a subprocess or on private copies.
 
 ## Why line 7a comes before Schedule D
 

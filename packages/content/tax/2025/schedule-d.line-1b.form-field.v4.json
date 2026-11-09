@@ -1,0 +1,45 @@
+{
+  "schema": "form-field.v3",
+  "id": "tax.us.2025.schedule-d.line-1b",
+  "version": "v4",
+  "form": {
+    "authority": "IRS",
+    "form_id": "1040-SCH-D",
+    "tax_year": 2025,
+    "jurisdiction": "US-federal"
+  },
+  "line": "1b-h",
+  "label": "Line 1b column (h)",
+  "description": "Schedule D (2025) Line 1b column (h) (ADR-0062).",
+  "binds_symbol": "tax.us.2025.schedule-d.line-1b",
+  "citation": {
+    "id": "tax.us.2025.citation.schedule-d.line-1b",
+    "version": "v1"
+  },
+  "dispositions": {
+    "published_value": {
+      "render": "{value}",
+      "explain": "Schedule D line 1b, column (h), is your short-term gain or loss from Form 8949 box A, proceeds minus basis plus adjustments. Column (g) carries any wash-sale adjustment and any code B correction of a wrong reported basis."
+    },
+    "computed_zero": {
+      "render": "0",
+      "explain": "Schedule D line 1b, column (h), is zero: no short-term Form 8949 box A sales with a wash-sale adjustment or a wrong reported basis are recorded, or their proceeds, basis, and adjustments net to zero."
+    },
+    "closure_backed_zero": {
+      "render": "0",
+      "explain": "You said you have no short-term Form 8949 box A sales with a wash-sale adjustment or a wrong reported basis, so Schedule D line 1b, column (h), is zero."
+    },
+    "blocked": {
+      "render": "",
+      "explain": "Schedule D line 1b, column (h), has no value yet. It is waiting for your Form 8949 box A proceeds, basis, and adjustments, including the column (g) correction of any sale whose reported basis is wrong, and your answers about those sales, or for each sale recorded there to pass its checks (the column (g) of a sale whose reported basis is wrong must equal the basis shown minus the correct basis, plus any wash-sale loss disallowed). A sale your answers place outside this return, a sale flagged as ordinary income, market discount, a qualified opportunity fund investment, or a collectibles or other special-rate gain, and a sale also recorded as a long-term sale are outside what this return computes. So is a sale with an adjustment you make yourself, unless the adjustment corrects a wrong basis the Form 1099-B reported; record that sale as a sale whose reported basis is wrong. A sale whose own proceeds, basis or wash-sale row is missing or differs from the sale, and a sale that says it is of the other term, are also outside what this return computes.",
+      "codes": [
+        "DEPENDENCY_ABSENT",
+        "SOURCE_SET_UNCLOSED"
+      ]
+    },
+    "guard_inapplicable": {
+      "render": "",
+      "explain": "Inapplicable."
+    }
+  }
+}

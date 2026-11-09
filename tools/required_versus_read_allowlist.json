@@ -3,15 +3,15 @@
   "entries": [
     {
       "rule_id": "tax.us.2025.rule.form1040-line16",
-      "version": "v6",
+      "version": "v7",
       "symbol": "filing_status",
-      "reason": "Over-declared. The rule's expression reads filing status only through the worksheet rules whose results it reads, so the symbol appears in its runtime pins but not in its own expression. Recorded, not corrected; P0 found no hazard in this row."
+      "reason": "Over-declared. The rule's expression reads filing status only through the worksheet rules whose results it reads, so the symbol appears in its runtime pins but not in its own expression. Recorded, not corrected; P0 found no hazard in this row. v7 is the core v82 successor of the same over-declaration (the sale family audit adds only the sale counts)."
     },
     {
       "rule_id": "tax.us.2025.rule.form1040-line16",
-      "version": "v6",
+      "version": "v7",
       "symbol": "tax.us.2025.income.taxable-income",
-      "reason": "Over-declared. The rule's expression reads taxable income only through the worksheet rules whose results it reads, so the symbol appears in its runtime pins but not in its own expression. Recorded, not corrected; P0 found no hazard in this row."
+      "reason": "Over-declared. The rule's expression reads taxable income only through the worksheet rules whose results it reads, so the symbol appears in its runtime pins but not in its own expression. Recorded, not corrected; P0 found no hazard in this row. v7 is the core v82 successor of the same over-declaration (the sale family audit adds only the sale counts)."
     },
     {
       "rule_id": "tax.us.2025.rule.schedule-d-line1a-gain",

@@ -1,0 +1,10 @@
+{
+  "fact_type": {
+    "id": "tax.us.2025.exception1.no-capital-losses",
+    "version": "v1"
+  },
+  "id": "tax.us.2025.input-question.exception1-no-capital-losses",
+  "question": "Is it true that you had no capital losses in 2025 (for example, no loss from selling stock, funds or other property)?",
+  "schema": "input-question.v1",
+  "version": "v2"
+}

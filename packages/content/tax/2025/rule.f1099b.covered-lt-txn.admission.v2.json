@@ -1,0 +1,343 @@
+{
+  "schema": "rule-artifact.v15",
+  "id": "tax.us.2025.rule.f1099b.covered-lt-txn.admission",
+  "version": "v2",
+  "scope": {
+    "tax_year": 2025,
+    "jurisdiction": "US-federal",
+    "family": "individual-income-tax"
+  },
+  "role": "computation",
+  "subject": {
+    "id": "tax.us.2025.f1099b.covered-lt-txn",
+    "version": "v1"
+  },
+  "requires": [
+    "tax.us.2025.f1099b.covered-lt-txn"
+  ],
+  "pins": [],
+  "when": true,
+  "value": {
+    "op": "choose",
+    "when": {
+      "op": "compare",
+      "cmp": "eq",
+      "left": {
+        "op": "parameter",
+        "parameter_id": "tax.us.2025.parameter.f1099b-yes-no-flag",
+        "key": {
+          "op": "ref",
+          "name": "tax.us.2025.f1099b.covered-lt-txn",
+          "field": "taxpayer_side_adjustment"
+        }
+      },
+      "right": 1
+    },
+    "then": {
+      "op": "category_literal",
+      "fact_type": {
+        "id": "tax.us.2025.f1099b.covered-lt-txn.admission",
+        "version": "v2"
+      },
+      "value": "taxpayer-side-adjustment"
+    },
+    "else": {
+      "op": "choose",
+      "when": {
+        "op": "any",
+        "args": [
+          {
+            "op": "compare",
+            "cmp": "eq",
+            "left": {
+              "op": "parameter",
+              "parameter_id": "tax.us.2025.parameter.f1099b-yes-no-flag",
+              "key": {
+                "op": "ref",
+                "name": "tax.us.2025.f1099b.covered-lt-txn",
+                "field": "ordinary_indicated"
+              }
+            },
+            "right": 1
+          },
+          {
+            "op": "compare",
+            "cmp": "eq",
+            "left": {
+              "op": "parameter",
+              "parameter_id": "tax.us.2025.parameter.f1099b-yes-no-flag",
+              "key": {
+                "op": "ref",
+                "name": "tax.us.2025.f1099b.covered-lt-txn",
+                "field": "box_1f_market_discount"
+              }
+            },
+            "right": 1
+          },
+          {
+            "op": "compare",
+            "cmp": "eq",
+            "left": {
+              "op": "parameter",
+              "parameter_id": "tax.us.2025.parameter.f1099b-yes-no-flag",
+              "key": {
+                "op": "ref",
+                "name": "tax.us.2025.f1099b.covered-lt-txn",
+                "field": "qof_indicated"
+              }
+            },
+            "right": 1
+          },
+          {
+            "op": "compare",
+            "cmp": "eq",
+            "left": {
+              "op": "parameter",
+              "parameter_id": "tax.us.2025.parameter.f1099b-yes-no-flag",
+              "key": {
+                "op": "ref",
+                "name": "tax.us.2025.f1099b.covered-lt-txn",
+                "field": "collectibles_or_special_rate"
+              }
+            },
+            "right": 1
+          }
+        ]
+      },
+      "then": {
+        "op": "category_literal",
+        "fact_type": {
+          "id": "tax.us.2025.f1099b.covered-lt-txn.admission",
+          "version": "v2"
+        },
+        "value": "flagged-outside-class"
+      },
+      "else": {
+        "op": "choose",
+        "when": {
+          "op": "compare",
+          "cmp": "eq",
+          "left": {
+            "op": "parameter",
+            "parameter_id": "tax.us.2025.parameter.f1099b-yes-no-flag",
+            "key": {
+              "op": "ref",
+              "name": "tax.us.2025.f1099b.covered-lt-txn",
+              "field": "long_term"
+            }
+          },
+          "right": 0
+        },
+        "then": {
+          "op": "category_literal",
+          "fact_type": {
+            "id": "tax.us.2025.f1099b.covered-lt-txn.admission",
+            "version": "v2"
+          },
+          "value": "term-mismatch"
+        },
+        "else": {
+          "op": "choose",
+          "when": {
+            "op": "compare",
+            "cmp": "eq",
+            "left": {
+              "op": "parameter",
+              "parameter_id": "tax.us.2025.parameter.f1099b-yes-no-flag",
+              "key": {
+                "op": "ref",
+                "name": "tax.us.2025.f1099b.covered-lt-txn",
+                "field": "box_1g_wash_sale_adjustment"
+              }
+            },
+            "right": 1
+          },
+          "then": {
+            "op": "category_literal",
+            "fact_type": {
+              "id": "tax.us.2025.f1099b.covered-lt-txn.admission",
+              "version": "v2"
+            },
+            "value": "needs-form-8949"
+          },
+          "else": {
+            "op": "choose",
+            "when": {
+              "op": "not",
+              "value": {
+                "op": "all",
+                "args": [
+                  {
+                    "op": "any",
+                    "args": [
+                      {
+                        "op": "compare",
+                        "cmp": "eq",
+                        "left": {
+                          "op": "count",
+                          "name": "tax.us.2025.f1099b.covered-lt-txn.proceeds",
+                          "source_set": "tax.us.2025.f1099b.covered-lt-proceeds"
+                        },
+                        "right": 0
+                      },
+                      {
+                        "op": "all",
+                        "args": [
+                          {
+                            "op": "all",
+                            "args": [
+                              {
+                                "op": "compare",
+                                "cmp": "gt",
+                                "left": {
+                                  "op": "count",
+                                  "name": "tax.us.2025.f1099b.covered-lt-txn.proceeds",
+                                  "source_set": "tax.us.2025.f1099b.covered-lt-proceeds"
+                                },
+                                "right": 0
+                              },
+                              {
+                                "op": "conditional_dependency_set",
+                                "condition": true,
+                                "members": [
+                                  {
+                                    "op": "ref",
+                                    "name": "tax.us.2025.f1099b.covered-lt-txn.proceeds"
+                                  }
+                                ]
+                              }
+                            ]
+                          },
+                          {
+                            "op": "compare",
+                            "cmp": "eq",
+                            "left": {
+                              "op": "ref",
+                              "name": "tax.us.2025.f1099b.covered-lt-txn.proceeds"
+                            },
+                            "right": {
+                              "op": "ref",
+                              "name": "tax.us.2025.f1099b.covered-lt-txn",
+                              "field": "proceeds"
+                            }
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "op": "any",
+                    "args": [
+                      {
+                        "op": "compare",
+                        "cmp": "eq",
+                        "left": {
+                          "op": "count",
+                          "name": "tax.us.2025.f1099b.covered-lt-txn.basis",
+                          "source_set": "tax.us.2025.f1099b.covered-lt-basis"
+                        },
+                        "right": 0
+                      },
+                      {
+                        "op": "all",
+                        "args": [
+                          {
+                            "op": "all",
+                            "args": [
+                              {
+                                "op": "compare",
+                                "cmp": "gt",
+                                "left": {
+                                  "op": "count",
+                                  "name": "tax.us.2025.f1099b.covered-lt-txn.basis",
+                                  "source_set": "tax.us.2025.f1099b.covered-lt-basis"
+                                },
+                                "right": 0
+                              },
+                              {
+                                "op": "conditional_dependency_set",
+                                "condition": true,
+                                "members": [
+                                  {
+                                    "op": "ref",
+                                    "name": "tax.us.2025.f1099b.covered-lt-txn.basis"
+                                  }
+                                ]
+                              }
+                            ]
+                          },
+                          {
+                            "op": "compare",
+                            "cmp": "eq",
+                            "left": {
+                              "op": "ref",
+                              "name": "tax.us.2025.f1099b.covered-lt-txn.basis"
+                            },
+                            "right": {
+                              "op": "ref",
+                              "name": "tax.us.2025.f1099b.covered-lt-txn",
+                              "field": "basis"
+                            }
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            },
+            "then": {
+              "op": "category_literal",
+              "fact_type": {
+                "id": "tax.us.2025.f1099b.covered-lt-txn.admission",
+                "version": "v2"
+              },
+              "value": "amounts-disagree"
+            },
+            "else": {
+              "op": "choose",
+              "when": {
+                "op": "all",
+                "args": [
+                  {
+                    "op": "compare",
+                    "cmp": "eq",
+                    "left": {
+                      "op": "count",
+                      "name": "tax.us.2025.f1099b.covered-st-txn",
+                      "source_set": "tax.us.2025.f1099b.covered-st"
+                    },
+                    "right": 0
+                  }
+                ]
+              },
+              "then": {
+                "op": "category_literal",
+                "fact_type": {
+                  "id": "tax.us.2025.f1099b.covered-lt-txn.admission",
+                  "version": "v2"
+                },
+                "value": "admitted"
+              },
+              "else": {
+                "op": "category_literal",
+                "fact_type": {
+                  "id": "tax.us.2025.f1099b.covered-lt-txn.admission",
+                  "version": "v2"
+                },
+                "value": "recorded-twice"
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "publishes": "tax.us.2025.f1099b.covered-lt-txn.admission",
+  "blocked": {
+    "code": "DEPENDENCY_ABSENT",
+    "missing": []
+  },
+  "citations": [],
+  "notes": "A sale whose transaction is also recorded on the other term's covered-st family is recorded twice. A sale flagged ordinary_indicated, box_1f_market_discount, qof_indicated, collectibles_or_special_rate yes is outside the eligible-sale predicate. A sale flagged taxpayer_side_adjustment yes needs an adjustment this return does not compute. v2: a sale whose long_term flag names the other term, a line 1a or 8a sale with box 1g checked, and a sale whose own proceeds, basis or wash-sale row differs from the sale are refused."
+}

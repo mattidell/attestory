@@ -1,0 +1,10 @@
+{
+  "fact_type": {
+    "id": "tax.us.2025.exception1.no-boxes-2b-2c-2d",
+    "version": "v1"
+  },
+  "id": "tax.us.2025.input-question.exception1-no-boxes-2b-2c-2d",
+  "question": "Is it true that none of your 2025 Forms 1099-DIV or substitute statements shows an amount in box 2b, 2c or 2d?",
+  "schema": "input-question.v1",
+  "version": "v2"
+}
