@@ -1,0 +1,422 @@
+{
+ "audit_failures": [],
+ "consumers": {
+  "f1099b.code-b-lt": [
+   "schedule-d.line-1b",
+   "schedule-d.line-7",
+   "schedule-d.line-8b",
+   "schedule-d.line-15",
+   "schedule-d.line-16",
+   "schedule-d.line-21",
+   "capital-gains.line7a-total",
+   "capital-gains.selected-preferential-base",
+   "payments.line25b",
+   "form8949.disposition",
+   "schedule-d.disposition"
+  ],
+  "f1099b.code-b-st": [
+   "schedule-d.line-1b",
+   "schedule-d.line-7",
+   "schedule-d.line-8b",
+   "schedule-d.line-15",
+   "schedule-d.line-16",
+   "schedule-d.line-21",
+   "capital-gains.line7a-total",
+   "capital-gains.selected-preferential-base",
+   "payments.line25b",
+   "form8949.disposition",
+   "schedule-d.disposition"
+  ],
+  "f1099b.covered-lt": [
+   "schedule-d.line-8a-gain",
+   "schedule-d.line-15",
+   "schedule-d.line-16",
+   "schedule-d.line-21",
+   "capital-gains.line7a-total",
+   "capital-gains.selected-preferential-base",
+   "payments.line25b",
+   "form8949.disposition",
+   "schedule-d.disposition"
+  ],
+  "f1099b.covered-st": [
+   "schedule-d.line-1a-gain",
+   "schedule-d.line-7",
+   "schedule-d.line-16",
+   "schedule-d.line-21",
+   "capital-gains.line7a-total",
+   "capital-gains.selected-preferential-base",
+   "payments.line25b",
+   "form8949.disposition",
+   "schedule-d.disposition"
+  ],
+  "f1099b.covered-w-lt": [
+   "schedule-d.line-8b",
+   "schedule-d.line-15",
+   "schedule-d.line-16",
+   "schedule-d.line-21",
+   "capital-gains.line7a-total",
+   "capital-gains.selected-preferential-base",
+   "payments.line25b",
+   "form8949.disposition",
+   "schedule-d.disposition"
+  ],
+  "f1099b.covered-w-st": [
+   "schedule-d.line-1b",
+   "schedule-d.line-7",
+   "schedule-d.line-16",
+   "schedule-d.line-21",
+   "capital-gains.line7a-total",
+   "capital-gains.selected-preferential-base",
+   "payments.line25b",
+   "form8949.disposition",
+   "schedule-d.disposition"
+  ],
+  "f1099b.noncovered-lt": [
+   "schedule-d.line-3",
+   "schedule-d.line-7",
+   "schedule-d.line-9",
+   "schedule-d.line-10",
+   "schedule-d.line-15",
+   "schedule-d.line-16",
+   "schedule-d.line-21",
+   "capital-gains.line7a-total",
+   "capital-gains.selected-preferential-base",
+   "payments.line25b",
+   "form8949.disposition",
+   "schedule-d.disposition"
+  ],
+  "f1099b.noncovered-st": [
+   "schedule-d.line-2",
+   "schedule-d.line-3",
+   "schedule-d.line-7",
+   "schedule-d.line-10",
+   "schedule-d.line-15",
+   "schedule-d.line-16",
+   "schedule-d.line-21",
+   "capital-gains.line7a-total",
+   "capital-gains.selected-preferential-base",
+   "payments.line25b",
+   "form8949.disposition",
+   "schedule-d.disposition"
+  ],
+  "f8949.no1099b-lt": [
+   "schedule-d.line-3",
+   "schedule-d.line-7",
+   "schedule-d.line-10",
+   "schedule-d.line-15",
+   "schedule-d.line-16",
+   "schedule-d.line-21",
+   "capital-gains.line7a-total",
+   "capital-gains.selected-preferential-base",
+   "form8949.disposition",
+   "schedule-d.disposition"
+  ],
+  "f8949.no1099b-st": [
+   "schedule-d.line-3",
+   "schedule-d.line-7",
+   "schedule-d.line-10",
+   "schedule-d.line-15",
+   "schedule-d.line-16",
+   "schedule-d.line-21",
+   "capital-gains.line7a-total",
+   "capital-gains.selected-preferential-base",
+   "form8949.disposition",
+   "schedule-d.disposition"
+  ]
+ },
+ "fields": {
+  "f1099b.code-b-lt-txn": {
+   "basis": [
+    "f1099b.code-b-lt v1 constraint CODE_B_WITHOUT_CORRECTION",
+    "rule.f1099b.code-b-lt-txn.amounts-agree v1"
+   ],
+   "corrected_basis": [
+    "f1099b.code-b-lt v1 constraint ADJUSTMENT_EXCEEDS_LOSS",
+    "f1099b.code-b-lt v1 constraint CODE_B_WITHOUT_CORRECTION",
+    "f1099b.code-b-lt v1 constraint CODE_W_ON_GAIN",
+    "rule.f1099b.code-b-lt-txn.amounts-agree v1"
+   ],
+   "long_term": [
+    "f1099b.code-b-lt v1 constraint HOLDING_PERIOD_MISMATCH"
+   ],
+   "proceeds": [
+    "f1099b.code-b-lt v1 constraint ADJUSTMENT_EXCEEDS_LOSS",
+    "f1099b.code-b-lt v1 constraint CODE_W_ON_GAIN",
+    "rule.f1099b.code-b-lt-txn.amounts-agree v1"
+   ],
+   "wash_disallowed": [
+    "f1099b.code-b-lt v1 constraint ADJUSTMENT_EXCEEDS_LOSS",
+    "f1099b.code-b-lt v1 constraint CODE_W_ON_GAIN",
+    "rule.f1099b.code-b-lt-txn.amounts-agree v1"
+   ]
+  },
+  "f1099b.code-b-st-txn": {
+   "basis": [
+    "f1099b.code-b-st v1 constraint CODE_B_WITHOUT_CORRECTION",
+    "rule.f1099b.code-b-st-txn.amounts-agree v1"
+   ],
+   "corrected_basis": [
+    "f1099b.code-b-st v1 constraint ADJUSTMENT_EXCEEDS_LOSS",
+    "f1099b.code-b-st v1 constraint CODE_B_WITHOUT_CORRECTION",
+    "f1099b.code-b-st v1 constraint CODE_W_ON_GAIN",
+    "rule.f1099b.code-b-st-txn.amounts-agree v1"
+   ],
+   "long_term": [
+    "f1099b.code-b-st v1 constraint HOLDING_PERIOD_MISMATCH"
+   ],
+   "proceeds": [
+    "f1099b.code-b-st v1 constraint ADJUSTMENT_EXCEEDS_LOSS",
+    "f1099b.code-b-st v1 constraint CODE_W_ON_GAIN",
+    "rule.f1099b.code-b-st-txn.amounts-agree v1"
+   ],
+   "wash_disallowed": [
+    "f1099b.code-b-st v1 constraint ADJUSTMENT_EXCEEDS_LOSS",
+    "f1099b.code-b-st v1 constraint CODE_W_ON_GAIN",
+    "rule.f1099b.code-b-st-txn.amounts-agree v1"
+   ]
+  },
+  "f1099b.covered-lt-txn": {
+   "basis": [
+    "rule.f1099b.covered-lt-txn.admission v2"
+   ],
+   "basis_reported_to_irs": [
+    "engine covered-flag refusal (BASIS_NOT_REPORTED_ON_COVERED)"
+   ],
+   "box_1f_market_discount": [
+    "rule.f1099b.covered-lt-txn.admission v2"
+   ],
+   "box_1g_wash_sale_adjustment": [
+    "rule.f1099b.covered-lt-txn.admission v2"
+   ],
+   "collectibles_or_special_rate": [
+    "rule.f1099b.covered-lt-txn.admission v2"
+   ],
+   "covered_security": "unread",
+   "long_term": [
+    "rule.f1099b.covered-lt-txn.admission v2"
+   ],
+   "ordinary_indicated": [
+    "rule.f1099b.covered-lt-txn.admission v2"
+   ],
+   "proceeds": [
+    "rule.f1099b.covered-lt-txn.admission v2"
+   ],
+   "qof_indicated": [
+    "rule.f1099b.covered-lt-txn.admission v2"
+   ],
+   "taxpayer_side_adjustment": [
+    "rule.f1099b.covered-lt-txn.admission v2"
+   ]
+  },
+  "f1099b.covered-st-txn": {
+   "basis": [
+    "rule.f1099b.covered-st-txn.admission v2"
+   ],
+   "basis_reported_to_irs": [
+    "engine covered-flag refusal (BASIS_NOT_REPORTED_ON_COVERED)"
+   ],
+   "box_1f_market_discount": [
+    "rule.f1099b.covered-st-txn.admission v2"
+   ],
+   "box_1g_wash_sale_adjustment": [
+    "rule.f1099b.covered-st-txn.admission v2"
+   ],
+   "collectibles_or_special_rate": [
+    "rule.f1099b.covered-st-txn.admission v2"
+   ],
+   "covered_security": "unread",
+   "long_term": [
+    "rule.f1099b.covered-st-txn.admission v2"
+   ],
+   "ordinary_indicated": [
+    "rule.f1099b.covered-st-txn.admission v2"
+   ],
+   "proceeds": [
+    "rule.f1099b.covered-st-txn.admission v2"
+   ],
+   "qof_indicated": [
+    "rule.f1099b.covered-st-txn.admission v2"
+   ],
+   "taxpayer_side_adjustment": [
+    "rule.f1099b.covered-st-txn.admission v2"
+   ]
+  },
+  "f1099b.covered-w-lt-txn": {
+   "basis": [
+    "f1099b.covered-w-lt v2 constraint ADJUSTMENT_EXCEEDS_LOSS",
+    "f1099b.covered-w-lt v2 constraint CODE_W_ON_GAIN",
+    "rule.f1099b.covered-w-lt-txn.admission v2"
+   ],
+   "basis_reported_to_irs": [
+    "engine covered-flag refusal (BASIS_NOT_REPORTED_ON_COVERED)"
+   ],
+   "box_1f_market_discount": [
+    "rule.f1099b.covered-w-lt-txn.admission v2"
+   ],
+   "box_1g_wash_sale_adjustment": [
+    "f1099b.covered-w-lt v2 constraint BOX_1G_AMOUNT_WITHOUT_FLAG",
+    "f1099b.covered-w-lt v2 constraint BOX_1G_FLAG_WITHOUT_AMOUNT"
+   ],
+   "box_1g_wash_sale_disallowed_amount": [
+    "f1099b.covered-w-lt v2 constraint ADJUSTMENT_EXCEEDS_LOSS",
+    "f1099b.covered-w-lt v2 constraint BOX_1G_AMOUNT_WITHOUT_FLAG",
+    "f1099b.covered-w-lt v2 constraint BOX_1G_FLAG_WITHOUT_AMOUNT",
+    "f1099b.covered-w-lt v2 constraint CODE_W_ON_GAIN",
+    "rule.f1099b.covered-w-lt-txn.admission v2"
+   ],
+   "collectibles_or_special_rate": [
+    "rule.f1099b.covered-w-lt-txn.admission v2"
+   ],
+   "covered_security": "unread",
+   "long_term": [
+    "rule.f1099b.covered-w-lt-txn.admission v2"
+   ],
+   "ordinary_indicated": [
+    "rule.f1099b.covered-w-lt-txn.admission v2"
+   ],
+   "proceeds": [
+    "f1099b.covered-w-lt v2 constraint ADJUSTMENT_EXCEEDS_LOSS",
+    "f1099b.covered-w-lt v2 constraint CODE_W_ON_GAIN",
+    "rule.f1099b.covered-w-lt-txn.admission v2"
+   ],
+   "qof_indicated": [
+    "rule.f1099b.covered-w-lt-txn.admission v2"
+   ],
+   "taxpayer_side_adjustment": [
+    "rule.f1099b.covered-w-lt-txn.admission v2"
+   ]
+  },
+  "f1099b.covered-w-st-txn": {
+   "basis": [
+    "f1099b.covered-w-st v2 constraint ADJUSTMENT_EXCEEDS_LOSS",
+    "f1099b.covered-w-st v2 constraint CODE_W_ON_GAIN",
+    "rule.f1099b.covered-w-st-txn.admission v2"
+   ],
+   "basis_reported_to_irs": [
+    "engine covered-flag refusal (BASIS_NOT_REPORTED_ON_COVERED)"
+   ],
+   "box_1f_market_discount": [
+    "rule.f1099b.covered-w-st-txn.admission v2"
+   ],
+   "box_1g_wash_sale_adjustment": [
+    "f1099b.covered-w-st v2 constraint BOX_1G_AMOUNT_WITHOUT_FLAG",
+    "f1099b.covered-w-st v2 constraint BOX_1G_FLAG_WITHOUT_AMOUNT"
+   ],
+   "box_1g_wash_sale_disallowed_amount": [
+    "f1099b.covered-w-st v2 constraint ADJUSTMENT_EXCEEDS_LOSS",
+    "f1099b.covered-w-st v2 constraint BOX_1G_AMOUNT_WITHOUT_FLAG",
+    "f1099b.covered-w-st v2 constraint BOX_1G_FLAG_WITHOUT_AMOUNT",
+    "f1099b.covered-w-st v2 constraint CODE_W_ON_GAIN",
+    "rule.f1099b.covered-w-st-txn.admission v2"
+   ],
+   "collectibles_or_special_rate": [
+    "rule.f1099b.covered-w-st-txn.admission v2"
+   ],
+   "covered_security": "unread",
+   "long_term": [
+    "rule.f1099b.covered-w-st-txn.admission v2"
+   ],
+   "ordinary_indicated": [
+    "rule.f1099b.covered-w-st-txn.admission v2"
+   ],
+   "proceeds": [
+    "f1099b.covered-w-st v2 constraint ADJUSTMENT_EXCEEDS_LOSS",
+    "f1099b.covered-w-st v2 constraint CODE_W_ON_GAIN",
+    "rule.f1099b.covered-w-st-txn.admission v2"
+   ],
+   "qof_indicated": [
+    "rule.f1099b.covered-w-st-txn.admission v2"
+   ],
+   "taxpayer_side_adjustment": [
+    "rule.f1099b.covered-w-st-txn.admission v2"
+   ]
+  },
+  "f1099b.noncovered-lt-txn": {
+   "basis": [
+    "f1099b.noncovered-lt v1 constraint ADJUSTMENT_EXCEEDS_LOSS",
+    "f1099b.noncovered-lt v1 constraint CODE_W_ON_GAIN",
+    "rule.f1099b.noncovered-lt-txn.amounts-agree v2"
+   ],
+   "basis_reported_to_irs": [
+    "f1099b.noncovered-lt v1 constraint BASIS_WAS_REPORTED"
+   ],
+   "long_term": [
+    "f1099b.noncovered-lt v1 constraint HOLDING_PERIOD_MISMATCH"
+   ],
+   "proceeds": [
+    "f1099b.noncovered-lt v1 constraint ADJUSTMENT_EXCEEDS_LOSS",
+    "f1099b.noncovered-lt v1 constraint CODE_W_ON_GAIN",
+    "rule.f1099b.noncovered-lt-txn.amounts-agree v2"
+   ],
+   "wash_disallowed": [
+    "f1099b.noncovered-lt v1 constraint ADJUSTMENT_EXCEEDS_LOSS",
+    "f1099b.noncovered-lt v1 constraint CODE_W_ON_GAIN",
+    "rule.f1099b.noncovered-lt-txn.amounts-agree v2"
+   ]
+  },
+  "f1099b.noncovered-st-txn": {
+   "basis": [
+    "f1099b.noncovered-st v1 constraint ADJUSTMENT_EXCEEDS_LOSS",
+    "f1099b.noncovered-st v1 constraint CODE_W_ON_GAIN",
+    "rule.f1099b.noncovered-st-txn.amounts-agree v2"
+   ],
+   "basis_reported_to_irs": [
+    "f1099b.noncovered-st v1 constraint BASIS_WAS_REPORTED"
+   ],
+   "long_term": [
+    "f1099b.noncovered-st v1 constraint HOLDING_PERIOD_MISMATCH"
+   ],
+   "proceeds": [
+    "f1099b.noncovered-st v1 constraint ADJUSTMENT_EXCEEDS_LOSS",
+    "f1099b.noncovered-st v1 constraint CODE_W_ON_GAIN",
+    "rule.f1099b.noncovered-st-txn.amounts-agree v2"
+   ],
+   "wash_disallowed": [
+    "f1099b.noncovered-st v1 constraint ADJUSTMENT_EXCEEDS_LOSS",
+    "f1099b.noncovered-st v1 constraint CODE_W_ON_GAIN",
+    "rule.f1099b.noncovered-st-txn.amounts-agree v2"
+   ]
+  },
+  "f8949.no1099b-lt-txn": {
+   "basis": [
+    "f8949.no1099b-lt v1 constraint ADJUSTMENT_EXCEEDS_LOSS",
+    "f8949.no1099b-lt v1 constraint CODE_W_ON_GAIN",
+    "rule.f8949.no1099b-lt-txn.amounts-agree v1"
+   ],
+   "long_term": [
+    "f8949.no1099b-lt v1 constraint HOLDING_PERIOD_MISMATCH"
+   ],
+   "proceeds": [
+    "f8949.no1099b-lt v1 constraint ADJUSTMENT_EXCEEDS_LOSS",
+    "f8949.no1099b-lt v1 constraint CODE_W_ON_GAIN",
+    "rule.f8949.no1099b-lt-txn.amounts-agree v1"
+   ],
+   "wash_disallowed": [
+    "f8949.no1099b-lt v1 constraint ADJUSTMENT_EXCEEDS_LOSS",
+    "f8949.no1099b-lt v1 constraint CODE_W_ON_GAIN",
+    "rule.f8949.no1099b-lt-txn.amounts-agree v1"
+   ]
+  },
+  "f8949.no1099b-st-txn": {
+   "basis": [
+    "f8949.no1099b-st v1 constraint ADJUSTMENT_EXCEEDS_LOSS",
+    "f8949.no1099b-st v1 constraint CODE_W_ON_GAIN",
+    "rule.f8949.no1099b-st-txn.amounts-agree v1"
+   ],
+   "long_term": [
+    "f8949.no1099b-st v1 constraint HOLDING_PERIOD_MISMATCH"
+   ],
+   "proceeds": [
+    "f8949.no1099b-st v1 constraint ADJUSTMENT_EXCEEDS_LOSS",
+    "f8949.no1099b-st v1 constraint CODE_W_ON_GAIN",
+    "rule.f8949.no1099b-st-txn.amounts-agree v1"
+   ],
+   "wash_disallowed": [
+    "f8949.no1099b-st v1 constraint ADJUSTMENT_EXCEEDS_LOSS",
+    "f8949.no1099b-st v1 constraint CODE_W_ON_GAIN",
+    "rule.f8949.no1099b-st-txn.amounts-agree v1"
+   ]
+  }
+ },
+ "package": "core-calculations v82"
+}

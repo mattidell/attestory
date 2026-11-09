@@ -1,0 +1,1318 @@
+{
+ "changed": {
+  "v80/carried_covered_both_boundaries_no": {
+   "blocked_rows": {
+    "form1040-line25b": [
+     null,
+     [
+      "DEPENDENCY_ABSENT",
+      [
+       "f1099b.covered-lt-count"
+      ]
+     ]
+    ],
+    "schedule-d-line16": [
+     [
+      "DEPENDENCY_ABSENT",
+      [
+       "schedule-d.line-7",
+       "schedule-d.line-15"
+      ]
+     ],
+     [
+      "DEPENDENCY_ABSENT",
+      [
+       "schedule-d.line-7",
+       "schedule-d.line-15",
+       "f1099b.covered-lt-count"
+      ]
+     ]
+    ]
+   },
+   "form1040_v81": [
+    "blocked",
+    "blocked",
+    "blocked",
+    0,
+    "blocked",
+    "blocked"
+   ],
+   "form1040_v82": [
+    "blocked",
+    "blocked",
+    "blocked",
+    "blocked",
+    "blocked",
+    "blocked"
+   ],
+   "lines": {
+    "form1040.line-25b": [
+     0,
+     "blocked"
+    ]
+   }
+  },
+  "v80/carried_covered_flag_corrected_to_no": {
+   "blocked_rows": {
+    "form1040-line25b": [
+     null,
+     [
+      "DEPENDENCY_ABSENT",
+      [
+       "f1099b.covered-lt-count"
+      ]
+     ]
+    ],
+    "schedule-d-line16": [
+     [
+      "DEPENDENCY_ABSENT",
+      [
+       "schedule-d.line-15"
+      ]
+     ],
+     [
+      "DEPENDENCY_ABSENT",
+      [
+       "schedule-d.line-15",
+       "f1099b.covered-lt-count"
+      ]
+     ]
+    ],
+    "selected-preferential-base": [
+     [
+      "DEPENDENCY_ABSENT",
+      [
+       "schedule-d.line-16",
+       "schedule-d.line-15"
+      ]
+     ],
+     [
+      "DEPENDENCY_ABSENT",
+      [
+       "schedule-d.line-16",
+       "schedule-d.line-15",
+       "f1099b.covered-lt-count"
+      ]
+     ]
+    ]
+   },
+   "form1040_v81": [
+    "blocked",
+    "blocked",
+    "blocked",
+    0,
+    "blocked",
+    "blocked"
+   ],
+   "form1040_v82": [
+    "blocked",
+    "blocked",
+    "blocked",
+    "blocked",
+    "blocked",
+    "blocked"
+   ],
+   "lines": {
+    "form1040.line-25b": [
+     0,
+     "blocked"
+    ]
+   }
+  },
+  "v80/carried_covered_flag_no_path_a": {
+   "blocked_rows": {
+    "form1040-line25b": [
+     null,
+     [
+      "DEPENDENCY_ABSENT",
+      [
+       "f1099b.covered-lt-count"
+      ]
+     ]
+    ],
+    "schedule-d-line16": [
+     [
+      "DEPENDENCY_ABSENT",
+      [
+       "schedule-d.line-15"
+      ]
+     ],
+     [
+      "DEPENDENCY_ABSENT",
+      [
+       "schedule-d.line-15",
+       "f1099b.covered-lt-count"
+      ]
+     ]
+    ],
+    "selected-preferential-base": [
+     [
+      "DEPENDENCY_ABSENT",
+      [
+       "schedule-d.line-16",
+       "schedule-d.line-15"
+      ]
+     ],
+     [
+      "DEPENDENCY_ABSENT",
+      [
+       "schedule-d.line-16",
+       "schedule-d.line-15",
+       "f1099b.covered-lt-count"
+      ]
+     ]
+    ]
+   },
+   "form1040_v81": [
+    "blocked",
+    "blocked",
+    "blocked",
+    0,
+    "blocked",
+    "blocked"
+   ],
+   "form1040_v82": [
+    "blocked",
+    "blocked",
+    "blocked",
+    "blocked",
+    "blocked",
+    "blocked"
+   ],
+   "lines": {
+    "form1040.line-25b": [
+     0,
+     "blocked"
+    ]
+   }
+  },
+  "v80/carried_covered_flag_no_st": {
+   "blocked_rows": {
+    "form1040-line25b": [
+     null,
+     [
+      "DEPENDENCY_ABSENT",
+      [
+       "f1099b.covered-st-count"
+      ]
+     ]
+    ],
+    "schedule-d-line16": [
+     [
+      "DEPENDENCY_ABSENT",
+      [
+       "schedule-d.line-7"
+      ]
+     ],
+     [
+      "DEPENDENCY_ABSENT",
+      [
+       "schedule-d.line-7",
+       "f1099b.covered-st-count"
+      ]
+     ]
+    ],
+    "selected-preferential-base": [
+     [
+      "DEPENDENCY_ABSENT",
+      [
+       "schedule-d.line-16"
+      ]
+     ],
+     [
+      "DEPENDENCY_ABSENT",
+      [
+       "schedule-d.line-16",
+       "f1099b.covered-st-count"
+      ]
+     ]
+    ]
+   },
+   "form1040_v81": [
+    "blocked",
+    "blocked",
+    "blocked",
+    0,
+    "blocked",
+    "blocked"
+   ],
+   "form1040_v82": [
+    "blocked",
+    "blocked",
+    "blocked",
+    "blocked",
+    "blocked",
+    "blocked"
+   ],
+   "lines": {
+    "form1040.line-25b": [
+     0,
+     "blocked"
+    ]
+   }
+  },
+  "v80/carried_covered_flag_no_w_lt": {
+   "blocked_rows": {
+    "form1040-line25b": [
+     null,
+     [
+      "DEPENDENCY_ABSENT",
+      [
+       "f1099b.covered-w-lt-count"
+      ]
+     ]
+    ],
+    "schedule-d-line16": [
+     [
+      "DEPENDENCY_ABSENT",
+      [
+       "schedule-d.line-15"
+      ]
+     ],
+     [
+      "DEPENDENCY_ABSENT",
+      [
+       "schedule-d.line-15",
+       "f1099b.covered-w-lt-count"
+      ]
+     ]
+    ],
+    "selected-preferential-base": [
+     [
+      "DEPENDENCY_ABSENT",
+      [
+       "schedule-d.line-8b",
+       "schedule-d.line-16",
+       "schedule-d.line-15"
+      ]
+     ],
+     [
+      "DEPENDENCY_ABSENT",
+      [
+       "schedule-d.line-8b",
+       "schedule-d.line-16",
+       "schedule-d.line-15",
+       "f1099b.covered-w-lt-count"
+      ]
+     ]
+    ]
+   },
+   "form1040_v81": [
+    "blocked",
+    "blocked",
+    "blocked",
+    0,
+    "blocked",
+    "blocked"
+   ],
+   "form1040_v82": [
+    "blocked",
+    "blocked",
+    "blocked",
+    "blocked",
+    "blocked",
+    "blocked"
+   ],
+   "lines": {
+    "form1040.line-25b": [
+     0,
+     "blocked"
+    ]
+   }
+  },
+  "v80/carried_covered_flag_no_w_st": {
+   "blocked_rows": {
+    "form1040-line25b": [
+     null,
+     [
+      "DEPENDENCY_ABSENT",
+      [
+       "f1099b.covered-w-st-count"
+      ]
+     ]
+    ],
+    "schedule-d-line16": [
+     [
+      "DEPENDENCY_ABSENT",
+      [
+       "schedule-d.line-7"
+      ]
+     ],
+     [
+      "DEPENDENCY_ABSENT",
+      [
+       "schedule-d.line-7",
+       "f1099b.covered-w-st-count"
+      ]
+     ]
+    ],
+    "selected-preferential-base": [
+     [
+      "DEPENDENCY_ABSENT",
+      [
+       "schedule-d.line-1b",
+       "schedule-d.line-16"
+      ]
+     ],
+     [
+      "DEPENDENCY_ABSENT",
+      [
+       "schedule-d.line-1b",
+       "schedule-d.line-16",
+       "f1099b.covered-w-st-count"
+      ]
+     ]
+    ]
+   },
+   "form1040_v81": [
+    "blocked",
+    "blocked",
+    "blocked",
+    0,
+    "blocked",
+    "blocked"
+   ],
+   "form1040_v82": [
+    "blocked",
+    "blocked",
+    "blocked",
+    "blocked",
+    "blocked",
+    "blocked"
+   ],
+   "lines": {
+    "form1040.line-25b": [
+     0,
+     "blocked"
+    ]
+   }
+  }
+ },
+ "fixture_check": {},
+ "returns": 57,
+ "summary": {
+  "changed": 6,
+  "fixture_mismatches": 0,
+  "unchanged": 51
+ },
+ "unanswered": {
+  "case/a_duplicate_on_direct": {
+   "form1040": [
+    "blocked",
+    "blocked",
+    "blocked",
+    "blocked",
+    "blocked",
+    "blocked"
+   ],
+   "line25b": "blocked",
+   "questions": [
+    "Did any Form 1099-B or substitute statement you received show federal income tax withheld in box 4?"
+   ],
+   "sd16": "blocked"
+  },
+  "case/a_high_and_w_row": {
+   "form1040": [
+    "blocked",
+    "blocked",
+    "blocked",
+    "blocked",
+    "blocked",
+    "blocked"
+   ],
+   "line25b": "blocked",
+   "questions": [
+    "Is box 7 (\"If checked, loss is not allowed based on amount in 1d\") checked on any Form 1099-B or substitute statement you received?",
+    "Did any Form 1099-B or substitute statement you received show federal income tax withheld in box 4?"
+   ],
+   "sd16": "blocked"
+  },
+  "case/m_q3_yes_nothing_beside_direct": {
+   "form1040": [
+    "blocked",
+    "blocked",
+    "blocked",
+    "blocked",
+    "blocked",
+    "blocked"
+   ],
+   "line25b": "blocked",
+   "questions": [
+    "Did any Form 1099-B or substitute statement you received show federal income tax withheld in box 4?"
+   ],
+   "sd16": "blocked"
+  },
+  "case/m_q3_yes_nothing_beside_w": {
+   "form1040": [
+    "blocked",
+    "blocked",
+    "blocked",
+    "blocked",
+    "blocked",
+    "blocked"
+   ],
+   "line25b": "blocked",
+   "questions": [
+    "Did any Form 1099-B or substitute statement you received show federal income tax withheld in box 4?"
+   ],
+   "sd16": "blocked"
+  },
+  "case/mixed_a_d_c_direct": {
+   "form1040": [
+    "blocked",
+    "blocked",
+    "blocked",
+    "blocked",
+    "blocked",
+    "blocked"
+   ],
+   "line25b": "blocked",
+   "questions": [
+    "Is box 7 (\"If checked, loss is not allowed based on amount in 1d\") checked on any Form 1099-B or substitute statement you received?",
+    "Did any Form 1099-B or substitute statement you received show federal income tax withheld in box 4?"
+   ],
+   "sd16": "blocked"
+  },
+  "case/t2_stage0": {
+   "form1040": [
+    "blocked",
+    "blocked",
+    "blocked",
+    "blocked",
+    "blocked",
+    "blocked"
+   ],
+   "line25b": "blocked",
+   "questions": [
+    "Is box 7 (\"If checked, loss is not allowed based on amount in 1d\") checked on any Form 1099-B or substitute statement you received?",
+    "Did any Form 1099-B or substitute statement you received show federal income tax withheld in box 4?"
+   ],
+   "sd16": "blocked"
+  },
+  "case/t2_stage4_keep_covered": {
+   "form1040": [
+    "blocked",
+    "blocked",
+    "blocked",
+    "blocked",
+    "blocked",
+    "blocked"
+   ],
+   "line25b": "blocked",
+   "questions": [
+    "Did any Form 1099-B or substitute statement you received show federal income tax withheld in box 4?"
+   ],
+   "sd16": "blocked"
+  },
+  "case/t3_stage0": {
+   "form1040": [
+    "blocked",
+    "blocked",
+    "blocked",
+    "blocked",
+    "blocked",
+    "blocked"
+   ],
+   "line25b": "blocked",
+   "questions": [
+    "Is box 7 (\"If checked, loss is not allowed based on amount in 1d\") checked on any Form 1099-B or substitute statement you received?",
+    "Did any Form 1099-B or substitute statement you received show federal income tax withheld in box 4?"
+   ],
+   "sd16": "blocked"
+  },
+  "case/x_dup_covered_lt": {
+   "form1040": [
+    "blocked",
+    "blocked",
+    "blocked",
+    "blocked",
+    "blocked",
+    "blocked"
+   ],
+   "line25b": "blocked",
+   "questions": [
+    "Did any Form 1099-B or substitute statement you received show federal income tax withheld in box 4?"
+   ],
+   "sd16": "blocked"
+  },
+  "case/x_dup_covered_st": {
+   "form1040": [
+    "blocked",
+    "blocked",
+    "blocked",
+    "blocked",
+    "blocked",
+    "blocked"
+   ],
+   "line25b": "blocked",
+   "questions": [
+    "Did any Form 1099-B or substitute statement you received show federal income tax withheld in box 4?"
+   ],
+   "sd16": "blocked"
+  },
+  "case/x_dup_covered_w_lt": {
+   "form1040": [
+    "blocked",
+    "blocked",
+    "blocked",
+    "blocked",
+    "blocked",
+    "blocked"
+   ],
+   "line25b": "blocked",
+   "questions": [
+    "Did any Form 1099-B or substitute statement you received show federal income tax withheld in box 4?"
+   ],
+   "sd16": "blocked"
+  },
+  "case/x_dup_covered_w_st": {
+   "form1040": [
+    "blocked",
+    "blocked",
+    "blocked",
+    "blocked",
+    "blocked",
+    "blocked"
+   ],
+   "line25b": "blocked",
+   "questions": [
+    "Did any Form 1099-B or substitute statement you received show federal income tax withheld in box 4?"
+   ],
+   "sd16": "blocked"
+  },
+  "neighbour/n_covered_lt_collectibles_yes": {
+   "form1040": [
+    "blocked",
+    "blocked",
+    "blocked",
+    "blocked",
+    "blocked",
+    "blocked"
+   ],
+   "line25b": "blocked",
+   "questions": [
+    "Did any Form 1099-B or substitute statement you received show federal income tax withheld in box 4?"
+   ],
+   "sd16": "blocked"
+  },
+  "neighbour/n_covered_lt_market_discount_yes": {
+   "form1040": [
+    "blocked",
+    "blocked",
+    "blocked",
+    "blocked",
+    "blocked",
+    "blocked"
+   ],
+   "line25b": "blocked",
+   "questions": [
+    "Did any Form 1099-B or substitute statement you received show federal income tax withheld in box 4?"
+   ],
+   "sd16": "blocked"
+  },
+  "neighbour/n_covered_lt_qof_yes": {
+   "form1040": [
+    "blocked",
+    "blocked",
+    "blocked",
+    "blocked",
+    "blocked",
+    "blocked"
+   ],
+   "line25b": "blocked",
+   "questions": [
+    "Did any Form 1099-B or substitute statement you received show federal income tax withheld in box 4?"
+   ],
+   "sd16": "blocked"
+  },
+  "neighbour/n_covered_lt_tsa_yes": {
+   "form1040": [
+    "blocked",
+    "blocked",
+    "blocked",
+    "blocked",
+    "blocked",
+    "blocked"
+   ],
+   "line25b": "blocked",
+   "questions": [
+    "Did any Form 1099-B or substitute statement you received show federal income tax withheld in box 4?"
+   ],
+   "sd16": "blocked"
+  },
+  "neighbour/n_covered_lt_zero_proceeds": {
+   "form1040": [
+    "blocked",
+    "blocked",
+    "blocked",
+    "blocked",
+    "blocked",
+    "blocked"
+   ],
+   "line25b": "blocked",
+   "questions": [
+    "Is box 7 (\"If checked, loss is not allowed based on amount in 1d\") checked on any Form 1099-B or substitute statement you received?",
+    "Did any Form 1099-B or substitute statement you received show federal income tax withheld in box 4?"
+   ],
+   "sd16": "blocked"
+  },
+  "neighbour/n_covered_st_ordinary_yes": {
+   "form1040": [
+    "blocked",
+    "blocked",
+    "blocked",
+    "blocked",
+    "blocked",
+    "blocked"
+   ],
+   "line25b": "blocked",
+   "questions": [
+    "Did any Form 1099-B or substitute statement you received show federal income tax withheld in box 4?"
+   ],
+   "sd16": "blocked"
+  },
+  "neighbour/n_covered_st_zero_proceeds": {
+   "form1040": [
+    "blocked",
+    "blocked",
+    "blocked",
+    "blocked",
+    "blocked",
+    "blocked"
+   ],
+   "line25b": "blocked",
+   "questions": [
+    "Is box 7 (\"If checked, loss is not allowed based on amount in 1d\") checked on any Form 1099-B or substitute statement you received?",
+    "Did any Form 1099-B or substitute statement you received show federal income tax withheld in box 4?"
+   ],
+   "sd16": "blocked"
+  },
+  "neighbour/n_covered_st_zero_proceeds_zero_basis": {
+   "form1040": [
+    "blocked",
+    "blocked",
+    "blocked",
+    "blocked",
+    "blocked",
+    "blocked"
+   ],
+   "line25b": "blocked",
+   "questions": [
+    "Is box 7 (\"If checked, loss is not allowed based on amount in 1d\") checked on any Form 1099-B or substitute statement you received?",
+    "Did any Form 1099-B or substitute statement you received show federal income tax withheld in box 4?"
+   ],
+   "sd16": "blocked"
+  },
+  "neighbour/n_covered_tsa_no": {
+   "form1040": [
+    "blocked",
+    "blocked",
+    "blocked",
+    "blocked",
+    "blocked",
+    "blocked"
+   ],
+   "line25b": "blocked",
+   "questions": [
+    "Is box 7 (\"If checked, loss is not allowed based on amount in 1d\") checked on any Form 1099-B or substitute statement you received?",
+    "Did any Form 1099-B or substitute statement you received show federal income tax withheld in box 4?"
+   ],
+   "sd16": "blocked"
+  },
+  "neighbour/n_covered_tsa_yes_no8949": {
+   "form1040": [
+    "blocked",
+    "blocked",
+    "blocked",
+    "blocked",
+    "blocked",
+    "blocked"
+   ],
+   "line25b": "blocked",
+   "questions": [
+    "Did any Form 1099-B or substitute statement you received show federal income tax withheld in box 4?"
+   ],
+   "sd16": "blocked"
+  },
+  "neighbour/n_dup_b_and_covered_lt": {
+   "form1040": [
+    "blocked",
+    "blocked",
+    "blocked",
+    "blocked",
+    "blocked",
+    "blocked"
+   ],
+   "line25b": "blocked",
+   "questions": [
+    "Did any Form 1099-B or substitute statement you received show federal income tax withheld in box 4?"
+   ],
+   "sd16": "blocked"
+  },
+  "neighbour/n_dup_covered_st_and_covered_lt": {
+   "form1040": [
+    "blocked",
+    "blocked",
+    "blocked",
+    "blocked",
+    "blocked",
+    "blocked"
+   ],
+   "line25b": "blocked",
+   "questions": [
+    "Did any Form 1099-B or substitute statement you received show federal income tax withheld in box 4?"
+   ],
+   "sd16": "blocked"
+  },
+  "neighbour/n_dup_covered_st_and_w_lt": {
+   "form1040": [
+    "blocked",
+    "blocked",
+    "blocked",
+    "blocked",
+    "blocked",
+    "blocked"
+   ],
+   "line25b": "blocked",
+   "questions": [
+    "Did any Form 1099-B or substitute statement you received show federal income tax withheld in box 4?"
+   ],
+   "sd16": "blocked"
+  },
+  "neighbour/n_dup_e_and_covered_st": {
+   "form1040": [
+    "blocked",
+    "blocked",
+    "blocked",
+    "blocked",
+    "blocked",
+    "blocked"
+   ],
+   "line25b": "blocked",
+   "questions": [
+    "Did any Form 1099-B or substitute statement you received show federal income tax withheld in box 4?"
+   ],
+   "sd16": "blocked"
+  },
+  "neighbour/n_dup_w_st_and_covered_lt": {
+   "form1040": [
+    "blocked",
+    "blocked",
+    "blocked",
+    "blocked",
+    "blocked",
+    "blocked"
+   ],
+   "line25b": "blocked",
+   "questions": [
+    "Did any Form 1099-B or substitute statement you received show federal income tax withheld in box 4?"
+   ],
+   "sd16": "blocked"
+  },
+  "neighbour/n_dup_w_st_and_w_lt": {
+   "form1040": [
+    "blocked",
+    "blocked",
+    "blocked",
+    "blocked",
+    "blocked",
+    "blocked"
+   ],
+   "line25b": "blocked",
+   "questions": [
+    "Did any Form 1099-B or substitute statement you received show federal income tax withheld in box 4?"
+   ],
+   "sd16": "blocked"
+  },
+  "neighbour/n_two_b_and_covered_lt": {
+   "form1040": [
+    "blocked",
+    "blocked",
+    "blocked",
+    "blocked",
+    "blocked",
+    "blocked"
+   ],
+   "line25b": "blocked",
+   "questions": [
+    "Is box 7 (\"If checked, loss is not allowed based on amount in 1d\") checked on any Form 1099-B or substitute statement you received?",
+    "Did any Form 1099-B or substitute statement you received show federal income tax withheld in box 4?"
+   ],
+   "sd16": "blocked"
+  },
+  "neighbour/n_two_covered_st_and_covered_lt": {
+   "form1040": [
+    "blocked",
+    "blocked",
+    "blocked",
+    "blocked",
+    "blocked",
+    "blocked"
+   ],
+   "line25b": "blocked",
+   "questions": [
+    "Is box 7 (\"If checked, loss is not allowed based on amount in 1d\") checked on any Form 1099-B or substitute statement you received?",
+    "Did any Form 1099-B or substitute statement you received show federal income tax withheld in box 4?"
+   ],
+   "sd16": "blocked"
+  },
+  "neighbour/n_two_w_st_and_w_lt": {
+   "form1040": [
+    "blocked",
+    "blocked",
+    "blocked",
+    "blocked",
+    "blocked",
+    "blocked"
+   ],
+   "line25b": "blocked",
+   "questions": [
+    "Is box 7 (\"If checked, loss is not allowed based on amount in 1d\") checked on any Form 1099-B or substitute statement you received?",
+    "Did any Form 1099-B or substitute statement you received show federal income tax withheld in box 4?"
+   ],
+   "sd16": "blocked"
+  },
+  "neighbour/n_w_lt_collectibles_yes": {
+   "form1040": [
+    "blocked",
+    "blocked",
+    "blocked",
+    "blocked",
+    "blocked",
+    "blocked"
+   ],
+   "line25b": "blocked",
+   "questions": [
+    "Did any Form 1099-B or substitute statement you received show federal income tax withheld in box 4?"
+   ],
+   "sd16": "blocked"
+  },
+  "neighbour/n_w_lt_zero_proceeds": {
+   "form1040": [
+    "blocked",
+    "blocked",
+    "blocked",
+    "blocked",
+    "blocked",
+    "blocked"
+   ],
+   "line25b": "blocked",
+   "questions": [
+    "Is box 7 (\"If checked, loss is not allowed based on amount in 1d\") checked on any Form 1099-B or substitute statement you received?",
+    "Did any Form 1099-B or substitute statement you received show federal income tax withheld in box 4?"
+   ],
+   "sd16": "blocked"
+  },
+  "neighbour/n_w_st_tsa_yes": {
+   "form1040": [
+    "blocked",
+    "blocked",
+    "blocked",
+    "blocked",
+    "blocked",
+    "blocked"
+   ],
+   "line25b": "blocked",
+   "questions": [
+    "Did any Form 1099-B or substitute statement you received show federal income tax withheld in box 4?"
+   ],
+   "sd16": "blocked"
+  },
+  "neighbour/n_w_zero_proceeds": {
+   "form1040": [
+    "blocked",
+    "blocked",
+    "blocked",
+    "blocked",
+    "blocked",
+    "blocked"
+   ],
+   "line25b": "blocked",
+   "questions": [
+    "Is box 7 (\"If checked, loss is not allowed based on amount in 1d\") checked on any Form 1099-B or substitute statement you received?",
+    "Did any Form 1099-B or substitute statement you received show federal income tax withheld in box 4?"
+   ],
+   "sd16": "blocked"
+  },
+  "v80/carried_covered_both_boundaries_no": {
+   "form1040": [
+    "blocked",
+    "blocked",
+    "blocked",
+    "blocked",
+    "blocked",
+    "blocked"
+   ],
+   "line25b": "blocked",
+   "questions": [],
+   "sd16": "blocked"
+  },
+  "v80/carried_covered_flag_corrected_to_no": {
+   "form1040": [
+    "blocked",
+    "blocked",
+    "blocked",
+    "blocked",
+    "blocked",
+    "blocked"
+   ],
+   "line25b": "blocked",
+   "questions": [],
+   "sd16": "blocked"
+  },
+  "v80/carried_covered_flag_corrected_to_yes": {
+   "form1040": [
+    "blocked",
+    "blocked",
+    "blocked",
+    "blocked",
+    "blocked",
+    "blocked"
+   ],
+   "line25b": "blocked",
+   "questions": [
+    "Is box 7 (\"If checked, loss is not allowed based on amount in 1d\") checked on any Form 1099-B or substitute statement you received?",
+    "Did any Form 1099-B or substitute statement you received show federal income tax withheld in box 4?"
+   ],
+   "sd16": "blocked"
+  },
+  "v80/carried_covered_flag_no_path_a": {
+   "form1040": [
+    "blocked",
+    "blocked",
+    "blocked",
+    "blocked",
+    "blocked",
+    "blocked"
+   ],
+   "line25b": "blocked",
+   "questions": [],
+   "sd16": "blocked"
+  },
+  "v80/carried_covered_flag_no_st": {
+   "form1040": [
+    "blocked",
+    "blocked",
+    "blocked",
+    "blocked",
+    "blocked",
+    "blocked"
+   ],
+   "line25b": "blocked",
+   "questions": [],
+   "sd16": "blocked"
+  },
+  "v80/carried_covered_flag_no_w_lt": {
+   "form1040": [
+    "blocked",
+    "blocked",
+    "blocked",
+    "blocked",
+    "blocked",
+    "blocked"
+   ],
+   "line25b": "blocked",
+   "questions": [],
+   "sd16": "blocked"
+  },
+  "v80/carried_covered_flag_no_w_st": {
+   "form1040": [
+    "blocked",
+    "blocked",
+    "blocked",
+    "blocked",
+    "blocked",
+    "blocked"
+   ],
+   "line25b": "blocked",
+   "questions": [],
+   "sd16": "blocked"
+  },
+  "v80/carried_probe_mixed_abcf_in_class_no": {
+   "form1040": [
+    "blocked",
+    "blocked",
+    "blocked",
+    "blocked",
+    "blocked",
+    "blocked"
+   ],
+   "line25b": "blocked",
+   "questions": [
+    "Did any Form 1099-B or substitute statement you received show federal income tax withheld in box 4?"
+   ],
+   "sd16": "blocked"
+  },
+  "v80/carried_probe_mixed_abcf_in_class_yes": {
+   "form1040": [
+    "blocked",
+    "blocked",
+    "blocked",
+    "blocked",
+    "blocked",
+    "blocked"
+   ],
+   "line25b": "blocked",
+   "questions": [
+    "Is box 7 (\"If checked, loss is not allowed based on amount in 1d\") checked on any Form 1099-B or substitute statement you received?",
+    "Did any Form 1099-B or substitute statement you received show federal income tax withheld in box 4?"
+   ],
+   "sd16": "blocked"
+  },
+  "v80/probe_a_bw_on_w_broker": {
+   "form1040": [
+    "blocked",
+    "blocked",
+    "blocked",
+    "blocked",
+    "blocked",
+    "blocked"
+   ],
+   "line25b": "blocked",
+   "questions": [
+    "Did any Form 1099-B or substitute statement you received show federal income tax withheld in box 4?"
+   ],
+   "sd16": "blocked"
+  },
+  "v80/probe_a_bw_on_w_fixed": {
+   "form1040": [
+    "blocked",
+    "blocked",
+    "blocked",
+    "blocked",
+    "blocked",
+    "blocked"
+   ],
+   "line25b": "blocked",
+   "questions": [
+    "Did any Form 1099-B or substitute statement you received show federal income tax withheld in box 4?"
+   ],
+   "sd16": "blocked"
+  },
+  "v80/probe_a_bw_on_w_fixed_path_b_yes": {
+   "form1040": [
+    "blocked",
+    "blocked",
+    "blocked",
+    "blocked",
+    "blocked",
+    "blocked"
+   ],
+   "line25b": "blocked",
+   "questions": [
+    "Is box 7 (\"If checked, loss is not allowed based on amount in 1d\") checked on any Form 1099-B or substitute statement you received?",
+    "Did any Form 1099-B or substitute statement you received show federal income tax withheld in box 4?"
+   ],
+   "sd16": "blocked"
+  },
+  "v80/probe_a_high_direct_broker_honest": {
+   "form1040": [
+    "blocked",
+    "blocked",
+    "blocked",
+    "blocked",
+    "blocked",
+    "blocked"
+   ],
+   "line25b": "blocked",
+   "questions": [
+    "Did any Form 1099-B or substitute statement you received show federal income tax withheld in box 4?"
+   ],
+   "sd16": "blocked"
+  },
+  "v80/probe_a_high_direct_broker_no8949": {
+   "form1040": [
+    "blocked",
+    "blocked",
+    "blocked",
+    "blocked",
+    "blocked",
+    "blocked"
+   ],
+   "line25b": "blocked",
+   "questions": [
+    "Is box 7 (\"If checked, loss is not allowed based on amount in 1d\") checked on any Form 1099-B or substitute statement you received?",
+    "Did any Form 1099-B or substitute statement you received show federal income tax withheld in box 4?"
+   ],
+   "sd16": "blocked"
+  },
+  "v80/probe_a_high_direct_fixed_honest": {
+   "form1040": [
+    "blocked",
+    "blocked",
+    "blocked",
+    "blocked",
+    "blocked",
+    "blocked"
+   ],
+   "line25b": "blocked",
+   "questions": [
+    "Did any Form 1099-B or substitute statement you received show federal income tax withheld in box 4?"
+   ],
+   "sd16": "blocked"
+  },
+  "v80/probe_a_high_direct_fixed_no8949": {
+   "form1040": [
+    "blocked",
+    "blocked",
+    "blocked",
+    "blocked",
+    "blocked",
+    "blocked"
+   ],
+   "line25b": "blocked",
+   "questions": [
+    "Is box 7 (\"If checked, loss is not allowed based on amount in 1d\") checked on any Form 1099-B or substitute statement you received?",
+    "Did any Form 1099-B or substitute statement you received show federal income tax withheld in box 4?"
+   ],
+   "sd16": "blocked"
+  },
+  "v80/probe_a_high_on_w_broker": {
+   "form1040": [
+    "blocked",
+    "blocked",
+    "blocked",
+    "blocked",
+    "blocked",
+    "blocked"
+   ],
+   "line25b": "blocked",
+   "questions": [
+    "Did any Form 1099-B or substitute statement you received show federal income tax withheld in box 4?"
+   ],
+   "sd16": "blocked"
+  },
+  "v80/probe_a_loss_direct_broker_no8949": {
+   "form1040": [
+    "blocked",
+    "blocked",
+    "blocked",
+    "blocked",
+    "blocked",
+    "blocked"
+   ],
+   "line25b": "blocked",
+   "questions": [
+    "Is box 7 (\"If checked, loss is not allowed based on amount in 1d\") checked on any Form 1099-B or substitute statement you received?",
+    "Did any Form 1099-B or substitute statement you received show federal income tax withheld in box 4?"
+   ],
+   "sd16": "blocked"
+  },
+  "v80/probe_a_loss_direct_fixed_no8949": {
+   "form1040": [
+    "blocked",
+    "blocked",
+    "blocked",
+    "blocked",
+    "blocked",
+    "blocked"
+   ],
+   "line25b": "blocked",
+   "questions": [
+    "Is box 7 (\"If checked, loss is not allowed based on amount in 1d\") checked on any Form 1099-B or substitute statement you received?",
+    "Did any Form 1099-B or substitute statement you received show federal income tax withheld in box 4?"
+   ],
+   "sd16": "blocked"
+  },
+  "v80/probe_d_low_direct_broker_honest": {
+   "form1040": [
+    "blocked",
+    "blocked",
+    "blocked",
+    "blocked",
+    "blocked",
+    "blocked"
+   ],
+   "line25b": "blocked",
+   "questions": [
+    "Did any Form 1099-B or substitute statement you received show federal income tax withheld in box 4?"
+   ],
+   "sd16": "blocked"
+  },
+  "v80/probe_d_low_direct_fixed_no8949": {
+   "form1040": [
+    "blocked",
+    "blocked",
+    "blocked",
+    "blocked",
+    "blocked",
+    "blocked"
+   ],
+   "line25b": "blocked",
+   "questions": [
+    "Is box 7 (\"If checked, loss is not allowed based on amount in 1d\") checked on any Form 1099-B or substitute statement you received?",
+    "Did any Form 1099-B or substitute statement you received show federal income tax withheld in box 4?"
+   ],
+   "sd16": "blocked"
+  },
+  "v80/v80_mixed_abcf": {
+   "form1040": [
+    "blocked",
+    "blocked",
+    "blocked",
+    "blocked",
+    "blocked",
+    "blocked"
+   ],
+   "line25b": "blocked",
+   "questions": [
+    "Is box 7 (\"If checked, loss is not allowed based on amount in 1d\") checked on any Form 1099-B or substitute statement you received?",
+    "Did any Form 1099-B or substitute statement you received show federal income tax withheld in box 4?"
+   ],
+   "sd16": "blocked"
+  }
+ },
+ "unchanged": [
+  "case/a_duplicate_on_direct",
+  "case/a_high_and_w_row",
+  "case/m_q3_yes_nothing_beside_direct",
+  "case/m_q3_yes_nothing_beside_w",
+  "case/mixed_a_d_c_direct",
+  "case/t2_stage0",
+  "case/t2_stage4_keep_covered",
+  "case/t3_stage0",
+  "case/x_dup_covered_lt",
+  "case/x_dup_covered_st",
+  "case/x_dup_covered_w_lt",
+  "case/x_dup_covered_w_st",
+  "v80/carried_covered_flag_corrected_to_yes",
+  "v80/carried_probe_mixed_abcf_in_class_no",
+  "v80/carried_probe_mixed_abcf_in_class_yes",
+  "v80/probe_a_bw_on_w_broker",
+  "v80/probe_a_bw_on_w_fixed",
+  "v80/probe_a_bw_on_w_fixed_path_b_yes",
+  "v80/probe_a_high_direct_broker_honest",
+  "v80/probe_a_high_direct_broker_no8949",
+  "v80/probe_a_high_direct_fixed_honest",
+  "v80/probe_a_high_direct_fixed_no8949",
+  "v80/probe_a_high_on_w_broker",
+  "v80/probe_a_loss_direct_broker_no8949",
+  "v80/probe_a_loss_direct_fixed_no8949",
+  "v80/probe_d_low_direct_broker_honest",
+  "v80/probe_d_low_direct_fixed_no8949",
+  "v80/v80_mixed_abcf",
+  "neighbour/n_covered_lt_collectibles_yes",
+  "neighbour/n_covered_lt_market_discount_yes",
+  "neighbour/n_covered_lt_qof_yes",
+  "neighbour/n_covered_lt_tsa_yes",
+  "neighbour/n_covered_lt_zero_proceeds",
+  "neighbour/n_covered_st_ordinary_yes",
+  "neighbour/n_covered_st_zero_proceeds",
+  "neighbour/n_covered_st_zero_proceeds_zero_basis",
+  "neighbour/n_covered_tsa_no",
+  "neighbour/n_covered_tsa_yes_no8949",
+  "neighbour/n_dup_b_and_covered_lt",
+  "neighbour/n_dup_covered_st_and_covered_lt",
+  "neighbour/n_dup_covered_st_and_w_lt",
+  "neighbour/n_dup_e_and_covered_st",
+  "neighbour/n_dup_w_st_and_covered_lt",
+  "neighbour/n_dup_w_st_and_w_lt",
+  "neighbour/n_two_b_and_covered_lt",
+  "neighbour/n_two_covered_st_and_covered_lt",
+  "neighbour/n_two_w_st_and_w_lt",
+  "neighbour/n_w_lt_collectibles_yes",
+  "neighbour/n_w_lt_zero_proceeds",
+  "neighbour/n_w_st_tsa_yes",
+  "neighbour/n_w_zero_proceeds"
+ ]
+}
