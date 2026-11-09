@@ -8,12 +8,17 @@
   "box4_question",
   "box7_question"
  ],
+ "repairs": [
+  "statement_box4",
+  "statement_box7",
+  "field_words"
+ ],
  "package": "v82",
  "registry": "v80",
  "release": "v80",
- "members_edited": 27,
+ "members_edited": 29,
  "added": 5,
- "replaced": 22,
+ "replaced": 24,
  "members": [
   [
    "replace",
@@ -122,7 +127,7 @@
   ],
   [
    "add",
-   "input-question.f1099b-box4-withholding-reported",
+   "input-question.f1099b-statement-box4-withholding-reported",
    "v1"
   ],
   [
@@ -137,7 +142,7 @@
   ],
   [
    "add",
-   "input-question.f1099b-box7-loss-not-allowed",
+   "input-question.f1099b-statement-box7-loss-not-allowed",
    "v1"
   ],
   [
@@ -149,6 +154,16 @@
    "replace",
    "schedule-d.line-16",
    "v3"
+  ],
+  [
+   "replace",
+   "form1040.line-16",
+   "v3"
+  ],
+  [
+   "replace",
+   "form1040.line-7a",
+   "v2"
   ]
  ],
  "inherited_inconsistencies": []

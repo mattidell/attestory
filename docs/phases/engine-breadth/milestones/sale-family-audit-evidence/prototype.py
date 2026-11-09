@@ -10,7 +10,8 @@ under packages/ is written. Imports no other evidence module.
 
     python3 docs/phases/engine-breadth/milestones/sale-family-audit-evidence/prototype.py <scratch-dir> [fix ...]
 
-With no fix named, every fix in ``FIXES`` is built. Writes
+With no fix named, every fix in ``FIXES`` and every Track 0 repair in ``REPAIRS`` is
+built; name ``decided`` to build ``FIXES`` alone. Writes
 prototype-build.json beside this file (the member list; the scratch path is
 not recorded). The loader entries a scratch core needs are applied per run by
 ``audit_harness.loader_entries`` (v82 copies v81's).
@@ -43,6 +44,24 @@ Fixes (each a switch):
 - ``box7_question``: a new question, read only when a Form 1099-B sale is
   recorded: is box 7 (loss not allowed) checked on any Form 1099-B? "yes"
   blocks Schedule D line 16 and says why.
+
+Track 0 repairs (each needs the fix it repairs):
+
+- ``statement_box4`` (repairs ``box4_question``): the box 4 answer is one
+  answer per recorded Form 1099-B statement, not one per return. Line 25b
+  requires an answer for the statement of every recorded Form 1099-B sale
+  (require_paired on the statement key), so a sale from a statement the
+  answer did not cover blocks the line and asks again. A "yes" on any
+  statement blocks the line. A single return-level "no" stayed current when
+  a sale from a new statement arrived, and line 25b published without that
+  statement's withholding.
+- ``statement_box7`` (repairs ``box7_question``): the same for box 7 and
+  Schedule D line 16.
+- ``field_words`` (repairs the words of ``tax_activity`` and
+  ``base_activity``): Form 1040 line 16 (field v3) and line 7a (field v2)
+  say that they also wait for the answers about each kind of sale, which
+  their v7 and v9 producers now read. Their v2 and v1 blocked sentences
+  named only the inputs the earlier producers read.
 """
 
 from __future__ import annotations
@@ -69,8 +88,13 @@ FROM = {"package": "v81", "registry": "v79", "release": "v79"}
 TO = {"package": "v82", "registry": "v80", "release": "v80"}
 FIXES = ("tax_activity", "no1099b_count", "base_activity", "admission_reads", "paired_rows", "box4_question",
          "box7_question")
+# Track 0 repairs (track0-closure.md). Each is a switch on top of FIXES; ``main`` builds them all by default,
+# and ``FIXES`` alone builds the decided design.
+REPAIRS = ("statement_box4", "statement_box7", "field_words")
+SWITCHES = FIXES + REPAIRS
 TERMS = ("st", "lt")
 ROLE = {"bundle.v2": "fact-type-bundle", "input-question.v1": "input-question", "form-field.v3": "form-field",
+        "form-field.v2": "form-field",
         "attachment-rule.v8": "attachment-rule"}
 SCOPE = {"tax_year": 2025, "jurisdiction": "US-federal", "family": "individual-income-tax"}
 
@@ -377,14 +401,44 @@ QUESTIONS = {
 }
 
 
+# statement_box4 / statement_box7: one answer per recorded Form 1099-B statement.
+BOX4_STATEMENT = "f1099b.statement-box4-withholding-reported"
+BOX7_STATEMENT = "f1099b.statement-box7-loss-not-allowed"
+QUESTIONS.update({
+    BOX4_STATEMENT: (
+        "For each Form 1099-B or substitute statement you recorded a sale from, does it show federal income tax "
+        "withheld in box 4?",
+        "Whether one recorded 2025 Form 1099-B statement shows federal income tax withheld (backup withholding) in "
+        "box 4. yes or no."),
+    BOX7_STATEMENT: (
+        "For each Form 1099-B or substitute statement you recorded a sale from, is box 7 (\"If checked, loss is not "
+        "allowed based on amount in 1d\") checked for any sale on it?",
+        "Whether box 7 (loss not allowed based on the box 1d amount) is checked for any sale on one recorded 2025 "
+        "Form 1099-B statement. yes or no."),
+})
+STATEMENT_KEYS = [{"name": "statement", "kind": "entity", "entity_kind": "tax.us.f1099b-statement"},
+                  {"name": "tax-year", "kind": "literal", "values": ["2025"]}]
+# The Form 1099-B sale objects: every one carries the broker, statement and transaction keys.
+SALE_OBJECTS = [f"f1099b.{k}-{t}-txn" for k in ("covered", "covered-w", "noncovered", "code-b") for t in TERMS]
+
+
+def box_fact(box: int, fixes: set[str]) -> str:
+    """The fact the box 4 or box 7 answer is recorded as under ``fixes``."""
+    if box == 4:
+        return BOX4_STATEMENT if "statement_box4" in fixes else BOX4
+    return BOX7_STATEMENT if "statement_box7" in fixes else BOX7
+
+
 def boxes_bundle(fixes: set[str]) -> tuple[str, dict[str, Any]]:
     facts = []
-    for fact, (question, title) in QUESTIONS.items():
-        if (fact == BOX4 and "box4_question" not in fixes) or (fact == BOX7 and "box7_question" not in fixes):
+    for box, fix in ((4, "box4_question"), (7, "box7_question")):
+        if fix not in fixes:
             continue
-        facts.append({"schema": "fact-type.v2", "id": P + fact, "version": "v1", "title": title,
-                      "nature": "determinable",
-                      "identity_keys": [{"name": "tax-year", "kind": "literal", "values": ["2025"]}],
+        fact = box_fact(box, fixes)
+        per_statement = fact in (BOX4_STATEMENT, BOX7_STATEMENT)
+        keys = STATEMENT_KEYS if per_statement else [{"name": "tax-year", "kind": "literal", "values": ["2025"]}]
+        facts.append({"schema": "fact-type.v2", "id": P + fact, "version": "v1", "title": QUESTIONS[fact][1],
+                      "nature": "determinable", "identity_keys": copy.deepcopy(keys),
                       "value_schema": {"enum": ["yes", "no"]}, "supersession": {"policy": "free"}})
     return "f1099b-statement-boxes.bundle.json", {
         "schema": "bundle.v2", "id": P + "f1099b.statement-boxes.vocabulary", "version": "v1",
@@ -396,6 +450,28 @@ def question(fact: str) -> tuple[str, dict[str, Any]]:
     return f"input-question.f1099b-{slug}.json", {
         "schema": "input-question.v1", "id": P + f"input-question.f1099b-{slug}", "version": "v1",
         "fact_type": {"id": P + fact, "version": "v1"}, "question": QUESTIONS[fact][0]}
+
+
+def statement_block(body: dict[str, Any], fact: str, fixes: set[str]) -> None:
+    """Every recorded Form 1099-B sale's statement needs an answer; "yes" on any statement blocks the value.
+
+    require_paired (key ``statement``) is vacuous when no Form 1099-B sale is
+    recorded, and blocks DEPENDENCY_ABSENT naming ``fact`` when a sale's
+    statement has no answer, so the page asks ``fact``'s question. The answers
+    are read (collect_categorical_all_equal) only when a sale is recorded,
+    so a return with none needs no answer.
+    """
+    names = counts(fixes, form_1099b_only=True)
+    active = {"op": "any", "args": any_count(names)}
+    paired = {"op": "require_paired", "key": "statement", "withholding": P + fact,
+              "income": [P + sale for sale in SALE_OBJECTS]}
+    when = body["when"]
+    body["when"] = {"op": "all", "args": [when, paired]} if when is not True else {"op": "all", "args": [paired]}
+    every_no = {"op": "collect_categorical_all_equal", "name": P + fact, "value": cat(fact, "v1", "no")}
+    body["value"] = choose({"op": "all", "args": [copy.deepcopy(active), {"op": "not", "value": every_no}]},
+                           {"op": "block", "code": "DEPENDENCY_ABSENT"}, body["value"])
+    add_requires(body, names)
+    body["schema"] = "rule-artifact.v15"
 
 
 def gated_block(body: dict[str, Any], fact: str, fixes: set[str]) -> None:
@@ -414,33 +490,75 @@ def gated_block(body: dict[str, Any], fact: str, fixes: set[str]) -> None:
 def fix_box_questions(fixes: set[str]) -> Out:
     out: Out = [boxes_bundle(fixes)]
     if "box4_question" in fixes:
-        out.append(question(BOX4))
+        fact = box_fact(4, fixes)
+        out.append(question(fact))
         name, body = current("rule.form1040-line25b")
-        gated_block(body, BOX4, fixes)
         body["version"] = bump(body["version"])
-        body["notes"] += (" v6: when a Form 1099-B sale is recorded, the box 4 answer is read; yes blocks the line, "
-                          "because Form 1099-B box 4 withholding is not added yet.")
+        if fact == BOX4_STATEMENT:
+            statement_block(body, fact, fixes)
+            body["notes"] += (" v6: every recorded Form 1099-B sale's statement needs a box 4 answer (require_paired "
+                              "on the statement key), so a sale from a statement not yet answered blocks the line and "
+                              "asks; a yes on any statement blocks the line, because Form 1099-B box 4 withholding "
+                              "is not added yet.")
+            words = (" It is also blocked while a recorded Form 1099-B statement has no answer about box 4, and when "
+                     "a Form 1099-B shows federal income tax withheld in box 4: this return does not add Form 1099-B "
+                     "withholding yet.")
+        else:
+            gated_block(body, fact, fixes)
+            body["notes"] += (" v6: when a Form 1099-B sale is recorded, the box 4 answer is read; yes blocks the "
+                              "line, because Form 1099-B box 4 withholding is not added yet.")
+            words = (" It is also blocked when a Form 1099-B shows federal income tax withheld in box 4: this return "
+                     "does not add Form 1099-B withholding yet.")
         out.append((successor_name(name, body["version"]), body))
         fname, field = current("form1040.line-25b")
         field["version"] = bump(field["version"])
-        field["dispositions"]["blocked"]["explain"] += (
-            " It is also blocked when a Form 1099-B shows federal income tax withheld in box 4: this return does "
-            "not add Form 1099-B withholding yet.")
+        field["dispositions"]["blocked"]["explain"] += words
         out.append((successor_name(fname, field["version"]), field))
     if "box7_question" in fixes:
-        out.append(question(BOX7))
+        fact = box_fact(7, fixes)
+        out.append(question(fact))
         name, body = current("rule.schedule-d-line16")
-        gated_block(body, BOX7, fixes)
         body["version"] = bump(body["version"])
-        body["notes"] += (" v3: when a Form 1099-B sale is recorded, the box 7 answer is read; yes blocks the line, "
-                          "because a loss based on the box 1d amount of a reportable change in control is not "
-                          "allowed and this return does not compute it.")
+        if fact == BOX7_STATEMENT:
+            statement_block(body, fact, fixes)
+            body["notes"] += (" v3: every recorded Form 1099-B sale's statement needs a box 7 answer (require_paired "
+                              "on the statement key), so a sale from a statement not yet answered blocks the line and "
+                              "asks; a yes on any statement blocks the line, because a loss based on the box 1d "
+                              "amount of a reportable change in control is not allowed and this return does not "
+                              "compute it.")
+            words = (" It is also blocked while a recorded Form 1099-B statement has no answer about box 7, and when "
+                     "box 7 (loss not allowed) is checked on a Form 1099-B: this return does not compute that sale.")
+        else:
+            gated_block(body, fact, fixes)
+            body["notes"] += (" v3: when a Form 1099-B sale is recorded, the box 7 answer is read; yes blocks the "
+                              "line, because a loss based on the box 1d amount of a reportable change in control is "
+                              "not allowed and this return does not compute it.")
+            words = (" It is also blocked when box 7 (loss not allowed) is checked on a Form 1099-B: this return does "
+                     "not compute that sale.")
         out.append((successor_name(name, body["version"]), body))
         fname, field = current("schedule-d.line-16")
         field["version"] = bump(field["version"])
-        field["dispositions"]["blocked"]["explain"] += (
-            " It is also blocked when box 7 (loss not allowed) is checked on a Form 1099-B: this return does not "
-            "compute that sale.")
+        field["dispositions"]["blocked"]["explain"] += words
+        out.append((successor_name(fname, field["version"]), field))
+    return out
+
+
+FIELD_WORDS = {
+    "form1040.line-16": ("tax_activity", " It also waits for your answers about each kind of sale, because whether "
+                         "you recorded any sale decides whether your tax is figured with Schedule D."),
+    "form1040.line-7a": ("base_activity", " It also waits for your answers about each kind of sale and for Schedule "
+                         "D, because any recorded sale puts line 7a on the Schedule D route."),
+}
+
+
+def fix_field_words(fixes: set[str]) -> Out:
+    out: Out = []
+    for field_id, (needs, words) in FIELD_WORDS.items():
+        if needs not in fixes:
+            continue
+        fname, field = current(field_id)
+        field["version"] = bump(field["version"])
+        field["dispositions"]["blocked"]["explain"] += words
         out.append((successor_name(fname, field["version"]), field))
     return out
 
@@ -458,6 +576,8 @@ def artifacts(fixes: set[str]) -> Out:
             out += BUILDERS[fix](fixes)
     if fixes & {"box4_question", "box7_question"}:
         out += fix_box_questions(fixes)
+    if "field_words" in fixes:
+        out += fix_field_words(fixes)
     names = [n for n, _ in out]
     assert len(names) == len(set(names)), names
     return out
@@ -514,7 +634,7 @@ def build(scratch: Path, fixes: set[str]) -> dict[str, Any]:
     ):
         shutil.copy(scratch / "out" / src, folder / target)
     return {
-        "fixes": [f for f in FIXES if f in fixes], "package": report["package"]["version"],
+        "fixes": [f for f in FIXES if f in fixes], "repairs": [r for r in REPAIRS if r in fixes], "package": report["package"]["version"],
         "registry": TO["registry"], "release": report["release"]["version"],
         "members_edited": len(members), "added": sum(1 for m in members if m["op"] == "add"),
         "replaced": sum(1 for m in members if m["op"] == "replace"),
@@ -525,9 +645,12 @@ def build(scratch: Path, fixes: set[str]) -> dict[str, Any]:
 
 def main() -> None:
     scratch = Path(sys.argv[1]).resolve()
-    fixes = set(sys.argv[2:]) or set(FIXES)
-    unknown = fixes - set(FIXES)
+    named = sys.argv[2:]
+    fixes = set(FIXES) if named == ["decided"] else (set(named) or set(SWITCHES))
+    unknown = fixes - set(SWITCHES)
     assert not unknown, unknown
+    assert not ({"statement_box4"} & fixes) or "box4_question" in fixes
+    assert not ({"statement_box7"} & fixes) or "box7_question" in fixes
     if REPO in scratch.parents or scratch == REPO:
         raise SystemExit("the scratch directory must be outside the repository")
     summary = build(scratch, fixes)

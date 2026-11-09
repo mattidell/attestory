@@ -200,7 +200,60 @@ recommended choice; the owner adjusts after.
 
 ## Track 0 adversarial closure
 
-Pending.
+Evidence: `sale-family-audit-evidence/track0-closure.md` (`track0.py`,
+`track0-output.json`, `track0-rerun-output.json`). Every run goes through
+`live_coordinate_run` on the scratch v82, in both answer modes, on the
+decided design (FIXES) and the final design (FIXES plus three Track 0
+repairs). Final: 122 right, 156 correctly blocked, 8 observed and 10 rejected
+at entry (negative proceeds), with none wrong. Decided: 6 wrong runs, the
+counterexample below.
+
+- **Counterexample, fixed.** The decided box 4 and box 7 answers are one per
+  return. They stay current when a sale from a new Form 1099-B statement is
+  recorded: `t2_s2` publishes line 25b 0 beside 1,440 of box 4
+  withholding, `t2c_s1` the same on line 1a, and `t3_s2` a box 7 loss.
+  Repairs `statement_box4` and `statement_box7` ask once per recorded
+  statement. Line 25b v6 and Schedule D line 16 v3 require an answer for
+  every Form 1099-B sale's statement (`require_paired` on `statement`) and
+  block on any "yes".
+- **Presentation repair.** `field_words`: Form 1040 line 16 (field v3) and
+  line 7a (field v2) now say they also wait for the sale answers.
+- Final scratch v82: 29 member edits (5 adds, 24 replacements). No engine,
+  schema, expression or recording change.
+
+- Authority-lifecycle table: PASS — every fact the fixes read (sale counts,
+  `long_term`, direct box 1g, row pairing, the per-statement box 4 and box 7
+  answers, Exception 1) with its invalidating events, each cited to cases;
+  the decided return-level answers are the counterexample, now unread.
+- Empty/nonempty authority matrix: PASS — every family closed empty,
+  authority missing, nonempty eligible and ineligible; Exception 1 in all
+  four polarities beside five families (20 cases, identical results);
+  box 4 / box 7 yes, no and unanswered per statement.
+- Late-member lifecycle: PASS — T1 (wage → box E sale → Schedule D route:
+  TI 38,250, tax 3,875; v81 honest `gi`), T2 (box 4 "no" then a sale on a
+  new statement: blocks and asks; same statement computes), T3 (box 7),
+  T4 (removed sale), T5 (box C 0/0).
+- Neighboring capability dependency diff: PASS — prerequisites before and
+  after for each consumer, each justified by its own meaning; all 213 v81
+  returns classified: 134 identical, 51 D3, 6 D3 + D5, 17 D5, 5 D1 count
+  rows, 0 unclassified, no published number changed, all 79 changes equal
+  to P0's decided v82.
+- Reused-claim semantic/lifecycle equivalence: PASS — Exception 1 paths of
+  line 16 and the base narrowed (read only with no sale), line 25b's
+  subtotals and the eight counts unchanged; the new counts, answers and
+  admission values are not reused.
+- Integration surface: PASS — 974 of 974 members resolved; every consumer
+  of line 16, 24, 25b, 33, 34, 37, 7a, the base, Schedule D line 16 and both
+  attachments listed with cardinality; 45 watched publishers record exactly
+  one row in every saturated run; one built model per disposition path with
+  pinned (disposition, code, missing); presentation probe of every changed
+  field and new question.
+- Known limitations affecting correctness: none. Owner disposition is asked
+  on four presentation and refusal-posture questions
+  (`track0-closure.md`, "Owner questions"): Schedule D part lines beside a
+  box 7 refusal, the question-less refusal of a false Exception 1 "no" with
+  nothing recorded (unchanged from v81), box 7 over-refusal on a gain, and
+  the per-statement question shape.
 
 ## Track 1 result
 
