@@ -3,7 +3,7 @@
   "version": 1,
   "phase": "Engine Breadth",
   "topic": "sale-family-audit",
-  "status": "Open. P0 (audit of every sale family on core v81) first.",
+  "status": "Closed. On core v82 every sale fact field is read by a rule or refused by an answer, honest Exception 1 answers reach the Schedule D tax route, rows count only beside their own sale, and box 4 and box 7 are asked per Form 1099-B statement. No v81 published number changes; earlier cores are unchanged.",
   "scope": [
     "every field a Form 1099-B or Form 8949 sale record carries is either read by a rule or refused by an answer when it would change the return",
     "no sale family on the successor publishes a wrong number, a missing attachment or a double count from honest answers",
@@ -21,7 +21,8 @@
       "docs/phases/engine-breadth/engine-breadth-roadmap.md#Parked work and open questions",
       "docs/milestone-retrospectives/2026-11-07-f8949-code-b.md",
       "docs/milestone-retrospectives/2026-11-07-f8949-boxes-cf.md",
-      "docs/phases/engine-breadth/milestones/sale-family-audit.md"
+      "docs/phases/engine-breadth/milestones/sale-family-audit.md",
+      "docs/milestone-retrospectives/2026-11-09-sale-family-audit.md"
     ],
     "implementation": [
       "docs/process/planning-and-development.md",
@@ -47,6 +48,7 @@ Branch: milestone/sale-family-audit-2025.
 Phase: Engine Breadth, bounded return. Opening plan: 2026-11-07.
 Starting point: `milestone/f8949-code-b-2025` at `1e8de2e3` (PR #264, core
 v81). Rebased onto `github/main` at `9a29b1ed` after #264 merged.
+Retrospective: `docs/milestone-retrospectives/2026-11-09-sale-family-audit.md`.
 
 ## What we are trying to accomplish
 
@@ -341,7 +343,7 @@ repairs: result".
   - With honest Exception 1 answers, every v82 run equals its
     recorded-answer run. v81 refuses line 16 in 158 of the 198 (D1). On
     v82, 57 of those compute the tax and 101 wait on another input.
-- **Checks**, run locally at `670bfac2` (CI remains the gate of record):
+- **Checks**, run locally at the Track 1 head (removed at closeout) (CI remains the gate of record):
   - `pytest -m "not live"`: 1732 passed, 8 skipped.
   - The full `pytest`, run in two parts:
     - every module except the new live one: 4830 passed, 24 skipped;
@@ -431,13 +433,13 @@ engine, schema, expression or recording change.
     as history.
   - Track 0's decided and v81 runs were not rerun. They predate the line 7b
     watch.
-- **Checks**, run locally at `71309ca5` (CI remains the gate of record):
+- **Checks**, run locally at the repair head (removed at closeout) (CI remains the gate of record):
   - `pytest -m "not live"`: 1737 passed, 8 skipped.
   - The full `pytest`, run in two parts:
     - every module except the live one: 4835 passed, 24 skipped;
     - `tests/test_sale_family_audit_v82.py`: 393 passed.
   - `python3 -m mypy`: no issues in 471 files.
-  - `python3 tools/envelope_scan.py --range 8ddaca14..HEAD`: no findings.
+  - `python3 tools/envelope_scan.py --range` over the repair commits: no findings.
 
 ### Review repairs: parked
 

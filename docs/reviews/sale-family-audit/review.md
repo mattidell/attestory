@@ -1,6 +1,6 @@
 # Fresh-reader review: sale family audit (core v82)
 
-Reviewer seat. Object: `milestone/sale-family-audit-2025` at `874707fb`,
+Reviewer seat. Object: `milestone/sale-family-audit-2025` at the review charter commit (removed at closeout),
 diffed against `github/main` (18 commits ahead, 0 behind; draft PR #265
 open, not merged). Charter: `docs/reviews/sale-family-audit/charter-review.md`.
 I judged from the committed content, tests and evidence only, and made my own

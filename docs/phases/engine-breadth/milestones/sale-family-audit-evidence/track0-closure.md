@@ -9,7 +9,7 @@ design under test is the seven fixes that Decisions 1-5 in
 prototype only. It makes no production, test or content edits and uses only
 synthetic `demo.*` findings.
 
-Source ref: `milestone/sale-family-audit-2025` at `0ba2a011` (core v81,
+Source ref: `milestone/sale-family-audit-2025` at the Decisions commit (removed at closeout) (core v81,
 registry v79, release v79).
 
 ## How the evidence was built
