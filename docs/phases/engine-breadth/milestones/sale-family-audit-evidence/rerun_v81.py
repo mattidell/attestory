@@ -70,7 +70,8 @@ def execute(task: tuple[str, str, str, str]) -> tuple[str, str, str, dict[str, A
     else:
         spec = json.loads(core_json)
         core = h.Core(spec["version"], spec["registry"], spec["release_version"], Path(spec["content"]),
-                      Path(spec["releases"]), spec.get("loader_from"))
+                      Path(spec["releases"]), spec.get("loader_from"),
+                  tuple(tuple(p) for p in spec.get("presence_pairs") or ()))
         if variant == "v82" and records_1099b_sale(acts):
             acts = h.answer(acts, core.content, box4="no", box7="no")
     return group, name, variant, h.run(core, acts, f"demo.sfa.rerun.{group}.{name}.{variant}")

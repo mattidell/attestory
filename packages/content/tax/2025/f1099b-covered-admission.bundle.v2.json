@@ -1,0 +1,360 @@
+{
+  "schema": "bundle.v2",
+  "id": "tax.us.2025.f1099b.covered-admission.vocabulary",
+  "version": "v2",
+  "label": "Whether each covered or code W Form 1099-B sale is admitted to this return (v2: term, box 1g and amount checks)",
+  "fact_types": [
+    {
+      "schema": "fact-type.v2",
+      "id": "tax.us.2025.f1099b.covered-st-txn.admission",
+      "version": "v2",
+      "title": "Whether one short-term Form 1099-B sale reported on line 1a is admitted to this return.",
+      "nature": "determinable",
+      "identity_keys": [
+        {
+          "name": "broker",
+          "kind": "entity",
+          "entity_kind": "tax.us.f1099b-broker"
+        },
+        {
+          "name": "statement",
+          "kind": "entity",
+          "entity_kind": "tax.us.f1099b-statement"
+        },
+        {
+          "name": "transaction",
+          "kind": "entity",
+          "entity_kind": "tax.us.f1099b-transaction"
+        },
+        {
+          "name": "tax-year",
+          "kind": "literal",
+          "values": [
+            "2025"
+          ]
+        }
+      ],
+      "value_schema": {
+        "oneOf": [
+          {
+            "const": "admitted",
+            "description": "The sale has no adjustment you make yourself and is recorded only once."
+          },
+          {
+            "const": "taxpayer-side-adjustment",
+            "description": "The sale is flagged with an adjustment you make yourself, which this return does not compute."
+          },
+          {
+            "const": "recorded-twice",
+            "description": "The same transaction is also recorded as a sale of the other term."
+          },
+          {
+            "const": "flagged-outside-class",
+            "description": "The sale is flagged as ordinary income, market discount, a qualified opportunity fund investment, or a collectibles or other special-rate gain, which this return does not compute."
+          },
+          {
+            "const": "term-mismatch",
+            "description": "The sale says it is of the other term (box 2), so it is recorded on the wrong line."
+          },
+          {
+            "const": "needs-form-8949",
+            "description": "The sale shows a wash-sale loss disallowed (box 1g), so it is reported on Form 8949 with code W, not directly on Schedule D."
+          },
+          {
+            "const": "amounts-disagree",
+            "description": "A proceeds, basis or wash-sale row differs from the amount on the sale."
+          }
+        ]
+      },
+      "supersession": {
+        "policy": "free"
+      }
+    },
+    {
+      "schema": "fact-type.v2",
+      "id": "tax.us.2025.f1099b.covered-st-txn.admission-check-inert-path-unwritten",
+      "version": "v1",
+      "title": "Never recorded; the second selection path the selection shape requires.",
+      "nature": "determinable",
+      "identity_keys": [
+        {
+          "name": "tax-year",
+          "kind": "literal",
+          "values": [
+            "2025"
+          ]
+        }
+      ],
+      "value_schema": {
+        "type": "boolean"
+      },
+      "supersession": {
+        "policy": "free"
+      }
+    },
+    {
+      "schema": "fact-type.v2",
+      "id": "tax.us.2025.f1099b.covered-lt-txn.admission",
+      "version": "v2",
+      "title": "Whether one long-term Form 1099-B sale reported on line 8a is admitted to this return.",
+      "nature": "determinable",
+      "identity_keys": [
+        {
+          "name": "broker",
+          "kind": "entity",
+          "entity_kind": "tax.us.f1099b-broker"
+        },
+        {
+          "name": "statement",
+          "kind": "entity",
+          "entity_kind": "tax.us.f1099b-statement"
+        },
+        {
+          "name": "transaction",
+          "kind": "entity",
+          "entity_kind": "tax.us.f1099b-transaction"
+        },
+        {
+          "name": "tax-year",
+          "kind": "literal",
+          "values": [
+            "2025"
+          ]
+        }
+      ],
+      "value_schema": {
+        "oneOf": [
+          {
+            "const": "admitted",
+            "description": "The sale has no adjustment you make yourself and is recorded only once."
+          },
+          {
+            "const": "taxpayer-side-adjustment",
+            "description": "The sale is flagged with an adjustment you make yourself, which this return does not compute."
+          },
+          {
+            "const": "recorded-twice",
+            "description": "The same transaction is also recorded as a sale of the other term."
+          },
+          {
+            "const": "flagged-outside-class",
+            "description": "The sale is flagged as ordinary income, market discount, a qualified opportunity fund investment, or a collectibles or other special-rate gain, which this return does not compute."
+          },
+          {
+            "const": "term-mismatch",
+            "description": "The sale says it is of the other term (box 2), so it is recorded on the wrong line."
+          },
+          {
+            "const": "needs-form-8949",
+            "description": "The sale shows a wash-sale loss disallowed (box 1g), so it is reported on Form 8949 with code W, not directly on Schedule D."
+          },
+          {
+            "const": "amounts-disagree",
+            "description": "A proceeds, basis or wash-sale row differs from the amount on the sale."
+          }
+        ]
+      },
+      "supersession": {
+        "policy": "free"
+      }
+    },
+    {
+      "schema": "fact-type.v2",
+      "id": "tax.us.2025.f1099b.covered-lt-txn.admission-check-inert-path-unwritten",
+      "version": "v1",
+      "title": "Never recorded; the second selection path the selection shape requires.",
+      "nature": "determinable",
+      "identity_keys": [
+        {
+          "name": "tax-year",
+          "kind": "literal",
+          "values": [
+            "2025"
+          ]
+        }
+      ],
+      "value_schema": {
+        "type": "boolean"
+      },
+      "supersession": {
+        "policy": "free"
+      }
+    },
+    {
+      "schema": "fact-type.v2",
+      "id": "tax.us.2025.f1099b.covered-w-st-txn.admission",
+      "version": "v2",
+      "title": "Whether one short-term code W sale in box A is admitted to this return.",
+      "nature": "determinable",
+      "identity_keys": [
+        {
+          "name": "broker",
+          "kind": "entity",
+          "entity_kind": "tax.us.f1099b-broker"
+        },
+        {
+          "name": "statement",
+          "kind": "entity",
+          "entity_kind": "tax.us.f1099b-statement"
+        },
+        {
+          "name": "transaction",
+          "kind": "entity",
+          "entity_kind": "tax.us.f1099b-transaction"
+        },
+        {
+          "name": "tax-year",
+          "kind": "literal",
+          "values": [
+            "2025"
+          ]
+        }
+      ],
+      "value_schema": {
+        "oneOf": [
+          {
+            "const": "admitted",
+            "description": "The sale has no adjustment you make yourself and is recorded only once."
+          },
+          {
+            "const": "taxpayer-side-adjustment",
+            "description": "The sale is flagged with an adjustment you make yourself, which this return does not compute."
+          },
+          {
+            "const": "recorded-twice",
+            "description": "The same transaction is also recorded as a sale of the other term."
+          },
+          {
+            "const": "flagged-outside-class",
+            "description": "The sale is flagged as ordinary income, market discount, a qualified opportunity fund investment, or a collectibles or other special-rate gain, which this return does not compute."
+          },
+          {
+            "const": "term-mismatch",
+            "description": "The sale says it is of the other term (box 2), so it is recorded on the wrong line."
+          },
+          {
+            "const": "needs-form-8949",
+            "description": "The sale shows a wash-sale loss disallowed (box 1g), so it is reported on Form 8949 with code W, not directly on Schedule D."
+          },
+          {
+            "const": "amounts-disagree",
+            "description": "A proceeds, basis or wash-sale row differs from the amount on the sale."
+          }
+        ]
+      },
+      "supersession": {
+        "policy": "free"
+      }
+    },
+    {
+      "schema": "fact-type.v2",
+      "id": "tax.us.2025.f1099b.covered-w-st-txn.admission-check-inert-path-unwritten",
+      "version": "v1",
+      "title": "Never recorded; the second selection path the selection shape requires.",
+      "nature": "determinable",
+      "identity_keys": [
+        {
+          "name": "tax-year",
+          "kind": "literal",
+          "values": [
+            "2025"
+          ]
+        }
+      ],
+      "value_schema": {
+        "type": "boolean"
+      },
+      "supersession": {
+        "policy": "free"
+      }
+    },
+    {
+      "schema": "fact-type.v2",
+      "id": "tax.us.2025.f1099b.covered-w-lt-txn.admission",
+      "version": "v2",
+      "title": "Whether one long-term code W sale in box D is admitted to this return.",
+      "nature": "determinable",
+      "identity_keys": [
+        {
+          "name": "broker",
+          "kind": "entity",
+          "entity_kind": "tax.us.f1099b-broker"
+        },
+        {
+          "name": "statement",
+          "kind": "entity",
+          "entity_kind": "tax.us.f1099b-statement"
+        },
+        {
+          "name": "transaction",
+          "kind": "entity",
+          "entity_kind": "tax.us.f1099b-transaction"
+        },
+        {
+          "name": "tax-year",
+          "kind": "literal",
+          "values": [
+            "2025"
+          ]
+        }
+      ],
+      "value_schema": {
+        "oneOf": [
+          {
+            "const": "admitted",
+            "description": "The sale has no adjustment you make yourself and is recorded only once."
+          },
+          {
+            "const": "taxpayer-side-adjustment",
+            "description": "The sale is flagged with an adjustment you make yourself, which this return does not compute."
+          },
+          {
+            "const": "recorded-twice",
+            "description": "The same transaction is also recorded as a sale of the other term."
+          },
+          {
+            "const": "flagged-outside-class",
+            "description": "The sale is flagged as ordinary income, market discount, a qualified opportunity fund investment, or a collectibles or other special-rate gain, which this return does not compute."
+          },
+          {
+            "const": "term-mismatch",
+            "description": "The sale says it is of the other term (box 2), so it is recorded on the wrong line."
+          },
+          {
+            "const": "needs-form-8949",
+            "description": "The sale shows a wash-sale loss disallowed (box 1g), so it is reported on Form 8949 with code W, not directly on Schedule D."
+          },
+          {
+            "const": "amounts-disagree",
+            "description": "A proceeds, basis or wash-sale row differs from the amount on the sale."
+          }
+        ]
+      },
+      "supersession": {
+        "policy": "free"
+      }
+    },
+    {
+      "schema": "fact-type.v2",
+      "id": "tax.us.2025.f1099b.covered-w-lt-txn.admission-check-inert-path-unwritten",
+      "version": "v1",
+      "title": "Never recorded; the second selection path the selection shape requires.",
+      "nature": "determinable",
+      "identity_keys": [
+        {
+          "name": "tax-year",
+          "kind": "literal",
+          "values": [
+            "2025"
+          ]
+        }
+      ],
+      "value_schema": {
+        "type": "boolean"
+      },
+      "supersession": {
+        "policy": "free"
+      }
+    }
+  ]
+}

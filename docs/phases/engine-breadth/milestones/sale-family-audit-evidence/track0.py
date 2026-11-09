@@ -5,16 +5,18 @@ closure" section of docs/phases/engine-breadth/milestones/sale-family-audit.md.
 Every case runs through ``live_coordinate_run`` on a scratch core v82 built by
 ``prototype.py`` outside the repository. Nothing under packages/ is written.
 
-    python3 docs/phases/engine-breadth/milestones/sale-family-audit-evidence/track0.py cases [workers] [prefix ...]
-    python3 .../track0.py rerun <acts.json> [workers] [raw.json]   # the 213 pinned v81 returns (export_v81_returns.py);
-                                                                   # raw.json (outside the repository) keeps the runs
+    python3 docs/phases/engine-breadth/milestones/sale-family-audit-evidence/track0.py cases [workers] [prefix ...] [--design=final]
+    python3 .../track0.py rerun <acts.json> [workers] [raw.json] [max]   # the 213 pinned v81 returns
+                                                     # (export_v81_returns.py); raw.json (outside the repository)
+                                                     # keeps the runs, and a rerun resumes, at most max runs at a time
     python3 .../track0.py surface                         # the static integration surface of the final v82
     python3 .../track0.py shrink                          # rewrite track0-output.json in its small form
 
 Two designs are built:
 
 - ``decided``: prototype.FIXES, the seven fixes Decisions 1-5 take;
-- ``final``: FIXES plus prototype.REPAIRS, the Track 0 repairs.
+- ``final``: FIXES plus prototype.REPAIRS, the Track 0 repairs and the
+  Track 1 ``exception1_words`` repair (Decision 2).
 
 Writes track0-output.json beside this file (``cases`` and ``surface`` merge
 into it; ``rerun`` writes its section). Modules are loaded under unique names:
@@ -65,7 +67,11 @@ assert probe.h is h and rerun_mod.harness() is h
 
 P = h.P
 YEAR = h.YEAR
-DESIGNS = {"decided": set(proto.FIXES), "final": set(proto.SWITCHES)}
+# The repairs of the fresh-reader review (docs/reviews/sale-family-audit/review.md).
+REVIEW_REPAIRS = ("row_needs_sale", "line7b_activity", "field_truth")
+# ``track1``: the v82 Track 1 published, which the review read (final without the review repairs).
+DESIGNS = {"decided": set(proto.FIXES), "final": set(proto.SWITCHES),
+           "track1": set(proto.SWITCHES) - set(REVIEW_REPAIRS)}
 SALE_OBJECTS = tuple(P + s for s in proto.SALE_OBJECTS)
 SALE_FAMILIES = tuple(s.removesuffix("-txn") for s in SALE_OBJECTS)
 
@@ -76,7 +82,8 @@ def core_of(spec: dict[str, Any] | None) -> Any:
     if spec is None:
         return h.V81
     return h.Core(spec["version"], spec["registry"], spec["release_version"], Path(spec["content"]),
-                  Path(spec["releases"]), spec.get("loader_from"))
+                  Path(spec["releases"]), spec.get("loader_from"),
+                  tuple(tuple(p) for p in spec.get("presence_pairs") or ()))
 
 
 def build_designs(names: tuple[str, ...]) -> dict[str, dict[str, Any]]:
@@ -89,6 +96,8 @@ def build_designs(names: tuple[str, ...]) -> dict[str, dict[str, Any]]:
         cores[name] = {"version": proto.TO["package"], "registry": proto.TO["registry"],
                        "release_version": proto.TO["release"], "content": str(root / name / "content"),
                        "releases": str(root / name / "releases"), "loader_from": proto.FROM["package"],
+                       # In packages/tax/loader.py's order: the kernel's reverse check reads the last pair per sale.
+                       "presence_pairs": list(proto.presence_pairs(set(DESIGNS[name])).items()),
                        "build": {k: summary[k] for k in ("fixes", "repairs", "members_edited", "added", "replaced",
                                                            "inherited_inconsistencies")}}
         print(name, json.dumps(cores[name]["build"]), flush=True)
@@ -192,11 +201,16 @@ def sale_on(acts: Acts, kind: str, term: str, tag: str, *, statement_tag: str, *
     return h.renumber(out)
 
 
-def remove_sale(acts: Acts, kind: str, term: str, tag: str) -> Acts:
-    """Remove one sale and its amount rows; a per-family (covered, code W) family is closed again."""
+def remove_sale(acts: Acts, kind: str, term: str, tag: str,
+                parts: tuple[str | None, ...] | None = None) -> Acts:
+    """Remove one sale and its amount rows; a per-family (covered, code W) family is closed again.
+
+    ``parts`` names what is removed, in order (a scalar kind, or None for the sale
+    object); by default every row, then the sale.
+    """
     per_family = h.SALE_KINDS[kind]["grouped"] is None
     out = copy.deepcopy(acts)
-    for scalar in (*h.SALE_KINDS[kind]["kinds"], None):
+    for scalar in (parts if parts is not None else (*h.SALE_KINDS[kind]["kinds"], None)):
         fam = h.family_id(kind, term, scalar)
         member = h.member_fact(kind, term, scalar)
         fact_ids = [str(a["payload"]["member"]["finding"]["fact_id"]) for a in out
@@ -232,7 +246,7 @@ WATCH_SYMBOLS = tuple(P + s for s in (
     *(f"f8949.no1099b-{t}-txn.amounts-check" for t in ("st", "lt")),
 ))
 PROBED_FIELDS = tuple(P + f for f in (
-    "form1040.line-7a", "form1040.line-16", "form1040.line-24", "form1040.line-25b", "form1040.line-33",
+    "form1040.line-7a", "form1040.line-7b", "form1040.line-16", "form1040.line-24", "form1040.line-25b", "form1040.line-33",
     "form1040.line-34", "form1040.line-37", "schedule-d.line-1a", "schedule-d.line-8a", "schedule-d.line-1b",
     "schedule-d.line-8b", "schedule-d.line-2", "schedule-d.line-3", "schedule-d.line-9", "schedule-d.line-10",
     "schedule-d.line-16"))
@@ -350,8 +364,11 @@ def case(name: str, *, group: str, note: str, expect: str, kinds: set[str] = fro
          answers: dict[str, Any] | None = None, box4: BoxAnswer = "no", box7: BoxAnswer = "no",
          modes: tuple[str, ...] = MODES, designs: tuple[str, ...] = ("final", "decided"),
          asks: tuple[str, ...] = (), pins: dict[str, list[Any]] | None = None,
-         post: Callable[[Acts, Any, set[str], str], Acts] | None = None, keep_exc1: bool = False) -> None:
+         post: Callable[[Acts, Any, set[str], str], Acts] | None = None, keep_exc1: bool = False,
+         rejects: str | None = None) -> None:
     """``expect``: "values" (``hand`` must publish), "block" (Form 1040 must not publish) or "observe".
+
+    ``rejects``: the act list must be rejected at entry, with this text in the reason.
 
     ``asks``: substrings each of which some question on the page must contain.
     ``pins``: row (short artifact id) -> [disposition, code, missing] it must record.
@@ -361,14 +378,25 @@ def case(name: str, *, group: str, note: str, expect: str, kinds: set[str] = fro
     assert name not in CASES, name
     CASES[name] = dict(group=group, note=note, expect=expect, kinds=set(kinds), sales=sales, hand=hand, loss=loss,
                        answers=answers or {}, box4=box4, box7=box7, modes=modes, designs=designs, asks=asks,
-                       pins=pins or {}, post=post, keep_exc1=keep_exc1)
+                       pins=pins or {}, post=post, keep_exc1=keep_exc1, rejects=rejects)
+
+
+def honest_answers(acts: Acts, kinds: set[str], loss: bool) -> dict[str, str | None]:
+    """``audit_harness.honest`` for these kinds, with Exception 1 answered from the recorded sales.
+
+    The v2 questions read literally (``audit_harness.honest_exception1``, review F4):
+    a sale that nets zero is neither a gain nor a loss.
+    """
+    answers = h.honest(kinds, loss=loss)
+    answers.update({k: v for k, v in h.honest_exception1(acts).items() if v is not None})
+    return answers
 
 
 def build_case(spec: dict[str, Any], mode: str, core: Any, fixes: set[str]) -> Acts:
     acts = h.opened()
     if spec["sales"] is not None:
         acts = spec["sales"](acts)
-    answers = {**h.honest(spec["kinds"], loss=spec["loss"]), **spec["answers"]}
+    answers = {**honest_answers(acts, spec["kinds"], spec["loss"]), **spec["answers"]}
     answers = {k: v for k, v in answers.items() if k not in ("box4", "box7")}
     if mode == "base_exception1" and not spec["keep_exc1"]:
         answers = {k: v for k, v in answers.items() if not k.startswith("exc1")}
@@ -381,8 +409,13 @@ def build_case(spec: dict[str, Any], mode: str, core: Any, fixes: set[str]) -> A
 
 def verdict(spec: dict[str, Any], result: dict[str, Any]) -> tuple[str, dict[str, Any]]:
     if "error" in result or "refusal" in result:
+        reason = str(result.get("message") or result.get("refusal") or "")
+        if spec.get("rejects") and spec["rejects"] not in reason:
+            return ("rejected at entry BUT CHECK FAILED", {"rejects": [reason[:200], spec["rejects"]]})
         return ("rejected at entry", {})
     problems: dict[str, Any] = {}
+    if spec.get("rejects"):
+        problems["rejects"] = ["accepted", spec["rejects"]]
     if result.get("valid_model") is not True:
         problems["valid_model"] = result.get("valid_model")
     if result.get("duplicate_fields"):
@@ -420,7 +453,7 @@ hand = probe.hand
 S = probe.S
 seq = probe.seq
 with_2a = probe.with_2a
-ONLY_1040 = ("form1040.line-7a", "form1040.line-15", "form1040.line-16", "form1040.line-25b", "form1040.line-34",
+ONLY_1040 = ("form1040.line-7a", "form1040.line-7b", "form1040.line-15", "form1040.line-16", "form1040.line-25b", "form1040.line-34",
              "form1040.line-37")
 
 
@@ -452,7 +485,7 @@ def then(*steps: Callable[[Acts], Acts], kinds: set[str] | None = None, loss: bo
         for step in steps:
             acts = step(acts)
         if kinds is not None:
-            again = {**h.honest(kinds, loss=loss), **(answers or {})}
+            again = {**honest_answers(acts, kinds, loss), **(answers or {})}
             again = {k: v for k, v in again.items() if k not in ("box4", "box7")}
             if mode == "base_exception1":
                 again = {k: v for k, v in again.items() if not k.startswith("exc1")}
@@ -484,7 +517,19 @@ case("m_empty_box4_yes_no_sale", group="M", expect="values", hand=hand(schedule_
      note="No Form 1099-B sale is recorded, but a box 4 yes stands for a statement with no sale: it is not read.")
 
 
-case("m_2a_only", group="M", expect="values", sales=with_2a(1000), hand=hand1040(cgd=1000),
+
+def strip_exception1(acts: Acts, core: Any, fixes: set[str], mode: str) -> Acts:
+    for fact in proto.EXCEPTION1_QUESTIONS:
+        acts = h.strip(acts, P + fact)
+    return acts
+
+
+case("m_empty_exc1_unanswered", group="M", expect="block", post=strip_exception1, designs=("final",),
+     asks=tuple(proto.EXCEPTION1_QUESTIONS.values()),
+     note="Every family closed empty and no Exception 1 answer recorded: the page asks the four Exception 1 "
+          "questions in their Decision 2 words (repair exception1_words).")
+
+case("m_2a_only", group="M", expect="values", sales=with_2a(1000), hand=hand1040(cgd=1000, schedule_d=False),
      note="A 1,000 box 2a distribution and no sale; Exception 1 holds (base answers in both modes). Line 7a 1,000, "
           "base 1,000 (line 13), TI 35,250, tax 3,875 (0% band).")
 case("m_2a_only_exc1_only2a_no", group="M", expect="observe", sales=with_2a(1000), keep_exc1=True,
@@ -595,6 +640,87 @@ case("b7_two_statements_one_unanswered", group="B", expect="block", kinds={"nonc
 case("b47_unanswered", group="B", expect="block", kinds={"noncovered"}, sales=S("noncovered", "lt", "bu",
      proceeds=6000, basis=2000), box4=None, box7=None, asks=("box 4", "box 7"),
      note="One box E sale; neither box question answered.")
+
+# Review F1: a covered or code W amount row with no sale of its own (row_needs_sale).
+# h._member records one row under its own tag: a new broker, statement and transaction.
+ROW_NEEDS_SALE = "companion presence violated"
+
+
+def rows(kind: str, term: str, tag: str, **amounts: float) -> Callable[[Acts], Acts]:
+    def build(acts: Acts) -> Acts:
+        for scalar, amount in amounts.items():
+            acts = h._member(acts, kind, term, scalar, amount, tag)
+        return h.renumber(acts)
+    return build
+
+
+case("r_f1_covered_extra_rows", group="R", expect="block", kinds={"covered"}, rejects=ROW_NEEDS_SALE,
+     sales=seq(S("covered", "st", "rf1a", proceeds=10000, basis=7000), rows("covered", "st", "rf1x", proceeds=5000,
+                                                                              basis=1000)),
+     modes=("honest",), designs=("final", "track1"),
+     note="A line 1a sale 10,000 / 7,000 with its own rows, plus a 5,000 proceeds row and a 1,000 basis row on "
+          "another transaction. v81 and the published v82 before the repair: line 1a 7,000, tax 4,715. Correct: "
+          "refuse (or line 1a 3,000). The rows have no sale of their own.")
+case("r_f1_covered_rows_alone", group="R", expect="block", kinds={"covered"}, rejects=ROW_NEEDS_SALE,
+     sales=rows("covered", "st", "rf1b", proceeds=5000, basis=1000), modes=("honest",), designs=("final", "track1"),
+     note="The same two rows with no sale recorded. Before the repair: line 1a 4,000, tax 4,355. Correct: refuse "
+          "(or 0).")
+case("r_f1_covered_lt_rows_alone", group="R", expect="block", kinds={"covered"}, rejects=ROW_NEEDS_SALE,
+     sales=rows("covered", "lt", "rf1c", proceeds=5000, basis=1000), modes=("honest",), designs=("final", "track1"),
+     note="The same rows on the line 8a family, no sale. Before the repair: line 8a 4,000, line 7a 4,000.")
+case("r_f1_w_extra_rows", group="R", expect="block", kinds={"w"}, loss=True, rejects=ROW_NEEDS_SALE,
+     sales=seq(S("w", "st", "rf1d", proceeds=4000, basis=5000, wash=300), rows("w", "st", "rf1y", proceeds=5000,
+                                                                              basis=1000)),
+     modes=("honest",), designs=("final", "track1"),
+     note="A code W sale 4,000 / 5,000 (W 300) with its own rows, plus 5,000 / 1,000 rows on another transaction. "
+          "Before the repair: line 1b 3,300, tax 4,271. Correct: refuse (or line 1b -700).")
+case("r_f1_w_adjustment_row_alone", group="R", expect="block", kinds={"w"}, rejects=ROW_NEEDS_SALE,
+     sales=rows("w", "lt", "rf1e", adjustment=300), modes=("honest",), designs=("final",),
+     note="A code W column (g) row of 300 with no sale recorded.")
+COV_RM = S("covered", "st", "rf1f", proceeds=10000, basis=7000)
+case("r_f1_covered_sale_removed", group="R", expect="block", kinds={"covered"}, sales=COV_RM,
+     rejects=ROW_NEEDS_SALE, modes=("honest",), designs=("final", "track1"),
+     post=then(lambda a: remove_sale(a, "covered", "st", "rf1f", parts=(None,))),
+     note="A line 1a sale 10,000 / 7,000, then only the sale removed; its rows stay. Before the repair: line 1a "
+          "3,000, tax 4,235. Correct: refuse the removal (or 0, tax 3,875).")
+case("r_f1_covered_sale_removed_after_basis_row", group="R", expect="block", kinds={"covered"}, sales=COV_RM,
+     rejects="f1099b.covered-st-txn.proceeds|broker=demo.sfa.rf1f.broker", modes=("honest",), designs=("final",),
+     post=then(lambda a: remove_sale(a, "covered", "st", "rf1f", parts=("basis", None))),
+     note="The basis row removed first, then the sale; the 10,000 proceeds row stays. Correct: refuse (or 0). The "
+          "kernel's reverse presence check reads one row per sale (the last pair the loader declares, basis), so "
+          "the sale's removal is admitted; the run then refuses (companion provenance missing for the proceeds "
+          "row) and nothing publishes.")
+case("r_f1_covered_sale_and_rows_removed", group="R", expect="values", kinds={"covered"}, sales=COV_RM,
+     modes=("honest",), designs=("final",), hand=hand(schedule_d=False),
+     post=then(lambda a: remove_sale(a, "covered", "st", "rf1f"), answers={"exc1_only_2a": "yes"}),
+     note="The rows removed, then the sale: nothing is left. Answered again as a filer with no sale (only box 2a "
+          "gains yes), the wage return computes (tax 3,875).")
+
+# Review F2: line 7b "Schedule D not required" beside a required Schedule D (line7b_activity).
+# The four Exception 1 facts stay at the harness base ("yes" to each). Under the v2 questions those are the
+# truthful replies of a filer whose only sale nets zero: no capital gain other than box 2a, and no capital loss.
+V2_TRUTHFUL_ZERO = {"exc1_only_2a": None, "exc1_no_losses": None}
+case("r_f2_box_c_zero", group="R", expect="values", kinds={"no1099b"}, answers=V2_TRUTHFUL_ZERO,
+     sales=S("no1099b", "st", "rf2a", proceeds=0, basis=0), hand=hand(f8949=True), modes=("honest",),
+     designs=("final", "track1"),
+     note="A box C sale for 0 with basis 0, the Exception 1 facts left yes (truthful under the v2 words). Both "
+          "attachments are required, so line 7b must not say Schedule D is not required. Before the repair: "
+          "line 7b checked beside both attachments.")
+case("r_f2_covered_zero_net_beside_2a", group="R", expect="values", kinds={"covered"}, answers=V2_TRUTHFUL_ZERO,
+     sales=seq(with_2a(1000), S("covered", "st", "rf2b", proceeds=5000, basis=5000)), hand=hand(cgd=1000),
+     modes=("honest",), designs=("final", "track1"),
+     note="A line 1a sale 5,000 / 5,000 beside a 1,000 box 2a distribution, Exception 1 facts yes. Line 15 1,000, "
+          "line 16 1,000, base 1,000, TI 35,250, tax 3,875; Schedule D required, so line 7b not checked.")
+case("r_f2_box_e_zero_net_beside_2a", group="R", expect="values", kinds={"noncovered"}, answers=V2_TRUTHFUL_ZERO,
+     sales=seq(with_2a(1000), S("noncovered", "lt", "rf2c", proceeds=5000, basis=5000)),
+     hand=hand(cgd=1000, f8949=True), modes=("honest",), designs=("final", "track1"),
+     note="A box E sale 5,000 / 5,000 beside a 1,000 box 2a distribution, Exception 1 facts yes: as above, with "
+          "Form 8949.")
+case("r_f2_box_e_gain_base_answers", group="R", expect="values", kinds={"noncovered"}, answers=V2_TRUTHFUL_ZERO,
+     sales=S("noncovered", "lt", "rf2d", proceeds=6000, basis=2000), hand=hand(lt=4000, f8949=True),
+     modes=("honest",), designs=("final", "track1"),
+     note="A box E gain with the Exception 1 facts left yes (false: the sale is a gain). The tax does not read them "
+          "beside a sale (Decision 1), and line 7b now does not either.")
 
 # ---- 3. Late-member traces ---------------------------------------------------------
 V81_TOO = ("final", "decided", "v81")
@@ -708,11 +834,15 @@ def compact(result: dict[str, Any]) -> dict[str, Any]:
 
 
 def run_cases(workers: int, prefixes: list[str]) -> None:
+    """``prefixes``: case-name prefixes; ``--design=<name>`` runs only that design's runs (repeatable)."""
+    only = {p.split("=", 1)[1] for p in prefixes if p.startswith("--design=")}
+    prefixes = [p for p in prefixes if not p.startswith("--design=")]
     names = [n for n in CASES if not prefixes or any(n.startswith(p) for p in prefixes)]
-    used = sorted({d for n in names for d in CASES[n]["designs"]} - {"v81"})
+    chosen = {n: [d for d in CASES[n]["designs"] if not only or d in only] for n in names}
+    used = sorted({d for n in names for d in chosen[n]} - {"v81"})
     cores = build_designs(tuple(used))
     core_json = {d: json.dumps(cores[d]) for d in used} | {"v81": "null"}
-    tasks = [(n, m, d, core_json[d]) for n in names for m in CASES[n]["modes"] for d in CASES[n]["designs"]]
+    tasks = [(n, m, d, core_json[d]) for n in names for m in CASES[n]["modes"] for d in chosen[n]]
     payload = json.loads(OUT.read_text(encoding="utf-8")) if OUT.exists() else {}
     section = payload.setdefault("cases", {})
     counts: Counter[str] = Counter()
@@ -726,8 +856,10 @@ def run_cases(workers: int, prefixes: list[str]) -> None:
             counts[f"{design}: {word}"] += 1
             print(f"{name:44s} {design:8s} {mode:16s} {word:44s} {json.dumps(problems)[:160]} {result.get('seconds')}",
                   flush=True)
-    payload["designs"] = {d: cores[d]["build"] for d in used} | payload.get("designs", {})
-    payload.setdefault("field_sentences", {}).update(FIELD_SENTENCES)
+    payload["designs"] = payload.get("designs", {}) | {d: cores[d]["build"] for d in used}
+    sentences = payload.setdefault("field_sentences", {})
+    for field_key, by_disposition in FIELD_SENTENCES.items():
+        sentences.setdefault(field_key, {}).update(by_disposition)
     payload["verdicts"] = verdict_counts(section)
     OUT.write_text(dump(payload), encoding="utf-8")
     print(json.dumps(dict(sorted(counts.items())), indent=1))
@@ -739,7 +871,8 @@ WHY = ("form1040-line16", "form1040-line7a", "selected-preferential-base", "form
 PRESENTATION_CASES = ("m_empty", "m_empty_q1_unanswered", "m_empty_covered_unclosed", "t1_s1", "t1_s2", "t2_s2",
                       "t2_s3_yes", "t3_s2", "b47_unanswered", "b4_yes_noncovered", "b7_yes_noncovered",
                       "n_covered_basis_row_missing", "n_w_proceeds_row_disagrees", "t5_s2", "m_2a_only",
-                      "p0_c2_w_full_disallowance", "p0_d3_covered_zero_zero", "p0_a1_direct_flagged_wash")
+                      "p0_c2_w_full_disallowance", "p0_d3_covered_zero_zero", "p0_a1_direct_flagged_wash",
+                      "m_empty_exc1_unanswered")
 
 
 def shrink(payload: dict[str, Any]) -> dict[str, Any]:
@@ -882,6 +1015,9 @@ def classify(runs: dict[str, dict[str, Any]]) -> tuple[str, dict[str, Any]]:
     diff = rerun_mod.difference(v81, final)
     if not diff:
         return "identical", {}
+    if "error" not in v81 and ROW_NEEDS_SALE in str(final.get("message") or ""):
+        # row_needs_sale (review F1): the act list records a direct or code W row with no sale of its own.
+        return "D3 row_needs_sale: a row with no sale of its own is refused at entry", diff
     if numbers_changed(v81, final):
         return "UNCLASSIFIED: a published number changed", diff
     no_paired = runs["final_no_paired"]
@@ -912,14 +1048,18 @@ def classify(runs: dict[str, dict[str, Any]]) -> tuple[str, dict[str, Any]]:
 
 
 def run_rerun(args: list[str]) -> None:
+    """``rerun <acts.json> [workers] [raw.json] [max]``.
+
+    With ``raw.json`` (outside the repository) the runs are kept there and the
+    command resumes: it runs only the runs ``raw.json`` lacks, at most ``max``
+    of them, and writes the report once every run is present.
+    """
     acts_path = args[0]
     workers = int(args[1]) if len(args) > 1 else 8
-    cores = build_designs(("final", "final_no_paired")) if not (len(args) > 2 and Path(args[2]).exists()) else {
-        "final": {}, "final_no_paired": {}}
-    core_json = {"v81": "null", "final": json.dumps(cores["final"]), "final_unanswered": json.dumps(cores["final"]),
-                 "final_no_paired": json.dumps(cores["final_no_paired"])}
+    limit = int(args[3]) if len(args) > 3 else None
     expected = json.loads(rerun_mod.EXPECTED.read_text(encoding="utf-8"))
     names = [(g, n) for g in ("case", "v80", "neighbour") for n in sorted(expected[g])]
+    variants = ("v81", "final", "final_unanswered", "final_no_paired")
     results: dict[tuple[str, str], dict[str, Any]] = {}
 
     def go(tasks: list[tuple[str, str, str, str]]) -> None:
@@ -933,10 +1073,20 @@ def run_rerun(args: list[str]) -> None:
         raise SystemExit("keep the raw runs outside the repository")
     if raw is not None and raw.exists():
         results.update({tuple(k.split("/", 1)): v for k, v in json.loads(raw.read_text(encoding="utf-8")).items()})
-    else:
-        go([(g, n, v, core_json[v]) for g, n in names for v in ("v81", "final", "final_unanswered", "final_no_paired")])
+    todo = [(g, n, v) for g, n in names for v in variants if v not in results.get((g, n), {})]
+    if limit is not None:
+        todo = todo[:limit]
+    if todo:
+        cores = build_designs(("final", "final_no_paired"))
+        core_json = {"v81": "null", "final": json.dumps(cores["final"]),
+                     "final_unanswered": json.dumps(cores["final"]), "final_no_paired": json.dumps(cores["final_no_paired"])}
+        go([(g, n, v, core_json[v]) for g, n, v in todo])
         if raw is not None:
             raw.write_text(json.dumps({f"{g}/{n}": v for (g, n), v in results.items()}) + "\n", encoding="utf-8")
+    missing = sum(1 for g, n in names for v in variants if v not in results.get((g, n), {}))
+    if missing:
+        print(f"{missing} runs still to go; run the command again", flush=True)
+        return
     p0 = json.loads((HERE / "rerun-output.json").read_text(encoding="utf-8"))
     report: dict[str, Any] = {"returns": len(names), "fixture_check": {}, "classes": {}, "changed": {},
                               "same_as_p0_decided": [], "differs_from_p0_decided": [], "unanswered": {},

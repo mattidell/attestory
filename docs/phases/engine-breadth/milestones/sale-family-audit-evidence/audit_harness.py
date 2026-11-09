@@ -64,6 +64,9 @@ class Core:
     # Loader entries a scratch core needs: {"from": "v81"} names the published
     # core whose companion declaration and covered-flag map it copies.
     loader_from: str | None = None
+    # Presence pairs (row fact type -> sale fact type) the scratch core adds to the
+    # copied declaration (prototype.py ``row_needs_sale``).
+    presence_pairs: tuple[tuple[str, str], ...] = ()
 
     @property
     def package_path(self) -> Path:
@@ -93,6 +96,7 @@ def loader_entries(core: Core) -> Iterator[None]:
     def declarations() -> dict[tuple[str, str], dict[str, Any]]:
         found = dict(saved[0]())
         found[target] = copy.deepcopy(found[source])
+        found[target]["presence_pairs"].update(dict(core.presence_pairs))
         return found
 
     def refusal() -> dict[tuple[str, str], dict[str, str]]:
@@ -411,10 +415,61 @@ def honest(kinds: set[str], *, loss: bool = False, new_questions: bool = False) 
     return out
 
 
+# The ten sale families (a sale object's family, not its rows').
+SALE_FAMILIES = tuple(P + f"f1099b.{k}-{t}" for k in ("covered", "covered-w", "noncovered", "code-b")
+                      for t in TERMS) + tuple(P + f"f8949.no1099b-{t}" for t in TERMS)
+
+
+def current_sales(acts: Acts) -> list[tuple[str, dict[str, Any]]]:
+    """(family, sale value) of every sale recorded and not removed, on the ten sale families."""
+    found: dict[str, tuple[str, dict[str, Any]]] = {}
+    for act in acts:
+        payload = act.get("payload") or {}
+        family = str((payload.get("family") or {}).get("id")) if act.get("kind") == "member-transition" else ""
+        if family not in SALE_FAMILIES:
+            continue
+        member = payload.get("member") or {}
+        if member.get("action") == "remove":
+            found.pop(str(member.get("fact_id")), None)
+        elif member.get("action") == "assert":
+            finding = member["finding"]
+            found[str(finding["fact_id"])] = (family, dict(finding.get("value") or {}))
+    return list(found.values())
+
+
+def column_h(family: str, sale: dict[str, Any]) -> float:
+    """Form 8949 column (h) of one sale: proceeds less basis (the corrected basis for code B), plus column (g)."""
+    proceeds, basis = float(sale.get("proceeds") or 0), float(sale.get("basis") or 0)
+    if "covered-w" in family:
+        return proceeds - basis + float(sale.get("box_1g_wash_sale_disallowed_amount") or 0)
+    if "code-b" in family:
+        corrected = float(sale.get("corrected_basis", basis) or 0)
+        return proceeds - corrected + float(sale.get("wash_disallowed") or 0)
+    if "covered" in family:
+        return proceeds - basis
+    return proceeds - basis + float(sale.get("wash_disallowed") or 0)
+
+
+def honest_exception1(acts: Acts) -> dict[str, str | None]:
+    """The Exception 1 answers a filer with the recorded sales gives to the v2 questions, read literally.
+
+    "Is it true that you had no capital gains other than box 2a ...?": yes unless a
+    sale is a gain. "Is it true that you had no capital losses ...?": yes unless a
+    sale is a loss. A sale that nets zero is neither (review F4). With no sale
+    recorded, both are None (the answers already given stand).
+    """
+    sales = current_sales(acts)
+    if not sales:
+        return {"exc1_only_2a": None, "exc1_no_losses": None}
+    nets = [column_h(family, sale) for family, sale in sales]
+    return {"exc1_only_2a": "no" if any(n > 0 for n in nets) else "yes",
+            "exc1_no_losses": "no" if any(n < 0 for n in nets) else "yes"}
+
+
 # ---- running ------------------------------------------------------------------------
 
 WATCH = tuple(P + f"schedule-d.line-{n}" for n in ("1a", "1b", "2", "3", "7", "8a", "8b", "9", "10", "15", "16", "21")) + \
-    tuple(P + f"form1040.line-{n}" for n in ("7a", "9", "15", "16", "24", "25b", "33", "34", "37"))
+    tuple(P + f"form1040.line-{n}" for n in ("7a", "7b", "9", "15", "16", "24", "25b", "33", "34", "37"))
 SYMBOLS = (P + "capital-gains.selected-preferential-base", P + "payments.line25b")
 ROW_FILTER = ("schedule-d", "line7a", "preferential", "8949", "f1099b", "f8949", "line25b")
 

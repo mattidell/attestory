@@ -1,0 +1,10 @@
+{
+  "schema": "input-question.v1",
+  "id": "tax.us.2025.input-question.f1099b-statement-box4-withholding-reported",
+  "version": "v1",
+  "fact_type": {
+    "id": "tax.us.2025.f1099b.statement-box4-withholding-reported",
+    "version": "v1"
+  },
+  "question": "For each Form 1099-B or substitute statement you recorded a sale from, does it show federal income tax withheld in box 4?"
+}

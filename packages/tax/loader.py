@@ -164,11 +164,28 @@ def code_b_scalar_presence_pairs() -> dict[str, str]:
     return pairs
 
 
+def covered_scalar_presence_pairs() -> dict[str, str]:
+    """Each covered and code W scalar amount requires its sale object on the same identity.
+
+    ADR-0082, as for the noncovered, no-Form-1099-B and code B pairs. A line
+    1a, 8a, 1b or 8b proceeds, basis, or column (g) figure recorded without its
+    own sale is refused: beside another sale, alone, or after its sale is
+    removed. Core v82 installs these pairs; earlier cores do not.
+    """
+    pairs: dict[str, str] = {}
+    for kind, scalars in (("covered", ("proceeds", "basis")), ("covered-w", ("proceeds", "basis", "adjustment"))):
+        for term in ("st", "lt"):
+            sale = f"tax.us.2025.f1099b.{kind}-{term}-txn"
+            for scalar in scalars:
+                pairs[f"{sale}.{scalar}"] = sale
+    return pairs
+
+
 def named_covered_flag_refusal_maps() -> dict[tuple[str, str], dict[str, str]]:
     """Packages whose companion declaration names the covered-flag refusal.
 
-    Core v79 is the first package that names it, and cores v80 and v81 name
-    the same map. Core v78 and earlier are
+    Core v79 is the first package that names it, and cores v80, v81 and v82
+    name the same map. Core v78 and earlier are
     absent, so their runs never consult the map. The map is a sibling of the
     companion declaration: the kernel declaration only carries presence pairs
     and value domains.
@@ -180,6 +197,8 @@ def named_covered_flag_refusal_maps() -> dict[tuple[str, str], dict[str, str]]:
         # Core v81 adds the code B sale objects. Their basis was reported to the
         # IRS by definition, so they are not in the map; it names v80's map.
         ("tax.us.2025.package.core-calculations", "v81"): dict(COVERED_FLAG_REFUSAL_OBJECTS),
+        # Core v82 (the sale family audit) adds no sale object, so it names v81's map.
+        ("tax.us.2025.package.core-calculations", "v82"): dict(COVERED_FLAG_REFUSAL_OBJECTS),
     }
 
 
@@ -467,6 +486,22 @@ def domain_package_companion_declarations() -> dict[tuple[str, str], dict[str, A
                 **noncovered_scalar_presence_pairs(),
                 **no1099b_scalar_presence_pairs(),
                 **code_b_scalar_presence_pairs(),
+            },
+            "value_domains": dict(gambling["value_domains"]),
+        },
+        # Core v82 (the sale family audit) adds no sale amount and no sale
+        # object. It carries v81's declaration, code B pairs included, and adds
+        # the covered and code W pairs, so a line 1a, 8a, 1b or 8b amount row
+        # with no sale of its own is refused as the other kinds' rows are.
+        # Without this entry, v82 would fall back to the global maps and
+        # refuse amounts v81 admits.
+        ("tax.us.2025.package.core-calculations", "v82"): {
+            "presence_pairs": {
+                **gambling["presence_pairs"],
+                **noncovered_scalar_presence_pairs(),
+                **no1099b_scalar_presence_pairs(),
+                **code_b_scalar_presence_pairs(),
+                **covered_scalar_presence_pairs(),
             },
             "value_domains": dict(gambling["value_domains"]),
         },

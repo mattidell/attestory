@@ -2378,6 +2378,12 @@ class C11NoBrokerBasisComparisonMechanism(unittest.TestCase):
                 "tax.us.2025.rule.f1099b-noncovered-st-basis-subtotal",
                 "tax.us.2025.rule.f1099b.code-b-lt-txn.amounts-agree",
                 "tax.us.2025.rule.f1099b.code-b-st-txn.amounts-agree",
+                # Core v82: each covered and code W sale's basis row must equal
+                # its sale object (admission v2, the sale family audit).
+                "tax.us.2025.rule.f1099b.covered-lt-txn.admission",
+                "tax.us.2025.rule.f1099b.covered-st-txn.admission",
+                "tax.us.2025.rule.f1099b.covered-w-lt-txn.admission",
+                "tax.us.2025.rule.f1099b.covered-w-st-txn.admission",
                 # Core v80: each noncovered sale's basis row must equal its sale
                 # object, and lines 2 and 9 pair each sale with its basis row.
                 "tax.us.2025.rule.f1099b.noncovered-lt-txn.amounts-agree",
@@ -2458,9 +2464,9 @@ class C11NoBrokerBasisComparisonMechanism(unittest.TestCase):
         self.assertTrue(hits, "the selector found no files at all -- it cannot be trusted")
         # Exactly what the search returns, stated precisely:
         # five f1099b-covered-* bundle files, two occurrences each; the four
-        # core v81 admission rules, which refuse a sale flagged "yes" and
-        # compare the flag with no basis; plus one sample-data negative
-        # fixture that is NOT a bundle declaration.
+        # core v81 admission rules and their four core v82 successors, which
+        # refuse a sale flagged "yes" and compare the flag with no basis; plus
+        # one sample-data negative fixture that is NOT a bundle declaration.
         content = [h for h in hits if h.startswith("packages/content/tax/2025/")]
         bundles = [h for h in content if h.endswith(".bundle.json")]
         admission = [h for h in content if not h.endswith(".bundle.json")]
@@ -2468,8 +2474,9 @@ class C11NoBrokerBasisComparisonMechanism(unittest.TestCase):
         self.assertEqual(len(bundles), 5, bundles)
         self.assertTrue(all("f1099b-covered-" in h for h in bundles), bundles)
         self.assertEqual(admission, [
-            f"packages/content/tax/2025/rule.f1099b.{kind}-{term}-txn.admission.json"
+            f"packages/content/tax/2025/rule.f1099b.{kind}-{term}-txn.admission{version}.json"
             for kind, term in (("covered", "lt"), ("covered", "st"), ("covered-w", "lt"), ("covered-w", "st"))
+            for version in ("", ".v2")
         ])
         self.assertEqual(
             others, ["packages/sample_data/schedule_d_covered_ltcg_8a_t1/negatives/"

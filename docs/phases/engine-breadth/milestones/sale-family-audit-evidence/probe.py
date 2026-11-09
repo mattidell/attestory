@@ -96,6 +96,8 @@ def hand(st: float = 0, lt: float = 0, *, cgd: float = 0, b25: float = 0, f8949:
         out["attach.f8949"] = f8949
     if schedule_d is not None:
         out["attach.schedule-d"] = schedule_d
+        # Line 7b, "Schedule D not required", is checked exactly when Schedule D is not (review F2).
+        out["form1040.line-7b"] = "guard_inapplicable" if schedule_d else "published_categorical"
     return out
 
 
@@ -318,7 +320,8 @@ def core_from(arg: str | None) -> Any:
         return h.V81
     spec = json.loads(arg)
     return h.Core(spec["version"], spec["registry"], spec["release_version"], Path(spec["content"]),
-                  Path(spec["releases"]), spec.get("loader_from"))
+                  Path(spec["releases"]), spec.get("loader_from"),
+                  tuple(tuple(p) for p in spec.get("presence_pairs") or ()))
 
 
 def verdict(spec: dict[str, Any], result: dict[str, Any]) -> str:
@@ -353,7 +356,7 @@ def mismatches(spec: dict[str, Any], result: dict[str, Any]) -> dict[str, Any]:
 
 KEPT_LINES = ("schedule-d.line-1a", "schedule-d.line-1b", "schedule-d.line-2", "schedule-d.line-3", "schedule-d.line-7",
               "schedule-d.line-8a", "schedule-d.line-8b", "schedule-d.line-9", "schedule-d.line-10",
-              "schedule-d.line-15", "schedule-d.line-16", "schedule-d.line-21", "form1040.line-7a",
+              "schedule-d.line-15", "schedule-d.line-16", "schedule-d.line-21", "form1040.line-7a", "form1040.line-7b",
               "form1040.line-15", "form1040.line-16", "form1040.line-25b", "form1040.line-34", "form1040.line-37")
 
 

@@ -1,0 +1,10 @@
+{
+  "schema": "input-question.v1",
+  "id": "tax.us.2025.input-question.f1099b-statement-box7-loss-not-allowed",
+  "version": "v1",
+  "fact_type": {
+    "id": "tax.us.2025.f1099b.statement-box7-loss-not-allowed",
+    "version": "v1"
+  },
+  "question": "For each Form 1099-B or substitute statement you recorded a sale from, is box 7 (\"If checked, loss is not allowed based on amount in 1d\") checked for any sale on it?"
+}

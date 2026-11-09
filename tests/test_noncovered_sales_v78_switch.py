@@ -23,15 +23,17 @@ from packages.tax.loader import (
 CORE = "tax.us.2025.package.core-calculations"
 
 
-def test_only_cores_v79_to_v81_name_the_covered_flag_refusal() -> None:
+def test_only_cores_v79_to_v82_name_the_covered_flag_refusal() -> None:
     assert named_covered_flag_refusal_maps() == {
         (CORE, "v79"): COVERED_FLAG_REFUSAL_OBJECTS,
         (CORE, "v80"): COVERED_FLAG_REFUSAL_OBJECTS,
         (CORE, "v81"): COVERED_FLAG_REFUSAL_OBJECTS,
+        (CORE, "v82"): COVERED_FLAG_REFUSAL_OBJECTS,
     }
     assert covered_flag_refusal_map(CORE, "v79") == COVERED_FLAG_REFUSAL_OBJECTS
     assert covered_flag_refusal_map(CORE, "v80") == COVERED_FLAG_REFUSAL_OBJECTS
     assert covered_flag_refusal_map(CORE, "v81") == COVERED_FLAG_REFUSAL_OBJECTS
+    assert covered_flag_refusal_map(CORE, "v82") == COVERED_FLAG_REFUSAL_OBJECTS
 
 
 def test_core_v79_requires_each_noncovered_scalar_beside_its_sale() -> None:

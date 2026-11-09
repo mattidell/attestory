@@ -6,9 +6,10 @@ directory outside the repository, writes the successor members there,
 generates package v82 / registry v80 / release v80 from v81 with
 ``tools.package_successor``, and prints the scratch core's location as a
 ``Core`` (JSON) for ``probe.py --core=...`` and ``rerun_v81.py``. Nothing
-under packages/ is written. Imports no other evidence module.
+under packages/ is written, except by ``--publish``. Imports no other evidence module.
 
     python3 docs/phases/engine-breadth/milestones/sale-family-audit-evidence/prototype.py <scratch-dir> [fix ...]
+    python3 .../prototype.py --publish <scratch-dir>   # rebuild the unpublished v82 in packages/ in place
 
 With no fix named, every fix in ``FIXES`` and every Track 0 repair in ``REPAIRS`` is
 built; name ``decided`` to build ``FIXES`` alone. Writes
@@ -62,6 +63,47 @@ Track 0 repairs (each needs the fix it repairs):
   say that they also wait for the answers about each kind of sale, which
   their v7 and v9 producers now read. Their v2 and v1 blocked sentences
   named only the inputs the earlier producers read.
+
+Track 1 repair (Decision 2):
+
+- ``exception1_words``: the four Exception 1 input questions v2. On v81 the
+  four share one sentence ("Besides capital gain distributions in box 2a
+  ..., did you have any other capital gain or loss ...?") whose "yes" means
+  each fact's "no", so an entry screen that records the reply literally
+  records the opposite of the truth. Each v2 question asks its own fact,
+  and its "yes" is the fact's "yes". The facts are unchanged.
+
+Review repairs (docs/reviews/sale-family-audit/review.md):
+
+- ``row_needs_sale`` (F1, repairs ``paired_rows``): each covered and code W
+  proceeds, basis and column (g) row requires its own sale on the same
+  identity (broker, statement, transaction), as the noncovered, no-1099-B
+  and code B rows have since v79 to v81. ``paired_rows`` requires each sale
+  to have its rows, but a row with no sale of its own was never checked: it
+  was summed on its line beside an admitted sale, alone, or after its sale
+  was removed. The pairs are a companion declaration, not content: they are
+  the loader entry of the package (``presence_pairs``), which
+  ``audit_harness.loader_entries`` applies to the scratch core per run and
+  packages/tax/loader.py carries for the published v82.
+- ``line7b_activity`` (F2, repairs ``tax_activity``): Form 1040 line 7b v2
+  (rule) and its field v3. v1 checked "Schedule D not required" whenever the
+  Schedule-D-required conclusion was no, which the Exception 1 answers decide.
+  Since ``tax_activity`` the tax no longer reads those answers once a sale is
+  recorded, so a filer with a zero-net sale who answers the v2 questions
+  truthfully ("yes": no capital gain other than box 2a, no capital loss) got
+  line 7b checked beside a required Schedule D. A recorded sale is reported on
+  Form 8949 or Schedule D, so Exception 1 does not apply: line 7b v2 reads the
+  same sale counts and covered proceeds as line 16 v7 and is inapplicable when
+  any is above zero.
+- ``field_truth`` (F3, repairs ``field_words``): two field sentences made true
+  of their rules' ``when``. Form 1040 line 16 field v3 said, when the line is
+  not applicable, that it is computed only "when you sold covered securities";
+  line 16 v7 takes the Schedule D route for any recorded sale. Form 1040 line
+  7a field v2 began its blocked sentence "because Exception-1 authority is
+  incomplete or the box-2a family is unclosed"; with a sale recorded, line 7a v9
+  reads neither. The Schedule D line 1a, 8a, 1b and 8b fields also name only
+  the reasons their own admission reads (review N4): only lines 1a and 8a
+  refuse a box 1g sale, and they have no wash-sale row.
 """
 
 from __future__ import annotations
@@ -90,7 +132,8 @@ FIXES = ("tax_activity", "no1099b_count", "base_activity", "admission_reads", "p
          "box7_question")
 # Track 0 repairs (track0-closure.md). Each is a switch on top of FIXES; ``main`` builds them all by default,
 # and ``FIXES`` alone builds the decided design.
-REPAIRS = ("statement_box4", "statement_box7", "field_words")
+REPAIRS = ("statement_box4", "statement_box7", "field_words", "exception1_words", "row_needs_sale",
+           "line7b_activity", "field_truth")
 SWITCHES = FIXES + REPAIRS
 TERMS = ("st", "lt")
 ROLE = {"bundle.v2": "fact-type-bundle", "input-question.v1": "input-question", "form-field.v3": "form-field",
@@ -371,13 +414,22 @@ LINE_OF = {("covered", "st"): ("rule.schedule-d-line1a-gain", "schedule-d.line-1
 NEW_REASONS = (" A sale whose own proceeds, basis or wash-sale row is missing or differs from the sale, a sale that "
                "says it is of the other term, and a line 1a or 8a sale with a wash-sale loss disallowed in box 1g "
                "(record it as a code W sale) are also outside what this return computes.")
+# field_truth (review N4): each line names only the reasons its own admission reads. Lines 1a and 8a have no
+# wash-sale row; only they refuse a box 1g sale.
+NEW_REASONS_OF = {
+    "covered": (" A sale whose own proceeds or basis row is missing or differs from the sale, a sale that says it is "
+                "of the other term, and a sale with a wash-sale loss disallowed in box 1g (record it as a code W "
+                "sale) are also outside what this return computes."),
+    "covered-w": (" A sale whose own proceeds, basis or wash-sale row is missing or differs from the sale, and a sale "
+                  "that says it is of the other term, are also outside what this return computes."),
+}
 
 
-def line_words(kind: str, term: str) -> tuple[str, dict[str, Any]]:
+def line_words(kind: str, term: str, fixes: set[str] = frozenset()) -> tuple[str, dict[str, Any]]:
     _member, field_id = LINE_OF[(kind, term)]
     fname, field = current(field_id)
     field["version"] = bump(field["version"])
-    field["dispositions"]["blocked"]["explain"] += NEW_REASONS
+    field["dispositions"]["blocked"]["explain"] += NEW_REASONS_OF[kind] if "field_truth" in fixes else NEW_REASONS
     return successor_name(fname, field["version"]), field
 
 
@@ -385,7 +437,7 @@ def fix_admission_reads(fixes: set[str]) -> Out:
     out: Out = [admission_bundle()]
     for kind in ADMISSION_KINDS:
         for term in TERMS:
-            out += [admission_rule(kind, term), admission_check(kind, term, fixes), line_words(kind, term)]
+            out += [admission_rule(kind, term), admission_check(kind, term, fixes), line_words(kind, term, fixes)]
     return out
 
 
@@ -551,6 +603,20 @@ FIELD_WORDS = {
 }
 
 
+# field_truth (F3): disposition -> the whole sentence, true of the v7 and v9 rules' ``when``.
+FIELD_TRUTH = {
+    "form1040.line-16": {
+        "guard_inapplicable": "Line 16 is computed here only when you recorded a sale, or when Schedule D is not "
+                              "required and your qualified dividends and capital gain fit your capital gain "
+                              "distributions answer. Neither is true on this return."},
+    "form1040.line-7a": {
+        "blocked": "Line 7a has no value yet. Whether you recorded any sale decides its route, so it waits for your "
+                   "answers about each kind of sale. With a sale recorded, line 7a is the Schedule D amount and waits "
+                   "for Schedule D. With none, it waits for your Exception 1 answers and for your box 2a capital gain "
+                   "distributions to be complete."},
+}
+
+
 def fix_field_words(fixes: set[str]) -> Out:
     out: Out = []
     for field_id, (needs, words) in FIELD_WORDS.items():
@@ -559,7 +625,86 @@ def fix_field_words(fixes: set[str]) -> Out:
         fname, field = current(field_id)
         field["version"] = bump(field["version"])
         field["dispositions"]["blocked"]["explain"] += words
+        if "field_truth" in fixes:
+            for disposition, sentence in FIELD_TRUTH[field_id].items():
+                field["dispositions"][disposition]["explain"] = sentence
         out.append((successor_name(fname, field["version"]), field))
+    return out
+
+
+# exception1_words (Decision 2): each question's "yes" is its fact's "yes" (fact id -> v2 question).
+EXCEPTION1_QUESTIONS = {
+    "exception1.only-box2a-capital-gains": (
+        "Is it true that you had no capital gains in 2025 other than capital gain distributions in box 2a of Form "
+        "1099-DIV (for example, no gain from selling stock, funds or other property)?"),
+    "exception1.no-capital-losses": (
+        "Is it true that you had no capital losses in 2025 (for example, no loss from selling stock, funds or other "
+        "property)?"),
+    "exception1.no-qof-deferral": (
+        "Is it true that you did not defer any capital gain in 2025 by investing in a qualified opportunity fund?"),
+    "exception1.no-boxes-2b-2c-2d": (
+        "Is it true that none of your 2025 Forms 1099-DIV or substitute statements shows an amount in box 2b, 2c "
+        "or 2d?"),
+}
+
+
+def fix_exception1_words(fixes: set[str]) -> Out:
+    out: Out = []
+    for fact, text in EXCEPTION1_QUESTIONS.items():
+        name, body = current("input-question." + fact.replace(".", "-", 1))
+        assert body["fact_type"]["id"] == P + fact, (name, body["fact_type"])
+        body["version"] = bump(body["version"])
+        body["question"] = text
+        out.append((successor_name(name, body["version"]), body))
+    return out
+
+
+# row_needs_sale (F1): each covered and code W amount row requires its own sale (a loader presence pair).
+ROW_SCALARS = {"covered": ("proceeds", "basis"), "covered-w": ("proceeds", "basis", "adjustment")}
+
+
+def presence_pairs(fixes: set[str]) -> dict[str, str]:
+    """Row fact type -> sale fact type: the presence pairs the package's loader entry adds under ``fixes``."""
+    if "row_needs_sale" not in fixes:
+        return {}
+    return {P + f"f1099b.{kind}-{term}-txn.{scalar}": P + f"f1099b.{kind}-{term}-txn"
+            for kind, scalars in ROW_SCALARS.items() for term in TERMS for scalar in scalars}
+
+
+# line7b_activity (F2): line 7b is checked only when no sale is recorded and the conclusion is no.
+LINE7B_WORDS = {
+    "published_value": "No sale is recorded and the checked Schedule-D-required conclusion is no; Exception 1 "
+                       "applies and the Schedule D not required box on line 7b is affirmative.",
+    "guard_inapplicable": "No affirmative Schedule-D-not-required disposition: you recorded a sale, which is reported "
+                          "on Form 8949 or Schedule D, so Exception 1 does not apply; or the checked "
+                          "Schedule-D-required conclusion is yes (an Exception-1 component is no).",
+    "blocked": "Line 7b is blocked because the checked Schedule-D-required conclusion is unpublished (missing "
+               "Exception-1 component authority), or because a kind of sale is not yet answered: whether you "
+               "recorded any sale decides whether Schedule D is required.",
+}
+
+
+def fix_line7b(fixes: set[str]) -> Out:
+    name, body = current("rule.form1040-line7b")
+    names = ["f1099b.covered-st-proceeds-subtotal", "f1099b.covered-lt-proceeds-subtotal", *counts(fixes)]
+    conclusion = body["when"]
+    assert conclusion["op"] == "categorical_compare" and conclusion["right"]["value"] == "no", conclusion
+    body["when"] = {"op": "all", "args": [conclusion, {"op": "not", "value": {"op": "any", "args": any_count(names)}}]}
+    add_requires(body, names)
+    body["blocked"]["missing"] = list(body["requires"])
+    body["version"] = bump(body["version"])
+    body["notes"] += (f" {body['version']}: a recorded sale (a sale count, or covered proceeds, above zero) is "
+                      "reported on Form 8949 or Schedule D, so Exception 1 does not apply and line 7b is "
+                      "guard_inapplicable; the conclusion decides line 7b only when no sale is recorded. It reads "
+                      "the same sale counts as Form 1040 line 16 v7.")
+    out: Out = [(successor_name(name, body["version"]), body)]
+    fname, field = current("form1040.line-7b")
+    field["version"] = bump(field["version"])
+    for disposition, words in LINE7B_WORDS.items():
+        field["dispositions"][disposition]["explain"] = words
+    field["description"] += (f" {field['version']}: publishes only when no sale is recorded (every sale count and "
+                             "covered proceeds subtotal is zero), as Form 1040 line 16 v7 reads them.")
+    out.append((successor_name(fname, field["version"]), field))
     return out
 
 
@@ -578,6 +723,10 @@ def artifacts(fixes: set[str]) -> Out:
         out += fix_box_questions(fixes)
     if "field_words" in fixes:
         out += fix_field_words(fixes)
+    if "exception1_words" in fixes:
+        out += fix_exception1_words(fixes)
+    if "line7b_activity" in fixes:
+        out += fix_line7b(fixes)
     names = [n for n, _ in out]
     assert len(names) == len(set(names)), names
     return out
@@ -595,19 +744,22 @@ def role(body: dict[str, Any]) -> str:
     return ROLE[schema]
 
 
-def build(scratch: Path, fixes: set[str]) -> dict[str, Any]:
-    content, releases = scratch / "content", scratch / "releases"
-    shutil.copytree(CONTENT, content)
-    shutil.copytree(RELEASES, releases)
-    for name in (f"package.core-calculations.{TO['package']}.json", f"published-packages.{TO['registry']}.json"):
-        assert not (content / name).exists(), name
-    assert not (releases / f"{RELEASE_STEM}.{TO['release']}.json").exists()
+def unpublished_names() -> set[str]:
+    """The files this prototype builds, which the branch may already carry as the unpublished v82.
+
+    The scratch copy leaves them out, so the scratch core is built from v81 alone
+    whether or not packages/ already holds a v82 build.
+    """
+    names = {n for n, _ in artifacts(set(SWITCHES))}
+    return names | {f"package.core-calculations.{TO['package']}.json", f"published-packages.{TO['registry']}.json",
+                    f"{RELEASE_STEM}.{TO['release']}.json"}
+
+
+def change_list(fixes: set[str]) -> tuple[dict[str, Any], list[dict[str, Any]]]:
+    """The ``tools.package_successor`` change list from v81 under ``fixes``, and its member edits."""
     members, entrypoints = [], []
     entry_keys = {(e["id"], e["version"]) for e in PACKAGE["entrypoints"]}
-    for name, body in artifacts(fixes):
-        if (content / name).exists():
-            raise AssertionError(f"{name} already exists")
-        (content / name).write_text(json.dumps(body, indent=2) + "\n", encoding="utf-8")
+    for _name, body in artifacts(fixes):
         new = {"id": body["id"], "version": body["version"], "schema": body["schema"], "role": role(body)}
         old = MEMBERS.get(body["id"])
         if old is not None:
@@ -621,6 +773,70 @@ def build(scratch: Path, fixes: set[str]) -> dict[str, Any]:
     changes = {"package_version": TO["package"], "release_version": TO["release"], "members": members,
                "entrypoints": entrypoints, "registry_sort": "id_version",
                "registry_new_key_order": ["checksum", "id", "version"]}
+    return changes, members
+
+
+def publish(scratch: Path) -> dict[str, Any]:
+    """Rebuild the unpublished v82 in packages/ in place, with every switch on.
+
+    Removes the files a previous v82 build wrote (``unpublished_names``; none is a
+    citizen registry v79 publishes), writes the successor citizens, and makes
+    package v82, registry v80 and release v80 with ``python3 -m
+    tools.package_successor``. The scratch directory holds the change list and the
+    tool's output. The result is then compared byte for byte with a scratch build.
+    """
+    import subprocess
+
+    registry = json.loads((CONTENT / f"published-packages.{FROM['registry']}.json").read_text(encoding="utf-8"))
+    published = {(c["id"], c["version"]) for c in registry["citizens"]}
+    removed = []
+    for folder in (CONTENT, RELEASES):
+        for name in sorted(unpublished_names()):
+            path = folder / name
+            if not path.exists():
+                continue
+            body = json.loads(path.read_text(encoding="utf-8"))
+            assert (body.get("id"), body.get("version")) not in published, name
+            path.unlink()
+            removed.append(name)
+    for name, body in artifacts(set(SWITCHES)):
+        (CONTENT / name).write_text(json.dumps(body, indent=2) + "\n", encoding="utf-8")
+    scratch.mkdir(parents=True)
+    changes, _members = change_list(set(SWITCHES))
+    (scratch / "changes.json").write_text(json.dumps(changes, indent=2) + "\n", encoding="utf-8")
+    subprocess.run([sys.executable, "-m", "tools.package_successor",
+                    "--package", str(CONTENT / f"package.core-calculations.{FROM['package']}.json"),
+                    "--registry", str(CONTENT / f"published-packages.{FROM['registry']}.json"),
+                    "--release", str(RELEASES / f"{RELEASE_STEM}.{FROM['release']}.json"),
+                    "--corpus", str(CONTENT), "--changes", str(scratch / "changes.json"),
+                    "--output", str(scratch / "out")], cwd=REPO, check=True, stdout=subprocess.DEVNULL)
+    for src, folder, target in (
+        ("package.json", CONTENT, f"package.core-calculations.{TO['package']}.json"),
+        ("registry.json", CONTENT, f"published-packages.{TO['registry']}.json"),
+        ("release.json", RELEASES, f"{RELEASE_STEM}.{TO['release']}.json"),
+    ):
+        shutil.copy(scratch / "out" / src, folder / target)
+    summary = build(scratch / "check", set(SWITCHES))
+    for folder, check in ((CONTENT, scratch / "check" / "content"), (RELEASES, scratch / "check" / "releases")):
+        for name in unpublished_names():
+            if (folder / name).exists() or (check / name).exists():
+                assert (folder / name).read_bytes() == (check / name).read_bytes(), name
+    return {"removed": len(removed), "written": summary["members_edited"], "summary": summary}
+
+
+def build(scratch: Path, fixes: set[str]) -> dict[str, Any]:
+    content, releases = scratch / "content", scratch / "releases"
+    skip = unpublished_names()
+    shutil.copytree(CONTENT, content, ignore=lambda _dir, names: [n for n in names if n in skip])
+    shutil.copytree(RELEASES, releases, ignore=lambda _dir, names: [n for n in names if n in skip])
+    for name in (f"package.core-calculations.{TO['package']}.json", f"published-packages.{TO['registry']}.json"):
+        assert not (content / name).exists(), name
+    assert not (releases / f"{RELEASE_STEM}.{TO['release']}.json").exists()
+    for name, body in artifacts(fixes):
+        if (content / name).exists():
+            raise AssertionError(f"{name} already exists")
+        (content / name).write_text(json.dumps(body, indent=2) + "\n", encoding="utf-8")
+    changes, members = change_list(fixes)
     (scratch / "changes.json").write_text(json.dumps(changes, indent=2) + "\n", encoding="utf-8")
     report = generate_to_directory(
         content / f"package.core-calculations.{FROM['package']}.json",
@@ -640,10 +856,19 @@ def build(scratch: Path, fixes: set[str]) -> dict[str, Any]:
         "replaced": sum(1 for m in members if m["op"] == "replace"),
         "members": [[m["op"], m["new"]["id"].removeprefix(P), m["new"]["version"]] for m in members],
         "inherited_inconsistencies": [list(r) for r in report.get("inherited_inconsistencies") or ()],
+        "presence_pairs": sorted(k.removeprefix(P) for k in presence_pairs(fixes)),
     }
 
 
 def main() -> None:
+    if sys.argv[1] == "--publish":
+        target = Path(sys.argv[2]).resolve()
+        if REPO in target.parents or target == REPO:
+            raise SystemExit("the scratch directory must be outside the repository")
+        result = publish(target)
+        (HERE / "prototype-build.json").write_text(json.dumps(result["summary"], indent=1) + "\n", encoding="utf-8")
+        print(json.dumps({k: v for k, v in result.items() if k != "summary"}))
+        return
     scratch = Path(sys.argv[1]).resolve()
     named = sys.argv[2:]
     fixes = set(FIXES) if named == ["decided"] else (set(named) or set(SWITCHES))
@@ -656,7 +881,8 @@ def main() -> None:
     summary = build(scratch, fixes)
     (HERE / "prototype-build.json").write_text(json.dumps(summary, indent=1) + "\n", encoding="utf-8")
     core = {"version": TO["package"], "registry": TO["registry"], "release_version": TO["release"],
-            "content": str(scratch / "content"), "releases": str(scratch / "releases"), "loader_from": FROM["package"]}
+            "content": str(scratch / "content"), "releases": str(scratch / "releases"), "loader_from": FROM["package"],
+            "presence_pairs": list(presence_pairs(fixes).items())}  # the loader's order: the kernel reads it
     (scratch / "core.json").write_text(json.dumps(core) + "\n", encoding="utf-8")
     print(json.dumps(summary, indent=1))
     print("core:", json.dumps(core))

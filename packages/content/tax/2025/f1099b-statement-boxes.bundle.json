@@ -1,0 +1,68 @@
+{
+  "schema": "bundle.v2",
+  "id": "tax.us.2025.f1099b.statement-boxes.vocabulary",
+  "version": "v1",
+  "label": "Form 1099-B boxes the sale records do not carry: box 4 withholding and box 7",
+  "fact_types": [
+    {
+      "schema": "fact-type.v2",
+      "id": "tax.us.2025.f1099b.statement-box4-withholding-reported",
+      "version": "v1",
+      "title": "Whether one recorded 2025 Form 1099-B statement shows federal income tax withheld (backup withholding) in box 4. yes or no.",
+      "nature": "determinable",
+      "identity_keys": [
+        {
+          "name": "statement",
+          "kind": "entity",
+          "entity_kind": "tax.us.f1099b-statement"
+        },
+        {
+          "name": "tax-year",
+          "kind": "literal",
+          "values": [
+            "2025"
+          ]
+        }
+      ],
+      "value_schema": {
+        "enum": [
+          "yes",
+          "no"
+        ]
+      },
+      "supersession": {
+        "policy": "free"
+      }
+    },
+    {
+      "schema": "fact-type.v2",
+      "id": "tax.us.2025.f1099b.statement-box7-loss-not-allowed",
+      "version": "v1",
+      "title": "Whether box 7 (loss not allowed based on the box 1d amount) is checked for any sale on one recorded 2025 Form 1099-B statement. yes or no.",
+      "nature": "determinable",
+      "identity_keys": [
+        {
+          "name": "statement",
+          "kind": "entity",
+          "entity_kind": "tax.us.f1099b-statement"
+        },
+        {
+          "name": "tax-year",
+          "kind": "literal",
+          "values": [
+            "2025"
+          ]
+        }
+      ],
+      "value_schema": {
+        "enum": [
+          "yes",
+          "no"
+        ]
+      },
+      "supersession": {
+        "policy": "free"
+      }
+    }
+  ]
+}

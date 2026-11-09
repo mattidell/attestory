@@ -6,16 +6,27 @@ and writes tables-<version>.json beside this file. Imports no evidence module.
 
     python3 docs/phases/engine-breadth/milestones/sale-family-audit-evidence/tables.py [content-dir] [version]
 
-Field table: for each field of each sale object (and each scalar row), the
-members that read it. A reader is a rule expression ``ref`` with that field,
-a family member constraint over that field, or the engine's covered-flag
-refusal (``packages/derivation/source_authority.py``), which reads
+Field table: for each field of each sale object, the members that read it.
+A reader is a rule expression ``ref`` with that field, a family member
+constraint over that field, or the engine's covered-flag refusal
+(``packages/derivation/source_authority.py``), which reads
 ``basis_reported_to_irs`` on the four covered objects of the loader's map.
+
+Row table: each amount row (a proceeds, basis or column (g) fact that is a
+sale family's member, with no fields of its own) and the sale it must stand
+beside. A row is tied to its sale by the package's loader companion
+declaration (``packages/tax/loader.py`` presence pairs, ADR-0082): a row
+recorded with no sale of its own on the same identity is refused. A row with
+no pair is summed on its line whether or not its sale is recorded (review F1).
 
 Consumer table: for each sale family, every consumer symbol that requires,
 directly or through other rules, a symbol computed from that family (its
 subtotals, count, gain, admission or amounts check), and each attachment
-whose requirement reads such a symbol.
+whose requirement reads such a symbol. Reach is transitive through every
+``requires``, so it over-approximates where a family's amounts flow: a
+family "reaches" a line whose rule only waits on, say, a check or a count
+that rests on that family (review N3). It says what can block or change a
+consumer, not which Schedule D line a sale is reported on.
 """
 
 from __future__ import annotations
@@ -41,7 +52,7 @@ CONSUMERS = tuple(P + s for s in (
     "schedule-d.line-7", "schedule-d.line-8a-gain", "schedule-d.line-8b", "schedule-d.line-9",
     "schedule-d.line-10", "schedule-d.line-15", "schedule-d.line-16", "schedule-d.line-21",
     "capital-gains.line7a-total", "capital-gains.selected-preferential-base", "payments.line25b",
-    "form8949.disposition", "schedule-d.disposition",
+    "form8949.disposition", "schedule-d.disposition", "form1040.line7b-schedule-d-not-required",
 ))
 
 
@@ -110,6 +121,34 @@ def field_table(bodies: list[dict[str, Any]]) -> dict[str, Any]:
     return table
 
 
+def row_table(bodies: list[dict[str, Any]], presence_pairs: dict[str, Any]) -> dict[str, Any]:
+    """Each amount row of a sale object -> the sale its presence pair requires, or "unpaired"."""
+    rows = sorted({str(b["member_predicate"]["fact_type"]) for b in bodies
+                   if str(b.get("schema", "")).startswith("source-family")
+                   and any(str(b["member_predicate"]["fact_type"]).startswith(obj + ".") for obj in SALE_OBJECTS)})
+    table: dict[str, Any] = {}
+    for row in rows:
+        sale = row.rsplit(".", 1)[0]
+        paired = presence_pairs.get(row)
+        table[short(row)] = short(sale) if paired == sale or (isinstance(paired, list) and sale in paired) else "unpaired"
+    return table
+
+
+def row_audit(rows: dict[str, Any]) -> list[str]:
+    return [f"{row} is not tied to its sale: a row with no sale of its own is summed on its line"
+            for row, sale in rows.items() if sale == "unpaired"]
+
+
+def loader_pairs(version: str) -> dict[str, Any]:
+    """The presence pairs packages/tax/loader.py declares for core ``version`` (empty when it declares none)."""
+    if str(REPO) not in sys.path:
+        sys.path.insert(0, str(REPO))
+    from packages.tax.loader import domain_package_companion_declarations
+
+    declaration = domain_package_companion_declarations().get((P + "package.core-calculations", version)) or {}
+    return dict(declaration.get("presence_pairs") or {})
+
+
 def produced_by(bodies: list[dict[str, Any]]) -> dict[str, dict[str, Any]]:
     """Symbol published (or decided) -> the member that produces it, with what it requires."""
     out: dict[str, dict[str, Any]] = {}
@@ -167,37 +206,61 @@ def consumer_table(bodies: list[dict[str, Any]]) -> dict[str, Any]:
 # a fact the package declares. A new field, a removed reader, or a removed
 # answer fails the check.
 
-NO_EFFECT = {
-    "covered_security": "Box 5. Form 8949 box A/D versus B/E follows whether basis was reported (box 12, the "
-                        "basis_reported_to_irs field the engine reads), not box 5 (i8949 lines 378-384).",
-}
+# Keyed by (sale object, field), so a new object's field of the same name is audited (review N1).
+_BOX5 = ("Box 5. Form 8949 box A/D versus B/E follows whether basis was reported (box 12, the "
+         "basis_reported_to_irs field the engine reads), not box 5 (i8949 lines 378-384).")
+NO_EFFECT = {(f"f1099b.{kind}-txn", "covered_security"): _BOX5 for kind in ("covered-st", "covered-lt", "covered-w-st",
+                                                                            "covered-w-lt")}
+# Box 4 and box 7 are asked once per recorded Form 1099-B statement (Track 0
+# repairs statement_box4 and statement_box7); the return-level answers P0
+# proposed are not declared by the final v82.
 REFUSED_BY = {
-    "box 4 federal income tax withheld": ["f1099b.box4-withholding-reported"],
-    "box 7 loss not allowed": ["f1099b.box7-loss-not-allowed"],
+    "box 4 federal income tax withheld": ["f1099b.statement-box4-withholding-reported"],
+    "box 7 loss not allowed": ["f1099b.statement-box7-loss-not-allowed"],
     "box 3 collectibles (box B/E, C/F, code B)": ["schedule-d-boundary.no-lines-18-19-sources"],
     "box 3 QOF (box B/E, C/F, code B)": ["schedule-d-boundary.no-1099da-or-qof"],
+    # Review N2: Form 6781 reaches Schedule D lines 4 and 11, which this return does not compute; the unasked
+    # boundary answer (Decision 5) refuses it. Box 13 (bartering) is not a sale on Schedule D and is parked.
+    "boxes 8 to 11 section 1256 contracts (Form 6781)": ["schedule-d-boundary.no-other-schedule-d-sources"],
     "box 2 ordinary, box 1f market discount, box 6 gross proceeds (codes O, D, E)": [
         "schedule-d-boundary.no-other-form8949-adjustments", "schedule-d-boundary.noncovered-in-class",
         "schedule-d-boundary.form8949-in-class", "schedule-d-boundary.form8949-code-b-in-class"],
 }
 
 
+def read_by_rules(bodies: list[dict[str, Any]]) -> set[str]:
+    """Every fact or symbol a rule reads: a ref, count, sum or collect name, or a require_paired witness."""
+    out: set[str] = set()
+    for body in bodies:
+        if body["_role"] not in ("computation", "attachment-rule"):
+            continue
+        for node in walk(body):
+            for key in ("name", "withholding"):
+                if isinstance(node.get(key), str):
+                    out.add(node[key])
+    return out
+
+
 def audit(bodies: list[dict[str, Any]], fields: dict[str, Any]) -> list[str]:
     declared = {fact["id"] for body in bodies if body["_role"] == "fact-type-bundle" for fact in body["fact_types"]}
+    read = read_by_rules(bodies)
     failures = [f"{obj}.{name} is read by no rule and has no reason it cannot change the return"
                 for obj, row in fields.items() for name, readers in row.items()
-                if readers == "unread" and name not in NO_EFFECT]
+                if readers == "unread" and (obj, name) not in NO_EFFECT]
     failures += [f"{box}: the answer {fact} is not declared" for box, facts in REFUSED_BY.items()
                  for fact in facts if P + fact not in declared]
+    failures += [f"{box}: no rule reads the answer {fact}" for box, facts in REFUSED_BY.items()
+                 for fact in facts if P + fact in declared and P + fact not in read]
     return failures
 
 
 # Every sale family's count must make Schedule D activity: both attachments (Form 8949
-# except for the line 1a and 8a sales) and the three rules that choose the Schedule D
-# route read it.
+# except for the line 1a and 8a sales), the three rules that choose the Schedule D
+# route, and Form 1040 line 7b ("Schedule D not required", review F2) read it.
 COUNTS = {f"f1099b.{k}-{t}-count": k != "covered" for k in ("covered", "covered-w", "noncovered", "code-b")
           for t in ("st", "lt")} | {f"f8949.no1099b-{t}-count": True for t in ("st", "lt")}
-ROUTE_READERS = ("tax.total-tax", "capital-gains.line7a-total", "capital-gains.selected-preferential-base")
+ROUTE_READERS = ("tax.total-tax", "capital-gains.line7a-total", "capital-gains.selected-preferential-base",
+                 "form1040.line7b-schedule-d-not-required")
 
 
 def consumer_audit(bodies: list[dict[str, Any]]) -> list[str]:
@@ -218,8 +281,12 @@ def main() -> None:
     version = sys.argv[2] if len(sys.argv) > 2 else "v81"
     bodies = members(content, version)
     fields = field_table(bodies)
-    out = {"package": f"core-calculations {version}", "fields": fields, "consumers": consumer_table(bodies),
-           "audit_failures": audit(bodies, fields) + consumer_audit(bodies)}
+    rows = row_table(bodies, loader_pairs(version))
+    out = {"package": f"core-calculations {version}", "fields": fields, "rows": rows,
+           "consumers": consumer_table(bodies),
+           "consumers_are": "transitive reach through requires: what can block or change each consumer, not the "
+                            "line a sale is reported on",
+           "audit_failures": audit(bodies, fields) + row_audit(rows) + consumer_audit(bodies)}
     target = HERE / f"tables-{version}.json"
     target.write_text(json.dumps(out, indent=1, sort_keys=True) + "\n", encoding="utf-8")
     print(json.dumps(out["audit_failures"], indent=1))

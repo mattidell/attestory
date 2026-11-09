@@ -11,14 +11,18 @@
  "repairs": [
   "statement_box4",
   "statement_box7",
-  "field_words"
+  "field_words",
+  "exception1_words",
+  "row_needs_sale",
+  "line7b_activity",
+  "field_truth"
  ],
  "package": "v82",
  "registry": "v80",
  "release": "v80",
- "members_edited": 29,
+ "members_edited": 35,
  "added": 5,
- "replaced": 24,
+ "replaced": 30,
  "members": [
   [
    "replace",
@@ -164,7 +168,49 @@
    "replace",
    "form1040.line-7a",
    "v2"
+  ],
+  [
+   "replace",
+   "input-question.exception1-only-box2a-capital-gains",
+   "v2"
+  ],
+  [
+   "replace",
+   "input-question.exception1-no-capital-losses",
+   "v2"
+  ],
+  [
+   "replace",
+   "input-question.exception1-no-qof-deferral",
+   "v2"
+  ],
+  [
+   "replace",
+   "input-question.exception1-no-boxes-2b-2c-2d",
+   "v2"
+  ],
+  [
+   "replace",
+   "rule.form1040-line7b",
+   "v2"
+  ],
+  [
+   "replace",
+   "form1040.line-7b",
+   "v3"
   ]
  ],
- "inherited_inconsistencies": []
+ "inherited_inconsistencies": [],
+ "presence_pairs": [
+  "f1099b.covered-lt-txn.basis",
+  "f1099b.covered-lt-txn.proceeds",
+  "f1099b.covered-st-txn.basis",
+  "f1099b.covered-st-txn.proceeds",
+  "f1099b.covered-w-lt-txn.adjustment",
+  "f1099b.covered-w-lt-txn.basis",
+  "f1099b.covered-w-lt-txn.proceeds",
+  "f1099b.covered-w-st-txn.adjustment",
+  "f1099b.covered-w-st-txn.basis",
+  "f1099b.covered-w-st-txn.proceeds"
+ ]
 }

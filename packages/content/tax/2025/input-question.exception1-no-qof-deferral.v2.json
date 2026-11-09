@@ -1,0 +1,10 @@
+{
+  "fact_type": {
+    "id": "tax.us.2025.exception1.no-qof-deferral",
+    "version": "v1"
+  },
+  "id": "tax.us.2025.input-question.exception1-no-qof-deferral",
+  "question": "Is it true that you did not defer any capital gain in 2025 by investing in a qualified opportunity fund?",
+  "schema": "input-question.v1",
+  "version": "v2"
+}

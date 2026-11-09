@@ -442,3 +442,283 @@ question 1 asks whether that posture is right for box 7.
    the 174 pinned v81 returns that record a Form 1099-B sale ask them; the
    other 24 block first on an unclosed sale family, and none publishes Form
    1040. Accept this shape for Track 1?
+
+## Track 1 addendum: the Exception 1 questions (Decision 2)
+
+Track 1 adds a fourth switch to `prototype.REPAIRS`, `exception1_words`. On
+v81 the four Exception 1 input questions share one sentence, "Besides
+capital gain distributions in box 2a of Form 1099-DIV, did you have any
+other capital gain or loss in 2025 ...?". Its "yes" means each fact's "no".
+The repair replaces the four `input-question.exception1-*` citizens with v2
+successors. Each asks its own fact, and its "yes" is the fact's "yes":
+
+| Fact | v2 question |
+| --- | --- |
+| `exception1.only-box2a-capital-gains` | "Is it true that you had no capital gains in 2025 other than capital gain distributions in box 2a of Form 1099-DIV (for example, no gain from selling stock, funds or other property)?" |
+| `exception1.no-capital-losses` | "Is it true that you had no capital losses in 2025 (for example, no loss from selling stock, funds or other property)?" |
+| `exception1.no-qof-deferral` | "Is it true that you did not defer any capital gain in 2025 by investing in a qualified opportunity fund?" |
+| `exception1.no-boxes-2b-2c-2d` | "Is it true that none of your 2025 Forms 1099-DIV or substitute statements shows an amount in box 2b, 2c or 2d?" |
+
+The facts, rules and values are unchanged. The final scratch v82 now has 33
+member edits (5 adds, 28 replacements), with no inherited inconsistency.
+
+Rerun on the final design with the repair:
+
+- **Cases.** The stored result of each of the 296 earlier runs is
+  unchanged. One case is new,
+  `m_empty_exc1_unanswered`: every family is closed empty and no Exception 1
+  answer is recorded. In both modes it blocks, and Form 1040 lines 16, 24,
+  33, 34 and 37 each list the four v2 questions. Final totals: 122 right,
+  158 correctly blocked, 8 observed, 10 rejected at entry, and none wrong.
+- **The 213 v81 returns.** `track0-rerun-output.json` is byte-identical:
+  134 identical, 51 D3, 6 D3 + D5, 17 D5 and 5 D1, with 0 unclassified and
+  no published number changed. No pinned v81 return shows an Exception 1
+  question, so the rewording changes none of them. The v81 runs were taken
+  from the earlier Track 0 raw runs of the same act lists, because v81 did
+  not change. The three v82 variants were rerun.
+- `track0.py rerun` now resumes from its raw file (`[max]` runs at a time).
+  `cases` now merges the design summaries and field sentences of a partial
+  run instead of overwriting them.
+
+## Review repair addendum
+
+The fresh-reader review (`docs/reviews/sale-family-audit/review.md`) found
+two blocking defects in the published v82. Each repair is a switch in
+`prototype.REPAIRS`, rerun here on the final design before it reached
+`packages/`. `track0.py` builds a third design, `track1`: the v82 Track 1
+published, which is final without the review repairs. It shows each defect
+on the cases that witness it.
+
+### F1: `row_needs_sale`
+
+`paired_rows` requires every covered and code W sale to have its own rows.
+A row with no sale of its own was never checked. It was summed on its line
+beside an admitted sale, or alone, or after its sale was removed. The
+repair adds a presence pair from each covered and code W proceeds, basis
+and column (g) row to its sale on the same identity. The noncovered,
+no-1099-B and code B rows have had these pairs since v79 to v81. The pairs
+are a loader entry (`presence_pairs` in `prototype.py`, which
+`audit_harness.loader_entries` applies per run). No content changes, and
+the final scratch v82 still has 33 member edits.
+
+Eight new cases (group R, honest mode, final and `track1`):
+
+| Case | `track1` (by hand) | final |
+| --- | --- | --- |
+| `r_f1_covered_extra_rows`: a line 1a sale 10,000 / 7,000, plus 5,000 / 1,000 rows on another transaction | line 1a 7,000, tax 4,715, owes 215 (right: 3,000, 4,235, refund 265): wrong | refused at entry |
+| `r_f1_covered_rows_alone`: the rows, no sale | line 1a 4,000, tax 4,355 (right: 0, 3,875): wrong | refused at entry |
+| `r_f1_covered_lt_rows_alone`: the rows on line 8a, no sale | line 8a 4,000, line 7a 4,000: wrong | refused at entry |
+| `r_f1_w_extra_rows`: a code W sale 4,000 / 5,000 (W 300), plus 5,000 / 1,000 rows | line 1b 3,300, tax 4,271 (right: -700): wrong | refused at entry |
+| `r_f1_covered_sale_removed`: the sale removed, its rows left | line 1a 3,000, tax 4,235 (right: 0, 3,875): wrong | refused at entry |
+| `r_f1_w_adjustment_row_alone`: a code W column (g) row, no sale | - | refused at entry |
+| `r_f1_covered_sale_removed_after_basis_row`: the basis row removed, then the sale | - | the run refuses (see below) |
+| `r_f1_covered_sale_and_rows_removed`: the rows removed, then the sale | - | right (tax 3,875) |
+
+Every refusal names the row and its missing sale: "companion presence
+violated: ...covered-st-txn.proceeds|broker=...,transaction=... is current
+(5000) but ...covered-st-txn|... has no current value". The case checks the
+words (`rejects`).
+
+One shape is refused later than the others. In
+`r_f1_covered_sale_removed_after_basis_row` the basis row is removed, then
+the sale. When a sale is touched, the kernel's reverse presence check reads
+only one row per sale: the last pair the loader declares, which is the basis
+row. That row is gone, so the sale's removal is admitted, and the proceeds
+row is left. The run then refuses with "companion provenance missing for
+...covered-st-txn.proceeds|...". Nothing publishes. The noncovered,
+no-1099-B and code B pairs behave the same way. The scratch core must
+declare the pairs in the loader's order to show this (the first rerun
+sorted them, which made proceeds the last pair, so it refused at entry).
+Fixing the kernel's reverse check is outside this milestone.
+
+- **Cases.** The 298 earlier final runs are unchanged. Final totals: 123
+  right, 158 correctly blocked, 8 observed, 17 rejected at entry, none
+  wrong.
+- **The 213 v81 returns, as their harnesses record them**
+  (`track0-rerun-output.json`, rerun in full): 129 identical, 63 refused at
+  entry by `row_needs_sale`, 15 D5, 5 D1 and 1 D3 (`a_duplicate_on_direct`,
+  a direct sale with no rows). No published number changed and none is
+  unclassified. The 63 are 56 of the 57 returns whose builder puts a sale's
+  rows on other transactions, and 7 (`t2_stage1` to `t2_stage4`, `t3_stage1`
+  to `t3_stage3`) whose builder corrects a sale by removing the sale before
+  its rows. On v82 that removal leaves rows with no sale for one act, so it
+  is refused.
+- **The 213 v81 returns as the live test corrects them.** Decision 3
+  already moves each row onto its own sale's transaction (`own_rows`). The
+  live test now also removes a direct or code W sale after its rows
+  (`rows_removed_first`). Each corrected return was run on v81 and on the
+  published v82 with the new loader entry. Every v81 run equals the
+  committed v81 table, and every v82 run equals the committed v82 table.
+  F1 changes no corrected v81 return.
+
+### F2: `line7b_activity`
+
+Form 1040 line 7b v1 checks "Schedule D not required" whenever the
+Schedule-D-required conclusion is no, and the Exception 1 answers decide
+that conclusion. Since `tax_activity` the tax does not read those answers
+once a sale is recorded. So a filer whose only sale nets zero, and who
+answers the v2 questions truthfully ("yes": no capital gain other than box
+2a, no capital loss), got line 7b checked beside a required Schedule D. A
+recorded sale is reported on Form 8949 or Schedule D, so Exception 1 does
+not apply.
+
+The repair is line 7b v2 (rule) and its field v3. The rule reads the same
+ten sale counts and two covered proceeds subtotals as line 16 v7, and is
+`guard_inapplicable` when any is above zero. The conclusion decides line 7b
+only when no sale is recorded. Like line 16, it waits while a sale family is
+unclosed. The field's three sentences say so. The final scratch v82 has 35
+member edits (5 adds, 30 replacements).
+
+The harness now watches line 7b (`audit_harness.WATCH`, `probe.KEPT_LINES`,
+`PROBED_FIELDS`). The hand values say that line 7b is `published_categorical`
+(checked) exactly when Schedule D is not required, and `guard_inapplicable`
+otherwise. `tables.py` adds line 7b to the consumers and to the route
+readers, so a sale count that line 7b does not read fails the audit. On v81
+the audit now fails 46 times: the 38 failures before, plus the 8 Form
+1099-B counts that line 7b does not read.
+
+Four new cases (group R, honest mode, final and `track1`). Each leaves the
+Exception 1 facts at the harness base ("yes"):
+
+| Case | `track1` | final |
+| --- | --- | --- |
+| `r_f2_box_c_zero`: a box C sale 0 / 0 | line 7b checked beside both attachments: wrong | line 7b not checked; tax 3,875 |
+| `r_f2_covered_zero_net_beside_2a`: a line 1a sale 5,000 / 5,000 and a 1,000 box 2a distribution | line 7b checked beside Schedule D: wrong | right: line 16 1,000, base 1,000, TI 35,250, tax 3,875, line 7b not checked |
+| `r_f2_box_e_zero_net_beside_2a`: the same on box E | wrong, as above | right, with Form 8949 |
+| `r_f2_box_e_gain_base_answers`: a box E gain, Exception 1 facts yes (false) | line 7b checked: wrong | right: tax unchanged, line 7b not checked |
+
+- **Cases.** Every final run was rerun. Apart from the line 7b line and its
+  field sentence, every earlier final run is unchanged. Line 7b on the final
+  runs: not checked in 259, checked in 10 (no sale and Exception 1 holding),
+  blocked in 20 (every one beside a blocked line 16), and absent in 17
+  (refused at entry). Final totals: 127 right, 158 correctly blocked, 8
+  observed, 17 rejected at entry, none wrong. `track1`: the 9 review cases
+  publish wrong (F1 and F2), as the review found.
+- The decided and v81 runs are Track 0's, made before line 7b was watched.
+  On those cores line 7b v1 is checked beside a sale under the base answers.
+- **The v81 returns.** Line 7b changes are classified in the live test's
+  regeneration (item 5): "F2 line 7b is not checked beside a required
+  Schedule D" and "F2 line 7b waits on an unclosed family".
+  `track0-rerun-output.json` is the F1 rerun above and does not watch line 7b.
+
+### F3: `field_truth`
+
+Two field sentences were not true of their rules' `when`. The repair
+replaces each sentence in the unpublished v82 citizen. No version changes,
+because neither field was published before v82.
+
+- Form 1040 line 16 field v3, `guard_inapplicable`: "Line 16 is computed
+  here only when you recorded a sale, or when Schedule D is not required and
+  your qualified dividends and capital gain fit your capital gain
+  distributions answer. Neither is true on this return." It used to say
+  "when you sold covered securities", but line 16 v7 takes the Schedule D
+  route for any recorded sale.
+- Form 1040 line 7a field v2, `blocked`: "Line 7a has no value yet. Whether
+  you recorded any sale decides its route, so it waits for your answers
+  about each kind of sale. With a sale recorded, line 7a is the Schedule D
+  amount and waits for Schedule D. With none, it waits for your Exception 1
+  answers and for your box 2a capital gain distributions to be complete."
+  It used to begin "because Exception-1 authority is incomplete or the
+  box-2a family is unclosed", and line 7a v9 reads neither when a sale is
+  recorded.
+
+The cases that show these sentences (`t4_s1_removed`,
+`m_empty_exc1_only2a_no` and `n_covered_lt_box1g`) were rerun on final.
+Their verdicts and results are unchanged, and `field_sentences` holds the
+new words.
+
+### F4: the audit reaches amount rows and line 7b, and honest means the v2 words
+
+- **Rows.** `tables.py` has a row table. Each amount row is a proceeds,
+  basis or column (g) fact that is a sale family's member. The table names
+  the sale the row's loader presence pair ties it to, or "unpaired". An
+  unpaired row fails the audit (`row_audit`), because it is summed on its
+  line whether or not its sale is recorded. On v82 all 28 rows are paired.
+  On v81 the 10 covered and code W rows are unpaired, so the audit now fails
+  56 times on v81. The docstring now says what the field table covers (the
+  sale objects' fields) and what the row table covers.
+- **Line 7b** is in the projection and the route readers (F2 above).
+- **Honest answers.** Track 0's honest mode, and with it the live test,
+  answered "only box 2a gains" with "no" whenever a sale was recorded. That
+  was the v1 sense of the question. Honest answers now follow the v2
+  questions read literally, from the recorded sales
+  (`audit_harness.honest_exception1`). "No capital gains other than box 2a"
+  is "no" only if some sale is a gain. "No capital losses" is "no" only if
+  some sale is a loss. A sale that nets zero is neither. This changes the
+  honest act lists of 56 cases: loss-only sales, zero-net sales and the
+  duplicate pairs. Every final run was rerun, and not one result changed.
+  That is Decision 1 again: beside a recorded sale, the Exception 1 answers
+  are not read, and line 7b no longer reads them either.
+
+### F5: the live test's cost
+
+`tests/test_sale_family_audit_v82.py` made 694 coordinator runs per full
+suite, and its table was 1.8 MB. Two sets of runs repeated runs the table
+already pins:
+
+- **The v81 honest reruns (198).** Each was asserted equal to the same
+  return's recorded-answer run. They witnessed only Decision 1, which the 20
+  `p_*` polarity cases witness through the coordinator. Each v81 return now
+  runs once, with its recorded answers.
+- **Base-answer Track 0 runs that repeat their honest run.** The live test
+  now runs a case's base-answer mode only when Track 0 recorded a different
+  final result for it (`repeats_honest`). That covers 5 of the 139 base runs:
+  `t4_s1_removed`, the one case where the answer matters, plus `t2_s1`,
+  `n_box_e_q1_no`, `n_box_c_q2_no` and `n_code_b_q3_no`, where a stale
+  closure under the base answers leaves line 7b waiting, while under the
+  honest answers line 7b is not checked. The other 134 are dropped.
+  `test_every_track0_case_keeps_a_run_and_every_dropped_run_repeats_one`
+  checks that every final-design case keeps a run and that every dropped run
+  equals its honest run in `track0-output.json`.
+
+The live test now runs 176 Track 0 runs (every final case, with the 12
+review cases) and 213 v81 returns: 389 coordinator runs, down from 694. Its
+table is 989,693 bytes, down from 1,761,186.
+
+**The v81 returns on the published v82**, as the live test corrects them
+(rows on their own sale's transaction, and a sale removed after its rows),
+compared with their v81 runs:
+
+| Class | Returns |
+| --- | --- |
+| identical | 16 |
+| F2 line 7b is not checked beside a recorded sale | 168 |
+| D5 line 25b waits on an unclosed family + F2 line 7b waits on an unclosed family | 18 |
+| D5 + F2 line 7b is not checked beside a recorded sale | 5 |
+| D1 a count row waits on an unclosed family + F2 line 7b waits on an unclosed family | 4 |
+| D1 + F2 line 7b is not checked beside a recorded sale | 1 |
+| D3 a direct or code W sale with no rows of its own + F2 line 7b is not checked beside a recorded sale | 1 |
+
+None is unclassified, and no published number changes (2,035 numbers
+compared with the v81 table). Before the review repairs, 184 were identical.
+Of those, 168 now differ only because line 7b is no longer checked beside a
+recorded sale. The earlier v81 harnesses kept the base Exception 1 answers
+beside their sales, so v81 checks "Schedule D not required" on each of
+them. In the F2 classes "waits on an unclosed family", the Form 1040 was
+already blocked on v81. In one of them (`v80_q2_late_yes_stale`), the page
+now also asks that family's question.
+
+### Notes N1 to N5
+
+- **N1, fixed.** `tables.NO_EFFECT` is keyed by (sale object, field). The box
+  5 reason covers only `covered_security` on the four covered and code W
+  objects. The same field on any other object fails the audit, and a test
+  checks this.
+- **N2, fixed for boxes 8 to 11.** `REFUSED_BY` names Form 1099-B boxes 8 to
+  11 (section 1256 contracts, which go to Schedule D lines 4 and 11 through
+  Form 6781) with the unasked `no-other-schedule-d-sources` answer that
+  refuses them. Decision 5 accepted that answer as unasked. Box 13
+  (bartering) is parked: it is not a sale reported on Schedule D, and this
+  milestone has not established which answer refuses it.
+- **N3, fixed in words.** The consumer table is transitive reach through
+  `requires`. The `tables.py` docstring and a `consumers_are` field in
+  `tables-v8x.json` now say that it shows what can block or change a
+  consumer, not the line a sale is reported on.
+- **N4, fixed** (`field_truth`). Only Schedule D lines 1a and 8a name the box
+  1g refusal, and only lines 1b and 8b name a wash-sale row. The four
+  fields are unpublished v82 citizens, rewritten in place. The cases that
+  block these lines were rerun on final, with unchanged results, and
+  `field_sentences` holds the new words.
+- **N5, parked.** Decision 6 accepted the per-statement box 4 and box 7
+  questions as asked once on the page, in "for each statement" words, with
+  no statement named.

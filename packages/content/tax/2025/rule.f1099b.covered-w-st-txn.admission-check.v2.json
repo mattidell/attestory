@@ -1,0 +1,138 @@
+{
+  "schema": "rule-artifact.v15",
+  "id": "tax.us.2025.rule.f1099b.covered-w-st-txn.admission-check",
+  "version": "v2",
+  "scope": {
+    "tax_year": 2025,
+    "jurisdiction": "US-federal",
+    "family": "individual-income-tax"
+  },
+  "role": "computation",
+  "requires": [],
+  "pins": [],
+  "when": true,
+  "selection": {
+    "mode": "exclusive_presence",
+    "conflict": "refuse",
+    "paths": [
+      {
+        "id": "sales",
+        "activity": {
+          "kind": "source_nonempty",
+          "source_family": {
+            "id": "tax.us.2025.f1099b.covered-w-st",
+            "version": "v2"
+          },
+          "member_fact_types": [
+            {
+              "id": "tax.us.2025.f1099b.covered-w-st-txn",
+              "version": "v1"
+            }
+          ]
+        },
+        "reads_subject_results": [
+          {
+            "symbol": "tax.us.2025.f1099b.covered-w-st-txn.admission",
+            "subject": {
+              "id": "tax.us.2025.f1099b.covered-w-st-txn",
+              "version": "v1"
+            }
+          }
+        ],
+        "requires": [],
+        "pins": [],
+        "when": {
+          "op": "all",
+          "args": [
+            {
+              "op": "require_paired",
+              "key": "transaction",
+              "withholding": "tax.us.2025.f1099b.covered-w-st-txn.proceeds",
+              "income": [
+                "tax.us.2025.f1099b.covered-w-st-txn"
+              ]
+            },
+            {
+              "op": "require_paired",
+              "key": "transaction",
+              "withholding": "tax.us.2025.f1099b.covered-w-st-txn.basis",
+              "income": [
+                "tax.us.2025.f1099b.covered-w-st-txn"
+              ]
+            },
+            {
+              "op": "require_paired",
+              "key": "transaction",
+              "withholding": "tax.us.2025.f1099b.covered-w-st-txn.adjustment",
+              "income": [
+                "tax.us.2025.f1099b.covered-w-st-txn"
+              ]
+            }
+          ]
+        },
+        "value": {
+          "op": "choose",
+          "when": {
+            "op": "collect_categorical_all_equal",
+            "name": "tax.us.2025.f1099b.covered-w-st-txn.admission",
+            "value": {
+              "op": "category_literal",
+              "fact_type": {
+                "id": "tax.us.2025.f1099b.covered-w-st-txn.admission",
+                "version": "v2"
+              },
+              "value": "admitted"
+            }
+          },
+          "then": 0,
+          "else": {
+            "op": "block",
+            "code": "DEPENDENCY_INVALID"
+          }
+        }
+      },
+      {
+        "id": "inert",
+        "activity": {
+          "kind": "source_nonempty",
+          "member_fact_types": [
+            {
+              "id": "tax.us.2025.f1099b.covered-w-st-txn.admission-check-inert-path-unwritten",
+              "version": "v1"
+            }
+          ]
+        },
+        "reads_subject_results": [],
+        "requires": [],
+        "pins": [],
+        "when": true,
+        "value": {
+          "op": "block",
+          "code": "DEPENDENCY_ABSENT"
+        }
+      }
+    ],
+    "default": {
+      "id": "neither",
+      "reads_subject_results": [],
+      "requires": [],
+      "pins": [],
+      "when": true,
+      "value": 0
+    },
+    "refusal": {
+      "code": "DEPENDENCY_INVALID",
+      "missing": [
+        "f1099b.covered-w-st-txn-admission-check-conflict"
+      ],
+      "pins": []
+    }
+  },
+  "publishes": "tax.us.2025.f1099b.covered-w-st-txn.admission-check",
+  "blocked": {
+    "code": "DEPENDENCY_ABSENT",
+    "missing": []
+  },
+  "citations": [],
+  "notes": "Blocks unless every recorded sale is admitted: no adjustment you make yourself, no flag for ordinary income, market discount, a qualified opportunity fund or a special-rate gain, and not also recorded as a sale of the other term. v2: reads the v2 admission (term, box 1g and amount checks), and every sale needs its own amount rows (require_paired)."
+}

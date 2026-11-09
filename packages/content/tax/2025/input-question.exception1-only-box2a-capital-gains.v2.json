@@ -1,0 +1,10 @@
+{
+  "fact_type": {
+    "id": "tax.us.2025.exception1.only-box2a-capital-gains",
+    "version": "v1"
+  },
+  "id": "tax.us.2025.input-question.exception1-only-box2a-capital-gains",
+  "question": "Is it true that you had no capital gains in 2025 other than capital gain distributions in box 2a of Form 1099-DIV (for example, no gain from selling stock, funds or other property)?",
+  "schema": "input-question.v1",
+  "version": "v2"
+}

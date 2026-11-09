@@ -12,7 +12,8 @@
    "capital-gains.selected-preferential-base",
    "payments.line25b",
    "form8949.disposition",
-   "schedule-d.disposition"
+   "schedule-d.disposition",
+   "form1040.line7b-schedule-d-not-required"
   ],
   "f1099b.code-b-st": [
    "schedule-d.line-1b",
@@ -25,7 +26,8 @@
    "capital-gains.selected-preferential-base",
    "payments.line25b",
    "form8949.disposition",
-   "schedule-d.disposition"
+   "schedule-d.disposition",
+   "form1040.line7b-schedule-d-not-required"
   ],
   "f1099b.covered-lt": [
    "schedule-d.line-8a-gain",
@@ -36,7 +38,8 @@
    "capital-gains.selected-preferential-base",
    "payments.line25b",
    "form8949.disposition",
-   "schedule-d.disposition"
+   "schedule-d.disposition",
+   "form1040.line7b-schedule-d-not-required"
   ],
   "f1099b.covered-st": [
    "schedule-d.line-1a-gain",
@@ -47,7 +50,8 @@
    "capital-gains.selected-preferential-base",
    "payments.line25b",
    "form8949.disposition",
-   "schedule-d.disposition"
+   "schedule-d.disposition",
+   "form1040.line7b-schedule-d-not-required"
   ],
   "f1099b.covered-w-lt": [
    "schedule-d.line-8b",
@@ -58,7 +62,8 @@
    "capital-gains.selected-preferential-base",
    "payments.line25b",
    "form8949.disposition",
-   "schedule-d.disposition"
+   "schedule-d.disposition",
+   "form1040.line7b-schedule-d-not-required"
   ],
   "f1099b.covered-w-st": [
    "schedule-d.line-1b",
@@ -69,7 +74,8 @@
    "capital-gains.selected-preferential-base",
    "payments.line25b",
    "form8949.disposition",
-   "schedule-d.disposition"
+   "schedule-d.disposition",
+   "form1040.line7b-schedule-d-not-required"
   ],
   "f1099b.noncovered-lt": [
    "schedule-d.line-3",
@@ -83,7 +89,8 @@
    "capital-gains.selected-preferential-base",
    "payments.line25b",
    "form8949.disposition",
-   "schedule-d.disposition"
+   "schedule-d.disposition",
+   "form1040.line7b-schedule-d-not-required"
   ],
   "f1099b.noncovered-st": [
    "schedule-d.line-2",
@@ -97,7 +104,8 @@
    "capital-gains.selected-preferential-base",
    "payments.line25b",
    "form8949.disposition",
-   "schedule-d.disposition"
+   "schedule-d.disposition",
+   "form1040.line7b-schedule-d-not-required"
   ],
   "f8949.no1099b-lt": [
    "schedule-d.line-3",
@@ -109,7 +117,8 @@
    "capital-gains.line7a-total",
    "capital-gains.selected-preferential-base",
    "form8949.disposition",
-   "schedule-d.disposition"
+   "schedule-d.disposition",
+   "form1040.line7b-schedule-d-not-required"
   ],
   "f8949.no1099b-st": [
    "schedule-d.line-3",
@@ -121,9 +130,11 @@
    "capital-gains.line7a-total",
    "capital-gains.selected-preferential-base",
    "form8949.disposition",
-   "schedule-d.disposition"
+   "schedule-d.disposition",
+   "form1040.line7b-schedule-d-not-required"
   ]
  },
+ "consumers_are": "transitive reach through requires: what can block or change each consumer, not the line a sale is reported on",
  "fields": {
   "f1099b.code-b-lt-txn": {
    "basis": [
@@ -418,5 +429,35 @@
    ]
   }
  },
- "package": "core-calculations v82"
+ "package": "core-calculations v82",
+ "rows": {
+  "f1099b.code-b-lt-txn.adjustment": "f1099b.code-b-lt-txn",
+  "f1099b.code-b-lt-txn.basis": "f1099b.code-b-lt-txn",
+  "f1099b.code-b-lt-txn.proceeds": "f1099b.code-b-lt-txn",
+  "f1099b.code-b-st-txn.adjustment": "f1099b.code-b-st-txn",
+  "f1099b.code-b-st-txn.basis": "f1099b.code-b-st-txn",
+  "f1099b.code-b-st-txn.proceeds": "f1099b.code-b-st-txn",
+  "f1099b.covered-lt-txn.basis": "f1099b.covered-lt-txn",
+  "f1099b.covered-lt-txn.proceeds": "f1099b.covered-lt-txn",
+  "f1099b.covered-st-txn.basis": "f1099b.covered-st-txn",
+  "f1099b.covered-st-txn.proceeds": "f1099b.covered-st-txn",
+  "f1099b.covered-w-lt-txn.adjustment": "f1099b.covered-w-lt-txn",
+  "f1099b.covered-w-lt-txn.basis": "f1099b.covered-w-lt-txn",
+  "f1099b.covered-w-lt-txn.proceeds": "f1099b.covered-w-lt-txn",
+  "f1099b.covered-w-st-txn.adjustment": "f1099b.covered-w-st-txn",
+  "f1099b.covered-w-st-txn.basis": "f1099b.covered-w-st-txn",
+  "f1099b.covered-w-st-txn.proceeds": "f1099b.covered-w-st-txn",
+  "f1099b.noncovered-lt-txn.adjustment": "f1099b.noncovered-lt-txn",
+  "f1099b.noncovered-lt-txn.basis": "f1099b.noncovered-lt-txn",
+  "f1099b.noncovered-lt-txn.proceeds": "f1099b.noncovered-lt-txn",
+  "f1099b.noncovered-st-txn.adjustment": "f1099b.noncovered-st-txn",
+  "f1099b.noncovered-st-txn.basis": "f1099b.noncovered-st-txn",
+  "f1099b.noncovered-st-txn.proceeds": "f1099b.noncovered-st-txn",
+  "f8949.no1099b-lt-txn.adjustment": "f8949.no1099b-lt-txn",
+  "f8949.no1099b-lt-txn.basis": "f8949.no1099b-lt-txn",
+  "f8949.no1099b-lt-txn.proceeds": "f8949.no1099b-lt-txn",
+  "f8949.no1099b-st-txn.adjustment": "f8949.no1099b-st-txn",
+  "f8949.no1099b-st-txn.basis": "f8949.no1099b-st-txn",
+  "f8949.no1099b-st-txn.proceeds": "f8949.no1099b-st-txn"
+ }
 }
