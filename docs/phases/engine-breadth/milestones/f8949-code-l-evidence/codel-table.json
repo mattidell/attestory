@@ -1,0 +1,551 @@
+{
+  "core": {
+    "package": "v85",
+    "registry": "v83",
+    "release": "v83"
+  },
+  "fact": {
+    "id": "tax.us.2025.f1099b.statement-box7-loss-not-allowed",
+    "version": "v1",
+    "identity_keys": [
+      "statement",
+      "tax-year"
+    ],
+    "values": [
+      "yes",
+      "no"
+    ]
+  },
+  "question": {
+    "id": "tax.us.2025.input-question.f1099b-statement-box7-loss-not-allowed",
+    "version": "v1",
+    "adopted_on_v85": true,
+    "text": "For each Form 1099-B or substitute statement you recorded a sale from, is box 7 (\"If checked, loss is not allowed based on amount in 1d\") checked for any sale on it?"
+  },
+  "rules_that_mention_box7": [
+    {
+      "id": "tax.us.2025.rule.f1099b.code-b-lt-txn.box7-loss-check",
+      "version": "v1",
+      "adopted_on_v85": true,
+      "publishes": "tax.us.2025.f1099b.code-b-lt-txn.box7-loss-check",
+      "reads_box7_fact": true,
+      "reads_box7_verdict_or_check": true
+    },
+    {
+      "id": "tax.us.2025.rule.f1099b.code-b-lt-txn.box7-verdict",
+      "version": "v1",
+      "adopted_on_v85": true,
+      "publishes": "tax.us.2025.f1099b.code-b-lt-txn.box7-verdict",
+      "reads_box7_fact": true,
+      "reads_box7_verdict_or_check": true
+    },
+    {
+      "id": "tax.us.2025.rule.f1099b.code-b-st-txn.box7-loss-check",
+      "version": "v1",
+      "adopted_on_v85": true,
+      "publishes": "tax.us.2025.f1099b.code-b-st-txn.box7-loss-check",
+      "reads_box7_fact": true,
+      "reads_box7_verdict_or_check": true
+    },
+    {
+      "id": "tax.us.2025.rule.f1099b.code-b-st-txn.box7-verdict",
+      "version": "v1",
+      "adopted_on_v85": true,
+      "publishes": "tax.us.2025.f1099b.code-b-st-txn.box7-verdict",
+      "reads_box7_fact": true,
+      "reads_box7_verdict_or_check": true
+    },
+    {
+      "id": "tax.us.2025.rule.f1099b.covered-lt-txn.box7-loss-check",
+      "version": "v1",
+      "adopted_on_v85": true,
+      "publishes": "tax.us.2025.f1099b.covered-lt-txn.box7-loss-check",
+      "reads_box7_fact": true,
+      "reads_box7_verdict_or_check": true
+    },
+    {
+      "id": "tax.us.2025.rule.f1099b.covered-lt-txn.box7-verdict",
+      "version": "v1",
+      "adopted_on_v85": true,
+      "publishes": "tax.us.2025.f1099b.covered-lt-txn.box7-verdict",
+      "reads_box7_fact": true,
+      "reads_box7_verdict_or_check": true
+    },
+    {
+      "id": "tax.us.2025.rule.f1099b.covered-st-txn.box7-loss-check",
+      "version": "v1",
+      "adopted_on_v85": true,
+      "publishes": "tax.us.2025.f1099b.covered-st-txn.box7-loss-check",
+      "reads_box7_fact": true,
+      "reads_box7_verdict_or_check": true
+    },
+    {
+      "id": "tax.us.2025.rule.f1099b.covered-st-txn.box7-verdict",
+      "version": "v1",
+      "adopted_on_v85": true,
+      "publishes": "tax.us.2025.f1099b.covered-st-txn.box7-verdict",
+      "reads_box7_fact": true,
+      "reads_box7_verdict_or_check": true
+    },
+    {
+      "id": "tax.us.2025.rule.f1099b.covered-w-lt-txn.box7-loss-check",
+      "version": "v1",
+      "adopted_on_v85": true,
+      "publishes": "tax.us.2025.f1099b.covered-w-lt-txn.box7-loss-check",
+      "reads_box7_fact": true,
+      "reads_box7_verdict_or_check": true
+    },
+    {
+      "id": "tax.us.2025.rule.f1099b.covered-w-lt-txn.box7-verdict",
+      "version": "v1",
+      "adopted_on_v85": true,
+      "publishes": "tax.us.2025.f1099b.covered-w-lt-txn.box7-verdict",
+      "reads_box7_fact": true,
+      "reads_box7_verdict_or_check": true
+    },
+    {
+      "id": "tax.us.2025.rule.f1099b.covered-w-st-txn.box7-loss-check",
+      "version": "v1",
+      "adopted_on_v85": true,
+      "publishes": "tax.us.2025.f1099b.covered-w-st-txn.box7-loss-check",
+      "reads_box7_fact": true,
+      "reads_box7_verdict_or_check": true
+    },
+    {
+      "id": "tax.us.2025.rule.f1099b.covered-w-st-txn.box7-verdict",
+      "version": "v1",
+      "adopted_on_v85": true,
+      "publishes": "tax.us.2025.f1099b.covered-w-st-txn.box7-verdict",
+      "reads_box7_fact": true,
+      "reads_box7_verdict_or_check": true
+    },
+    {
+      "id": "tax.us.2025.rule.f1099b.noncovered-lt-txn.box7-loss-check",
+      "version": "v1",
+      "adopted_on_v85": true,
+      "publishes": "tax.us.2025.f1099b.noncovered-lt-txn.box7-loss-check",
+      "reads_box7_fact": true,
+      "reads_box7_verdict_or_check": true
+    },
+    {
+      "id": "tax.us.2025.rule.f1099b.noncovered-lt-txn.box7-verdict",
+      "version": "v1",
+      "adopted_on_v85": true,
+      "publishes": "tax.us.2025.f1099b.noncovered-lt-txn.box7-verdict",
+      "reads_box7_fact": true,
+      "reads_box7_verdict_or_check": true
+    },
+    {
+      "id": "tax.us.2025.rule.f1099b.noncovered-st-txn.box7-loss-check",
+      "version": "v1",
+      "adopted_on_v85": true,
+      "publishes": "tax.us.2025.f1099b.noncovered-st-txn.box7-loss-check",
+      "reads_box7_fact": true,
+      "reads_box7_verdict_or_check": true
+    },
+    {
+      "id": "tax.us.2025.rule.f1099b.noncovered-st-txn.box7-verdict",
+      "version": "v1",
+      "adopted_on_v85": true,
+      "publishes": "tax.us.2025.f1099b.noncovered-st-txn.box7-verdict",
+      "reads_box7_fact": true,
+      "reads_box7_verdict_or_check": true
+    },
+    {
+      "id": "tax.us.2025.rule.schedule-d-line16",
+      "version": "v3",
+      "adopted_on_v85": false,
+      "publishes": "tax.us.2025.schedule-d.line-16",
+      "reads_box7_fact": true,
+      "reads_box7_verdict_or_check": false
+    },
+    {
+      "id": "tax.us.2025.rule.schedule-d-line16",
+      "version": "v4",
+      "adopted_on_v85": true,
+      "publishes": "tax.us.2025.schedule-d.line-16",
+      "reads_box7_fact": true,
+      "reads_box7_verdict_or_check": true
+    }
+  ],
+  "loader_entries_that_mention_box7": [],
+  "covered_flag_refusal_tokens_for_box7": [],
+  "sale_families": [
+    {
+      "family": "tax.us.2025.f1099b.covered-st",
+      "family_versions_on_v85": [
+        "v1"
+      ],
+      "txn": "tax.us.2025.f1099b.covered-st-txn",
+      "txn_version": "v1",
+      "object_fields": [
+        "proceeds",
+        "basis"
+      ],
+      "scalar_rows": [],
+      "column_h": "proceeds - basis",
+      "schedule_d_line": "1a",
+      "line_rule": "tax.us.2025.rule.schedule-d-line1a-gain",
+      "line_rule_versions_on_v85": [
+        "v6"
+      ],
+      "on_form_8949": false
+    },
+    {
+      "family": "tax.us.2025.f1099b.covered-lt",
+      "family_versions_on_v85": [
+        "v1"
+      ],
+      "txn": "tax.us.2025.f1099b.covered-lt-txn",
+      "txn_version": "v1",
+      "object_fields": [
+        "proceeds",
+        "basis"
+      ],
+      "scalar_rows": [],
+      "column_h": "proceeds - basis",
+      "schedule_d_line": "8a",
+      "line_rule": "tax.us.2025.rule.schedule-d-line8a-gain",
+      "line_rule_versions_on_v85": [
+        "v7"
+      ],
+      "on_form_8949": false
+    },
+    {
+      "family": "tax.us.2025.f1099b.covered-w-st",
+      "family_versions_on_v85": [
+        "v2"
+      ],
+      "txn": "tax.us.2025.f1099b.covered-w-st-txn",
+      "txn_version": "v1",
+      "object_fields": [
+        "proceeds",
+        "basis",
+        "box_1g_wash_sale_disallowed_amount"
+      ],
+      "scalar_rows": [
+        "tax.us.2025.f1099b.covered-w-st-txn.proceeds",
+        "tax.us.2025.f1099b.covered-w-st-txn.basis",
+        "tax.us.2025.f1099b.covered-w-st-txn.adjustment"
+      ],
+      "column_h": "proceeds - basis + box_1g_wash_sale_disallowed_amount",
+      "schedule_d_line": "1b",
+      "line_rule": "tax.us.2025.rule.schedule-d-line1b",
+      "line_rule_versions_on_v85": [
+        "v3"
+      ],
+      "on_form_8949": true
+    },
+    {
+      "family": "tax.us.2025.f1099b.covered-w-lt",
+      "family_versions_on_v85": [
+        "v2"
+      ],
+      "txn": "tax.us.2025.f1099b.covered-w-lt-txn",
+      "txn_version": "v1",
+      "object_fields": [
+        "proceeds",
+        "basis",
+        "box_1g_wash_sale_disallowed_amount"
+      ],
+      "scalar_rows": [
+        "tax.us.2025.f1099b.covered-w-lt-txn.proceeds",
+        "tax.us.2025.f1099b.covered-w-lt-txn.basis",
+        "tax.us.2025.f1099b.covered-w-lt-txn.adjustment"
+      ],
+      "column_h": "proceeds - basis + box_1g_wash_sale_disallowed_amount",
+      "schedule_d_line": "8b",
+      "line_rule": "tax.us.2025.rule.schedule-d-line8b",
+      "line_rule_versions_on_v85": [
+        "v3"
+      ],
+      "on_form_8949": true
+    },
+    {
+      "family": "tax.us.2025.f1099b.noncovered-st",
+      "family_versions_on_v85": [
+        "v1"
+      ],
+      "txn": "tax.us.2025.f1099b.noncovered-st-txn",
+      "txn_version": "v1",
+      "object_fields": [
+        "proceeds",
+        "basis",
+        "wash_disallowed"
+      ],
+      "scalar_rows": [
+        "tax.us.2025.f1099b.noncovered-st-txn.proceeds",
+        "tax.us.2025.f1099b.noncovered-st-txn.basis",
+        "tax.us.2025.f1099b.noncovered-st-txn.adjustment"
+      ],
+      "column_h": "proceeds - basis + wash_disallowed",
+      "schedule_d_line": "2",
+      "line_rule": "tax.us.2025.rule.schedule-d-line2",
+      "line_rule_versions_on_v85": [
+        "v3"
+      ],
+      "on_form_8949": true
+    },
+    {
+      "family": "tax.us.2025.f1099b.noncovered-lt",
+      "family_versions_on_v85": [
+        "v1"
+      ],
+      "txn": "tax.us.2025.f1099b.noncovered-lt-txn",
+      "txn_version": "v1",
+      "object_fields": [
+        "proceeds",
+        "basis",
+        "wash_disallowed"
+      ],
+      "scalar_rows": [
+        "tax.us.2025.f1099b.noncovered-lt-txn.proceeds",
+        "tax.us.2025.f1099b.noncovered-lt-txn.basis",
+        "tax.us.2025.f1099b.noncovered-lt-txn.adjustment"
+      ],
+      "column_h": "proceeds - basis + wash_disallowed",
+      "schedule_d_line": "9",
+      "line_rule": "tax.us.2025.rule.schedule-d-line9",
+      "line_rule_versions_on_v85": [
+        "v3"
+      ],
+      "on_form_8949": true
+    },
+    {
+      "family": "tax.us.2025.f1099b.code-b-st",
+      "family_versions_on_v85": [
+        "v1"
+      ],
+      "txn": "tax.us.2025.f1099b.code-b-st-txn",
+      "txn_version": "v1",
+      "object_fields": [
+        "proceeds",
+        "basis",
+        "corrected_basis",
+        "wash_disallowed"
+      ],
+      "scalar_rows": [
+        "tax.us.2025.f1099b.code-b-st-txn.proceeds",
+        "tax.us.2025.f1099b.code-b-st-txn.basis",
+        "tax.us.2025.f1099b.code-b-st-txn.adjustment"
+      ],
+      "column_h": "proceeds - corrected_basis + wash_disallowed",
+      "schedule_d_line": "1b",
+      "line_rule": "tax.us.2025.rule.schedule-d-line1b",
+      "line_rule_versions_on_v85": [
+        "v3"
+      ],
+      "on_form_8949": true
+    },
+    {
+      "family": "tax.us.2025.f1099b.code-b-lt",
+      "family_versions_on_v85": [
+        "v1"
+      ],
+      "txn": "tax.us.2025.f1099b.code-b-lt-txn",
+      "txn_version": "v1",
+      "object_fields": [
+        "proceeds",
+        "basis",
+        "corrected_basis",
+        "wash_disallowed"
+      ],
+      "scalar_rows": [
+        "tax.us.2025.f1099b.code-b-lt-txn.proceeds",
+        "tax.us.2025.f1099b.code-b-lt-txn.basis",
+        "tax.us.2025.f1099b.code-b-lt-txn.adjustment"
+      ],
+      "column_h": "proceeds - corrected_basis + wash_disallowed",
+      "schedule_d_line": "8b",
+      "line_rule": "tax.us.2025.rule.schedule-d-line8b",
+      "line_rule_versions_on_v85": [
+        "v3"
+      ],
+      "on_form_8949": true
+    }
+  ],
+  "line_16": {
+    "id": "tax.us.2025.rule.schedule-d-line16",
+    "versions_on_v85": [
+      "v4"
+    ]
+  },
+  "form_8949_code_paths": {
+    "attachment": {
+      "id": "tax.us.2025.rule.attachment.f8949",
+      "version": "v6",
+      "schema": "attachment-rule.v8",
+      "adopted_on_v85": true
+    },
+    "itemization_labels": [
+      {
+        "part_id": "box-a-proceeds",
+        "label": "Part I box A column (d): short-term wash-sale proceeds"
+      },
+      {
+        "part_id": "box-a-basis",
+        "label": "Part I box A column (e): short-term wash-sale basis"
+      },
+      {
+        "part_id": "box-a-adjustment",
+        "label": "Part I box A column (g): short-term wash-sale adjustment"
+      },
+      {
+        "part_id": "box-d-proceeds",
+        "label": "Part II box D column (d): long-term wash-sale proceeds"
+      },
+      {
+        "part_id": "box-d-basis",
+        "label": "Part II box D column (e): long-term wash-sale basis"
+      },
+      {
+        "part_id": "box-d-adjustment",
+        "label": "Part II box D column (g): long-term wash-sale adjustment"
+      },
+      {
+        "part_id": "box-b-proceeds",
+        "label": "Part I box B column (d): short-term basis-not-reported proceeds"
+      },
+      {
+        "part_id": "box-b-basis",
+        "label": "Part I box B column (e): short-term basis the filer supplies"
+      },
+      {
+        "part_id": "box-b-adjustment",
+        "label": "Part I box B column (g): short-term wash-sale adjustment"
+      },
+      {
+        "part_id": "box-e-proceeds",
+        "label": "Part II box E column (d): long-term basis-not-reported proceeds"
+      },
+      {
+        "part_id": "box-e-basis",
+        "label": "Part II box E column (e): long-term basis the filer supplies"
+      },
+      {
+        "part_id": "box-e-adjustment",
+        "label": "Part II box E column (g): long-term wash-sale adjustment"
+      },
+      {
+        "part_id": "box-c-proceeds",
+        "label": "Part I box C column (d): short-term net proceeds, no Form 1099-B"
+      },
+      {
+        "part_id": "box-c-basis",
+        "label": "Part I box C column (e): short-term basis you supply, no Form 1099-B"
+      },
+      {
+        "part_id": "box-c-adjustment",
+        "label": "Part I box C column (g): short-term wash-sale adjustment, no Form 1099-B"
+      },
+      {
+        "part_id": "box-f-proceeds",
+        "label": "Part II box F column (d): long-term net proceeds, no Form 1099-B"
+      },
+      {
+        "part_id": "box-f-basis",
+        "label": "Part II box F column (e): long-term basis you supply, no Form 1099-B"
+      },
+      {
+        "part_id": "box-f-adjustment",
+        "label": "Part II box F column (g): long-term wash-sale adjustment, no Form 1099-B"
+      },
+      {
+        "part_id": "box-a-code-b-proceeds",
+        "label": "Part I box A column (d), code B: short-term proceeds"
+      },
+      {
+        "part_id": "box-a-code-b-basis",
+        "label": "Part I box A column (e), code B: short-term basis shown on Form 1099-B"
+      },
+      {
+        "part_id": "box-a-code-b-adjustment",
+        "label": "Part I box A column (g), code B: short-term basis correction plus any wash-sale adjustment"
+      },
+      {
+        "part_id": "box-d-code-b-proceeds",
+        "label": "Part II box D column (d), code B: long-term proceeds"
+      },
+      {
+        "part_id": "box-d-code-b-basis",
+        "label": "Part II box D column (e), code B: long-term basis shown on Form 1099-B"
+      },
+      {
+        "part_id": "box-d-code-b-adjustment",
+        "label": "Part II box D column (g), code B: long-term basis correction plus any wash-sale adjustment"
+      }
+    ],
+    "code_letter_in_a_label": [
+      "Part I box A column (d), code B: short-term proceeds",
+      "Part I box A column (e), code B: short-term basis shown on Form 1099-B",
+      "Part I box A column (g), code B: short-term basis correction plus any wash-sale adjustment",
+      "Part II box D column (d), code B: long-term proceeds",
+      "Part II box D column (e), code B: long-term basis shown on Form 1099-B",
+      "Part II box D column (g), code B: long-term basis correction plus any wash-sale adjustment"
+    ],
+    "code_l_label": false,
+    "how_b_and_w_are_rows": "Code W is the covered-w family, itemized as wash-sale proceeds, basis, and adjustment, and posted to Schedule D lines 1b and 8b. Code B is the code-b family, itemized under labels that say code B, with column (g) the recorded basis correction plus any wash, and posted to the same lines. Covered sales with no wash and no code B stay on lines 1a and 8a and are not itemized on the attachment.",
+    "how_other_codes_are_refused": "The filer must answer that every Form 8949 sale is a broker-reported basis sale with no adjustment other than a wash-sale loss or a code B basis correction, or a box B, C, E, or F securities sale with no adjustment other than a wash-sale loss. The fact no-other-form8949-adjustments is titled as no adjustment code other than W, no multi-code row, and no basis-not-reported source. A code L row is none of those, so the honest answer is no, and the return stays refused. There is no code L family.",
+    "attachment_rule_v8": {
+      "adjustment_kind_enum": [
+        "nominee_distribution",
+        "accrued_interest",
+        "abp_adjustment"
+      ],
+      "adjustment_sign": {
+        "const": "negative"
+      },
+      "collect_members_properties": [
+        "member_fact_type",
+        "op",
+        "source_family"
+      ]
+    },
+    "attachment_rule_v11_already_published": {
+      "adjustment_kind_enum": [
+        "nominee_distribution",
+        "accrued_interest",
+        "abp_adjustment"
+      ],
+      "adjustment_sign": {
+        "const": "negative"
+      },
+      "enumerate_published_properties": [
+        "fact_type",
+        "op"
+      ],
+      "note": "v11 can list published findings of one fact type as single-value rows. It does not add a code L kind, a positive adjustment sign, or a per-row filter."
+    },
+    "rule_artifact_v15_collect": {
+      "properties": [
+        "name",
+        "op",
+        "source_set"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "questions_touching_box7_or_form_8949": [
+    {
+      "id": "tax.us.2025.input-question.f1099b-statement-box7-loss-not-allowed",
+      "version": "v1",
+      "adopted_on_v85": true,
+      "fact_type": "tax.us.2025.f1099b.statement-box7-loss-not-allowed",
+      "text": "For each Form 1099-B or substitute statement you recorded a sale from, is box 7 (\"If checked, loss is not allowed based on amount in 1d\") checked for any sale on it?"
+    },
+    {
+      "id": "tax.us.2025.input-question.schedule-d-boundary-form8949-code-b-in-class",
+      "version": "v1",
+      "adopted_on_v85": true,
+      "fact_type": "tax.us.2025.schedule-d-boundary.form8949-code-b-in-class",
+      "text": "Each sale on your Form 8949 should be one of two kinds. (1) A sale your broker reported to the IRS with its basis, with no adjustment other than a wash-sale loss or a correction of that basis. (2) A sale of stocks or other securities, entered only once and in the one box its statement gives it, with a basis you supply (the correct basis, even if your Form 1099-B showed a different one), net proceeds you supply when you got no Form 1099-B, and no adjustment other than a wash-sale loss. Is every sale on your Form 8949 one of these two kinds?"
+    },
+    {
+      "id": "tax.us.2025.input-question.schedule-d-boundary-form8949-in-class",
+      "version": "v1",
+      "adopted_on_v85": true,
+      "fact_type": "tax.us.2025.schedule-d-boundary.form8949-in-class",
+      "text": "Is every sale on your Form 8949 either a sale your broker reported with its basis and no adjustment other than a wash-sale loss, or a sale of stocks or other securities, entered only once, with a basis you supply (and net proceeds you supply when you got no Form 1099-B) and no adjustment other than a wash-sale loss?"
+    }
+  ]
+}

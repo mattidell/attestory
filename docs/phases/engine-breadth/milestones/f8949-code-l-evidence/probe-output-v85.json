@@ -1,0 +1,2080 @@
+{
+  "core": {
+    "package": "v85",
+    "registry": "v83",
+    "release": "v83"
+  },
+  "harness_module": "f8949_code_l_audit_harness",
+  "cases": [
+    {
+      "id": "yes_loss_covered_st",
+      "note": "Box 7 yes, one covered short-term loss. Example 2 puts it on Form 8949 box A with code L and column (h) zero, so it leaves line 1a.",
+      "instruction_settled": true,
+      "form_8949_rows": [
+        {
+          "code": "L",
+          "box": "A",
+          "schedule_d_line": "1b",
+          "d": 4000,
+          "e": 5000,
+          "g_before_code_l": 0.0,
+          "g_code_l": 1000,
+          "g": 1000.0,
+          "h": 0.0
+        }
+      ],
+      "hand": {
+        "schedule-d.line-1a": 0,
+        "schedule-d.line-1b": 0,
+        "schedule-d.line-2": 0,
+        "schedule-d.line-3": 0,
+        "schedule-d.line-7": 0,
+        "schedule-d.line-8a": 0,
+        "schedule-d.line-8b": 0,
+        "schedule-d.line-9": 0,
+        "schedule-d.line-10": 0,
+        "schedule-d.line-15": 0,
+        "schedule-d.line-16": 0,
+        "schedule-d.line-21": 0,
+        "form1040.line-7a": 0,
+        "form1040.line-15": 34250,
+        "form1040.line-16": 3875,
+        "form1040.line-24": 3875,
+        "form1040.line-33": 4500,
+        "form1040.line-34": 625,
+        "form1040.line-37": 0
+      },
+      "result": {
+        "outcome": "success",
+        "stop": "saturated",
+        "disposition": "blocked",
+        "lines": {
+          "form1040.line-15": "blocked",
+          "form1040.line-16": "blocked",
+          "form1040.line-24": "blocked",
+          "form1040.line-33": "blocked",
+          "form1040.line-34": "blocked",
+          "form1040.line-37": "blocked",
+          "form1040.line-7a": "blocked",
+          "schedule-d.line-10": 0,
+          "schedule-d.line-15": 0,
+          "schedule-d.line-16": "blocked",
+          "schedule-d.line-1a": -1000,
+          "schedule-d.line-1b": 0,
+          "schedule-d.line-2": 0,
+          "schedule-d.line-21": "blocked",
+          "schedule-d.line-3": 0,
+          "schedule-d.line-7": -1000,
+          "schedule-d.line-8a": 0,
+          "schedule-d.line-8b": 0,
+          "schedule-d.line-9": 0
+        },
+        "explains": {
+          "form1040.line-15": {
+            "explain": "Your taxable income has no value yet. It is waiting for your adjusted gross income and your line 14 deductions.",
+            "reasons": []
+          },
+          "form1040.line-16": {
+            "explain": "Your tax has no value yet. It is waiting for your taxable income, your filing status, your qualified dividends and capital gain, or your covered sale proceeds. It also waits for your answers about each kind of sale, because whether you recorded any sale decides whether your tax is figured with Schedule D.",
+            "reasons": []
+          },
+          "form1040.line-24": {
+            "explain": "Form 1040 line 24 is blocked because an input it needs is missing or invalid.",
+            "reasons": []
+          },
+          "form1040.line-33": {
+            "explain": "Form 1040 line 33 is blocked because an input it needs is missing or invalid.",
+            "reasons": []
+          },
+          "form1040.line-34": {
+            "explain": "Form 1040 line 34 is blocked because an input it needs is missing or invalid.",
+            "reasons": []
+          },
+          "form1040.line-37": {
+            "explain": "Form 1040 line 37 is blocked because an input it needs is missing, invalid, or (line 36) exceeds line 34.",
+            "reasons": []
+          },
+          "form1040.line-7a": {
+            "explain": "Line 7a has no value yet. Whether you recorded any sale decides its route, so it waits for your answers about each kind of sale. With a sale recorded, line 7a is the Schedule D amount and waits for Schedule D. With none, it waits for your Exception 1 answers and for your box 2a capital gain distributions to be complete.",
+            "reasons": []
+          },
+          "schedule-d.line-10": {
+            "explain": "Schedule D line 10, column (h), is zero. Either no long-term sale you received no Form 1099-B for is recorded and your Form 8949 answers confirm it, or your box F proceeds, basis, and adjustments net to zero.",
+            "reasons": []
+          },
+          "schedule-d.line-15": {
+            "explain": "Schedule D line 15 is zero because lines 8a, 8b, 9, 10, 13, and 14 add to zero.",
+            "reasons": []
+          },
+          "schedule-d.line-16": {
+            "explain": "Schedule D line 16 has no value yet because one of these is true: line 7 or line 15 is not ready, a sale count this line requires is not ready, a recorded Form 1099-B statement has no box 7 answer, or box 7 is checked and a sale on that statement is at a loss. This return does not compute a disallowed loss. Where that loss is the cause, the result changes if the broker reports the loss on a separate statement, or if box 7 is not checked.",
+            "reasons": []
+          },
+          "schedule-d.line-1a": {
+            "explain": "Schedule D line 1a, column (h), is short-term proceeds minus basis for the sales you report directly on Schedule D.",
+            "reasons": []
+          },
+          "schedule-d.line-1b": {
+            "explain": "You said you have no short-term Form 8949 box A sales with a wash-sale adjustment or a wrong reported basis, so Schedule D line 1b, column (h), is zero.",
+            "reasons": []
+          },
+          "schedule-d.line-2": {
+            "explain": "Schedule D line 2, column (h), is zero. No short-term sale whose basis was not reported to the IRS is recorded, and your answer about those sales confirms the list is complete.",
+            "reasons": []
+          },
+          "schedule-d.line-21": {
+            "explain": "Schedule D line 21 has no value yet. It is waiting for your total gain or loss on line 16.",
+            "reasons": []
+          },
+          "schedule-d.line-3": {
+            "explain": "Schedule D line 3, column (h), is zero. Either no short-term sale you received no Form 1099-B for is recorded and your Form 8949 answers confirm it, or your box C proceeds, basis, and adjustments net to zero.",
+            "reasons": []
+          },
+          "schedule-d.line-7": {
+            "explain": "Schedule D line 7 adds lines 1a, 1b, 2, 3, and 6.",
+            "reasons": []
+          },
+          "schedule-d.line-8a": {
+            "explain": "You said you have no long-term sales reported directly on Schedule D, so line 8a, column (h), is zero.",
+            "reasons": []
+          },
+          "schedule-d.line-8b": {
+            "explain": "You said you have no long-term Form 8949 box D sales with a wash-sale adjustment or a wrong reported basis, so Schedule D line 8b, column (h), is zero.",
+            "reasons": []
+          },
+          "schedule-d.line-9": {
+            "explain": "Schedule D line 9, column (h), is zero. No long-term sale whose basis was not reported to the IRS is recorded, and your answer about those sales confirms the list is complete.",
+            "reasons": []
+          }
+        },
+        "questions": [],
+        "blocked": [
+          {
+            "artifact": "f1099b.covered-st-txn.box7-loss-check",
+            "code": "DEPENDENCY_ABSENT",
+            "missing": []
+          },
+          {
+            "artifact": "form1040-line7a",
+            "code": "DEPENDENCY_ABSENT",
+            "missing": [
+              "schedule-d.line-16",
+              "schedule-d.line-21",
+              "capital-gains.selected-preferential-base"
+            ]
+          },
+          {
+            "artifact": "schedule-d-line16",
+            "code": "DEPENDENCY_ABSENT",
+            "missing": [
+              "f1099b.covered-st-txn.box7-loss-check"
+            ]
+          },
+          {
+            "artifact": "schedule-d-line21",
+            "code": "DEPENDENCY_ABSENT",
+            "missing": [
+              "schedule-d.line-16"
+            ]
+          }
+        ],
+        "f8949_parts": [],
+        "code_l_part": false
+      },
+      "comparison": {
+        "matches_instruction": false,
+        "disposition": "blocked",
+        "code_l_part": false,
+        "diffs": [
+          {
+            "line": "schedule-d.line-1a",
+            "hand": 0,
+            "got": -1000
+          },
+          {
+            "line": "schedule-d.line-7",
+            "hand": 0,
+            "got": -1000
+          },
+          {
+            "line": "schedule-d.line-16",
+            "hand": 0,
+            "got": "blocked"
+          },
+          {
+            "line": "schedule-d.line-21",
+            "hand": 0,
+            "got": "blocked"
+          },
+          {
+            "line": "form1040.line-7a",
+            "hand": 0,
+            "got": "blocked"
+          },
+          {
+            "line": "form1040.line-15",
+            "hand": 34250,
+            "got": "blocked"
+          },
+          {
+            "line": "form1040.line-16",
+            "hand": 3875,
+            "got": "blocked"
+          },
+          {
+            "line": "form1040.line-24",
+            "hand": 3875,
+            "got": "blocked"
+          },
+          {
+            "line": "form1040.line-33",
+            "hand": 4500,
+            "got": "blocked"
+          },
+          {
+            "line": "form1040.line-34",
+            "hand": 625,
+            "got": "blocked"
+          },
+          {
+            "line": "form1040.line-37",
+            "hand": 0,
+            "got": "blocked"
+          }
+        ]
+      }
+    },
+    {
+      "id": "yes_loss_covered_lt",
+      "note": "Box 7 yes, one covered long-term loss. Same arithmetic on box D, line 8b.",
+      "instruction_settled": true,
+      "form_8949_rows": [
+        {
+          "code": "L",
+          "box": "D",
+          "schedule_d_line": "8b",
+          "d": 4000,
+          "e": 5000,
+          "g_before_code_l": 0.0,
+          "g_code_l": 1000,
+          "g": 1000.0,
+          "h": 0.0
+        }
+      ],
+      "hand": {
+        "schedule-d.line-1a": 0,
+        "schedule-d.line-1b": 0,
+        "schedule-d.line-2": 0,
+        "schedule-d.line-3": 0,
+        "schedule-d.line-7": 0,
+        "schedule-d.line-8a": 0,
+        "schedule-d.line-8b": 0,
+        "schedule-d.line-9": 0,
+        "schedule-d.line-10": 0,
+        "schedule-d.line-15": 0,
+        "schedule-d.line-16": 0,
+        "schedule-d.line-21": 0,
+        "form1040.line-7a": 0,
+        "form1040.line-15": 34250,
+        "form1040.line-16": 3875,
+        "form1040.line-24": 3875,
+        "form1040.line-33": 4500,
+        "form1040.line-34": 625,
+        "form1040.line-37": 0
+      },
+      "result": {
+        "outcome": "success",
+        "stop": "saturated",
+        "disposition": "blocked",
+        "lines": {
+          "form1040.line-15": "blocked",
+          "form1040.line-16": "blocked",
+          "form1040.line-24": "blocked",
+          "form1040.line-33": "blocked",
+          "form1040.line-34": "blocked",
+          "form1040.line-37": "blocked",
+          "form1040.line-7a": "blocked",
+          "schedule-d.line-10": 0,
+          "schedule-d.line-15": -1000,
+          "schedule-d.line-16": "blocked",
+          "schedule-d.line-1a": 0,
+          "schedule-d.line-1b": 0,
+          "schedule-d.line-2": 0,
+          "schedule-d.line-21": "blocked",
+          "schedule-d.line-3": 0,
+          "schedule-d.line-7": 0,
+          "schedule-d.line-8a": -1000,
+          "schedule-d.line-8b": 0,
+          "schedule-d.line-9": 0
+        },
+        "explains": {
+          "form1040.line-15": {
+            "explain": "Your taxable income has no value yet. It is waiting for your adjusted gross income and your line 14 deductions.",
+            "reasons": []
+          },
+          "form1040.line-16": {
+            "explain": "Your tax has no value yet. It is waiting for your taxable income, your filing status, your qualified dividends and capital gain, or your covered sale proceeds. It also waits for your answers about each kind of sale, because whether you recorded any sale decides whether your tax is figured with Schedule D.",
+            "reasons": []
+          },
+          "form1040.line-24": {
+            "explain": "Form 1040 line 24 is blocked because an input it needs is missing or invalid.",
+            "reasons": []
+          },
+          "form1040.line-33": {
+            "explain": "Form 1040 line 33 is blocked because an input it needs is missing or invalid.",
+            "reasons": []
+          },
+          "form1040.line-34": {
+            "explain": "Form 1040 line 34 is blocked because an input it needs is missing or invalid.",
+            "reasons": []
+          },
+          "form1040.line-37": {
+            "explain": "Form 1040 line 37 is blocked because an input it needs is missing, invalid, or (line 36) exceeds line 34.",
+            "reasons": []
+          },
+          "form1040.line-7a": {
+            "explain": "Line 7a has no value yet. Whether you recorded any sale decides its route, so it waits for your answers about each kind of sale. With a sale recorded, line 7a is the Schedule D amount and waits for Schedule D. With none, it waits for your Exception 1 answers and for your box 2a capital gain distributions to be complete.",
+            "reasons": []
+          },
+          "schedule-d.line-10": {
+            "explain": "Schedule D line 10, column (h), is zero. Either no long-term sale you received no Form 1099-B for is recorded and your Form 8949 answers confirm it, or your box F proceeds, basis, and adjustments net to zero.",
+            "reasons": []
+          },
+          "schedule-d.line-15": {
+            "explain": "Schedule D line 15 adds lines 8a, 8b, 9, 10, 13, and 14.",
+            "reasons": []
+          },
+          "schedule-d.line-16": {
+            "explain": "Schedule D line 16 has no value yet because one of these is true: line 7 or line 15 is not ready, a sale count this line requires is not ready, a recorded Form 1099-B statement has no box 7 answer, or box 7 is checked and a sale on that statement is at a loss. This return does not compute a disallowed loss. Where that loss is the cause, the result changes if the broker reports the loss on a separate statement, or if box 7 is not checked.",
+            "reasons": []
+          },
+          "schedule-d.line-1a": {
+            "explain": "You said you have no short-term sales reported directly on Schedule D, so line 1a, column (h), is zero.",
+            "reasons": []
+          },
+          "schedule-d.line-1b": {
+            "explain": "You said you have no short-term Form 8949 box A sales with a wash-sale adjustment or a wrong reported basis, so Schedule D line 1b, column (h), is zero.",
+            "reasons": []
+          },
+          "schedule-d.line-2": {
+            "explain": "Schedule D line 2, column (h), is zero. No short-term sale whose basis was not reported to the IRS is recorded, and your answer about those sales confirms the list is complete.",
+            "reasons": []
+          },
+          "schedule-d.line-21": {
+            "explain": "Schedule D line 21 has no value yet. It is waiting for your total gain or loss on line 16.",
+            "reasons": []
+          },
+          "schedule-d.line-3": {
+            "explain": "Schedule D line 3, column (h), is zero. Either no short-term sale you received no Form 1099-B for is recorded and your Form 8949 answers confirm it, or your box C proceeds, basis, and adjustments net to zero.",
+            "reasons": []
+          },
+          "schedule-d.line-7": {
+            "explain": "Schedule D line 7 is zero because lines 1a, 1b, 2, 3, and 6 add to zero.",
+            "reasons": []
+          },
+          "schedule-d.line-8a": {
+            "explain": "Schedule D line 8a, column (h), is long-term proceeds minus basis for the sales you report directly on Schedule D.",
+            "reasons": []
+          },
+          "schedule-d.line-8b": {
+            "explain": "You said you have no long-term Form 8949 box D sales with a wash-sale adjustment or a wrong reported basis, so Schedule D line 8b, column (h), is zero.",
+            "reasons": []
+          },
+          "schedule-d.line-9": {
+            "explain": "Schedule D line 9, column (h), is zero. No long-term sale whose basis was not reported to the IRS is recorded, and your answer about those sales confirms the list is complete.",
+            "reasons": []
+          }
+        },
+        "questions": [],
+        "blocked": [
+          {
+            "artifact": "f1099b.covered-lt-txn.box7-loss-check",
+            "code": "DEPENDENCY_ABSENT",
+            "missing": []
+          },
+          {
+            "artifact": "form1040-line7a",
+            "code": "DEPENDENCY_ABSENT",
+            "missing": [
+              "schedule-d.line-16",
+              "schedule-d.line-21",
+              "capital-gains.selected-preferential-base"
+            ]
+          },
+          {
+            "artifact": "schedule-d-line16",
+            "code": "DEPENDENCY_ABSENT",
+            "missing": [
+              "f1099b.covered-lt-txn.box7-loss-check"
+            ]
+          },
+          {
+            "artifact": "schedule-d-line21",
+            "code": "DEPENDENCY_ABSENT",
+            "missing": [
+              "schedule-d.line-16"
+            ]
+          }
+        ],
+        "f8949_parts": [],
+        "code_l_part": false
+      },
+      "comparison": {
+        "matches_instruction": false,
+        "disposition": "blocked",
+        "code_l_part": false,
+        "diffs": [
+          {
+            "line": "schedule-d.line-8a",
+            "hand": 0,
+            "got": -1000
+          },
+          {
+            "line": "schedule-d.line-15",
+            "hand": 0,
+            "got": -1000
+          },
+          {
+            "line": "schedule-d.line-16",
+            "hand": 0,
+            "got": "blocked"
+          },
+          {
+            "line": "schedule-d.line-21",
+            "hand": 0,
+            "got": "blocked"
+          },
+          {
+            "line": "form1040.line-7a",
+            "hand": 0,
+            "got": "blocked"
+          },
+          {
+            "line": "form1040.line-15",
+            "hand": 34250,
+            "got": "blocked"
+          },
+          {
+            "line": "form1040.line-16",
+            "hand": 3875,
+            "got": "blocked"
+          },
+          {
+            "line": "form1040.line-24",
+            "hand": 3875,
+            "got": "blocked"
+          },
+          {
+            "line": "form1040.line-33",
+            "hand": 4500,
+            "got": "blocked"
+          },
+          {
+            "line": "form1040.line-34",
+            "hand": 625,
+            "got": "blocked"
+          },
+          {
+            "line": "form1040.line-37",
+            "hand": 0,
+            "got": "blocked"
+          }
+        ]
+      }
+    },
+    {
+      "id": "yes_loss_beside_gain_same_statement",
+      "note": "One checked statement holds a $1,000 gain and a $1,000 loss. The gain stays on line 1a. The loss is the code L row.",
+      "instruction_settled": true,
+      "form_8949_rows": [
+        {
+          "code": "L",
+          "which": "the loss",
+          "box": "A",
+          "schedule_d_line": "1b",
+          "d": 4000,
+          "e": 5000,
+          "g_before_code_l": 0.0,
+          "g_code_l": 1000,
+          "g": 1000.0,
+          "h": 0.0
+        }
+      ],
+      "hand": {
+        "schedule-d.line-1a": 1000,
+        "schedule-d.line-1b": 0,
+        "schedule-d.line-2": 0,
+        "schedule-d.line-3": 0,
+        "schedule-d.line-7": 1000,
+        "schedule-d.line-8a": 0,
+        "schedule-d.line-8b": 0,
+        "schedule-d.line-9": 0,
+        "schedule-d.line-10": 0,
+        "schedule-d.line-15": 0,
+        "schedule-d.line-16": 1000,
+        "schedule-d.line-21": 0,
+        "form1040.line-7a": 1000,
+        "form1040.line-15": 35250,
+        "form1040.line-16": 3995,
+        "form1040.line-24": 3995,
+        "form1040.line-33": 4500,
+        "form1040.line-34": 505,
+        "form1040.line-37": 0
+      },
+      "result": {
+        "outcome": "success",
+        "stop": "saturated",
+        "disposition": "blocked",
+        "lines": {
+          "form1040.line-15": "blocked",
+          "form1040.line-16": "blocked",
+          "form1040.line-24": "blocked",
+          "form1040.line-33": "blocked",
+          "form1040.line-34": "blocked",
+          "form1040.line-37": "blocked",
+          "form1040.line-7a": "blocked",
+          "schedule-d.line-10": 0,
+          "schedule-d.line-15": 0,
+          "schedule-d.line-16": "blocked",
+          "schedule-d.line-1a": 0,
+          "schedule-d.line-1b": 0,
+          "schedule-d.line-2": 0,
+          "schedule-d.line-21": "blocked",
+          "schedule-d.line-3": 0,
+          "schedule-d.line-7": 0,
+          "schedule-d.line-8a": 0,
+          "schedule-d.line-8b": 0,
+          "schedule-d.line-9": 0
+        },
+        "explains": {
+          "form1040.line-15": {
+            "explain": "Your taxable income has no value yet. It is waiting for your adjusted gross income and your line 14 deductions.",
+            "reasons": []
+          },
+          "form1040.line-16": {
+            "explain": "Your tax has no value yet. It is waiting for your taxable income, your filing status, your qualified dividends and capital gain, or your covered sale proceeds. It also waits for your answers about each kind of sale, because whether you recorded any sale decides whether your tax is figured with Schedule D.",
+            "reasons": []
+          },
+          "form1040.line-24": {
+            "explain": "Form 1040 line 24 is blocked because an input it needs is missing or invalid.",
+            "reasons": []
+          },
+          "form1040.line-33": {
+            "explain": "Form 1040 line 33 is blocked because an input it needs is missing or invalid.",
+            "reasons": []
+          },
+          "form1040.line-34": {
+            "explain": "Form 1040 line 34 is blocked because an input it needs is missing or invalid.",
+            "reasons": []
+          },
+          "form1040.line-37": {
+            "explain": "Form 1040 line 37 is blocked because an input it needs is missing, invalid, or (line 36) exceeds line 34.",
+            "reasons": []
+          },
+          "form1040.line-7a": {
+            "explain": "Line 7a has no value yet. Whether you recorded any sale decides its route, so it waits for your answers about each kind of sale. With a sale recorded, line 7a is the Schedule D amount and waits for Schedule D. With none, it waits for your Exception 1 answers and for your box 2a capital gain distributions to be complete.",
+            "reasons": []
+          },
+          "schedule-d.line-10": {
+            "explain": "Schedule D line 10, column (h), is zero. Either no long-term sale you received no Form 1099-B for is recorded and your Form 8949 answers confirm it, or your box F proceeds, basis, and adjustments net to zero.",
+            "reasons": []
+          },
+          "schedule-d.line-15": {
+            "explain": "Schedule D line 15 is zero because lines 8a, 8b, 9, 10, 13, and 14 add to zero.",
+            "reasons": []
+          },
+          "schedule-d.line-16": {
+            "explain": "Schedule D line 16 has no value yet because one of these is true: line 7 or line 15 is not ready, a sale count this line requires is not ready, a recorded Form 1099-B statement has no box 7 answer, or box 7 is checked and a sale on that statement is at a loss. This return does not compute a disallowed loss. Where that loss is the cause, the result changes if the broker reports the loss on a separate statement, or if box 7 is not checked.",
+            "reasons": []
+          },
+          "schedule-d.line-1a": {
+            "explain": "Schedule D line 1a, column (h), is zero because your short-term proceeds equal your basis.",
+            "reasons": []
+          },
+          "schedule-d.line-1b": {
+            "explain": "You said you have no short-term Form 8949 box A sales with a wash-sale adjustment or a wrong reported basis, so Schedule D line 1b, column (h), is zero.",
+            "reasons": []
+          },
+          "schedule-d.line-2": {
+            "explain": "Schedule D line 2, column (h), is zero. No short-term sale whose basis was not reported to the IRS is recorded, and your answer about those sales confirms the list is complete.",
+            "reasons": []
+          },
+          "schedule-d.line-21": {
+            "explain": "Schedule D line 21 has no value yet. It is waiting for your total gain or loss on line 16.",
+            "reasons": []
+          },
+          "schedule-d.line-3": {
+            "explain": "Schedule D line 3, column (h), is zero. Either no short-term sale you received no Form 1099-B for is recorded and your Form 8949 answers confirm it, or your box C proceeds, basis, and adjustments net to zero.",
+            "reasons": []
+          },
+          "schedule-d.line-7": {
+            "explain": "Schedule D line 7 is zero because lines 1a, 1b, 2, 3, and 6 add to zero.",
+            "reasons": []
+          },
+          "schedule-d.line-8a": {
+            "explain": "You said you have no long-term sales reported directly on Schedule D, so line 8a, column (h), is zero.",
+            "reasons": []
+          },
+          "schedule-d.line-8b": {
+            "explain": "You said you have no long-term Form 8949 box D sales with a wash-sale adjustment or a wrong reported basis, so Schedule D line 8b, column (h), is zero.",
+            "reasons": []
+          },
+          "schedule-d.line-9": {
+            "explain": "Schedule D line 9, column (h), is zero. No long-term sale whose basis was not reported to the IRS is recorded, and your answer about those sales confirms the list is complete.",
+            "reasons": []
+          }
+        },
+        "questions": [],
+        "blocked": [
+          {
+            "artifact": "f1099b.covered-st-txn.box7-loss-check",
+            "code": "DEPENDENCY_ABSENT",
+            "missing": []
+          },
+          {
+            "artifact": "form1040-line7a",
+            "code": "DEPENDENCY_ABSENT",
+            "missing": [
+              "schedule-d.line-16",
+              "schedule-d.line-21",
+              "capital-gains.selected-preferential-base"
+            ]
+          },
+          {
+            "artifact": "schedule-d-line16",
+            "code": "DEPENDENCY_ABSENT",
+            "missing": [
+              "f1099b.covered-st-txn.box7-loss-check"
+            ]
+          },
+          {
+            "artifact": "schedule-d-line21",
+            "code": "DEPENDENCY_ABSENT",
+            "missing": [
+              "schedule-d.line-16"
+            ]
+          }
+        ],
+        "f8949_parts": [],
+        "code_l_part": false
+      },
+      "comparison": {
+        "matches_instruction": false,
+        "disposition": "blocked",
+        "code_l_part": false,
+        "diffs": [
+          {
+            "line": "schedule-d.line-1a",
+            "hand": 1000,
+            "got": 0
+          },
+          {
+            "line": "schedule-d.line-7",
+            "hand": 1000,
+            "got": 0
+          },
+          {
+            "line": "schedule-d.line-16",
+            "hand": 1000,
+            "got": "blocked"
+          },
+          {
+            "line": "schedule-d.line-21",
+            "hand": 0,
+            "got": "blocked"
+          },
+          {
+            "line": "form1040.line-7a",
+            "hand": 1000,
+            "got": "blocked"
+          },
+          {
+            "line": "form1040.line-15",
+            "hand": 35250,
+            "got": "blocked"
+          },
+          {
+            "line": "form1040.line-16",
+            "hand": 3995,
+            "got": "blocked"
+          },
+          {
+            "line": "form1040.line-24",
+            "hand": 3995,
+            "got": "blocked"
+          },
+          {
+            "line": "form1040.line-33",
+            "hand": 4500,
+            "got": "blocked"
+          },
+          {
+            "line": "form1040.line-34",
+            "hand": 505,
+            "got": "blocked"
+          },
+          {
+            "line": "form1040.line-37",
+            "hand": 0,
+            "got": "blocked"
+          }
+        ]
+      }
+    },
+    {
+      "id": "yes_loss_with_code_w",
+      "note": "Wash of 400 leaves column (h) at -600 before code L. Code L excludes a loss indicated by code W, and a combined row is not exemplified. Recommended reading: codes LW, code L amount 600, column (h) zero.",
+      "instruction_settled": false,
+      "form_8949_rows": [
+        {
+          "code": "LW",
+          "reading": "code L is the loss remaining after the wash",
+          "box": "A",
+          "schedule_d_line": "1b",
+          "d": 4000,
+          "e": 5000,
+          "g_before_code_l": 400.0,
+          "g_code_l": 600,
+          "g": 1000.0,
+          "h": 0.0
+        }
+      ],
+      "hand": {
+        "schedule-d.line-1a": 0,
+        "schedule-d.line-1b": 0,
+        "schedule-d.line-2": 0,
+        "schedule-d.line-3": 0,
+        "schedule-d.line-7": 0,
+        "schedule-d.line-8a": 0,
+        "schedule-d.line-8b": 0,
+        "schedule-d.line-9": 0,
+        "schedule-d.line-10": 0,
+        "schedule-d.line-15": 0,
+        "schedule-d.line-16": 0,
+        "schedule-d.line-21": 0,
+        "form1040.line-7a": 0,
+        "form1040.line-15": 34250,
+        "form1040.line-16": 3875,
+        "form1040.line-24": 3875,
+        "form1040.line-33": 4500,
+        "form1040.line-34": 625,
+        "form1040.line-37": 0
+      },
+      "result": {
+        "outcome": "success",
+        "stop": "saturated",
+        "disposition": "blocked",
+        "lines": {
+          "form1040.line-15": "blocked",
+          "form1040.line-16": "blocked",
+          "form1040.line-24": "blocked",
+          "form1040.line-33": "blocked",
+          "form1040.line-34": "blocked",
+          "form1040.line-37": "blocked",
+          "form1040.line-7a": "blocked",
+          "schedule-d.line-10": 0,
+          "schedule-d.line-15": 0,
+          "schedule-d.line-16": "blocked",
+          "schedule-d.line-1a": 0,
+          "schedule-d.line-1b": -600,
+          "schedule-d.line-2": 0,
+          "schedule-d.line-21": "blocked",
+          "schedule-d.line-3": 0,
+          "schedule-d.line-7": -600,
+          "schedule-d.line-8a": 0,
+          "schedule-d.line-8b": 0,
+          "schedule-d.line-9": 0
+        },
+        "explains": {
+          "form1040.line-15": {
+            "explain": "Your taxable income has no value yet. It is waiting for your adjusted gross income and your line 14 deductions.",
+            "reasons": []
+          },
+          "form1040.line-16": {
+            "explain": "Your tax has no value yet. It is waiting for your taxable income, your filing status, your qualified dividends and capital gain, or your covered sale proceeds. It also waits for your answers about each kind of sale, because whether you recorded any sale decides whether your tax is figured with Schedule D.",
+            "reasons": []
+          },
+          "form1040.line-24": {
+            "explain": "Form 1040 line 24 is blocked because an input it needs is missing or invalid.",
+            "reasons": []
+          },
+          "form1040.line-33": {
+            "explain": "Form 1040 line 33 is blocked because an input it needs is missing or invalid.",
+            "reasons": []
+          },
+          "form1040.line-34": {
+            "explain": "Form 1040 line 34 is blocked because an input it needs is missing or invalid.",
+            "reasons": []
+          },
+          "form1040.line-37": {
+            "explain": "Form 1040 line 37 is blocked because an input it needs is missing, invalid, or (line 36) exceeds line 34.",
+            "reasons": []
+          },
+          "form1040.line-7a": {
+            "explain": "Line 7a has no value yet. Whether you recorded any sale decides its route, so it waits for your answers about each kind of sale. With a sale recorded, line 7a is the Schedule D amount and waits for Schedule D. With none, it waits for your Exception 1 answers and for your box 2a capital gain distributions to be complete.",
+            "reasons": []
+          },
+          "schedule-d.line-10": {
+            "explain": "Schedule D line 10, column (h), is zero. Either no long-term sale you received no Form 1099-B for is recorded and your Form 8949 answers confirm it, or your box F proceeds, basis, and adjustments net to zero.",
+            "reasons": []
+          },
+          "schedule-d.line-15": {
+            "explain": "Schedule D line 15 is zero because lines 8a, 8b, 9, 10, 13, and 14 add to zero.",
+            "reasons": []
+          },
+          "schedule-d.line-16": {
+            "explain": "Schedule D line 16 has no value yet because one of these is true: line 7 or line 15 is not ready, a sale count this line requires is not ready, a recorded Form 1099-B statement has no box 7 answer, or box 7 is checked and a sale on that statement is at a loss. This return does not compute a disallowed loss. Where that loss is the cause, the result changes if the broker reports the loss on a separate statement, or if box 7 is not checked.",
+            "reasons": []
+          },
+          "schedule-d.line-1a": {
+            "explain": "You said you have no short-term sales reported directly on Schedule D, so line 1a, column (h), is zero.",
+            "reasons": []
+          },
+          "schedule-d.line-1b": {
+            "explain": "Schedule D line 1b, column (h), is your short-term gain or loss from Form 8949 box A, proceeds minus basis plus adjustments. Column (g) carries any wash-sale adjustment and any code B correction of a wrong reported basis.",
+            "reasons": []
+          },
+          "schedule-d.line-2": {
+            "explain": "Schedule D line 2, column (h), is zero. No short-term sale whose basis was not reported to the IRS is recorded, and your answer about those sales confirms the list is complete.",
+            "reasons": []
+          },
+          "schedule-d.line-21": {
+            "explain": "Schedule D line 21 has no value yet. It is waiting for your total gain or loss on line 16.",
+            "reasons": []
+          },
+          "schedule-d.line-3": {
+            "explain": "Schedule D line 3, column (h), is zero. Either no short-term sale you received no Form 1099-B for is recorded and your Form 8949 answers confirm it, or your box C proceeds, basis, and adjustments net to zero.",
+            "reasons": []
+          },
+          "schedule-d.line-7": {
+            "explain": "Schedule D line 7 adds lines 1a, 1b, 2, 3, and 6.",
+            "reasons": []
+          },
+          "schedule-d.line-8a": {
+            "explain": "You said you have no long-term sales reported directly on Schedule D, so line 8a, column (h), is zero.",
+            "reasons": []
+          },
+          "schedule-d.line-8b": {
+            "explain": "You said you have no long-term Form 8949 box D sales with a wash-sale adjustment or a wrong reported basis, so Schedule D line 8b, column (h), is zero.",
+            "reasons": []
+          },
+          "schedule-d.line-9": {
+            "explain": "Schedule D line 9, column (h), is zero. No long-term sale whose basis was not reported to the IRS is recorded, and your answer about those sales confirms the list is complete.",
+            "reasons": []
+          }
+        },
+        "questions": [],
+        "blocked": [
+          {
+            "artifact": "f1099b.covered-w-st-txn.box7-loss-check",
+            "code": "DEPENDENCY_ABSENT",
+            "missing": []
+          },
+          {
+            "artifact": "form1040-line7a",
+            "code": "DEPENDENCY_ABSENT",
+            "missing": [
+              "schedule-d.line-16",
+              "schedule-d.line-21",
+              "capital-gains.selected-preferential-base"
+            ]
+          },
+          {
+            "artifact": "schedule-d-line16",
+            "code": "DEPENDENCY_ABSENT",
+            "missing": [
+              "f1099b.covered-w-st-txn.box7-loss-check"
+            ]
+          },
+          {
+            "artifact": "schedule-d-line21",
+            "code": "DEPENDENCY_ABSENT",
+            "missing": [
+              "schedule-d.line-16"
+            ]
+          }
+        ],
+        "f8949_parts": [
+          "Part I box A column (d): short-term wash-sale proceeds",
+          "Part I box A column (e): short-term wash-sale basis",
+          "Part I box A column (g): short-term wash-sale adjustment",
+          "Part II box D column (d): long-term wash-sale proceeds",
+          "Part II box D column (e): long-term wash-sale basis",
+          "Part II box D column (g): long-term wash-sale adjustment",
+          "Part I box B column (d): short-term basis-not-reported proceeds",
+          "Part I box B column (e): short-term basis the filer supplies",
+          "Part I box B column (g): short-term wash-sale adjustment",
+          "Part II box E column (d): long-term basis-not-reported proceeds",
+          "Part II box E column (e): long-term basis the filer supplies",
+          "Part II box E column (g): long-term wash-sale adjustment",
+          "Part I box C column (d): short-term net proceeds, no Form 1099-B",
+          "Part I box C column (e): short-term basis you supply, no Form 1099-B",
+          "Part I box C column (g): short-term wash-sale adjustment, no Form 1099-B",
+          "Part II box F column (d): long-term net proceeds, no Form 1099-B",
+          "Part II box F column (e): long-term basis you supply, no Form 1099-B",
+          "Part II box F column (g): long-term wash-sale adjustment, no Form 1099-B",
+          "Part I box A column (d), code B: short-term proceeds",
+          "Part I box A column (e), code B: short-term basis shown on Form 1099-B",
+          "Part I box A column (g), code B: short-term basis correction plus any wash-sale adjustment",
+          "Part II box D column (d), code B: long-term proceeds",
+          "Part II box D column (e), code B: long-term basis shown on Form 1099-B",
+          "Part II box D column (g), code B: long-term basis correction plus any wash-sale adjustment"
+        ],
+        "code_l_part": false
+      },
+      "comparison": {
+        "matches_instruction": false,
+        "disposition": "blocked",
+        "code_l_part": false,
+        "diffs": [
+          {
+            "line": "schedule-d.line-1b",
+            "hand": 0,
+            "got": -600
+          },
+          {
+            "line": "schedule-d.line-7",
+            "hand": 0,
+            "got": -600
+          },
+          {
+            "line": "schedule-d.line-16",
+            "hand": 0,
+            "got": "blocked"
+          },
+          {
+            "line": "schedule-d.line-21",
+            "hand": 0,
+            "got": "blocked"
+          },
+          {
+            "line": "form1040.line-7a",
+            "hand": 0,
+            "got": "blocked"
+          },
+          {
+            "line": "form1040.line-15",
+            "hand": 34250,
+            "got": "blocked"
+          },
+          {
+            "line": "form1040.line-16",
+            "hand": 3875,
+            "got": "blocked"
+          },
+          {
+            "line": "form1040.line-24",
+            "hand": 3875,
+            "got": "blocked"
+          },
+          {
+            "line": "form1040.line-33",
+            "hand": 4500,
+            "got": "blocked"
+          },
+          {
+            "line": "form1040.line-34",
+            "hand": 625,
+            "got": "blocked"
+          },
+          {
+            "line": "form1040.line-37",
+            "hand": 0,
+            "got": "blocked"
+          }
+        ]
+      }
+    },
+    {
+      "id": "yes_loss_with_code_b",
+      "note": "Basis shown 5000, corrected basis 4500, proceeds 4000. Code B's adjustment is 500 and column (h) is still -500. Recommended reading: code L disallows that remaining loss. If the correction had removed the loss, code L would not apply.",
+      "instruction_settled": false,
+      "form_8949_rows": [
+        {
+          "code": "BL",
+          "reading": "code L is the loss remaining after the basis correction",
+          "box": "A",
+          "schedule_d_line": "1b",
+          "d": 4000,
+          "e": 5000,
+          "g_before_code_l": 500,
+          "g_code_l": 500,
+          "g": 1000,
+          "h": 0
+        }
+      ],
+      "hand": {
+        "schedule-d.line-1a": 0,
+        "schedule-d.line-1b": 0,
+        "schedule-d.line-2": 0,
+        "schedule-d.line-3": 0,
+        "schedule-d.line-7": 0,
+        "schedule-d.line-8a": 0,
+        "schedule-d.line-8b": 0,
+        "schedule-d.line-9": 0,
+        "schedule-d.line-10": 0,
+        "schedule-d.line-15": 0,
+        "schedule-d.line-16": 0,
+        "schedule-d.line-21": 0,
+        "form1040.line-7a": 0,
+        "form1040.line-15": 34250,
+        "form1040.line-16": 3875,
+        "form1040.line-24": 3875,
+        "form1040.line-33": 4500,
+        "form1040.line-34": 625,
+        "form1040.line-37": 0
+      },
+      "result": {
+        "outcome": "success",
+        "stop": "saturated",
+        "disposition": "blocked",
+        "lines": {
+          "form1040.line-15": "blocked",
+          "form1040.line-16": "blocked",
+          "form1040.line-24": "blocked",
+          "form1040.line-33": "blocked",
+          "form1040.line-34": "blocked",
+          "form1040.line-37": "blocked",
+          "form1040.line-7a": "blocked",
+          "schedule-d.line-10": 0,
+          "schedule-d.line-15": 0,
+          "schedule-d.line-16": "blocked",
+          "schedule-d.line-1a": 0,
+          "schedule-d.line-1b": -500,
+          "schedule-d.line-2": 0,
+          "schedule-d.line-21": "blocked",
+          "schedule-d.line-3": 0,
+          "schedule-d.line-7": -500,
+          "schedule-d.line-8a": 0,
+          "schedule-d.line-8b": 0,
+          "schedule-d.line-9": 0
+        },
+        "explains": {
+          "form1040.line-15": {
+            "explain": "Your taxable income has no value yet. It is waiting for your adjusted gross income and your line 14 deductions.",
+            "reasons": []
+          },
+          "form1040.line-16": {
+            "explain": "Your tax has no value yet. It is waiting for your taxable income, your filing status, your qualified dividends and capital gain, or your covered sale proceeds. It also waits for your answers about each kind of sale, because whether you recorded any sale decides whether your tax is figured with Schedule D.",
+            "reasons": []
+          },
+          "form1040.line-24": {
+            "explain": "Form 1040 line 24 is blocked because an input it needs is missing or invalid.",
+            "reasons": []
+          },
+          "form1040.line-33": {
+            "explain": "Form 1040 line 33 is blocked because an input it needs is missing or invalid.",
+            "reasons": []
+          },
+          "form1040.line-34": {
+            "explain": "Form 1040 line 34 is blocked because an input it needs is missing or invalid.",
+            "reasons": []
+          },
+          "form1040.line-37": {
+            "explain": "Form 1040 line 37 is blocked because an input it needs is missing, invalid, or (line 36) exceeds line 34.",
+            "reasons": []
+          },
+          "form1040.line-7a": {
+            "explain": "Line 7a has no value yet. Whether you recorded any sale decides its route, so it waits for your answers about each kind of sale. With a sale recorded, line 7a is the Schedule D amount and waits for Schedule D. With none, it waits for your Exception 1 answers and for your box 2a capital gain distributions to be complete.",
+            "reasons": []
+          },
+          "schedule-d.line-10": {
+            "explain": "Schedule D line 10, column (h), is zero. Either no long-term sale you received no Form 1099-B for is recorded and your Form 8949 answers confirm it, or your box F proceeds, basis, and adjustments net to zero.",
+            "reasons": []
+          },
+          "schedule-d.line-15": {
+            "explain": "Schedule D line 15 is zero because lines 8a, 8b, 9, 10, 13, and 14 add to zero.",
+            "reasons": []
+          },
+          "schedule-d.line-16": {
+            "explain": "Schedule D line 16 has no value yet because one of these is true: line 7 or line 15 is not ready, a sale count this line requires is not ready, a recorded Form 1099-B statement has no box 7 answer, or box 7 is checked and a sale on that statement is at a loss. This return does not compute a disallowed loss. Where that loss is the cause, the result changes if the broker reports the loss on a separate statement, or if box 7 is not checked.",
+            "reasons": []
+          },
+          "schedule-d.line-1a": {
+            "explain": "You said you have no short-term sales reported directly on Schedule D, so line 1a, column (h), is zero.",
+            "reasons": []
+          },
+          "schedule-d.line-1b": {
+            "explain": "Schedule D line 1b, column (h), is your short-term gain or loss from Form 8949 box A, proceeds minus basis plus adjustments. Column (g) carries any wash-sale adjustment and any code B correction of a wrong reported basis.",
+            "reasons": []
+          },
+          "schedule-d.line-2": {
+            "explain": "Schedule D line 2, column (h), is zero. No short-term sale whose basis was not reported to the IRS is recorded, and your answer about those sales confirms the list is complete.",
+            "reasons": []
+          },
+          "schedule-d.line-21": {
+            "explain": "Schedule D line 21 has no value yet. It is waiting for your total gain or loss on line 16.",
+            "reasons": []
+          },
+          "schedule-d.line-3": {
+            "explain": "Schedule D line 3, column (h), is zero. Either no short-term sale you received no Form 1099-B for is recorded and your Form 8949 answers confirm it, or your box C proceeds, basis, and adjustments net to zero.",
+            "reasons": []
+          },
+          "schedule-d.line-7": {
+            "explain": "Schedule D line 7 adds lines 1a, 1b, 2, 3, and 6.",
+            "reasons": []
+          },
+          "schedule-d.line-8a": {
+            "explain": "You said you have no long-term sales reported directly on Schedule D, so line 8a, column (h), is zero.",
+            "reasons": []
+          },
+          "schedule-d.line-8b": {
+            "explain": "Schedule D line 8b, column (h), is zero: no long-term Form 8949 box D sales with a wash-sale adjustment or a wrong reported basis are recorded, or their proceeds, basis, and adjustments net to zero.",
+            "reasons": []
+          },
+          "schedule-d.line-9": {
+            "explain": "Schedule D line 9, column (h), is zero. No long-term sale whose basis was not reported to the IRS is recorded, and your answer about those sales confirms the list is complete.",
+            "reasons": []
+          }
+        },
+        "questions": [],
+        "blocked": [
+          {
+            "artifact": "f1099b.code-b-st-txn.box7-loss-check",
+            "code": "DEPENDENCY_ABSENT",
+            "missing": []
+          },
+          {
+            "artifact": "form1040-line7a",
+            "code": "DEPENDENCY_ABSENT",
+            "missing": [
+              "schedule-d.line-16",
+              "schedule-d.line-21",
+              "capital-gains.selected-preferential-base"
+            ]
+          },
+          {
+            "artifact": "schedule-d-line16",
+            "code": "DEPENDENCY_ABSENT",
+            "missing": [
+              "f1099b.code-b-st-txn.box7-loss-check"
+            ]
+          },
+          {
+            "artifact": "schedule-d-line21",
+            "code": "DEPENDENCY_ABSENT",
+            "missing": [
+              "schedule-d.line-16"
+            ]
+          }
+        ],
+        "f8949_parts": [
+          "Part I box A column (d): short-term wash-sale proceeds",
+          "Part I box A column (e): short-term wash-sale basis",
+          "Part I box A column (g): short-term wash-sale adjustment",
+          "Part II box D column (d): long-term wash-sale proceeds",
+          "Part II box D column (e): long-term wash-sale basis",
+          "Part II box D column (g): long-term wash-sale adjustment",
+          "Part I box B column (d): short-term basis-not-reported proceeds",
+          "Part I box B column (e): short-term basis the filer supplies",
+          "Part I box B column (g): short-term wash-sale adjustment",
+          "Part II box E column (d): long-term basis-not-reported proceeds",
+          "Part II box E column (e): long-term basis the filer supplies",
+          "Part II box E column (g): long-term wash-sale adjustment",
+          "Part I box C column (d): short-term net proceeds, no Form 1099-B",
+          "Part I box C column (e): short-term basis you supply, no Form 1099-B",
+          "Part I box C column (g): short-term wash-sale adjustment, no Form 1099-B",
+          "Part II box F column (d): long-term net proceeds, no Form 1099-B",
+          "Part II box F column (e): long-term basis you supply, no Form 1099-B",
+          "Part II box F column (g): long-term wash-sale adjustment, no Form 1099-B",
+          "Part I box A column (d), code B: short-term proceeds",
+          "Part I box A column (e), code B: short-term basis shown on Form 1099-B",
+          "Part I box A column (g), code B: short-term basis correction plus any wash-sale adjustment",
+          "Part II box D column (d), code B: long-term proceeds",
+          "Part II box D column (e), code B: long-term basis shown on Form 1099-B",
+          "Part II box D column (g), code B: long-term basis correction plus any wash-sale adjustment"
+        ],
+        "code_l_part": false
+      },
+      "comparison": {
+        "matches_instruction": false,
+        "disposition": "blocked",
+        "code_l_part": false,
+        "diffs": [
+          {
+            "line": "schedule-d.line-1b",
+            "hand": 0,
+            "got": -500
+          },
+          {
+            "line": "schedule-d.line-7",
+            "hand": 0,
+            "got": -500
+          },
+          {
+            "line": "schedule-d.line-16",
+            "hand": 0,
+            "got": "blocked"
+          },
+          {
+            "line": "schedule-d.line-21",
+            "hand": 0,
+            "got": "blocked"
+          },
+          {
+            "line": "form1040.line-7a",
+            "hand": 0,
+            "got": "blocked"
+          },
+          {
+            "line": "form1040.line-15",
+            "hand": 34250,
+            "got": "blocked"
+          },
+          {
+            "line": "form1040.line-16",
+            "hand": 3875,
+            "got": "blocked"
+          },
+          {
+            "line": "form1040.line-24",
+            "hand": 3875,
+            "got": "blocked"
+          },
+          {
+            "line": "form1040.line-33",
+            "hand": 4500,
+            "got": "blocked"
+          },
+          {
+            "line": "form1040.line-34",
+            "hand": 625,
+            "got": "blocked"
+          },
+          {
+            "line": "form1040.line-37",
+            "hand": 0,
+            "got": "blocked"
+          }
+        ]
+      }
+    },
+    {
+      "id": "yes_loss_noncovered",
+      "note": "Box 7 yes on a noncovered short-term sale, box B. The sale is already on Form 8949. Column (h) becomes zero.",
+      "instruction_settled": true,
+      "form_8949_rows": [
+        {
+          "code": "L",
+          "box": "B",
+          "schedule_d_line": "2",
+          "d": 4000,
+          "e": 5000,
+          "g_before_code_l": 0.0,
+          "g_code_l": 1000,
+          "g": 1000.0,
+          "h": 0.0
+        }
+      ],
+      "hand": {
+        "schedule-d.line-1a": 0,
+        "schedule-d.line-1b": 0,
+        "schedule-d.line-2": 0,
+        "schedule-d.line-3": 0,
+        "schedule-d.line-7": 0,
+        "schedule-d.line-8a": 0,
+        "schedule-d.line-8b": 0,
+        "schedule-d.line-9": 0,
+        "schedule-d.line-10": 0,
+        "schedule-d.line-15": 0,
+        "schedule-d.line-16": 0,
+        "schedule-d.line-21": 0,
+        "form1040.line-7a": 0,
+        "form1040.line-15": 34250,
+        "form1040.line-16": 3875,
+        "form1040.line-24": 3875,
+        "form1040.line-33": 4500,
+        "form1040.line-34": 625,
+        "form1040.line-37": 0
+      },
+      "result": {
+        "outcome": "success",
+        "stop": "saturated",
+        "disposition": "blocked",
+        "lines": {
+          "form1040.line-15": "blocked",
+          "form1040.line-16": "blocked",
+          "form1040.line-24": "blocked",
+          "form1040.line-33": "blocked",
+          "form1040.line-34": "blocked",
+          "form1040.line-37": "blocked",
+          "form1040.line-7a": "blocked",
+          "schedule-d.line-10": 0,
+          "schedule-d.line-15": 0,
+          "schedule-d.line-16": "blocked",
+          "schedule-d.line-1a": 0,
+          "schedule-d.line-1b": 0,
+          "schedule-d.line-2": -1000,
+          "schedule-d.line-21": "blocked",
+          "schedule-d.line-3": 0,
+          "schedule-d.line-7": -1000,
+          "schedule-d.line-8a": 0,
+          "schedule-d.line-8b": 0,
+          "schedule-d.line-9": 0
+        },
+        "explains": {
+          "form1040.line-15": {
+            "explain": "Your taxable income has no value yet. It is waiting for your adjusted gross income and your line 14 deductions.",
+            "reasons": []
+          },
+          "form1040.line-16": {
+            "explain": "Your tax has no value yet. It is waiting for your taxable income, your filing status, your qualified dividends and capital gain, or your covered sale proceeds. It also waits for your answers about each kind of sale, because whether you recorded any sale decides whether your tax is figured with Schedule D.",
+            "reasons": []
+          },
+          "form1040.line-24": {
+            "explain": "Form 1040 line 24 is blocked because an input it needs is missing or invalid.",
+            "reasons": []
+          },
+          "form1040.line-33": {
+            "explain": "Form 1040 line 33 is blocked because an input it needs is missing or invalid.",
+            "reasons": []
+          },
+          "form1040.line-34": {
+            "explain": "Form 1040 line 34 is blocked because an input it needs is missing or invalid.",
+            "reasons": []
+          },
+          "form1040.line-37": {
+            "explain": "Form 1040 line 37 is blocked because an input it needs is missing, invalid, or (line 36) exceeds line 34.",
+            "reasons": []
+          },
+          "form1040.line-7a": {
+            "explain": "Line 7a has no value yet. Whether you recorded any sale decides its route, so it waits for your answers about each kind of sale. With a sale recorded, line 7a is the Schedule D amount and waits for Schedule D. With none, it waits for your Exception 1 answers and for your box 2a capital gain distributions to be complete.",
+            "reasons": []
+          },
+          "schedule-d.line-10": {
+            "explain": "Schedule D line 10, column (h), is zero. Either no long-term sale you received no Form 1099-B for is recorded and your Form 8949 answers confirm it, or your box F proceeds, basis, and adjustments net to zero.",
+            "reasons": []
+          },
+          "schedule-d.line-15": {
+            "explain": "Schedule D line 15 is zero because lines 8a, 8b, 9, 10, 13, and 14 add to zero.",
+            "reasons": []
+          },
+          "schedule-d.line-16": {
+            "explain": "Schedule D line 16 has no value yet because one of these is true: line 7 or line 15 is not ready, a sale count this line requires is not ready, a recorded Form 1099-B statement has no box 7 answer, or box 7 is checked and a sale on that statement is at a loss. This return does not compute a disallowed loss. Where that loss is the cause, the result changes if the broker reports the loss on a separate statement, or if box 7 is not checked.",
+            "reasons": []
+          },
+          "schedule-d.line-1a": {
+            "explain": "You said you have no short-term sales reported directly on Schedule D, so line 1a, column (h), is zero.",
+            "reasons": []
+          },
+          "schedule-d.line-1b": {
+            "explain": "You said you have no short-term Form 8949 box A sales with a wash-sale adjustment or a wrong reported basis, so Schedule D line 1b, column (h), is zero.",
+            "reasons": []
+          },
+          "schedule-d.line-2": {
+            "explain": "Schedule D line 2, column (h), is your short-term Form 8949 box B gain or loss, proceeds minus basis plus adjustments.",
+            "reasons": []
+          },
+          "schedule-d.line-21": {
+            "explain": "Schedule D line 21 has no value yet. It is waiting for your total gain or loss on line 16.",
+            "reasons": []
+          },
+          "schedule-d.line-3": {
+            "explain": "Schedule D line 3, column (h), is zero. Either no short-term sale you received no Form 1099-B for is recorded and your Form 8949 answers confirm it, or your box C proceeds, basis, and adjustments net to zero.",
+            "reasons": []
+          },
+          "schedule-d.line-7": {
+            "explain": "Schedule D line 7 adds lines 1a, 1b, 2, 3, and 6.",
+            "reasons": []
+          },
+          "schedule-d.line-8a": {
+            "explain": "You said you have no long-term sales reported directly on Schedule D, so line 8a, column (h), is zero.",
+            "reasons": []
+          },
+          "schedule-d.line-8b": {
+            "explain": "You said you have no long-term Form 8949 box D sales with a wash-sale adjustment or a wrong reported basis, so Schedule D line 8b, column (h), is zero.",
+            "reasons": []
+          },
+          "schedule-d.line-9": {
+            "explain": "Schedule D line 9, column (h), is zero. No long-term sale whose basis was not reported to the IRS is recorded, and your answer about those sales confirms the list is complete.",
+            "reasons": []
+          }
+        },
+        "questions": [],
+        "blocked": [
+          {
+            "artifact": "f1099b.noncovered-st-txn.box7-loss-check",
+            "code": "DEPENDENCY_ABSENT",
+            "missing": []
+          },
+          {
+            "artifact": "form1040-line7a",
+            "code": "DEPENDENCY_ABSENT",
+            "missing": [
+              "schedule-d.line-16",
+              "schedule-d.line-21",
+              "capital-gains.selected-preferential-base"
+            ]
+          },
+          {
+            "artifact": "schedule-d-line16",
+            "code": "DEPENDENCY_ABSENT",
+            "missing": [
+              "f1099b.noncovered-st-txn.box7-loss-check"
+            ]
+          },
+          {
+            "artifact": "schedule-d-line21",
+            "code": "DEPENDENCY_ABSENT",
+            "missing": [
+              "schedule-d.line-16"
+            ]
+          }
+        ],
+        "f8949_parts": [
+          "Part I box A column (d): short-term wash-sale proceeds",
+          "Part I box A column (e): short-term wash-sale basis",
+          "Part I box A column (g): short-term wash-sale adjustment",
+          "Part II box D column (d): long-term wash-sale proceeds",
+          "Part II box D column (e): long-term wash-sale basis",
+          "Part II box D column (g): long-term wash-sale adjustment",
+          "Part I box B column (d): short-term basis-not-reported proceeds",
+          "Part I box B column (e): short-term basis the filer supplies",
+          "Part I box B column (g): short-term wash-sale adjustment",
+          "Part II box E column (d): long-term basis-not-reported proceeds",
+          "Part II box E column (e): long-term basis the filer supplies",
+          "Part II box E column (g): long-term wash-sale adjustment",
+          "Part I box C column (d): short-term net proceeds, no Form 1099-B",
+          "Part I box C column (e): short-term basis you supply, no Form 1099-B",
+          "Part I box C column (g): short-term wash-sale adjustment, no Form 1099-B",
+          "Part II box F column (d): long-term net proceeds, no Form 1099-B",
+          "Part II box F column (e): long-term basis you supply, no Form 1099-B",
+          "Part II box F column (g): long-term wash-sale adjustment, no Form 1099-B",
+          "Part I box A column (d), code B: short-term proceeds",
+          "Part I box A column (e), code B: short-term basis shown on Form 1099-B",
+          "Part I box A column (g), code B: short-term basis correction plus any wash-sale adjustment",
+          "Part II box D column (d), code B: long-term proceeds",
+          "Part II box D column (e), code B: long-term basis shown on Form 1099-B",
+          "Part II box D column (g), code B: long-term basis correction plus any wash-sale adjustment"
+        ],
+        "code_l_part": false
+      },
+      "comparison": {
+        "matches_instruction": false,
+        "disposition": "blocked",
+        "code_l_part": false,
+        "diffs": [
+          {
+            "line": "schedule-d.line-2",
+            "hand": 0,
+            "got": -1000
+          },
+          {
+            "line": "schedule-d.line-7",
+            "hand": 0,
+            "got": -1000
+          },
+          {
+            "line": "schedule-d.line-16",
+            "hand": 0,
+            "got": "blocked"
+          },
+          {
+            "line": "schedule-d.line-21",
+            "hand": 0,
+            "got": "blocked"
+          },
+          {
+            "line": "form1040.line-7a",
+            "hand": 0,
+            "got": "blocked"
+          },
+          {
+            "line": "form1040.line-15",
+            "hand": 34250,
+            "got": "blocked"
+          },
+          {
+            "line": "form1040.line-16",
+            "hand": 3875,
+            "got": "blocked"
+          },
+          {
+            "line": "form1040.line-24",
+            "hand": 3875,
+            "got": "blocked"
+          },
+          {
+            "line": "form1040.line-33",
+            "hand": 4500,
+            "got": "blocked"
+          },
+          {
+            "line": "form1040.line-34",
+            "hand": 625,
+            "got": "blocked"
+          },
+          {
+            "line": "form1040.line-37",
+            "hand": 0,
+            "got": "blocked"
+          }
+        ]
+      }
+    },
+    {
+      "id": "no_beside_loss",
+      "note": "Box 7 no beside a covered short-term loss. The loss is allowed and stays on line 1a. No code L row.",
+      "instruction_settled": true,
+      "form_8949_rows": [],
+      "hand": {
+        "schedule-d.line-1a": -1000,
+        "schedule-d.line-1b": 0,
+        "schedule-d.line-2": 0,
+        "schedule-d.line-3": 0,
+        "schedule-d.line-7": -1000,
+        "schedule-d.line-8a": 0,
+        "schedule-d.line-8b": 0,
+        "schedule-d.line-9": 0,
+        "schedule-d.line-10": 0,
+        "schedule-d.line-15": 0,
+        "schedule-d.line-16": -1000,
+        "schedule-d.line-21": 1000,
+        "form1040.line-7a": -1000,
+        "form1040.line-15": 33250,
+        "form1040.line-16": 3755,
+        "form1040.line-24": 3755,
+        "form1040.line-33": 4500,
+        "form1040.line-34": 745,
+        "form1040.line-37": 0
+      },
+      "result": {
+        "outcome": "success",
+        "stop": "saturated",
+        "disposition": "published",
+        "lines": {
+          "form1040.line-15": 33250,
+          "form1040.line-16": 3755,
+          "form1040.line-24": 3755,
+          "form1040.line-33": 4500,
+          "form1040.line-34": 745,
+          "form1040.line-37": 0,
+          "form1040.line-7a": -1000,
+          "schedule-d.line-10": 0,
+          "schedule-d.line-15": 0,
+          "schedule-d.line-16": -1000,
+          "schedule-d.line-1a": -1000,
+          "schedule-d.line-1b": 0,
+          "schedule-d.line-2": 0,
+          "schedule-d.line-21": 1000,
+          "schedule-d.line-3": 0,
+          "schedule-d.line-7": -1000,
+          "schedule-d.line-8a": 0,
+          "schedule-d.line-8b": 0,
+          "schedule-d.line-9": 0
+        },
+        "explains": {
+          "form1040.line-15": {
+            "explain": "Your taxable income is line 11a minus line 14, and not below zero.",
+            "reasons": []
+          },
+          "form1040.line-16": {
+            "explain": "Your tax is the tax on your taxable income when you have no qualified dividends and no preferential capital gain. Otherwise it is the tax from the Qualified Dividends and Capital Gain Tax Worksheet.",
+            "reasons": []
+          },
+          "form1040.line-24": {
+            "explain": "Form 1040 line 24 equals line 22 plus line 23.",
+            "reasons": []
+          },
+          "form1040.line-33": {
+            "explain": "Form 1040 line 33 equals line 25d plus line 26 plus line 32.",
+            "reasons": []
+          },
+          "form1040.line-34": {
+            "explain": "Form 1040 line 34 equals line 33 minus line 24 when larger, else zero.",
+            "reasons": []
+          },
+          "form1040.line-37": {
+            "explain": "Form 1040 line 37 publishes a computed zero.",
+            "reasons": []
+          },
+          "form1040.line-7a": {
+            "explain": "A current derived finding publishes this capital-gain distributions amount on the direct line-7a route.",
+            "reasons": []
+          },
+          "schedule-d.line-10": {
+            "explain": "Schedule D line 10, column (h), is zero. Either no long-term sale you received no Form 1099-B for is recorded and your Form 8949 answers confirm it, or your box F proceeds, basis, and adjustments net to zero.",
+            "reasons": []
+          },
+          "schedule-d.line-15": {
+            "explain": "Schedule D line 15 is zero because lines 8a, 8b, 9, 10, 13, and 14 add to zero.",
+            "reasons": []
+          },
+          "schedule-d.line-16": {
+            "explain": "A current derived finding publishes line 16 equal to line 7 plus line 15.",
+            "reasons": []
+          },
+          "schedule-d.line-1a": {
+            "explain": "Schedule D line 1a, column (h), is short-term proceeds minus basis for the sales you report directly on Schedule D.",
+            "reasons": []
+          },
+          "schedule-d.line-1b": {
+            "explain": "You said you have no short-term Form 8949 box A sales with a wash-sale adjustment or a wrong reported basis, so Schedule D line 1b, column (h), is zero.",
+            "reasons": []
+          },
+          "schedule-d.line-2": {
+            "explain": "Schedule D line 2, column (h), is zero. No short-term sale whose basis was not reported to the IRS is recorded, and your answer about those sales confirms the list is complete.",
+            "reasons": []
+          },
+          "schedule-d.line-21": {
+            "explain": "Schedule D line 21 is the capital loss you can deduct this year, after the yearly limit.",
+            "reasons": []
+          },
+          "schedule-d.line-3": {
+            "explain": "Schedule D line 3, column (h), is zero. Either no short-term sale you received no Form 1099-B for is recorded and your Form 8949 answers confirm it, or your box C proceeds, basis, and adjustments net to zero.",
+            "reasons": []
+          },
+          "schedule-d.line-7": {
+            "explain": "Schedule D line 7 adds lines 1a, 1b, 2, 3, and 6.",
+            "reasons": []
+          },
+          "schedule-d.line-8a": {
+            "explain": "You said you have no long-term sales reported directly on Schedule D, so line 8a, column (h), is zero.",
+            "reasons": []
+          },
+          "schedule-d.line-8b": {
+            "explain": "You said you have no long-term Form 8949 box D sales with a wash-sale adjustment or a wrong reported basis, so Schedule D line 8b, column (h), is zero.",
+            "reasons": []
+          },
+          "schedule-d.line-9": {
+            "explain": "Schedule D line 9, column (h), is zero. No long-term sale whose basis was not reported to the IRS is recorded, and your answer about those sales confirms the list is complete.",
+            "reasons": []
+          }
+        },
+        "questions": [],
+        "blocked": [],
+        "f8949_parts": [],
+        "code_l_part": false
+      },
+      "comparison": {
+        "matches_instruction": true,
+        "disposition": "published",
+        "code_l_part": false,
+        "diffs": []
+      }
+    },
+    {
+      "id": "loss_changed_to_gain",
+      "note": "Box 7 yes on a loss, then the same sale's basis is superseded to 3000, so column (h) is +1000. A gain is not code L.",
+      "instruction_settled": true,
+      "form_8949_rows": [],
+      "hand": {
+        "schedule-d.line-1a": 1000,
+        "schedule-d.line-1b": 0,
+        "schedule-d.line-2": 0,
+        "schedule-d.line-3": 0,
+        "schedule-d.line-7": 1000,
+        "schedule-d.line-8a": 0,
+        "schedule-d.line-8b": 0,
+        "schedule-d.line-9": 0,
+        "schedule-d.line-10": 0,
+        "schedule-d.line-15": 0,
+        "schedule-d.line-16": 1000,
+        "schedule-d.line-21": 0,
+        "form1040.line-7a": 1000,
+        "form1040.line-15": 35250,
+        "form1040.line-16": 3995,
+        "form1040.line-24": 3995,
+        "form1040.line-33": 4500,
+        "form1040.line-34": 505,
+        "form1040.line-37": 0
+      },
+      "result": {
+        "outcome": "success",
+        "stop": "saturated",
+        "disposition": "published",
+        "lines": {
+          "form1040.line-15": 35250,
+          "form1040.line-16": 3995,
+          "form1040.line-24": 3995,
+          "form1040.line-33": 4500,
+          "form1040.line-34": 505,
+          "form1040.line-37": 0,
+          "form1040.line-7a": 1000,
+          "schedule-d.line-10": 0,
+          "schedule-d.line-15": 0,
+          "schedule-d.line-16": 1000,
+          "schedule-d.line-1a": 1000,
+          "schedule-d.line-1b": 0,
+          "schedule-d.line-2": 0,
+          "schedule-d.line-21": 0,
+          "schedule-d.line-3": 0,
+          "schedule-d.line-7": 1000,
+          "schedule-d.line-8a": 0,
+          "schedule-d.line-8b": 0,
+          "schedule-d.line-9": 0
+        },
+        "explains": {
+          "form1040.line-15": {
+            "explain": "Your taxable income is line 11a minus line 14, and not below zero.",
+            "reasons": []
+          },
+          "form1040.line-16": {
+            "explain": "Your tax is the tax on your taxable income when you have no qualified dividends and no preferential capital gain. Otherwise it is the tax from the Qualified Dividends and Capital Gain Tax Worksheet.",
+            "reasons": []
+          },
+          "form1040.line-24": {
+            "explain": "Form 1040 line 24 equals line 22 plus line 23.",
+            "reasons": []
+          },
+          "form1040.line-33": {
+            "explain": "Form 1040 line 33 equals line 25d plus line 26 plus line 32.",
+            "reasons": []
+          },
+          "form1040.line-34": {
+            "explain": "Form 1040 line 34 equals line 33 minus line 24 when larger, else zero.",
+            "reasons": []
+          },
+          "form1040.line-37": {
+            "explain": "Form 1040 line 37 publishes a computed zero.",
+            "reasons": []
+          },
+          "form1040.line-7a": {
+            "explain": "A current derived finding publishes this capital-gain distributions amount on the direct line-7a route.",
+            "reasons": []
+          },
+          "schedule-d.line-10": {
+            "explain": "Schedule D line 10, column (h), is zero. Either no long-term sale you received no Form 1099-B for is recorded and your Form 8949 answers confirm it, or your box F proceeds, basis, and adjustments net to zero.",
+            "reasons": []
+          },
+          "schedule-d.line-15": {
+            "explain": "Schedule D line 15 is zero because lines 8a, 8b, 9, 10, 13, and 14 add to zero.",
+            "reasons": []
+          },
+          "schedule-d.line-16": {
+            "explain": "A current derived finding publishes line 16 equal to line 7 plus line 15.",
+            "reasons": []
+          },
+          "schedule-d.line-1a": {
+            "explain": "Schedule D line 1a, column (h), is short-term proceeds minus basis for the sales you report directly on Schedule D.",
+            "reasons": []
+          },
+          "schedule-d.line-1b": {
+            "explain": "You said you have no short-term Form 8949 box A sales with a wash-sale adjustment or a wrong reported basis, so Schedule D line 1b, column (h), is zero.",
+            "reasons": []
+          },
+          "schedule-d.line-2": {
+            "explain": "Schedule D line 2, column (h), is zero. No short-term sale whose basis was not reported to the IRS is recorded, and your answer about those sales confirms the list is complete.",
+            "reasons": []
+          },
+          "schedule-d.line-21": {
+            "explain": "Schedule D line 21 is zero because line 16 is zero or a gain.",
+            "reasons": []
+          },
+          "schedule-d.line-3": {
+            "explain": "Schedule D line 3, column (h), is zero. Either no short-term sale you received no Form 1099-B for is recorded and your Form 8949 answers confirm it, or your box C proceeds, basis, and adjustments net to zero.",
+            "reasons": []
+          },
+          "schedule-d.line-7": {
+            "explain": "Schedule D line 7 adds lines 1a, 1b, 2, 3, and 6.",
+            "reasons": []
+          },
+          "schedule-d.line-8a": {
+            "explain": "You said you have no long-term sales reported directly on Schedule D, so line 8a, column (h), is zero.",
+            "reasons": []
+          },
+          "schedule-d.line-8b": {
+            "explain": "You said you have no long-term Form 8949 box D sales with a wash-sale adjustment or a wrong reported basis, so Schedule D line 8b, column (h), is zero.",
+            "reasons": []
+          },
+          "schedule-d.line-9": {
+            "explain": "Schedule D line 9, column (h), is zero. No long-term sale whose basis was not reported to the IRS is recorded, and your answer about those sales confirms the list is complete.",
+            "reasons": []
+          }
+        },
+        "questions": [],
+        "blocked": [],
+        "f8949_parts": [],
+        "code_l_part": false
+      },
+      "comparison": {
+        "matches_instruction": true,
+        "disposition": "published",
+        "code_l_part": false,
+        "diffs": []
+      }
+    },
+    {
+      "id": "sale_removed",
+      "note": "Box 7 yes, then the only sale is removed. Nothing remains to disallow.",
+      "instruction_settled": true,
+      "form_8949_rows": [],
+      "hand": {
+        "schedule-d.line-1a": 0,
+        "schedule-d.line-1b": 0,
+        "schedule-d.line-2": 0,
+        "schedule-d.line-3": 0,
+        "schedule-d.line-7": 0,
+        "schedule-d.line-8a": 0,
+        "schedule-d.line-8b": 0,
+        "schedule-d.line-9": 0,
+        "schedule-d.line-10": 0,
+        "schedule-d.line-15": 0,
+        "schedule-d.line-16": 0,
+        "schedule-d.line-21": 0,
+        "form1040.line-7a": 0,
+        "form1040.line-15": 34250,
+        "form1040.line-16": 3875,
+        "form1040.line-24": 3875,
+        "form1040.line-33": 4500,
+        "form1040.line-34": 625,
+        "form1040.line-37": 0
+      },
+      "result": {
+        "outcome": "success",
+        "stop": "saturated",
+        "disposition": "published",
+        "lines": {
+          "form1040.line-15": 34250,
+          "form1040.line-16": 3875,
+          "form1040.line-24": 3875,
+          "form1040.line-33": 4500,
+          "form1040.line-34": 625,
+          "form1040.line-37": 0,
+          "form1040.line-7a": 0,
+          "schedule-d.line-10": 0,
+          "schedule-d.line-15": 0,
+          "schedule-d.line-16": 0,
+          "schedule-d.line-1a": 0,
+          "schedule-d.line-1b": 0,
+          "schedule-d.line-2": 0,
+          "schedule-d.line-21": 0,
+          "schedule-d.line-3": 0,
+          "schedule-d.line-7": 0,
+          "schedule-d.line-8a": 0,
+          "schedule-d.line-8b": 0,
+          "schedule-d.line-9": 0
+        },
+        "explains": {
+          "form1040.line-15": {
+            "explain": "Your taxable income is line 11a minus line 14, and not below zero.",
+            "reasons": []
+          },
+          "form1040.line-16": {
+            "explain": "Your tax is the tax on your taxable income when you have no qualified dividends and no preferential capital gain. Otherwise it is the tax from the Qualified Dividends and Capital Gain Tax Worksheet.",
+            "reasons": []
+          },
+          "form1040.line-24": {
+            "explain": "Form 1040 line 24 equals line 22 plus line 23.",
+            "reasons": []
+          },
+          "form1040.line-33": {
+            "explain": "Form 1040 line 33 equals line 25d plus line 26 plus line 32.",
+            "reasons": []
+          },
+          "form1040.line-34": {
+            "explain": "Form 1040 line 34 equals line 33 minus line 24 when larger, else zero.",
+            "reasons": []
+          },
+          "form1040.line-37": {
+            "explain": "Form 1040 line 37 publishes a computed zero.",
+            "reasons": []
+          },
+          "form1040.line-7a": {
+            "explain": "A current derived finding publishes a computed zero from present box-2a findings that sum to zero under Exception-1 eligibility.",
+            "reasons": []
+          },
+          "schedule-d.line-10": {
+            "explain": "Schedule D line 10, column (h), is zero. Either no long-term sale you received no Form 1099-B for is recorded and your Form 8949 answers confirm it, or your box F proceeds, basis, and adjustments net to zero.",
+            "reasons": []
+          },
+          "schedule-d.line-15": {
+            "explain": "Schedule D line 15 is zero because lines 8a, 8b, 9, 10, 13, and 14 add to zero.",
+            "reasons": []
+          },
+          "schedule-d.line-16": {
+            "explain": "Schedule D line 16 is zero because lines 7 and 15 add to zero.",
+            "reasons": []
+          },
+          "schedule-d.line-1a": {
+            "explain": "You said you have no short-term sales reported directly on Schedule D, so line 1a, column (h), is zero.",
+            "reasons": []
+          },
+          "schedule-d.line-1b": {
+            "explain": "You said you have no short-term Form 8949 box A sales with a wash-sale adjustment or a wrong reported basis, so Schedule D line 1b, column (h), is zero.",
+            "reasons": []
+          },
+          "schedule-d.line-2": {
+            "explain": "Schedule D line 2, column (h), is zero. No short-term sale whose basis was not reported to the IRS is recorded, and your answer about those sales confirms the list is complete.",
+            "reasons": []
+          },
+          "schedule-d.line-21": {
+            "explain": "Schedule D line 21 is zero because line 16 is zero or a gain.",
+            "reasons": []
+          },
+          "schedule-d.line-3": {
+            "explain": "Schedule D line 3, column (h), is zero. Either no short-term sale you received no Form 1099-B for is recorded and your Form 8949 answers confirm it, or your box C proceeds, basis, and adjustments net to zero.",
+            "reasons": []
+          },
+          "schedule-d.line-7": {
+            "explain": "Schedule D line 7 is zero because lines 1a, 1b, 2, 3, and 6 add to zero.",
+            "reasons": []
+          },
+          "schedule-d.line-8a": {
+            "explain": "You said you have no long-term sales reported directly on Schedule D, so line 8a, column (h), is zero.",
+            "reasons": []
+          },
+          "schedule-d.line-8b": {
+            "explain": "You said you have no long-term Form 8949 box D sales with a wash-sale adjustment or a wrong reported basis, so Schedule D line 8b, column (h), is zero.",
+            "reasons": []
+          },
+          "schedule-d.line-9": {
+            "explain": "Schedule D line 9, column (h), is zero. No long-term sale whose basis was not reported to the IRS is recorded, and your answer about those sales confirms the list is complete.",
+            "reasons": []
+          }
+        },
+        "questions": [],
+        "blocked": [],
+        "f8949_parts": [],
+        "code_l_part": false
+      },
+      "comparison": {
+        "matches_instruction": true,
+        "disposition": "published",
+        "code_l_part": false,
+        "diffs": []
+      }
+    },
+    {
+      "id": "box7_yes_superseded_to_no",
+      "note": "Box 7 answered yes, then superseded to no, on one covered short-term loss. The current answer allows the loss.",
+      "instruction_settled": true,
+      "form_8949_rows": [],
+      "hand": {
+        "schedule-d.line-1a": -1000,
+        "schedule-d.line-1b": 0,
+        "schedule-d.line-2": 0,
+        "schedule-d.line-3": 0,
+        "schedule-d.line-7": -1000,
+        "schedule-d.line-8a": 0,
+        "schedule-d.line-8b": 0,
+        "schedule-d.line-9": 0,
+        "schedule-d.line-10": 0,
+        "schedule-d.line-15": 0,
+        "schedule-d.line-16": -1000,
+        "schedule-d.line-21": 1000,
+        "form1040.line-7a": -1000,
+        "form1040.line-15": 33250,
+        "form1040.line-16": 3755,
+        "form1040.line-24": 3755,
+        "form1040.line-33": 4500,
+        "form1040.line-34": 745,
+        "form1040.line-37": 0
+      },
+      "result": {
+        "outcome": "success",
+        "stop": "saturated",
+        "disposition": "published",
+        "lines": {
+          "form1040.line-15": 33250,
+          "form1040.line-16": 3755,
+          "form1040.line-24": 3755,
+          "form1040.line-33": 4500,
+          "form1040.line-34": 745,
+          "form1040.line-37": 0,
+          "form1040.line-7a": -1000,
+          "schedule-d.line-10": 0,
+          "schedule-d.line-15": 0,
+          "schedule-d.line-16": -1000,
+          "schedule-d.line-1a": -1000,
+          "schedule-d.line-1b": 0,
+          "schedule-d.line-2": 0,
+          "schedule-d.line-21": 1000,
+          "schedule-d.line-3": 0,
+          "schedule-d.line-7": -1000,
+          "schedule-d.line-8a": 0,
+          "schedule-d.line-8b": 0,
+          "schedule-d.line-9": 0
+        },
+        "explains": {
+          "form1040.line-15": {
+            "explain": "Your taxable income is line 11a minus line 14, and not below zero.",
+            "reasons": []
+          },
+          "form1040.line-16": {
+            "explain": "Your tax is the tax on your taxable income when you have no qualified dividends and no preferential capital gain. Otherwise it is the tax from the Qualified Dividends and Capital Gain Tax Worksheet.",
+            "reasons": []
+          },
+          "form1040.line-24": {
+            "explain": "Form 1040 line 24 equals line 22 plus line 23.",
+            "reasons": []
+          },
+          "form1040.line-33": {
+            "explain": "Form 1040 line 33 equals line 25d plus line 26 plus line 32.",
+            "reasons": []
+          },
+          "form1040.line-34": {
+            "explain": "Form 1040 line 34 equals line 33 minus line 24 when larger, else zero.",
+            "reasons": []
+          },
+          "form1040.line-37": {
+            "explain": "Form 1040 line 37 publishes a computed zero.",
+            "reasons": []
+          },
+          "form1040.line-7a": {
+            "explain": "A current derived finding publishes this capital-gain distributions amount on the direct line-7a route.",
+            "reasons": []
+          },
+          "schedule-d.line-10": {
+            "explain": "Schedule D line 10, column (h), is zero. Either no long-term sale you received no Form 1099-B for is recorded and your Form 8949 answers confirm it, or your box F proceeds, basis, and adjustments net to zero.",
+            "reasons": []
+          },
+          "schedule-d.line-15": {
+            "explain": "Schedule D line 15 is zero because lines 8a, 8b, 9, 10, 13, and 14 add to zero.",
+            "reasons": []
+          },
+          "schedule-d.line-16": {
+            "explain": "A current derived finding publishes line 16 equal to line 7 plus line 15.",
+            "reasons": []
+          },
+          "schedule-d.line-1a": {
+            "explain": "Schedule D line 1a, column (h), is short-term proceeds minus basis for the sales you report directly on Schedule D.",
+            "reasons": []
+          },
+          "schedule-d.line-1b": {
+            "explain": "You said you have no short-term Form 8949 box A sales with a wash-sale adjustment or a wrong reported basis, so Schedule D line 1b, column (h), is zero.",
+            "reasons": []
+          },
+          "schedule-d.line-2": {
+            "explain": "Schedule D line 2, column (h), is zero. No short-term sale whose basis was not reported to the IRS is recorded, and your answer about those sales confirms the list is complete.",
+            "reasons": []
+          },
+          "schedule-d.line-21": {
+            "explain": "Schedule D line 21 is the capital loss you can deduct this year, after the yearly limit.",
+            "reasons": []
+          },
+          "schedule-d.line-3": {
+            "explain": "Schedule D line 3, column (h), is zero. Either no short-term sale you received no Form 1099-B for is recorded and your Form 8949 answers confirm it, or your box C proceeds, basis, and adjustments net to zero.",
+            "reasons": []
+          },
+          "schedule-d.line-7": {
+            "explain": "Schedule D line 7 adds lines 1a, 1b, 2, 3, and 6.",
+            "reasons": []
+          },
+          "schedule-d.line-8a": {
+            "explain": "You said you have no long-term sales reported directly on Schedule D, so line 8a, column (h), is zero.",
+            "reasons": []
+          },
+          "schedule-d.line-8b": {
+            "explain": "You said you have no long-term Form 8949 box D sales with a wash-sale adjustment or a wrong reported basis, so Schedule D line 8b, column (h), is zero.",
+            "reasons": []
+          },
+          "schedule-d.line-9": {
+            "explain": "Schedule D line 9, column (h), is zero. No long-term sale whose basis was not reported to the IRS is recorded, and your answer about those sales confirms the list is complete.",
+            "reasons": []
+          }
+        },
+        "questions": [],
+        "blocked": [],
+        "f8949_parts": [],
+        "code_l_part": false
+      },
+      "comparison": {
+        "matches_instruction": true,
+        "disposition": "published",
+        "code_l_part": false,
+        "diffs": []
+      }
+    }
+  ]
+}

@@ -1,0 +1,99 @@
+{
+  "tax_year": 2025,
+  "extract": "Instruction line numbers are from pdftotext -layout. The Form 1099-B line numbers are from pdftotext in reading order, because layout splits the recipient Box 7 sentence at a page boundary.",
+  "sources": [
+    {
+      "document": "2025 Form 1099-B",
+      "sha256": "7e334cea66c2b2be3d88615a56db288a2805cb8705076b3b282a4eabbbd788ad"
+    },
+    {
+      "document": "2025 Instructions for Form 1099-B",
+      "sha256": "55bbe7df46f43f2c305481f303bc9e6518f5874766a2d183f2cb14dc0b91d745"
+    },
+    {
+      "document": "2025 Form 8949",
+      "sha256": "274513891e4e281d11e14286f14b9df724c24b6030fca0f0681da64fb2e7f525"
+    },
+    {
+      "document": "2025 Instructions for Form 8949",
+      "sha256": "f077991c83b086810c46cbad3755e0f126cb8dfd88cf8bf8ab2d5605d6e7ab45"
+    },
+    {
+      "document": "2025 Schedule D (Form 1040)",
+      "sha256": "90564c8b7e49280363612639b804d113ebedb516c2e87c70649f29c844da1d2e"
+    },
+    {
+      "document": "2025 Instructions for Schedule D (Form 1040)",
+      "sha256": "650643a686378b7573e4f4476ee4e7c9f9bab1384314dca32dc336f7b2276002"
+    }
+  ],
+  "quotes": [
+    {
+      "source": "2025 Form 1099-B, Copy B, box 7",
+      "lines": "240-241",
+      "text": "7 If checked, loss is not allowed based on amount in 1d"
+    },
+    {
+      "source": "2025 Form 1099-B, Instructions for Recipient, Box 7",
+      "lines": "633-638",
+      "text": "Box 7. If checked, you cannot take a loss on your tax return based on gross proceeds from a reportable change in control or capital structure reported in box 1d. See the Form 8949 and Schedule D (Form 1040) instructions. The broker should advise you of any losses on a separate statement."
+    },
+    {
+      "source": "2025 Instructions for Form 1099-B, Acquisition of control or substantial change in capital structure",
+      "lines": "203-206",
+      "text": "Enter in box 1d the aggregate amount of cash and the fair market value (FMV) of any stock and other property received in exchange for stock held in your custody. Also, check box 7."
+    },
+    {
+      "source": "2025 Instructions for Form 1099-B, same section, combined reporting",
+      "lines": "215-229",
+      "text": "Leave the other numbered boxes and the CUSIP number box blank unless you are required to file a Form 1099-B to report proceeds you paid to the customer from the acquisition of control or substantial change in capital structure and you choose to file and furnish one Form 1099-B for amounts reported under both Regulations sections 1.6045-1 and 1.6045-3. If you choose to combine the reporting for both, do not combine other transactions the customer may have had during the year with the reporting of the acquisition of control or change in capital structure. Also, in box 1e, report the total basis of the customer's stock. Do not enter an amount in box 1e that is greater than the amount entered in box 1d."
+    },
+    {
+      "source": "2025 Instructions for Form 1099-B, Box 7",
+      "lines": "795-799",
+      "text": "Box 7. Check if Loss Not Allowed Based on Amount in Box 1d. See Acquisition of control or substantial change in capital structure, earlier."
+    },
+    {
+      "source": "2025 Instructions for Form 8949, Column (f)—Code",
+      "lines": "504-508",
+      "text": "In order to explain any adjustment to gain (or loss) in column (g), enter the appropriate code(s) in column (f). See How To Complete Form 8949, Columns (f) and (g), later. If more than one code applies, enter all the codes that apply in alphabetical order (for example, \"BOQ\"). Don't separate the codes by a space or comma."
+    },
+    {
+      "source": "2025 Instructions for Form 8949, Column (g)—Amount of Adjustment, and More than one code",
+      "lines": "515-524",
+      "text": "Enter in this column any necessary adjustments to gain (or loss). Enter negative amounts in parentheses. Also, enter a code in column (f) to explain the adjustment. See How To Complete Form 8949, Columns (f) and (g), later. More than one code. If you entered more than one code in column (f) on the same row, enter the net adjustment in column (g). For example, if one adjustment is $5,000 and another is ($1,000), enter $4,000 ($5,000 − $1,000)."
+    },
+    {
+      "source": "2025 Instructions for Form 8949, code L row",
+      "lines": "603-607",
+      "text": "You have a nondeductible loss other than a loss indicated by code W. L. Report the sale or exchange on Form 8949 and enter the amount of the nondeductible loss as a positive number in column (g). See Certain Nondeductible Losses in the Instructions for Schedule D (Form 1040)."
+    },
+    {
+      "source": "2025 Instructions for Form 8949, Column (h)—Gain (or Loss)",
+      "lines": "717-725",
+      "text": "Figure gain (or loss) on each row. First, subtract the cost or other basis in column (e) from the proceeds (sales price) in column (d). Then take into account any adjustments in column (g). Enter the gain (or loss) in column (h). Enter negative amounts in parentheses."
+    },
+    {
+      "source": "2025 Instructions for Schedule D (Form 1040), Capital Losses",
+      "lines": "184-188",
+      "text": "You can deduct capital losses up to the amount of your capital gains plus $3,000 ($1,500 if married filing separately)."
+    },
+    {
+      "source": "2025 Instructions for Schedule D (Form 1040), Certain Nondeductible Losses",
+      "lines": "232-249",
+      "text": "Loss from the sale or exchange of a capital asset held for personal use isn't deductible. ... Report a transaction that results in a nondeductible loss in Part I or Part II of Form 8949 (depending on how long you held the property). ... Because the loss isn't deductible, enter \"L\" in column (f). Enter the amount of the nondeductible loss as a positive number in column (g). Complete column (h)."
+    },
+    {
+      "source": "2025 Instructions for Schedule D (Form 1040), Example 2",
+      "lines": "287-305",
+      "text": "You received a Form 1099-B or Form 1099-DA. It shows proceeds (in box 1d on Form 1099-B or box 1f on Form 1099-DA) of $1,000 and basis (in box 1e on Form 1099-B or box 1g on Form 1099-DA) of $5,000. Box 7 on Form 1099-B or box 5 on Form 1099-DA is checked, indicating that your loss of $4,000 isn't allowed. If you received a Form 1099-B, on the top of Form 8949, check box A or box B in Part I or box D or box E in Part II (whichever applies). Enter $1,000 in column (d) and $5,000 in column (e). Because the loss isn't deductible, enter \"L\" in column (f) and $4,000 (the difference between $1,000 and $5,000) in column (g). In column (h), enter -0- ($1,000 − $5,000 + $4,000)."
+    }
+  ],
+  "reading": {
+    "wholly_disallowed": "Yes. Example 2 treats the whole difference between the basis shown and the proceeds as not allowed. Column (g) is that whole difference as a positive number, and column (h) is zero. No sentence describes an allowed portion of a box 7 loss.",
+    "what_can_be_allowed": "A gain on a checked statement is not a loss, so the recipient instruction does not disallow it. Column (h) of exactly zero is not a loss. A loss on a different statement whose box 7 is not checked is allowed, subject to the $3,000 capital-loss limit. A code B correction that removes the loss leaves no nondeductible loss to code L. The instructions do not give a separate question that lets the filer allow part of a box 7 loss.",
+    "code_w_and_code_b": "Code L applies to a nondeductible loss other than a loss indicated by code W. More than one code goes in column (f) in alphabetical order, and column (g) is the net adjustment. The instructions do not show a row that is both code W, or code B, and code L. That arithmetic is a foreman decision, recorded in p0.md.",
+    "separate_statement": "The broker should advise the filer of any losses on a separate statement, and a combined statement must not show box 1e greater than box 1d. Example 2 still reports a statement that shows both amounts and a loss. The separate statement is how the filer learns the nondeductible amount. It is not an allowed portion, and Example 2 does not ask the filer for a second number.",
+    "no_new_amount_question": "For Example 2 the code L amount is basis shown minus proceeds. It follows from amounts the return already records, plus the existing box 7 answer."
+  }
+}
