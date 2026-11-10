@@ -1,0 +1,117 @@
+{
+  "schema": "rule-artifact.v15",
+  "id": "tax.us.2025.rule.f1099b.covered-lt-txn.box7-loss-check",
+  "version": "v1",
+  "scope": {
+    "tax_year": 2025,
+    "jurisdiction": "US-federal",
+    "family": "individual-income-tax"
+  },
+  "role": "computation",
+  "requires": [],
+  "pins": [],
+  "when": true,
+  "selection": {
+    "mode": "exclusive_presence",
+    "conflict": "refuse",
+    "paths": [
+      {
+        "id": "sales",
+        "activity": {
+          "kind": "source_nonempty",
+          "source_family": {
+            "id": "tax.us.2025.f1099b.covered-lt",
+            "version": "v1"
+          },
+          "member_fact_types": [
+            {
+              "id": "tax.us.2025.f1099b.covered-lt-txn",
+              "version": "v1"
+            }
+          ]
+        },
+        "reads_subject_results": [
+          {
+            "symbol": "tax.us.2025.f1099b.covered-lt-txn.box7-verdict",
+            "subject": {
+              "id": "tax.us.2025.f1099b.covered-lt-txn",
+              "version": "v1"
+            }
+          }
+        ],
+        "requires": [],
+        "pins": [],
+        "when": {
+          "op": "require_paired",
+          "key": "statement",
+          "withholding": "tax.us.2025.f1099b.statement-box7-loss-not-allowed",
+          "income": [
+            "tax.us.2025.f1099b.covered-lt-txn"
+          ]
+        },
+        "value": {
+          "op": "choose",
+          "when": {
+            "op": "collect_categorical_all_equal",
+            "name": "tax.us.2025.f1099b.covered-lt-txn.box7-verdict",
+            "value": {
+              "op": "category_literal",
+              "fact_type": {
+                "id": "tax.us.2025.f1099b.box7-sale-verdict",
+                "version": "v1"
+              },
+              "value": "clear"
+            }
+          },
+          "then": 0,
+          "else": {
+            "op": "block",
+            "code": "DEPENDENCY_ABSENT"
+          }
+        }
+      },
+      {
+        "id": "inert",
+        "activity": {
+          "kind": "source_nonempty",
+          "member_fact_types": [
+            {
+              "id": "tax.us.2025.f1099b.box7-loss-check-inert-path-unwritten",
+              "version": "v1"
+            }
+          ]
+        },
+        "reads_subject_results": [],
+        "requires": [],
+        "pins": [],
+        "when": true,
+        "value": {
+          "op": "block",
+          "code": "DEPENDENCY_ABSENT"
+        }
+      }
+    ],
+    "default": {
+      "id": "neither",
+      "reads_subject_results": [],
+      "requires": [],
+      "pins": [],
+      "when": true,
+      "value": 0
+    },
+    "refusal": {
+      "code": "DEPENDENCY_INVALID",
+      "missing": [
+        "f1099b.covered-lt-box7-loss-check-conflict"
+      ],
+      "pins": []
+    }
+  },
+  "publishes": "tax.us.2025.f1099b.covered-lt-txn.box7-loss-check",
+  "blocked": {
+    "code": "DEPENDENCY_ABSENT",
+    "missing": []
+  },
+  "citations": [],
+  "notes": "Publishes 0 when every sale in this family is clear, and when the family is empty. Blocks with nothing missing when a sale is disallowed, so Schedule D line 16 stays unpublished and the form-field explanation is the sentence. An unanswered box 7 blocks here and names the box 7 fact, so the existing question is asked."
+}

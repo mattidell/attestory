@@ -1,0 +1,96 @@
+{
+  "schema": "rule-artifact.v15",
+  "id": "tax.us.2025.rule.f1099b.code-b-lt-txn.box7-verdict",
+  "version": "v1",
+  "scope": {
+    "tax_year": 2025,
+    "jurisdiction": "US-federal",
+    "family": "individual-income-tax"
+  },
+  "role": "computation",
+  "subject": {
+    "id": "tax.us.2025.f1099b.code-b-lt-txn",
+    "version": "v1"
+  },
+  "requires": [
+    "tax.us.2025.f1099b.code-b-lt-txn",
+    "tax.us.2025.f1099b.statement-box7-loss-not-allowed"
+  ],
+  "pins": [],
+  "when": true,
+  "value": {
+    "op": "choose",
+    "when": {
+      "op": "all",
+      "args": [
+        {
+          "op": "categorical_compare",
+          "cmp": "eq",
+          "left": {
+            "op": "ref",
+            "name": "tax.us.2025.f1099b.statement-box7-loss-not-allowed"
+          },
+          "right": {
+            "op": "category_literal",
+            "fact_type": {
+              "id": "tax.us.2025.f1099b.statement-box7-loss-not-allowed",
+              "version": "v1"
+            },
+            "value": "yes"
+          }
+        },
+        {
+          "op": "compare",
+          "cmp": "lt",
+          "left": {
+            "op": "add",
+            "args": [
+              {
+                "op": "subtract",
+                "left": {
+                  "op": "ref",
+                  "name": "tax.us.2025.f1099b.code-b-lt-txn",
+                  "field": "proceeds"
+                },
+                "right": {
+                  "op": "ref",
+                  "name": "tax.us.2025.f1099b.code-b-lt-txn",
+                  "field": "corrected_basis"
+                }
+              },
+              {
+                "op": "ref",
+                "name": "tax.us.2025.f1099b.code-b-lt-txn",
+                "field": "wash_disallowed"
+              }
+            ]
+          },
+          "right": 0
+        }
+      ]
+    },
+    "then": {
+      "op": "category_literal",
+      "fact_type": {
+        "id": "tax.us.2025.f1099b.box7-sale-verdict",
+        "version": "v1"
+      },
+      "value": "disallowed"
+    },
+    "else": {
+      "op": "category_literal",
+      "fact_type": {
+        "id": "tax.us.2025.f1099b.box7-sale-verdict",
+        "version": "v1"
+      },
+      "value": "clear"
+    }
+  },
+  "publishes": "tax.us.2025.f1099b.code-b-lt-txn.box7-verdict",
+  "blocked": {
+    "code": "DEPENDENCY_ABSENT",
+    "missing": []
+  },
+  "citations": [],
+  "notes": "One verdict per sale. disallowed when this sale's statement has box 7 checked and column (h) is strictly below zero. clear for a gain, for zero, and when box 7 is no. An unanswered box 7 blocks this sale and names the box 7 fact. Column (h) is read from the sale object, including a wash amount of zero."
+}

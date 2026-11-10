@@ -1,0 +1,227 @@
+{
+  "core": {
+    "package": "v83",
+    "registry": "v81",
+    "release": "v81"
+  },
+  "fact": {
+    "id": "tax.us.2025.f1099b.statement-box7-loss-not-allowed",
+    "version": "v1",
+    "identity_keys": [
+      "statement",
+      "tax-year"
+    ],
+    "values": [
+      "yes",
+      "no"
+    ]
+  },
+  "question": {
+    "id": "tax.us.2025.input-question.f1099b-statement-box7-loss-not-allowed",
+    "version": "v1",
+    "adopted_on_v83": true,
+    "text": "For each Form 1099-B or substitute statement you recorded a sale from, is box 7 (\"If checked, loss is not allowed based on amount in 1d\") checked for any sale on it?",
+    "changes_in_the_recommended_design": false
+  },
+  "rules_that_read_the_answer": [
+    {
+      "id": "tax.us.2025.rule.schedule-d-line16",
+      "version": "v3",
+      "adopted_on_v83": true,
+      "publishes": "tax.us.2025.schedule-d.line-16"
+    }
+  ],
+  "loader_entries_that_read_the_answer": [],
+  "loader_pairs_that_mention_some_other_box7": [
+    {
+      "row": "tax.us.2025.f1099div.box7-foreign-tax-paid",
+      "companions": [
+        "tax.us.2025.f1099div.box8-country-companion",
+        "tax.us.2025.f1099div.box1a-ordinary"
+      ]
+    }
+  ],
+  "covered_flag_refusal_tokens_for_box7": [],
+  "sale_families": [
+    {
+      "family": "tax.us.2025.f1099b.covered-st",
+      "family_version_on_v83": "v1",
+      "txn": "tax.us.2025.f1099b.covered-st-txn",
+      "txn_version": "v1",
+      "txn_lives_in": "tax.us.2025.f1099b.covered-st.vocabulary v1",
+      "txn_is_its_own_package_member": false,
+      "object_fields_a_loss_test_reads": [
+        "proceeds",
+        "basis"
+      ],
+      "scalar_rows": [],
+      "scalar_note": "Covered rows with no wash have no adjustment scalar.",
+      "column_h": "proceeds - basis",
+      "schedule_d_line": "1a",
+      "line_rule": "tax.us.2025.rule.schedule-d-line1a-gain",
+      "line_rule_version_on_v83": "v6"
+    },
+    {
+      "family": "tax.us.2025.f1099b.covered-lt",
+      "family_version_on_v83": "v1",
+      "txn": "tax.us.2025.f1099b.covered-lt-txn",
+      "txn_version": "v1",
+      "txn_lives_in": "tax.us.2025.f1099b.covered-lt.vocabulary v1",
+      "txn_is_its_own_package_member": false,
+      "object_fields_a_loss_test_reads": [
+        "proceeds",
+        "basis"
+      ],
+      "scalar_rows": [],
+      "scalar_note": "Covered rows with no wash have no adjustment scalar.",
+      "column_h": "proceeds - basis",
+      "schedule_d_line": "8a",
+      "line_rule": "tax.us.2025.rule.schedule-d-line8a-gain",
+      "line_rule_version_on_v83": "v7"
+    },
+    {
+      "family": "tax.us.2025.f1099b.covered-w-st",
+      "family_version_on_v83": "v2",
+      "txn": "tax.us.2025.f1099b.covered-w-st-txn",
+      "txn_version": "v1",
+      "txn_lives_in": "tax.us.2025.f1099b.covered-w-st.vocabulary v1",
+      "txn_is_its_own_package_member": false,
+      "object_fields_a_loss_test_reads": [
+        "proceeds",
+        "basis",
+        "box_1g_wash_sale_disallowed_amount"
+      ],
+      "scalar_rows": [
+        "tax.us.2025.f1099b.covered-w-st-txn.proceeds",
+        "tax.us.2025.f1099b.covered-w-st-txn.basis",
+        "tax.us.2025.f1099b.covered-w-st-txn.adjustment"
+      ],
+      "scalar_note": "The wash amount is its own object field and is always recorded, including zero.",
+      "column_h": "proceeds - basis + box_1g_wash_sale_disallowed_amount",
+      "schedule_d_line": "1b",
+      "line_rule": "tax.us.2025.rule.schedule-d-line1b",
+      "line_rule_version_on_v83": "v3"
+    },
+    {
+      "family": "tax.us.2025.f1099b.covered-w-lt",
+      "family_version_on_v83": "v2",
+      "txn": "tax.us.2025.f1099b.covered-w-lt-txn",
+      "txn_version": "v1",
+      "txn_lives_in": "tax.us.2025.f1099b.covered-w-lt.vocabulary v1",
+      "txn_is_its_own_package_member": false,
+      "object_fields_a_loss_test_reads": [
+        "proceeds",
+        "basis",
+        "box_1g_wash_sale_disallowed_amount"
+      ],
+      "scalar_rows": [
+        "tax.us.2025.f1099b.covered-w-lt-txn.proceeds",
+        "tax.us.2025.f1099b.covered-w-lt-txn.basis",
+        "tax.us.2025.f1099b.covered-w-lt-txn.adjustment"
+      ],
+      "scalar_note": "The wash amount is its own object field and is always recorded, including zero.",
+      "column_h": "proceeds - basis + box_1g_wash_sale_disallowed_amount",
+      "schedule_d_line": "8b",
+      "line_rule": "tax.us.2025.rule.schedule-d-line8b",
+      "line_rule_version_on_v83": "v3"
+    },
+    {
+      "family": "tax.us.2025.f1099b.noncovered-st",
+      "family_version_on_v83": "v1",
+      "txn": "tax.us.2025.f1099b.noncovered-st-txn",
+      "txn_version": "v1",
+      "txn_lives_in": "tax.us.2025.f1099b.noncovered-st.vocabulary v1",
+      "txn_is_its_own_package_member": false,
+      "object_fields_a_loss_test_reads": [
+        "proceeds",
+        "basis",
+        "wash_disallowed"
+      ],
+      "scalar_rows": [
+        "tax.us.2025.f1099b.noncovered-st-txn.proceeds",
+        "tax.us.2025.f1099b.noncovered-st-txn.basis",
+        "tax.us.2025.f1099b.noncovered-st-txn.adjustment"
+      ],
+      "scalar_note": "The noncovered adjustment row is omitted when the wash amount is zero. The loss test reads the sale object, which always carries wash_disallowed.",
+      "column_h": "proceeds - basis + wash_disallowed",
+      "schedule_d_line": "2",
+      "line_rule": "tax.us.2025.rule.schedule-d-line2",
+      "line_rule_version_on_v83": "v3"
+    },
+    {
+      "family": "tax.us.2025.f1099b.noncovered-lt",
+      "family_version_on_v83": "v1",
+      "txn": "tax.us.2025.f1099b.noncovered-lt-txn",
+      "txn_version": "v1",
+      "txn_lives_in": "tax.us.2025.f1099b.noncovered-lt.vocabulary v1",
+      "txn_is_its_own_package_member": false,
+      "object_fields_a_loss_test_reads": [
+        "proceeds",
+        "basis",
+        "wash_disallowed"
+      ],
+      "scalar_rows": [
+        "tax.us.2025.f1099b.noncovered-lt-txn.proceeds",
+        "tax.us.2025.f1099b.noncovered-lt-txn.basis",
+        "tax.us.2025.f1099b.noncovered-lt-txn.adjustment"
+      ],
+      "scalar_note": "The noncovered adjustment row is omitted when the wash amount is zero. The loss test reads the sale object, which always carries wash_disallowed.",
+      "column_h": "proceeds - basis + wash_disallowed",
+      "schedule_d_line": "9",
+      "line_rule": "tax.us.2025.rule.schedule-d-line9",
+      "line_rule_version_on_v83": "v3"
+    },
+    {
+      "family": "tax.us.2025.f1099b.code-b-st",
+      "family_version_on_v83": "v1",
+      "txn": "tax.us.2025.f1099b.code-b-st-txn",
+      "txn_version": "v1",
+      "txn_lives_in": "tax.us.2025.f1099b.code-b-st.vocabulary v1",
+      "txn_is_its_own_package_member": false,
+      "object_fields_a_loss_test_reads": [
+        "proceeds",
+        "basis",
+        "corrected_basis",
+        "wash_disallowed"
+      ],
+      "scalar_rows": [
+        "tax.us.2025.f1099b.code-b-st-txn.proceeds",
+        "tax.us.2025.f1099b.code-b-st-txn.basis",
+        "tax.us.2025.f1099b.code-b-st-txn.adjustment"
+      ],
+      "scalar_note": "Code B adjustment scalar is (basis - corrected_basis) + wash, recorded even when zero. Column (h) uses corrected_basis.",
+      "column_h": "proceeds - corrected_basis + wash_disallowed",
+      "schedule_d_line": "1b",
+      "line_rule": "tax.us.2025.rule.schedule-d-line1b",
+      "line_rule_version_on_v83": "v3"
+    },
+    {
+      "family": "tax.us.2025.f1099b.code-b-lt",
+      "family_version_on_v83": "v1",
+      "txn": "tax.us.2025.f1099b.code-b-lt-txn",
+      "txn_version": "v1",
+      "txn_lives_in": "tax.us.2025.f1099b.code-b-lt.vocabulary v1",
+      "txn_is_its_own_package_member": false,
+      "object_fields_a_loss_test_reads": [
+        "proceeds",
+        "basis",
+        "corrected_basis",
+        "wash_disallowed"
+      ],
+      "scalar_rows": [
+        "tax.us.2025.f1099b.code-b-lt-txn.proceeds",
+        "tax.us.2025.f1099b.code-b-lt-txn.basis",
+        "tax.us.2025.f1099b.code-b-lt-txn.adjustment"
+      ],
+      "scalar_note": "Code B adjustment scalar is (basis - corrected_basis) + wash, recorded even when zero. Column (h) uses corrected_basis.",
+      "column_h": "proceeds - corrected_basis + wash_disallowed",
+      "schedule_d_line": "8b",
+      "line_rule": "tax.us.2025.rule.schedule-d-line8b",
+      "line_rule_version_on_v83": "v3"
+    }
+  ],
+  "not_a_1099b_box7_reader": [
+    "tax.us.2025.citation.f1099div.box7 and f1099div.box7.vocabulary are Form 1099-DIV box 7.",
+    "The loader presence pair for f1099div.box7-foreign-tax-paid is not this fact."
+  ]
+}

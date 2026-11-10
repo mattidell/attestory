@@ -132,6 +132,102 @@
       "version": "v1",
       "symbol": "tax.us.2025.f1099b.code-b-lt-txn.amounts-check",
       "reason": "Amount-agreement witness required so column (h) blocks when a code B sale's rows differ from the sale or its column (g) row is not the worksheet result. The witness publishes 0 or blocks; the expression does not read its value (core v81)."
+    },
+    {
+      "rule_id": "tax.us.2025.rule.schedule-d-line16",
+      "version": "v4",
+      "symbol": "tax.us.2025.f1099b.code-b-lt-count",
+      "reason": "Decision 5. Line 16 v4 keeps this sale-count requirement, in the v3 order, so a blocked row names the same unpublished count. The value is line 7 plus line 15 and does not read the count."
+    },
+    {
+      "rule_id": "tax.us.2025.rule.schedule-d-line16",
+      "version": "v4",
+      "symbol": "tax.us.2025.f1099b.code-b-lt-txn.box7-loss-check",
+      "reason": "Decision 5. Line 16 v4 requires this family's box 7 loss check so the line stays unpublished when the check blocks. The value is line 7 plus line 15 and does not read the check. A published check is 0."
+    },
+    {
+      "rule_id": "tax.us.2025.rule.schedule-d-line16",
+      "version": "v4",
+      "symbol": "tax.us.2025.f1099b.code-b-st-count",
+      "reason": "Decision 5. Line 16 v4 keeps this sale-count requirement, in the v3 order, so a blocked row names the same unpublished count. The value is line 7 plus line 15 and does not read the count."
+    },
+    {
+      "rule_id": "tax.us.2025.rule.schedule-d-line16",
+      "version": "v4",
+      "symbol": "tax.us.2025.f1099b.code-b-st-txn.box7-loss-check",
+      "reason": "Decision 5. Line 16 v4 requires this family's box 7 loss check so the line stays unpublished when the check blocks. The value is line 7 plus line 15 and does not read the check. A published check is 0."
+    },
+    {
+      "rule_id": "tax.us.2025.rule.schedule-d-line16",
+      "version": "v4",
+      "symbol": "tax.us.2025.f1099b.covered-lt-count",
+      "reason": "Decision 5. Line 16 v4 keeps this sale-count requirement, in the v3 order, so a blocked row names the same unpublished count. The value is line 7 plus line 15 and does not read the count."
+    },
+    {
+      "rule_id": "tax.us.2025.rule.schedule-d-line16",
+      "version": "v4",
+      "symbol": "tax.us.2025.f1099b.covered-lt-txn.box7-loss-check",
+      "reason": "Decision 5. Line 16 v4 requires this family's box 7 loss check so the line stays unpublished when the check blocks. The value is line 7 plus line 15 and does not read the check. A published check is 0."
+    },
+    {
+      "rule_id": "tax.us.2025.rule.schedule-d-line16",
+      "version": "v4",
+      "symbol": "tax.us.2025.f1099b.covered-st-count",
+      "reason": "Decision 5. Line 16 v4 keeps this sale-count requirement, in the v3 order, so a blocked row names the same unpublished count. The value is line 7 plus line 15 and does not read the count."
+    },
+    {
+      "rule_id": "tax.us.2025.rule.schedule-d-line16",
+      "version": "v4",
+      "symbol": "tax.us.2025.f1099b.covered-st-txn.box7-loss-check",
+      "reason": "Decision 5. Line 16 v4 requires this family's box 7 loss check so the line stays unpublished when the check blocks. The value is line 7 plus line 15 and does not read the check. A published check is 0."
+    },
+    {
+      "rule_id": "tax.us.2025.rule.schedule-d-line16",
+      "version": "v4",
+      "symbol": "tax.us.2025.f1099b.covered-w-lt-count",
+      "reason": "Decision 5. Line 16 v4 keeps this sale-count requirement, in the v3 order, so a blocked row names the same unpublished count. The value is line 7 plus line 15 and does not read the count."
+    },
+    {
+      "rule_id": "tax.us.2025.rule.schedule-d-line16",
+      "version": "v4",
+      "symbol": "tax.us.2025.f1099b.covered-w-lt-txn.box7-loss-check",
+      "reason": "Decision 5. Line 16 v4 requires this family's box 7 loss check so the line stays unpublished when the check blocks. The value is line 7 plus line 15 and does not read the check. A published check is 0."
+    },
+    {
+      "rule_id": "tax.us.2025.rule.schedule-d-line16",
+      "version": "v4",
+      "symbol": "tax.us.2025.f1099b.covered-w-st-count",
+      "reason": "Decision 5. Line 16 v4 keeps this sale-count requirement, in the v3 order, so a blocked row names the same unpublished count. The value is line 7 plus line 15 and does not read the count."
+    },
+    {
+      "rule_id": "tax.us.2025.rule.schedule-d-line16",
+      "version": "v4",
+      "symbol": "tax.us.2025.f1099b.covered-w-st-txn.box7-loss-check",
+      "reason": "Decision 5. Line 16 v4 requires this family's box 7 loss check so the line stays unpublished when the check blocks. The value is line 7 plus line 15 and does not read the check. A published check is 0."
+    },
+    {
+      "rule_id": "tax.us.2025.rule.schedule-d-line16",
+      "version": "v4",
+      "symbol": "tax.us.2025.f1099b.noncovered-lt-count",
+      "reason": "Decision 5. Line 16 v4 keeps this sale-count requirement, in the v3 order, so a blocked row names the same unpublished count. The value is line 7 plus line 15 and does not read the count."
+    },
+    {
+      "rule_id": "tax.us.2025.rule.schedule-d-line16",
+      "version": "v4",
+      "symbol": "tax.us.2025.f1099b.noncovered-lt-txn.box7-loss-check",
+      "reason": "Decision 5. Line 16 v4 requires this family's box 7 loss check so the line stays unpublished when the check blocks. The value is line 7 plus line 15 and does not read the check. A published check is 0."
+    },
+    {
+      "rule_id": "tax.us.2025.rule.schedule-d-line16",
+      "version": "v4",
+      "symbol": "tax.us.2025.f1099b.noncovered-st-count",
+      "reason": "Decision 5. Line 16 v4 keeps this sale-count requirement, in the v3 order, so a blocked row names the same unpublished count. The value is line 7 plus line 15 and does not read the count."
+    },
+    {
+      "rule_id": "tax.us.2025.rule.schedule-d-line16",
+      "version": "v4",
+      "symbol": "tax.us.2025.f1099b.noncovered-st-txn.box7-loss-check",
+      "reason": "Decision 5. Line 16 v4 requires this family's box 7 loss check so the line stays unpublished when the check blocks. The value is line 7 plus line 15 and does not read the check. A published check is 0."
     }
   ]
 }

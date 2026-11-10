@@ -1,0 +1,45 @@
+{
+  "schema": "form-field.v3",
+  "id": "tax.us.2025.schedule-d.line-16",
+  "version": "v4",
+  "form": {
+    "authority": "IRS",
+    "form_id": "1040-SCH-D",
+    "tax_year": 2025,
+    "jurisdiction": "US-federal"
+  },
+  "line": "sch-d-16",
+  "label": "Line 16: total gain",
+  "description": "Schedule D (2025) Part III line 16 equals line 7 plus line 15. It is blocked while a recorded Form 1099-B statement has no box 7 answer, and when box 7 is checked and a sale on that statement is at a loss.",
+  "binds_symbol": "tax.us.2025.schedule-d.line-16",
+  "citation": {
+    "id": "tax.us.2025.citation.schedule-d.line-16",
+    "version": "v1"
+  },
+  "dispositions": {
+    "published_value": {
+      "render": "{value}",
+      "explain": "A current derived finding publishes line 16 equal to line 7 plus line 15."
+    },
+    "computed_zero": {
+      "render": "0",
+      "explain": "Schedule D line 16 is zero because lines 7 and 15 add to zero."
+    },
+    "closure_backed_zero": {
+      "render": "0",
+      "explain": "You said you have no capital gain or loss, so Schedule D line 16 is zero."
+    },
+    "blocked": {
+      "render": "",
+      "explain": "Schedule D line 16 has no value yet because one of these is true: line 7 or line 15 is not ready, a sale count this line requires is not ready, a recorded Form 1099-B statement has no box 7 answer, or box 7 is checked and a sale on that statement is at a loss. This return does not compute a disallowed loss. Where that loss is the cause, the result changes if the broker reports the loss on a separate statement, or if box 7 is not checked.",
+      "codes": [
+        "DEPENDENCY_ABSENT",
+        "SOURCE_SET_UNCLOSED"
+      ]
+    },
+    "guard_inapplicable": {
+      "render": "",
+      "explain": "No line 16 value exists for this route."
+    }
+  }
+}

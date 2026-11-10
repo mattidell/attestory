@@ -1,0 +1,4689 @@
+{
+  "scope": "smaller",
+  "shape": "verdicts-only",
+  "new_rules": 8,
+  "adopted": false,
+  "why": "Eight verdict rules and no family check. Line 16 requires the eight verdict symbols. An empty family publishes no subject verdict, so a closed-empty return and a one-family return both leave line 16 unpublished. The 16-rule shape stays the default.",
+  "build": {
+    "from": {
+      "package": "v83",
+      "registry": "v81",
+      "release": "v81"
+    },
+    "to": {
+      "package": "v84",
+      "registry": "v82",
+      "release": "v82"
+    },
+    "package": "v84",
+    "registry": "v82",
+    "release": "v82",
+    "question_unchanged": "tax.us.2025.input-question.f1099b-statement-box7-loss-not-allowed",
+    "smaller": "verdicts-only",
+    "members_edited": 11,
+    "added": 9,
+    "replaced": 2,
+    "new_rules": 8,
+    "members": [
+      [
+        "add",
+        "f1099b.box7-sale-verdict.vocabulary",
+        "v1"
+      ],
+      [
+        "add",
+        "rule.f1099b.covered-st-txn.box7-verdict",
+        "v1"
+      ],
+      [
+        "add",
+        "rule.f1099b.covered-lt-txn.box7-verdict",
+        "v1"
+      ],
+      [
+        "add",
+        "rule.f1099b.covered-w-st-txn.box7-verdict",
+        "v1"
+      ],
+      [
+        "add",
+        "rule.f1099b.covered-w-lt-txn.box7-verdict",
+        "v1"
+      ],
+      [
+        "add",
+        "rule.f1099b.noncovered-st-txn.box7-verdict",
+        "v1"
+      ],
+      [
+        "add",
+        "rule.f1099b.noncovered-lt-txn.box7-verdict",
+        "v1"
+      ],
+      [
+        "add",
+        "rule.f1099b.code-b-st-txn.box7-verdict",
+        "v1"
+      ],
+      [
+        "add",
+        "rule.f1099b.code-b-lt-txn.box7-verdict",
+        "v1"
+      ],
+      [
+        "replace",
+        "rule.schedule-d-line16",
+        "v4"
+      ],
+      [
+        "replace",
+        "schedule-d.line-16",
+        "v4"
+      ]
+    ],
+    "inherited_inconsistencies": []
+  },
+  "core": "v84-smaller",
+  "cases": [
+    {
+      "id": "alc_covered-st_gain",
+      "kind": "hand",
+      "slug": "covered-st",
+      "note": "covered-st box 7 yes beside a gain",
+      "hand": {
+        "schedule-d.line-1a": 1000,
+        "schedule-d.line-1b": 0,
+        "schedule-d.line-2": 0,
+        "schedule-d.line-3": 0,
+        "schedule-d.line-7": 1000,
+        "schedule-d.line-8a": 0,
+        "schedule-d.line-8b": 0,
+        "schedule-d.line-9": 0,
+        "schedule-d.line-10": 0,
+        "schedule-d.line-15": 0,
+        "schedule-d.line-16": 1000,
+        "schedule-d.line-21": 0,
+        "form1040.line-7a": 1000,
+        "form1040.line-15": 35250,
+        "form1040.line-16": 3995,
+        "form1040.line-24": 3995,
+        "form1040.line-33": 4500,
+        "form1040.line-34": 505,
+        "form1040.line-37": 0
+      },
+      "snapshot": {
+        "box7": [
+          {
+            "id": "demo.b7.statement-box7-loss-not-allowed.s",
+            "fact_id": "tax.us.2025.f1099b.statement-box7-loss-not-allowed|statement=demo.sfa.s.statement,tax-year=2025",
+            "value": "yes"
+          }
+        ],
+        "closures": [
+          {
+            "id": "demo.sfa.s.f1099b.covered-st.closure",
+            "fact_id": "tax.us.2025.f1099b.covered-st.source-closure|family-horizon=demo.sfa.s.f1099b.covered-st.h1,tax-year=2025"
+          }
+        ],
+        "horizons": [
+          "demo.ug.st.h0",
+          "demo.sfa.s.f1099b.covered-st.h1"
+        ]
+      },
+      "result": {
+        "outcome": "success",
+        "stop": "saturated",
+        "presentation_valid": true,
+        "lines": {
+          "form1040.line-15": "blocked",
+          "form1040.line-16": "blocked",
+          "form1040.line-24": "blocked",
+          "form1040.line-33": "blocked",
+          "form1040.line-34": "blocked",
+          "form1040.line-37": "blocked",
+          "form1040.line-7a": "blocked",
+          "schedule-d.line-10": 0,
+          "schedule-d.line-15": 0,
+          "schedule-d.line-16": "blocked",
+          "schedule-d.line-1a": 1000,
+          "schedule-d.line-1b": 0,
+          "schedule-d.line-2": 0,
+          "schedule-d.line-21": "blocked",
+          "schedule-d.line-3": 0,
+          "schedule-d.line-7": 1000,
+          "schedule-d.line-8a": 0,
+          "schedule-d.line-8b": 0,
+          "schedule-d.line-9": 0
+        },
+        "reasons": {
+          "form1040.line-15": [],
+          "form1040.line-16": [],
+          "form1040.line-24": [],
+          "form1040.line-33": [],
+          "form1040.line-34": [],
+          "form1040.line-37": [],
+          "form1040.line-7a": [],
+          "schedule-d.line-16": [],
+          "schedule-d.line-21": []
+        },
+        "questions": [],
+        "publications": [
+          {
+            "symbol": "dependents-worksheet.line1-box-count",
+            "subject": null,
+            "value": 0,
+            "finding_id": "finding:derived:fdf6bd613f82897e6d0d4f17"
+          },
+          {
+            "symbol": "eic.qualifying-child-count",
+            "subject": null,
+            "value": 0,
+            "finding_id": "finding:derived:739895e4dbdaaaffb034339e"
+          },
+          {
+            "symbol": "schedule-d.line-14",
+            "subject": null,
+            "value": 0,
+            "finding_id": "finding:derived:db04722e7ebc20385f89e00c"
+          },
+          {
+            "symbol": "schedule-d.line-6",
+            "subject": null,
+            "value": 0,
+            "finding_id": "finding:derived:578b4b1f28b4fee234220904"
+          },
+          {
+            "symbol": "ctc.child-count",
+            "subject": null,
+            "value": 0,
+            "finding_id": "finding:derived:0e77a17b5d2c769b40cb7133"
+          },
+          {
+            "symbol": "odc.child-count",
+            "subject": null,
+            "value": 0,
+            "finding_id": "finding:derived:566f31441208945e7f4ebb6a"
+          },
+          {
+            "symbol": "odc.relative-count",
+            "subject": null,
+            "value": 0,
+            "finding_id": "finding:derived:f8f425f93f01314fa24bd573"
+          },
+          {
+            "symbol": "schedule-d.line-13",
+            "subject": null,
+            "value": 0,
+            "finding_id": "finding:derived:6c77132f9981eabc697d5153"
+          },
+          {
+            "symbol": "f1099b.code-b-st-count",
+            "subject": null,
+            "value": 0,
+            "finding_id": "finding:derived:ed2155c5550070327c3211a4"
+          },
+          {
+            "symbol": "f1099b.code-b-lt-count",
+            "subject": null,
+            "value": 0,
+            "finding_id": "finding:derived:8b127cd890037b062ef23b77"
+          },
+          {
+            "symbol": "f1099b.covered-st-count",
+            "subject": null,
+            "value": 1,
+            "finding_id": "finding:derived:8a600a880b5b4515b8d8a75c"
+          },
+          {
+            "symbol": "f1099b.covered-lt-count",
+            "subject": null,
+            "value": 0,
+            "finding_id": "finding:derived:02f39a44f5b34940cc71c27d"
+          },
+          {
+            "symbol": "f1099b.covered-w-st-count",
+            "subject": null,
+            "value": 0,
+            "finding_id": "finding:derived:f5adec48f34074abb9c56205"
+          },
+          {
+            "symbol": "f1099b.covered-w-lt-count",
+            "subject": null,
+            "value": 0,
+            "finding_id": "finding:derived:5c4c5f9042f452b1a7c4f401"
+          },
+          {
+            "symbol": "f1099b.noncovered-st-count",
+            "subject": null,
+            "value": 0,
+            "finding_id": "finding:derived:15a5d627ca754fa5906126f6"
+          },
+          {
+            "symbol": "f1099b.noncovered-lt-count",
+            "subject": null,
+            "value": 0,
+            "finding_id": "finding:derived:1a59d520f88d39eadfd1ea11"
+          },
+          {
+            "symbol": "f8949.no1099b-st-count",
+            "subject": null,
+            "value": 0,
+            "finding_id": "finding:derived:e7b95e392e5922ee010602cb"
+          },
+          {
+            "symbol": "f8949.no1099b-lt-count",
+            "subject": null,
+            "value": 0,
+            "finding_id": "finding:derived:616375ac05cd7e17d42ea90e"
+          },
+          {
+            "symbol": "f1099b.covered-st-txn.box7-verdict",
+            "subject": "tax.us.2025.f1099b.covered-st-txn|broker=demo.sfa.s.broker,statement=demo.sfa.s.statement,transaction=demo.sfa.s.transaction,tax-year=2025",
+            "value": "clear",
+            "finding_id": "finding:derived:1d86e96105397b1547ba0850"
+          },
+          {
+            "symbol": "eic.column-count",
+            "subject": null,
+            "value": 0,
+            "finding_id": "finding:derived:d3c4415e533892624f6194e7"
+          },
+          {
+            "symbol": "schedule-d.line-1a-gain",
+            "subject": null,
+            "value": 1000,
+            "finding_id": "finding:derived:bd9efa14461b0c54eebafb28"
+          },
+          {
+            "symbol": "schedule-d.line-8a-gain",
+            "subject": null,
+            "value": 0,
+            "finding_id": "finding:derived:f51d04d98bb74f0511764396"
+          },
+          {
+            "symbol": "schedule-d.line-2",
+            "subject": null,
+            "value": 0,
+            "finding_id": "finding:derived:c61cd84a8416c2ae0b5ed59a"
+          },
+          {
+            "symbol": "schedule-d.line-9",
+            "subject": null,
+            "value": 0,
+            "finding_id": "finding:derived:c40330a8e524f26517e5ce24"
+          },
+          {
+            "symbol": "schedule-d.line-3",
+            "subject": null,
+            "value": 0,
+            "finding_id": "finding:derived:421d4adeba8feecf176ac5c5"
+          },
+          {
+            "symbol": "schedule-d.line-10",
+            "subject": null,
+            "value": 0,
+            "finding_id": "finding:derived:9cab9cc79f64301c8575a57b"
+          },
+          {
+            "symbol": "schedule-d.line-1b",
+            "subject": null,
+            "value": 0,
+            "finding_id": "finding:derived:a8501447b0efacab2b9adaa0"
+          },
+          {
+            "symbol": "schedule-d.line-7",
+            "subject": null,
+            "value": 1000,
+            "finding_id": "finding:derived:970eeeb1d40859e4d7a0bda1"
+          },
+          {
+            "symbol": "schedule-d.line-8b",
+            "subject": null,
+            "value": 0,
+            "finding_id": "finding:derived:62404445983e01a9b95cce8f"
+          },
+          {
+            "symbol": "schedule-d.line-15",
+            "subject": null,
+            "value": 0,
+            "finding_id": "finding:derived:775300cd3fb2c4b9d5124d12"
+          }
+        ],
+        "rows": [
+          {
+            "artifact": "rule.eic-qualifying-child-count",
+            "disposition": "published",
+            "code": null,
+            "missing": [],
+            "symbol": "eic.qualifying-child-count",
+            "subject": null,
+            "finding_id": "finding:derived:739895e4dbdaaaffb034339e"
+          },
+          {
+            "artifact": "rule.form1040-line13a",
+            "disposition": "published",
+            "code": null,
+            "missing": [],
+            "symbol": "deductions.qbi",
+            "subject": null,
+            "finding_id": "finding:derived:f522f48b6bff44bf7a921ba8"
+          },
+          {
+            "artifact": "rule.form1040-line23",
+            "disposition": "published",
+            "code": null,
+            "missing": [],
+            "symbol": "tax.line23-other-taxes",
+            "subject": null,
+            "finding_id": "finding:derived:5b85bb085cf38f4fc4f06d1f"
+          },
+          {
+            "artifact": "rule.form1040-line26",
+            "disposition": "published",
+            "code": null,
+            "missing": [],
+            "symbol": "payments.line26",
+            "subject": null,
+            "finding_id": "finding:derived:6af72e2001e113d166d7b5c5"
+          },
+          {
+            "artifact": "rule.form1040-line2a",
+            "disposition": "published",
+            "code": null,
+            "missing": [],
+            "symbol": "tax-exempt-interest.line2a-total",
+            "subject": null,
+            "finding_id": "finding:derived:7a234927860f13c56f289f2b"
+          },
+          {
+            "artifact": "rule.form1040-line38",
+            "disposition": "published",
+            "code": null,
+            "missing": [],
+            "symbol": "tax.line38-penalty",
+            "subject": null,
+            "finding_id": "finding:derived:753fc992ce4e8eb39c1e85e2"
+          },
+          {
+            "artifact": "rule.form1040-line3a",
+            "disposition": "published",
+            "code": null,
+            "missing": [],
+            "symbol": "dividends.qualified-total",
+            "subject": null,
+            "finding_id": "finding:derived:cedcd43fd4a825f8a049d074"
+          },
+          {
+            "artifact": "rule.form1040-line3b",
+            "disposition": "published",
+            "code": null,
+            "missing": [],
+            "symbol": "dividends.ordinary-total",
+            "subject": null,
+            "finding_id": "finding:derived:8da94e9eb6fa8fc83a3cefc2"
+          },
+          {
+            "artifact": "rule.form1040-line6c",
+            "disposition": "published",
+            "code": null,
+            "missing": [],
+            "symbol": "social-security.line6c-indicator",
+            "subject": null,
+            "finding_id": "finding:derived:5f45460d8b597b7c7234d512"
+          },
+          {
+            "artifact": "rule.form1040-line6d",
+            "disposition": "inapplicable",
+            "code": null,
+            "missing": [],
+            "symbol": null,
+            "subject": null,
+            "finding_id": null
+          },
+          {
+            "artifact": "rule.form1040-line6d-not-checked",
+            "disposition": "inapplicable",
+            "code": null,
+            "missing": [],
+            "symbol": null,
+            "subject": null,
+            "finding_id": null
+          },
+          {
+            "artifact": "rule.schedule-d-line14",
+            "disposition": "published",
+            "code": null,
+            "missing": [],
+            "symbol": "schedule-d.line-14",
+            "subject": null,
+            "finding_id": "finding:derived:db04722e7ebc20385f89e00c"
+          },
+          {
+            "artifact": "rule.schedule-d-line6",
+            "disposition": "published",
+            "code": null,
+            "missing": [],
+            "symbol": "schedule-d.line-6",
+            "subject": null,
+            "finding_id": "finding:derived:578b4b1f28b4fee234220904"
+          },
+          {
+            "artifact": "rule.ctc-child-count",
+            "disposition": "published",
+            "code": null,
+            "missing": [],
+            "symbol": "ctc.child-count",
+            "subject": null,
+            "finding_id": "finding:derived:0e77a17b5d2c769b40cb7133"
+          },
+          {
+            "artifact": "rule.odc-child-count",
+            "disposition": "published",
+            "code": null,
+            "missing": [],
+            "symbol": "odc.child-count",
+            "subject": null,
+            "finding_id": "finding:derived:566f31441208945e7f4ebb6a"
+          },
+          {
+            "artifact": "rule.odc-relative-count",
+            "disposition": "published",
+            "code": null,
+            "missing": [],
+            "symbol": "odc.relative-count",
+            "subject": null,
+            "finding_id": "finding:derived:f8f425f93f01314fa24bd573"
+          },
+          {
+            "artifact": "rule.schedule-d-line13",
+            "disposition": "published",
+            "code": null,
+            "missing": [],
+            "symbol": "schedule-d.line-13",
+            "subject": null,
+            "finding_id": "finding:derived:6c77132f9981eabc697d5153"
+          },
+          {
+            "artifact": "rule.f1099b-code-b-st-count",
+            "disposition": "published",
+            "code": null,
+            "missing": [],
+            "symbol": "f1099b.code-b-st-count",
+            "subject": null,
+            "finding_id": "finding:derived:ed2155c5550070327c3211a4"
+          },
+          {
+            "artifact": "rule.f1099b-code-b-lt-count",
+            "disposition": "published",
+            "code": null,
+            "missing": [],
+            "symbol": "f1099b.code-b-lt-count",
+            "subject": null,
+            "finding_id": "finding:derived:8b127cd890037b062ef23b77"
+          },
+          {
+            "artifact": "rule.f1099b-covered-st-count",
+            "disposition": "published",
+            "code": null,
+            "missing": [],
+            "symbol": "f1099b.covered-st-count",
+            "subject": null,
+            "finding_id": "finding:derived:8a600a880b5b4515b8d8a75c"
+          },
+          {
+            "artifact": "rule.f1099b-covered-lt-count",
+            "disposition": "published",
+            "code": null,
+            "missing": [],
+            "symbol": "f1099b.covered-lt-count",
+            "subject": null,
+            "finding_id": "finding:derived:02f39a44f5b34940cc71c27d"
+          },
+          {
+            "artifact": "rule.f1099b-covered-w-st-count",
+            "disposition": "published",
+            "code": null,
+            "missing": [],
+            "symbol": "f1099b.covered-w-st-count",
+            "subject": null,
+            "finding_id": "finding:derived:f5adec48f34074abb9c56205"
+          },
+          {
+            "artifact": "rule.f1099b-covered-w-lt-count",
+            "disposition": "published",
+            "code": null,
+            "missing": [],
+            "symbol": "f1099b.covered-w-lt-count",
+            "subject": null,
+            "finding_id": "finding:derived:5c4c5f9042f452b1a7c4f401"
+          },
+          {
+            "artifact": "rule.f1099b-noncovered-st-count",
+            "disposition": "published",
+            "code": null,
+            "missing": [],
+            "symbol": "f1099b.noncovered-st-count",
+            "subject": null,
+            "finding_id": "finding:derived:15a5d627ca754fa5906126f6"
+          },
+          {
+            "artifact": "rule.f1099b-noncovered-lt-count",
+            "disposition": "published",
+            "code": null,
+            "missing": [],
+            "symbol": "f1099b.noncovered-lt-count",
+            "subject": null,
+            "finding_id": "finding:derived:1a59d520f88d39eadfd1ea11"
+          },
+          {
+            "artifact": "rule.f8949-no1099b-st-count",
+            "disposition": "published",
+            "code": null,
+            "missing": [],
+            "symbol": "f8949.no1099b-st-count",
+            "subject": null,
+            "finding_id": "finding:derived:e7b95e392e5922ee010602cb"
+          },
+          {
+            "artifact": "rule.f8949-no1099b-lt-count",
+            "disposition": "published",
+            "code": null,
+            "missing": [],
+            "symbol": "f8949.no1099b-lt-count",
+            "subject": null,
+            "finding_id": "finding:derived:616375ac05cd7e17d42ea90e"
+          },
+          {
+            "artifact": "rule.f1099b.covered-st-txn.box7-verdict",
+            "disposition": "published",
+            "code": null,
+            "missing": [],
+            "symbol": "f1099b.covered-st-txn.box7-verdict",
+            "subject": "tax.us.2025.f1099b.covered-st-txn|broker=demo.sfa.s.broker,statement=demo.sfa.s.statement,transaction=demo.sfa.s.transaction,tax-year=2025",
+            "finding_id": "finding:derived:1d86e96105397b1547ba0850"
+          },
+          {
+            "artifact": "rule.eic-column-count",
+            "disposition": "published",
+            "code": null,
+            "missing": [],
+            "symbol": "eic.column-count",
+            "subject": null,
+            "finding_id": "finding:derived:d3c4415e533892624f6194e7"
+          },
+          {
+            "artifact": "rule.form1040-line25a",
+            "disposition": "published",
+            "code": null,
+            "missing": [],
+            "symbol": "payments.line25a",
+            "subject": null,
+            "finding_id": "finding:derived:a45e9f31f610f26ba8c88bb6"
+          },
+          {
+            "artifact": "rule.form1040-line25c",
+            "disposition": "published",
+            "code": null,
+            "missing": [],
+            "symbol": "payments.line25c",
+            "subject": null,
+            "finding_id": "finding:derived:9e54b9713cda30b72c35afb2"
+          },
+          {
+            "artifact": "rule.form1040-line6a",
+            "disposition": "published",
+            "code": null,
+            "missing": [],
+            "symbol": "social-security.line6a",
+            "subject": null,
+            "finding_id": "finding:derived:fd0fa772590d51372aa68c48"
+          },
+          {
+            "artifact": "rule.form1040-line7b",
+            "disposition": "inapplicable",
+            "code": null,
+            "missing": [],
+            "symbol": null,
+            "subject": null,
+            "finding_id": null
+          },
+          {
+            "artifact": "rule.schedule-d-line1a-gain",
+            "disposition": "published",
+            "code": null,
+            "missing": [],
+            "symbol": "schedule-d.line-1a-gain",
+            "subject": null,
+            "finding_id": "finding:derived:bd9efa14461b0c54eebafb28"
+          },
+          {
+            "artifact": "rule.schedule-d-line8a-gain",
+            "disposition": "published",
+            "code": null,
+            "missing": [],
+            "symbol": "schedule-d.line-8a-gain",
+            "subject": null,
+            "finding_id": "finding:derived:f51d04d98bb74f0511764396"
+          },
+          {
+            "artifact": "rule.form1040-line25b",
+            "disposition": "published",
+            "code": null,
+            "missing": [],
+            "symbol": "payments.line25b",
+            "subject": null,
+            "finding_id": "finding:derived:da45b2cb14c7e5d2c92fec68"
+          },
+          {
+            "artifact": "rule.schedule-d-line2",
+            "disposition": "published",
+            "code": null,
+            "missing": [],
+            "symbol": "schedule-d.line-2",
+            "subject": null,
+            "finding_id": "finding:derived:c61cd84a8416c2ae0b5ed59a"
+          },
+          {
+            "artifact": "rule.schedule-d-line9",
+            "disposition": "published",
+            "code": null,
+            "missing": [],
+            "symbol": "schedule-d.line-9",
+            "subject": null,
+            "finding_id": "finding:derived:c40330a8e524f26517e5ce24"
+          },
+          {
+            "artifact": "rule.schedule-d-line3",
+            "disposition": "published",
+            "code": null,
+            "missing": [],
+            "symbol": "schedule-d.line-3",
+            "subject": null,
+            "finding_id": "finding:derived:421d4adeba8feecf176ac5c5"
+          },
+          {
+            "artifact": "rule.schedule-d-line10",
+            "disposition": "published",
+            "code": null,
+            "missing": [],
+            "symbol": "schedule-d.line-10",
+            "subject": null,
+            "finding_id": "finding:derived:9cab9cc79f64301c8575a57b"
+          },
+          {
+            "artifact": "rule.form1040-line12e",
+            "disposition": "published",
+            "code": null,
+            "missing": [],
+            "symbol": "deductions.line-12e",
+            "subject": null,
+            "finding_id": "finding:derived:e919f04ffce23cfe8e1a8545"
+          },
+          {
+            "artifact": "rule.form1040-line25d",
+            "disposition": "published",
+            "code": null,
+            "missing": [],
+            "symbol": "payments.line25d",
+            "subject": null,
+            "finding_id": "finding:derived:bac0e866a3957ad48cdd9c74"
+          },
+          {
+            "artifact": "rule.form1040-line8",
+            "disposition": "published",
+            "code": null,
+            "missing": [],
+            "symbol": "income.additional-income",
+            "subject": null,
+            "finding_id": "finding:derived:361147da0bce4a4359c2134c"
+          },
+          {
+            "artifact": "rule.schedule-d-line1b",
+            "disposition": "published",
+            "code": null,
+            "missing": [],
+            "symbol": "schedule-d.line-1b",
+            "subject": null,
+            "finding_id": "finding:derived:a8501447b0efacab2b9adaa0"
+          },
+          {
+            "artifact": "rule.schedule-d-line7",
+            "disposition": "published",
+            "code": null,
+            "missing": [],
+            "symbol": "schedule-d.line-7",
+            "subject": null,
+            "finding_id": "finding:derived:970eeeb1d40859e4d7a0bda1"
+          },
+          {
+            "artifact": "rule.schedule-d-line8b",
+            "disposition": "published",
+            "code": null,
+            "missing": [],
+            "symbol": "schedule-d.line-8b",
+            "subject": null,
+            "finding_id": "finding:derived:62404445983e01a9b95cce8f"
+          },
+          {
+            "artifact": "rule.schedule-d-line15",
+            "disposition": "published",
+            "code": null,
+            "missing": [],
+            "symbol": "schedule-d.line-15",
+            "subject": null,
+            "finding_id": "finding:derived:775300cd3fb2c4b9d5124d12"
+          },
+          {
+            "artifact": "rule.form1040-line2b",
+            "disposition": "published",
+            "code": null,
+            "missing": [],
+            "symbol": "interest.taxable-total",
+            "subject": null,
+            "finding_id": "finding:derived:3733b17b905cef42f7460ce8"
+          },
+          {
+            "artifact": "rule.form1040-line2b-rounded",
+            "disposition": "published",
+            "code": null,
+            "missing": [],
+            "symbol": "interest.line-2b",
+            "subject": null,
+            "finding_id": "finding:derived:621b5539683d2ccfa71241c6"
+          },
+          {
+            "artifact": "rule.form1040-line10",
+            "disposition": "published",
+            "code": null,
+            "missing": [],
+            "symbol": "income.line10-adjustments",
+            "subject": null,
+            "finding_id": "finding:derived:b271dbf6384a5b70583487d6"
+          },
+          {
+            "artifact": "rule.form1040-line11",
+            "disposition": "blocked",
+            "code": "DEPENDENCY_ABSENT",
+            "missing": [
+              "income.total-income"
+            ],
+            "symbol": null,
+            "subject": null,
+            "finding_id": null
+          },
+          {
+            "artifact": "rule.form1040-line13b",
+            "disposition": "blocked",
+            "code": "DEPENDENCY_ABSENT",
+            "missing": [
+              "schedule1a.line37-enhanced-deduction-total"
+            ],
+            "symbol": null,
+            "subject": null,
+            "finding_id": null
+          },
+          {
+            "artifact": "rule.form1040-line14",
+            "disposition": "blocked",
+            "code": "DEPENDENCY_ABSENT",
+            "missing": [
+              "deductions.schedule-1a"
+            ],
+            "symbol": null,
+            "subject": null,
+            "finding_id": null
+          },
+          {
+            "artifact": "rule.form1040-line15",
+            "disposition": "blocked",
+            "code": "DEPENDENCY_ABSENT",
+            "missing": [
+              "income.agi",
+              "deductions.line-14"
+            ],
+            "symbol": null,
+            "subject": null,
+            "finding_id": null
+          },
+          {
+            "artifact": "rule.form1040-line16",
+            "disposition": "blocked",
+            "code": "DEPENDENCY_ABSENT",
+            "missing": [
+              "income.taxable-income",
+              "capital-gains.selected-preferential-base",
+              "qdcg-worksheet.line-24",
+              "qdcg-worksheet.line-25"
+            ],
+            "symbol": null,
+            "subject": null,
+            "finding_id": null
+          },
+          {
+            "artifact": "rule.form1040-line20",
+            "disposition": "blocked",
+            "code": "DEPENDENCY_ABSENT",
+            "missing": [
+              "schedule3.line8-total"
+            ],
+            "symbol": null,
+            "subject": null,
+            "finding_id": null
+          },
+          {
+            "artifact": "rule.form1040-line24",
+            "disposition": "blocked",
+            "code": "DEPENDENCY_ABSENT",
+            "missing": [
+              "tax.after-nonrefundable-credits"
+            ],
+            "symbol": null,
+            "subject": null,
+            "finding_id": null
+          },
+          {
+            "artifact": "rule.form1040-line27a",
+            "disposition": "blocked",
+            "code": "DEPENDENCY_ABSENT",
+            "missing": [
+              "eic.eligibility-result"
+            ],
+            "symbol": null,
+            "subject": null,
+            "finding_id": null
+          },
+          {
+            "artifact": "rule.form1040-line32",
+            "disposition": "blocked",
+            "code": "DEPENDENCY_ABSENT",
+            "missing": [
+              "payments.lines27-31-total"
+            ],
+            "symbol": null,
+            "subject": null,
+            "finding_id": null
+          },
+          {
+            "artifact": "rule.form1040-line33",
+            "disposition": "blocked",
+            "code": "DEPENDENCY_ABSENT",
+            "missing": [
+              "payments.line32"
+            ],
+            "symbol": null,
+            "subject": null,
+            "finding_id": null
+          },
+          {
+            "artifact": "rule.form1040-line34",
+            "disposition": "blocked",
+            "code": "DEPENDENCY_ABSENT",
+            "missing": [
+              "payments.line33",
+              "tax.line24-total-tax"
+            ],
+            "symbol": null,
+            "subject": null,
+            "finding_id": null
+          },
+          {
+            "artifact": "rule.form1040-line35a",
+            "disposition": "blocked",
+            "code": "DEPENDENCY_ABSENT",
+            "missing": [
+              "payments.line34-overpaid",
+              "payments.line36-applied-to-2026"
+            ],
+            "symbol": null,
+            "subject": null,
+            "finding_id": null
+          },
+          {
+            "artifact": "rule.form1040-line36",
+            "disposition": "blocked",
+            "code": "DEPENDENCY_ABSENT",
+            "missing": [
+              "payments.line34-overpaid"
+            ],
+            "symbol": null,
+            "subject": null,
+            "finding_id": null
+          },
+          {
+            "artifact": "rule.form1040-line37",
+            "disposition": "blocked",
+            "code": "DEPENDENCY_ABSENT",
+            "missing": [
+              "tax.line24-total-tax",
+              "payments.line33"
+            ],
+            "symbol": null,
+            "subject": null,
+            "finding_id": null
+          },
+          {
+            "artifact": "rule.form1040-line7a",
+            "disposition": "blocked",
+            "code": "DEPENDENCY_ABSENT",
+            "missing": [
+              "schedule-d.line-16",
+              "schedule-d.line-21",
+              "capital-gains.selected-preferential-base"
+            ],
+            "symbol": null,
+            "subject": null,
+            "finding_id": null
+          },
+          {
+            "artifact": "rule.form1040-line9",
+            "disposition": "blocked",
+            "code": "DEPENDENCY_ABSENT",
+            "missing": [
+              "capital-gains.line7a-total",
+              "social-security.line6b"
+            ],
+            "symbol": null,
+            "subject": null,
+            "finding_id": null
+          },
+          {
+            "artifact": "rule.form1040-lines27-31-total",
+            "disposition": "blocked",
+            "code": "DEPENDENCY_ABSENT",
+            "missing": [
+              "payments.line27a",
+              "payments.lines28-31"
+            ],
+            "symbol": null,
+            "subject": null,
+            "finding_id": null
+          },
+          {
+            "artifact": "rule.form1040-lines28-31",
+            "disposition": "blocked",
+            "code": "DEPENDENCY_ABSENT",
+            "missing": [
+              "ctc.form1040-line28"
+            ],
+            "symbol": null,
+            "subject": null,
+            "finding_id": null
+          },
+          {
+            "artifact": "rule.schedule-d-line16",
+            "disposition": "blocked",
+            "code": "DEPENDENCY_ABSENT",
+            "missing": [
+              "f1099b.covered-st-txn.box7-verdict",
+              "f1099b.covered-lt-txn.box7-verdict",
+              "f1099b.covered-w-st-txn.box7-verdict",
+              "f1099b.covered-w-lt-txn.box7-verdict",
+              "f1099b.noncovered-st-txn.box7-verdict",
+              "f1099b.noncovered-lt-txn.box7-verdict",
+              "f1099b.code-b-st-txn.box7-verdict",
+              "f1099b.code-b-lt-txn.box7-verdict"
+            ],
+            "symbol": null,
+            "subject": null,
+            "finding_id": null
+          },
+          {
+            "artifact": "rule.schedule-d-line21",
+            "disposition": "blocked",
+            "code": "DEPENDENCY_ABSENT",
+            "missing": [
+              "schedule-d.line-16"
+            ],
+            "symbol": null,
+            "subject": null,
+            "finding_id": null
+          },
+          {
+            "artifact": "rule.selected-preferential-base",
+            "disposition": "blocked",
+            "code": "DEPENDENCY_ABSENT",
+            "missing": [
+              "schedule-d.line-16"
+            ],
+            "symbol": null,
+            "subject": null,
+            "finding_id": null
+          },
+          {
+            "artifact": "rule.ctc-form1040-line19",
+            "disposition": "blocked",
+            "code": "DEPENDENCY_ABSENT",
+            "missing": [
+              "ctc.sch8812.line-14"
+            ],
+            "symbol": null,
+            "subject": null,
+            "finding_id": null
+          }
+        ],
+        "consumers": {
+          "schedule-d.line-16": {
+            "present": true,
+            "binds_symbol": "schedule-d.line-16",
+            "field_version": "v4",
+            "disposition": "blocked",
+            "value": null,
+            "reasons": [],
+            "blocked_explain": "Schedule D line 16 has no value yet. It is waiting for line 7 or line 15. It is also blocked while a recorded Form 1099-B statement has no answer about box 7. It is blocked when box 7 is checked and a sale on that statement is at a loss: a loss based on the box 1d amount is not allowed, and this return does not compute it."
+          },
+          "schedule-d.line-17": {
+            "present": false
+          },
+          "schedule-d.line-18": {
+            "present": false
+          },
+          "schedule-d.line-19": {
+            "present": false
+          },
+          "schedule-d.line-20": {
+            "present": false
+          },
+          "schedule-d.line-21": {
+            "present": true,
+            "binds_symbol": "schedule-d.line-21",
+            "field_version": "v2",
+            "disposition": "blocked",
+            "value": null,
+            "reasons": [],
+            "blocked_explain": "Schedule D line 21 has no value yet. It is waiting for your total gain or loss on line 16."
+          },
+          "schedule-d.line-22": {
+            "present": false
+          },
+          "form1040.line-7a": {
+            "present": true,
+            "binds_symbol": "capital-gains.line7a-total",
+            "field_version": "v2",
+            "disposition": "blocked",
+            "value": null,
+            "reasons": [],
+            "blocked_explain": "Line 7a has no value yet. Whether you recorded any sale decides its route, so it waits for your answers about each kind of sale. With a sale recorded, line 7a is the Schedule D amount and waits for Schedule D. With none, it waits for your Exception 1 answers and for your box 2a capital gain distributions to be complete."
+          },
+          "form1040.line-15": {
+            "present": true,
+            "binds_symbol": "income.taxable-income",
+            "field_version": "v2",
+            "disposition": "blocked",
+            "value": null,
+            "reasons": [],
+            "blocked_explain": "Your taxable income has no value yet. It is waiting for your adjusted gross income and your line 14 deductions."
+          },
+          "form1040.line-16": {
+            "present": true,
+            "binds_symbol": "tax.total-tax",
+            "field_version": "v3",
+            "disposition": "blocked",
+            "value": null,
+            "reasons": [],
+            "blocked_explain": "Your tax has no value yet. It is waiting for your taxable income, your filing status, your qualified dividends and capital gain, or your covered sale proceeds. It also waits for your answers about each kind of sale, because whether you recorded any sale decides whether your tax is figured with Schedule D."
+          },
+          "form1040.line-24": {
+            "present": true,
+            "binds_symbol": "tax.line24-total-tax",
+            "field_version": "v1",
+            "disposition": "blocked",
+            "value": null,
+            "reasons": [],
+            "blocked_explain": "Form 1040 line 24 is blocked because an input it needs is missing or invalid."
+          },
+          "form1040.line-33": {
+            "present": true,
+            "binds_symbol": "payments.line33",
+            "field_version": "v1",
+            "disposition": "blocked",
+            "value": null,
+            "reasons": [],
+            "blocked_explain": "Form 1040 line 33 is blocked because an input it needs is missing or invalid."
+          },
+          "form1040.line-34": {
+            "present": true,
+            "binds_symbol": "payments.line34-overpaid",
+            "field_version": "v1",
+            "disposition": "blocked",
+            "value": null,
+            "reasons": [],
+            "blocked_explain": "Form 1040 line 34 is blocked because an input it needs is missing or invalid."
+          },
+          "form1040.line-37": {
+            "present": true,
+            "binds_symbol": "payments.line37-amount-owed",
+            "field_version": "v1",
+            "disposition": "blocked",
+            "value": null,
+            "reasons": [],
+            "blocked_explain": "Form 1040 line 37 is blocked because an input it needs is missing, invalid, or (line 36) exceeds line 34."
+          }
+        },
+        "line16_field": {
+          "version": "v4",
+          "description": "Schedule D (2025) Part III line 16 equals line 7 plus line 15. It is blocked while a recorded Form 1099-B statement has no box 7 answer, and when box 7 is checked and a sale on that statement is at a loss.",
+          "blocked_explain": "Schedule D line 16 has no value yet. It is waiting for line 7 or line 15. It is also blocked while a recorded Form 1099-B statement has no answer about box 7. It is blocked when box 7 is checked and a sale on that statement is at a loss: a loss based on the box 1d amount is not allowed, and this return does not compute it.",
+          "disposition": "blocked",
+          "value": null,
+          "reasons": []
+        },
+        "line16_rows": [
+          {
+            "artifact": "rule.schedule-d-line16",
+            "disposition": "blocked",
+            "code": "DEPENDENCY_ABSENT",
+            "missing": [
+              "f1099b.covered-st-txn.box7-verdict",
+              "f1099b.covered-lt-txn.box7-verdict",
+              "f1099b.covered-w-st-txn.box7-verdict",
+              "f1099b.covered-w-lt-txn.box7-verdict",
+              "f1099b.noncovered-st-txn.box7-verdict",
+              "f1099b.noncovered-lt-txn.box7-verdict",
+              "f1099b.code-b-st-txn.box7-verdict",
+              "f1099b.code-b-lt-txn.box7-verdict"
+            ],
+            "symbol": null,
+            "subject": null,
+            "finding_id": null
+          }
+        ]
+      },
+      "failures": [
+        "schedule-d.line-16: hand 1000 got blocked",
+        "schedule-d.line-21: hand 0 got blocked",
+        "form1040.line-7a: hand 1000 got blocked",
+        "form1040.line-15: hand 35250 got blocked",
+        "form1040.line-16: hand 3995 got blocked",
+        "form1040.line-24: hand 3995 got blocked",
+        "form1040.line-33: hand 4500 got blocked",
+        "form1040.line-34: hand 505 got blocked",
+        "form1040.line-37: hand 0 got blocked"
+      ],
+      "passed": false
+    },
+    {
+      "id": "alc_covered-st_loss",
+      "kind": "yes_loss",
+      "slug": "covered-st",
+      "note": "covered-st box 7 yes beside a loss",
+      "hand": null,
+      "snapshot": {
+        "box7": [
+          {
+            "id": "demo.b7.statement-box7-loss-not-allowed.s",
+            "fact_id": "tax.us.2025.f1099b.statement-box7-loss-not-allowed|statement=demo.sfa.s.statement,tax-year=2025",
+            "value": "yes"
+          }
+        ],
+        "closures": [
+          {
+            "id": "demo.sfa.s.f1099b.covered-st.closure",
+            "fact_id": "tax.us.2025.f1099b.covered-st.source-closure|family-horizon=demo.sfa.s.f1099b.covered-st.h1,tax-year=2025"
+          }
+        ],
+        "horizons": [
+          "demo.ug.st.h0",
+          "demo.sfa.s.f1099b.covered-st.h1"
+        ]
+      },
+      "result": {
+        "outcome": "success",
+        "stop": "saturated",
+        "presentation_valid": true,
+        "lines": {
+          "form1040.line-15": "blocked",
+          "form1040.line-16": "blocked",
+          "form1040.line-24": "blocked",
+          "form1040.line-33": "blocked",
+          "form1040.line-34": "blocked",
+          "form1040.line-37": "blocked",
+          "form1040.line-7a": "blocked",
+          "schedule-d.line-10": 0,
+          "schedule-d.line-15": 0,
+          "schedule-d.line-16": "blocked",
+          "schedule-d.line-1a": -1000,
+          "schedule-d.line-1b": 0,
+          "schedule-d.line-2": 0,
+          "schedule-d.line-21": "blocked",
+          "schedule-d.line-3": 0,
+          "schedule-d.line-7": -1000,
+          "schedule-d.line-8a": 0,
+          "schedule-d.line-8b": 0,
+          "schedule-d.line-9": 0
+        },
+        "reasons": {
+          "form1040.line-15": [],
+          "form1040.line-16": [],
+          "form1040.line-24": [],
+          "form1040.line-33": [],
+          "form1040.line-34": [],
+          "form1040.line-37": [],
+          "form1040.line-7a": [],
+          "schedule-d.line-16": [],
+          "schedule-d.line-21": []
+        },
+        "questions": [],
+        "publications": [
+          {
+            "symbol": "dependents-worksheet.line1-box-count",
+            "subject": null,
+            "value": 0,
+            "finding_id": "finding:derived:fdf6bd613f82897e6d0d4f17"
+          },
+          {
+            "symbol": "eic.qualifying-child-count",
+            "subject": null,
+            "value": 0,
+            "finding_id": "finding:derived:739895e4dbdaaaffb034339e"
+          },
+          {
+            "symbol": "schedule-d.line-14",
+            "subject": null,
+            "value": 0,
+            "finding_id": "finding:derived:db04722e7ebc20385f89e00c"
+          },
+          {
+            "symbol": "schedule-d.line-6",
+            "subject": null,
+            "value": 0,
+            "finding_id": "finding:derived:578b4b1f28b4fee234220904"
+          },
+          {
+            "symbol": "ctc.child-count",
+            "subject": null,
+            "value": 0,
+            "finding_id": "finding:derived:0e77a17b5d2c769b40cb7133"
+          },
+          {
+            "symbol": "odc.child-count",
+            "subject": null,
+            "value": 0,
+            "finding_id": "finding:derived:566f31441208945e7f4ebb6a"
+          },
+          {
+            "symbol": "odc.relative-count",
+            "subject": null,
+            "value": 0,
+            "finding_id": "finding:derived:f8f425f93f01314fa24bd573"
+          },
+          {
+            "symbol": "schedule-d.line-13",
+            "subject": null,
+            "value": 0,
+            "finding_id": "finding:derived:6c77132f9981eabc697d5153"
+          },
+          {
+            "symbol": "f1099b.code-b-st-count",
+            "subject": null,
+            "value": 0,
+            "finding_id": "finding:derived:ed2155c5550070327c3211a4"
+          },
+          {
+            "symbol": "f1099b.code-b-lt-count",
+            "subject": null,
+            "value": 0,
+            "finding_id": "finding:derived:8b127cd890037b062ef23b77"
+          },
+          {
+            "symbol": "f1099b.covered-st-count",
+            "subject": null,
+            "value": 1,
+            "finding_id": "finding:derived:8a600a880b5b4515b8d8a75c"
+          },
+          {
+            "symbol": "f1099b.covered-lt-count",
+            "subject": null,
+            "value": 0,
+            "finding_id": "finding:derived:02f39a44f5b34940cc71c27d"
+          },
+          {
+            "symbol": "f1099b.covered-w-st-count",
+            "subject": null,
+            "value": 0,
+            "finding_id": "finding:derived:f5adec48f34074abb9c56205"
+          },
+          {
+            "symbol": "f1099b.covered-w-lt-count",
+            "subject": null,
+            "value": 0,
+            "finding_id": "finding:derived:5c4c5f9042f452b1a7c4f401"
+          },
+          {
+            "symbol": "f1099b.noncovered-st-count",
+            "subject": null,
+            "value": 0,
+            "finding_id": "finding:derived:15a5d627ca754fa5906126f6"
+          },
+          {
+            "symbol": "f1099b.noncovered-lt-count",
+            "subject": null,
+            "value": 0,
+            "finding_id": "finding:derived:1a59d520f88d39eadfd1ea11"
+          },
+          {
+            "symbol": "f8949.no1099b-st-count",
+            "subject": null,
+            "value": 0,
+            "finding_id": "finding:derived:e7b95e392e5922ee010602cb"
+          },
+          {
+            "symbol": "f8949.no1099b-lt-count",
+            "subject": null,
+            "value": 0,
+            "finding_id": "finding:derived:616375ac05cd7e17d42ea90e"
+          },
+          {
+            "symbol": "f1099b.covered-st-txn.box7-verdict",
+            "subject": "tax.us.2025.f1099b.covered-st-txn|broker=demo.sfa.s.broker,statement=demo.sfa.s.statement,transaction=demo.sfa.s.transaction,tax-year=2025",
+            "value": "disallowed",
+            "finding_id": "finding:derived:741865d42af1b0135da0bd38"
+          },
+          {
+            "symbol": "eic.column-count",
+            "subject": null,
+            "value": 0,
+            "finding_id": "finding:derived:d3c4415e533892624f6194e7"
+          },
+          {
+            "symbol": "schedule-d.line-1a-gain",
+            "subject": null,
+            "value": -1000,
+            "finding_id": "finding:derived:0ad16f43473c9c778091554b"
+          },
+          {
+            "symbol": "schedule-d.line-8a-gain",
+            "subject": null,
+            "value": 0,
+            "finding_id": "finding:derived:f51d04d98bb74f0511764396"
+          },
+          {
+            "symbol": "schedule-d.line-2",
+            "subject": null,
+            "value": 0,
+            "finding_id": "finding:derived:c61cd84a8416c2ae0b5ed59a"
+          },
+          {
+            "symbol": "schedule-d.line-9",
+            "subject": null,
+            "value": 0,
+            "finding_id": "finding:derived:c40330a8e524f26517e5ce24"
+          },
+          {
+            "symbol": "schedule-d.line-3",
+            "subject": null,
+            "value": 0,
+            "finding_id": "finding:derived:421d4adeba8feecf176ac5c5"
+          },
+          {
+            "symbol": "schedule-d.line-10",
+            "subject": null,
+            "value": 0,
+            "finding_id": "finding:derived:9cab9cc79f64301c8575a57b"
+          },
+          {
+            "symbol": "schedule-d.line-1b",
+            "subject": null,
+            "value": 0,
+            "finding_id": "finding:derived:a8501447b0efacab2b9adaa0"
+          },
+          {
+            "symbol": "schedule-d.line-7",
+            "subject": null,
+            "value": -1000,
+            "finding_id": "finding:derived:f759269c4349dee47d73e535"
+          },
+          {
+            "symbol": "schedule-d.line-8b",
+            "subject": null,
+            "value": 0,
+            "finding_id": "finding:derived:62404445983e01a9b95cce8f"
+          },
+          {
+            "symbol": "schedule-d.line-15",
+            "subject": null,
+            "value": 0,
+            "finding_id": "finding:derived:775300cd3fb2c4b9d5124d12"
+          }
+        ],
+        "rows": [
+          {
+            "artifact": "rule.eic-qualifying-child-count",
+            "disposition": "published",
+            "code": null,
+            "missing": [],
+            "symbol": "eic.qualifying-child-count",
+            "subject": null,
+            "finding_id": "finding:derived:739895e4dbdaaaffb034339e"
+          },
+          {
+            "artifact": "rule.form1040-line13a",
+            "disposition": "published",
+            "code": null,
+            "missing": [],
+            "symbol": "deductions.qbi",
+            "subject": null,
+            "finding_id": "finding:derived:f522f48b6bff44bf7a921ba8"
+          },
+          {
+            "artifact": "rule.form1040-line23",
+            "disposition": "published",
+            "code": null,
+            "missing": [],
+            "symbol": "tax.line23-other-taxes",
+            "subject": null,
+            "finding_id": "finding:derived:5b85bb085cf38f4fc4f06d1f"
+          },
+          {
+            "artifact": "rule.form1040-line26",
+            "disposition": "published",
+            "code": null,
+            "missing": [],
+            "symbol": "payments.line26",
+            "subject": null,
+            "finding_id": "finding:derived:6af72e2001e113d166d7b5c5"
+          },
+          {
+            "artifact": "rule.form1040-line2a",
+            "disposition": "published",
+            "code": null,
+            "missing": [],
+            "symbol": "tax-exempt-interest.line2a-total",
+            "subject": null,
+            "finding_id": "finding:derived:7a234927860f13c56f289f2b"
+          },
+          {
+            "artifact": "rule.form1040-line38",
+            "disposition": "published",
+            "code": null,
+            "missing": [],
+            "symbol": "tax.line38-penalty",
+            "subject": null,
+            "finding_id": "finding:derived:753fc992ce4e8eb39c1e85e2"
+          },
+          {
+            "artifact": "rule.form1040-line3a",
+            "disposition": "published",
+            "code": null,
+            "missing": [],
+            "symbol": "dividends.qualified-total",
+            "subject": null,
+            "finding_id": "finding:derived:cedcd43fd4a825f8a049d074"
+          },
+          {
+            "artifact": "rule.form1040-line3b",
+            "disposition": "published",
+            "code": null,
+            "missing": [],
+            "symbol": "dividends.ordinary-total",
+            "subject": null,
+            "finding_id": "finding:derived:8da94e9eb6fa8fc83a3cefc2"
+          },
+          {
+            "artifact": "rule.form1040-line6c",
+            "disposition": "published",
+            "code": null,
+            "missing": [],
+            "symbol": "social-security.line6c-indicator",
+            "subject": null,
+            "finding_id": "finding:derived:5f45460d8b597b7c7234d512"
+          },
+          {
+            "artifact": "rule.form1040-line6d",
+            "disposition": "inapplicable",
+            "code": null,
+            "missing": [],
+            "symbol": null,
+            "subject": null,
+            "finding_id": null
+          },
+          {
+            "artifact": "rule.form1040-line6d-not-checked",
+            "disposition": "inapplicable",
+            "code": null,
+            "missing": [],
+            "symbol": null,
+            "subject": null,
+            "finding_id": null
+          },
+          {
+            "artifact": "rule.schedule-d-line14",
+            "disposition": "published",
+            "code": null,
+            "missing": [],
+            "symbol": "schedule-d.line-14",
+            "subject": null,
+            "finding_id": "finding:derived:db04722e7ebc20385f89e00c"
+          },
+          {
+            "artifact": "rule.schedule-d-line6",
+            "disposition": "published",
+            "code": null,
+            "missing": [],
+            "symbol": "schedule-d.line-6",
+            "subject": null,
+            "finding_id": "finding:derived:578b4b1f28b4fee234220904"
+          },
+          {
+            "artifact": "rule.ctc-child-count",
+            "disposition": "published",
+            "code": null,
+            "missing": [],
+            "symbol": "ctc.child-count",
+            "subject": null,
+            "finding_id": "finding:derived:0e77a17b5d2c769b40cb7133"
+          },
+          {
+            "artifact": "rule.odc-child-count",
+            "disposition": "published",
+            "code": null,
+            "missing": [],
+            "symbol": "odc.child-count",
+            "subject": null,
+            "finding_id": "finding:derived:566f31441208945e7f4ebb6a"
+          },
+          {
+            "artifact": "rule.odc-relative-count",
+            "disposition": "published",
+            "code": null,
+            "missing": [],
+            "symbol": "odc.relative-count",
+            "subject": null,
+            "finding_id": "finding:derived:f8f425f93f01314fa24bd573"
+          },
+          {
+            "artifact": "rule.schedule-d-line13",
+            "disposition": "published",
+            "code": null,
+            "missing": [],
+            "symbol": "schedule-d.line-13",
+            "subject": null,
+            "finding_id": "finding:derived:6c77132f9981eabc697d5153"
+          },
+          {
+            "artifact": "rule.f1099b-code-b-st-count",
+            "disposition": "published",
+            "code": null,
+            "missing": [],
+            "symbol": "f1099b.code-b-st-count",
+            "subject": null,
+            "finding_id": "finding:derived:ed2155c5550070327c3211a4"
+          },
+          {
+            "artifact": "rule.f1099b-code-b-lt-count",
+            "disposition": "published",
+            "code": null,
+            "missing": [],
+            "symbol": "f1099b.code-b-lt-count",
+            "subject": null,
+            "finding_id": "finding:derived:8b127cd890037b062ef23b77"
+          },
+          {
+            "artifact": "rule.f1099b-covered-st-count",
+            "disposition": "published",
+            "code": null,
+            "missing": [],
+            "symbol": "f1099b.covered-st-count",
+            "subject": null,
+            "finding_id": "finding:derived:8a600a880b5b4515b8d8a75c"
+          },
+          {
+            "artifact": "rule.f1099b-covered-lt-count",
+            "disposition": "published",
+            "code": null,
+            "missing": [],
+            "symbol": "f1099b.covered-lt-count",
+            "subject": null,
+            "finding_id": "finding:derived:02f39a44f5b34940cc71c27d"
+          },
+          {
+            "artifact": "rule.f1099b-covered-w-st-count",
+            "disposition": "published",
+            "code": null,
+            "missing": [],
+            "symbol": "f1099b.covered-w-st-count",
+            "subject": null,
+            "finding_id": "finding:derived:f5adec48f34074abb9c56205"
+          },
+          {
+            "artifact": "rule.f1099b-covered-w-lt-count",
+            "disposition": "published",
+            "code": null,
+            "missing": [],
+            "symbol": "f1099b.covered-w-lt-count",
+            "subject": null,
+            "finding_id": "finding:derived:5c4c5f9042f452b1a7c4f401"
+          },
+          {
+            "artifact": "rule.f1099b-noncovered-st-count",
+            "disposition": "published",
+            "code": null,
+            "missing": [],
+            "symbol": "f1099b.noncovered-st-count",
+            "subject": null,
+            "finding_id": "finding:derived:15a5d627ca754fa5906126f6"
+          },
+          {
+            "artifact": "rule.f1099b-noncovered-lt-count",
+            "disposition": "published",
+            "code": null,
+            "missing": [],
+            "symbol": "f1099b.noncovered-lt-count",
+            "subject": null,
+            "finding_id": "finding:derived:1a59d520f88d39eadfd1ea11"
+          },
+          {
+            "artifact": "rule.f8949-no1099b-st-count",
+            "disposition": "published",
+            "code": null,
+            "missing": [],
+            "symbol": "f8949.no1099b-st-count",
+            "subject": null,
+            "finding_id": "finding:derived:e7b95e392e5922ee010602cb"
+          },
+          {
+            "artifact": "rule.f8949-no1099b-lt-count",
+            "disposition": "published",
+            "code": null,
+            "missing": [],
+            "symbol": "f8949.no1099b-lt-count",
+            "subject": null,
+            "finding_id": "finding:derived:616375ac05cd7e17d42ea90e"
+          },
+          {
+            "artifact": "rule.f1099b.covered-st-txn.box7-verdict",
+            "disposition": "published",
+            "code": null,
+            "missing": [],
+            "symbol": "f1099b.covered-st-txn.box7-verdict",
+            "subject": "tax.us.2025.f1099b.covered-st-txn|broker=demo.sfa.s.broker,statement=demo.sfa.s.statement,transaction=demo.sfa.s.transaction,tax-year=2025",
+            "finding_id": "finding:derived:741865d42af1b0135da0bd38"
+          },
+          {
+            "artifact": "rule.eic-column-count",
+            "disposition": "published",
+            "code": null,
+            "missing": [],
+            "symbol": "eic.column-count",
+            "subject": null,
+            "finding_id": "finding:derived:d3c4415e533892624f6194e7"
+          },
+          {
+            "artifact": "rule.form1040-line25a",
+            "disposition": "published",
+            "code": null,
+            "missing": [],
+            "symbol": "payments.line25a",
+            "subject": null,
+            "finding_id": "finding:derived:a45e9f31f610f26ba8c88bb6"
+          },
+          {
+            "artifact": "rule.form1040-line25c",
+            "disposition": "published",
+            "code": null,
+            "missing": [],
+            "symbol": "payments.line25c",
+            "subject": null,
+            "finding_id": "finding:derived:9e54b9713cda30b72c35afb2"
+          },
+          {
+            "artifact": "rule.form1040-line6a",
+            "disposition": "published",
+            "code": null,
+            "missing": [],
+            "symbol": "social-security.line6a",
+            "subject": null,
+            "finding_id": "finding:derived:fd0fa772590d51372aa68c48"
+          },
+          {
+            "artifact": "rule.form1040-line7b",
+            "disposition": "inapplicable",
+            "code": null,
+            "missing": [],
+            "symbol": null,
+            "subject": null,
+            "finding_id": null
+          },
+          {
+            "artifact": "rule.schedule-d-line1a-gain",
+            "disposition": "published",
+            "code": null,
+            "missing": [],
+            "symbol": "schedule-d.line-1a-gain",
+            "subject": null,
+            "finding_id": "finding:derived:0ad16f43473c9c778091554b"
+          },
+          {
+            "artifact": "rule.schedule-d-line8a-gain",
+            "disposition": "published",
+            "code": null,
+            "missing": [],
+            "symbol": "schedule-d.line-8a-gain",
+            "subject": null,
+            "finding_id": "finding:derived:f51d04d98bb74f0511764396"
+          },
+          {
+            "artifact": "rule.form1040-line25b",
+            "disposition": "published",
+            "code": null,
+            "missing": [],
+            "symbol": "payments.line25b",
+            "subject": null,
+            "finding_id": "finding:derived:da45b2cb14c7e5d2c92fec68"
+          },
+          {
+            "artifact": "rule.schedule-d-line2",
+            "disposition": "published",
+            "code": null,
+            "missing": [],
+            "symbol": "schedule-d.line-2",
+            "subject": null,
+            "finding_id": "finding:derived:c61cd84a8416c2ae0b5ed59a"
+          },
+          {
+            "artifact": "rule.schedule-d-line9",
+            "disposition": "published",
+            "code": null,
+            "missing": [],
+            "symbol": "schedule-d.line-9",
+            "subject": null,
+            "finding_id": "finding:derived:c40330a8e524f26517e5ce24"
+          },
+          {
+            "artifact": "rule.schedule-d-line3",
+            "disposition": "published",
+            "code": null,
+            "missing": [],
+            "symbol": "schedule-d.line-3",
+            "subject": null,
+            "finding_id": "finding:derived:421d4adeba8feecf176ac5c5"
+          },
+          {
+            "artifact": "rule.schedule-d-line10",
+            "disposition": "published",
+            "code": null,
+            "missing": [],
+            "symbol": "schedule-d.line-10",
+            "subject": null,
+            "finding_id": "finding:derived:9cab9cc79f64301c8575a57b"
+          },
+          {
+            "artifact": "rule.form1040-line12e",
+            "disposition": "published",
+            "code": null,
+            "missing": [],
+            "symbol": "deductions.line-12e",
+            "subject": null,
+            "finding_id": "finding:derived:e919f04ffce23cfe8e1a8545"
+          },
+          {
+            "artifact": "rule.form1040-line25d",
+            "disposition": "published",
+            "code": null,
+            "missing": [],
+            "symbol": "payments.line25d",
+            "subject": null,
+            "finding_id": "finding:derived:bac0e866a3957ad48cdd9c74"
+          },
+          {
+            "artifact": "rule.form1040-line8",
+            "disposition": "published",
+            "code": null,
+            "missing": [],
+            "symbol": "income.additional-income",
+            "subject": null,
+            "finding_id": "finding:derived:361147da0bce4a4359c2134c"
+          },
+          {
+            "artifact": "rule.schedule-d-line1b",
+            "disposition": "published",
+            "code": null,
+            "missing": [],
+            "symbol": "schedule-d.line-1b",
+            "subject": null,
+            "finding_id": "finding:derived:a8501447b0efacab2b9adaa0"
+          },
+          {
+            "artifact": "rule.schedule-d-line7",
+            "disposition": "published",
+            "code": null,
+            "missing": [],
+            "symbol": "schedule-d.line-7",
+            "subject": null,
+            "finding_id": "finding:derived:f759269c4349dee47d73e535"
+          },
+          {
+            "artifact": "rule.schedule-d-line8b",
+            "disposition": "published",
+            "code": null,
+            "missing": [],
+            "symbol": "schedule-d.line-8b",
+            "subject": null,
+            "finding_id": "finding:derived:62404445983e01a9b95cce8f"
+          },
+          {
+            "artifact": "rule.schedule-d-line15",
+            "disposition": "published",
+            "code": null,
+            "missing": [],
+            "symbol": "schedule-d.line-15",
+            "subject": null,
+            "finding_id": "finding:derived:775300cd3fb2c4b9d5124d12"
+          },
+          {
+            "artifact": "rule.form1040-line2b",
+            "disposition": "published",
+            "code": null,
+            "missing": [],
+            "symbol": "interest.taxable-total",
+            "subject": null,
+            "finding_id": "finding:derived:3733b17b905cef42f7460ce8"
+          },
+          {
+            "artifact": "rule.form1040-line2b-rounded",
+            "disposition": "published",
+            "code": null,
+            "missing": [],
+            "symbol": "interest.line-2b",
+            "subject": null,
+            "finding_id": "finding:derived:621b5539683d2ccfa71241c6"
+          },
+          {
+            "artifact": "rule.form1040-line10",
+            "disposition": "published",
+            "code": null,
+            "missing": [],
+            "symbol": "income.line10-adjustments",
+            "subject": null,
+            "finding_id": "finding:derived:b271dbf6384a5b70583487d6"
+          },
+          {
+            "artifact": "rule.form1040-line11",
+            "disposition": "blocked",
+            "code": "DEPENDENCY_ABSENT",
+            "missing": [
+              "income.total-income"
+            ],
+            "symbol": null,
+            "subject": null,
+            "finding_id": null
+          },
+          {
+            "artifact": "rule.form1040-line13b",
+            "disposition": "blocked",
+            "code": "DEPENDENCY_ABSENT",
+            "missing": [
+              "schedule1a.line37-enhanced-deduction-total"
+            ],
+            "symbol": null,
+            "subject": null,
+            "finding_id": null
+          },
+          {
+            "artifact": "rule.form1040-line14",
+            "disposition": "blocked",
+            "code": "DEPENDENCY_ABSENT",
+            "missing": [
+              "deductions.schedule-1a"
+            ],
+            "symbol": null,
+            "subject": null,
+            "finding_id": null
+          },
+          {
+            "artifact": "rule.form1040-line15",
+            "disposition": "blocked",
+            "code": "DEPENDENCY_ABSENT",
+            "missing": [
+              "income.agi",
+              "deductions.line-14"
+            ],
+            "symbol": null,
+            "subject": null,
+            "finding_id": null
+          },
+          {
+            "artifact": "rule.form1040-line16",
+            "disposition": "blocked",
+            "code": "DEPENDENCY_ABSENT",
+            "missing": [
+              "income.taxable-income",
+              "capital-gains.selected-preferential-base",
+              "qdcg-worksheet.line-24",
+              "qdcg-worksheet.line-25"
+            ],
+            "symbol": null,
+            "subject": null,
+            "finding_id": null
+          },
+          {
+            "artifact": "rule.form1040-line20",
+            "disposition": "blocked",
+            "code": "DEPENDENCY_ABSENT",
+            "missing": [
+              "schedule3.line8-total"
+            ],
+            "symbol": null,
+            "subject": null,
+            "finding_id": null
+          },
+          {
+            "artifact": "rule.form1040-line24",
+            "disposition": "blocked",
+            "code": "DEPENDENCY_ABSENT",
+            "missing": [
+              "tax.after-nonrefundable-credits"
+            ],
+            "symbol": null,
+            "subject": null,
+            "finding_id": null
+          },
+          {
+            "artifact": "rule.form1040-line27a",
+            "disposition": "blocked",
+            "code": "DEPENDENCY_ABSENT",
+            "missing": [
+              "eic.eligibility-result"
+            ],
+            "symbol": null,
+            "subject": null,
+            "finding_id": null
+          },
+          {
+            "artifact": "rule.form1040-line32",
+            "disposition": "blocked",
+            "code": "DEPENDENCY_ABSENT",
+            "missing": [
+              "payments.lines27-31-total"
+            ],
+            "symbol": null,
+            "subject": null,
+            "finding_id": null
+          },
+          {
+            "artifact": "rule.form1040-line33",
+            "disposition": "blocked",
+            "code": "DEPENDENCY_ABSENT",
+            "missing": [
+              "payments.line32"
+            ],
+            "symbol": null,
+            "subject": null,
+            "finding_id": null
+          },
+          {
+            "artifact": "rule.form1040-line34",
+            "disposition": "blocked",
+            "code": "DEPENDENCY_ABSENT",
+            "missing": [
+              "payments.line33",
+              "tax.line24-total-tax"
+            ],
+            "symbol": null,
+            "subject": null,
+            "finding_id": null
+          },
+          {
+            "artifact": "rule.form1040-line35a",
+            "disposition": "blocked",
+            "code": "DEPENDENCY_ABSENT",
+            "missing": [
+              "payments.line34-overpaid",
+              "payments.line36-applied-to-2026"
+            ],
+            "symbol": null,
+            "subject": null,
+            "finding_id": null
+          },
+          {
+            "artifact": "rule.form1040-line36",
+            "disposition": "blocked",
+            "code": "DEPENDENCY_ABSENT",
+            "missing": [
+              "payments.line34-overpaid"
+            ],
+            "symbol": null,
+            "subject": null,
+            "finding_id": null
+          },
+          {
+            "artifact": "rule.form1040-line37",
+            "disposition": "blocked",
+            "code": "DEPENDENCY_ABSENT",
+            "missing": [
+              "tax.line24-total-tax",
+              "payments.line33"
+            ],
+            "symbol": null,
+            "subject": null,
+            "finding_id": null
+          },
+          {
+            "artifact": "rule.form1040-line7a",
+            "disposition": "blocked",
+            "code": "DEPENDENCY_ABSENT",
+            "missing": [
+              "schedule-d.line-16",
+              "schedule-d.line-21",
+              "capital-gains.selected-preferential-base"
+            ],
+            "symbol": null,
+            "subject": null,
+            "finding_id": null
+          },
+          {
+            "artifact": "rule.form1040-line9",
+            "disposition": "blocked",
+            "code": "DEPENDENCY_ABSENT",
+            "missing": [
+              "capital-gains.line7a-total",
+              "social-security.line6b"
+            ],
+            "symbol": null,
+            "subject": null,
+            "finding_id": null
+          },
+          {
+            "artifact": "rule.form1040-lines27-31-total",
+            "disposition": "blocked",
+            "code": "DEPENDENCY_ABSENT",
+            "missing": [
+              "payments.line27a",
+              "payments.lines28-31"
+            ],
+            "symbol": null,
+            "subject": null,
+            "finding_id": null
+          },
+          {
+            "artifact": "rule.form1040-lines28-31",
+            "disposition": "blocked",
+            "code": "DEPENDENCY_ABSENT",
+            "missing": [
+              "ctc.form1040-line28"
+            ],
+            "symbol": null,
+            "subject": null,
+            "finding_id": null
+          },
+          {
+            "artifact": "rule.schedule-d-line16",
+            "disposition": "blocked",
+            "code": "DEPENDENCY_ABSENT",
+            "missing": [
+              "f1099b.covered-st-txn.box7-verdict",
+              "f1099b.covered-lt-txn.box7-verdict",
+              "f1099b.covered-w-st-txn.box7-verdict",
+              "f1099b.covered-w-lt-txn.box7-verdict",
+              "f1099b.noncovered-st-txn.box7-verdict",
+              "f1099b.noncovered-lt-txn.box7-verdict",
+              "f1099b.code-b-st-txn.box7-verdict",
+              "f1099b.code-b-lt-txn.box7-verdict"
+            ],
+            "symbol": null,
+            "subject": null,
+            "finding_id": null
+          },
+          {
+            "artifact": "rule.schedule-d-line21",
+            "disposition": "blocked",
+            "code": "DEPENDENCY_ABSENT",
+            "missing": [
+              "schedule-d.line-16"
+            ],
+            "symbol": null,
+            "subject": null,
+            "finding_id": null
+          },
+          {
+            "artifact": "rule.selected-preferential-base",
+            "disposition": "blocked",
+            "code": "DEPENDENCY_ABSENT",
+            "missing": [
+              "schedule-d.line-16"
+            ],
+            "symbol": null,
+            "subject": null,
+            "finding_id": null
+          },
+          {
+            "artifact": "rule.ctc-form1040-line19",
+            "disposition": "blocked",
+            "code": "DEPENDENCY_ABSENT",
+            "missing": [
+              "ctc.sch8812.line-14"
+            ],
+            "symbol": null,
+            "subject": null,
+            "finding_id": null
+          }
+        ],
+        "consumers": {
+          "schedule-d.line-16": {
+            "present": true,
+            "binds_symbol": "schedule-d.line-16",
+            "field_version": "v4",
+            "disposition": "blocked",
+            "value": null,
+            "reasons": [],
+            "blocked_explain": "Schedule D line 16 has no value yet. It is waiting for line 7 or line 15. It is also blocked while a recorded Form 1099-B statement has no answer about box 7. It is blocked when box 7 is checked and a sale on that statement is at a loss: a loss based on the box 1d amount is not allowed, and this return does not compute it."
+          },
+          "schedule-d.line-17": {
+            "present": false
+          },
+          "schedule-d.line-18": {
+            "present": false
+          },
+          "schedule-d.line-19": {
+            "present": false
+          },
+          "schedule-d.line-20": {
+            "present": false
+          },
+          "schedule-d.line-21": {
+            "present": true,
+            "binds_symbol": "schedule-d.line-21",
+            "field_version": "v2",
+            "disposition": "blocked",
+            "value": null,
+            "reasons": [],
+            "blocked_explain": "Schedule D line 21 has no value yet. It is waiting for your total gain or loss on line 16."
+          },
+          "schedule-d.line-22": {
+            "present": false
+          },
+          "form1040.line-7a": {
+            "present": true,
+            "binds_symbol": "capital-gains.line7a-total",
+            "field_version": "v2",
+            "disposition": "blocked",
+            "value": null,
+            "reasons": [],
+            "blocked_explain": "Line 7a has no value yet. Whether you recorded any sale decides its route, so it waits for your answers about each kind of sale. With a sale recorded, line 7a is the Schedule D amount and waits for Schedule D. With none, it waits for your Exception 1 answers and for your box 2a capital gain distributions to be complete."
+          },
+          "form1040.line-15": {
+            "present": true,
+            "binds_symbol": "income.taxable-income",
+            "field_version": "v2",
+            "disposition": "blocked",
+            "value": null,
+            "reasons": [],
+            "blocked_explain": "Your taxable income has no value yet. It is waiting for your adjusted gross income and your line 14 deductions."
+          },
+          "form1040.line-16": {
+            "present": true,
+            "binds_symbol": "tax.total-tax",
+            "field_version": "v3",
+            "disposition": "blocked",
+            "value": null,
+            "reasons": [],
+            "blocked_explain": "Your tax has no value yet. It is waiting for your taxable income, your filing status, your qualified dividends and capital gain, or your covered sale proceeds. It also waits for your answers about each kind of sale, because whether you recorded any sale decides whether your tax is figured with Schedule D."
+          },
+          "form1040.line-24": {
+            "present": true,
+            "binds_symbol": "tax.line24-total-tax",
+            "field_version": "v1",
+            "disposition": "blocked",
+            "value": null,
+            "reasons": [],
+            "blocked_explain": "Form 1040 line 24 is blocked because an input it needs is missing or invalid."
+          },
+          "form1040.line-33": {
+            "present": true,
+            "binds_symbol": "payments.line33",
+            "field_version": "v1",
+            "disposition": "blocked",
+            "value": null,
+            "reasons": [],
+            "blocked_explain": "Form 1040 line 33 is blocked because an input it needs is missing or invalid."
+          },
+          "form1040.line-34": {
+            "present": true,
+            "binds_symbol": "payments.line34-overpaid",
+            "field_version": "v1",
+            "disposition": "blocked",
+            "value": null,
+            "reasons": [],
+            "blocked_explain": "Form 1040 line 34 is blocked because an input it needs is missing or invalid."
+          },
+          "form1040.line-37": {
+            "present": true,
+            "binds_symbol": "payments.line37-amount-owed",
+            "field_version": "v1",
+            "disposition": "blocked",
+            "value": null,
+            "reasons": [],
+            "blocked_explain": "Form 1040 line 37 is blocked because an input it needs is missing, invalid, or (line 36) exceeds line 34."
+          }
+        },
+        "line16_field": {
+          "version": "v4",
+          "description": "Schedule D (2025) Part III line 16 equals line 7 plus line 15. It is blocked while a recorded Form 1099-B statement has no box 7 answer, and when box 7 is checked and a sale on that statement is at a loss.",
+          "blocked_explain": "Schedule D line 16 has no value yet. It is waiting for line 7 or line 15. It is also blocked while a recorded Form 1099-B statement has no answer about box 7. It is blocked when box 7 is checked and a sale on that statement is at a loss: a loss based on the box 1d amount is not allowed, and this return does not compute it.",
+          "disposition": "blocked",
+          "value": null,
+          "reasons": []
+        },
+        "line16_rows": [
+          {
+            "artifact": "rule.schedule-d-line16",
+            "disposition": "blocked",
+            "code": "DEPENDENCY_ABSENT",
+            "missing": [
+              "f1099b.covered-st-txn.box7-verdict",
+              "f1099b.covered-lt-txn.box7-verdict",
+              "f1099b.covered-w-st-txn.box7-verdict",
+              "f1099b.covered-w-lt-txn.box7-verdict",
+              "f1099b.noncovered-st-txn.box7-verdict",
+              "f1099b.noncovered-lt-txn.box7-verdict",
+              "f1099b.code-b-st-txn.box7-verdict",
+              "f1099b.code-b-lt-txn.box7-verdict"
+            ],
+            "symbol": null,
+            "subject": null,
+            "finding_id": null
+          }
+        ]
+      },
+      "failures": [
+        "check row []",
+        "line 16 row [{'artifact': 'rule.schedule-d-line16', 'disposition': 'blocked', 'code': 'DEPENDENCY_ABSENT', 'missing': ['f1099b.covered-st-txn.box7-verdict', 'f1099b.covered-lt-txn.box7-verdict', 'f1099b.covered-w-st-txn.box7-verdict', 'f1099b.covered-w-lt-txn.box7-verdict', 'f1099b.noncovered-st-txn.box7-verdict', 'f1099b.noncovered-lt-txn.box7-verdict', 'f1099b.code-b-st-txn.box7-verdict', 'f1099b.code-b-lt-txn.box7-verdict'], 'symbol': None, 'subject': None, 'finding_id': None}]"
+      ],
+      "passed": false
+    },
+    {
+      "id": "alc_covered_st_unanswered",
+      "kind": "unanswered",
+      "slug": "covered-st",
+      "note": "One covered short-term gain and no box 7 answer",
+      "hand": null,
+      "snapshot": {
+        "box7": [],
+        "closures": [
+          {
+            "id": "demo.sfa.s.f1099b.covered-st.closure",
+            "fact_id": "tax.us.2025.f1099b.covered-st.source-closure|family-horizon=demo.sfa.s.f1099b.covered-st.h1,tax-year=2025"
+          }
+        ],
+        "horizons": [
+          "demo.ug.st.h0",
+          "demo.sfa.s.f1099b.covered-st.h1"
+        ]
+      },
+      "result": {
+        "outcome": "success",
+        "stop": "saturated",
+        "presentation_valid": true,
+        "lines": {
+          "form1040.line-15": "blocked",
+          "form1040.line-16": "blocked",
+          "form1040.line-24": "blocked",
+          "form1040.line-33": "blocked",
+          "form1040.line-34": "blocked",
+          "form1040.line-37": "blocked",
+          "form1040.line-7a": "blocked",
+          "schedule-d.line-10": 0,
+          "schedule-d.line-15": 0,
+          "schedule-d.line-16": "blocked",
+          "schedule-d.line-1a": 1000,
+          "schedule-d.line-1b": 0,
+          "schedule-d.line-2": 0,
+          "schedule-d.line-21": "blocked",
+          "schedule-d.line-3": 0,
+          "schedule-d.line-7": 1000,
+          "schedule-d.line-8a": 0,
+          "schedule-d.line-8b": 0,
+          "schedule-d.line-9": 0
+        },
+        "reasons": {
+          "form1040.line-15": [],
+          "form1040.line-16": [],
+          "form1040.line-24": [],
+          "form1040.line-33": [],
+          "form1040.line-34": [],
+          "form1040.line-37": [],
+          "form1040.line-7a": [],
+          "schedule-d.line-16": [],
+          "schedule-d.line-21": []
+        },
+        "questions": [],
+        "publications": [
+          {
+            "symbol": "dependents-worksheet.line1-box-count",
+            "subject": null,
+            "value": 0,
+            "finding_id": "finding:derived:fdf6bd613f82897e6d0d4f17"
+          },
+          {
+            "symbol": "eic.qualifying-child-count",
+            "subject": null,
+            "value": 0,
+            "finding_id": "finding:derived:739895e4dbdaaaffb034339e"
+          },
+          {
+            "symbol": "schedule-d.line-14",
+            "subject": null,
+            "value": 0,
+            "finding_id": "finding:derived:db04722e7ebc20385f89e00c"
+          },
+          {
+            "symbol": "schedule-d.line-6",
+            "subject": null,
+            "value": 0,
+            "finding_id": "finding:derived:578b4b1f28b4fee234220904"
+          },
+          {
+            "symbol": "ctc.child-count",
+            "subject": null,
+            "value": 0,
+            "finding_id": "finding:derived:0e77a17b5d2c769b40cb7133"
+          },
+          {
+            "symbol": "odc.child-count",
+            "subject": null,
+            "value": 0,
+            "finding_id": "finding:derived:566f31441208945e7f4ebb6a"
+          },
+          {
+            "symbol": "odc.relative-count",
+            "subject": null,
+            "value": 0,
+            "finding_id": "finding:derived:f8f425f93f01314fa24bd573"
+          },
+          {
+            "symbol": "schedule-d.line-13",
+            "subject": null,
+            "value": 0,
+            "finding_id": "finding:derived:6c77132f9981eabc697d5153"
+          },
+          {
+            "symbol": "f1099b.code-b-st-count",
+            "subject": null,
+            "value": 0,
+            "finding_id": "finding:derived:ed2155c5550070327c3211a4"
+          },
+          {
+            "symbol": "f1099b.code-b-lt-count",
+            "subject": null,
+            "value": 0,
+            "finding_id": "finding:derived:8b127cd890037b062ef23b77"
+          },
+          {
+            "symbol": "f1099b.covered-st-count",
+            "subject": null,
+            "value": 1,
+            "finding_id": "finding:derived:8a600a880b5b4515b8d8a75c"
+          },
+          {
+            "symbol": "f1099b.covered-lt-count",
+            "subject": null,
+            "value": 0,
+            "finding_id": "finding:derived:02f39a44f5b34940cc71c27d"
+          },
+          {
+            "symbol": "f1099b.covered-w-st-count",
+            "subject": null,
+            "value": 0,
+            "finding_id": "finding:derived:f5adec48f34074abb9c56205"
+          },
+          {
+            "symbol": "f1099b.covered-w-lt-count",
+            "subject": null,
+            "value": 0,
+            "finding_id": "finding:derived:5c4c5f9042f452b1a7c4f401"
+          },
+          {
+            "symbol": "f1099b.noncovered-st-count",
+            "subject": null,
+            "value": 0,
+            "finding_id": "finding:derived:15a5d627ca754fa5906126f6"
+          },
+          {
+            "symbol": "f1099b.noncovered-lt-count",
+            "subject": null,
+            "value": 0,
+            "finding_id": "finding:derived:1a59d520f88d39eadfd1ea11"
+          },
+          {
+            "symbol": "f8949.no1099b-st-count",
+            "subject": null,
+            "value": 0,
+            "finding_id": "finding:derived:e7b95e392e5922ee010602cb"
+          },
+          {
+            "symbol": "f8949.no1099b-lt-count",
+            "subject": null,
+            "value": 0,
+            "finding_id": "finding:derived:616375ac05cd7e17d42ea90e"
+          },
+          {
+            "symbol": "eic.column-count",
+            "subject": null,
+            "value": 0,
+            "finding_id": "finding:derived:d3c4415e533892624f6194e7"
+          },
+          {
+            "symbol": "schedule-d.line-1a-gain",
+            "subject": null,
+            "value": 1000,
+            "finding_id": "finding:derived:bd9efa14461b0c54eebafb28"
+          },
+          {
+            "symbol": "schedule-d.line-8a-gain",
+            "subject": null,
+            "value": 0,
+            "finding_id": "finding:derived:f51d04d98bb74f0511764396"
+          },
+          {
+            "symbol": "schedule-d.line-2",
+            "subject": null,
+            "value": 0,
+            "finding_id": "finding:derived:c61cd84a8416c2ae0b5ed59a"
+          },
+          {
+            "symbol": "schedule-d.line-9",
+            "subject": null,
+            "value": 0,
+            "finding_id": "finding:derived:c40330a8e524f26517e5ce24"
+          },
+          {
+            "symbol": "schedule-d.line-3",
+            "subject": null,
+            "value": 0,
+            "finding_id": "finding:derived:421d4adeba8feecf176ac5c5"
+          },
+          {
+            "symbol": "schedule-d.line-10",
+            "subject": null,
+            "value": 0,
+            "finding_id": "finding:derived:9cab9cc79f64301c8575a57b"
+          },
+          {
+            "symbol": "schedule-d.line-1b",
+            "subject": null,
+            "value": 0,
+            "finding_id": "finding:derived:a8501447b0efacab2b9adaa0"
+          },
+          {
+            "symbol": "schedule-d.line-7",
+            "subject": null,
+            "value": 1000,
+            "finding_id": "finding:derived:970eeeb1d40859e4d7a0bda1"
+          },
+          {
+            "symbol": "schedule-d.line-8b",
+            "subject": null,
+            "value": 0,
+            "finding_id": "finding:derived:62404445983e01a9b95cce8f"
+          },
+          {
+            "symbol": "schedule-d.line-15",
+            "subject": null,
+            "value": 0,
+            "finding_id": "finding:derived:775300cd3fb2c4b9d5124d12"
+          }
+        ],
+        "rows": [
+          {
+            "artifact": "rule.eic-qualifying-child-count",
+            "disposition": "published",
+            "code": null,
+            "missing": [],
+            "symbol": "eic.qualifying-child-count",
+            "subject": null,
+            "finding_id": "finding:derived:739895e4dbdaaaffb034339e"
+          },
+          {
+            "artifact": "rule.form1040-line13a",
+            "disposition": "published",
+            "code": null,
+            "missing": [],
+            "symbol": "deductions.qbi",
+            "subject": null,
+            "finding_id": "finding:derived:f522f48b6bff44bf7a921ba8"
+          },
+          {
+            "artifact": "rule.form1040-line23",
+            "disposition": "published",
+            "code": null,
+            "missing": [],
+            "symbol": "tax.line23-other-taxes",
+            "subject": null,
+            "finding_id": "finding:derived:5b85bb085cf38f4fc4f06d1f"
+          },
+          {
+            "artifact": "rule.form1040-line26",
+            "disposition": "published",
+            "code": null,
+            "missing": [],
+            "symbol": "payments.line26",
+            "subject": null,
+            "finding_id": "finding:derived:6af72e2001e113d166d7b5c5"
+          },
+          {
+            "artifact": "rule.form1040-line2a",
+            "disposition": "published",
+            "code": null,
+            "missing": [],
+            "symbol": "tax-exempt-interest.line2a-total",
+            "subject": null,
+            "finding_id": "finding:derived:7a234927860f13c56f289f2b"
+          },
+          {
+            "artifact": "rule.form1040-line38",
+            "disposition": "published",
+            "code": null,
+            "missing": [],
+            "symbol": "tax.line38-penalty",
+            "subject": null,
+            "finding_id": "finding:derived:753fc992ce4e8eb39c1e85e2"
+          },
+          {
+            "artifact": "rule.form1040-line3a",
+            "disposition": "published",
+            "code": null,
+            "missing": [],
+            "symbol": "dividends.qualified-total",
+            "subject": null,
+            "finding_id": "finding:derived:cedcd43fd4a825f8a049d074"
+          },
+          {
+            "artifact": "rule.form1040-line3b",
+            "disposition": "published",
+            "code": null,
+            "missing": [],
+            "symbol": "dividends.ordinary-total",
+            "subject": null,
+            "finding_id": "finding:derived:8da94e9eb6fa8fc83a3cefc2"
+          },
+          {
+            "artifact": "rule.form1040-line6c",
+            "disposition": "published",
+            "code": null,
+            "missing": [],
+            "symbol": "social-security.line6c-indicator",
+            "subject": null,
+            "finding_id": "finding:derived:5f45460d8b597b7c7234d512"
+          },
+          {
+            "artifact": "rule.form1040-line6d",
+            "disposition": "inapplicable",
+            "code": null,
+            "missing": [],
+            "symbol": null,
+            "subject": null,
+            "finding_id": null
+          },
+          {
+            "artifact": "rule.form1040-line6d-not-checked",
+            "disposition": "inapplicable",
+            "code": null,
+            "missing": [],
+            "symbol": null,
+            "subject": null,
+            "finding_id": null
+          },
+          {
+            "artifact": "rule.schedule-d-line14",
+            "disposition": "published",
+            "code": null,
+            "missing": [],
+            "symbol": "schedule-d.line-14",
+            "subject": null,
+            "finding_id": "finding:derived:db04722e7ebc20385f89e00c"
+          },
+          {
+            "artifact": "rule.schedule-d-line6",
+            "disposition": "published",
+            "code": null,
+            "missing": [],
+            "symbol": "schedule-d.line-6",
+            "subject": null,
+            "finding_id": "finding:derived:578b4b1f28b4fee234220904"
+          },
+          {
+            "artifact": "rule.ctc-child-count",
+            "disposition": "published",
+            "code": null,
+            "missing": [],
+            "symbol": "ctc.child-count",
+            "subject": null,
+            "finding_id": "finding:derived:0e77a17b5d2c769b40cb7133"
+          },
+          {
+            "artifact": "rule.odc-child-count",
+            "disposition": "published",
+            "code": null,
+            "missing": [],
+            "symbol": "odc.child-count",
+            "subject": null,
+            "finding_id": "finding:derived:566f31441208945e7f4ebb6a"
+          },
+          {
+            "artifact": "rule.odc-relative-count",
+            "disposition": "published",
+            "code": null,
+            "missing": [],
+            "symbol": "odc.relative-count",
+            "subject": null,
+            "finding_id": "finding:derived:f8f425f93f01314fa24bd573"
+          },
+          {
+            "artifact": "rule.schedule-d-line13",
+            "disposition": "published",
+            "code": null,
+            "missing": [],
+            "symbol": "schedule-d.line-13",
+            "subject": null,
+            "finding_id": "finding:derived:6c77132f9981eabc697d5153"
+          },
+          {
+            "artifact": "rule.f1099b-code-b-st-count",
+            "disposition": "published",
+            "code": null,
+            "missing": [],
+            "symbol": "f1099b.code-b-st-count",
+            "subject": null,
+            "finding_id": "finding:derived:ed2155c5550070327c3211a4"
+          },
+          {
+            "artifact": "rule.f1099b-code-b-lt-count",
+            "disposition": "published",
+            "code": null,
+            "missing": [],
+            "symbol": "f1099b.code-b-lt-count",
+            "subject": null,
+            "finding_id": "finding:derived:8b127cd890037b062ef23b77"
+          },
+          {
+            "artifact": "rule.f1099b-covered-st-count",
+            "disposition": "published",
+            "code": null,
+            "missing": [],
+            "symbol": "f1099b.covered-st-count",
+            "subject": null,
+            "finding_id": "finding:derived:8a600a880b5b4515b8d8a75c"
+          },
+          {
+            "artifact": "rule.f1099b-covered-lt-count",
+            "disposition": "published",
+            "code": null,
+            "missing": [],
+            "symbol": "f1099b.covered-lt-count",
+            "subject": null,
+            "finding_id": "finding:derived:02f39a44f5b34940cc71c27d"
+          },
+          {
+            "artifact": "rule.f1099b-covered-w-st-count",
+            "disposition": "published",
+            "code": null,
+            "missing": [],
+            "symbol": "f1099b.covered-w-st-count",
+            "subject": null,
+            "finding_id": "finding:derived:f5adec48f34074abb9c56205"
+          },
+          {
+            "artifact": "rule.f1099b-covered-w-lt-count",
+            "disposition": "published",
+            "code": null,
+            "missing": [],
+            "symbol": "f1099b.covered-w-lt-count",
+            "subject": null,
+            "finding_id": "finding:derived:5c4c5f9042f452b1a7c4f401"
+          },
+          {
+            "artifact": "rule.f1099b-noncovered-st-count",
+            "disposition": "published",
+            "code": null,
+            "missing": [],
+            "symbol": "f1099b.noncovered-st-count",
+            "subject": null,
+            "finding_id": "finding:derived:15a5d627ca754fa5906126f6"
+          },
+          {
+            "artifact": "rule.f1099b-noncovered-lt-count",
+            "disposition": "published",
+            "code": null,
+            "missing": [],
+            "symbol": "f1099b.noncovered-lt-count",
+            "subject": null,
+            "finding_id": "finding:derived:1a59d520f88d39eadfd1ea11"
+          },
+          {
+            "artifact": "rule.f8949-no1099b-st-count",
+            "disposition": "published",
+            "code": null,
+            "missing": [],
+            "symbol": "f8949.no1099b-st-count",
+            "subject": null,
+            "finding_id": "finding:derived:e7b95e392e5922ee010602cb"
+          },
+          {
+            "artifact": "rule.f8949-no1099b-lt-count",
+            "disposition": "published",
+            "code": null,
+            "missing": [],
+            "symbol": "f8949.no1099b-lt-count",
+            "subject": null,
+            "finding_id": "finding:derived:616375ac05cd7e17d42ea90e"
+          },
+          {
+            "artifact": "rule.f1099b.covered-st-txn.box7-verdict",
+            "disposition": "blocked",
+            "code": "DEPENDENCY_ABSENT",
+            "missing": [
+              "f1099b.statement-box7-loss-not-allowed"
+            ],
+            "symbol": "f1099b.covered-st-txn.box7-verdict",
+            "subject": "tax.us.2025.f1099b.covered-st-txn|broker=demo.sfa.s.broker,statement=demo.sfa.s.statement,transaction=demo.sfa.s.transaction,tax-year=2025",
+            "finding_id": null
+          },
+          {
+            "artifact": "rule.eic-column-count",
+            "disposition": "published",
+            "code": null,
+            "missing": [],
+            "symbol": "eic.column-count",
+            "subject": null,
+            "finding_id": "finding:derived:d3c4415e533892624f6194e7"
+          },
+          {
+            "artifact": "rule.form1040-line25a",
+            "disposition": "published",
+            "code": null,
+            "missing": [],
+            "symbol": "payments.line25a",
+            "subject": null,
+            "finding_id": "finding:derived:a45e9f31f610f26ba8c88bb6"
+          },
+          {
+            "artifact": "rule.form1040-line25c",
+            "disposition": "published",
+            "code": null,
+            "missing": [],
+            "symbol": "payments.line25c",
+            "subject": null,
+            "finding_id": "finding:derived:9e54b9713cda30b72c35afb2"
+          },
+          {
+            "artifact": "rule.form1040-line6a",
+            "disposition": "published",
+            "code": null,
+            "missing": [],
+            "symbol": "social-security.line6a",
+            "subject": null,
+            "finding_id": "finding:derived:fd0fa772590d51372aa68c48"
+          },
+          {
+            "artifact": "rule.form1040-line7b",
+            "disposition": "inapplicable",
+            "code": null,
+            "missing": [],
+            "symbol": null,
+            "subject": null,
+            "finding_id": null
+          },
+          {
+            "artifact": "rule.schedule-d-line1a-gain",
+            "disposition": "published",
+            "code": null,
+            "missing": [],
+            "symbol": "schedule-d.line-1a-gain",
+            "subject": null,
+            "finding_id": "finding:derived:bd9efa14461b0c54eebafb28"
+          },
+          {
+            "artifact": "rule.schedule-d-line8a-gain",
+            "disposition": "published",
+            "code": null,
+            "missing": [],
+            "symbol": "schedule-d.line-8a-gain",
+            "subject": null,
+            "finding_id": "finding:derived:f51d04d98bb74f0511764396"
+          },
+          {
+            "artifact": "rule.form1040-line25b",
+            "disposition": "published",
+            "code": null,
+            "missing": [],
+            "symbol": "payments.line25b",
+            "subject": null,
+            "finding_id": "finding:derived:da45b2cb14c7e5d2c92fec68"
+          },
+          {
+            "artifact": "rule.schedule-d-line2",
+            "disposition": "published",
+            "code": null,
+            "missing": [],
+            "symbol": "schedule-d.line-2",
+            "subject": null,
+            "finding_id": "finding:derived:c61cd84a8416c2ae0b5ed59a"
+          },
+          {
+            "artifact": "rule.schedule-d-line9",
+            "disposition": "published",
+            "code": null,
+            "missing": [],
+            "symbol": "schedule-d.line-9",
+            "subject": null,
+            "finding_id": "finding:derived:c40330a8e524f26517e5ce24"
+          },
+          {
+            "artifact": "rule.schedule-d-line3",
+            "disposition": "published",
+            "code": null,
+            "missing": [],
+            "symbol": "schedule-d.line-3",
+            "subject": null,
+            "finding_id": "finding:derived:421d4adeba8feecf176ac5c5"
+          },
+          {
+            "artifact": "rule.schedule-d-line10",
+            "disposition": "published",
+            "code": null,
+            "missing": [],
+            "symbol": "schedule-d.line-10",
+            "subject": null,
+            "finding_id": "finding:derived:9cab9cc79f64301c8575a57b"
+          },
+          {
+            "artifact": "rule.form1040-line12e",
+            "disposition": "published",
+            "code": null,
+            "missing": [],
+            "symbol": "deductions.line-12e",
+            "subject": null,
+            "finding_id": "finding:derived:e919f04ffce23cfe8e1a8545"
+          },
+          {
+            "artifact": "rule.form1040-line25d",
+            "disposition": "published",
+            "code": null,
+            "missing": [],
+            "symbol": "payments.line25d",
+            "subject": null,
+            "finding_id": "finding:derived:bac0e866a3957ad48cdd9c74"
+          },
+          {
+            "artifact": "rule.form1040-line8",
+            "disposition": "published",
+            "code": null,
+            "missing": [],
+            "symbol": "income.additional-income",
+            "subject": null,
+            "finding_id": "finding:derived:361147da0bce4a4359c2134c"
+          },
+          {
+            "artifact": "rule.schedule-d-line1b",
+            "disposition": "published",
+            "code": null,
+            "missing": [],
+            "symbol": "schedule-d.line-1b",
+            "subject": null,
+            "finding_id": "finding:derived:a8501447b0efacab2b9adaa0"
+          },
+          {
+            "artifact": "rule.schedule-d-line7",
+            "disposition": "published",
+            "code": null,
+            "missing": [],
+            "symbol": "schedule-d.line-7",
+            "subject": null,
+            "finding_id": "finding:derived:970eeeb1d40859e4d7a0bda1"
+          },
+          {
+            "artifact": "rule.schedule-d-line8b",
+            "disposition": "published",
+            "code": null,
+            "missing": [],
+            "symbol": "schedule-d.line-8b",
+            "subject": null,
+            "finding_id": "finding:derived:62404445983e01a9b95cce8f"
+          },
+          {
+            "artifact": "rule.schedule-d-line15",
+            "disposition": "published",
+            "code": null,
+            "missing": [],
+            "symbol": "schedule-d.line-15",
+            "subject": null,
+            "finding_id": "finding:derived:775300cd3fb2c4b9d5124d12"
+          },
+          {
+            "artifact": "rule.form1040-line2b",
+            "disposition": "published",
+            "code": null,
+            "missing": [],
+            "symbol": "interest.taxable-total",
+            "subject": null,
+            "finding_id": "finding:derived:3733b17b905cef42f7460ce8"
+          },
+          {
+            "artifact": "rule.form1040-line2b-rounded",
+            "disposition": "published",
+            "code": null,
+            "missing": [],
+            "symbol": "interest.line-2b",
+            "subject": null,
+            "finding_id": "finding:derived:621b5539683d2ccfa71241c6"
+          },
+          {
+            "artifact": "rule.form1040-line10",
+            "disposition": "published",
+            "code": null,
+            "missing": [],
+            "symbol": "income.line10-adjustments",
+            "subject": null,
+            "finding_id": "finding:derived:b271dbf6384a5b70583487d6"
+          },
+          {
+            "artifact": "rule.form1040-line11",
+            "disposition": "blocked",
+            "code": "DEPENDENCY_ABSENT",
+            "missing": [
+              "income.total-income"
+            ],
+            "symbol": null,
+            "subject": null,
+            "finding_id": null
+          },
+          {
+            "artifact": "rule.form1040-line13b",
+            "disposition": "blocked",
+            "code": "DEPENDENCY_ABSENT",
+            "missing": [
+              "schedule1a.line37-enhanced-deduction-total"
+            ],
+            "symbol": null,
+            "subject": null,
+            "finding_id": null
+          },
+          {
+            "artifact": "rule.form1040-line14",
+            "disposition": "blocked",
+            "code": "DEPENDENCY_ABSENT",
+            "missing": [
+              "deductions.schedule-1a"
+            ],
+            "symbol": null,
+            "subject": null,
+            "finding_id": null
+          },
+          {
+            "artifact": "rule.form1040-line15",
+            "disposition": "blocked",
+            "code": "DEPENDENCY_ABSENT",
+            "missing": [
+              "income.agi",
+              "deductions.line-14"
+            ],
+            "symbol": null,
+            "subject": null,
+            "finding_id": null
+          },
+          {
+            "artifact": "rule.form1040-line16",
+            "disposition": "blocked",
+            "code": "DEPENDENCY_ABSENT",
+            "missing": [
+              "income.taxable-income",
+              "capital-gains.selected-preferential-base",
+              "qdcg-worksheet.line-24",
+              "qdcg-worksheet.line-25"
+            ],
+            "symbol": null,
+            "subject": null,
+            "finding_id": null
+          },
+          {
+            "artifact": "rule.form1040-line20",
+            "disposition": "blocked",
+            "code": "DEPENDENCY_ABSENT",
+            "missing": [
+              "schedule3.line8-total"
+            ],
+            "symbol": null,
+            "subject": null,
+            "finding_id": null
+          },
+          {
+            "artifact": "rule.form1040-line24",
+            "disposition": "blocked",
+            "code": "DEPENDENCY_ABSENT",
+            "missing": [
+              "tax.after-nonrefundable-credits"
+            ],
+            "symbol": null,
+            "subject": null,
+            "finding_id": null
+          },
+          {
+            "artifact": "rule.form1040-line27a",
+            "disposition": "blocked",
+            "code": "DEPENDENCY_ABSENT",
+            "missing": [
+              "eic.eligibility-result"
+            ],
+            "symbol": null,
+            "subject": null,
+            "finding_id": null
+          },
+          {
+            "artifact": "rule.form1040-line32",
+            "disposition": "blocked",
+            "code": "DEPENDENCY_ABSENT",
+            "missing": [
+              "payments.lines27-31-total"
+            ],
+            "symbol": null,
+            "subject": null,
+            "finding_id": null
+          },
+          {
+            "artifact": "rule.form1040-line33",
+            "disposition": "blocked",
+            "code": "DEPENDENCY_ABSENT",
+            "missing": [
+              "payments.line32"
+            ],
+            "symbol": null,
+            "subject": null,
+            "finding_id": null
+          },
+          {
+            "artifact": "rule.form1040-line34",
+            "disposition": "blocked",
+            "code": "DEPENDENCY_ABSENT",
+            "missing": [
+              "payments.line33",
+              "tax.line24-total-tax"
+            ],
+            "symbol": null,
+            "subject": null,
+            "finding_id": null
+          },
+          {
+            "artifact": "rule.form1040-line35a",
+            "disposition": "blocked",
+            "code": "DEPENDENCY_ABSENT",
+            "missing": [
+              "payments.line34-overpaid",
+              "payments.line36-applied-to-2026"
+            ],
+            "symbol": null,
+            "subject": null,
+            "finding_id": null
+          },
+          {
+            "artifact": "rule.form1040-line36",
+            "disposition": "blocked",
+            "code": "DEPENDENCY_ABSENT",
+            "missing": [
+              "payments.line34-overpaid"
+            ],
+            "symbol": null,
+            "subject": null,
+            "finding_id": null
+          },
+          {
+            "artifact": "rule.form1040-line37",
+            "disposition": "blocked",
+            "code": "DEPENDENCY_ABSENT",
+            "missing": [
+              "tax.line24-total-tax",
+              "payments.line33"
+            ],
+            "symbol": null,
+            "subject": null,
+            "finding_id": null
+          },
+          {
+            "artifact": "rule.form1040-line7a",
+            "disposition": "blocked",
+            "code": "DEPENDENCY_ABSENT",
+            "missing": [
+              "schedule-d.line-16",
+              "schedule-d.line-21",
+              "capital-gains.selected-preferential-base"
+            ],
+            "symbol": null,
+            "subject": null,
+            "finding_id": null
+          },
+          {
+            "artifact": "rule.form1040-line9",
+            "disposition": "blocked",
+            "code": "DEPENDENCY_ABSENT",
+            "missing": [
+              "capital-gains.line7a-total",
+              "social-security.line6b"
+            ],
+            "symbol": null,
+            "subject": null,
+            "finding_id": null
+          },
+          {
+            "artifact": "rule.form1040-lines27-31-total",
+            "disposition": "blocked",
+            "code": "DEPENDENCY_ABSENT",
+            "missing": [
+              "payments.line27a",
+              "payments.lines28-31"
+            ],
+            "symbol": null,
+            "subject": null,
+            "finding_id": null
+          },
+          {
+            "artifact": "rule.form1040-lines28-31",
+            "disposition": "blocked",
+            "code": "DEPENDENCY_ABSENT",
+            "missing": [
+              "ctc.form1040-line28"
+            ],
+            "symbol": null,
+            "subject": null,
+            "finding_id": null
+          },
+          {
+            "artifact": "rule.schedule-d-line16",
+            "disposition": "blocked",
+            "code": "DEPENDENCY_ABSENT",
+            "missing": [
+              "f1099b.covered-st-txn.box7-verdict",
+              "f1099b.covered-lt-txn.box7-verdict",
+              "f1099b.covered-w-st-txn.box7-verdict",
+              "f1099b.covered-w-lt-txn.box7-verdict",
+              "f1099b.noncovered-st-txn.box7-verdict",
+              "f1099b.noncovered-lt-txn.box7-verdict",
+              "f1099b.code-b-st-txn.box7-verdict",
+              "f1099b.code-b-lt-txn.box7-verdict"
+            ],
+            "symbol": null,
+            "subject": null,
+            "finding_id": null
+          },
+          {
+            "artifact": "rule.schedule-d-line21",
+            "disposition": "blocked",
+            "code": "DEPENDENCY_ABSENT",
+            "missing": [
+              "schedule-d.line-16"
+            ],
+            "symbol": null,
+            "subject": null,
+            "finding_id": null
+          },
+          {
+            "artifact": "rule.selected-preferential-base",
+            "disposition": "blocked",
+            "code": "DEPENDENCY_ABSENT",
+            "missing": [
+              "schedule-d.line-16"
+            ],
+            "symbol": null,
+            "subject": null,
+            "finding_id": null
+          },
+          {
+            "artifact": "rule.ctc-form1040-line19",
+            "disposition": "blocked",
+            "code": "DEPENDENCY_ABSENT",
+            "missing": [
+              "ctc.sch8812.line-14"
+            ],
+            "symbol": null,
+            "subject": null,
+            "finding_id": null
+          }
+        ],
+        "consumers": {
+          "schedule-d.line-16": {
+            "present": true,
+            "binds_symbol": "schedule-d.line-16",
+            "field_version": "v4",
+            "disposition": "blocked",
+            "value": null,
+            "reasons": [],
+            "blocked_explain": "Schedule D line 16 has no value yet. It is waiting for line 7 or line 15. It is also blocked while a recorded Form 1099-B statement has no answer about box 7. It is blocked when box 7 is checked and a sale on that statement is at a loss: a loss based on the box 1d amount is not allowed, and this return does not compute it."
+          },
+          "schedule-d.line-17": {
+            "present": false
+          },
+          "schedule-d.line-18": {
+            "present": false
+          },
+          "schedule-d.line-19": {
+            "present": false
+          },
+          "schedule-d.line-20": {
+            "present": false
+          },
+          "schedule-d.line-21": {
+            "present": true,
+            "binds_symbol": "schedule-d.line-21",
+            "field_version": "v2",
+            "disposition": "blocked",
+            "value": null,
+            "reasons": [],
+            "blocked_explain": "Schedule D line 21 has no value yet. It is waiting for your total gain or loss on line 16."
+          },
+          "schedule-d.line-22": {
+            "present": false
+          },
+          "form1040.line-7a": {
+            "present": true,
+            "binds_symbol": "capital-gains.line7a-total",
+            "field_version": "v2",
+            "disposition": "blocked",
+            "value": null,
+            "reasons": [],
+            "blocked_explain": "Line 7a has no value yet. Whether you recorded any sale decides its route, so it waits for your answers about each kind of sale. With a sale recorded, line 7a is the Schedule D amount and waits for Schedule D. With none, it waits for your Exception 1 answers and for your box 2a capital gain distributions to be complete."
+          },
+          "form1040.line-15": {
+            "present": true,
+            "binds_symbol": "income.taxable-income",
+            "field_version": "v2",
+            "disposition": "blocked",
+            "value": null,
+            "reasons": [],
+            "blocked_explain": "Your taxable income has no value yet. It is waiting for your adjusted gross income and your line 14 deductions."
+          },
+          "form1040.line-16": {
+            "present": true,
+            "binds_symbol": "tax.total-tax",
+            "field_version": "v3",
+            "disposition": "blocked",
+            "value": null,
+            "reasons": [],
+            "blocked_explain": "Your tax has no value yet. It is waiting for your taxable income, your filing status, your qualified dividends and capital gain, or your covered sale proceeds. It also waits for your answers about each kind of sale, because whether you recorded any sale decides whether your tax is figured with Schedule D."
+          },
+          "form1040.line-24": {
+            "present": true,
+            "binds_symbol": "tax.line24-total-tax",
+            "field_version": "v1",
+            "disposition": "blocked",
+            "value": null,
+            "reasons": [],
+            "blocked_explain": "Form 1040 line 24 is blocked because an input it needs is missing or invalid."
+          },
+          "form1040.line-33": {
+            "present": true,
+            "binds_symbol": "payments.line33",
+            "field_version": "v1",
+            "disposition": "blocked",
+            "value": null,
+            "reasons": [],
+            "blocked_explain": "Form 1040 line 33 is blocked because an input it needs is missing or invalid."
+          },
+          "form1040.line-34": {
+            "present": true,
+            "binds_symbol": "payments.line34-overpaid",
+            "field_version": "v1",
+            "disposition": "blocked",
+            "value": null,
+            "reasons": [],
+            "blocked_explain": "Form 1040 line 34 is blocked because an input it needs is missing or invalid."
+          },
+          "form1040.line-37": {
+            "present": true,
+            "binds_symbol": "payments.line37-amount-owed",
+            "field_version": "v1",
+            "disposition": "blocked",
+            "value": null,
+            "reasons": [],
+            "blocked_explain": "Form 1040 line 37 is blocked because an input it needs is missing, invalid, or (line 36) exceeds line 34."
+          }
+        },
+        "line16_field": {
+          "version": "v4",
+          "description": "Schedule D (2025) Part III line 16 equals line 7 plus line 15. It is blocked while a recorded Form 1099-B statement has no box 7 answer, and when box 7 is checked and a sale on that statement is at a loss.",
+          "blocked_explain": "Schedule D line 16 has no value yet. It is waiting for line 7 or line 15. It is also blocked while a recorded Form 1099-B statement has no answer about box 7. It is blocked when box 7 is checked and a sale on that statement is at a loss: a loss based on the box 1d amount is not allowed, and this return does not compute it.",
+          "disposition": "blocked",
+          "value": null,
+          "reasons": []
+        },
+        "line16_rows": [
+          {
+            "artifact": "rule.schedule-d-line16",
+            "disposition": "blocked",
+            "code": "DEPENDENCY_ABSENT",
+            "missing": [
+              "f1099b.covered-st-txn.box7-verdict",
+              "f1099b.covered-lt-txn.box7-verdict",
+              "f1099b.covered-w-st-txn.box7-verdict",
+              "f1099b.covered-w-lt-txn.box7-verdict",
+              "f1099b.noncovered-st-txn.box7-verdict",
+              "f1099b.noncovered-lt-txn.box7-verdict",
+              "f1099b.code-b-st-txn.box7-verdict",
+              "f1099b.code-b-lt-txn.box7-verdict"
+            ],
+            "symbol": null,
+            "subject": null,
+            "finding_id": null
+          }
+        ]
+      },
+      "failures": [
+        "questions []"
+      ],
+      "passed": false
+    },
+    {
+      "id": "alc_closed_empty",
+      "kind": "empty",
+      "slug": null,
+      "note": "No sale. Every family check is 0 and every count is 0.",
+      "hand": {
+        "schedule-d.line-1a": 0,
+        "schedule-d.line-1b": 0,
+        "schedule-d.line-2": 0,
+        "schedule-d.line-3": 0,
+        "schedule-d.line-7": 0,
+        "schedule-d.line-8a": 0,
+        "schedule-d.line-8b": 0,
+        "schedule-d.line-9": 0,
+        "schedule-d.line-10": 0,
+        "schedule-d.line-15": 0,
+        "schedule-d.line-16": 0,
+        "schedule-d.line-21": 0,
+        "form1040.line-7a": 0,
+        "form1040.line-15": 34250,
+        "form1040.line-16": 3875,
+        "form1040.line-24": 3875,
+        "form1040.line-33": 4500,
+        "form1040.line-34": 625,
+        "form1040.line-37": 0
+      },
+      "snapshot": {
+        "box7": [],
+        "closures": [
+          {
+            "id": "demo.cgd.t2.closure.w2",
+            "fact_id": "tax.us.2025.w2.source-closure|family-horizon=demo.cgd.t2.w2.h1,tax-year=2025"
+          },
+          {
+            "id": "demo.cgd.t2.closure.int-b1",
+            "fact_id": "tax.us.2025.f1099int.b1.source-closure|family-horizon=demo.cgd.t2.int-b1.h0,tax-year=2025"
+          },
+          {
+            "id": "demo.cgd.t2.closure.int-b3",
+            "fact_id": "tax.us.2025.f1099int.b3.source-closure|family-horizon=demo.cgd.t2.int-b3.h0,tax-year=2025"
+          },
+          {
+            "id": "demo.cgd.t2.closure.oid-b1",
+            "fact_id": "tax.us.2025.f1099oid.b1.source-closure|family-horizon=demo.cgd.t2.oid-b1.h0,tax-year=2025"
+          },
+          {
+            "id": "demo.cgd.t2.closure.nonform",
+            "fact_id": "tax.us.2025.non-form-interest.source-closure|family-horizon=demo.cgd.t2.nonform.h0,tax-year=2025"
+          },
+          {
+            "id": "demo.cgd.t2.closure.div1a",
+            "fact_id": "tax.us.2025.f1099div.1a.source-closure|family-horizon=demo.cgd.t2.div1a.h0,tax-year=2025"
+          },
+          {
+            "id": "demo.cgd.t2.closure.div1b",
+            "fact_id": "tax.us.2025.f1099div.1b.source-closure|family-horizon=demo.cgd.t2.div1b.h0,tax-year=2025"
+          },
+          {
+            "id": "demo.cgd.t2.closure.div2a",
+            "fact_id": "tax.us.2025.f1099div.2a.source-closure|family-horizon=demo.cgd.t2.div2a.h0,tax-year=2025"
+          },
+          {
+            "id": "demo.ug.closure.demo.ug.k1.h0",
+            "fact_id": "tax.us.2025.form1065-k1.box5.source-closure|family-horizon=demo.ug.k1.h0,tax-year=2025"
+          },
+          {
+            "id": "demo.ug.closure.demo.ug.int-b10.h0",
+            "fact_id": "tax.us.2025.f1099int.b10.source-closure|family-horizon=demo.ug.int-b10.h0,tax-year=2025"
+          },
+          {
+            "id": "demo.ug.closure.demo.ug.oid-b5.h0",
+            "fact_id": "tax.us.2025.f1099oid.b5.source-closure|family-horizon=demo.ug.oid-b5.h0,tax-year=2025"
+          },
+          {
+            "id": "demo.ug.closure.demo.ug.sb-nom.h0",
+            "fact_id": "tax.us.2025.scheduleb.adjustment.nominee.source-closure|family-horizon=demo.ug.sb-nom.h0,tax-year=2025"
+          },
+          {
+            "id": "demo.ug.closure.demo.ug.sb-acc.h0",
+            "fact_id": "tax.us.2025.scheduleb.adjustment.accrued-interest.source-closure|family-horizon=demo.ug.sb-acc.h0,tax-year=2025"
+          },
+          {
+            "id": "demo.ug.closure.demo.ug.sb-abp.h0",
+            "fact_id": "tax.us.2025.scheduleb.adjustment.abp-adjustment.source-closure|family-horizon=demo.ug.sb-abp.h0,tax-year=2025"
+          },
+          {
+            "id": "demo.ug.closure.demo.ug.st.h0",
+            "fact_id": "tax.us.2025.f1099b.covered-st.source-closure|family-horizon=demo.ug.st.h0,tax-year=2025"
+          },
+          {
+            "id": "demo.ug.closure.demo.ug.st-p.h0",
+            "fact_id": "tax.us.2025.f1099b.covered-st-proceeds.source-closure|family-horizon=demo.ug.st-p.h0,tax-year=2025"
+          },
+          {
+            "id": "demo.ug.closure.demo.ug.st-b.h0",
+            "fact_id": "tax.us.2025.f1099b.covered-st-basis.source-closure|family-horizon=demo.ug.st-b.h0,tax-year=2025"
+          },
+          {
+            "id": "demo.ug.closure.demo.ug.lt.h0",
+            "fact_id": "tax.us.2025.f1099b.covered-lt.source-closure|family-horizon=demo.ug.lt.h0,tax-year=2025"
+          },
+          {
+            "id": "demo.ug.closure.demo.ug.lt-p.h0",
+            "fact_id": "tax.us.2025.f1099b.covered-lt-proceeds.source-closure|family-horizon=demo.ug.lt-p.h0,tax-year=2025"
+          },
+          {
+            "id": "demo.ug.closure.demo.ug.lt-b.h0",
+            "fact_id": "tax.us.2025.f1099b.covered-lt-basis.source-closure|family-horizon=demo.ug.lt-b.h0,tax-year=2025"
+          },
+          {
+            "id": "demo.ug.closure.demo.ug.int-b8.h0",
+            "fact_id": "tax.us.2025.f1099int.b8.source-closure|family-horizon=demo.ug.int-b8.h0,tax-year=2025"
+          },
+          {
+            "id": "demo.ug.closure.box1",
+            "fact_id": "tax.us.2025.f1099g.1.source-closure|family-horizon=demo.ug.h0,tax-year=2025"
+          },
+          {
+            "id": "demo.ira.closure",
+            "fact_id": "tax.us.2025.f1099r.ira-fully-taxable.source-closure|family-horizon=demo.ira.h0,tax-year=2025"
+          },
+          {
+            "id": "demo.ssa.closure",
+            "fact_id": "tax.us.2025.ssa1099.source-closure|family-horizon=demo.ssa.h0,tax-year=2025"
+          },
+          {
+            "id": "demo.ssa.div12.closure",
+            "fact_id": "tax.us.2025.f1099div.12.source-closure|family-horizon=demo.ssa.div12.h0,tax-year=2025"
+          },
+          {
+            "id": "demo.probe.f1098e.closure",
+            "fact_id": "tax.us.2025.f1098e.1.source-closure|family-horizon=demo.probe.f1098e.h0,tax-year=2025"
+          },
+          {
+            "id": "demo.probe.f1099k.closure",
+            "fact_id": "tax.us.2025.f1099k.source-closure|family-horizon=demo.probe.f1099k.h0,tax-year=2025"
+          },
+          {
+            "id": "f.closure.demo.synthetic.wst.v2.h0",
+            "fact_id": "tax.us.2025.f1099b.covered-w-st.source-closure|family-horizon=demo.synthetic.wst.v2.h0,tax-year=2025"
+          },
+          {
+            "id": "f.closure.demo.synthetic.wst-p.v2.h0",
+            "fact_id": "tax.us.2025.f1099b.covered-w-st-proceeds.source-closure|family-horizon=demo.synthetic.wst-p.v2.h0,tax-year=2025"
+          },
+          {
+            "id": "f.closure.demo.synthetic.wst-b.v2.h0",
+            "fact_id": "tax.us.2025.f1099b.covered-w-st-basis.source-closure|family-horizon=demo.synthetic.wst-b.v2.h0,tax-year=2025"
+          },
+          {
+            "id": "f.closure.demo.synthetic.wst-a.v2.h0",
+            "fact_id": "tax.us.2025.f1099b.covered-w-st-adjustment.source-closure|family-horizon=demo.synthetic.wst-a.v2.h0,tax-year=2025"
+          },
+          {
+            "id": "f.closure.demo.synthetic.wlt.v2.h0",
+            "fact_id": "tax.us.2025.f1099b.covered-w-lt.source-closure|family-horizon=demo.synthetic.wlt.v2.h0,tax-year=2025"
+          },
+          {
+            "id": "f.closure.demo.synthetic.wlt-p.v2.h0",
+            "fact_id": "tax.us.2025.f1099b.covered-w-lt-proceeds.source-closure|family-horizon=demo.synthetic.wlt-p.v2.h0,tax-year=2025"
+          },
+          {
+            "id": "f.closure.demo.synthetic.wlt-b.v2.h0",
+            "fact_id": "tax.us.2025.f1099b.covered-w-lt-basis.source-closure|family-horizon=demo.synthetic.wlt-b.v2.h0,tax-year=2025"
+          },
+          {
+            "id": "f.closure.demo.synthetic.wlt-a.v2.h0",
+            "fact_id": "tax.us.2025.f1099b.covered-w-lt-adjustment.source-closure|family-horizon=demo.synthetic.wlt-a.v2.h0,tax-year=2025"
+          },
+          {
+            "id": "demo.probe.f1098.closure",
+            "fact_id": "tax.us.2025.f1098.source-closure|family-horizon=demo.probe.f1098.h0,tax-year=2025"
+          },
+          {
+            "id": "demo.probe.div7.closure",
+            "fact_id": "tax.us.2025.f1099div.7.source-closure|family-horizon=demo.probe.div7.h0,tax-year=2025"
+          },
+          {
+            "id": "demo.eic.closure",
+            "fact_id": "tax.us.2025.eic.child-roster.source-closure|family-horizon=demo.eic.h0,tax-year=2025"
+          },
+          {
+            "id": "demo.ctc.closure",
+            "fact_id": "tax.us.2025.ctc.child-roster.source-closure|family-horizon=demo.ctc.h0,tax-year=2025"
+          },
+          {
+            "id": "demo.odc.child.closure",
+            "fact_id": "tax.us.2025.odc.child-roster.source-closure|family-horizon=demo.odc.child.h0,tax-year=2025"
+          },
+          {
+            "id": "demo.odc.rel.closure",
+            "fact_id": "tax.us.2025.odc.relative-roster.source-closure|family-horizon=demo.odc.rel.h0,tax-year=2025"
+          },
+          {
+            "id": "demo.roaot1.closure.demo.odc.complete.w2box2",
+            "fact_id": "tax.us.2025.w2-box2.source-closure|family-horizon=demo.odc.complete.w2box2,tax-year=2025"
+          },
+          {
+            "id": "demo.roaot1.closure.demo.roaot1.f1099int-b4.265",
+            "fact_id": "tax.us.2025.f1099int.b4.source-closure|family-horizon=demo.roaot1.f1099int-b4.265,tax-year=2025"
+          },
+          {
+            "id": "demo.roaot1.closure.demo.roaot1.f1099div-b4.268",
+            "fact_id": "tax.us.2025.f1099div.b4.source-closure|family-horizon=demo.roaot1.f1099div-b4.268,tax-year=2025"
+          },
+          {
+            "id": "demo.roaot1.closure.demo.roaot1.f1099r-b4.271",
+            "fact_id": "tax.us.2025.f1099r.box4.source-closure|family-horizon=demo.roaot1.f1099r-b4.271,tax-year=2025"
+          },
+          {
+            "id": "demo.fw.g.closure.box4",
+            "fact_id": "tax.us.2025.f1099g.b4.source-closure|family-horizon=demo.fw.g4.h0,tax-year=2025"
+          },
+          {
+            "id": "demo.fw.ssa.closure.box6",
+            "fact_id": "tax.us.2025.ssa1099.b6.source-closure|family-horizon=demo.fw.ssa6.h0,tax-year=2025"
+          },
+          {
+            "id": "demo.w2g.closure.b1",
+            "fact_id": "tax.us.2025.w2g.b1.source-closure|family-horizon=demo.w2g.b1.h0,tax-year=2025"
+          },
+          {
+            "id": "demo.w2g.closure.b4",
+            "fact_id": "tax.us.2025.w2g.b4.source-closure|family-horizon=demo.w2g.b4.h0,tax-year=2025"
+          },
+          {
+            "id": "demo.sfa.answer.q1",
+            "fact_id": "tax.us.2025.f1099b.noncovered-sold.source-closure|tax-year=2025"
+          },
+          {
+            "id": "demo.sfa.answer.q2",
+            "fact_id": "tax.us.2025.f8949.no1099b-sold.source-closure|tax-year=2025"
+          },
+          {
+            "id": "demo.sfa.answer.q3",
+            "fact_id": "tax.us.2025.f1099b.code-b-sold.source-closure|tax-year=2025"
+          }
+        ],
+        "horizons": []
+      },
+      "result": {
+        "outcome": "success",
+        "stop": "saturated",
+        "presentation_valid": true,
+        "lines": {
+          "form1040.line-15": "blocked",
+          "form1040.line-16": "blocked",
+          "form1040.line-24": "blocked",
+          "form1040.line-33": "blocked",
+          "form1040.line-34": "blocked",
+          "form1040.line-37": "blocked",
+          "form1040.line-7a": "blocked",
+          "schedule-d.line-10": 0,
+          "schedule-d.line-15": 0,
+          "schedule-d.line-16": "blocked",
+          "schedule-d.line-1a": 0,
+          "schedule-d.line-1b": 0,
+          "schedule-d.line-2": 0,
+          "schedule-d.line-21": "blocked",
+          "schedule-d.line-3": 0,
+          "schedule-d.line-7": 0,
+          "schedule-d.line-8a": 0,
+          "schedule-d.line-8b": 0,
+          "schedule-d.line-9": 0
+        },
+        "reasons": {
+          "form1040.line-15": [],
+          "form1040.line-16": [],
+          "form1040.line-24": [],
+          "form1040.line-33": [],
+          "form1040.line-34": [],
+          "form1040.line-37": [],
+          "form1040.line-7a": [],
+          "schedule-d.line-16": [],
+          "schedule-d.line-21": []
+        },
+        "questions": [],
+        "publications": [
+          {
+            "symbol": "dependents-worksheet.line1-box-count",
+            "subject": null,
+            "value": 0,
+            "finding_id": "finding:derived:fdf6bd613f82897e6d0d4f17"
+          },
+          {
+            "symbol": "eic.qualifying-child-count",
+            "subject": null,
+            "value": 0,
+            "finding_id": "finding:derived:739895e4dbdaaaffb034339e"
+          },
+          {
+            "symbol": "schedule-d.line-14",
+            "subject": null,
+            "value": 0,
+            "finding_id": "finding:derived:db04722e7ebc20385f89e00c"
+          },
+          {
+            "symbol": "schedule-d.line-6",
+            "subject": null,
+            "value": 0,
+            "finding_id": "finding:derived:578b4b1f28b4fee234220904"
+          },
+          {
+            "symbol": "ctc.child-count",
+            "subject": null,
+            "value": 0,
+            "finding_id": "finding:derived:0e77a17b5d2c769b40cb7133"
+          },
+          {
+            "symbol": "odc.child-count",
+            "subject": null,
+            "value": 0,
+            "finding_id": "finding:derived:566f31441208945e7f4ebb6a"
+          },
+          {
+            "symbol": "odc.relative-count",
+            "subject": null,
+            "value": 0,
+            "finding_id": "finding:derived:f8f425f93f01314fa24bd573"
+          },
+          {
+            "symbol": "schedule-d.line-13",
+            "subject": null,
+            "value": 0,
+            "finding_id": "finding:derived:6c77132f9981eabc697d5153"
+          },
+          {
+            "symbol": "f1099b.code-b-st-count",
+            "subject": null,
+            "value": 0,
+            "finding_id": "finding:derived:ed2155c5550070327c3211a4"
+          },
+          {
+            "symbol": "f1099b.code-b-lt-count",
+            "subject": null,
+            "value": 0,
+            "finding_id": "finding:derived:8b127cd890037b062ef23b77"
+          },
+          {
+            "symbol": "f1099b.covered-st-count",
+            "subject": null,
+            "value": 0,
+            "finding_id": "finding:derived:5ccfc645eb1b37e5d55531de"
+          },
+          {
+            "symbol": "f1099b.covered-lt-count",
+            "subject": null,
+            "value": 0,
+            "finding_id": "finding:derived:02f39a44f5b34940cc71c27d"
+          },
+          {
+            "symbol": "f1099b.covered-w-st-count",
+            "subject": null,
+            "value": 0,
+            "finding_id": "finding:derived:f5adec48f34074abb9c56205"
+          },
+          {
+            "symbol": "f1099b.covered-w-lt-count",
+            "subject": null,
+            "value": 0,
+            "finding_id": "finding:derived:5c4c5f9042f452b1a7c4f401"
+          },
+          {
+            "symbol": "f1099b.noncovered-st-count",
+            "subject": null,
+            "value": 0,
+            "finding_id": "finding:derived:15a5d627ca754fa5906126f6"
+          },
+          {
+            "symbol": "f1099b.noncovered-lt-count",
+            "subject": null,
+            "value": 0,
+            "finding_id": "finding:derived:1a59d520f88d39eadfd1ea11"
+          },
+          {
+            "symbol": "f8949.no1099b-st-count",
+            "subject": null,
+            "value": 0,
+            "finding_id": "finding:derived:e7b95e392e5922ee010602cb"
+          },
+          {
+            "symbol": "f8949.no1099b-lt-count",
+            "subject": null,
+            "value": 0,
+            "finding_id": "finding:derived:616375ac05cd7e17d42ea90e"
+          },
+          {
+            "symbol": "eic.column-count",
+            "subject": null,
+            "value": 0,
+            "finding_id": "finding:derived:d3c4415e533892624f6194e7"
+          },
+          {
+            "symbol": "form1040.line7b-schedule-d-not-required",
+            "subject": null,
+            "value": "checked",
+            "finding_id": "finding:derived:24bb0fe0f923bf6575a63dfb"
+          },
+          {
+            "symbol": "schedule-d.line-1a-gain",
+            "subject": null,
+            "value": 0,
+            "finding_id": "finding:derived:5e7902754792c17f8dca9e5a"
+          },
+          {
+            "symbol": "schedule-d.line-8a-gain",
+            "subject": null,
+            "value": 0,
+            "finding_id": "finding:derived:f51d04d98bb74f0511764396"
+          },
+          {
+            "symbol": "schedule-d.line-2",
+            "subject": null,
+            "value": 0,
+            "finding_id": "finding:derived:c61cd84a8416c2ae0b5ed59a"
+          },
+          {
+            "symbol": "schedule-d.line-9",
+            "subject": null,
+            "value": 0,
+            "finding_id": "finding:derived:c40330a8e524f26517e5ce24"
+          },
+          {
+            "symbol": "schedule-d.line-3",
+            "subject": null,
+            "value": 0,
+            "finding_id": "finding:derived:421d4adeba8feecf176ac5c5"
+          },
+          {
+            "symbol": "schedule-d.line-10",
+            "subject": null,
+            "value": 0,
+            "finding_id": "finding:derived:9cab9cc79f64301c8575a57b"
+          },
+          {
+            "symbol": "schedule-d.line-1b",
+            "subject": null,
+            "value": 0,
+            "finding_id": "finding:derived:a8501447b0efacab2b9adaa0"
+          },
+          {
+            "symbol": "schedule-d.line-7",
+            "subject": null,
+            "value": 0,
+            "finding_id": "finding:derived:be51b7756ab5850a593e8c4c"
+          },
+          {
+            "symbol": "schedule-d.line-8b",
+            "subject": null,
+            "value": 0,
+            "finding_id": "finding:derived:62404445983e01a9b95cce8f"
+          },
+          {
+            "symbol": "schedule-d.line-15",
+            "subject": null,
+            "value": 0,
+            "finding_id": "finding:derived:775300cd3fb2c4b9d5124d12"
+          }
+        ],
+        "rows": [
+          {
+            "artifact": "rule.eic-qualifying-child-count",
+            "disposition": "published",
+            "code": null,
+            "missing": [],
+            "symbol": "eic.qualifying-child-count",
+            "subject": null,
+            "finding_id": "finding:derived:739895e4dbdaaaffb034339e"
+          },
+          {
+            "artifact": "rule.form1040-line13a",
+            "disposition": "published",
+            "code": null,
+            "missing": [],
+            "symbol": "deductions.qbi",
+            "subject": null,
+            "finding_id": "finding:derived:f522f48b6bff44bf7a921ba8"
+          },
+          {
+            "artifact": "rule.form1040-line23",
+            "disposition": "published",
+            "code": null,
+            "missing": [],
+            "symbol": "tax.line23-other-taxes",
+            "subject": null,
+            "finding_id": "finding:derived:5b85bb085cf38f4fc4f06d1f"
+          },
+          {
+            "artifact": "rule.form1040-line26",
+            "disposition": "published",
+            "code": null,
+            "missing": [],
+            "symbol": "payments.line26",
+            "subject": null,
+            "finding_id": "finding:derived:6af72e2001e113d166d7b5c5"
+          },
+          {
+            "artifact": "rule.form1040-line2a",
+            "disposition": "published",
+            "code": null,
+            "missing": [],
+            "symbol": "tax-exempt-interest.line2a-total",
+            "subject": null,
+            "finding_id": "finding:derived:7a234927860f13c56f289f2b"
+          },
+          {
+            "artifact": "rule.form1040-line38",
+            "disposition": "published",
+            "code": null,
+            "missing": [],
+            "symbol": "tax.line38-penalty",
+            "subject": null,
+            "finding_id": "finding:derived:753fc992ce4e8eb39c1e85e2"
+          },
+          {
+            "artifact": "rule.form1040-line3a",
+            "disposition": "published",
+            "code": null,
+            "missing": [],
+            "symbol": "dividends.qualified-total",
+            "subject": null,
+            "finding_id": "finding:derived:cedcd43fd4a825f8a049d074"
+          },
+          {
+            "artifact": "rule.form1040-line3b",
+            "disposition": "published",
+            "code": null,
+            "missing": [],
+            "symbol": "dividends.ordinary-total",
+            "subject": null,
+            "finding_id": "finding:derived:8da94e9eb6fa8fc83a3cefc2"
+          },
+          {
+            "artifact": "rule.form1040-line6c",
+            "disposition": "published",
+            "code": null,
+            "missing": [],
+            "symbol": "social-security.line6c-indicator",
+            "subject": null,
+            "finding_id": "finding:derived:5f45460d8b597b7c7234d512"
+          },
+          {
+            "artifact": "rule.form1040-line6d",
+            "disposition": "inapplicable",
+            "code": null,
+            "missing": [],
+            "symbol": null,
+            "subject": null,
+            "finding_id": null
+          },
+          {
+            "artifact": "rule.form1040-line6d-not-checked",
+            "disposition": "inapplicable",
+            "code": null,
+            "missing": [],
+            "symbol": null,
+            "subject": null,
+            "finding_id": null
+          },
+          {
+            "artifact": "rule.schedule-d-line14",
+            "disposition": "published",
+            "code": null,
+            "missing": [],
+            "symbol": "schedule-d.line-14",
+            "subject": null,
+            "finding_id": "finding:derived:db04722e7ebc20385f89e00c"
+          },
+          {
+            "artifact": "rule.schedule-d-line6",
+            "disposition": "published",
+            "code": null,
+            "missing": [],
+            "symbol": "schedule-d.line-6",
+            "subject": null,
+            "finding_id": "finding:derived:578b4b1f28b4fee234220904"
+          },
+          {
+            "artifact": "rule.ctc-child-count",
+            "disposition": "published",
+            "code": null,
+            "missing": [],
+            "symbol": "ctc.child-count",
+            "subject": null,
+            "finding_id": "finding:derived:0e77a17b5d2c769b40cb7133"
+          },
+          {
+            "artifact": "rule.odc-child-count",
+            "disposition": "published",
+            "code": null,
+            "missing": [],
+            "symbol": "odc.child-count",
+            "subject": null,
+            "finding_id": "finding:derived:566f31441208945e7f4ebb6a"
+          },
+          {
+            "artifact": "rule.odc-relative-count",
+            "disposition": "published",
+            "code": null,
+            "missing": [],
+            "symbol": "odc.relative-count",
+            "subject": null,
+            "finding_id": "finding:derived:f8f425f93f01314fa24bd573"
+          },
+          {
+            "artifact": "rule.schedule-d-line13",
+            "disposition": "published",
+            "code": null,
+            "missing": [],
+            "symbol": "schedule-d.line-13",
+            "subject": null,
+            "finding_id": "finding:derived:6c77132f9981eabc697d5153"
+          },
+          {
+            "artifact": "rule.f1099b-code-b-st-count",
+            "disposition": "published",
+            "code": null,
+            "missing": [],
+            "symbol": "f1099b.code-b-st-count",
+            "subject": null,
+            "finding_id": "finding:derived:ed2155c5550070327c3211a4"
+          },
+          {
+            "artifact": "rule.f1099b-code-b-lt-count",
+            "disposition": "published",
+            "code": null,
+            "missing": [],
+            "symbol": "f1099b.code-b-lt-count",
+            "subject": null,
+            "finding_id": "finding:derived:8b127cd890037b062ef23b77"
+          },
+          {
+            "artifact": "rule.f1099b-covered-st-count",
+            "disposition": "published",
+            "code": null,
+            "missing": [],
+            "symbol": "f1099b.covered-st-count",
+            "subject": null,
+            "finding_id": "finding:derived:5ccfc645eb1b37e5d55531de"
+          },
+          {
+            "artifact": "rule.f1099b-covered-lt-count",
+            "disposition": "published",
+            "code": null,
+            "missing": [],
+            "symbol": "f1099b.covered-lt-count",
+            "subject": null,
+            "finding_id": "finding:derived:02f39a44f5b34940cc71c27d"
+          },
+          {
+            "artifact": "rule.f1099b-covered-w-st-count",
+            "disposition": "published",
+            "code": null,
+            "missing": [],
+            "symbol": "f1099b.covered-w-st-count",
+            "subject": null,
+            "finding_id": "finding:derived:f5adec48f34074abb9c56205"
+          },
+          {
+            "artifact": "rule.f1099b-covered-w-lt-count",
+            "disposition": "published",
+            "code": null,
+            "missing": [],
+            "symbol": "f1099b.covered-w-lt-count",
+            "subject": null,
+            "finding_id": "finding:derived:5c4c5f9042f452b1a7c4f401"
+          },
+          {
+            "artifact": "rule.f1099b-noncovered-st-count",
+            "disposition": "published",
+            "code": null,
+            "missing": [],
+            "symbol": "f1099b.noncovered-st-count",
+            "subject": null,
+            "finding_id": "finding:derived:15a5d627ca754fa5906126f6"
+          },
+          {
+            "artifact": "rule.f1099b-noncovered-lt-count",
+            "disposition": "published",
+            "code": null,
+            "missing": [],
+            "symbol": "f1099b.noncovered-lt-count",
+            "subject": null,
+            "finding_id": "finding:derived:1a59d520f88d39eadfd1ea11"
+          },
+          {
+            "artifact": "rule.f8949-no1099b-st-count",
+            "disposition": "published",
+            "code": null,
+            "missing": [],
+            "symbol": "f8949.no1099b-st-count",
+            "subject": null,
+            "finding_id": "finding:derived:e7b95e392e5922ee010602cb"
+          },
+          {
+            "artifact": "rule.f8949-no1099b-lt-count",
+            "disposition": "published",
+            "code": null,
+            "missing": [],
+            "symbol": "f8949.no1099b-lt-count",
+            "subject": null,
+            "finding_id": "finding:derived:616375ac05cd7e17d42ea90e"
+          },
+          {
+            "artifact": "rule.eic-column-count",
+            "disposition": "published",
+            "code": null,
+            "missing": [],
+            "symbol": "eic.column-count",
+            "subject": null,
+            "finding_id": "finding:derived:d3c4415e533892624f6194e7"
+          },
+          {
+            "artifact": "rule.form1040-line25a",
+            "disposition": "published",
+            "code": null,
+            "missing": [],
+            "symbol": "payments.line25a",
+            "subject": null,
+            "finding_id": "finding:derived:a45e9f31f610f26ba8c88bb6"
+          },
+          {
+            "artifact": "rule.form1040-line25c",
+            "disposition": "published",
+            "code": null,
+            "missing": [],
+            "symbol": "payments.line25c",
+            "subject": null,
+            "finding_id": "finding:derived:9e54b9713cda30b72c35afb2"
+          },
+          {
+            "artifact": "rule.form1040-line6a",
+            "disposition": "published",
+            "code": null,
+            "missing": [],
+            "symbol": "social-security.line6a",
+            "subject": null,
+            "finding_id": "finding:derived:fd0fa772590d51372aa68c48"
+          },
+          {
+            "artifact": "rule.form1040-line7b",
+            "disposition": "published",
+            "code": null,
+            "missing": [],
+            "symbol": "form1040.line7b-schedule-d-not-required",
+            "subject": null,
+            "finding_id": "finding:derived:24bb0fe0f923bf6575a63dfb"
+          },
+          {
+            "artifact": "rule.schedule-d-line1a-gain",
+            "disposition": "published",
+            "code": null,
+            "missing": [],
+            "symbol": "schedule-d.line-1a-gain",
+            "subject": null,
+            "finding_id": "finding:derived:5e7902754792c17f8dca9e5a"
+          },
+          {
+            "artifact": "rule.schedule-d-line8a-gain",
+            "disposition": "published",
+            "code": null,
+            "missing": [],
+            "symbol": "schedule-d.line-8a-gain",
+            "subject": null,
+            "finding_id": "finding:derived:f51d04d98bb74f0511764396"
+          },
+          {
+            "artifact": "rule.form1040-line25b",
+            "disposition": "published",
+            "code": null,
+            "missing": [],
+            "symbol": "payments.line25b",
+            "subject": null,
+            "finding_id": "finding:derived:fe6a3ddcb7332aa4f3e28a4f"
+          },
+          {
+            "artifact": "rule.schedule-d-line2",
+            "disposition": "published",
+            "code": null,
+            "missing": [],
+            "symbol": "schedule-d.line-2",
+            "subject": null,
+            "finding_id": "finding:derived:c61cd84a8416c2ae0b5ed59a"
+          },
+          {
+            "artifact": "rule.schedule-d-line9",
+            "disposition": "published",
+            "code": null,
+            "missing": [],
+            "symbol": "schedule-d.line-9",
+            "subject": null,
+            "finding_id": "finding:derived:c40330a8e524f26517e5ce24"
+          },
+          {
+            "artifact": "rule.schedule-d-line3",
+            "disposition": "published",
+            "code": null,
+            "missing": [],
+            "symbol": "schedule-d.line-3",
+            "subject": null,
+            "finding_id": "finding:derived:421d4adeba8feecf176ac5c5"
+          },
+          {
+            "artifact": "rule.schedule-d-line10",
+            "disposition": "published",
+            "code": null,
+            "missing": [],
+            "symbol": "schedule-d.line-10",
+            "subject": null,
+            "finding_id": "finding:derived:9cab9cc79f64301c8575a57b"
+          },
+          {
+            "artifact": "rule.form1040-line12e",
+            "disposition": "published",
+            "code": null,
+            "missing": [],
+            "symbol": "deductions.line-12e",
+            "subject": null,
+            "finding_id": "finding:derived:e919f04ffce23cfe8e1a8545"
+          },
+          {
+            "artifact": "rule.form1040-line25d",
+            "disposition": "published",
+            "code": null,
+            "missing": [],
+            "symbol": "payments.line25d",
+            "subject": null,
+            "finding_id": "finding:derived:386b804a02aefc4f46c89ef0"
+          },
+          {
+            "artifact": "rule.form1040-line8",
+            "disposition": "published",
+            "code": null,
+            "missing": [],
+            "symbol": "income.additional-income",
+            "subject": null,
+            "finding_id": "finding:derived:361147da0bce4a4359c2134c"
+          },
+          {
+            "artifact": "rule.schedule-d-line1b",
+            "disposition": "published",
+            "code": null,
+            "missing": [],
+            "symbol": "schedule-d.line-1b",
+            "subject": null,
+            "finding_id": "finding:derived:a8501447b0efacab2b9adaa0"
+          },
+          {
+            "artifact": "rule.schedule-d-line7",
+            "disposition": "published",
+            "code": null,
+            "missing": [],
+            "symbol": "schedule-d.line-7",
+            "subject": null,
+            "finding_id": "finding:derived:be51b7756ab5850a593e8c4c"
+          },
+          {
+            "artifact": "rule.schedule-d-line8b",
+            "disposition": "published",
+            "code": null,
+            "missing": [],
+            "symbol": "schedule-d.line-8b",
+            "subject": null,
+            "finding_id": "finding:derived:62404445983e01a9b95cce8f"
+          },
+          {
+            "artifact": "rule.schedule-d-line15",
+            "disposition": "published",
+            "code": null,
+            "missing": [],
+            "symbol": "schedule-d.line-15",
+            "subject": null,
+            "finding_id": "finding:derived:775300cd3fb2c4b9d5124d12"
+          },
+          {
+            "artifact": "rule.form1040-line2b",
+            "disposition": "published",
+            "code": null,
+            "missing": [],
+            "symbol": "interest.taxable-total",
+            "subject": null,
+            "finding_id": "finding:derived:3733b17b905cef42f7460ce8"
+          },
+          {
+            "artifact": "rule.form1040-line2b-rounded",
+            "disposition": "published",
+            "code": null,
+            "missing": [],
+            "symbol": "interest.line-2b",
+            "subject": null,
+            "finding_id": "finding:derived:621b5539683d2ccfa71241c6"
+          },
+          {
+            "artifact": "rule.form1040-line10",
+            "disposition": "published",
+            "code": null,
+            "missing": [],
+            "symbol": "income.line10-adjustments",
+            "subject": null,
+            "finding_id": "finding:derived:b271dbf6384a5b70583487d6"
+          },
+          {
+            "artifact": "rule.form1040-line11",
+            "disposition": "blocked",
+            "code": "DEPENDENCY_ABSENT",
+            "missing": [
+              "income.total-income"
+            ],
+            "symbol": null,
+            "subject": null,
+            "finding_id": null
+          },
+          {
+            "artifact": "rule.form1040-line13b",
+            "disposition": "blocked",
+            "code": "DEPENDENCY_ABSENT",
+            "missing": [
+              "schedule1a.line37-enhanced-deduction-total"
+            ],
+            "symbol": null,
+            "subject": null,
+            "finding_id": null
+          },
+          {
+            "artifact": "rule.form1040-line14",
+            "disposition": "blocked",
+            "code": "DEPENDENCY_ABSENT",
+            "missing": [
+              "deductions.schedule-1a"
+            ],
+            "symbol": null,
+            "subject": null,
+            "finding_id": null
+          },
+          {
+            "artifact": "rule.form1040-line15",
+            "disposition": "blocked",
+            "code": "DEPENDENCY_ABSENT",
+            "missing": [
+              "income.agi",
+              "deductions.line-14"
+            ],
+            "symbol": null,
+            "subject": null,
+            "finding_id": null
+          },
+          {
+            "artifact": "rule.form1040-line16",
+            "disposition": "blocked",
+            "code": "DEPENDENCY_ABSENT",
+            "missing": [
+              "income.taxable-income",
+              "capital-gains.selected-preferential-base",
+              "qdcg-worksheet.line-24",
+              "qdcg-worksheet.line-25"
+            ],
+            "symbol": null,
+            "subject": null,
+            "finding_id": null
+          },
+          {
+            "artifact": "rule.form1040-line20",
+            "disposition": "blocked",
+            "code": "DEPENDENCY_ABSENT",
+            "missing": [
+              "schedule3.line8-total"
+            ],
+            "symbol": null,
+            "subject": null,
+            "finding_id": null
+          },
+          {
+            "artifact": "rule.form1040-line24",
+            "disposition": "blocked",
+            "code": "DEPENDENCY_ABSENT",
+            "missing": [
+              "tax.after-nonrefundable-credits"
+            ],
+            "symbol": null,
+            "subject": null,
+            "finding_id": null
+          },
+          {
+            "artifact": "rule.form1040-line27a",
+            "disposition": "blocked",
+            "code": "DEPENDENCY_ABSENT",
+            "missing": [
+              "eic.eligibility-result"
+            ],
+            "symbol": null,
+            "subject": null,
+            "finding_id": null
+          },
+          {
+            "artifact": "rule.form1040-line32",
+            "disposition": "blocked",
+            "code": "DEPENDENCY_ABSENT",
+            "missing": [
+              "payments.lines27-31-total"
+            ],
+            "symbol": null,
+            "subject": null,
+            "finding_id": null
+          },
+          {
+            "artifact": "rule.form1040-line33",
+            "disposition": "blocked",
+            "code": "DEPENDENCY_ABSENT",
+            "missing": [
+              "payments.line32"
+            ],
+            "symbol": null,
+            "subject": null,
+            "finding_id": null
+          },
+          {
+            "artifact": "rule.form1040-line34",
+            "disposition": "blocked",
+            "code": "DEPENDENCY_ABSENT",
+            "missing": [
+              "payments.line33",
+              "tax.line24-total-tax"
+            ],
+            "symbol": null,
+            "subject": null,
+            "finding_id": null
+          },
+          {
+            "artifact": "rule.form1040-line35a",
+            "disposition": "blocked",
+            "code": "DEPENDENCY_ABSENT",
+            "missing": [
+              "payments.line34-overpaid",
+              "payments.line36-applied-to-2026"
+            ],
+            "symbol": null,
+            "subject": null,
+            "finding_id": null
+          },
+          {
+            "artifact": "rule.form1040-line36",
+            "disposition": "blocked",
+            "code": "DEPENDENCY_ABSENT",
+            "missing": [
+              "payments.line34-overpaid"
+            ],
+            "symbol": null,
+            "subject": null,
+            "finding_id": null
+          },
+          {
+            "artifact": "rule.form1040-line37",
+            "disposition": "blocked",
+            "code": "DEPENDENCY_ABSENT",
+            "missing": [
+              "tax.line24-total-tax",
+              "payments.line33"
+            ],
+            "symbol": null,
+            "subject": null,
+            "finding_id": null
+          },
+          {
+            "artifact": "rule.form1040-line7a",
+            "disposition": "blocked",
+            "code": "DEPENDENCY_ABSENT",
+            "missing": [
+              "schedule-d.line-16",
+              "schedule-d.line-21",
+              "capital-gains.selected-preferential-base"
+            ],
+            "symbol": null,
+            "subject": null,
+            "finding_id": null
+          },
+          {
+            "artifact": "rule.form1040-line9",
+            "disposition": "blocked",
+            "code": "DEPENDENCY_ABSENT",
+            "missing": [
+              "capital-gains.line7a-total",
+              "social-security.line6b"
+            ],
+            "symbol": null,
+            "subject": null,
+            "finding_id": null
+          },
+          {
+            "artifact": "rule.form1040-lines27-31-total",
+            "disposition": "blocked",
+            "code": "DEPENDENCY_ABSENT",
+            "missing": [
+              "payments.line27a",
+              "payments.lines28-31"
+            ],
+            "symbol": null,
+            "subject": null,
+            "finding_id": null
+          },
+          {
+            "artifact": "rule.form1040-lines28-31",
+            "disposition": "blocked",
+            "code": "DEPENDENCY_ABSENT",
+            "missing": [
+              "ctc.form1040-line28"
+            ],
+            "symbol": null,
+            "subject": null,
+            "finding_id": null
+          },
+          {
+            "artifact": "rule.schedule-d-line16",
+            "disposition": "blocked",
+            "code": "DEPENDENCY_ABSENT",
+            "missing": [
+              "f1099b.covered-st-txn.box7-verdict",
+              "f1099b.covered-lt-txn.box7-verdict",
+              "f1099b.covered-w-st-txn.box7-verdict",
+              "f1099b.covered-w-lt-txn.box7-verdict",
+              "f1099b.noncovered-st-txn.box7-verdict",
+              "f1099b.noncovered-lt-txn.box7-verdict",
+              "f1099b.code-b-st-txn.box7-verdict",
+              "f1099b.code-b-lt-txn.box7-verdict"
+            ],
+            "symbol": null,
+            "subject": null,
+            "finding_id": null
+          },
+          {
+            "artifact": "rule.schedule-d-line21",
+            "disposition": "blocked",
+            "code": "DEPENDENCY_ABSENT",
+            "missing": [
+              "schedule-d.line-16"
+            ],
+            "symbol": null,
+            "subject": null,
+            "finding_id": null
+          },
+          {
+            "artifact": "rule.selected-preferential-base",
+            "disposition": "blocked",
+            "code": "DEPENDENCY_ABSENT",
+            "missing": [
+              "schedule-d.line-16"
+            ],
+            "symbol": null,
+            "subject": null,
+            "finding_id": null
+          },
+          {
+            "artifact": "rule.ctc-form1040-line19",
+            "disposition": "blocked",
+            "code": "DEPENDENCY_ABSENT",
+            "missing": [
+              "ctc.sch8812.line-14"
+            ],
+            "symbol": null,
+            "subject": null,
+            "finding_id": null
+          }
+        ],
+        "consumers": {
+          "schedule-d.line-16": {
+            "present": true,
+            "binds_symbol": "schedule-d.line-16",
+            "field_version": "v4",
+            "disposition": "blocked",
+            "value": null,
+            "reasons": [],
+            "blocked_explain": "Schedule D line 16 has no value yet. It is waiting for line 7 or line 15. It is also blocked while a recorded Form 1099-B statement has no answer about box 7. It is blocked when box 7 is checked and a sale on that statement is at a loss: a loss based on the box 1d amount is not allowed, and this return does not compute it."
+          },
+          "schedule-d.line-17": {
+            "present": false
+          },
+          "schedule-d.line-18": {
+            "present": false
+          },
+          "schedule-d.line-19": {
+            "present": false
+          },
+          "schedule-d.line-20": {
+            "present": false
+          },
+          "schedule-d.line-21": {
+            "present": true,
+            "binds_symbol": "schedule-d.line-21",
+            "field_version": "v2",
+            "disposition": "blocked",
+            "value": null,
+            "reasons": [],
+            "blocked_explain": "Schedule D line 21 has no value yet. It is waiting for your total gain or loss on line 16."
+          },
+          "schedule-d.line-22": {
+            "present": false
+          },
+          "form1040.line-7a": {
+            "present": true,
+            "binds_symbol": "capital-gains.line7a-total",
+            "field_version": "v2",
+            "disposition": "blocked",
+            "value": null,
+            "reasons": [],
+            "blocked_explain": "Line 7a has no value yet. Whether you recorded any sale decides its route, so it waits for your answers about each kind of sale. With a sale recorded, line 7a is the Schedule D amount and waits for Schedule D. With none, it waits for your Exception 1 answers and for your box 2a capital gain distributions to be complete."
+          },
+          "form1040.line-15": {
+            "present": true,
+            "binds_symbol": "income.taxable-income",
+            "field_version": "v2",
+            "disposition": "blocked",
+            "value": null,
+            "reasons": [],
+            "blocked_explain": "Your taxable income has no value yet. It is waiting for your adjusted gross income and your line 14 deductions."
+          },
+          "form1040.line-16": {
+            "present": true,
+            "binds_symbol": "tax.total-tax",
+            "field_version": "v3",
+            "disposition": "blocked",
+            "value": null,
+            "reasons": [],
+            "blocked_explain": "Your tax has no value yet. It is waiting for your taxable income, your filing status, your qualified dividends and capital gain, or your covered sale proceeds. It also waits for your answers about each kind of sale, because whether you recorded any sale decides whether your tax is figured with Schedule D."
+          },
+          "form1040.line-24": {
+            "present": true,
+            "binds_symbol": "tax.line24-total-tax",
+            "field_version": "v1",
+            "disposition": "blocked",
+            "value": null,
+            "reasons": [],
+            "blocked_explain": "Form 1040 line 24 is blocked because an input it needs is missing or invalid."
+          },
+          "form1040.line-33": {
+            "present": true,
+            "binds_symbol": "payments.line33",
+            "field_version": "v1",
+            "disposition": "blocked",
+            "value": null,
+            "reasons": [],
+            "blocked_explain": "Form 1040 line 33 is blocked because an input it needs is missing or invalid."
+          },
+          "form1040.line-34": {
+            "present": true,
+            "binds_symbol": "payments.line34-overpaid",
+            "field_version": "v1",
+            "disposition": "blocked",
+            "value": null,
+            "reasons": [],
+            "blocked_explain": "Form 1040 line 34 is blocked because an input it needs is missing or invalid."
+          },
+          "form1040.line-37": {
+            "present": true,
+            "binds_symbol": "payments.line37-amount-owed",
+            "field_version": "v1",
+            "disposition": "blocked",
+            "value": null,
+            "reasons": [],
+            "blocked_explain": "Form 1040 line 37 is blocked because an input it needs is missing, invalid, or (line 36) exceeds line 34."
+          }
+        },
+        "line16_field": {
+          "version": "v4",
+          "description": "Schedule D (2025) Part III line 16 equals line 7 plus line 15. It is blocked while a recorded Form 1099-B statement has no box 7 answer, and when box 7 is checked and a sale on that statement is at a loss.",
+          "blocked_explain": "Schedule D line 16 has no value yet. It is waiting for line 7 or line 15. It is also blocked while a recorded Form 1099-B statement has no answer about box 7. It is blocked when box 7 is checked and a sale on that statement is at a loss: a loss based on the box 1d amount is not allowed, and this return does not compute it.",
+          "disposition": "blocked",
+          "value": null,
+          "reasons": []
+        },
+        "line16_rows": [
+          {
+            "artifact": "rule.schedule-d-line16",
+            "disposition": "blocked",
+            "code": "DEPENDENCY_ABSENT",
+            "missing": [
+              "f1099b.covered-st-txn.box7-verdict",
+              "f1099b.covered-lt-txn.box7-verdict",
+              "f1099b.covered-w-st-txn.box7-verdict",
+              "f1099b.covered-w-lt-txn.box7-verdict",
+              "f1099b.noncovered-st-txn.box7-verdict",
+              "f1099b.noncovered-lt-txn.box7-verdict",
+              "f1099b.code-b-st-txn.box7-verdict",
+              "f1099b.code-b-lt-txn.box7-verdict"
+            ],
+            "symbol": null,
+            "subject": null,
+            "finding_id": null
+          }
+        ]
+      },
+      "failures": [
+        "schedule-d.line-16: hand 0 got blocked",
+        "schedule-d.line-21: hand 0 got blocked",
+        "form1040.line-7a: hand 0 got blocked",
+        "form1040.line-15: hand 34250 got blocked",
+        "form1040.line-16: hand 3875 got blocked",
+        "form1040.line-24: hand 3875 got blocked",
+        "form1040.line-33: hand 4500 got blocked",
+        "form1040.line-34: hand 625 got blocked",
+        "form1040.line-37: hand 0 got blocked",
+        "covered-st check []",
+        "covered-lt check []",
+        "covered-w-st check []",
+        "covered-w-lt check []",
+        "noncovered-st check []",
+        "noncovered-lt check []",
+        "code-b-st check []",
+        "code-b-lt check []"
+      ],
+      "passed": false
+    }
+  ],
+  "passed": [],
+  "failed": [
+    "alc_covered-st_gain",
+    "alc_covered-st_loss",
+    "alc_covered_st_unanswered",
+    "alc_closed_empty"
+  ]
+}

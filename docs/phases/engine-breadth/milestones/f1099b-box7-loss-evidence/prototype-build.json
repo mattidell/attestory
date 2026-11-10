@@ -1,0 +1,117 @@
+{
+  "from": {
+    "package": "v83",
+    "registry": "v81",
+    "release": "v81"
+  },
+  "to": {
+    "package": "v84",
+    "registry": "v82",
+    "release": "v82"
+  },
+  "package": "v84",
+  "registry": "v82",
+  "release": "v82",
+  "question_unchanged": "tax.us.2025.input-question.f1099b-statement-box7-loss-not-allowed",
+  "members_edited": 19,
+  "added": 17,
+  "replaced": 2,
+  "members": [
+    [
+      "add",
+      "f1099b.box7-sale-verdict.vocabulary",
+      "v1"
+    ],
+    [
+      "add",
+      "rule.f1099b.covered-st-txn.box7-verdict",
+      "v1"
+    ],
+    [
+      "add",
+      "rule.f1099b.covered-st-txn.box7-loss-check",
+      "v1"
+    ],
+    [
+      "add",
+      "rule.f1099b.covered-lt-txn.box7-verdict",
+      "v1"
+    ],
+    [
+      "add",
+      "rule.f1099b.covered-lt-txn.box7-loss-check",
+      "v1"
+    ],
+    [
+      "add",
+      "rule.f1099b.covered-w-st-txn.box7-verdict",
+      "v1"
+    ],
+    [
+      "add",
+      "rule.f1099b.covered-w-st-txn.box7-loss-check",
+      "v1"
+    ],
+    [
+      "add",
+      "rule.f1099b.covered-w-lt-txn.box7-verdict",
+      "v1"
+    ],
+    [
+      "add",
+      "rule.f1099b.covered-w-lt-txn.box7-loss-check",
+      "v1"
+    ],
+    [
+      "add",
+      "rule.f1099b.noncovered-st-txn.box7-verdict",
+      "v1"
+    ],
+    [
+      "add",
+      "rule.f1099b.noncovered-st-txn.box7-loss-check",
+      "v1"
+    ],
+    [
+      "add",
+      "rule.f1099b.noncovered-lt-txn.box7-verdict",
+      "v1"
+    ],
+    [
+      "add",
+      "rule.f1099b.noncovered-lt-txn.box7-loss-check",
+      "v1"
+    ],
+    [
+      "add",
+      "rule.f1099b.code-b-st-txn.box7-verdict",
+      "v1"
+    ],
+    [
+      "add",
+      "rule.f1099b.code-b-st-txn.box7-loss-check",
+      "v1"
+    ],
+    [
+      "add",
+      "rule.f1099b.code-b-lt-txn.box7-verdict",
+      "v1"
+    ],
+    [
+      "add",
+      "rule.f1099b.code-b-lt-txn.box7-loss-check",
+      "v1"
+    ],
+    [
+      "replace",
+      "rule.schedule-d-line16",
+      "v4"
+    ],
+    [
+      "replace",
+      "schedule-d.line-16",
+      "v4"
+    ]
+  ],
+  "inherited_inconsistencies": []
+}

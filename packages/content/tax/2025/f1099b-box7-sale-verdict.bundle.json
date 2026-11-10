@@ -1,0 +1,76 @@
+{
+  "schema": "bundle.v2",
+  "id": "tax.us.2025.f1099b.box7-sale-verdict.vocabulary",
+  "version": "v1",
+  "label": "Whether a Form 1099-B sale on a box 7 statement is clear or a disallowed loss",
+  "fact_types": [
+    {
+      "schema": "fact-type.v2",
+      "id": "tax.us.2025.f1099b.box7-sale-verdict",
+      "version": "v1",
+      "title": "Derived domain for a per-sale box 7 verdict. Nothing asks the filer to record it.",
+      "nature": "determinable",
+      "identity_keys": [
+        {
+          "name": "broker",
+          "kind": "entity",
+          "entity_kind": "tax.us.f1099b-broker"
+        },
+        {
+          "name": "statement",
+          "kind": "entity",
+          "entity_kind": "tax.us.f1099b-statement"
+        },
+        {
+          "name": "transaction",
+          "kind": "entity",
+          "entity_kind": "tax.us.f1099b-transaction"
+        },
+        {
+          "name": "tax-year",
+          "kind": "literal",
+          "values": [
+            "2025"
+          ]
+        }
+      ],
+      "value_schema": {
+        "oneOf": [
+          {
+            "const": "clear",
+            "description": "Box 7 is no, or column (h) is zero or a gain."
+          },
+          {
+            "const": "disallowed",
+            "description": "Box 7 is yes and column (h) is below zero."
+          }
+        ]
+      },
+      "supersession": {
+        "policy": "free"
+      }
+    },
+    {
+      "schema": "fact-type.v2",
+      "id": "tax.us.2025.f1099b.box7-loss-check-inert-path-unwritten",
+      "version": "v1",
+      "title": "Never recorded. The second selection path each box 7 loss check requires.",
+      "nature": "determinable",
+      "identity_keys": [
+        {
+          "name": "tax-year",
+          "kind": "literal",
+          "values": [
+            "2025"
+          ]
+        }
+      ],
+      "value_schema": {
+        "type": "boolean"
+      },
+      "supersession": {
+        "policy": "free"
+      }
+    }
+  ]
+}

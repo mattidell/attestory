@@ -248,6 +248,59 @@ def read_by_rules(bodies: list[dict[str, Any]]) -> set[str]:
     return out
 
 
+BOX7_FACT = P + "f1099b.statement-box7-loss-not-allowed"
+# Core v84 publishes one verdict per sale family. Each must read box 7 on its
+# value side. A package that does not contain these rules is not checked here.
+BOX7_VERDICT_RULES = tuple(
+    P + f"rule.f1099b.{slug}-txn.box7-verdict"
+    for slug in (
+        "covered-st", "covered-lt", "covered-w-st", "covered-w-lt",
+        "noncovered-st", "noncovered-lt", "code-b-st", "code-b-lt",
+    )
+)
+
+
+def _value_nodes(body: dict[str, Any]) -> list[Any]:
+    """The value expressions of a rule, including each selection path and its default."""
+    nodes: list[Any] = []
+    if "value" in body:
+        nodes.append(body["value"])
+    selection = body.get("selection") if isinstance(body.get("selection"), dict) else {}
+    for path in selection.get("paths") or []:
+        if isinstance(path, dict) and "value" in path:
+            nodes.append(path["value"])
+    default = selection.get("default") or {}
+    if isinstance(default, dict) and "value" in default:
+        nodes.append(default["value"])
+    return nodes
+
+
+def value_side_reads(body: dict[str, Any]) -> set[str]:
+    """Facts named inside a rule's value expression.
+
+    A ``require_paired`` key is not a value-side read. A fact named only in
+    ``requires`` is not one either: this walk never leaves the value nodes.
+    """
+    out: set[str] = set()
+    for node in _value_nodes(body):
+        for item in walk(node):
+            if item.get("op") == "require_paired":
+                continue
+            for key in ("name", "withholding"):
+                if isinstance(item.get(key), str):
+                    out.add(item[key])
+    return out
+
+
+def box7_value_readers(bodies: list[dict[str, Any]]) -> list[str]:
+    """Computation rule ids whose value side reads the box 7 answer, in member order."""
+    return [
+        str(body["id"])
+        for body in bodies
+        if body.get("_role") == "computation" and BOX7_FACT in value_side_reads(body)
+    ]
+
+
 LINE_25B = P + "rule.form1040-line25b"
 BOX4 = "box 4 federal income tax withheld"
 BOX4_AMOUNT = "f1099b.statement-box4-withholding"
@@ -282,6 +335,14 @@ def audit(bodies: list[dict[str, Any]], fields: dict[str, Any]) -> list[str]:
                  for fact in facts if P + fact not in declared]
     failures += [f"{box}: no rule reads the answer {fact}" for box, facts in boxes.items()
                  for fact in facts if P + fact in declared and P + fact not in read]
+    # One blind family must fail even while the other seven still read the answer.
+    readers = set(box7_value_readers(bodies))
+    present = {str(body.get("id")) for body in bodies if body.get("_role") == "computation"}
+    failures += [
+        f"box 7 loss not allowed: {short(rule_id)} does not read the answer {short(BOX7_FACT)}"
+        for rule_id in BOX7_VERDICT_RULES
+        if rule_id in present and rule_id not in readers
+    ]
     return failures
 
 

@@ -1,0 +1,1693 @@
+{
+  "core": "v83",
+  "cases": [
+    {
+      "id": "yes_gain_covered_st",
+      "note": "Box 7 yes, one covered short-term gain. The gain is allowed.",
+      "expect": "published",
+      "column_h": [
+        {
+          "kind": "covered",
+          "term": "st",
+          "h": 1000
+        }
+      ],
+      "hand": {
+        "schedule-d.line-1a": 1000,
+        "schedule-d.line-1b": 0,
+        "schedule-d.line-2": 0,
+        "schedule-d.line-3": 0,
+        "schedule-d.line-7": 1000,
+        "schedule-d.line-8a": 0,
+        "schedule-d.line-8b": 0,
+        "schedule-d.line-9": 0,
+        "schedule-d.line-10": 0,
+        "schedule-d.line-15": 0,
+        "schedule-d.line-16": 1000,
+        "schedule-d.line-21": 0,
+        "form1040.line-7a": 1000,
+        "form1040.line-15": 35250,
+        "form1040.line-16": 3995,
+        "form1040.line-24": 3995,
+        "form1040.line-33": 4500,
+        "form1040.line-34": 505,
+        "form1040.line-37": 0
+      },
+      "result": {
+        "outcome": "success",
+        "stop": "saturated",
+        "disposition": "blocked",
+        "lines": {
+          "form1040.line-15": "blocked",
+          "form1040.line-16": "blocked",
+          "form1040.line-24": "blocked",
+          "form1040.line-33": "blocked",
+          "form1040.line-34": "blocked",
+          "form1040.line-37": "blocked",
+          "form1040.line-7a": "blocked",
+          "schedule-d.line-10": 0,
+          "schedule-d.line-15": 0,
+          "schedule-d.line-16": "blocked",
+          "schedule-d.line-1a": 1000,
+          "schedule-d.line-1b": 0,
+          "schedule-d.line-2": 0,
+          "schedule-d.line-21": "blocked",
+          "schedule-d.line-3": 0,
+          "schedule-d.line-7": 1000,
+          "schedule-d.line-8a": 0,
+          "schedule-d.line-8b": 0,
+          "schedule-d.line-9": 0
+        },
+        "questions": [],
+        "reasons": {
+          "form1040.line-15": [],
+          "form1040.line-16": [],
+          "form1040.line-24": [],
+          "form1040.line-33": [],
+          "form1040.line-34": [],
+          "form1040.line-37": [],
+          "form1040.line-7a": [],
+          "schedule-d.line-16": [],
+          "schedule-d.line-21": []
+        },
+        "blocked": [
+          {
+            "artifact": "schedule-d-line16",
+            "code": "DEPENDENCY_ABSENT",
+            "missing": []
+          }
+        ]
+      },
+      "comparison": {
+        "matches_hand": false,
+        "diffs": [
+          {
+            "line": "schedule-d.line-16",
+            "hand": 1000,
+            "got": "blocked"
+          },
+          {
+            "line": "schedule-d.line-21",
+            "hand": 0,
+            "got": "blocked"
+          },
+          {
+            "line": "form1040.line-7a",
+            "hand": 1000,
+            "got": "blocked"
+          },
+          {
+            "line": "form1040.line-15",
+            "hand": 35250,
+            "got": "blocked"
+          },
+          {
+            "line": "form1040.line-16",
+            "hand": 3995,
+            "got": "blocked"
+          },
+          {
+            "line": "form1040.line-24",
+            "hand": 3995,
+            "got": "blocked"
+          },
+          {
+            "line": "form1040.line-33",
+            "hand": 4500,
+            "got": "blocked"
+          },
+          {
+            "line": "form1040.line-34",
+            "hand": 505,
+            "got": "blocked"
+          },
+          {
+            "line": "form1040.line-37",
+            "hand": 0,
+            "got": "blocked"
+          }
+        ]
+      }
+    },
+    {
+      "id": "yes_loss_covered_st",
+      "note": "Box 7 yes and column (h) is -1000. The loss is not published.",
+      "expect": "blocked",
+      "column_h": [
+        {
+          "kind": "covered",
+          "term": "st",
+          "h": -1000
+        }
+      ],
+      "hand": null,
+      "result": {
+        "outcome": "success",
+        "stop": "saturated",
+        "disposition": "blocked",
+        "lines": {
+          "form1040.line-15": "blocked",
+          "form1040.line-16": "blocked",
+          "form1040.line-24": "blocked",
+          "form1040.line-33": "blocked",
+          "form1040.line-34": "blocked",
+          "form1040.line-37": "blocked",
+          "form1040.line-7a": "blocked",
+          "schedule-d.line-10": 0,
+          "schedule-d.line-15": 0,
+          "schedule-d.line-16": "blocked",
+          "schedule-d.line-1a": -1000,
+          "schedule-d.line-1b": 0,
+          "schedule-d.line-2": 0,
+          "schedule-d.line-21": "blocked",
+          "schedule-d.line-3": 0,
+          "schedule-d.line-7": -1000,
+          "schedule-d.line-8a": 0,
+          "schedule-d.line-8b": 0,
+          "schedule-d.line-9": 0
+        },
+        "questions": [],
+        "reasons": {
+          "form1040.line-15": [],
+          "form1040.line-16": [],
+          "form1040.line-24": [],
+          "form1040.line-33": [],
+          "form1040.line-34": [],
+          "form1040.line-37": [],
+          "form1040.line-7a": [],
+          "schedule-d.line-16": [],
+          "schedule-d.line-21": []
+        },
+        "blocked": [
+          {
+            "artifact": "schedule-d-line16",
+            "code": "DEPENDENCY_ABSENT",
+            "missing": []
+          }
+        ]
+      },
+      "comparison": {
+        "matches_hand": true,
+        "why": "blocked"
+      }
+    },
+    {
+      "id": "yes_loss_covered_lt",
+      "note": "Box 7 yes, one covered long-term loss.",
+      "expect": "blocked",
+      "column_h": [
+        {
+          "kind": "covered",
+          "term": "lt",
+          "h": -1000
+        }
+      ],
+      "hand": null,
+      "result": {
+        "outcome": "success",
+        "stop": "saturated",
+        "disposition": "blocked",
+        "lines": {
+          "form1040.line-15": "blocked",
+          "form1040.line-16": "blocked",
+          "form1040.line-24": "blocked",
+          "form1040.line-33": "blocked",
+          "form1040.line-34": "blocked",
+          "form1040.line-37": "blocked",
+          "form1040.line-7a": "blocked",
+          "schedule-d.line-10": 0,
+          "schedule-d.line-15": -1000,
+          "schedule-d.line-16": "blocked",
+          "schedule-d.line-1a": 0,
+          "schedule-d.line-1b": 0,
+          "schedule-d.line-2": 0,
+          "schedule-d.line-21": "blocked",
+          "schedule-d.line-3": 0,
+          "schedule-d.line-7": 0,
+          "schedule-d.line-8a": -1000,
+          "schedule-d.line-8b": 0,
+          "schedule-d.line-9": 0
+        },
+        "questions": [],
+        "reasons": {
+          "form1040.line-15": [],
+          "form1040.line-16": [],
+          "form1040.line-24": [],
+          "form1040.line-33": [],
+          "form1040.line-34": [],
+          "form1040.line-37": [],
+          "form1040.line-7a": [],
+          "schedule-d.line-16": [],
+          "schedule-d.line-21": []
+        },
+        "blocked": [
+          {
+            "artifact": "schedule-d-line16",
+            "code": "DEPENDENCY_ABSENT",
+            "missing": []
+          }
+        ]
+      },
+      "comparison": {
+        "matches_hand": true,
+        "why": "blocked"
+      }
+    },
+    {
+      "id": "yes_loss_covered_w_st",
+      "note": "Code W wash of 400 leaves column (h) at -600. Still a loss.",
+      "expect": "blocked",
+      "column_h": [
+        {
+          "kind": "w",
+          "term": "st",
+          "h": -600
+        }
+      ],
+      "hand": null,
+      "result": {
+        "outcome": "success",
+        "stop": "saturated",
+        "disposition": "blocked",
+        "lines": {
+          "form1040.line-15": "blocked",
+          "form1040.line-16": "blocked",
+          "form1040.line-24": "blocked",
+          "form1040.line-33": "blocked",
+          "form1040.line-34": "blocked",
+          "form1040.line-37": "blocked",
+          "form1040.line-7a": "blocked",
+          "schedule-d.line-10": 0,
+          "schedule-d.line-15": 0,
+          "schedule-d.line-16": "blocked",
+          "schedule-d.line-1a": 0,
+          "schedule-d.line-1b": -600,
+          "schedule-d.line-2": 0,
+          "schedule-d.line-21": "blocked",
+          "schedule-d.line-3": 0,
+          "schedule-d.line-7": -600,
+          "schedule-d.line-8a": 0,
+          "schedule-d.line-8b": 0,
+          "schedule-d.line-9": 0
+        },
+        "questions": [],
+        "reasons": {
+          "form1040.line-15": [],
+          "form1040.line-16": [],
+          "form1040.line-24": [],
+          "form1040.line-33": [],
+          "form1040.line-34": [],
+          "form1040.line-37": [],
+          "form1040.line-7a": [],
+          "schedule-d.line-16": [],
+          "schedule-d.line-21": []
+        },
+        "blocked": [
+          {
+            "artifact": "schedule-d-line16",
+            "code": "DEPENDENCY_ABSENT",
+            "missing": []
+          }
+        ]
+      },
+      "comparison": {
+        "matches_hand": true,
+        "why": "blocked"
+      }
+    },
+    {
+      "id": "yes_loss_covered_w_lt",
+      "note": "Code W long-term, wash leaves a loss.",
+      "expect": "blocked",
+      "column_h": [
+        {
+          "kind": "w",
+          "term": "lt",
+          "h": -600
+        }
+      ],
+      "hand": null,
+      "result": {
+        "outcome": "success",
+        "stop": "saturated",
+        "disposition": "blocked",
+        "lines": {
+          "form1040.line-15": "blocked",
+          "form1040.line-16": "blocked",
+          "form1040.line-24": "blocked",
+          "form1040.line-33": "blocked",
+          "form1040.line-34": "blocked",
+          "form1040.line-37": "blocked",
+          "form1040.line-7a": "blocked",
+          "schedule-d.line-10": 0,
+          "schedule-d.line-15": -600,
+          "schedule-d.line-16": "blocked",
+          "schedule-d.line-1a": 0,
+          "schedule-d.line-1b": 0,
+          "schedule-d.line-2": 0,
+          "schedule-d.line-21": "blocked",
+          "schedule-d.line-3": 0,
+          "schedule-d.line-7": 0,
+          "schedule-d.line-8a": 0,
+          "schedule-d.line-8b": -600,
+          "schedule-d.line-9": 0
+        },
+        "questions": [],
+        "reasons": {
+          "form1040.line-15": [],
+          "form1040.line-16": [],
+          "form1040.line-24": [],
+          "form1040.line-33": [],
+          "form1040.line-34": [],
+          "form1040.line-37": [],
+          "form1040.line-7a": [],
+          "schedule-d.line-16": [],
+          "schedule-d.line-21": []
+        },
+        "blocked": [
+          {
+            "artifact": "schedule-d-line16",
+            "code": "DEPENDENCY_ABSENT",
+            "missing": []
+          }
+        ]
+      },
+      "comparison": {
+        "matches_hand": true,
+        "why": "blocked"
+      }
+    },
+    {
+      "id": "yes_loss_noncovered_st",
+      "note": "Box 7 yes, noncovered short-term loss, wash zero.",
+      "expect": "blocked",
+      "column_h": [
+        {
+          "kind": "noncovered",
+          "term": "st",
+          "h": -1000
+        }
+      ],
+      "hand": null,
+      "result": {
+        "outcome": "success",
+        "stop": "saturated",
+        "disposition": "blocked",
+        "lines": {
+          "form1040.line-15": "blocked",
+          "form1040.line-16": "blocked",
+          "form1040.line-24": "blocked",
+          "form1040.line-33": "blocked",
+          "form1040.line-34": "blocked",
+          "form1040.line-37": "blocked",
+          "form1040.line-7a": "blocked",
+          "schedule-d.line-10": 0,
+          "schedule-d.line-15": 0,
+          "schedule-d.line-16": "blocked",
+          "schedule-d.line-1a": 0,
+          "schedule-d.line-1b": 0,
+          "schedule-d.line-2": -1000,
+          "schedule-d.line-21": "blocked",
+          "schedule-d.line-3": 0,
+          "schedule-d.line-7": -1000,
+          "schedule-d.line-8a": 0,
+          "schedule-d.line-8b": 0,
+          "schedule-d.line-9": 0
+        },
+        "questions": [],
+        "reasons": {
+          "form1040.line-15": [],
+          "form1040.line-16": [],
+          "form1040.line-24": [],
+          "form1040.line-33": [],
+          "form1040.line-34": [],
+          "form1040.line-37": [],
+          "form1040.line-7a": [],
+          "schedule-d.line-16": [],
+          "schedule-d.line-21": []
+        },
+        "blocked": [
+          {
+            "artifact": "schedule-d-line16",
+            "code": "DEPENDENCY_ABSENT",
+            "missing": []
+          }
+        ]
+      },
+      "comparison": {
+        "matches_hand": true,
+        "why": "blocked"
+      }
+    },
+    {
+      "id": "yes_loss_noncovered_lt",
+      "note": "Box 7 yes, noncovered long-term loss.",
+      "expect": "blocked",
+      "column_h": [
+        {
+          "kind": "noncovered",
+          "term": "lt",
+          "h": -1000
+        }
+      ],
+      "hand": null,
+      "result": {
+        "outcome": "success",
+        "stop": "saturated",
+        "disposition": "blocked",
+        "lines": {
+          "form1040.line-15": "blocked",
+          "form1040.line-16": "blocked",
+          "form1040.line-24": "blocked",
+          "form1040.line-33": "blocked",
+          "form1040.line-34": "blocked",
+          "form1040.line-37": "blocked",
+          "form1040.line-7a": "blocked",
+          "schedule-d.line-10": 0,
+          "schedule-d.line-15": -1000,
+          "schedule-d.line-16": "blocked",
+          "schedule-d.line-1a": 0,
+          "schedule-d.line-1b": 0,
+          "schedule-d.line-2": 0,
+          "schedule-d.line-21": "blocked",
+          "schedule-d.line-3": 0,
+          "schedule-d.line-7": 0,
+          "schedule-d.line-8a": 0,
+          "schedule-d.line-8b": 0,
+          "schedule-d.line-9": -1000
+        },
+        "questions": [],
+        "reasons": {
+          "form1040.line-15": [],
+          "form1040.line-16": [],
+          "form1040.line-24": [],
+          "form1040.line-33": [],
+          "form1040.line-34": [],
+          "form1040.line-37": [],
+          "form1040.line-7a": [],
+          "schedule-d.line-16": [],
+          "schedule-d.line-21": []
+        },
+        "blocked": [
+          {
+            "artifact": "schedule-d-line16",
+            "code": "DEPENDENCY_ABSENT",
+            "missing": []
+          }
+        ]
+      },
+      "comparison": {
+        "matches_hand": true,
+        "why": "blocked"
+      }
+    },
+    {
+      "id": "yes_loss_code_b_st",
+      "note": "Code B short-term. Corrected basis equals basis, so column (h) is proceeds minus basis.",
+      "expect": "blocked",
+      "column_h": [
+        {
+          "kind": "codeb",
+          "term": "st",
+          "h": -1000
+        }
+      ],
+      "hand": null,
+      "result": {
+        "outcome": "success",
+        "stop": "saturated",
+        "disposition": "blocked",
+        "lines": {
+          "form1040.line-15": "blocked",
+          "form1040.line-16": "blocked",
+          "form1040.line-24": "blocked",
+          "form1040.line-33": "blocked",
+          "form1040.line-34": "blocked",
+          "form1040.line-37": "blocked",
+          "form1040.line-7a": "blocked",
+          "schedule-d.line-10": 0,
+          "schedule-d.line-15": 0,
+          "schedule-d.line-16": "blocked",
+          "schedule-d.line-1a": 0,
+          "schedule-d.line-1b": "blocked",
+          "schedule-d.line-2": 0,
+          "schedule-d.line-21": "blocked",
+          "schedule-d.line-3": 0,
+          "schedule-d.line-7": "blocked",
+          "schedule-d.line-8a": 0,
+          "schedule-d.line-8b": 0,
+          "schedule-d.line-9": 0
+        },
+        "questions": [],
+        "reasons": {
+          "form1040.line-15": [
+            "The correct basis equals the basis the Form 1099-B shows, so there is nothing to correct. Record the sale as a sale with no adjustment (or with code W only)."
+          ],
+          "form1040.line-16": [
+            "The correct basis equals the basis the Form 1099-B shows, so there is nothing to correct. Record the sale as a sale with no adjustment (or with code W only)."
+          ],
+          "form1040.line-24": [
+            "The correct basis equals the basis the Form 1099-B shows, so there is nothing to correct. Record the sale as a sale with no adjustment (or with code W only)."
+          ],
+          "form1040.line-33": [
+            "The correct basis equals the basis the Form 1099-B shows, so there is nothing to correct. Record the sale as a sale with no adjustment (or with code W only)."
+          ],
+          "form1040.line-34": [
+            "The correct basis equals the basis the Form 1099-B shows, so there is nothing to correct. Record the sale as a sale with no adjustment (or with code W only)."
+          ],
+          "form1040.line-37": [
+            "The correct basis equals the basis the Form 1099-B shows, so there is nothing to correct. Record the sale as a sale with no adjustment (or with code W only)."
+          ],
+          "form1040.line-7a": [
+            "The correct basis equals the basis the Form 1099-B shows, so there is nothing to correct. Record the sale as a sale with no adjustment (or with code W only)."
+          ],
+          "schedule-d.line-16": [
+            "The correct basis equals the basis the Form 1099-B shows, so there is nothing to correct. Record the sale as a sale with no adjustment (or with code W only)."
+          ],
+          "schedule-d.line-1b": [
+            "The correct basis equals the basis the Form 1099-B shows, so there is nothing to correct. Record the sale as a sale with no adjustment (or with code W only)."
+          ],
+          "schedule-d.line-21": [
+            "The correct basis equals the basis the Form 1099-B shows, so there is nothing to correct. Record the sale as a sale with no adjustment (or with code W only)."
+          ],
+          "schedule-d.line-7": [
+            "The correct basis equals the basis the Form 1099-B shows, so there is nothing to correct. Record the sale as a sale with no adjustment (or with code W only)."
+          ]
+        },
+        "blocked": [
+          {
+            "artifact": "schedule-d-line16",
+            "code": "DEPENDENCY_ABSENT",
+            "missing": [
+              "schedule-d.line-7"
+            ]
+          }
+        ]
+      },
+      "comparison": {
+        "matches_hand": true,
+        "why": "blocked"
+      }
+    },
+    {
+      "id": "yes_loss_code_b_lt",
+      "note": "Code B long-term loss.",
+      "expect": "blocked",
+      "column_h": [
+        {
+          "kind": "codeb",
+          "term": "lt",
+          "h": -1000
+        }
+      ],
+      "hand": null,
+      "result": {
+        "outcome": "success",
+        "stop": "saturated",
+        "disposition": "blocked",
+        "lines": {
+          "form1040.line-15": "blocked",
+          "form1040.line-16": "blocked",
+          "form1040.line-24": "blocked",
+          "form1040.line-33": "blocked",
+          "form1040.line-34": "blocked",
+          "form1040.line-37": "blocked",
+          "form1040.line-7a": "blocked",
+          "schedule-d.line-10": 0,
+          "schedule-d.line-15": "blocked",
+          "schedule-d.line-16": "blocked",
+          "schedule-d.line-1a": 0,
+          "schedule-d.line-1b": 0,
+          "schedule-d.line-2": 0,
+          "schedule-d.line-21": "blocked",
+          "schedule-d.line-3": 0,
+          "schedule-d.line-7": 0,
+          "schedule-d.line-8a": 0,
+          "schedule-d.line-8b": "blocked",
+          "schedule-d.line-9": 0
+        },
+        "questions": [],
+        "reasons": {
+          "form1040.line-15": [
+            "The correct basis equals the basis the Form 1099-B shows, so there is nothing to correct. Record the sale as a sale with no adjustment (or with code W only)."
+          ],
+          "form1040.line-16": [
+            "The correct basis equals the basis the Form 1099-B shows, so there is nothing to correct. Record the sale as a sale with no adjustment (or with code W only)."
+          ],
+          "form1040.line-24": [
+            "The correct basis equals the basis the Form 1099-B shows, so there is nothing to correct. Record the sale as a sale with no adjustment (or with code W only)."
+          ],
+          "form1040.line-33": [
+            "The correct basis equals the basis the Form 1099-B shows, so there is nothing to correct. Record the sale as a sale with no adjustment (or with code W only)."
+          ],
+          "form1040.line-34": [
+            "The correct basis equals the basis the Form 1099-B shows, so there is nothing to correct. Record the sale as a sale with no adjustment (or with code W only)."
+          ],
+          "form1040.line-37": [
+            "The correct basis equals the basis the Form 1099-B shows, so there is nothing to correct. Record the sale as a sale with no adjustment (or with code W only)."
+          ],
+          "form1040.line-7a": [
+            "The correct basis equals the basis the Form 1099-B shows, so there is nothing to correct. Record the sale as a sale with no adjustment (or with code W only)."
+          ],
+          "schedule-d.line-15": [
+            "The correct basis equals the basis the Form 1099-B shows, so there is nothing to correct. Record the sale as a sale with no adjustment (or with code W only)."
+          ],
+          "schedule-d.line-16": [
+            "The correct basis equals the basis the Form 1099-B shows, so there is nothing to correct. Record the sale as a sale with no adjustment (or with code W only)."
+          ],
+          "schedule-d.line-21": [
+            "The correct basis equals the basis the Form 1099-B shows, so there is nothing to correct. Record the sale as a sale with no adjustment (or with code W only)."
+          ],
+          "schedule-d.line-8b": [
+            "The correct basis equals the basis the Form 1099-B shows, so there is nothing to correct. Record the sale as a sale with no adjustment (or with code W only)."
+          ]
+        },
+        "blocked": [
+          {
+            "artifact": "schedule-d-line16",
+            "code": "DEPENDENCY_ABSENT",
+            "missing": [
+              "schedule-d.line-15"
+            ]
+          }
+        ]
+      },
+      "comparison": {
+        "matches_hand": true,
+        "why": "blocked"
+      }
+    },
+    {
+      "id": "yes_zero_covered_st",
+      "note": "Box 7 yes and column (h) is exactly zero. Zero is not a loss.",
+      "expect": "published",
+      "column_h": [
+        {
+          "kind": "covered",
+          "term": "st",
+          "h": 0
+        }
+      ],
+      "hand": {
+        "schedule-d.line-1a": 0,
+        "schedule-d.line-1b": 0,
+        "schedule-d.line-2": 0,
+        "schedule-d.line-3": 0,
+        "schedule-d.line-7": 0,
+        "schedule-d.line-8a": 0,
+        "schedule-d.line-8b": 0,
+        "schedule-d.line-9": 0,
+        "schedule-d.line-10": 0,
+        "schedule-d.line-15": 0,
+        "schedule-d.line-16": 0,
+        "schedule-d.line-21": 0,
+        "form1040.line-7a": 0,
+        "form1040.line-15": 34250,
+        "form1040.line-16": 3875,
+        "form1040.line-24": 3875,
+        "form1040.line-33": 4500,
+        "form1040.line-34": 625,
+        "form1040.line-37": 0
+      },
+      "result": {
+        "outcome": "success",
+        "stop": "saturated",
+        "disposition": "blocked",
+        "lines": {
+          "form1040.line-15": "blocked",
+          "form1040.line-16": "blocked",
+          "form1040.line-24": "blocked",
+          "form1040.line-33": "blocked",
+          "form1040.line-34": "blocked",
+          "form1040.line-37": "blocked",
+          "form1040.line-7a": "blocked",
+          "schedule-d.line-10": 0,
+          "schedule-d.line-15": 0,
+          "schedule-d.line-16": "blocked",
+          "schedule-d.line-1a": 0,
+          "schedule-d.line-1b": 0,
+          "schedule-d.line-2": 0,
+          "schedule-d.line-21": "blocked",
+          "schedule-d.line-3": 0,
+          "schedule-d.line-7": 0,
+          "schedule-d.line-8a": 0,
+          "schedule-d.line-8b": 0,
+          "schedule-d.line-9": 0
+        },
+        "questions": [],
+        "reasons": {
+          "form1040.line-15": [],
+          "form1040.line-16": [],
+          "form1040.line-24": [],
+          "form1040.line-33": [],
+          "form1040.line-34": [],
+          "form1040.line-37": [],
+          "form1040.line-7a": [],
+          "schedule-d.line-16": [],
+          "schedule-d.line-21": []
+        },
+        "blocked": [
+          {
+            "artifact": "schedule-d-line16",
+            "code": "DEPENDENCY_ABSENT",
+            "missing": []
+          }
+        ]
+      },
+      "comparison": {
+        "matches_hand": false,
+        "diffs": [
+          {
+            "line": "schedule-d.line-16",
+            "hand": 0,
+            "got": "blocked"
+          },
+          {
+            "line": "schedule-d.line-21",
+            "hand": 0,
+            "got": "blocked"
+          },
+          {
+            "line": "form1040.line-7a",
+            "hand": 0,
+            "got": "blocked"
+          },
+          {
+            "line": "form1040.line-15",
+            "hand": 34250,
+            "got": "blocked"
+          },
+          {
+            "line": "form1040.line-16",
+            "hand": 3875,
+            "got": "blocked"
+          },
+          {
+            "line": "form1040.line-24",
+            "hand": 3875,
+            "got": "blocked"
+          },
+          {
+            "line": "form1040.line-33",
+            "hand": 4500,
+            "got": "blocked"
+          },
+          {
+            "line": "form1040.line-34",
+            "hand": 625,
+            "got": "blocked"
+          },
+          {
+            "line": "form1040.line-37",
+            "hand": 0,
+            "got": "blocked"
+          }
+        ]
+      }
+    },
+    {
+      "id": "yes_gain_and_loss_same_statement",
+      "note": "One statement, box 7 yes, a gain and a loss. The loss must not be published, so line 16 is refused.",
+      "expect": "blocked",
+      "column_h": [
+        {
+          "kind": "covered",
+          "term": "st",
+          "h": 1000
+        },
+        {
+          "kind": "covered",
+          "term": "st",
+          "h": -1000
+        }
+      ],
+      "hand": null,
+      "result": {
+        "outcome": "success",
+        "stop": "saturated",
+        "disposition": "blocked",
+        "lines": {
+          "form1040.line-15": "blocked",
+          "form1040.line-16": "blocked",
+          "form1040.line-24": "blocked",
+          "form1040.line-33": "blocked",
+          "form1040.line-34": "blocked",
+          "form1040.line-37": "blocked",
+          "form1040.line-7a": "blocked",
+          "schedule-d.line-10": 0,
+          "schedule-d.line-15": 0,
+          "schedule-d.line-16": "blocked",
+          "schedule-d.line-1a": 0,
+          "schedule-d.line-1b": 0,
+          "schedule-d.line-2": 0,
+          "schedule-d.line-21": "blocked",
+          "schedule-d.line-3": 0,
+          "schedule-d.line-7": 0,
+          "schedule-d.line-8a": 0,
+          "schedule-d.line-8b": 0,
+          "schedule-d.line-9": 0
+        },
+        "questions": [],
+        "reasons": {
+          "form1040.line-15": [],
+          "form1040.line-16": [],
+          "form1040.line-24": [],
+          "form1040.line-33": [],
+          "form1040.line-34": [],
+          "form1040.line-37": [],
+          "form1040.line-7a": [],
+          "schedule-d.line-16": [],
+          "schedule-d.line-21": []
+        },
+        "blocked": [
+          {
+            "artifact": "schedule-d-line16",
+            "code": "DEPENDENCY_ABSENT",
+            "missing": []
+          }
+        ]
+      },
+      "comparison": {
+        "matches_hand": true,
+        "why": "blocked"
+      }
+    },
+    {
+      "id": "yes_gain_and_loss_both_terms",
+      "note": "Box 7 yes, short-term gain and long-term loss on the same statement.",
+      "expect": "blocked",
+      "column_h": [
+        {
+          "kind": "covered",
+          "term": "st",
+          "h": 1000
+        },
+        {
+          "kind": "covered",
+          "term": "lt",
+          "h": -1000
+        }
+      ],
+      "hand": null,
+      "result": {
+        "outcome": "success",
+        "stop": "saturated",
+        "disposition": "blocked",
+        "lines": {
+          "form1040.line-15": "blocked",
+          "form1040.line-16": "blocked",
+          "form1040.line-24": "blocked",
+          "form1040.line-33": "blocked",
+          "form1040.line-34": "blocked",
+          "form1040.line-37": "blocked",
+          "form1040.line-7a": "blocked",
+          "schedule-d.line-10": 0,
+          "schedule-d.line-15": -1000,
+          "schedule-d.line-16": "blocked",
+          "schedule-d.line-1a": 1000,
+          "schedule-d.line-1b": 0,
+          "schedule-d.line-2": 0,
+          "schedule-d.line-21": "blocked",
+          "schedule-d.line-3": 0,
+          "schedule-d.line-7": 1000,
+          "schedule-d.line-8a": -1000,
+          "schedule-d.line-8b": 0,
+          "schedule-d.line-9": 0
+        },
+        "questions": [],
+        "reasons": {
+          "form1040.line-15": [],
+          "form1040.line-16": [],
+          "form1040.line-24": [],
+          "form1040.line-33": [],
+          "form1040.line-34": [],
+          "form1040.line-37": [],
+          "form1040.line-7a": [],
+          "schedule-d.line-16": [],
+          "schedule-d.line-21": []
+        },
+        "blocked": [
+          {
+            "artifact": "schedule-d-line16",
+            "code": "DEPENDENCY_ABSENT",
+            "missing": []
+          }
+        ]
+      },
+      "comparison": {
+        "matches_hand": true,
+        "why": "blocked"
+      }
+    },
+    {
+      "id": "yes_wash_to_zero",
+      "note": "Code W wash brings column (h) from -1000 to zero. Box 7 yes does not change the result.",
+      "expect": "published",
+      "column_h": [
+        {
+          "kind": "w",
+          "term": "st",
+          "h": 0
+        }
+      ],
+      "hand": {
+        "schedule-d.line-1a": 0,
+        "schedule-d.line-1b": 0,
+        "schedule-d.line-2": 0,
+        "schedule-d.line-3": 0,
+        "schedule-d.line-7": 0,
+        "schedule-d.line-8a": 0,
+        "schedule-d.line-8b": 0,
+        "schedule-d.line-9": 0,
+        "schedule-d.line-10": 0,
+        "schedule-d.line-15": 0,
+        "schedule-d.line-16": 0,
+        "schedule-d.line-21": 0,
+        "form1040.line-7a": 0,
+        "form1040.line-15": 34250,
+        "form1040.line-16": 3875,
+        "form1040.line-24": 3875,
+        "form1040.line-33": 4500,
+        "form1040.line-34": 625,
+        "form1040.line-37": 0
+      },
+      "result": {
+        "outcome": "success",
+        "stop": "saturated",
+        "disposition": "blocked",
+        "lines": {
+          "form1040.line-15": "blocked",
+          "form1040.line-16": "blocked",
+          "form1040.line-24": "blocked",
+          "form1040.line-33": "blocked",
+          "form1040.line-34": "blocked",
+          "form1040.line-37": "blocked",
+          "form1040.line-7a": "blocked",
+          "schedule-d.line-10": 0,
+          "schedule-d.line-15": 0,
+          "schedule-d.line-16": "blocked",
+          "schedule-d.line-1a": 0,
+          "schedule-d.line-1b": 0,
+          "schedule-d.line-2": 0,
+          "schedule-d.line-21": "blocked",
+          "schedule-d.line-3": 0,
+          "schedule-d.line-7": 0,
+          "schedule-d.line-8a": 0,
+          "schedule-d.line-8b": 0,
+          "schedule-d.line-9": 0
+        },
+        "questions": [],
+        "reasons": {
+          "form1040.line-15": [],
+          "form1040.line-16": [],
+          "form1040.line-24": [],
+          "form1040.line-33": [],
+          "form1040.line-34": [],
+          "form1040.line-37": [],
+          "form1040.line-7a": [],
+          "schedule-d.line-16": [],
+          "schedule-d.line-21": []
+        },
+        "blocked": [
+          {
+            "artifact": "schedule-d-line16",
+            "code": "DEPENDENCY_ABSENT",
+            "missing": []
+          }
+        ]
+      },
+      "comparison": {
+        "matches_hand": false,
+        "diffs": [
+          {
+            "line": "schedule-d.line-16",
+            "hand": 0,
+            "got": "blocked"
+          },
+          {
+            "line": "schedule-d.line-21",
+            "hand": 0,
+            "got": "blocked"
+          },
+          {
+            "line": "form1040.line-7a",
+            "hand": 0,
+            "got": "blocked"
+          },
+          {
+            "line": "form1040.line-15",
+            "hand": 34250,
+            "got": "blocked"
+          },
+          {
+            "line": "form1040.line-16",
+            "hand": 3875,
+            "got": "blocked"
+          },
+          {
+            "line": "form1040.line-24",
+            "hand": 3875,
+            "got": "blocked"
+          },
+          {
+            "line": "form1040.line-33",
+            "hand": 4500,
+            "got": "blocked"
+          },
+          {
+            "line": "form1040.line-34",
+            "hand": 625,
+            "got": "blocked"
+          },
+          {
+            "line": "form1040.line-37",
+            "hand": 0,
+            "got": "blocked"
+          }
+        ]
+      }
+    },
+    {
+      "id": "yes_on_gain_statement_loss_on_other",
+      "note": "Box 7 yes on the gain statement only. The loss is on a statement answered no, so it is allowed. Net +600.",
+      "expect": "published",
+      "column_h": [
+        {
+          "kind": "covered",
+          "term": "st",
+          "h": 1000
+        },
+        {
+          "kind": "covered",
+          "term": "st",
+          "h": -400
+        }
+      ],
+      "hand": {
+        "schedule-d.line-1a": 600,
+        "schedule-d.line-1b": 0,
+        "schedule-d.line-2": 0,
+        "schedule-d.line-3": 0,
+        "schedule-d.line-7": 600,
+        "schedule-d.line-8a": 0,
+        "schedule-d.line-8b": 0,
+        "schedule-d.line-9": 0,
+        "schedule-d.line-10": 0,
+        "schedule-d.line-15": 0,
+        "schedule-d.line-16": 600,
+        "schedule-d.line-21": 0,
+        "form1040.line-7a": 600,
+        "form1040.line-15": 34850,
+        "form1040.line-16": 3947,
+        "form1040.line-24": 3947,
+        "form1040.line-33": 4500,
+        "form1040.line-34": 553,
+        "form1040.line-37": 0
+      },
+      "result": {
+        "outcome": "success",
+        "stop": "saturated",
+        "disposition": "blocked",
+        "lines": {
+          "form1040.line-15": "blocked",
+          "form1040.line-16": "blocked",
+          "form1040.line-24": "blocked",
+          "form1040.line-33": "blocked",
+          "form1040.line-34": "blocked",
+          "form1040.line-37": "blocked",
+          "form1040.line-7a": "blocked",
+          "schedule-d.line-10": 0,
+          "schedule-d.line-15": 0,
+          "schedule-d.line-16": "blocked",
+          "schedule-d.line-1a": 600,
+          "schedule-d.line-1b": 0,
+          "schedule-d.line-2": 0,
+          "schedule-d.line-21": "blocked",
+          "schedule-d.line-3": 0,
+          "schedule-d.line-7": 600,
+          "schedule-d.line-8a": 0,
+          "schedule-d.line-8b": 0,
+          "schedule-d.line-9": 0
+        },
+        "questions": [],
+        "reasons": {
+          "form1040.line-15": [],
+          "form1040.line-16": [],
+          "form1040.line-24": [],
+          "form1040.line-33": [],
+          "form1040.line-34": [],
+          "form1040.line-37": [],
+          "form1040.line-7a": [],
+          "schedule-d.line-16": [],
+          "schedule-d.line-21": []
+        },
+        "blocked": [
+          {
+            "artifact": "schedule-d-line16",
+            "code": "DEPENDENCY_ABSENT",
+            "missing": []
+          }
+        ]
+      },
+      "comparison": {
+        "matches_hand": false,
+        "diffs": [
+          {
+            "line": "schedule-d.line-16",
+            "hand": 600,
+            "got": "blocked"
+          },
+          {
+            "line": "schedule-d.line-21",
+            "hand": 0,
+            "got": "blocked"
+          },
+          {
+            "line": "form1040.line-7a",
+            "hand": 600,
+            "got": "blocked"
+          },
+          {
+            "line": "form1040.line-15",
+            "hand": 34850,
+            "got": "blocked"
+          },
+          {
+            "line": "form1040.line-16",
+            "hand": 3947,
+            "got": "blocked"
+          },
+          {
+            "line": "form1040.line-24",
+            "hand": 3947,
+            "got": "blocked"
+          },
+          {
+            "line": "form1040.line-33",
+            "hand": 4500,
+            "got": "blocked"
+          },
+          {
+            "line": "form1040.line-34",
+            "hand": 553,
+            "got": "blocked"
+          },
+          {
+            "line": "form1040.line-37",
+            "hand": 0,
+            "got": "blocked"
+          }
+        ]
+      }
+    },
+    {
+      "id": "unanswered_beside_gain",
+      "note": "A gain with no box 7 answer. The question is still asked.",
+      "expect": "blocked",
+      "column_h": [
+        {
+          "kind": "covered",
+          "term": "st",
+          "h": 1000
+        }
+      ],
+      "hand": null,
+      "result": {
+        "outcome": "success",
+        "stop": "saturated",
+        "disposition": "blocked",
+        "lines": {
+          "form1040.line-15": "blocked",
+          "form1040.line-16": "blocked",
+          "form1040.line-24": "blocked",
+          "form1040.line-33": "blocked",
+          "form1040.line-34": "blocked",
+          "form1040.line-37": "blocked",
+          "form1040.line-7a": "blocked",
+          "schedule-d.line-10": 0,
+          "schedule-d.line-15": 0,
+          "schedule-d.line-16": "blocked",
+          "schedule-d.line-1a": 1000,
+          "schedule-d.line-1b": 0,
+          "schedule-d.line-2": 0,
+          "schedule-d.line-21": "blocked",
+          "schedule-d.line-3": 0,
+          "schedule-d.line-7": 1000,
+          "schedule-d.line-8a": 0,
+          "schedule-d.line-8b": 0,
+          "schedule-d.line-9": 0
+        },
+        "questions": [
+          "For each Form 1099-B or substitute statement you recorded a sale from, is box 7 (\"If checked, loss is not allowed based on amount in 1d\") checked for any sale on it?"
+        ],
+        "reasons": {
+          "form1040.line-15": [
+            "For each Form 1099-B or substitute statement you recorded a sale from, is box 7 (\"If checked, loss is not allowed based on amount in 1d\") checked for any sale on it?"
+          ],
+          "form1040.line-16": [
+            "For each Form 1099-B or substitute statement you recorded a sale from, is box 7 (\"If checked, loss is not allowed based on amount in 1d\") checked for any sale on it?"
+          ],
+          "form1040.line-24": [
+            "For each Form 1099-B or substitute statement you recorded a sale from, is box 7 (\"If checked, loss is not allowed based on amount in 1d\") checked for any sale on it?"
+          ],
+          "form1040.line-33": [
+            "For each Form 1099-B or substitute statement you recorded a sale from, is box 7 (\"If checked, loss is not allowed based on amount in 1d\") checked for any sale on it?"
+          ],
+          "form1040.line-34": [
+            "For each Form 1099-B or substitute statement you recorded a sale from, is box 7 (\"If checked, loss is not allowed based on amount in 1d\") checked for any sale on it?"
+          ],
+          "form1040.line-37": [
+            "For each Form 1099-B or substitute statement you recorded a sale from, is box 7 (\"If checked, loss is not allowed based on amount in 1d\") checked for any sale on it?"
+          ],
+          "form1040.line-7a": [
+            "For each Form 1099-B or substitute statement you recorded a sale from, is box 7 (\"If checked, loss is not allowed based on amount in 1d\") checked for any sale on it?"
+          ],
+          "schedule-d.line-16": [
+            "For each Form 1099-B or substitute statement you recorded a sale from, is box 7 (\"If checked, loss is not allowed based on amount in 1d\") checked for any sale on it?"
+          ],
+          "schedule-d.line-21": [
+            "For each Form 1099-B or substitute statement you recorded a sale from, is box 7 (\"If checked, loss is not allowed based on amount in 1d\") checked for any sale on it?"
+          ]
+        },
+        "blocked": [
+          {
+            "artifact": "schedule-d-line16",
+            "code": "DEPENDENCY_ABSENT",
+            "missing": [
+              "f1099b.statement-box7-loss-not-allowed"
+            ]
+          }
+        ]
+      },
+      "comparison": {
+        "matches_hand": true,
+        "why": "blocked"
+      }
+    },
+    {
+      "id": "unanswered_beside_loss",
+      "note": "A loss with no box 7 answer. The question is asked and no loss is published.",
+      "expect": "blocked",
+      "column_h": [
+        {
+          "kind": "covered",
+          "term": "st",
+          "h": -1000
+        }
+      ],
+      "hand": null,
+      "result": {
+        "outcome": "success",
+        "stop": "saturated",
+        "disposition": "blocked",
+        "lines": {
+          "form1040.line-15": "blocked",
+          "form1040.line-16": "blocked",
+          "form1040.line-24": "blocked",
+          "form1040.line-33": "blocked",
+          "form1040.line-34": "blocked",
+          "form1040.line-37": "blocked",
+          "form1040.line-7a": "blocked",
+          "schedule-d.line-10": 0,
+          "schedule-d.line-15": 0,
+          "schedule-d.line-16": "blocked",
+          "schedule-d.line-1a": -1000,
+          "schedule-d.line-1b": 0,
+          "schedule-d.line-2": 0,
+          "schedule-d.line-21": "blocked",
+          "schedule-d.line-3": 0,
+          "schedule-d.line-7": -1000,
+          "schedule-d.line-8a": 0,
+          "schedule-d.line-8b": 0,
+          "schedule-d.line-9": 0
+        },
+        "questions": [
+          "For each Form 1099-B or substitute statement you recorded a sale from, is box 7 (\"If checked, loss is not allowed based on amount in 1d\") checked for any sale on it?"
+        ],
+        "reasons": {
+          "form1040.line-15": [
+            "For each Form 1099-B or substitute statement you recorded a sale from, is box 7 (\"If checked, loss is not allowed based on amount in 1d\") checked for any sale on it?"
+          ],
+          "form1040.line-16": [
+            "For each Form 1099-B or substitute statement you recorded a sale from, is box 7 (\"If checked, loss is not allowed based on amount in 1d\") checked for any sale on it?"
+          ],
+          "form1040.line-24": [
+            "For each Form 1099-B or substitute statement you recorded a sale from, is box 7 (\"If checked, loss is not allowed based on amount in 1d\") checked for any sale on it?"
+          ],
+          "form1040.line-33": [
+            "For each Form 1099-B or substitute statement you recorded a sale from, is box 7 (\"If checked, loss is not allowed based on amount in 1d\") checked for any sale on it?"
+          ],
+          "form1040.line-34": [
+            "For each Form 1099-B or substitute statement you recorded a sale from, is box 7 (\"If checked, loss is not allowed based on amount in 1d\") checked for any sale on it?"
+          ],
+          "form1040.line-37": [
+            "For each Form 1099-B or substitute statement you recorded a sale from, is box 7 (\"If checked, loss is not allowed based on amount in 1d\") checked for any sale on it?"
+          ],
+          "form1040.line-7a": [
+            "For each Form 1099-B or substitute statement you recorded a sale from, is box 7 (\"If checked, loss is not allowed based on amount in 1d\") checked for any sale on it?"
+          ],
+          "schedule-d.line-16": [
+            "For each Form 1099-B or substitute statement you recorded a sale from, is box 7 (\"If checked, loss is not allowed based on amount in 1d\") checked for any sale on it?"
+          ],
+          "schedule-d.line-21": [
+            "For each Form 1099-B or substitute statement you recorded a sale from, is box 7 (\"If checked, loss is not allowed based on amount in 1d\") checked for any sale on it?"
+          ]
+        },
+        "blocked": [
+          {
+            "artifact": "schedule-d-line16",
+            "code": "DEPENDENCY_ABSENT",
+            "missing": [
+              "f1099b.statement-box7-loss-not-allowed"
+            ]
+          }
+        ]
+      },
+      "comparison": {
+        "matches_hand": true,
+        "why": "blocked"
+      }
+    },
+    {
+      "id": "sale_removed_after_box7_yes",
+      "note": "Box 7 was answered yes, then the only sale was removed. No sale remains for box 7 to change.",
+      "expect": "published",
+      "column_h": [],
+      "hand": {
+        "schedule-d.line-1a": 0,
+        "schedule-d.line-1b": 0,
+        "schedule-d.line-2": 0,
+        "schedule-d.line-3": 0,
+        "schedule-d.line-7": 0,
+        "schedule-d.line-8a": 0,
+        "schedule-d.line-8b": 0,
+        "schedule-d.line-9": 0,
+        "schedule-d.line-10": 0,
+        "schedule-d.line-15": 0,
+        "schedule-d.line-16": 0,
+        "schedule-d.line-21": 0,
+        "form1040.line-7a": 0,
+        "form1040.line-15": 34250,
+        "form1040.line-16": 3875,
+        "form1040.line-24": 3875,
+        "form1040.line-33": 4500,
+        "form1040.line-34": 625,
+        "form1040.line-37": 0
+      },
+      "result": {
+        "outcome": "success",
+        "stop": "saturated",
+        "disposition": "published",
+        "lines": {
+          "form1040.line-15": 34250,
+          "form1040.line-16": 3875,
+          "form1040.line-24": 3875,
+          "form1040.line-33": 4500,
+          "form1040.line-34": 625,
+          "form1040.line-37": 0,
+          "form1040.line-7a": 0,
+          "schedule-d.line-10": 0,
+          "schedule-d.line-15": 0,
+          "schedule-d.line-16": 0,
+          "schedule-d.line-1a": 0,
+          "schedule-d.line-1b": 0,
+          "schedule-d.line-2": 0,
+          "schedule-d.line-21": 0,
+          "schedule-d.line-3": 0,
+          "schedule-d.line-7": 0,
+          "schedule-d.line-8a": 0,
+          "schedule-d.line-8b": 0,
+          "schedule-d.line-9": 0
+        },
+        "questions": [],
+        "reasons": {},
+        "blocked": []
+      },
+      "comparison": {
+        "matches_hand": true,
+        "diffs": []
+      }
+    },
+    {
+      "id": "sale_changed_gain_to_loss",
+      "note": "Box 7 was answered yes on a gain, then the same sale's basis was superseded to 6000, so column (h) is -1000.",
+      "expect": "blocked",
+      "column_h": [
+        {
+          "kind": "covered",
+          "term": "st",
+          "h": -1000
+        }
+      ],
+      "hand": null,
+      "result": {
+        "outcome": "success",
+        "stop": "saturated",
+        "disposition": "blocked",
+        "lines": {
+          "form1040.line-15": "blocked",
+          "form1040.line-16": "blocked",
+          "form1040.line-24": "blocked",
+          "form1040.line-33": "blocked",
+          "form1040.line-34": "blocked",
+          "form1040.line-37": "blocked",
+          "form1040.line-7a": "blocked",
+          "schedule-d.line-10": 0,
+          "schedule-d.line-15": 0,
+          "schedule-d.line-16": "blocked",
+          "schedule-d.line-1a": -1000,
+          "schedule-d.line-1b": 0,
+          "schedule-d.line-2": 0,
+          "schedule-d.line-21": "blocked",
+          "schedule-d.line-3": 0,
+          "schedule-d.line-7": -1000,
+          "schedule-d.line-8a": 0,
+          "schedule-d.line-8b": 0,
+          "schedule-d.line-9": 0
+        },
+        "questions": [],
+        "reasons": {
+          "form1040.line-15": [],
+          "form1040.line-16": [],
+          "form1040.line-24": [],
+          "form1040.line-33": [],
+          "form1040.line-34": [],
+          "form1040.line-37": [],
+          "form1040.line-7a": [],
+          "schedule-d.line-16": [],
+          "schedule-d.line-21": []
+        },
+        "blocked": [
+          {
+            "artifact": "schedule-d-line16",
+            "code": "DEPENDENCY_ABSENT",
+            "missing": []
+          }
+        ]
+      },
+      "comparison": {
+        "matches_hand": true,
+        "why": "blocked"
+      }
+    },
+    {
+      "id": "no_with_loss",
+      "note": "Control. Box 7 no beside a loss. Core v83 publishes this loss.",
+      "expect": "published",
+      "column_h": [
+        {
+          "kind": "covered",
+          "term": "st",
+          "h": -1000
+        }
+      ],
+      "hand": {
+        "schedule-d.line-1a": -1000,
+        "schedule-d.line-1b": 0,
+        "schedule-d.line-2": 0,
+        "schedule-d.line-3": 0,
+        "schedule-d.line-7": -1000,
+        "schedule-d.line-8a": 0,
+        "schedule-d.line-8b": 0,
+        "schedule-d.line-9": 0,
+        "schedule-d.line-10": 0,
+        "schedule-d.line-15": 0,
+        "schedule-d.line-16": -1000,
+        "schedule-d.line-21": 1000,
+        "form1040.line-7a": -1000,
+        "form1040.line-15": 33250,
+        "form1040.line-16": 3755,
+        "form1040.line-24": 3755,
+        "form1040.line-33": 4500,
+        "form1040.line-34": 745,
+        "form1040.line-37": 0
+      },
+      "result": {
+        "outcome": "success",
+        "stop": "saturated",
+        "disposition": "published",
+        "lines": {
+          "form1040.line-15": 33250,
+          "form1040.line-16": 3755,
+          "form1040.line-24": 3755,
+          "form1040.line-33": 4500,
+          "form1040.line-34": 745,
+          "form1040.line-37": 0,
+          "form1040.line-7a": -1000,
+          "schedule-d.line-10": 0,
+          "schedule-d.line-15": 0,
+          "schedule-d.line-16": -1000,
+          "schedule-d.line-1a": -1000,
+          "schedule-d.line-1b": 0,
+          "schedule-d.line-2": 0,
+          "schedule-d.line-21": 1000,
+          "schedule-d.line-3": 0,
+          "schedule-d.line-7": -1000,
+          "schedule-d.line-8a": 0,
+          "schedule-d.line-8b": 0,
+          "schedule-d.line-9": 0
+        },
+        "questions": [],
+        "reasons": {},
+        "blocked": []
+      },
+      "comparison": {
+        "matches_hand": true,
+        "diffs": []
+      }
+    },
+    {
+      "id": "yes_both_terms_both_gains",
+      "note": "Box 7 yes, a short-term gain and a long-term gain. Both are allowed, and the long-term gain is preferential.",
+      "expect": "published",
+      "column_h": [
+        {
+          "kind": "covered",
+          "term": "st",
+          "h": 1000
+        },
+        {
+          "kind": "covered",
+          "term": "lt",
+          "h": 1000
+        }
+      ],
+      "hand": {
+        "schedule-d.line-1a": 1000,
+        "schedule-d.line-1b": 0,
+        "schedule-d.line-2": 0,
+        "schedule-d.line-3": 0,
+        "schedule-d.line-7": 1000,
+        "schedule-d.line-8a": 1000,
+        "schedule-d.line-8b": 0,
+        "schedule-d.line-9": 0,
+        "schedule-d.line-10": 0,
+        "schedule-d.line-15": 1000,
+        "schedule-d.line-16": 2000,
+        "schedule-d.line-21": 0,
+        "form1040.line-7a": 2000,
+        "form1040.line-15": 36250,
+        "form1040.line-16": 3995,
+        "form1040.line-24": 3995,
+        "form1040.line-33": 4500,
+        "form1040.line-34": 505,
+        "form1040.line-37": 0
+      },
+      "result": {
+        "outcome": "success",
+        "stop": "saturated",
+        "disposition": "blocked",
+        "lines": {
+          "form1040.line-15": "blocked",
+          "form1040.line-16": "blocked",
+          "form1040.line-24": "blocked",
+          "form1040.line-33": "blocked",
+          "form1040.line-34": "blocked",
+          "form1040.line-37": "blocked",
+          "form1040.line-7a": "blocked",
+          "schedule-d.line-10": 0,
+          "schedule-d.line-15": 1000,
+          "schedule-d.line-16": "blocked",
+          "schedule-d.line-1a": 1000,
+          "schedule-d.line-1b": 0,
+          "schedule-d.line-2": 0,
+          "schedule-d.line-21": "blocked",
+          "schedule-d.line-3": 0,
+          "schedule-d.line-7": 1000,
+          "schedule-d.line-8a": 1000,
+          "schedule-d.line-8b": 0,
+          "schedule-d.line-9": 0
+        },
+        "questions": [],
+        "reasons": {
+          "form1040.line-15": [],
+          "form1040.line-16": [],
+          "form1040.line-24": [],
+          "form1040.line-33": [],
+          "form1040.line-34": [],
+          "form1040.line-37": [],
+          "form1040.line-7a": [],
+          "schedule-d.line-16": [],
+          "schedule-d.line-21": []
+        },
+        "blocked": [
+          {
+            "artifact": "schedule-d-line16",
+            "code": "DEPENDENCY_ABSENT",
+            "missing": []
+          }
+        ]
+      },
+      "comparison": {
+        "matches_hand": false,
+        "diffs": [
+          {
+            "line": "schedule-d.line-16",
+            "hand": 2000,
+            "got": "blocked"
+          },
+          {
+            "line": "schedule-d.line-21",
+            "hand": 0,
+            "got": "blocked"
+          },
+          {
+            "line": "form1040.line-7a",
+            "hand": 2000,
+            "got": "blocked"
+          },
+          {
+            "line": "form1040.line-15",
+            "hand": 36250,
+            "got": "blocked"
+          },
+          {
+            "line": "form1040.line-16",
+            "hand": 3995,
+            "got": "blocked"
+          },
+          {
+            "line": "form1040.line-24",
+            "hand": 3995,
+            "got": "blocked"
+          },
+          {
+            "line": "form1040.line-33",
+            "hand": 4500,
+            "got": "blocked"
+          },
+          {
+            "line": "form1040.line-34",
+            "hand": 505,
+            "got": "blocked"
+          },
+          {
+            "line": "form1040.line-37",
+            "hand": 0,
+            "got": "blocked"
+          }
+        ]
+      }
+    }
+  ]
+}
