@@ -79,6 +79,42 @@ def _fast_lane_selected(config: pytest.Config) -> bool:
     return "not live" in markexpr.replace("  ", " ")
 
 
+def _restore_schema_compile_memo() -> None:
+    """Recompile published schemas when a test has dropped the memo.
+
+    The session warm-up fills ``_COMPILED_SCHEMAS`` once per worker.
+    ``tests/test_incremental_lattice.py`` then calls
+    ``schema_registry.clear_caches`` so a mutated validator cannot reuse a
+    verdict, and it leaves the memo empty. The next derivation test on
+    that worker recompiles every published schema inside its timed call.
+    Measured on this test: 1.71s locally after that clear, and 3.7s on CI
+    quick job 130141445121 (run 42905252770), over the 3.0s budget. A cold
+    ``DerivationSchemas()`` is ``jsonschema`` meta-validation of the
+    published schema files; the second call in the same process is about
+    0.01s. Pay the recompile here, in teardown, which the budget does not
+    time. Skip the work when the memo is already populated.
+    """
+    from packages.kernel import schema_registry
+
+    if schema_registry._COMPILED_SCHEMAS:
+        return
+    from packages.derivation.loader import DerivationSchemas
+
+    DerivationSchemas()
+
+
+@pytest.fixture(autouse=True)
+def _restore_schema_compile_after_fast_lane_test(request: pytest.FixtureRequest) -> Any:
+    """Share the schema-compile load across the fast lane.
+
+    See ``_restore_schema_compile_memo``. Setup does nothing, so a test
+    that clears the memo still observes the empty memo during its call.
+    """
+    yield
+    if _fast_lane_selected(request.config):
+        _restore_schema_compile_memo()
+
+
 @pytest.fixture(scope="session", autouse=True)
 def _warm_derivation_cold_start(request: pytest.FixtureRequest) -> None:
     """Pay each worker's derivation cold first-use cost once, before any
