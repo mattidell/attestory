@@ -184,8 +184,8 @@ def covered_scalar_presence_pairs() -> dict[str, str]:
 def named_covered_flag_refusal_maps() -> dict[tuple[str, str], dict[str, str]]:
     """Packages whose companion declaration names the covered-flag refusal.
 
-    Core v79 is the first package that names it, and cores v80, v81 and v82
-    name the same map. Core v78 and earlier are
+    Core v79 is the first package that names it, and cores v80, v81, v82 and
+    v83 name the same map. Core v78 and earlier are
     absent, so their runs never consult the map. The map is a sibling of the
     companion declaration: the kernel declaration only carries presence pairs
     and value domains.
@@ -199,6 +199,9 @@ def named_covered_flag_refusal_maps() -> dict[tuple[str, str], dict[str, str]]:
         ("tax.us.2025.package.core-calculations", "v81"): dict(COVERED_FLAG_REFUSAL_OBJECTS),
         # Core v82 (the sale family audit) adds no sale object, so it names v81's map.
         ("tax.us.2025.package.core-calculations", "v82"): dict(COVERED_FLAG_REFUSAL_OBJECTS),
+        # Core v83 reads a Form 1099-B box 4 amount. That amount is its own
+        # statement-keyed fact, not a covered sale object, so the map is v82's.
+        ("tax.us.2025.package.core-calculations", "v83"): dict(COVERED_FLAG_REFUSAL_OBJECTS),
     }
 
 
@@ -496,6 +499,24 @@ def domain_package_companion_declarations() -> dict[tuple[str, str], dict[str, A
         # Without this entry, v82 would fall back to the global maps and
         # refuse amounts v81 admits.
         ("tax.us.2025.package.core-calculations", "v82"): {
+            "presence_pairs": {
+                **gambling["presence_pairs"],
+                **noncovered_scalar_presence_pairs(),
+                **no1099b_scalar_presence_pairs(),
+                **code_b_scalar_presence_pairs(),
+                **covered_scalar_presence_pairs(),
+            },
+            "value_domains": dict(gambling["value_domains"]),
+        },
+        # Core v83 reads Form 1099-B box 4 as one nonnegative amount per
+        # statement. That amount's identity is the statement and the tax year,
+        # not a scalar sibling of a sale object, so it takes no presence pair.
+        # require_paired asks it once per sale statement. Line 25b adds every
+        # current amount, including one recorded after its statement's sales
+        # are gone. v83 carries every scalar presence pair and value domain
+        # v82 carries. Without this entry, v83 would fall back to the global
+        # maps and refuse amounts v82 admits.
+        ("tax.us.2025.package.core-calculations", "v83"): {
             "presence_pairs": {
                 **gambling["presence_pairs"],
                 **noncovered_scalar_presence_pairs(),

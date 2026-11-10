@@ -1,11 +1,11 @@
 {
   "scope0": {
     "summary": {
-      "total_cases": 19,
-      "v82_blocked_cases": 12,
-      "v83_published_cases": 17,
+      "total_cases": 21,
+      "v82_blocked_cases": 13,
+      "v83_published_cases": 19,
       "v83_blocked_cases": 2,
-      "matches_hand_cases": 19,
+      "matches_hand_cases": 21,
       "all_match_hand": true
     },
     "cases": [
@@ -26,8 +26,10 @@
           "disposition_25b": "blocked",
           "lines": {
             "form1040.line-25b": null,
+            "form1040.line-25d": null,
             "form1040.line-33": null,
             "form1040.line-34": null,
+            "form1040.line-35a": null,
             "form1040.line-37": null
           },
           "blocked_reasons": []
@@ -37,8 +39,10 @@
           "disposition_25b": "published_value",
           "lines": {
             "form1040.line-25b": 240,
+            "form1040.line-25d": 4740,
             "form1040.line-33": 4740,
             "form1040.line-34": 745,
+            "form1040.line-35a": 745,
             "form1040.line-37": 0
           },
           "blocked_reasons": [],
@@ -62,8 +66,10 @@
           "disposition_25b": "blocked",
           "lines": {
             "form1040.line-25b": null,
+            "form1040.line-25d": null,
             "form1040.line-33": null,
             "form1040.line-34": null,
+            "form1040.line-35a": null,
             "form1040.line-37": null
           },
           "blocked_reasons": []
@@ -73,8 +79,10 @@
           "disposition_25b": "published_value",
           "lines": {
             "form1040.line-25b": 340,
+            "form1040.line-25d": 4840,
             "form1040.line-33": 4840,
             "form1040.line-34": 785,
+            "form1040.line-35a": 785,
             "form1040.line-37": 0
           },
           "blocked_reasons": [],
@@ -98,8 +106,10 @@
           "disposition_25b": "blocked",
           "lines": {
             "form1040.line-25b": null,
+            "form1040.line-25d": null,
             "form1040.line-33": null,
             "form1040.line-34": null,
+            "form1040.line-35a": null,
             "form1040.line-37": null
           },
           "blocked_reasons": []
@@ -109,8 +119,10 @@
           "disposition_25b": "published_value",
           "lines": {
             "form1040.line-25b": 300,
+            "form1040.line-25d": 4800,
             "form1040.line-33": 4800,
             "form1040.line-34": 805,
+            "form1040.line-35a": 805,
             "form1040.line-37": 0
           },
           "blocked_reasons": [],
@@ -134,8 +146,10 @@
           "disposition_25b": "blocked",
           "lines": {
             "form1040.line-25b": null,
+            "form1040.line-25d": null,
             "form1040.line-33": null,
             "form1040.line-34": null,
+            "form1040.line-35a": null,
             "form1040.line-37": null
           },
           "blocked_reasons": []
@@ -145,8 +159,10 @@
           "disposition_25b": "published_value",
           "lines": {
             "form1040.line-25b": 325,
+            "form1040.line-25d": 4825,
             "form1040.line-33": 4825,
             "form1040.line-34": 794,
+            "form1040.line-35a": 794,
             "form1040.line-37": 0
           },
           "blocked_reasons": [],
@@ -155,14 +171,14 @@
       },
       {
         "case_id": "b4_statement_removed",
-        "description": "Statement sales removed, leaving orphan statement with box 4 amount; sale count is 0",
+        "description": "Statement sales removed, leaving orphan statement with box 4 $200; the amount is added",
         "hand_values": {
           "disposition": "published",
           "taxable_income": 34250,
           "tax": 3875,
-          "form1040.line-25b": 0,
-          "form1040.line-33": 4500,
-          "form1040.line-34": 625,
+          "form1040.line-25b": 200,
+          "form1040.line-33": 4700,
+          "form1040.line-34": 825,
           "form1040.line-37": 0
         },
         "v82": {
@@ -170,19 +186,23 @@
           "disposition_25b": "computed_zero",
           "lines": {
             "form1040.line-25b": 0,
+            "form1040.line-25d": 4500,
             "form1040.line-33": 4500,
             "form1040.line-34": 625,
+            "form1040.line-35a": 625,
             "form1040.line-37": 0
           },
           "blocked_reasons": []
         },
         "v83": {
           "outcome": "success",
-          "disposition_25b": "computed_zero",
+          "disposition_25b": "published_value",
           "lines": {
-            "form1040.line-25b": 0,
-            "form1040.line-33": 4500,
-            "form1040.line-34": 625,
+            "form1040.line-25b": 200,
+            "form1040.line-25d": 4700,
+            "form1040.line-33": 4700,
+            "form1040.line-34": 825,
+            "form1040.line-35a": 825,
             "form1040.line-37": 0
           },
           "blocked_reasons": [],
@@ -204,8 +224,10 @@
           "disposition_25b": "blocked",
           "lines": {
             "form1040.line-25b": null,
+            "form1040.line-25d": null,
             "form1040.line-33": null,
             "form1040.line-34": null,
+            "form1040.line-35a": null,
             "form1040.line-37": null
           },
           "blocked_reasons": [
@@ -217,8 +239,10 @@
           "disposition_25b": "blocked",
           "lines": {
             "form1040.line-25b": null,
+            "form1040.line-25d": null,
             "form1040.line-33": null,
             "form1040.line-34": null,
+            "form1040.line-35a": null,
             "form1040.line-37": null
           },
           "blocked_reasons": [
@@ -244,8 +268,10 @@
           "disposition_25b": "computed_zero",
           "lines": {
             "form1040.line-25b": 0,
+            "form1040.line-25d": 4500,
             "form1040.line-33": 4500,
             "form1040.line-34": 505,
+            "form1040.line-35a": 505,
             "form1040.line-37": 0
           },
           "blocked_reasons": []
@@ -255,8 +281,10 @@
           "disposition_25b": "computed_zero",
           "lines": {
             "form1040.line-25b": 0,
+            "form1040.line-25d": 4500,
             "form1040.line-33": 4500,
             "form1040.line-34": 505,
+            "form1040.line-35a": 505,
             "form1040.line-37": 0
           },
           "blocked_reasons": [],
@@ -280,8 +308,10 @@
           "disposition_25b": "computed_zero",
           "lines": {
             "form1040.line-25b": 0,
+            "form1040.line-25d": 4500,
             "form1040.line-33": 4500,
             "form1040.line-34": 505,
+            "form1040.line-35a": 505,
             "form1040.line-37": 0
           },
           "blocked_reasons": []
@@ -291,8 +321,10 @@
           "disposition_25b": "computed_zero",
           "lines": {
             "form1040.line-25b": 0,
+            "form1040.line-25d": 4500,
             "form1040.line-33": 4500,
             "form1040.line-34": 505,
+            "form1040.line-35a": 505,
             "form1040.line-37": 0
           },
           "blocked_reasons": [],
@@ -316,8 +348,10 @@
           "disposition_25b": "computed_zero",
           "lines": {
             "form1040.line-25b": 0,
+            "form1040.line-25d": 4500,
             "form1040.line-33": 4500,
             "form1040.line-34": 505,
+            "form1040.line-35a": 505,
             "form1040.line-37": 0
           },
           "blocked_reasons": []
@@ -327,8 +361,10 @@
           "disposition_25b": "computed_zero",
           "lines": {
             "form1040.line-25b": 0,
+            "form1040.line-25d": 4500,
             "form1040.line-33": 4500,
             "form1040.line-34": 505,
+            "form1040.line-35a": 505,
             "form1040.line-37": 0
           },
           "blocked_reasons": [],
@@ -352,8 +388,10 @@
           "disposition_25b": "blocked",
           "lines": {
             "form1040.line-25b": null,
+            "form1040.line-25d": null,
             "form1040.line-33": null,
             "form1040.line-34": null,
+            "form1040.line-35a": null,
             "form1040.line-37": null
           },
           "blocked_reasons": []
@@ -363,8 +401,10 @@
           "disposition_25b": "published_value",
           "lines": {
             "form1040.line-25b": 240,
+            "form1040.line-25d": 4740,
             "form1040.line-33": 4740,
             "form1040.line-34": 745,
+            "form1040.line-35a": 745,
             "form1040.line-37": 0
           },
           "blocked_reasons": [],
@@ -388,8 +428,10 @@
           "disposition_25b": "blocked",
           "lines": {
             "form1040.line-25b": null,
+            "form1040.line-25d": null,
             "form1040.line-33": null,
             "form1040.line-34": null,
+            "form1040.line-35a": null,
             "form1040.line-37": null
           },
           "blocked_reasons": []
@@ -399,8 +441,10 @@
           "disposition_25b": "published_value",
           "lines": {
             "form1040.line-25b": 240,
+            "form1040.line-25d": 4740,
             "form1040.line-33": 4740,
             "form1040.line-34": 745,
+            "form1040.line-35a": 745,
             "form1040.line-37": 0
           },
           "blocked_reasons": [],
@@ -424,8 +468,10 @@
           "disposition_25b": "blocked",
           "lines": {
             "form1040.line-25b": null,
+            "form1040.line-25d": null,
             "form1040.line-33": null,
             "form1040.line-34": null,
+            "form1040.line-35a": null,
             "form1040.line-37": null
           },
           "blocked_reasons": []
@@ -435,8 +481,10 @@
           "disposition_25b": "published_value",
           "lines": {
             "form1040.line-25b": 240,
+            "form1040.line-25d": 4740,
             "form1040.line-33": 4740,
             "form1040.line-34": 745,
+            "form1040.line-35a": 745,
             "form1040.line-37": 0
           },
           "blocked_reasons": [],
@@ -460,8 +508,10 @@
           "disposition_25b": "blocked",
           "lines": {
             "form1040.line-25b": null,
+            "form1040.line-25d": null,
             "form1040.line-33": null,
             "form1040.line-34": null,
+            "form1040.line-35a": null,
             "form1040.line-37": null
           },
           "blocked_reasons": []
@@ -471,8 +521,10 @@
           "disposition_25b": "published_value",
           "lines": {
             "form1040.line-25b": 240,
+            "form1040.line-25d": 4740,
             "form1040.line-33": 4740,
             "form1040.line-34": 745,
+            "form1040.line-35a": 745,
             "form1040.line-37": 0
           },
           "blocked_reasons": [],
@@ -496,8 +548,10 @@
           "disposition_25b": "blocked",
           "lines": {
             "form1040.line-25b": null,
+            "form1040.line-25d": null,
             "form1040.line-33": null,
             "form1040.line-34": null,
+            "form1040.line-35a": null,
             "form1040.line-37": null
           },
           "blocked_reasons": []
@@ -507,8 +561,10 @@
           "disposition_25b": "published_value",
           "lines": {
             "form1040.line-25b": 240,
+            "form1040.line-25d": 4740,
             "form1040.line-33": 4740,
             "form1040.line-34": 685,
+            "form1040.line-35a": 685,
             "form1040.line-37": 0
           },
           "blocked_reasons": [],
@@ -532,8 +588,10 @@
           "disposition_25b": "blocked",
           "lines": {
             "form1040.line-25b": null,
+            "form1040.line-25d": null,
             "form1040.line-33": null,
             "form1040.line-34": null,
+            "form1040.line-35a": null,
             "form1040.line-37": null
           },
           "blocked_reasons": []
@@ -543,8 +601,10 @@
           "disposition_25b": "published_value",
           "lines": {
             "form1040.line-25b": 340,
+            "form1040.line-25d": 4840,
             "form1040.line-33": 4840,
             "form1040.line-34": 785,
+            "form1040.line-35a": 785,
             "form1040.line-37": 0
           },
           "blocked_reasons": [],
@@ -568,8 +628,10 @@
           "disposition_25b": "computed_zero",
           "lines": {
             "form1040.line-25b": 0,
+            "form1040.line-25d": 4500,
             "form1040.line-33": 4500,
             "form1040.line-34": 445,
+            "form1040.line-35a": 445,
             "form1040.line-37": 0
           },
           "blocked_reasons": []
@@ -579,8 +641,10 @@
           "disposition_25b": "computed_zero",
           "lines": {
             "form1040.line-25b": 0,
+            "form1040.line-25d": 4500,
             "form1040.line-33": 4500,
             "form1040.line-34": 445,
+            "form1040.line-35a": 445,
             "form1040.line-37": 0
           },
           "blocked_reasons": [],
@@ -602,8 +666,10 @@
           "disposition_25b": "blocked",
           "lines": {
             "form1040.line-25b": null,
+            "form1040.line-25d": null,
             "form1040.line-33": null,
             "form1040.line-34": null,
+            "form1040.line-35a": null,
             "form1040.line-37": null
           },
           "blocked_reasons": [
@@ -615,8 +681,10 @@
           "disposition_25b": "blocked",
           "lines": {
             "form1040.line-25b": null,
+            "form1040.line-25d": null,
             "form1040.line-33": null,
             "form1040.line-34": null,
+            "form1040.line-35a": null,
             "form1040.line-37": null
           },
           "blocked_reasons": [
@@ -642,8 +710,10 @@
           "disposition_25b": "computed_zero",
           "lines": {
             "form1040.line-25b": 0,
+            "form1040.line-25d": 4500,
             "form1040.line-33": 4500,
             "form1040.line-34": 505,
+            "form1040.line-35a": 505,
             "form1040.line-37": 0
           },
           "blocked_reasons": []
@@ -653,8 +723,10 @@
           "disposition_25b": "computed_zero",
           "lines": {
             "form1040.line-25b": 0,
+            "form1040.line-25d": 4500,
             "form1040.line-33": 4500,
             "form1040.line-34": 505,
+            "form1040.line-35a": 505,
             "form1040.line-37": 0
           },
           "blocked_reasons": [],
@@ -678,8 +750,10 @@
           "disposition_25b": "computed_zero",
           "lines": {
             "form1040.line-25b": 0,
+            "form1040.line-25d": 4500,
             "form1040.line-33": 4500,
             "form1040.line-34": 625,
+            "form1040.line-35a": 625,
             "form1040.line-37": 0
           },
           "blocked_reasons": []
@@ -689,8 +763,90 @@
           "disposition_25b": "computed_zero",
           "lines": {
             "form1040.line-25b": 0,
+            "form1040.line-25d": 4500,
             "form1040.line-33": 4500,
             "form1040.line-34": 625,
+            "form1040.line-35a": 625,
+            "form1040.line-37": 0
+          },
+          "blocked_reasons": [],
+          "matches_hand": true
+        }
+      },
+      {
+        "case_id": "b4_orphan_150",
+        "description": "No sale. Box 4 $150 on demo.sfa.orphan.statement is added to line 25b.",
+        "hand_values": {
+          "disposition": "published",
+          "taxable_income": 34250,
+          "tax": 3875,
+          "form1040.line-25b": 150,
+          "form1040.line-33": 4650,
+          "form1040.line-34": 775,
+          "form1040.line-37": 0
+        },
+        "v82": {
+          "outcome": "success",
+          "disposition_25b": "computed_zero",
+          "lines": {
+            "form1040.line-25b": 0,
+            "form1040.line-25d": 4500,
+            "form1040.line-33": 4500,
+            "form1040.line-34": 625,
+            "form1040.line-35a": 625,
+            "form1040.line-37": 0
+          },
+          "blocked_reasons": []
+        },
+        "v83": {
+          "outcome": "success",
+          "disposition_25b": "published_value",
+          "lines": {
+            "form1040.line-25b": 150,
+            "form1040.line-25d": 4650,
+            "form1040.line-33": 4650,
+            "form1040.line-34": 775,
+            "form1040.line-35a": 775,
+            "form1040.line-37": 0
+          },
+          "blocked_reasons": [],
+          "matches_hand": true
+        }
+      },
+      {
+        "case_id": "b4_orphan_beside_sale",
+        "description": "Kept covered short-term sale, gain $1,000, its box 4 $0, plus an orphan statement at box 4 $150.",
+        "hand_values": {
+          "disposition": "published",
+          "taxable_income": 35250,
+          "tax": 3995,
+          "form1040.line-25b": 150,
+          "form1040.line-33": 4650,
+          "form1040.line-34": 655,
+          "form1040.line-37": 0
+        },
+        "v82": {
+          "outcome": "success",
+          "disposition_25b": "blocked",
+          "lines": {
+            "form1040.line-25b": null,
+            "form1040.line-25d": null,
+            "form1040.line-33": null,
+            "form1040.line-34": null,
+            "form1040.line-35a": null,
+            "form1040.line-37": null
+          },
+          "blocked_reasons": []
+        },
+        "v83": {
+          "outcome": "success",
+          "disposition_25b": "published_value",
+          "lines": {
+            "form1040.line-25b": 150,
+            "form1040.line-25d": 4650,
+            "form1040.line-33": 4650,
+            "form1040.line-34": 655,
+            "form1040.line-35a": 655,
             "form1040.line-37": 0
           },
           "blocked_reasons": [],
@@ -705,7 +861,7 @@
       "repair_succeeded_cases": 0,
       "repair_works": false,
       "decision_2_confirmed": true,
-      "failure_mechanism": "require_paired evaluates each arm eagerly; an unfulfilled statement-box4-withholding immediately raises EvalBlocked(BLOCK_ABSENT, [statement-box4-withholding]) before the fallback arm can execute. Additionally, value collects statement-box4-withholding from source_set f1099b.b4 which lacks closure on v82 returns."
+      "failure_mechanism": "require_paired evaluates each arm eagerly; an unfulfilled statement-box4-withholding immediately raises EvalBlocked(BLOCK_ABSENT, [statement-box4-withholding]) before the fallback arm can execute. The decided subtotal does not collect an empty amount set, so a v82 return is not blocked on closing f1099b.b4."
     },
     "cases": [
       {
@@ -919,13 +1075,13 @@
       },
       {
         "case_id": "alc_stmt_orphan",
-        "description": "Statement entity exists with $200 box 4 amount but zero sales recorded; line 25b is $0",
+        "description": "Statement entity exists with $200 box 4 amount but zero sales recorded; line 25b adds the $200",
         "core": "decided",
-        "expected_disp": "computed_zero",
-        "expected_25b": 0.0,
+        "expected_disp": "published_value",
+        "expected_25b": 200.0,
         "outcome": "success",
-        "disposition_25b": "computed_zero",
-        "line_25b": 0,
+        "disposition_25b": "published_value",
+        "line_25b": 200,
         "blocked_reasons": [],
         "matches_expected": true
       }
@@ -1399,7 +1555,7 @@
       "trace1_step2_blocked": true,
       "trace1_step3_published": true,
       "trace2_step1_published": true,
-      "trace2_step2_zero": true,
+      "trace2_step2_keeps_amount": true,
       "matches_expected_cases": 5,
       "all_match_expected": true
     },
@@ -1452,12 +1608,12 @@
       },
       {
         "case_id": "trace2_sale_removed",
-        "description": "Trace 2 step 2: sale removed; orphan statement A retains $200 b4 amount; sale count is 0; line 25b is $0",
-        "expected_disp": "computed_zero",
-        "expected_25b": 0.0,
+        "description": "Trace 2 step 2: sale removed; orphan statement A retains $200 b4 amount; line 25b adds the $200",
+        "expected_disp": "published_value",
+        "expected_25b": 200.0,
         "outcome": "success",
-        "disposition_25b": "computed_zero",
-        "line_25b": 0,
+        "disposition_25b": "published_value",
+        "line_25b": 200,
         "blocked_reasons": [],
         "matches_expected": true
       }
@@ -1888,8 +2044,8 @@
     },
     "presentation_probe": {
       "field_probe": {
-        "expected": "Form 1040 line 25b: federal income tax withheld from Form(s) 1099 (Forms 1099-INT, 1099-DIV and 1099-R box 4, Form 1099-G box 4, Form SSA-1099 box 6, and Form 1099-B box 4 backup withholding).",
-        "actual_description": "Form 1040 line 25b: federal income tax withheld from Form(s) 1099 (Forms 1099-INT, 1099-DIV and 1099-R box 4, Form 1099-G box 4, Form SSA-1099 box 6, and Form 1099-B box 4 backup withholding).",
+        "expected": "Form 1040 line 25b: federal income tax withheld from Form(s) 1099 (Forms 1099-INT, 1099-DIV and 1099-R box 4, Form 1099-G box 4, Form SSA-1099 box 6, and every current Form 1099-B box 4 amount, including an amount recorded on a statement with no sale).",
+        "actual_description": "Form 1040 line 25b: federal income tax withheld from Form(s) 1099 (Forms 1099-INT, 1099-DIV and 1099-R box 4, Form 1099-G box 4, Form SSA-1099 box 6, and every current Form 1099-B box 4 amount, including an amount recorded on a statement with no sale).",
         "description_matches": true
       },
       "question_probe": {

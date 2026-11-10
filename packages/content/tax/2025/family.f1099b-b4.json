@@ -1,0 +1,16 @@
+{
+  "schema": "source-family.v1",
+  "id": "tax.us.2025.f1099b.b4",
+  "version": "v1",
+  "title": "Form 1099-B box 4 statement items, tax year 2025",
+  "scope": {
+    "family": "individual-income-tax",
+    "jurisdiction": "US-federal",
+    "tax_year": 2025
+  },
+  "member_predicate": {
+    "fact_type": "tax.us.2025.f1099b.statement-box4-withholding"
+  },
+  "authorizes_subtotal": "tax.us.2025.payments.line25b",
+  "closure_claim": "Every current Form 1099-B box 4 amount is added to Form 1040 line 25b, including an amount whose statement has no sale recorded. A return with no such amount adds nothing from this family and is asked nothing new about box 4."
+}

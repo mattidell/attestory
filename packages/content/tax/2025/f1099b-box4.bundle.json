@@ -1,0 +1,58 @@
+{
+  "schema": "bundle.v2",
+  "id": "tax.us.2025.f1099b.box4",
+  "version": "v1",
+  "label": "Form 1099-B box 4 federal income tax withheld vocabulary",
+  "fact_types": [
+    {
+      "schema": "fact-type.v2",
+      "id": "tax.us.2025.f1099b.statement-box4-withholding",
+      "version": "v1",
+      "title": "Federal income tax withheld in box 4 of one recorded 2025 Form 1099-B statement. Nonnegative source amount only.",
+      "nature": "determinable",
+      "identity_keys": [
+        {
+          "name": "statement",
+          "kind": "entity",
+          "entity_kind": "tax.us.f1099b-statement"
+        },
+        {
+          "name": "tax-year",
+          "kind": "literal",
+          "values": [
+            "2025"
+          ]
+        }
+      ],
+      "value_schema": {
+        "type": "number",
+        "minimum": 0
+      },
+      "supersession": {
+        "policy": "free"
+      }
+    },
+    {
+      "schema": "fact-type.v2",
+      "id": "tax.us.2025.f1099b.b4-withholding-subtotal.inert-path-unwritten",
+      "version": "v1",
+      "title": "Never recorded. The second selection path the box 4 sum requires.",
+      "nature": "determinable",
+      "identity_keys": [
+        {
+          "name": "tax-year",
+          "kind": "literal",
+          "values": [
+            "2025"
+          ]
+        }
+      ],
+      "value_schema": {
+        "type": "boolean"
+      },
+      "supersession": {
+        "policy": "free"
+      }
+    }
+  ]
+}

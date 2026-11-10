@@ -82,7 +82,27 @@ def artifacts(switches: set[str] | None = None) -> list[tuple[str, dict[str, Any
                 "supersession": {
                     "policy": "free",
                 },
-            }
+            },
+            {
+                "schema": "fact-type.v2",
+                "id": P + "f1099b.b4-withholding-subtotal.inert-path-unwritten",
+                "version": "v1",
+                "title": "Never recorded. The second selection path the box 4 sum requires.",
+                "nature": "determinable",
+                "identity_keys": [
+                    {
+                        "name": "tax-year",
+                        "kind": "literal",
+                        "values": ["2025"],
+                    },
+                ],
+                "value_schema": {
+                    "type": "boolean",
+                },
+                "supersession": {
+                    "policy": "free",
+                },
+            },
         ],
     }
     out.append(("f1099b-box4.bundle.json", bundle_b4))
@@ -116,9 +136,9 @@ def artifacts(switches: set[str] | None = None) -> list[tuple[str, dict[str, Any
         },
         "authorizes_subtotal": P + "payments.line25b",
         "closure_claim": (
-            "Every federal income tax withheld amount reported in box 4 of a Form 1099-B furnished "
-            "to the taxpayer for tax year 2025 is recorded as a statement item as of the keyed horizon. "
-            "Closed with members authorizes the sum of current members; closed-empty authorizes subtotal 0."
+            "Every current Form 1099-B box 4 amount is added to Form 1040 line 25b, including an amount "
+            "whose statement has no sale recorded. A return with no such amount adds nothing from this "
+            "family and is asked nothing new about box 4."
         ),
     }
     out.append(("family.f1099b-b4.json", family_b4))
@@ -131,10 +151,21 @@ def artifacts(switches: set[str] | None = None) -> list[tuple[str, dict[str, Any
         "Form 1040 line 25b: 'Add the amounts shown as federal income tax withheld' on Forms 1099-INT, "
         "1099-DIV, 1099-R box 4, 1099-G box 4, SSA-1099 box 6, and Form 1099-B box 4 backup withholding "
         "(i1040gi-2025 line 25b). Each document's own subtotal rule is pinned and added here, one addend per "
-        "document. v7: pairs Form 1099-B statements with statement-box4-withholding via require_paired; "
-        "when sales exist, collects and sums statement-box4-withholding into line 25b; when no sales exist, "
-        "sums the five 1099 subtotals."
+        "document. v7: pairs Form 1099-B statements with statement-box4-withholding via require_paired, and "
+        "both arms add f1099b.b4-withholding-subtotal. That subtotal is every current box 4 amount, including "
+        "an amount whose statement has no sale. When no amount is recorded the subtotal is zero, and the "
+        "filer is asked nothing new."
     )
+    b4_subtotal = P + "f1099b.b4-withholding-subtotal"
+    rule_v7["requires"].insert(rule_v7["requires"].index("rounding.convention"), b4_subtotal)
+    rule_v7["blocked"]["missing"].insert(rule_v7["blocked"]["missing"].index("rounding.convention"), b4_subtotal)
+    rounding_pin = next(i for i, pin in enumerate(rule_v7["pins"]) if pin.get("id") == "rounding.convention")
+    rule_v7["pins"].insert(rounding_pin, {
+        "id": P + "rule.f1099b-b4-withholding-subtotal",
+        "origin": "assertion",
+        "role": "input",
+        "version": "v1",
+    })
 
     # In when: replace statement-box4-withholding-reported with statement-box4-withholding in require_paired
     when_all = rule_v7["when"]["args"]
@@ -184,18 +215,12 @@ def artifacts(switches: set[str] | None = None) -> list[tuple[str, dict[str, Any
         {"name": P + "unemployment.b4-withholding-subtotal", "op": "ref"},
         {"name": P + "ssa1099.b6-withholding-subtotal", "op": "ref"},
     ]
+    # An empty collect blocks unless f1099b.b4 is closed. Closing it would ask a
+    # question of a filer who recorded no amount. The subtotal rule therefore
+    # sums current amounts when any exist and publishes zero when none do.
     six_addends = [
         *five_subtotals,
-        {
-            "op": "add",
-            "args": [
-                {
-                    "op": "collect",
-                    "name": P + "f1099b.statement-box4-withholding",
-                    "source_set": P + "f1099b.b4",
-                }
-            ],
-        },
+        {"name": b4_subtotal, "op": "ref"},
     ]
 
     sale_count_checks = [
@@ -225,10 +250,121 @@ def artifacts(switches: set[str] | None = None) -> list[tuple[str, dict[str, Any
             "mode": {"name": "rounding.convention", "op": "ref"},
             "value": {
                 "op": "add",
-                "args": five_subtotals,
+                "args": six_addends,
             },
         },
     }
+    amount = P + "f1099b.statement-box4-withholding"
+    # A selection path's requires are symbols, and a keyed source is not one.
+    # This rule publishes 0 under the amount's id so the path may name it.
+    # The path collects the recorded rows and does not use this 0. It collects
+    # only when a row exists, so an empty set is never read and the family
+    # needs no closure question.
+    amount_symbol_rule = {
+        "schema": "rule-artifact.v15",
+        "id": P + "rule.f1099b-b4-amount-symbol",
+        "version": "v1",
+        "scope": {
+            "tax_year": 2025,
+            "jurisdiction": "US-federal",
+            "family": "individual-income-tax",
+        },
+        "role": "computation",
+        "requires": [],
+        "pins": [],
+        "when": True,
+        "value": 0,
+        "publishes": amount,
+        "blocked": {"code": "DEPENDENCY_ABSENT", "missing": []},
+        "citations": [],
+        "notes": (
+            "Publishes 0 under the Form 1099-B box 4 amount id so the subtotal "
+            "selection can name that id. The 0 is not the withholding. The "
+            "subtotal collects the recorded amounts when any exist."
+        ),
+    }
+    subtotal_rule = {
+        "schema": "rule-artifact.v15",
+        "id": P + "rule.f1099b-b4-withholding-subtotal",
+        "version": "v1",
+        "scope": {
+            "tax_year": 2025,
+            "jurisdiction": "US-federal",
+            "family": "individual-income-tax",
+        },
+        "role": "computation",
+        "requires": [],
+        "pins": [],
+        "when": True,
+        "selection": {
+            "mode": "exclusive_presence",
+            "conflict": "refuse",
+            "paths": [
+                {
+                    "id": "amounts",
+                    "activity": {
+                        "kind": "source_nonempty",
+                        "source_family": {"id": P + "f1099b.b4", "version": "v1"},
+                        "member_fact_types": [{"id": amount, "version": "v1"}],
+                    },
+                    "reads_subject_results": [],
+                    "requires": [amount],
+                    "pins": [{
+                        "id": amount,
+                        "origin": "assertion",
+                        "role": "input",
+                        "version": "v1",
+                    }],
+                    "when": True,
+                    "value": {
+                        "op": "add",
+                        "args": [{
+                            "op": "collect",
+                            "name": amount,
+                            "source_set": P + "f1099b.b4",
+                        }],
+                    },
+                },
+                {
+                    "id": "inert",
+                    "activity": {
+                        "kind": "source_nonempty",
+                        "member_fact_types": [{
+                            "id": P + "f1099b.b4-withholding-subtotal.inert-path-unwritten",
+                            "version": "v1",
+                        }],
+                    },
+                    "reads_subject_results": [],
+                    "requires": [],
+                    "pins": [],
+                    "when": True,
+                    "value": {"op": "block", "code": "DEPENDENCY_ABSENT"},
+                },
+            ],
+            "default": {
+                "id": "neither",
+                "reads_subject_results": [],
+                "requires": [],
+                "pins": [],
+                "when": True,
+                "value": 0,
+            },
+            "refusal": {
+                "code": "DEPENDENCY_INVALID",
+                "missing": ["f1099b.b4-withholding-subtotal-conflict"],
+                "pins": [],
+            },
+        },
+        "publishes": b4_subtotal,
+        "blocked": {"code": "DEPENDENCY_ABSENT", "missing": []},
+        "citations": [],
+        "notes": (
+            "Every current Form 1099-B box 4 amount, or zero when none is recorded. "
+            "The zero is the default of this selection, so a return with no amount is not asked to close the family."
+        ),
+    }
+    out.append(("rule.f1099b-b4-amount-symbol.json", amount_symbol_rule))
+    out.append(("rule.f1099b-b4-withholding-subtotal.json", subtotal_rule))
     out.append(("rule.form1040-line25b.v7.json", rule_v7))
 
     # 4. Form field: form1040.line-25b.form-field.v5.json
@@ -237,11 +373,12 @@ def artifacts(switches: set[str] | None = None) -> list[tuple[str, dict[str, Any
     field_v5["version"] = "v5"
     field_v5["description"] = (
         "Form 1040 line 25b: federal income tax withheld from Form(s) 1099 "
-        "(Forms 1099-INT, 1099-DIV and 1099-R box 4, Form 1099-G box 4, Form SSA-1099 box 6, and Form 1099-B box 4 backup withholding)."
+        "(Forms 1099-INT, 1099-DIV and 1099-R box 4, Form 1099-G box 4, Form SSA-1099 box 6, "
+        "and every current Form 1099-B box 4 amount, including an amount recorded on a statement with no sale)."
     )
     field_v5["dispositions"]["blocked"]["explain"] = (
         "Form 1040 line 25b is blocked because an input it needs is missing or not yet closed. "
-        "It is also blocked while a recorded Form 1099-B statement has no answer about box 4."
+        "It is also blocked while a recorded sale's statement has no box 4 amount."
     )
     field_v5["dispositions"]["published_value"]["explain"] = (
         "Form 1040 line 25b is the total of the 1099-document withholding amounts, with cents included, "

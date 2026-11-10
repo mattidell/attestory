@@ -213,7 +213,8 @@ NO_EFFECT = {(f"f1099b.{kind}-txn", "covered_security"): _BOX5 for kind in ("cov
                                                                             "covered-w-lt")}
 # Box 4 and box 7 are asked once per recorded Form 1099-B statement (Track 0
 # repairs statement_box4 and statement_box7); the return-level answers P0
-# proposed are not declared by the final v82.
+# proposed are not declared by the final v82. On core v83, line 25b v7 reads
+# the box 4 amount instead of this yes/no; audit() uses accounted_boxes.
 REFUSED_BY = {
     "box 4 federal income tax withheld": ["f1099b.statement-box4-withholding-reported"],
     "box 7 loss not allowed": ["f1099b.statement-box7-loss-not-allowed"],
@@ -229,27 +230,57 @@ REFUSED_BY = {
 
 
 def read_by_rules(bodies: list[dict[str, Any]]) -> set[str]:
-    """Every fact or symbol a rule reads: a ref, count, sum or collect name, or a require_paired witness."""
+    """Every fact or symbol a rule reads on the value side.
+
+    A ``name`` on ``ref``, ``count``, ``sum``, or ``collect`` is a read.
+    A ``require_paired`` withholding key is not: that operator reads keys only.
+    """
     out: set[str] = set()
     for body in bodies:
         if body["_role"] not in ("computation", "attachment-rule"):
             continue
         for node in walk(body):
+            if node.get("op") == "require_paired":
+                continue
             for key in ("name", "withholding"):
                 if isinstance(node.get(key), str):
                     out.add(node[key])
     return out
 
 
+LINE_25B = P + "rule.form1040-line25b"
+BOX4 = "box 4 federal income tax withheld"
+BOX4_AMOUNT = "f1099b.statement-box4-withholding"
+
+
+def line25b_reads_amount(bodies: list[dict[str, Any]]) -> bool:
+    """True when this package's line 25b computation is v7, which reads the box 4 amount."""
+    return any(body.get("_role") == "computation" and body.get("id") == LINE_25B and body.get("version") == "v7"
+               for body in bodies)
+
+
+def accounted_boxes(bodies: list[dict[str, Any]]) -> dict[str, list[str]]:
+    """The answer each refused box must declare and have a rule read.
+
+    Cores through v82 require the box 4 yes/no. Core v83's line 25b v7 reads the
+    nonnegative amount instead, so the yes/no is not required on that package.
+    """
+    boxes = {box: list(facts) for box, facts in REFUSED_BY.items()}
+    if line25b_reads_amount(bodies):
+        boxes[BOX4] = [BOX4_AMOUNT]
+    return boxes
+
+
 def audit(bodies: list[dict[str, Any]], fields: dict[str, Any]) -> list[str]:
     declared = {fact["id"] for body in bodies if body["_role"] == "fact-type-bundle" for fact in body["fact_types"]}
     read = read_by_rules(bodies)
+    boxes = accounted_boxes(bodies)
     failures = [f"{obj}.{name} is read by no rule and has no reason it cannot change the return"
                 for obj, row in fields.items() for name, readers in row.items()
                 if readers == "unread" and (obj, name) not in NO_EFFECT]
-    failures += [f"{box}: the answer {fact} is not declared" for box, facts in REFUSED_BY.items()
+    failures += [f"{box}: the answer {fact} is not declared" for box, facts in boxes.items()
                  for fact in facts if P + fact not in declared]
-    failures += [f"{box}: no rule reads the answer {fact}" for box, facts in REFUSED_BY.items()
+    failures += [f"{box}: no rule reads the answer {fact}" for box, facts in boxes.items()
                  for fact in facts if P + fact in declared and P + fact not in read]
     return failures
 

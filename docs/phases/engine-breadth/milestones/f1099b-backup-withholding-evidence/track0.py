@@ -453,10 +453,10 @@ def build_scope0_cases() -> list[dict[str, Any]]:
 
     cases.append({
         "case_id": "b4_statement_removed",
-        "description": "Statement sales removed, leaving orphan statement with box 4 amount; sale count is 0",
+        "description": "Statement sales removed, leaving orphan statement with box 4 $200; the amount is added",
         "acts_v82": acts_v82,
         "acts_v83": acts_v83,
-        "hand": compute_hand(st_gain=0, b25=0),
+        "hand": compute_hand(st_gain=0, b25=200),
     })
 
     # 6. b4_amount_no_answer
@@ -733,6 +733,56 @@ def build_scope0_cases() -> list[dict[str, Any]]:
         "hand": compute_hand(st_gain=0, b25=0),
     })
 
+    # Review finding 1. Box 4 $150 on a statement with no sale.
+    acts_v82 = h.opened()
+    acts_v82 = h.answer(acts_v82, **h.honest(set(), loss=False))
+    s_rev = "demo.sfa.orphan.statement"
+    h._introduce(acts_v82, s_rev, "tax.us.f1099b-statement")
+    acts_v82 = say_b4_reported(acts_v82, V82, s_rev, "yes")
+    acts_v82 = say_b7_reported(acts_v82, V82, s_rev, "no")
+
+    acts_v83 = h.opened()
+    acts_v83 = h.answer(acts_v83, **h.honest(set(), loss=False))
+    h._introduce(acts_v83, s_rev, "tax.us.f1099b-statement")
+    acts_v83 = say_b4_amount(acts_v83, get_core("decided"), s_rev, 150.0)
+    acts_v83 = say_b7_reported(acts_v83, get_core("decided"), s_rev, "no")
+
+    cases.append({
+        "case_id": "b4_orphan_150",
+        "description": "No sale. Box 4 $150 on demo.sfa.orphan.statement is added to line 25b.",
+        "acts_v82": acts_v82,
+        "acts_v83": acts_v83,
+        "hand": compute_hand(st_gain=0, b25=150),
+    })
+
+    # The same $150 beside one kept covered short-term sale whose own box 4 is $0.
+    acts_v82 = h.opened()
+    acts_v82 = h.sale(acts_v82, "covered", "st", proceeds=5000, basis=4000, tag="b4_kept")
+    acts_v82 = h.answer(acts_v82, **h.honest({"covered"}, loss=False))
+    s_kept = "demo.sfa.b4_kept.statement"
+    acts_v82 = say_b4_reported(acts_v82, V82, s_kept, "no")
+    acts_v82 = say_b7_reported(acts_v82, V82, s_kept, "no")
+    h._introduce(acts_v82, s_rev, "tax.us.f1099b-statement")
+    acts_v82 = say_b4_reported(acts_v82, V82, s_rev, "yes")
+    acts_v82 = say_b7_reported(acts_v82, V82, s_rev, "no")
+
+    acts_v83 = h.opened()
+    acts_v83 = h.sale(acts_v83, "covered", "st", proceeds=5000, basis=4000, tag="b4_kept")
+    acts_v83 = h.answer(acts_v83, **h.honest({"covered"}, loss=False))
+    acts_v83 = say_b4_amount(acts_v83, get_core("decided"), s_kept, 0.0)
+    acts_v83 = say_b7_reported(acts_v83, get_core("decided"), s_kept, "no")
+    h._introduce(acts_v83, s_rev, "tax.us.f1099b-statement")
+    acts_v83 = say_b4_amount(acts_v83, get_core("decided"), s_rev, 150.0)
+    acts_v83 = say_b7_reported(acts_v83, get_core("decided"), s_rev, "no")
+
+    cases.append({
+        "case_id": "b4_orphan_beside_sale",
+        "description": "Kept covered short-term sale, gain $1,000, its box 4 $0, plus an orphan statement at box 4 $150.",
+        "acts_v82": acts_v82,
+        "acts_v83": acts_v83,
+        "hand": compute_hand(st_gain=1000, b25=150),
+    })
+
     return cases
 
 
@@ -752,18 +802,12 @@ def run_scope0() -> dict[str, Any]:
         disp_v82_25b = res_v82["dispositions"].get("form1040.line-25b")
         disp_v83_25b = res_v83["dispositions"].get("form1040.line-25b")
 
-        lines_v82 = {
-            "form1040.line-25b": res_v82["lines"].get("form1040.line-25b"),
-            "form1040.line-33": res_v82["lines"].get("form1040.line-33"),
-            "form1040.line-34": res_v82["lines"].get("form1040.line-34"),
-            "form1040.line-37": res_v82["lines"].get("form1040.line-37"),
-        }
-        lines_v83 = {
-            "form1040.line-25b": res_v83["lines"].get("form1040.line-25b"),
-            "form1040.line-33": res_v83["lines"].get("form1040.line-33"),
-            "form1040.line-34": res_v83["lines"].get("form1040.line-34"),
-            "form1040.line-37": res_v83["lines"].get("form1040.line-37"),
-        }
+        kept_lines = (
+            "form1040.line-25b", "form1040.line-25d", "form1040.line-33",
+            "form1040.line-34", "form1040.line-35a", "form1040.line-37",
+        )
+        lines_v82 = {key: res_v82["lines"].get(key) for key in kept_lines}
+        lines_v83 = {key: res_v83["lines"].get(key) for key in kept_lines}
 
         hand = c["hand"]
         expected_disp = "blocked" if hand["disposition"] == "blocked" else ("computed_zero" if hand["form1040.line-25b"] == 0 else "published_value")
@@ -933,7 +977,7 @@ def run_scope1() -> dict[str, Any]:
         "failure_mechanism": (
             "require_paired evaluates each arm eagerly; an unfulfilled statement-box4-withholding immediately "
             "raises EvalBlocked(BLOCK_ABSENT, [statement-box4-withholding]) before the fallback arm can execute. "
-            "Additionally, value collects statement-box4-withholding from source_set f1099b.b4 which lacks closure on v82 returns."
+            "The decided subtotal does not collect an empty amount set, so a v82 return is not blocked on closing f1099b.b4."
         ),
     }
 
@@ -1095,11 +1139,11 @@ def build_scope2_cases() -> list[dict[str, Any]]:
     acts = say_b7_reported(acts, get_core("decided"), s_orph, "no")
     cases.append({
         "case_id": "alc_stmt_orphan",
-        "description": "Statement entity exists with $200 box 4 amount but zero sales recorded; line 25b is $0",
+        "description": "Statement entity exists with $200 box 4 amount but zero sales recorded; line 25b adds the $200",
         "acts": acts,
         "core": "decided",
-        "expected_disp": "computed_zero",
-        "expected_25b": 0.0,
+        "expected_disp": "published_value",
+        "expected_25b": 200.0,
     })
 
     return cases
@@ -1342,10 +1386,10 @@ def build_scope4_cases() -> list[dict[str, Any]]:
 
     cases.append({
         "case_id": "trace2_sale_removed",
-        "description": "Trace 2 step 2: sale removed; orphan statement A retains $200 b4 amount; sale count is 0; line 25b is $0",
+        "description": "Trace 2 step 2: sale removed; orphan statement A retains $200 b4 amount; line 25b adds the $200",
         "acts": acts_2b,
-        "expected_disp": "computed_zero",
-        "expected_25b": 0.0,
+        "expected_disp": "published_value",
+        "expected_25b": 200.0,
     })
 
     return cases
@@ -1389,7 +1433,7 @@ def run_scope4() -> dict[str, Any]:
         "trace1_step2_blocked": next(r["matches_expected"] for r in results if r["case_id"] == "trace1_new_stmt_unanswered"),
         "trace1_step3_published": next(r["matches_expected"] for r in results if r["case_id"] == "trace1_new_stmt_answered"),
         "trace2_step1_published": next(r["matches_expected"] for r in results if r["case_id"] == "trace2_initial"),
-        "trace2_step2_zero": next(r["matches_expected"] for r in results if r["case_id"] == "trace2_sale_removed"),
+        "trace2_step2_keeps_amount": next(r["matches_expected"] for r in results if r["case_id"] == "trace2_sale_removed"),
         "matches_expected_cases": sum(1 for r in results if r["matches_expected"]),
         "all_match_expected": all(r["matches_expected"] for r in results),
     }
@@ -1882,6 +1926,12 @@ def _run_return_worker(item: tuple[str, list[dict[str, Any]], bool, dict[str, An
     for k in sorted(all_rows):
         v82_row = res_82.get("rows", {}).get(k)
         v83_row = res_83.get("rows", {}).get(k)
+        # A published row is the ordinary result. A rule that exists only on v83
+        # and publishes is not a change in the return. A blocked or other row is.
+        if v82_row == PUBLISHED_ROW:
+            v82_row = None
+        if v83_row == PUBLISHED_ROW:
+            v83_row = None
         if v82_row != v83_row:
             diffs.append(("row", k, v82_row, v83_row))
 
@@ -2165,7 +2215,8 @@ def run_scope7() -> dict[str, Any]:
     expected_question = "Enter the federal income tax withheld in box 4 of each Form 1099-B or substitute statement you recorded a sale from. If box 4 is blank, enter $0."
     expected_field_desc = (
         "Form 1040 line 25b: federal income tax withheld from Form(s) 1099 "
-        "(Forms 1099-INT, 1099-DIV and 1099-R box 4, Form 1099-G box 4, Form SSA-1099 box 6, and Form 1099-B box 4 backup withholding)."
+        "(Forms 1099-INT, 1099-DIV and 1099-R box 4, Form 1099-G box 4, Form SSA-1099 box 6, "
+        "and every current Form 1099-B box 4 amount, including an amount recorded on a statement with no sale)."
     )
 
     presentation_probe_results: dict[str, Any] = {}

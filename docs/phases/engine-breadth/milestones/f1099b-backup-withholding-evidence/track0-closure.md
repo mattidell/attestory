@@ -14,7 +14,7 @@ All summary fields are computed directly from run results, never typed as string
 
 ## 0. Redo of P0 Gaps (Scope 0)
 
-All 19 probe cases were executed through real coordinator runs on core v82 and scratch core v83 (`decided`). Every case on v83 matches hand values computed from the IRS instructions (`matches_hand=True`).
+All 21 probe cases were executed through real coordinator runs on core v82 and scratch core v83 (`decided`). Every case on v83 matches hand values computed from the IRS instructions (`matches_hand=True`).
 
 | Case ID | Description | v82 Disposition | v83 Disposition | Lines 25b / 33 / 34 / 37 | Matches Hand |
 | --- | --- | --- | --- | --- | --- |
@@ -22,7 +22,7 @@ All 19 probe cases were executed through real coordinator runs on core v82 and s
 | `b4_two_statements` | 2 statements covered ST ($1,500 total gain), box 4 $240 + $100 | blocked | published_value | 340 / 4,840 / 845 / 0 | True |
 | `b4_st_and_lt` | 1 statement with both ST ($1,000) and LT ($1,000) sales, box 4 $300 | blocked | published_value | 300 / 4,800 / 925 / 0 | True |
 | `b4_beside_int_div` | 1099-B ($200) beside 1099-INT ($50) and 1099-DIV ($75); total b4 $325 | blocked | published_value | 325 / 4,825 / 770 / 0 | True |
-| `b4_statement_removed` | Sales removed, leaving orphan statement with $200 b4 amount; count 0 | computed_zero | computed_zero | 0 / 4,500 / 625 / 0 | True |
+| `b4_statement_removed` | Sales removed, leaving orphan statement with $200 b4 amount; the $200 is added | computed_zero | published_value | 200 / 4,700 / 825 / 0 | True |
 | `b4_amount_no_answer` | 1 statement covered ST, box 4 unanswered on both cores | blocked | blocked | None / None / None / None | True |
 | `b4_answer_no_amount` | 1 statement covered ST, v82 'no', amount $0 on v83 | computed_zero | computed_zero | 0 / 4,500 / 505 / 0 | True |
 | `b4_no_with_amount` | 1 statement covered ST, box 4 amount $0 | computed_zero | computed_zero | 0 / 4,500 / 505 / 0 | True |
@@ -36,9 +36,11 @@ All 19 probe cases were executed through real coordinator runs on core v82 and s
 | `b4_two_statements_both_no` | 2 statements both box 4 no on v82; amounts $0 on v83 | computed_zero | computed_zero | 0 / 4,500 / 505 / 0 | True |
 | `b4_two_statements_one_unanswered` | 2 statements: s1 answered $0, s2 unanswered (blocked) | blocked | blocked | None / None / None / None | True |
 | `b4_extra_statement_no_sales` | 1 statement with sale ($0 b4), 1 extra statement no sales ($0 b4) | computed_zero | computed_zero | 0 / 4,500 / 505 / 0 | True |
-| `b4_no_sales` | 0 sales recorded, zero withholding; standard return computes | computed_zero | computed_zero | 0 / 4,500 / 625 / 0 | True |
+| `b4_no_sales` | 0 sales recorded, zero withholding; standard return computes and is asked nothing new | computed_zero | computed_zero | 0 / 4,500 / 625 / 0 | True |
+| `b4_orphan_150` | No sale. Box 4 $150 on one statement is added | computed_zero | published_value | 150 / 4,650 / 775 / 0 | True |
+| `b4_orphan_beside_sale` | Kept covered short-term sale, gain $1,000, its box 4 $0, plus an orphan statement at $150 | blocked | published_value | 150 / 4,650 / 655 / 0 | True |
 
-Summary: 19/19 cases match hand values. The named missing case ids from P0 now exist in committed JSON output.
+Summary: 21/21 cases match hand values. The named missing case ids from P0 now exist in committed JSON output. A return with no Form 1099-B and no box 4 amount still publishes line 25b as computed zero and is asked nothing new. An amount whose statement has no sale is added on that same arm.
 
 ---
 
@@ -63,7 +65,7 @@ Four cases were evaluated on `repair_d2` (v83 + `bridge_v82_no`) and `decided` (
 The repair fails for two fundamental engine semantics:
 1. **Eager Evaluation in `evaluator.py`:** Evaluator operations (`any`, `all`, `choose`) do not catch `EvalBlocked`. In `_require_paired`, when any income key is not covered by the single `withholding` fact type, it immediately raises `EvalBlocked(BLOCK_ABSENT, [withholding])`. When the first arm of `any` evaluates `statement-box4-withholding`, it raises `EvalBlocked` immediately before the fallback arm can execute.
 2. **Mixed Statement Impossibility:** For mixed returns (e.g. `d2_mixed_statements`), neither arm alone covers all statements, so both arms raise `EvalBlocked`.
-3. **Value Aggregation Closure:** In `value`, rule 25b v7 collects `statement-box4-withholding` from `source_set: f1099b.b4`. A v82 return has no members in `f1099b.b4` and no source-closure assertion for that family, blocking on `SOURCE_SET_UNCLOSED`.
+3. **Empty amount set:** The decided subtotal does not collect `statement-box4-withholding` when no row is recorded. A v82 return therefore is not blocked on closing `f1099b.b4`. The bridge still fails for the reason in item 1.
 
 **Conclusion:** Content alone cannot let a recorded v82 "no" close its statement at $0. Workspaces upgrading from v82 that recorded Form 1099-B sales must be asked the numeric amount question `statement-box4-withholding`.
 
@@ -78,7 +80,7 @@ The repair fails for two fundamental engine semantics:
 | `f1099b.statement-box4-withholding` | Federal income tax withheld in box 4 of one Form 1099-B statement | One Form 1099-B statement (`statement` key and `tax-year`) | The filer's assertion of that statement's box 4 amount | Free supersession: `alc_b4_amount_superseded` replaces $100 with $250. Missing amount blocks line 25b: `alc_b4_amount_missing`. Valid amount computes: `alc_b4_amount_valid` ($150). |
 | `f1099b.statement-box4-withholding-reported` | Legacy v82 yes/no answer for statement box 4 | One Form 1099-B statement | The filer's answer under v82 vocabulary | Retired on v83. On v82, "no" allowed line 25b to compute $0 (`alc_v82_answer_on_v82`). On scratch v83, the legacy answer is ignored by line 25b and blocks until numeric amount is provided (`alc_v82_answer_on_v83`). |
 | The eight Form 1099-B sale counts `f1099b.{covered,covered-w,noncovered,code-b}-{st,lt}-count` | Number of current sales in each family | The family at its current horizon | Each family's source closure | Member transition increments count and moves horizon: `alc_count_transition` (two sales on one statement; line 25b counts its $200 once). When all counts are 0, line 25b does not require box 4 amounts: `alc_count_zero` ($0). Positive count activates `require_paired`: `alc_count_positive` ($200). |
-| Statement identity `tax.us.f1099b-statement` | The logical entity representing one Form 1099-B or substitute statement | One statement entity | Entity introduction act | Groups sales and pairs with box 4 amount. An orphan statement with a box 4 amount but zero sales is ignored by line 25b because sale counts are 0: `alc_stmt_orphan` ($0). |
+| Statement identity `tax.us.f1099b-statement` | The logical entity representing one Form 1099-B or substitute statement | One statement entity | Entity introduction act | Groups sales and pairs with box 4 amount. An orphan statement whose sales are gone still adds its current box 4 amount: `alc_stmt_orphan` ($200). |
 
 ---
 
@@ -154,10 +156,10 @@ attest statement A amount ($150) → compute ($150) → add sale on statement B 
 
 ### Trace 2: Sale Removed After Box 4 Amount
 ```text
-attest statement A sale + amount ($200) → compute ($200) → remove sale from statement A → sale count becomes 0 → line 25b recomputes ($0)
+attest statement A sale + amount ($200) → compute ($200) → remove sale from statement A → sale count becomes 0 → line 25b keeps the $200
 ```
 1. `trace2_initial`: Statement A with sale ($1,000 gain) and box 4 amount $200. Line 25b publishes `published_value` ($200.0).
-2. `trace2_sale_removed`: Sale removed from statement A. The orphan statement entity and its box 4 amount finding remain. Because all Form 1099-B sale counts are 0, line 25b evaluates the else branch and publishes `computed_zero` ($0.0). The orphan statement amount is safely ignored.
+2. `trace2_sale_removed`: Sale removed from statement A. The orphan statement entity and its box 4 amount finding remain. Line 25b still publishes `published_value` ($200.0): line 25d 4,700, line 33 4,700, line 34 825, line 35a 825, line 37 0.
 
 Summary: 5/5 cases matched expected lifecycle transitions.
 
@@ -224,7 +226,7 @@ Returns with current Form 1099-B sales: 174. Returns without: 39. `no_sales_chan
 
 They never go from `computed_zero` to `blocked`. The earlier row stored `computed_zero` for v82 without running v82.
 
-No return without a current Form 1099-B sale changes. Every return that changes is the Decision 1–2 amount question on line 25b and its payment consumers. No counterexample stands.
+No return without a current Form 1099-B sale changes. Every return that changes is the Decision 1–2 amount question on line 25b and its payment consumers. No counterexample stands. None of the 213 returns records a box 4 amount without a sale, so Decision 6 does not move a return between these classes. The amount-without-a-sale returns are the scope 0, scope 2, and scope 4 cases above.
 
 ---
 
@@ -244,13 +246,12 @@ No return without a current Form 1099-B sale changes. Every return that changes 
 - **Question Prompt:** Exact match:
   `"Enter the federal income tax withheld in box 4 of each Form 1099-B or substitute statement you recorded a sale from. If box 4 is blank, enter $0."`
 - **Field Description:** Exact match:
-  `"Form 1040 line 25b: federal income tax withheld from Form(s) 1099 (Forms 1099-INT, 1099-DIV and 1099-R box 4, Form 1099-G box 4, Form SSA-1099 box 6, and Form 1099-B box 4 backup withholding)."`
+  `"Form 1040 line 25b: federal income tax withheld from Form(s) 1099 (Forms 1099-INT, 1099-DIV and 1099-R box 4, Form 1099-G box 4, Form SSA-1099 box 6, and every current Form 1099-B box 4 amount, including an amount recorded on a statement with no sale)."`
 
 ---
 
 ## Closing Summary & Declaration
 
 Every row of the Track 0 adversarial closure gate is satisfied with real evidence from real coordinator runs.
-The neighbour-diff row is PASS: 213/213 v82 projections match the committed fixture, 150 returns change only as Decisions 1–2 explain, 63 are identical, 0 counterexamples (`track0-rerun-output.json` `summary`).
-No production, test, or content edits were made. All prototype fixes and repairs remain switchable in `prototype.py`.
+The neighbour-diff row is PASS: 213/213 v82 projections match the committed fixture, 150 returns change only as Decisions 1–2 explain, 63 are identical, 0 counterexamples (`track0-rerun-output.json` `summary`). Decision 6's primary path holds: every current box 4 amount is added, including one whose statement has no sale, and a return with no amount still publishes line 25b and is asked nothing new.
 No open questions or counterexamples remain.

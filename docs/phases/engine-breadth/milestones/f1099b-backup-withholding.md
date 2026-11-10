@@ -200,6 +200,18 @@ backed by committed output and are redone in Track 0:
    sale question will ask the amount once that block clears; that is
    intended.
 
+6. **A box 4 amount with no sale still counts**, foreman 2026-11-09, on
+   the fresh-reader review (finding 1). Box 4 is tax withheld on the
+   statement, whether or not a sale from it is recorded (the broker files
+   a box-4-only Form 1099-B for a short still open at year end). Track 0
+   recorded the opposite (`trace2_sale_removed`, `alc_stmt_orphan`,
+   `b4_statement_removed` publish line 25b $0) and is corrected: every
+   current box 4 amount adds to line 25b on both arms. A filer with no
+   Form 1099-B and no amount still publishes line 25b without being asked
+   anything new. If content cannot read an empty amount set as zero there
+   without a closure question, line 25b blocks, with a true reason, while
+   an amount exists and every sale count is zero, and publishes nothing.
+
 ## Track 0 adversarial closure
 
 Evidence: `docs/phases/engine-breadth/milestones/f1099b-backup-withholding-evidence/track0-closure.md` (`track0.py`, `track0-output.json`, `track0-rerun-output.json`). Every run goes through `live_coordinate_run` on the scratch v83, in both answer modes, on the decided design (`decided`) and repair evaluation (`repair_d2`). The neighbour diff also runs each of the 213 returns on published v82.
@@ -207,12 +219,34 @@ Evidence: `docs/phases/engine-breadth/milestones/f1099b-backup-withholding-evide
 - **Decision 2 outcome (bridge_v82_no fails):** Content-only bridge for v82 "no" answers fails (`repair_works=False`, `decision_2_confirmed=True`). `require_paired` eagerly raises `EvalBlocked(BLOCK_ABSENT, [statement-box4-withholding])` before the fallback arm in `any` can evaluate, and `value` on `statement-box4-withholding` finds no assertions because `source_set: f1099b.b4` has no closure assertion on v82 returns. Decision 2 is confirmed: all filers with Form 1099-B sales must be asked the numeric amount question (`statement-box4-withholding`).
 - Authority-lifecycle table: PASS — artifact 1 in `docs/phases/engine-breadth/milestones/f1099b-backup-withholding-evidence/track0-closure.md`; exercised by cases `alc_b4_amount_valid`, `alc_b4_amount_superseded`, `alc_b4_amount_missing`, `alc_v82_answer_on_v82`, `alc_v82_answer_on_v83`, `alc_count_zero`, `alc_count_positive`, `alc_count_transition`, `alc_stmt_orphan` in `track0-output.json`.
 - Empty/nonempty authority matrix: PASS — artifact 2 in `track0-closure.md`; 32 real coordinator runs across 8 families and 4 states in `track0-output.json` (`m_covered_st_zero` through `m_code_b_lt_v82_only`), 32/32 matched expected.
-- Late-member lifecycle: PASS — artifact 3 in `track0-closure.md`; two multi-step traces exercised through coordinator: `trace1_initial`, `trace1_new_stmt_unanswered` (blocks line 25b), `trace1_new_stmt_answered` (recomputes sum), `trace2_initial`, `trace2_sale_removed` (orphan statement amount ignored, line 25b computes $0).
+- Late-member lifecycle: PASS — artifact 3 in `track0-closure.md`; two multi-step traces exercised through coordinator: `trace1_initial`, `trace1_new_stmt_unanswered` (blocks line 25b), `trace1_new_stmt_answered` (recomputes sum), `trace2_initial`, `trace2_sale_removed` (the $200 remains on line 25b after the sale is removed: line 25b 200, line 25d 4,700, line 33 4,700, line 34 825, line 35a 825, line 37 0).
 - Reused-claim semantic/lifecycle equivalence: PASS — artifact 4 in `track0-closure.md`; the five existing line 25b subtotals (INT, DIV, R, G, SSA) compose unchanged beside Form 1099-B box 4: cases `reuse_int_alone` ($50), `reuse_div_alone` ($75), `reuse_ira_alone` ($80), `reuse_unemp_alone` ($90), `reuse_ssa_alone` ($60), `reuse_all_five_alone` ($355), and `reuse_all_with_b4` ($455) in `track0-output.json`.
-- Neighboring capability dependency diff: PASS — artifact 5 in `track0-closure.md`; 213 paired v82/v83 coordinator runs in `track0-rerun-output.json` (`summary` computed from those runs): 213/213 v82 projections match `tests/fixtures/sale_family_audit_v82/expected.json`; 150 `box4_unanswered_asks_amount` (all with sales; sample `case/a_8949_yes/recorded`); 63 `identical`; 0 counterexamples; 39 without sales all identical (`no_sales_changed_ids` empty). The four no-sale returns `case/wage_q3_unanswered/recorded`, `v80/carried_one_exempt_dividend/recorded`, `v80/carried_one_foreign_tax/recorded`, `v80/carried_wage_unclosed/recorded` are identical, blocked on both cores for Q3 / Form 1099-DIV box 4 / Q1, not `computed_zero` to `blocked`.
+- Neighboring capability dependency diff: PASS — artifact 5 in `track0-closure.md`; 213 paired v82/v83 coordinator runs in `track0-rerun-output.json` (`summary` computed from those runs): 213/213 v82 projections match `tests/fixtures/sale_family_audit_v82/expected.json`; 150 `box4_unanswered_asks_amount` (all with sales; sample `case/a_8949_yes/recorded`); 63 `identical`; 0 counterexamples; 39 without sales all identical (`no_sales_changed_ids` empty). The four no-sale returns `case/wage_q3_unanswered/recorded`, `v80/carried_one_exempt_dividend/recorded`, `v80/carried_one_foreign_tax/recorded`, `v80/carried_wage_unclosed/recorded` are identical, blocked on both cores for Q3 / Form 1099-DIV box 4 / Q1, not `computed_zero` to `blocked`. None of the 213 records a box 4 amount without a sale, so Decision 6 does not move a return between classes.
+- Decision 6 path: the primary path, not the fallback. An empty collect of `f1099b.b4` would block unless that family were closed, and closing it would ask a question of a filer who recorded no amount. The subtotal is a selection. Its default publishes zero when no box 4 amount is recorded, and its other path collects the recorded amounts only when a row exists. A companion rule publishes 0 under the amount's id so that path can name the id; that 0 is not the withholding. Measured: `b4_no_sales` is computed zero with no new question; `b4_orphan_150` publishes line 25b 150, line 25d 4,650, line 33 4,650, line 34 775, line 35a 775, line 37 0; `b4_statement_removed` and `alc_stmt_orphan` and `trace2_sale_removed` publish line 25b 200, line 25d 4,700, line 33 4,700, line 34 825, line 35a 825, line 37 0; `b4_orphan_beside_sale` publishes line 25b 150, line 25d 4,650, line 33 4,650, line 34 655, line 35a 655, line 37 0. A sale whose box 4 amount is unanswered still blocks on the amount question.
 - Integration surface: PASS — artifact 6 in `track0-closure.md`; consumers lines 33, 34, 37 verified across distinct disposition paths in `track0-output.json`: `surface_published_refund` ($745 refund, $0 owed), `surface_published_owed` ($0 refund, $2,115 owed), `surface_blocked_missing_b4` (all consumers blocked), `surface_zero_no_sales` ($625 refund). Presentation model validated with `validate_presentation_model`; question prompt and form field description verified.
 - Known limitations affecting correctness: none.
 
 ## Track 1 result
 
-Pending.
+Published core `tax.us.2025.package.core-calculations` v83, registry v81, and release v81, from the decided design. The citizens are byte-identical to `prototype.artifacts()`: five adds (the box 4 amount bundle, its input question, source family `tax.us.2025.f1099b.b4`, the amount-symbol rule, and the withholding subtotal) and two replacements (line 25b v6 to v7, form field v4 to v5). The v83 loader entry copies the v82 companion declaration and the v82 covered-flag refusal map. The box 4 amount stays a per-statement amount under the existing pairing check. The build stayed in content, the loader, the sale-fact audit, and tests.
+
+**Decided cases.** `tests/test_f1099b_backup_withholding_v83.py` runs 79 distinct Track 0 act lists on published core v83 through `live_coordinate_run` and the presentation model. Each success pin records lines 25b, 25d, 33, 34, 35a, and 37, the attachments, each blocked line's reason sentences, and the watched rows. Two further act lists, `s2/alc_count_zero` and `s7/surface_zero_no_sales`, share the pin of `s0/b4_no_sales`. `alc_v82_answer_on_v82` remains a published core v82 pin in the Track 0 evidence. The fixture `tests/fixtures/f1099b_backup_withholding_v83/expected.json` is 2,120,830 bytes and records 298 coordinator runs: 79 Track 0 pins, 213 returns, and 6 zero-box-4 restores.
+
+**The 213 v82 returns, by class.** Re-measured on published core v83 against `tests/fixtures/sale_family_audit_v82/expected.json`, and locked in `tests/fixtures/f1099b_backup_withholding_v83/expected.json`:
+
+- 150 `box4_unanswered_asks_amount`
+- 63 `identical`
+- 0 counterexamples
+- 39 returns without sales, all `identical` (`no_sales_changed` empty)
+
+Answering box 4 as $0 restores the v82 lines on this sample of the 150 changed returns, including `case/a_8949_yes/recorded`: `case/a_8949_yes/recorded`, `case/m_a_v80_ic_only/recorded`, `case/x_d_gain_to_loss/recorded`, `neighbour/n_covered_st_zero_proceeds_zero_basis/recorded`, `v80/carried_t0_b_loss_8949_yes/recorded`, `v80/v80_t2_stage3/recorded`.
+
+Six returns are rejected at entry on v82 and on v83, class `identical`, with no form lines: `case/a_corrected_basis_missing/recorded`, `case/x_remove_sale_keep_rows/recorded`, `v80/carried_duplicate_horizon/recorded`, `v80/carried_probe_e_basis_object_missing/recorded`, `v80/v80_c_basis_object_missing/recorded`, `v80/v80_d3_b_orphan_basis/recorded`.
+
+The sale-fact audit on v83 counts the box 4 amount as read only when a value-side collect, ref, or sum names it. Removing that collect fails the audit. A require_paired key is not a read. Core v82 still reads the yes/no answer. The class counts are locked by `tests/test_f1099b_backup_withholding_v83_package.py`.
+
+**Repair.** Decision 6 uses the primary path. The subtotal is a selection. Its default publishes zero when no box 4 amount is recorded, and its other path collects every current amount, including an amount whose statement has no sale, only when a row exists. A companion rule publishes 0 under the amount's id so that path can name the id; that 0 is not the withholding. A return with no amount still publishes line 25b and is asked nothing new, so the fallback (block while an amount exists and every sale count is zero) stays unused. The blocked explain says line 25b is blocked while a recorded sale's statement has no box 4 amount.
+
+**Checks.** `pytest -m "not live"`: 1748 passed, 8 skipped, 4204 subtests passed (17.00s). Full `pytest`: 5539 passed, 24 skipped, 8850 subtests passed (2130.78s). `python3 -m mypy`: no issues in 473 source files. `python3 tools/envelope_scan.py --range github/main..HEAD`: clean.
+
+**Deviation.** None. The published class counts match the Track 0 outcome.

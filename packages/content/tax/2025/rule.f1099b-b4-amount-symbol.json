@@ -1,0 +1,22 @@
+{
+  "schema": "rule-artifact.v15",
+  "id": "tax.us.2025.rule.f1099b-b4-amount-symbol",
+  "version": "v1",
+  "scope": {
+    "tax_year": 2025,
+    "jurisdiction": "US-federal",
+    "family": "individual-income-tax"
+  },
+  "role": "computation",
+  "requires": [],
+  "pins": [],
+  "when": true,
+  "value": 0,
+  "publishes": "tax.us.2025.f1099b.statement-box4-withholding",
+  "blocked": {
+    "code": "DEPENDENCY_ABSENT",
+    "missing": []
+  },
+  "citations": [],
+  "notes": "Publishes 0 under the Form 1099-B box 4 amount id so the subtotal selection can name that id. The 0 is not the withholding. The subtotal collects the recorded amounts when any exist."
+}
