@@ -214,7 +214,8 @@ NO_EFFECT = {(f"f1099b.{kind}-txn", "covered_security"): _BOX5 for kind in ("cov
 # Box 4 and box 7 are asked once per recorded Form 1099-B statement (Track 0
 # repairs statement_box4 and statement_box7); the return-level answers P0
 # proposed are not declared by the final v82. On core v83, line 25b v7 reads
-# the box 4 amount instead of this yes/no; audit() uses accounted_boxes.
+# the box 4 amount instead of this yes/no; core v85's v8 still reads that
+# amount and also the return-level no-sale amount. audit() uses accounted_boxes.
 REFUSED_BY = {
     "box 4 federal income tax withheld": ["f1099b.statement-box4-withholding-reported"],
     "box 7 loss not allowed": ["f1099b.statement-box7-loss-not-allowed"],
@@ -307,16 +308,24 @@ BOX4_AMOUNT = "f1099b.statement-box4-withholding"
 
 
 def line25b_reads_amount(bodies: list[dict[str, Any]]) -> bool:
-    """True when this package's line 25b computation is v7, which reads the box 4 amount."""
-    return any(body.get("_role") == "computation" and body.get("id") == LINE_25B and body.get("version") == "v7"
-               for body in bodies)
+    """True when this package's line 25b computation reads the box 4 amount.
+
+    Core v83's line 25b v7 reads the nonnegative per-statement amount. Core v85's
+    v8 still reads that amount and also the return-level no-sale amount.
+    """
+    return any(
+        body.get("_role") == "computation" and body.get("id") == LINE_25B
+        and body.get("version") in ("v7", "v8")
+        for body in bodies
+    )
 
 
 def accounted_boxes(bodies: list[dict[str, Any]]) -> dict[str, list[str]]:
     """The answer each refused box must declare and have a rule read.
 
-    Cores through v82 require the box 4 yes/no. Core v83's line 25b v7 reads the
-    nonnegative amount instead, so the yes/no is not required on that package.
+    Cores through v82 require the box 4 yes/no. Core v83's line 25b v7 and core
+    v85's v8 read the nonnegative amount instead, so the yes/no is not required
+    on those packages.
     """
     boxes = {box: list(facts) for box, facts in REFUSED_BY.items()}
     if line25b_reads_amount(bodies):

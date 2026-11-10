@@ -1,0 +1,48 @@
+{
+  "from": {
+    "package": "v84",
+    "registry": "v82",
+    "release": "v82"
+  },
+  "to": {
+    "package": "v85",
+    "registry": "v83",
+    "release": "v83"
+  },
+  "package": "v85",
+  "registry": "v83",
+  "release": "v83",
+  "members_edited": 5,
+  "added": 3,
+  "replaced": 2,
+  "members": [
+    [
+      "add",
+      "f1099b.no-sale-box4",
+      "v1"
+    ],
+    [
+      "add",
+      "input-question.f1099b-no-sale-box4-present",
+      "v1"
+    ],
+    [
+      "add",
+      "input-question.f1099b-no-sale-box4-amount",
+      "v1"
+    ],
+    [
+      "replace",
+      "rule.form1040-line25b",
+      "v8"
+    ],
+    [
+      "replace",
+      "form1040.line-25b",
+      "v6"
+    ]
+  ],
+  "inherited_inconsistencies": [],
+  "present_question": "Did you receive a Form 1099-B or substitute statement that shows federal income tax withheld in box 4 and reports no closed sale (for example, a short sale still open at year end)? Do not count a statement whose box 4 you already entered, with or without a sale.",
+  "amount_question": "Enter the federal income tax withheld in box 4 of Form 1099-B or substitute statements that report no closed sale. Do not include a statement whose box 4 you already entered, with or without a sale. If more than one remaining statement, enter the total. If box 4 is blank, enter $0."
+}

@@ -1,0 +1,2435 @@
+{
+  "counts": {
+    "authority": 8,
+    "matrix": 25,
+    "late": 8,
+    "reuse": 11,
+    "surface": 6
+  },
+  "cases": {
+    "authority/alc_present_unanswered": {
+      "hand": {
+        "disposition": "blocked"
+      },
+      "view": {
+        "lines": {
+          "form1040.line-25a": 4500,
+          "form1040.line-25b": "blocked",
+          "form1040.line-25c": 0,
+          "form1040.line-25d": "blocked",
+          "form1040.line-33": "blocked",
+          "form1040.line-34": "blocked",
+          "form1040.line-37": "blocked"
+        },
+        "blocked": {
+          "form1040.line-25b": [
+            {
+              "disposition": "blocked",
+              "code": "DEPENDENCY_ABSENT",
+              "missing": [
+                "f1099b.no-sale-box4-present"
+              ],
+              "reasons": [
+                "Did you receive a Form 1099-B or substitute statement that shows federal income tax withheld in box 4 and reports no closed sale (for example, a short sale still open at year end)? Do not count a statement whose box 4 you already entered, with or without a sale."
+              ]
+            }
+          ],
+          "form1040.line-25d": [
+            {
+              "disposition": "blocked",
+              "code": "DEPENDENCY_ABSENT",
+              "missing": [
+                "payments.line25b"
+              ],
+              "reasons": [
+                "Did you receive a Form 1099-B or substitute statement that shows federal income tax withheld in box 4 and reports no closed sale (for example, a short sale still open at year end)? Do not count a statement whose box 4 you already entered, with or without a sale."
+              ]
+            }
+          ],
+          "form1040.line-33": [
+            {
+              "disposition": "blocked",
+              "code": "DEPENDENCY_ABSENT",
+              "missing": [
+                "payments.line25d"
+              ],
+              "reasons": [
+                "Did you receive a Form 1099-B or substitute statement that shows federal income tax withheld in box 4 and reports no closed sale (for example, a short sale still open at year end)? Do not count a statement whose box 4 you already entered, with or without a sale."
+              ]
+            }
+          ],
+          "form1040.line-34": [
+            {
+              "disposition": "blocked",
+              "code": "DEPENDENCY_ABSENT",
+              "missing": [
+                "payments.line33"
+              ],
+              "reasons": [
+                "Did you receive a Form 1099-B or substitute statement that shows federal income tax withheld in box 4 and reports no closed sale (for example, a short sale still open at year end)? Do not count a statement whose box 4 you already entered, with or without a sale."
+              ]
+            }
+          ],
+          "form1040.line-37": [
+            {
+              "disposition": "blocked",
+              "code": "DEPENDENCY_ABSENT",
+              "missing": [
+                "payments.line33"
+              ],
+              "reasons": [
+                "Did you receive a Form 1099-B or substitute statement that shows federal income tax withheld in box 4 and reports no closed sale (for example, a short sale still open at year end)? Do not count a statement whose box 4 you already entered, with or without a sale."
+              ]
+            }
+          ]
+        },
+        "questions": [
+          "Did you receive a Form 1099-B or substitute statement that shows federal income tax withheld in box 4 and reports no closed sale (for example, a short sale still open at year end)? Do not count a statement whose box 4 you already entered, with or without a sale."
+        ],
+        "presentation_valid": true
+      }
+    },
+    "authority/alc_present_no": {
+      "hand": {
+        "disposition": "published",
+        "form1040.line-25a": 4500,
+        "form1040.line-25b": 0,
+        "form1040.line-25c": 0,
+        "form1040.line-25d": 4500,
+        "form1040.line-33": 4500,
+        "form1040.line-34": 625,
+        "form1040.line-37": 0,
+        "form1040.line-7a": 0,
+        "form1040.line-15": 34250,
+        "form1040.line-16": 3875
+      },
+      "view": {
+        "lines": {
+          "form1040.line-25a": 4500,
+          "form1040.line-25b": 0,
+          "form1040.line-25c": 0,
+          "form1040.line-25d": 4500,
+          "form1040.line-33": 4500,
+          "form1040.line-34": 625,
+          "form1040.line-37": 0
+        },
+        "blocked": {},
+        "questions": [],
+        "presentation_valid": true
+      }
+    },
+    "authority/alc_present_yes_amount": {
+      "hand": {
+        "disposition": "published",
+        "form1040.line-25a": 4500,
+        "form1040.line-25b": 150,
+        "form1040.line-25c": 0,
+        "form1040.line-25d": 4650,
+        "form1040.line-33": 4650,
+        "form1040.line-34": 775,
+        "form1040.line-37": 0,
+        "form1040.line-7a": 0,
+        "form1040.line-15": 34250,
+        "form1040.line-16": 3875
+      },
+      "view": {
+        "lines": {
+          "form1040.line-25a": 4500,
+          "form1040.line-25b": 150,
+          "form1040.line-25c": 0,
+          "form1040.line-25d": 4650,
+          "form1040.line-33": 4650,
+          "form1040.line-34": 775,
+          "form1040.line-37": 0
+        },
+        "blocked": {},
+        "questions": [],
+        "presentation_valid": true
+      }
+    },
+    "authority/alc_present_yes_amount_unanswered": {
+      "hand": {
+        "disposition": "blocked"
+      },
+      "view": {
+        "lines": {
+          "form1040.line-25a": 4500,
+          "form1040.line-25b": "blocked",
+          "form1040.line-25c": 0,
+          "form1040.line-25d": "blocked",
+          "form1040.line-33": "blocked",
+          "form1040.line-34": "blocked",
+          "form1040.line-37": "blocked"
+        },
+        "blocked": {
+          "form1040.line-25b": [
+            {
+              "disposition": "blocked",
+              "code": "DEPENDENCY_ABSENT",
+              "missing": [
+                "f1099b.no-sale-box4-withholding"
+              ],
+              "reasons": [
+                "Enter the federal income tax withheld in box 4 of Form 1099-B or substitute statements that report no closed sale. Do not include a statement whose box 4 you already entered, with or without a sale. If more than one remaining statement, enter the total. If box 4 is blank, enter $0."
+              ]
+            }
+          ],
+          "form1040.line-25d": [
+            {
+              "disposition": "blocked",
+              "code": "DEPENDENCY_ABSENT",
+              "missing": [
+                "payments.line25b"
+              ],
+              "reasons": [
+                "Enter the federal income tax withheld in box 4 of Form 1099-B or substitute statements that report no closed sale. Do not include a statement whose box 4 you already entered, with or without a sale. If more than one remaining statement, enter the total. If box 4 is blank, enter $0."
+              ]
+            }
+          ],
+          "form1040.line-33": [
+            {
+              "disposition": "blocked",
+              "code": "DEPENDENCY_ABSENT",
+              "missing": [
+                "payments.line25d"
+              ],
+              "reasons": [
+                "Enter the federal income tax withheld in box 4 of Form 1099-B or substitute statements that report no closed sale. Do not include a statement whose box 4 you already entered, with or without a sale. If more than one remaining statement, enter the total. If box 4 is blank, enter $0."
+              ]
+            }
+          ],
+          "form1040.line-34": [
+            {
+              "disposition": "blocked",
+              "code": "DEPENDENCY_ABSENT",
+              "missing": [
+                "payments.line33"
+              ],
+              "reasons": [
+                "Enter the federal income tax withheld in box 4 of Form 1099-B or substitute statements that report no closed sale. Do not include a statement whose box 4 you already entered, with or without a sale. If more than one remaining statement, enter the total. If box 4 is blank, enter $0."
+              ]
+            }
+          ],
+          "form1040.line-37": [
+            {
+              "disposition": "blocked",
+              "code": "DEPENDENCY_ABSENT",
+              "missing": [
+                "payments.line33"
+              ],
+              "reasons": [
+                "Enter the federal income tax withheld in box 4 of Form 1099-B or substitute statements that report no closed sale. Do not include a statement whose box 4 you already entered, with or without a sale. If more than one remaining statement, enter the total. If box 4 is blank, enter $0."
+              ]
+            }
+          ]
+        },
+        "questions": [
+          "Enter the federal income tax withheld in box 4 of Form 1099-B or substitute statements that report no closed sale. Do not include a statement whose box 4 you already entered, with or without a sale. If more than one remaining statement, enter the total. If box 4 is blank, enter $0."
+        ],
+        "presentation_valid": true
+      }
+    },
+    "authority/alc_stmt_with_sale": {
+      "hand": {
+        "disposition": "published",
+        "form1040.line-25a": 4500,
+        "form1040.line-25b": 200,
+        "form1040.line-25c": 0,
+        "form1040.line-25d": 4700,
+        "form1040.line-33": 4700,
+        "form1040.line-34": 705,
+        "form1040.line-37": 0,
+        "form1040.line-7a": 1000,
+        "form1040.line-15": 35250,
+        "form1040.line-16": 3995
+      },
+      "view": {
+        "lines": {
+          "form1040.line-25a": 4500,
+          "form1040.line-25b": 200,
+          "form1040.line-25c": 0,
+          "form1040.line-25d": 4700,
+          "form1040.line-33": 4700,
+          "form1040.line-34": 705,
+          "form1040.line-37": 0
+        },
+        "blocked": {},
+        "questions": [],
+        "presentation_valid": true
+      }
+    },
+    "authority/alc_stmt_without_sale": {
+      "hand": {
+        "disposition": "published",
+        "form1040.line-25a": 4500,
+        "form1040.line-25b": 150,
+        "form1040.line-25c": 0,
+        "form1040.line-25d": 4650,
+        "form1040.line-33": 4650,
+        "form1040.line-34": 775,
+        "form1040.line-37": 0,
+        "form1040.line-7a": 0,
+        "form1040.line-15": 34250,
+        "form1040.line-16": 3875
+      },
+      "view": {
+        "lines": {
+          "form1040.line-25a": 4500,
+          "form1040.line-25b": 150,
+          "form1040.line-25c": 0,
+          "form1040.line-25d": 4650,
+          "form1040.line-33": 4650,
+          "form1040.line-34": 775,
+          "form1040.line-37": 0
+        },
+        "blocked": {},
+        "questions": [],
+        "presentation_valid": true
+      }
+    },
+    "authority/alc_stmt_identity": {
+      "hand": {
+        "disposition": "published",
+        "form1040.line-25a": 4500,
+        "form1040.line-25b": 350,
+        "form1040.line-25c": 0,
+        "form1040.line-25d": 4850,
+        "form1040.line-33": 4850,
+        "form1040.line-34": 855,
+        "form1040.line-37": 0,
+        "form1040.line-7a": 1000,
+        "form1040.line-15": 35250,
+        "form1040.line-16": 3995
+      },
+      "view": {
+        "lines": {
+          "form1040.line-25a": 4500,
+          "form1040.line-25b": 350,
+          "form1040.line-25c": 0,
+          "form1040.line-25d": 4850,
+          "form1040.line-33": 4850,
+          "form1040.line-34": 855,
+          "form1040.line-37": 0
+        },
+        "blocked": {},
+        "questions": [],
+        "presentation_valid": true
+      }
+    },
+    "authority/alc_double_count": {
+      "hand": {
+        "disposition": "published",
+        "form1040.line-25a": 4500,
+        "form1040.line-25b": 300,
+        "form1040.line-25c": 0,
+        "form1040.line-25d": 4800,
+        "form1040.line-33": 4800,
+        "form1040.line-34": 925,
+        "form1040.line-37": 0,
+        "form1040.line-7a": 0,
+        "form1040.line-15": 34250,
+        "form1040.line-16": 3875
+      },
+      "view": {
+        "lines": {
+          "form1040.line-25a": 4500,
+          "form1040.line-25b": 300,
+          "form1040.line-25c": 0,
+          "form1040.line-25d": 4800,
+          "form1040.line-33": 4800,
+          "form1040.line-34": 925,
+          "form1040.line-37": 0
+        },
+        "blocked": {},
+        "questions": [],
+        "presentation_valid": true
+      }
+    },
+    "matrix/m_none_unanswered": {
+      "hand": {
+        "disposition": "blocked"
+      },
+      "view": {
+        "lines": {
+          "form1040.line-25a": 4500,
+          "form1040.line-25b": "blocked",
+          "form1040.line-25c": 0,
+          "form1040.line-25d": "blocked",
+          "form1040.line-33": "blocked",
+          "form1040.line-34": "blocked",
+          "form1040.line-37": "blocked"
+        },
+        "blocked": {
+          "form1040.line-25b": [
+            {
+              "disposition": "blocked",
+              "code": "DEPENDENCY_ABSENT",
+              "missing": [
+                "f1099b.no-sale-box4-present"
+              ],
+              "reasons": [
+                "Did you receive a Form 1099-B or substitute statement that shows federal income tax withheld in box 4 and reports no closed sale (for example, a short sale still open at year end)? Do not count a statement whose box 4 you already entered, with or without a sale."
+              ]
+            }
+          ],
+          "form1040.line-25d": [
+            {
+              "disposition": "blocked",
+              "code": "DEPENDENCY_ABSENT",
+              "missing": [
+                "payments.line25b"
+              ],
+              "reasons": [
+                "Did you receive a Form 1099-B or substitute statement that shows federal income tax withheld in box 4 and reports no closed sale (for example, a short sale still open at year end)? Do not count a statement whose box 4 you already entered, with or without a sale."
+              ]
+            }
+          ],
+          "form1040.line-33": [
+            {
+              "disposition": "blocked",
+              "code": "DEPENDENCY_ABSENT",
+              "missing": [
+                "payments.line25d"
+              ],
+              "reasons": [
+                "Did you receive a Form 1099-B or substitute statement that shows federal income tax withheld in box 4 and reports no closed sale (for example, a short sale still open at year end)? Do not count a statement whose box 4 you already entered, with or without a sale."
+              ]
+            }
+          ],
+          "form1040.line-34": [
+            {
+              "disposition": "blocked",
+              "code": "DEPENDENCY_ABSENT",
+              "missing": [
+                "payments.line33"
+              ],
+              "reasons": [
+                "Did you receive a Form 1099-B or substitute statement that shows federal income tax withheld in box 4 and reports no closed sale (for example, a short sale still open at year end)? Do not count a statement whose box 4 you already entered, with or without a sale."
+              ]
+            }
+          ],
+          "form1040.line-37": [
+            {
+              "disposition": "blocked",
+              "code": "DEPENDENCY_ABSENT",
+              "missing": [
+                "payments.line33"
+              ],
+              "reasons": [
+                "Did you receive a Form 1099-B or substitute statement that shows federal income tax withheld in box 4 and reports no closed sale (for example, a short sale still open at year end)? Do not count a statement whose box 4 you already entered, with or without a sale."
+              ]
+            }
+          ]
+        },
+        "questions": [
+          "Did you receive a Form 1099-B or substitute statement that shows federal income tax withheld in box 4 and reports no closed sale (for example, a short sale still open at year end)? Do not count a statement whose box 4 you already entered, with or without a sale."
+        ],
+        "presentation_valid": true
+      }
+    },
+    "matrix/m_none_no": {
+      "hand": {
+        "disposition": "published",
+        "form1040.line-25a": 4500,
+        "form1040.line-25b": 0,
+        "form1040.line-25c": 0,
+        "form1040.line-25d": 4500,
+        "form1040.line-33": 4500,
+        "form1040.line-34": 625,
+        "form1040.line-37": 0,
+        "form1040.line-7a": 0,
+        "form1040.line-15": 34250,
+        "form1040.line-16": 3875
+      },
+      "view": {
+        "lines": {
+          "form1040.line-25a": 4500,
+          "form1040.line-25b": 0,
+          "form1040.line-25c": 0,
+          "form1040.line-25d": 4500,
+          "form1040.line-33": 4500,
+          "form1040.line-34": 625,
+          "form1040.line-37": 0
+        },
+        "blocked": {},
+        "questions": [],
+        "presentation_valid": true
+      }
+    },
+    "matrix/m_none_yes_amount": {
+      "hand": {
+        "disposition": "published",
+        "form1040.line-25a": 4500,
+        "form1040.line-25b": 150,
+        "form1040.line-25c": 0,
+        "form1040.line-25d": 4650,
+        "form1040.line-33": 4650,
+        "form1040.line-34": 775,
+        "form1040.line-37": 0,
+        "form1040.line-7a": 0,
+        "form1040.line-15": 34250,
+        "form1040.line-16": 3875
+      },
+      "view": {
+        "lines": {
+          "form1040.line-25a": 4500,
+          "form1040.line-25b": 150,
+          "form1040.line-25c": 0,
+          "form1040.line-25d": 4650,
+          "form1040.line-33": 4650,
+          "form1040.line-34": 775,
+          "form1040.line-37": 0
+        },
+        "blocked": {},
+        "questions": [],
+        "presentation_valid": true
+      }
+    },
+    "matrix/m_none_yes_amount_unanswered": {
+      "hand": {
+        "disposition": "blocked"
+      },
+      "view": {
+        "lines": {
+          "form1040.line-25a": 4500,
+          "form1040.line-25b": "blocked",
+          "form1040.line-25c": 0,
+          "form1040.line-25d": "blocked",
+          "form1040.line-33": "blocked",
+          "form1040.line-34": "blocked",
+          "form1040.line-37": "blocked"
+        },
+        "blocked": {
+          "form1040.line-25b": [
+            {
+              "disposition": "blocked",
+              "code": "DEPENDENCY_ABSENT",
+              "missing": [
+                "f1099b.no-sale-box4-withholding"
+              ],
+              "reasons": [
+                "Enter the federal income tax withheld in box 4 of Form 1099-B or substitute statements that report no closed sale. Do not include a statement whose box 4 you already entered, with or without a sale. If more than one remaining statement, enter the total. If box 4 is blank, enter $0."
+              ]
+            }
+          ],
+          "form1040.line-25d": [
+            {
+              "disposition": "blocked",
+              "code": "DEPENDENCY_ABSENT",
+              "missing": [
+                "payments.line25b"
+              ],
+              "reasons": [
+                "Enter the federal income tax withheld in box 4 of Form 1099-B or substitute statements that report no closed sale. Do not include a statement whose box 4 you already entered, with or without a sale. If more than one remaining statement, enter the total. If box 4 is blank, enter $0."
+              ]
+            }
+          ],
+          "form1040.line-33": [
+            {
+              "disposition": "blocked",
+              "code": "DEPENDENCY_ABSENT",
+              "missing": [
+                "payments.line25d"
+              ],
+              "reasons": [
+                "Enter the federal income tax withheld in box 4 of Form 1099-B or substitute statements that report no closed sale. Do not include a statement whose box 4 you already entered, with or without a sale. If more than one remaining statement, enter the total. If box 4 is blank, enter $0."
+              ]
+            }
+          ],
+          "form1040.line-34": [
+            {
+              "disposition": "blocked",
+              "code": "DEPENDENCY_ABSENT",
+              "missing": [
+                "payments.line33"
+              ],
+              "reasons": [
+                "Enter the federal income tax withheld in box 4 of Form 1099-B or substitute statements that report no closed sale. Do not include a statement whose box 4 you already entered, with or without a sale. If more than one remaining statement, enter the total. If box 4 is blank, enter $0."
+              ]
+            }
+          ],
+          "form1040.line-37": [
+            {
+              "disposition": "blocked",
+              "code": "DEPENDENCY_ABSENT",
+              "missing": [
+                "payments.line33"
+              ],
+              "reasons": [
+                "Enter the federal income tax withheld in box 4 of Form 1099-B or substitute statements that report no closed sale. Do not include a statement whose box 4 you already entered, with or without a sale. If more than one remaining statement, enter the total. If box 4 is blank, enter $0."
+              ]
+            }
+          ]
+        },
+        "questions": [
+          "Enter the federal income tax withheld in box 4 of Form 1099-B or substitute statements that report no closed sale. Do not include a statement whose box 4 you already entered, with or without a sale. If more than one remaining statement, enter the total. If box 4 is blank, enter $0."
+        ],
+        "presentation_valid": true
+      }
+    },
+    "matrix/m_sale_unanswered_stmt200": {
+      "hand": {
+        "disposition": "blocked"
+      },
+      "view": {
+        "lines": {
+          "form1040.line-25a": 4500,
+          "form1040.line-25b": "blocked",
+          "form1040.line-25c": 0,
+          "form1040.line-25d": "blocked",
+          "form1040.line-33": "blocked",
+          "form1040.line-34": "blocked",
+          "form1040.line-37": "blocked"
+        },
+        "blocked": {
+          "form1040.line-25b": [
+            {
+              "disposition": "blocked",
+              "code": "DEPENDENCY_ABSENT",
+              "missing": [
+                "f1099b.no-sale-box4-present"
+              ],
+              "reasons": [
+                "Did you receive a Form 1099-B or substitute statement that shows federal income tax withheld in box 4 and reports no closed sale (for example, a short sale still open at year end)? Do not count a statement whose box 4 you already entered, with or without a sale."
+              ]
+            }
+          ],
+          "form1040.line-25d": [
+            {
+              "disposition": "blocked",
+              "code": "DEPENDENCY_ABSENT",
+              "missing": [
+                "payments.line25b"
+              ],
+              "reasons": [
+                "Did you receive a Form 1099-B or substitute statement that shows federal income tax withheld in box 4 and reports no closed sale (for example, a short sale still open at year end)? Do not count a statement whose box 4 you already entered, with or without a sale."
+              ]
+            }
+          ],
+          "form1040.line-33": [
+            {
+              "disposition": "blocked",
+              "code": "DEPENDENCY_ABSENT",
+              "missing": [
+                "payments.line25d"
+              ],
+              "reasons": [
+                "Did you receive a Form 1099-B or substitute statement that shows federal income tax withheld in box 4 and reports no closed sale (for example, a short sale still open at year end)? Do not count a statement whose box 4 you already entered, with or without a sale."
+              ]
+            }
+          ],
+          "form1040.line-34": [
+            {
+              "disposition": "blocked",
+              "code": "DEPENDENCY_ABSENT",
+              "missing": [
+                "payments.line33"
+              ],
+              "reasons": [
+                "Did you receive a Form 1099-B or substitute statement that shows federal income tax withheld in box 4 and reports no closed sale (for example, a short sale still open at year end)? Do not count a statement whose box 4 you already entered, with or without a sale."
+              ]
+            }
+          ],
+          "form1040.line-37": [
+            {
+              "disposition": "blocked",
+              "code": "DEPENDENCY_ABSENT",
+              "missing": [
+                "payments.line33"
+              ],
+              "reasons": [
+                "Did you receive a Form 1099-B or substitute statement that shows federal income tax withheld in box 4 and reports no closed sale (for example, a short sale still open at year end)? Do not count a statement whose box 4 you already entered, with or without a sale."
+              ]
+            }
+          ]
+        },
+        "questions": [
+          "Did you receive a Form 1099-B or substitute statement that shows federal income tax withheld in box 4 and reports no closed sale (for example, a short sale still open at year end)? Do not count a statement whose box 4 you already entered, with or without a sale."
+        ],
+        "presentation_valid": true
+      }
+    },
+    "matrix/m_sale_no_stmt200": {
+      "hand": {
+        "disposition": "published",
+        "form1040.line-25a": 4500,
+        "form1040.line-25b": 200,
+        "form1040.line-25c": 0,
+        "form1040.line-25d": 4700,
+        "form1040.line-33": 4700,
+        "form1040.line-34": 705,
+        "form1040.line-37": 0,
+        "form1040.line-7a": 1000,
+        "form1040.line-15": 35250,
+        "form1040.line-16": 3995
+      },
+      "view": {
+        "lines": {
+          "form1040.line-25a": 4500,
+          "form1040.line-25b": 200,
+          "form1040.line-25c": 0,
+          "form1040.line-25d": 4700,
+          "form1040.line-33": 4700,
+          "form1040.line-34": 705,
+          "form1040.line-37": 0
+        },
+        "blocked": {},
+        "questions": [],
+        "presentation_valid": true
+      }
+    },
+    "matrix/m_sale_yes_amount_stmt200": {
+      "hand": {
+        "disposition": "published",
+        "form1040.line-25a": 4500,
+        "form1040.line-25b": 350,
+        "form1040.line-25c": 0,
+        "form1040.line-25d": 4850,
+        "form1040.line-33": 4850,
+        "form1040.line-34": 855,
+        "form1040.line-37": 0,
+        "form1040.line-7a": 1000,
+        "form1040.line-15": 35250,
+        "form1040.line-16": 3995
+      },
+      "view": {
+        "lines": {
+          "form1040.line-25a": 4500,
+          "form1040.line-25b": 350,
+          "form1040.line-25c": 0,
+          "form1040.line-25d": 4850,
+          "form1040.line-33": 4850,
+          "form1040.line-34": 855,
+          "form1040.line-37": 0
+        },
+        "blocked": {},
+        "questions": [],
+        "presentation_valid": true
+      }
+    },
+    "matrix/m_sale_yes_amount_unanswered_stmt200": {
+      "hand": {
+        "disposition": "blocked"
+      },
+      "view": {
+        "lines": {
+          "form1040.line-25a": 4500,
+          "form1040.line-25b": "blocked",
+          "form1040.line-25c": 0,
+          "form1040.line-25d": "blocked",
+          "form1040.line-33": "blocked",
+          "form1040.line-34": "blocked",
+          "form1040.line-37": "blocked"
+        },
+        "blocked": {
+          "form1040.line-25b": [
+            {
+              "disposition": "blocked",
+              "code": "DEPENDENCY_ABSENT",
+              "missing": [
+                "f1099b.no-sale-box4-withholding"
+              ],
+              "reasons": [
+                "Enter the federal income tax withheld in box 4 of Form 1099-B or substitute statements that report no closed sale. Do not include a statement whose box 4 you already entered, with or without a sale. If more than one remaining statement, enter the total. If box 4 is blank, enter $0."
+              ]
+            }
+          ],
+          "form1040.line-25d": [
+            {
+              "disposition": "blocked",
+              "code": "DEPENDENCY_ABSENT",
+              "missing": [
+                "payments.line25b"
+              ],
+              "reasons": [
+                "Enter the federal income tax withheld in box 4 of Form 1099-B or substitute statements that report no closed sale. Do not include a statement whose box 4 you already entered, with or without a sale. If more than one remaining statement, enter the total. If box 4 is blank, enter $0."
+              ]
+            }
+          ],
+          "form1040.line-33": [
+            {
+              "disposition": "blocked",
+              "code": "DEPENDENCY_ABSENT",
+              "missing": [
+                "payments.line25d"
+              ],
+              "reasons": [
+                "Enter the federal income tax withheld in box 4 of Form 1099-B or substitute statements that report no closed sale. Do not include a statement whose box 4 you already entered, with or without a sale. If more than one remaining statement, enter the total. If box 4 is blank, enter $0."
+              ]
+            }
+          ],
+          "form1040.line-34": [
+            {
+              "disposition": "blocked",
+              "code": "DEPENDENCY_ABSENT",
+              "missing": [
+                "payments.line33"
+              ],
+              "reasons": [
+                "Enter the federal income tax withheld in box 4 of Form 1099-B or substitute statements that report no closed sale. Do not include a statement whose box 4 you already entered, with or without a sale. If more than one remaining statement, enter the total. If box 4 is blank, enter $0."
+              ]
+            }
+          ],
+          "form1040.line-37": [
+            {
+              "disposition": "blocked",
+              "code": "DEPENDENCY_ABSENT",
+              "missing": [
+                "payments.line33"
+              ],
+              "reasons": [
+                "Enter the federal income tax withheld in box 4 of Form 1099-B or substitute statements that report no closed sale. Do not include a statement whose box 4 you already entered, with or without a sale. If more than one remaining statement, enter the total. If box 4 is blank, enter $0."
+              ]
+            }
+          ]
+        },
+        "questions": [
+          "Enter the federal income tax withheld in box 4 of Form 1099-B or substitute statements that report no closed sale. Do not include a statement whose box 4 you already entered, with or without a sale. If more than one remaining statement, enter the total. If box 4 is blank, enter $0."
+        ],
+        "presentation_valid": true
+      }
+    },
+    "matrix/m_sale_no_stmt0": {
+      "hand": {
+        "disposition": "published",
+        "form1040.line-25a": 4500,
+        "form1040.line-25b": 0,
+        "form1040.line-25c": 0,
+        "form1040.line-25d": 4500,
+        "form1040.line-33": 4500,
+        "form1040.line-34": 505,
+        "form1040.line-37": 0,
+        "form1040.line-7a": 1000,
+        "form1040.line-15": 35250,
+        "form1040.line-16": 3995
+      },
+      "view": {
+        "lines": {
+          "form1040.line-25a": 4500,
+          "form1040.line-25b": 0,
+          "form1040.line-25c": 0,
+          "form1040.line-25d": 4500,
+          "form1040.line-33": 4500,
+          "form1040.line-34": 505,
+          "form1040.line-37": 0
+        },
+        "blocked": {},
+        "questions": [],
+        "presentation_valid": true
+      }
+    },
+    "matrix/m_sale_unanswered_stmt0": {
+      "hand": {
+        "disposition": "blocked"
+      },
+      "view": {
+        "lines": {
+          "form1040.line-25a": 4500,
+          "form1040.line-25b": "blocked",
+          "form1040.line-25c": 0,
+          "form1040.line-25d": "blocked",
+          "form1040.line-33": "blocked",
+          "form1040.line-34": "blocked",
+          "form1040.line-37": "blocked"
+        },
+        "blocked": {
+          "form1040.line-25b": [
+            {
+              "disposition": "blocked",
+              "code": "DEPENDENCY_ABSENT",
+              "missing": [
+                "f1099b.no-sale-box4-present"
+              ],
+              "reasons": [
+                "Did you receive a Form 1099-B or substitute statement that shows federal income tax withheld in box 4 and reports no closed sale (for example, a short sale still open at year end)? Do not count a statement whose box 4 you already entered, with or without a sale."
+              ]
+            }
+          ],
+          "form1040.line-25d": [
+            {
+              "disposition": "blocked",
+              "code": "DEPENDENCY_ABSENT",
+              "missing": [
+                "payments.line25b"
+              ],
+              "reasons": [
+                "Did you receive a Form 1099-B or substitute statement that shows federal income tax withheld in box 4 and reports no closed sale (for example, a short sale still open at year end)? Do not count a statement whose box 4 you already entered, with or without a sale."
+              ]
+            }
+          ],
+          "form1040.line-33": [
+            {
+              "disposition": "blocked",
+              "code": "DEPENDENCY_ABSENT",
+              "missing": [
+                "payments.line25d"
+              ],
+              "reasons": [
+                "Did you receive a Form 1099-B or substitute statement that shows federal income tax withheld in box 4 and reports no closed sale (for example, a short sale still open at year end)? Do not count a statement whose box 4 you already entered, with or without a sale."
+              ]
+            }
+          ],
+          "form1040.line-34": [
+            {
+              "disposition": "blocked",
+              "code": "DEPENDENCY_ABSENT",
+              "missing": [
+                "payments.line33"
+              ],
+              "reasons": [
+                "Did you receive a Form 1099-B or substitute statement that shows federal income tax withheld in box 4 and reports no closed sale (for example, a short sale still open at year end)? Do not count a statement whose box 4 you already entered, with or without a sale."
+              ]
+            }
+          ],
+          "form1040.line-37": [
+            {
+              "disposition": "blocked",
+              "code": "DEPENDENCY_ABSENT",
+              "missing": [
+                "payments.line33"
+              ],
+              "reasons": [
+                "Did you receive a Form 1099-B or substitute statement that shows federal income tax withheld in box 4 and reports no closed sale (for example, a short sale still open at year end)? Do not count a statement whose box 4 you already entered, with or without a sale."
+              ]
+            }
+          ]
+        },
+        "questions": [
+          "Did you receive a Form 1099-B or substitute statement that shows federal income tax withheld in box 4 and reports no closed sale (for example, a short sale still open at year end)? Do not count a statement whose box 4 you already entered, with or without a sale."
+        ],
+        "presentation_valid": true
+      }
+    },
+    "matrix/m_nosale_unanswered": {
+      "hand": {
+        "disposition": "blocked"
+      },
+      "view": {
+        "lines": {
+          "form1040.line-25a": 4500,
+          "form1040.line-25b": "blocked",
+          "form1040.line-25c": 0,
+          "form1040.line-25d": "blocked",
+          "form1040.line-33": "blocked",
+          "form1040.line-34": "blocked",
+          "form1040.line-37": "blocked"
+        },
+        "blocked": {
+          "form1040.line-25b": [
+            {
+              "disposition": "blocked",
+              "code": "DEPENDENCY_ABSENT",
+              "missing": [
+                "f1099b.no-sale-box4-present"
+              ],
+              "reasons": [
+                "Did you receive a Form 1099-B or substitute statement that shows federal income tax withheld in box 4 and reports no closed sale (for example, a short sale still open at year end)? Do not count a statement whose box 4 you already entered, with or without a sale."
+              ]
+            }
+          ],
+          "form1040.line-25d": [
+            {
+              "disposition": "blocked",
+              "code": "DEPENDENCY_ABSENT",
+              "missing": [
+                "payments.line25b"
+              ],
+              "reasons": [
+                "Did you receive a Form 1099-B or substitute statement that shows federal income tax withheld in box 4 and reports no closed sale (for example, a short sale still open at year end)? Do not count a statement whose box 4 you already entered, with or without a sale."
+              ]
+            }
+          ],
+          "form1040.line-33": [
+            {
+              "disposition": "blocked",
+              "code": "DEPENDENCY_ABSENT",
+              "missing": [
+                "payments.line25d"
+              ],
+              "reasons": [
+                "Did you receive a Form 1099-B or substitute statement that shows federal income tax withheld in box 4 and reports no closed sale (for example, a short sale still open at year end)? Do not count a statement whose box 4 you already entered, with or without a sale."
+              ]
+            }
+          ],
+          "form1040.line-34": [
+            {
+              "disposition": "blocked",
+              "code": "DEPENDENCY_ABSENT",
+              "missing": [
+                "payments.line33"
+              ],
+              "reasons": [
+                "Did you receive a Form 1099-B or substitute statement that shows federal income tax withheld in box 4 and reports no closed sale (for example, a short sale still open at year end)? Do not count a statement whose box 4 you already entered, with or without a sale."
+              ]
+            }
+          ],
+          "form1040.line-37": [
+            {
+              "disposition": "blocked",
+              "code": "DEPENDENCY_ABSENT",
+              "missing": [
+                "payments.line33"
+              ],
+              "reasons": [
+                "Did you receive a Form 1099-B or substitute statement that shows federal income tax withheld in box 4 and reports no closed sale (for example, a short sale still open at year end)? Do not count a statement whose box 4 you already entered, with or without a sale."
+              ]
+            }
+          ]
+        },
+        "questions": [
+          "Did you receive a Form 1099-B or substitute statement that shows federal income tax withheld in box 4 and reports no closed sale (for example, a short sale still open at year end)? Do not count a statement whose box 4 you already entered, with or without a sale."
+        ],
+        "presentation_valid": true
+      }
+    },
+    "matrix/m_nosale_no": {
+      "hand": {
+        "disposition": "published",
+        "form1040.line-25a": 4500,
+        "form1040.line-25b": 0,
+        "form1040.line-25c": 0,
+        "form1040.line-25d": 4500,
+        "form1040.line-33": 4500,
+        "form1040.line-34": 625,
+        "form1040.line-37": 0,
+        "form1040.line-7a": 0,
+        "form1040.line-15": 34250,
+        "form1040.line-16": 3875
+      },
+      "view": {
+        "lines": {
+          "form1040.line-25a": 4500,
+          "form1040.line-25b": 0,
+          "form1040.line-25c": 0,
+          "form1040.line-25d": 4500,
+          "form1040.line-33": 4500,
+          "form1040.line-34": 625,
+          "form1040.line-37": 0
+        },
+        "blocked": {},
+        "questions": [],
+        "presentation_valid": true
+      }
+    },
+    "matrix/m_nosale_yes_amount": {
+      "hand": {
+        "disposition": "published",
+        "form1040.line-25a": 4500,
+        "form1040.line-25b": 150,
+        "form1040.line-25c": 0,
+        "form1040.line-25d": 4650,
+        "form1040.line-33": 4650,
+        "form1040.line-34": 775,
+        "form1040.line-37": 0,
+        "form1040.line-7a": 0,
+        "form1040.line-15": 34250,
+        "form1040.line-16": 3875
+      },
+      "view": {
+        "lines": {
+          "form1040.line-25a": 4500,
+          "form1040.line-25b": 150,
+          "form1040.line-25c": 0,
+          "form1040.line-25d": 4650,
+          "form1040.line-33": 4650,
+          "form1040.line-34": 775,
+          "form1040.line-37": 0
+        },
+        "blocked": {},
+        "questions": [],
+        "presentation_valid": true
+      }
+    },
+    "matrix/m_nosale_yes_amount_unanswered": {
+      "hand": {
+        "disposition": "blocked"
+      },
+      "view": {
+        "lines": {
+          "form1040.line-25a": 4500,
+          "form1040.line-25b": "blocked",
+          "form1040.line-25c": 0,
+          "form1040.line-25d": "blocked",
+          "form1040.line-33": "blocked",
+          "form1040.line-34": "blocked",
+          "form1040.line-37": "blocked"
+        },
+        "blocked": {
+          "form1040.line-25b": [
+            {
+              "disposition": "blocked",
+              "code": "DEPENDENCY_ABSENT",
+              "missing": [
+                "f1099b.no-sale-box4-withholding"
+              ],
+              "reasons": [
+                "Enter the federal income tax withheld in box 4 of Form 1099-B or substitute statements that report no closed sale. Do not include a statement whose box 4 you already entered, with or without a sale. If more than one remaining statement, enter the total. If box 4 is blank, enter $0."
+              ]
+            }
+          ],
+          "form1040.line-25d": [
+            {
+              "disposition": "blocked",
+              "code": "DEPENDENCY_ABSENT",
+              "missing": [
+                "payments.line25b"
+              ],
+              "reasons": [
+                "Enter the federal income tax withheld in box 4 of Form 1099-B or substitute statements that report no closed sale. Do not include a statement whose box 4 you already entered, with or without a sale. If more than one remaining statement, enter the total. If box 4 is blank, enter $0."
+              ]
+            }
+          ],
+          "form1040.line-33": [
+            {
+              "disposition": "blocked",
+              "code": "DEPENDENCY_ABSENT",
+              "missing": [
+                "payments.line25d"
+              ],
+              "reasons": [
+                "Enter the federal income tax withheld in box 4 of Form 1099-B or substitute statements that report no closed sale. Do not include a statement whose box 4 you already entered, with or without a sale. If more than one remaining statement, enter the total. If box 4 is blank, enter $0."
+              ]
+            }
+          ],
+          "form1040.line-34": [
+            {
+              "disposition": "blocked",
+              "code": "DEPENDENCY_ABSENT",
+              "missing": [
+                "payments.line33"
+              ],
+              "reasons": [
+                "Enter the federal income tax withheld in box 4 of Form 1099-B or substitute statements that report no closed sale. Do not include a statement whose box 4 you already entered, with or without a sale. If more than one remaining statement, enter the total. If box 4 is blank, enter $0."
+              ]
+            }
+          ],
+          "form1040.line-37": [
+            {
+              "disposition": "blocked",
+              "code": "DEPENDENCY_ABSENT",
+              "missing": [
+                "payments.line33"
+              ],
+              "reasons": [
+                "Enter the federal income tax withheld in box 4 of Form 1099-B or substitute statements that report no closed sale. Do not include a statement whose box 4 you already entered, with or without a sale. If more than one remaining statement, enter the total. If box 4 is blank, enter $0."
+              ]
+            }
+          ]
+        },
+        "questions": [
+          "Enter the federal income tax withheld in box 4 of Form 1099-B or substitute statements that report no closed sale. Do not include a statement whose box 4 you already entered, with or without a sale. If more than one remaining statement, enter the total. If box 4 is blank, enter $0."
+        ],
+        "presentation_valid": true
+      }
+    },
+    "matrix/m_nosale_no_stmt150": {
+      "hand": {
+        "disposition": "published",
+        "form1040.line-25a": 4500,
+        "form1040.line-25b": 150,
+        "form1040.line-25c": 0,
+        "form1040.line-25d": 4650,
+        "form1040.line-33": 4650,
+        "form1040.line-34": 775,
+        "form1040.line-37": 0,
+        "form1040.line-7a": 0,
+        "form1040.line-15": 34250,
+        "form1040.line-16": 3875
+      },
+      "view": {
+        "lines": {
+          "form1040.line-25a": 4500,
+          "form1040.line-25b": 150,
+          "form1040.line-25c": 0,
+          "form1040.line-25d": 4650,
+          "form1040.line-33": 4650,
+          "form1040.line-34": 775,
+          "form1040.line-37": 0
+        },
+        "blocked": {},
+        "questions": [],
+        "presentation_valid": true
+      }
+    },
+    "matrix/m_nosale_yes_amount0_stmt150": {
+      "hand": {
+        "disposition": "published",
+        "form1040.line-25a": 4500,
+        "form1040.line-25b": 150,
+        "form1040.line-25c": 0,
+        "form1040.line-25d": 4650,
+        "form1040.line-33": 4650,
+        "form1040.line-34": 775,
+        "form1040.line-37": 0,
+        "form1040.line-7a": 0,
+        "form1040.line-15": 34250,
+        "form1040.line-16": 3875
+      },
+      "view": {
+        "lines": {
+          "form1040.line-25a": 4500,
+          "form1040.line-25b": 150,
+          "form1040.line-25c": 0,
+          "form1040.line-25d": 4650,
+          "form1040.line-33": 4650,
+          "form1040.line-34": 775,
+          "form1040.line-37": 0
+        },
+        "blocked": {},
+        "questions": [],
+        "presentation_valid": true
+      }
+    },
+    "matrix/m_nosale_no_stmt0": {
+      "hand": {
+        "disposition": "published",
+        "form1040.line-25a": 4500,
+        "form1040.line-25b": 0,
+        "form1040.line-25c": 0,
+        "form1040.line-25d": 4500,
+        "form1040.line-33": 4500,
+        "form1040.line-34": 625,
+        "form1040.line-37": 0,
+        "form1040.line-7a": 0,
+        "form1040.line-15": 34250,
+        "form1040.line-16": 3875
+      },
+      "view": {
+        "lines": {
+          "form1040.line-25a": 4500,
+          "form1040.line-25b": 0,
+          "form1040.line-25c": 0,
+          "form1040.line-25d": 4500,
+          "form1040.line-33": 4500,
+          "form1040.line-34": 625,
+          "form1040.line-37": 0
+        },
+        "blocked": {},
+        "questions": [],
+        "presentation_valid": true
+      }
+    },
+    "matrix/m_nosale_yes_amount_stmt0": {
+      "hand": {
+        "disposition": "published",
+        "form1040.line-25a": 4500,
+        "form1040.line-25b": 150,
+        "form1040.line-25c": 0,
+        "form1040.line-25d": 4650,
+        "form1040.line-33": 4650,
+        "form1040.line-34": 775,
+        "form1040.line-37": 0,
+        "form1040.line-7a": 0,
+        "form1040.line-15": 34250,
+        "form1040.line-16": 3875
+      },
+      "view": {
+        "lines": {
+          "form1040.line-25a": 4500,
+          "form1040.line-25b": 150,
+          "form1040.line-25c": 0,
+          "form1040.line-25d": 4650,
+          "form1040.line-33": 4650,
+          "form1040.line-34": 775,
+          "form1040.line-37": 0
+        },
+        "blocked": {},
+        "questions": [],
+        "presentation_valid": true
+      }
+    },
+    "matrix/m_both_unanswered_sale200": {
+      "hand": {
+        "disposition": "blocked"
+      },
+      "view": {
+        "lines": {
+          "form1040.line-25a": 4500,
+          "form1040.line-25b": "blocked",
+          "form1040.line-25c": 0,
+          "form1040.line-25d": "blocked",
+          "form1040.line-33": "blocked",
+          "form1040.line-34": "blocked",
+          "form1040.line-37": "blocked"
+        },
+        "blocked": {
+          "form1040.line-25b": [
+            {
+              "disposition": "blocked",
+              "code": "DEPENDENCY_ABSENT",
+              "missing": [
+                "f1099b.no-sale-box4-present"
+              ],
+              "reasons": [
+                "Did you receive a Form 1099-B or substitute statement that shows federal income tax withheld in box 4 and reports no closed sale (for example, a short sale still open at year end)? Do not count a statement whose box 4 you already entered, with or without a sale."
+              ]
+            }
+          ],
+          "form1040.line-25d": [
+            {
+              "disposition": "blocked",
+              "code": "DEPENDENCY_ABSENT",
+              "missing": [
+                "payments.line25b"
+              ],
+              "reasons": [
+                "Did you receive a Form 1099-B or substitute statement that shows federal income tax withheld in box 4 and reports no closed sale (for example, a short sale still open at year end)? Do not count a statement whose box 4 you already entered, with or without a sale."
+              ]
+            }
+          ],
+          "form1040.line-33": [
+            {
+              "disposition": "blocked",
+              "code": "DEPENDENCY_ABSENT",
+              "missing": [
+                "payments.line25d"
+              ],
+              "reasons": [
+                "Did you receive a Form 1099-B or substitute statement that shows federal income tax withheld in box 4 and reports no closed sale (for example, a short sale still open at year end)? Do not count a statement whose box 4 you already entered, with or without a sale."
+              ]
+            }
+          ],
+          "form1040.line-34": [
+            {
+              "disposition": "blocked",
+              "code": "DEPENDENCY_ABSENT",
+              "missing": [
+                "payments.line33"
+              ],
+              "reasons": [
+                "Did you receive a Form 1099-B or substitute statement that shows federal income tax withheld in box 4 and reports no closed sale (for example, a short sale still open at year end)? Do not count a statement whose box 4 you already entered, with or without a sale."
+              ]
+            }
+          ],
+          "form1040.line-37": [
+            {
+              "disposition": "blocked",
+              "code": "DEPENDENCY_ABSENT",
+              "missing": [
+                "payments.line33"
+              ],
+              "reasons": [
+                "Did you receive a Form 1099-B or substitute statement that shows federal income tax withheld in box 4 and reports no closed sale (for example, a short sale still open at year end)? Do not count a statement whose box 4 you already entered, with or without a sale."
+              ]
+            }
+          ]
+        },
+        "questions": [
+          "Did you receive a Form 1099-B or substitute statement that shows federal income tax withheld in box 4 and reports no closed sale (for example, a short sale still open at year end)? Do not count a statement whose box 4 you already entered, with or without a sale."
+        ],
+        "presentation_valid": true
+      }
+    },
+    "matrix/m_both_no_sale200": {
+      "hand": {
+        "disposition": "published",
+        "form1040.line-25a": 4500,
+        "form1040.line-25b": 200,
+        "form1040.line-25c": 0,
+        "form1040.line-25d": 4700,
+        "form1040.line-33": 4700,
+        "form1040.line-34": 705,
+        "form1040.line-37": 0,
+        "form1040.line-7a": 1000,
+        "form1040.line-15": 35250,
+        "form1040.line-16": 3995
+      },
+      "view": {
+        "lines": {
+          "form1040.line-25a": 4500,
+          "form1040.line-25b": 200,
+          "form1040.line-25c": 0,
+          "form1040.line-25d": 4700,
+          "form1040.line-33": 4700,
+          "form1040.line-34": 705,
+          "form1040.line-37": 0
+        },
+        "blocked": {},
+        "questions": [],
+        "presentation_valid": true
+      }
+    },
+    "matrix/m_both_yes_amount_sale200": {
+      "hand": {
+        "disposition": "published",
+        "form1040.line-25a": 4500,
+        "form1040.line-25b": 350,
+        "form1040.line-25c": 0,
+        "form1040.line-25d": 4850,
+        "form1040.line-33": 4850,
+        "form1040.line-34": 855,
+        "form1040.line-37": 0,
+        "form1040.line-7a": 1000,
+        "form1040.line-15": 35250,
+        "form1040.line-16": 3995
+      },
+      "view": {
+        "lines": {
+          "form1040.line-25a": 4500,
+          "form1040.line-25b": 350,
+          "form1040.line-25c": 0,
+          "form1040.line-25d": 4850,
+          "form1040.line-33": 4850,
+          "form1040.line-34": 855,
+          "form1040.line-37": 0
+        },
+        "blocked": {},
+        "questions": [],
+        "presentation_valid": true
+      }
+    },
+    "matrix/m_both_yes_amount_unanswered_sale200": {
+      "hand": {
+        "disposition": "blocked"
+      },
+      "view": {
+        "lines": {
+          "form1040.line-25a": 4500,
+          "form1040.line-25b": "blocked",
+          "form1040.line-25c": 0,
+          "form1040.line-25d": "blocked",
+          "form1040.line-33": "blocked",
+          "form1040.line-34": "blocked",
+          "form1040.line-37": "blocked"
+        },
+        "blocked": {
+          "form1040.line-25b": [
+            {
+              "disposition": "blocked",
+              "code": "DEPENDENCY_ABSENT",
+              "missing": [
+                "f1099b.no-sale-box4-withholding"
+              ],
+              "reasons": [
+                "Enter the federal income tax withheld in box 4 of Form 1099-B or substitute statements that report no closed sale. Do not include a statement whose box 4 you already entered, with or without a sale. If more than one remaining statement, enter the total. If box 4 is blank, enter $0."
+              ]
+            }
+          ],
+          "form1040.line-25d": [
+            {
+              "disposition": "blocked",
+              "code": "DEPENDENCY_ABSENT",
+              "missing": [
+                "payments.line25b"
+              ],
+              "reasons": [
+                "Enter the federal income tax withheld in box 4 of Form 1099-B or substitute statements that report no closed sale. Do not include a statement whose box 4 you already entered, with or without a sale. If more than one remaining statement, enter the total. If box 4 is blank, enter $0."
+              ]
+            }
+          ],
+          "form1040.line-33": [
+            {
+              "disposition": "blocked",
+              "code": "DEPENDENCY_ABSENT",
+              "missing": [
+                "payments.line25d"
+              ],
+              "reasons": [
+                "Enter the federal income tax withheld in box 4 of Form 1099-B or substitute statements that report no closed sale. Do not include a statement whose box 4 you already entered, with or without a sale. If more than one remaining statement, enter the total. If box 4 is blank, enter $0."
+              ]
+            }
+          ],
+          "form1040.line-34": [
+            {
+              "disposition": "blocked",
+              "code": "DEPENDENCY_ABSENT",
+              "missing": [
+                "payments.line33"
+              ],
+              "reasons": [
+                "Enter the federal income tax withheld in box 4 of Form 1099-B or substitute statements that report no closed sale. Do not include a statement whose box 4 you already entered, with or without a sale. If more than one remaining statement, enter the total. If box 4 is blank, enter $0."
+              ]
+            }
+          ],
+          "form1040.line-37": [
+            {
+              "disposition": "blocked",
+              "code": "DEPENDENCY_ABSENT",
+              "missing": [
+                "payments.line33"
+              ],
+              "reasons": [
+                "Enter the federal income tax withheld in box 4 of Form 1099-B or substitute statements that report no closed sale. Do not include a statement whose box 4 you already entered, with or without a sale. If more than one remaining statement, enter the total. If box 4 is blank, enter $0."
+              ]
+            }
+          ]
+        },
+        "questions": [
+          "Enter the federal income tax withheld in box 4 of Form 1099-B or substitute statements that report no closed sale. Do not include a statement whose box 4 you already entered, with or without a sale. If more than one remaining statement, enter the total. If box 4 is blank, enter $0."
+        ],
+        "presentation_valid": true
+      }
+    },
+    "matrix/m_both_no_sale200_stmt150": {
+      "hand": {
+        "disposition": "published",
+        "form1040.line-25a": 4500,
+        "form1040.line-25b": 350,
+        "form1040.line-25c": 0,
+        "form1040.line-25d": 4850,
+        "form1040.line-33": 4850,
+        "form1040.line-34": 855,
+        "form1040.line-37": 0,
+        "form1040.line-7a": 1000,
+        "form1040.line-15": 35250,
+        "form1040.line-16": 3995
+      },
+      "view": {
+        "lines": {
+          "form1040.line-25a": 4500,
+          "form1040.line-25b": 350,
+          "form1040.line-25c": 0,
+          "form1040.line-25d": 4850,
+          "form1040.line-33": 4850,
+          "form1040.line-34": 855,
+          "form1040.line-37": 0
+        },
+        "blocked": {},
+        "questions": [],
+        "presentation_valid": true
+      }
+    },
+    "matrix/m_both_no_sale200_stmt0": {
+      "hand": {
+        "disposition": "published",
+        "form1040.line-25a": 4500,
+        "form1040.line-25b": 200,
+        "form1040.line-25c": 0,
+        "form1040.line-25d": 4700,
+        "form1040.line-33": 4700,
+        "form1040.line-34": 705,
+        "form1040.line-37": 0,
+        "form1040.line-7a": 1000,
+        "form1040.line-15": 35250,
+        "form1040.line-16": 3995
+      },
+      "view": {
+        "lines": {
+          "form1040.line-25a": 4500,
+          "form1040.line-25b": 200,
+          "form1040.line-25c": 0,
+          "form1040.line-25d": 4700,
+          "form1040.line-33": 4700,
+          "form1040.line-34": 705,
+          "form1040.line-37": 0
+        },
+        "blocked": {},
+        "questions": [],
+        "presentation_valid": true
+      }
+    },
+    "matrix/m_both_yes_amount0_sale200_stmt150": {
+      "hand": {
+        "disposition": "published",
+        "form1040.line-25a": 4500,
+        "form1040.line-25b": 350,
+        "form1040.line-25c": 0,
+        "form1040.line-25d": 4850,
+        "form1040.line-33": 4850,
+        "form1040.line-34": 855,
+        "form1040.line-37": 0,
+        "form1040.line-7a": 1000,
+        "form1040.line-15": 35250,
+        "form1040.line-16": 3995
+      },
+      "view": {
+        "lines": {
+          "form1040.line-25a": 4500,
+          "form1040.line-25b": 350,
+          "form1040.line-25c": 0,
+          "form1040.line-25d": 4850,
+          "form1040.line-33": 4850,
+          "form1040.line-34": 855,
+          "form1040.line-37": 0
+        },
+        "blocked": {},
+        "questions": [],
+        "presentation_valid": true
+      }
+    },
+    "surface/surface_published_no": {
+      "hand": {
+        "disposition": "published",
+        "form1040.line-25a": 4500,
+        "form1040.line-25b": 0,
+        "form1040.line-25c": 0,
+        "form1040.line-25d": 4500,
+        "form1040.line-33": 4500,
+        "form1040.line-34": 625,
+        "form1040.line-37": 0,
+        "form1040.line-7a": 0,
+        "form1040.line-15": 34250,
+        "form1040.line-16": 3875
+      },
+      "view": {
+        "lines": {
+          "form1040.line-25a": 4500,
+          "form1040.line-25b": 0,
+          "form1040.line-25c": 0,
+          "form1040.line-25d": 4500,
+          "form1040.line-33": 4500,
+          "form1040.line-34": 625,
+          "form1040.line-37": 0
+        },
+        "blocked": {},
+        "questions": [],
+        "presentation_valid": true
+      }
+    },
+    "surface/surface_published_yes": {
+      "hand": {
+        "disposition": "published",
+        "form1040.line-25a": 4500,
+        "form1040.line-25b": 150,
+        "form1040.line-25c": 0,
+        "form1040.line-25d": 4650,
+        "form1040.line-33": 4650,
+        "form1040.line-34": 775,
+        "form1040.line-37": 0,
+        "form1040.line-7a": 0,
+        "form1040.line-15": 34250,
+        "form1040.line-16": 3875
+      },
+      "view": {
+        "lines": {
+          "form1040.line-25a": 4500,
+          "form1040.line-25b": 150,
+          "form1040.line-25c": 0,
+          "form1040.line-25d": 4650,
+          "form1040.line-33": 4650,
+          "form1040.line-34": 775,
+          "form1040.line-37": 0
+        },
+        "blocked": {},
+        "questions": [],
+        "presentation_valid": true
+      }
+    },
+    "surface/surface_published_sale": {
+      "hand": {
+        "disposition": "published",
+        "form1040.line-25a": 4500,
+        "form1040.line-25b": 200,
+        "form1040.line-25c": 0,
+        "form1040.line-25d": 4700,
+        "form1040.line-33": 4700,
+        "form1040.line-34": 705,
+        "form1040.line-37": 0,
+        "form1040.line-7a": 1000,
+        "form1040.line-15": 35250,
+        "form1040.line-16": 3995
+      },
+      "view": {
+        "lines": {
+          "form1040.line-25a": 4500,
+          "form1040.line-25b": 200,
+          "form1040.line-25c": 0,
+          "form1040.line-25d": 4700,
+          "form1040.line-33": 4700,
+          "form1040.line-34": 705,
+          "form1040.line-37": 0
+        },
+        "blocked": {},
+        "questions": [],
+        "presentation_valid": true
+      }
+    },
+    "surface/surface_blocked_present": {
+      "hand": {
+        "disposition": "blocked"
+      },
+      "view": {
+        "lines": {
+          "form1040.line-25a": 4500,
+          "form1040.line-25b": "blocked",
+          "form1040.line-25c": 0,
+          "form1040.line-25d": "blocked",
+          "form1040.line-33": "blocked",
+          "form1040.line-34": "blocked",
+          "form1040.line-37": "blocked"
+        },
+        "blocked": {
+          "form1040.line-25b": [
+            {
+              "disposition": "blocked",
+              "code": "DEPENDENCY_ABSENT",
+              "missing": [
+                "f1099b.no-sale-box4-present"
+              ],
+              "reasons": [
+                "Did you receive a Form 1099-B or substitute statement that shows federal income tax withheld in box 4 and reports no closed sale (for example, a short sale still open at year end)? Do not count a statement whose box 4 you already entered, with or without a sale."
+              ]
+            }
+          ],
+          "form1040.line-25d": [
+            {
+              "disposition": "blocked",
+              "code": "DEPENDENCY_ABSENT",
+              "missing": [
+                "payments.line25b"
+              ],
+              "reasons": [
+                "Did you receive a Form 1099-B or substitute statement that shows federal income tax withheld in box 4 and reports no closed sale (for example, a short sale still open at year end)? Do not count a statement whose box 4 you already entered, with or without a sale."
+              ]
+            }
+          ],
+          "form1040.line-33": [
+            {
+              "disposition": "blocked",
+              "code": "DEPENDENCY_ABSENT",
+              "missing": [
+                "payments.line25d"
+              ],
+              "reasons": [
+                "Did you receive a Form 1099-B or substitute statement that shows federal income tax withheld in box 4 and reports no closed sale (for example, a short sale still open at year end)? Do not count a statement whose box 4 you already entered, with or without a sale."
+              ]
+            }
+          ],
+          "form1040.line-34": [
+            {
+              "disposition": "blocked",
+              "code": "DEPENDENCY_ABSENT",
+              "missing": [
+                "payments.line33"
+              ],
+              "reasons": [
+                "Did you receive a Form 1099-B or substitute statement that shows federal income tax withheld in box 4 and reports no closed sale (for example, a short sale still open at year end)? Do not count a statement whose box 4 you already entered, with or without a sale."
+              ]
+            }
+          ],
+          "form1040.line-37": [
+            {
+              "disposition": "blocked",
+              "code": "DEPENDENCY_ABSENT",
+              "missing": [
+                "payments.line33"
+              ],
+              "reasons": [
+                "Did you receive a Form 1099-B or substitute statement that shows federal income tax withheld in box 4 and reports no closed sale (for example, a short sale still open at year end)? Do not count a statement whose box 4 you already entered, with or without a sale."
+              ]
+            }
+          ]
+        },
+        "questions": [
+          "Did you receive a Form 1099-B or substitute statement that shows federal income tax withheld in box 4 and reports no closed sale (for example, a short sale still open at year end)? Do not count a statement whose box 4 you already entered, with or without a sale."
+        ],
+        "presentation_valid": true
+      }
+    },
+    "surface/surface_blocked_amount": {
+      "hand": {
+        "disposition": "blocked"
+      },
+      "view": {
+        "lines": {
+          "form1040.line-25a": 4500,
+          "form1040.line-25b": "blocked",
+          "form1040.line-25c": 0,
+          "form1040.line-25d": "blocked",
+          "form1040.line-33": "blocked",
+          "form1040.line-34": "blocked",
+          "form1040.line-37": "blocked"
+        },
+        "blocked": {
+          "form1040.line-25b": [
+            {
+              "disposition": "blocked",
+              "code": "DEPENDENCY_ABSENT",
+              "missing": [
+                "f1099b.no-sale-box4-withholding"
+              ],
+              "reasons": [
+                "Enter the federal income tax withheld in box 4 of Form 1099-B or substitute statements that report no closed sale. Do not include a statement whose box 4 you already entered, with or without a sale. If more than one remaining statement, enter the total. If box 4 is blank, enter $0."
+              ]
+            }
+          ],
+          "form1040.line-25d": [
+            {
+              "disposition": "blocked",
+              "code": "DEPENDENCY_ABSENT",
+              "missing": [
+                "payments.line25b"
+              ],
+              "reasons": [
+                "Enter the federal income tax withheld in box 4 of Form 1099-B or substitute statements that report no closed sale. Do not include a statement whose box 4 you already entered, with or without a sale. If more than one remaining statement, enter the total. If box 4 is blank, enter $0."
+              ]
+            }
+          ],
+          "form1040.line-33": [
+            {
+              "disposition": "blocked",
+              "code": "DEPENDENCY_ABSENT",
+              "missing": [
+                "payments.line25d"
+              ],
+              "reasons": [
+                "Enter the federal income tax withheld in box 4 of Form 1099-B or substitute statements that report no closed sale. Do not include a statement whose box 4 you already entered, with or without a sale. If more than one remaining statement, enter the total. If box 4 is blank, enter $0."
+              ]
+            }
+          ],
+          "form1040.line-34": [
+            {
+              "disposition": "blocked",
+              "code": "DEPENDENCY_ABSENT",
+              "missing": [
+                "payments.line33"
+              ],
+              "reasons": [
+                "Enter the federal income tax withheld in box 4 of Form 1099-B or substitute statements that report no closed sale. Do not include a statement whose box 4 you already entered, with or without a sale. If more than one remaining statement, enter the total. If box 4 is blank, enter $0."
+              ]
+            }
+          ],
+          "form1040.line-37": [
+            {
+              "disposition": "blocked",
+              "code": "DEPENDENCY_ABSENT",
+              "missing": [
+                "payments.line33"
+              ],
+              "reasons": [
+                "Enter the federal income tax withheld in box 4 of Form 1099-B or substitute statements that report no closed sale. Do not include a statement whose box 4 you already entered, with or without a sale. If more than one remaining statement, enter the total. If box 4 is blank, enter $0."
+              ]
+            }
+          ]
+        },
+        "questions": [
+          "Enter the federal income tax withheld in box 4 of Form 1099-B or substitute statements that report no closed sale. Do not include a statement whose box 4 you already entered, with or without a sale. If more than one remaining statement, enter the total. If box 4 is blank, enter $0."
+        ],
+        "presentation_valid": true
+      }
+    },
+    "surface/surface_blocked_sale_box4": {
+      "hand": null,
+      "view": {
+        "lines": {
+          "form1040.line-25a": 4500,
+          "form1040.line-25b": "blocked",
+          "form1040.line-25c": 0,
+          "form1040.line-25d": "blocked",
+          "form1040.line-33": "blocked",
+          "form1040.line-34": "blocked",
+          "form1040.line-37": "blocked"
+        },
+        "blocked": {
+          "form1040.line-25b": [
+            {
+              "disposition": "blocked",
+              "code": "DEPENDENCY_ABSENT",
+              "missing": [
+                "f1099b.statement-box4-withholding"
+              ],
+              "reasons": [
+                "Enter the federal income tax withheld in box 4 of each Form 1099-B or substitute statement you recorded a sale from. If box 4 is blank, enter $0."
+              ]
+            }
+          ],
+          "form1040.line-25d": [
+            {
+              "disposition": "blocked",
+              "code": "DEPENDENCY_ABSENT",
+              "missing": [
+                "payments.line25b"
+              ],
+              "reasons": [
+                "Enter the federal income tax withheld in box 4 of each Form 1099-B or substitute statement you recorded a sale from. If box 4 is blank, enter $0."
+              ]
+            }
+          ],
+          "form1040.line-33": [
+            {
+              "disposition": "blocked",
+              "code": "DEPENDENCY_ABSENT",
+              "missing": [
+                "payments.line25d",
+                "payments.line32"
+              ],
+              "reasons": [
+                "Enter the federal income tax withheld in box 4 of each Form 1099-B or substitute statement you recorded a sale from. If box 4 is blank, enter $0.",
+                "For each Form 1099-B or substitute statement you recorded a sale from, is box 7 (\"If checked, loss is not allowed based on amount in 1d\") checked for any sale on it?"
+              ]
+            }
+          ],
+          "form1040.line-34": [
+            {
+              "disposition": "blocked",
+              "code": "DEPENDENCY_ABSENT",
+              "missing": [
+                "payments.line33",
+                "tax.line24-total-tax"
+              ],
+              "reasons": [
+                "Enter the federal income tax withheld in box 4 of each Form 1099-B or substitute statement you recorded a sale from. If box 4 is blank, enter $0.",
+                "For each Form 1099-B or substitute statement you recorded a sale from, is box 7 (\"If checked, loss is not allowed based on amount in 1d\") checked for any sale on it?"
+              ]
+            }
+          ],
+          "form1040.line-37": [
+            {
+              "disposition": "blocked",
+              "code": "DEPENDENCY_ABSENT",
+              "missing": [
+                "tax.line24-total-tax",
+                "payments.line33"
+              ],
+              "reasons": [
+                "Enter the federal income tax withheld in box 4 of each Form 1099-B or substitute statement you recorded a sale from. If box 4 is blank, enter $0.",
+                "For each Form 1099-B or substitute statement you recorded a sale from, is box 7 (\"If checked, loss is not allowed based on amount in 1d\") checked for any sale on it?"
+              ]
+            }
+          ]
+        },
+        "questions": [
+          "For each Form 1099-B or substitute statement you recorded a sale from, is box 7 (\"If checked, loss is not allowed based on amount in 1d\") checked for any sale on it?",
+          "Enter the federal income tax withheld in box 4 of each Form 1099-B or substitute statement you recorded a sale from. If box 4 is blank, enter $0."
+        ],
+        "presentation_valid": true
+      }
+    },
+    "reuse/reuse_int_alone": {
+      "hand": null,
+      "view": {
+        "lines": {
+          "form1040.line-25a": 4500,
+          "form1040.line-25b": 50,
+          "form1040.line-25c": 0,
+          "form1040.line-25d": 4550,
+          "form1040.line-33": 4550,
+          "form1040.line-34": 663,
+          "form1040.line-37": 0
+        },
+        "blocked": {},
+        "questions": [],
+        "presentation_valid": true
+      }
+    },
+    "reuse/reuse_div_alone": {
+      "hand": null,
+      "view": {
+        "lines": {
+          "form1040.line-25a": 4500,
+          "form1040.line-25b": 75,
+          "form1040.line-25c": 0,
+          "form1040.line-25d": 4575,
+          "form1040.line-33": 4575,
+          "form1040.line-34": 676,
+          "form1040.line-37": 0
+        },
+        "blocked": {},
+        "questions": [],
+        "presentation_valid": true
+      }
+    },
+    "reuse/reuse_ira_alone": {
+      "hand": null,
+      "view": {
+        "lines": {
+          "form1040.line-25a": 4500,
+          "form1040.line-25b": 80,
+          "form1040.line-25c": 0,
+          "form1040.line-25d": 4580,
+          "form1040.line-33": 4580,
+          "form1040.line-34": 585,
+          "form1040.line-37": 0
+        },
+        "blocked": {},
+        "questions": [],
+        "presentation_valid": true
+      }
+    },
+    "reuse/reuse_unemp_alone": {
+      "hand": null,
+      "view": {
+        "lines": {
+          "form1040.line-25a": 4500,
+          "form1040.line-25b": 90,
+          "form1040.line-25c": 0,
+          "form1040.line-25d": 4590,
+          "form1040.line-33": 4590,
+          "form1040.line-34": 595,
+          "form1040.line-37": 0
+        },
+        "blocked": {},
+        "questions": [],
+        "presentation_valid": true
+      }
+    },
+    "reuse/reuse_ssa_alone": {
+      "hand": null,
+      "view": {
+        "lines": {
+          "form1040.line-25a": 4500,
+          "form1040.line-25b": 60,
+          "form1040.line-25c": 0,
+          "form1040.line-25d": 4560,
+          "form1040.line-33": 4560,
+          "form1040.line-34": 583,
+          "form1040.line-37": 0
+        },
+        "blocked": {},
+        "questions": [],
+        "presentation_valid": true
+      }
+    },
+    "reuse/reuse_all_five_alone": {
+      "hand": null,
+      "view": {
+        "lines": {
+          "form1040.line-25a": 4500,
+          "form1040.line-25b": 355,
+          "form1040.line-25c": 0,
+          "form1040.line-25d": 4855,
+          "form1040.line-33": 4855,
+          "form1040.line-34": 602,
+          "form1040.line-37": 0
+        },
+        "blocked": {},
+        "questions": [],
+        "presentation_valid": true
+      }
+    },
+    "reuse/reuse_all_with_b4": {
+      "hand": null,
+      "view": {
+        "lines": {
+          "form1040.line-25a": 4500,
+          "form1040.line-25b": 455,
+          "form1040.line-25c": 0,
+          "form1040.line-25d": 4955,
+          "form1040.line-33": 4955,
+          "form1040.line-34": 582,
+          "form1040.line-37": 0
+        },
+        "blocked": {},
+        "questions": [],
+        "presentation_valid": true
+      }
+    },
+    "reuse/reuse_b4_subtotal": {
+      "hand": {
+        "disposition": "published",
+        "form1040.line-25a": 4500,
+        "form1040.line-25b": 200,
+        "form1040.line-25c": 0,
+        "form1040.line-25d": 4700,
+        "form1040.line-33": 4700,
+        "form1040.line-34": 705,
+        "form1040.line-37": 0,
+        "form1040.line-7a": 1000,
+        "form1040.line-15": 35250,
+        "form1040.line-16": 3995
+      },
+      "view": {
+        "lines": {
+          "form1040.line-25a": 4500,
+          "form1040.line-25b": 200,
+          "form1040.line-25c": 0,
+          "form1040.line-25d": 4700,
+          "form1040.line-33": 4700,
+          "form1040.line-34": 705,
+          "form1040.line-37": 0
+        },
+        "blocked": {},
+        "questions": [],
+        "presentation_valid": true
+      }
+    },
+    "reuse/reuse_box4_question": {
+      "hand": null,
+      "view": {
+        "lines": {
+          "form1040.line-25a": 4500,
+          "form1040.line-25b": "blocked",
+          "form1040.line-25c": 0,
+          "form1040.line-25d": "blocked",
+          "form1040.line-33": "blocked",
+          "form1040.line-34": "blocked",
+          "form1040.line-37": "blocked"
+        },
+        "blocked": {
+          "form1040.line-25b": [
+            {
+              "disposition": "blocked",
+              "code": "DEPENDENCY_ABSENT",
+              "missing": [
+                "f1099b.statement-box4-withholding"
+              ],
+              "reasons": [
+                "Enter the federal income tax withheld in box 4 of each Form 1099-B or substitute statement you recorded a sale from. If box 4 is blank, enter $0."
+              ]
+            }
+          ],
+          "form1040.line-25d": [
+            {
+              "disposition": "blocked",
+              "code": "DEPENDENCY_ABSENT",
+              "missing": [
+                "payments.line25b"
+              ],
+              "reasons": [
+                "Enter the federal income tax withheld in box 4 of each Form 1099-B or substitute statement you recorded a sale from. If box 4 is blank, enter $0."
+              ]
+            }
+          ],
+          "form1040.line-33": [
+            {
+              "disposition": "blocked",
+              "code": "DEPENDENCY_ABSENT",
+              "missing": [
+                "payments.line25d",
+                "payments.line32"
+              ],
+              "reasons": [
+                "Enter the federal income tax withheld in box 4 of each Form 1099-B or substitute statement you recorded a sale from. If box 4 is blank, enter $0.",
+                "For each Form 1099-B or substitute statement you recorded a sale from, is box 7 (\"If checked, loss is not allowed based on amount in 1d\") checked for any sale on it?"
+              ]
+            }
+          ],
+          "form1040.line-34": [
+            {
+              "disposition": "blocked",
+              "code": "DEPENDENCY_ABSENT",
+              "missing": [
+                "payments.line33",
+                "tax.line24-total-tax"
+              ],
+              "reasons": [
+                "Enter the federal income tax withheld in box 4 of each Form 1099-B or substitute statement you recorded a sale from. If box 4 is blank, enter $0.",
+                "For each Form 1099-B or substitute statement you recorded a sale from, is box 7 (\"If checked, loss is not allowed based on amount in 1d\") checked for any sale on it?"
+              ]
+            }
+          ],
+          "form1040.line-37": [
+            {
+              "disposition": "blocked",
+              "code": "DEPENDENCY_ABSENT",
+              "missing": [
+                "tax.line24-total-tax",
+                "payments.line33"
+              ],
+              "reasons": [
+                "Enter the federal income tax withheld in box 4 of each Form 1099-B or substitute statement you recorded a sale from. If box 4 is blank, enter $0.",
+                "For each Form 1099-B or substitute statement you recorded a sale from, is box 7 (\"If checked, loss is not allowed based on amount in 1d\") checked for any sale on it?"
+              ]
+            }
+          ]
+        },
+        "questions": [
+          "For each Form 1099-B or substitute statement you recorded a sale from, is box 7 (\"If checked, loss is not allowed based on amount in 1d\") checked for any sale on it?",
+          "Enter the federal income tax withheld in box 4 of each Form 1099-B or substitute statement you recorded a sale from. If box 4 is blank, enter $0."
+        ],
+        "presentation_valid": true
+      }
+    },
+    "reuse/reuse_box7_check": {
+      "hand": null,
+      "view": {
+        "lines": {
+          "form1040.line-25a": 4500,
+          "form1040.line-25b": 0,
+          "form1040.line-25c": 0,
+          "form1040.line-25d": 4500,
+          "form1040.line-33": "blocked",
+          "form1040.line-34": "blocked",
+          "form1040.line-37": "blocked"
+        },
+        "blocked": {
+          "form1040.line-33": [
+            {
+              "disposition": "blocked",
+              "code": "DEPENDENCY_ABSENT",
+              "missing": [
+                "payments.line32"
+              ],
+              "reasons": []
+            }
+          ],
+          "form1040.line-34": [
+            {
+              "disposition": "blocked",
+              "code": "DEPENDENCY_ABSENT",
+              "missing": [
+                "payments.line33",
+                "tax.line24-total-tax"
+              ],
+              "reasons": []
+            }
+          ],
+          "form1040.line-37": [
+            {
+              "disposition": "blocked",
+              "code": "DEPENDENCY_ABSENT",
+              "missing": [
+                "tax.line24-total-tax",
+                "payments.line33"
+              ],
+              "reasons": []
+            }
+          ]
+        },
+        "questions": [],
+        "presentation_valid": true
+      }
+    },
+    "reuse/reuse_no_equals_v84": {
+      "hand": {
+        "disposition": "published",
+        "form1040.line-25a": 4500,
+        "form1040.line-25b": 0,
+        "form1040.line-25c": 0,
+        "form1040.line-25d": 4500,
+        "form1040.line-33": 4500,
+        "form1040.line-34": 625,
+        "form1040.line-37": 0,
+        "form1040.line-7a": 0,
+        "form1040.line-15": 34250,
+        "form1040.line-16": 3875
+      },
+      "view": {
+        "lines": {
+          "form1040.line-25a": 4500,
+          "form1040.line-25b": 0,
+          "form1040.line-25c": 0,
+          "form1040.line-25d": 4500,
+          "form1040.line-33": 4500,
+          "form1040.line-34": 625,
+          "form1040.line-37": 0
+        },
+        "blocked": {},
+        "questions": [],
+        "presentation_valid": true
+      }
+    },
+    "late/late_yes_then_sale_then_no_before": {
+      "hand": {
+        "disposition": "published",
+        "form1040.line-25a": 4500,
+        "form1040.line-25b": 150,
+        "form1040.line-25c": 0,
+        "form1040.line-25d": 4650,
+        "form1040.line-33": 4650,
+        "form1040.line-34": 775,
+        "form1040.line-37": 0,
+        "form1040.line-7a": 0,
+        "form1040.line-15": 34250,
+        "form1040.line-16": 3875
+      },
+      "view": {
+        "lines": {
+          "form1040.line-25a": 4500,
+          "form1040.line-25b": 150,
+          "form1040.line-25c": 0,
+          "form1040.line-25d": 4650,
+          "form1040.line-33": 4650,
+          "form1040.line-34": 775,
+          "form1040.line-37": 0
+        },
+        "blocked": {},
+        "questions": [],
+        "presentation_valid": true
+      }
+    },
+    "late/late_yes_then_sale_then_no_after": {
+      "hand": {
+        "disposition": "published",
+        "form1040.line-25a": 4500,
+        "form1040.line-25b": 150,
+        "form1040.line-25c": 0,
+        "form1040.line-25d": 4650,
+        "form1040.line-33": 4650,
+        "form1040.line-34": 655,
+        "form1040.line-37": 0,
+        "form1040.line-7a": 1000,
+        "form1040.line-15": 35250,
+        "form1040.line-16": 3995
+      },
+      "view": {
+        "lines": {
+          "form1040.line-25a": 4500,
+          "form1040.line-25b": 150,
+          "form1040.line-25c": 0,
+          "form1040.line-25d": 4650,
+          "form1040.line-33": 4650,
+          "form1040.line-34": 655,
+          "form1040.line-37": 0
+        },
+        "blocked": {},
+        "questions": [],
+        "presentation_valid": true
+      }
+    },
+    "late/late_sale_removed_before": {
+      "hand": {
+        "disposition": "published",
+        "form1040.line-25a": 4500,
+        "form1040.line-25b": 200,
+        "form1040.line-25c": 0,
+        "form1040.line-25d": 4700,
+        "form1040.line-33": 4700,
+        "form1040.line-34": 705,
+        "form1040.line-37": 0,
+        "form1040.line-7a": 1000,
+        "form1040.line-15": 35250,
+        "form1040.line-16": 3995
+      },
+      "view": {
+        "lines": {
+          "form1040.line-25a": 4500,
+          "form1040.line-25b": 200,
+          "form1040.line-25c": 0,
+          "form1040.line-25d": 4700,
+          "form1040.line-33": 4700,
+          "form1040.line-34": 705,
+          "form1040.line-37": 0
+        },
+        "blocked": {},
+        "questions": [],
+        "presentation_valid": true
+      }
+    },
+    "late/late_sale_removed_after": {
+      "hand": {
+        "disposition": "published",
+        "form1040.line-25a": 4500,
+        "form1040.line-25b": 200,
+        "form1040.line-25c": 0,
+        "form1040.line-25d": 4700,
+        "form1040.line-33": 4700,
+        "form1040.line-34": 825,
+        "form1040.line-37": 0,
+        "form1040.line-7a": 0,
+        "form1040.line-15": 34250,
+        "form1040.line-16": 3875
+      },
+      "view": {
+        "lines": {
+          "form1040.line-25a": 4500,
+          "form1040.line-25b": 200,
+          "form1040.line-25c": 0,
+          "form1040.line-25d": 4700,
+          "form1040.line-33": 4700,
+          "form1040.line-34": 825,
+          "form1040.line-37": 0
+        },
+        "blocked": {},
+        "questions": [],
+        "presentation_valid": true
+      }
+    },
+    "late/late_amount_corrected_before": {
+      "hand": {
+        "disposition": "published",
+        "form1040.line-25a": 4500,
+        "form1040.line-25b": 150,
+        "form1040.line-25c": 0,
+        "form1040.line-25d": 4650,
+        "form1040.line-33": 4650,
+        "form1040.line-34": 775,
+        "form1040.line-37": 0,
+        "form1040.line-7a": 0,
+        "form1040.line-15": 34250,
+        "form1040.line-16": 3875
+      },
+      "view": {
+        "lines": {
+          "form1040.line-25a": 4500,
+          "form1040.line-25b": 150,
+          "form1040.line-25c": 0,
+          "form1040.line-25d": 4650,
+          "form1040.line-33": 4650,
+          "form1040.line-34": 775,
+          "form1040.line-37": 0
+        },
+        "blocked": {},
+        "questions": [],
+        "presentation_valid": true
+      }
+    },
+    "late/late_amount_corrected_after": {
+      "hand": {
+        "disposition": "published",
+        "form1040.line-25a": 4500,
+        "form1040.line-25b": 80,
+        "form1040.line-25c": 0,
+        "form1040.line-25d": 4580,
+        "form1040.line-33": 4580,
+        "form1040.line-34": 705,
+        "form1040.line-37": 0,
+        "form1040.line-7a": 0,
+        "form1040.line-15": 34250,
+        "form1040.line-16": 3875
+      },
+      "view": {
+        "lines": {
+          "form1040.line-25a": 4500,
+          "form1040.line-25b": 80,
+          "form1040.line-25c": 0,
+          "form1040.line-25d": 4580,
+          "form1040.line-33": 4580,
+          "form1040.line-34": 705,
+          "form1040.line-37": 0
+        },
+        "blocked": {},
+        "questions": [],
+        "presentation_valid": true
+      }
+    },
+    "late/late_yes_to_no_before": {
+      "hand": {
+        "disposition": "published",
+        "form1040.line-25a": 4500,
+        "form1040.line-25b": 150,
+        "form1040.line-25c": 0,
+        "form1040.line-25d": 4650,
+        "form1040.line-33": 4650,
+        "form1040.line-34": 775,
+        "form1040.line-37": 0,
+        "form1040.line-7a": 0,
+        "form1040.line-15": 34250,
+        "form1040.line-16": 3875
+      },
+      "view": {
+        "lines": {
+          "form1040.line-25a": 4500,
+          "form1040.line-25b": 150,
+          "form1040.line-25c": 0,
+          "form1040.line-25d": 4650,
+          "form1040.line-33": 4650,
+          "form1040.line-34": 775,
+          "form1040.line-37": 0
+        },
+        "blocked": {},
+        "questions": [],
+        "presentation_valid": true
+      }
+    },
+    "late/late_yes_to_no_after": {
+      "hand": {
+        "disposition": "published",
+        "form1040.line-25a": 4500,
+        "form1040.line-25b": 0,
+        "form1040.line-25c": 0,
+        "form1040.line-25d": 4500,
+        "form1040.line-33": 4500,
+        "form1040.line-34": 625,
+        "form1040.line-37": 0,
+        "form1040.line-7a": 0,
+        "form1040.line-15": 34250,
+        "form1040.line-16": 3875
+      },
+      "view": {
+        "lines": {
+          "form1040.line-25a": 4500,
+          "form1040.line-25b": 0,
+          "form1040.line-25c": 0,
+          "form1040.line-25d": 4500,
+          "form1040.line-33": 4500,
+          "form1040.line-34": 625,
+          "form1040.line-37": 0
+        },
+        "blocked": {},
+        "questions": [],
+        "presentation_valid": true
+      }
+    }
+  }
+}
