@@ -192,9 +192,26 @@ backed by committed output and are redone in Track 0:
    reason sentence. v83 retires that path; v82 is published and unchanged.
 4. **Box 7 stays refused per statement** (parked in the roadmap).
 
+5. **Track 0 outcome**, foreman 2026-11-09. Decision 2's bridge fails in
+   content: `require_paired` blocks before a fallback can read a v82
+   "no". So every Form 1099-B statement is asked its box 4 amount on v83;
+   150 of the 213 pinned returns change only that way, and none publishes
+   a different number. The 21 returns that stay blocked on an earlier
+   sale question will ask the amount once that block clears; that is
+   intended.
+
 ## Track 0 adversarial closure
 
-Pending.
+Evidence: `docs/phases/engine-breadth/milestones/f1099b-backup-withholding-evidence/track0-closure.md` (`track0.py`, `track0-output.json`, `track0-rerun-output.json`). Every run goes through `live_coordinate_run` on the scratch v83, in both answer modes, on the decided design (`decided`) and repair evaluation (`repair_d2`). The neighbour diff also runs each of the 213 returns on published v82.
+
+- **Decision 2 outcome (bridge_v82_no fails):** Content-only bridge for v82 "no" answers fails (`repair_works=False`, `decision_2_confirmed=True`). `require_paired` eagerly raises `EvalBlocked(BLOCK_ABSENT, [statement-box4-withholding])` before the fallback arm in `any` can evaluate, and `value` on `statement-box4-withholding` finds no assertions because `source_set: f1099b.b4` has no closure assertion on v82 returns. Decision 2 is confirmed: all filers with Form 1099-B sales must be asked the numeric amount question (`statement-box4-withholding`).
+- Authority-lifecycle table: PASS — artifact 1 in `docs/phases/engine-breadth/milestones/f1099b-backup-withholding-evidence/track0-closure.md`; exercised by cases `alc_b4_amount_valid`, `alc_b4_amount_superseded`, `alc_b4_amount_missing`, `alc_v82_answer_on_v82`, `alc_v82_answer_on_v83`, `alc_count_zero`, `alc_count_positive`, `alc_count_transition`, `alc_stmt_orphan` in `track0-output.json`.
+- Empty/nonempty authority matrix: PASS — artifact 2 in `track0-closure.md`; 32 real coordinator runs across 8 families and 4 states in `track0-output.json` (`m_covered_st_zero` through `m_code_b_lt_v82_only`), 32/32 matched expected.
+- Late-member lifecycle: PASS — artifact 3 in `track0-closure.md`; two multi-step traces exercised through coordinator: `trace1_initial`, `trace1_new_stmt_unanswered` (blocks line 25b), `trace1_new_stmt_answered` (recomputes sum), `trace2_initial`, `trace2_sale_removed` (orphan statement amount ignored, line 25b computes $0).
+- Reused-claim semantic/lifecycle equivalence: PASS — artifact 4 in `track0-closure.md`; the five existing line 25b subtotals (INT, DIV, R, G, SSA) compose unchanged beside Form 1099-B box 4: cases `reuse_int_alone` ($50), `reuse_div_alone` ($75), `reuse_ira_alone` ($80), `reuse_unemp_alone` ($90), `reuse_ssa_alone` ($60), `reuse_all_five_alone` ($355), and `reuse_all_with_b4` ($455) in `track0-output.json`.
+- Neighboring capability dependency diff: PASS — artifact 5 in `track0-closure.md`; 213 paired v82/v83 coordinator runs in `track0-rerun-output.json` (`summary` computed from those runs): 213/213 v82 projections match `tests/fixtures/sale_family_audit_v82/expected.json`; 150 `box4_unanswered_asks_amount` (all with sales; sample `case/a_8949_yes/recorded`); 63 `identical`; 0 counterexamples; 39 without sales all identical (`no_sales_changed_ids` empty). The four no-sale returns `case/wage_q3_unanswered/recorded`, `v80/carried_one_exempt_dividend/recorded`, `v80/carried_one_foreign_tax/recorded`, `v80/carried_wage_unclosed/recorded` are identical, blocked on both cores for Q3 / Form 1099-DIV box 4 / Q1, not `computed_zero` to `blocked`.
+- Integration surface: PASS — artifact 6 in `track0-closure.md`; consumers lines 33, 34, 37 verified across distinct disposition paths in `track0-output.json`: `surface_published_refund` ($745 refund, $0 owed), `surface_published_owed` ($0 refund, $2,115 owed), `surface_blocked_missing_b4` (all consumers blocked), `surface_zero_no_sales` ($625 refund). Presentation model validated with `validate_presentation_model`; question prompt and form field description verified.
+- Known limitations affecting correctness: none.
 
 ## Track 1 result
 

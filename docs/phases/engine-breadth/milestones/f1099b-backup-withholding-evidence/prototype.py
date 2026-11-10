@@ -40,9 +40,14 @@ RELEASE_STEM = "demo.release.sli-worksheet-integration.2025"
 FROM = {"package": "v82", "registry": "v80", "release": "v80"}
 TO = {"package": "v83", "registry": "v81", "release": "v81"}
 
+FIXES = ("box4_amount",)
+REPAIRS = ("bridge_v82_no",)
+SWITCHES = set(FIXES)
 
-def artifacts() -> list[tuple[str, dict[str, Any]]]:
+
+def artifacts(switches: set[str] | None = None) -> list[tuple[str, dict[str, Any]]]:
     """Successor artifacts for scratch core v83."""
+    active = set(SWITCHES) if switches is None else set(switches)
     out: list[tuple[str, dict[str, Any]]] = []
 
     # 1. Bundle: f1099b-box4.bundle.json
@@ -135,12 +140,41 @@ def artifacts() -> list[tuple[str, dict[str, Any]]]:
     when_all = rule_v7["when"]["args"]
     for i, node in enumerate(when_all):
         if isinstance(node, dict) and node.get("op") == "require_paired" and "f1099b.statement-box4" in str(node.get("withholding")):
-            when_all[i] = {
-                "op": "require_paired",
-                "key": "statement",
-                "withholding": P + "f1099b.statement-box4-withholding",
-                "income": node["income"],
-            }
+            if "bridge_v82_no" in active:
+                when_all[i] = {
+                    "op": "any",
+                    "args": [
+                        {
+                            "op": "require_paired",
+                            "key": "statement",
+                            "withholding": P + "f1099b.statement-box4-withholding",
+                            "income": node["income"],
+                        },
+                        {
+                            "op": "all",
+                            "args": [
+                                {
+                                    "op": "require_paired",
+                                    "key": "statement",
+                                    "withholding": P + "f1099b.statement-box4-withholding-reported",
+                                    "income": node["income"],
+                                },
+                                {
+                                    "op": "collect_categorical_all_equal",
+                                    "name": P + "f1099b.statement-box4-withholding-reported",
+                                    "value": "no",
+                                },
+                            ],
+                        },
+                    ],
+                }
+            else:
+                when_all[i] = {
+                    "op": "require_paired",
+                    "key": "statement",
+                    "withholding": P + "f1099b.statement-box4-withholding",
+                    "income": node["income"],
+                }
 
     # In value: choose when sale counts > 0 then sum 5 subtotals + collect(statement-box4-withholding) else sum 5 subtotals
     five_subtotals = [
@@ -230,7 +264,7 @@ def role_for(schema: str) -> str:
     return roles[schema]
 
 
-def change_list() -> tuple[dict[str, Any], list[dict[str, Any]]]:
+def change_list(switches: set[str] | None = None) -> tuple[dict[str, Any], list[dict[str, Any]]]:
     pkg_v82 = json.loads((CONTENT / f"package.core-calculations.{FROM['package']}.json").read_text(encoding="utf-8"))
     members_v82 = {m["id"]: m for m in pkg_v82["members"]}
     entry_keys = {(e["id"], e["version"]) for e in pkg_v82["entrypoints"]}
@@ -238,7 +272,7 @@ def change_list() -> tuple[dict[str, Any], list[dict[str, Any]]]:
     members: list[dict[str, Any]] = []
     entrypoints: list[dict[str, Any]] = []
 
-    for _name, body in artifacts():
+    for _name, body in artifacts(switches):
         cid = body["id"]
         cver = body["version"]
         cschema = body["schema"]
@@ -267,17 +301,18 @@ def change_list() -> tuple[dict[str, Any], list[dict[str, Any]]]:
     return changes, members
 
 
-def build(scratch: Path) -> dict[str, Any]:
+def build(scratch: Path, switches: set[str] | None = None) -> dict[str, Any]:
+    active = set(SWITCHES) if switches is None else set(switches)
     content = scratch / "content"
     releases = scratch / "releases"
     shutil.copytree(CONTENT, content)
     shutil.copytree(RELEASES, releases)
 
     # Write new successor artifacts to content
-    for name, body in artifacts():
+    for name, body in artifacts(active):
         (content / name).write_text(json.dumps(body, indent=2) + "\n", encoding="utf-8")
 
-    changes, members = change_list()
+    changes, members = change_list(active)
     changes_path = scratch / "changes.json"
     changes_path.write_text(json.dumps(changes, indent=2) + "\n", encoding="utf-8")
 
@@ -297,12 +332,24 @@ def build(scratch: Path) -> dict[str, Any]:
     ):
         shutil.copy(scratch / "out" / src, folder / target)
 
+    core = {
+        "version": TO["package"],
+        "registry": TO["registry"],
+        "release_version": TO["release"],
+        "content": str(content),
+        "releases": str(releases),
+        "loader_from": FROM["package"],
+    }
+    (scratch / "core.json").write_text(json.dumps(core, indent=2) + "\n", encoding="utf-8")
+
     summary = {
         "from": FROM,
         "to": TO,
         "package": report["package"]["version"],
         "registry": TO["registry"],
         "release": report["release"]["version"],
+        "fixes": [s for s in active if s in FIXES],
+        "repairs": [s for s in active if s in REPAIRS],
         "members_edited": len(members),
         "added": sum(1 for m in members if m["op"] == "add"),
         "replaced": sum(1 for m in members if m["op"] == "replace"),

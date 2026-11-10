@@ -1,0 +1,2026 @@
+{
+  "scope0": {
+    "summary": {
+      "total_cases": 19,
+      "v82_blocked_cases": 12,
+      "v83_published_cases": 17,
+      "v83_blocked_cases": 2,
+      "matches_hand_cases": 19,
+      "all_match_hand": true
+    },
+    "cases": [
+      {
+        "case_id": "b4_one_statement",
+        "description": "One statement covered ST sale ($1,000 gain), box 4 withholding $240",
+        "hand_values": {
+          "disposition": "published",
+          "taxable_income": 35250,
+          "tax": 3995,
+          "form1040.line-25b": 240,
+          "form1040.line-33": 4740,
+          "form1040.line-34": 745,
+          "form1040.line-37": 0
+        },
+        "v82": {
+          "outcome": "success",
+          "disposition_25b": "blocked",
+          "lines": {
+            "form1040.line-25b": null,
+            "form1040.line-33": null,
+            "form1040.line-34": null,
+            "form1040.line-37": null
+          },
+          "blocked_reasons": []
+        },
+        "v83": {
+          "outcome": "success",
+          "disposition_25b": "published_value",
+          "lines": {
+            "form1040.line-25b": 240,
+            "form1040.line-33": 4740,
+            "form1040.line-34": 745,
+            "form1040.line-37": 0
+          },
+          "blocked_reasons": [],
+          "matches_hand": true
+        }
+      },
+      {
+        "case_id": "b4_two_statements",
+        "description": "Two statements covered ST sales ($1,500 total gain), box 4 amounts $240 and $100 ($340 total)",
+        "hand_values": {
+          "disposition": "published",
+          "taxable_income": 35750,
+          "tax": 4055,
+          "form1040.line-25b": 340,
+          "form1040.line-33": 4840,
+          "form1040.line-34": 785,
+          "form1040.line-37": 0
+        },
+        "v82": {
+          "outcome": "success",
+          "disposition_25b": "blocked",
+          "lines": {
+            "form1040.line-25b": null,
+            "form1040.line-33": null,
+            "form1040.line-34": null,
+            "form1040.line-37": null
+          },
+          "blocked_reasons": []
+        },
+        "v83": {
+          "outcome": "success",
+          "disposition_25b": "published_value",
+          "lines": {
+            "form1040.line-25b": 340,
+            "form1040.line-33": 4840,
+            "form1040.line-34": 785,
+            "form1040.line-37": 0
+          },
+          "blocked_reasons": [],
+          "matches_hand": true
+        }
+      },
+      {
+        "case_id": "b4_st_and_lt",
+        "description": "One statement with both ST ($1,000) and LT ($1,000) sales, box 4 withholding $300",
+        "hand_values": {
+          "disposition": "published",
+          "taxable_income": 36250,
+          "tax": 3995,
+          "form1040.line-25b": 300,
+          "form1040.line-33": 4800,
+          "form1040.line-34": 805,
+          "form1040.line-37": 0
+        },
+        "v82": {
+          "outcome": "success",
+          "disposition_25b": "blocked",
+          "lines": {
+            "form1040.line-25b": null,
+            "form1040.line-33": null,
+            "form1040.line-34": null,
+            "form1040.line-37": null
+          },
+          "blocked_reasons": []
+        },
+        "v83": {
+          "outcome": "success",
+          "disposition_25b": "published_value",
+          "lines": {
+            "form1040.line-25b": 300,
+            "form1040.line-33": 4800,
+            "form1040.line-34": 805,
+            "form1040.line-37": 0
+          },
+          "blocked_reasons": [],
+          "matches_hand": true
+        }
+      },
+      {
+        "case_id": "b4_beside_int_div",
+        "description": "1099-B sale ($1,000 gain, b4 $200) beside 1099-INT ($50 b4) and 1099-DIV ($75 b4); total b4 $325",
+        "hand_values": {
+          "disposition": "published",
+          "taxable_income": 35550,
+          "tax": 4031,
+          "form1040.line-25b": 325,
+          "form1040.line-33": 4825,
+          "form1040.line-34": 794,
+          "form1040.line-37": 0
+        },
+        "v82": {
+          "outcome": "success",
+          "disposition_25b": "blocked",
+          "lines": {
+            "form1040.line-25b": null,
+            "form1040.line-33": null,
+            "form1040.line-34": null,
+            "form1040.line-37": null
+          },
+          "blocked_reasons": []
+        },
+        "v83": {
+          "outcome": "success",
+          "disposition_25b": "published_value",
+          "lines": {
+            "form1040.line-25b": 325,
+            "form1040.line-33": 4825,
+            "form1040.line-34": 794,
+            "form1040.line-37": 0
+          },
+          "blocked_reasons": [],
+          "matches_hand": true
+        }
+      },
+      {
+        "case_id": "b4_statement_removed",
+        "description": "Statement sales removed, leaving orphan statement with box 4 amount; sale count is 0",
+        "hand_values": {
+          "disposition": "published",
+          "taxable_income": 34250,
+          "tax": 3875,
+          "form1040.line-25b": 0,
+          "form1040.line-33": 4500,
+          "form1040.line-34": 625,
+          "form1040.line-37": 0
+        },
+        "v82": {
+          "outcome": "success",
+          "disposition_25b": "computed_zero",
+          "lines": {
+            "form1040.line-25b": 0,
+            "form1040.line-33": 4500,
+            "form1040.line-34": 625,
+            "form1040.line-37": 0
+          },
+          "blocked_reasons": []
+        },
+        "v83": {
+          "outcome": "success",
+          "disposition_25b": "computed_zero",
+          "lines": {
+            "form1040.line-25b": 0,
+            "form1040.line-33": 4500,
+            "form1040.line-34": 625,
+            "form1040.line-37": 0
+          },
+          "blocked_reasons": [],
+          "matches_hand": true
+        }
+      },
+      {
+        "case_id": "b4_amount_no_answer",
+        "description": "One statement with covered ST sale, box 4 unanswered on both cores",
+        "hand_values": {
+          "disposition": "blocked",
+          "form1040.line-25b": null,
+          "form1040.line-33": null,
+          "form1040.line-34": null,
+          "form1040.line-37": null
+        },
+        "v82": {
+          "outcome": "success",
+          "disposition_25b": "blocked",
+          "lines": {
+            "form1040.line-25b": null,
+            "form1040.line-33": null,
+            "form1040.line-34": null,
+            "form1040.line-37": null
+          },
+          "blocked_reasons": [
+            "For each Form 1099-B or substitute statement you recorded a sale from, does it show federal income tax withheld in box 4?"
+          ]
+        },
+        "v83": {
+          "outcome": "success",
+          "disposition_25b": "blocked",
+          "lines": {
+            "form1040.line-25b": null,
+            "form1040.line-33": null,
+            "form1040.line-34": null,
+            "form1040.line-37": null
+          },
+          "blocked_reasons": [
+            "Enter the federal income tax withheld in box 4 of each Form 1099-B or substitute statement you recorded a sale from. If box 4 is blank, enter $0."
+          ],
+          "matches_hand": true
+        }
+      },
+      {
+        "case_id": "b4_answer_no_amount",
+        "description": "One statement covered ST sale, box 4 answered no on v82, amount $0 on v83",
+        "hand_values": {
+          "disposition": "published",
+          "taxable_income": 35250,
+          "tax": 3995,
+          "form1040.line-25b": 0,
+          "form1040.line-33": 4500,
+          "form1040.line-34": 505,
+          "form1040.line-37": 0
+        },
+        "v82": {
+          "outcome": "success",
+          "disposition_25b": "computed_zero",
+          "lines": {
+            "form1040.line-25b": 0,
+            "form1040.line-33": 4500,
+            "form1040.line-34": 505,
+            "form1040.line-37": 0
+          },
+          "blocked_reasons": []
+        },
+        "v83": {
+          "outcome": "success",
+          "disposition_25b": "computed_zero",
+          "lines": {
+            "form1040.line-25b": 0,
+            "form1040.line-33": 4500,
+            "form1040.line-34": 505,
+            "form1040.line-37": 0
+          },
+          "blocked_reasons": [],
+          "matches_hand": true
+        }
+      },
+      {
+        "case_id": "b4_no_with_amount",
+        "description": "One statement covered ST sale, zero withholding",
+        "hand_values": {
+          "disposition": "published",
+          "taxable_income": 35250,
+          "tax": 3995,
+          "form1040.line-25b": 0,
+          "form1040.line-33": 4500,
+          "form1040.line-34": 505,
+          "form1040.line-37": 0
+        },
+        "v82": {
+          "outcome": "success",
+          "disposition_25b": "computed_zero",
+          "lines": {
+            "form1040.line-25b": 0,
+            "form1040.line-33": 4500,
+            "form1040.line-34": 505,
+            "form1040.line-37": 0
+          },
+          "blocked_reasons": []
+        },
+        "v83": {
+          "outcome": "success",
+          "disposition_25b": "computed_zero",
+          "lines": {
+            "form1040.line-25b": 0,
+            "form1040.line-33": 4500,
+            "form1040.line-34": 505,
+            "form1040.line-37": 0
+          },
+          "blocked_reasons": [],
+          "matches_hand": true
+        }
+      },
+      {
+        "case_id": "b4_no_one_statement",
+        "description": "Standard one-statement covered ST sale ($1,000 gain), box 4 zero withholding",
+        "hand_values": {
+          "disposition": "published",
+          "taxable_income": 35250,
+          "tax": 3995,
+          "form1040.line-25b": 0,
+          "form1040.line-33": 4500,
+          "form1040.line-34": 505,
+          "form1040.line-37": 0
+        },
+        "v82": {
+          "outcome": "success",
+          "disposition_25b": "computed_zero",
+          "lines": {
+            "form1040.line-25b": 0,
+            "form1040.line-33": 4500,
+            "form1040.line-34": 505,
+            "form1040.line-37": 0
+          },
+          "blocked_reasons": []
+        },
+        "v83": {
+          "outcome": "success",
+          "disposition_25b": "computed_zero",
+          "lines": {
+            "form1040.line-25b": 0,
+            "form1040.line-33": 4500,
+            "form1040.line-34": 505,
+            "form1040.line-37": 0
+          },
+          "blocked_reasons": [],
+          "matches_hand": true
+        }
+      },
+      {
+        "case_id": "b4_yes_covered",
+        "description": "Covered ST sale, box 4 yes on v82 (blocked); box 4 $240 on v83",
+        "hand_values": {
+          "disposition": "published",
+          "taxable_income": 35250,
+          "tax": 3995,
+          "form1040.line-25b": 240,
+          "form1040.line-33": 4740,
+          "form1040.line-34": 745,
+          "form1040.line-37": 0
+        },
+        "v82": {
+          "outcome": "success",
+          "disposition_25b": "blocked",
+          "lines": {
+            "form1040.line-25b": null,
+            "form1040.line-33": null,
+            "form1040.line-34": null,
+            "form1040.line-37": null
+          },
+          "blocked_reasons": []
+        },
+        "v83": {
+          "outcome": "success",
+          "disposition_25b": "published_value",
+          "lines": {
+            "form1040.line-25b": 240,
+            "form1040.line-33": 4740,
+            "form1040.line-34": 745,
+            "form1040.line-37": 0
+          },
+          "blocked_reasons": [],
+          "matches_hand": true
+        }
+      },
+      {
+        "case_id": "b4_yes_w",
+        "description": "Covered-W ST sale, box 4 yes on v82 (blocked); box 4 $240 on v83",
+        "hand_values": {
+          "disposition": "published",
+          "taxable_income": 35250,
+          "tax": 3995,
+          "form1040.line-25b": 240,
+          "form1040.line-33": 4740,
+          "form1040.line-34": 745,
+          "form1040.line-37": 0
+        },
+        "v82": {
+          "outcome": "success",
+          "disposition_25b": "blocked",
+          "lines": {
+            "form1040.line-25b": null,
+            "form1040.line-33": null,
+            "form1040.line-34": null,
+            "form1040.line-37": null
+          },
+          "blocked_reasons": []
+        },
+        "v83": {
+          "outcome": "success",
+          "disposition_25b": "published_value",
+          "lines": {
+            "form1040.line-25b": 240,
+            "form1040.line-33": 4740,
+            "form1040.line-34": 745,
+            "form1040.line-37": 0
+          },
+          "blocked_reasons": [],
+          "matches_hand": true
+        }
+      },
+      {
+        "case_id": "b4_yes_noncovered",
+        "description": "Noncovered ST sale, box 4 yes on v82 (blocked); box 4 $240 on v83",
+        "hand_values": {
+          "disposition": "published",
+          "taxable_income": 35250,
+          "tax": 3995,
+          "form1040.line-25b": 240,
+          "form1040.line-33": 4740,
+          "form1040.line-34": 745,
+          "form1040.line-37": 0
+        },
+        "v82": {
+          "outcome": "success",
+          "disposition_25b": "blocked",
+          "lines": {
+            "form1040.line-25b": null,
+            "form1040.line-33": null,
+            "form1040.line-34": null,
+            "form1040.line-37": null
+          },
+          "blocked_reasons": []
+        },
+        "v83": {
+          "outcome": "success",
+          "disposition_25b": "published_value",
+          "lines": {
+            "form1040.line-25b": 240,
+            "form1040.line-33": 4740,
+            "form1040.line-34": 745,
+            "form1040.line-37": 0
+          },
+          "blocked_reasons": [],
+          "matches_hand": true
+        }
+      },
+      {
+        "case_id": "b4_yes_codeb",
+        "description": "Code B ST sale, box 4 yes on v82 (blocked); box 4 $240 on v83",
+        "hand_values": {
+          "disposition": "published",
+          "taxable_income": 35250,
+          "tax": 3995,
+          "form1040.line-25b": 240,
+          "form1040.line-33": 4740,
+          "form1040.line-34": 745,
+          "form1040.line-37": 0
+        },
+        "v82": {
+          "outcome": "success",
+          "disposition_25b": "blocked",
+          "lines": {
+            "form1040.line-25b": null,
+            "form1040.line-33": null,
+            "form1040.line-34": null,
+            "form1040.line-37": null
+          },
+          "blocked_reasons": []
+        },
+        "v83": {
+          "outcome": "success",
+          "disposition_25b": "published_value",
+          "lines": {
+            "form1040.line-25b": 240,
+            "form1040.line-33": 4740,
+            "form1040.line-34": 745,
+            "form1040.line-37": 0
+          },
+          "blocked_reasons": [],
+          "matches_hand": true
+        }
+      },
+      {
+        "case_id": "b4_two_statements_one_yes",
+        "description": "Two statements: s1 box 4 yes/$240, s2 box 4 no/$0; gain $1,500, withholding $240",
+        "hand_values": {
+          "disposition": "published",
+          "taxable_income": 35750,
+          "tax": 4055,
+          "form1040.line-25b": 240,
+          "form1040.line-33": 4740,
+          "form1040.line-34": 685,
+          "form1040.line-37": 0
+        },
+        "v82": {
+          "outcome": "success",
+          "disposition_25b": "blocked",
+          "lines": {
+            "form1040.line-25b": null,
+            "form1040.line-33": null,
+            "form1040.line-34": null,
+            "form1040.line-37": null
+          },
+          "blocked_reasons": []
+        },
+        "v83": {
+          "outcome": "success",
+          "disposition_25b": "published_value",
+          "lines": {
+            "form1040.line-25b": 240,
+            "form1040.line-33": 4740,
+            "form1040.line-34": 685,
+            "form1040.line-37": 0
+          },
+          "blocked_reasons": [],
+          "matches_hand": true
+        }
+      },
+      {
+        "case_id": "b4_two_statements_both_yes",
+        "description": "Two statements both box 4 yes on v82; amounts $240 and $100 on v83",
+        "hand_values": {
+          "disposition": "published",
+          "taxable_income": 35750,
+          "tax": 4055,
+          "form1040.line-25b": 340,
+          "form1040.line-33": 4840,
+          "form1040.line-34": 785,
+          "form1040.line-37": 0
+        },
+        "v82": {
+          "outcome": "success",
+          "disposition_25b": "blocked",
+          "lines": {
+            "form1040.line-25b": null,
+            "form1040.line-33": null,
+            "form1040.line-34": null,
+            "form1040.line-37": null
+          },
+          "blocked_reasons": []
+        },
+        "v83": {
+          "outcome": "success",
+          "disposition_25b": "published_value",
+          "lines": {
+            "form1040.line-25b": 340,
+            "form1040.line-33": 4840,
+            "form1040.line-34": 785,
+            "form1040.line-37": 0
+          },
+          "blocked_reasons": [],
+          "matches_hand": true
+        }
+      },
+      {
+        "case_id": "b4_two_statements_both_no",
+        "description": "Two statements both box 4 no on v82; amounts $0 on v83",
+        "hand_values": {
+          "disposition": "published",
+          "taxable_income": 35750,
+          "tax": 4055,
+          "form1040.line-25b": 0,
+          "form1040.line-33": 4500,
+          "form1040.line-34": 445,
+          "form1040.line-37": 0
+        },
+        "v82": {
+          "outcome": "success",
+          "disposition_25b": "computed_zero",
+          "lines": {
+            "form1040.line-25b": 0,
+            "form1040.line-33": 4500,
+            "form1040.line-34": 445,
+            "form1040.line-37": 0
+          },
+          "blocked_reasons": []
+        },
+        "v83": {
+          "outcome": "success",
+          "disposition_25b": "computed_zero",
+          "lines": {
+            "form1040.line-25b": 0,
+            "form1040.line-33": 4500,
+            "form1040.line-34": 445,
+            "form1040.line-37": 0
+          },
+          "blocked_reasons": [],
+          "matches_hand": true
+        }
+      },
+      {
+        "case_id": "b4_two_statements_one_unanswered",
+        "description": "Two statements: s1 answered, s2 unanswered on both cores (blocked)",
+        "hand_values": {
+          "disposition": "blocked",
+          "form1040.line-25b": null,
+          "form1040.line-33": null,
+          "form1040.line-34": null,
+          "form1040.line-37": null
+        },
+        "v82": {
+          "outcome": "success",
+          "disposition_25b": "blocked",
+          "lines": {
+            "form1040.line-25b": null,
+            "form1040.line-33": null,
+            "form1040.line-34": null,
+            "form1040.line-37": null
+          },
+          "blocked_reasons": [
+            "For each Form 1099-B or substitute statement you recorded a sale from, does it show federal income tax withheld in box 4?"
+          ]
+        },
+        "v83": {
+          "outcome": "success",
+          "disposition_25b": "blocked",
+          "lines": {
+            "form1040.line-25b": null,
+            "form1040.line-33": null,
+            "form1040.line-34": null,
+            "form1040.line-37": null
+          },
+          "blocked_reasons": [
+            "Enter the federal income tax withheld in box 4 of each Form 1099-B or substitute statement you recorded a sale from. If box 4 is blank, enter $0."
+          ],
+          "matches_hand": true
+        }
+      },
+      {
+        "case_id": "b4_extra_statement_no_sales",
+        "description": "One statement with sale ($1,000 gain), one extra statement with no sales; both b4 answered $0",
+        "hand_values": {
+          "disposition": "published",
+          "taxable_income": 35250,
+          "tax": 3995,
+          "form1040.line-25b": 0,
+          "form1040.line-33": 4500,
+          "form1040.line-34": 505,
+          "form1040.line-37": 0
+        },
+        "v82": {
+          "outcome": "success",
+          "disposition_25b": "computed_zero",
+          "lines": {
+            "form1040.line-25b": 0,
+            "form1040.line-33": 4500,
+            "form1040.line-34": 505,
+            "form1040.line-37": 0
+          },
+          "blocked_reasons": []
+        },
+        "v83": {
+          "outcome": "success",
+          "disposition_25b": "computed_zero",
+          "lines": {
+            "form1040.line-25b": 0,
+            "form1040.line-33": 4500,
+            "form1040.line-34": 505,
+            "form1040.line-37": 0
+          },
+          "blocked_reasons": [],
+          "matches_hand": true
+        }
+      },
+      {
+        "case_id": "b4_no_sales",
+        "description": "Zero sales recorded, zero withholding; standard return computes",
+        "hand_values": {
+          "disposition": "published",
+          "taxable_income": 34250,
+          "tax": 3875,
+          "form1040.line-25b": 0,
+          "form1040.line-33": 4500,
+          "form1040.line-34": 625,
+          "form1040.line-37": 0
+        },
+        "v82": {
+          "outcome": "success",
+          "disposition_25b": "computed_zero",
+          "lines": {
+            "form1040.line-25b": 0,
+            "form1040.line-33": 4500,
+            "form1040.line-34": 625,
+            "form1040.line-37": 0
+          },
+          "blocked_reasons": []
+        },
+        "v83": {
+          "outcome": "success",
+          "disposition_25b": "computed_zero",
+          "lines": {
+            "form1040.line-25b": 0,
+            "form1040.line-33": 4500,
+            "form1040.line-34": 625,
+            "form1040.line-37": 0
+          },
+          "blocked_reasons": [],
+          "matches_hand": true
+        }
+      }
+    ]
+  },
+  "scope1": {
+    "summary": {
+      "total_cases": 4,
+      "repair_succeeded_cases": 0,
+      "repair_works": false,
+      "decision_2_confirmed": true,
+      "failure_mechanism": "require_paired evaluates each arm eagerly; an unfulfilled statement-box4-withholding immediately raises EvalBlocked(BLOCK_ABSENT, [statement-box4-withholding]) before the fallback arm can execute. Additionally, value collects statement-box4-withholding from source_set f1099b.b4 which lacks closure on v82 returns."
+    },
+    "cases": [
+      {
+        "case_id": "d2_single_v82_no",
+        "description": "One statement with covered ST sale ($1,000 gain); v82 box 4 'no' recorded, no amount",
+        "repair_d2": {
+          "outcome": "success",
+          "disposition_25b": "blocked",
+          "lines": {
+            "form1040.line-25b": null
+          },
+          "blocked_reasons": [
+            "Enter the federal income tax withheld in box 4 of each Form 1099-B or substitute statement you recorded a sale from. If box 4 is blank, enter $0."
+          ]
+        },
+        "decided": {
+          "outcome": "success",
+          "disposition_25b": "blocked",
+          "lines": {
+            "form1040.line-25b": null
+          },
+          "blocked_reasons": [
+            "Enter the federal income tax withheld in box 4 of each Form 1099-B or substitute statement you recorded a sale from. If box 4 is blank, enter $0."
+          ]
+        },
+        "repair_allows_v82_no": false
+      },
+      {
+        "case_id": "d2_two_statements_both_v82_no",
+        "description": "Two statements with sales; both have v82 box 4 'no' recorded, no amount",
+        "repair_d2": {
+          "outcome": "success",
+          "disposition_25b": "blocked",
+          "lines": {
+            "form1040.line-25b": null
+          },
+          "blocked_reasons": [
+            "Enter the federal income tax withheld in box 4 of each Form 1099-B or substitute statement you recorded a sale from. If box 4 is blank, enter $0."
+          ]
+        },
+        "decided": {
+          "outcome": "success",
+          "disposition_25b": "blocked",
+          "lines": {
+            "form1040.line-25b": null
+          },
+          "blocked_reasons": [
+            "Enter the federal income tax withheld in box 4 of each Form 1099-B or substitute statement you recorded a sale from. If box 4 is blank, enter $0."
+          ]
+        },
+        "repair_allows_v82_no": false
+      },
+      {
+        "case_id": "d2_mixed_statements",
+        "description": "Two statements: s1 has new box 4 amount $240; s2 has legacy v82 box 4 'no'",
+        "repair_d2": {
+          "outcome": "success",
+          "disposition_25b": "blocked",
+          "lines": {
+            "form1040.line-25b": null
+          },
+          "blocked_reasons": [
+            "Enter the federal income tax withheld in box 4 of each Form 1099-B or substitute statement you recorded a sale from. If box 4 is blank, enter $0."
+          ]
+        },
+        "decided": {
+          "outcome": "success",
+          "disposition_25b": "blocked",
+          "lines": {
+            "form1040.line-25b": null
+          },
+          "blocked_reasons": [
+            "Enter the federal income tax withheld in box 4 of each Form 1099-B or substitute statement you recorded a sale from. If box 4 is blank, enter $0."
+          ]
+        },
+        "repair_allows_v82_no": false
+      },
+      {
+        "case_id": "d2_unanswered_statement",
+        "description": "One statement with sale; neither v82 answer nor v83 amount recorded (unanswered)",
+        "repair_d2": {
+          "outcome": "success",
+          "disposition_25b": "blocked",
+          "lines": {
+            "form1040.line-25b": null
+          },
+          "blocked_reasons": [
+            "Enter the federal income tax withheld in box 4 of each Form 1099-B or substitute statement you recorded a sale from. If box 4 is blank, enter $0."
+          ]
+        },
+        "decided": {
+          "outcome": "success",
+          "disposition_25b": "blocked",
+          "lines": {
+            "form1040.line-25b": null
+          },
+          "blocked_reasons": [
+            "Enter the federal income tax withheld in box 4 of each Form 1099-B or substitute statement you recorded a sale from. If box 4 is blank, enter $0."
+          ]
+        },
+        "repair_allows_v82_no": false
+      }
+    ]
+  },
+  "scope2": {
+    "summary": {
+      "total_cases": 9,
+      "matches_expected_cases": 9,
+      "all_match_expected": true
+    },
+    "cases": [
+      {
+        "case_id": "alc_b4_amount_valid",
+        "description": "Valid box 4 amount $150 asserted for statement with sale; line 25b publishes $150",
+        "core": "decided",
+        "expected_disp": "published_value",
+        "expected_25b": 150.0,
+        "outcome": "success",
+        "disposition_25b": "published_value",
+        "line_25b": 150,
+        "blocked_reasons": [],
+        "matches_expected": true
+      },
+      {
+        "case_id": "alc_b4_amount_superseded",
+        "description": "Box 4 amount superseded from $100 to $250; line 25b recomputes to $250",
+        "core": "decided",
+        "expected_disp": "published_value",
+        "expected_25b": 250.0,
+        "outcome": "success",
+        "disposition_25b": "published_value",
+        "line_25b": 250,
+        "blocked_reasons": [],
+        "matches_expected": true
+      },
+      {
+        "case_id": "alc_b4_amount_missing",
+        "description": "Statement with sale lacks box 4 amount finding; line 25b blocked on DEPENDENCY_ABSENT",
+        "core": "decided",
+        "expected_disp": "blocked",
+        "expected_25b": null,
+        "outcome": "success",
+        "disposition_25b": "blocked",
+        "line_25b": null,
+        "blocked_reasons": [
+          "Enter the federal income tax withheld in box 4 of each Form 1099-B or substitute statement you recorded a sale from. If box 4 is blank, enter $0."
+        ],
+        "matches_expected": true
+      },
+      {
+        "case_id": "alc_v82_answer_on_v82",
+        "description": "Legacy v82 box 4 'no' answer evaluated on published v82 core; computes $0",
+        "core": "v82",
+        "expected_disp": "computed_zero",
+        "expected_25b": 0.0,
+        "outcome": "success",
+        "disposition_25b": "computed_zero",
+        "line_25b": 0,
+        "blocked_reasons": [],
+        "matches_expected": true
+      },
+      {
+        "case_id": "alc_v82_answer_on_v83",
+        "description": "Legacy v82 box 4 'no' answer evaluated on scratch v83 core; blocked (amount required)",
+        "core": "decided",
+        "expected_disp": "blocked",
+        "expected_25b": null,
+        "outcome": "success",
+        "disposition_25b": "blocked",
+        "line_25b": null,
+        "blocked_reasons": [
+          "Enter the federal income tax withheld in box 4 of each Form 1099-B or substitute statement you recorded a sale from. If box 4 is blank, enter $0."
+        ],
+        "matches_expected": true
+      },
+      {
+        "case_id": "alc_count_zero",
+        "description": "Zero Form 1099-B sales recorded; all sale counts 0, line 25b computes $0 without asking box 4",
+        "core": "decided",
+        "expected_disp": "computed_zero",
+        "expected_25b": 0.0,
+        "outcome": "success",
+        "disposition_25b": "computed_zero",
+        "line_25b": 0,
+        "blocked_reasons": [],
+        "matches_expected": true
+      },
+      {
+        "case_id": "alc_count_positive",
+        "description": "One covered ST sale; covered-st-count > 0 activates require_paired and line 25b collects $200",
+        "core": "decided",
+        "expected_disp": "published_value",
+        "expected_25b": 200.0,
+        "outcome": "success",
+        "disposition_25b": "published_value",
+        "line_25b": 200,
+        "blocked_reasons": [],
+        "matches_expected": true
+      },
+      {
+        "case_id": "alc_count_transition",
+        "description": "Two covered ST sales on same statement; covered-st-count is 2, b4 amount $200",
+        "core": "decided",
+        "expected_disp": "published_value",
+        "expected_25b": 200.0,
+        "outcome": "success",
+        "disposition_25b": "published_value",
+        "line_25b": 200,
+        "blocked_reasons": [],
+        "matches_expected": true
+      },
+      {
+        "case_id": "alc_stmt_orphan",
+        "description": "Statement entity exists with $200 box 4 amount but zero sales recorded; line 25b is $0",
+        "core": "decided",
+        "expected_disp": "computed_zero",
+        "expected_25b": 0.0,
+        "outcome": "success",
+        "disposition_25b": "computed_zero",
+        "line_25b": 0,
+        "blocked_reasons": [],
+        "matches_expected": true
+      }
+    ]
+  },
+  "scope3": {
+    "summary": {
+      "total_cases": 32,
+      "zero_published_cases": 8,
+      "positive_published_cases": 8,
+      "unrecorded_blocked_cases": 8,
+      "v82_only_blocked_cases": 8,
+      "matches_expected_cases": 32,
+      "all_match_expected": true
+    },
+    "cases": [
+      {
+        "case_id": "m_covered_st_zero",
+        "family": "covered-st",
+        "state": "zero",
+        "description": "covered-st with box 4 state 'zero' (expected computed_zero)",
+        "expected_disp": "computed_zero",
+        "expected_25b": 0.0,
+        "outcome": "success",
+        "disposition_25b": "computed_zero",
+        "line_25b": 0,
+        "blocked_reasons": [],
+        "matches_expected": true
+      },
+      {
+        "case_id": "m_covered_st_positive",
+        "family": "covered-st",
+        "state": "positive",
+        "description": "covered-st with box 4 state 'positive' (expected published_value)",
+        "expected_disp": "published_value",
+        "expected_25b": 120.0,
+        "outcome": "success",
+        "disposition_25b": "published_value",
+        "line_25b": 120,
+        "blocked_reasons": [],
+        "matches_expected": true
+      },
+      {
+        "case_id": "m_covered_st_unrecorded",
+        "family": "covered-st",
+        "state": "unrecorded",
+        "description": "covered-st with box 4 state 'unrecorded' (expected blocked)",
+        "expected_disp": "blocked",
+        "expected_25b": null,
+        "outcome": "success",
+        "disposition_25b": "blocked",
+        "line_25b": null,
+        "blocked_reasons": [
+          "Enter the federal income tax withheld in box 4 of each Form 1099-B or substitute statement you recorded a sale from. If box 4 is blank, enter $0."
+        ],
+        "matches_expected": true
+      },
+      {
+        "case_id": "m_covered_st_v82_only",
+        "family": "covered-st",
+        "state": "v82_only",
+        "description": "covered-st with box 4 state 'v82_only' (expected blocked)",
+        "expected_disp": "blocked",
+        "expected_25b": null,
+        "outcome": "success",
+        "disposition_25b": "blocked",
+        "line_25b": null,
+        "blocked_reasons": [
+          "Enter the federal income tax withheld in box 4 of each Form 1099-B or substitute statement you recorded a sale from. If box 4 is blank, enter $0."
+        ],
+        "matches_expected": true
+      },
+      {
+        "case_id": "m_covered_lt_zero",
+        "family": "covered-lt",
+        "state": "zero",
+        "description": "covered-lt with box 4 state 'zero' (expected computed_zero)",
+        "expected_disp": "computed_zero",
+        "expected_25b": 0.0,
+        "outcome": "success",
+        "disposition_25b": "computed_zero",
+        "line_25b": 0,
+        "blocked_reasons": [],
+        "matches_expected": true
+      },
+      {
+        "case_id": "m_covered_lt_positive",
+        "family": "covered-lt",
+        "state": "positive",
+        "description": "covered-lt with box 4 state 'positive' (expected published_value)",
+        "expected_disp": "published_value",
+        "expected_25b": 120.0,
+        "outcome": "success",
+        "disposition_25b": "published_value",
+        "line_25b": 120,
+        "blocked_reasons": [],
+        "matches_expected": true
+      },
+      {
+        "case_id": "m_covered_lt_unrecorded",
+        "family": "covered-lt",
+        "state": "unrecorded",
+        "description": "covered-lt with box 4 state 'unrecorded' (expected blocked)",
+        "expected_disp": "blocked",
+        "expected_25b": null,
+        "outcome": "success",
+        "disposition_25b": "blocked",
+        "line_25b": null,
+        "blocked_reasons": [
+          "Enter the federal income tax withheld in box 4 of each Form 1099-B or substitute statement you recorded a sale from. If box 4 is blank, enter $0."
+        ],
+        "matches_expected": true
+      },
+      {
+        "case_id": "m_covered_lt_v82_only",
+        "family": "covered-lt",
+        "state": "v82_only",
+        "description": "covered-lt with box 4 state 'v82_only' (expected blocked)",
+        "expected_disp": "blocked",
+        "expected_25b": null,
+        "outcome": "success",
+        "disposition_25b": "blocked",
+        "line_25b": null,
+        "blocked_reasons": [
+          "Enter the federal income tax withheld in box 4 of each Form 1099-B or substitute statement you recorded a sale from. If box 4 is blank, enter $0."
+        ],
+        "matches_expected": true
+      },
+      {
+        "case_id": "m_covered_w_st_zero",
+        "family": "covered-w-st",
+        "state": "zero",
+        "description": "covered-w-st with box 4 state 'zero' (expected computed_zero)",
+        "expected_disp": "computed_zero",
+        "expected_25b": 0.0,
+        "outcome": "success",
+        "disposition_25b": "computed_zero",
+        "line_25b": 0,
+        "blocked_reasons": [],
+        "matches_expected": true
+      },
+      {
+        "case_id": "m_covered_w_st_positive",
+        "family": "covered-w-st",
+        "state": "positive",
+        "description": "covered-w-st with box 4 state 'positive' (expected published_value)",
+        "expected_disp": "published_value",
+        "expected_25b": 120.0,
+        "outcome": "success",
+        "disposition_25b": "published_value",
+        "line_25b": 120,
+        "blocked_reasons": [],
+        "matches_expected": true
+      },
+      {
+        "case_id": "m_covered_w_st_unrecorded",
+        "family": "covered-w-st",
+        "state": "unrecorded",
+        "description": "covered-w-st with box 4 state 'unrecorded' (expected blocked)",
+        "expected_disp": "blocked",
+        "expected_25b": null,
+        "outcome": "success",
+        "disposition_25b": "blocked",
+        "line_25b": null,
+        "blocked_reasons": [
+          "Enter the federal income tax withheld in box 4 of each Form 1099-B or substitute statement you recorded a sale from. If box 4 is blank, enter $0."
+        ],
+        "matches_expected": true
+      },
+      {
+        "case_id": "m_covered_w_st_v82_only",
+        "family": "covered-w-st",
+        "state": "v82_only",
+        "description": "covered-w-st with box 4 state 'v82_only' (expected blocked)",
+        "expected_disp": "blocked",
+        "expected_25b": null,
+        "outcome": "success",
+        "disposition_25b": "blocked",
+        "line_25b": null,
+        "blocked_reasons": [
+          "Enter the federal income tax withheld in box 4 of each Form 1099-B or substitute statement you recorded a sale from. If box 4 is blank, enter $0."
+        ],
+        "matches_expected": true
+      },
+      {
+        "case_id": "m_covered_w_lt_zero",
+        "family": "covered-w-lt",
+        "state": "zero",
+        "description": "covered-w-lt with box 4 state 'zero' (expected computed_zero)",
+        "expected_disp": "computed_zero",
+        "expected_25b": 0.0,
+        "outcome": "success",
+        "disposition_25b": "computed_zero",
+        "line_25b": 0,
+        "blocked_reasons": [],
+        "matches_expected": true
+      },
+      {
+        "case_id": "m_covered_w_lt_positive",
+        "family": "covered-w-lt",
+        "state": "positive",
+        "description": "covered-w-lt with box 4 state 'positive' (expected published_value)",
+        "expected_disp": "published_value",
+        "expected_25b": 120.0,
+        "outcome": "success",
+        "disposition_25b": "published_value",
+        "line_25b": 120,
+        "blocked_reasons": [],
+        "matches_expected": true
+      },
+      {
+        "case_id": "m_covered_w_lt_unrecorded",
+        "family": "covered-w-lt",
+        "state": "unrecorded",
+        "description": "covered-w-lt with box 4 state 'unrecorded' (expected blocked)",
+        "expected_disp": "blocked",
+        "expected_25b": null,
+        "outcome": "success",
+        "disposition_25b": "blocked",
+        "line_25b": null,
+        "blocked_reasons": [
+          "Enter the federal income tax withheld in box 4 of each Form 1099-B or substitute statement you recorded a sale from. If box 4 is blank, enter $0."
+        ],
+        "matches_expected": true
+      },
+      {
+        "case_id": "m_covered_w_lt_v82_only",
+        "family": "covered-w-lt",
+        "state": "v82_only",
+        "description": "covered-w-lt with box 4 state 'v82_only' (expected blocked)",
+        "expected_disp": "blocked",
+        "expected_25b": null,
+        "outcome": "success",
+        "disposition_25b": "blocked",
+        "line_25b": null,
+        "blocked_reasons": [
+          "Enter the federal income tax withheld in box 4 of each Form 1099-B or substitute statement you recorded a sale from. If box 4 is blank, enter $0."
+        ],
+        "matches_expected": true
+      },
+      {
+        "case_id": "m_noncovered_st_zero",
+        "family": "noncovered-st",
+        "state": "zero",
+        "description": "noncovered-st with box 4 state 'zero' (expected computed_zero)",
+        "expected_disp": "computed_zero",
+        "expected_25b": 0.0,
+        "outcome": "success",
+        "disposition_25b": "computed_zero",
+        "line_25b": 0,
+        "blocked_reasons": [],
+        "matches_expected": true
+      },
+      {
+        "case_id": "m_noncovered_st_positive",
+        "family": "noncovered-st",
+        "state": "positive",
+        "description": "noncovered-st with box 4 state 'positive' (expected published_value)",
+        "expected_disp": "published_value",
+        "expected_25b": 120.0,
+        "outcome": "success",
+        "disposition_25b": "published_value",
+        "line_25b": 120,
+        "blocked_reasons": [],
+        "matches_expected": true
+      },
+      {
+        "case_id": "m_noncovered_st_unrecorded",
+        "family": "noncovered-st",
+        "state": "unrecorded",
+        "description": "noncovered-st with box 4 state 'unrecorded' (expected blocked)",
+        "expected_disp": "blocked",
+        "expected_25b": null,
+        "outcome": "success",
+        "disposition_25b": "blocked",
+        "line_25b": null,
+        "blocked_reasons": [
+          "Enter the federal income tax withheld in box 4 of each Form 1099-B or substitute statement you recorded a sale from. If box 4 is blank, enter $0."
+        ],
+        "matches_expected": true
+      },
+      {
+        "case_id": "m_noncovered_st_v82_only",
+        "family": "noncovered-st",
+        "state": "v82_only",
+        "description": "noncovered-st with box 4 state 'v82_only' (expected blocked)",
+        "expected_disp": "blocked",
+        "expected_25b": null,
+        "outcome": "success",
+        "disposition_25b": "blocked",
+        "line_25b": null,
+        "blocked_reasons": [
+          "Enter the federal income tax withheld in box 4 of each Form 1099-B or substitute statement you recorded a sale from. If box 4 is blank, enter $0."
+        ],
+        "matches_expected": true
+      },
+      {
+        "case_id": "m_noncovered_lt_zero",
+        "family": "noncovered-lt",
+        "state": "zero",
+        "description": "noncovered-lt with box 4 state 'zero' (expected computed_zero)",
+        "expected_disp": "computed_zero",
+        "expected_25b": 0.0,
+        "outcome": "success",
+        "disposition_25b": "computed_zero",
+        "line_25b": 0,
+        "blocked_reasons": [],
+        "matches_expected": true
+      },
+      {
+        "case_id": "m_noncovered_lt_positive",
+        "family": "noncovered-lt",
+        "state": "positive",
+        "description": "noncovered-lt with box 4 state 'positive' (expected published_value)",
+        "expected_disp": "published_value",
+        "expected_25b": 120.0,
+        "outcome": "success",
+        "disposition_25b": "published_value",
+        "line_25b": 120,
+        "blocked_reasons": [],
+        "matches_expected": true
+      },
+      {
+        "case_id": "m_noncovered_lt_unrecorded",
+        "family": "noncovered-lt",
+        "state": "unrecorded",
+        "description": "noncovered-lt with box 4 state 'unrecorded' (expected blocked)",
+        "expected_disp": "blocked",
+        "expected_25b": null,
+        "outcome": "success",
+        "disposition_25b": "blocked",
+        "line_25b": null,
+        "blocked_reasons": [
+          "Enter the federal income tax withheld in box 4 of each Form 1099-B or substitute statement you recorded a sale from. If box 4 is blank, enter $0."
+        ],
+        "matches_expected": true
+      },
+      {
+        "case_id": "m_noncovered_lt_v82_only",
+        "family": "noncovered-lt",
+        "state": "v82_only",
+        "description": "noncovered-lt with box 4 state 'v82_only' (expected blocked)",
+        "expected_disp": "blocked",
+        "expected_25b": null,
+        "outcome": "success",
+        "disposition_25b": "blocked",
+        "line_25b": null,
+        "blocked_reasons": [
+          "Enter the federal income tax withheld in box 4 of each Form 1099-B or substitute statement you recorded a sale from. If box 4 is blank, enter $0."
+        ],
+        "matches_expected": true
+      },
+      {
+        "case_id": "m_code_b_st_zero",
+        "family": "code-b-st",
+        "state": "zero",
+        "description": "code-b-st with box 4 state 'zero' (expected computed_zero)",
+        "expected_disp": "computed_zero",
+        "expected_25b": 0.0,
+        "outcome": "success",
+        "disposition_25b": "computed_zero",
+        "line_25b": 0,
+        "blocked_reasons": [],
+        "matches_expected": true
+      },
+      {
+        "case_id": "m_code_b_st_positive",
+        "family": "code-b-st",
+        "state": "positive",
+        "description": "code-b-st with box 4 state 'positive' (expected published_value)",
+        "expected_disp": "published_value",
+        "expected_25b": 120.0,
+        "outcome": "success",
+        "disposition_25b": "published_value",
+        "line_25b": 120,
+        "blocked_reasons": [],
+        "matches_expected": true
+      },
+      {
+        "case_id": "m_code_b_st_unrecorded",
+        "family": "code-b-st",
+        "state": "unrecorded",
+        "description": "code-b-st with box 4 state 'unrecorded' (expected blocked)",
+        "expected_disp": "blocked",
+        "expected_25b": null,
+        "outcome": "success",
+        "disposition_25b": "blocked",
+        "line_25b": null,
+        "blocked_reasons": [
+          "Enter the federal income tax withheld in box 4 of each Form 1099-B or substitute statement you recorded a sale from. If box 4 is blank, enter $0."
+        ],
+        "matches_expected": true
+      },
+      {
+        "case_id": "m_code_b_st_v82_only",
+        "family": "code-b-st",
+        "state": "v82_only",
+        "description": "code-b-st with box 4 state 'v82_only' (expected blocked)",
+        "expected_disp": "blocked",
+        "expected_25b": null,
+        "outcome": "success",
+        "disposition_25b": "blocked",
+        "line_25b": null,
+        "blocked_reasons": [
+          "Enter the federal income tax withheld in box 4 of each Form 1099-B or substitute statement you recorded a sale from. If box 4 is blank, enter $0."
+        ],
+        "matches_expected": true
+      },
+      {
+        "case_id": "m_code_b_lt_zero",
+        "family": "code-b-lt",
+        "state": "zero",
+        "description": "code-b-lt with box 4 state 'zero' (expected computed_zero)",
+        "expected_disp": "computed_zero",
+        "expected_25b": 0.0,
+        "outcome": "success",
+        "disposition_25b": "computed_zero",
+        "line_25b": 0,
+        "blocked_reasons": [],
+        "matches_expected": true
+      },
+      {
+        "case_id": "m_code_b_lt_positive",
+        "family": "code-b-lt",
+        "state": "positive",
+        "description": "code-b-lt with box 4 state 'positive' (expected published_value)",
+        "expected_disp": "published_value",
+        "expected_25b": 120.0,
+        "outcome": "success",
+        "disposition_25b": "published_value",
+        "line_25b": 120,
+        "blocked_reasons": [],
+        "matches_expected": true
+      },
+      {
+        "case_id": "m_code_b_lt_unrecorded",
+        "family": "code-b-lt",
+        "state": "unrecorded",
+        "description": "code-b-lt with box 4 state 'unrecorded' (expected blocked)",
+        "expected_disp": "blocked",
+        "expected_25b": null,
+        "outcome": "success",
+        "disposition_25b": "blocked",
+        "line_25b": null,
+        "blocked_reasons": [
+          "Enter the federal income tax withheld in box 4 of each Form 1099-B or substitute statement you recorded a sale from. If box 4 is blank, enter $0."
+        ],
+        "matches_expected": true
+      },
+      {
+        "case_id": "m_code_b_lt_v82_only",
+        "family": "code-b-lt",
+        "state": "v82_only",
+        "description": "code-b-lt with box 4 state 'v82_only' (expected blocked)",
+        "expected_disp": "blocked",
+        "expected_25b": null,
+        "outcome": "success",
+        "disposition_25b": "blocked",
+        "line_25b": null,
+        "blocked_reasons": [
+          "Enter the federal income tax withheld in box 4 of each Form 1099-B or substitute statement you recorded a sale from. If box 4 is blank, enter $0."
+        ],
+        "matches_expected": true
+      }
+    ]
+  },
+  "scope4": {
+    "summary": {
+      "total_cases": 5,
+      "trace1_step1_published": true,
+      "trace1_step2_blocked": true,
+      "trace1_step3_published": true,
+      "trace2_step1_published": true,
+      "trace2_step2_zero": true,
+      "matches_expected_cases": 5,
+      "all_match_expected": true
+    },
+    "cases": [
+      {
+        "case_id": "trace1_initial",
+        "description": "Trace 1 step 1: statement A has covered ST sale ($1,000 gain) and b4 amount $150; line 25b publishes $150",
+        "expected_disp": "published_value",
+        "expected_25b": 150.0,
+        "outcome": "success",
+        "disposition_25b": "published_value",
+        "line_25b": 150,
+        "blocked_reasons": [],
+        "matches_expected": true
+      },
+      {
+        "case_id": "trace1_new_stmt_unanswered",
+        "description": "Trace 1 step 2: sale added on new statement B; statement B b4 amount is missing; line 25b is blocked",
+        "expected_disp": "blocked",
+        "expected_25b": null,
+        "outcome": "success",
+        "disposition_25b": "blocked",
+        "line_25b": null,
+        "blocked_reasons": [
+          "Enter the federal income tax withheld in box 4 of each Form 1099-B or substitute statement you recorded a sale from. If box 4 is blank, enter $0."
+        ],
+        "matches_expected": true
+      },
+      {
+        "case_id": "trace1_new_stmt_answered",
+        "description": "Trace 1 step 3: statement B b4 amount answered $100; line 25b recomputes and publishes sum $250 ($150 + $100)",
+        "expected_disp": "published_value",
+        "expected_25b": 250.0,
+        "outcome": "success",
+        "disposition_25b": "published_value",
+        "line_25b": 250,
+        "blocked_reasons": [],
+        "matches_expected": true
+      },
+      {
+        "case_id": "trace2_initial",
+        "description": "Trace 2 step 1: statement A has covered ST sale ($1,000 gain) and b4 amount $200; line 25b publishes $200",
+        "expected_disp": "published_value",
+        "expected_25b": 200.0,
+        "outcome": "success",
+        "disposition_25b": "published_value",
+        "line_25b": 200,
+        "blocked_reasons": [],
+        "matches_expected": true
+      },
+      {
+        "case_id": "trace2_sale_removed",
+        "description": "Trace 2 step 2: sale removed; orphan statement A retains $200 b4 amount; sale count is 0; line 25b is $0",
+        "expected_disp": "computed_zero",
+        "expected_25b": 0.0,
+        "outcome": "success",
+        "disposition_25b": "computed_zero",
+        "line_25b": 0,
+        "blocked_reasons": [],
+        "matches_expected": true
+      }
+    ]
+  },
+  "scope5": {
+    "summary": {
+      "total_cases": 7,
+      "int_alone_matches": true,
+      "div_alone_matches": true,
+      "ira_alone_matches": true,
+      "unemp_alone_matches": true,
+      "ssa_alone_matches": true,
+      "all_five_alone_matches": true,
+      "all_with_b4_matches": true,
+      "matches_expected_cases": 7,
+      "all_match_expected": true
+    },
+    "cases": [
+      {
+        "case_id": "reuse_int_alone",
+        "description": "Form 1099-INT withholding $50 alone with zero sales; line 25b is $50",
+        "expected_disp": "published_value",
+        "expected_25b": 50.0,
+        "outcome": "success",
+        "disposition_25b": "published_value",
+        "line_25b": 50,
+        "blocked_reasons": [],
+        "matches_expected": true
+      },
+      {
+        "case_id": "reuse_div_alone",
+        "description": "Form 1099-DIV withholding $75 alone with zero sales; line 25b is $75",
+        "expected_disp": "published_value",
+        "expected_25b": 75.0,
+        "outcome": "success",
+        "disposition_25b": "published_value",
+        "line_25b": 75,
+        "blocked_reasons": [],
+        "matches_expected": true
+      },
+      {
+        "case_id": "reuse_ira_alone",
+        "description": "Form 1099-R withholding $80 alone with zero sales; line 25b is $80",
+        "expected_disp": "published_value",
+        "expected_25b": 80.0,
+        "outcome": "success",
+        "disposition_25b": "published_value",
+        "line_25b": 80,
+        "blocked_reasons": [],
+        "matches_expected": true
+      },
+      {
+        "case_id": "reuse_unemp_alone",
+        "description": "Form 1099-G withholding $90 alone with zero sales; line 25b is $90",
+        "expected_disp": "published_value",
+        "expected_25b": 90.0,
+        "outcome": "success",
+        "disposition_25b": "published_value",
+        "line_25b": 90,
+        "blocked_reasons": [],
+        "matches_expected": true
+      },
+      {
+        "case_id": "reuse_ssa_alone",
+        "description": "Form SSA-1099 box 6 withholding $60 alone with zero sales; line 25b is $60",
+        "expected_disp": "published_value",
+        "expected_25b": 60.0,
+        "outcome": "success",
+        "disposition_25b": "published_value",
+        "line_25b": 60,
+        "blocked_reasons": [],
+        "matches_expected": true
+      },
+      {
+        "case_id": "reuse_all_five_alone",
+        "description": "All five legacy 1099 subtotals ($355 total) with zero sales; line 25b is $355",
+        "expected_disp": "published_value",
+        "expected_25b": 355.0,
+        "outcome": "success",
+        "disposition_25b": "published_value",
+        "line_25b": 355,
+        "blocked_reasons": [],
+        "matches_expected": true
+      },
+      {
+        "case_id": "reuse_all_with_b4",
+        "description": "All five legacy 1099 subtotals ($355) beside Form 1099-B sale with b4 $100; line 25b is $455",
+        "expected_disp": "published_value",
+        "expected_25b": 455.0,
+        "outcome": "success",
+        "disposition_25b": "published_value",
+        "line_25b": 455,
+        "blocked_reasons": [],
+        "matches_expected": true
+      }
+    ]
+  },
+  "scope6": {
+    "summary": {
+      "total_returns": 213,
+      "returns_with_sales": 174,
+      "returns_without_sales": 39,
+      "reproduces_v82_fixture_count": 213,
+      "fixture_mismatch_ids": [],
+      "classes": {
+        "box4_unanswered_asks_amount": 150,
+        "identical": 63
+      },
+      "identical_cases": 63,
+      "box4_unanswered_cases": 150,
+      "counterexample_cases": 0,
+      "counterexample_ids": [],
+      "no_sales_changed_ids": [],
+      "four_no_sale_returns": {
+        "case/wage_q3_unanswered/recorded": {
+          "classification": "identical",
+          "has_sales": false,
+          "v82_disp_25b": "blocked",
+          "v83_disp_25b": "blocked",
+          "v82_blocked_reasons_25b": [
+            "Did any Form 1099-B or substitute statement you received show a cost or other basis, reported to the IRS, that is wrong?"
+          ],
+          "v83_blocked_reasons_25b": [
+            "Did any Form 1099-B or substitute statement you received show a cost or other basis, reported to the IRS, that is wrong?"
+          ],
+          "reproduces_v82_fixture": true
+        },
+        "v80/carried_one_exempt_dividend/recorded": {
+          "classification": "identical",
+          "has_sales": false,
+          "v82_disp_25b": "blocked",
+          "v83_disp_25b": "blocked",
+          "v82_blocked_reasons_25b": [
+            "Enter the federal income tax withheld in box 4 of each Form 1099-DIV you or your spouse received for 2025. If box 4 is blank, enter $0."
+          ],
+          "v83_blocked_reasons_25b": [
+            "Enter the federal income tax withheld in box 4 of each Form 1099-DIV you or your spouse received for 2025. If box 4 is blank, enter $0."
+          ],
+          "reproduces_v82_fixture": true
+        },
+        "v80/carried_one_foreign_tax/recorded": {
+          "classification": "identical",
+          "has_sales": false,
+          "v82_disp_25b": "blocked",
+          "v83_disp_25b": "blocked",
+          "v82_blocked_reasons_25b": [
+            "Enter the federal income tax withheld in box 4 of each Form 1099-DIV you or your spouse received for 2025. If box 4 is blank, enter $0."
+          ],
+          "v83_blocked_reasons_25b": [
+            "Enter the federal income tax withheld in box 4 of each Form 1099-DIV you or your spouse received for 2025. If box 4 is blank, enter $0."
+          ],
+          "reproduces_v82_fixture": true
+        },
+        "v80/carried_wage_unclosed/recorded": {
+          "classification": "identical",
+          "has_sales": false,
+          "v82_disp_25b": "blocked",
+          "v83_disp_25b": "blocked",
+          "v82_blocked_reasons_25b": [
+            "Did you sell any securities whose basis was not reported to the IRS?"
+          ],
+          "v83_blocked_reasons_25b": [
+            "Did you sell any securities whose basis was not reported to the IRS?"
+          ],
+          "reproduces_v82_fixture": true
+        }
+      },
+      "all_classified": true,
+      "all_reproduce_v82_fixture": true
+    },
+    "cases_file": "track0-rerun-output.json",
+    "cases_count": 213,
+    "sample_cases": [
+      {
+        "case_id": "case/a_8949_yes/recorded",
+        "classification": "box4_unanswered_asks_amount",
+        "has_sales": true,
+        "reproduces_v82_fixture": true,
+        "fixture_mismatch": null,
+        "v82_outcome": "success",
+        "v83_outcome": "success",
+        "v82_error": null,
+        "v83_error": null,
+        "v82_disp_25b": "computed_zero",
+        "v83_disp_25b": "blocked",
+        "v82_line_25b": 0,
+        "v83_line_25b": null,
+        "v82_blocked_reasons_25b": [],
+        "v83_blocked_reasons_25b": [
+          "Enter the federal income tax withheld in box 4 of each Form 1099-B or substitute statement you recorded a sale from. If box 4 is blank, enter $0."
+        ],
+        "diff_count": 9,
+        "diff_fields": [
+          "form1040.line-25b",
+          "form1040.line-25d"
+        ],
+        "unexpected_diffs": []
+      },
+      {
+        "case_id": "case/a_adjustment_row_missing/recorded",
+        "classification": "box4_unanswered_asks_amount",
+        "has_sales": true,
+        "reproduces_v82_fixture": true,
+        "fixture_mismatch": null,
+        "v82_outcome": "success",
+        "v83_outcome": "success",
+        "v82_error": null,
+        "v83_error": null,
+        "v82_disp_25b": "computed_zero",
+        "v83_disp_25b": "blocked",
+        "v82_line_25b": 0,
+        "v83_line_25b": null,
+        "v82_blocked_reasons_25b": [],
+        "v83_blocked_reasons_25b": [
+          "Enter the federal income tax withheld in box 4 of each Form 1099-B or substitute statement you recorded a sale from. If box 4 is blank, enter $0."
+        ],
+        "diff_count": 13,
+        "diff_fields": [
+          "form1040.line-25b",
+          "form1040.line-25d",
+          "form1040.line-33",
+          "form1040.line-34",
+          "form1040.line-35a",
+          "form1040.line-37"
+        ],
+        "unexpected_diffs": []
+      },
+      {
+        "case_id": "case/a_basis_row_missing/recorded",
+        "classification": "box4_unanswered_asks_amount",
+        "has_sales": true,
+        "reproduces_v82_fixture": true,
+        "fixture_mismatch": null,
+        "v82_outcome": "success",
+        "v83_outcome": "success",
+        "v82_error": null,
+        "v83_error": null,
+        "v82_disp_25b": "computed_zero",
+        "v83_disp_25b": "blocked",
+        "v82_line_25b": 0,
+        "v83_line_25b": null,
+        "v82_blocked_reasons_25b": [],
+        "v83_blocked_reasons_25b": [
+          "Enter the federal income tax withheld in box 4 of each Form 1099-B or substitute statement you recorded a sale from. If box 4 is blank, enter $0."
+        ],
+        "diff_count": 13,
+        "diff_fields": [
+          "form1040.line-25b",
+          "form1040.line-25d",
+          "form1040.line-33",
+          "form1040.line-34",
+          "form1040.line-35a",
+          "form1040.line-37"
+        ],
+        "unexpected_diffs": []
+      },
+      {
+        "case_id": "case/a_bw/recorded",
+        "classification": "box4_unanswered_asks_amount",
+        "has_sales": true,
+        "reproduces_v82_fixture": true,
+        "fixture_mismatch": null,
+        "v82_outcome": "success",
+        "v83_outcome": "success",
+        "v82_error": null,
+        "v83_error": null,
+        "v82_disp_25b": "computed_zero",
+        "v83_disp_25b": "blocked",
+        "v82_line_25b": 0,
+        "v83_line_25b": null,
+        "v82_blocked_reasons_25b": [],
+        "v83_blocked_reasons_25b": [
+          "Enter the federal income tax withheld in box 4 of each Form 1099-B or substitute statement you recorded a sale from. If box 4 is blank, enter $0."
+        ],
+        "diff_count": 25,
+        "diff_fields": [
+          "form1040.line-25b",
+          "form1040.line-25d",
+          "form1040.line-33",
+          "form1040.line-34",
+          "form1040.line-35a",
+          "form1040.line-37"
+        ],
+        "unexpected_diffs": []
+      },
+      {
+        "case_id": "case/a_corrected_basis_missing/recorded",
+        "classification": "identical",
+        "has_sales": true,
+        "reproduces_v82_fixture": true,
+        "fixture_mismatch": null,
+        "v82_outcome": "error",
+        "v83_outcome": "error",
+        "v82_error": "FindingModelError",
+        "v83_error": "FindingModelError",
+        "v82_disp_25b": null,
+        "v83_disp_25b": null,
+        "v82_line_25b": null,
+        "v83_line_25b": null,
+        "v82_blocked_reasons_25b": [],
+        "v83_blocked_reasons_25b": [],
+        "diff_count": 0,
+        "diff_fields": [],
+        "unexpected_diffs": []
+      },
+      {
+        "case_id": "case/m_8949_no_ic3_yes_q3_no/recorded",
+        "classification": "identical",
+        "has_sales": false,
+        "reproduces_v82_fixture": true,
+        "fixture_mismatch": null,
+        "v82_outcome": "success",
+        "v83_outcome": "success",
+        "v82_error": null,
+        "v83_error": null,
+        "v82_disp_25b": "computed_zero",
+        "v83_disp_25b": "computed_zero",
+        "v82_line_25b": 0,
+        "v83_line_25b": 0,
+        "v82_blocked_reasons_25b": [],
+        "v83_blocked_reasons_25b": [],
+        "diff_count": 0,
+        "diff_fields": [],
+        "unexpected_diffs": []
+      },
+      {
+        "case_id": "case/m_q3_yes_nothing_8949_yes/recorded",
+        "classification": "identical",
+        "has_sales": false,
+        "reproduces_v82_fixture": true,
+        "fixture_mismatch": null,
+        "v82_outcome": "success",
+        "v83_outcome": "success",
+        "v82_error": null,
+        "v83_error": null,
+        "v82_disp_25b": "computed_zero",
+        "v83_disp_25b": "computed_zero",
+        "v82_line_25b": 0,
+        "v83_line_25b": 0,
+        "v82_blocked_reasons_25b": [],
+        "v83_blocked_reasons_25b": [],
+        "diff_count": 0,
+        "diff_fields": [],
+        "unexpected_diffs": []
+      },
+      {
+        "case_id": "case/m_q3_yes_nothing_beside_c/recorded",
+        "classification": "identical",
+        "has_sales": false,
+        "reproduces_v82_fixture": true,
+        "fixture_mismatch": null,
+        "v82_outcome": "success",
+        "v83_outcome": "success",
+        "v82_error": null,
+        "v83_error": null,
+        "v82_disp_25b": "computed_zero",
+        "v83_disp_25b": "computed_zero",
+        "v82_line_25b": 0,
+        "v83_line_25b": 0,
+        "v82_blocked_reasons_25b": [],
+        "v83_blocked_reasons_25b": [],
+        "diff_count": 0,
+        "diff_fields": [],
+        "unexpected_diffs": []
+      },
+      {
+        "case_id": "case/q3_yes_nothing_recorded/recorded",
+        "classification": "identical",
+        "has_sales": false,
+        "reproduces_v82_fixture": true,
+        "fixture_mismatch": null,
+        "v82_outcome": "success",
+        "v83_outcome": "success",
+        "v82_error": null,
+        "v83_error": null,
+        "v82_disp_25b": "computed_zero",
+        "v83_disp_25b": "computed_zero",
+        "v82_line_25b": 0,
+        "v83_line_25b": 0,
+        "v82_blocked_reasons_25b": [],
+        "v83_blocked_reasons_25b": [],
+        "diff_count": 0,
+        "diff_fields": [],
+        "unexpected_diffs": []
+      },
+      {
+        "case_id": "case/wage_q3_no/recorded",
+        "classification": "identical",
+        "has_sales": false,
+        "reproduces_v82_fixture": true,
+        "fixture_mismatch": null,
+        "v82_outcome": "success",
+        "v83_outcome": "success",
+        "v82_error": null,
+        "v83_error": null,
+        "v82_disp_25b": "computed_zero",
+        "v83_disp_25b": "computed_zero",
+        "v82_line_25b": 0,
+        "v83_line_25b": 0,
+        "v82_blocked_reasons_25b": [],
+        "v83_blocked_reasons_25b": [],
+        "diff_count": 0,
+        "diff_fields": [],
+        "unexpected_diffs": []
+      }
+    ]
+  },
+  "scope7": {
+    "summary": {
+      "total_cases": 4,
+      "matches_expected_cases": 4,
+      "all_match_expected": true,
+      "all_presentation_valid": true,
+      "question_probe_matches": true,
+      "field_probe_matches": true,
+      "consumers_verified": [
+        "form1040.line-33",
+        "form1040.line-34",
+        "form1040.line-37"
+      ],
+      "paths_verified": [
+        "refund",
+        "owed",
+        "blocked_missing_b4",
+        "zero_no_sales"
+      ]
+    },
+    "presentation_probe": {
+      "field_probe": {
+        "expected": "Form 1040 line 25b: federal income tax withheld from Form(s) 1099 (Forms 1099-INT, 1099-DIV and 1099-R box 4, Form 1099-G box 4, Form SSA-1099 box 6, and Form 1099-B box 4 backup withholding).",
+        "actual_description": "Form 1040 line 25b: federal income tax withheld from Form(s) 1099 (Forms 1099-INT, 1099-DIV and 1099-R box 4, Form 1099-G box 4, Form SSA-1099 box 6, and Form 1099-B box 4 backup withholding).",
+        "description_matches": true
+      },
+      "question_probe": {
+        "expected": "Enter the federal income tax withheld in box 4 of each Form 1099-B or substitute statement you recorded a sale from. If box 4 is blank, enter $0.",
+        "actual_reasons": [
+          "Enter the federal income tax withheld in box 4 of each Form 1099-B or substitute statement you recorded a sale from. If box 4 is blank, enter $0."
+        ],
+        "question_matches": true
+      }
+    },
+    "cases": [
+      {
+        "case_id": "surface_published_refund",
+        "description": "Consumer path 1: Overpaid return (refund); line 25b $240 feeds line 33 ($4,740), line 34 refund ($745), line 37 ($0)",
+        "presentation_valid": true,
+        "lines": {
+          "form1040.line-25b": {
+            "disposition": "published_value",
+            "value": 240,
+            "blocked_reasons": []
+          },
+          "form1040.line-33": {
+            "disposition": "published_value",
+            "value": 4740,
+            "blocked_reasons": []
+          },
+          "form1040.line-34": {
+            "disposition": "published_value",
+            "value": 745,
+            "blocked_reasons": []
+          },
+          "form1040.line-37": {
+            "disposition": "computed_zero",
+            "value": 0,
+            "blocked_reasons": []
+          }
+        },
+        "matches_expected": true
+      },
+      {
+        "case_id": "surface_published_owed",
+        "description": "Consumer path 2: Underpaid return (amount owed); line 25b $240 feeds line 33 ($4,740), line 34 ($0), line 37 owed ($2,115)",
+        "presentation_valid": true,
+        "lines": {
+          "form1040.line-25b": {
+            "disposition": "published_value",
+            "value": 240,
+            "blocked_reasons": []
+          },
+          "form1040.line-33": {
+            "disposition": "published_value",
+            "value": 4740,
+            "blocked_reasons": []
+          },
+          "form1040.line-34": {
+            "disposition": "computed_zero",
+            "value": 0,
+            "blocked_reasons": []
+          },
+          "form1040.line-37": {
+            "disposition": "published_value",
+            "value": 2115,
+            "blocked_reasons": []
+          }
+        },
+        "matches_expected": true
+      },
+      {
+        "case_id": "surface_blocked_missing_b4",
+        "description": "Consumer path 3: Missing box 4 amount; line 25b blocked on DEPENDENCY_ABSENT, cascading to lines 33, 34, 37",
+        "presentation_valid": true,
+        "lines": {
+          "form1040.line-25b": {
+            "disposition": "blocked",
+            "value": null,
+            "blocked_reasons": [
+              "Enter the federal income tax withheld in box 4 of each Form 1099-B or substitute statement you recorded a sale from. If box 4 is blank, enter $0."
+            ]
+          },
+          "form1040.line-33": {
+            "disposition": "blocked",
+            "value": null,
+            "blocked_reasons": [
+              "Enter the federal income tax withheld in box 4 of each Form 1099-B or substitute statement you recorded a sale from. If box 4 is blank, enter $0."
+            ]
+          },
+          "form1040.line-34": {
+            "disposition": "blocked",
+            "value": null,
+            "blocked_reasons": [
+              "Enter the federal income tax withheld in box 4 of each Form 1099-B or substitute statement you recorded a sale from. If box 4 is blank, enter $0."
+            ]
+          },
+          "form1040.line-37": {
+            "disposition": "blocked",
+            "value": null,
+            "blocked_reasons": [
+              "Enter the federal income tax withheld in box 4 of each Form 1099-B or substitute statement you recorded a sale from. If box 4 is blank, enter $0."
+            ]
+          }
+        },
+        "matches_expected": true
+      },
+      {
+        "case_id": "surface_zero_no_sales",
+        "description": "Consumer path 4: Zero sales recorded; line 25b computes $0, line 33 ($4,500), line 34 refund ($625), line 37 ($0)",
+        "presentation_valid": true,
+        "lines": {
+          "form1040.line-25b": {
+            "disposition": "computed_zero",
+            "value": 0,
+            "blocked_reasons": []
+          },
+          "form1040.line-33": {
+            "disposition": "published_value",
+            "value": 4500,
+            "blocked_reasons": []
+          },
+          "form1040.line-34": {
+            "disposition": "published_value",
+            "value": 625,
+            "blocked_reasons": []
+          },
+          "form1040.line-37": {
+            "disposition": "computed_zero",
+            "value": 0,
+            "blocked_reasons": []
+          }
+        },
+        "matches_expected": true
+      }
+    ]
+  }
+}
