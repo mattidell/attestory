@@ -1,0 +1,69 @@
+{
+  "tax_year": 2025,
+  "sources": [
+    {
+      "document": "2025 Form 1099-B",
+      "sha256": "7e334cea66c2b2be3d88615a56db288a2805cb8705076b3b282a4eabbbd788ad"
+    },
+    {
+      "document": "2025 Instructions for Form 1099-B",
+      "sha256": "55bbe7df46f43f2c305481f303bc9e6518f5874766a2d183f2cb14dc0b91d745"
+    },
+    {
+      "document": "2025 Form 8949",
+      "sha256": "274513891e4e281d11e14286f14b9df724c24b6030fca0f0681da64fb2e7f525"
+    },
+    {
+      "document": "2025 Instructions for Form 8949",
+      "sha256": "f077991c83b086810c46cbad3755e0f126cb8dfd88cf8bf8ab2d5605d6e7ab45"
+    },
+    {
+      "document": "2025 Instructions for Schedule D (Form 1040)",
+      "sha256": "650643a686378b7573e4f4476ee4e7c9f9bab1384314dca32dc336f7b2276002"
+    }
+  ],
+  "quotes": [
+    {
+      "source": "2025 Form 1099-B, Copy B, box 7",
+      "text": "If checked, loss is not allowed based on amount in 1d."
+    },
+    {
+      "source": "2025 Form 1099-B, Instructions for Recipient, Box 7",
+      "text": "Box 7. If checked, you cannot take a loss on your tax return based on gross proceeds from a reportable change in control or capital structure reported in box 1d. See the Form 8949 and Schedule D (Form 1040) instructions. The broker should advise you of any losses on a separate statement."
+    },
+    {
+      "source": "2025 Instructions for Form 1099-B, Acquisition of control or substantial change in capital structure",
+      "text": "Enter in box 1d the aggregate amount of cash and the fair market value (FMV) of any stock and other property received in exchange for stock held in your custody. Also, check box 7."
+    },
+    {
+      "source": "2025 Instructions for Form 1099-B, Box 7",
+      "text": "Box 7. Check if Loss Not Allowed Based on Amount in Box 1d. See Acquisition of control or substantial change in capital structure, earlier."
+    },
+    {
+      "source": "2025 Instructions for Form 8949",
+      "text": "The 2025 Instructions for Form 8949 do not name box 7. Column (h) is figured per row: subtract the cost or other basis in column (e) from the proceeds in column (d), then take into account any adjustments in column (g). The code list sends Certain Nondeductible Losses to the Instructions for Schedule D (Form 1040)."
+    },
+    {
+      "source": "2025 Instructions for Form 8949, Column (h)—Gain (or Loss)",
+      "text": "Figure gain (or loss) on each row. First, subtract the cost or other basis in column (e) from the proceeds (sales price) in column (d). Then take into account any adjustments in column (g). Enter the gain (or loss) in column (h). Enter negative amounts in parentheses."
+    },
+    {
+      "source": "2025 Instructions for Schedule D (Form 1040), Example 2",
+      "text": "You received a Form 1099-B or Form 1099-DA. It shows proceeds (in box 1d on Form 1099-B or box 1f on Form 1099-DA) of $1,000 and basis (in box 1e on Form 1099-B or box 1g on Form 1099-DA) of $5,000. Box 7 on Form 1099-B or box 5 on Form 1099-DA is checked, indicating that your loss of $4,000 isn't allowed. If you received a Form 1099-B, on the top of Form 8949, check box A or box B in Part I or box D or box E in Part II (whichever applies). Enter $1,000 in column (d) and $5,000 in column (e). Because the loss isn't deductible, enter \"L\" in column (f) and $4,000 (the difference between $1,000 and $5,000) in column (g). In column (h), enter -0- ($1,000 − $5,000 + $4,000)."
+    },
+    {
+      "source": "2025 Instructions for Schedule D (Form 1040), Capital Losses",
+      "text": "You can deduct capital losses up to the amount of your capital gains plus $3,000 ($1,500 if married filing separately)."
+    },
+    {
+      "source": "2025 Instructions for Schedule D (Form 1040), Schedule D Tax Worksheet, line 15",
+      "text": "$48,350 if single or married filing separately. The worksheet is not used when line 15 or line 16 of Schedule D is zero or less and there are no qualified dividends; the instructions for Form 1040, line 16, apply instead. Amounts under $100,000 use the Tax Table."
+    }
+  ],
+  "reading": {
+    "loss": "A loss is column (h) strictly below zero after column (g). The Schedule D example's disallowed loss is proceeds minus basis, and the Form 8949 instructions add column (g) before column (h). A wash adjustment that brings column (h) to zero is not a loss. Exactly zero is not a loss.",
+    "what_the_instructions_do": "The Schedule D example reports the sale and enters code L for the disallowed amount so column (h) is zero. This milestone does not compute that adjustment. It refuses the return instead of publishing the loss or the code L zero.",
+    "gain_on_a_checked_statement": "The recipient instruction forbids taking a loss based on the box 1d proceeds. It does not forbid reporting a gain. A checked box 7 on a statement whose column (h) amounts are all gains or zero does not change the result.",
+    "hand_constants": "Single filer. Wages $50,000 and withholding $4,500 are the harness return. Standard deduction $15,750 and ordinary brackets 10% to $11,925, 12% to $48,475, and 22% to $103,350 are the adopted 2025 parameters (standard-deduction-base and ordinary-rate-schedule). The 0% preferential threshold $48,350 and the $3,000 loss limit are quoted above. Tax under $100,000 is the Tax Table tax on the band midpoint, rounded half up. Preferential tax applies only when the long-term net and line 16 are both gains."
+  }
+}
