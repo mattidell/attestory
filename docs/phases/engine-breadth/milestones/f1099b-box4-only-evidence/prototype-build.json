@@ -43,6 +43,6 @@
     ]
   ],
   "inherited_inconsistencies": [],
-  "present_question": "Did you receive a Form 1099-B or substitute statement that shows federal income tax withheld in box 4 and reports no closed sale (for example, a short sale still open at year end)?",
-  "amount_question": "Enter the federal income tax withheld in box 4 of Form 1099-B or substitute statements that report no closed sale. If more than one such statement, enter the total. If box 4 is blank, enter $0."
+  "present_question": "Did you receive a Form 1099-B or substitute statement that shows federal income tax withheld in box 4 and reports no closed sale (for example, a short sale still open at year end)? Do not count a statement whose box 4 you already entered with its sales.",
+  "amount_question": "Enter the federal income tax withheld in box 4 of Form 1099-B or substitute statements that report no closed sale. Do not include a statement whose box 4 you already entered with its sales. If more than one remaining statement, enter the total. If box 4 is blank, enter $0."
 }

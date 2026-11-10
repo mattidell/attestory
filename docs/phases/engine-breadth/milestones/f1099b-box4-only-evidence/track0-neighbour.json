@@ -1,0 +1,2175 @@
+{
+  "scope": "neighbour",
+  "core": "live-v84-and-live-v85",
+  "compared_to": "live v84 against live scratch v85; recorded answers, not substituted",
+  "answers": "recorded, not substituted; restore adds present=no on the 91",
+  "runs": 298,
+  "live_runs": 687,
+  "counts": {
+    "identical": 207,
+    "asks_no_sale_present": 91
+  },
+  "classes": {
+    "returns/case/a_8949_yes/recorded": "identical",
+    "returns/case/a_adjustment_row_missing/recorded": "identical",
+    "returns/case/a_basis_row_missing/recorded": "identical",
+    "returns/case/a_bw/recorded": "identical",
+    "returns/case/a_corrected_basis_missing/recorded": "identical",
+    "returns/case/a_duplicate_on_direct/recorded": "identical",
+    "returns/case/a_g_disagrees/recorded": "identical",
+    "returns/case/a_gain_to_loss/recorded": "identical",
+    "returns/case/a_high/recorded": "identical",
+    "returns/case/a_high_and_w_row/recorded": "identical",
+    "returns/case/a_holding_mismatch/recorded": "identical",
+    "returns/case/a_ic3_no/recorded": "identical",
+    "returns/case/a_ic3_unanswered/recorded": "identical",
+    "returns/case/a_no_correction/recorded": "identical",
+    "returns/case/a_path_b_unanswered/recorded": "identical",
+    "returns/case/a_proceeds_row_missing/recorded": "identical",
+    "returns/case/a_q3_no_with_member/recorded": "identical",
+    "returns/case/a_same_sale_both_terms/recorded": "identical",
+    "returns/case/a_w_exceeds_corrected_loss/recorded": "identical",
+    "returns/case/a_w_on_gain_after_correction/recorded": "identical",
+    "returns/case/b_code_b_ic3/recorded": "identical",
+    "returns/case/b_code_b_v80_route/recorded": "identical",
+    "returns/case/d_bw/recorded": "identical",
+    "returns/case/d_low/recorded": "identical",
+    "returns/case/late_member_after_no/recorded": "identical",
+    "returns/case/late_member_reanswered_yes/recorded": "identical",
+    "returns/case/m_8949_no_ic3_yes_q3_no/recorded": "asks_no_sale_present",
+    "returns/case/m_a_and_b/recorded": "identical",
+    "returns/case/m_a_and_b_q1_no/recorded": "identical",
+    "returns/case/m_a_c_ic3_no_v80_ic_yes/recorded": "identical",
+    "returns/case/m_a_c_ic3_unanswered_v80_ic_yes/recorded": "identical",
+    "returns/case/m_a_c_ic3_yes_v80_ic_no/recorded": "identical",
+    "returns/case/m_a_c_ic3_yes_v80_ic_yes/recorded": "identical",
+    "returns/case/m_a_q3_no_v80_ic_yes/recorded": "identical",
+    "returns/case/m_a_v79_ic_only/recorded": "identical",
+    "returns/case/m_a_v80_ic_only/recorded": "identical",
+    "returns/case/m_d_and_e/recorded": "identical",
+    "returns/case/m_d_ic3_no/recorded": "identical",
+    "returns/case/m_d_q3_no_with_member/recorded": "identical",
+    "returns/case/m_q3_yes_nothing_8949_yes/recorded": "asks_no_sale_present",
+    "returns/case/m_q3_yes_nothing_beside_b/recorded": "identical",
+    "returns/case/m_q3_yes_nothing_beside_c/recorded": "asks_no_sale_present",
+    "returns/case/m_q3_yes_nothing_beside_direct/recorded": "identical",
+    "returns/case/m_q3_yes_nothing_beside_w/recorded": "identical",
+    "returns/case/mixed_a_d_c_direct/recorded": "identical",
+    "returns/case/q3_yes_nothing_recorded/recorded": "asks_no_sale_present",
+    "returns/case/t1_stage1/recorded": "identical",
+    "returns/case/t1_stage2/recorded": "identical",
+    "returns/case/t1_stage3/recorded": "identical",
+    "returns/case/t1_stage4/recorded": "identical",
+    "returns/case/t2_stage0/recorded": "identical",
+    "returns/case/t2_stage1/recorded": "identical",
+    "returns/case/t2_stage2/recorded": "identical",
+    "returns/case/t2_stage3/recorded": "identical",
+    "returns/case/t2_stage4/recorded": "identical",
+    "returns/case/t2_stage4_keep_covered/recorded": "identical",
+    "returns/case/t3_stage0/recorded": "identical",
+    "returns/case/t3_stage1/recorded": "identical",
+    "returns/case/t3_stage2/recorded": "identical",
+    "returns/case/t3_stage3/recorded": "identical",
+    "returns/case/wage_q3_no/recorded": "asks_no_sale_present",
+    "returns/case/wage_q3_unanswered/recorded": "identical",
+    "returns/case/x_a_gain_d_loss/recorded": "identical",
+    "returns/case/x_a_loss_d_gain/recorded": "identical",
+    "returns/case/x_a_loss_to_gain/recorded": "identical",
+    "returns/case/x_basis_row_is_corrected/recorded": "identical",
+    "returns/case/x_bw_g_omits_w/recorded": "identical",
+    "returns/case/x_bw_w_equals_correct_loss/recorded": "identical",
+    "returns/case/x_bw_w_exceeds_correct_loss_within_shown/recorded": "identical",
+    "returns/case/x_corrected_basis_changed_g_fixed/recorded": "identical",
+    "returns/case/x_corrected_basis_changed_g_stale/recorded": "identical",
+    "returns/case/x_d_adjustment_row_missing/recorded": "identical",
+    "returns/case/x_d_basis_row_missing/recorded": "identical",
+    "returns/case/x_d_bw_w_exceeds_correct_loss/recorded": "identical",
+    "returns/case/x_d_gain_to_loss/recorded": "identical",
+    "returns/case/x_d_holding_mismatch/recorded": "identical",
+    "returns/case/x_d_loss_to_gain/recorded": "identical",
+    "returns/case/x_d_proceeds_row_missing/recorded": "identical",
+    "returns/case/x_d_zero_proceeds_zero_shown/recorded": "identical",
+    "returns/case/x_dup_box_c_ic3_no/recorded": "identical",
+    "returns/case/x_dup_box_c_ic3_yes/recorded": "identical",
+    "returns/case/x_dup_covered_lt/recorded": "identical",
+    "returns/case/x_dup_covered_st/recorded": "identical",
+    "returns/case/x_dup_covered_w_lt/recorded": "identical",
+    "returns/case/x_dup_covered_w_st/recorded": "identical",
+    "returns/case/x_dup_noncovered_lt/recorded": "identical",
+    "returns/case/x_dup_noncovered_st/recorded": "identical",
+    "returns/case/x_g_sign_flipped/recorded": "identical",
+    "returns/case/x_no_correction_with_w/recorded": "identical",
+    "returns/case/x_path_b_yes/recorded": "identical",
+    "returns/case/x_q3_no_late_both_terms/recorded": "identical",
+    "returns/case/x_q3_no_late_both_terms_reanswered/recorded": "identical",
+    "returns/case/x_q3_yes_late_member/recorded": "identical",
+    "returns/case/x_q3_yes_late_member_reanswered/recorded": "identical",
+    "returns/case/x_remove_sale_keep_rows/recorded": "identical",
+    "returns/case/x_shared_transaction_complete/recorded": "identical",
+    "returns/case/x_shared_transaction_missing_g/recorded": "identical",
+    "returns/case/x_zero_proceeds_zero_shown/recorded": "identical",
+    "returns/neighbour/n_b_zero_proceeds/recorded": "identical",
+    "returns/neighbour/n_b_zero_proceeds_zero_basis/recorded": "identical",
+    "returns/neighbour/n_covered_lt_collectibles_yes/recorded": "identical",
+    "returns/neighbour/n_covered_lt_market_discount_yes/recorded": "identical",
+    "returns/neighbour/n_covered_lt_qof_yes/recorded": "identical",
+    "returns/neighbour/n_covered_lt_tsa_yes/recorded": "identical",
+    "returns/neighbour/n_covered_lt_zero_proceeds/recorded": "identical",
+    "returns/neighbour/n_covered_st_ordinary_yes/recorded": "identical",
+    "returns/neighbour/n_covered_st_zero_proceeds/recorded": "identical",
+    "returns/neighbour/n_covered_st_zero_proceeds_zero_basis/recorded": "identical",
+    "returns/neighbour/n_covered_tsa_no/recorded": "identical",
+    "returns/neighbour/n_covered_tsa_yes_no8949/recorded": "identical",
+    "returns/neighbour/n_dup_b_and_covered_lt/recorded": "identical",
+    "returns/neighbour/n_dup_b_and_e/recorded": "identical",
+    "returns/neighbour/n_dup_covered_st_and_covered_lt/recorded": "identical",
+    "returns/neighbour/n_dup_covered_st_and_w_lt/recorded": "identical",
+    "returns/neighbour/n_dup_e_and_covered_st/recorded": "identical",
+    "returns/neighbour/n_dup_w_st_and_covered_lt/recorded": "identical",
+    "returns/neighbour/n_dup_w_st_and_w_lt/recorded": "identical",
+    "returns/neighbour/n_e_zero_proceeds/recorded": "identical",
+    "returns/neighbour/n_two_b_and_covered_lt/recorded": "identical",
+    "returns/neighbour/n_two_covered_st_and_covered_lt/recorded": "identical",
+    "returns/neighbour/n_two_w_st_and_w_lt/recorded": "identical",
+    "returns/neighbour/n_w_lt_collectibles_yes/recorded": "identical",
+    "returns/neighbour/n_w_lt_zero_proceeds/recorded": "identical",
+    "returns/neighbour/n_w_st_tsa_yes/recorded": "identical",
+    "returns/neighbour/n_w_zero_proceeds/recorded": "identical",
+    "returns/v80/carried_boundary_no_with_member/recorded": "identical",
+    "returns/v80/carried_boundary_no_without_member/recorded": "asks_no_sale_present",
+    "returns/v80/carried_code_w_on_gain/recorded": "identical",
+    "returns/v80/carried_covered_both_boundaries_no/recorded": "identical",
+    "returns/v80/carried_covered_flag_corrected_to_no/recorded": "identical",
+    "returns/v80/carried_covered_flag_corrected_to_yes/recorded": "identical",
+    "returns/v80/carried_covered_flag_no_path_a/recorded": "identical",
+    "returns/v80/carried_covered_flag_no_st/recorded": "identical",
+    "returns/v80/carried_covered_flag_no_w_lt/recorded": "identical",
+    "returns/v80/carried_covered_flag_no_w_st/recorded": "identical",
+    "returns/v80/carried_duplicate_horizon/recorded": "identical",
+    "returns/v80/carried_late_member_reopened/recorded": "identical",
+    "returns/v80/carried_late_member_unclosed/recorded": "identical",
+    "returns/v80/carried_late_yes_stale/recorded": "identical",
+    "returns/v80/carried_one_exempt_dividend/recorded": "identical",
+    "returns/v80/carried_one_foreign_tax/recorded": "identical",
+    "returns/v80/carried_one_part_ii_b/recorded": "asks_no_sale_present",
+    "returns/v80/carried_one_student_loan/recorded": "asks_no_sale_present",
+    "returns/v80/carried_probe_c_loss_on_b_in_class_no/recorded": "identical",
+    "returns/v80/carried_probe_c_loss_on_b_in_class_yes/recorded": "identical",
+    "returns/v80/carried_probe_c_unrecorded_8949_no/recorded": "asks_no_sale_present",
+    "returns/v80/carried_probe_c_wash_on_b_in_class_no/recorded": "identical",
+    "returns/v80/carried_probe_c_wash_on_b_in_class_yes/recorded": "identical",
+    "returns/v80/carried_probe_e_basis_object_missing/recorded": "identical",
+    "returns/v80/carried_probe_e_basis_scalar_missing/recorded": "identical",
+    "returns/v80/carried_probe_e_proceeds_scalar_missing/recorded": "identical",
+    "returns/v80/carried_probe_f_gain_on_e_in_class_no/recorded": "identical",
+    "returns/v80/carried_probe_mixed_abcf_in_class_no/recorded": "identical",
+    "returns/v80/carried_probe_mixed_abcf_in_class_yes/recorded": "identical",
+    "returns/v80/carried_t0_b_loss_8949_yes/recorded": "identical",
+    "returns/v80/carried_t0_b_w_scalar_only_on_gain/recorded": "identical",
+    "returns/v80/carried_wage_unclosed/recorded": "identical",
+    "returns/v80/carried_wash/recorded": "identical",
+    "returns/v80/carried_yes_then_no_with_member/recorded": "identical",
+    "returns/v80/probe_a_bw_on_w_broker/recorded": "identical",
+    "returns/v80/probe_a_bw_on_w_fixed/recorded": "identical",
+    "returns/v80/probe_a_bw_on_w_fixed_path_b_yes/recorded": "identical",
+    "returns/v80/probe_a_high_direct_broker_honest/recorded": "identical",
+    "returns/v80/probe_a_high_direct_broker_no8949/recorded": "identical",
+    "returns/v80/probe_a_high_direct_fixed_honest/recorded": "identical",
+    "returns/v80/probe_a_high_direct_fixed_no8949/recorded": "identical",
+    "returns/v80/probe_a_high_on_b_fixed/recorded": "identical",
+    "returns/v80/probe_a_high_on_w_broker/recorded": "identical",
+    "returns/v80/probe_a_loss_direct_broker_no8949/recorded": "identical",
+    "returns/v80/probe_a_loss_direct_fixed_no8949/recorded": "identical",
+    "returns/v80/probe_a_loss_on_b_fixed/recorded": "identical",
+    "returns/v80/probe_b_code_b_on_b/recorded": "identical",
+    "returns/v80/probe_d_low_direct_broker_honest/recorded": "identical",
+    "returns/v80/probe_d_low_direct_fixed_no8949/recorded": "identical",
+    "returns/v80/probe_d_low_on_e_fixed/recorded": "identical",
+    "returns/v80/v80_c_and_f_same_sale/recorded": "asks_no_sale_present",
+    "returns/v80/v80_c_basis_missing/recorded": "asks_no_sale_present",
+    "returns/v80/v80_c_basis_object_missing/recorded": "identical",
+    "returns/v80/v80_c_code_w_on_gain/recorded": "asks_no_sale_present",
+    "returns/v80/v80_c_loss/recorded": "asks_no_sale_present",
+    "returns/v80/v80_c_loss_path_b_unanswered/recorded": "asks_no_sale_present",
+    "returns/v80/v80_c_proceeds_missing/recorded": "asks_no_sale_present",
+    "returns/v80/v80_c_wash/recorded": "asks_no_sale_present",
+    "returns/v80/v80_d3_b_basis_missing/recorded": "identical",
+    "returns/v80/v80_d3_b_code_w_on_gain/recorded": "identical",
+    "returns/v80/v80_d3_b_orphan_basis/recorded": "identical",
+    "returns/v80/v80_d3_b_proceeds_missing/recorded": "identical",
+    "returns/v80/v80_dup_b_and_c_ic_no/recorded": "identical",
+    "returns/v80/v80_dup_b_and_c_ic_yes/recorded": "identical",
+    "returns/v80/v80_f_gain/recorded": "asks_no_sale_present",
+    "returns/v80/v80_f_gain_new_ic_no/recorded": "asks_no_sale_present",
+    "returns/v80/v80_f_gain_new_ic_unanswered/recorded": "asks_no_sale_present",
+    "returns/v80/v80_f_gain_path_b_unanswered/recorded": "asks_no_sale_present",
+    "returns/v80/v80_f_gain_q2_no_with_member/recorded": "asks_no_sale_present",
+    "returns/v80/v80_f_holding_mismatch/recorded": "asks_no_sale_present",
+    "returns/v80/v80_m_b_q1_no_with_member/recorded": "identical",
+    "returns/v80/v80_m_bf_yes_yes/recorded": "identical",
+    "returns/v80/v80_m_c_8949_yes_pathb_no/recorded": "asks_no_sale_present",
+    "returns/v80/v80_m_c_new_ic_no/recorded": "asks_no_sale_present",
+    "returns/v80/v80_m_c_q2_no_with_member/recorded": "asks_no_sale_present",
+    "returns/v80/v80_m_e_yes_q2_yes_nothing/recorded": "identical",
+    "returns/v80/v80_m_f_q1_yes_nothing/recorded": "asks_no_sale_present",
+    "returns/v80/v80_mixed_abcf/recorded": "identical",
+    "returns/v80/v80_q2_late_yes_reanswered/recorded": "asks_no_sale_present",
+    "returns/v80/v80_q2_late_yes_stale/recorded": "asks_no_sale_present",
+    "returns/v80/v80_t1_stage2/recorded": "asks_no_sale_present",
+    "returns/v80/v80_t1_stage3/recorded": "asks_no_sale_present",
+    "returns/v80/v80_t2_stage0/recorded": "identical",
+    "returns/v80/v80_t2_stage1/recorded": "identical",
+    "returns/v80/v80_t2_stage2/recorded": "identical",
+    "returns/v80/v80_t2_stage3/recorded": "identical",
+    "returns/v80/v80_w_c_amounts_disagree/recorded": "asks_no_sale_present",
+    "returns/v80/v80_wage_q2_unanswered/recorded": "asks_no_sale_present",
+    "track0/s0/b4_amount_no_answer": "identical",
+    "track0/s0/b4_answer_no_amount": "asks_no_sale_present",
+    "track0/s0/b4_beside_int_div": "asks_no_sale_present",
+    "track0/s0/b4_extra_statement_no_sales": "asks_no_sale_present",
+    "track0/s0/b4_no_one_statement": "asks_no_sale_present",
+    "track0/s0/b4_no_sales": "asks_no_sale_present",
+    "track0/s0/b4_no_with_amount": "asks_no_sale_present",
+    "track0/s0/b4_one_statement": "asks_no_sale_present",
+    "track0/s0/b4_orphan_150": "asks_no_sale_present",
+    "track0/s0/b4_orphan_beside_sale": "asks_no_sale_present",
+    "track0/s0/b4_st_and_lt": "asks_no_sale_present",
+    "track0/s0/b4_statement_removed": "asks_no_sale_present",
+    "track0/s0/b4_two_statements": "asks_no_sale_present",
+    "track0/s0/b4_two_statements_both_no": "asks_no_sale_present",
+    "track0/s0/b4_two_statements_both_yes": "asks_no_sale_present",
+    "track0/s0/b4_two_statements_one_unanswered": "identical",
+    "track0/s0/b4_two_statements_one_yes": "asks_no_sale_present",
+    "track0/s0/b4_yes_codeb": "asks_no_sale_present",
+    "track0/s0/b4_yes_covered": "asks_no_sale_present",
+    "track0/s0/b4_yes_noncovered": "asks_no_sale_present",
+    "track0/s0/b4_yes_w": "asks_no_sale_present",
+    "track0/s1/d2_mixed_statements": "identical",
+    "track0/s1/d2_single_v82_no": "identical",
+    "track0/s1/d2_two_statements_both_v82_no": "identical",
+    "track0/s1/d2_unanswered_statement": "identical",
+    "track0/s2/alc_b4_amount_missing": "identical",
+    "track0/s2/alc_b4_amount_superseded": "asks_no_sale_present",
+    "track0/s2/alc_b4_amount_valid": "asks_no_sale_present",
+    "track0/s2/alc_count_positive": "asks_no_sale_present",
+    "track0/s2/alc_count_transition": "asks_no_sale_present",
+    "track0/s2/alc_stmt_orphan": "asks_no_sale_present",
+    "track0/s2/alc_v82_answer_on_v83": "identical",
+    "track0/s3/m_code_b_lt_positive": "asks_no_sale_present",
+    "track0/s3/m_code_b_lt_unrecorded": "identical",
+    "track0/s3/m_code_b_lt_v82_only": "identical",
+    "track0/s3/m_code_b_lt_zero": "asks_no_sale_present",
+    "track0/s3/m_code_b_st_positive": "asks_no_sale_present",
+    "track0/s3/m_code_b_st_unrecorded": "identical",
+    "track0/s3/m_code_b_st_v82_only": "identical",
+    "track0/s3/m_code_b_st_zero": "asks_no_sale_present",
+    "track0/s3/m_covered_lt_positive": "asks_no_sale_present",
+    "track0/s3/m_covered_lt_unrecorded": "identical",
+    "track0/s3/m_covered_lt_v82_only": "identical",
+    "track0/s3/m_covered_lt_zero": "asks_no_sale_present",
+    "track0/s3/m_covered_st_positive": "asks_no_sale_present",
+    "track0/s3/m_covered_st_unrecorded": "identical",
+    "track0/s3/m_covered_st_v82_only": "identical",
+    "track0/s3/m_covered_st_zero": "asks_no_sale_present",
+    "track0/s3/m_covered_w_lt_positive": "asks_no_sale_present",
+    "track0/s3/m_covered_w_lt_unrecorded": "identical",
+    "track0/s3/m_covered_w_lt_v82_only": "identical",
+    "track0/s3/m_covered_w_lt_zero": "asks_no_sale_present",
+    "track0/s3/m_covered_w_st_positive": "asks_no_sale_present",
+    "track0/s3/m_covered_w_st_unrecorded": "identical",
+    "track0/s3/m_covered_w_st_v82_only": "identical",
+    "track0/s3/m_covered_w_st_zero": "asks_no_sale_present",
+    "track0/s3/m_noncovered_lt_positive": "asks_no_sale_present",
+    "track0/s3/m_noncovered_lt_unrecorded": "identical",
+    "track0/s3/m_noncovered_lt_v82_only": "identical",
+    "track0/s3/m_noncovered_lt_zero": "asks_no_sale_present",
+    "track0/s3/m_noncovered_st_positive": "asks_no_sale_present",
+    "track0/s3/m_noncovered_st_unrecorded": "identical",
+    "track0/s3/m_noncovered_st_v82_only": "identical",
+    "track0/s3/m_noncovered_st_zero": "asks_no_sale_present",
+    "track0/s4/trace1_initial": "asks_no_sale_present",
+    "track0/s4/trace1_new_stmt_answered": "asks_no_sale_present",
+    "track0/s4/trace1_new_stmt_unanswered": "identical",
+    "track0/s4/trace2_initial": "asks_no_sale_present",
+    "track0/s4/trace2_sale_removed": "asks_no_sale_present",
+    "track0/s5/reuse_all_five_alone": "asks_no_sale_present",
+    "track0/s5/reuse_all_with_b4": "asks_no_sale_present",
+    "track0/s5/reuse_div_alone": "asks_no_sale_present",
+    "track0/s5/reuse_int_alone": "asks_no_sale_present",
+    "track0/s5/reuse_ira_alone": "asks_no_sale_present",
+    "track0/s5/reuse_ssa_alone": "asks_no_sale_present",
+    "track0/s5/reuse_unemp_alone": "asks_no_sale_present",
+    "track0/s7/surface_blocked_missing_b4": "identical",
+    "track0/s7/surface_published_owed": "asks_no_sale_present",
+    "track0/s7/surface_published_refund": "asks_no_sale_present",
+    "zero/case/a_8949_yes/recorded": "asks_no_sale_present",
+    "zero/case/m_a_v80_ic_only/recorded": "asks_no_sale_present",
+    "zero/case/x_d_gain_to_loss/recorded": "asks_no_sale_present",
+    "zero/neighbour/n_covered_st_zero_proceeds_zero_basis/recorded": "asks_no_sale_present",
+    "zero/v80/carried_t0_b_loss_8949_yes/recorded": "asks_no_sale_present",
+    "zero/v80/v80_t2_stage3/recorded": "asks_no_sale_present"
+  },
+  "asks_no_sale_present_ids": [
+    "returns/case/m_8949_no_ic3_yes_q3_no/recorded",
+    "returns/case/m_q3_yes_nothing_8949_yes/recorded",
+    "returns/case/m_q3_yes_nothing_beside_c/recorded",
+    "returns/case/q3_yes_nothing_recorded/recorded",
+    "returns/case/wage_q3_no/recorded",
+    "returns/v80/carried_boundary_no_without_member/recorded",
+    "returns/v80/carried_one_part_ii_b/recorded",
+    "returns/v80/carried_one_student_loan/recorded",
+    "returns/v80/carried_probe_c_unrecorded_8949_no/recorded",
+    "returns/v80/v80_c_and_f_same_sale/recorded",
+    "returns/v80/v80_c_basis_missing/recorded",
+    "returns/v80/v80_c_code_w_on_gain/recorded",
+    "returns/v80/v80_c_loss/recorded",
+    "returns/v80/v80_c_loss_path_b_unanswered/recorded",
+    "returns/v80/v80_c_proceeds_missing/recorded",
+    "returns/v80/v80_c_wash/recorded",
+    "returns/v80/v80_f_gain/recorded",
+    "returns/v80/v80_f_gain_new_ic_no/recorded",
+    "returns/v80/v80_f_gain_new_ic_unanswered/recorded",
+    "returns/v80/v80_f_gain_path_b_unanswered/recorded",
+    "returns/v80/v80_f_gain_q2_no_with_member/recorded",
+    "returns/v80/v80_f_holding_mismatch/recorded",
+    "returns/v80/v80_m_c_8949_yes_pathb_no/recorded",
+    "returns/v80/v80_m_c_new_ic_no/recorded",
+    "returns/v80/v80_m_c_q2_no_with_member/recorded",
+    "returns/v80/v80_m_f_q1_yes_nothing/recorded",
+    "returns/v80/v80_q2_late_yes_reanswered/recorded",
+    "returns/v80/v80_q2_late_yes_stale/recorded",
+    "returns/v80/v80_t1_stage2/recorded",
+    "returns/v80/v80_t1_stage3/recorded",
+    "returns/v80/v80_w_c_amounts_disagree/recorded",
+    "returns/v80/v80_wage_q2_unanswered/recorded",
+    "track0/s0/b4_answer_no_amount",
+    "track0/s0/b4_beside_int_div",
+    "track0/s0/b4_extra_statement_no_sales",
+    "track0/s0/b4_no_one_statement",
+    "track0/s0/b4_no_sales",
+    "track0/s0/b4_no_with_amount",
+    "track0/s0/b4_one_statement",
+    "track0/s0/b4_orphan_150",
+    "track0/s0/b4_orphan_beside_sale",
+    "track0/s0/b4_st_and_lt",
+    "track0/s0/b4_statement_removed",
+    "track0/s0/b4_two_statements",
+    "track0/s0/b4_two_statements_both_no",
+    "track0/s0/b4_two_statements_both_yes",
+    "track0/s0/b4_two_statements_one_yes",
+    "track0/s0/b4_yes_codeb",
+    "track0/s0/b4_yes_covered",
+    "track0/s0/b4_yes_noncovered",
+    "track0/s0/b4_yes_w",
+    "track0/s2/alc_b4_amount_superseded",
+    "track0/s2/alc_b4_amount_valid",
+    "track0/s2/alc_count_positive",
+    "track0/s2/alc_count_transition",
+    "track0/s2/alc_stmt_orphan",
+    "track0/s3/m_code_b_lt_positive",
+    "track0/s3/m_code_b_lt_zero",
+    "track0/s3/m_code_b_st_positive",
+    "track0/s3/m_code_b_st_zero",
+    "track0/s3/m_covered_lt_positive",
+    "track0/s3/m_covered_lt_zero",
+    "track0/s3/m_covered_st_positive",
+    "track0/s3/m_covered_st_zero",
+    "track0/s3/m_covered_w_lt_positive",
+    "track0/s3/m_covered_w_lt_zero",
+    "track0/s3/m_covered_w_st_positive",
+    "track0/s3/m_covered_w_st_zero",
+    "track0/s3/m_noncovered_lt_positive",
+    "track0/s3/m_noncovered_lt_zero",
+    "track0/s3/m_noncovered_st_positive",
+    "track0/s3/m_noncovered_st_zero",
+    "track0/s4/trace1_initial",
+    "track0/s4/trace1_new_stmt_answered",
+    "track0/s4/trace2_initial",
+    "track0/s4/trace2_sale_removed",
+    "track0/s5/reuse_all_five_alone",
+    "track0/s5/reuse_all_with_b4",
+    "track0/s5/reuse_div_alone",
+    "track0/s5/reuse_int_alone",
+    "track0/s5/reuse_ira_alone",
+    "track0/s5/reuse_ssa_alone",
+    "track0/s5/reuse_unemp_alone",
+    "track0/s7/surface_published_owed",
+    "track0/s7/surface_published_refund",
+    "zero/case/a_8949_yes/recorded",
+    "zero/case/m_a_v80_ic_only/recorded",
+    "zero/case/x_d_gain_to_loss/recorded",
+    "zero/neighbour/n_covered_st_zero_proceeds_zero_basis/recorded",
+    "zero/v80/carried_t0_b_loss_8949_yes/recorded",
+    "zero/v80/v80_t2_stage3/recorded"
+  ],
+  "identical_ids": [
+    "returns/case/a_8949_yes/recorded",
+    "returns/case/a_adjustment_row_missing/recorded",
+    "returns/case/a_basis_row_missing/recorded",
+    "returns/case/a_bw/recorded",
+    "returns/case/a_corrected_basis_missing/recorded",
+    "returns/case/a_duplicate_on_direct/recorded",
+    "returns/case/a_g_disagrees/recorded",
+    "returns/case/a_gain_to_loss/recorded",
+    "returns/case/a_high/recorded",
+    "returns/case/a_high_and_w_row/recorded",
+    "returns/case/a_holding_mismatch/recorded",
+    "returns/case/a_ic3_no/recorded",
+    "returns/case/a_ic3_unanswered/recorded",
+    "returns/case/a_no_correction/recorded",
+    "returns/case/a_path_b_unanswered/recorded",
+    "returns/case/a_proceeds_row_missing/recorded",
+    "returns/case/a_q3_no_with_member/recorded",
+    "returns/case/a_same_sale_both_terms/recorded",
+    "returns/case/a_w_exceeds_corrected_loss/recorded",
+    "returns/case/a_w_on_gain_after_correction/recorded",
+    "returns/case/b_code_b_ic3/recorded",
+    "returns/case/b_code_b_v80_route/recorded",
+    "returns/case/d_bw/recorded",
+    "returns/case/d_low/recorded",
+    "returns/case/late_member_after_no/recorded",
+    "returns/case/late_member_reanswered_yes/recorded",
+    "returns/case/m_a_and_b/recorded",
+    "returns/case/m_a_and_b_q1_no/recorded",
+    "returns/case/m_a_c_ic3_no_v80_ic_yes/recorded",
+    "returns/case/m_a_c_ic3_unanswered_v80_ic_yes/recorded",
+    "returns/case/m_a_c_ic3_yes_v80_ic_no/recorded",
+    "returns/case/m_a_c_ic3_yes_v80_ic_yes/recorded",
+    "returns/case/m_a_q3_no_v80_ic_yes/recorded",
+    "returns/case/m_a_v79_ic_only/recorded",
+    "returns/case/m_a_v80_ic_only/recorded",
+    "returns/case/m_d_and_e/recorded",
+    "returns/case/m_d_ic3_no/recorded",
+    "returns/case/m_d_q3_no_with_member/recorded",
+    "returns/case/m_q3_yes_nothing_beside_b/recorded",
+    "returns/case/m_q3_yes_nothing_beside_direct/recorded",
+    "returns/case/m_q3_yes_nothing_beside_w/recorded",
+    "returns/case/mixed_a_d_c_direct/recorded",
+    "returns/case/t1_stage1/recorded",
+    "returns/case/t1_stage2/recorded",
+    "returns/case/t1_stage3/recorded",
+    "returns/case/t1_stage4/recorded",
+    "returns/case/t2_stage0/recorded",
+    "returns/case/t2_stage1/recorded",
+    "returns/case/t2_stage2/recorded",
+    "returns/case/t2_stage3/recorded",
+    "returns/case/t2_stage4/recorded",
+    "returns/case/t2_stage4_keep_covered/recorded",
+    "returns/case/t3_stage0/recorded",
+    "returns/case/t3_stage1/recorded",
+    "returns/case/t3_stage2/recorded",
+    "returns/case/t3_stage3/recorded",
+    "returns/case/wage_q3_unanswered/recorded",
+    "returns/case/x_a_gain_d_loss/recorded",
+    "returns/case/x_a_loss_d_gain/recorded",
+    "returns/case/x_a_loss_to_gain/recorded",
+    "returns/case/x_basis_row_is_corrected/recorded",
+    "returns/case/x_bw_g_omits_w/recorded",
+    "returns/case/x_bw_w_equals_correct_loss/recorded",
+    "returns/case/x_bw_w_exceeds_correct_loss_within_shown/recorded",
+    "returns/case/x_corrected_basis_changed_g_fixed/recorded",
+    "returns/case/x_corrected_basis_changed_g_stale/recorded",
+    "returns/case/x_d_adjustment_row_missing/recorded",
+    "returns/case/x_d_basis_row_missing/recorded",
+    "returns/case/x_d_bw_w_exceeds_correct_loss/recorded",
+    "returns/case/x_d_gain_to_loss/recorded",
+    "returns/case/x_d_holding_mismatch/recorded",
+    "returns/case/x_d_loss_to_gain/recorded",
+    "returns/case/x_d_proceeds_row_missing/recorded",
+    "returns/case/x_d_zero_proceeds_zero_shown/recorded",
+    "returns/case/x_dup_box_c_ic3_no/recorded",
+    "returns/case/x_dup_box_c_ic3_yes/recorded",
+    "returns/case/x_dup_covered_lt/recorded",
+    "returns/case/x_dup_covered_st/recorded",
+    "returns/case/x_dup_covered_w_lt/recorded",
+    "returns/case/x_dup_covered_w_st/recorded",
+    "returns/case/x_dup_noncovered_lt/recorded",
+    "returns/case/x_dup_noncovered_st/recorded",
+    "returns/case/x_g_sign_flipped/recorded",
+    "returns/case/x_no_correction_with_w/recorded",
+    "returns/case/x_path_b_yes/recorded",
+    "returns/case/x_q3_no_late_both_terms/recorded",
+    "returns/case/x_q3_no_late_both_terms_reanswered/recorded",
+    "returns/case/x_q3_yes_late_member/recorded",
+    "returns/case/x_q3_yes_late_member_reanswered/recorded",
+    "returns/case/x_remove_sale_keep_rows/recorded",
+    "returns/case/x_shared_transaction_complete/recorded",
+    "returns/case/x_shared_transaction_missing_g/recorded",
+    "returns/case/x_zero_proceeds_zero_shown/recorded",
+    "returns/neighbour/n_b_zero_proceeds/recorded",
+    "returns/neighbour/n_b_zero_proceeds_zero_basis/recorded",
+    "returns/neighbour/n_covered_lt_collectibles_yes/recorded",
+    "returns/neighbour/n_covered_lt_market_discount_yes/recorded",
+    "returns/neighbour/n_covered_lt_qof_yes/recorded",
+    "returns/neighbour/n_covered_lt_tsa_yes/recorded",
+    "returns/neighbour/n_covered_lt_zero_proceeds/recorded",
+    "returns/neighbour/n_covered_st_ordinary_yes/recorded",
+    "returns/neighbour/n_covered_st_zero_proceeds/recorded",
+    "returns/neighbour/n_covered_st_zero_proceeds_zero_basis/recorded",
+    "returns/neighbour/n_covered_tsa_no/recorded",
+    "returns/neighbour/n_covered_tsa_yes_no8949/recorded",
+    "returns/neighbour/n_dup_b_and_covered_lt/recorded",
+    "returns/neighbour/n_dup_b_and_e/recorded",
+    "returns/neighbour/n_dup_covered_st_and_covered_lt/recorded",
+    "returns/neighbour/n_dup_covered_st_and_w_lt/recorded",
+    "returns/neighbour/n_dup_e_and_covered_st/recorded",
+    "returns/neighbour/n_dup_w_st_and_covered_lt/recorded",
+    "returns/neighbour/n_dup_w_st_and_w_lt/recorded",
+    "returns/neighbour/n_e_zero_proceeds/recorded",
+    "returns/neighbour/n_two_b_and_covered_lt/recorded",
+    "returns/neighbour/n_two_covered_st_and_covered_lt/recorded",
+    "returns/neighbour/n_two_w_st_and_w_lt/recorded",
+    "returns/neighbour/n_w_lt_collectibles_yes/recorded",
+    "returns/neighbour/n_w_lt_zero_proceeds/recorded",
+    "returns/neighbour/n_w_st_tsa_yes/recorded",
+    "returns/neighbour/n_w_zero_proceeds/recorded",
+    "returns/v80/carried_boundary_no_with_member/recorded",
+    "returns/v80/carried_code_w_on_gain/recorded",
+    "returns/v80/carried_covered_both_boundaries_no/recorded",
+    "returns/v80/carried_covered_flag_corrected_to_no/recorded",
+    "returns/v80/carried_covered_flag_corrected_to_yes/recorded",
+    "returns/v80/carried_covered_flag_no_path_a/recorded",
+    "returns/v80/carried_covered_flag_no_st/recorded",
+    "returns/v80/carried_covered_flag_no_w_lt/recorded",
+    "returns/v80/carried_covered_flag_no_w_st/recorded",
+    "returns/v80/carried_duplicate_horizon/recorded",
+    "returns/v80/carried_late_member_reopened/recorded",
+    "returns/v80/carried_late_member_unclosed/recorded",
+    "returns/v80/carried_late_yes_stale/recorded",
+    "returns/v80/carried_one_exempt_dividend/recorded",
+    "returns/v80/carried_one_foreign_tax/recorded",
+    "returns/v80/carried_probe_c_loss_on_b_in_class_no/recorded",
+    "returns/v80/carried_probe_c_loss_on_b_in_class_yes/recorded",
+    "returns/v80/carried_probe_c_wash_on_b_in_class_no/recorded",
+    "returns/v80/carried_probe_c_wash_on_b_in_class_yes/recorded",
+    "returns/v80/carried_probe_e_basis_object_missing/recorded",
+    "returns/v80/carried_probe_e_basis_scalar_missing/recorded",
+    "returns/v80/carried_probe_e_proceeds_scalar_missing/recorded",
+    "returns/v80/carried_probe_f_gain_on_e_in_class_no/recorded",
+    "returns/v80/carried_probe_mixed_abcf_in_class_no/recorded",
+    "returns/v80/carried_probe_mixed_abcf_in_class_yes/recorded",
+    "returns/v80/carried_t0_b_loss_8949_yes/recorded",
+    "returns/v80/carried_t0_b_w_scalar_only_on_gain/recorded",
+    "returns/v80/carried_wage_unclosed/recorded",
+    "returns/v80/carried_wash/recorded",
+    "returns/v80/carried_yes_then_no_with_member/recorded",
+    "returns/v80/probe_a_bw_on_w_broker/recorded",
+    "returns/v80/probe_a_bw_on_w_fixed/recorded",
+    "returns/v80/probe_a_bw_on_w_fixed_path_b_yes/recorded",
+    "returns/v80/probe_a_high_direct_broker_honest/recorded",
+    "returns/v80/probe_a_high_direct_broker_no8949/recorded",
+    "returns/v80/probe_a_high_direct_fixed_honest/recorded",
+    "returns/v80/probe_a_high_direct_fixed_no8949/recorded",
+    "returns/v80/probe_a_high_on_b_fixed/recorded",
+    "returns/v80/probe_a_high_on_w_broker/recorded",
+    "returns/v80/probe_a_loss_direct_broker_no8949/recorded",
+    "returns/v80/probe_a_loss_direct_fixed_no8949/recorded",
+    "returns/v80/probe_a_loss_on_b_fixed/recorded",
+    "returns/v80/probe_b_code_b_on_b/recorded",
+    "returns/v80/probe_d_low_direct_broker_honest/recorded",
+    "returns/v80/probe_d_low_direct_fixed_no8949/recorded",
+    "returns/v80/probe_d_low_on_e_fixed/recorded",
+    "returns/v80/v80_c_basis_object_missing/recorded",
+    "returns/v80/v80_d3_b_basis_missing/recorded",
+    "returns/v80/v80_d3_b_code_w_on_gain/recorded",
+    "returns/v80/v80_d3_b_orphan_basis/recorded",
+    "returns/v80/v80_d3_b_proceeds_missing/recorded",
+    "returns/v80/v80_dup_b_and_c_ic_no/recorded",
+    "returns/v80/v80_dup_b_and_c_ic_yes/recorded",
+    "returns/v80/v80_m_b_q1_no_with_member/recorded",
+    "returns/v80/v80_m_bf_yes_yes/recorded",
+    "returns/v80/v80_m_e_yes_q2_yes_nothing/recorded",
+    "returns/v80/v80_mixed_abcf/recorded",
+    "returns/v80/v80_t2_stage0/recorded",
+    "returns/v80/v80_t2_stage1/recorded",
+    "returns/v80/v80_t2_stage2/recorded",
+    "returns/v80/v80_t2_stage3/recorded",
+    "track0/s0/b4_amount_no_answer",
+    "track0/s0/b4_two_statements_one_unanswered",
+    "track0/s1/d2_mixed_statements",
+    "track0/s1/d2_single_v82_no",
+    "track0/s1/d2_two_statements_both_v82_no",
+    "track0/s1/d2_unanswered_statement",
+    "track0/s2/alc_b4_amount_missing",
+    "track0/s2/alc_v82_answer_on_v83",
+    "track0/s3/m_code_b_lt_unrecorded",
+    "track0/s3/m_code_b_lt_v82_only",
+    "track0/s3/m_code_b_st_unrecorded",
+    "track0/s3/m_code_b_st_v82_only",
+    "track0/s3/m_covered_lt_unrecorded",
+    "track0/s3/m_covered_lt_v82_only",
+    "track0/s3/m_covered_st_unrecorded",
+    "track0/s3/m_covered_st_v82_only",
+    "track0/s3/m_covered_w_lt_unrecorded",
+    "track0/s3/m_covered_w_lt_v82_only",
+    "track0/s3/m_covered_w_st_unrecorded",
+    "track0/s3/m_covered_w_st_v82_only",
+    "track0/s3/m_noncovered_lt_unrecorded",
+    "track0/s3/m_noncovered_lt_v82_only",
+    "track0/s3/m_noncovered_st_unrecorded",
+    "track0/s3/m_noncovered_st_v82_only",
+    "track0/s4/trace1_new_stmt_unanswered",
+    "track0/s7/surface_blocked_missing_b4"
+  ],
+  "counterexample_ids": [],
+  "changes": [
+    {
+      "id": "returns/case/m_8949_no_ic3_yes_q3_no/recorded",
+      "class": "asks_no_sale_present",
+      "v85_missing": [
+        "f1099b.no-sale-box4-present"
+      ],
+      "v84_line25b": 0,
+      "v85_line25b": "blocked"
+    },
+    {
+      "id": "returns/case/m_q3_yes_nothing_8949_yes/recorded",
+      "class": "asks_no_sale_present",
+      "v85_missing": [
+        "f1099b.no-sale-box4-present"
+      ],
+      "v84_line25b": 0,
+      "v85_line25b": "blocked"
+    },
+    {
+      "id": "returns/case/m_q3_yes_nothing_beside_c/recorded",
+      "class": "asks_no_sale_present",
+      "v85_missing": [
+        "f1099b.no-sale-box4-present"
+      ],
+      "v84_line25b": 0,
+      "v85_line25b": "blocked"
+    },
+    {
+      "id": "returns/case/q3_yes_nothing_recorded/recorded",
+      "class": "asks_no_sale_present",
+      "v85_missing": [
+        "f1099b.no-sale-box4-present"
+      ],
+      "v84_line25b": 0,
+      "v85_line25b": "blocked"
+    },
+    {
+      "id": "returns/case/wage_q3_no/recorded",
+      "class": "asks_no_sale_present",
+      "v85_missing": [
+        "f1099b.no-sale-box4-present"
+      ],
+      "v84_line25b": 0,
+      "v85_line25b": "blocked"
+    },
+    {
+      "id": "returns/v80/carried_boundary_no_without_member/recorded",
+      "class": "asks_no_sale_present",
+      "v85_missing": [
+        "f1099b.no-sale-box4-present"
+      ],
+      "v84_line25b": 0,
+      "v85_line25b": "blocked"
+    },
+    {
+      "id": "returns/v80/carried_one_part_ii_b/recorded",
+      "class": "asks_no_sale_present",
+      "v85_missing": [
+        "f1099b.no-sale-box4-present"
+      ],
+      "v84_line25b": 0,
+      "v85_line25b": "blocked"
+    },
+    {
+      "id": "returns/v80/carried_one_student_loan/recorded",
+      "class": "asks_no_sale_present",
+      "v85_missing": [
+        "f1099b.no-sale-box4-present"
+      ],
+      "v84_line25b": 0,
+      "v85_line25b": "blocked"
+    },
+    {
+      "id": "returns/v80/carried_probe_c_unrecorded_8949_no/recorded",
+      "class": "asks_no_sale_present",
+      "v85_missing": [
+        "f1099b.no-sale-box4-present"
+      ],
+      "v84_line25b": 0,
+      "v85_line25b": "blocked"
+    },
+    {
+      "id": "returns/v80/v80_c_and_f_same_sale/recorded",
+      "class": "asks_no_sale_present",
+      "v85_missing": [
+        "f1099b.no-sale-box4-present"
+      ],
+      "v84_line25b": 0,
+      "v85_line25b": "blocked"
+    },
+    {
+      "id": "returns/v80/v80_c_basis_missing/recorded",
+      "class": "asks_no_sale_present",
+      "v85_missing": [
+        "f1099b.no-sale-box4-present"
+      ],
+      "v84_line25b": 0,
+      "v85_line25b": "blocked"
+    },
+    {
+      "id": "returns/v80/v80_c_code_w_on_gain/recorded",
+      "class": "asks_no_sale_present",
+      "v85_missing": [
+        "f1099b.no-sale-box4-present"
+      ],
+      "v84_line25b": 0,
+      "v85_line25b": "blocked"
+    },
+    {
+      "id": "returns/v80/v80_c_loss/recorded",
+      "class": "asks_no_sale_present",
+      "v85_missing": [
+        "f1099b.no-sale-box4-present"
+      ],
+      "v84_line25b": 0,
+      "v85_line25b": "blocked"
+    },
+    {
+      "id": "returns/v80/v80_c_loss_path_b_unanswered/recorded",
+      "class": "asks_no_sale_present",
+      "v85_missing": [
+        "f1099b.no-sale-box4-present"
+      ],
+      "v84_line25b": 0,
+      "v85_line25b": "blocked"
+    },
+    {
+      "id": "returns/v80/v80_c_proceeds_missing/recorded",
+      "class": "asks_no_sale_present",
+      "v85_missing": [
+        "f1099b.no-sale-box4-present"
+      ],
+      "v84_line25b": 0,
+      "v85_line25b": "blocked"
+    },
+    {
+      "id": "returns/v80/v80_c_wash/recorded",
+      "class": "asks_no_sale_present",
+      "v85_missing": [
+        "f1099b.no-sale-box4-present"
+      ],
+      "v84_line25b": 0,
+      "v85_line25b": "blocked"
+    },
+    {
+      "id": "returns/v80/v80_f_gain/recorded",
+      "class": "asks_no_sale_present",
+      "v85_missing": [
+        "f1099b.no-sale-box4-present"
+      ],
+      "v84_line25b": 0,
+      "v85_line25b": "blocked"
+    },
+    {
+      "id": "returns/v80/v80_f_gain_new_ic_no/recorded",
+      "class": "asks_no_sale_present",
+      "v85_missing": [
+        "f1099b.no-sale-box4-present"
+      ],
+      "v84_line25b": 0,
+      "v85_line25b": "blocked"
+    },
+    {
+      "id": "returns/v80/v80_f_gain_new_ic_unanswered/recorded",
+      "class": "asks_no_sale_present",
+      "v85_missing": [
+        "f1099b.no-sale-box4-present"
+      ],
+      "v84_line25b": 0,
+      "v85_line25b": "blocked"
+    },
+    {
+      "id": "returns/v80/v80_f_gain_path_b_unanswered/recorded",
+      "class": "asks_no_sale_present",
+      "v85_missing": [
+        "f1099b.no-sale-box4-present"
+      ],
+      "v84_line25b": 0,
+      "v85_line25b": "blocked"
+    },
+    {
+      "id": "returns/v80/v80_f_gain_q2_no_with_member/recorded",
+      "class": "asks_no_sale_present",
+      "v85_missing": [
+        "f1099b.no-sale-box4-present"
+      ],
+      "v84_line25b": 0,
+      "v85_line25b": "blocked"
+    },
+    {
+      "id": "returns/v80/v80_f_holding_mismatch/recorded",
+      "class": "asks_no_sale_present",
+      "v85_missing": [
+        "f1099b.no-sale-box4-present"
+      ],
+      "v84_line25b": 0,
+      "v85_line25b": "blocked"
+    },
+    {
+      "id": "returns/v80/v80_m_c_8949_yes_pathb_no/recorded",
+      "class": "asks_no_sale_present",
+      "v85_missing": [
+        "f1099b.no-sale-box4-present"
+      ],
+      "v84_line25b": 0,
+      "v85_line25b": "blocked"
+    },
+    {
+      "id": "returns/v80/v80_m_c_new_ic_no/recorded",
+      "class": "asks_no_sale_present",
+      "v85_missing": [
+        "f1099b.no-sale-box4-present"
+      ],
+      "v84_line25b": 0,
+      "v85_line25b": "blocked"
+    },
+    {
+      "id": "returns/v80/v80_m_c_q2_no_with_member/recorded",
+      "class": "asks_no_sale_present",
+      "v85_missing": [
+        "f1099b.no-sale-box4-present"
+      ],
+      "v84_line25b": 0,
+      "v85_line25b": "blocked"
+    },
+    {
+      "id": "returns/v80/v80_m_f_q1_yes_nothing/recorded",
+      "class": "asks_no_sale_present",
+      "v85_missing": [
+        "f1099b.no-sale-box4-present"
+      ],
+      "v84_line25b": 0,
+      "v85_line25b": "blocked"
+    },
+    {
+      "id": "returns/v80/v80_q2_late_yes_reanswered/recorded",
+      "class": "asks_no_sale_present",
+      "v85_missing": [
+        "f1099b.no-sale-box4-present"
+      ],
+      "v84_line25b": 0,
+      "v85_line25b": "blocked"
+    },
+    {
+      "id": "returns/v80/v80_q2_late_yes_stale/recorded",
+      "class": "asks_no_sale_present",
+      "v85_missing": [
+        "f1099b.no-sale-box4-present"
+      ],
+      "v84_line25b": 0,
+      "v85_line25b": "blocked"
+    },
+    {
+      "id": "returns/v80/v80_t1_stage2/recorded",
+      "class": "asks_no_sale_present",
+      "v85_missing": [
+        "f1099b.no-sale-box4-present"
+      ],
+      "v84_line25b": 0,
+      "v85_line25b": "blocked"
+    },
+    {
+      "id": "returns/v80/v80_t1_stage3/recorded",
+      "class": "asks_no_sale_present",
+      "v85_missing": [
+        "f1099b.no-sale-box4-present"
+      ],
+      "v84_line25b": 0,
+      "v85_line25b": "blocked"
+    },
+    {
+      "id": "returns/v80/v80_w_c_amounts_disagree/recorded",
+      "class": "asks_no_sale_present",
+      "v85_missing": [
+        "f1099b.no-sale-box4-present"
+      ],
+      "v84_line25b": 0,
+      "v85_line25b": "blocked"
+    },
+    {
+      "id": "returns/v80/v80_wage_q2_unanswered/recorded",
+      "class": "asks_no_sale_present",
+      "v85_missing": [
+        "f1099b.no-sale-box4-present"
+      ],
+      "v84_line25b": 0,
+      "v85_line25b": "blocked"
+    },
+    {
+      "id": "track0/s0/b4_answer_no_amount",
+      "class": "asks_no_sale_present",
+      "v85_missing": [
+        "f1099b.no-sale-box4-present"
+      ],
+      "v84_line25b": 0,
+      "v85_line25b": "blocked"
+    },
+    {
+      "id": "track0/s0/b4_beside_int_div",
+      "class": "asks_no_sale_present",
+      "v85_missing": [
+        "f1099b.no-sale-box4-present"
+      ],
+      "v84_line25b": 325,
+      "v85_line25b": "blocked"
+    },
+    {
+      "id": "track0/s0/b4_extra_statement_no_sales",
+      "class": "asks_no_sale_present",
+      "v85_missing": [
+        "f1099b.no-sale-box4-present"
+      ],
+      "v84_line25b": 0,
+      "v85_line25b": "blocked"
+    },
+    {
+      "id": "track0/s0/b4_no_one_statement",
+      "class": "asks_no_sale_present",
+      "v85_missing": [
+        "f1099b.no-sale-box4-present"
+      ],
+      "v84_line25b": 0,
+      "v85_line25b": "blocked"
+    },
+    {
+      "id": "track0/s0/b4_no_sales",
+      "class": "asks_no_sale_present",
+      "v85_missing": [
+        "f1099b.no-sale-box4-present"
+      ],
+      "v84_line25b": 0,
+      "v85_line25b": "blocked"
+    },
+    {
+      "id": "track0/s0/b4_no_with_amount",
+      "class": "asks_no_sale_present",
+      "v85_missing": [
+        "f1099b.no-sale-box4-present"
+      ],
+      "v84_line25b": 0,
+      "v85_line25b": "blocked"
+    },
+    {
+      "id": "track0/s0/b4_one_statement",
+      "class": "asks_no_sale_present",
+      "v85_missing": [
+        "f1099b.no-sale-box4-present"
+      ],
+      "v84_line25b": 240,
+      "v85_line25b": "blocked"
+    },
+    {
+      "id": "track0/s0/b4_orphan_150",
+      "class": "asks_no_sale_present",
+      "v85_missing": [
+        "f1099b.no-sale-box4-present"
+      ],
+      "v84_line25b": 150,
+      "v85_line25b": "blocked"
+    },
+    {
+      "id": "track0/s0/b4_orphan_beside_sale",
+      "class": "asks_no_sale_present",
+      "v85_missing": [
+        "f1099b.no-sale-box4-present"
+      ],
+      "v84_line25b": 150,
+      "v85_line25b": "blocked"
+    },
+    {
+      "id": "track0/s0/b4_st_and_lt",
+      "class": "asks_no_sale_present",
+      "v85_missing": [
+        "f1099b.no-sale-box4-present"
+      ],
+      "v84_line25b": 300,
+      "v85_line25b": "blocked"
+    },
+    {
+      "id": "track0/s0/b4_statement_removed",
+      "class": "asks_no_sale_present",
+      "v85_missing": [
+        "f1099b.no-sale-box4-present"
+      ],
+      "v84_line25b": 200,
+      "v85_line25b": "blocked"
+    },
+    {
+      "id": "track0/s0/b4_two_statements",
+      "class": "asks_no_sale_present",
+      "v85_missing": [
+        "f1099b.no-sale-box4-present"
+      ],
+      "v84_line25b": 340,
+      "v85_line25b": "blocked"
+    },
+    {
+      "id": "track0/s0/b4_two_statements_both_no",
+      "class": "asks_no_sale_present",
+      "v85_missing": [
+        "f1099b.no-sale-box4-present"
+      ],
+      "v84_line25b": 0,
+      "v85_line25b": "blocked"
+    },
+    {
+      "id": "track0/s0/b4_two_statements_both_yes",
+      "class": "asks_no_sale_present",
+      "v85_missing": [
+        "f1099b.no-sale-box4-present"
+      ],
+      "v84_line25b": 340,
+      "v85_line25b": "blocked"
+    },
+    {
+      "id": "track0/s0/b4_two_statements_one_yes",
+      "class": "asks_no_sale_present",
+      "v85_missing": [
+        "f1099b.no-sale-box4-present"
+      ],
+      "v84_line25b": 240,
+      "v85_line25b": "blocked"
+    },
+    {
+      "id": "track0/s0/b4_yes_codeb",
+      "class": "asks_no_sale_present",
+      "v85_missing": [
+        "f1099b.no-sale-box4-present"
+      ],
+      "v84_line25b": 240,
+      "v85_line25b": "blocked"
+    },
+    {
+      "id": "track0/s0/b4_yes_covered",
+      "class": "asks_no_sale_present",
+      "v85_missing": [
+        "f1099b.no-sale-box4-present"
+      ],
+      "v84_line25b": 240,
+      "v85_line25b": "blocked"
+    },
+    {
+      "id": "track0/s0/b4_yes_noncovered",
+      "class": "asks_no_sale_present",
+      "v85_missing": [
+        "f1099b.no-sale-box4-present"
+      ],
+      "v84_line25b": 240,
+      "v85_line25b": "blocked"
+    },
+    {
+      "id": "track0/s0/b4_yes_w",
+      "class": "asks_no_sale_present",
+      "v85_missing": [
+        "f1099b.no-sale-box4-present"
+      ],
+      "v84_line25b": 240,
+      "v85_line25b": "blocked"
+    },
+    {
+      "id": "track0/s2/alc_b4_amount_superseded",
+      "class": "asks_no_sale_present",
+      "v85_missing": [
+        "f1099b.no-sale-box4-present"
+      ],
+      "v84_line25b": 250,
+      "v85_line25b": "blocked"
+    },
+    {
+      "id": "track0/s2/alc_b4_amount_valid",
+      "class": "asks_no_sale_present",
+      "v85_missing": [
+        "f1099b.no-sale-box4-present"
+      ],
+      "v84_line25b": 150,
+      "v85_line25b": "blocked"
+    },
+    {
+      "id": "track0/s2/alc_count_positive",
+      "class": "asks_no_sale_present",
+      "v85_missing": [
+        "f1099b.no-sale-box4-present"
+      ],
+      "v84_line25b": 200,
+      "v85_line25b": "blocked"
+    },
+    {
+      "id": "track0/s2/alc_count_transition",
+      "class": "asks_no_sale_present",
+      "v85_missing": [
+        "f1099b.no-sale-box4-present"
+      ],
+      "v84_line25b": 200,
+      "v85_line25b": "blocked"
+    },
+    {
+      "id": "track0/s2/alc_stmt_orphan",
+      "class": "asks_no_sale_present",
+      "v85_missing": [
+        "f1099b.no-sale-box4-present"
+      ],
+      "v84_line25b": 200,
+      "v85_line25b": "blocked"
+    },
+    {
+      "id": "track0/s3/m_code_b_lt_positive",
+      "class": "asks_no_sale_present",
+      "v85_missing": [
+        "f1099b.no-sale-box4-present"
+      ],
+      "v84_line25b": 120,
+      "v85_line25b": "blocked"
+    },
+    {
+      "id": "track0/s3/m_code_b_lt_zero",
+      "class": "asks_no_sale_present",
+      "v85_missing": [
+        "f1099b.no-sale-box4-present"
+      ],
+      "v84_line25b": 0,
+      "v85_line25b": "blocked"
+    },
+    {
+      "id": "track0/s3/m_code_b_st_positive",
+      "class": "asks_no_sale_present",
+      "v85_missing": [
+        "f1099b.no-sale-box4-present"
+      ],
+      "v84_line25b": 120,
+      "v85_line25b": "blocked"
+    },
+    {
+      "id": "track0/s3/m_code_b_st_zero",
+      "class": "asks_no_sale_present",
+      "v85_missing": [
+        "f1099b.no-sale-box4-present"
+      ],
+      "v84_line25b": 0,
+      "v85_line25b": "blocked"
+    },
+    {
+      "id": "track0/s3/m_covered_lt_positive",
+      "class": "asks_no_sale_present",
+      "v85_missing": [
+        "f1099b.no-sale-box4-present"
+      ],
+      "v84_line25b": 120,
+      "v85_line25b": "blocked"
+    },
+    {
+      "id": "track0/s3/m_covered_lt_zero",
+      "class": "asks_no_sale_present",
+      "v85_missing": [
+        "f1099b.no-sale-box4-present"
+      ],
+      "v84_line25b": 0,
+      "v85_line25b": "blocked"
+    },
+    {
+      "id": "track0/s3/m_covered_st_positive",
+      "class": "asks_no_sale_present",
+      "v85_missing": [
+        "f1099b.no-sale-box4-present"
+      ],
+      "v84_line25b": 120,
+      "v85_line25b": "blocked"
+    },
+    {
+      "id": "track0/s3/m_covered_st_zero",
+      "class": "asks_no_sale_present",
+      "v85_missing": [
+        "f1099b.no-sale-box4-present"
+      ],
+      "v84_line25b": 0,
+      "v85_line25b": "blocked"
+    },
+    {
+      "id": "track0/s3/m_covered_w_lt_positive",
+      "class": "asks_no_sale_present",
+      "v85_missing": [
+        "f1099b.no-sale-box4-present"
+      ],
+      "v84_line25b": 120,
+      "v85_line25b": "blocked"
+    },
+    {
+      "id": "track0/s3/m_covered_w_lt_zero",
+      "class": "asks_no_sale_present",
+      "v85_missing": [
+        "f1099b.no-sale-box4-present"
+      ],
+      "v84_line25b": 0,
+      "v85_line25b": "blocked"
+    },
+    {
+      "id": "track0/s3/m_covered_w_st_positive",
+      "class": "asks_no_sale_present",
+      "v85_missing": [
+        "f1099b.no-sale-box4-present"
+      ],
+      "v84_line25b": 120,
+      "v85_line25b": "blocked"
+    },
+    {
+      "id": "track0/s3/m_covered_w_st_zero",
+      "class": "asks_no_sale_present",
+      "v85_missing": [
+        "f1099b.no-sale-box4-present"
+      ],
+      "v84_line25b": 0,
+      "v85_line25b": "blocked"
+    },
+    {
+      "id": "track0/s3/m_noncovered_lt_positive",
+      "class": "asks_no_sale_present",
+      "v85_missing": [
+        "f1099b.no-sale-box4-present"
+      ],
+      "v84_line25b": 120,
+      "v85_line25b": "blocked"
+    },
+    {
+      "id": "track0/s3/m_noncovered_lt_zero",
+      "class": "asks_no_sale_present",
+      "v85_missing": [
+        "f1099b.no-sale-box4-present"
+      ],
+      "v84_line25b": 0,
+      "v85_line25b": "blocked"
+    },
+    {
+      "id": "track0/s3/m_noncovered_st_positive",
+      "class": "asks_no_sale_present",
+      "v85_missing": [
+        "f1099b.no-sale-box4-present"
+      ],
+      "v84_line25b": 120,
+      "v85_line25b": "blocked"
+    },
+    {
+      "id": "track0/s3/m_noncovered_st_zero",
+      "class": "asks_no_sale_present",
+      "v85_missing": [
+        "f1099b.no-sale-box4-present"
+      ],
+      "v84_line25b": 0,
+      "v85_line25b": "blocked"
+    },
+    {
+      "id": "track0/s4/trace1_initial",
+      "class": "asks_no_sale_present",
+      "v85_missing": [
+        "f1099b.no-sale-box4-present"
+      ],
+      "v84_line25b": 150,
+      "v85_line25b": "blocked"
+    },
+    {
+      "id": "track0/s4/trace1_new_stmt_answered",
+      "class": "asks_no_sale_present",
+      "v85_missing": [
+        "f1099b.no-sale-box4-present"
+      ],
+      "v84_line25b": 250,
+      "v85_line25b": "blocked"
+    },
+    {
+      "id": "track0/s4/trace2_initial",
+      "class": "asks_no_sale_present",
+      "v85_missing": [
+        "f1099b.no-sale-box4-present"
+      ],
+      "v84_line25b": 200,
+      "v85_line25b": "blocked"
+    },
+    {
+      "id": "track0/s4/trace2_sale_removed",
+      "class": "asks_no_sale_present",
+      "v85_missing": [
+        "f1099b.no-sale-box4-present"
+      ],
+      "v84_line25b": 200,
+      "v85_line25b": "blocked"
+    },
+    {
+      "id": "track0/s5/reuse_all_five_alone",
+      "class": "asks_no_sale_present",
+      "v85_missing": [
+        "f1099b.no-sale-box4-present"
+      ],
+      "v84_line25b": 355,
+      "v85_line25b": "blocked"
+    },
+    {
+      "id": "track0/s5/reuse_all_with_b4",
+      "class": "asks_no_sale_present",
+      "v85_missing": [
+        "f1099b.no-sale-box4-present"
+      ],
+      "v84_line25b": 455,
+      "v85_line25b": "blocked"
+    },
+    {
+      "id": "track0/s5/reuse_div_alone",
+      "class": "asks_no_sale_present",
+      "v85_missing": [
+        "f1099b.no-sale-box4-present"
+      ],
+      "v84_line25b": 75,
+      "v85_line25b": "blocked"
+    },
+    {
+      "id": "track0/s5/reuse_int_alone",
+      "class": "asks_no_sale_present",
+      "v85_missing": [
+        "f1099b.no-sale-box4-present"
+      ],
+      "v84_line25b": 50,
+      "v85_line25b": "blocked"
+    },
+    {
+      "id": "track0/s5/reuse_ira_alone",
+      "class": "asks_no_sale_present",
+      "v85_missing": [
+        "f1099b.no-sale-box4-present"
+      ],
+      "v84_line25b": 80,
+      "v85_line25b": "blocked"
+    },
+    {
+      "id": "track0/s5/reuse_ssa_alone",
+      "class": "asks_no_sale_present",
+      "v85_missing": [
+        "f1099b.no-sale-box4-present"
+      ],
+      "v84_line25b": 60,
+      "v85_line25b": "blocked"
+    },
+    {
+      "id": "track0/s5/reuse_unemp_alone",
+      "class": "asks_no_sale_present",
+      "v85_missing": [
+        "f1099b.no-sale-box4-present"
+      ],
+      "v84_line25b": 90,
+      "v85_line25b": "blocked"
+    },
+    {
+      "id": "track0/s7/surface_published_owed",
+      "class": "asks_no_sale_present",
+      "v85_missing": [
+        "f1099b.no-sale-box4-present"
+      ],
+      "v84_line25b": 240,
+      "v85_line25b": "blocked"
+    },
+    {
+      "id": "track0/s7/surface_published_refund",
+      "class": "asks_no_sale_present",
+      "v85_missing": [
+        "f1099b.no-sale-box4-present"
+      ],
+      "v84_line25b": 240,
+      "v85_line25b": "blocked"
+    },
+    {
+      "id": "zero/case/a_8949_yes/recorded",
+      "class": "asks_no_sale_present",
+      "v85_missing": [
+        "f1099b.no-sale-box4-present"
+      ],
+      "v84_line25b": 0,
+      "v85_line25b": "blocked"
+    },
+    {
+      "id": "zero/case/m_a_v80_ic_only/recorded",
+      "class": "asks_no_sale_present",
+      "v85_missing": [
+        "f1099b.no-sale-box4-present"
+      ],
+      "v84_line25b": 0,
+      "v85_line25b": "blocked"
+    },
+    {
+      "id": "zero/case/x_d_gain_to_loss/recorded",
+      "class": "asks_no_sale_present",
+      "v85_missing": [
+        "f1099b.no-sale-box4-present"
+      ],
+      "v84_line25b": 0,
+      "v85_line25b": "blocked"
+    },
+    {
+      "id": "zero/neighbour/n_covered_st_zero_proceeds_zero_basis/recorded",
+      "class": "asks_no_sale_present",
+      "v85_missing": [
+        "f1099b.no-sale-box4-present"
+      ],
+      "v84_line25b": 0,
+      "v85_line25b": "blocked"
+    },
+    {
+      "id": "zero/v80/carried_t0_b_loss_8949_yes/recorded",
+      "class": "asks_no_sale_present",
+      "v85_missing": [
+        "f1099b.no-sale-box4-present"
+      ],
+      "v84_line25b": 0,
+      "v85_line25b": "blocked"
+    },
+    {
+      "id": "zero/v80/v80_t2_stage3/recorded",
+      "class": "asks_no_sale_present",
+      "v85_missing": [
+        "f1099b.no-sale-box4-present"
+      ],
+      "v84_line25b": 0,
+      "v85_line25b": "blocked"
+    }
+  ],
+  "change_count": 91,
+  "restore": {
+    "added_answer": "f1099b.no-sale-box4-present = no",
+    "count": 91,
+    "restored": [
+      "returns/case/m_8949_no_ic3_yes_q3_no/recorded",
+      "returns/case/m_q3_yes_nothing_8949_yes/recorded",
+      "returns/case/m_q3_yes_nothing_beside_c/recorded",
+      "returns/case/q3_yes_nothing_recorded/recorded",
+      "returns/case/wage_q3_no/recorded",
+      "returns/v80/carried_boundary_no_without_member/recorded",
+      "returns/v80/carried_one_part_ii_b/recorded",
+      "returns/v80/carried_one_student_loan/recorded",
+      "returns/v80/carried_probe_c_unrecorded_8949_no/recorded",
+      "returns/v80/v80_c_and_f_same_sale/recorded",
+      "returns/v80/v80_c_basis_missing/recorded",
+      "returns/v80/v80_c_code_w_on_gain/recorded",
+      "returns/v80/v80_c_loss/recorded",
+      "returns/v80/v80_c_loss_path_b_unanswered/recorded",
+      "returns/v80/v80_c_proceeds_missing/recorded",
+      "returns/v80/v80_c_wash/recorded",
+      "returns/v80/v80_f_gain/recorded",
+      "returns/v80/v80_f_gain_new_ic_no/recorded",
+      "returns/v80/v80_f_gain_new_ic_unanswered/recorded",
+      "returns/v80/v80_f_gain_path_b_unanswered/recorded",
+      "returns/v80/v80_f_gain_q2_no_with_member/recorded",
+      "returns/v80/v80_f_holding_mismatch/recorded",
+      "returns/v80/v80_m_c_8949_yes_pathb_no/recorded",
+      "returns/v80/v80_m_c_new_ic_no/recorded",
+      "returns/v80/v80_m_c_q2_no_with_member/recorded",
+      "returns/v80/v80_m_f_q1_yes_nothing/recorded",
+      "returns/v80/v80_q2_late_yes_reanswered/recorded",
+      "returns/v80/v80_q2_late_yes_stale/recorded",
+      "returns/v80/v80_t1_stage2/recorded",
+      "returns/v80/v80_t1_stage3/recorded",
+      "returns/v80/v80_w_c_amounts_disagree/recorded",
+      "returns/v80/v80_wage_q2_unanswered/recorded",
+      "track0/s0/b4_answer_no_amount",
+      "track0/s0/b4_beside_int_div",
+      "track0/s0/b4_extra_statement_no_sales",
+      "track0/s0/b4_no_one_statement",
+      "track0/s0/b4_no_sales",
+      "track0/s0/b4_no_with_amount",
+      "track0/s0/b4_one_statement",
+      "track0/s0/b4_orphan_150",
+      "track0/s0/b4_orphan_beside_sale",
+      "track0/s0/b4_st_and_lt",
+      "track0/s0/b4_statement_removed",
+      "track0/s0/b4_two_statements",
+      "track0/s0/b4_two_statements_both_no",
+      "track0/s0/b4_two_statements_both_yes",
+      "track0/s0/b4_two_statements_one_yes",
+      "track0/s0/b4_yes_codeb",
+      "track0/s0/b4_yes_covered",
+      "track0/s0/b4_yes_noncovered",
+      "track0/s0/b4_yes_w",
+      "track0/s2/alc_b4_amount_superseded",
+      "track0/s2/alc_b4_amount_valid",
+      "track0/s2/alc_count_positive",
+      "track0/s2/alc_count_transition",
+      "track0/s2/alc_stmt_orphan",
+      "track0/s3/m_code_b_lt_positive",
+      "track0/s3/m_code_b_lt_zero",
+      "track0/s3/m_code_b_st_positive",
+      "track0/s3/m_code_b_st_zero",
+      "track0/s3/m_covered_lt_positive",
+      "track0/s3/m_covered_lt_zero",
+      "track0/s3/m_covered_st_positive",
+      "track0/s3/m_covered_st_zero",
+      "track0/s3/m_covered_w_lt_positive",
+      "track0/s3/m_covered_w_lt_zero",
+      "track0/s3/m_covered_w_st_positive",
+      "track0/s3/m_covered_w_st_zero",
+      "track0/s3/m_noncovered_lt_positive",
+      "track0/s3/m_noncovered_lt_zero",
+      "track0/s3/m_noncovered_st_positive",
+      "track0/s3/m_noncovered_st_zero",
+      "track0/s4/trace1_initial",
+      "track0/s4/trace1_new_stmt_answered",
+      "track0/s4/trace2_initial",
+      "track0/s4/trace2_sale_removed",
+      "track0/s5/reuse_all_five_alone",
+      "track0/s5/reuse_all_with_b4",
+      "track0/s5/reuse_div_alone",
+      "track0/s5/reuse_int_alone",
+      "track0/s5/reuse_ira_alone",
+      "track0/s5/reuse_ssa_alone",
+      "track0/s5/reuse_unemp_alone",
+      "track0/s7/surface_published_owed",
+      "track0/s7/surface_published_refund",
+      "zero/case/a_8949_yes/recorded",
+      "zero/case/m_a_v80_ic_only/recorded",
+      "zero/case/x_d_gain_to_loss/recorded",
+      "zero/neighbour/n_covered_st_zero_proceeds_zero_basis/recorded",
+      "zero/v80/carried_t0_b_loss_8949_yes/recorded",
+      "zero/v80/v80_t2_stage3/recorded"
+    ],
+    "failed": [],
+    "rows": [
+      {
+        "id": "returns/case/m_8949_no_ic3_yes_q3_no/recorded",
+        "restored": true,
+        "diffs": [],
+        "v84_line25b": 0,
+        "v85_line25b": 0
+      },
+      {
+        "id": "returns/case/m_q3_yes_nothing_8949_yes/recorded",
+        "restored": true,
+        "diffs": [],
+        "v84_line25b": 0,
+        "v85_line25b": 0
+      },
+      {
+        "id": "returns/case/m_q3_yes_nothing_beside_c/recorded",
+        "restored": true,
+        "diffs": [],
+        "v84_line25b": 0,
+        "v85_line25b": 0
+      },
+      {
+        "id": "returns/case/q3_yes_nothing_recorded/recorded",
+        "restored": true,
+        "diffs": [],
+        "v84_line25b": 0,
+        "v85_line25b": 0
+      },
+      {
+        "id": "returns/case/wage_q3_no/recorded",
+        "restored": true,
+        "diffs": [],
+        "v84_line25b": 0,
+        "v85_line25b": 0
+      },
+      {
+        "id": "returns/v80/carried_boundary_no_without_member/recorded",
+        "restored": true,
+        "diffs": [],
+        "v84_line25b": 0,
+        "v85_line25b": 0
+      },
+      {
+        "id": "returns/v80/carried_one_part_ii_b/recorded",
+        "restored": true,
+        "diffs": [],
+        "v84_line25b": 0,
+        "v85_line25b": 0
+      },
+      {
+        "id": "returns/v80/carried_one_student_loan/recorded",
+        "restored": true,
+        "diffs": [],
+        "v84_line25b": 0,
+        "v85_line25b": 0
+      },
+      {
+        "id": "returns/v80/carried_probe_c_unrecorded_8949_no/recorded",
+        "restored": true,
+        "diffs": [],
+        "v84_line25b": 0,
+        "v85_line25b": 0
+      },
+      {
+        "id": "returns/v80/v80_c_and_f_same_sale/recorded",
+        "restored": true,
+        "diffs": [],
+        "v84_line25b": 0,
+        "v85_line25b": 0
+      },
+      {
+        "id": "returns/v80/v80_c_basis_missing/recorded",
+        "restored": true,
+        "diffs": [],
+        "v84_line25b": 0,
+        "v85_line25b": 0
+      },
+      {
+        "id": "returns/v80/v80_c_code_w_on_gain/recorded",
+        "restored": true,
+        "diffs": [],
+        "v84_line25b": 0,
+        "v85_line25b": 0
+      },
+      {
+        "id": "returns/v80/v80_c_loss/recorded",
+        "restored": true,
+        "diffs": [],
+        "v84_line25b": 0,
+        "v85_line25b": 0
+      },
+      {
+        "id": "returns/v80/v80_c_loss_path_b_unanswered/recorded",
+        "restored": true,
+        "diffs": [],
+        "v84_line25b": 0,
+        "v85_line25b": 0
+      },
+      {
+        "id": "returns/v80/v80_c_proceeds_missing/recorded",
+        "restored": true,
+        "diffs": [],
+        "v84_line25b": 0,
+        "v85_line25b": 0
+      },
+      {
+        "id": "returns/v80/v80_c_wash/recorded",
+        "restored": true,
+        "diffs": [],
+        "v84_line25b": 0,
+        "v85_line25b": 0
+      },
+      {
+        "id": "returns/v80/v80_f_gain/recorded",
+        "restored": true,
+        "diffs": [],
+        "v84_line25b": 0,
+        "v85_line25b": 0
+      },
+      {
+        "id": "returns/v80/v80_f_gain_new_ic_no/recorded",
+        "restored": true,
+        "diffs": [],
+        "v84_line25b": 0,
+        "v85_line25b": 0
+      },
+      {
+        "id": "returns/v80/v80_f_gain_new_ic_unanswered/recorded",
+        "restored": true,
+        "diffs": [],
+        "v84_line25b": 0,
+        "v85_line25b": 0
+      },
+      {
+        "id": "returns/v80/v80_f_gain_path_b_unanswered/recorded",
+        "restored": true,
+        "diffs": [],
+        "v84_line25b": 0,
+        "v85_line25b": 0
+      },
+      {
+        "id": "returns/v80/v80_f_gain_q2_no_with_member/recorded",
+        "restored": true,
+        "diffs": [],
+        "v84_line25b": 0,
+        "v85_line25b": 0
+      },
+      {
+        "id": "returns/v80/v80_f_holding_mismatch/recorded",
+        "restored": true,
+        "diffs": [],
+        "v84_line25b": 0,
+        "v85_line25b": 0
+      },
+      {
+        "id": "returns/v80/v80_m_c_8949_yes_pathb_no/recorded",
+        "restored": true,
+        "diffs": [],
+        "v84_line25b": 0,
+        "v85_line25b": 0
+      },
+      {
+        "id": "returns/v80/v80_m_c_new_ic_no/recorded",
+        "restored": true,
+        "diffs": [],
+        "v84_line25b": 0,
+        "v85_line25b": 0
+      },
+      {
+        "id": "returns/v80/v80_m_c_q2_no_with_member/recorded",
+        "restored": true,
+        "diffs": [],
+        "v84_line25b": 0,
+        "v85_line25b": 0
+      },
+      {
+        "id": "returns/v80/v80_m_f_q1_yes_nothing/recorded",
+        "restored": true,
+        "diffs": [],
+        "v84_line25b": 0,
+        "v85_line25b": 0
+      },
+      {
+        "id": "returns/v80/v80_q2_late_yes_reanswered/recorded",
+        "restored": true,
+        "diffs": [],
+        "v84_line25b": 0,
+        "v85_line25b": 0
+      },
+      {
+        "id": "returns/v80/v80_q2_late_yes_stale/recorded",
+        "restored": true,
+        "diffs": [],
+        "v84_line25b": 0,
+        "v85_line25b": 0
+      },
+      {
+        "id": "returns/v80/v80_t1_stage2/recorded",
+        "restored": true,
+        "diffs": [],
+        "v84_line25b": 0,
+        "v85_line25b": 0
+      },
+      {
+        "id": "returns/v80/v80_t1_stage3/recorded",
+        "restored": true,
+        "diffs": [],
+        "v84_line25b": 0,
+        "v85_line25b": 0
+      },
+      {
+        "id": "returns/v80/v80_w_c_amounts_disagree/recorded",
+        "restored": true,
+        "diffs": [],
+        "v84_line25b": 0,
+        "v85_line25b": 0
+      },
+      {
+        "id": "returns/v80/v80_wage_q2_unanswered/recorded",
+        "restored": true,
+        "diffs": [],
+        "v84_line25b": 0,
+        "v85_line25b": 0
+      },
+      {
+        "id": "track0/s0/b4_answer_no_amount",
+        "restored": true,
+        "diffs": [],
+        "v84_line25b": 0,
+        "v85_line25b": 0
+      },
+      {
+        "id": "track0/s0/b4_beside_int_div",
+        "restored": true,
+        "diffs": [],
+        "v84_line25b": 325,
+        "v85_line25b": 325
+      },
+      {
+        "id": "track0/s0/b4_extra_statement_no_sales",
+        "restored": true,
+        "diffs": [],
+        "v84_line25b": 0,
+        "v85_line25b": 0
+      },
+      {
+        "id": "track0/s0/b4_no_one_statement",
+        "restored": true,
+        "diffs": [],
+        "v84_line25b": 0,
+        "v85_line25b": 0
+      },
+      {
+        "id": "track0/s0/b4_no_sales",
+        "restored": true,
+        "diffs": [],
+        "v84_line25b": 0,
+        "v85_line25b": 0
+      },
+      {
+        "id": "track0/s0/b4_no_with_amount",
+        "restored": true,
+        "diffs": [],
+        "v84_line25b": 0,
+        "v85_line25b": 0
+      },
+      {
+        "id": "track0/s0/b4_one_statement",
+        "restored": true,
+        "diffs": [],
+        "v84_line25b": 240,
+        "v85_line25b": 240
+      },
+      {
+        "id": "track0/s0/b4_orphan_150",
+        "restored": true,
+        "diffs": [],
+        "v84_line25b": 150,
+        "v85_line25b": 150
+      },
+      {
+        "id": "track0/s0/b4_orphan_beside_sale",
+        "restored": true,
+        "diffs": [],
+        "v84_line25b": 150,
+        "v85_line25b": 150
+      },
+      {
+        "id": "track0/s0/b4_st_and_lt",
+        "restored": true,
+        "diffs": [],
+        "v84_line25b": 300,
+        "v85_line25b": 300
+      },
+      {
+        "id": "track0/s0/b4_statement_removed",
+        "restored": true,
+        "diffs": [],
+        "v84_line25b": 200,
+        "v85_line25b": 200
+      },
+      {
+        "id": "track0/s0/b4_two_statements",
+        "restored": true,
+        "diffs": [],
+        "v84_line25b": 340,
+        "v85_line25b": 340
+      },
+      {
+        "id": "track0/s0/b4_two_statements_both_no",
+        "restored": true,
+        "diffs": [],
+        "v84_line25b": 0,
+        "v85_line25b": 0
+      },
+      {
+        "id": "track0/s0/b4_two_statements_both_yes",
+        "restored": true,
+        "diffs": [],
+        "v84_line25b": 340,
+        "v85_line25b": 340
+      },
+      {
+        "id": "track0/s0/b4_two_statements_one_yes",
+        "restored": true,
+        "diffs": [],
+        "v84_line25b": 240,
+        "v85_line25b": 240
+      },
+      {
+        "id": "track0/s0/b4_yes_codeb",
+        "restored": true,
+        "diffs": [],
+        "v84_line25b": 240,
+        "v85_line25b": 240
+      },
+      {
+        "id": "track0/s0/b4_yes_covered",
+        "restored": true,
+        "diffs": [],
+        "v84_line25b": 240,
+        "v85_line25b": 240
+      },
+      {
+        "id": "track0/s0/b4_yes_noncovered",
+        "restored": true,
+        "diffs": [],
+        "v84_line25b": 240,
+        "v85_line25b": 240
+      },
+      {
+        "id": "track0/s0/b4_yes_w",
+        "restored": true,
+        "diffs": [],
+        "v84_line25b": 240,
+        "v85_line25b": 240
+      },
+      {
+        "id": "track0/s2/alc_b4_amount_superseded",
+        "restored": true,
+        "diffs": [],
+        "v84_line25b": 250,
+        "v85_line25b": 250
+      },
+      {
+        "id": "track0/s2/alc_b4_amount_valid",
+        "restored": true,
+        "diffs": [],
+        "v84_line25b": 150,
+        "v85_line25b": 150
+      },
+      {
+        "id": "track0/s2/alc_count_positive",
+        "restored": true,
+        "diffs": [],
+        "v84_line25b": 200,
+        "v85_line25b": 200
+      },
+      {
+        "id": "track0/s2/alc_count_transition",
+        "restored": true,
+        "diffs": [],
+        "v84_line25b": 200,
+        "v85_line25b": 200
+      },
+      {
+        "id": "track0/s2/alc_stmt_orphan",
+        "restored": true,
+        "diffs": [],
+        "v84_line25b": 200,
+        "v85_line25b": 200
+      },
+      {
+        "id": "track0/s3/m_code_b_lt_positive",
+        "restored": true,
+        "diffs": [],
+        "v84_line25b": 120,
+        "v85_line25b": 120
+      },
+      {
+        "id": "track0/s3/m_code_b_lt_zero",
+        "restored": true,
+        "diffs": [],
+        "v84_line25b": 0,
+        "v85_line25b": 0
+      },
+      {
+        "id": "track0/s3/m_code_b_st_positive",
+        "restored": true,
+        "diffs": [],
+        "v84_line25b": 120,
+        "v85_line25b": 120
+      },
+      {
+        "id": "track0/s3/m_code_b_st_zero",
+        "restored": true,
+        "diffs": [],
+        "v84_line25b": 0,
+        "v85_line25b": 0
+      },
+      {
+        "id": "track0/s3/m_covered_lt_positive",
+        "restored": true,
+        "diffs": [],
+        "v84_line25b": 120,
+        "v85_line25b": 120
+      },
+      {
+        "id": "track0/s3/m_covered_lt_zero",
+        "restored": true,
+        "diffs": [],
+        "v84_line25b": 0,
+        "v85_line25b": 0
+      },
+      {
+        "id": "track0/s3/m_covered_st_positive",
+        "restored": true,
+        "diffs": [],
+        "v84_line25b": 120,
+        "v85_line25b": 120
+      },
+      {
+        "id": "track0/s3/m_covered_st_zero",
+        "restored": true,
+        "diffs": [],
+        "v84_line25b": 0,
+        "v85_line25b": 0
+      },
+      {
+        "id": "track0/s3/m_covered_w_lt_positive",
+        "restored": true,
+        "diffs": [],
+        "v84_line25b": 120,
+        "v85_line25b": 120
+      },
+      {
+        "id": "track0/s3/m_covered_w_lt_zero",
+        "restored": true,
+        "diffs": [],
+        "v84_line25b": 0,
+        "v85_line25b": 0
+      },
+      {
+        "id": "track0/s3/m_covered_w_st_positive",
+        "restored": true,
+        "diffs": [],
+        "v84_line25b": 120,
+        "v85_line25b": 120
+      },
+      {
+        "id": "track0/s3/m_covered_w_st_zero",
+        "restored": true,
+        "diffs": [],
+        "v84_line25b": 0,
+        "v85_line25b": 0
+      },
+      {
+        "id": "track0/s3/m_noncovered_lt_positive",
+        "restored": true,
+        "diffs": [],
+        "v84_line25b": 120,
+        "v85_line25b": 120
+      },
+      {
+        "id": "track0/s3/m_noncovered_lt_zero",
+        "restored": true,
+        "diffs": [],
+        "v84_line25b": 0,
+        "v85_line25b": 0
+      },
+      {
+        "id": "track0/s3/m_noncovered_st_positive",
+        "restored": true,
+        "diffs": [],
+        "v84_line25b": 120,
+        "v85_line25b": 120
+      },
+      {
+        "id": "track0/s3/m_noncovered_st_zero",
+        "restored": true,
+        "diffs": [],
+        "v84_line25b": 0,
+        "v85_line25b": 0
+      },
+      {
+        "id": "track0/s4/trace1_initial",
+        "restored": true,
+        "diffs": [],
+        "v84_line25b": 150,
+        "v85_line25b": 150
+      },
+      {
+        "id": "track0/s4/trace1_new_stmt_answered",
+        "restored": true,
+        "diffs": [],
+        "v84_line25b": 250,
+        "v85_line25b": 250
+      },
+      {
+        "id": "track0/s4/trace2_initial",
+        "restored": true,
+        "diffs": [],
+        "v84_line25b": 200,
+        "v85_line25b": 200
+      },
+      {
+        "id": "track0/s4/trace2_sale_removed",
+        "restored": true,
+        "diffs": [],
+        "v84_line25b": 200,
+        "v85_line25b": 200
+      },
+      {
+        "id": "track0/s5/reuse_all_five_alone",
+        "restored": true,
+        "diffs": [],
+        "v84_line25b": 355,
+        "v85_line25b": 355
+      },
+      {
+        "id": "track0/s5/reuse_all_with_b4",
+        "restored": true,
+        "diffs": [],
+        "v84_line25b": 455,
+        "v85_line25b": 455
+      },
+      {
+        "id": "track0/s5/reuse_div_alone",
+        "restored": true,
+        "diffs": [],
+        "v84_line25b": 75,
+        "v85_line25b": 75
+      },
+      {
+        "id": "track0/s5/reuse_int_alone",
+        "restored": true,
+        "diffs": [],
+        "v84_line25b": 50,
+        "v85_line25b": 50
+      },
+      {
+        "id": "track0/s5/reuse_ira_alone",
+        "restored": true,
+        "diffs": [],
+        "v84_line25b": 80,
+        "v85_line25b": 80
+      },
+      {
+        "id": "track0/s5/reuse_ssa_alone",
+        "restored": true,
+        "diffs": [],
+        "v84_line25b": 60,
+        "v85_line25b": 60
+      },
+      {
+        "id": "track0/s5/reuse_unemp_alone",
+        "restored": true,
+        "diffs": [],
+        "v84_line25b": 90,
+        "v85_line25b": 90
+      },
+      {
+        "id": "track0/s7/surface_published_owed",
+        "restored": true,
+        "diffs": [],
+        "v84_line25b": 240,
+        "v85_line25b": 240
+      },
+      {
+        "id": "track0/s7/surface_published_refund",
+        "restored": true,
+        "diffs": [],
+        "v84_line25b": 240,
+        "v85_line25b": 240
+      },
+      {
+        "id": "zero/case/a_8949_yes/recorded",
+        "restored": true,
+        "diffs": [],
+        "v84_line25b": 0,
+        "v85_line25b": 0
+      },
+      {
+        "id": "zero/case/m_a_v80_ic_only/recorded",
+        "restored": true,
+        "diffs": [],
+        "v84_line25b": 0,
+        "v85_line25b": 0
+      },
+      {
+        "id": "zero/case/x_d_gain_to_loss/recorded",
+        "restored": true,
+        "diffs": [],
+        "v84_line25b": 0,
+        "v85_line25b": 0
+      },
+      {
+        "id": "zero/neighbour/n_covered_st_zero_proceeds_zero_basis/recorded",
+        "restored": true,
+        "diffs": [],
+        "v84_line25b": 0,
+        "v85_line25b": 0
+      },
+      {
+        "id": "zero/v80/carried_t0_b_loss_8949_yes/recorded",
+        "restored": true,
+        "diffs": [],
+        "v84_line25b": 0,
+        "v85_line25b": 0
+      },
+      {
+        "id": "zero/v80/v80_t2_stage3/recorded",
+        "restored": true,
+        "diffs": [],
+        "v84_line25b": 0,
+        "v85_line25b": 0
+      }
+    ]
+  },
+  "passed": true
+}

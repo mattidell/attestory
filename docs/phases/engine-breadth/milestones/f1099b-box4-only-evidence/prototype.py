@@ -1,7 +1,8 @@
 """Scratch core v85: ask for box 4 withholding on a Form 1099-B with no sale.
 
 Evidence for docs/phases/engine-breadth/milestones/f1099b-box4-only.md.
-Charter: docs/reviews/f1099b-box4-only/charter-p0.md.
+Charter: docs/reviews/f1099b-box4-only/charter-p0.md, then
+docs/reviews/f1099b-box4-only/charter-track0.md (Decision 7 wording).
 
 Builds a scratch core outside the repository. Does not edit packages/ or a
 published schema.
@@ -71,7 +72,8 @@ def _bundle() -> dict[str, Any]:
                 "version": "v1",
                 "title": (
                     "Whether the filer received a 2025 Form 1099-B or substitute statement "
-                    "that shows federal income tax withheld in box 4 and reports no closed sale."
+                    "that shows federal income tax withheld in box 4 and reports no closed sale, "
+                    "other than a statement whose box 4 was entered with its sales."
                 ),
                 "nature": "determinable",
                 "identity_keys": [year_key],
@@ -89,7 +91,8 @@ def _bundle() -> dict[str, Any]:
                 "version": "v1",
                 "title": (
                     "Federal income tax withheld in box 4 of 2025 Form 1099-B or substitute "
-                    "statements that report no closed sale. One nonnegative total for the return."
+                    "statements that report no closed sale, excluding any statement whose box 4 "
+                    "was entered with its sales. One nonnegative total for the return."
                 ),
                 "nature": "determinable",
                 "identity_keys": [year_key],
@@ -109,7 +112,8 @@ def _present_question() -> dict[str, Any]:
         "question": (
             "Did you receive a Form 1099-B or substitute statement that shows federal income "
             "tax withheld in box 4 and reports no closed sale (for example, a short sale still "
-            "open at year end)?"
+            "open at year end)? Do not count a statement whose box 4 you already entered with "
+            "its sales."
         ),
     }
 
@@ -122,7 +126,8 @@ def _amount_question() -> dict[str, Any]:
         "fact_type": _pin(AMOUNT),
         "question": (
             "Enter the federal income tax withheld in box 4 of Form 1099-B or substitute "
-            "statements that report no closed sale. If more than one such statement, enter "
+            "statements that report no closed sale. Do not include a statement whose box 4 "
+            "you already entered with its sales. If more than one remaining statement, enter "
             "the total. If box 4 is blank, enter $0."
         ),
     }
@@ -146,9 +151,10 @@ def _line25b() -> dict[str, Any]:
     rule["version"] = "v8"
     rule["notes"] = (
         rule["notes"]
-        + " v8: also asks whether any Form 1099-B shows box 4 withholding and no closed sale. "
-        "A yes adds that withholding to line 25b. A no adds nothing new. Line 25b cannot "
-        "publish while that question is unanswered."
+        + " v8: also asks whether any Form 1099-B shows box 4 withholding and no closed sale, "
+        "other than a statement whose box 4 was entered with its sales. A yes adds that "
+        "withholding to line 25b. A no adds nothing new. Line 25b cannot publish while that "
+        "question is unanswered."
     )
     addend = _no_sale_addend()
     for arm in ("then", "else"):
@@ -164,16 +170,19 @@ def _field() -> dict[str, Any]:
     field["version"] = "v6"
     field["description"] = (
         field["description"]
-        + " It also includes box 4 withholding from a Form 1099-B that reports no closed sale."
+        + " It also includes box 4 withholding from a Form 1099-B that reports no closed sale, "
+        "excluding withholding already entered with that statement's sales."
     )
     field["dispositions"]["blocked"]["explain"] = (
         "Form 1040 line 25b is blocked because an input it needs is missing or not yet closed. "
         "It is also blocked while a recorded sale's statement has no box 4 amount, and while "
-        "it is unanswered whether a Form 1099-B shows box 4 withholding and no closed sale."
+        "it is unanswered whether a Form 1099-B shows box 4 withholding and no closed sale, "
+        "other than a statement whose box 4 was entered with its sales."
     )
     field["dispositions"]["published_value"]["explain"] = (
         field["dispositions"]["published_value"]["explain"]
-        + " That total includes backup withholding from a Form 1099-B with no closed sale."
+        + " That total includes backup withholding from a Form 1099-B with no closed sale, "
+        "excluding an amount already entered with that statement's sales."
     )
     return field
 

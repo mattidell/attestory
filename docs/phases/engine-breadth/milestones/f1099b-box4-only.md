@@ -3,7 +3,7 @@
   "version": 1,
   "phase": "Engine Breadth",
   "topic": "f1099b-box4-only",
-  "status": "Open. P0 measured on scratch core v85. Decisions recorded; Track 0 chartered.",
+  "status": "Open. Track 0 accepted; Track 1 (core v85) chartered.",
   "scope": [
     "a Form 1099-B statement that reports box 4 withholding and no sale (an open short at year end) has its box 4 amount asked, so line 25b is never short of withholding the filer received",
     "a statement with no sale and no withholding is asked nothing new beyond what establishes that",
@@ -171,3 +171,26 @@ recorded answers.
    4 was entered with its sales. Track 0 pins the double count
    (`no_sale_then_sale_added_double`) as the dishonest answer it is, and
    the honest single-count paths.
+
+## Track 0 adversarial closure
+
+Foreman, 2026-11-10: accepted. Six rows PASS; the cited case ids are in
+the committed outputs; the 91 newly asked returns restore every v84 number
+when the yes/no is answered no. Track 1 is chartered in
+docs/reviews/f1099b-box4-only/charter-track1.md.
+
+Evidence: `docs/phases/engine-breadth/milestones/f1099b-box4-only-evidence/track0-closure.md`.
+Scratch core v85 through `live_coordinate_run`; `track0.py` writes
+`track0-authority.json`, `track0-matrix.json`, `track0-late.json`,
+`track0-reuse.json`, `track0-neighbour.json`, and `track0-surface.json`.
+Hand values come from `probe.hand_return`. Decision 7 wording is on the
+two return-level questions and the line 25b field.
+
+- Authority-lifecycle table: PASS — `track0-authority.json` (8 cases). Present unanswered blocks and asks the yes/no (`alc_present_unanswered`). Present no publishes 0 (`alc_present_no`). Present yes with 150 publishes 150 (`alc_present_yes_amount`). A sale statement's 200 is that statement (`alc_stmt_with_sale`). A no-sale per-statement 150 still counts (`alc_stmt_without_sale`). Two statements do not share an amount (`alc_stmt_identity`, 350). The dishonest two-copy answer publishes 300 (`alc_double_count`).
+- Empty/nonempty authority matrix: PASS — `track0-matrix.json` (25 cases). No Form 1099-B, sale only, no-sale only, and both, each with present unanswered / no / yes with amount / yes amount unanswered, plus per-statement zero and nonzero. Unanswered blocks (`m_none_unanswered`, `m_sale_unanswered_stmt200`, `m_nosale_unanswered`, `m_both_unanswered_sale200`). Present no on a sale equals v84 (`m_sale_no_stmt200` is 200). Decision 6 still counts a no-sale per-statement amount (`m_nosale_no_stmt150`, `m_both_no_sale200_stmt150`).
+- Late-member lifecycle: PASS — `track0-late.json`. Adding a sale and changing present to no keeps one copy (`late_yes_then_sale_then_no`, 150). Removing the sale leaves the per-statement amount (`late_sale_removed`, 200). Correcting the return-level amount from 150 to 80 drops the prior line 25b finding (`late_amount_corrected`). Superseding yes with no publishes 0 (`late_yes_to_no`).
+- Neighboring capability dependency diff: PASS — `track0-neighbour.json`. 298 recorded returns, live on v84 and live on scratch v85, 207 `identical`, 91 `asks_no_sale_present`, 0 counterexamples. Those 91 rerun with present=no restore every v84 number (91/91).
+- Reused-claim semantic/lifecycle equivalence: PASS — `track0-reuse.json`. The six line 25b subtotals match v84 on a present-no return (`reuse_int_alone` 50, `reuse_div_alone` 75, `reuse_ira_alone` 80, `reuse_unemp_alone` 90, `reuse_ssa_alone` 60, `reuse_all_five_alone` 355, `reuse_all_with_b4` 455, `reuse_b4_subtotal` 200). The per-statement box 4 question is unchanged (`reuse_box4_question`). Box 7 checks compose unchanged (`reuse_box7_check`). A present-no wage return equals v84 (`reuse_no_equals_v84`). Only line 25b's rule and form field move, v7 to v8 and v5 to v6.
+- Integration surface: PASS — `track0-surface.json`. Bindings: line 25d requires line 25b; the line 25b field binds it; lines 33, 34, and 37 follow 25d. Six models, one disposition row each. Unanswered yes/no shows the Decision 7 present question (`surface_blocked_present`). Unanswered amount shows the Decision 7 amount question (`surface_blocked_amount`).
+- Known limitations affecting correctness: none
+
