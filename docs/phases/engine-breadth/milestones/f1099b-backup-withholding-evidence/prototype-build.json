@@ -1,0 +1,46 @@
+{
+  "from": {
+    "package": "v82",
+    "registry": "v80",
+    "release": "v80"
+  },
+  "to": {
+    "package": "v83",
+    "registry": "v81",
+    "release": "v81"
+  },
+  "package": "v83",
+  "registry": "v81",
+  "release": "v81",
+  "members_edited": 5,
+  "added": 3,
+  "replaced": 2,
+  "members": [
+    [
+      "add",
+      "f1099b.box4",
+      "v1"
+    ],
+    [
+      "add",
+      "input-question.f1099b-box4",
+      "v1"
+    ],
+    [
+      "add",
+      "f1099b.b4",
+      "v1"
+    ],
+    [
+      "replace",
+      "rule.form1040-line25b",
+      "v7"
+    ],
+    [
+      "replace",
+      "form1040.line-25b",
+      "v5"
+    ]
+  ],
+  "inherited_inconsistencies": []
+}

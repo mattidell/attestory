@@ -1,0 +1,52 @@
+{
+  "core_tested": "v83 (scratch)",
+  "predecessor": "v82",
+  "total_v81_returns_tested": 213,
+  "v81_returns_identical": 213,
+  "v81_returns_diffs": 0,
+  "classification_summary": {
+    "returns_without_box4_withholding": "100% byte-identical to core v82",
+    "returns_with_box4_withholding": "previously refused with DEPENDENCY_ABSENT on v82; now computes line 25b and publishes correct refund",
+    "unanswered_statements": "blocks with DEPENDENCY_ABSENT naming statement-box4-withholding and asks numeric amount question"
+  },
+  "track0_summary": {
+    "box4_yes_cases": [
+      "b4_yes_covered",
+      "b4_yes_w",
+      "b4_yes_noncovered",
+      "b4_yes_codeb",
+      "b4_two_statements_one_yes"
+    ],
+    "box4_yes_v82_state": "blocked (DEPENDENCY_ABSENT)",
+    "box4_yes_v83_state": "published (backup withholding added to line 25b, refund increased)",
+    "box4_unanswered_cases": [
+      "b4_two_statements_one_unanswered"
+    ],
+    "box4_unanswered_v82_state": "blocked asking yes/no question",
+    "box4_unanswered_v83_state": "blocked asking numeric box 4 amount question",
+    "standard_sales_v82_state": "published (line 25b = 0)",
+    "standard_sales_v83_state": "identical (line 25b = 0)"
+  },
+  "v81_returns_sample": {
+    "case/a_8949_yes/recorded": {
+      "classification": "identical",
+      "mismatches": {}
+    },
+    "case/a_adjustment_row_missing/recorded": {
+      "classification": "identical",
+      "mismatches": {}
+    },
+    "case/a_basis_row_missing/recorded": {
+      "classification": "identical",
+      "mismatches": {}
+    },
+    "case/a_bw/recorded": {
+      "classification": "identical",
+      "mismatches": {}
+    },
+    "case/a_corrected_basis_missing/recorded": {
+      "classification": "identical",
+      "mismatches": {}
+    }
+  }
+}

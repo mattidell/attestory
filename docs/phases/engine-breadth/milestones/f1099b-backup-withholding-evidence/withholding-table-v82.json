@@ -1,0 +1,286 @@
+{
+  "core_version": "v82",
+  "line_25b_symbol": "tax.us.2025.payments.line25b",
+  "line_25b_rule_version": "v6",
+  "line_25b_field_version": "v4",
+  "sources": {
+    "1099-INT": {
+      "document": "Form 1099-INT",
+      "subtotal_symbol": "tax.us.2025.interest.b4-withholding-subtotal",
+      "subtotal_rule": {
+        "id": "tax.us.2025.rule.f1099int-b4-subtotal",
+        "version": "v2"
+      },
+      "source_family": {
+        "id": "tax.us.2025.f1099int.b4",
+        "version": "v1"
+      },
+      "closure_mapping": {
+        "id": "tax.us.2025.closure-mapping.f1099int-b4",
+        "version": "v2"
+      },
+      "withholding_fact_type": {
+        "id": "tax.us.2025.f1099int.box4-withholding",
+        "version": "v1",
+        "identity_keys": [
+          "payer",
+          "statement",
+          "tax-year"
+        ],
+        "value_schema": {
+          "type": "number",
+          "minimum": 0
+        }
+      },
+      "statement_object_income_types": [
+        "tax.us.2025.f1099int.box1-interest",
+        "tax.us.2025.f1099int.box3-interest",
+        "tax.us.2025.f1099int.box8-tax-exempt-interest",
+        "tax.us.2025.f1099int.box10-market-discount"
+      ],
+      "income_source_set": "tax.us.2025.f1099int.b1",
+      "per_statement_question": {
+        "id": "tax.us.2025.input-question.f1099int-box4",
+        "version": "v1",
+        "question": "Enter the federal income tax withheld in box 4 of each Form 1099-INT you or your spouse received for 2025. If box 4 is blank, enter $0."
+      },
+      "pairing_rule": {
+        "op": "require_paired",
+        "key": "statement",
+        "withholding": "tax.us.2025.f1099int.box4-withholding",
+        "income_types_count": 4
+      }
+    },
+    "1099-DIV": {
+      "document": "Form 1099-DIV",
+      "subtotal_symbol": "tax.us.2025.dividends.b4-withholding-subtotal",
+      "subtotal_rule": {
+        "id": "tax.us.2025.rule.f1099div-b4-subtotal",
+        "version": "v2"
+      },
+      "source_family": {
+        "id": "tax.us.2025.f1099div.b4",
+        "version": "v1"
+      },
+      "closure_mapping": {
+        "id": "tax.us.2025.closure-mapping.f1099div-b4",
+        "version": "v2"
+      },
+      "withholding_fact_type": {
+        "id": "tax.us.2025.f1099div.box4-withholding",
+        "version": "v1",
+        "identity_keys": [
+          "payer",
+          "statement",
+          "tax-year"
+        ],
+        "value_schema": {
+          "type": "number",
+          "minimum": 0
+        }
+      },
+      "statement_object_income_types": [
+        "tax.us.2025.f1099div.box1a-ordinary",
+        "tax.us.2025.f1099div.box2a-capital-gain-distribution",
+        "tax.us.2025.f1099div.box12-exempt-interest-dividends"
+      ],
+      "income_source_set": "tax.us.2025.f1099div.1a",
+      "per_statement_question": {
+        "id": "tax.us.2025.input-question.f1099div-box4",
+        "version": "v1",
+        "question": "Enter the federal income tax withheld in box 4 of each Form 1099-DIV you or your spouse received for 2025. If box 4 is blank, enter $0."
+      },
+      "pairing_rule": {
+        "op": "require_paired",
+        "key": "statement",
+        "withholding": "tax.us.2025.f1099div.box4-withholding",
+        "income_types_count": 3
+      }
+    },
+    "1099-R": {
+      "document": "Form 1099-R (IRA)",
+      "subtotal_symbol": "tax.us.2025.ira.box4-withholding-subtotal",
+      "subtotal_rule": {
+        "id": "tax.us.2025.rule.f1099r-box4-subtotal",
+        "version": "v2"
+      },
+      "source_family": {
+        "id": "tax.us.2025.f1099r.box4",
+        "version": "v1"
+      },
+      "closure_mapping": {
+        "id": "tax.us.2025.closure-mapping.f1099r-box4",
+        "version": "v2"
+      },
+      "withholding_fact_type": {
+        "id": "tax.us.2025.f1099r.ira-box4-withholding",
+        "version": "v1",
+        "identity_keys": [
+          "payer",
+          "statement",
+          "tax-year"
+        ],
+        "value_schema": {
+          "type": "number",
+          "minimum": 0
+        }
+      },
+      "statement_object_income_types": [
+        "tax.us.2025.f1099r.ira-box1-taxable-distribution"
+      ],
+      "income_source_set": "tax.us.2025.f1099r.ira-fully-taxable",
+      "per_statement_question": {
+        "id": "tax.us.2025.input-question.f1099r-box4",
+        "version": "v1",
+        "question": "Enter the federal income tax withheld in box 4 of each Form 1099-R you or your spouse received for 2025. If box 4 is blank, enter $0."
+      },
+      "pairing_rule": {
+        "op": "require_paired",
+        "key": "statement",
+        "withholding": "tax.us.2025.f1099r.ira-box4-withholding",
+        "income_types_count": 1
+      }
+    },
+    "1099-G": {
+      "document": "Form 1099-G",
+      "subtotal_symbol": "tax.us.2025.unemployment.b4-withholding-subtotal",
+      "subtotal_rule": {
+        "id": "tax.us.2025.rule.f1099g-b4-subtotal",
+        "version": "v2"
+      },
+      "source_family": {
+        "id": "tax.us.2025.f1099g.b4",
+        "version": "v1"
+      },
+      "closure_mapping": {
+        "id": "tax.us.2025.closure-mapping.f1099g-b4",
+        "version": "v2"
+      },
+      "withholding_fact_type": {
+        "id": "tax.us.2025.f1099g.box4-withholding",
+        "version": "v1",
+        "identity_keys": [
+          "payer",
+          "statement",
+          "tax-year"
+        ],
+        "value_schema": {
+          "type": "number",
+          "minimum": 0
+        }
+      },
+      "statement_object_income_types": [
+        "tax.us.2025.f1099g.box1-unemployment"
+      ],
+      "income_source_set": "tax.us.2025.f1099g.1",
+      "per_statement_question": {
+        "id": "tax.us.2025.input-question.f1099g-box4",
+        "version": "v1",
+        "question": "Enter the federal income tax withheld in box 4 of each Form 1099-G you or your spouse received for 2025. If box 4 is blank, enter $0."
+      },
+      "pairing_rule": {
+        "op": "require_paired",
+        "key": "statement",
+        "withholding": "tax.us.2025.f1099g.box4-withholding",
+        "income_types_count": 1
+      }
+    },
+    "SSA-1099": {
+      "document": "Form SSA-1099",
+      "subtotal_symbol": "tax.us.2025.ssa1099.b6-withholding-subtotal",
+      "subtotal_rule": {
+        "id": "tax.us.2025.rule.ssa1099-b6-subtotal",
+        "version": "v2"
+      },
+      "source_family": {
+        "id": "tax.us.2025.ssa1099.b6",
+        "version": "v1"
+      },
+      "closure_mapping": {
+        "id": "tax.us.2025.closure-mapping.ssa1099-b6",
+        "version": "v2"
+      },
+      "withholding_fact_type": {
+        "id": "tax.us.2025.ssa1099.box6-voluntary-withholding",
+        "version": "v1",
+        "identity_keys": [
+          "taxpayer",
+          "statement",
+          "tax-year"
+        ],
+        "value_schema": {
+          "type": "number",
+          "minimum": 0
+        }
+      },
+      "statement_object_income_types": [
+        "tax.us.2025.ssa1099.box5-net-benefits"
+      ],
+      "income_source_set": "tax.us.2025.ssa1099.benefits",
+      "per_statement_question": {
+        "id": "tax.us.2025.input-question.ssa1099-box6",
+        "version": "v1",
+        "question": "Enter the voluntary federal income tax withheld in box 6 of each Form SSA-1099 you or your spouse received for 2025. If box 6 is blank, enter $0."
+      },
+      "pairing_rule": {
+        "op": "require_paired",
+        "key": "statement",
+        "withholding": "tax.us.2025.ssa1099.box6-voluntary-withholding",
+        "income_types_count": 1
+      }
+    },
+    "1099-B": {
+      "document": "Form 1099-B",
+      "subtotal_symbol": null,
+      "subtotal_rule": null,
+      "source_family": null,
+      "closure_mapping": null,
+      "withholding_fact_type": {
+        "id": "tax.us.2025.f1099b.statement-box4-withholding-reported",
+        "version": "v1",
+        "identity_keys": [
+          "statement",
+          "tax-year"
+        ],
+        "value_schema": {
+          "enum": [
+            "yes",
+            "no"
+          ]
+        }
+      },
+      "statement_object_income_types": [
+        "tax.us.2025.f1099b.covered-st-txn",
+        "tax.us.2025.f1099b.covered-lt-txn",
+        "tax.us.2025.f1099b.covered-w-st-txn",
+        "tax.us.2025.f1099b.covered-w-lt-txn",
+        "tax.us.2025.f1099b.noncovered-st-txn",
+        "tax.us.2025.f1099b.noncovered-lt-txn",
+        "tax.us.2025.f1099b.code-b-st-txn",
+        "tax.us.2025.f1099b.code-b-lt-txn"
+      ],
+      "income_source_set": "Per-family / grouped closures for the 8 transaction families",
+      "per_statement_question": {
+        "id": "tax.us.2025.input-question.f1099b-statement-box4-withholding-reported",
+        "version": "v1",
+        "question": "For each Form 1099-B or substitute statement you recorded a sale from, does it show federal income tax withheld in box 4?"
+      },
+      "pairing_rule": {
+        "op": "require_paired",
+        "key": "statement",
+        "withholding": "tax.us.2025.f1099b.statement-box4-withholding-reported",
+        "income_types_count": 8
+      },
+      "rules_reading_box4_question": [
+        {
+          "rule_id": "tax.us.2025.rule.form1040-line25b",
+          "version": "v6",
+          "role_in_when": "require_paired on key statement between 8 sale txn types and statement-box4-withholding-reported",
+          "role_in_value": "choose condition: if any sale count > 0 and not collect_categorical_all_equal == 'no', block DEPENDENCY_ABSENT"
+        }
+      ],
+      "carries_box4_amount_today": false
+    }
+  },
+  "carries_box4_amount_summary": "No Form 1099-B record (neither the statement fact types nor the sale transaction fact types nor the scalar companion rows) carries a box 4 amount field on core v82."
+}
