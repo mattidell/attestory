@@ -1,0 +1,62 @@
+{
+  "schema": "bundle.v2",
+  "id": "tax.us.2025.f1099b.no-sale-box4",
+  "version": "v1",
+  "label": "Form 1099-B box 4 withholding on a statement with no closed sale",
+  "fact_types": [
+    {
+      "schema": "fact-type.v2",
+      "id": "tax.us.2025.f1099b.no-sale-box4-present",
+      "version": "v1",
+      "title": "Whether the filer received a 2025 Form 1099-B or substitute statement that shows federal income tax withheld in box 4 and reports no closed sale, other than a statement whose box 4 you already entered, with or without a sale.",
+      "nature": "determinable",
+      "identity_keys": [
+        {
+          "name": "tax-year",
+          "kind": "literal",
+          "values": [
+            "2025"
+          ]
+        }
+      ],
+      "value_schema": {
+        "oneOf": [
+          {
+            "const": "yes",
+            "description": "Such a statement was received."
+          },
+          {
+            "const": "no",
+            "description": "No such statement was received."
+          }
+        ]
+      },
+      "supersession": {
+        "policy": "free"
+      }
+    },
+    {
+      "schema": "fact-type.v2",
+      "id": "tax.us.2025.f1099b.no-sale-box4-withholding",
+      "version": "v1",
+      "title": "Federal income tax withheld in box 4 of 2025 Form 1099-B or substitute statements that report no closed sale, excluding any statement whose box 4 you already entered, with or without a sale. One nonnegative total for the return.",
+      "nature": "determinable",
+      "identity_keys": [
+        {
+          "name": "tax-year",
+          "kind": "literal",
+          "values": [
+            "2025"
+          ]
+        }
+      ],
+      "value_schema": {
+        "type": "number",
+        "minimum": 0
+      },
+      "supersession": {
+        "policy": "free"
+      }
+    }
+  ]
+}

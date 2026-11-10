@@ -1,0 +1,10 @@
+{
+  "schema": "input-question.v1",
+  "id": "tax.us.2025.input-question.f1099b-no-sale-box4-present",
+  "version": "v1",
+  "fact_type": {
+    "id": "tax.us.2025.f1099b.no-sale-box4-present",
+    "version": "v1"
+  },
+  "question": "Did you receive a Form 1099-B or substitute statement that shows federal income tax withheld in box 4 and reports no closed sale (for example, a short sale still open at year end)? Do not count a statement whose box 4 you already entered, with or without a sale."
+}

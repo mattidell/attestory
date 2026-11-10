@@ -73,7 +73,7 @@ def _bundle() -> dict[str, Any]:
                 "title": (
                     "Whether the filer received a 2025 Form 1099-B or substitute statement "
                     "that shows federal income tax withheld in box 4 and reports no closed sale, "
-                    "other than a statement whose box 4 was entered with its sales."
+                    "other than a statement whose box 4 you already entered, with or without a sale."
                 ),
                 "nature": "determinable",
                 "identity_keys": [year_key],
@@ -92,7 +92,7 @@ def _bundle() -> dict[str, Any]:
                 "title": (
                     "Federal income tax withheld in box 4 of 2025 Form 1099-B or substitute "
                     "statements that report no closed sale, excluding any statement whose box 4 "
-                    "was entered with its sales. One nonnegative total for the return."
+                    "you already entered, with or without a sale. One nonnegative total for the return."
                 ),
                 "nature": "determinable",
                 "identity_keys": [year_key],
@@ -112,8 +112,8 @@ def _present_question() -> dict[str, Any]:
         "question": (
             "Did you receive a Form 1099-B or substitute statement that shows federal income "
             "tax withheld in box 4 and reports no closed sale (for example, a short sale still "
-            "open at year end)? Do not count a statement whose box 4 you already entered with "
-            "its sales."
+            "open at year end)? Do not count a statement whose box 4 you already entered, "
+            "with or without a sale."
         ),
     }
 
@@ -127,7 +127,7 @@ def _amount_question() -> dict[str, Any]:
         "question": (
             "Enter the federal income tax withheld in box 4 of Form 1099-B or substitute "
             "statements that report no closed sale. Do not include a statement whose box 4 "
-            "you already entered with its sales. If more than one remaining statement, enter "
+            "you already entered, with or without a sale. If more than one remaining statement, enter "
             "the total. If box 4 is blank, enter $0."
         ),
     }
@@ -152,7 +152,7 @@ def _line25b() -> dict[str, Any]:
     rule["notes"] = (
         rule["notes"]
         + " v8: also asks whether any Form 1099-B shows box 4 withholding and no closed sale, "
-        "other than a statement whose box 4 was entered with its sales. A yes adds that "
+        "other than a statement whose box 4 you already entered, with or without a sale. A yes adds that "
         "withholding to line 25b. A no adds nothing new. Line 25b cannot publish while that "
         "question is unanswered."
     )
@@ -171,18 +171,18 @@ def _field() -> dict[str, Any]:
     field["description"] = (
         field["description"]
         + " It also includes box 4 withholding from a Form 1099-B that reports no closed sale, "
-        "excluding withholding already entered with that statement's sales."
+        "excluding withholding already entered, with or without a sale."
     )
     field["dispositions"]["blocked"]["explain"] = (
         "Form 1040 line 25b is blocked because an input it needs is missing or not yet closed. "
         "It is also blocked while a recorded sale's statement has no box 4 amount, and while "
         "it is unanswered whether a Form 1099-B shows box 4 withholding and no closed sale, "
-        "other than a statement whose box 4 was entered with its sales."
+        "other than a statement whose box 4 you already entered, with or without a sale."
     )
     field["dispositions"]["published_value"]["explain"] = (
         field["dispositions"]["published_value"]["explain"]
         + " That total includes backup withholding from a Form 1099-B with no closed sale, "
-        "excluding an amount already entered with that statement's sales."
+        "excluding an amount already entered, with or without a sale."
     )
     return field
 

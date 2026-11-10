@@ -1,0 +1,10 @@
+{
+  "schema": "input-question.v1",
+  "id": "tax.us.2025.input-question.f1099b-no-sale-box4-amount",
+  "version": "v1",
+  "fact_type": {
+    "id": "tax.us.2025.f1099b.no-sale-box4-withholding",
+    "version": "v1"
+  },
+  "question": "Enter the federal income tax withheld in box 4 of Form 1099-B or substitute statements that report no closed sale. Do not include a statement whose box 4 you already entered, with or without a sale. If more than one remaining statement, enter the total. If box 4 is blank, enter $0."
+}

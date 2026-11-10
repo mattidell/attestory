@@ -23,11 +23,12 @@ from packages.tax.loader import (
 CORE = "tax.us.2025.package.core-calculations"
 
 
-def test_only_cores_v79_through_v84_name_the_covered_flag_refusal() -> None:
+def test_only_cores_v79_through_v85_name_the_covered_flag_refusal() -> None:
     assert named_covered_flag_refusal_maps() == {
-        (CORE, version): COVERED_FLAG_REFUSAL_OBJECTS for version in ("v79", "v80", "v81", "v82", "v83", "v84")
+        (CORE, version): COVERED_FLAG_REFUSAL_OBJECTS
+        for version in ("v79", "v80", "v81", "v82", "v83", "v84", "v85")
     }
-    for version in ("v79", "v80", "v81", "v82", "v83", "v84"):
+    for version in ("v79", "v80", "v81", "v82", "v83", "v84", "v85"):
         assert covered_flag_refusal_map(CORE, version) == COVERED_FLAG_REFUSAL_OBJECTS
 
 

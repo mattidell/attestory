@@ -57,10 +57,10 @@ BLOCKED_EXPLAIN = (
     "Form 1040 line 25b is blocked because an input it needs is missing or not yet closed. "
     "It is also blocked while a recorded sale's statement has no box 4 amount, and while "
     "it is unanswered whether a Form 1099-B shows box 4 withholding and no closed sale, "
-    "other than a statement whose box 4 was entered with its sales."
+    "other than a statement whose box 4 you already entered, with or without a sale."
 )
-PRESENT_EXCLUDE = "Do not count a statement whose box 4 you already entered with its sales."
-AMOUNT_EXCLUDE = "Do not include a statement whose box 4 you already entered with its sales."
+PRESENT_EXCLUDE = "Do not count a statement whose box 4 you already entered, with or without a sale."
+AMOUNT_EXCLUDE = "Do not include a statement whose box 4 you already entered, with or without a sale."
 
 
 def load_probe() -> Any:
