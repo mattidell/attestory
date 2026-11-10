@@ -733,6 +733,18 @@ per-statement box 4 question is unchanged. Of the 298 recorded returns, 207
 are identical and 91 newly ask the yes/no; answering no restores every
 number. Earlier cores are unchanged.
 
+## Bounded return — Form 8949 Code L for a Box 7 Loss (2025), closed on P0
+
+[Plan](milestones/f8949-code-l.md); retrospective:
+`docs/milestone-retrospectives/2026-11-10-f8949-code-l.md`.
+
+A box 7 loss is wholly disallowed and reported on Form 8949 with code L,
+column (g) the whole loss and column (h) zero (Schedule D Example 2). A
+Form 8949 row is a recorded family member, and no content successor can
+emit one, so the milestone closed on its investigation; the recording
+change is an open owner-held question. The fast-lane schema-compile fix
+landed with it.
+
 ## Parked work and open questions
 
 This is the single list of parked work and open owner-held questions for the
@@ -747,6 +759,10 @@ delivers an item removes it.
   (ADR-0072). Until then, the withdrawal policy blocks it.
 - Later-year basis reuse: cross-year identity and correction for an
   acquisition reported in a later year.
+- Form 8949 code L for a box 7 loss: whether to add a recording-surface
+  change that records the disallowed sale in a code L family, with the
+  amount computed from proceeds, basis and any recorded wash or code B
+  adjustment (f8949-code-l P0). A content successor cannot emit the row.
 
 ### Parked
 
@@ -861,8 +877,8 @@ delivers an item removes it.
   statement with no sale would replace the return-level total.
 - Form 1099-B box 13 bartering, whose refusing answer is not established.
 - A loss on a Form 1099-B statement whose box 7 is checked refuses
-  Schedule D line 16 (core v84); the code L adjustment that disallows it is
-  not computed.
+  Schedule D line 16 (core v84). The code L row is an open owner-held
+  question (f8949-code-l, closed on P0).
 - On a box 7 loss the filer sees the line 16 explanation, a disjunction of
   every cause that can block the line, and the generic remedy. A reason
   naming only the loss needs a value rule to carry a selection reason or a

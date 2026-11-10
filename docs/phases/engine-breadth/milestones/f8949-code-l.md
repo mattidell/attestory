@@ -3,7 +3,8 @@
   "version": 1,
   "phase": "Engine Breadth",
   "topic": "f8949-code-l",
-  "status": "Open. P0 chartered.",
+  "retrospective": "docs/milestone-retrospectives/2026-11-10-f8949-code-l.md",
+  "status": "Closed on P0. A box 7 loss is wholly disallowed and reported with code L; a content successor cannot emit the row, so the recording-surface change is an open owner-held question. The fast-lane schema-compile fix landed.",
   "scope": [
     "a sale at a loss on a Form 1099-B statement whose box 7 is checked is reported on Form 8949 with code L and the adjustment the 2025 instructions require, instead of refusing Schedule D line 16",
     "no loss from a box 7 statement reaches Schedule D unless the instructions allow it, and no other code or box changes",
@@ -120,3 +121,17 @@ them or add code L. The smallest change is a recording-surface change that
 records the disallowed sale the way a code B sale is recorded, then a
 successor package. Evidence: `f8949-code-l-evidence/p0.md`. No scratch core
 v86 was generated. The recorded-return rerun was not run.
+
+## Decision
+
+Foreman, 2026-11-10: close on P0. The fix needs a recording-surface
+change, which the owner decides; it becomes an open owner-held question
+in the roadmap with P0's six readings (codes LW and BL, gains still
+computing, covered losses on line 1b or 8b, no allowed-portion question)
+as the starting design. The opening fix to the fast-lane budget lands
+with this milestone.
+
+## Closeout
+
+Closed 2026-11-10 on P0, with no package. Retrospective:
+`docs/milestone-retrospectives/2026-11-10-f8949-code-l.md`.
