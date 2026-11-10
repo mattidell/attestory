@@ -1,0 +1,5558 @@
+{
+  "summary": {
+    "total_returns": 213,
+    "returns_with_sales": 174,
+    "returns_without_sales": 39,
+    "reproduces_v82_fixture_count": 213,
+    "fixture_mismatch_ids": [],
+    "classes": {
+      "box4_unanswered_asks_amount": 150,
+      "identical": 63
+    },
+    "identical_cases": 63,
+    "box4_unanswered_cases": 150,
+    "counterexample_cases": 0,
+    "counterexample_ids": [],
+    "no_sales_changed_ids": [],
+    "four_no_sale_returns": {
+      "case/wage_q3_unanswered/recorded": {
+        "classification": "identical",
+        "has_sales": false,
+        "v82_disp_25b": "blocked",
+        "v83_disp_25b": "blocked",
+        "v82_blocked_reasons_25b": [
+          "Did any Form 1099-B or substitute statement you received show a cost or other basis, reported to the IRS, that is wrong?"
+        ],
+        "v83_blocked_reasons_25b": [
+          "Did any Form 1099-B or substitute statement you received show a cost or other basis, reported to the IRS, that is wrong?"
+        ],
+        "reproduces_v82_fixture": true
+      },
+      "v80/carried_one_exempt_dividend/recorded": {
+        "classification": "identical",
+        "has_sales": false,
+        "v82_disp_25b": "blocked",
+        "v83_disp_25b": "blocked",
+        "v82_blocked_reasons_25b": [
+          "Enter the federal income tax withheld in box 4 of each Form 1099-DIV you or your spouse received for 2025. If box 4 is blank, enter $0."
+        ],
+        "v83_blocked_reasons_25b": [
+          "Enter the federal income tax withheld in box 4 of each Form 1099-DIV you or your spouse received for 2025. If box 4 is blank, enter $0."
+        ],
+        "reproduces_v82_fixture": true
+      },
+      "v80/carried_one_foreign_tax/recorded": {
+        "classification": "identical",
+        "has_sales": false,
+        "v82_disp_25b": "blocked",
+        "v83_disp_25b": "blocked",
+        "v82_blocked_reasons_25b": [
+          "Enter the federal income tax withheld in box 4 of each Form 1099-DIV you or your spouse received for 2025. If box 4 is blank, enter $0."
+        ],
+        "v83_blocked_reasons_25b": [
+          "Enter the federal income tax withheld in box 4 of each Form 1099-DIV you or your spouse received for 2025. If box 4 is blank, enter $0."
+        ],
+        "reproduces_v82_fixture": true
+      },
+      "v80/carried_wage_unclosed/recorded": {
+        "classification": "identical",
+        "has_sales": false,
+        "v82_disp_25b": "blocked",
+        "v83_disp_25b": "blocked",
+        "v82_blocked_reasons_25b": [
+          "Did you sell any securities whose basis was not reported to the IRS?"
+        ],
+        "v83_blocked_reasons_25b": [
+          "Did you sell any securities whose basis was not reported to the IRS?"
+        ],
+        "reproduces_v82_fixture": true
+      }
+    },
+    "all_classified": true,
+    "all_reproduce_v82_fixture": true
+  },
+  "cases": [
+    {
+      "case_id": "case/a_8949_yes/recorded",
+      "classification": "box4_unanswered_asks_amount",
+      "has_sales": true,
+      "reproduces_v82_fixture": true,
+      "fixture_mismatch": null,
+      "v82_outcome": "success",
+      "v83_outcome": "success",
+      "v82_error": null,
+      "v83_error": null,
+      "v82_disp_25b": "computed_zero",
+      "v83_disp_25b": "blocked",
+      "v82_line_25b": 0,
+      "v83_line_25b": null,
+      "v82_blocked_reasons_25b": [],
+      "v83_blocked_reasons_25b": [
+        "Enter the federal income tax withheld in box 4 of each Form 1099-B or substitute statement you recorded a sale from. If box 4 is blank, enter $0."
+      ],
+      "diff_count": 9,
+      "diff_fields": [
+        "form1040.line-25b",
+        "form1040.line-25d"
+      ],
+      "unexpected_diffs": []
+    },
+    {
+      "case_id": "case/a_adjustment_row_missing/recorded",
+      "classification": "box4_unanswered_asks_amount",
+      "has_sales": true,
+      "reproduces_v82_fixture": true,
+      "fixture_mismatch": null,
+      "v82_outcome": "success",
+      "v83_outcome": "success",
+      "v82_error": null,
+      "v83_error": null,
+      "v82_disp_25b": "computed_zero",
+      "v83_disp_25b": "blocked",
+      "v82_line_25b": 0,
+      "v83_line_25b": null,
+      "v82_blocked_reasons_25b": [],
+      "v83_blocked_reasons_25b": [
+        "Enter the federal income tax withheld in box 4 of each Form 1099-B or substitute statement you recorded a sale from. If box 4 is blank, enter $0."
+      ],
+      "diff_count": 13,
+      "diff_fields": [
+        "form1040.line-25b",
+        "form1040.line-25d",
+        "form1040.line-33",
+        "form1040.line-34",
+        "form1040.line-35a",
+        "form1040.line-37"
+      ],
+      "unexpected_diffs": []
+    },
+    {
+      "case_id": "case/a_basis_row_missing/recorded",
+      "classification": "box4_unanswered_asks_amount",
+      "has_sales": true,
+      "reproduces_v82_fixture": true,
+      "fixture_mismatch": null,
+      "v82_outcome": "success",
+      "v83_outcome": "success",
+      "v82_error": null,
+      "v83_error": null,
+      "v82_disp_25b": "computed_zero",
+      "v83_disp_25b": "blocked",
+      "v82_line_25b": 0,
+      "v83_line_25b": null,
+      "v82_blocked_reasons_25b": [],
+      "v83_blocked_reasons_25b": [
+        "Enter the federal income tax withheld in box 4 of each Form 1099-B or substitute statement you recorded a sale from. If box 4 is blank, enter $0."
+      ],
+      "diff_count": 13,
+      "diff_fields": [
+        "form1040.line-25b",
+        "form1040.line-25d",
+        "form1040.line-33",
+        "form1040.line-34",
+        "form1040.line-35a",
+        "form1040.line-37"
+      ],
+      "unexpected_diffs": []
+    },
+    {
+      "case_id": "case/a_bw/recorded",
+      "classification": "box4_unanswered_asks_amount",
+      "has_sales": true,
+      "reproduces_v82_fixture": true,
+      "fixture_mismatch": null,
+      "v82_outcome": "success",
+      "v83_outcome": "success",
+      "v82_error": null,
+      "v83_error": null,
+      "v82_disp_25b": "computed_zero",
+      "v83_disp_25b": "blocked",
+      "v82_line_25b": 0,
+      "v83_line_25b": null,
+      "v82_blocked_reasons_25b": [],
+      "v83_blocked_reasons_25b": [
+        "Enter the federal income tax withheld in box 4 of each Form 1099-B or substitute statement you recorded a sale from. If box 4 is blank, enter $0."
+      ],
+      "diff_count": 25,
+      "diff_fields": [
+        "form1040.line-25b",
+        "form1040.line-25d",
+        "form1040.line-33",
+        "form1040.line-34",
+        "form1040.line-35a",
+        "form1040.line-37"
+      ],
+      "unexpected_diffs": []
+    },
+    {
+      "case_id": "case/a_corrected_basis_missing/recorded",
+      "classification": "identical",
+      "has_sales": true,
+      "reproduces_v82_fixture": true,
+      "fixture_mismatch": null,
+      "v82_outcome": "error",
+      "v83_outcome": "error",
+      "v82_error": "FindingModelError",
+      "v83_error": "FindingModelError",
+      "v82_disp_25b": null,
+      "v83_disp_25b": null,
+      "v82_line_25b": null,
+      "v83_line_25b": null,
+      "v82_blocked_reasons_25b": [],
+      "v83_blocked_reasons_25b": [],
+      "diff_count": 0,
+      "diff_fields": [],
+      "unexpected_diffs": []
+    },
+    {
+      "case_id": "case/a_duplicate_on_direct/recorded",
+      "classification": "box4_unanswered_asks_amount",
+      "has_sales": true,
+      "reproduces_v82_fixture": true,
+      "fixture_mismatch": null,
+      "v82_outcome": "success",
+      "v83_outcome": "success",
+      "v82_error": null,
+      "v83_error": null,
+      "v82_disp_25b": "computed_zero",
+      "v83_disp_25b": "blocked",
+      "v82_line_25b": 0,
+      "v83_line_25b": null,
+      "v82_blocked_reasons_25b": [],
+      "v83_blocked_reasons_25b": [
+        "Enter the federal income tax withheld in box 4 of each Form 1099-B or substitute statement you recorded a sale from. If box 4 is blank, enter $0."
+      ],
+      "diff_count": 9,
+      "diff_fields": [
+        "form1040.line-25b",
+        "form1040.line-25d"
+      ],
+      "unexpected_diffs": []
+    },
+    {
+      "case_id": "case/a_g_disagrees/recorded",
+      "classification": "box4_unanswered_asks_amount",
+      "has_sales": true,
+      "reproduces_v82_fixture": true,
+      "fixture_mismatch": null,
+      "v82_outcome": "success",
+      "v83_outcome": "success",
+      "v82_error": null,
+      "v83_error": null,
+      "v82_disp_25b": "computed_zero",
+      "v83_disp_25b": "blocked",
+      "v82_line_25b": 0,
+      "v83_line_25b": null,
+      "v82_blocked_reasons_25b": [],
+      "v83_blocked_reasons_25b": [
+        "Enter the federal income tax withheld in box 4 of each Form 1099-B or substitute statement you recorded a sale from. If box 4 is blank, enter $0."
+      ],
+      "diff_count": 9,
+      "diff_fields": [
+        "form1040.line-25b",
+        "form1040.line-25d"
+      ],
+      "unexpected_diffs": []
+    },
+    {
+      "case_id": "case/a_gain_to_loss/recorded",
+      "classification": "box4_unanswered_asks_amount",
+      "has_sales": true,
+      "reproduces_v82_fixture": true,
+      "fixture_mismatch": null,
+      "v82_outcome": "success",
+      "v83_outcome": "success",
+      "v82_error": null,
+      "v83_error": null,
+      "v82_disp_25b": "computed_zero",
+      "v83_disp_25b": "blocked",
+      "v82_line_25b": 0,
+      "v83_line_25b": null,
+      "v82_blocked_reasons_25b": [],
+      "v83_blocked_reasons_25b": [
+        "Enter the federal income tax withheld in box 4 of each Form 1099-B or substitute statement you recorded a sale from. If box 4 is blank, enter $0."
+      ],
+      "diff_count": 25,
+      "diff_fields": [
+        "form1040.line-25b",
+        "form1040.line-25d",
+        "form1040.line-33",
+        "form1040.line-34",
+        "form1040.line-35a",
+        "form1040.line-37"
+      ],
+      "unexpected_diffs": []
+    },
+    {
+      "case_id": "case/a_high/recorded",
+      "classification": "box4_unanswered_asks_amount",
+      "has_sales": true,
+      "reproduces_v82_fixture": true,
+      "fixture_mismatch": null,
+      "v82_outcome": "success",
+      "v83_outcome": "success",
+      "v82_error": null,
+      "v83_error": null,
+      "v82_disp_25b": "computed_zero",
+      "v83_disp_25b": "blocked",
+      "v82_line_25b": 0,
+      "v83_line_25b": null,
+      "v82_blocked_reasons_25b": [],
+      "v83_blocked_reasons_25b": [
+        "Enter the federal income tax withheld in box 4 of each Form 1099-B or substitute statement you recorded a sale from. If box 4 is blank, enter $0."
+      ],
+      "diff_count": 25,
+      "diff_fields": [
+        "form1040.line-25b",
+        "form1040.line-25d",
+        "form1040.line-33",
+        "form1040.line-34",
+        "form1040.line-35a",
+        "form1040.line-37"
+      ],
+      "unexpected_diffs": []
+    },
+    {
+      "case_id": "case/a_high_and_w_row/recorded",
+      "classification": "box4_unanswered_asks_amount",
+      "has_sales": true,
+      "reproduces_v82_fixture": true,
+      "fixture_mismatch": null,
+      "v82_outcome": "success",
+      "v83_outcome": "success",
+      "v82_error": null,
+      "v83_error": null,
+      "v82_disp_25b": "computed_zero",
+      "v83_disp_25b": "blocked",
+      "v82_line_25b": 0,
+      "v83_line_25b": null,
+      "v82_blocked_reasons_25b": [],
+      "v83_blocked_reasons_25b": [
+        "Enter the federal income tax withheld in box 4 of each Form 1099-B or substitute statement you recorded a sale from. If box 4 is blank, enter $0."
+      ],
+      "diff_count": 25,
+      "diff_fields": [
+        "form1040.line-25b",
+        "form1040.line-25d",
+        "form1040.line-33",
+        "form1040.line-34",
+        "form1040.line-35a",
+        "form1040.line-37"
+      ],
+      "unexpected_diffs": []
+    },
+    {
+      "case_id": "case/a_holding_mismatch/recorded",
+      "classification": "box4_unanswered_asks_amount",
+      "has_sales": true,
+      "reproduces_v82_fixture": true,
+      "fixture_mismatch": null,
+      "v82_outcome": "success",
+      "v83_outcome": "success",
+      "v82_error": null,
+      "v83_error": null,
+      "v82_disp_25b": "computed_zero",
+      "v83_disp_25b": "blocked",
+      "v82_line_25b": 0,
+      "v83_line_25b": null,
+      "v82_blocked_reasons_25b": [],
+      "v83_blocked_reasons_25b": [
+        "Enter the federal income tax withheld in box 4 of each Form 1099-B or substitute statement you recorded a sale from. If box 4 is blank, enter $0."
+      ],
+      "diff_count": 13,
+      "diff_fields": [
+        "form1040.line-25b",
+        "form1040.line-25d",
+        "form1040.line-33",
+        "form1040.line-34",
+        "form1040.line-35a",
+        "form1040.line-37"
+      ],
+      "unexpected_diffs": []
+    },
+    {
+      "case_id": "case/a_ic3_no/recorded",
+      "classification": "box4_unanswered_asks_amount",
+      "has_sales": true,
+      "reproduces_v82_fixture": true,
+      "fixture_mismatch": null,
+      "v82_outcome": "success",
+      "v83_outcome": "success",
+      "v82_error": null,
+      "v83_error": null,
+      "v82_disp_25b": "computed_zero",
+      "v83_disp_25b": "blocked",
+      "v82_line_25b": 0,
+      "v83_line_25b": null,
+      "v82_blocked_reasons_25b": [],
+      "v83_blocked_reasons_25b": [
+        "Enter the federal income tax withheld in box 4 of each Form 1099-B or substitute statement you recorded a sale from. If box 4 is blank, enter $0."
+      ],
+      "diff_count": 9,
+      "diff_fields": [
+        "form1040.line-25b",
+        "form1040.line-25d"
+      ],
+      "unexpected_diffs": []
+    },
+    {
+      "case_id": "case/a_ic3_unanswered/recorded",
+      "classification": "box4_unanswered_asks_amount",
+      "has_sales": true,
+      "reproduces_v82_fixture": true,
+      "fixture_mismatch": null,
+      "v82_outcome": "success",
+      "v83_outcome": "success",
+      "v82_error": null,
+      "v83_error": null,
+      "v82_disp_25b": "computed_zero",
+      "v83_disp_25b": "blocked",
+      "v82_line_25b": 0,
+      "v83_line_25b": null,
+      "v82_blocked_reasons_25b": [],
+      "v83_blocked_reasons_25b": [
+        "Enter the federal income tax withheld in box 4 of each Form 1099-B or substitute statement you recorded a sale from. If box 4 is blank, enter $0."
+      ],
+      "diff_count": 13,
+      "diff_fields": [
+        "form1040.line-25b",
+        "form1040.line-25d",
+        "form1040.line-33",
+        "form1040.line-34",
+        "form1040.line-35a",
+        "form1040.line-37"
+      ],
+      "unexpected_diffs": []
+    },
+    {
+      "case_id": "case/a_no_correction/recorded",
+      "classification": "box4_unanswered_asks_amount",
+      "has_sales": true,
+      "reproduces_v82_fixture": true,
+      "fixture_mismatch": null,
+      "v82_outcome": "success",
+      "v83_outcome": "success",
+      "v82_error": null,
+      "v83_error": null,
+      "v82_disp_25b": "computed_zero",
+      "v83_disp_25b": "blocked",
+      "v82_line_25b": 0,
+      "v83_line_25b": null,
+      "v82_blocked_reasons_25b": [],
+      "v83_blocked_reasons_25b": [
+        "Enter the federal income tax withheld in box 4 of each Form 1099-B or substitute statement you recorded a sale from. If box 4 is blank, enter $0."
+      ],
+      "diff_count": 13,
+      "diff_fields": [
+        "form1040.line-25b",
+        "form1040.line-25d",
+        "form1040.line-33",
+        "form1040.line-34",
+        "form1040.line-35a",
+        "form1040.line-37"
+      ],
+      "unexpected_diffs": []
+    },
+    {
+      "case_id": "case/a_path_b_unanswered/recorded",
+      "classification": "box4_unanswered_asks_amount",
+      "has_sales": true,
+      "reproduces_v82_fixture": true,
+      "fixture_mismatch": null,
+      "v82_outcome": "success",
+      "v83_outcome": "success",
+      "v82_error": null,
+      "v83_error": null,
+      "v82_disp_25b": "computed_zero",
+      "v83_disp_25b": "blocked",
+      "v82_line_25b": 0,
+      "v83_line_25b": null,
+      "v82_blocked_reasons_25b": [],
+      "v83_blocked_reasons_25b": [
+        "Enter the federal income tax withheld in box 4 of each Form 1099-B or substitute statement you recorded a sale from. If box 4 is blank, enter $0."
+      ],
+      "diff_count": 9,
+      "diff_fields": [
+        "form1040.line-25b",
+        "form1040.line-25d"
+      ],
+      "unexpected_diffs": []
+    },
+    {
+      "case_id": "case/a_proceeds_row_missing/recorded",
+      "classification": "box4_unanswered_asks_amount",
+      "has_sales": true,
+      "reproduces_v82_fixture": true,
+      "fixture_mismatch": null,
+      "v82_outcome": "success",
+      "v83_outcome": "success",
+      "v82_error": null,
+      "v83_error": null,
+      "v82_disp_25b": "computed_zero",
+      "v83_disp_25b": "blocked",
+      "v82_line_25b": 0,
+      "v83_line_25b": null,
+      "v82_blocked_reasons_25b": [],
+      "v83_blocked_reasons_25b": [
+        "Enter the federal income tax withheld in box 4 of each Form 1099-B or substitute statement you recorded a sale from. If box 4 is blank, enter $0."
+      ],
+      "diff_count": 13,
+      "diff_fields": [
+        "form1040.line-25b",
+        "form1040.line-25d",
+        "form1040.line-33",
+        "form1040.line-34",
+        "form1040.line-35a",
+        "form1040.line-37"
+      ],
+      "unexpected_diffs": []
+    },
+    {
+      "case_id": "case/a_q3_no_with_member/recorded",
+      "classification": "identical",
+      "has_sales": true,
+      "reproduces_v82_fixture": true,
+      "fixture_mismatch": null,
+      "v82_outcome": "success",
+      "v83_outcome": "success",
+      "v82_error": null,
+      "v83_error": null,
+      "v82_disp_25b": "blocked",
+      "v83_disp_25b": "blocked",
+      "v82_line_25b": null,
+      "v83_line_25b": null,
+      "v82_blocked_reasons_25b": [
+        "Did any Form 1099-B or substitute statement you received show a cost or other basis, reported to the IRS, that is wrong?"
+      ],
+      "v83_blocked_reasons_25b": [
+        "Did any Form 1099-B or substitute statement you received show a cost or other basis, reported to the IRS, that is wrong?"
+      ],
+      "diff_count": 0,
+      "diff_fields": [],
+      "unexpected_diffs": []
+    },
+    {
+      "case_id": "case/a_same_sale_both_terms/recorded",
+      "classification": "box4_unanswered_asks_amount",
+      "has_sales": true,
+      "reproduces_v82_fixture": true,
+      "fixture_mismatch": null,
+      "v82_outcome": "success",
+      "v83_outcome": "success",
+      "v82_error": null,
+      "v83_error": null,
+      "v82_disp_25b": "computed_zero",
+      "v83_disp_25b": "blocked",
+      "v82_line_25b": 0,
+      "v83_line_25b": null,
+      "v82_blocked_reasons_25b": [],
+      "v83_blocked_reasons_25b": [
+        "Enter the federal income tax withheld in box 4 of each Form 1099-B or substitute statement you recorded a sale from. If box 4 is blank, enter $0."
+      ],
+      "diff_count": 9,
+      "diff_fields": [
+        "form1040.line-25b",
+        "form1040.line-25d"
+      ],
+      "unexpected_diffs": []
+    },
+    {
+      "case_id": "case/a_w_exceeds_corrected_loss/recorded",
+      "classification": "box4_unanswered_asks_amount",
+      "has_sales": true,
+      "reproduces_v82_fixture": true,
+      "fixture_mismatch": null,
+      "v82_outcome": "success",
+      "v83_outcome": "success",
+      "v82_error": null,
+      "v83_error": null,
+      "v82_disp_25b": "computed_zero",
+      "v83_disp_25b": "blocked",
+      "v82_line_25b": 0,
+      "v83_line_25b": null,
+      "v82_blocked_reasons_25b": [],
+      "v83_blocked_reasons_25b": [
+        "Enter the federal income tax withheld in box 4 of each Form 1099-B or substitute statement you recorded a sale from. If box 4 is blank, enter $0."
+      ],
+      "diff_count": 13,
+      "diff_fields": [
+        "form1040.line-25b",
+        "form1040.line-25d",
+        "form1040.line-33",
+        "form1040.line-34",
+        "form1040.line-35a",
+        "form1040.line-37"
+      ],
+      "unexpected_diffs": []
+    },
+    {
+      "case_id": "case/a_w_on_gain_after_correction/recorded",
+      "classification": "box4_unanswered_asks_amount",
+      "has_sales": true,
+      "reproduces_v82_fixture": true,
+      "fixture_mismatch": null,
+      "v82_outcome": "success",
+      "v83_outcome": "success",
+      "v82_error": null,
+      "v83_error": null,
+      "v82_disp_25b": "computed_zero",
+      "v83_disp_25b": "blocked",
+      "v82_line_25b": 0,
+      "v83_line_25b": null,
+      "v82_blocked_reasons_25b": [],
+      "v83_blocked_reasons_25b": [
+        "Enter the federal income tax withheld in box 4 of each Form 1099-B or substitute statement you recorded a sale from. If box 4 is blank, enter $0."
+      ],
+      "diff_count": 13,
+      "diff_fields": [
+        "form1040.line-25b",
+        "form1040.line-25d",
+        "form1040.line-33",
+        "form1040.line-34",
+        "form1040.line-35a",
+        "form1040.line-37"
+      ],
+      "unexpected_diffs": []
+    },
+    {
+      "case_id": "case/b_code_b_ic3/recorded",
+      "classification": "box4_unanswered_asks_amount",
+      "has_sales": true,
+      "reproduces_v82_fixture": true,
+      "fixture_mismatch": null,
+      "v82_outcome": "success",
+      "v83_outcome": "success",
+      "v82_error": null,
+      "v83_error": null,
+      "v82_disp_25b": "computed_zero",
+      "v83_disp_25b": "blocked",
+      "v82_line_25b": 0,
+      "v83_line_25b": null,
+      "v82_blocked_reasons_25b": [],
+      "v83_blocked_reasons_25b": [
+        "Enter the federal income tax withheld in box 4 of each Form 1099-B or substitute statement you recorded a sale from. If box 4 is blank, enter $0."
+      ],
+      "diff_count": 9,
+      "diff_fields": [
+        "form1040.line-25b",
+        "form1040.line-25d"
+      ],
+      "unexpected_diffs": []
+    },
+    {
+      "case_id": "case/b_code_b_v80_route/recorded",
+      "classification": "box4_unanswered_asks_amount",
+      "has_sales": true,
+      "reproduces_v82_fixture": true,
+      "fixture_mismatch": null,
+      "v82_outcome": "success",
+      "v83_outcome": "success",
+      "v82_error": null,
+      "v83_error": null,
+      "v82_disp_25b": "computed_zero",
+      "v83_disp_25b": "blocked",
+      "v82_line_25b": 0,
+      "v83_line_25b": null,
+      "v82_blocked_reasons_25b": [],
+      "v83_blocked_reasons_25b": [
+        "Enter the federal income tax withheld in box 4 of each Form 1099-B or substitute statement you recorded a sale from. If box 4 is blank, enter $0."
+      ],
+      "diff_count": 25,
+      "diff_fields": [
+        "form1040.line-25b",
+        "form1040.line-25d",
+        "form1040.line-33",
+        "form1040.line-34",
+        "form1040.line-35a",
+        "form1040.line-37"
+      ],
+      "unexpected_diffs": []
+    },
+    {
+      "case_id": "case/d_bw/recorded",
+      "classification": "box4_unanswered_asks_amount",
+      "has_sales": true,
+      "reproduces_v82_fixture": true,
+      "fixture_mismatch": null,
+      "v82_outcome": "success",
+      "v83_outcome": "success",
+      "v82_error": null,
+      "v83_error": null,
+      "v82_disp_25b": "computed_zero",
+      "v83_disp_25b": "blocked",
+      "v82_line_25b": 0,
+      "v83_line_25b": null,
+      "v82_blocked_reasons_25b": [],
+      "v83_blocked_reasons_25b": [
+        "Enter the federal income tax withheld in box 4 of each Form 1099-B or substitute statement you recorded a sale from. If box 4 is blank, enter $0."
+      ],
+      "diff_count": 25,
+      "diff_fields": [
+        "form1040.line-25b",
+        "form1040.line-25d",
+        "form1040.line-33",
+        "form1040.line-34",
+        "form1040.line-35a",
+        "form1040.line-37"
+      ],
+      "unexpected_diffs": []
+    },
+    {
+      "case_id": "case/d_low/recorded",
+      "classification": "box4_unanswered_asks_amount",
+      "has_sales": true,
+      "reproduces_v82_fixture": true,
+      "fixture_mismatch": null,
+      "v82_outcome": "success",
+      "v83_outcome": "success",
+      "v82_error": null,
+      "v83_error": null,
+      "v82_disp_25b": "computed_zero",
+      "v83_disp_25b": "blocked",
+      "v82_line_25b": 0,
+      "v83_line_25b": null,
+      "v82_blocked_reasons_25b": [],
+      "v83_blocked_reasons_25b": [
+        "Enter the federal income tax withheld in box 4 of each Form 1099-B or substitute statement you recorded a sale from. If box 4 is blank, enter $0."
+      ],
+      "diff_count": 25,
+      "diff_fields": [
+        "form1040.line-25b",
+        "form1040.line-25d",
+        "form1040.line-33",
+        "form1040.line-34",
+        "form1040.line-35a",
+        "form1040.line-37"
+      ],
+      "unexpected_diffs": []
+    },
+    {
+      "case_id": "case/late_member_after_no/recorded",
+      "classification": "identical",
+      "has_sales": true,
+      "reproduces_v82_fixture": true,
+      "fixture_mismatch": null,
+      "v82_outcome": "success",
+      "v83_outcome": "success",
+      "v82_error": null,
+      "v83_error": null,
+      "v82_disp_25b": "blocked",
+      "v83_disp_25b": "blocked",
+      "v82_line_25b": null,
+      "v83_line_25b": null,
+      "v82_blocked_reasons_25b": [
+        "Did any Form 1099-B or substitute statement you received show a cost or other basis, reported to the IRS, that is wrong?"
+      ],
+      "v83_blocked_reasons_25b": [
+        "Did any Form 1099-B or substitute statement you received show a cost or other basis, reported to the IRS, that is wrong?"
+      ],
+      "diff_count": 0,
+      "diff_fields": [],
+      "unexpected_diffs": []
+    },
+    {
+      "case_id": "case/late_member_reanswered_yes/recorded",
+      "classification": "box4_unanswered_asks_amount",
+      "has_sales": true,
+      "reproduces_v82_fixture": true,
+      "fixture_mismatch": null,
+      "v82_outcome": "success",
+      "v83_outcome": "success",
+      "v82_error": null,
+      "v83_error": null,
+      "v82_disp_25b": "computed_zero",
+      "v83_disp_25b": "blocked",
+      "v82_line_25b": 0,
+      "v83_line_25b": null,
+      "v82_blocked_reasons_25b": [],
+      "v83_blocked_reasons_25b": [
+        "Enter the federal income tax withheld in box 4 of each Form 1099-B or substitute statement you recorded a sale from. If box 4 is blank, enter $0."
+      ],
+      "diff_count": 25,
+      "diff_fields": [
+        "form1040.line-25b",
+        "form1040.line-25d",
+        "form1040.line-33",
+        "form1040.line-34",
+        "form1040.line-35a",
+        "form1040.line-37"
+      ],
+      "unexpected_diffs": []
+    },
+    {
+      "case_id": "case/m_8949_no_ic3_yes_q3_no/recorded",
+      "classification": "identical",
+      "has_sales": false,
+      "reproduces_v82_fixture": true,
+      "fixture_mismatch": null,
+      "v82_outcome": "success",
+      "v83_outcome": "success",
+      "v82_error": null,
+      "v83_error": null,
+      "v82_disp_25b": "computed_zero",
+      "v83_disp_25b": "computed_zero",
+      "v82_line_25b": 0,
+      "v83_line_25b": 0,
+      "v82_blocked_reasons_25b": [],
+      "v83_blocked_reasons_25b": [],
+      "diff_count": 0,
+      "diff_fields": [],
+      "unexpected_diffs": []
+    },
+    {
+      "case_id": "case/m_a_and_b/recorded",
+      "classification": "box4_unanswered_asks_amount",
+      "has_sales": true,
+      "reproduces_v82_fixture": true,
+      "fixture_mismatch": null,
+      "v82_outcome": "success",
+      "v83_outcome": "success",
+      "v82_error": null,
+      "v83_error": null,
+      "v82_disp_25b": "computed_zero",
+      "v83_disp_25b": "blocked",
+      "v82_line_25b": 0,
+      "v83_line_25b": null,
+      "v82_blocked_reasons_25b": [],
+      "v83_blocked_reasons_25b": [
+        "Enter the federal income tax withheld in box 4 of each Form 1099-B or substitute statement you recorded a sale from. If box 4 is blank, enter $0."
+      ],
+      "diff_count": 25,
+      "diff_fields": [
+        "form1040.line-25b",
+        "form1040.line-25d",
+        "form1040.line-33",
+        "form1040.line-34",
+        "form1040.line-35a",
+        "form1040.line-37"
+      ],
+      "unexpected_diffs": []
+    },
+    {
+      "case_id": "case/m_a_and_b_q1_no/recorded",
+      "classification": "identical",
+      "has_sales": true,
+      "reproduces_v82_fixture": true,
+      "fixture_mismatch": null,
+      "v82_outcome": "success",
+      "v83_outcome": "success",
+      "v82_error": null,
+      "v83_error": null,
+      "v82_disp_25b": "blocked",
+      "v83_disp_25b": "blocked",
+      "v82_line_25b": null,
+      "v83_line_25b": null,
+      "v82_blocked_reasons_25b": [
+        "Did you sell any securities whose basis was not reported to the IRS?"
+      ],
+      "v83_blocked_reasons_25b": [
+        "Did you sell any securities whose basis was not reported to the IRS?"
+      ],
+      "diff_count": 0,
+      "diff_fields": [],
+      "unexpected_diffs": []
+    },
+    {
+      "case_id": "case/m_a_c_ic3_no_v80_ic_yes/recorded",
+      "classification": "box4_unanswered_asks_amount",
+      "has_sales": true,
+      "reproduces_v82_fixture": true,
+      "fixture_mismatch": null,
+      "v82_outcome": "success",
+      "v83_outcome": "success",
+      "v82_error": null,
+      "v83_error": null,
+      "v82_disp_25b": "computed_zero",
+      "v83_disp_25b": "blocked",
+      "v82_line_25b": 0,
+      "v83_line_25b": null,
+      "v82_blocked_reasons_25b": [],
+      "v83_blocked_reasons_25b": [
+        "Enter the federal income tax withheld in box 4 of each Form 1099-B or substitute statement you recorded a sale from. If box 4 is blank, enter $0."
+      ],
+      "diff_count": 9,
+      "diff_fields": [
+        "form1040.line-25b",
+        "form1040.line-25d"
+      ],
+      "unexpected_diffs": []
+    },
+    {
+      "case_id": "case/m_a_c_ic3_unanswered_v80_ic_yes/recorded",
+      "classification": "box4_unanswered_asks_amount",
+      "has_sales": true,
+      "reproduces_v82_fixture": true,
+      "fixture_mismatch": null,
+      "v82_outcome": "success",
+      "v83_outcome": "success",
+      "v82_error": null,
+      "v83_error": null,
+      "v82_disp_25b": "computed_zero",
+      "v83_disp_25b": "blocked",
+      "v82_line_25b": 0,
+      "v83_line_25b": null,
+      "v82_blocked_reasons_25b": [],
+      "v83_blocked_reasons_25b": [
+        "Enter the federal income tax withheld in box 4 of each Form 1099-B or substitute statement you recorded a sale from. If box 4 is blank, enter $0."
+      ],
+      "diff_count": 13,
+      "diff_fields": [
+        "form1040.line-25b",
+        "form1040.line-25d",
+        "form1040.line-33",
+        "form1040.line-34",
+        "form1040.line-35a",
+        "form1040.line-37"
+      ],
+      "unexpected_diffs": []
+    },
+    {
+      "case_id": "case/m_a_c_ic3_yes_v80_ic_no/recorded",
+      "classification": "box4_unanswered_asks_amount",
+      "has_sales": true,
+      "reproduces_v82_fixture": true,
+      "fixture_mismatch": null,
+      "v82_outcome": "success",
+      "v83_outcome": "success",
+      "v82_error": null,
+      "v83_error": null,
+      "v82_disp_25b": "computed_zero",
+      "v83_disp_25b": "blocked",
+      "v82_line_25b": 0,
+      "v83_line_25b": null,
+      "v82_blocked_reasons_25b": [],
+      "v83_blocked_reasons_25b": [
+        "Enter the federal income tax withheld in box 4 of each Form 1099-B or substitute statement you recorded a sale from. If box 4 is blank, enter $0."
+      ],
+      "diff_count": 25,
+      "diff_fields": [
+        "form1040.line-25b",
+        "form1040.line-25d",
+        "form1040.line-33",
+        "form1040.line-34",
+        "form1040.line-35a",
+        "form1040.line-37"
+      ],
+      "unexpected_diffs": []
+    },
+    {
+      "case_id": "case/m_a_c_ic3_yes_v80_ic_yes/recorded",
+      "classification": "box4_unanswered_asks_amount",
+      "has_sales": true,
+      "reproduces_v82_fixture": true,
+      "fixture_mismatch": null,
+      "v82_outcome": "success",
+      "v83_outcome": "success",
+      "v82_error": null,
+      "v83_error": null,
+      "v82_disp_25b": "computed_zero",
+      "v83_disp_25b": "blocked",
+      "v82_line_25b": 0,
+      "v83_line_25b": null,
+      "v82_blocked_reasons_25b": [],
+      "v83_blocked_reasons_25b": [
+        "Enter the federal income tax withheld in box 4 of each Form 1099-B or substitute statement you recorded a sale from. If box 4 is blank, enter $0."
+      ],
+      "diff_count": 25,
+      "diff_fields": [
+        "form1040.line-25b",
+        "form1040.line-25d",
+        "form1040.line-33",
+        "form1040.line-34",
+        "form1040.line-35a",
+        "form1040.line-37"
+      ],
+      "unexpected_diffs": []
+    },
+    {
+      "case_id": "case/m_a_q3_no_v80_ic_yes/recorded",
+      "classification": "identical",
+      "has_sales": true,
+      "reproduces_v82_fixture": true,
+      "fixture_mismatch": null,
+      "v82_outcome": "success",
+      "v83_outcome": "success",
+      "v82_error": null,
+      "v83_error": null,
+      "v82_disp_25b": "blocked",
+      "v83_disp_25b": "blocked",
+      "v82_line_25b": null,
+      "v83_line_25b": null,
+      "v82_blocked_reasons_25b": [
+        "Did any Form 1099-B or substitute statement you received show a cost or other basis, reported to the IRS, that is wrong?"
+      ],
+      "v83_blocked_reasons_25b": [
+        "Did any Form 1099-B or substitute statement you received show a cost or other basis, reported to the IRS, that is wrong?"
+      ],
+      "diff_count": 0,
+      "diff_fields": [],
+      "unexpected_diffs": []
+    },
+    {
+      "case_id": "case/m_a_v79_ic_only/recorded",
+      "classification": "box4_unanswered_asks_amount",
+      "has_sales": true,
+      "reproduces_v82_fixture": true,
+      "fixture_mismatch": null,
+      "v82_outcome": "success",
+      "v83_outcome": "success",
+      "v82_error": null,
+      "v83_error": null,
+      "v82_disp_25b": "computed_zero",
+      "v83_disp_25b": "blocked",
+      "v82_line_25b": 0,
+      "v83_line_25b": null,
+      "v82_blocked_reasons_25b": [],
+      "v83_blocked_reasons_25b": [
+        "Enter the federal income tax withheld in box 4 of each Form 1099-B or substitute statement you recorded a sale from. If box 4 is blank, enter $0."
+      ],
+      "diff_count": 13,
+      "diff_fields": [
+        "form1040.line-25b",
+        "form1040.line-25d",
+        "form1040.line-33",
+        "form1040.line-34",
+        "form1040.line-35a",
+        "form1040.line-37"
+      ],
+      "unexpected_diffs": []
+    },
+    {
+      "case_id": "case/m_a_v80_ic_only/recorded",
+      "classification": "box4_unanswered_asks_amount",
+      "has_sales": true,
+      "reproduces_v82_fixture": true,
+      "fixture_mismatch": null,
+      "v82_outcome": "success",
+      "v83_outcome": "success",
+      "v82_error": null,
+      "v83_error": null,
+      "v82_disp_25b": "computed_zero",
+      "v83_disp_25b": "blocked",
+      "v82_line_25b": 0,
+      "v83_line_25b": null,
+      "v82_blocked_reasons_25b": [],
+      "v83_blocked_reasons_25b": [
+        "Enter the federal income tax withheld in box 4 of each Form 1099-B or substitute statement you recorded a sale from. If box 4 is blank, enter $0."
+      ],
+      "diff_count": 13,
+      "diff_fields": [
+        "form1040.line-25b",
+        "form1040.line-25d",
+        "form1040.line-33",
+        "form1040.line-34",
+        "form1040.line-35a",
+        "form1040.line-37"
+      ],
+      "unexpected_diffs": []
+    },
+    {
+      "case_id": "case/m_d_and_e/recorded",
+      "classification": "box4_unanswered_asks_amount",
+      "has_sales": true,
+      "reproduces_v82_fixture": true,
+      "fixture_mismatch": null,
+      "v82_outcome": "success",
+      "v83_outcome": "success",
+      "v82_error": null,
+      "v83_error": null,
+      "v82_disp_25b": "computed_zero",
+      "v83_disp_25b": "blocked",
+      "v82_line_25b": 0,
+      "v83_line_25b": null,
+      "v82_blocked_reasons_25b": [],
+      "v83_blocked_reasons_25b": [
+        "Enter the federal income tax withheld in box 4 of each Form 1099-B or substitute statement you recorded a sale from. If box 4 is blank, enter $0."
+      ],
+      "diff_count": 25,
+      "diff_fields": [
+        "form1040.line-25b",
+        "form1040.line-25d",
+        "form1040.line-33",
+        "form1040.line-34",
+        "form1040.line-35a",
+        "form1040.line-37"
+      ],
+      "unexpected_diffs": []
+    },
+    {
+      "case_id": "case/m_d_ic3_no/recorded",
+      "classification": "box4_unanswered_asks_amount",
+      "has_sales": true,
+      "reproduces_v82_fixture": true,
+      "fixture_mismatch": null,
+      "v82_outcome": "success",
+      "v83_outcome": "success",
+      "v82_error": null,
+      "v83_error": null,
+      "v82_disp_25b": "computed_zero",
+      "v83_disp_25b": "blocked",
+      "v82_line_25b": 0,
+      "v83_line_25b": null,
+      "v82_blocked_reasons_25b": [],
+      "v83_blocked_reasons_25b": [
+        "Enter the federal income tax withheld in box 4 of each Form 1099-B or substitute statement you recorded a sale from. If box 4 is blank, enter $0."
+      ],
+      "diff_count": 9,
+      "diff_fields": [
+        "form1040.line-25b",
+        "form1040.line-25d"
+      ],
+      "unexpected_diffs": []
+    },
+    {
+      "case_id": "case/m_d_q3_no_with_member/recorded",
+      "classification": "identical",
+      "has_sales": true,
+      "reproduces_v82_fixture": true,
+      "fixture_mismatch": null,
+      "v82_outcome": "success",
+      "v83_outcome": "success",
+      "v82_error": null,
+      "v83_error": null,
+      "v82_disp_25b": "blocked",
+      "v83_disp_25b": "blocked",
+      "v82_line_25b": null,
+      "v83_line_25b": null,
+      "v82_blocked_reasons_25b": [
+        "Did any Form 1099-B or substitute statement you received show a cost or other basis, reported to the IRS, that is wrong?"
+      ],
+      "v83_blocked_reasons_25b": [
+        "Did any Form 1099-B or substitute statement you received show a cost or other basis, reported to the IRS, that is wrong?"
+      ],
+      "diff_count": 0,
+      "diff_fields": [],
+      "unexpected_diffs": []
+    },
+    {
+      "case_id": "case/m_q3_yes_nothing_8949_yes/recorded",
+      "classification": "identical",
+      "has_sales": false,
+      "reproduces_v82_fixture": true,
+      "fixture_mismatch": null,
+      "v82_outcome": "success",
+      "v83_outcome": "success",
+      "v82_error": null,
+      "v83_error": null,
+      "v82_disp_25b": "computed_zero",
+      "v83_disp_25b": "computed_zero",
+      "v82_line_25b": 0,
+      "v83_line_25b": 0,
+      "v82_blocked_reasons_25b": [],
+      "v83_blocked_reasons_25b": [],
+      "diff_count": 0,
+      "diff_fields": [],
+      "unexpected_diffs": []
+    },
+    {
+      "case_id": "case/m_q3_yes_nothing_beside_b/recorded",
+      "classification": "box4_unanswered_asks_amount",
+      "has_sales": true,
+      "reproduces_v82_fixture": true,
+      "fixture_mismatch": null,
+      "v82_outcome": "success",
+      "v83_outcome": "success",
+      "v82_error": null,
+      "v83_error": null,
+      "v82_disp_25b": "computed_zero",
+      "v83_disp_25b": "blocked",
+      "v82_line_25b": 0,
+      "v83_line_25b": null,
+      "v82_blocked_reasons_25b": [],
+      "v83_blocked_reasons_25b": [
+        "Enter the federal income tax withheld in box 4 of each Form 1099-B or substitute statement you recorded a sale from. If box 4 is blank, enter $0."
+      ],
+      "diff_count": 9,
+      "diff_fields": [
+        "form1040.line-25b",
+        "form1040.line-25d"
+      ],
+      "unexpected_diffs": []
+    },
+    {
+      "case_id": "case/m_q3_yes_nothing_beside_c/recorded",
+      "classification": "identical",
+      "has_sales": false,
+      "reproduces_v82_fixture": true,
+      "fixture_mismatch": null,
+      "v82_outcome": "success",
+      "v83_outcome": "success",
+      "v82_error": null,
+      "v83_error": null,
+      "v82_disp_25b": "computed_zero",
+      "v83_disp_25b": "computed_zero",
+      "v82_line_25b": 0,
+      "v83_line_25b": 0,
+      "v82_blocked_reasons_25b": [],
+      "v83_blocked_reasons_25b": [],
+      "diff_count": 0,
+      "diff_fields": [],
+      "unexpected_diffs": []
+    },
+    {
+      "case_id": "case/m_q3_yes_nothing_beside_direct/recorded",
+      "classification": "box4_unanswered_asks_amount",
+      "has_sales": true,
+      "reproduces_v82_fixture": true,
+      "fixture_mismatch": null,
+      "v82_outcome": "success",
+      "v83_outcome": "success",
+      "v82_error": null,
+      "v83_error": null,
+      "v82_disp_25b": "computed_zero",
+      "v83_disp_25b": "blocked",
+      "v82_line_25b": 0,
+      "v83_line_25b": null,
+      "v82_blocked_reasons_25b": [],
+      "v83_blocked_reasons_25b": [
+        "Enter the federal income tax withheld in box 4 of each Form 1099-B or substitute statement you recorded a sale from. If box 4 is blank, enter $0."
+      ],
+      "diff_count": 9,
+      "diff_fields": [
+        "form1040.line-25b",
+        "form1040.line-25d"
+      ],
+      "unexpected_diffs": []
+    },
+    {
+      "case_id": "case/m_q3_yes_nothing_beside_w/recorded",
+      "classification": "box4_unanswered_asks_amount",
+      "has_sales": true,
+      "reproduces_v82_fixture": true,
+      "fixture_mismatch": null,
+      "v82_outcome": "success",
+      "v83_outcome": "success",
+      "v82_error": null,
+      "v83_error": null,
+      "v82_disp_25b": "computed_zero",
+      "v83_disp_25b": "blocked",
+      "v82_line_25b": 0,
+      "v83_line_25b": null,
+      "v82_blocked_reasons_25b": [],
+      "v83_blocked_reasons_25b": [
+        "Enter the federal income tax withheld in box 4 of each Form 1099-B or substitute statement you recorded a sale from. If box 4 is blank, enter $0."
+      ],
+      "diff_count": 9,
+      "diff_fields": [
+        "form1040.line-25b",
+        "form1040.line-25d"
+      ],
+      "unexpected_diffs": []
+    },
+    {
+      "case_id": "case/mixed_a_d_c_direct/recorded",
+      "classification": "box4_unanswered_asks_amount",
+      "has_sales": true,
+      "reproduces_v82_fixture": true,
+      "fixture_mismatch": null,
+      "v82_outcome": "success",
+      "v83_outcome": "success",
+      "v82_error": null,
+      "v83_error": null,
+      "v82_disp_25b": "computed_zero",
+      "v83_disp_25b": "blocked",
+      "v82_line_25b": 0,
+      "v83_line_25b": null,
+      "v82_blocked_reasons_25b": [],
+      "v83_blocked_reasons_25b": [
+        "Enter the federal income tax withheld in box 4 of each Form 1099-B or substitute statement you recorded a sale from. If box 4 is blank, enter $0."
+      ],
+      "diff_count": 25,
+      "diff_fields": [
+        "form1040.line-25b",
+        "form1040.line-25d",
+        "form1040.line-33",
+        "form1040.line-34",
+        "form1040.line-35a",
+        "form1040.line-37"
+      ],
+      "unexpected_diffs": []
+    },
+    {
+      "case_id": "case/q3_yes_nothing_recorded/recorded",
+      "classification": "identical",
+      "has_sales": false,
+      "reproduces_v82_fixture": true,
+      "fixture_mismatch": null,
+      "v82_outcome": "success",
+      "v83_outcome": "success",
+      "v82_error": null,
+      "v83_error": null,
+      "v82_disp_25b": "computed_zero",
+      "v83_disp_25b": "computed_zero",
+      "v82_line_25b": 0,
+      "v83_line_25b": 0,
+      "v82_blocked_reasons_25b": [],
+      "v83_blocked_reasons_25b": [],
+      "diff_count": 0,
+      "diff_fields": [],
+      "unexpected_diffs": []
+    },
+    {
+      "case_id": "case/t1_stage1/recorded",
+      "classification": "identical",
+      "has_sales": true,
+      "reproduces_v82_fixture": true,
+      "fixture_mismatch": null,
+      "v82_outcome": "success",
+      "v83_outcome": "success",
+      "v82_error": null,
+      "v83_error": null,
+      "v82_disp_25b": "blocked",
+      "v83_disp_25b": "blocked",
+      "v82_line_25b": null,
+      "v83_line_25b": null,
+      "v82_blocked_reasons_25b": [
+        "Did any Form 1099-B or substitute statement you received show a cost or other basis, reported to the IRS, that is wrong?"
+      ],
+      "v83_blocked_reasons_25b": [
+        "Did any Form 1099-B or substitute statement you received show a cost or other basis, reported to the IRS, that is wrong?"
+      ],
+      "diff_count": 0,
+      "diff_fields": [],
+      "unexpected_diffs": []
+    },
+    {
+      "case_id": "case/t1_stage2/recorded",
+      "classification": "box4_unanswered_asks_amount",
+      "has_sales": true,
+      "reproduces_v82_fixture": true,
+      "fixture_mismatch": null,
+      "v82_outcome": "success",
+      "v83_outcome": "success",
+      "v82_error": null,
+      "v83_error": null,
+      "v82_disp_25b": "computed_zero",
+      "v83_disp_25b": "blocked",
+      "v82_line_25b": 0,
+      "v83_line_25b": null,
+      "v82_blocked_reasons_25b": [],
+      "v83_blocked_reasons_25b": [
+        "Enter the federal income tax withheld in box 4 of each Form 1099-B or substitute statement you recorded a sale from. If box 4 is blank, enter $0."
+      ],
+      "diff_count": 13,
+      "diff_fields": [
+        "form1040.line-25b",
+        "form1040.line-25d",
+        "form1040.line-33",
+        "form1040.line-34",
+        "form1040.line-35a",
+        "form1040.line-37"
+      ],
+      "unexpected_diffs": []
+    },
+    {
+      "case_id": "case/t1_stage3/recorded",
+      "classification": "box4_unanswered_asks_amount",
+      "has_sales": true,
+      "reproduces_v82_fixture": true,
+      "fixture_mismatch": null,
+      "v82_outcome": "success",
+      "v83_outcome": "success",
+      "v82_error": null,
+      "v83_error": null,
+      "v82_disp_25b": "computed_zero",
+      "v83_disp_25b": "blocked",
+      "v82_line_25b": 0,
+      "v83_line_25b": null,
+      "v82_blocked_reasons_25b": [],
+      "v83_blocked_reasons_25b": [
+        "Enter the federal income tax withheld in box 4 of each Form 1099-B or substitute statement you recorded a sale from. If box 4 is blank, enter $0."
+      ],
+      "diff_count": 9,
+      "diff_fields": [
+        "form1040.line-25b",
+        "form1040.line-25d"
+      ],
+      "unexpected_diffs": []
+    },
+    {
+      "case_id": "case/t1_stage4/recorded",
+      "classification": "box4_unanswered_asks_amount",
+      "has_sales": true,
+      "reproduces_v82_fixture": true,
+      "fixture_mismatch": null,
+      "v82_outcome": "success",
+      "v83_outcome": "success",
+      "v82_error": null,
+      "v83_error": null,
+      "v82_disp_25b": "computed_zero",
+      "v83_disp_25b": "blocked",
+      "v82_line_25b": 0,
+      "v83_line_25b": null,
+      "v82_blocked_reasons_25b": [],
+      "v83_blocked_reasons_25b": [
+        "Enter the federal income tax withheld in box 4 of each Form 1099-B or substitute statement you recorded a sale from. If box 4 is blank, enter $0."
+      ],
+      "diff_count": 25,
+      "diff_fields": [
+        "form1040.line-25b",
+        "form1040.line-25d",
+        "form1040.line-33",
+        "form1040.line-34",
+        "form1040.line-35a",
+        "form1040.line-37"
+      ],
+      "unexpected_diffs": []
+    },
+    {
+      "case_id": "case/t2_stage0/recorded",
+      "classification": "box4_unanswered_asks_amount",
+      "has_sales": true,
+      "reproduces_v82_fixture": true,
+      "fixture_mismatch": null,
+      "v82_outcome": "success",
+      "v83_outcome": "success",
+      "v82_error": null,
+      "v83_error": null,
+      "v82_disp_25b": "computed_zero",
+      "v83_disp_25b": "blocked",
+      "v82_line_25b": 0,
+      "v83_line_25b": null,
+      "v82_blocked_reasons_25b": [],
+      "v83_blocked_reasons_25b": [
+        "Enter the federal income tax withheld in box 4 of each Form 1099-B or substitute statement you recorded a sale from. If box 4 is blank, enter $0."
+      ],
+      "diff_count": 25,
+      "diff_fields": [
+        "form1040.line-25b",
+        "form1040.line-25d",
+        "form1040.line-33",
+        "form1040.line-34",
+        "form1040.line-35a",
+        "form1040.line-37"
+      ],
+      "unexpected_diffs": []
+    },
+    {
+      "case_id": "case/t2_stage1/recorded",
+      "classification": "identical",
+      "has_sales": true,
+      "reproduces_v82_fixture": true,
+      "fixture_mismatch": null,
+      "v82_outcome": "success",
+      "v83_outcome": "success",
+      "v82_error": null,
+      "v83_error": null,
+      "v82_disp_25b": "blocked",
+      "v83_disp_25b": "blocked",
+      "v82_line_25b": null,
+      "v83_line_25b": null,
+      "v82_blocked_reasons_25b": [
+        "Did any Form 1099-B or substitute statement you received show a cost or other basis, reported to the IRS, that is wrong?"
+      ],
+      "v83_blocked_reasons_25b": [
+        "Did any Form 1099-B or substitute statement you received show a cost or other basis, reported to the IRS, that is wrong?"
+      ],
+      "diff_count": 0,
+      "diff_fields": [],
+      "unexpected_diffs": []
+    },
+    {
+      "case_id": "case/t2_stage2/recorded",
+      "classification": "box4_unanswered_asks_amount",
+      "has_sales": true,
+      "reproduces_v82_fixture": true,
+      "fixture_mismatch": null,
+      "v82_outcome": "success",
+      "v83_outcome": "success",
+      "v82_error": null,
+      "v83_error": null,
+      "v82_disp_25b": "computed_zero",
+      "v83_disp_25b": "blocked",
+      "v82_line_25b": 0,
+      "v83_line_25b": null,
+      "v82_blocked_reasons_25b": [],
+      "v83_blocked_reasons_25b": [
+        "Enter the federal income tax withheld in box 4 of each Form 1099-B or substitute statement you recorded a sale from. If box 4 is blank, enter $0."
+      ],
+      "diff_count": 13,
+      "diff_fields": [
+        "form1040.line-25b",
+        "form1040.line-25d",
+        "form1040.line-33",
+        "form1040.line-34",
+        "form1040.line-35a",
+        "form1040.line-37"
+      ],
+      "unexpected_diffs": []
+    },
+    {
+      "case_id": "case/t2_stage3/recorded",
+      "classification": "box4_unanswered_asks_amount",
+      "has_sales": true,
+      "reproduces_v82_fixture": true,
+      "fixture_mismatch": null,
+      "v82_outcome": "success",
+      "v83_outcome": "success",
+      "v82_error": null,
+      "v83_error": null,
+      "v82_disp_25b": "computed_zero",
+      "v83_disp_25b": "blocked",
+      "v82_line_25b": 0,
+      "v83_line_25b": null,
+      "v82_blocked_reasons_25b": [],
+      "v83_blocked_reasons_25b": [
+        "Enter the federal income tax withheld in box 4 of each Form 1099-B or substitute statement you recorded a sale from. If box 4 is blank, enter $0."
+      ],
+      "diff_count": 9,
+      "diff_fields": [
+        "form1040.line-25b",
+        "form1040.line-25d"
+      ],
+      "unexpected_diffs": []
+    },
+    {
+      "case_id": "case/t2_stage4/recorded",
+      "classification": "box4_unanswered_asks_amount",
+      "has_sales": true,
+      "reproduces_v82_fixture": true,
+      "fixture_mismatch": null,
+      "v82_outcome": "success",
+      "v83_outcome": "success",
+      "v82_error": null,
+      "v83_error": null,
+      "v82_disp_25b": "computed_zero",
+      "v83_disp_25b": "blocked",
+      "v82_line_25b": 0,
+      "v83_line_25b": null,
+      "v82_blocked_reasons_25b": [],
+      "v83_blocked_reasons_25b": [
+        "Enter the federal income tax withheld in box 4 of each Form 1099-B or substitute statement you recorded a sale from. If box 4 is blank, enter $0."
+      ],
+      "diff_count": 25,
+      "diff_fields": [
+        "form1040.line-25b",
+        "form1040.line-25d",
+        "form1040.line-33",
+        "form1040.line-34",
+        "form1040.line-35a",
+        "form1040.line-37"
+      ],
+      "unexpected_diffs": []
+    },
+    {
+      "case_id": "case/t2_stage4_keep_covered/recorded",
+      "classification": "box4_unanswered_asks_amount",
+      "has_sales": true,
+      "reproduces_v82_fixture": true,
+      "fixture_mismatch": null,
+      "v82_outcome": "success",
+      "v83_outcome": "success",
+      "v82_error": null,
+      "v83_error": null,
+      "v82_disp_25b": "computed_zero",
+      "v83_disp_25b": "blocked",
+      "v82_line_25b": 0,
+      "v83_line_25b": null,
+      "v82_blocked_reasons_25b": [],
+      "v83_blocked_reasons_25b": [
+        "Enter the federal income tax withheld in box 4 of each Form 1099-B or substitute statement you recorded a sale from. If box 4 is blank, enter $0."
+      ],
+      "diff_count": 9,
+      "diff_fields": [
+        "form1040.line-25b",
+        "form1040.line-25d"
+      ],
+      "unexpected_diffs": []
+    },
+    {
+      "case_id": "case/t3_stage0/recorded",
+      "classification": "box4_unanswered_asks_amount",
+      "has_sales": true,
+      "reproduces_v82_fixture": true,
+      "fixture_mismatch": null,
+      "v82_outcome": "success",
+      "v83_outcome": "success",
+      "v82_error": null,
+      "v83_error": null,
+      "v82_disp_25b": "computed_zero",
+      "v83_disp_25b": "blocked",
+      "v82_line_25b": 0,
+      "v83_line_25b": null,
+      "v82_blocked_reasons_25b": [],
+      "v83_blocked_reasons_25b": [
+        "Enter the federal income tax withheld in box 4 of each Form 1099-B or substitute statement you recorded a sale from. If box 4 is blank, enter $0."
+      ],
+      "diff_count": 25,
+      "diff_fields": [
+        "form1040.line-25b",
+        "form1040.line-25d",
+        "form1040.line-33",
+        "form1040.line-34",
+        "form1040.line-35a",
+        "form1040.line-37"
+      ],
+      "unexpected_diffs": []
+    },
+    {
+      "case_id": "case/t3_stage1/recorded",
+      "classification": "identical",
+      "has_sales": true,
+      "reproduces_v82_fixture": true,
+      "fixture_mismatch": null,
+      "v82_outcome": "success",
+      "v83_outcome": "success",
+      "v82_error": null,
+      "v83_error": null,
+      "v82_disp_25b": "blocked",
+      "v83_disp_25b": "blocked",
+      "v82_line_25b": null,
+      "v83_line_25b": null,
+      "v82_blocked_reasons_25b": [
+        "Did any Form 1099-B or substitute statement you received show a cost or other basis, reported to the IRS, that is wrong?"
+      ],
+      "v83_blocked_reasons_25b": [
+        "Did any Form 1099-B or substitute statement you received show a cost or other basis, reported to the IRS, that is wrong?"
+      ],
+      "diff_count": 0,
+      "diff_fields": [],
+      "unexpected_diffs": []
+    },
+    {
+      "case_id": "case/t3_stage2/recorded",
+      "classification": "box4_unanswered_asks_amount",
+      "has_sales": true,
+      "reproduces_v82_fixture": true,
+      "fixture_mismatch": null,
+      "v82_outcome": "success",
+      "v83_outcome": "success",
+      "v82_error": null,
+      "v83_error": null,
+      "v82_disp_25b": "computed_zero",
+      "v83_disp_25b": "blocked",
+      "v82_line_25b": 0,
+      "v83_line_25b": null,
+      "v82_blocked_reasons_25b": [],
+      "v83_blocked_reasons_25b": [
+        "Enter the federal income tax withheld in box 4 of each Form 1099-B or substitute statement you recorded a sale from. If box 4 is blank, enter $0."
+      ],
+      "diff_count": 25,
+      "diff_fields": [
+        "form1040.line-25b",
+        "form1040.line-25d",
+        "form1040.line-33",
+        "form1040.line-34",
+        "form1040.line-35a",
+        "form1040.line-37"
+      ],
+      "unexpected_diffs": []
+    },
+    {
+      "case_id": "case/t3_stage3/recorded",
+      "classification": "box4_unanswered_asks_amount",
+      "has_sales": true,
+      "reproduces_v82_fixture": true,
+      "fixture_mismatch": null,
+      "v82_outcome": "success",
+      "v83_outcome": "success",
+      "v82_error": null,
+      "v83_error": null,
+      "v82_disp_25b": "computed_zero",
+      "v83_disp_25b": "blocked",
+      "v82_line_25b": 0,
+      "v83_line_25b": null,
+      "v82_blocked_reasons_25b": [],
+      "v83_blocked_reasons_25b": [
+        "Enter the federal income tax withheld in box 4 of each Form 1099-B or substitute statement you recorded a sale from. If box 4 is blank, enter $0."
+      ],
+      "diff_count": 25,
+      "diff_fields": [
+        "form1040.line-25b",
+        "form1040.line-25d",
+        "form1040.line-33",
+        "form1040.line-34",
+        "form1040.line-35a",
+        "form1040.line-37"
+      ],
+      "unexpected_diffs": []
+    },
+    {
+      "case_id": "case/wage_q3_no/recorded",
+      "classification": "identical",
+      "has_sales": false,
+      "reproduces_v82_fixture": true,
+      "fixture_mismatch": null,
+      "v82_outcome": "success",
+      "v83_outcome": "success",
+      "v82_error": null,
+      "v83_error": null,
+      "v82_disp_25b": "computed_zero",
+      "v83_disp_25b": "computed_zero",
+      "v82_line_25b": 0,
+      "v83_line_25b": 0,
+      "v82_blocked_reasons_25b": [],
+      "v83_blocked_reasons_25b": [],
+      "diff_count": 0,
+      "diff_fields": [],
+      "unexpected_diffs": []
+    },
+    {
+      "case_id": "case/wage_q3_unanswered/recorded",
+      "classification": "identical",
+      "has_sales": false,
+      "reproduces_v82_fixture": true,
+      "fixture_mismatch": null,
+      "v82_outcome": "success",
+      "v83_outcome": "success",
+      "v82_error": null,
+      "v83_error": null,
+      "v82_disp_25b": "blocked",
+      "v83_disp_25b": "blocked",
+      "v82_line_25b": null,
+      "v83_line_25b": null,
+      "v82_blocked_reasons_25b": [
+        "Did any Form 1099-B or substitute statement you received show a cost or other basis, reported to the IRS, that is wrong?"
+      ],
+      "v83_blocked_reasons_25b": [
+        "Did any Form 1099-B or substitute statement you received show a cost or other basis, reported to the IRS, that is wrong?"
+      ],
+      "diff_count": 0,
+      "diff_fields": [],
+      "unexpected_diffs": []
+    },
+    {
+      "case_id": "case/x_a_gain_d_loss/recorded",
+      "classification": "box4_unanswered_asks_amount",
+      "has_sales": true,
+      "reproduces_v82_fixture": true,
+      "fixture_mismatch": null,
+      "v82_outcome": "success",
+      "v83_outcome": "success",
+      "v82_error": null,
+      "v83_error": null,
+      "v82_disp_25b": "computed_zero",
+      "v83_disp_25b": "blocked",
+      "v82_line_25b": 0,
+      "v83_line_25b": null,
+      "v82_blocked_reasons_25b": [],
+      "v83_blocked_reasons_25b": [
+        "Enter the federal income tax withheld in box 4 of each Form 1099-B or substitute statement you recorded a sale from. If box 4 is blank, enter $0."
+      ],
+      "diff_count": 25,
+      "diff_fields": [
+        "form1040.line-25b",
+        "form1040.line-25d",
+        "form1040.line-33",
+        "form1040.line-34",
+        "form1040.line-35a",
+        "form1040.line-37"
+      ],
+      "unexpected_diffs": []
+    },
+    {
+      "case_id": "case/x_a_loss_d_gain/recorded",
+      "classification": "box4_unanswered_asks_amount",
+      "has_sales": true,
+      "reproduces_v82_fixture": true,
+      "fixture_mismatch": null,
+      "v82_outcome": "success",
+      "v83_outcome": "success",
+      "v82_error": null,
+      "v83_error": null,
+      "v82_disp_25b": "computed_zero",
+      "v83_disp_25b": "blocked",
+      "v82_line_25b": 0,
+      "v83_line_25b": null,
+      "v82_blocked_reasons_25b": [],
+      "v83_blocked_reasons_25b": [
+        "Enter the federal income tax withheld in box 4 of each Form 1099-B or substitute statement you recorded a sale from. If box 4 is blank, enter $0."
+      ],
+      "diff_count": 25,
+      "diff_fields": [
+        "form1040.line-25b",
+        "form1040.line-25d",
+        "form1040.line-33",
+        "form1040.line-34",
+        "form1040.line-35a",
+        "form1040.line-37"
+      ],
+      "unexpected_diffs": []
+    },
+    {
+      "case_id": "case/x_a_loss_to_gain/recorded",
+      "classification": "box4_unanswered_asks_amount",
+      "has_sales": true,
+      "reproduces_v82_fixture": true,
+      "fixture_mismatch": null,
+      "v82_outcome": "success",
+      "v83_outcome": "success",
+      "v82_error": null,
+      "v83_error": null,
+      "v82_disp_25b": "computed_zero",
+      "v83_disp_25b": "blocked",
+      "v82_line_25b": 0,
+      "v83_line_25b": null,
+      "v82_blocked_reasons_25b": [],
+      "v83_blocked_reasons_25b": [
+        "Enter the federal income tax withheld in box 4 of each Form 1099-B or substitute statement you recorded a sale from. If box 4 is blank, enter $0."
+      ],
+      "diff_count": 25,
+      "diff_fields": [
+        "form1040.line-25b",
+        "form1040.line-25d",
+        "form1040.line-33",
+        "form1040.line-34",
+        "form1040.line-35a",
+        "form1040.line-37"
+      ],
+      "unexpected_diffs": []
+    },
+    {
+      "case_id": "case/x_basis_row_is_corrected/recorded",
+      "classification": "box4_unanswered_asks_amount",
+      "has_sales": true,
+      "reproduces_v82_fixture": true,
+      "fixture_mismatch": null,
+      "v82_outcome": "success",
+      "v83_outcome": "success",
+      "v82_error": null,
+      "v83_error": null,
+      "v82_disp_25b": "computed_zero",
+      "v83_disp_25b": "blocked",
+      "v82_line_25b": 0,
+      "v83_line_25b": null,
+      "v82_blocked_reasons_25b": [],
+      "v83_blocked_reasons_25b": [
+        "Enter the federal income tax withheld in box 4 of each Form 1099-B or substitute statement you recorded a sale from. If box 4 is blank, enter $0."
+      ],
+      "diff_count": 9,
+      "diff_fields": [
+        "form1040.line-25b",
+        "form1040.line-25d"
+      ],
+      "unexpected_diffs": []
+    },
+    {
+      "case_id": "case/x_bw_g_omits_w/recorded",
+      "classification": "box4_unanswered_asks_amount",
+      "has_sales": true,
+      "reproduces_v82_fixture": true,
+      "fixture_mismatch": null,
+      "v82_outcome": "success",
+      "v83_outcome": "success",
+      "v82_error": null,
+      "v83_error": null,
+      "v82_disp_25b": "computed_zero",
+      "v83_disp_25b": "blocked",
+      "v82_line_25b": 0,
+      "v83_line_25b": null,
+      "v82_blocked_reasons_25b": [],
+      "v83_blocked_reasons_25b": [
+        "Enter the federal income tax withheld in box 4 of each Form 1099-B or substitute statement you recorded a sale from. If box 4 is blank, enter $0."
+      ],
+      "diff_count": 9,
+      "diff_fields": [
+        "form1040.line-25b",
+        "form1040.line-25d"
+      ],
+      "unexpected_diffs": []
+    },
+    {
+      "case_id": "case/x_bw_w_equals_correct_loss/recorded",
+      "classification": "box4_unanswered_asks_amount",
+      "has_sales": true,
+      "reproduces_v82_fixture": true,
+      "fixture_mismatch": null,
+      "v82_outcome": "success",
+      "v83_outcome": "success",
+      "v82_error": null,
+      "v83_error": null,
+      "v82_disp_25b": "computed_zero",
+      "v83_disp_25b": "blocked",
+      "v82_line_25b": 0,
+      "v83_line_25b": null,
+      "v82_blocked_reasons_25b": [],
+      "v83_blocked_reasons_25b": [
+        "Enter the federal income tax withheld in box 4 of each Form 1099-B or substitute statement you recorded a sale from. If box 4 is blank, enter $0."
+      ],
+      "diff_count": 25,
+      "diff_fields": [
+        "form1040.line-25b",
+        "form1040.line-25d",
+        "form1040.line-33",
+        "form1040.line-34",
+        "form1040.line-35a",
+        "form1040.line-37"
+      ],
+      "unexpected_diffs": []
+    },
+    {
+      "case_id": "case/x_bw_w_exceeds_correct_loss_within_shown/recorded",
+      "classification": "box4_unanswered_asks_amount",
+      "has_sales": true,
+      "reproduces_v82_fixture": true,
+      "fixture_mismatch": null,
+      "v82_outcome": "success",
+      "v83_outcome": "success",
+      "v82_error": null,
+      "v83_error": null,
+      "v82_disp_25b": "computed_zero",
+      "v83_disp_25b": "blocked",
+      "v82_line_25b": 0,
+      "v83_line_25b": null,
+      "v82_blocked_reasons_25b": [],
+      "v83_blocked_reasons_25b": [
+        "Enter the federal income tax withheld in box 4 of each Form 1099-B or substitute statement you recorded a sale from. If box 4 is blank, enter $0."
+      ],
+      "diff_count": 13,
+      "diff_fields": [
+        "form1040.line-25b",
+        "form1040.line-25d",
+        "form1040.line-33",
+        "form1040.line-34",
+        "form1040.line-35a",
+        "form1040.line-37"
+      ],
+      "unexpected_diffs": []
+    },
+    {
+      "case_id": "case/x_corrected_basis_changed_g_fixed/recorded",
+      "classification": "box4_unanswered_asks_amount",
+      "has_sales": true,
+      "reproduces_v82_fixture": true,
+      "fixture_mismatch": null,
+      "v82_outcome": "success",
+      "v83_outcome": "success",
+      "v82_error": null,
+      "v83_error": null,
+      "v82_disp_25b": "computed_zero",
+      "v83_disp_25b": "blocked",
+      "v82_line_25b": 0,
+      "v83_line_25b": null,
+      "v82_blocked_reasons_25b": [],
+      "v83_blocked_reasons_25b": [
+        "Enter the federal income tax withheld in box 4 of each Form 1099-B or substitute statement you recorded a sale from. If box 4 is blank, enter $0."
+      ],
+      "diff_count": 25,
+      "diff_fields": [
+        "form1040.line-25b",
+        "form1040.line-25d",
+        "form1040.line-33",
+        "form1040.line-34",
+        "form1040.line-35a",
+        "form1040.line-37"
+      ],
+      "unexpected_diffs": []
+    },
+    {
+      "case_id": "case/x_corrected_basis_changed_g_stale/recorded",
+      "classification": "box4_unanswered_asks_amount",
+      "has_sales": true,
+      "reproduces_v82_fixture": true,
+      "fixture_mismatch": null,
+      "v82_outcome": "success",
+      "v83_outcome": "success",
+      "v82_error": null,
+      "v83_error": null,
+      "v82_disp_25b": "computed_zero",
+      "v83_disp_25b": "blocked",
+      "v82_line_25b": 0,
+      "v83_line_25b": null,
+      "v82_blocked_reasons_25b": [],
+      "v83_blocked_reasons_25b": [
+        "Enter the federal income tax withheld in box 4 of each Form 1099-B or substitute statement you recorded a sale from. If box 4 is blank, enter $0."
+      ],
+      "diff_count": 9,
+      "diff_fields": [
+        "form1040.line-25b",
+        "form1040.line-25d"
+      ],
+      "unexpected_diffs": []
+    },
+    {
+      "case_id": "case/x_d_adjustment_row_missing/recorded",
+      "classification": "box4_unanswered_asks_amount",
+      "has_sales": true,
+      "reproduces_v82_fixture": true,
+      "fixture_mismatch": null,
+      "v82_outcome": "success",
+      "v83_outcome": "success",
+      "v82_error": null,
+      "v83_error": null,
+      "v82_disp_25b": "computed_zero",
+      "v83_disp_25b": "blocked",
+      "v82_line_25b": 0,
+      "v83_line_25b": null,
+      "v82_blocked_reasons_25b": [],
+      "v83_blocked_reasons_25b": [
+        "Enter the federal income tax withheld in box 4 of each Form 1099-B or substitute statement you recorded a sale from. If box 4 is blank, enter $0."
+      ],
+      "diff_count": 13,
+      "diff_fields": [
+        "form1040.line-25b",
+        "form1040.line-25d",
+        "form1040.line-33",
+        "form1040.line-34",
+        "form1040.line-35a",
+        "form1040.line-37"
+      ],
+      "unexpected_diffs": []
+    },
+    {
+      "case_id": "case/x_d_basis_row_missing/recorded",
+      "classification": "box4_unanswered_asks_amount",
+      "has_sales": true,
+      "reproduces_v82_fixture": true,
+      "fixture_mismatch": null,
+      "v82_outcome": "success",
+      "v83_outcome": "success",
+      "v82_error": null,
+      "v83_error": null,
+      "v82_disp_25b": "computed_zero",
+      "v83_disp_25b": "blocked",
+      "v82_line_25b": 0,
+      "v83_line_25b": null,
+      "v82_blocked_reasons_25b": [],
+      "v83_blocked_reasons_25b": [
+        "Enter the federal income tax withheld in box 4 of each Form 1099-B or substitute statement you recorded a sale from. If box 4 is blank, enter $0."
+      ],
+      "diff_count": 13,
+      "diff_fields": [
+        "form1040.line-25b",
+        "form1040.line-25d",
+        "form1040.line-33",
+        "form1040.line-34",
+        "form1040.line-35a",
+        "form1040.line-37"
+      ],
+      "unexpected_diffs": []
+    },
+    {
+      "case_id": "case/x_d_bw_w_exceeds_correct_loss/recorded",
+      "classification": "box4_unanswered_asks_amount",
+      "has_sales": true,
+      "reproduces_v82_fixture": true,
+      "fixture_mismatch": null,
+      "v82_outcome": "success",
+      "v83_outcome": "success",
+      "v82_error": null,
+      "v83_error": null,
+      "v82_disp_25b": "computed_zero",
+      "v83_disp_25b": "blocked",
+      "v82_line_25b": 0,
+      "v83_line_25b": null,
+      "v82_blocked_reasons_25b": [],
+      "v83_blocked_reasons_25b": [
+        "Enter the federal income tax withheld in box 4 of each Form 1099-B or substitute statement you recorded a sale from. If box 4 is blank, enter $0."
+      ],
+      "diff_count": 13,
+      "diff_fields": [
+        "form1040.line-25b",
+        "form1040.line-25d",
+        "form1040.line-33",
+        "form1040.line-34",
+        "form1040.line-35a",
+        "form1040.line-37"
+      ],
+      "unexpected_diffs": []
+    },
+    {
+      "case_id": "case/x_d_gain_to_loss/recorded",
+      "classification": "box4_unanswered_asks_amount",
+      "has_sales": true,
+      "reproduces_v82_fixture": true,
+      "fixture_mismatch": null,
+      "v82_outcome": "success",
+      "v83_outcome": "success",
+      "v82_error": null,
+      "v83_error": null,
+      "v82_disp_25b": "computed_zero",
+      "v83_disp_25b": "blocked",
+      "v82_line_25b": 0,
+      "v83_line_25b": null,
+      "v82_blocked_reasons_25b": [],
+      "v83_blocked_reasons_25b": [
+        "Enter the federal income tax withheld in box 4 of each Form 1099-B or substitute statement you recorded a sale from. If box 4 is blank, enter $0."
+      ],
+      "diff_count": 25,
+      "diff_fields": [
+        "form1040.line-25b",
+        "form1040.line-25d",
+        "form1040.line-33",
+        "form1040.line-34",
+        "form1040.line-35a",
+        "form1040.line-37"
+      ],
+      "unexpected_diffs": []
+    },
+    {
+      "case_id": "case/x_d_holding_mismatch/recorded",
+      "classification": "box4_unanswered_asks_amount",
+      "has_sales": true,
+      "reproduces_v82_fixture": true,
+      "fixture_mismatch": null,
+      "v82_outcome": "success",
+      "v83_outcome": "success",
+      "v82_error": null,
+      "v83_error": null,
+      "v82_disp_25b": "computed_zero",
+      "v83_disp_25b": "blocked",
+      "v82_line_25b": 0,
+      "v83_line_25b": null,
+      "v82_blocked_reasons_25b": [],
+      "v83_blocked_reasons_25b": [
+        "Enter the federal income tax withheld in box 4 of each Form 1099-B or substitute statement you recorded a sale from. If box 4 is blank, enter $0."
+      ],
+      "diff_count": 13,
+      "diff_fields": [
+        "form1040.line-25b",
+        "form1040.line-25d",
+        "form1040.line-33",
+        "form1040.line-34",
+        "form1040.line-35a",
+        "form1040.line-37"
+      ],
+      "unexpected_diffs": []
+    },
+    {
+      "case_id": "case/x_d_loss_to_gain/recorded",
+      "classification": "box4_unanswered_asks_amount",
+      "has_sales": true,
+      "reproduces_v82_fixture": true,
+      "fixture_mismatch": null,
+      "v82_outcome": "success",
+      "v83_outcome": "success",
+      "v82_error": null,
+      "v83_error": null,
+      "v82_disp_25b": "computed_zero",
+      "v83_disp_25b": "blocked",
+      "v82_line_25b": 0,
+      "v83_line_25b": null,
+      "v82_blocked_reasons_25b": [],
+      "v83_blocked_reasons_25b": [
+        "Enter the federal income tax withheld in box 4 of each Form 1099-B or substitute statement you recorded a sale from. If box 4 is blank, enter $0."
+      ],
+      "diff_count": 25,
+      "diff_fields": [
+        "form1040.line-25b",
+        "form1040.line-25d",
+        "form1040.line-33",
+        "form1040.line-34",
+        "form1040.line-35a",
+        "form1040.line-37"
+      ],
+      "unexpected_diffs": []
+    },
+    {
+      "case_id": "case/x_d_proceeds_row_missing/recorded",
+      "classification": "box4_unanswered_asks_amount",
+      "has_sales": true,
+      "reproduces_v82_fixture": true,
+      "fixture_mismatch": null,
+      "v82_outcome": "success",
+      "v83_outcome": "success",
+      "v82_error": null,
+      "v83_error": null,
+      "v82_disp_25b": "computed_zero",
+      "v83_disp_25b": "blocked",
+      "v82_line_25b": 0,
+      "v83_line_25b": null,
+      "v82_blocked_reasons_25b": [],
+      "v83_blocked_reasons_25b": [
+        "Enter the federal income tax withheld in box 4 of each Form 1099-B or substitute statement you recorded a sale from. If box 4 is blank, enter $0."
+      ],
+      "diff_count": 13,
+      "diff_fields": [
+        "form1040.line-25b",
+        "form1040.line-25d",
+        "form1040.line-33",
+        "form1040.line-34",
+        "form1040.line-35a",
+        "form1040.line-37"
+      ],
+      "unexpected_diffs": []
+    },
+    {
+      "case_id": "case/x_d_zero_proceeds_zero_shown/recorded",
+      "classification": "box4_unanswered_asks_amount",
+      "has_sales": true,
+      "reproduces_v82_fixture": true,
+      "fixture_mismatch": null,
+      "v82_outcome": "success",
+      "v83_outcome": "success",
+      "v82_error": null,
+      "v83_error": null,
+      "v82_disp_25b": "computed_zero",
+      "v83_disp_25b": "blocked",
+      "v82_line_25b": 0,
+      "v83_line_25b": null,
+      "v82_blocked_reasons_25b": [],
+      "v83_blocked_reasons_25b": [
+        "Enter the federal income tax withheld in box 4 of each Form 1099-B or substitute statement you recorded a sale from. If box 4 is blank, enter $0."
+      ],
+      "diff_count": 25,
+      "diff_fields": [
+        "form1040.line-25b",
+        "form1040.line-25d",
+        "form1040.line-33",
+        "form1040.line-34",
+        "form1040.line-35a",
+        "form1040.line-37"
+      ],
+      "unexpected_diffs": []
+    },
+    {
+      "case_id": "case/x_dup_box_c_ic3_no/recorded",
+      "classification": "box4_unanswered_asks_amount",
+      "has_sales": true,
+      "reproduces_v82_fixture": true,
+      "fixture_mismatch": null,
+      "v82_outcome": "success",
+      "v83_outcome": "success",
+      "v82_error": null,
+      "v83_error": null,
+      "v82_disp_25b": "computed_zero",
+      "v83_disp_25b": "blocked",
+      "v82_line_25b": 0,
+      "v83_line_25b": null,
+      "v82_blocked_reasons_25b": [],
+      "v83_blocked_reasons_25b": [
+        "Enter the federal income tax withheld in box 4 of each Form 1099-B or substitute statement you recorded a sale from. If box 4 is blank, enter $0."
+      ],
+      "diff_count": 9,
+      "diff_fields": [
+        "form1040.line-25b",
+        "form1040.line-25d"
+      ],
+      "unexpected_diffs": []
+    },
+    {
+      "case_id": "case/x_dup_box_c_ic3_yes/recorded",
+      "classification": "box4_unanswered_asks_amount",
+      "has_sales": true,
+      "reproduces_v82_fixture": true,
+      "fixture_mismatch": null,
+      "v82_outcome": "success",
+      "v83_outcome": "success",
+      "v82_error": null,
+      "v83_error": null,
+      "v82_disp_25b": "computed_zero",
+      "v83_disp_25b": "blocked",
+      "v82_line_25b": 0,
+      "v83_line_25b": null,
+      "v82_blocked_reasons_25b": [],
+      "v83_blocked_reasons_25b": [
+        "Enter the federal income tax withheld in box 4 of each Form 1099-B or substitute statement you recorded a sale from. If box 4 is blank, enter $0."
+      ],
+      "diff_count": 25,
+      "diff_fields": [
+        "form1040.line-25b",
+        "form1040.line-25d",
+        "form1040.line-33",
+        "form1040.line-34",
+        "form1040.line-35a",
+        "form1040.line-37"
+      ],
+      "unexpected_diffs": []
+    },
+    {
+      "case_id": "case/x_dup_covered_lt/recorded",
+      "classification": "box4_unanswered_asks_amount",
+      "has_sales": true,
+      "reproduces_v82_fixture": true,
+      "fixture_mismatch": null,
+      "v82_outcome": "success",
+      "v83_outcome": "success",
+      "v82_error": null,
+      "v83_error": null,
+      "v82_disp_25b": "computed_zero",
+      "v83_disp_25b": "blocked",
+      "v82_line_25b": 0,
+      "v83_line_25b": null,
+      "v82_blocked_reasons_25b": [],
+      "v83_blocked_reasons_25b": [
+        "Enter the federal income tax withheld in box 4 of each Form 1099-B or substitute statement you recorded a sale from. If box 4 is blank, enter $0."
+      ],
+      "diff_count": 9,
+      "diff_fields": [
+        "form1040.line-25b",
+        "form1040.line-25d"
+      ],
+      "unexpected_diffs": []
+    },
+    {
+      "case_id": "case/x_dup_covered_st/recorded",
+      "classification": "box4_unanswered_asks_amount",
+      "has_sales": true,
+      "reproduces_v82_fixture": true,
+      "fixture_mismatch": null,
+      "v82_outcome": "success",
+      "v83_outcome": "success",
+      "v82_error": null,
+      "v83_error": null,
+      "v82_disp_25b": "computed_zero",
+      "v83_disp_25b": "blocked",
+      "v82_line_25b": 0,
+      "v83_line_25b": null,
+      "v82_blocked_reasons_25b": [],
+      "v83_blocked_reasons_25b": [
+        "Enter the federal income tax withheld in box 4 of each Form 1099-B or substitute statement you recorded a sale from. If box 4 is blank, enter $0."
+      ],
+      "diff_count": 9,
+      "diff_fields": [
+        "form1040.line-25b",
+        "form1040.line-25d"
+      ],
+      "unexpected_diffs": []
+    },
+    {
+      "case_id": "case/x_dup_covered_w_lt/recorded",
+      "classification": "box4_unanswered_asks_amount",
+      "has_sales": true,
+      "reproduces_v82_fixture": true,
+      "fixture_mismatch": null,
+      "v82_outcome": "success",
+      "v83_outcome": "success",
+      "v82_error": null,
+      "v83_error": null,
+      "v82_disp_25b": "computed_zero",
+      "v83_disp_25b": "blocked",
+      "v82_line_25b": 0,
+      "v83_line_25b": null,
+      "v82_blocked_reasons_25b": [],
+      "v83_blocked_reasons_25b": [
+        "Enter the federal income tax withheld in box 4 of each Form 1099-B or substitute statement you recorded a sale from. If box 4 is blank, enter $0."
+      ],
+      "diff_count": 9,
+      "diff_fields": [
+        "form1040.line-25b",
+        "form1040.line-25d"
+      ],
+      "unexpected_diffs": []
+    },
+    {
+      "case_id": "case/x_dup_covered_w_st/recorded",
+      "classification": "box4_unanswered_asks_amount",
+      "has_sales": true,
+      "reproduces_v82_fixture": true,
+      "fixture_mismatch": null,
+      "v82_outcome": "success",
+      "v83_outcome": "success",
+      "v82_error": null,
+      "v83_error": null,
+      "v82_disp_25b": "computed_zero",
+      "v83_disp_25b": "blocked",
+      "v82_line_25b": 0,
+      "v83_line_25b": null,
+      "v82_blocked_reasons_25b": [],
+      "v83_blocked_reasons_25b": [
+        "Enter the federal income tax withheld in box 4 of each Form 1099-B or substitute statement you recorded a sale from. If box 4 is blank, enter $0."
+      ],
+      "diff_count": 9,
+      "diff_fields": [
+        "form1040.line-25b",
+        "form1040.line-25d"
+      ],
+      "unexpected_diffs": []
+    },
+    {
+      "case_id": "case/x_dup_noncovered_lt/recorded",
+      "classification": "box4_unanswered_asks_amount",
+      "has_sales": true,
+      "reproduces_v82_fixture": true,
+      "fixture_mismatch": null,
+      "v82_outcome": "success",
+      "v83_outcome": "success",
+      "v82_error": null,
+      "v83_error": null,
+      "v82_disp_25b": "computed_zero",
+      "v83_disp_25b": "blocked",
+      "v82_line_25b": 0,
+      "v83_line_25b": null,
+      "v82_blocked_reasons_25b": [],
+      "v83_blocked_reasons_25b": [
+        "Enter the federal income tax withheld in box 4 of each Form 1099-B or substitute statement you recorded a sale from. If box 4 is blank, enter $0."
+      ],
+      "diff_count": 9,
+      "diff_fields": [
+        "form1040.line-25b",
+        "form1040.line-25d"
+      ],
+      "unexpected_diffs": []
+    },
+    {
+      "case_id": "case/x_dup_noncovered_st/recorded",
+      "classification": "box4_unanswered_asks_amount",
+      "has_sales": true,
+      "reproduces_v82_fixture": true,
+      "fixture_mismatch": null,
+      "v82_outcome": "success",
+      "v83_outcome": "success",
+      "v82_error": null,
+      "v83_error": null,
+      "v82_disp_25b": "computed_zero",
+      "v83_disp_25b": "blocked",
+      "v82_line_25b": 0,
+      "v83_line_25b": null,
+      "v82_blocked_reasons_25b": [],
+      "v83_blocked_reasons_25b": [
+        "Enter the federal income tax withheld in box 4 of each Form 1099-B or substitute statement you recorded a sale from. If box 4 is blank, enter $0."
+      ],
+      "diff_count": 9,
+      "diff_fields": [
+        "form1040.line-25b",
+        "form1040.line-25d"
+      ],
+      "unexpected_diffs": []
+    },
+    {
+      "case_id": "case/x_g_sign_flipped/recorded",
+      "classification": "box4_unanswered_asks_amount",
+      "has_sales": true,
+      "reproduces_v82_fixture": true,
+      "fixture_mismatch": null,
+      "v82_outcome": "success",
+      "v83_outcome": "success",
+      "v82_error": null,
+      "v83_error": null,
+      "v82_disp_25b": "computed_zero",
+      "v83_disp_25b": "blocked",
+      "v82_line_25b": 0,
+      "v83_line_25b": null,
+      "v82_blocked_reasons_25b": [],
+      "v83_blocked_reasons_25b": [
+        "Enter the federal income tax withheld in box 4 of each Form 1099-B or substitute statement you recorded a sale from. If box 4 is blank, enter $0."
+      ],
+      "diff_count": 9,
+      "diff_fields": [
+        "form1040.line-25b",
+        "form1040.line-25d"
+      ],
+      "unexpected_diffs": []
+    },
+    {
+      "case_id": "case/x_no_correction_with_w/recorded",
+      "classification": "box4_unanswered_asks_amount",
+      "has_sales": true,
+      "reproduces_v82_fixture": true,
+      "fixture_mismatch": null,
+      "v82_outcome": "success",
+      "v83_outcome": "success",
+      "v82_error": null,
+      "v83_error": null,
+      "v82_disp_25b": "computed_zero",
+      "v83_disp_25b": "blocked",
+      "v82_line_25b": 0,
+      "v83_line_25b": null,
+      "v82_blocked_reasons_25b": [],
+      "v83_blocked_reasons_25b": [
+        "Enter the federal income tax withheld in box 4 of each Form 1099-B or substitute statement you recorded a sale from. If box 4 is blank, enter $0."
+      ],
+      "diff_count": 13,
+      "diff_fields": [
+        "form1040.line-25b",
+        "form1040.line-25d",
+        "form1040.line-33",
+        "form1040.line-34",
+        "form1040.line-35a",
+        "form1040.line-37"
+      ],
+      "unexpected_diffs": []
+    },
+    {
+      "case_id": "case/x_path_b_yes/recorded",
+      "classification": "box4_unanswered_asks_amount",
+      "has_sales": true,
+      "reproduces_v82_fixture": true,
+      "fixture_mismatch": null,
+      "v82_outcome": "success",
+      "v83_outcome": "success",
+      "v82_error": null,
+      "v83_error": null,
+      "v82_disp_25b": "computed_zero",
+      "v83_disp_25b": "blocked",
+      "v82_line_25b": 0,
+      "v83_line_25b": null,
+      "v82_blocked_reasons_25b": [],
+      "v83_blocked_reasons_25b": [
+        "Enter the federal income tax withheld in box 4 of each Form 1099-B or substitute statement you recorded a sale from. If box 4 is blank, enter $0."
+      ],
+      "diff_count": 25,
+      "diff_fields": [
+        "form1040.line-25b",
+        "form1040.line-25d",
+        "form1040.line-33",
+        "form1040.line-34",
+        "form1040.line-35a",
+        "form1040.line-37"
+      ],
+      "unexpected_diffs": []
+    },
+    {
+      "case_id": "case/x_q3_no_late_both_terms/recorded",
+      "classification": "identical",
+      "has_sales": true,
+      "reproduces_v82_fixture": true,
+      "fixture_mismatch": null,
+      "v82_outcome": "success",
+      "v83_outcome": "success",
+      "v82_error": null,
+      "v83_error": null,
+      "v82_disp_25b": "blocked",
+      "v83_disp_25b": "blocked",
+      "v82_line_25b": null,
+      "v83_line_25b": null,
+      "v82_blocked_reasons_25b": [
+        "Did any Form 1099-B or substitute statement you received show a cost or other basis, reported to the IRS, that is wrong?"
+      ],
+      "v83_blocked_reasons_25b": [
+        "Did any Form 1099-B or substitute statement you received show a cost or other basis, reported to the IRS, that is wrong?"
+      ],
+      "diff_count": 0,
+      "diff_fields": [],
+      "unexpected_diffs": []
+    },
+    {
+      "case_id": "case/x_q3_no_late_both_terms_reanswered/recorded",
+      "classification": "box4_unanswered_asks_amount",
+      "has_sales": true,
+      "reproduces_v82_fixture": true,
+      "fixture_mismatch": null,
+      "v82_outcome": "success",
+      "v83_outcome": "success",
+      "v82_error": null,
+      "v83_error": null,
+      "v82_disp_25b": "computed_zero",
+      "v83_disp_25b": "blocked",
+      "v82_line_25b": 0,
+      "v83_line_25b": null,
+      "v82_blocked_reasons_25b": [],
+      "v83_blocked_reasons_25b": [
+        "Enter the federal income tax withheld in box 4 of each Form 1099-B or substitute statement you recorded a sale from. If box 4 is blank, enter $0."
+      ],
+      "diff_count": 25,
+      "diff_fields": [
+        "form1040.line-25b",
+        "form1040.line-25d",
+        "form1040.line-33",
+        "form1040.line-34",
+        "form1040.line-35a",
+        "form1040.line-37"
+      ],
+      "unexpected_diffs": []
+    },
+    {
+      "case_id": "case/x_q3_yes_late_member/recorded",
+      "classification": "identical",
+      "has_sales": true,
+      "reproduces_v82_fixture": true,
+      "fixture_mismatch": null,
+      "v82_outcome": "success",
+      "v83_outcome": "success",
+      "v82_error": null,
+      "v83_error": null,
+      "v82_disp_25b": "blocked",
+      "v83_disp_25b": "blocked",
+      "v82_line_25b": null,
+      "v83_line_25b": null,
+      "v82_blocked_reasons_25b": [
+        "Did any Form 1099-B or substitute statement you received show a cost or other basis, reported to the IRS, that is wrong?"
+      ],
+      "v83_blocked_reasons_25b": [
+        "Did any Form 1099-B or substitute statement you received show a cost or other basis, reported to the IRS, that is wrong?"
+      ],
+      "diff_count": 0,
+      "diff_fields": [],
+      "unexpected_diffs": []
+    },
+    {
+      "case_id": "case/x_q3_yes_late_member_reanswered/recorded",
+      "classification": "box4_unanswered_asks_amount",
+      "has_sales": true,
+      "reproduces_v82_fixture": true,
+      "fixture_mismatch": null,
+      "v82_outcome": "success",
+      "v83_outcome": "success",
+      "v82_error": null,
+      "v83_error": null,
+      "v82_disp_25b": "computed_zero",
+      "v83_disp_25b": "blocked",
+      "v82_line_25b": 0,
+      "v83_line_25b": null,
+      "v82_blocked_reasons_25b": [],
+      "v83_blocked_reasons_25b": [
+        "Enter the federal income tax withheld in box 4 of each Form 1099-B or substitute statement you recorded a sale from. If box 4 is blank, enter $0."
+      ],
+      "diff_count": 25,
+      "diff_fields": [
+        "form1040.line-25b",
+        "form1040.line-25d",
+        "form1040.line-33",
+        "form1040.line-34",
+        "form1040.line-35a",
+        "form1040.line-37"
+      ],
+      "unexpected_diffs": []
+    },
+    {
+      "case_id": "case/x_remove_sale_keep_rows/recorded",
+      "classification": "identical",
+      "has_sales": false,
+      "reproduces_v82_fixture": true,
+      "fixture_mismatch": null,
+      "v82_outcome": "error",
+      "v83_outcome": "error",
+      "v82_error": "FindingModelError",
+      "v83_error": "FindingModelError",
+      "v82_disp_25b": null,
+      "v83_disp_25b": null,
+      "v82_line_25b": null,
+      "v83_line_25b": null,
+      "v82_blocked_reasons_25b": [],
+      "v83_blocked_reasons_25b": [],
+      "diff_count": 0,
+      "diff_fields": [],
+      "unexpected_diffs": []
+    },
+    {
+      "case_id": "case/x_shared_transaction_complete/recorded",
+      "classification": "box4_unanswered_asks_amount",
+      "has_sales": true,
+      "reproduces_v82_fixture": true,
+      "fixture_mismatch": null,
+      "v82_outcome": "success",
+      "v83_outcome": "success",
+      "v82_error": null,
+      "v83_error": null,
+      "v82_disp_25b": "computed_zero",
+      "v83_disp_25b": "blocked",
+      "v82_line_25b": 0,
+      "v83_line_25b": null,
+      "v82_blocked_reasons_25b": [],
+      "v83_blocked_reasons_25b": [
+        "Enter the federal income tax withheld in box 4 of each Form 1099-B or substitute statement you recorded a sale from. If box 4 is blank, enter $0."
+      ],
+      "diff_count": 25,
+      "diff_fields": [
+        "form1040.line-25b",
+        "form1040.line-25d",
+        "form1040.line-33",
+        "form1040.line-34",
+        "form1040.line-35a",
+        "form1040.line-37"
+      ],
+      "unexpected_diffs": []
+    },
+    {
+      "case_id": "case/x_shared_transaction_missing_g/recorded",
+      "classification": "box4_unanswered_asks_amount",
+      "has_sales": true,
+      "reproduces_v82_fixture": true,
+      "fixture_mismatch": null,
+      "v82_outcome": "success",
+      "v83_outcome": "success",
+      "v82_error": null,
+      "v83_error": null,
+      "v82_disp_25b": "computed_zero",
+      "v83_disp_25b": "blocked",
+      "v82_line_25b": 0,
+      "v83_line_25b": null,
+      "v82_blocked_reasons_25b": [],
+      "v83_blocked_reasons_25b": [
+        "Enter the federal income tax withheld in box 4 of each Form 1099-B or substitute statement you recorded a sale from. If box 4 is blank, enter $0."
+      ],
+      "diff_count": 9,
+      "diff_fields": [
+        "form1040.line-25b",
+        "form1040.line-25d"
+      ],
+      "unexpected_diffs": []
+    },
+    {
+      "case_id": "case/x_zero_proceeds_zero_shown/recorded",
+      "classification": "box4_unanswered_asks_amount",
+      "has_sales": true,
+      "reproduces_v82_fixture": true,
+      "fixture_mismatch": null,
+      "v82_outcome": "success",
+      "v83_outcome": "success",
+      "v82_error": null,
+      "v83_error": null,
+      "v82_disp_25b": "computed_zero",
+      "v83_disp_25b": "blocked",
+      "v82_line_25b": 0,
+      "v83_line_25b": null,
+      "v82_blocked_reasons_25b": [],
+      "v83_blocked_reasons_25b": [
+        "Enter the federal income tax withheld in box 4 of each Form 1099-B or substitute statement you recorded a sale from. If box 4 is blank, enter $0."
+      ],
+      "diff_count": 25,
+      "diff_fields": [
+        "form1040.line-25b",
+        "form1040.line-25d",
+        "form1040.line-33",
+        "form1040.line-34",
+        "form1040.line-35a",
+        "form1040.line-37"
+      ],
+      "unexpected_diffs": []
+    },
+    {
+      "case_id": "neighbour/n_b_zero_proceeds/recorded",
+      "classification": "box4_unanswered_asks_amount",
+      "has_sales": true,
+      "reproduces_v82_fixture": true,
+      "fixture_mismatch": null,
+      "v82_outcome": "success",
+      "v83_outcome": "success",
+      "v82_error": null,
+      "v83_error": null,
+      "v82_disp_25b": "computed_zero",
+      "v83_disp_25b": "blocked",
+      "v82_line_25b": 0,
+      "v83_line_25b": null,
+      "v82_blocked_reasons_25b": [],
+      "v83_blocked_reasons_25b": [
+        "Enter the federal income tax withheld in box 4 of each Form 1099-B or substitute statement you recorded a sale from. If box 4 is blank, enter $0."
+      ],
+      "diff_count": 25,
+      "diff_fields": [
+        "form1040.line-25b",
+        "form1040.line-25d",
+        "form1040.line-33",
+        "form1040.line-34",
+        "form1040.line-35a",
+        "form1040.line-37"
+      ],
+      "unexpected_diffs": []
+    },
+    {
+      "case_id": "neighbour/n_b_zero_proceeds_zero_basis/recorded",
+      "classification": "box4_unanswered_asks_amount",
+      "has_sales": true,
+      "reproduces_v82_fixture": true,
+      "fixture_mismatch": null,
+      "v82_outcome": "success",
+      "v83_outcome": "success",
+      "v82_error": null,
+      "v83_error": null,
+      "v82_disp_25b": "computed_zero",
+      "v83_disp_25b": "blocked",
+      "v82_line_25b": 0,
+      "v83_line_25b": null,
+      "v82_blocked_reasons_25b": [],
+      "v83_blocked_reasons_25b": [
+        "Enter the federal income tax withheld in box 4 of each Form 1099-B or substitute statement you recorded a sale from. If box 4 is blank, enter $0."
+      ],
+      "diff_count": 25,
+      "diff_fields": [
+        "form1040.line-25b",
+        "form1040.line-25d",
+        "form1040.line-33",
+        "form1040.line-34",
+        "form1040.line-35a",
+        "form1040.line-37"
+      ],
+      "unexpected_diffs": []
+    },
+    {
+      "case_id": "neighbour/n_covered_lt_collectibles_yes/recorded",
+      "classification": "box4_unanswered_asks_amount",
+      "has_sales": true,
+      "reproduces_v82_fixture": true,
+      "fixture_mismatch": null,
+      "v82_outcome": "success",
+      "v83_outcome": "success",
+      "v82_error": null,
+      "v83_error": null,
+      "v82_disp_25b": "computed_zero",
+      "v83_disp_25b": "blocked",
+      "v82_line_25b": 0,
+      "v83_line_25b": null,
+      "v82_blocked_reasons_25b": [],
+      "v83_blocked_reasons_25b": [
+        "Enter the federal income tax withheld in box 4 of each Form 1099-B or substitute statement you recorded a sale from. If box 4 is blank, enter $0."
+      ],
+      "diff_count": 9,
+      "diff_fields": [
+        "form1040.line-25b",
+        "form1040.line-25d"
+      ],
+      "unexpected_diffs": []
+    },
+    {
+      "case_id": "neighbour/n_covered_lt_market_discount_yes/recorded",
+      "classification": "box4_unanswered_asks_amount",
+      "has_sales": true,
+      "reproduces_v82_fixture": true,
+      "fixture_mismatch": null,
+      "v82_outcome": "success",
+      "v83_outcome": "success",
+      "v82_error": null,
+      "v83_error": null,
+      "v82_disp_25b": "computed_zero",
+      "v83_disp_25b": "blocked",
+      "v82_line_25b": 0,
+      "v83_line_25b": null,
+      "v82_blocked_reasons_25b": [],
+      "v83_blocked_reasons_25b": [
+        "Enter the federal income tax withheld in box 4 of each Form 1099-B or substitute statement you recorded a sale from. If box 4 is blank, enter $0."
+      ],
+      "diff_count": 9,
+      "diff_fields": [
+        "form1040.line-25b",
+        "form1040.line-25d"
+      ],
+      "unexpected_diffs": []
+    },
+    {
+      "case_id": "neighbour/n_covered_lt_qof_yes/recorded",
+      "classification": "box4_unanswered_asks_amount",
+      "has_sales": true,
+      "reproduces_v82_fixture": true,
+      "fixture_mismatch": null,
+      "v82_outcome": "success",
+      "v83_outcome": "success",
+      "v82_error": null,
+      "v83_error": null,
+      "v82_disp_25b": "computed_zero",
+      "v83_disp_25b": "blocked",
+      "v82_line_25b": 0,
+      "v83_line_25b": null,
+      "v82_blocked_reasons_25b": [],
+      "v83_blocked_reasons_25b": [
+        "Enter the federal income tax withheld in box 4 of each Form 1099-B or substitute statement you recorded a sale from. If box 4 is blank, enter $0."
+      ],
+      "diff_count": 9,
+      "diff_fields": [
+        "form1040.line-25b",
+        "form1040.line-25d"
+      ],
+      "unexpected_diffs": []
+    },
+    {
+      "case_id": "neighbour/n_covered_lt_tsa_yes/recorded",
+      "classification": "box4_unanswered_asks_amount",
+      "has_sales": true,
+      "reproduces_v82_fixture": true,
+      "fixture_mismatch": null,
+      "v82_outcome": "success",
+      "v83_outcome": "success",
+      "v82_error": null,
+      "v83_error": null,
+      "v82_disp_25b": "computed_zero",
+      "v83_disp_25b": "blocked",
+      "v82_line_25b": 0,
+      "v83_line_25b": null,
+      "v82_blocked_reasons_25b": [],
+      "v83_blocked_reasons_25b": [
+        "Enter the federal income tax withheld in box 4 of each Form 1099-B or substitute statement you recorded a sale from. If box 4 is blank, enter $0."
+      ],
+      "diff_count": 9,
+      "diff_fields": [
+        "form1040.line-25b",
+        "form1040.line-25d"
+      ],
+      "unexpected_diffs": []
+    },
+    {
+      "case_id": "neighbour/n_covered_lt_zero_proceeds/recorded",
+      "classification": "box4_unanswered_asks_amount",
+      "has_sales": true,
+      "reproduces_v82_fixture": true,
+      "fixture_mismatch": null,
+      "v82_outcome": "success",
+      "v83_outcome": "success",
+      "v82_error": null,
+      "v83_error": null,
+      "v82_disp_25b": "computed_zero",
+      "v83_disp_25b": "blocked",
+      "v82_line_25b": 0,
+      "v83_line_25b": null,
+      "v82_blocked_reasons_25b": [],
+      "v83_blocked_reasons_25b": [
+        "Enter the federal income tax withheld in box 4 of each Form 1099-B or substitute statement you recorded a sale from. If box 4 is blank, enter $0."
+      ],
+      "diff_count": 25,
+      "diff_fields": [
+        "form1040.line-25b",
+        "form1040.line-25d",
+        "form1040.line-33",
+        "form1040.line-34",
+        "form1040.line-35a",
+        "form1040.line-37"
+      ],
+      "unexpected_diffs": []
+    },
+    {
+      "case_id": "neighbour/n_covered_st_ordinary_yes/recorded",
+      "classification": "box4_unanswered_asks_amount",
+      "has_sales": true,
+      "reproduces_v82_fixture": true,
+      "fixture_mismatch": null,
+      "v82_outcome": "success",
+      "v83_outcome": "success",
+      "v82_error": null,
+      "v83_error": null,
+      "v82_disp_25b": "computed_zero",
+      "v83_disp_25b": "blocked",
+      "v82_line_25b": 0,
+      "v83_line_25b": null,
+      "v82_blocked_reasons_25b": [],
+      "v83_blocked_reasons_25b": [
+        "Enter the federal income tax withheld in box 4 of each Form 1099-B or substitute statement you recorded a sale from. If box 4 is blank, enter $0."
+      ],
+      "diff_count": 9,
+      "diff_fields": [
+        "form1040.line-25b",
+        "form1040.line-25d"
+      ],
+      "unexpected_diffs": []
+    },
+    {
+      "case_id": "neighbour/n_covered_st_zero_proceeds/recorded",
+      "classification": "box4_unanswered_asks_amount",
+      "has_sales": true,
+      "reproduces_v82_fixture": true,
+      "fixture_mismatch": null,
+      "v82_outcome": "success",
+      "v83_outcome": "success",
+      "v82_error": null,
+      "v83_error": null,
+      "v82_disp_25b": "computed_zero",
+      "v83_disp_25b": "blocked",
+      "v82_line_25b": 0,
+      "v83_line_25b": null,
+      "v82_blocked_reasons_25b": [],
+      "v83_blocked_reasons_25b": [
+        "Enter the federal income tax withheld in box 4 of each Form 1099-B or substitute statement you recorded a sale from. If box 4 is blank, enter $0."
+      ],
+      "diff_count": 25,
+      "diff_fields": [
+        "form1040.line-25b",
+        "form1040.line-25d",
+        "form1040.line-33",
+        "form1040.line-34",
+        "form1040.line-35a",
+        "form1040.line-37"
+      ],
+      "unexpected_diffs": []
+    },
+    {
+      "case_id": "neighbour/n_covered_st_zero_proceeds_zero_basis/recorded",
+      "classification": "box4_unanswered_asks_amount",
+      "has_sales": true,
+      "reproduces_v82_fixture": true,
+      "fixture_mismatch": null,
+      "v82_outcome": "success",
+      "v83_outcome": "success",
+      "v82_error": null,
+      "v83_error": null,
+      "v82_disp_25b": "computed_zero",
+      "v83_disp_25b": "blocked",
+      "v82_line_25b": 0,
+      "v83_line_25b": null,
+      "v82_blocked_reasons_25b": [],
+      "v83_blocked_reasons_25b": [
+        "Enter the federal income tax withheld in box 4 of each Form 1099-B or substitute statement you recorded a sale from. If box 4 is blank, enter $0."
+      ],
+      "diff_count": 25,
+      "diff_fields": [
+        "form1040.line-25b",
+        "form1040.line-25d",
+        "form1040.line-33",
+        "form1040.line-34",
+        "form1040.line-35a",
+        "form1040.line-37"
+      ],
+      "unexpected_diffs": []
+    },
+    {
+      "case_id": "neighbour/n_covered_tsa_no/recorded",
+      "classification": "box4_unanswered_asks_amount",
+      "has_sales": true,
+      "reproduces_v82_fixture": true,
+      "fixture_mismatch": null,
+      "v82_outcome": "success",
+      "v83_outcome": "success",
+      "v82_error": null,
+      "v83_error": null,
+      "v82_disp_25b": "computed_zero",
+      "v83_disp_25b": "blocked",
+      "v82_line_25b": 0,
+      "v83_line_25b": null,
+      "v82_blocked_reasons_25b": [],
+      "v83_blocked_reasons_25b": [
+        "Enter the federal income tax withheld in box 4 of each Form 1099-B or substitute statement you recorded a sale from. If box 4 is blank, enter $0."
+      ],
+      "diff_count": 25,
+      "diff_fields": [
+        "form1040.line-25b",
+        "form1040.line-25d",
+        "form1040.line-33",
+        "form1040.line-34",
+        "form1040.line-35a",
+        "form1040.line-37"
+      ],
+      "unexpected_diffs": []
+    },
+    {
+      "case_id": "neighbour/n_covered_tsa_yes_no8949/recorded",
+      "classification": "box4_unanswered_asks_amount",
+      "has_sales": true,
+      "reproduces_v82_fixture": true,
+      "fixture_mismatch": null,
+      "v82_outcome": "success",
+      "v83_outcome": "success",
+      "v82_error": null,
+      "v83_error": null,
+      "v82_disp_25b": "computed_zero",
+      "v83_disp_25b": "blocked",
+      "v82_line_25b": 0,
+      "v83_line_25b": null,
+      "v82_blocked_reasons_25b": [],
+      "v83_blocked_reasons_25b": [
+        "Enter the federal income tax withheld in box 4 of each Form 1099-B or substitute statement you recorded a sale from. If box 4 is blank, enter $0."
+      ],
+      "diff_count": 9,
+      "diff_fields": [
+        "form1040.line-25b",
+        "form1040.line-25d"
+      ],
+      "unexpected_diffs": []
+    },
+    {
+      "case_id": "neighbour/n_dup_b_and_covered_lt/recorded",
+      "classification": "box4_unanswered_asks_amount",
+      "has_sales": true,
+      "reproduces_v82_fixture": true,
+      "fixture_mismatch": null,
+      "v82_outcome": "success",
+      "v83_outcome": "success",
+      "v82_error": null,
+      "v83_error": null,
+      "v82_disp_25b": "computed_zero",
+      "v83_disp_25b": "blocked",
+      "v82_line_25b": 0,
+      "v83_line_25b": null,
+      "v82_blocked_reasons_25b": [],
+      "v83_blocked_reasons_25b": [
+        "Enter the federal income tax withheld in box 4 of each Form 1099-B or substitute statement you recorded a sale from. If box 4 is blank, enter $0."
+      ],
+      "diff_count": 9,
+      "diff_fields": [
+        "form1040.line-25b",
+        "form1040.line-25d"
+      ],
+      "unexpected_diffs": []
+    },
+    {
+      "case_id": "neighbour/n_dup_b_and_e/recorded",
+      "classification": "box4_unanswered_asks_amount",
+      "has_sales": true,
+      "reproduces_v82_fixture": true,
+      "fixture_mismatch": null,
+      "v82_outcome": "success",
+      "v83_outcome": "success",
+      "v82_error": null,
+      "v83_error": null,
+      "v82_disp_25b": "computed_zero",
+      "v83_disp_25b": "blocked",
+      "v82_line_25b": 0,
+      "v83_line_25b": null,
+      "v82_blocked_reasons_25b": [],
+      "v83_blocked_reasons_25b": [
+        "Enter the federal income tax withheld in box 4 of each Form 1099-B or substitute statement you recorded a sale from. If box 4 is blank, enter $0."
+      ],
+      "diff_count": 9,
+      "diff_fields": [
+        "form1040.line-25b",
+        "form1040.line-25d"
+      ],
+      "unexpected_diffs": []
+    },
+    {
+      "case_id": "neighbour/n_dup_covered_st_and_covered_lt/recorded",
+      "classification": "box4_unanswered_asks_amount",
+      "has_sales": true,
+      "reproduces_v82_fixture": true,
+      "fixture_mismatch": null,
+      "v82_outcome": "success",
+      "v83_outcome": "success",
+      "v82_error": null,
+      "v83_error": null,
+      "v82_disp_25b": "computed_zero",
+      "v83_disp_25b": "blocked",
+      "v82_line_25b": 0,
+      "v83_line_25b": null,
+      "v82_blocked_reasons_25b": [],
+      "v83_blocked_reasons_25b": [
+        "Enter the federal income tax withheld in box 4 of each Form 1099-B or substitute statement you recorded a sale from. If box 4 is blank, enter $0."
+      ],
+      "diff_count": 9,
+      "diff_fields": [
+        "form1040.line-25b",
+        "form1040.line-25d"
+      ],
+      "unexpected_diffs": []
+    },
+    {
+      "case_id": "neighbour/n_dup_covered_st_and_w_lt/recorded",
+      "classification": "box4_unanswered_asks_amount",
+      "has_sales": true,
+      "reproduces_v82_fixture": true,
+      "fixture_mismatch": null,
+      "v82_outcome": "success",
+      "v83_outcome": "success",
+      "v82_error": null,
+      "v83_error": null,
+      "v82_disp_25b": "computed_zero",
+      "v83_disp_25b": "blocked",
+      "v82_line_25b": 0,
+      "v83_line_25b": null,
+      "v82_blocked_reasons_25b": [],
+      "v83_blocked_reasons_25b": [
+        "Enter the federal income tax withheld in box 4 of each Form 1099-B or substitute statement you recorded a sale from. If box 4 is blank, enter $0."
+      ],
+      "diff_count": 9,
+      "diff_fields": [
+        "form1040.line-25b",
+        "form1040.line-25d"
+      ],
+      "unexpected_diffs": []
+    },
+    {
+      "case_id": "neighbour/n_dup_e_and_covered_st/recorded",
+      "classification": "box4_unanswered_asks_amount",
+      "has_sales": true,
+      "reproduces_v82_fixture": true,
+      "fixture_mismatch": null,
+      "v82_outcome": "success",
+      "v83_outcome": "success",
+      "v82_error": null,
+      "v83_error": null,
+      "v82_disp_25b": "computed_zero",
+      "v83_disp_25b": "blocked",
+      "v82_line_25b": 0,
+      "v83_line_25b": null,
+      "v82_blocked_reasons_25b": [],
+      "v83_blocked_reasons_25b": [
+        "Enter the federal income tax withheld in box 4 of each Form 1099-B or substitute statement you recorded a sale from. If box 4 is blank, enter $0."
+      ],
+      "diff_count": 9,
+      "diff_fields": [
+        "form1040.line-25b",
+        "form1040.line-25d"
+      ],
+      "unexpected_diffs": []
+    },
+    {
+      "case_id": "neighbour/n_dup_w_st_and_covered_lt/recorded",
+      "classification": "box4_unanswered_asks_amount",
+      "has_sales": true,
+      "reproduces_v82_fixture": true,
+      "fixture_mismatch": null,
+      "v82_outcome": "success",
+      "v83_outcome": "success",
+      "v82_error": null,
+      "v83_error": null,
+      "v82_disp_25b": "computed_zero",
+      "v83_disp_25b": "blocked",
+      "v82_line_25b": 0,
+      "v83_line_25b": null,
+      "v82_blocked_reasons_25b": [],
+      "v83_blocked_reasons_25b": [
+        "Enter the federal income tax withheld in box 4 of each Form 1099-B or substitute statement you recorded a sale from. If box 4 is blank, enter $0."
+      ],
+      "diff_count": 9,
+      "diff_fields": [
+        "form1040.line-25b",
+        "form1040.line-25d"
+      ],
+      "unexpected_diffs": []
+    },
+    {
+      "case_id": "neighbour/n_dup_w_st_and_w_lt/recorded",
+      "classification": "box4_unanswered_asks_amount",
+      "has_sales": true,
+      "reproduces_v82_fixture": true,
+      "fixture_mismatch": null,
+      "v82_outcome": "success",
+      "v83_outcome": "success",
+      "v82_error": null,
+      "v83_error": null,
+      "v82_disp_25b": "computed_zero",
+      "v83_disp_25b": "blocked",
+      "v82_line_25b": 0,
+      "v83_line_25b": null,
+      "v82_blocked_reasons_25b": [],
+      "v83_blocked_reasons_25b": [
+        "Enter the federal income tax withheld in box 4 of each Form 1099-B or substitute statement you recorded a sale from. If box 4 is blank, enter $0."
+      ],
+      "diff_count": 9,
+      "diff_fields": [
+        "form1040.line-25b",
+        "form1040.line-25d"
+      ],
+      "unexpected_diffs": []
+    },
+    {
+      "case_id": "neighbour/n_e_zero_proceeds/recorded",
+      "classification": "box4_unanswered_asks_amount",
+      "has_sales": true,
+      "reproduces_v82_fixture": true,
+      "fixture_mismatch": null,
+      "v82_outcome": "success",
+      "v83_outcome": "success",
+      "v82_error": null,
+      "v83_error": null,
+      "v82_disp_25b": "computed_zero",
+      "v83_disp_25b": "blocked",
+      "v82_line_25b": 0,
+      "v83_line_25b": null,
+      "v82_blocked_reasons_25b": [],
+      "v83_blocked_reasons_25b": [
+        "Enter the federal income tax withheld in box 4 of each Form 1099-B or substitute statement you recorded a sale from. If box 4 is blank, enter $0."
+      ],
+      "diff_count": 25,
+      "diff_fields": [
+        "form1040.line-25b",
+        "form1040.line-25d",
+        "form1040.line-33",
+        "form1040.line-34",
+        "form1040.line-35a",
+        "form1040.line-37"
+      ],
+      "unexpected_diffs": []
+    },
+    {
+      "case_id": "neighbour/n_two_b_and_covered_lt/recorded",
+      "classification": "box4_unanswered_asks_amount",
+      "has_sales": true,
+      "reproduces_v82_fixture": true,
+      "fixture_mismatch": null,
+      "v82_outcome": "success",
+      "v83_outcome": "success",
+      "v82_error": null,
+      "v83_error": null,
+      "v82_disp_25b": "computed_zero",
+      "v83_disp_25b": "blocked",
+      "v82_line_25b": 0,
+      "v83_line_25b": null,
+      "v82_blocked_reasons_25b": [],
+      "v83_blocked_reasons_25b": [
+        "Enter the federal income tax withheld in box 4 of each Form 1099-B or substitute statement you recorded a sale from. If box 4 is blank, enter $0."
+      ],
+      "diff_count": 25,
+      "diff_fields": [
+        "form1040.line-25b",
+        "form1040.line-25d",
+        "form1040.line-33",
+        "form1040.line-34",
+        "form1040.line-35a",
+        "form1040.line-37"
+      ],
+      "unexpected_diffs": []
+    },
+    {
+      "case_id": "neighbour/n_two_covered_st_and_covered_lt/recorded",
+      "classification": "box4_unanswered_asks_amount",
+      "has_sales": true,
+      "reproduces_v82_fixture": true,
+      "fixture_mismatch": null,
+      "v82_outcome": "success",
+      "v83_outcome": "success",
+      "v82_error": null,
+      "v83_error": null,
+      "v82_disp_25b": "computed_zero",
+      "v83_disp_25b": "blocked",
+      "v82_line_25b": 0,
+      "v83_line_25b": null,
+      "v82_blocked_reasons_25b": [],
+      "v83_blocked_reasons_25b": [
+        "Enter the federal income tax withheld in box 4 of each Form 1099-B or substitute statement you recorded a sale from. If box 4 is blank, enter $0."
+      ],
+      "diff_count": 25,
+      "diff_fields": [
+        "form1040.line-25b",
+        "form1040.line-25d",
+        "form1040.line-33",
+        "form1040.line-34",
+        "form1040.line-35a",
+        "form1040.line-37"
+      ],
+      "unexpected_diffs": []
+    },
+    {
+      "case_id": "neighbour/n_two_w_st_and_w_lt/recorded",
+      "classification": "box4_unanswered_asks_amount",
+      "has_sales": true,
+      "reproduces_v82_fixture": true,
+      "fixture_mismatch": null,
+      "v82_outcome": "success",
+      "v83_outcome": "success",
+      "v82_error": null,
+      "v83_error": null,
+      "v82_disp_25b": "computed_zero",
+      "v83_disp_25b": "blocked",
+      "v82_line_25b": 0,
+      "v83_line_25b": null,
+      "v82_blocked_reasons_25b": [],
+      "v83_blocked_reasons_25b": [
+        "Enter the federal income tax withheld in box 4 of each Form 1099-B or substitute statement you recorded a sale from. If box 4 is blank, enter $0."
+      ],
+      "diff_count": 25,
+      "diff_fields": [
+        "form1040.line-25b",
+        "form1040.line-25d",
+        "form1040.line-33",
+        "form1040.line-34",
+        "form1040.line-35a",
+        "form1040.line-37"
+      ],
+      "unexpected_diffs": []
+    },
+    {
+      "case_id": "neighbour/n_w_lt_collectibles_yes/recorded",
+      "classification": "box4_unanswered_asks_amount",
+      "has_sales": true,
+      "reproduces_v82_fixture": true,
+      "fixture_mismatch": null,
+      "v82_outcome": "success",
+      "v83_outcome": "success",
+      "v82_error": null,
+      "v83_error": null,
+      "v82_disp_25b": "computed_zero",
+      "v83_disp_25b": "blocked",
+      "v82_line_25b": 0,
+      "v83_line_25b": null,
+      "v82_blocked_reasons_25b": [],
+      "v83_blocked_reasons_25b": [
+        "Enter the federal income tax withheld in box 4 of each Form 1099-B or substitute statement you recorded a sale from. If box 4 is blank, enter $0."
+      ],
+      "diff_count": 9,
+      "diff_fields": [
+        "form1040.line-25b",
+        "form1040.line-25d"
+      ],
+      "unexpected_diffs": []
+    },
+    {
+      "case_id": "neighbour/n_w_lt_zero_proceeds/recorded",
+      "classification": "box4_unanswered_asks_amount",
+      "has_sales": true,
+      "reproduces_v82_fixture": true,
+      "fixture_mismatch": null,
+      "v82_outcome": "success",
+      "v83_outcome": "success",
+      "v82_error": null,
+      "v83_error": null,
+      "v82_disp_25b": "computed_zero",
+      "v83_disp_25b": "blocked",
+      "v82_line_25b": 0,
+      "v83_line_25b": null,
+      "v82_blocked_reasons_25b": [],
+      "v83_blocked_reasons_25b": [
+        "Enter the federal income tax withheld in box 4 of each Form 1099-B or substitute statement you recorded a sale from. If box 4 is blank, enter $0."
+      ],
+      "diff_count": 25,
+      "diff_fields": [
+        "form1040.line-25b",
+        "form1040.line-25d",
+        "form1040.line-33",
+        "form1040.line-34",
+        "form1040.line-35a",
+        "form1040.line-37"
+      ],
+      "unexpected_diffs": []
+    },
+    {
+      "case_id": "neighbour/n_w_st_tsa_yes/recorded",
+      "classification": "box4_unanswered_asks_amount",
+      "has_sales": true,
+      "reproduces_v82_fixture": true,
+      "fixture_mismatch": null,
+      "v82_outcome": "success",
+      "v83_outcome": "success",
+      "v82_error": null,
+      "v83_error": null,
+      "v82_disp_25b": "computed_zero",
+      "v83_disp_25b": "blocked",
+      "v82_line_25b": 0,
+      "v83_line_25b": null,
+      "v82_blocked_reasons_25b": [],
+      "v83_blocked_reasons_25b": [
+        "Enter the federal income tax withheld in box 4 of each Form 1099-B or substitute statement you recorded a sale from. If box 4 is blank, enter $0."
+      ],
+      "diff_count": 9,
+      "diff_fields": [
+        "form1040.line-25b",
+        "form1040.line-25d"
+      ],
+      "unexpected_diffs": []
+    },
+    {
+      "case_id": "neighbour/n_w_zero_proceeds/recorded",
+      "classification": "box4_unanswered_asks_amount",
+      "has_sales": true,
+      "reproduces_v82_fixture": true,
+      "fixture_mismatch": null,
+      "v82_outcome": "success",
+      "v83_outcome": "success",
+      "v82_error": null,
+      "v83_error": null,
+      "v82_disp_25b": "computed_zero",
+      "v83_disp_25b": "blocked",
+      "v82_line_25b": 0,
+      "v83_line_25b": null,
+      "v82_blocked_reasons_25b": [],
+      "v83_blocked_reasons_25b": [
+        "Enter the federal income tax withheld in box 4 of each Form 1099-B or substitute statement you recorded a sale from. If box 4 is blank, enter $0."
+      ],
+      "diff_count": 25,
+      "diff_fields": [
+        "form1040.line-25b",
+        "form1040.line-25d",
+        "form1040.line-33",
+        "form1040.line-34",
+        "form1040.line-35a",
+        "form1040.line-37"
+      ],
+      "unexpected_diffs": []
+    },
+    {
+      "case_id": "v80/carried_boundary_no_with_member/recorded",
+      "classification": "identical",
+      "has_sales": true,
+      "reproduces_v82_fixture": true,
+      "fixture_mismatch": null,
+      "v82_outcome": "success",
+      "v83_outcome": "success",
+      "v82_error": null,
+      "v83_error": null,
+      "v82_disp_25b": "blocked",
+      "v83_disp_25b": "blocked",
+      "v82_line_25b": null,
+      "v83_line_25b": null,
+      "v82_blocked_reasons_25b": [
+        "Did you sell any securities whose basis was not reported to the IRS?"
+      ],
+      "v83_blocked_reasons_25b": [
+        "Did you sell any securities whose basis was not reported to the IRS?"
+      ],
+      "diff_count": 0,
+      "diff_fields": [],
+      "unexpected_diffs": []
+    },
+    {
+      "case_id": "v80/carried_boundary_no_without_member/recorded",
+      "classification": "identical",
+      "has_sales": false,
+      "reproduces_v82_fixture": true,
+      "fixture_mismatch": null,
+      "v82_outcome": "success",
+      "v83_outcome": "success",
+      "v82_error": null,
+      "v83_error": null,
+      "v82_disp_25b": "computed_zero",
+      "v83_disp_25b": "computed_zero",
+      "v82_line_25b": 0,
+      "v83_line_25b": 0,
+      "v82_blocked_reasons_25b": [],
+      "v83_blocked_reasons_25b": [],
+      "diff_count": 0,
+      "diff_fields": [],
+      "unexpected_diffs": []
+    },
+    {
+      "case_id": "v80/carried_code_w_on_gain/recorded",
+      "classification": "box4_unanswered_asks_amount",
+      "has_sales": true,
+      "reproduces_v82_fixture": true,
+      "fixture_mismatch": null,
+      "v82_outcome": "success",
+      "v83_outcome": "success",
+      "v82_error": null,
+      "v83_error": null,
+      "v82_disp_25b": "computed_zero",
+      "v83_disp_25b": "blocked",
+      "v82_line_25b": 0,
+      "v83_line_25b": null,
+      "v82_blocked_reasons_25b": [],
+      "v83_blocked_reasons_25b": [
+        "Enter the federal income tax withheld in box 4 of each Form 1099-B or substitute statement you recorded a sale from. If box 4 is blank, enter $0."
+      ],
+      "diff_count": 13,
+      "diff_fields": [
+        "form1040.line-25b",
+        "form1040.line-25d",
+        "form1040.line-33",
+        "form1040.line-34",
+        "form1040.line-35a",
+        "form1040.line-37"
+      ],
+      "unexpected_diffs": []
+    },
+    {
+      "case_id": "v80/carried_covered_both_boundaries_no/recorded",
+      "classification": "identical",
+      "has_sales": true,
+      "reproduces_v82_fixture": true,
+      "fixture_mismatch": null,
+      "v82_outcome": "success",
+      "v83_outcome": "success",
+      "v82_error": null,
+      "v83_error": null,
+      "v82_disp_25b": "blocked",
+      "v83_disp_25b": "blocked",
+      "v82_line_25b": null,
+      "v83_line_25b": null,
+      "v82_blocked_reasons_25b": [
+        "Record this sale as a noncovered sale. The broker did not report its basis to the IRS."
+      ],
+      "v83_blocked_reasons_25b": [
+        "Record this sale as a noncovered sale. The broker did not report its basis to the IRS."
+      ],
+      "diff_count": 0,
+      "diff_fields": [],
+      "unexpected_diffs": []
+    },
+    {
+      "case_id": "v80/carried_covered_flag_corrected_to_no/recorded",
+      "classification": "identical",
+      "has_sales": true,
+      "reproduces_v82_fixture": true,
+      "fixture_mismatch": null,
+      "v82_outcome": "success",
+      "v83_outcome": "success",
+      "v82_error": null,
+      "v83_error": null,
+      "v82_disp_25b": "blocked",
+      "v83_disp_25b": "blocked",
+      "v82_line_25b": null,
+      "v83_line_25b": null,
+      "v82_blocked_reasons_25b": [
+        "Record this sale as a noncovered sale. The broker did not report its basis to the IRS."
+      ],
+      "v83_blocked_reasons_25b": [
+        "Record this sale as a noncovered sale. The broker did not report its basis to the IRS."
+      ],
+      "diff_count": 0,
+      "diff_fields": [],
+      "unexpected_diffs": []
+    },
+    {
+      "case_id": "v80/carried_covered_flag_corrected_to_yes/recorded",
+      "classification": "box4_unanswered_asks_amount",
+      "has_sales": true,
+      "reproduces_v82_fixture": true,
+      "fixture_mismatch": null,
+      "v82_outcome": "success",
+      "v83_outcome": "success",
+      "v82_error": null,
+      "v83_error": null,
+      "v82_disp_25b": "computed_zero",
+      "v83_disp_25b": "blocked",
+      "v82_line_25b": 0,
+      "v83_line_25b": null,
+      "v82_blocked_reasons_25b": [],
+      "v83_blocked_reasons_25b": [
+        "Enter the federal income tax withheld in box 4 of each Form 1099-B or substitute statement you recorded a sale from. If box 4 is blank, enter $0."
+      ],
+      "diff_count": 25,
+      "diff_fields": [
+        "form1040.line-25b",
+        "form1040.line-25d",
+        "form1040.line-33",
+        "form1040.line-34",
+        "form1040.line-35a",
+        "form1040.line-37"
+      ],
+      "unexpected_diffs": []
+    },
+    {
+      "case_id": "v80/carried_covered_flag_no_path_a/recorded",
+      "classification": "identical",
+      "has_sales": true,
+      "reproduces_v82_fixture": true,
+      "fixture_mismatch": null,
+      "v82_outcome": "success",
+      "v83_outcome": "success",
+      "v82_error": null,
+      "v83_error": null,
+      "v82_disp_25b": "blocked",
+      "v83_disp_25b": "blocked",
+      "v82_line_25b": null,
+      "v83_line_25b": null,
+      "v82_blocked_reasons_25b": [
+        "Record this sale as a noncovered sale. The broker did not report its basis to the IRS."
+      ],
+      "v83_blocked_reasons_25b": [
+        "Record this sale as a noncovered sale. The broker did not report its basis to the IRS."
+      ],
+      "diff_count": 0,
+      "diff_fields": [],
+      "unexpected_diffs": []
+    },
+    {
+      "case_id": "v80/carried_covered_flag_no_st/recorded",
+      "classification": "identical",
+      "has_sales": true,
+      "reproduces_v82_fixture": true,
+      "fixture_mismatch": null,
+      "v82_outcome": "success",
+      "v83_outcome": "success",
+      "v82_error": null,
+      "v83_error": null,
+      "v82_disp_25b": "blocked",
+      "v83_disp_25b": "blocked",
+      "v82_line_25b": null,
+      "v83_line_25b": null,
+      "v82_blocked_reasons_25b": [
+        "Record this sale as a noncovered sale. The broker did not report its basis to the IRS."
+      ],
+      "v83_blocked_reasons_25b": [
+        "Record this sale as a noncovered sale. The broker did not report its basis to the IRS."
+      ],
+      "diff_count": 0,
+      "diff_fields": [],
+      "unexpected_diffs": []
+    },
+    {
+      "case_id": "v80/carried_covered_flag_no_w_lt/recorded",
+      "classification": "identical",
+      "has_sales": true,
+      "reproduces_v82_fixture": true,
+      "fixture_mismatch": null,
+      "v82_outcome": "success",
+      "v83_outcome": "success",
+      "v82_error": null,
+      "v83_error": null,
+      "v82_disp_25b": "blocked",
+      "v83_disp_25b": "blocked",
+      "v82_line_25b": null,
+      "v83_line_25b": null,
+      "v82_blocked_reasons_25b": [
+        "Record this sale as a noncovered sale. The broker did not report its basis to the IRS."
+      ],
+      "v83_blocked_reasons_25b": [
+        "Record this sale as a noncovered sale. The broker did not report its basis to the IRS."
+      ],
+      "diff_count": 0,
+      "diff_fields": [],
+      "unexpected_diffs": []
+    },
+    {
+      "case_id": "v80/carried_covered_flag_no_w_st/recorded",
+      "classification": "identical",
+      "has_sales": true,
+      "reproduces_v82_fixture": true,
+      "fixture_mismatch": null,
+      "v82_outcome": "success",
+      "v83_outcome": "success",
+      "v82_error": null,
+      "v83_error": null,
+      "v82_disp_25b": "blocked",
+      "v83_disp_25b": "blocked",
+      "v82_line_25b": null,
+      "v83_line_25b": null,
+      "v82_blocked_reasons_25b": [
+        "Record this sale as a noncovered sale. The broker did not report its basis to the IRS."
+      ],
+      "v83_blocked_reasons_25b": [
+        "Record this sale as a noncovered sale. The broker did not report its basis to the IRS."
+      ],
+      "diff_count": 0,
+      "diff_fields": [],
+      "unexpected_diffs": []
+    },
+    {
+      "case_id": "v80/carried_duplicate_horizon/recorded",
+      "classification": "identical",
+      "has_sales": false,
+      "reproduces_v82_fixture": true,
+      "fixture_mismatch": null,
+      "v82_outcome": "error",
+      "v83_outcome": "error",
+      "v82_error": "HorizonModelError",
+      "v83_error": "HorizonModelError",
+      "v82_disp_25b": null,
+      "v83_disp_25b": null,
+      "v82_line_25b": null,
+      "v83_line_25b": null,
+      "v82_blocked_reasons_25b": [],
+      "v83_blocked_reasons_25b": [],
+      "diff_count": 0,
+      "diff_fields": [],
+      "unexpected_diffs": []
+    },
+    {
+      "case_id": "v80/carried_late_member_reopened/recorded",
+      "classification": "box4_unanswered_asks_amount",
+      "has_sales": true,
+      "reproduces_v82_fixture": true,
+      "fixture_mismatch": null,
+      "v82_outcome": "success",
+      "v83_outcome": "success",
+      "v82_error": null,
+      "v83_error": null,
+      "v82_disp_25b": "computed_zero",
+      "v83_disp_25b": "blocked",
+      "v82_line_25b": 0,
+      "v83_line_25b": null,
+      "v82_blocked_reasons_25b": [],
+      "v83_blocked_reasons_25b": [
+        "Enter the federal income tax withheld in box 4 of each Form 1099-B or substitute statement you recorded a sale from. If box 4 is blank, enter $0."
+      ],
+      "diff_count": 25,
+      "diff_fields": [
+        "form1040.line-25b",
+        "form1040.line-25d",
+        "form1040.line-33",
+        "form1040.line-34",
+        "form1040.line-35a",
+        "form1040.line-37"
+      ],
+      "unexpected_diffs": []
+    },
+    {
+      "case_id": "v80/carried_late_member_unclosed/recorded",
+      "classification": "identical",
+      "has_sales": true,
+      "reproduces_v82_fixture": true,
+      "fixture_mismatch": null,
+      "v82_outcome": "success",
+      "v83_outcome": "success",
+      "v82_error": null,
+      "v83_error": null,
+      "v82_disp_25b": "blocked",
+      "v83_disp_25b": "blocked",
+      "v82_line_25b": null,
+      "v83_line_25b": null,
+      "v82_blocked_reasons_25b": [
+        "Did you sell any securities whose basis was not reported to the IRS?"
+      ],
+      "v83_blocked_reasons_25b": [
+        "Did you sell any securities whose basis was not reported to the IRS?"
+      ],
+      "diff_count": 0,
+      "diff_fields": [],
+      "unexpected_diffs": []
+    },
+    {
+      "case_id": "v80/carried_late_yes_stale/recorded",
+      "classification": "identical",
+      "has_sales": true,
+      "reproduces_v82_fixture": true,
+      "fixture_mismatch": null,
+      "v82_outcome": "success",
+      "v83_outcome": "success",
+      "v82_error": null,
+      "v83_error": null,
+      "v82_disp_25b": "blocked",
+      "v83_disp_25b": "blocked",
+      "v82_line_25b": null,
+      "v83_line_25b": null,
+      "v82_blocked_reasons_25b": [
+        "Did you sell any securities whose basis was not reported to the IRS?"
+      ],
+      "v83_blocked_reasons_25b": [
+        "Did you sell any securities whose basis was not reported to the IRS?"
+      ],
+      "diff_count": 0,
+      "diff_fields": [],
+      "unexpected_diffs": []
+    },
+    {
+      "case_id": "v80/carried_one_exempt_dividend/recorded",
+      "classification": "identical",
+      "has_sales": false,
+      "reproduces_v82_fixture": true,
+      "fixture_mismatch": null,
+      "v82_outcome": "success",
+      "v83_outcome": "success",
+      "v82_error": null,
+      "v83_error": null,
+      "v82_disp_25b": "blocked",
+      "v83_disp_25b": "blocked",
+      "v82_line_25b": null,
+      "v83_line_25b": null,
+      "v82_blocked_reasons_25b": [
+        "Enter the federal income tax withheld in box 4 of each Form 1099-DIV you or your spouse received for 2025. If box 4 is blank, enter $0."
+      ],
+      "v83_blocked_reasons_25b": [
+        "Enter the federal income tax withheld in box 4 of each Form 1099-DIV you or your spouse received for 2025. If box 4 is blank, enter $0."
+      ],
+      "diff_count": 0,
+      "diff_fields": [],
+      "unexpected_diffs": []
+    },
+    {
+      "case_id": "v80/carried_one_foreign_tax/recorded",
+      "classification": "identical",
+      "has_sales": false,
+      "reproduces_v82_fixture": true,
+      "fixture_mismatch": null,
+      "v82_outcome": "success",
+      "v83_outcome": "success",
+      "v82_error": null,
+      "v83_error": null,
+      "v82_disp_25b": "blocked",
+      "v83_disp_25b": "blocked",
+      "v82_line_25b": null,
+      "v83_line_25b": null,
+      "v82_blocked_reasons_25b": [
+        "Enter the federal income tax withheld in box 4 of each Form 1099-DIV you or your spouse received for 2025. If box 4 is blank, enter $0."
+      ],
+      "v83_blocked_reasons_25b": [
+        "Enter the federal income tax withheld in box 4 of each Form 1099-DIV you or your spouse received for 2025. If box 4 is blank, enter $0."
+      ],
+      "diff_count": 0,
+      "diff_fields": [],
+      "unexpected_diffs": []
+    },
+    {
+      "case_id": "v80/carried_one_part_ii_b/recorded",
+      "classification": "identical",
+      "has_sales": false,
+      "reproduces_v82_fixture": true,
+      "fixture_mismatch": null,
+      "v82_outcome": "success",
+      "v83_outcome": "success",
+      "v82_error": null,
+      "v83_error": null,
+      "v82_disp_25b": "computed_zero",
+      "v83_disp_25b": "computed_zero",
+      "v82_line_25b": 0,
+      "v83_line_25b": 0,
+      "v82_blocked_reasons_25b": [],
+      "v83_blocked_reasons_25b": [],
+      "diff_count": 0,
+      "diff_fields": [],
+      "unexpected_diffs": []
+    },
+    {
+      "case_id": "v80/carried_one_student_loan/recorded",
+      "classification": "identical",
+      "has_sales": false,
+      "reproduces_v82_fixture": true,
+      "fixture_mismatch": null,
+      "v82_outcome": "success",
+      "v83_outcome": "success",
+      "v82_error": null,
+      "v83_error": null,
+      "v82_disp_25b": "computed_zero",
+      "v83_disp_25b": "computed_zero",
+      "v82_line_25b": 0,
+      "v83_line_25b": 0,
+      "v82_blocked_reasons_25b": [],
+      "v83_blocked_reasons_25b": [],
+      "diff_count": 0,
+      "diff_fields": [],
+      "unexpected_diffs": []
+    },
+    {
+      "case_id": "v80/carried_probe_c_loss_on_b_in_class_no/recorded",
+      "classification": "box4_unanswered_asks_amount",
+      "has_sales": true,
+      "reproduces_v82_fixture": true,
+      "fixture_mismatch": null,
+      "v82_outcome": "success",
+      "v83_outcome": "success",
+      "v82_error": null,
+      "v83_error": null,
+      "v82_disp_25b": "computed_zero",
+      "v83_disp_25b": "blocked",
+      "v82_line_25b": 0,
+      "v83_line_25b": null,
+      "v82_blocked_reasons_25b": [],
+      "v83_blocked_reasons_25b": [
+        "Enter the federal income tax withheld in box 4 of each Form 1099-B or substitute statement you recorded a sale from. If box 4 is blank, enter $0."
+      ],
+      "diff_count": 9,
+      "diff_fields": [
+        "form1040.line-25b",
+        "form1040.line-25d"
+      ],
+      "unexpected_diffs": []
+    },
+    {
+      "case_id": "v80/carried_probe_c_loss_on_b_in_class_yes/recorded",
+      "classification": "box4_unanswered_asks_amount",
+      "has_sales": true,
+      "reproduces_v82_fixture": true,
+      "fixture_mismatch": null,
+      "v82_outcome": "success",
+      "v83_outcome": "success",
+      "v82_error": null,
+      "v83_error": null,
+      "v82_disp_25b": "computed_zero",
+      "v83_disp_25b": "blocked",
+      "v82_line_25b": 0,
+      "v83_line_25b": null,
+      "v82_blocked_reasons_25b": [],
+      "v83_blocked_reasons_25b": [
+        "Enter the federal income tax withheld in box 4 of each Form 1099-B or substitute statement you recorded a sale from. If box 4 is blank, enter $0."
+      ],
+      "diff_count": 25,
+      "diff_fields": [
+        "form1040.line-25b",
+        "form1040.line-25d",
+        "form1040.line-33",
+        "form1040.line-34",
+        "form1040.line-35a",
+        "form1040.line-37"
+      ],
+      "unexpected_diffs": []
+    },
+    {
+      "case_id": "v80/carried_probe_c_unrecorded_8949_no/recorded",
+      "classification": "identical",
+      "has_sales": false,
+      "reproduces_v82_fixture": true,
+      "fixture_mismatch": null,
+      "v82_outcome": "success",
+      "v83_outcome": "success",
+      "v82_error": null,
+      "v83_error": null,
+      "v82_disp_25b": "computed_zero",
+      "v83_disp_25b": "computed_zero",
+      "v82_line_25b": 0,
+      "v83_line_25b": 0,
+      "v82_blocked_reasons_25b": [],
+      "v83_blocked_reasons_25b": [],
+      "diff_count": 0,
+      "diff_fields": [],
+      "unexpected_diffs": []
+    },
+    {
+      "case_id": "v80/carried_probe_c_wash_on_b_in_class_no/recorded",
+      "classification": "box4_unanswered_asks_amount",
+      "has_sales": true,
+      "reproduces_v82_fixture": true,
+      "fixture_mismatch": null,
+      "v82_outcome": "success",
+      "v83_outcome": "success",
+      "v82_error": null,
+      "v83_error": null,
+      "v82_disp_25b": "computed_zero",
+      "v83_disp_25b": "blocked",
+      "v82_line_25b": 0,
+      "v83_line_25b": null,
+      "v82_blocked_reasons_25b": [],
+      "v83_blocked_reasons_25b": [
+        "Enter the federal income tax withheld in box 4 of each Form 1099-B or substitute statement you recorded a sale from. If box 4 is blank, enter $0."
+      ],
+      "diff_count": 9,
+      "diff_fields": [
+        "form1040.line-25b",
+        "form1040.line-25d"
+      ],
+      "unexpected_diffs": []
+    },
+    {
+      "case_id": "v80/carried_probe_c_wash_on_b_in_class_yes/recorded",
+      "classification": "box4_unanswered_asks_amount",
+      "has_sales": true,
+      "reproduces_v82_fixture": true,
+      "fixture_mismatch": null,
+      "v82_outcome": "success",
+      "v83_outcome": "success",
+      "v82_error": null,
+      "v83_error": null,
+      "v82_disp_25b": "computed_zero",
+      "v83_disp_25b": "blocked",
+      "v82_line_25b": 0,
+      "v83_line_25b": null,
+      "v82_blocked_reasons_25b": [],
+      "v83_blocked_reasons_25b": [
+        "Enter the federal income tax withheld in box 4 of each Form 1099-B or substitute statement you recorded a sale from. If box 4 is blank, enter $0."
+      ],
+      "diff_count": 25,
+      "diff_fields": [
+        "form1040.line-25b",
+        "form1040.line-25d",
+        "form1040.line-33",
+        "form1040.line-34",
+        "form1040.line-35a",
+        "form1040.line-37"
+      ],
+      "unexpected_diffs": []
+    },
+    {
+      "case_id": "v80/carried_probe_e_basis_object_missing/recorded",
+      "classification": "identical",
+      "has_sales": true,
+      "reproduces_v82_fixture": true,
+      "fixture_mismatch": null,
+      "v82_outcome": "error",
+      "v83_outcome": "error",
+      "v82_error": "FindingModelError",
+      "v83_error": "FindingModelError",
+      "v82_disp_25b": null,
+      "v83_disp_25b": null,
+      "v82_line_25b": null,
+      "v83_line_25b": null,
+      "v82_blocked_reasons_25b": [],
+      "v83_blocked_reasons_25b": [],
+      "diff_count": 0,
+      "diff_fields": [],
+      "unexpected_diffs": []
+    },
+    {
+      "case_id": "v80/carried_probe_e_basis_scalar_missing/recorded",
+      "classification": "box4_unanswered_asks_amount",
+      "has_sales": true,
+      "reproduces_v82_fixture": true,
+      "fixture_mismatch": null,
+      "v82_outcome": "success",
+      "v83_outcome": "success",
+      "v82_error": null,
+      "v83_error": null,
+      "v82_disp_25b": "computed_zero",
+      "v83_disp_25b": "blocked",
+      "v82_line_25b": 0,
+      "v83_line_25b": null,
+      "v82_blocked_reasons_25b": [],
+      "v83_blocked_reasons_25b": [
+        "Enter the federal income tax withheld in box 4 of each Form 1099-B or substitute statement you recorded a sale from. If box 4 is blank, enter $0."
+      ],
+      "diff_count": 13,
+      "diff_fields": [
+        "form1040.line-25b",
+        "form1040.line-25d",
+        "form1040.line-33",
+        "form1040.line-34",
+        "form1040.line-35a",
+        "form1040.line-37"
+      ],
+      "unexpected_diffs": []
+    },
+    {
+      "case_id": "v80/carried_probe_e_proceeds_scalar_missing/recorded",
+      "classification": "box4_unanswered_asks_amount",
+      "has_sales": true,
+      "reproduces_v82_fixture": true,
+      "fixture_mismatch": null,
+      "v82_outcome": "success",
+      "v83_outcome": "success",
+      "v82_error": null,
+      "v83_error": null,
+      "v82_disp_25b": "computed_zero",
+      "v83_disp_25b": "blocked",
+      "v82_line_25b": 0,
+      "v83_line_25b": null,
+      "v82_blocked_reasons_25b": [],
+      "v83_blocked_reasons_25b": [
+        "Enter the federal income tax withheld in box 4 of each Form 1099-B or substitute statement you recorded a sale from. If box 4 is blank, enter $0."
+      ],
+      "diff_count": 13,
+      "diff_fields": [
+        "form1040.line-25b",
+        "form1040.line-25d",
+        "form1040.line-33",
+        "form1040.line-34",
+        "form1040.line-35a",
+        "form1040.line-37"
+      ],
+      "unexpected_diffs": []
+    },
+    {
+      "case_id": "v80/carried_probe_f_gain_on_e_in_class_no/recorded",
+      "classification": "box4_unanswered_asks_amount",
+      "has_sales": true,
+      "reproduces_v82_fixture": true,
+      "fixture_mismatch": null,
+      "v82_outcome": "success",
+      "v83_outcome": "success",
+      "v82_error": null,
+      "v83_error": null,
+      "v82_disp_25b": "computed_zero",
+      "v83_disp_25b": "blocked",
+      "v82_line_25b": 0,
+      "v83_line_25b": null,
+      "v82_blocked_reasons_25b": [],
+      "v83_blocked_reasons_25b": [
+        "Enter the federal income tax withheld in box 4 of each Form 1099-B or substitute statement you recorded a sale from. If box 4 is blank, enter $0."
+      ],
+      "diff_count": 9,
+      "diff_fields": [
+        "form1040.line-25b",
+        "form1040.line-25d"
+      ],
+      "unexpected_diffs": []
+    },
+    {
+      "case_id": "v80/carried_probe_mixed_abcf_in_class_no/recorded",
+      "classification": "box4_unanswered_asks_amount",
+      "has_sales": true,
+      "reproduces_v82_fixture": true,
+      "fixture_mismatch": null,
+      "v82_outcome": "success",
+      "v83_outcome": "success",
+      "v82_error": null,
+      "v83_error": null,
+      "v82_disp_25b": "computed_zero",
+      "v83_disp_25b": "blocked",
+      "v82_line_25b": 0,
+      "v83_line_25b": null,
+      "v82_blocked_reasons_25b": [],
+      "v83_blocked_reasons_25b": [
+        "Enter the federal income tax withheld in box 4 of each Form 1099-B or substitute statement you recorded a sale from. If box 4 is blank, enter $0."
+      ],
+      "diff_count": 9,
+      "diff_fields": [
+        "form1040.line-25b",
+        "form1040.line-25d"
+      ],
+      "unexpected_diffs": []
+    },
+    {
+      "case_id": "v80/carried_probe_mixed_abcf_in_class_yes/recorded",
+      "classification": "box4_unanswered_asks_amount",
+      "has_sales": true,
+      "reproduces_v82_fixture": true,
+      "fixture_mismatch": null,
+      "v82_outcome": "success",
+      "v83_outcome": "success",
+      "v82_error": null,
+      "v83_error": null,
+      "v82_disp_25b": "computed_zero",
+      "v83_disp_25b": "blocked",
+      "v82_line_25b": 0,
+      "v83_line_25b": null,
+      "v82_blocked_reasons_25b": [],
+      "v83_blocked_reasons_25b": [
+        "Enter the federal income tax withheld in box 4 of each Form 1099-B or substitute statement you recorded a sale from. If box 4 is blank, enter $0."
+      ],
+      "diff_count": 25,
+      "diff_fields": [
+        "form1040.line-25b",
+        "form1040.line-25d",
+        "form1040.line-33",
+        "form1040.line-34",
+        "form1040.line-35a",
+        "form1040.line-37"
+      ],
+      "unexpected_diffs": []
+    },
+    {
+      "case_id": "v80/carried_t0_b_loss_8949_yes/recorded",
+      "classification": "box4_unanswered_asks_amount",
+      "has_sales": true,
+      "reproduces_v82_fixture": true,
+      "fixture_mismatch": null,
+      "v82_outcome": "success",
+      "v83_outcome": "success",
+      "v82_error": null,
+      "v83_error": null,
+      "v82_disp_25b": "computed_zero",
+      "v83_disp_25b": "blocked",
+      "v82_line_25b": 0,
+      "v83_line_25b": null,
+      "v82_blocked_reasons_25b": [],
+      "v83_blocked_reasons_25b": [
+        "Enter the federal income tax withheld in box 4 of each Form 1099-B or substitute statement you recorded a sale from. If box 4 is blank, enter $0."
+      ],
+      "diff_count": 9,
+      "diff_fields": [
+        "form1040.line-25b",
+        "form1040.line-25d"
+      ],
+      "unexpected_diffs": []
+    },
+    {
+      "case_id": "v80/carried_t0_b_w_scalar_only_on_gain/recorded",
+      "classification": "box4_unanswered_asks_amount",
+      "has_sales": true,
+      "reproduces_v82_fixture": true,
+      "fixture_mismatch": null,
+      "v82_outcome": "success",
+      "v83_outcome": "success",
+      "v82_error": null,
+      "v83_error": null,
+      "v82_disp_25b": "computed_zero",
+      "v83_disp_25b": "blocked",
+      "v82_line_25b": 0,
+      "v83_line_25b": null,
+      "v82_blocked_reasons_25b": [],
+      "v83_blocked_reasons_25b": [
+        "Enter the federal income tax withheld in box 4 of each Form 1099-B or substitute statement you recorded a sale from. If box 4 is blank, enter $0."
+      ],
+      "diff_count": 9,
+      "diff_fields": [
+        "form1040.line-25b",
+        "form1040.line-25d"
+      ],
+      "unexpected_diffs": []
+    },
+    {
+      "case_id": "v80/carried_wage_unclosed/recorded",
+      "classification": "identical",
+      "has_sales": false,
+      "reproduces_v82_fixture": true,
+      "fixture_mismatch": null,
+      "v82_outcome": "success",
+      "v83_outcome": "success",
+      "v82_error": null,
+      "v83_error": null,
+      "v82_disp_25b": "blocked",
+      "v83_disp_25b": "blocked",
+      "v82_line_25b": null,
+      "v83_line_25b": null,
+      "v82_blocked_reasons_25b": [
+        "Did you sell any securities whose basis was not reported to the IRS?"
+      ],
+      "v83_blocked_reasons_25b": [
+        "Did you sell any securities whose basis was not reported to the IRS?"
+      ],
+      "diff_count": 0,
+      "diff_fields": [],
+      "unexpected_diffs": []
+    },
+    {
+      "case_id": "v80/carried_wash/recorded",
+      "classification": "box4_unanswered_asks_amount",
+      "has_sales": true,
+      "reproduces_v82_fixture": true,
+      "fixture_mismatch": null,
+      "v82_outcome": "success",
+      "v83_outcome": "success",
+      "v82_error": null,
+      "v83_error": null,
+      "v82_disp_25b": "computed_zero",
+      "v83_disp_25b": "blocked",
+      "v82_line_25b": 0,
+      "v83_line_25b": null,
+      "v82_blocked_reasons_25b": [],
+      "v83_blocked_reasons_25b": [
+        "Enter the federal income tax withheld in box 4 of each Form 1099-B or substitute statement you recorded a sale from. If box 4 is blank, enter $0."
+      ],
+      "diff_count": 25,
+      "diff_fields": [
+        "form1040.line-25b",
+        "form1040.line-25d",
+        "form1040.line-33",
+        "form1040.line-34",
+        "form1040.line-35a",
+        "form1040.line-37"
+      ],
+      "unexpected_diffs": []
+    },
+    {
+      "case_id": "v80/carried_yes_then_no_with_member/recorded",
+      "classification": "identical",
+      "has_sales": true,
+      "reproduces_v82_fixture": true,
+      "fixture_mismatch": null,
+      "v82_outcome": "success",
+      "v83_outcome": "success",
+      "v82_error": null,
+      "v83_error": null,
+      "v82_disp_25b": "blocked",
+      "v83_disp_25b": "blocked",
+      "v82_line_25b": null,
+      "v83_line_25b": null,
+      "v82_blocked_reasons_25b": [
+        "Did you sell any securities whose basis was not reported to the IRS?"
+      ],
+      "v83_blocked_reasons_25b": [
+        "Did you sell any securities whose basis was not reported to the IRS?"
+      ],
+      "diff_count": 0,
+      "diff_fields": [],
+      "unexpected_diffs": []
+    },
+    {
+      "case_id": "v80/probe_a_bw_on_w_broker/recorded",
+      "classification": "box4_unanswered_asks_amount",
+      "has_sales": true,
+      "reproduces_v82_fixture": true,
+      "fixture_mismatch": null,
+      "v82_outcome": "success",
+      "v83_outcome": "success",
+      "v82_error": null,
+      "v83_error": null,
+      "v82_disp_25b": "computed_zero",
+      "v83_disp_25b": "blocked",
+      "v82_line_25b": 0,
+      "v83_line_25b": null,
+      "v82_blocked_reasons_25b": [],
+      "v83_blocked_reasons_25b": [
+        "Enter the federal income tax withheld in box 4 of each Form 1099-B or substitute statement you recorded a sale from. If box 4 is blank, enter $0."
+      ],
+      "diff_count": 9,
+      "diff_fields": [
+        "form1040.line-25b",
+        "form1040.line-25d"
+      ],
+      "unexpected_diffs": []
+    },
+    {
+      "case_id": "v80/probe_a_bw_on_w_fixed/recorded",
+      "classification": "box4_unanswered_asks_amount",
+      "has_sales": true,
+      "reproduces_v82_fixture": true,
+      "fixture_mismatch": null,
+      "v82_outcome": "success",
+      "v83_outcome": "success",
+      "v82_error": null,
+      "v83_error": null,
+      "v82_disp_25b": "computed_zero",
+      "v83_disp_25b": "blocked",
+      "v82_line_25b": 0,
+      "v83_line_25b": null,
+      "v82_blocked_reasons_25b": [],
+      "v83_blocked_reasons_25b": [
+        "Enter the federal income tax withheld in box 4 of each Form 1099-B or substitute statement you recorded a sale from. If box 4 is blank, enter $0."
+      ],
+      "diff_count": 9,
+      "diff_fields": [
+        "form1040.line-25b",
+        "form1040.line-25d"
+      ],
+      "unexpected_diffs": []
+    },
+    {
+      "case_id": "v80/probe_a_bw_on_w_fixed_path_b_yes/recorded",
+      "classification": "box4_unanswered_asks_amount",
+      "has_sales": true,
+      "reproduces_v82_fixture": true,
+      "fixture_mismatch": null,
+      "v82_outcome": "success",
+      "v83_outcome": "success",
+      "v82_error": null,
+      "v83_error": null,
+      "v82_disp_25b": "computed_zero",
+      "v83_disp_25b": "blocked",
+      "v82_line_25b": 0,
+      "v83_line_25b": null,
+      "v82_blocked_reasons_25b": [],
+      "v83_blocked_reasons_25b": [
+        "Enter the federal income tax withheld in box 4 of each Form 1099-B or substitute statement you recorded a sale from. If box 4 is blank, enter $0."
+      ],
+      "diff_count": 25,
+      "diff_fields": [
+        "form1040.line-25b",
+        "form1040.line-25d",
+        "form1040.line-33",
+        "form1040.line-34",
+        "form1040.line-35a",
+        "form1040.line-37"
+      ],
+      "unexpected_diffs": []
+    },
+    {
+      "case_id": "v80/probe_a_high_direct_broker_honest/recorded",
+      "classification": "box4_unanswered_asks_amount",
+      "has_sales": true,
+      "reproduces_v82_fixture": true,
+      "fixture_mismatch": null,
+      "v82_outcome": "success",
+      "v83_outcome": "success",
+      "v82_error": null,
+      "v83_error": null,
+      "v82_disp_25b": "computed_zero",
+      "v83_disp_25b": "blocked",
+      "v82_line_25b": 0,
+      "v83_line_25b": null,
+      "v82_blocked_reasons_25b": [],
+      "v83_blocked_reasons_25b": [
+        "Enter the federal income tax withheld in box 4 of each Form 1099-B or substitute statement you recorded a sale from. If box 4 is blank, enter $0."
+      ],
+      "diff_count": 9,
+      "diff_fields": [
+        "form1040.line-25b",
+        "form1040.line-25d"
+      ],
+      "unexpected_diffs": []
+    },
+    {
+      "case_id": "v80/probe_a_high_direct_broker_no8949/recorded",
+      "classification": "box4_unanswered_asks_amount",
+      "has_sales": true,
+      "reproduces_v82_fixture": true,
+      "fixture_mismatch": null,
+      "v82_outcome": "success",
+      "v83_outcome": "success",
+      "v82_error": null,
+      "v83_error": null,
+      "v82_disp_25b": "computed_zero",
+      "v83_disp_25b": "blocked",
+      "v82_line_25b": 0,
+      "v83_line_25b": null,
+      "v82_blocked_reasons_25b": [],
+      "v83_blocked_reasons_25b": [
+        "Enter the federal income tax withheld in box 4 of each Form 1099-B or substitute statement you recorded a sale from. If box 4 is blank, enter $0."
+      ],
+      "diff_count": 25,
+      "diff_fields": [
+        "form1040.line-25b",
+        "form1040.line-25d",
+        "form1040.line-33",
+        "form1040.line-34",
+        "form1040.line-35a",
+        "form1040.line-37"
+      ],
+      "unexpected_diffs": []
+    },
+    {
+      "case_id": "v80/probe_a_high_direct_fixed_honest/recorded",
+      "classification": "box4_unanswered_asks_amount",
+      "has_sales": true,
+      "reproduces_v82_fixture": true,
+      "fixture_mismatch": null,
+      "v82_outcome": "success",
+      "v83_outcome": "success",
+      "v82_error": null,
+      "v83_error": null,
+      "v82_disp_25b": "computed_zero",
+      "v83_disp_25b": "blocked",
+      "v82_line_25b": 0,
+      "v83_line_25b": null,
+      "v82_blocked_reasons_25b": [],
+      "v83_blocked_reasons_25b": [
+        "Enter the federal income tax withheld in box 4 of each Form 1099-B or substitute statement you recorded a sale from. If box 4 is blank, enter $0."
+      ],
+      "diff_count": 9,
+      "diff_fields": [
+        "form1040.line-25b",
+        "form1040.line-25d"
+      ],
+      "unexpected_diffs": []
+    },
+    {
+      "case_id": "v80/probe_a_high_direct_fixed_no8949/recorded",
+      "classification": "box4_unanswered_asks_amount",
+      "has_sales": true,
+      "reproduces_v82_fixture": true,
+      "fixture_mismatch": null,
+      "v82_outcome": "success",
+      "v83_outcome": "success",
+      "v82_error": null,
+      "v83_error": null,
+      "v82_disp_25b": "computed_zero",
+      "v83_disp_25b": "blocked",
+      "v82_line_25b": 0,
+      "v83_line_25b": null,
+      "v82_blocked_reasons_25b": [],
+      "v83_blocked_reasons_25b": [
+        "Enter the federal income tax withheld in box 4 of each Form 1099-B or substitute statement you recorded a sale from. If box 4 is blank, enter $0."
+      ],
+      "diff_count": 25,
+      "diff_fields": [
+        "form1040.line-25b",
+        "form1040.line-25d",
+        "form1040.line-33",
+        "form1040.line-34",
+        "form1040.line-35a",
+        "form1040.line-37"
+      ],
+      "unexpected_diffs": []
+    },
+    {
+      "case_id": "v80/probe_a_high_on_b_fixed/recorded",
+      "classification": "box4_unanswered_asks_amount",
+      "has_sales": true,
+      "reproduces_v82_fixture": true,
+      "fixture_mismatch": null,
+      "v82_outcome": "success",
+      "v83_outcome": "success",
+      "v82_error": null,
+      "v83_error": null,
+      "v82_disp_25b": "computed_zero",
+      "v83_disp_25b": "blocked",
+      "v82_line_25b": 0,
+      "v83_line_25b": null,
+      "v82_blocked_reasons_25b": [],
+      "v83_blocked_reasons_25b": [
+        "Enter the federal income tax withheld in box 4 of each Form 1099-B or substitute statement you recorded a sale from. If box 4 is blank, enter $0."
+      ],
+      "diff_count": 25,
+      "diff_fields": [
+        "form1040.line-25b",
+        "form1040.line-25d",
+        "form1040.line-33",
+        "form1040.line-34",
+        "form1040.line-35a",
+        "form1040.line-37"
+      ],
+      "unexpected_diffs": []
+    },
+    {
+      "case_id": "v80/probe_a_high_on_w_broker/recorded",
+      "classification": "box4_unanswered_asks_amount",
+      "has_sales": true,
+      "reproduces_v82_fixture": true,
+      "fixture_mismatch": null,
+      "v82_outcome": "success",
+      "v83_outcome": "success",
+      "v82_error": null,
+      "v83_error": null,
+      "v82_disp_25b": "computed_zero",
+      "v83_disp_25b": "blocked",
+      "v82_line_25b": 0,
+      "v83_line_25b": null,
+      "v82_blocked_reasons_25b": [],
+      "v83_blocked_reasons_25b": [
+        "Enter the federal income tax withheld in box 4 of each Form 1099-B or substitute statement you recorded a sale from. If box 4 is blank, enter $0."
+      ],
+      "diff_count": 9,
+      "diff_fields": [
+        "form1040.line-25b",
+        "form1040.line-25d"
+      ],
+      "unexpected_diffs": []
+    },
+    {
+      "case_id": "v80/probe_a_loss_direct_broker_no8949/recorded",
+      "classification": "box4_unanswered_asks_amount",
+      "has_sales": true,
+      "reproduces_v82_fixture": true,
+      "fixture_mismatch": null,
+      "v82_outcome": "success",
+      "v83_outcome": "success",
+      "v82_error": null,
+      "v83_error": null,
+      "v82_disp_25b": "computed_zero",
+      "v83_disp_25b": "blocked",
+      "v82_line_25b": 0,
+      "v83_line_25b": null,
+      "v82_blocked_reasons_25b": [],
+      "v83_blocked_reasons_25b": [
+        "Enter the federal income tax withheld in box 4 of each Form 1099-B or substitute statement you recorded a sale from. If box 4 is blank, enter $0."
+      ],
+      "diff_count": 25,
+      "diff_fields": [
+        "form1040.line-25b",
+        "form1040.line-25d",
+        "form1040.line-33",
+        "form1040.line-34",
+        "form1040.line-35a",
+        "form1040.line-37"
+      ],
+      "unexpected_diffs": []
+    },
+    {
+      "case_id": "v80/probe_a_loss_direct_fixed_no8949/recorded",
+      "classification": "box4_unanswered_asks_amount",
+      "has_sales": true,
+      "reproduces_v82_fixture": true,
+      "fixture_mismatch": null,
+      "v82_outcome": "success",
+      "v83_outcome": "success",
+      "v82_error": null,
+      "v83_error": null,
+      "v82_disp_25b": "computed_zero",
+      "v83_disp_25b": "blocked",
+      "v82_line_25b": 0,
+      "v83_line_25b": null,
+      "v82_blocked_reasons_25b": [],
+      "v83_blocked_reasons_25b": [
+        "Enter the federal income tax withheld in box 4 of each Form 1099-B or substitute statement you recorded a sale from. If box 4 is blank, enter $0."
+      ],
+      "diff_count": 25,
+      "diff_fields": [
+        "form1040.line-25b",
+        "form1040.line-25d",
+        "form1040.line-33",
+        "form1040.line-34",
+        "form1040.line-35a",
+        "form1040.line-37"
+      ],
+      "unexpected_diffs": []
+    },
+    {
+      "case_id": "v80/probe_a_loss_on_b_fixed/recorded",
+      "classification": "box4_unanswered_asks_amount",
+      "has_sales": true,
+      "reproduces_v82_fixture": true,
+      "fixture_mismatch": null,
+      "v82_outcome": "success",
+      "v83_outcome": "success",
+      "v82_error": null,
+      "v83_error": null,
+      "v82_disp_25b": "computed_zero",
+      "v83_disp_25b": "blocked",
+      "v82_line_25b": 0,
+      "v83_line_25b": null,
+      "v82_blocked_reasons_25b": [],
+      "v83_blocked_reasons_25b": [
+        "Enter the federal income tax withheld in box 4 of each Form 1099-B or substitute statement you recorded a sale from. If box 4 is blank, enter $0."
+      ],
+      "diff_count": 25,
+      "diff_fields": [
+        "form1040.line-25b",
+        "form1040.line-25d",
+        "form1040.line-33",
+        "form1040.line-34",
+        "form1040.line-35a",
+        "form1040.line-37"
+      ],
+      "unexpected_diffs": []
+    },
+    {
+      "case_id": "v80/probe_b_code_b_on_b/recorded",
+      "classification": "box4_unanswered_asks_amount",
+      "has_sales": true,
+      "reproduces_v82_fixture": true,
+      "fixture_mismatch": null,
+      "v82_outcome": "success",
+      "v83_outcome": "success",
+      "v82_error": null,
+      "v83_error": null,
+      "v82_disp_25b": "computed_zero",
+      "v83_disp_25b": "blocked",
+      "v82_line_25b": 0,
+      "v83_line_25b": null,
+      "v82_blocked_reasons_25b": [],
+      "v83_blocked_reasons_25b": [
+        "Enter the federal income tax withheld in box 4 of each Form 1099-B or substitute statement you recorded a sale from. If box 4 is blank, enter $0."
+      ],
+      "diff_count": 25,
+      "diff_fields": [
+        "form1040.line-25b",
+        "form1040.line-25d",
+        "form1040.line-33",
+        "form1040.line-34",
+        "form1040.line-35a",
+        "form1040.line-37"
+      ],
+      "unexpected_diffs": []
+    },
+    {
+      "case_id": "v80/probe_d_low_direct_broker_honest/recorded",
+      "classification": "box4_unanswered_asks_amount",
+      "has_sales": true,
+      "reproduces_v82_fixture": true,
+      "fixture_mismatch": null,
+      "v82_outcome": "success",
+      "v83_outcome": "success",
+      "v82_error": null,
+      "v83_error": null,
+      "v82_disp_25b": "computed_zero",
+      "v83_disp_25b": "blocked",
+      "v82_line_25b": 0,
+      "v83_line_25b": null,
+      "v82_blocked_reasons_25b": [],
+      "v83_blocked_reasons_25b": [
+        "Enter the federal income tax withheld in box 4 of each Form 1099-B or substitute statement you recorded a sale from. If box 4 is blank, enter $0."
+      ],
+      "diff_count": 9,
+      "diff_fields": [
+        "form1040.line-25b",
+        "form1040.line-25d"
+      ],
+      "unexpected_diffs": []
+    },
+    {
+      "case_id": "v80/probe_d_low_direct_fixed_no8949/recorded",
+      "classification": "box4_unanswered_asks_amount",
+      "has_sales": true,
+      "reproduces_v82_fixture": true,
+      "fixture_mismatch": null,
+      "v82_outcome": "success",
+      "v83_outcome": "success",
+      "v82_error": null,
+      "v83_error": null,
+      "v82_disp_25b": "computed_zero",
+      "v83_disp_25b": "blocked",
+      "v82_line_25b": 0,
+      "v83_line_25b": null,
+      "v82_blocked_reasons_25b": [],
+      "v83_blocked_reasons_25b": [
+        "Enter the federal income tax withheld in box 4 of each Form 1099-B or substitute statement you recorded a sale from. If box 4 is blank, enter $0."
+      ],
+      "diff_count": 25,
+      "diff_fields": [
+        "form1040.line-25b",
+        "form1040.line-25d",
+        "form1040.line-33",
+        "form1040.line-34",
+        "form1040.line-35a",
+        "form1040.line-37"
+      ],
+      "unexpected_diffs": []
+    },
+    {
+      "case_id": "v80/probe_d_low_on_e_fixed/recorded",
+      "classification": "box4_unanswered_asks_amount",
+      "has_sales": true,
+      "reproduces_v82_fixture": true,
+      "fixture_mismatch": null,
+      "v82_outcome": "success",
+      "v83_outcome": "success",
+      "v82_error": null,
+      "v83_error": null,
+      "v82_disp_25b": "computed_zero",
+      "v83_disp_25b": "blocked",
+      "v82_line_25b": 0,
+      "v83_line_25b": null,
+      "v82_blocked_reasons_25b": [],
+      "v83_blocked_reasons_25b": [
+        "Enter the federal income tax withheld in box 4 of each Form 1099-B or substitute statement you recorded a sale from. If box 4 is blank, enter $0."
+      ],
+      "diff_count": 25,
+      "diff_fields": [
+        "form1040.line-25b",
+        "form1040.line-25d",
+        "form1040.line-33",
+        "form1040.line-34",
+        "form1040.line-35a",
+        "form1040.line-37"
+      ],
+      "unexpected_diffs": []
+    },
+    {
+      "case_id": "v80/v80_c_and_f_same_sale/recorded",
+      "classification": "identical",
+      "has_sales": false,
+      "reproduces_v82_fixture": true,
+      "fixture_mismatch": null,
+      "v82_outcome": "success",
+      "v83_outcome": "success",
+      "v82_error": null,
+      "v83_error": null,
+      "v82_disp_25b": "computed_zero",
+      "v83_disp_25b": "computed_zero",
+      "v82_line_25b": 0,
+      "v83_line_25b": 0,
+      "v82_blocked_reasons_25b": [],
+      "v83_blocked_reasons_25b": [],
+      "diff_count": 0,
+      "diff_fields": [],
+      "unexpected_diffs": []
+    },
+    {
+      "case_id": "v80/v80_c_basis_missing/recorded",
+      "classification": "identical",
+      "has_sales": false,
+      "reproduces_v82_fixture": true,
+      "fixture_mismatch": null,
+      "v82_outcome": "success",
+      "v83_outcome": "success",
+      "v82_error": null,
+      "v83_error": null,
+      "v82_disp_25b": "computed_zero",
+      "v83_disp_25b": "computed_zero",
+      "v82_line_25b": 0,
+      "v83_line_25b": 0,
+      "v82_blocked_reasons_25b": [],
+      "v83_blocked_reasons_25b": [],
+      "diff_count": 0,
+      "diff_fields": [],
+      "unexpected_diffs": []
+    },
+    {
+      "case_id": "v80/v80_c_basis_object_missing/recorded",
+      "classification": "identical",
+      "has_sales": false,
+      "reproduces_v82_fixture": true,
+      "fixture_mismatch": null,
+      "v82_outcome": "error",
+      "v83_outcome": "error",
+      "v82_error": "FindingModelError",
+      "v83_error": "FindingModelError",
+      "v82_disp_25b": null,
+      "v83_disp_25b": null,
+      "v82_line_25b": null,
+      "v83_line_25b": null,
+      "v82_blocked_reasons_25b": [],
+      "v83_blocked_reasons_25b": [],
+      "diff_count": 0,
+      "diff_fields": [],
+      "unexpected_diffs": []
+    },
+    {
+      "case_id": "v80/v80_c_code_w_on_gain/recorded",
+      "classification": "identical",
+      "has_sales": false,
+      "reproduces_v82_fixture": true,
+      "fixture_mismatch": null,
+      "v82_outcome": "success",
+      "v83_outcome": "success",
+      "v82_error": null,
+      "v83_error": null,
+      "v82_disp_25b": "computed_zero",
+      "v83_disp_25b": "computed_zero",
+      "v82_line_25b": 0,
+      "v83_line_25b": 0,
+      "v82_blocked_reasons_25b": [],
+      "v83_blocked_reasons_25b": [],
+      "diff_count": 0,
+      "diff_fields": [],
+      "unexpected_diffs": []
+    },
+    {
+      "case_id": "v80/v80_c_loss/recorded",
+      "classification": "identical",
+      "has_sales": false,
+      "reproduces_v82_fixture": true,
+      "fixture_mismatch": null,
+      "v82_outcome": "success",
+      "v83_outcome": "success",
+      "v82_error": null,
+      "v83_error": null,
+      "v82_disp_25b": "computed_zero",
+      "v83_disp_25b": "computed_zero",
+      "v82_line_25b": 0,
+      "v83_line_25b": 0,
+      "v82_blocked_reasons_25b": [],
+      "v83_blocked_reasons_25b": [],
+      "diff_count": 0,
+      "diff_fields": [],
+      "unexpected_diffs": []
+    },
+    {
+      "case_id": "v80/v80_c_loss_path_b_unanswered/recorded",
+      "classification": "identical",
+      "has_sales": false,
+      "reproduces_v82_fixture": true,
+      "fixture_mismatch": null,
+      "v82_outcome": "success",
+      "v83_outcome": "success",
+      "v82_error": null,
+      "v83_error": null,
+      "v82_disp_25b": "computed_zero",
+      "v83_disp_25b": "computed_zero",
+      "v82_line_25b": 0,
+      "v83_line_25b": 0,
+      "v82_blocked_reasons_25b": [],
+      "v83_blocked_reasons_25b": [],
+      "diff_count": 0,
+      "diff_fields": [],
+      "unexpected_diffs": []
+    },
+    {
+      "case_id": "v80/v80_c_proceeds_missing/recorded",
+      "classification": "identical",
+      "has_sales": false,
+      "reproduces_v82_fixture": true,
+      "fixture_mismatch": null,
+      "v82_outcome": "success",
+      "v83_outcome": "success",
+      "v82_error": null,
+      "v83_error": null,
+      "v82_disp_25b": "computed_zero",
+      "v83_disp_25b": "computed_zero",
+      "v82_line_25b": 0,
+      "v83_line_25b": 0,
+      "v82_blocked_reasons_25b": [],
+      "v83_blocked_reasons_25b": [],
+      "diff_count": 0,
+      "diff_fields": [],
+      "unexpected_diffs": []
+    },
+    {
+      "case_id": "v80/v80_c_wash/recorded",
+      "classification": "identical",
+      "has_sales": false,
+      "reproduces_v82_fixture": true,
+      "fixture_mismatch": null,
+      "v82_outcome": "success",
+      "v83_outcome": "success",
+      "v82_error": null,
+      "v83_error": null,
+      "v82_disp_25b": "computed_zero",
+      "v83_disp_25b": "computed_zero",
+      "v82_line_25b": 0,
+      "v83_line_25b": 0,
+      "v82_blocked_reasons_25b": [],
+      "v83_blocked_reasons_25b": [],
+      "diff_count": 0,
+      "diff_fields": [],
+      "unexpected_diffs": []
+    },
+    {
+      "case_id": "v80/v80_d3_b_basis_missing/recorded",
+      "classification": "box4_unanswered_asks_amount",
+      "has_sales": true,
+      "reproduces_v82_fixture": true,
+      "fixture_mismatch": null,
+      "v82_outcome": "success",
+      "v83_outcome": "success",
+      "v82_error": null,
+      "v83_error": null,
+      "v82_disp_25b": "computed_zero",
+      "v83_disp_25b": "blocked",
+      "v82_line_25b": 0,
+      "v83_line_25b": null,
+      "v82_blocked_reasons_25b": [],
+      "v83_blocked_reasons_25b": [
+        "Enter the federal income tax withheld in box 4 of each Form 1099-B or substitute statement you recorded a sale from. If box 4 is blank, enter $0."
+      ],
+      "diff_count": 13,
+      "diff_fields": [
+        "form1040.line-25b",
+        "form1040.line-25d",
+        "form1040.line-33",
+        "form1040.line-34",
+        "form1040.line-35a",
+        "form1040.line-37"
+      ],
+      "unexpected_diffs": []
+    },
+    {
+      "case_id": "v80/v80_d3_b_code_w_on_gain/recorded",
+      "classification": "box4_unanswered_asks_amount",
+      "has_sales": true,
+      "reproduces_v82_fixture": true,
+      "fixture_mismatch": null,
+      "v82_outcome": "success",
+      "v83_outcome": "success",
+      "v82_error": null,
+      "v83_error": null,
+      "v82_disp_25b": "computed_zero",
+      "v83_disp_25b": "blocked",
+      "v82_line_25b": 0,
+      "v83_line_25b": null,
+      "v82_blocked_reasons_25b": [],
+      "v83_blocked_reasons_25b": [
+        "Enter the federal income tax withheld in box 4 of each Form 1099-B or substitute statement you recorded a sale from. If box 4 is blank, enter $0."
+      ],
+      "diff_count": 13,
+      "diff_fields": [
+        "form1040.line-25b",
+        "form1040.line-25d",
+        "form1040.line-33",
+        "form1040.line-34",
+        "form1040.line-35a",
+        "form1040.line-37"
+      ],
+      "unexpected_diffs": []
+    },
+    {
+      "case_id": "v80/v80_d3_b_orphan_basis/recorded",
+      "classification": "identical",
+      "has_sales": true,
+      "reproduces_v82_fixture": true,
+      "fixture_mismatch": null,
+      "v82_outcome": "error",
+      "v83_outcome": "error",
+      "v82_error": "FindingModelError",
+      "v83_error": "FindingModelError",
+      "v82_disp_25b": null,
+      "v83_disp_25b": null,
+      "v82_line_25b": null,
+      "v83_line_25b": null,
+      "v82_blocked_reasons_25b": [],
+      "v83_blocked_reasons_25b": [],
+      "diff_count": 0,
+      "diff_fields": [],
+      "unexpected_diffs": []
+    },
+    {
+      "case_id": "v80/v80_d3_b_proceeds_missing/recorded",
+      "classification": "box4_unanswered_asks_amount",
+      "has_sales": true,
+      "reproduces_v82_fixture": true,
+      "fixture_mismatch": null,
+      "v82_outcome": "success",
+      "v83_outcome": "success",
+      "v82_error": null,
+      "v83_error": null,
+      "v82_disp_25b": "computed_zero",
+      "v83_disp_25b": "blocked",
+      "v82_line_25b": 0,
+      "v83_line_25b": null,
+      "v82_blocked_reasons_25b": [],
+      "v83_blocked_reasons_25b": [
+        "Enter the federal income tax withheld in box 4 of each Form 1099-B or substitute statement you recorded a sale from. If box 4 is blank, enter $0."
+      ],
+      "diff_count": 13,
+      "diff_fields": [
+        "form1040.line-25b",
+        "form1040.line-25d",
+        "form1040.line-33",
+        "form1040.line-34",
+        "form1040.line-35a",
+        "form1040.line-37"
+      ],
+      "unexpected_diffs": []
+    },
+    {
+      "case_id": "v80/v80_dup_b_and_c_ic_no/recorded",
+      "classification": "box4_unanswered_asks_amount",
+      "has_sales": true,
+      "reproduces_v82_fixture": true,
+      "fixture_mismatch": null,
+      "v82_outcome": "success",
+      "v83_outcome": "success",
+      "v82_error": null,
+      "v83_error": null,
+      "v82_disp_25b": "computed_zero",
+      "v83_disp_25b": "blocked",
+      "v82_line_25b": 0,
+      "v83_line_25b": null,
+      "v82_blocked_reasons_25b": [],
+      "v83_blocked_reasons_25b": [
+        "Enter the federal income tax withheld in box 4 of each Form 1099-B or substitute statement you recorded a sale from. If box 4 is blank, enter $0."
+      ],
+      "diff_count": 9,
+      "diff_fields": [
+        "form1040.line-25b",
+        "form1040.line-25d"
+      ],
+      "unexpected_diffs": []
+    },
+    {
+      "case_id": "v80/v80_dup_b_and_c_ic_yes/recorded",
+      "classification": "box4_unanswered_asks_amount",
+      "has_sales": true,
+      "reproduces_v82_fixture": true,
+      "fixture_mismatch": null,
+      "v82_outcome": "success",
+      "v83_outcome": "success",
+      "v82_error": null,
+      "v83_error": null,
+      "v82_disp_25b": "computed_zero",
+      "v83_disp_25b": "blocked",
+      "v82_line_25b": 0,
+      "v83_line_25b": null,
+      "v82_blocked_reasons_25b": [],
+      "v83_blocked_reasons_25b": [
+        "Enter the federal income tax withheld in box 4 of each Form 1099-B or substitute statement you recorded a sale from. If box 4 is blank, enter $0."
+      ],
+      "diff_count": 25,
+      "diff_fields": [
+        "form1040.line-25b",
+        "form1040.line-25d",
+        "form1040.line-33",
+        "form1040.line-34",
+        "form1040.line-35a",
+        "form1040.line-37"
+      ],
+      "unexpected_diffs": []
+    },
+    {
+      "case_id": "v80/v80_f_gain/recorded",
+      "classification": "identical",
+      "has_sales": false,
+      "reproduces_v82_fixture": true,
+      "fixture_mismatch": null,
+      "v82_outcome": "success",
+      "v83_outcome": "success",
+      "v82_error": null,
+      "v83_error": null,
+      "v82_disp_25b": "computed_zero",
+      "v83_disp_25b": "computed_zero",
+      "v82_line_25b": 0,
+      "v83_line_25b": 0,
+      "v82_blocked_reasons_25b": [],
+      "v83_blocked_reasons_25b": [],
+      "diff_count": 0,
+      "diff_fields": [],
+      "unexpected_diffs": []
+    },
+    {
+      "case_id": "v80/v80_f_gain_new_ic_no/recorded",
+      "classification": "identical",
+      "has_sales": false,
+      "reproduces_v82_fixture": true,
+      "fixture_mismatch": null,
+      "v82_outcome": "success",
+      "v83_outcome": "success",
+      "v82_error": null,
+      "v83_error": null,
+      "v82_disp_25b": "computed_zero",
+      "v83_disp_25b": "computed_zero",
+      "v82_line_25b": 0,
+      "v83_line_25b": 0,
+      "v82_blocked_reasons_25b": [],
+      "v83_blocked_reasons_25b": [],
+      "diff_count": 0,
+      "diff_fields": [],
+      "unexpected_diffs": []
+    },
+    {
+      "case_id": "v80/v80_f_gain_new_ic_unanswered/recorded",
+      "classification": "identical",
+      "has_sales": false,
+      "reproduces_v82_fixture": true,
+      "fixture_mismatch": null,
+      "v82_outcome": "success",
+      "v83_outcome": "success",
+      "v82_error": null,
+      "v83_error": null,
+      "v82_disp_25b": "computed_zero",
+      "v83_disp_25b": "computed_zero",
+      "v82_line_25b": 0,
+      "v83_line_25b": 0,
+      "v82_blocked_reasons_25b": [],
+      "v83_blocked_reasons_25b": [],
+      "diff_count": 0,
+      "diff_fields": [],
+      "unexpected_diffs": []
+    },
+    {
+      "case_id": "v80/v80_f_gain_path_b_unanswered/recorded",
+      "classification": "identical",
+      "has_sales": false,
+      "reproduces_v82_fixture": true,
+      "fixture_mismatch": null,
+      "v82_outcome": "success",
+      "v83_outcome": "success",
+      "v82_error": null,
+      "v83_error": null,
+      "v82_disp_25b": "computed_zero",
+      "v83_disp_25b": "computed_zero",
+      "v82_line_25b": 0,
+      "v83_line_25b": 0,
+      "v82_blocked_reasons_25b": [],
+      "v83_blocked_reasons_25b": [],
+      "diff_count": 0,
+      "diff_fields": [],
+      "unexpected_diffs": []
+    },
+    {
+      "case_id": "v80/v80_f_gain_q2_no_with_member/recorded",
+      "classification": "identical",
+      "has_sales": false,
+      "reproduces_v82_fixture": true,
+      "fixture_mismatch": null,
+      "v82_outcome": "success",
+      "v83_outcome": "success",
+      "v82_error": null,
+      "v83_error": null,
+      "v82_disp_25b": "computed_zero",
+      "v83_disp_25b": "computed_zero",
+      "v82_line_25b": 0,
+      "v83_line_25b": 0,
+      "v82_blocked_reasons_25b": [],
+      "v83_blocked_reasons_25b": [],
+      "diff_count": 0,
+      "diff_fields": [],
+      "unexpected_diffs": []
+    },
+    {
+      "case_id": "v80/v80_f_holding_mismatch/recorded",
+      "classification": "identical",
+      "has_sales": false,
+      "reproduces_v82_fixture": true,
+      "fixture_mismatch": null,
+      "v82_outcome": "success",
+      "v83_outcome": "success",
+      "v82_error": null,
+      "v83_error": null,
+      "v82_disp_25b": "computed_zero",
+      "v83_disp_25b": "computed_zero",
+      "v82_line_25b": 0,
+      "v83_line_25b": 0,
+      "v82_blocked_reasons_25b": [],
+      "v83_blocked_reasons_25b": [],
+      "diff_count": 0,
+      "diff_fields": [],
+      "unexpected_diffs": []
+    },
+    {
+      "case_id": "v80/v80_m_b_q1_no_with_member/recorded",
+      "classification": "identical",
+      "has_sales": true,
+      "reproduces_v82_fixture": true,
+      "fixture_mismatch": null,
+      "v82_outcome": "success",
+      "v83_outcome": "success",
+      "v82_error": null,
+      "v83_error": null,
+      "v82_disp_25b": "blocked",
+      "v83_disp_25b": "blocked",
+      "v82_line_25b": null,
+      "v83_line_25b": null,
+      "v82_blocked_reasons_25b": [
+        "Did you sell any securities whose basis was not reported to the IRS?"
+      ],
+      "v83_blocked_reasons_25b": [
+        "Did you sell any securities whose basis was not reported to the IRS?"
+      ],
+      "diff_count": 0,
+      "diff_fields": [],
+      "unexpected_diffs": []
+    },
+    {
+      "case_id": "v80/v80_m_bf_yes_yes/recorded",
+      "classification": "box4_unanswered_asks_amount",
+      "has_sales": true,
+      "reproduces_v82_fixture": true,
+      "fixture_mismatch": null,
+      "v82_outcome": "success",
+      "v83_outcome": "success",
+      "v82_error": null,
+      "v83_error": null,
+      "v82_disp_25b": "computed_zero",
+      "v83_disp_25b": "blocked",
+      "v82_line_25b": 0,
+      "v83_line_25b": null,
+      "v82_blocked_reasons_25b": [],
+      "v83_blocked_reasons_25b": [
+        "Enter the federal income tax withheld in box 4 of each Form 1099-B or substitute statement you recorded a sale from. If box 4 is blank, enter $0."
+      ],
+      "diff_count": 25,
+      "diff_fields": [
+        "form1040.line-25b",
+        "form1040.line-25d",
+        "form1040.line-33",
+        "form1040.line-34",
+        "form1040.line-35a",
+        "form1040.line-37"
+      ],
+      "unexpected_diffs": []
+    },
+    {
+      "case_id": "v80/v80_m_c_8949_yes_pathb_no/recorded",
+      "classification": "identical",
+      "has_sales": false,
+      "reproduces_v82_fixture": true,
+      "fixture_mismatch": null,
+      "v82_outcome": "success",
+      "v83_outcome": "success",
+      "v82_error": null,
+      "v83_error": null,
+      "v82_disp_25b": "computed_zero",
+      "v83_disp_25b": "computed_zero",
+      "v82_line_25b": 0,
+      "v83_line_25b": 0,
+      "v82_blocked_reasons_25b": [],
+      "v83_blocked_reasons_25b": [],
+      "diff_count": 0,
+      "diff_fields": [],
+      "unexpected_diffs": []
+    },
+    {
+      "case_id": "v80/v80_m_c_new_ic_no/recorded",
+      "classification": "identical",
+      "has_sales": false,
+      "reproduces_v82_fixture": true,
+      "fixture_mismatch": null,
+      "v82_outcome": "success",
+      "v83_outcome": "success",
+      "v82_error": null,
+      "v83_error": null,
+      "v82_disp_25b": "computed_zero",
+      "v83_disp_25b": "computed_zero",
+      "v82_line_25b": 0,
+      "v83_line_25b": 0,
+      "v82_blocked_reasons_25b": [],
+      "v83_blocked_reasons_25b": [],
+      "diff_count": 0,
+      "diff_fields": [],
+      "unexpected_diffs": []
+    },
+    {
+      "case_id": "v80/v80_m_c_q2_no_with_member/recorded",
+      "classification": "identical",
+      "has_sales": false,
+      "reproduces_v82_fixture": true,
+      "fixture_mismatch": null,
+      "v82_outcome": "success",
+      "v83_outcome": "success",
+      "v82_error": null,
+      "v83_error": null,
+      "v82_disp_25b": "computed_zero",
+      "v83_disp_25b": "computed_zero",
+      "v82_line_25b": 0,
+      "v83_line_25b": 0,
+      "v82_blocked_reasons_25b": [],
+      "v83_blocked_reasons_25b": [],
+      "diff_count": 0,
+      "diff_fields": [],
+      "unexpected_diffs": []
+    },
+    {
+      "case_id": "v80/v80_m_e_yes_q2_yes_nothing/recorded",
+      "classification": "box4_unanswered_asks_amount",
+      "has_sales": true,
+      "reproduces_v82_fixture": true,
+      "fixture_mismatch": null,
+      "v82_outcome": "success",
+      "v83_outcome": "success",
+      "v82_error": null,
+      "v83_error": null,
+      "v82_disp_25b": "computed_zero",
+      "v83_disp_25b": "blocked",
+      "v82_line_25b": 0,
+      "v83_line_25b": null,
+      "v82_blocked_reasons_25b": [],
+      "v83_blocked_reasons_25b": [
+        "Enter the federal income tax withheld in box 4 of each Form 1099-B or substitute statement you recorded a sale from. If box 4 is blank, enter $0."
+      ],
+      "diff_count": 9,
+      "diff_fields": [
+        "form1040.line-25b",
+        "form1040.line-25d"
+      ],
+      "unexpected_diffs": []
+    },
+    {
+      "case_id": "v80/v80_m_f_q1_yes_nothing/recorded",
+      "classification": "identical",
+      "has_sales": false,
+      "reproduces_v82_fixture": true,
+      "fixture_mismatch": null,
+      "v82_outcome": "success",
+      "v83_outcome": "success",
+      "v82_error": null,
+      "v83_error": null,
+      "v82_disp_25b": "computed_zero",
+      "v83_disp_25b": "computed_zero",
+      "v82_line_25b": 0,
+      "v83_line_25b": 0,
+      "v82_blocked_reasons_25b": [],
+      "v83_blocked_reasons_25b": [],
+      "diff_count": 0,
+      "diff_fields": [],
+      "unexpected_diffs": []
+    },
+    {
+      "case_id": "v80/v80_mixed_abcf/recorded",
+      "classification": "box4_unanswered_asks_amount",
+      "has_sales": true,
+      "reproduces_v82_fixture": true,
+      "fixture_mismatch": null,
+      "v82_outcome": "success",
+      "v83_outcome": "success",
+      "v82_error": null,
+      "v83_error": null,
+      "v82_disp_25b": "computed_zero",
+      "v83_disp_25b": "blocked",
+      "v82_line_25b": 0,
+      "v83_line_25b": null,
+      "v82_blocked_reasons_25b": [],
+      "v83_blocked_reasons_25b": [
+        "Enter the federal income tax withheld in box 4 of each Form 1099-B or substitute statement you recorded a sale from. If box 4 is blank, enter $0."
+      ],
+      "diff_count": 25,
+      "diff_fields": [
+        "form1040.line-25b",
+        "form1040.line-25d",
+        "form1040.line-33",
+        "form1040.line-34",
+        "form1040.line-35a",
+        "form1040.line-37"
+      ],
+      "unexpected_diffs": []
+    },
+    {
+      "case_id": "v80/v80_q2_late_yes_reanswered/recorded",
+      "classification": "identical",
+      "has_sales": false,
+      "reproduces_v82_fixture": true,
+      "fixture_mismatch": null,
+      "v82_outcome": "success",
+      "v83_outcome": "success",
+      "v82_error": null,
+      "v83_error": null,
+      "v82_disp_25b": "computed_zero",
+      "v83_disp_25b": "computed_zero",
+      "v82_line_25b": 0,
+      "v83_line_25b": 0,
+      "v82_blocked_reasons_25b": [],
+      "v83_blocked_reasons_25b": [],
+      "diff_count": 0,
+      "diff_fields": [],
+      "unexpected_diffs": []
+    },
+    {
+      "case_id": "v80/v80_q2_late_yes_stale/recorded",
+      "classification": "identical",
+      "has_sales": false,
+      "reproduces_v82_fixture": true,
+      "fixture_mismatch": null,
+      "v82_outcome": "success",
+      "v83_outcome": "success",
+      "v82_error": null,
+      "v83_error": null,
+      "v82_disp_25b": "computed_zero",
+      "v83_disp_25b": "computed_zero",
+      "v82_line_25b": 0,
+      "v83_line_25b": 0,
+      "v82_blocked_reasons_25b": [],
+      "v83_blocked_reasons_25b": [],
+      "diff_count": 0,
+      "diff_fields": [],
+      "unexpected_diffs": []
+    },
+    {
+      "case_id": "v80/v80_t1_stage2/recorded",
+      "classification": "identical",
+      "has_sales": false,
+      "reproduces_v82_fixture": true,
+      "fixture_mismatch": null,
+      "v82_outcome": "success",
+      "v83_outcome": "success",
+      "v82_error": null,
+      "v83_error": null,
+      "v82_disp_25b": "computed_zero",
+      "v83_disp_25b": "computed_zero",
+      "v82_line_25b": 0,
+      "v83_line_25b": 0,
+      "v82_blocked_reasons_25b": [],
+      "v83_blocked_reasons_25b": [],
+      "diff_count": 0,
+      "diff_fields": [],
+      "unexpected_diffs": []
+    },
+    {
+      "case_id": "v80/v80_t1_stage3/recorded",
+      "classification": "identical",
+      "has_sales": false,
+      "reproduces_v82_fixture": true,
+      "fixture_mismatch": null,
+      "v82_outcome": "success",
+      "v83_outcome": "success",
+      "v82_error": null,
+      "v83_error": null,
+      "v82_disp_25b": "computed_zero",
+      "v83_disp_25b": "computed_zero",
+      "v82_line_25b": 0,
+      "v83_line_25b": 0,
+      "v82_blocked_reasons_25b": [],
+      "v83_blocked_reasons_25b": [],
+      "diff_count": 0,
+      "diff_fields": [],
+      "unexpected_diffs": []
+    },
+    {
+      "case_id": "v80/v80_t2_stage0/recorded",
+      "classification": "box4_unanswered_asks_amount",
+      "has_sales": true,
+      "reproduces_v82_fixture": true,
+      "fixture_mismatch": null,
+      "v82_outcome": "success",
+      "v83_outcome": "success",
+      "v82_error": null,
+      "v83_error": null,
+      "v82_disp_25b": "computed_zero",
+      "v83_disp_25b": "blocked",
+      "v82_line_25b": 0,
+      "v83_line_25b": null,
+      "v82_blocked_reasons_25b": [],
+      "v83_blocked_reasons_25b": [
+        "Enter the federal income tax withheld in box 4 of each Form 1099-B or substitute statement you recorded a sale from. If box 4 is blank, enter $0."
+      ],
+      "diff_count": 25,
+      "diff_fields": [
+        "form1040.line-25b",
+        "form1040.line-25d",
+        "form1040.line-33",
+        "form1040.line-34",
+        "form1040.line-35a",
+        "form1040.line-37"
+      ],
+      "unexpected_diffs": []
+    },
+    {
+      "case_id": "v80/v80_t2_stage1/recorded",
+      "classification": "box4_unanswered_asks_amount",
+      "has_sales": true,
+      "reproduces_v82_fixture": true,
+      "fixture_mismatch": null,
+      "v82_outcome": "success",
+      "v83_outcome": "success",
+      "v82_error": null,
+      "v83_error": null,
+      "v82_disp_25b": "computed_zero",
+      "v83_disp_25b": "blocked",
+      "v82_line_25b": 0,
+      "v83_line_25b": null,
+      "v82_blocked_reasons_25b": [],
+      "v83_blocked_reasons_25b": [
+        "Enter the federal income tax withheld in box 4 of each Form 1099-B or substitute statement you recorded a sale from. If box 4 is blank, enter $0."
+      ],
+      "diff_count": 9,
+      "diff_fields": [
+        "form1040.line-25b",
+        "form1040.line-25d"
+      ],
+      "unexpected_diffs": []
+    },
+    {
+      "case_id": "v80/v80_t2_stage2/recorded",
+      "classification": "box4_unanswered_asks_amount",
+      "has_sales": true,
+      "reproduces_v82_fixture": true,
+      "fixture_mismatch": null,
+      "v82_outcome": "success",
+      "v83_outcome": "success",
+      "v82_error": null,
+      "v83_error": null,
+      "v82_disp_25b": "computed_zero",
+      "v83_disp_25b": "blocked",
+      "v82_line_25b": 0,
+      "v83_line_25b": null,
+      "v82_blocked_reasons_25b": [],
+      "v83_blocked_reasons_25b": [
+        "Enter the federal income tax withheld in box 4 of each Form 1099-B or substitute statement you recorded a sale from. If box 4 is blank, enter $0."
+      ],
+      "diff_count": 13,
+      "diff_fields": [
+        "form1040.line-25b",
+        "form1040.line-25d",
+        "form1040.line-33",
+        "form1040.line-34",
+        "form1040.line-35a",
+        "form1040.line-37"
+      ],
+      "unexpected_diffs": []
+    },
+    {
+      "case_id": "v80/v80_t2_stage3/recorded",
+      "classification": "box4_unanswered_asks_amount",
+      "has_sales": true,
+      "reproduces_v82_fixture": true,
+      "fixture_mismatch": null,
+      "v82_outcome": "success",
+      "v83_outcome": "success",
+      "v82_error": null,
+      "v83_error": null,
+      "v82_disp_25b": "computed_zero",
+      "v83_disp_25b": "blocked",
+      "v82_line_25b": 0,
+      "v83_line_25b": null,
+      "v82_blocked_reasons_25b": [],
+      "v83_blocked_reasons_25b": [
+        "Enter the federal income tax withheld in box 4 of each Form 1099-B or substitute statement you recorded a sale from. If box 4 is blank, enter $0."
+      ],
+      "diff_count": 25,
+      "diff_fields": [
+        "form1040.line-25b",
+        "form1040.line-25d",
+        "form1040.line-33",
+        "form1040.line-34",
+        "form1040.line-35a",
+        "form1040.line-37"
+      ],
+      "unexpected_diffs": []
+    },
+    {
+      "case_id": "v80/v80_w_c_amounts_disagree/recorded",
+      "classification": "identical",
+      "has_sales": false,
+      "reproduces_v82_fixture": true,
+      "fixture_mismatch": null,
+      "v82_outcome": "success",
+      "v83_outcome": "success",
+      "v82_error": null,
+      "v83_error": null,
+      "v82_disp_25b": "computed_zero",
+      "v83_disp_25b": "computed_zero",
+      "v82_line_25b": 0,
+      "v83_line_25b": 0,
+      "v82_blocked_reasons_25b": [],
+      "v83_blocked_reasons_25b": [],
+      "diff_count": 0,
+      "diff_fields": [],
+      "unexpected_diffs": []
+    },
+    {
+      "case_id": "v80/v80_wage_q2_unanswered/recorded",
+      "classification": "identical",
+      "has_sales": false,
+      "reproduces_v82_fixture": true,
+      "fixture_mismatch": null,
+      "v82_outcome": "success",
+      "v83_outcome": "success",
+      "v82_error": null,
+      "v83_error": null,
+      "v82_disp_25b": "computed_zero",
+      "v83_disp_25b": "computed_zero",
+      "v82_line_25b": 0,
+      "v83_line_25b": 0,
+      "v82_blocked_reasons_25b": [],
+      "v83_blocked_reasons_25b": [],
+      "diff_count": 0,
+      "diff_fields": [],
+      "unexpected_diffs": []
+    }
+  ]
+}

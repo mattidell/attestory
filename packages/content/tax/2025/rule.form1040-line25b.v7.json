@@ -1,0 +1,424 @@
+{
+  "blocked": {
+    "code": "DEPENDENCY_ABSENT",
+    "missing": [
+      "tax.us.2025.interest.b4-withholding-subtotal",
+      "tax.us.2025.dividends.b4-withholding-subtotal",
+      "tax.us.2025.ira.box4-withholding-subtotal",
+      "tax.us.2025.unemployment.b4-withholding-subtotal",
+      "tax.us.2025.ssa1099.b6-withholding-subtotal",
+      "tax.us.2025.f1099b.b4-withholding-subtotal",
+      "rounding.convention"
+    ]
+  },
+  "citations": [
+    {
+      "id": "tax.us.2025.citation.form1040.line-25b",
+      "version": "v1"
+    }
+  ],
+  "id": "tax.us.2025.rule.form1040-line25b",
+  "notes": "Form 1040 line 25b: 'Add the amounts shown as federal income tax withheld' on Forms 1099-INT, 1099-DIV, 1099-R box 4, 1099-G box 4, SSA-1099 box 6, and Form 1099-B box 4 backup withholding (i1040gi-2025 line 25b). Each document's own subtotal rule is pinned and added here, one addend per document. v7: pairs Form 1099-B statements with statement-box4-withholding via require_paired, and both arms add f1099b.b4-withholding-subtotal. That subtotal is every current box 4 amount, including an amount whose statement has no sale. When no amount is recorded the subtotal is zero, and the filer is asked nothing new.",
+  "pins": [
+    {
+      "id": "tax.us.2025.rule.f1099int-b4-subtotal",
+      "origin": "assertion",
+      "role": "input",
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.rule.f1099div-b4-subtotal",
+      "origin": "assertion",
+      "role": "input",
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.rule.f1099r-box4-subtotal",
+      "origin": "assertion",
+      "role": "input",
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.rule.f1099g-b4-subtotal",
+      "origin": "assertion",
+      "role": "input",
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.rule.ssa1099-b6-subtotal",
+      "origin": "assertion",
+      "role": "input",
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.rule.f1099b-b4-withholding-subtotal",
+      "origin": "assertion",
+      "role": "input",
+      "version": "v1"
+    },
+    {
+      "id": "rounding.convention",
+      "origin": "assertion",
+      "role": "input",
+      "version": "v1"
+    }
+  ],
+  "publishes": "tax.us.2025.payments.line25b",
+  "requires": [
+    "tax.us.2025.interest.b4-withholding-subtotal",
+    "tax.us.2025.dividends.b4-withholding-subtotal",
+    "tax.us.2025.ira.box4-withholding-subtotal",
+    "tax.us.2025.unemployment.b4-withholding-subtotal",
+    "tax.us.2025.ssa1099.b6-withholding-subtotal",
+    "tax.us.2025.f1099b.b4-withholding-subtotal",
+    "rounding.convention",
+    "tax.us.2025.f1099b.covered-st-count",
+    "tax.us.2025.f1099b.covered-lt-count",
+    "tax.us.2025.f1099b.covered-w-st-count",
+    "tax.us.2025.f1099b.covered-w-lt-count",
+    "tax.us.2025.f1099b.noncovered-st-count",
+    "tax.us.2025.f1099b.noncovered-lt-count",
+    "tax.us.2025.f1099b.code-b-st-count",
+    "tax.us.2025.f1099b.code-b-lt-count"
+  ],
+  "role": "computation",
+  "schema": "rule-artifact.v15",
+  "scope": {
+    "family": "individual-income-tax",
+    "jurisdiction": "US-federal",
+    "tax_year": 2025
+  },
+  "value": {
+    "op": "choose",
+    "when": {
+      "op": "any",
+      "args": [
+        {
+          "op": "compare",
+          "cmp": "gt",
+          "left": {
+            "op": "ref",
+            "name": "tax.us.2025.f1099b.covered-st-count"
+          },
+          "right": 0
+        },
+        {
+          "op": "compare",
+          "cmp": "gt",
+          "left": {
+            "op": "ref",
+            "name": "tax.us.2025.f1099b.covered-lt-count"
+          },
+          "right": 0
+        },
+        {
+          "op": "compare",
+          "cmp": "gt",
+          "left": {
+            "op": "ref",
+            "name": "tax.us.2025.f1099b.covered-w-st-count"
+          },
+          "right": 0
+        },
+        {
+          "op": "compare",
+          "cmp": "gt",
+          "left": {
+            "op": "ref",
+            "name": "tax.us.2025.f1099b.covered-w-lt-count"
+          },
+          "right": 0
+        },
+        {
+          "op": "compare",
+          "cmp": "gt",
+          "left": {
+            "op": "ref",
+            "name": "tax.us.2025.f1099b.noncovered-st-count"
+          },
+          "right": 0
+        },
+        {
+          "op": "compare",
+          "cmp": "gt",
+          "left": {
+            "op": "ref",
+            "name": "tax.us.2025.f1099b.noncovered-lt-count"
+          },
+          "right": 0
+        },
+        {
+          "op": "compare",
+          "cmp": "gt",
+          "left": {
+            "op": "ref",
+            "name": "tax.us.2025.f1099b.code-b-st-count"
+          },
+          "right": 0
+        },
+        {
+          "op": "compare",
+          "cmp": "gt",
+          "left": {
+            "op": "ref",
+            "name": "tax.us.2025.f1099b.code-b-lt-count"
+          },
+          "right": 0
+        }
+      ]
+    },
+    "then": {
+      "op": "round",
+      "mode": {
+        "name": "rounding.convention",
+        "op": "ref"
+      },
+      "value": {
+        "op": "add",
+        "args": [
+          {
+            "name": "tax.us.2025.interest.b4-withholding-subtotal",
+            "op": "ref"
+          },
+          {
+            "name": "tax.us.2025.dividends.b4-withholding-subtotal",
+            "op": "ref"
+          },
+          {
+            "name": "tax.us.2025.ira.box4-withholding-subtotal",
+            "op": "ref"
+          },
+          {
+            "name": "tax.us.2025.unemployment.b4-withholding-subtotal",
+            "op": "ref"
+          },
+          {
+            "name": "tax.us.2025.ssa1099.b6-withholding-subtotal",
+            "op": "ref"
+          },
+          {
+            "name": "tax.us.2025.f1099b.b4-withholding-subtotal",
+            "op": "ref"
+          }
+        ]
+      }
+    },
+    "else": {
+      "op": "round",
+      "mode": {
+        "name": "rounding.convention",
+        "op": "ref"
+      },
+      "value": {
+        "op": "add",
+        "args": [
+          {
+            "name": "tax.us.2025.interest.b4-withholding-subtotal",
+            "op": "ref"
+          },
+          {
+            "name": "tax.us.2025.dividends.b4-withholding-subtotal",
+            "op": "ref"
+          },
+          {
+            "name": "tax.us.2025.ira.box4-withholding-subtotal",
+            "op": "ref"
+          },
+          {
+            "name": "tax.us.2025.unemployment.b4-withholding-subtotal",
+            "op": "ref"
+          },
+          {
+            "name": "tax.us.2025.ssa1099.b6-withholding-subtotal",
+            "op": "ref"
+          },
+          {
+            "name": "tax.us.2025.f1099b.b4-withholding-subtotal",
+            "op": "ref"
+          }
+        ]
+      }
+    }
+  },
+  "version": "v7",
+  "when": {
+    "op": "all",
+    "args": [
+      {
+        "args": [
+          {
+            "op": "require_closed",
+            "source_set": "tax.us.2025.f1099int.b4"
+          },
+          {
+            "op": "require_closed",
+            "source_set": "tax.us.2025.f1099div.b4"
+          },
+          {
+            "op": "require_closed",
+            "source_set": "tax.us.2025.f1099r.box4"
+          },
+          {
+            "op": "require_closed",
+            "source_set": "tax.us.2025.f1099g.b4"
+          },
+          {
+            "op": "require_closed",
+            "source_set": "tax.us.2025.ssa1099.b6"
+          },
+          {
+            "args": [
+              {
+                "args": [
+                  {
+                    "op": "require_closed",
+                    "source_set": "tax.us.2025.f1099int.b1"
+                  },
+                  {
+                    "op": "require_paired",
+                    "key": "statement",
+                    "withholding": "tax.us.2025.f1099int.box4-withholding",
+                    "income": [
+                      "tax.us.2025.f1099int.box1-interest",
+                      "tax.us.2025.f1099int.box3-interest",
+                      "tax.us.2025.f1099int.box8-tax-exempt-interest",
+                      "tax.us.2025.f1099int.box10-market-discount"
+                    ]
+                  }
+                ],
+                "op": "all"
+              },
+              {
+                "name": "tax.us.2025.f1099int.box4-withholding",
+                "op": "ref"
+              }
+            ],
+            "op": "any"
+          },
+          {
+            "args": [
+              {
+                "args": [
+                  {
+                    "op": "require_closed",
+                    "source_set": "tax.us.2025.f1099div.1a"
+                  },
+                  {
+                    "op": "require_paired",
+                    "key": "statement",
+                    "withholding": "tax.us.2025.f1099div.box4-withholding",
+                    "income": [
+                      "tax.us.2025.f1099div.box1a-ordinary",
+                      "tax.us.2025.f1099div.box2a-capital-gain-distribution",
+                      "tax.us.2025.f1099div.box12-exempt-interest-dividends"
+                    ]
+                  }
+                ],
+                "op": "all"
+              },
+              {
+                "name": "tax.us.2025.f1099div.box4-withholding",
+                "op": "ref"
+              }
+            ],
+            "op": "any"
+          },
+          {
+            "args": [
+              {
+                "args": [
+                  {
+                    "op": "require_closed",
+                    "source_set": "tax.us.2025.f1099r.ira-fully-taxable"
+                  },
+                  {
+                    "op": "require_paired",
+                    "key": "statement",
+                    "withholding": "tax.us.2025.f1099r.ira-box4-withholding",
+                    "income": [
+                      "tax.us.2025.f1099r.ira-box1-taxable-distribution"
+                    ]
+                  }
+                ],
+                "op": "all"
+              },
+              {
+                "name": "tax.us.2025.f1099r.ira-box4-withholding",
+                "op": "ref"
+              }
+            ],
+            "op": "any"
+          },
+          {
+            "args": [
+              {
+                "args": [
+                  {
+                    "op": "require_closed",
+                    "source_set": "tax.us.2025.f1099g.1"
+                  },
+                  {
+                    "op": "require_paired",
+                    "key": "statement",
+                    "withholding": "tax.us.2025.f1099g.box4-withholding",
+                    "income": [
+                      "tax.us.2025.f1099g.box1-unemployment"
+                    ]
+                  }
+                ],
+                "op": "all"
+              },
+              {
+                "name": "tax.us.2025.f1099g.box4-withholding",
+                "op": "ref"
+              }
+            ],
+            "op": "any"
+          },
+          {
+            "args": [
+              {
+                "args": [
+                  {
+                    "op": "require_closed",
+                    "source_set": "tax.us.2025.ssa1099.benefits"
+                  },
+                  {
+                    "op": "require_paired",
+                    "key": "statement",
+                    "withholding": "tax.us.2025.ssa1099.box6-voluntary-withholding",
+                    "income": [
+                      "tax.us.2025.ssa1099.box5-net-benefits"
+                    ]
+                  }
+                ],
+                "op": "all"
+              },
+              {
+                "name": "tax.us.2025.ssa1099.box6-voluntary-withholding",
+                "op": "ref"
+              }
+            ],
+            "op": "any"
+          }
+        ],
+        "op": "all"
+      },
+      {
+        "op": "require_paired",
+        "key": "statement",
+        "withholding": "tax.us.2025.f1099b.statement-box4-withholding",
+        "income": [
+          "tax.us.2025.f1099b.covered-st-txn",
+          "tax.us.2025.f1099b.covered-lt-txn",
+          "tax.us.2025.f1099b.covered-w-st-txn",
+          "tax.us.2025.f1099b.covered-w-lt-txn",
+          "tax.us.2025.f1099b.noncovered-st-txn",
+          "tax.us.2025.f1099b.noncovered-lt-txn",
+          "tax.us.2025.f1099b.code-b-st-txn",
+          "tax.us.2025.f1099b.code-b-lt-txn"
+        ]
+      }
+    ]
+  }
+}

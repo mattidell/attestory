@@ -1,0 +1,251 @@
+{
+  "b4_one_statement": {
+    "name": "b4_one_statement",
+    "description": "One statement with covered ST sale ($1,000 gain), box 4 withholding reported yes ($240)",
+    "core": "v82",
+    "v82_actual_disposition": "blocked",
+    "v82_expected_disposition": "blocked",
+    "v82_lines": {
+      "form1040.line-25b": null,
+      "form1040.line-33": null,
+      "form1040.line-34": null,
+      "form1040.line-37": null
+    },
+    "hand_values": {
+      "disposition": "published",
+      "taxable_income": 35250,
+      "tax": 3995,
+      "form1040.line-25b": 240,
+      "form1040.line-33": 4740,
+      "form1040.line-34": 745,
+      "form1040.line-37": 0
+    },
+    "blocked_reasons": [],
+    "all_blocked_reasons": {
+      "form1040.line-25b": [],
+      "form1040.line-33": [],
+      "form1040.line-34": [],
+      "form1040.line-37": []
+    }
+  },
+  "b4_two_statements": {
+    "name": "b4_two_statements",
+    "description": "Two statements with covered ST sales ($1,500 total gain), both box 4 yes ($240 + $100 = $340)",
+    "core": "v82",
+    "v82_actual_disposition": "blocked",
+    "v82_expected_disposition": "blocked",
+    "v82_lines": {
+      "form1040.line-25b": null,
+      "form1040.line-33": null,
+      "form1040.line-34": null,
+      "form1040.line-37": null
+    },
+    "hand_values": {
+      "disposition": "published",
+      "taxable_income": 35750,
+      "tax": 4055,
+      "form1040.line-25b": 340,
+      "form1040.line-33": 4840,
+      "form1040.line-34": 785,
+      "form1040.line-37": 0
+    },
+    "blocked_reasons": [],
+    "all_blocked_reasons": {
+      "form1040.line-25b": [],
+      "form1040.line-33": [],
+      "form1040.line-34": [],
+      "form1040.line-37": []
+    }
+  },
+  "b4_st_and_lt": {
+    "name": "b4_st_and_lt",
+    "description": "One statement with both ST ($1,000) and LT ($1,000) sales, box 4 yes ($300)",
+    "core": "v82",
+    "v82_actual_disposition": "blocked",
+    "v82_expected_disposition": "blocked",
+    "v82_lines": {
+      "form1040.line-25b": null,
+      "form1040.line-33": null,
+      "form1040.line-34": null,
+      "form1040.line-37": null
+    },
+    "hand_values": {
+      "disposition": "published",
+      "taxable_income": 36250,
+      "tax": 3995,
+      "form1040.line-25b": 300,
+      "form1040.line-33": 4800,
+      "form1040.line-34": 805,
+      "form1040.line-37": 0
+    },
+    "blocked_reasons": [],
+    "all_blocked_reasons": {
+      "form1040.line-25b": [],
+      "form1040.line-33": [],
+      "form1040.line-34": [],
+      "form1040.line-37": []
+    }
+  },
+  "b4_amount_no_answer": {
+    "name": "b4_amount_no_answer",
+    "description": "One statement with covered ST sale, box 4 unanswered (pairing unmet)",
+    "core": "v82",
+    "v82_actual_disposition": "blocked",
+    "v82_expected_disposition": "blocked",
+    "v82_lines": {
+      "form1040.line-25b": null,
+      "form1040.line-33": null,
+      "form1040.line-34": null,
+      "form1040.line-37": null
+    },
+    "hand_values": {
+      "disposition": "blocked",
+      "form1040.line-25b": null,
+      "form1040.line-33": null,
+      "form1040.line-34": null,
+      "form1040.line-37": null
+    },
+    "blocked_reasons": [
+      "For each Form 1099-B or substitute statement you recorded a sale from, does it show federal income tax withheld in box 4?"
+    ],
+    "all_blocked_reasons": {
+      "form1040.line-25b": [
+        "For each Form 1099-B or substitute statement you recorded a sale from, does it show federal income tax withheld in box 4?"
+      ],
+      "form1040.line-33": [
+        "For each Form 1099-B or substitute statement you recorded a sale from, does it show federal income tax withheld in box 4?"
+      ],
+      "form1040.line-34": [
+        "For each Form 1099-B or substitute statement you recorded a sale from, does it show federal income tax withheld in box 4?"
+      ],
+      "form1040.line-37": [
+        "For each Form 1099-B or substitute statement you recorded a sale from, does it show federal income tax withheld in box 4?"
+      ]
+    }
+  },
+  "b4_answer_no_amount": {
+    "name": "b4_answer_no_amount",
+    "description": "One statement with covered ST sale, box 4 answered no, zero withholding",
+    "core": "v82",
+    "v82_actual_disposition": "computed_zero",
+    "v82_expected_disposition": "published",
+    "v82_lines": {
+      "form1040.line-25b": 0,
+      "form1040.line-33": 4500,
+      "form1040.line-34": 505,
+      "form1040.line-37": 0
+    },
+    "hand_values": {
+      "disposition": "published",
+      "taxable_income": 35250,
+      "tax": 3995,
+      "form1040.line-25b": 0,
+      "form1040.line-33": 4500,
+      "form1040.line-34": 505,
+      "form1040.line-37": 0
+    },
+    "blocked_reasons": [],
+    "all_blocked_reasons": {}
+  },
+  "b4_no_with_amount": {
+    "name": "b4_no_with_amount",
+    "description": "One statement with covered ST sale, box 4 answered no on v82 (zero withholding)",
+    "core": "v82",
+    "v82_actual_disposition": "computed_zero",
+    "v82_expected_disposition": "published",
+    "v82_lines": {
+      "form1040.line-25b": 0,
+      "form1040.line-33": 4500,
+      "form1040.line-34": 505,
+      "form1040.line-37": 0
+    },
+    "hand_values": {
+      "disposition": "published",
+      "taxable_income": 35250,
+      "tax": 3995,
+      "form1040.line-25b": 0,
+      "form1040.line-33": 4500,
+      "form1040.line-34": 505,
+      "form1040.line-37": 0
+    },
+    "blocked_reasons": [],
+    "all_blocked_reasons": {}
+  },
+  "b4_statement_removed": {
+    "name": "b4_statement_removed",
+    "description": "A statement's sales removed, leaving orphan box 4 answer behind; sale counts 0",
+    "core": "v82",
+    "v82_actual_disposition": "computed_zero",
+    "v82_expected_disposition": "published",
+    "v82_lines": {
+      "form1040.line-25b": 0,
+      "form1040.line-33": 4500,
+      "form1040.line-34": 625,
+      "form1040.line-37": 0
+    },
+    "hand_values": {
+      "disposition": "published",
+      "taxable_income": 34250,
+      "tax": 3875,
+      "form1040.line-25b": 0,
+      "form1040.line-33": 4500,
+      "form1040.line-34": 625,
+      "form1040.line-37": 0
+    },
+    "blocked_reasons": [],
+    "all_blocked_reasons": {}
+  },
+  "b4_beside_int_div": {
+    "name": "b4_beside_int_div",
+    "description": "1099-B sale (box 4 yes, $200) beside 1099-INT ($50 b4) and 1099-DIV ($75 b4); total b4 $325",
+    "core": "v82",
+    "v82_actual_disposition": "blocked",
+    "v82_expected_disposition": "blocked",
+    "v82_lines": {
+      "form1040.line-25b": null,
+      "form1040.line-33": null,
+      "form1040.line-34": null,
+      "form1040.line-37": null
+    },
+    "hand_values": {
+      "disposition": "published",
+      "taxable_income": 35550,
+      "tax": 4031,
+      "form1040.line-25b": 325,
+      "form1040.line-33": 4825,
+      "form1040.line-34": 794,
+      "form1040.line-37": 0
+    },
+    "blocked_reasons": [],
+    "all_blocked_reasons": {
+      "form1040.line-25b": [],
+      "form1040.line-33": [],
+      "form1040.line-34": [],
+      "form1040.line-37": []
+    }
+  },
+  "b4_no_one_statement": {
+    "name": "b4_no_one_statement",
+    "description": "Standard one-statement covered ST sale ($1,000 gain), box 4 answered no",
+    "core": "v82",
+    "v82_actual_disposition": "computed_zero",
+    "v82_expected_disposition": "published",
+    "v82_lines": {
+      "form1040.line-25b": 0,
+      "form1040.line-33": 4500,
+      "form1040.line-34": 505,
+      "form1040.line-37": 0
+    },
+    "hand_values": {
+      "disposition": "published",
+      "taxable_income": 35250,
+      "tax": 3995,
+      "form1040.line-25b": 0,
+      "form1040.line-33": 4500,
+      "form1040.line-34": 505,
+      "form1040.line-37": 0
+    },
+    "blocked_reasons": [],
+    "all_blocked_reasons": {}
+  }
+}
