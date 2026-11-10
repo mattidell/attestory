@@ -1,6 +1,6 @@
 # Review: Form 1099-B box 7 beside a loss
 
-Reviewed commit `85a3743d8ee879f799d5e7696113dc2880c5b650` on
+Reviewed the commit that chartered this review (removed at closeout) on
 `milestone/f1099b-box7-loss-2025`, twenty commits after `github/main` at
 `66b8cc8170df0029bbecfa06d3d87552aa9fc216`. Charter:
 `docs/reviews/f1099b-box7-loss/charter-review.md`. Plan:

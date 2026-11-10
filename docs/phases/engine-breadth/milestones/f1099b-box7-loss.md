@@ -3,7 +3,8 @@
   "version": 1,
   "phase": "Engine Breadth",
   "topic": "f1099b-box7-loss",
-  "status": "Open. P0 measured on scratch core v84. Decisions are in the P0 result.",
+  "retrospective": "docs/milestone-retrospectives/2026-11-10-f1099b-box7-loss.md",
+  "status": "Closed. On core v84 a Form 1099-B statement whose box 7 is checked computes unless a sale on it is at a loss; a loss on a checked statement blocks Schedule D line 16 with no question. Every recorded v83 return is identical; earlier cores are unchanged.",
   "scope": [
     "a Form 1099-B statement whose box 7 is checked refuses only where the box 7 rule can change the result: a sale from that statement reported at a loss",
     "a box 7 statement whose sales are all gains or zero computes, and no loss from a box 7 statement is ever published",
@@ -205,3 +206,12 @@ The live grid is 363 coordinate runs: 61 on published v84, 4 reuse runs on publi
 
 `pytest -m "not live"`: 1757 passed, 8 skipped, 4225 subtests passed (17.19 s). Full `pytest`, split into 18 shards and summed, each of the 5925 collected tests once: 5901 passed, 24 skipped, 8913 subtests passed, 0 failed. The shard walls sum to 3576.0 s. `python3 -m mypy`: no issues in 475 source files. `python3 tools/envelope_scan.py --range github/main..HEAD`: clean. No kernel, derivation, or schema edit, and no recording change.
 
+## Closeout
+
+Closed 2026-11-10. Fresh review: docs/reviews/f1099b-box7-loss/review.md,
+ready, one should-fix (the yes-loss sentence) and two notes, all repaired
+in Track 1's repair. The should-fix took the fallback: the line 16
+explanation is now a disjunction of its causes, because a reason that
+names the loss alone needs a derivation change; that is parked. Code L
+(the disallowed loss itself) stays parked. Retrospective:
+`docs/milestone-retrospectives/2026-11-10-f1099b-box7-loss.md`.

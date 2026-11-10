@@ -710,6 +710,17 @@ sales is asked nothing new. Of the 213 v82 returns, 150 now ask the amount
 and 63 are identical; none publishes a different number. Earlier cores are
 unchanged.
 
+## Bounded return — Form 1099-B Box 7 Read Only Beside a Loss (2025)
+
+[Plan](milestones/f1099b-box7-loss.md); retrospective:
+`docs/milestone-retrospectives/2026-11-10-f1099b-box7-loss.md`.
+
+Core v84 replaces v83's refusal on any box 7 "yes" with a per-sale verdict.
+A checked statement whose sales are gains or zero computes; one sale at a
+loss on a checked statement blocks Schedule D line 16 and asks nothing. The
+box 7 question is unchanged. All 298 recorded v83 returns are identical on
+v84; earlier cores are unchanged.
+
 ## Parked work and open questions
 
 This is the single list of parked work and open owner-held questions for the
@@ -835,8 +846,14 @@ delivers an item removes it.
 - A box-4-only Form 1099-B (an open short at year end) is counted when its
   amount is recorded, but the box 4 question is asked only of statements
   with a recorded sale.
-- Box 7 read only beside a loss (core v82 refuses any "yes"); Form 1099-B
-  box 13 bartering, whose refusing answer is not established.
+- Form 1099-B box 13 bartering, whose refusing answer is not established.
+- A loss on a Form 1099-B statement whose box 7 is checked refuses
+  Schedule D line 16 (core v84); the code L adjustment that disallows it is
+  not computed.
+- On a box 7 loss the filer sees the line 16 explanation, a disjunction of
+  every cause that can block the line, and the generic remedy. A reason
+  naming only the loss needs a value rule to carry a selection reason or a
+  check to carry a subject; both are derivation changes.
 - The per-statement box 4 amount and box 7 questions do not name the
   statement.
 - A false Exception 1 "no" with no sale recorded refuses with no question,
