@@ -1,8 +1,8 @@
 # Re-review: Form 1099-B backup withholding repair
 
-Reviewed commit `a2e3e73774dcdcb7bf1c795e95889306263f2911` on
+Reviewed commit (removed at closeout) on
 `milestone/f1099b-backup-withholding-2025`. The repair is the commits after
-`102edba3`. Prior review: `docs/reviews/f1099b-backup-withholding/review.md`.
+(removed at closeout). Prior review: `docs/reviews/f1099b-backup-withholding/review.md`.
 
 Scope: the five findings in that review, the box 4 amount-symbol rule, and
 the box 4 withholding subtotal selection. Decision 6 is the primary path:

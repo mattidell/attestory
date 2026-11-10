@@ -697,6 +697,19 @@ eight defects; core v82 fixes them with content and loader entries only:
 The audit is a committed test: a sale fact field that loses its last reader
 fails it. No v81 published number changes; earlier cores are unchanged.
 
+## Bounded return — Form 1099-B Backup Withholding (2025)
+
+[Plan](milestones/f1099b-backup-withholding.md); retrospective:
+`docs/milestone-retrospectives/2026-11-10-f1099b-backup-withholding.md`.
+
+Core v83 replaces v82's refusal on a box 4 "yes" with one box 4 amount per
+Form 1099-B statement. Every current amount adds to Form 1040 line 25b,
+including one whose statement has no recorded sale; a statement with a
+sale and no amount blocks line 25b with its question. A return with no
+sales is asked nothing new. Of the 213 v82 returns, 150 now ask the amount
+and 63 are identical; none publishes a different number. Earlier cores are
+unchanged.
+
 ## Parked work and open questions
 
 This is the single list of parked work and open owner-held questions for the
@@ -813,11 +826,19 @@ delivers an item removes it.
   other-dependent child and relative counts. None holds a line a filer sees.
 - A general assumption framework, free-text intake and institutional
   verification.
-- Form 1099-B box 4 backup withholding as a real line 25b family (refused
-  by answer per statement on core v82).
+- A selection path must name its collect as a symbol, so core v83 has a
+  rule that publishes 0 under the Form 1099-B box 4 amount's own id, and a
+  second `inert` path on a fact type nothing writes (the schema requires
+  two). No consumer reads the 0, but its explanation walk says 0 beside a
+  recorded amount. Needs a derivation change; then a successor retires
+  both.
+- A box-4-only Form 1099-B (an open short at year end) is counted when its
+  amount is recorded, but the box 4 question is asked only of statements
+  with a recorded sale.
 - Box 7 read only beside a loss (core v82 refuses any "yes"); Form 1099-B
   box 13 bartering, whose refusing answer is not established.
-- The per-statement box 4 and box 7 questions do not name the statement.
+- The per-statement box 4 amount and box 7 questions do not name the
+  statement.
 - A false Exception 1 "no" with no sale recorded refuses with no question,
   and the v2 Exception 1 words still invite "yes" beside a zero-net sale
   (no rule reads them there since line 7b v2).

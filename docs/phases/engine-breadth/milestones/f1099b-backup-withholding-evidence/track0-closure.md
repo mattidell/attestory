@@ -194,7 +194,7 @@ Summary: 7/7 cases matched expected. The five existing subtotals are 100% reusab
 
 **PASS.** Counts below are computed in `track0-rerun-output.json` `summary` from 213 paired `live_coordinate_run` results (published v82 and scratch v83, same recorded act list). Every v82 projection matches `tests/fixtures/sale_family_audit_v82/expected.json` (`reproduces_v82_fixture_count` 213, `all_reproduce_v82_fixture` true).
 
-The committed declaration at `d651c58b` labelled this row PASS from `has_sales` / outcome, not from a v82-versus-v83 comparison, and hardcoded `v82_disp_25b` as `computed_zero`. That is what made four no-sale returns look like `computed_zero` to `blocked` while classed `identical`. This rerun runs both cores and compares every line value, disposition, blocked-line reason, attachment disposition, and watched row.
+The committed declaration at (removed at closeout) labelled this row PASS from `has_sales` / outcome, not from a v82-versus-v83 comparison, and hardcoded `v82_disp_25b` as `computed_zero`. That is what made four no-sale returns look like `computed_zero` to `blocked` while classed `identical`. This rerun runs both cores and compares every line value, disposition, blocked-line reason, attachment disposition, and watched row.
 
 | Class | Count | What it is |
 | --- | --- | --- |

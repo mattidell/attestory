@@ -1,6 +1,6 @@
 # Review: Form 1099-B backup withholding, core v83
 
-Reviewed commit `71b0753d70e92e5e7a35e8cb09628d4ae6d22f61` on
+Reviewed commit (removed at closeout) on
 `milestone/f1099b-backup-withholding-2025`, compared with `github/main`.
 
 Scope: federal income tax withheld in Form 1099-B box 4 reaches Form 1040

@@ -4,7 +4,7 @@ Role: Reviewer. Source HEAD on milestone/f1099b-backup-withholding-2025.
 Plan: docs/phases/engine-breadth/milestones/f1099b-backup-withholding.md
 (Decision 6 and the "Track 1 result" Repair paragraph). Prior review:
 docs/reviews/f1099b-backup-withholding/review.md. The repair is the
-commits after 102edba3. You have not seen the repair, so judge from the
+commits after (removed at closeout). You have not seen the repair, so judge from the
 committed content, tests and evidence. Do not read governance.
 
 ## Questions

@@ -3,7 +3,8 @@
   "version": 1,
   "phase": "Engine Breadth",
   "topic": "f1099b-backup-withholding",
-  "status": "Open. P0 (how Form 1099-B box 4 reaches line 25b on core v82) first.",
+  "retrospective": "docs/milestone-retrospectives/2026-11-10-f1099b-backup-withholding.md",
+  "status": "Closed. On core v83 every current Form 1099-B box 4 amount adds to line 25b, one per statement, including a statement with no recorded sale; a sale statement without an amount blocks line 25b with its question. No v82 published number changes; earlier cores are unchanged.",
   "scope": [
     "federal income tax withheld in Form 1099-B box 4 reaches Form 1040 line 25b once per statement, and the per-statement refusal on a box 4 yes is retired",
     "a statement whose box 4 is unanswered or unrecorded never publishes line 25b, and no withholding is counted twice or counted without its statement",
@@ -250,3 +251,12 @@ The sale-fact audit on v83 counts the box 4 amount as read only when a value-sid
 **Checks.** `pytest -m "not live"`: 1748 passed, 8 skipped, 4204 subtests passed (17.00s). Full `pytest`: 5539 passed, 24 skipped, 8850 subtests passed (2130.78s). `python3 -m mypy`: no issues in 473 source files. `python3 tools/envelope_scan.py --range github/main..HEAD`: clean.
 
 **Deviation.** None. The published class counts match the Track 0 outcome.
+
+## Closeout
+
+Closed 2026-11-10. Fresh review: docs/reviews/f1099b-backup-withholding/review.md
+(one blocking finding, repaired under Decision 6). Re-review:
+docs/reviews/f1099b-backup-withholding/rereview.md, ready; its should-fix
+(the amount-symbol rule) needs a derivation change and is parked, and its
+note (the `inert` path) is parked with it. Retrospective:
+`docs/milestone-retrospectives/2026-11-10-f1099b-backup-withholding.md`.
