@@ -1,0 +1,48 @@
+{
+  "tax_year": 2025,
+  "fetched_from": "irs.gov pub/irs-prior",
+  "sources": [
+    {
+      "document": "2025 Form 1099-B",
+      "filename": "f1099b--2025.pdf",
+      "sha256": "7e334cea66c2b2be3d88615a56db288a2805cb8705076b3b282a4eabbbd788ad"
+    },
+    {
+      "document": "2025 Instructions for Form 1099-B",
+      "filename": "i1099b--2025.pdf",
+      "sha256": "55bbe7df46f43f2c305481f303bc9e6518f5874766a2d183f2cb14dc0b91d745"
+    },
+    {
+      "document": "2025 Instructions for Form 1040",
+      "filename": "i1040gi--2025.pdf",
+      "sha256": "482e9c487c608f1bbeaceef35bc3c0933e8b35443cfff447e4279d590468364a"
+    }
+  ],
+  "quotes": [
+    {
+      "source": "2025 Form 1099-B, Copy B, Instructions for Recipient, Box 4",
+      "text": "Box 4. Shows backup withholding. Generally, a payer must backup withhold if you did not furnish your TIN to the payer. See Form W-9 for information on backup withholding. Include this amount on your income tax return as tax withheld."
+    },
+    {
+      "source": "2025 Instructions for Form 1099-B, page 2, Short sales of securities",
+      "text": "Short sales of securities. Do not report a short sale entered into after 2010 until the year a customer delivers a security to satisfy the short sale obligation, unless there is backup withholding. See Backup withholding, later."
+    },
+    {
+      "source": "2025 Instructions for Form 1099-B, Backup withholding on an open short sale",
+      "text": "In the case of a short sale, you can take backup withholding either: From the gross proceeds when the short sale is opened, or From any gain when the short sale is closed if you expect to be able to determine the gain on the short sale at that time. Backup withholding. If backup withholding was taken from the gross proceeds when a short sale was opened in 2025 but the short sale was not closed by the end of 2025, file a 2025 Form 1099-B. Report the tax withheld in box 4. In box 1a, enter a brief description of the transaction (for example, \"$5,000 short sale of 100 shares of ABC stock not closed\"). Leave the other numbered boxes blank. File a final Form 1099-B for the year the short sale is closed, as described above, but do not include the 2025 tax withheld on that Form 1099-B."
+    },
+    {
+      "source": "2025 Instructions for Form 1099-B, page 12, Box 4. Federal Income Tax Withheld",
+      "text": "Box 4. Federal Income Tax Withheld. Enter backup withholding. For example, persons who have not furnished their TIN to you in the manner required are subject to withholding on certain amounts required to be reported on this form. This is called backup withholding. For more information on backup withholding, including the rate, see part N in the current General Instructions for Certain Information Returns and go to IRS.gov/Form1099B."
+    },
+    {
+      "source": "2025 Instructions for Form 1040, Line 25b—Form(s) 1099",
+      "text": "Line 25b—Form(s) 1099. Include on line 25b any federal income tax withheld on your Form(s) 1099-R. The amount withheld should be shown in box 4. Attach your Form(s) 1099-R to the front of your return if federal income tax was withheld. If you received a 2025 Form 1099 showing federal income tax withheld on dividends, taxable or tax-exempt interest income, unemployment compensation, social security benefits, railroad retirement benefits, or other income you received, include the amount withheld in the total on line 25b. This should be shown in box 4 of Form 1099, box 6, of Form SSA-1099, or box 10 of Form RRB-1099."
+    }
+  ],
+  "reading": {
+    "box4_is_tax_withheld": "Copy B tells the recipient to include box 4 on the income tax return as tax withheld. Line 25b tells the filer to include federal income tax withheld shown in box 4 of a 2025 Form 1099, including other income. Backup withholding on an open short is that amount.",
+    "open_short_has_no_sale_on_the_year_end_form": "The payer files a 2025 Form 1099-B for backup withholding taken when a 2025 short sale is opened and still open at year end. Box 4 holds the tax withheld. Box 1a is a description. The other numbered boxes are blank. The closed sale is reported on a later year's Form 1099-B, which must not repeat the 2025 withholding.",
+    "hand_constants": "Single filer. Wages $50,000 and Form W-2 withholding $4,500 are the harness return. Standard deduction $15,750. Ordinary brackets 10% to $11,925, 12% to $48,475, 22% to $103,350. Tax under $100,000 is the Tax Table tax on the band midpoint, rounded half up. Line 25a is the W-2 withholding. Line 25b is Form 1099 withholding. Line 25d is 25a plus 25b plus 25c. Line 33 is total payments. Line 34 is the refund when payments exceed tax. Line 37 is the amount owed when tax exceeds payments."
+  }
+}

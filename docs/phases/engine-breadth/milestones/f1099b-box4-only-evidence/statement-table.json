@@ -1,0 +1,591 @@
+{
+  "core": {
+    "package": "v84",
+    "registry": "v82",
+    "release": "v82"
+  },
+  "box4_amount": {
+    "id": "tax.us.2025.f1099b.statement-box4-withholding",
+    "version": "v1",
+    "identity_keys": [
+      "statement",
+      "tax-year"
+    ],
+    "value_schema": {
+      "type": "number",
+      "minimum": 0
+    },
+    "lives_in": "tax.us.2025.f1099b.box4 v1",
+    "source_family": {
+      "id": "tax.us.2025.f1099b.b4",
+      "version": "v1",
+      "adopted_on_v84": true,
+      "closure_claim": "Every current Form 1099-B box 4 amount is added to Form 1040 line 25b, including an amount whose statement has no sale recorded. A return with no such amount adds nothing from this family and is asked nothing new about box 4.",
+      "require_closed_on_line25b": false,
+      "closure_mapping_on_v84": []
+    }
+  },
+  "legacy_box4_yes_no": {
+    "id": "tax.us.2025.f1099b.statement-box4-withholding-reported",
+    "question_still_a_member": true,
+    "read_by_line25b_v7": false
+  },
+  "question_that_asks_the_amount": {
+    "id": "tax.us.2025.input-question.f1099b-box4",
+    "version": "v1",
+    "adopted_on_v84": true,
+    "text": "Enter the federal income tax withheld in box 4 of each Form 1099-B or substitute statement you recorded a sale from. If box 4 is blank, enter $0.",
+    "asked_when": "line 25b v7 require_paired needs a box 4 amount for each recorded sale's statement. A recorded statement with no sale is not an income row, so the question is not asked of it."
+  },
+  "line25b": {
+    "rule": "tax.us.2025.rule.form1040-line25b",
+    "version": "v7",
+    "form_field": "tax.us.2025.form1040.line-25b v5",
+    "pairing": "require_paired on statement between the eight sale transaction types and tax.us.2025.f1099b.statement-box4-withholding",
+    "surplus_amount_without_sale": "allowed, and the subtotal collects it",
+    "empty_amount_set": "the subtotal selection default publishes 0; the filer is not asked to close f1099b.b4",
+    "blocked_explain": "Form 1040 line 25b is blocked because an input it needs is missing or not yet closed. It is also blocked while a recorded sale's statement has no box 4 amount."
+  },
+  "rules_that_read_box4_or_the_b4_family": [
+    {
+      "id": "tax.us.2025.rule.f1099b-b4-amount-symbol",
+      "version": "v1",
+      "adopted_on_v84": true,
+      "publishes": "tax.us.2025.f1099b.statement-box4-withholding",
+      "mentions": [
+        "tax.us.2025.f1099b.statement-box4-withholding"
+      ],
+      "file": "rule.f1099b-b4-amount-symbol.json"
+    },
+    {
+      "id": "tax.us.2025.rule.f1099b-b4-withholding-subtotal",
+      "version": "v1",
+      "adopted_on_v84": true,
+      "publishes": "tax.us.2025.f1099b.b4-withholding-subtotal",
+      "mentions": [
+        "tax.us.2025.f1099b.statement-box4-withholding",
+        "tax.us.2025.f1099b.b4"
+      ],
+      "file": "rule.f1099b-b4-withholding-subtotal.json"
+    },
+    {
+      "id": "tax.us.2025.rule.form1040-line25b",
+      "version": "v7",
+      "adopted_on_v84": true,
+      "publishes": "tax.us.2025.payments.line25b",
+      "mentions": [
+        "tax.us.2025.f1099b.statement-box4-withholding",
+        "tax.us.2025.f1099b.b4"
+      ],
+      "file": "rule.form1040-line25b.v7.json"
+    }
+  ],
+  "rules_that_pair_on_statement_for_f1099b": [
+    {
+      "id": "tax.us.2025.rule.f1099b.code-b-lt-txn.box7-loss-check",
+      "version": "v1",
+      "publishes": "tax.us.2025.f1099b.code-b-lt-txn.box7-loss-check",
+      "file": "rule.f1099b.code-b-lt-txn.box7-loss-check.json"
+    },
+    {
+      "id": "tax.us.2025.rule.f1099b.code-b-st-txn.box7-loss-check",
+      "version": "v1",
+      "publishes": "tax.us.2025.f1099b.code-b-st-txn.box7-loss-check",
+      "file": "rule.f1099b.code-b-st-txn.box7-loss-check.json"
+    },
+    {
+      "id": "tax.us.2025.rule.f1099b.covered-lt-txn.box7-loss-check",
+      "version": "v1",
+      "publishes": "tax.us.2025.f1099b.covered-lt-txn.box7-loss-check",
+      "file": "rule.f1099b.covered-lt-txn.box7-loss-check.json"
+    },
+    {
+      "id": "tax.us.2025.rule.f1099b.covered-st-txn.box7-loss-check",
+      "version": "v1",
+      "publishes": "tax.us.2025.f1099b.covered-st-txn.box7-loss-check",
+      "file": "rule.f1099b.covered-st-txn.box7-loss-check.json"
+    },
+    {
+      "id": "tax.us.2025.rule.f1099b.covered-w-lt-txn.box7-loss-check",
+      "version": "v1",
+      "publishes": "tax.us.2025.f1099b.covered-w-lt-txn.box7-loss-check",
+      "file": "rule.f1099b.covered-w-lt-txn.box7-loss-check.json"
+    },
+    {
+      "id": "tax.us.2025.rule.f1099b.covered-w-st-txn.box7-loss-check",
+      "version": "v1",
+      "publishes": "tax.us.2025.f1099b.covered-w-st-txn.box7-loss-check",
+      "file": "rule.f1099b.covered-w-st-txn.box7-loss-check.json"
+    },
+    {
+      "id": "tax.us.2025.rule.f1099b.noncovered-lt-txn.box7-loss-check",
+      "version": "v1",
+      "publishes": "tax.us.2025.f1099b.noncovered-lt-txn.box7-loss-check",
+      "file": "rule.f1099b.noncovered-lt-txn.box7-loss-check.json"
+    },
+    {
+      "id": "tax.us.2025.rule.f1099b.noncovered-st-txn.box7-loss-check",
+      "version": "v1",
+      "publishes": "tax.us.2025.f1099b.noncovered-st-txn.box7-loss-check",
+      "file": "rule.f1099b.noncovered-st-txn.box7-loss-check.json"
+    },
+    {
+      "id": "tax.us.2025.rule.form1040-line25b",
+      "version": "v7",
+      "publishes": "tax.us.2025.payments.line25b",
+      "file": "rule.form1040-line25b.v7.json"
+    },
+    {
+      "id": "tax.us.2025.rule.schedule-d-line16",
+      "version": "v4",
+      "publishes": "tax.us.2025.schedule-d.line-16",
+      "file": "rule.schedule-d-line16.v4.json"
+    }
+  ],
+  "questions_that_ask_box4": [
+    {
+      "id": "tax.us.2025.input-question.f1099b-box4",
+      "version": "v1",
+      "adopted_on_v84": true,
+      "fact_type": "tax.us.2025.f1099b.statement-box4-withholding",
+      "question": "Enter the federal income tax withheld in box 4 of each Form 1099-B or substitute statement you recorded a sale from. If box 4 is blank, enter $0.",
+      "mentions": [
+        "tax.us.2025.f1099b.statement-box4-withholding",
+        "Form 1099-B",
+        "f1099b"
+      ],
+      "file": "input-question.f1099b-box4.v1.json"
+    },
+    {
+      "id": "tax.us.2025.input-question.f1099b-statement-box4-withholding-reported",
+      "version": "v1",
+      "adopted_on_v84": true,
+      "fact_type": "tax.us.2025.f1099b.statement-box4-withholding-reported",
+      "question": "For each Form 1099-B or substitute statement you recorded a sale from, does it show federal income tax withheld in box 4?",
+      "mentions": [
+        "tax.us.2025.f1099b.statement-box4-withholding",
+        "tax.us.2025.f1099b.statement-box4-withholding-reported",
+        "Form 1099-B",
+        "f1099b"
+      ],
+      "file": "input-question.f1099b-statement-box4-withholding-reported.json"
+    }
+  ],
+  "other_adopted_questions_that_name_a_1099b_statement_or_sale": [
+    {
+      "id": "tax.us.2025.input-question.f1099b-code-b-lt-adjustment",
+      "version": "v1",
+      "adopted_on_v84": true,
+      "fact_type": "tax.us.2025.f1099b.code-b-lt-txn.adjustment",
+      "question": "What is the column (g) adjustment for each long-term sale you recorded whose reported basis is wrong: the basis shown minus the correct basis, plus any wash-sale loss disallowed?",
+      "mentions": [
+        "f1099b"
+      ],
+      "file": "input-question.f1099b-code-b-lt-adjustment.json"
+    },
+    {
+      "id": "tax.us.2025.input-question.f1099b-code-b-lt-basis",
+      "version": "v1",
+      "adopted_on_v84": true,
+      "fact_type": "tax.us.2025.f1099b.code-b-lt-txn.basis",
+      "question": "What basis does your Form 1099-B show for each long-term sale you recorded whose reported basis is wrong?",
+      "mentions": [
+        "Form 1099-B",
+        "f1099b"
+      ],
+      "file": "input-question.f1099b-code-b-lt-basis.json"
+    },
+    {
+      "id": "tax.us.2025.input-question.f1099b-code-b-lt-proceeds",
+      "version": "v1",
+      "adopted_on_v84": true,
+      "fact_type": "tax.us.2025.f1099b.code-b-lt-txn.proceeds",
+      "question": "What are the proceeds shown on your Form 1099-B for each long-term sale you recorded whose reported basis is wrong?",
+      "mentions": [
+        "Form 1099-B",
+        "f1099b"
+      ],
+      "file": "input-question.f1099b-code-b-lt-proceeds.json"
+    },
+    {
+      "id": "tax.us.2025.input-question.f1099b-code-b-sold",
+      "version": "v1",
+      "adopted_on_v84": true,
+      "fact_type": "tax.us.2025.f1099b.code-b-sold.source-closure",
+      "question": "Did any Form 1099-B or substitute statement you received show a cost or other basis, reported to the IRS, that is wrong?",
+      "mentions": [
+        "Form 1099-B",
+        "f1099b"
+      ],
+      "file": "input-question.f1099b-code-b-sold.json"
+    },
+    {
+      "id": "tax.us.2025.input-question.f1099b-code-b-st-adjustment",
+      "version": "v1",
+      "adopted_on_v84": true,
+      "fact_type": "tax.us.2025.f1099b.code-b-st-txn.adjustment",
+      "question": "What is the column (g) adjustment for each short-term sale you recorded whose reported basis is wrong: the basis shown minus the correct basis, plus any wash-sale loss disallowed?",
+      "mentions": [
+        "f1099b"
+      ],
+      "file": "input-question.f1099b-code-b-st-adjustment.json"
+    },
+    {
+      "id": "tax.us.2025.input-question.f1099b-code-b-st-basis",
+      "version": "v1",
+      "adopted_on_v84": true,
+      "fact_type": "tax.us.2025.f1099b.code-b-st-txn.basis",
+      "question": "What basis does your Form 1099-B show for each short-term sale you recorded whose reported basis is wrong?",
+      "mentions": [
+        "Form 1099-B",
+        "f1099b"
+      ],
+      "file": "input-question.f1099b-code-b-st-basis.json"
+    },
+    {
+      "id": "tax.us.2025.input-question.f1099b-code-b-st-proceeds",
+      "version": "v1",
+      "adopted_on_v84": true,
+      "fact_type": "tax.us.2025.f1099b.code-b-st-txn.proceeds",
+      "question": "What are the proceeds shown on your Form 1099-B for each short-term sale you recorded whose reported basis is wrong?",
+      "mentions": [
+        "Form 1099-B",
+        "f1099b"
+      ],
+      "file": "input-question.f1099b-code-b-st-proceeds.json"
+    },
+    {
+      "id": "tax.us.2025.input-question.f1099b-noncovered-lt-basis",
+      "version": "v1",
+      "adopted_on_v84": true,
+      "fact_type": "tax.us.2025.f1099b.noncovered-lt-txn.basis",
+      "question": "What is the basis of each long-term sale you recorded whose basis was not reported to the IRS?",
+      "mentions": [
+        "f1099b"
+      ],
+      "file": "input-question.f1099b-noncovered-lt-basis.json"
+    },
+    {
+      "id": "tax.us.2025.input-question.f1099b-noncovered-lt-proceeds",
+      "version": "v1",
+      "adopted_on_v84": true,
+      "fact_type": "tax.us.2025.f1099b.noncovered-lt-txn.proceeds",
+      "question": "What are the proceeds of each long-term sale you recorded whose basis was not reported to the IRS?",
+      "mentions": [
+        "f1099b"
+      ],
+      "file": "input-question.f1099b-noncovered-lt-proceeds.json"
+    },
+    {
+      "id": "tax.us.2025.input-question.f1099b-noncovered-sold",
+      "version": "v1",
+      "adopted_on_v84": true,
+      "fact_type": "tax.us.2025.f1099b.noncovered-sold.source-closure",
+      "question": "Did you sell any securities whose basis was not reported to the IRS?",
+      "mentions": [
+        "f1099b"
+      ],
+      "file": "input-question.f1099b-noncovered-sold.json"
+    },
+    {
+      "id": "tax.us.2025.input-question.f1099b-noncovered-st-basis",
+      "version": "v1",
+      "adopted_on_v84": true,
+      "fact_type": "tax.us.2025.f1099b.noncovered-st-txn.basis",
+      "question": "What is the basis of each short-term sale you recorded whose basis was not reported to the IRS?",
+      "mentions": [
+        "f1099b"
+      ],
+      "file": "input-question.f1099b-noncovered-st-basis.json"
+    },
+    {
+      "id": "tax.us.2025.input-question.f1099b-noncovered-st-proceeds",
+      "version": "v1",
+      "adopted_on_v84": true,
+      "fact_type": "tax.us.2025.f1099b.noncovered-st-txn.proceeds",
+      "question": "What are the proceeds of each short-term sale you recorded whose basis was not reported to the IRS?",
+      "mentions": [
+        "f1099b"
+      ],
+      "file": "input-question.f1099b-noncovered-st-proceeds.json"
+    },
+    {
+      "id": "tax.us.2025.input-question.f1099b-statement-box7-loss-not-allowed",
+      "version": "v1",
+      "adopted_on_v84": true,
+      "fact_type": "tax.us.2025.f1099b.statement-box7-loss-not-allowed",
+      "question": "For each Form 1099-B or substitute statement you recorded a sale from, is box 7 (\"If checked, loss is not allowed based on amount in 1d\") checked for any sale on it?",
+      "mentions": [
+        "Form 1099-B",
+        "f1099b"
+      ],
+      "file": "input-question.f1099b-statement-box7-loss-not-allowed.json"
+    },
+    {
+      "id": "tax.us.2025.input-question.f8949-no1099b-lt-basis",
+      "version": "v1",
+      "adopted_on_v84": true,
+      "fact_type": "tax.us.2025.f8949.no1099b-lt-txn.basis",
+      "question": "What is the basis of each long-term sale you recorded without a Form 1099-B?",
+      "mentions": [
+        "Form 1099-B"
+      ],
+      "file": "input-question.f8949-no1099b-lt-basis.json"
+    },
+    {
+      "id": "tax.us.2025.input-question.f8949-no1099b-lt-proceeds",
+      "version": "v1",
+      "adopted_on_v84": true,
+      "fact_type": "tax.us.2025.f8949.no1099b-lt-txn.proceeds",
+      "question": "What are the net proceeds of each long-term sale you recorded without a Form 1099-B?",
+      "mentions": [
+        "Form 1099-B"
+      ],
+      "file": "input-question.f8949-no1099b-lt-proceeds.json"
+    },
+    {
+      "id": "tax.us.2025.input-question.f8949-no1099b-sold",
+      "version": "v1",
+      "adopted_on_v84": true,
+      "fact_type": "tax.us.2025.f8949.no1099b-sold.source-closure",
+      "question": "Did you sell any stocks or other securities for which you did not receive a Form 1099-B or substitute statement?",
+      "mentions": [
+        "Form 1099-B"
+      ],
+      "file": "input-question.f8949-no1099b-sold.json"
+    },
+    {
+      "id": "tax.us.2025.input-question.f8949-no1099b-st-basis",
+      "version": "v1",
+      "adopted_on_v84": true,
+      "fact_type": "tax.us.2025.f8949.no1099b-st-txn.basis",
+      "question": "What is the basis of each short-term sale you recorded without a Form 1099-B?",
+      "mentions": [
+        "Form 1099-B"
+      ],
+      "file": "input-question.f8949-no1099b-st-basis.json"
+    },
+    {
+      "id": "tax.us.2025.input-question.f8949-no1099b-st-proceeds",
+      "version": "v1",
+      "adopted_on_v84": true,
+      "fact_type": "tax.us.2025.f8949.no1099b-st-txn.proceeds",
+      "question": "What are the net proceeds of each short-term sale you recorded without a Form 1099-B?",
+      "mentions": [
+        "Form 1099-B"
+      ],
+      "file": "input-question.f8949-no1099b-st-proceeds.json"
+    },
+    {
+      "id": "tax.us.2025.input-question.schedule-d-boundary-form8949-code-b-in-class",
+      "version": "v1",
+      "adopted_on_v84": true,
+      "fact_type": "tax.us.2025.schedule-d-boundary.form8949-code-b-in-class",
+      "question": "Each sale on your Form 8949 should be one of two kinds. (1) A sale your broker reported to the IRS with its basis, with no adjustment other than a wash-sale loss or a correction of that basis. (2) A sale of stocks or other securities, entered only once and in the one box its statement gives it, with a basis you supply (the correct basis, even if your Form 1099-B showed a different one), net proceeds you supply when you got no Form 1099-B, and no adjustment other than a wash-sale loss. Is every sale on your Form 8949 one of these two kinds?",
+      "mentions": [
+        "Form 1099-B"
+      ],
+      "file": "input-question.schedule-d-boundary-form8949-code-b-in-class.json"
+    },
+    {
+      "id": "tax.us.2025.input-question.schedule-d-boundary-form8949-in-class",
+      "version": "v1",
+      "adopted_on_v84": true,
+      "fact_type": "tax.us.2025.schedule-d-boundary.form8949-in-class",
+      "question": "Is every sale on your Form 8949 either a sale your broker reported with its basis and no adjustment other than a wash-sale loss, or a sale of stocks or other securities, entered only once, with a basis you supply (and net proceeds you supply when you got no Form 1099-B) and no adjustment other than a wash-sale loss?",
+      "mentions": [
+        "Form 1099-B"
+      ],
+      "file": "input-question.schedule-d-boundary-form8949-in-class.json"
+    }
+  ],
+  "sale_families_on_v84": [
+    {
+      "family": "tax.us.2025.f1099b.covered-st",
+      "family_version_on_v84": "v1",
+      "txn": "tax.us.2025.f1099b.covered-st-txn",
+      "closes": "sales of this class, not the set of Form 1099-B statements",
+      "closure_mapping_on_v84": [
+        "v2"
+      ]
+    },
+    {
+      "family": "tax.us.2025.f1099b.covered-lt",
+      "family_version_on_v84": "v1",
+      "txn": "tax.us.2025.f1099b.covered-lt-txn",
+      "closes": "sales of this class, not the set of Form 1099-B statements",
+      "closure_mapping_on_v84": [
+        "v2"
+      ]
+    },
+    {
+      "family": "tax.us.2025.f1099b.covered-w-st",
+      "family_version_on_v84": "v2",
+      "txn": "tax.us.2025.f1099b.covered-w-st-txn",
+      "closes": "sales of this class, not the set of Form 1099-B statements",
+      "closure_mapping_on_v84": [
+        "v3"
+      ]
+    },
+    {
+      "family": "tax.us.2025.f1099b.covered-w-lt",
+      "family_version_on_v84": "v2",
+      "txn": "tax.us.2025.f1099b.covered-w-lt-txn",
+      "closes": "sales of this class, not the set of Form 1099-B statements",
+      "closure_mapping_on_v84": [
+        "v3"
+      ]
+    },
+    {
+      "family": "tax.us.2025.f1099b.noncovered-st",
+      "family_version_on_v84": "v1",
+      "txn": "tax.us.2025.f1099b.noncovered-st-txn",
+      "closes": "sales of this class, not the set of Form 1099-B statements",
+      "closure_mapping_on_v84": [
+        "v1"
+      ]
+    },
+    {
+      "family": "tax.us.2025.f1099b.noncovered-lt",
+      "family_version_on_v84": "v1",
+      "txn": "tax.us.2025.f1099b.noncovered-lt-txn",
+      "closes": "sales of this class, not the set of Form 1099-B statements",
+      "closure_mapping_on_v84": [
+        "v1"
+      ]
+    },
+    {
+      "family": "tax.us.2025.f1099b.code-b-st",
+      "family_version_on_v84": "v1",
+      "txn": "tax.us.2025.f1099b.code-b-st-txn",
+      "closes": "sales of this class, not the set of Form 1099-B statements",
+      "closure_mapping_on_v84": []
+    },
+    {
+      "family": "tax.us.2025.f1099b.code-b-lt",
+      "family_version_on_v84": "v1",
+      "txn": "tax.us.2025.f1099b.code-b-lt-txn",
+      "closes": "sales of this class, not the set of Form 1099-B statements",
+      "closure_mapping_on_v84": []
+    }
+  ],
+  "what_closes_every_form_1099b_statement": "Nothing. Sale-family closures close sales of each class. f1099b.b4 is not require_closed. There is no statement-set closure and no return-level question that asks whether every Form 1099-B was recorded.",
+  "how_a_no_sale_statement_is_recorded": {
+    "product_recording_module": null,
+    "kernel_act": "entity-introduced of kind tax.us.f1099b-statement",
+    "side_effect_of_a_sale": "recording a sale introduces broker, statement and transaction entities as the sale's identity keys",
+    "box4_amount_without_a_sale": "an assertion of statement-box4-withholding on a statement entity is admitted; line 25b counts it (Decision 6). Nothing asks for that assertion."
+  },
+  "loader_entries_that_read_box4": [],
+  "loader_v84_presence_pairs_for_f1099b_sale_scalars": [
+    {
+      "row": "tax.us.2025.f1099b.code-b-lt-txn.adjustment",
+      "companion": "tax.us.2025.f1099b.code-b-lt-txn"
+    },
+    {
+      "row": "tax.us.2025.f1099b.code-b-lt-txn.basis",
+      "companion": "tax.us.2025.f1099b.code-b-lt-txn"
+    },
+    {
+      "row": "tax.us.2025.f1099b.code-b-lt-txn.proceeds",
+      "companion": "tax.us.2025.f1099b.code-b-lt-txn"
+    },
+    {
+      "row": "tax.us.2025.f1099b.code-b-st-txn.adjustment",
+      "companion": "tax.us.2025.f1099b.code-b-st-txn"
+    },
+    {
+      "row": "tax.us.2025.f1099b.code-b-st-txn.basis",
+      "companion": "tax.us.2025.f1099b.code-b-st-txn"
+    },
+    {
+      "row": "tax.us.2025.f1099b.code-b-st-txn.proceeds",
+      "companion": "tax.us.2025.f1099b.code-b-st-txn"
+    },
+    {
+      "row": "tax.us.2025.f1099b.covered-lt-txn.basis",
+      "companion": "tax.us.2025.f1099b.covered-lt-txn"
+    },
+    {
+      "row": "tax.us.2025.f1099b.covered-lt-txn.proceeds",
+      "companion": "tax.us.2025.f1099b.covered-lt-txn"
+    },
+    {
+      "row": "tax.us.2025.f1099b.covered-st-txn.basis",
+      "companion": "tax.us.2025.f1099b.covered-st-txn"
+    },
+    {
+      "row": "tax.us.2025.f1099b.covered-st-txn.proceeds",
+      "companion": "tax.us.2025.f1099b.covered-st-txn"
+    },
+    {
+      "row": "tax.us.2025.f1099b.covered-w-lt-txn.adjustment",
+      "companion": "tax.us.2025.f1099b.covered-w-lt-txn"
+    },
+    {
+      "row": "tax.us.2025.f1099b.covered-w-lt-txn.basis",
+      "companion": "tax.us.2025.f1099b.covered-w-lt-txn"
+    },
+    {
+      "row": "tax.us.2025.f1099b.covered-w-lt-txn.proceeds",
+      "companion": "tax.us.2025.f1099b.covered-w-lt-txn"
+    },
+    {
+      "row": "tax.us.2025.f1099b.covered-w-st-txn.adjustment",
+      "companion": "tax.us.2025.f1099b.covered-w-st-txn"
+    },
+    {
+      "row": "tax.us.2025.f1099b.covered-w-st-txn.basis",
+      "companion": "tax.us.2025.f1099b.covered-w-st-txn"
+    },
+    {
+      "row": "tax.us.2025.f1099b.covered-w-st-txn.proceeds",
+      "companion": "tax.us.2025.f1099b.covered-w-st-txn"
+    },
+    {
+      "row": "tax.us.2025.f1099b.noncovered-lt-txn.adjustment",
+      "companion": "tax.us.2025.f1099b.noncovered-lt-txn"
+    },
+    {
+      "row": "tax.us.2025.f1099b.noncovered-lt-txn.basis",
+      "companion": "tax.us.2025.f1099b.noncovered-lt-txn"
+    },
+    {
+      "row": "tax.us.2025.f1099b.noncovered-lt-txn.proceeds",
+      "companion": "tax.us.2025.f1099b.noncovered-lt-txn"
+    },
+    {
+      "row": "tax.us.2025.f1099b.noncovered-st-txn.adjustment",
+      "companion": "tax.us.2025.f1099b.noncovered-st-txn"
+    },
+    {
+      "row": "tax.us.2025.f1099b.noncovered-st-txn.basis",
+      "companion": "tax.us.2025.f1099b.noncovered-st-txn"
+    },
+    {
+      "row": "tax.us.2025.f1099b.noncovered-st-txn.proceeds",
+      "companion": "tax.us.2025.f1099b.noncovered-st-txn"
+    }
+  ],
+  "loader_note": "Core v84's companion declaration copies v83: box 4 takes no presence pair. Scalar pairs require each sale amount row to have its sale object. They do not introduce or close a statement.",
+  "covered_flag_refusal_map_on_v84": {
+    "copies": "v83 / v82 map; no box 4 token",
+    "objects": [
+      "tax.us.2025.f1099b.covered-lt-txn",
+      "tax.us.2025.f1099b.covered-st-txn",
+      "tax.us.2025.f1099b.covered-w-lt-txn",
+      "tax.us.2025.f1099b.covered-w-st-txn"
+    ]
+  },
+  "packages_tax_files_that_mention_f1099b": [
+    {
+      "file": "loader.py",
+      "mentions_statement_kind": false,
+      "mentions_box4": false
+    }
+  ],
+  "not_a_1099b_statement_reader": [
+    "tax.us.2025.citation.f1099div.box7 and f1099div.box7.vocabulary are Form 1099-DIV box 7.",
+    "input-question.f8949-no1099b-sold asks about sales with no Form 1099-B."
+  ]
+}

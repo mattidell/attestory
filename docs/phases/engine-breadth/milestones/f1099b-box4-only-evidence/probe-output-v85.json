@@ -1,0 +1,628 @@
+{
+  "core": "v85",
+  "cases": [
+    {
+      "id": "no_1099b",
+      "note": "No Form 1099-B at all. v84 publishes line 25b 0. v85 asks the present question unless answered no.",
+      "expect": "published",
+      "hand": {
+        "form1040.line-25a": 4500,
+        "form1040.line-25b": 0,
+        "form1040.line-25c": 0,
+        "form1040.line-25d": 4500,
+        "form1040.line-33": 4500,
+        "form1040.line-34": 625,
+        "form1040.line-37": 0,
+        "form1040.line-7a": 0,
+        "form1040.line-15": 34250,
+        "form1040.line-16": 3875
+      },
+      "present": "no",
+      "amount": null,
+      "stmt_amounts": {},
+      "result": {
+        "outcome": "success",
+        "disposition": "published",
+        "lines": {
+          "form1040.line-15": 34250,
+          "form1040.line-16": 3875,
+          "form1040.line-25a": 4500,
+          "form1040.line-25b": 0,
+          "form1040.line-25c": 0,
+          "form1040.line-25d": 4500,
+          "form1040.line-33": 4500,
+          "form1040.line-34": 625,
+          "form1040.line-37": 0,
+          "form1040.line-7a": 0
+        },
+        "questions": [],
+        "reasons": {},
+        "blocked": []
+      },
+      "compare": {
+        "matches_hand": true,
+        "diffs": []
+      }
+    },
+    {
+      "id": "b4_only_unasked",
+      "note": "One statement entity, no sale, box 4 unasked. The filer received $150. v84 publishes 0, short of that withholding. v85 blocks and asks the present question.",
+      "expect": "blocked",
+      "hand": null,
+      "present": null,
+      "amount": null,
+      "stmt_amounts": {},
+      "result": {
+        "outcome": "success",
+        "disposition": "blocked",
+        "lines": {
+          "form1040.line-15": 34250,
+          "form1040.line-16": 3875,
+          "form1040.line-25a": 4500,
+          "form1040.line-25b": "blocked",
+          "form1040.line-25c": 0,
+          "form1040.line-25d": "blocked",
+          "form1040.line-33": "blocked",
+          "form1040.line-34": "blocked",
+          "form1040.line-37": "blocked",
+          "form1040.line-7a": 0
+        },
+        "questions": [
+          "Did you receive a Form 1099-B or substitute statement that shows federal income tax withheld in box 4 and reports no closed sale (for example, a short sale still open at year end)?"
+        ],
+        "reasons": {
+          "form1040.line-25b": [
+            "Did you receive a Form 1099-B or substitute statement that shows federal income tax withheld in box 4 and reports no closed sale (for example, a short sale still open at year end)?"
+          ],
+          "form1040.line-25d": [
+            "Did you receive a Form 1099-B or substitute statement that shows federal income tax withheld in box 4 and reports no closed sale (for example, a short sale still open at year end)?"
+          ],
+          "form1040.line-33": [
+            "Did you receive a Form 1099-B or substitute statement that shows federal income tax withheld in box 4 and reports no closed sale (for example, a short sale still open at year end)?"
+          ],
+          "form1040.line-34": [
+            "Did you receive a Form 1099-B or substitute statement that shows federal income tax withheld in box 4 and reports no closed sale (for example, a short sale still open at year end)?"
+          ],
+          "form1040.line-37": [
+            "Did you receive a Form 1099-B or substitute statement that shows federal income tax withheld in box 4 and reports no closed sale (for example, a short sale still open at year end)?"
+          ]
+        },
+        "blocked": [
+          {
+            "artifact": "form1040-line25b",
+            "code": "DEPENDENCY_ABSENT",
+            "missing": [
+              "f1099b.no-sale-box4-present"
+            ]
+          }
+        ]
+      },
+      "compare": {
+        "matches_hand": true,
+        "why": "blocked"
+      }
+    },
+    {
+      "id": "b4_only_recorded",
+      "note": "No-sale statement with box 4 $150 already recorded. v84 counts it (Decision 6). On v85 present is yes and the return-level amount is 0 so the statement amount is not counted twice.",
+      "expect": "published",
+      "hand": {
+        "form1040.line-25a": 4500,
+        "form1040.line-25b": 150,
+        "form1040.line-25c": 0,
+        "form1040.line-25d": 4650,
+        "form1040.line-33": 4650,
+        "form1040.line-34": 775,
+        "form1040.line-37": 0,
+        "form1040.line-7a": 0,
+        "form1040.line-15": 34250,
+        "form1040.line-16": 3875
+      },
+      "present": "yes",
+      "amount": 0,
+      "stmt_amounts": {
+        "demo.sfa.orphan.statement": 150
+      },
+      "result": {
+        "outcome": "success",
+        "disposition": "published",
+        "lines": {
+          "form1040.line-15": 34250,
+          "form1040.line-16": 3875,
+          "form1040.line-25a": 4500,
+          "form1040.line-25b": 150,
+          "form1040.line-25c": 0,
+          "form1040.line-25d": 4650,
+          "form1040.line-33": 4650,
+          "form1040.line-34": 775,
+          "form1040.line-37": 0,
+          "form1040.line-7a": 0
+        },
+        "questions": [],
+        "reasons": {},
+        "blocked": []
+      },
+      "compare": {
+        "matches_hand": true,
+        "diffs": []
+      }
+    },
+    {
+      "id": "b4_only_return_level",
+      "note": "No-sale withholding answered only at return level, no per-statement amount. v84 publishes 0. v85 publishes 150.",
+      "expect": "published",
+      "hand": {
+        "form1040.line-25a": 4500,
+        "form1040.line-25b": 150,
+        "form1040.line-25c": 0,
+        "form1040.line-25d": 4650,
+        "form1040.line-33": 4650,
+        "form1040.line-34": 775,
+        "form1040.line-37": 0,
+        "form1040.line-7a": 0,
+        "form1040.line-15": 34250,
+        "form1040.line-16": 3875
+      },
+      "present": "yes",
+      "amount": 150,
+      "stmt_amounts": {},
+      "result": {
+        "outcome": "success",
+        "disposition": "published",
+        "lines": {
+          "form1040.line-15": 34250,
+          "form1040.line-16": 3875,
+          "form1040.line-25a": 4500,
+          "form1040.line-25b": 150,
+          "form1040.line-25c": 0,
+          "form1040.line-25d": 4650,
+          "form1040.line-33": 4650,
+          "form1040.line-34": 775,
+          "form1040.line-37": 0,
+          "form1040.line-7a": 0
+        },
+        "questions": [],
+        "reasons": {},
+        "blocked": []
+      },
+      "compare": {
+        "matches_hand": true,
+        "diffs": []
+      }
+    },
+    {
+      "id": "b4_only_zero_present_no",
+      "note": "No-sale statement, box 4 blank or zero. Answering present=no establishes that. Nothing more is asked.",
+      "expect": "published",
+      "hand": {
+        "form1040.line-25a": 4500,
+        "form1040.line-25b": 0,
+        "form1040.line-25c": 0,
+        "form1040.line-25d": 4500,
+        "form1040.line-33": 4500,
+        "form1040.line-34": 625,
+        "form1040.line-37": 0,
+        "form1040.line-7a": 0,
+        "form1040.line-15": 34250,
+        "form1040.line-16": 3875
+      },
+      "present": "no",
+      "amount": null,
+      "stmt_amounts": {},
+      "result": {
+        "outcome": "success",
+        "disposition": "published",
+        "lines": {
+          "form1040.line-15": 34250,
+          "form1040.line-16": 3875,
+          "form1040.line-25a": 4500,
+          "form1040.line-25b": 0,
+          "form1040.line-25c": 0,
+          "form1040.line-25d": 4500,
+          "form1040.line-33": 4500,
+          "form1040.line-34": 625,
+          "form1040.line-37": 0,
+          "form1040.line-7a": 0
+        },
+        "questions": [],
+        "reasons": {},
+        "blocked": []
+      },
+      "compare": {
+        "matches_hand": true,
+        "diffs": []
+      }
+    },
+    {
+      "id": "b4_only_zero_amount",
+      "note": "No-sale statement with box 4 of zero recorded.",
+      "expect": "published",
+      "hand": {
+        "form1040.line-25a": 4500,
+        "form1040.line-25b": 0,
+        "form1040.line-25c": 0,
+        "form1040.line-25d": 4500,
+        "form1040.line-33": 4500,
+        "form1040.line-34": 625,
+        "form1040.line-37": 0,
+        "form1040.line-7a": 0,
+        "form1040.line-15": 34250,
+        "form1040.line-16": 3875
+      },
+      "present": "yes",
+      "amount": 0,
+      "stmt_amounts": {
+        "demo.sfa.orphan.statement": 0
+      },
+      "result": {
+        "outcome": "success",
+        "disposition": "published",
+        "lines": {
+          "form1040.line-15": 34250,
+          "form1040.line-16": 3875,
+          "form1040.line-25a": 4500,
+          "form1040.line-25b": 0,
+          "form1040.line-25c": 0,
+          "form1040.line-25d": 4500,
+          "form1040.line-33": 4500,
+          "form1040.line-34": 625,
+          "form1040.line-37": 0,
+          "form1040.line-7a": 0
+        },
+        "questions": [],
+        "reasons": {},
+        "blocked": []
+      },
+      "compare": {
+        "matches_hand": true,
+        "diffs": []
+      }
+    },
+    {
+      "id": "b4_only_beside_sale_unasked",
+      "note": "No-sale $150 unasked beside a sale statement with box 4 $200. v84 publishes 200, short $150.",
+      "expect": "blocked",
+      "hand": null,
+      "present": null,
+      "amount": null,
+      "stmt_amounts": {
+        "demo.sfa.sale1.statement": 200
+      },
+      "result": {
+        "outcome": "success",
+        "disposition": "blocked",
+        "lines": {
+          "form1040.line-15": 35250,
+          "form1040.line-16": 3995,
+          "form1040.line-25a": 4500,
+          "form1040.line-25b": "blocked",
+          "form1040.line-25c": 0,
+          "form1040.line-25d": "blocked",
+          "form1040.line-33": "blocked",
+          "form1040.line-34": "blocked",
+          "form1040.line-37": "blocked",
+          "form1040.line-7a": 1000
+        },
+        "questions": [
+          "Did you receive a Form 1099-B or substitute statement that shows federal income tax withheld in box 4 and reports no closed sale (for example, a short sale still open at year end)?"
+        ],
+        "reasons": {
+          "form1040.line-25b": [
+            "Did you receive a Form 1099-B or substitute statement that shows federal income tax withheld in box 4 and reports no closed sale (for example, a short sale still open at year end)?"
+          ],
+          "form1040.line-25d": [
+            "Did you receive a Form 1099-B or substitute statement that shows federal income tax withheld in box 4 and reports no closed sale (for example, a short sale still open at year end)?"
+          ],
+          "form1040.line-33": [
+            "Did you receive a Form 1099-B or substitute statement that shows federal income tax withheld in box 4 and reports no closed sale (for example, a short sale still open at year end)?"
+          ],
+          "form1040.line-34": [
+            "Did you receive a Form 1099-B or substitute statement that shows federal income tax withheld in box 4 and reports no closed sale (for example, a short sale still open at year end)?"
+          ],
+          "form1040.line-37": [
+            "Did you receive a Form 1099-B or substitute statement that shows federal income tax withheld in box 4 and reports no closed sale (for example, a short sale still open at year end)?"
+          ]
+        },
+        "blocked": [
+          {
+            "artifact": "form1040-line25b",
+            "code": "DEPENDENCY_ABSENT",
+            "missing": [
+              "f1099b.no-sale-box4-present"
+            ]
+          }
+        ]
+      },
+      "compare": {
+        "matches_hand": true,
+        "why": "blocked"
+      }
+    },
+    {
+      "id": "b4_only_beside_sale",
+      "note": "No-sale $150 and a sale statement $200, both recorded per-statement. Return-level amount is 0. Line 25b is 350 beside W-2 $4500.",
+      "expect": "published",
+      "hand": {
+        "form1040.line-25a": 4500,
+        "form1040.line-25b": 350,
+        "form1040.line-25c": 0,
+        "form1040.line-25d": 4850,
+        "form1040.line-33": 4850,
+        "form1040.line-34": 855,
+        "form1040.line-37": 0,
+        "form1040.line-7a": 1000,
+        "form1040.line-15": 35250,
+        "form1040.line-16": 3995
+      },
+      "present": "yes",
+      "amount": 0,
+      "stmt_amounts": {
+        "demo.sfa.sale1.statement": 200,
+        "demo.sfa.orphan.statement": 150
+      },
+      "result": {
+        "outcome": "success",
+        "disposition": "published",
+        "lines": {
+          "form1040.line-15": 35250,
+          "form1040.line-16": 3995,
+          "form1040.line-25a": 4500,
+          "form1040.line-25b": 350,
+          "form1040.line-25c": 0,
+          "form1040.line-25d": 4850,
+          "form1040.line-33": 4850,
+          "form1040.line-34": 855,
+          "form1040.line-37": 0,
+          "form1040.line-7a": 1000
+        },
+        "questions": [],
+        "reasons": {},
+        "blocked": []
+      },
+      "compare": {
+        "matches_hand": true,
+        "diffs": []
+      }
+    },
+    {
+      "id": "b4_only_beside_sale_return_level",
+      "note": "Sale statement $200 plus return-level no-sale $150. v85 publishes 350. v84 publishes 200.",
+      "expect": "published",
+      "hand": {
+        "form1040.line-25a": 4500,
+        "form1040.line-25b": 350,
+        "form1040.line-25c": 0,
+        "form1040.line-25d": 4850,
+        "form1040.line-33": 4850,
+        "form1040.line-34": 855,
+        "form1040.line-37": 0,
+        "form1040.line-7a": 1000,
+        "form1040.line-15": 35250,
+        "form1040.line-16": 3995
+      },
+      "present": "yes",
+      "amount": 150,
+      "stmt_amounts": {
+        "demo.sfa.sale1.statement": 200
+      },
+      "result": {
+        "outcome": "success",
+        "disposition": "published",
+        "lines": {
+          "form1040.line-15": 35250,
+          "form1040.line-16": 3995,
+          "form1040.line-25a": 4500,
+          "form1040.line-25b": 350,
+          "form1040.line-25c": 0,
+          "form1040.line-25d": 4850,
+          "form1040.line-33": 4850,
+          "form1040.line-34": 855,
+          "form1040.line-37": 0,
+          "form1040.line-7a": 1000
+        },
+        "questions": [],
+        "reasons": {},
+        "blocked": []
+      },
+      "compare": {
+        "matches_hand": true,
+        "diffs": []
+      }
+    },
+    {
+      "id": "no_sale_then_sale_added",
+      "note": "No-sale $150 recorded, then a sale is added to that statement. Present is no because the statement now has a sale. The per-statement amount still counts once.",
+      "expect": "published",
+      "hand": {
+        "form1040.line-25a": 4500,
+        "form1040.line-25b": 150,
+        "form1040.line-25c": 0,
+        "form1040.line-25d": 4650,
+        "form1040.line-33": 4650,
+        "form1040.line-34": 655,
+        "form1040.line-37": 0,
+        "form1040.line-7a": 1000,
+        "form1040.line-15": 35250,
+        "form1040.line-16": 3995
+      },
+      "present": "no",
+      "amount": null,
+      "stmt_amounts": {
+        "demo.sfa.orphan.statement": 150
+      },
+      "result": {
+        "outcome": "success",
+        "disposition": "published",
+        "lines": {
+          "form1040.line-15": 35250,
+          "form1040.line-16": 3995,
+          "form1040.line-25a": 4500,
+          "form1040.line-25b": 150,
+          "form1040.line-25c": 0,
+          "form1040.line-25d": 4650,
+          "form1040.line-33": 4650,
+          "form1040.line-34": 655,
+          "form1040.line-37": 0,
+          "form1040.line-7a": 1000
+        },
+        "questions": [],
+        "reasons": {},
+        "blocked": []
+      },
+      "compare": {
+        "matches_hand": true,
+        "diffs": []
+      }
+    },
+    {
+      "id": "no_sale_then_sale_added_double",
+      "note": "Same as the added-sale case, but present stays yes with return-level $150. v85 would add both amounts (300). That is the double-count the design must name.",
+      "expect": "published",
+      "hand": {
+        "form1040.line-25a": 4500,
+        "form1040.line-25b": 300,
+        "form1040.line-25c": 0,
+        "form1040.line-25d": 4800,
+        "form1040.line-33": 4800,
+        "form1040.line-34": 805,
+        "form1040.line-37": 0,
+        "form1040.line-7a": 1000,
+        "form1040.line-15": 35250,
+        "form1040.line-16": 3995
+      },
+      "present": "yes",
+      "amount": 150,
+      "stmt_amounts": {
+        "demo.sfa.orphan.statement": 150
+      },
+      "result": {
+        "outcome": "success",
+        "disposition": "published",
+        "lines": {
+          "form1040.line-15": 35250,
+          "form1040.line-16": 3995,
+          "form1040.line-25a": 4500,
+          "form1040.line-25b": 300,
+          "form1040.line-25c": 0,
+          "form1040.line-25d": 4800,
+          "form1040.line-33": 4800,
+          "form1040.line-34": 805,
+          "form1040.line-37": 0,
+          "form1040.line-7a": 1000
+        },
+        "questions": [],
+        "reasons": {},
+        "blocked": []
+      },
+      "compare": {
+        "matches_hand": true,
+        "diffs": []
+      }
+    },
+    {
+      "id": "sale_removed_to_none",
+      "note": "A sale with box 4 $200 is removed. The per-statement amount remains and still counts. Present yes with return-level $0 adds nothing extra.",
+      "expect": "published",
+      "hand": {
+        "form1040.line-25a": 4500,
+        "form1040.line-25b": 200,
+        "form1040.line-25c": 0,
+        "form1040.line-25d": 4700,
+        "form1040.line-33": 4700,
+        "form1040.line-34": 825,
+        "form1040.line-37": 0,
+        "form1040.line-7a": 0,
+        "form1040.line-15": 34250,
+        "form1040.line-16": 3875
+      },
+      "present": "yes",
+      "amount": 0,
+      "stmt_amounts": {
+        "demo.sfa.sale1.statement": 200
+      },
+      "result": {
+        "outcome": "success",
+        "disposition": "published",
+        "lines": {
+          "form1040.line-15": 34250,
+          "form1040.line-16": 3875,
+          "form1040.line-25a": 4500,
+          "form1040.line-25b": 200,
+          "form1040.line-25c": 0,
+          "form1040.line-25d": 4700,
+          "form1040.line-33": 4700,
+          "form1040.line-34": 825,
+          "form1040.line-37": 0,
+          "form1040.line-7a": 0
+        },
+        "questions": [],
+        "reasons": {},
+        "blocked": []
+      },
+      "compare": {
+        "matches_hand": true,
+        "diffs": []
+      }
+    },
+    {
+      "id": "present_yes_amount_missing",
+      "note": "Present yes and the amount unanswered. v85 blocks and asks the amount question.",
+      "expect": "blocked",
+      "hand": null,
+      "present": "yes",
+      "amount": null,
+      "stmt_amounts": {},
+      "result": {
+        "outcome": "success",
+        "disposition": "blocked",
+        "lines": {
+          "form1040.line-15": 34250,
+          "form1040.line-16": 3875,
+          "form1040.line-25a": 4500,
+          "form1040.line-25b": "blocked",
+          "form1040.line-25c": 0,
+          "form1040.line-25d": "blocked",
+          "form1040.line-33": "blocked",
+          "form1040.line-34": "blocked",
+          "form1040.line-37": "blocked",
+          "form1040.line-7a": 0
+        },
+        "questions": [
+          "Enter the federal income tax withheld in box 4 of Form 1099-B or substitute statements that report no closed sale. If more than one such statement, enter the total. If box 4 is blank, enter $0."
+        ],
+        "reasons": {
+          "form1040.line-25b": [
+            "Enter the federal income tax withheld in box 4 of Form 1099-B or substitute statements that report no closed sale. If more than one such statement, enter the total. If box 4 is blank, enter $0."
+          ],
+          "form1040.line-25d": [
+            "Enter the federal income tax withheld in box 4 of Form 1099-B or substitute statements that report no closed sale. If more than one such statement, enter the total. If box 4 is blank, enter $0."
+          ],
+          "form1040.line-33": [
+            "Enter the federal income tax withheld in box 4 of Form 1099-B or substitute statements that report no closed sale. If more than one such statement, enter the total. If box 4 is blank, enter $0."
+          ],
+          "form1040.line-34": [
+            "Enter the federal income tax withheld in box 4 of Form 1099-B or substitute statements that report no closed sale. If more than one such statement, enter the total. If box 4 is blank, enter $0."
+          ],
+          "form1040.line-37": [
+            "Enter the federal income tax withheld in box 4 of Form 1099-B or substitute statements that report no closed sale. If more than one such statement, enter the total. If box 4 is blank, enter $0."
+          ]
+        },
+        "blocked": [
+          {
+            "artifact": "form1040-line25b",
+            "code": "DEPENDENCY_ABSENT",
+            "missing": [
+              "f1099b.no-sale-box4-withholding"
+            ]
+          }
+        ]
+      },
+      "compare": {
+        "matches_hand": true,
+        "why": "blocked"
+      }
+    }
+  ],
+  "matches": 13,
+  "total": 13
+}
