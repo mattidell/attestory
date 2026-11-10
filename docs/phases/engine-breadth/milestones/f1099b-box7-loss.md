@@ -166,5 +166,18 @@ recorded answers.
 
 ## Track 0 adversarial closure
 
-Pending.
+Foreman, 2026-11-10: accepted. Six rows PASS with no counterexample;
+hand values come from `probe.hand_return`, computed from the
+instructions. The 16-rule shape stays (the 8-rule trial fails). Track 1
+is chartered in docs/reviews/f1099b-box7-loss/charter-track1.md.
+
+- Authority-lifecycle table: PASS — `track0-authority.json` (21 cases). A yes beside a loss blocks line 16 with the family check missing nothing and asks no question (`alc_covered-st_loss` and the other seven `alc_*_loss` cases). A yes beside a gain publishes the hand, including code B (`alc_code-b-st_gain`, `alc_code-b-lt_gain`). Two statements do not share an answer (`alc_statement_scope`, line 16 is 600). One statement with a gain and a loss refuses the whole line (`alc_same_statement`).
+- Empty/nonempty authority matrix: PASS — `track0-matrix.json` (49 cases). Closed empty publishes 0 (`m_closed_empty`). A missing per-family closure blocks that count (`m_absence_covered-st`). A missing grouped closure blocks both terms (`m_absence_noncovered-st`, `m_absence_code-b-st`). Yes beside a loss blocks on the check (`m_{family}_yes_loss`). Unanswered asks the box 7 question (`m_{family}_unanswered`).
+- Late-member lifecycle: PASS — `track0-late.json`. Adding a loss drops the prior line 16 finding (`late_gain_then_loss`). Removing the loss publishes a new zero (`late_loss_removed`). Superseding yes with no clears the verdict (`late_yes_to_no`). A new unanswered statement drops the prior finding (`late_new_statement_unanswered`).
+- Neighboring capability dependency diff: PASS — `track0-neighbour.json`. 298 recorded returns, live on v83 and live on scratch v84, 298 `identical`, 0 changes. The eight sale-count requirements stay. Each new check publishes 0 when box 7 has no work.
+- Reused-claim semantic/lifecycle equivalence: PASS — `track0-reuse.json`. Lines 7 and 15 and the eight counts match v83 (`reuse_yes_gain`, `reuse_box7_no`, `reuse_no_sale`). The covered-flag sentence is unchanged (`reuse_covered_flag`). Only line 16's rule and form field move from v3 to v4.
+- Integration surface: PASS — `track0-surface.json`. Bindings: line 21, Form 1040 line 7a, and the preferential base require line 16; the line 16 field binds it; Schedule D lines 17, 18, 19, 20, and 22 have no rule. Seven models, one disposition row each. Yes-loss shows the narrowed sentence and asks nothing (`surface_blocked_yes_loss`). Unanswered asks the box 7 question (`surface_blocked_unanswered`).
+- Known limitations affecting correctness: none
+
+The eight-verdict trial (`track0-smaller.json`, 8 new rules) fails closed-empty and one-family returns and is not adopted. Detail is in `f1099b-box7-loss-evidence/track0-closure.md`.
 

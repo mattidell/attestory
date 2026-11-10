@@ -13,6 +13,7 @@ from __future__ import annotations
 
 import copy
 import json
+import os
 import shutil
 import sys
 from pathlib import Path
@@ -34,6 +35,11 @@ TO = {"package": "v84", "registry": "v82", "release": "v82"}
 BOX7 = P + "f1099b.statement-box7-loss-not-allowed"
 VERDICT = P + "f1099b.box7-sale-verdict"
 INERT = P + "f1099b.box7-loss-check-inert-path-unwritten"
+
+
+def _smaller() -> str:
+    """Decision 6 trial. Unset keeps the 16-rule shape. Never the default."""
+    return os.environ.get("BOX7_SMALLER") or ""
 
 # slug, family version, column (h) object fields added after proceeds.
 # "basis_field" is subtracted. Extra fields are added (the wash).
@@ -208,21 +214,33 @@ def _check_rule(family: dict[str, Any]) -> dict[str, Any]:
 
 
 def _line16() -> dict[str, Any]:
+    """Decision 5: v4 keeps the eight v3 sale-count requirements, then the family checks.
+
+    The any-yes block stays out of ``value``. Counts stay in v3 order so a blocked
+    row names the same unpublished counts. A published check is 0 and is not missing.
+    """
     rule = json.loads((CONTENT / "rule.schedule-d-line16.v3.json").read_text(encoding="utf-8"))
-    checks = [P + f"f1099b.{family['slug']}-txn.box7-loss-check" for family in FAMILIES]
+    line7 = P + "schedule-d.line-7"
+    line15 = P + "schedule-d.line-15"
+    counts = [item for item in rule["requires"] if item not in {line7, line15}]
+    if _smaller() == "verdicts-only":
+        checks = [P + f"f1099b.{family['slug']}-txn.box7-verdict" for family in FAMILIES]
+    else:
+        checks = [P + f"f1099b.{family['slug']}-txn.box7-loss-check" for family in FAMILIES]
     rule["version"] = "v4"
-    rule["requires"] = [P + "schedule-d.line-7", P + "schedule-d.line-15", *checks]
+    rule["requires"] = [line7, line15, *counts, *checks]
     rule["blocked"] = {"code": "DEPENDENCY_ABSENT", "missing": list(rule["requires"])}
     rule["value"] = {
         "op": "add",
-        "args": [_ref(P + "schedule-d.line-7"), _ref(P + "schedule-d.line-15")],
+        "args": [_ref(line7), _ref(line15)],
     }
     rule["notes"] = (
-        "Part III line 16 = line 7 + line 15, signed. v4: a box 7 yes no longer blocks the line "
-        "by itself. Each sale family publishes a loss check. The check is 0 when every sale on a "
-        "box 7 statement is a gain or zero, and it blocks when box 7 is checked and column (h) "
-        "on that statement is below zero. An unanswered box 7 still blocks and asks the same question. "
-        "This return does not compute the disallowed loss."
+        "Part III line 16 = line 7 + line 15, signed. v4 still requires the eight sale-count "
+        "symbols, in the same order as v3, so a recorded v83 return names the same missing counts. "
+        "A box 7 yes no longer blocks the line by itself. Each sale family publishes a loss check. "
+        "The check is 0 when every sale on a box 7 statement is a gain or zero, and it blocks when "
+        "box 7 is checked and column (h) on that statement is below zero. An unanswered box 7 still "
+        "blocks and asks the same question. This return does not compute the disallowed loss."
     )
     return rule
 
@@ -288,7 +306,8 @@ def artifacts() -> list[tuple[str, dict[str, Any]]]:
     for family in FAMILIES:
         slug = family["slug"]
         out.append((f"rule.f1099b.{slug}-txn.box7-verdict.json", _verdict_rule(family)))
-        out.append((f"rule.f1099b.{slug}-txn.box7-loss-check.json", _check_rule(family)))
+        if _smaller() != "verdicts-only":
+            out.append((f"rule.f1099b.{slug}-txn.box7-loss-check.json", _check_rule(family)))
     out.append(("rule.schedule-d-line16.v4.json", _line16()))
     out.append(("schedule-d.line-16.form-field.v4.json", _field()))
     return out
@@ -373,9 +392,14 @@ def build(scratch: Path) -> dict[str, Any]:
         "registry": TO["registry"],
         "release": report["release"]["version"],
         "question_unchanged": P + "input-question.f1099b-statement-box7-loss-not-allowed",
+        "smaller": _smaller() or None,
         "members_edited": len(members),
         "added": sum(1 for member in members if member["op"] == "add"),
         "replaced": sum(1 for member in members if member["op"] == "replace"),
+        "new_rules": sum(
+            1 for member in members
+            if member["op"] == "add" and member["new"]["schema"] == "rule-artifact.v15"
+        ),
         "members": [
             [member["op"], member["new"]["id"].removeprefix(P), member["new"]["version"]]
             for member in members
@@ -399,8 +423,12 @@ def main() -> None:
     for needle in ("/Users/", "/private/", "/tmp/", "/var/"):
         if needle in text:
             raise SystemExit(f"prototype-build contains {needle}")
-    (HERE / "prototype-build.json").write_text(text, encoding="utf-8")
+    if _smaller():
+        (scratch / "build-summary.json").write_text(text, encoding="utf-8")
+    else:
+        (HERE / "prototype-build.json").write_text(text, encoding="utf-8")
     print(json.dumps({"added": summary["added"], "replaced": summary["replaced"],
+                      "new_rules": summary["new_rules"], "smaller": summary["smaller"],
                       "package": summary["package"]}, indent=2))
 
 
