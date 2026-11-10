@@ -44,10 +44,12 @@ SIGNS = {
     "zero": (1000.0, 1000.0, 0.0),
 }
 REFUSAL = (
-    "Schedule D line 16 has no value yet. It is waiting for line 7 or line 15. "
-    "It is also blocked while a recorded Form 1099-B statement has no answer about box 7. "
-    "It is blocked when box 7 is checked and a sale on that statement is at a loss: "
-    "a loss based on the box 1d amount is not allowed, and this return does not compute it."
+    "Schedule D line 16 has no value yet because one of these is true: line 7 or line 15 "
+    "is not ready, a sale count this line requires is not ready, a recorded Form 1099-B "
+    "statement has no box 7 answer, or box 7 is checked and a sale on that statement is "
+    "at a loss. This return does not compute a disallowed loss. Where that loss is the "
+    "cause, the result changes if the broker reports the loss on a separate statement, "
+    "or if box 7 is not checked."
 )
 BOX7_FACT = "f1099b.statement-box7-loss-not-allowed"
 CONSUMER_FIELDS = (
@@ -163,8 +165,10 @@ def _interesting(name: str) -> bool:
     return any(token in base for token in tokens)
 
 
-def execute(core: Any, acts: list[dict[str, Any]], run_id: str) -> dict[str, Any]:
+def execute(core: Any, acts: list[dict[str, Any]], run_id: str,
+            extra_lines: tuple[str, ...] = ()) -> dict[str, Any]:
     probe = load_probe()
+    watched_lines = set(probe.LINES) | set(extra_lines)
     from packages.derivation.live import live_coordinate_run
     from packages.derivation.live_workspace import WorkspaceCapability
     from packages.derivation.presentation_projection import validate_presentation_model
@@ -222,7 +226,7 @@ def execute(core: Any, acts: list[dict[str, Any]], run_id: str) -> dict[str, Any
         for sentence in sentences:
             if sentence.endswith("?") and sentence not in questions:
                 questions.append(sentence)
-        if short in probe.LINES:
+        if short in watched_lines:
             value = resolved.get("value")
             disposition = str(resolved.get("disposition"))
             if value is None or "blocked" in disposition:
@@ -372,7 +376,9 @@ def _loss_block(result: dict[str, Any], slug: str, question: str, *, allow_quest
     if question in (result.get("questions") or []) and not allow_question:
         found.append("yes-loss asked the box 7 question")
     reasons = (result.get("line16_field") or {}).get("reasons") or []
-    if reasons and not allow_question:
+    # A content reason cannot attach without an engine change, so reasons stay empty.
+    # The field explanation is the sentence the filer sees, and the generic remedy still shows.
+    if reasons != [] and not allow_question:
         found.append(f"yes-loss line 16 reasons {reasons}")
     return found
 

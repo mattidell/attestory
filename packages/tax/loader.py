@@ -184,8 +184,8 @@ def covered_scalar_presence_pairs() -> dict[str, str]:
 def named_covered_flag_refusal_maps() -> dict[tuple[str, str], dict[str, str]]:
     """Packages whose companion declaration names the covered-flag refusal.
 
-    Core v79 is the first package that names it, and cores v80, v81, v82 and
-    v83 name the same map. Core v78 and earlier are
+    Core v79 is the first package that names it, and cores v80, v81, v82, v83
+    and v84 name the same map. Core v78 and earlier are
     absent, so their runs never consult the map. The map is a sibling of the
     companion declaration: the kernel declaration only carries presence pairs
     and value domains.
@@ -202,6 +202,9 @@ def named_covered_flag_refusal_maps() -> dict[tuple[str, str], dict[str, str]]:
         # Core v83 reads a Form 1099-B box 4 amount. That amount is its own
         # statement-keyed fact, not a covered sale object, so the map is v82's.
         ("tax.us.2025.package.core-calculations", "v83"): dict(COVERED_FLAG_REFUSAL_OBJECTS),
+        # Core v84 refuses a checked Form 1099-B box 7 only through per-sale
+        # verdicts. Those rules add no covered sale object, so the map is v83's.
+        ("tax.us.2025.package.core-calculations", "v84"): dict(COVERED_FLAG_REFUSAL_OBJECTS),
     }
 
 
@@ -517,6 +520,21 @@ def domain_package_companion_declarations() -> dict[tuple[str, str], dict[str, A
         # v82 carries. Without this entry, v83 would fall back to the global
         # maps and refuse amounts v82 admits.
         ("tax.us.2025.package.core-calculations", "v83"): {
+            "presence_pairs": {
+                **gambling["presence_pairs"],
+                **noncovered_scalar_presence_pairs(),
+                **no1099b_scalar_presence_pairs(),
+                **code_b_scalar_presence_pairs(),
+                **covered_scalar_presence_pairs(),
+            },
+            "value_domains": dict(gambling["value_domains"]),
+        },
+        # Core v84 refuses a checked box 7 where a sale on that statement is at
+        # a loss. The verdict and check rules add no sale amount and no sale
+        # object, so v84 carries every scalar presence pair and value domain
+        # v83 carries. Without this entry, v84 would fall back to the global
+        # maps and refuse amounts v83 admits.
+        ("tax.us.2025.package.core-calculations", "v84"): {
             "presence_pairs": {
                 **gambling["presence_pairs"],
                 **noncovered_scalar_presence_pairs(),

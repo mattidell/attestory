@@ -143,8 +143,12 @@ not re-scored against this core.
 blocks missing all eight, including that one: a subject-scoped publication
 does not satisfy a bare require. `alc_covered_st_unanswered` does not ask the
 box 7 question, because the missing list is the verdict symbols. A single
-selection cannot hold the eight families either: `exclusive_presence` must
-declare exactly two paths (`packages/derivation/package_validation.py`).
+selection cannot hold the eight families either. A rule selection in
+`packages/schemas/derivation/rule-artifact.v15.schema.json` is mode
+`exclusive_presence`, conflict `refuse`, and `paths` `minItems` 2 with no
+maximum. Two nonempty paths refuse the rule, so one check cannot cover eight
+families that can all be present. `minItems` 2 is why each check carries the
+inert path on the never-written fact.
 
 The 16-rule shape remains the default. This trial is a content-only failure.
 It is not a Track 0 row failure, and it did not require an engine, schema, or

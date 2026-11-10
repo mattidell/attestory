@@ -1,0 +1,96 @@
+{
+  "blocked": {
+    "code": "DEPENDENCY_ABSENT",
+    "missing": [
+      "tax.us.2025.schedule-d.line-7",
+      "tax.us.2025.schedule-d.line-15",
+      "tax.us.2025.f1099b.covered-st-count",
+      "tax.us.2025.f1099b.covered-lt-count",
+      "tax.us.2025.f1099b.covered-w-st-count",
+      "tax.us.2025.f1099b.covered-w-lt-count",
+      "tax.us.2025.f1099b.noncovered-st-count",
+      "tax.us.2025.f1099b.noncovered-lt-count",
+      "tax.us.2025.f1099b.code-b-st-count",
+      "tax.us.2025.f1099b.code-b-lt-count",
+      "tax.us.2025.f1099b.covered-st-txn.box7-loss-check",
+      "tax.us.2025.f1099b.covered-lt-txn.box7-loss-check",
+      "tax.us.2025.f1099b.covered-w-st-txn.box7-loss-check",
+      "tax.us.2025.f1099b.covered-w-lt-txn.box7-loss-check",
+      "tax.us.2025.f1099b.noncovered-st-txn.box7-loss-check",
+      "tax.us.2025.f1099b.noncovered-lt-txn.box7-loss-check",
+      "tax.us.2025.f1099b.code-b-st-txn.box7-loss-check",
+      "tax.us.2025.f1099b.code-b-lt-txn.box7-loss-check"
+    ]
+  },
+  "citations": [
+    {
+      "id": "tax.us.2025.citation.schedule-d.line-16",
+      "version": "v1"
+    }
+  ],
+  "id": "tax.us.2025.rule.schedule-d-line16",
+  "notes": "Part III line 16 = line 7 + line 15, signed. v4 still requires the eight sale-count symbols, in the same order as v3, so a recorded v83 return names the same missing counts. A box 7 yes no longer blocks the line by itself. Each sale family publishes a loss check. The check is 0 when every sale on a box 7 statement is a gain or zero, and it blocks when box 7 is checked and column (h) on that statement is below zero. An unanswered box 7 still blocks and asks the same question. This return does not compute the disallowed loss.",
+  "pins": [],
+  "publishes": "tax.us.2025.schedule-d.line-16",
+  "requires": [
+    "tax.us.2025.schedule-d.line-7",
+    "tax.us.2025.schedule-d.line-15",
+    "tax.us.2025.f1099b.covered-st-count",
+    "tax.us.2025.f1099b.covered-lt-count",
+    "tax.us.2025.f1099b.covered-w-st-count",
+    "tax.us.2025.f1099b.covered-w-lt-count",
+    "tax.us.2025.f1099b.noncovered-st-count",
+    "tax.us.2025.f1099b.noncovered-lt-count",
+    "tax.us.2025.f1099b.code-b-st-count",
+    "tax.us.2025.f1099b.code-b-lt-count",
+    "tax.us.2025.f1099b.covered-st-txn.box7-loss-check",
+    "tax.us.2025.f1099b.covered-lt-txn.box7-loss-check",
+    "tax.us.2025.f1099b.covered-w-st-txn.box7-loss-check",
+    "tax.us.2025.f1099b.covered-w-lt-txn.box7-loss-check",
+    "tax.us.2025.f1099b.noncovered-st-txn.box7-loss-check",
+    "tax.us.2025.f1099b.noncovered-lt-txn.box7-loss-check",
+    "tax.us.2025.f1099b.code-b-st-txn.box7-loss-check",
+    "tax.us.2025.f1099b.code-b-lt-txn.box7-loss-check"
+  ],
+  "role": "computation",
+  "schema": "rule-artifact.v15",
+  "scope": {
+    "family": "individual-income-tax",
+    "jurisdiction": "US-federal",
+    "tax_year": 2025
+  },
+  "value": {
+    "op": "add",
+    "args": [
+      {
+        "op": "ref",
+        "name": "tax.us.2025.schedule-d.line-7"
+      },
+      {
+        "op": "ref",
+        "name": "tax.us.2025.schedule-d.line-15"
+      }
+    ]
+  },
+  "version": "v4",
+  "when": {
+    "op": "all",
+    "args": [
+      {
+        "op": "require_paired",
+        "key": "statement",
+        "withholding": "tax.us.2025.f1099b.statement-box7-loss-not-allowed",
+        "income": [
+          "tax.us.2025.f1099b.covered-st-txn",
+          "tax.us.2025.f1099b.covered-lt-txn",
+          "tax.us.2025.f1099b.covered-w-st-txn",
+          "tax.us.2025.f1099b.covered-w-lt-txn",
+          "tax.us.2025.f1099b.noncovered-st-txn",
+          "tax.us.2025.f1099b.noncovered-lt-txn",
+          "tax.us.2025.f1099b.code-b-st-txn",
+          "tax.us.2025.f1099b.code-b-lt-txn"
+        ]
+      }
+    ]
+  }
+}

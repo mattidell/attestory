@@ -256,11 +256,16 @@ def _field() -> dict[str, Any]:
     field["dispositions"]["published_value"]["explain"] = (
         "A current derived finding publishes line 16 equal to line 7 plus line 15."
     )
+    # A selection reason cannot attach here: line 16 v4 keeps its requires (Decision 5),
+    # and a selection rule may not. The explain is a disjunction, true of every block,
+    # and the citation page still shows the generic remedy.
     field["dispositions"]["blocked"]["explain"] = (
-        "Schedule D line 16 has no value yet. It is waiting for line 7 or line 15. "
-        "It is also blocked while a recorded Form 1099-B statement has no answer about box 7. "
-        "It is blocked when box 7 is checked and a sale on that statement is at a loss: "
-        "a loss based on the box 1d amount is not allowed, and this return does not compute it."
+        "Schedule D line 16 has no value yet because one of these is true: line 7 or line 15 "
+        "is not ready, a sale count this line requires is not ready, a recorded Form 1099-B "
+        "statement has no box 7 answer, or box 7 is checked and a sale on that statement is "
+        "at a loss. This return does not compute a disallowed loss. Where that loss is the "
+        "cause, the result changes if the broker reports the loss on a separate statement, "
+        "or if box 7 is not checked."
     )
     return field
 
