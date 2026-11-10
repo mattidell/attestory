@@ -1,0 +1,65 @@
+{
+  "scratch_core_v86_generated": false,
+  "earlier_milestone_harnesses_run": false,
+  "why_no_successor_package": "A successor package can change a line's dollars with the operations core v85 already has. It cannot emit the Form 8949 row Example 2 requires. Building a core that only zeros column (h) would miss the charter.",
+  "published_attachment_validates": true,
+  "attempts": [
+    {
+      "change": "Add a where filter on collect_members so only a disallowed sale is itemized.",
+      "schema": "attachment-rule.v8",
+      "rejected": true,
+      "errors": [
+        "itemizations/0/row_sets/0/rows: Additional properties are not allowed ('where' was unexpected)"
+      ]
+    },
+    {
+      "change": "Add an adjustment row whose kind is code L.",
+      "schema": "attachment-rule.v8",
+      "rejected": true,
+      "errors": [
+        "itemizations/0/adjustment_rows/0/kind: 'code_l_nondeductible_loss' is not one of ['nominee_distribution', 'accrued_interest', 'abp_adjustment']"
+      ]
+    },
+    {
+      "change": "Keep a published adjustment kind and set its sign to positive. Code L column (g) is positive.",
+      "schema": "attachment-rule.v8",
+      "rejected": true,
+      "errors": [
+        "itemizations/0/adjustment_rows/0/sign: 'negative' was expected"
+      ]
+    },
+    {
+      "change": "On attachment-rule.v11, list a derived amount as a positive itemization row with enumerate_published.",
+      "schema": "attachment-rule.v11",
+      "rejected": true,
+      "errors": [
+        "itemizations/0/row_sets/0/rows/op: 'collect_members' was expected",
+        "itemizations/0/row_sets/0/rows: 'member_fact_type' is a required property",
+        "itemizations/0/row_sets/0/rows: 'source_family' is a required property",
+        "itemizations/0/row_sets/0/rows: Additional properties are not allowed ('fact_type' was unexpected)"
+      ]
+    },
+    {
+      "change": "On attachment-rule.v11, an adjustment row of a published kind may list enumerate_published. The sign stays negative and the kind stays closed.",
+      "schema": "attachment-rule.v11#/$defs/adjustment_row",
+      "rejected": false,
+      "errors": [],
+      "fragment_valid": true
+    }
+  ],
+  "collector": {
+    "method": "packages.derivation.runner._Run._collect_row_source",
+    "enumerate_published_row_is_finding_id_and_value": true,
+    "row_names_a_code_or_column_f": false
+  },
+  "collect_expression": {
+    "properties": [
+      "name",
+      "op",
+      "source_set"
+    ],
+    "additionalProperties": false
+  },
+  "cause": "Form 8949 rows in this product are recorded family members. Code W and code B each have a family, and the attachment itemizes that family's proceeds, basis, and adjustment under a fixed label. collect_members has no filter. Adjustment kinds on the published attachment schemas are nominee, accrued interest, and ABP, and the sign is fixed negative. A v11 adjustment row of one of those kinds may list enumerate_published, and that fragment validates, but the collector emits one value per finding and the sign is still negative. Positive itemization rows on v11 still require collect_members. A subject rule can publish the code L amount, and a line rule can add it, but neither produces columns (d), (e), (f), (g), and (h) for that sale, and a covered loss stays in the line 1a or 8a family.",
+  "smallest_change": "A recording-surface change, then content only. When box 7 is yes and column (h) before code L is negative, record that sale in a code L family the way a code B sale is recorded, with proceeds, the basis shown, and the code L amount computed from those amounts and any wash or code B adjustment already recorded. A successor attachment itemizes it, and the successor Schedule D lines pick up column (h), which the instructions put at zero. No new filer amount, no kernel change, and no edit of a published schema. The other sufficient change is a new attachment schema that can itemize one derived sale as columns (d) through (h) and a line rule that can drop that sale from line 1a or 8a. That is a schema and a presentation change."
+}

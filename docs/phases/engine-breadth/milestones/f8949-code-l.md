@@ -111,4 +111,12 @@ late-member path against any question wording.
 
 ## P0 result
 
-Pending.
+Stopped. A box 7 loss is wholly disallowed. Example 2 reports it on Form 8949
+with code L, column (g) the whole loss as a positive number, and column (h)
+zero. Core v85 still posts the loss and blocks Schedule D line 16, with no
+code L row. A content-only successor cannot emit that row: Form 8949 rows are
+recorded family members, and the published attachment schemas cannot filter
+them or add code L. The smallest change is a recording-surface change that
+records the disallowed sale the way a code B sale is recorded, then a
+successor package. Evidence: `f8949-code-l-evidence/p0.md`. No scratch core
+v86 was generated. The recorded-return rerun was not run.
