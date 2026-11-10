@@ -1,6 +1,6 @@
 # Review: Form 1099-B backup withholding without a sale
 
-Role: Reviewer. Object: `65d8bb41d8a526634ab7e83f1da823cea7ca92c8` on
+Role: Reviewer. Object: the commit that chartered this review (removed at closeout) on
 `milestone/f1099b-box4-only-2025`, diffed against `github/main`. Plan:
 `docs/phases/engine-breadth/milestones/f1099b-box4-only.md`.
 

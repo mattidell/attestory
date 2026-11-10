@@ -721,6 +721,18 @@ loss on a checked statement blocks Schedule D line 16 and asks nothing. The
 box 7 question is unchanged. All 298 recorded v83 returns are identical on
 v84; earlier cores are unchanged.
 
+## Bounded return — Form 1099-B Backup Withholding Without a Sale (2025)
+
+[Plan](milestones/f1099b-box4-only.md); retrospective:
+`docs/milestone-retrospectives/2026-11-10-f1099b-box4-only.md`.
+
+Core v85 asks every return whether it received a Form 1099-B that shows
+box 4 withholding and no closed sale (an open short at year end). A yes
+asks one total, added to line 25b; a no asks nothing more. The
+per-statement box 4 question is unchanged. Of the 298 recorded returns, 207
+are identical and 91 newly ask the yes/no; answering no restores every
+number. Earlier cores are unchanged.
+
 ## Parked work and open questions
 
 This is the single list of parked work and open owner-held questions for the
@@ -843,9 +855,10 @@ delivers an item removes it.
   two). No consumer reads the 0, but its explanation walk says 0 beside a
   recorded amount. Needs a derivation change; then a successor retires
   both.
-- A box-4-only Form 1099-B (an open short at year end) is counted when its
-  amount is recorded, but the box 4 question is asked only of statements
-  with a recorded sale.
+- The engine cannot see the same Form 1099-B box 4 dollars entered both
+  per statement and in the core v85 return-level total; the questions tell
+  the filer not to, and nothing refuses it. A recording surface for a
+  statement with no sale would replace the return-level total.
 - Form 1099-B box 13 bartering, whose refusing answer is not established.
 - A loss on a Form 1099-B statement whose box 7 is checked refuses
   Schedule D line 16 (core v84); the code L adjustment that disallows it is

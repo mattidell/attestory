@@ -3,7 +3,8 @@
   "version": 1,
   "phase": "Engine Breadth",
   "topic": "f1099b-box4-only",
-  "status": "Open. Track 0 accepted; Track 1 (core v85) chartered.",
+  "retrospective": "docs/milestone-retrospectives/2026-11-10-f1099b-box4-only.md",
+  "status": "Closed. On core v85 every return answers whether it received a Form 1099-B with box 4 withholding and no closed sale; a yes adds one return-level total to line 25b. Every recorded v84 number is restored by answering no; earlier cores are unchanged.",
   "scope": [
     "a Form 1099-B statement that reports box 4 withholding and no sale (an open short at year end) has its box 4 amount asked, so line 25b is never short of withholding the filer received",
     "a statement with no sale and no withholding is asked nothing new beyond what establishes that",
@@ -212,3 +213,10 @@ Published core `tax.us.2025.package.core-calculations` v85, registry v83, and re
 
 **Repair.** The yes/no and the amount now say not to count a statement whose box 4 you already entered, with or without a sale, and the line 25b v6 published explanation says the same of an amount already entered. Core v85, registry v83, and release v83 were rebuilt in place; the five citizen checksums changed and the package checksum did not. `test_sale_removed_honest_one_copy` pins the leftover-not-reentered path at line 25b 200. One unanswered recorded sample remains (`track0/s0/b4_yes_covered`). The Track 0 fixture is 88,671 bytes (46 runs in 67.1 s). `pytest -m "not live"`: 1766 passed, 8 skipped, 4232 subtests (17.69 s). The live box 4 module: 331 passed in 424.22 s. `python3 -m mypy`: no issues in 477 source files. `python3 tools/envelope_scan.py --range github/main..HEAD`: clean. No kernel, derivation, schema, or recording change.
 
+## Closeout
+
+Closed 2026-11-10. Fresh review: docs/reviews/f1099b-box4-only/review.md,
+ready, one should-fix (the questions excluded only box 4 entered with a
+sale, so a leftover amount after a sale was removed could be entered
+twice) and one note (repeated unanswered samples), both repaired.
+Retrospective: `docs/milestone-retrospectives/2026-11-10-f1099b-box4-only.md`.
