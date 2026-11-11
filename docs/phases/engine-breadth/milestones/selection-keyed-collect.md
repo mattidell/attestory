@@ -3,7 +3,7 @@
   "version": 1,
   "phase": "Engine Breadth",
   "topic": "selection-keyed-collect",
-  "status": "Open. P0 measured; Decisions 1-5; ADR 0085 proposed, awaiting owner acceptance; Track 0 chartered.",
+  "status": "Open. Track 0 accepted; Track 1 (engine switch, rule-artifact.v16, core v86) chartered; ADR 0085 proposed, awaiting owner acceptance.",
   "scope": [
     "a selection path can collect a keyed source family without any rule publishing a stand-in value under the member fact id",
     "a selection with one real path and a default needs no path on a fact type nothing writes",
@@ -146,3 +146,20 @@ owner's and blocks the PR going ready.
 5. **Identity**: every recorded return and every design case is
    identical on v86 except that the box 4 amount id is no longer
    published as 0 (P0: 596 of 596).
+
+## Track 0 adversarial closure
+
+Foreman, 2026-11-10: accepted. Six rows PASS; the 596 recorded variants
+are identical apart from the retired stand-in; a foreign collect still
+must be listed. Track 1 is chartered in
+docs/reviews/selection-keyed-collect/charter-track1.md.
+
+Evidence: `docs/phases/engine-breadth/milestones/selection-keyed-collect-evidence/track0-closure.md`.
+
+- Authority-lifecycle table: PASS — `track0-authority.json` (`alc_amount_one`, `alc_amount_zero`, `alc_subtotal_empty`, `alc_amount_superseded`, `alc_amount_withdrawn`, `alc_switch`, `alc_standin_retired`)
+- Empty/nonempty authority matrix: PASS — `track0-matrix.json` (`m_no_box4_amount_v85`/`v86`, `m_one_amount_v85`/`v86`, `m_two_statements_v85`/`v86`, `m_zero_amount_v85`/`v86`, `m_one_path_v16_with_default`, `m_one_path_v16_without_default`)
+- Late-member lifecycle: PASS — `track0-late.json` (`late_amount_added`, `late_amount_superseded`, `late_amount_withdrawn`, `late_second_statement`); prior subtotal and line 25b findings are absent after each change
+- Neighboring capability dependency diff: PASS — `track0-neighbour.json` (`nb_validation`, `nb_bytes_v2_v85`, 596 `identical` recorded variants); the only new selection issue with the switch on is subtotal v1, which Decision 4 retires
+- Reused-claim semantic/lifecycle equivalence: PASS — `track0-reuse.json` (`reuse_no_amount`, `reuse_one_amount`, `reuse_two_statements`, `reuse_zero_amount`); line 25b identity and consumers hold; v86 walk shows each recorded amount and not the stand-in 0
+- Integration surface: PASS — `track0-surface.json` (six consumers, `surface_v16_add_only`, `surface_runner_wait`, `surface_foreign_collect_missing_requires`); Track 1 still threads `rule-artifact.v16` through derivation enumerations
+- Known limitations affecting correctness: none

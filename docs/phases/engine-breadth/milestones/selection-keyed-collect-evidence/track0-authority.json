@@ -1,0 +1,303 @@
+{
+  "scope": "authority",
+  "cores": [
+    "v85",
+    "v86"
+  ],
+  "switch": {
+    "v84": false,
+    "v85": false,
+    "v86": true,
+    "other_package": false
+  },
+  "cases": [
+    {
+      "id": "alc_amount_one",
+      "note": "One statement box 4 amount 150. Scope is that statement. Subtotal 150.",
+      "expect_25b": 150,
+      "expect_subtotal": 150,
+      "v85_lines": {
+        "form1040.line-25b": 150,
+        "form1040.line-25d": 4650,
+        "form1040.line-33": 4650,
+        "form1040.line-34": 655,
+        "form1040.line-37": 0
+      },
+      "v86_lines": {
+        "form1040.line-25b": 150,
+        "form1040.line-25d": 4650,
+        "form1040.line-33": 4650,
+        "form1040.line-34": 655,
+        "form1040.line-37": 0
+      },
+      "v85_subtotal": [
+        150
+      ],
+      "v86_subtotal": [
+        150
+      ],
+      "v85_standin": {
+        "disposition": "published",
+        "symbol": "f1099b.statement-box4-withholding",
+        "code": null
+      },
+      "v86_standin": null,
+      "v85_amount_walk": {
+        "value": "0",
+        "finding_id": "finding:derived:16698132d473f0ebbafd43ca",
+        "walk": [
+          "[output] f1099b.statement-box4-withholding=0 <- rule.f1099b-b4-amount-symbol",
+          "  [adoption] leaf"
+        ],
+        "walk_has_amount_symbol": true,
+        "walk_amount_zero_from_symbol": true,
+        "recorded_values_in_walk": [
+          ""
+        ]
+      },
+      "v86_amount_walk": null,
+      "failures": [],
+      "passed": true
+    },
+    {
+      "id": "alc_amount_zero",
+      "note": "A recorded zero is a current member. Subtotal 0 from the member, not only the default.",
+      "expect_25b": 0,
+      "expect_subtotal": 0,
+      "v85_lines": {
+        "form1040.line-25b": 0,
+        "form1040.line-25d": 4500,
+        "form1040.line-33": 4500,
+        "form1040.line-34": 505,
+        "form1040.line-37": 0
+      },
+      "v86_lines": {
+        "form1040.line-25b": 0,
+        "form1040.line-25d": 4500,
+        "form1040.line-33": 4500,
+        "form1040.line-34": 505,
+        "form1040.line-37": 0
+      },
+      "v85_subtotal": [
+        0
+      ],
+      "v86_subtotal": [
+        0
+      ],
+      "v85_standin": {
+        "disposition": "published",
+        "symbol": "f1099b.statement-box4-withholding",
+        "code": null
+      },
+      "v86_standin": null,
+      "v85_amount_walk": {
+        "value": "0",
+        "finding_id": "finding:derived:16698132d473f0ebbafd43ca",
+        "walk": [
+          "[output] f1099b.statement-box4-withholding=0 <- rule.f1099b-b4-amount-symbol",
+          "  [adoption] leaf"
+        ],
+        "walk_has_amount_symbol": true,
+        "walk_amount_zero_from_symbol": true,
+        "recorded_values_in_walk": [
+          ""
+        ]
+      },
+      "v86_amount_walk": null,
+      "failures": [],
+      "passed": true
+    },
+    {
+      "id": "alc_subtotal_empty",
+      "note": "No box 4 amount. The subtotal default 0 is the closed-empty branch.",
+      "expect_25b": 0,
+      "expect_subtotal": 0,
+      "v85_lines": {
+        "form1040.line-25b": 0,
+        "form1040.line-25d": 4500,
+        "form1040.line-33": 4500,
+        "form1040.line-34": 625,
+        "form1040.line-37": 0
+      },
+      "v86_lines": {
+        "form1040.line-25b": 0,
+        "form1040.line-25d": 4500,
+        "form1040.line-33": 4500,
+        "form1040.line-34": 625,
+        "form1040.line-37": 0
+      },
+      "v85_subtotal": [
+        0
+      ],
+      "v86_subtotal": [
+        0
+      ],
+      "v85_standin": {
+        "disposition": "published",
+        "symbol": "f1099b.statement-box4-withholding",
+        "code": null
+      },
+      "v86_standin": null,
+      "v85_amount_walk": {
+        "value": "0",
+        "finding_id": "finding:derived:16698132d473f0ebbafd43ca",
+        "walk": [
+          "[output] f1099b.statement-box4-withholding=0 <- rule.f1099b-b4-amount-symbol",
+          "  [adoption] leaf"
+        ],
+        "walk_has_amount_symbol": true,
+        "walk_amount_zero_from_symbol": true,
+        "recorded_values_in_walk": [
+          ""
+        ]
+      },
+      "v86_amount_walk": null,
+      "failures": [],
+      "passed": true
+    },
+    {
+      "id": "alc_amount_superseded",
+      "note": "Amount 100 then 250. Current member is 250. Subtotal follows.",
+      "expect_25b": 250,
+      "expect_subtotal": 250,
+      "v85_lines": {
+        "form1040.line-25b": 250,
+        "form1040.line-25d": 4750,
+        "form1040.line-33": 4750,
+        "form1040.line-34": 755,
+        "form1040.line-37": 0
+      },
+      "v86_lines": {
+        "form1040.line-25b": 250,
+        "form1040.line-25d": 4750,
+        "form1040.line-33": 4750,
+        "form1040.line-34": 755,
+        "form1040.line-37": 0
+      },
+      "v85_subtotal": [
+        250
+      ],
+      "v86_subtotal": [
+        250
+      ],
+      "v85_standin": {
+        "disposition": "published",
+        "symbol": "f1099b.statement-box4-withholding",
+        "code": null
+      },
+      "v86_standin": null,
+      "v85_amount_walk": {
+        "value": "0",
+        "finding_id": "finding:derived:16698132d473f0ebbafd43ca",
+        "walk": [
+          "[output] f1099b.statement-box4-withholding=0 <- rule.f1099b-b4-amount-symbol",
+          "  [adoption] leaf"
+        ],
+        "walk_has_amount_symbol": true,
+        "walk_amount_zero_from_symbol": true,
+        "recorded_values_in_walk": [
+          ""
+        ]
+      },
+      "v86_amount_walk": null,
+      "failures": [],
+      "passed": true
+    },
+    {
+      "id": "alc_amount_withdrawn",
+      "note": "Amount 150 retracted while the sale remains. require_paired blocks line 25b. The subtotal default is 0 because the family has no current member.",
+      "expect_25b": "blocked",
+      "expect_subtotal": 0,
+      "v85_lines": {
+        "form1040.line-25b": "blocked",
+        "form1040.line-25d": "blocked",
+        "form1040.line-33": "blocked",
+        "form1040.line-34": "blocked",
+        "form1040.line-37": "blocked"
+      },
+      "v86_lines": {
+        "form1040.line-25b": "blocked",
+        "form1040.line-25d": "blocked",
+        "form1040.line-33": "blocked",
+        "form1040.line-34": "blocked",
+        "form1040.line-37": "blocked"
+      },
+      "v85_subtotal": [
+        0
+      ],
+      "v86_subtotal": [
+        0
+      ],
+      "v85_standin": {
+        "disposition": "published",
+        "symbol": "f1099b.statement-box4-withholding",
+        "code": null
+      },
+      "v86_standin": null,
+      "v85_amount_walk": {
+        "value": "0",
+        "finding_id": "finding:derived:16698132d473f0ebbafd43ca",
+        "walk": [
+          "[output] f1099b.statement-box4-withholding=0 <- rule.f1099b-b4-amount-symbol",
+          "  [adoption] leaf"
+        ],
+        "walk_has_amount_symbol": true,
+        "walk_amount_zero_from_symbol": true,
+        "recorded_values_in_walk": [
+          ""
+        ]
+      },
+      "v86_amount_walk": null,
+      "failures": [],
+      "passed": true
+    },
+    {
+      "id": "alc_switch",
+      "note": "The switch is the adopted package id and version. On from core-calculations v86.",
+      "switch": {
+        "v84": false,
+        "v85": false,
+        "v86": true,
+        "other_package": false
+      },
+      "failures": [],
+      "passed": true
+    },
+    {
+      "id": "alc_standin_retired",
+      "note": "v85 publishes 0 under the amount id from the stand-in rule. v86 does not.",
+      "v85_standin": {
+        "disposition": "published",
+        "symbol": "f1099b.statement-box4-withholding",
+        "code": null
+      },
+      "v86_standin": null,
+      "v85_amount_walk": {
+        "value": "0",
+        "finding_id": "finding:derived:16698132d473f0ebbafd43ca",
+        "walk": [
+          "[output] f1099b.statement-box4-withholding=0 <- rule.f1099b-b4-amount-symbol",
+          "  [adoption] leaf"
+        ],
+        "walk_has_amount_symbol": true,
+        "walk_amount_zero_from_symbol": true,
+        "recorded_values_in_walk": [
+          ""
+        ]
+      },
+      "v86_amount_walk": null,
+      "failures": [],
+      "passed": true
+    }
+  ],
+  "passed": [
+    "alc_amount_one",
+    "alc_amount_zero",
+    "alc_subtotal_empty",
+    "alc_amount_superseded",
+    "alc_amount_withdrawn",
+    "alc_switch",
+    "alc_standin_retired"
+  ],
+  "failed": []
+}
