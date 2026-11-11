@@ -3,7 +3,8 @@
   "version": 1,
   "phase": "Engine Breadth",
   "topic": "selection-keyed-collect",
-  "status": "Open. Track 0 accepted; Track 1 (engine switch, rule-artifact.v16, core v86) chartered; ADR 0085 proposed, awaiting owner acceptance.",
+  "retrospective": "docs/milestone-retrospectives/2026-11-10-selection-keyed-collect.md",
+  "status": "Closed. From core v86 a selection path collects its own activity family without a stand-in symbol, and rule-artifact.v16 allows one path; core v86 retires the box 4 stand-in rule and inert path. ADR 0085 is proposed; the PR waits for owner acceptance before ready.",
   "scope": [
     "a selection path can collect a keyed source family without any rule publishing a stand-in value under the member fact id",
     "a selection with one real path and a default needs no path on a fact type nothing writes",
@@ -200,3 +201,14 @@ Deviations:
 
 No stop. No edit under `packages/kernel/`. No edit to a published schema
 file. No recording change.
+
+## Closeout
+
+Closed 2026-11-10. Fresh review: docs/reviews/selection-keyed-collect/review.md,
+ready, two notes. Note 1 (the exemption also covered a categorical read of
+the activity family, which ADR 0085 does not name) is repaired: only the
+member `collect` is exempt, with a test that fails without it. Note 2 (the
+Track 0 walk summary helper misses member lines; the walk itself passed) is
+left in the evidence script. ADR 0085 is proposed; the PR goes ready only
+after the owner accepts it. Retrospective:
+`docs/milestone-retrospectives/2026-11-10-selection-keyed-collect.md`.

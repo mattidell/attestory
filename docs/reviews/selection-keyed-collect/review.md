@@ -1,6 +1,6 @@
 # Review: a selection path collects a keyed family
 
-Reviewed commit: `c51bc58510b7f1eee2082e19ee9f010fd75db829` on
+Reviewed commit: the commit that chartered this review (removed at closeout) on
 `milestone/selection-keyed-collect-2025`, diffed against `github/main`.
 The orientation SHA matches Git. The worktree was clean at the start of
 this review.
