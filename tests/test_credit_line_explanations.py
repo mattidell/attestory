@@ -13,7 +13,6 @@ from __future__ import annotations
 import copy
 import functools
 import hashlib
-import importlib.util
 import json
 from decimal import Decimal
 from pathlib import Path
@@ -27,6 +26,7 @@ from packages.derivation.live_workspace import WorkspaceCapability
 from packages.derivation.package_validation import citizen_checksum
 from packages.derivation.production_resolver import PublicationSurface
 from packages.tax.loader import domain_package_companion_declarations
+from tests import evidence_loader
 from tests.test_form_1099_k_income import _handover
 from tests.test_form_1099_withholding import (
     CONTENT,
@@ -77,11 +77,7 @@ def _read(stem: str, version: str) -> dict[str, Any]:
 
 
 def _survey() -> Any:
-    spec = importlib.util.spec_from_file_location("credit_line_survey", SURVEY)
-    assert spec is not None and spec.loader is not None
-    module = importlib.util.module_from_spec(spec)
-    spec.loader.exec_module(module)
-    return module
+    return evidence_loader.load(SURVEY, "credit_line_survey")
 
 
 # --- running -----------------------------------------------------------------------------

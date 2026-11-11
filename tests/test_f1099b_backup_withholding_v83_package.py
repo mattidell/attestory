@@ -16,7 +16,6 @@ from __future__ import annotations
 
 import copy
 import hashlib
-import importlib.util
 import json
 from pathlib import Path
 from types import ModuleType
@@ -30,6 +29,7 @@ from packages.tax.loader import (
     covered_flag_refusal_map,
     domain_package_companion_declarations,
 )
+from tests import evidence_loader
 
 REPO = Path(__file__).resolve().parents[1]
 CONTENT = REPO / "packages/content/tax/2025"
@@ -54,12 +54,8 @@ def _load_json(path: Path) -> Any:
 
 
 def _module(name: str, path: Path) -> ModuleType:
-    """An evidence module under its own name, loaded fresh and never registered or modified."""
-    spec = importlib.util.spec_from_file_location(name, path)
-    assert spec is not None and spec.loader is not None
-    module = importlib.util.module_from_spec(spec)
-    spec.loader.exec_module(module)
-    return module
+    """An evidence module under its own name. Nothing on it is assigned."""
+    return evidence_loader.load(path, name)
 
 
 def _bodies_by_identity() -> dict[tuple[str, str], str]:

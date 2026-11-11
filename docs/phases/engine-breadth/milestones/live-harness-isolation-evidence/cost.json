@@ -1,0 +1,27 @@
+{
+  "modules": {
+    "subprocess_candidate": "docs/phases/engine-breadth/milestones/f8949-code-b-evidence/codeb_prototype.py",
+    "private_candidate": "docs/phases/engine-breadth/milestones/sale-family-audit-evidence/audit_harness.py"
+  },
+  "note": "Top-level spec_from_file_location under a new name re-executes that file only. Bare imports inside it stay in sys.modules. Subprocess wall time includes the interpreter.",
+  "repeats": 3,
+  "median_wall_s": {
+    "shared_both": 0.344,
+    "private_reexec": 0.344,
+    "subprocess_codeb": 0.338,
+    "subprocess_audit": 0.177,
+    "subprocess_pair_sum": 0.515
+  },
+  "median_inner_s": {
+    "shared_both": 0.29,
+    "private_first_exec": 0.286,
+    "private_second_exec": 0.003,
+    "subprocess_codeb": 0.284,
+    "subprocess_audit": 0.128
+  },
+  "private_reexec_does_not_isolate_inner_imports": true,
+  "fast_module_in_process": {
+    "file": "tests/test_code_b_sales_v81_package.py",
+    "seconds": 0.28
+  }
+}

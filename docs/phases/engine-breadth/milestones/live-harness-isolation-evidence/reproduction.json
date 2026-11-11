@@ -1,0 +1,175 @@
+{
+  "pytest": {
+    "invocation": "python3 -m pytest -o addopts='' -p no:xdist --tb=line -q",
+    "note": "One process, no xdist. -k is a substring, so c_loss also selected c_loss_path_b_unanswered.",
+    "pairs": [
+      {
+        "name": "code-b then v80",
+        "order": [
+          "tests/test_code_b_sales_v81.py::test_v81_matches_track0[a_8949_yes]",
+          "tests/test_no1099b_sales_v80.py::test_v80_matches_track0[c_loss]",
+          "tests/test_no1099b_sales_v80.py::test_v80_matches_track0[c_loss_path_b_unanswered]"
+        ],
+        "result": "3 passed, 165 deselected",
+        "seconds": 31.69
+      },
+      {
+        "name": "v80 then code-b",
+        "order": [
+          "tests/test_no1099b_sales_v80.py::test_v80_matches_track0[c_loss]",
+          "tests/test_no1099b_sales_v80.py::test_v80_matches_track0[c_loss_path_b_unanswered]",
+          "tests/test_code_b_sales_v81.py::test_v81_matches_track0[a_8949_yes]"
+        ],
+        "result": "3 passed, 165 deselected",
+        "seconds": 31.51
+      },
+      {
+        "name": "noncovered then v80",
+        "order": [
+          "tests/test_noncovered_sales_v79.py::test_v79_matches_the_track0_rerun[boundary_no_with_member]",
+          "tests/test_no1099b_sales_v80.py::test_v80_matches_track0[c_loss]",
+          "tests/test_no1099b_sales_v80.py::test_v80_matches_track0[c_loss_path_b_unanswered]"
+        ],
+        "result": "3 passed, 98 deselected",
+        "seconds": 30.32
+      },
+      {
+        "name": "v80 then noncovered",
+        "order": [
+          "tests/test_no1099b_sales_v80.py::test_v80_matches_track0[c_loss]",
+          "tests/test_no1099b_sales_v80.py::test_v80_matches_track0[c_loss_path_b_unanswered]",
+          "tests/test_noncovered_sales_v79.py::test_v79_matches_the_track0_rerun[boundary_no_with_member]"
+        ],
+        "result": "3 passed, 98 deselected",
+        "seconds": 30.65
+      }
+    ]
+  },
+  "shared_module_identity": [
+    {
+      "load_order": "codeb-then-cf",
+      "companion_order": "v80-then-v81",
+      "same_probe_object": true,
+      "same_track0_object": true,
+      "same_cf_prototype_object": true,
+      "codeb_globals_during": {
+        "watch_is_codeb": true,
+        "text_lines_is_codeb": true,
+        "summarize_is_codeb": true
+      },
+      "codeb_globals_restored": true,
+      "flags_before_companions": {
+        "cf_patched": false,
+        "codeb_patched": false,
+        "decl_qualname": "domain_package_companion_declarations",
+        "refusal_qualname": "named_covered_flag_refusal_maps"
+      },
+      "calls": [
+        {
+          "call": "companion_v80",
+          "error": null,
+          "cf_patched": true,
+          "codeb_patched": false,
+          "decl_qualname": "companion_v80.<locals>.declarations",
+          "refusal_qualname": "companion_v80.<locals>.refusal"
+        },
+        {
+          "call": "companion_v81",
+          "error": null,
+          "cf_patched": true,
+          "codeb_patched": true,
+          "decl_qualname": "companion_v81.<locals>.declarations",
+          "refusal_qualname": "companion_v81.<locals>.refusal"
+        },
+        {
+          "call": "companion_v80_again",
+          "error": null,
+          "cf_patched": true,
+          "codeb_patched": true,
+          "decl_qualname": "companion_v81.<locals>.declarations",
+          "refusal_qualname": "companion_v81.<locals>.refusal"
+        },
+        {
+          "call": "companion_v81_again",
+          "error": null,
+          "cf_patched": true,
+          "codeb_patched": true,
+          "decl_qualname": "companion_v81.<locals>.declarations",
+          "refusal_qualname": "companion_v81.<locals>.refusal"
+        }
+      ],
+      "wall_s": 0.487
+    },
+    {
+      "load_order": "cf-then-codeb",
+      "companion_order": "v81-then-v80",
+      "same_probe_object": true,
+      "same_track0_object": true,
+      "same_cf_prototype_object": true,
+      "codeb_globals_during": {
+        "watch_is_codeb": true,
+        "text_lines_is_codeb": true,
+        "summarize_is_codeb": true
+      },
+      "codeb_globals_restored": true,
+      "flags_before_companions": {
+        "cf_patched": false,
+        "codeb_patched": false,
+        "decl_qualname": "domain_package_companion_declarations",
+        "refusal_qualname": "named_covered_flag_refusal_maps"
+      },
+      "calls": [
+        {
+          "call": "companion_v81",
+          "error": null,
+          "cf_patched": false,
+          "codeb_patched": true,
+          "decl_qualname": "companion_v81.<locals>.declarations",
+          "refusal_qualname": "companion_v81.<locals>.refusal"
+        },
+        {
+          "call": "companion_v80",
+          "error": null,
+          "cf_patched": true,
+          "codeb_patched": true,
+          "decl_qualname": "companion_v80.<locals>.declarations",
+          "refusal_qualname": "companion_v80.<locals>.refusal"
+        },
+        {
+          "call": "companion_v80_again",
+          "error": null,
+          "cf_patched": true,
+          "codeb_patched": true,
+          "decl_qualname": "companion_v80.<locals>.declarations",
+          "refusal_qualname": "companion_v80.<locals>.refusal"
+        },
+        {
+          "call": "companion_v81_again",
+          "error": null,
+          "cf_patched": true,
+          "codeb_patched": true,
+          "decl_qualname": "companion_v80.<locals>.declarations",
+          "refusal_qualname": "companion_v80.<locals>.refusal"
+        }
+      ],
+      "wall_s": 0.339
+    }
+  ],
+  "loader_declaration_versions": {
+    "note": "Both orders return the same version set, including v80 and v81. The installed function is the companion that ran second.",
+    "v80_then_v81": {
+      "decl": "companion_v81.<locals>.declarations",
+      "includes_v80_and_v81": true
+    },
+    "v81_then_v80": {
+      "decl": "companion_v80.<locals>.declarations",
+      "includes_v80_and_v81": true
+    }
+  },
+  "code_b_package_module": {
+    "file": "tests/test_code_b_sales_v81_package.py",
+    "result": "23 passed",
+    "seconds": 0.28,
+    "slowest_setup_s": 0.21
+  }
+}

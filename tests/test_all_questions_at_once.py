@@ -7,7 +7,6 @@ may publish ``true``; it is not a form amount and is not part of the face.
 
 from __future__ import annotations
 
-import importlib.util
 from pathlib import Path
 from typing import Any
 
@@ -17,6 +16,7 @@ from packages.derivation.evaluator import AccessLog, Environment, EvalBlocked, e
 from packages.derivation.live import live_coordinate_run
 from packages.derivation.presentation_projection import _closure_question_reasons
 from packages.tax.loader import later_any_arm_refs_while_count_blocked
+from tests import evidence_loader
 
 ROOT = Path(__file__).resolve().parents[1]
 CORE = "tax.us.2025.package.core-calculations"
@@ -157,12 +157,7 @@ _W2_CLOSURE = "tax.us.2025.w2.source-closure"
 
 
 def _load_probe() -> Any:
-    spec = importlib.util.spec_from_file_location("all_questions_probe", _PROBE_PATH)
-    if spec is None or spec.loader is None:
-        raise RuntimeError("question-round probe failed to load")
-    module = importlib.util.module_from_spec(spec)
-    spec.loader.exec_module(module)
-    return module
+    return evidence_loader.load(_PROBE_PATH, "all_questions_probe")
 
 
 def _round_sentences(result: dict[str, Any], number: int) -> list[str]:

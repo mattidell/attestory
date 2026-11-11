@@ -10,7 +10,6 @@ filer answers), so the credit's inputs are the ones the engine already reads.
 from __future__ import annotations
 
 import hashlib
-import importlib.util
 import json
 import subprocess
 import sys
@@ -23,6 +22,7 @@ from packages.derivation.loader import DerivationSchemas
 from packages.derivation.production_resolver import PublicationSurface
 from packages.kernel.facts import fact_id_for
 
+from tests import evidence_loader
 from tests.test_child_tax_credit_track1 import (
     CHILD_TYPES,
     CLAIM,
@@ -104,13 +104,7 @@ BUNDLES = ("odc-child-roster.bundle.json", "odc-relative-roster.bundle.json",
 
 
 def _load_case_table() -> Any:
-    spec = importlib.util.spec_from_file_location("odc_case_table", CASE_TABLE)
-    if spec is None or spec.loader is None:
-        raise RuntimeError("cannot load the case table")
-    module = importlib.util.module_from_spec(spec)
-    sys.modules[spec.name] = module
-    spec.loader.exec_module(module)
-    return module
+    return evidence_loader.load(CASE_TABLE, "odc_case_table")
 
 
 def ctc_child(**over: str) -> dict[str, str]:

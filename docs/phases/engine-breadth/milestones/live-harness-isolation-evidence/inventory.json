@@ -1,0 +1,3998 @@
+{
+  "limits": [
+    "Static. A load whose path is built at runtime stays in unresolved.",
+    "Call-time loads are included even when a particular test never calls that function.",
+    "Loads under a __main__ guard are listed on the file and are not part of test reachability.",
+    "A private spec_from_file_location name does not isolate bare imports that file executes.",
+    "A bare import that does not resolve on the modeled sys.path is the sibling file of that name when the sibling exists.",
+    "Subprocess loads are isolated and are not followed into the sharing graph.",
+    "Imported path, string, and int constants are followed across modules. A cycle is left unresolved.",
+    "An engine write is unrestored when no assignment of that same target in the same function is in a finally.",
+    "Latent collisions are bare imports of one name that resolve to different files, whether or not a current test reaches both.",
+    "isolation=subprocess means a reached harness writes engine state with no finally partner. isolation=private means the harnesses share only harness globals, or restore engine writes."
+  ],
+  "summary": {
+    "test_modules_loading_by_path": 31,
+    "test_modules_reaching_evidence": 20,
+    "evidence_files_parsed": 104,
+    "shared_module_names": 20,
+    "module_name_collisions": 0,
+    "latent_name_collisions": 1,
+    "cross_module_writes": 115,
+    "engine_writes": 27,
+    "engine_files_unrestored": 12,
+    "module_caches": 3,
+    "sys_modules_sites": 50,
+    "unresolved_loads": 3,
+    "clusters": 3,
+    "isolation_subprocess": 4,
+    "isolation_private": 16,
+    "isolation_isolated": 3,
+    "isolation_not_evidence": 8
+  },
+  "tests": [
+    {
+      "file": "tests/test_all_questions_at_once.py",
+      "lane": "live",
+      "isolation": "private",
+      "engine_unrestored": [],
+      "direct_loads": [
+        {
+          "file": "tests/test_all_questions_at_once.py",
+          "line": 160,
+          "path": "docs/phases/engine-breadth/milestones/all-questions-at-once-evidence/probe.py",
+          "module_name": "all_questions_probe",
+          "mechanism": "spec_from_file_location",
+          "when": "call",
+          "under_main": false,
+          "evidence": true,
+          "isolated": false
+        }
+      ],
+      "harnesses": [
+        {
+          "path": "docs/phases/engine-breadth/milestones/all-questions-at-once-evidence/probe.py",
+          "module_name": "all_questions_probe",
+          "when": "call",
+          "via": "tests/test_all_questions_at_once.py"
+        }
+      ]
+    },
+    {
+      "file": "tests/test_build_orientation_block_charter_anchor.py",
+      "lane": "live",
+      "isolation": "isolated",
+      "engine_unrestored": [],
+      "direct_loads": [
+        {
+          "file": "tests/test_build_orientation_block_charter_anchor.py",
+          "line": 70,
+          "path": "tools/build_orientation_block.py",
+          "module_name": null,
+          "mechanism": "subprocess",
+          "when": "call",
+          "under_main": false,
+          "evidence": false,
+          "isolated": true
+        },
+        {
+          "file": "tests/test_build_orientation_block_charter_anchor.py",
+          "line": 95,
+          "path": "tools/build_orientation_block.py",
+          "module_name": null,
+          "mechanism": "subprocess",
+          "when": "call",
+          "under_main": false,
+          "evidence": false,
+          "isolated": true
+        }
+      ],
+      "harnesses": []
+    },
+    {
+      "file": "tests/test_child_tax_credit_track1.py",
+      "lane": "live",
+      "isolation": "private",
+      "engine_unrestored": [],
+      "direct_loads": [
+        {
+          "file": "tests/test_child_tax_credit_track1.py",
+          "line": 120,
+          "path": "docs/phases/engine-breadth/milestones/child-tax-credit-evidence/ctc_case_table.py",
+          "module_name": "ctc_case_table",
+          "mechanism": "spec_from_file_location",
+          "when": "call",
+          "under_main": false,
+          "evidence": true,
+          "isolated": false
+        },
+        {
+          "file": "tests/test_child_tax_credit_track1.py",
+          "line": 331,
+          "path": "tools/required_versus_read.py",
+          "module_name": null,
+          "mechanism": "subprocess",
+          "when": "call",
+          "under_main": false,
+          "evidence": false,
+          "isolated": true
+        }
+      ],
+      "harnesses": [
+        {
+          "path": "docs/phases/engine-breadth/milestones/child-tax-credit-evidence/ctc_case_table.py",
+          "module_name": "ctc_case_table",
+          "when": "call",
+          "via": "tests/test_child_tax_credit_track1.py"
+        }
+      ]
+    },
+    {
+      "file": "tests/test_ci_historical_ref.py",
+      "lane": "fast",
+      "isolation": "not_evidence",
+      "engine_unrestored": [],
+      "direct_loads": [
+        {
+          "file": "tests/test_ci_historical_ref.py",
+          "line": 217,
+          "path": "tests/test_eic_table_child_columns.py",
+          "module_name": "eic_table_child_columns_contract",
+          "mechanism": "spec_from_file_location",
+          "when": "call",
+          "under_main": false,
+          "evidence": false,
+          "isolated": false
+        }
+      ],
+      "harnesses": []
+    },
+    {
+      "file": "tests/test_closure_question_coverage.py",
+      "lane": "live",
+      "isolation": "private",
+      "engine_unrestored": [],
+      "direct_loads": [
+        {
+          "file": "tests/test_closure_question_coverage.py",
+          "line": 82,
+          "path": "docs/phases/engine-breadth/milestones/closure-question-coverage-evidence/probe.py",
+          "module_name": "closure_question_coverage_probe",
+          "mechanism": "spec_from_file_location",
+          "when": "call",
+          "under_main": false,
+          "evidence": true,
+          "isolated": false
+        }
+      ],
+      "harnesses": [
+        {
+          "path": "docs/phases/engine-breadth/milestones/closure-question-coverage-evidence/probe.py",
+          "module_name": "closure_question_coverage_probe",
+          "when": "call",
+          "via": "tests/test_closure_question_coverage.py"
+        }
+      ]
+    },
+    {
+      "file": "tests/test_code_b_sales_v81.py",
+      "lane": "live",
+      "isolation": "subprocess",
+      "engine_unrestored": [
+        {
+          "file": "docs/phases/engine-breadth/milestones/f8949-boxes-cf-evidence/cf_prototype.py",
+          "line": 801,
+          "target": "loader.domain_package_companion_declarations"
+        },
+        {
+          "file": "docs/phases/engine-breadth/milestones/f8949-boxes-cf-evidence/cf_prototype.py",
+          "line": 802,
+          "target": "loader.named_covered_flag_refusal_maps"
+        },
+        {
+          "file": "docs/phases/engine-breadth/milestones/f8949-boxes-cf-evidence/cf_prototype.py",
+          "line": 803,
+          "target": "loader._cf_patched"
+        },
+        {
+          "file": "docs/phases/engine-breadth/milestones/f8949-code-b-evidence/codeb_prototype.py",
+          "line": 1007,
+          "target": "loader.domain_package_companion_declarations"
+        },
+        {
+          "file": "docs/phases/engine-breadth/milestones/f8949-code-b-evidence/codeb_prototype.py",
+          "line": 1008,
+          "target": "loader.named_covered_flag_refusal_maps"
+        },
+        {
+          "file": "docs/phases/engine-breadth/milestones/f8949-code-b-evidence/codeb_prototype.py",
+          "line": 1009,
+          "target": "loader._codeb_patched"
+        },
+        {
+          "file": "docs/phases/engine-breadth/milestones/noncovered-sales-evidence/p0b.py",
+          "line": 101,
+          "target": "proto.loader.domain_package_companion_declarations"
+        },
+        {
+          "file": "docs/phases/engine-breadth/milestones/noncovered-sales-evidence/p0b.py",
+          "line": 373,
+          "target": "marshal_mod.marshal_closure_authority"
+        },
+        {
+          "file": "docs/phases/engine-breadth/milestones/noncovered-sales-evidence/p0b.py",
+          "line": 374,
+          "target": "runner_mod.resolve_closure_admissions"
+        },
+        {
+          "file": "docs/phases/engine-breadth/milestones/noncovered-sales-evidence/p0b.py",
+          "line": 375,
+          "target": "runner_mod._Run._record_blocked"
+        },
+        {
+          "file": "docs/phases/engine-breadth/milestones/noncovered-sales-evidence/p0b.py",
+          "line": 376,
+          "target": "presentation_mod._closure_question_reasons"
+        },
+        {
+          "file": "docs/phases/engine-breadth/milestones/noncovered-sales-evidence/p0b.py",
+          "line": 377,
+          "target": "live_mod.live_coordinate_run"
+        },
+        {
+          "file": "docs/phases/engine-breadth/milestones/noncovered-sales-evidence/prototype.py",
+          "line": 703,
+          "target": "loader.domain_package_companion_declarations"
+        },
+        {
+          "file": "docs/phases/engine-breadth/milestones/noncovered-sales-evidence/track0.py",
+          "line": 113,
+          "target": "proto.loader.domain_package_companion_declarations"
+        }
+      ],
+      "direct_loads": [
+        {
+          "file": "tests/test_code_b_sales_v81.py",
+          "line": 166,
+          "path": "docs/phases/engine-breadth/milestones/f8949-code-b-evidence/codeb_prototype.py",
+          "module_name": "f8949_code_b_prototype",
+          "mechanism": "spec_from_file_location",
+          "when": "call",
+          "under_main": false,
+          "evidence": true,
+          "isolated": false
+        },
+        {
+          "file": "tests/test_code_b_sales_v81.py",
+          "line": 167,
+          "path": "docs/phases/engine-breadth/milestones/f8949-code-b-evidence/codeb_track0.py",
+          "module_name": "f8949_code_b_track0",
+          "mechanism": "spec_from_file_location",
+          "when": "call",
+          "under_main": false,
+          "evidence": true,
+          "isolated": false
+        }
+      ],
+      "harnesses": [
+        {
+          "path": "docs/phases/engine-breadth/milestones/f8949-boxes-cf-evidence/cf_probe.py",
+          "module_name": "cf_probe",
+          "when": "import",
+          "via": "docs/phases/engine-breadth/milestones/f8949-boxes-cf-evidence/cf_prototype.py"
+        },
+        {
+          "path": "docs/phases/engine-breadth/milestones/f8949-boxes-cf-evidence/cf_prototype.py",
+          "module_name": "cf_prototype",
+          "when": "import",
+          "via": "docs/phases/engine-breadth/milestones/f8949-boxes-cf-evidence/track0.py"
+        },
+        {
+          "path": "docs/phases/engine-breadth/milestones/f8949-boxes-cf-evidence/track0.py",
+          "module_name": "f8949_boxes_cf_track0",
+          "when": "import",
+          "via": "docs/phases/engine-breadth/milestones/f8949-code-b-evidence/codeb_prototype.py"
+        },
+        {
+          "path": "docs/phases/engine-breadth/milestones/f8949-code-b-evidence/codeb_probe.py",
+          "module_name": "f8949_code_b_probe",
+          "when": "import",
+          "via": "docs/phases/engine-breadth/milestones/f8949-code-b-evidence/codeb_prototype.py"
+        },
+        {
+          "path": "docs/phases/engine-breadth/milestones/f8949-code-b-evidence/codeb_prototype.py",
+          "module_name": "f8949_code_b_prototype",
+          "when": "import",
+          "via": "docs/phases/engine-breadth/milestones/f8949-code-b-evidence/codeb_track0.py"
+        },
+        {
+          "path": "docs/phases/engine-breadth/milestones/f8949-code-b-evidence/codeb_track0.py",
+          "module_name": "f8949_code_b_track0",
+          "when": "call",
+          "via": "tests/test_code_b_sales_v81.py"
+        },
+        {
+          "path": "docs/phases/engine-breadth/milestones/noncovered-sales-evidence/p0b.py",
+          "module_name": "p0b",
+          "when": "import",
+          "via": "docs/phases/engine-breadth/milestones/f8949-boxes-cf-evidence/cf_probe.py"
+        },
+        {
+          "path": "docs/phases/engine-breadth/milestones/noncovered-sales-evidence/probe.py",
+          "module_name": "probe",
+          "when": "import",
+          "via": "docs/phases/engine-breadth/milestones/f8949-boxes-cf-evidence/cf_probe.py"
+        },
+        {
+          "path": "docs/phases/engine-breadth/milestones/noncovered-sales-evidence/prototype.py",
+          "module_name": "prototype",
+          "when": "import",
+          "via": "docs/phases/engine-breadth/milestones/f8949-boxes-cf-evidence/cf_probe.py"
+        },
+        {
+          "path": "docs/phases/engine-breadth/milestones/noncovered-sales-evidence/track0.py",
+          "module_name": "track0",
+          "when": "import",
+          "via": "docs/phases/engine-breadth/milestones/noncovered-sales-evidence/p0b.py"
+        }
+      ]
+    },
+    {
+      "file": "tests/test_code_b_sales_v81_package.py",
+      "lane": "fast",
+      "isolation": "subprocess",
+      "engine_unrestored": [
+        {
+          "file": "docs/phases/engine-breadth/milestones/f8949-boxes-cf-evidence/cf_prototype.py",
+          "line": 801,
+          "target": "loader.domain_package_companion_declarations"
+        },
+        {
+          "file": "docs/phases/engine-breadth/milestones/f8949-boxes-cf-evidence/cf_prototype.py",
+          "line": 802,
+          "target": "loader.named_covered_flag_refusal_maps"
+        },
+        {
+          "file": "docs/phases/engine-breadth/milestones/f8949-boxes-cf-evidence/cf_prototype.py",
+          "line": 803,
+          "target": "loader._cf_patched"
+        },
+        {
+          "file": "docs/phases/engine-breadth/milestones/f8949-code-b-evidence/codeb_prototype.py",
+          "line": 1007,
+          "target": "loader.domain_package_companion_declarations"
+        },
+        {
+          "file": "docs/phases/engine-breadth/milestones/f8949-code-b-evidence/codeb_prototype.py",
+          "line": 1008,
+          "target": "loader.named_covered_flag_refusal_maps"
+        },
+        {
+          "file": "docs/phases/engine-breadth/milestones/f8949-code-b-evidence/codeb_prototype.py",
+          "line": 1009,
+          "target": "loader._codeb_patched"
+        },
+        {
+          "file": "docs/phases/engine-breadth/milestones/noncovered-sales-evidence/p0b.py",
+          "line": 101,
+          "target": "proto.loader.domain_package_companion_declarations"
+        },
+        {
+          "file": "docs/phases/engine-breadth/milestones/noncovered-sales-evidence/p0b.py",
+          "line": 373,
+          "target": "marshal_mod.marshal_closure_authority"
+        },
+        {
+          "file": "docs/phases/engine-breadth/milestones/noncovered-sales-evidence/p0b.py",
+          "line": 374,
+          "target": "runner_mod.resolve_closure_admissions"
+        },
+        {
+          "file": "docs/phases/engine-breadth/milestones/noncovered-sales-evidence/p0b.py",
+          "line": 375,
+          "target": "runner_mod._Run._record_blocked"
+        },
+        {
+          "file": "docs/phases/engine-breadth/milestones/noncovered-sales-evidence/p0b.py",
+          "line": 376,
+          "target": "presentation_mod._closure_question_reasons"
+        },
+        {
+          "file": "docs/phases/engine-breadth/milestones/noncovered-sales-evidence/p0b.py",
+          "line": 377,
+          "target": "live_mod.live_coordinate_run"
+        },
+        {
+          "file": "docs/phases/engine-breadth/milestones/noncovered-sales-evidence/prototype.py",
+          "line": 703,
+          "target": "loader.domain_package_companion_declarations"
+        },
+        {
+          "file": "docs/phases/engine-breadth/milestones/noncovered-sales-evidence/track0.py",
+          "line": 113,
+          "target": "proto.loader.domain_package_companion_declarations"
+        }
+      ],
+      "direct_loads": [
+        {
+          "file": "tests/test_code_b_sales_v81_package.py",
+          "line": 46,
+          "path": "docs/phases/engine-breadth/milestones/f8949-code-b-evidence/codeb_prototype.py",
+          "module_name": "f8949_code_b_prototype",
+          "mechanism": "spec_from_file_location",
+          "when": "call",
+          "under_main": false,
+          "evidence": true,
+          "isolated": false
+        }
+      ],
+      "harnesses": [
+        {
+          "path": "docs/phases/engine-breadth/milestones/f8949-boxes-cf-evidence/cf_probe.py",
+          "module_name": "cf_probe",
+          "when": "import",
+          "via": "docs/phases/engine-breadth/milestones/f8949-boxes-cf-evidence/cf_prototype.py"
+        },
+        {
+          "path": "docs/phases/engine-breadth/milestones/f8949-boxes-cf-evidence/cf_prototype.py",
+          "module_name": "cf_prototype",
+          "when": "import",
+          "via": "docs/phases/engine-breadth/milestones/f8949-boxes-cf-evidence/track0.py"
+        },
+        {
+          "path": "docs/phases/engine-breadth/milestones/f8949-boxes-cf-evidence/track0.py",
+          "module_name": "f8949_boxes_cf_track0",
+          "when": "import",
+          "via": "docs/phases/engine-breadth/milestones/f8949-code-b-evidence/codeb_prototype.py"
+        },
+        {
+          "path": "docs/phases/engine-breadth/milestones/f8949-code-b-evidence/codeb_probe.py",
+          "module_name": "f8949_code_b_probe",
+          "when": "import",
+          "via": "docs/phases/engine-breadth/milestones/f8949-code-b-evidence/codeb_prototype.py"
+        },
+        {
+          "path": "docs/phases/engine-breadth/milestones/f8949-code-b-evidence/codeb_prototype.py",
+          "module_name": "f8949_code_b_prototype",
+          "when": "call",
+          "via": "tests/test_code_b_sales_v81_package.py"
+        },
+        {
+          "path": "docs/phases/engine-breadth/milestones/noncovered-sales-evidence/p0b.py",
+          "module_name": "p0b",
+          "when": "import",
+          "via": "docs/phases/engine-breadth/milestones/f8949-boxes-cf-evidence/cf_probe.py"
+        },
+        {
+          "path": "docs/phases/engine-breadth/milestones/noncovered-sales-evidence/probe.py",
+          "module_name": "probe",
+          "when": "import",
+          "via": "docs/phases/engine-breadth/milestones/f8949-boxes-cf-evidence/cf_probe.py"
+        },
+        {
+          "path": "docs/phases/engine-breadth/milestones/noncovered-sales-evidence/prototype.py",
+          "module_name": "prototype",
+          "when": "import",
+          "via": "docs/phases/engine-breadth/milestones/f8949-boxes-cf-evidence/cf_probe.py"
+        },
+        {
+          "path": "docs/phases/engine-breadth/milestones/noncovered-sales-evidence/track0.py",
+          "module_name": "track0",
+          "when": "import",
+          "via": "docs/phases/engine-breadth/milestones/noncovered-sales-evidence/p0b.py"
+        }
+      ]
+    },
+    {
+      "file": "tests/test_credit_line_explanations.py",
+      "lane": "live",
+      "isolation": "private",
+      "engine_unrestored": [],
+      "direct_loads": [
+        {
+          "file": "tests/test_credit_line_explanations.py",
+          "line": 80,
+          "path": "docs/phases/engine-breadth/milestones/credit-line-explanations-evidence/survey.py",
+          "module_name": "credit_line_survey",
+          "mechanism": "spec_from_file_location",
+          "when": "call",
+          "under_main": false,
+          "evidence": true,
+          "isolated": false
+        }
+      ],
+      "harnesses": [
+        {
+          "path": "docs/phases/engine-breadth/milestones/credit-line-explanations-evidence/survey.py",
+          "module_name": "credit_line_survey",
+          "when": "call",
+          "via": "tests/test_credit_line_explanations.py"
+        }
+      ]
+    },
+    {
+      "file": "tests/test_earned_income_credit_track1.py",
+      "lane": "live",
+      "isolation": "private",
+      "engine_unrestored": [],
+      "direct_loads": [
+        {
+          "file": "tests/test_earned_income_credit_track1.py",
+          "line": 94,
+          "path": "docs/phases/engine-breadth/milestones/earned-income-credit-evidence/probe.py",
+          "module_name": "eic_p0_probe",
+          "mechanism": "spec_from_file_location",
+          "when": "call",
+          "under_main": false,
+          "evidence": true,
+          "isolated": false
+        }
+      ],
+      "harnesses": [
+        {
+          "path": "docs/phases/engine-breadth/milestones/earned-income-credit-evidence/probe.py",
+          "module_name": "eic_p0_probe",
+          "when": "call",
+          "via": "tests/test_earned_income_credit_track1.py"
+        }
+      ]
+    },
+    {
+      "file": "tests/test_f1099b_backup_withholding_v83.py",
+      "lane": "live",
+      "isolation": "private",
+      "engine_unrestored": [],
+      "direct_loads": [
+        {
+          "file": "tests/test_f1099b_backup_withholding_v83.py",
+          "line": 82,
+          "path": "docs/phases/engine-breadth/milestones/f1099b-backup-withholding-evidence/track0.py",
+          "module_name": "f1099b_b4_v83_live_track0",
+          "mechanism": "spec_from_file_location",
+          "when": "call",
+          "under_main": false,
+          "evidence": true,
+          "isolated": false
+        },
+        {
+          "file": "tests/test_f1099b_backup_withholding_v83.py",
+          "line": 124,
+          "path": "docs/phases/engine-breadth/milestones/sale-family-audit-evidence/export_v81_returns.py",
+          "module_name": null,
+          "mechanism": "subprocess",
+          "when": "call",
+          "under_main": false,
+          "evidence": true,
+          "isolated": true
+        }
+      ],
+      "harnesses": [
+        {
+          "path": "docs/phases/engine-breadth/milestones/f1099b-backup-withholding-evidence/probe.py",
+          "module_name": "f1099b_b4_t0_probe",
+          "when": "import",
+          "via": "docs/phases/engine-breadth/milestones/f1099b-backup-withholding-evidence/track0.py"
+        },
+        {
+          "path": "docs/phases/engine-breadth/milestones/f1099b-backup-withholding-evidence/prototype.py",
+          "module_name": "f1099b_b4_t0_prototype",
+          "when": "import",
+          "via": "docs/phases/engine-breadth/milestones/f1099b-backup-withholding-evidence/track0.py"
+        },
+        {
+          "path": "docs/phases/engine-breadth/milestones/f1099b-backup-withholding-evidence/track0.py",
+          "module_name": "f1099b_b4_v83_live_track0",
+          "when": "call",
+          "via": "tests/test_f1099b_backup_withholding_v83.py"
+        },
+        {
+          "path": "docs/phases/engine-breadth/milestones/sale-family-audit-evidence/audit_harness.py",
+          "module_name": "f1099b_b4_audit_harness",
+          "when": "import",
+          "via": "docs/phases/engine-breadth/milestones/f1099b-backup-withholding-evidence/probe.py"
+        },
+        {
+          "path": "docs/phases/engine-breadth/milestones/sale-family-audit-evidence/audit_harness.py",
+          "module_name": "f1099b_b4_t0_harness",
+          "when": "import",
+          "via": "docs/phases/engine-breadth/milestones/f1099b-backup-withholding-evidence/track0.py"
+        },
+        {
+          "path": "docs/phases/engine-breadth/milestones/sale-family-audit-evidence/audit_harness.py",
+          "module_name": "sale_family_audit_harness",
+          "when": "import",
+          "via": "docs/phases/engine-breadth/milestones/sale-family-audit-evidence/track0.py"
+        },
+        {
+          "path": "docs/phases/engine-breadth/milestones/sale-family-audit-evidence/probe.py",
+          "module_name": "sale_family_audit_probe",
+          "when": "import",
+          "via": "docs/phases/engine-breadth/milestones/sale-family-audit-evidence/track0.py"
+        },
+        {
+          "path": "docs/phases/engine-breadth/milestones/sale-family-audit-evidence/prototype.py",
+          "module_name": "sale_family_audit_prototype",
+          "when": "import",
+          "via": "docs/phases/engine-breadth/milestones/sale-family-audit-evidence/track0.py"
+        },
+        {
+          "path": "docs/phases/engine-breadth/milestones/sale-family-audit-evidence/rerun_v81.py",
+          "module_name": "sale_family_audit_rerun",
+          "when": "import",
+          "via": "docs/phases/engine-breadth/milestones/sale-family-audit-evidence/track0.py"
+        },
+        {
+          "path": "docs/phases/engine-breadth/milestones/sale-family-audit-evidence/track0.py",
+          "module_name": "f1099b_sfa_t0",
+          "when": "import",
+          "via": "docs/phases/engine-breadth/milestones/f1099b-backup-withholding-evidence/track0.py"
+        }
+      ]
+    },
+    {
+      "file": "tests/test_f1099b_backup_withholding_v83_package.py",
+      "lane": "fast",
+      "isolation": "private",
+      "engine_unrestored": [],
+      "direct_loads": [
+        {
+          "file": "tests/test_f1099b_backup_withholding_v83_package.py",
+          "line": 91,
+          "path": "docs/phases/engine-breadth/milestones/f1099b-backup-withholding-evidence/prototype.py",
+          "module_name": "f1099b_b4_v83_package_prototype",
+          "mechanism": "spec_from_file_location",
+          "when": "call",
+          "under_main": false,
+          "evidence": true,
+          "isolated": false
+        },
+        {
+          "file": "tests/test_f1099b_backup_withholding_v83_package.py",
+          "line": 109,
+          "path": "docs/phases/engine-breadth/milestones/sale-family-audit-evidence/tables.py",
+          "module_name": "f1099b_b4_v83_package_tables",
+          "mechanism": "spec_from_file_location",
+          "when": "call",
+          "under_main": false,
+          "evidence": true,
+          "isolated": false
+        }
+      ],
+      "harnesses": [
+        {
+          "path": "docs/phases/engine-breadth/milestones/f1099b-backup-withholding-evidence/prototype.py",
+          "module_name": "f1099b_b4_v83_package_prototype",
+          "when": "call",
+          "via": "tests/test_f1099b_backup_withholding_v83_package.py"
+        },
+        {
+          "path": "docs/phases/engine-breadth/milestones/sale-family-audit-evidence/tables.py",
+          "module_name": "f1099b_b4_v83_package_tables",
+          "when": "call",
+          "via": "tests/test_f1099b_backup_withholding_v83_package.py"
+        }
+      ]
+    },
+    {
+      "file": "tests/test_f1099b_box4_only_v85.py",
+      "lane": "live",
+      "isolation": "private",
+      "engine_unrestored": [],
+      "direct_loads": [
+        {
+          "file": "tests/test_f1099b_box4_only_v85.py",
+          "line": 71,
+          "path": "docs/phases/engine-breadth/milestones/f1099b-box4-only-evidence/track0.py",
+          "module_name": "f1099b_box4_only_v85_live_track0",
+          "mechanism": "spec_from_file_location",
+          "when": "call",
+          "under_main": false,
+          "evidence": true,
+          "isolated": false
+        },
+        {
+          "file": "tests/test_f1099b_box4_only_v85.py",
+          "line": 76,
+          "path": "tests/test_f1099b_backup_withholding_v83.py",
+          "module_name": "f1099b_box4_only_v85_recorded",
+          "mechanism": "spec_from_file_location",
+          "when": "call",
+          "under_main": false,
+          "evidence": false,
+          "isolated": false
+        }
+      ],
+      "harnesses": [
+        {
+          "path": "docs/phases/engine-breadth/milestones/f1099b-backup-withholding-evidence/probe.py",
+          "module_name": "f1099b_b4_t0_probe",
+          "when": "import",
+          "via": "docs/phases/engine-breadth/milestones/f1099b-backup-withholding-evidence/track0.py"
+        },
+        {
+          "path": "docs/phases/engine-breadth/milestones/f1099b-backup-withholding-evidence/prototype.py",
+          "module_name": "f1099b_b4_t0_prototype",
+          "when": "import",
+          "via": "docs/phases/engine-breadth/milestones/f1099b-backup-withholding-evidence/track0.py"
+        },
+        {
+          "path": "docs/phases/engine-breadth/milestones/f1099b-backup-withholding-evidence/track0.py",
+          "module_name": "f1099b_b4_v83_live_track0",
+          "when": "call",
+          "via": "tests/test_f1099b_backup_withholding_v83.py"
+        },
+        {
+          "path": "docs/phases/engine-breadth/milestones/f1099b-box4-only-evidence/probe.py",
+          "module_name": "f1099b_b4only_track0_probe",
+          "when": "call",
+          "via": "docs/phases/engine-breadth/milestones/f1099b-box4-only-evidence/track0.py"
+        },
+        {
+          "path": "docs/phases/engine-breadth/milestones/f1099b-box4-only-evidence/track0.py",
+          "module_name": "f1099b_box4_only_v85_live_track0",
+          "when": "call",
+          "via": "tests/test_f1099b_box4_only_v85.py"
+        },
+        {
+          "path": "docs/phases/engine-breadth/milestones/sale-family-audit-evidence/audit_harness.py",
+          "module_name": "f1099b_b4_audit_harness",
+          "when": "import",
+          "via": "docs/phases/engine-breadth/milestones/f1099b-backup-withholding-evidence/probe.py"
+        },
+        {
+          "path": "docs/phases/engine-breadth/milestones/sale-family-audit-evidence/audit_harness.py",
+          "module_name": "f1099b_b4_t0_harness",
+          "when": "import",
+          "via": "docs/phases/engine-breadth/milestones/f1099b-backup-withholding-evidence/track0.py"
+        },
+        {
+          "path": "docs/phases/engine-breadth/milestones/sale-family-audit-evidence/audit_harness.py",
+          "module_name": "f1099b_b4only_p0_harness",
+          "when": "import",
+          "via": "docs/phases/engine-breadth/milestones/f1099b-box4-only-evidence/probe.py"
+        },
+        {
+          "path": "docs/phases/engine-breadth/milestones/sale-family-audit-evidence/audit_harness.py",
+          "module_name": "sale_family_audit_harness",
+          "when": "import",
+          "via": "docs/phases/engine-breadth/milestones/sale-family-audit-evidence/track0.py"
+        },
+        {
+          "path": "docs/phases/engine-breadth/milestones/sale-family-audit-evidence/probe.py",
+          "module_name": "sale_family_audit_probe",
+          "when": "import",
+          "via": "docs/phases/engine-breadth/milestones/sale-family-audit-evidence/track0.py"
+        },
+        {
+          "path": "docs/phases/engine-breadth/milestones/sale-family-audit-evidence/prototype.py",
+          "module_name": "sale_family_audit_prototype",
+          "when": "import",
+          "via": "docs/phases/engine-breadth/milestones/sale-family-audit-evidence/track0.py"
+        },
+        {
+          "path": "docs/phases/engine-breadth/milestones/sale-family-audit-evidence/rerun_v81.py",
+          "module_name": "sale_family_audit_rerun",
+          "when": "import",
+          "via": "docs/phases/engine-breadth/milestones/sale-family-audit-evidence/track0.py"
+        },
+        {
+          "path": "docs/phases/engine-breadth/milestones/sale-family-audit-evidence/track0.py",
+          "module_name": "f1099b_sfa_t0",
+          "when": "import",
+          "via": "docs/phases/engine-breadth/milestones/f1099b-backup-withholding-evidence/track0.py"
+        }
+      ]
+    },
+    {
+      "file": "tests/test_f1099b_box4_only_v85_package.py",
+      "lane": "fast",
+      "isolation": "private",
+      "engine_unrestored": [],
+      "direct_loads": [
+        {
+          "file": "tests/test_f1099b_box4_only_v85_package.py",
+          "line": 60,
+          "path": "docs/phases/engine-breadth/milestones/f1099b-box4-only-evidence/prototype.py",
+          "module_name": "f1099b_box4_only_v85_package_prototype",
+          "mechanism": "spec_from_file_location",
+          "when": "call",
+          "under_main": false,
+          "evidence": true,
+          "isolated": false
+        },
+        {
+          "file": "tests/test_f1099b_box4_only_v85_package.py",
+          "line": 75,
+          "path": "docs/phases/engine-breadth/milestones/sale-family-audit-evidence/tables.py",
+          "module_name": "f1099b_box4_only_v85_package_tables",
+          "mechanism": "spec_from_file_location",
+          "when": "call",
+          "under_main": false,
+          "evidence": true,
+          "isolated": false
+        }
+      ],
+      "harnesses": [
+        {
+          "path": "docs/phases/engine-breadth/milestones/f1099b-box4-only-evidence/prototype.py",
+          "module_name": "f1099b_box4_only_v85_package_prototype",
+          "when": "call",
+          "via": "tests/test_f1099b_box4_only_v85_package.py"
+        },
+        {
+          "path": "docs/phases/engine-breadth/milestones/sale-family-audit-evidence/tables.py",
+          "module_name": "f1099b_box4_only_v85_package_tables",
+          "when": "call",
+          "via": "tests/test_f1099b_box4_only_v85_package.py"
+        }
+      ]
+    },
+    {
+      "file": "tests/test_f1099b_box7_loss_v84.py",
+      "lane": "live",
+      "isolation": "private",
+      "engine_unrestored": [],
+      "direct_loads": [
+        {
+          "file": "tests/test_f1099b_box7_loss_v84.py",
+          "line": 83,
+          "path": "docs/phases/engine-breadth/milestones/f1099b-box7-loss-evidence/track0.py",
+          "module_name": "f1099b_box7_v84_live_track0",
+          "mechanism": "spec_from_file_location",
+          "when": "call",
+          "under_main": false,
+          "evidence": true,
+          "isolated": false
+        },
+        {
+          "file": "tests/test_f1099b_box7_loss_v84.py",
+          "line": 88,
+          "path": "tests/test_f1099b_backup_withholding_v83.py",
+          "module_name": "f1099b_box7_v84_recorded",
+          "mechanism": "spec_from_file_location",
+          "when": "call",
+          "under_main": false,
+          "evidence": false,
+          "isolated": false
+        }
+      ],
+      "harnesses": [
+        {
+          "path": "docs/phases/engine-breadth/milestones/f1099b-backup-withholding-evidence/probe.py",
+          "module_name": "f1099b_b4_t0_probe",
+          "when": "import",
+          "via": "docs/phases/engine-breadth/milestones/f1099b-backup-withholding-evidence/track0.py"
+        },
+        {
+          "path": "docs/phases/engine-breadth/milestones/f1099b-backup-withholding-evidence/prototype.py",
+          "module_name": "f1099b_b4_t0_prototype",
+          "when": "import",
+          "via": "docs/phases/engine-breadth/milestones/f1099b-backup-withholding-evidence/track0.py"
+        },
+        {
+          "path": "docs/phases/engine-breadth/milestones/f1099b-backup-withholding-evidence/track0.py",
+          "module_name": "f1099b_b4_v83_live_track0",
+          "when": "call",
+          "via": "tests/test_f1099b_backup_withholding_v83.py"
+        },
+        {
+          "path": "docs/phases/engine-breadth/milestones/f1099b-box7-loss-evidence/probe.py",
+          "module_name": "f1099b_box7_track0_probe",
+          "when": "call",
+          "via": "docs/phases/engine-breadth/milestones/f1099b-box7-loss-evidence/track0.py"
+        },
+        {
+          "path": "docs/phases/engine-breadth/milestones/f1099b-box7-loss-evidence/track0.py",
+          "module_name": "f1099b_box7_v84_live_track0",
+          "when": "call",
+          "via": "tests/test_f1099b_box7_loss_v84.py"
+        },
+        {
+          "path": "docs/phases/engine-breadth/milestones/sale-family-audit-evidence/audit_harness.py",
+          "module_name": "f1099b_b4_audit_harness",
+          "when": "import",
+          "via": "docs/phases/engine-breadth/milestones/f1099b-backup-withholding-evidence/probe.py"
+        },
+        {
+          "path": "docs/phases/engine-breadth/milestones/sale-family-audit-evidence/audit_harness.py",
+          "module_name": "f1099b_b4_t0_harness",
+          "when": "import",
+          "via": "docs/phases/engine-breadth/milestones/f1099b-backup-withholding-evidence/track0.py"
+        },
+        {
+          "path": "docs/phases/engine-breadth/milestones/sale-family-audit-evidence/audit_harness.py",
+          "module_name": "f1099b_box7_audit_harness",
+          "when": "import",
+          "via": "docs/phases/engine-breadth/milestones/f1099b-box7-loss-evidence/probe.py"
+        },
+        {
+          "path": "docs/phases/engine-breadth/milestones/sale-family-audit-evidence/audit_harness.py",
+          "module_name": "sale_family_audit_harness",
+          "when": "import",
+          "via": "docs/phases/engine-breadth/milestones/sale-family-audit-evidence/track0.py"
+        },
+        {
+          "path": "docs/phases/engine-breadth/milestones/sale-family-audit-evidence/probe.py",
+          "module_name": "sale_family_audit_probe",
+          "when": "import",
+          "via": "docs/phases/engine-breadth/milestones/sale-family-audit-evidence/track0.py"
+        },
+        {
+          "path": "docs/phases/engine-breadth/milestones/sale-family-audit-evidence/prototype.py",
+          "module_name": "sale_family_audit_prototype",
+          "when": "import",
+          "via": "docs/phases/engine-breadth/milestones/sale-family-audit-evidence/track0.py"
+        },
+        {
+          "path": "docs/phases/engine-breadth/milestones/sale-family-audit-evidence/rerun_v81.py",
+          "module_name": "sale_family_audit_rerun",
+          "when": "import",
+          "via": "docs/phases/engine-breadth/milestones/sale-family-audit-evidence/track0.py"
+        },
+        {
+          "path": "docs/phases/engine-breadth/milestones/sale-family-audit-evidence/track0.py",
+          "module_name": "f1099b_sfa_t0",
+          "when": "import",
+          "via": "docs/phases/engine-breadth/milestones/f1099b-backup-withholding-evidence/track0.py"
+        }
+      ]
+    },
+    {
+      "file": "tests/test_f1099b_box7_loss_v84_package.py",
+      "lane": "fast",
+      "isolation": "private",
+      "engine_unrestored": [],
+      "direct_loads": [
+        {
+          "file": "tests/test_f1099b_box7_loss_v84_package.py",
+          "line": 69,
+          "path": "docs/phases/engine-breadth/milestones/f1099b-box7-loss-evidence/prototype.py",
+          "module_name": "f1099b_box7_v84_package_prototype",
+          "mechanism": "spec_from_file_location",
+          "when": "call",
+          "under_main": false,
+          "evidence": true,
+          "isolated": false
+        },
+        {
+          "file": "tests/test_f1099b_box7_loss_v84_package.py",
+          "line": 85,
+          "path": "docs/phases/engine-breadth/milestones/sale-family-audit-evidence/tables.py",
+          "module_name": "f1099b_box7_v84_package_tables",
+          "mechanism": "spec_from_file_location",
+          "when": "call",
+          "under_main": false,
+          "evidence": true,
+          "isolated": false
+        }
+      ],
+      "harnesses": [
+        {
+          "path": "docs/phases/engine-breadth/milestones/f1099b-box7-loss-evidence/prototype.py",
+          "module_name": "f1099b_box7_v84_package_prototype",
+          "when": "call",
+          "via": "tests/test_f1099b_box7_loss_v84_package.py"
+        },
+        {
+          "path": "docs/phases/engine-breadth/milestones/sale-family-audit-evidence/tables.py",
+          "module_name": "f1099b_box7_v84_package_tables",
+          "when": "call",
+          "via": "tests/test_f1099b_box7_loss_v84_package.py"
+        }
+      ]
+    },
+    {
+      "file": "tests/test_foreman_context.py",
+      "lane": "live",
+      "isolation": "isolated",
+      "engine_unrestored": [],
+      "direct_loads": [
+        {
+          "file": "tests/test_foreman_context.py",
+          "line": 111,
+          "path": "tools/foreman_context.py",
+          "module_name": null,
+          "mechanism": "subprocess",
+          "when": "call",
+          "under_main": false,
+          "evidence": false,
+          "isolated": true
+        },
+        {
+          "file": "tests/test_foreman_context.py",
+          "line": 156,
+          "path": "tools/foreman_context_followup.py",
+          "module_name": null,
+          "mechanism": "subprocess",
+          "when": "call",
+          "under_main": false,
+          "evidence": false,
+          "isolated": true
+        }
+      ],
+      "harnesses": []
+    },
+    {
+      "file": "tests/test_no1099b_sales_v80.py",
+      "lane": "live",
+      "isolation": "subprocess",
+      "engine_unrestored": [
+        {
+          "file": "docs/phases/engine-breadth/milestones/f8949-boxes-cf-evidence/cf_prototype.py",
+          "line": 801,
+          "target": "loader.domain_package_companion_declarations"
+        },
+        {
+          "file": "docs/phases/engine-breadth/milestones/f8949-boxes-cf-evidence/cf_prototype.py",
+          "line": 802,
+          "target": "loader.named_covered_flag_refusal_maps"
+        },
+        {
+          "file": "docs/phases/engine-breadth/milestones/f8949-boxes-cf-evidence/cf_prototype.py",
+          "line": 803,
+          "target": "loader._cf_patched"
+        },
+        {
+          "file": "docs/phases/engine-breadth/milestones/noncovered-sales-evidence/p0b.py",
+          "line": 101,
+          "target": "proto.loader.domain_package_companion_declarations"
+        },
+        {
+          "file": "docs/phases/engine-breadth/milestones/noncovered-sales-evidence/p0b.py",
+          "line": 373,
+          "target": "marshal_mod.marshal_closure_authority"
+        },
+        {
+          "file": "docs/phases/engine-breadth/milestones/noncovered-sales-evidence/p0b.py",
+          "line": 374,
+          "target": "runner_mod.resolve_closure_admissions"
+        },
+        {
+          "file": "docs/phases/engine-breadth/milestones/noncovered-sales-evidence/p0b.py",
+          "line": 375,
+          "target": "runner_mod._Run._record_blocked"
+        },
+        {
+          "file": "docs/phases/engine-breadth/milestones/noncovered-sales-evidence/p0b.py",
+          "line": 376,
+          "target": "presentation_mod._closure_question_reasons"
+        },
+        {
+          "file": "docs/phases/engine-breadth/milestones/noncovered-sales-evidence/p0b.py",
+          "line": 377,
+          "target": "live_mod.live_coordinate_run"
+        },
+        {
+          "file": "docs/phases/engine-breadth/milestones/noncovered-sales-evidence/prototype.py",
+          "line": 703,
+          "target": "loader.domain_package_companion_declarations"
+        },
+        {
+          "file": "docs/phases/engine-breadth/milestones/noncovered-sales-evidence/track0.py",
+          "line": 113,
+          "target": "proto.loader.domain_package_companion_declarations"
+        }
+      ],
+      "direct_loads": [
+        {
+          "file": "tests/test_no1099b_sales_v80.py",
+          "line": 130,
+          "path": "docs/phases/engine-breadth/milestones/f8949-boxes-cf-evidence/track0.py",
+          "module_name": "f8949_boxes_cf_track0",
+          "mechanism": "spec_from_file_location",
+          "when": "call",
+          "under_main": false,
+          "evidence": true,
+          "isolated": false
+        }
+      ],
+      "harnesses": [
+        {
+          "path": "docs/phases/engine-breadth/milestones/f8949-boxes-cf-evidence/cf_probe.py",
+          "module_name": "cf_probe",
+          "when": "import",
+          "via": "docs/phases/engine-breadth/milestones/f8949-boxes-cf-evidence/cf_prototype.py"
+        },
+        {
+          "path": "docs/phases/engine-breadth/milestones/f8949-boxes-cf-evidence/cf_prototype.py",
+          "module_name": "cf_prototype",
+          "when": "import",
+          "via": "docs/phases/engine-breadth/milestones/f8949-boxes-cf-evidence/track0.py"
+        },
+        {
+          "path": "docs/phases/engine-breadth/milestones/f8949-boxes-cf-evidence/track0.py",
+          "module_name": "f8949_boxes_cf_track0",
+          "when": "call",
+          "via": "tests/test_no1099b_sales_v80.py"
+        },
+        {
+          "path": "docs/phases/engine-breadth/milestones/noncovered-sales-evidence/p0b.py",
+          "module_name": "p0b",
+          "when": "import",
+          "via": "docs/phases/engine-breadth/milestones/f8949-boxes-cf-evidence/cf_probe.py"
+        },
+        {
+          "path": "docs/phases/engine-breadth/milestones/noncovered-sales-evidence/probe.py",
+          "module_name": "probe",
+          "when": "import",
+          "via": "docs/phases/engine-breadth/milestones/f8949-boxes-cf-evidence/cf_probe.py"
+        },
+        {
+          "path": "docs/phases/engine-breadth/milestones/noncovered-sales-evidence/prototype.py",
+          "module_name": "prototype",
+          "when": "import",
+          "via": "docs/phases/engine-breadth/milestones/f8949-boxes-cf-evidence/cf_probe.py"
+        },
+        {
+          "path": "docs/phases/engine-breadth/milestones/noncovered-sales-evidence/track0.py",
+          "module_name": "track0",
+          "when": "import",
+          "via": "docs/phases/engine-breadth/milestones/noncovered-sales-evidence/p0b.py"
+        }
+      ]
+    },
+    {
+      "file": "tests/test_noncovered_sales_v79.py",
+      "lane": "live",
+      "isolation": "subprocess",
+      "engine_unrestored": [
+        {
+          "file": "docs/phases/engine-breadth/milestones/noncovered-sales-evidence/p0b.py",
+          "line": 101,
+          "target": "proto.loader.domain_package_companion_declarations"
+        },
+        {
+          "file": "docs/phases/engine-breadth/milestones/noncovered-sales-evidence/p0b.py",
+          "line": 373,
+          "target": "marshal_mod.marshal_closure_authority"
+        },
+        {
+          "file": "docs/phases/engine-breadth/milestones/noncovered-sales-evidence/p0b.py",
+          "line": 374,
+          "target": "runner_mod.resolve_closure_admissions"
+        },
+        {
+          "file": "docs/phases/engine-breadth/milestones/noncovered-sales-evidence/p0b.py",
+          "line": 375,
+          "target": "runner_mod._Run._record_blocked"
+        },
+        {
+          "file": "docs/phases/engine-breadth/milestones/noncovered-sales-evidence/p0b.py",
+          "line": 376,
+          "target": "presentation_mod._closure_question_reasons"
+        },
+        {
+          "file": "docs/phases/engine-breadth/milestones/noncovered-sales-evidence/p0b.py",
+          "line": 377,
+          "target": "live_mod.live_coordinate_run"
+        },
+        {
+          "file": "docs/phases/engine-breadth/milestones/noncovered-sales-evidence/prototype.py",
+          "line": 703,
+          "target": "loader.domain_package_companion_declarations"
+        },
+        {
+          "file": "docs/phases/engine-breadth/milestones/noncovered-sales-evidence/track0.py",
+          "line": 113,
+          "target": "proto.loader.domain_package_companion_declarations"
+        }
+      ],
+      "direct_loads": [
+        {
+          "file": "tests/test_noncovered_sales_v79.py",
+          "line": 2178,
+          "path": "docs/phases/engine-breadth/milestones/noncovered-sales-evidence/p0b.py",
+          "module_name": "p0b",
+          "mechanism": "import_module",
+          "when": "call",
+          "under_main": false,
+          "evidence": true,
+          "isolated": false
+        },
+        {
+          "file": "tests/test_noncovered_sales_v79.py",
+          "line": 2179,
+          "path": "docs/phases/engine-breadth/milestones/noncovered-sales-evidence/probe.py",
+          "module_name": "probe",
+          "mechanism": "import_module",
+          "when": "call",
+          "under_main": false,
+          "evidence": true,
+          "isolated": false
+        },
+        {
+          "file": "tests/test_noncovered_sales_v79.py",
+          "line": 2180,
+          "path": "docs/phases/engine-breadth/milestones/noncovered-sales-evidence/prototype.py",
+          "module_name": "prototype",
+          "mechanism": "import_module",
+          "when": "call",
+          "under_main": false,
+          "evidence": true,
+          "isolated": false
+        },
+        {
+          "file": "tests/test_noncovered_sales_v79.py",
+          "line": 2181,
+          "path": "docs/phases/engine-breadth/milestones/noncovered-sales-evidence/track0.py",
+          "module_name": "track0",
+          "mechanism": "import_module",
+          "when": "call",
+          "under_main": false,
+          "evidence": true,
+          "isolated": false
+        }
+      ],
+      "harnesses": [
+        {
+          "path": "docs/phases/engine-breadth/milestones/noncovered-sales-evidence/p0b.py",
+          "module_name": "p0b",
+          "when": "call",
+          "via": "tests/test_noncovered_sales_v79.py"
+        },
+        {
+          "path": "docs/phases/engine-breadth/milestones/noncovered-sales-evidence/probe.py",
+          "module_name": "probe",
+          "when": "import",
+          "via": "docs/phases/engine-breadth/milestones/noncovered-sales-evidence/track0.py"
+        },
+        {
+          "path": "docs/phases/engine-breadth/milestones/noncovered-sales-evidence/prototype.py",
+          "module_name": "prototype",
+          "when": "import",
+          "via": "docs/phases/engine-breadth/milestones/noncovered-sales-evidence/track0.py"
+        },
+        {
+          "path": "docs/phases/engine-breadth/milestones/noncovered-sales-evidence/track0.py",
+          "module_name": "track0",
+          "when": "import",
+          "via": "docs/phases/engine-breadth/milestones/noncovered-sales-evidence/p0b.py"
+        }
+      ]
+    },
+    {
+      "file": "tests/test_other_dependents_credit_track1.py",
+      "lane": "live",
+      "isolation": "private",
+      "engine_unrestored": [],
+      "direct_loads": [
+        {
+          "file": "tests/test_other_dependents_credit_track1.py",
+          "line": 107,
+          "path": "docs/phases/engine-breadth/milestones/other-dependents-credit-evidence/odc_case_table.py",
+          "module_name": "odc_case_table",
+          "mechanism": "spec_from_file_location",
+          "when": "call",
+          "under_main": false,
+          "evidence": true,
+          "isolated": false
+        },
+        {
+          "file": "tests/test_other_dependents_credit_track1.py",
+          "line": 306,
+          "path": "tools/required_versus_read.py",
+          "module_name": null,
+          "mechanism": "subprocess",
+          "when": "call",
+          "under_main": false,
+          "evidence": false,
+          "isolated": true
+        }
+      ],
+      "harnesses": [
+        {
+          "path": "docs/phases/engine-breadth/milestones/other-dependents-credit-evidence/odc_case_table.py",
+          "module_name": "odc_case_table",
+          "when": "call",
+          "via": "tests/test_other_dependents_credit_track1.py"
+        }
+      ]
+    },
+    {
+      "file": "tests/test_push_envelope_posture.py",
+      "lane": "live",
+      "isolation": "isolated",
+      "engine_unrestored": [],
+      "direct_loads": [
+        {
+          "file": "tests/test_push_envelope_posture.py",
+          "line": 21,
+          "path": "tools/audit_push_envelope_posture.py",
+          "module_name": null,
+          "mechanism": "subprocess",
+          "when": "call",
+          "under_main": false,
+          "evidence": false,
+          "isolated": true
+        }
+      ],
+      "harnesses": []
+    },
+    {
+      "file": "tests/test_refund_or_amount_owed_track1.py",
+      "lane": "live",
+      "isolation": "not_evidence",
+      "engine_unrestored": [],
+      "direct_loads": [
+        {
+          "file": "tests/test_refund_or_amount_owed_track1.py",
+          "line": 97,
+          "path": "tests/test_senior_and_dependent_deductions_track1.py",
+          "module_name": "roao_t1_sdd",
+          "mechanism": "spec_from_file_location",
+          "when": "call",
+          "under_main": false,
+          "evidence": false,
+          "isolated": false
+        }
+      ],
+      "harnesses": []
+    },
+    {
+      "file": "tests/test_refund_or_amount_owed_track2.py",
+      "lane": "live",
+      "isolation": "not_evidence",
+      "engine_unrestored": [],
+      "direct_loads": [
+        {
+          "file": "tests/test_refund_or_amount_owed_track2.py",
+          "line": 303,
+          "path": "tests/test_senior_and_dependent_deductions_track1.py",
+          "module_name": "t2_sdd",
+          "mechanism": "spec_from_file_location",
+          "when": "call",
+          "under_main": false,
+          "evidence": false,
+          "isolated": false
+        }
+      ],
+      "harnesses": []
+    },
+    {
+      "file": "tests/test_sale_family_audit_v82.py",
+      "lane": "live",
+      "isolation": "private",
+      "engine_unrestored": [],
+      "direct_loads": [
+        {
+          "file": "tests/test_sale_family_audit_v82.py",
+          "line": 90,
+          "path": "docs/phases/engine-breadth/milestones/sale-family-audit-evidence/track0.py",
+          "module_name": "sale_family_audit_track0",
+          "mechanism": "spec_from_file_location",
+          "when": "call",
+          "under_main": false,
+          "evidence": true,
+          "isolated": false
+        },
+        {
+          "file": "tests/test_sale_family_audit_v82.py",
+          "line": 304,
+          "path": "docs/phases/engine-breadth/milestones/sale-family-audit-evidence/export_v81_returns.py",
+          "module_name": null,
+          "mechanism": "subprocess",
+          "when": "call",
+          "under_main": false,
+          "evidence": true,
+          "isolated": true
+        }
+      ],
+      "harnesses": [
+        {
+          "path": "docs/phases/engine-breadth/milestones/sale-family-audit-evidence/audit_harness.py",
+          "module_name": "sale_family_audit_harness",
+          "when": "import",
+          "via": "docs/phases/engine-breadth/milestones/sale-family-audit-evidence/track0.py"
+        },
+        {
+          "path": "docs/phases/engine-breadth/milestones/sale-family-audit-evidence/probe.py",
+          "module_name": "sale_family_audit_probe",
+          "when": "import",
+          "via": "docs/phases/engine-breadth/milestones/sale-family-audit-evidence/track0.py"
+        },
+        {
+          "path": "docs/phases/engine-breadth/milestones/sale-family-audit-evidence/prototype.py",
+          "module_name": "sale_family_audit_prototype",
+          "when": "import",
+          "via": "docs/phases/engine-breadth/milestones/sale-family-audit-evidence/track0.py"
+        },
+        {
+          "path": "docs/phases/engine-breadth/milestones/sale-family-audit-evidence/rerun_v81.py",
+          "module_name": "sale_family_audit_rerun",
+          "when": "import",
+          "via": "docs/phases/engine-breadth/milestones/sale-family-audit-evidence/track0.py"
+        },
+        {
+          "path": "docs/phases/engine-breadth/milestones/sale-family-audit-evidence/track0.py",
+          "module_name": "sale_family_audit_track0",
+          "when": "call",
+          "via": "tests/test_sale_family_audit_v82.py"
+        }
+      ]
+    },
+    {
+      "file": "tests/test_sale_family_audit_v82_package.py",
+      "lane": "fast",
+      "isolation": "private",
+      "engine_unrestored": [],
+      "direct_loads": [
+        {
+          "file": "tests/test_sale_family_audit_v82_package.py",
+          "line": 60,
+          "path": "docs/phases/engine-breadth/milestones/sale-family-audit-evidence/prototype.py",
+          "module_name": "sale_family_audit_v82_package_prototype",
+          "mechanism": "spec_from_file_location",
+          "when": "call",
+          "under_main": false,
+          "evidence": true,
+          "isolated": false
+        },
+        {
+          "file": "tests/test_sale_family_audit_v82_package.py",
+          "line": 76,
+          "path": "docs/phases/engine-breadth/milestones/sale-family-audit-evidence/tables.py",
+          "module_name": "sale_family_audit_v82_package_tables",
+          "mechanism": "spec_from_file_location",
+          "when": "call",
+          "under_main": false,
+          "evidence": true,
+          "isolated": false
+        }
+      ],
+      "harnesses": [
+        {
+          "path": "docs/phases/engine-breadth/milestones/sale-family-audit-evidence/prototype.py",
+          "module_name": "sale_family_audit_v82_package_prototype",
+          "when": "call",
+          "via": "tests/test_sale_family_audit_v82_package.py"
+        },
+        {
+          "path": "docs/phases/engine-breadth/milestones/sale-family-audit-evidence/tables.py",
+          "module_name": "sale_family_audit_v82_package_tables",
+          "when": "call",
+          "via": "tests/test_sale_family_audit_v82_package.py"
+        }
+      ]
+    },
+    {
+      "file": "tests/test_sli_track10_saved_account_evidence.py",
+      "lane": "live",
+      "isolation": "not_evidence",
+      "engine_unrestored": [],
+      "direct_loads": [
+        {
+          "file": "tests/test_sli_track10_saved_account_evidence.py",
+          "line": 42,
+          "path": "tests/test_sli_track8_relationship_evidence.py",
+          "module_name": "track10_track8_helpers",
+          "mechanism": "spec_from_file_location",
+          "when": "call",
+          "under_main": false,
+          "evidence": false,
+          "isolated": false
+        },
+        {
+          "file": "tests/test_sli_track10_saved_account_evidence.py",
+          "line": 344,
+          "path": "tests/test_sli_track9_recording_state.py",
+          "module_name": null,
+          "mechanism": "spec_from_file_location",
+          "when": "call",
+          "under_main": false,
+          "evidence": false,
+          "isolated": false
+        },
+        {
+          "file": "tests/test_sli_track10_saved_account_evidence.py",
+          "line": 405,
+          "path": "tests/test_sli_track9_recording_state.py",
+          "module_name": null,
+          "mechanism": "spec_from_file_location",
+          "when": "call",
+          "under_main": false,
+          "evidence": false,
+          "isolated": false
+        }
+      ],
+      "harnesses": []
+    },
+    {
+      "file": "tests/test_sli_track12_account_reference_boundary.py",
+      "lane": "live",
+      "isolation": "not_evidence",
+      "engine_unrestored": [],
+      "direct_loads": [
+        {
+          "file": "tests/test_sli_track12_account_reference_boundary.py",
+          "line": 135,
+          "path": "tests/test_sli_track9_recording_state.py",
+          "module_name": "track12_track9_account_vocabulary",
+          "mechanism": "spec_from_file_location",
+          "when": "call",
+          "under_main": false,
+          "evidence": false,
+          "isolated": false
+        }
+      ],
+      "harnesses": []
+    },
+    {
+      "file": "tests/test_sli_track8_relationship_evidence.py",
+      "lane": "live",
+      "isolation": "not_evidence",
+      "engine_unrestored": [],
+      "direct_loads": [
+        {
+          "file": "tests/test_sli_track8_relationship_evidence.py",
+          "line": 45,
+          "path": "tools/presentation_harness/examples/generate_track6b_saved_presentations.py",
+          "module_name": "track6b_track8_relationship",
+          "mechanism": "spec_from_file_location",
+          "when": "call",
+          "under_main": false,
+          "evidence": false,
+          "isolated": false
+        }
+      ],
+      "harnesses": []
+    },
+    {
+      "file": "tests/test_sli_track9_recording_state.py",
+      "lane": "live",
+      "isolation": "not_evidence",
+      "engine_unrestored": [],
+      "direct_loads": [
+        {
+          "file": "tests/test_sli_track9_recording_state.py",
+          "line": 208,
+          "path": "tools/presentation_harness/examples/generate_track6b_saved_presentations.py",
+          "module_name": "track9_disposable_reader",
+          "mechanism": "spec_from_file_location",
+          "when": "call",
+          "under_main": false,
+          "evidence": false,
+          "isolated": false
+        }
+      ],
+      "harnesses": []
+    },
+    {
+      "file": "tests/test_statement_withholding_pairing.py",
+      "lane": "live",
+      "isolation": "private",
+      "engine_unrestored": [],
+      "direct_loads": [
+        {
+          "file": "tests/test_statement_withholding_pairing.py",
+          "line": 98,
+          "path": "docs/phases/engine-breadth/milestones/statement-withholding-pairing-evidence/probe.py",
+          "module_name": "statement_withholding_pairing_probe",
+          "mechanism": "spec_from_file_location",
+          "when": "call",
+          "under_main": false,
+          "evidence": true,
+          "isolated": false
+        }
+      ],
+      "harnesses": [
+        {
+          "path": "docs/phases/engine-breadth/milestones/statement-withholding-pairing-evidence/probe.py",
+          "module_name": "statement_withholding_pairing_probe",
+          "when": "call",
+          "via": "tests/test_statement_withholding_pairing.py"
+        }
+      ]
+    },
+    {
+      "file": "tests/test_tax_on_taxable_income_track1.py",
+      "lane": "live",
+      "isolation": "private",
+      "engine_unrestored": [],
+      "direct_loads": [
+        {
+          "file": "tests/test_tax_on_taxable_income_track1.py",
+          "line": 104,
+          "path": "docs/phases/engine-breadth/milestones/tax-on-taxable-income-evidence/probe.py",
+          "module_name": "toti_track1_probe",
+          "mechanism": "spec_from_file_location",
+          "when": "call",
+          "under_main": false,
+          "evidence": true,
+          "isolated": false
+        }
+      ],
+      "harnesses": [
+        {
+          "path": "docs/phases/engine-breadth/milestones/tax-on-taxable-income-evidence/probe.py",
+          "module_name": "toti_track1_probe",
+          "when": "call",
+          "via": "tests/test_tax_on_taxable_income_track1.py"
+        }
+      ]
+    },
+    {
+      "file": "tests/test_track6b_saved_model_fidelity.py",
+      "lane": "live",
+      "isolation": "not_evidence",
+      "engine_unrestored": [],
+      "direct_loads": [
+        {
+          "file": "tests/test_track6b_saved_model_fidelity.py",
+          "line": 35,
+          "path": "tools/presentation_harness/examples/generate_track6b_saved_presentations.py",
+          "module_name": "track6b_saved_generator",
+          "mechanism": "spec_from_file_location",
+          "when": "call",
+          "under_main": false,
+          "evidence": false,
+          "isolated": false
+        },
+        {
+          "file": "tests/test_track6b_saved_model_fidelity.py",
+          "line": 56,
+          "path": "tools/presentation_harness/examples/generate_track6b_saved_presentations.py",
+          "module_name": "track6b_saved_generator",
+          "mechanism": "spec_from_file_location",
+          "when": "call",
+          "under_main": false,
+          "evidence": false,
+          "isolated": false
+        },
+        {
+          "file": "tests/test_track6b_saved_model_fidelity.py",
+          "line": 94,
+          "path": "tools/presentation_harness/examples/generate_track6b_saved_presentations.py",
+          "module_name": "track6b_saved_generator",
+          "mechanism": "spec_from_file_location",
+          "when": "call",
+          "under_main": false,
+          "evidence": false,
+          "isolated": false
+        },
+        {
+          "file": "tests/test_track6b_saved_model_fidelity.py",
+          "line": 166,
+          "path": "tools/presentation_harness/examples/generate_track6b_saved_presentations.py",
+          "module_name": "track6b_saved_generator",
+          "mechanism": "spec_from_file_location",
+          "when": "call",
+          "under_main": false,
+          "evidence": false,
+          "isolated": false
+        }
+      ],
+      "harnesses": []
+    }
+  ],
+  "shared": [
+    {
+      "module_name": "cf_probe",
+      "collision": false,
+      "bindings": [
+        {
+          "path": "docs/phases/engine-breadth/milestones/f8949-boxes-cf-evidence/cf_probe.py",
+          "tests": [
+            "tests/test_code_b_sales_v81.py",
+            "tests/test_code_b_sales_v81_package.py",
+            "tests/test_no1099b_sales_v80.py"
+          ]
+        }
+      ]
+    },
+    {
+      "module_name": "cf_prototype",
+      "collision": false,
+      "bindings": [
+        {
+          "path": "docs/phases/engine-breadth/milestones/f8949-boxes-cf-evidence/cf_prototype.py",
+          "tests": [
+            "tests/test_code_b_sales_v81.py",
+            "tests/test_code_b_sales_v81_package.py",
+            "tests/test_no1099b_sales_v80.py"
+          ]
+        }
+      ]
+    },
+    {
+      "module_name": "f1099b_b4_audit_harness",
+      "collision": false,
+      "bindings": [
+        {
+          "path": "docs/phases/engine-breadth/milestones/sale-family-audit-evidence/audit_harness.py",
+          "tests": [
+            "tests/test_f1099b_backup_withholding_v83.py",
+            "tests/test_f1099b_box4_only_v85.py",
+            "tests/test_f1099b_box7_loss_v84.py"
+          ]
+        }
+      ]
+    },
+    {
+      "module_name": "f1099b_b4_t0_harness",
+      "collision": false,
+      "bindings": [
+        {
+          "path": "docs/phases/engine-breadth/milestones/sale-family-audit-evidence/audit_harness.py",
+          "tests": [
+            "tests/test_f1099b_backup_withholding_v83.py",
+            "tests/test_f1099b_box4_only_v85.py",
+            "tests/test_f1099b_box7_loss_v84.py"
+          ]
+        }
+      ]
+    },
+    {
+      "module_name": "f1099b_b4_t0_probe",
+      "collision": false,
+      "bindings": [
+        {
+          "path": "docs/phases/engine-breadth/milestones/f1099b-backup-withholding-evidence/probe.py",
+          "tests": [
+            "tests/test_f1099b_backup_withholding_v83.py",
+            "tests/test_f1099b_box4_only_v85.py",
+            "tests/test_f1099b_box7_loss_v84.py"
+          ]
+        }
+      ]
+    },
+    {
+      "module_name": "f1099b_b4_t0_prototype",
+      "collision": false,
+      "bindings": [
+        {
+          "path": "docs/phases/engine-breadth/milestones/f1099b-backup-withholding-evidence/prototype.py",
+          "tests": [
+            "tests/test_f1099b_backup_withholding_v83.py",
+            "tests/test_f1099b_box4_only_v85.py",
+            "tests/test_f1099b_box7_loss_v84.py"
+          ]
+        }
+      ]
+    },
+    {
+      "module_name": "f1099b_b4_v83_live_track0",
+      "collision": false,
+      "bindings": [
+        {
+          "path": "docs/phases/engine-breadth/milestones/f1099b-backup-withholding-evidence/track0.py",
+          "tests": [
+            "tests/test_f1099b_backup_withholding_v83.py",
+            "tests/test_f1099b_box4_only_v85.py",
+            "tests/test_f1099b_box7_loss_v84.py"
+          ]
+        }
+      ]
+    },
+    {
+      "module_name": "f1099b_sfa_t0",
+      "collision": false,
+      "bindings": [
+        {
+          "path": "docs/phases/engine-breadth/milestones/sale-family-audit-evidence/track0.py",
+          "tests": [
+            "tests/test_f1099b_backup_withholding_v83.py",
+            "tests/test_f1099b_box4_only_v85.py",
+            "tests/test_f1099b_box7_loss_v84.py"
+          ]
+        }
+      ]
+    },
+    {
+      "module_name": "f8949_boxes_cf_track0",
+      "collision": false,
+      "bindings": [
+        {
+          "path": "docs/phases/engine-breadth/milestones/f8949-boxes-cf-evidence/track0.py",
+          "tests": [
+            "tests/test_code_b_sales_v81.py",
+            "tests/test_code_b_sales_v81_package.py",
+            "tests/test_no1099b_sales_v80.py"
+          ]
+        }
+      ]
+    },
+    {
+      "module_name": "f8949_code_b_probe",
+      "collision": false,
+      "bindings": [
+        {
+          "path": "docs/phases/engine-breadth/milestones/f8949-code-b-evidence/codeb_probe.py",
+          "tests": [
+            "tests/test_code_b_sales_v81.py",
+            "tests/test_code_b_sales_v81_package.py"
+          ]
+        }
+      ]
+    },
+    {
+      "module_name": "f8949_code_b_prototype",
+      "collision": false,
+      "bindings": [
+        {
+          "path": "docs/phases/engine-breadth/milestones/f8949-code-b-evidence/codeb_prototype.py",
+          "tests": [
+            "tests/test_code_b_sales_v81.py",
+            "tests/test_code_b_sales_v81_package.py"
+          ]
+        }
+      ]
+    },
+    {
+      "module_name": "p0b",
+      "collision": false,
+      "bindings": [
+        {
+          "path": "docs/phases/engine-breadth/milestones/noncovered-sales-evidence/p0b.py",
+          "tests": [
+            "tests/test_code_b_sales_v81.py",
+            "tests/test_code_b_sales_v81_package.py",
+            "tests/test_no1099b_sales_v80.py",
+            "tests/test_noncovered_sales_v79.py"
+          ]
+        }
+      ]
+    },
+    {
+      "module_name": "probe",
+      "collision": false,
+      "bindings": [
+        {
+          "path": "docs/phases/engine-breadth/milestones/noncovered-sales-evidence/probe.py",
+          "tests": [
+            "tests/test_code_b_sales_v81.py",
+            "tests/test_code_b_sales_v81_package.py",
+            "tests/test_no1099b_sales_v80.py",
+            "tests/test_noncovered_sales_v79.py"
+          ]
+        }
+      ]
+    },
+    {
+      "module_name": "prototype",
+      "collision": false,
+      "bindings": [
+        {
+          "path": "docs/phases/engine-breadth/milestones/noncovered-sales-evidence/prototype.py",
+          "tests": [
+            "tests/test_code_b_sales_v81.py",
+            "tests/test_code_b_sales_v81_package.py",
+            "tests/test_no1099b_sales_v80.py",
+            "tests/test_noncovered_sales_v79.py"
+          ]
+        }
+      ]
+    },
+    {
+      "module_name": "sale_family_audit_harness",
+      "collision": false,
+      "bindings": [
+        {
+          "path": "docs/phases/engine-breadth/milestones/sale-family-audit-evidence/audit_harness.py",
+          "tests": [
+            "tests/test_f1099b_backup_withholding_v83.py",
+            "tests/test_f1099b_box4_only_v85.py",
+            "tests/test_f1099b_box7_loss_v84.py",
+            "tests/test_sale_family_audit_v82.py"
+          ]
+        }
+      ]
+    },
+    {
+      "module_name": "sale_family_audit_probe",
+      "collision": false,
+      "bindings": [
+        {
+          "path": "docs/phases/engine-breadth/milestones/sale-family-audit-evidence/probe.py",
+          "tests": [
+            "tests/test_f1099b_backup_withholding_v83.py",
+            "tests/test_f1099b_box4_only_v85.py",
+            "tests/test_f1099b_box7_loss_v84.py",
+            "tests/test_sale_family_audit_v82.py"
+          ]
+        }
+      ]
+    },
+    {
+      "module_name": "sale_family_audit_prototype",
+      "collision": false,
+      "bindings": [
+        {
+          "path": "docs/phases/engine-breadth/milestones/sale-family-audit-evidence/prototype.py",
+          "tests": [
+            "tests/test_f1099b_backup_withholding_v83.py",
+            "tests/test_f1099b_box4_only_v85.py",
+            "tests/test_f1099b_box7_loss_v84.py",
+            "tests/test_sale_family_audit_v82.py"
+          ]
+        }
+      ]
+    },
+    {
+      "module_name": "sale_family_audit_rerun",
+      "collision": false,
+      "bindings": [
+        {
+          "path": "docs/phases/engine-breadth/milestones/sale-family-audit-evidence/rerun_v81.py",
+          "tests": [
+            "tests/test_f1099b_backup_withholding_v83.py",
+            "tests/test_f1099b_box4_only_v85.py",
+            "tests/test_f1099b_box7_loss_v84.py",
+            "tests/test_sale_family_audit_v82.py"
+          ]
+        }
+      ]
+    },
+    {
+      "module_name": "track0",
+      "collision": false,
+      "bindings": [
+        {
+          "path": "docs/phases/engine-breadth/milestones/noncovered-sales-evidence/track0.py",
+          "tests": [
+            "tests/test_code_b_sales_v81.py",
+            "tests/test_code_b_sales_v81_package.py",
+            "tests/test_no1099b_sales_v80.py",
+            "tests/test_noncovered_sales_v79.py"
+          ]
+        }
+      ]
+    },
+    {
+      "module_name": "track9_disposable_reader",
+      "collision": false,
+      "bindings": [
+        {
+          "path": "tools/presentation_harness/examples/generate_track6b_saved_presentations.py",
+          "tests": [
+            "tests/test_sli_track10_saved_account_evidence.py",
+            "tests/test_sli_track12_account_reference_boundary.py"
+          ]
+        }
+      ]
+    }
+  ],
+  "latent_collisions": [
+    {
+      "module_name": "probe",
+      "bindings": [
+        {
+          "path": "docs/phases/engine-breadth/milestones/all-questions-at-once-evidence/probe.py",
+          "importers": [
+            "docs/phases/engine-breadth/milestones/all-questions-at-once-evidence/prototype.py"
+          ]
+        },
+        {
+          "path": "docs/phases/engine-breadth/milestones/attachment-closure-evidence/probe.py",
+          "importers": [
+            "docs/phases/engine-breadth/milestones/attachment-closure-evidence/design_check.py"
+          ]
+        },
+        {
+          "path": "docs/phases/engine-breadth/milestones/derived-answers-evidence/probe.py",
+          "importers": [
+            "docs/phases/engine-breadth/milestones/derived-answers-evidence/prototype.py"
+          ]
+        },
+        {
+          "path": "docs/phases/engine-breadth/milestones/earned-income-credit-evidence/probe.py",
+          "importers": [
+            "docs/phases/engine-breadth/milestones/earned-income-credit-evidence/generate_eic_table_2025.py"
+          ]
+        },
+        {
+          "path": "docs/phases/engine-breadth/milestones/line-explanations-evidence/probe.py",
+          "importers": [
+            "docs/phases/engine-breadth/milestones/line-explanations-evidence/prototype.py"
+          ]
+        },
+        {
+          "path": "docs/phases/engine-breadth/milestones/noncovered-sales-evidence/probe.py",
+          "importers": [
+            "docs/phases/engine-breadth/milestones/f8949-boxes-cf-evidence/cf_probe.py",
+            "docs/phases/engine-breadth/milestones/noncovered-sales-evidence/p0b.py",
+            "docs/phases/engine-breadth/milestones/noncovered-sales-evidence/prototype.py",
+            "docs/phases/engine-breadth/milestones/noncovered-sales-evidence/track0.py",
+            "tests/test_noncovered_sales_v79.py"
+          ]
+        },
+        {
+          "path": "docs/phases/engine-breadth/milestones/statement-withholding-answer-evidence/probe.py",
+          "importers": [
+            "docs/phases/engine-breadth/milestones/statement-withholding-answer-evidence/prototype.py"
+          ]
+        },
+        {
+          "path": "docs/phases/engine-breadth/milestones/statement-withholding-pairing-evidence/probe.py",
+          "importers": [
+            "docs/phases/engine-breadth/milestones/statement-withholding-pairing-evidence/prototype.py"
+          ]
+        }
+      ]
+    }
+  ],
+  "engine_files": [
+    {
+      "file": "docs/phases/engine-breadth/milestones/all-questions-at-once-evidence/prototype.py",
+      "reached_by": [],
+      "writes": [
+        {
+          "line": 309,
+          "target": "_Run._record_blocked",
+          "scope": "install"
+        },
+        {
+          "line": 310,
+          "target": "_Run.finalize_unreached",
+          "scope": "install"
+        }
+      ]
+    },
+    {
+      "file": "docs/phases/engine-breadth/milestones/attachment-closure-evidence/design_check.py",
+      "reached_by": [],
+      "writes": [
+        {
+          "line": 96,
+          "target": "loader.domain_package_companion_declarations",
+          "scope": "build_candidate"
+        }
+      ]
+    },
+    {
+      "file": "docs/phases/engine-breadth/milestones/derived-answers-evidence/prototype.py",
+      "reached_by": [],
+      "writes": [
+        {
+          "line": 294,
+          "target": "loader.domain_package_companion_declarations",
+          "scope": "build"
+        }
+      ]
+    },
+    {
+      "file": "docs/phases/engine-breadth/milestones/f8949-boxes-cf-evidence/cf_prototype.py",
+      "reached_by": [
+        "tests/test_code_b_sales_v81.py",
+        "tests/test_code_b_sales_v81_package.py",
+        "tests/test_no1099b_sales_v80.py"
+      ],
+      "writes": [
+        {
+          "line": 801,
+          "target": "loader.domain_package_companion_declarations",
+          "scope": "companion_v80"
+        },
+        {
+          "line": 802,
+          "target": "loader.named_covered_flag_refusal_maps",
+          "scope": "companion_v80"
+        },
+        {
+          "line": 803,
+          "target": "loader._cf_patched",
+          "scope": "companion_v80"
+        }
+      ]
+    },
+    {
+      "file": "docs/phases/engine-breadth/milestones/f8949-code-b-evidence/codeb_prototype.py",
+      "reached_by": [
+        "tests/test_code_b_sales_v81.py",
+        "tests/test_code_b_sales_v81_package.py"
+      ],
+      "writes": [
+        {
+          "line": 1007,
+          "target": "loader.domain_package_companion_declarations",
+          "scope": "companion_v81"
+        },
+        {
+          "line": 1008,
+          "target": "loader.named_covered_flag_refusal_maps",
+          "scope": "companion_v81"
+        },
+        {
+          "line": 1009,
+          "target": "loader._codeb_patched",
+          "scope": "companion_v81"
+        }
+      ]
+    },
+    {
+      "file": "docs/phases/engine-breadth/milestones/line-explanations-evidence/prototype.py",
+      "reached_by": [],
+      "writes": [
+        {
+          "line": 130,
+          "target": "loader.domain_package_companion_declarations",
+          "scope": "_declare_v78"
+        }
+      ]
+    },
+    {
+      "file": "docs/phases/engine-breadth/milestones/noncovered-sales-evidence/p0b.py",
+      "reached_by": [
+        "tests/test_code_b_sales_v81.py",
+        "tests/test_code_b_sales_v81_package.py",
+        "tests/test_no1099b_sales_v80.py",
+        "tests/test_noncovered_sales_v79.py"
+      ],
+      "writes": [
+        {
+          "line": 101,
+          "target": "proto.loader.domain_package_companion_declarations",
+          "scope": "_declare_once"
+        },
+        {
+          "line": 373,
+          "target": "marshal_mod.marshal_closure_authority",
+          "scope": "_install_engine"
+        },
+        {
+          "line": 374,
+          "target": "runner_mod.resolve_closure_admissions",
+          "scope": "_install_engine"
+        },
+        {
+          "line": 375,
+          "target": "runner_mod._Run._record_blocked",
+          "scope": "_install_engine"
+        },
+        {
+          "line": 376,
+          "target": "presentation_mod._closure_question_reasons",
+          "scope": "_install_engine"
+        },
+        {
+          "line": 377,
+          "target": "live_mod.live_coordinate_run",
+          "scope": "_install_engine"
+        }
+      ]
+    },
+    {
+      "file": "docs/phases/engine-breadth/milestones/noncovered-sales-evidence/prototype.py",
+      "reached_by": [
+        "tests/test_code_b_sales_v81.py",
+        "tests/test_code_b_sales_v81_package.py",
+        "tests/test_no1099b_sales_v80.py",
+        "tests/test_noncovered_sales_v79.py"
+      ],
+      "writes": [
+        {
+          "line": 703,
+          "target": "loader.domain_package_companion_declarations",
+          "scope": "_declare_v79"
+        }
+      ]
+    },
+    {
+      "file": "docs/phases/engine-breadth/milestones/noncovered-sales-evidence/track0.py",
+      "reached_by": [
+        "tests/test_code_b_sales_v81.py",
+        "tests/test_code_b_sales_v81_package.py",
+        "tests/test_no1099b_sales_v80.py",
+        "tests/test_noncovered_sales_v79.py"
+      ],
+      "writes": [
+        {
+          "line": 113,
+          "target": "proto.loader.domain_package_companion_declarations",
+          "scope": "_declare_once"
+        }
+      ]
+    },
+    {
+      "file": "docs/phases/engine-breadth/milestones/statement-withholding-answer-evidence/prototype.py",
+      "reached_by": [],
+      "writes": [
+        {
+          "line": 102,
+          "target": "loader.domain_package_companion_declarations",
+          "scope": "build"
+        }
+      ]
+    },
+    {
+      "file": "docs/phases/engine-breadth/milestones/statement-withholding-pairing-evidence/prototype.py",
+      "reached_by": [],
+      "writes": [
+        {
+          "line": 282,
+          "target": "loader.domain_package_companion_declarations",
+          "scope": "_declare_v77"
+        }
+      ]
+    },
+    {
+      "file": "docs/phases/engineering-health/milestones/required-versus-read-evidence/p0_path_probe.py",
+      "reached_by": [],
+      "writes": [
+        {
+          "line": 72,
+          "target": "runner._Run.pins_for",
+          "scope": "pytest_configure"
+        },
+        {
+          "line": 110,
+          "target": "live.live_coordinate_run",
+          "scope": "pytest_configure"
+        }
+      ]
+    }
+  ],
+  "clusters": [
+    {
+      "tests": [
+        "tests/test_code_b_sales_v81.py",
+        "tests/test_code_b_sales_v81_package.py",
+        "tests/test_no1099b_sales_v80.py",
+        "tests/test_noncovered_sales_v79.py"
+      ],
+      "shared_names": [
+        "cf_probe",
+        "cf_prototype",
+        "f8949_boxes_cf_track0",
+        "f8949_code_b_probe",
+        "f8949_code_b_prototype",
+        "p0b",
+        "probe",
+        "prototype",
+        "track0"
+      ]
+    },
+    {
+      "tests": [
+        "tests/test_f1099b_backup_withholding_v83.py",
+        "tests/test_f1099b_box4_only_v85.py",
+        "tests/test_f1099b_box7_loss_v84.py",
+        "tests/test_sale_family_audit_v82.py"
+      ],
+      "shared_names": [
+        "f1099b_b4_audit_harness",
+        "f1099b_b4_t0_harness",
+        "f1099b_b4_t0_probe",
+        "f1099b_b4_t0_prototype",
+        "f1099b_b4_v83_live_track0",
+        "f1099b_sfa_t0",
+        "sale_family_audit_harness",
+        "sale_family_audit_probe",
+        "sale_family_audit_prototype",
+        "sale_family_audit_rerun"
+      ]
+    },
+    {
+      "tests": [
+        "tests/test_sli_track10_saved_account_evidence.py",
+        "tests/test_sli_track12_account_reference_boundary.py"
+      ],
+      "shared_names": [
+        "track9_disposable_reader"
+      ]
+    }
+  ],
+  "writes": [
+    {
+      "file": "docs/phases/engine-breadth/milestones/all-questions-at-once-evidence/prototype.py",
+      "line": 309,
+      "target": "_Run._record_blocked",
+      "scope": "install",
+      "origin": "packages",
+      "engine": true,
+      "engine_reason": "packages-import",
+      "in_finally": false,
+      "in_with": false,
+      "assigns_in_scope": 1
+    },
+    {
+      "file": "docs/phases/engine-breadth/milestones/all-questions-at-once-evidence/prototype.py",
+      "line": 310,
+      "target": "_Run.finalize_unreached",
+      "scope": "install",
+      "origin": "packages",
+      "engine": true,
+      "engine_reason": "packages-import",
+      "in_finally": false,
+      "in_with": false,
+      "assigns_in_scope": 1
+    },
+    {
+      "file": "docs/phases/engine-breadth/milestones/attachment-closure-evidence/design_check.py",
+      "line": 88,
+      "target": "cc.CORES[]",
+      "scope": "build_candidate",
+      "origin": "tests",
+      "engine": false,
+      "engine_reason": "",
+      "in_finally": false,
+      "in_with": false,
+      "assigns_in_scope": 1
+    },
+    {
+      "file": "docs/phases/engine-breadth/milestones/attachment-closure-evidence/design_check.py",
+      "line": 96,
+      "target": "loader.domain_package_companion_declarations",
+      "scope": "build_candidate",
+      "origin": "packages",
+      "engine": true,
+      "engine_reason": "packages-import",
+      "in_finally": false,
+      "in_with": false,
+      "assigns_in_scope": 1
+    },
+    {
+      "file": "docs/phases/engine-breadth/milestones/derived-answers-evidence/probe.py",
+      "line": 36,
+      "target": "swa.CORES[]",
+      "scope": "<module>",
+      "origin": "tests",
+      "engine": false,
+      "engine_reason": "",
+      "in_finally": false,
+      "in_with": false,
+      "assigns_in_scope": 1
+    },
+    {
+      "file": "docs/phases/engine-breadth/milestones/derived-answers-evidence/prototype.py",
+      "line": 273,
+      "target": "probe.swa.CONTENT",
+      "scope": "build",
+      "origin": "evidence",
+      "engine": false,
+      "engine_reason": "",
+      "in_finally": false,
+      "in_with": false,
+      "assigns_in_scope": 1
+    },
+    {
+      "file": "docs/phases/engine-breadth/milestones/derived-answers-evidence/prototype.py",
+      "line": 274,
+      "target": "probe.swa.RELEASE_DIR",
+      "scope": "build",
+      "origin": "evidence",
+      "engine": false,
+      "engine_reason": "",
+      "in_finally": false,
+      "in_with": false,
+      "assigns_in_scope": 1
+    },
+    {
+      "file": "docs/phases/engine-breadth/milestones/derived-answers-evidence/prototype.py",
+      "line": 275,
+      "target": "probe.swa.CORES[]",
+      "scope": "build",
+      "origin": "evidence",
+      "engine": false,
+      "engine_reason": "",
+      "in_finally": false,
+      "in_with": false,
+      "assigns_in_scope": 2
+    },
+    {
+      "file": "docs/phases/engine-breadth/milestones/derived-answers-evidence/prototype.py",
+      "line": 281,
+      "target": "probe.swa.CORES[]",
+      "scope": "build",
+      "origin": "evidence",
+      "engine": false,
+      "engine_reason": "",
+      "in_finally": false,
+      "in_with": false,
+      "assigns_in_scope": 2
+    },
+    {
+      "file": "docs/phases/engine-breadth/milestones/derived-answers-evidence/prototype.py",
+      "line": 294,
+      "target": "loader.domain_package_companion_declarations",
+      "scope": "build",
+      "origin": "packages",
+      "engine": true,
+      "engine_reason": "packages-import",
+      "in_finally": false,
+      "in_with": false,
+      "assigns_in_scope": 1
+    },
+    {
+      "file": "docs/phases/engine-breadth/milestones/f8949-boxes-cf-evidence/cf_probe.py",
+      "line": 62,
+      "target": "probe.PACKAGE",
+      "scope": "pin_v79",
+      "origin": "evidence",
+      "engine": false,
+      "engine_reason": "",
+      "in_finally": false,
+      "in_with": false,
+      "assigns_in_scope": 1
+    },
+    {
+      "file": "docs/phases/engine-breadth/milestones/f8949-boxes-cf-evidence/cf_probe.py",
+      "line": 63,
+      "target": "probe.PACKAGE_VERSION",
+      "scope": "pin_v79",
+      "origin": "evidence",
+      "engine": false,
+      "engine_reason": "",
+      "in_finally": false,
+      "in_with": false,
+      "assigns_in_scope": 1
+    },
+    {
+      "file": "docs/phases/engine-breadth/milestones/f8949-boxes-cf-evidence/cf_probe.py",
+      "line": 64,
+      "target": "probe.REGISTRY",
+      "scope": "pin_v79",
+      "origin": "evidence",
+      "engine": false,
+      "engine_reason": "",
+      "in_finally": false,
+      "in_with": false,
+      "assigns_in_scope": 1
+    },
+    {
+      "file": "docs/phases/engine-breadth/milestones/f8949-boxes-cf-evidence/cf_probe.py",
+      "line": 65,
+      "target": "probe.RELEASE",
+      "scope": "pin_v79",
+      "origin": "evidence",
+      "engine": false,
+      "engine_reason": "",
+      "in_finally": false,
+      "in_with": false,
+      "assigns_in_scope": 1
+    },
+    {
+      "file": "docs/phases/engine-breadth/milestones/f8949-boxes-cf-evidence/cf_probe.py",
+      "line": 66,
+      "target": "probe.RELEASE_VERSION",
+      "scope": "pin_v79",
+      "origin": "evidence",
+      "engine": false,
+      "engine_reason": "",
+      "in_finally": false,
+      "in_with": false,
+      "assigns_in_scope": 1
+    },
+    {
+      "file": "docs/phases/engine-breadth/milestones/f8949-boxes-cf-evidence/cf_probe.py",
+      "line": 75,
+      "target": "proto.USE_V2",
+      "scope": "install_v79_noncovered",
+      "origin": "evidence",
+      "engine": false,
+      "engine_reason": "",
+      "in_finally": false,
+      "in_with": false,
+      "assigns_in_scope": 1
+    },
+    {
+      "file": "docs/phases/engine-breadth/milestones/f8949-boxes-cf-evidence/cf_probe.py",
+      "line": 90,
+      "target": "proto.BUILT.clear()",
+      "scope": "install_v79_noncovered",
+      "origin": "evidence",
+      "engine": false,
+      "engine_reason": "",
+      "in_finally": false,
+      "in_with": false,
+      "assigns_in_scope": 1
+    },
+    {
+      "file": "docs/phases/engine-breadth/milestones/f8949-boxes-cf-evidence/cf_probe.py",
+      "line": 91,
+      "target": "proto.BUILT.update()",
+      "scope": "install_v79_noncovered",
+      "origin": "evidence",
+      "engine": false,
+      "engine_reason": "",
+      "in_finally": false,
+      "in_with": false,
+      "assigns_in_scope": 1
+    },
+    {
+      "file": "docs/phases/engine-breadth/milestones/f8949-boxes-cf-evidence/cf_prototype.py",
+      "line": 801,
+      "target": "loader.domain_package_companion_declarations",
+      "scope": "companion_v80",
+      "origin": "packages",
+      "engine": true,
+      "engine_reason": "packages-import",
+      "in_finally": false,
+      "in_with": false,
+      "assigns_in_scope": 1
+    },
+    {
+      "file": "docs/phases/engine-breadth/milestones/f8949-boxes-cf-evidence/cf_prototype.py",
+      "line": 802,
+      "target": "loader.named_covered_flag_refusal_maps",
+      "scope": "companion_v80",
+      "origin": "packages",
+      "engine": true,
+      "engine_reason": "packages-import",
+      "in_finally": false,
+      "in_with": false,
+      "assigns_in_scope": 1
+    },
+    {
+      "file": "docs/phases/engine-breadth/milestones/f8949-boxes-cf-evidence/cf_prototype.py",
+      "line": 803,
+      "target": "loader._cf_patched",
+      "scope": "companion_v80",
+      "origin": "packages",
+      "engine": true,
+      "engine_reason": "packages-import",
+      "in_finally": false,
+      "in_with": false,
+      "assigns_in_scope": 1
+    },
+    {
+      "file": "docs/phases/engine-breadth/milestones/f8949-boxes-cf-evidence/track0.py",
+      "line": 287,
+      "target": "cfp.REPAIRS.clear()",
+      "scope": "init",
+      "origin": "evidence",
+      "engine": false,
+      "engine_reason": "",
+      "in_finally": false,
+      "in_with": false,
+      "assigns_in_scope": 1
+    },
+    {
+      "file": "docs/phases/engine-breadth/milestones/f8949-boxes-cf-evidence/track0.py",
+      "line": 288,
+      "target": "cfp.REPAIRS.update()",
+      "scope": "init",
+      "origin": "evidence",
+      "engine": false,
+      "engine_reason": "",
+      "in_finally": false,
+      "in_with": false,
+      "assigns_in_scope": 1
+    },
+    {
+      "file": "docs/phases/engine-breadth/milestones/f8949-boxes-cf-evidence/track0.py",
+      "line": 289,
+      "target": "cp.TEXT_LINES",
+      "scope": "init",
+      "origin": "evidence",
+      "engine": false,
+      "engine_reason": "",
+      "in_finally": false,
+      "in_with": false,
+      "assigns_in_scope": 1
+    },
+    {
+      "file": "docs/phases/engine-breadth/milestones/f8949-boxes-cf-evidence/track0.py",
+      "line": 290,
+      "target": "cp.summarize",
+      "scope": "init",
+      "origin": "evidence",
+      "engine": false,
+      "engine_reason": "",
+      "in_finally": false,
+      "in_with": false,
+      "assigns_in_scope": 1
+    },
+    {
+      "file": "docs/phases/engine-breadth/milestones/f8949-code-b-evidence/codeb_probe.py",
+      "line": 89,
+      "target": "cfp.BUNDLES[]",
+      "scope": "pin_v80",
+      "origin": "evidence",
+      "engine": false,
+      "engine_reason": "",
+      "in_finally": false,
+      "in_with": false,
+      "assigns_in_scope": 1
+    },
+    {
+      "file": "docs/phases/engine-breadth/milestones/f8949-code-b-evidence/codeb_probe.py",
+      "line": 215,
+      "target": "cp.TEXT_LINES",
+      "scope": "codeb_globals",
+      "origin": "evidence",
+      "engine": false,
+      "engine_reason": "",
+      "in_finally": false,
+      "in_with": false,
+      "assigns_in_scope": 2
+    },
+    {
+      "file": "docs/phases/engine-breadth/milestones/f8949-code-b-evidence/codeb_probe.py",
+      "line": 215,
+      "target": "cp.WATCH",
+      "scope": "codeb_globals",
+      "origin": "evidence",
+      "engine": false,
+      "engine_reason": "",
+      "in_finally": false,
+      "in_with": false,
+      "assigns_in_scope": 2
+    },
+    {
+      "file": "docs/phases/engine-breadth/milestones/f8949-code-b-evidence/codeb_probe.py",
+      "line": 215,
+      "target": "cp.summarize",
+      "scope": "codeb_globals",
+      "origin": "evidence",
+      "engine": false,
+      "engine_reason": "",
+      "in_finally": false,
+      "in_with": false,
+      "assigns_in_scope": 2
+    },
+    {
+      "file": "docs/phases/engine-breadth/milestones/f8949-code-b-evidence/codeb_probe.py",
+      "line": 219,
+      "target": "cp.TEXT_LINES",
+      "scope": "codeb_globals",
+      "origin": "evidence",
+      "engine": false,
+      "engine_reason": "",
+      "in_finally": true,
+      "in_with": false,
+      "assigns_in_scope": 2
+    },
+    {
+      "file": "docs/phases/engine-breadth/milestones/f8949-code-b-evidence/codeb_probe.py",
+      "line": 219,
+      "target": "cp.WATCH",
+      "scope": "codeb_globals",
+      "origin": "evidence",
+      "engine": false,
+      "engine_reason": "",
+      "in_finally": true,
+      "in_with": false,
+      "assigns_in_scope": 2
+    },
+    {
+      "file": "docs/phases/engine-breadth/milestones/f8949-code-b-evidence/codeb_probe.py",
+      "line": 219,
+      "target": "cp.summarize",
+      "scope": "codeb_globals",
+      "origin": "evidence",
+      "engine": false,
+      "engine_reason": "",
+      "in_finally": true,
+      "in_with": false,
+      "assigns_in_scope": 2
+    },
+    {
+      "file": "docs/phases/engine-breadth/milestones/f8949-code-b-evidence/codeb_prototype.py",
+      "line": 1007,
+      "target": "loader.domain_package_companion_declarations",
+      "scope": "companion_v81",
+      "origin": "packages",
+      "engine": true,
+      "engine_reason": "packages-import",
+      "in_finally": false,
+      "in_with": false,
+      "assigns_in_scope": 1
+    },
+    {
+      "file": "docs/phases/engine-breadth/milestones/f8949-code-b-evidence/codeb_prototype.py",
+      "line": 1008,
+      "target": "loader.named_covered_flag_refusal_maps",
+      "scope": "companion_v81",
+      "origin": "packages",
+      "engine": true,
+      "engine_reason": "packages-import",
+      "in_finally": false,
+      "in_with": false,
+      "assigns_in_scope": 1
+    },
+    {
+      "file": "docs/phases/engine-breadth/milestones/f8949-code-b-evidence/codeb_prototype.py",
+      "line": 1009,
+      "target": "loader._codeb_patched",
+      "scope": "companion_v81",
+      "origin": "packages",
+      "engine": true,
+      "engine_reason": "packages-import",
+      "in_finally": false,
+      "in_with": false,
+      "assigns_in_scope": 1
+    },
+    {
+      "file": "docs/phases/engine-breadth/milestones/f8949-code-b-evidence/codeb_prototype.py",
+      "line": 1440,
+      "target": "codeb_probe.WHY_ROWS",
+      "scope": "<module>",
+      "origin": "evidence",
+      "engine": false,
+      "engine_reason": "",
+      "in_finally": false,
+      "in_with": false,
+      "assigns_in_scope": 1
+    },
+    {
+      "file": "docs/phases/engine-breadth/milestones/f8949-code-b-evidence/codeb_track0.py",
+      "line": 542,
+      "target": "cbp.HAND.update()",
+      "scope": "check",
+      "origin": "evidence",
+      "engine": false,
+      "engine_reason": "",
+      "in_finally": false,
+      "in_with": false,
+      "assigns_in_scope": 2
+    },
+    {
+      "file": "docs/phases/engine-breadth/milestones/f8949-code-b-evidence/codeb_track0.py",
+      "line": 543,
+      "target": "cbp.BLOCKED.update()",
+      "scope": "check",
+      "origin": "evidence",
+      "engine": false,
+      "engine_reason": "",
+      "in_finally": false,
+      "in_with": false,
+      "assigns_in_scope": 2
+    },
+    {
+      "file": "docs/phases/engine-breadth/milestones/f8949-code-b-evidence/codeb_track0.py",
+      "line": 546,
+      "target": "cbp.HAND.clear()",
+      "scope": "check",
+      "origin": "evidence",
+      "engine": false,
+      "engine_reason": "",
+      "in_finally": true,
+      "in_with": false,
+      "assigns_in_scope": 1
+    },
+    {
+      "file": "docs/phases/engine-breadth/milestones/f8949-code-b-evidence/codeb_track0.py",
+      "line": 547,
+      "target": "cbp.HAND.update()",
+      "scope": "check",
+      "origin": "evidence",
+      "engine": false,
+      "engine_reason": "",
+      "in_finally": true,
+      "in_with": false,
+      "assigns_in_scope": 2
+    },
+    {
+      "file": "docs/phases/engine-breadth/milestones/f8949-code-b-evidence/codeb_track0.py",
+      "line": 548,
+      "target": "cbp.BLOCKED.clear()",
+      "scope": "check",
+      "origin": "evidence",
+      "engine": false,
+      "engine_reason": "",
+      "in_finally": true,
+      "in_with": false,
+      "assigns_in_scope": 1
+    },
+    {
+      "file": "docs/phases/engine-breadth/milestones/f8949-code-b-evidence/codeb_track0.py",
+      "line": 549,
+      "target": "cbp.BLOCKED.update()",
+      "scope": "check",
+      "origin": "evidence",
+      "engine": false,
+      "engine_reason": "",
+      "in_finally": true,
+      "in_with": false,
+      "assigns_in_scope": 2
+    },
+    {
+      "file": "docs/phases/engine-breadth/milestones/f8949-code-b-evidence/codeb_track0.py",
+      "line": 779,
+      "target": "cbp.HAND[]",
+      "scope": "check_neighbour",
+      "origin": "evidence",
+      "engine": false,
+      "engine_reason": "",
+      "in_finally": false,
+      "in_with": false,
+      "assigns_in_scope": 1
+    },
+    {
+      "file": "docs/phases/engine-breadth/milestones/f8949-code-b-evidence/codeb_track0.py",
+      "line": 782,
+      "target": "cbp.HAND.clear()",
+      "scope": "check_neighbour",
+      "origin": "evidence",
+      "engine": false,
+      "engine_reason": "",
+      "in_finally": true,
+      "in_with": false,
+      "assigns_in_scope": 1
+    },
+    {
+      "file": "docs/phases/engine-breadth/milestones/f8949-code-b-evidence/codeb_track0.py",
+      "line": 783,
+      "target": "cbp.HAND.update()",
+      "scope": "check_neighbour",
+      "origin": "evidence",
+      "engine": false,
+      "engine_reason": "",
+      "in_finally": true,
+      "in_with": false,
+      "assigns_in_scope": 1
+    },
+    {
+      "file": "docs/phases/engine-breadth/milestones/f8949-code-b-evidence/codeb_track0.py",
+      "line": 787,
+      "target": "cbp.BLOCKED[]",
+      "scope": "check_neighbour",
+      "origin": "evidence",
+      "engine": false,
+      "engine_reason": "",
+      "in_finally": false,
+      "in_with": false,
+      "assigns_in_scope": 1
+    },
+    {
+      "file": "docs/phases/engine-breadth/milestones/f8949-code-b-evidence/codeb_track0.py",
+      "line": 790,
+      "target": "cbp.BLOCKED.clear()",
+      "scope": "check_neighbour",
+      "origin": "evidence",
+      "engine": false,
+      "engine_reason": "",
+      "in_finally": true,
+      "in_with": false,
+      "assigns_in_scope": 1
+    },
+    {
+      "file": "docs/phases/engine-breadth/milestones/f8949-code-b-evidence/codeb_track0.py",
+      "line": 791,
+      "target": "cbp.BLOCKED.update()",
+      "scope": "check_neighbour",
+      "origin": "evidence",
+      "engine": false,
+      "engine_reason": "",
+      "in_finally": true,
+      "in_with": false,
+      "assigns_in_scope": 1
+    },
+    {
+      "file": "docs/phases/engine-breadth/milestones/f8949-code-b-evidence/codeb_track0.py",
+      "line": 838,
+      "target": "cbp.REPAIRS.clear()",
+      "scope": "init",
+      "origin": "evidence",
+      "engine": false,
+      "engine_reason": "",
+      "in_finally": false,
+      "in_with": false,
+      "assigns_in_scope": 1
+    },
+    {
+      "file": "docs/phases/engine-breadth/milestones/f8949-code-b-evidence/codeb_track0.py",
+      "line": 839,
+      "target": "cbp.REPAIRS.update()",
+      "scope": "init",
+      "origin": "evidence",
+      "engine": false,
+      "engine_reason": "",
+      "in_finally": false,
+      "in_with": false,
+      "assigns_in_scope": 1
+    },
+    {
+      "file": "docs/phases/engine-breadth/milestones/f8949-code-b-evidence/codeb_track0.py",
+      "line": 842,
+      "target": "cbp.ORIGIN[]",
+      "scope": "init",
+      "origin": "evidence",
+      "engine": false,
+      "engine_reason": "",
+      "in_finally": false,
+      "in_with": false,
+      "assigns_in_scope": 1
+    },
+    {
+      "file": "docs/phases/engine-breadth/milestones/line-explanations-evidence/prototype.py",
+      "line": 130,
+      "target": "loader.domain_package_companion_declarations",
+      "scope": "_declare_v78",
+      "origin": "packages",
+      "engine": true,
+      "engine_reason": "packages-import",
+      "in_finally": false,
+      "in_with": false,
+      "assigns_in_scope": 1
+    },
+    {
+      "file": "docs/phases/engine-breadth/milestones/missing-input-questions-evidence/probe.py",
+      "line": 258,
+      "target": "swa.CORES.update()",
+      "scope": "run_case",
+      "origin": "tests",
+      "engine": false,
+      "engine_reason": "",
+      "in_finally": false,
+      "in_with": false,
+      "assigns_in_scope": 1
+    },
+    {
+      "file": "docs/phases/engine-breadth/milestones/noncovered-sales-evidence/p0b.py",
+      "line": 101,
+      "target": "proto.loader.domain_package_companion_declarations",
+      "scope": "_declare_once",
+      "origin": "evidence",
+      "engine": true,
+      "engine_reason": "loader-attribute",
+      "in_finally": false,
+      "in_with": false,
+      "assigns_in_scope": 1
+    },
+    {
+      "file": "docs/phases/engine-breadth/milestones/noncovered-sales-evidence/p0b.py",
+      "line": 126,
+      "target": "proto._mapping",
+      "scope": "_install_content_shape",
+      "origin": "evidence",
+      "engine": false,
+      "engine_reason": "",
+      "in_finally": false,
+      "in_with": false,
+      "assigns_in_scope": 1
+    },
+    {
+      "file": "docs/phases/engine-breadth/milestones/noncovered-sales-evidence/p0b.py",
+      "line": 127,
+      "target": "proto._boundary_bundle",
+      "scope": "_install_content_shape",
+      "origin": "evidence",
+      "engine": false,
+      "engine_reason": "",
+      "in_finally": false,
+      "in_with": false,
+      "assigns_in_scope": 1
+    },
+    {
+      "file": "docs/phases/engine-breadth/milestones/noncovered-sales-evidence/p0b.py",
+      "line": 373,
+      "target": "marshal_mod.marshal_closure_authority",
+      "scope": "_install_engine",
+      "origin": "packages",
+      "engine": true,
+      "engine_reason": "packages-import",
+      "in_finally": false,
+      "in_with": false,
+      "assigns_in_scope": 1
+    },
+    {
+      "file": "docs/phases/engine-breadth/milestones/noncovered-sales-evidence/p0b.py",
+      "line": 374,
+      "target": "runner_mod.resolve_closure_admissions",
+      "scope": "_install_engine",
+      "origin": "packages",
+      "engine": true,
+      "engine_reason": "packages-import",
+      "in_finally": false,
+      "in_with": false,
+      "assigns_in_scope": 1
+    },
+    {
+      "file": "docs/phases/engine-breadth/milestones/noncovered-sales-evidence/p0b.py",
+      "line": 375,
+      "target": "runner_mod._Run._record_blocked",
+      "scope": "_install_engine",
+      "origin": "packages",
+      "engine": true,
+      "engine_reason": "packages-import",
+      "in_finally": false,
+      "in_with": false,
+      "assigns_in_scope": 1
+    },
+    {
+      "file": "docs/phases/engine-breadth/milestones/noncovered-sales-evidence/p0b.py",
+      "line": 376,
+      "target": "presentation_mod._closure_question_reasons",
+      "scope": "_install_engine",
+      "origin": "packages",
+      "engine": true,
+      "engine_reason": "packages-import",
+      "in_finally": false,
+      "in_with": false,
+      "assigns_in_scope": 1
+    },
+    {
+      "file": "docs/phases/engine-breadth/milestones/noncovered-sales-evidence/p0b.py",
+      "line": 377,
+      "target": "live_mod.live_coordinate_run",
+      "scope": "_install_engine",
+      "origin": "packages",
+      "engine": true,
+      "engine_reason": "packages-import",
+      "in_finally": false,
+      "in_with": false,
+      "assigns_in_scope": 1
+    },
+    {
+      "file": "docs/phases/engine-breadth/milestones/noncovered-sales-evidence/p0b.py",
+      "line": 378,
+      "target": "track0.live_coordinate_run",
+      "scope": "_install_engine",
+      "origin": "evidence",
+      "engine": false,
+      "engine_reason": "",
+      "in_finally": false,
+      "in_with": false,
+      "assigns_in_scope": 1
+    },
+    {
+      "file": "docs/phases/engine-breadth/milestones/noncovered-sales-evidence/p0b.py",
+      "line": 612,
+      "target": "proto.USE_V2",
+      "scope": "main",
+      "origin": "evidence",
+      "engine": false,
+      "engine_reason": "",
+      "in_finally": false,
+      "in_with": false,
+      "assigns_in_scope": 1
+    },
+    {
+      "file": "docs/phases/engine-breadth/milestones/noncovered-sales-evidence/p0b.py",
+      "line": 613,
+      "target": "proto.EXTRAS",
+      "scope": "main",
+      "origin": "evidence",
+      "engine": false,
+      "engine_reason": "",
+      "in_finally": false,
+      "in_with": false,
+      "assigns_in_scope": 1
+    },
+    {
+      "file": "docs/phases/engine-breadth/milestones/noncovered-sales-evidence/p0b.py",
+      "line": 616,
+      "target": "proto._declare_v79",
+      "scope": "main",
+      "origin": "evidence",
+      "engine": false,
+      "engine_reason": "",
+      "in_finally": false,
+      "in_with": false,
+      "assigns_in_scope": 1
+    },
+    {
+      "file": "docs/phases/engine-breadth/milestones/noncovered-sales-evidence/prototype.py",
+      "line": 703,
+      "target": "loader.domain_package_companion_declarations",
+      "scope": "_declare_v79",
+      "origin": "packages",
+      "engine": true,
+      "engine_reason": "packages-import",
+      "in_finally": false,
+      "in_with": false,
+      "assigns_in_scope": 1
+    },
+    {
+      "file": "docs/phases/engine-breadth/milestones/noncovered-sales-evidence/prototype.py",
+      "line": 890,
+      "target": "probe.CONTENT",
+      "scope": "build",
+      "origin": "evidence",
+      "engine": false,
+      "engine_reason": "",
+      "in_finally": false,
+      "in_with": false,
+      "assigns_in_scope": 1
+    },
+    {
+      "file": "docs/phases/engine-breadth/milestones/noncovered-sales-evidence/prototype.py",
+      "line": 891,
+      "target": "probe.PACKAGE",
+      "scope": "build",
+      "origin": "evidence",
+      "engine": false,
+      "engine_reason": "",
+      "in_finally": false,
+      "in_with": false,
+      "assigns_in_scope": 1
+    },
+    {
+      "file": "docs/phases/engine-breadth/milestones/noncovered-sales-evidence/prototype.py",
+      "line": 892,
+      "target": "probe.PACKAGE_VERSION",
+      "scope": "build",
+      "origin": "evidence",
+      "engine": false,
+      "engine_reason": "",
+      "in_finally": false,
+      "in_with": false,
+      "assigns_in_scope": 1
+    },
+    {
+      "file": "docs/phases/engine-breadth/milestones/noncovered-sales-evidence/prototype.py",
+      "line": 893,
+      "target": "probe.REGISTRY",
+      "scope": "build",
+      "origin": "evidence",
+      "engine": false,
+      "engine_reason": "",
+      "in_finally": false,
+      "in_with": false,
+      "assigns_in_scope": 1
+    },
+    {
+      "file": "docs/phases/engine-breadth/milestones/noncovered-sales-evidence/prototype.py",
+      "line": 894,
+      "target": "probe.RELEASE_DIR",
+      "scope": "build",
+      "origin": "evidence",
+      "engine": false,
+      "engine_reason": "",
+      "in_finally": false,
+      "in_with": false,
+      "assigns_in_scope": 1
+    },
+    {
+      "file": "docs/phases/engine-breadth/milestones/noncovered-sales-evidence/prototype.py",
+      "line": 895,
+      "target": "probe.RELEASE",
+      "scope": "build",
+      "origin": "evidence",
+      "engine": false,
+      "engine_reason": "",
+      "in_finally": false,
+      "in_with": false,
+      "assigns_in_scope": 1
+    },
+    {
+      "file": "docs/phases/engine-breadth/milestones/noncovered-sales-evidence/prototype.py",
+      "line": 896,
+      "target": "probe.RELEASE_VERSION",
+      "scope": "build",
+      "origin": "evidence",
+      "engine": false,
+      "engine_reason": "",
+      "in_finally": false,
+      "in_with": false,
+      "assigns_in_scope": 1
+    },
+    {
+      "file": "docs/phases/engine-breadth/milestones/noncovered-sales-evidence/track0.py",
+      "line": 93,
+      "target": "probe.<?>",
+      "scope": "_reset_probe",
+      "origin": "evidence",
+      "engine": false,
+      "engine_reason": "",
+      "in_finally": false,
+      "in_with": false,
+      "assigns_in_scope": 1
+    },
+    {
+      "file": "docs/phases/engine-breadth/milestones/noncovered-sales-evidence/track0.py",
+      "line": 102,
+      "target": "probe.<?>",
+      "scope": "_restore",
+      "origin": "evidence",
+      "engine": false,
+      "engine_reason": "",
+      "in_finally": false,
+      "in_with": false,
+      "assigns_in_scope": 1
+    },
+    {
+      "file": "docs/phases/engine-breadth/milestones/noncovered-sales-evidence/track0.py",
+      "line": 113,
+      "target": "proto.loader.domain_package_companion_declarations",
+      "scope": "_declare_once",
+      "origin": "evidence",
+      "engine": true,
+      "engine_reason": "loader-attribute",
+      "in_finally": false,
+      "in_with": false,
+      "assigns_in_scope": 1
+    },
+    {
+      "file": "docs/phases/engine-breadth/milestones/noncovered-sales-evidence/track0.py",
+      "line": 409,
+      "target": "proto._declare_v79",
+      "scope": "_build",
+      "origin": "evidence",
+      "engine": false,
+      "engine_reason": "",
+      "in_finally": false,
+      "in_with": false,
+      "assigns_in_scope": 1
+    },
+    {
+      "file": "docs/phases/engine-breadth/milestones/noncovered-sales-evidence/track0.py",
+      "line": 427,
+      "target": "probe.PACKAGE",
+      "scope": "_use_v78",
+      "origin": "evidence",
+      "engine": false,
+      "engine_reason": "",
+      "in_finally": false,
+      "in_with": false,
+      "assigns_in_scope": 1
+    },
+    {
+      "file": "docs/phases/engine-breadth/milestones/noncovered-sales-evidence/track0.py",
+      "line": 428,
+      "target": "probe.PACKAGE_VERSION",
+      "scope": "_use_v78",
+      "origin": "evidence",
+      "engine": false,
+      "engine_reason": "",
+      "in_finally": false,
+      "in_with": false,
+      "assigns_in_scope": 1
+    },
+    {
+      "file": "docs/phases/engine-breadth/milestones/noncovered-sales-evidence/track0.py",
+      "line": 429,
+      "target": "probe.REGISTRY",
+      "scope": "_use_v78",
+      "origin": "evidence",
+      "engine": false,
+      "engine_reason": "",
+      "in_finally": false,
+      "in_with": false,
+      "assigns_in_scope": 1
+    },
+    {
+      "file": "docs/phases/engine-breadth/milestones/noncovered-sales-evidence/track0.py",
+      "line": 430,
+      "target": "probe.RELEASE",
+      "scope": "_use_v78",
+      "origin": "evidence",
+      "engine": false,
+      "engine_reason": "",
+      "in_finally": false,
+      "in_with": false,
+      "assigns_in_scope": 1
+    },
+    {
+      "file": "docs/phases/engine-breadth/milestones/noncovered-sales-evidence/track0.py",
+      "line": 431,
+      "target": "probe.RELEASE_VERSION",
+      "scope": "_use_v78",
+      "origin": "evidence",
+      "engine": false,
+      "engine_reason": "",
+      "in_finally": false,
+      "in_with": false,
+      "assigns_in_scope": 1
+    },
+    {
+      "file": "docs/phases/engine-breadth/milestones/noncovered-sales-evidence/track0.py",
+      "line": 435,
+      "target": "proto.USE_V2",
+      "scope": "mode_standard",
+      "origin": "evidence",
+      "engine": false,
+      "engine_reason": "",
+      "in_finally": false,
+      "in_with": false,
+      "assigns_in_scope": 1
+    },
+    {
+      "file": "docs/phases/engine-breadth/milestones/noncovered-sales-evidence/track0.py",
+      "line": 436,
+      "target": "proto.EXTRAS",
+      "scope": "mode_standard",
+      "origin": "evidence",
+      "engine": false,
+      "engine_reason": "",
+      "in_finally": false,
+      "in_with": false,
+      "assigns_in_scope": 1
+    },
+    {
+      "file": "docs/phases/engine-breadth/milestones/noncovered-sales-evidence/track0.py",
+      "line": 492,
+      "target": "proto._mapping",
+      "scope": "_install_one_question",
+      "origin": "evidence",
+      "engine": false,
+      "engine_reason": "",
+      "in_finally": false,
+      "in_with": false,
+      "assigns_in_scope": 1
+    },
+    {
+      "file": "docs/phases/engine-breadth/milestones/noncovered-sales-evidence/track0.py",
+      "line": 493,
+      "target": "proto._boundary_bundle",
+      "scope": "_install_one_question",
+      "origin": "evidence",
+      "engine": false,
+      "engine_reason": "",
+      "in_finally": false,
+      "in_with": false,
+      "assigns_in_scope": 1
+    },
+    {
+      "file": "docs/phases/engine-breadth/milestones/noncovered-sales-evidence/track0.py",
+      "line": 525,
+      "target": "proto.USE_V2",
+      "scope": "mode_one_question",
+      "origin": "evidence",
+      "engine": false,
+      "engine_reason": "",
+      "in_finally": false,
+      "in_with": false,
+      "assigns_in_scope": 1
+    },
+    {
+      "file": "docs/phases/engine-breadth/milestones/noncovered-sales-evidence/track0.py",
+      "line": 526,
+      "target": "proto.EXTRAS",
+      "scope": "mode_one_question",
+      "origin": "evidence",
+      "engine": false,
+      "engine_reason": "",
+      "in_finally": false,
+      "in_with": false,
+      "assigns_in_scope": 1
+    },
+    {
+      "file": "docs/phases/engine-breadth/milestones/noncovered-sales-evidence/track0.py",
+      "line": 564,
+      "target": "proto._boundary_bundle",
+      "scope": "mode_one_question",
+      "origin": "evidence",
+      "engine": false,
+      "engine_reason": "",
+      "in_finally": true,
+      "in_with": false,
+      "assigns_in_scope": 1
+    },
+    {
+      "file": "docs/phases/engine-breadth/milestones/noncovered-sales-evidence/track0.py",
+      "line": 564,
+      "target": "proto._mapping",
+      "scope": "mode_one_question",
+      "origin": "evidence",
+      "engine": false,
+      "engine_reason": "",
+      "in_finally": true,
+      "in_with": false,
+      "assigns_in_scope": 1
+    },
+    {
+      "file": "docs/phases/engine-breadth/milestones/noncovered-sales-evidence/track0.py",
+      "line": 601,
+      "target": "proto.USE_V2",
+      "scope": "mode_version_bump",
+      "origin": "evidence",
+      "engine": false,
+      "engine_reason": "",
+      "in_finally": false,
+      "in_with": false,
+      "assigns_in_scope": 1
+    },
+    {
+      "file": "docs/phases/engine-breadth/milestones/noncovered-sales-evidence/track0.py",
+      "line": 602,
+      "target": "proto.EXTRAS",
+      "scope": "mode_version_bump",
+      "origin": "evidence",
+      "engine": false,
+      "engine_reason": "",
+      "in_finally": false,
+      "in_with": false,
+      "assigns_in_scope": 2
+    },
+    {
+      "file": "docs/phases/engine-breadth/milestones/noncovered-sales-evidence/track0.py",
+      "line": 625,
+      "target": "proto.EXTRAS",
+      "scope": "mode_version_bump",
+      "origin": "evidence",
+      "engine": false,
+      "engine_reason": "",
+      "in_finally": true,
+      "in_with": false,
+      "assigns_in_scope": 2
+    },
+    {
+      "file": "docs/phases/engine-breadth/milestones/noncovered-sales-evidence/track0.py",
+      "line": 630,
+      "target": "proto.USE_V2",
+      "scope": "mode_v2_probe",
+      "origin": "evidence",
+      "engine": false,
+      "engine_reason": "",
+      "in_finally": false,
+      "in_with": false,
+      "assigns_in_scope": 1
+    },
+    {
+      "file": "docs/phases/engine-breadth/milestones/noncovered-sales-evidence/track0.py",
+      "line": 631,
+      "target": "proto.EXTRAS",
+      "scope": "mode_v2_probe",
+      "origin": "evidence",
+      "engine": false,
+      "engine_reason": "",
+      "in_finally": false,
+      "in_with": false,
+      "assigns_in_scope": 1
+    },
+    {
+      "file": "docs/phases/engine-breadth/milestones/sale-family-audit-evidence/audit_harness.py",
+      "line": 107,
+      "target": "loader.domain_package_companion_declarations",
+      "scope": "loader_entries",
+      "origin": "packages",
+      "engine": true,
+      "engine_reason": "packages-import",
+      "in_finally": false,
+      "in_with": false,
+      "assigns_in_scope": 2
+    },
+    {
+      "file": "docs/phases/engine-breadth/milestones/sale-family-audit-evidence/audit_harness.py",
+      "line": 108,
+      "target": "loader.named_covered_flag_refusal_maps",
+      "scope": "loader_entries",
+      "origin": "packages",
+      "engine": true,
+      "engine_reason": "packages-import",
+      "in_finally": false,
+      "in_with": false,
+      "assigns_in_scope": 2
+    },
+    {
+      "file": "docs/phases/engine-breadth/milestones/sale-family-audit-evidence/audit_harness.py",
+      "line": 112,
+      "target": "loader.domain_package_companion_declarations",
+      "scope": "loader_entries",
+      "origin": "packages",
+      "engine": true,
+      "engine_reason": "packages-import",
+      "in_finally": true,
+      "in_with": false,
+      "assigns_in_scope": 2
+    },
+    {
+      "file": "docs/phases/engine-breadth/milestones/sale-family-audit-evidence/audit_harness.py",
+      "line": 112,
+      "target": "loader.named_covered_flag_refusal_maps",
+      "scope": "loader_entries",
+      "origin": "packages",
+      "engine": true,
+      "engine_reason": "packages-import",
+      "in_finally": true,
+      "in_with": false,
+      "assigns_in_scope": 2
+    },
+    {
+      "file": "docs/phases/engine-breadth/milestones/scope-answer-questions-evidence/probe.py",
+      "line": 69,
+      "target": "swa.CORES[]",
+      "scope": "run_case",
+      "origin": "tests",
+      "engine": false,
+      "engine_reason": "",
+      "in_finally": false,
+      "in_with": false,
+      "assigns_in_scope": 1
+    },
+    {
+      "file": "docs/phases/engine-breadth/milestones/scope-answer-questions-evidence/probe_extra.py",
+      "line": 23,
+      "target": "swa.CORES[]",
+      "scope": "main",
+      "origin": "tests",
+      "engine": false,
+      "engine_reason": "",
+      "in_finally": false,
+      "in_with": false,
+      "assigns_in_scope": 1
+    },
+    {
+      "file": "docs/phases/engine-breadth/milestones/scope-answer-questions-evidence/probe_flip.py",
+      "line": 49,
+      "target": "swa.CORES[]",
+      "scope": "run_case",
+      "origin": "tests",
+      "engine": false,
+      "engine_reason": "",
+      "in_finally": false,
+      "in_with": false,
+      "assigns_in_scope": 1
+    },
+    {
+      "file": "docs/phases/engine-breadth/milestones/scope-answer-questions-evidence/verify_v73.py",
+      "line": 43,
+      "target": "swa.CORES.update()",
+      "scope": "run_case",
+      "origin": "tests",
+      "engine": false,
+      "engine_reason": "",
+      "in_finally": false,
+      "in_with": false,
+      "assigns_in_scope": 1
+    },
+    {
+      "file": "docs/phases/engine-breadth/milestones/statement-withholding-answer-evidence/prototype.py",
+      "line": 91,
+      "target": "probe.CONTENT",
+      "scope": "build",
+      "origin": "evidence",
+      "engine": false,
+      "engine_reason": "",
+      "in_finally": false,
+      "in_with": false,
+      "assigns_in_scope": 1
+    },
+    {
+      "file": "docs/phases/engine-breadth/milestones/statement-withholding-answer-evidence/prototype.py",
+      "line": 91,
+      "target": "probe.RELEASE_DIR",
+      "scope": "build",
+      "origin": "evidence",
+      "engine": false,
+      "engine_reason": "",
+      "in_finally": false,
+      "in_with": false,
+      "assigns_in_scope": 1
+    },
+    {
+      "file": "docs/phases/engine-breadth/milestones/statement-withholding-answer-evidence/prototype.py",
+      "line": 92,
+      "target": "probe.CORES[]",
+      "scope": "build",
+      "origin": "evidence",
+      "engine": false,
+      "engine_reason": "",
+      "in_finally": false,
+      "in_with": false,
+      "assigns_in_scope": 1
+    },
+    {
+      "file": "docs/phases/engine-breadth/milestones/statement-withholding-answer-evidence/prototype.py",
+      "line": 102,
+      "target": "loader.domain_package_companion_declarations",
+      "scope": "build",
+      "origin": "packages",
+      "engine": true,
+      "engine_reason": "packages-import",
+      "in_finally": false,
+      "in_with": false,
+      "assigns_in_scope": 1
+    },
+    {
+      "file": "docs/phases/engine-breadth/milestones/statement-withholding-pairing-evidence/prototype.py",
+      "line": 282,
+      "target": "loader.domain_package_companion_declarations",
+      "scope": "_declare_v77",
+      "origin": "packages",
+      "engine": true,
+      "engine_reason": "packages-import",
+      "in_finally": false,
+      "in_with": false,
+      "assigns_in_scope": 1
+    },
+    {
+      "file": "docs/phases/engine-breadth/milestones/statement-withholding-pairing-evidence/prototype.py",
+      "line": 336,
+      "target": "probe.CONTENT",
+      "scope": "build",
+      "origin": "evidence",
+      "engine": false,
+      "engine_reason": "",
+      "in_finally": false,
+      "in_with": false,
+      "assigns_in_scope": 1
+    },
+    {
+      "file": "docs/phases/engine-breadth/milestones/statement-withholding-pairing-evidence/prototype.py",
+      "line": 337,
+      "target": "probe.RELEASE_DIR",
+      "scope": "build",
+      "origin": "evidence",
+      "engine": false,
+      "engine_reason": "",
+      "in_finally": false,
+      "in_with": false,
+      "assigns_in_scope": 1
+    },
+    {
+      "file": "docs/phases/engine-breadth/milestones/statement-withholding-pairing-evidence/prototype.py",
+      "line": 338,
+      "target": "probe.CORE",
+      "scope": "build",
+      "origin": "evidence",
+      "engine": false,
+      "engine_reason": "",
+      "in_finally": false,
+      "in_with": false,
+      "assigns_in_scope": 1
+    },
+    {
+      "file": "docs/phases/engineering-health/milestones/required-versus-read-evidence/p0_path_probe.py",
+      "line": 72,
+      "target": "runner._Run.pins_for",
+      "scope": "pytest_configure",
+      "origin": "packages",
+      "engine": true,
+      "engine_reason": "packages-import",
+      "in_finally": false,
+      "in_with": false,
+      "assigns_in_scope": 1
+    },
+    {
+      "file": "docs/phases/engineering-health/milestones/required-versus-read-evidence/p0_path_probe.py",
+      "line": 110,
+      "target": "live.live_coordinate_run",
+      "scope": "pytest_configure",
+      "origin": "packages",
+      "engine": true,
+      "engine_reason": "packages-import",
+      "in_finally": false,
+      "in_with": false,
+      "assigns_in_scope": 1
+    },
+    {
+      "file": "tests/test_code_b_sales_v81.py",
+      "line": 173,
+      "target": "cbp.ORIGIN[]",
+      "scope": "build_world",
+      "origin": "evidence",
+      "engine": false,
+      "engine_reason": "",
+      "in_finally": false,
+      "in_with": false,
+      "assigns_in_scope": 1
+    },
+    {
+      "file": "tests/test_code_b_sales_v81.py",
+      "line": 176,
+      "target": "cbp.BUNDLES[]",
+      "scope": "build_world",
+      "origin": "evidence",
+      "engine": false,
+      "engine_reason": "",
+      "in_finally": false,
+      "in_with": false,
+      "assigns_in_scope": 1
+    }
+  ],
+  "caches": [
+    {
+      "file": "tests/test_credit_line_explanations.py",
+      "line": 115,
+      "name": "_present",
+      "kind": "lru_cache"
+    },
+    {
+      "file": "tests/test_f1099b_box4_only_v85.py",
+      "line": 140,
+      "name": "box4_cases",
+      "kind": "lru_cache"
+    },
+    {
+      "file": "tests/test_f1099b_box7_loss_v84.py",
+      "line": 172,
+      "name": "box7_cases",
+      "kind": "lru_cache"
+    }
+  ],
+  "sys_modules": [
+    {
+      "file": "docs/phases/engine-breadth/milestones/f1099b-backup-withholding-evidence/probe.py",
+      "line": 32,
+      "op": "assign",
+      "key": "f1099b_b4_audit_harness"
+    },
+    {
+      "file": "docs/phases/engine-breadth/milestones/f1099b-backup-withholding-evidence/rerun_v82.py",
+      "line": 145,
+      "op": "reuse",
+      "key": "f1099b_b4_rerun_harness"
+    },
+    {
+      "file": "docs/phases/engine-breadth/milestones/f1099b-backup-withholding-evidence/rerun_v82.py",
+      "line": 151,
+      "op": "assign",
+      "key": "f1099b_b4_rerun_harness"
+    },
+    {
+      "file": "docs/phases/engine-breadth/milestones/f1099b-backup-withholding-evidence/track0.py",
+      "line": 56,
+      "op": "assign",
+      "key": null
+    },
+    {
+      "file": "docs/phases/engine-breadth/milestones/f1099b-box4-only-evidence/probe.py",
+      "line": 36,
+      "op": "assign",
+      "key": "f1099b_b4only_p0_harness"
+    },
+    {
+      "file": "docs/phases/engine-breadth/milestones/f1099b-box4-only-evidence/rerun.py",
+      "line": 41,
+      "op": "reuse",
+      "key": "f1099b_b4only_p0_v83_test"
+    },
+    {
+      "file": "docs/phases/engine-breadth/milestones/f1099b-box4-only-evidence/rerun.py",
+      "line": 46,
+      "op": "assign",
+      "key": "f1099b_b4only_p0_v83_test"
+    },
+    {
+      "file": "docs/phases/engine-breadth/milestones/f1099b-box4-only-evidence/track0.py",
+      "line": 67,
+      "op": "reuse",
+      "key": "f1099b_b4only_track0_probe"
+    },
+    {
+      "file": "docs/phases/engine-breadth/milestones/f1099b-box4-only-evidence/track0.py",
+      "line": 72,
+      "op": "assign",
+      "key": "f1099b_b4only_track0_probe"
+    },
+    {
+      "file": "docs/phases/engine-breadth/milestones/f1099b-box4-only-evidence/track0.py",
+      "line": 78,
+      "op": "reuse",
+      "key": "f1099b_b4only_track0_v83_test"
+    },
+    {
+      "file": "docs/phases/engine-breadth/milestones/f1099b-box4-only-evidence/track0.py",
+      "line": 83,
+      "op": "assign",
+      "key": "f1099b_b4only_track0_v83_test"
+    },
+    {
+      "file": "docs/phases/engine-breadth/milestones/f1099b-box7-loss-evidence/probe.py",
+      "line": 36,
+      "op": "assign",
+      "key": "f1099b_box7_audit_harness"
+    },
+    {
+      "file": "docs/phases/engine-breadth/milestones/f1099b-box7-loss-evidence/rerun.py",
+      "line": 38,
+      "op": "reuse",
+      "key": "f1099b_b4_v83_box7_rerun"
+    },
+    {
+      "file": "docs/phases/engine-breadth/milestones/f1099b-box7-loss-evidence/rerun.py",
+      "line": 43,
+      "op": "assign",
+      "key": "f1099b_b4_v83_box7_rerun"
+    },
+    {
+      "file": "docs/phases/engine-breadth/milestones/f1099b-box7-loss-evidence/track0.py",
+      "line": 75,
+      "op": "reuse",
+      "key": "f1099b_box7_track0_probe"
+    },
+    {
+      "file": "docs/phases/engine-breadth/milestones/f1099b-box7-loss-evidence/track0.py",
+      "line": 80,
+      "op": "assign",
+      "key": "f1099b_box7_track0_probe"
+    },
+    {
+      "file": "docs/phases/engine-breadth/milestones/f8949-code-b-evidence/codeb_probe.py",
+      "line": 48,
+      "op": "assign",
+      "key": null
+    },
+    {
+      "file": "docs/phases/engine-breadth/milestones/f8949-code-b-evidence/codeb_prototype.py",
+      "line": 60,
+      "op": "assign",
+      "key": null
+    },
+    {
+      "file": "docs/phases/engine-breadth/milestones/f8949-code-b-evidence/codeb_track0.py",
+      "line": 49,
+      "op": "assign",
+      "key": null
+    },
+    {
+      "file": "docs/phases/engine-breadth/milestones/f8949-code-l-evidence/probe.py",
+      "line": 36,
+      "op": "assign",
+      "key": "f8949_code_l_audit_harness"
+    },
+    {
+      "file": "docs/phases/engine-breadth/milestones/missing-input-questions-evidence/probe.py",
+      "line": 146,
+      "op": "assign",
+      "key": "swa_probe"
+    },
+    {
+      "file": "docs/phases/engine-breadth/milestones/sale-family-audit-evidence/probe.py",
+      "line": 36,
+      "op": "reuse",
+      "key": "sale_family_audit_harness"
+    },
+    {
+      "file": "docs/phases/engine-breadth/milestones/sale-family-audit-evidence/probe.py",
+      "line": 41,
+      "op": "assign",
+      "key": "sale_family_audit_harness"
+    },
+    {
+      "file": "docs/phases/engine-breadth/milestones/sale-family-audit-evidence/rerun_v81.py",
+      "line": 42,
+      "op": "reuse",
+      "key": "sale_family_audit_harness"
+    },
+    {
+      "file": "docs/phases/engine-breadth/milestones/sale-family-audit-evidence/rerun_v81.py",
+      "line": 47,
+      "op": "assign",
+      "key": "sale_family_audit_harness"
+    },
+    {
+      "file": "docs/phases/engine-breadth/milestones/sale-family-audit-evidence/track0.py",
+      "line": 57,
+      "op": "assign",
+      "key": null
+    },
+    {
+      "file": "docs/phases/engine-breadth/milestones/scope-answer-questions-evidence/probe.py",
+      "line": 33,
+      "op": "assign",
+      "key": "survey_probe"
+    },
+    {
+      "file": "docs/phases/engine-breadth/milestones/scope-answer-questions-evidence/probe_flip.py",
+      "line": 30,
+      "op": "assign",
+      "key": null
+    },
+    {
+      "file": "docs/phases/engine-breadth/milestones/scope-answer-questions-evidence/verify_v73.py",
+      "line": 27,
+      "op": "assign",
+      "key": "survey_probe"
+    },
+    {
+      "file": "tests/test_child_tax_credit_track1.py",
+      "line": 124,
+      "op": "assign",
+      "key": null
+    },
+    {
+      "file": "tests/test_code_b_sales_v81.py",
+      "line": 153,
+      "op": "reuse",
+      "key": null
+    },
+    {
+      "file": "tests/test_code_b_sales_v81.py",
+      "line": 158,
+      "op": "assign",
+      "key": null
+    },
+    {
+      "file": "tests/test_code_b_sales_v81_package.py",
+      "line": 44,
+      "op": "reuse",
+      "key": "f8949_code_b_prototype"
+    },
+    {
+      "file": "tests/test_code_b_sales_v81_package.py",
+      "line": 49,
+      "op": "assign",
+      "key": "f8949_code_b_prototype"
+    },
+    {
+      "file": "tests/test_f1099b_backup_withholding_v83.py",
+      "line": 78,
+      "op": "reuse",
+      "key": "f1099b_b4_v83_live_track0"
+    },
+    {
+      "file": "tests/test_f1099b_backup_withholding_v83.py",
+      "line": 85,
+      "op": "assign",
+      "key": "f1099b_b4_v83_live_track0"
+    },
+    {
+      "file": "tests/test_f1099b_box4_only_v85.py",
+      "line": 57,
+      "op": "reuse",
+      "key": null
+    },
+    {
+      "file": "tests/test_f1099b_box4_only_v85.py",
+      "line": 64,
+      "op": "assign",
+      "key": null
+    },
+    {
+      "file": "tests/test_f1099b_box7_loss_v84.py",
+      "line": 69,
+      "op": "reuse",
+      "key": null
+    },
+    {
+      "file": "tests/test_f1099b_box7_loss_v84.py",
+      "line": 76,
+      "op": "assign",
+      "key": null
+    },
+    {
+      "file": "tests/test_no1099b_sales_v80.py",
+      "line": 128,
+      "op": "reuse",
+      "key": "f8949_boxes_cf_track0"
+    },
+    {
+      "file": "tests/test_no1099b_sales_v80.py",
+      "line": 133,
+      "op": "assign",
+      "key": "f8949_boxes_cf_track0"
+    },
+    {
+      "file": "tests/test_other_dependents_credit_track1.py",
+      "line": 111,
+      "op": "assign",
+      "key": null
+    },
+    {
+      "file": "tests/test_sale_family_audit_v82.py",
+      "line": 86,
+      "op": "reuse",
+      "key": "sale_family_audit_track0"
+    },
+    {
+      "file": "tests/test_sale_family_audit_v82.py",
+      "line": 93,
+      "op": "assign",
+      "key": "sale_family_audit_track0"
+    },
+    {
+      "file": "tests/test_sli_track10_saved_account_evidence.py",
+      "line": 45,
+      "op": "assign",
+      "key": null
+    },
+    {
+      "file": "tests/test_sli_track10_saved_account_evidence.py",
+      "line": 347,
+      "op": "assign",
+      "key": null
+    },
+    {
+      "file": "tests/test_sli_track10_saved_account_evidence.py",
+      "line": 408,
+      "op": "assign",
+      "key": null
+    },
+    {
+      "file": "tests/test_sli_track12_account_reference_boundary.py",
+      "line": 139,
+      "op": "assign",
+      "key": null
+    },
+    {
+      "file": "tests/test_sli_track9_recording_state.py",
+      "line": 212,
+      "op": "assign",
+      "key": null
+    }
+  ],
+  "unresolved": [
+    {
+      "file": "docs/phases/engineering-health/milestones/explanation-sharing-evidence/negative_control.py",
+      "line": 13,
+      "mechanism": "run_path",
+      "snippet": "runpy.run_path(str(path))"
+    },
+    {
+      "file": "tests/test_ci_historical_ref.py",
+      "line": 204,
+      "mechanism": "spec_from_file_location",
+      "snippet": "_load( shard / \"tests\" / \"test_eic_table_child_columns.py\", f\"historical_probe_{shard.name}\", )"
+    },
+    {
+      "file": "tests/test_sli_track9_recording_state.py",
+      "line": 330,
+      "mechanism": "spec_from_file_location",
+      "snippet": "build_generator(f\"track9_field_binding_{binding_kind}\")"
+    }
+  ]
+}

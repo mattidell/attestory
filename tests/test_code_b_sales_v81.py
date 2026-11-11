@@ -31,7 +31,6 @@ Synthetic demo.* data only.
 from __future__ import annotations
 
 import hashlib
-import importlib.util
 import json
 import sys
 from concurrent.futures import ProcessPoolExecutor
@@ -40,6 +39,8 @@ from types import SimpleNamespace
 from typing import Any, Callable, cast
 
 import pytest
+
+from tests import evidence_loader
 
 # Each case is one full live_coordinate_run (about 5 to 20 s), so the module
 # is an integration test and runs in the live lane.
@@ -150,14 +151,7 @@ Acts = list[dict[str, Any]]
 
 def _load(name: str, path: Path) -> Any:
     """An evidence module, loaded once under its own name (f8949-boxes-cf retrospective)."""
-    module = sys.modules.get(name)
-    if module is None:
-        spec = importlib.util.spec_from_file_location(name, path)
-        assert spec is not None and spec.loader is not None
-        module = importlib.util.module_from_spec(spec)
-        sys.modules[name] = module
-        spec.loader.exec_module(module)
-    return module
+    return evidence_loader.load(path, name)
 
 
 def build_world() -> SimpleNamespace:

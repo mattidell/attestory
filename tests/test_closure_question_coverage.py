@@ -8,7 +8,6 @@ and to the sentences the survey recorded where a line gains its question.
 from __future__ import annotations
 
 import hashlib
-import importlib.util
 import json
 from pathlib import Path
 from tempfile import TemporaryDirectory
@@ -23,6 +22,7 @@ from packages.tax.loader import (
     domain_package_companion_declarations,
     unconfirmed_family_names_closure_question,
 )
+from tests import evidence_loader
 from tests.test_form_1099_k_income import _handover
 from tests.test_form_1099_withholding import _close
 from tests.test_refund_or_amount_owed_track1 import _finish
@@ -79,12 +79,7 @@ _SELECTION_LINES = ("sch1-10", "sch1-top")
 
 
 def _probe() -> Any:
-    spec = importlib.util.spec_from_file_location("closure_question_coverage_probe", _PROBE_PATH)
-    if spec is None or spec.loader is None:
-        raise RuntimeError("the P0 probe did not load")
-    module = importlib.util.module_from_spec(spec)
-    spec.loader.exec_module(module)
-    return module
+    return evidence_loader.load(_PROBE_PATH, "closure_question_coverage_probe")
 
 
 probe = _probe()

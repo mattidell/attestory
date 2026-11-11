@@ -10,7 +10,6 @@ the committed Schedule 8812 arithmetic, applied to the engine's own inputs.
 from __future__ import annotations
 
 import hashlib
-import importlib.util
 import json
 import subprocess
 import sys
@@ -25,6 +24,7 @@ from packages.derivation.loader import DerivationSchemas
 from packages.derivation.production_resolver import PublicationSurface
 from packages.kernel.facts import fact_id_for
 
+from tests import evidence_loader
 from tests.test_refund_or_amount_owed_track1 import (
     CONTENT,
     RELEASE_DIR,
@@ -117,13 +117,7 @@ def passing_child() -> dict[str, str]:
 
 
 def _load_case_table() -> Any:
-    spec = importlib.util.spec_from_file_location("ctc_case_table", CASE_TABLE)
-    if spec is None or spec.loader is None:
-        raise RuntimeError("cannot load the case table")
-    module = importlib.util.module_from_spec(spec)
-    sys.modules[spec.name] = module
-    spec.loader.exec_module(module)
-    return module
+    return evidence_loader.load(CASE_TABLE, "ctc_case_table")
 
 
 def build_acts(
