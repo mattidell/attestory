@@ -110,4 +110,39 @@ core version.
 
 ## P0 result
 
-Pending.
+Evidence: `question-wording-evidence/p0.md`, with `law.json`, `probe.py` /
+`probe-output.json` (v86), `probe-v87-output.json`, `prototype.py` /
+`prototype-build.json` and `rerun.py` / `rerun-output.json`.
+
+- **All three items are content only.** None needs an engine, schema,
+  expression-operation, selection or recording-surface change. Scratch core
+  v87 (registry v85, release v85) replaces five members:
+  - the two wash-sale adjustment closure questions (v4)
+  - the Exception 1 only-box-2a question (v3)
+  - the student-loan dependent question (v2)
+  - the vocabulary bundle (v3), which retitles the four age and blindness
+    facts without changing their versions
+- **Truthful answers under the current words:**
+  - A plain covered sale stays blocked on the wash-sale question.
+  - A filer born January 1, 1961 gets 15,750 and no senior deduction,
+    instead of 17,750 and 6,000.
+  - A joint filer whose spouse is claimed deducts 500 instead of 0.
+  - A zero-net sale moves no number, whatever the Exception 1 answers.
+- **Under the proposed words**, all 25 probe cases reach their instruction
+  hand values on v87.
+- **Rerun:** the 298 recorded v83 lists that the v86 test replays are 298
+  identical on v86 and v87, and every v86 pin equals its fixture pin. None
+  of them shows a question in scope. In the probes, 5 cases change only
+  their sentences and 20 are identical.
+- **Outside the words, reported, not fixed:**
+  - With a recorded wash sale and the adjustment family open, the page asks
+    nothing (an admission check with no question).
+  - Age and blindness are never asked (default false, no question), and
+    their titles are not shown on any page measured.
+- **Decisions:**
+  - whether to retitle the Exception 1 and student-loan facts in their
+    bundles
+  - whether to keep the age and blindness title successor
+  - the v87 loader entries in `packages/tax/loader.py` (code, as every core
+    since v80)
+  - whether to park the mixed wash-sale finding
