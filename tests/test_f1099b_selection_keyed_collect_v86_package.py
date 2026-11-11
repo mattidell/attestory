@@ -12,7 +12,6 @@ attribute of it is assigned.
 from __future__ import annotations
 
 import hashlib
-import importlib.util
 import json
 from pathlib import Path
 from types import ModuleType
@@ -26,6 +25,7 @@ from packages.tax.loader import (
     covered_flag_refusal_map,
     domain_package_companion_declarations,
 )
+from tests import evidence_loader
 
 REPO = Path(__file__).resolve().parents[1]
 CONTENT = REPO / "packages/content/tax/2025"
@@ -43,18 +43,9 @@ def _load_json(path: Path) -> Any:
     return json.loads(path.read_text(encoding="utf-8"))
 
 
-def _module(name: str, path: Path) -> ModuleType:
-    """An evidence module under its own name, loaded fresh and never registered or modified."""
-    spec = importlib.util.spec_from_file_location(name, path)
-    assert spec is not None and spec.loader is not None
-    module = importlib.util.module_from_spec(spec)
-    spec.loader.exec_module(module)
-    return module
-
-
 @pytest.fixture(scope="module")
 def prototype() -> ModuleType:
-    module = _module("skc_t1_v86_package_prototype", EVIDENCE / "prototype.py")
+    module = evidence_loader.load(EVIDENCE / "prototype.py", "skc_t1_v86_package_prototype")
     assert module.FROM == {"package": "v85", "registry": "v83", "release": "v83"}
     assert module.TO == {"package": "v86", "registry": "v84", "release": "v84"}
     return module

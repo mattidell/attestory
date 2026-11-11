@@ -22,6 +22,8 @@ from typing import Any, cast
 
 import pytest
 
+from tests import evidence_loader
+
 # One live_coordinate_run is several seconds, over the 3.0 s fast-lane budget.
 pytestmark = pytest.mark.live
 
@@ -63,7 +65,9 @@ def _module(name: str, path: Path) -> ModuleType:
 
 def load_track0() -> ModuleType:
     """This milestone's Track 0 harness, under a name no other test uses. Nothing on it is assigned."""
-    return _module(TRACK0_NAME, EVIDENCE / "track0.py")
+    if str(REPO) not in sys.path:
+        sys.path.insert(0, str(REPO))
+    return evidence_loader.load(EVIDENCE / "track0.py", TRACK0_NAME)
 
 
 def load_recorded() -> ModuleType:
@@ -73,7 +77,9 @@ def load_recorded() -> ModuleType:
 
 def load_harness() -> ModuleType:
     """The sale-family audit harness, under a name no other test uses. Nothing on it is assigned."""
-    return _module(HARNESS_NAME, AUDIT)
+    if str(REPO) not in sys.path:
+        sys.path.insert(0, str(REPO))
+    return evidence_loader.load(AUDIT, HARNESS_NAME)
 
 
 def published(harness: Any) -> Any:
