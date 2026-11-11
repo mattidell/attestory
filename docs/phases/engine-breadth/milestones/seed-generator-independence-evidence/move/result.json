@@ -1,0 +1,52 @@
+{
+  "byte_test_still_catches": "helper drift",
+  "copied_function_span_lines": 1870,
+  "files": [
+    {
+      "bytes": 323526,
+      "matches_committed": true,
+      "relative": "packages/sample_data/entry_loop_v70/workspace/acts.jsonl",
+      "sha256": "52898046d652a9e15f7f062ae09fc3c8a1b8dcb93c007f448624818035a4a4d7"
+    },
+    {
+      "bytes": 386,
+      "matches_committed": true,
+      "relative": "packages/sample_data/entry_loop_v70/evaluation-w2.json",
+      "sha256": "95a796542960ca745ec9efeace603fa7f77bbce27a28d726e3413982ad3bfcad"
+    }
+  ],
+  "generator_lines": 300,
+  "imports_test_module": false,
+  "matches_committed_seed": true,
+  "package_lines": {
+    "seed_helpers/__init__.py": 1,
+    "seed_helpers/current_core_returns.py": 15,
+    "seed_helpers/fixture_authority.py": 120,
+    "seed_helpers/probe.py": 284,
+    "seed_helpers/repo_root.py": 15,
+    "seed_helpers/test_capital_gain_distributions_line7a_t2_coordinator.py": 218,
+    "seed_helpers/test_child_tax_credit_track1.py": 167,
+    "seed_helpers/test_f1098_mortgage_interest_line12e_track2.py": 18,
+    "seed_helpers/test_f1098e_student_loan_interest_agi_track6.py": 31,
+    "seed_helpers/test_form1099g_box1_schedule1_line7.py": 440,
+    "seed_helpers/test_form1099r_ira_line4b_track2.py": 114,
+    "seed_helpers/test_form_1099_k_income.py": 50,
+    "seed_helpers/test_form_1099_withholding.py": 80,
+    "seed_helpers/test_other_dependents_credit_track1.py": 162,
+    "seed_helpers/test_refund_or_amount_owed_track1.py": 111,
+    "seed_helpers/test_refund_or_amount_owed_track2.py": 45,
+    "seed_helpers/test_senior_and_dependent_deductions_track1.py": 89,
+    "seed_helpers/test_ssa1099_benefits_line6_track2.py": 428,
+    "seed_helpers/test_tax_on_taxable_income_track1.py": 9,
+    "seed_helpers/test_w2g_gambling.py": 96,
+    "total": 2493
+  },
+  "shape": "move",
+  "test_modules_imported_by_production_before_helpers": [],
+  "test_modules_introduced": [],
+  "tests_touched": 56,
+  "tools_touched": [
+    "tools/generate_capital_gain_distributions_line7a_t3_presentation_goldens.py",
+    "tools/generate_form1099g_box1_schedule1_line7_goldens.py"
+  ]
+}

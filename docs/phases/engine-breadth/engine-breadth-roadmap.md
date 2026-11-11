@@ -756,6 +756,17 @@ engine attributes a harness writes restored when that module is parked or
 finished. A guard test fails on any other load of an evidence file, `exec`
 included. No package, schema, content or assertion changed.
 
+## Bounded return — The v70 Entry Seed Generates Without Test Helpers (tooling)
+
+[Plan](milestones/seed-generator-independence.md); retrospective:
+`docs/milestone-retrospectives/2026-11-11-seed-generator-independence.md`.
+
+The v70 W-2 entry seed generator reads a committed synthetic source,
+`packages/sample_data/entry_loop_v70/complete-core-return.jsonl`, and
+imports no test module; a static and a run-time check pin that. The seed's
+bytes are unchanged. Refreshing the source is deliberate, by the recipe in
+the generator's docstring.
+
 ## Parked work and open questions
 
 This is the single list of parked work and open owner-held questions for the
@@ -854,9 +865,6 @@ delivers an item removes it.
 - Exact question identification from saved outcomes, process-restart recovery,
   and broader internal-error guidance remain separate questions. Do not infer
   a missing answer from a derived symbol or treat them as delivered here.
-- The v70 entry seed generator still depends on test-module helpers. Runtime
-  imports none and byte-regeneration tests expose helper drift; independent
-  fixture generation remains a bounded maintenance follow-up.
 - A v70-matched usability evidence pack and scorecard, if selected. The v70
   launcher is a technical exercise, and the accepted v6 scorecard is unchanged.
 - Four source sets reach an attachment without a guard of their own; each

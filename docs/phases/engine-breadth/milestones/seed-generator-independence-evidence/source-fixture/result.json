@@ -1,0 +1,24 @@
+{
+  "byte_test_still_catches": "source-fixture drift",
+  "files": [
+    {
+      "bytes": 323526,
+      "matches_committed": true,
+      "relative": "packages/sample_data/entry_loop_v70/workspace/acts.jsonl",
+      "sha256": "52898046d652a9e15f7f062ae09fc3c8a1b8dcb93c007f448624818035a4a4d7"
+    },
+    {
+      "bytes": 386,
+      "matches_committed": true,
+      "relative": "packages/sample_data/entry_loop_v70/evaluation-w2.json",
+      "sha256": "95a796542960ca745ec9efeace603fa7f77bbce27a28d726e3413982ad3bfcad"
+    }
+  ],
+  "generator_lines": 246,
+  "imports_test_module": false,
+  "matches_committed_seed": true,
+  "shape": "source-fixture",
+  "source_lines": 294,
+  "test_modules_imported": [],
+  "tests_touched": 0
+}
