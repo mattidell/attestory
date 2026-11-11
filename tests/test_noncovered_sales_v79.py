@@ -11,7 +11,6 @@ Drives live_coordinate_run. The live marker is derived from that name.
 
 from __future__ import annotations
 
-import importlib
 import json
 import sys
 from pathlib import Path
@@ -19,6 +18,8 @@ from types import SimpleNamespace
 from typing import Any, cast
 
 import pytest
+
+from tests import evidence_loader
 
 REPO = Path(__file__).resolve().parents[1]
 EVIDENCE = REPO / "docs/phases/engine-breadth/milestones/noncovered-sales-evidence"
@@ -2175,10 +2176,10 @@ def _install(world: SimpleNamespace) -> None:
 @pytest.fixture(scope="module")
 def world() -> SimpleNamespace:
     sys.path.insert(0, str(EVIDENCE))
-    p0b = cast(Any, importlib.import_module("p0b"))
-    probe = cast(Any, importlib.import_module("probe"))
-    proto = cast(Any, importlib.import_module("prototype"))
-    track0 = cast(Any, importlib.import_module("track0"))
+    p0b = cast(Any, evidence_loader.load(EVIDENCE / "p0b.py", "p0b"))
+    probe = cast(Any, evidence_loader.load(EVIDENCE / "probe.py", "probe"))
+    proto = cast(Any, evidence_loader.load(EVIDENCE / "prototype.py", "prototype"))
+    track0 = cast(Any, evidence_loader.load(EVIDENCE / "track0.py", "track0"))
 
     loaded = SimpleNamespace(p0b=p0b, probe=probe, proto=proto, track0=track0)
     _install(loaded)

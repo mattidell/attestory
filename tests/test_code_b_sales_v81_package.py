@@ -11,9 +11,7 @@ reads only the published predecessors, and compared byte for byte.
 
 from __future__ import annotations
 
-import importlib.util
 import json
-import sys
 from pathlib import Path
 from typing import Any
 
@@ -25,6 +23,7 @@ from packages.tax.loader import (
     covered_flag_refusal_map,
     domain_package_companion_declarations,
 )
+from tests import evidence_loader
 
 REPO = Path(__file__).resolve().parents[1]
 CONTENT = REPO / "packages/content/tax/2025"
@@ -41,13 +40,7 @@ def _load(path: Path) -> Any:
 @pytest.fixture(scope="module")
 def prototype() -> tuple[Any, list[tuple[str, dict[str, Any]]], dict[tuple[str, str], tuple[str, str]]]:
     name = "f8949_code_b_prototype"
-    module = sys.modules.get(name)
-    if module is None:
-        spec = importlib.util.spec_from_file_location(name, EVIDENCE / "codeb_prototype.py")
-        assert spec is not None and spec.loader is not None
-        module = importlib.util.module_from_spec(spec)
-        sys.modules[name] = module
-        spec.loader.exec_module(module)
+    module = evidence_loader.load(EVIDENCE / "codeb_prototype.py", name)
     assert module.REPAIRS == set(module.ALL_REPAIRS)
     module.ORIGIN[:] = [CONTENT, RELEASES]
     bodies, old = module.artifacts()

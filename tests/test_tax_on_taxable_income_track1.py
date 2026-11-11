@@ -6,7 +6,6 @@ Expected tax figures are the plan's hand-computed case values.
 
 from __future__ import annotations
 
-import importlib.util
 import json
 from decimal import Decimal
 from pathlib import Path
@@ -18,6 +17,7 @@ import unittest
 from packages.derivation.live import live_coordinate_run
 from packages.derivation.live_workspace import WorkspaceCapability
 from packages.derivation.production_resolver import PublicationSurface
+from tests import evidence_loader
 
 ROOT = Path(__file__).resolve().parents[1]
 CONTENT = ROOT / "packages" / "content" / "tax" / "2025"
@@ -101,12 +101,7 @@ def _probe() -> Any:
             / "tax-on-taxable-income-evidence"
             / "probe.py"
         )
-        spec = importlib.util.spec_from_file_location("toti_track1_probe", path)
-        if spec is None or spec.loader is None:
-            raise RuntimeError("could not load the P0 probe helpers")
-        module = importlib.util.module_from_spec(spec)
-        spec.loader.exec_module(module)
-        _PROBE = module
+        _PROBE = evidence_loader.load(path, "toti_track1_probe")
     return _PROBE
 
 

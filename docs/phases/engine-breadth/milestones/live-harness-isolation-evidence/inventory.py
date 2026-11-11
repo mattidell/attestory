@@ -132,6 +132,7 @@ class Template:
     path_index: int | None = None
     name_val: Val | None = None
     path_val: Val | None = None
+    mechanism: str = "spec_from_file_location"
 
 
 def repo_root() -> Path:
@@ -211,6 +212,17 @@ def call_attr(node: ast.Call) -> str | None:
     if isinstance(func, ast.Attribute):
         return func.attr
     return None
+
+
+def is_evidence_loader_load(node: ast.Call) -> bool:
+    """True for ``evidence_loader.load(...)``, the per-owner harness loader."""
+    func = node.func
+    return (
+        isinstance(func, ast.Attribute)
+        and func.attr == "load"
+        and isinstance(func.value, ast.Name)
+        and func.value.id == "evidence_loader"
+    )
 
 
 def decorator_name(node: ast.AST) -> str | None:
@@ -344,16 +356,30 @@ class Analyzer:
     def _template_for(self, fn: ast.FunctionDef | ast.AsyncFunctionDef) -> Template:
         params = [arg.arg for arg in fn.args.args]
         template = Template()
+        chosen: ast.Call | None = None
         for call in self._direct_calls(fn.body):
-            if call_attr(call) != "spec_from_file_location":
-                continue
-            name_val = self._positional(call, 0, "name")
-            path_val = self._positional(call, 1, "location")
-            if isinstance(name_val, ast.Name) and name_val.id in params:
-                template.name_index = params.index(name_val.id)
-            if isinstance(path_val, ast.Name) and path_val.id in params:
-                template.path_index = params.index(path_val.id)
-            break
+            if call_attr(call) == "spec_from_file_location":
+                chosen = call
+                template.mechanism = "spec_from_file_location"
+                break
+        if chosen is None:
+            for call in self._direct_calls(fn.body):
+                if is_evidence_loader_load(call):
+                    chosen = call
+                    template.mechanism = "loader"
+                    break
+        if chosen is None:
+            return template
+        if template.mechanism == "loader":
+            name_val = self._positional(chosen, 1, "name")
+            path_val = self._positional(chosen, 0, "path")
+        else:
+            name_val = self._positional(chosen, 0, "name")
+            path_val = self._positional(chosen, 1, "location")
+        if isinstance(name_val, ast.Name) and name_val.id in params:
+            template.name_index = params.index(name_val.id)
+        if isinstance(path_val, ast.Name) and path_val.id in params:
+            template.path_index = params.index(path_val.id)
         return template
 
     def _direct_calls(self, body: list[ast.stmt]) -> Iterator[ast.Call]:
@@ -567,7 +593,9 @@ class Analyzer:
 
     def _note_call(self, call: ast.Call) -> None:
         attr = call_attr(call)
-        if attr == "spec_from_file_location":
+        if is_evidence_loader_load(call):
+            self._note_loader(call)
+        elif attr == "spec_from_file_location":
             self._note_spec(call)
         elif attr == "import_module":
             self._note_import_module(call)
@@ -605,6 +633,21 @@ class Analyzer:
         path_val = self._eval(path_node) if path_node is not None else Val(kind="unknown")
         self._emit_load(call, "spec_from_file_location", path_val, name_val, isolated=False)
 
+    def _note_loader(self, call: ast.Call) -> None:
+        name_node = self._positional(call, 1, "name")
+        path_node = self._positional(call, 0, "path")
+        if self._is_param(path_node) or self._is_param(name_node):
+            return
+        name_val = self._eval(name_node) if name_node is not None else Val(kind="unknown")
+        path_val = self._eval(path_node) if path_node is not None else Val(kind="unknown")
+        self._emit_load(call, "loader", path_val, name_val, isolated=False)
+
+    def _is_param(self, node: ast.AST | None) -> bool:
+        return (
+            isinstance(node, ast.Name)
+            and self.env.get(node.id, Val(kind="unknown")).kind == "param"
+        )
+
     def _note_template_call(self, func_name: str, call: ast.Call) -> None:
         template = self.templates[func_name]
         if template.path_index is None and template.name_index is None:
@@ -614,7 +657,7 @@ class Analyzer:
         if path_val is None and name_val is None:
             return
         self._emit_load(
-            call, "spec_from_file_location",
+            call, template.mechanism,
             path_val or Val(kind="unknown"),
             name_val or Val(kind="unknown"),
             isolated=False,
@@ -946,7 +989,7 @@ class Analyzer:
             return self._eval_path_ctor(call)
         if attr == "Path" and call.args:
             return self._eval_path_ctor(call)
-        if attr in {"spec_from_file_location", "import_module"} or (
+        if attr in {"spec_from_file_location", "import_module"} or is_evidence_loader_load(call) or (
             isinstance(call.func, ast.Name) and call.func.id in self.templates
         ):
             path, modname = self._load_identity(call, attr or "")
@@ -973,6 +1016,9 @@ class Analyzer:
             template = self.templates[call.func.id]
             path_val = self._template_arg(call, template.path_index, "location")
             name_val = self._template_arg(call, template.name_index, "name")
+        elif is_evidence_loader_load(call):
+            path_val = self._eval(self._positional(call, 0, "path"))
+            name_val = self._eval(self._positional(call, 1, "name"))
         elif attr == "import_module":
             name_val = self._eval(self._positional(call, 0, "name"))
             if name_val.kind == "str" and name_val.text:
@@ -1271,6 +1317,7 @@ def build_report(facts: dict[str, FileFacts]) -> dict[str, object]:
             for load in file_facts.loads
             if not load.under_main and (load.evidence or load.mechanism in {
                 "spec_from_file_location", "run_path", "subprocess", "import_module", "import",
+                "loader",
             })
         ]
         if not direct and not any(load.evidence for load in file_facts.loads):

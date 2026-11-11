@@ -29,7 +29,6 @@ from __future__ import annotations
 
 import copy
 import hashlib
-import importlib.util
 import json
 import os
 import subprocess
@@ -41,6 +40,8 @@ from types import ModuleType
 from typing import Any, cast
 
 import pytest
+
+from tests import evidence_loader
 
 # Each case is one full live_coordinate_run (about 5 to 20 s), so the module is an
 # integration test and runs in the live lane.
@@ -75,16 +76,9 @@ Acts = list[dict[str, Any]]
 
 def track0() -> ModuleType:
     """The Form 1099-B Track 0 harness, under a name no other test uses. Nothing on it is assigned."""
-    module = sys.modules.get(TRACK0_MODULE)
-    if module is None:
-        if str(REPO) not in sys.path:
-            sys.path.insert(0, str(REPO))
-        spec = importlib.util.spec_from_file_location(TRACK0_MODULE, EVIDENCE / "track0.py")
-        assert spec is not None and spec.loader is not None
-        module = importlib.util.module_from_spec(spec)
-        sys.modules[TRACK0_MODULE] = module
-        spec.loader.exec_module(module)
-    return module
+    if str(REPO) not in sys.path:
+        sys.path.insert(0, str(REPO))
+    return evidence_loader.load(EVIDENCE / "track0.py", TRACK0_MODULE)
 
 
 def published(t: ModuleType) -> Any:

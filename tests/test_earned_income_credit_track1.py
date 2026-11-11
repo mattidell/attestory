@@ -8,7 +8,6 @@ every band.
 from __future__ import annotations
 
 import hashlib
-import importlib.util
 import json
 from decimal import Decimal
 from pathlib import Path
@@ -25,6 +24,7 @@ from packages.derivation.production_resolver import PublicationSurface
 from packages.derivation.projection import compute_derivation_currency
 from packages.kernel.currency import compute_currency
 from packages.kernel.findings import project
+from tests import evidence_loader
 from tests.test_refund_or_amount_owed_track1 import (
     CONTENT,
     RELEASE_DIR,
@@ -91,12 +91,7 @@ SINGLE_REMAINING = (UNSUP, TP_SSN, NRA, AGE, HOME, NOT_QC, NOT_DEP)
 
 
 def _probe() -> Any:
-    spec = importlib.util.spec_from_file_location("eic_p0_probe", PROBE_PATH)
-    if spec is None or spec.loader is None:
-        raise RuntimeError("earned income credit probe is missing")
-    module = importlib.util.module_from_spec(spec)
-    spec.loader.exec_module(module)
-    return module
+    return evidence_loader.load(PROBE_PATH, "eic_p0_probe")
 
 
 def _run(

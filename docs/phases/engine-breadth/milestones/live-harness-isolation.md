@@ -3,7 +3,7 @@
   "version": 1,
   "phase": "Engine Breadth",
   "topic": "live-harness-isolation",
-  "status": "Open. P0 measured; Decisions 1-5; Track 1 chartered.",
+  "status": "Open. P0 measured; Decisions 1-5; Track 1 built.",
   "scope": [
     "every test that loads a milestone evidence harness gets that harness without sharing mutable module state with another harness in the same CI process",
     "a test's result does not depend on which other test modules ran before it on the same worker",
@@ -123,3 +123,81 @@ work is preventive, so it must stay cheap.
    other than through the loader, and if a loaded evidence file writes a
    `packages` attribute the loader does not restore.
 5. Evidence files are not edited. The fast-lane budget stays.
+
+## Track 1 result
+
+The loader is `tests/evidence_loader.py`. The twenty modules named under
+"Modules to move" in the P0 record load evidence harnesses through it.
+Nothing under `packages/` changed, and no evidence file changed. No
+assertion, case list, fixture byte, marker, or the fast-lane budget
+changed.
+
+No subprocess fallback. Decision 2's restore covers every engine write the
+inventory marks unrestored: each is a plain attribute the loader can
+snapshot and put back when the owning test module finishes. A subprocess
+was not used, so it added no wall time. The inventory's isolation labels
+are unchanged. The guard checks that in-process evidence loads go through
+the loader and that each unrestored write is one the loader can restore.
+It does not use the isolation label.
+
+Replacing `sys.modules` hid shared modules from C imports such as
+`datetime.strptime`. The loader mirrors non-evidence modules into the
+interpreter's module dict. Evidence copies stay private. Two live modules
+(`test_f1099b_box4_only_v85.py` and `test_f1099b_box7_loss_v84.py`) failed
+once when a harness import dropped a `packages.tax` child binding. The
+loader keeps that binding. The after walls below are the green re-runs.
+Both modules passed with their original counts, 331 and 353.
+
+The full suite was split into four shards with
+`python3 -m tools.ci_gate run-shard` (count 4) and the shard totals were
+summed. Before is the charter commit `f9f67bad`. After is `6428faef`
+(loader, moves, guard, and the interpreter-dict mirror), before this
+section. This section does not change tests.
+
+| | Collected | Passed | Skipped | Failed | Errors |
+| --- | --- | --- | --- | --- | --- |
+| Before | 6265 | 6241 | 24 | 0 | 0 |
+| After | 6276 | 6252 | 24 | 0 | 0 |
+
+The junit tests attribute is 15199 before and 15210 after. The eleven
+extra collected tests, all passing and with no subtests, are the loader's
+ten unit tests and the one live guard in `tests/test_evidence_loader.py`.
+The shared suite matches: 6241 passed, 24 skipped, 0 failed, 0 errors.
+
+`pytest -m "not live"` passed: 1776 passed, 8 skipped, 4232 subtests.
+
+The one-worker pairs from P0, both orders, with
+`python3 -m pytest -o addopts='' -p no:xdist --tb=line -q`, each exited 0.
+Code B then v80, and the reverse: 3 passed, 165 deselected. Noncovered
+then v80, and the reverse: 3 passed, 98 deselected.
+
+`python3 -m mypy` succeeded (479 source files).
+`python3 tools/envelope_scan.py --range github/main..HEAD` exited 0 on
+`6428faef`.
+
+Per-module wall, outer seconds, for
+`python3 -m pytest <file> -q --tb=line` with the default addopts. Every
+green run exited 0 and the pass count matched the run before the move.
+
+| Module | Passed | Before | After |
+| --- | --- | --- | --- |
+| `test_code_b_sales_v81_package.py` | 23 | 1.73s | 1.76s |
+| `test_f1099b_backup_withholding_v83_package.py` | 11 | 1.88s | 1.87s |
+| `test_f1099b_box4_only_v85_package.py` | 9 | 2.04s | 2.07s |
+| `test_f1099b_box7_loss_v84_package.py` | 9 | 1.91s | 1.91s |
+| `test_sale_family_audit_v82_package.py` | 23 | 2.13s | 2.12s |
+| `test_all_questions_at_once.py` | 4 | 349.61s | 360.40s |
+| `test_child_tax_credit_track1.py` | 32, 18 subtests | 42.43s | 42.87s |
+| `test_closure_question_coverage.py` | 21 | 47.96s | 47.74s |
+| `test_credit_line_explanations.py` | 25 | 28.92s | 29.09s |
+| `test_earned_income_credit_track1.py` | 20, 35 subtests | 43.43s | 43.38s |
+| `test_other_dependents_credit_track1.py` | 44, 112 subtests | 94.98s | 94.45s |
+| `test_statement_withholding_pairing.py` | 53 | 50.96s | 52.96s |
+| `test_tax_on_taxable_income_track1.py` | 19 | 20.78s | 20.82s |
+| `test_f1099b_backup_withholding_v83.py` | 300 | 304.69s | 304.37s |
+| `test_f1099b_box4_only_v85.py` | 331 | 433.97s | 435.52s |
+| `test_f1099b_box7_loss_v84.py` | 353 | 383.14s | 383.04s |
+| `test_sale_family_audit_v82.py` | 393 | 366.69s | 382.79s |
+| `test_code_b_sales_v81.py` | 218 | 237.56s | 219.93s |
+| `test_no1099b_sales_v80.py` | 130 | 116.87s | 125.97s |
+| `test_noncovered_sales_v79.py` | 42 | 83.82s | 83.30s |

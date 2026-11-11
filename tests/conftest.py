@@ -172,6 +172,53 @@ def pytest_runtest_makereport(item: pytest.Item, call: Any) -> Any:
 
 
 @pytest.fixture(scope="session", autouse=True)
+def _evidence_harness_session() -> Any:
+    """Drop parked harness copies when the worker exits.
+
+    Module teardown only parks an owner: xdist worksteal can run another
+    module and then return, and the returned module must still see the
+    copies and engine writes from its earlier tests. Nothing after the
+    session needs those writes.
+    """
+    from tests import evidence_loader
+
+    yield
+    evidence_loader.finish_all()
+
+
+@pytest.fixture(scope="module", autouse=True)
+def _evidence_harness_owner(request: pytest.FixtureRequest) -> Any:
+    """The running test module owns any evidence harness it loads.
+
+    Setup is the owner for every test in the module. Teardown parks that
+    owner's engine writes so the next module on this worker does not see
+    them, and keeps the copies for a later test of the same module.
+    """
+    from tests import evidence_loader
+
+    owner = request.module.__name__
+    evidence_loader.activate(owner)
+    yield
+    evidence_loader.release(owner)
+
+
+def pytest_runtest_setup(item: pytest.Item) -> None:
+    """Re-bind the owner in the test's own context.
+
+    A module fixture sets the context variable before the test, but a
+    runner that copies the context would otherwise drop it. The owner
+    name is the test module, which is also what an import-time load
+    records, so call-time writes land on the same owner.
+    """
+    from tests import evidence_loader
+
+    module = getattr(item, "module", None)
+    name = getattr(module, "__name__", None)
+    if isinstance(name, str):
+        evidence_loader.activate(name)
+
+
+@pytest.fixture(scope="session", autouse=True)
 def _test_browser_resources(tmp_path_factory: pytest.TempPathFactory, request: pytest.FixtureRequest) -> Any:
     """Share the startup gate across xdist workers without eager browsers."""
     base = tmp_path_factory.getbasetemp()

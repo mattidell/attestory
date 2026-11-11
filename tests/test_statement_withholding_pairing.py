@@ -10,7 +10,6 @@ withholding-only extra publish the recorded amount.
 from __future__ import annotations
 
 import copy
-import importlib.util
 import json
 from decimal import Decimal
 from pathlib import Path
@@ -23,6 +22,7 @@ from packages.derivation.live import live_coordinate_run
 from packages.derivation.live_workspace import WorkspaceCapability
 from packages.derivation.production_resolver import PublicationSurface
 from packages.kernel.findings import FindingModelError
+from tests import evidence_loader
 from tests.helpers import current_core_returns as ccr
 from tests.test_form_1099_k_income import _handover
 from tests.test_form_1099_withholding import YEAR
@@ -95,12 +95,7 @@ V76_SPOT = ("int.both-answered", "int.offset", "w2.second-slip-unanswered")
 
 
 def _load_probe() -> Any:
-    spec = importlib.util.spec_from_file_location("statement_withholding_pairing_probe", PROBE_PATH)
-    if spec is None or spec.loader is None:
-        raise RuntimeError("pairing probe did not load")
-    module = importlib.util.module_from_spec(spec)
-    spec.loader.exec_module(module)
-    return module
+    return evidence_loader.load(PROBE_PATH, "statement_withholding_pairing_probe")
 
 
 PROBE = _load_probe()
