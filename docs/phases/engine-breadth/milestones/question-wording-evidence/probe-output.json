@@ -1,0 +1,3589 @@
+{
+  "core": {
+    "package": "v86",
+    "registry": "v84",
+    "release": "v84"
+  },
+  "law": "law.json",
+  "questions": [
+    {
+      "id": "tax.us.2025.closure-mapping.f1099b-covered-w-st-adjustment",
+      "version": "v3",
+      "schema": "source-closure-mapping.v3",
+      "text": "Have you recorded the wash-sale loss adjustment amount (a loss disallowed because you bought the same investment within 30 days before or after the sale) of every covered short-term sale on every Form 1099-B you or your spouse received for 2025?",
+      "presentation_case": "wash-st-unclosed",
+      "presentation_text": null,
+      "presentation_matches_citizen": false,
+      "citizen_text_expected": "Have you recorded the wash-sale loss adjustment amount (a loss disallowed because you bought the same investment within 30 days before or after the sale) of every covered short-term sale on every Form 1099-B you or your spouse received for 2025?",
+      "citizen_matches_expected": true,
+      "asked_on": [],
+      "fact": {
+        "id": "tax.us.2025.f1099b.covered-w-st-adjustment.source-closure",
+        "version": "v1"
+      },
+      "admits_symbol": "tax.us.2025.f1099b.covered-w-st-adjustment-subtotal",
+      "family": {
+        "id": "tax.us.2025.f1099b.covered-w-st-adjustment",
+        "version": "v2"
+      },
+      "rules": [
+        {
+          "id": "tax.us.2025.rule.f1099b-covered-w-st-adjustment-subtotal",
+          "version": "v4",
+          "publishes": "tax.us.2025.f1099b.covered-w-st-adjustment-subtotal",
+          "reads": "sums covered-w short-term adjustment members; the closure question's yes is what closes that family"
+        },
+        {
+          "id": "tax.us.2025.rule.schedule-d-line1b",
+          "version": "v3",
+          "publishes": "tax.us.2025.schedule-d.line-1b",
+          "reads": "mentions this fact or the symbol the closure admits"
+        }
+      ],
+      "history": [
+        "90218d2f Tracks 1 and 2: every closure declares its question (core v69)",
+        "192442e8 Track 3: bounded 2025 covered-W migration and domain-code deletion",
+        "d6d67e11 Implement the covered wash-sale (code W) production route (Track 1)"
+      ],
+      "mention": "tax.us.2025.f1099b.covered-w-st-adjustment-subtotal"
+    },
+    {
+      "id": "tax.us.2025.closure-mapping.f1099b-covered-w-lt-adjustment",
+      "version": "v3",
+      "schema": "source-closure-mapping.v3",
+      "text": "Have you recorded the wash-sale loss adjustment amount (a loss disallowed because you bought the same investment within 30 days before or after the sale) of every covered long-term sale on every Form 1099-B you or your spouse received for 2025?",
+      "presentation_case": "wash-lt-unclosed",
+      "presentation_text": null,
+      "presentation_matches_citizen": false,
+      "citizen_text_expected": "Have you recorded the wash-sale loss adjustment amount (a loss disallowed because you bought the same investment within 30 days before or after the sale) of every covered long-term sale on every Form 1099-B you or your spouse received for 2025?",
+      "citizen_matches_expected": true,
+      "asked_on": [],
+      "fact": {
+        "id": "tax.us.2025.f1099b.covered-w-lt-adjustment.source-closure",
+        "version": "v1"
+      },
+      "admits_symbol": "tax.us.2025.f1099b.covered-w-lt-adjustment-subtotal",
+      "family": {
+        "id": "tax.us.2025.f1099b.covered-w-lt-adjustment",
+        "version": "v2"
+      },
+      "rules": [
+        {
+          "id": "tax.us.2025.rule.f1099b-covered-w-lt-adjustment-subtotal",
+          "version": "v4",
+          "publishes": "tax.us.2025.f1099b.covered-w-lt-adjustment-subtotal",
+          "reads": "sums covered-w long-term adjustment members; the closure question's yes is what closes that family"
+        },
+        {
+          "id": "tax.us.2025.rule.schedule-d-line8b",
+          "version": "v3",
+          "publishes": "tax.us.2025.schedule-d.line-8b",
+          "reads": "mentions this fact or the symbol the closure admits"
+        }
+      ],
+      "history": [
+        "90218d2f Tracks 1 and 2: every closure declares its question (core v69)",
+        "192442e8 Track 3: bounded 2025 covered-W migration and domain-code deletion",
+        "d6d67e11 Implement the covered wash-sale (code W) production route (Track 1)"
+      ],
+      "mention": "tax.us.2025.f1099b.covered-w-lt-adjustment-subtotal"
+    },
+    {
+      "id": "tax.us.2025.input-question.exception1-only-box2a-capital-gains",
+      "version": "v2",
+      "schema": "input-question.v1",
+      "text": "Is it true that you had no capital gains in 2025 other than capital gain distributions in box 2a of Form 1099-DIV (for example, no gain from selling stock, funds or other property)?",
+      "presentation_case": "exc1-questions-shown",
+      "presentation_text": "Is it true that you had no capital gains in 2025 other than capital gain distributions in box 2a of Form 1099-DIV (for example, no gain from selling stock, funds or other property)?",
+      "presentation_matches_citizen": true,
+      "citizen_text_expected": "Is it true that you had no capital gains in 2025 other than capital gain distributions in box 2a of Form 1099-DIV (for example, no gain from selling stock, funds or other property)?",
+      "citizen_matches_expected": true,
+      "asked_on": [
+        "form.eic-worksheet-a.line-3",
+        "form.eic-worksheet-a.line-5",
+        "form.eic-worksheet-a.line-6",
+        "form.sch8812.line-14",
+        "form.sch8812.line-17",
+        "form.sch8812.worksheet-a.line-5",
+        "form1040.line-11a",
+        "form1040.line-11b",
+        "form1040.line-13b",
+        "form1040.line-14",
+        "form1040.line-15",
+        "form1040.line-16",
+        "form1040.line-19",
+        "form1040.line-20",
+        "form1040.line-24",
+        "form1040.line-27a",
+        "form1040.line-28",
+        "form1040.line-32",
+        "form1040.line-33",
+        "form1040.line-34",
+        "form1040.line-35a",
+        "form1040.line-37",
+        "form1040.line-6b",
+        "form1040.line-7a",
+        "form1040.line-7b",
+        "form1040.line-9",
+        "form1040.tax-after-credits",
+        "schedule3.line-1",
+        "schedule3.line-8"
+      ],
+      "fact": {
+        "id": "tax.us.2025.exception1.only-box2a-capital-gains",
+        "version": "v1"
+      },
+      "admits_symbol": null,
+      "family": null,
+      "rules": [
+        {
+          "id": "tax.us.2025.rule.schedule-d-required.conclusion",
+          "version": "v1",
+          "publishes": "tax.us.2025.schedule-d-required.conclusion",
+          "reads": "all four Exception 1 facts eq yes publishes conclusion no; any no publishes yes"
+        }
+      ],
+      "history": [
+        "19dffa6d Build core v82, registry v80 and release v80 for the sale family audit"
+      ],
+      "mention": "Is it true that you had no capital gains in 2025 other than capital gain distributions in box 2a of Form 1099-DIV (for example, no gain from selling stock, funds or other property)?"
+    },
+    {
+      "id": "tax.us.2025.input-question.exception1-no-capital-losses",
+      "version": "v2",
+      "schema": "input-question.v1",
+      "text": "Is it true that you had no capital losses in 2025 (for example, no loss from selling stock, funds or other property)?",
+      "presentation_case": "exc1-questions-shown",
+      "presentation_text": "Is it true that you had no capital losses in 2025 (for example, no loss from selling stock, funds or other property)?",
+      "presentation_matches_citizen": true,
+      "citizen_text_expected": "Is it true that you had no capital losses in 2025 (for example, no loss from selling stock, funds or other property)?",
+      "citizen_matches_expected": true,
+      "asked_on": [
+        "form.eic-worksheet-a.line-3",
+        "form.eic-worksheet-a.line-5",
+        "form.eic-worksheet-a.line-6",
+        "form.sch8812.line-14",
+        "form.sch8812.line-17",
+        "form.sch8812.worksheet-a.line-5",
+        "form1040.line-11a",
+        "form1040.line-11b",
+        "form1040.line-13b",
+        "form1040.line-14",
+        "form1040.line-15",
+        "form1040.line-16",
+        "form1040.line-19",
+        "form1040.line-20",
+        "form1040.line-24",
+        "form1040.line-27a",
+        "form1040.line-28",
+        "form1040.line-32",
+        "form1040.line-33",
+        "form1040.line-34",
+        "form1040.line-35a",
+        "form1040.line-37",
+        "form1040.line-6b",
+        "form1040.line-7a",
+        "form1040.line-7b",
+        "form1040.line-9",
+        "form1040.tax-after-credits",
+        "schedule3.line-1",
+        "schedule3.line-8"
+      ],
+      "fact": {
+        "id": "tax.us.2025.exception1.no-capital-losses",
+        "version": "v1"
+      },
+      "admits_symbol": null,
+      "family": null,
+      "rules": [
+        {
+          "id": "tax.us.2025.rule.schedule-d-required.conclusion",
+          "version": "v1",
+          "publishes": "tax.us.2025.schedule-d-required.conclusion",
+          "reads": "all four Exception 1 facts eq yes publishes conclusion no; any no publishes yes"
+        }
+      ],
+      "history": [
+        "19dffa6d Build core v82, registry v80 and release v80 for the sale family audit"
+      ],
+      "mention": "Is it true that you had no capital losses in 2025 (for example, no loss from selling stock, funds or other property)?"
+    },
+    {
+      "id": "tax.us.2025.input-question.exception1-no-qof-deferral",
+      "version": "v2",
+      "schema": "input-question.v1",
+      "text": "Is it true that you did not defer any capital gain in 2025 by investing in a qualified opportunity fund?",
+      "presentation_case": "exc1-questions-shown",
+      "presentation_text": "Is it true that you did not defer any capital gain in 2025 by investing in a qualified opportunity fund?",
+      "presentation_matches_citizen": true,
+      "citizen_text_expected": null,
+      "citizen_matches_expected": null,
+      "asked_on": [
+        "form.eic-worksheet-a.line-3",
+        "form.eic-worksheet-a.line-5",
+        "form.eic-worksheet-a.line-6",
+        "form.sch8812.line-14",
+        "form.sch8812.line-17",
+        "form.sch8812.worksheet-a.line-5",
+        "form1040.line-11a",
+        "form1040.line-11b",
+        "form1040.line-13b",
+        "form1040.line-14",
+        "form1040.line-15",
+        "form1040.line-16",
+        "form1040.line-19",
+        "form1040.line-20",
+        "form1040.line-24",
+        "form1040.line-27a",
+        "form1040.line-28",
+        "form1040.line-32",
+        "form1040.line-33",
+        "form1040.line-34",
+        "form1040.line-35a",
+        "form1040.line-37",
+        "form1040.line-6b",
+        "form1040.line-7a",
+        "form1040.line-7b",
+        "form1040.line-9",
+        "form1040.tax-after-credits",
+        "schedule3.line-1",
+        "schedule3.line-8"
+      ],
+      "fact": {
+        "id": "tax.us.2025.exception1.no-qof-deferral",
+        "version": "v1"
+      },
+      "admits_symbol": null,
+      "family": null,
+      "rules": [
+        {
+          "id": "tax.us.2025.rule.schedule-d-required.conclusion",
+          "version": "v1",
+          "publishes": "tax.us.2025.schedule-d-required.conclusion",
+          "reads": "all four Exception 1 facts eq yes publishes conclusion no; any no publishes yes"
+        }
+      ],
+      "history": [
+        "19dffa6d Build core v82, registry v80 and release v80 for the sale family audit"
+      ],
+      "mention": "Is it true that you did not defer any capital gain in 2025 by investing in a qualified opportunity fund?"
+    },
+    {
+      "id": "tax.us.2025.input-question.exception1-no-boxes-2b-2c-2d",
+      "version": "v2",
+      "schema": "input-question.v1",
+      "text": "Is it true that none of your 2025 Forms 1099-DIV or substitute statements shows an amount in box 2b, 2c or 2d?",
+      "presentation_case": "exc1-questions-shown",
+      "presentation_text": "Is it true that none of your 2025 Forms 1099-DIV or substitute statements shows an amount in box 2b, 2c or 2d?",
+      "presentation_matches_citizen": true,
+      "citizen_text_expected": null,
+      "citizen_matches_expected": null,
+      "asked_on": [
+        "form.eic-worksheet-a.line-3",
+        "form.eic-worksheet-a.line-5",
+        "form.eic-worksheet-a.line-6",
+        "form.sch8812.line-14",
+        "form.sch8812.line-17",
+        "form.sch8812.worksheet-a.line-5",
+        "form1040.line-11a",
+        "form1040.line-11b",
+        "form1040.line-13b",
+        "form1040.line-14",
+        "form1040.line-15",
+        "form1040.line-16",
+        "form1040.line-19",
+        "form1040.line-20",
+        "form1040.line-24",
+        "form1040.line-27a",
+        "form1040.line-28",
+        "form1040.line-32",
+        "form1040.line-33",
+        "form1040.line-34",
+        "form1040.line-35a",
+        "form1040.line-37",
+        "form1040.line-6b",
+        "form1040.line-7a",
+        "form1040.line-7b",
+        "form1040.line-9",
+        "form1040.tax-after-credits",
+        "schedule3.line-1",
+        "schedule3.line-8"
+      ],
+      "fact": {
+        "id": "tax.us.2025.exception1.no-boxes-2b-2c-2d",
+        "version": "v1"
+      },
+      "admits_symbol": null,
+      "family": null,
+      "rules": [
+        {
+          "id": "tax.us.2025.rule.schedule-d-required.conclusion",
+          "version": "v1",
+          "publishes": "tax.us.2025.schedule-d-required.conclusion",
+          "reads": "all four Exception 1 facts eq yes publishes conclusion no; any no publishes yes"
+        }
+      ],
+      "history": [
+        "19dffa6d Build core v82, registry v80 and release v80 for the sale family audit"
+      ],
+      "mention": "Is it true that none of your 2025 Forms 1099-DIV or substitute statements shows an amount in box 2b, 2c or 2d?"
+    },
+    {
+      "id": "tax.us.2025.input-question.sli-scope-not-claimed-as-dependent",
+      "version": "v1",
+      "schema": "input-question.v1",
+      "text": "Is someone else claiming you as a dependent on their 2025 return?",
+      "presentation_case": "sli-question-shown",
+      "presentation_text": "Is someone else claiming you as a dependent on their 2025 return?",
+      "presentation_matches_citizen": true,
+      "citizen_text_expected": "Is someone else claiming you as a dependent on their 2025 return?",
+      "citizen_matches_expected": true,
+      "asked_on": [
+        "form.eic-worksheet-a.line-3",
+        "form.eic-worksheet-a.line-5",
+        "form.eic-worksheet-a.line-6",
+        "form.sch8812.line-14",
+        "form.sch8812.line-17",
+        "form.sch8812.worksheet-a.line-5",
+        "form1040.line-10",
+        "form1040.line-11a",
+        "form1040.line-11b",
+        "form1040.line-13b",
+        "form1040.line-14",
+        "form1040.line-15",
+        "form1040.line-16",
+        "form1040.line-19",
+        "form1040.line-20",
+        "form1040.line-24",
+        "form1040.line-27a",
+        "form1040.line-28",
+        "form1040.line-32",
+        "form1040.line-33",
+        "form1040.line-34",
+        "form1040.line-35a",
+        "form1040.line-37",
+        "form1040.tax-after-credits",
+        "schedule1.line-21",
+        "schedule3.line-1",
+        "schedule3.line-8"
+      ],
+      "fact": {
+        "id": "tax.us.2025.sli-scope.not-claimed-as-dependent",
+        "version": "v1"
+      },
+      "admits_symbol": null,
+      "family": null,
+      "rules": [
+        {
+          "id": "tax.us.2025.rule.sli-worksheet",
+          "version": "v6",
+          "publishes": "tax.us.2025.schedule1.line21-sli-deduction",
+          "reads": "not-claimed-as-dependent eq no, or legally-obligated eq no, publishes a legal zero; yes on not-claimed-as-dependent means the filer is not claimed and the deduction proceeds"
+        }
+      ],
+      "history": [
+        "5ea02695 Name the question for a missing scope answer or filing status (core v73)"
+      ],
+      "mention": "Is someone else claiming you as a dependent on their 2025 return?"
+    },
+    {
+      "id": "tax.us.2025.input-question.standard-deduction-can-be-claimed-as-dependent",
+      "version": "v1",
+      "schema": "input-question.v1",
+      "text": "Can someone else claim you (or your spouse, on a joint return) as a dependent on their 2025 return?",
+      "presentation_case": null,
+      "presentation_text": null,
+      "presentation_matches_citizen": null,
+      "citizen_text_expected": null,
+      "citizen_matches_expected": null,
+      "asked_on": [],
+      "fact": {
+        "id": "tax.us.2025.standard-deduction.can-be-claimed-as-dependent",
+        "version": "v1"
+      },
+      "admits_symbol": null,
+      "family": null,
+      "rules": [
+        {
+          "id": "tax.us.2025.rule.ctc-filer-gate",
+          "version": "v1",
+          "publishes": "tax.us.2025.ctc.filer-gate",
+          "reads": "mentions this fact or the symbol the closure admits"
+        },
+        {
+          "id": "tax.us.2025.rule.form1040-standard-deduction",
+          "version": "v3",
+          "publishes": "demo.form1040.standard_deduction",
+          "reads": "each true age or blindness boolean is one box; spouse boxes count only for joint, separate, and qualifying surviving spouse; each box adds $2,000 (single or head of household) or $1,600"
+        },
+        {
+          "id": "tax.us.2025.rule.odc-return-gate",
+          "version": "v1",
+          "publishes": "tax.us.2025.odc.return-gate",
+          "reads": "mentions this fact or the symbol the closure admits"
+        }
+      ],
+      "history": [
+        "5ea02695 Name the question for a missing scope answer or filing status (core v73)"
+      ],
+      "mention": "Can someone else claim you (or your spouse, on a joint return) as a dependent on their 2025 return?"
+    },
+    {
+      "id": "tax.us.2025.taxpayer-over-65",
+      "version": "v1",
+      "schema": "fact-type.v2",
+      "text": "Taxpayer is over 65 years of age for 2025",
+      "surface": "fact title, copied onto a source finding as factTypeTitle; optional_default false, so an unanswered fact does not block",
+      "presentation_case": "demographic-titles",
+      "presentation_text": null,
+      "presentation_matches_citizen": false,
+      "asked_on": [],
+      "rules": [
+        {
+          "id": "tax.us.2025.rule.dependents-worksheet-line-1",
+          "version": "v1",
+          "publishes": "tax.us.2025.dependents-worksheet.line1-box-count",
+          "reads": "counts the four age and blindness booleans"
+        },
+        {
+          "id": "tax.us.2025.rule.schedule1a-part-v-line-36a",
+          "version": "v1",
+          "publishes": "tax.us.2025.schedule1a.line36a-taxpayer",
+          "reads": "taxpayer-over-65 true, valid SSN yes, and not married filing separately publishes the $6,000 per-person amount; otherwise 0"
+        }
+      ],
+      "history": [
+        "c5e35446 repair: publish v3 live-run inputs and closure mapping"
+      ]
+    },
+    {
+      "id": "tax.us.2025.taxpayer-blind",
+      "version": "v1",
+      "schema": "fact-type.v2",
+      "text": "Taxpayer is blind for 2025",
+      "surface": "fact title, copied onto a source finding as factTypeTitle; optional_default false, so an unanswered fact does not block",
+      "presentation_case": "demographic-titles",
+      "presentation_text": null,
+      "presentation_matches_citizen": false,
+      "asked_on": [],
+      "rules": [
+        {
+          "id": "tax.us.2025.rule.dependents-worksheet-line-1",
+          "version": "v1",
+          "publishes": "tax.us.2025.dependents-worksheet.line1-box-count",
+          "reads": "counts the four age and blindness booleans"
+        }
+      ],
+      "history": [
+        "c5e35446 repair: publish v3 live-run inputs and closure mapping"
+      ]
+    },
+    {
+      "id": "tax.us.2025.spouse-over-65",
+      "version": "v1",
+      "schema": "fact-type.v2",
+      "text": "Spouse is over 65 years of age for 2025",
+      "surface": "fact title, copied onto a source finding as factTypeTitle; optional_default false, so an unanswered fact does not block",
+      "presentation_case": "demographic-titles",
+      "presentation_text": null,
+      "presentation_matches_citizen": false,
+      "asked_on": [],
+      "rules": [
+        {
+          "id": "tax.us.2025.rule.dependents-worksheet-line-1",
+          "version": "v1",
+          "publishes": "tax.us.2025.dependents-worksheet.line1-box-count",
+          "reads": "counts the four age and blindness booleans"
+        },
+        {
+          "id": "tax.us.2025.rule.schedule1a-part-v-line-36b",
+          "version": "v1",
+          "publishes": "tax.us.2025.schedule1a.line36b-spouse",
+          "reads": "spouse-over-65 true, spouse valid SSN yes, and not married filing separately publishes the $6,000 per-person amount; otherwise 0"
+        }
+      ],
+      "history": [
+        "c5e35446 repair: publish v3 live-run inputs and closure mapping"
+      ]
+    },
+    {
+      "id": "tax.us.2025.spouse-blind",
+      "version": "v1",
+      "schema": "fact-type.v2",
+      "text": "Spouse is blind for 2025",
+      "surface": "fact title, copied onto a source finding as factTypeTitle; optional_default false, so an unanswered fact does not block",
+      "presentation_case": "demographic-titles",
+      "presentation_text": null,
+      "presentation_matches_citizen": false,
+      "asked_on": [],
+      "rules": [
+        {
+          "id": "tax.us.2025.rule.dependents-worksheet-line-1",
+          "version": "v1",
+          "publishes": "tax.us.2025.dependents-worksheet.line1-box-count",
+          "reads": "counts the four age and blindness booleans"
+        }
+      ],
+      "history": [
+        "c5e35446 repair: publish v3 live-run inputs and closure mapping"
+      ]
+    }
+  ],
+  "cases": [
+    {
+      "id": "nosale-base",
+      "note": "No sale. Current and proposed Exception 1 answers are yes. Age and blindness stay at the default false.",
+      "hand": {
+        "form1040.line-12e": 15750,
+        "schedule1a.line36a-taxpayer": 0
+      },
+      "hand_mismatches": [],
+      "measured": {
+        "stop": "saturated",
+        "lines": {
+          "form1040.line-12e": 15750,
+          "form1040.line-13b": 0,
+          "form1040.line-15": 34250,
+          "form1040.line-16": 3875,
+          "form1040.line-7a": 0,
+          "form1040.line-7b": "published_categorical",
+          "schedule-d.line-15": 0,
+          "schedule-d.line-16": 0,
+          "schedule-d.line-1a": 0,
+          "schedule-d.line-1b": 0,
+          "schedule-d.line-7": 0,
+          "schedule-d.line-8a": 0,
+          "schedule-d.line-8b": 0,
+          "schedule1.line-21": 0
+        },
+        "symbols": {
+          "schedule-d-required.conclusion": "no",
+          "interest.scheduleb-abp-adjustment-subtotal": 0,
+          "sli-worksheet.line1-total-interest-paid-subtotal": 0,
+          "f1099b.noncovered-lt-adjustment-subtotal": 0,
+          "f1099b.noncovered-st-adjustment-subtotal": 0,
+          "f8949.no1099b-st-adjustment-subtotal": 0,
+          "f8949.no1099b-lt-adjustment-subtotal": 0,
+          "f1099b.code-b-st-adjustment-subtotal": 0,
+          "f1099b.code-b-lt-adjustment-subtotal": 0,
+          "f1099b.covered-w-lt-adjustment-subtotal": 0,
+          "f1099b.covered-w-st-adjustment-subtotal": 0,
+          "deductions.line-12e": 15750,
+          "interest.current-year-adjustment-subtotal": 0,
+          "schedule-d.line-21": 0,
+          "schedule1.line21-sli-deduction": 0,
+          "schedule1a.line36a-taxpayer": 0,
+          "schedule1a.line36b-spouse": 0,
+          "deductions.schedule-1a": 0,
+          "qdcg-worksheet.line-21": 0,
+          "ctc.sch8812.line-21": 0
+        },
+        "questions": [],
+        "titles": [],
+        "asked_on": [
+          {
+            "field": "form1040.line-25b",
+            "sentences": [
+              "Did you receive a Form 1099-B or substitute statement that shows federal income tax withheld in box 4 and reports no closed sale (for example, a short sale still open at year end)? Do not count a statement whose box 4 you already entered, with or without a sale."
+            ]
+          },
+          {
+            "field": "form1040.line-25d",
+            "sentences": [
+              "Did you receive a Form 1099-B or substitute statement that shows federal income tax withheld in box 4 and reports no closed sale (for example, a short sale still open at year end)? Do not count a statement whose box 4 you already entered, with or without a sale."
+            ]
+          },
+          {
+            "field": "form1040.line-33",
+            "sentences": [
+              "Did you receive a Form 1099-B or substitute statement that shows federal income tax withheld in box 4 and reports no closed sale (for example, a short sale still open at year end)? Do not count a statement whose box 4 you already entered, with or without a sale."
+            ]
+          },
+          {
+            "field": "form1040.line-34",
+            "sentences": [
+              "Did you receive a Form 1099-B or substitute statement that shows federal income tax withheld in box 4 and reports no closed sale (for example, a short sale still open at year end)? Do not count a statement whose box 4 you already entered, with or without a sale."
+            ]
+          },
+          {
+            "field": "form1040.line-35a",
+            "sentences": [
+              "Did you receive a Form 1099-B or substitute statement that shows federal income tax withheld in box 4 and reports no closed sale (for example, a short sale still open at year end)? Do not count a statement whose box 4 you already entered, with or without a sale."
+            ]
+          },
+          {
+            "field": "form1040.line-37",
+            "sentences": [
+              "Did you receive a Form 1099-B or substitute statement that shows federal income tax withheld in box 4 and reports no closed sale (for example, a short sale still open at year end)? Do not count a statement whose box 4 you already entered, with or without a sale."
+            ]
+          }
+        ],
+        "blocked_rules": [],
+        "title_mentions": [],
+        "wash_sentence_present": false
+      }
+    },
+    {
+      "id": "exc1-questions-shown",
+      "note": "The four Exception 1 facts are absent, so the blocked line shows the sentences.",
+      "hand": {},
+      "hand_mismatches": [],
+      "measured": {
+        "stop": "saturated",
+        "lines": {
+          "form1040.line-12e": 15750,
+          "form1040.line-13b": "blocked",
+          "form1040.line-15": "blocked",
+          "form1040.line-16": "blocked",
+          "form1040.line-7a": "blocked",
+          "form1040.line-7b": "blocked",
+          "schedule-d.line-15": 0,
+          "schedule-d.line-16": 0,
+          "schedule-d.line-1a": 0,
+          "schedule-d.line-1b": 0,
+          "schedule-d.line-7": 0,
+          "schedule-d.line-8a": 0,
+          "schedule-d.line-8b": 0,
+          "schedule1.line-21": 0
+        },
+        "symbols": {
+          "interest.scheduleb-abp-adjustment-subtotal": 0,
+          "sli-worksheet.line1-total-interest-paid-subtotal": 0,
+          "f1099b.noncovered-lt-adjustment-subtotal": 0,
+          "f1099b.noncovered-st-adjustment-subtotal": 0,
+          "f8949.no1099b-st-adjustment-subtotal": 0,
+          "f8949.no1099b-lt-adjustment-subtotal": 0,
+          "f1099b.code-b-st-adjustment-subtotal": 0,
+          "f1099b.code-b-lt-adjustment-subtotal": 0,
+          "f1099b.covered-w-lt-adjustment-subtotal": 0,
+          "f1099b.covered-w-st-adjustment-subtotal": 0,
+          "deductions.line-12e": 15750,
+          "interest.current-year-adjustment-subtotal": 0,
+          "schedule-d.line-21": 0,
+          "schedule1.line21-sli-deduction": 0
+        },
+        "questions": [
+          "Is it true that none of your 2025 Forms 1099-DIV or substitute statements shows an amount in box 2b, 2c or 2d?",
+          "Is it true that you did not defer any capital gain in 2025 by investing in a qualified opportunity fund?",
+          "Is it true that you had no capital gains in 2025 other than capital gain distributions in box 2a of Form 1099-DIV (for example, no gain from selling stock, funds or other property)?",
+          "Is it true that you had no capital losses in 2025 (for example, no loss from selling stock, funds or other property)?"
+        ],
+        "titles": [],
+        "asked_on": [
+          {
+            "field": "form.eic-worksheet-a.line-3",
+            "sentences": [
+              "Is it true that none of your 2025 Forms 1099-DIV or substitute statements shows an amount in box 2b, 2c or 2d?",
+              "Is it true that you did not defer any capital gain in 2025 by investing in a qualified opportunity fund?",
+              "Is it true that you had no capital gains in 2025 other than capital gain distributions in box 2a of Form 1099-DIV (for example, no gain from selling stock, funds or other property)?",
+              "Is it true that you had no capital losses in 2025 (for example, no loss from selling stock, funds or other property)?"
+            ]
+          },
+          {
+            "field": "form.eic-worksheet-a.line-5",
+            "sentences": [
+              "Is it true that none of your 2025 Forms 1099-DIV or substitute statements shows an amount in box 2b, 2c or 2d?",
+              "Is it true that you did not defer any capital gain in 2025 by investing in a qualified opportunity fund?",
+              "Is it true that you had no capital gains in 2025 other than capital gain distributions in box 2a of Form 1099-DIV (for example, no gain from selling stock, funds or other property)?",
+              "Is it true that you had no capital losses in 2025 (for example, no loss from selling stock, funds or other property)?"
+            ]
+          },
+          {
+            "field": "form.eic-worksheet-a.line-6",
+            "sentences": [
+              "Is it true that none of your 2025 Forms 1099-DIV or substitute statements shows an amount in box 2b, 2c or 2d?",
+              "Is it true that you did not defer any capital gain in 2025 by investing in a qualified opportunity fund?",
+              "Is it true that you had no capital gains in 2025 other than capital gain distributions in box 2a of Form 1099-DIV (for example, no gain from selling stock, funds or other property)?",
+              "Is it true that you had no capital losses in 2025 (for example, no loss from selling stock, funds or other property)?"
+            ]
+          },
+          {
+            "field": "form.sch8812.line-14",
+            "sentences": [
+              "Is it true that none of your 2025 Forms 1099-DIV or substitute statements shows an amount in box 2b, 2c or 2d?",
+              "Is it true that you did not defer any capital gain in 2025 by investing in a qualified opportunity fund?",
+              "Is it true that you had no capital gains in 2025 other than capital gain distributions in box 2a of Form 1099-DIV (for example, no gain from selling stock, funds or other property)?",
+              "Is it true that you had no capital losses in 2025 (for example, no loss from selling stock, funds or other property)?"
+            ]
+          },
+          {
+            "field": "form.sch8812.line-17",
+            "sentences": [
+              "Is it true that none of your 2025 Forms 1099-DIV or substitute statements shows an amount in box 2b, 2c or 2d?",
+              "Is it true that you did not defer any capital gain in 2025 by investing in a qualified opportunity fund?",
+              "Is it true that you had no capital gains in 2025 other than capital gain distributions in box 2a of Form 1099-DIV (for example, no gain from selling stock, funds or other property)?",
+              "Is it true that you had no capital losses in 2025 (for example, no loss from selling stock, funds or other property)?"
+            ]
+          },
+          {
+            "field": "form.sch8812.worksheet-a.line-5",
+            "sentences": [
+              "Is it true that none of your 2025 Forms 1099-DIV or substitute statements shows an amount in box 2b, 2c or 2d?",
+              "Is it true that you did not defer any capital gain in 2025 by investing in a qualified opportunity fund?",
+              "Is it true that you had no capital gains in 2025 other than capital gain distributions in box 2a of Form 1099-DIV (for example, no gain from selling stock, funds or other property)?",
+              "Is it true that you had no capital losses in 2025 (for example, no loss from selling stock, funds or other property)?"
+            ]
+          },
+          {
+            "field": "form1040.line-11a",
+            "sentences": [
+              "Is it true that none of your 2025 Forms 1099-DIV or substitute statements shows an amount in box 2b, 2c or 2d?",
+              "Is it true that you did not defer any capital gain in 2025 by investing in a qualified opportunity fund?",
+              "Is it true that you had no capital gains in 2025 other than capital gain distributions in box 2a of Form 1099-DIV (for example, no gain from selling stock, funds or other property)?",
+              "Is it true that you had no capital losses in 2025 (for example, no loss from selling stock, funds or other property)?"
+            ]
+          },
+          {
+            "field": "form1040.line-11b",
+            "sentences": [
+              "Is it true that none of your 2025 Forms 1099-DIV or substitute statements shows an amount in box 2b, 2c or 2d?",
+              "Is it true that you did not defer any capital gain in 2025 by investing in a qualified opportunity fund?",
+              "Is it true that you had no capital gains in 2025 other than capital gain distributions in box 2a of Form 1099-DIV (for example, no gain from selling stock, funds or other property)?",
+              "Is it true that you had no capital losses in 2025 (for example, no loss from selling stock, funds or other property)?"
+            ]
+          },
+          {
+            "field": "form1040.line-13b",
+            "sentences": [
+              "Is it true that none of your 2025 Forms 1099-DIV or substitute statements shows an amount in box 2b, 2c or 2d?",
+              "Is it true that you did not defer any capital gain in 2025 by investing in a qualified opportunity fund?",
+              "Is it true that you had no capital gains in 2025 other than capital gain distributions in box 2a of Form 1099-DIV (for example, no gain from selling stock, funds or other property)?",
+              "Is it true that you had no capital losses in 2025 (for example, no loss from selling stock, funds or other property)?"
+            ]
+          },
+          {
+            "field": "form1040.line-14",
+            "sentences": [
+              "Is it true that none of your 2025 Forms 1099-DIV or substitute statements shows an amount in box 2b, 2c or 2d?",
+              "Is it true that you did not defer any capital gain in 2025 by investing in a qualified opportunity fund?",
+              "Is it true that you had no capital gains in 2025 other than capital gain distributions in box 2a of Form 1099-DIV (for example, no gain from selling stock, funds or other property)?",
+              "Is it true that you had no capital losses in 2025 (for example, no loss from selling stock, funds or other property)?"
+            ]
+          },
+          {
+            "field": "form1040.line-15",
+            "sentences": [
+              "Is it true that none of your 2025 Forms 1099-DIV or substitute statements shows an amount in box 2b, 2c or 2d?",
+              "Is it true that you did not defer any capital gain in 2025 by investing in a qualified opportunity fund?",
+              "Is it true that you had no capital gains in 2025 other than capital gain distributions in box 2a of Form 1099-DIV (for example, no gain from selling stock, funds or other property)?",
+              "Is it true that you had no capital losses in 2025 (for example, no loss from selling stock, funds or other property)?"
+            ]
+          },
+          {
+            "field": "form1040.line-16",
+            "sentences": [
+              "Is it true that none of your 2025 Forms 1099-DIV or substitute statements shows an amount in box 2b, 2c or 2d?",
+              "Is it true that you did not defer any capital gain in 2025 by investing in a qualified opportunity fund?",
+              "Is it true that you had no capital gains in 2025 other than capital gain distributions in box 2a of Form 1099-DIV (for example, no gain from selling stock, funds or other property)?",
+              "Is it true that you had no capital losses in 2025 (for example, no loss from selling stock, funds or other property)?"
+            ]
+          },
+          {
+            "field": "form1040.line-19",
+            "sentences": [
+              "Is it true that none of your 2025 Forms 1099-DIV or substitute statements shows an amount in box 2b, 2c or 2d?",
+              "Is it true that you did not defer any capital gain in 2025 by investing in a qualified opportunity fund?",
+              "Is it true that you had no capital gains in 2025 other than capital gain distributions in box 2a of Form 1099-DIV (for example, no gain from selling stock, funds or other property)?",
+              "Is it true that you had no capital losses in 2025 (for example, no loss from selling stock, funds or other property)?"
+            ]
+          },
+          {
+            "field": "form1040.line-20",
+            "sentences": [
+              "Is it true that none of your 2025 Forms 1099-DIV or substitute statements shows an amount in box 2b, 2c or 2d?",
+              "Is it true that you did not defer any capital gain in 2025 by investing in a qualified opportunity fund?",
+              "Is it true that you had no capital gains in 2025 other than capital gain distributions in box 2a of Form 1099-DIV (for example, no gain from selling stock, funds or other property)?",
+              "Is it true that you had no capital losses in 2025 (for example, no loss from selling stock, funds or other property)?"
+            ]
+          },
+          {
+            "field": "form1040.line-24",
+            "sentences": [
+              "Is it true that none of your 2025 Forms 1099-DIV or substitute statements shows an amount in box 2b, 2c or 2d?",
+              "Is it true that you did not defer any capital gain in 2025 by investing in a qualified opportunity fund?",
+              "Is it true that you had no capital gains in 2025 other than capital gain distributions in box 2a of Form 1099-DIV (for example, no gain from selling stock, funds or other property)?",
+              "Is it true that you had no capital losses in 2025 (for example, no loss from selling stock, funds or other property)?"
+            ]
+          },
+          {
+            "field": "form1040.line-25b",
+            "sentences": [
+              "Did you receive a Form 1099-B or substitute statement that shows federal income tax withheld in box 4 and reports no closed sale (for example, a short sale still open at year end)? Do not count a statement whose box 4 you already entered, with or without a sale."
+            ]
+          },
+          {
+            "field": "form1040.line-25d",
+            "sentences": [
+              "Did you receive a Form 1099-B or substitute statement that shows federal income tax withheld in box 4 and reports no closed sale (for example, a short sale still open at year end)? Do not count a statement whose box 4 you already entered, with or without a sale."
+            ]
+          },
+          {
+            "field": "form1040.line-27a",
+            "sentences": [
+              "Is it true that none of your 2025 Forms 1099-DIV or substitute statements shows an amount in box 2b, 2c or 2d?",
+              "Is it true that you did not defer any capital gain in 2025 by investing in a qualified opportunity fund?",
+              "Is it true that you had no capital gains in 2025 other than capital gain distributions in box 2a of Form 1099-DIV (for example, no gain from selling stock, funds or other property)?",
+              "Is it true that you had no capital losses in 2025 (for example, no loss from selling stock, funds or other property)?"
+            ]
+          },
+          {
+            "field": "form1040.line-28",
+            "sentences": [
+              "Is it true that none of your 2025 Forms 1099-DIV or substitute statements shows an amount in box 2b, 2c or 2d?",
+              "Is it true that you did not defer any capital gain in 2025 by investing in a qualified opportunity fund?",
+              "Is it true that you had no capital gains in 2025 other than capital gain distributions in box 2a of Form 1099-DIV (for example, no gain from selling stock, funds or other property)?",
+              "Is it true that you had no capital losses in 2025 (for example, no loss from selling stock, funds or other property)?"
+            ]
+          },
+          {
+            "field": "form1040.line-32",
+            "sentences": [
+              "Is it true that none of your 2025 Forms 1099-DIV or substitute statements shows an amount in box 2b, 2c or 2d?",
+              "Is it true that you did not defer any capital gain in 2025 by investing in a qualified opportunity fund?",
+              "Is it true that you had no capital gains in 2025 other than capital gain distributions in box 2a of Form 1099-DIV (for example, no gain from selling stock, funds or other property)?",
+              "Is it true that you had no capital losses in 2025 (for example, no loss from selling stock, funds or other property)?"
+            ]
+          },
+          {
+            "field": "form1040.line-33",
+            "sentences": [
+              "Did you receive a Form 1099-B or substitute statement that shows federal income tax withheld in box 4 and reports no closed sale (for example, a short sale still open at year end)? Do not count a statement whose box 4 you already entered, with or without a sale.",
+              "Is it true that none of your 2025 Forms 1099-DIV or substitute statements shows an amount in box 2b, 2c or 2d?",
+              "Is it true that you did not defer any capital gain in 2025 by investing in a qualified opportunity fund?",
+              "Is it true that you had no capital gains in 2025 other than capital gain distributions in box 2a of Form 1099-DIV (for example, no gain from selling stock, funds or other property)?",
+              "Is it true that you had no capital losses in 2025 (for example, no loss from selling stock, funds or other property)?"
+            ]
+          },
+          {
+            "field": "form1040.line-34",
+            "sentences": [
+              "Did you receive a Form 1099-B or substitute statement that shows federal income tax withheld in box 4 and reports no closed sale (for example, a short sale still open at year end)? Do not count a statement whose box 4 you already entered, with or without a sale.",
+              "Is it true that none of your 2025 Forms 1099-DIV or substitute statements shows an amount in box 2b, 2c or 2d?",
+              "Is it true that you did not defer any capital gain in 2025 by investing in a qualified opportunity fund?",
+              "Is it true that you had no capital gains in 2025 other than capital gain distributions in box 2a of Form 1099-DIV (for example, no gain from selling stock, funds or other property)?",
+              "Is it true that you had no capital losses in 2025 (for example, no loss from selling stock, funds or other property)?"
+            ]
+          },
+          {
+            "field": "form1040.line-35a",
+            "sentences": [
+              "Did you receive a Form 1099-B or substitute statement that shows federal income tax withheld in box 4 and reports no closed sale (for example, a short sale still open at year end)? Do not count a statement whose box 4 you already entered, with or without a sale.",
+              "Is it true that none of your 2025 Forms 1099-DIV or substitute statements shows an amount in box 2b, 2c or 2d?",
+              "Is it true that you did not defer any capital gain in 2025 by investing in a qualified opportunity fund?",
+              "Is it true that you had no capital gains in 2025 other than capital gain distributions in box 2a of Form 1099-DIV (for example, no gain from selling stock, funds or other property)?",
+              "Is it true that you had no capital losses in 2025 (for example, no loss from selling stock, funds or other property)?"
+            ]
+          },
+          {
+            "field": "form1040.line-37",
+            "sentences": [
+              "Did you receive a Form 1099-B or substitute statement that shows federal income tax withheld in box 4 and reports no closed sale (for example, a short sale still open at year end)? Do not count a statement whose box 4 you already entered, with or without a sale.",
+              "Is it true that none of your 2025 Forms 1099-DIV or substitute statements shows an amount in box 2b, 2c or 2d?",
+              "Is it true that you did not defer any capital gain in 2025 by investing in a qualified opportunity fund?",
+              "Is it true that you had no capital gains in 2025 other than capital gain distributions in box 2a of Form 1099-DIV (for example, no gain from selling stock, funds or other property)?",
+              "Is it true that you had no capital losses in 2025 (for example, no loss from selling stock, funds or other property)?"
+            ]
+          },
+          {
+            "field": "form1040.line-6b",
+            "sentences": [
+              "Is it true that none of your 2025 Forms 1099-DIV or substitute statements shows an amount in box 2b, 2c or 2d?",
+              "Is it true that you did not defer any capital gain in 2025 by investing in a qualified opportunity fund?",
+              "Is it true that you had no capital gains in 2025 other than capital gain distributions in box 2a of Form 1099-DIV (for example, no gain from selling stock, funds or other property)?",
+              "Is it true that you had no capital losses in 2025 (for example, no loss from selling stock, funds or other property)?"
+            ]
+          },
+          {
+            "field": "form1040.line-7a",
+            "sentences": [
+              "Is it true that none of your 2025 Forms 1099-DIV or substitute statements shows an amount in box 2b, 2c or 2d?",
+              "Is it true that you did not defer any capital gain in 2025 by investing in a qualified opportunity fund?",
+              "Is it true that you had no capital gains in 2025 other than capital gain distributions in box 2a of Form 1099-DIV (for example, no gain from selling stock, funds or other property)?",
+              "Is it true that you had no capital losses in 2025 (for example, no loss from selling stock, funds or other property)?"
+            ]
+          },
+          {
+            "field": "form1040.line-7b",
+            "sentences": [
+              "Is it true that none of your 2025 Forms 1099-DIV or substitute statements shows an amount in box 2b, 2c or 2d?",
+              "Is it true that you did not defer any capital gain in 2025 by investing in a qualified opportunity fund?",
+              "Is it true that you had no capital gains in 2025 other than capital gain distributions in box 2a of Form 1099-DIV (for example, no gain from selling stock, funds or other property)?",
+              "Is it true that you had no capital losses in 2025 (for example, no loss from selling stock, funds or other property)?"
+            ]
+          },
+          {
+            "field": "form1040.line-9",
+            "sentences": [
+              "Is it true that none of your 2025 Forms 1099-DIV or substitute statements shows an amount in box 2b, 2c or 2d?",
+              "Is it true that you did not defer any capital gain in 2025 by investing in a qualified opportunity fund?",
+              "Is it true that you had no capital gains in 2025 other than capital gain distributions in box 2a of Form 1099-DIV (for example, no gain from selling stock, funds or other property)?",
+              "Is it true that you had no capital losses in 2025 (for example, no loss from selling stock, funds or other property)?"
+            ]
+          },
+          {
+            "field": "form1040.tax-after-credits",
+            "sentences": [
+              "Is it true that none of your 2025 Forms 1099-DIV or substitute statements shows an amount in box 2b, 2c or 2d?",
+              "Is it true that you did not defer any capital gain in 2025 by investing in a qualified opportunity fund?",
+              "Is it true that you had no capital gains in 2025 other than capital gain distributions in box 2a of Form 1099-DIV (for example, no gain from selling stock, funds or other property)?",
+              "Is it true that you had no capital losses in 2025 (for example, no loss from selling stock, funds or other property)?"
+            ]
+          },
+          {
+            "field": "schedule3.line-1",
+            "sentences": [
+              "Is it true that none of your 2025 Forms 1099-DIV or substitute statements shows an amount in box 2b, 2c or 2d?",
+              "Is it true that you did not defer any capital gain in 2025 by investing in a qualified opportunity fund?",
+              "Is it true that you had no capital gains in 2025 other than capital gain distributions in box 2a of Form 1099-DIV (for example, no gain from selling stock, funds or other property)?",
+              "Is it true that you had no capital losses in 2025 (for example, no loss from selling stock, funds or other property)?"
+            ]
+          },
+          {
+            "field": "schedule3.line-8",
+            "sentences": [
+              "Is it true that none of your 2025 Forms 1099-DIV or substitute statements shows an amount in box 2b, 2c or 2d?",
+              "Is it true that you did not defer any capital gain in 2025 by investing in a qualified opportunity fund?",
+              "Is it true that you had no capital gains in 2025 other than capital gain distributions in box 2a of Form 1099-DIV (for example, no gain from selling stock, funds or other property)?",
+              "Is it true that you had no capital losses in 2025 (for example, no loss from selling stock, funds or other property)?"
+            ]
+          }
+        ],
+        "blocked_rules": [
+          {
+            "artifact": "form1040-line7b",
+            "code": "DEPENDENCY_ABSENT",
+            "missing": [
+              "schedule-d-required.conclusion"
+            ]
+          },
+          {
+            "artifact": "schedule1a-part-v-line-33",
+            "code": "DEPENDENCY_ABSENT",
+            "missing": [
+              "income.agi"
+            ]
+          },
+          {
+            "artifact": "schedule1a-part-v-line-34",
+            "code": "DEPENDENCY_ABSENT",
+            "missing": [
+              "schedule1a.line33-magi-excess"
+            ]
+          },
+          {
+            "artifact": "schedule1a-part-v-line-35",
+            "code": "DEPENDENCY_ABSENT",
+            "missing": [
+              "schedule1a.line34-reduction"
+            ]
+          },
+          {
+            "artifact": "schedule1a-part-v-line-36a",
+            "code": "DEPENDENCY_ABSENT",
+            "missing": [
+              "schedule1a.line35-per-person-amount"
+            ]
+          },
+          {
+            "artifact": "schedule1a-part-v-line-36b",
+            "code": "DEPENDENCY_ABSENT",
+            "missing": [
+              "schedule1a.line35-per-person-amount"
+            ]
+          },
+          {
+            "artifact": "schedule1a-part-v-line-37",
+            "code": "DEPENDENCY_ABSENT",
+            "missing": [
+              "schedule1a.line36a-taxpayer",
+              "schedule1a.line36b-spouse"
+            ]
+          }
+        ],
+        "title_mentions": [],
+        "wash_sentence_present": false
+      }
+    },
+    {
+      "id": "wash-st-closed",
+      "note": "Filer closed the wash-sale adjustment family. Column (h) is 200 on the plain sale and 0 on the wash sale. Column (g) subtotal is the disallowed 200.",
+      "hand": {
+        "schedule-d.line-1a": 200,
+        "schedule-d.line-1b": 0,
+        "f1099b.covered-w-st-adjustment-subtotal": 200
+      },
+      "hand_mismatches": [],
+      "measured": {
+        "stop": "saturated",
+        "lines": {
+          "form1040.line-12e": 15750,
+          "form1040.line-13b": "blocked",
+          "form1040.line-15": "blocked",
+          "form1040.line-16": "blocked",
+          "form1040.line-7a": "blocked",
+          "form1040.line-7b": "guard_inapplicable",
+          "schedule-d.line-15": 0,
+          "schedule-d.line-16": "blocked",
+          "schedule-d.line-1a": 200,
+          "schedule-d.line-1b": 0,
+          "schedule-d.line-7": 200,
+          "schedule-d.line-8a": 0,
+          "schedule-d.line-8b": 0,
+          "schedule1.line-21": 0
+        },
+        "symbols": {
+          "schedule-d-required.conclusion": "yes",
+          "interest.scheduleb-abp-adjustment-subtotal": 0,
+          "sli-worksheet.line1-total-interest-paid-subtotal": 0,
+          "f1099b.noncovered-lt-adjustment-subtotal": 0,
+          "f1099b.noncovered-st-adjustment-subtotal": 0,
+          "f8949.no1099b-st-adjustment-subtotal": 0,
+          "f8949.no1099b-lt-adjustment-subtotal": 0,
+          "f1099b.code-b-st-adjustment-subtotal": 0,
+          "f1099b.code-b-lt-adjustment-subtotal": 0,
+          "f1099b.covered-w-lt-adjustment-subtotal": 0,
+          "f1099b.covered-w-st-adjustment-subtotal": 200,
+          "deductions.line-12e": 15750,
+          "interest.current-year-adjustment-subtotal": 0,
+          "schedule1.line21-sli-deduction": 0
+        },
+        "questions": [
+          "For each Form 1099-B or substitute statement you recorded a sale from, is box 7 (\"If checked, loss is not allowed based on amount in 1d\") checked for any sale on it?"
+        ],
+        "titles": [],
+        "asked_on": [
+          {
+            "field": "form.eic-worksheet-a.line-3",
+            "sentences": [
+              "For each Form 1099-B or substitute statement you recorded a sale from, is box 7 (\"If checked, loss is not allowed based on amount in 1d\") checked for any sale on it?"
+            ]
+          },
+          {
+            "field": "form.eic-worksheet-a.line-5",
+            "sentences": [
+              "For each Form 1099-B or substitute statement you recorded a sale from, is box 7 (\"If checked, loss is not allowed based on amount in 1d\") checked for any sale on it?"
+            ]
+          },
+          {
+            "field": "form.eic-worksheet-a.line-6",
+            "sentences": [
+              "For each Form 1099-B or substitute statement you recorded a sale from, is box 7 (\"If checked, loss is not allowed based on amount in 1d\") checked for any sale on it?"
+            ]
+          },
+          {
+            "field": "form.sch8812.line-14",
+            "sentences": [
+              "For each Form 1099-B or substitute statement you recorded a sale from, is box 7 (\"If checked, loss is not allowed based on amount in 1d\") checked for any sale on it?"
+            ]
+          },
+          {
+            "field": "form.sch8812.line-17",
+            "sentences": [
+              "For each Form 1099-B or substitute statement you recorded a sale from, is box 7 (\"If checked, loss is not allowed based on amount in 1d\") checked for any sale on it?"
+            ]
+          },
+          {
+            "field": "form.sch8812.worksheet-a.line-5",
+            "sentences": [
+              "For each Form 1099-B or substitute statement you recorded a sale from, is box 7 (\"If checked, loss is not allowed based on amount in 1d\") checked for any sale on it?"
+            ]
+          },
+          {
+            "field": "form1040.line-11a",
+            "sentences": [
+              "For each Form 1099-B or substitute statement you recorded a sale from, is box 7 (\"If checked, loss is not allowed based on amount in 1d\") checked for any sale on it?"
+            ]
+          },
+          {
+            "field": "form1040.line-11b",
+            "sentences": [
+              "For each Form 1099-B or substitute statement you recorded a sale from, is box 7 (\"If checked, loss is not allowed based on amount in 1d\") checked for any sale on it?"
+            ]
+          },
+          {
+            "field": "form1040.line-13b",
+            "sentences": [
+              "For each Form 1099-B or substitute statement you recorded a sale from, is box 7 (\"If checked, loss is not allowed based on amount in 1d\") checked for any sale on it?"
+            ]
+          },
+          {
+            "field": "form1040.line-14",
+            "sentences": [
+              "For each Form 1099-B or substitute statement you recorded a sale from, is box 7 (\"If checked, loss is not allowed based on amount in 1d\") checked for any sale on it?"
+            ]
+          },
+          {
+            "field": "form1040.line-15",
+            "sentences": [
+              "For each Form 1099-B or substitute statement you recorded a sale from, is box 7 (\"If checked, loss is not allowed based on amount in 1d\") checked for any sale on it?"
+            ]
+          },
+          {
+            "field": "form1040.line-16",
+            "sentences": [
+              "For each Form 1099-B or substitute statement you recorded a sale from, is box 7 (\"If checked, loss is not allowed based on amount in 1d\") checked for any sale on it?"
+            ]
+          },
+          {
+            "field": "form1040.line-19",
+            "sentences": [
+              "For each Form 1099-B or substitute statement you recorded a sale from, is box 7 (\"If checked, loss is not allowed based on amount in 1d\") checked for any sale on it?"
+            ]
+          },
+          {
+            "field": "form1040.line-20",
+            "sentences": [
+              "For each Form 1099-B or substitute statement you recorded a sale from, is box 7 (\"If checked, loss is not allowed based on amount in 1d\") checked for any sale on it?"
+            ]
+          },
+          {
+            "field": "form1040.line-24",
+            "sentences": [
+              "For each Form 1099-B or substitute statement you recorded a sale from, is box 7 (\"If checked, loss is not allowed based on amount in 1d\") checked for any sale on it?"
+            ]
+          },
+          {
+            "field": "form1040.line-25b",
+            "sentences": [
+              "Enter the federal income tax withheld in box 4 of each Form 1099-B or substitute statement you recorded a sale from. If box 4 is blank, enter $0."
+            ]
+          },
+          {
+            "field": "form1040.line-25d",
+            "sentences": [
+              "Enter the federal income tax withheld in box 4 of each Form 1099-B or substitute statement you recorded a sale from. If box 4 is blank, enter $0."
+            ]
+          },
+          {
+            "field": "form1040.line-27a",
+            "sentences": [
+              "For each Form 1099-B or substitute statement you recorded a sale from, is box 7 (\"If checked, loss is not allowed based on amount in 1d\") checked for any sale on it?"
+            ]
+          },
+          {
+            "field": "form1040.line-28",
+            "sentences": [
+              "For each Form 1099-B or substitute statement you recorded a sale from, is box 7 (\"If checked, loss is not allowed based on amount in 1d\") checked for any sale on it?"
+            ]
+          },
+          {
+            "field": "form1040.line-32",
+            "sentences": [
+              "For each Form 1099-B or substitute statement you recorded a sale from, is box 7 (\"If checked, loss is not allowed based on amount in 1d\") checked for any sale on it?"
+            ]
+          },
+          {
+            "field": "form1040.line-33",
+            "sentences": [
+              "Enter the federal income tax withheld in box 4 of each Form 1099-B or substitute statement you recorded a sale from. If box 4 is blank, enter $0.",
+              "For each Form 1099-B or substitute statement you recorded a sale from, is box 7 (\"If checked, loss is not allowed based on amount in 1d\") checked for any sale on it?"
+            ]
+          },
+          {
+            "field": "form1040.line-34",
+            "sentences": [
+              "Enter the federal income tax withheld in box 4 of each Form 1099-B or substitute statement you recorded a sale from. If box 4 is blank, enter $0.",
+              "For each Form 1099-B or substitute statement you recorded a sale from, is box 7 (\"If checked, loss is not allowed based on amount in 1d\") checked for any sale on it?"
+            ]
+          },
+          {
+            "field": "form1040.line-35a",
+            "sentences": [
+              "Enter the federal income tax withheld in box 4 of each Form 1099-B or substitute statement you recorded a sale from. If box 4 is blank, enter $0.",
+              "For each Form 1099-B or substitute statement you recorded a sale from, is box 7 (\"If checked, loss is not allowed based on amount in 1d\") checked for any sale on it?"
+            ]
+          },
+          {
+            "field": "form1040.line-37",
+            "sentences": [
+              "Enter the federal income tax withheld in box 4 of each Form 1099-B or substitute statement you recorded a sale from. If box 4 is blank, enter $0.",
+              "For each Form 1099-B or substitute statement you recorded a sale from, is box 7 (\"If checked, loss is not allowed based on amount in 1d\") checked for any sale on it?"
+            ]
+          },
+          {
+            "field": "form1040.line-6b",
+            "sentences": [
+              "For each Form 1099-B or substitute statement you recorded a sale from, is box 7 (\"If checked, loss is not allowed based on amount in 1d\") checked for any sale on it?"
+            ]
+          },
+          {
+            "field": "form1040.line-7a",
+            "sentences": [
+              "For each Form 1099-B or substitute statement you recorded a sale from, is box 7 (\"If checked, loss is not allowed based on amount in 1d\") checked for any sale on it?"
+            ]
+          },
+          {
+            "field": "form1040.line-9",
+            "sentences": [
+              "For each Form 1099-B or substitute statement you recorded a sale from, is box 7 (\"If checked, loss is not allowed based on amount in 1d\") checked for any sale on it?"
+            ]
+          },
+          {
+            "field": "form1040.tax-after-credits",
+            "sentences": [
+              "For each Form 1099-B or substitute statement you recorded a sale from, is box 7 (\"If checked, loss is not allowed based on amount in 1d\") checked for any sale on it?"
+            ]
+          },
+          {
+            "field": "schedule-d.line-16",
+            "sentences": [
+              "For each Form 1099-B or substitute statement you recorded a sale from, is box 7 (\"If checked, loss is not allowed based on amount in 1d\") checked for any sale on it?"
+            ]
+          },
+          {
+            "field": "schedule-d.line-21",
+            "sentences": [
+              "For each Form 1099-B or substitute statement you recorded a sale from, is box 7 (\"If checked, loss is not allowed based on amount in 1d\") checked for any sale on it?"
+            ]
+          },
+          {
+            "field": "schedule3.line-1",
+            "sentences": [
+              "For each Form 1099-B or substitute statement you recorded a sale from, is box 7 (\"If checked, loss is not allowed based on amount in 1d\") checked for any sale on it?"
+            ]
+          },
+          {
+            "field": "schedule3.line-8",
+            "sentences": [
+              "For each Form 1099-B or substitute statement you recorded a sale from, is box 7 (\"If checked, loss is not allowed based on amount in 1d\") checked for any sale on it?"
+            ]
+          }
+        ],
+        "blocked_rules": [
+          {
+            "artifact": "schedule-d-line21",
+            "code": "DEPENDENCY_ABSENT",
+            "missing": [
+              "schedule-d.line-16"
+            ]
+          },
+          {
+            "artifact": "schedule1a-part-v-line-33",
+            "code": "DEPENDENCY_ABSENT",
+            "missing": [
+              "income.agi"
+            ]
+          },
+          {
+            "artifact": "schedule1a-part-v-line-34",
+            "code": "DEPENDENCY_ABSENT",
+            "missing": [
+              "schedule1a.line33-magi-excess"
+            ]
+          },
+          {
+            "artifact": "schedule1a-part-v-line-35",
+            "code": "DEPENDENCY_ABSENT",
+            "missing": [
+              "schedule1a.line34-reduction"
+            ]
+          },
+          {
+            "artifact": "schedule1a-part-v-line-36a",
+            "code": "DEPENDENCY_ABSENT",
+            "missing": [
+              "schedule1a.line35-per-person-amount"
+            ]
+          },
+          {
+            "artifact": "schedule1a-part-v-line-36b",
+            "code": "DEPENDENCY_ABSENT",
+            "missing": [
+              "schedule1a.line35-per-person-amount"
+            ]
+          },
+          {
+            "artifact": "schedule1a-part-v-line-37",
+            "code": "DEPENDENCY_ABSENT",
+            "missing": [
+              "schedule1a.line36a-taxpayer",
+              "schedule1a.line36b-spouse"
+            ]
+          }
+        ],
+        "title_mentions": [],
+        "wash_sentence_present": false
+      }
+    },
+    {
+      "id": "wash-st-unclosed",
+      "note": "Current words: a careful filer does not close, because the plain covered sale has no wash-sale adjustment. The family stays open.",
+      "hand": {
+        "schedule-d.line-1b": "blocked"
+      },
+      "hand_mismatches": [],
+      "measured": {
+        "stop": "saturated",
+        "lines": {
+          "form1040.line-12e": 15750,
+          "form1040.line-13b": "blocked",
+          "form1040.line-15": "blocked",
+          "form1040.line-16": "blocked",
+          "form1040.line-7a": "blocked",
+          "form1040.line-7b": "guard_inapplicable",
+          "schedule-d.line-15": 0,
+          "schedule-d.line-16": "blocked",
+          "schedule-d.line-1a": 200,
+          "schedule-d.line-1b": "blocked",
+          "schedule-d.line-7": "blocked",
+          "schedule-d.line-8a": 0,
+          "schedule-d.line-8b": 0,
+          "schedule1.line-21": 0
+        },
+        "symbols": {
+          "schedule-d-required.conclusion": "yes",
+          "interest.scheduleb-abp-adjustment-subtotal": 0,
+          "sli-worksheet.line1-total-interest-paid-subtotal": 0,
+          "f1099b.noncovered-lt-adjustment-subtotal": 0,
+          "f1099b.noncovered-st-adjustment-subtotal": 0,
+          "f8949.no1099b-st-adjustment-subtotal": 0,
+          "f8949.no1099b-lt-adjustment-subtotal": 0,
+          "f1099b.code-b-st-adjustment-subtotal": 0,
+          "f1099b.code-b-lt-adjustment-subtotal": 0,
+          "f1099b.covered-w-lt-adjustment-subtotal": 0,
+          "deductions.line-12e": 15750,
+          "interest.current-year-adjustment-subtotal": 0,
+          "schedule1.line21-sli-deduction": 0
+        },
+        "questions": [],
+        "titles": [],
+        "asked_on": [
+          {
+            "field": "form1040.line-25b",
+            "sentences": [
+              "Enter the federal income tax withheld in box 4 of each Form 1099-B or substitute statement you recorded a sale from. If box 4 is blank, enter $0."
+            ]
+          },
+          {
+            "field": "form1040.line-25d",
+            "sentences": [
+              "Enter the federal income tax withheld in box 4 of each Form 1099-B or substitute statement you recorded a sale from. If box 4 is blank, enter $0."
+            ]
+          }
+        ],
+        "blocked_rules": [
+          {
+            "artifact": "closure-check.f1099b-covered-w-st-adjustment",
+            "code": "SOURCE_SET_UNCLOSED",
+            "missing": [
+              "f1099b.covered-w-st-adjustment"
+            ]
+          },
+          {
+            "artifact": "f1099b-covered-w-st-adjustment-subtotal",
+            "code": "DEPENDENCY_ABSENT",
+            "missing": [
+              "f1099b.covered-w-st-adjustment.closure-check"
+            ]
+          },
+          {
+            "artifact": "schedule-d-line21",
+            "code": "DEPENDENCY_ABSENT",
+            "missing": [
+              "schedule-d.line-16"
+            ]
+          },
+          {
+            "artifact": "schedule1a-part-v-line-33",
+            "code": "DEPENDENCY_ABSENT",
+            "missing": [
+              "income.agi"
+            ]
+          },
+          {
+            "artifact": "schedule1a-part-v-line-34",
+            "code": "DEPENDENCY_ABSENT",
+            "missing": [
+              "schedule1a.line33-magi-excess"
+            ]
+          },
+          {
+            "artifact": "schedule1a-part-v-line-35",
+            "code": "DEPENDENCY_ABSENT",
+            "missing": [
+              "schedule1a.line34-reduction"
+            ]
+          },
+          {
+            "artifact": "schedule1a-part-v-line-36a",
+            "code": "DEPENDENCY_ABSENT",
+            "missing": [
+              "schedule1a.line35-per-person-amount"
+            ]
+          },
+          {
+            "artifact": "schedule1a-part-v-line-36b",
+            "code": "DEPENDENCY_ABSENT",
+            "missing": [
+              "schedule1a.line35-per-person-amount"
+            ]
+          },
+          {
+            "artifact": "schedule1a-part-v-line-37",
+            "code": "DEPENDENCY_ABSENT",
+            "missing": [
+              "schedule1a.line36a-taxpayer",
+              "schedule1a.line36b-spouse"
+            ]
+          }
+        ],
+        "title_mentions": [],
+        "wash_sentence_present": false
+      }
+    },
+    {
+      "id": "wash-lt-closed",
+      "note": "Long-term pair of the closed short-term case.",
+      "hand": {
+        "schedule-d.line-8a": 200,
+        "schedule-d.line-8b": 0,
+        "f1099b.covered-w-lt-adjustment-subtotal": 200
+      },
+      "hand_mismatches": [],
+      "measured": {
+        "stop": "saturated",
+        "lines": {
+          "form1040.line-12e": 15750,
+          "form1040.line-13b": "blocked",
+          "form1040.line-15": "blocked",
+          "form1040.line-16": "blocked",
+          "form1040.line-7a": "blocked",
+          "form1040.line-7b": "guard_inapplicable",
+          "schedule-d.line-15": 200,
+          "schedule-d.line-16": "blocked",
+          "schedule-d.line-1a": 0,
+          "schedule-d.line-1b": 0,
+          "schedule-d.line-7": 0,
+          "schedule-d.line-8a": 200,
+          "schedule-d.line-8b": 0,
+          "schedule1.line-21": 0
+        },
+        "symbols": {
+          "schedule-d-required.conclusion": "yes",
+          "interest.scheduleb-abp-adjustment-subtotal": 0,
+          "sli-worksheet.line1-total-interest-paid-subtotal": 0,
+          "f1099b.noncovered-lt-adjustment-subtotal": 0,
+          "f1099b.noncovered-st-adjustment-subtotal": 0,
+          "f8949.no1099b-st-adjustment-subtotal": 0,
+          "f8949.no1099b-lt-adjustment-subtotal": 0,
+          "f1099b.code-b-st-adjustment-subtotal": 0,
+          "f1099b.code-b-lt-adjustment-subtotal": 0,
+          "f1099b.covered-w-lt-adjustment-subtotal": 200,
+          "f1099b.covered-w-st-adjustment-subtotal": 0,
+          "deductions.line-12e": 15750,
+          "interest.current-year-adjustment-subtotal": 0,
+          "schedule1.line21-sli-deduction": 0
+        },
+        "questions": [
+          "For each Form 1099-B or substitute statement you recorded a sale from, is box 7 (\"If checked, loss is not allowed based on amount in 1d\") checked for any sale on it?"
+        ],
+        "titles": [],
+        "asked_on": [
+          {
+            "field": "form.eic-worksheet-a.line-3",
+            "sentences": [
+              "For each Form 1099-B or substitute statement you recorded a sale from, is box 7 (\"If checked, loss is not allowed based on amount in 1d\") checked for any sale on it?"
+            ]
+          },
+          {
+            "field": "form.eic-worksheet-a.line-5",
+            "sentences": [
+              "For each Form 1099-B or substitute statement you recorded a sale from, is box 7 (\"If checked, loss is not allowed based on amount in 1d\") checked for any sale on it?"
+            ]
+          },
+          {
+            "field": "form.eic-worksheet-a.line-6",
+            "sentences": [
+              "For each Form 1099-B or substitute statement you recorded a sale from, is box 7 (\"If checked, loss is not allowed based on amount in 1d\") checked for any sale on it?"
+            ]
+          },
+          {
+            "field": "form.sch8812.line-14",
+            "sentences": [
+              "For each Form 1099-B or substitute statement you recorded a sale from, is box 7 (\"If checked, loss is not allowed based on amount in 1d\") checked for any sale on it?"
+            ]
+          },
+          {
+            "field": "form.sch8812.line-17",
+            "sentences": [
+              "For each Form 1099-B or substitute statement you recorded a sale from, is box 7 (\"If checked, loss is not allowed based on amount in 1d\") checked for any sale on it?"
+            ]
+          },
+          {
+            "field": "form.sch8812.worksheet-a.line-5",
+            "sentences": [
+              "For each Form 1099-B or substitute statement you recorded a sale from, is box 7 (\"If checked, loss is not allowed based on amount in 1d\") checked for any sale on it?"
+            ]
+          },
+          {
+            "field": "form1040.line-11a",
+            "sentences": [
+              "For each Form 1099-B or substitute statement you recorded a sale from, is box 7 (\"If checked, loss is not allowed based on amount in 1d\") checked for any sale on it?"
+            ]
+          },
+          {
+            "field": "form1040.line-11b",
+            "sentences": [
+              "For each Form 1099-B or substitute statement you recorded a sale from, is box 7 (\"If checked, loss is not allowed based on amount in 1d\") checked for any sale on it?"
+            ]
+          },
+          {
+            "field": "form1040.line-13b",
+            "sentences": [
+              "For each Form 1099-B or substitute statement you recorded a sale from, is box 7 (\"If checked, loss is not allowed based on amount in 1d\") checked for any sale on it?"
+            ]
+          },
+          {
+            "field": "form1040.line-14",
+            "sentences": [
+              "For each Form 1099-B or substitute statement you recorded a sale from, is box 7 (\"If checked, loss is not allowed based on amount in 1d\") checked for any sale on it?"
+            ]
+          },
+          {
+            "field": "form1040.line-15",
+            "sentences": [
+              "For each Form 1099-B or substitute statement you recorded a sale from, is box 7 (\"If checked, loss is not allowed based on amount in 1d\") checked for any sale on it?"
+            ]
+          },
+          {
+            "field": "form1040.line-16",
+            "sentences": [
+              "For each Form 1099-B or substitute statement you recorded a sale from, is box 7 (\"If checked, loss is not allowed based on amount in 1d\") checked for any sale on it?"
+            ]
+          },
+          {
+            "field": "form1040.line-19",
+            "sentences": [
+              "For each Form 1099-B or substitute statement you recorded a sale from, is box 7 (\"If checked, loss is not allowed based on amount in 1d\") checked for any sale on it?"
+            ]
+          },
+          {
+            "field": "form1040.line-20",
+            "sentences": [
+              "For each Form 1099-B or substitute statement you recorded a sale from, is box 7 (\"If checked, loss is not allowed based on amount in 1d\") checked for any sale on it?"
+            ]
+          },
+          {
+            "field": "form1040.line-24",
+            "sentences": [
+              "For each Form 1099-B or substitute statement you recorded a sale from, is box 7 (\"If checked, loss is not allowed based on amount in 1d\") checked for any sale on it?"
+            ]
+          },
+          {
+            "field": "form1040.line-25b",
+            "sentences": [
+              "Enter the federal income tax withheld in box 4 of each Form 1099-B or substitute statement you recorded a sale from. If box 4 is blank, enter $0."
+            ]
+          },
+          {
+            "field": "form1040.line-25d",
+            "sentences": [
+              "Enter the federal income tax withheld in box 4 of each Form 1099-B or substitute statement you recorded a sale from. If box 4 is blank, enter $0."
+            ]
+          },
+          {
+            "field": "form1040.line-27a",
+            "sentences": [
+              "For each Form 1099-B or substitute statement you recorded a sale from, is box 7 (\"If checked, loss is not allowed based on amount in 1d\") checked for any sale on it?"
+            ]
+          },
+          {
+            "field": "form1040.line-28",
+            "sentences": [
+              "For each Form 1099-B or substitute statement you recorded a sale from, is box 7 (\"If checked, loss is not allowed based on amount in 1d\") checked for any sale on it?"
+            ]
+          },
+          {
+            "field": "form1040.line-32",
+            "sentences": [
+              "For each Form 1099-B or substitute statement you recorded a sale from, is box 7 (\"If checked, loss is not allowed based on amount in 1d\") checked for any sale on it?"
+            ]
+          },
+          {
+            "field": "form1040.line-33",
+            "sentences": [
+              "Enter the federal income tax withheld in box 4 of each Form 1099-B or substitute statement you recorded a sale from. If box 4 is blank, enter $0.",
+              "For each Form 1099-B or substitute statement you recorded a sale from, is box 7 (\"If checked, loss is not allowed based on amount in 1d\") checked for any sale on it?"
+            ]
+          },
+          {
+            "field": "form1040.line-34",
+            "sentences": [
+              "Enter the federal income tax withheld in box 4 of each Form 1099-B or substitute statement you recorded a sale from. If box 4 is blank, enter $0.",
+              "For each Form 1099-B or substitute statement you recorded a sale from, is box 7 (\"If checked, loss is not allowed based on amount in 1d\") checked for any sale on it?"
+            ]
+          },
+          {
+            "field": "form1040.line-35a",
+            "sentences": [
+              "Enter the federal income tax withheld in box 4 of each Form 1099-B or substitute statement you recorded a sale from. If box 4 is blank, enter $0.",
+              "For each Form 1099-B or substitute statement you recorded a sale from, is box 7 (\"If checked, loss is not allowed based on amount in 1d\") checked for any sale on it?"
+            ]
+          },
+          {
+            "field": "form1040.line-37",
+            "sentences": [
+              "Enter the federal income tax withheld in box 4 of each Form 1099-B or substitute statement you recorded a sale from. If box 4 is blank, enter $0.",
+              "For each Form 1099-B or substitute statement you recorded a sale from, is box 7 (\"If checked, loss is not allowed based on amount in 1d\") checked for any sale on it?"
+            ]
+          },
+          {
+            "field": "form1040.line-6b",
+            "sentences": [
+              "For each Form 1099-B or substitute statement you recorded a sale from, is box 7 (\"If checked, loss is not allowed based on amount in 1d\") checked for any sale on it?"
+            ]
+          },
+          {
+            "field": "form1040.line-7a",
+            "sentences": [
+              "For each Form 1099-B or substitute statement you recorded a sale from, is box 7 (\"If checked, loss is not allowed based on amount in 1d\") checked for any sale on it?"
+            ]
+          },
+          {
+            "field": "form1040.line-9",
+            "sentences": [
+              "For each Form 1099-B or substitute statement you recorded a sale from, is box 7 (\"If checked, loss is not allowed based on amount in 1d\") checked for any sale on it?"
+            ]
+          },
+          {
+            "field": "form1040.tax-after-credits",
+            "sentences": [
+              "For each Form 1099-B or substitute statement you recorded a sale from, is box 7 (\"If checked, loss is not allowed based on amount in 1d\") checked for any sale on it?"
+            ]
+          },
+          {
+            "field": "schedule-d.line-16",
+            "sentences": [
+              "For each Form 1099-B or substitute statement you recorded a sale from, is box 7 (\"If checked, loss is not allowed based on amount in 1d\") checked for any sale on it?"
+            ]
+          },
+          {
+            "field": "schedule-d.line-21",
+            "sentences": [
+              "For each Form 1099-B or substitute statement you recorded a sale from, is box 7 (\"If checked, loss is not allowed based on amount in 1d\") checked for any sale on it?"
+            ]
+          },
+          {
+            "field": "schedule3.line-1",
+            "sentences": [
+              "For each Form 1099-B or substitute statement you recorded a sale from, is box 7 (\"If checked, loss is not allowed based on amount in 1d\") checked for any sale on it?"
+            ]
+          },
+          {
+            "field": "schedule3.line-8",
+            "sentences": [
+              "For each Form 1099-B or substitute statement you recorded a sale from, is box 7 (\"If checked, loss is not allowed based on amount in 1d\") checked for any sale on it?"
+            ]
+          }
+        ],
+        "blocked_rules": [
+          {
+            "artifact": "schedule-d-line21",
+            "code": "DEPENDENCY_ABSENT",
+            "missing": [
+              "schedule-d.line-16"
+            ]
+          },
+          {
+            "artifact": "schedule1a-part-v-line-33",
+            "code": "DEPENDENCY_ABSENT",
+            "missing": [
+              "income.agi"
+            ]
+          },
+          {
+            "artifact": "schedule1a-part-v-line-34",
+            "code": "DEPENDENCY_ABSENT",
+            "missing": [
+              "schedule1a.line33-magi-excess"
+            ]
+          },
+          {
+            "artifact": "schedule1a-part-v-line-35",
+            "code": "DEPENDENCY_ABSENT",
+            "missing": [
+              "schedule1a.line34-reduction"
+            ]
+          },
+          {
+            "artifact": "schedule1a-part-v-line-36a",
+            "code": "DEPENDENCY_ABSENT",
+            "missing": [
+              "schedule1a.line35-per-person-amount"
+            ]
+          },
+          {
+            "artifact": "schedule1a-part-v-line-36b",
+            "code": "DEPENDENCY_ABSENT",
+            "missing": [
+              "schedule1a.line35-per-person-amount"
+            ]
+          },
+          {
+            "artifact": "schedule1a-part-v-line-37",
+            "code": "DEPENDENCY_ABSENT",
+            "missing": [
+              "schedule1a.line36a-taxpayer",
+              "schedule1a.line36b-spouse"
+            ]
+          }
+        ],
+        "title_mentions": [],
+        "wash_sentence_present": false
+      }
+    },
+    {
+      "id": "wash-lt-unclosed",
+      "note": "Long-term pair of the unclosed short-term case.",
+      "hand": {
+        "schedule-d.line-8b": "blocked"
+      },
+      "hand_mismatches": [],
+      "measured": {
+        "stop": "saturated",
+        "lines": {
+          "form1040.line-12e": 15750,
+          "form1040.line-13b": "blocked",
+          "form1040.line-15": "blocked",
+          "form1040.line-16": "blocked",
+          "form1040.line-7a": "blocked",
+          "form1040.line-7b": "guard_inapplicable",
+          "schedule-d.line-15": "blocked",
+          "schedule-d.line-16": "blocked",
+          "schedule-d.line-1a": 0,
+          "schedule-d.line-1b": 0,
+          "schedule-d.line-7": 0,
+          "schedule-d.line-8a": 200,
+          "schedule-d.line-8b": "blocked",
+          "schedule1.line-21": 0
+        },
+        "symbols": {
+          "schedule-d-required.conclusion": "yes",
+          "interest.scheduleb-abp-adjustment-subtotal": 0,
+          "sli-worksheet.line1-total-interest-paid-subtotal": 0,
+          "f1099b.noncovered-lt-adjustment-subtotal": 0,
+          "f1099b.noncovered-st-adjustment-subtotal": 0,
+          "f8949.no1099b-st-adjustment-subtotal": 0,
+          "f8949.no1099b-lt-adjustment-subtotal": 0,
+          "f1099b.code-b-st-adjustment-subtotal": 0,
+          "f1099b.code-b-lt-adjustment-subtotal": 0,
+          "f1099b.covered-w-st-adjustment-subtotal": 0,
+          "deductions.line-12e": 15750,
+          "interest.current-year-adjustment-subtotal": 0,
+          "schedule1.line21-sli-deduction": 0
+        },
+        "questions": [],
+        "titles": [],
+        "asked_on": [
+          {
+            "field": "form1040.line-25b",
+            "sentences": [
+              "Enter the federal income tax withheld in box 4 of each Form 1099-B or substitute statement you recorded a sale from. If box 4 is blank, enter $0."
+            ]
+          },
+          {
+            "field": "form1040.line-25d",
+            "sentences": [
+              "Enter the federal income tax withheld in box 4 of each Form 1099-B or substitute statement you recorded a sale from. If box 4 is blank, enter $0."
+            ]
+          }
+        ],
+        "blocked_rules": [
+          {
+            "artifact": "closure-check.f1099b-covered-w-lt-adjustment",
+            "code": "SOURCE_SET_UNCLOSED",
+            "missing": [
+              "f1099b.covered-w-lt-adjustment"
+            ]
+          },
+          {
+            "artifact": "f1099b-covered-w-lt-adjustment-subtotal",
+            "code": "DEPENDENCY_ABSENT",
+            "missing": [
+              "f1099b.covered-w-lt-adjustment.closure-check"
+            ]
+          },
+          {
+            "artifact": "schedule-d-line21",
+            "code": "DEPENDENCY_ABSENT",
+            "missing": [
+              "schedule-d.line-16"
+            ]
+          },
+          {
+            "artifact": "schedule1a-part-v-line-33",
+            "code": "DEPENDENCY_ABSENT",
+            "missing": [
+              "income.agi"
+            ]
+          },
+          {
+            "artifact": "schedule1a-part-v-line-34",
+            "code": "DEPENDENCY_ABSENT",
+            "missing": [
+              "schedule1a.line33-magi-excess"
+            ]
+          },
+          {
+            "artifact": "schedule1a-part-v-line-35",
+            "code": "DEPENDENCY_ABSENT",
+            "missing": [
+              "schedule1a.line34-reduction"
+            ]
+          },
+          {
+            "artifact": "schedule1a-part-v-line-36a",
+            "code": "DEPENDENCY_ABSENT",
+            "missing": [
+              "schedule1a.line35-per-person-amount"
+            ]
+          },
+          {
+            "artifact": "schedule1a-part-v-line-36b",
+            "code": "DEPENDENCY_ABSENT",
+            "missing": [
+              "schedule1a.line35-per-person-amount"
+            ]
+          },
+          {
+            "artifact": "schedule1a-part-v-line-37",
+            "code": "DEPENDENCY_ABSENT",
+            "missing": [
+              "schedule1a.line36a-taxpayer",
+              "schedule1a.line36b-spouse"
+            ]
+          }
+        ],
+        "title_mentions": [],
+        "wash_sentence_present": false
+      }
+    },
+    {
+      "id": "exc1-zero-current-yes",
+      "note": "Zero-net covered sale, proceeds 1000 basis 1000. Current words: both Exception 1 answers yes.",
+      "hand": {
+        "schedule-d.line-1a": 0
+      },
+      "hand_mismatches": [],
+      "measured": {
+        "stop": "saturated",
+        "lines": {
+          "form1040.line-12e": 15750,
+          "form1040.line-13b": "blocked",
+          "form1040.line-15": "blocked",
+          "form1040.line-16": "blocked",
+          "form1040.line-7a": "blocked",
+          "form1040.line-7b": "guard_inapplicable",
+          "schedule-d.line-15": 0,
+          "schedule-d.line-16": "blocked",
+          "schedule-d.line-1a": 0,
+          "schedule-d.line-1b": 0,
+          "schedule-d.line-7": 0,
+          "schedule-d.line-8a": 0,
+          "schedule-d.line-8b": 0,
+          "schedule1.line-21": 0
+        },
+        "symbols": {
+          "schedule-d-required.conclusion": "no",
+          "interest.scheduleb-abp-adjustment-subtotal": 0,
+          "sli-worksheet.line1-total-interest-paid-subtotal": 0,
+          "f1099b.noncovered-lt-adjustment-subtotal": 0,
+          "f1099b.noncovered-st-adjustment-subtotal": 0,
+          "f8949.no1099b-st-adjustment-subtotal": 0,
+          "f8949.no1099b-lt-adjustment-subtotal": 0,
+          "f1099b.code-b-st-adjustment-subtotal": 0,
+          "f1099b.code-b-lt-adjustment-subtotal": 0,
+          "f1099b.covered-w-lt-adjustment-subtotal": 0,
+          "f1099b.covered-w-st-adjustment-subtotal": 0,
+          "deductions.line-12e": 15750,
+          "interest.current-year-adjustment-subtotal": 0,
+          "schedule1.line21-sli-deduction": 0
+        },
+        "questions": [
+          "For each Form 1099-B or substitute statement you recorded a sale from, is box 7 (\"If checked, loss is not allowed based on amount in 1d\") checked for any sale on it?"
+        ],
+        "titles": [],
+        "asked_on": [
+          {
+            "field": "form.eic-worksheet-a.line-3",
+            "sentences": [
+              "For each Form 1099-B or substitute statement you recorded a sale from, is box 7 (\"If checked, loss is not allowed based on amount in 1d\") checked for any sale on it?"
+            ]
+          },
+          {
+            "field": "form.eic-worksheet-a.line-5",
+            "sentences": [
+              "For each Form 1099-B or substitute statement you recorded a sale from, is box 7 (\"If checked, loss is not allowed based on amount in 1d\") checked for any sale on it?"
+            ]
+          },
+          {
+            "field": "form.eic-worksheet-a.line-6",
+            "sentences": [
+              "For each Form 1099-B or substitute statement you recorded a sale from, is box 7 (\"If checked, loss is not allowed based on amount in 1d\") checked for any sale on it?"
+            ]
+          },
+          {
+            "field": "form.sch8812.line-14",
+            "sentences": [
+              "For each Form 1099-B or substitute statement you recorded a sale from, is box 7 (\"If checked, loss is not allowed based on amount in 1d\") checked for any sale on it?"
+            ]
+          },
+          {
+            "field": "form.sch8812.line-17",
+            "sentences": [
+              "For each Form 1099-B or substitute statement you recorded a sale from, is box 7 (\"If checked, loss is not allowed based on amount in 1d\") checked for any sale on it?"
+            ]
+          },
+          {
+            "field": "form.sch8812.worksheet-a.line-5",
+            "sentences": [
+              "For each Form 1099-B or substitute statement you recorded a sale from, is box 7 (\"If checked, loss is not allowed based on amount in 1d\") checked for any sale on it?"
+            ]
+          },
+          {
+            "field": "form1040.line-11a",
+            "sentences": [
+              "For each Form 1099-B or substitute statement you recorded a sale from, is box 7 (\"If checked, loss is not allowed based on amount in 1d\") checked for any sale on it?"
+            ]
+          },
+          {
+            "field": "form1040.line-11b",
+            "sentences": [
+              "For each Form 1099-B or substitute statement you recorded a sale from, is box 7 (\"If checked, loss is not allowed based on amount in 1d\") checked for any sale on it?"
+            ]
+          },
+          {
+            "field": "form1040.line-13b",
+            "sentences": [
+              "For each Form 1099-B or substitute statement you recorded a sale from, is box 7 (\"If checked, loss is not allowed based on amount in 1d\") checked for any sale on it?"
+            ]
+          },
+          {
+            "field": "form1040.line-14",
+            "sentences": [
+              "For each Form 1099-B or substitute statement you recorded a sale from, is box 7 (\"If checked, loss is not allowed based on amount in 1d\") checked for any sale on it?"
+            ]
+          },
+          {
+            "field": "form1040.line-15",
+            "sentences": [
+              "For each Form 1099-B or substitute statement you recorded a sale from, is box 7 (\"If checked, loss is not allowed based on amount in 1d\") checked for any sale on it?"
+            ]
+          },
+          {
+            "field": "form1040.line-16",
+            "sentences": [
+              "For each Form 1099-B or substitute statement you recorded a sale from, is box 7 (\"If checked, loss is not allowed based on amount in 1d\") checked for any sale on it?"
+            ]
+          },
+          {
+            "field": "form1040.line-19",
+            "sentences": [
+              "For each Form 1099-B or substitute statement you recorded a sale from, is box 7 (\"If checked, loss is not allowed based on amount in 1d\") checked for any sale on it?"
+            ]
+          },
+          {
+            "field": "form1040.line-20",
+            "sentences": [
+              "For each Form 1099-B or substitute statement you recorded a sale from, is box 7 (\"If checked, loss is not allowed based on amount in 1d\") checked for any sale on it?"
+            ]
+          },
+          {
+            "field": "form1040.line-24",
+            "sentences": [
+              "For each Form 1099-B or substitute statement you recorded a sale from, is box 7 (\"If checked, loss is not allowed based on amount in 1d\") checked for any sale on it?"
+            ]
+          },
+          {
+            "field": "form1040.line-25b",
+            "sentences": [
+              "Enter the federal income tax withheld in box 4 of each Form 1099-B or substitute statement you recorded a sale from. If box 4 is blank, enter $0."
+            ]
+          },
+          {
+            "field": "form1040.line-25d",
+            "sentences": [
+              "Enter the federal income tax withheld in box 4 of each Form 1099-B or substitute statement you recorded a sale from. If box 4 is blank, enter $0."
+            ]
+          },
+          {
+            "field": "form1040.line-27a",
+            "sentences": [
+              "For each Form 1099-B or substitute statement you recorded a sale from, is box 7 (\"If checked, loss is not allowed based on amount in 1d\") checked for any sale on it?"
+            ]
+          },
+          {
+            "field": "form1040.line-28",
+            "sentences": [
+              "For each Form 1099-B or substitute statement you recorded a sale from, is box 7 (\"If checked, loss is not allowed based on amount in 1d\") checked for any sale on it?"
+            ]
+          },
+          {
+            "field": "form1040.line-32",
+            "sentences": [
+              "For each Form 1099-B or substitute statement you recorded a sale from, is box 7 (\"If checked, loss is not allowed based on amount in 1d\") checked for any sale on it?"
+            ]
+          },
+          {
+            "field": "form1040.line-33",
+            "sentences": [
+              "Enter the federal income tax withheld in box 4 of each Form 1099-B or substitute statement you recorded a sale from. If box 4 is blank, enter $0.",
+              "For each Form 1099-B or substitute statement you recorded a sale from, is box 7 (\"If checked, loss is not allowed based on amount in 1d\") checked for any sale on it?"
+            ]
+          },
+          {
+            "field": "form1040.line-34",
+            "sentences": [
+              "Enter the federal income tax withheld in box 4 of each Form 1099-B or substitute statement you recorded a sale from. If box 4 is blank, enter $0.",
+              "For each Form 1099-B or substitute statement you recorded a sale from, is box 7 (\"If checked, loss is not allowed based on amount in 1d\") checked for any sale on it?"
+            ]
+          },
+          {
+            "field": "form1040.line-35a",
+            "sentences": [
+              "Enter the federal income tax withheld in box 4 of each Form 1099-B or substitute statement you recorded a sale from. If box 4 is blank, enter $0.",
+              "For each Form 1099-B or substitute statement you recorded a sale from, is box 7 (\"If checked, loss is not allowed based on amount in 1d\") checked for any sale on it?"
+            ]
+          },
+          {
+            "field": "form1040.line-37",
+            "sentences": [
+              "Enter the federal income tax withheld in box 4 of each Form 1099-B or substitute statement you recorded a sale from. If box 4 is blank, enter $0.",
+              "For each Form 1099-B or substitute statement you recorded a sale from, is box 7 (\"If checked, loss is not allowed based on amount in 1d\") checked for any sale on it?"
+            ]
+          },
+          {
+            "field": "form1040.line-6b",
+            "sentences": [
+              "For each Form 1099-B or substitute statement you recorded a sale from, is box 7 (\"If checked, loss is not allowed based on amount in 1d\") checked for any sale on it?"
+            ]
+          },
+          {
+            "field": "form1040.line-7a",
+            "sentences": [
+              "For each Form 1099-B or substitute statement you recorded a sale from, is box 7 (\"If checked, loss is not allowed based on amount in 1d\") checked for any sale on it?"
+            ]
+          },
+          {
+            "field": "form1040.line-9",
+            "sentences": [
+              "For each Form 1099-B or substitute statement you recorded a sale from, is box 7 (\"If checked, loss is not allowed based on amount in 1d\") checked for any sale on it?"
+            ]
+          },
+          {
+            "field": "form1040.tax-after-credits",
+            "sentences": [
+              "For each Form 1099-B or substitute statement you recorded a sale from, is box 7 (\"If checked, loss is not allowed based on amount in 1d\") checked for any sale on it?"
+            ]
+          },
+          {
+            "field": "schedule-d.line-16",
+            "sentences": [
+              "For each Form 1099-B or substitute statement you recorded a sale from, is box 7 (\"If checked, loss is not allowed based on amount in 1d\") checked for any sale on it?"
+            ]
+          },
+          {
+            "field": "schedule-d.line-21",
+            "sentences": [
+              "For each Form 1099-B or substitute statement you recorded a sale from, is box 7 (\"If checked, loss is not allowed based on amount in 1d\") checked for any sale on it?"
+            ]
+          },
+          {
+            "field": "schedule3.line-1",
+            "sentences": [
+              "For each Form 1099-B or substitute statement you recorded a sale from, is box 7 (\"If checked, loss is not allowed based on amount in 1d\") checked for any sale on it?"
+            ]
+          },
+          {
+            "field": "schedule3.line-8",
+            "sentences": [
+              "For each Form 1099-B or substitute statement you recorded a sale from, is box 7 (\"If checked, loss is not allowed based on amount in 1d\") checked for any sale on it?"
+            ]
+          }
+        ],
+        "blocked_rules": [
+          {
+            "artifact": "schedule-d-line21",
+            "code": "DEPENDENCY_ABSENT",
+            "missing": [
+              "schedule-d.line-16"
+            ]
+          },
+          {
+            "artifact": "schedule1a-part-v-line-33",
+            "code": "DEPENDENCY_ABSENT",
+            "missing": [
+              "income.agi"
+            ]
+          },
+          {
+            "artifact": "schedule1a-part-v-line-34",
+            "code": "DEPENDENCY_ABSENT",
+            "missing": [
+              "schedule1a.line33-magi-excess"
+            ]
+          },
+          {
+            "artifact": "schedule1a-part-v-line-35",
+            "code": "DEPENDENCY_ABSENT",
+            "missing": [
+              "schedule1a.line34-reduction"
+            ]
+          },
+          {
+            "artifact": "schedule1a-part-v-line-36a",
+            "code": "DEPENDENCY_ABSENT",
+            "missing": [
+              "schedule1a.line35-per-person-amount"
+            ]
+          },
+          {
+            "artifact": "schedule1a-part-v-line-36b",
+            "code": "DEPENDENCY_ABSENT",
+            "missing": [
+              "schedule1a.line35-per-person-amount"
+            ]
+          },
+          {
+            "artifact": "schedule1a-part-v-line-37",
+            "code": "DEPENDENCY_ABSENT",
+            "missing": [
+              "schedule1a.line36a-taxpayer",
+              "schedule1a.line36b-spouse"
+            ]
+          }
+        ],
+        "title_mentions": [],
+        "wash_sentence_present": false
+      }
+    },
+    {
+      "id": "exc1-zero-proposed-no",
+      "note": "Same sale. Proposed words: only-box-2a no, because a sale that comes out even is still a sale; no-capital-losses stays yes.",
+      "hand": {
+        "schedule-d.line-1a": 0
+      },
+      "hand_mismatches": [],
+      "measured": {
+        "stop": "saturated",
+        "lines": {
+          "form1040.line-12e": 15750,
+          "form1040.line-13b": "blocked",
+          "form1040.line-15": "blocked",
+          "form1040.line-16": "blocked",
+          "form1040.line-7a": "blocked",
+          "form1040.line-7b": "guard_inapplicable",
+          "schedule-d.line-15": 0,
+          "schedule-d.line-16": "blocked",
+          "schedule-d.line-1a": 0,
+          "schedule-d.line-1b": 0,
+          "schedule-d.line-7": 0,
+          "schedule-d.line-8a": 0,
+          "schedule-d.line-8b": 0,
+          "schedule1.line-21": 0
+        },
+        "symbols": {
+          "schedule-d-required.conclusion": "yes",
+          "interest.scheduleb-abp-adjustment-subtotal": 0,
+          "sli-worksheet.line1-total-interest-paid-subtotal": 0,
+          "f1099b.noncovered-lt-adjustment-subtotal": 0,
+          "f1099b.noncovered-st-adjustment-subtotal": 0,
+          "f8949.no1099b-st-adjustment-subtotal": 0,
+          "f8949.no1099b-lt-adjustment-subtotal": 0,
+          "f1099b.code-b-st-adjustment-subtotal": 0,
+          "f1099b.code-b-lt-adjustment-subtotal": 0,
+          "f1099b.covered-w-lt-adjustment-subtotal": 0,
+          "f1099b.covered-w-st-adjustment-subtotal": 0,
+          "deductions.line-12e": 15750,
+          "interest.current-year-adjustment-subtotal": 0,
+          "schedule1.line21-sli-deduction": 0
+        },
+        "questions": [
+          "For each Form 1099-B or substitute statement you recorded a sale from, is box 7 (\"If checked, loss is not allowed based on amount in 1d\") checked for any sale on it?"
+        ],
+        "titles": [],
+        "asked_on": [
+          {
+            "field": "form.eic-worksheet-a.line-3",
+            "sentences": [
+              "For each Form 1099-B or substitute statement you recorded a sale from, is box 7 (\"If checked, loss is not allowed based on amount in 1d\") checked for any sale on it?"
+            ]
+          },
+          {
+            "field": "form.eic-worksheet-a.line-5",
+            "sentences": [
+              "For each Form 1099-B or substitute statement you recorded a sale from, is box 7 (\"If checked, loss is not allowed based on amount in 1d\") checked for any sale on it?"
+            ]
+          },
+          {
+            "field": "form.eic-worksheet-a.line-6",
+            "sentences": [
+              "For each Form 1099-B or substitute statement you recorded a sale from, is box 7 (\"If checked, loss is not allowed based on amount in 1d\") checked for any sale on it?"
+            ]
+          },
+          {
+            "field": "form.sch8812.line-14",
+            "sentences": [
+              "For each Form 1099-B or substitute statement you recorded a sale from, is box 7 (\"If checked, loss is not allowed based on amount in 1d\") checked for any sale on it?"
+            ]
+          },
+          {
+            "field": "form.sch8812.line-17",
+            "sentences": [
+              "For each Form 1099-B or substitute statement you recorded a sale from, is box 7 (\"If checked, loss is not allowed based on amount in 1d\") checked for any sale on it?"
+            ]
+          },
+          {
+            "field": "form.sch8812.worksheet-a.line-5",
+            "sentences": [
+              "For each Form 1099-B or substitute statement you recorded a sale from, is box 7 (\"If checked, loss is not allowed based on amount in 1d\") checked for any sale on it?"
+            ]
+          },
+          {
+            "field": "form1040.line-11a",
+            "sentences": [
+              "For each Form 1099-B or substitute statement you recorded a sale from, is box 7 (\"If checked, loss is not allowed based on amount in 1d\") checked for any sale on it?"
+            ]
+          },
+          {
+            "field": "form1040.line-11b",
+            "sentences": [
+              "For each Form 1099-B or substitute statement you recorded a sale from, is box 7 (\"If checked, loss is not allowed based on amount in 1d\") checked for any sale on it?"
+            ]
+          },
+          {
+            "field": "form1040.line-13b",
+            "sentences": [
+              "For each Form 1099-B or substitute statement you recorded a sale from, is box 7 (\"If checked, loss is not allowed based on amount in 1d\") checked for any sale on it?"
+            ]
+          },
+          {
+            "field": "form1040.line-14",
+            "sentences": [
+              "For each Form 1099-B or substitute statement you recorded a sale from, is box 7 (\"If checked, loss is not allowed based on amount in 1d\") checked for any sale on it?"
+            ]
+          },
+          {
+            "field": "form1040.line-15",
+            "sentences": [
+              "For each Form 1099-B or substitute statement you recorded a sale from, is box 7 (\"If checked, loss is not allowed based on amount in 1d\") checked for any sale on it?"
+            ]
+          },
+          {
+            "field": "form1040.line-16",
+            "sentences": [
+              "For each Form 1099-B or substitute statement you recorded a sale from, is box 7 (\"If checked, loss is not allowed based on amount in 1d\") checked for any sale on it?"
+            ]
+          },
+          {
+            "field": "form1040.line-19",
+            "sentences": [
+              "For each Form 1099-B or substitute statement you recorded a sale from, is box 7 (\"If checked, loss is not allowed based on amount in 1d\") checked for any sale on it?"
+            ]
+          },
+          {
+            "field": "form1040.line-20",
+            "sentences": [
+              "For each Form 1099-B or substitute statement you recorded a sale from, is box 7 (\"If checked, loss is not allowed based on amount in 1d\") checked for any sale on it?"
+            ]
+          },
+          {
+            "field": "form1040.line-24",
+            "sentences": [
+              "For each Form 1099-B or substitute statement you recorded a sale from, is box 7 (\"If checked, loss is not allowed based on amount in 1d\") checked for any sale on it?"
+            ]
+          },
+          {
+            "field": "form1040.line-25b",
+            "sentences": [
+              "Enter the federal income tax withheld in box 4 of each Form 1099-B or substitute statement you recorded a sale from. If box 4 is blank, enter $0."
+            ]
+          },
+          {
+            "field": "form1040.line-25d",
+            "sentences": [
+              "Enter the federal income tax withheld in box 4 of each Form 1099-B or substitute statement you recorded a sale from. If box 4 is blank, enter $0."
+            ]
+          },
+          {
+            "field": "form1040.line-27a",
+            "sentences": [
+              "For each Form 1099-B or substitute statement you recorded a sale from, is box 7 (\"If checked, loss is not allowed based on amount in 1d\") checked for any sale on it?"
+            ]
+          },
+          {
+            "field": "form1040.line-28",
+            "sentences": [
+              "For each Form 1099-B or substitute statement you recorded a sale from, is box 7 (\"If checked, loss is not allowed based on amount in 1d\") checked for any sale on it?"
+            ]
+          },
+          {
+            "field": "form1040.line-32",
+            "sentences": [
+              "For each Form 1099-B or substitute statement you recorded a sale from, is box 7 (\"If checked, loss is not allowed based on amount in 1d\") checked for any sale on it?"
+            ]
+          },
+          {
+            "field": "form1040.line-33",
+            "sentences": [
+              "Enter the federal income tax withheld in box 4 of each Form 1099-B or substitute statement you recorded a sale from. If box 4 is blank, enter $0.",
+              "For each Form 1099-B or substitute statement you recorded a sale from, is box 7 (\"If checked, loss is not allowed based on amount in 1d\") checked for any sale on it?"
+            ]
+          },
+          {
+            "field": "form1040.line-34",
+            "sentences": [
+              "Enter the federal income tax withheld in box 4 of each Form 1099-B or substitute statement you recorded a sale from. If box 4 is blank, enter $0.",
+              "For each Form 1099-B or substitute statement you recorded a sale from, is box 7 (\"If checked, loss is not allowed based on amount in 1d\") checked for any sale on it?"
+            ]
+          },
+          {
+            "field": "form1040.line-35a",
+            "sentences": [
+              "Enter the federal income tax withheld in box 4 of each Form 1099-B or substitute statement you recorded a sale from. If box 4 is blank, enter $0.",
+              "For each Form 1099-B or substitute statement you recorded a sale from, is box 7 (\"If checked, loss is not allowed based on amount in 1d\") checked for any sale on it?"
+            ]
+          },
+          {
+            "field": "form1040.line-37",
+            "sentences": [
+              "Enter the federal income tax withheld in box 4 of each Form 1099-B or substitute statement you recorded a sale from. If box 4 is blank, enter $0.",
+              "For each Form 1099-B or substitute statement you recorded a sale from, is box 7 (\"If checked, loss is not allowed based on amount in 1d\") checked for any sale on it?"
+            ]
+          },
+          {
+            "field": "form1040.line-6b",
+            "sentences": [
+              "For each Form 1099-B or substitute statement you recorded a sale from, is box 7 (\"If checked, loss is not allowed based on amount in 1d\") checked for any sale on it?"
+            ]
+          },
+          {
+            "field": "form1040.line-7a",
+            "sentences": [
+              "For each Form 1099-B or substitute statement you recorded a sale from, is box 7 (\"If checked, loss is not allowed based on amount in 1d\") checked for any sale on it?"
+            ]
+          },
+          {
+            "field": "form1040.line-9",
+            "sentences": [
+              "For each Form 1099-B or substitute statement you recorded a sale from, is box 7 (\"If checked, loss is not allowed based on amount in 1d\") checked for any sale on it?"
+            ]
+          },
+          {
+            "field": "form1040.tax-after-credits",
+            "sentences": [
+              "For each Form 1099-B or substitute statement you recorded a sale from, is box 7 (\"If checked, loss is not allowed based on amount in 1d\") checked for any sale on it?"
+            ]
+          },
+          {
+            "field": "schedule-d.line-16",
+            "sentences": [
+              "For each Form 1099-B or substitute statement you recorded a sale from, is box 7 (\"If checked, loss is not allowed based on amount in 1d\") checked for any sale on it?"
+            ]
+          },
+          {
+            "field": "schedule-d.line-21",
+            "sentences": [
+              "For each Form 1099-B or substitute statement you recorded a sale from, is box 7 (\"If checked, loss is not allowed based on amount in 1d\") checked for any sale on it?"
+            ]
+          },
+          {
+            "field": "schedule3.line-1",
+            "sentences": [
+              "For each Form 1099-B or substitute statement you recorded a sale from, is box 7 (\"If checked, loss is not allowed based on amount in 1d\") checked for any sale on it?"
+            ]
+          },
+          {
+            "field": "schedule3.line-8",
+            "sentences": [
+              "For each Form 1099-B or substitute statement you recorded a sale from, is box 7 (\"If checked, loss is not allowed based on amount in 1d\") checked for any sale on it?"
+            ]
+          }
+        ],
+        "blocked_rules": [
+          {
+            "artifact": "schedule-d-line21",
+            "code": "DEPENDENCY_ABSENT",
+            "missing": [
+              "schedule-d.line-16"
+            ]
+          },
+          {
+            "artifact": "schedule1a-part-v-line-33",
+            "code": "DEPENDENCY_ABSENT",
+            "missing": [
+              "income.agi"
+            ]
+          },
+          {
+            "artifact": "schedule1a-part-v-line-34",
+            "code": "DEPENDENCY_ABSENT",
+            "missing": [
+              "schedule1a.line33-magi-excess"
+            ]
+          },
+          {
+            "artifact": "schedule1a-part-v-line-35",
+            "code": "DEPENDENCY_ABSENT",
+            "missing": [
+              "schedule1a.line34-reduction"
+            ]
+          },
+          {
+            "artifact": "schedule1a-part-v-line-36a",
+            "code": "DEPENDENCY_ABSENT",
+            "missing": [
+              "schedule1a.line35-per-person-amount"
+            ]
+          },
+          {
+            "artifact": "schedule1a-part-v-line-36b",
+            "code": "DEPENDENCY_ABSENT",
+            "missing": [
+              "schedule1a.line35-per-person-amount"
+            ]
+          },
+          {
+            "artifact": "schedule1a-part-v-line-37",
+            "code": "DEPENDENCY_ABSENT",
+            "missing": [
+              "schedule1a.line36a-taxpayer",
+              "schedule1a.line36b-spouse"
+            ]
+          }
+        ],
+        "title_mentions": [],
+        "wash_sentence_present": false
+      }
+    },
+    {
+      "id": "exc1-zero-both-no",
+      "note": "Same sale with both Exception 1 answers no, to see whether the loss answer moves a number the gain answer does not.",
+      "hand": {},
+      "hand_mismatches": [],
+      "measured": {
+        "stop": "saturated",
+        "lines": {
+          "form1040.line-12e": 15750,
+          "form1040.line-13b": "blocked",
+          "form1040.line-15": "blocked",
+          "form1040.line-16": "blocked",
+          "form1040.line-7a": "blocked",
+          "form1040.line-7b": "guard_inapplicable",
+          "schedule-d.line-15": 0,
+          "schedule-d.line-16": "blocked",
+          "schedule-d.line-1a": 0,
+          "schedule-d.line-1b": 0,
+          "schedule-d.line-7": 0,
+          "schedule-d.line-8a": 0,
+          "schedule-d.line-8b": 0,
+          "schedule1.line-21": 0
+        },
+        "symbols": {
+          "schedule-d-required.conclusion": "yes",
+          "interest.scheduleb-abp-adjustment-subtotal": 0,
+          "sli-worksheet.line1-total-interest-paid-subtotal": 0,
+          "f1099b.noncovered-lt-adjustment-subtotal": 0,
+          "f1099b.noncovered-st-adjustment-subtotal": 0,
+          "f8949.no1099b-st-adjustment-subtotal": 0,
+          "f8949.no1099b-lt-adjustment-subtotal": 0,
+          "f1099b.code-b-st-adjustment-subtotal": 0,
+          "f1099b.code-b-lt-adjustment-subtotal": 0,
+          "f1099b.covered-w-lt-adjustment-subtotal": 0,
+          "f1099b.covered-w-st-adjustment-subtotal": 0,
+          "deductions.line-12e": 15750,
+          "interest.current-year-adjustment-subtotal": 0,
+          "schedule1.line21-sli-deduction": 0
+        },
+        "questions": [
+          "For each Form 1099-B or substitute statement you recorded a sale from, is box 7 (\"If checked, loss is not allowed based on amount in 1d\") checked for any sale on it?"
+        ],
+        "titles": [],
+        "asked_on": [
+          {
+            "field": "form.eic-worksheet-a.line-3",
+            "sentences": [
+              "For each Form 1099-B or substitute statement you recorded a sale from, is box 7 (\"If checked, loss is not allowed based on amount in 1d\") checked for any sale on it?"
+            ]
+          },
+          {
+            "field": "form.eic-worksheet-a.line-5",
+            "sentences": [
+              "For each Form 1099-B or substitute statement you recorded a sale from, is box 7 (\"If checked, loss is not allowed based on amount in 1d\") checked for any sale on it?"
+            ]
+          },
+          {
+            "field": "form.eic-worksheet-a.line-6",
+            "sentences": [
+              "For each Form 1099-B or substitute statement you recorded a sale from, is box 7 (\"If checked, loss is not allowed based on amount in 1d\") checked for any sale on it?"
+            ]
+          },
+          {
+            "field": "form.sch8812.line-14",
+            "sentences": [
+              "For each Form 1099-B or substitute statement you recorded a sale from, is box 7 (\"If checked, loss is not allowed based on amount in 1d\") checked for any sale on it?"
+            ]
+          },
+          {
+            "field": "form.sch8812.line-17",
+            "sentences": [
+              "For each Form 1099-B or substitute statement you recorded a sale from, is box 7 (\"If checked, loss is not allowed based on amount in 1d\") checked for any sale on it?"
+            ]
+          },
+          {
+            "field": "form.sch8812.worksheet-a.line-5",
+            "sentences": [
+              "For each Form 1099-B or substitute statement you recorded a sale from, is box 7 (\"If checked, loss is not allowed based on amount in 1d\") checked for any sale on it?"
+            ]
+          },
+          {
+            "field": "form1040.line-11a",
+            "sentences": [
+              "For each Form 1099-B or substitute statement you recorded a sale from, is box 7 (\"If checked, loss is not allowed based on amount in 1d\") checked for any sale on it?"
+            ]
+          },
+          {
+            "field": "form1040.line-11b",
+            "sentences": [
+              "For each Form 1099-B or substitute statement you recorded a sale from, is box 7 (\"If checked, loss is not allowed based on amount in 1d\") checked for any sale on it?"
+            ]
+          },
+          {
+            "field": "form1040.line-13b",
+            "sentences": [
+              "For each Form 1099-B or substitute statement you recorded a sale from, is box 7 (\"If checked, loss is not allowed based on amount in 1d\") checked for any sale on it?"
+            ]
+          },
+          {
+            "field": "form1040.line-14",
+            "sentences": [
+              "For each Form 1099-B or substitute statement you recorded a sale from, is box 7 (\"If checked, loss is not allowed based on amount in 1d\") checked for any sale on it?"
+            ]
+          },
+          {
+            "field": "form1040.line-15",
+            "sentences": [
+              "For each Form 1099-B or substitute statement you recorded a sale from, is box 7 (\"If checked, loss is not allowed based on amount in 1d\") checked for any sale on it?"
+            ]
+          },
+          {
+            "field": "form1040.line-16",
+            "sentences": [
+              "For each Form 1099-B or substitute statement you recorded a sale from, is box 7 (\"If checked, loss is not allowed based on amount in 1d\") checked for any sale on it?"
+            ]
+          },
+          {
+            "field": "form1040.line-19",
+            "sentences": [
+              "For each Form 1099-B or substitute statement you recorded a sale from, is box 7 (\"If checked, loss is not allowed based on amount in 1d\") checked for any sale on it?"
+            ]
+          },
+          {
+            "field": "form1040.line-20",
+            "sentences": [
+              "For each Form 1099-B or substitute statement you recorded a sale from, is box 7 (\"If checked, loss is not allowed based on amount in 1d\") checked for any sale on it?"
+            ]
+          },
+          {
+            "field": "form1040.line-24",
+            "sentences": [
+              "For each Form 1099-B or substitute statement you recorded a sale from, is box 7 (\"If checked, loss is not allowed based on amount in 1d\") checked for any sale on it?"
+            ]
+          },
+          {
+            "field": "form1040.line-25b",
+            "sentences": [
+              "Enter the federal income tax withheld in box 4 of each Form 1099-B or substitute statement you recorded a sale from. If box 4 is blank, enter $0."
+            ]
+          },
+          {
+            "field": "form1040.line-25d",
+            "sentences": [
+              "Enter the federal income tax withheld in box 4 of each Form 1099-B or substitute statement you recorded a sale from. If box 4 is blank, enter $0."
+            ]
+          },
+          {
+            "field": "form1040.line-27a",
+            "sentences": [
+              "For each Form 1099-B or substitute statement you recorded a sale from, is box 7 (\"If checked, loss is not allowed based on amount in 1d\") checked for any sale on it?"
+            ]
+          },
+          {
+            "field": "form1040.line-28",
+            "sentences": [
+              "For each Form 1099-B or substitute statement you recorded a sale from, is box 7 (\"If checked, loss is not allowed based on amount in 1d\") checked for any sale on it?"
+            ]
+          },
+          {
+            "field": "form1040.line-32",
+            "sentences": [
+              "For each Form 1099-B or substitute statement you recorded a sale from, is box 7 (\"If checked, loss is not allowed based on amount in 1d\") checked for any sale on it?"
+            ]
+          },
+          {
+            "field": "form1040.line-33",
+            "sentences": [
+              "Enter the federal income tax withheld in box 4 of each Form 1099-B or substitute statement you recorded a sale from. If box 4 is blank, enter $0.",
+              "For each Form 1099-B or substitute statement you recorded a sale from, is box 7 (\"If checked, loss is not allowed based on amount in 1d\") checked for any sale on it?"
+            ]
+          },
+          {
+            "field": "form1040.line-34",
+            "sentences": [
+              "Enter the federal income tax withheld in box 4 of each Form 1099-B or substitute statement you recorded a sale from. If box 4 is blank, enter $0.",
+              "For each Form 1099-B or substitute statement you recorded a sale from, is box 7 (\"If checked, loss is not allowed based on amount in 1d\") checked for any sale on it?"
+            ]
+          },
+          {
+            "field": "form1040.line-35a",
+            "sentences": [
+              "Enter the federal income tax withheld in box 4 of each Form 1099-B or substitute statement you recorded a sale from. If box 4 is blank, enter $0.",
+              "For each Form 1099-B or substitute statement you recorded a sale from, is box 7 (\"If checked, loss is not allowed based on amount in 1d\") checked for any sale on it?"
+            ]
+          },
+          {
+            "field": "form1040.line-37",
+            "sentences": [
+              "Enter the federal income tax withheld in box 4 of each Form 1099-B or substitute statement you recorded a sale from. If box 4 is blank, enter $0.",
+              "For each Form 1099-B or substitute statement you recorded a sale from, is box 7 (\"If checked, loss is not allowed based on amount in 1d\") checked for any sale on it?"
+            ]
+          },
+          {
+            "field": "form1040.line-6b",
+            "sentences": [
+              "For each Form 1099-B or substitute statement you recorded a sale from, is box 7 (\"If checked, loss is not allowed based on amount in 1d\") checked for any sale on it?"
+            ]
+          },
+          {
+            "field": "form1040.line-7a",
+            "sentences": [
+              "For each Form 1099-B or substitute statement you recorded a sale from, is box 7 (\"If checked, loss is not allowed based on amount in 1d\") checked for any sale on it?"
+            ]
+          },
+          {
+            "field": "form1040.line-9",
+            "sentences": [
+              "For each Form 1099-B or substitute statement you recorded a sale from, is box 7 (\"If checked, loss is not allowed based on amount in 1d\") checked for any sale on it?"
+            ]
+          },
+          {
+            "field": "form1040.tax-after-credits",
+            "sentences": [
+              "For each Form 1099-B or substitute statement you recorded a sale from, is box 7 (\"If checked, loss is not allowed based on amount in 1d\") checked for any sale on it?"
+            ]
+          },
+          {
+            "field": "schedule-d.line-16",
+            "sentences": [
+              "For each Form 1099-B or substitute statement you recorded a sale from, is box 7 (\"If checked, loss is not allowed based on amount in 1d\") checked for any sale on it?"
+            ]
+          },
+          {
+            "field": "schedule-d.line-21",
+            "sentences": [
+              "For each Form 1099-B or substitute statement you recorded a sale from, is box 7 (\"If checked, loss is not allowed based on amount in 1d\") checked for any sale on it?"
+            ]
+          },
+          {
+            "field": "schedule3.line-1",
+            "sentences": [
+              "For each Form 1099-B or substitute statement you recorded a sale from, is box 7 (\"If checked, loss is not allowed based on amount in 1d\") checked for any sale on it?"
+            ]
+          },
+          {
+            "field": "schedule3.line-8",
+            "sentences": [
+              "For each Form 1099-B or substitute statement you recorded a sale from, is box 7 (\"If checked, loss is not allowed based on amount in 1d\") checked for any sale on it?"
+            ]
+          }
+        ],
+        "blocked_rules": [
+          {
+            "artifact": "schedule-d-line21",
+            "code": "DEPENDENCY_ABSENT",
+            "missing": [
+              "schedule-d.line-16"
+            ]
+          },
+          {
+            "artifact": "schedule1a-part-v-line-33",
+            "code": "DEPENDENCY_ABSENT",
+            "missing": [
+              "income.agi"
+            ]
+          },
+          {
+            "artifact": "schedule1a-part-v-line-34",
+            "code": "DEPENDENCY_ABSENT",
+            "missing": [
+              "schedule1a.line33-magi-excess"
+            ]
+          },
+          {
+            "artifact": "schedule1a-part-v-line-35",
+            "code": "DEPENDENCY_ABSENT",
+            "missing": [
+              "schedule1a.line34-reduction"
+            ]
+          },
+          {
+            "artifact": "schedule1a-part-v-line-36a",
+            "code": "DEPENDENCY_ABSENT",
+            "missing": [
+              "schedule1a.line35-per-person-amount"
+            ]
+          },
+          {
+            "artifact": "schedule1a-part-v-line-36b",
+            "code": "DEPENDENCY_ABSENT",
+            "missing": [
+              "schedule1a.line35-per-person-amount"
+            ]
+          },
+          {
+            "artifact": "schedule1a-part-v-line-37",
+            "code": "DEPENDENCY_ABSENT",
+            "missing": [
+              "schedule1a.line36a-taxpayer",
+              "schedule1a.line36b-spouse"
+            ]
+          }
+        ],
+        "title_mentions": [],
+        "wash_sentence_present": false
+      }
+    },
+    {
+      "id": "age-true",
+      "note": "Boolean true and valid SSN yes. This is the January 1, 1961 filer under the proposed born-before-January-2 words, and the February 13, 2025 death under those words.",
+      "hand": {
+        "form1040.line-12e": 17750,
+        "schedule1a.line36a-taxpayer": 6000
+      },
+      "hand_mismatches": [],
+      "measured": {
+        "stop": "saturated",
+        "lines": {
+          "form1040.line-12e": 17750,
+          "form1040.line-13b": 6000,
+          "form1040.line-15": 26250,
+          "form1040.line-16": 2915,
+          "form1040.line-7a": 0,
+          "form1040.line-7b": "published_categorical",
+          "schedule-d.line-15": 0,
+          "schedule-d.line-16": 0,
+          "schedule-d.line-1a": 0,
+          "schedule-d.line-1b": 0,
+          "schedule-d.line-7": 0,
+          "schedule-d.line-8a": 0,
+          "schedule-d.line-8b": 0,
+          "schedule1.line-21": 0
+        },
+        "symbols": {
+          "schedule-d-required.conclusion": "no",
+          "interest.scheduleb-abp-adjustment-subtotal": 0,
+          "sli-worksheet.line1-total-interest-paid-subtotal": 0,
+          "f1099b.noncovered-lt-adjustment-subtotal": 0,
+          "f1099b.noncovered-st-adjustment-subtotal": 0,
+          "f8949.no1099b-st-adjustment-subtotal": 0,
+          "f8949.no1099b-lt-adjustment-subtotal": 0,
+          "f1099b.code-b-st-adjustment-subtotal": 0,
+          "f1099b.code-b-lt-adjustment-subtotal": 0,
+          "f1099b.covered-w-lt-adjustment-subtotal": 0,
+          "f1099b.covered-w-st-adjustment-subtotal": 0,
+          "deductions.line-12e": 17750,
+          "interest.current-year-adjustment-subtotal": 0,
+          "schedule-d.line-21": 0,
+          "schedule1.line21-sli-deduction": 0,
+          "schedule1a.line36a-taxpayer": 6000,
+          "schedule1a.line36b-spouse": 0,
+          "deductions.schedule-1a": 6000,
+          "qdcg-worksheet.line-21": 0,
+          "ctc.sch8812.line-21": 0
+        },
+        "questions": [],
+        "titles": [],
+        "asked_on": [
+          {
+            "field": "form1040.line-25b",
+            "sentences": [
+              "Did you receive a Form 1099-B or substitute statement that shows federal income tax withheld in box 4 and reports no closed sale (for example, a short sale still open at year end)? Do not count a statement whose box 4 you already entered, with or without a sale."
+            ]
+          },
+          {
+            "field": "form1040.line-25d",
+            "sentences": [
+              "Did you receive a Form 1099-B or substitute statement that shows federal income tax withheld in box 4 and reports no closed sale (for example, a short sale still open at year end)? Do not count a statement whose box 4 you already entered, with or without a sale."
+            ]
+          },
+          {
+            "field": "form1040.line-33",
+            "sentences": [
+              "Did you receive a Form 1099-B or substitute statement that shows federal income tax withheld in box 4 and reports no closed sale (for example, a short sale still open at year end)? Do not count a statement whose box 4 you already entered, with or without a sale."
+            ]
+          },
+          {
+            "field": "form1040.line-34",
+            "sentences": [
+              "Did you receive a Form 1099-B or substitute statement that shows federal income tax withheld in box 4 and reports no closed sale (for example, a short sale still open at year end)? Do not count a statement whose box 4 you already entered, with or without a sale."
+            ]
+          },
+          {
+            "field": "form1040.line-35a",
+            "sentences": [
+              "Did you receive a Form 1099-B or substitute statement that shows federal income tax withheld in box 4 and reports no closed sale (for example, a short sale still open at year end)? Do not count a statement whose box 4 you already entered, with or without a sale."
+            ]
+          },
+          {
+            "field": "form1040.line-37",
+            "sentences": [
+              "Did you receive a Form 1099-B or substitute statement that shows federal income tax withheld in box 4 and reports no closed sale (for example, a short sale still open at year end)? Do not count a statement whose box 4 you already entered, with or without a sale."
+            ]
+          }
+        ],
+        "blocked_rules": [],
+        "title_mentions": [],
+        "wash_sentence_present": false
+      }
+    },
+    {
+      "id": "blind-true",
+      "note": "Blindness boolean true, age left false. Additional standard deduction only.",
+      "hand": {
+        "form1040.line-12e": 17750
+      },
+      "hand_mismatches": [],
+      "measured": {
+        "stop": "saturated",
+        "lines": {
+          "form1040.line-12e": 17750,
+          "form1040.line-13b": 0,
+          "form1040.line-15": 32250,
+          "form1040.line-16": 3635,
+          "form1040.line-7a": 0,
+          "form1040.line-7b": "published_categorical",
+          "schedule-d.line-15": 0,
+          "schedule-d.line-16": 0,
+          "schedule-d.line-1a": 0,
+          "schedule-d.line-1b": 0,
+          "schedule-d.line-7": 0,
+          "schedule-d.line-8a": 0,
+          "schedule-d.line-8b": 0,
+          "schedule1.line-21": 0
+        },
+        "symbols": {
+          "schedule-d-required.conclusion": "no",
+          "interest.scheduleb-abp-adjustment-subtotal": 0,
+          "sli-worksheet.line1-total-interest-paid-subtotal": 0,
+          "f1099b.noncovered-lt-adjustment-subtotal": 0,
+          "f1099b.noncovered-st-adjustment-subtotal": 0,
+          "f8949.no1099b-st-adjustment-subtotal": 0,
+          "f8949.no1099b-lt-adjustment-subtotal": 0,
+          "f1099b.code-b-st-adjustment-subtotal": 0,
+          "f1099b.code-b-lt-adjustment-subtotal": 0,
+          "f1099b.covered-w-lt-adjustment-subtotal": 0,
+          "f1099b.covered-w-st-adjustment-subtotal": 0,
+          "deductions.line-12e": 17750,
+          "interest.current-year-adjustment-subtotal": 0,
+          "schedule-d.line-21": 0,
+          "schedule1.line21-sli-deduction": 0,
+          "schedule1a.line36a-taxpayer": 0,
+          "schedule1a.line36b-spouse": 0,
+          "deductions.schedule-1a": 0,
+          "qdcg-worksheet.line-21": 0,
+          "ctc.sch8812.line-21": 0
+        },
+        "questions": [],
+        "titles": [],
+        "asked_on": [
+          {
+            "field": "form1040.line-25b",
+            "sentences": [
+              "Did you receive a Form 1099-B or substitute statement that shows federal income tax withheld in box 4 and reports no closed sale (for example, a short sale still open at year end)? Do not count a statement whose box 4 you already entered, with or without a sale."
+            ]
+          },
+          {
+            "field": "form1040.line-25d",
+            "sentences": [
+              "Did you receive a Form 1099-B or substitute statement that shows federal income tax withheld in box 4 and reports no closed sale (for example, a short sale still open at year end)? Do not count a statement whose box 4 you already entered, with or without a sale."
+            ]
+          },
+          {
+            "field": "form1040.line-33",
+            "sentences": [
+              "Did you receive a Form 1099-B or substitute statement that shows federal income tax withheld in box 4 and reports no closed sale (for example, a short sale still open at year end)? Do not count a statement whose box 4 you already entered, with or without a sale."
+            ]
+          },
+          {
+            "field": "form1040.line-34",
+            "sentences": [
+              "Did you receive a Form 1099-B or substitute statement that shows federal income tax withheld in box 4 and reports no closed sale (for example, a short sale still open at year end)? Do not count a statement whose box 4 you already entered, with or without a sale."
+            ]
+          },
+          {
+            "field": "form1040.line-35a",
+            "sentences": [
+              "Did you receive a Form 1099-B or substitute statement that shows federal income tax withheld in box 4 and reports no closed sale (for example, a short sale still open at year end)? Do not count a statement whose box 4 you already entered, with or without a sale."
+            ]
+          },
+          {
+            "field": "form1040.line-37",
+            "sentences": [
+              "Did you receive a Form 1099-B or substitute statement that shows federal income tax withheld in box 4 and reports no closed sale (for example, a short sale still open at year end)? Do not count a statement whose box 4 you already entered, with or without a sale."
+            ]
+          }
+        ],
+        "blocked_rules": [],
+        "title_mentions": [],
+        "wash_sentence_present": false
+      }
+    },
+    {
+      "id": "demographic-titles",
+      "note": "All four age and blindness booleans asserted, so each title can appear as factTypeTitle. Not a hand case.",
+      "hand": {},
+      "hand_mismatches": [],
+      "measured": {
+        "stop": "saturated",
+        "lines": {
+          "form1040.line-12e": 19750,
+          "form1040.line-13b": 6000,
+          "form1040.line-15": 24250,
+          "form1040.line-16": 2675,
+          "form1040.line-7a": 0,
+          "form1040.line-7b": "published_categorical",
+          "schedule-d.line-15": 0,
+          "schedule-d.line-16": 0,
+          "schedule-d.line-1a": 0,
+          "schedule-d.line-1b": 0,
+          "schedule-d.line-7": 0,
+          "schedule-d.line-8a": 0,
+          "schedule-d.line-8b": 0,
+          "schedule1.line-21": 0
+        },
+        "symbols": {
+          "schedule-d-required.conclusion": "no",
+          "interest.scheduleb-abp-adjustment-subtotal": 0,
+          "sli-worksheet.line1-total-interest-paid-subtotal": 0,
+          "f1099b.noncovered-lt-adjustment-subtotal": 0,
+          "f1099b.noncovered-st-adjustment-subtotal": 0,
+          "f8949.no1099b-st-adjustment-subtotal": 0,
+          "f8949.no1099b-lt-adjustment-subtotal": 0,
+          "f1099b.code-b-st-adjustment-subtotal": 0,
+          "f1099b.code-b-lt-adjustment-subtotal": 0,
+          "f1099b.covered-w-lt-adjustment-subtotal": 0,
+          "f1099b.covered-w-st-adjustment-subtotal": 0,
+          "deductions.line-12e": 19750,
+          "interest.current-year-adjustment-subtotal": 0,
+          "schedule-d.line-21": 0,
+          "schedule1.line21-sli-deduction": 0,
+          "schedule1a.line36a-taxpayer": 6000,
+          "schedule1a.line36b-spouse": 0,
+          "deductions.schedule-1a": 6000,
+          "qdcg-worksheet.line-21": 0,
+          "ctc.sch8812.line-21": 0
+        },
+        "questions": [],
+        "titles": [],
+        "asked_on": [
+          {
+            "field": "form1040.line-25b",
+            "sentences": [
+              "Did you receive a Form 1099-B or substitute statement that shows federal income tax withheld in box 4 and reports no closed sale (for example, a short sale still open at year end)? Do not count a statement whose box 4 you already entered, with or without a sale."
+            ]
+          },
+          {
+            "field": "form1040.line-25d",
+            "sentences": [
+              "Did you receive a Form 1099-B or substitute statement that shows federal income tax withheld in box 4 and reports no closed sale (for example, a short sale still open at year end)? Do not count a statement whose box 4 you already entered, with or without a sale."
+            ]
+          },
+          {
+            "field": "form1040.line-33",
+            "sentences": [
+              "Did you receive a Form 1099-B or substitute statement that shows federal income tax withheld in box 4 and reports no closed sale (for example, a short sale still open at year end)? Do not count a statement whose box 4 you already entered, with or without a sale."
+            ]
+          },
+          {
+            "field": "form1040.line-34",
+            "sentences": [
+              "Did you receive a Form 1099-B or substitute statement that shows federal income tax withheld in box 4 and reports no closed sale (for example, a short sale still open at year end)? Do not count a statement whose box 4 you already entered, with or without a sale."
+            ]
+          },
+          {
+            "field": "form1040.line-35a",
+            "sentences": [
+              "Did you receive a Form 1099-B or substitute statement that shows federal income tax withheld in box 4 and reports no closed sale (for example, a short sale still open at year end)? Do not count a statement whose box 4 you already entered, with or without a sale."
+            ]
+          },
+          {
+            "field": "form1040.line-37",
+            "sentences": [
+              "Did you receive a Form 1099-B or substitute statement that shows federal income tax withheld in box 4 and reports no closed sale (for example, a short sale still open at year end)? Do not count a statement whose box 4 you already entered, with or without a sale."
+            ]
+          }
+        ],
+        "blocked_rules": [],
+        "title_mentions": [],
+        "wash_sentence_present": false
+      }
+    },
+    {
+      "id": "sli-not-claimed-yes",
+      "note": "Fact yes means not claimed. Current and proposed 'is claiming' words both record this when nobody is claiming the filer. Interest 500.",
+      "hand": {
+        "schedule1.line21-sli-deduction": 500
+      },
+      "hand_mismatches": [],
+      "measured": {
+        "stop": "saturated",
+        "lines": {
+          "form1040.line-12e": 15750,
+          "form1040.line-13b": 0,
+          "form1040.line-15": 33750,
+          "form1040.line-16": 3815,
+          "form1040.line-7a": 0,
+          "form1040.line-7b": "published_categorical",
+          "schedule-d.line-15": 0,
+          "schedule-d.line-16": 0,
+          "schedule-d.line-1a": 0,
+          "schedule-d.line-1b": 0,
+          "schedule-d.line-7": 0,
+          "schedule-d.line-8a": 0,
+          "schedule-d.line-8b": 0,
+          "schedule1.line-21": 500
+        },
+        "symbols": {
+          "schedule-d-required.conclusion": "no",
+          "interest.scheduleb-abp-adjustment-subtotal": 0,
+          "sli-worksheet.line1-total-interest-paid-subtotal": 500,
+          "f1099b.noncovered-lt-adjustment-subtotal": 0,
+          "f1099b.noncovered-st-adjustment-subtotal": 0,
+          "f8949.no1099b-st-adjustment-subtotal": 0,
+          "f8949.no1099b-lt-adjustment-subtotal": 0,
+          "f1099b.code-b-st-adjustment-subtotal": 0,
+          "f1099b.code-b-lt-adjustment-subtotal": 0,
+          "f1099b.covered-w-lt-adjustment-subtotal": 0,
+          "f1099b.covered-w-st-adjustment-subtotal": 0,
+          "deductions.line-12e": 15750,
+          "sli.statement-line21-standing|tax.us.2025.f1098e.box1-student-loan-interest|lender=demo.ccr.sli0.lender,statement=demo.ccr.sli0.statement,tax-year=2025": "no-loan-link",
+          "interest.current-year-adjustment-subtotal": 0,
+          "schedule-d.line-21": 0,
+          "schedule1.line21-sli-deduction": 500,
+          "schedule1a.line36a-taxpayer": 0,
+          "schedule1a.line36b-spouse": 0,
+          "deductions.schedule-1a": 0,
+          "qdcg-worksheet.line-21": 0,
+          "ctc.sch8812.line-21": 0
+        },
+        "questions": [],
+        "titles": [],
+        "asked_on": [
+          {
+            "field": "form1040.line-25b",
+            "sentences": [
+              "Did you receive a Form 1099-B or substitute statement that shows federal income tax withheld in box 4 and reports no closed sale (for example, a short sale still open at year end)? Do not count a statement whose box 4 you already entered, with or without a sale."
+            ]
+          },
+          {
+            "field": "form1040.line-25d",
+            "sentences": [
+              "Did you receive a Form 1099-B or substitute statement that shows federal income tax withheld in box 4 and reports no closed sale (for example, a short sale still open at year end)? Do not count a statement whose box 4 you already entered, with or without a sale."
+            ]
+          },
+          {
+            "field": "form1040.line-33",
+            "sentences": [
+              "Did you receive a Form 1099-B or substitute statement that shows federal income tax withheld in box 4 and reports no closed sale (for example, a short sale still open at year end)? Do not count a statement whose box 4 you already entered, with or without a sale."
+            ]
+          },
+          {
+            "field": "form1040.line-34",
+            "sentences": [
+              "Did you receive a Form 1099-B or substitute statement that shows federal income tax withheld in box 4 and reports no closed sale (for example, a short sale still open at year end)? Do not count a statement whose box 4 you already entered, with or without a sale."
+            ]
+          },
+          {
+            "field": "form1040.line-35a",
+            "sentences": [
+              "Did you receive a Form 1099-B or substitute statement that shows federal income tax withheld in box 4 and reports no closed sale (for example, a short sale still open at year end)? Do not count a statement whose box 4 you already entered, with or without a sale."
+            ]
+          },
+          {
+            "field": "form1040.line-37",
+            "sentences": [
+              "Did you receive a Form 1099-B or substitute statement that shows federal income tax withheld in box 4 and reports no closed sale (for example, a short sale still open at year end)? Do not count a statement whose box 4 you already entered, with or without a sale."
+            ]
+          }
+        ],
+        "blocked_rules": [],
+        "title_mentions": [],
+        "wash_sentence_present": false
+      }
+    },
+    {
+      "id": "sli-claimed-no",
+      "note": "Fact no means claimed. The worksheet publishes 0. Interest 500.",
+      "hand": {
+        "schedule1.line21-sli-deduction": 0
+      },
+      "hand_mismatches": [],
+      "measured": {
+        "stop": "saturated",
+        "lines": {
+          "form1040.line-12e": 15750,
+          "form1040.line-13b": 0,
+          "form1040.line-15": 34250,
+          "form1040.line-16": 3875,
+          "form1040.line-7a": 0,
+          "form1040.line-7b": "published_categorical",
+          "schedule-d.line-15": 0,
+          "schedule-d.line-16": 0,
+          "schedule-d.line-1a": 0,
+          "schedule-d.line-1b": 0,
+          "schedule-d.line-7": 0,
+          "schedule-d.line-8a": 0,
+          "schedule-d.line-8b": 0,
+          "schedule1.line-21": 0
+        },
+        "symbols": {
+          "schedule-d-required.conclusion": "no",
+          "interest.scheduleb-abp-adjustment-subtotal": 0,
+          "sli-worksheet.line1-total-interest-paid-subtotal": 500,
+          "f1099b.noncovered-lt-adjustment-subtotal": 0,
+          "f1099b.noncovered-st-adjustment-subtotal": 0,
+          "f8949.no1099b-st-adjustment-subtotal": 0,
+          "f8949.no1099b-lt-adjustment-subtotal": 0,
+          "f1099b.code-b-st-adjustment-subtotal": 0,
+          "f1099b.code-b-lt-adjustment-subtotal": 0,
+          "f1099b.covered-w-lt-adjustment-subtotal": 0,
+          "f1099b.covered-w-st-adjustment-subtotal": 0,
+          "deductions.line-12e": 15750,
+          "sli.statement-line21-standing|tax.us.2025.f1098e.box1-student-loan-interest|lender=demo.ccr.sli0.lender,statement=demo.ccr.sli0.statement,tax-year=2025": "no-loan-link",
+          "interest.current-year-adjustment-subtotal": 0,
+          "schedule-d.line-21": 0,
+          "schedule1.line21-sli-deduction": 0,
+          "schedule1a.line36a-taxpayer": 0,
+          "schedule1a.line36b-spouse": 0,
+          "deductions.schedule-1a": 0,
+          "qdcg-worksheet.line-21": 0,
+          "ctc.sch8812.line-21": 0
+        },
+        "questions": [],
+        "titles": [],
+        "asked_on": [
+          {
+            "field": "form1040.line-25b",
+            "sentences": [
+              "Did you receive a Form 1099-B or substitute statement that shows federal income tax withheld in box 4 and reports no closed sale (for example, a short sale still open at year end)? Do not count a statement whose box 4 you already entered, with or without a sale."
+            ]
+          },
+          {
+            "field": "form1040.line-25d",
+            "sentences": [
+              "Did you receive a Form 1099-B or substitute statement that shows federal income tax withheld in box 4 and reports no closed sale (for example, a short sale still open at year end)? Do not count a statement whose box 4 you already entered, with or without a sale."
+            ]
+          },
+          {
+            "field": "form1040.line-33",
+            "sentences": [
+              "Did you receive a Form 1099-B or substitute statement that shows federal income tax withheld in box 4 and reports no closed sale (for example, a short sale still open at year end)? Do not count a statement whose box 4 you already entered, with or without a sale."
+            ]
+          },
+          {
+            "field": "form1040.line-34",
+            "sentences": [
+              "Did you receive a Form 1099-B or substitute statement that shows federal income tax withheld in box 4 and reports no closed sale (for example, a short sale still open at year end)? Do not count a statement whose box 4 you already entered, with or without a sale."
+            ]
+          },
+          {
+            "field": "form1040.line-35a",
+            "sentences": [
+              "Did you receive a Form 1099-B or substitute statement that shows federal income tax withheld in box 4 and reports no closed sale (for example, a short sale still open at year end)? Do not count a statement whose box 4 you already entered, with or without a sale."
+            ]
+          },
+          {
+            "field": "form1040.line-37",
+            "sentences": [
+              "Did you receive a Form 1099-B or substitute statement that shows federal income tax withheld in box 4 and reports no closed sale (for example, a short sale still open at year end)? Do not count a statement whose box 4 you already entered, with or without a sale."
+            ]
+          }
+        ],
+        "blocked_rules": [],
+        "title_mentions": [],
+        "wash_sentence_present": false
+      }
+    },
+    {
+      "id": "sli-question-shown",
+      "note": "The not-claimed fact is absent. The other student-loan scope facts are yes.",
+      "hand": {},
+      "hand_mismatches": [],
+      "measured": {
+        "stop": "saturated",
+        "lines": {
+          "form1040.line-12e": 15750,
+          "form1040.line-13b": "blocked",
+          "form1040.line-15": "blocked",
+          "form1040.line-16": "blocked",
+          "form1040.line-7a": 0,
+          "form1040.line-7b": "published_categorical",
+          "schedule-d.line-15": 0,
+          "schedule-d.line-16": 0,
+          "schedule-d.line-1a": 0,
+          "schedule-d.line-1b": 0,
+          "schedule-d.line-7": 0,
+          "schedule-d.line-8a": 0,
+          "schedule-d.line-8b": 0,
+          "schedule1.line-21": "blocked"
+        },
+        "symbols": {
+          "schedule-d-required.conclusion": "no",
+          "interest.scheduleb-abp-adjustment-subtotal": 0,
+          "sli-worksheet.line1-total-interest-paid-subtotal": 500,
+          "f1099b.noncovered-lt-adjustment-subtotal": 0,
+          "f1099b.noncovered-st-adjustment-subtotal": 0,
+          "f8949.no1099b-st-adjustment-subtotal": 0,
+          "f8949.no1099b-lt-adjustment-subtotal": 0,
+          "f1099b.code-b-st-adjustment-subtotal": 0,
+          "f1099b.code-b-lt-adjustment-subtotal": 0,
+          "f1099b.covered-w-lt-adjustment-subtotal": 0,
+          "f1099b.covered-w-st-adjustment-subtotal": 0,
+          "deductions.line-12e": 15750,
+          "sli.statement-line21-standing|tax.us.2025.f1098e.box1-student-loan-interest|lender=demo.ccr.sli0.lender,statement=demo.ccr.sli0.statement,tax-year=2025": "no-loan-link",
+          "interest.current-year-adjustment-subtotal": 0,
+          "schedule-d.line-21": 0
+        },
+        "questions": [
+          "Is someone else claiming you as a dependent on their 2025 return?"
+        ],
+        "titles": [],
+        "asked_on": [
+          {
+            "field": "form.eic-worksheet-a.line-3",
+            "sentences": [
+              "Is someone else claiming you as a dependent on their 2025 return?"
+            ]
+          },
+          {
+            "field": "form.eic-worksheet-a.line-5",
+            "sentences": [
+              "Is someone else claiming you as a dependent on their 2025 return?"
+            ]
+          },
+          {
+            "field": "form.eic-worksheet-a.line-6",
+            "sentences": [
+              "Is someone else claiming you as a dependent on their 2025 return?"
+            ]
+          },
+          {
+            "field": "form.sch8812.line-14",
+            "sentences": [
+              "Is someone else claiming you as a dependent on their 2025 return?"
+            ]
+          },
+          {
+            "field": "form.sch8812.line-17",
+            "sentences": [
+              "Is someone else claiming you as a dependent on their 2025 return?"
+            ]
+          },
+          {
+            "field": "form.sch8812.worksheet-a.line-5",
+            "sentences": [
+              "Is someone else claiming you as a dependent on their 2025 return?"
+            ]
+          },
+          {
+            "field": "form1040.line-10",
+            "sentences": [
+              "Is someone else claiming you as a dependent on their 2025 return?"
+            ]
+          },
+          {
+            "field": "form1040.line-11a",
+            "sentences": [
+              "Is someone else claiming you as a dependent on their 2025 return?"
+            ]
+          },
+          {
+            "field": "form1040.line-11b",
+            "sentences": [
+              "Is someone else claiming you as a dependent on their 2025 return?"
+            ]
+          },
+          {
+            "field": "form1040.line-13b",
+            "sentences": [
+              "Is someone else claiming you as a dependent on their 2025 return?"
+            ]
+          },
+          {
+            "field": "form1040.line-14",
+            "sentences": [
+              "Is someone else claiming you as a dependent on their 2025 return?"
+            ]
+          },
+          {
+            "field": "form1040.line-15",
+            "sentences": [
+              "Is someone else claiming you as a dependent on their 2025 return?"
+            ]
+          },
+          {
+            "field": "form1040.line-16",
+            "sentences": [
+              "Is someone else claiming you as a dependent on their 2025 return?"
+            ]
+          },
+          {
+            "field": "form1040.line-19",
+            "sentences": [
+              "Is someone else claiming you as a dependent on their 2025 return?"
+            ]
+          },
+          {
+            "field": "form1040.line-20",
+            "sentences": [
+              "Is someone else claiming you as a dependent on their 2025 return?"
+            ]
+          },
+          {
+            "field": "form1040.line-24",
+            "sentences": [
+              "Is someone else claiming you as a dependent on their 2025 return?"
+            ]
+          },
+          {
+            "field": "form1040.line-25b",
+            "sentences": [
+              "Did you receive a Form 1099-B or substitute statement that shows federal income tax withheld in box 4 and reports no closed sale (for example, a short sale still open at year end)? Do not count a statement whose box 4 you already entered, with or without a sale."
+            ]
+          },
+          {
+            "field": "form1040.line-25d",
+            "sentences": [
+              "Did you receive a Form 1099-B or substitute statement that shows federal income tax withheld in box 4 and reports no closed sale (for example, a short sale still open at year end)? Do not count a statement whose box 4 you already entered, with or without a sale."
+            ]
+          },
+          {
+            "field": "form1040.line-27a",
+            "sentences": [
+              "Is someone else claiming you as a dependent on their 2025 return?"
+            ]
+          },
+          {
+            "field": "form1040.line-28",
+            "sentences": [
+              "Is someone else claiming you as a dependent on their 2025 return?"
+            ]
+          },
+          {
+            "field": "form1040.line-32",
+            "sentences": [
+              "Is someone else claiming you as a dependent on their 2025 return?"
+            ]
+          },
+          {
+            "field": "form1040.line-33",
+            "sentences": [
+              "Did you receive a Form 1099-B or substitute statement that shows federal income tax withheld in box 4 and reports no closed sale (for example, a short sale still open at year end)? Do not count a statement whose box 4 you already entered, with or without a sale.",
+              "Is someone else claiming you as a dependent on their 2025 return?"
+            ]
+          },
+          {
+            "field": "form1040.line-34",
+            "sentences": [
+              "Did you receive a Form 1099-B or substitute statement that shows federal income tax withheld in box 4 and reports no closed sale (for example, a short sale still open at year end)? Do not count a statement whose box 4 you already entered, with or without a sale.",
+              "Is someone else claiming you as a dependent on their 2025 return?"
+            ]
+          },
+          {
+            "field": "form1040.line-35a",
+            "sentences": [
+              "Did you receive a Form 1099-B or substitute statement that shows federal income tax withheld in box 4 and reports no closed sale (for example, a short sale still open at year end)? Do not count a statement whose box 4 you already entered, with or without a sale.",
+              "Is someone else claiming you as a dependent on their 2025 return?"
+            ]
+          },
+          {
+            "field": "form1040.line-37",
+            "sentences": [
+              "Did you receive a Form 1099-B or substitute statement that shows federal income tax withheld in box 4 and reports no closed sale (for example, a short sale still open at year end)? Do not count a statement whose box 4 you already entered, with or without a sale.",
+              "Is someone else claiming you as a dependent on their 2025 return?"
+            ]
+          },
+          {
+            "field": "form1040.tax-after-credits",
+            "sentences": [
+              "Is someone else claiming you as a dependent on their 2025 return?"
+            ]
+          },
+          {
+            "field": "schedule1.line-21",
+            "sentences": [
+              "Is someone else claiming you as a dependent on their 2025 return?"
+            ]
+          },
+          {
+            "field": "schedule3.line-1",
+            "sentences": [
+              "Is someone else claiming you as a dependent on their 2025 return?"
+            ]
+          },
+          {
+            "field": "schedule3.line-8",
+            "sentences": [
+              "Is someone else claiming you as a dependent on their 2025 return?"
+            ]
+          }
+        ],
+        "blocked_rules": [
+          {
+            "artifact": "schedule1a-part-v-line-33",
+            "code": "DEPENDENCY_ABSENT",
+            "missing": [
+              "income.agi"
+            ]
+          },
+          {
+            "artifact": "schedule1a-part-v-line-34",
+            "code": "DEPENDENCY_ABSENT",
+            "missing": [
+              "schedule1a.line33-magi-excess"
+            ]
+          },
+          {
+            "artifact": "schedule1a-part-v-line-35",
+            "code": "DEPENDENCY_ABSENT",
+            "missing": [
+              "schedule1a.line34-reduction"
+            ]
+          },
+          {
+            "artifact": "schedule1a-part-v-line-36a",
+            "code": "DEPENDENCY_ABSENT",
+            "missing": [
+              "schedule1a.line35-per-person-amount"
+            ]
+          },
+          {
+            "artifact": "schedule1a-part-v-line-36b",
+            "code": "DEPENDENCY_ABSENT",
+            "missing": [
+              "schedule1a.line35-per-person-amount"
+            ]
+          },
+          {
+            "artifact": "schedule1a-part-v-line-37",
+            "code": "DEPENDENCY_ABSENT",
+            "missing": [
+              "schedule1a.line36a-taxpayer",
+              "schedule1a.line36b-spouse"
+            ]
+          },
+          {
+            "artifact": "sli-worksheet",
+            "code": "DEPENDENCY_ABSENT",
+            "missing": [
+              "sli-scope.not-claimed-as-dependent"
+            ]
+          }
+        ],
+        "title_mentions": [],
+        "wash_sentence_present": false
+      }
+    }
+  ],
+  "design_map": [
+    {
+      "id": "wash-mixed-st",
+      "runs": [
+        "wash-st-closed",
+        "wash-st-unclosed"
+      ],
+      "current_truthful": "no, leave the adjustment family open",
+      "proposed_truthful": "yes, close it",
+      "hand": "line 1a 200, line 1b 0, column (g) 200"
+    },
+    {
+      "id": "wash-mixed-lt",
+      "runs": [
+        "wash-lt-closed",
+        "wash-lt-unclosed"
+      ],
+      "current_truthful": "no, leave the adjustment family open",
+      "proposed_truthful": "yes, close it",
+      "hand": "line 8a 200, line 8b 0, column (g) 200"
+    },
+    {
+      "id": "exc1-zero-net",
+      "runs": [
+        "exc1-zero-current-yes",
+        "exc1-zero-proposed-no",
+        "exc1-zero-both-no"
+      ],
+      "current_truthful": "only-box-2a yes, no-capital-losses yes",
+      "proposed_truthful": "only-box-2a no, no-capital-losses yes",
+      "hand": "Schedule D line 1a 0; line 7b not the Exception 1 check; a sale that nets zero is still reported"
+    },
+    {
+      "id": "exc1-no-sale",
+      "runs": [
+        "nosale-base",
+        "exc1-questions-shown"
+      ],
+      "current_truthful": "yes on all four",
+      "proposed_truthful": "yes on all four",
+      "hand": "line 7b checked when Exception 1 applies and no sale is recorded; standard deduction 15750"
+    },
+    {
+      "id": "age-born-1961-01-01",
+      "runs": [
+        "nosale-base",
+        "age-true"
+      ],
+      "current_truthful": "false under 'over 65'",
+      "proposed_truthful": "true under born before January 2, 1961",
+      "hand": "false: line 12e 15750 and senior 0; true: line 12e 17750 and senior 6000"
+    },
+    {
+      "id": "age-born-1961-01-02",
+      "runs": [
+        "nosale-base"
+      ],
+      "current_truthful": "false",
+      "proposed_truthful": "false",
+      "hand": "line 12e 15750 and senior 0"
+    },
+    {
+      "id": "age-died-2025-02-13",
+      "runs": [
+        "age-true"
+      ],
+      "current_truthful": "the title 'over 65' does not say; the instruction checks the box",
+      "proposed_truthful": "true",
+      "hand": "line 12e 17750 and senior 6000. No death-date fact exists; the return computes the boolean the filer asserts."
+    },
+    {
+      "id": "age-died-2025-02-12",
+      "runs": [
+        "nosale-base"
+      ],
+      "current_truthful": "false",
+      "proposed_truthful": "false",
+      "hand": "line 12e 15750 and senior 0"
+    },
+    {
+      "id": "sli-can-be-claimed-but-is-not",
+      "runs": [
+        "sli-not-claimed-yes",
+        "sli-claimed-no",
+        "sli-question-shown"
+      ],
+      "current_truthful": "question no, which records fact yes (not claimed)",
+      "proposed_truthful": "question no, same fact yes; the spouse clause does not change this filer",
+      "hand": "Schedule 1 line 21 is 500. A claimed filer is 0. 'Can be claimed' would record the wrong fact."
+    }
+  ]
+}
