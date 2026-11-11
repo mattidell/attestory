@@ -5,8 +5,9 @@ Charter: docs/reviews/question-wording/charter-p0.md.
 
 Copies published core v86 and replaces only question text: the two wash-sale
 adjustment closure questions, the Exception 1 only-box-2a question, the
-student-loan dependent question, and the four age and blindness titles in the
-vocabulary bundle. No rule, schema, selection, or recording surface changes.
+student-loan dependent question, the titles of their two facts (exception1
+and sli-scope bundle successors), and the four age and blindness titles in the
+vocabulary bundle (Decisions 1-4). No rule, schema, selection, or recording surface changes.
 The scratch tree stays outside the repository.
 
     python3 prototype.py <scratch-directory-outside-the-repo>
@@ -75,6 +76,26 @@ SPOUSE_BLIND = (
     "in the better eye with glasses or contact lenses, or that the field of "
     "vision is 20 degrees or less."
 )
+# Decision 2: the only-box-2a fact's title says what the v3 question asks.
+EXC1_TITLE = (
+    "Exception 1 component C1 (ADR-0050): whether the return's only capital gains are Form "
+    "1099-DIV box-2a capital-gain distributions and the filer sold no stock, funds or other "
+    "property in 2025, including a sale with no gain or loss (Form 1040 instructions, line 7a: "
+    "\"If you sold a capital asset ... you must complete and attach Form 8949 and Schedule D\"). "
+    "Contributed categorical assertion, domain {yes, no}, no default, presence-before-value, free "
+    "supersession. Distinct from the checked schedule-d-required.conclusion."
+)
+# Decision 3: the student-loan dependency fact names the spouse on a joint return.
+SLI_TITLE = (
+    "Student Loan Interest Deduction eligibility component (legal zero, not a block): neither the "
+    "filer nor, on a joint return, the filer's spouse is claimed as a dependent on another "
+    "taxpayer's 2025 return (Form 1040 instructions, Schedule 1 line 21: \"You, or your spouse if "
+    "filing jointly, aren't claimed as a dependent on someone else's ... 2025 tax return\"; Pub. "
+    "970 p.33). An actual claim, not whether someone could claim. Filer-level. Contributed "
+    "categorical assertion, domain {yes, no}, no default. yes asserts neither is claimed and the "
+    "route proceeds; no asserts the filer or, on a joint return, the spouse IS claimed -- the law's "
+    "own definite $0 for this return, not missing information and not a block."
+)
 TITLES = {
     P + "taxpayer-over-65": AGE,
     P + "taxpayer-blind": BLIND,
@@ -129,6 +150,17 @@ def _bundle() -> dict[str, Any]:
     return body
 
 
+def _retitle(name: str, fact_id: str, title: str, version: str) -> dict[str, Any]:
+    """A bundle successor that changes one fact type's title and nothing else."""
+    body = _load(name)
+    hits = [fact for fact in body["fact_types"] if fact["id"] == fact_id]
+    if len(hits) != 1:
+        raise SystemExit(f"{name} does not declare {fact_id} once")
+    hits[0]["title"] = title
+    body["version"] = version
+    return body
+
+
 def artifacts(include_bundle: bool) -> list[tuple[str, dict[str, Any]]]:
     rows = [
         ("closure-mapping.f1099b-covered-w-st-adjustment.v4.json", _wash(
@@ -137,6 +169,10 @@ def artifacts(include_bundle: bool) -> list[tuple[str, dict[str, Any]]]:
             "closure-mapping.f1099b-covered-w-lt-adjustment.v3.json", "long-term")),
         ("input-question.exception1-only-box2a-capital-gains.v3.json", _only_box2a()),
         ("input-question.sli-scope-not-claimed-as-dependent.v2.json", _sli()),
+        ("exception1.bundle.v2.json", _retitle(
+            "exception1.bundle.json", P + "exception1.only-box2a-capital-gains", EXC1_TITLE, "v2")),
+        ("sli-scope.bundle.v2.json", _retitle(
+            "sli-scope.bundle.json", P + "sli-scope.not-claimed-as-dependent", SLI_TITLE, "v2")),
     ]
     if include_bundle:
         rows.append(("core_calculations.bundle.v3.json", _bundle()))
@@ -219,6 +255,10 @@ def build(scratch: Path, include_bundle: bool) -> dict[str, Any]:
         "wash_lt": rows[1][1]["closure_question"],
         "only_box2a": rows[2][1]["question"],
         "sli": rows[3][1]["question"],
+    }
+    words["fact_titles"] = {
+        "exception1.only-box2a-capital-gains": EXC1_TITLE,
+        "sli-scope.not-claimed-as-dependent": SLI_TITLE,
     }
     if include_bundle:
         words["titles"] = {
