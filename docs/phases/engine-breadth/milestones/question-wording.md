@@ -3,7 +3,7 @@
   "version": 1,
   "phase": "Engine Breadth",
   "topic": "question-wording",
-  "status": "Open. P0 measured; Decisions 1-6; Track 0 chartered.",
+  "status": "Open. Track 0 closed; limitations disposed; Track 1 chartered.",
   "scope": [
     "each question in scope says exactly what its consuming rule reads, for the population it is asked of, per the 2025 instructions",
     "the successors are content only: question citizens, bundles, core v87, registry v85, release v85",
@@ -217,3 +217,13 @@ successors (seven members).
   - with a recorded wash sale and only the adjustment family open, the page
     asks nothing
   - age and blindness are never asked
+
+**Disposition.** Foreman, 2026-11-11, under the owner's standing grant to
+apply recommended choices (the owner may reverse it before merge; nothing
+here merges ahead of #270). Both limitations are outside this milestone's
+class: the words cannot fix a question that is never asked. Age and
+blindness being asked is the next milestone
+(`milestone/age-blindness-asked-2025`, stacked on this branch). The page
+asking nothing beside a recorded wash sale stays parked in the roadmap.
+Track 0 is accepted and Track 1 is chartered
+(`docs/reviews/question-wording/charter-track1.md`).
