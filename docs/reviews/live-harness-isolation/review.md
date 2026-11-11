@@ -1,6 +1,6 @@
 # Review: live harness isolation
 
-Reviewed `github/main..541070bc` on `milestone/live-harness-isolation-2025`.
+Reviewed `github/main` to the review charter commit (removed at closeout) on `milestone/live-harness-isolation-2025`.
 Object: the per-owner loader, the twenty moved test modules, the guard, and
 `tests/conftest.py`. One worker (`-o addopts='' -p no:xdist`) for every run
 below. No push, no spawn.
@@ -69,7 +69,7 @@ Fix: on `release`, if the live value is neither the baseline nor this owner's st
 
 ### 1. No weakened case assertion
 
-`git diff github/main..541070bc` for the twenty modules named in `live-harness-isolation-evidence/p0.md`. Each evidence `spec_from_file_location` or bare `import_module` became `evidence_loader.load` of the same path. Representative hunk (`tests/test_all_questions_at_once.py`):
+`git diff` from `github/main` to the review charter commit (removed at closeout), for the twenty modules named in `live-harness-isolation-evidence/p0.md`. Each evidence `spec_from_file_location` or bare `import_module` became `evidence_loader.load` of the same path. Representative hunk (`tests/test_all_questions_at_once.py`):
 
 ```diff
  def _load_probe() -> Any:

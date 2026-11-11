@@ -745,6 +745,17 @@ emit one, so the milestone closed on its investigation; the recording
 change is an open owner-held question. The fast-lane schema-compile fix
 landed with it.
 
+## Bounded return — Live Evidence Harnesses Run in Isolation (tooling)
+
+[Plan](milestones/live-harness-isolation.md); retrospective:
+`docs/milestone-retrospectives/2026-11-11-live-harness-isolation.md`.
+
+Every in-process evidence harness load in `tests/` goes through
+`tests/evidence_loader.py`: private module copies per test module, and
+engine attributes a harness writes restored when that module is parked or
+finished. A guard test fails on any other load of an evidence file, `exec`
+included. No package, schema, content or assertion changed.
+
 ## Parked work and open questions
 
 This is the single list of parked work and open owner-held questions for the
@@ -892,8 +903,6 @@ delivers an item removes it.
 - Kernel reverse presence check: removing a sale checks only one of its
   amount rows (`packages/kernel/findings.py`), so a leftover row is
   refused by the run, not at entry. Nothing publishes.
-- Evidence-backed live modules load several harnesses into one CI process;
-  run them in a subprocess or on private copies.
 
 ## Why line 7a comes before Schedule D
 

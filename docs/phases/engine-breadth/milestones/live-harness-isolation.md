@@ -3,7 +3,8 @@
   "version": 1,
   "phase": "Engine Breadth",
   "topic": "live-harness-isolation",
-  "status": "Open. P0 measured; Decisions 1-5; Track 1 built.",
+  "status": "Closed 2026-11-11. Loader built, reviewed and repaired.",
+  "retrospective": "docs/milestone-retrospectives/2026-11-11-live-harness-isolation.md",
   "scope": [
     "every test that loads a milestone evidence harness gets that harness without sharing mutable module state with another harness in the same CI process",
     "a test's result does not depend on which other test modules ran before it on the same worker",
@@ -150,7 +151,7 @@ Both modules passed with their original counts, 331 and 353.
 
 The full suite was split into four shards with
 `python3 -m tools.ci_gate run-shard` (count 4) and the shard totals were
-summed. Before is the charter commit `f9f67bad`. After is `6428faef`
+summed. Before is the Track 1 charter commit (removed at closeout). After is the final build commit (removed at closeout)
 (loader, moves, guard, and the interpreter-dict mirror), before this
 section. This section does not change tests.
 
@@ -173,7 +174,7 @@ then v80, and the reverse: 3 passed, 98 deselected.
 
 `python3 -m mypy` succeeded (479 source files).
 `python3 tools/envelope_scan.py --range github/main..HEAD` exited 0 on
-`6428faef`.
+that commit (removed at closeout).
 
 Per-module wall, outer seconds, for
 `python3 -m pytest <file> -q --tb=line` with the default addopts. Every
@@ -201,3 +202,19 @@ green run exited 0 and the pass count matched the run before the move.
 | `test_code_b_sales_v81.py` | 218 | 237.56s | 219.93s |
 | `test_no1099b_sales_v80.py` | 130 | 116.87s | 125.97s |
 | `test_noncovered_sales_v79.py` | 42 | 83.82s | 83.30s |
+
+## Review and repair
+
+Fresh-reader review: `docs/reviews/live-harness-isolation/review.md`,
+verdict ready, nothing blocking. Finding 1 (should-fix): the guard missed
+`exec` of an evidence file's text; the inventory now reads `exec` and
+`compile` of a file read as a load by path. Finding 3 (note): reactivating
+a parked owner could discard a value set outside the harness; the loader
+now adopts such a value as the baseline before switching owners. Finding 2
+(note) needs no change: the removed lines checked only that a spec was
+built, and the loader raises `ImportError` instead.
+
+## Closeout
+
+Closed 2026-11-11. Retrospective:
+`docs/milestone-retrospectives/2026-11-11-live-harness-isolation.md`.
