@@ -173,3 +173,47 @@ returns are identical on v86 and scratch v87.
 6. **Parked**, not built: with a recorded wash sale and the adjustment
    family open, the page asks no question; age and blindness are never
    asked and default to false.
+
+## Track 0 adversarial closure
+
+Evidence: `question-wording-evidence/track0-closure.md` and the
+`track0-*.json` files that `track0.py` writes. Every case is a
+`live_coordinate_run` on published v86 and scratch v87. Scratch v87 now
+carries Decisions 1-4, including the exception1 and sli-scope title
+successors (seven members).
+
+- Authority-lifecycle table: PASS. `track0-authority.json` has 16 of 16
+  cases. For each changed question it shows that the question is asked when
+  unanswered, that a no and a yes reach their hand values, and which rule
+  reads the answer. Examples: `alc_wash_st_unanswered`, `alc_wash_st_no`,
+  `alc_exc1_sale_unanswered`, `alc_sli_claimed`, and `alc_title_spouse_age`
+  against `alc_title_spouse_died_before_65`.
+- Empty/nonempty authority matrix: PASS. `track0-matrix.json` has 13 of 13
+  cases on v87. On v86 the words lead a truthful filer to three
+  counterexamples, and the v87 words fix each one: `m_wash_plain`,
+  `m_wash_both` and `m_sli_joint_spouse_claimed`.
+- Late-member lifecycle: PASS. `track0-late.json` has 3 of 3 traces.
+  - `late_wash_member`: a member added after the closure makes the closure
+    non-current, and reclosing computes.
+  - `late_sli_superseded`: each superseding answer replaces the earlier one.
+  - `late_exc1_sale_after_yes`: the stale yes is never read beside a sale,
+    because all three readers of the conclusion, unchanged, take the
+    Schedule D path first. The step reaches its hand values.
+- Neighboring capability dependency diff: PASS. `track0-neighbour.json` has
+  775 distinct recorded lists (v83 298, v81 206, v82 170, v84 58, v85 43).
+  774 are identical. One, `v82/m_empty_exc1_unanswered/honest`, changes only
+  the only-box-2a sentence it asks. 83 lists are refused identically on both
+  cores. No neighbour gains a prerequisite.
+- Reused-claim semantic/lifecycle equivalence: PASS. `track0-reuse.json`
+  shows that only words, titles and versions differ. The 19 readers are
+  byte-identical, and the fact-type identities, question pins and input
+  bindings are unchanged.
+- Integration surface: PASS. `track0-surface.json` has 6 of 6: each changed
+  question is shown verbatim on the same 27-32 fields on both cores. No
+  externally bound symbol gains or loses a producer, and no page shows a
+  retitled fact title.
+- Known limitations affecting correctness: two, parked by Decision 6 and
+  unchanged by the words. Owner disposition is required:
+  - with a recorded wash sale and only the adjustment family open, the page
+    asks nothing
+  - age and blindness are never asked
