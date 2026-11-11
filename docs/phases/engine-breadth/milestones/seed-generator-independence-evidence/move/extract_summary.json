@@ -1,0 +1,56 @@
+{
+  "copied_function_span_lines": 1870,
+  "emitted_module_lines": 2477,
+  "helper_modules": 18,
+  "helper_unique_lines_in_trace": 1870,
+  "importers": {
+    "helper_modules_that_import_each_other": 13,
+    "other_files": 58,
+    "other_non_test_non_tool": [],
+    "other_test_modules": 56,
+    "other_tools": [
+      "tools/generate_capital_gain_distributions_line7a_t3_presentation_goldens.py",
+      "tools/generate_form1099g_box1_schedule1_line7_goldens.py"
+    ]
+  },
+  "replaced_functions": [
+    "_probe",
+    "_sdd"
+  ],
+  "unresolved_names": {
+    "tests/test_child_tax_credit_track1.py": [
+      "_with_taxable_interest",
+      "child_fid"
+    ],
+    "tests/test_form_1099_k_income.py": [
+      "DerivationSchemas",
+      "install_domain_companion_equalities",
+      "install_domain_companion_presence",
+      "install_domain_declaration_signal_contradictions",
+      "ssa_family_version_for_acts",
+      "stage_ssa_family_handover"
+    ],
+    "tests/test_form_1099_withholding.py": [
+      "_introduce",
+      "_transition"
+    ],
+    "tests/test_other_dependents_credit_track1.py": [
+      "_rel_fid",
+      "child_fid"
+    ],
+    "tests/test_refund_or_amount_owed_track1.py": [
+      "_close_w2_box1_and_box2",
+      "module"
+    ],
+    "tests/test_ssa1099_benefits_line6_track2.py": [
+      "ira_mod"
+    ],
+    "tests/test_tax_on_taxable_income_track1.py": [
+      "probe_module"
+    ],
+    "tests/test_w2g_gambling.py": [
+      "_introduce",
+      "_transition"
+    ]
+  }
+}
