@@ -6,7 +6,7 @@
   "status": "Open. P0 measured; Decisions 1-5; Track 1 chartered.",
   "scope": [
     "tools/generate_entry_loop_v70_fixture.py regenerates the committed v70 entry seed without importing any test module",
-    "the committed seed fixture bytes are unchanged, and the byte-regeneration test still fails on helper drift",
+    "the committed seed fixture bytes are unchanged, and the byte-regeneration test fails when the committed source and the committed seed disagree",
     "no test asserts less than before, and no published package, schema or content changes"
   ],
   "non_goals": [

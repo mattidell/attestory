@@ -1,15 +1,35 @@
 """Generate a synthetic v70 W-2 entry seed with only Box 1 left open.
 
-The seed starts from ``complete-core-return.jsonl`` beside the fixture.
-That file was produced once from the current test helpers: a copy of
-``tests.helpers.current_core_returns.base_return``, finished by
-``tests.test_refund_or_amount_owed_track1._finish`` against the v70 core
-package and the v68 worksheet release, resolved to an adopted surface, then
-handed over by ``tests.test_form_1099_k_income._handover``. Those are the
-acts this tool receives before it replaces the W-2 identity, drops Box 1,
-or splices legacy evidence. Refreshing the file is deliberate. The
-production entry runtime reads only the generated JSONL fixture; it never
-imports this tool.
+The seed starts from ``complete-core-return.jsonl`` beside the fixture: the
+acts this tool receives before it replaces the W-2 identity, drops Box 1, or
+splices legacy evidence. Refreshing that file is deliberate. It was produced
+once from the test helpers, and a refresh repeats exactly this call::
+
+    acts = _finish(  # tests.test_refund_or_amount_owed_track1
+        copy.deepcopy(base_return()),  # tests.helpers.current_core_returns
+        package_path=CONTENT / "package.core-calculations.v70.json",
+        package_version="v70",
+        release_path=RELEASE_DIR / "demo.release.sli-worksheet-integration.2025.v68.json",
+        release_version="v68",
+        note="demo.entry-loop.v70-complete-seed",
+    )
+    surface = resolve_adopted_surface(  # packages.derivation.production_resolver
+        acts,
+        run_scope=ENTRY_RUN_SCOPES["v70"],
+        scope_user=SCOPE_USER,
+        workspace_revision=len(acts),
+        release_dir=RELEASE_DIR,
+        member_dir=CONTENT,
+        schemas=DerivationSchemas(),
+    )
+    acts = _handover(acts, surface=surface, reconfirm=True)  # tests.test_form_1099_k_income
+
+``CONTENT`` is ``packages/content/tax/2025`` and ``RELEASE_DIR`` is
+``packages/sample_data/student_loan_worksheet_integration/publication_surface/releases``.
+Write one act per line as
+``json.dumps(act, sort_keys=True, separators=(",", ":"))`` followed by a
+newline. The production entry
+runtime reads only the generated JSONL fixture; it never imports this tool.
 """
 
 from __future__ import annotations

@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import ast
 import copy
 import io
 import json
@@ -333,6 +334,21 @@ class FixtureRegeneration(unittest.TestCase):
         )
         self.assertEqual(adoption["payload"]["scope"], ENTRY_RUN_SCOPES["v70"])
         self.assertEqual(ENTRY_RUN_SCOPES["v6"], {"jurisdiction": "us", "year": "2055"})
+
+    def test_v70_generator_names_no_test_module(self) -> None:
+        tree = ast.parse(
+            (REPO / "tools" / "generate_entry_loop_v70_fixture.py").read_text(encoding="utf-8")
+        )
+        named: list[str] = []
+        for node in ast.walk(tree):
+            if isinstance(node, ast.Import):
+                named.extend(alias.name for alias in node.names)
+            elif isinstance(node, ast.ImportFrom) and node.level == 0 and node.module:
+                named.append(node.module)
+        self.assertEqual(
+            [name for name in named if name == "tests" or name.startswith("tests.")],
+            [],
+        )
 
     def test_v70_generator_imports_no_test_module(self) -> None:
         script = (
