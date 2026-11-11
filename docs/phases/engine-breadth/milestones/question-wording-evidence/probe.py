@@ -473,10 +473,23 @@ def write_scratch(core: Any, cases: list[dict[str, Any]]) -> None:
             for fact, title in words["titles"].items()
         },
     }
+    v86 = {case["id"]: case["measured"] for case in
+           json.loads((HERE / "probe-output.json").read_text(encoding="utf-8"))["cases"]}
+    compared = {}
+    for case in cases:
+        before = v86.get(case["id"]) or {}
+        after = case["measured"]
+        if before.get("lines") != after.get("lines") or before.get("symbols") != after.get("symbols"):
+            compared[case["id"]] = "numbers_changed"
+        elif before.get("questions") != after.get("questions") or before.get("asked_on") != after.get("asked_on"):
+            compared[case["id"]] = "numbers_identical_sentences_changed"
+        else:
+            compared[case["id"]] = "identical"
     payload = {
         "core": {"package": core.version, "registry": core.registry, "release": core.release_version,
                  "built_by": "prototype.py"},
         "words": shown,
+        "compared_with_v86": compared,
         "cases": [
             {"id": case["id"], "hand": case["hand"], "hand_mismatches": case["hand_mismatches"],
              "lines": case["measured"].get("lines"), "questions": case["measured"].get("questions"),

@@ -25,6 +25,33 @@
       "spouse-blind": false
     }
   },
+  "compared_with_v86": {
+    "nosale-base": "identical",
+    "exc1-questions-shown": "numbers_identical_sentences_changed",
+    "wash-st-plain-closed": "identical",
+    "wash-st-plain-unclosed": "numbers_identical_sentences_changed",
+    "wash-st-closed": "identical",
+    "wash-st-unclosed": "identical",
+    "wash-lt-plain-closed": "identical",
+    "wash-lt-plain-unclosed": "numbers_identical_sentences_changed",
+    "wash-lt-closed": "identical",
+    "wash-lt-unclosed": "identical",
+    "exc1-zero-current-yes": "identical",
+    "exc1-zero-proposed-no": "identical",
+    "exc1-zero-both-no": "identical",
+    "exc1-zero-questions-shown": "numbers_identical_sentences_changed",
+    "age-true": "identical",
+    "blind-true": "identical",
+    "mfj-base": "identical",
+    "mfj-spouse-age-true": "identical",
+    "demographic-titles": "identical",
+    "sli-not-claimed-yes": "identical",
+    "sli-claimed-no": "identical",
+    "sli-question-shown": "numbers_identical_sentences_changed",
+    "sli-can-be-claimed-not-claimed": "identical",
+    "sli-mfj-not-claimed-yes": "identical",
+    "sli-mfj-claimed-no": "identical"
+  },
   "cases": [
     {
       "id": "nosale-base",
