@@ -3,7 +3,8 @@
 Evidence for docs/phases/engine-breadth/milestones/question-wording.md.
 Charter: docs/reviews/question-wording/charter-p0.md.
 
-Every case is one live_coordinate_run of synthetic demo.* findings. Hand
+Every case is one live_coordinate_run of synthetic demo.* findings. Sale
+returns answer box 7 and box 4 the way the recorded v83 returns do. Hand
 values are the 2025 instruction amounts in law.json, not a prototype's
 output. This script writes probe-output.json beside itself and does not
 edit packages/, tests/, or a published schema.
@@ -27,6 +28,7 @@ if str(REPO) not in sys.path:
     sys.path.insert(0, str(REPO))
 
 HARNESS = REPO / "docs/phases/engine-breadth/milestones/sale-family-audit-evidence/audit_harness.py"
+V83_TEST = REPO / "tests/test_f1099b_backup_withholding_v83.py"
 CONTENT = REPO / "packages/content/tax/2025"
 P = "tax.us.2025."
 
@@ -212,7 +214,26 @@ def complete(h: Any) -> list[dict[str, Any]]:
     return h.answer(h.opened(), **h.honest(set()))
 
 
+def v83_track0() -> Any:
+    """The recorded v83 module's Track 0 harness: its box 4 and box 7 answers are the ones v86 replays."""
+    name = "qw_p0_v83_test"
+    module = sys.modules.get(name)
+    if module is None:
+        spec = importlib.util.spec_from_file_location(name, V83_TEST)
+        assert spec is not None and spec.loader is not None
+        module = importlib.util.module_from_spec(spec)
+        sys.modules[name] = module
+        spec.loader.exec_module(module)
+    return module
+
+
 def sale_return(h: Any, kind_term: list[tuple[str, str, float, float, float]]) -> list[dict[str, Any]]:
+    """Sales on the opened wage return, answered as the recorded returns are.
+
+    Box 7 is answered no for each statement and each statement's box 4 amount
+    is $0, the way ``return_acts`` and ``with_zero`` in the recorded v83 test
+    answer them, so v86 publishes the whole return.
+    """
     acts = h.opened()
     kinds = set()
     for kind, term, proceeds, basis, wash in kind_term:
@@ -220,7 +241,10 @@ def sale_return(h: Any, kind_term: list[tuple[str, str, float, float, float]]) -
         acts = h.sale(acts, kind, term, proceeds=proceeds, basis=basis, wash=wash, tag=tag)
         kinds.add(kind)
     acts = h.answer(acts, **h.honest(kinds))
-    return acts
+    test = v83_track0()
+    track = test.track0()
+    acts = track.sfa_t0.box_answers(acts, track.V82, set(track.sfa_t0.DESIGNS["final"]), "no", "no")
+    return test.with_zero(track, acts, core_of(h))
 
 
 def set_exc1(h: Any, acts: list[dict[str, Any]], only_2a: str, no_losses: str) -> list[dict[str, Any]]:
@@ -288,32 +312,78 @@ def pinned_rules() -> dict[tuple[str, str], dict[str, Any]]:
 
 
 READS = {
-    P + "rule.f1099b-covered-w-st-adjustment-subtotal": "sums covered-w short-term adjustment members; the closure question's yes is what closes that family",
-    P + "rule.f1099b-covered-w-lt-adjustment-subtotal": "sums covered-w long-term adjustment members; the closure question's yes is what closes that family",
-    P + "rule.schedule-d-required.conclusion": "all four Exception 1 facts eq yes publishes conclusion no; any no publishes yes",
-    P + "rule.form1040-line7b": "conclusion no and no sale activity publishes checked; a recorded sale makes the line guard_inapplicable",
-    P + "rule.form1040-standard-deduction": "each true age or blindness boolean is one box; spouse boxes count only for joint, separate, and qualifying surviving spouse; each box adds $2,000 (single or head of household) or $1,600",
-    P + "rule.schedule1a-part-v-line-36a": "taxpayer-over-65 true, valid SSN yes, and not married filing separately publishes the $6,000 per-person amount; otherwise 0",
-    P + "rule.schedule1a-part-v-line-36b": "spouse-over-65 true, spouse valid SSN yes, and not married filing separately publishes the $6,000 per-person amount; otherwise 0",
-    P + "rule.dependents-worksheet-line-1": "counts the four age and blindness booleans",
-    P + "rule.sli-worksheet": "not-claimed-as-dependent eq no, or legally-obligated eq no, publishes a legal zero; yes on not-claimed-as-dependent means the filer is not claimed and the deduction proceeds",
+    P + "rule.f1099b-covered-w-st-adjustment-subtotal": "when the covered-w short-term adjustment family is closed, sums its members: the column (g) amount of each covered short-term sale with a wash-sale adjustment. A plain covered sale is not in this family",
+    P + "rule.f1099b-covered-w-lt-adjustment-subtotal": "the long-term pair of the short-term subtotal",
+    P + "rule.closure-check.f1099b-covered-w-st-adjustment": "the closure answer: yes closes the family",
+    P + "rule.closure-check.f1099b-covered-w-lt-adjustment": "the closure answer: yes closes the family",
+    P + "rule.schedule-d-line1b": "requires the covered-w short-term families closed, including the adjustment family; line 1b is proceeds less basis plus the adjustment subtotal, plus the code B short-term gain",
+    P + "rule.schedule-d-line8b": "the long-term pair of line 1b",
+    P + "rule.f1099b.covered-w-st-txn.admission-check": "admits a covered short-term wash-sale transaction from its proceeds, basis and adjustment members",
+    P + "rule.f1099b.covered-w-lt-txn.admission-check": "admits a covered long-term wash-sale transaction from its proceeds, basis and adjustment members",
+    P + "rule.schedule-d-required.conclusion": "all four Exception 1 facts present; all yes publishes conclusion no, any no publishes yes; any absent blocks",
+    P + "rule.form1040-line7b": "checked only when the conclusion is no and no sale count or covered proceeds is above 0; any recorded sale makes the line guard_inapplicable",
+    P + "rule.form1040-line16": "requires the conclusion; with any recorded sale the guard is true without reading it; with no sale it reads conclusion no to take the Exception 1 path",
+    P + "rule.selected-preferential-base": "requires the conclusion; with any recorded sale (or carryover, or nonzero line 1b, 2, 3, 8b, 9, 10) it takes Schedule D lines 15 and 16 and does not read the conclusion",
+    P + "rule.form1040-standard-deduction": "can-be-claimed yes takes the dependents worksheet line 4c; otherwise worksheet line 3 plus line 4b",
+    P + "rule.dependents-worksheet-line-1": "counts taxpayer_over_65 and taxpayer_blind, and spouse_over_65 and spouse_blind on a joint, separate or qualifying surviving spouse return",
+    P + "rule.dependents-worksheet-line-4b": "line 1 count times the additional standard deduction ($2,000 single or head of household, $1,600 otherwise)",
+    P + "rule.schedule1a-part-v-line-36a": "taxpayer_over_65 true, not married filing separately, and taxpayer valid SSN yes publishes the line 35 per-person amount; otherwise 0",
+    P + "rule.schedule1a-part-v-line-36b": "spouse_over_65 true, not married filing separately, and spouse valid SSN yes publishes the line 35 per-person amount; otherwise 0",
+    P + "rule.sli-worksheet": "not-claimed-as-dependent no (or legally-obligated no) publishes a legal $0; yes lets the worksheet compute",
+    P + "rule.ctc-filer-gate": "reads can-be-claimed-as-dependent",
+    P + "rule.odc-return-gate": "reads can-be-claimed-as-dependent",
 }
+
+
+def _bindings() -> dict[str, list[str]]:
+    package = json.loads((CONTENT / "package.core-calculations.v86.json").read_text(encoding="utf-8"))
+    found: dict[str, list[str]] = {}
+    for row in package.get("input_bindings") or []:
+        fact = (row.get("fact_type") or {}).get("id")
+        if fact and row.get("symbol") != fact:
+            found.setdefault(str(fact), []).append(str(row["symbol"]))
+    return found
+
+
+def _readers(rules: dict[tuple[str, str], dict[str, Any]], needles: list[str]) -> list[dict[str, Any]]:
+    readers = []
+    for (rule_id, version), rule in sorted(rules.items()):
+        blob = json.dumps(rule)
+        hit = [needle for needle in needles if f'"{needle}"' in blob]
+        if hit:
+            readers.append({
+                "id": rule_id,
+                "version": version,
+                "publishes": rule.get("publishes"),
+                "names": hit,
+                "reads": READS.get(rule_id, "names this input"),
+            })
+    return readers
 
 
 def question_table(runs: dict[str, dict[str, Any]]) -> list[dict[str, Any]]:
     rules = pinned_rules()
+    bindings = _bindings()
     citizens = [
-        ("closure-mapping.f1099b-covered-w-st-adjustment.v3.json", "closure_question", "wash-st-unclosed", WASH_ST),
-        ("closure-mapping.f1099b-covered-w-lt-adjustment.v3.json", "closure_question", "wash-lt-unclosed", WASH_LT),
-        ("input-question.exception1-only-box2a-capital-gains.v2.json", "question", "exc1-questions-shown", ONLY_2A),
-        ("input-question.exception1-no-capital-losses.v2.json", "question", "exc1-questions-shown", NO_LOSSES),
-        ("input-question.exception1-no-qof-deferral.v2.json", "question", "exc1-questions-shown", None),
-        ("input-question.exception1-no-boxes-2b-2c-2d.v2.json", "question", "exc1-questions-shown", None),
-        ("input-question.sli-scope-not-claimed-as-dependent.v1.json", "question", "sli-question-shown", SLI_Q),
-        ("input-question.standard-deduction-can-be-claimed-as-dependent.v1.json", "question", None, None),
+        ("closure-mapping.f1099b-covered-w-st-adjustment.v3.json", "closure_question", "wash-st-plain-unclosed", WASH_ST,
+         "the closure question of the covered-w short-term adjustment family; asked when a line waits only on that closure"),
+        ("closure-mapping.f1099b-covered-w-lt-adjustment.v3.json", "closure_question", "wash-lt-plain-unclosed", WASH_LT,
+         "the long-term pair"),
+        ("input-question.exception1-only-box2a-capital-gains.v2.json", "question", "exc1-questions-shown", ONLY_2A,
+         "every return while the fact is absent"),
+        ("input-question.exception1-no-capital-losses.v2.json", "question", "exc1-questions-shown", NO_LOSSES,
+         "every return while the fact is absent"),
+        ("input-question.exception1-no-qof-deferral.v2.json", "question", "exc1-questions-shown", None,
+         "every return while the fact is absent"),
+        ("input-question.exception1-no-boxes-2b-2c-2d.v2.json", "question", "exc1-questions-shown", None,
+         "every return while the fact is absent"),
+        ("input-question.sli-scope-not-claimed-as-dependent.v1.json", "question", "sli-question-shown", SLI_Q,
+         "a return with a Form 1098-E while the fact is absent"),
+        ("input-question.standard-deduction-can-be-claimed-as-dependent.v1.json", "question", None, None,
+         "context only: the 'can be claimed' answer beside the SLI answer"),
     ]
     rows = []
-    for filename, field, case_id, expect in citizens:
+    for filename, field, case_id, expect, who in citizens:
         body = json.loads((CONTENT / filename).read_text(encoding="utf-8"))
         text = str(body[field])
         shown = None
@@ -326,24 +396,16 @@ def question_table(runs: dict[str, dict[str, Any]]) -> list[dict[str, Any]]:
                 if text in json.dumps(block.get("sentences") or []):
                     asked_on.append(str(block.get("field")))
         fact = body.get("fact_type") or body.get("closure_fact_type") or {}
-        mention = text if field == "question" else str((body.get("admits_symbol") or fact.get("id") or ""))
-        readers = []
-        needles = [str(fact.get("id") or ""), str(body.get("admits_symbol") or "")]
+        needles = [str(fact.get("id") or ""), str(body.get("admits_symbol") or ""),
+                   str((body.get("family") or {}).get("id") or "")]
+        needles += bindings.get(str(fact.get("id") or ""), [])
         needles = [needle for needle in needles if needle]
-        for (rule_id, version), rule in sorted(rules.items()):
-            blob = json.dumps(rule)
-            if any(needle and needle in blob for needle in needles):
-                readers.append({
-                    "id": rule_id,
-                    "version": version,
-                    "publishes": rule.get("publishes"),
-                    "reads": READS.get(rule_id, "mentions this fact or the symbol the closure admits"),
-                })
-        rows.append({
+        row = {
             "id": body["id"],
             "version": body["version"],
             "schema": body["schema"],
             "text": text,
+            "who_is_asked": who,
             "presentation_case": case_id,
             "presentation_text": shown,
             "presentation_matches_citizen": shown == text if case_id else None,
@@ -353,44 +415,45 @@ def question_table(runs: dict[str, dict[str, Any]]) -> list[dict[str, Any]]:
             "fact": fact,
             "admits_symbol": body.get("admits_symbol"),
             "family": body.get("family"),
-            "rules": readers,
+            "rules": _readers(rules, needles),
             "history": history(f"packages/content/tax/2025/{filename}"),
-            "mention": mention,
-        })
+        }
+        if "exception1" in filename:
+            row["conclusion_readers"] = _readers(rules, [P + "schedule-d-required.conclusion"])
+        rows.append(row)
     bundle = json.loads((CONTENT / "core_calculations.bundle.v2.json").read_text(encoding="utf-8"))
     title_run = runs.get("demographic-titles") or {}
-    mentions = set(title_run.get("title_mentions") or [])
     for fact in bundle["fact_types"]:
         if fact["id"] not in DEMOGRAPHIC:
             continue
         title = str(fact["title"])
         titles = title_run.get("titles") or []
         shown = next((row["factTypeTitle"] for row in titles if row["factTypeId"] == fact["id"]), None)
-        if shown is None and title in mentions:
+        if shown is None and title in (title_run.get("title_mentions") or []):
             shown = title
-        readers = []
-        for (rule_id, version), rule in sorted(rules.items()):
-            if fact["id"] in json.dumps(rule):
-                readers.append({
-                    "id": rule_id,
-                    "version": version,
-                    "publishes": rule.get("publishes"),
-                    "reads": READS.get(rule_id, "mentions this boolean"),
-                })
+        needles = [fact["id"], *bindings.get(fact["id"], [])]
         rows.append({
             "id": fact["id"],
             "version": fact["version"],
             "schema": fact["schema"],
             "text": title,
-            "surface": "fact title, copied onto a source finding as factTypeTitle; optional_default false, so an unanswered fact does not block",
+            "who_is_asked": "nobody: optional_default false, so an absent fact never blocks and no input-question names it",
+            "surface": "fact title in the vocabulary bundle; no presentation text measured",
             "presentation_case": "demographic-titles",
             "presentation_text": shown,
             "presentation_matches_citizen": shown == title if shown else False,
             "asked_on": [],
-            "rules": readers,
+            "rules": _readers(rules, needles),
             "history": history("packages/content/tax/2025/core_calculations.bundle.v2.json"),
         })
     return rows
+
+
+MFJ = "married_filing_jointly"
+
+
+def mfj(h: Any, acts: list[dict[str, Any]]) -> list[dict[str, Any]]:
+    return h.say(acts, P + "filing-status", MFJ, "fs")
 
 
 def main() -> None:
@@ -401,20 +464,28 @@ def main() -> None:
     built["nosale-base"] = complete(h)
     built["exc1-questions-shown"] = h.strip(h.strip(h.strip(h.strip(
         complete(h), EXC1[0]), EXC1[1]), EXC1[2]), EXC1[3])
-    st = [("covered", "st", 1000.0, 800.0, 0.0), ("w", "st", 500.0, 700.0, 200.0)]
-    lt = [("covered", "lt", 1000.0, 800.0, 0.0), ("w", "lt", 500.0, 700.0, 200.0)]
-    built["wash-st-closed"] = set_exc1(h, sale_return(h, st), "no", "yes")
-    built["wash-st-unclosed"] = h.strip(built["wash-st-closed"], P + "f1099b.covered-w-st-adjustment.source-closure")
-    built["wash-lt-closed"] = set_exc1(h, sale_return(h, lt), "no", "yes")
-    built["wash-lt-unclosed"] = h.strip(built["wash-lt-closed"], P + "f1099b.covered-w-lt-adjustment.source-closure")
+    for term, line in (("st", "1"), ("lt", "8")):
+        plain = [("covered", term, 1000.0, 800.0, 0.0)]
+        mixed = plain + [("w", term, 500.0, 700.0, 200.0)]
+        closure = P + f"f1099b.covered-w-{term}-adjustment.source-closure"
+        built[f"wash-{term}-plain-closed"] = set_exc1(h, sale_return(h, plain), "no", "yes")
+        built[f"wash-{term}-plain-unclosed"] = h.strip(built[f"wash-{term}-plain-closed"], closure)
+        built[f"wash-{term}-closed"] = set_exc1(h, sale_return(h, mixed), "no", "yes")
+        built[f"wash-{term}-unclosed"] = h.strip(built[f"wash-{term}-closed"], closure)
     zero = [("covered", "st", 1000.0, 1000.0, 0.0)]
     built["exc1-zero-current-yes"] = set_exc1(h, sale_return(h, zero), "yes", "yes")
     built["exc1-zero-proposed-no"] = set_exc1(h, sale_return(h, zero), "no", "yes")
     built["exc1-zero-both-no"] = set_exc1(h, sale_return(h, zero), "no", "no")
+    built["exc1-zero-questions-shown"] = h.strip(h.strip(h.strip(h.strip(
+        sale_return(h, zero), EXC1[0]), EXC1[1]), EXC1[2]), EXC1[3])
     built["age-true"] = h.say(
         h.say(complete(h), P + "taxpayer-over-65", True, "age"),
         P + "senior-deduction.taxpayer-valid-ssn", "yes", "ssn")
     built["blind-true"] = h.say(complete(h), P + "taxpayer-blind", True, "blind")
+    built["mfj-base"] = mfj(h, complete(h))
+    built["mfj-spouse-age-true"] = h.say(
+        h.say(mfj(h, complete(h)), P + "spouse-over-65", True, "spouse-age"),
+        P + "senior-deduction.spouse-valid-ssn", "yes", "spouse-ssn")
     titled = complete(h)
     for fact_id, value, tag in (
         (P + "taxpayer-over-65", True, "age"),
@@ -428,42 +499,76 @@ def main() -> None:
     built["sli-not-claimed-yes"] = sli_return(h, "yes")
     built["sli-claimed-no"] = sli_return(h, "no")
     built["sli-question-shown"] = sli_return(h, None)
+    built["sli-can-be-claimed-not-claimed"] = h.say(
+        sli_return(h, "yes"), P + "standard-deduction.can-be-claimed-as-dependent", "yes", "can-claim")
+    built["sli-mfj-not-claimed-yes"] = mfj(h, sli_return(h, "yes"))
+    built["sli-mfj-claimed-no"] = mfj(h, sli_return(h, "no"))
 
+    single_sale = {"form1040.line-7a": 200, "form1040.line-15": 34450, "form1040.line-16": 3899}
     hands: dict[str, dict[str, Any]] = {
-        "nosale-base": {"form1040.line-12e": 15750, "schedule1a.line36a-taxpayer": 0},
-        "wash-st-closed": {
-            "schedule-d.line-1a": 200, "schedule-d.line-1b": 0,
-            "f1099b.covered-w-st-adjustment-subtotal": 200,
-        },
-        "wash-lt-closed": {
-            "schedule-d.line-8a": 200, "schedule-d.line-8b": 0,
-            "f1099b.covered-w-lt-adjustment-subtotal": 200,
-        },
+        "nosale-base": {"form1040.line-12e": 15750, "form1040.line-15": 34250, "form1040.line-16": 3875,
+                        "form1040.line-7a": 0, "schedule1a.line36a-taxpayer": 0},
+        "wash-st-plain-closed": {"schedule-d.line-1a": 200, "schedule-d.line-1b": 0, **single_sale},
+        "wash-st-plain-unclosed": {"schedule-d.line-1b": "blocked"},
+        "wash-st-closed": {"schedule-d.line-1a": 200, "schedule-d.line-1b": 0, "schedule-d.line-7": 200,
+                           "f1099b.covered-w-st-adjustment-subtotal": 200, **single_sale},
         "wash-st-unclosed": {"schedule-d.line-1b": "blocked"},
+        "wash-lt-plain-closed": {"schedule-d.line-8a": 200, "schedule-d.line-8b": 0, "form1040.line-7a": 200,
+                                 "form1040.line-15": 34450, "form1040.line-16": 3875},
+        "wash-lt-plain-unclosed": {"schedule-d.line-8b": "blocked"},
+        "wash-lt-closed": {"schedule-d.line-8a": 200, "schedule-d.line-8b": 0, "schedule-d.line-15": 200,
+                           "f1099b.covered-w-lt-adjustment-subtotal": 200, "form1040.line-7a": 200,
+                           "form1040.line-15": 34450, "form1040.line-16": 3875},
         "wash-lt-unclosed": {"schedule-d.line-8b": "blocked"},
-        "exc1-zero-current-yes": {"schedule-d.line-1a": 0},
-        "exc1-zero-proposed-no": {"schedule-d.line-1a": 0},
-        "age-true": {"form1040.line-12e": 17750, "schedule1a.line36a-taxpayer": 6000},
-        "blind-true": {"form1040.line-12e": 17750},
-        "sli-not-claimed-yes": {"schedule1.line21-sli-deduction": 500},
-        "sli-claimed-no": {"schedule1.line21-sli-deduction": 0},
+        "exc1-zero-current-yes": {"schedule-d.line-1a": 0, "form1040.line-7a": 0, "form1040.line-15": 34250,
+                                  "form1040.line-16": 3875},
+        "exc1-zero-proposed-no": {"schedule-d.line-1a": 0, "form1040.line-7a": 0, "form1040.line-15": 34250,
+                                  "form1040.line-16": 3875},
+        "exc1-zero-both-no": {"schedule-d.line-1a": 0, "form1040.line-7a": 0, "form1040.line-15": 34250,
+                              "form1040.line-16": 3875},
+        "age-true": {"form1040.line-12e": 17750, "schedule1a.line36a-taxpayer": 6000, "form1040.line-15": 26250,
+                     "form1040.line-16": 2915},
+        "blind-true": {"form1040.line-12e": 17750, "form1040.line-15": 32250, "form1040.line-16": 3635},
+        "mfj-base": {"form1040.line-12e": 31500, "schedule1a.line36b-spouse": 0, "form1040.line-15": 18500,
+                     "form1040.line-16": 1853},
+        "mfj-spouse-age-true": {"form1040.line-12e": 33100, "schedule1a.line36b-spouse": 6000,
+                                "form1040.line-15": 10900, "form1040.line-16": 1093},
+        "sli-not-claimed-yes": {"schedule1.line21-sli-deduction": 500, "form1040.line-15": 33750,
+                                "form1040.line-16": 3815},
+        "sli-claimed-no": {"schedule1.line21-sli-deduction": 0, "form1040.line-15": 34250},
+        "sli-can-be-claimed-not-claimed": {"schedule1.line21-sli-deduction": 500, "form1040.line-12e": 15750,
+                                           "form1040.line-15": 33750, "form1040.line-16": 3815},
+        "sli-mfj-not-claimed-yes": {"schedule1.line21-sli-deduction": 500, "form1040.line-15": 18000,
+                                    "form1040.line-16": 1803},
+        "sli-mfj-claimed-no": {"schedule1.line21-sli-deduction": 0, "form1040.line-15": 18500,
+                               "form1040.line-16": 1853},
     }
     notes = {
-        "nosale-base": "No sale. Current and proposed Exception 1 answers are yes. Age and blindness stay at the default false.",
-        "exc1-questions-shown": "The four Exception 1 facts are absent, so the blocked line shows the sentences.",
-        "wash-st-closed": "Filer closed the wash-sale adjustment family. Column (h) is 200 on the plain sale and 0 on the wash sale. Column (g) subtotal is the disallowed 200.",
-        "wash-st-unclosed": "Current words: a careful filer does not close, because the plain covered sale has no wash-sale adjustment. The family stays open.",
-        "wash-lt-closed": "Long-term pair of the closed short-term case.",
-        "wash-lt-unclosed": "Long-term pair of the unclosed short-term case.",
-        "exc1-zero-current-yes": "Zero-net covered sale, proceeds 1000 basis 1000. Current words: both Exception 1 answers yes.",
-        "exc1-zero-proposed-no": "Same sale. Proposed words: only-box-2a no, because a sale that comes out even is still a sale; no-capital-losses stays yes.",
-        "exc1-zero-both-no": "Same sale with both Exception 1 answers no, to see whether the loss answer moves a number the gain answer does not.",
-        "age-true": "Boolean true and valid SSN yes. This is the January 1, 1961 filer under the proposed born-before-January-2 words, and the February 13, 2025 death under those words.",
-        "blind-true": "Blindness boolean true, age left false. Additional standard deduction only.",
-        "demographic-titles": "All four age and blindness booleans asserted, so each title can appear as factTypeTitle. Not a hand case.",
-        "sli-not-claimed-yes": "Fact yes means not claimed. Current and proposed 'is claiming' words both record this when nobody is claiming the filer. Interest 500.",
-        "sli-claimed-no": "Fact no means claimed. The worksheet publishes 0. Interest 500.",
-        "sli-question-shown": "The not-claimed fact is absent. The other student-loan scope facts are yes.",
+        "nosale-base": "Single, wages 50,000, no sale. Exception 1 answered yes four times. Age and blindness at the default false.",
+        "exc1-questions-shown": "No sale, the four Exception 1 facts absent: the page shows their questions.",
+        "wash-st-plain-closed": "One covered short-term sale, proceeds 1,000 basis 800, no wash sale. Adjustment family closed (the proposed truthful yes).",
+        "wash-st-plain-unclosed": "Same sale, adjustment closure absent: the page shows the current question. Read literally, the filer has recorded no wash-sale adjustment for this sale, so a careful no leaves the family open.",
+        "wash-st-closed": "The plain sale plus a covered wash sale (proceeds 500, basis 700, box 1g 200). Family closed.",
+        "wash-st-unclosed": "Same two sales, adjustment closure absent. The wash transaction's admission check also blocks (DEPENDENCY_INVALID), which has no question, so line 1b shows no question at all.",
+        "wash-lt-plain-closed": "Long-term pair of wash-st-plain-closed.",
+        "wash-lt-plain-unclosed": "Long-term pair of wash-st-plain-unclosed.",
+        "wash-lt-closed": "Long-term pair of wash-st-closed.",
+        "wash-lt-unclosed": "Long-term pair of wash-st-unclosed.",
+        "exc1-zero-current-yes": "Covered short-term sale, proceeds 1,000 basis 1,000. Current words read literally: no gain other than box 2a (yes), no loss (yes).",
+        "exc1-zero-proposed-no": "Same sale. Proposed words: only-box-2a no, because the filer sold property; no-capital-losses yes.",
+        "exc1-zero-both-no": "Same sale with both answers no, to show neither answer moves a number once a sale is recorded.",
+        "exc1-zero-questions-shown": "Same sale, the four Exception 1 facts absent: they are still asked beside a sale.",
+        "age-true": "Taxpayer boolean true, valid SSN yes. The truthful value for a filer born January 1, 1961 under the instruction.",
+        "blind-true": "Taxpayer blindness true, age false.",
+        "mfj-base": "Married filing jointly, same wages. Spouse age false: the instruction's value for a spouse born February 14, 1960 who died February 12, 2025, and for a spouse born January 2, 1961.",
+        "mfj-spouse-age-true": "Joint, spouse age true, spouse valid SSN yes: the instruction's value for a spouse born February 14, 1960 who died February 13, 2025, and for a spouse born January 1, 1961.",
+        "demographic-titles": "All four booleans true, to look for the titles on the page. Not a hand case.",
+        "sli-not-claimed-yes": "Single, Form 1098-E interest 500; fact yes (nobody claims the filer).",
+        "sli-claimed-no": "Same; fact no (the filer is claimed).",
+        "sli-question-shown": "Same; fact absent: the page shows the question.",
+        "sli-can-be-claimed-not-claimed": "The filer can be claimed (standard-deduction fact yes) but nobody claims them (SLI fact yes).",
+        "sli-mfj-not-claimed-yes": "Joint, interest 500, SLI fact yes. This is what the current words record for a joint filer whose spouse, not the filer, is claimed.",
+        "sli-mfj-claimed-no": "Joint, interest 500, SLI fact no. What the proposed words record when the spouse is claimed.",
     }
     cases = []
     measured_by_id = {}
@@ -486,71 +591,84 @@ def main() -> None:
     payload = {
         "core": {"package": "v86", "registry": "v84", "release": "v84"},
         "law": "law.json",
+        "hand_basis": (
+            "2025 Form 1040 instructions: standard deduction 15,750 single and 31,500 joint; additional 2,000 single "
+            "and 1,600 joint per box; senior deduction 6,000 per qualifying person below the MAGI threshold; tax from "
+            "the 2025 Tax Table (midpoint of the 50-dollar row) and the Qualified Dividends and Capital Gain Tax "
+            "Worksheet for a long-term gain; Form 8949 column (h) = proceeds - basis + column (g)."
+        ),
         "questions": question_table(measured_by_id),
         "cases": cases,
         "design_map": [
             {
-                "id": "wash-mixed-st",
-                "runs": ["wash-st-closed", "wash-st-unclosed"],
-                "current_truthful": "no, leave the adjustment family open",
-                "proposed_truthful": "yes, close it",
-                "hand": "line 1a 200, line 1b 0, column (g) 200",
+                "id": "wash-plain-sale",
+                "runs": ["wash-st-plain-unclosed", "wash-st-plain-closed", "wash-lt-plain-unclosed", "wash-lt-plain-closed"],
+                "current_truthful": "no: no wash-sale adjustment was recorded for this sale, so the line stays blocked on the question",
+                "proposed_truthful": "yes: every covered sale with a wash-sale adjustment (there is none) has its amount recorded",
+                "hand": "short-term: line 1a 200, line 1b 0, Form 1040 line 7a 200, line 16 3,899; long-term: line 8a 200, line 8b 0, line 16 3,875",
             },
             {
-                "id": "wash-mixed-lt",
-                "runs": ["wash-lt-closed", "wash-lt-unclosed"],
-                "current_truthful": "no, leave the adjustment family open",
-                "proposed_truthful": "yes, close it",
-                "hand": "line 8a 200, line 8b 0, column (g) 200",
+                "id": "wash-mixed",
+                "runs": ["wash-st-unclosed", "wash-st-closed", "wash-lt-unclosed", "wash-lt-closed"],
+                "current_truthful": "no for the same reason (the plain sale has no adjustment); the page shows no question here",
+                "proposed_truthful": "yes once the 200 is recorded",
+                "hand": "line 1a 200, line 1b 0 (500 - 700 + 200), column (g) 200, Form 1040 line 7a 200",
             },
             {
                 "id": "exc1-zero-net",
-                "runs": ["exc1-zero-current-yes", "exc1-zero-proposed-no", "exc1-zero-both-no"],
-                "current_truthful": "only-box-2a yes, no-capital-losses yes",
-                "proposed_truthful": "only-box-2a no, no-capital-losses yes",
-                "hand": "Schedule D line 1a 0; line 7b not the Exception 1 check; a sale that nets zero is still reported",
+                "runs": ["exc1-zero-questions-shown", "exc1-zero-current-yes", "exc1-zero-proposed-no", "exc1-zero-both-no"],
+                "current_truthful": "only-box-2a yes, no-capital-losses yes (no gain, no loss)",
+                "proposed_truthful": "only-box-2a no (the filer sold property), no-capital-losses yes",
+                "hand": "Schedule D line 1a 0, Form 1040 line 7a 0, line 15 34,250, line 16 3,875 whatever the answers; Exception 1 does not apply because a sale is reported on Form 8949 and Schedule D",
             },
             {
                 "id": "exc1-no-sale",
-                "runs": ["nosale-base", "exc1-questions-shown"],
+                "runs": ["exc1-questions-shown", "nosale-base"],
                 "current_truthful": "yes on all four",
                 "proposed_truthful": "yes on all four",
-                "hand": "line 7b checked when Exception 1 applies and no sale is recorded; standard deduction 15750",
+                "hand": "line 7b checked; standard deduction 15,750; line 16 3,875",
             },
             {
                 "id": "age-born-1961-01-01",
                 "runs": ["nosale-base", "age-true"],
-                "current_truthful": "false under 'over 65'",
-                "proposed_truthful": "true under born before January 2, 1961",
-                "hand": "false: line 12e 15750 and senior 0; true: line 12e 17750 and senior 6000",
+                "current_truthful": "false under 'over 65 years of age for 2025' (the filer is 64 on December 31, 2025)",
+                "proposed_truthful": "true (born before January 2, 1961)",
+                "hand": "true: line 12e 17,750, senior 6,000, line 16 2,915",
             },
             {
                 "id": "age-born-1961-01-02",
                 "runs": ["nosale-base"],
                 "current_truthful": "false",
                 "proposed_truthful": "false",
-                "hand": "line 12e 15750 and senior 0",
+                "hand": "line 12e 15,750, senior 0",
             },
             {
-                "id": "age-died-2025-02-13",
-                "runs": ["age-true"],
-                "current_truthful": "the title 'over 65' does not say; the instruction checks the box",
-                "proposed_truthful": "true",
-                "hand": "line 12e 17750 and senior 6000. No death-date fact exists; the return computes the boolean the filer asserts.",
+                "id": "age-spouse-died-2025-02-13",
+                "runs": ["mfj-base", "mfj-spouse-age-true"],
+                "current_truthful": "unclear: the title does not say how a death in 2025 counts",
+                "proposed_truthful": "true (age 65 the day before the 65th birthday)",
+                "hand": "line 12e 33,100, senior 6,000, line 16 1,093",
             },
             {
-                "id": "age-died-2025-02-12",
-                "runs": ["nosale-base"],
-                "current_truthful": "false",
+                "id": "age-spouse-died-2025-02-12",
+                "runs": ["mfj-base", "mfj-spouse-age-true"],
+                "current_truthful": "unclear; a filer reading 'over 65 for 2025' of a spouse born in 1960 may answer true",
                 "proposed_truthful": "false",
-                "hand": "line 12e 15750 and senior 0",
+                "hand": "line 12e 31,500, senior 0, line 16 1,853; true would give 33,100, 6,000 and 1,093",
             },
             {
                 "id": "sli-can-be-claimed-but-is-not",
-                "runs": ["sli-not-claimed-yes", "sli-claimed-no", "sli-question-shown"],
+                "runs": ["sli-can-be-claimed-not-claimed", "sli-not-claimed-yes", "sli-claimed-no", "sli-question-shown"],
                 "current_truthful": "question no, which records fact yes (not claimed)",
-                "proposed_truthful": "question no, same fact yes; the spouse clause does not change this filer",
-                "hand": "Schedule 1 line 21 is 500. A claimed filer is 0. 'Can be claimed' would record the wrong fact.",
+                "proposed_truthful": "question no, the same fact yes",
+                "hand": "Schedule 1 line 21 500, line 12e 15,750. A filer who is claimed: 0.",
+            },
+            {
+                "id": "sli-joint-spouse-claimed",
+                "runs": ["sli-mfj-not-claimed-yes", "sli-mfj-claimed-no"],
+                "current_truthful": "question no (asks about 'you' only), which records fact yes and deducts 500",
+                "proposed_truthful": "question yes, which records fact no and deducts 0",
+                "hand": "0: Form 1040 line 21 requires that you, or your spouse if filing jointly, aren't claimed. The case is narrow: a joint filer is generally a dependent only when the joint return is filed only to claim a refund.",
             },
         ],
     }
