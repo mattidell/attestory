@@ -1,0 +1,121 @@
+{
+  "tax_year": 2025,
+  "fetched_from": "irs.gov pub/irs-prior",
+  "extract": "pdftotext -layout. Line numbers below are lines of that extract, not printed page numbers. The heading is the instruction location.",
+  "sources": [
+    {
+      "document": "2025 Instructions for Form 1040",
+      "filename": "i1040gi--2025.pdf",
+      "sha256": "482e9c487c608f1bbeaceef35bc3c0933e8b35443cfff447e4279d590468364a"
+    },
+    {
+      "document": "2025 Instructions for Schedule D",
+      "filename": "i1040sd--2025.pdf",
+      "sha256": "650643a686378b7573e4f4476ee4e7c9f9bab1384314dca32dc336f7b2276002"
+    },
+    {
+      "document": "2025 Instructions for Form 8949",
+      "filename": "i8949--2025.pdf",
+      "sha256": "f077991c83b086810c46cbad3755e0f126cb8dfd88cf8bf8ab2d5605d6e7ab45"
+    },
+    {
+      "document": "2025 Publication 970",
+      "filename": "p970--2025.pdf",
+      "sha256": "167f3d6df0d9370a3980b25b7a2e7b479ab7f336cce763d1f0c1c4962b18285e"
+    },
+    {
+      "document": "2025 Form 1040",
+      "filename": "f1040--2025.pdf",
+      "sha256": "3d31c226df0d189ced80e039d01cf0f8820c1019681a0f0ca6264de277b7e982"
+    }
+  ],
+  "quotes": [
+    {
+      "id": "code-w",
+      "source": "2025 Instructions for Form 8949, How To Complete Form 8949, Columns (f), (g), and (h), code W",
+      "extract_lines": "674-690",
+      "text": "You have a nondeductible loss from a wash sale. Report the sale or exchange on Form 8949 and enter the amount of the nondeductible loss as a positive number in column (g). See the Schedule D instructions for more information about wash sales generally and Pub. 550 for more information on wash sales involving substantially similar stock or securities. If you received a Form 1099-B or Form 1099-DA (or substitute statement) and the amount of nondeductible wash sale loss shown in box 1g on Form 1099-B or box 1i on Form 1099-DA is incorrect, enter the correct amount of the nondeductible loss as a positive number in column (g). If the amount of the nondeductible loss is less than the amount shown on Form 1099-B or Form 1099-DA (or substitute statement), attach a statement explaining the difference. If no part of the loss is a nondeductible loss from a wash sale transaction, enter -0- in column (g)."
+    },
+    {
+      "id": "schedule-d-wash",
+      "source": "2025 Instructions for Schedule D, Wash Sales",
+      "extract_lines": "386-430",
+      "text": "A wash sale occurs when you sell or otherwise dispose of stock or securities (including a contract or option to acquire or sell stock or securities) at a loss and, within 30 days before or after the sale or disposition, you: 1. Buy substantially identical stock or securities, 2. Acquire substantially identical stock or securities in a fully taxable trade, 3. Enter into a contract or option to acquire substantially identical stock or securities, or 4. Acquire substantially identical stock or securities for your individual retirement arrangement (IRA) or Roth IRA. You can't deduct losses from wash sales unless the loss was incurred in the ordinary course of your business as a dealer in stock or securities. Report a wash sale transaction in Part I or Part II (depending on how long you owned the stock or securities) of Form 8949 with the appropriate box checked. Complete all columns. Enter \"W\" in column (f). Enter as a positive number in column (g) the amount of the loss not allowed."
+    },
+    {
+      "id": "exception-1",
+      "source": "2025 Instructions for Form 1040, Line 7a, Capital Gain or (Loss), Exception 1",
+      "extract_lines": "2031-2051",
+      "text": "If you sold a capital asset, such as a stock, bond, or digital asset, you must complete and attach Form 8949 and Schedule D. Exception 1. You don't have to file Form 8949 or Schedule D if you aren't deferring any capital gain by investing in a qualified opportunity fund and both of the following apply. 1. You have no capital losses, and your only capital gains are capital gain distributions from Form(s) 1099-DIV, box 2a (or substitute statements); and 2. None of the Form(s) 1099-DIV (or substitute statements) have an amount in box 2b (unrecaptured section 1250 gain), box 2c (section 1202 gain), or box 2d (collectibles (28%) gain)."
+    },
+    {
+      "id": "exception-1-applies",
+      "source": "2025 Instructions for Form 1040, Line 7a, if Exception 1 applies, and Line 7b",
+      "extract_lines": "2147-2178",
+      "text": "If Exception 1 applies, enter your total capital gain distributions (from box 2a of Form(s) 1099-DIV) on line 7a and check the box \"Schedule D not required\" on line 7b. If Exception 1 applies, check the \"Schedule D not required\" box on line 7b."
+    },
+    {
+      "id": "exception-2-1099b",
+      "source": "2025 Instructions for Form 1040, Line 7a, Exception 2, Form 1099-B bullet",
+      "extract_lines": "2117-2146",
+      "text": "Exception 2. You must file Schedule D but generally don't have to file Form 8949 if Exception 1 doesn't apply, you aren't deferring any capital gain by investing in a qualified opportunity fund or terminating deferral from an investment in a qualified opportunity fund, and your only capital gains and losses are: capital gain distributions; a capital loss carryover from 2024; a gain from Form 2439 or 6252 or Part I of Form 4797; a gain or loss from Form 4684, 6781, or 8824; a gain or loss from a partnership, S corporation, estate, or trust; or gains and losses from transactions for which you received a Form 1099-B or 1099-DA (or substitute statement) that shows basis was reported to the IRS, the QOF box in box 3 of Form 1099-B or box 3b of Form 1099-DA isn't checked, and you don't need to make any adjustments in column (g) of Form 8949 or enter any codes in column (f) of Form 8949."
+    },
+    {
+      "id": "age-65",
+      "source": "2025 Instructions for Form 1040, Line 12d",
+      "extract_lines": "2183-2191",
+      "text": "If you or your spouse (if you are married and filing a joint return) were born before January 2, 1961, or were blind at the end of 2025, check the appropriate box(es) on line 12d. Don't check any boxes for your spouse if your filing status is head of household."
+    },
+    {
+      "id": "death-2025",
+      "source": "2025 Instructions for Form 1040, Line 12d, Death of spouse in 2025",
+      "extract_lines": "2128-2151",
+      "text": "Death of spouse in 2025. If your spouse was born before January 2, 1961, but died in 2025 before reaching age 65, don't check the box that says \"Spouse was born before January 2, 1961.\" A person is considered to reach age 65 on the day before the person's 65th birthday. Example. Your spouse was born on February 14, 1960, and died on February 13, 2025. Your spouse is considered age 65 at the time of death. Check the appropriate box for your spouse. However, if your spouse died on February 12, 2025, your spouse isn't considered age 65. Don't check the box."
+    },
+    {
+      "id": "blindness",
+      "source": "2025 Instructions for Form 1040, Line 12d, Blindness",
+      "extract_lines": "2158-2179",
+      "text": "If you weren't totally blind as of December 31, 2025, you must get a statement certified by your eye doctor (ophthalmologist or optometrist) that: You can't see better than 20/200 in your better eye with glasses or contact lenses, or your field of vision is 20 degrees or less. If your eye condition isn't likely to improve beyond the conditions listed above, you can get a statement certified by your eye doctor (ophthalmologist or optometrist) to this effect instead. You must keep the statement for your records."
+    },
+    {
+      "id": "dependents-worksheet-boxes",
+      "source": "2025 Instructions for Form 1040, Standard Deduction Worksheet for Dependents, line 1 and line 4b",
+      "extract_lines": "2288-2312",
+      "text": "Use this worksheet only if someone can claim you, or your spouse if filing jointly, as a dependent. Line 1. Check if: You were born before January 2, 1961. You are blind. Spouse was born before January 2, 1961. Spouse is blind. Total number of boxes checked. Line 4b. If born before January 2, 1961, or blind, multiply the number on line 1 by $1,600 ($2,000 if single or head of household)."
+    },
+    {
+      "id": "senior-deduction",
+      "source": "2025 Instructions for Form 1040, Schedule 1-A, Part V, Enhanced Deduction for Seniors",
+      "extract_lines": "7876-7931",
+      "text": "Fill out Schedule 1-A, Part V, only if: You (and/or your spouse if filing a joint return) were born before January 2, 1961. You have a valid social security number (SSN). If you are married filing jointly, the spouse who is claiming the enhanced deduction for seniors must have a valid SSN. Death of a taxpayer in 2025. If a taxpayer was born before January 2, 1961, but died in 2025 before reaching age 65, then the taxpayer doesn't qualify for the enhanced deduction for seniors. A person is considered to reach age 65 on the day before the person's 65th birthday. Example. Your spouse was born on February 14, 1960, and died on February 13, 2025. Your spouse is considered age 65 at the time of death and would qualify for the enhanced deduction for seniors. However, if your spouse died on February 12, 2025, your spouse isn't considered age 65 and wouldn't qualify for the enhanced deduction for seniors. The maximum amount of the enhanced deduction for seniors is $6,000 per person. If you are married filing jointly, and both you and your spouse were born before January 2, 1961, and you both have a valid SSN, the maximum amount of the enhanced deduction for seniors is $12,000. The $6,000 per person amount is reduced if your MAGI is more than the amount shown next for your filing status. Married filing jointly—$150,000. Single, Head of household, or Qualifying surviving spouse—$75,000. Your MAGI is the amount on line 3 on Part I of Schedule 1-A."
+    },
+    {
+      "id": "sli-form-1040",
+      "source": "2025 Instructions for Form 1040, Schedule 1, Line 21, Student Loan Interest Deduction",
+      "extract_lines": "7062-7070",
+      "text": "You can take this deduction only if all of the following apply. You paid interest in 2025 on a qualified student loan (defined later). Your filing status is any status except married filing separately. Your modified adjusted gross income (AGI) is less than $100,000 if single, head of household, or qualifying surviving spouse; $200,000 if married filing jointly. You, or your spouse if filing jointly, aren't claimed as a dependent on someone else's (such as your parent's) 2025 tax return."
+    },
+    {
+      "id": "sli-worksheet",
+      "source": "2025 Instructions for Form 1040, Student Loan Interest Deduction Worksheet, Schedule 1, Line 21",
+      "extract_lines": "7097-7115",
+      "text": "1. Enter the total interest you paid in 2025 on qualified student loans (see the instructions for line 21). Don't enter more than $2,500. 5. Single, head of household, or qualifying surviving spouse—$85,000. Married filing jointly—$170,000. 6. Is the amount on line 4 more than the amount on line 5? No. Skip lines 6 and 7, enter -0- on line 8, and go to line 9. Yes. Subtract line 5 from line 4. 7. Divide line 6 by $15,000 ($30,000 if married filing jointly). Enter the result as a decimal (rounded to at least three places). If the result is 1.000 or more, enter 1.000. 9. Student loan interest deduction. Subtract line 8 from line 1. Enter the result here and on Schedule 1, line 21."
+    },
+    {
+      "id": "sli-pub-970",
+      "source": "Publication 970 (2025), Chapter 4, Student Loan Interest Deduction, page 33, Can You Claim the Deduction?",
+      "extract_lines": "2256-2271",
+      "text": "Generally, you can claim the deduction if all of the following requirements are met. Your filing status is any filing status except married filing separately. No one else is claiming you as a dependent on their tax return. You are legally obligated to pay interest on a qualified student loan. You paid interest on a qualified student loan. Claiming you as a dependent. Another taxpayer is claiming you as a dependent if they list your name and other required information on page 1 of their Form 1040, 1040-SR, or 1040-NR."
+    }
+  ],
+  "reading": [
+    "Code W is an adjustment on a sale that has a nondeductible wash-sale loss. If no part of the loss is a wash-sale nondeductible loss, column (g) is -0-. The wash-sale adjustment question is about those sales, which is what the basis and proceeds siblings already say.",
+    "Exception 1 is no Schedule D and no Form 8949. A sale of a capital asset, including one with neither gain nor loss, is still a sale. A covered sale with basis reported and no column (f) or (g) adjustment is Exception 2: Schedule D, not Exception 1. A return with no sale and only box 2a gains, no boxes 2b, 2c, or 2d, and no qualified-opportunity-fund deferral still meets Exception 1.",
+    "Line 12d and Schedule 1-A Part V use born before January 2, 1961. A person reaches age 65 on the day before the 65th birthday, so a birth on January 1, 1961 is age 65 at the end of 2025, and a birth on January 2, 1961 is not. The February 14, 1960 example is age 65 if the death is February 13, 2025, and not if the death is February 12, 2025. The same day-before rule is the senior-deduction death rule.",
+    "Blindness is a separate line 12d box: not totally blind as of December 31, 2025, needs the certified 20/200 or 20-degree statement. The additional standard-deduction amount is $1,600 per checked box, or $2,000 if single or head of household.",
+    "The senior deduction is $6,000 per qualifying person, $12,000 if both spouses qualify on a joint return, and phases out when MAGI is more than $75,000 (single, head of household, or qualifying surviving spouse) or $150,000 (married filing jointly). A single filer with $50,000 of wages is under that threshold.",
+    "The Form 1040 line 21 condition is that you, or your spouse if filing jointly, are not claimed as a dependent. It is an actual claim, not 'can be claimed.' Publication 970 page 33 states the same actual-claim test for the filer and defines claiming as listing the person on page 1. The Form 1040 sentence adds the spouse on a joint return; Publication 970 page 33 does not. Neither instruction is the standard-deduction 'can be claimed' test. The worksheet cap is $2,500. Single phaseout starts above $85,000 and eliminates the deduction at $100,000. A single filer with $50,000 of wages and $500 of interest, not claimed, deducts $500. A filer who is claimed deducts $0.",
+    "A filer who can be claimed but is not claimed still meets the line 21 'aren't claimed' test. The hand deduction is $500, not $0."
+  ]
+}
