@@ -203,6 +203,67 @@ def test_in_process_evidence_loads_use_the_loader() -> None:
     assert bare == []
 
 
+def _inventory_tool() -> Any:
+    repo = Path(__file__).resolve().parents[1]
+    return evidence_loader.load(
+        repo
+        / "docs"
+        / "phases"
+        / "engine-breadth"
+        / "milestones"
+        / "live-harness-isolation-evidence"
+        / "inventory.py",
+        "live_harness_isolation_inventory",
+    )
+
+
+@pytest.mark.parametrize(
+    "body",
+    [
+        'exec(Path("docs/phases/demo-evidence/probe.py").read_text(encoding="utf-8"))\n',
+        'exec(compile(Path("docs/phases/demo-evidence/probe.py").read_bytes(), "probe", "exec"))\n',
+        'exec(open("docs/phases/demo-evidence/probe.py").read())\n',
+    ],
+)
+def test_exec_of_an_evidence_file_is_a_load_outside_the_loader(body: str) -> None:
+    tool = _inventory_tool()
+    repo = Path(__file__).resolve().parents[1]
+    source = "from pathlib import Path\n" + body
+    facts = tool.Analyzer(repo, "tests/test_demo_exec.py", source).run()
+    loads = [
+        load
+        for load in facts.loads
+        if load.evidence and not load.isolated and load.mechanism != "loader"
+    ]
+    assert [load.path for load in loads][:1] == ["docs/phases/demo-evidence/probe.py"]
+
+
+def test_a_value_set_outside_the_harness_survives_an_owner_switch(harness_dir: Path) -> None:
+    (harness_dir / "writer.py").write_text(
+        "import packages.tax.loader as loader\n"
+        "loader._lhi_outside = 'harness'\n",
+        encoding="utf-8",
+    )
+    from packages.tax import loader as loader_mod
+
+    name = "_lhi_outside"
+    assert not hasattr(loader_mod, name)
+    evidence_loader.activate("owner-outside")
+    try:
+        evidence_loader.load(harness_dir / "writer.py", "writer", owner="owner-outside")
+        evidence_loader.release("owner-outside")
+        assert not hasattr(loader_mod, name)
+        setattr(loader_mod, name, "outside")
+        evidence_loader.activate("owner-outside")
+        evidence_loader.release("owner-outside")
+        assert getattr(loader_mod, name) == "outside"
+    finally:
+        evidence_loader.finish("owner-outside")
+        if hasattr(loader_mod, name):
+            delattr(loader_mod, name)
+        evidence_loader.activate(__name__)
+
+
 def test_datetime_strptime_imports_while_an_owner_is_active() -> None:
     """C ``datetime.strptime`` looks the helper up in the interpreter dict.
 

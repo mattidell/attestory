@@ -601,6 +601,8 @@ class Analyzer:
             self._note_import_module(call)
         elif attr == "run_path":
             self._note_run_path(call)
+        elif attr in {"exec", "compile"} and isinstance(call.func, ast.Name):
+            self._note_exec(call)
         elif attr == "insert":
             self._note_path_insert(call)
         elif attr == "append" and self._is_sys_path(call.func):
@@ -702,6 +704,33 @@ class Analyzer:
         if node is None:
             return
         self._emit_load(call, "run_path", self._eval(node), Val(kind="unknown"), isolated=False)
+
+    def _note_exec(self, call: ast.Call) -> None:
+        """``exec`` or ``compile`` of a file's text is a load by path.
+
+        Recognised source shapes: ``<path>.read_text()``, ``<path>.read_bytes()``
+        and ``open(<path>).read()``. Source the inventory cannot trace to a
+        file is not a load.
+        """
+        source = self._positional(call, 0, "source")
+        if not isinstance(source, ast.Call) or not isinstance(source.func, ast.Attribute):
+            return
+        holder = source.func.value
+        if source.func.attr in {"read_text", "read_bytes"}:
+            path_node: ast.AST = holder
+        elif (
+            source.func.attr == "read"
+            and isinstance(holder, ast.Call)
+            and call_attr(holder) == "open"
+            and holder.args
+        ):
+            path_node = holder.args[0]
+        else:
+            return
+        path_val = self._eval(path_node)
+        if path_val.kind not in {"path", "str"}:
+            return
+        self._emit_load(call, call_attr(call) or "exec", path_val, Val(kind="unknown"), isolated=False)
 
     def _note_import(self, stmt: ast.Import | ast.ImportFrom) -> None:
         if isinstance(stmt, ast.Import):

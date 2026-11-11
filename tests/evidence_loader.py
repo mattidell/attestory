@@ -74,6 +74,7 @@ def activate(owner: str) -> None:
         return
     if previous is not None:
         _unpublish(previous)
+    _adopt_outside_writes(_owners.get(previous) if previous is not None else None)
     _owner.set(owner)
     _ensure_owner(owner)
     _show(owner)
@@ -90,6 +91,7 @@ def release(owner: str) -> None:
     if _owner.get() != owner:
         return
     _unpublish(owner)
+    _adopt_outside_writes(_owners.get(owner))
     _owner.set(None)
     _show(None)
 
@@ -98,6 +100,7 @@ def finish(owner: str) -> None:
     """Restore engine attributes ``owner`` wrote and drop its private copies."""
     state = _owners.pop(owner, None)
     if _owner.get() == owner:
+        _adopt_outside_writes(state)
         _owner.set(None)
     if state is not None:
         _drop_modules(state)
@@ -452,6 +455,31 @@ def _own_value(obj: object, name: str) -> tuple[bool, object]:
     if mapping is not None and name in mapping:
         return True, mapping[name]
     return False, None
+
+
+def _adopt_outside_writes(state: _OwnerState | None) -> None:
+    """Keep a value someone other than the leaving owner's harness set.
+
+    Before the engine switches away from an owner, a watched attribute should
+    hold that owner's write, or the baseline where it wrote nothing. A value
+    that is neither came from outside the loader's watch (a test's own patch,
+    for instance). It becomes the baseline, and the owner forgets its write,
+    so no later switch puts the overwritten value back.
+    """
+    for key, (existed, previous) in list(_baseline.items()):
+        obj = _watched.get(key[0])
+        if obj is None:
+            continue
+        if state is not None and key in state.written:
+            expected: tuple[bool, object] = (True, state.written[key])
+        else:
+            expected = (existed, previous)
+        live = _own_value(obj, key[1])
+        if live[0] == expected[0] and (not live[0] or live[1] is expected[1]):
+            continue
+        _baseline[key] = live
+        if state is not None:
+            state.written.pop(key, None)
 
 
 def _show(owner: str | None) -> None:
