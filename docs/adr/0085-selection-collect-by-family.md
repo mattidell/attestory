@@ -60,7 +60,8 @@ path on the box 4 subtotal. The subtotal still publishes the sum of
 current amounts, or zero when none is recorded. The member fact id is no
 longer published as 0.
 
-Track 1 must publish `rule-artifact.v16`, admit it on a package successor,
+Track 1 must publish `rule-artifact.v16`, admit it in `artifact-package.v42`
+(v41 plus a v16 member) on a package successor,
 thread `v16` through the derivation enumerations that already list v15,
 and add the v86 companion-declaration loader entry. It must not edit
 published v15.

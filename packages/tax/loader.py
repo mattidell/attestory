@@ -102,6 +102,27 @@ def later_any_arm_refs_while_count_blocked(package_id: str, version: str) -> boo
     return _version_rank(version) >= _LATER_ANY_ARM_REFS_FROM
 
 
+# Core v86 is the first package on which a selection path's collect of its
+# activity family is not a symbol dependency. Earlier cores keep the stand-in.
+_SELECTION_COLLECT_BY_FAMILY_FROM = 86
+
+
+def selection_collect_satisfied_by_family(package_id: str, version: str) -> bool:
+    """Whether a selection path's collect of its activity family is not a symbol.
+
+    On from core-calculations v86. Package validation stops expecting that
+    collect name in the path's requires. An earlier core, or a package that is
+    not core-calculations, keeps the recorded stand-in symbol wait. No schema
+    carries the switch: it is the adopted package id and version, the same key
+    a companion declaration uses.
+    """
+    if package_id != _CORE_CALCULATIONS:
+        return False
+    if not version.startswith("v") or not version[1:].isdigit():
+        return False
+    return _version_rank(version) >= _SELECTION_COLLECT_BY_FAMILY_FROM
+
+
 # A covered sale recorded with basis_reported_to_irs "no" is not that
 # family's admitted member. The kernel companion declaration accepts only
 # presence pairs and value domains, so the map is a sibling of that
@@ -185,7 +206,7 @@ def named_covered_flag_refusal_maps() -> dict[tuple[str, str], dict[str, str]]:
     """Packages whose companion declaration names the covered-flag refusal.
 
     Core v79 is the first package that names it, and cores v80, v81, v82, v83,
-    v84 and v85 name the same map. Core v78 and earlier are
+    v84, v85 and v86 name the same map. Core v78 and earlier are
     absent, so their runs never consult the map. The map is a sibling of the
     companion declaration: the kernel declaration only carries presence pairs
     and value domains.
@@ -209,6 +230,9 @@ def named_covered_flag_refusal_maps() -> dict[tuple[str, str], dict[str, str]]:
         # on a statement with no sale. Those facts are return-keyed, not covered
         # sale objects, so the map is v84's.
         ("tax.us.2025.package.core-calculations", "v85"): dict(COVERED_FLAG_REFUSAL_OBJECTS),
+        # Core v86 retires the box 4 amount-symbol stand-in. It adds no covered
+        # sale object, so the map is v85's.
+        ("tax.us.2025.package.core-calculations", "v86"): dict(COVERED_FLAG_REFUSAL_OBJECTS),
     }
 
 
@@ -554,6 +578,21 @@ def domain_package_companion_declarations() -> dict[tuple[str, str], dict[str, A
         # carries. Without this entry, v85 would fall back to the global maps
         # and refuse amounts v84 admits.
         ("tax.us.2025.package.core-calculations", "v85"): {
+            "presence_pairs": {
+                **gambling["presence_pairs"],
+                **noncovered_scalar_presence_pairs(),
+                **no1099b_scalar_presence_pairs(),
+                **code_b_scalar_presence_pairs(),
+                **covered_scalar_presence_pairs(),
+            },
+            "value_domains": dict(gambling["value_domains"]),
+        },
+        # Core v86 retires the box 4 amount-symbol stand-in and the subtotal's
+        # inert path. Those edits add no sale object or amount pair, so v86
+        # carries every scalar presence pair and value domain v85 carries.
+        # Without this entry, v86 would fall back to the global maps and
+        # refuse amounts v85 admits.
+        ("tax.us.2025.package.core-calculations", "v86"): {
             "presence_pairs": {
                 **gambling["presence_pairs"],
                 **noncovered_scalar_presence_pairs(),

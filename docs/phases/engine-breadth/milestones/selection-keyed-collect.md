@@ -163,3 +163,40 @@ Evidence: `docs/phases/engine-breadth/milestones/selection-keyed-collect-evidenc
 - Reused-claim semantic/lifecycle equivalence: PASS — `track0-reuse.json` (`reuse_no_amount`, `reuse_one_amount`, `reuse_two_statements`, `reuse_zero_amount`); line 25b identity and consumers hold; v86 walk shows each recorded amount and not the stand-in 0
 - Integration surface: PASS — `track0-surface.json` (six consumers, `surface_v16_add_only`, `surface_runner_wait`, `surface_foreign_collect_missing_requires`); Track 1 still threads `rule-artifact.v16` through derivation enumerations
 - Known limitations affecting correctness: none
+
+## Track 1 result
+
+Builder, 2026-11-10. Published `rule-artifact.v16` and `artifact-package.v42`,
+the v86 switch, core v86 (subtotal v2, stand-in retired), registry v84,
+release v84. ADR 0085 remains proposed.
+
+Checks:
+
+- Full `pytest`: 6558 passed, 24 skipped, 3109.91s wall (0:51:49)
+- `pytest -m "not live"`: 1778 passed, 8 skipped, 18.14s wall
+- `python3 -m mypy`: 480 source files, success, 0.73s wall
+- `python3 tools/governance_lint.py`: conformant, 0.13s wall
+- `python3 tools/envelope_scan.py --range github/main..HEAD`: clean, 0.20s wall
+
+298-run: 298 of 298 matched
+`tests/fixtures/f1099b_backup_withholding_v83/expected.json` in place
+(2,120,830 bytes; 79 track0 + 213 returns + 6 zero_sample). 207 identical;
+91 restored with `no-sale-box4-present=no`. The fixture was not copied.
+Six unique Track 0 act lists on published core v86 pin line 25b, the
+subtotal, no publication under the amount id, and the explanation walk.
+The live module collected 305 tests (6 unique + 1 split + 298 recorded).
+
+Deviations:
+
+- Item 3 also published `artifact-package.v42` (v41 plus admit
+  `rule-artifact.v16`) because v41 cannot carry a v16 member.
+- The covered-flag refusal pin in
+  `tests/test_noncovered_sales_v78_switch.py` now names v79 through v86.
+- Prototype `_subtotal_v2` still emits schema v15; the package test sets
+  schema v16 on that body before the byte comparison.
+- `engine.patch` has no runner hunk; the runner waits on declared
+  `requires`, so v86 content with empty own-family requires is the runner
+  gate.
+
+No stop. No edit under `packages/kernel/`. No edit to a published schema
+file. No recording change.
