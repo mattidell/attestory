@@ -117,3 +117,15 @@ the source fixture costs a fraction of the move and touches no test.
    stay out of scope.
 5. The seed's bytes do not change. Nothing else under `packages/`
    changes.
+
+## Track 1 result
+
+The generator reads `packages/sample_data/entry_loop_v70/complete-core-return.jsonl`. That file is the complete return produced once from the current test helpers, before the generator's own edits: 294 lines, 324079 bytes, sha256 `20cf8ee754967a81fdb1ab8f49c4bc6a373995e03d2e829d96362c854c1e0bb7`. The generator's docstring records that production and that refreshing the file is deliberate.
+
+Byte check. Regenerating the seed matches the committed files. `workspace/acts.jsonl` is sha256 `52898046d652a9e15f7f062ae09fc3c8a1b8dcb93c007f448624818035a4a4d7` (323526 bytes). `evaluation-w2.json` is sha256 `95a796542960ca745ec9efeace603fa7f77bbce27a28d726e3413982ad3bfcad` (386 bytes).
+
+Enumerators. `load_seed_acts` reads `workspace/acts.jsonl` by name. The directory has no manifest or checksum. Schema checksums stay in schema directories. `tests/test_incremental_lattice.py` globs `**/acts*.jsonl`, which does not select this file. The entry-loop data-safety scan walks `entry_loop_t1`. The envelope scan reads the diff. The new file leaves those behaviors unchanged.
+
+Counts. `tests/test_entry_loop_t1.py` had 61 tests before this track and collects 62 after. The added test is `FixtureRegeneration.test_v70_generator_imports_no_test_module`. No other test module changed, and no existing assertion changed.
+
+What the checks catch. `test_v70_seed_regenerates_and_leaves_only_box1_open` fails when the source fixture and the committed seed disagree. A later edit to a test helper leaves the seed where it is until the source file is refreshed on purpose. `test_v70_generator_imports_no_test_module` fails when a fresh interpreter that imports the generator and renders the fixture has a `tests` module loaded. Before the generator change, that check saw 22 such modules.

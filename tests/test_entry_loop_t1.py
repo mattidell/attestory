@@ -8,6 +8,7 @@ import json
 import shutil
 import socket
 import subprocess
+import sys
 import unittest
 import urllib.error
 import urllib.request
@@ -332,6 +333,26 @@ class FixtureRegeneration(unittest.TestCase):
         )
         self.assertEqual(adoption["payload"]["scope"], ENTRY_RUN_SCOPES["v70"])
         self.assertEqual(ENTRY_RUN_SCOPES["v6"], {"jurisdiction": "us", "year": "2055"})
+
+    def test_v70_generator_imports_no_test_module(self) -> None:
+        script = (
+            "import sys\n"
+            "from tools.generate_entry_loop_v70_fixture import render_fixture_files\n"
+            "render_fixture_files()\n"
+            "names = [\n"
+            "    name for name in sys.modules\n"
+            "    if name == 'tests' or name.startswith('tests.')\n"
+            "]\n"
+            "raise SystemExit(0 if not names else 1)\n"
+        )
+        completed = subprocess.run(
+            [sys.executable, "-c", script],
+            cwd=REPO,
+            capture_output=True,
+            text=True,
+            check=False,
+        )
+        self.assertEqual(completed.returncode, 0, completed.stderr)
 
 
 class EvaluationLauncherGuidance(unittest.TestCase):

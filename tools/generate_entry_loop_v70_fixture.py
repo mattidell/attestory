@@ -1,10 +1,15 @@
 """Generate a synthetic v70 W-2 entry seed with only Box 1 left open.
 
-The seed starts from the committed complete current-core return used by P0,
-keeps its separate Box 2 withholding family, and removes the W-2 Box 1 member
-and closure so the entry loop can record its first member through its existing
-contribution path. The production entry runtime reads only the generated JSONL
-fixture; it never imports this tool or the test helpers used to build it.
+The seed starts from ``complete-core-return.jsonl`` beside the fixture.
+That file was produced once from the current test helpers: a copy of
+``tests.helpers.current_core_returns.base_return``, finished by
+``tests.test_refund_or_amount_owed_track1._finish`` against the v70 core
+package and the v68 worksheet release, resolved to an adopted surface, then
+handed over by ``tests.test_form_1099_k_income._handover``. Those are the
+acts this tool receives before it replaces the W-2 identity, drops Box 1,
+or splices legacy evidence. Refreshing the file is deliberate. The
+production entry runtime reads only the generated JSONL fixture; it never
+imports this tool.
 """
 
 from __future__ import annotations
@@ -18,32 +23,14 @@ from packages.derivation.entry_loop import (
     ENTRY_CORE_PROFILES,
     CURRENT_CORE_ENTRY_FIXTURE,
     ENTRY_RUN_SCOPES,
-    SCOPE_USER,
     W2_EVIDENCE_ID,
     load_seed_acts,
 )
-from packages.derivation.loader import DerivationSchemas
-from packages.derivation.production_resolver import (
-    PublicationSurface,
-    Refusal,
-    resolve_adopted_surface,
-)
-from tests.helpers.current_core_returns import base_return
-from tests.test_form_1099_k_income import _handover
-from tests.test_refund_or_amount_owed_track1 import _finish
 
 
 ROOT = Path(__file__).resolve().parents[1]
-CONTENT = ROOT / "packages/content/tax/2025"
-PACKAGE = CONTENT / "package.core-calculations.v70.json"
-RELEASE_DIR = (
-    ROOT
-    / "packages/sample_data/student_loan_worksheet_integration/publication_surface/releases"
-)
-RELEASE = (
-    RELEASE_DIR / "demo.release.sli-worksheet-integration.2025.v68.json"
-)
 OUT = ROOT / CURRENT_CORE_ENTRY_FIXTURE
+SOURCE = OUT / "complete-core-return.jsonl"
 W2_EMPLOYER_FROM_COMPLETE_RETURN = "demo.cgd.t2.employer"
 W2_SLIP_FROM_COMPLETE_RETURN = "demo.cgd.t2.w2"
 W2_EMPLOYER_FOR_ENTRY = "demo.presentation-l2.employer"
@@ -70,35 +57,18 @@ def _replace_w2_identity(value: Any) -> Any:
     return value
 
 
-def _complete_core_return() -> list[dict[str, Any]]:
-    acts = _finish(
-        copy.deepcopy(base_return()),
-        package_path=PACKAGE,
-        package_version="v70",
-        release_path=RELEASE,
-        release_version="v68",
-        note="demo.entry-loop.v70-complete-seed",
-    )
-    surface = resolve_adopted_surface(
-        acts,
-        run_scope=ENTRY_RUN_SCOPES["v70"],
-        scope_user=SCOPE_USER,
-        workspace_revision=len(acts),
-        release_dir=RELEASE_DIR,
-        member_dir=CONTENT,
-        schemas=DerivationSchemas(),
-    )
-    if isinstance(surface, Refusal):
-        raise RuntimeError(f"current-core package surface refused: {surface.reason}")
-    if not isinstance(surface, PublicationSurface):
-        raise RuntimeError("current-core package surface is unavailable")
-    return _handover(acts, surface=surface, reconfirm=True)
+def _load_complete_core_return() -> list[dict[str, Any]]:
+    acts: list[dict[str, Any]] = []
+    for line in SOURCE.read_text(encoding="utf-8").splitlines():
+        if line:
+            acts.append(json.loads(line))
+    return acts
 
 
 def seed_acts() -> list[dict[str, Any]]:
     """Return the deterministic v70 seed, with only W-2 Box 1 left open."""
 
-    acts = _replace_w2_identity(_complete_core_return())
+    acts = _replace_w2_identity(_load_complete_core_return())
     result: list[dict[str, Any]] = []
     removed_box1 = 0
     removed_closure = 0
