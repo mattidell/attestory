@@ -195,7 +195,14 @@ def install_summarize(h: Any) -> None:
 
 
 def core_of(h: Any) -> Any:
-    return h.Core("v86", "v84", "v84")
+    """Published core v86, or the scratch core prototype.py built when QW_CORE names its core.json."""
+    scratch = os.environ.get("QW_CORE")
+    if not scratch:
+        return h.Core("v86", "v84", "v84")
+    body = json.loads(Path(scratch).read_text(encoding="utf-8"))
+    return h.Core(body["version"], body["registry"], body["release_version"],
+                  content=Path(body["content"]), releases=Path(body["releases"]),
+                  loader_from=body.get("loader_from"))
 
 
 def run(h: Any, core: Any, acts: list[dict[str, Any]], run_id: str) -> dict[str, Any]:
@@ -452,6 +459,39 @@ def question_table(runs: dict[str, dict[str, Any]]) -> list[dict[str, Any]]:
 MFJ = "married_filing_jointly"
 
 
+def write_scratch(core: Any, cases: list[dict[str, Any]]) -> None:
+    """The same cases on scratch core v87: hand values, and which proposed words the page shows."""
+    words = json.loads((HERE / "prototype-build.json").read_text(encoding="utf-8"))["words"]
+    sentences = [words["wash_st"], words["wash_lt"], words["only_box2a"], words["sli"]]
+    old = [WASH_ST, WASH_LT, ONLY_2A, SLI_Q]
+    blob = json.dumps([case["measured"].get("questions") for case in cases])
+    shown = {
+        "proposed_shown": {sentence: sentence in blob for sentence in sentences},
+        "current_shown": {sentence: sentence in blob for sentence in old},
+        "titles_shown": {
+            fact: title in json.dumps([case["measured"] for case in cases])
+            for fact, title in words["titles"].items()
+        },
+    }
+    payload = {
+        "core": {"package": core.version, "registry": core.registry, "release": core.release_version,
+                 "built_by": "prototype.py"},
+        "words": shown,
+        "cases": [
+            {"id": case["id"], "hand": case["hand"], "hand_mismatches": case["hand_mismatches"],
+             "lines": case["measured"].get("lines"), "questions": case["measured"].get("questions"),
+             "error": case["measured"].get("error")}
+            for case in cases
+        ],
+    }
+    text = json.dumps(payload, indent=2) + "\n"
+    for needle in ("/Users/", "/private/", "/tmp/", "/var/"):
+        if needle in text:
+            raise SystemExit(f"probe output contains {needle}")
+    (HERE / "probe-v87-output.json").write_text(text, encoding="utf-8")
+    print(json.dumps(shown, indent=2))
+
+
 def mfj(h: Any, acts: list[dict[str, Any]]) -> list[dict[str, Any]]:
     return h.say(acts, P + "filing-status", MFJ, "fs")
 
@@ -588,6 +628,9 @@ def main() -> None:
         })
         print(case_id, "OK" if not bad else bad, measured.get("error") or measured.get("refusal") or measured.get("stop"))
 
+    if os.environ.get("QW_CORE"):
+        write_scratch(core, cases)
+        return
     payload = {
         "core": {"package": "v86", "registry": "v84", "release": "v84"},
         "law": "law.json",

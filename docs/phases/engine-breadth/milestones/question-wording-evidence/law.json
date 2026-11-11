@@ -1,7 +1,7 @@
 {
   "tax_year": 2025,
   "fetched_from": "irs.gov pub/irs-prior",
-  "extract": "pdftotext -layout. Line numbers below are lines of that extract, not printed page numbers. The heading is the instruction location.",
+  "extract": "pdftotext -layout. Line numbers below are lines of that extract, not printed page numbers. The extract keeps the two- and three-column page layout, so one range can hold text from neighbouring columns; the heading is the instruction location.",
   "sources": [
     {
       "document": "2025 Instructions for Form 1040",
@@ -57,7 +57,7 @@
     {
       "id": "exception-2-1099b",
       "source": "2025 Instructions for Form 1040, Line 7a, Exception 2, Form 1099-B bullet",
-      "extract_lines": "2117-2146",
+      "extract_lines": "2052-2058 and 2117-2146 (the paragraph crosses from page 31 to page 32)",
       "text": "Exception 2. You must file Schedule D but generally don't have to file Form 8949 if Exception 1 doesn't apply, you aren't deferring any capital gain by investing in a qualified opportunity fund or terminating deferral from an investment in a qualified opportunity fund, and your only capital gains and losses are: capital gain distributions; a capital loss carryover from 2024; a gain from Form 2439 or 6252 or Part I of Form 4797; a gain or loss from Form 4684, 6781, or 8824; a gain or loss from a partnership, S corporation, estate, or trust; or gains and losses from transactions for which you received a Form 1099-B or 1099-DA (or substitute statement) that shows basis was reported to the IRS, the QOF box in box 3 of Form 1099-B or box 3b of Form 1099-DA isn't checked, and you don't need to make any adjustments in column (g) of Form 8949 or enter any codes in column (f) of Form 8949."
     },
     {
@@ -93,7 +93,7 @@
     {
       "id": "sli-form-1040",
       "source": "2025 Instructions for Form 1040, Schedule 1, Line 21, Student Loan Interest Deduction",
-      "extract_lines": "7062-7070",
+      "extract_lines": "7062-7080",
       "text": "You can take this deduction only if all of the following apply. You paid interest in 2025 on a qualified student loan (defined later). Your filing status is any status except married filing separately. Your modified adjusted gross income (AGI) is less than $100,000 if single, head of household, or qualifying surviving spouse; $200,000 if married filing jointly. You, or your spouse if filing jointly, aren't claimed as a dependent on someone else's (such as your parent's) 2025 tax return."
     },
     {
@@ -117,5 +117,6 @@
     "The senior deduction is $6,000 per qualifying person, $12,000 if both spouses qualify on a joint return, and phases out when MAGI is more than $75,000 (single, head of household, or qualifying surviving spouse) or $150,000 (married filing jointly). A single filer with $50,000 of wages is under that threshold.",
     "The Form 1040 line 21 condition is that you, or your spouse if filing jointly, are not claimed as a dependent. It is an actual claim, not 'can be claimed.' Publication 970 page 33 states the same actual-claim test for the filer and defines claiming as listing the person on page 1. The Form 1040 sentence adds the spouse on a joint return; Publication 970 page 33 does not. Neither instruction is the standard-deduction 'can be claimed' test. The worksheet cap is $2,500. Single phaseout starts above $85,000 and eliminates the deduction at $100,000. A single filer with $50,000 of wages and $500 of interest, not claimed, deducts $500. A filer who is claimed deducts $0.",
     "A filer who can be claimed but is not claimed still meets the line 21 'aren't claimed' test. The hand deduction is $500, not $0."
-  ]
+  ],
+  "verified": "P0 resumption re-fetched all five files from irs.gov pub/irs-prior: every sha256 matches. Each quote was re-checked against its extract range; two ranges were corrected (exception-2-1099b, sli-form-1040)."
 }

@@ -1,0 +1,717 @@
+{
+  "core": {
+    "package": "v87",
+    "registry": "v85",
+    "release": "v85",
+    "built_by": "prototype.py"
+  },
+  "words": {
+    "proposed_shown": {
+      "Have you recorded the wash-sale loss adjustment amount of every covered short-term sale with a wash-sale loss adjustment (a loss disallowed because you bought the same investment within 30 days before or after the sale) on every Form 1099-B you or your spouse received for 2025?": true,
+      "Have you recorded the wash-sale loss adjustment amount of every covered long-term sale with a wash-sale loss adjustment (a loss disallowed because you bought the same investment within 30 days before or after the sale) on every Form 1099-B you or your spouse received for 2025?": true,
+      "Is it true that you had no capital gains in 2025 other than capital gain distributions in box 2a of Form 1099-DIV, and that you did not sell stock, funds or other property in 2025 (even a sale with no gain or loss)?": true,
+      "Is someone else claiming you (or your spouse, on a joint return) as a dependent on their 2025 return?": true
+    },
+    "current_shown": {
+      "Have you recorded the wash-sale loss adjustment amount (a loss disallowed because you bought the same investment within 30 days before or after the sale) of every covered short-term sale on every Form 1099-B you or your spouse received for 2025?": false,
+      "Have you recorded the wash-sale loss adjustment amount (a loss disallowed because you bought the same investment within 30 days before or after the sale) of every covered long-term sale on every Form 1099-B you or your spouse received for 2025?": false,
+      "Is it true that you had no capital gains in 2025 other than capital gain distributions in box 2a of Form 1099-DIV (for example, no gain from selling stock, funds or other property)?": false,
+      "Is someone else claiming you as a dependent on their 2025 return?": false
+    },
+    "titles_shown": {
+      "taxpayer-over-65": false,
+      "taxpayer-blind": false,
+      "spouse-over-65": false,
+      "spouse-blind": false
+    }
+  },
+  "cases": [
+    {
+      "id": "nosale-base",
+      "hand": {
+        "form1040.line-12e": 15750,
+        "form1040.line-15": 34250,
+        "form1040.line-16": 3875,
+        "form1040.line-7a": 0,
+        "schedule1a.line36a-taxpayer": 0
+      },
+      "hand_mismatches": [],
+      "lines": {
+        "form1040.line-12e": 15750,
+        "form1040.line-13b": 0,
+        "form1040.line-15": 34250,
+        "form1040.line-16": 3875,
+        "form1040.line-7a": 0,
+        "form1040.line-7b": "published_categorical",
+        "schedule-d.line-15": 0,
+        "schedule-d.line-16": 0,
+        "schedule-d.line-1a": 0,
+        "schedule-d.line-1b": 0,
+        "schedule-d.line-7": 0,
+        "schedule-d.line-8a": 0,
+        "schedule-d.line-8b": 0,
+        "schedule1.line-21": 0
+      },
+      "questions": [],
+      "error": null
+    },
+    {
+      "id": "exc1-questions-shown",
+      "hand": {},
+      "hand_mismatches": [],
+      "lines": {
+        "form1040.line-12e": 15750,
+        "form1040.line-13b": "blocked",
+        "form1040.line-15": "blocked",
+        "form1040.line-16": "blocked",
+        "form1040.line-7a": "blocked",
+        "form1040.line-7b": "blocked",
+        "schedule-d.line-15": 0,
+        "schedule-d.line-16": 0,
+        "schedule-d.line-1a": 0,
+        "schedule-d.line-1b": 0,
+        "schedule-d.line-7": 0,
+        "schedule-d.line-8a": 0,
+        "schedule-d.line-8b": 0,
+        "schedule1.line-21": 0
+      },
+      "questions": [
+        "Is it true that none of your 2025 Forms 1099-DIV or substitute statements shows an amount in box 2b, 2c or 2d?",
+        "Is it true that you did not defer any capital gain in 2025 by investing in a qualified opportunity fund?",
+        "Is it true that you had no capital gains in 2025 other than capital gain distributions in box 2a of Form 1099-DIV, and that you did not sell stock, funds or other property in 2025 (even a sale with no gain or loss)?",
+        "Is it true that you had no capital losses in 2025 (for example, no loss from selling stock, funds or other property)?"
+      ],
+      "error": null
+    },
+    {
+      "id": "wash-st-plain-closed",
+      "hand": {
+        "schedule-d.line-1a": 200,
+        "schedule-d.line-1b": 0,
+        "form1040.line-7a": 200,
+        "form1040.line-15": 34450,
+        "form1040.line-16": 3899
+      },
+      "hand_mismatches": [],
+      "lines": {
+        "form1040.line-12e": 15750,
+        "form1040.line-13b": 0,
+        "form1040.line-15": 34450,
+        "form1040.line-16": 3899,
+        "form1040.line-7a": 200,
+        "form1040.line-7b": "guard_inapplicable",
+        "schedule-d.line-15": 0,
+        "schedule-d.line-16": 200,
+        "schedule-d.line-1a": 200,
+        "schedule-d.line-1b": 0,
+        "schedule-d.line-7": 200,
+        "schedule-d.line-8a": 0,
+        "schedule-d.line-8b": 0,
+        "schedule1.line-21": 0
+      },
+      "questions": [],
+      "error": null
+    },
+    {
+      "id": "wash-st-plain-unclosed",
+      "hand": {
+        "schedule-d.line-1b": "blocked"
+      },
+      "hand_mismatches": [],
+      "lines": {
+        "form1040.line-12e": 15750,
+        "form1040.line-13b": "blocked",
+        "form1040.line-15": "blocked",
+        "form1040.line-16": "blocked",
+        "form1040.line-7a": "blocked",
+        "form1040.line-7b": "guard_inapplicable",
+        "schedule-d.line-15": 0,
+        "schedule-d.line-16": "blocked",
+        "schedule-d.line-1a": 200,
+        "schedule-d.line-1b": "blocked",
+        "schedule-d.line-7": "blocked",
+        "schedule-d.line-8a": 0,
+        "schedule-d.line-8b": 0,
+        "schedule1.line-21": 0
+      },
+      "questions": [
+        "Have you recorded the wash-sale loss adjustment amount of every covered short-term sale with a wash-sale loss adjustment (a loss disallowed because you bought the same investment within 30 days before or after the sale) on every Form 1099-B you or your spouse received for 2025?"
+      ],
+      "error": null
+    },
+    {
+      "id": "wash-st-closed",
+      "hand": {
+        "schedule-d.line-1a": 200,
+        "schedule-d.line-1b": 0,
+        "schedule-d.line-7": 200,
+        "f1099b.covered-w-st-adjustment-subtotal": 200,
+        "form1040.line-7a": 200,
+        "form1040.line-15": 34450,
+        "form1040.line-16": 3899
+      },
+      "hand_mismatches": [],
+      "lines": {
+        "form1040.line-12e": 15750,
+        "form1040.line-13b": 0,
+        "form1040.line-15": 34450,
+        "form1040.line-16": 3899,
+        "form1040.line-7a": 200,
+        "form1040.line-7b": "guard_inapplicable",
+        "schedule-d.line-15": 0,
+        "schedule-d.line-16": 200,
+        "schedule-d.line-1a": 200,
+        "schedule-d.line-1b": 0,
+        "schedule-d.line-7": 200,
+        "schedule-d.line-8a": 0,
+        "schedule-d.line-8b": 0,
+        "schedule1.line-21": 0
+      },
+      "questions": [],
+      "error": null
+    },
+    {
+      "id": "wash-st-unclosed",
+      "hand": {
+        "schedule-d.line-1b": "blocked"
+      },
+      "hand_mismatches": [],
+      "lines": {
+        "form1040.line-12e": 15750,
+        "form1040.line-13b": "blocked",
+        "form1040.line-15": "blocked",
+        "form1040.line-16": "blocked",
+        "form1040.line-7a": "blocked",
+        "form1040.line-7b": "guard_inapplicable",
+        "schedule-d.line-15": 0,
+        "schedule-d.line-16": "blocked",
+        "schedule-d.line-1a": 200,
+        "schedule-d.line-1b": "blocked",
+        "schedule-d.line-7": "blocked",
+        "schedule-d.line-8a": 0,
+        "schedule-d.line-8b": 0,
+        "schedule1.line-21": 0
+      },
+      "questions": [],
+      "error": null
+    },
+    {
+      "id": "wash-lt-plain-closed",
+      "hand": {
+        "schedule-d.line-8a": 200,
+        "schedule-d.line-8b": 0,
+        "form1040.line-7a": 200,
+        "form1040.line-15": 34450,
+        "form1040.line-16": 3875
+      },
+      "hand_mismatches": [],
+      "lines": {
+        "form1040.line-12e": 15750,
+        "form1040.line-13b": 0,
+        "form1040.line-15": 34450,
+        "form1040.line-16": 3875,
+        "form1040.line-7a": 200,
+        "form1040.line-7b": "guard_inapplicable",
+        "schedule-d.line-15": 200,
+        "schedule-d.line-16": 200,
+        "schedule-d.line-1a": 0,
+        "schedule-d.line-1b": 0,
+        "schedule-d.line-7": 0,
+        "schedule-d.line-8a": 200,
+        "schedule-d.line-8b": 0,
+        "schedule1.line-21": 0
+      },
+      "questions": [],
+      "error": null
+    },
+    {
+      "id": "wash-lt-plain-unclosed",
+      "hand": {
+        "schedule-d.line-8b": "blocked"
+      },
+      "hand_mismatches": [],
+      "lines": {
+        "form1040.line-12e": 15750,
+        "form1040.line-13b": "blocked",
+        "form1040.line-15": "blocked",
+        "form1040.line-16": "blocked",
+        "form1040.line-7a": "blocked",
+        "form1040.line-7b": "guard_inapplicable",
+        "schedule-d.line-15": "blocked",
+        "schedule-d.line-16": "blocked",
+        "schedule-d.line-1a": 0,
+        "schedule-d.line-1b": 0,
+        "schedule-d.line-7": 0,
+        "schedule-d.line-8a": 200,
+        "schedule-d.line-8b": "blocked",
+        "schedule1.line-21": 0
+      },
+      "questions": [
+        "Have you recorded the wash-sale loss adjustment amount of every covered long-term sale with a wash-sale loss adjustment (a loss disallowed because you bought the same investment within 30 days before or after the sale) on every Form 1099-B you or your spouse received for 2025?"
+      ],
+      "error": null
+    },
+    {
+      "id": "wash-lt-closed",
+      "hand": {
+        "schedule-d.line-8a": 200,
+        "schedule-d.line-8b": 0,
+        "schedule-d.line-15": 200,
+        "f1099b.covered-w-lt-adjustment-subtotal": 200,
+        "form1040.line-7a": 200,
+        "form1040.line-15": 34450,
+        "form1040.line-16": 3875
+      },
+      "hand_mismatches": [],
+      "lines": {
+        "form1040.line-12e": 15750,
+        "form1040.line-13b": 0,
+        "form1040.line-15": 34450,
+        "form1040.line-16": 3875,
+        "form1040.line-7a": 200,
+        "form1040.line-7b": "guard_inapplicable",
+        "schedule-d.line-15": 200,
+        "schedule-d.line-16": 200,
+        "schedule-d.line-1a": 0,
+        "schedule-d.line-1b": 0,
+        "schedule-d.line-7": 0,
+        "schedule-d.line-8a": 200,
+        "schedule-d.line-8b": 0,
+        "schedule1.line-21": 0
+      },
+      "questions": [],
+      "error": null
+    },
+    {
+      "id": "wash-lt-unclosed",
+      "hand": {
+        "schedule-d.line-8b": "blocked"
+      },
+      "hand_mismatches": [],
+      "lines": {
+        "form1040.line-12e": 15750,
+        "form1040.line-13b": "blocked",
+        "form1040.line-15": "blocked",
+        "form1040.line-16": "blocked",
+        "form1040.line-7a": "blocked",
+        "form1040.line-7b": "guard_inapplicable",
+        "schedule-d.line-15": "blocked",
+        "schedule-d.line-16": "blocked",
+        "schedule-d.line-1a": 0,
+        "schedule-d.line-1b": 0,
+        "schedule-d.line-7": 0,
+        "schedule-d.line-8a": 200,
+        "schedule-d.line-8b": "blocked",
+        "schedule1.line-21": 0
+      },
+      "questions": [],
+      "error": null
+    },
+    {
+      "id": "exc1-zero-current-yes",
+      "hand": {
+        "schedule-d.line-1a": 0,
+        "form1040.line-7a": 0,
+        "form1040.line-15": 34250,
+        "form1040.line-16": 3875
+      },
+      "hand_mismatches": [],
+      "lines": {
+        "form1040.line-12e": 15750,
+        "form1040.line-13b": 0,
+        "form1040.line-15": 34250,
+        "form1040.line-16": 3875,
+        "form1040.line-7a": 0,
+        "form1040.line-7b": "guard_inapplicable",
+        "schedule-d.line-15": 0,
+        "schedule-d.line-16": 0,
+        "schedule-d.line-1a": 0,
+        "schedule-d.line-1b": 0,
+        "schedule-d.line-7": 0,
+        "schedule-d.line-8a": 0,
+        "schedule-d.line-8b": 0,
+        "schedule1.line-21": 0
+      },
+      "questions": [],
+      "error": null
+    },
+    {
+      "id": "exc1-zero-proposed-no",
+      "hand": {
+        "schedule-d.line-1a": 0,
+        "form1040.line-7a": 0,
+        "form1040.line-15": 34250,
+        "form1040.line-16": 3875
+      },
+      "hand_mismatches": [],
+      "lines": {
+        "form1040.line-12e": 15750,
+        "form1040.line-13b": 0,
+        "form1040.line-15": 34250,
+        "form1040.line-16": 3875,
+        "form1040.line-7a": 0,
+        "form1040.line-7b": "guard_inapplicable",
+        "schedule-d.line-15": 0,
+        "schedule-d.line-16": 0,
+        "schedule-d.line-1a": 0,
+        "schedule-d.line-1b": 0,
+        "schedule-d.line-7": 0,
+        "schedule-d.line-8a": 0,
+        "schedule-d.line-8b": 0,
+        "schedule1.line-21": 0
+      },
+      "questions": [],
+      "error": null
+    },
+    {
+      "id": "exc1-zero-both-no",
+      "hand": {
+        "schedule-d.line-1a": 0,
+        "form1040.line-7a": 0,
+        "form1040.line-15": 34250,
+        "form1040.line-16": 3875
+      },
+      "hand_mismatches": [],
+      "lines": {
+        "form1040.line-12e": 15750,
+        "form1040.line-13b": 0,
+        "form1040.line-15": 34250,
+        "form1040.line-16": 3875,
+        "form1040.line-7a": 0,
+        "form1040.line-7b": "guard_inapplicable",
+        "schedule-d.line-15": 0,
+        "schedule-d.line-16": 0,
+        "schedule-d.line-1a": 0,
+        "schedule-d.line-1b": 0,
+        "schedule-d.line-7": 0,
+        "schedule-d.line-8a": 0,
+        "schedule-d.line-8b": 0,
+        "schedule1.line-21": 0
+      },
+      "questions": [],
+      "error": null
+    },
+    {
+      "id": "exc1-zero-questions-shown",
+      "hand": {},
+      "hand_mismatches": [],
+      "lines": {
+        "form1040.line-12e": 15750,
+        "form1040.line-13b": "blocked",
+        "form1040.line-15": "blocked",
+        "form1040.line-16": "blocked",
+        "form1040.line-7a": "blocked",
+        "form1040.line-7b": "blocked",
+        "schedule-d.line-15": 0,
+        "schedule-d.line-16": 0,
+        "schedule-d.line-1a": 0,
+        "schedule-d.line-1b": 0,
+        "schedule-d.line-7": 0,
+        "schedule-d.line-8a": 0,
+        "schedule-d.line-8b": 0,
+        "schedule1.line-21": 0
+      },
+      "questions": [
+        "Is it true that none of your 2025 Forms 1099-DIV or substitute statements shows an amount in box 2b, 2c or 2d?",
+        "Is it true that you did not defer any capital gain in 2025 by investing in a qualified opportunity fund?",
+        "Is it true that you had no capital gains in 2025 other than capital gain distributions in box 2a of Form 1099-DIV, and that you did not sell stock, funds or other property in 2025 (even a sale with no gain or loss)?",
+        "Is it true that you had no capital losses in 2025 (for example, no loss from selling stock, funds or other property)?"
+      ],
+      "error": null
+    },
+    {
+      "id": "age-true",
+      "hand": {
+        "form1040.line-12e": 17750,
+        "schedule1a.line36a-taxpayer": 6000,
+        "form1040.line-15": 26250,
+        "form1040.line-16": 2915
+      },
+      "hand_mismatches": [],
+      "lines": {
+        "form1040.line-12e": 17750,
+        "form1040.line-13b": 6000,
+        "form1040.line-15": 26250,
+        "form1040.line-16": 2915,
+        "form1040.line-7a": 0,
+        "form1040.line-7b": "published_categorical",
+        "schedule-d.line-15": 0,
+        "schedule-d.line-16": 0,
+        "schedule-d.line-1a": 0,
+        "schedule-d.line-1b": 0,
+        "schedule-d.line-7": 0,
+        "schedule-d.line-8a": 0,
+        "schedule-d.line-8b": 0,
+        "schedule1.line-21": 0
+      },
+      "questions": [],
+      "error": null
+    },
+    {
+      "id": "blind-true",
+      "hand": {
+        "form1040.line-12e": 17750,
+        "form1040.line-15": 32250,
+        "form1040.line-16": 3635
+      },
+      "hand_mismatches": [],
+      "lines": {
+        "form1040.line-12e": 17750,
+        "form1040.line-13b": 0,
+        "form1040.line-15": 32250,
+        "form1040.line-16": 3635,
+        "form1040.line-7a": 0,
+        "form1040.line-7b": "published_categorical",
+        "schedule-d.line-15": 0,
+        "schedule-d.line-16": 0,
+        "schedule-d.line-1a": 0,
+        "schedule-d.line-1b": 0,
+        "schedule-d.line-7": 0,
+        "schedule-d.line-8a": 0,
+        "schedule-d.line-8b": 0,
+        "schedule1.line-21": 0
+      },
+      "questions": [],
+      "error": null
+    },
+    {
+      "id": "mfj-base",
+      "hand": {
+        "form1040.line-12e": 31500,
+        "schedule1a.line36b-spouse": 0,
+        "form1040.line-15": 18500,
+        "form1040.line-16": 1853
+      },
+      "hand_mismatches": [],
+      "lines": {
+        "form1040.line-12e": 31500,
+        "form1040.line-13b": 0,
+        "form1040.line-15": 18500,
+        "form1040.line-16": 1853,
+        "form1040.line-7a": 0,
+        "form1040.line-7b": "published_categorical",
+        "schedule-d.line-15": 0,
+        "schedule-d.line-16": 0,
+        "schedule-d.line-1a": 0,
+        "schedule-d.line-1b": 0,
+        "schedule-d.line-7": 0,
+        "schedule-d.line-8a": 0,
+        "schedule-d.line-8b": 0,
+        "schedule1.line-21": 0
+      },
+      "questions": [],
+      "error": null
+    },
+    {
+      "id": "mfj-spouse-age-true",
+      "hand": {
+        "form1040.line-12e": 33100,
+        "schedule1a.line36b-spouse": 6000,
+        "form1040.line-15": 10900,
+        "form1040.line-16": 1093
+      },
+      "hand_mismatches": [],
+      "lines": {
+        "form1040.line-12e": 33100,
+        "form1040.line-13b": 6000,
+        "form1040.line-15": 10900,
+        "form1040.line-16": 1093,
+        "form1040.line-7a": 0,
+        "form1040.line-7b": "published_categorical",
+        "schedule-d.line-15": 0,
+        "schedule-d.line-16": 0,
+        "schedule-d.line-1a": 0,
+        "schedule-d.line-1b": 0,
+        "schedule-d.line-7": 0,
+        "schedule-d.line-8a": 0,
+        "schedule-d.line-8b": 0,
+        "schedule1.line-21": 0
+      },
+      "questions": [],
+      "error": null
+    },
+    {
+      "id": "demographic-titles",
+      "hand": {},
+      "hand_mismatches": [],
+      "lines": {
+        "form1040.line-12e": 19750,
+        "form1040.line-13b": 6000,
+        "form1040.line-15": 24250,
+        "form1040.line-16": 2675,
+        "form1040.line-7a": 0,
+        "form1040.line-7b": "published_categorical",
+        "schedule-d.line-15": 0,
+        "schedule-d.line-16": 0,
+        "schedule-d.line-1a": 0,
+        "schedule-d.line-1b": 0,
+        "schedule-d.line-7": 0,
+        "schedule-d.line-8a": 0,
+        "schedule-d.line-8b": 0,
+        "schedule1.line-21": 0
+      },
+      "questions": [],
+      "error": null
+    },
+    {
+      "id": "sli-not-claimed-yes",
+      "hand": {
+        "schedule1.line21-sli-deduction": 500,
+        "form1040.line-15": 33750,
+        "form1040.line-16": 3815
+      },
+      "hand_mismatches": [],
+      "lines": {
+        "form1040.line-12e": 15750,
+        "form1040.line-13b": 0,
+        "form1040.line-15": 33750,
+        "form1040.line-16": 3815,
+        "form1040.line-7a": 0,
+        "form1040.line-7b": "published_categorical",
+        "schedule-d.line-15": 0,
+        "schedule-d.line-16": 0,
+        "schedule-d.line-1a": 0,
+        "schedule-d.line-1b": 0,
+        "schedule-d.line-7": 0,
+        "schedule-d.line-8a": 0,
+        "schedule-d.line-8b": 0,
+        "schedule1.line-21": 500
+      },
+      "questions": [],
+      "error": null
+    },
+    {
+      "id": "sli-claimed-no",
+      "hand": {
+        "schedule1.line21-sli-deduction": 0,
+        "form1040.line-15": 34250
+      },
+      "hand_mismatches": [],
+      "lines": {
+        "form1040.line-12e": 15750,
+        "form1040.line-13b": 0,
+        "form1040.line-15": 34250,
+        "form1040.line-16": 3875,
+        "form1040.line-7a": 0,
+        "form1040.line-7b": "published_categorical",
+        "schedule-d.line-15": 0,
+        "schedule-d.line-16": 0,
+        "schedule-d.line-1a": 0,
+        "schedule-d.line-1b": 0,
+        "schedule-d.line-7": 0,
+        "schedule-d.line-8a": 0,
+        "schedule-d.line-8b": 0,
+        "schedule1.line-21": 0
+      },
+      "questions": [],
+      "error": null
+    },
+    {
+      "id": "sli-question-shown",
+      "hand": {},
+      "hand_mismatches": [],
+      "lines": {
+        "form1040.line-12e": 15750,
+        "form1040.line-13b": "blocked",
+        "form1040.line-15": "blocked",
+        "form1040.line-16": "blocked",
+        "form1040.line-7a": 0,
+        "form1040.line-7b": "published_categorical",
+        "schedule-d.line-15": 0,
+        "schedule-d.line-16": 0,
+        "schedule-d.line-1a": 0,
+        "schedule-d.line-1b": 0,
+        "schedule-d.line-7": 0,
+        "schedule-d.line-8a": 0,
+        "schedule-d.line-8b": 0,
+        "schedule1.line-21": "blocked"
+      },
+      "questions": [
+        "Is someone else claiming you (or your spouse, on a joint return) as a dependent on their 2025 return?"
+      ],
+      "error": null
+    },
+    {
+      "id": "sli-can-be-claimed-not-claimed",
+      "hand": {
+        "schedule1.line21-sli-deduction": 500,
+        "form1040.line-12e": 15750,
+        "form1040.line-15": 33750,
+        "form1040.line-16": 3815
+      },
+      "hand_mismatches": [],
+      "lines": {
+        "form1040.line-12e": 15750,
+        "form1040.line-13b": 0,
+        "form1040.line-15": 33750,
+        "form1040.line-16": 3815,
+        "form1040.line-7a": 0,
+        "form1040.line-7b": "published_categorical",
+        "schedule-d.line-15": 0,
+        "schedule-d.line-16": 0,
+        "schedule-d.line-1a": 0,
+        "schedule-d.line-1b": 0,
+        "schedule-d.line-7": 0,
+        "schedule-d.line-8a": 0,
+        "schedule-d.line-8b": 0,
+        "schedule1.line-21": 500
+      },
+      "questions": [],
+      "error": null
+    },
+    {
+      "id": "sli-mfj-not-claimed-yes",
+      "hand": {
+        "schedule1.line21-sli-deduction": 500,
+        "form1040.line-15": 18000,
+        "form1040.line-16": 1803
+      },
+      "hand_mismatches": [],
+      "lines": {
+        "form1040.line-12e": 31500,
+        "form1040.line-13b": 0,
+        "form1040.line-15": 18000,
+        "form1040.line-16": 1803,
+        "form1040.line-7a": 0,
+        "form1040.line-7b": "published_categorical",
+        "schedule-d.line-15": 0,
+        "schedule-d.line-16": 0,
+        "schedule-d.line-1a": 0,
+        "schedule-d.line-1b": 0,
+        "schedule-d.line-7": 0,
+        "schedule-d.line-8a": 0,
+        "schedule-d.line-8b": 0,
+        "schedule1.line-21": 500
+      },
+      "questions": [],
+      "error": null
+    },
+    {
+      "id": "sli-mfj-claimed-no",
+      "hand": {
+        "schedule1.line21-sli-deduction": 0,
+        "form1040.line-15": 18500,
+        "form1040.line-16": 1853
+      },
+      "hand_mismatches": [],
+      "lines": {
+        "form1040.line-12e": 31500,
+        "form1040.line-13b": 0,
+        "form1040.line-15": 18500,
+        "form1040.line-16": 1853,
+        "form1040.line-7a": 0,
+        "form1040.line-7b": "published_categorical",
+        "schedule-d.line-15": 0,
+        "schedule-d.line-16": 0,
+        "schedule-d.line-1a": 0,
+        "schedule-d.line-1b": 0,
+        "schedule-d.line-7": 0,
+        "schedule-d.line-8a": 0,
+        "schedule-d.line-8b": 0,
+        "schedule1.line-21": 0
+      },
+      "questions": [],
+      "error": null
+    }
+  ]
+}
