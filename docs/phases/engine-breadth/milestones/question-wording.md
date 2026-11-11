@@ -3,7 +3,7 @@
   "version": 1,
   "phase": "Engine Breadth",
   "topic": "question-wording",
-  "status": "Open. Plan and P0 charter.",
+  "status": "Open. P0 measured; Decisions 1-6; Track 0 chartered.",
   "scope": [
     "each question in scope says exactly what its consuming rule reads, for the population it is asked of, per the 2025 instructions",
     "the successors are content only: question citizens, bundles, core v87, registry v85, release v85",
@@ -146,3 +146,30 @@ Evidence: `question-wording-evidence/p0.md`, with `law.json`, `probe.py` /
   - the v87 loader entries in `packages/tax/loader.py` (code, as every core
     since v80)
   - whether to park the mixed wash-sale finding
+
+## Decisions
+
+Foreman, 2026-11-11, on P0. Every item is content only; the 298 recorded
+returns are identical on v86 and scratch v87.
+
+1. **Wash sale.** Both wash-sale amount questions take the P0 v4 words:
+   the amount of every covered sale *with* a wash-sale loss adjustment.
+2. **Exception 1.** The only-box-2a question takes the P0 v3 words, which
+   exclude any 2025 sale, a zero-net sale included. The fact's title in a
+   successor of `exception1.bundle.json` says the same.
+3. **Student-loan dependency.** The question takes the P0 v2 words ("Is
+   someone else claiming you (or your spouse, on a joint return) as a
+   dependent on their 2025 return?"), and the fact's title in a successor
+   of `sli-scope.bundle.json` names the spouse too.
+4. **Age and blindness titles.** The vocabulary bundle successor takes the
+   P0 v3 titles: born before January 2, 1961, the day-before-the-birthday
+   rule, the death-in-2025 rule, and the blindness test as the instruction
+   states it. Fact versions do not change. No page shows these titles
+   today; they are kept so the fact means what the law says when it is
+   asked.
+5. Core v87, registry v85 and release v85, with their entries in
+   `packages/tax/loader.py` as for every core since v80. Nothing else in
+   code changes.
+6. **Parked**, not built: with a recorded wash sale and the adjustment
+   family open, the page asks no question; age and blindness are never
+   asked and default to false.
