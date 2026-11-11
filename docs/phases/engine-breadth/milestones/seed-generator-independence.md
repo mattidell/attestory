@@ -3,7 +3,8 @@
   "version": 1,
   "phase": "Engine Breadth",
   "topic": "seed-generator-independence",
-  "status": "Open. P0 measured; Decisions 1-5; Track 1 chartered.",
+  "status": "Closed 2026-11-11. Source fixture built, reviewed and repaired.",
+  "retrospective": "docs/milestone-retrospectives/2026-11-11-seed-generator-independence.md",
   "scope": [
     "tools/generate_entry_loop_v70_fixture.py regenerates the committed v70 entry seed without importing any test module",
     "the committed seed fixture bytes are unchanged, and the byte-regeneration test fails when the committed source and the committed seed disagree",
@@ -129,3 +130,21 @@ Enumerators. `load_seed_acts` reads `workspace/acts.jsonl` by name. The director
 Counts. `tests/test_entry_loop_t1.py` had 61 tests before this track and collects 62 after. The added test is `FixtureRegeneration.test_v70_generator_imports_no_test_module`. No other test module changed, and no existing assertion changed.
 
 What the checks catch. `test_v70_seed_regenerates_and_leaves_only_box1_open` fails when the source fixture and the committed seed disagree. A later edit to a test helper leaves the seed where it is until the source file is refreshed on purpose. `test_v70_generator_imports_no_test_module` fails when a fresh interpreter that imports the generator and renders the fixture has a `tests` module loaded. Before the generator change, that check saw 22 such modules.
+
+## Review and repair
+
+Fresh-reader review: `docs/reviews/seed-generator-independence/review.md`,
+verdict ready, nothing blocking. S1: the scope line now says the byte test
+fails when the committed source and seed disagree (helper drift is no
+longer observed, by Decision 3). S2: a static parse of the generator's
+imports, `test_v70_generator_names_no_test_module`, now fails on a `tests`
+import that rendering never runs. S3: the generator's docstring records the
+exact refresh call and serialization; running it reproduces the source
+file byte for byte. N1 and N2 need no change: the byte test ignores acts
+the seed drops by design, and the moved-helper prototype stays as P0's
+measurement.
+
+## Closeout
+
+Closed 2026-11-11. Retrospective:
+`docs/milestone-retrospectives/2026-11-11-seed-generator-independence.md`.

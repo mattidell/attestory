@@ -2,7 +2,7 @@
 
 Reviewer: fresh reader, author-independent.
 Charter: `docs/reviews/seed-generator-independence/charter-review.md`.
-Object: `milestone/seed-generator-independence-2025` at `bae0cd982a2d0708fb29239979d1fe8042df708a`.
+Object: `milestone/seed-generator-independence-2025` at the review charter commit (removed at closeout).
 The Orientation Block SHA matches `git rev-parse HEAD` at the start of this review.
 Diffed against `github/main` at `e196842dc156961a8ec36bcee40fdb8ff5730f01`, which is also `origin/main`.
 After `git fetch`: 0 behind, 10 ahead. PR #272 is open as a draft and has not merged. The branch is not spent.
