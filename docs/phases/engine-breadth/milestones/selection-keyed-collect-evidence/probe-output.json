@@ -1,0 +1,872 @@
+{
+  "cores": [
+    "v85",
+    "v86"
+  ],
+  "cases": {
+    "no_box4_amount": {
+      "v85": {
+        "outcome": "success",
+        "lines": {
+          "form1040.line-25b": 0,
+          "form1040.line-25d": 4500,
+          "form1040.line-33": 4500,
+          "form1040.line-34": 625,
+          "form1040.line-37": 0
+        },
+        "questions": [],
+        "rows": {
+          "rule.f1099b-b4-amount-symbol": {
+            "disposition": "published",
+            "symbol": "f1099b.statement-box4-withholding",
+            "code": null
+          },
+          "rule.f1099b-b4-withholding-subtotal": {
+            "disposition": "published",
+            "symbol": "f1099b.b4-withholding-subtotal",
+            "code": null
+          },
+          "rule.form1040-line25b": {
+            "disposition": "published",
+            "symbol": "payments.line25b",
+            "code": null
+          }
+        },
+        "walks": {
+          "payments.line25b": {
+            "value": "0",
+            "walk": [
+              "[output] payments.line25b=0 <- rule.form1040-line25b",
+              "  [adoption] leaf",
+              "  [citation] leaf",
+              "  [input] leaf",
+              "  [input] leaf",
+              "  [input] leaf",
+              "  [input] leaf",
+              "  [input] leaf",
+              "  [input] leaf",
+              "  [input] leaf",
+              "  [input] leaf",
+              "  [input] leaf",
+              "  [input] leaf",
+              "  [input] leaf",
+              "  [input] leaf",
+              "  [input] dividends.b4-withholding-subtotal=0 <- rule.f1099div-b4-subtotal",
+              "    [adoption] leaf",
+              "    [citation] leaf",
+              "    [input] leaf",
+              "    [package] leaf",
+              "    [package] leaf",
+              "  [input] ira.box4-withholding-subtotal=0 <- rule.f1099r-box4-subtotal",
+              "    [adoption] leaf",
+              "    [citation] leaf"
+            ]
+          },
+          "f1099b.b4-withholding-subtotal": {
+            "value": "0",
+            "walk": [
+              "[output] f1099b.b4-withholding-subtotal=0 <- rule.f1099b-b4-withholding-subtotal",
+              "  [adoption] leaf"
+            ]
+          },
+          "f1099b.statement-box4-withholding": {
+            "value": "0",
+            "walk": [
+              "[output] f1099b.statement-box4-withholding=0 <- rule.f1099b-b4-amount-symbol",
+              "  [adoption] leaf"
+            ]
+          }
+        },
+        "digest": "8c9719e1e2cf986c"
+      },
+      "v86": {
+        "outcome": "success",
+        "lines": {
+          "form1040.line-25b": 0,
+          "form1040.line-25d": 4500,
+          "form1040.line-33": 4500,
+          "form1040.line-34": 625,
+          "form1040.line-37": 0
+        },
+        "questions": [],
+        "rows": {
+          "rule.f1099b-b4-withholding-subtotal": {
+            "disposition": "published",
+            "symbol": "f1099b.b4-withholding-subtotal",
+            "code": null
+          },
+          "rule.form1040-line25b": {
+            "disposition": "published",
+            "symbol": "payments.line25b",
+            "code": null
+          }
+        },
+        "walks": {
+          "payments.line25b": {
+            "value": "0",
+            "walk": [
+              "[output] payments.line25b=0 <- rule.form1040-line25b",
+              "  [adoption] leaf",
+              "  [citation] leaf",
+              "  [input] leaf",
+              "  [input] leaf",
+              "  [input] leaf",
+              "  [input] leaf",
+              "  [input] leaf",
+              "  [input] leaf",
+              "  [input] leaf",
+              "  [input] leaf",
+              "  [input] leaf",
+              "  [input] leaf",
+              "  [input] leaf",
+              "  [input] leaf",
+              "  [input] f1099b.noncovered-lt-count=0 <- rule.f1099b-noncovered-lt-count",
+              "    [adoption] leaf",
+              "    [input] leaf",
+              "    [package] leaf",
+              "    [package] leaf",
+              "  [input] f1099b.code-b-st-count=0 <- rule.f1099b-code-b-st-count",
+              "    [adoption] leaf",
+              "    [input] leaf",
+              "    [package] leaf"
+            ]
+          },
+          "f1099b.b4-withholding-subtotal": {
+            "value": "0",
+            "walk": [
+              "[output] f1099b.b4-withholding-subtotal=0 <- rule.f1099b-b4-withholding-subtotal",
+              "  [adoption] leaf"
+            ]
+          },
+          "f1099b.statement-box4-withholding": null
+        },
+        "digest": "ebfb66bac290f555"
+      },
+      "class": "lines_identical_symbol_retired",
+      "changes": [
+        "symbol_rule_retired",
+        "amount_symbol_walk_gone",
+        "line25b_walk"
+      ]
+    },
+    "one_amount": {
+      "v85": {
+        "outcome": "success",
+        "lines": {
+          "form1040.line-25b": 150,
+          "form1040.line-25d": 4650,
+          "form1040.line-33": 4650,
+          "form1040.line-34": 655,
+          "form1040.line-37": 0
+        },
+        "questions": [],
+        "rows": {
+          "rule.f1099b-b4-amount-symbol": {
+            "disposition": "published",
+            "symbol": "f1099b.statement-box4-withholding",
+            "code": null
+          },
+          "rule.f1099b-b4-withholding-subtotal": {
+            "disposition": "published",
+            "symbol": "f1099b.b4-withholding-subtotal",
+            "code": null
+          },
+          "rule.form1040-line25b": {
+            "disposition": "published",
+            "symbol": "payments.line25b",
+            "code": null
+          }
+        },
+        "walks": {
+          "payments.line25b": {
+            "value": "150",
+            "walk": [
+              "[output] payments.line25b=150 <- rule.form1040-line25b",
+              "  [adoption] leaf",
+              "  [citation] leaf",
+              "  [input] leaf",
+              "  [input] leaf",
+              "  [input] leaf",
+              "  [input] leaf",
+              "  [input] leaf",
+              "  [input] leaf",
+              "  [input] leaf",
+              "  [input] leaf",
+              "  [input] leaf",
+              "  [input] leaf",
+              "  [input] leaf",
+              "  [input] leaf",
+              "  [input] leaf",
+              "  [input] leaf",
+              "  [input] dividends.b4-withholding-subtotal=0 <- rule.f1099div-b4-subtotal",
+              "    [adoption] leaf",
+              "    [citation] leaf",
+              "    [input] leaf",
+              "    [package] leaf",
+              "    [package] leaf",
+              "  [input] ira.box4-withholding-subtotal=0 <- rule.f1099r-box4-subtotal"
+            ]
+          },
+          "f1099b.b4-withholding-subtotal": {
+            "value": "150.0",
+            "walk": [
+              "[output] f1099b.b4-withholding-subtotal=150.0 <- rule.f1099b-b4-withholding-subtotal",
+              "  [adoption] leaf",
+              "  [input] leaf"
+            ]
+          },
+          "f1099b.statement-box4-withholding": {
+            "value": "0",
+            "walk": [
+              "[output] f1099b.statement-box4-withholding=0 <- rule.f1099b-b4-amount-symbol",
+              "  [adoption] leaf"
+            ]
+          }
+        },
+        "digest": "3548e30eab928ef1"
+      },
+      "v86": {
+        "outcome": "success",
+        "lines": {
+          "form1040.line-25b": 150,
+          "form1040.line-25d": 4650,
+          "form1040.line-33": 4650,
+          "form1040.line-34": 655,
+          "form1040.line-37": 0
+        },
+        "questions": [],
+        "rows": {
+          "rule.f1099b-b4-withholding-subtotal": {
+            "disposition": "published",
+            "symbol": "f1099b.b4-withholding-subtotal",
+            "code": null
+          },
+          "rule.form1040-line25b": {
+            "disposition": "published",
+            "symbol": "payments.line25b",
+            "code": null
+          }
+        },
+        "walks": {
+          "payments.line25b": {
+            "value": "150",
+            "walk": [
+              "[output] payments.line25b=150 <- rule.form1040-line25b",
+              "  [adoption] leaf",
+              "  [citation] leaf",
+              "  [input] leaf",
+              "  [input] leaf",
+              "  [input] leaf",
+              "  [input] leaf",
+              "  [input] leaf",
+              "  [input] leaf",
+              "  [input] leaf",
+              "  [input] leaf",
+              "  [input] leaf",
+              "  [input] leaf",
+              "  [input] leaf",
+              "  [input] leaf",
+              "  [input] leaf",
+              "  [input] leaf",
+              "  [input] dividends.b4-withholding-subtotal=0 <- rule.f1099div-b4-subtotal",
+              "    [adoption] leaf",
+              "    [citation] leaf",
+              "    [input] leaf",
+              "    [package] leaf",
+              "    [package] leaf",
+              "  [input] interest.b4-withholding-subtotal=0 <- rule.f1099int-b4-subtotal"
+            ]
+          },
+          "f1099b.b4-withholding-subtotal": {
+            "value": "150.0",
+            "walk": [
+              "[output] f1099b.b4-withholding-subtotal=150.0 <- rule.f1099b-b4-withholding-subtotal",
+              "  [adoption] leaf",
+              "  [input] leaf"
+            ]
+          },
+          "f1099b.statement-box4-withholding": null
+        },
+        "digest": "ab84e920a1f9a6b6"
+      },
+      "class": "lines_identical_symbol_retired",
+      "changes": [
+        "symbol_rule_retired",
+        "amount_symbol_walk_gone",
+        "line25b_walk"
+      ]
+    },
+    "two_statements": {
+      "v85": {
+        "outcome": "success",
+        "lines": {
+          "form1040.line-25b": 190,
+          "form1040.line-25d": 4690,
+          "form1040.line-33": 4690,
+          "form1040.line-34": 647,
+          "form1040.line-37": 0
+        },
+        "questions": [],
+        "rows": {
+          "rule.f1099b-b4-amount-symbol": {
+            "disposition": "published",
+            "symbol": "f1099b.statement-box4-withholding",
+            "code": null
+          },
+          "rule.f1099b-b4-withholding-subtotal": {
+            "disposition": "published",
+            "symbol": "f1099b.b4-withholding-subtotal",
+            "code": null
+          },
+          "rule.form1040-line25b": {
+            "disposition": "published",
+            "symbol": "payments.line25b",
+            "code": null
+          }
+        },
+        "walks": {
+          "payments.line25b": {
+            "value": "190",
+            "walk": [
+              "[output] payments.line25b=190 <- rule.form1040-line25b",
+              "  [adoption] leaf",
+              "  [citation] leaf",
+              "  [input] leaf",
+              "  [input] leaf",
+              "  [input] leaf",
+              "  [input] leaf",
+              "  [input] leaf",
+              "  [input] leaf",
+              "  [input] leaf",
+              "  [input] leaf",
+              "  [input] leaf",
+              "  [input] leaf",
+              "  [input] leaf",
+              "  [input] leaf",
+              "  [input] leaf",
+              "  [input] leaf",
+              "  [input] leaf",
+              "  [input] leaf",
+              "  [input] dividends.b4-withholding-subtotal=0 <- rule.f1099div-b4-subtotal",
+              "    [adoption] leaf",
+              "    [citation] leaf",
+              "    [input] leaf",
+              "    [package] leaf"
+            ]
+          },
+          "f1099b.b4-withholding-subtotal": {
+            "value": "190.0",
+            "walk": [
+              "[output] f1099b.b4-withholding-subtotal=190.0 <- rule.f1099b-b4-withholding-subtotal",
+              "  [adoption] leaf",
+              "  [input] leaf",
+              "  [input] leaf"
+            ]
+          },
+          "f1099b.statement-box4-withholding": {
+            "value": "0",
+            "walk": [
+              "[output] f1099b.statement-box4-withholding=0 <- rule.f1099b-b4-amount-symbol",
+              "  [adoption] leaf"
+            ]
+          }
+        },
+        "digest": "8eaea1418f9c9798"
+      },
+      "v86": {
+        "outcome": "success",
+        "lines": {
+          "form1040.line-25b": 190,
+          "form1040.line-25d": 4690,
+          "form1040.line-33": 4690,
+          "form1040.line-34": 647,
+          "form1040.line-37": 0
+        },
+        "questions": [],
+        "rows": {
+          "rule.f1099b-b4-withholding-subtotal": {
+            "disposition": "published",
+            "symbol": "f1099b.b4-withholding-subtotal",
+            "code": null
+          },
+          "rule.form1040-line25b": {
+            "disposition": "published",
+            "symbol": "payments.line25b",
+            "code": null
+          }
+        },
+        "walks": {
+          "payments.line25b": {
+            "value": "190",
+            "walk": [
+              "[output] payments.line25b=190 <- rule.form1040-line25b",
+              "  [adoption] leaf",
+              "  [citation] leaf",
+              "  [input] leaf",
+              "  [input] leaf",
+              "  [input] leaf",
+              "  [input] leaf",
+              "  [input] leaf",
+              "  [input] leaf",
+              "  [input] leaf",
+              "  [input] leaf",
+              "  [input] leaf",
+              "  [input] leaf",
+              "  [input] leaf",
+              "  [input] leaf",
+              "  [input] leaf",
+              "  [input] leaf",
+              "  [input] leaf",
+              "  [input] leaf",
+              "  [input] dividends.b4-withholding-subtotal=0 <- rule.f1099div-b4-subtotal",
+              "    [adoption] leaf",
+              "    [citation] leaf",
+              "    [input] leaf",
+              "    [package] leaf"
+            ]
+          },
+          "f1099b.b4-withholding-subtotal": {
+            "value": "190.0",
+            "walk": [
+              "[output] f1099b.b4-withholding-subtotal=190.0 <- rule.f1099b-b4-withholding-subtotal",
+              "  [adoption] leaf",
+              "  [input] leaf",
+              "  [input] leaf"
+            ]
+          },
+          "f1099b.statement-box4-withholding": null
+        },
+        "digest": "fc8b77e36db77811"
+      },
+      "class": "lines_identical_symbol_retired",
+      "changes": [
+        "symbol_rule_retired",
+        "amount_symbol_walk_gone"
+      ]
+    },
+    "zero_amount": {
+      "v85": {
+        "outcome": "success",
+        "lines": {
+          "form1040.line-25b": 0,
+          "form1040.line-25d": 4500,
+          "form1040.line-33": 4500,
+          "form1040.line-34": 505,
+          "form1040.line-37": 0
+        },
+        "questions": [],
+        "rows": {
+          "rule.f1099b-b4-amount-symbol": {
+            "disposition": "published",
+            "symbol": "f1099b.statement-box4-withholding",
+            "code": null
+          },
+          "rule.f1099b-b4-withholding-subtotal": {
+            "disposition": "published",
+            "symbol": "f1099b.b4-withholding-subtotal",
+            "code": null
+          },
+          "rule.form1040-line25b": {
+            "disposition": "published",
+            "symbol": "payments.line25b",
+            "code": null
+          }
+        },
+        "walks": {
+          "payments.line25b": {
+            "value": "0",
+            "walk": [
+              "[output] payments.line25b=0 <- rule.form1040-line25b",
+              "  [adoption] leaf",
+              "  [citation] leaf",
+              "  [input] leaf",
+              "  [input] leaf",
+              "  [input] leaf",
+              "  [input] leaf",
+              "  [input] leaf",
+              "  [input] leaf",
+              "  [input] leaf",
+              "  [input] leaf",
+              "  [input] leaf",
+              "  [input] leaf",
+              "  [input] leaf",
+              "  [input] leaf",
+              "  [input] leaf",
+              "  [input] leaf",
+              "  [input] dividends.b4-withholding-subtotal=0 <- rule.f1099div-b4-subtotal",
+              "    [adoption] leaf",
+              "    [citation] leaf",
+              "    [input] leaf",
+              "    [package] leaf",
+              "    [package] leaf",
+              "  [input] ira.box4-withholding-subtotal=0 <- rule.f1099r-box4-subtotal"
+            ]
+          },
+          "f1099b.b4-withholding-subtotal": {
+            "value": "0.0",
+            "walk": [
+              "[output] f1099b.b4-withholding-subtotal=0.0 <- rule.f1099b-b4-withholding-subtotal",
+              "  [adoption] leaf",
+              "  [input] leaf"
+            ]
+          },
+          "f1099b.statement-box4-withholding": {
+            "value": "0",
+            "walk": [
+              "[output] f1099b.statement-box4-withholding=0 <- rule.f1099b-b4-amount-symbol",
+              "  [adoption] leaf"
+            ]
+          }
+        },
+        "digest": "1c883b59276a3e85"
+      },
+      "v86": {
+        "outcome": "success",
+        "lines": {
+          "form1040.line-25b": 0,
+          "form1040.line-25d": 4500,
+          "form1040.line-33": 4500,
+          "form1040.line-34": 505,
+          "form1040.line-37": 0
+        },
+        "questions": [],
+        "rows": {
+          "rule.f1099b-b4-withholding-subtotal": {
+            "disposition": "published",
+            "symbol": "f1099b.b4-withholding-subtotal",
+            "code": null
+          },
+          "rule.form1040-line25b": {
+            "disposition": "published",
+            "symbol": "payments.line25b",
+            "code": null
+          }
+        },
+        "walks": {
+          "payments.line25b": {
+            "value": "0",
+            "walk": [
+              "[output] payments.line25b=0 <- rule.form1040-line25b",
+              "  [adoption] leaf",
+              "  [citation] leaf",
+              "  [input] leaf",
+              "  [input] leaf",
+              "  [input] leaf",
+              "  [input] leaf",
+              "  [input] leaf",
+              "  [input] leaf",
+              "  [input] leaf",
+              "  [input] leaf",
+              "  [input] leaf",
+              "  [input] leaf",
+              "  [input] leaf",
+              "  [input] leaf",
+              "  [input] leaf",
+              "  [input] leaf",
+              "  [input] dividends.b4-withholding-subtotal=0 <- rule.f1099div-b4-subtotal",
+              "    [adoption] leaf",
+              "    [citation] leaf",
+              "    [input] leaf",
+              "    [package] leaf",
+              "    [package] leaf",
+              "  [input] interest.b4-withholding-subtotal=0 <- rule.f1099int-b4-subtotal"
+            ]
+          },
+          "f1099b.b4-withholding-subtotal": {
+            "value": "0.0",
+            "walk": [
+              "[output] f1099b.b4-withholding-subtotal=0.0 <- rule.f1099b-b4-withholding-subtotal",
+              "  [adoption] leaf",
+              "  [input] leaf"
+            ]
+          },
+          "f1099b.statement-box4-withholding": null
+        },
+        "digest": "683b28a7ac5346a4"
+      },
+      "class": "lines_identical_symbol_retired",
+      "changes": [
+        "symbol_rule_retired",
+        "amount_symbol_walk_gone",
+        "line25b_walk"
+      ]
+    },
+    "superseded": {
+      "v85": {
+        "outcome": "success",
+        "lines": {
+          "form1040.line-25b": 250,
+          "form1040.line-25d": 4750,
+          "form1040.line-33": 4750,
+          "form1040.line-34": 755,
+          "form1040.line-37": 0
+        },
+        "questions": [],
+        "rows": {
+          "rule.f1099b-b4-amount-symbol": {
+            "disposition": "published",
+            "symbol": "f1099b.statement-box4-withholding",
+            "code": null
+          },
+          "rule.f1099b-b4-withholding-subtotal": {
+            "disposition": "published",
+            "symbol": "f1099b.b4-withholding-subtotal",
+            "code": null
+          },
+          "rule.form1040-line25b": {
+            "disposition": "published",
+            "symbol": "payments.line25b",
+            "code": null
+          }
+        },
+        "walks": {
+          "payments.line25b": {
+            "value": "250",
+            "walk": [
+              "[output] payments.line25b=250 <- rule.form1040-line25b",
+              "  [adoption] leaf",
+              "  [citation] leaf",
+              "  [input] leaf",
+              "  [input] leaf",
+              "  [input] leaf",
+              "  [input] leaf",
+              "  [input] leaf",
+              "  [input] leaf",
+              "  [input] leaf",
+              "  [input] leaf",
+              "  [input] leaf",
+              "  [input] leaf",
+              "  [input] leaf",
+              "  [input] leaf",
+              "  [input] leaf",
+              "  [input] leaf",
+              "  [input] dividends.b4-withholding-subtotal=0 <- rule.f1099div-b4-subtotal",
+              "    [adoption] leaf",
+              "    [citation] leaf",
+              "    [input] leaf",
+              "    [package] leaf",
+              "    [package] leaf",
+              "  [input] ira.box4-withholding-subtotal=0 <- rule.f1099r-box4-subtotal"
+            ]
+          },
+          "f1099b.b4-withholding-subtotal": {
+            "value": "250.0",
+            "walk": [
+              "[output] f1099b.b4-withholding-subtotal=250.0 <- rule.f1099b-b4-withholding-subtotal",
+              "  [adoption] leaf",
+              "  [input] leaf"
+            ]
+          },
+          "f1099b.statement-box4-withholding": {
+            "value": "0",
+            "walk": [
+              "[output] f1099b.statement-box4-withholding=0 <- rule.f1099b-b4-amount-symbol",
+              "  [adoption] leaf"
+            ]
+          }
+        },
+        "digest": "a4b477963fac5969"
+      },
+      "v86": {
+        "outcome": "success",
+        "lines": {
+          "form1040.line-25b": 250,
+          "form1040.line-25d": 4750,
+          "form1040.line-33": 4750,
+          "form1040.line-34": 755,
+          "form1040.line-37": 0
+        },
+        "questions": [],
+        "rows": {
+          "rule.f1099b-b4-withholding-subtotal": {
+            "disposition": "published",
+            "symbol": "f1099b.b4-withholding-subtotal",
+            "code": null
+          },
+          "rule.form1040-line25b": {
+            "disposition": "published",
+            "symbol": "payments.line25b",
+            "code": null
+          }
+        },
+        "walks": {
+          "payments.line25b": {
+            "value": "250",
+            "walk": [
+              "[output] payments.line25b=250 <- rule.form1040-line25b",
+              "  [adoption] leaf",
+              "  [citation] leaf",
+              "  [input] leaf",
+              "  [input] leaf",
+              "  [input] leaf",
+              "  [input] leaf",
+              "  [input] leaf",
+              "  [input] leaf",
+              "  [input] leaf",
+              "  [input] leaf",
+              "  [input] leaf",
+              "  [input] leaf",
+              "  [input] leaf",
+              "  [input] leaf",
+              "  [input] leaf",
+              "  [input] leaf",
+              "  [input] f1099b.b4-withholding-subtotal=250.0 <- rule.f1099b-b4-withholding-subtotal",
+              "    [adoption] leaf",
+              "    [input] leaf",
+              "  [input] dividends.b4-withholding-subtotal=0 <- rule.f1099div-b4-subtotal",
+              "    [adoption] leaf",
+              "    [citation] leaf",
+              "    [input] leaf"
+            ]
+          },
+          "f1099b.b4-withholding-subtotal": {
+            "value": "250.0",
+            "walk": [
+              "[output] f1099b.b4-withholding-subtotal=250.0 <- rule.f1099b-b4-withholding-subtotal",
+              "  [adoption] leaf",
+              "  [input] leaf"
+            ]
+          },
+          "f1099b.statement-box4-withholding": null
+        },
+        "digest": "7ed4bf5d674ef86a"
+      },
+      "class": "lines_identical_symbol_retired",
+      "changes": [
+        "symbol_rule_retired",
+        "amount_symbol_walk_gone",
+        "line25b_walk"
+      ]
+    },
+    "withdrawn": {
+      "v85": {
+        "outcome": "success",
+        "lines": {
+          "form1040.line-25b": "blocked",
+          "form1040.line-25d": "blocked",
+          "form1040.line-33": "blocked",
+          "form1040.line-34": "blocked",
+          "form1040.line-37": "blocked"
+        },
+        "questions": [
+          "Enter the federal income tax withheld in box 4 of each Form 1099-B or substitute statement you recorded a sale from. If box 4 is blank, enter $0."
+        ],
+        "rows": {
+          "rule.f1099b-b4-amount-symbol": {
+            "disposition": "published",
+            "symbol": "f1099b.statement-box4-withholding",
+            "code": null
+          },
+          "rule.f1099b-b4-withholding-subtotal": {
+            "disposition": "published",
+            "symbol": "f1099b.b4-withholding-subtotal",
+            "code": null
+          },
+          "rule.form1040-line25b": {
+            "disposition": "blocked",
+            "symbol": "",
+            "code": "DEPENDENCY_ABSENT"
+          }
+        },
+        "walks": {
+          "payments.line25b": null,
+          "f1099b.b4-withholding-subtotal": {
+            "value": "0",
+            "walk": [
+              "[output] f1099b.b4-withholding-subtotal=0 <- rule.f1099b-b4-withholding-subtotal",
+              "  [adoption] leaf"
+            ]
+          },
+          "f1099b.statement-box4-withholding": {
+            "value": "0",
+            "walk": [
+              "[output] f1099b.statement-box4-withholding=0 <- rule.f1099b-b4-amount-symbol",
+              "  [adoption] leaf"
+            ]
+          }
+        },
+        "digest": "ede78b463af94966"
+      },
+      "v86": {
+        "outcome": "success",
+        "lines": {
+          "form1040.line-25b": "blocked",
+          "form1040.line-25d": "blocked",
+          "form1040.line-33": "blocked",
+          "form1040.line-34": "blocked",
+          "form1040.line-37": "blocked"
+        },
+        "questions": [
+          "Enter the federal income tax withheld in box 4 of each Form 1099-B or substitute statement you recorded a sale from. If box 4 is blank, enter $0."
+        ],
+        "rows": {
+          "rule.f1099b-b4-withholding-subtotal": {
+            "disposition": "published",
+            "symbol": "f1099b.b4-withholding-subtotal",
+            "code": null
+          },
+          "rule.form1040-line25b": {
+            "disposition": "blocked",
+            "symbol": "",
+            "code": "DEPENDENCY_ABSENT"
+          }
+        },
+        "walks": {
+          "payments.line25b": null,
+          "f1099b.b4-withholding-subtotal": {
+            "value": "0",
+            "walk": [
+              "[output] f1099b.b4-withholding-subtotal=0 <- rule.f1099b-b4-withholding-subtotal",
+              "  [adoption] leaf"
+            ]
+          },
+          "f1099b.statement-box4-withholding": null
+        },
+        "digest": "75f7e2d883aaabf9"
+      },
+      "class": "lines_identical_symbol_retired",
+      "changes": [
+        "symbol_rule_retired",
+        "amount_symbol_walk_gone"
+      ]
+    }
+  },
+  "validation": {
+    "one_path_patched_v15": {
+      "ok": true
+    },
+    "one_path_published_v15": {
+      "ok": false,
+      "errors": [
+        "selection/paths: [{'id': 'amounts', 'activity': {'kind': 'source_nonempty', 'source_family': {'id': 'tax.us.2025.f1099b.b4', 'version': 'v1'}, 'member_fact_types': [{'id': 'tax.us.2025.f1099b.statement-box4-withholding', 'version': 'v1'}]}, 'reads_subject_results': [], 'requires': [], 'pins': [], 'when': True, 'value': {'op': 'add', 'args': [{'op': 'collect', 'name': 'tax.us.2025.f1099b.statement-box4-withholding', 'source_set': 'tax.us.2025.f1099b.b4'}]}}] is too short"
+      ]
+    },
+    "two_path_subtotal_patched": {
+      "ok": true
+    },
+    "two_path_subtotal_published": {
+      "ok": true
+    },
+    "two_real_line2b_patched": {
+      "ok": true
+    },
+    "two_real_line2b_published": {
+      "ok": true
+    }
+  },
+  "switch_off_v85": {
+    "class": "switch_off_before_v86",
+    "v84": false,
+    "v85": false,
+    "v86": true,
+    "other_package": false
+  },
+  "case_ids": [
+    "no_box4_amount",
+    "one_amount",
+    "two_statements",
+    "zero_amount",
+    "superseded",
+    "withdrawn"
+  ]
+}

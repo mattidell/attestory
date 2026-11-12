@@ -1,0 +1,227 @@
+{
+  "scope": "matrix",
+  "cores": [
+    "v85",
+    "v86"
+  ],
+  "cases": [
+    {
+      "id": "m_no_box4_amount_v85",
+      "family_state": "closed empty, no amount",
+      "core": "v85",
+      "switch": false,
+      "expect_25b": 0,
+      "expect_subtotal": 0,
+      "lines": {
+        "form1040.line-25b": 0,
+        "form1040.line-25d": 4500,
+        "form1040.line-33": 4500,
+        "form1040.line-34": 625,
+        "form1040.line-37": 0
+      },
+      "subtotal": [
+        0
+      ],
+      "standin": {
+        "disposition": "published",
+        "symbol": "f1099b.statement-box4-withholding",
+        "code": null
+      },
+      "failures": [],
+      "passed": true
+    },
+    {
+      "id": "m_no_box4_amount_v86",
+      "family_state": "closed empty, no amount",
+      "core": "v86",
+      "switch": true,
+      "expect_25b": 0,
+      "expect_subtotal": 0,
+      "lines": {
+        "form1040.line-25b": 0,
+        "form1040.line-25d": 4500,
+        "form1040.line-33": 4500,
+        "form1040.line-34": 625,
+        "form1040.line-37": 0
+      },
+      "subtotal": [
+        0
+      ],
+      "standin": null,
+      "failures": [],
+      "passed": true
+    },
+    {
+      "id": "m_one_amount_v85",
+      "family_state": "nonempty, one amount 150",
+      "core": "v85",
+      "switch": false,
+      "expect_25b": 150,
+      "expect_subtotal": 150,
+      "lines": {
+        "form1040.line-25b": 150,
+        "form1040.line-25d": 4650,
+        "form1040.line-33": 4650,
+        "form1040.line-34": 655,
+        "form1040.line-37": 0
+      },
+      "subtotal": [
+        150
+      ],
+      "standin": {
+        "disposition": "published",
+        "symbol": "f1099b.statement-box4-withholding",
+        "code": null
+      },
+      "failures": [],
+      "passed": true
+    },
+    {
+      "id": "m_one_amount_v86",
+      "family_state": "nonempty, one amount 150",
+      "core": "v86",
+      "switch": true,
+      "expect_25b": 150,
+      "expect_subtotal": 150,
+      "lines": {
+        "form1040.line-25b": 150,
+        "form1040.line-25d": 4650,
+        "form1040.line-33": 4650,
+        "form1040.line-34": 655,
+        "form1040.line-37": 0
+      },
+      "subtotal": [
+        150
+      ],
+      "standin": null,
+      "failures": [],
+      "passed": true
+    },
+    {
+      "id": "m_two_statements_v85",
+      "family_state": "nonempty, two amounts 150 and 40",
+      "core": "v85",
+      "switch": false,
+      "expect_25b": 190,
+      "expect_subtotal": 190,
+      "lines": {
+        "form1040.line-25b": 190,
+        "form1040.line-25d": 4690,
+        "form1040.line-33": 4690,
+        "form1040.line-34": 647,
+        "form1040.line-37": 0
+      },
+      "subtotal": [
+        190
+      ],
+      "standin": {
+        "disposition": "published",
+        "symbol": "f1099b.statement-box4-withholding",
+        "code": null
+      },
+      "failures": [],
+      "passed": true
+    },
+    {
+      "id": "m_two_statements_v86",
+      "family_state": "nonempty, two amounts 150 and 40",
+      "core": "v86",
+      "switch": true,
+      "expect_25b": 190,
+      "expect_subtotal": 190,
+      "lines": {
+        "form1040.line-25b": 190,
+        "form1040.line-25d": 4690,
+        "form1040.line-33": 4690,
+        "form1040.line-34": 647,
+        "form1040.line-37": 0
+      },
+      "subtotal": [
+        190
+      ],
+      "standin": null,
+      "failures": [],
+      "passed": true
+    },
+    {
+      "id": "m_zero_amount_v85",
+      "family_state": "nonempty, recorded zero",
+      "core": "v85",
+      "switch": false,
+      "expect_25b": 0,
+      "expect_subtotal": 0,
+      "lines": {
+        "form1040.line-25b": 0,
+        "form1040.line-25d": 4500,
+        "form1040.line-33": 4500,
+        "form1040.line-34": 505,
+        "form1040.line-37": 0
+      },
+      "subtotal": [
+        0
+      ],
+      "standin": {
+        "disposition": "published",
+        "symbol": "f1099b.statement-box4-withholding",
+        "code": null
+      },
+      "failures": [],
+      "passed": true
+    },
+    {
+      "id": "m_zero_amount_v86",
+      "family_state": "nonempty, recorded zero",
+      "core": "v86",
+      "switch": true,
+      "expect_25b": 0,
+      "expect_subtotal": 0,
+      "lines": {
+        "form1040.line-25b": 0,
+        "form1040.line-25d": 4500,
+        "form1040.line-33": 4500,
+        "form1040.line-34": 505,
+        "form1040.line-37": 0
+      },
+      "subtotal": [
+        0
+      ],
+      "standin": null,
+      "failures": [],
+      "passed": true
+    },
+    {
+      "id": "m_one_path_v16_with_default",
+      "family_state": "one-path exclusive_presence with default",
+      "schema": {
+        "ok": true
+      },
+      "failures": [],
+      "passed": true
+    },
+    {
+      "id": "m_one_path_v16_without_default",
+      "family_state": "one-path exclusive_presence without default",
+      "schema": {
+        "ok": false,
+        "errors": [
+          "selection: 'default' is a required property"
+        ]
+      },
+      "failures": [],
+      "passed": true
+    }
+  ],
+  "passed": [
+    "m_no_box4_amount_v85",
+    "m_no_box4_amount_v86",
+    "m_one_amount_v85",
+    "m_one_amount_v86",
+    "m_two_statements_v85",
+    "m_two_statements_v86",
+    "m_zero_amount_v85",
+    "m_zero_amount_v86",
+    "m_one_path_v16_with_default",
+    "m_one_path_v16_without_default"
+  ],
+  "failed": []
+}

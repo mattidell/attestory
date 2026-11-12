@@ -1894,6 +1894,8 @@ class C8bCandidateAgainstCurrentPackageValidation(unittest.TestCase):
                 # v41 is v40 plus source-closure-mapping.v4 only. It retains
                 # the prior member set and stays outside the v17 allowlist.
                 "artifact-package.v41.schema.json",
+                # v42 is v41 plus rule-artifact.v16 only (selection-keyed-collect).
+                "artifact-package.v42.schema.json",
             ],
         )
 

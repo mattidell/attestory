@@ -1,0 +1,3229 @@
+{
+  "cores_surveyed": [
+    "v2",
+    "v3",
+    "v4",
+    "v5",
+    "v6",
+    "v7",
+    "v8",
+    "v9",
+    "v10",
+    "v11",
+    "v12",
+    "v13",
+    "v14",
+    "v15",
+    "v16",
+    "v17",
+    "v18",
+    "v19",
+    "v20",
+    "v21",
+    "v22",
+    "v23",
+    "v24",
+    "v25",
+    "v26",
+    "v27",
+    "v28",
+    "v29",
+    "v30",
+    "v31",
+    "v32",
+    "v33",
+    "v34",
+    "v35",
+    "v36",
+    "v37",
+    "v38",
+    "v39",
+    "v40",
+    "v41",
+    "v42",
+    "v43",
+    "v44",
+    "v45",
+    "v46",
+    "v47",
+    "v48",
+    "v49",
+    "v50",
+    "v51",
+    "v52",
+    "v53",
+    "v54",
+    "v55",
+    "v56",
+    "v57",
+    "v58",
+    "v59",
+    "v60",
+    "v61",
+    "v62",
+    "v63",
+    "v64",
+    "v65",
+    "v66",
+    "v67",
+    "v68",
+    "v69",
+    "v70",
+    "v71",
+    "v72",
+    "v73",
+    "v74",
+    "v75",
+    "v76",
+    "v77",
+    "v78",
+    "v79",
+    "v80",
+    "v81",
+    "v82",
+    "v83",
+    "v84",
+    "v85"
+  ],
+  "core_count": 84,
+  "unresolved_member_cores": [],
+  "stand_in_kind_count": 1,
+  "unwritten_path_kind_count": 43,
+  "one_real_plus_default_kind_count": 41,
+  "two_real_kind_count": 1,
+  "stand_in_kinds": [
+    {
+      "core": "v83",
+      "publisher": "tax.us.2025.rule.f1099b-b4-amount-symbol",
+      "publisher_version": "v1",
+      "publishes": "tax.us.2025.f1099b.statement-box4-withholding",
+      "value": 0,
+      "selection_rule": "tax.us.2025.rule.f1099b-b4-withholding-subtotal",
+      "selection_version": "v1",
+      "path_id": "amounts",
+      "family_members": [
+        "tax.us.2025.f1099b.b4"
+      ],
+      "cores": [
+        "v83",
+        "v84",
+        "v85"
+      ],
+      "first_core": "v83",
+      "last_core": "v85"
+    }
+  ],
+  "unwritten_path_kinds": [
+    {
+      "core": "v40",
+      "rule": "tax.us.2025.rule.sli-worksheet",
+      "rule_version": "v3",
+      "schema": "rule-artifact.v13",
+      "paths": [
+        {
+          "path_id": "yes-no-answers",
+          "fact_types": [
+            "tax.us.2025.f1098e.no-non-qualified-loan-component"
+          ],
+          "requires": [
+            "filing_status",
+            "rounding.convention",
+            "tax.us.2025.income.total-income",
+            "tax.us.2025.schedule1-adjustments-scope.no-line11-educator",
+            "tax.us.2025.schedule1-adjustments-scope.no-line12-business-expenses",
+            "tax.us.2025.schedule1-adjustments-scope.no-line13-hsa",
+            "tax.us.2025.schedule1-adjustments-scope.no-line14-moving",
+            "tax.us.2025.schedule1-adjustments-scope.no-line15-deductible-se",
+            "tax.us.2025.schedule1-adjustments-scope.no-line16-se-retirement",
+            "tax.us.2025.schedule1-adjustments-scope.no-line17-se-health",
+            "tax.us.2025.schedule1-adjustments-scope.no-line18-penalty",
+            "tax.us.2025.schedule1-adjustments-scope.no-line19-alimony-paid",
+            "tax.us.2025.schedule1-adjustments-scope.no-line20-ira-deduction",
+            "tax.us.2025.schedule1-adjustments-scope.no-line23-archer-msa",
+            "tax.us.2025.schedule1-adjustments-scope.no-line25-other-adjustments",
+            "tax.us.2025.sli-scope.legally-obligated-for-interest",
+            "tax.us.2025.sli-scope.no-form-2555",
+            "tax.us.2025.sli-scope.no-form-4563",
+            "tax.us.2025.sli-scope.no-puerto-rico-or-samoa-income",
+            "tax.us.2025.sli-scope.not-claimed-as-dependent",
+            "tax.us.2025.sli-worksheet.line1-total-interest-paid-subtotal"
+          ],
+          "inert_named": false
+        }
+      ],
+      "has_default": true,
+      "written_path_count": 1,
+      "cores": [
+        "v40"
+      ],
+      "first_core": "v40",
+      "last_core": "v40"
+    },
+    {
+      "core": "v41",
+      "rule": "tax.us.2025.rule.sli-worksheet",
+      "rule_version": "v4",
+      "schema": "rule-artifact.v13",
+      "paths": [
+        {
+          "path_id": "yes-no-answers",
+          "fact_types": [
+            "tax.us.2025.f1098e.no-non-qualified-loan-component"
+          ],
+          "requires": [
+            "filing_status",
+            "rounding.convention",
+            "tax.us.2025.income.total-income",
+            "tax.us.2025.schedule1-adjustments-scope.no-line11-educator",
+            "tax.us.2025.schedule1-adjustments-scope.no-line12-business-expenses",
+            "tax.us.2025.schedule1-adjustments-scope.no-line13-hsa",
+            "tax.us.2025.schedule1-adjustments-scope.no-line14-moving",
+            "tax.us.2025.schedule1-adjustments-scope.no-line15-deductible-se",
+            "tax.us.2025.schedule1-adjustments-scope.no-line16-se-retirement",
+            "tax.us.2025.schedule1-adjustments-scope.no-line17-se-health",
+            "tax.us.2025.schedule1-adjustments-scope.no-line18-penalty",
+            "tax.us.2025.schedule1-adjustments-scope.no-line19-alimony-paid",
+            "tax.us.2025.schedule1-adjustments-scope.no-line20-ira-deduction",
+            "tax.us.2025.schedule1-adjustments-scope.no-line23-archer-msa",
+            "tax.us.2025.schedule1-adjustments-scope.no-line25-other-adjustments",
+            "tax.us.2025.sli-scope.legally-obligated-for-interest",
+            "tax.us.2025.sli-scope.no-form-2555",
+            "tax.us.2025.sli-scope.no-form-4563",
+            "tax.us.2025.sli-scope.no-puerto-rico-or-samoa-income",
+            "tax.us.2025.sli-scope.not-claimed-as-dependent",
+            "tax.us.2025.sli-worksheet.line1-total-interest-paid-subtotal"
+          ],
+          "inert_named": false
+        }
+      ],
+      "has_default": true,
+      "written_path_count": 1,
+      "cores": [
+        "v41"
+      ],
+      "first_core": "v41",
+      "last_core": "v41"
+    },
+    {
+      "core": "v42",
+      "rule": "tax.us.2025.rule.sli-worksheet",
+      "rule_version": "v5",
+      "schema": "rule-artifact.v13",
+      "paths": [
+        {
+          "path_id": "inert",
+          "fact_types": [
+            "tax.us.2025.sli.inert-path-unwritten"
+          ],
+          "requires": [],
+          "inert_named": true
+        }
+      ],
+      "has_default": true,
+      "written_path_count": 1,
+      "cores": [
+        "v42",
+        "v43",
+        "v44",
+        "v45",
+        "v46",
+        "v47",
+        "v48",
+        "v49",
+        "v50",
+        "v51",
+        "v52",
+        "v53",
+        "v54",
+        "v55",
+        "v56",
+        "v57",
+        "v58",
+        "v59",
+        "v60",
+        "v61",
+        "v62",
+        "v63",
+        "v64",
+        "v65"
+      ],
+      "first_core": "v42",
+      "last_core": "v65"
+    },
+    {
+      "core": "v44",
+      "rule": "tax.us.2025.rule.f1098-residence-interest-unresolved",
+      "rule_version": "v1",
+      "schema": "rule-artifact.v13",
+      "paths": [
+        {
+          "path_id": "inert",
+          "fact_types": [
+            "tax.us.2025.f1098.inert-path-unwritten"
+          ],
+          "requires": [],
+          "inert_named": true
+        }
+      ],
+      "has_default": true,
+      "written_path_count": 1,
+      "cores": [
+        "v44"
+      ],
+      "first_core": "v44",
+      "last_core": "v44"
+    },
+    {
+      "core": "v45",
+      "rule": "tax.us.2025.rule.f1098-residence-interest-unresolved",
+      "rule_version": "v2",
+      "schema": "rule-artifact.v13",
+      "paths": [
+        {
+          "path_id": "inert",
+          "fact_types": [
+            "tax.us.2025.f1098.inert-path-unwritten"
+          ],
+          "requires": [],
+          "inert_named": true
+        }
+      ],
+      "has_default": true,
+      "written_path_count": 1,
+      "cores": [
+        "v45",
+        "v46",
+        "v47",
+        "v48",
+        "v49",
+        "v50",
+        "v51",
+        "v52",
+        "v53",
+        "v54",
+        "v55",
+        "v56",
+        "v57",
+        "v58",
+        "v59",
+        "v60",
+        "v61",
+        "v62",
+        "v63",
+        "v64",
+        "v65",
+        "v66",
+        "v67",
+        "v68",
+        "v69",
+        "v70",
+        "v71",
+        "v72",
+        "v73",
+        "v74",
+        "v75",
+        "v76",
+        "v77",
+        "v78",
+        "v79",
+        "v80",
+        "v81",
+        "v82",
+        "v83",
+        "v84",
+        "v85"
+      ],
+      "first_core": "v45",
+      "last_core": "v85"
+    },
+    {
+      "core": "v46",
+      "rule": "tax.us.2025.rule.f1099k-unresolved",
+      "rule_version": "v1",
+      "schema": "rule-artifact.v14",
+      "paths": [
+        {
+          "path_id": "inert",
+          "fact_types": [
+            "tax.us.2025.f1099k.inert-path-unwritten"
+          ],
+          "requires": [],
+          "inert_named": true
+        }
+      ],
+      "has_default": true,
+      "written_path_count": 1,
+      "cores": [
+        "v46",
+        "v47"
+      ],
+      "first_core": "v46",
+      "last_core": "v47"
+    },
+    {
+      "core": "v48",
+      "rule": "tax.us.2025.rule.f1099k-unresolved",
+      "rule_version": "v2",
+      "schema": "rule-artifact.v14",
+      "paths": [
+        {
+          "path_id": "inert",
+          "fact_types": [
+            "tax.us.2025.f1099k.inert-path-unwritten"
+          ],
+          "requires": [],
+          "inert_named": true
+        }
+      ],
+      "has_default": true,
+      "written_path_count": 1,
+      "cores": [
+        "v48"
+      ],
+      "first_core": "v48",
+      "last_core": "v48"
+    },
+    {
+      "core": "v49",
+      "rule": "tax.us.2025.rule.schedule1-top-entry",
+      "rule_version": "v3",
+      "schema": "rule-artifact.v14",
+      "paths": [
+        {
+          "path_id": "inert",
+          "fact_types": [
+            "tax.us.2025.f1099k.inert-path-unwritten"
+          ],
+          "requires": [],
+          "inert_named": true
+        }
+      ],
+      "has_default": true,
+      "written_path_count": 1,
+      "cores": [
+        "v49",
+        "v50",
+        "v51",
+        "v52",
+        "v53",
+        "v54",
+        "v55",
+        "v56",
+        "v57",
+        "v58",
+        "v59",
+        "v60",
+        "v61",
+        "v62",
+        "v63",
+        "v64",
+        "v65",
+        "v66",
+        "v67",
+        "v68",
+        "v69",
+        "v70",
+        "v71",
+        "v72",
+        "v73",
+        "v74",
+        "v75",
+        "v76",
+        "v77",
+        "v78",
+        "v79",
+        "v80",
+        "v81",
+        "v82",
+        "v83",
+        "v84",
+        "v85"
+      ],
+      "first_core": "v49",
+      "last_core": "v85"
+    },
+    {
+      "core": "v49",
+      "rule": "tax.us.2025.rule.f1099k-unresolved",
+      "rule_version": "v3",
+      "schema": "rule-artifact.v14",
+      "paths": [
+        {
+          "path_id": "inert",
+          "fact_types": [
+            "tax.us.2025.f1099k.inert-path-unwritten"
+          ],
+          "requires": [],
+          "inert_named": true
+        }
+      ],
+      "has_default": true,
+      "written_path_count": 1,
+      "cores": [
+        "v49",
+        "v50",
+        "v51",
+        "v52",
+        "v53",
+        "v54",
+        "v55",
+        "v56",
+        "v57",
+        "v58",
+        "v59",
+        "v60",
+        "v61",
+        "v62",
+        "v63",
+        "v64",
+        "v65",
+        "v66",
+        "v67",
+        "v68",
+        "v69",
+        "v70",
+        "v71",
+        "v72",
+        "v73",
+        "v74",
+        "v75",
+        "v76",
+        "v77",
+        "v78",
+        "v79",
+        "v80",
+        "v81",
+        "v82",
+        "v83",
+        "v84",
+        "v85"
+      ],
+      "first_core": "v49",
+      "last_core": "v85"
+    },
+    {
+      "core": "v54",
+      "rule": "tax.us.2025.rule.eic-qualifying-child-count",
+      "rule_version": "v1",
+      "schema": "rule-artifact.v14",
+      "paths": [
+        {
+          "path_id": "inert",
+          "fact_types": [
+            "tax.us.2025.eic.child.inert-path-unwritten"
+          ],
+          "requires": [],
+          "inert_named": true
+        }
+      ],
+      "has_default": true,
+      "written_path_count": 1,
+      "cores": [
+        "v54",
+        "v55",
+        "v56",
+        "v57",
+        "v58",
+        "v59",
+        "v60",
+        "v61",
+        "v62",
+        "v63",
+        "v64",
+        "v65",
+        "v66",
+        "v67",
+        "v68",
+        "v69",
+        "v70",
+        "v71",
+        "v72",
+        "v73",
+        "v74",
+        "v75",
+        "v76",
+        "v77",
+        "v78",
+        "v79",
+        "v80",
+        "v81",
+        "v82",
+        "v83",
+        "v84",
+        "v85"
+      ],
+      "first_core": "v54",
+      "last_core": "v85"
+    },
+    {
+      "core": "v55",
+      "rule": "tax.us.2025.rule.ctc-child-count",
+      "rule_version": "v1",
+      "schema": "rule-artifact.v14",
+      "paths": [
+        {
+          "path_id": "inert",
+          "fact_types": [
+            "tax.us.2025.ctc.child.inert-path-unwritten"
+          ],
+          "requires": [],
+          "inert_named": true
+        }
+      ],
+      "has_default": true,
+      "written_path_count": 1,
+      "cores": [
+        "v55",
+        "v56",
+        "v57",
+        "v58",
+        "v59",
+        "v60",
+        "v61",
+        "v62",
+        "v63",
+        "v64",
+        "v65",
+        "v66",
+        "v67",
+        "v68",
+        "v69",
+        "v70",
+        "v71",
+        "v72",
+        "v73",
+        "v74",
+        "v75",
+        "v76",
+        "v77",
+        "v78",
+        "v79",
+        "v80",
+        "v81",
+        "v82",
+        "v83",
+        "v84",
+        "v85"
+      ],
+      "first_core": "v55",
+      "last_core": "v85"
+    },
+    {
+      "core": "v56",
+      "rule": "tax.us.2025.rule.odc-child-count",
+      "rule_version": "v1",
+      "schema": "rule-artifact.v14",
+      "paths": [
+        {
+          "path_id": "inert",
+          "fact_types": [
+            "tax.us.2025.odc.child.inert-path-unwritten"
+          ],
+          "requires": [],
+          "inert_named": true
+        }
+      ],
+      "has_default": true,
+      "written_path_count": 1,
+      "cores": [
+        "v56",
+        "v57",
+        "v58",
+        "v59",
+        "v60",
+        "v61",
+        "v62",
+        "v63",
+        "v64",
+        "v65",
+        "v66",
+        "v67",
+        "v68",
+        "v69",
+        "v70",
+        "v71",
+        "v72",
+        "v73",
+        "v74",
+        "v75",
+        "v76",
+        "v77",
+        "v78",
+        "v79",
+        "v80",
+        "v81",
+        "v82",
+        "v83",
+        "v84",
+        "v85"
+      ],
+      "first_core": "v56",
+      "last_core": "v85"
+    },
+    {
+      "core": "v56",
+      "rule": "tax.us.2025.rule.odc-relative-count",
+      "rule_version": "v1",
+      "schema": "rule-artifact.v14",
+      "paths": [
+        {
+          "path_id": "inert",
+          "fact_types": [
+            "tax.us.2025.odc.dependent.inert-path-unwritten"
+          ],
+          "requires": [],
+          "inert_named": true
+        }
+      ],
+      "has_default": true,
+      "written_path_count": 1,
+      "cores": [
+        "v56",
+        "v57",
+        "v58",
+        "v59",
+        "v60",
+        "v61",
+        "v62",
+        "v63",
+        "v64",
+        "v65",
+        "v66",
+        "v67",
+        "v68",
+        "v69",
+        "v70",
+        "v71",
+        "v72",
+        "v73",
+        "v74",
+        "v75",
+        "v76",
+        "v77",
+        "v78",
+        "v79",
+        "v80",
+        "v81",
+        "v82",
+        "v83",
+        "v84",
+        "v85"
+      ],
+      "first_core": "v56",
+      "last_core": "v85"
+    },
+    {
+      "core": "v56",
+      "rule": "tax.us.2025.rule.odc-child-marked-conflict",
+      "rule_version": "v1",
+      "schema": "rule-artifact.v14",
+      "paths": [
+        {
+          "path_id": "inert",
+          "fact_types": [
+            "tax.us.2025.odc.child.inert-path-unwritten"
+          ],
+          "requires": [],
+          "inert_named": true
+        }
+      ],
+      "has_default": true,
+      "written_path_count": 1,
+      "cores": [
+        "v56",
+        "v57",
+        "v58",
+        "v59",
+        "v60",
+        "v61",
+        "v62",
+        "v63",
+        "v64",
+        "v65",
+        "v66",
+        "v67",
+        "v68",
+        "v69",
+        "v70",
+        "v71",
+        "v72",
+        "v73",
+        "v74",
+        "v75",
+        "v76",
+        "v77",
+        "v78",
+        "v79",
+        "v80",
+        "v81",
+        "v82",
+        "v83",
+        "v84",
+        "v85"
+      ],
+      "first_core": "v56",
+      "last_core": "v85"
+    },
+    {
+      "core": "v56",
+      "rule": "tax.us.2025.rule.odc-relative-marked-conflict",
+      "rule_version": "v1",
+      "schema": "rule-artifact.v14",
+      "paths": [
+        {
+          "path_id": "inert",
+          "fact_types": [
+            "tax.us.2025.odc.dependent.inert-path-unwritten"
+          ],
+          "requires": [],
+          "inert_named": true
+        }
+      ],
+      "has_default": true,
+      "written_path_count": 1,
+      "cores": [
+        "v56",
+        "v57",
+        "v58",
+        "v59",
+        "v60",
+        "v61",
+        "v62",
+        "v63",
+        "v64",
+        "v65",
+        "v66",
+        "v67",
+        "v68",
+        "v69",
+        "v70",
+        "v71",
+        "v72",
+        "v73",
+        "v74",
+        "v75",
+        "v76",
+        "v77",
+        "v78",
+        "v79",
+        "v80",
+        "v81",
+        "v82",
+        "v83",
+        "v84",
+        "v85"
+      ],
+      "first_core": "v56",
+      "last_core": "v85"
+    },
+    {
+      "core": "v57",
+      "rule": "tax.us.2025.rule.f1098-inclusion-integrity",
+      "rule_version": "v1",
+      "schema": "rule-artifact.v14",
+      "paths": [
+        {
+          "path_id": "affirmed-inclusion",
+          "fact_types": [
+            "tax.us.2025.f1098.borrowing-inclusion"
+          ],
+          "requires": [],
+          "inert_named": false
+        },
+        {
+          "path_id": "inert",
+          "fact_types": [
+            "tax.us.2025.mortgage.inert-path-unwritten"
+          ],
+          "requires": [],
+          "inert_named": true
+        }
+      ],
+      "has_default": true,
+      "written_path_count": 0,
+      "cores": [
+        "v57",
+        "v58",
+        "v59",
+        "v60",
+        "v61",
+        "v62",
+        "v63",
+        "v64",
+        "v65",
+        "v66",
+        "v67",
+        "v68",
+        "v69",
+        "v70",
+        "v71",
+        "v72",
+        "v73",
+        "v74",
+        "v75",
+        "v76",
+        "v77",
+        "v78",
+        "v79",
+        "v80",
+        "v81",
+        "v82",
+        "v83",
+        "v84",
+        "v85"
+      ],
+      "first_core": "v57",
+      "last_core": "v85"
+    },
+    {
+      "core": "v57",
+      "rule": "tax.us.2025.rule.mortgage-borrowing-readiness",
+      "rule_version": "v2",
+      "schema": "rule-artifact.v14",
+      "paths": [
+        {
+          "path_id": "same-borrowing",
+          "fact_types": [
+            "tax.us.2025.mortgage.continuing-borrowing",
+            "tax.us.2025.f1098.borrowing-inclusion",
+            "tax.us.2025.f1098.borrowing-denied",
+            "tax.us.2025.f1098.borrowing-unresolved",
+            "tax.us.2025.f1098.borrowing-withdrawn"
+          ],
+          "requires": [
+            "filing_status",
+            "tax.us.2025.f1098.box3-origination-date"
+          ],
+          "inert_named": false
+        },
+        {
+          "path_id": "inert",
+          "fact_types": [
+            "tax.us.2025.mortgage.inert-path-unwritten"
+          ],
+          "requires": [],
+          "inert_named": true
+        }
+      ],
+      "has_default": true,
+      "written_path_count": 0,
+      "cores": [
+        "v57",
+        "v58",
+        "v59",
+        "v60",
+        "v61",
+        "v62",
+        "v63",
+        "v64",
+        "v65",
+        "v66",
+        "v67",
+        "v68",
+        "v69",
+        "v70",
+        "v71",
+        "v72",
+        "v73",
+        "v74",
+        "v75",
+        "v76",
+        "v77",
+        "v78",
+        "v79",
+        "v80",
+        "v81",
+        "v82",
+        "v83",
+        "v84",
+        "v85"
+      ],
+      "first_core": "v57",
+      "last_core": "v85"
+    },
+    {
+      "core": "v60",
+      "rule": "tax.us.2025.rule.schedule1-line10",
+      "rule_version": "v2",
+      "schema": "rule-artifact.v14",
+      "paths": [
+        {
+          "path_id": "inert",
+          "fact_types": [
+            "tax.us.2025.f1099k.inert-path-unwritten"
+          ],
+          "requires": [],
+          "inert_named": true
+        }
+      ],
+      "has_default": true,
+      "written_path_count": 1,
+      "cores": [
+        "v60",
+        "v61",
+        "v62",
+        "v63",
+        "v64"
+      ],
+      "first_core": "v60",
+      "last_core": "v64"
+    },
+    {
+      "core": "v65",
+      "rule": "tax.us.2025.rule.schedule1-line10",
+      "rule_version": "v3",
+      "schema": "rule-artifact.v14",
+      "paths": [
+        {
+          "path_id": "inert",
+          "fact_types": [
+            "tax.us.2025.f1099k.inert-path-unwritten"
+          ],
+          "requires": [],
+          "inert_named": true
+        }
+      ],
+      "has_default": true,
+      "written_path_count": 1,
+      "cores": [
+        "v65",
+        "v66",
+        "v67",
+        "v68",
+        "v69",
+        "v70",
+        "v71",
+        "v72",
+        "v73",
+        "v74",
+        "v75",
+        "v76",
+        "v77",
+        "v78",
+        "v79",
+        "v80",
+        "v81",
+        "v82",
+        "v83",
+        "v84",
+        "v85"
+      ],
+      "first_core": "v65",
+      "last_core": "v85"
+    },
+    {
+      "core": "v66",
+      "rule": "tax.us.2025.rule.sli-worksheet",
+      "rule_version": "v6",
+      "schema": "rule-artifact.v13",
+      "paths": [
+        {
+          "path_id": "inert",
+          "fact_types": [
+            "tax.us.2025.sli.inert-path-unwritten"
+          ],
+          "requires": [],
+          "inert_named": true
+        }
+      ],
+      "has_default": true,
+      "written_path_count": 1,
+      "cores": [
+        "v66",
+        "v67",
+        "v68",
+        "v69",
+        "v70",
+        "v71",
+        "v72",
+        "v73",
+        "v74",
+        "v75",
+        "v76",
+        "v77",
+        "v78",
+        "v79",
+        "v80",
+        "v81",
+        "v82",
+        "v83",
+        "v84",
+        "v85"
+      ],
+      "first_core": "v66",
+      "last_core": "v85"
+    },
+    {
+      "core": "v80",
+      "rule": "tax.us.2025.rule.f8949.no1099b-st-txn.amounts-check",
+      "rule_version": "v1",
+      "schema": "rule-artifact.v15",
+      "paths": [
+        {
+          "path_id": "inert",
+          "fact_types": [
+            "tax.us.2025.f8949.no1099b-st-txn.amounts-check-inert-path-unwritten"
+          ],
+          "requires": [],
+          "inert_named": true
+        }
+      ],
+      "has_default": true,
+      "written_path_count": 1,
+      "cores": [
+        "v80",
+        "v81",
+        "v82",
+        "v83",
+        "v84",
+        "v85"
+      ],
+      "first_core": "v80",
+      "last_core": "v85"
+    },
+    {
+      "core": "v80",
+      "rule": "tax.us.2025.rule.f1099b.noncovered-st-txn.amounts-check",
+      "rule_version": "v1",
+      "schema": "rule-artifact.v15",
+      "paths": [
+        {
+          "path_id": "inert",
+          "fact_types": [
+            "tax.us.2025.f1099b.noncovered-st-txn.amounts-check-inert-path-unwritten"
+          ],
+          "requires": [],
+          "inert_named": true
+        }
+      ],
+      "has_default": true,
+      "written_path_count": 1,
+      "cores": [
+        "v80",
+        "v81",
+        "v82",
+        "v83",
+        "v84",
+        "v85"
+      ],
+      "first_core": "v80",
+      "last_core": "v85"
+    },
+    {
+      "core": "v80",
+      "rule": "tax.us.2025.rule.f8949.no1099b-lt-txn.amounts-check",
+      "rule_version": "v1",
+      "schema": "rule-artifact.v15",
+      "paths": [
+        {
+          "path_id": "inert",
+          "fact_types": [
+            "tax.us.2025.f8949.no1099b-lt-txn.amounts-check-inert-path-unwritten"
+          ],
+          "requires": [],
+          "inert_named": true
+        }
+      ],
+      "has_default": true,
+      "written_path_count": 1,
+      "cores": [
+        "v80",
+        "v81",
+        "v82",
+        "v83",
+        "v84",
+        "v85"
+      ],
+      "first_core": "v80",
+      "last_core": "v85"
+    },
+    {
+      "core": "v80",
+      "rule": "tax.us.2025.rule.f1099b.noncovered-lt-txn.amounts-check",
+      "rule_version": "v1",
+      "schema": "rule-artifact.v15",
+      "paths": [
+        {
+          "path_id": "inert",
+          "fact_types": [
+            "tax.us.2025.f1099b.noncovered-lt-txn.amounts-check-inert-path-unwritten"
+          ],
+          "requires": [],
+          "inert_named": true
+        }
+      ],
+      "has_default": true,
+      "written_path_count": 1,
+      "cores": [
+        "v80",
+        "v81",
+        "v82",
+        "v83",
+        "v84",
+        "v85"
+      ],
+      "first_core": "v80",
+      "last_core": "v85"
+    },
+    {
+      "core": "v81",
+      "rule": "tax.us.2025.rule.f1099b.code-b-st-txn.amounts-check",
+      "rule_version": "v1",
+      "schema": "rule-artifact.v15",
+      "paths": [
+        {
+          "path_id": "inert",
+          "fact_types": [
+            "tax.us.2025.f1099b.code-b-st-txn.amounts-check-inert-path-unwritten"
+          ],
+          "requires": [],
+          "inert_named": true
+        }
+      ],
+      "has_default": true,
+      "written_path_count": 1,
+      "cores": [
+        "v81",
+        "v82",
+        "v83",
+        "v84",
+        "v85"
+      ],
+      "first_core": "v81",
+      "last_core": "v85"
+    },
+    {
+      "core": "v81",
+      "rule": "tax.us.2025.rule.f1099b.code-b-lt-txn.amounts-check",
+      "rule_version": "v1",
+      "schema": "rule-artifact.v15",
+      "paths": [
+        {
+          "path_id": "inert",
+          "fact_types": [
+            "tax.us.2025.f1099b.code-b-lt-txn.amounts-check-inert-path-unwritten"
+          ],
+          "requires": [],
+          "inert_named": true
+        }
+      ],
+      "has_default": true,
+      "written_path_count": 1,
+      "cores": [
+        "v81",
+        "v82",
+        "v83",
+        "v84",
+        "v85"
+      ],
+      "first_core": "v81",
+      "last_core": "v85"
+    },
+    {
+      "core": "v81",
+      "rule": "tax.us.2025.rule.f1099b.covered-st-txn.admission-check",
+      "rule_version": "v1",
+      "schema": "rule-artifact.v15",
+      "paths": [
+        {
+          "path_id": "inert",
+          "fact_types": [
+            "tax.us.2025.f1099b.covered-st-txn.admission-check-inert-path-unwritten"
+          ],
+          "requires": [],
+          "inert_named": true
+        }
+      ],
+      "has_default": true,
+      "written_path_count": 1,
+      "cores": [
+        "v81"
+      ],
+      "first_core": "v81",
+      "last_core": "v81"
+    },
+    {
+      "core": "v81",
+      "rule": "tax.us.2025.rule.f1099b.covered-lt-txn.admission-check",
+      "rule_version": "v1",
+      "schema": "rule-artifact.v15",
+      "paths": [
+        {
+          "path_id": "inert",
+          "fact_types": [
+            "tax.us.2025.f1099b.covered-lt-txn.admission-check-inert-path-unwritten"
+          ],
+          "requires": [],
+          "inert_named": true
+        }
+      ],
+      "has_default": true,
+      "written_path_count": 1,
+      "cores": [
+        "v81"
+      ],
+      "first_core": "v81",
+      "last_core": "v81"
+    },
+    {
+      "core": "v81",
+      "rule": "tax.us.2025.rule.f1099b.covered-w-st-txn.admission-check",
+      "rule_version": "v1",
+      "schema": "rule-artifact.v15",
+      "paths": [
+        {
+          "path_id": "inert",
+          "fact_types": [
+            "tax.us.2025.f1099b.covered-w-st-txn.admission-check-inert-path-unwritten"
+          ],
+          "requires": [],
+          "inert_named": true
+        }
+      ],
+      "has_default": true,
+      "written_path_count": 1,
+      "cores": [
+        "v81"
+      ],
+      "first_core": "v81",
+      "last_core": "v81"
+    },
+    {
+      "core": "v81",
+      "rule": "tax.us.2025.rule.f1099b.covered-w-lt-txn.admission-check",
+      "rule_version": "v1",
+      "schema": "rule-artifact.v15",
+      "paths": [
+        {
+          "path_id": "inert",
+          "fact_types": [
+            "tax.us.2025.f1099b.covered-w-lt-txn.admission-check-inert-path-unwritten"
+          ],
+          "requires": [],
+          "inert_named": true
+        }
+      ],
+      "has_default": true,
+      "written_path_count": 1,
+      "cores": [
+        "v81"
+      ],
+      "first_core": "v81",
+      "last_core": "v81"
+    },
+    {
+      "core": "v82",
+      "rule": "tax.us.2025.rule.f1099b.covered-st-txn.admission-check",
+      "rule_version": "v2",
+      "schema": "rule-artifact.v15",
+      "paths": [
+        {
+          "path_id": "inert",
+          "fact_types": [
+            "tax.us.2025.f1099b.covered-st-txn.admission-check-inert-path-unwritten"
+          ],
+          "requires": [],
+          "inert_named": true
+        }
+      ],
+      "has_default": true,
+      "written_path_count": 1,
+      "cores": [
+        "v82",
+        "v83",
+        "v84",
+        "v85"
+      ],
+      "first_core": "v82",
+      "last_core": "v85"
+    },
+    {
+      "core": "v82",
+      "rule": "tax.us.2025.rule.f1099b.covered-lt-txn.admission-check",
+      "rule_version": "v2",
+      "schema": "rule-artifact.v15",
+      "paths": [
+        {
+          "path_id": "inert",
+          "fact_types": [
+            "tax.us.2025.f1099b.covered-lt-txn.admission-check-inert-path-unwritten"
+          ],
+          "requires": [],
+          "inert_named": true
+        }
+      ],
+      "has_default": true,
+      "written_path_count": 1,
+      "cores": [
+        "v82",
+        "v83",
+        "v84",
+        "v85"
+      ],
+      "first_core": "v82",
+      "last_core": "v85"
+    },
+    {
+      "core": "v82",
+      "rule": "tax.us.2025.rule.f1099b.covered-w-st-txn.admission-check",
+      "rule_version": "v2",
+      "schema": "rule-artifact.v15",
+      "paths": [
+        {
+          "path_id": "inert",
+          "fact_types": [
+            "tax.us.2025.f1099b.covered-w-st-txn.admission-check-inert-path-unwritten"
+          ],
+          "requires": [],
+          "inert_named": true
+        }
+      ],
+      "has_default": true,
+      "written_path_count": 1,
+      "cores": [
+        "v82",
+        "v83",
+        "v84",
+        "v85"
+      ],
+      "first_core": "v82",
+      "last_core": "v85"
+    },
+    {
+      "core": "v82",
+      "rule": "tax.us.2025.rule.f1099b.covered-w-lt-txn.admission-check",
+      "rule_version": "v2",
+      "schema": "rule-artifact.v15",
+      "paths": [
+        {
+          "path_id": "inert",
+          "fact_types": [
+            "tax.us.2025.f1099b.covered-w-lt-txn.admission-check-inert-path-unwritten"
+          ],
+          "requires": [],
+          "inert_named": true
+        }
+      ],
+      "has_default": true,
+      "written_path_count": 1,
+      "cores": [
+        "v82",
+        "v83",
+        "v84",
+        "v85"
+      ],
+      "first_core": "v82",
+      "last_core": "v85"
+    },
+    {
+      "core": "v83",
+      "rule": "tax.us.2025.rule.f1099b-b4-withholding-subtotal",
+      "rule_version": "v1",
+      "schema": "rule-artifact.v15",
+      "paths": [
+        {
+          "path_id": "inert",
+          "fact_types": [
+            "tax.us.2025.f1099b.b4-withholding-subtotal.inert-path-unwritten"
+          ],
+          "requires": [],
+          "inert_named": true
+        }
+      ],
+      "has_default": true,
+      "written_path_count": 1,
+      "cores": [
+        "v83",
+        "v84",
+        "v85"
+      ],
+      "first_core": "v83",
+      "last_core": "v85"
+    },
+    {
+      "core": "v84",
+      "rule": "tax.us.2025.rule.f1099b.covered-st-txn.box7-loss-check",
+      "rule_version": "v1",
+      "schema": "rule-artifact.v15",
+      "paths": [
+        {
+          "path_id": "inert",
+          "fact_types": [
+            "tax.us.2025.f1099b.box7-loss-check-inert-path-unwritten"
+          ],
+          "requires": [],
+          "inert_named": true
+        }
+      ],
+      "has_default": true,
+      "written_path_count": 1,
+      "cores": [
+        "v84",
+        "v85"
+      ],
+      "first_core": "v84",
+      "last_core": "v85"
+    },
+    {
+      "core": "v84",
+      "rule": "tax.us.2025.rule.f1099b.covered-lt-txn.box7-loss-check",
+      "rule_version": "v1",
+      "schema": "rule-artifact.v15",
+      "paths": [
+        {
+          "path_id": "inert",
+          "fact_types": [
+            "tax.us.2025.f1099b.box7-loss-check-inert-path-unwritten"
+          ],
+          "requires": [],
+          "inert_named": true
+        }
+      ],
+      "has_default": true,
+      "written_path_count": 1,
+      "cores": [
+        "v84",
+        "v85"
+      ],
+      "first_core": "v84",
+      "last_core": "v85"
+    },
+    {
+      "core": "v84",
+      "rule": "tax.us.2025.rule.f1099b.covered-w-st-txn.box7-loss-check",
+      "rule_version": "v1",
+      "schema": "rule-artifact.v15",
+      "paths": [
+        {
+          "path_id": "inert",
+          "fact_types": [
+            "tax.us.2025.f1099b.box7-loss-check-inert-path-unwritten"
+          ],
+          "requires": [],
+          "inert_named": true
+        }
+      ],
+      "has_default": true,
+      "written_path_count": 1,
+      "cores": [
+        "v84",
+        "v85"
+      ],
+      "first_core": "v84",
+      "last_core": "v85"
+    },
+    {
+      "core": "v84",
+      "rule": "tax.us.2025.rule.f1099b.covered-w-lt-txn.box7-loss-check",
+      "rule_version": "v1",
+      "schema": "rule-artifact.v15",
+      "paths": [
+        {
+          "path_id": "inert",
+          "fact_types": [
+            "tax.us.2025.f1099b.box7-loss-check-inert-path-unwritten"
+          ],
+          "requires": [],
+          "inert_named": true
+        }
+      ],
+      "has_default": true,
+      "written_path_count": 1,
+      "cores": [
+        "v84",
+        "v85"
+      ],
+      "first_core": "v84",
+      "last_core": "v85"
+    },
+    {
+      "core": "v84",
+      "rule": "tax.us.2025.rule.f1099b.noncovered-st-txn.box7-loss-check",
+      "rule_version": "v1",
+      "schema": "rule-artifact.v15",
+      "paths": [
+        {
+          "path_id": "inert",
+          "fact_types": [
+            "tax.us.2025.f1099b.box7-loss-check-inert-path-unwritten"
+          ],
+          "requires": [],
+          "inert_named": true
+        }
+      ],
+      "has_default": true,
+      "written_path_count": 1,
+      "cores": [
+        "v84",
+        "v85"
+      ],
+      "first_core": "v84",
+      "last_core": "v85"
+    },
+    {
+      "core": "v84",
+      "rule": "tax.us.2025.rule.f1099b.noncovered-lt-txn.box7-loss-check",
+      "rule_version": "v1",
+      "schema": "rule-artifact.v15",
+      "paths": [
+        {
+          "path_id": "inert",
+          "fact_types": [
+            "tax.us.2025.f1099b.box7-loss-check-inert-path-unwritten"
+          ],
+          "requires": [],
+          "inert_named": true
+        }
+      ],
+      "has_default": true,
+      "written_path_count": 1,
+      "cores": [
+        "v84",
+        "v85"
+      ],
+      "first_core": "v84",
+      "last_core": "v85"
+    },
+    {
+      "core": "v84",
+      "rule": "tax.us.2025.rule.f1099b.code-b-st-txn.box7-loss-check",
+      "rule_version": "v1",
+      "schema": "rule-artifact.v15",
+      "paths": [
+        {
+          "path_id": "inert",
+          "fact_types": [
+            "tax.us.2025.f1099b.box7-loss-check-inert-path-unwritten"
+          ],
+          "requires": [],
+          "inert_named": true
+        }
+      ],
+      "has_default": true,
+      "written_path_count": 1,
+      "cores": [
+        "v84",
+        "v85"
+      ],
+      "first_core": "v84",
+      "last_core": "v85"
+    },
+    {
+      "core": "v84",
+      "rule": "tax.us.2025.rule.f1099b.code-b-lt-txn.box7-loss-check",
+      "rule_version": "v1",
+      "schema": "rule-artifact.v15",
+      "paths": [
+        {
+          "path_id": "inert",
+          "fact_types": [
+            "tax.us.2025.f1099b.box7-loss-check-inert-path-unwritten"
+          ],
+          "requires": [],
+          "inert_named": true
+        }
+      ],
+      "has_default": true,
+      "written_path_count": 1,
+      "cores": [
+        "v84",
+        "v85"
+      ],
+      "first_core": "v84",
+      "last_core": "v85"
+    }
+  ],
+  "one_real_plus_default_kinds": [
+    {
+      "core": "v40",
+      "rule": "tax.us.2025.rule.sli-worksheet",
+      "rule_version": "v3",
+      "unwritten_path_count": 1,
+      "cores": [
+        "v40"
+      ],
+      "first_core": "v40",
+      "last_core": "v40"
+    },
+    {
+      "core": "v41",
+      "rule": "tax.us.2025.rule.sli-worksheet",
+      "rule_version": "v4",
+      "unwritten_path_count": 1,
+      "cores": [
+        "v41"
+      ],
+      "first_core": "v41",
+      "last_core": "v41"
+    },
+    {
+      "core": "v42",
+      "rule": "tax.us.2025.rule.sli-worksheet",
+      "rule_version": "v5",
+      "unwritten_path_count": 1,
+      "cores": [
+        "v42",
+        "v43",
+        "v44",
+        "v45",
+        "v46",
+        "v47",
+        "v48",
+        "v49",
+        "v50",
+        "v51",
+        "v52",
+        "v53",
+        "v54",
+        "v55",
+        "v56",
+        "v57",
+        "v58",
+        "v59",
+        "v60",
+        "v61",
+        "v62",
+        "v63",
+        "v64",
+        "v65"
+      ],
+      "first_core": "v42",
+      "last_core": "v65"
+    },
+    {
+      "core": "v44",
+      "rule": "tax.us.2025.rule.f1098-residence-interest-unresolved",
+      "rule_version": "v1",
+      "unwritten_path_count": 1,
+      "cores": [
+        "v44"
+      ],
+      "first_core": "v44",
+      "last_core": "v44"
+    },
+    {
+      "core": "v45",
+      "rule": "tax.us.2025.rule.f1098-residence-interest-unresolved",
+      "rule_version": "v2",
+      "unwritten_path_count": 1,
+      "cores": [
+        "v45",
+        "v46",
+        "v47",
+        "v48",
+        "v49",
+        "v50",
+        "v51",
+        "v52",
+        "v53",
+        "v54",
+        "v55",
+        "v56",
+        "v57",
+        "v58",
+        "v59",
+        "v60",
+        "v61",
+        "v62",
+        "v63",
+        "v64",
+        "v65",
+        "v66",
+        "v67",
+        "v68",
+        "v69",
+        "v70",
+        "v71",
+        "v72",
+        "v73",
+        "v74",
+        "v75",
+        "v76",
+        "v77",
+        "v78",
+        "v79",
+        "v80",
+        "v81",
+        "v82",
+        "v83",
+        "v84",
+        "v85"
+      ],
+      "first_core": "v45",
+      "last_core": "v85"
+    },
+    {
+      "core": "v46",
+      "rule": "tax.us.2025.rule.f1099k-unresolved",
+      "rule_version": "v1",
+      "unwritten_path_count": 1,
+      "cores": [
+        "v46",
+        "v47"
+      ],
+      "first_core": "v46",
+      "last_core": "v47"
+    },
+    {
+      "core": "v48",
+      "rule": "tax.us.2025.rule.f1099k-unresolved",
+      "rule_version": "v2",
+      "unwritten_path_count": 1,
+      "cores": [
+        "v48"
+      ],
+      "first_core": "v48",
+      "last_core": "v48"
+    },
+    {
+      "core": "v49",
+      "rule": "tax.us.2025.rule.schedule1-top-entry",
+      "rule_version": "v3",
+      "unwritten_path_count": 1,
+      "cores": [
+        "v49",
+        "v50",
+        "v51",
+        "v52",
+        "v53",
+        "v54",
+        "v55",
+        "v56",
+        "v57",
+        "v58",
+        "v59",
+        "v60",
+        "v61",
+        "v62",
+        "v63",
+        "v64",
+        "v65",
+        "v66",
+        "v67",
+        "v68",
+        "v69",
+        "v70",
+        "v71",
+        "v72",
+        "v73",
+        "v74",
+        "v75",
+        "v76",
+        "v77",
+        "v78",
+        "v79",
+        "v80",
+        "v81",
+        "v82",
+        "v83",
+        "v84",
+        "v85"
+      ],
+      "first_core": "v49",
+      "last_core": "v85"
+    },
+    {
+      "core": "v49",
+      "rule": "tax.us.2025.rule.f1099k-unresolved",
+      "rule_version": "v3",
+      "unwritten_path_count": 1,
+      "cores": [
+        "v49",
+        "v50",
+        "v51",
+        "v52",
+        "v53",
+        "v54",
+        "v55",
+        "v56",
+        "v57",
+        "v58",
+        "v59",
+        "v60",
+        "v61",
+        "v62",
+        "v63",
+        "v64",
+        "v65",
+        "v66",
+        "v67",
+        "v68",
+        "v69",
+        "v70",
+        "v71",
+        "v72",
+        "v73",
+        "v74",
+        "v75",
+        "v76",
+        "v77",
+        "v78",
+        "v79",
+        "v80",
+        "v81",
+        "v82",
+        "v83",
+        "v84",
+        "v85"
+      ],
+      "first_core": "v49",
+      "last_core": "v85"
+    },
+    {
+      "core": "v54",
+      "rule": "tax.us.2025.rule.eic-qualifying-child-count",
+      "rule_version": "v1",
+      "unwritten_path_count": 1,
+      "cores": [
+        "v54",
+        "v55",
+        "v56",
+        "v57",
+        "v58",
+        "v59",
+        "v60",
+        "v61",
+        "v62",
+        "v63",
+        "v64",
+        "v65",
+        "v66",
+        "v67",
+        "v68",
+        "v69",
+        "v70",
+        "v71",
+        "v72",
+        "v73",
+        "v74",
+        "v75",
+        "v76",
+        "v77",
+        "v78",
+        "v79",
+        "v80",
+        "v81",
+        "v82",
+        "v83",
+        "v84",
+        "v85"
+      ],
+      "first_core": "v54",
+      "last_core": "v85"
+    },
+    {
+      "core": "v55",
+      "rule": "tax.us.2025.rule.ctc-child-count",
+      "rule_version": "v1",
+      "unwritten_path_count": 1,
+      "cores": [
+        "v55",
+        "v56",
+        "v57",
+        "v58",
+        "v59",
+        "v60",
+        "v61",
+        "v62",
+        "v63",
+        "v64",
+        "v65",
+        "v66",
+        "v67",
+        "v68",
+        "v69",
+        "v70",
+        "v71",
+        "v72",
+        "v73",
+        "v74",
+        "v75",
+        "v76",
+        "v77",
+        "v78",
+        "v79",
+        "v80",
+        "v81",
+        "v82",
+        "v83",
+        "v84",
+        "v85"
+      ],
+      "first_core": "v55",
+      "last_core": "v85"
+    },
+    {
+      "core": "v56",
+      "rule": "tax.us.2025.rule.odc-child-count",
+      "rule_version": "v1",
+      "unwritten_path_count": 1,
+      "cores": [
+        "v56",
+        "v57",
+        "v58",
+        "v59",
+        "v60",
+        "v61",
+        "v62",
+        "v63",
+        "v64",
+        "v65",
+        "v66",
+        "v67",
+        "v68",
+        "v69",
+        "v70",
+        "v71",
+        "v72",
+        "v73",
+        "v74",
+        "v75",
+        "v76",
+        "v77",
+        "v78",
+        "v79",
+        "v80",
+        "v81",
+        "v82",
+        "v83",
+        "v84",
+        "v85"
+      ],
+      "first_core": "v56",
+      "last_core": "v85"
+    },
+    {
+      "core": "v56",
+      "rule": "tax.us.2025.rule.odc-relative-count",
+      "rule_version": "v1",
+      "unwritten_path_count": 1,
+      "cores": [
+        "v56",
+        "v57",
+        "v58",
+        "v59",
+        "v60",
+        "v61",
+        "v62",
+        "v63",
+        "v64",
+        "v65",
+        "v66",
+        "v67",
+        "v68",
+        "v69",
+        "v70",
+        "v71",
+        "v72",
+        "v73",
+        "v74",
+        "v75",
+        "v76",
+        "v77",
+        "v78",
+        "v79",
+        "v80",
+        "v81",
+        "v82",
+        "v83",
+        "v84",
+        "v85"
+      ],
+      "first_core": "v56",
+      "last_core": "v85"
+    },
+    {
+      "core": "v56",
+      "rule": "tax.us.2025.rule.odc-child-marked-conflict",
+      "rule_version": "v1",
+      "unwritten_path_count": 1,
+      "cores": [
+        "v56",
+        "v57",
+        "v58",
+        "v59",
+        "v60",
+        "v61",
+        "v62",
+        "v63",
+        "v64",
+        "v65",
+        "v66",
+        "v67",
+        "v68",
+        "v69",
+        "v70",
+        "v71",
+        "v72",
+        "v73",
+        "v74",
+        "v75",
+        "v76",
+        "v77",
+        "v78",
+        "v79",
+        "v80",
+        "v81",
+        "v82",
+        "v83",
+        "v84",
+        "v85"
+      ],
+      "first_core": "v56",
+      "last_core": "v85"
+    },
+    {
+      "core": "v56",
+      "rule": "tax.us.2025.rule.odc-relative-marked-conflict",
+      "rule_version": "v1",
+      "unwritten_path_count": 1,
+      "cores": [
+        "v56",
+        "v57",
+        "v58",
+        "v59",
+        "v60",
+        "v61",
+        "v62",
+        "v63",
+        "v64",
+        "v65",
+        "v66",
+        "v67",
+        "v68",
+        "v69",
+        "v70",
+        "v71",
+        "v72",
+        "v73",
+        "v74",
+        "v75",
+        "v76",
+        "v77",
+        "v78",
+        "v79",
+        "v80",
+        "v81",
+        "v82",
+        "v83",
+        "v84",
+        "v85"
+      ],
+      "first_core": "v56",
+      "last_core": "v85"
+    },
+    {
+      "core": "v60",
+      "rule": "tax.us.2025.rule.schedule1-line10",
+      "rule_version": "v2",
+      "unwritten_path_count": 1,
+      "cores": [
+        "v60",
+        "v61",
+        "v62",
+        "v63",
+        "v64"
+      ],
+      "first_core": "v60",
+      "last_core": "v64"
+    },
+    {
+      "core": "v65",
+      "rule": "tax.us.2025.rule.schedule1-line10",
+      "rule_version": "v3",
+      "unwritten_path_count": 1,
+      "cores": [
+        "v65",
+        "v66",
+        "v67",
+        "v68",
+        "v69",
+        "v70",
+        "v71",
+        "v72",
+        "v73",
+        "v74",
+        "v75",
+        "v76",
+        "v77",
+        "v78",
+        "v79",
+        "v80",
+        "v81",
+        "v82",
+        "v83",
+        "v84",
+        "v85"
+      ],
+      "first_core": "v65",
+      "last_core": "v85"
+    },
+    {
+      "core": "v66",
+      "rule": "tax.us.2025.rule.sli-worksheet",
+      "rule_version": "v6",
+      "unwritten_path_count": 1,
+      "cores": [
+        "v66",
+        "v67",
+        "v68",
+        "v69",
+        "v70",
+        "v71",
+        "v72",
+        "v73",
+        "v74",
+        "v75",
+        "v76",
+        "v77",
+        "v78",
+        "v79",
+        "v80",
+        "v81",
+        "v82",
+        "v83",
+        "v84",
+        "v85"
+      ],
+      "first_core": "v66",
+      "last_core": "v85"
+    },
+    {
+      "core": "v80",
+      "rule": "tax.us.2025.rule.f8949.no1099b-st-txn.amounts-check",
+      "rule_version": "v1",
+      "unwritten_path_count": 1,
+      "cores": [
+        "v80",
+        "v81",
+        "v82",
+        "v83",
+        "v84",
+        "v85"
+      ],
+      "first_core": "v80",
+      "last_core": "v85"
+    },
+    {
+      "core": "v80",
+      "rule": "tax.us.2025.rule.f1099b.noncovered-st-txn.amounts-check",
+      "rule_version": "v1",
+      "unwritten_path_count": 1,
+      "cores": [
+        "v80",
+        "v81",
+        "v82",
+        "v83",
+        "v84",
+        "v85"
+      ],
+      "first_core": "v80",
+      "last_core": "v85"
+    },
+    {
+      "core": "v80",
+      "rule": "tax.us.2025.rule.f8949.no1099b-lt-txn.amounts-check",
+      "rule_version": "v1",
+      "unwritten_path_count": 1,
+      "cores": [
+        "v80",
+        "v81",
+        "v82",
+        "v83",
+        "v84",
+        "v85"
+      ],
+      "first_core": "v80",
+      "last_core": "v85"
+    },
+    {
+      "core": "v80",
+      "rule": "tax.us.2025.rule.f1099b.noncovered-lt-txn.amounts-check",
+      "rule_version": "v1",
+      "unwritten_path_count": 1,
+      "cores": [
+        "v80",
+        "v81",
+        "v82",
+        "v83",
+        "v84",
+        "v85"
+      ],
+      "first_core": "v80",
+      "last_core": "v85"
+    },
+    {
+      "core": "v81",
+      "rule": "tax.us.2025.rule.f1099b.code-b-st-txn.amounts-check",
+      "rule_version": "v1",
+      "unwritten_path_count": 1,
+      "cores": [
+        "v81",
+        "v82",
+        "v83",
+        "v84",
+        "v85"
+      ],
+      "first_core": "v81",
+      "last_core": "v85"
+    },
+    {
+      "core": "v81",
+      "rule": "tax.us.2025.rule.f1099b.code-b-lt-txn.amounts-check",
+      "rule_version": "v1",
+      "unwritten_path_count": 1,
+      "cores": [
+        "v81",
+        "v82",
+        "v83",
+        "v84",
+        "v85"
+      ],
+      "first_core": "v81",
+      "last_core": "v85"
+    },
+    {
+      "core": "v81",
+      "rule": "tax.us.2025.rule.f1099b.covered-st-txn.admission-check",
+      "rule_version": "v1",
+      "unwritten_path_count": 1,
+      "cores": [
+        "v81"
+      ],
+      "first_core": "v81",
+      "last_core": "v81"
+    },
+    {
+      "core": "v81",
+      "rule": "tax.us.2025.rule.f1099b.covered-lt-txn.admission-check",
+      "rule_version": "v1",
+      "unwritten_path_count": 1,
+      "cores": [
+        "v81"
+      ],
+      "first_core": "v81",
+      "last_core": "v81"
+    },
+    {
+      "core": "v81",
+      "rule": "tax.us.2025.rule.f1099b.covered-w-st-txn.admission-check",
+      "rule_version": "v1",
+      "unwritten_path_count": 1,
+      "cores": [
+        "v81"
+      ],
+      "first_core": "v81",
+      "last_core": "v81"
+    },
+    {
+      "core": "v81",
+      "rule": "tax.us.2025.rule.f1099b.covered-w-lt-txn.admission-check",
+      "rule_version": "v1",
+      "unwritten_path_count": 1,
+      "cores": [
+        "v81"
+      ],
+      "first_core": "v81",
+      "last_core": "v81"
+    },
+    {
+      "core": "v82",
+      "rule": "tax.us.2025.rule.f1099b.covered-st-txn.admission-check",
+      "rule_version": "v2",
+      "unwritten_path_count": 1,
+      "cores": [
+        "v82",
+        "v83",
+        "v84",
+        "v85"
+      ],
+      "first_core": "v82",
+      "last_core": "v85"
+    },
+    {
+      "core": "v82",
+      "rule": "tax.us.2025.rule.f1099b.covered-lt-txn.admission-check",
+      "rule_version": "v2",
+      "unwritten_path_count": 1,
+      "cores": [
+        "v82",
+        "v83",
+        "v84",
+        "v85"
+      ],
+      "first_core": "v82",
+      "last_core": "v85"
+    },
+    {
+      "core": "v82",
+      "rule": "tax.us.2025.rule.f1099b.covered-w-st-txn.admission-check",
+      "rule_version": "v2",
+      "unwritten_path_count": 1,
+      "cores": [
+        "v82",
+        "v83",
+        "v84",
+        "v85"
+      ],
+      "first_core": "v82",
+      "last_core": "v85"
+    },
+    {
+      "core": "v82",
+      "rule": "tax.us.2025.rule.f1099b.covered-w-lt-txn.admission-check",
+      "rule_version": "v2",
+      "unwritten_path_count": 1,
+      "cores": [
+        "v82",
+        "v83",
+        "v84",
+        "v85"
+      ],
+      "first_core": "v82",
+      "last_core": "v85"
+    },
+    {
+      "core": "v83",
+      "rule": "tax.us.2025.rule.f1099b-b4-withholding-subtotal",
+      "rule_version": "v1",
+      "unwritten_path_count": 1,
+      "cores": [
+        "v83",
+        "v84",
+        "v85"
+      ],
+      "first_core": "v83",
+      "last_core": "v85"
+    },
+    {
+      "core": "v84",
+      "rule": "tax.us.2025.rule.f1099b.covered-st-txn.box7-loss-check",
+      "rule_version": "v1",
+      "unwritten_path_count": 1,
+      "cores": [
+        "v84",
+        "v85"
+      ],
+      "first_core": "v84",
+      "last_core": "v85"
+    },
+    {
+      "core": "v84",
+      "rule": "tax.us.2025.rule.f1099b.covered-lt-txn.box7-loss-check",
+      "rule_version": "v1",
+      "unwritten_path_count": 1,
+      "cores": [
+        "v84",
+        "v85"
+      ],
+      "first_core": "v84",
+      "last_core": "v85"
+    },
+    {
+      "core": "v84",
+      "rule": "tax.us.2025.rule.f1099b.covered-w-st-txn.box7-loss-check",
+      "rule_version": "v1",
+      "unwritten_path_count": 1,
+      "cores": [
+        "v84",
+        "v85"
+      ],
+      "first_core": "v84",
+      "last_core": "v85"
+    },
+    {
+      "core": "v84",
+      "rule": "tax.us.2025.rule.f1099b.covered-w-lt-txn.box7-loss-check",
+      "rule_version": "v1",
+      "unwritten_path_count": 1,
+      "cores": [
+        "v84",
+        "v85"
+      ],
+      "first_core": "v84",
+      "last_core": "v85"
+    },
+    {
+      "core": "v84",
+      "rule": "tax.us.2025.rule.f1099b.noncovered-st-txn.box7-loss-check",
+      "rule_version": "v1",
+      "unwritten_path_count": 1,
+      "cores": [
+        "v84",
+        "v85"
+      ],
+      "first_core": "v84",
+      "last_core": "v85"
+    },
+    {
+      "core": "v84",
+      "rule": "tax.us.2025.rule.f1099b.noncovered-lt-txn.box7-loss-check",
+      "rule_version": "v1",
+      "unwritten_path_count": 1,
+      "cores": [
+        "v84",
+        "v85"
+      ],
+      "first_core": "v84",
+      "last_core": "v85"
+    },
+    {
+      "core": "v84",
+      "rule": "tax.us.2025.rule.f1099b.code-b-st-txn.box7-loss-check",
+      "rule_version": "v1",
+      "unwritten_path_count": 1,
+      "cores": [
+        "v84",
+        "v85"
+      ],
+      "first_core": "v84",
+      "last_core": "v85"
+    },
+    {
+      "core": "v84",
+      "rule": "tax.us.2025.rule.f1099b.code-b-lt-txn.box7-loss-check",
+      "rule_version": "v1",
+      "unwritten_path_count": 1,
+      "cores": [
+        "v84",
+        "v85"
+      ],
+      "first_core": "v84",
+      "last_core": "v85"
+    }
+  ],
+  "two_real_kinds": [
+    {
+      "core": "v38",
+      "rule": "tax.us.2025.rule.form1040-line2b",
+      "rule_version": "v8",
+      "written_path_count": 2,
+      "cores": [
+        "v38",
+        "v39",
+        "v40",
+        "v41",
+        "v42",
+        "v43",
+        "v44",
+        "v45",
+        "v46",
+        "v47",
+        "v48",
+        "v49",
+        "v50",
+        "v51",
+        "v52",
+        "v53",
+        "v54",
+        "v55",
+        "v56",
+        "v57",
+        "v58",
+        "v59",
+        "v60",
+        "v61",
+        "v62",
+        "v63",
+        "v64",
+        "v65",
+        "v66",
+        "v67",
+        "v68",
+        "v69",
+        "v70",
+        "v71",
+        "v72",
+        "v73",
+        "v74",
+        "v75",
+        "v76",
+        "v77",
+        "v78",
+        "v79",
+        "v80",
+        "v81",
+        "v82",
+        "v83",
+        "v84",
+        "v85"
+      ],
+      "first_core": "v38",
+      "last_core": "v85"
+    }
+  ],
+  "per_core": [
+    {
+      "version": "v2",
+      "member_count": 49,
+      "stand_in_count": 0,
+      "unwritten_path_rule_count": 0,
+      "one_real_plus_default_count": 0,
+      "two_real_count": 0
+    },
+    {
+      "version": "v3",
+      "member_count": 49,
+      "stand_in_count": 0,
+      "unwritten_path_rule_count": 0,
+      "one_real_plus_default_count": 0,
+      "two_real_count": 0
+    },
+    {
+      "version": "v4",
+      "member_count": 65,
+      "stand_in_count": 0,
+      "unwritten_path_rule_count": 0,
+      "one_real_plus_default_count": 0,
+      "two_real_count": 0
+    },
+    {
+      "version": "v5",
+      "member_count": 69,
+      "stand_in_count": 0,
+      "unwritten_path_rule_count": 0,
+      "one_real_plus_default_count": 0,
+      "two_real_count": 0
+    },
+    {
+      "version": "v6",
+      "member_count": 71,
+      "stand_in_count": 0,
+      "unwritten_path_rule_count": 0,
+      "one_real_plus_default_count": 0,
+      "two_real_count": 0
+    },
+    {
+      "version": "v7",
+      "member_count": 84,
+      "stand_in_count": 0,
+      "unwritten_path_rule_count": 0,
+      "one_real_plus_default_count": 0,
+      "two_real_count": 0
+    },
+    {
+      "version": "v8",
+      "member_count": 85,
+      "stand_in_count": 0,
+      "unwritten_path_rule_count": 0,
+      "one_real_plus_default_count": 0,
+      "two_real_count": 0
+    },
+    {
+      "version": "v9",
+      "member_count": 90,
+      "stand_in_count": 0,
+      "unwritten_path_rule_count": 0,
+      "one_real_plus_default_count": 0,
+      "two_real_count": 0
+    },
+    {
+      "version": "v10",
+      "member_count": 100,
+      "stand_in_count": 0,
+      "unwritten_path_rule_count": 0,
+      "one_real_plus_default_count": 0,
+      "two_real_count": 0
+    },
+    {
+      "version": "v11",
+      "member_count": 123,
+      "stand_in_count": 0,
+      "unwritten_path_rule_count": 0,
+      "one_real_plus_default_count": 0,
+      "two_real_count": 0
+    },
+    {
+      "version": "v12",
+      "member_count": 123,
+      "stand_in_count": 0,
+      "unwritten_path_rule_count": 0,
+      "one_real_plus_default_count": 0,
+      "two_real_count": 0
+    },
+    {
+      "version": "v13",
+      "member_count": 127,
+      "stand_in_count": 0,
+      "unwritten_path_rule_count": 0,
+      "one_real_plus_default_count": 0,
+      "two_real_count": 0
+    },
+    {
+      "version": "v14",
+      "member_count": 149,
+      "stand_in_count": 0,
+      "unwritten_path_rule_count": 0,
+      "one_real_plus_default_count": 0,
+      "two_real_count": 0
+    },
+    {
+      "version": "v15",
+      "member_count": 165,
+      "stand_in_count": 0,
+      "unwritten_path_rule_count": 0,
+      "one_real_plus_default_count": 0,
+      "two_real_count": 0
+    },
+    {
+      "version": "v16",
+      "member_count": 174,
+      "stand_in_count": 0,
+      "unwritten_path_rule_count": 0,
+      "one_real_plus_default_count": 0,
+      "two_real_count": 0
+    },
+    {
+      "version": "v17",
+      "member_count": 185,
+      "stand_in_count": 0,
+      "unwritten_path_rule_count": 0,
+      "one_real_plus_default_count": 0,
+      "two_real_count": 0
+    },
+    {
+      "version": "v18",
+      "member_count": 226,
+      "stand_in_count": 0,
+      "unwritten_path_rule_count": 0,
+      "one_real_plus_default_count": 0,
+      "two_real_count": 0
+    },
+    {
+      "version": "v19",
+      "member_count": 232,
+      "stand_in_count": 0,
+      "unwritten_path_rule_count": 0,
+      "one_real_plus_default_count": 0,
+      "two_real_count": 0
+    },
+    {
+      "version": "v20",
+      "member_count": 250,
+      "stand_in_count": 0,
+      "unwritten_path_rule_count": 0,
+      "one_real_plus_default_count": 0,
+      "two_real_count": 0
+    },
+    {
+      "version": "v21",
+      "member_count": 271,
+      "stand_in_count": 0,
+      "unwritten_path_rule_count": 0,
+      "one_real_plus_default_count": 0,
+      "two_real_count": 0
+    },
+    {
+      "version": "v22",
+      "member_count": 283,
+      "stand_in_count": 0,
+      "unwritten_path_rule_count": 0,
+      "one_real_plus_default_count": 0,
+      "two_real_count": 0
+    },
+    {
+      "version": "v23",
+      "member_count": 283,
+      "stand_in_count": 0,
+      "unwritten_path_rule_count": 0,
+      "one_real_plus_default_count": 0,
+      "two_real_count": 0
+    },
+    {
+      "version": "v24",
+      "member_count": 283,
+      "stand_in_count": 0,
+      "unwritten_path_rule_count": 0,
+      "one_real_plus_default_count": 0,
+      "two_real_count": 0
+    },
+    {
+      "version": "v25",
+      "member_count": 283,
+      "stand_in_count": 0,
+      "unwritten_path_rule_count": 0,
+      "one_real_plus_default_count": 0,
+      "two_real_count": 0
+    },
+    {
+      "version": "v26",
+      "member_count": 283,
+      "stand_in_count": 0,
+      "unwritten_path_rule_count": 0,
+      "one_real_plus_default_count": 0,
+      "two_real_count": 0
+    },
+    {
+      "version": "v27",
+      "member_count": 311,
+      "stand_in_count": 0,
+      "unwritten_path_rule_count": 0,
+      "one_real_plus_default_count": 0,
+      "two_real_count": 0
+    },
+    {
+      "version": "v28",
+      "member_count": 312,
+      "stand_in_count": 0,
+      "unwritten_path_rule_count": 0,
+      "one_real_plus_default_count": 0,
+      "two_real_count": 0
+    },
+    {
+      "version": "v29",
+      "member_count": 342,
+      "stand_in_count": 0,
+      "unwritten_path_rule_count": 0,
+      "one_real_plus_default_count": 0,
+      "two_real_count": 0
+    },
+    {
+      "version": "v30",
+      "member_count": 342,
+      "stand_in_count": 0,
+      "unwritten_path_rule_count": 0,
+      "one_real_plus_default_count": 0,
+      "two_real_count": 0
+    },
+    {
+      "version": "v31",
+      "member_count": 344,
+      "stand_in_count": 0,
+      "unwritten_path_rule_count": 0,
+      "one_real_plus_default_count": 0,
+      "two_real_count": 0
+    },
+    {
+      "version": "v32",
+      "member_count": 344,
+      "stand_in_count": 0,
+      "unwritten_path_rule_count": 0,
+      "one_real_plus_default_count": 0,
+      "two_real_count": 0
+    },
+    {
+      "version": "v33",
+      "member_count": 363,
+      "stand_in_count": 0,
+      "unwritten_path_rule_count": 0,
+      "one_real_plus_default_count": 0,
+      "two_real_count": 0
+    },
+    {
+      "version": "v34",
+      "member_count": 371,
+      "stand_in_count": 0,
+      "unwritten_path_rule_count": 0,
+      "one_real_plus_default_count": 0,
+      "two_real_count": 0
+    },
+    {
+      "version": "v35",
+      "member_count": 369,
+      "stand_in_count": 0,
+      "unwritten_path_rule_count": 0,
+      "one_real_plus_default_count": 0,
+      "two_real_count": 0
+    },
+    {
+      "version": "v36",
+      "member_count": 373,
+      "stand_in_count": 0,
+      "unwritten_path_rule_count": 0,
+      "one_real_plus_default_count": 0,
+      "two_real_count": 0
+    },
+    {
+      "version": "v37",
+      "member_count": 373,
+      "stand_in_count": 0,
+      "unwritten_path_rule_count": 0,
+      "one_real_plus_default_count": 0,
+      "two_real_count": 0
+    },
+    {
+      "version": "v38",
+      "member_count": 374,
+      "stand_in_count": 0,
+      "unwritten_path_rule_count": 0,
+      "one_real_plus_default_count": 0,
+      "two_real_count": 1
+    },
+    {
+      "version": "v39",
+      "member_count": 392,
+      "stand_in_count": 0,
+      "unwritten_path_rule_count": 0,
+      "one_real_plus_default_count": 0,
+      "two_real_count": 1
+    },
+    {
+      "version": "v40",
+      "member_count": 399,
+      "stand_in_count": 0,
+      "unwritten_path_rule_count": 1,
+      "one_real_plus_default_count": 1,
+      "two_real_count": 1
+    },
+    {
+      "version": "v41",
+      "member_count": 400,
+      "stand_in_count": 0,
+      "unwritten_path_rule_count": 1,
+      "one_real_plus_default_count": 1,
+      "two_real_count": 1
+    },
+    {
+      "version": "v42",
+      "member_count": 422,
+      "stand_in_count": 0,
+      "unwritten_path_rule_count": 1,
+      "one_real_plus_default_count": 1,
+      "two_real_count": 1
+    },
+    {
+      "version": "v43",
+      "member_count": 422,
+      "stand_in_count": 0,
+      "unwritten_path_rule_count": 1,
+      "one_real_plus_default_count": 1,
+      "two_real_count": 1
+    },
+    {
+      "version": "v44",
+      "member_count": 429,
+      "stand_in_count": 0,
+      "unwritten_path_rule_count": 2,
+      "one_real_plus_default_count": 2,
+      "two_real_count": 1
+    },
+    {
+      "version": "v45",
+      "member_count": 429,
+      "stand_in_count": 0,
+      "unwritten_path_rule_count": 2,
+      "one_real_plus_default_count": 2,
+      "two_real_count": 1
+    },
+    {
+      "version": "v46",
+      "member_count": 439,
+      "stand_in_count": 0,
+      "unwritten_path_rule_count": 3,
+      "one_real_plus_default_count": 3,
+      "two_real_count": 1
+    },
+    {
+      "version": "v47",
+      "member_count": 444,
+      "stand_in_count": 0,
+      "unwritten_path_rule_count": 3,
+      "one_real_plus_default_count": 3,
+      "two_real_count": 1
+    },
+    {
+      "version": "v48",
+      "member_count": 444,
+      "stand_in_count": 0,
+      "unwritten_path_rule_count": 3,
+      "one_real_plus_default_count": 3,
+      "two_real_count": 1
+    },
+    {
+      "version": "v49",
+      "member_count": 445,
+      "stand_in_count": 0,
+      "unwritten_path_rule_count": 4,
+      "one_real_plus_default_count": 4,
+      "two_real_count": 1
+    },
+    {
+      "version": "v50",
+      "member_count": 470,
+      "stand_in_count": 0,
+      "unwritten_path_rule_count": 4,
+      "one_real_plus_default_count": 4,
+      "two_real_count": 1
+    },
+    {
+      "version": "v51",
+      "member_count": 489,
+      "stand_in_count": 0,
+      "unwritten_path_rule_count": 4,
+      "one_real_plus_default_count": 4,
+      "two_real_count": 1
+    },
+    {
+      "version": "v52",
+      "member_count": 545,
+      "stand_in_count": 0,
+      "unwritten_path_rule_count": 4,
+      "one_real_plus_default_count": 4,
+      "two_real_count": 1
+    },
+    {
+      "version": "v53",
+      "member_count": 580,
+      "stand_in_count": 0,
+      "unwritten_path_rule_count": 4,
+      "one_real_plus_default_count": 4,
+      "two_real_count": 1
+    },
+    {
+      "version": "v54",
+      "member_count": 593,
+      "stand_in_count": 0,
+      "unwritten_path_rule_count": 5,
+      "one_real_plus_default_count": 5,
+      "two_real_count": 1
+    },
+    {
+      "version": "v55",
+      "member_count": 663,
+      "stand_in_count": 0,
+      "unwritten_path_rule_count": 6,
+      "one_real_plus_default_count": 6,
+      "two_real_count": 1
+    },
+    {
+      "version": "v56",
+      "member_count": 685,
+      "stand_in_count": 0,
+      "unwritten_path_rule_count": 10,
+      "one_real_plus_default_count": 10,
+      "two_real_count": 1
+    },
+    {
+      "version": "v57",
+      "member_count": 729,
+      "stand_in_count": 0,
+      "unwritten_path_rule_count": 12,
+      "one_real_plus_default_count": 10,
+      "two_real_count": 1
+    },
+    {
+      "version": "v58",
+      "member_count": 729,
+      "stand_in_count": 0,
+      "unwritten_path_rule_count": 12,
+      "one_real_plus_default_count": 10,
+      "two_real_count": 1
+    },
+    {
+      "version": "v59",
+      "member_count": 737,
+      "stand_in_count": 0,
+      "unwritten_path_rule_count": 12,
+      "one_real_plus_default_count": 10,
+      "two_real_count": 1
+    },
+    {
+      "version": "v60",
+      "member_count": 737,
+      "stand_in_count": 0,
+      "unwritten_path_rule_count": 13,
+      "one_real_plus_default_count": 11,
+      "two_real_count": 1
+    },
+    {
+      "version": "v61",
+      "member_count": 737,
+      "stand_in_count": 0,
+      "unwritten_path_rule_count": 13,
+      "one_real_plus_default_count": 11,
+      "two_real_count": 1
+    },
+    {
+      "version": "v62",
+      "member_count": 737,
+      "stand_in_count": 0,
+      "unwritten_path_rule_count": 13,
+      "one_real_plus_default_count": 11,
+      "two_real_count": 1
+    },
+    {
+      "version": "v63",
+      "member_count": 737,
+      "stand_in_count": 0,
+      "unwritten_path_rule_count": 13,
+      "one_real_plus_default_count": 11,
+      "two_real_count": 1
+    },
+    {
+      "version": "v64",
+      "member_count": 737,
+      "stand_in_count": 0,
+      "unwritten_path_rule_count": 13,
+      "one_real_plus_default_count": 11,
+      "two_real_count": 1
+    },
+    {
+      "version": "v65",
+      "member_count": 747,
+      "stand_in_count": 0,
+      "unwritten_path_rule_count": 13,
+      "one_real_plus_default_count": 11,
+      "two_real_count": 1
+    },
+    {
+      "version": "v66",
+      "member_count": 748,
+      "stand_in_count": 0,
+      "unwritten_path_rule_count": 13,
+      "one_real_plus_default_count": 11,
+      "two_real_count": 1
+    },
+    {
+      "version": "v67",
+      "member_count": 752,
+      "stand_in_count": 0,
+      "unwritten_path_rule_count": 13,
+      "one_real_plus_default_count": 11,
+      "two_real_count": 1
+    },
+    {
+      "version": "v68",
+      "member_count": 753,
+      "stand_in_count": 0,
+      "unwritten_path_rule_count": 13,
+      "one_real_plus_default_count": 11,
+      "two_real_count": 1
+    },
+    {
+      "version": "v69",
+      "member_count": 753,
+      "stand_in_count": 0,
+      "unwritten_path_rule_count": 13,
+      "one_real_plus_default_count": 11,
+      "two_real_count": 1
+    },
+    {
+      "version": "v70",
+      "member_count": 753,
+      "stand_in_count": 0,
+      "unwritten_path_rule_count": 13,
+      "one_real_plus_default_count": 11,
+      "two_real_count": 1
+    },
+    {
+      "version": "v71",
+      "member_count": 753,
+      "stand_in_count": 0,
+      "unwritten_path_rule_count": 13,
+      "one_real_plus_default_count": 11,
+      "two_real_count": 1
+    },
+    {
+      "version": "v72",
+      "member_count": 761,
+      "stand_in_count": 0,
+      "unwritten_path_rule_count": 13,
+      "one_real_plus_default_count": 11,
+      "two_real_count": 1
+    },
+    {
+      "version": "v73",
+      "member_count": 841,
+      "stand_in_count": 0,
+      "unwritten_path_rule_count": 13,
+      "one_real_plus_default_count": 11,
+      "two_real_count": 1
+    },
+    {
+      "version": "v74",
+      "member_count": 841,
+      "stand_in_count": 0,
+      "unwritten_path_rule_count": 13,
+      "one_real_plus_default_count": 11,
+      "two_real_count": 1
+    },
+    {
+      "version": "v75",
+      "member_count": 841,
+      "stand_in_count": 0,
+      "unwritten_path_rule_count": 13,
+      "one_real_plus_default_count": 11,
+      "two_real_count": 1
+    },
+    {
+      "version": "v76",
+      "member_count": 851,
+      "stand_in_count": 0,
+      "unwritten_path_rule_count": 13,
+      "one_real_plus_default_count": 11,
+      "two_real_count": 1
+    },
+    {
+      "version": "v77",
+      "member_count": 851,
+      "stand_in_count": 0,
+      "unwritten_path_rule_count": 13,
+      "one_real_plus_default_count": 11,
+      "two_real_count": 1
+    },
+    {
+      "version": "v78",
+      "member_count": 851,
+      "stand_in_count": 0,
+      "unwritten_path_rule_count": 13,
+      "one_real_plus_default_count": 11,
+      "two_real_count": 1
+    },
+    {
+      "version": "v79",
+      "member_count": 876,
+      "stand_in_count": 0,
+      "unwritten_path_rule_count": 13,
+      "one_real_plus_default_count": 11,
+      "two_real_count": 1
+    },
+    {
+      "version": "v80",
+      "member_count": 919,
+      "stand_in_count": 0,
+      "unwritten_path_rule_count": 17,
+      "one_real_plus_default_count": 15,
+      "two_real_count": 1
+    },
+    {
+      "version": "v81",
+      "member_count": 969,
+      "stand_in_count": 0,
+      "unwritten_path_rule_count": 23,
+      "one_real_plus_default_count": 21,
+      "two_real_count": 1
+    },
+    {
+      "version": "v82",
+      "member_count": 974,
+      "stand_in_count": 0,
+      "unwritten_path_rule_count": 23,
+      "one_real_plus_default_count": 21,
+      "two_real_count": 1
+    },
+    {
+      "version": "v83",
+      "member_count": 979,
+      "stand_in_count": 1,
+      "unwritten_path_rule_count": 24,
+      "one_real_plus_default_count": 22,
+      "two_real_count": 1
+    },
+    {
+      "version": "v84",
+      "member_count": 996,
+      "stand_in_count": 1,
+      "unwritten_path_rule_count": 32,
+      "one_real_plus_default_count": 30,
+      "two_real_count": 1
+    },
+    {
+      "version": "v85",
+      "member_count": 999,
+      "stand_in_count": 1,
+      "unwritten_path_rule_count": 32,
+      "one_real_plus_default_count": 30,
+      "two_real_count": 1
+    }
+  ]
+}

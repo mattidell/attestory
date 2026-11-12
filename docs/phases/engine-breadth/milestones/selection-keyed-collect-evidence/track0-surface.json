@@ -1,0 +1,279 @@
+{
+  "scope": "surface",
+  "cores": [
+    "v85",
+    "v86"
+  ],
+  "bindings": [
+    {
+      "consumer": "rule.form1040-line25d",
+      "binding": "requires payments.line25b",
+      "cardinality": "one disposition",
+      "satisfied": true,
+      "evidence": "surface_published_one_v86"
+    },
+    {
+      "consumer": "form1040.line-25b field v6",
+      "binding": "binds_symbol payments.line25b",
+      "cardinality": "one presentation row",
+      "satisfied": true,
+      "evidence": "surface_published_one_v86"
+    },
+    {
+      "consumer": "rule.form1040-line33",
+      "binding": "requires line 25d",
+      "cardinality": "one disposition",
+      "satisfied": true,
+      "evidence": "surface_published_one_v86"
+    },
+    {
+      "consumer": "rule.form1040-line34",
+      "binding": "requires line 33 and tax",
+      "cardinality": "one disposition",
+      "satisfied": true,
+      "evidence": "surface_published_one_v86"
+    },
+    {
+      "consumer": "rule.form1040-line37",
+      "binding": "requires tax and line 33",
+      "cardinality": "one disposition",
+      "satisfied": true,
+      "evidence": "surface_published_one_v86"
+    },
+    {
+      "consumer": "rule.f1099b-b4-withholding-subtotal v2",
+      "binding": "publishes f1099b.b4-withholding-subtotal",
+      "cardinality": "one disposition",
+      "satisfied": true,
+      "evidence": "surface_runner_wait"
+    }
+  ],
+  "cases": [
+    {
+      "id": "surface_published_one_v86",
+      "expect_25b": 150,
+      "lines": {
+        "form1040.line-25b": 150,
+        "form1040.line-25d": 4650,
+        "form1040.line-33": 4650,
+        "form1040.line-34": 655,
+        "form1040.line-37": 0
+      },
+      "field": {
+        "version": "v6",
+        "binds_symbol": "payments.line25b",
+        "disposition": "published_value",
+        "value": 150
+      },
+      "subtotal": [
+        150
+      ],
+      "standin": null,
+      "failures": [],
+      "passed": true
+    },
+    {
+      "id": "surface_published_empty_v86",
+      "expect_25b": 0,
+      "lines": {
+        "form1040.line-25b": 0,
+        "form1040.line-25d": 4500,
+        "form1040.line-33": 4500,
+        "form1040.line-34": 625,
+        "form1040.line-37": 0
+      },
+      "field": {
+        "version": "v6",
+        "binds_symbol": "payments.line25b",
+        "disposition": "computed_zero",
+        "value": 0
+      },
+      "subtotal": [
+        0
+      ],
+      "standin": null,
+      "failures": [],
+      "passed": true
+    },
+    {
+      "id": "surface_blocked_withdrawn_v86",
+      "expect_25b": "blocked",
+      "lines": {
+        "form1040.line-25b": "blocked",
+        "form1040.line-25d": "blocked",
+        "form1040.line-33": "blocked",
+        "form1040.line-34": "blocked",
+        "form1040.line-37": "blocked"
+      },
+      "field": {
+        "version": "v6",
+        "binds_symbol": "payments.line25b",
+        "disposition": "blocked",
+        "value": null
+      },
+      "subtotal": [
+        0
+      ],
+      "standin": null,
+      "failures": [],
+      "passed": true
+    },
+    {
+      "id": "surface_runner_wait",
+      "note": "v86 subtotal v2 requires is empty. The runner publishes the collect without the amount id in symbols.",
+      "v86_rows": {
+        "rule.f1099b-b4-withholding-subtotal": {
+          "disposition": "published",
+          "symbol": "f1099b.b4-withholding-subtotal",
+          "code": null
+        },
+        "rule.form1040-line25b": {
+          "disposition": "published",
+          "symbol": "payments.line25b",
+          "code": null
+        }
+      },
+      "failures": [],
+      "passed": true
+    },
+    {
+      "id": "surface_v16_add_only",
+      "added": [
+        "rule-artifact.v16.schema.json"
+      ],
+      "changed": [],
+      "removed": [],
+      "failures": [],
+      "passed": true
+    },
+    {
+      "id": "surface_v15_mutate_refused",
+      "refused": true,
+      "detail": "refusing to republish mutated schema: rule-artifact.v15.schema.json; publish a new version instead",
+      "failures": [],
+      "passed": true
+    },
+    {
+      "id": "surface_v16_schema_activity_collect",
+      "schema": {
+        "ok": true
+      },
+      "failures": [],
+      "passed": true
+    },
+    {
+      "id": "surface_v16_schema_foreign_collect",
+      "schema": {
+        "ok": true
+      },
+      "failures": [],
+      "passed": true
+    },
+    {
+      "id": "surface_v16_schema_foreign_listed",
+      "schema": {
+        "ok": true
+      },
+      "failures": [],
+      "passed": true
+    },
+    {
+      "id": "surface_v16_unknown_on_published_registry",
+      "schema": {
+        "ok": false,
+        "errors": [
+          "no published schema version: rule-artifact.v16"
+        ]
+      },
+      "failures": [],
+      "passed": true
+    },
+    {
+      "id": "surface_v16_unsupported_until_enumerated",
+      "in_supported_schemas": false,
+      "selection_check_emits": false,
+      "failures": [],
+      "passed": true
+    },
+    {
+      "id": "surface_activity_collect_empty_requires",
+      "issues": [],
+      "failures": [],
+      "passed": true
+    },
+    {
+      "id": "surface_foreign_collect_missing_requires",
+      "issues": [
+        {
+          "id": "rule.skc-t0-foreign-missing",
+          "version": "v2",
+          "code": "RULE_SELECTION_DEPENDENCIES_INVALID",
+          "detail": "'amounts' requires must be its refs and undeclared collect-family names; expected ['tax.us.2025.f1099int.box4-withholding']"
+        }
+      ],
+      "failures": [],
+      "passed": true
+    },
+    {
+      "id": "surface_foreign_collect_listed_requires",
+      "issues": [],
+      "failures": [],
+      "passed": true
+    },
+    {
+      "id": "surface_v16_enumerations",
+      "files": [
+        {
+          "file": "packages/derivation/package_validation.py",
+          "names_v15": true,
+          "names_v16": false
+        },
+        {
+          "file": "packages/derivation/runner.py",
+          "names_v15": true,
+          "names_v16": false
+        },
+        {
+          "file": "packages/derivation/marshal.py",
+          "names_v15": true,
+          "names_v16": false
+        },
+        {
+          "file": "packages/derivation/live.py",
+          "names_v15": true,
+          "names_v16": false
+        },
+        {
+          "file": "packages/derivation/authorization_closure.py",
+          "names_v15": true,
+          "names_v16": false
+        },
+        {
+          "file": "packages/derivation/presentation_projection.py",
+          "names_v15": true,
+          "names_v16": false
+        }
+      ],
+      "failures": [],
+      "passed": true
+    }
+  ],
+  "passed": [
+    "surface_published_one_v86",
+    "surface_published_empty_v86",
+    "surface_blocked_withdrawn_v86",
+    "surface_runner_wait",
+    "surface_v16_add_only",
+    "surface_v15_mutate_refused",
+    "surface_v16_schema_activity_collect",
+    "surface_v16_schema_foreign_collect",
+    "surface_v16_schema_foreign_listed",
+    "surface_v16_unknown_on_published_registry",
+    "surface_v16_unsupported_until_enumerated",
+    "surface_activity_collect_empty_requires",
+    "surface_foreign_collect_missing_requires",
+    "surface_foreign_collect_listed_requires",
+    "surface_v16_enumerations"
+  ],
+  "failed": []
+}

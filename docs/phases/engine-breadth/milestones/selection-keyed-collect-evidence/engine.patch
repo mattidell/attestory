@@ -1,0 +1,137 @@
+--- a/packages/tax/loader.py
++++ b/packages/tax/loader.py
+@@ -102,6 +102,27 @@
+     return _version_rank(version) >= _LATER_ANY_ARM_REFS_FROM
+ 
+ 
++# Core v86 is the first package on which a selection path's collect of its
++# activity family is not a symbol dependency. Earlier cores keep the stand-in.
++_SELECTION_COLLECT_BY_FAMILY_FROM = 86
++
++
++def selection_collect_satisfied_by_family(package_id: str, version: str) -> bool:
++    """Whether a selection path's collect of its activity family is not a symbol.
++
++    On from core-calculations v86. Package validation stops expecting that
++    collect name in the path's requires. An earlier core, or a package that is
++    not core-calculations, keeps the recorded stand-in symbol wait. No schema
++    carries the switch: it is the adopted package id and version, the same key
++    a companion declaration uses.
++    """
++    if package_id != _CORE_CALCULATIONS:
++        return False
++    if not version.startswith("v") or not version[1:].isdigit():
++        return False
++    return _version_rank(version) >= _SELECTION_COLLECT_BY_FAMILY_FROM
++
++
+ # A covered sale recorded with basis_reported_to_irs "no" is not that
+ # family's admitted member. The kernel companion declaration accepts only
+ # presence pairs and value domains, so the map is a sibling of that
+--- a/packages/derivation/package_validation.py
++++ b/packages/derivation/package_validation.py
+@@ -1062,37 +1062,64 @@
+ _COLLECT_FAMILY_OPS = frozenset({"collect", "count", "collect_categorical_all_equal"})
+ 
+ 
++def _activity_satisfied_collects(activity: Any) -> frozenset[tuple[str, str]]:
++    """Collect (name, source_set) pairs a path's activity already names."""
++    if not isinstance(activity, Mapping) or activity.get("kind") != "source_nonempty":
++        return frozenset()
++    family = activity.get("source_family")
++    family_id = family.get("id") if isinstance(family, Mapping) else None
++    if not isinstance(family_id, str):
++        return frozenset()
++    pairs: list[tuple[str, str]] = []
++    for pin in selection_activity_fact_pins(activity):
++        fact_id = pin.get("id")
++        if isinstance(fact_id, str):
++            pairs.append((fact_id, family_id))
++    return frozenset(pairs)
++
++
+ def _iter_selection_dependency_names(
+     expr: Any, family_members: Mapping[str, str],
++    satisfied_collects: frozenset[tuple[str, str]] = frozenset(),
+ ) -> Iterable[str]:
+     """``ref`` names and collect-family names, as Part 4 counts them.
+ 
+     A name that is only a ``conditional_dependency_set`` member is not
+     yielded (its condition is). A ``count`` whose ``source_set`` is an
+     adopted family and whose ``name`` is that family's member is a
+-    closed-family count, not a dependency.
++    closed-family count, not a dependency. When ``satisfied_collects`` is
++    supplied, a collect of a family the path's activity already names is
++    also not a dependency.
+     """
+     if isinstance(expr, dict):
+         op = expr.get("op")
+         if op == "ref" and isinstance(expr.get("name"), str):
+             yield expr["name"]
+         if op in _COLLECT_FAMILY_OPS and isinstance(expr.get("name"), str):
++            source_set = expr.get("source_set")
+             closed_family_count = (
+                 op == "count"
+-                and family_members.get(str(expr.get("source_set"))) == expr["name"]
++                and family_members.get(str(source_set)) == expr["name"]
+             )
+-            if not closed_family_count:
++            activity_collect = (
++                isinstance(source_set, str)
++                and (expr["name"], source_set) in satisfied_collects
++            )
++            if not closed_family_count and not activity_collect:
+                 yield expr["name"]
+         for key, value in expr.items():
+             if op == "conditional_dependency_set" and key == "members":
+                 continue
+-            yield from _iter_selection_dependency_names(value, family_members)
++            yield from _iter_selection_dependency_names(value, family_members, satisfied_collects)
+     elif isinstance(expr, list):
+         for item in expr:
+-            yield from _iter_selection_dependency_names(item, family_members)
++            yield from _iter_selection_dependency_names(item, family_members, satisfied_collects)
+ 
+ 
+-def _v13_selection_issues(resolved: list[tuple[dict[str, Any], dict[str, Any]]]) -> list[MemberIssue]:
++def _v13_selection_issues(
++    package: Mapping[str, Any],
++    resolved: list[tuple[dict[str, Any], dict[str, Any]]],
++) -> list[MemberIssue]:
+     """ADR 0077 Part 4 "Validation" and Part 3 "Validation" for a v13 selection.
+ 
+     There is no list of authorized rule ids. The schema already fixes the
+@@ -1127,6 +1154,11 @@
+         if citizen.get("schema") not in ("rule-artifact.v13", "rule-artifact.v14", "rule-artifact.v15") or "selection" not in citizen:
+             continue
+ 
++        from packages.tax.loader import selection_collect_satisfied_by_family
++        collect_by_family = selection_collect_satisfied_by_family(
++            str(package.get("id") or ""), str(package.get("version") or ""),
++        )
++
+         def issue(code: str, detail: str) -> None:
+             issues.append(MemberIssue(pin["id"], pin["version"], code, detail))
+ 
+@@ -1185,8 +1217,11 @@
+ 
+             declared = set(subject_result_read_symbols(declaration))
+             expected: list[str] = []
++            satisfied = frozenset()
++            if collect_by_family and declaration is not default:
++                satisfied = _activity_satisfied_collects(declaration.get("activity"))
+             for expression in (declaration.get("when"), declaration.get("value")):
+-                for name in _iter_selection_dependency_names(expression, family_members):
++                for name in _iter_selection_dependency_names(expression, family_members, satisfied):
+                     if name not in declared and name not in expected:
+                         expected.append(name)
+             requires = declaration.get("requires")
+@@ -2552,7 +2587,7 @@
+     issues.extend(_shared_key_count_issues(resolved, fact_types_by_key))
+     issues.extend(_require_paired_issues(resolved, fact_types_by_key))
+     issues.extend(_basis_issues(resolved))
+-    issues.extend(_v13_selection_issues(resolved))
++    issues.extend(_v13_selection_issues(package, resolved))
+     issues.extend(_reader_role_issues(package, resolved))
+ 
+     # 4. Form-field binds symbol closure

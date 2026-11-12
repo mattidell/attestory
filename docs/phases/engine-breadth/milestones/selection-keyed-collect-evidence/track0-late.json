@@ -1,0 +1,300 @@
+{
+  "scope": "late",
+  "cores": [
+    "v85",
+    "v86"
+  ],
+  "traces": [
+    {
+      "id": "late_amount_added",
+      "paper": "attest a wage return with no Form 1099-B, compute; add a sale and box 4 150, recompute",
+      "steps": [
+        {
+          "id": "late_amount_added_before",
+          "expect_25b": 0,
+          "v85_lines": {
+            "form1040.line-25b": 0,
+            "form1040.line-25d": 4500,
+            "form1040.line-33": 4500,
+            "form1040.line-34": 625,
+            "form1040.line-37": 0
+          },
+          "v86_lines": {
+            "form1040.line-25b": 0,
+            "form1040.line-25d": 4500,
+            "form1040.line-33": 4500,
+            "form1040.line-34": 625,
+            "form1040.line-37": 0
+          },
+          "v85_subtotal_ids": [
+            "finding:derived:a52d3a659bf23517d8279bc7"
+          ],
+          "v86_subtotal_ids": [
+            "finding:derived:8e76ff734fee3f59a59fd570"
+          ],
+          "v85_line25b_ids": [
+            "finding:derived:cf1ffefa20bc5d549095228d"
+          ],
+          "v86_line25b_ids": [
+            "finding:derived:d642b8f48368e81c8296aae7"
+          ],
+          "failures": [],
+          "passed": true
+        },
+        {
+          "id": "late_amount_added_after",
+          "expect_25b": 150,
+          "v85_lines": {
+            "form1040.line-25b": 150,
+            "form1040.line-25d": 4650,
+            "form1040.line-33": 4650,
+            "form1040.line-34": 655,
+            "form1040.line-37": 0
+          },
+          "v86_lines": {
+            "form1040.line-25b": 150,
+            "form1040.line-25d": 4650,
+            "form1040.line-33": 4650,
+            "form1040.line-34": 655,
+            "form1040.line-37": 0
+          },
+          "v85_subtotal_ids": [
+            "finding:derived:5fa7c28fde9bb8944ef0d369"
+          ],
+          "v86_subtotal_ids": [
+            "finding:derived:f6c45975b815223f9b11e481"
+          ],
+          "v85_line25b_ids": [
+            "finding:derived:c0cb34dfe92ec8b99c21959c"
+          ],
+          "v86_line25b_ids": [
+            "finding:derived:9b5c430d649c63dc76614182"
+          ],
+          "failures": [],
+          "passed": true
+        }
+      ],
+      "trace_failures": [],
+      "passed": true
+    },
+    {
+      "id": "late_amount_superseded",
+      "paper": "attest box 4 100, compute; supersede with 250, recompute",
+      "steps": [
+        {
+          "id": "late_amount_superseded_before",
+          "expect_25b": 100,
+          "v85_lines": {
+            "form1040.line-25b": 100,
+            "form1040.line-25d": 4600,
+            "form1040.line-33": 4600,
+            "form1040.line-34": 605,
+            "form1040.line-37": 0
+          },
+          "v86_lines": {
+            "form1040.line-25b": 100,
+            "form1040.line-25d": 4600,
+            "form1040.line-33": 4600,
+            "form1040.line-34": 605,
+            "form1040.line-37": 0
+          },
+          "v85_subtotal_ids": [
+            "finding:derived:c098be6e3273e9f1e9e64dec"
+          ],
+          "v86_subtotal_ids": [
+            "finding:derived:dfb8d0ba0e7730eebd0ba09f"
+          ],
+          "v85_line25b_ids": [
+            "finding:derived:1d2767ccaf8970a5478e3f3d"
+          ],
+          "v86_line25b_ids": [
+            "finding:derived:7bab799e41c6b3beb4a64218"
+          ],
+          "failures": [],
+          "passed": true
+        },
+        {
+          "id": "late_amount_superseded_after",
+          "expect_25b": 250,
+          "v85_lines": {
+            "form1040.line-25b": 250,
+            "form1040.line-25d": 4750,
+            "form1040.line-33": 4750,
+            "form1040.line-34": 755,
+            "form1040.line-37": 0
+          },
+          "v86_lines": {
+            "form1040.line-25b": 250,
+            "form1040.line-25d": 4750,
+            "form1040.line-33": 4750,
+            "form1040.line-34": 755,
+            "form1040.line-37": 0
+          },
+          "v85_subtotal_ids": [
+            "finding:derived:eb8ff8f0cc1a6bb8911f62fb"
+          ],
+          "v86_subtotal_ids": [
+            "finding:derived:a18504a8d46f7072736f0d9f"
+          ],
+          "v85_line25b_ids": [
+            "finding:derived:1ab1b1b6d6b0de3e2a422d7f"
+          ],
+          "v86_line25b_ids": [
+            "finding:derived:56f3ae96229e8aadd5284cfd"
+          ],
+          "failures": [],
+          "passed": true
+        }
+      ],
+      "trace_failures": [],
+      "passed": true
+    },
+    {
+      "id": "late_amount_withdrawn",
+      "paper": "attest box 4 150 with a sale, compute; retract the amount, recompute",
+      "steps": [
+        {
+          "id": "late_amount_withdrawn_before",
+          "expect_25b": 150,
+          "v85_lines": {
+            "form1040.line-25b": 150,
+            "form1040.line-25d": 4650,
+            "form1040.line-33": 4650,
+            "form1040.line-34": 655,
+            "form1040.line-37": 0
+          },
+          "v86_lines": {
+            "form1040.line-25b": 150,
+            "form1040.line-25d": 4650,
+            "form1040.line-33": 4650,
+            "form1040.line-34": 655,
+            "form1040.line-37": 0
+          },
+          "v85_subtotal_ids": [
+            "finding:derived:5fa7c28fde9bb8944ef0d369"
+          ],
+          "v86_subtotal_ids": [
+            "finding:derived:f6c45975b815223f9b11e481"
+          ],
+          "v85_line25b_ids": [
+            "finding:derived:c0cb34dfe92ec8b99c21959c"
+          ],
+          "v86_line25b_ids": [
+            "finding:derived:9b5c430d649c63dc76614182"
+          ],
+          "failures": [],
+          "passed": true
+        },
+        {
+          "id": "late_amount_withdrawn_after",
+          "expect_25b": "blocked",
+          "v85_lines": {
+            "form1040.line-25b": "blocked",
+            "form1040.line-25d": "blocked",
+            "form1040.line-33": "blocked",
+            "form1040.line-34": "blocked",
+            "form1040.line-37": "blocked"
+          },
+          "v86_lines": {
+            "form1040.line-25b": "blocked",
+            "form1040.line-25d": "blocked",
+            "form1040.line-33": "blocked",
+            "form1040.line-34": "blocked",
+            "form1040.line-37": "blocked"
+          },
+          "v85_subtotal_ids": [
+            "finding:derived:a52d3a659bf23517d8279bc7"
+          ],
+          "v86_subtotal_ids": [
+            "finding:derived:8e76ff734fee3f59a59fd570"
+          ],
+          "v85_line25b_ids": [],
+          "v86_line25b_ids": [],
+          "failures": [],
+          "passed": true
+        }
+      ],
+      "trace_failures": [],
+      "passed": true
+    },
+    {
+      "id": "late_second_statement",
+      "paper": "attest one statement 150, compute; add a second statement 40, recompute",
+      "steps": [
+        {
+          "id": "late_second_statement_before",
+          "expect_25b": 150,
+          "v85_lines": {
+            "form1040.line-25b": 150,
+            "form1040.line-25d": 4650,
+            "form1040.line-33": 4650,
+            "form1040.line-34": 655,
+            "form1040.line-37": 0
+          },
+          "v86_lines": {
+            "form1040.line-25b": 150,
+            "form1040.line-25d": 4650,
+            "form1040.line-33": 4650,
+            "form1040.line-34": 655,
+            "form1040.line-37": 0
+          },
+          "v85_subtotal_ids": [
+            "finding:derived:5fa7c28fde9bb8944ef0d369"
+          ],
+          "v86_subtotal_ids": [
+            "finding:derived:f6c45975b815223f9b11e481"
+          ],
+          "v85_line25b_ids": [
+            "finding:derived:c0cb34dfe92ec8b99c21959c"
+          ],
+          "v86_line25b_ids": [
+            "finding:derived:9b5c430d649c63dc76614182"
+          ],
+          "failures": [],
+          "passed": true
+        },
+        {
+          "id": "late_second_statement_after",
+          "expect_25b": 190,
+          "v85_lines": {
+            "form1040.line-25b": 190,
+            "form1040.line-25d": 4690,
+            "form1040.line-33": 4690,
+            "form1040.line-34": 647,
+            "form1040.line-37": 0
+          },
+          "v86_lines": {
+            "form1040.line-25b": 190,
+            "form1040.line-25d": 4690,
+            "form1040.line-33": 4690,
+            "form1040.line-34": 647,
+            "form1040.line-37": 0
+          },
+          "v85_subtotal_ids": [
+            "finding:derived:8056031499e0e782a45377c0"
+          ],
+          "v86_subtotal_ids": [
+            "finding:derived:91ae4a257e3f2567f19b06fe"
+          ],
+          "v85_line25b_ids": [
+            "finding:derived:830a7638fa1200a15fe55461"
+          ],
+          "v86_line25b_ids": [
+            "finding:derived:d174239d8afc1dffb7ed76af"
+          ],
+          "failures": [],
+          "passed": true
+        }
+      ],
+      "trace_failures": [],
+      "passed": true
+    }
+  ],
+  "passed": [
+    "late_amount_added",
+    "late_amount_superseded",
+    "late_amount_withdrawn",
+    "late_second_statement"
+  ],
+  "failed": []
+}

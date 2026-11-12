@@ -767,6 +767,18 @@ imports no test module; a static and a run-time check pin that. The seed's
 bytes are unchanged. Refreshing the source is deliberate, by the recipe in
 the generator's docstring.
 
+## Bounded return — A Selection Path Collects a Keyed Family Directly (2025)
+
+[Plan](milestones/selection-keyed-collect.md); retrospective:
+`docs/milestone-retrospectives/2026-11-10-selection-keyed-collect.md`.
+ADR 0085 (proposed).
+
+From core v86 a selection path's collect of its own activity family is not
+a symbol it waits for, and `rule-artifact.v16` allows one path with a
+default. Core v86 retires the rule that published 0 under the Form 1099-B
+box 4 amount id and the box 4 subtotal's inert path. Every recorded return
+is identical; earlier cores are unchanged.
+
 ## Parked work and open questions
 
 This is the single list of parked work and open owner-held questions for the
@@ -884,12 +896,9 @@ delivers an item removes it.
   other-dependent child and relative counts. None holds a line a filer sees.
 - A general assumption framework, free-text intake and institutional
   verification.
-- A selection path must name its collect as a symbol, so core v83 has a
-  rule that publishes 0 under the Form 1099-B box 4 amount's own id, and a
-  second `inert` path on a fact type nothing writes (the schema requires
-  two). No consumer reads the 0, but its explanation walk says 0 beside a
-  recorded amount. Needs a derivation change; then a successor retires
-  both.
+- Thirty-one selection rules on core v86 still carry an inert second path
+  on a fact type nothing writes. Each can move to `rule-artifact.v16` with
+  one path when it is next succeeded (selection-keyed-collect survey).
 - The engine cannot see the same Form 1099-B box 4 dollars entered both
   per statement and in the core v85 return-level total; the questions tell
   the filer not to, and nothing refuses it. A recording surface for a

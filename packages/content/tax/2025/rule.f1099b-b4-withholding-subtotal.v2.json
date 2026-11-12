@@ -1,0 +1,72 @@
+{
+  "schema": "rule-artifact.v16",
+  "id": "tax.us.2025.rule.f1099b-b4-withholding-subtotal",
+  "version": "v2",
+  "scope": {
+    "tax_year": 2025,
+    "jurisdiction": "US-federal",
+    "family": "individual-income-tax"
+  },
+  "role": "computation",
+  "requires": [],
+  "pins": [],
+  "when": true,
+  "selection": {
+    "mode": "exclusive_presence",
+    "conflict": "refuse",
+    "paths": [
+      {
+        "id": "amounts",
+        "activity": {
+          "kind": "source_nonempty",
+          "source_family": {
+            "id": "tax.us.2025.f1099b.b4",
+            "version": "v1"
+          },
+          "member_fact_types": [
+            {
+              "id": "tax.us.2025.f1099b.statement-box4-withholding",
+              "version": "v1"
+            }
+          ]
+        },
+        "reads_subject_results": [],
+        "requires": [],
+        "pins": [],
+        "when": true,
+        "value": {
+          "op": "add",
+          "args": [
+            {
+              "op": "collect",
+              "name": "tax.us.2025.f1099b.statement-box4-withholding",
+              "source_set": "tax.us.2025.f1099b.b4"
+            }
+          ]
+        }
+      }
+    ],
+    "default": {
+      "id": "neither",
+      "reads_subject_results": [],
+      "requires": [],
+      "pins": [],
+      "when": true,
+      "value": 0
+    },
+    "refusal": {
+      "code": "DEPENDENCY_INVALID",
+      "missing": [
+        "f1099b.b4-withholding-subtotal-conflict"
+      ],
+      "pins": []
+    }
+  },
+  "publishes": "tax.us.2025.f1099b.b4-withholding-subtotal",
+  "blocked": {
+    "code": "DEPENDENCY_ABSENT",
+    "missing": []
+  },
+  "citations": [],
+  "notes": "Every current Form 1099-B box 4 amount, or zero when none is recorded. The amounts path collects the family directly. The zero is the default of this selection, so a return with no amount is not asked to close the family."
+}

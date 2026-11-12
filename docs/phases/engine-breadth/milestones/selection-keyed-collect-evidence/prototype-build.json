@@ -1,0 +1,27 @@
+{
+  "from": {
+    "package": "v85",
+    "registry": "v83",
+    "release": "v83"
+  },
+  "to": {
+    "package": "v86",
+    "registry": "v84",
+    "release": "v84"
+  },
+  "package": "v86",
+  "registry": "v84",
+  "release": "v84",
+  "removed": "rule.f1099b-b4-amount-symbol",
+  "replaced": [
+    "rule.f1099b-b4-withholding-subtotal",
+    "v1",
+    "v2"
+  ],
+  "paths": [
+    "amounts"
+  ],
+  "prototype_schema_minItems": 1,
+  "prototype_schema_digest_prefix": "ea265447e98c",
+  "inherited_inconsistencies": []
+}
