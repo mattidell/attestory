@@ -64,9 +64,9 @@
     },
     "titles": {
       "taxpayer-over-65": "Taxpayer was born before January 2, 1961. A person reaches age 65 on the day before the 65th birthday. A taxpayer who was born before January 2, 1961 but died in 2025 before reaching age 65 is not included.",
-      "taxpayer-blind": "Taxpayer was totally blind as of December 31, 2025, or has a statement certified by an eye doctor that the taxpayer cannot see better than 20/200 in the better eye with glasses or contact lenses, or that the field of vision is 20 degrees or less.",
+      "taxpayer-blind": "Taxpayer was totally blind as of December 31, 2025, or as of December 31, 2025 could not see better than 20/200 in the better eye with glasses or contact lenses, or had a field of vision of 20 degrees or less, as a statement certified by an eye doctor says.",
       "spouse-over-65": "Spouse was born before January 2, 1961. A person reaches age 65 on the day before the 65th birthday. A spouse who was born before January 2, 1961 but died in 2025 before reaching age 65 is not included.",
-      "spouse-blind": "Spouse was totally blind as of December 31, 2025, or has a statement certified by an eye doctor that the spouse cannot see better than 20/200 in the better eye with glasses or contact lenses, or that the field of vision is 20 degrees or less."
+      "spouse-blind": "Spouse was totally blind as of December 31, 2025, or as of December 31, 2025 could not see better than 20/200 in the better eye with glasses or contact lenses, or had a field of vision of 20 degrees or less, as a statement certified by an eye doctor says."
     }
   }
 }

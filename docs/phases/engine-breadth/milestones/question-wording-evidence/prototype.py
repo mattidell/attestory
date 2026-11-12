@@ -69,16 +69,16 @@ SPOUSE_AGE = (
     "but died in 2025 before reaching age 65 is not included."
 )
 BLIND = (
-    "Taxpayer was totally blind as of December 31, 2025, or has a statement "
-    "certified by an eye doctor that the taxpayer cannot see better than 20/200 "
-    "in the better eye with glasses or contact lenses, or that the field of "
-    "vision is 20 degrees or less."
+    "Taxpayer was totally blind as of December 31, 2025, or as of December 31, "
+    "2025 could not see better than 20/200 in the better eye with glasses or "
+    "contact lenses, or had a field of vision of 20 degrees or less, as a "
+    "statement certified by an eye doctor says."
 )
 SPOUSE_BLIND = (
-    "Spouse was totally blind as of December 31, 2025, or has a statement "
-    "certified by an eye doctor that the spouse cannot see better than 20/200 "
-    "in the better eye with glasses or contact lenses, or that the field of "
-    "vision is 20 degrees or less."
+    "Spouse was totally blind as of December 31, 2025, or as of December 31, "
+    "2025 could not see better than 20/200 in the better eye with glasses or "
+    "contact lenses, or had a field of vision of 20 degrees or less, as a "
+    "statement certified by an eye doctor says."
 )
 # Decision 2: the only-box-2a fact's title says what the v3 question asks.
 EXC1_TITLE = (
