@@ -3,7 +3,8 @@
   "version": 1,
   "phase": "Engine Breadth",
   "topic": "parallel-replay",
-  "status": "Open. Track 1 built; review not ready; repair chartered.",
+  "status": "Closed 2026-11-12. Tool built, reviewed and repaired.",
+  "retrospective": "docs/milestone-retrospectives/2026-11-12-parallel-replay.md",
   "scope": [
     "one reusable tool replays the recorded act lists earlier milestones replay, on any set of cores, in parallel worker processes",
     "its results equal the existing single-process neighbour replay exactly for the same cores",
@@ -193,3 +194,19 @@ finding is accepted.
 6. **S2.** Worker processes start with the `spawn` method;
    `recorded_lists()` returns a copy.
 7. **N1.** The part-file writer applies the local-path check.
+
+## Review and repair
+
+Fresh-reader review: `docs/reviews/parallel-replay/review.md`, not ready.
+Blocking: a 70 s fixture hidden from the fast-lane budget (F1); a part file
+not bound to its cores (F2); a hard-coded v86 baseline for identical errors
+(F3); no way to derive the P0 rerun table from the same replay (F4). All
+seven findings were decided and repaired; tests for F2 and F3 fail on the
+pre-repair tool. The equivalence proof was rerun under the strengthened
+comparison: 775 lists, zero mismatches. The re-review was ready with no new
+findings.
+
+## Closeout
+
+Closed 2026-11-12. Retrospective:
+`docs/milestone-retrospectives/2026-11-12-parallel-replay.md`.

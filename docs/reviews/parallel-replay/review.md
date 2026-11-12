@@ -2,8 +2,8 @@
 
 Reviewer: fresh reader, author-independent.
 Charter: `docs/reviews/parallel-replay/charter-review.md`.
-Object: `milestone/parallel-replay-2025` at `80aab2624fcc11888967adfc456311dec6ebc16d`, diffed against `github/main` (`080d2758`, 0 behind, 6 ahead; branch is not spent).
-The Orientation Block SHA (`80aab2624fcc11888967adfc456311dec6ebc16d`) matches `git rev-parse HEAD`.
+Object: `milestone/parallel-replay-2025` at (removed at closeout), diffed against `github/main` (`080d2758`, 0 behind, 6 ahead; branch is not spent).
+The Orientation Block SHA ((removed at closeout)) matches `git rev-parse HEAD`.
 Sources read: `docs/phases/engine-breadth/milestones/parallel-replay.md`, `docs/reviews/parallel-replay/charter-track1.md`, `tools/recorded_replay.py`, `tests/test_recorded_replay.py`, `docs/phases/engine-breadth/milestones/parallel-replay-evidence/compare_neighbour.py`, `docs/phases/engine-breadth/milestones/parallel-replay-evidence/equivalence.json`, `docs/phases/engine-breadth/milestones/question-wording-evidence/track0.py`, `docs/phases/engine-breadth/milestones/question-wording-evidence/rerun.py`, `docs/phases/engine-breadth/milestones/question-wording-evidence/track0-neighbour.json`, `docs/phases/engine-breadth/milestones/question-wording-evidence/rerun-output.json`, `tests/evidence_loader.py`, `tests/conftest.py`, and the referenced test/evidence harnesses (`v82`–`v85`). Governance was not read.
 
 ## The box
@@ -138,9 +138,9 @@ Blocking list: **F1, F2, F3, F4**.
 
 The equivalence result on `v86` vs `v87` (`docs/phases/engine-breadth/milestones/parallel-replay-evidence/equivalence.json`) and the 775-list gathering equivalence in `recorded_lists()` are verified and can be preserved across the repair.
 
-## Re-review (`dd90f0dc..f8907298`)
+## Re-review (the repair commits (removed at closeout))
 
-Object: repair commits `dd90f0dc..f8907298` at `HEAD` (`f8907298c0a2ec770349ec23b46a4fa306b116d5`), checked against Decisions 1–7 in `docs/phases/engine-breadth/milestones/parallel-replay.md:171-195` and `docs/reviews/parallel-replay/charter-repair.md`.
+Object: the repair commits (removed at closeout), checked against Decisions 1–7 in `docs/phases/engine-breadth/milestones/parallel-replay.md:171-195` and `docs/reviews/parallel-replay/charter-repair.md`.
 
 ### Verification of Decisions 1–7
 
@@ -154,7 +154,7 @@ Object: repair commits `dd90f0dc..f8907298` at `HEAD` (`f8907298c0a2ec770349ec23
 
 ### Mechanical gates and regressions
 
-- No regressions or new findings were introduced by `dd90f0dc..f8907298`.
+- No regressions or new findings were introduced by the repair commits (removed at closeout).
 - `python3 -m mypy` exited 0 (`Success: no issues found in 486 source files`).
 - `python3 tools/governance_lint.py` exited 0 (`governance lint: conformant`).
 - `python3 tools/envelope_scan.py --range github/main..HEAD` exited 0.
