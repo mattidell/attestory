@@ -189,6 +189,14 @@ returns are identical on v86 and scratch v87.
      `m_exc1_personal_loss_1099k`: no sale recorded, truthful no under
      the v87 words, parked no-question refusal (the existing parked
      engine gap, not a wording defect).
+   - R1: a Form 1099-K personal-item loss may go on Schedule 1, which
+     files no Form 8949 or Schedule D, so it does not defeat Exception 1.
+     The exclusion sentence and fact title name Form 1099-S or a report
+     on Form 8949. Track 0 splits the 1099-K row:
+     `m_exc1_personal_loss_1099k_sch1` answers yes and computes to the
+     no-sale hand values; `m_exc1_personal_loss_1099k_8949` answers no
+     and reaches the parked no-question refusal (the existing engine
+     gap, named as such).
    - F2: the student-loan and Exception 1 late steps replace an answer;
      they do not supersede one. The claim is reworded to what the
      traces show.
@@ -318,21 +326,31 @@ Decision 7). This updates the counts above.
   or other property that you must report on Form 8949 or Schedule D (even
   one with no gain or loss)? Sales inside an IRA or 401(k) do not count,
   and neither does a loss on a personal item unless you received a Form
-  1099-K or 1099-S for it." The exception1 fact title has the same scope.
-  `law.json` quotes the Schedule D personal-use instruction, including the
-  Form 1099-K and 1099-S reporting sentences. The Track 0 row
-  `m_exc1_personal_loss` passes on both cores: no sale is recorded, no
-  Form 1099-K or 1099-S, the answer is yes, and the return computes 7a 0,
-  15 34,250, 16 3,875, with line 7b checked.
+  1099-S for it or you report it on Form 8949." The exception1 fact title
+  has the same operative scope. `law.json` quotes the Schedule D
+  personal-use instruction, including the Form 1099-K and 1099-S reporting
+  sentences. The Track 0 row `m_exc1_personal_loss` passes on both cores:
+  no sale is recorded, no Form 1099-K or 1099-S, the answer is yes, and the
+  return computes 7a 0, 15 34,250, 16 3,875, with line 7b checked.
 - **F1 follow-up.** `m_exc1_personal_loss_1099k`: no sale recorded, the
   filer had a personal-item loss reported on a Form 1099-K, truthful no
-  under the v87 words. The page hits the parked no-question refusal
-  (conclusion yes, lines 7a, 13b and 15 blocked, line 7b
+  under the then-current v87 words. The page hits the parked no-question
+  refusal (conclusion yes, lines 7a, 13b and 15 blocked, line 7b
   `guard_inapplicable`, no Exception 1 question). That is the existing
   parked engine gap, not a wording defect; the words lead to the true
   answer. Track 0 was rerun (cases, merge, reuse): authority 16/16,
   matrix 15/15, late 3/3, surface 6/6, reuse pass. The neighbour diff was
   not rerun: it replays recorded answers, which no wording can move.
+- **R1.** A Form 1099-K personal-item loss may go on Schedule 1, which
+  files no Form 8949 or Schedule D, so it does not defeat Exception 1.
+  The v3 trailing sentence and the exception1 fact title now name Form
+  1099-S or a report on Form 8949. Track 0 splits the 1099-K row:
+  `m_exc1_personal_loss_1099k_sch1` answers yes and computes to the
+  no-sale hand values (line 7b checked, 7a 0, 15 34,250, 16 3,875);
+  `m_exc1_personal_loss_1099k_8949` answers no and reaches the parked
+  no-question refusal (the existing engine gap, named as such). Track 0
+  was rerun (cases, merge, reuse): authority 16/16, matrix 16/16, late
+  3/3, surface 6/6, reuse pass.
 - **F4.** The blindness titles put the eye-doctor test as of December 31,
   2025 too.
 - **Regenerated in place.** The two affected branch-only members (only-box-2a
@@ -342,17 +360,16 @@ Decision 7). This updates the counts above.
 - **F2.** The late-step claim is reworded: each later answer replaces the
   earlier one in the act list. **F5.** The two repeated student-loan runs
   are dropped. Act lists are compared with `demo.*` ids normalized.
-- **Live module.** 27 distinct v87 runs judge the 16 authority cases, 15
-  matrix cases and 9 late steps (40 rows), all at their hand values, plus
+- **Live module.** 27 distinct v87 runs judge the 16 authority cases, 16
+  matrix cases and 9 late steps (41 rows), all at their hand values, plus
   the 298 recorded runs, all identical. That is 325 `live_coordinate_run`
   calls in 328 tests. The two v87 modules and the v78 switch test pass
-  342 of 342 in 392 s wall.
-- **Checks.** Fast lane: 1800 passed, 8 skipped, 2 failed (fast-lane budget
-  3.7 s and 3.2 s on `tests/test_mortgage_borrowing_checksum_generator.py`
-  and `tests/derivation/test_bounded_nominee_selection_contract.py`; both
-  pass isolated; the same two fail on parent `c58076a7`). No file this
-  follow-up touches is involved. `python3 -m mypy`: no issues in 484 source
-  files. `envelope_scan.py --range
+  342 of 342 in 374 s wall.
+- **Checks.** `pytest tests/test_question_wording_v87.py
+  tests/test_question_wording_v87_package.py
+  tests/test_noncovered_sales_v78_switch.py`: 342 passed in 374 s wall.
+  `python3 -m mypy`: no issues in 484 source files.
+  `envelope_scan.py --range
   github/milestone/selection-keyed-collect-2025..HEAD`: clean.
 - **Harness.** The Track 0 harness now counts a page sentence as a
   question when it contains a question mark. The repaired words end with
