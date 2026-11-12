@@ -40,14 +40,14 @@ Repair: this unit added the two fact-title bundle successors to
 | Fact or claim | Meaning (v87 words) | Authority scope | Depends on | What invalidates it? |
 | --- | --- | --- | --- | --- |
 | `f1099b.covered-w-st-adjustment.source-closure` (and `-lt-`) | The filer has recorded the wash-sale adjustment of every covered sale with one | One family horizon of the adjustment family | The members recorded at that horizon | A member transition makes a new horizon, and the closure is no longer current: `late_wash_member`. Unanswered, the question is asked: `alc_wash_st_unanswered`, `alc_wash_lt_unanswered`. A false answer leaves the line blocked: `alc_wash_st_no`. A yes computes: `alc_wash_st_yes`, `alc_wash_lt_yes`. |
-| `exception1.only-box2a-capital-gains` | No capital gains other than box 2a, and no 2025 sale that must be reported on Form 8949 or Schedule D (sales inside an IRA or 401(k) and losses on personal items do not count) | The return | The filer's answer. It is read only through `schedule-d-required.conclusion`, and only while no sale is recorded | A later answer replaces it in the act list (`late_exc1_sale_after_yes` step 3; no supersession act is exercised). Unanswered, it is asked with or without a sale: `alc_exc1_unanswered`, `alc_exc1_sale_unanswered`. No sale and yes: line 7b checked (`alc_exc1_yes`). A sale and no: line 7b `guard_inapplicable` (`alc_exc1_sale_no`). |
+| `exception1.only-box2a-capital-gains` | No capital gains other than box 2a, and no 2025 sale that must be reported on Form 8949 or Schedule D (sales inside an IRA or 401(k) do not count, and neither does a loss on a personal item unless a Form 1099-K or 1099-S was received for it) | The return | The filer's answer. It is read only through `schedule-d-required.conclusion`, and only while no sale is recorded | A later answer replaces it in the act list (`late_exc1_sale_after_yes` step 3; no supersession act is exercised). Unanswered, it is asked with or without a sale: `alc_exc1_unanswered`, `alc_exc1_sale_unanswered`. No sale and yes: line 7b checked (`alc_exc1_yes`). A sale and no: line 7b `guard_inapplicable` (`alc_exc1_sale_no`). A personal-item loss reported on Form 1099-K, no sale recorded, truthful no: the parked no-question refusal (`m_exc1_personal_loss_1099k`). |
 | `sli-scope.not-claimed-as-dependent` | Neither the filer nor, on a joint return, the spouse is claimed | The return | The filer's answer; the page's "no" records yes | A later answer replaces it in the act list (`late_sli_superseded`; no supersession act is exercised). Unanswered, it is asked: `alc_sli_unanswered`. Yes gives 500 (`alc_sli_not_claimed`); no gives the legal 0 (`alc_sli_claimed`). |
 | `taxpayer-over-65`, `spouse-over-65` (titles) | Born before January 2, 1961; age 65 is reached the day before the 65th birthday; a 2025 death before 65 is excluded | The return | The filer's boolean; it defaults to false and no question asks for it | A later boolean, or bundle re-adoption for the title. True: `alc_title_age` (17,750; senior 6,000), `alc_title_spouse_age` (joint 33,100; senior 6,000). The spouse who died February 12, 2025 stays false: `alc_title_spouse_died_before_65` (31,500, 0). |
 | `taxpayer-blind`, `spouse-blind` (titles) | As of December 31, 2025, totally blind, or 20/200 or a 20-degree field of vision as an eye doctor's certified statement says (review F4) | The return | The filer's boolean, as above | As above. `alc_title_blind` gives 17,750. |
 
 ## Item 2: empty/nonempty matrix
 
-`track0-matrix.json`: 14 cases, 14 pass on v87.
+`track0-matrix.json`: 15 cases, 15 pass on v87.
 
 | Family state | v86 words, truthful | v87 words, truthful | v87 result (hand) |
 | --- | --- | --- | --- |
@@ -58,6 +58,7 @@ Repair: this unit added the two fact-title bundle successors to
 | Both kinds (`m_wash_both`) | no: blocked (counterexample) | yes | 1a 200, 1b 0, column (g) 200, line 16 3,899 |
 | Exception 1, no sale (`m_exc1_nosale`) | yes | yes | line 7b checked, line 16 3,875 |
 | Exception 1, no sale recorded, only a personal item sold at a loss with no Form 1099-S or 1099-K (`m_exc1_personal_loss`, review F1) | yes | yes | line 7b checked, line 16 3,875 |
+| Exception 1, no sale recorded, personal-item loss reported on a Form 1099-K (`m_exc1_personal_loss_1099k`, F1 follow-up) | yes (line 7b checked; counterexample) | no | parked no-question refusal: conclusion yes, lines 7a, 13b and 15 blocked with no Exception 1 question. That is the existing parked engine gap, not a wording defect. The v87 words lead to the true answer. |
 | Exception 1, zero-net sale (`m_exc1_zero`) | yes | no | 7a 0, line 7b `guard_inapplicable`, line 16 3,875 on both |
 | Exception 1, gain sale (`m_exc1_gain`) | no | no | 7a 200, line 16 3,899 |
 | Student loan, single, not claimed / claimed (`m_sli_single_not`, `m_sli_single_claimed`) | no / yes | no / yes | 500 / 0 |
@@ -66,9 +67,13 @@ Repair: this unit added the two fact-title bundle successors to
 | Joint, only the spouse claimed (`m_sli_joint_spouse_claimed`) | no: 500 (counterexample) | yes | 0, line 16 1,853 |
 
 The three v86 counterexamples are the defects the milestone fixes; the
-v87 words fix each one (`v86_counterexample_fixed`). Every case that uses
-the same act list on both cores publishes identical lines and symbols
-(`numbers_identical`).
+v87 words fix each one (`v86_counterexample_fixed`). `m_exc1_personal_loss_1099k`
+is a fourth v86 mismatch: the v86 words ask about gains only, so a truthful
+filer answers yes and the return computes. The v87 words name the Form 1099-K
+and 1099-S cases, so a truthful filer answers no, which is the true answer,
+and the page then hits the parked no-question refusal (an engine gap, already
+a non-goal). Every case that uses the same act list on both cores publishes
+identical lines and symbols (`numbers_identical`).
 
 ## Item 3: late-member lifecycle
 

@@ -454,6 +454,17 @@ def cases() -> list[dict[str, Any]]:
                    "1099-K (review F1). Not deductible and not reported (law.json personal-use), so Exception 1 "
                    "holds: truthful yes on both cores. Nothing records the personal sale, so the act list is "
                    "alc_exc1_yes's.")),
+        case("m_exc1_personal_loss_1099k", "matrix", complete, lambda: say(complete(), ONLY2A, "no", "only2a-1099k"),
+             hand={"schedule-d-required.conclusion": "yes", "form1040.line-7a": "blocked",
+                   "form1040.line-7b": "guard_inapplicable", "form1040.line-13b": "blocked",
+                   "form1040.line-15": "blocked", "form1040.line-16": "guard_inapplicable"}, v86_hand=False,
+             note=("No sale recorded; the filer had a loss on a personal item reported on a Form 1099-K (F1 "
+                   "follow-up). The instruction requires reporting it (law.json personal-use), so Exception 1 "
+                   "fails. v86 words ask about gains only: truthful yes, line 7b checked (counterexample). v87 "
+                   "words: truthful no. Nothing can record the personal sale, so the return reaches the parked "
+                   "no-question refusal: conclusion yes, lines 7a, 13b and 15 blocked with no Exception 1 "
+                   "question (an engine gap, not wording). The hand is that parked behavior, not a computed "
+                   "return.")),
         case("m_exc1_gain", "matrix", lambda: sales(ST_GAIN, only2a="no"),
              hand={"schedule-d.line-1a": 200, "form1040.line-7b": "guard_inapplicable", **ST_200},
              note="Gain sale: only-box-2a no on both cores."),

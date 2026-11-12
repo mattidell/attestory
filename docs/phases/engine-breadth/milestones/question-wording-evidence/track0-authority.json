@@ -13,7 +13,7 @@
     "v87": {
       "wash_st": "Have you recorded the wash-sale loss adjustment amount of every covered short-term sale with a wash-sale loss adjustment (a loss disallowed because you bought the same investment within 30 days before or after the sale) on every Form 1099-B you or your spouse received for 2025?",
       "wash_lt": "Have you recorded the wash-sale loss adjustment amount of every covered long-term sale with a wash-sale loss adjustment (a loss disallowed because you bought the same investment within 30 days before or after the sale) on every Form 1099-B you or your spouse received for 2025?",
-      "only_box2a": "Is it true that you had no capital gains in 2025 other than capital gain distributions in box 2a of Form 1099-DIV, and that you had no sale in 2025 of stock, bonds, funds or other property that you must report on Form 8949 or Schedule D (even one with no gain or loss)? Sales inside an IRA or 401(k) and losses on personal items do not count.",
+      "only_box2a": "Is it true that you had no capital gains in 2025 other than capital gain distributions in box 2a of Form 1099-DIV, and that you had no sale in 2025 of stock, bonds, funds or other property that you must report on Form 8949 or Schedule D (even one with no gain or loss)? Sales inside an IRA or 401(k) do not count, and neither does a loss on a personal item unless you received a Form 1099-K or 1099-S for it.",
       "sli": "Is someone else claiming you (or your spouse, on a joint return) as a dependent on their 2025 return?"
     }
   },
@@ -314,53 +314,53 @@
         },
         "questions": [
           "Did you receive a Form 1099-B or substitute statement that shows federal income tax withheld in box 4 and reports no closed sale (for example, a short sale still open at year end)? Do not count a statement whose box 4 you already entered, with or without a sale.",
-          "Is it true that you had no capital gains in 2025 other than capital gain distributions in box 2a of Form 1099-DIV, and that you had no sale in 2025 of stock, bonds, funds or other property that you must report on Form 8949 or Schedule D (even one with no gain or loss)? Sales inside an IRA or 401(k) and losses on personal items do not count."
+          "Is it true that you had no capital gains in 2025 other than capital gain distributions in box 2a of Form 1099-DIV, and that you had no sale in 2025 of stock, bonds, funds or other property that you must report on Form 8949 or Schedule D (even one with no gain or loss)? Sales inside an IRA or 401(k) do not count, and neither does a loss on a personal item unless you received a Form 1099-K or 1099-S for it."
         ],
         "asked_on": {
           "form.eic-worksheet-a.line-3": [
-            "Is it true that you had no capital gains in 2025 other than capital gain distributions in box 2a of Form 1099-DIV, and that you had no sale in 2025 of stock, bonds, funds or other property that you must report on Form 8949 or Schedule D (even one with no gain or loss)? Sales inside an IRA or 401(k) and losses on personal items do not count."
+            "Is it true that you had no capital gains in 2025 other than capital gain distributions in box 2a of Form 1099-DIV, and that you had no sale in 2025 of stock, bonds, funds or other property that you must report on Form 8949 or Schedule D (even one with no gain or loss)? Sales inside an IRA or 401(k) do not count, and neither does a loss on a personal item unless you received a Form 1099-K or 1099-S for it."
           ],
           "form.eic-worksheet-a.line-5": [
-            "Is it true that you had no capital gains in 2025 other than capital gain distributions in box 2a of Form 1099-DIV, and that you had no sale in 2025 of stock, bonds, funds or other property that you must report on Form 8949 or Schedule D (even one with no gain or loss)? Sales inside an IRA or 401(k) and losses on personal items do not count."
+            "Is it true that you had no capital gains in 2025 other than capital gain distributions in box 2a of Form 1099-DIV, and that you had no sale in 2025 of stock, bonds, funds or other property that you must report on Form 8949 or Schedule D (even one with no gain or loss)? Sales inside an IRA or 401(k) do not count, and neither does a loss on a personal item unless you received a Form 1099-K or 1099-S for it."
           ],
           "form.eic-worksheet-a.line-6": [
-            "Is it true that you had no capital gains in 2025 other than capital gain distributions in box 2a of Form 1099-DIV, and that you had no sale in 2025 of stock, bonds, funds or other property that you must report on Form 8949 or Schedule D (even one with no gain or loss)? Sales inside an IRA or 401(k) and losses on personal items do not count."
+            "Is it true that you had no capital gains in 2025 other than capital gain distributions in box 2a of Form 1099-DIV, and that you had no sale in 2025 of stock, bonds, funds or other property that you must report on Form 8949 or Schedule D (even one with no gain or loss)? Sales inside an IRA or 401(k) do not count, and neither does a loss on a personal item unless you received a Form 1099-K or 1099-S for it."
           ],
           "form.sch8812.line-14": [
-            "Is it true that you had no capital gains in 2025 other than capital gain distributions in box 2a of Form 1099-DIV, and that you had no sale in 2025 of stock, bonds, funds or other property that you must report on Form 8949 or Schedule D (even one with no gain or loss)? Sales inside an IRA or 401(k) and losses on personal items do not count."
+            "Is it true that you had no capital gains in 2025 other than capital gain distributions in box 2a of Form 1099-DIV, and that you had no sale in 2025 of stock, bonds, funds or other property that you must report on Form 8949 or Schedule D (even one with no gain or loss)? Sales inside an IRA or 401(k) do not count, and neither does a loss on a personal item unless you received a Form 1099-K or 1099-S for it."
           ],
           "form.sch8812.line-17": [
-            "Is it true that you had no capital gains in 2025 other than capital gain distributions in box 2a of Form 1099-DIV, and that you had no sale in 2025 of stock, bonds, funds or other property that you must report on Form 8949 or Schedule D (even one with no gain or loss)? Sales inside an IRA or 401(k) and losses on personal items do not count."
+            "Is it true that you had no capital gains in 2025 other than capital gain distributions in box 2a of Form 1099-DIV, and that you had no sale in 2025 of stock, bonds, funds or other property that you must report on Form 8949 or Schedule D (even one with no gain or loss)? Sales inside an IRA or 401(k) do not count, and neither does a loss on a personal item unless you received a Form 1099-K or 1099-S for it."
           ],
           "form.sch8812.worksheet-a.line-5": [
-            "Is it true that you had no capital gains in 2025 other than capital gain distributions in box 2a of Form 1099-DIV, and that you had no sale in 2025 of stock, bonds, funds or other property that you must report on Form 8949 or Schedule D (even one with no gain or loss)? Sales inside an IRA or 401(k) and losses on personal items do not count."
+            "Is it true that you had no capital gains in 2025 other than capital gain distributions in box 2a of Form 1099-DIV, and that you had no sale in 2025 of stock, bonds, funds or other property that you must report on Form 8949 or Schedule D (even one with no gain or loss)? Sales inside an IRA or 401(k) do not count, and neither does a loss on a personal item unless you received a Form 1099-K or 1099-S for it."
           ],
           "form1040.line-11a": [
-            "Is it true that you had no capital gains in 2025 other than capital gain distributions in box 2a of Form 1099-DIV, and that you had no sale in 2025 of stock, bonds, funds or other property that you must report on Form 8949 or Schedule D (even one with no gain or loss)? Sales inside an IRA or 401(k) and losses on personal items do not count."
+            "Is it true that you had no capital gains in 2025 other than capital gain distributions in box 2a of Form 1099-DIV, and that you had no sale in 2025 of stock, bonds, funds or other property that you must report on Form 8949 or Schedule D (even one with no gain or loss)? Sales inside an IRA or 401(k) do not count, and neither does a loss on a personal item unless you received a Form 1099-K or 1099-S for it."
           ],
           "form1040.line-11b": [
-            "Is it true that you had no capital gains in 2025 other than capital gain distributions in box 2a of Form 1099-DIV, and that you had no sale in 2025 of stock, bonds, funds or other property that you must report on Form 8949 or Schedule D (even one with no gain or loss)? Sales inside an IRA or 401(k) and losses on personal items do not count."
+            "Is it true that you had no capital gains in 2025 other than capital gain distributions in box 2a of Form 1099-DIV, and that you had no sale in 2025 of stock, bonds, funds or other property that you must report on Form 8949 or Schedule D (even one with no gain or loss)? Sales inside an IRA or 401(k) do not count, and neither does a loss on a personal item unless you received a Form 1099-K or 1099-S for it."
           ],
           "form1040.line-13b": [
-            "Is it true that you had no capital gains in 2025 other than capital gain distributions in box 2a of Form 1099-DIV, and that you had no sale in 2025 of stock, bonds, funds or other property that you must report on Form 8949 or Schedule D (even one with no gain or loss)? Sales inside an IRA or 401(k) and losses on personal items do not count."
+            "Is it true that you had no capital gains in 2025 other than capital gain distributions in box 2a of Form 1099-DIV, and that you had no sale in 2025 of stock, bonds, funds or other property that you must report on Form 8949 or Schedule D (even one with no gain or loss)? Sales inside an IRA or 401(k) do not count, and neither does a loss on a personal item unless you received a Form 1099-K or 1099-S for it."
           ],
           "form1040.line-14": [
-            "Is it true that you had no capital gains in 2025 other than capital gain distributions in box 2a of Form 1099-DIV, and that you had no sale in 2025 of stock, bonds, funds or other property that you must report on Form 8949 or Schedule D (even one with no gain or loss)? Sales inside an IRA or 401(k) and losses on personal items do not count."
+            "Is it true that you had no capital gains in 2025 other than capital gain distributions in box 2a of Form 1099-DIV, and that you had no sale in 2025 of stock, bonds, funds or other property that you must report on Form 8949 or Schedule D (even one with no gain or loss)? Sales inside an IRA or 401(k) do not count, and neither does a loss on a personal item unless you received a Form 1099-K or 1099-S for it."
           ],
           "form1040.line-15": [
-            "Is it true that you had no capital gains in 2025 other than capital gain distributions in box 2a of Form 1099-DIV, and that you had no sale in 2025 of stock, bonds, funds or other property that you must report on Form 8949 or Schedule D (even one with no gain or loss)? Sales inside an IRA or 401(k) and losses on personal items do not count."
+            "Is it true that you had no capital gains in 2025 other than capital gain distributions in box 2a of Form 1099-DIV, and that you had no sale in 2025 of stock, bonds, funds or other property that you must report on Form 8949 or Schedule D (even one with no gain or loss)? Sales inside an IRA or 401(k) do not count, and neither does a loss on a personal item unless you received a Form 1099-K or 1099-S for it."
           ],
           "form1040.line-16": [
-            "Is it true that you had no capital gains in 2025 other than capital gain distributions in box 2a of Form 1099-DIV, and that you had no sale in 2025 of stock, bonds, funds or other property that you must report on Form 8949 or Schedule D (even one with no gain or loss)? Sales inside an IRA or 401(k) and losses on personal items do not count."
+            "Is it true that you had no capital gains in 2025 other than capital gain distributions in box 2a of Form 1099-DIV, and that you had no sale in 2025 of stock, bonds, funds or other property that you must report on Form 8949 or Schedule D (even one with no gain or loss)? Sales inside an IRA or 401(k) do not count, and neither does a loss on a personal item unless you received a Form 1099-K or 1099-S for it."
           ],
           "form1040.line-19": [
-            "Is it true that you had no capital gains in 2025 other than capital gain distributions in box 2a of Form 1099-DIV, and that you had no sale in 2025 of stock, bonds, funds or other property that you must report on Form 8949 or Schedule D (even one with no gain or loss)? Sales inside an IRA or 401(k) and losses on personal items do not count."
+            "Is it true that you had no capital gains in 2025 other than capital gain distributions in box 2a of Form 1099-DIV, and that you had no sale in 2025 of stock, bonds, funds or other property that you must report on Form 8949 or Schedule D (even one with no gain or loss)? Sales inside an IRA or 401(k) do not count, and neither does a loss on a personal item unless you received a Form 1099-K or 1099-S for it."
           ],
           "form1040.line-20": [
-            "Is it true that you had no capital gains in 2025 other than capital gain distributions in box 2a of Form 1099-DIV, and that you had no sale in 2025 of stock, bonds, funds or other property that you must report on Form 8949 or Schedule D (even one with no gain or loss)? Sales inside an IRA or 401(k) and losses on personal items do not count."
+            "Is it true that you had no capital gains in 2025 other than capital gain distributions in box 2a of Form 1099-DIV, and that you had no sale in 2025 of stock, bonds, funds or other property that you must report on Form 8949 or Schedule D (even one with no gain or loss)? Sales inside an IRA or 401(k) do not count, and neither does a loss on a personal item unless you received a Form 1099-K or 1099-S for it."
           ],
           "form1040.line-24": [
-            "Is it true that you had no capital gains in 2025 other than capital gain distributions in box 2a of Form 1099-DIV, and that you had no sale in 2025 of stock, bonds, funds or other property that you must report on Form 8949 or Schedule D (even one with no gain or loss)? Sales inside an IRA or 401(k) and losses on personal items do not count."
+            "Is it true that you had no capital gains in 2025 other than capital gain distributions in box 2a of Form 1099-DIV, and that you had no sale in 2025 of stock, bonds, funds or other property that you must report on Form 8949 or Schedule D (even one with no gain or loss)? Sales inside an IRA or 401(k) do not count, and neither does a loss on a personal item unless you received a Form 1099-K or 1099-S for it."
           ],
           "form1040.line-25b": [
             "Did you receive a Form 1099-B or substitute statement that shows federal income tax withheld in box 4 and reports no closed sale (for example, a short sale still open at year end)? Do not count a statement whose box 4 you already entered, with or without a sale."
@@ -369,50 +369,50 @@
             "Did you receive a Form 1099-B or substitute statement that shows federal income tax withheld in box 4 and reports no closed sale (for example, a short sale still open at year end)? Do not count a statement whose box 4 you already entered, with or without a sale."
           ],
           "form1040.line-27a": [
-            "Is it true that you had no capital gains in 2025 other than capital gain distributions in box 2a of Form 1099-DIV, and that you had no sale in 2025 of stock, bonds, funds or other property that you must report on Form 8949 or Schedule D (even one with no gain or loss)? Sales inside an IRA or 401(k) and losses on personal items do not count."
+            "Is it true that you had no capital gains in 2025 other than capital gain distributions in box 2a of Form 1099-DIV, and that you had no sale in 2025 of stock, bonds, funds or other property that you must report on Form 8949 or Schedule D (even one with no gain or loss)? Sales inside an IRA or 401(k) do not count, and neither does a loss on a personal item unless you received a Form 1099-K or 1099-S for it."
           ],
           "form1040.line-28": [
-            "Is it true that you had no capital gains in 2025 other than capital gain distributions in box 2a of Form 1099-DIV, and that you had no sale in 2025 of stock, bonds, funds or other property that you must report on Form 8949 or Schedule D (even one with no gain or loss)? Sales inside an IRA or 401(k) and losses on personal items do not count."
+            "Is it true that you had no capital gains in 2025 other than capital gain distributions in box 2a of Form 1099-DIV, and that you had no sale in 2025 of stock, bonds, funds or other property that you must report on Form 8949 or Schedule D (even one with no gain or loss)? Sales inside an IRA or 401(k) do not count, and neither does a loss on a personal item unless you received a Form 1099-K or 1099-S for it."
           ],
           "form1040.line-32": [
-            "Is it true that you had no capital gains in 2025 other than capital gain distributions in box 2a of Form 1099-DIV, and that you had no sale in 2025 of stock, bonds, funds or other property that you must report on Form 8949 or Schedule D (even one with no gain or loss)? Sales inside an IRA or 401(k) and losses on personal items do not count."
+            "Is it true that you had no capital gains in 2025 other than capital gain distributions in box 2a of Form 1099-DIV, and that you had no sale in 2025 of stock, bonds, funds or other property that you must report on Form 8949 or Schedule D (even one with no gain or loss)? Sales inside an IRA or 401(k) do not count, and neither does a loss on a personal item unless you received a Form 1099-K or 1099-S for it."
           ],
           "form1040.line-33": [
             "Did you receive a Form 1099-B or substitute statement that shows federal income tax withheld in box 4 and reports no closed sale (for example, a short sale still open at year end)? Do not count a statement whose box 4 you already entered, with or without a sale.",
-            "Is it true that you had no capital gains in 2025 other than capital gain distributions in box 2a of Form 1099-DIV, and that you had no sale in 2025 of stock, bonds, funds or other property that you must report on Form 8949 or Schedule D (even one with no gain or loss)? Sales inside an IRA or 401(k) and losses on personal items do not count."
+            "Is it true that you had no capital gains in 2025 other than capital gain distributions in box 2a of Form 1099-DIV, and that you had no sale in 2025 of stock, bonds, funds or other property that you must report on Form 8949 or Schedule D (even one with no gain or loss)? Sales inside an IRA or 401(k) do not count, and neither does a loss on a personal item unless you received a Form 1099-K or 1099-S for it."
           ],
           "form1040.line-34": [
             "Did you receive a Form 1099-B or substitute statement that shows federal income tax withheld in box 4 and reports no closed sale (for example, a short sale still open at year end)? Do not count a statement whose box 4 you already entered, with or without a sale.",
-            "Is it true that you had no capital gains in 2025 other than capital gain distributions in box 2a of Form 1099-DIV, and that you had no sale in 2025 of stock, bonds, funds or other property that you must report on Form 8949 or Schedule D (even one with no gain or loss)? Sales inside an IRA or 401(k) and losses on personal items do not count."
+            "Is it true that you had no capital gains in 2025 other than capital gain distributions in box 2a of Form 1099-DIV, and that you had no sale in 2025 of stock, bonds, funds or other property that you must report on Form 8949 or Schedule D (even one with no gain or loss)? Sales inside an IRA or 401(k) do not count, and neither does a loss on a personal item unless you received a Form 1099-K or 1099-S for it."
           ],
           "form1040.line-35a": [
             "Did you receive a Form 1099-B or substitute statement that shows federal income tax withheld in box 4 and reports no closed sale (for example, a short sale still open at year end)? Do not count a statement whose box 4 you already entered, with or without a sale.",
-            "Is it true that you had no capital gains in 2025 other than capital gain distributions in box 2a of Form 1099-DIV, and that you had no sale in 2025 of stock, bonds, funds or other property that you must report on Form 8949 or Schedule D (even one with no gain or loss)? Sales inside an IRA or 401(k) and losses on personal items do not count."
+            "Is it true that you had no capital gains in 2025 other than capital gain distributions in box 2a of Form 1099-DIV, and that you had no sale in 2025 of stock, bonds, funds or other property that you must report on Form 8949 or Schedule D (even one with no gain or loss)? Sales inside an IRA or 401(k) do not count, and neither does a loss on a personal item unless you received a Form 1099-K or 1099-S for it."
           ],
           "form1040.line-37": [
             "Did you receive a Form 1099-B or substitute statement that shows federal income tax withheld in box 4 and reports no closed sale (for example, a short sale still open at year end)? Do not count a statement whose box 4 you already entered, with or without a sale.",
-            "Is it true that you had no capital gains in 2025 other than capital gain distributions in box 2a of Form 1099-DIV, and that you had no sale in 2025 of stock, bonds, funds or other property that you must report on Form 8949 or Schedule D (even one with no gain or loss)? Sales inside an IRA or 401(k) and losses on personal items do not count."
+            "Is it true that you had no capital gains in 2025 other than capital gain distributions in box 2a of Form 1099-DIV, and that you had no sale in 2025 of stock, bonds, funds or other property that you must report on Form 8949 or Schedule D (even one with no gain or loss)? Sales inside an IRA or 401(k) do not count, and neither does a loss on a personal item unless you received a Form 1099-K or 1099-S for it."
           ],
           "form1040.line-6b": [
-            "Is it true that you had no capital gains in 2025 other than capital gain distributions in box 2a of Form 1099-DIV, and that you had no sale in 2025 of stock, bonds, funds or other property that you must report on Form 8949 or Schedule D (even one with no gain or loss)? Sales inside an IRA or 401(k) and losses on personal items do not count."
+            "Is it true that you had no capital gains in 2025 other than capital gain distributions in box 2a of Form 1099-DIV, and that you had no sale in 2025 of stock, bonds, funds or other property that you must report on Form 8949 or Schedule D (even one with no gain or loss)? Sales inside an IRA or 401(k) do not count, and neither does a loss on a personal item unless you received a Form 1099-K or 1099-S for it."
           ],
           "form1040.line-7a": [
-            "Is it true that you had no capital gains in 2025 other than capital gain distributions in box 2a of Form 1099-DIV, and that you had no sale in 2025 of stock, bonds, funds or other property that you must report on Form 8949 or Schedule D (even one with no gain or loss)? Sales inside an IRA or 401(k) and losses on personal items do not count."
+            "Is it true that you had no capital gains in 2025 other than capital gain distributions in box 2a of Form 1099-DIV, and that you had no sale in 2025 of stock, bonds, funds or other property that you must report on Form 8949 or Schedule D (even one with no gain or loss)? Sales inside an IRA or 401(k) do not count, and neither does a loss on a personal item unless you received a Form 1099-K or 1099-S for it."
           ],
           "form1040.line-7b": [
-            "Is it true that you had no capital gains in 2025 other than capital gain distributions in box 2a of Form 1099-DIV, and that you had no sale in 2025 of stock, bonds, funds or other property that you must report on Form 8949 or Schedule D (even one with no gain or loss)? Sales inside an IRA or 401(k) and losses on personal items do not count."
+            "Is it true that you had no capital gains in 2025 other than capital gain distributions in box 2a of Form 1099-DIV, and that you had no sale in 2025 of stock, bonds, funds or other property that you must report on Form 8949 or Schedule D (even one with no gain or loss)? Sales inside an IRA or 401(k) do not count, and neither does a loss on a personal item unless you received a Form 1099-K or 1099-S for it."
           ],
           "form1040.line-9": [
-            "Is it true that you had no capital gains in 2025 other than capital gain distributions in box 2a of Form 1099-DIV, and that you had no sale in 2025 of stock, bonds, funds or other property that you must report on Form 8949 or Schedule D (even one with no gain or loss)? Sales inside an IRA or 401(k) and losses on personal items do not count."
+            "Is it true that you had no capital gains in 2025 other than capital gain distributions in box 2a of Form 1099-DIV, and that you had no sale in 2025 of stock, bonds, funds or other property that you must report on Form 8949 or Schedule D (even one with no gain or loss)? Sales inside an IRA or 401(k) do not count, and neither does a loss on a personal item unless you received a Form 1099-K or 1099-S for it."
           ],
           "form1040.tax-after-credits": [
-            "Is it true that you had no capital gains in 2025 other than capital gain distributions in box 2a of Form 1099-DIV, and that you had no sale in 2025 of stock, bonds, funds or other property that you must report on Form 8949 or Schedule D (even one with no gain or loss)? Sales inside an IRA or 401(k) and losses on personal items do not count."
+            "Is it true that you had no capital gains in 2025 other than capital gain distributions in box 2a of Form 1099-DIV, and that you had no sale in 2025 of stock, bonds, funds or other property that you must report on Form 8949 or Schedule D (even one with no gain or loss)? Sales inside an IRA or 401(k) do not count, and neither does a loss on a personal item unless you received a Form 1099-K or 1099-S for it."
           ],
           "schedule3.line-1": [
-            "Is it true that you had no capital gains in 2025 other than capital gain distributions in box 2a of Form 1099-DIV, and that you had no sale in 2025 of stock, bonds, funds or other property that you must report on Form 8949 or Schedule D (even one with no gain or loss)? Sales inside an IRA or 401(k) and losses on personal items do not count."
+            "Is it true that you had no capital gains in 2025 other than capital gain distributions in box 2a of Form 1099-DIV, and that you had no sale in 2025 of stock, bonds, funds or other property that you must report on Form 8949 or Schedule D (even one with no gain or loss)? Sales inside an IRA or 401(k) do not count, and neither does a loss on a personal item unless you received a Form 1099-K or 1099-S for it."
           ],
           "schedule3.line-8": [
-            "Is it true that you had no capital gains in 2025 other than capital gain distributions in box 2a of Form 1099-DIV, and that you had no sale in 2025 of stock, bonds, funds or other property that you must report on Form 8949 or Schedule D (even one with no gain or loss)? Sales inside an IRA or 401(k) and losses on personal items do not count."
+            "Is it true that you had no capital gains in 2025 other than capital gain distributions in box 2a of Form 1099-DIV, and that you had no sale in 2025 of stock, bonds, funds or other property that you must report on Form 8949 or Schedule D (even one with no gain or loss)? Sales inside an IRA or 401(k) do not count, and neither does a loss on a personal item unless you received a Form 1099-K or 1099-S for it."
           ]
         },
         "titles_shown": {}
@@ -592,53 +592,53 @@
         },
         "questions": [
           "Did you receive a Form 1099-B or substitute statement that shows federal income tax withheld in box 4 and reports no closed sale (for example, a short sale still open at year end)? Do not count a statement whose box 4 you already entered, with or without a sale.",
-          "Is it true that you had no capital gains in 2025 other than capital gain distributions in box 2a of Form 1099-DIV, and that you had no sale in 2025 of stock, bonds, funds or other property that you must report on Form 8949 or Schedule D (even one with no gain or loss)? Sales inside an IRA or 401(k) and losses on personal items do not count."
+          "Is it true that you had no capital gains in 2025 other than capital gain distributions in box 2a of Form 1099-DIV, and that you had no sale in 2025 of stock, bonds, funds or other property that you must report on Form 8949 or Schedule D (even one with no gain or loss)? Sales inside an IRA or 401(k) do not count, and neither does a loss on a personal item unless you received a Form 1099-K or 1099-S for it."
         ],
         "asked_on": {
           "form.eic-worksheet-a.line-3": [
-            "Is it true that you had no capital gains in 2025 other than capital gain distributions in box 2a of Form 1099-DIV, and that you had no sale in 2025 of stock, bonds, funds or other property that you must report on Form 8949 or Schedule D (even one with no gain or loss)? Sales inside an IRA or 401(k) and losses on personal items do not count."
+            "Is it true that you had no capital gains in 2025 other than capital gain distributions in box 2a of Form 1099-DIV, and that you had no sale in 2025 of stock, bonds, funds or other property that you must report on Form 8949 or Schedule D (even one with no gain or loss)? Sales inside an IRA or 401(k) do not count, and neither does a loss on a personal item unless you received a Form 1099-K or 1099-S for it."
           ],
           "form.eic-worksheet-a.line-5": [
-            "Is it true that you had no capital gains in 2025 other than capital gain distributions in box 2a of Form 1099-DIV, and that you had no sale in 2025 of stock, bonds, funds or other property that you must report on Form 8949 or Schedule D (even one with no gain or loss)? Sales inside an IRA or 401(k) and losses on personal items do not count."
+            "Is it true that you had no capital gains in 2025 other than capital gain distributions in box 2a of Form 1099-DIV, and that you had no sale in 2025 of stock, bonds, funds or other property that you must report on Form 8949 or Schedule D (even one with no gain or loss)? Sales inside an IRA or 401(k) do not count, and neither does a loss on a personal item unless you received a Form 1099-K or 1099-S for it."
           ],
           "form.eic-worksheet-a.line-6": [
-            "Is it true that you had no capital gains in 2025 other than capital gain distributions in box 2a of Form 1099-DIV, and that you had no sale in 2025 of stock, bonds, funds or other property that you must report on Form 8949 or Schedule D (even one with no gain or loss)? Sales inside an IRA or 401(k) and losses on personal items do not count."
+            "Is it true that you had no capital gains in 2025 other than capital gain distributions in box 2a of Form 1099-DIV, and that you had no sale in 2025 of stock, bonds, funds or other property that you must report on Form 8949 or Schedule D (even one with no gain or loss)? Sales inside an IRA or 401(k) do not count, and neither does a loss on a personal item unless you received a Form 1099-K or 1099-S for it."
           ],
           "form.sch8812.line-14": [
-            "Is it true that you had no capital gains in 2025 other than capital gain distributions in box 2a of Form 1099-DIV, and that you had no sale in 2025 of stock, bonds, funds or other property that you must report on Form 8949 or Schedule D (even one with no gain or loss)? Sales inside an IRA or 401(k) and losses on personal items do not count."
+            "Is it true that you had no capital gains in 2025 other than capital gain distributions in box 2a of Form 1099-DIV, and that you had no sale in 2025 of stock, bonds, funds or other property that you must report on Form 8949 or Schedule D (even one with no gain or loss)? Sales inside an IRA or 401(k) do not count, and neither does a loss on a personal item unless you received a Form 1099-K or 1099-S for it."
           ],
           "form.sch8812.line-17": [
-            "Is it true that you had no capital gains in 2025 other than capital gain distributions in box 2a of Form 1099-DIV, and that you had no sale in 2025 of stock, bonds, funds or other property that you must report on Form 8949 or Schedule D (even one with no gain or loss)? Sales inside an IRA or 401(k) and losses on personal items do not count."
+            "Is it true that you had no capital gains in 2025 other than capital gain distributions in box 2a of Form 1099-DIV, and that you had no sale in 2025 of stock, bonds, funds or other property that you must report on Form 8949 or Schedule D (even one with no gain or loss)? Sales inside an IRA or 401(k) do not count, and neither does a loss on a personal item unless you received a Form 1099-K or 1099-S for it."
           ],
           "form.sch8812.worksheet-a.line-5": [
-            "Is it true that you had no capital gains in 2025 other than capital gain distributions in box 2a of Form 1099-DIV, and that you had no sale in 2025 of stock, bonds, funds or other property that you must report on Form 8949 or Schedule D (even one with no gain or loss)? Sales inside an IRA or 401(k) and losses on personal items do not count."
+            "Is it true that you had no capital gains in 2025 other than capital gain distributions in box 2a of Form 1099-DIV, and that you had no sale in 2025 of stock, bonds, funds or other property that you must report on Form 8949 or Schedule D (even one with no gain or loss)? Sales inside an IRA or 401(k) do not count, and neither does a loss on a personal item unless you received a Form 1099-K or 1099-S for it."
           ],
           "form1040.line-11a": [
-            "Is it true that you had no capital gains in 2025 other than capital gain distributions in box 2a of Form 1099-DIV, and that you had no sale in 2025 of stock, bonds, funds or other property that you must report on Form 8949 or Schedule D (even one with no gain or loss)? Sales inside an IRA or 401(k) and losses on personal items do not count."
+            "Is it true that you had no capital gains in 2025 other than capital gain distributions in box 2a of Form 1099-DIV, and that you had no sale in 2025 of stock, bonds, funds or other property that you must report on Form 8949 or Schedule D (even one with no gain or loss)? Sales inside an IRA or 401(k) do not count, and neither does a loss on a personal item unless you received a Form 1099-K or 1099-S for it."
           ],
           "form1040.line-11b": [
-            "Is it true that you had no capital gains in 2025 other than capital gain distributions in box 2a of Form 1099-DIV, and that you had no sale in 2025 of stock, bonds, funds or other property that you must report on Form 8949 or Schedule D (even one with no gain or loss)? Sales inside an IRA or 401(k) and losses on personal items do not count."
+            "Is it true that you had no capital gains in 2025 other than capital gain distributions in box 2a of Form 1099-DIV, and that you had no sale in 2025 of stock, bonds, funds or other property that you must report on Form 8949 or Schedule D (even one with no gain or loss)? Sales inside an IRA or 401(k) do not count, and neither does a loss on a personal item unless you received a Form 1099-K or 1099-S for it."
           ],
           "form1040.line-13b": [
-            "Is it true that you had no capital gains in 2025 other than capital gain distributions in box 2a of Form 1099-DIV, and that you had no sale in 2025 of stock, bonds, funds or other property that you must report on Form 8949 or Schedule D (even one with no gain or loss)? Sales inside an IRA or 401(k) and losses on personal items do not count."
+            "Is it true that you had no capital gains in 2025 other than capital gain distributions in box 2a of Form 1099-DIV, and that you had no sale in 2025 of stock, bonds, funds or other property that you must report on Form 8949 or Schedule D (even one with no gain or loss)? Sales inside an IRA or 401(k) do not count, and neither does a loss on a personal item unless you received a Form 1099-K or 1099-S for it."
           ],
           "form1040.line-14": [
-            "Is it true that you had no capital gains in 2025 other than capital gain distributions in box 2a of Form 1099-DIV, and that you had no sale in 2025 of stock, bonds, funds or other property that you must report on Form 8949 or Schedule D (even one with no gain or loss)? Sales inside an IRA or 401(k) and losses on personal items do not count."
+            "Is it true that you had no capital gains in 2025 other than capital gain distributions in box 2a of Form 1099-DIV, and that you had no sale in 2025 of stock, bonds, funds or other property that you must report on Form 8949 or Schedule D (even one with no gain or loss)? Sales inside an IRA or 401(k) do not count, and neither does a loss on a personal item unless you received a Form 1099-K or 1099-S for it."
           ],
           "form1040.line-15": [
-            "Is it true that you had no capital gains in 2025 other than capital gain distributions in box 2a of Form 1099-DIV, and that you had no sale in 2025 of stock, bonds, funds or other property that you must report on Form 8949 or Schedule D (even one with no gain or loss)? Sales inside an IRA or 401(k) and losses on personal items do not count."
+            "Is it true that you had no capital gains in 2025 other than capital gain distributions in box 2a of Form 1099-DIV, and that you had no sale in 2025 of stock, bonds, funds or other property that you must report on Form 8949 or Schedule D (even one with no gain or loss)? Sales inside an IRA or 401(k) do not count, and neither does a loss on a personal item unless you received a Form 1099-K or 1099-S for it."
           ],
           "form1040.line-16": [
-            "Is it true that you had no capital gains in 2025 other than capital gain distributions in box 2a of Form 1099-DIV, and that you had no sale in 2025 of stock, bonds, funds or other property that you must report on Form 8949 or Schedule D (even one with no gain or loss)? Sales inside an IRA or 401(k) and losses on personal items do not count."
+            "Is it true that you had no capital gains in 2025 other than capital gain distributions in box 2a of Form 1099-DIV, and that you had no sale in 2025 of stock, bonds, funds or other property that you must report on Form 8949 or Schedule D (even one with no gain or loss)? Sales inside an IRA or 401(k) do not count, and neither does a loss on a personal item unless you received a Form 1099-K or 1099-S for it."
           ],
           "form1040.line-19": [
-            "Is it true that you had no capital gains in 2025 other than capital gain distributions in box 2a of Form 1099-DIV, and that you had no sale in 2025 of stock, bonds, funds or other property that you must report on Form 8949 or Schedule D (even one with no gain or loss)? Sales inside an IRA or 401(k) and losses on personal items do not count."
+            "Is it true that you had no capital gains in 2025 other than capital gain distributions in box 2a of Form 1099-DIV, and that you had no sale in 2025 of stock, bonds, funds or other property that you must report on Form 8949 or Schedule D (even one with no gain or loss)? Sales inside an IRA or 401(k) do not count, and neither does a loss on a personal item unless you received a Form 1099-K or 1099-S for it."
           ],
           "form1040.line-20": [
-            "Is it true that you had no capital gains in 2025 other than capital gain distributions in box 2a of Form 1099-DIV, and that you had no sale in 2025 of stock, bonds, funds or other property that you must report on Form 8949 or Schedule D (even one with no gain or loss)? Sales inside an IRA or 401(k) and losses on personal items do not count."
+            "Is it true that you had no capital gains in 2025 other than capital gain distributions in box 2a of Form 1099-DIV, and that you had no sale in 2025 of stock, bonds, funds or other property that you must report on Form 8949 or Schedule D (even one with no gain or loss)? Sales inside an IRA or 401(k) do not count, and neither does a loss on a personal item unless you received a Form 1099-K or 1099-S for it."
           ],
           "form1040.line-24": [
-            "Is it true that you had no capital gains in 2025 other than capital gain distributions in box 2a of Form 1099-DIV, and that you had no sale in 2025 of stock, bonds, funds or other property that you must report on Form 8949 or Schedule D (even one with no gain or loss)? Sales inside an IRA or 401(k) and losses on personal items do not count."
+            "Is it true that you had no capital gains in 2025 other than capital gain distributions in box 2a of Form 1099-DIV, and that you had no sale in 2025 of stock, bonds, funds or other property that you must report on Form 8949 or Schedule D (even one with no gain or loss)? Sales inside an IRA or 401(k) do not count, and neither does a loss on a personal item unless you received a Form 1099-K or 1099-S for it."
           ],
           "form1040.line-25b": [
             "Did you receive a Form 1099-B or substitute statement that shows federal income tax withheld in box 4 and reports no closed sale (for example, a short sale still open at year end)? Do not count a statement whose box 4 you already entered, with or without a sale."
@@ -647,50 +647,50 @@
             "Did you receive a Form 1099-B or substitute statement that shows federal income tax withheld in box 4 and reports no closed sale (for example, a short sale still open at year end)? Do not count a statement whose box 4 you already entered, with or without a sale."
           ],
           "form1040.line-27a": [
-            "Is it true that you had no capital gains in 2025 other than capital gain distributions in box 2a of Form 1099-DIV, and that you had no sale in 2025 of stock, bonds, funds or other property that you must report on Form 8949 or Schedule D (even one with no gain or loss)? Sales inside an IRA or 401(k) and losses on personal items do not count."
+            "Is it true that you had no capital gains in 2025 other than capital gain distributions in box 2a of Form 1099-DIV, and that you had no sale in 2025 of stock, bonds, funds or other property that you must report on Form 8949 or Schedule D (even one with no gain or loss)? Sales inside an IRA or 401(k) do not count, and neither does a loss on a personal item unless you received a Form 1099-K or 1099-S for it."
           ],
           "form1040.line-28": [
-            "Is it true that you had no capital gains in 2025 other than capital gain distributions in box 2a of Form 1099-DIV, and that you had no sale in 2025 of stock, bonds, funds or other property that you must report on Form 8949 or Schedule D (even one with no gain or loss)? Sales inside an IRA or 401(k) and losses on personal items do not count."
+            "Is it true that you had no capital gains in 2025 other than capital gain distributions in box 2a of Form 1099-DIV, and that you had no sale in 2025 of stock, bonds, funds or other property that you must report on Form 8949 or Schedule D (even one with no gain or loss)? Sales inside an IRA or 401(k) do not count, and neither does a loss on a personal item unless you received a Form 1099-K or 1099-S for it."
           ],
           "form1040.line-32": [
-            "Is it true that you had no capital gains in 2025 other than capital gain distributions in box 2a of Form 1099-DIV, and that you had no sale in 2025 of stock, bonds, funds or other property that you must report on Form 8949 or Schedule D (even one with no gain or loss)? Sales inside an IRA or 401(k) and losses on personal items do not count."
+            "Is it true that you had no capital gains in 2025 other than capital gain distributions in box 2a of Form 1099-DIV, and that you had no sale in 2025 of stock, bonds, funds or other property that you must report on Form 8949 or Schedule D (even one with no gain or loss)? Sales inside an IRA or 401(k) do not count, and neither does a loss on a personal item unless you received a Form 1099-K or 1099-S for it."
           ],
           "form1040.line-33": [
             "Did you receive a Form 1099-B or substitute statement that shows federal income tax withheld in box 4 and reports no closed sale (for example, a short sale still open at year end)? Do not count a statement whose box 4 you already entered, with or without a sale.",
-            "Is it true that you had no capital gains in 2025 other than capital gain distributions in box 2a of Form 1099-DIV, and that you had no sale in 2025 of stock, bonds, funds or other property that you must report on Form 8949 or Schedule D (even one with no gain or loss)? Sales inside an IRA or 401(k) and losses on personal items do not count."
+            "Is it true that you had no capital gains in 2025 other than capital gain distributions in box 2a of Form 1099-DIV, and that you had no sale in 2025 of stock, bonds, funds or other property that you must report on Form 8949 or Schedule D (even one with no gain or loss)? Sales inside an IRA or 401(k) do not count, and neither does a loss on a personal item unless you received a Form 1099-K or 1099-S for it."
           ],
           "form1040.line-34": [
             "Did you receive a Form 1099-B or substitute statement that shows federal income tax withheld in box 4 and reports no closed sale (for example, a short sale still open at year end)? Do not count a statement whose box 4 you already entered, with or without a sale.",
-            "Is it true that you had no capital gains in 2025 other than capital gain distributions in box 2a of Form 1099-DIV, and that you had no sale in 2025 of stock, bonds, funds or other property that you must report on Form 8949 or Schedule D (even one with no gain or loss)? Sales inside an IRA or 401(k) and losses on personal items do not count."
+            "Is it true that you had no capital gains in 2025 other than capital gain distributions in box 2a of Form 1099-DIV, and that you had no sale in 2025 of stock, bonds, funds or other property that you must report on Form 8949 or Schedule D (even one with no gain or loss)? Sales inside an IRA or 401(k) do not count, and neither does a loss on a personal item unless you received a Form 1099-K or 1099-S for it."
           ],
           "form1040.line-35a": [
             "Did you receive a Form 1099-B or substitute statement that shows federal income tax withheld in box 4 and reports no closed sale (for example, a short sale still open at year end)? Do not count a statement whose box 4 you already entered, with or without a sale.",
-            "Is it true that you had no capital gains in 2025 other than capital gain distributions in box 2a of Form 1099-DIV, and that you had no sale in 2025 of stock, bonds, funds or other property that you must report on Form 8949 or Schedule D (even one with no gain or loss)? Sales inside an IRA or 401(k) and losses on personal items do not count."
+            "Is it true that you had no capital gains in 2025 other than capital gain distributions in box 2a of Form 1099-DIV, and that you had no sale in 2025 of stock, bonds, funds or other property that you must report on Form 8949 or Schedule D (even one with no gain or loss)? Sales inside an IRA or 401(k) do not count, and neither does a loss on a personal item unless you received a Form 1099-K or 1099-S for it."
           ],
           "form1040.line-37": [
             "Did you receive a Form 1099-B or substitute statement that shows federal income tax withheld in box 4 and reports no closed sale (for example, a short sale still open at year end)? Do not count a statement whose box 4 you already entered, with or without a sale.",
-            "Is it true that you had no capital gains in 2025 other than capital gain distributions in box 2a of Form 1099-DIV, and that you had no sale in 2025 of stock, bonds, funds or other property that you must report on Form 8949 or Schedule D (even one with no gain or loss)? Sales inside an IRA or 401(k) and losses on personal items do not count."
+            "Is it true that you had no capital gains in 2025 other than capital gain distributions in box 2a of Form 1099-DIV, and that you had no sale in 2025 of stock, bonds, funds or other property that you must report on Form 8949 or Schedule D (even one with no gain or loss)? Sales inside an IRA or 401(k) do not count, and neither does a loss on a personal item unless you received a Form 1099-K or 1099-S for it."
           ],
           "form1040.line-6b": [
-            "Is it true that you had no capital gains in 2025 other than capital gain distributions in box 2a of Form 1099-DIV, and that you had no sale in 2025 of stock, bonds, funds or other property that you must report on Form 8949 or Schedule D (even one with no gain or loss)? Sales inside an IRA or 401(k) and losses on personal items do not count."
+            "Is it true that you had no capital gains in 2025 other than capital gain distributions in box 2a of Form 1099-DIV, and that you had no sale in 2025 of stock, bonds, funds or other property that you must report on Form 8949 or Schedule D (even one with no gain or loss)? Sales inside an IRA or 401(k) do not count, and neither does a loss on a personal item unless you received a Form 1099-K or 1099-S for it."
           ],
           "form1040.line-7a": [
-            "Is it true that you had no capital gains in 2025 other than capital gain distributions in box 2a of Form 1099-DIV, and that you had no sale in 2025 of stock, bonds, funds or other property that you must report on Form 8949 or Schedule D (even one with no gain or loss)? Sales inside an IRA or 401(k) and losses on personal items do not count."
+            "Is it true that you had no capital gains in 2025 other than capital gain distributions in box 2a of Form 1099-DIV, and that you had no sale in 2025 of stock, bonds, funds or other property that you must report on Form 8949 or Schedule D (even one with no gain or loss)? Sales inside an IRA or 401(k) do not count, and neither does a loss on a personal item unless you received a Form 1099-K or 1099-S for it."
           ],
           "form1040.line-7b": [
-            "Is it true that you had no capital gains in 2025 other than capital gain distributions in box 2a of Form 1099-DIV, and that you had no sale in 2025 of stock, bonds, funds or other property that you must report on Form 8949 or Schedule D (even one with no gain or loss)? Sales inside an IRA or 401(k) and losses on personal items do not count."
+            "Is it true that you had no capital gains in 2025 other than capital gain distributions in box 2a of Form 1099-DIV, and that you had no sale in 2025 of stock, bonds, funds or other property that you must report on Form 8949 or Schedule D (even one with no gain or loss)? Sales inside an IRA or 401(k) do not count, and neither does a loss on a personal item unless you received a Form 1099-K or 1099-S for it."
           ],
           "form1040.line-9": [
-            "Is it true that you had no capital gains in 2025 other than capital gain distributions in box 2a of Form 1099-DIV, and that you had no sale in 2025 of stock, bonds, funds or other property that you must report on Form 8949 or Schedule D (even one with no gain or loss)? Sales inside an IRA or 401(k) and losses on personal items do not count."
+            "Is it true that you had no capital gains in 2025 other than capital gain distributions in box 2a of Form 1099-DIV, and that you had no sale in 2025 of stock, bonds, funds or other property that you must report on Form 8949 or Schedule D (even one with no gain or loss)? Sales inside an IRA or 401(k) do not count, and neither does a loss on a personal item unless you received a Form 1099-K or 1099-S for it."
           ],
           "form1040.tax-after-credits": [
-            "Is it true that you had no capital gains in 2025 other than capital gain distributions in box 2a of Form 1099-DIV, and that you had no sale in 2025 of stock, bonds, funds or other property that you must report on Form 8949 or Schedule D (even one with no gain or loss)? Sales inside an IRA or 401(k) and losses on personal items do not count."
+            "Is it true that you had no capital gains in 2025 other than capital gain distributions in box 2a of Form 1099-DIV, and that you had no sale in 2025 of stock, bonds, funds or other property that you must report on Form 8949 or Schedule D (even one with no gain or loss)? Sales inside an IRA or 401(k) do not count, and neither does a loss on a personal item unless you received a Form 1099-K or 1099-S for it."
           ],
           "schedule3.line-1": [
-            "Is it true that you had no capital gains in 2025 other than capital gain distributions in box 2a of Form 1099-DIV, and that you had no sale in 2025 of stock, bonds, funds or other property that you must report on Form 8949 or Schedule D (even one with no gain or loss)? Sales inside an IRA or 401(k) and losses on personal items do not count."
+            "Is it true that you had no capital gains in 2025 other than capital gain distributions in box 2a of Form 1099-DIV, and that you had no sale in 2025 of stock, bonds, funds or other property that you must report on Form 8949 or Schedule D (even one with no gain or loss)? Sales inside an IRA or 401(k) do not count, and neither does a loss on a personal item unless you received a Form 1099-K or 1099-S for it."
           ],
           "schedule3.line-8": [
-            "Is it true that you had no capital gains in 2025 other than capital gain distributions in box 2a of Form 1099-DIV, and that you had no sale in 2025 of stock, bonds, funds or other property that you must report on Form 8949 or Schedule D (even one with no gain or loss)? Sales inside an IRA or 401(k) and losses on personal items do not count."
+            "Is it true that you had no capital gains in 2025 other than capital gain distributions in box 2a of Form 1099-DIV, and that you had no sale in 2025 of stock, bonds, funds or other property that you must report on Form 8949 or Schedule D (even one with no gain or loss)? Sales inside an IRA or 401(k) do not count, and neither does a loss on a personal item unless you received a Form 1099-K or 1099-S for it."
           ]
         },
         "titles_shown": {}
