@@ -174,6 +174,36 @@ returns are identical on v86 and scratch v87.
    family open, the page asks no question; age and blindness are never
    asked and default to false.
 
+7. **Review repair** (foreman, 2026-11-11, on review 584aa65a).
+   - F1: the Exception 1 v3 sale clause covers sales that need no Form
+     8949 or Schedule D (personal-use losses, sales inside an IRA or
+     401(k)), so a truthful filer answers no and is blocked with no
+     question. The clause is limited to sales that must be reported on
+     Form 8949 or Schedule D, with a short exclusion sentence, and the
+     fact title follows. The v87 members are regenerated in place: none
+     is on a ratified line yet.
+   - F1 follow-up: a personal-item loss reported on Form 1099-K or
+     1099-S must be reported, so it counts. The exclusion sentence and
+     fact title name those two forms (the Schedule D personal-use
+     instruction names Form 1099-K and Form 1099-S). Track 0 row
+     `m_exc1_personal_loss_1099k`: no sale recorded, truthful no under
+     the v87 words, parked no-question refusal (the existing parked
+     engine gap, not a wording defect).
+   - R1: a Form 1099-K personal-item loss may go on Schedule 1, which
+     files no Form 8949 or Schedule D, so it does not defeat Exception 1.
+     The exclusion sentence and fact title name Form 1099-S or a report
+     on Form 8949. Track 0 splits the 1099-K row:
+     `m_exc1_personal_loss_1099k_sch1` answers yes and computes to the
+     no-sale hand values; `m_exc1_personal_loss_1099k_8949` answers no
+     and reaches the parked no-question refusal (the existing engine
+     gap, named as such).
+   - F2: the student-loan and Exception 1 late steps replace an answer;
+     they do not supersede one. The claim is reworded to what the
+     traces show.
+   - F4: the blindness title names December 31, 2025.
+   - F5: the two live runs that repeat a sibling are dropped.
+   - F3 stays a note.
+
 ## Track 0 adversarial closure
 
 Evidence: `question-wording-evidence/track0-closure.md` and the
@@ -188,14 +218,19 @@ successors (seven members).
   reads the answer. Examples: `alc_wash_st_unanswered`, `alc_wash_st_no`,
   `alc_exc1_sale_unanswered`, `alc_sli_claimed`, and `alc_title_spouse_age`
   against `alc_title_spouse_died_before_65`.
-- Empty/nonempty authority matrix: PASS. `track0-matrix.json` has 13 of 13
+- Empty/nonempty authority matrix: PASS. `track0-matrix.json` has 14 of 14
   cases on v87. On v86 the words lead a truthful filer to three
   counterexamples, and the v87 words fix each one: `m_wash_plain`,
-  `m_wash_both` and `m_sli_joint_spouse_claimed`.
+  `m_wash_both` and `m_sli_joint_spouse_claimed`. After review F1,
+  `m_exc1_personal_loss` adds a filer with no recorded sale who sold only
+  a personal item at a loss: the repaired words are answered yes and the
+  return computes.
 - Late-member lifecycle: PASS. `track0-late.json` has 3 of 3 traces.
   - `late_wash_member`: a member added after the closure makes the closure
     non-current, and reclosing computes.
-  - `late_sli_superseded`: each superseding answer replaces the earlier one.
+  - `late_sli_superseded`: each later answer replaces the earlier one in
+    the act list, and computes its hand value. No supersession act is
+    exercised (review F2).
   - `late_exc1_sale_after_yes`: the stale yes is never read beside a sale,
     because all three readers of the conclusion, unchanged, take the
     Schedule D path first. The step reaches its hand values.
@@ -281,3 +316,61 @@ Charter: `docs/reviews/question-wording/charter-track1.md`. Builder,
 - **Deviations.** None from the charter. The covered-flag refusal test in
   `tests/test_noncovered_sales_v78_switch.py` was extended to v87, as the
   v86 build extended it to v86.
+
+**Review repair** (charter `docs/reviews/question-wording/charter-repair.md`,
+Decision 7). This updates the counts above.
+
+- **F1.** The only-box-2a v3 question now reads: "Is it true that you had
+  no capital gains in 2025 other than capital gain distributions in box 2a
+  of Form 1099-DIV, and that you had no sale in 2025 of stock, bonds, funds
+  or other property that you must report on Form 8949 or Schedule D (even
+  one with no gain or loss)? Sales inside an IRA or 401(k) do not count,
+  and neither does a loss on a personal item unless you received a Form
+  1099-S for it or you report it on Form 8949." The exception1 fact title
+  has the same operative scope. `law.json` quotes the Schedule D
+  personal-use instruction, including the Form 1099-K and 1099-S reporting
+  sentences. The Track 0 row `m_exc1_personal_loss` passes on both cores:
+  no sale is recorded, no Form 1099-K or 1099-S, the answer is yes, and the
+  return computes 7a 0, 15 34,250, 16 3,875, with line 7b checked.
+- **F1 follow-up.** `m_exc1_personal_loss_1099k`: no sale recorded, the
+  filer had a personal-item loss reported on a Form 1099-K, truthful no
+  under the then-current v87 words. The page hits the parked no-question
+  refusal (conclusion yes, lines 7a, 13b and 15 blocked, line 7b
+  `guard_inapplicable`, no Exception 1 question). That is the existing
+  parked engine gap, not a wording defect; the words lead to the true
+  answer. Track 0 was rerun (cases, merge, reuse): authority 16/16,
+  matrix 15/15, late 3/3, surface 6/6, reuse pass. The neighbour diff was
+  not rerun: it replays recorded answers, which no wording can move.
+- **R1.** A Form 1099-K personal-item loss may go on Schedule 1, which
+  files no Form 8949 or Schedule D, so it does not defeat Exception 1.
+  The v3 trailing sentence and the exception1 fact title now name Form
+  1099-S or a report on Form 8949. Track 0 splits the 1099-K row:
+  `m_exc1_personal_loss_1099k_sch1` answers yes and computes to the
+  no-sale hand values (line 7b checked, 7a 0, 15 34,250, 16 3,875);
+  `m_exc1_personal_loss_1099k_8949` answers no and reaches the parked
+  no-question refusal (the existing engine gap, named as such). Track 0
+  was rerun (cases, merge, reuse): authority 16/16, matrix 16/16, late
+  3/3, surface 6/6, reuse pass.
+- **F4.** The blindness titles put the eye-doctor test as of December 31,
+  2025 too.
+- **Regenerated in place.** The two affected branch-only members (only-box-2a
+  v3 and exception1 bundle v2), plus registry v85 and release v85, were
+  regenerated. Core v87's member list and checksum are unchanged. Registry
+  v85 still only adds to v84 on `milestone/selection-keyed-collect-2025`.
+- **F2.** The late-step claim is reworded: each later answer replaces the
+  earlier one in the act list. **F5.** The two repeated student-loan runs
+  are dropped. Act lists are compared with `demo.*` ids normalized.
+- **Live module.** 27 distinct v87 runs judge the 16 authority cases, 16
+  matrix cases and 9 late steps (41 rows), all at their hand values, plus
+  the 298 recorded runs, all identical. That is 325 `live_coordinate_run`
+  calls in 328 tests. The two v87 modules and the v78 switch test pass
+  342 of 342 in 374 s wall.
+- **Checks.** `pytest tests/test_question_wording_v87.py
+  tests/test_question_wording_v87_package.py
+  tests/test_noncovered_sales_v78_switch.py`: 342 passed in 374 s wall.
+  `python3 -m mypy`: no issues in 484 source files.
+  `envelope_scan.py --range
+  github/milestone/selection-keyed-collect-2025..HEAD`: clean.
+- **Harness.** The Track 0 harness now counts a page sentence as a
+  question when it contains a question mark. The repaired words end with
+  a note after the mark.

@@ -45,10 +45,15 @@ WASH = (
     "investment within 30 days before or after the sale) on every Form 1099-B you or "
     "your spouse received for 2025?"
 )
+# Review F1 (Decision 7): only a sale that must be reported on Form 8949 or
+# Schedule D defeats Exception 1.
 ONLY_BOX2A = (
     "Is it true that you had no capital gains in 2025 other than capital gain "
-    "distributions in box 2a of Form 1099-DIV, and that you did not sell stock, funds "
-    "or other property in 2025 (even a sale with no gain or loss)?"
+    "distributions in box 2a of Form 1099-DIV, and that you had no sale in 2025 of "
+    "stock, bonds, funds or other property that you must report on Form 8949 or "
+    "Schedule D (even one with no gain or loss)? Sales inside an IRA or 401(k) do not "
+    "count, and neither does a loss on a personal item unless you received a Form "
+    "1099-S for it or you report it on Form 8949."
 )
 SLI = (
     "Is someone else claiming you (or your spouse, on a joint return) as a dependent "
@@ -65,23 +70,31 @@ SPOUSE_AGE = (
     "but died in 2025 before reaching age 65 is not included."
 )
 BLIND = (
-    "Taxpayer was totally blind as of December 31, 2025, or has a statement "
-    "certified by an eye doctor that the taxpayer cannot see better than 20/200 "
-    "in the better eye with glasses or contact lenses, or that the field of "
-    "vision is 20 degrees or less."
+    "Taxpayer was totally blind as of December 31, 2025, or as of December 31, "
+    "2025 could not see better than 20/200 in the better eye with glasses or "
+    "contact lenses, or had a field of vision of 20 degrees or less, as a "
+    "statement certified by an eye doctor says."
 )
 SPOUSE_BLIND = (
-    "Spouse was totally blind as of December 31, 2025, or has a statement "
-    "certified by an eye doctor that the spouse cannot see better than 20/200 "
-    "in the better eye with glasses or contact lenses, or that the field of "
-    "vision is 20 degrees or less."
+    "Spouse was totally blind as of December 31, 2025, or as of December 31, "
+    "2025 could not see better than 20/200 in the better eye with glasses or "
+    "contact lenses, or had a field of vision of 20 degrees or less, as a "
+    "statement certified by an eye doctor says."
 )
 # Decision 2: the only-box-2a fact's title says what the v3 question asks.
 EXC1_TITLE = (
     "Exception 1 component C1 (ADR-0050): whether the return's only capital gains are Form "
-    "1099-DIV box-2a capital-gain distributions and the filer sold no stock, funds or other "
-    "property in 2025, including a sale with no gain or loss (Form 1040 instructions, line 7a: "
-    "\"If you sold a capital asset ... you must complete and attach Form 8949 and Schedule D\"). "
+    "1099-DIV box-2a capital-gain distributions and the filer had no 2025 sale of stock, bonds, "
+    "funds or other property that must be reported on Form 8949 or Schedule D, including one with "
+    "no gain or loss; sales inside an IRA or 401(k) do not count, and neither does a loss on "
+    "personal-use property unless a Form 1099-S was received for it or it is reported on Form 8949 "
+    "(Form 1040 instructions, "
+    "line 7a: \"If you sold a capital asset ... you must complete and attach Form 8949 and Schedule "
+    "D\"; Schedule D instructions, Capital Assets Held for Personal Use: \"Loss from the sale or "
+    "exchange of a capital asset held for personal use isn't deductible. But if you had a loss ... for "
+    "which you received a Form 1099-S, you must report the transaction on Form 8949 ... Also, if you "
+    "had a loss from the sale or exchange of personal property for which you received a Form 1099-K, "
+    "you must report the transaction on Form 8949 or on Schedule 1 (Form 1040)\"). "
     "Contributed categorical assertion, domain {yes, no}, no default, presence-before-value, free "
     "supersession. Distinct from the checked schedule-d-required.conclusion."
 )
