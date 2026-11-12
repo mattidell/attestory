@@ -180,10 +180,24 @@ def _context(
     )
 
 
-def _validate_candidate(citizen: dict[str, Any]) -> Any:
+def _validate_candidate(
+    citizen: dict[str, Any],
+    baseline_corpus: dict[tuple[str, str], dict[str, Any]] | None = None,
+) -> Any:
     package = _load(DERIVATION_PACKAGE)
-    corpus = _content_corpus()
-    corpus[(citizen["id"], citizen["version"])] = citizen
+    if baseline_corpus is None:
+        corpus = _content_corpus()
+    else:
+        # Keep each candidate's member index independent without cloning all
+        # untouched citizens. The bounded mutation test verifies the complete
+        # key set and the two replaceable baseline members after all six calls.
+        corpus = dict(baseline_corpus)
+    key = (citizen["id"], citizen["version"])
+    if key not in corpus:
+        raise AssertionError("candidate must replace its complete-corpus member")
+    if baseline_corpus is not None and baseline_corpus[key] is citizen:
+        raise AssertionError("candidate must be isolated from its baseline member")
+    corpus[key] = citizen
     return validate_package(package, corpus, DerivationSchemas())
 
 
@@ -379,12 +393,36 @@ class BoundedNomineeRuntime(unittest.TestCase):
         self.assertEqual(rows[0]["missing"], ["nominee-aggregate-contract-invalid"])
 
     def test_top_level_declarations_are_neutral_and_runtime_rejects_mutations(self) -> None:
-        mutations = ("when", "requires", "pins")
-        for rule_index in (1, 2):
+        baseline_corpus = _content_corpus()
+        baseline_keys = frozenset(baseline_corpus)
+        # _validate_candidate changes one entry in a shallow-copied mapping.
+        # validate_package looks up package members and reads their citizens;
+        # its derived rule edits are made on local dict copies. Protect the two
+        # replaceable source entries and keep the complete member key set.
+        baseline_rule_members = {
+            (citizen["id"], citizen["version"]): baseline_corpus[
+                (citizen["id"], citizen["version"])
+            ]
+            for citizen in (_load(LINE2B), _load(AGGREGATE))
+        }
+        baseline_rules = {
+            key: copy.deepcopy(citizen)
+            for key, citizen in baseline_rule_members.items()
+        }
+        mutations = ("pins", "requires", "when")
+        package_validation_count = 0
+        candidate_documents: list[dict[str, Any]] = []
+        for rule_index in (2, 1):
             for mutation in mutations:
                 with self.subTest(rule_index=rule_index, mutation=mutation):
                     rules = _rules()
                     rule = rules[rule_index]
+                    key = (rule["id"], rule["version"])
+                    self.assertIsNot(rule, baseline_rule_members[key])
+                    self.assertTrue(
+                        all(rule is not earlier for earlier in candidate_documents)
+                    )
+                    candidate_documents.append(rule)
                     if mutation == "when":
                         rule["when"] = False
                     elif mutation == "requires":
@@ -412,11 +450,21 @@ class BoundedNomineeRuntime(unittest.TestCase):
                         ["declarative-top-level-contract-invalid"],
                     )
 
-                    package_result = _validate_candidate(rule)
+                    package_result = _validate_candidate(rule, baseline_corpus)
+                    package_validation_count += 1
                     self.assertIn(
                         "RULE_DECLARATIVE_TOP_LEVEL_INVALID",
                         {issue.code for issue in package_result.issues},
                     )
+
+        self.assertEqual(package_validation_count, 6)
+        self.assertEqual(len(candidate_documents), 6)
+        self.assertEqual(frozenset(baseline_corpus), baseline_keys)
+        self.assertEqual(
+            {key: baseline_corpus[key] for key in baseline_rules}, baseline_rules
+        )
+        for key, original in baseline_rule_members.items():
+            self.assertIs(baseline_corpus[key], original)
 
     def test_duplicate_selection_path_ids_fail_before_runtime(self) -> None:
         rules = _rules()

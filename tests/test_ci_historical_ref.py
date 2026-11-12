@@ -277,6 +277,7 @@ class DepthOneCheckoutTests(unittest.TestCase):
         with self.assertRaises(HistoricalRefError):
             prepare(shard, **kwargs)
 
+    @pytest.mark.live(reason="creates temporary Git repos and exercises checkout validation")
     def test_main_advances_after_push_without_changing_event_baseline(self) -> None:
         shard, kwargs, baseline = self._scenario("main", False)
         remote = _git(shard, ["remote", "get-url", "origin"])
@@ -287,6 +288,7 @@ class DepthOneCheckoutTests(unittest.TestCase):
         self.assertEqual(_git(shard, ["rev-parse", "origin/main"]), baseline)
         self.assertNotEqual(_git(Path(remote), ["rev-parse", "refs/heads/main"]), baseline)
 
+    @pytest.mark.live(reason="creates temporary Git repos and exercises checkout validation")
     def test_wrong_checkout_or_pr_base_is_rejected(self) -> None:
         for event in ("pr", "main", "ui"):
             shard, kwargs, _ = self._scenario(event, False)
@@ -297,12 +299,14 @@ class DepthOneCheckoutTests(unittest.TestCase):
             with self.assertRaises(HistoricalRefError):
                 prepare(shard, **kwargs)
 
+    @pytest.mark.live(reason="creates temporary Git repos and exercises checkout validation")
     def test_main_moving_during_ui_preparation_fails_closed(self) -> None:
         shard, kwargs, baseline = self._scenario("ui", False)
         with patch("tools.ci_historical_ref._remote_main", side_effect=[baseline, "f" * 40]):
             with self.assertRaises(HistoricalRefError):
                 prepare(shard, **kwargs)
 
+    @pytest.mark.live(reason="creates temporary Git repos and exercises checkout validation")
     def test_converged_main_moving_during_ui_preparation_fails_closed(self) -> None:
         shard, kwargs, _ = self._scenario("ui", False)
         work = next(self.root.glob("work-*"))
@@ -328,6 +332,7 @@ class DepthOneCheckoutTests(unittest.TestCase):
             self.assertEqual(_git(shard, ["rev-parse", "origin/main"]), before)
             self.assertEqual(self._historical_outcome(shard), "pass")
 
+    @pytest.mark.live(reason="creates temporary Git repos and exercises checkout validation")
     def test_missing_ref_can_pass_historical_test_but_guard_rejects_change(self) -> None:
         shard, kwargs, _ = self._scenario("main", True)
         self.assertNotEqual(run_git(shard, ["show", f"origin/main:{PARAMETER_PATH}"]).returncode, 0)
@@ -335,6 +340,7 @@ class DepthOneCheckoutTests(unittest.TestCase):
         with self.assertRaises(HistoricalRefError):
             prepare(shard, **kwargs)
 
+    @pytest.mark.live(reason="creates temporary Git repos and exercises checkout validation")
     def test_main_push_does_not_compare_new_tip_to_itself(self) -> None:
         shard, kwargs, baseline = self._scenario("main", True)
         _git(shard, ["update-ref", "refs/remotes/origin/main", "HEAD"])
@@ -344,6 +350,7 @@ class DepthOneCheckoutTests(unittest.TestCase):
         self.assertEqual(_git(shard, ["rev-parse", "origin/main"]), baseline)
         self.assertEqual(self._historical_outcome(shard), "skip")
 
+    @pytest.mark.live(reason="creates temporary Git repos and exercises checkout validation")
     def test_missing_historical_file_fails_closed(self) -> None:
         shard, kwargs, baseline = self._scenario("main", False)
         work = next(self.root.glob("work-*"))
@@ -359,6 +366,7 @@ class DepthOneCheckoutTests(unittest.TestCase):
             prepare(other, event_name="push", base_ref="", ref_name="main",
                     before_sha=removed, after_sha=head)
 
+    @pytest.mark.live(reason="creates temporary Git repos and exercises checkout validation")
     def test_cli_reads_event_revisions(self) -> None:
         shard, kwargs, _ = self._scenario("main", False)
         env = {"CI_EVENT_NAME": kwargs["event_name"], "CI_BASE_REF": "",
@@ -367,6 +375,7 @@ class DepthOneCheckoutTests(unittest.TestCase):
         with patch.dict(os.environ, env, clear=True):
             self.assertEqual(main(["prepare", "--repo", str(shard)]), 0)
 
+    @pytest.mark.live(reason="creates temporary Git repos and exercises checkout validation")
     def test_unrelated_existing_ref_is_rejected(self) -> None:
         shard, kwargs, _ = self._scenario("main", False)
         work = next(self.root.glob("work-*"))
@@ -380,6 +389,7 @@ class DepthOneCheckoutTests(unittest.TestCase):
             prepare(shard, **kwargs)
         self.assertEqual(_git(shard, ["rev-parse", "origin/main"]), unrelated)
 
+    @pytest.mark.live(reason="creates temporary Git repos and exercises checkout validation")
     def test_main_push_merge_uses_event_before_not_merge_parent(self) -> None:
         shard, kwargs, _ = self._scenario("main", False)
         work = next(self.root.glob("work-*"))
@@ -398,6 +408,7 @@ class DepthOneCheckoutTests(unittest.TestCase):
 
 @pytest.mark.parametrize("event", ["pr", "pr-ui", "main", "ui"])
 @pytest.mark.parametrize("changed", [False, True])
+@pytest.mark.live(reason="creates temporary Git repos and exercises checkout validation")
 def test_event_baselines(event: str, changed: bool) -> None:
     case = DepthOneCheckoutTests()
     case.setUp()
@@ -408,6 +419,7 @@ def test_event_baselines(event: str, changed: bool) -> None:
 
 
 @pytest.mark.parametrize("changed", [False, True])
+@pytest.mark.live(reason="creates temporary Git repos and exercises checkout validation")
 def test_converged_main_ui(changed: bool) -> None:
     case = DepthOneCheckoutTests()
     case.setUp()
@@ -419,6 +431,7 @@ def test_converged_main_ui(changed: bool) -> None:
 
 @pytest.mark.parametrize("event", ["pr", "main", "ui"])
 @pytest.mark.parametrize("bad", ["", "0" * 40, "f" * 40])
+@pytest.mark.live(reason="creates temporary Git repos and exercises checkout validation")
 def test_bad_revisions(event: str, bad: str) -> None:
     case = DepthOneCheckoutTests()
     case.setUp()
